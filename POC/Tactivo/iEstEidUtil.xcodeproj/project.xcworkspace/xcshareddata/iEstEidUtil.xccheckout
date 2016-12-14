@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>BA1D0C3B-2AAA-4CD0-92CB-363F84675B7A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>iEstEidUtil</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D731F5D758F2011263A5A17EF701CEA3AAD4C132</key>
+		<string>bitbucket.org:zomps/iesteidutil.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>iEstEidUtil.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D731F5D758F2011263A5A17EF701CEA3AAD4C132</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>bitbucket.org:zomps/iesteidutil.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D731F5D758F2011263A5A17EF701CEA3AAD4C132</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D731F5D758F2011263A5A17EF701CEA3AAD4C132</string>
+			<key>IDESourceControlWCCName</key>
+			<string>iesteidutil</string>
+		</dict>
+	</array>
+</dict>
+</plist>
