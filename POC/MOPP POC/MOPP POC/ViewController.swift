@@ -43,7 +43,10 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     let commandReadLastName = "00 B2 01 04"
     let commandReadFirstNameLine1 = "00 B2 02 04"
     let commandReadFirstNameLine2 = "00 B2 03 04"
+    let commandReadBirthDate = "00 B2 06 04"
+    let commandReadIdCode = "00 B2 07 04"
 
+    
     var firstNameLine1:String = ""
     var firstNameLine2:String = ""
     var lastName:String = ""
@@ -252,16 +255,20 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             if commandString == commandReadLastName {
                 lastName = self.hexToString(string: trimmedApdu)
                 self.updateName()
-            }
-            
-            if commandString == commandReadFirstNameLine1 {
+                
+            } else if commandString == commandReadFirstNameLine1 {
                 firstNameLine1 = self.hexToString(string: trimmedApdu)
                 self.updateName()
-            }
-            
-            if commandString == commandReadFirstNameLine2 {
+                
+            } else if commandString == commandReadFirstNameLine2 {
                 firstNameLine2 = self.hexToString(string: trimmedApdu)
                 self.updateName()
+            
+            } else if commandString == commandReadIdCode{
+                self.idCodeLabel.text = self.hexToString(string: trimmedApdu)
+                
+            } else if commandString == commandReadBirthDate {
+                self.birthDateLabel.text = self.hexToString(string: trimmedApdu)
             }
             
             self.transmitNextCommand()
@@ -304,7 +311,7 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     func showError(error: Error!) {
         let alertController = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in
-            print("Foo")}))
+            }))
         self.present(alertController, animated: true, completion: nil)
     }
     
@@ -316,6 +323,8 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
         commands.append(ABDHex.byteArray(fromHexString: commandReadLastName))
         commands.append(ABDHex.byteArray(fromHexString: commandReadFirstNameLine1))
         commands.append(ABDHex.byteArray(fromHexString: commandReadFirstNameLine2))
+        commands.append(ABDHex.byteArray(fromHexString: commandReadBirthDate))
+        commands.append(ABDHex.byteArray(fromHexString: commandReadIdCode))
         
         bluetoothReader?.authenticate(withMasterKey:ABDHex.byteArray(fromHexString: "FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF"))
 
@@ -374,7 +383,6 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             separator = " "
         }
         
-        print("name: \(name)")
         if name.characters.count > 0 {
             self.nameLabel.text = name
         } else {
