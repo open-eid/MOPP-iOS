@@ -40,9 +40,9 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     let commandSelectMaster = "00 A4 00 0C"
     let commandSelectEEEE = "00 A4 01 0C 02 EEEE"
     let commandSelect5044 = "00 A4 02 04 02 50 44"
-    let commandReadLastName = "00 B2 01 04 00"
-    let commandReadFirstNameLine1 = "00 B2 02 04 00"
-    let commandReadFirstNameLine2 = "00 B2 03 04 00"
+    let commandReadLastName = "00 B2 01 04"
+    let commandReadFirstNameLine1 = "00 B2 02 04"
+    let commandReadFirstNameLine2 = "00 B2 03 04"
 
     var firstNameLine1:String = ""
     var firstNameLine2:String = ""
@@ -247,18 +247,20 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             
             print("return apdu \(ABDHex.hexString(fromByteArray: apdu))")
             
+            let trimmedApdu = self.removeOkTrailer(string: ABDHex.hexString(fromByteArray: apdu))
+
             if commandString == commandReadLastName {
-                lastName = self.hexToString(string: ABDHex.hexString(fromByteArray: apdu))
+                lastName = self.hexToString(string: trimmedApdu)
                 self.updateName()
             }
             
             if commandString == commandReadFirstNameLine1 {
-                firstNameLine1 = self.hexToString(string: ABDHex.hexString(fromByteArray: apdu))
+                firstNameLine1 = self.hexToString(string: trimmedApdu)
                 self.updateName()
             }
             
             if commandString == commandReadFirstNameLine2 {
-                firstNameLine2 = self.hexToString(string: ABDHex.hexString(fromByteArray: apdu))
+                firstNameLine2 = self.hexToString(string: trimmedApdu)
                 self.updateName()
             }
             
@@ -332,8 +334,23 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             let code = Int(strtoul(char, nil, 16))
             return Character(UnicodeScalar(code)!)
         }
+
+        var result = String(charArray)
+        result = result.trimmingCharacters(in: .whitespacesAndNewlines)
+        return result
+    }
+    
+    func removeOkTrailer(string:String) -> String {
+        var newString = string
+        if newString.hasSuffix("90 00") {
+            let toIndex = newString.index(newString.endIndex, offsetBy: -5)
+            
+            newString = newString.substring(to: toIndex)
+        }
         
-         return String(charArray)
+        newString = newString.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        return newString
     }
     
     func updateName() {
@@ -357,6 +374,7 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             separator = " "
         }
         
+        print("name: \(name)")
         if name.characters.count > 0 {
             self.nameLabel.text = name
         } else {
