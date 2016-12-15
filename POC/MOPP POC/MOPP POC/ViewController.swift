@@ -40,10 +40,20 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     let commandSelectMaster = "00 A4 00 0C"
     let commandSelectEEEE = "00 A4 01 0C 02 EEEE"
     let commandSelect5044 = "00 A4 02 04 02 50 44"
+    let commandSelectAACE = "00 A4 02 04 02 AACE"
+    
     let commandReadLastName = "00 B2 01 04"
     let commandReadFirstNameLine1 = "00 B2 02 04"
     let commandReadFirstNameLine2 = "00 B2 03 04"
+    let commandReadBirthDate = "00 B2 06 04"
+    let commandReadIdCode = "00 B2 07 04"
 
+    var atrString:String = ""
+    var hasAuthenticated = false
+    var certificateAACE = ""
+    
+    var cardState = ABTBluetoothReaderCardStatusUnknown
+    
     var firstNameLine1:String = ""
     var firstNameLine2:String = ""
     var lastName:String = ""
@@ -94,11 +104,7 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
 
             centralManager.stopScan()
             peripheral = readerSelection?.peripheral
-            
-            print("Selected peripheral \(peripheral)")
-            
             centralManager.connect(peripheral, options: nil)
-            
         }
     }
     
@@ -137,7 +143,7 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
         if message != nil {
             let alertController = UIAlertController(title: "Bluetooth", message: "\(message)", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in
-                print("Foo")}))
+                }))
             self.present(alertController, animated: true, completion: nil)
         }
         
@@ -150,8 +156,6 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        print("Central manager did discover \(peripheral.name)")
-
         if peripherals.index(of: peripheral) == NSNotFound {
 
             peripherals.add(peripheral)
@@ -181,15 +185,18 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             self.showError(error: error)
             
         } else {
+            self.resetData()
             let alertController = UIAlertController(title: "Reader attached", message: "The reader is attached to the peripheral successfully.", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in
-                self.readCardPublicData()}))
+                }))
             self.present(alertController, animated: true, completion: nil)
             
         }
     }
     
     func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didReturnDeviceInfo deviceInfo: NSObject!, type: UInt, error: Error!) {
+        print("did return device info")
+
         if error != nil {
             self.showError(error: error)
             
@@ -198,24 +205,33 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     }
     
     func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didAuthenticateWithError error: Error!) {
+        print("did authenticate")
+
         if error != nil {
+            hasAuthenticated = false
             self.showError(error: error)
             
         } else {
-            bluetoothReader?.powerOnCard()
+            hasAuthenticated = true
+            self.transmitNextCommand()
         }
     }
     
     func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didReturnAtr atr: Data!, error: Error!) {
+        print("did return atr")
+
         if error != nil {
             self.showError(error: error)
             
         } else {
+            atrString = ABDHex.hexString(fromByteArray: atr)
             self.transmitNextCommand()
         }
     }
     
     func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didPowerOffCardWithError error: Error!) {
+        print("did power off card")
+
         if error != nil {
             self.showError(error: error)
             
@@ -226,11 +242,13 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     
     
     func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didReturnCardStatus cardStatus: UInt, error: Error!) {
+        print("did return card status")
+
         if error != nil {
             self.showError(error: error)
             
         } else {
-            
+            self.cardStatusUpdated(status: Int(cardStatus))
         }
     }
     
@@ -252,16 +270,23 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             if commandString == commandReadLastName {
                 lastName = self.hexToString(string: trimmedApdu)
                 self.updateName()
-            }
-            
-            if commandString == commandReadFirstNameLine1 {
+                
+            } else if commandString == commandReadFirstNameLine1 {
                 firstNameLine1 = self.hexToString(string: trimmedApdu)
                 self.updateName()
-            }
-            
-            if commandString == commandReadFirstNameLine2 {
+                
+            } else if commandString == commandReadFirstNameLine2 {
                 firstNameLine2 = self.hexToString(string: trimmedApdu)
                 self.updateName()
+            
+            } else if commandString == commandReadIdCode{
+                self.idCodeLabel.text = self.hexToString(string: trimmedApdu)
+                
+            } else if commandString == commandReadBirthDate {
+                self.birthDateLabel.text = self.hexToString(string: trimmedApdu)
+            
+            } else if commandString!.hasPrefix("00 0B") {
+                
             }
             
             self.transmitNextCommand()
@@ -269,6 +294,8 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     }
     
     func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didReturnEscapeResponse response: Data!, error: Error!) {
+        print("did return escape response")
+
         if error != nil {
             self.showError(error: error)
             
@@ -277,14 +304,19 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     }
     
     func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didChangeCardStatus cardStatus: UInt, error: Error!) {
+        print("did change card status \(cardStatus)")
+        
         if error != nil {
             self.showError(error: error)
             
         } else {
+            self.cardStatusUpdated(status: Int(cardStatus))
         }
     }
     
     func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didChangeBatteryStatus batteryStatus: UInt, error: Error!) {
+        print("did change battery status")
+
         if error != nil {
             self.showError(error: error)
             
@@ -293,6 +325,8 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     }
     
     func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didChangeBatteryLevel batteryLevel: UInt, error: Error!) {
+        print("did change battery level")
+
         if error != nil {
             self.showError(error: error)
             
@@ -301,28 +335,61 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     }
     
     // MARK: - Private methods
+    
     func showError(error: Error!) {
         let alertController = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in
-            print("Foo")}))
+            }))
         self.present(alertController, animated: true, completion: nil)
     }
     
+    func readCardData() {
+        self.readCardPublicData()
+        self.readCertificates()
+    }
+
     func readCardPublicData() {
         
-        commands.append(ABDHex.byteArray(fromHexString: commandSelectMaster))
-        commands.append(ABDHex.byteArray(fromHexString: commandSelectEEEE))
-        commands.append(ABDHex.byteArray(fromHexString: commandSelect5044))
-        commands.append(ABDHex.byteArray(fromHexString: commandReadLastName))
-        commands.append(ABDHex.byteArray(fromHexString: commandReadFirstNameLine1))
-        commands.append(ABDHex.byteArray(fromHexString: commandReadFirstNameLine2))
-        
-        bluetoothReader?.authenticate(withMasterKey:ABDHex.byteArray(fromHexString: "FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF"))
+        self.addCommand(command: commandSelectMaster)
+        self.addCommand(command: commandSelectEEEE)
+        self.addCommand(command: commandSelect5044)
+        self.addCommand(command: commandReadLastName)
+        self.addCommand(command: commandReadFirstNameLine1)
+        self.addCommand(command: commandReadFirstNameLine2)
+        self.addCommand(command: commandReadBirthDate)
+        self.addCommand(command: commandReadIdCode)
+    }
+    
+    func readCertificates() {
+        // Select correct file
+        self.addCommand(command: commandSelectMaster)
+        self.addCommand(command: commandSelectEEEE)
+        self.addCommand(command: commandSelectAACE)
 
+        // file can be read after navigation to AACE file will be done (need file length)
+    }
+    
+    func addCommand(command:String) {
+        commands.append(ABDHex.byteArray(fromHexString: command))
+        if commands.count == 1 {
+            self.transmitNextCommand()
+        }
     }
     
     func transmitNextCommand() {
-        if commands.count > 0 {
+        if hasAuthenticated == false {
+            bluetoothReader?.authenticate(withMasterKey:ABDHex.byteArray(fromHexString: "FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF"))
+
+        } else if cardState == ABTBluetoothReaderCardStatusAbsent {
+            // User needs to insert card first
+            
+        } else if cardState == ABTBluetoothReaderCardStatusPowerSavingMode {
+            bluetoothReader?.getCardStatus()
+            
+        } else if atrString.characters.count == 0 {
+            bluetoothReader?.powerOnCard()
+            
+        } else if commands.count > 0 {
             let data = commands.first
             bluetoothReader?.transmitApdu(data)
         }
@@ -374,11 +441,55 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             separator = " "
         }
         
-        print("name: \(name)")
         if name.characters.count > 0 {
             self.nameLabel.text = name
         } else {
             self.nameLabel.text = "-"
+        }
+    }
+    
+    func resetData() {
+        self.firstNameLine2 = ""
+        self.firstNameLine1 = ""
+        self.lastName = ""
+        self.atrString = ""
+        
+        self.idCodeLabel.text = "-"
+        self.birthDateLabel.text = "-"
+        
+        hasAuthenticated = false
+        self.commands.removeAll()
+        
+        self.updateName()
+    }
+    
+    func cardStatusUpdated(status:Int) {
+        if cardState == status {
+            return
+        }
+        
+        cardState = Int(status)
+        
+        switch cardState {
+        case ABTBluetoothReaderCardStatusUnknown:
+            break
+            
+        case ABTBluetoothReaderCardStatusAbsent:
+            self.resetData()
+            break
+            
+        case ABTBluetoothReaderCardStatusPresent:
+            self.readCardData()
+            break
+            
+        case ABTBluetoothReaderCardStatusPowered:
+            break
+            
+        case ABTBluetoothReaderCardStatusPowerSavingMode:
+            break
+            
+        default: break
+            
         }
     }
 }
