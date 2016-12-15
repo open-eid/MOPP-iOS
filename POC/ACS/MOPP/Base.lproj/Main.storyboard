@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8x-nr-WiG">
+                                <rect key="frame" x="271" y="28" width="59" height="30"/>
+                                <state key="normal" title="Connect"/>
+                                <connections>
+                                    <action selector="connect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="m8t-7w-4jQ"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ATR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LON-Mp-vJh">
+                                <rect key="frame" x="285" y="66" width="31" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PIN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uF8-sH-9xs">
+                                <rect key="frame" x="287" y="95" width="27" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wsm-ek-Eya">
+                                <rect key="frame" x="281" y="162" width="38" height="30"/>
+                                <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hOR-J1-Wzo"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XZE-K9-RcV">
+                                <rect key="frame" x="252" y="124" width="97" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="97" id="z3B-l3-zIj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Hello world" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gN3-g5-dL6">
+                                <rect key="frame" x="252" y="200" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOC-rU-xM4">
+                                <rect key="frame" x="285" y="238" width="31" height="30"/>
+                                <state key="normal" title="Sign"/>
+                                <connections>
+                                    <action selector="sign:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SCY-jH-zbH"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Signature" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u9e-4L-8hI">
+                                <rect key="frame" x="263" y="276" width="74" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="XZE-K9-RcV" firstAttribute="top" secondItem="uF8-sH-9xs" secondAttribute="bottom" constant="8" symbolic="YES" id="2He-d8-IaY"/>
+                            <constraint firstItem="D8x-nr-WiG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4Pm-CK-zIu"/>
+                            <constraint firstItem="XZE-K9-RcV" firstAttribute="trailing" secondItem="gN3-g5-dL6" secondAttribute="trailing" id="99q-gc-qSk"/>
+                            <constraint firstItem="XZE-K9-RcV" firstAttribute="centerX" secondItem="wsm-ek-Eya" secondAttribute="centerX" id="AtV-9F-CLR"/>
+                            <constraint firstItem="uF8-sH-9xs" firstAttribute="centerX" secondItem="XZE-K9-RcV" secondAttribute="centerX" id="CUl-Jn-JAn"/>
+                            <constraint firstItem="XZE-K9-RcV" firstAttribute="leading" secondItem="gN3-g5-dL6" secondAttribute="leading" id="PJX-jc-1pE"/>
+                            <constraint firstItem="uF8-sH-9xs" firstAttribute="top" secondItem="LON-Mp-vJh" secondAttribute="bottom" constant="8" symbolic="YES" id="RRO-fm-1Yd"/>
+                            <constraint firstItem="cOC-rU-xM4" firstAttribute="centerX" secondItem="wsm-ek-Eya" secondAttribute="centerX" id="WG1-qf-vYO"/>
+                            <constraint firstItem="cOC-rU-xM4" firstAttribute="top" secondItem="gN3-g5-dL6" secondAttribute="bottom" constant="8" symbolic="YES" id="YXK-OQ-hd9"/>
+                            <constraint firstItem="LON-Mp-vJh" firstAttribute="centerX" secondItem="uF8-sH-9xs" secondAttribute="centerX" id="b4x-qb-ZOh"/>
+                            <constraint firstItem="LON-Mp-vJh" firstAttribute="top" secondItem="D8x-nr-WiG" secondAttribute="bottom" constant="8" symbolic="YES" id="gHW-z9-5yZ"/>
+                            <constraint firstItem="gN3-g5-dL6" firstAttribute="top" secondItem="wsm-ek-Eya" secondAttribute="bottom" constant="8" symbolic="YES" id="iN9-T3-DRe"/>
+                            <constraint firstItem="D8x-nr-WiG" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="kQI-kc-sLu"/>
+                            <constraint firstItem="wsm-ek-Eya" firstAttribute="top" secondItem="XZE-K9-RcV" secondAttribute="bottom" constant="8" symbolic="YES" id="leR-70-84j"/>
+                            <constraint firstItem="D8x-nr-WiG" firstAttribute="centerX" secondItem="LON-Mp-vJh" secondAttribute="centerX" id="tj5-cb-1Q3"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="atr" destination="LON-Mp-vJh" id="lGh-dO-ihj"/>
+                        <outlet property="pin" destination="XZE-K9-RcV" id="Rtv-8n-dnF"/>
+                        <outlet property="signature" destination="u9e-4L-8hI" id="3Xg-hz-lGN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="401" y="585"/>
+        </scene>
+    </scenes>
+</document>
