@@ -7,19 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8A27978553124D0FB912818A /* libPods-MoppLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 716CF05F3A9ABE08009ABA5A /* libPods-MoppLib.a */; };
+		786E09D9DA6695764A711BE1 /* Pods_MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C9ED29E6140FFA741387823 /* Pods_MoppLib.framework */; };
 		E4D80AE41E02986B00FDD783 /* MoppLib.h in Headers */ = {isa = PBXBuildFile; fileRef = E4D80AE21E02986B00FDD783 /* MoppLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E4D80AED1E029D1B00FDD783 /* MoppLibTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D80AEC1E029D1B00FDD783 /* MoppLibTest.swift */; };
+		E4D80B151E02FBAE00FDD783 /* test.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E4D80B141E02FBAE00FDD783 /* test.bdoc */; };
+		E4D80B421E040D8300FDD783 /* ObjCPP.h in Headers */ = {isa = PBXBuildFile; fileRef = E4D80B3B1E03ED8500FDD783 /* ObjCPP.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E4D80B431E040D8800FDD783 /* ObjCPP.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4D80B3F1E03F08B00FDD783 /* ObjCPP.mm */; };
+		E4D80B461E040FDA00FDD783 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D80B2D1E03148D00FDD783 /* libz.tbd */; };
+		E4D80B471E040FE300FDD783 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D80B2F1E03149400FDD783 /* libxml2.tbd */; };
+		E4D80B6F1E04285500FDD783 /* schema in Resources */ = {isa = PBXBuildFile; fileRef = E4D80B6E1E04285500FDD783 /* schema */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		431665B1108111F61D889E28 /* Pods-MoppLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLib.release.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLib/Pods-MoppLib.release.xcconfig"; sourceTree = "<group>"; };
 		60CF489C3FB5A9DD4147E18F /* Pods-MoppLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLib.debug.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLib/Pods-MoppLib.debug.xcconfig"; sourceTree = "<group>"; };
-		716CF05F3A9ABE08009ABA5A /* libPods-MoppLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MoppLib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C9ED29E6140FFA741387823 /* Pods_MoppLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4D80ADF1E02986B00FDD783 /* MoppLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoppLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4D80AE21E02986B00FDD783 /* MoppLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLib.h; sourceTree = "<group>"; };
 		E4D80AE31E02986B00FDD783 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4D80AEC1E029D1B00FDD783 /* MoppLibTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoppLibTest.swift; sourceTree = "<group>"; };
+		E4D80B141E02FBAE00FDD783 /* test.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.bdoc; sourceTree = "<group>"; };
+		E4D80B2D1E03148D00FDD783 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		E4D80B2F1E03149400FDD783 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		E4D80B3B1E03ED8500FDD783 /* ObjCPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCPP.h; sourceTree = "<group>"; };
+		E4D80B3F1E03F08B00FDD783 /* ObjCPP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ObjCPP.mm; sourceTree = "<group>"; };
+		E4D80B441E040FD100FDD783 /* libz.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/libz.1.tbd; sourceTree = DEVELOPER_DIR; };
+		E4D80B6E1E04285500FDD783 /* schema */ = {isa = PBXFileReference; lastKnownFileType = folder; name = schema; path = "/Users/Ants/Projects/MOPP-iOS/MoppLib/MoppLib/libdigidocpp/EstonianIDCard.iphoneos/etc/digidocpp/schema"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,7 +40,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A27978553124D0FB912818A /* libPods-MoppLib.a in Frameworks */,
+				E4D80B471E040FE300FDD783 /* libxml2.tbd in Frameworks */,
+				E4D80B461E040FDA00FDD783 /* libz.tbd in Frameworks */,
+				786E09D9DA6695764A711BE1 /* Pods_MoppLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,7 +61,10 @@
 		54E397B0397C271D4C121AE5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				716CF05F3A9ABE08009ABA5A /* libPods-MoppLib.a */,
+				E4D80B441E040FD100FDD783 /* libz.1.tbd */,
+				E4D80B2F1E03149400FDD783 /* libxml2.tbd */,
+				E4D80B2D1E03148D00FDD783 /* libz.tbd */,
+				9C9ED29E6140FFA741387823 /* Pods_MoppLib.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -74,9 +92,21 @@
 			children = (
 				E4D80AE21E02986B00FDD783 /* MoppLib.h */,
 				E4D80AEC1E029D1B00FDD783 /* MoppLibTest.swift */,
+				E4D80B3B1E03ED8500FDD783 /* ObjCPP.h */,
+				E4D80B3F1E03F08B00FDD783 /* ObjCPP.mm */,
 				E4D80AE31E02986B00FDD783 /* Info.plist */,
+				E4D80B141E02FBAE00FDD783 /* test.bdoc */,
+				E4D80B001E02F88B00FDD783 /* libdigidocpp */,
 			);
 			path = MoppLib;
+			sourceTree = "<group>";
+		};
+		E4D80B001E02F88B00FDD783 /* libdigidocpp */ = {
+			isa = PBXGroup;
+			children = (
+				E4D80B6E1E04285500FDD783 /* schema */,
+			);
+			name = libdigidocpp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -86,6 +116,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4D80B421E040D8300FDD783 /* ObjCPP.h in Headers */,
 				E4D80AE41E02986B00FDD783 /* MoppLib.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -152,6 +183,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4D80B151E02FBAE00FDD783 /* test.bdoc in Resources */,
+				E4D80B6F1E04285500FDD783 /* schema in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4D80AED1E029D1B00FDD783 /* MoppLibTest.swift in Sources */,
+				E4D80B431E040D8800FDD783 /* ObjCPP.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,20 +339,51 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 60CF489C3FB5A9DD4147E18F /* Pods-MoppLib.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
+				COPY_HEADERS_UNIFDEF_FLAGS = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4YJSF2LF24;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphonesimulator/include",
+				);
 				INFOPLIST_FILE = MoppLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphoneos/lib",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphonesimulator/lib",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-ldigidocpp_priv",
+					"-ldigidocpp",
+					"-lssl",
+					"-lxalan-c",
+					"-lcrypto",
+					"-lxml-security-c",
+					"-lxerces-c",
+					"-lminizip",
+					"-lxalanMsg",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.lab.MoppLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -328,20 +393,52 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 431665B1108111F61D889E28 /* Pods-MoppLib.release.xcconfig */;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
+				COPY_HEADERS_UNIFDEF_FLAGS = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4YJSF2LF24;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphonesimulator/include",
+				);
 				INFOPLIST_FILE = MoppLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphoneos/lib",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphonesimulator/lib",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-ldigidocpp_priv",
+					"-ldigidocpp",
+					"-lssl",
+					"-lxalan-c",
+					"-lcrypto",
+					"-lxml-security-c",
+					"-lxerces-c",
+					"-lminizip",
+					"-lxalanMsg",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.lab.MoppLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

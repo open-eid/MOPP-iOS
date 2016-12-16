@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+#import "ObjCPP.h"
+
+//#import "digidocpp/Container.h"
+//#import "Container.h"
+//#include <digidocpp/Container.h>
+// #import "MBProgressHUD/MBProgressHUD.h"
+
 //! Project version number for MoppLib.
 FOUNDATION_EXPORT double MoppLibVersionNumber;
 
