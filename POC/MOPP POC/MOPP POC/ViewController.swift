@@ -9,7 +9,8 @@
 import UIKit
 import CoreBluetooth
 
-class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeripheralDelegate, ABTBluetoothReaderManagerDelegate, ABTBluetoothReaderDelegate {
+
+class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeripheralDelegate, CardReaderARC3901U_S1Delegate {
     @IBOutlet weak var cardReaderCell: UITableViewCell!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var idCodeLabel: UILabel!
@@ -34,13 +35,14 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     var commands:Array<Data> = Array()
     
     var readerSelection:ReaderSelectionController?
-    var bluetoothReader:ABTBluetoothReader?
-    var bluetoothReaderManager:ABTBluetoothReaderManager?
+    
+    var cardReader:CardReaderWrapper?
+    
     
     let commandSelectMaster = "00 A4 00 0C"
-    let commandSelectEEEE = "00 A4 01 0C 02 EEEE"
+    let commandSelectEEEE = "00 A4 01 0C 02 EE EE"
     let commandSelect5044 = "00 A4 02 04 02 50 44"
-    let commandSelectAACE = "00 A4 02 04 02 AACE"
+    let commandSelectAACE = "00 A4 02 04 02 AA CE"
     
     let commandReadLastName = "00 B2 01 04"
     let commandReadFirstNameLine1 = "00 B2 02 04"
@@ -48,9 +50,12 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     let commandReadBirthDate = "00 B2 06 04"
     let commandReadIdCode = "00 B2 07 04"
 
+    let commandReadBinary = "00 B0"
+
     var atrString:String = ""
     var hasAuthenticated = false
-    var certificateAACE = ""
+    
+    var certificateAACE:Data = Data()
     
     var cardState = ABTBluetoothReaderCardStatusUnknown
     
@@ -60,8 +65,11 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        bluetoothReaderManager = ABTBluetoothReaderManager()
-        bluetoothReaderManager?.delegate = self
+        
+        let cardReaderARC3901U_S1 = CardReaderARC3901U_S1()
+        cardReaderARC3901U_S1.setup(delegate: self)
+        self.cardReader = cardReaderARC3901U_S1
+        
         centralManager = CBCentralManager(delegate: self, queue: nil)
         
     }
@@ -70,7 +78,6 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
     
     // MARK: - Navigation
     
@@ -151,8 +158,21 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("Central manager did connect")
-
-        bluetoothReaderManager?.detectReader(with: peripheral)
+        
+        if cardReader is CardReaderARC3901U_S1 {
+            let reader:CardReaderARC3901U_S1 = cardReader as! CardReaderARC3901U_S1
+            
+            reader.attachReader(with: peripheral, success: { (result) in
+                self.resetData()
+                let alertController = UIAlertController(title: "Reader attached", message: "The reader is attached to the peripheral successfully.", preferredStyle: UIAlertControllerStyle.alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in
+                }))
+                self.present(alertController, animated: true, completion: nil)
+                
+            }, failure: { (error) in
+                self.showError(error: error)
+            })
+        }
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
@@ -165,173 +185,10 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
         }
     }
     
-    // MARK: - Bluetooth reader manager
+    // MARK: - CardReaderARC3901U_S1Delegate
     
-    func bluetoothReaderManager(_ bluetoothReaderManager: ABTBluetoothReaderManager!, didDetect reader: ABTBluetoothReader!, peripheral: CBPeripheral!, error: Error!) {
-        if error != nil {
-            self.showError(error: error)
-            
-        } else {
-            bluetoothReader = reader
-            bluetoothReader?.delegate = self
-            bluetoothReader?.attach(peripheral)
-        }
-    }
-
-    // MARK: - Bluetooth Reader
-    
-    func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didAttach peripheral: CBPeripheral!, error: Error!) {
-        if error != nil {
-            self.showError(error: error)
-            
-        } else {
-            self.resetData()
-            let alertController = UIAlertController(title: "Reader attached", message: "The reader is attached to the peripheral successfully.", preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in
-                }))
-            self.present(alertController, animated: true, completion: nil)
-            
-        }
-    }
-    
-    func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didReturnDeviceInfo deviceInfo: NSObject!, type: UInt, error: Error!) {
-        print("did return device info")
-
-        if error != nil {
-            self.showError(error: error)
-            
-        } else {
-        }
-    }
-    
-    func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didAuthenticateWithError error: Error!) {
-        print("did authenticate")
-
-        if error != nil {
-            hasAuthenticated = false
-            self.showError(error: error)
-            
-        } else {
-            hasAuthenticated = true
-            self.transmitNextCommand()
-        }
-    }
-    
-    func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didReturnAtr atr: Data!, error: Error!) {
-        print("did return atr")
-
-        if error != nil {
-            self.showError(error: error)
-            
-        } else {
-            atrString = ABDHex.hexString(fromByteArray: atr)
-            self.transmitNextCommand()
-        }
-    }
-    
-    func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didPowerOffCardWithError error: Error!) {
-        print("did power off card")
-
-        if error != nil {
-            self.showError(error: error)
-            
-        } else {
-        }
-    }
-    
-    
-    
-    func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didReturnCardStatus cardStatus: UInt, error: Error!) {
-        print("did return card status")
-
-        if error != nil {
-            self.showError(error: error)
-            
-        } else {
-            self.cardStatusUpdated(status: Int(cardStatus))
-        }
-    }
-    
-    func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didReturnResponseApdu apdu: Data!, error: Error!) {
-        let commandData = commands.first
-        let commandString = ABDHex.hexString(fromByteArray: commandData)
-        commands.removeFirst()
-        
-        if error != nil {
-            self.showError(error: error)
-            self.transmitNextCommand()
-            
-        } else {
-            
-            print("return apdu \(ABDHex.hexString(fromByteArray: apdu))")
-            
-            let trimmedApdu = self.removeOkTrailer(string: ABDHex.hexString(fromByteArray: apdu))
-
-            if commandString == commandReadLastName {
-                lastName = self.hexToString(string: trimmedApdu)
-                self.updateName()
-                
-            } else if commandString == commandReadFirstNameLine1 {
-                firstNameLine1 = self.hexToString(string: trimmedApdu)
-                self.updateName()
-                
-            } else if commandString == commandReadFirstNameLine2 {
-                firstNameLine2 = self.hexToString(string: trimmedApdu)
-                self.updateName()
-            
-            } else if commandString == commandReadIdCode{
-                self.idCodeLabel.text = self.hexToString(string: trimmedApdu)
-                
-            } else if commandString == commandReadBirthDate {
-                self.birthDateLabel.text = self.hexToString(string: trimmedApdu)
-            
-            } else if commandString!.hasPrefix("00 0B") {
-                
-            }
-            
-            self.transmitNextCommand()
-        }
-    }
-    
-    func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didReturnEscapeResponse response: Data!, error: Error!) {
-        print("did return escape response")
-
-        if error != nil {
-            self.showError(error: error)
-            
-        } else {
-        }
-    }
-    
-    func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didChangeCardStatus cardStatus: UInt, error: Error!) {
-        print("did change card status \(cardStatus)")
-        
-        if error != nil {
-            self.showError(error: error)
-            
-        } else {
-            self.cardStatusUpdated(status: Int(cardStatus))
-        }
-    }
-    
-    func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didChangeBatteryStatus batteryStatus: UInt, error: Error!) {
-        print("did change battery status")
-
-        if error != nil {
-            self.showError(error: error)
-            
-        } else {
-        }
-    }
-    
-    func bluetoothReader(_ bluetoothReader: ABTBluetoothReader!, didChangeBatteryLevel batteryLevel: UInt, error: Error!) {
-        print("did change battery level")
-
-        if error != nil {
-            self.showError(error: error)
-            
-        } else {
-        }
+    func cardStatusChanged(to: UInt) {
+         self.cardStatusUpdated(status: Int(to))
     }
     
     // MARK: - Private methods
@@ -349,7 +206,6 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     }
 
     func readCardPublicData() {
-        
         self.addCommand(command: commandSelectMaster)
         self.addCommand(command: commandSelectEEEE)
         self.addCommand(command: commandSelect5044)
@@ -369,29 +225,156 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
         // file can be read after navigation to AACE file will be done (need file length)
     }
     
+    let maxReadLength = 254
+    
+    func readFile(fileSize:(Int)) {
+        var offset = 0
+        
+        while offset < fileSize {
+            let offsetString = String(format:"%04d", offset)
+           // print("offset \(offsetString)")
+            var length = fileSize - offset
+            if length > maxReadLength {
+                length = maxReadLength
+            }
+            let lengthString = String(format:"%2X", length)
+            
+            let command = commandReadBinary.appending(" \(offsetString) \(lengthString)")
+            self.addCommand(command: command)
+            
+            offset = offset + length
+        }
+        
+       // self.addCommand(command: "00 B0 00 00 FE")
+       // self.addCommand(command: "00 B0 02 54 FE")
+       // self.addCommand(command: "00 B0 05 08 5C")
+    }
+    
     func addCommand(command:String) {
+        //print("Add command \(command)")
+
         commands.append(ABDHex.byteArray(fromHexString: command))
         if commands.count == 1 {
             self.transmitNextCommand()
         }
     }
     
+    func authenticate() {
+        let key = ABDHex.byteArray(fromHexString: "FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF")
+        let success = self.cardReader?.authenticateWith(masterKey: key!, success: { (result) in
+            print("did authenticate")
+            self.hasAuthenticated = true
+            self.transmitNextCommand()
+        }, failure: { (error) in
+            self.hasAuthenticated = false
+            self.showError(error: error)
+        })
+        
+        if success == false {
+            print("Couldn't authenticate")
+        }
+    }
+    
+    func getCardStatus() {
+        let success = self.cardReader?.getCardStatus(success: { (result) in
+            self.cardStatusUpdated(status: result as! Int)
+
+        }, failure: { (error) in
+            self.showError(error: error)
+        })
+        
+        if success == false {
+            print("Couldn't get card status")
+        }
+    }
+    
+    func powerOnCard() {
+        let success = self.cardReader?.powerOn(success: { (result) in
+            let data:Data = result as! Data
+            self.atrString = ABDHex.hexString(fromByteArray: data)
+            self.transmitNextCommand()
+        }, failure: { (error) in
+            self.showError(error: error)
+        })
+        
+        if success == false {
+            print("Couldn't power on card")
+        }
+    }
+    
+    func transmitApdu(data:Data) {
+        let success = self.cardReader?.transmit(apdu: data, success: { (result) in
+            let apdu:Data = result as! Data
+            
+            //let commandData = commands.first
+            let commandString = ABDHex.hexString(fromByteArray: data)
+           // commands.removeFirst()
+
+                
+                print("command: \(commandString) return apdu: \(ABDHex.hexString(fromByteArray: apdu))")
+                
+                let trimmedApdu = self.removeOkTrailer(string: ABDHex.hexString(fromByteArray: apdu))
+                
+                if commandString == self.commandReadLastName {
+                    self.lastName = self.hexToString(string: trimmedApdu)
+                    self.updateName()
+                    
+                } else if commandString == self.commandReadFirstNameLine1 {
+                    self.firstNameLine1 = self.hexToString(string: trimmedApdu)
+                    self.updateName()
+                    
+                } else if commandString == self.commandReadFirstNameLine2 {
+                    self.firstNameLine2 = self.hexToString(string: trimmedApdu)
+                    self.updateName()
+                    
+                } else if commandString == self.commandReadIdCode {
+                    self.idCodeLabel.text = self.hexToString(string: trimmedApdu)
+                    
+                } else if commandString == self.commandReadBirthDate {
+                    self.birthDateLabel.text = self.hexToString(string: trimmedApdu)
+                    
+                } else if commandString == self.commandSelectAACE {
+                    let index: Data.Index = apdu.startIndex + 11
+                    let sizeData = apdu.subdata(in: Range<Data.Index>(uncheckedBounds: (lower: index, upper: index + 2)))
+                    let size = ABDHex.hexString(fromByteArray: sizeData).replacingOccurrences(of: " ", with: "")
+                    print("file size \(size)")
+                    
+                    self.readFile(fileSize:Int(size)!)
+                    return;
+                } else if commandString!.hasPrefix(self.commandReadBinary) {
+                    self.certificateAACE.append(apdu)
+                }
+                
+                self.transmitNextCommand()
+        }, failure: { (error) in
+            self.showError(error: error)
+            self.transmitNextCommand()
+        })
+        
+        if success == false {
+            print("Couldn't transmit apdu")
+        }
+    }
+    
     func transmitNextCommand() {
         if hasAuthenticated == false {
-            bluetoothReader?.authenticate(withMasterKey:ABDHex.byteArray(fromHexString: "FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF"))
+            authenticate()
 
         } else if cardState == ABTBluetoothReaderCardStatusAbsent {
             // User needs to insert card first
             
         } else if cardState == ABTBluetoothReaderCardStatusPowerSavingMode {
-            bluetoothReader?.getCardStatus()
+            self.getCardStatus()
             
         } else if atrString.characters.count == 0 {
-            bluetoothReader?.powerOnCard()
+            self.powerOnCard()
             
         } else if commands.count > 0 {
             let data = commands.first
-            bluetoothReader?.transmitApdu(data)
+            print("Transmit command \(ABDHex.hexString(fromByteArray: data))")
+            commands.removeFirst()
+            
+            self.transmitApdu(data: data!)
         }
     }
     
