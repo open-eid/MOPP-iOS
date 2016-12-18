@@ -15,6 +15,8 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var idCodeLabel: UILabel!
     @IBOutlet weak var birthDateLabel: UILabel!
+    @IBOutlet weak var authCertIssuerLabel: UILabel!
+    @IBOutlet weak var authCertExpirationLabel: UILabel!
     
     var centralManager:CBCentralManager!
     var peripheral:CBPeripheral! {
@@ -153,7 +155,6 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
                 }))
             self.present(alertController, animated: true, completion: nil)
         }
-        
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -228,31 +229,46 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     let maxReadLength = 254
     
     func readFile(fileSize:(Int)) {
-        var offset = 0
+        self.readFile(offsetByte: 0, fileSizeBytes: fileSize)
+    }
+    
+    func readFile(offsetByte:Int, fileSizeBytes:Int) {
         
-        while offset < fileSize {
-            let offsetString = String(format:"%04d", offset)
-           // print("offset \(offsetString)")
-            var length = fileSize - offset
-            if length > maxReadLength {
-                length = maxReadLength
-            }
-            let lengthString = String(format:"%2X", length)
-            
-            let command = commandReadBinary.appending(" \(offsetString) \(lengthString)")
-            self.addCommand(command: command)
-            
-            offset = offset + length
+        let offsetHex1 = String(format:"%04X", offsetByte)
+        var length = fileSizeBytes - offsetByte
+        if length > maxReadLength {
+            length = maxReadLength
         }
         
-       // self.addCommand(command: "00 B0 00 00 FE")
-       // self.addCommand(command: "00 B0 02 54 FE")
-       // self.addCommand(command: "00 B0 05 08 5C")
+        let lengthString = String(format:"%02X", length)
+        
+        let command = commandReadBinary.appending(" \(offsetHex1) \(lengthString)")
+
+        let success = self.cardReader?.transmit(apdu: ABDHex.byteArray(fromHexString: command), success: { (result) in
+            let apdu:Data = result as! Data
+            let trimmedApdu = ABDHex.byteArray(fromHexString: self.removeOkTrailer(string: ABDHex.hexString(fromByteArray: apdu)))
+            
+            self.certificateAACE.append(trimmedApdu!)
+            
+            let newOffset = offsetByte + length
+            
+            if newOffset < fileSizeBytes {
+                // Read next part
+                self.readFile(offsetByte: newOffset, fileSizeBytes: fileSizeBytes)
+            } else {
+                // File reading complete
+                self.updateCertificateData()
+            }
+        }, failure: { (error) in
+            
+        })
+        
+        if success == true {
+            
+        }
     }
     
     func addCommand(command:String) {
-        //print("Add command \(command)")
-
         commands.append(ABDHex.byteArray(fromHexString: command))
         if commands.count == 1 {
             self.transmitNextCommand()
@@ -306,12 +322,9 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
         let success = self.cardReader?.transmit(apdu: data, success: { (result) in
             let apdu:Data = result as! Data
             
-            //let commandData = commands.first
             let commandString = ABDHex.hexString(fromByteArray: data)
-           // commands.removeFirst()
-
                 
-                print("command: \(commandString) return apdu: \(ABDHex.hexString(fromByteArray: apdu))")
+                print("return apdu: \(ABDHex.hexString(fromByteArray: apdu))")
                 
                 let trimmedApdu = self.removeOkTrailer(string: ABDHex.hexString(fromByteArray: apdu))
                 
@@ -337,12 +350,15 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
                     let index: Data.Index = apdu.startIndex + 11
                     let sizeData = apdu.subdata(in: Range<Data.Index>(uncheckedBounds: (lower: index, upper: index + 2)))
                     let size = ABDHex.hexString(fromByteArray: sizeData).replacingOccurrences(of: " ", with: "")
-                    print("file size \(size)")
+                    let sizeDecimal = Int("\(size)", radix:16)
                     
-                    self.readFile(fileSize:Int(size)!)
+                    self.readFile(fileSize:sizeDecimal!)
                     return;
                 } else if commandString!.hasPrefix(self.commandReadBinary) {
-                    self.certificateAACE.append(apdu)
+                    let trimmedApdu = self.removeOkTrailer(string: ABDHex.hexString(fromByteArray: apdu))
+
+                    self.certificateAACE.append(ABDHex.byteArray(fromHexString: trimmedApdu))
+                    self.updateCertificateData()
                 }
                 
                 self.transmitNextCommand()
@@ -371,7 +387,6 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             
         } else if commands.count > 0 {
             let data = commands.first
-            print("Transmit command \(ABDHex.hexString(fromByteArray: data))")
             commands.removeFirst()
             
             self.transmitApdu(data: data!)
@@ -428,6 +443,16 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             self.nameLabel.text = name
         } else {
             self.nameLabel.text = "-"
+        }
+    }
+    
+    func updateCertificateData() {
+        self.authCertIssuerLabel.text = X509Wrapper.getIssuerName(self.certificateAACE)
+        let date = X509Wrapper.getExpiryDate(self.certificateAACE)
+        if date != nil {
+            let formatter = DateFormatter()
+            formatter.dateStyle = DateFormatter.Style.medium
+            self.authCertExpirationLabel.text = formatter.string(from: date!)
         }
     }
     

@@ -149,6 +149,9 @@ class CardReaderARC3901U_S1:NSObject, CardReaderWrapper, ABTBluetoothReaderManag
     // MARK: - CardReaderWrapper
     
     func authenticateWith(masterKey:Data, success: @escaping (AnyObject?) -> Void, failure: @escaping (Error) -> Void) -> Bool {
+        
+        // TODO: - need to make sure closures are not overwritten prematurely
+        
         self.successClosure = success
         self.errorClosure = failure
         return (bluetoothReader?.authenticate(withMasterKey: masterKey))!

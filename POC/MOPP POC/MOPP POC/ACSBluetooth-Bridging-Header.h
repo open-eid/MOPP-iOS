@@ -12,5 +12,4 @@
 #import "ABTBluetoothReaderManager.h"
 #import "ABTError.h"
 #import "ABDHex.h"
-
-#impo
+#import "X509Wrapper.h"
