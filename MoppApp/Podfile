@@ -1,12 +1,4 @@
-# Copyright 2016 Cybernetica AS
-# All rights reserved.
-# The usage of this code is subject to appropriate license agreement.
-# Please contact info@cyber.ee for licensing.
-
-# Uncomment this line to define a global platform for your project
-# platform :ios, '8.0'
-# Uncomment this line if you're using Swift
-# use_frameworks!
+use_frameworks!
 
 workspace 'MoppApp.xcworkspace'
 project 'MoppApp.xcodeproj'
@@ -25,7 +17,7 @@ end
 target 'MoppLib' do
   platform :ios, '9.0'
   project '../MoppLib/MoppLib.xcodeproj'
-  
+
   pod 'MBProgressHUD', '~> 0.9.2'
 end
 

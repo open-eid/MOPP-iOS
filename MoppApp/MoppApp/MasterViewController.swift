@@ -8,6 +8,7 @@
 
 import UIKit
 import MoppLib
+import MBProgressHUD
 
 class MasterViewController: UITableViewController {
 
@@ -19,6 +20,8 @@ class MasterViewController: UITableViewController {
     super.viewDidLoad()
     
     title = MoppLibTest.testString()
+    
+    MBProgressHUD.hideAllHUDs(for: view, animated: true)
     
     // Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem

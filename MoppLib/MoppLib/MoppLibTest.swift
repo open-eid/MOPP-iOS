@@ -7,10 +7,16 @@
 //
 
 import Foundation
+import MBProgressHUD
 
 public class MoppLibTest: NSObject {
   
   public static func testString() -> String {
+    
+    ObjCPP.testMethod()
+    
+    let view = UIView.init()
+    MBProgressHUD.hide(for: view, animated: true)
     return "MoppLib testString"
   }
 }
