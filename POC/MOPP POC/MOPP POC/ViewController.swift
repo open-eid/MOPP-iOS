@@ -17,6 +17,8 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     @IBOutlet weak var birthDateLabel: UILabel!
     @IBOutlet weak var authCertIssuerLabel: UILabel!
     @IBOutlet weak var authCertExpirationLabel: UILabel!
+    @IBOutlet weak var signingCertIssuerLabel: UILabel!
+    @IBOutlet weak var signingCertExpirationLabel: UILabel!
     
     var centralManager:CBCentralManager!
     var peripheral:CBPeripheral! {
@@ -34,7 +36,8 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     }
     var peripherals:NSMutableArray = []
     
-    var commands:Array<Data> = Array()
+    var cardActions:Array<CardAction> = Array()
+    var currentAction:CardAction = CardAction.none
     
     var readerSelection:ReaderSelectionController?
     
@@ -45,7 +48,8 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     let commandSelectEEEE = "00 A4 01 0C 02 EE EE"
     let commandSelect5044 = "00 A4 02 04 02 50 44"
     let commandSelectAACE = "00 A4 02 04 02 AA CE"
-    
+    let commandSelectDDCE = "00 A4 02 04 02 DD CE"
+
     let commandReadLastName = "00 B2 01 04"
     let commandReadFirstNameLine1 = "00 B2 02 04"
     let commandReadFirstNameLine2 = "00 B2 03 04"
@@ -53,11 +57,16 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     let commandReadIdCode = "00 B2 07 04"
 
     let commandReadBinary = "00 B0"
+    
+    enum CardAction {
+        case none
+        case readPublicData
+        case readAuthCert
+        case readSigningCert
+    }
 
     var atrString:String = ""
     var hasAuthenticated = false
-    
-    var certificateAACE:Data = Data()
     
     var cardState = ABTBluetoothReaderCardStatusUnknown
     
@@ -202,37 +211,191 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     }
     
     func readCardData() {
-        self.readCardPublicData()
-        self.readCertificates()
+        self.addCardAction(action: CardAction.readPublicData)
+        self.addCardAction(action: CardAction.readAuthCert)
+        self.addCardAction(action: CardAction.readSigningCert)
+        
+        self.startNextActionIfNeeded()
     }
 
     func readCardPublicData() {
-        self.addCommand(command: commandSelectMaster)
-        self.addCommand(command: commandSelectEEEE)
-        self.addCommand(command: commandSelect5044)
-        self.addCommand(command: commandReadLastName)
-        self.addCommand(command: commandReadFirstNameLine1)
-        self.addCommand(command: commandReadFirstNameLine2)
-        self.addCommand(command: commandReadBirthDate)
-        self.addCommand(command: commandReadIdCode)
+        self.navigateToFile5044 { (data) in
+            let responseBytes = data as! Data
+            
+            if responseBytes.count > 0 {
+                self.readName(completion: {
+                    self.updateName()
+                    self.readBirthDate(completion: {
+                        self.readIdCode(completion: {
+                            self.currentAction = CardAction.none
+                            self.startNextActionIfNeeded()
+                        })
+                    })
+                })
+            }
+        }
     }
     
-    func readCertificates() {
-        // Select correct file
-        self.addCommand(command: commandSelectMaster)
-        self.addCommand(command: commandSelectEEEE)
-        self.addCommand(command: commandSelectAACE)
-
-        // file can be read after navigation to AACE file will be done (need file length)
+    func readBirthDate(completion: @escaping () -> Void) {
+        self.readRecordWith(command: commandReadBirthDate, completion: { (string) in
+            self.birthDateLabel.text = string
+            completion()
+        })
     }
+    
+    func readIdCode(completion: @escaping () -> Void) {
+        self.readRecordWith(command: commandReadIdCode, completion: { (string) in
+            self.idCodeLabel.text = string
+            completion()
+        })
+    }
+    
+    func readName(completion:@escaping () -> Void) {
+        self.readLastName { 
+            self.readFirstNameLine1(completion: {
+                self.readFirstNameLine2(completion: {
+                    completion()
+                })
+            })
+        }
+    }
+    
+    func readLastName(completion:@escaping () -> Void) {
+        self.readRecordWith(command: commandReadLastName, completion: { (string) in
+            self.lastName = string
+            completion()
+        })
+    }
+    
+    func readFirstNameLine1(completion:@escaping () -> Void) {
+        self.readRecordWith(command: commandReadFirstNameLine1, completion: { (string) in
+            self.firstNameLine1 = string
+            completion()
+        })
+    }
+    
+    func readFirstNameLine2(completion:@escaping () -> Void) {
+        self.readRecordWith(command: commandReadFirstNameLine2, completion: { (string) in
+            self.firstNameLine2 = string
+            completion()
+        })
+    }
+    
+    func readRecordWith(command:String, completion:@escaping (String) -> Void) {
+        let commandHex = ABDHex.byteArray(fromHexString:command)
+        let success = self.cardReader?.transmit(apdu: commandHex!, success: { (data) in
+            let apdu:Data = data as! Data
+            let trimmedApdu = self.removeOkTrailer(string: ABDHex.hexString(fromByteArray: apdu))
+            let string = self.hexToString(string: trimmedApdu)
+            completion(string)
+            
+        }, failure: { (error) in
+            self.showError(error: error)
+            completion("")
+        })
+        
+        if success == false {
+            print("Unable to transmit data")
+            completion("")
+        }
+    }
+    
+    func readAuthCertificate() {
+        // Select correct file
+        
+        self.navigateToFileAACE { (data) in
+            let responseBytes = data as! Data
+
+            if responseBytes.count > 0 {
+                let index: Data.Index = responseBytes.startIndex + 11
+                let sizeData = responseBytes.subdata(in: Range<Data.Index>(uncheckedBounds: (lower: index, upper: index + 2)))
+                let size = ABDHex.hexString(fromByteArray: sizeData).replacingOccurrences(of: " ", with: "")
+                let sizeDecimal = Int("\(size)", radix:16)
+                self.readFile(fileSize:sizeDecimal!, completion: { (data) in
+                    self.updateAuthCertificate(data: data)
+                    self.currentAction = CardAction.none
+                    self.startNextActionIfNeeded()
+                })
+            }
+        }
+    }
+    
+    func readSigningCertificate() {
+        // Select correct file
+        
+        self.navigateToFileDDCE { (data) in
+            let responseBytes = data as! Data
+            if responseBytes.count > 0 {
+                let index: Data.Index = responseBytes.startIndex + 11
+                let sizeData = responseBytes.subdata(in: Range<Data.Index>(uncheckedBounds: (lower: index, upper: index + 2)))
+                let size = ABDHex.hexString(fromByteArray: sizeData).replacingOccurrences(of: " ", with: "")
+                let sizeDecimal = Int("\(size)", radix:16)
+                self.readFile(fileSize:sizeDecimal!, completion: { (data) in
+                    self.updateSigningCertificate(data: data)
+                    self.currentAction = CardAction.none
+                    self.startNextActionIfNeeded()
+                })
+            }
+        }
+    }
+    
+    func navigateToFile5044(completion:@escaping (AnyObject?) -> Void) {
+        self.navigateToFile(command: self.commandSelectMaster, completion: { (data) in
+            self.navigateToFile(command: self.commandSelectEEEE, completion: { (data) in
+                self.navigateToFile(command: self.commandSelect5044, completion: { (data) in
+                    completion(data)
+                })
+            })
+        })
+    }
+    
+    func navigateToFileAACE(completion:@escaping (AnyObject?) -> Void) {
+        self.navigateToFile(command: self.commandSelectMaster, completion: { (data) in
+            self.navigateToFile(command: self.commandSelectEEEE, completion: { (data) in
+                self.navigateToFile(command: self.commandSelectAACE, completion: { (data) in
+                    completion(data)
+                })
+            })
+        })
+    }
+    
+    func navigateToFileDDCE(completion:@escaping (AnyObject?) -> Void) {
+        self.navigateToFile(command: self.commandSelectMaster, completion: { (data) in
+            self.navigateToFile(command: self.commandSelectEEEE, completion: { (data) in
+                self.navigateToFile(command: self.commandSelectDDCE, completion: { (data) in
+                    completion(data)
+                })
+            })
+        })
+    }
+    
+    func navigateToFile(command:String, completion:@escaping (AnyObject?) -> Void) {
+        let commandHex = ABDHex.byteArray(fromHexString:command)
+        let success = self.cardReader?.transmit(apdu: commandHex!, success: { (data) in
+            completion(data)
+
+        }, failure: { (error) in
+            self.showError(error: error)
+            completion(nil)
+        })
+        
+        if success == false {
+            print("Unable to transmit data")
+            completion(nil)
+        }
+    }
+    
+    
     
     let maxReadLength = 254
     
-    func readFile(fileSize:(Int)) {
-        self.readFile(offsetByte: 0, fileSizeBytes: fileSize)
+    func readFile(fileSize:(Int), completion: @escaping (Data) -> Void) {
+        self.readFile(offsetByte: 0, fileSizeBytes: fileSize, readBytes:Data(), completion: { (data) in
+            completion(data)
+        })
     }
     
-    func readFile(offsetByte:Int, fileSizeBytes:Int) {
+    func readFile(offsetByte:Int, fileSizeBytes:Int, readBytes:Data, completion: @escaping (Data) -> Void) {
         
         let offsetHex1 = String(format:"%04X", offsetByte)
         var length = fileSizeBytes - offsetByte
@@ -244,20 +407,21 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
         
         let command = commandReadBinary.appending(" \(offsetHex1) \(lengthString)")
 
-        let success = self.cardReader?.transmit(apdu: ABDHex.byteArray(fromHexString: command), success: { (result) in
+        let success = self.cardReader?.transmit(apdu: ABDHex.byteArray(fromHexString: command), success: {(result) in
             let apdu:Data = result as! Data
             let trimmedApdu = ABDHex.byteArray(fromHexString: self.removeOkTrailer(string: ABDHex.hexString(fromByteArray: apdu)))
             
-            self.certificateAACE.append(trimmedApdu!)
+            var newReadBytes = readBytes
+            newReadBytes.append(trimmedApdu!)
             
             let newOffset = offsetByte + length
             
             if newOffset < fileSizeBytes {
                 // Read next part
-                self.readFile(offsetByte: newOffset, fileSizeBytes: fileSizeBytes)
+                self.readFile(offsetByte: newOffset, fileSizeBytes: fileSizeBytes, readBytes:newReadBytes, completion:completion)
             } else {
                 // File reading complete
-                self.updateCertificateData()
+                completion(newReadBytes)
             }
         }, failure: { (error) in
             
@@ -268,128 +432,135 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
         }
     }
     
-    func addCommand(command:String) {
-        commands.append(ABDHex.byteArray(fromHexString: command))
-        if commands.count == 1 {
-            self.transmitNextCommand()
-        }
+    func addCardAction(action: CardAction) {
+        self.cardActions.append(action)
+
     }
     
-    func authenticate() {
+    func authenticate(completion:@escaping (Bool) -> Void) {
         let key = ABDHex.byteArray(fromHexString: "FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF")
         let success = self.cardReader?.authenticateWith(masterKey: key!, success: { (result) in
             print("did authenticate")
             self.hasAuthenticated = true
-            self.transmitNextCommand()
+            completion(true)
         }, failure: { (error) in
             self.hasAuthenticated = false
             self.showError(error: error)
+            completion(false)
         })
         
         if success == false {
             print("Couldn't authenticate")
+            completion(false)
         }
     }
     
-    func getCardStatus() {
+    func getCardStatus(completion:@escaping (Bool) -> Void) {
         let success = self.cardReader?.getCardStatus(success: { (result) in
             self.cardStatusUpdated(status: result as! Int)
+            completion(true)
 
         }, failure: { (error) in
             self.showError(error: error)
+            completion(false)
         })
         
         if success == false {
             print("Couldn't get card status")
+            completion(false)
         }
     }
     
-    func powerOnCard() {
+    func powerOnCard(completion:@escaping (Bool) -> Void) {
         let success = self.cardReader?.powerOn(success: { (result) in
             let data:Data = result as! Data
             self.atrString = ABDHex.hexString(fromByteArray: data)
-            self.transmitNextCommand()
+            completion(true);
+            
         }, failure: { (error) in
             self.showError(error: error)
+            completion(false);
         })
         
         if success == false {
             print("Couldn't power on card")
+            completion(true);
         }
     }
     
-    func transmitApdu(data:Data) {
-        let success = self.cardReader?.transmit(apdu: data, success: { (result) in
-            let apdu:Data = result as! Data
-            
-            let commandString = ABDHex.hexString(fromByteArray: data)
-                
-                print("return apdu: \(ABDHex.hexString(fromByteArray: apdu))")
-                
-                let trimmedApdu = self.removeOkTrailer(string: ABDHex.hexString(fromByteArray: apdu))
-                
-                if commandString == self.commandReadLastName {
-                    self.lastName = self.hexToString(string: trimmedApdu)
-                    self.updateName()
-                    
-                } else if commandString == self.commandReadFirstNameLine1 {
-                    self.firstNameLine1 = self.hexToString(string: trimmedApdu)
-                    self.updateName()
-                    
-                } else if commandString == self.commandReadFirstNameLine2 {
-                    self.firstNameLine2 = self.hexToString(string: trimmedApdu)
-                    self.updateName()
-                    
-                } else if commandString == self.commandReadIdCode {
-                    self.idCodeLabel.text = self.hexToString(string: trimmedApdu)
-                    
-                } else if commandString == self.commandReadBirthDate {
-                    self.birthDateLabel.text = self.hexToString(string: trimmedApdu)
-                    
-                } else if commandString == self.commandSelectAACE {
-                    let index: Data.Index = apdu.startIndex + 11
-                    let sizeData = apdu.subdata(in: Range<Data.Index>(uncheckedBounds: (lower: index, upper: index + 2)))
-                    let size = ABDHex.hexString(fromByteArray: sizeData).replacingOccurrences(of: " ", with: "")
-                    let sizeDecimal = Int("\(size)", radix:16)
-                    
-                    self.readFile(fileSize:sizeDecimal!)
-                    return;
-                } else if commandString!.hasPrefix(self.commandReadBinary) {
-                    let trimmedApdu = self.removeOkTrailer(string: ABDHex.hexString(fromByteArray: apdu))
-
-                    self.certificateAACE.append(ABDHex.byteArray(fromHexString: trimmedApdu))
-                    self.updateCertificateData()
-                }
-                
-                self.transmitNextCommand()
-        }, failure: { (error) in
-            self.showError(error: error)
-            self.transmitNextCommand()
-        })
+    func startNextActionIfNeeded() {
+        if self.currentAction != CardAction.none {
+            // Can't start new action before previous one is finished
+            return;
+        }
         
-        if success == false {
-            print("Couldn't transmit apdu")
+        if cardState == ABTBluetoothReaderCardStatusAbsent {
+            // User needs to insert card first
+            return
+        } else if cardState == ABTBluetoothReaderCardStatusPowerSavingMode {
+            executeAfterCardStatusUpdate(execute: { () in
+                self.startNextActionIfNeeded()
+            })
+            
+        } else if self.cardActions.count > 0 {
+            self.currentAction = self.cardActions[0]
+            self.cardActions.removeFirst()
+            
+            self.executeAfterAuthentication { () in
+                self.executeAfterPowerOn(execute: { () in
+                    self.handleCurrentAction()
+                })
+            }
         }
     }
     
-    func transmitNextCommand() {
+    func executeAfterAuthentication(execute:@escaping (Void) -> Void) {
         if hasAuthenticated == false {
-            authenticate()
+            authenticate(completion: { (success) in
+                if(success == true) {
+                    execute()
+                }
+            })
 
-        } else if cardState == ABTBluetoothReaderCardStatusAbsent {
-            // User needs to insert card first
+        } else {
+            execute()
+        }
+    }
+    
+    func executeAfterCardStatusUpdate(execute:@escaping (Void) -> Void) {
+        self.getCardStatus { (success) in
+            execute()
+        }
+    }
+    
+    func executeAfterPowerOn(execute:@escaping (Void) -> Void) {
+        if atrString.characters.count == 0 {
+            self.powerOnCard { (success) in
+                if(success == true) {
+                    execute()
+                }
+            }
+        } else {
+            execute()
+        }
+    }
+    
+    func handleCurrentAction() {
+        switch self.currentAction {
+        case CardAction.readAuthCert:
+            readAuthCertificate()
+            break
             
-        } else if cardState == ABTBluetoothReaderCardStatusPowerSavingMode {
-            self.getCardStatus()
+        case CardAction.readSigningCert:
+            readSigningCertificate()
+            break
             
-        } else if atrString.characters.count == 0 {
-            self.powerOnCard()
+        case CardAction.readPublicData:
+                readCardPublicData()
+            break
             
-        } else if commands.count > 0 {
-            let data = commands.first
-            commands.removeFirst()
-            
-            self.transmitApdu(data: data!)
+        default:
+            break
         }
     }
     
@@ -446,13 +617,26 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
         }
     }
     
-    func updateCertificateData() {
-        self.authCertIssuerLabel.text = X509Wrapper.getIssuerName(self.certificateAACE)
-        let date = X509Wrapper.getExpiryDate(self.certificateAACE)
+    func updateAuthCertificate(data:Data) {
+        print("auth: \(ABDHex.hexString(fromByteArray: data))")
+        self.authCertIssuerLabel.text = X509Wrapper.getIssuerName(data)
+        let date = X509Wrapper.getExpiryDate(data)
         if date != nil {
             let formatter = DateFormatter()
             formatter.dateStyle = DateFormatter.Style.medium
             self.authCertExpirationLabel.text = formatter.string(from: date!)
+        }
+    }
+    
+    func updateSigningCertificate(data:Data) {
+        print("sign: \(ABDHex.hexString(fromByteArray: data))")
+
+        self.signingCertIssuerLabel.text = X509Wrapper.getIssuerName(data)
+        let date = X509Wrapper.getExpiryDate(data)
+        if date != nil {
+            let formatter = DateFormatter()
+            formatter.dateStyle = DateFormatter.Style.medium
+            self.signingCertExpirationLabel.text = formatter.string(from: date!)
         }
     }
     
@@ -466,7 +650,7 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
         self.birthDateLabel.text = "-"
         
         hasAuthenticated = false
-        self.commands.removeAll()
+        self.cardActions.removeAll()
         
         self.updateName()
     }
