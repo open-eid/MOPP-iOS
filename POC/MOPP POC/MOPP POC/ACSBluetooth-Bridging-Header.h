@@ -13,3 +13,4 @@
 #import "ABTError.h"
 #import "ABDHex.h"
 #import "X509Wrapper.h"
+#import "NSString+Additions.h"

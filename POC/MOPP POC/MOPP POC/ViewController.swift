@@ -9,7 +9,6 @@
 import UIKit
 import CoreBluetooth
 
-
 class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeripheralDelegate, CardReaderARC3901U_S1Delegate {
     @IBOutlet weak var cardReaderCell: UITableViewCell!
     @IBOutlet weak var nameLabel: UILabel!
@@ -19,6 +18,8 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     @IBOutlet weak var authCertExpirationLabel: UILabel!
     @IBOutlet weak var signingCertIssuerLabel: UILabel!
     @IBOutlet weak var signingCertExpirationLabel: UILabel!
+    @IBOutlet weak var signingTextField: UITextView!
+    @IBOutlet weak var signingResultField: UITextView!
     
     var centralManager:CBCentralManager!
     var peripheral:CBPeripheral! {
@@ -57,6 +58,10 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     let commandReadIdCode = "00 B2 07 04"
 
     let commandReadBinary = "00 B0"
+    
+    let commandSetSecurityEnv1 = "00 22 F3 01"
+    let commandVerifyPin2 = "00 20 00 02"
+    let commandCalculateSignature = "00 2A 9E 9A"
     
     enum CardAction {
         case none
@@ -340,33 +345,36 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     }
     
     func navigateToFile5044(completion:@escaping (AnyObject?) -> Void) {
+        self.navigateToFileEEEE { (data) in
+            self.navigateToFile(command: self.commandSelect5044, completion: { (data) in
+                completion(data)
+            })
+        }
+    }
+    
+    func navigateToFileEEEE(completion:@escaping (AnyObject?) -> Void) {
         self.navigateToFile(command: self.commandSelectMaster, completion: { (data) in
             self.navigateToFile(command: self.commandSelectEEEE, completion: { (data) in
-                self.navigateToFile(command: self.commandSelect5044, completion: { (data) in
-                    completion(data)
-                })
+                completion(data)
             })
         })
     }
     
+    
     func navigateToFileAACE(completion:@escaping (AnyObject?) -> Void) {
-        self.navigateToFile(command: self.commandSelectMaster, completion: { (data) in
-            self.navigateToFile(command: self.commandSelectEEEE, completion: { (data) in
-                self.navigateToFile(command: self.commandSelectAACE, completion: { (data) in
-                    completion(data)
-                })
+        self.navigateToFileEEEE { (data) in
+            self.navigateToFile(command: self.commandSelectAACE, completion: { (data) in
+                completion(data)
             })
-        })
+        }
     }
     
     func navigateToFileDDCE(completion:@escaping (AnyObject?) -> Void) {
-        self.navigateToFile(command: self.commandSelectMaster, completion: { (data) in
-            self.navigateToFile(command: self.commandSelectEEEE, completion: { (data) in
-                self.navigateToFile(command: self.commandSelectDDCE, completion: { (data) in
-                    completion(data)
-                })
+        self.navigateToFileEEEE { (data) in
+            self.navigateToFile(command: self.commandSelectDDCE, completion: { (data) in
+                completion(data)
             })
-        })
+        }
     }
     
     func navigateToFile(command:String, completion:@escaping (AnyObject?) -> Void) {
@@ -431,6 +439,79 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             
         }
     }
+    
+    func calculateSignatureFor(text:String, pin2:String, completion:@escaping (AnyObject?) -> Void) {
+        
+        self.setSecurityEnv1 { (securityEnvResult) in
+
+            self.verify(pin2: pin2, completion: { (pin2Result) in
+
+                let sha1String = NSString(string: text).sha1()
+                let lengthHex = String(format:"%02X", sha1String!.characters.count)
+                let sha1Hex = ABDHex.hex(fromStr: sha1String!)
+                
+                let command = self.commandCalculateSignature.appending("3021300906052B0E03021A05000414\(lengthHex) \(sha1Hex)")
+                let commandHex = ABDHex.byteArray(fromHexString:command)
+                let success = self.cardReader?.transmit(apdu: commandHex!, success: { (data) in
+                    completion(data)
+                    
+                }, failure: { (error) in
+                    self.showError(error: error)
+                    completion(nil)
+                })
+                
+                if success == false {
+                    print("Unable to transmit data")
+                    completion(nil)
+                }
+            })
+        }
+    }
+    
+    func setSecurityEnv1(completion:@escaping (AnyObject?) -> Void) {
+        let commandHex = ABDHex.byteArray(fromHexString:commandSetSecurityEnv1)
+        let success = self.cardReader?.transmit(apdu: commandHex!, success: { (data) in
+            completion(data)
+            
+        }, failure: { (error) in
+            self.showError(error: error)
+            completion(nil)
+        })
+        
+        if success == false {
+            print("Unable to transmit data")
+            completion(nil)
+        }
+    }
+    
+    func verify(pin2:String, completion:@escaping (AnyObject?) -> Void) {
+        let lengthString = String(format:"%02X", pin2.characters.count)
+        let pinString = ABDHex.hex(fromStr: pin2)
+
+        let command = commandVerifyPin2.appending(" \(lengthString)").appending(" \(pinString!)")
+        let commandHex = ABDHex.byteArray(fromHexString:command)
+
+        let success = self.cardReader?.transmit(apdu: commandHex!, success: { (data) in
+            if ABDHex.hexString(fromByteArray: data as! Data!) != "90 00" {
+                let alertController = UIAlertController(title: "Error", message: "PINi verfitseerimine ebaõnnestus. Tagastatud: \(ABDHex.hexString(fromByteArray: data as! Data!))", preferredStyle: UIAlertControllerStyle.alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in
+                }))
+                self.present(alertController, animated: true, completion: nil)
+            } else {
+                completion(data)
+            }
+            
+        }, failure: { (error) in
+            self.showError(error: error)
+            completion(nil)
+        })
+        
+        if success == false {
+            print("Unable to transmit data")
+            completion(nil)
+        }
+    }
+
     
     func addCardAction(action: CardAction) {
         self.cardActions.append(action)
@@ -618,7 +699,6 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     }
     
     func updateAuthCertificate(data:Data) {
-        print("auth: \(ABDHex.hexString(fromByteArray: data))")
         self.authCertIssuerLabel.text = X509Wrapper.getIssuerName(data)
         let date = X509Wrapper.getExpiryDate(data)
         if date != nil {
@@ -629,8 +709,6 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     }
     
     func updateSigningCertificate(data:Data) {
-        print("sign: \(ABDHex.hexString(fromByteArray: data))")
-
         self.signingCertIssuerLabel.text = X509Wrapper.getIssuerName(data)
         let date = X509Wrapper.getExpiryDate(data)
         if date != nil {
@@ -683,6 +761,48 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
         default: break
             
         }
+    }
+    
+    @IBAction func signTextTapped(_ sender: Any) {
+        
+        let alertController = UIAlertController(title: "PIN 2", message: "Sisesta PIN 2", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alertController.addTextField { (textField) in
+            
+        }
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {[weak alertController] (_) in
+            let textField = alertController!.textFields![0]
+            self.sign(text:self.signingTextField.text , pin2: textField.text!)
+        }))
+        self.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    func sign(text:String, pin2:String) {
+        if text.characters.count > 0 && pin2.characters.count > 0 {
+            self.navigateToFileEEEE(completion: { (data) in
+                self.calculateSignatureFor(text: self.signingTextField.text, pin2: pin2, completion: { (data) in
+                    if data != nil {
+                        self.tableView.beginUpdates()
+                        self.signingResultField.text = ABDHex.hexString(fromByteArray: data as! Data!)
+                        self.tableView.endUpdates()
+                    }
+                })
+            })
+        } else {
+            let alertController = UIAlertController(title: "Error", message: "Tekst või pin 2 on puudu", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in
+            }))
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+         return UITableViewAutomaticDimension
+    }
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
 }
 

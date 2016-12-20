@@ -14,6 +14,8 @@
 		544F2E5A1DFEAD7D00C8C8DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 544F2E581DFEAD7D00C8C8DB /* LaunchScreen.storyboard */; };
 		545F0CAA1DFEF11C0054FD43 /* ReaderSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545F0CA91DFEF11C0054FD43 /* ReaderSelectionController.swift */; };
 		545F0CB31DFEF5040054FD43 /* libACSBluetooth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 545F0CB21DFEF5040054FD43 /* libACSBluetooth.a */; };
+		548673BD1E08114E00021AFD /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 548673BC1E08114E00021AFD /* NSString+Additions.m */; };
+		548673BF1E081AA100021AFD /* SigningController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548673BE1E081AA100021AFD /* SigningController.swift */; };
 		548830281E0035790093AEE6 /* ABDHex.m in Sources */ = {isa = PBXBuildFile; fileRef = 548830271E0035790093AEE6 /* ABDHex.m */; };
 		54E12DC61E02DDB2006ABCD5 /* CardReaderWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E12DC51E02DDB2006ABCD5 /* CardReaderWrapper.swift */; };
 		54E12DC81E02E3E4006ABCD5 /* CardReaderACR3901U_S1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E12DC71E02E3E4006ABCD5 /* CardReaderACR3901U_S1.swift */; };
@@ -39,6 +41,9 @@
 		545F0CB11DFEF5040054FD43 /* ACSBluetooth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACSBluetooth.h; sourceTree = "<group>"; };
 		545F0CB21DFEF5040054FD43 /* libACSBluetooth.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libACSBluetooth.a; sourceTree = "<group>"; };
 		545F0CB41DFEF55C0054FD43 /* ACSBluetooth-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ACSBluetooth-Bridging-Header.h"; sourceTree = "<group>"; };
+		548673BB1E08114E00021AFD /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
+		548673BC1E08114E00021AFD /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
+		548673BE1E081AA100021AFD /* SigningController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigningController.swift; sourceTree = "<group>"; };
 		548830261E0035790093AEE6 /* ABDHex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABDHex.h; sourceTree = "<group>"; };
 		548830271E0035790093AEE6 /* ABDHex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABDHex.m; sourceTree = "<group>"; };
 		54E12DC51E02DDB2006ABCD5 /* CardReaderWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardReaderWrapper.swift; sourceTree = "<group>"; };
@@ -95,6 +100,7 @@
 				545F0CAB1DFEF4D70054FD43 /* ACSBluetooth */,
 				544F2E4F1DFEAD7D00C8C8DB /* AppDelegate.swift */,
 				544F2E511DFEAD7D00C8C8DB /* ViewController.swift */,
+				548673BE1E081AA100021AFD /* SigningController.swift */,
 				54E12DC51E02DDB2006ABCD5 /* CardReaderWrapper.swift */,
 				54E12DC71E02E3E4006ABCD5 /* CardReaderACR3901U_S1.swift */,
 				545F0CA91DFEF11C0054FD43 /* ReaderSelectionController.swift */,
@@ -105,6 +111,8 @@
 				545F0CB41DFEF55C0054FD43 /* ACSBluetooth-Bridging-Header.h */,
 				54E86E5B1E03E412005B93CB /* X509Wrapper.h */,
 				54E86E5C1E03E412005B93CB /* X509Wrapper.m */,
+				548673BB1E08114E00021AFD /* NSString+Additions.h */,
+				548673BC1E08114E00021AFD /* NSString+Additions.m */,
 			);
 			path = "MOPP POC";
 			sourceTree = "<group>";
@@ -258,9 +266,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				544F2E521DFEAD7D00C8C8DB /* ViewController.swift in Sources */,
+				548673BD1E08114E00021AFD /* NSString+Additions.m in Sources */,
 				54E12DC61E02DDB2006ABCD5 /* CardReaderWrapper.swift in Sources */,
 				54E86E5D1E03E412005B93CB /* X509Wrapper.m in Sources */,
 				54E12DC81E02E3E4006ABCD5 /* CardReaderACR3901U_S1.swift in Sources */,
+				548673BF1E081AA100021AFD /* SigningController.swift in Sources */,
 				545F0CAA1DFEF11C0054FD43 /* ReaderSelectionController.swift in Sources */,
 				544F2E501DFEAD7D00C8C8DB /* AppDelegate.swift in Sources */,
 				548830281E0035790093AEE6 /* ABDHex.m in Sources */,

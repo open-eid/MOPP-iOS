@@ -39,4 +39,5 @@
  */
 + (NSData *)byteArrayFromHexString:(NSString *)hexString;
 
++(NSString*)hexFromStr:(NSString*)str;
 @end
