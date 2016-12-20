@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E4D80ADE1E02986B00FDD783"
+               BlueprintIdentifier = "E4250CE61E09695100530370"
                BuildableName = "MoppLib.framework"
                BlueprintName = "MoppLib"
                ReferencedContainer = "container:MoppLib.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E4D80ADE1E02986B00FDD783"
+            BlueprintIdentifier = "E4250CE61E09695100530370"
             BuildableName = "MoppLib.framework"
             BlueprintName = "MoppLib"
             ReferencedContainer = "container:MoppLib.xcodeproj">
@@ -63,7 +63,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E4D80ADE1E02986B00FDD783"
+            BlueprintIdentifier = "E4250CE61E09695100530370"
             BuildableName = "MoppLib.framework"
             BlueprintName = "MoppLib"
             ReferencedContainer = "container:MoppLib.xcodeproj">

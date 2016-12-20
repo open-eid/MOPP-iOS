@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E4D80ABD1E0297DB00FDD783"
+               BlueprintIdentifier = "E4250CC21E0968D200530370"
                BuildableName = "MoppApp.app"
                BlueprintName = "MoppApp"
                ReferencedContainer = "container:MoppApp.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E4D80ABD1E0297DB00FDD783"
+            BlueprintIdentifier = "E4250CC21E0968D200530370"
             BuildableName = "MoppApp.app"
             BlueprintName = "MoppApp"
             ReferencedContainer = "container:MoppApp.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E4D80ABD1E0297DB00FDD783"
+            BlueprintIdentifier = "E4250CC21E0968D200530370"
             BuildableName = "MoppApp.app"
             BlueprintName = "MoppApp"
             ReferencedContainer = "container:MoppApp.xcodeproj">
@@ -81,7 +81,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E4D80ABD1E0297DB00FDD783"
+            BlueprintIdentifier = "E4250CC21E0968D200530370"
             BuildableName = "MoppApp.app"
             BlueprintName = "MoppApp"
             ReferencedContainer = "container:MoppApp.xcodeproj">
