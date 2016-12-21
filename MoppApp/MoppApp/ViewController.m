@@ -21,7 +21,9 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  [self setTitle:@"DemoViewController"];
+  [self setTitle:NSLocalizedString(@"test_string", @"asdf")];
+  
+  [self.label setText:nil];
   
   MSLog(@"test");
 }
