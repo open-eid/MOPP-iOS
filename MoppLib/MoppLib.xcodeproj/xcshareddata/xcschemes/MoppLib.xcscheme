@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E4D80ABD1E0297DB00FDD783"
-               BuildableName = "MoppApp.app"
-               BlueprintName = "MoppApp"
-               ReferencedContainer = "container:MoppApp.xcodeproj">
+               BlueprintIdentifier = "E4250CE61E09695100530370"
+               BuildableName = "MoppLib.framework"
+               BlueprintName = "MoppLib"
+               ReferencedContainer = "container:MoppLib.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,15 +29,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E4D80ABD1E0297DB00FDD783"
-            BuildableName = "MoppApp.app"
-            BlueprintName = "MoppApp"
-            ReferencedContainer = "container:MoppApp.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -51,23 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E4D80ABD1E0297DB00FDD783"
-            BuildableName = "MoppApp.app"
-            BlueprintName = "MoppApp"
-            ReferencedContainer = "container:MoppApp.xcodeproj">
+            BlueprintIdentifier = "E4250CE61E09695100530370"
+            BuildableName = "MoppLib.framework"
+            BlueprintName = "MoppLib"
+            ReferencedContainer = "container:MoppLib.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "OS_ACTIVITY_MODE"
-            value = "disable"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -77,16 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E4D80ABD1E0297DB00FDD783"
-            BuildableName = "MoppApp.app"
-            BlueprintName = "MoppApp"
-            ReferencedContainer = "container:MoppApp.xcodeproj">
+            BlueprintIdentifier = "E4250CE61E09695100530370"
+            BuildableName = "MoppLib.framework"
+            BlueprintName = "MoppLib"
+            ReferencedContainer = "container:MoppLib.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

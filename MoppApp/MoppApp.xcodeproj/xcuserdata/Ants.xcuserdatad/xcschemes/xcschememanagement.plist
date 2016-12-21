@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>MoppApp.xcscheme</key>
+		<key>MoppApp.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,7 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>E4D80ABD1E0297DB00FDD783</key>
+		<key>E4250CC21E0968D200530370</key>
 		<dict>
 			<key>primary</key>
 			<true/>
