@@ -17,5 +17,7 @@ FOUNDATION_EXPORT double MoppLibVersionNumber;
 FOUNDATION_EXPORT const unsigned char MoppLibVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <MoppLib/PublicHeader.h>
+#import <MoppLib/MoppLibConf.h>
+#import <MoppLib/ObjCPP.h>
 
 
