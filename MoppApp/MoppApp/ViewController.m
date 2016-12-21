@@ -21,11 +21,12 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  [self setTitle:NSLocalizedString(@"test_string", @"asdf")];
+  [self setTitle:Localizations.TestString];
   
+  [self.openContainerButton setTitle:@"Open container test.bdoc" forState:UIControlStateNormal];
   [self.label setText:nil];
   
-  MSLog(@"test");
+  MSLog(@"test MSLog");
 }
 
 - (IBAction)openContainerButtonPressed:(id)sender {

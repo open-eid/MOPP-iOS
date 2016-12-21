@@ -19,6 +19,7 @@
 		E4250D151E0AA97B00530370 /* MPNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250D141E0AA97B00530370 /* MPNavigationController.m */; };
 		E4250D171E0AA9AD00530370 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4250D161E0AA9AD00530370 /* ViewController.xib */; };
 		E4250D191E0AADB100530370 /* test.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E4250D181E0AADB100530370 /* test.bdoc */; };
+		E4250D1F1E0AB5F100530370 /* Localizations.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250D1E1E0AB5F100530370 /* Localizations.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,6 +59,8 @@
 		E4250D161E0AA9AD00530370 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		E4250D181E0AADB100530370 /* test.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.bdoc; sourceTree = "<group>"; };
 		E4250D1A1E0AB1B300530370 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		E4250D1D1E0AB5F100530370 /* Localizations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Localizations.h; sourceTree = "<group>"; };
+		E4250D1E1E0AB5F100530370 /* Localizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Localizations.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +125,8 @@
 				E4250D091E0AA7AF00530370 /* LaunchScreen.xib */,
 				E4250D181E0AADB100530370 /* test.bdoc */,
 				E4250D1A1E0AB1B300530370 /* PrefixHeader.pch */,
+				E4250D1D1E0AB5F100530370 /* Localizations.h */,
+				E4250D1E1E0AB5F100530370 /* Localizations.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -163,6 +168,7 @@
 			buildConfigurationList = E4250CDA1E0968D200530370 /* Build configuration list for PBXNativeTarget "MoppApp" */;
 			buildPhases = (
 				A61DA2EE951A985EAE19BDEB /* [CP] Check Pods Manifest.lock */,
+				E4250D1C1E0AB5D900530370 /* Laurine Generator */,
 				E4250CBF1E0968D200530370 /* Sources */,
 				E4250CC01E0968D200530370 /* Frameworks */,
 				E4250CC11E0968D200530370 /* Resources */,
@@ -291,6 +297,20 @@
 			shellPath = /bin/sh;
 			shellScript = "buildNumber=$GREENHOUSE_BUILD_NUMBER\nstringLength=${#buildNumber}\n    if [ $stringLength -ne 0 ]; then\n    echo \"Updating build number to $buildNumber\"\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n    else\n    echo \"Missing build number, skip updating\"\n    fi";
 		};
+		E4250D1C1E0AB5D900530370 /* Laurine Generator */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Laurine Generator";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -x\n\n#--------- START OF CONFIGURATION\n\n# Get base path to project\nBASE_PATH=\"$PROJECT_DIR/$PROJECT_NAME\"\n\n# Get path to Laurine Generator script\nLAURINE_PATH=\"$BASE_PATH/LaurineGenerator.swift\"\n\n# Get path to main localization file (usually english).\nSOURCE_PATH=\"$BASE_PATH/en.lproj/Localizable.strings\"\n\n# Get path to output. If you use ObjC version of output, set implementation file (.m), as header will be generated automatically\nOUTPUT_PATH=\"$BASE_PATH/Localizations.m\"\n\n#--------- END OF CONFIGURATION\n\n# Add permission to generator for script execution\nchmod 755 $LAURINE_PATH\n\n# Actually generate output. -- CUSTOMIZE -- parameters to your needs (see documentation).\n# Will only re-generate script if something changed\nif [ \"$OUTPUT_PATH\" -ot \"$SOURCE_PATH\" ]; then\n\"$LAURINE_PATH\" -i \"$SOURCE_PATH\" -c -o \"$OUTPUT_PATH\" -l objc\nfi";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -301,6 +321,7 @@
 				E4250D151E0AA97B00530370 /* MPNavigationController.m in Sources */,
 				E4250CCE1E0968D200530370 /* ViewController.m in Sources */,
 				E4250CCB1E0968D200530370 /* AppDelegate.m in Sources */,
+				E4250D1F1E0AB5F100530370 /* Localizations.m in Sources */,
 				E4250CC81E0968D200530370 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

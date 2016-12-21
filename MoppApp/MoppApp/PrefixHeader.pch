@@ -19,5 +19,6 @@
 #endif
 
 #import "PureLayout.h"
+#import "Localizations.h"
 
 #endif
