@@ -15,6 +15,8 @@
 		E4250CFC1E096BEA00530370 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250CFB1E096BEA00530370 /* libz.tbd */; };
 		E4250CFE1E096BEF00530370 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250CFD1E096BEF00530370 /* libxml2.tbd */; };
 		E4250D001E096CAA00530370 /* test.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E4250CFF1E096CAA00530370 /* test.bdoc */; };
+		E4250D031E098E1C00530370 /* MoppLibConf.h in Headers */ = {isa = PBXBuildFile; fileRef = E4250D011E098E1C00530370 /* MoppLibConf.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E4250D041E098E1C00530370 /* MoppLibConf.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4250D021E098E1C00530370 /* MoppLibConf.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		E4250CFB1E096BEA00530370 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		E4250CFD1E096BEF00530370 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		E4250CFF1E096CAA00530370 /* test.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.bdoc; sourceTree = "<group>"; };
+		E4250D011E098E1C00530370 /* MoppLibConf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibConf.h; sourceTree = "<group>"; };
+		E4250D021E098E1C00530370 /* MoppLibConf.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MoppLibConf.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +91,8 @@
 			isa = PBXGroup;
 			children = (
 				E4250CEA1E09695100530370 /* MoppLib.h */,
+				E4250D011E098E1C00530370 /* MoppLibConf.h */,
+				E4250D021E098E1C00530370 /* MoppLibConf.mm */,
 				E4250CEB1E09695100530370 /* Info.plist */,
 				E4250CF51E096B7D00530370 /* ObjCPP.h */,
 				E4250CF61E096B7D00530370 /* ObjCPP.mm */,
@@ -113,6 +119,7 @@
 			files = (
 				E4250CF71E096B7D00530370 /* ObjCPP.h in Headers */,
 				E4250CEC1E09695100530370 /* MoppLib.h in Headers */,
+				E4250D031E098E1C00530370 /* MoppLibConf.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4250CF81E096B7D00530370 /* ObjCPP.mm in Sources */,
+				E4250D041E098E1C00530370 /* MoppLibConf.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,8 +352,14 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = "$(inherited) $(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphoneos/lib";
-				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(inherited) $(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphonesimulator/lib";
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphoneos/lib",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphonesimulator/lib",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -388,8 +402,14 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = "$(inherited) $(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphoneos/lib";
-				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(inherited) $(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphonesimulator/lib";
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphoneos/lib",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphonesimulator/lib",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

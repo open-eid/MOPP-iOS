@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "MoppLib/MoppLibConf.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  // Override point for customization after application launch.
+  
+  [MoppLibConf setup];
+  
   return YES;
 }
 

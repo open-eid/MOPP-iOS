@@ -13,25 +13,6 @@
 #include <digidocpp/Signature.h>
 #include <digidocpp/Exception.h>
 #include <digidocpp/crypto/X509Cert.h>
-#include <digidocpp/XmlConf.h>
-
-class DigiDocConf: public digidoc::XmlConf
-{
-  public:
-  std::string TSLCache() const
-  {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-    NSString *libraryDirectory = [paths objectAtIndex:0];
-    return libraryDirectory.UTF8String;
-  }
-  
-  std::string xsdPath() const
-  {
-    NSBundle *bundle = [NSBundle bundleForClass:[ObjCPP class]];
-    NSString *path = [bundle pathForResource:@"schema" ofType:@""];
-    return path.UTF8String;
-  }
-};
 
 
 @interface ObjCPP () {
@@ -43,14 +24,6 @@ class DigiDocConf: public digidoc::XmlConf
 @implementation ObjCPP
   
   + (void)testMethod {
-    
-    try {
-      digidoc::Conf::init(new DigiDocConf);
-      digidoc::initialize();
-    } catch(const digidoc::Exception &e) {
-      NSLog(@"%s", e.msg().c_str());
-    }
-    
     
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
 
