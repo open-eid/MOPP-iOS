@@ -8,9 +8,11 @@
 
 #import "ViewController.h"
 #import "MoppLib/ObjCPP.h"
+#import <CoreBluetooth/CoreBluetooth.h>
+#import "ReaderSelectionViewController.h"
 
 @interface ViewController ()
-
+@property (nonatomic, strong) CBPeripheral *peripheral;
 @end
 
 @implementation ViewController
@@ -22,8 +24,20 @@
   
 }
 
-- (IBAction)selectReaderTapped:(id)sender {
-    
+- (IBAction)unwindFromReaderSelection:(UIStoryboardSegue *)segue {
+  if ([segue.sourceViewController isKindOfClass:[ReaderSelectionViewController class]]) {
+    ReaderSelectionViewController *controller = segue.sourceViewController;
+    self.peripheral = controller.selectedPeripheral;
+    NSLog(@"Selected peripheral %@", self.peripheral);
+
+  }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+  if ([segue.identifier isEqualToString:@"selectReader"]) {
+    ReaderSelectionViewController *controller = segue.destinationViewController;
+    controller.selectedPeripheral = self.peripheral;
+  }
 }
 
 @end

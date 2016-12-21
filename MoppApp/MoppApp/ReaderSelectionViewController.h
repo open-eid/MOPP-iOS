@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreBluetooth/CoreBluetooth.h>
 
 @interface ReaderSelectionViewController : UIViewController
+@property (nonatomic, strong) CBPeripheral *selectedPeripheral;
 
 @end
