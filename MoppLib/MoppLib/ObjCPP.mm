@@ -23,32 +23,34 @@
 
 @implementation ObjCPP
   
-  + (void)testMethod {
++ (NSArray *)getSignaturesWithContainerPath:(NSString *)path {
+
+  NSMutableArray *array = [NSMutableArray array];
+  try {
+  
+    digidoc::Container *doc = digidoc::Container::open(path.UTF8String);
     
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-
-    try {
-      NSString *path = [bundle pathForResource:@"test" ofType:@"bdoc"];
-      digidoc::Container *doc = digidoc::Container::open(path.UTF8String);
+    
+    //      std::vector<Signature*> *signatures = doc->signatures();
+    
+    
+    NSLog(@"Signatures count: %d", doc->signatures().size());
+    
+    for (int i = 0; i < doc->signatures().size(); i++) {
       
+      digidoc::Signature *signature = doc->signatures().at(i);
+      digidoc::X509Cert cert = signature->signingCertificate();
+      NSLog(@"Signature: %@", [NSString stringWithUTF8String:cert.subjectName("CN").c_str()]);
       
-//      std::vector<Signature*> *signatures = doc->signatures();
-      
-      
-      NSLog(@"Signatures count: %d", doc->signatures().size());
-      
-      for (int i = 0; i < doc->signatures().size(); i++) {
-
-        digidoc::Signature *signature = doc->signatures().at(i);
-        digidoc::X509Cert cert = signature->signingCertificate();
-        NSLog(@"Signature: %@", [NSString stringWithUTF8String:cert.subjectName("CN").c_str()]);
-        
-      }
-      
-    } catch(const digidoc::Exception &e) {
-      NSLog(@"%s", e.msg().c_str());
+      [array addObject:[NSString stringWithUTF8String:cert.subjectName("CN").c_str()]];
     }
     
+  } catch(const digidoc::Exception &e) {
+    NSLog(@"%s", e.msg().c_str());
   }
+  
+  return array;
+}
+
 
 @end

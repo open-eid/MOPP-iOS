@@ -10,6 +10,6 @@
 
 @interface ObjCPP : NSObject
   
-  + (void)testMethod;
++ (NSArray *)getSignaturesWithContainerPath:(NSString *)path;
 
 @end

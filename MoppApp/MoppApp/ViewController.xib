@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController">
+            <connections>
+                <outlet property="label" destination="uUE-dq-xnE" id="hIw-ys-fRv"/>
+                <outlet property="openContainerButton" destination="4Uq-qY-X7d" id="wSe-oy-x18"/>
+                <outlet property="view" destination="iN0-l3-epB" id="gYi-hK-dGV"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Uq-qY-X7d">
+                    <state key="normal" title="Open container"/>
+                    <connections>
+                        <action selector="openContainerButtonPressed:" destination="-1" eventType="touchUpInside" id="0vq-fP-0dn"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uUE-dq-xnE">
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="uUE-dq-xnE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="5Jd-o0-9QL"/>
+                <constraint firstItem="uUE-dq-xnE" firstAttribute="top" secondItem="4Uq-qY-X7d" secondAttribute="bottom" constant="30" id="CwI-E5-2W4"/>
+                <constraint firstItem="4Uq-qY-X7d" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="HMq-fi-7mZ"/>
+                <constraint firstAttribute="trailing" secondItem="uUE-dq-xnE" secondAttribute="trailing" constant="20" id="L9w-wy-Amk"/>
+                <constraint firstItem="4Uq-qY-X7d" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="30" id="xpK-fA-CTU"/>
+            </constraints>
+            <point key="canvasLocation" x="25.5" y="52.5"/>
+        </view>
+    </objects>
+</document>
