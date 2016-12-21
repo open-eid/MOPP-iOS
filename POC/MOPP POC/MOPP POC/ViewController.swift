@@ -20,6 +20,8 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     @IBOutlet weak var signingCertExpirationLabel: UILabel!
     @IBOutlet weak var signingTextField: UITextView!
     @IBOutlet weak var signingResultField: UITextView!
+    @IBOutlet weak var changePin2Cell: UITableViewCell!
+    @IBOutlet weak var changePin1Cell: UITableViewCell!
     
     var centralManager:CBCentralManager!
     var peripheral:CBPeripheral! {
@@ -63,11 +65,17 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     let commandVerifyPin2 = "00 20 00 02"
     let commandCalculateSignature = "00 2A 9E 9A"
     
+    let commandChangePin1 = "00 24 00 01"
+    let commandChangePin2 = "00 24 00 02"
+
+    
     enum CardAction {
         case none
         case readPublicData
         case readAuthCert
         case readSigningCert
+        case changePin1
+        case changePin2
     }
 
     var atrString:String = ""
@@ -511,6 +519,109 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             completion(nil)
         }
     }
+    
+    func changePin1()  {
+        
+        self.displayTextfieldAlert(title: "Sisesta vana PIN 1", completion: { (oldPin) in
+            self.displayTextfieldAlert(title: "Sisesta uus PIN 1", completion: { (newPin) in
+                
+                let lengthString = String(format:"%02X", oldPin.characters.count + newPin.characters.count)
+                let oldPinHex = ABDHex.hex(fromStr: oldPin)
+                let newPinHex = ABDHex.hex(fromStr: newPin)
+
+
+                let command = self.commandChangePin1.appending(" \(lengthString) \(oldPinHex!) \(newPinHex!)")
+                print("change pin 1 command: \(command)");
+                let commandHex = ABDHex.byteArray(fromHexString:command)
+                let success = self.cardReader?.transmit(apdu: commandHex!, success: { (data) in
+                    let response = data as! Data
+                    let responseHex = ABDHex.hexString(fromByteArray: response)!
+                    var message: String
+                    var title: String
+                    if responseHex.hasSuffix("90 00") {
+                        message = "Pin on vahetatud"
+                        title = "Õnnestus!"
+                    } else {
+                        message = "Midagi läks valesti. Saime vastuseks: \(responseHex)"
+                        title = "Viga"
+                    }
+                    let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+                    alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in
+                    }))
+                    self.present(alertController, animated: true, completion: nil)
+                    
+                    self.currentAction = CardAction.none
+                    self.startNextActionIfNeeded()
+                    
+                }, failure: { (error) in
+                    self.showError(error: error)
+                })
+                
+                if success == false {
+                    print("Unable to transmit data")
+                }
+
+            })
+        })
+    }
+    
+    func changePin2() {
+        self.displayTextfieldAlert(title: "Sisesta vana PIN 2", completion: { (oldPin) in
+            self.displayTextfieldAlert(title: "Sisesta uus PIN 2", completion: { (newPin) in
+                
+                let lengthString = String(format:"%02X", oldPin.characters.count + newPin.characters.count)
+                let oldPinHex = ABDHex.hex(fromStr: oldPin)
+                let newPinHex = ABDHex.hex(fromStr: newPin)
+                
+                
+                let command = self.commandChangePin2.appending(" \(lengthString) \(oldPinHex!) \(newPinHex!)")
+                print("change pin 2 command: \(command)");
+
+                let commandHex = ABDHex.byteArray(fromHexString:command)
+                let success = self.cardReader?.transmit(apdu: commandHex!, success: { (data) in
+                    let response = data as! Data
+                    let responseHex = ABDHex.hexString(fromByteArray: response)!
+                    var message: String
+                    var title: String
+                    if responseHex.hasSuffix("90 00") {
+                        message = "Pin on vahetatud"
+                        title = "Õnnestus!"
+                    } else {
+                        message = "Midagi läks valesti. Saime vastuseks: \(responseHex)"
+                        title = "Viga"
+                    }
+                    let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+                    alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in
+                    }))
+                    self.present(alertController, animated: true, completion: nil)
+                    
+                    self.currentAction = CardAction.none
+                    self.startNextActionIfNeeded()
+                    
+                }, failure: { (error) in
+                    self.showError(error: error)
+                })
+                
+                if success == false {
+                    print("Unable to transmit data")
+                }
+                
+            })
+        })
+    }
+    
+    func displayTextfieldAlert(title: String, completion: @escaping (String) -> Void) {
+        let alertController = UIAlertController(title: title, message: "", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alertController.addTextField { (textField) in
+            
+        }
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {[weak alertController] (_) in
+            let textField = alertController!.textFields![0]
+            completion(textField.text!)
+        }))
+        self.present(alertController, animated: true, completion: nil)
+    }
 
     
     func addCardAction(action: CardAction) {
@@ -638,6 +749,14 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             
         case CardAction.readPublicData:
                 readCardPublicData()
+            break
+            
+        case CardAction.changePin1:
+            self.changePin1()
+            break
+            
+        case CardAction.changePin2:
+            self.changePin2()
             break
             
         default:
@@ -796,13 +915,26 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             self.present(alertController, animated: true, completion: nil)
         }
     }
+
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-         return UITableViewAutomaticDimension
+        return UITableViewAutomaticDimension
     }
     
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = self.tableView(tableView, cellForRowAt: indexPath)
+        if cell == changePin1Cell {
+            self.addCardAction(action: CardAction.changePin1)
+            self.startNextActionIfNeeded()
+        } else if cell == changePin2Cell {
+            self.addCardAction(action: CardAction.changePin2)
+            self.startNextActionIfNeeded()
+
+        }
     }
 }
 

@@ -37,7 +37,7 @@
                         <sections>
                             <tableViewSection id="zGy-XW-Puy">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="bIK-q4-138" style="IBUITableViewCellStyleDefault" id="P1U-Gn-qMO">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="bIK-q4-138" style="IBUITableViewCellStyleDefault" id="P1U-Gn-qMO">
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P1U-Gn-qMO" id="LXl-Pk-emz">
@@ -59,13 +59,51 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="kbW-8T-CE7">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="ujw-7T-aUu" style="IBUITableViewCellStyleDefault" id="Q3Q-Mq-l7f">
+                                        <rect key="frame" x="0.0" y="115" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Q3Q-Mq-l7f" id="saZ-VD-Bmz">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Vaheta PIN 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ujw-7T-aUu">
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="jkV-ZV-rOc" style="IBUITableViewCellStyleDefault" id="PfS-G7-p8c">
+                                        <rect key="frame" x="0.0" y="159" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PfS-G7-p8c" id="oqN-32-x2i">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Vaheta PIN 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jkV-ZV-rOc">
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection id="8FW-YG-Owe">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="150" id="Y94-2s-iaX">
-                                        <rect key="frame" x="0.0" y="115" width="375" height="150"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="150" id="Y94-2s-iaX">
+                                        <rect key="frame" x="0.0" y="239" width="375" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y94-2s-iaX" id="uOs-0W-nR0">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Andmed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rei-YF-Vzt">
@@ -141,8 +179,8 @@
                             </tableViewSection>
                             <tableViewSection id="OnY-dL-wFa">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="123" id="cVV-nQ-gwq">
-                                        <rect key="frame" x="0.0" y="301" width="375" height="123"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="123" id="cVV-nQ-gwq">
+                                        <rect key="frame" x="0.0" y="425" width="375" height="123"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cVV-nQ-gwq" id="BBC-d8-zkI">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="122"/>
@@ -203,8 +241,8 @@
                             </tableViewSection>
                             <tableViewSection id="fzk-Nf-hOp">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="127" id="WGc-vp-EGR">
-                                        <rect key="frame" x="0.0" y="460" width="375" height="127"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="127" id="WGc-vp-EGR">
+                                        <rect key="frame" x="0.0" y="584" width="375" height="127"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WGc-vp-EGR" id="ZFH-A9-KaV">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="126"/>
@@ -265,8 +303,8 @@
                             </tableViewSection>
                             <tableViewSection id="QaS-vp-hg4">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="140" id="GfI-Z0-hfc">
-                                        <rect key="frame" x="0.0" y="623" width="375" height="140"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="140" id="GfI-Z0-hfc">
+                                        <rect key="frame" x="0.0" y="747" width="375" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GfI-Z0-hfc" id="NjS-aR-dqc">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="139"/>
@@ -331,6 +369,8 @@
                         <outlet property="authCertIssuerLabel" destination="S4t-eF-qcJ" id="IBM-xr-lXT"/>
                         <outlet property="birthDateLabel" destination="e83-8X-v6F" id="8PE-GK-pzZ"/>
                         <outlet property="cardReaderCell" destination="P1U-Gn-qMO" id="FhT-7V-4BN"/>
+                        <outlet property="changePin1Cell" destination="Q3Q-Mq-l7f" id="AgZ-LI-7sf"/>
+                        <outlet property="changePin2Cell" destination="PfS-G7-p8c" id="Ygz-Rg-xeV"/>
                         <outlet property="idCodeLabel" destination="Q1I-B8-uoj" id="yvM-ky-959"/>
                         <outlet property="nameLabel" destination="3Gy-WI-8Dh" id="SMt-Mn-Al5"/>
                         <outlet property="signingCertExpirationLabel" destination="Lup-JC-Mye" id="YYv-0g-Bed"/>
