@@ -22,5 +22,8 @@
   
 }
 
+- (IBAction)selectReaderTapped:(id)sender {
+    
+}
 
 @end
