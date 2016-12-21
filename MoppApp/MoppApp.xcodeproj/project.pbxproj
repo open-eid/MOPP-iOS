@@ -15,8 +15,23 @@
 		E4250CD11E0968D200530370 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4250CCF1E0968D200530370 /* Main.storyboard */; };
 		E4250CD31E0968D200530370 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4250CD21E0968D200530370 /* Assets.xcassets */; };
 		E4250CD61E0968D200530370 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4250CD41E0968D200530370 /* LaunchScreen.storyboard */; };
-		E4250CFA1E096B9C00530370 /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250CF91E096B9C00530370 /* MoppLib.framework */; };
+		E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; };
+		E4250D071E0A911100530370 /* MoppLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E4250D081E0A911100530370 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E4250D071E0A911100530370 /* MoppLib.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		548673C51E0A793A00021AFD /* ReaderSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderSelectionViewController.h; sourceTree = "<group>"; };
@@ -35,6 +50,7 @@
 		E4250CD51E0968D200530370 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E4250CD71E0968D200530370 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4250CF91E096B9C00530370 /* MoppLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MoppLib.framework; path = "../MoppLib/build/Debug-iphoneos/MoppLib.framework"; sourceTree = "<group>"; };
+		E4250D051E0A911100530370 /* MoppLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MoppLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,7 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4250CFA1E096B9C00530370 /* MoppLib.framework in Frameworks */,
+				E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */,
 				51EAB865AC99468B5AC77D6C /* Pods_MoppApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -106,6 +122,7 @@
 		F9074FEF4DC2DB83A60B75B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E4250D051E0A911100530370 /* MoppLib.framework */,
 				E4250CF91E096B9C00530370 /* MoppLib.framework */,
 				6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */,
 			);
@@ -125,6 +142,7 @@
 				E4250CC11E0968D200530370 /* Resources */,
 				6B13CD669C3E5A2623D5FE04 /* [CP] Embed Pods Frameworks */,
 				4E44872F8C9839D1D757B3E0 /* [CP] Copy Pods Resources */,
+				E4250D081E0A911100530370 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
