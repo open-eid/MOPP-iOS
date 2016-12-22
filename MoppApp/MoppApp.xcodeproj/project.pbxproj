@@ -449,6 +449,8 @@
 			baseConfigurationReference = A0A7AA11ECD67C1248EED708 /* Pods-MoppApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_ACTIVITY_MODE = "";
+				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
 				DEVELOPMENT_TEAM = 4YJSF2LF24;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
@@ -465,6 +467,7 @@
 			baseConfigurationReference = 7B5F907F55A4D9D1590D35CB /* Pods-MoppApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_ACTIVITY_MODE = "";
 				DEVELOPMENT_TEAM = 4YJSF2LF24;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
