@@ -11,6 +11,8 @@ target 'MoppApp' do
   project 'MoppApp.xcodeproj'
 
   pod 'MBProgressHUD', '~> 0.9.2'
+  pod 'PureLayout', '~> 3.0.1'
+
 end
 
 
@@ -19,8 +21,5 @@ target 'MoppLib' do
   project '../MoppLib/MoppLib.xcodeproj'
 
   pod 'MBProgressHUD', '~> 0.9.2'
+
 end
-
-
-
-

@@ -9,8 +9,7 @@
 #import "ReaderSelectionViewController.h"
 #import "MBProgressHUD.h"
 
-@interface ReaderSelectionViewController () <CBCentralManagerDelegate, CBPeripheralDelegate, UITableViewDelegate, UITableViewDataSource>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@interface ReaderSelectionViewController () <CBCentralManagerDelegate, CBPeripheralDelegate>
 
 @property (nonatomic, strong) CBCentralManager *cbCentralManager;
 @property (nonatomic, strong) NSMutableArray *foundPeripherals;
@@ -78,7 +77,6 @@
 }
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
-  
   [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
   [self performSegueWithIdentifier:@"unwindReaderSelection" sender:self];
 }
@@ -146,6 +144,14 @@
     [self.cbCentralManager connectPeripheral:self.selectedPeripheral options:nil];
   }
 }
+
+/*- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return UITableViewAutomaticDimension;
+}*/
 
 /*
  #pragma mark - Navigation
