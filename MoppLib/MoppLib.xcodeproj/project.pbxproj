@@ -7,6 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		54DC0DC51E0BCC2A00C62B3D /* CardReaderWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DC31E0BCC2A00C62B3D /* CardReaderWrapper.h */; };
+		54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DC71E0BCCEF00C62B3D /* MoppLibConstants.h */; };
+		54DC0DCA1E0BCCEF00C62B3D /* MoppLibConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0DC81E0BCCEF00C62B3D /* MoppLibConstants.m */; };
+		54DC0DCE1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DCC1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.h */; };
+		54DC0DCF1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0DCD1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.m */; };
+		54DC0DEA1E0BD6E300C62B3D /* ABTAcr1255uj1Reader.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DE31E0BD6E300C62B3D /* ABTAcr1255uj1Reader.h */; };
+		54DC0DEB1E0BD6E300C62B3D /* ABTAcr3901us1Reader.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DE41E0BD6E300C62B3D /* ABTAcr3901us1Reader.h */; };
+		54DC0DEC1E0BD6E300C62B3D /* ABTBluetoothReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DE51E0BD6E300C62B3D /* ABTBluetoothReader.h */; };
+		54DC0DED1E0BD6E300C62B3D /* ABTBluetoothReaderManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DE61E0BD6E300C62B3D /* ABTBluetoothReaderManager.h */; };
+		54DC0DEE1E0BD6E300C62B3D /* ABTError.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DE71E0BD6E300C62B3D /* ABTError.h */; };
+		54DC0DEF1E0BD6E300C62B3D /* ACSBluetooth.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DE81E0BD6E300C62B3D /* ACSBluetooth.h */; };
+		54DC0DF01E0BD6E300C62B3D /* libACSBluetooth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DC0DE91E0BD6E300C62B3D /* libACSBluetooth.a */; };
+		54DC0DF41E0BEF2A00C62B3D /* NSString+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DF21E0BEF2A00C62B3D /* NSString+Additions.h */; };
+		54DC0DF51E0BEF2A00C62B3D /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0DF31E0BEF2A00C62B3D /* NSString+Additions.m */; };
+		54DC0DF81E0BF0BA00C62B3D /* NSData+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DF61E0BF0BA00C62B3D /* NSData+Additions.h */; };
+		54DC0DF91E0BF0BA00C62B3D /* NSData+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0DF71E0BF0BA00C62B3D /* NSData+Additions.m */; };
 		D72F91CE6FD17DE3A2CB2EA9 /* Pods_MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212014B6D572D152A70C2C71 /* Pods_MoppLib.framework */; };
 		E4250CEC1E09695100530370 /* MoppLib.h in Headers */ = {isa = PBXBuildFile; fileRef = E4250CEA1E09695100530370 /* MoppLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E4250CF41E096A1D00530370 /* schema in Resources */ = {isa = PBXBuildFile; fileRef = E4250CF31E096A1D00530370 /* schema */; };
@@ -21,6 +37,22 @@
 
 /* Begin PBXFileReference section */
 		212014B6D572D152A70C2C71 /* Pods_MoppLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		54DC0DC31E0BCC2A00C62B3D /* CardReaderWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardReaderWrapper.h; sourceTree = "<group>"; };
+		54DC0DC71E0BCCEF00C62B3D /* MoppLibConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibConstants.h; sourceTree = "<group>"; };
+		54DC0DC81E0BCCEF00C62B3D /* MoppLibConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibConstants.m; sourceTree = "<group>"; };
+		54DC0DCC1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardReaderACR3901U_S1.h; sourceTree = "<group>"; };
+		54DC0DCD1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardReaderACR3901U_S1.m; sourceTree = "<group>"; };
+		54DC0DE31E0BD6E300C62B3D /* ABTAcr1255uj1Reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTAcr1255uj1Reader.h; sourceTree = "<group>"; };
+		54DC0DE41E0BD6E300C62B3D /* ABTAcr3901us1Reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTAcr3901us1Reader.h; sourceTree = "<group>"; };
+		54DC0DE51E0BD6E300C62B3D /* ABTBluetoothReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTBluetoothReader.h; sourceTree = "<group>"; };
+		54DC0DE61E0BD6E300C62B3D /* ABTBluetoothReaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTBluetoothReaderManager.h; sourceTree = "<group>"; };
+		54DC0DE71E0BD6E300C62B3D /* ABTError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTError.h; sourceTree = "<group>"; };
+		54DC0DE81E0BD6E300C62B3D /* ACSBluetooth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACSBluetooth.h; sourceTree = "<group>"; };
+		54DC0DE91E0BD6E300C62B3D /* libACSBluetooth.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libACSBluetooth.a; sourceTree = "<group>"; };
+		54DC0DF21E0BEF2A00C62B3D /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
+		54DC0DF31E0BEF2A00C62B3D /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
+		54DC0DF61E0BF0BA00C62B3D /* NSData+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Additions.h"; sourceTree = "<group>"; };
+		54DC0DF71E0BF0BA00C62B3D /* NSData+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Additions.m"; sourceTree = "<group>"; };
 		55E9B48F8763942B8B607E6D /* Pods-MoppLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLib.release.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLib/Pods-MoppLib.release.xcconfig"; sourceTree = "<group>"; };
 		8CA8F4A458E375C33114A84F /* Pods-MoppLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLib.debug.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLib/Pods-MoppLib.debug.xcconfig"; sourceTree = "<group>"; };
 		E4250CE71E09695100530370 /* MoppLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoppLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54DC0DF01E0BD6E300C62B3D /* libACSBluetooth.a in Frameworks */,
 				E4250CFE1E096BEF00530370 /* libxml2.tbd in Frameworks */,
 				E4250CFC1E096BEA00530370 /* libz.tbd in Frameworks */,
 				D72F91CE6FD17DE3A2CB2EA9 /* Pods_MoppLib.framework in Frameworks */,
@@ -50,6 +83,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		54DC0DC21E0BCBB400C62B3D /* CardReaders */ = {
+			isa = PBXGroup;
+			children = (
+				54DC0DC31E0BCC2A00C62B3D /* CardReaderWrapper.h */,
+				54DC0DCB1E0BCFCB00C62B3D /* ACR3901U-S1 */,
+			);
+			name = CardReaders;
+			sourceTree = "<group>";
+		};
+		54DC0DCB1E0BCFCB00C62B3D /* ACR3901U-S1 */ = {
+			isa = PBXGroup;
+			children = (
+				54DC0DCC1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.h */,
+				54DC0DCD1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.m */,
+			);
+			name = "ACR3901U-S1";
+			sourceTree = "<group>";
+		};
+		54DC0DD01E0BD27F00C62B3D /* ACSBluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				54DC0DE31E0BD6E300C62B3D /* ABTAcr1255uj1Reader.h */,
+				54DC0DE41E0BD6E300C62B3D /* ABTAcr3901us1Reader.h */,
+				54DC0DE51E0BD6E300C62B3D /* ABTBluetoothReader.h */,
+				54DC0DE61E0BD6E300C62B3D /* ABTBluetoothReaderManager.h */,
+				54DC0DE71E0BD6E300C62B3D /* ABTError.h */,
+				54DC0DE81E0BD6E300C62B3D /* ACSBluetooth.h */,
+				54DC0DE91E0BD6E300C62B3D /* libACSBluetooth.a */,
+			);
+			name = ACSBluetooth;
+			path = MoppLib/ACSBluetooth;
+			sourceTree = "<group>";
+		};
+		54DC0DF11E0BEEF900C62B3D /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				54DC0DF21E0BEF2A00C62B3D /* NSString+Additions.h */,
+				54DC0DF31E0BEF2A00C62B3D /* NSString+Additions.m */,
+				54DC0DF61E0BF0BA00C62B3D /* NSData+Additions.h */,
+				54DC0DF71E0BF0BA00C62B3D /* NSData+Additions.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		A80A16CFB65AE0AF2A553445 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -75,6 +152,7 @@
 				E4250CE91E09695100530370 /* MoppLib */,
 				E4250CE81E09695100530370 /* Products */,
 				AB737430B57EFE78CEC44EB9 /* Pods */,
+				54DC0DD01E0BD27F00C62B3D /* ACSBluetooth */,
 				A80A16CFB65AE0AF2A553445 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -90,9 +168,13 @@
 		E4250CE91E09695100530370 /* MoppLib */ = {
 			isa = PBXGroup;
 			children = (
+				54DC0DF11E0BEEF900C62B3D /* Category */,
+				54DC0DC21E0BCBB400C62B3D /* CardReaders */,
 				E4250CEA1E09695100530370 /* MoppLib.h */,
 				E4250D011E098E1C00530370 /* MoppLibConf.h */,
 				E4250D021E098E1C00530370 /* MoppLibConf.mm */,
+				54DC0DC71E0BCCEF00C62B3D /* MoppLibConstants.h */,
+				54DC0DC81E0BCCEF00C62B3D /* MoppLibConstants.m */,
 				E4250CEB1E09695100530370 /* Info.plist */,
 				E4250CF51E096B7D00530370 /* ObjCPP.h */,
 				E4250CF61E096B7D00530370 /* ObjCPP.mm */,
@@ -117,9 +199,20 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54DC0DEC1E0BD6E300C62B3D /* ABTBluetoothReader.h in Headers */,
 				E4250CF71E096B7D00530370 /* ObjCPP.h in Headers */,
+				54DC0DED1E0BD6E300C62B3D /* ABTBluetoothReaderManager.h in Headers */,
+				54DC0DEB1E0BD6E300C62B3D /* ABTAcr3901us1Reader.h in Headers */,
+				54DC0DCE1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.h in Headers */,
+				54DC0DEF1E0BD6E300C62B3D /* ACSBluetooth.h in Headers */,
+				54DC0DEA1E0BD6E300C62B3D /* ABTAcr1255uj1Reader.h in Headers */,
+				54DC0DF81E0BF0BA00C62B3D /* NSData+Additions.h in Headers */,
+				54DC0DEE1E0BD6E300C62B3D /* ABTError.h in Headers */,
 				E4250CEC1E09695100530370 /* MoppLib.h in Headers */,
+				54DC0DF41E0BEF2A00C62B3D /* NSString+Additions.h in Headers */,
 				E4250D031E098E1C00530370 /* MoppLibConf.h in Headers */,
+				54DC0DC51E0BCC2A00C62B3D /* CardReaderWrapper.h in Headers */,
+				54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,7 +323,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4250CF81E096B7D00530370 /* ObjCPP.mm in Sources */,
+				54DC0DCA1E0BCCEF00C62B3D /* MoppLibConstants.m in Sources */,
 				E4250D041E098E1C00530370 /* MoppLibConf.mm in Sources */,
+				54DC0DF51E0BEF2A00C62B3D /* NSString+Additions.m in Sources */,
+				54DC0DF91E0BF0BA00C62B3D /* NSData+Additions.m in Sources */,
+				54DC0DCF1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,11 +445,16 @@
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphonesimulator/include",
+					"$(SRCROOT)/MoppLib",
 				);
 				INFOPLIST_FILE = MoppLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MoppLib/ACSBluetooth",
+				);
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
 					"$(inherited)",
 					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphoneos/lib",
@@ -399,11 +501,16 @@
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphonesimulator/include",
+					"$(SRCROOT)/MoppLib",
 				);
 				INFOPLIST_FILE = MoppLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MoppLib/ACSBluetooth",
+				);
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
 					"$(inherited)",
 					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphoneos/lib",
