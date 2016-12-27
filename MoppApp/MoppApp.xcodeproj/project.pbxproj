@@ -54,7 +54,6 @@
 		E4250CCD1E0968D200530370 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E4250CD21E0968D200530370 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E4250CD71E0968D200530370 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E4250CF91E096B9C00530370 /* MoppLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MoppLib.framework; path = "../MoppLib/build/Debug-iphoneos/MoppLib.framework"; sourceTree = "<group>"; };
 		E4250D051E0A911100530370 /* MoppLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MoppLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250D091E0AA7AF00530370 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		E4250D0E1E0AA8E500530370 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -162,7 +161,6 @@
 			isa = PBXGroup;
 			children = (
 				E4250D051E0A911100530370 /* MoppLib.framework */,
-				E4250CF91E096B9C00530370 /* MoppLib.framework */,
 				6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */,
 			);
 			name = Frameworks;

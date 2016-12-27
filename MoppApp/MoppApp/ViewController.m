@@ -7,9 +7,9 @@
 //
 
 #import "ViewController.h"
-#import "MoppLib/ObjCPP.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "ReaderSelectionViewController.h"
+#import <MoppLib/MoppLib.h>
 
 @interface ViewController ()
 @property (nonatomic, strong) CBPeripheral *peripheral;
@@ -27,7 +27,6 @@
   
   [self.openContainerButton setTitle:@"Open container test.bdoc" forState:UIControlStateNormal];
   [self.label setText:nil];
-  
   MSLog(@"test MSLog");
 }
 
@@ -35,6 +34,13 @@
   if ([segue.sourceViewController isKindOfClass:[ReaderSelectionViewController class]]) {
     ReaderSelectionViewController *controller = segue.sourceViewController;
     self.peripheral = controller.selectedPeripheral;
+    [MoppLibCardActions setupWithPeripheral:self.peripheral success:^(NSData *data) {
+      NSLog(@"******** success");
+      
+    } failure:^(NSError *error) {
+      NSLog(@"******** failure %@", error);
+
+    }];
     NSLog(@"Selected peripheral %@", self.peripheral);
 
   }

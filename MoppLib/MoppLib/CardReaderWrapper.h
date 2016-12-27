@@ -11,7 +11,7 @@
 
 @protocol CardReaderWrapper <NSObject>
 
-- (void)transmitCommand:(NSString *)commandHex success:(ObjectSuccessBlock)success failure:(FailureBlock)failure;
-
+- (void)transmitCommand:(NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure;
+- (void)isCardInserted:(void(^)(BOOL)) completion;
 @end
 

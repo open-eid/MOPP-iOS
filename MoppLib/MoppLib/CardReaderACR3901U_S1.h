@@ -13,6 +13,11 @@
 
 @interface CardReaderACR3901U_S1 : NSObject <CardReaderWrapper>
 
-
-- (void)setupWithPeripheral:(CBPeripheral *)peripheral success:(ObjectSuccessBlock)success failure:(FailureBlock)failure;
+/**
+ * Performs peripheral detection, attaching and authenticating reader.
+ *
+ * @param success   block to be caller on successful execution.
+ * @param failure   block to be called on failed execution of request. 
+ */
+- (void)setupWithPeripheral:(CBPeripheral *)peripheral success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 @end

@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+typedef void (^DataSuccessBlock)(NSData *responseObject);
 typedef void (^ObjectSuccessBlock)(NSObject *responseObject);
 typedef void (^FailureBlock)(NSError *error);
