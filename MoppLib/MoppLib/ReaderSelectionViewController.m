@@ -26,7 +26,10 @@
   // Do any additional setup after loading the view.
   
   self.title = @"Vali kaardilugeja";
+  self.navigationItem.leftBarButtonItem.title = @"Loobu";
   self.foundPeripherals = [NSMutableArray new];
+  
+  [self.navigationController.navigationBar setHidden:NO];
   
   self.cbCentralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:@{CBCentralManagerOptionShowPowerAlertKey: [NSNumber numberWithBool:YES]}];
 }
@@ -34,6 +37,21 @@
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  
+  [self.navigationController setNavigationBarHidden:YES animated:YES];
+  [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+- (IBAction)cancelTapped:(id)sender {
+  [self dismissViewControllerAnimated:YES completion:^{
+    if (self.delegate) {
+      [self.delegate cancelledReaderSelection];
+    }
+  }];
 }
 
 #pragma mark - CBCentralManager
@@ -78,7 +96,12 @@
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
   [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-  [self performSegueWithIdentifier:@"unwindReaderSelection" sender:self];
+  
+  [self dismissViewControllerAnimated:YES completion:^{
+    if (self.delegate) {
+      [self.delegate peripheralSelected:peripheral];
+    }
+  }];
 }
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
@@ -140,7 +163,7 @@
       [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }
     
-    // TODO may need cancel option or timeout in case user incorrect peripheral. Connection attempts do not time out by default.
+    // TODO may need cancel option or timeout in case user selects incorrect peripheral. Connection attempts do not time out by default.
     [self.cbCentralManager connectPeripheral:self.selectedPeripheral options:nil];
   }
 }

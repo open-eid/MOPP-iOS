@@ -11,7 +11,8 @@
 
 @implementation MoppLibCardActions
 
-+ (void)setupWithPeripheral:(CBPeripheral *)peripheral success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure{
-  [[CardActionsManager sharedInstance] setupWithPeripheral:peripheral success:success failure:failure];
++ (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure {
+  
+  [[CardActionsManager sharedInstance] cardPersonalDataWithViewController:controller success:success failure:failure];
 }
 @end

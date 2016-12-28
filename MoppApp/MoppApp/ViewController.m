@@ -7,12 +7,9 @@
 //
 
 #import "ViewController.h"
-#import <CoreBluetooth/CoreBluetooth.h>
-#import "ReaderSelectionViewController.h"
 #import <MoppLib/MoppLib.h>
 
 @interface ViewController ()
-@property (nonatomic, strong) CBPeripheral *peripheral;
 @property (weak, nonatomic) IBOutlet UIButton *openContainerButton;
 @property (weak, nonatomic) IBOutlet UILabel *label;
 
@@ -30,27 +27,34 @@
   MSLog(@"test MSLog");
 }
 
-- (IBAction)unwindFromReaderSelection:(UIStoryboardSegue *)segue {
-  if ([segue.sourceViewController isKindOfClass:[ReaderSelectionViewController class]]) {
-    ReaderSelectionViewController *controller = segue.sourceViewController;
-    self.peripheral = controller.selectedPeripheral;
-    [MoppLibCardActions setupWithPeripheral:self.peripheral success:^(NSData *data) {
-      NSLog(@"******** success");
-      
-    } failure:^(NSError *error) {
-      NSLog(@"******** failure %@", error);
-
-    }];
-    NSLog(@"Selected peripheral %@", self.peripheral);
-
-  }
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-  if ([segue.identifier isEqualToString:@"ReaderSelection"]) {
-    ReaderSelectionViewController *controller = segue.destinationViewController;
-    controller.selectedPeripheral = self.peripheral;
-  }
+
+}
+- (IBAction)readCardActionPressed:(id)sender {
+  [MoppLibCardActions cardPersonalDataWithViewController:self success:^(NSData *data) {
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Success", nil) message:@"Successfully read some data from card" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alert animated:YES completion:^{
+      
+    }];
+    
+  } failure:^(NSError *error) {
+    NSString *message;
+    if (error.code == moppLibCardNotFoundError) {
+      message = NSLocalizedString(@"Card not found", nil);
+      
+    } else if (error.code == moppLibReaderNotFoundError) {
+      message = NSLocalizedString(@"Reader not attached", nil);
+    }
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alert animated:YES completion:^{
+      
+    }];
+    
+  }];
 }
 
 - (IBAction)openContainerButtonPressed:(id)sender {

@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5463DA471E127150008A1714 /* ReaderSelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5463DA441E127150008A1714 /* ReaderSelection.storyboard */; };
+		5463DA481E127150008A1714 /* ReaderSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5463DA451E127150008A1714 /* ReaderSelectionViewController.m */; };
+		5463DA491E127150008A1714 /* ReaderSelectionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5463DA461E127150008A1714 /* ReaderSelectionViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5463DA4C1E12927A008A1714 /* CardCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 5463DA4A1E12927A008A1714 /* CardCommands.h */; };
+		5463DA4D1E12927A008A1714 /* CardCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 5463DA4B1E12927A008A1714 /* CardCommands.m */; };
 		54DC0DC51E0BCC2A00C62B3D /* CardReaderWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DC31E0BCC2A00C62B3D /* CardReaderWrapper.h */; };
-		54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DC71E0BCCEF00C62B3D /* MoppLibConstants.h */; };
+		54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DC71E0BCCEF00C62B3D /* MoppLibConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54DC0DCA1E0BCCEF00C62B3D /* MoppLibConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0DC81E0BCCEF00C62B3D /* MoppLibConstants.m */; };
 		54DC0DCE1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DCC1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.h */; };
 		54DC0DCF1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0DCD1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.m */; };
@@ -43,6 +48,11 @@
 
 /* Begin PBXFileReference section */
 		212014B6D572D152A70C2C71 /* Pods_MoppLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5463DA441E127150008A1714 /* ReaderSelection.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ReaderSelection.storyboard; sourceTree = "<group>"; };
+		5463DA451E127150008A1714 /* ReaderSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderSelectionViewController.m; sourceTree = "<group>"; };
+		5463DA461E127150008A1714 /* ReaderSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderSelectionViewController.h; sourceTree = "<group>"; };
+		5463DA4A1E12927A008A1714 /* CardCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardCommands.h; sourceTree = "<group>"; };
+		5463DA4B1E12927A008A1714 /* CardCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardCommands.m; sourceTree = "<group>"; };
 		54DC0DC31E0BCC2A00C62B3D /* CardReaderWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardReaderWrapper.h; sourceTree = "<group>"; };
 		54DC0DC71E0BCCEF00C62B3D /* MoppLibConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibConstants.h; sourceTree = "<group>"; };
 		54DC0DC81E0BCCEF00C62B3D /* MoppLibConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibConstants.m; sourceTree = "<group>"; };
@@ -98,6 +108,9 @@
 		54DC0DC21E0BCBB400C62B3D /* CardReaders */ = {
 			isa = PBXGroup;
 			children = (
+				5463DA441E127150008A1714 /* ReaderSelection.storyboard */,
+				5463DA461E127150008A1714 /* ReaderSelectionViewController.h */,
+				5463DA451E127150008A1714 /* ReaderSelectionViewController.m */,
 				54DC0DC31E0BCC2A00C62B3D /* CardReaderWrapper.h */,
 				54DC0DCB1E0BCFCB00C62B3D /* ACR3901U-S1 */,
 			);
@@ -146,6 +159,8 @@
 				54DC0DFC1E0D196D00C62B3D /* CardActionsManager.m */,
 				54DC0E031E1250A200C62B3D /* MoppLibCardActions.h */,
 				54DC0E041E1250A200C62B3D /* MoppLibCardActions.m */,
+				5463DA4A1E12927A008A1714 /* CardCommands.h */,
+				5463DA4B1E12927A008A1714 /* CardCommands.m */,
 			);
 			name = CardActions;
 			sourceTree = "<group>";
@@ -225,12 +240,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5463DA4C1E12927A008A1714 /* CardCommands.h in Headers */,
 				54DC0DEC1E0BD6E300C62B3D /* ABTBluetoothReader.h in Headers */,
 				54DC0E011E0D48C900C62B3D /* MoppLibError.h in Headers */,
+				54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */,
+				5463DA491E127150008A1714 /* ReaderSelectionViewController.h in Headers */,
 				54DC0E051E1250A200C62B3D /* MoppLibCardActions.h in Headers */,
 				E4250CF71E096B7D00530370 /* ObjCPP.h in Headers */,
 				54DC0DFD1E0D196D00C62B3D /* CardActionsManager.h in Headers */,
-				54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */,
 				54DC0DED1E0BD6E300C62B3D /* ABTBluetoothReaderManager.h in Headers */,
 				54DC0DEB1E0BD6E300C62B3D /* ABTAcr3901us1Reader.h in Headers */,
 				54DC0DCE1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.h in Headers */,
@@ -308,6 +325,7 @@
 			files = (
 				E4250CF41E096A1D00530370 /* schema in Resources */,
 				E4250D001E096CAA00530370 /* test.bdoc in Resources */,
+				5463DA471E127150008A1714 /* ReaderSelection.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +369,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5463DA481E127150008A1714 /* ReaderSelectionViewController.m in Sources */,
 				E4250CF81E096B7D00530370 /* ObjCPP.mm in Sources */,
 				54DC0DCA1E0BCCEF00C62B3D /* MoppLibConstants.m in Sources */,
 				E4250D041E098E1C00530370 /* MoppLibConf.mm in Sources */,
@@ -358,6 +377,7 @@
 				54DC0E061E1250A200C62B3D /* MoppLibCardActions.m in Sources */,
 				54DC0DF91E0BF0BA00C62B3D /* NSData+Additions.m in Sources */,
 				54DC0DFE1E0D196D00C62B3D /* CardActionsManager.m in Sources */,
+				5463DA4D1E12927A008A1714 /* CardCommands.m in Sources */,
 				54DC0E021E0D48C900C62B3D /* MoppLibError.m in Sources */,
 				54DC0DCF1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.m in Sources */,
 			);

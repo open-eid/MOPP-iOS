@@ -12,7 +12,16 @@
 @implementation MoppLibError
 
 + (NSError *)readerNotFoundError {
-  NSError *newError = [[NSError alloc] initWithDomain:nil code:moppLibReaderNotFoundError userInfo:nil];
+  return [self error:moppLibReaderNotFoundError];
+}
+
++ (NSError *)cardNotFoundError {
+  return [self error:moppLibCardNotFoundError];
+}
+
++ (NSError *)error:(NSUInteger)errorCode {
+  NSError *newError = [[NSError alloc] initWithDomain:@"MoppLib" code:errorCode userInfo:nil];
   return newError;
 }
+
 @end

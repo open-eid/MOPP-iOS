@@ -46,11 +46,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AAV-gf-Sfk">
-                                <rect key="frame" x="141" y="201" width="92" height="30"/>
-                                <state key="normal" title="Select reader"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="04M-CC-EKl">
+                                <rect key="frame" x="129" y="201" width="116" height="30"/>
+                                <state key="normal" title="Read data action"/>
                                 <connections>
-                                    <segue destination="ibO-Zj-W1b" kind="show" identifier="ReaderSelection" id="HeL-Y7-yif"/>
+                                    <action selector="readCardActionPressed:" destination="xAr-n6-KTB" eventType="touchUpInside" id="bks-OV-nQ2"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -58,11 +58,11 @@
                         <constraints>
                             <constraint firstItem="NYx-zB-Cs8" firstAttribute="top" secondItem="HKj-QD-uCB" secondAttribute="bottom" constant="30" id="0mg-f2-UaA"/>
                             <constraint firstItem="NYx-zB-Cs8" firstAttribute="centerX" secondItem="PqS-PO-TsA" secondAttribute="centerX" id="PnI-xR-SNK"/>
-                            <constraint firstItem="AAV-gf-Sfk" firstAttribute="centerX" secondItem="PqS-PO-TsA" secondAttribute="centerX" id="eWf-n0-Gez"/>
                             <constraint firstItem="l1K-UJ-FLm" firstAttribute="leading" secondItem="PqS-PO-TsA" secondAttribute="leading" constant="20" id="jSm-2d-h6x"/>
-                            <constraint firstItem="AAV-gf-Sfk" firstAttribute="top" secondItem="l1K-UJ-FLm" secondAttribute="bottom" constant="30" id="ncD-kb-sj4"/>
+                            <constraint firstItem="04M-CC-EKl" firstAttribute="centerX" secondItem="PqS-PO-TsA" secondAttribute="centerX" id="kP0-GT-uxI"/>
                             <constraint firstItem="l1K-UJ-FLm" firstAttribute="top" secondItem="NYx-zB-Cs8" secondAttribute="bottom" constant="30" id="r2G-kg-rYc"/>
                             <constraint firstAttribute="trailing" secondItem="l1K-UJ-FLm" secondAttribute="trailing" constant="20" id="rUy-ZL-phv"/>
+                            <constraint firstItem="04M-CC-EKl" firstAttribute="top" secondItem="l1K-UJ-FLm" secondAttribute="bottom" constant="30" id="yde-ka-oP9"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="IoH-gU-v8d"/>
@@ -70,14 +70,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PTZ-9K-tfv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1218.4000000000001" y="80.50974512743629"/>
-        </scene>
-        <!--ReaderSelection-->
-        <scene sceneID="DS4-5d-IpY">
-            <objects>
-                <viewControllerPlaceholder storyboardName="ReaderSelection" id="ibO-Zj-W1b" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YbX-IX-hCz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-502" y="80"/>
         </scene>
     </scenes>
 </document>

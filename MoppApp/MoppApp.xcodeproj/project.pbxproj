@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		51EAB865AC99468B5AC77D6C /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
-		54DC0DBB1E0BBC6F00C62B3D /* ReaderSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0DB91E0BBC6F00C62B3D /* ReaderSelectionViewController.m */; };
 		54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */; };
-		54DC0DC11E0BC1F400C62B3D /* ReaderSelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC0DC01E0BC1F400C62B3D /* ReaderSelection.storyboard */; };
 		E4250CC81E0968D200530370 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250CC71E0968D200530370 /* main.m */; };
 		E4250CCB1E0968D200530370 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCA1E0968D200530370 /* AppDelegate.m */; };
 		E4250CCE1E0968D200530370 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCD1E0968D200530370 /* ViewController.m */; };
@@ -39,10 +37,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		54DC0DB91E0BBC6F00C62B3D /* ReaderSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderSelectionViewController.m; sourceTree = "<group>"; };
-		54DC0DBA1E0BBC6F00C62B3D /* ReaderSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderSelectionViewController.h; sourceTree = "<group>"; };
 		54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Landing.storyboard; sourceTree = "<group>"; };
-		54DC0DC01E0BC1F400C62B3D /* ReaderSelection.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ReaderSelection.storyboard; sourceTree = "<group>"; };
 		6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B5F907F55A4D9D1590D35CB /* Pods-MoppApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.release.xcconfig"; sourceTree = "<group>"; };
 		A0A7AA11ECD67C1248EED708 /* Pods-MoppApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -138,9 +133,6 @@
 		E4250D0B1E0AA84A00530370 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				54DC0DBA1E0BBC6F00C62B3D /* ReaderSelectionViewController.h */,
-				54DC0DB91E0BBC6F00C62B3D /* ReaderSelectionViewController.m */,
-				54DC0DC01E0BC1F400C62B3D /* ReaderSelection.storyboard */,
 				E4250CCC1E0968D200530370 /* ViewController.h */,
 				E4250CCD1E0968D200530370 /* ViewController.m */,
 				54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */,
@@ -235,7 +227,6 @@
 			files = (
 				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
-				54DC0DC11E0BC1F400C62B3D /* ReaderSelection.storyboard in Resources */,
 				E4250D191E0AADB100530370 /* test.bdoc in Resources */,
 				54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */,
 				E4250CD31E0968D200530370 /* Assets.xcassets in Resources */,
@@ -329,7 +320,6 @@
 				E4250CCE1E0968D200530370 /* ViewController.m in Sources */,
 				E4250CCB1E0968D200530370 /* AppDelegate.m in Sources */,
 				E4250D1F1E0AB5F100530370 /* Localizations.m in Sources */,
-				54DC0DBB1E0BBC6F00C62B3D /* ReaderSelectionViewController.m in Sources */,
 				E4250CC81E0968D200530370 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

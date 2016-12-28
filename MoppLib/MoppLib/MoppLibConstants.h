@@ -9,6 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+typedef enum {
+  
+  moppLibReaderNotFoundError = 10001,
+  moppLibCardNotFoundError = 10002
+  
+  
+} MoppLibErrorCode;
+
 typedef void (^DataSuccessBlock)(NSData *responseObject);
 typedef void (^ObjectSuccessBlock)(NSObject *responseObject);
 typedef void (^FailureBlock)(NSError *error);

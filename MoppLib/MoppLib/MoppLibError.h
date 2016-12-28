@@ -7,15 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-
-typedef enum {
-  
- moppLibReaderNotFoundError = 10001
-  
-} MoppLibErrorCode;
-
+#import "MoppLibConstants.h"
 
 @interface MoppLibError : NSObject
 
 + (NSError *)readerNotFoundError;
++ (NSError *)cardNotFoundError;
 @end
