@@ -10,7 +10,6 @@
 #import "CardReaderACR3901U_S1.h"
 #import "ReaderSelectionViewController.h"
 #import "MoppLibError.h"
-#import "CardCommands.h"
 #import "NSData+Additions.h"
 #import "EstEIDv3_4.h"
 #import "EstEIDv3_5.h"
@@ -27,7 +26,7 @@ typedef NS_ENUM(NSUInteger, CardAction) {
 
 @interface CardActionObject : NSObject
 @property (nonatomic, assign) NSUInteger cardAction;
-@property (nonatomic, strong) DataSuccessBlock successBlock;
+@property (nonatomic, strong) void (^successBlock)(id);
 @property (nonatomic, strong) FailureBlock failureBlock;
 @property (nonatomic, strong) UIViewController *controller;
 @end
@@ -67,7 +66,7 @@ static CardActionsManager *sharedInstance = nil;
   return _cardActions;
 }
 
-- (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure {
+- (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void (^)(MoppLibPersonalData *))success failure:(void (^)(NSError *))failure {
   [self addCardAction:CardActionReadPublicData viewController:controller success:success failure:failure];
 }
 
@@ -78,7 +77,7 @@ static CardActionsManager *sharedInstance = nil;
  * @param success   block to be called when card action is completed successfully
  * @param failure   block to be called when executing card action fails
  */
-- (void)addCardAction:(NSUInteger)action viewController:(UIViewController *)controller success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure {
+- (void)addCardAction:(NSUInteger)action viewController:(UIViewController *)controller success:(void (^)(id))success failure:(void (^)(NSError *))failure {
   
   @synchronized (self) {
     CardActionObject *actionObject = [CardActionObject new];
@@ -174,8 +173,8 @@ static CardActionsManager *sharedInstance = nil;
   switch (actionObject.cardAction) {
     case CardActionReadPublicData: {
       
-      [self.cardVersionHandler cardReader:self.cardReader readPublicDataWithSuccess:^(NSData *responseObject) {
-        actionObject.successBlock(responseObject);
+      [self.cardVersionHandler cardReader:self.cardReader readPublicDataWithSuccess:^(MoppLibPersonalData *personalData) {
+        actionObject.successBlock(personalData);
         [self finishCurrentAction];
         
       } failure:^(NSError *error) {

@@ -10,27 +10,94 @@
 
 @implementation EstEIDv3_4
 
-- (void)cardReader:(id<CardReaderWrapper>)reader readPublicDataWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
+- (void)cardReader:(id<CardReaderWrapper>)reader readPublicDataWithSuccess:(void (^)(MoppLibPersonalData *personalData))success failure:(FailureBlock)failure {
   
-  void (^readSurname)(NSData *) = [self reader:reader readRecord:1 success:success failure:failure];
-  void (^readFirstNameLine1)(NSData *) = [self reader:reader readRecord:2 success:readSurname failure:failure];
-  void (^readFirstNameLine2)(NSData *) = [self reader:reader readRecord:3 success:readFirstNameLine1 failure:failure];
-  void (^readSex)(NSData *) = [self reader:reader readRecord:4 success:readFirstNameLine2 failure:failure];
-  void (^readNationality)(NSData *) = [self reader:reader readRecord:5 success:readSex failure:failure];
-  void (^readBirthDate)(NSData *) = [self reader:reader readRecord:6 success:readNationality failure:failure];
-  void (^readIdCode)(NSData *) = [self reader:reader readRecord:7 success:readBirthDate failure:failure];
-  void (^readDocumentNr)(NSData *) = [self reader:reader readRecord:8 success:readIdCode failure:failure];
-  void (^readExpiryDate)(NSData *) = [self reader:reader readRecord:9 success:readDocumentNr failure:failure];
-  void (^readPlaceOfBirth)(NSData *) = [self reader:reader readRecord:10 success:readExpiryDate failure:failure];
-  void (^readDateIssued)(NSData *) = [self reader:reader readRecord:11 success:readPlaceOfBirth failure:failure];
-  void (^readTypeOfPermit)(NSData *) = [self reader:reader readRecord:12 success:readDateIssued failure:failure];
-  void (^readNotes1)(NSData *) = [self reader:reader readRecord:13 success:readTypeOfPermit failure:failure];
-  void (^readNotes2)(NSData *) = [self reader:reader readRecord:14 success:readNotes1 failure:failure];
-  void (^readNotes3)(NSData *) = [self reader:reader readRecord:15 success:readNotes2 failure:failure];
-  void (^readNotes4)(NSData *) = [self reader:reader readRecord:16 success:readNotes3 failure:failure];
+  MoppLibPersonalData *personalData = [MoppLibPersonalData new];
+  
+  void (^readSurname)(void) = [self reader:reader readRecord:1 success:^(NSData *responseObject) {
+    personalData.surname = [responseObject responseString];
+    success(personalData);
+  } failure:failure];
+  
+  void (^readFirstNameLine1)(void) = [self reader:reader readRecord:2 success:^(NSData *responseObject) {
+    personalData.firstNameLine1 = [responseObject responseString];
+    readSurname();
+  } failure:failure];
+  
+  void (^readFirstNameLine2)(void) = [self reader:reader readRecord:3 success:^(NSData *responseObject) {
+    personalData.firstNameLine2 = [responseObject responseString];
+    readFirstNameLine1();
+  } failure:failure];
+  
+  void (^readSex)(void) = [self reader:reader readRecord:4 success:^(NSData *responseObject) {
+    personalData.sex = [responseObject responseString];
+    readFirstNameLine2();
+  } failure:failure];
+  
+  void (^readNationality)(void) = [self reader:reader readRecord:5 success:^(NSData *responseObject) {
+    personalData.nationality = [responseObject responseString];
+    readSex();
+  } failure:failure];
+  
+  void (^readBirthDate)(void) = [self reader:reader readRecord:6 success:^(NSData *responseObject) {
+    personalData.birthDate = [responseObject responseString];
+    readNationality();
+  } failure:failure];
+  
+  void (^readIdCode)(void) = [self reader:reader readRecord:7 success:^(NSData *responseObject) {
+    personalData.personalIdentificationCode = [responseObject responseString];
+    readBirthDate();
+  } failure:failure];
+  
+  void (^readDocumentNr)(void) = [self reader:reader readRecord:8 success:^(NSData *responseObject) {
+    personalData.documentNumber = [responseObject responseString];
+    readIdCode();
+  } failure:failure];
+  
+  void (^readExpiryDate)(void) = [self reader:reader readRecord:9 success:^(NSData *responseObject) {
+    personalData.expiryDate = [responseObject responseString];
+    readDocumentNr();
+  } failure:failure];
+  
+  void (^readPlaceOfBirth)(void) = [self reader:reader readRecord:10 success:^(NSData *responseObject) {
+    personalData.birthPlace = [responseObject responseString];
+    readExpiryDate();
+  } failure:failure];
+  
+  void (^readDateIssued)(void) = [self reader:reader readRecord:11 success:^(NSData *responseObject) {
+    personalData.dateIssued = [responseObject responseString];
+    readPlaceOfBirth();
+  } failure:failure];
+  
+  void (^readTypeOfPermit)(void) = [self reader:reader readRecord:12 success:^(NSData *responseObject) {
+    personalData.residentPermitType = [responseObject responseString];
+    readDateIssued();
+  } failure:failure];
+  
+  void (^readNotes1)(void) = [self reader:reader readRecord:13 success:^(NSData *responseObject) {
+    personalData.notes1 = [responseObject responseString];
+    readTypeOfPermit();
+  } failure:failure];
+  
+  void (^readNotes2)(void) = [self reader:reader readRecord:14 success:^(NSData *responseObject) {
+    personalData.notes2 = [responseObject responseString];
+    readNotes1();
+  } failure:failure];
+  
+  void (^readNotes3)(void) = [self reader:reader readRecord:15 success:^(NSData *responseObject) {
+    personalData.notes3 = [responseObject responseString];
+    readNotes2();
+  } failure:failure];
+  
+  void (^readNotes4)(void) = [self reader:reader readRecord:16 success:^(NSData *responseObject) {
+    personalData.notes4 = [responseObject responseString];
+    readNotes3();
+  } failure:failure];
   
   void (^select5044)(NSData *) = ^void (NSData *responseObject) {
-    [reader transmitCommand:kCommandSelectFile5044 success:readNotes1 failure:failure];
+    [reader transmitCommand:kCommandSelectFile5044 success:^(NSData *responseObject) {
+      readNotes1();
+    } failure:failure];
   };
   
   void (^selectEEEE)(NSData *) = ^void (NSData *responseObject) {
@@ -41,8 +108,8 @@
   
 }
 
-- (void (^)(NSData *))reader:(id<CardReaderWrapper>)reader readRecord:(NSInteger)record success:(DataSuccessBlock)success failure:(FailureBlock)failure {
-  return ^void (NSData *responseObject) {
+- (void (^)(void))reader:(id<CardReaderWrapper>)reader readRecord:(NSInteger)record success:(DataSuccessBlock)success failure:(FailureBlock)failure {
+  return ^void (void) {
 
     [reader transmitCommand:[NSString stringWithFormat:kCommandReadRecord, record] success:^(NSData *responseObject) {
       const unsigned char *trailer = [responseObject responseTrailer];

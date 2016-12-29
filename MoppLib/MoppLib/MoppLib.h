@@ -22,5 +22,6 @@ FOUNDATION_EXPORT const unsigned char MoppLibVersionString[];
 #import <MoppLib/MoppLibCardActions.h>
 #import <MoppLib/MoppLibConstants.h>
 #import <MoppLib/ReaderSelectionViewController.h>
+#import <MoppLib/MoppLibPersonalData.h>
 
 

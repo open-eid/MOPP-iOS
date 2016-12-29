@@ -11,7 +11,7 @@
 
 @implementation MoppLibCardActions
 
-+ (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure {
++ (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void(^)(MoppLibPersonalData *))success failure:(void(^)(NSError *))failure {
   
   [[CardActionsManager sharedInstance] cardPersonalDataWithViewController:controller success:success failure:failure];
 }

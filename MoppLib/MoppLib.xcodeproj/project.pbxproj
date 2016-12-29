@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		545111721E13BBA800296B80 /* MoppLibPersonalData.h in Headers */ = {isa = PBXBuildFile; fileRef = 545111701E13BBA800296B80 /* MoppLibPersonalData.h */; };
+		545111721E13BBA800296B80 /* MoppLibPersonalData.h in Headers */ = {isa = PBXBuildFile; fileRef = 545111701E13BBA800296B80 /* MoppLibPersonalData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		545111731E13BBA800296B80 /* MoppLibPersonalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 545111711E13BBA800296B80 /* MoppLibPersonalData.m */; };
 		5451117A1E13C52900296B80 /* EstEIDv3_5.h in Headers */ = {isa = PBXBuildFile; fileRef = 545111781E13C52900296B80 /* EstEIDv3_5.h */; };
 		5451117B1E13C52900296B80 /* EstEIDv3_5.m in Sources */ = {isa = PBXBuildFile; fileRef = 545111791E13C52900296B80 /* EstEIDv3_5.m */; };

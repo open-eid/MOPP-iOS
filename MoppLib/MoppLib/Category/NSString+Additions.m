@@ -78,4 +78,25 @@
   return byteArray;
 
 }
+
+- (NSString *)hexToString {
+  
+  NSString *hexString = [self stringByReplacingOccurrencesOfString:@" " withString:@""];
+  if (([hexString length] % 2) != 0) {
+    return nil;
+  }
+  
+  NSMutableString *string = [NSMutableString string];
+  
+  for (NSInteger i = 0; i < [hexString length]; i += 2) {
+    
+    NSString *hex = [hexString substringWithRange:NSMakeRange(i, 2)];
+    NSInteger decimalValue = 0;
+    sscanf([hex cStringUsingEncoding:NSASCIIStringEncoding], "%x", &decimalValue);
+    [string appendFormat:@"%c", (char)decimalValue];
+  }
+  
+  return string;
+  
+}
 @end

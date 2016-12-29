@@ -31,9 +31,27 @@
 
 }
 - (IBAction)readCardActionPressed:(id)sender {
-  [MoppLibCardActions cardPersonalDataWithViewController:self success:^(NSData *data) {
+  [MoppLibCardActions cardPersonalDataWithViewController:self success:^(MoppLibPersonalData *data) {
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Success", nil) message:@"Successfully read some data from card" preferredStyle:UIAlertControllerStyleAlert];
+    NSMutableString *name = [NSMutableString new];
+    if (data.firstNameLine1.length > 0) {
+      [name appendString:data.firstNameLine1];
+    }
+    if (data.firstNameLine2.length > 0) {
+      if (name.length > 0) {
+        [name appendString:@" "];
+      }
+      [name appendString:data.firstNameLine2];
+    }
+    
+    if (data.surname.length > 0) {
+      if (name.length > 0) {
+        [name appendString:@" "];
+      }
+      [name appendString:data.surname];
+    }
+    NSString *message = [NSString stringWithFormat:@"Successfully read some data from card: \nName:%@\nDocument number:%@", name, data.documentNumber];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Success", nil) message:message preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:nil]];
     [self presentViewController:alert animated:YES completion:^{
       
