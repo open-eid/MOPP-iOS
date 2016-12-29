@@ -10,6 +10,7 @@
 #import "CardReaderWrapper.h"
 #import "NSString+Additions.h"
 #import "NSData+Additions.h"
+#import "MoppLibPersonalData.h"
 
 extern NSString *const kCommandSelectFileMaster;
 extern NSString *const kCommandSelectFileEEEE;
@@ -21,5 +22,5 @@ extern NSString *const kCommandGetCardVersion;
 
 @protocol CardCommands <NSObject>
 
-- (void)cardReader:(id<CardReaderWrapper>)reader readPublicDataWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
+- (void)cardReader:(id<CardReaderWrapper>)reader readPublicDataWithSuccess:(void (^)(MoppLibPersonalData *personalData))success failure:(FailureBlock)failure;
 @end

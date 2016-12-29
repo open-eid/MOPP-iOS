@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <UIKit/UIKit.h>
+#import "MoppLibPersonalData.h"
+
+@protocol MoppLibCardActionsDelegate;
 
 @interface MoppLibCardActions : NSObject
 
@@ -16,5 +19,6 @@
  * Reads personal data file from card
  *
  */
-+ (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure;
++ (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void(^)(MoppLibPersonalData *))success failure:(void(^)(NSError *))failure;
+
 @end

@@ -11,4 +11,5 @@
 @interface NSData (Additions)
 - (NSString *)toHexString;
 - (const unsigned char *)responseTrailer;
+- (NSString *)responseString;
 @end

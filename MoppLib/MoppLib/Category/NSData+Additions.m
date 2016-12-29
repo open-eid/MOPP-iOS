@@ -7,6 +7,7 @@
 //
 
 #import "NSData+Additions.h"
+#import "NSString+Additions.h"
 
 @implementation NSData (Additions)
 
@@ -33,5 +34,15 @@
 
 - (const unsigned char *)responseTrailer {
   return [[self subdataWithRange:NSMakeRange(self.length - 2, 2)] bytes];
+}
+
+- (NSString *)responseString {
+  //Removing trailer
+  NSData *responseData = [self subdataWithRange:NSMakeRange(0, self.length - 2)];
+  
+  // Converting from hex to string
+  NSString *string = [[responseData toHexString] hexToString];
+  
+  return [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 @end
