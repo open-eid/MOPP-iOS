@@ -6,9 +6,9 @@
 //  Copyright © 2016 Mobi Lab. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "MPViewController.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : MPViewController
 
 
 @end

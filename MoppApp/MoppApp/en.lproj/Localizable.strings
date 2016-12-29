@@ -1,2 +1,5 @@
 
-"test_string" = "DemoViewController EN";
+"tab-signing" = "Signing";
+"tab-signed" = "Signed";
+"tab-my-eid" = "My eID";
+"tab-sim-settings" = "SIM settings";

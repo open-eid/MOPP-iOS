@@ -1,2 +1,5 @@
 
-"test_string" = "DemoViewController ET";
+"tab-signing" = "Allkirjastamine";
+"tab-signed" = "Allkirjastatud";
+"tab-my-eid" = "Minu eID";
+"tab-sim-settings" = "SIM'i toimingud";

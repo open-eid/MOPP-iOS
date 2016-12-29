@@ -20,11 +20,10 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  [self setTitle:Localizations.TestString];
+  [self setTitle:Localizations.TabSigning];
   
   [self.openContainerButton setTitle:@"Open container test.bdoc" forState:UIControlStateNormal];
   [self.label setText:nil];
-  MSLog(@"test MSLog");
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

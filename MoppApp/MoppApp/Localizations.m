@@ -15,8 +15,20 @@
 
 @implementation _Localizations
 
-- (NSString *)TestString {
-    return NSLocalizedStringFromTable(@"test_string", nil, nil);
+- (NSString *)TabSigned {
+    return NSLocalizedStringFromTable(@"tab-signed", nil, nil);
+}
+
+- (NSString *)TabSimSettings {
+    return NSLocalizedStringFromTable(@"tab-sim-settings", nil, nil);
+}
+
+- (NSString *)TabMyEid {
+    return NSLocalizedStringFromTable(@"tab-my-eid", nil, nil);
+}
+
+- (NSString *)TabSigning {
+    return NSLocalizedStringFromTable(@"tab-signing", nil, nil);
 }
 
 + (_Localizations *)sharedInstance {

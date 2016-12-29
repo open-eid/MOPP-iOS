@@ -20,6 +20,11 @@
 		E4250D151E0AA97B00530370 /* MPNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250D141E0AA97B00530370 /* MPNavigationController.m */; };
 		E4250D191E0AADB100530370 /* test.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E4250D181E0AADB100530370 /* test.bdoc */; };
 		E4250D1F1E0AB5F100530370 /* Localizations.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250D1E1E0AB5F100530370 /* Localizations.m */; };
+		E42B088F1E155F2F00EA24A3 /* MPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B088E1E155F2F00EA24A3 /* MPViewController.m */; };
+		E42B08921E155F4600EA24A3 /* SignedDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08911E155F4600EA24A3 /* SignedDetailViewController.m */; };
+		E42B08951E15617200EA24A3 /* LandingTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08941E15617200EA24A3 /* LandingTabBarController.m */; };
+		E42B08991E1562F400EA24A3 /* Signed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E42B08981E1562F400EA24A3 /* Signed.storyboard */; };
+		E42B089C1E15644200EA24A3 /* SignedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B089B1E15644200EA24A3 /* SignedTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -60,6 +65,15 @@
 		E4250D1A1E0AB1B300530370 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		E4250D1D1E0AB5F100530370 /* Localizations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Localizations.h; sourceTree = "<group>"; };
 		E4250D1E1E0AB5F100530370 /* Localizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Localizations.m; sourceTree = "<group>"; };
+		E42B088D1E155F2F00EA24A3 /* MPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPViewController.h; sourceTree = "<group>"; };
+		E42B088E1E155F2F00EA24A3 /* MPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPViewController.m; sourceTree = "<group>"; };
+		E42B08901E155F4600EA24A3 /* SignedDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignedDetailViewController.h; sourceTree = "<group>"; };
+		E42B08911E155F4600EA24A3 /* SignedDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignedDetailViewController.m; sourceTree = "<group>"; };
+		E42B08931E15617200EA24A3 /* LandingTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandingTabBarController.h; sourceTree = "<group>"; };
+		E42B08941E15617200EA24A3 /* LandingTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandingTabBarController.m; sourceTree = "<group>"; };
+		E42B08981E1562F400EA24A3 /* Signed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Signed.storyboard; sourceTree = "<group>"; };
+		E42B089A1E15644200EA24A3 /* SignedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignedTableViewController.h; sourceTree = "<group>"; };
+		E42B089B1E15644200EA24A3 /* SignedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignedTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,7 +149,8 @@
 			children = (
 				E4250CCC1E0968D200530370 /* ViewController.h */,
 				E4250CCD1E0968D200530370 /* ViewController.m */,
-				54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */,
+				E42B08961E1562D500EA24A3 /* Landing */,
+				E42B08971E1562E500EA24A3 /* Signed */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -145,8 +160,32 @@
 			children = (
 				E4250D131E0AA97B00530370 /* MPNavigationController.h */,
 				E4250D141E0AA97B00530370 /* MPNavigationController.m */,
+				E42B088D1E155F2F00EA24A3 /* MPViewController.h */,
+				E42B088E1E155F2F00EA24A3 /* MPViewController.m */,
 			);
 			name = Base;
+			sourceTree = "<group>";
+		};
+		E42B08961E1562D500EA24A3 /* Landing */ = {
+			isa = PBXGroup;
+			children = (
+				E42B08931E15617200EA24A3 /* LandingTabBarController.h */,
+				E42B08941E15617200EA24A3 /* LandingTabBarController.m */,
+				54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */,
+			);
+			name = Landing;
+			sourceTree = "<group>";
+		};
+		E42B08971E1562E500EA24A3 /* Signed */ = {
+			isa = PBXGroup;
+			children = (
+				E42B089A1E15644200EA24A3 /* SignedTableViewController.h */,
+				E42B089B1E15644200EA24A3 /* SignedTableViewController.m */,
+				E42B08901E155F4600EA24A3 /* SignedDetailViewController.h */,
+				E42B08911E155F4600EA24A3 /* SignedDetailViewController.m */,
+				E42B08981E1562F400EA24A3 /* Signed.storyboard */,
+			);
+			name = Signed;
 			sourceTree = "<group>";
 		};
 		F9074FEF4DC2DB83A60B75B9 /* Frameworks */ = {
@@ -229,6 +268,7 @@
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
 				E4250D191E0AADB100530370 /* test.bdoc in Resources */,
 				54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */,
+				E42B08991E1562F400EA24A3 /* Signed.storyboard in Resources */,
 				E4250CD31E0968D200530370 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -317,9 +357,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4250D151E0AA97B00530370 /* MPNavigationController.m in Sources */,
+				E42B08951E15617200EA24A3 /* LandingTabBarController.m in Sources */,
+				E42B088F1E155F2F00EA24A3 /* MPViewController.m in Sources */,
 				E4250CCE1E0968D200530370 /* ViewController.m in Sources */,
 				E4250CCB1E0968D200530370 /* AppDelegate.m in Sources */,
+				E42B08921E155F4600EA24A3 /* SignedDetailViewController.m in Sources */,
 				E4250D1F1E0AB5F100530370 /* Localizations.m in Sources */,
+				E42B089C1E15644200EA24A3 /* SignedTableViewController.m in Sources */,
 				E4250CC81E0968D200530370 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,8 +15,17 @@
 
 @interface _Localizations : NSObject
 
-/// Base translation: DemoViewController EN
-- (NSString *)TestString;
+/// Base translation: Signed
+- (NSString *)TabSigned;
+
+/// Base translation: SIM settings
+- (NSString *)TabSimSettings;
+
+/// Base translation: My eID
+- (NSString *)TabMyEid;
+
+/// Base translation: Signing
+- (NSString *)TabSigning;
 
 + (_Localizations *)sharedInstance;
 
