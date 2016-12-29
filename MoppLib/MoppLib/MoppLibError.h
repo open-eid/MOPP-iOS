@@ -13,4 +13,5 @@
 
 + (NSError *)readerNotFoundError;
 + (NSError *)cardNotFoundError;
++ (NSError *)cardVersionUnknownError;
 @end

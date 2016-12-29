@@ -12,7 +12,8 @@
 typedef enum {
   
   moppLibReaderNotFoundError = 10001,
-  moppLibCardNotFoundError = 10002
+  moppLibCardNotFoundError = 10002,
+  moppLibCardVersionUnknownError = 10003
   
   
 } MoppLibErrorCode;

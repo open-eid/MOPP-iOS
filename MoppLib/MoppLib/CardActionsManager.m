@@ -12,6 +12,8 @@
 #import "MoppLibError.h"
 #import "CardCommands.h"
 #import "NSData+Additions.h"
+#import "EstEIDv3_4.h"
+#import "EstEIDv3_5.h"
 
 typedef NS_ENUM(NSUInteger, CardAction) {
   CardActionReadPublicData,
@@ -41,6 +43,8 @@ typedef NS_ENUM(NSUInteger, CardAction) {
 @property (nonatomic, strong) id<CardReaderWrapper> cardReader;
 @property (nonatomic, strong) NSMutableArray *cardActions;
 @property (nonatomic, assign) BOOL isExecutingAction;
+@property (nonatomic, strong) id<CardCommands> cardVersionHandler;
+
 
 @end
 
@@ -102,7 +106,48 @@ static CardActionsManager *sharedInstance = nil;
   if (self.cardReader && [self.cardReader isConnected]) {
     [self.cardReader isCardInserted:^(BOOL isInserted) {
       if (isInserted) {
-        [self executeAction:action];
+        
+        [self.cardReader isCardPoweredOn:^(BOOL isPoweredOn) {
+          if (isPoweredOn) {
+            [self executeAction:action];
+          } else {
+            [self.cardReader powerOnCard:^(NSData *responseObject) {
+              [self.cardReader transmitCommand:kCommandGetCardVersion success:^(NSData *responseObject) {
+                
+                const unsigned char *trailer = [responseObject responseTrailer];
+                
+                if (trailer[0] == 0x90 && trailer[1] == 0x00) {
+                  const unsigned char *responseBytes = [responseObject bytes];
+
+                  if (responseBytes[0] == 0x03 && responseBytes[1] == 0x05) {
+                    self.cardVersionHandler = [EstEIDv3_5 new];
+                  
+                  } else if (responseBytes[0] == 0x03 && responseBytes[1] == 0x04) {
+                    self.cardVersionHandler = [EstEIDv3_4 new];
+                  
+                  } else {
+                    NSLog(@"Unsupported card version. Going to use v3.5 protocol");
+                    self.cardVersionHandler = [EstEIDv3_5 new];
+
+                  }
+                }
+                
+                [self executeAction:action];
+
+              } failure:^(NSError *error) {
+                NSLog(@"Unable to determine card version");
+                action.failureBlock([MoppLibError cardVersionUnknownError]);
+                [self finishCurrentAction];
+              }];
+
+            } failure:^(NSError *error) {
+              NSLog(@"Unable to power on card");
+              action.failureBlock([MoppLibError cardNotFoundError]);
+              [self finishCurrentAction];
+            }];
+          }
+        }];
+        
       } else {
         NSLog(@"Card not inserted");
         action.failureBlock([MoppLibError cardNotFoundError]);
@@ -120,29 +165,23 @@ static CardActionsManager *sharedInstance = nil;
 }
 
 - (void)executeAction:(CardActionObject *)actionObject {
+  if (!self.cardVersionHandler) {
+    // Something went wrong with reader setup. Let's make another round
+    self.cardReader = nil;
+    [self executeAfterReaderCheck:actionObject];
+    return;
+  }
   switch (actionObject.cardAction) {
     case CardActionReadPublicData: {
       
-      void (^failure)(NSError *) = ^void (NSError *error) {
+      [self.cardVersionHandler cardReader:self.cardReader readPublicDataWithSuccess:^(NSData *responseObject) {
+        actionObject.successBlock(responseObject);
+        [self finishCurrentAction];
+        
+      } failure:^(NSError *error) {
         actionObject.failureBlock(error);
         [self finishCurrentAction];
-      };
-     
-      void (^readRecord)(NSData *) = ^void (NSData *responseObject) {
-        [self.cardReader transmitCommand:kCommandReadRecord success:actionObject.successBlock failure:failure];
-        [self finishCurrentAction];
-      };
-      
-      void (^select5044)(NSData *) = ^void (NSData *responseObject) {
-        [self.cardReader transmitCommand:kCommandSelectFile5044 success:readRecord failure:failure];
-      };
-      
-      void (^selectEEEE)(NSData *) = ^void (NSData *responseObject) {
-        [self.cardReader transmitCommand:kCommandSelectFileEEEE success:select5044 failure:failure];
-      };
-      
-      [self.cardReader transmitCommand:kCommandSelectFileMaster success:selectEEEE failure:failure];
-    
+      }];
       break;
     }
       

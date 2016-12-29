@@ -72,26 +72,13 @@
 
 - (void)transmitCommand:(NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure {
   NSLog(@"Transmit command %@", commandHex);
-  void (^transmit)(void) = ^(void) {
+  //void (^transmit)(void) = ^(void) {
     self.successBlock = success;
     self.failureBlock = failure;
     BOOL isReaderAttached = [self.bluetoothReader transmitApdu:[commandHex toHexData]];
     if (!isReaderAttached) {
       [self respondWithError:[MoppLibError readerNotFoundError]];
     }
-  };
-  
-  [self isCardPoweredOn:^(BOOL isPoweredOn) {
-    if (isPoweredOn || self.atr.length > 0) {
-      transmit();
-    } else {
-      [self powerOnCard:^(NSData *responseObject) {
-        transmit();
-      } failure:^(NSError *error) {
-        [self respondWithError:[MoppLibError readerNotFoundError]];
-      }];
-    }
-  }];
 }
 
 - (void)respondWithError:(NSError *)error {
@@ -143,13 +130,13 @@
   
   if (self.cardStatus == ABTBluetoothReaderCardStatusPowerSavingMode) {
     [self getCardStatusWithSuccess:^(NSData *responseObject) {
-      completion(self.cardStatus == ABTBluetoothReaderCardStatusPowered);
+      completion(self.atr.length > 0 || self.cardStatus == ABTBluetoothReaderCardStatusPowered);
       
     } failure:^(NSError *error) {
       completion(NO);
     }];
   } else {
-    completion(self.cardStatus == ABTBluetoothReaderCardStatusPowered);
+    completion(self.atr.length > 0 || self.cardStatus == ABTBluetoothReaderCardStatusPowered);
   }
 }
 

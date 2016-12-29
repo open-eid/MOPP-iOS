@@ -19,6 +19,10 @@
   return [self error:moppLibCardNotFoundError];
 }
 
++ (NSError *)cardVersionUnknownError {
+  return [self error:moppLibCardVersionUnknownError];
+}
+
 + (NSError *)error:(NSUInteger)errorCode {
   NSError *newError = [[NSError alloc] initWithDomain:@"MoppLib" code:errorCode userInfo:nil];
   return newError;

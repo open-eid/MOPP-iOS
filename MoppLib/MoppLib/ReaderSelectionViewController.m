@@ -11,6 +11,7 @@
 
 @interface ReaderSelectionViewController () <CBCentralManagerDelegate, CBPeripheralDelegate>
 
+@property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 @property (nonatomic, strong) CBCentralManager *cbCentralManager;
 @property (nonatomic, strong) NSMutableArray *foundPeripherals;
 @end
@@ -25,8 +26,10 @@
   [super viewDidLoad];
   // Do any additional setup after loading the view.
   
-  self.title = @"Vali kaardilugeja";
-  self.navigationItem.leftBarButtonItem.title = @"Loobu";
+  self.title = NSLocalizedString(@"Select reader", nil);
+  self.navigationItem.leftBarButtonItem.title = NSLocalizedString(@"Cancel", nil);
+  self.infoLabel.text = NSLocalizedString(@"Card reader is not connected. Please make sure your reader is active and select reader.", nil);
+  
   self.foundPeripherals = [NSMutableArray new];
   
   [self.navigationController.navigationBar setHidden:NO];
