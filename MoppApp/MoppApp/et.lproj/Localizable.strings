@@ -3,3 +3,9 @@
 "tab-signed" = "Allkirjastatud";
 "tab-my-eid" = "Minu eID";
 "tab-sim-settings" = "SIM'i toimingud";
+"my-eid-id-card-info" = "ID-kaart on riigi sisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.\n\nID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel.";
+"my-eid-warning-card-not-found" = "ID-kaart ei ole lugejas või puudub\n\nKontrolli, kas ID-kaart on õiget pidi lugejas Uutel ID-kaartidel on kiip kaardi tagumisel küljel.";
+"my-eid-personal-code" = "Isikukood:";
+"my-eid-birth" = "Sündinud:";
+"my-eid-citizenship" = "Kodakondsus:";
+"my-eid-email" = "E-post:";

@@ -15,4 +15,12 @@
   
   [[CardActionsManager sharedInstance] cardPersonalDataWithViewController:controller success:success failure:failure];
 }
+
++ (void)isCardInserted:(void (^)(BOOL))completion {
+  [[CardActionsManager sharedInstance] isCardInserted:completion];
+}
+
++ (BOOL)isReaderConnected {
+  return [[CardActionsManager sharedInstance] isReaderConnected];
+}
 @end

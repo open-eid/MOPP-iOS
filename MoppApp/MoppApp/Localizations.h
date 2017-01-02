@@ -15,17 +15,38 @@
 
 @interface _Localizations : NSObject
 
+/// Base translation: Card reader is not connected.
+- (NSString *)MyEidWarningReaderNotFound;
+
+/// Base translation: E-mail:
+- (NSString *)MyEidEmail;
+
 /// Base translation: Signed
 - (NSString *)TabSigned;
+
+/// Base translation: Personal Code:
+- (NSString *)MyEidPersonalCode;
+
+/// Base translation: Birth:
+- (NSString *)MyEidBirth;
+
+/// Base translation: ID card is missing  Please check if ID card in inserted correctly. New ID cards have chip on the back side of the card.
+- (NSString *)MyEidWarningCardNotFound;
+
+/// Base translation: Signing
+- (NSString *)TabSigning;
+
+/// Base translation: Citizenship:
+- (NSString *)MyEidCitizenship;
 
 /// Base translation: SIM settings
 - (NSString *)TabSimSettings;
 
+/// Base translation: ID-kaart on riigi sisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.  ID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel.
+- (NSString *)MyEidIdCardInfo;
+
 /// Base translation: My eID
 - (NSString *)TabMyEid;
-
-/// Base translation: Signing
-- (NSString *)TabSigning;
 
 + (_Localizations *)sharedInstance;
 

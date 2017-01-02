@@ -27,4 +27,10 @@
 @property (nonatomic, strong) NSString *notes3;
 @property (nonatomic, strong) NSString *notes4;
 
+/**
+ * Gives full name of card owner
+ *
+ * @return Full name of card owner
+ */
+- (NSString *)fullName;
 @end

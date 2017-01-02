@@ -10,6 +10,14 @@
 
 @implementation EstEIDv3_4
 
+- (void)cardReader:(id<CardReaderWrapper>)reader readAuthenticationCertificateWithSuccess:(void (^)(MoppLibPersonalData *personalData))success failure:(FailureBlock)failure {
+
+}
+
+- (void)cardReader:(id<CardReaderWrapper>)reader readSignatureCertificateWithSuccess:(void (^)(MoppLibPersonalData *personalData))success failure:(FailureBlock)failure {
+  
+}
+
 - (void)cardReader:(id<CardReaderWrapper>)reader readPublicDataWithSuccess:(void (^)(MoppLibPersonalData *personalData))success failure:(FailureBlock)failure {
   
   MoppLibPersonalData *personalData = [MoppLibPersonalData new];
@@ -105,7 +113,6 @@
   };
   
   [reader transmitCommand:kCommandSelectFileMaster success:selectEEEE failure:failure];
-  
 }
 
 - (void (^)(void))reader:(id<CardReaderWrapper>)reader readRecord:(NSInteger)record success:(DataSuccessBlock)success failure:(FailureBlock)failure {

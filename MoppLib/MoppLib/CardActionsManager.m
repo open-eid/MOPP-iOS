@@ -13,6 +13,7 @@
 #import "NSData+Additions.h"
 #import "EstEIDv3_4.h"
 #import "EstEIDv3_5.h"
+#import "CBManagerHelper.h"
 
 typedef NS_ENUM(NSUInteger, CardAction) {
   CardActionReadPublicData,
@@ -37,7 +38,7 @@ typedef NS_ENUM(NSUInteger, CardAction) {
 @end
 
 
-@interface CardActionsManager() <ReaderSelectionViewControllerDelegate>
+@interface CardActionsManager() <ReaderSelectionViewControllerDelegate, CBManagerHelperDelegate>
 
 @property (nonatomic, strong) id<CardReaderWrapper> cardReader;
 @property (nonatomic, strong) NSMutableArray *cardActions;
@@ -54,6 +55,7 @@ static CardActionsManager *sharedInstance = nil;
 + (CardActionsManager *)sharedInstance {
   if (sharedInstance == nil) {
     sharedInstance = [CardActionsManager new];
+    [[CBManagerHelper sharedInstance] addDelegate:sharedInstance];
   }
   return sharedInstance;
 }
@@ -64,6 +66,11 @@ static CardActionsManager *sharedInstance = nil;
   }
   
   return _cardActions;
+}
+
+- (void)setCardReader:(id<CardReaderWrapper>)cardReader {
+  _cardReader = cardReader;
+  [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
 }
 
 - (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void (^)(MoppLibPersonalData *))success failure:(void (^)(NSError *))failure {
@@ -102,7 +109,7 @@ static CardActionsManager *sharedInstance = nil;
 }
 
 - (void)executeAfterReaderCheck:(CardActionObject *)action {
-  if (self.cardReader && [self.cardReader isConnected]) {
+  if ([self isReaderConnected]) {
     [self.cardReader isCardInserted:^(BOOL isInserted) {
       if (isInserted) {
         
@@ -212,6 +219,18 @@ static CardActionsManager *sharedInstance = nil;
   }
 }
 
+- (BOOL)isReaderConnected {
+  return self.cardReader && [self.cardReader isConnected];
+}
+
+- (void)isCardInserted:(void(^)(BOOL)) completion {
+  if (self.cardReader) {
+    [self.cardReader isCardInserted:completion];
+  } else {
+    completion(NO);
+  }
+}
+
 #pragma mark - Reader setup
 - (void)setupWithPeripheral:(CBPeripheral *)peripheral success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure {
   CardReaderACR3901U_S1 *reader = [CardReaderACR3901U_S1 new];
@@ -247,9 +266,20 @@ static CardActionsManager *sharedInstance = nil;
   if (self.isExecutingAction) {
     CardActionObject *action = [self.cardActions firstObject];
     action.failureBlock([MoppLibError readerNotFoundError]);
+    
+    // TODO maybe we should cancel all actions in queue?
     [self finishCurrentAction];
   }
 }
 
+#pragma mark - CBManagerHelperDelegate
+
+- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
+  [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
+}
+
+- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
+  [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
+}
 @end
 

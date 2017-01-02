@@ -35,10 +35,16 @@
 }
 
 - (void)setCardStatus:(ABTBluetoothReaderCardStatus)cardStatus {
-  _cardStatus = cardStatus;
-  
-  if (cardStatus == ABTBluetoothReaderCardStatusPowerSavingMode || cardStatus == ABTBluetoothReaderCardStatusAbsent) {
-    self.atr = nil;
+  ABTBluetoothReaderCardStatus lastStatus = _cardStatus;
+  if (_cardStatus != cardStatus){
+    _cardStatus = cardStatus;
+    if (lastStatus == ABTBluetoothReaderCardStatusAbsent || lastStatus == ABTBluetoothReaderCardStatusUnknown || cardStatus == ABTBluetoothReaderCardStatusAbsent || cardStatus == ABTBluetoothReaderCardStatusUnknown) {
+      [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
+    }
+    
+    if (cardStatus == ABTBluetoothReaderCardStatusPowerSavingMode || cardStatus == ABTBluetoothReaderCardStatusAbsent) {
+      self.atr = nil;
+    }
   }
 }
 
@@ -243,6 +249,7 @@
     [self respondWithSuccess:nil];
   }
 }
+
 
 - (void)bluetoothReader:(ABTBluetoothReader *)bluetoothReader didPowerOffCardWithError:(NSError *)error {
   if (error) {

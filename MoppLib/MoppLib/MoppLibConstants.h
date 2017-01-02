@@ -21,3 +21,9 @@ typedef enum {
 typedef void (^DataSuccessBlock)(NSData *responseObject);
 typedef void (^ObjectSuccessBlock)(NSObject *responseObject);
 typedef void (^FailureBlock)(NSError *error);
+
+
+/**
+ * Posted when card reader status changes. This can be triggered when connected card reader is turned off or connected card reader detects that card is inserted or removed.
+ */
+extern NSString *const kMoppLibNotificationReaderStatusChanged;

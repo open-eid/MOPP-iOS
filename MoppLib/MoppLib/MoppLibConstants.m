@@ -6,5 +6,7 @@
 //  Copyright © 2016 Mobi Lab. All rights reserved.
 //
 
+#import "MoppLibConstants.h"
 
+NSString *const kMoppLibNotificationReaderStatusChanged = @"Mopp Lib - Reader status changed";
 

@@ -18,4 +18,8 @@
 - (void)setupWithPeripheral:(CBPeripheral *)peripheral success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure;
 
 - (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void(^)(MoppLibPersonalData *))success failure:(void(^)(NSError *))failure;
+
+- (void)isCardInserted:(void(^)(BOOL)) completion;
+
+- (BOOL)isReaderConnected;
 @end

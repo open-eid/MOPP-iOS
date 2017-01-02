@@ -16,9 +16,12 @@
 @interface MoppLibCardActions : NSObject
 
 /**
- * Reads personal data file from card
- *
+ *Reads personal data file from card
  */
 + (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void(^)(MoppLibPersonalData *))success failure:(void(^)(NSError *))failure;
+
++ (BOOL)isReaderConnected;
++ (void)isCardInserted:(void(^)(BOOL)) completion;
+
 
 @end

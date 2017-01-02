@@ -13,6 +13,8 @@
 		5451117B1E13C52900296B80 /* EstEIDv3_5.m in Sources */ = {isa = PBXBuildFile; fileRef = 545111791E13C52900296B80 /* EstEIDv3_5.m */; };
 		545CF8411E13F30300B66EE8 /* EstEIDv3_4.h in Headers */ = {isa = PBXBuildFile; fileRef = 545CF83F1E13F30300B66EE8 /* EstEIDv3_4.h */; };
 		545CF8421E13F30300B66EE8 /* EstEIDv3_4.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8401E13F30300B66EE8 /* EstEIDv3_4.m */; };
+		545CF8571E16928600B66EE8 /* CBManagerHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 545CF8551E16928600B66EE8 /* CBManagerHelper.h */; };
+		545CF8581E16928600B66EE8 /* CBManagerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8561E16928600B66EE8 /* CBManagerHelper.m */; };
 		5463DA471E127150008A1714 /* ReaderSelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5463DA441E127150008A1714 /* ReaderSelection.storyboard */; };
 		5463DA481E127150008A1714 /* ReaderSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5463DA451E127150008A1714 /* ReaderSelectionViewController.m */; };
 		5463DA491E127150008A1714 /* ReaderSelectionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5463DA461E127150008A1714 /* ReaderSelectionViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -60,6 +62,8 @@
 		545111791E13C52900296B80 /* EstEIDv3_5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EstEIDv3_5.m; sourceTree = "<group>"; };
 		545CF83F1E13F30300B66EE8 /* EstEIDv3_4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EstEIDv3_4.h; sourceTree = "<group>"; };
 		545CF8401E13F30300B66EE8 /* EstEIDv3_4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EstEIDv3_4.m; sourceTree = "<group>"; };
+		545CF8551E16928600B66EE8 /* CBManagerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBManagerHelper.h; sourceTree = "<group>"; };
+		545CF8561E16928600B66EE8 /* CBManagerHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBManagerHelper.m; sourceTree = "<group>"; };
 		5463DA441E127150008A1714 /* ReaderSelection.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ReaderSelection.storyboard; sourceTree = "<group>"; };
 		5463DA451E127150008A1714 /* ReaderSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderSelectionViewController.m; sourceTree = "<group>"; };
 		5463DA461E127150008A1714 /* ReaderSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderSelectionViewController.h; sourceTree = "<group>"; };
@@ -132,6 +136,8 @@
 				5463DA441E127150008A1714 /* ReaderSelection.storyboard */,
 				5463DA461E127150008A1714 /* ReaderSelectionViewController.h */,
 				5463DA451E127150008A1714 /* ReaderSelectionViewController.m */,
+				545CF8551E16928600B66EE8 /* CBManagerHelper.h */,
+				545CF8561E16928600B66EE8 /* CBManagerHelper.m */,
 				54DC0DC31E0BCC2A00C62B3D /* CardReaderWrapper.h */,
 				54DC0DCB1E0BCFCB00C62B3D /* ACR3901U-S1 */,
 			);
@@ -267,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5463DA4C1E12927A008A1714 /* CardCommands.h in Headers */,
+				545CF8571E16928600B66EE8 /* CBManagerHelper.h in Headers */,
 				5451117A1E13C52900296B80 /* EstEIDv3_5.h in Headers */,
 				54DC0DEC1E0BD6E300C62B3D /* ABTBluetoothReader.h in Headers */,
 				54DC0E011E0D48C900C62B3D /* MoppLibError.h in Headers */,
@@ -406,6 +413,7 @@
 				54DC0E061E1250A200C62B3D /* MoppLibCardActions.m in Sources */,
 				54DC0DF91E0BF0BA00C62B3D /* NSData+Additions.m in Sources */,
 				54DC0DFE1E0D196D00C62B3D /* CardActionsManager.m in Sources */,
+				545CF8581E16928600B66EE8 /* CBManagerHelper.m in Sources */,
 				5463DA4D1E12927A008A1714 /* CardCommands.m in Sources */,
 				545111731E13BBA800296B80 /* MoppLibPersonalData.m in Sources */,
 				54DC0E021E0D48C900C62B3D /* MoppLibError.m in Sources */,

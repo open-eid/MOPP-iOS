@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		51EAB865AC99468B5AC77D6C /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
+		545CF8461E16453300B66EE8 /* MyEIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8451E16453300B66EE8 /* MyEIDViewController.m */; };
+		545CF8481E16563200B66EE8 /* MyEid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545CF8471E16563200B66EE8 /* MyEid.storyboard */; };
+		545CF84B1E165DBA00B66EE8 /* NameAndPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF84A1E165DBA00B66EE8 /* NameAndPhotoCell.m */; };
+		545CF84E1E165DCF00B66EE8 /* PersonalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF84D1E165DCF00B66EE8 /* PersonalDataCell.m */; };
+		545CF8511E165DEC00B66EE8 /* ErrorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8501E165DEC00B66EE8 /* ErrorCell.m */; };
+		545CF8541E165DFB00B66EE8 /* InfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8531E165DFB00B66EE8 /* InfoCell.m */; };
 		54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */; };
 		E4250CC81E0968D200530370 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250CC71E0968D200530370 /* main.m */; };
 		E4250CCB1E0968D200530370 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCA1E0968D200530370 /* AppDelegate.m */; };
@@ -42,6 +48,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		545CF8441E16453300B66EE8 /* MyEIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIDViewController.h; sourceTree = "<group>"; };
+		545CF8451E16453300B66EE8 /* MyEIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEIDViewController.m; sourceTree = "<group>"; };
+		545CF8471E16563200B66EE8 /* MyEid.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyEid.storyboard; sourceTree = "<group>"; };
+		545CF8491E165DBA00B66EE8 /* NameAndPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameAndPhotoCell.h; sourceTree = "<group>"; };
+		545CF84A1E165DBA00B66EE8 /* NameAndPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameAndPhotoCell.m; sourceTree = "<group>"; };
+		545CF84C1E165DCF00B66EE8 /* PersonalDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalDataCell.h; sourceTree = "<group>"; };
+		545CF84D1E165DCF00B66EE8 /* PersonalDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalDataCell.m; sourceTree = "<group>"; };
+		545CF84F1E165DEC00B66EE8 /* ErrorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorCell.h; sourceTree = "<group>"; };
+		545CF8501E165DEC00B66EE8 /* ErrorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorCell.m; sourceTree = "<group>"; };
+		545CF8521E165DFB00B66EE8 /* InfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoCell.h; sourceTree = "<group>"; };
+		545CF8531E165DFB00B66EE8 /* InfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoCell.m; sourceTree = "<group>"; };
 		54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Landing.storyboard; sourceTree = "<group>"; };
 		6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B5F907F55A4D9D1590D35CB /* Pods-MoppApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -89,6 +106,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		545CF8431E1642ED00B66EE8 /* MyEID */ = {
+			isa = PBXGroup;
+			children = (
+				545CF8441E16453300B66EE8 /* MyEIDViewController.h */,
+				545CF8451E16453300B66EE8 /* MyEIDViewController.m */,
+				545CF8471E16563200B66EE8 /* MyEid.storyboard */,
+				545CF8491E165DBA00B66EE8 /* NameAndPhotoCell.h */,
+				545CF84A1E165DBA00B66EE8 /* NameAndPhotoCell.m */,
+				545CF84C1E165DCF00B66EE8 /* PersonalDataCell.h */,
+				545CF84D1E165DCF00B66EE8 /* PersonalDataCell.m */,
+				545CF84F1E165DEC00B66EE8 /* ErrorCell.h */,
+				545CF8501E165DEC00B66EE8 /* ErrorCell.m */,
+				545CF8521E165DFB00B66EE8 /* InfoCell.h */,
+				545CF8531E165DFB00B66EE8 /* InfoCell.m */,
+			);
+			name = MyEID;
+			sourceTree = "<group>";
+		};
 		BC2D5E4C8EAB0299962763A0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +186,7 @@
 				E4250CCD1E0968D200530370 /* ViewController.m */,
 				E42B08961E1562D500EA24A3 /* Landing */,
 				E42B08971E1562E500EA24A3 /* Signed */,
+				545CF8431E1642ED00B66EE8 /* MyEID */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -264,6 +300,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				545CF8481E16563200B66EE8 /* MyEid.storyboard in Resources */,
 				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
 				E4250D191E0AADB100530370 /* test.bdoc in Resources */,
@@ -359,12 +396,17 @@
 				E4250D151E0AA97B00530370 /* MPNavigationController.m in Sources */,
 				E42B08951E15617200EA24A3 /* LandingTabBarController.m in Sources */,
 				E42B088F1E155F2F00EA24A3 /* MPViewController.m in Sources */,
+				545CF84E1E165DCF00B66EE8 /* PersonalDataCell.m in Sources */,
 				E4250CCE1E0968D200530370 /* ViewController.m in Sources */,
+				545CF8541E165DFB00B66EE8 /* InfoCell.m in Sources */,
 				E4250CCB1E0968D200530370 /* AppDelegate.m in Sources */,
 				E42B08921E155F4600EA24A3 /* SignedDetailViewController.m in Sources */,
+				545CF8511E165DEC00B66EE8 /* ErrorCell.m in Sources */,
 				E4250D1F1E0AB5F100530370 /* Localizations.m in Sources */,
 				E42B089C1E15644200EA24A3 /* SignedTableViewController.m in Sources */,
 				E4250CC81E0968D200530370 /* main.m in Sources */,
+				545CF8461E16453300B66EE8 /* MyEIDViewController.m in Sources */,
+				545CF84B1E165DBA00B66EE8 /* NameAndPhotoCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

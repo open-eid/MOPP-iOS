@@ -19,7 +19,6 @@ extern NSString *const kCommandReadRecord;
 extern NSString *const kCommandReadBytes;
 extern NSString *const kCommandGetCardVersion;
 
-
 @protocol CardCommands <NSObject>
 
 - (void)cardReader:(id<CardReaderWrapper>)reader readPublicDataWithSuccess:(void (^)(MoppLibPersonalData *personalData))success failure:(FailureBlock)failure;
