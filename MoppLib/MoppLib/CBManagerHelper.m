@@ -11,6 +11,7 @@
 @interface CBManagerHelper()
 @property (nonatomic, strong) CBCentralManager *cbCentralManager;
 @property (nonatomic, strong) NSMutableArray *delegates;
+@property (nonatomic, assign) BOOL scanInProgress;
 @end
 
 @implementation CBManagerHelper
@@ -41,11 +42,13 @@ static CBManagerHelper *sharedInstance = nil;
 
 - (void)startScan {
   // TODO can we scan for card readers only?
-  [self.cbCentralManager scanForPeripheralsWithServices:nil options:nil];
+  self.scanInProgress = YES;
   self.foundPeripherals = [NSMutableArray new];
+  [self.cbCentralManager scanForPeripheralsWithServices:nil options:nil];
 }
 
 - (void)stopScan {
+  self.scanInProgress = NO;
   [self.cbCentralManager stopScan];
 }
 
@@ -82,6 +85,9 @@ static CBManagerHelper *sharedInstance = nil;
       
     case CBManagerStatePoweredOn:
       NSLog(@"Central manager state powered on");
+      if (self.scanInProgress) {
+        [self startScan];
+      }
       break;
       
     case CBManagerStateResetting:

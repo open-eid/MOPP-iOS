@@ -15,36 +15,14 @@
 
 @implementation _Localizations
 
-- (NSString *)MyEidWarningReaderNotFound {
-    return NSLocalizedStringFromTable(@"my-eid-warning-reader-not-found", nil, nil);
+- (NSString *(^)(NSString *))MyEidWarningReaderNotFound {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-warning-reader-not-found", nil, nil), value1];
+    };
 }
 
-- (NSString *)MyEidEmail {
-    return NSLocalizedStringFromTable(@"my-eid-email", nil, nil);
-}
-
-- (NSString *)TabSigned {
-    return NSLocalizedStringFromTable(@"tab-signed", nil, nil);
-}
-
-- (NSString *)MyEidPersonalCode {
-    return NSLocalizedStringFromTable(@"my-eid-personal-code", nil, nil);
-}
-
-- (NSString *)MyEidBirth {
-    return NSLocalizedStringFromTable(@"my-eid-birth", nil, nil);
-}
-
-- (NSString *)MyEidWarningCardNotFound {
-    return NSLocalizedStringFromTable(@"my-eid-warning-card-not-found", nil, nil);
-}
-
-- (NSString *)TabSigning {
-    return NSLocalizedStringFromTable(@"tab-signing", nil, nil);
-}
-
-- (NSString *)MyEidCitizenship {
-    return NSLocalizedStringFromTable(@"my-eid-citizenship", nil, nil);
+- (NSString *)MyEidTapHere {
+    return NSLocalizedStringFromTable(@"my-eid-tap-here", nil, nil);
 }
 
 - (NSString *)TabSimSettings {
@@ -55,8 +33,36 @@
     return NSLocalizedStringFromTable(@"my-eid-id-card-info", nil, nil);
 }
 
+- (NSString *)MyEidBirth {
+    return NSLocalizedStringFromTable(@"my-eid-birth", nil, nil);
+}
+
+- (NSString *)MyEidEmail {
+    return NSLocalizedStringFromTable(@"my-eid-email", nil, nil);
+}
+
+- (NSString *)TabSigned {
+    return NSLocalizedStringFromTable(@"tab-signed", nil, nil);
+}
+
+- (NSString *)MyEidCitizenship {
+    return NSLocalizedStringFromTable(@"my-eid-citizenship", nil, nil);
+}
+
 - (NSString *)TabMyEid {
     return NSLocalizedStringFromTable(@"tab-my-eid", nil, nil);
+}
+
+- (NSString *)TabSigning {
+    return NSLocalizedStringFromTable(@"tab-signing", nil, nil);
+}
+
+- (NSString *)MyEidWarningCardNotFound {
+    return NSLocalizedStringFromTable(@"my-eid-warning-card-not-found", nil, nil);
+}
+
+- (NSString *)MyEidPersonalCode {
+    return NSLocalizedStringFromTable(@"my-eid-personal-code", nil, nil);
 }
 
 + (_Localizations *)sharedInstance {

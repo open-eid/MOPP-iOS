@@ -12,6 +12,7 @@
 #import "PersonalDataCell.h"
 #import "ErrorCell.h"
 #import "InfoCell.h"
+#import "UITextView+Additions.h"
 
 typedef enum : NSUInteger {
   PersonalDataSectionErrors,
@@ -19,7 +20,7 @@ typedef enum : NSUInteger {
   PersonalDataSectionInfo
 } PersonalDataSection;
 
-@interface MyEIDViewController ()
+@interface MyEIDViewController () <UITextViewDelegate>
 @property (nonatomic, strong) MoppLibPersonalData *personalData;
 @property (nonatomic, strong) NSArray *sectionData;
 @property (nonatomic, assign) BOOL isReaderConnected;
@@ -40,20 +41,25 @@ typedef enum : NSUInteger {
   
   [MoppLibCardActions isCardInserted:^(BOOL isInserted) {
     self.isCardInserted = isInserted;
-  }];
-  
-  
-  [MoppLibCardActions cardPersonalDataWithViewController:self success:^(MoppLibPersonalData *data) {
-    self.personalData = data;
     
-  } failure:^(NSError *error) {
-    self.personalData = nil;
+    if (self.isReaderConnected && self.isCardInserted) {
+      [self updateCardData];
+    }
   }];
 }
 
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
+}
+
+- (void)updateCardData {
+  [MoppLibCardActions cardPersonalDataWithViewController:self success:^(MoppLibPersonalData *data) {
+    self.personalData = data;
+    
+  } failure:^(NSError *error) {
+    self.personalData = nil;
+  }];
 }
 
 - (void)setPersonalData:(MoppLibPersonalData *)personalData {
@@ -102,15 +108,19 @@ typedef enum : NSUInteger {
     if (!self.isReaderConnected || !isInserted) {
       self.personalData = nil;
     } else {
-      [MoppLibCardActions cardPersonalDataWithViewController:self success:^(MoppLibPersonalData *data) {
-        self.personalData = data;
-        
-      } failure:^(NSError *error) {
-        self.personalData = nil;
-      }];
+      [self updateCardData];
     }
   }];
 }
+
+NSString *readerNotFoundPath = @"warning://readerNotConnected";
+
+- (void)setupReaderNotFoundMessage:(UITextView *)textView {
+  NSString *tapHere = Localizations.MyEidTapHere;
+  [textView setLinkedText:Localizations.MyEidWarningReaderNotFound(tapHere) withLinks:@{readerNotFoundPath:tapHere}];
+}
+
+#pragma mark - TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
   return self.sectionData.count;
@@ -139,9 +149,9 @@ typedef enum : NSUInteger {
   if (sectionData.intValue == PersonalDataSectionErrors) {
     ErrorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WarningCell" forIndexPath:indexPath];
     if (!self.isReaderConnected) {
-      cell.errorLabel.text = Localizations.MyEidWarningReaderNotFound;
-    } else if (!self.isCardInserted){
-      cell.errorLabel.text = Localizations.MyEidWarningCardNotFound;
+      [self setupReaderNotFoundMessage:cell.errorTextView];
+    } else if (!self.isCardInserted) {
+      cell.errorTextView.text = Localizations.MyEidWarningCardNotFound;
     }
     return cell;
   }
@@ -202,6 +212,17 @@ typedef enum : NSUInteger {
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
   return UITableViewAutomaticDimension;
+}
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
+  if ([[URL absoluteString] isEqualToString:readerNotFoundPath]) {
+    [self updateCardData];
+    return NO;
+  }
+  
+  return YES; // let the system open this URL
 }
 /*
  #pragma mark - Navigation

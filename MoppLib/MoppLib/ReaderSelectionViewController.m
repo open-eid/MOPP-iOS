@@ -26,6 +26,9 @@
   [super viewDidLoad];
   // Do any additional setup after loading the view.
   
+  [[CBManagerHelper sharedInstance] startScan];
+
+  
   [[CBManagerHelper sharedInstance] addDelegate:self];
   
   self.title = NSLocalizedString(@"Select reader", nil);
@@ -99,7 +102,7 @@
       break;
       
     case CBManagerStatePoweredOn:
-      [[CBManagerHelper sharedInstance] startScan];
+     // [[CBManagerHelper sharedInstance] startScan];
       
       break;
       

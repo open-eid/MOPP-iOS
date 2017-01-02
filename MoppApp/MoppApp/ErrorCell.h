@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ErrorCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
+@property (weak, nonatomic) IBOutlet UITextView *errorTextView;
 
 @end

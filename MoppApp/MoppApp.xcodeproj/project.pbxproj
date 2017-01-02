@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		51EAB865AC99468B5AC77D6C /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
+		540786E91E1A76640016ABA7 /* UITextView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.m */; };
 		545CF8461E16453300B66EE8 /* MyEIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8451E16453300B66EE8 /* MyEIDViewController.m */; };
 		545CF8481E16563200B66EE8 /* MyEid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545CF8471E16563200B66EE8 /* MyEid.storyboard */; };
 		545CF84B1E165DBA00B66EE8 /* NameAndPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF84A1E165DBA00B66EE8 /* NameAndPhotoCell.m */; };
@@ -48,6 +49,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		540786E71E1A76640016ABA7 /* UITextView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Additions.h"; sourceTree = "<group>"; };
+		540786E81E1A76640016ABA7 /* UITextView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Additions.m"; sourceTree = "<group>"; };
 		545CF8441E16453300B66EE8 /* MyEIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIDViewController.h; sourceTree = "<group>"; };
 		545CF8451E16453300B66EE8 /* MyEIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEIDViewController.m; sourceTree = "<group>"; };
 		545CF8471E16563200B66EE8 /* MyEid.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyEid.storyboard; sourceTree = "<group>"; };
@@ -106,6 +109,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		540786E61E1A76280016ABA7 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				540786E71E1A76640016ABA7 /* UITextView+Additions.h */,
+				540786E81E1A76640016ABA7 /* UITextView+Additions.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		545CF8431E1642ED00B66EE8 /* MyEID */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +168,7 @@
 			children = (
 				E4250CC91E0968D200530370 /* AppDelegate.h */,
 				E4250CCA1E0968D200530370 /* AppDelegate.m */,
+				540786E61E1A76280016ABA7 /* Category */,
 				E4250D121E0AA93F00530370 /* Base */,
 				E4250D0B1E0AA84A00530370 /* ViewController */,
 				E4250CD21E0968D200530370 /* Assets.xcassets */,
@@ -399,6 +412,7 @@
 				545CF84E1E165DCF00B66EE8 /* PersonalDataCell.m in Sources */,
 				E4250CCE1E0968D200530370 /* ViewController.m in Sources */,
 				545CF8541E165DFB00B66EE8 /* InfoCell.m in Sources */,
+				540786E91E1A76640016ABA7 /* UITextView+Additions.m in Sources */,
 				E4250CCB1E0968D200530370 /* AppDelegate.m in Sources */,
 				E42B08921E155F4600EA24A3 /* SignedDetailViewController.m in Sources */,
 				545CF8511E165DEC00B66EE8 /* ErrorCell.m in Sources */,
