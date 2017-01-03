@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UITextView+Additions.h"
 
 @interface ErrorCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UITextView *errorTextView;

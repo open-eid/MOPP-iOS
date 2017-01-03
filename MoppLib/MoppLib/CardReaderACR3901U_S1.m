@@ -114,7 +114,7 @@
 - (void)isCardInserted:(void(^)(BOOL)) completion {
   if (self.cardStatus == ABTBluetoothReaderCardStatusPowerSavingMode) {
     [self getCardStatusWithSuccess:^(NSData *responseObject) {
-      completion(ABTBluetoothReaderCardStatusPresent || self.cardStatus == ABTBluetoothReaderCardStatusPowered);
+      completion(self.cardStatus == ABTBluetoothReaderCardStatusPresent || self.cardStatus == ABTBluetoothReaderCardStatusPowered);
       
     } failure:^(NSError *error) {
       completion(NO);

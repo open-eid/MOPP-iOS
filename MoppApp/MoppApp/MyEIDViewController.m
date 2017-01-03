@@ -12,7 +12,6 @@
 #import "PersonalDataCell.h"
 #import "ErrorCell.h"
 #import "InfoCell.h"
-#import "UITextView+Additions.h"
 #import "SimpleHeaderView.h"
 
 typedef enum : NSUInteger {
