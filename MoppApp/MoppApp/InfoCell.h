@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface InfoCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *infoLabel;
+@property (weak, nonatomic) IBOutlet UITextView *infoTextView;
 
 @end

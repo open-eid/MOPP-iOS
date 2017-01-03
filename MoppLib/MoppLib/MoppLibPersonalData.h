@@ -33,4 +33,11 @@
  * @return Full name of card owner
  */
 - (NSString *)fullName;
+
+/**
+ * Gives full given name of card owner
+ *
+ * @return Given name of card owner
+ */
+- (NSString *)givenNames;
 @end

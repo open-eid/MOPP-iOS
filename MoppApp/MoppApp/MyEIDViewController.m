@@ -13,10 +13,13 @@
 #import "ErrorCell.h"
 #import "InfoCell.h"
 #import "UITextView+Additions.h"
+#import "SimpleHeaderView.h"
 
 typedef enum : NSUInteger {
   PersonalDataSectionErrors,
   PersonalDataSectionData,
+  PersonalDataSectionEid,
+  PersonalDataSectionSigningCert,
   PersonalDataSectionInfo
 } PersonalDataSection;
 
@@ -25,6 +28,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) NSArray *sectionData;
 @property (nonatomic, assign) BOOL isReaderConnected;
 @property (nonatomic, assign) BOOL isCardInserted;
+@property (strong, nonatomic) IBOutlet UIView *sectionHeaderLine;
 @end
 
 @implementation MyEIDViewController
@@ -32,6 +36,7 @@ typedef enum : NSUInteger {
 - (void)viewDidLoad {
   [super viewDidLoad];
   // Do any additional setup after loading the view.
+  self.title = Localizations.MyEidMyEid;
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardStatusChanged) name:kMoppLibNotificationReaderStatusChanged object:nil];
   
@@ -92,6 +97,8 @@ typedef enum : NSUInteger {
     
   } else if (self.personalData) {
     [array addObject:[NSNumber numberWithInt:PersonalDataSectionData]];
+    [array addObject:[NSNumber numberWithInt:PersonalDataSectionEid]];
+    [array addObject:[NSNumber numberWithInt:PersonalDataSectionSigningCert]];
   }
   
   [array addObject:[NSNumber numberWithInt:PersonalDataSectionInfo]];
@@ -113,11 +120,18 @@ typedef enum : NSUInteger {
   }];
 }
 
-NSString *readerNotFoundPath = @"warning://readerNotConnected";
+NSString *readerNotFoundPath = @"myeid://readerNotConnected";
 
 - (void)setupReaderNotFoundMessage:(UITextView *)textView {
   NSString *tapHere = Localizations.MyEidTapHere;
   [textView setLinkedText:Localizations.MyEidWarningReaderNotFound(tapHere) withLinks:@{readerNotFoundPath:tapHere}];
+}
+
+NSString *idCardIntroPath = @"myeid://readIDCardInfo";
+
+- (void)setupIDCardIntroMessage:(UITextView *)textView {
+  NSString *tapHere = Localizations.MyEidFindMoreInfo;
+  [textView setLinkedText:Localizations.MyEidIdCardInfo(tapHere) withLinks:@{idCardIntroPath:tapHere}];
 }
 
 #pragma mark - TableView
@@ -140,6 +154,14 @@ NSString *readerNotFoundPath = @"warning://readerNotConnected";
     return 5;
   }
   
+  if (sectionData.intValue == PersonalDataSectionEid) {
+    return 3;
+  }
+  
+  if (sectionData.intValue == PersonalDataSectionSigningCert) {
+    return 3;
+  }
+  
   return 0;
 }
 
@@ -158,45 +180,93 @@ NSString *readerNotFoundPath = @"warning://readerNotConnected";
   
   if (sectionData.intValue == PersonalDataSectionInfo) {
     InfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell" forIndexPath:indexPath];
-    cell.infoLabel.text = Localizations.MyEidIdCardInfo;
+    [self setupIDCardIntroMessage:cell.infoTextView];
     return cell;
   }
   
+  NSString *titleString;
+  NSString *dataString;
+  
   if (sectionData.intValue == PersonalDataSectionData) {
-    if (indexPath.row == 0) {
-      NameAndPhotoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NameAndPhotoCell" forIndexPath:indexPath];
-      cell.nameLabel.text = [self.personalData fullName];
-      return cell;
-    }
-    
-    PersonalDataCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PersonalDataCell" forIndexPath:indexPath];
-    
-    NSString *titleString;
-    NSString *dataString;
-    
     switch (indexPath.row) {
+      case 0:
+        titleString = Localizations.MyEidGivenNames;
+        dataString = [self.personalData givenNames];
+        break;
+        
       case 1:
+        titleString = Localizations.MyEidSurname;
+        dataString = self.personalData.surname;
+        break;
+        
+      case 2:
         titleString = Localizations.MyEidPersonalCode;
         dataString = self.personalData.personalIdentificationCode;
         break;
-      case 2:
+        
+      case 3:
         titleString = Localizations.MyEidBirth;
         dataString = self.personalData.birthDate;
         break;
-      case 3:
+        
+      case 4:
         titleString = Localizations.MyEidCitizenship;
         dataString = self.personalData.nationality;
         break;
-      case 4:
+        
+      /*case 5:
         titleString = Localizations.MyEidEmail;
         dataString = @"";
         break;
-        
+        */
         
       default:
         break;
     }
-    
+  }
+  
+  if (sectionData.intValue == PersonalDataSectionEid) {
+    switch (indexPath.row) {
+      case 0:
+        titleString = Localizations.MyEidCardInReader;
+        dataString = self.personalData.documentNumber;
+        break;
+      case 1:
+        titleString = Localizations.MyEidValidity;
+        dataString = Localizations.MyEidValid;
+        break;
+      case 2:
+        titleString = Localizations.MyEidValidUntil;
+        dataString = self.personalData.expiryDate;
+        break;
+        
+      default:
+        break;
+    }
+  }
+  
+  if (sectionData.intValue == PersonalDataSectionSigningCert) {
+    switch (indexPath.row) {
+      case 0:
+        titleString = Localizations.MyEidValidity;
+        dataString = @"-";
+        break;
+      case 1:
+        titleString = Localizations.MyEidValidUntil;
+        dataString = @"-";
+        break;
+      case 2:
+        titleString = Localizations.MyEidUseCount;
+        dataString = @"-";
+        break;
+        
+      default:
+        break;
+    }
+  }
+  
+  if (titleString.length > 0 || dataString.length > 0) {
+    PersonalDataCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PersonalDataCell" forIndexPath:indexPath];
     cell.titleLabel.text = titleString;
     cell.dataLabel.text = dataString;
     
@@ -214,12 +284,57 @@ NSString *readerNotFoundPath = @"warning://readerNotConnected";
   return UITableViewAutomaticDimension;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+  NSNumber *sectionData = self.sectionData[section];
+  
+  if (sectionData.intValue == PersonalDataSectionErrors) {
+    return CGFLOAT_MIN;
+  }
+    return 40;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+  return CGFLOAT_MIN;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+  NSNumber *sectionData = self.sectionData[section];
+  
+  if (sectionData.intValue == PersonalDataSectionInfo) {
+    return self.sectionHeaderLine;
+    
+  } else {
+    NSString *title;
+    
+    
+    if (sectionData.intValue == PersonalDataSectionData) {
+      title = Localizations.MyEidPersonalData;
+    } else if (sectionData.intValue == PersonalDataSectionEid) {
+      title = Localizations.MyEidEid;
+    } else if (sectionData.intValue == PersonalDataSectionSigningCert) {
+      title = Localizations.MyEidSignatureCertificate;
+    }
+    
+    if (title.length > 0) {
+      SimpleHeaderView *header =  [[[NSBundle mainBundle] loadNibNamed:@"SimpleHeaderView" owner:self options:nil] objectAtIndex:0];
+      header.titleLabel.text= title;
+      return header;
+    }
+  }
+  
+  return nil;
+}
+
 #pragma mark - UITextViewDelegate
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
   if ([[URL absoluteString] isEqualToString:readerNotFoundPath]) {
     [self updateCardData];
     return NO;
+    
+  } else if ([[URL absoluteString] isEqualToString:idCardIntroPath]) {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:Localizations.MyEidIdCardInfoLink]];
+
   }
   
   return YES; // let the system open this URL

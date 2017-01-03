@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		51EAB865AC99468B5AC77D6C /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
 		540786E91E1A76640016ABA7 /* UITextView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.m */; };
+		540786ED1E1A8C650016ABA7 /* ViewWithRoundedCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = 540786EC1E1A8C650016ABA7 /* ViewWithRoundedCorners.m */; };
+		540786F01E1A96900016ABA7 /* SimpleHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 540786EF1E1A96900016ABA7 /* SimpleHeaderView.m */; };
+		540786F41E1AA1B30016ABA7 /* SimpleHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 540786F31E1AA1B30016ABA7 /* SimpleHeaderView.xib */; };
 		545CF8461E16453300B66EE8 /* MyEIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8451E16453300B66EE8 /* MyEIDViewController.m */; };
 		545CF8481E16563200B66EE8 /* MyEid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545CF8471E16563200B66EE8 /* MyEid.storyboard */; };
 		545CF84B1E165DBA00B66EE8 /* NameAndPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF84A1E165DBA00B66EE8 /* NameAndPhotoCell.m */; };
@@ -51,6 +54,11 @@
 /* Begin PBXFileReference section */
 		540786E71E1A76640016ABA7 /* UITextView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Additions.h"; sourceTree = "<group>"; };
 		540786E81E1A76640016ABA7 /* UITextView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Additions.m"; sourceTree = "<group>"; };
+		540786EB1E1A8C650016ABA7 /* ViewWithRoundedCorners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewWithRoundedCorners.h; sourceTree = "<group>"; };
+		540786EC1E1A8C650016ABA7 /* ViewWithRoundedCorners.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewWithRoundedCorners.m; sourceTree = "<group>"; };
+		540786EE1E1A96900016ABA7 /* SimpleHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleHeaderView.h; sourceTree = "<group>"; };
+		540786EF1E1A96900016ABA7 /* SimpleHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleHeaderView.m; sourceTree = "<group>"; };
+		540786F31E1AA1B30016ABA7 /* SimpleHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SimpleHeaderView.xib; sourceTree = "<group>"; };
 		545CF8441E16453300B66EE8 /* MyEIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIDViewController.h; sourceTree = "<group>"; };
 		545CF8451E16453300B66EE8 /* MyEIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEIDViewController.m; sourceTree = "<group>"; };
 		545CF8471E16563200B66EE8 /* MyEid.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyEid.storyboard; sourceTree = "<group>"; };
@@ -118,6 +126,18 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		540786EA1E1A8BE90016ABA7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				540786EB1E1A8C650016ABA7 /* ViewWithRoundedCorners.h */,
+				540786EC1E1A8C650016ABA7 /* ViewWithRoundedCorners.m */,
+				540786EE1E1A96900016ABA7 /* SimpleHeaderView.h */,
+				540786EF1E1A96900016ABA7 /* SimpleHeaderView.m */,
+				540786F31E1AA1B30016ABA7 /* SimpleHeaderView.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		545CF8431E1642ED00B66EE8 /* MyEID */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +190,7 @@
 				E4250CCA1E0968D200530370 /* AppDelegate.m */,
 				540786E61E1A76280016ABA7 /* Category */,
 				E4250D121E0AA93F00530370 /* Base */,
+				540786EA1E1A8BE90016ABA7 /* View */,
 				E4250D0B1E0AA84A00530370 /* ViewController */,
 				E4250CD21E0968D200530370 /* Assets.xcassets */,
 				E4250CC61E0968D200530370 /* Supporting Files */,
@@ -316,6 +337,7 @@
 				545CF8481E16563200B66EE8 /* MyEid.storyboard in Resources */,
 				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
+				540786F41E1AA1B30016ABA7 /* SimpleHeaderView.xib in Resources */,
 				E4250D191E0AADB100530370 /* test.bdoc in Resources */,
 				54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */,
 				E42B08991E1562F400EA24A3 /* Signed.storyboard in Resources */,
@@ -406,6 +428,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				540786F01E1A96900016ABA7 /* SimpleHeaderView.m in Sources */,
 				E4250D151E0AA97B00530370 /* MPNavigationController.m in Sources */,
 				E42B08951E15617200EA24A3 /* LandingTabBarController.m in Sources */,
 				E42B088F1E155F2F00EA24A3 /* MPViewController.m in Sources */,
@@ -413,6 +436,7 @@
 				E4250CCE1E0968D200530370 /* ViewController.m in Sources */,
 				545CF8541E165DFB00B66EE8 /* InfoCell.m in Sources */,
 				540786E91E1A76640016ABA7 /* UITextView+Additions.m in Sources */,
+				540786ED1E1A8C650016ABA7 /* ViewWithRoundedCorners.m in Sources */,
 				E4250CCB1E0968D200530370 /* AppDelegate.m in Sources */,
 				E42B08921E155F4600EA24A3 /* SignedDetailViewController.m in Sources */,
 				545CF8511E165DEC00B66EE8 /* ErrorCell.m in Sources */,

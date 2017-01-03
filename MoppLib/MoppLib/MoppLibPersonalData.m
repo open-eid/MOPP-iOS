@@ -12,6 +12,24 @@
 
 - (NSString *)fullName {
   NSMutableString *name = [NSMutableString new];
+  NSString *givenNames = [self givenNames];
+  
+  if (self.givenNames.length > 0) {
+    [name appendString:self.givenNames];
+  }
+  
+  if (self.surname.length > 0) {
+    if (name.length > 0) {
+      [name appendString:@" "];
+    }
+    [name appendString:self.surname];
+  }
+  
+  return name;
+}
+
+- (NSString *)givenNames {
+  NSMutableString *name = [NSMutableString new];
   if (self.firstNameLine1.length > 0) {
     [name appendString:self.firstNameLine1];
   }
@@ -21,13 +39,6 @@
       [name appendString:@" "];
     }
     [name appendString:self.firstNameLine2];
-  }
-  
-  if (self.surname.length > 0) {
-    if (name.length > 0) {
-      [name appendString:@" "];
-    }
-    [name appendString:self.surname];
   }
   
   return name;
