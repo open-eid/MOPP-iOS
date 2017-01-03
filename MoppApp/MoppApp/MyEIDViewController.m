@@ -101,7 +101,9 @@ typedef enum : NSUInteger {
     [array addObject:[NSNumber numberWithInt:PersonalDataSectionSigningCert]];
   }
   
-  [array addObject:[NSNumber numberWithInt:PersonalDataSectionInfo]];
+  if (!self.personalData) {
+    [array addObject:[NSNumber numberWithInt:PersonalDataSectionInfo]];
+  }
   
   self.sectionData = array;
 }
