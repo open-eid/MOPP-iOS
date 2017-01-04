@@ -14,6 +14,8 @@
 #import "InfoCell.h"
 #import "SimpleHeaderView.h"
 #import "NSDate+Additions.h"
+#import "NSString+Additions.h"
+#import "UIColor+Additions.h"
 
 typedef enum : NSUInteger {
   PersonalDataSectionErrors,
@@ -25,7 +27,7 @@ typedef enum : NSUInteger {
 
 @interface MyEIDViewController () <UITextViewDelegate>
 @property (nonatomic, strong) MoppLibPersonalData *personalData;
-@property (nonatomic, strong) MoppLibCertData *sigingCertData;
+@property (nonatomic, strong) MoppLibCertData *signingCertData;
 @property (nonatomic, strong) NSArray *sectionData;
 @property (nonatomic, assign) BOOL isReaderConnected;
 @property (nonatomic, assign) BOOL isCardInserted;
@@ -71,15 +73,15 @@ typedef enum : NSUInteger {
 
 - (void)updateCertData {
   [MoppLibCardActions signingCertWithViewController:self success:^(MoppLibCertData *data) {
-    self.sigingCertData = data;
+    self.signingCertData = data;
     
   } failure:^(NSError *error) {
-    self.sigingCertData = nil;
+    self.signingCertData = nil;
   }];
 }
 
-- (void)setSigningCertData:(MoppLibCertData *)sigingCertData {
-  _sigingCertData = sigingCertData;
+- (void)setSigningCertData:(MoppLibCertData *)signingCertData {
+  _signingCertData = signingCertData;
   [self.tableView reloadData];
 }
 
@@ -132,6 +134,7 @@ typedef enum : NSUInteger {
     
     if (!self.isReaderConnected || !isInserted) {
       self.personalData = nil;
+      self.signingCertData = nil;
     } else {
       [self updateCardData];
       [self updateCertData];
@@ -205,6 +208,7 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
   
   NSString *titleString;
   NSString *dataString;
+  UIColor *labelColor = [UIColor blackColor];
   
   if (sectionData.intValue == PersonalDataSectionData) {
     switch (indexPath.row) {
@@ -250,10 +254,13 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
         titleString = Localizations.MyEidCardInReader;
         dataString = self.personalData.documentNumber;
         break;
-      case 1:
+      case 1: {
+        BOOL isCardValid = [[NSDate date] compare:[self.personalData.expiryDate expiryDateStringToDate]] == NSOrderedAscending;
         titleString = Localizations.MyEidValidity;
-        dataString = Localizations.MyEidValid;
+        dataString = isCardValid ? Localizations.MyEidValid : Localizations.MyEidNotValid;
+        labelColor = isCardValid ? [UIColor darkGreen] : [UIColor red];
         break;
+      }
       case 2:
         titleString = Localizations.MyEidValidUntil;
         dataString = self.personalData.expiryDate;
@@ -268,8 +275,10 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
     switch (indexPath.row) {
       case 0: {
         titleString = Localizations.MyEidValidity;
-        if (self.sigingCertData) {
-          dataString = self.sigingCertData.isValid ? Localizations.MyEidValid : Localizations.MyEidNotValid;
+        if (self.signingCertData) {
+          BOOL isValid = self.signingCertData.isValid && [[NSDate date] compare:self.signingCertData.expiryDate] == NSOrderedAscending;
+          dataString = isValid ? Localizations.MyEidValid : Localizations.MyEidNotValid;
+          labelColor = isValid ? [UIColor darkGreen] : [UIColor red];
 
         } else {
           dataString = @"-";
@@ -278,8 +287,8 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
       }
       case 1:
         titleString = Localizations.MyEidValidUntil;
-        if (self.sigingCertData) {
-          dataString = [self.sigingCertData.expiryDate expiryDateString];
+        if (self.signingCertData) {
+          dataString = [self.signingCertData.expiryDate expiryDateString];
           
         } else {
           dataString = @"-";
@@ -288,8 +297,8 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
       case 2:
         titleString = Localizations.MyEidUseCount;
         
-        if (self.sigingCertData) {
-          dataString = @"-";
+        if (self.signingCertData) {
+          dataString = self.signingCertData.usageCount == 1 ? Localizations.MyEidUsedOnce : Localizations.MyEidTimesUsed(self.signingCertData.usageCount);
           
         } else {
           dataString = @"-";
@@ -305,6 +314,7 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
     PersonalDataCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PersonalDataCell" forIndexPath:indexPath];
     cell.titleLabel.text = titleString;
     cell.dataLabel.text = dataString;
+    cell.dataLabel.textColor = labelColor;
     
     return cell;
   }

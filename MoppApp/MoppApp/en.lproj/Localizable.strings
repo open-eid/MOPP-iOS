@@ -18,10 +18,12 @@
 "my-eid-valid-until" = "Valid until:";
 "my-eid-use-count" = "Used:";
 "my-eid-validity" = "Validity:";
-"my-eid-valid" = "Valid";
+"my-eid-valid" = "Valid and usable";
 "my-eid-not-valid" = "Not valid";
 "my-eid-valid-until" = "Valid until:";
 "my-eid-personal-data" = "Personal data";
+"my-eid-times-used" = "%i times";
+"my-eid-used-once" = "1 time";
 "my-eid-eid" = "eID";
 "my-eid-signature-certificate" = "Signature certificate";
 "my-eid-my-eid" = "My eID";

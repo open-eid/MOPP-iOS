@@ -15,7 +15,7 @@
 
 @interface _Localizations : NSObject
 
-/// Base translation: Valid
+/// Base translation: Valid and usable
 - (NSString *)MyEidValid;
 
 /// Base translation: Validity:
@@ -78,6 +78,11 @@
 
 /// Base translation: Signature certificate
 - (NSString *)MyEidSignatureCertificate;
+
+/// Base translation: %i times
+- (NSString *(^)(int))MyEidTimesUsed;
+/// Base translation: 1 time
+- (NSString *)MyEidUsedOnce;
 
 /// Base translation: SIM settings
 - (NSString *)TabSimSettings;

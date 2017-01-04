@@ -18,10 +18,12 @@
 "my-eid-valid-until" = "Kehtiv kuni:";
 "my-eid-use-count" = "Kasutatud:";
 "my-eid-validity" = "Kehtivus:";
-"my-eid-valid" = "Kehtiv";
+"my-eid-valid" = "Kehtiv ja kasutatav";
 "my-eid-not-valid" = "Kehtetu";
 "my-eid-valid-until" = "Kehtib kuni:";
 "my-eid-personal-data" = "Isikuandmed";
+"my-eid-times-used" = "%i korda";
+"my-eid-used-once" = "1 kord";
 "my-eid-eid" = "eID";
 "my-eid-signature-certificate" = "Allkirjastamise sertifikaat";
 "my-eid-my-eid" = "Minu eID";

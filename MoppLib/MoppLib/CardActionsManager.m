@@ -214,9 +214,19 @@ static CardActionsManager *sharedInstance = nil;
         MoppLibCertData *certData = [MoppLibCertData new];
         [MoppLibCertificate certData:certData updateWithData:[data bytes] length:data.length];
         
-        
-        actionObject.successBlock(certData);
-        [self finishCurrentAction];
+        [self.cardVersionHandler cardReader:self.cardReader readSecretKeyRecord:1 withSuccess:^(NSData *data) {
+          NSData *keyUsageData = [data subdataWithRange:NSMakeRange(12, 3)];
+          int counterStart = [@"FF FF FF" hexToInt];
+          int counterValue = [[keyUsageData toHexString] hexToInt];
+          certData.usageCount = counterStart - counterValue;
+          
+          actionObject.successBlock(certData);
+          [self finishCurrentAction];
+          
+        } failure:^(NSError *error) {
+          actionObject.failureBlock(error);
+          [self finishCurrentAction];
+        }];
         
       } failure:^(NSError *error) {
         actionObject.failureBlock(error);

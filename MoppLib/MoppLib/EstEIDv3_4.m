@@ -188,4 +188,23 @@ int maxReadLength = 254;
     } failure:failure];
   };
 }
+
+- (void)cardReader:(id<CardReaderWrapper>)reader readSecretKeyRecord:(NSInteger)record withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
+  void (^readRecord)(NSData *) = ^void (NSData *responseObject) {
+    [reader transmitCommand:[NSString stringWithFormat:kCommandReadRecord, record] success:^(NSData *responseObject) {
+      success(responseObject);
+      
+    } failure:failure];
+  };
+  
+  void (^select0013)(NSData *) = ^void (NSData *responseObject) {
+    [reader transmitCommand:kCommandSelectFile0013 success:readRecord failure:failure];
+  };
+  
+  void (^selectEEEE)(NSData *) = ^void (NSData *responseObject) {
+    [reader transmitCommand:kCommandSelectFileEEEE success:select0013 failure:failure];
+  };
+  
+  [reader transmitCommand:kCommandSelectFileMaster success:selectEEEE failure:failure];
+}
 @end

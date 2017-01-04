@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface UIColor (Additions)
-
++ (UIColor *)darkGreen;
++ (UIColor *)red;
 @end

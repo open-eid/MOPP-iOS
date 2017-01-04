@@ -11,5 +11,5 @@
 @interface NSDate (Additions)
 
 - (NSString *)expiryDateString;
-
++ (NSDateFormatter *)formatter;
 @end

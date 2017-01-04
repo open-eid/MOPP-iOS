@@ -107,6 +107,16 @@
     return NSLocalizedStringFromTable(@"my-eid-signature-certificate", nil, nil);
 }
 
+- (NSString *(^)(int))MyEidTimesUsed {
+    return ^(int value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-times-used", nil, nil), value1];
+    };
+}
+
+- (NSString *)MyEidUsedOnce {
+    return NSLocalizedStringFromTable(@"my-eid-used-once", nil, nil);
+}
+
 - (NSString *)TabSimSettings {
     return NSLocalizedStringFromTable(@"tab-sim-settings", nil, nil);
 }
