@@ -10,6 +10,7 @@
 
 NSString *const kThemeDarkGreen = @"5DA54B";
 NSString *const kThemeRed = @"d52d37";
+NSString *const kThemeDarkBlue = @"00365C";
 
 @implementation UIColor (Additions)
 
@@ -31,8 +32,12 @@ NSString *const kThemeRed = @"d52d37";
   return [self colorFromHexString:kThemeDarkGreen];
 }
 
++ (UIColor *)darkBlue {
+  return [self colorFromHexString:kThemeDarkBlue];
+}
+
 + (UIColor *)red {
-  return [self colorFromHexString:kThemeDarkGreen];
+  return [self colorFromHexString:kThemeRed];
 }
 
 @end
