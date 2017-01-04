@@ -25,13 +25,15 @@
 		E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4250D091E0AA7AF00530370 /* LaunchScreen.xib */; };
 		E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
 		E4250D151E0AA97B00530370 /* MPNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250D141E0AA97B00530370 /* MPNavigationController.m */; };
-		E4250D191E0AADB100530370 /* test.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E4250D181E0AADB100530370 /* test.bdoc */; };
 		E4250D1F1E0AB5F100530370 /* Localizations.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250D1E1E0AB5F100530370 /* Localizations.m */; };
 		E42B088F1E155F2F00EA24A3 /* MPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B088E1E155F2F00EA24A3 /* MPViewController.m */; };
 		E42B08921E155F4600EA24A3 /* SignedDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08911E155F4600EA24A3 /* SignedDetailViewController.m */; };
 		E42B08951E15617200EA24A3 /* LandingTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08941E15617200EA24A3 /* LandingTabBarController.m */; };
 		E42B08991E1562F400EA24A3 /* Signed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E42B08981E1562F400EA24A3 /* Signed.storyboard */; };
 		E42B089C1E15644200EA24A3 /* SignedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B089B1E15644200EA24A3 /* SignedTableViewController.m */; };
+		E42B089F1E1AB27200EA24A3 /* test1.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E42B089D1E1AB27200EA24A3 /* test1.bdoc */; };
+		E42B08A01E1AB27200EA24A3 /* test2.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E42B089E1E1AB27200EA24A3 /* test2.bdoc */; };
+		E42B08A31E1ABF2C00EA24A3 /* SignedContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08A21E1ABF2C00EA24A3 /* SignedContainerCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -81,7 +83,6 @@
 		E4250D111E0AA8EE00530370 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E4250D131E0AA97B00530370 /* MPNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNavigationController.h; sourceTree = "<group>"; };
 		E4250D141E0AA97B00530370 /* MPNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPNavigationController.m; sourceTree = "<group>"; };
-		E4250D181E0AADB100530370 /* test.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.bdoc; sourceTree = "<group>"; };
 		E4250D1A1E0AB1B300530370 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		E4250D1D1E0AB5F100530370 /* Localizations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Localizations.h; sourceTree = "<group>"; };
 		E4250D1E1E0AB5F100530370 /* Localizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Localizations.m; sourceTree = "<group>"; };
@@ -94,6 +95,10 @@
 		E42B08981E1562F400EA24A3 /* Signed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Signed.storyboard; sourceTree = "<group>"; };
 		E42B089A1E15644200EA24A3 /* SignedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignedTableViewController.h; sourceTree = "<group>"; };
 		E42B089B1E15644200EA24A3 /* SignedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignedTableViewController.m; sourceTree = "<group>"; };
+		E42B089D1E1AB27200EA24A3 /* test1.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test1.bdoc; sourceTree = "<group>"; };
+		E42B089E1E1AB27200EA24A3 /* test2.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test2.bdoc; sourceTree = "<group>"; };
+		E42B08A11E1ABF2C00EA24A3 /* SignedContainerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignedContainerCell.h; sourceTree = "<group>"; };
+		E42B08A21E1ABF2C00EA24A3 /* SignedContainerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignedContainerCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,7 +189,8 @@
 				E4250D0D1E0AA8E500530370 /* Localizable.strings */,
 				E4250CC71E0968D200530370 /* main.m */,
 				E4250D091E0AA7AF00530370 /* LaunchScreen.xib */,
-				E4250D181E0AADB100530370 /* test.bdoc */,
+				E42B089D1E1AB27200EA24A3 /* test1.bdoc */,
+				E42B089E1E1AB27200EA24A3 /* test2.bdoc */,
 				E4250D1A1E0AB1B300530370 /* PrefixHeader.pch */,
 				E4250D1D1E0AB5F100530370 /* Localizations.h */,
 				E4250D1E1E0AB5F100530370 /* Localizations.m */,
@@ -228,11 +234,13 @@
 		E42B08971E1562E500EA24A3 /* Signed */ = {
 			isa = PBXGroup;
 			children = (
+				E42B08981E1562F400EA24A3 /* Signed.storyboard */,
 				E42B089A1E15644200EA24A3 /* SignedTableViewController.h */,
 				E42B089B1E15644200EA24A3 /* SignedTableViewController.m */,
+				E42B08A11E1ABF2C00EA24A3 /* SignedContainerCell.h */,
+				E42B08A21E1ABF2C00EA24A3 /* SignedContainerCell.m */,
 				E42B08901E155F4600EA24A3 /* SignedDetailViewController.h */,
 				E42B08911E155F4600EA24A3 /* SignedDetailViewController.m */,
-				E42B08981E1562F400EA24A3 /* Signed.storyboard */,
 			);
 			name = Signed;
 			sourceTree = "<group>";
@@ -313,10 +321,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E42B089F1E1AB27200EA24A3 /* test1.bdoc in Resources */,
 				545CF8481E16563200B66EE8 /* MyEid.storyboard in Resources */,
+				E42B08A01E1AB27200EA24A3 /* test2.bdoc in Resources */,
 				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
-				E4250D191E0AADB100530370 /* test.bdoc in Resources */,
 				54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */,
 				E42B08991E1562F400EA24A3 /* Signed.storyboard in Resources */,
 				E4250CD31E0968D200530370 /* Assets.xcassets in Resources */,
@@ -419,6 +428,7 @@
 				E4250D1F1E0AB5F100530370 /* Localizations.m in Sources */,
 				E42B089C1E15644200EA24A3 /* SignedTableViewController.m in Sources */,
 				E4250CC81E0968D200530370 /* main.m in Sources */,
+				E42B08A31E1ABF2C00EA24A3 /* SignedContainerCell.m in Sources */,
 				545CF8461E16453300B66EE8 /* MyEIDViewController.m in Sources */,
 				545CF84B1E165DBA00B66EE8 /* NameAndPhotoCell.m in Sources */,
 			);

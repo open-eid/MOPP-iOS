@@ -97,4 +97,25 @@
   [self.label setText:[signaturesString copy]];
 }
 
+- (IBAction)createContainer:(id)sender {
+  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+  NSString *documentsDirectory = [paths objectAtIndex:0];
+  
+  NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+  [formatter setDateFormat:@"HH:mm:ss yyyy-MM-dd"];
+  NSString *stringFromDate = [formatter stringFromDate:[NSDate date]];
+  NSString *fileName = [NSString stringWithFormat:@"%@.bdoc", stringFromDate];
+  NSString *filePath = [documentsDirectory stringByAppendingPathComponent:fileName];
+  
+  NSFileManager *manager = [NSFileManager defaultManager];
+  
+  NSString *bdocPath = [[NSBundle mainBundle] pathForResource:@"test1" ofType:@"bdoc"];
+  NSData *bdocData = [NSData dataWithContentsOfFile:bdocPath];
+  if ([manager createFileAtPath:filePath contents:bdocData attributes:nil]) {
+    MSLog(@"Created file: %@", filePath);
+  } else {
+    MSLog(@"Failed to create file");
+  }
+}
+
 @end

@@ -10,6 +10,8 @@
 
 @interface SignedDetailViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *testLabel;
+
 @end
 
 @implementation SignedDetailViewController
@@ -17,6 +19,9 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  [self setTitle:self.containerPath];
+  
+  [self.testLabel setText:self.containerPath];
   
 }
 

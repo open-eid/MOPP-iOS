@@ -1,4 +1,4 @@
-//
+ //
 //  SignedTableViewController.h
 //  MoppApp
 //
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SignedTableViewController : UITableViewController
+@interface SignedTableViewController : UITableViewController <UISearchResultsUpdating>
 
 @end

@@ -10,4 +10,6 @@
 
 @interface SignedDetailViewController : MPViewController
 
+@property (strong, nonatomic) NSString *containerPath;
+
 @end
