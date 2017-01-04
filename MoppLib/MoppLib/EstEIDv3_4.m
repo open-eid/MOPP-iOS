@@ -7,6 +7,8 @@
 //
 
 #import "EstEIDv3_4.h"
+#import "NSData+Additions.h"
+#import "NSString+Additions.h"
 
 @implementation EstEIDv3_4
 
@@ -14,8 +16,62 @@
 
 }
 
-- (void)cardReader:(id<CardReaderWrapper>)reader readSignatureCertificateWithSuccess:(void (^)(MoppLibPersonalData *personalData))success failure:(FailureBlock)failure {
+- (void)cardReader:(id<CardReaderWrapper>)reader readSignatureCertificateWithSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
   
+  void (^selectDDCE)(NSData *) = ^void (NSData *responseObject) {
+    [reader transmitCommand:kCommandSelectFileDDCE success:^(NSData *responseObject) {
+      NSString *marker = @"85";
+      NSRange markerLocation = [responseObject rangeOfData:[marker toHexData] options:nil range:NSMakeRange(0, responseObject.length)];
+      if (markerLocation.location != NSNotFound) {
+        
+        NSData *bytesData = [responseObject subdataWithRange:NSMakeRange(markerLocation.location + 1, 1)];
+        int *bytesLength = [[bytesData toHexString] hexToInt];
+        NSData *lengthData = [responseObject subdataWithRange:NSMakeRange(markerLocation.location + 2, bytesLength)];
+        int *length = [[lengthData toHexString] hexToInt];
+
+        [self cardReader:reader readBinaryWithLength:length startingFrom:0 readData:[NSData new] success:^(MoppLibPersonalData *data) {
+          success(data);
+        } failure:^(NSError *error) {
+          failure(error);
+        }];
+      }
+    } failure:failure];
+  };
+  
+  void (^selectEEEE)(NSData *) = ^void (NSData *responseObject) {
+    [reader transmitCommand:kCommandSelectFileEEEE success:selectDDCE failure:failure];
+  };
+  
+  [reader transmitCommand:kCommandSelectFileMaster success:selectEEEE failure:failure];
+  
+}
+
+int maxReadLength = 254;
+
+- (void)cardReader:(id<CardReaderWrapper>)reader readBinaryWithLength:(int)fullLength startingFrom:(int)location readData:(NSData *)data success:(void (^)(MoppLibPersonalData *personalData))success failure:(FailureBlock)failure {
+  NSString *locationHex = [NSString stringWithFormat:@"%04X", location];
+  int lengthToRead = fullLength - location;
+  
+  if (lengthToRead > maxReadLength) {
+    lengthToRead = maxReadLength;
+  }
+  
+  NSString *lengthHex= [NSString stringWithFormat:@"%02X", lengthToRead];
+  
+  NSString *command = [NSString stringWithFormat:kCommandReadBinary, locationHex, lengthHex];
+  [reader transmitCommand:command success:^(NSData *responseObject) {
+    NSMutableData *newData = [NSMutableData dataWithData:data];
+    [newData appendData:[responseObject trimmedData]];
+    
+    if (location + lengthToRead < fullLength) {
+      [self cardReader:reader readBinaryWithLength:fullLength startingFrom:location + lengthToRead readData:newData success:success failure:failure];
+    } else {
+      success(newData);
+    }
+  } failure:^(NSError *error) {
+    failure(error);
+  }];
+
 }
 
 - (void)cardReader:(id<CardReaderWrapper>)reader readPublicDataWithSuccess:(void (^)(MoppLibPersonalData *personalData))success failure:(FailureBlock)failure {
@@ -131,5 +187,24 @@
       
     } failure:failure];
   };
+}
+
+- (void)cardReader:(id<CardReaderWrapper>)reader readSecretKeyRecord:(NSInteger)record withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
+  void (^readRecord)(NSData *) = ^void (NSData *responseObject) {
+    [reader transmitCommand:[NSString stringWithFormat:kCommandReadRecord, record] success:^(NSData *responseObject) {
+      success(responseObject);
+      
+    } failure:failure];
+  };
+  
+  void (^select0013)(NSData *) = ^void (NSData *responseObject) {
+    [reader transmitCommand:kCommandSelectFile0013 success:readRecord failure:failure];
+  };
+  
+  void (^selectEEEE)(NSData *) = ^void (NSData *responseObject) {
+    [reader transmitCommand:kCommandSelectFileEEEE success:select0013 failure:failure];
+  };
+  
+  [reader transmitCommand:kCommandSelectFileMaster success:selectEEEE failure:failure];
 }
 @end

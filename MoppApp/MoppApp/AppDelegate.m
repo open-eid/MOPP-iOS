@@ -10,6 +10,7 @@
 #import "MoppLib/MoppLibConf.h"
 #import "ViewController.h"
 #import "MPNavigationController.h"
+#import "UIColor+Additions.h"
 
 @interface AppDelegate ()
 
@@ -27,6 +28,11 @@
   self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
   [self.window setBackgroundColor:[UIColor whiteColor]];
   
+  [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+  [[UINavigationBar appearance] setBarTintColor:[UIColor darkBlue]];
+  [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
+  [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
+
   UIViewController *viewController = [[UIStoryboard storyboardWithName:@"Landing" bundle:nil] instantiateInitialViewController];
   self.window.rootViewController = viewController;
   

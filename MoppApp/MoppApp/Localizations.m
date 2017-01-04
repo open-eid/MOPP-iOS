@@ -15,42 +15,60 @@
 
 @implementation _Localizations
 
+- (NSString *)MyEidValid {
+    return NSLocalizedStringFromTable(@"my-eid-valid", nil, nil);
+}
+
+- (NSString *)MyEidValidity {
+    return NSLocalizedStringFromTable(@"my-eid-validity", nil, nil);
+}
+
+- (NSString *)MyEidSurname {
+    return NSLocalizedStringFromTable(@"my-eid-surname", nil, nil);
+}
+
 - (NSString *(^)(NSString *))MyEidWarningReaderNotFound {
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-warning-reader-not-found", nil, nil), value1];
     };
 }
 
-- (NSString *)MyEidTapHere {
-    return NSLocalizedStringFromTable(@"my-eid-tap-here", nil, nil);
-}
-
-- (NSString *)TabSimSettings {
-    return NSLocalizedStringFromTable(@"tab-sim-settings", nil, nil);
-}
-
-- (NSString *)MyEidIdCardInfo {
-    return NSLocalizedStringFromTable(@"my-eid-id-card-info", nil, nil);
-}
-
-- (NSString *)MyEidBirth {
-    return NSLocalizedStringFromTable(@"my-eid-birth", nil, nil);
-}
-
 - (NSString *)MyEidEmail {
     return NSLocalizedStringFromTable(@"my-eid-email", nil, nil);
+}
+
+- (NSString *)MyEidCardInReader {
+    return NSLocalizedStringFromTable(@"my-eid-card-in-reader", nil, nil);
 }
 
 - (NSString *)TabSigned {
     return NSLocalizedStringFromTable(@"tab-signed", nil, nil);
 }
 
-- (NSString *)MyEidCitizenship {
-    return NSLocalizedStringFromTable(@"my-eid-citizenship", nil, nil);
-}
-
 - (NSString *)TabMyEid {
     return NSLocalizedStringFromTable(@"tab-my-eid", nil, nil);
+}
+
+- (NSString *)MyEidPersonalCode {
+    return NSLocalizedStringFromTable(@"my-eid-personal-code", nil, nil);
+}
+
+- (NSString *(^)(NSString *))MyEidIdCardInfo {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-id-card-info", nil, nil), value1];
+    };
+}
+
+- (NSString *)MyEidBirth {
+    return NSLocalizedStringFromTable(@"my-eid-birth", nil, nil);
+}
+
+- (NSString *)MyEidGivenNames {
+    return NSLocalizedStringFromTable(@"my-eid-given-names", nil, nil);
+}
+
+- (NSString *)MyEidTapHere {
+    return NSLocalizedStringFromTable(@"my-eid-tap-here", nil, nil);
 }
 
 - (NSString *)TabSigning {
@@ -61,8 +79,58 @@
     return NSLocalizedStringFromTable(@"my-eid-warning-card-not-found", nil, nil);
 }
 
-- (NSString *)MyEidPersonalCode {
-    return NSLocalizedStringFromTable(@"my-eid-personal-code", nil, nil);
+- (NSString *)MyEidEid {
+    return NSLocalizedStringFromTable(@"my-eid-eid", nil, nil);
+}
+
+- (NSString *)MyEidIdCardInfoLink {
+    return NSLocalizedStringFromTable(@"my-eid-id-card-info-link", nil, nil);
+}
+
+- (NSString *)MyEidUseCount {
+    return NSLocalizedStringFromTable(@"my-eid-use-count", nil, nil);
+}
+
+- (NSString *)MyEidCitizenship {
+    return NSLocalizedStringFromTable(@"my-eid-citizenship", nil, nil);
+}
+
+- (NSString *)MyEidMyEid {
+    return NSLocalizedStringFromTable(@"my-eid-my-eid", nil, nil);
+}
+
+- (NSString *)MyEidValidUntil {
+    return NSLocalizedStringFromTable(@"my-eid-valid-until", nil, nil);
+}
+
+- (NSString *)MyEidSignatureCertificate {
+    return NSLocalizedStringFromTable(@"my-eid-signature-certificate", nil, nil);
+}
+
+- (NSString *(^)(int))MyEidTimesUsed {
+    return ^(int value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-times-used", nil, nil), value1];
+    };
+}
+
+- (NSString *)MyEidUsedOnce {
+    return NSLocalizedStringFromTable(@"my-eid-used-once", nil, nil);
+}
+
+- (NSString *)TabSimSettings {
+    return NSLocalizedStringFromTable(@"tab-sim-settings", nil, nil);
+}
+
+- (NSString *)MyEidFindMoreInfo {
+    return NSLocalizedStringFromTable(@"my-eid-find-more-info", nil, nil);
+}
+
+- (NSString *)MyEidPersonalData {
+    return NSLocalizedStringFromTable(@"my-eid-personal-data", nil, nil);
+}
+
+- (NSString *)MyEidNotValid {
+    return NSLocalizedStringFromTable(@"my-eid-not-valid", nil, nil);
 }
 
 + (_Localizations *)sharedInstance {

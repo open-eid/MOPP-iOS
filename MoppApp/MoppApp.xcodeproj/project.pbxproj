@@ -9,12 +9,18 @@
 /* Begin PBXBuildFile section */
 		51EAB865AC99468B5AC77D6C /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
 		540786E91E1A76640016ABA7 /* UITextView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.m */; };
+		540786ED1E1A8C650016ABA7 /* ViewWithRoundedCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = 540786EC1E1A8C650016ABA7 /* ViewWithRoundedCorners.m */; };
+		540786F01E1A96900016ABA7 /* SimpleHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 540786EF1E1A96900016ABA7 /* SimpleHeaderView.m */; };
+		540786F41E1AA1B30016ABA7 /* SimpleHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 540786F31E1AA1B30016ABA7 /* SimpleHeaderView.xib */; };
 		545CF8461E16453300B66EE8 /* MyEIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8451E16453300B66EE8 /* MyEIDViewController.m */; };
 		545CF8481E16563200B66EE8 /* MyEid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545CF8471E16563200B66EE8 /* MyEid.storyboard */; };
 		545CF84B1E165DBA00B66EE8 /* NameAndPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF84A1E165DBA00B66EE8 /* NameAndPhotoCell.m */; };
 		545CF84E1E165DCF00B66EE8 /* PersonalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF84D1E165DCF00B66EE8 /* PersonalDataCell.m */; };
 		545CF8511E165DEC00B66EE8 /* ErrorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8501E165DEC00B66EE8 /* ErrorCell.m */; };
 		545CF8541E165DFB00B66EE8 /* InfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8531E165DFB00B66EE8 /* InfoCell.m */; };
+		54825EF51E1CFE9600253FF0 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF41E1CFE9600253FF0 /* NSDate+Additions.m */; };
+		54825EF81E1D270F00253FF0 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF71E1D270F00253FF0 /* NSString+Additions.m */; };
+		54825EFB1E1D28E900253FF0 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EFA1E1D28E900253FF0 /* UIColor+Additions.m */; };
 		54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */; };
 		E4250CC81E0968D200530370 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250CC71E0968D200530370 /* main.m */; };
 		E4250CCB1E0968D200530370 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCA1E0968D200530370 /* AppDelegate.m */; };
@@ -31,9 +37,9 @@
 		E42B08951E15617200EA24A3 /* LandingTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08941E15617200EA24A3 /* LandingTabBarController.m */; };
 		E42B08991E1562F400EA24A3 /* Signed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E42B08981E1562F400EA24A3 /* Signed.storyboard */; };
 		E42B089C1E15644200EA24A3 /* SignedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B089B1E15644200EA24A3 /* SignedTableViewController.m */; };
-		E42B089F1E1AB27200EA24A3 /* test1.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E42B089D1E1AB27200EA24A3 /* test1.bdoc */; };
-		E42B08A01E1AB27200EA24A3 /* test2.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E42B089E1E1AB27200EA24A3 /* test2.bdoc */; };
-		E42B08A31E1ABF2C00EA24A3 /* SignedContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08A21E1ABF2C00EA24A3 /* SignedContainerCell.m */; };
+		E42B08A61E1D4EE900EA24A3 /* test1.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E42B08A41E1D4EE900EA24A3 /* test1.bdoc */; };
+		E42B08A71E1D4EE900EA24A3 /* test2.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E42B08A51E1D4EE900EA24A3 /* test2.bdoc */; };
+		E42B08AA1E1D4EF500EA24A3 /* SignedContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08A91E1D4EF500EA24A3 /* SignedContainerCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +59,11 @@
 /* Begin PBXFileReference section */
 		540786E71E1A76640016ABA7 /* UITextView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Additions.h"; sourceTree = "<group>"; };
 		540786E81E1A76640016ABA7 /* UITextView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Additions.m"; sourceTree = "<group>"; };
+		540786EB1E1A8C650016ABA7 /* ViewWithRoundedCorners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewWithRoundedCorners.h; sourceTree = "<group>"; };
+		540786EC1E1A8C650016ABA7 /* ViewWithRoundedCorners.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewWithRoundedCorners.m; sourceTree = "<group>"; };
+		540786EE1E1A96900016ABA7 /* SimpleHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleHeaderView.h; sourceTree = "<group>"; };
+		540786EF1E1A96900016ABA7 /* SimpleHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleHeaderView.m; sourceTree = "<group>"; };
+		540786F31E1AA1B30016ABA7 /* SimpleHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SimpleHeaderView.xib; sourceTree = "<group>"; };
 		545CF8441E16453300B66EE8 /* MyEIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIDViewController.h; sourceTree = "<group>"; };
 		545CF8451E16453300B66EE8 /* MyEIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEIDViewController.m; sourceTree = "<group>"; };
 		545CF8471E16563200B66EE8 /* MyEid.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyEid.storyboard; sourceTree = "<group>"; };
@@ -64,6 +75,12 @@
 		545CF8501E165DEC00B66EE8 /* ErrorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorCell.m; sourceTree = "<group>"; };
 		545CF8521E165DFB00B66EE8 /* InfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoCell.h; sourceTree = "<group>"; };
 		545CF8531E165DFB00B66EE8 /* InfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoCell.m; sourceTree = "<group>"; };
+		54825EF31E1CFE9600253FF0 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Additions.h"; sourceTree = "<group>"; };
+		54825EF41E1CFE9600253FF0 /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
+		54825EF61E1D270F00253FF0 /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
+		54825EF71E1D270F00253FF0 /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
+		54825EF91E1D28E900253FF0 /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
+		54825EFA1E1D28E900253FF0 /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
 		54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Landing.storyboard; sourceTree = "<group>"; };
 		6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B5F907F55A4D9D1590D35CB /* Pods-MoppApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -95,10 +112,10 @@
 		E42B08981E1562F400EA24A3 /* Signed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Signed.storyboard; sourceTree = "<group>"; };
 		E42B089A1E15644200EA24A3 /* SignedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignedTableViewController.h; sourceTree = "<group>"; };
 		E42B089B1E15644200EA24A3 /* SignedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignedTableViewController.m; sourceTree = "<group>"; };
-		E42B089D1E1AB27200EA24A3 /* test1.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test1.bdoc; sourceTree = "<group>"; };
-		E42B089E1E1AB27200EA24A3 /* test2.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test2.bdoc; sourceTree = "<group>"; };
-		E42B08A11E1ABF2C00EA24A3 /* SignedContainerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignedContainerCell.h; sourceTree = "<group>"; };
-		E42B08A21E1ABF2C00EA24A3 /* SignedContainerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignedContainerCell.m; sourceTree = "<group>"; };
+		E42B08A41E1D4EE900EA24A3 /* test1.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test1.bdoc; sourceTree = "<group>"; };
+		E42B08A51E1D4EE900EA24A3 /* test2.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test2.bdoc; sourceTree = "<group>"; };
+		E42B08A81E1D4EF500EA24A3 /* SignedContainerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignedContainerCell.h; sourceTree = "<group>"; };
+		E42B08A91E1D4EF500EA24A3 /* SignedContainerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignedContainerCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,8 +136,26 @@
 			children = (
 				540786E71E1A76640016ABA7 /* UITextView+Additions.h */,
 				540786E81E1A76640016ABA7 /* UITextView+Additions.m */,
+				54825EF31E1CFE9600253FF0 /* NSDate+Additions.h */,
+				54825EF41E1CFE9600253FF0 /* NSDate+Additions.m */,
+				54825EF61E1D270F00253FF0 /* NSString+Additions.h */,
+				54825EF71E1D270F00253FF0 /* NSString+Additions.m */,
+				54825EF91E1D28E900253FF0 /* UIColor+Additions.h */,
+				54825EFA1E1D28E900253FF0 /* UIColor+Additions.m */,
 			);
 			path = Category;
+			sourceTree = "<group>";
+		};
+		540786EA1E1A8BE90016ABA7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				540786EB1E1A8C650016ABA7 /* ViewWithRoundedCorners.h */,
+				540786EC1E1A8C650016ABA7 /* ViewWithRoundedCorners.m */,
+				540786EE1E1A96900016ABA7 /* SimpleHeaderView.h */,
+				540786EF1E1A96900016ABA7 /* SimpleHeaderView.m */,
+				540786F31E1AA1B30016ABA7 /* SimpleHeaderView.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		545CF8431E1642ED00B66EE8 /* MyEID */ = {
@@ -175,6 +210,7 @@
 				E4250CCA1E0968D200530370 /* AppDelegate.m */,
 				540786E61E1A76280016ABA7 /* Category */,
 				E4250D121E0AA93F00530370 /* Base */,
+				540786EA1E1A8BE90016ABA7 /* View */,
 				E4250D0B1E0AA84A00530370 /* ViewController */,
 				E4250CD21E0968D200530370 /* Assets.xcassets */,
 				E4250CC61E0968D200530370 /* Supporting Files */,
@@ -189,11 +225,11 @@
 				E4250D0D1E0AA8E500530370 /* Localizable.strings */,
 				E4250CC71E0968D200530370 /* main.m */,
 				E4250D091E0AA7AF00530370 /* LaunchScreen.xib */,
-				E42B089D1E1AB27200EA24A3 /* test1.bdoc */,
-				E42B089E1E1AB27200EA24A3 /* test2.bdoc */,
 				E4250D1A1E0AB1B300530370 /* PrefixHeader.pch */,
 				E4250D1D1E0AB5F100530370 /* Localizations.h */,
 				E4250D1E1E0AB5F100530370 /* Localizations.m */,
+				E42B08A41E1D4EE900EA24A3 /* test1.bdoc */,
+				E42B08A51E1D4EE900EA24A3 /* test2.bdoc */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -234,13 +270,13 @@
 		E42B08971E1562E500EA24A3 /* Signed */ = {
 			isa = PBXGroup;
 			children = (
-				E42B08981E1562F400EA24A3 /* Signed.storyboard */,
 				E42B089A1E15644200EA24A3 /* SignedTableViewController.h */,
 				E42B089B1E15644200EA24A3 /* SignedTableViewController.m */,
-				E42B08A11E1ABF2C00EA24A3 /* SignedContainerCell.h */,
-				E42B08A21E1ABF2C00EA24A3 /* SignedContainerCell.m */,
+				E42B08A81E1D4EF500EA24A3 /* SignedContainerCell.h */,
+				E42B08A91E1D4EF500EA24A3 /* SignedContainerCell.m */,
 				E42B08901E155F4600EA24A3 /* SignedDetailViewController.h */,
 				E42B08911E155F4600EA24A3 /* SignedDetailViewController.m */,
+				E42B08981E1562F400EA24A3 /* Signed.storyboard */,
 			);
 			name = Signed;
 			sourceTree = "<group>";
@@ -321,12 +357,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E42B089F1E1AB27200EA24A3 /* test1.bdoc in Resources */,
 				545CF8481E16563200B66EE8 /* MyEid.storyboard in Resources */,
-				E42B08A01E1AB27200EA24A3 /* test2.bdoc in Resources */,
+				E42B08A61E1D4EE900EA24A3 /* test1.bdoc in Resources */,
 				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
+				540786F41E1AA1B30016ABA7 /* SimpleHeaderView.xib in Resources */,
 				54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */,
+				E42B08A71E1D4EE900EA24A3 /* test2.bdoc in Resources */,
 				E42B08991E1562F400EA24A3 /* Signed.storyboard in Resources */,
 				E4250CD31E0968D200530370 /* Assets.xcassets in Resources */,
 			);
@@ -415,22 +452,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54825EF51E1CFE9600253FF0 /* NSDate+Additions.m in Sources */,
+				540786F01E1A96900016ABA7 /* SimpleHeaderView.m in Sources */,
 				E4250D151E0AA97B00530370 /* MPNavigationController.m in Sources */,
 				E42B08951E15617200EA24A3 /* LandingTabBarController.m in Sources */,
+				E42B08AA1E1D4EF500EA24A3 /* SignedContainerCell.m in Sources */,
 				E42B088F1E155F2F00EA24A3 /* MPViewController.m in Sources */,
+				54825EFB1E1D28E900253FF0 /* UIColor+Additions.m in Sources */,
 				545CF84E1E165DCF00B66EE8 /* PersonalDataCell.m in Sources */,
 				E4250CCE1E0968D200530370 /* ViewController.m in Sources */,
 				545CF8541E165DFB00B66EE8 /* InfoCell.m in Sources */,
 				540786E91E1A76640016ABA7 /* UITextView+Additions.m in Sources */,
+				540786ED1E1A8C650016ABA7 /* ViewWithRoundedCorners.m in Sources */,
 				E4250CCB1E0968D200530370 /* AppDelegate.m in Sources */,
 				E42B08921E155F4600EA24A3 /* SignedDetailViewController.m in Sources */,
 				545CF8511E165DEC00B66EE8 /* ErrorCell.m in Sources */,
 				E4250D1F1E0AB5F100530370 /* Localizations.m in Sources */,
 				E42B089C1E15644200EA24A3 /* SignedTableViewController.m in Sources */,
 				E4250CC81E0968D200530370 /* main.m in Sources */,
-				E42B08A31E1ABF2C00EA24A3 /* SignedContainerCell.m in Sources */,
 				545CF8461E16453300B66EE8 /* MyEIDViewController.m in Sources */,
 				545CF84B1E165DBA00B66EE8 /* NameAndPhotoCell.m in Sources */,
+				54825EF81E1D270F00253FF0 /* NSString+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -36,9 +36,13 @@
   return [[self subdataWithRange:NSMakeRange(self.length - 2, 2)] bytes];
 }
 
+- (NSData *)trimmedData {
+  return  [self subdataWithRange:NSMakeRange(0, self.length - 2)];
+}
+
 - (NSString *)responseString {
   //Removing trailer
-  NSData *responseData = [self subdataWithRange:NSMakeRange(0, self.length - 2)];
+  NSData *responseData = [self trimmedData];
   
   // Converting from hex to string
   NSString *string = [[responseData toHexString] hexToString];

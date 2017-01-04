@@ -79,6 +79,15 @@
 
 }
 
+- (int)hexToInt {
+  NSString *hexString = [self stringByReplacingOccurrencesOfString:@" " withString:@""];
+  unsigned result = 0;
+  NSScanner *scanner = [NSScanner scannerWithString:hexString];
+  [scanner scanHexInt:&result];
+  
+  return result;
+}
+
 - (NSString *)hexToString {
   
   NSString *hexString = [self stringByReplacingOccurrencesOfString:@" " withString:@""];

@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "CardCommands.h"
-//#import "MoppLibPersonalData.h"
+#import "MoppLibCertData.h"
 
 @interface CardActionsManager : NSObject
 + (CardActionsManager *)sharedInstance;
@@ -18,6 +18,7 @@
 - (void)setupWithPeripheral:(CBPeripheral *)peripheral success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure;
 
 - (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void(^)(MoppLibPersonalData *))success failure:(void(^)(NSError *))failure;
+- (void)signingCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure;
 
 - (void)isCardInserted:(void(^)(BOOL)) completion;
 
