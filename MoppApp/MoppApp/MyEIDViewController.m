@@ -94,6 +94,10 @@ typedef enum : NSUInteger {
 - (void)setIsCardInserted:(BOOL)isCardInserted {
   if (_isCardInserted != isCardInserted) {
     _isCardInserted = isCardInserted;
+    if (!isCardInserted) {
+      self.personalData = nil;
+      self.signingCertData = nil;
+    }
     [self setupSections];
     [self.tableView reloadData];
   }
@@ -102,6 +106,10 @@ typedef enum : NSUInteger {
 - (void)setIsReaderConnected:(BOOL)isReaderConnected {
   if (_isReaderConnected != isReaderConnected) {
     _isReaderConnected = isReaderConnected;
+    if (!isReaderConnected) {
+      self.personalData = nil;
+      self.signingCertData = nil;
+    }
     [self setupSections];
     [self.tableView reloadData];
   }
@@ -132,10 +140,7 @@ typedef enum : NSUInteger {
   [MoppLibCardActions isCardInserted:^(BOOL isInserted) {
     self.isCardInserted = isInserted;
     
-    if (!self.isReaderConnected || !isInserted) {
-      self.personalData = nil;
-      self.signingCertData = nil;
-    } else {
+    if (self.isReaderConnected && isInserted) {
       [self updateCardData];
       [self updateCertData];
     }
