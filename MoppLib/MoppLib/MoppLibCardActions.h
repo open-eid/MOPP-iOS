@@ -10,6 +10,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <UIKit/UIKit.h>
 #import "MoppLibPersonalData.h"
+#import "MoppLibCertData.h"
 
 @protocol MoppLibCardActionsDelegate;
 
@@ -23,5 +24,6 @@
 + (BOOL)isReaderConnected;
 + (void)isCardInserted:(void(^)(BOOL)) completion;
 
++ (void)signingCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure;
 
 @end

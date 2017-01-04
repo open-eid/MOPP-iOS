@@ -13,4 +13,5 @@
 - (NSString *)toHexString;
 - (NSData *)toHexData;
 - (NSString *)hexToString;
+- (int)hexToInt;
 @end

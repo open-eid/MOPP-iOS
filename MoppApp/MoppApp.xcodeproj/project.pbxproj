@@ -18,6 +18,7 @@
 		545CF84E1E165DCF00B66EE8 /* PersonalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF84D1E165DCF00B66EE8 /* PersonalDataCell.m */; };
 		545CF8511E165DEC00B66EE8 /* ErrorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8501E165DEC00B66EE8 /* ErrorCell.m */; };
 		545CF8541E165DFB00B66EE8 /* InfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8531E165DFB00B66EE8 /* InfoCell.m */; };
+		54825EF51E1CFE9600253FF0 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF41E1CFE9600253FF0 /* NSDate+Additions.m */; };
 		54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */; };
 		E4250CC81E0968D200530370 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250CC71E0968D200530370 /* main.m */; };
 		E4250CCB1E0968D200530370 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCA1E0968D200530370 /* AppDelegate.m */; };
@@ -70,6 +71,8 @@
 		545CF8501E165DEC00B66EE8 /* ErrorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorCell.m; sourceTree = "<group>"; };
 		545CF8521E165DFB00B66EE8 /* InfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoCell.h; sourceTree = "<group>"; };
 		545CF8531E165DFB00B66EE8 /* InfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoCell.m; sourceTree = "<group>"; };
+		54825EF31E1CFE9600253FF0 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Additions.h"; sourceTree = "<group>"; };
+		54825EF41E1CFE9600253FF0 /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
 		54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Landing.storyboard; sourceTree = "<group>"; };
 		6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B5F907F55A4D9D1590D35CB /* Pods-MoppApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -122,6 +125,8 @@
 			children = (
 				540786E71E1A76640016ABA7 /* UITextView+Additions.h */,
 				540786E81E1A76640016ABA7 /* UITextView+Additions.m */,
+				54825EF31E1CFE9600253FF0 /* NSDate+Additions.h */,
+				54825EF41E1CFE9600253FF0 /* NSDate+Additions.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -428,6 +433,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54825EF51E1CFE9600253FF0 /* NSDate+Additions.m in Sources */,
 				540786F01E1A96900016ABA7 /* SimpleHeaderView.m in Sources */,
 				E4250D151E0AA97B00530370 /* MPNavigationController.m in Sources */,
 				E42B08951E15617200EA24A3 /* LandingTabBarController.m in Sources */,

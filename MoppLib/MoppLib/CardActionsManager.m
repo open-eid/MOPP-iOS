@@ -14,13 +14,15 @@
 #import "EstEIDv3_4.h"
 #import "EstEIDv3_5.h"
 #import "CBManagerHelper.h"
+#import "MoppLibCertificate.h"
 
 typedef NS_ENUM(NSUInteger, CardAction) {
   CardActionReadPublicData,
   CardActionChangePin1,
   CardActionChangePin2,
   CardActionUnblockPin1,
-  CardActionUnblockPin2
+  CardActionUnblockPin2,
+  CardActionReadSigningCert
 };
 
 
@@ -73,8 +75,12 @@ static CardActionsManager *sharedInstance = nil;
   [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
 }
 
-- (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void (^)(MoppLibPersonalData *))success failure:(void (^)(NSError *))failure {
+- (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure {
   [self addCardAction:CardActionReadPublicData viewController:controller success:success failure:failure];
+}
+
+- (void)signingCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
+  [self addCardAction:CardActionReadSigningCert viewController:controller success:success failure:failure];
 }
 
 /**
@@ -202,6 +208,22 @@ static CardActionsManager *sharedInstance = nil;
     
     case CardActionUnblockPin2:
       break;
+      
+    case CardActionReadSigningCert: {
+      [self.cardVersionHandler cardReader:self.cardReader readSignatureCertificateWithSuccess:^(NSData *data) {
+        MoppLibCertData *certData = [MoppLibCertData new];
+        [MoppLibCertificate certData:certData updateWithData:[data bytes] length:data.length];
+        
+        
+        actionObject.successBlock(certData);
+        [self finishCurrentAction];
+        
+      } failure:^(NSError *error) {
+        actionObject.failureBlock(error);
+        [self finishCurrentAction];
+      }];
+      break;
+    }
       
     default:
       break;

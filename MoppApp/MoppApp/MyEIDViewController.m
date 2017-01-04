@@ -13,6 +13,7 @@
 #import "ErrorCell.h"
 #import "InfoCell.h"
 #import "SimpleHeaderView.h"
+#import "NSDate+Additions.h"
 
 typedef enum : NSUInteger {
   PersonalDataSectionErrors,
@@ -24,6 +25,7 @@ typedef enum : NSUInteger {
 
 @interface MyEIDViewController () <UITextViewDelegate>
 @property (nonatomic, strong) MoppLibPersonalData *personalData;
+@property (nonatomic, strong) MoppLibCertData *sigingCertData;
 @property (nonatomic, strong) NSArray *sectionData;
 @property (nonatomic, assign) BOOL isReaderConnected;
 @property (nonatomic, assign) BOOL isCardInserted;
@@ -48,6 +50,7 @@ typedef enum : NSUInteger {
     
     if (self.isReaderConnected && self.isCardInserted) {
       [self updateCardData];
+      [self updateCertData];
     }
   }];
 }
@@ -64,6 +67,20 @@ typedef enum : NSUInteger {
   } failure:^(NSError *error) {
     self.personalData = nil;
   }];
+}
+
+- (void)updateCertData {
+  [MoppLibCardActions signingCertWithViewController:self success:^(MoppLibCertData *data) {
+    self.sigingCertData = data;
+    
+  } failure:^(NSError *error) {
+    self.sigingCertData = nil;
+  }];
+}
+
+- (void)setSigningCertData:(MoppLibCertData *)sigingCertData {
+  _sigingCertData = sigingCertData;
+  [self.tableView reloadData];
 }
 
 - (void)setPersonalData:(MoppLibPersonalData *)personalData {
@@ -117,6 +134,7 @@ typedef enum : NSUInteger {
       self.personalData = nil;
     } else {
       [self updateCardData];
+      [self updateCertData];
     }
   }];
 }
@@ -248,17 +266,34 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
   
   if (sectionData.intValue == PersonalDataSectionSigningCert) {
     switch (indexPath.row) {
-      case 0:
+      case 0: {
         titleString = Localizations.MyEidValidity;
-        dataString = @"-";
+        if (self.sigingCertData) {
+          dataString = self.sigingCertData.isValid ? Localizations.MyEidValid : Localizations.MyEidNotValid;
+
+        } else {
+          dataString = @"-";
+        }
         break;
+      }
       case 1:
         titleString = Localizations.MyEidValidUntil;
-        dataString = @"-";
+        if (self.sigingCertData) {
+          dataString = [self.sigingCertData.expiryDate expiryDateString];
+          
+        } else {
+          dataString = @"-";
+        }
         break;
       case 2:
         titleString = Localizations.MyEidUseCount;
-        dataString = @"-";
+        
+        if (self.sigingCertData) {
+          dataString = @"-";
+          
+        } else {
+          dataString = @"-";
+        }
         break;
         
       default:
@@ -331,11 +366,11 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
   if ([[URL absoluteString] isEqualToString:readerNotFoundPath]) {
     [self updateCardData];
+    [self updateCertData];
     return NO;
     
   } else if ([[URL absoluteString] isEqualToString:idCardIntroPath]) {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:Localizations.MyEidIdCardInfoLink]];
-
   }
   
   return YES; // let the system open this URL

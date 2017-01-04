@@ -12,4 +12,5 @@
 - (NSString *)toHexString;
 - (const unsigned char *)responseTrailer;
 - (NSString *)responseString;
+- (NSData *)trimmedData;
 @end

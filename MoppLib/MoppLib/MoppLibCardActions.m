@@ -23,4 +23,9 @@
 + (BOOL)isReaderConnected {
   return [[CardActionsManager sharedInstance] isReaderConnected];
 }
+
++ (void)signingCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
+  [[CardActionsManager sharedInstance] signingCertWithViewController:controller success:success failure:failure];
+}
+
 @end

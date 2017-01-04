@@ -102,13 +102,6 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WgQ-gb-07k" customClass="ViewWithRoundedCorners">
                                             <rect key="frame" x="15" y="15" width="345" height="70"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YNV-z6-alZ">
-                                                    <rect key="frame" x="10" y="10" width="25" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="FYh-oP-tJk"/>
-                                                        <constraint firstAttribute="width" constant="25" id="fda-3d-y1r"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ULU-2c-b1Z">
                                                     <rect key="frame" x="40" y="0.0" width="300" height="70"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -118,15 +111,23 @@
                                                         <outlet property="delegate" destination="KcA-HF-VeW" id="84m-R3-jeY"/>
                                                     </connections>
                                                 </textView>
+                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="18A-NI-0UX">
+                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="K85-R0-kdF"/>
+                                                        <constraint firstAttribute="height" constant="40" id="o3K-II-Fe2"/>
+                                                    </constraints>
+                                                    <color key="tintColor" red="1" green="0.56470588235294117" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="0.95686274509803915" blue="0.88235294117647056" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstItem="ULU-2c-b1Z" firstAttribute="leading" secondItem="YNV-z6-alZ" secondAttribute="trailing" constant="5" id="K5E-G9-l5B"/>
+                                                <constraint firstItem="18A-NI-0UX" firstAttribute="leading" secondItem="WgQ-gb-07k" secondAttribute="leading" id="6TR-TU-HA9"/>
+                                                <constraint firstItem="ULU-2c-b1Z" firstAttribute="leading" secondItem="18A-NI-0UX" secondAttribute="trailing" id="JhL-12-P7J"/>
                                                 <constraint firstItem="ULU-2c-b1Z" firstAttribute="top" secondItem="WgQ-gb-07k" secondAttribute="top" id="LI2-cK-OYO"/>
                                                 <constraint firstAttribute="trailing" secondItem="ULU-2c-b1Z" secondAttribute="trailing" constant="5" id="Q2K-k8-or1"/>
+                                                <constraint firstItem="18A-NI-0UX" firstAttribute="top" secondItem="WgQ-gb-07k" secondAttribute="top" id="XJu-bE-2cI"/>
                                                 <constraint firstAttribute="bottom" secondItem="ULU-2c-b1Z" secondAttribute="bottom" id="Ymg-Cc-D6A"/>
-                                                <constraint firstItem="YNV-z6-alZ" firstAttribute="leading" secondItem="WgQ-gb-07k" secondAttribute="leading" constant="10" id="ojC-7d-JXh"/>
-                                                <constraint firstItem="YNV-z6-alZ" firstAttribute="top" secondItem="WgQ-gb-07k" secondAttribute="top" constant="10" id="shA-OC-4jp"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -272,7 +273,7 @@
                     </constraints>
                 </view>
             </objects>
-            <point key="canvasLocation" x="-6" y="128"/>
+            <point key="canvasLocation" x="-7.2000000000000002" y="127.28635682158921"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="v4E-HI-SOC">
