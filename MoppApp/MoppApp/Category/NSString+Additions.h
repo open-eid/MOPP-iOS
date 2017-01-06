@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (Additions)
-- (NSDate *)expiryDateStringToDate;
+
 @end

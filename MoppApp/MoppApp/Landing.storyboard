@@ -74,17 +74,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NYx-zB-Cs8">
-                                <state key="normal" title="Open container"/>
-                                <connections>
-                                    <action selector="openContainerButtonPressed:" destination="xAr-n6-KTB" eventType="touchUpInside" id="bWl-Pi-fpl"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l1K-UJ-FLm">
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="04M-CC-EKl">
                                 <state key="normal" title="Read data action"/>
                                 <connections>
@@ -100,22 +89,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="NYx-zB-Cs8" firstAttribute="top" secondItem="HKj-QD-uCB" secondAttribute="bottom" constant="30" id="0mg-f2-UaA"/>
-                            <constraint firstItem="NYx-zB-Cs8" firstAttribute="centerX" secondItem="PqS-PO-TsA" secondAttribute="centerX" id="PnI-xR-SNK"/>
                             <constraint firstItem="KmR-J1-smW" firstAttribute="top" secondItem="04M-CC-EKl" secondAttribute="bottom" constant="40" id="a3z-PG-qQk"/>
-                            <constraint firstItem="l1K-UJ-FLm" firstAttribute="leading" secondItem="PqS-PO-TsA" secondAttribute="leading" constant="20" id="jSm-2d-h6x"/>
+                            <constraint firstItem="04M-CC-EKl" firstAttribute="top" secondItem="HKj-QD-uCB" secondAttribute="bottom" constant="50" id="hMB-i3-NpN"/>
                             <constraint firstItem="04M-CC-EKl" firstAttribute="centerX" secondItem="PqS-PO-TsA" secondAttribute="centerX" id="kP0-GT-uxI"/>
-                            <constraint firstItem="l1K-UJ-FLm" firstAttribute="top" secondItem="NYx-zB-Cs8" secondAttribute="bottom" constant="30" id="r2G-kg-rYc"/>
-                            <constraint firstAttribute="trailing" secondItem="l1K-UJ-FLm" secondAttribute="trailing" constant="20" id="rUy-ZL-phv"/>
                             <constraint firstItem="KmR-J1-smW" firstAttribute="centerX" secondItem="PqS-PO-TsA" secondAttribute="centerX" id="tC6-36-mQN"/>
-                            <constraint firstItem="04M-CC-EKl" firstAttribute="top" secondItem="l1K-UJ-FLm" secondAttribute="bottom" constant="30" id="yde-ka-oP9"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="IoH-gU-v8d"/>
-                    <connections>
-                        <outlet property="label" destination="l1K-UJ-FLm" id="68R-RE-e54"/>
-                        <outlet property="openContainerButton" destination="NYx-zB-Cs8" id="crG-WV-1f3"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PTZ-9K-tfv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

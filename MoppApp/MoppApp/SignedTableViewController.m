@@ -8,13 +8,16 @@
 
 #import "SignedTableViewController.h"
 #import "SignedContainerCell.h"
-#import "SignedDetailViewController.h"
+#import "SignedContainerDetailsCell.h"
+#import "FileManager.h"
+#import "DateFormatter.h"
+#import "SignedContainerTableViewController.h"
 
 @interface SignedTableViewController ()
 
 @property (strong, nonatomic) NSArray *containers;
 @property (strong, nonatomic) NSArray *filteredContainers;
-@property (strong, nonatomic) NSString *selectedContainer;
+@property (strong, nonatomic) NSString *containerFileName;
 @property (strong, nonatomic) UISearchController *searchController;
 
 @end
@@ -25,6 +28,8 @@
   [super viewDidLoad];
   
   [self setTitle:Localizations.TabSigned];
+  
+  self.definesPresentationContext = YES;
   
   self.containers = [NSArray array];
   self.filteredContainers = [NSArray array];
@@ -42,13 +47,14 @@
   
   
   // UISearchController
-  self.navigationController.extendedLayoutIncludesOpaqueBars = YES; // Don't hide searchBar when activating.
+  self.extendedLayoutIncludesOpaqueBars = YES; // Remove empty tableHeaderView when activating search bar.
   
   self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
   self.searchController.searchResultsUpdater = self;
   self.searchController.dimsBackgroundDuringPresentation = NO;
   [self.searchController.searchBar sizeToFit]; // Fix searchBar size on iOS 8.
   self.tableView.tableHeaderView = self.searchController.searchBar;
+//  [self.searchController.searchBar setPlaceholder:@"asdf"];
   
 }
 
@@ -58,11 +64,12 @@
   [self reloadData];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+  [super viewWillDisappear:animated];
+}
+
 - (void)reloadData {
-  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString *documentsDirectory = [paths objectAtIndex:0];
-  NSFileManager *manager = [NSFileManager defaultManager];
-  self.containers = [manager contentsOfDirectoryAtPath:documentsDirectory error:nil];
+  self.containers = [[FileManager sharedInstance] getBDocFiles];
   self.filteredContainers = self.containers;
   
   for (NSString *filePath in self.containers) {
@@ -84,7 +91,6 @@
 
 
 #pragma mark - UITableViewDataSource
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
   return 1;
 }
@@ -95,60 +101,50 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  SignedContainerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SignedContainerCell" forIndexPath:indexPath];
+  SignedContainerCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SignedContainerCell class]) forIndexPath:indexPath];
   
   NSString *fileName = [self.filteredContainers objectAtIndex:indexPath.row];
   [cell.titleLabel setText:fileName];
+  [cell.dateLabel setText:[[DateFormatter sharedInstance] ddMMMToString:[[FileManager sharedInstance] fileCreationDate:fileName]]];
   
   return cell;
 }
 
 #pragma mark - UITableViewDelegate
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  self.containerFileName = [self.filteredContainers objectAtIndex:indexPath.row];
+  
+  return indexPath;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   
-  self.selectedContainer = [self.filteredContainers objectAtIndex:indexPath.row];
-  
-  [self filterContainers:nil];
   [self.searchController setActive:NO];
+  [self filterContainers:nil];
 }
 
 
-//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return YES;
-//}
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+  return YES;
+}
 
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+  if (editingStyle == UITableViewCellEditingStyleDelete) {
+    
+    NSString *fileName = [self.filteredContainers objectAtIndex:indexPath.row];
+    [[FileManager sharedInstance] removeFileWithName:fileName];
+    
+    [self reloadData];
+//    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+  }
+}
 
 
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-  SignedDetailViewController *detailsViewController = [segue destinationViewController];
-  detailsViewController.containerPath = self.selectedContainer;
+  SignedContainerTableViewController *detailsViewController = [segue destinationViewController];
+  detailsViewController.containerFileName = self.containerFileName;
 }
 
 

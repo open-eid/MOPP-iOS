@@ -11,9 +11,4 @@
 
 @implementation NSString (Additions)
 
-- (NSDate *)expiryDateStringToDate {
-  NSDateFormatter *formatter = [NSDate formatter];
-  [formatter setDateFormat:@"dd.mm.YYYY"];
-  return [formatter dateFromString:self];
-}
 @end

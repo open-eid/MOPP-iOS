@@ -16,6 +16,7 @@
 #import "NSDate+Additions.h"
 #import "NSString+Additions.h"
 #import "UIColor+Additions.h"
+#import "DateFormatter.h"
 
 typedef enum : NSUInteger {
   PersonalDataSectionErrors,
@@ -260,7 +261,7 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
         dataString = self.personalData.documentNumber;
         break;
       case 1: {
-        BOOL isCardValid = [[NSDate date] compare:[self.personalData.expiryDate expiryDateStringToDate]] == NSOrderedAscending;
+        BOOL isCardValid = [[NSDate date] compare:[[DateFormatter sharedInstance] ddMMYYYYToDate:self.personalData.expiryDate]] == NSOrderedAscending;
         titleString = Localizations.MyEidValidity;
         dataString = isCardValid ? Localizations.MyEidValid : Localizations.MyEidNotValid;
         labelColor = isCardValid ? [UIColor darkGreen] : [UIColor red];
@@ -293,7 +294,7 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
       case 1:
         titleString = Localizations.MyEidValidUntil;
         if (self.signingCertData) {
-          dataString = [self.signingCertData.expiryDate expiryDateString];
+          dataString = [[DateFormatter sharedInstance] ddMMYYYYToString:self.signingCertData.expiryDate];
           
         } else {
           dataString = @"-";

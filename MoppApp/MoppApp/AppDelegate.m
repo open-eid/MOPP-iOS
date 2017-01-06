@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "MoppLib/MoppLibConf.h"
 #import "ViewController.h"
 #import "MPNavigationController.h"
 #import "UIColor+Additions.h"
@@ -22,8 +21,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   
   [[UINavigationBar appearance] setTranslucent:NO]; // Set navBar not translucent by default.
-  
-  [MoppLibConf setup];
   
   self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
   [self.window setBackgroundColor:[UIColor whiteColor]];

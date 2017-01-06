@@ -8,10 +8,9 @@
 
 #import "ViewController.h"
 #import <MoppLib/MoppLib.h>
+#import "FileManager.h"
 
 @interface ViewController ()
-@property (weak, nonatomic) IBOutlet UIButton *openContainerButton;
-@property (weak, nonatomic) IBOutlet UILabel *label;
 
 @end
 
@@ -21,9 +20,6 @@
   [super viewDidLoad];
   
   [self setTitle:Localizations.TabSigning];
-  
-  [self.openContainerButton setTitle:@"Open container test.bdoc" forState:UIControlStateNormal];
-  [self.label setText:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -74,48 +70,32 @@
   }];
 }
 
-- (IBAction)openContainerButtonPressed:(id)sender {
-  
-  NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-  NSString *path = [bundle pathForResource:@"test" ofType:@"bdoc"];
-  
-  NSArray *signatures = [ObjCPP getSignaturesWithContainerPath:path];
-  
-  
-  NSMutableString *signaturesString = [[NSMutableString alloc] initWithString:@""];
-  [signaturesString appendString:@"Container:\n\n"];
-  [signaturesString appendString:@"test.bdoc\n\n\n"];
-  [signaturesString appendString:@"Signatures:\n\n"];
-  
-  for (int i = 0; i < signatures.count; i++) {
-    NSString *signature = [signatures objectAtIndex:i];
-    
-    [signaturesString appendString:[NSString stringWithFormat:@"%d) ", i + 1]];
-    [signaturesString appendString:signature];
-    [signaturesString appendString:@"\n"];
-  }
-  [self.label setText:[signaturesString copy]];
-}
+//- (IBAction)openContainerButtonPressed:(id)sender {
+//  
+//  NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+//  NSString *path = [bundle pathForResource:@"test" ofType:@"bdoc"];
+//  
+//  NSArray *signatures = [ObjCPP getSignaturesWithContainerPath:path];
+//  
+//  
+//  NSMutableString *signaturesString = [[NSMutableString alloc] initWithString:@""];
+//  [signaturesString appendString:@"Container:\n\n"];
+//  [signaturesString appendString:@"test.bdoc\n\n\n"];
+//  [signaturesString appendString:@"Signatures:\n\n"];
+//  
+//  for (int i = 0; i < signatures.count; i++) {
+//    NSString *signature = [signatures objectAtIndex:i];
+//    
+//    [signaturesString appendString:[NSString stringWithFormat:@"%d) ", i + 1]];
+//    [signaturesString appendString:signature];
+//    [signaturesString appendString:@"\n"];
+//  }
+//  [self.label setText:[signaturesString copy]];
+//}
 
+// Create test data.
 - (IBAction)createContainer:(id)sender {
-  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString *documentsDirectory = [paths objectAtIndex:0];
-  
-  NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-  [formatter setDateFormat:@"HH:mm:ss yyyy-MM-dd"];
-  NSString *stringFromDate = [formatter stringFromDate:[NSDate date]];
-  NSString *fileName = [NSString stringWithFormat:@"%@.bdoc", stringFromDate];
-  NSString *filePath = [documentsDirectory stringByAppendingPathComponent:fileName];
-  
-  NSFileManager *manager = [NSFileManager defaultManager];
-  
-  NSString *bdocPath = [[NSBundle mainBundle] pathForResource:@"test1" ofType:@"bdoc"];
-  NSData *bdocData = [NSData dataWithContentsOfFile:bdocPath];
-  if ([manager createFileAtPath:filePath contents:bdocData attributes:nil]) {
-    MSLog(@"Created file: %@", filePath);
-  } else {
-    MSLog(@"Failed to create file");
-  }
+  [[FileManager sharedInstance] createTestBDoc];
 }
 
 @end

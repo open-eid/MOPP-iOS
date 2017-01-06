@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "ObjCPP.h"
-
 //! Project version number for MoppLib.
 FOUNDATION_EXPORT double MoppLibVersionNumber;
 
@@ -17,12 +15,14 @@ FOUNDATION_EXPORT double MoppLibVersionNumber;
 FOUNDATION_EXPORT const unsigned char MoppLibVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <MoppLib/PublicHeader.h>
-#import <MoppLib/MoppLibConf.h>
-#import <MoppLib/ObjCPP.h>
+#import <MoppLib/MoppLibManager.h>
 #import <MoppLib/MoppLibCardActions.h>
 #import <MoppLib/MoppLibConstants.h>
 #import <MoppLib/ReaderSelectionViewController.h>
 #import <MoppLib/MoppLibPersonalData.h>
 #import <MoppLib/MoppLibCertData.h>
+#import <MoppLib/MoppLibContainer.h>
+#import <MoppLib/MoppLibDataFile.h>
+#import <MoppLib/MoppLibSignature.h>
 
 

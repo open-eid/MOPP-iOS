@@ -1,0 +1,62 @@
+//
+//  DateFormatter.m
+//  MoppApp
+//
+//  Created by Ants Käär on 06.01.17.
+//  Copyright © 2017 Mobi Lab. All rights reserved.
+//
+
+#import "DateFormatter.h"
+
+@interface DateFormatter ()
+
+@property (strong, nonatomic) NSDateFormatter *ddMMYYYYDateFormatter;
+@property (strong, nonatomic) NSDateFormatter *HHmmssddMMYYYYDateFormatter;
+@property (strong, nonatomic) NSDateFormatter *ddMMMDateFormatter;
+
+@end
+
+@implementation DateFormatter
+
++ (DateFormatter *)sharedInstance {
+  static dispatch_once_t pred;
+  static DateFormatter *sharedInstance = nil;
+  dispatch_once(&pred, ^{
+    sharedInstance = [[self alloc] init];
+    [sharedInstance initializeDateFormatters];
+  });
+  return sharedInstance;
+}
+
+- (void)initializeDateFormatters {
+  self.ddMMYYYYDateFormatter = [NSDateFormatter new];
+  self.ddMMYYYYDateFormatter.dateFormat = @"dd.MM.YYYY";
+  
+  self.HHmmssddMMYYYYDateFormatter = [NSDateFormatter new];
+  self.HHmmssddMMYYYYDateFormatter.dateFormat = @"HH:mm:ss dd.MM.YYYY";
+  
+  self.ddMMMDateFormatter = [NSDateFormatter new];
+  self.ddMMMDateFormatter.dateFormat = @"dd. MMM";
+}
+
+// 02.03.2015
+- (NSString *)ddMMYYYYToString:(NSDate *)date {
+  return [self.ddMMYYYYDateFormatter stringFromDate:date];
+}
+
+// 02.03.2015
+- (NSDate *)ddMMYYYYToDate:(NSString *)string {
+  return [self.ddMMYYYYDateFormatter dateFromString:string];
+}
+
+// 17:32:06 02.03.2015
+- (NSString *)HHmmssddMMYYYYToString:(NSDate *)date {
+  return [self.HHmmssddMMYYYYDateFormatter stringFromDate:date];
+}
+
+// 21. Nov
+- (NSString *)ddMMMToString:(NSDate *)date {
+  return [self.ddMMMDateFormatter stringFromDate:date];
+}
+
+@end
