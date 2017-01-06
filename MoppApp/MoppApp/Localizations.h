@@ -15,7 +15,7 @@
 
 @interface _Localizations : NSObject
 
-/// Base translation: Valid and usable
+/// Base translation: Valid
 - (NSString *)MyEidValid;
 
 /// Base translation: Validity:
@@ -55,7 +55,7 @@
 /// Base translation: Signing
 - (NSString *)TabSigning;
 
-/// Base translation: ID card is missing  Please check if ID card is inserted correctly. New ID cards have chip on the back side of the card.
+/// Base translation: ID card is not found.  Please check if ID card is inserted correctly. New ID cards have chip on the back side of the card.
 - (NSString *)MyEidWarningCardNotFound;
 
 /// Base translation: eID

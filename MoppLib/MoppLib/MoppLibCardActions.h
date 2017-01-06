@@ -25,5 +25,6 @@
 + (void)isCardInserted:(void(^)(BOOL)) completion;
 
 + (void)signingCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure;
++ (void)authenticationCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure;
 
 @end
