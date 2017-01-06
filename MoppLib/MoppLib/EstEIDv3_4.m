@@ -35,9 +35,7 @@
         
         [self cardReader:reader readBinaryWithLength:length startingFrom:0 readData:[NSData new] success:^(NSData *data) {
           success(data);
-        } failure:^(NSError *error) {
-          failure(error);
-        }];
+        } failure:failure];
       }
     } failure:failure];
   };
@@ -72,9 +70,7 @@ int maxReadLength = 254;
     } else {
       success(newData);
     }
-  } failure:^(NSError *error) {
-    failure(error);
-  }];
+  } failure:failure];
 
 }
 

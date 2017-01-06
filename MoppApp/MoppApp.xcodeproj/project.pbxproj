@@ -173,6 +173,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		542DCB621E1FD2F000899534 /* SimOperations */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = SimOperations;
+			sourceTree = "<group>";
+		};
 		545CF8431E1642ED00B66EE8 /* MyEID */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +265,7 @@
 				E42B08961E1562D500EA24A3 /* Landing */,
 				E42B08971E1562E500EA24A3 /* Signed */,
 				545CF8431E1642ED00B66EE8 /* MyEID */,
+				542DCB621E1FD2F000899534 /* SimOperations */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";

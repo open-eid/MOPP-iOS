@@ -41,7 +41,7 @@ typedef NS_ENUM(NSUInteger, CardAction) {
 @end
 
 
-@interface CardActionsManager() <ReaderSelectionViewControllerDelegate, CBManagerHelperDelegate>
+@interface CardActionsManager() <ReaderSelectionViewControllerDelegate, CBManagerHelperDelegate, CardReaderWrapperDelegate>
 
 @property (nonatomic, strong) id<CardReaderWrapper> cardReader;
 @property (nonatomic, strong) NSMutableArray *cardActions;
@@ -292,6 +292,7 @@ static CardActionsManager *sharedInstance = nil;
 #pragma mark - Reader setup
 - (void)setupWithPeripheral:(CBPeripheral *)peripheral success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure {
   CardReaderACR3901U_S1 *reader = [CardReaderACR3901U_S1 new];
+  reader.delegate = self;
   [reader setupWithPeripheral:peripheral success:^(NSData *responseObject) {
     self.cardReader = reader;
     success(responseObject);
@@ -325,9 +326,13 @@ static CardActionsManager *sharedInstance = nil;
     CardActionObject *action = [self.cardActions firstObject];
     action.failureBlock([MoppLibError readerNotFoundError]);
     
-    // TODO maybe we should cancel all actions in queue?
-    [self finishCurrentAction];
+    [self clearActions];
   }
+}
+
+- (void)clearActions {
+  self.isExecutingAction = NO;
+  [self.cardActions removeAllObjects];
 }
 
 #pragma mark - CBManagerHelperDelegate
@@ -338,6 +343,21 @@ static CardActionsManager *sharedInstance = nil;
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
   [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
+  
+  //Making sure we don't get stuck with some action, that can't be completed anymore
+  [self clearActions];
+}
+
+#pragma mark - CardReaderWrapperDelegate
+
+- (void)cardStatusUpdated:(CardStatus)status {
+  [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
+  
+  if (status == CardStatusAbsent) {
+    //Making sure we don't get stuck with some action, that can't be completed anymore
+    [self.cardReader resetReader];
+    [self clearActions];
+  }
 }
 @end
 
