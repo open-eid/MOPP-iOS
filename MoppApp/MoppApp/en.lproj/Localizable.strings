@@ -4,7 +4,7 @@
 "tab-my-eid" = "My eID";
 "tab-sim-settings" = "SIM settings";
 "my-eid-id-card-info" = "ID-kaart on riigi sisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.\n\nID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@";
-"my-eid-warning-card-not-found" = "ID card is missing\n\nPlease check if ID card is inserted correctly. New ID cards have chip on the back side of the card.";
+"my-eid-warning-card-not-found" = "ID card is not found.\n\nPlease check if ID card is inserted correctly. New ID cards have chip on the back side of the card.";
 "my-eid-warning-reader-not-found" = "Card reader is not connected.\n\nPlease make sure your reader is turned on and %@ to select it.";
 "my-eid-tap-here" = "tap here";
 "my-eid-find-more-info" = "Read more.";
@@ -18,7 +18,7 @@
 "my-eid-valid-until" = "Valid until:";
 "my-eid-use-count" = "Used:";
 "my-eid-validity" = "Validity:";
-"my-eid-valid" = "Valid and usable";
+"my-eid-valid" = "Valid";
 "my-eid-not-valid" = "Not valid";
 "my-eid-valid-until" = "Valid until:";
 "my-eid-personal-data" = "Personal data";
