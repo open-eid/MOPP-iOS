@@ -11,7 +11,7 @@
 @interface MoppLibSignature : NSObject
 
 @property (strong, nonatomic) NSString *subjectName;
-@property (strong, nonatomic) NSDate *timestamp;
-@property (assign, nonatomic) BOOL validity;
+@property (strong, nonatomic) NSString *timestamp;
+@property (assign, nonatomic) BOOL isValid;
 
 @end

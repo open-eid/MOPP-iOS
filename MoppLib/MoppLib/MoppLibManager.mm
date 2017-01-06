@@ -68,6 +68,17 @@
       
       MoppLibSignature *moppLibSignature = [MoppLibSignature new];
       moppLibSignature.subjectName = [NSString stringWithUTF8String:cert.subjectName("CN").c_str()];
+      
+      moppLibSignature.timestamp =  [NSString stringWithUTF8String:signature->TimeStampTime().c_str()];
+      
+      try {
+        signature->validate();
+        moppLibSignature.isValid = YES;
+      }
+      catch(const digidoc::Exception &e) {
+        moppLibSignature.isValid = NO;
+      }
+      
       [signatures addObject:moppLibSignature];
     }
     moppLibContainer.signatures = [signatures copy];

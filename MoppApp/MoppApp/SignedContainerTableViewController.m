@@ -30,13 +30,13 @@ typedef enum : NSUInteger {
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-
-  [self.tableView setEstimatedRowHeight:UITableViewAutomaticDimension];
-  [self.tableView setRowHeight:UITableViewAutomaticDimension];
-
+  
+  [self setTitle:@"Konteiner"];
+  
+  [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  
   NSString *filePath = [[FileManager sharedInstance] filePathWithFileName:self.containerFileName];
   self.container = [[MoppLibManager sharedInstance] getContainerWithPath:filePath];
-  
 }
 
 
@@ -45,6 +45,7 @@ typedef enum : NSUInteger {
   
   [self.tableView reloadData];
 }
+
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -78,6 +79,7 @@ typedef enum : NSUInteger {
       
     case SignedContainerSectionDetails: {
       SignedContainerDetailsCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SignedContainerDetailsCell class]) forIndexPath:indexPath];
+      [cell.titleLabel setText:self.containerFileName];
       return cell;
       
       break;
@@ -88,6 +90,7 @@ typedef enum : NSUInteger {
       
       MoppLibDataFile *dataFile = [self.container.dataFiles objectAtIndex:indexPath.row];
       [cell.fileNameLabel setText:dataFile.fileName];
+      [cell.detailsLabel setText:[NSString stringWithFormat:@"Suurus: %f", dataFile.fileSize]];
       
       return cell;
       
@@ -99,6 +102,12 @@ typedef enum : NSUInteger {
       
       MoppLibSignature *signature = [self.container.signatures objectAtIndex:indexPath.row];
       [cell.signatureNameLabel setText:signature.subjectName];
+      [cell.detailsLabel setText:signature.timestamp];
+      if (signature.isValid) {
+        [cell.signatureValidityLabel setText:@"Allkiri on kehtiv"];
+      } else {
+        [cell.signatureValidityLabel setText:@"Allkiri ei ole kehtiv"];
+      }
       
       return cell;
       
@@ -112,5 +121,12 @@ typedef enum : NSUInteger {
   return nil;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return UITableViewAutomaticDimension;
+}
 
 @end
