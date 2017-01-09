@@ -29,6 +29,7 @@ typedef enum : NSUInteger {
 @interface MyEIDViewController () <UITextViewDelegate>
 @property (nonatomic, strong) MoppLibPersonalData *personalData;
 @property (nonatomic, strong) MoppLibCertData *signingCertData;
+@property (nonatomic, strong) MoppLibCertData *authenticationCertData;
 @property (nonatomic, strong) NSArray *sectionData;
 @property (nonatomic, assign) BOOL isReaderConnected;
 @property (nonatomic, assign) BOOL isCardInserted;
@@ -79,11 +80,24 @@ typedef enum : NSUInteger {
   } failure:^(NSError *error) {
     self.signingCertData = nil;
   }];
+
+  [MoppLibCardActions authenticationCertWithViewController:self success:^(MoppLibCertData *data) {
+    self.authenticationCertData = data;
+    
+  } failure:^(NSError *error) {
+    self.authenticationCertData = nil;
+  }];
 }
 
 - (void)setSigningCertData:(MoppLibCertData *)signingCertData {
   _signingCertData = signingCertData;
   [self.tableView reloadData];
+}
+
+- (void)setAuthenticationCertData:(MoppLibCertData *)authenticationCertData {
+  _authenticationCertData = authenticationCertData;
+  [self.tableView reloadData];
+
 }
 
 - (void)setPersonalData:(MoppLibPersonalData *)personalData {
@@ -179,7 +193,7 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
   }
   
   if (sectionData.intValue == PersonalDataSectionData) {
-    return 5;
+    return 6;
   }
   
   if (sectionData.intValue == PersonalDataSectionEid) {
@@ -243,11 +257,15 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
         dataString = self.personalData.nationality;
         break;
         
-      /*case 5:
+      case 5: {
         titleString = Localizations.MyEidEmail;
-        dataString = @"";
+        NSString *email = @"-";
+        if (self.authenticationCertData && self.authenticationCertData.email.length > 0) {
+          email = self.authenticationCertData.email;
+        }
+        dataString = email;
         break;
-        */
+      }
         
       default:
         break;

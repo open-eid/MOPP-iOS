@@ -49,5 +49,18 @@
  */
 - (void)isCardPoweredOn:(void(^)(BOOL)) completion;
 
+- (void)resetReader;
+
+@end
+
+typedef NS_ENUM(NSUInteger, CardStatus) {
+  CardStatusPresent,
+  CardStatusAbsent
+};
+
+@protocol CardReaderWrapperDelegate <NSObject>
+
+- (void)cardStatusUpdated:(CardStatus)status;
+
 @end
 

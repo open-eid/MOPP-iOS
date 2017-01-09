@@ -22,7 +22,8 @@ typedef NS_ENUM(NSUInteger, CardAction) {
   CardActionChangePin2,
   CardActionUnblockPin1,
   CardActionUnblockPin2,
-  CardActionReadSigningCert
+  CardActionReadSigningCert,
+  CardActionReadAuthenticationCert
 };
 
 
@@ -40,7 +41,7 @@ typedef NS_ENUM(NSUInteger, CardAction) {
 @end
 
 
-@interface CardActionsManager() <ReaderSelectionViewControllerDelegate, CBManagerHelperDelegate>
+@interface CardActionsManager() <ReaderSelectionViewControllerDelegate, CBManagerHelperDelegate, CardReaderWrapperDelegate>
 
 @property (nonatomic, strong) id<CardReaderWrapper> cardReader;
 @property (nonatomic, strong) NSMutableArray *cardActions;
@@ -81,6 +82,10 @@ static CardActionsManager *sharedInstance = nil;
 
 - (void)signingCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
   [self addCardAction:CardActionReadSigningCert viewController:controller success:success failure:failure];
+}
+
+- (void)authenticationCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
+  [self addCardAction:CardActionReadAuthenticationCert viewController:controller success:success failure:failure];
 }
 
 /**
@@ -210,34 +215,55 @@ static CardActionsManager *sharedInstance = nil;
       break;
       
     case CardActionReadSigningCert: {
-      [self.cardVersionHandler cardReader:self.cardReader readSignatureCertificateWithSuccess:^(NSData *data) {
-        MoppLibCertData *certData = [MoppLibCertData new];
-        [MoppLibCertificate certData:certData updateWithData:[data bytes] length:data.length];
-        
-        [self.cardVersionHandler cardReader:self.cardReader readSecretKeyRecord:1 withSuccess:^(NSData *data) {
-          NSData *keyUsageData = [data subdataWithRange:NSMakeRange(12, 3)];
-          int counterStart = [@"FF FF FF" hexToInt];
-          int counterValue = [[keyUsageData toHexString] hexToInt];
-          certData.usageCount = counterStart - counterValue;
-          
-          actionObject.successBlock(certData);
-          [self finishCurrentAction];
-          
-        } failure:^(NSError *error) {
-          actionObject.failureBlock(error);
-          [self finishCurrentAction];
-        }];
-        
-      } failure:^(NSError *error) {
-        actionObject.failureBlock(error);
-        [self finishCurrentAction];
-      }];
+      [self readCert:CardActionReadSigningCert success:actionObject.successBlock failure:actionObject.failureBlock];
+      break;
+    }
+    case CardActionReadAuthenticationCert: {
+      
+      [self readCert:CardActionReadAuthenticationCert success:actionObject.successBlock failure:actionObject.failureBlock];
       break;
     }
       
     default:
       break;
   }
+}
+
+- (void)readCert:(CardAction)certAction success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
+  
+  void (^failedAction)(NSError *) = ^void (NSError *error) {
+    failure(error);
+    [self finishCurrentAction];
+  };
+  
+  void (^getUseCount)(NSData *) = ^void (NSData *data) {
+    MoppLibCertData *certData = [MoppLibCertData new];
+    [MoppLibCertificate certData:certData updateWithData:[data bytes] length:data.length];
+    
+    int record = 0;
+    if (certAction == CardActionReadSigningCert) {
+      record = 1;
+    } else {
+      record = 3;
+    }
+    [self.cardVersionHandler cardReader:self.cardReader readSecretKeyRecord:record withSuccess:^(NSData *data) {
+      NSData *keyUsageData = [data subdataWithRange:NSMakeRange(12, 3)];
+      int counterStart = [@"FF FF FF" hexToInt];
+      int counterValue = [[keyUsageData toHexString] hexToInt];
+      certData.usageCount = counterStart - counterValue;
+      
+      success(certData);
+      [self finishCurrentAction];
+      
+    } failure:failedAction];
+  };
+  
+  if (certAction == CardActionReadSigningCert) {
+    [self.cardVersionHandler cardReader:self.cardReader readSignatureCertificateWithSuccess:getUseCount failure:failedAction];
+  } else if (certAction == CardActionReadAuthenticationCert) {
+    [self.cardVersionHandler cardReader:self.cardReader readAuthenticationCertificateWithSuccess:getUseCount failure:failedAction];
+  }
+
 }
 
 - (void)finishCurrentAction {
@@ -266,6 +292,7 @@ static CardActionsManager *sharedInstance = nil;
 #pragma mark - Reader setup
 - (void)setupWithPeripheral:(CBPeripheral *)peripheral success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure {
   CardReaderACR3901U_S1 *reader = [CardReaderACR3901U_S1 new];
+  reader.delegate = self;
   [reader setupWithPeripheral:peripheral success:^(NSData *responseObject) {
     self.cardReader = reader;
     success(responseObject);
@@ -299,9 +326,13 @@ static CardActionsManager *sharedInstance = nil;
     CardActionObject *action = [self.cardActions firstObject];
     action.failureBlock([MoppLibError readerNotFoundError]);
     
-    // TODO maybe we should cancel all actions in queue?
-    [self finishCurrentAction];
+    [self clearActions];
   }
+}
+
+- (void)clearActions {
+  self.isExecutingAction = NO;
+  [self.cardActions removeAllObjects];
 }
 
 #pragma mark - CBManagerHelperDelegate
@@ -312,6 +343,21 @@ static CardActionsManager *sharedInstance = nil;
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
   [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
+  
+  //Making sure we don't get stuck with some action, that can't be completed anymore
+  [self clearActions];
+}
+
+#pragma mark - CardReaderWrapperDelegate
+
+- (void)cardStatusUpdated:(CardStatus)status {
+  [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
+  
+  if (status == CardStatusAbsent) {
+    //Making sure we don't get stuck with some action, that can't be completed anymore
+    [self.cardReader resetReader];
+    [self clearActions];
+  }
 }
 @end
 

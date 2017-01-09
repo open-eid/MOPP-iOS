@@ -28,4 +28,7 @@
   [[CardActionsManager sharedInstance] signingCertWithViewController:controller success:success failure:failure];
 }
 
++ (void)authenticationCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
+  [[CardActionsManager sharedInstance] authenticationCertWithViewController:controller success:success failure:failure];
+}
 @end

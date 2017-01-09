@@ -38,11 +38,19 @@
   ABTBluetoothReaderCardStatus lastStatus = _cardStatus;
   if (_cardStatus != cardStatus){
     _cardStatus = cardStatus;
-    if (lastStatus == ABTBluetoothReaderCardStatusAbsent || lastStatus == ABTBluetoothReaderCardStatusUnknown || cardStatus == ABTBluetoothReaderCardStatusAbsent || cardStatus == ABTBluetoothReaderCardStatusUnknown) {
-      [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
+    BOOL changedToPresent = lastStatus == ABTBluetoothReaderCardStatusAbsent || lastStatus == ABTBluetoothReaderCardStatusUnknown;
+    BOOL changedToAbsent = cardStatus == ABTBluetoothReaderCardStatusAbsent || cardStatus == ABTBluetoothReaderCardStatusUnknown;
+    if (changedToPresent) {
+      if (self.delegate) {
+        [self.delegate cardStatusUpdated:CardStatusPresent];
+      }
+    } else if (changedToAbsent) {
+      if (self.delegate) {
+        [self.delegate cardStatusUpdated:CardStatusAbsent];
+      }
     }
     
-    if (cardStatus == ABTBluetoothReaderCardStatusPowerSavingMode || cardStatus == ABTBluetoothReaderCardStatusAbsent) {
+    if (cardStatus == ABTBluetoothReaderCardStatusPowerSavingMode || changedToAbsent) {
       self.atr = nil;
     }
   }
@@ -224,8 +232,9 @@
 }
 
 - (void)bluetoothReader:(ABTBluetoothReader *)bluetoothReader didReturnResponseApdu:(NSData *)apdu error:(NSError *)error {
-  
   if (error) {
+    NSLog(@"******* apdu error %@", error);
+
     [self respondWithError:error];
   } else {
     
@@ -257,6 +266,11 @@
   } else {
     [self respondWithSuccess:nil];
   }
+}
+
+- (void)resetReader {
+  self.failureBlock = nil;
+  self.successBlock = nil;
 }
 
 @end

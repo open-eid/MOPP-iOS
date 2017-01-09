@@ -13,4 +13,6 @@
 @property (nonatomic, assign) BOOL isValid;
 @property (nonatomic, strong) NSDate *expiryDate;
 @property (nonatomic, assign) int usageCount;
+@property (nonatomic, strong) NSString *email;
+
 @end

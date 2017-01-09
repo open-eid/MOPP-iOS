@@ -13,6 +13,7 @@
 
 @interface CardReaderACR3901U_S1 : NSObject <CardReaderWrapper>
 
+@property (nonatomic, strong) id<CardReaderWrapperDelegate> delegate;
 /**
  * Performs peripheral detection, attaching and authenticating reader.
  *
