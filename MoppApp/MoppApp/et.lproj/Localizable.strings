@@ -1,8 +1,31 @@
 
+
+// *** General ***
+// TabBar
 "tab-signing" = "Allkirjastamine";
 "tab-signed" = "Allkirjastatud";
 "tab-my-eid" = "Minu eID";
 "tab-sim-settings" = "SIM'i toimingud";
+
+
+// *** Create container ***
+
+
+// *** Signed containers ***
+// List
+"signed-container-list-search-placeholder" = "Otsi";
+// Details
+"signed-container-details-title" = "Konteiner";
+"signed-container-details-header-details" = "Vorming: %@ | Suurus: %ld kb";
+"signed-container-details-datafile-section-header" = "Failid";
+"signed-container-details-datafile-details" = "Suurus: %ld kb";
+"signed-container-details-signature-section-header" = "Allkirjad";
+"signed-container-details-signature-prefix" = "Allkiri %@";
+"signed-container-details-signature-valid" = "on kehtiv";
+"signed-container-details-signature-invalid" = "ei ole kehtiv";
+
+
+// *** My eID ***
 "my-eid-id-card-info" = "ID-kaart on riigi sisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.\n\nID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@";
 "my-eid-warning-card-not-found" = "ID-kaarti ei leitud.\n\nKontrolli, kas ID-kaart on õiget pidi lugejas. Uutel ID-kaartidel on kiip kaardi tagumisel küljel.";
 "my-eid-warning-reader-not-found" = "Kaardilugeja ei ole ühendatud.\n\nKontrolli kas lugeja on sisse lülitatud ja vali see %@";

@@ -12,6 +12,6 @@
 @interface MoppLibDataFile : NSObject
 
 @property (strong, nonatomic) NSString *fileName;
-@property (assign, nonatomic) CGFloat fileSize;
+@property (assign, nonatomic) long fileSize;
 
 @end

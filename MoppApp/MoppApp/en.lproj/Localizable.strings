@@ -1,8 +1,31 @@
 
+
+// *** General ***
+// TabBar
 "tab-signing" = "Signing";
 "tab-signed" = "Signed";
 "tab-my-eid" = "My eID";
 "tab-sim-settings" = "SIM settings";
+
+
+// *** Create container ***
+
+
+// *** Signed containers ***
+// List
+"signed-container-list-search-placeholder" = "Search";
+// Details
+"signed-container-details-title" = "Container";
+"signed-container-details-header-details" = "Format: %@ | Size: %ld kb";
+"signed-container-details-datafile-section-header" = "Files";
+"signed-container-details-datafile-details" = "Size: %ld kb";
+"signed-container-details-signature-section-header" = "Signatures";
+"signed-container-details-signature-prefix" = "Signature %@";
+"signed-container-details-signature-valid" = "is valid";
+"signed-container-details-signature-invalid" = "is not valid";
+
+
+// *** My eID ***
 "my-eid-id-card-info" = "ID-kaart on riigi sisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.\n\nID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@";
 "my-eid-warning-card-not-found" = "ID card is not found.\n\nPlease check if ID card is inserted correctly. New ID cards have chip on the back side of the card.";
 "my-eid-warning-reader-not-found" = "Card reader is not connected.\n\nPlease make sure your reader is turned on and %@ to select it.";
