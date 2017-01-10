@@ -38,10 +38,6 @@
 //  self.containers = @[[bundle pathForResource:@"test1" ofType:@"bdoc"],
 //                      [bundle pathForResource:@"test2" ofType:@"bdoc"]];
   
-  
-  [self.tableView setEstimatedRowHeight:UITableViewAutomaticDimension];
-  [self.tableView setRowHeight:UITableViewAutomaticDimension];
-  
   // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
   self.navigationItem.rightBarButtonItem = self.editButtonItem;
   
@@ -54,7 +50,7 @@
   self.searchController.dimsBackgroundDuringPresentation = NO;
   [self.searchController.searchBar sizeToFit]; // Fix searchBar size on iOS 8.
   self.tableView.tableHeaderView = self.searchController.searchBar;
-//  [self.searchController.searchBar setPlaceholder:@"asdf"];
+  [self.searchController.searchBar setPlaceholder:Localizations.SignedContainerListSearchPlaceholder];
   
 }
 
@@ -104,8 +100,9 @@
   SignedContainerCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SignedContainerCell class]) forIndexPath:indexPath];
   
   NSString *fileName = [self.filteredContainers objectAtIndex:indexPath.row];
+  NSDictionary *fileAttributes = [[FileManager sharedInstance] fileAttributes:fileName];
   [cell.titleLabel setText:fileName];
-  [cell.dateLabel setText:[[DateFormatter sharedInstance] ddMMMToString:[[FileManager sharedInstance] fileCreationDate:fileName]]];
+  [cell.dateLabel setText:[[DateFormatter sharedInstance] ddMMMToString:[fileAttributes fileCreationDate]]];
   
   return cell;
 }
@@ -139,6 +136,15 @@
 //    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
   }
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return UITableViewAutomaticDimension;
+}
+
 
 
 #pragma mark - Navigation

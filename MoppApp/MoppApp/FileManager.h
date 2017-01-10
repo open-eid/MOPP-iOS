@@ -16,6 +16,6 @@
 - (void)createTestBDoc;
 - (void)removeFileWithName:(NSString *)fileName;
 - (NSArray *)getBDocFiles;
-- (NSDate *)fileCreationDate:(NSString *)fileName;
+- (NSDictionary *)fileAttributes:(NSString *)fileName;
 
 @end

@@ -63,11 +63,10 @@
   return [self.fileManager contentsOfDirectoryAtPath:[self documentsDirectoryPath] error:nil];
 }
 
-- (NSDate *)fileCreationDate:(NSString *)fileName {
+- (NSDictionary *)fileAttributes:(NSString *)fileName {
   NSDictionary *fileAttributes = [self.fileManager attributesOfItemAtPath:[self filePathWithFileName:fileName] error:nil];
   if (fileAttributes) {
-    NSDate *date = (NSDate *)[fileAttributes objectForKey:NSFileCreationDate];
-    return date;
+    return fileAttributes;
   }
   return nil;
 }

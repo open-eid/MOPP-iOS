@@ -49,6 +49,8 @@
 		54DC0E051E1250A200C62B3D /* MoppLibCardActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0E031E1250A200C62B3D /* MoppLibCardActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54DC0E061E1250A200C62B3D /* MoppLibCardActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0E041E1250A200C62B3D /* MoppLibCardActions.m */; };
 		D72F91CE6FD17DE3A2CB2EA9 /* Pods_MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212014B6D572D152A70C2C71 /* Pods_MoppLib.framework */; };
+		E4180C161E23FE9300FD7B8C /* MLDateFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = E4180C141E23FE9300FD7B8C /* MLDateFormatter.h */; };
+		E4180C171E23FE9300FD7B8C /* MLDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C151E23FE9300FD7B8C /* MLDateFormatter.m */; };
 		E4250CEC1E09695100530370 /* MoppLib.h in Headers */ = {isa = PBXBuildFile; fileRef = E4250CEA1E09695100530370 /* MoppLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E4250CF41E096A1D00530370 /* schema in Resources */ = {isa = PBXBuildFile; fileRef = E4250CF31E096A1D00530370 /* schema */; };
 		E4250CF71E096B7D00530370 /* ObjCPP.h in Headers */ = {isa = PBXBuildFile; fileRef = E4250CF51E096B7D00530370 /* ObjCPP.h */; };
@@ -56,8 +58,6 @@
 		E4250CFC1E096BEA00530370 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250CFB1E096BEA00530370 /* libz.tbd */; };
 		E4250CFE1E096BEF00530370 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250CFD1E096BEF00530370 /* libxml2.tbd */; };
 		E4250D001E096CAA00530370 /* test.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E4250CFF1E096CAA00530370 /* test.bdoc */; };
-		E4250D031E098E1C00530370 /* MoppLibConf.h in Headers */ = {isa = PBXBuildFile; fileRef = E4250D011E098E1C00530370 /* MoppLibConf.h */; };
-		E4250D041E098E1C00530370 /* MoppLibConf.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4250D021E098E1C00530370 /* MoppLibConf.mm */; };
 		E42B08B51E1F0B3B00EA24A3 /* MoppLibContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = E42B08B31E1F0B3B00EA24A3 /* MoppLibContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E42B08B61E1F0B3B00EA24A3 /* MoppLibContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08B41E1F0B3B00EA24A3 /* MoppLibContainer.m */; };
 		E42B08C51E1F11B900EA24A3 /* MoppLibDataFile.h in Headers */ = {isa = PBXBuildFile; fileRef = E42B08C31E1F11B900EA24A3 /* MoppLibDataFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -113,6 +113,8 @@
 		54DC0E041E1250A200C62B3D /* MoppLibCardActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibCardActions.m; sourceTree = "<group>"; };
 		55E9B48F8763942B8B607E6D /* Pods-MoppLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLib.release.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLib/Pods-MoppLib.release.xcconfig"; sourceTree = "<group>"; };
 		8CA8F4A458E375C33114A84F /* Pods-MoppLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLib.debug.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLib/Pods-MoppLib.debug.xcconfig"; sourceTree = "<group>"; };
+		E4180C141E23FE9300FD7B8C /* MLDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLDateFormatter.h; sourceTree = "<group>"; };
+		E4180C151E23FE9300FD7B8C /* MLDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLDateFormatter.m; sourceTree = "<group>"; };
 		E4250CE71E09695100530370 /* MoppLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoppLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250CEA1E09695100530370 /* MoppLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLib.h; sourceTree = "<group>"; };
 		E4250CEB1E09695100530370 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -122,8 +124,6 @@
 		E4250CFB1E096BEA00530370 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		E4250CFD1E096BEF00530370 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		E4250CFF1E096CAA00530370 /* test.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.bdoc; sourceTree = "<group>"; };
-		E4250D011E098E1C00530370 /* MoppLibConf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibConf.h; sourceTree = "<group>"; };
-		E4250D021E098E1C00530370 /* MoppLibConf.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MoppLibConf.mm; sourceTree = "<group>"; };
 		E42B08B31E1F0B3B00EA24A3 /* MoppLibContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibContainer.h; sourceTree = "<group>"; };
 		E42B08B41E1F0B3B00EA24A3 /* MoppLibContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibContainer.m; sourceTree = "<group>"; };
 		E42B08C31E1F11B900EA24A3 /* MoppLibDataFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibDataFile.h; sourceTree = "<group>"; };
@@ -236,6 +236,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		E4180C131E23FE7100FD7B8C /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				E4180C141E23FE9300FD7B8C /* MLDateFormatter.h */,
+				E4180C151E23FE9300FD7B8C /* MLDateFormatter.m */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
 		E4250CDD1E09695100530370 = {
 			isa = PBXGroup;
 			children = (
@@ -263,8 +272,7 @@
 				54DC0DFA1E0D195200C62B3D /* CardActions */,
 				E4250CEA1E09695100530370 /* MoppLib.h */,
 				E42B08B21E1F0B1D00EA24A3 /* Model */,
-				E4250D011E098E1C00530370 /* MoppLibConf.h */,
-				E4250D021E098E1C00530370 /* MoppLibConf.mm */,
+				E4180C131E23FE7100FD7B8C /* Utility */,
 				54DC0DFF1E0D48C900C62B3D /* MoppLibError.h */,
 				54DC0E001E0D48C900C62B3D /* MoppLibError.m */,
 				54DC0DC71E0BCCEF00C62B3D /* MoppLibConstants.h */,
@@ -321,6 +329,7 @@
 				54DC0DEC1E0BD6E300C62B3D /* ABTBluetoothReader.h in Headers */,
 				540CB2251E1CDD8100FE18A3 /* MoppLibCertData.h in Headers */,
 				54DC0E011E0D48C900C62B3D /* MoppLibError.h in Headers */,
+				E4180C161E23FE9300FD7B8C /* MLDateFormatter.h in Headers */,
 				E42B08C51E1F11B900EA24A3 /* MoppLibDataFile.h in Headers */,
 				54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */,
 				542DCB6C1E23968000899534 /* MoppLibPinActions.h in Headers */,
@@ -341,7 +350,6 @@
 				54DC0DEE1E0BD6E300C62B3D /* ABTError.h in Headers */,
 				E4250CEC1E09695100530370 /* MoppLib.h in Headers */,
 				54DC0DF41E0BEF2A00C62B3D /* NSString+Additions.h in Headers */,
-				E4250D031E098E1C00530370 /* MoppLibConf.h in Headers */,
 				545CF8411E13F30300B66EE8 /* EstEIDv3_4.h in Headers */,
 				54DC0DC51E0BCC2A00C62B3D /* CardReaderWrapper.h in Headers */,
 			);
@@ -460,7 +468,6 @@
 				E42B08CA1E1F11C100EA24A3 /* MoppLibSignature.m in Sources */,
 				E4250CF81E096B7D00530370 /* ObjCPP.mm in Sources */,
 				54DC0DCA1E0BCCEF00C62B3D /* MoppLibConstants.m in Sources */,
-				E4250D041E098E1C00530370 /* MoppLibConf.mm in Sources */,
 				54DC0DF51E0BEF2A00C62B3D /* NSString+Additions.m in Sources */,
 				540CB2211E1CDCED00FE18A3 /* MoppLibCertificate.mm in Sources */,
 				54DC0E061E1250A200C62B3D /* MoppLibCardActions.m in Sources */,
@@ -471,6 +478,7 @@
 				5463DA4D1E12927A008A1714 /* CardCommands.m in Sources */,
 				542DCB6D1E23968000899534 /* MoppLibPinActions.m in Sources */,
 				545111731E13BBA800296B80 /* MoppLibPersonalData.m in Sources */,
+				E4180C171E23FE9300FD7B8C /* MLDateFormatter.m in Sources */,
 				54DC0E021E0D48C900C62B3D /* MoppLibError.m in Sources */,
 				E42B08C61E1F11B900EA24A3 /* MoppLibDataFile.m in Sources */,
 				545CF8421E13F30300B66EE8 /* EstEIDv3_4.m in Sources */,

@@ -13,6 +13,9 @@
 #import "DateFormatter.h"
 #import <MoppLib/MoppLib.h>
 #import "FileManager.h"
+#import "SimpleHeaderView.h"
+#import "UIColor+Additions.h"
+#import "UIViewController+MBProgressHUD.h"
 
 typedef enum : NSUInteger {
   SignedContainerSectionDetails,
@@ -31,12 +34,27 @@ typedef enum : NSUInteger {
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  [self setTitle:@"Konteiner"];
+  [self setTitle:Localizations.SignedContainerDetailsTitle];
+  
+  [self.view setBackgroundColor:[UIColor whiteColor]];
   
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   
   NSString *filePath = [[FileManager sharedInstance] filePathWithFileName:self.containerFileName];
-  self.container = [[MoppLibManager sharedInstance] getContainerWithPath:filePath];
+  
+  [self showHUD];
+  
+  __weak typeof(self) weakSelf = self;
+  [[MoppLibManager sharedInstance] getContainerWithPath:filePath withSuccess:^(NSObject *responseObject) {
+    weakSelf.container = (MoppLibContainer *)responseObject;
+    [weakSelf.tableView reloadData];
+    [weakSelf hideHUD];
+    
+  } andFailure:^(NSError *error) {
+    weakSelf.container = nil;
+    [weakSelf.tableView reloadData];
+    [weakSelf hideHUD];
+  }];
 }
 
 
@@ -79,7 +97,10 @@ typedef enum : NSUInteger {
       
     case SignedContainerSectionDetails: {
       SignedContainerDetailsCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SignedContainerDetailsCell class]) forIndexPath:indexPath];
+      
+      NSDictionary *fileAttributes = [[FileManager sharedInstance] fileAttributes:self.containerFileName];
       [cell.titleLabel setText:self.containerFileName];
+      [cell.detailsLabel setText:Localizations.SignedContainerDetailsHeaderDetails([self.containerFileName pathExtension], [fileAttributes fileSize] / 1024)];
       return cell;
       
       break;
@@ -90,7 +111,7 @@ typedef enum : NSUInteger {
       
       MoppLibDataFile *dataFile = [self.container.dataFiles objectAtIndex:indexPath.row];
       [cell.fileNameLabel setText:dataFile.fileName];
-      [cell.detailsLabel setText:[NSString stringWithFormat:@"Suurus: %f", dataFile.fileSize]];
+      [cell.detailsLabel setText:Localizations.SignedContainerDetailsDatafileDetails(dataFile.fileSize / 1024)];
       
       return cell;
       
@@ -102,12 +123,20 @@ typedef enum : NSUInteger {
       
       MoppLibSignature *signature = [self.container.signatures objectAtIndex:indexPath.row];
       [cell.signatureNameLabel setText:signature.subjectName];
-      [cell.detailsLabel setText:signature.timestamp];
+      [cell.detailsLabel setText:[[DateFormatter sharedInstance] HHmmssddMMYYYYToString:signature.timestamp]];
+      
+      NSString *postfix;
+      UIColor *postfixColor;
       if (signature.isValid) {
-        [cell.signatureValidityLabel setText:@"Allkiri on kehtiv"];
+        postfix = Localizations.SignedContainerDetailsSignatureValid;
+        postfixColor = [UIColor darkGreen];
       } else {
-        [cell.signatureValidityLabel setText:@"Allkiri ei ole kehtiv"];
+        postfix = Localizations.SignedContainerDetailsSignatureInvalid;
+        postfixColor = [UIColor red];
       }
+      NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:Localizations.SignedContainerDetailsSignaturePrefix(postfix)];
+      [attributedString addAttribute:NSForegroundColorAttributeName value:postfixColor range:NSMakeRange(attributedString.length - postfix.length, postfix.length)];
+      [cell.signatureValidityLabel setAttributedText:attributedString];
       
       return cell;
       
@@ -127,6 +156,45 @@ typedef enum : NSUInteger {
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
   return UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+  switch (section) {
+    case SignedContainerSectionDataFile:
+    case SignedContainerSectionSignature:
+      return 40;
+      break;
+      
+    default:
+      return CGFLOAT_MIN;
+      break;
+  }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+  return CGFLOAT_MIN;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+  
+  SimpleHeaderView *header = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SimpleHeaderView class]) owner:self options:nil] objectAtIndex:0];
+  
+  switch (section) {
+    case SignedContainerSectionDataFile: {
+      [header.titleLabel setText:Localizations.SignedContainerDetailsDatafileSectionHeader];
+      break;
+    }
+    case SignedContainerSectionSignature: {
+      [header.titleLabel setText:Localizations.SignedContainerDetailsSignatureSectionHeader];
+      break;
+    }
+      
+    default:
+      header = nil;
+      break;
+  }
+  
+  return header;
 }
 
 @end

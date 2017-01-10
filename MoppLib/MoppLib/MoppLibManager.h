@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "MoppLibContainer.h"
+#import "MoppLibConstants.h"
 
 @interface MoppLibManager : NSObject
 
 + (MoppLibManager *)sharedInstance;
 
-- (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath;
+- (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure;
+- (void)getContainerWithPath:(NSString *)containerPath withSuccess:(ObjectSuccessBlock)success andFailure:(FailureBlock)failure;
 
 @end
