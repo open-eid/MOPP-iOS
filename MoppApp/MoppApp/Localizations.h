@@ -26,6 +26,9 @@
 
 /// Base translation: Card reader is not connected.  Please make sure your reader is turned on and %@ to select it.
 - (NSString *(^)(NSString *))MyEidWarningReaderNotFound;
+/// Base translation: Unblock PIN 2
+- (NSString *)PinActionsUnblockPin2;
+
 /// Base translation: E-mail:
 - (NSString *)MyEidEmail;
 
@@ -38,8 +41,14 @@
 /// Base translation: My eID
 - (NSString *)TabMyEid;
 
+/// Base translation: Change PIN 1
+- (NSString *)PinActionsChangePin1;
+
 /// Base translation: Personal Code:
 - (NSString *)MyEidPersonalCode;
+
+/// Base translation: Unblock PIN 1
+- (NSString *)PinActionsUnblockPin1;
 
 /// Base translation: ID-kaart on riigi sisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.  ID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@
 - (NSString *(^)(NSString *))MyEidIdCardInfo;
@@ -58,11 +67,8 @@
 /// Base translation: ID card is not found.  Please check if ID card is inserted correctly. New ID cards have chip on the back side of the card.
 - (NSString *)MyEidWarningCardNotFound;
 
-/// Base translation: eID
-- (NSString *)MyEidEid;
-
-/// Base translation: https://www.politsei.ee/en/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/
-- (NSString *)MyEidIdCardInfoLink;
+/// Base translation: Change PIN 2
+- (NSString *)PinActionsChangePin2;
 
 /// Base translation: Used:
 - (NSString *)MyEidUseCount;
@@ -70,8 +76,14 @@
 /// Base translation: Citizenship:
 - (NSString *)MyEidCitizenship;
 
+/// Base translation: eID
+- (NSString *)MyEidEid;
+
 /// Base translation: My eID
 - (NSString *)MyEidMyEid;
+
+/// Base translation: https://www.politsei.ee/en/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/
+- (NSString *)MyEidIdCardInfoLink;
 
 /// Base translation: Valid until:
 - (NSString *)MyEidValidUntil;

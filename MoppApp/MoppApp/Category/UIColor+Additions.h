@@ -12,4 +12,10 @@
 + (UIColor *)darkGreen;
 + (UIColor *)darkBlue;
 + (UIColor *)red;
++ (UIColor *)warningIconTint;
++ (UIColor *)warningBackgroundColor;
++ (UIColor *)warningBorderColor;
++ (UIColor *)errorIconTint;
++ (UIColor *)errorBackgroundColor;
++ (UIColor *)errorBorderColor;
 @end

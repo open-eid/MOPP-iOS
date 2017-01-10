@@ -28,3 +28,7 @@
 "my-eid-signature-certificate" = "Signature certificate";
 "my-eid-my-eid" = "My eID";
 "my-eid-id-card-info-link" = "https://www.politsei.ee/en/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/";
+"pin-actions-change-pin-1" = "Change PIN 1";
+"pin-actions-change-pin-2" = "Change PIN 2";
+"pin-actions-unblock-pin-1" = "Unblock PIN 1";
+"pin-actions-unblock-pin-2" = "Unblock PIN 2";

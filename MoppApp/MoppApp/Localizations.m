@@ -33,6 +33,10 @@
     };
 }
 
+- (NSString *)PinActionsUnblockPin2 {
+    return NSLocalizedStringFromTable(@"pin-actions-unblock-pin-2", nil, nil);
+}
+
 - (NSString *)MyEidEmail {
     return NSLocalizedStringFromTable(@"my-eid-email", nil, nil);
 }
@@ -49,8 +53,16 @@
     return NSLocalizedStringFromTable(@"tab-my-eid", nil, nil);
 }
 
+- (NSString *)PinActionsChangePin1 {
+    return NSLocalizedStringFromTable(@"pin-actions-change-pin-1", nil, nil);
+}
+
 - (NSString *)MyEidPersonalCode {
     return NSLocalizedStringFromTable(@"my-eid-personal-code", nil, nil);
+}
+
+- (NSString *)PinActionsUnblockPin1 {
+    return NSLocalizedStringFromTable(@"pin-actions-unblock-pin-1", nil, nil);
 }
 
 - (NSString *(^)(NSString *))MyEidIdCardInfo {
@@ -79,12 +91,8 @@
     return NSLocalizedStringFromTable(@"my-eid-warning-card-not-found", nil, nil);
 }
 
-- (NSString *)MyEidEid {
-    return NSLocalizedStringFromTable(@"my-eid-eid", nil, nil);
-}
-
-- (NSString *)MyEidIdCardInfoLink {
-    return NSLocalizedStringFromTable(@"my-eid-id-card-info-link", nil, nil);
+- (NSString *)PinActionsChangePin2 {
+    return NSLocalizedStringFromTable(@"pin-actions-change-pin-2", nil, nil);
 }
 
 - (NSString *)MyEidUseCount {
@@ -95,8 +103,16 @@
     return NSLocalizedStringFromTable(@"my-eid-citizenship", nil, nil);
 }
 
+- (NSString *)MyEidEid {
+    return NSLocalizedStringFromTable(@"my-eid-eid", nil, nil);
+}
+
 - (NSString *)MyEidMyEid {
     return NSLocalizedStringFromTable(@"my-eid-my-eid", nil, nil);
+}
+
+- (NSString *)MyEidIdCardInfoLink {
+    return NSLocalizedStringFromTable(@"my-eid-id-card-info-link", nil, nil);
 }
 
 - (NSString *)MyEidValidUntil {

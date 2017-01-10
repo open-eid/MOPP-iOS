@@ -38,12 +38,19 @@ typedef enum : NSUInteger {
 
 @implementation MyEIDViewController
 
+- (void)dealloc {
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
   [super viewDidLoad];
   // Do any additional setup after loading the view.
   self.title = Localizations.MyEidMyEid;
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardStatusChanged) name:kMoppLibNotificationReaderStatusChanged object:nil];
+  
+  UINib *nib = [UINib nibWithNibName:@"ErrorCell" bundle:nil];
+  [self.tableView registerNib:nib forCellReuseIdentifier:@"ErrorCell"];
   
   [self setupSections];
   
@@ -211,7 +218,9 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
   
   NSNumber *sectionData = self.sectionData[indexPath.section];
   if (sectionData.intValue == PersonalDataSectionErrors) {
-    ErrorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WarningCell" forIndexPath:indexPath];
+    ErrorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ErrorCell" forIndexPath:indexPath];
+    cell.errorTextView.delegate = self;
+    cell.type = ErrorCellTypeWarning;
     if (!self.isReaderConnected) {
       [self setupReaderNotFoundMessage:cell.errorTextView];
     } else if (!self.isCardInserted) {

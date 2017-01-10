@@ -11,6 +11,12 @@
 NSString *const kThemeDarkGreen = @"5DA54B";
 NSString *const kThemeRed = @"d52d37";
 NSString *const kThemeDarkBlue = @"00365C";
+NSString *const kThemeWarningIconTint = @"FF9033";
+NSString *const kThemeWarningBackgroundColor = @"FFF4E1";
+NSString *const kThemeWarningBorderColor = @"FBE3BC";
+NSString *const kThemeErrorIconTint = @"F3B12E";
+NSString *const kThemeErrorBackgroundColor = @"FFE6E6";
+NSString *const kThemeErrorBorderColor = @"FFCED0";
 
 @implementation UIColor (Additions)
 
@@ -38,6 +44,30 @@ NSString *const kThemeDarkBlue = @"00365C";
 
 + (UIColor *)red {
   return [self colorFromHexString:kThemeRed];
+}
+
++ (UIColor *)warningIconTint {
+  return [self colorFromHexString:kThemeWarningIconTint];
+}
+
++ (UIColor *)warningBackgroundColor {
+  return [self colorFromHexString:kThemeWarningBackgroundColor];
+}
+
++ (UIColor *)warningBorderColor {
+  return [self colorFromHexString:kThemeWarningBorderColor];
+}
+
++ (UIColor *)errorIconTint {
+  return [self colorFromHexString:kThemeErrorIconTint];
+}
+
++ (UIColor *)errorBackgroundColor {
+  return [self colorFromHexString:kThemeErrorBackgroundColor];
+}
+
++ (UIColor *)errorBorderColor {
+  return [self colorFromHexString:kThemeErrorBorderColor];
 }
 
 @end
