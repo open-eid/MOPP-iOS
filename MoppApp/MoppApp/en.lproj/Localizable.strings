@@ -6,9 +6,12 @@
 "tab-signed" = "Signed";
 "tab-my-eid" = "My eID";
 "tab-sim-settings" = "SIM settings";
+"tab-settings" = "Settings";
 
 
-// *** Create container ***
+// *** Signing ***
+"signing-container-name-placeholder" = "Container name";
+"signing-create-container-button" = "Create container";
 
 
 // *** Signed containers ***

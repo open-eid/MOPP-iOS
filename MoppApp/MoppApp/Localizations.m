@@ -63,6 +63,10 @@
     return NSLocalizedStringFromTable(@"signed-container-details-title", nil, nil);
 }
 
+- (NSString *)SigningCreateContainerButton {
+    return NSLocalizedStringFromTable(@"signing-create-container-button", nil, nil);
+}
+
 - (NSString *)MyEidPersonalData {
     return NSLocalizedStringFromTable(@"my-eid-personal-data", nil, nil);
 }
@@ -113,6 +117,10 @@
 
 - (NSString *)MyEidValidUntil {
     return NSLocalizedStringFromTable(@"my-eid-valid-until", nil, nil);
+}
+
+- (NSString *)SigningContainerNamePlaceholder {
+    return NSLocalizedStringFromTable(@"signing-container-name-placeholder", nil, nil);
 }
 
 - (NSString *)MyEidValidity {
@@ -173,6 +181,10 @@
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-id-card-info", nil, nil), value1];
     };
+}
+
+- (NSString *)TabSettings {
+    return NSLocalizedStringFromTable(@"tab-settings", nil, nil);
 }
 
 + (_Localizations *)sharedInstance {

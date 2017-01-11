@@ -51,6 +51,9 @@
 /// Base translation: Container
 - (NSString *)SignedContainerDetailsTitle;
 
+/// Base translation: Create container
+- (NSString *)SigningCreateContainerButton;
+
 /// Base translation: Personal data
 - (NSString *)MyEidPersonalData;
 
@@ -84,6 +87,9 @@
 
 /// Base translation: Valid until:
 - (NSString *)MyEidValidUntil;
+
+/// Base translation: Container name
+- (NSString *)SigningContainerNamePlaceholder;
 
 /// Base translation: Validity:
 - (NSString *)MyEidValidity;
@@ -120,6 +126,9 @@
 
 /// Base translation: ID-kaart on riigi sisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.  ID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@
 - (NSString *(^)(NSString *))MyEidIdCardInfo;
+/// Base translation: Settings
+- (NSString *)TabSettings;
+
 + (_Localizations *)sharedInstance;
 
 @end

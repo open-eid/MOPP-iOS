@@ -42,13 +42,15 @@
   return filePath;
 }
 
-- (void)createTestBDoc {
+- (NSString *)createTestBDoc {
   NSString *fileName = [NSString stringWithFormat:@"%@.bdoc", [[DateFormatter sharedInstance] HHmmssddMMYYYYToString:[NSDate date]]];
   
   NSString *bdocPath = [[NSBundle mainBundle] pathForResource:@"test1" ofType:@"bdoc"];
   NSData *bdocData = [NSData dataWithContentsOfFile:bdocPath];
   
   [self createFileAtPath:[self filePathWithFileName:fileName] contents:bdocData];
+  
+  return fileName;
 }
 
 - (void)createFileAtPath:(NSString *)filePath contents:(NSData *)fileContents {

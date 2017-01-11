@@ -15,6 +15,7 @@
 + (MoppLibManager *)sharedInstance;
 
 - (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure;
-- (void)getContainerWithPath:(NSString *)containerPath withSuccess:(ObjectSuccessBlock)success andFailure:(FailureBlock)failure;
+- (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath;
+- (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath;
 
 @end

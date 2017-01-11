@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Uv2-Ak-2xT">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="mbL-9N-JkT">
+            <objects>
+                <navigationController id="Uv2-Ak-2xT" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nis-Vu-9oS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="YXE-pv-z4z" kind="relationship" relationship="rootViewController" id="pXR-ew-z2U"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Fd-Zc-cX3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1116" y="52"/>
+        </scene>
+        <!--Signing View Controller-->
+        <scene sceneID="98h-4q-vgc">
+            <objects>
+                <viewController id="YXE-pv-z4z" customClass="SigningViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sZR-Cr-0id"/>
+                        <viewControllerLayoutGuide type="bottom" id="v8x-sp-JfW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZLj-vy-vxe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fVH-id-xbb">
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="53r-37-b8a">
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="createContainerButtonPressed:" destination="YXE-pv-z4z" eventType="touchUpInside" id="Tq1-rs-b7A"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zdT-i3-JIT">
+                                <state key="normal" title="Create test container"/>
+                                <connections>
+                                    <action selector="createTestContainerButtonPressed:" destination="YXE-pv-z4z" eventType="touchUpInside" id="EcB-nd-AqY"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="fVH-id-xbb" secondAttribute="trailing" constant="15" id="9xL-A8-YIs"/>
+                            <constraint firstItem="v8x-sp-JfW" firstAttribute="top" secondItem="zdT-i3-JIT" secondAttribute="bottom" constant="30" id="ecT-Sy-ASu"/>
+                            <constraint firstItem="fVH-id-xbb" firstAttribute="top" secondItem="sZR-Cr-0id" secondAttribute="bottom" constant="35" id="ggJ-AL-m9y"/>
+                            <constraint firstItem="53r-37-b8a" firstAttribute="top" secondItem="fVH-id-xbb" secondAttribute="bottom" constant="40" id="jSN-3a-D2B"/>
+                            <constraint firstItem="zdT-i3-JIT" firstAttribute="centerX" secondItem="ZLj-vy-vxe" secondAttribute="centerX" id="rRB-yE-Oro"/>
+                            <constraint firstItem="53r-37-b8a" firstAttribute="centerX" secondItem="ZLj-vy-vxe" secondAttribute="centerX" id="vBE-tp-V1k"/>
+                            <constraint firstItem="fVH-id-xbb" firstAttribute="leading" secondItem="ZLj-vy-vxe" secondAttribute="leading" constant="15" id="x3r-Z8-bHJ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="6mk-wb-HjH"/>
+                    <connections>
+                        <outlet property="containerNameTextField" destination="fVH-id-xbb" id="hiN-JU-zT0"/>
+                        <outlet property="createContainerButton" destination="53r-37-b8a" id="35u-Fx-stW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EIO-30-QIA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-326" y="52"/>
+        </scene>
+    </scenes>
+</document>
