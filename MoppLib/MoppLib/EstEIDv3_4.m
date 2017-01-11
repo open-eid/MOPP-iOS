@@ -9,6 +9,42 @@
 #import "EstEIDv3_4.h"
 #import "NSData+Additions.h"
 #import "NSString+Additions.h"
+#import "MoppLibError.h"
+
+NSString *const kCardErrorCorruptDataWarning = @"62 81";
+NSString *const kCardErrorEndOfFile = @"62 82";
+NSString *const kCardErrorFileInvalid = @"62 83";
+NSString *const kCardErrorCorruptDataError = @"64 00";
+NSString *const kCardErrorMemoryFailure = @"65 81";
+NSString *const kCardErrorTinyLe = @"67 00";
+NSString *const kCardErrorNoKeyReference = @"69 00";
+NSString *const kCardErrorIncompatibleFileStructure = @"69 81";
+NSString *const kCardErrorSecurityStatusNotSatified = @"69 82";
+NSString *const kCardErrorAuthenticationBlocked = @"69 83";
+NSString *const kCardErrorReferenceDataInvalidated = @"69 84";
+NSString *const kCardErrorCommandExecutionOrder = @"69 85";
+NSString *const kCardErrorCommandNotAllowed = @"69 86";
+NSString *const kCardErrorSmDataObjectsMissing = @"69 87";
+NSString *const kCardErrorSmDataObjectsIncorrect = @"69 88";
+NSString *const kCardErrorSmWithoutSessionkeys = @"69 89";
+NSString *const kCardErrorIncorrectDatafield = @"6A 80";
+NSString *const kCardErrorFileNotFound = @"6A 82";
+NSString *const kCardErrorRecordNotFound = @"6A 83";
+NSString *const kCardErrorNotEnoughMemorySpace = @"6A 84";
+NSString *const kCardErrorIncorrectParameter = @"6A 86";
+NSString *const kCardErrorLcInconsistent = @"6A 87";
+NSString *const kCardErrorReferenceDataNotFound = @"6A 88";
+NSString *const kCardErrorFileExist = @"6A 89";
+NSString *const kCardErrorDfNameExist = @"6A 8A";
+NSString *const kCardErrorWrongParameters = @"6B 00";
+NSString *const kCardErrorInstructionCodeNotSupported = @"6D 00";
+NSString *const kCardErrorClassNotSupported = @"6E 00";
+NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
+
+int const kCodeIdPuk = 0;
+int const kCodeIdPin1 = 1;
+int const kCodeIdPin2 = 2;
+
 
 @implementation EstEIDv3_4
 
@@ -148,14 +184,12 @@
   [self.reader transmitCommand:kCommandSelectFileMaster success:select0016 failure:failure];
 }
 
-- (void)changePin1To:(NSString *)newPin2 verifyCode:(NSString *)code withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
-  NSString *command = [self codeChangeCommandFor:1 verify:code new:newPin2];
-  [self.reader transmitCommand:command success:success failure:failure];
+- (void)changePin1To:(NSString *)newPin1 verifyCode:(NSString *)code withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
+  [self changeCode:kCodeIdPin1 to:newPin1 verifyCode:code withSuccess:success failure:failure];
 }
 
 - (void)changePin2To:(NSString *)newPin2 verifyCode:(NSString *)code withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
-  NSString *command = [self codeChangeCommandFor:2 verify:code new:newPin2];
-  [self.reader transmitCommand:command success:success failure:failure];
+  [self changeCode:kCodeIdPin2 to:newPin2 verifyCode:code withSuccess:success failure:failure];
 }
 
 - (void)calculateSignature:(NSString *)hash withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
@@ -179,36 +213,82 @@
 }
 
 - (void)verifyPin1:(NSString *)pin1 withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
-  NSString *command = [self verifyCommandFor:1 verify:pin1];
+  NSString *command = [self verifyCommandFor:kCodeIdPin1 verify:pin1];
   [self.reader transmitCommand:command success:success failure:failure];
 }
 
 - (void)verifyPin2:(NSString *)pin2 withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
-  NSString *command = [self verifyCommandFor:2 verify:pin2];
+  NSString *command = [self verifyCommandFor:kCodeIdPin2 verify:pin2];
   [self.reader transmitCommand:command success:success failure:failure];
+}
+
+- (void)unblockPin1WithPuk:(NSString *)puk newPin1:(NSString *)newPin1 success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure {
+  [self unblockCode:kCodeIdPin1 withPuk:puk newPin:newPin1 success:success failure:failure];
+}
+
+- (void)unblockPin2WithPuk:(NSString *)puk newPin2:(NSString *)newPin2 success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure {
+  [self unblockCode:kCodeIdPin2 withPuk:puk newPin:newPin2 success:success failure:failure];
 }
 
 #pragma mark - private methods
 
-- (NSString *)codeChangeCommandFor:(NSUInteger)code verify:(NSString *)verifyValue new:(NSString *)newValue {
-  NSString *recordString = [NSString stringWithFormat:@"%i", code];
-  NSString *lengthString = [NSString stringWithFormat:@"%i", newValue.length + verifyValue.length];
-  NSString *commandSufix = [NSString stringWithFormat:@"%@ %@ %@ %@", [recordString toHexString], [lengthString toHexString], [verifyValue toHexString], [newValue toHexString]];
-  return [NSString stringWithFormat:kCommandChangeReferenceData, commandSufix];
+- (void (^)(void)) checkPinErrors:(NSData *)response success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure{
+  return ^void (void) {
+    NSError *error = [self errorForPinActionResponse:response];
+    if (error) {
+      failure(error);
+    } else {
+      success(response);
+    }
+  };
+}
+
+- (NSError *)errorForPinActionResponse:(NSData *)response {
+  NSData *trailerData = [response responseTrailerData];
+  const unsigned char *trailer = [trailerData bytes];
+  
+  if (trailer[0] == 0x90 && trailer[1] == 0x00) {
+    // Action was completed successfully. No error here
+    return nil;
+    
+  } else if (trailer[0] == 0x63) {
+    //  For pin codes this means verification failed due to wrong pin
+    NSString *dataHex = [trailerData toHexString];
+    // Last char in trailer holds retry count
+    NSString *retryCount = [dataHex substringFromIndex:dataHex.length - 1];
+    return [MoppLibError wrongPinErrorWithRetryCount:retryCount.intValue];
+    
+  } else if (trailer[0] == 0x6A && trailer[1] == 0x80) {
+    // New pin is invalid
+    return [MoppLibError invalidPinError];
+  }
+  
+  return [MoppLibError generalError];
+}
+
+- (void)unblockCode:(int)codeId withPuk:(NSString *)puk newPin:(NSString *)newPin success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure {
+  [self.reader transmitCommand:[NSString stringWithFormat:kCommandResetRetryCounter, codeId, puk.length + newPin.length, [puk toHexString], [newPin toHexString]] success:^(NSData *responseObject) {
+    [self checkPinErrors:responseObject success:success failure:failure]();
+  } failure:failure];
+}
+
+- (void)changeCode:(int)codeId to:(NSString *)newCode verifyCode:(NSString *)verifyCode withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
+  NSString *commandSufix = [NSString stringWithFormat:@"%@ %@", [verifyCode toHexString], [newCode toHexString]];
+  NSString *command = [NSString stringWithFormat:kCommandChangeReferenceData, codeId, newCode.length + verifyCode.length, commandSufix];
+  [self.reader transmitCommand:command success:^(NSData *responseObject) {
+    [self checkPinErrors:responseObject success:success failure:failure]();
+  } failure:failure];
 }
 
 - (NSString *)verifyCommandFor:(NSUInteger)code verify:(NSString *)verifyValue {
-  NSString *codeString = [NSString stringWithFormat:@"%i", code];
-  NSString *lengthString = [NSString stringWithFormat:@"%i", verifyValue.length];
-  NSString *commandSufix = [NSString stringWithFormat:@"%@ %@ %@", [codeString toHexString], [lengthString toHexString], [verifyValue toHexString]];
-  return [NSString stringWithFormat:kCommandVerifyCode, commandSufix];
+  return [NSString stringWithFormat:kCommandVerifyCode, code, verifyValue.length, [verifyValue toHexString]];
 }
 
 - (void (^)(void))readRecord:(NSInteger)record success:(DataSuccessBlock)success failure:(FailureBlock)failure {
   return ^void (void) {
     
     [self.reader transmitCommand:[NSString stringWithFormat:kCommandReadRecord, record] success:^(NSData *responseObject) {
-      const unsigned char *trailer = [responseObject responseTrailer];
+      const unsigned char *trailer = [[responseObject responseTrailerData] bytes];
       
       if (trailer[0] == 0x90 && trailer[1] == 0x00) {
         success(responseObject);

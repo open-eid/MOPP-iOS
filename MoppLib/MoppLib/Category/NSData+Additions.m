@@ -32,8 +32,8 @@
   return hexString;
 }
 
-- (const unsigned char *)responseTrailer {
-  return [[self subdataWithRange:NSMakeRange(self.length - 2, 2)] bytes];
+- (NSData *)responseTrailerData {
+  return [self subdataWithRange:NSMakeRange(self.length - 2, 2)];
 }
 
 - (NSData *)trimmedData {

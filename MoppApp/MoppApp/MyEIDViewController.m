@@ -52,6 +52,9 @@ typedef enum : NSUInteger {
   UINib *nib = [UINib nibWithNibName:@"ErrorCell" bundle:nil];
   [self.tableView registerNib:nib forCellReuseIdentifier:@"ErrorCell"];
   
+  nib = [UINib nibWithNibName:@"InfoCell" bundle:nil];
+  [self.tableView registerNib:nib forCellReuseIdentifier:@"InfoCell"];
+  
   [self setupSections];
   
   self.isReaderConnected = [MoppLibCardActions isReaderConnected];

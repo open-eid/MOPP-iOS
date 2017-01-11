@@ -14,4 +14,10 @@
 + (NSError *)readerNotFoundError;
 + (NSError *)cardNotFoundError;
 + (NSError *)cardVersionUnknownError;
++ (NSError *)wrongPinErrorWithRetryCount:(int)count;
++ (NSError *)generalError;
++ (NSError *)invalidPinError;
++ (NSError *)pinMatchesVerificationCodeError;
++ (NSError *)incorrectPinLengthError;
+
 @end
