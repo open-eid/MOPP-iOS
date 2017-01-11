@@ -28,6 +28,7 @@ extern NSString *const kCommandChangeReferenceData;
 extern NSString *const kCommandSetSecurityEnv;
 extern NSString *const kCommandVerifyCode;
 extern NSString *const kCommandCalculateSignature;
+extern NSString *const kCommandResetRetryCounter;
 
 @protocol CardCommands <NSObject>
 
@@ -101,7 +102,8 @@ extern NSString *const kCommandCalculateSignature;
 
 - (void)setSecurityEnvironment:(NSUInteger)env withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
 
-
+- (void)unblockPin1WithPuk:(NSString *)puk newPin1:(NSString *)newPin1 success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure;
+- (void)unblockPin2WithPuk:(NSString *)puk newPin2:(NSString *)newPin2 success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure;
 
 
 @end

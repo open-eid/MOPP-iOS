@@ -8,5 +8,7 @@
 
 #import "MoppLibConstants.h"
 
+NSString *const kMoppLibUserInfoRetryCount = @"kMoppLibRetryCount";
+
 NSString *const kMoppLibNotificationReaderStatusChanged = @"Mopp Lib - Reader status changed";
 

@@ -40,4 +40,9 @@
     self.clipsToBounds = YES;
 }
 
+- (void)setBorderColor:(UIColor *)borderColor {
+  _borderColor = borderColor;
+  self.layer.borderColor = _borderColor ? _borderColor.CGColor : [UIColor clearColor].CGColor;
+}
+
 @end

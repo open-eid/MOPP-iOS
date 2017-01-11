@@ -33,8 +33,6 @@ NSString *const kCardActionDataPin2 = @"Pin 2";
 NSString *const kCardActionDataPuk = @"Puk";
 NSString *const kCardActionDataVerify = @"Verify";
 
-
-
 @interface CardActionObject : NSObject
 @property (nonatomic, assign) NSUInteger cardAction;
 @property (nonatomic, strong) void (^successBlock)(id);
@@ -117,6 +115,20 @@ static CardActionsManager *sharedInstance = nil;
   [self addCardAction:CardActionPin2RetryCount data:nil viewController:controller success:success failure:failure];
 }
 
+- (void)unblockPin1WithPuk:(NSString *)puk newPin1:(NSString *)newPin1 viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure {
+  NSDictionary *data = @{kCardActionDataPuk:puk, kCardActionDataPin1:newPin1};
+  [self addCardAction:CardActionUnblockPin1 data:data viewController:controller success:^(id data) {
+    success();
+  } failure:failure];
+}
+
+- (void)unblockPin2WithPuk:(NSString *)puk newPin2:(NSString *)newPin2 viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure {
+  NSDictionary *data = @{kCardActionDataPuk:puk, kCardActionDataPin2:newPin2};
+  [self addCardAction:CardActionUnblockPin2 data:data viewController:controller success:^(id data) {
+    success();
+  } failure:failure];
+}
+
 /**
  * Adds card action to queue. One card action may require sending multiple commands to id card. These commands often must be executed in specific order. For that reason we must make sure commands from different card actions are not mixed.
  *
@@ -132,6 +144,7 @@ static CardActionsManager *sharedInstance = nil;
     actionObject.failureBlock = failure;
     actionObject.cardAction = action;
     actionObject.controller = controller;
+    actionObject.data = data;
     
     [self.cardActions addObject:actionObject];
     [self executeNextAction];
@@ -159,8 +172,8 @@ static CardActionsManager *sharedInstance = nil;
           } else {
             [self.cardReader powerOnCard:^(NSData *responseObject) {
               [self.cardReader transmitCommand:kCommandGetCardVersion success:^(NSData *responseObject) {
-                
-                const unsigned char *trailer = [responseObject responseTrailer];
+                NSData *trailerData = [responseObject responseTrailerData];
+                const unsigned char *trailer = [trailerData bytes];
                 
                 if (trailer[0] == 0x90 && trailer[1] == 0x00) {
                   const unsigned char *responseBytes = [responseObject bytes];
@@ -255,10 +268,16 @@ static CardActionsManager *sharedInstance = nil;
     }
     
     case CardActionUnblockPin1: {
+      NSString *pin1 = [actionObject.data objectForKey:kCardActionDataPin1];
+      NSString *puk = [actionObject.data objectForKey:kCardActionDataPuk];
+      [self.cardVersionHandler unblockPin1WithPuk:puk newPin1:pin1 success:success failure:failure];
       break;
     }
     
     case CardActionUnblockPin2: {
+      NSString *pin2 = [actionObject.data objectForKey:kCardActionDataPin2];
+      NSString *puk = [actionObject.data objectForKey:kCardActionDataPuk];
+      [self.cardVersionHandler unblockPin2WithPuk:puk newPin2:pin2 success:success failure:failure];
       break;
     }
       

@@ -9,14 +9,27 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+// Mopp Lib error codes
+
 typedef enum {
   
-  moppLibReaderNotFoundError = 10001,
-  moppLibCardNotFoundError = 10002,
-  moppLibCardVersionUnknownError = 10003
-  
+  moppLibErrorReaderNotFound = 10001, // Reader is not connected to phone
+  moppLibErrorCardNotFound = 10002, // Reader is connected, but card is not detected
+  moppLibErrorCardVersionUnknown = 10003, //
+  moppLibErrorWrongPin = 10004, // Provided pin is wrong
+  moppLibErrorGeneral = 10005,
+  moppLibErrorInvalidPin = 10006, // New pin does not apply to rules
+  moppLibErrorPinMatchesVerificationCode = 10007, // New pin must be different from old pin or puk
+  moppLibErrorIncorrectPinLength = 10008 // New pin is too short or too long
+
   
 } MoppLibErrorCode;
+
+// Keys for Mopp Lib error user info
+
+extern NSString *const kMoppLibUserInfoRetryCount;
+
+
 
 typedef void (^DataSuccessBlock)(NSData *responseObject);
 typedef void (^ObjectSuccessBlock)(NSObject *responseObject);

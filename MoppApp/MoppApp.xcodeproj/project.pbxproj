@@ -22,6 +22,7 @@
 		545CF8511E165DEC00B66EE8 /* ErrorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8501E165DEC00B66EE8 /* ErrorCell.m */; };
 		545CF8541E165DFB00B66EE8 /* InfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8531E165DFB00B66EE8 /* InfoCell.m */; };
 		54813B2E1E24DD560058CD33 /* ChangePinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54813B2D1E24DD560058CD33 /* ChangePinViewController.m */; };
+		54813B301E24FD270058CD33 /* InfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54813B2F1E24FD270058CD33 /* InfoCell.xib */; };
 		54825EF51E1CFE9600253FF0 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF41E1CFE9600253FF0 /* NSDate+Additions.m */; };
 		54825EF81E1D270F00253FF0 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF71E1D270F00253FF0 /* NSString+Additions.m */; };
 		54825EFB1E1D28E900253FF0 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EFA1E1D28E900253FF0 /* UIColor+Additions.m */; };
@@ -91,6 +92,7 @@
 		545CF8531E165DFB00B66EE8 /* InfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoCell.m; sourceTree = "<group>"; };
 		54813B2C1E24DD560058CD33 /* ChangePinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePinViewController.h; sourceTree = "<group>"; };
 		54813B2D1E24DD560058CD33 /* ChangePinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePinViewController.m; sourceTree = "<group>"; };
+		54813B2F1E24FD270058CD33 /* InfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoCell.xib; sourceTree = "<group>"; };
 		54825EF31E1CFE9600253FF0 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Additions.h"; sourceTree = "<group>"; };
 		54825EF41E1CFE9600253FF0 /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
 		54825EF61E1D270F00253FF0 /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				542DCB681E23856100899534 /* ErrorCell.xib */,
 				545CF8521E165DFB00B66EE8 /* InfoCell.h */,
 				545CF8531E165DFB00B66EE8 /* InfoCell.m */,
+				54813B2F1E24FD270058CD33 /* InfoCell.xib */,
 			);
 			name = MyEID;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				542DCB691E23856100899534 /* ErrorCell.xib in Resources */,
+				54813B301E24FD270058CD33 /* InfoCell.xib in Resources */,
 				545CF8481E16563200B66EE8 /* MyEid.storyboard in Resources */,
 				E42B08A61E1D4EE900EA24A3 /* test1.bdoc in Resources */,
 				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,

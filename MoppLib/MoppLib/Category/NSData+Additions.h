@@ -10,7 +10,7 @@
 
 @interface NSData (Additions)
 - (NSString *)toHexString;
-- (const unsigned char *)responseTrailer;
+- (NSData *)responseTrailerData;
 - (NSString *)responseString;
 - (NSData *)trimmedData;
 @end

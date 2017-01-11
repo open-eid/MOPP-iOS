@@ -7,6 +7,8 @@
 "tab-my-eid" = "My eID";
 "tab-sim-settings" = "SIM settings";
 
+// *** Actions ***
+"action-ok" = "OK";
 
 // *** Create container ***
 
@@ -53,7 +55,15 @@
 "my-eid-id-card-info-link" = "https://www.politsei.ee/en/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/";
 
 // *** PIN actions ***
-"pin-actions-change-pin-1" = "Change PIN 1";
-"pin-actions-change-pin-2" = "Change PIN 2";
-"pin-actions-unblock-pin-1" = "Unblock PIN 1";
-"pin-actions-unblock-pin-2" = "Unblock PIN 2";
+"pin-actions-pin1" = "PIN1";
+"pin-actions-pin2" = "PIN2";
+"pin-actions-puk" = "PUK";
+"pin-actions-change-pin" = "Change %@";
+"pin-actions-unblock-pin" = "Unblock %@";
+"pin-actions-changing-pin" = "Changing %@";
+"pin-actions-unblocking-pin" = "Unblocking %@";
+"pin-actions-current-pin" = "Current %@ code";
+"pin-actions-new-pin" = "New %@ code";
+"pin-actions-repeat-pin" = "Repeat new %@ code";
+"pin-actions-rules-title" = "Rules";
+"pin-actions-rules-PIN1" = "* New PIN1 must be different from previous PIN1.\n\n* New PIN1 must be 4-12 digits long.\n\n* New PIN1 can't be 0000, 1234, or contain your personal id code.";

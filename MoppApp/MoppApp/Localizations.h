@@ -24,14 +24,8 @@
 /// Base translation: Signature certificate
 - (NSString *)MyEidSignatureCertificate;
 
-/// Base translation: Unblock PIN 2
-- (NSString *)PinActionsUnblockPin2;
-
 /// Base translation: Signed
 - (NSString *)TabSigned;
-
-/// Base translation: Change PIN 1
-- (NSString *)PinActionsChangePin1;
 
 /// Base translation: My eID
 - (NSString *)MyEidMyEid;
@@ -66,14 +60,18 @@
 /// Base translation: eID
 - (NSString *)MyEidEid;
 
+/// Base translation: New %@ code
+- (NSString *(^)(NSString *))PinActionsNewPin;
+/// Base translation: Change %@
+- (NSString *(^)(NSString *))PinActionsChangePin;
 /// Base translation: Card in reader:
 - (NSString *)MyEidCardInReader;
 
 /// Base translation: E-mail:
 - (NSString *)MyEidEmail;
 
-/// Base translation: Unblock PIN 1
-- (NSString *)PinActionsUnblockPin1;
+/// Base translation: PUK
+- (NSString *)PinActionsPuk;
 
 /// Base translation: Size: %ld kb
 - (NSString *(^)(long))SignedContainerDetailsDatafileDetails;
@@ -81,6 +79,9 @@
 - (NSString *(^)(NSString *))SignedContainerDetailsSignaturePrefix;
 /// Base translation: is not valid
 - (NSString *)SignedContainerDetailsSignatureInvalid;
+
+/// Base translation: OK
+- (NSString *)ActionOk;
 
 /// Base translation: is valid
 - (NSString *)SignedContainerDetailsSignatureValid;
@@ -94,24 +95,37 @@
 /// Base translation: Valid until:
 - (NSString *)MyEidValidUntil;
 
+/// Base translation: Unblocking %@
+- (NSString *(^)(NSString *))PinActionsUnblockingPin;
 /// Base translation: Validity:
 - (NSString *)MyEidValidity;
 
 /// Base translation: %i times
 - (NSString *(^)(int))MyEidTimesUsed;
+/// Base translation: * New PIN1 must be different from previous PIN1.  * New PIN1 must be 4-12 digits long.  * New PIN1 can't be 0000, 1234, or contain your personal id code.
+- (NSString *)PinActionsRulesPin1;
+
 /// Base translation: Card reader is not connected.  Please make sure your reader is turned on and %@ to select it.
 - (NSString *(^)(NSString *))MyEidWarningReaderNotFound;
+/// Base translation: Changing %@
+- (NSString *(^)(NSString *))PinActionsChangingPin;
 /// Base translation: Given names:
 - (NSString *)MyEidGivenNames;
 
 /// Base translation: tap here
 - (NSString *)MyEidTapHere;
 
+/// Base translation: PIN1
+- (NSString *)PinActionsPin1;
+
 /// Base translation: My eID
 - (NSString *)TabMyEid;
 
 /// Base translation: Personal Code:
 - (NSString *)MyEidPersonalCode;
+
+/// Base translation: PIN2
+- (NSString *)PinActionsPin2;
 
 /// Base translation: Format: %@ | Size: %ld kb
 - (NSString *(^)(NSString *, long))SignedContainerDetailsHeaderDetails;
@@ -121,6 +135,10 @@
 /// Base translation: Search
 - (NSString *)SignedContainerListSearchPlaceholder;
 
+/// Base translation: Unblock %@
+- (NSString *(^)(NSString *))PinActionsUnblockPin;
+/// Base translation: Current %@ code
+- (NSString *(^)(NSString *))PinActionsCurrentPin;
 /// Base translation: Signing
 - (NSString *)TabSigning;
 
@@ -129,8 +147,10 @@
 
 /// Base translation: ID-kaart on riigi sisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.  ID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@
 - (NSString *(^)(NSString *))MyEidIdCardInfo;
-/// Base translation: Change PIN 2
-- (NSString *)PinActionsChangePin2;
+/// Base translation: Repeat new %@ code
+- (NSString *(^)(NSString *))PinActionsRepeatPin;
+/// Base translation: Rules
+- (NSString *)PinActionsRulesTitle;
 
 + (_Localizations *)sharedInstance;
 

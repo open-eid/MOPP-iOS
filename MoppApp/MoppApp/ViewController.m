@@ -54,10 +54,10 @@
     
   } failure:^(NSError *error) {
     NSString *message;
-    if (error.code == moppLibCardNotFoundError) {
+    if (error.code == moppLibErrorCardNotFound) {
       message = NSLocalizedString(@"Card not found", nil);
       
-    } else if (error.code == moppLibReaderNotFoundError) {
+    } else if (error.code == moppLibErrorReaderNotFound) {
       message = NSLocalizedString(@"Reader not attached", nil);
     }
     
