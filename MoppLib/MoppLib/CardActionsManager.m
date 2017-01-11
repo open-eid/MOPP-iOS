@@ -22,9 +22,16 @@ typedef NS_ENUM(NSUInteger, CardAction) {
   CardActionChangePin2,
   CardActionUnblockPin1,
   CardActionUnblockPin2,
+  CardActionPin1RetryCount,
+  CardActionPin2RetryCount,
   CardActionReadSigningCert,
   CardActionReadAuthenticationCert
 };
+
+NSString *const kCardActionDataPin1 = @"Pin 1";
+NSString *const kCardActionDataPin2 = @"Pin 2";
+NSString *const kCardActionDataPuk = @"Puk";
+NSString *const kCardActionDataVerify = @"Verify";
 
 
 
@@ -33,10 +40,10 @@ typedef NS_ENUM(NSUInteger, CardAction) {
 @property (nonatomic, strong) void (^successBlock)(id);
 @property (nonatomic, strong) FailureBlock failureBlock;
 @property (nonatomic, strong) UIViewController *controller;
+@property (nonatomic, strong) NSDictionary *data;
 @end
 
 @implementation CardActionObject
-
 
 @end
 
@@ -77,15 +84,37 @@ static CardActionsManager *sharedInstance = nil;
 }
 
 - (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure {
-  [self addCardAction:CardActionReadPublicData viewController:controller success:success failure:failure];
+  [self addCardAction:CardActionReadPublicData data:nil viewController:controller success:success failure:failure];
 }
 
 - (void)signingCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
-  [self addCardAction:CardActionReadSigningCert viewController:controller success:success failure:failure];
+  [self addCardAction:CardActionReadSigningCert data:nil viewController:controller success:success failure:failure];
 }
 
 - (void)authenticationCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
-  [self addCardAction:CardActionReadAuthenticationCert viewController:controller success:success failure:failure];
+  [self addCardAction:CardActionReadAuthenticationCert data:nil viewController:controller success:success failure:failure];
+}
+
+- (void)changePin1WithViewController:(UIViewController *)controller newPin:(NSString *)newPin verifyCode:(NSString *)verify success:(void (^)(void))success failure:(void (^)(NSError *))failure {
+  NSDictionary *data = @{kCardActionDataVerify:verify, kCardActionDataPin1:newPin};
+  [self addCardAction:CardActionChangePin1 data:data viewController:controller success:^(id data) {
+    success();
+  } failure:failure];
+}
+
+- (void)changePin2WithViewController:(UIViewController *)controller newPin:(NSString *)newPin verifyCode:(NSString *)verify success:(void (^)(void))success failure:(void (^)(NSError *))failure {
+  NSDictionary *data = @{kCardActionDataVerify:verify, kCardActionDataPin2:newPin};
+  [self addCardAction:CardActionChangePin2 data:data viewController:controller success:^(id data) {
+    success();
+  } failure:failure];
+}
+
+- (void)pin1RetryCountWithViewController:(UIViewController *)controller success:(void (^)(NSNumber *))success failure:(void (^)(NSError *))failure {
+  [self addCardAction:CardActionPin1RetryCount data:nil viewController:controller success:success failure:failure];
+}
+
+- (void)pin2RetryCountWithViewController:(UIViewController *)controller success:(void (^)(NSNumber *))success failure:(void (^)(NSError *))failure {
+  [self addCardAction:CardActionPin2RetryCount data:nil viewController:controller success:success failure:failure];
 }
 
 /**
@@ -95,7 +124,7 @@ static CardActionsManager *sharedInstance = nil;
  * @param success   block to be called when card action is completed successfully
  * @param failure   block to be called when executing card action fails
  */
-- (void)addCardAction:(NSUInteger)action viewController:(UIViewController *)controller success:(void (^)(id))success failure:(void (^)(NSError *))failure {
+- (void)addCardAction:(NSUInteger)action data:(NSDictionary *)data viewController:(UIViewController *)controller success:(void (^)(id))success failure:(void (^)(NSError *))failure {
   
   @synchronized (self) {
     CardActionObject *actionObject = [CardActionObject new];
@@ -137,14 +166,20 @@ static CardActionsManager *sharedInstance = nil;
                   const unsigned char *responseBytes = [responseObject bytes];
 
                   if (responseBytes[0] == 0x03 && responseBytes[1] == 0x05) {
-                    self.cardVersionHandler = [EstEIDv3_5 new];
+                    EstEIDv3_5 *handler = [EstEIDv3_5 new];
+                    [handler setReader:self.cardReader];
+                    self.cardVersionHandler = handler;
                   
                   } else if (responseBytes[0] == 0x03 && responseBytes[1] == 0x04) {
-                    self.cardVersionHandler = [EstEIDv3_4 new];
+                    EstEIDv3_4 *handler = [EstEIDv3_4 new];
+                    [handler setReader:self.cardReader];
+                    self.cardVersionHandler = handler;
                   
                   } else {
                     NSLog(@"Unsupported card version. Going to use v3.5 protocol");
-                    self.cardVersionHandler = [EstEIDv3_5 new];
+                    EstEIDv3_5 *handler = [EstEIDv3_5 new];
+                    [handler setReader:self.cardReader];
+                    self.cardVersionHandler = handler;
 
                   }
                 }
@@ -188,39 +223,65 @@ static CardActionsManager *sharedInstance = nil;
     [self executeAfterReaderCheck:actionObject];
     return;
   }
+  
+  void (^success)(id) = ^void (id response) {
+    actionObject.successBlock(response);
+    [self finishCurrentAction];
+  };
+  
+  void (^failure)(id) = ^void (NSError *error) {
+    actionObject.failureBlock(error);
+    [self finishCurrentAction];
+  };
+  
   switch (actionObject.cardAction) {
     case CardActionReadPublicData: {
-      
-      [self.cardVersionHandler cardReader:self.cardReader readPublicDataWithSuccess:^(MoppLibPersonalData *personalData) {
-        actionObject.successBlock(personalData);
-        [self finishCurrentAction];
-        
-      } failure:^(NSError *error) {
-        actionObject.failureBlock(error);
-        [self finishCurrentAction];
-      }];
+      [self.cardVersionHandler readPublicDataWithSuccess:success failure:failure];
       break;
     }
       
-    case CardActionChangePin1:
+    case CardActionChangePin1: {
+      NSString *verifyCode = [actionObject.data objectForKey:kCardActionDataVerify];
+      NSString *newCode = [actionObject.data objectForKey:kCardActionDataPin1];
+      [self.cardVersionHandler changePin1To:newCode verifyCode:verifyCode withSuccess:success failure:failure];
       break;
+    }
+      
+    case CardActionChangePin2: {
+      NSString *verifyCode = [actionObject.data objectForKey:kCardActionDataVerify];
+      NSString *newCode = [actionObject.data objectForKey:kCardActionDataPin2];
+      [self.cardVersionHandler changePin2To:newCode verifyCode:verifyCode withSuccess:success failure:failure];
+      break;
+    }
     
-    case CardActionChangePin2:
+    case CardActionUnblockPin1: {
       break;
+    }
     
-    case CardActionUnblockPin1:
+    case CardActionUnblockPin2: {
       break;
-    
-    case CardActionUnblockPin2:
+    }
+      
+    case CardActionPin1RetryCount: {
+      [self.cardVersionHandler readCodeCounterRecord:1 withSuccess:^(NSData *data) {
+        success([self retryCountFromData:data]);
+      } failure:failure];
       break;
+    }
+      
+    case CardActionPin2RetryCount: {
+      [self.cardVersionHandler readCodeCounterRecord:2 withSuccess:^(NSData *data) {
+        success([self retryCountFromData:data]);
+      } failure:failure];
+      break;
+    }
       
     case CardActionReadSigningCert: {
-      [self readCert:CardActionReadSigningCert success:actionObject.successBlock failure:actionObject.failureBlock];
+      [self readCert:CardActionReadSigningCert success:success failure:failure];
       break;
     }
     case CardActionReadAuthenticationCert: {
-      
-      [self readCert:CardActionReadAuthenticationCert success:actionObject.successBlock failure:actionObject.failureBlock];
+      [self readCert:CardActionReadAuthenticationCert success:success failure:failure];
       break;
     }
       
@@ -229,12 +290,28 @@ static CardActionsManager *sharedInstance = nil;
   }
 }
 
-- (void)readCert:(CardAction)certAction success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
+- (NSNumber *)retryCountFromData:(NSData *)data {
+  const unsigned char *dataBytes = [data bytes];
+  for (int i = 0; i < [data length]; i++) {
+    if (dataBytes[i] == 0x90) {
+      if ([data length] > i + 1) {
+        NSData *lengthData = [data subdataWithRange:NSMakeRange(i + 1, 1)];
+        int length = [[lengthData toHexString] hexToInt];
+        
+        if ([data length] > i + 1 + length) {
+          NSData *counterData = [data subdataWithRange:NSMakeRange(i + 2, length)];
+          int countValue = [[counterData toHexString] hexToInt];
+          
+          return [NSNumber numberWithInt:countValue];
+        }
+      }
+    }
+  }
   
-  void (^failedAction)(NSError *) = ^void (NSError *error) {
-    failure(error);
-    [self finishCurrentAction];
-  };
+  return nil;
+}
+
+- (void)readCert:(CardAction)certAction success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
   
   void (^getUseCount)(NSData *) = ^void (NSData *data) {
     MoppLibCertData *certData = [MoppLibCertData new];
@@ -246,22 +323,20 @@ static CardActionsManager *sharedInstance = nil;
     } else {
       record = 3;
     }
-    [self.cardVersionHandler cardReader:self.cardReader readSecretKeyRecord:record withSuccess:^(NSData *data) {
+    [self.cardVersionHandler readSecretKeyRecord:record withSuccess:^(NSData *data) {
       NSData *keyUsageData = [data subdataWithRange:NSMakeRange(12, 3)];
       int counterStart = [@"FF FF FF" hexToInt];
       int counterValue = [[keyUsageData toHexString] hexToInt];
       certData.usageCount = counterStart - counterValue;
       
       success(certData);
-      [self finishCurrentAction];
-      
-    } failure:failedAction];
+    } failure:failure];
   };
   
   if (certAction == CardActionReadSigningCert) {
-    [self.cardVersionHandler cardReader:self.cardReader readSignatureCertificateWithSuccess:getUseCount failure:failedAction];
+    [self.cardVersionHandler readSignatureCertificateWithSuccess:getUseCount failure:failure];
   } else if (certAction == CardActionReadAuthenticationCert) {
-    [self.cardVersionHandler cardReader:self.cardReader readAuthenticationCertificateWithSuccess:getUseCount failure:failedAction];
+    [self.cardVersionHandler readAuthenticationCertificateWithSuccess:getUseCount failure:failure];
   }
 
 }

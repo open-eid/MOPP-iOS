@@ -233,7 +233,7 @@
 
 - (void)bluetoothReader:(ABTBluetoothReader *)bluetoothReader didReturnResponseApdu:(NSData *)apdu error:(NSError *)error {
   if (error) {
-    NSLog(@"******* apdu error %@", error);
+    NSLog(@"Apdu error %i", error.code);
 
     [self respondWithError:error];
   } else {

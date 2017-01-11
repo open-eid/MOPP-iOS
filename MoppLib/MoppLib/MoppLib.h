@@ -17,6 +17,7 @@ FOUNDATION_EXPORT const unsigned char MoppLibVersionString[];
 // In this header, you should import all the public headers of your framework using statements like #import <MoppLib/PublicHeader.h>
 #import <MoppLib/MoppLibManager.h>
 #import <MoppLib/MoppLibCardActions.h>
+#import <MoppLib/MoppLibPinActions.h>
 #import <MoppLib/MoppLibConstants.h>
 #import <MoppLib/ReaderSelectionViewController.h>
 #import <MoppLib/MoppLibPersonalData.h>

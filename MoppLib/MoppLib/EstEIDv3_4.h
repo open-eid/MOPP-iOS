@@ -11,4 +11,5 @@
 
 @interface EstEIDv3_4 : NSObject <CardCommands>
 
+@property (nonatomic, strong) id<CardReaderWrapper> reader;
 @end

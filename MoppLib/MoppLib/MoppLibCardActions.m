@@ -31,4 +31,13 @@
 + (void)authenticationCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
   [[CardActionsManager sharedInstance] authenticationCertWithViewController:controller success:success failure:failure];
 }
+
++ (void)pin1RetryCountWithViewController:(UIViewController *)controller success:(void (^)(NSNumber *))success failure:(void (^)(NSError *))failure {
+  [[CardActionsManager sharedInstance] pin1RetryCountWithViewController:controller success:success failure:failure];
+}
+
++ (void)pin2RetryCountWithViewController:(UIViewController *)controller success:(void (^)(NSNumber *))success failure:(void (^)(NSError *))failure {
+  [[CardActionsManager sharedInstance] pin2RetryCountWithViewController:controller success:success failure:failure];
+}
+
 @end

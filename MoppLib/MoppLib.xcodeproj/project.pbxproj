@@ -11,6 +11,8 @@
 		540CB2211E1CDCED00FE18A3 /* MoppLibCertificate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 540CB21F1E1CDCED00FE18A3 /* MoppLibCertificate.mm */; };
 		540CB2251E1CDD8100FE18A3 /* MoppLibCertData.h in Headers */ = {isa = PBXBuildFile; fileRef = 540CB2231E1CDD8100FE18A3 /* MoppLibCertData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		540CB2261E1CDD8100FE18A3 /* MoppLibCertData.m in Sources */ = {isa = PBXBuildFile; fileRef = 540CB2241E1CDD8100FE18A3 /* MoppLibCertData.m */; };
+		542DCB6C1E23968000899534 /* MoppLibPinActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 542DCB6A1E23968000899534 /* MoppLibPinActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		542DCB6D1E23968000899534 /* MoppLibPinActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 542DCB6B1E23968000899534 /* MoppLibPinActions.m */; };
 		545111721E13BBA800296B80 /* MoppLibPersonalData.h in Headers */ = {isa = PBXBuildFile; fileRef = 545111701E13BBA800296B80 /* MoppLibPersonalData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		545111731E13BBA800296B80 /* MoppLibPersonalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 545111711E13BBA800296B80 /* MoppLibPersonalData.m */; };
 		5451117A1E13C52900296B80 /* EstEIDv3_5.h in Headers */ = {isa = PBXBuildFile; fileRef = 545111781E13C52900296B80 /* EstEIDv3_5.h */; };
@@ -70,6 +72,8 @@
 		540CB21F1E1CDCED00FE18A3 /* MoppLibCertificate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoppLibCertificate.mm; sourceTree = "<group>"; };
 		540CB2231E1CDD8100FE18A3 /* MoppLibCertData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibCertData.h; sourceTree = "<group>"; };
 		540CB2241E1CDD8100FE18A3 /* MoppLibCertData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibCertData.m; sourceTree = "<group>"; };
+		542DCB6A1E23968000899534 /* MoppLibPinActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibPinActions.h; sourceTree = "<group>"; };
+		542DCB6B1E23968000899534 /* MoppLibPinActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibPinActions.m; sourceTree = "<group>"; };
 		545111701E13BBA800296B80 /* MoppLibPersonalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibPersonalData.h; sourceTree = "<group>"; };
 		545111711E13BBA800296B80 /* MoppLibPersonalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibPersonalData.m; sourceTree = "<group>"; };
 		545111781E13C52900296B80 /* EstEIDv3_5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EstEIDv3_5.h; sourceTree = "<group>"; };
@@ -197,6 +201,8 @@
 				54DC0DFC1E0D196D00C62B3D /* CardActionsManager.m */,
 				54DC0E031E1250A200C62B3D /* MoppLibCardActions.h */,
 				54DC0E041E1250A200C62B3D /* MoppLibCardActions.m */,
+				542DCB6A1E23968000899534 /* MoppLibPinActions.h */,
+				542DCB6B1E23968000899534 /* MoppLibPinActions.m */,
 				5463DA4A1E12927A008A1714 /* CardCommands.h */,
 				5463DA4B1E12927A008A1714 /* CardCommands.m */,
 				545CF83F1E13F30300B66EE8 /* EstEIDv3_4.h */,
@@ -320,6 +326,7 @@
 				E4180C161E23FE9300FD7B8C /* MLDateFormatter.h in Headers */,
 				E42B08C51E1F11B900EA24A3 /* MoppLibDataFile.h in Headers */,
 				54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */,
+				542DCB6C1E23968000899534 /* MoppLibPinActions.h in Headers */,
 				545111721E13BBA800296B80 /* MoppLibPersonalData.h in Headers */,
 				5463DA491E127150008A1714 /* ReaderSelectionViewController.h in Headers */,
 				E42B08B51E1F0B3B00EA24A3 /* MoppLibContainer.h in Headers */,
@@ -461,6 +468,7 @@
 				54DC0DFE1E0D196D00C62B3D /* CardActionsManager.m in Sources */,
 				545CF8581E16928600B66EE8 /* CBManagerHelper.m in Sources */,
 				5463DA4D1E12927A008A1714 /* CardCommands.m in Sources */,
+				542DCB6D1E23968000899534 /* MoppLibPinActions.m in Sources */,
 				545111731E13BBA800296B80 /* MoppLibPersonalData.m in Sources */,
 				E4180C171E23FE9300FD7B8C /* MLDateFormatter.m in Sources */,
 				54DC0E021E0D48C900C62B3D /* MoppLibError.m in Sources */,

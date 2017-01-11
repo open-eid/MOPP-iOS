@@ -38,32 +38,13 @@
                         <segue destination="t4s-7c-07G" kind="relationship" relationship="viewControllers" id="lTE-bT-Me0"/>
                         <segue destination="b4N-MH-WmG" kind="relationship" relationship="viewControllers" id="mgY-BI-w22"/>
                         <segue destination="FAY-20-bhQ" kind="relationship" relationship="viewControllers" id="eap-m2-IzJ"/>
-                        <segue destination="OY8-qd-vwj" kind="relationship" relationship="viewControllers" id="Msv-vw-cFA"/>
-                        <segue destination="pmt-cj-EVx" kind="relationship" relationship="viewControllers" id="aTX-0J-x6u"/>
+                        <segue destination="POD-22-eUM" kind="relationship" relationship="viewControllers" id="UdE-0E-yMT"/>
+                        <segue destination="pmt-cj-EVx" kind="relationship" relationship="viewControllers" id="xvk-ux-yXV"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S8Q-9G-fP8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2792" y="832"/>
-        </scene>
-        <!--Item 4-->
-        <scene sceneID="oS2-Pn-6aW">
-            <objects>
-                <viewController id="OY8-qd-vwj" userLabel="Item 4" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="6u2-BI-fa9"/>
-                        <viewControllerLayoutGuide type="bottom" id="4Zh-29-OdU"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="qew-U1-Izq">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="SIM actions" id="Tac-jR-JDp"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XqD-AT-vNB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2018" y="1099"/>
         </scene>
         <!--Signing-->
         <scene sceneID="DPx-nb-l82">
@@ -83,7 +64,17 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cRJ-23-xvF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2018" y="1607"/>
+            <point key="canvasLocation" x="-2018" y="735"/>
+        </scene>
+        <!--PinOperations-->
+        <scene sceneID="clI-CO-oDs">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PinOperations" id="POD-22-eUM" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Pin Operations" id="gQP-GK-7dS"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fcg-yW-xvi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2019" y="685"/>
         </scene>
     </scenes>
 </document>

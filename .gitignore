@@ -2,3 +2,5 @@ POC/MOPP POC/MOPP POC.xcodeproj/project.xcworkspace/xcuserdata
 POC/MOPP POC/MOPP POC.xcodeproj/xcuserdata
 POC/MOPP POC/MOPP POC.xcworkspace/xcuserdata
 POC/MOPP POC/Pods
+MoppApp/MoppApp/Localizations.h
+MoppApp/MoppApp/Localizations.m
