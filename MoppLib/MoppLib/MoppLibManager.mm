@@ -36,6 +36,7 @@ public:
   }
 };
 
+
 @interface MoppLibManager ()
 
 @end
@@ -61,7 +62,7 @@ public:
         success();
       });
     } catch(const digidoc::Exception &e) {
-      NSLog(@"setup failed: %s", e.msg().c_str());
+      parseException(e);
       
       dispatch_async(dispatch_get_main_queue(), ^{
         failure(nil);
@@ -108,6 +109,7 @@ public:
         moppLibSignature.isValid = YES;
       }
       catch(const digidoc::Exception &e) {
+        parseException(e);
         moppLibSignature.isValid = NO;
       }
       
@@ -118,8 +120,7 @@ public:
     return moppLibContainer;
     
   } catch(const digidoc::Exception &e) {
-    NSLog(@"%s", e.msg().c_str());
-    
+    parseException(e);
     return nil;
   }
 }
@@ -187,13 +188,32 @@ public:
 //}
 
 
-- (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath {
+- (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath {
   
-  NSLog(@"createContainerWithPath: %@", containerPath);
-  digidoc::Container *doc = digidoc::Container::create(containerPath.UTF8String);
+  NSLog(@"createContainerWithPath: %@, dataFilePath: %@", containerPath, dataFilePath);
+  
+  digidoc::Container *container = digidoc::Container::create(containerPath.UTF8String);
+  
+  container->addDataFile(dataFilePath.UTF8String, @"application/octet-stream".UTF8String);
+  
+  try {
+    container->save(containerPath.UTF8String);
+  }
+  catch(const digidoc::Exception &e) {
+    parseException(e);
+  }
+  
   
   MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath];
   return moppLibContainer;
+}
+
+void parseException(const digidoc::Exception &e)
+{
+  NSLog(@"%s", e.msg().c_str());
+  for (const digidoc::Exception &ex : e.causes()) {
+    parseException(ex);
+  }
 }
 
 @end
