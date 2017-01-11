@@ -158,6 +158,7 @@ typedef enum : NSUInteger {
   
   [MoppLibCardActions isCardInserted:^(BOOL isInserted) {
     self.isCardInserted = isInserted;
+    [self updateRetryCounters];
   }];
 }
 
