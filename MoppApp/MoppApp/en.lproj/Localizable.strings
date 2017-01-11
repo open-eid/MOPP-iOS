@@ -6,11 +6,14 @@
 "tab-signed" = "Signed";
 "tab-my-eid" = "My eID";
 "tab-sim-settings" = "SIM settings";
+"tab-settings" = "Settings";
 
 // *** Actions ***
 "action-ok" = "OK";
 
-// *** Create container ***
+// *** Signing ***
+"signing-container-name-placeholder" = "Container name";
+"signing-create-container-button" = "Create container";
 
 
 // *** Signed containers ***
@@ -53,6 +56,7 @@
 "my-eid-signature-certificate" = "Signature certificate";
 "my-eid-my-eid" = "My eID";
 "my-eid-id-card-info-link" = "https://www.politsei.ee/en/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/";
+
 
 // *** PIN actions ***
 "pin-actions-pin1" = "PIN1";

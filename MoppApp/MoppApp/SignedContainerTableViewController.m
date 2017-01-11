@@ -41,20 +41,9 @@ typedef enum : NSUInteger {
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   
   NSString *filePath = [[FileManager sharedInstance] filePathWithFileName:self.containerFileName];
-  
-  [self showHUD];
-  
-  __weak typeof(self) weakSelf = self;
-  [[MoppLibManager sharedInstance] getContainerWithPath:filePath withSuccess:^(NSObject *responseObject) {
-    weakSelf.container = (MoppLibContainer *)responseObject;
-    [weakSelf.tableView reloadData];
-    [weakSelf hideHUD];
-    
-  } andFailure:^(NSError *error) {
-    weakSelf.container = nil;
-    [weakSelf.tableView reloadData];
-    [weakSelf hideHUD];
-  }];
+
+  self.container = [[MoppLibManager sharedInstance] getContainerWithPath:filePath];
+  [self.tableView reloadData];
 }
 
 

@@ -1,39 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ylY-Rn-2Bi">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ylY-Rn-2Bi">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Signing-->
-        <scene sceneID="8vN-mm-6J0">
-            <objects>
-                <navigationController id="bQg-9a-5xz" customClass="MPNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Signing" id="dkJ-d3-y7Y" userLabel="Item 1"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cJD-id-wV5">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="xAr-n6-KTB" kind="relationship" relationship="rootViewController" id="wDL-FB-L0X"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Fxt-Ar-Ixa" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1815" y="266"/>
-        </scene>
         <!--Signed-->
         <scene sceneID="peH-oX-y2Q">
             <objects>
                 <viewControllerPlaceholder storyboardName="Signed" id="b4N-MH-WmG" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="ga6-PB-Ws7"/>
+                    <tabBarItem key="tabBarItem" title="Signed" id="ga6-PB-Ws7"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vae-w1-17S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1851" y="672"/>
+            <point key="canvasLocation" x="-2019" y="587"/>
         </scene>
         <!--MyEid-->
         <scene sceneID="soZ-1K-mUT">
@@ -43,17 +23,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vAi-2t-nVj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2025" y="831"/>
-        </scene>
-        <!--PinOperations-->
-        <scene sceneID="9Eh-2h-Ipb">
-            <objects>
-                <viewControllerPlaceholder storyboardName="PinOperations" id="KrG-eX-2pw" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Pin Actions" id="OMb-Bl-0XA"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jYz-bf-OdB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2116" y="986"/>
+            <point key="canvasLocation" x="-2018" y="639"/>
         </scene>
         <!--Landing Tab Bar Controller-->
         <scene sceneID="XXu-xe-V6X">
@@ -65,56 +35,46 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="bQg-9a-5xz" kind="relationship" relationship="viewControllers" id="f9a-6e-RBo"/>
-                        <segue destination="b4N-MH-WmG" kind="relationship" relationship="viewControllers" id="sli-3R-Gwg"/>
-                        <segue destination="FAY-20-bhQ" kind="relationship" relationship="viewControllers" id="Wlz-hJ-Kus"/>
-                        <segue destination="KrG-eX-2pw" kind="relationship" relationship="viewControllers" id="w6V-UE-yWP"/>
+                        <segue destination="t4s-7c-07G" kind="relationship" relationship="viewControllers" id="lTE-bT-Me0"/>
+                        <segue destination="b4N-MH-WmG" kind="relationship" relationship="viewControllers" id="mgY-BI-w22"/>
+                        <segue destination="FAY-20-bhQ" kind="relationship" relationship="viewControllers" id="eap-m2-IzJ"/>
+                        <segue destination="POD-22-eUM" kind="relationship" relationship="viewControllers" id="UdE-0E-yMT"/>
+                        <segue destination="pmt-cj-EVx" kind="relationship" relationship="viewControllers" id="xvk-ux-yXV"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S8Q-9G-fP8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2792" y="832"/>
         </scene>
-        <!--ViewController-->
-        <scene sceneID="lxe-G7-1WV">
+        <!--Signing-->
+        <scene sceneID="DPx-nb-l82">
             <objects>
-                <viewController id="xAr-n6-KTB" userLabel="ViewController" customClass="ViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="HKj-QD-uCB"/>
-                        <viewControllerLayoutGuide type="bottom" id="Ytc-dc-oPE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="PqS-PO-TsA">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="04M-CC-EKl">
-                                <rect key="frame" x="130" y="114" width="116" height="30"/>
-                                <state key="normal" title="Read data action"/>
-                                <connections>
-                                    <action selector="readCardActionPressed:" destination="xAr-n6-KTB" eventType="touchUpInside" id="bks-OV-nQ2"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KmR-J1-smW">
-                                <rect key="frame" x="115" y="184" width="145" height="30"/>
-                                <state key="normal" title="Create test container"/>
-                                <connections>
-                                    <action selector="createContainer:" destination="xAr-n6-KTB" eventType="touchUpInside" id="unt-b6-01o"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="KmR-J1-smW" firstAttribute="top" secondItem="04M-CC-EKl" secondAttribute="bottom" constant="40" id="a3z-PG-qQk"/>
-                            <constraint firstItem="04M-CC-EKl" firstAttribute="top" secondItem="HKj-QD-uCB" secondAttribute="bottom" constant="50" id="hMB-i3-NpN"/>
-                            <constraint firstItem="04M-CC-EKl" firstAttribute="centerX" secondItem="PqS-PO-TsA" secondAttribute="centerX" id="kP0-GT-uxI"/>
-                            <constraint firstItem="KmR-J1-smW" firstAttribute="centerX" secondItem="PqS-PO-TsA" secondAttribute="centerX" id="tC6-36-mQN"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="IoH-gU-v8d"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PTZ-9K-tfv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="Signing" id="t4s-7c-07G" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Signing" id="Be0-HL-BAf"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qdl-VP-Xtf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1063" y="266"/>
+            <point key="canvasLocation" x="-2019" y="544"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="3FP-ZZ-bzB">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Settings" id="pmt-cj-EVx" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" id="fFi-cr-Xcb" userLabel="Settings"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cRJ-23-xvF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2018" y="735"/>
+        </scene>
+        <!--PinOperations-->
+        <scene sceneID="clI-CO-oDs">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PinOperations" id="POD-22-eUM" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Pin Operations" id="gQP-GK-7dS"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fcg-yW-xvi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2019" y="685"/>
         </scene>
     </scenes>
 </document>

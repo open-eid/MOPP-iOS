@@ -28,16 +28,19 @@
 		54825EFB1E1D28E900253FF0 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EFA1E1D28E900253FF0 /* UIColor+Additions.m */; };
 		54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */; };
 		E4180C1A1E240AC600FD7B8C /* UIViewController+MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C191E240AC600FD7B8C /* UIViewController+MBProgressHUD.m */; };
+		E4180C2B1E267A5700FD7B8C /* Signing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4180C281E267A5700FD7B8C /* Signing.storyboard */; };
+		E4180C2C1E267A5700FD7B8C /* SigningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C2A1E267A5700FD7B8C /* SigningViewController.m */; };
+		E4180C311E267A6700FD7B8C /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4180C2E1E267A6700FD7B8C /* Settings.storyboard */; };
+		E4180C321E267A6700FD7B8C /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C301E267A6700FD7B8C /* SettingsTableViewController.m */; };
+		E4180C351E267B5D00FD7B8C /* Localizations.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C341E267B5D00FD7B8C /* Localizations.m */; };
 		E4250CC81E0968D200530370 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250CC71E0968D200530370 /* main.m */; };
 		E4250CCB1E0968D200530370 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCA1E0968D200530370 /* AppDelegate.m */; };
-		E4250CCE1E0968D200530370 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCD1E0968D200530370 /* ViewController.m */; };
 		E4250CD31E0968D200530370 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4250CD21E0968D200530370 /* Assets.xcassets */; };
 		E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; };
 		E4250D071E0A911100530370 /* MoppLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4250D091E0AA7AF00530370 /* LaunchScreen.xib */; };
 		E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
 		E4250D151E0AA97B00530370 /* MPNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250D141E0AA97B00530370 /* MPNavigationController.m */; };
-		E4250D1F1E0AB5F100530370 /* Localizations.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250D1E1E0AB5F100530370 /* Localizations.m */; };
 		E42B088F1E155F2F00EA24A3 /* MPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B088E1E155F2F00EA24A3 /* MPViewController.m */; };
 		E42B08951E15617200EA24A3 /* LandingTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08941E15617200EA24A3 /* LandingTabBarController.m */; };
 		E42B08991E1562F400EA24A3 /* Signed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E42B08981E1562F400EA24A3 /* Signed.storyboard */; };
@@ -105,12 +108,18 @@
 		A0A7AA11ECD67C1248EED708 /* Pods-MoppApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E4180C181E240AC600FD7B8C /* UIViewController+MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MBProgressHUD.h"; sourceTree = "<group>"; };
 		E4180C191E240AC600FD7B8C /* UIViewController+MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MBProgressHUD.m"; sourceTree = "<group>"; };
+		E4180C281E267A5700FD7B8C /* Signing.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Signing.storyboard; sourceTree = "<group>"; };
+		E4180C291E267A5700FD7B8C /* SigningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SigningViewController.h; sourceTree = "<group>"; };
+		E4180C2A1E267A5700FD7B8C /* SigningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SigningViewController.m; sourceTree = "<group>"; };
+		E4180C2E1E267A6700FD7B8C /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Settings.storyboard; path = MoppApp/Settings.storyboard; sourceTree = SOURCE_ROOT; };
+		E4180C2F1E267A6700FD7B8C /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsTableViewController.h; path = MoppApp/SettingsTableViewController.h; sourceTree = SOURCE_ROOT; };
+		E4180C301E267A6700FD7B8C /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsTableViewController.m; path = MoppApp/SettingsTableViewController.m; sourceTree = SOURCE_ROOT; };
+		E4180C331E267B5D00FD7B8C /* Localizations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Localizations.h; sourceTree = "<group>"; };
+		E4180C341E267B5D00FD7B8C /* Localizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Localizations.m; sourceTree = "<group>"; };
 		E4250CC31E0968D200530370 /* MoppApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoppApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250CC71E0968D200530370 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E4250CC91E0968D200530370 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E4250CCA1E0968D200530370 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		E4250CCC1E0968D200530370 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		E4250CCD1E0968D200530370 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E4250CD21E0968D200530370 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E4250CD71E0968D200530370 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4250D051E0A911100530370 /* MoppLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MoppLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,8 +130,6 @@
 		E4250D131E0AA97B00530370 /* MPNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNavigationController.h; sourceTree = "<group>"; };
 		E4250D141E0AA97B00530370 /* MPNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPNavigationController.m; sourceTree = "<group>"; };
 		E4250D1A1E0AB1B300530370 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		E4250D1D1E0AB5F100530370 /* Localizations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Localizations.h; sourceTree = "<group>"; };
-		E4250D1E1E0AB5F100530370 /* Localizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Localizations.m; sourceTree = "<group>"; };
 		E42B088D1E155F2F00EA24A3 /* MPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPViewController.h; sourceTree = "<group>"; };
 		E42B088E1E155F2F00EA24A3 /* MPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPViewController.m; sourceTree = "<group>"; };
 		E42B08931E15617200EA24A3 /* LandingTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandingTabBarController.h; sourceTree = "<group>"; };
@@ -232,6 +239,27 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		E4180C271E267A4400FD7B8C /* Signing */ = {
+			isa = PBXGroup;
+			children = (
+				E4180C281E267A5700FD7B8C /* Signing.storyboard */,
+				E4180C291E267A5700FD7B8C /* SigningViewController.h */,
+				E4180C2A1E267A5700FD7B8C /* SigningViewController.m */,
+			);
+			name = Signing;
+			sourceTree = "<group>";
+		};
+		E4180C2D1E267A5900FD7B8C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				E4180C2E1E267A6700FD7B8C /* Settings.storyboard */,
+				E4180C2F1E267A6700FD7B8C /* SettingsTableViewController.h */,
+				E4180C301E267A6700FD7B8C /* SettingsTableViewController.m */,
+			);
+			name = Settings;
+			path = SimOperations;
+			sourceTree = "<group>";
+		};
 		E4250CBA1E0968D200530370 = {
 			isa = PBXGroup;
 			children = (
@@ -260,6 +288,7 @@
 				E4250D121E0AA93F00530370 /* Base */,
 				540786EA1E1A8BE90016ABA7 /* View */,
 				E4250D0B1E0AA84A00530370 /* ViewController */,
+				E4180C2D1E267A5900FD7B8C /* Settings */,
 				E42B08AB1E1EFC0500EA24A3 /* Utility */,
 				E4250CC61E0968D200530370 /* Supporting Files */,
 			);
@@ -274,8 +303,8 @@
 				E4250CC71E0968D200530370 /* main.m */,
 				E4250D091E0AA7AF00530370 /* LaunchScreen.xib */,
 				E4250D1A1E0AB1B300530370 /* PrefixHeader.pch */,
-				E4250D1D1E0AB5F100530370 /* Localizations.h */,
-				E4250D1E1E0AB5F100530370 /* Localizations.m */,
+				E4180C331E267B5D00FD7B8C /* Localizations.h */,
+				E4180C341E267B5D00FD7B8C /* Localizations.m */,
 				E42B08A41E1D4EE900EA24A3 /* test1.bdoc */,
 				E42B08A51E1D4EE900EA24A3 /* test2.bdoc */,
 			);
@@ -285,9 +314,8 @@
 		E4250D0B1E0AA84A00530370 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E4250CCC1E0968D200530370 /* ViewController.h */,
-				E4250CCD1E0968D200530370 /* ViewController.m */,
 				E42B08961E1562D500EA24A3 /* Landing */,
+				E4180C271E267A4400FD7B8C /* Signing */,
 				E42B08971E1562E500EA24A3 /* Signed */,
 				545CF8431E1642ED00B66EE8 /* MyEID */,
 				542DCB621E1FD2F000899534 /* PinOperations */,
@@ -428,12 +456,14 @@
 				545CF8481E16563200B66EE8 /* MyEid.storyboard in Resources */,
 				E42B08A61E1D4EE900EA24A3 /* test1.bdoc in Resources */,
 				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,
+				E4180C2B1E267A5700FD7B8C /* Signing.storyboard in Resources */,
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
 				542DCB641E1FDFC900899534 /* PinOperations.storyboard in Resources */,
 				540786F41E1AA1B30016ABA7 /* SimpleHeaderView.xib in Resources */,
 				54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */,
 				E42B08A71E1D4EE900EA24A3 /* test2.bdoc in Resources */,
 				E42B08991E1562F400EA24A3 /* Signed.storyboard in Resources */,
+				E4180C311E267A6700FD7B8C /* Settings.storyboard in Resources */,
 				E4250CD31E0968D200530370 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -532,15 +562,14 @@
 				54825EFB1E1D28E900253FF0 /* UIColor+Additions.m in Sources */,
 				E42B08BF1E1F0C9A00EA24A3 /* SignedContainerDataFileCell.m in Sources */,
 				545CF84E1E165DCF00B66EE8 /* PersonalDataCell.m in Sources */,
-				E4250CCE1E0968D200530370 /* ViewController.m in Sources */,
 				545CF8541E165DFB00B66EE8 /* InfoCell.m in Sources */,
+				E4180C321E267A6700FD7B8C /* SettingsTableViewController.m in Sources */,
 				E42B08BC1E1F0C8900EA24A3 /* SignedContainerDetailsCell.m in Sources */,
 				540786E91E1A76640016ABA7 /* UITextView+Additions.m in Sources */,
 				540786ED1E1A8C650016ABA7 /* ViewWithRoundedCorners.m in Sources */,
 				E42B08C21E1F0CA600EA24A3 /* SignedContainerSignatureCell.m in Sources */,
 				E4250CCB1E0968D200530370 /* AppDelegate.m in Sources */,
 				545CF8511E165DEC00B66EE8 /* ErrorCell.m in Sources */,
-				E4250D1F1E0AB5F100530370 /* Localizations.m in Sources */,
 				E42B08AE1E1EFC1800EA24A3 /* DateFormatter.m in Sources */,
 				E42B08B91E1F0C7500EA24A3 /* SignedContainerTableViewController.m in Sources */,
 				E42B089C1E15644200EA24A3 /* SignedTableViewController.m in Sources */,
@@ -550,6 +579,8 @@
 				545CF84B1E165DBA00B66EE8 /* NameAndPhotoCell.m in Sources */,
 				54825EF81E1D270F00253FF0 /* NSString+Additions.m in Sources */,
 				E42B08B11E1F049B00EA24A3 /* FileManager.m in Sources */,
+				E4180C351E267B5D00FD7B8C /* Localizations.m in Sources */,
+				E4180C2C1E267A5700FD7B8C /* SigningViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
 #import "MPNavigationController.h"
 #import "UIColor+Additions.h"
 

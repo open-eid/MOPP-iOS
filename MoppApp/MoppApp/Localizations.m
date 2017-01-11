@@ -59,6 +59,10 @@
     };
 }
 
+- (NSString *)SigningContainerNamePlaceholder {
+    return NSLocalizedStringFromTable(@"signing-container-name-placeholder", nil, nil);
+}
+
 - (NSString *(^)(NSString *))MyEidIdCardInfo {
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-id-card-info", nil, nil), value1];
@@ -145,6 +149,10 @@
 
 - (NSString *)MyEidEmail {
     return NSLocalizedStringFromTable(@"my-eid-email", nil, nil);
+}
+
+- (NSString *)SigningCreateContainerButton {
+    return NSLocalizedStringFromTable(@"signing-create-container-button", nil, nil);
 }
 
 - (NSString *(^)(NSString *, long))SignedContainerDetailsHeaderDetails {
@@ -259,16 +267,20 @@
     return NSLocalizedStringFromTable(@"signed-container-details-title", nil, nil);
 }
 
-- (NSString *)PinActionsRulesPin2 {
-    return NSLocalizedStringFromTable(@"pin-actions-rules-PIN2", nil, nil);
+- (NSString *)MyEidSurname {
+    return NSLocalizedStringFromTable(@"my-eid-surname", nil, nil);
 }
 
 - (NSString *)TabSigned {
     return NSLocalizedStringFromTable(@"tab-signed", nil, nil);
 }
 
-- (NSString *)MyEidSurname {
-    return NSLocalizedStringFromTable(@"my-eid-surname", nil, nil);
+- (NSString *)PinActionsRulesPin2 {
+    return NSLocalizedStringFromTable(@"pin-actions-rules-PIN2", nil, nil);
+}
+
+- (NSString *)TabSettings {
+    return NSLocalizedStringFromTable(@"tab-settings", nil, nil);
 }
 
 - (NSString *)TabSimSettings {

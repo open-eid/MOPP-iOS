@@ -38,6 +38,9 @@
 
 /// Base translation: %i times
 - (NSString *(^)(int))MyEidTimesUsed;
+/// Base translation: Container name
+- (NSString *)SigningContainerNamePlaceholder;
+
 /// Base translation: ID-kaart on riigi sisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.  ID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@
 - (NSString *(^)(NSString *))MyEidIdCardInfo;
 /// Base translation: PIN action was successful
@@ -88,6 +91,9 @@
 
 /// Base translation: E-mail:
 - (NSString *)MyEidEmail;
+
+/// Base translation: Create container
+- (NSString *)SigningCreateContainerButton;
 
 /// Base translation: Format: %@ | Size: %ld kb
 - (NSString *(^)(NSString *, long))SignedContainerDetailsHeaderDetails;
@@ -153,14 +159,17 @@
 /// Base translation: Container
 - (NSString *)SignedContainerDetailsTitle;
 
-/// Base translation: * New PIN2 must be different from previous PIN2.  * New PIN2 must be 5-12 digits long.  * New PIN2 can't be 00000, 12345, or contain your personal id code.
-- (NSString *)PinActionsRulesPin2;
+/// Base translation: Surname:
+- (NSString *)MyEidSurname;
 
 /// Base translation: Signed
 - (NSString *)TabSigned;
 
-/// Base translation: Surname:
-- (NSString *)MyEidSurname;
+/// Base translation: * New PIN2 must be different from previous PIN2.  * New PIN2 must be 5-12 digits long.  * New PIN2 can't be 00000, 12345, or contain your personal id code.
+- (NSString *)PinActionsRulesPin2;
+
+/// Base translation: Settings
+- (NSString *)TabSettings;
 
 /// Base translation: SIM settings
 - (NSString *)TabSimSettings;

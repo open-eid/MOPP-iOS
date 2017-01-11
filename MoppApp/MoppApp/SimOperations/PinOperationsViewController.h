@@ -6,7 +6,6 @@
 //  Copyright © 2017 Mobi Lab. All rights reserved.
 //
 
-#import "ViewController.h"
 
 @interface PinOperationsViewController : UITableViewController
 
