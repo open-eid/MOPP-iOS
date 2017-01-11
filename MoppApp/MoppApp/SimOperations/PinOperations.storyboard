@@ -11,7 +11,7 @@
         <!--Root View Controller-->
         <scene sceneID="LNJ-gQ-bEk">
             <objects>
-                <tableViewController id="K0z-pF-V4I" customClass="PinOperationsViewController" sceneMemberID="viewController">
+                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="K0z-pF-V4I" customClass="PinOperationsViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Kze-IJ-Elm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -74,7 +74,7 @@
         <!--Change Pin View Controller-->
         <scene sceneID="qzM-PQ-zFp">
             <objects>
-                <viewController id="ZqK-mS-ico" customClass="ChangePinViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="ZqK-mS-ico" customClass="ChangePinViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vFi-6f-AQV"/>
                         <viewControllerLayoutGuide type="bottom" id="s1S-G3-iST"/>
@@ -212,7 +212,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1180" y="125"/>
+            <point key="canvasLocation" x="1180" y="124.58770614692655"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0UK-ET-fG4">

@@ -71,6 +71,13 @@ typedef enum : NSUInteger {
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+  [super viewDidAppear:animated];
+  
+  if (self.isReaderConnected && self.isCardInserted) {
+    [self updateRetryCounters];
+  }
+}
 - (void)setIsCardInserted:(BOOL)isCardInserted {
   if (_isCardInserted != isCardInserted) {
     _isCardInserted = isCardInserted;
@@ -123,18 +130,23 @@ typedef enum : NSUInteger {
 
 - (void)updateRetryCounters {
   [MoppLibCardActions pin1RetryCountWithViewController:self success:^(NSNumber *count) {
-    self.pin1RetryCount = count;
-    [self setupCells];
-    [self.tableView reloadData];
-    
+    if (self.pin1RetryCount != count) {
+      self.pin1RetryCount = count;
+      [self setupCells];
+      [self.tableView reloadData];
+    }
+
   } failure:^(NSError *error) {
     NSLog(@"Error %@", error);
   }];
   
   [MoppLibCardActions pin2RetryCountWithViewController:self success:^(NSNumber *count) {
-    self.pin2RetryCount = count;
-    [self setupCells];
-    [self.tableView reloadData];
+    if (self.pin2RetryCount != count) {
+      self.pin2RetryCount = count;
+      [self setupCells];
+      [self.tableView reloadData];
+    }
+
     
   } failure:^(NSError *error) {
     NSLog(@"Error %@", error);
@@ -209,7 +221,7 @@ NSString *readerNotFoundPath2 = @"myeid://readerNotConnected";
       
     case PinOperationsCellInfo: {
         InfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell" forIndexPath:indexPath];
-      cell.infoTextView.text = @"Siin saad muuta oma PIN koode ja PIN koodi blokeeringut tühistada.";
+      cell.infoTextView.text = Localizations.PinActionsInfo;
       
       return cell;
     }

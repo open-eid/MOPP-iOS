@@ -73,7 +73,13 @@
 }
 
 - (IBAction)infoTapped:(id)sender {
-  NSString *message = Localizations.PinActionsRulesPin1;
+  NSString *message;
+  if (self.type == PinOperationTypeChangePin1 || self.type == PinOperationTypeUnblockPin1) {
+    message = Localizations.PinActionsRulesPin1;
+
+  } else {
+    message = Localizations.PinActionsRulesPin2;
+  }
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.PinActionsRulesTitle message:message preferredStyle:UIAlertControllerStyleAlert];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:nil]];
   [self presentViewController:alert animated:YES completion:^{
@@ -117,37 +123,79 @@
 }
 
 - (void)displaySuccessMessage {
-  UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Success" message:@"Your pin was changed successfully" preferredStyle:UIAlertControllerStyleAlert];
-  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:nil]];
-  [self presentViewController:alert animated:YES completion:^{
+  
+  NSString *pinString;
+  if (self.type == PinOperationTypeChangePin1 || self.type == PinOperationTypeUnblockPin1) {
+    pinString = Localizations.PinActionsPin1;
     
-  }];
+  } else {
+    pinString = Localizations.PinActionsPin2;
+  }
+  
+  NSString *message;
+  if (self.type == PinOperationTypeUnblockPin2 || self.type == PinOperationTypeUnblockPin1) {
+    message = Localizations.PinActionsSuccessPinUnblocked(pinString);
+  } else {
+    message = Localizations.PinActionsSuccessPinChanged(pinString);
+  }
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.PinActionsSuccessTitle message:message preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [self.navigationController popViewControllerAnimated:YES];
+  }]];
+  [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)displayErrorMessage:(NSError *)error {
+  NSString *pinString;
+  NSString *verifyCode;
   
-  NSString *message;
-  if (error.code == moppLibErrorWrongPin) {
-    int retryCount = [[error.userInfo objectForKey:kMoppLibUserInfoRetryCount] intValue];
-    message = [NSString stringWithFormat:@"Pin code was wrong. You have %i tries left.", retryCount];
-    
-  } else if (error.code == moppLibErrorInvalidPin) {
-    message = [NSString stringWithFormat:@"New pin has invalid format."];
-    
-  } else if (error.code == moppLibErrorPinMatchesVerificationCode) {
-    message = [NSString stringWithFormat:@"New pin must be different from old pin/puk"];
-    
-  } else if (error.code == moppLibErrorIncorrectPinLength) {
-    message = [NSString stringWithFormat:@"New pin has incorrect length."];
+  if (self.type == PinOperationTypeChangePin1 || self.type == PinOperationTypeUnblockPin1) {
+    pinString = Localizations.PinActionsPin1;
     
   } else {
-    message = @"Problem ocurred with Pin change";
+    pinString = Localizations.PinActionsPin2;
   }
-  UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:message preferredStyle:UIAlertControllerStyleAlert];
-  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:nil]];
-  [self presentViewController:alert animated:YES completion:^{
+  
+  if (self.type == PinOperationTypeUnblockPin2 || self.type == PinOperationTypeUnblockPin1) {
+    verifyCode = Localizations.PinActionsPuk;
     
-  }];
+  } else {
+    verifyCode = pinString;
+  }
+  
+  NSString *message;
+  BOOL dismissOnConfirm = NO;
+  
+  if (error.code == moppLibErrorWrongPin) {
+    int retryCount = [[error.userInfo objectForKey:kMoppLibUserInfoRetryCount] intValue];
+    
+    if (retryCount == 0) {
+      dismissOnConfirm = YES;
+      message = Localizations.PinActionsWrongPinBlocked(verifyCode, pinString);
+
+    } else {
+      message = Localizations.PinActionsWrongPinRetry(verifyCode, retryCount);
+    }
+    
+  } else if (error.code == moppLibErrorInvalidPin) {
+    message = Localizations.PinActionsInvalidFormat(pinString);
+    
+  } else if (error.code == moppLibErrorPinMatchesVerificationCode) {
+    message = Localizations.PinActionsSameAsCurrent(pinString, verifyCode);
+    
+  } else if (error.code == moppLibErrorIncorrectPinLength) {
+    message = Localizations.PinActionsIncorrectLength(pinString);
+    
+  } else {
+    message = Localizations.PinActionsGeneralError(pinString);
+  }
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.PinActionsErrorTitle message:message preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    if (dismissOnConfirm) {
+      [self.navigationController popViewControllerAnimated:YES];
+    }
+  }]];
+  [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (IBAction)backgroundTapped:(id)sender {

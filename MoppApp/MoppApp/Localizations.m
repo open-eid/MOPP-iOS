@@ -15,70 +15,8 @@
 
 @implementation _Localizations
 
-- (NSString *)TabSimSettings {
-    return NSLocalizedStringFromTable(@"tab-sim-settings", nil, nil);
-}
-
-- (NSString *)MyEidUseCount {
-    return NSLocalizedStringFromTable(@"my-eid-use-count", nil, nil);
-}
-
-- (NSString *)MyEidSignatureCertificate {
-    return NSLocalizedStringFromTable(@"my-eid-signature-certificate", nil, nil);
-}
-
-- (NSString *)TabSigned {
-    return NSLocalizedStringFromTable(@"tab-signed", nil, nil);
-}
-
-- (NSString *)MyEidMyEid {
-    return NSLocalizedStringFromTable(@"my-eid-my-eid", nil, nil);
-}
-
-- (NSString *)MyEidNotValid {
-    return NSLocalizedStringFromTable(@"my-eid-not-valid", nil, nil);
-}
-
-- (NSString *)SignedContainerDetailsDatafileSectionHeader {
-    return NSLocalizedStringFromTable(@"signed-container-details-datafile-section-header", nil, nil);
-}
-
-- (NSString *)MyEidCitizenship {
-    return NSLocalizedStringFromTable(@"my-eid-citizenship", nil, nil);
-}
-
-- (NSString *)MyEidIdCardInfoLink {
-    return NSLocalizedStringFromTable(@"my-eid-id-card-info-link", nil, nil);
-}
-
 - (NSString *)SignedContainerDetailsSignatureSectionHeader {
     return NSLocalizedStringFromTable(@"signed-container-details-signature-section-header", nil, nil);
-}
-
-- (NSString *)MyEidValid {
-    return NSLocalizedStringFromTable(@"my-eid-valid", nil, nil);
-}
-
-- (NSString *)SignedContainerDetailsTitle {
-    return NSLocalizedStringFromTable(@"signed-container-details-title", nil, nil);
-}
-
-- (NSString *)MyEidPersonalData {
-    return NSLocalizedStringFromTable(@"my-eid-personal-data", nil, nil);
-}
-
-- (NSString *)MyEidBirth {
-    return NSLocalizedStringFromTable(@"my-eid-birth", nil, nil);
-}
-
-- (NSString *)MyEidEid {
-    return NSLocalizedStringFromTable(@"my-eid-eid", nil, nil);
-}
-
-- (NSString *(^)(NSString *))PinActionsNewPin {
-    return ^(NSString * value1) {
-        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-new-pin", nil, nil), value1];
-    };
 }
 
 - (NSString *(^)(NSString *))PinActionsChangePin {
@@ -87,52 +25,12 @@
     };
 }
 
-- (NSString *)MyEidCardInReader {
-    return NSLocalizedStringFromTable(@"my-eid-card-in-reader", nil, nil);
-}
-
-- (NSString *)MyEidEmail {
-    return NSLocalizedStringFromTable(@"my-eid-email", nil, nil);
-}
-
-- (NSString *)PinActionsPuk {
-    return NSLocalizedStringFromTable(@"pin-actions-puk", nil, nil);
-}
-
-- (NSString *(^)(long))SignedContainerDetailsDatafileDetails {
-    return ^(long value1) {
-        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"signed-container-details-datafile-details", nil, nil), value1];
-    };
-}
-
-- (NSString *(^)(NSString *))SignedContainerDetailsSignaturePrefix {
-    return ^(NSString * value1) {
-        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"signed-container-details-signature-prefix", nil, nil), value1];
-    };
-}
-
-- (NSString *)SignedContainerDetailsSignatureInvalid {
-    return NSLocalizedStringFromTable(@"signed-container-details-signature-invalid", nil, nil);
-}
-
-- (NSString *)ActionOk {
-    return NSLocalizedStringFromTable(@"action-ok", nil, nil);
-}
-
-- (NSString *)SignedContainerDetailsSignatureValid {
-    return NSLocalizedStringFromTable(@"signed-container-details-signature-valid", nil, nil);
-}
-
 - (NSString *)MyEidUsedOnce {
     return NSLocalizedStringFromTable(@"my-eid-used-once", nil, nil);
 }
 
-- (NSString *)MyEidWarningCardNotFound {
-    return NSLocalizedStringFromTable(@"my-eid-warning-card-not-found", nil, nil);
-}
-
-- (NSString *)MyEidValidUntil {
-    return NSLocalizedStringFromTable(@"my-eid-valid-until", nil, nil);
+- (NSString *)MyEidValidity {
+    return NSLocalizedStringFromTable(@"my-eid-validity", nil, nil);
 }
 
 - (NSString *(^)(NSString *))PinActionsUnblockingPin {
@@ -141,8 +39,18 @@
     };
 }
 
-- (NSString *)MyEidValidity {
-    return NSLocalizedStringFromTable(@"my-eid-validity", nil, nil);
+- (NSString *)MyEidBirth {
+    return NSLocalizedStringFromTable(@"my-eid-birth", nil, nil);
+}
+
+- (NSString *(^)(NSString *))PinActionsSuccessPinChanged {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-success-pin-changed", nil, nil), value1];
+    };
+}
+
+- (NSString *)MyEidValid {
+    return NSLocalizedStringFromTable(@"my-eid-valid", nil, nil);
 }
 
 - (NSString *(^)(int))MyEidTimesUsed {
@@ -151,64 +59,22 @@
     };
 }
 
-- (NSString *)PinActionsRulesPin1 {
-    return NSLocalizedStringFromTable(@"pin-actions-rules-PIN1", nil, nil);
-}
-
-- (NSString *(^)(NSString *))MyEidWarningReaderNotFound {
+- (NSString *(^)(NSString *))MyEidIdCardInfo {
     return ^(NSString * value1) {
-        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-warning-reader-not-found", nil, nil), value1];
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-id-card-info", nil, nil), value1];
     };
 }
 
-- (NSString *(^)(NSString *))PinActionsChangingPin {
-    return ^(NSString * value1) {
-        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-changing-pin", nil, nil), value1];
-    };
+- (NSString *)PinActionsSuccessTitle {
+    return NSLocalizedStringFromTable(@"pin-actions-success-title", nil, nil);
 }
 
-- (NSString *)MyEidGivenNames {
-    return NSLocalizedStringFromTable(@"my-eid-given-names", nil, nil);
+- (NSString *)SignedContainerDetailsSignatureValid {
+    return NSLocalizedStringFromTable(@"signed-container-details-signature-valid", nil, nil);
 }
 
-- (NSString *)MyEidTapHere {
-    return NSLocalizedStringFromTable(@"my-eid-tap-here", nil, nil);
-}
-
-- (NSString *)PinActionsPin1 {
-    return NSLocalizedStringFromTable(@"pin-actions-pin1", nil, nil);
-}
-
-- (NSString *)TabMyEid {
-    return NSLocalizedStringFromTable(@"tab-my-eid", nil, nil);
-}
-
-- (NSString *)MyEidPersonalCode {
-    return NSLocalizedStringFromTable(@"my-eid-personal-code", nil, nil);
-}
-
-- (NSString *)PinActionsPin2 {
-    return NSLocalizedStringFromTable(@"pin-actions-pin2", nil, nil);
-}
-
-- (NSString *(^)(NSString *, long))SignedContainerDetailsHeaderDetails {
-    return ^(NSString * value1 , long value2) {
-        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"signed-container-details-header-details", nil, nil), value1, value2];
-    };
-}
-
-- (NSString *)MyEidFindMoreInfo {
-    return NSLocalizedStringFromTable(@"my-eid-find-more-info", nil, nil);
-}
-
-- (NSString *)SignedContainerListSearchPlaceholder {
-    return NSLocalizedStringFromTable(@"signed-container-list-search-placeholder", nil, nil);
-}
-
-- (NSString *(^)(NSString *))PinActionsUnblockPin {
-    return ^(NSString * value1) {
-        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-unblock-pin", nil, nil), value1];
-    };
+- (NSString *)MyEidPersonalData {
+    return NSLocalizedStringFromTable(@"my-eid-personal-data", nil, nil);
 }
 
 - (NSString *(^)(NSString *))PinActionsCurrentPin {
@@ -217,18 +83,24 @@
     };
 }
 
-- (NSString *)TabSigning {
-    return NSLocalizedStringFromTable(@"tab-signing", nil, nil);
+- (NSString *)SignedContainerDetailsDatafileSectionHeader {
+    return NSLocalizedStringFromTable(@"signed-container-details-datafile-section-header", nil, nil);
 }
 
-- (NSString *)MyEidSurname {
-    return NSLocalizedStringFromTable(@"my-eid-surname", nil, nil);
-}
-
-- (NSString *(^)(NSString *))MyEidIdCardInfo {
+- (NSString *(^)(NSString *))PinActionsChangingPin {
     return ^(NSString * value1) {
-        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-id-card-info", nil, nil), value1];
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-changing-pin", nil, nil), value1];
     };
+}
+
+- (NSString *(^)(NSString *, int))PinActionsWrongPinRetry {
+    return ^(NSString * value1 , int value2) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-wrong-pin-retry", nil, nil), value1, value2];
+    };
+}
+
+- (NSString *)MyEidUseCount {
+    return NSLocalizedStringFromTable(@"my-eid-use-count", nil, nil);
 }
 
 - (NSString *(^)(NSString *))PinActionsRepeatPin {
@@ -237,8 +109,200 @@
     };
 }
 
+- (NSString *)PinActionsPuk {
+    return NSLocalizedStringFromTable(@"pin-actions-puk", nil, nil);
+}
+
+- (NSString *)SignedContainerDetailsSignatureInvalid {
+    return NSLocalizedStringFromTable(@"signed-container-details-signature-invalid", nil, nil);
+}
+
+- (NSString *)MyEidPersonalCode {
+    return NSLocalizedStringFromTable(@"my-eid-personal-code", nil, nil);
+}
+
+- (NSString *)MyEidNotValid {
+    return NSLocalizedStringFromTable(@"my-eid-not-valid", nil, nil);
+}
+
+- (NSString *(^)(NSString *))PinActionsSuccessPinUnblocked {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-success-pin-unblocked", nil, nil), value1];
+    };
+}
+
+- (NSString *)MyEidWarningCardNotFound {
+    return NSLocalizedStringFromTable(@"my-eid-warning-card-not-found", nil, nil);
+}
+
+- (NSString *)MyEidTapHere {
+    return NSLocalizedStringFromTable(@"my-eid-tap-here", nil, nil);
+}
+
+- (NSString *)SignedContainerListSearchPlaceholder {
+    return NSLocalizedStringFromTable(@"signed-container-list-search-placeholder", nil, nil);
+}
+
+- (NSString *)MyEidEmail {
+    return NSLocalizedStringFromTable(@"my-eid-email", nil, nil);
+}
+
+- (NSString *(^)(NSString *, long))SignedContainerDetailsHeaderDetails {
+    return ^(NSString * value1 , long value2) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"signed-container-details-header-details", nil, nil), value1, value2];
+    };
+}
+
+- (NSString *)TabMyEid {
+    return NSLocalizedStringFromTable(@"tab-my-eid", nil, nil);
+}
+
+- (NSString *)MyEidFindMoreInfo {
+    return NSLocalizedStringFromTable(@"my-eid-find-more-info", nil, nil);
+}
+
+- (NSString *)PinActionsInfo {
+    return NSLocalizedStringFromTable(@"pin-actions-info", nil, nil);
+}
+
+- (NSString *)MyEidCitizenship {
+    return NSLocalizedStringFromTable(@"my-eid-citizenship", nil, nil);
+}
+
+- (NSString *(^)(NSString *))SignedContainerDetailsSignaturePrefix {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"signed-container-details-signature-prefix", nil, nil), value1];
+    };
+}
+
+- (NSString *(^)(NSString *, NSString *))PinActionsSameAsCurrent {
+    return ^(NSString * value1 , NSString * value2) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-same-as-current", nil, nil), value1, value2];
+    };
+}
+
+- (NSString *)MyEidMyEid {
+    return NSLocalizedStringFromTable(@"my-eid-my-eid", nil, nil);
+}
+
+- (NSString *(^)(NSString *))PinActionsInvalidFormat {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-invalid-format", nil, nil), value1];
+    };
+}
+
+- (NSString *(^)(NSString *, NSString *))PinActionsWrongPinBlocked {
+    return ^(NSString * value1 , NSString * value2) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-wrong-pin-blocked", nil, nil), value1, value2];
+    };
+}
+
+- (NSString *(^)(NSString *))MyEidWarningReaderNotFound {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-warning-reader-not-found", nil, nil), value1];
+    };
+}
+
+- (NSString *(^)(NSString *))PinActionsIncorrectLength {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-incorrect-length", nil, nil), value1];
+    };
+}
+
+- (NSString *)PinActionsPin1 {
+    return NSLocalizedStringFromTable(@"pin-actions-pin1", nil, nil);
+}
+
+- (NSString *)MyEidSignatureCertificate {
+    return NSLocalizedStringFromTable(@"my-eid-signature-certificate", nil, nil);
+}
+
+- (NSString *)ActionOk {
+    return NSLocalizedStringFromTable(@"action-ok", nil, nil);
+}
+
+- (NSString *)PinActionsErrorTitle {
+    return NSLocalizedStringFromTable(@"pin-actions-error-title", nil, nil);
+}
+
+- (NSString *)PinActionsPin2 {
+    return NSLocalizedStringFromTable(@"pin-actions-pin2", nil, nil);
+}
+
+- (NSString *)TabSigning {
+    return NSLocalizedStringFromTable(@"tab-signing", nil, nil);
+}
+
+- (NSString *(^)(NSString *))PinActionsNewPin {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-new-pin", nil, nil), value1];
+    };
+}
+
+- (NSString *)MyEidIdCardInfoLink {
+    return NSLocalizedStringFromTable(@"my-eid-id-card-info-link", nil, nil);
+}
+
+- (NSString *)MyEidEid {
+    return NSLocalizedStringFromTable(@"my-eid-eid", nil, nil);
+}
+
+- (NSString *)MyEidValidUntil {
+    return NSLocalizedStringFromTable(@"my-eid-valid-until", nil, nil);
+}
+
+- (NSString *)PinActionsRulesPin1 {
+    return NSLocalizedStringFromTable(@"pin-actions-rules-PIN1", nil, nil);
+}
+
+- (NSString *)SignedContainerDetailsTitle {
+    return NSLocalizedStringFromTable(@"signed-container-details-title", nil, nil);
+}
+
+- (NSString *)PinActionsRulesPin2 {
+    return NSLocalizedStringFromTable(@"pin-actions-rules-PIN2", nil, nil);
+}
+
+- (NSString *)TabSigned {
+    return NSLocalizedStringFromTable(@"tab-signed", nil, nil);
+}
+
+- (NSString *)MyEidSurname {
+    return NSLocalizedStringFromTable(@"my-eid-surname", nil, nil);
+}
+
+- (NSString *)TabSimSettings {
+    return NSLocalizedStringFromTable(@"tab-sim-settings", nil, nil);
+}
+
+- (NSString *(^)(NSString *))PinActionsUnblockPin {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-unblock-pin", nil, nil), value1];
+    };
+}
+
+- (NSString *)MyEidCardInReader {
+    return NSLocalizedStringFromTable(@"my-eid-card-in-reader", nil, nil);
+}
+
+- (NSString *(^)(NSString *))PinActionsGeneralError {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-general-error", nil, nil), value1];
+    };
+}
+
 - (NSString *)PinActionsRulesTitle {
     return NSLocalizedStringFromTable(@"pin-actions-rules-title", nil, nil);
+}
+
+- (NSString *)MyEidGivenNames {
+    return NSLocalizedStringFromTable(@"my-eid-given-names", nil, nil);
+}
+
+- (NSString *(^)(long))SignedContainerDetailsDatafileDetails {
+    return ^(long value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"signed-container-details-datafile-details", nil, nil), value1];
+    };
 }
 
 + (_Localizations *)sharedInstance {
