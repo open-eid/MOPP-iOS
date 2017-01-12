@@ -177,6 +177,12 @@
     return NSLocalizedStringFromTable(@"my-eid-citizenship", nil, nil);
 }
 
+- (NSString *(^)(NSString *))PinActionsVerificationOption {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-verification-option", nil, nil), value1];
+    };
+}
+
 - (NSString *(^)(NSString *))SignedContainerDetailsSignaturePrefix {
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"signed-container-details-signature-prefix", nil, nil), value1];
@@ -217,12 +223,18 @@
     };
 }
 
-- (NSString *)PinActionsPin1 {
-    return NSLocalizedStringFromTable(@"pin-actions-pin1", nil, nil);
+- (NSString *(^)(NSString *))PinActionsVerificationTitle {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-verification-title", nil, nil), value1];
+    };
 }
 
 - (NSString *)MyEidSignatureCertificate {
     return NSLocalizedStringFromTable(@"my-eid-signature-certificate", nil, nil);
+}
+
+- (NSString *)PinActionsPin1 {
+    return NSLocalizedStringFromTable(@"pin-actions-pin1", nil, nil);
 }
 
 - (NSString *)ActionOk {

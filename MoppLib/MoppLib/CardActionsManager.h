@@ -19,8 +19,12 @@
 - (void)signingCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure;
 - (void)authenticationCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure;
 
-- (void)changePin1WithViewController:(UIViewController *)controller newPin:(NSString *)newPin verifyCode:(NSString *)verify success:(void (^)(void))success failure:(void (^)(NSError *))failure;
-- (void)changePin2WithViewController:(UIViewController *)controller newPin:(NSString *)newPin verifyCode:(NSString *)verify success:(void (^)(void))success failure:(void (^)(NSError *))failure;
+- (void)changePin1WithViewController:(UIViewController *)controller newPin:(NSString *)newPin puk:(NSString *)verify success:(void (^)(void))success failure:(void (^)(NSError *))failure;
+- (void)changePin2WithViewController:(UIViewController *)controller newPin:(NSString *)newPin puk:(NSString *)verify success:(void (^)(void))success failure:(void (^)(NSError *))failure;
+
+- (void)changePin1WithViewController:(UIViewController *)controller newPin:(NSString *)newPin oldPin:(NSString *)verify success:(void (^)(void))success failure:(void (^)(NSError *))failure;
+- (void)changePin2WithViewController:(UIViewController *)controller newPin:(NSString *)newPin oldPin:(NSString *)verify success:(void (^)(void))success failure:(void (^)(NSError *))failure;
+
 
 - (void)unblockPin1WithPuk:(NSString *)puk newPin1:(NSString *)newPin1 viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure;
 - (void)unblockPin2WithPuk:(NSString *)puk newPin2:(NSString *)newPin2 viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure;

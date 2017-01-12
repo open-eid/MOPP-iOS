@@ -97,6 +97,7 @@ extern NSString *const kCommandResetRetryCounter;
 - (void)verifyPin1:(NSString *)pin1 withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
 
 - (void)verifyPin2:(NSString *)pin2 withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
+- (void)verifyPuk:(NSString *)puk withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
 
 - (void)calculateSignature:(NSString *)hash withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
 

@@ -89,3 +89,6 @@
 "pin-actions-success-title" = "PIN'i toiming õnnestus";
 "pin-actions-success-pin-changed" = "%@ on muudetud.";
 "pin-actions-success-pin-unblocked" = "%@ on muudetud ja blokeering tühistatud.";
+"pin-actions-verification-title" = "%@ muutmine:";
+"pin-actions-verification-option" = "Kasutades kehtivat %@ koodi";
+"pin-actions-unblocking-pin" = "%@ blokeeringu tühistamine:";
