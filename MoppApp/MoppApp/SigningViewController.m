@@ -48,6 +48,18 @@
   [self presentViewController:alert animated:YES completion:nil];
 }
 
+
+#warning - cleanup original file after creating container.
+- (void)createContainerWithDataFilePath:(NSString *)dataFilePath {
+  NSString *fileName = [NSString stringWithFormat:@"%@.bdoc", [[dataFilePath lastPathComponent] stringByDeletingPathExtension]];
+  NSString *containerPath = [[FileManager sharedInstance] filePathWithFileName:fileName];
+  MoppLibContainer *moppLibContainer = [[MoppLibManager sharedInstance] createContainerWithPath:containerPath withDataFilePath:dataFilePath];
+  
+  MoppLibDataFile *dataFile = [moppLibContainer.dataFiles objectAtIndex:0];
+  MSLog(@"datafile name: %@, file size: %ld", dataFile.fileName, dataFile.fileSize);
+}
+
+
 - (IBAction)createTestContainerButtonPressed:(id)sender {
   NSString *containerName = [[FileManager sharedInstance] createTestBDoc];
   

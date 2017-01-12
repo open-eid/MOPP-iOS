@@ -10,4 +10,6 @@
 
 @interface SigningViewController : MPViewController
 
+- (void)createContainerWithDataFilePath:(NSString *)dataFilePath;
+
 @end

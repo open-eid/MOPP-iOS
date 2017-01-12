@@ -192,16 +192,24 @@ public:
   
   NSLog(@"createContainerWithPath: %@, dataFilePath: %@", containerPath, dataFilePath);
   
-  digidoc::Container *container = digidoc::Container::create(containerPath.UTF8String);
-  
-  container->addDataFile(dataFilePath.UTF8String, @"application/octet-stream".UTF8String);
-  
   try {
-    container->save(containerPath.UTF8String);
+    
+    digidoc::Container *container = digidoc::Container::create(containerPath.UTF8String);
+    container->addDataFile(dataFilePath.UTF8String, @"application/octet-stream".UTF8String);
+    
+    try {
+      container->save(containerPath.UTF8String);
+    }
+    catch(const digidoc::Exception &e) {
+      parseException(e);
+    }
+
   }
   catch(const digidoc::Exception &e) {
     parseException(e);
   }
+  
+  
   
   
   MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath];

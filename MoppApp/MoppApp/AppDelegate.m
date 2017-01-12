@@ -9,8 +9,13 @@
 #import "AppDelegate.h"
 #import "MPNavigationController.h"
 #import "UIColor+Additions.h"
+#import "LandingTabBarController.h"
+#import "SigningViewController.h"
+#import "FileManager.h"
 
 @interface AppDelegate ()
+
+@property (strong, nonatomic) LandingTabBarController *tabBarController;
 
 @end
 
@@ -29,14 +34,31 @@
   [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
   [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
 
-  UIViewController *viewController = [[UIStoryboard storyboardWithName:@"Landing" bundle:nil] instantiateInitialViewController];
-  self.window.rootViewController = viewController;
+  self.tabBarController = [[UIStoryboard storyboardWithName:@"Landing" bundle:nil] instantiateInitialViewController];
+  self.window.rootViewController = self.tabBarController;
   
   [self.window makeKeyAndVisible];
   
   return YES;
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+  if (url) {
+//    NSString *dataFileName = [url.absoluteString lastPathComponent];
+//    NSString *dataFilePath = [[FileManager sharedInstance] filePathWithFileName:[NSString stringWithFormat:@"Inbox/%@", dataFileName]];
+
+    NSString *dataFilePath = url.relativePath;
+    
+    MSLog(@"Opened file: %@", dataFilePath);
+    [self.tabBarController setSelectedIndex:0];
+    
+    UINavigationController *navController = (UINavigationController *)[self.tabBarController.viewControllers objectAtIndex:0];
+    SigningViewController *signingViewController = (SigningViewController *)navController.viewControllers[0];
+    
+    [signingViewController createContainerWithDataFilePath:dataFilePath];
+  }
+  return YES;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
   // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
