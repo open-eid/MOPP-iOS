@@ -80,7 +80,7 @@
 }
 
 - (IBAction)createTestContainerButtonPressed:(id)sender {
-  NSString *containerName = [[FileManager sharedInstance] createTestBDoc];
+  NSString *containerName = [[FileManager sharedInstance] createTestContainer];
   
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Success" message:[NSString stringWithFormat:@"TEST container named \"%@\" has been created. It's now visible under \"%@\" tab.", containerName, Localizations.TabSigned] preferredStyle:UIAlertControllerStyleAlert];
   
