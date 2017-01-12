@@ -33,7 +33,19 @@
   NSString *fileName = [NSString stringWithFormat:@"%@.bdoc", self.containerNameTextField.text];
   NSString *containerPath = [[FileManager sharedInstance] filePathWithFileName:fileName];
   
-  MoppLibContainer *moppLibContainer = [[MoppLibManager sharedInstance] createContainerWithPath:containerPath];
+  NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"datafile" ofType:@"txt"];
+  
+  MoppLibContainer *moppLibContainer = [[MoppLibManager sharedInstance] createContainerWithPath:containerPath withDataFilePath:dataFilePath];
+  
+  MoppLibDataFile *dataFile = [moppLibContainer.dataFiles objectAtIndex:0];
+  MSLog(@"datafile name: %@, file size: %ld", dataFile.fileName, dataFile.fileSize);
+  
+  [self.containerNameTextField resignFirstResponder];
+  
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Success" message:[NSString stringWithFormat:@"Container named \"%@\" has been created. It's now visible under \"%@\" tab.", fileName, Localizations.TabSigned] preferredStyle:UIAlertControllerStyleAlert];
+  
+  [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+  [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (IBAction)createTestContainerButtonPressed:(id)sender {
