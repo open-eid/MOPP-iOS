@@ -61,8 +61,12 @@
   [self.fileManager removeItemAtPath:[self filePathWithFileName:fileName] error:nil];
 }
 
+
+#warning - support .bdoc, .ddoc and .asice files
 - (NSArray *)getBDocFiles {
-  return [self.fileManager contentsOfDirectoryAtPath:[self documentsDirectoryPath] error:nil];
+  NSArray *allFiles = [self.fileManager contentsOfDirectoryAtPath:[self documentsDirectoryPath] error:nil];
+  NSArray *bdocFiles = [allFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.bdoc'"]];
+  return bdocFiles;
 }
 
 - (NSDictionary *)fileAttributes:(NSString *)fileName {
