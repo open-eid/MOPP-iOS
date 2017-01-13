@@ -17,7 +17,7 @@
   if (error) {
     failure(error);
   } else {
-    [[CardActionsManager sharedInstance] changePin1WithViewController:controller newPin:newPin1 verifyCode:oldPin1 success:success failure:failure];
+    [[CardActionsManager sharedInstance] changePin1WithViewController:controller newPin:newPin1 oldPin:oldPin1 success:success failure:failure];
   }
 }
 
@@ -26,7 +26,7 @@
   if (error) {
     failure(error);
   } else {
-    [[CardActionsManager sharedInstance] changePin1WithViewController:controller newPin:newPin1 verifyCode:puk success:success failure:failure];
+    [[CardActionsManager sharedInstance] changePin1WithViewController:controller newPin:newPin1 puk:puk success:success failure:failure];
   }
 }
 
@@ -35,7 +35,7 @@
   if (error) {
     failure(error);
   } else {
-    [[CardActionsManager sharedInstance] changePin2WithViewController:controller newPin:newPin2 verifyCode:oldPin2 success:success failure:failure];
+    [[CardActionsManager sharedInstance] changePin2WithViewController:controller newPin:newPin2 oldPin:oldPin2 success:success failure:failure];
   }
 }
 
@@ -44,7 +44,7 @@
   if (error) {
     failure(error);
   } else {
-    [[CardActionsManager sharedInstance] changePin2WithViewController:controller newPin:newPin2 verifyCode:puk success:success failure:failure];
+    [[CardActionsManager sharedInstance] changePin2WithViewController:controller newPin:newPin2 puk:puk success:success failure:failure];
   }
 }
 

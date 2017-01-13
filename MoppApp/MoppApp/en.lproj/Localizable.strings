@@ -83,3 +83,6 @@
 "pin-actions-success-title" = "PIN action was successful";
 "pin-actions-success-pin-changed" = "%@ has been changed.";
 "pin-actions-success-pin-unblocked" = "%@ has been changed and unblocked.";
+"pin-actions-verification-title" = "Changing %@:";
+"pin-actions-verification-option" = "Using current %@ code";
+"pin-actions-unblocking-pin" = "Unblocking %@:";

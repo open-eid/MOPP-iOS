@@ -213,13 +213,15 @@ int const kCodeIdPin2 = 2;
 }
 
 - (void)verifyPin1:(NSString *)pin1 withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
-  NSString *command = [self verifyCommandFor:kCodeIdPin1 verify:pin1];
-  [self.reader transmitCommand:command success:success failure:failure];
+  [self verifyCodeWithId:kCodeIdPin1 code:pin1 success:success failure:failure];
 }
 
 - (void)verifyPin2:(NSString *)pin2 withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
-  NSString *command = [self verifyCommandFor:kCodeIdPin2 verify:pin2];
-  [self.reader transmitCommand:command success:success failure:failure];
+  [self verifyCodeWithId:kCodeIdPin2 code:pin2 success:success failure:failure];
+}
+
+- (void)verifyPuk:(NSString *)puk withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
+  [self verifyCodeWithId:kCodeIdPuk code:puk success:success failure:failure];
 }
 
 - (void)unblockPin1WithPuk:(NSString *)puk newPin1:(NSString *)newPin1 success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure {
@@ -266,6 +268,13 @@ int const kCodeIdPin2 = 2;
   return [MoppLibError generalError];
 }
 
+- (void)verifyCodeWithId:(int)codeId code:(NSString *)code success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure {
+  NSString *command = [NSString stringWithFormat:kCommandVerifyCode, codeId, code.length, [code toHexString]];
+  [self.reader transmitCommand:command success:^(NSData *responseObject) {
+    [self checkPinErrors:responseObject success:success failure:failure]();
+  } failure:failure];
+}
+
 - (void)unblockCode:(int)codeId withPuk:(NSString *)puk newPin:(NSString *)newPin success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure {
   [self.reader transmitCommand:[NSString stringWithFormat:kCommandResetRetryCounter, codeId, puk.length + newPin.length, [puk toHexString], [newPin toHexString]] success:^(NSData *responseObject) {
     [self checkPinErrors:responseObject success:success failure:failure]();
@@ -278,10 +287,6 @@ int const kCodeIdPin2 = 2;
   [self.reader transmitCommand:command success:^(NSData *responseObject) {
     [self checkPinErrors:responseObject success:success failure:failure]();
   } failure:failure];
-}
-
-- (NSString *)verifyCommandFor:(NSUInteger)code verify:(NSString *)verifyValue {
-  return [NSString stringWithFormat:kCommandVerifyCode, code, verifyValue.length, [verifyValue toHexString]];
 }
 
 - (void (^)(void))readRecord:(NSInteger)record success:(DataSuccessBlock)success failure:(FailureBlock)failure {

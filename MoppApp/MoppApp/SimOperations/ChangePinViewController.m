@@ -9,21 +9,33 @@
 #import "ChangePinViewController.h"
 #import <MoppLib/MoppLib.h>
 
-@interface ChangePinViewController ()
+@interface ChangePinViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITextField *currentPinField;
 @property (weak, nonatomic) IBOutlet UITextField *pinField;
 @property (weak, nonatomic) IBOutlet UITextField *pinRepeatedField;
 @property (weak, nonatomic) IBOutlet UILabel *CurrentPinLabel;
 @property (weak, nonatomic) IBOutlet UILabel *pinLabel;
 @property (weak, nonatomic) IBOutlet UILabel *pinRepeatedLabel;
-
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UILabel *verificationTitleLabel;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) NSIndexPath *selectedIndexPath;
 @end
 
 @implementation ChangePinViewController
 
+- (void)dealloc {
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+  
+  self.selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
   
   [self setupViewController];
 }
@@ -39,26 +51,39 @@
 }
 
 - (void)setupViewController {
-  NSString *pinString;
-  if (self.type == PinOperationTypeChangePin1 || self.type == PinOperationTypeUnblockPin1) {
-    pinString = Localizations.PinActionsPin1;
-  } else {
-    pinString = Localizations.PinActionsPin2;
-  }
+  NSString *pinString = [self pinCodeString];
+  
+  NSString *currentPinPlaceholder;
+  NSString *currentPinText;
+  NSString *verificationTitle;
 
   switch (self.type) {
       
     case PinOperationTypeChangePin2:
     case PinOperationTypeChangePin1: {
-      self.currentPinField.placeholder = Localizations.PinActionsCurrentPin(pinString);
-      self.CurrentPinLabel.text = Localizations.PinActionsCurrentPin(pinString);
+      NSString *verificationCode;
+      if (self.selectedIndexPath.row == 0) {
+        verificationCode = pinString;
+      } else {
+        verificationCode = Localizations.PinActionsPuk;
+      }
+      currentPinPlaceholder = Localizations.PinActionsCurrentPin(verificationCode);
+      currentPinText = Localizations.PinActionsCurrentPin(verificationCode);
+      verificationTitle = Localizations.PinActionsVerificationTitle(pinString);
+
       break;
     }
       
     case PinOperationTypeUnblockPin1:
     case PinOperationTypeUnblockPin2: {
-      self.currentPinField.placeholder = Localizations.PinActionsCurrentPin(Localizations.PinActionsPuk);
-      self.CurrentPinLabel.text = Localizations.PinActionsCurrentPin(Localizations.PinActionsPuk);
+      self.tableView.userInteractionEnabled = NO;
+      self.selectedIndexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+
+      [self.tableView selectRowAtIndexPath:self.selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+
+      currentPinPlaceholder = Localizations.PinActionsCurrentPin(Localizations.PinActionsPuk);
+      currentPinText = Localizations.PinActionsCurrentPin(Localizations.PinActionsPuk);
+      verificationTitle = Localizations.PinActionsUnblockingPin(pinString);
       break;
     }
       
@@ -66,10 +91,13 @@
       break;
   }
   
+  self.currentPinField.placeholder = currentPinPlaceholder;
+  self.CurrentPinLabel.text = currentPinText;
   self.pinField.placeholder = Localizations.PinActionsNewPin(pinString);
   self.pinRepeatedField.placeholder = Localizations.PinActionsRepeatPin(pinString);
   self.pinLabel.text = Localizations.PinActionsNewPin(pinString);
   self.pinRepeatedLabel.text = Localizations.PinActionsRepeatPin(pinString);
+  self.verificationTitleLabel.text = verificationTitle;
 }
 
 - (IBAction)infoTapped:(id)sender {
@@ -100,11 +128,19 @@
   switch (self.type) {
       
     case PinOperationTypeChangePin2: {
-      [MoppLibPinActions changePin2To:self.pinField.text withOldPin2:self.currentPinField.text viewController:self success:successBlock failure:errorBlock];
+      if (self.selectedIndexPath.row == 0) {
+        [MoppLibPinActions changePin2To:self.pinField.text withOldPin2:self.currentPinField.text viewController:self success:successBlock failure:errorBlock];
+      } else {
+        [MoppLibPinActions changePin2To:self.pinField.text withPuk:self.currentPinField.text viewController:self success:successBlock failure:errorBlock];
+      }
       break;
     }
     case PinOperationTypeChangePin1: {
-      [MoppLibPinActions changePin1To:self.pinField.text withOldPin1:self.currentPinField.text viewController:self success:successBlock failure:errorBlock];
+      if (self.selectedIndexPath.row == 0) {
+        [MoppLibPinActions changePin1To:self.pinField.text withOldPin1:self.currentPinField.text viewController:self success:successBlock failure:errorBlock];
+      } else {
+        [MoppLibPinActions changePin1To:self.pinField.text withPuk:self.currentPinField.text viewController:self success:successBlock failure:errorBlock];
+      }
       break;
     }
       
@@ -124,13 +160,7 @@
 
 - (void)displaySuccessMessage {
   
-  NSString *pinString;
-  if (self.type == PinOperationTypeChangePin1 || self.type == PinOperationTypeUnblockPin1) {
-    pinString = Localizations.PinActionsPin1;
-    
-  } else {
-    pinString = Localizations.PinActionsPin2;
-  }
+  NSString *pinString = [self pinCodeString];
   
   NSString *message;
   if (self.type == PinOperationTypeUnblockPin2 || self.type == PinOperationTypeUnblockPin1) {
@@ -146,15 +176,8 @@
 }
 
 - (void)displayErrorMessage:(NSError *)error {
-  NSString *pinString;
+  NSString *pinString = [self pinCodeString];
   NSString *verifyCode;
-  
-  if (self.type == PinOperationTypeChangePin1 || self.type == PinOperationTypeUnblockPin1) {
-    pinString = Localizations.PinActionsPin1;
-    
-  } else {
-    pinString = Localizations.PinActionsPin2;
-  }
   
   if (self.type == PinOperationTypeUnblockPin2 || self.type == PinOperationTypeUnblockPin1) {
     verifyCode = Localizations.PinActionsPuk;
@@ -164,14 +187,21 @@
   }
   
   NSString *message;
-  BOOL dismissOnConfirm = NO;
   
   if (error.code == moppLibErrorWrongPin) {
     int retryCount = [[error.userInfo objectForKey:kMoppLibUserInfoRetryCount] intValue];
     
     if (retryCount == 0) {
-      dismissOnConfirm = YES;
-      message = Localizations.PinActionsWrongPinBlocked(verifyCode, pinString);
+      if (self.type == PinOperationTypeChangePin1) {
+        self.type = PinOperationTypeUnblockPin1;
+      } else if (self.type == PinOperationTypeChangePin2) {
+        self.type = PinOperationTypeUnblockPin2;
+      }
+      
+      [self setupViewController];
+      [self.tableView reloadData];
+      
+      message = Localizations.PinActionsWrongPinBlocked(verifyCode, verifyCode);
 
     } else {
       message = Localizations.PinActionsWrongPinRetry(verifyCode, retryCount);
@@ -191,9 +221,7 @@
   }
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.PinActionsErrorTitle message:message preferredStyle:UIAlertControllerStyleAlert];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    if (dismissOnConfirm) {
-      [self.navigationController popViewControllerAnimated:YES];
-    }
+
   }]];
   [self presentViewController:alert animated:YES completion:nil];
 }
@@ -202,6 +230,80 @@
   [self.pinField resignFirstResponder];
   [self.currentPinField resignFirstResponder];
   [self.pinRepeatedField resignFirstResponder];
+}
+
+- (NSString *)pinCodeString {
+  if (self.type == PinOperationTypeChangePin1 || self.type == PinOperationTypeUnblockPin1) {
+    return Localizations.PinActionsPin1;
+  } else {
+    return Localizations.PinActionsPin2;
+  }
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+  return 2;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+  NSString *identifyer = indexPath.row == 1 || self.tableView.userInteractionEnabled ? @"VerifyOptionCell" : @"VerifyOptionDisabledCell";
+  UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifyer forIndexPath:indexPath];
+
+  
+  if (indexPath.row == 0) {
+    NSString *pinString = [self pinCodeString];
+    cell.textLabel.text = Localizations.PinActionsVerificationOption(pinString);
+    
+  } else {
+    cell.textLabel.text = Localizations.PinActionsVerificationOption(Localizations.PinActionsPuk);
+  }
+  
+  if (self.selectedIndexPath.row == indexPath.row) {
+    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+  } else {
+    cell.accessoryType = UITableViewCellAccessoryNone;
+  }
+  
+  return cell;
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  
+  NSArray *cells = [tableView visibleCells];
+  for (UITableViewCell *cell in cells) {
+    NSIndexPath *cellIndex = [tableView indexPathForCell:cell];
+    if (cellIndex.row == indexPath.row) {
+      cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+      cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+  }
+  
+  return indexPath;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  self.selectedIndexPath = indexPath;
+  [self setupViewController];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return 30;
+}
+
+- (void)keyboardWillShow:(NSNotification*)aNotification {
+  
+  NSDictionary* info = [aNotification userInfo];
+  CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+  
+  UIEdgeInsets contentInsets = UIEdgeInsetsMake(0, 0, kbSize.height, 0);
+  self.scrollView.contentInset = contentInsets;
+  self.scrollView.scrollIndicatorInsets = contentInsets;
+}
+
+- (void)keyboardWillHide:(NSNotification *)aNotification {
+  UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+  self.scrollView.contentInset = contentInsets;
+  self.scrollView.scrollIndicatorInsets = contentInsets;
 }
 
 /*

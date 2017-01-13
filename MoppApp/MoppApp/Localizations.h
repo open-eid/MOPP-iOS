@@ -26,7 +26,7 @@
 /// Base translation: Validity:
 - (NSString *)MyEidValidity;
 
-/// Base translation: Unblocking %@
+/// Base translation: Unblocking %@:
 - (NSString *(^)(NSString *))PinActionsUnblockingPin;
 /// Base translation: Birth:
 - (NSString *)MyEidBirth;
@@ -109,6 +109,8 @@
 /// Base translation: Citizenship:
 - (NSString *)MyEidCitizenship;
 
+/// Base translation: Using current %@ code
+- (NSString *(^)(NSString *))PinActionsVerificationOption;
 /// Base translation: Signature %@
 - (NSString *(^)(NSString *))SignedContainerDetailsSignaturePrefix;
 /// Base translation: New %@ must be different from current %@.
@@ -124,11 +126,13 @@
 - (NSString *(^)(NSString *))MyEidWarningReaderNotFound;
 /// Base translation: New %@ has incorrect length.
 - (NSString *(^)(NSString *))PinActionsIncorrectLength;
-/// Base translation: PIN1
-- (NSString *)PinActionsPin1;
-
+/// Base translation: Changing %@:
+- (NSString *(^)(NSString *))PinActionsVerificationTitle;
 /// Base translation: Signature certificate
 - (NSString *)MyEidSignatureCertificate;
+
+/// Base translation: PIN1
+- (NSString *)PinActionsPin1;
 
 /// Base translation: OK
 - (NSString *)ActionOk;

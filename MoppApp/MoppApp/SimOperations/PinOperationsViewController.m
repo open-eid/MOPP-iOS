@@ -132,8 +132,7 @@ typedef enum : NSUInteger {
   [MoppLibCardActions pin1RetryCountWithViewController:self success:^(NSNumber *count) {
     if (self.pin1RetryCount != count) {
       self.pin1RetryCount = count;
-      [self setupCells];
-      [self.tableView reloadData];
+      [self updateBlockingIndicators];
     }
 
   } failure:^(NSError *error) {
@@ -143,14 +142,32 @@ typedef enum : NSUInteger {
   [MoppLibCardActions pin2RetryCountWithViewController:self success:^(NSNumber *count) {
     if (self.pin2RetryCount != count) {
       self.pin2RetryCount = count;
-      [self setupCells];
-      [self.tableView reloadData];
+      [self updateBlockingIndicators];
     }
 
     
   } failure:^(NSError *error) {
     NSLog(@"Error %@", error);
   }];
+}
+
+- (void)updateBlockingIndicators {
+  int badgeValue = 0;
+  if (self.pin1RetryCount.intValue == 0) {
+    badgeValue++;
+  }
+  
+  if (self.pin2RetryCount.intValue == 0) {
+    badgeValue++;
+  }
+  
+  if (badgeValue > 0) {
+    self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%i", badgeValue];
+  } else {
+    self.navigationController.tabBarItem.badgeValue = nil;
+  }
+  [self setupCells];
+  [self.tableView reloadData];
 }
 
 - (void)cardStatusChanged {
