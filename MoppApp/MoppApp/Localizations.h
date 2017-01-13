@@ -28,6 +28,8 @@
 
 /// Base translation: Unblocking %@:
 - (NSString *(^)(NSString *))PinActionsUnblockingPin;
+/// Base translation: New %@ and repeated %@ are different.
+- (NSString *(^)(NSString *, NSString *))PinActionsRepeatedPinDoesntMatch;
 /// Base translation: Birth:
 - (NSString *)MyEidBirth;
 

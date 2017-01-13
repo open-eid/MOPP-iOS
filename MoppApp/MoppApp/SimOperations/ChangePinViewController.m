@@ -20,17 +20,23 @@
 @property (weak, nonatomic) IBOutlet UILabel *verificationTitleLabel;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath;
+@property (weak, nonatomic) IBOutlet UILabel *currentPinErrorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pinErrorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *repeatedPinErrorLabel;
 @end
 
 @implementation ChangePinViewController
+
+NSInteger repeatedPinDoesntMatch = 20000;
 
 - (void)dealloc {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+  [super viewDidLoad];
+  
+  [self clearErrors];
   
   self.selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 
@@ -61,12 +67,7 @@
       
     case PinOperationTypeChangePin2:
     case PinOperationTypeChangePin1: {
-      NSString *verificationCode;
-      if (self.selectedIndexPath.row == 0) {
-        verificationCode = pinString;
-      } else {
-        verificationCode = Localizations.PinActionsPuk;
-      }
+      NSString *verificationCode = [self verificationCodeString];
       currentPinPlaceholder = Localizations.PinActionsCurrentPin(verificationCode);
       currentPinText = Localizations.PinActionsCurrentPin(verificationCode);
       verificationTitle = Localizations.PinActionsVerificationTitle(pinString);
@@ -100,6 +101,12 @@
   self.verificationTitleLabel.text = verificationTitle;
 }
 
+- (void)clearErrors {
+  self.currentPinErrorLabel.text = nil;
+  self.pinErrorLabel.text = nil;
+  self.repeatedPinErrorLabel.text = nil;
+}
+
 - (IBAction)infoTapped:(id)sender {
   NSString *message;
   if (self.type == PinOperationTypeChangePin1 || self.type == PinOperationTypeUnblockPin1) {
@@ -117,6 +124,14 @@
 
 - (IBAction)okTapped:(id)sender {
   
+  [self clearErrors];
+  
+  if (![self.pinField.text isEqualToString:self.pinRepeatedField.text]) {
+    NSError *newError = [[NSError alloc] initWithDomain:@"Mopp app" code:repeatedPinDoesntMatch userInfo:nil];
+    [self displayErrorMessage:newError];
+    return;
+  }
+
   void (^successBlock)(void) = ^void (void) {
     [self displaySuccessMessage];
   };
@@ -177,18 +192,14 @@
 
 - (void)displayErrorMessage:(NSError *)error {
   NSString *pinString = [self pinCodeString];
-  NSString *verifyCode;
-  
-  if (self.type == PinOperationTypeUnblockPin2 || self.type == PinOperationTypeUnblockPin1) {
-    verifyCode = Localizations.PinActionsPuk;
-    
-  } else {
-    verifyCode = pinString;
-  }
-  
+  NSString *verifyCode = [self verificationCodeString];
   NSString *message;
   
-  if (error.code == moppLibErrorWrongPin) {
+  if(error.code == repeatedPinDoesntMatch) {
+    message = Localizations.PinActionsRepeatedPinDoesntMatch(pinString, pinString);
+    self.repeatedPinErrorLabel.text = message;
+
+  } else if (error.code == moppLibErrorWrongPin) {
     int retryCount = [[error.userInfo objectForKey:kMoppLibUserInfoRetryCount] intValue];
     
     if (retryCount == 0) {
@@ -202,22 +213,26 @@
       [self.tableView reloadData];
       
       message = Localizations.PinActionsWrongPinBlocked(verifyCode, verifyCode);
-
     } else {
       message = Localizations.PinActionsWrongPinRetry(verifyCode, retryCount);
+      self.currentPinErrorLabel.text = message;
     }
     
   } else if (error.code == moppLibErrorInvalidPin) {
     message = Localizations.PinActionsInvalidFormat(pinString);
+    self.pinErrorLabel.text = message;
     
   } else if (error.code == moppLibErrorPinMatchesVerificationCode) {
     message = Localizations.PinActionsSameAsCurrent(pinString, verifyCode);
+    self.pinErrorLabel.text = message;
     
   } else if (error.code == moppLibErrorIncorrectPinLength) {
     message = Localizations.PinActionsIncorrectLength(pinString);
+    self.pinErrorLabel.text = message;
     
   } else {
     message = Localizations.PinActionsGeneralError(pinString);
+    self.pinErrorLabel.text = message;
   }
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.PinActionsErrorTitle message:message preferredStyle:UIAlertControllerStyleAlert];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -232,11 +247,26 @@
   [self.pinRepeatedField resignFirstResponder];
 }
 
+/**
+ * String for pin code that we are changing
+ */
 - (NSString *)pinCodeString {
   if (self.type == PinOperationTypeChangePin1 || self.type == PinOperationTypeUnblockPin1) {
     return Localizations.PinActionsPin1;
   } else {
     return Localizations.PinActionsPin2;
+  }
+}
+
+/**
+ * String for pin/puk code that we are using for verification
+ */
+- (NSString *)verificationCodeString {
+  if (self.type == PinOperationTypeUnblockPin2 || self.type == PinOperationTypeUnblockPin1 || self.selectedIndexPath.row == 1) {
+    return Localizations.PinActionsPuk;
+    
+  } else {
+    return [self pinCodeString];
   }
 }
 

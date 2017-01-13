@@ -76,7 +76,7 @@
 "pin-actions-general-error" = "Could not change %@";
 "pin-actions-incorrect-length" = "New %@ has incorrect length.";
 "pin-actions-same-as-current" = "New %@ must be different from current %@.";
-"pin-actions-invalid-format" = "New %@ has invalid format.";
+"pin-actions-invalid-format" = "This %@ is not allowed.";
 "pin-actions-wrong-pin-retry" = "Current %@ was wrong. You have %i tries left.";
 "pin-actions-wrong-pin-blocked" = "Current %@ was wrong. %@ has been blocked.";
 "pin-actions-error-title" = "Error";
@@ -86,3 +86,4 @@
 "pin-actions-verification-title" = "Changing %@:";
 "pin-actions-verification-option" = "Using current %@ code";
 "pin-actions-unblocking-pin" = "Unblocking %@:";
+"pin-actions-repeated-pin-doesnt-match" = "New %@ and repeated %@ are different.";

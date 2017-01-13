@@ -23,6 +23,7 @@
 		545CF8541E165DFB00B66EE8 /* InfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8531E165DFB00B66EE8 /* InfoCell.m */; };
 		54813B2E1E24DD560058CD33 /* ChangePinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54813B2D1E24DD560058CD33 /* ChangePinViewController.m */; };
 		54813B301E24FD270058CD33 /* InfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54813B2F1E24FD270058CD33 /* InfoCell.xib */; };
+		54813B331E28C95F0058CD33 /* ButtonWithRoundedCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = 54813B321E28C95F0058CD33 /* ButtonWithRoundedCorners.m */; };
 		54825EF51E1CFE9600253FF0 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF41E1CFE9600253FF0 /* NSDate+Additions.m */; };
 		54825EF81E1D270F00253FF0 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF71E1D270F00253FF0 /* NSString+Additions.m */; };
 		54825EFB1E1D28E900253FF0 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EFA1E1D28E900253FF0 /* UIColor+Additions.m */; };
@@ -97,6 +98,8 @@
 		54813B2C1E24DD560058CD33 /* ChangePinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePinViewController.h; sourceTree = "<group>"; };
 		54813B2D1E24DD560058CD33 /* ChangePinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePinViewController.m; sourceTree = "<group>"; };
 		54813B2F1E24FD270058CD33 /* InfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoCell.xib; sourceTree = "<group>"; };
+		54813B311E28C95F0058CD33 /* ButtonWithRoundedCorners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonWithRoundedCorners.h; sourceTree = "<group>"; };
+		54813B321E28C95F0058CD33 /* ButtonWithRoundedCorners.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonWithRoundedCorners.m; sourceTree = "<group>"; };
 		54825EF31E1CFE9600253FF0 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Additions.h"; sourceTree = "<group>"; };
 		54825EF41E1CFE9600253FF0 /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
 		54825EF61E1D270F00253FF0 /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
@@ -190,6 +193,8 @@
 		540786EA1E1A8BE90016ABA7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				54813B311E28C95F0058CD33 /* ButtonWithRoundedCorners.h */,
+				54813B321E28C95F0058CD33 /* ButtonWithRoundedCorners.m */,
 				540786EB1E1A8C650016ABA7 /* ViewWithRoundedCorners.h */,
 				540786EC1E1A8C650016ABA7 /* ViewWithRoundedCorners.m */,
 				540786EE1E1A96900016ABA7 /* SimpleHeaderView.h */,
@@ -561,6 +566,7 @@
 				E4250D151E0AA97B00530370 /* MPNavigationController.m in Sources */,
 				54813B2E1E24DD560058CD33 /* ChangePinViewController.m in Sources */,
 				E42B08951E15617200EA24A3 /* LandingTabBarController.m in Sources */,
+				54813B331E28C95F0058CD33 /* ButtonWithRoundedCorners.m in Sources */,
 				E42B08AA1E1D4EF500EA24A3 /* SignedContainerCell.m in Sources */,
 				E42B088F1E155F2F00EA24A3 /* MPViewController.m in Sources */,
 				54825EFB1E1D28E900253FF0 /* UIColor+Additions.m in Sources */,

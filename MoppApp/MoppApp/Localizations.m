@@ -39,6 +39,12 @@
     };
 }
 
+- (NSString *(^)(NSString *, NSString *))PinActionsRepeatedPinDoesntMatch {
+    return ^(NSString * value1 , NSString * value2) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-repeated-pin-doesnt-match", nil, nil), value1, value2];
+    };
+}
+
 - (NSString *)MyEidBirth {
     return NSLocalizedStringFromTable(@"my-eid-birth", nil, nil);
 }

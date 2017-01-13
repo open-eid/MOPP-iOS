@@ -81,8 +81,8 @@
 "pin-actions-info" = "Siin saad muuta oma PIN koode ja PIN koodi blokeeringut tühistada. PINi toiminguteks on vaja ühendada kaardilugeja telefoniga.";
 "pin-actions-general-error" = "%@ muutmine ebaõnnestus.";
 "pin-actions-incorrect-length" = "Uus %@ on vale pikkusega.";
-"pin-actions-same-as-current" = "Uus %@ peab erinema %@-st.";
-"pin-actions-invalid-format" = "Uus %@ on vales formaadis.";
+"pin-actions-same-as-current" = "Uus %@ peab erinema kehtivast %@-st.";
+"pin-actions-invalid-format" = "Selline %@ ei ole lubatud.";
 "pin-actions-wrong-pin-retry" = "Kehtiv %@ on vale. Saad proovida veel %i korda.";
 "pin-actions-wrong-pin-blocked" = "Kehtiv %@ on vale. %@ blokeeriti.";
 "pin-actions-error-title" = "Viga";
@@ -92,3 +92,4 @@
 "pin-actions-verification-title" = "%@ muutmine:";
 "pin-actions-verification-option" = "Kasutades kehtivat %@ koodi";
 "pin-actions-unblocking-pin" = "%@ blokeeringu tühistamine:";
+"pin-actions-repeated-pin-doesnt-match" = "Uus %@ ja uus %@ uuesti on erinevad";
