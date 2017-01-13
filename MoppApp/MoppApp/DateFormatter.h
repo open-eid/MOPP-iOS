@@ -21,7 +21,7 @@
 // 17:32:06 02.03.2015
 - (NSString *)HHmmssddMMYYYYToString:(NSDate *)date;
 
-// 21. Nov
-- (NSString *)ddMMMToString:(NSDate *)date;
+// 21. Nov OR relative string "Today" etc.
+- (NSString *)dateToRelativeString:(NSDate *)date;
 
 @end

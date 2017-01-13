@@ -8,6 +8,8 @@
 
 #import "MPViewController.h"
 
-@interface SigningViewController : MPViewController
+@interface SigningViewController : MPViewController <UITextFieldDelegate>
+
+- (void)createContainerWithDataFilePath:(NSString *)dataFilePath;
 
 @end

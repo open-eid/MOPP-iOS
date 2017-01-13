@@ -42,8 +42,12 @@
   return filePath;
 }
 
-- (NSString *)createTestBDoc {
-  NSString *fileName = [NSString stringWithFormat:@"%@.bdoc", [[DateFormatter sharedInstance] HHmmssddMMYYYYToString:[NSDate date]]];
+- (NSString *)createTestContainer {
+  NSString *extension = @"bdoc";
+  if (arc4random_uniform(2) == 0) {
+    extension = @"asice";
+  }
+  NSString *fileName = [NSString stringWithFormat:@"%@.%@", [[DateFormatter sharedInstance] HHmmssddMMYYYYToString:[NSDate date]], extension];
   
   NSString *bdocPath = [[NSBundle mainBundle] pathForResource:@"test1" ofType:@"bdoc"];
   NSData *bdocData = [NSData dataWithContentsOfFile:bdocPath];
@@ -61,8 +65,20 @@
   [self.fileManager removeItemAtPath:[self filePathWithFileName:fileName] error:nil];
 }
 
-- (NSArray *)getBDocFiles {
-  return [self.fileManager contentsOfDirectoryAtPath:[self documentsDirectoryPath] error:nil];
+
+#warning - support .ddoc in the future
+- (NSArray *)getContainers {
+  NSArray *supportedExtensions = @[@"bdoc", @"asice"];
+  NSArray *allFiles = [self.fileManager contentsOfDirectoryAtPath:[self documentsDirectoryPath] error:nil];
+  NSArray *containers = [allFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension IN %@", supportedExtensions]];
+  
+  NSArray *sortedContainers = [containers sortedArrayUsingComparator:^NSComparisonResult(id firstFile, id secondFile) {
+    NSDate *firstDate = [[self fileAttributes:firstFile] fileModificationDate];
+    NSDate *secondDate = [[self fileAttributes:secondFile] fileModificationDate];
+    return [secondDate compare:firstDate];
+  }];
+  
+  return sortedContainers;
 }
 
 - (NSDictionary *)fileAttributes:(NSString *)fileName {

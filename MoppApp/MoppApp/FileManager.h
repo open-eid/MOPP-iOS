@@ -13,9 +13,9 @@
 + (FileManager *)sharedInstance;
 
 - (NSString *)filePathWithFileName:(NSString *)fileName;
-- (NSString *)createTestBDoc;
+- (NSString *)createTestContainer;
 - (void)removeFileWithName:(NSString *)fileName;
-- (NSArray *)getBDocFiles;
+- (NSArray *)getContainers;
 - (NSDictionary *)fileAttributes:(NSString *)fileName;
 
 @end

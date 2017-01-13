@@ -65,7 +65,7 @@
 }
 
 - (void)reloadData {
-  self.containers = [[FileManager sharedInstance] getBDocFiles];
+  self.containers = [[FileManager sharedInstance] getContainers];
   self.filteredContainers = self.containers;
   
   for (NSString *filePath in self.containers) {
@@ -102,7 +102,7 @@
   NSString *fileName = [self.filteredContainers objectAtIndex:indexPath.row];
   NSDictionary *fileAttributes = [[FileManager sharedInstance] fileAttributes:fileName];
   [cell.titleLabel setText:fileName];
-  [cell.dateLabel setText:[[DateFormatter sharedInstance] ddMMMToString:[fileAttributes fileCreationDate]]];
+  [cell.dateLabel setText:[[DateFormatter sharedInstance] dateToRelativeString:[fileAttributes fileCreationDate]]];
   
   return cell;
 }
