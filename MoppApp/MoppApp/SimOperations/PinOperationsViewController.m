@@ -49,7 +49,8 @@ typedef enum : NSUInteger {
   self.title = Localizations.TabSimSettings;
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardStatusChanged) name:kMoppLibNotificationReaderStatusChanged object:nil];
-  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(retryCounterChanged) name:kMoppLibNotificationRetryCounterChanged object:nil];
+
   UINib *nib = [UINib nibWithNibName:@"ErrorCell" bundle:nil];
   [self.tableView registerNib:nib forCellReuseIdentifier:@"ErrorCell"];
   
@@ -179,6 +180,10 @@ typedef enum : NSUInteger {
   }
   [self setupCells];
   [self.tableView reloadData];
+}
+
+- (void)retryCounterChanged {
+  [self updateRetryCounters];
 }
 
 - (void)cardStatusChanged {

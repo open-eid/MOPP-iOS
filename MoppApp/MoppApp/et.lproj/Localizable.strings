@@ -56,7 +56,8 @@
 "my-eid-signature-certificate" = "Allkirjastamise sertifikaat";
 "my-eid-my-eid" = "Minu eID";
 "my-eid-id-card-info-link" = "https://www.politsei.ee/et/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/";
-
+"my-eid-pin-blocked" = "%@ on blokeeritud. %@ blokeeringu saad tühistada %@.";
+"my-eid-pin-actions-view" = "PIN'i toimingute vaates";
 
 // *** PIN actions ***
 "pin-actions-change-pin-1" = "Muuda PIN 1";

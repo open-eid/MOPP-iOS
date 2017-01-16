@@ -40,3 +40,4 @@ typedef void (^EmptySuccessBlock)();
  * Posted when card reader status changes. This can be triggered when connected card reader is turned off or connected card reader detects that card is inserted or removed.
  */
 extern NSString *const kMoppLibNotificationReaderStatusChanged;
+extern NSString *const kMoppLibNotificationRetryCounterChanged;

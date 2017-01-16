@@ -119,6 +119,10 @@
     };
 }
 
+- (NSString *)MyEidPinActionsView {
+    return NSLocalizedStringFromTable(@"my-eid-pin-actions-view", nil, nil);
+}
+
 - (NSString *)PinActionsPuk {
     return NSLocalizedStringFromTable(@"pin-actions-puk", nil, nil);
 }
@@ -262,6 +266,12 @@
 - (NSString *(^)(NSString *))PinActionsNewPin {
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-new-pin", nil, nil), value1];
+    };
+}
+
+- (NSString *(^)(NSString *, NSString *, NSString *))MyEidPinBlocked {
+    return ^(NSString * value1 , NSString * value2 , NSString * value3) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-pin-blocked", nil, nil), value1, value2, value3];
     };
 }
 

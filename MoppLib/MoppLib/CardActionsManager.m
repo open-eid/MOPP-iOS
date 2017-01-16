@@ -145,6 +145,12 @@ static CardActionsManager *sharedInstance = nil;
   } failure:failure];
 }
 
+- (void)notifyIdNeeded:(NSError *)error {
+  if (error.code == moppLibErrorWrongPin) {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationRetryCounterChanged object:nil];
+  }
+}
+
 /**
  * Adds card action to queue. One card action may require sending multiple commands to id card. These commands often must be executed in specific order. For that reason we must make sure commands from different card actions are not mixed.
  *
@@ -157,7 +163,10 @@ static CardActionsManager *sharedInstance = nil;
   @synchronized (self) {
     CardActionObject *actionObject = [CardActionObject new];
     actionObject.successBlock = success;
-    actionObject.failureBlock = failure;
+    actionObject.failureBlock = ^(NSError *error) {
+      [self notifyIdNeeded:error];
+      failure(error);
+    };
     actionObject.cardAction = action;
     actionObject.controller = controller;
     actionObject.data = data;

@@ -68,6 +68,9 @@
 
 /// Base translation: Repeat new %@ code
 - (NSString *(^)(NSString *))PinActionsRepeatPin;
+/// Base translation: PIN actions view
+- (NSString *)MyEidPinActionsView;
+
 /// Base translation: PUK
 - (NSString *)PinActionsPuk;
 
@@ -120,7 +123,7 @@
 /// Base translation: My eID
 - (NSString *)MyEidMyEid;
 
-/// Base translation: New %@ has invalid format.
+/// Base translation: This %@ is not allowed.
 - (NSString *(^)(NSString *))PinActionsInvalidFormat;
 /// Base translation: Current %@ was wrong. %@ has been blocked.
 - (NSString *(^)(NSString *, NSString *))PinActionsWrongPinBlocked;
@@ -150,6 +153,8 @@
 
 /// Base translation: New %@ code
 - (NSString *(^)(NSString *))PinActionsNewPin;
+/// Base translation: %@ is blocked. You can unblock %@ in %@.
+- (NSString *(^)(NSString *, NSString *, NSString *))MyEidPinBlocked;
 /// Base translation: https://www.politsei.ee/en/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/
 - (NSString *)MyEidIdCardInfoLink;
 
