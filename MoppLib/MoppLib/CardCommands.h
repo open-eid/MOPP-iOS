@@ -80,10 +80,36 @@ extern NSString *const kCommandResetRetryCounter;
  */
 - (void)readCodeCounterRecord:(NSInteger)record withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
 
+/**
+ * Changes PIN or PUK code.
+ *
+ * @param type          type of code that will be changed. One of CodeTypePuk, CodeTypePin1, CodeTypePin2
+ * @param code          new PIN/PUK code
+ * @param verifyCode    current PIN or PUK code for verification
+ * @param success       block to be executed when action is completed successfully
+ * @param failure       block to be executed when action fails
+ */
 - (void)changeCode:(CodeType)type to:(NSString *)code withVerifyCode:(NSString *)verifyCode withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
 
+/**
+ * Verifies PIN or PUK code.
+ *
+ * @param type          type of code that will be verified. One of CodeTypePuk, CodeTypePin1, CodeTypePin2
+ * @param code          your PIN/PUK code that should be verified
+ * @param success       block to be executed when action is completed successfully
+ * @param failure       block to be executed when action fails
+ */
 - (void)verifyCode:(NSString *)code ofType:(CodeType)type withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
 
+/**
+ * Unblocks PIN.
+ *
+ * @param type          type of code that will be unblocked. One of CodeTypePin1, CodeTypePin2
+ * @param puk           current PUK code for verification
+ * @param newCode       new code for your PIN
+ * @param success       block to be executed when action is completed successfully
+ * @param failure       block to be executed when action fails
+ */
 - (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure;
 
 - (void)calculateSignature:(NSString *)hash withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
