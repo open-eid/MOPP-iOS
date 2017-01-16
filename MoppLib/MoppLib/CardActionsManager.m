@@ -27,7 +27,8 @@ typedef NS_ENUM(NSUInteger, CardAction) {
   CardActionPin1RetryCount,
   CardActionPin2RetryCount,
   CardActionReadSigningCert,
-  CardActionReadAuthenticationCert
+  CardActionReadAuthenticationCert,
+  CardActionReadPersonalIdCode
 };
 
 NSString *const kCardActionDataPin1 = @"Pin 1";
@@ -85,6 +86,10 @@ static CardActionsManager *sharedInstance = nil;
 
 - (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure {
   [self addCardAction:CardActionReadPublicData data:nil viewController:controller success:success failure:failure];
+}
+
+- (void)personalIdCodeWithViewController:(UIViewController *)controller success:(void(^)(NSString *idCode))success failure:(void(^)(NSError *))failure {
+  [self addCardAction:CardActionReadPersonalIdCode data:nil viewController:controller success:success failure:failure];
 }
 
 - (void)signingCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
@@ -281,14 +286,14 @@ static CardActionsManager *sharedInstance = nil;
     case CardActionChangePin1: {
       NSString *verifyCode = [actionObject.data objectForKey:kCardActionDataVerify];
       NSString *newCode = [actionObject.data objectForKey:kCardActionDataPin1];
-      [self.cardVersionHandler changePin1To:newCode verifyCode:verifyCode withSuccess:success failure:failure];
+      [self.cardVersionHandler changeCode:CodeTypePin1 to:newCode withVerifyCode:verifyCode withSuccess:success failure:failure];
       break;
     }
       
     case CardActionChangePin2: {
       NSString *verifyCode = [actionObject.data objectForKey:kCardActionDataVerify];
       NSString *newCode = [actionObject.data objectForKey:kCardActionDataPin2];
-      [self.cardVersionHandler changePin2To:newCode verifyCode:verifyCode withSuccess:success failure:failure];
+      [self.cardVersionHandler changeCode:CodeTypePin2 to:newCode withVerifyCode:verifyCode withSuccess:success failure:failure];
       break;
     }
       
@@ -297,9 +302,9 @@ static CardActionsManager *sharedInstance = nil;
       NSString *newCode = [actionObject.data objectForKey:kCardActionDataPin1];
       
       // Changing PIN with PUK requires blocking PIN and then performing unblock action. To make sure we don't block PIN without reason, we will verify PUK first.
-      [self.cardVersionHandler verifyPuk:verifyCode withSuccess:^(NSData *data) {
-        [self blockPin:1 completion:^{
-          [self.cardVersionHandler unblockPin1WithPuk:verifyCode newPin1:newCode success:success failure:failure];
+      [self.cardVersionHandler verifyCode:verifyCode ofType:CodeTypePuk withSuccess:^(NSData *data) {
+        [self blockPin:CodeTypePin1 completion:^{
+          [self.cardVersionHandler unblockCode:CodeTypePin1 withPuk:verifyCode newCode:newCode success:success failure:failure];
         }];
       } failure:failure];
       break;
@@ -310,9 +315,9 @@ static CardActionsManager *sharedInstance = nil;
       NSString *newCode = [actionObject.data objectForKey:kCardActionDataPin2];
       
       // Changing PIN with PUK requires blocking PIN and then performing unblock action. To make sure we don't block PIN without reason, we will verify PUK first.
-      [self.cardVersionHandler verifyPuk:verifyCode withSuccess:^(NSData *data) {
-        [self blockPin:2 completion:^{
-          [self.cardVersionHandler unblockPin2WithPuk:verifyCode newPin2:newCode success:success failure:failure];
+      [self.cardVersionHandler verifyCode:verifyCode ofType:CodeTypePuk withSuccess:^(NSData *data) {
+        [self blockPin:CodeTypePin2 completion:^{
+          [self.cardVersionHandler unblockCode:CodeTypePin2 withPuk:verifyCode newCode:newCode success:success failure:failure];
         }];
       } failure:failure];
       break;
@@ -321,14 +326,14 @@ static CardActionsManager *sharedInstance = nil;
     case CardActionUnblockPin1: {
       NSString *pin1 = [actionObject.data objectForKey:kCardActionDataPin1];
       NSString *puk = [actionObject.data objectForKey:kCardActionDataPuk];
-      [self.cardVersionHandler unblockPin1WithPuk:puk newPin1:pin1 success:success failure:failure];
+      [self.cardVersionHandler unblockCode:CodeTypePin1 withPuk:puk newCode:pin1 success:success failure:failure];
       break;
     }
     
     case CardActionUnblockPin2: {
       NSString *pin2 = [actionObject.data objectForKey:kCardActionDataPin2];
       NSString *puk = [actionObject.data objectForKey:kCardActionDataPuk];
-      [self.cardVersionHandler unblockPin2WithPuk:puk newPin2:pin2 success:success failure:failure];
+      [self.cardVersionHandler unblockCode:CodeTypePin2 withPuk:puk newCode:pin2 success:success failure:failure];
       break;
     }
       
@@ -355,13 +360,22 @@ static CardActionsManager *sharedInstance = nil;
       break;
     }
       
+    case CardActionReadPersonalIdCode: {
+      
+      break;
+    }
+      
     default:
       break;
   }
 }
 
-- (void) blockPin:(int)pinId completion:(void (^)(void))completion {
-  
+- (void) blockPin:(CodeType)pinId completion:(void (^)(void))completion {
+  [self blockPin:pinId withCode:@"00000" completion:completion];
+}
+
+NSString *blockBackupCode = @"00001";
+- (void)blockPin:(CodeType)pinId withCode:(NSString *)code completion:(void (^)(void))completion {
   void (^failure)(NSError *) = ^(NSError *error) {
     if (error.code == moppLibErrorWrongPin) {
       NSNumber *count = [error.userInfo objectForKey:kMoppLibUserInfoRetryCount];
@@ -375,18 +389,19 @@ static CardActionsManager *sharedInstance = nil;
     }
   };
   
+  void (^success)(NSData *) = ^(NSData *data) {
+    if ([code isEqualToString:blockBackupCode]) {
+      [self blockPin:pinId withCode:blockBackupCode completion:completion];
+    } else {
+      // This should not happen
+      completion();
+    }
+  };
+  
   if (pinId == 1) {
-    [self.cardVersionHandler verifyPin1:@"00000" withSuccess:^(NSData *data) {
-      // This should not happen
-      completion();
-      
-    } failure:failure];
+    [self.cardVersionHandler verifyCode:code ofType:CodeTypePin1 withSuccess:success failure:failure];
   } else {
-    [self.cardVersionHandler verifyPin2:@"00000" withSuccess:^(NSData *data) {
-      // This should not happen
-      completion();
-      
-    } failure:failure];
+    [self.cardVersionHandler verifyCode:code ofType:CodeTypePin2 withSuccess:success failure:failure];
   }
 }
 
