@@ -14,7 +14,7 @@ NSString *const kThemeDarkBlue = @"00365C";
 NSString *const kThemeWarningIconTint = @"FF9033";
 NSString *const kThemeWarningBackgroundColor = @"FFF4E1";
 NSString *const kThemeWarningBorderColor = @"FBE3BC";
-NSString *const kThemeErrorIconTint = @"F3B12E";
+NSString *const kThemeErrorIconTint = @"EC0821";
 NSString *const kThemeErrorBackgroundColor = @"FFE6E6";
 NSString *const kThemeErrorBorderColor = @"FFCED0";
 

@@ -130,7 +130,7 @@ typedef enum : NSUInteger {
   [MoppLibCardActions pin1RetryCountWithViewController:self success:^(NSNumber *count) {
     if (self.pin1RetryCount != count) {
       self.pin1RetryCount = count;
-      [self reloadData];;
+      [self reloadData];
     }
   } failure:^(NSError *error) {
     NSLog(@"Error %@", error);
@@ -253,6 +253,7 @@ typedef enum : NSUInteger {
     if (self.isReaderConnected && isInserted) {
       [self updateCardData];
       [self updateCertData];
+      [self updateRetryCounters];
     }
   }];
 }
