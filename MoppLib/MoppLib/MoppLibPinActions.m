@@ -17,7 +17,7 @@
   if (error) {
     failure(error);
   } else {
-    [[CardActionsManager sharedInstance] changePin1WithViewController:controller newPin:newPin1 oldPin:oldPin1 success:success failure:failure];
+    [[CardActionsManager sharedInstance] changeCode:CodeTypePin1 withVerifyCode:oldPin1 to:newPin1 viewController:controller success:success failure:failure];
   }
 }
 
@@ -26,7 +26,7 @@
   if (error) {
     failure(error);
   } else {
-    [[CardActionsManager sharedInstance] changePin1WithViewController:controller newPin:newPin1 puk:puk success:success failure:failure];
+    [[CardActionsManager sharedInstance] changePin:CodeTypePin1 withPuk:puk to:newPin1 viewController:controller success:success failure:failure];
   }
 }
 
@@ -35,7 +35,7 @@
   if (error) {
     failure(error);
   } else {
-    [[CardActionsManager sharedInstance] changePin2WithViewController:controller newPin:newPin2 oldPin:oldPin2 success:success failure:failure];
+    [[CardActionsManager sharedInstance] changeCode:CodeTypePin2 withVerifyCode:oldPin2 to:newPin2 viewController:controller success:success failure:failure];
   }
 }
 
@@ -44,7 +44,7 @@
   if (error) {
     failure(error);
   } else {
-    [[CardActionsManager sharedInstance] changePin2WithViewController:controller newPin:newPin2 puk:puk success:success failure:failure];
+    [[CardActionsManager sharedInstance] changePin:CodeTypePin2 withPuk:puk to:newPin2 viewController:controller success:success failure:failure];
   }
 }
 
@@ -53,7 +53,7 @@
   if (error) {
     failure(error);
   } else {
-    [[CardActionsManager sharedInstance] unblockPin1WithPuk:puk newPin1:newPin1 viewController:controller success:success failure:failure];
+    [[CardActionsManager sharedInstance] unblockCode:CodeTypePin1 withPuk:puk newCode:newPin1 viewController:controller success:success failure:failure];
   }
 }
 
@@ -62,7 +62,7 @@
   if (error) {
     failure(error);
   } else {
-    [[CardActionsManager sharedInstance] unblockPin2WithPuk:puk newPin2:newPin2 viewController:controller success:success failure:failure];
+    [[CardActionsManager sharedInstance] unblockCode:CodeTypePin2 withPuk:puk newCode:newPin2 viewController:controller success:success failure:failure];
   }
 }
 

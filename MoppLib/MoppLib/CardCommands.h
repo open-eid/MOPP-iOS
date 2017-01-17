@@ -12,6 +12,12 @@
 #import "NSData+Additions.h"
 #import "MoppLibPersonalData.h"
 
+typedef NS_ENUM(NSUInteger, CodeType) {
+  CodeTypePuk = 0,
+  CodeTypePin1 = 1,
+  CodeTypePin2 = 2
+};
+
 extern NSString *const kCommandSelectFileMaster;
 extern NSString *const kCommandSelectFileEEEE;
 extern NSString *const kCommandSelectFile0016;
@@ -75,36 +81,40 @@ extern NSString *const kCommandResetRetryCounter;
 - (void)readCodeCounterRecord:(NSInteger)record withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
 
 /**
- * Changes Pin 1 to new value
+ * Changes PIN or PUK code.
  *
- * @param newPin1       New value for pin 1 code
- * @param verifyCode    Old pin 1 or puk code for user verification
+ * @param type          type of code that will be changed. One of CodeTypePuk, CodeTypePin1, CodeTypePin2
+ * @param code          new PIN/PUK code
+ * @param verifyCode    current PIN or PUK code for verification
  * @param success       block to be executed when action is completed successfully
  * @param failure       block to be executed when action fails
  */
-- (void)changePin1To:(NSString *)newPin1 verifyCode:(NSString *)code withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
+- (void)changeCode:(CodeType)type to:(NSString *)code withVerifyCode:(NSString *)verifyCode withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
 
 /**
- * Changes Pin 2 to new value
+ * Verifies PIN or PUK code.
  *
- * @param newPin2       New value for pin 2 code
- * @param verifyCode    Old pin 2 or puk code for user verification
+ * @param type          type of code that will be verified. One of CodeTypePuk, CodeTypePin1, CodeTypePin2
+ * @param code          your PIN/PUK code that should be verified
  * @param success       block to be executed when action is completed successfully
  * @param failure       block to be executed when action fails
  */
-- (void)changePin2To:(NSString *)newPin2 verifyCode:(NSString *)code withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
+- (void)verifyCode:(NSString *)code ofType:(CodeType)type withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
 
-- (void)verifyPin1:(NSString *)pin1 withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
-
-- (void)verifyPin2:(NSString *)pin2 withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
-- (void)verifyPuk:(NSString *)puk withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
+/**
+ * Unblocks PIN.
+ *
+ * @param type          type of code that will be unblocked. One of CodeTypePin1, CodeTypePin2
+ * @param puk           current PUK code for verification
+ * @param newCode       new code for your PIN
+ * @param success       block to be executed when action is completed successfully
+ * @param failure       block to be executed when action fails
+ */
+- (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure;
 
 - (void)calculateSignature:(NSString *)hash withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
 
 - (void)setSecurityEnvironment:(NSUInteger)env withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
-
-- (void)unblockPin1WithPuk:(NSString *)puk newPin1:(NSString *)newPin1 success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure;
-- (void)unblockPin2WithPuk:(NSString *)puk newPin2:(NSString *)newPin2 success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure;
 
 
 @end

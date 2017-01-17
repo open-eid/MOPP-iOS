@@ -56,6 +56,7 @@
 		E45EF53B1E2D856700C37D43 /* ContainersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E45EF53A1E2D856700C37D43 /* ContainersListViewController.m */; };
 		E45EF5411E2D8A9300C37D43 /* FileImportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E45EF5401E2D8A9300C37D43 /* FileImportViewController.m */; };
 		E45EF5431E2D8D8000C37D43 /* ContainerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E45EF5421E2D8D8000C37D43 /* ContainerCell.xib */; };
+		E485A7871E2DF9A500C53DBF /* ButtonWithRoundedCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = E485A7861E2DF9A500C53DBF /* ButtonWithRoundedCorners.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -158,6 +159,8 @@
 		E45EF53F1E2D8A9300C37D43 /* FileImportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileImportViewController.h; sourceTree = "<group>"; };
 		E45EF5401E2D8A9300C37D43 /* FileImportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileImportViewController.m; sourceTree = "<group>"; };
 		E45EF5421E2D8D8000C37D43 /* ContainerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContainerCell.xib; sourceTree = "<group>"; };
+		E485A7851E2DF9A500C53DBF /* ButtonWithRoundedCorners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonWithRoundedCorners.h; sourceTree = "<group>"; };
+		E485A7861E2DF9A500C53DBF /* ButtonWithRoundedCorners.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonWithRoundedCorners.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +196,8 @@
 		540786EA1E1A8BE90016ABA7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E485A7851E2DF9A500C53DBF /* ButtonWithRoundedCorners.h */,
+				E485A7861E2DF9A500C53DBF /* ButtonWithRoundedCorners.m */,
 				540786EB1E1A8C650016ABA7 /* ViewWithRoundedCorners.h */,
 				540786EC1E1A8C650016ABA7 /* ViewWithRoundedCorners.m */,
 				540786EE1E1A96900016ABA7 /* SimpleHeaderView.h */,
@@ -602,6 +607,7 @@
 				E45EF5381E2D855400C37D43 /* BaseContainersListViewController.m in Sources */,
 				E4250CC81E0968D200530370 /* main.m in Sources */,
 				545CF8461E16453300B66EE8 /* MyEIDViewController.m in Sources */,
+				E485A7871E2DF9A500C53DBF /* ButtonWithRoundedCorners.m in Sources */,
 				E4180C1A1E240AC600FD7B8C /* UIViewController+MBProgressHUD.m in Sources */,
 				545CF84B1E165DBA00B66EE8 /* NameAndPhotoCell.m in Sources */,
 				54825EF81E1D270F00253FF0 /* NSString+Additions.m in Sources */,

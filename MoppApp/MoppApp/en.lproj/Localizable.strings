@@ -58,6 +58,8 @@
 "my-eid-signature-certificate" = "Signature certificate";
 "my-eid-my-eid" = "My eID";
 "my-eid-id-card-info-link" = "https://www.politsei.ee/en/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/";
+"my-eid-pin-blocked" = "%@ is blocked. You can unblock %@ in %@.";
+"my-eid-pin-actions-view" = "PIN actions view";
 
 
 // *** PIN actions ***
@@ -78,7 +80,7 @@
 "pin-actions-general-error" = "Could not change %@";
 "pin-actions-incorrect-length" = "New %@ has incorrect length.";
 "pin-actions-same-as-current" = "New %@ must be different from current %@.";
-"pin-actions-invalid-format" = "New %@ has invalid format.";
+"pin-actions-invalid-format" = "This %@ is not allowed.";
 "pin-actions-wrong-pin-retry" = "Current %@ was wrong. You have %i tries left.";
 "pin-actions-wrong-pin-blocked" = "Current %@ was wrong. %@ has been blocked.";
 "pin-actions-error-title" = "Error";
@@ -88,3 +90,4 @@
 "pin-actions-verification-title" = "Changing %@:";
 "pin-actions-verification-option" = "Using current %@ code";
 "pin-actions-unblocking-pin" = "Unblocking %@:";
+"pin-actions-repeated-pin-doesnt-match" = "New %@ and repeated %@ are different.";

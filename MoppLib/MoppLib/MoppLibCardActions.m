@@ -33,11 +33,11 @@
 }
 
 + (void)pin1RetryCountWithViewController:(UIViewController *)controller success:(void (^)(NSNumber *))success failure:(void (^)(NSError *))failure {
-  [[CardActionsManager sharedInstance] pin1RetryCountWithViewController:controller success:success failure:failure];
+  [[CardActionsManager sharedInstance] code:CodeTypePin1 retryCountWithViewController:controller success:success failure:failure];
 }
 
 + (void)pin2RetryCountWithViewController:(UIViewController *)controller success:(void (^)(NSNumber *))success failure:(void (^)(NSError *))failure {
-  [[CardActionsManager sharedInstance] pin2RetryCountWithViewController:controller success:success failure:failure];
+  [[CardActionsManager sharedInstance] code:CodeTypePin2 retryCountWithViewController:controller success:success failure:failure];
 }
 
 @end

@@ -19,7 +19,8 @@ typedef enum : NSUInteger {
   PinOperationsCellChangePin1,
   PinOperationsCellChangePin2,
   PinOperationsCellUnblockPin1,
-  PinOperationsCellUnblockPin2
+  PinOperationsCellUnblockPin2,
+  PinOperationsCellSeparator
   
 } PinOperationsCell;
 
@@ -28,7 +29,6 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) BOOL isReaderConnected;
 @property (nonatomic, assign) BOOL isCardInserted;
 @property (nonatomic, strong) NSArray *cellData;
-@property (strong, nonatomic) IBOutlet UIView *sectionHeaderLine;
 @property (nonatomic, strong) NSNumber *pin1RetryCount;
 @property (nonatomic, strong) NSNumber *pin2RetryCount;
 
@@ -42,11 +42,15 @@ typedef enum : NSUInteger {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+  
+  self.pin2RetryCount = [NSNumber numberWithInt:-1];
+  self.pin1RetryCount = [NSNumber numberWithInt:-1];
 
   self.title = Localizations.TabSimSettings;
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardStatusChanged) name:kMoppLibNotificationReaderStatusChanged object:nil];
-  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(retryCounterChanged) name:kMoppLibNotificationRetryCounterChanged object:nil];
+
   UINib *nib = [UINib nibWithNibName:@"ErrorCell" bundle:nil];
   [self.tableView registerNib:nib forCellReuseIdentifier:@"ErrorCell"];
   
@@ -99,13 +103,21 @@ typedef enum : NSUInteger {
   
   if (!self.isReaderConnected) {
     [cellData addObject:[NSNumber numberWithUnsignedInteger:PinOperationsCellReaderNotConnected]];
+    [cellData addObject:[NSNumber numberWithUnsignedInteger:PinOperationsCellSeparator]];
     [cellData addObject:[NSNumber numberWithUnsignedInteger:PinOperationsCellInfo]];
+    
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
   } else if (!self.isCardInserted) {
     [cellData addObject:[NSNumber numberWithUnsignedInteger:PinOperationsCellNoCard]];
+    [cellData addObject:[NSNumber numberWithUnsignedInteger:PinOperationsCellSeparator]];
     [cellData addObject:[NSNumber numberWithUnsignedInteger:PinOperationsCellInfo]];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+
     
   } else {
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+
     if (self.pin1RetryCount) {
       if (self.pin1RetryCount.intValue > 0) {
         [cellData addObject:[NSNumber numberWithUnsignedInteger:PinOperationsCellChangePin1]];
@@ -153,11 +165,11 @@ typedef enum : NSUInteger {
 
 - (void)updateBlockingIndicators {
   int badgeValue = 0;
-  if (self.pin1RetryCount.intValue == 0) {
+  if (self.pin1RetryCount && self.pin1RetryCount.intValue == 0) {
     badgeValue++;
   }
   
-  if (self.pin2RetryCount.intValue == 0) {
+  if (self.pin2RetryCount && self.pin2RetryCount.intValue == 0) {
     badgeValue++;
   }
   
@@ -168,6 +180,10 @@ typedef enum : NSUInteger {
   }
   [self setupCells];
   [self.tableView reloadData];
+}
+
+- (void)retryCounterChanged {
+  [self updateRetryCounters];
 }
 
 - (void)cardStatusChanged {
@@ -196,10 +212,22 @@ NSString *readerNotFoundPath2 = @"myeid://readerNotConnected";
   return self.cellData.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+  return CGFLOAT_MIN;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+  return CGFLOAT_MIN;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   NSNumber *cellType = self.cellData[indexPath.row];
   
   switch (cellType.unsignedIntegerValue) {
+    case PinOperationsCellSeparator: {
+      UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SeparatorCell"];
+      return cell;
+    }
     case PinOperationsCellNoCard: {
       ErrorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ErrorCell" forIndexPath:indexPath];
       cell.type = ErrorCellTypeWarning;

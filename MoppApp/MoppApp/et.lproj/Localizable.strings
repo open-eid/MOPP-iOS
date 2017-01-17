@@ -58,7 +58,8 @@
 "my-eid-signature-certificate" = "Allkirjastamise sertifikaat";
 "my-eid-my-eid" = "Minu eID";
 "my-eid-id-card-info-link" = "https://www.politsei.ee/et/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/";
-
+"my-eid-pin-blocked" = "%@ on blokeeritud. %@ blokeeringu saad tühistada %@.";
+"my-eid-pin-actions-view" = "PIN'i toimingute vaates";
 
 // *** PIN actions ***
 "pin-actions-change-pin-1" = "Muuda PIN 1";
@@ -83,8 +84,8 @@
 "pin-actions-info" = "Siin saad muuta oma PIN koode ja PIN koodi blokeeringut tühistada. PINi toiminguteks on vaja ühendada kaardilugeja telefoniga.";
 "pin-actions-general-error" = "%@ muutmine ebaõnnestus.";
 "pin-actions-incorrect-length" = "Uus %@ on vale pikkusega.";
-"pin-actions-same-as-current" = "Uus %@ peab erinema %@-st.";
-"pin-actions-invalid-format" = "Uus %@ on vales formaadis.";
+"pin-actions-same-as-current" = "Uus %@ peab erinema kehtivast %@-st.";
+"pin-actions-invalid-format" = "Selline %@ ei ole lubatud.";
 "pin-actions-wrong-pin-retry" = "Kehtiv %@ on vale. Saad proovida veel %i korda.";
 "pin-actions-wrong-pin-blocked" = "Kehtiv %@ on vale. %@ blokeeriti.";
 "pin-actions-error-title" = "Viga";
@@ -94,3 +95,4 @@
 "pin-actions-verification-title" = "%@ muutmine:";
 "pin-actions-verification-option" = "Kasutades kehtivat %@ koodi";
 "pin-actions-unblocking-pin" = "%@ blokeeringu tühistamine:";
+"pin-actions-repeated-pin-doesnt-match" = "Uus %@ ja uus %@ uuesti on erinevad";

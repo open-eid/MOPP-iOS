@@ -26,6 +26,26 @@ typedef enum : NSUInteger {
   PersonalDataSectionInfo
 } PersonalDataSection;
 
+typedef enum : NSUInteger {
+  PersonalDataCellTypeErrorNoReader,
+  PersonalDataCellTypeErrorNoCard,
+  PersonalDataCellTypeErrorPin1Blocked,
+  PersonalDataCellTypeErrorPin2Blocked,
+  PersonalDataCellTypeInfo,
+  PersonalDataCellTypeName,
+  PersonalDataCellTypeSurname,
+  PersonalDataCellTypeBirthDate,
+  PersonalDataCellTypeCitizenship,
+  PersonalDataCellTypeEmail,
+  PersonalDataCellTypeId,
+  PersonalDataCellTypeDocument,
+  PersonalDataCellTypeDocumentValidity,
+  PersonalDataCellTypeDocumentExpiration,
+  PersonalDataCellTypeCertExpiration,
+  PersonalDataCellTypeCertValidity,
+  PersonalDataCellTypeCertUsed
+} PersonalDataCellType;
+
 @interface MyEIDViewController () <UITextViewDelegate>
 @property (nonatomic, strong) MoppLibPersonalData *personalData;
 @property (nonatomic, strong) MoppLibCertData *signingCertData;
@@ -34,6 +54,8 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) BOOL isReaderConnected;
 @property (nonatomic, assign) BOOL isCardInserted;
 @property (strong, nonatomic) IBOutlet UIView *sectionHeaderLine;
+@property (nonatomic, strong) NSNumber *pin1RetryCount;
+@property (nonatomic, strong) NSNumber *pin2RetryCount;
 @end
 
 @implementation MyEIDViewController
@@ -47,8 +69,12 @@ typedef enum : NSUInteger {
   // Do any additional setup after loading the view.
   self.title = Localizations.MyEidMyEid;
   
+  self.pin1RetryCount = [NSNumber numberWithInt:-1];
+  self.pin2RetryCount = [NSNumber numberWithInt:-1];
+
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardStatusChanged) name:kMoppLibNotificationReaderStatusChanged object:nil];
-  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(retryCounterChanged) name:kMoppLibNotificationRetryCounterChanged object:nil];
+
   UINib *nib = [UINib nibWithNibName:@"ErrorCell" bundle:nil];
   [self.tableView registerNib:nib forCellReuseIdentifier:@"ErrorCell"];
   
@@ -65,6 +91,7 @@ typedef enum : NSUInteger {
     if (self.isReaderConnected && self.isCardInserted) {
       [self updateCardData];
       [self updateCertData];
+      [self updateRetryCounters];
     }
   }];
 }
@@ -99,21 +126,39 @@ typedef enum : NSUInteger {
   }];
 }
 
+- (void)updateRetryCounters {
+  [MoppLibCardActions pin1RetryCountWithViewController:self success:^(NSNumber *count) {
+    if (self.pin1RetryCount != count) {
+      self.pin1RetryCount = count;
+      [self reloadData];
+    }
+  } failure:^(NSError *error) {
+    NSLog(@"Error %@", error);
+  }];
+  
+  [MoppLibCardActions pin2RetryCountWithViewController:self success:^(NSNumber *count) {
+    if (self.pin2RetryCount != count) {
+      self.pin2RetryCount = count;
+      [self reloadData];
+    }
+  } failure:^(NSError *error) {
+    NSLog(@"Error %@", error);
+  }];
+}
+
 - (void)setSigningCertData:(MoppLibCertData *)signingCertData {
   _signingCertData = signingCertData;
-  [self.tableView reloadData];
+  [self reloadData];
 }
 
 - (void)setAuthenticationCertData:(MoppLibCertData *)authenticationCertData {
   _authenticationCertData = authenticationCertData;
-  [self.tableView reloadData];
-
+  [self reloadData];
 }
 
 - (void)setPersonalData:(MoppLibPersonalData *)personalData {
   _personalData = personalData;
-  [self setupSections];
-  [self.tableView reloadData];
+  [self reloadData];
 }
 
 - (void)setIsCardInserted:(BOOL)isCardInserted {
@@ -123,8 +168,7 @@ typedef enum : NSUInteger {
       self.personalData = nil;
       self.signingCertData = nil;
     }
-    [self setupSections];
-    [self.tableView reloadData];
+    [self reloadData];
   }
 }
 
@@ -135,28 +179,69 @@ typedef enum : NSUInteger {
       self.personalData = nil;
       self.signingCertData = nil;
     }
-    [self setupSections];
-    [self.tableView reloadData];
+    [self reloadData];
   }
+}
+
+- (void)reloadData {
+  [self setupSections];
+  [self.tableView reloadData];
 }
 
 - (void)setupSections {
   NSMutableArray *array = [NSMutableArray new];
   
-  if (self.isCardInserted == NO || self.isReaderConnected == NO) {
-    [array addObject:[NSNumber numberWithInt:PersonalDataSectionErrors]];
+    NSMutableArray *errors = [NSMutableArray new];
     
-  } else if (self.personalData) {
-    [array addObject:[NSNumber numberWithInt:PersonalDataSectionData]];
-    [array addObject:[NSNumber numberWithInt:PersonalDataSectionEid]];
-    [array addObject:[NSNumber numberWithInt:PersonalDataSectionSigningCert]];
+    if (self.isReaderConnected == NO) {
+      [errors addObject:[NSNumber numberWithInt:PersonalDataCellTypeErrorNoReader]];
+      
+    } else if (self.isCardInserted == NO) {
+      [errors addObject:[NSNumber numberWithInt:PersonalDataCellTypeErrorNoCard]];
+      
+    } else {
+      if (self.pin1RetryCount.integerValue == 0) {
+        [errors addObject:[NSNumber numberWithInt:PersonalDataCellTypeErrorPin1Blocked]];
+      }
+      
+      if (self.pin2RetryCount.integerValue == 0) {
+        [errors addObject:[NSNumber numberWithInt:PersonalDataCellTypeErrorPin2Blocked]];
+      }
+    }
+  
+  if (errors.count > 0) {
+    [array addObject:@[[NSNumber numberWithInt:PersonalDataSectionErrors], errors]];
+  }
+  
+  if (self.personalData) {
+    NSArray *personalData = @[[NSNumber numberWithInt:PersonalDataCellTypeName],
+                              [NSNumber numberWithInt:PersonalDataCellTypeSurname],
+                              [NSNumber numberWithInt:PersonalDataCellTypeId],
+                              [NSNumber numberWithInt:PersonalDataCellTypeBirthDate],
+                              [NSNumber numberWithInt:PersonalDataCellTypeCitizenship],
+                              [NSNumber numberWithInt:PersonalDataCellTypeEmail]];
+    [array addObject:@[[NSNumber numberWithInt:PersonalDataSectionData], personalData]];
+    
+    NSArray *eid = @[[NSNumber numberWithInt:PersonalDataCellTypeDocument],
+                              [NSNumber numberWithInt:PersonalDataCellTypeDocumentValidity],
+                              [NSNumber numberWithInt:PersonalDataCellTypeDocumentExpiration]];
+    [array addObject:@[[NSNumber numberWithInt:PersonalDataSectionEid], eid]];
+    
+    NSArray *cert = @[[NSNumber numberWithInt:PersonalDataCellTypeCertValidity],
+                     [NSNumber numberWithInt:PersonalDataCellTypeCertExpiration],
+                     [NSNumber numberWithInt:PersonalDataCellTypeCertUsed]];
+    [array addObject:@[[NSNumber numberWithInt:PersonalDataSectionSigningCert], cert]];
   }
   
   if (!self.personalData) {
-    [array addObject:[NSNumber numberWithInt:PersonalDataSectionInfo]];
+    [array addObject:@[[NSNumber numberWithInt:PersonalDataSectionInfo], @[[NSNumber numberWithInt:PersonalDataCellTypeInfo]]]];
   }
   
   self.sectionData = array;
+}
+
+- (void)retryCounterChanged {
+  [self updateRetryCounters];
 }
 
 - (void)cardStatusChanged {
@@ -168,8 +253,16 @@ typedef enum : NSUInteger {
     if (self.isReaderConnected && isInserted) {
       [self updateCardData];
       [self updateCertData];
+      [self updateRetryCounters];
     }
   }];
+}
+
+NSString *pinBlockedPath = @"myeid://pinBlocked";
+
+- (void)setupPinBlockedMessage:(UITextView *)textView withPinString:(NSString *)pin {
+  NSString *tapHere = Localizations.MyEidPinActionsView;
+  [textView setLinkedText:Localizations.MyEidPinBlocked(pin, pin, tapHere) withLinks:@{pinBlockedPath:tapHere}];
 }
 
 NSString *readerNotFoundPath = @"myeid://readerNotConnected";
@@ -188,166 +281,196 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
 
 #pragma mark - TableView
 
+- (NSInteger)sectionTypeForSection:(int)section {
+  NSArray *sectionData = self.sectionData[section];
+  NSNumber *type = sectionData[0];
+  return type.integerValue;
+}
+
+- (NSInteger)cellTypeForRow:(int)row inSection:(int)section {
+  NSArray *sectionData = self.sectionData[section];
+  NSArray *cellData = sectionData[1];
+  NSNumber *type = cellData[row];
+  return type.integerValue;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
   return self.sectionData.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  NSNumber *sectionData = self.sectionData[section];
-  if (sectionData.intValue == PersonalDataSectionErrors) {
-    return 1;
-  }
-  
-  if (sectionData.intValue == PersonalDataSectionInfo) {
-    return 1;
-  }
-  
-  if (sectionData.intValue == PersonalDataSectionData) {
-    return 6;
-  }
-  
-  if (sectionData.intValue == PersonalDataSectionEid) {
-    return 3;
-  }
-  
-  if (sectionData.intValue == PersonalDataSectionSigningCert) {
-    return 3;
+  if (self.sectionData.count > section) {
+    NSArray *sectionData = self.sectionData[section];
+    NSArray *cellData = sectionData[1];
+
+    return cellData.count;
   }
   
   return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+  PersonalDataCellType cellType = [self cellTypeForRow:indexPath.row inSection:indexPath.section];
   
-  NSNumber *sectionData = self.sectionData[indexPath.section];
-  if (sectionData.intValue == PersonalDataSectionErrors) {
-    ErrorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ErrorCell" forIndexPath:indexPath];
-    cell.errorTextView.delegate = self;
-    cell.type = ErrorCellTypeWarning;
-    if (!self.isReaderConnected) {
-      [self setupReaderNotFoundMessage:cell.errorTextView];
-    } else if (!self.isCardInserted) {
-      cell.errorTextView.text = Localizations.MyEidWarningCardNotFound;
+  switch (cellType) {
+    case PersonalDataCellTypeErrorPin1Blocked:
+    case PersonalDataCellTypeErrorPin2Blocked:
+    case PersonalDataCellTypeErrorNoCard:
+    case PersonalDataCellTypeErrorNoReader: {
+      ErrorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ErrorCell" forIndexPath:indexPath];
+      cell.errorTextView.delegate = self;
+      cell.type = cellType == PersonalDataCellTypeErrorPin1Blocked || cellType == PersonalDataCellTypeErrorPin2Blocked ? ErrorCellTypeError : ErrorCellTypeWarning;
+      if (cellType == PersonalDataCellTypeErrorNoReader) {
+        [self setupReaderNotFoundMessage:cell.errorTextView];
+      } else if (cellType == PersonalDataCellTypeErrorNoCard) {
+        cell.errorTextView.text = Localizations.MyEidWarningCardNotFound;
+      } else {
+        [self setupPinBlockedMessage:cell.errorTextView withPinString:cellType == PersonalDataCellTypeErrorPin1Blocked ? Localizations.PinActionsPin1 : Localizations.PinActionsPin2];
+      }
+      return cell;
     }
-    return cell;
+      
+    case PersonalDataCellTypeInfo: {
+      InfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell" forIndexPath:indexPath];
+      [self setupIDCardIntroMessage:cell.infoTextView];
+      return cell;
+    }
+
+    case PersonalDataCellTypeCertUsed:
+    case PersonalDataCellTypeCertExpiration:
+    case PersonalDataCellTypeCertValidity:
+    case PersonalDataCellTypeDocumentExpiration:
+    case PersonalDataCellTypeDocumentValidity:
+    case PersonalDataCellTypeDocument:
+    case PersonalDataCellTypeEmail:
+    case PersonalDataCellTypeCitizenship:
+    case PersonalDataCellTypeBirthDate:
+    case PersonalDataCellTypeId:
+    case PersonalDataCellTypeSurname:
+    case PersonalDataCellTypeName: {
+      return [self personalDataCellForType:cellType];
+    }
+      
+      break;
+      
+    default:
+      break;
   }
-  
-  if (sectionData.intValue == PersonalDataSectionInfo) {
-    InfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell" forIndexPath:indexPath];
-    [self setupIDCardIntroMessage:cell.infoTextView];
-    return cell;
-  }
-  
+
+  return nil;
+}
+
+- (PersonalDataCell *)personalDataCellForType:(NSInteger)type {
   NSString *titleString;
   NSString *dataString;
   UIColor *labelColor = [UIColor blackColor];
   
-  if (sectionData.intValue == PersonalDataSectionData) {
-    switch (indexPath.row) {
-      case 0:
-        titleString = Localizations.MyEidGivenNames;
-        dataString = [self.personalData givenNames];
-        break;
+  switch (type) {
+      
+    case PersonalDataCellTypeCertUsed: {
+      titleString = Localizations.MyEidUseCount;
+      
+      if (self.signingCertData) {
+        dataString = self.signingCertData.usageCount == 1 ? Localizations.MyEidUsedOnce : Localizations.MyEidTimesUsed(self.signingCertData.usageCount);
         
-      case 1:
-        titleString = Localizations.MyEidSurname;
-        dataString = self.personalData.surname;
-        break;
-        
-      case 2:
-        titleString = Localizations.MyEidPersonalCode;
-        dataString = self.personalData.personalIdentificationCode;
-        break;
-        
-      case 3:
-        titleString = Localizations.MyEidBirth;
-        dataString = self.personalData.birthDate;
-        break;
-        
-      case 4:
-        titleString = Localizations.MyEidCitizenship;
-        dataString = self.personalData.nationality;
-        break;
-        
-      case 5: {
-        titleString = Localizations.MyEidEmail;
-        NSString *email = @"-";
-        if (self.authenticationCertData && self.authenticationCertData.email.length > 0) {
-          email = self.authenticationCertData.email;
-        }
-        dataString = email;
-        break;
+      } else {
+        dataString = @"-";
       }
-        
-      default:
-        break;
+      break;
     }
-  }
-  
-  if (sectionData.intValue == PersonalDataSectionEid) {
-    switch (indexPath.row) {
-      case 0:
-        titleString = Localizations.MyEidCardInReader;
-        dataString = self.personalData.documentNumber;
-        break;
-      case 1: {
-        BOOL isCardValid = [[NSDate date] compare:[[DateFormatter sharedInstance] ddMMYYYYToDate:self.personalData.expiryDate]] == NSOrderedAscending;
-        titleString = Localizations.MyEidValidity;
-        dataString = isCardValid ? Localizations.MyEidValid : Localizations.MyEidNotValid;
-        labelColor = isCardValid ? [UIColor darkGreen] : [UIColor red];
-        break;
+      
+    case PersonalDataCellTypeCertExpiration: {
+      titleString = Localizations.MyEidValidUntil;
+      if (self.signingCertData) {
+        dataString = [[DateFormatter sharedInstance] ddMMYYYYToString:self.signingCertData.expiryDate];
+        
+      } else {
+        dataString = @"-";
       }
-      case 2:
-        titleString = Localizations.MyEidValidUntil;
-        dataString = self.personalData.expiryDate;
-        break;
-        
-      default:
-        break;
+      break;
     }
-  }
-  
-  if (sectionData.intValue == PersonalDataSectionSigningCert) {
-    switch (indexPath.row) {
-      case 0: {
-        titleString = Localizations.MyEidValidity;
-        if (self.signingCertData) {
-          BOOL isValid = self.signingCertData.isValid && [[NSDate date] compare:self.signingCertData.expiryDate] == NSOrderedAscending;
-          dataString = isValid ? Localizations.MyEidValid : Localizations.MyEidNotValid;
-          labelColor = isValid ? [UIColor darkGreen] : [UIColor red];
-
-        } else {
-          dataString = @"-";
-        }
-        break;
+      
+    case PersonalDataCellTypeCertValidity: {
+      titleString = Localizations.MyEidValidity;
+      if (self.signingCertData) {
+        BOOL isValid = self.signingCertData.isValid && [[NSDate date] compare:self.signingCertData.expiryDate] == NSOrderedAscending;
+        dataString = isValid ? Localizations.MyEidValid : Localizations.MyEidNotValid;
+        labelColor = isValid ? [UIColor darkGreen] : [UIColor red];
+        
+      } else {
+        dataString = @"-";
       }
-      case 1:
-        titleString = Localizations.MyEidValidUntil;
-        if (self.signingCertData) {
-          dataString = [[DateFormatter sharedInstance] ddMMYYYYToString:self.signingCertData.expiryDate];
-          
-        } else {
-          dataString = @"-";
-        }
-        break;
-      case 2:
-        titleString = Localizations.MyEidUseCount;
-        
-        if (self.signingCertData) {
-          dataString = self.signingCertData.usageCount == 1 ? Localizations.MyEidUsedOnce : Localizations.MyEidTimesUsed(self.signingCertData.usageCount);
-          
-        } else {
-          dataString = @"-";
-        }
-        break;
-        
-      default:
-        break;
+      break;
     }
+      
+    case PersonalDataCellTypeDocumentExpiration: {
+      titleString = Localizations.MyEidValidUntil;
+      dataString = self.personalData.expiryDate;
+      break;
+    }
+      
+    case PersonalDataCellTypeDocumentValidity: {
+      BOOL isCardValid = [[NSDate date] compare:[[DateFormatter sharedInstance] ddMMYYYYToDate:self.personalData.expiryDate]] == NSOrderedAscending;
+      titleString = Localizations.MyEidValidity;
+      dataString = isCardValid ? Localizations.MyEidValid : Localizations.MyEidNotValid;
+      labelColor = isCardValid ? [UIColor darkGreen] : [UIColor red];
+      break;
+    }
+      
+    case PersonalDataCellTypeDocument: {
+      titleString = Localizations.MyEidCardInReader;
+      dataString = self.personalData.documentNumber;
+      break;
+    }
+      
+    case PersonalDataCellTypeEmail: {
+      titleString = Localizations.MyEidEmail;
+      NSString *email = @"-";
+      if (self.authenticationCertData && self.authenticationCertData.email.length > 0) {
+        email = self.authenticationCertData.email;
+      }
+      dataString = email;
+      break;
+    }
+      
+    case PersonalDataCellTypeCitizenship: {
+      titleString = Localizations.MyEidCitizenship;
+      dataString = self.personalData.nationality;
+      break;
+    }
+      
+    case PersonalDataCellTypeBirthDate: {
+      titleString = Localizations.MyEidBirth;
+      dataString = self.personalData.birthDate;
+      break;
+    }
+      
+    case PersonalDataCellTypeId: {
+      titleString = Localizations.MyEidPersonalCode;
+      dataString = self.personalData.personalIdentificationCode;
+      break;
+    }
+      
+    case PersonalDataCellTypeSurname: {
+      titleString = Localizations.MyEidSurname;
+      dataString = self.personalData.surname;
+      break;
+    }
+      
+    case PersonalDataCellTypeName: {
+      titleString = Localizations.MyEidGivenNames;
+      dataString = [self.personalData givenNames];
+      break;
+    }
+      
+      break;
+      
+    default:
+      break;
   }
   
   if (titleString.length > 0 || dataString.length > 0) {
-    PersonalDataCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PersonalDataCell" forIndexPath:indexPath];
+    PersonalDataCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PersonalDataCell"];
     cell.titleLabel.text = titleString;
     cell.dataLabel.text = dataString;
     cell.dataLabel.textColor = labelColor;
@@ -367,9 +490,9 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-  NSNumber *sectionData = self.sectionData[section];
+  NSInteger sectionType = [self sectionTypeForSection:section];
   
-  if (sectionData.intValue == PersonalDataSectionErrors) {
+  if (sectionType == PersonalDataSectionErrors) {
     return CGFLOAT_MIN;
   }
     return 40;
@@ -380,20 +503,20 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-  NSNumber *sectionData = self.sectionData[section];
+  NSInteger sectionType = [self sectionTypeForSection:section];
   
-  if (sectionData.intValue == PersonalDataSectionInfo) {
+  if (sectionType == PersonalDataSectionInfo) {
     return self.sectionHeaderLine;
     
   } else {
     NSString *title;
     
     
-    if (sectionData.intValue == PersonalDataSectionData) {
+    if (sectionType == PersonalDataSectionData) {
       title = Localizations.MyEidPersonalData;
-    } else if (sectionData.intValue == PersonalDataSectionEid) {
+    } else if (sectionType == PersonalDataSectionEid) {
       title = Localizations.MyEidEid;
-    } else if (sectionData.intValue == PersonalDataSectionSigningCert) {
+    } else if (sectionType == PersonalDataSectionSigningCert) {
       title = Localizations.MyEidSignatureCertificate;
     }
     
@@ -417,8 +540,13 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
     
   } else if ([[URL absoluteString] isEqualToString:idCardIntroPath]) {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:Localizations.MyEidIdCardInfoLink]];
-  }
   
+  } else if ([[URL absoluteString] isEqualToString:pinBlockedPath]) {
+    // Navigate to PIN actions view
+    if ([self.navigationController.parentViewController isKindOfClass:[UITabBarController class]]) {
+      ((UITabBarController *)self.navigationController.parentViewController).selectedIndex = 3;
+    }
+  }
   return YES; // let the system open this URL
 }
 /*
