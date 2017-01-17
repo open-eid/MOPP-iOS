@@ -15,6 +15,7 @@
 - (NSString *)filePathWithFileName:(NSString *)fileName;
 - (NSString *)createTestContainer;
 - (void)removeFileWithName:(NSString *)fileName;
+- (void)removeFileWithPath:(NSString *)filePath;
 - (NSArray *)getContainers;
 - (NSDictionary *)fileAttributes:(NSString *)fileName;
 

@@ -1,5 +1,5 @@
 //
-//  SignedContainerDataFileCell.h
+//  ContainerDetailsDataFileCell.h
 //  MoppApp
 //
 //  Created by Ants Käär on 06.01.17.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SignedContainerDataFileCell : UITableViewCell
+@interface ContainerDetailsDataFileCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *dataFileImageView;
 @property (weak, nonatomic) IBOutlet UILabel *fileNameLabel;

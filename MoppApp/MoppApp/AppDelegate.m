@@ -10,7 +10,7 @@
 #import "MPNavigationController.h"
 #import "UIColor+Additions.h"
 #import "LandingTabBarController.h"
-#import "SigningViewController.h"
+#import "ContainersListViewController.h"
 #import "FileManager.h"
 
 @interface AppDelegate ()
@@ -53,9 +53,10 @@
     [self.tabBarController setSelectedIndex:0];
     
     UINavigationController *navController = (UINavigationController *)[self.tabBarController.viewControllers objectAtIndex:0];
-    SigningViewController *signingViewController = (SigningViewController *)navController.viewControllers[0];
+    [navController popViewControllerAnimated:NO];
+    ContainersListViewController *containersListViewController = (ContainersListViewController *)navController.viewControllers[0];
     
-    [signingViewController createContainerWithDataFilePath:dataFilePath];
+    [containersListViewController setDataFilePath:dataFilePath];
   }
   return YES;
 }

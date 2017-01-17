@@ -28,13 +28,10 @@
 		54825EFB1E1D28E900253FF0 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EFA1E1D28E900253FF0 /* UIColor+Additions.m */; };
 		54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */; };
 		E4180C1A1E240AC600FD7B8C /* UIViewController+MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C191E240AC600FD7B8C /* UIViewController+MBProgressHUD.m */; };
-		E4180C2B1E267A5700FD7B8C /* Signing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4180C281E267A5700FD7B8C /* Signing.storyboard */; };
-		E4180C2C1E267A5700FD7B8C /* SigningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C2A1E267A5700FD7B8C /* SigningViewController.m */; };
 		E4180C311E267A6700FD7B8C /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4180C2E1E267A6700FD7B8C /* Settings.storyboard */; };
 		E4180C321E267A6700FD7B8C /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C301E267A6700FD7B8C /* SettingsTableViewController.m */; };
 		E4180C351E267B5D00FD7B8C /* Localizations.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C341E267B5D00FD7B8C /* Localizations.m */; };
 		E4180C371E26822000FD7B8C /* datafile.txt in Resources */ = {isa = PBXBuildFile; fileRef = E4180C361E26822000FD7B8C /* datafile.txt */; };
-		E4180C391E278F8C00FD7B8C /* SignedContainerDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4180C381E278F8C00FD7B8C /* SignedContainerDetails.storyboard */; };
 		E4250CC81E0968D200530370 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250CC71E0968D200530370 /* main.m */; };
 		E4250CCB1E0968D200530370 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCA1E0968D200530370 /* AppDelegate.m */; };
 		E4250CD31E0968D200530370 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4250CD21E0968D200530370 /* Assets.xcassets */; };
@@ -45,17 +42,20 @@
 		E4250D151E0AA97B00530370 /* MPNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250D141E0AA97B00530370 /* MPNavigationController.m */; };
 		E42B088F1E155F2F00EA24A3 /* MPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B088E1E155F2F00EA24A3 /* MPViewController.m */; };
 		E42B08951E15617200EA24A3 /* LandingTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08941E15617200EA24A3 /* LandingTabBarController.m */; };
-		E42B08991E1562F400EA24A3 /* Signed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E42B08981E1562F400EA24A3 /* Signed.storyboard */; };
-		E42B089C1E15644200EA24A3 /* SignedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B089B1E15644200EA24A3 /* SignedTableViewController.m */; };
 		E42B08A61E1D4EE900EA24A3 /* test1.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E42B08A41E1D4EE900EA24A3 /* test1.bdoc */; };
 		E42B08A71E1D4EE900EA24A3 /* test2.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E42B08A51E1D4EE900EA24A3 /* test2.bdoc */; };
-		E42B08AA1E1D4EF500EA24A3 /* SignedContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08A91E1D4EF500EA24A3 /* SignedContainerCell.m */; };
+		E42B08AA1E1D4EF500EA24A3 /* ContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08A91E1D4EF500EA24A3 /* ContainerCell.m */; };
 		E42B08AE1E1EFC1800EA24A3 /* DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08AD1E1EFC1800EA24A3 /* DateFormatter.m */; };
 		E42B08B11E1F049B00EA24A3 /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08B01E1F049B00EA24A3 /* FileManager.m */; };
-		E42B08B91E1F0C7500EA24A3 /* SignedContainerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08B81E1F0C7500EA24A3 /* SignedContainerTableViewController.m */; };
-		E42B08BC1E1F0C8900EA24A3 /* SignedContainerDetailsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08BB1E1F0C8900EA24A3 /* SignedContainerDetailsCell.m */; };
-		E42B08BF1E1F0C9A00EA24A3 /* SignedContainerDataFileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08BE1E1F0C9A00EA24A3 /* SignedContainerDataFileCell.m */; };
-		E42B08C21E1F0CA600EA24A3 /* SignedContainerSignatureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08C11E1F0CA600EA24A3 /* SignedContainerSignatureCell.m */; };
+		E42B08B91E1F0C7500EA24A3 /* ContainerDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08B81E1F0C7500EA24A3 /* ContainerDetailsViewController.m */; };
+		E42B08BC1E1F0C8900EA24A3 /* ContainerDetailsHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08BB1E1F0C8900EA24A3 /* ContainerDetailsHeaderCell.m */; };
+		E42B08BF1E1F0C9A00EA24A3 /* ContainerDetailsDataFileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08BE1E1F0C9A00EA24A3 /* ContainerDetailsDataFileCell.m */; };
+		E42B08C21E1F0CA600EA24A3 /* ContainerDetailsSignatureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08C11E1F0CA600EA24A3 /* ContainerDetailsSignatureCell.m */; };
+		E45EF5351E2D850400C37D43 /* Containers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E45EF5341E2D850400C37D43 /* Containers.storyboard */; };
+		E45EF5381E2D855400C37D43 /* BaseContainersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E45EF5371E2D855400C37D43 /* BaseContainersListViewController.m */; };
+		E45EF53B1E2D856700C37D43 /* ContainersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E45EF53A1E2D856700C37D43 /* ContainersListViewController.m */; };
+		E45EF5411E2D8A9300C37D43 /* FileImportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E45EF5401E2D8A9300C37D43 /* FileImportViewController.m */; };
+		E45EF5431E2D8D8000C37D43 /* ContainerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E45EF5421E2D8D8000C37D43 /* ContainerCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -110,16 +110,12 @@
 		A0A7AA11ECD67C1248EED708 /* Pods-MoppApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E4180C181E240AC600FD7B8C /* UIViewController+MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MBProgressHUD.h"; sourceTree = "<group>"; };
 		E4180C191E240AC600FD7B8C /* UIViewController+MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MBProgressHUD.m"; sourceTree = "<group>"; };
-		E4180C281E267A5700FD7B8C /* Signing.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Signing.storyboard; sourceTree = "<group>"; };
-		E4180C291E267A5700FD7B8C /* SigningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SigningViewController.h; sourceTree = "<group>"; };
-		E4180C2A1E267A5700FD7B8C /* SigningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SigningViewController.m; sourceTree = "<group>"; };
 		E4180C2E1E267A6700FD7B8C /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Settings.storyboard; path = MoppApp/Settings.storyboard; sourceTree = SOURCE_ROOT; };
 		E4180C2F1E267A6700FD7B8C /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsTableViewController.h; path = MoppApp/SettingsTableViewController.h; sourceTree = SOURCE_ROOT; };
 		E4180C301E267A6700FD7B8C /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsTableViewController.m; path = MoppApp/SettingsTableViewController.m; sourceTree = SOURCE_ROOT; };
 		E4180C331E267B5D00FD7B8C /* Localizations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Localizations.h; sourceTree = "<group>"; };
 		E4180C341E267B5D00FD7B8C /* Localizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Localizations.m; sourceTree = "<group>"; };
 		E4180C361E26822000FD7B8C /* datafile.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = datafile.txt; sourceTree = "<group>"; };
-		E4180C381E278F8C00FD7B8C /* SignedContainerDetails.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignedContainerDetails.storyboard; sourceTree = "<group>"; };
 		E4250CC31E0968D200530370 /* MoppApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoppApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250CC71E0968D200530370 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E4250CC91E0968D200530370 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -138,25 +134,30 @@
 		E42B088E1E155F2F00EA24A3 /* MPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPViewController.m; sourceTree = "<group>"; };
 		E42B08931E15617200EA24A3 /* LandingTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandingTabBarController.h; sourceTree = "<group>"; };
 		E42B08941E15617200EA24A3 /* LandingTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandingTabBarController.m; sourceTree = "<group>"; };
-		E42B08981E1562F400EA24A3 /* Signed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Signed.storyboard; sourceTree = "<group>"; };
-		E42B089A1E15644200EA24A3 /* SignedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignedTableViewController.h; sourceTree = "<group>"; };
-		E42B089B1E15644200EA24A3 /* SignedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignedTableViewController.m; sourceTree = "<group>"; };
 		E42B08A41E1D4EE900EA24A3 /* test1.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test1.bdoc; sourceTree = "<group>"; };
 		E42B08A51E1D4EE900EA24A3 /* test2.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test2.bdoc; sourceTree = "<group>"; };
-		E42B08A81E1D4EF500EA24A3 /* SignedContainerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignedContainerCell.h; sourceTree = "<group>"; };
-		E42B08A91E1D4EF500EA24A3 /* SignedContainerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignedContainerCell.m; sourceTree = "<group>"; };
+		E42B08A81E1D4EF500EA24A3 /* ContainerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerCell.h; sourceTree = "<group>"; };
+		E42B08A91E1D4EF500EA24A3 /* ContainerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerCell.m; sourceTree = "<group>"; };
 		E42B08AC1E1EFC1800EA24A3 /* DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateFormatter.h; sourceTree = "<group>"; };
 		E42B08AD1E1EFC1800EA24A3 /* DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateFormatter.m; sourceTree = "<group>"; };
 		E42B08AF1E1F049B00EA24A3 /* FileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileManager.h; sourceTree = "<group>"; };
 		E42B08B01E1F049B00EA24A3 /* FileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileManager.m; sourceTree = "<group>"; };
-		E42B08B71E1F0C7500EA24A3 /* SignedContainerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignedContainerTableViewController.h; sourceTree = "<group>"; };
-		E42B08B81E1F0C7500EA24A3 /* SignedContainerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignedContainerTableViewController.m; sourceTree = "<group>"; };
-		E42B08BA1E1F0C8900EA24A3 /* SignedContainerDetailsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignedContainerDetailsCell.h; sourceTree = "<group>"; };
-		E42B08BB1E1F0C8900EA24A3 /* SignedContainerDetailsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignedContainerDetailsCell.m; sourceTree = "<group>"; };
-		E42B08BD1E1F0C9A00EA24A3 /* SignedContainerDataFileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignedContainerDataFileCell.h; sourceTree = "<group>"; };
-		E42B08BE1E1F0C9A00EA24A3 /* SignedContainerDataFileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignedContainerDataFileCell.m; sourceTree = "<group>"; };
-		E42B08C01E1F0CA600EA24A3 /* SignedContainerSignatureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignedContainerSignatureCell.h; sourceTree = "<group>"; };
-		E42B08C11E1F0CA600EA24A3 /* SignedContainerSignatureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignedContainerSignatureCell.m; sourceTree = "<group>"; };
+		E42B08B71E1F0C7500EA24A3 /* ContainerDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerDetailsViewController.h; sourceTree = "<group>"; };
+		E42B08B81E1F0C7500EA24A3 /* ContainerDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerDetailsViewController.m; sourceTree = "<group>"; };
+		E42B08BA1E1F0C8900EA24A3 /* ContainerDetailsHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerDetailsHeaderCell.h; sourceTree = "<group>"; };
+		E42B08BB1E1F0C8900EA24A3 /* ContainerDetailsHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerDetailsHeaderCell.m; sourceTree = "<group>"; };
+		E42B08BD1E1F0C9A00EA24A3 /* ContainerDetailsDataFileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerDetailsDataFileCell.h; sourceTree = "<group>"; };
+		E42B08BE1E1F0C9A00EA24A3 /* ContainerDetailsDataFileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerDetailsDataFileCell.m; sourceTree = "<group>"; };
+		E42B08C01E1F0CA600EA24A3 /* ContainerDetailsSignatureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerDetailsSignatureCell.h; sourceTree = "<group>"; };
+		E42B08C11E1F0CA600EA24A3 /* ContainerDetailsSignatureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerDetailsSignatureCell.m; sourceTree = "<group>"; };
+		E45EF5341E2D850400C37D43 /* Containers.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Containers.storyboard; sourceTree = "<group>"; };
+		E45EF5361E2D855400C37D43 /* BaseContainersListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseContainersListViewController.h; sourceTree = "<group>"; };
+		E45EF5371E2D855400C37D43 /* BaseContainersListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseContainersListViewController.m; sourceTree = "<group>"; };
+		E45EF5391E2D856700C37D43 /* ContainersListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainersListViewController.h; sourceTree = "<group>"; };
+		E45EF53A1E2D856700C37D43 /* ContainersListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainersListViewController.m; sourceTree = "<group>"; };
+		E45EF53F1E2D8A9300C37D43 /* FileImportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileImportViewController.h; sourceTree = "<group>"; };
+		E45EF5401E2D8A9300C37D43 /* FileImportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileImportViewController.m; sourceTree = "<group>"; };
+		E45EF5421E2D8D8000C37D43 /* ContainerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContainerCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,16 +244,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		E4180C271E267A4400FD7B8C /* Signing */ = {
-			isa = PBXGroup;
-			children = (
-				E4180C281E267A5700FD7B8C /* Signing.storyboard */,
-				E4180C291E267A5700FD7B8C /* SigningViewController.h */,
-				E4180C2A1E267A5700FD7B8C /* SigningViewController.m */,
-			);
-			name = Signing;
-			sourceTree = "<group>";
-		};
 		E4180C2D1E267A5900FD7B8C /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -319,10 +310,8 @@
 		E4250D0B1E0AA84A00530370 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E4180C381E278F8C00FD7B8C /* SignedContainerDetails.storyboard */,
 				E42B08961E1562D500EA24A3 /* Landing */,
-				E4180C271E267A4400FD7B8C /* Signing */,
-				E42B08971E1562E500EA24A3 /* Signed */,
+				E42B08971E1562E500EA24A3 /* Documents */,
 				545CF8431E1642ED00B66EE8 /* MyEID */,
 				542DCB621E1FD2F000899534 /* PinOperations */,
 			);
@@ -350,24 +339,20 @@
 			name = Landing;
 			sourceTree = "<group>";
 		};
-		E42B08971E1562E500EA24A3 /* Signed */ = {
+		E42B08971E1562E500EA24A3 /* Documents */ = {
 			isa = PBXGroup;
 			children = (
-				E42B08981E1562F400EA24A3 /* Signed.storyboard */,
-				E42B089A1E15644200EA24A3 /* SignedTableViewController.h */,
-				E42B089B1E15644200EA24A3 /* SignedTableViewController.m */,
-				E42B08A81E1D4EF500EA24A3 /* SignedContainerCell.h */,
-				E42B08A91E1D4EF500EA24A3 /* SignedContainerCell.m */,
-				E42B08B71E1F0C7500EA24A3 /* SignedContainerTableViewController.h */,
-				E42B08B81E1F0C7500EA24A3 /* SignedContainerTableViewController.m */,
-				E42B08BA1E1F0C8900EA24A3 /* SignedContainerDetailsCell.h */,
-				E42B08BB1E1F0C8900EA24A3 /* SignedContainerDetailsCell.m */,
-				E42B08BD1E1F0C9A00EA24A3 /* SignedContainerDataFileCell.h */,
-				E42B08BE1E1F0C9A00EA24A3 /* SignedContainerDataFileCell.m */,
-				E42B08C01E1F0CA600EA24A3 /* SignedContainerSignatureCell.h */,
-				E42B08C11E1F0CA600EA24A3 /* SignedContainerSignatureCell.m */,
+				E45EF5341E2D850400C37D43 /* Containers.storyboard */,
+				E45EF5361E2D855400C37D43 /* BaseContainersListViewController.h */,
+				E45EF5371E2D855400C37D43 /* BaseContainersListViewController.m */,
+				E42B08A81E1D4EF500EA24A3 /* ContainerCell.h */,
+				E42B08A91E1D4EF500EA24A3 /* ContainerCell.m */,
+				E45EF5421E2D8D8000C37D43 /* ContainerCell.xib */,
+				E45EF53D1E2D8A4F00C37D43 /* Containers list */,
+				E45EF53C1E2D8A4A00C37D43 /* File import */,
+				E45EF53E1E2D8A7000C37D43 /* Container details */,
 			);
-			name = Signed;
+			name = Documents;
 			sourceTree = "<group>";
 		};
 		E42B08AB1E1EFC0500EA24A3 /* Utility */ = {
@@ -379,6 +364,39 @@
 				E42B08B01E1F049B00EA24A3 /* FileManager.m */,
 			);
 			name = Utility;
+			sourceTree = "<group>";
+		};
+		E45EF53C1E2D8A4A00C37D43 /* File import */ = {
+			isa = PBXGroup;
+			children = (
+				E45EF53F1E2D8A9300C37D43 /* FileImportViewController.h */,
+				E45EF5401E2D8A9300C37D43 /* FileImportViewController.m */,
+			);
+			name = "File import";
+			sourceTree = "<group>";
+		};
+		E45EF53D1E2D8A4F00C37D43 /* Containers list */ = {
+			isa = PBXGroup;
+			children = (
+				E45EF5391E2D856700C37D43 /* ContainersListViewController.h */,
+				E45EF53A1E2D856700C37D43 /* ContainersListViewController.m */,
+			);
+			name = "Containers list";
+			sourceTree = "<group>";
+		};
+		E45EF53E1E2D8A7000C37D43 /* Container details */ = {
+			isa = PBXGroup;
+			children = (
+				E42B08B71E1F0C7500EA24A3 /* ContainerDetailsViewController.h */,
+				E42B08B81E1F0C7500EA24A3 /* ContainerDetailsViewController.m */,
+				E42B08BA1E1F0C8900EA24A3 /* ContainerDetailsHeaderCell.h */,
+				E42B08BB1E1F0C8900EA24A3 /* ContainerDetailsHeaderCell.m */,
+				E42B08BD1E1F0C9A00EA24A3 /* ContainerDetailsDataFileCell.h */,
+				E42B08BE1E1F0C9A00EA24A3 /* ContainerDetailsDataFileCell.m */,
+				E42B08C01E1F0CA600EA24A3 /* ContainerDetailsSignatureCell.h */,
+				E42B08C11E1F0CA600EA24A3 /* ContainerDetailsSignatureCell.m */,
+			);
+			name = "Container details";
 			sourceTree = "<group>";
 		};
 		F9074FEF4DC2DB83A60B75B9 /* Frameworks */ = {
@@ -457,20 +475,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E45EF5351E2D850400C37D43 /* Containers.storyboard in Resources */,
 				E4180C371E26822000FD7B8C /* datafile.txt in Resources */,
-				E4180C391E278F8C00FD7B8C /* SignedContainerDetails.storyboard in Resources */,
 				542DCB691E23856100899534 /* ErrorCell.xib in Resources */,
 				54813B301E24FD270058CD33 /* InfoCell.xib in Resources */,
 				545CF8481E16563200B66EE8 /* MyEid.storyboard in Resources */,
+				E45EF5431E2D8D8000C37D43 /* ContainerCell.xib in Resources */,
 				E42B08A61E1D4EE900EA24A3 /* test1.bdoc in Resources */,
 				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,
-				E4180C2B1E267A5700FD7B8C /* Signing.storyboard in Resources */,
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
 				542DCB641E1FDFC900899534 /* PinOperations.storyboard in Resources */,
 				540786F41E1AA1B30016ABA7 /* SimpleHeaderView.xib in Resources */,
 				54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */,
 				E42B08A71E1D4EE900EA24A3 /* test2.bdoc in Resources */,
-				E42B08991E1562F400EA24A3 /* Signed.storyboard in Resources */,
 				E4180C311E267A6700FD7B8C /* Settings.storyboard in Resources */,
 				E4250CD31E0968D200530370 /* Assets.xcassets in Resources */,
 			);
@@ -565,22 +582,24 @@
 				E4250D151E0AA97B00530370 /* MPNavigationController.m in Sources */,
 				54813B2E1E24DD560058CD33 /* ChangePinViewController.m in Sources */,
 				E42B08951E15617200EA24A3 /* LandingTabBarController.m in Sources */,
-				E42B08AA1E1D4EF500EA24A3 /* SignedContainerCell.m in Sources */,
+				E42B08AA1E1D4EF500EA24A3 /* ContainerCell.m in Sources */,
 				E42B088F1E155F2F00EA24A3 /* MPViewController.m in Sources */,
 				54825EFB1E1D28E900253FF0 /* UIColor+Additions.m in Sources */,
-				E42B08BF1E1F0C9A00EA24A3 /* SignedContainerDataFileCell.m in Sources */,
+				E42B08BF1E1F0C9A00EA24A3 /* ContainerDetailsDataFileCell.m in Sources */,
+				E45EF53B1E2D856700C37D43 /* ContainersListViewController.m in Sources */,
 				545CF84E1E165DCF00B66EE8 /* PersonalDataCell.m in Sources */,
 				545CF8541E165DFB00B66EE8 /* InfoCell.m in Sources */,
 				E4180C321E267A6700FD7B8C /* SettingsTableViewController.m in Sources */,
-				E42B08BC1E1F0C8900EA24A3 /* SignedContainerDetailsCell.m in Sources */,
+				E42B08BC1E1F0C8900EA24A3 /* ContainerDetailsHeaderCell.m in Sources */,
+				E45EF5411E2D8A9300C37D43 /* FileImportViewController.m in Sources */,
 				540786E91E1A76640016ABA7 /* UITextView+Additions.m in Sources */,
 				540786ED1E1A8C650016ABA7 /* ViewWithRoundedCorners.m in Sources */,
-				E42B08C21E1F0CA600EA24A3 /* SignedContainerSignatureCell.m in Sources */,
+				E42B08C21E1F0CA600EA24A3 /* ContainerDetailsSignatureCell.m in Sources */,
 				E4250CCB1E0968D200530370 /* AppDelegate.m in Sources */,
 				545CF8511E165DEC00B66EE8 /* ErrorCell.m in Sources */,
 				E42B08AE1E1EFC1800EA24A3 /* DateFormatter.m in Sources */,
-				E42B08B91E1F0C7500EA24A3 /* SignedContainerTableViewController.m in Sources */,
-				E42B089C1E15644200EA24A3 /* SignedTableViewController.m in Sources */,
+				E42B08B91E1F0C7500EA24A3 /* ContainerDetailsViewController.m in Sources */,
+				E45EF5381E2D855400C37D43 /* BaseContainersListViewController.m in Sources */,
 				E4250CC81E0968D200530370 /* main.m in Sources */,
 				545CF8461E16453300B66EE8 /* MyEIDViewController.m in Sources */,
 				E4180C1A1E240AC600FD7B8C /* UIViewController+MBProgressHUD.m in Sources */,
@@ -588,7 +607,6 @@
 				54825EF81E1D270F00253FF0 /* NSString+Additions.m in Sources */,
 				E42B08B11E1F049B00EA24A3 /* FileManager.m in Sources */,
 				E4180C351E267B5D00FD7B8C /* Localizations.m in Sources */,
-				E4180C2C1E267A5700FD7B8C /* SigningViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

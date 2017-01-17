@@ -19,11 +19,10 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  [[self.viewControllers objectAtIndex:0] setTitle:Localizations.TabSigning];
-  [[self.viewControllers objectAtIndex:1] setTitle:Localizations.TabSigned];
-  [[self.viewControllers objectAtIndex:2] setTitle:Localizations.TabMyEid];
-  [[self.viewControllers objectAtIndex:3] setTitle:Localizations.TabSimSettings];
-  [[self.viewControllers objectAtIndex:4] setTitle:Localizations.TabSettings];
+  [[self.viewControllers objectAtIndex:0] setTitle:Localizations.TabContainers];
+  [[self.viewControllers objectAtIndex:1] setTitle:Localizations.TabMyEid];
+  [[self.viewControllers objectAtIndex:2] setTitle:Localizations.TabSimSettings];
+  [[self.viewControllers objectAtIndex:3] setTitle:Localizations.TabSettings];
   
   // Initialize MoppLib.
   [self showHUD];

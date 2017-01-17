@@ -65,6 +65,10 @@
   [self.fileManager removeItemAtPath:[self filePathWithFileName:fileName] error:nil];
 }
 
+- (void)removeFileWithPath:(NSString *)filePath {
+  [self.fileManager removeItemAtPath:filePath error:nil];
+}
+
 
 #warning - support .ddoc in the future
 - (NSArray *)getContainers {

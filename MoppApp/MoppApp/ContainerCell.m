@@ -1,14 +1,14 @@
 //
-//  SignedContainerCell.m
+//  ContainerCell.m
 //  MoppApp
 //
 //  Created by Ants Käär on 02.01.17.
 //  Copyright © 2017 Mobi Lab. All rights reserved.
 //
 
-#import "SignedContainerCell.h"
+#import "ContainerCell.h"
 
-@implementation SignedContainerCell
+@implementation ContainerCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

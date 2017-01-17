@@ -1,5 +1,5 @@
 //
-//  SignedContainerCell.h
+//  ContainerCell.h
 //  MoppApp
 //
 //  Created by Ants Käär on 02.01.17.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SignedContainerCell : UITableViewCell
+@interface ContainerCell : UITableViewCell
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;

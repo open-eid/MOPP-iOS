@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerCell" rowHeight="51" id="WoM-pm-RCS" customClass="ContainerCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WoM-pm-RCS" id="dCz-He-kwN">
+                <frame key="frameInset" width="375" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="digidoc" translatesAutoresizingMaskIntoConstraints="NO" id="6xd-r9-0tl">
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="IJp-lg-NuY"/>
+                            <constraint firstAttribute="height" constant="30" id="iHu-A2-9TP"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="titleLabel asdf asdf klsdflk aseflkaseflk asefk aseflk aseflk aseflk asef" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jXJ-17-mpS">
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="dateLabel test ss" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Plv-LP-fDV">
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Plv-LP-fDV" firstAttribute="leading" secondItem="jXJ-17-mpS" secondAttribute="trailing" constant="5" id="4mr-ET-WZ5"/>
+                    <constraint firstAttribute="trailing" secondItem="Plv-LP-fDV" secondAttribute="trailing" constant="10" id="6Fe-Hs-Kgn"/>
+                    <constraint firstItem="jXJ-17-mpS" firstAttribute="centerY" secondItem="6xd-r9-0tl" secondAttribute="centerY" id="6hT-IS-p80"/>
+                    <constraint firstItem="6xd-r9-0tl" firstAttribute="top" secondItem="dCz-He-kwN" secondAttribute="top" constant="10" id="C77-TU-iMv"/>
+                    <constraint firstItem="Plv-LP-fDV" firstAttribute="centerY" secondItem="6xd-r9-0tl" secondAttribute="centerY" id="CXW-bf-xeQ"/>
+                    <constraint firstItem="6xd-r9-0tl" firstAttribute="leading" secondItem="dCz-He-kwN" secondAttribute="leading" constant="10" id="Ou9-Yo-w1e"/>
+                    <constraint firstItem="jXJ-17-mpS" firstAttribute="leading" secondItem="6xd-r9-0tl" secondAttribute="trailing" constant="10" id="VrZ-et-8Yy"/>
+                    <constraint firstAttribute="bottom" secondItem="6xd-r9-0tl" secondAttribute="bottom" constant="10" id="XLC-pi-ftz"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="dateLabel" destination="Plv-LP-fDV" id="s6w-pW-tnL"/>
+                <outlet property="iconImageView" destination="6xd-r9-0tl" id="2Nd-8w-BPc"/>
+                <outlet property="titleLabel" destination="jXJ-17-mpS" id="dCM-bv-uuG"/>
+            </connections>
+            <point key="canvasLocation" x="-57" y="-312"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="digidoc" width="50" height="50"/>
+    </resources>
+</document>
