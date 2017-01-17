@@ -1,15 +1,15 @@
 //
-//  SignedContainerTableViewController.m
+//  ContainerDetailsViewController.m
 //  MoppApp
 //
 //  Created by Ants Käär on 06.01.17.
 //  Copyright © 2017 Mobi Lab. All rights reserved.
 //
 
-#import "SignedContainerTableViewController.h"
-#import "SignedContainerDetailsCell.h"
-#import "SignedContainerDataFileCell.h"
-#import "SignedContainerSignatureCell.h"
+#import "ContainerDetailsViewController.h"
+#import "ContainerDetailsHeaderCell.h"
+#import "ContainerDetailsDataFileCell.h"
+#import "ContainerDetailsSignatureCell.h"
 #import "DateFormatter.h"
 #import <MoppLib/MoppLib.h>
 #import "FileManager.h"
@@ -18,23 +18,23 @@
 #import "UIViewController+MBProgressHUD.h"
 
 typedef enum : NSUInteger {
-  SignedContainerSectionDetails,
-  SignedContainerSectionDataFile,
-  SignedContainerSectionSignature
-} SignedContainerSection;
+  ContainerDetailsSectionHeader,
+  ContainerDetailsSectionDataFile,
+  ContainerDetailsSectionSignature
+} ContainerDetailsSection;
 
-@interface SignedContainerTableViewController ()
+@interface ContainerDetailsViewController ()
 
 @property (strong, nonatomic) MoppLibContainer *container;
 
 @end
 
-@implementation SignedContainerTableViewController
+@implementation ContainerDetailsViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  [self setTitle:Localizations.SignedContainerDetailsTitle];
+  [self setTitle:Localizations.ContainerDetailsTitle];
   
   [self.view setBackgroundColor:[UIColor whiteColor]];
   
@@ -61,15 +61,15 @@ typedef enum : NSUInteger {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   switch (section) {
-    case SignedContainerSectionDetails:
+    case ContainerDetailsSectionHeader:
       return 1;
       break;
       
-    case SignedContainerSectionDataFile:
+    case ContainerDetailsSectionDataFile:
       return self.container.dataFiles.count;
       break;
       
-    case SignedContainerSectionSignature:
+    case ContainerDetailsSectionSignature:
       return self.container.signatures.count;
       break;
       
@@ -84,31 +84,31 @@ typedef enum : NSUInteger {
   
   switch (indexPath.section) {
       
-    case SignedContainerSectionDetails: {
-      SignedContainerDetailsCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SignedContainerDetailsCell class]) forIndexPath:indexPath];
+    case ContainerDetailsSectionHeader: {
+      ContainerDetailsHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ContainerDetailsHeaderCell class]) forIndexPath:indexPath];
       
       NSDictionary *fileAttributes = [[FileManager sharedInstance] fileAttributes:self.containerFileName];
       [cell.titleLabel setText:self.containerFileName];
-      [cell.detailsLabel setText:Localizations.SignedContainerDetailsHeaderDetails([self.containerFileName pathExtension], [fileAttributes fileSize] / 1024)];
+      [cell.detailsLabel setText:Localizations.ContainerDetailsHeaderDetails([self.containerFileName pathExtension], [fileAttributes fileSize] / 1024)];
       return cell;
       
       break;
     }
       
-    case SignedContainerSectionDataFile: {
-      SignedContainerDataFileCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SignedContainerDataFileCell class]) forIndexPath:indexPath];
+    case ContainerDetailsSectionDataFile: {
+      ContainerDetailsDataFileCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ContainerDetailsDataFileCell class]) forIndexPath:indexPath];
       
       MoppLibDataFile *dataFile = [self.container.dataFiles objectAtIndex:indexPath.row];
       [cell.fileNameLabel setText:dataFile.fileName];
-      [cell.detailsLabel setText:Localizations.SignedContainerDetailsDatafileDetails(dataFile.fileSize / 1024)];
+      [cell.detailsLabel setText:Localizations.ContainerDetailsDatafileDetails(dataFile.fileSize / 1024)];
       
       return cell;
       
       break;
     }
       
-    case SignedContainerSectionSignature: {
-      SignedContainerSignatureCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SignedContainerSignatureCell class]) forIndexPath:indexPath];
+    case ContainerDetailsSectionSignature: {
+      ContainerDetailsSignatureCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ContainerDetailsSignatureCell class]) forIndexPath:indexPath];
       
       MoppLibSignature *signature = [self.container.signatures objectAtIndex:indexPath.row];
       [cell.signatureNameLabel setText:signature.subjectName];
@@ -117,13 +117,13 @@ typedef enum : NSUInteger {
       NSString *postfix;
       UIColor *postfixColor;
       if (signature.isValid) {
-        postfix = Localizations.SignedContainerDetailsSignatureValid;
+        postfix = Localizations.ContainerDetailsSignatureValid;
         postfixColor = [UIColor darkGreen];
       } else {
-        postfix = Localizations.SignedContainerDetailsSignatureInvalid;
+        postfix = Localizations.ContainerDetailsSignatureInvalid;
         postfixColor = [UIColor red];
       }
-      NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:Localizations.SignedContainerDetailsSignaturePrefix(postfix)];
+      NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:Localizations.ContainerDetailsSignaturePrefix(postfix)];
       [attributedString addAttribute:NSForegroundColorAttributeName value:postfixColor range:NSMakeRange(attributedString.length - postfix.length, postfix.length)];
       [cell.signatureValidityLabel setAttributedText:attributedString];
       
@@ -149,8 +149,8 @@ typedef enum : NSUInteger {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
   switch (section) {
-    case SignedContainerSectionDataFile:
-    case SignedContainerSectionSignature:
+    case ContainerDetailsSectionDataFile:
+    case ContainerDetailsSectionSignature:
       return 40;
       break;
       
@@ -169,12 +169,12 @@ typedef enum : NSUInteger {
   SimpleHeaderView *header = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SimpleHeaderView class]) owner:self options:nil] objectAtIndex:0];
   
   switch (section) {
-    case SignedContainerSectionDataFile: {
-      [header.titleLabel setText:Localizations.SignedContainerDetailsDatafileSectionHeader];
+    case ContainerDetailsSectionDataFile: {
+      [header.titleLabel setText:Localizations.ContainerDetailsDatafileSectionHeader];
       break;
     }
-    case SignedContainerSectionSignature: {
-      [header.titleLabel setText:Localizations.SignedContainerDetailsSignatureSectionHeader];
+    case ContainerDetailsSectionSignature: {
+      [header.titleLabel setText:Localizations.ContainerDetailsSignatureSectionHeader];
       break;
     }
       

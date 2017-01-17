@@ -1,9 +1,9 @@
 
 
 // *** General ***
+"cancel" = "Tühista";
 // TabBar
-"tab-signing" = "Allkirjastamine";
-"tab-signed" = "Allkirjastatud";
+"tab-containers" = "Dokumendid";
 "tab-my-eid" = "Minu eID";
 "tab-sim-settings" = "SIM'i toimingud";
 "tab-settings" = "Sätted";
@@ -11,23 +11,25 @@
 // *** Actions ***
 "action-ok" = "OK";
 
-// *** Signing ***
-"signing-container-name-placeholder" = "Konteineri nimi";
-"signing-create-container-button" = "Loo konteiner";
-
 
 // *** Signed containers ***
 // List
-"signed-container-list-search-placeholder" = "Otsi";
+"containers-list-search-placeholder" = "Otsi";
+"containers-list-section-header-unsigned" = "Allkirjastamata";
+"containers-list-section-header-signed" = "Allkirjastatud";
+// DataFile import
+"file-import-title" = "Lisa fail";
+"file-import-create-container-button" = "Loo dokument";
+"file-import-info" = "Faili \"%@\" lisamine. Palun vali allkirjastamata dokument või loo uus.";
 // Details
-"signed-container-details-title" = "Konteiner";
-"signed-container-details-header-details" = "Vorming: %@ | Suurus: %ld kb";
-"signed-container-details-datafile-section-header" = "Failid";
-"signed-container-details-datafile-details" = "Suurus: %ld kb";
-"signed-container-details-signature-section-header" = "Allkirjad";
-"signed-container-details-signature-prefix" = "Allkiri %@";
-"signed-container-details-signature-valid" = "on kehtiv";
-"signed-container-details-signature-invalid" = "ei ole kehtiv";
+"container-details-title" = "Dokument";
+"container-details-header-details" = "Vorming: %@ | Suurus: %ld kb";
+"container-details-datafile-section-header" = "Failid";
+"container-details-datafile-details" = "Suurus: %ld kb";
+"container-details-signature-section-header" = "Allkirjad";
+"container-details-signature-prefix" = "Allkiri %@";
+"container-details-signature-valid" = "on kehtiv";
+"container-details-signature-invalid" = "ei ole kehtiv";
 
 
 // *** My eID ***

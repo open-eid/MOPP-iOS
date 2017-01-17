@@ -15,9 +15,6 @@
 
 @interface _Localizations : NSObject
 
-/// Base translation: Signatures
-- (NSString *)SignedContainerDetailsSignatureSectionHeader;
-
 /// Base translation: New %@ must be different from previous one.
 - (NSString *(^)(NSString *))PinActionsRuleDifferentFromPrevious;
 /// Base translation: Change %@
@@ -42,44 +39,52 @@
 
 /// Base translation: %i times
 - (NSString *(^)(int))MyEidTimesUsed;
+/// Base translation: is valid
+- (NSString *)ContainerDetailsSignatureValid;
+
 /// Base translation: New %@ can't be %@, or contain combination of your birthdate.
 - (NSString *(^)(NSString *, NSString *))PinActionsRuleForbiddenPins;
-/// Base translation: Container name
-- (NSString *)SigningContainerNamePlaceholder;
-
 /// Base translation: ID-kaart on riigi sisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.  ID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@
 - (NSString *(^)(NSString *))MyEidIdCardInfo;
 /// Base translation: PIN action was successful
 - (NSString *)PinActionsSuccessTitle;
 
-/// Base translation: is valid
-- (NSString *)SignedContainerDetailsSignatureValid;
-
 /// Base translation: Personal data
 - (NSString *)MyEidPersonalData;
 
+/// Base translation: Signed
+- (NSString *)ContainersListSectionHeaderSigned;
+
 /// Base translation: Current %@ code
 - (NSString *(^)(NSString *))PinActionsCurrentPin;
-/// Base translation: Files
-- (NSString *)SignedContainerDetailsDatafileSectionHeader;
-
 /// Base translation: Changing %@
 - (NSString *(^)(NSString *))PinActionsChangingPin;
 /// Base translation: Current %@ was wrong. You have %i tries left.
 - (NSString *(^)(NSString *, int))PinActionsWrongPinRetry;
+/// Base translation: Document
+- (NSString *)ContainerDetailsTitle;
+
+/// Base translation: You are currenty importing file named "%@". Please select unsigned document or create new one.
+- (NSString *(^)(NSString *))FileImportInfo;
 /// Base translation: Used:
 - (NSString *)MyEidUseCount;
 
 /// Base translation: Repeat new %@ code
 - (NSString *(^)(NSString *))PinActionsRepeatPin;
+/// Base translation: Import file
+- (NSString *)FileImportTitle;
+
+/// Base translation: is not valid
+- (NSString *)ContainerDetailsSignatureInvalid;
+
 /// Base translation: PIN actions view
 - (NSString *)MyEidPinActionsView;
 
+/// Base translation: Files
+- (NSString *)ContainerDetailsDatafileSectionHeader;
+
 /// Base translation: PUK
 - (NSString *)PinActionsPuk;
-
-/// Base translation: is not valid
-- (NSString *)SignedContainerDetailsSignatureInvalid;
 
 /// Base translation: Personal Code:
 - (NSString *)MyEidPersonalCode;
@@ -95,17 +100,9 @@
 /// Base translation: tap here
 - (NSString *)MyEidTapHere;
 
-/// Base translation: Search
-- (NSString *)SignedContainerListSearchPlaceholder;
-
 /// Base translation: E-mail:
 - (NSString *)MyEidEmail;
 
-/// Base translation: Create container
-- (NSString *)SigningCreateContainerButton;
-
-/// Base translation: Format: %@ | Size: %ld kb
-- (NSString *(^)(NSString *, long))SignedContainerDetailsHeaderDetails;
 /// Base translation: My eID
 - (NSString *)TabMyEid;
 
@@ -120,8 +117,6 @@
 
 /// Base translation: Using current %@ code
 - (NSString *(^)(NSString *))PinActionsVerificationOption;
-/// Base translation: Signature %@
-- (NSString *(^)(NSString *))SignedContainerDetailsSignaturePrefix;
 /// Base translation: New %@ must be different from current %@.
 - (NSString *(^)(NSString *, NSString *))PinActionsSameAsCurrent;
 /// Base translation: My eID
@@ -133,49 +128,58 @@
 - (NSString *(^)(NSString *, NSString *))PinActionsWrongPinBlocked;
 /// Base translation: Card reader is not connected.  Please make sure your reader is turned on and %@ to select it.
 - (NSString *(^)(NSString *))MyEidWarningReaderNotFound;
+/// Base translation: Size: %ld kb
+- (NSString *(^)(long))ContainerDetailsDatafileDetails;
+/// Base translation: Signatures
+- (NSString *)ContainerDetailsSignatureSectionHeader;
+
 /// Base translation: %@ must contain numbers only.
 - (NSString *(^)(NSString *))PinActionsRuleNumbersOnly;
-/// Base translation: Changing %@:
-- (NSString *(^)(NSString *))PinActionsVerificationTitle;
+/// Base translation: Documents
+- (NSString *)TabContainers;
+
 /// Base translation: Signature certificate
 - (NSString *)MyEidSignatureCertificate;
 
+/// Base translation: Changing %@:
+- (NSString *(^)(NSString *))PinActionsVerificationTitle;
 /// Base translation: PIN1
 - (NSString *)PinActionsPin1;
 
 /// Base translation: OK
 - (NSString *)ActionOk;
 
-/// Base translation: Error
-- (NSString *)PinActionsErrorTitle;
-
 /// Base translation: PIN2
 - (NSString *)PinActionsPin2;
 
-/// Base translation: Signing
-- (NSString *)TabSigning;
+/// Base translation: Unsigned
+- (NSString *)ContainersListSectionHeaderUnsigned;
 
-/// Base translation: New %@ code
-- (NSString *(^)(NSString *))PinActionsNewPin;
+/// Base translation: Error
+- (NSString *)PinActionsErrorTitle;
+
+/// Base translation: Signature %@
+- (NSString *(^)(NSString *))ContainerDetailsSignaturePrefix;
 /// Base translation: %@ is blocked. You can unblock %@ in %@.
 - (NSString *(^)(NSString *, NSString *, NSString *))MyEidPinBlocked;
+/// Base translation: Format: %@ | Size: %ld kb
+- (NSString *(^)(NSString *, long))ContainerDetailsHeaderDetails;
 /// Base translation: https://www.politsei.ee/en/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/
 - (NSString *)MyEidIdCardInfoLink;
 
+/// Base translation: New %@ code
+- (NSString *(^)(NSString *))PinActionsNewPin;
 /// Base translation: eID
 - (NSString *)MyEidEid;
+
+/// Base translation: Cancel
+- (NSString *)Cancel;
 
 /// Base translation: Valid until:
 - (NSString *)MyEidValidUntil;
 
-/// Base translation: Container
-- (NSString *)SignedContainerDetailsTitle;
-
 /// Base translation: Surname:
 - (NSString *)MyEidSurname;
-
-/// Base translation: Signed
-- (NSString *)TabSigned;
 
 /// Base translation: Settings
 - (NSString *)TabSettings;
@@ -190,14 +194,18 @@
 
 /// Base translation: Could not change %@
 - (NSString *(^)(NSString *))PinActionsGeneralError;
+/// Base translation: Create document
+- (NSString *)FileImportCreateContainerButton;
+
 /// Base translation: Rules
 - (NSString *)PinActionsRulesTitle;
 
 /// Base translation: Given names:
 - (NSString *)MyEidGivenNames;
 
-/// Base translation: Size: %ld kb
-- (NSString *(^)(long))SignedContainerDetailsDatafileDetails;
+/// Base translation: Search
+- (NSString *)ContainersListSearchPlaceholder;
+
 /// Base translation: Uus %@ peab olema %i-%i - numbriline.
 - (NSString *(^)(NSString *, int, int))PinActionsRulePinLength;
 + (_Localizations *)sharedInstance;

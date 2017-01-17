@@ -39,9 +39,6 @@
   
   self.ddMMMDateFormatter = [NSDateFormatter new];
   self.ddMMMDateFormatter.dateFormat = @"dd. MMM";
-//  self.ddMMMDateFormatter.dateStyle = NSDateFormatterShortStyle;
-//  self.ddMMMDateFormatter.timeStyle = NSDateFormatterShortStyle;
-//  self.ddMMMDateFormatter.doesRelativeDateFormatting = YES;
   
   self.relativeDateFormatter = [NSDateFormatter new];
   self.relativeDateFormatter.dateStyle = NSDateFormatterShortStyle;

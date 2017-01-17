@@ -1,9 +1,9 @@
 
 
 // *** General ***
+"cancel" = "Cancel";
 // TabBar
-"tab-signing" = "Signing";
-"tab-signed" = "Signed";
+"tab-containers" = "Documents";
 "tab-my-eid" = "My eID";
 "tab-sim-settings" = "SIM settings";
 "tab-settings" = "Settings";
@@ -11,23 +11,25 @@
 // *** Actions ***
 "action-ok" = "OK";
 
-// *** Signing ***
-"signing-container-name-placeholder" = "Container name";
-"signing-create-container-button" = "Create container";
-
 
 // *** Signed containers ***
 // List
-"signed-container-list-search-placeholder" = "Search";
+"containers-list-search-placeholder" = "Search";
+"containers-list-section-header-unsigned" = "Unsigned";
+"containers-list-section-header-signed" = "Signed";
+// DataFile import
+"file-import-title" = "Import file";
+"file-import-create-container-button" = "Create document";
+"file-import-info" = "You are currenty importing file named \"%@\". Please select unsigned document or create new one.";
 // Details
-"signed-container-details-title" = "Container";
-"signed-container-details-header-details" = "Format: %@ | Size: %ld kb";
-"signed-container-details-datafile-section-header" = "Files";
-"signed-container-details-datafile-details" = "Size: %ld kb";
-"signed-container-details-signature-section-header" = "Signatures";
-"signed-container-details-signature-prefix" = "Signature %@";
-"signed-container-details-signature-valid" = "is valid";
-"signed-container-details-signature-invalid" = "is not valid";
+"container-details-title" = "Document";
+"container-details-header-details" = "Format: %@ | Size: %ld kb";
+"container-details-datafile-section-header" = "Files";
+"container-details-datafile-details" = "Size: %ld kb";
+"container-details-signature-section-header" = "Signatures";
+"container-details-signature-prefix" = "Signature %@";
+"container-details-signature-valid" = "is valid";
+"container-details-signature-invalid" = "is not valid";
 
 
 // *** My eID ***

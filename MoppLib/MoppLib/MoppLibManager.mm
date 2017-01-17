@@ -107,8 +107,7 @@ public:
       try {
         signature->validate();
         moppLibSignature.isValid = YES;
-      }
-      catch(const digidoc::Exception &e) {
+      } catch(const digidoc::Exception &e) {
         parseException(e);
         moppLibSignature.isValid = NO;
       }
@@ -189,7 +188,6 @@ public:
 
 
 - (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath {
-  
   NSLog(@"createContainerWithPath: %@, dataFilePath: %@", containerPath, dataFilePath);
   
   try {
@@ -199,25 +197,40 @@ public:
     
     try {
       container->save(containerPath.UTF8String);
-    }
-    catch(const digidoc::Exception &e) {
+    } catch(const digidoc::Exception &e) {
       parseException(e);
     }
 
-  }
-  catch(const digidoc::Exception &e) {
+  } catch(const digidoc::Exception &e) {
     parseException(e);
   }
-  
-  
-  
   
   MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath];
   return moppLibContainer;
 }
 
-void parseException(const digidoc::Exception &e)
-{
+- (MoppLibContainer *)addFileToContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath {
+  try {
+    
+    digidoc::Container *container = digidoc::Container::open(containerPath.UTF8String);
+    container->addDataFile(dataFilePath.UTF8String, @"application/octet-stream".UTF8String);
+    
+    try {
+      container->save(containerPath.UTF8String);
+    } catch(const digidoc::Exception &e) {
+      parseException(e);
+    }
+    
+  } catch(const digidoc::Exception &e) {
+    parseException(e);
+  }
+  
+  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath];
+  return moppLibContainer;
+}
+
+
+void parseException(const digidoc::Exception &e) {
   NSLog(@"%s", e.msg().c_str());
   for (const digidoc::Exception &ex : e.causes()) {
     parseException(ex);

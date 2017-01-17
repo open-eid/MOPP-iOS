@@ -544,7 +544,7 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
   } else if ([[URL absoluteString] isEqualToString:pinBlockedPath]) {
     // Navigate to PIN actions view
     if ([self.navigationController.parentViewController isKindOfClass:[UITabBarController class]]) {
-      ((UITabBarController *)self.navigationController.parentViewController).selectedIndex = 3;
+      ((UITabBarController *)self.navigationController.parentViewController).selectedIndex = 2;
     }
   }
   return YES; // let the system open this URL
