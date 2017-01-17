@@ -19,5 +19,7 @@
 + (NSError *)invalidPinError;
 + (NSError *)pinMatchesVerificationCodeError;
 + (NSError *)incorrectPinLengthError;
++ (NSError *)tooEasyPinError;
++ (NSError *)pinContainsInvalidCharactersError;
 
 @end

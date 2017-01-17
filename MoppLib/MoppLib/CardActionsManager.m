@@ -24,7 +24,7 @@ typedef NS_ENUM(NSUInteger, CardAction) {
   CardActionPinRetryCount,
   CardActionReadSigningCert,
   CardActionReadAuthenticationCert,
-  CardActionReadPersonalIdCode
+  CardActionReadOwnerBirthDate
 };
 
 NSString *const kCardActionDataCodeType = @"Code type";
@@ -83,8 +83,9 @@ static CardActionsManager *sharedInstance = nil;
   [self addCardAction:CardActionReadPublicData data:nil viewController:controller success:success failure:failure];
 }
 
-- (void)personalIdCodeWithViewController:(UIViewController *)controller success:(void(^)(NSString *idCode))success failure:(void(^)(NSError *))failure {
-  [self addCardAction:CardActionReadPersonalIdCode data:nil viewController:controller success:success failure:failure];
+- (void)cardOwnerBirthDateWithViewController:(UIViewController *)controller success:(void(^)(NSDate *date))success failure:(void(^)(NSError *error))failure {
+  [self addCardAction:CardActionReadOwnerBirthDate data:nil viewController:controller success:success failure:failure];
+
 }
 
 - (void)signingCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
@@ -301,8 +302,8 @@ static CardActionsManager *sharedInstance = nil;
       break;
     }
       
-    case CardActionReadPersonalIdCode: {
-      
+    case CardActionReadOwnerBirthDate: {
+        [self.cardVersionHandler readBirthDateWithSuccess:success failure:failure];
       break;
     }
       

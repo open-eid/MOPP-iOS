@@ -77,4 +77,11 @@
  */
 + (void)unblockPin2WithPuk:(NSString *)puk newPin2:(NSString *)newPin2 viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure;
 
+
++ (NSArray *)forbiddenPin1s;
++ (NSArray *)forbiddenPin2s;
++ (int)pin1MinLength;
++ (int)pin2MinLength;
++ (int)pin1MaxLength;
++ (int)pin2MaxLength;
 @end

@@ -59,6 +59,8 @@ NSInteger repeatedPinDoesntMatch = 20000;
 - (void)setupViewController {
   NSString *pinString = [self pinCodeString];
   
+  self.title = Localizations.PinActionsChangingPin(pinString);
+  
   NSString *currentPinPlaceholder;
   NSString *currentPinText;
   NSString *verificationTitle;
@@ -109,12 +111,32 @@ NSInteger repeatedPinDoesntMatch = 20000;
 
 - (IBAction)infoTapped:(id)sender {
   NSString *message;
+  NSString *pinString = [self pinCodeString];
+
+  NSString *rule1 = Localizations.PinActionsRuleDifferentFromPrevious(pinString);
+  NSString *rule2 = Localizations.PinActionsRuleNumbersOnly(pinString);
+  
+  int min;
+  int max;
+  NSArray *forbiddenPins;
+  
   if (self.type == PinOperationTypeChangePin1 || self.type == PinOperationTypeUnblockPin1) {
-    message = Localizations.PinActionsRulesPin1;
+    min = [MoppLibPinActions pin1MinLength];
+    max = [MoppLibPinActions pin1MaxLength];
+    forbiddenPins = [MoppLibPinActions forbiddenPin1s];
 
   } else {
-    message = Localizations.PinActionsRulesPin2;
+    min = [MoppLibPinActions pin2MinLength];
+    max = [MoppLibPinActions pin2MaxLength];
+    forbiddenPins = [MoppLibPinActions forbiddenPin2s];
   }
+  
+  NSString *rule3 = Localizations.PinActionsRulePinLength(pinString, min, max);
+  NSString *rule4 = Localizations.PinActionsRuleForbiddenPins(pinString, [forbiddenPins componentsJoinedByString:@", "]);
+
+
+  message = [NSString stringWithFormat:@"* %@\n\n* %@\n\n* %@\n\n* %@", rule1, rule2, rule3, rule4];
+  
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.PinActionsRulesTitle message:message preferredStyle:UIAlertControllerStyleAlert];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:nil]];
   [self presentViewController:alert animated:YES completion:^{
@@ -227,10 +249,37 @@ NSInteger repeatedPinDoesntMatch = 20000;
     self.pinErrorLabel.text = message;
     
   } else if (error.code == moppLibErrorIncorrectPinLength) {
-    message = Localizations.PinActionsIncorrectLength(pinString);
+    
+    int min;
+    int max;
+    if (self.type == PinOperationTypeChangePin1 || self.type == PinOperationTypeUnblockPin1) {
+      min = [MoppLibPinActions pin1MinLength];
+      max = [MoppLibPinActions pin1MaxLength];
+      
+    } else {
+      min = [MoppLibPinActions pin2MinLength];
+      max = [MoppLibPinActions pin2MaxLength];
+    }
+    
+    message = Localizations.PinActionsRulePinLength(pinString, min, max);
     self.pinErrorLabel.text = message;
     
-  } else {
+  } else if (error.code == moppLibErrorPinTooEasy) {
+    NSArray *forbiddenPins;
+    if (self.type == PinOperationTypeChangePin1 || self.type == PinOperationTypeUnblockPin1) {
+      forbiddenPins = [MoppLibPinActions forbiddenPin1s];
+      
+    } else {
+      forbiddenPins = [MoppLibPinActions forbiddenPin2s];
+    }
+    message = Localizations.PinActionsRuleForbiddenPins(pinString, [forbiddenPins componentsJoinedByString:@", "]);
+    self.pinErrorLabel.text = message;
+    
+  } else if (error.code == moppLibErrorPinContainsInvalidCharacters) {
+    message = Localizations.PinActionsRuleNumbersOnly(pinString);
+    self.pinErrorLabel.text = message;
+
+  }else {
     message = Localizations.PinActionsGeneralError(pinString);
     self.pinErrorLabel.text = message;
   }

@@ -47,6 +47,14 @@ extern NSString *const kCommandResetRetryCounter;
 - (void)readPublicDataWithSuccess:(void (^)(MoppLibPersonalData *personalData))success failure:(FailureBlock)failure;
 
 /**
+ * Reads card owner birthDate from card.
+ *
+ * @param success   block to be executed when action is completed successfully
+ * @param failure   block to be executed when action fails
+ */
+- (void)readBirthDateWithSuccess:(void (^)(NSDate *date))success failure:(FailureBlock)failure;
+
+/**
  * Reads authentication certificate from card.
  *
  * @param success   block to be executed when action is completed successfully

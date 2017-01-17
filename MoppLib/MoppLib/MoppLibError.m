@@ -43,6 +43,15 @@
   return [self error:moppLibErrorIncorrectPinLength];
 }
 
++ (NSError *)tooEasyPinError {
+  return [self error:moppLibErrorPinTooEasy];
+}
+
++ (NSError *)pinContainsInvalidCharactersError {
+  return [self error:moppLibErrorPinContainsInvalidCharacters];
+
+}
+
 + (NSError *)error:(NSUInteger)errorCode {
   return [self error:errorCode userInfo:nil];
 }

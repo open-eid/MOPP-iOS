@@ -135,17 +135,23 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
     readNotes3();
   } failure:failure];
   
-  void (^select5044)(NSData *) = ^void (NSData *responseObject) {
-    [self.reader transmitCommand:kCommandSelectFile5044 success:^(NSData *responseObject) {
-      readNotes1();
-    } failure:failure];
-  };
-  
-  void (^selectEEEE)(NSData *) = ^void (NSData *responseObject) {
-    [self.reader transmitCommand:kCommandSelectFileEEEE success:select5044 failure:failure];
-  };
-  
-  [self.reader transmitCommand:kCommandSelectFileMaster success:selectEEEE failure:failure];
+  [self navigateToFile5044WithSuccess:^(NSData *responseObject) {
+    readNotes1();
+  } failure:failure];
+}
+
+- (void)readBirthDateWithSuccess:(void (^)(NSDate *date))success failure:(FailureBlock)failure {
+  void (^readBirthDate)(void) = [self readRecord:6 success:^(NSData *responseObject) {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd.MM.yyyy"];
+    NSString *dateString = [responseObject responseString];
+    success([dateFormatter dateFromString:dateString]);
+    
+  } failure:failure];
+                                 
+  [self navigateToFile5044WithSuccess:^(NSData *responseObject) {
+    readBirthDate();
+  } failure:failure];
 }
 
 - (void)readSecretKeyRecord:(NSInteger)record withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
@@ -160,11 +166,7 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
     [self.reader transmitCommand:kCommandSelectFile0013 success:readRecord failure:failure];
   };
   
-  void (^selectEEEE)(NSData *) = ^void (NSData *responseObject) {
-    [self.reader transmitCommand:kCommandSelectFileEEEE success:select0013 failure:failure];
-  };
-  
-  [self.reader transmitCommand:kCommandSelectFileMaster success:selectEEEE failure:failure];
+  [self navigateToFileEEEEWithSuccess:select0013 failure:failure];
 }
 
 - (void)readCodeCounterRecord:(NSInteger)record withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
@@ -200,11 +202,7 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
     [self.reader transmitCommand:[NSString stringWithFormat:kCommandSetSecurityEnv, env] success:success failure:failure];
   };
   
-  void (^selectEEEE)(NSData *) = ^void (NSData *responseObject) {
-    [self.reader transmitCommand:kCommandSelectFileEEEE success:selectSecureEnv failure:failure];
-  };
-  
-  [self.reader transmitCommand:kCommandSelectFileMaster success:selectEEEE failure:failure];
+  [self navigateToFileEEEEWithSuccess:selectSecureEnv failure:failure];
 }
 
 - (void)verifyCode:(NSString *)code ofType:(CodeType)type withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
@@ -221,6 +219,22 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
 }
 
 #pragma mark - private methods
+
+- (void)navigateToFile5044WithSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
+  void (^select5044)(NSData *) = ^void (NSData *responseObject) {
+    [self.reader transmitCommand:kCommandSelectFile5044 success:success failure:failure];
+  };
+  
+  [self navigateToFileEEEEWithSuccess:select5044 failure:failure];
+}
+
+- (void)navigateToFileEEEEWithSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
+  void (^selectEEEE)(NSData *) = ^void (NSData *responseObject) {
+    [self.reader transmitCommand:kCommandSelectFileEEEE success:success failure:failure];
+  };
+  
+  [self.reader transmitCommand:kCommandSelectFileMaster success:selectEEEE failure:failure];
+}
 
 - (void (^)(void)) checkPinErrors:(NSData *)response success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure{
   return ^void (void) {
@@ -321,11 +335,7 @@ int maxReadLength = 254;
     } failure:failure];
   };
   
-  void (^selectEEEE)(NSData *) = ^void (NSData *responseObject) {
-    [self.reader transmitCommand:kCommandSelectFileEEEE success:selectCertFile failure:failure];
-  };
-  
-  [self.reader transmitCommand:kCommandSelectFileMaster success:selectEEEE failure:failure];
+  [self navigateToFileEEEEWithSuccess:selectCertFile failure:failure];
 }
 
 

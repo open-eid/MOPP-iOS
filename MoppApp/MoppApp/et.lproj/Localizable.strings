@@ -77,11 +77,12 @@
 "pin-actions-new-pin" = "Uus %@ kood";
 "pin-actions-repeat-pin" = "Uus %@ kood uuesti";
 "pin-actions-rules-title" = "Reeglid";
-"pin-actions-rules-PIN1" = "* Uus PIN1 peab olema erinev eelmisest.\n\n* Uus PIN1 peab olema 4-12 - numbriline ega tohi sisaldada tähti.\n\n* Uus PIN1 ei saa olla 0000, 1234, ega tohi osaliselt ega täielikult kattuda sinu isikukoodiga.";
-"pin-actions-rules-PIN2" = "* Uus PIN2 peab olema erinev eelmisest.\n\n* Uus PIN2 peab olema 5-12 - numbriline ega tohi sisaldada tähti.\n\n* Uus PIN2 ei saa olla 00000, 12345, ega tohi osaliselt ega täielikult kattuda sinu isikukoodiga.";
+"pin-actions-rule-different-from-previous" = "Uus %@ peab olema erinev eelmisest.";
+"pin-actions-rule-numbers-only" = "%@ ei tohi sisaldada tähti.";
+"pin-actions-rule-pin-length" = "Uus %@ peab olema %i-%i - numbriline.";
+"pin-actions-rule-forbidden-pins" = "Uus %@ ei saa olla %@, ega tohi sisaldada sinu sünnikuupäeva või osa sellest.";
 "pin-actions-info" = "Siin saad muuta oma PIN koode ja PIN koodi blokeeringut tühistada. PINi toiminguteks on vaja ühendada kaardilugeja telefoniga.";
 "pin-actions-general-error" = "%@ muutmine ebaõnnestus.";
-"pin-actions-incorrect-length" = "Uus %@ on vale pikkusega.";
 "pin-actions-same-as-current" = "Uus %@ peab erinema kehtivast %@-st.";
 "pin-actions-invalid-format" = "Selline %@ ei ole lubatud.";
 "pin-actions-wrong-pin-retry" = "Kehtiv %@ on vale. Saad proovida veel %i korda.";

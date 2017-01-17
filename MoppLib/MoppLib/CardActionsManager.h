@@ -16,7 +16,9 @@
 + (CardActionsManager *)sharedInstance;
 
 - (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void(^)(MoppLibPersonalData *))success failure:(void(^)(NSError *))failure;
-- (void)personalIdCodeWithViewController:(UIViewController *)controller success:(void(^)(NSString *idCode))success failure:(void(^)(NSError *))failure;
+
+- (void)cardOwnerBirthDateWithViewController:(UIViewController *)controller success:(void(^)(NSDate *date))success failure:(void(^)(NSError *error))failure;
+
 - (void)signingCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure;
 - (void)authenticationCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure;
 

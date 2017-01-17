@@ -72,11 +72,12 @@
 "pin-actions-new-pin" = "New %@ code";
 "pin-actions-repeat-pin" = "Repeat new %@ code";
 "pin-actions-rules-title" = "Rules";
-"pin-actions-rules-PIN1" = "* New PIN1 must be different from previous PIN1.\n\n* New PIN1 must be 4-12 digits long.\n\n* New PIN1 can't be 0000, 1234, or contain your personal id code.";
-"pin-actions-rules-PIN2" = "* New PIN2 must be different from previous PIN2.\n\n* New PIN2 must be 5-12 digits long.\n\n* New PIN2 can't be 00000, 12345, or contain your personal id code.";
+"pin-actions-rule-different-from-previous" = "New %@ must be different from previous one.";
+"pin-actions-rule-numbers-only" = "%@ must contain numbers only.";
+"pin-actions-rule-pin-length" = "Uus %@ peab olema %i-%i - numbriline.";
+"pin-actions-rule-forbidden-pins" = "New %@ can't be %@, or contain combination of your birthdate.";
 "pin-actions-info" = "Here you can change your PIN codes and unblock them if needed. PIN operations need card reader to be connected to your phone.";
 "pin-actions-general-error" = "Could not change %@";
-"pin-actions-incorrect-length" = "New %@ has incorrect length.";
 "pin-actions-same-as-current" = "New %@ must be different from current %@.";
 "pin-actions-invalid-format" = "This %@ is not allowed.";
 "pin-actions-wrong-pin-retry" = "Current %@ was wrong. You have %i tries left.";

@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--Title-->
         <scene sceneID="LNJ-gQ-bEk">
             <objects>
                 <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="K0z-pF-V4I" customClass="PinOperationsViewController" sceneMemberID="viewController">
@@ -66,13 +66,15 @@
                             <outlet property="delegate" destination="K0z-pF-V4I" id="Wko-7a-aIK"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="Tep-j7-vOM"/>
+                    <navigationItem key="navigationItem" title="Title" id="K2Z-yY-SRe">
+                        <barButtonItem key="backBarButtonItem" title=" " id="dw9-Kk-mgH"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TYD-aV-rQN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="253.59999999999999" y="124.58770614692655"/>
         </scene>
-        <!--Change Pin View Controller-->
+        <!--Title-->
         <scene sceneID="qzM-PQ-zFp">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="ZqK-mS-ico" customClass="ChangePinViewController" sceneMemberID="viewController">
@@ -127,7 +129,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YCl-dh-lkr">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YCl-dh-lkr">
                                                 <rect key="frame" x="15" y="352" width="296" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.83529411760000005" green="0.1764705882" blue="0.2156862745" alpha="1" colorSpace="calibratedRGB"/>
@@ -302,6 +304,9 @@
                             <constraint firstItem="s1S-G3-iST" firstAttribute="top" secondItem="N9z-P8-6pe" secondAttribute="bottom" id="vwI-gh-5yM"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="LEW-0O-eNF">
+                        <barButtonItem key="backBarButtonItem" title=" " id="vSm-Kl-WO3"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="CurrentPinLabel" destination="CTh-QK-wTG" id="q0W-9B-kU9"/>
                         <outlet property="currentPinErrorLabel" destination="55K-oj-Eeh" id="mvZ-1E-q6o"/>

@@ -19,6 +19,12 @@
     return NSLocalizedStringFromTable(@"signed-container-details-signature-section-header", nil, nil);
 }
 
+- (NSString *(^)(NSString *))PinActionsRuleDifferentFromPrevious {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-rule-different-from-previous", nil, nil), value1];
+    };
+}
+
 - (NSString *(^)(NSString *))PinActionsChangePin {
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-change-pin", nil, nil), value1];
@@ -62,6 +68,12 @@
 - (NSString *(^)(int))MyEidTimesUsed {
     return ^(int value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-times-used", nil, nil), value1];
+    };
+}
+
+- (NSString *(^)(NSString *, NSString *))PinActionsRuleForbiddenPins {
+    return ^(NSString * value1 , NSString * value2) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-rule-forbidden-pins", nil, nil), value1, value2];
     };
 }
 
@@ -227,9 +239,9 @@
     };
 }
 
-- (NSString *(^)(NSString *))PinActionsIncorrectLength {
+- (NSString *(^)(NSString *))PinActionsRuleNumbersOnly {
     return ^(NSString * value1) {
-        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-incorrect-length", nil, nil), value1];
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-rule-numbers-only", nil, nil), value1];
     };
 }
 
@@ -287,10 +299,6 @@
     return NSLocalizedStringFromTable(@"my-eid-valid-until", nil, nil);
 }
 
-- (NSString *)PinActionsRulesPin1 {
-    return NSLocalizedStringFromTable(@"pin-actions-rules-PIN1", nil, nil);
-}
-
 - (NSString *)SignedContainerDetailsTitle {
     return NSLocalizedStringFromTable(@"signed-container-details-title", nil, nil);
 }
@@ -301,10 +309,6 @@
 
 - (NSString *)TabSigned {
     return NSLocalizedStringFromTable(@"tab-signed", nil, nil);
-}
-
-- (NSString *)PinActionsRulesPin2 {
-    return NSLocalizedStringFromTable(@"pin-actions-rules-PIN2", nil, nil);
 }
 
 - (NSString *)TabSettings {
@@ -342,6 +346,12 @@
 - (NSString *(^)(long))SignedContainerDetailsDatafileDetails {
     return ^(long value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"signed-container-details-datafile-details", nil, nil), value1];
+    };
+}
+
+- (NSString *(^)(NSString *, int, int))PinActionsRulePinLength {
+    return ^(NSString * value1 , int value2 , int value3) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-rule-pin-length", nil, nil), value1, value2, value3];
     };
 }
 

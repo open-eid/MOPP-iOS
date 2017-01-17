@@ -18,6 +18,8 @@
 /// Base translation: Signatures
 - (NSString *)SignedContainerDetailsSignatureSectionHeader;
 
+/// Base translation: New %@ must be different from previous one.
+- (NSString *(^)(NSString *))PinActionsRuleDifferentFromPrevious;
 /// Base translation: Change %@
 - (NSString *(^)(NSString *))PinActionsChangePin;
 /// Base translation: 1 time
@@ -40,6 +42,8 @@
 
 /// Base translation: %i times
 - (NSString *(^)(int))MyEidTimesUsed;
+/// Base translation: New %@ can't be %@, or contain combination of your birthdate.
+- (NSString *(^)(NSString *, NSString *))PinActionsRuleForbiddenPins;
 /// Base translation: Container name
 - (NSString *)SigningContainerNamePlaceholder;
 
@@ -129,8 +133,8 @@
 - (NSString *(^)(NSString *, NSString *))PinActionsWrongPinBlocked;
 /// Base translation: Card reader is not connected.  Please make sure your reader is turned on and %@ to select it.
 - (NSString *(^)(NSString *))MyEidWarningReaderNotFound;
-/// Base translation: New %@ has incorrect length.
-- (NSString *(^)(NSString *))PinActionsIncorrectLength;
+/// Base translation: %@ must contain numbers only.
+- (NSString *(^)(NSString *))PinActionsRuleNumbersOnly;
 /// Base translation: Changing %@:
 - (NSString *(^)(NSString *))PinActionsVerificationTitle;
 /// Base translation: Signature certificate
@@ -164,9 +168,6 @@
 /// Base translation: Valid until:
 - (NSString *)MyEidValidUntil;
 
-/// Base translation: * New PIN1 must be different from previous PIN1.  * New PIN1 must be 4-12 digits long.  * New PIN1 can't be 0000, 1234, or contain your personal id code.
-- (NSString *)PinActionsRulesPin1;
-
 /// Base translation: Container
 - (NSString *)SignedContainerDetailsTitle;
 
@@ -175,9 +176,6 @@
 
 /// Base translation: Signed
 - (NSString *)TabSigned;
-
-/// Base translation: * New PIN2 must be different from previous PIN2.  * New PIN2 must be 5-12 digits long.  * New PIN2 can't be 00000, 12345, or contain your personal id code.
-- (NSString *)PinActionsRulesPin2;
 
 /// Base translation: Settings
 - (NSString *)TabSettings;
@@ -200,6 +198,8 @@
 
 /// Base translation: Size: %ld kb
 - (NSString *(^)(long))SignedContainerDetailsDatafileDetails;
+/// Base translation: Uus %@ peab olema %i-%i - numbriline.
+- (NSString *(^)(NSString *, int, int))PinActionsRulePinLength;
 + (_Localizations *)sharedInstance;
 
 @end

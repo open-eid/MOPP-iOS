@@ -20,7 +20,9 @@ typedef enum {
   moppLibErrorGeneral = 10005,
   moppLibErrorInvalidPin = 10006, // New pin does not apply to rules
   moppLibErrorPinMatchesVerificationCode = 10007, // New pin must be different from old pin or puk
-  moppLibErrorIncorrectPinLength = 10008 // New pin is too short or too long
+  moppLibErrorIncorrectPinLength = 10008, // New pin is too short or too long
+  moppLibErrorPinTooEasy = 10009,// New pin is too easy
+  moppLibErrorPinContainsInvalidCharacters = 10010 // Pin contains invalid characters. Only numbers are allowed
 
   
 } MoppLibErrorCode;
