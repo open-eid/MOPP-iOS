@@ -104,8 +104,9 @@
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   
   MoppLibContainer *container = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
-  [[MoppLibManager sharedInstance] addFileToContainerWithPath:container.filePath withDataFilePath:self.dataFilePath];
-  [[FileManager sharedInstance] removeFileWithPath:self.dataFilePath];
+  container = [[MoppLibManager sharedInstance] addDataFileToContainerWithPath:container.filePath withDataFilePath:self.dataFilePath];
+#warning - remove file
+//  [[FileManager sharedInstance] removeFileWithPath:self.dataFilePath];
   
   [self.navigationController dismissViewControllerAnimated:YES completion:^{
     if (self.delegate) {

@@ -16,4 +16,7 @@
 @property (strong, nonatomic) NSArray *dataFiles;
 @property (strong, nonatomic) NSArray *signatures;
 
+- (BOOL)isSigned;
+- (BOOL)isEmpty;
+
 @end

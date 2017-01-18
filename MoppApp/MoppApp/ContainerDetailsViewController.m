@@ -34,8 +34,9 @@ typedef enum : NSUInteger {
   
   [self.view setBackgroundColor:[UIColor whiteColor]];
   
-  [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  self.navigationItem.rightBarButtonItem = self.editButtonItem;
   
+  [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self.tableView reloadData];
 }
 
@@ -177,5 +178,51 @@ typedef enum : NSUInteger {
   
   return header;
 }
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+  switch (indexPath.section) {
+    case ContainerDetailsSectionHeader:
+      return NO;
+      break;
+      
+    case ContainerDetailsSectionDataFile:
+      if (self.container.dataFiles.count > 1 && ![self.container isSigned]) {
+        return YES;
+      }
+      break;
+      
+    case ContainerDetailsSectionSignature:
+      return YES;
+      break;
+  
+    default:
+      return NO;
+      break;
+  }
+  return NO;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+  if (editingStyle == UITableViewCellEditingStyleDelete) {
+    
+    switch (indexPath.section) {
+      case ContainerDetailsSectionDataFile: {
+//        MoppLibDataFile *dataFile = [self.container.dataFiles objectAtIndex:indexPath.row];
+        self.container = [[MoppLibManager sharedInstance] removeDataFileFromContainerWithPath:self.container.filePath atIndex:indexPath.row];
+        break;
+      }
+      case ContainerDetailsSectionSignature: {
+        MoppLibSignature *signature = [self.container.signatures objectAtIndex:indexPath.row];
+        break;
+      }
+        
+      default:
+        break;
+    }
+    
+    [self.tableView reloadData];
+  }
+}
+
 
 @end

@@ -163,13 +163,13 @@ typedef enum : NSUInteger {
     
     switch (indexPath.section) {
       case ContainersListSectionUnsigned: {
-        NSString *fileName = [self.unsignedContainers objectAtIndex:indexPath.row];
-        [[FileManager sharedInstance] removeFileWithName:fileName];
+        MoppLibContainer *container = [self.unsignedContainers objectAtIndex:indexPath.row];
+        [[FileManager sharedInstance] removeFileWithName:container.fileName];
         break;
       }
       case ContainersListSectionSigned: {
-        NSString *fileName = [self.signedContainers objectAtIndex:indexPath.row];
-        [[FileManager sharedInstance] removeFileWithName:fileName];
+        MoppLibContainer *container = [self.signedContainers objectAtIndex:indexPath.row];
+        [[FileManager sharedInstance] removeFileWithName:container.fileName];
         break;
       }
         

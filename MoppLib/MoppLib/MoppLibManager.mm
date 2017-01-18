@@ -152,11 +152,31 @@ public:
   return moppLibContainer;
 }
 
-- (MoppLibContainer *)addFileToContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath {
+- (MoppLibContainer *)addDataFileToContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath {
   try {
     
     digidoc::Container *container = digidoc::Container::open(containerPath.UTF8String);
     container->addDataFile(dataFilePath.UTF8String, @"application/octet-stream".UTF8String);
+    
+    try {
+      container->save(containerPath.UTF8String);
+    } catch(const digidoc::Exception &e) {
+      parseException(e);
+    }
+    
+  } catch(const digidoc::Exception &e) {
+    parseException(e);
+  }
+  
+  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath];
+  return moppLibContainer;
+}
+
+- (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex {
+  try {
+    
+    digidoc::Container *container = digidoc::Container::open(containerPath.UTF8String);
+    container->removeDataFile(dataFileIndex);
     
     try {
       container->save(containerPath.UTF8String);
@@ -178,9 +198,9 @@ public:
   for (NSString *containerPath in containerPaths) {
     MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath];
     
-    if (isSigned && moppLibContainer.signatures.count > 0) {
+    if (isSigned && [moppLibContainer isSigned]) {
       [containers addObject:moppLibContainer];
-    } else if (!isSigned && moppLibContainer.signatures.count == 0){
+    } else if (!isSigned && ![moppLibContainer isSigned]){
       [containers addObject:moppLibContainer];
     }
   }
