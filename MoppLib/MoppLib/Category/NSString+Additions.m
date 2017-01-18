@@ -13,7 +13,7 @@
 
 - (NSString *)toHexString {
   NSData* nsData = [self dataUsingEncoding:NSUTF8StringEncoding];
-  NSMutableString* hex = [nsData toHexString];
+  NSString* hex = [nsData toHexString];
   return hex;
 }
 

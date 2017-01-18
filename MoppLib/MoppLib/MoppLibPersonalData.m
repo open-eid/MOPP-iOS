@@ -12,7 +12,6 @@
 
 - (NSString *)fullName {
   NSMutableString *name = [NSMutableString new];
-  NSString *givenNames = [self givenNames];
   
   if (self.givenNames.length > 0) {
     [name appendString:self.givenNames];

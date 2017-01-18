@@ -20,6 +20,20 @@
                ReferencedContainer = "container:MoppLib.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "546E575D1E2E07C7009A568D"
+               BuildableName = "MoppLibTests.xctest"
+               BlueprintName = "MoppLibTests"
+               ReferencedContainer = "container:MoppLib.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -28,7 +42,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "546E575D1E2E07C7009A568D"
+               BuildableName = "MoppLibTests.xctest"
+               BlueprintName = "MoppLibTests"
+               ReferencedContainer = "container:MoppLib.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "E4250CE61E09695100530370"
+            BuildableName = "MoppLib.framework"
+            BlueprintName = "MoppLib"
+            ReferencedContainer = "container:MoppLib.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
