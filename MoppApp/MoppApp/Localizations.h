@@ -64,7 +64,7 @@
 /// Base translation: Document
 - (NSString *)ContainerDetailsTitle;
 
-/// Base translation: You are currenty importing file named "%@". Please select unsigned document or create new one.
+/// Base translation: %@  Please select unsigned document or create new one.
 - (NSString *(^)(NSString *))FileImportInfo;
 /// Base translation: Used:
 - (NSString *)MyEidUseCount;
@@ -172,9 +172,6 @@
 /// Base translation: eID
 - (NSString *)MyEidEid;
 
-/// Base translation: Cancel
-- (NSString *)Cancel;
-
 /// Base translation: Valid until:
 - (NSString *)MyEidValidUntil;
 
@@ -192,8 +189,9 @@
 /// Base translation: Card in reader:
 - (NSString *)MyEidCardInReader;
 
-/// Base translation: Could not change %@
-- (NSString *(^)(NSString *))PinActionsGeneralError;
+/// Base translation: Cancel
+- (NSString *)ActionCancel;
+
 /// Base translation: Create document
 - (NSString *)FileImportCreateContainerButton;
 
@@ -203,6 +201,8 @@
 /// Base translation: Given names:
 - (NSString *)MyEidGivenNames;
 
+/// Base translation: Could not change %@
+- (NSString *(^)(NSString *))PinActionsGeneralError;
 /// Base translation: Search
 - (NSString *)ContainersListSearchPlaceholder;
 

@@ -311,10 +311,6 @@
     return NSLocalizedStringFromTable(@"my-eid-eid", nil, nil);
 }
 
-- (NSString *)Cancel {
-    return NSLocalizedStringFromTable(@"cancel", nil, nil);
-}
-
 - (NSString *)MyEidValidUntil {
     return NSLocalizedStringFromTable(@"my-eid-valid-until", nil, nil);
 }
@@ -341,10 +337,8 @@
     return NSLocalizedStringFromTable(@"my-eid-card-in-reader", nil, nil);
 }
 
-- (NSString *(^)(NSString *))PinActionsGeneralError {
-    return ^(NSString * value1) {
-        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-general-error", nil, nil), value1];
-    };
+- (NSString *)ActionCancel {
+    return NSLocalizedStringFromTable(@"action-cancel", nil, nil);
 }
 
 - (NSString *)FileImportCreateContainerButton {
@@ -357,6 +351,12 @@
 
 - (NSString *)MyEidGivenNames {
     return NSLocalizedStringFromTable(@"my-eid-given-names", nil, nil);
+}
+
+- (NSString *(^)(NSString *))PinActionsGeneralError {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-general-error", nil, nil), value1];
+    };
 }
 
 - (NSString *)ContainersListSearchPlaceholder {

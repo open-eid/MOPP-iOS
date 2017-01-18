@@ -14,7 +14,6 @@
 
 @interface FileImportViewController ()
 
-@property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 @property (strong, nonatomic) NSArray *unsignedContainers;
 @property (strong, nonatomic) NSArray *filteredUnsignedContainers;
 
@@ -27,15 +26,21 @@
   
   [self setTitle:Localizations.FileImportTitle];
   
-  [self.infoLabel setText:Localizations.FileImportInfo([self.dataFilePath lastPathComponent])];
-  
   self.unsignedContainers = [NSArray array];
   
-  UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:Localizations.Cancel style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonPressed)];
+  UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:Localizations.ActionCancel style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonPressed)];
   [self.navigationItem setRightBarButtonItem:cancelButton];
   
   UIBarButtonItem *createContainerButton = [[UIBarButtonItem alloc] initWithTitle:Localizations.FileImportCreateContainerButton style:UIBarButtonItemStylePlain target:self action:@selector(createNewContainer)];
   [self.navigationItem setLeftBarButtonItem:createContainerButton];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.FileImportTitle message:Localizations.FileImportInfo([self.dataFilePath lastPathComponent]) preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:nil]];
+  [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)cancelButtonPressed {
@@ -46,7 +51,9 @@
   NSString *containerFileName = [NSString stringWithFormat:@"%@.bdoc", [[self.dataFilePath lastPathComponent] stringByDeletingPathExtension]];
   NSString *containerPath = [[FileManager sharedInstance] filePathWithFileName:containerFileName];
   [[MoppLibManager sharedInstance] createContainerWithPath:containerPath withDataFilePath:self.dataFilePath];
-  [[FileManager sharedInstance] removeFileWithPath:self.dataFilePath];
+  
+#warning - remove file
+//  [[FileManager sharedInstance] removeFileWithPath:self.dataFilePath];
   
   [self.navigationController dismissViewControllerAnimated:YES completion:^{
     if (self.delegate) {

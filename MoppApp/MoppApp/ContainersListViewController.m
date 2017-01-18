@@ -12,7 +12,7 @@
 #import "ContainerCell.h"
 #import "ContainerDetailsViewController.h"
 #import "SimpleHeaderView.h"
-
+#import <MoppLib/MoppLib.h>
 
 typedef enum : NSUInteger {
   ContainersListSectionUnsigned,
@@ -38,17 +38,21 @@ typedef enum : NSUInteger {
   
   self.unsignedContainers = [NSArray array];
   self.signedContainers = [NSArray array];
-//  self.filteredContainers = [NSArray array];
   
   //  NSBundle *bundle = [NSBundle bundleForClass:[self class]];
   //  self.containers = @[[bundle pathForResource:@"test1" ofType:@"bdoc"],
   //                      [bundle pathForResource:@"test2" ofType:@"bdoc"]];
   
   // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-  self.navigationItem.rightBarButtonItem = self.editButtonItem;  
+  self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  
+  UIBarButtonItem *importButton = [[UIBarButtonItem alloc] initWithTitle:@"Fake import" style:UIBarButtonItemStylePlain target:self action:@selector(imitateDataFileImport)];
+  [self.navigationItem setLeftBarButtonItem:importButton];
 }
 
 - (void)reloadData {
+//  NSArray *containers = [[MoppLibManager sharedInstance] getContainers:YES];
+  
   self.unsignedContainers = [[FileManager sharedInstance] getContainers];
   self.signedContainers = [[FileManager sharedInstance] getContainers];
   self.filteredUnsignedContainers = self.unsignedContainers;
@@ -68,6 +72,11 @@ typedef enum : NSUInteger {
   [super filterContainers:searchString];
 }
 
+#warning - test method
+- (void)imitateDataFileImport {
+  NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"datafile" ofType:@"txt"];
+  self.dataFilePath = dataFilePath;
+}
 
 #pragma mark - File importing
 - (void)setDataFilePath:(NSString *)dataFilePath {

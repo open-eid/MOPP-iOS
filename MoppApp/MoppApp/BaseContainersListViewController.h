@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BaseContainersListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating>
+@interface BaseContainersListViewController : UITableViewController <UISearchResultsUpdating>
 
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UISearchController *searchController;
 
 - (void)reloadData;

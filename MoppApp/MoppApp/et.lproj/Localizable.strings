@@ -1,7 +1,6 @@
 
 
 // *** General ***
-"cancel" = "Tühista";
 // TabBar
 "tab-containers" = "Dokumendid";
 "tab-my-eid" = "Minu eID";
@@ -10,6 +9,7 @@
 
 // *** Actions ***
 "action-ok" = "OK";
+"action-cancel" = "Tühista";
 
 
 // *** Signed containers ***
@@ -20,7 +20,7 @@
 // DataFile import
 "file-import-title" = "Lisa fail";
 "file-import-create-container-button" = "Loo dokument";
-"file-import-info" = "Faili \"%@\" lisamine. Palun vali allkirjastamata dokument või loo uus.";
+"file-import-info" = "%@\n\nPalun vali allkirjastamata dokument või loo uus.";
 // Details
 "container-details-title" = "Dokument";
 "container-details-header-details" = "Vorming: %@ | Suurus: %ld kb";

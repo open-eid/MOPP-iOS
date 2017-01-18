@@ -17,6 +17,7 @@
 #import "MoppLibDataFile.h"
 #import "MoppLibSignature.h"
 #import "MLDateFormatter.h"
+#import "MLFileManager.h"
 
 class DigiDocConf: public digidoc::XmlConf {
 public:
@@ -229,6 +230,15 @@ public:
   return moppLibContainer;
 }
 
+- (NSArray *)getContainers:(BOOL)isSigned {
+  NSMutableArray *containers = [NSMutableArray array];
+  NSArray *containersNames = [[MLFileManager sharedInstance] getContainers];
+  for (NSString *containerFileName in containersNames) {
+    MoppLibContainer *moppLibContainer = [self getContainerWithPath:[[MLFileManager sharedInstance] filePathWithFileName:containerFileName]];
+    [containers addObject:moppLibContainer];
+  }
+  return containers;
+}
 
 void parseException(const digidoc::Exception &e) {
   NSLog(@"%s", e.msg().c_str());

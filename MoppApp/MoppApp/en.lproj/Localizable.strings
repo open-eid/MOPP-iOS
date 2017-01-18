@@ -1,7 +1,6 @@
 
 
 // *** General ***
-"cancel" = "Cancel";
 // TabBar
 "tab-containers" = "Documents";
 "tab-my-eid" = "My eID";
@@ -10,6 +9,7 @@
 
 // *** Actions ***
 "action-ok" = "OK";
+"action-cancel" = "Cancel";
 
 
 // *** Signed containers ***
@@ -20,7 +20,7 @@
 // DataFile import
 "file-import-title" = "Import file";
 "file-import-create-container-button" = "Create document";
-"file-import-info" = "You are currenty importing file named \"%@\". Please select unsigned document or create new one.";
+"file-import-info" = "%@\n\nPlease select unsigned document or create new one.";
 // Details
 "container-details-title" = "Document";
 "container-details-header-details" = "Format: %@ | Size: %ld kb";

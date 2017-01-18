@@ -22,14 +22,11 @@
   
   self.definesPresentationContext = YES;
   
-  [self.tableView setDataSource:self];
-  [self.tableView setDelegate:self];
-  
   UINib *nib = [UINib nibWithNibName:NSStringFromClass([ContainerCell class]) bundle:nil];
   [self.tableView registerNib:nib forCellReuseIdentifier:NSStringFromClass([ContainerCell class])];
   
   // UISearchController
-//  self.extendedLayoutIncludesOpaqueBars = YES; // Remove empty tableHeaderView when activating search bar.
+  self.extendedLayoutIncludesOpaqueBars = YES; // Remove empty tableHeaderView when activating search bar.
   
   self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
   self.searchController.searchResultsUpdater = self;
