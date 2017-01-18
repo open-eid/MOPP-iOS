@@ -10,6 +10,8 @@
 // *** Actions ***
 "action-ok" = "OK";
 "action-cancel" = "Tühista";
+"action-delete" = "Eemalda";
+"action-edit" = "Muuda";
 
 
 // *** Signed containers ***

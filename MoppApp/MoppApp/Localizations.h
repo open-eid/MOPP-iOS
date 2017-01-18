@@ -115,6 +115,9 @@
 /// Base translation: Citizenship:
 - (NSString *)MyEidCitizenship;
 
+/// Base translation: Delete
+- (NSString *)ActionDelete;
+
 /// Base translation: Using current %@ code
 - (NSString *(^)(NSString *))PinActionsVerificationOption;
 /// Base translation: New %@ must be different from current %@.
@@ -171,6 +174,9 @@
 - (NSString *(^)(NSString *))PinActionsNewPin;
 /// Base translation: eID
 - (NSString *)MyEidEid;
+
+/// Base translation: Edit
+- (NSString *)ActionEdit;
 
 /// Base translation: Valid until:
 - (NSString *)MyEidValidUntil;

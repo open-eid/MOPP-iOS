@@ -45,6 +45,7 @@ typedef enum : NSUInteger {
   
   // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
   self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  [self setEditing:NO]; // Update edit button title.
   
   UIBarButtonItem *importButton = [[UIBarButtonItem alloc] initWithTitle:@"Fake import" style:UIBarButtonItemStylePlain target:self action:@selector(imitateDataFileImport)];
   [self.navigationItem setLeftBarButtonItem:importButton];
@@ -60,6 +61,16 @@ typedef enum : NSUInteger {
   self.filteredSignedContainers = self.signedContainers;
   
   [super reloadData];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+  [super setEditing:editing animated:animated];
+  
+  if (editing) {
+    self.editButtonItem.title = Localizations.ActionCancel;
+  } else {
+    self.editButtonItem.title = Localizations.ActionEdit;
+  }
 }
 
 - (void)filterContainers:(NSString *)searchString {
@@ -158,6 +169,10 @@ typedef enum : NSUInteger {
   return YES;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return Localizations.ActionDelete;
+}
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
   if (editingStyle == UITableViewCellEditingStyleDelete) {
     
@@ -177,8 +192,8 @@ typedef enum : NSUInteger {
         break;
     }
     
+//    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     [self reloadData];
-    //    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
   }
 }
 

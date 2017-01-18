@@ -35,6 +35,7 @@ typedef enum : NSUInteger {
   [self.view setBackgroundColor:[UIColor whiteColor]];
   
   self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  [self setEditing:NO]; // Update edit button title.
   
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self.tableView reloadData];
@@ -45,6 +46,16 @@ typedef enum : NSUInteger {
   [super viewDidAppear:animated];
   
   [self.tableView reloadData];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+  [super setEditing:editing animated:animated];
+  
+  if (editing) {
+    self.editButtonItem.title = Localizations.ActionCancel;
+  } else {
+    self.editButtonItem.title = Localizations.ActionEdit;
+  }
 }
 
 
@@ -200,6 +211,10 @@ typedef enum : NSUInteger {
       break;
   }
   return NO;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return Localizations.ActionDelete;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

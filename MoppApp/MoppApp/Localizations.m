@@ -195,6 +195,10 @@
     return NSLocalizedStringFromTable(@"my-eid-citizenship", nil, nil);
 }
 
+- (NSString *)ActionDelete {
+    return NSLocalizedStringFromTable(@"action-delete", nil, nil);
+}
+
 - (NSString *(^)(NSString *))PinActionsVerificationOption {
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-verification-option", nil, nil), value1];
@@ -309,6 +313,10 @@
 
 - (NSString *)MyEidEid {
     return NSLocalizedStringFromTable(@"my-eid-eid", nil, nil);
+}
+
+- (NSString *)ActionEdit {
+    return NSLocalizedStringFromTable(@"action-edit", nil, nil);
 }
 
 - (NSString *)MyEidValidUntil {

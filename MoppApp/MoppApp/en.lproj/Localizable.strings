@@ -10,6 +10,8 @@
 // *** Actions ***
 "action-ok" = "OK";
 "action-cancel" = "Cancel";
+"action-delete" = "Delete";
+"action-edit" = "Edit";
 
 
 // *** Signed containers ***
