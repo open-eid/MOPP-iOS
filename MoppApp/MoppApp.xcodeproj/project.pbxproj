@@ -57,6 +57,7 @@
 		E45EF5411E2D8A9300C37D43 /* FileImportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E45EF5401E2D8A9300C37D43 /* FileImportViewController.m */; };
 		E45EF5431E2D8D8000C37D43 /* ContainerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E45EF5421E2D8D8000C37D43 /* ContainerCell.xib */; };
 		E485A7871E2DF9A500C53DBF /* ButtonWithRoundedCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = E485A7861E2DF9A500C53DBF /* ButtonWithRoundedCorners.m */; };
+		E4C53F341E2F950D00F209BE /* InitializationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C53F331E2F950D00F209BE /* InitializationViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -161,6 +162,8 @@
 		E45EF5421E2D8D8000C37D43 /* ContainerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContainerCell.xib; sourceTree = "<group>"; };
 		E485A7851E2DF9A500C53DBF /* ButtonWithRoundedCorners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonWithRoundedCorners.h; sourceTree = "<group>"; };
 		E485A7861E2DF9A500C53DBF /* ButtonWithRoundedCorners.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonWithRoundedCorners.m; sourceTree = "<group>"; };
+		E4C53F321E2F950D00F209BE /* InitializationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitializationViewController.h; sourceTree = "<group>"; };
+		E4C53F331E2F950D00F209BE /* InitializationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitializationViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,6 +322,8 @@
 				E42B08971E1562E500EA24A3 /* Documents */,
 				545CF8431E1642ED00B66EE8 /* MyEID */,
 				542DCB621E1FD2F000899534 /* PinOperations */,
+				E4C53F321E2F950D00F209BE /* InitializationViewController.h */,
+				E4C53F331E2F950D00F209BE /* InitializationViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -612,6 +617,7 @@
 				545CF84B1E165DBA00B66EE8 /* NameAndPhotoCell.m in Sources */,
 				54825EF81E1D270F00253FF0 /* NSString+Additions.m in Sources */,
 				E42B08B11E1F049B00EA24A3 /* FileManager.m in Sources */,
+				E4C53F341E2F950D00F209BE /* InitializationViewController.m in Sources */,
 				E4180C351E267B5D00FD7B8C /* Localizations.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,6 +12,7 @@
 #import "LandingTabBarController.h"
 #import "ContainersListViewController.h"
 #import "FileManager.h"
+#import "InitializationViewController.h"
 
 @interface AppDelegate ()
 
@@ -34,12 +35,17 @@
   [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
   [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
 
-  self.tabBarController = [[UIStoryboard storyboardWithName:@"Landing" bundle:nil] instantiateInitialViewController];
-  self.window.rootViewController = self.tabBarController;
+  InitializationViewController *initializationViewController = [[InitializationViewController alloc] init];
+  self.window.rootViewController = initializationViewController;
   
   [self.window makeKeyAndVisible];
   
   return YES;
+}
+
+- (void)setupTabController {
+  self.tabBarController = [[UIStoryboard storyboardWithName:@"Landing" bundle:nil] instantiateInitialViewController];
+  self.window.rootViewController = self.tabBarController;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
