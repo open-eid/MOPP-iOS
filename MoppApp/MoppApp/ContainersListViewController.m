@@ -25,7 +25,7 @@ typedef enum : NSUInteger {
 @property (strong, nonatomic) NSArray *signedContainers;
 @property (strong, nonatomic) NSArray *filteredUnsignedContainers;
 @property (strong, nonatomic) NSArray *filteredSignedContainers;
-@property (strong, nonatomic) NSString *containerFileName;
+@property (strong, nonatomic) MoppLibContainer *selectedContainer;
 
 @end
 
@@ -51,10 +51,11 @@ typedef enum : NSUInteger {
 }
 
 - (void)reloadData {
-//  NSArray *containers = [[MoppLibManager sharedInstance] getContainers:YES];
+  self.unsignedContainers = [[MoppLibManager sharedInstance] getContainersIsSigned:NO];
+  self.signedContainers = [[MoppLibManager sharedInstance] getContainersIsSigned:YES];
   
-  self.unsignedContainers = [[FileManager sharedInstance] getContainers];
-  self.signedContainers = [[FileManager sharedInstance] getContainers];
+//  self.unsignedContainers = [[FileManager sharedInstance] getContainers];
+//  self.signedContainers = [[FileManager sharedInstance] getContainers];
   self.filteredUnsignedContainers = self.unsignedContainers;
   self.filteredSignedContainers = self.signedContainers;
   
@@ -66,15 +67,15 @@ typedef enum : NSUInteger {
     self.filteredUnsignedContainers = self.unsignedContainers;
     self.filteredSignedContainers = self.signedContainers;
   } else {
-    self.filteredUnsignedContainers = [self.unsignedContainers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchString]];
-    self.filteredSignedContainers = [self.signedContainers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchString]];
+    self.filteredUnsignedContainers = [self.unsignedContainers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.fileName contains[c] %@", searchString]];
+    self.filteredSignedContainers = [self.signedContainers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.fileName contains[c] %@", searchString]];
   }
   [super filterContainers:searchString];
 }
 
 #warning - test method
 - (void)imitateDataFileImport {
-  NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"datafile" ofType:@"txt"];
+  NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"datafile" ofType:@"jpg"];
   self.dataFilePath = dataFilePath;
 }
 
@@ -112,23 +113,22 @@ typedef enum : NSUInteger {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   ContainerCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ContainerCell class]) forIndexPath:indexPath];
   
-  NSString *fileName;
+  MoppLibContainer *container;
   switch (indexPath.section) {
     case ContainersListSectionUnsigned: {
-      fileName = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
+      container = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
       break;
     }
     case ContainersListSectionSigned: {
-      fileName = [self.filteredSignedContainers objectAtIndex:indexPath.row];
+      container = [self.filteredSignedContainers objectAtIndex:indexPath.row];
       break;
     }
     default:
       break;
   }
   
-  NSDictionary *fileAttributes = [[FileManager sharedInstance] fileAttributes:fileName];
-  [cell.titleLabel setText:fileName];
-  [cell.dateLabel setText:[[DateFormatter sharedInstance] dateToRelativeString:[fileAttributes fileCreationDate]]];
+  [cell.titleLabel setText:container.fileName];
+  [cell.dateLabel setText:[[DateFormatter sharedInstance] dateToRelativeString:[container.fileAttributes fileCreationDate]]];
   
   return cell;
 }
@@ -139,11 +139,11 @@ typedef enum : NSUInteger {
 
   switch (indexPath.section) {
     case ContainersListSectionUnsigned: {
-      self.containerFileName = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
+      self.selectedContainer = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
       break;
     }
     case ContainersListSectionSigned: {
-      self.containerFileName = [self.filteredSignedContainers objectAtIndex:indexPath.row];
+      self.selectedContainer = [self.filteredSignedContainers objectAtIndex:indexPath.row];
       break;
     }
     default:
@@ -217,7 +217,7 @@ typedef enum : NSUInteger {
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
   if ([segue.identifier isEqualToString:@"ContainerDetailsSegue"]) {
     ContainerDetailsViewController *detailsViewController = [segue destinationViewController];
-    detailsViewController.containerFileName = self.containerFileName;
+    detailsViewController.container = self.selectedContainer;
     
   } else if ([segue.identifier isEqualToString:@"FileImportSegue"]) {
     UINavigationController *navController = [segue destinationViewController];
@@ -229,8 +229,8 @@ typedef enum : NSUInteger {
 
 
 #pragma mark - FileImportViewControllerDelegate
-- (void)openContainerDetailsWithName:(NSString *)containerFileName {
-  self.containerFileName = containerFileName;
+- (void)openContainerDetails:(MoppLibContainer *)container {
+  self.selectedContainer = container;
   [self performSegueWithIdentifier:@"ContainerDetailsSegue" sender:self];
 }
 

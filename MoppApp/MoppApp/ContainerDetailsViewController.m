@@ -11,8 +11,6 @@
 #import "ContainerDetailsDataFileCell.h"
 #import "ContainerDetailsSignatureCell.h"
 #import "DateFormatter.h"
-#import <MoppLib/MoppLib.h>
-#import "FileManager.h"
 #import "SimpleHeaderView.h"
 #import "UIColor+Additions.h"
 #import "UIViewController+MBProgressHUD.h"
@@ -24,8 +22,6 @@ typedef enum : NSUInteger {
 } ContainerDetailsSection;
 
 @interface ContainerDetailsViewController ()
-
-@property (strong, nonatomic) MoppLibContainer *container;
 
 @end
 
@@ -40,9 +36,6 @@ typedef enum : NSUInteger {
   
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   
-  NSString *filePath = [[FileManager sharedInstance] filePathWithFileName:self.containerFileName];
-
-  self.container = [[MoppLibManager sharedInstance] getContainerWithPath:filePath];
   [self.tableView reloadData];
 }
 
@@ -87,9 +80,8 @@ typedef enum : NSUInteger {
     case ContainerDetailsSectionHeader: {
       ContainerDetailsHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ContainerDetailsHeaderCell class]) forIndexPath:indexPath];
       
-      NSDictionary *fileAttributes = [[FileManager sharedInstance] fileAttributes:self.containerFileName];
-      [cell.titleLabel setText:self.containerFileName];
-      [cell.detailsLabel setText:Localizations.ContainerDetailsHeaderDetails([self.containerFileName pathExtension], [fileAttributes fileSize] / 1024)];
+      [cell.titleLabel setText:self.container.fileName];
+      [cell.detailsLabel setText:Localizations.ContainerDetailsHeaderDetails([self.container.filePath pathExtension], [self.container.fileAttributes fileSize] / 1024)];
       return cell;
       
       break;

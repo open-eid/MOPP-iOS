@@ -13,6 +13,6 @@
 + (MLFileManager *)sharedInstance;
 
 - (NSArray *)getContainers;
-- (NSString *)filePathWithFileName:(NSString *)fileName;
+- (NSDictionary *)fileAttributes:(NSString *)filePath;
 
 @end

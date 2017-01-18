@@ -53,11 +53,15 @@
     return [secondDate compare:firstDate];
   }];
   
-  return sortedContainers;
+  NSMutableArray *containerPaths = [NSMutableArray array];
+  for (NSString *containerName in sortedContainers) {
+    [containerPaths addObject:[self filePathWithFileName:containerName]];
+  }
+  return containerPaths;
 }
 
-- (NSDictionary *)fileAttributes:(NSString *)fileName {
-  NSDictionary *fileAttributes = [self.fileManager attributesOfItemAtPath:[self filePathWithFileName:fileName] error:nil];
+- (NSDictionary *)fileAttributes:(NSString *)filePath {
+  NSDictionary *fileAttributes = [self.fileManager attributesOfItemAtPath:filePath error:nil];
   if (fileAttributes) {
     return fileAttributes;
   }

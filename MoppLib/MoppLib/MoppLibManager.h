@@ -18,6 +18,6 @@
 - (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath;
 - (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath;
 - (MoppLibContainer *)addFileToContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath;
-- (NSArray *)getContainers:(BOOL)isSigned;
+- (NSArray *)getContainersIsSigned:(BOOL)isSigned;
 
 @end

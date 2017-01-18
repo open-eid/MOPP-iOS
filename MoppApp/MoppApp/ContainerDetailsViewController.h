@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MoppLib/MoppLib.h>
 
 @interface ContainerDetailsViewController : UITableViewController
 
-@property (strong, nonatomic) NSString *containerFileName;
+@property (strong, nonatomic) MoppLibContainer *container;
 
 @end

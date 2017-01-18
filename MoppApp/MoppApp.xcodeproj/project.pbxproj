@@ -58,6 +58,8 @@
 		E45EF5431E2D8D8000C37D43 /* ContainerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E45EF5421E2D8D8000C37D43 /* ContainerCell.xib */; };
 		E485A7871E2DF9A500C53DBF /* ButtonWithRoundedCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = E485A7861E2DF9A500C53DBF /* ButtonWithRoundedCorners.m */; };
 		E4C53F341E2F950D00F209BE /* InitializationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C53F331E2F950D00F209BE /* InitializationViewController.m */; };
+		E4C53F371E2FAE6C00F209BE /* datafile.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E4C53F351E2FAE6C00F209BE /* datafile.jpg */; };
+		E4C53F381E2FAE6C00F209BE /* datafile.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E4C53F361E2FAE6C00F209BE /* datafile.pdf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -164,6 +166,8 @@
 		E485A7861E2DF9A500C53DBF /* ButtonWithRoundedCorners.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonWithRoundedCorners.m; sourceTree = "<group>"; };
 		E4C53F321E2F950D00F209BE /* InitializationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitializationViewController.h; sourceTree = "<group>"; };
 		E4C53F331E2F950D00F209BE /* InitializationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitializationViewController.m; sourceTree = "<group>"; };
+		E4C53F351E2FAE6C00F209BE /* datafile.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = datafile.jpg; sourceTree = "<group>"; };
+		E4C53F361E2FAE6C00F209BE /* datafile.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = datafile.pdf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,6 +314,8 @@
 				E4180C341E267B5D00FD7B8C /* Localizations.m */,
 				E42B08A41E1D4EE900EA24A3 /* test1.bdoc */,
 				E42B08A51E1D4EE900EA24A3 /* test2.bdoc */,
+				E4C53F351E2FAE6C00F209BE /* datafile.jpg */,
+				E4C53F361E2FAE6C00F209BE /* datafile.pdf */,
 				E4180C361E26822000FD7B8C /* datafile.txt */,
 			);
 			name = "Supporting Files";
@@ -485,11 +491,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4C53F381E2FAE6C00F209BE /* datafile.pdf in Resources */,
 				E45EF5351E2D850400C37D43 /* Containers.storyboard in Resources */,
 				E4180C371E26822000FD7B8C /* datafile.txt in Resources */,
 				542DCB691E23856100899534 /* ErrorCell.xib in Resources */,
 				54813B301E24FD270058CD33 /* InfoCell.xib in Resources */,
 				545CF8481E16563200B66EE8 /* MyEid.storyboard in Resources */,
+				E4C53F371E2FAE6C00F209BE /* datafile.jpg in Resources */,
 				E45EF5431E2D8D8000C37D43 /* ContainerCell.xib in Resources */,
 				E42B08A61E1D4EE900EA24A3 /* test1.bdoc in Resources */,
 				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,

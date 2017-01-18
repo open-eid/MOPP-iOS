@@ -74,6 +74,11 @@ public:
 
 - (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath {
   MoppLibContainer *moppLibContainer = [MoppLibContainer new];
+  
+  [moppLibContainer setFileName:[containerPath lastPathComponent]];
+  [moppLibContainer setFilePath:containerPath];
+  [moppLibContainer setFileAttributes:[[MLFileManager sharedInstance] fileAttributes:containerPath]];
+  
   try {
     
     digidoc::Container *doc = digidoc::Container::open(containerPath.UTF8String);
@@ -98,7 +103,7 @@ public:
     for (int i = 0; i < doc->signatures().size(); i++) {
       digidoc::Signature *signature = doc->signatures().at(i);
       digidoc::X509Cert cert = signature->signingCertificate();
-      NSLog(@"Signature: %@", [NSString stringWithUTF8String:cert.subjectName("CN").c_str()]);
+//      NSLog(@"Signature: %@", [NSString stringWithUTF8String:cert.subjectName("CN").c_str()]);
       
       MoppLibSignature *moppLibSignature = [MoppLibSignature new];
       moppLibSignature.subjectName = [NSString stringWithUTF8String:cert.subjectName("CN").c_str()];
@@ -124,69 +129,6 @@ public:
     return nil;
   }
 }
-
-//- (void)getContainerWithPath:(NSString *)containerPath withSuccess:(ObjectSuccessBlock)success andFailure:(FailureBlock)failure {
-//  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//    
-//    MoppLibContainer *moppLibContainer = [MoppLibContainer new];
-//    try {
-//      
-//      digidoc::Container *doc = digidoc::Container::open(containerPath.UTF8String);
-//      
-//      // DataFiles
-//      NSMutableArray *dataFiles = [NSMutableArray array];
-//      
-//      for (int i = 0; i < doc->dataFiles().size(); i++) {
-//        digidoc::DataFile *dataFile = doc->dataFiles().at(i);
-//        
-//        MoppLibDataFile *moppLibDataFile = [MoppLibDataFile new];
-//        moppLibDataFile.fileName = [NSString stringWithUTF8String:dataFile->fileName().c_str()];
-//        moppLibDataFile.fileSize = dataFile->fileSize();
-//        
-//        [dataFiles addObject:moppLibDataFile];
-//      }
-//      moppLibContainer.dataFiles = [dataFiles copy];
-//      
-//      
-//      // Signatures
-//      NSMutableArray *signatures = [NSMutableArray array];
-//      for (int i = 0; i < doc->signatures().size(); i++) {
-//        digidoc::Signature *signature = doc->signatures().at(i);
-//        digidoc::X509Cert cert = signature->signingCertificate();
-//        NSLog(@"Signature: %@", [NSString stringWithUTF8String:cert.subjectName("CN").c_str()]);
-//        
-//        MoppLibSignature *moppLibSignature = [MoppLibSignature new];
-//        moppLibSignature.subjectName = [NSString stringWithUTF8String:cert.subjectName("CN").c_str()];
-//        
-//        moppLibSignature.timestamp = [[MLDateFormatter sharedInstance] YYYYMMddTHHmmssZToDate:[NSString stringWithUTF8String:signature->OCSPProducedAt().c_str()]];
-//        
-//        try {
-//          signature->validate();
-//          moppLibSignature.isValid = YES;
-//        }
-//        catch(const digidoc::Exception &e) {
-//          moppLibSignature.isValid = NO;
-//        }
-//        
-//        [signatures addObject:moppLibSignature];
-//      }
-//      moppLibContainer.signatures = [signatures copy];
-//      
-//      dispatch_async(dispatch_get_main_queue(), ^{
-//        success(moppLibContainer);
-//      });
-//      
-//    } catch(const digidoc::Exception &e) {
-//      NSLog(@"%s", e.msg().c_str());
-//      
-//      dispatch_async(dispatch_get_main_queue(), ^{
-//        failure(nil);
-//      });
-//    }
-//    
-//  });
-//}
-
 
 - (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath {
   NSLog(@"createContainerWithPath: %@, dataFilePath: %@", containerPath, dataFilePath);
@@ -230,12 +172,17 @@ public:
   return moppLibContainer;
 }
 
-- (NSArray *)getContainers:(BOOL)isSigned {
+- (NSArray *)getContainersIsSigned:(BOOL)isSigned {
   NSMutableArray *containers = [NSMutableArray array];
-  NSArray *containersNames = [[MLFileManager sharedInstance] getContainers];
-  for (NSString *containerFileName in containersNames) {
-    MoppLibContainer *moppLibContainer = [self getContainerWithPath:[[MLFileManager sharedInstance] filePathWithFileName:containerFileName]];
-    [containers addObject:moppLibContainer];
+  NSArray *containerPaths = [[MLFileManager sharedInstance] getContainers];
+  for (NSString *containerPath in containerPaths) {
+    MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath];
+    
+    if (isSigned && moppLibContainer.signatures.count > 0) {
+      [containers addObject:moppLibContainer];
+    } else if (!isSigned && moppLibContainer.signatures.count == 0){
+      [containers addObject:moppLibContainer];
+    }
   }
   return containers;
 }
