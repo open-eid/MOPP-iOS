@@ -10,11 +10,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="123" id="4vi-0E-Atq" customClass="ErrorCell">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="123" id="4vi-0E-Atq" customClass="ErrorCell">
             <rect key="frame" x="0.0" y="0.0" width="375" height="123"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4vi-0E-Atq" id="h2y-gr-Tdm">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="122"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="122.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eBt-x5-kXa" customClass="ViewWithRoundedCorners">

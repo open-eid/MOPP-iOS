@@ -38,7 +38,7 @@
                                     <segue destination="ZqK-mS-ico" kind="show" id="SZw-Cn-gcG"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SeparatorCell" rowHeight="30" id="HGb-3T-KnR">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SeparatorCell" rowHeight="30" id="HGb-3T-KnR">
                                 <rect key="frame" x="0.0" y="100" width="375" height="30"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HGb-3T-KnR" id="KM3-Ej-kbI">
@@ -140,18 +140,30 @@
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES"/>
+                                                <connections>
+                                                    <action selector="textFieldEditingChanged:" destination="ZqK-mS-ico" eventType="editingChanged" id="39M-dA-4Tc"/>
+                                                    <outlet property="delegate" destination="ZqK-mS-ico" id="Uqq-au-5To"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Uus PIN1" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PlJ-m6-Lyl">
                                                 <rect key="frame" x="15" y="288" width="296" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES"/>
+                                                <connections>
+                                                    <action selector="textFieldEditingChanged:" destination="ZqK-mS-ico" eventType="editingChanged" id="hL1-7O-VFB"/>
+                                                    <outlet property="delegate" destination="ZqK-mS-ico" id="rxh-LU-XiS"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Uus PIN1" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1vH-Vh-8zy">
                                                 <rect key="frame" x="15" y="372" width="296" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES"/>
+                                                <connections>
+                                                    <action selector="textFieldEditingChanged:" destination="ZqK-mS-ico" eventType="editingChanged" id="gaY-q0-3lp"/>
+                                                    <outlet property="delegate" destination="ZqK-mS-ico" id="kSh-Na-2D3"/>
+                                                </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ifa-SS-hvM">
                                                 <rect key="frame" x="316" y="281" width="44" height="44"/>
@@ -311,6 +323,7 @@
                         <outlet property="CurrentPinLabel" destination="CTh-QK-wTG" id="q0W-9B-kU9"/>
                         <outlet property="currentPinErrorLabel" destination="55K-oj-Eeh" id="mvZ-1E-q6o"/>
                         <outlet property="currentPinField" destination="Puo-Q3-Ph1" id="3nG-7f-zsd"/>
+                        <outlet property="okButton" destination="rJ6-rG-be6" id="8kd-hN-wra"/>
                         <outlet property="pinErrorLabel" destination="i6K-Wl-aZj" id="iOV-xP-JkE"/>
                         <outlet property="pinField" destination="PlJ-m6-Lyl" id="gPc-TF-a1f"/>
                         <outlet property="pinLabel" destination="jCY-xp-ahD" id="6CV-P2-zPb"/>
