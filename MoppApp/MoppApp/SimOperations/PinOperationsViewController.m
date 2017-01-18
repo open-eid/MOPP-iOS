@@ -20,6 +20,8 @@ typedef enum : NSUInteger {
   PinOperationsCellChangePin2,
   PinOperationsCellUnblockPin1,
   PinOperationsCellUnblockPin2,
+  PinOperationsCellErrorPin1Blocked,
+  PinOperationsCellErrorPin2Blocked,
   PinOperationsCellSeparator
   
 } PinOperationsCell;
@@ -118,6 +120,14 @@ typedef enum : NSUInteger {
   } else {
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
 
+    if (self.pin1RetryCount.integerValue == 0) {
+      [cellData addObject:[NSNumber numberWithInt:PinOperationsCellErrorPin1Blocked]];
+    }
+    
+    if (self.pin2RetryCount.integerValue == 0) {
+      [cellData addObject:[NSNumber numberWithInt:PinOperationsCellErrorPin2Blocked]];
+    }
+    
     if (self.pin1RetryCount) {
       if (self.pin1RetryCount.intValue > 0) {
         [cellData addObject:[NSNumber numberWithUnsignedInteger:PinOperationsCellChangePin1]];
@@ -224,6 +234,16 @@ NSString *readerNotFoundPath2 = @"myeid://readerNotConnected";
   NSNumber *cellType = self.cellData[indexPath.row];
   
   switch (cellType.unsignedIntegerValue) {
+      
+    case PinOperationsCellErrorPin1Blocked:
+    case PinOperationsCellErrorPin2Blocked: {
+      ErrorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ErrorCell" forIndexPath:indexPath];
+      cell.errorTextView.delegate = self;
+      cell.type = ErrorCellTypeError;
+      cell.errorTextView.text = Localizations.PinActionsPinBlocked(cellType.unsignedIntegerValue == PinOperationsCellErrorPin1Blocked ? Localizations.PinActionsPin1 : Localizations.PinActionsPin2);
+      return cell;
+    }
+
     case PinOperationsCellSeparator: {
       UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SeparatorCell"];
       return cell;

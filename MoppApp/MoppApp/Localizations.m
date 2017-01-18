@@ -51,6 +51,12 @@
     return NSLocalizedStringFromTable(@"my-eid-birth", nil, nil);
 }
 
+- (NSString *(^)(NSString *))PinActionsPinBlocked {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-pin-blocked", nil, nil), value1];
+    };
+}
+
 - (NSString *(^)(NSString *))PinActionsSuccessPinChanged {
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-success-pin-changed", nil, nil), value1];
@@ -139,10 +145,6 @@
 
 - (NSString *)ContainerDetailsSignatureInvalid {
     return NSLocalizedStringFromTable(@"container-details-signature-invalid", nil, nil);
-}
-
-- (NSString *)MyEidPinActionsView {
-    return NSLocalizedStringFromTable(@"my-eid-pin-actions-view", nil, nil);
 }
 
 - (NSString *)ContainerDetailsDatafileSectionHeader {
@@ -285,9 +287,9 @@
     };
 }
 
-- (NSString *(^)(NSString *, NSString *, NSString *))MyEidPinBlocked {
-    return ^(NSString * value1 , NSString * value2 , NSString * value3) {
-        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-pin-blocked", nil, nil), value1, value2, value3];
+- (NSString *(^)(NSString *))PinActionsNewPin {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-new-pin", nil, nil), value1];
     };
 }
 
@@ -299,12 +301,6 @@
 
 - (NSString *)MyEidIdCardInfoLink {
     return NSLocalizedStringFromTable(@"my-eid-id-card-info-link", nil, nil);
-}
-
-- (NSString *(^)(NSString *))PinActionsNewPin {
-    return ^(NSString * value1) {
-        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-new-pin", nil, nil), value1];
-    };
 }
 
 - (NSString *)MyEidEid {

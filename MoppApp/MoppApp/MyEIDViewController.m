@@ -29,8 +29,6 @@ typedef enum : NSUInteger {
 typedef enum : NSUInteger {
   PersonalDataCellTypeErrorNoReader,
   PersonalDataCellTypeErrorNoCard,
-  PersonalDataCellTypeErrorPin1Blocked,
-  PersonalDataCellTypeErrorPin2Blocked,
   PersonalDataCellTypeInfo,
   PersonalDataCellTypeName,
   PersonalDataCellTypeSurname,
@@ -73,7 +71,6 @@ typedef enum : NSUInteger {
   self.pin2RetryCount = [NSNumber numberWithInt:-1];
 
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardStatusChanged) name:kMoppLibNotificationReaderStatusChanged object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(retryCounterChanged) name:kMoppLibNotificationRetryCounterChanged object:nil];
 
   UINib *nib = [UINib nibWithNibName:@"ErrorCell" bundle:nil];
   [self.tableView registerNib:nib forCellReuseIdentifier:@"ErrorCell"];
@@ -198,15 +195,6 @@ typedef enum : NSUInteger {
       
     } else if (self.isCardInserted == NO) {
       [errors addObject:[NSNumber numberWithInt:PersonalDataCellTypeErrorNoCard]];
-      
-    } else {
-      if (self.pin1RetryCount.integerValue == 0) {
-        [errors addObject:[NSNumber numberWithInt:PersonalDataCellTypeErrorPin1Blocked]];
-      }
-      
-      if (self.pin2RetryCount.integerValue == 0) {
-        [errors addObject:[NSNumber numberWithInt:PersonalDataCellTypeErrorPin2Blocked]];
-      }
     }
   
   if (errors.count > 0) {
@@ -240,10 +228,6 @@ typedef enum : NSUInteger {
   self.sectionData = array;
 }
 
-- (void)retryCounterChanged {
-  [self updateRetryCounters];
-}
-
 - (void)cardStatusChanged {
   self.isReaderConnected = [MoppLibCardActions isReaderConnected];
   
@@ -256,13 +240,6 @@ typedef enum : NSUInteger {
       [self updateRetryCounters];
     }
   }];
-}
-
-NSString *pinBlockedPath = @"myeid://pinBlocked";
-
-- (void)setupPinBlockedMessage:(UITextView *)textView withPinString:(NSString *)pin {
-  NSString *tapHere = Localizations.MyEidPinActionsView;
-  [textView setLinkedText:Localizations.MyEidPinBlocked(pin, pin, tapHere) withLinks:@{pinBlockedPath:tapHere}];
 }
 
 NSString *readerNotFoundPath = @"myeid://readerNotConnected";
@@ -313,19 +290,15 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
   PersonalDataCellType cellType = [self cellTypeForRow:indexPath.row inSection:indexPath.section];
   
   switch (cellType) {
-    case PersonalDataCellTypeErrorPin1Blocked:
-    case PersonalDataCellTypeErrorPin2Blocked:
     case PersonalDataCellTypeErrorNoCard:
     case PersonalDataCellTypeErrorNoReader: {
       ErrorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ErrorCell" forIndexPath:indexPath];
       cell.errorTextView.delegate = self;
-      cell.type = cellType == PersonalDataCellTypeErrorPin1Blocked || cellType == PersonalDataCellTypeErrorPin2Blocked ? ErrorCellTypeError : ErrorCellTypeWarning;
+      cell.type = ErrorCellTypeWarning;
       if (cellType == PersonalDataCellTypeErrorNoReader) {
         [self setupReaderNotFoundMessage:cell.errorTextView];
       } else if (cellType == PersonalDataCellTypeErrorNoCard) {
         cell.errorTextView.text = Localizations.MyEidWarningCardNotFound;
-      } else {
-        [self setupPinBlockedMessage:cell.errorTextView withPinString:cellType == PersonalDataCellTypeErrorPin1Blocked ? Localizations.PinActionsPin1 : Localizations.PinActionsPin2];
       }
       return cell;
     }
@@ -540,12 +513,6 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
     
   } else if ([[URL absoluteString] isEqualToString:idCardIntroPath]) {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:Localizations.MyEidIdCardInfoLink]];
-  
-  } else if ([[URL absoluteString] isEqualToString:pinBlockedPath]) {
-    // Navigate to PIN actions view
-    if ([self.navigationController.parentViewController isKindOfClass:[UITabBarController class]]) {
-      ((UITabBarController *)self.navigationController.parentViewController).selectedIndex = 2;
-    }
   }
   return YES; // let the system open this URL
 }
