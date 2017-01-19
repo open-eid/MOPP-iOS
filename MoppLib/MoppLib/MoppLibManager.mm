@@ -19,13 +19,13 @@
 #import "MLDateFormatter.h"
 #import "MLFileManager.h"
 
-class DigiDocConf: public digidoc::XmlConf {
+class DigiDocConf: public digidoc::ConfCurrent {
 public:
   std::string TSLCache() const
   {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
     NSString *libraryDirectory = [paths objectAtIndex:0];
-    NSLog(@"libraryDirectory: %@", libraryDirectory);
+//    NSLog(@"libraryDirectory: %@", libraryDirectory);
     return libraryDirectory.UTF8String;
   }
   

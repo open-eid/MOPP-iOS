@@ -56,14 +56,14 @@
 }
 
 - (void)filterContainers:(NSString *)searchString {
-  MSLog(@"searchString: %@", searchString);
+//  MSLog(@"searchString: %@", searchString);
   [self.tableView reloadData];
 }
 
 
 #pragma mark - UISearchResultsUpdating
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-  MSLog(@"updateSearchResultsForSearchController");
+//  MSLog(@"updateSearchResultsForSearchController");
   [self filterContainers:searchController.searchBar.text];
 }
 
