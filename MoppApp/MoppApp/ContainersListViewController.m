@@ -186,7 +186,27 @@ typedef enum : NSUInteger {
 
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-  return YES;
+  switch (indexPath.section) {
+    case ContainersListSectionUnsigned: {
+      if (self.filteredUnsignedContainers.count == 0) {
+        return NO;
+      } else {
+        return YES;
+      }
+      break;
+    }
+    case ContainersListSectionSigned: {
+      if (self.filteredSignedContainers.count == 0) {
+        return NO;
+      } else {
+        return YES;
+      }
+      break;
+    }
+    default:
+      return NO;
+      break;
+  }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
