@@ -62,6 +62,8 @@
 		E4C53F381E2FAE6C00F209BE /* datafile.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E4C53F361E2FAE6C00F209BE /* datafile.pdf */; };
 		E4C53F4B1E30D03500F209BE /* DefaultsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C53F4A1E30D03500F209BE /* DefaultsHelper.m */; };
 		E4C53F4E1E30D13100F209BE /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C53F4D1E30D13100F209BE /* Session.m */; };
+		E4C53F521E30D7EA00F209BE /* NoContainersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C53F501E30D7EA00F209BE /* NoContainersCell.m */; };
+		E4C53F551E30D88500F209BE /* NoContainersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4C53F541E30D88500F209BE /* NoContainersCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -174,6 +176,9 @@
 		E4C53F4A1E30D03500F209BE /* DefaultsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultsHelper.m; sourceTree = "<group>"; };
 		E4C53F4C1E30D13100F209BE /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
 		E4C53F4D1E30D13100F209BE /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
+		E4C53F4F1E30D7EA00F209BE /* NoContainersCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoContainersCell.h; sourceTree = "<group>"; };
+		E4C53F501E30D7EA00F209BE /* NoContainersCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoContainersCell.m; sourceTree = "<group>"; };
+		E4C53F541E30D88500F209BE /* NoContainersCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoContainersCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,6 +375,9 @@
 				E42B08A81E1D4EF500EA24A3 /* ContainerCell.h */,
 				E42B08A91E1D4EF500EA24A3 /* ContainerCell.m */,
 				E45EF5421E2D8D8000C37D43 /* ContainerCell.xib */,
+				E4C53F4F1E30D7EA00F209BE /* NoContainersCell.h */,
+				E4C53F501E30D7EA00F209BE /* NoContainersCell.m */,
+				E4C53F541E30D88500F209BE /* NoContainersCell.xib */,
 				E45EF53D1E2D8A4F00C37D43 /* Containers list */,
 				E45EF53C1E2D8A4A00C37D43 /* File import */,
 				E45EF53E1E2D8A7000C37D43 /* Container details */,
@@ -513,6 +521,7 @@
 				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
 				542DCB641E1FDFC900899534 /* PinOperations.storyboard in Resources */,
+				E4C53F551E30D88500F209BE /* NoContainersCell.xib in Resources */,
 				540786F41E1AA1B30016ABA7 /* SimpleHeaderView.xib in Resources */,
 				54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */,
 				E42B08A71E1D4EE900EA24A3 /* test2.bdoc in Resources */,
@@ -628,6 +637,7 @@
 				E4250CCB1E0968D200530370 /* AppDelegate.m in Sources */,
 				545CF8511E165DEC00B66EE8 /* ErrorCell.m in Sources */,
 				E42B08AE1E1EFC1800EA24A3 /* DateFormatter.m in Sources */,
+				E4C53F521E30D7EA00F209BE /* NoContainersCell.m in Sources */,
 				E42B08B91E1F0C7500EA24A3 /* ContainerDetailsViewController.m in Sources */,
 				E45EF5381E2D855400C37D43 /* BaseContainersListViewController.m in Sources */,
 				E4250CC81E0968D200530370 /* main.m in Sources */,

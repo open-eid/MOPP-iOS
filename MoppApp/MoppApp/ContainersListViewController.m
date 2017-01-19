@@ -13,6 +13,7 @@
 #import "ContainerDetailsViewController.h"
 #import "SimpleHeaderView.h"
 #import <MoppLib/MoppLib.h>
+#import "NoContainersCell.h"
 
 typedef enum : NSUInteger {
   ContainersListSectionUnsigned,
@@ -104,11 +105,19 @@ typedef enum : NSUInteger {
   NSInteger count = 0;
   switch (section) {
     case ContainersListSectionUnsigned: {
-      count = self.filteredUnsignedContainers.count;
+      if (self.filteredUnsignedContainers.count > 0) {
+        count = self.filteredUnsignedContainers.count;
+      } else {
+        count = 1;
+      }
       break;
     }
     case ContainersListSectionSigned: {
-      count = self.filteredSignedContainers.count;
+      if (self.filteredSignedContainers.count > 0) {
+        count = self.filteredSignedContainers.count;
+      } else {
+        count = 1;
+      }
       break;
     }
       
@@ -120,26 +129,41 @@ typedef enum : NSUInteger {
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  ContainerCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ContainerCell class]) forIndexPath:indexPath];
   
   MoppLibContainer *container;
   switch (indexPath.section) {
     case ContainersListSectionUnsigned: {
-      container = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
+      if (self.filteredUnsignedContainers.count > 0) {
+        MoppLibContainer *container = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
+        ContainerCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ContainerCell class]) forIndexPath:indexPath];
+        [cell.titleLabel setText:container.fileName];
+        [cell.dateLabel setText:[[DateFormatter sharedInstance] dateToRelativeString:[container.fileAttributes fileCreationDate]]];
+        return cell;
+      } else {
+        NoContainersCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NoContainersCell class]) forIndexPath:indexPath];
+        return cell;
+      }
       break;
     }
     case ContainersListSectionSigned: {
-      container = [self.filteredSignedContainers objectAtIndex:indexPath.row];
+      if (self.filteredSignedContainers.count > 0) {
+        MoppLibContainer *container = [self.filteredSignedContainers objectAtIndex:indexPath.row];
+        ContainerCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ContainerCell class]) forIndexPath:indexPath];
+        [cell.titleLabel setText:container.fileName];
+        [cell.dateLabel setText:[[DateFormatter sharedInstance] dateToRelativeString:[container.fileAttributes fileCreationDate]]];
+        return cell;
+      } else {
+        NoContainersCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NoContainersCell class]) forIndexPath:indexPath];
+        return cell;
+      }
       break;
     }
     default:
       break;
   }
   
-  [cell.titleLabel setText:container.fileName];
-  [cell.dateLabel setText:[[DateFormatter sharedInstance] dateToRelativeString:[container.fileAttributes fileCreationDate]]];
   
-  return cell;
+  return nil;
 }
 
 #pragma mark - UITableViewDelegate
@@ -148,10 +172,16 @@ typedef enum : NSUInteger {
 
   switch (indexPath.section) {
     case ContainersListSectionUnsigned: {
+      if (self.filteredUnsignedContainers.count == 0) {
+        return;
+      }
       self.selectedContainer = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
       break;
     }
     case ContainersListSectionSigned: {
+      if (self.filteredSignedContainers.count == 0) {
+        return;
+      }
       self.selectedContainer = [self.filteredSignedContainers objectAtIndex:indexPath.row];
       break;
     }

@@ -10,6 +10,7 @@
 #import "FileManager.h"
 #import "ContainerCell.h"
 #import "DateFormatter.h"
+#import "NoContainersCell.h"
 
 @interface FileImportViewController ()
 
@@ -84,24 +85,34 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return self.filteredUnsignedContainers.count;
+  if (self.filteredUnsignedContainers.count > 0) {
+    return self.filteredUnsignedContainers.count;
+  } else {
+    return 1;
+  }
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  ContainerCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ContainerCell class]) forIndexPath:indexPath];
-  
-  MoppLibContainer *container = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
-  
-  [cell.titleLabel setText:container.fileName];
-  [cell.dateLabel setText:[[DateFormatter sharedInstance] dateToRelativeString:[container.fileAttributes fileCreationDate]]];
-  
-  return cell;
+  if (self.filteredUnsignedContainers.count > 0) {
+    MoppLibContainer *container = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
+    ContainerCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ContainerCell class]) forIndexPath:indexPath];
+    [cell.titleLabel setText:container.fileName];
+    [cell.dateLabel setText:[[DateFormatter sharedInstance] dateToRelativeString:[container.fileAttributes fileCreationDate]]];
+    return cell;
+  } else {
+    NoContainersCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NoContainersCell class]) forIndexPath:indexPath];
+    return cell;
+  }
 }
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
+  
+  if (self.filteredUnsignedContainers.count == 0) {
+    return;
+  }
   
   MoppLibContainer *container = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
   container = [[MoppLibManager sharedInstance] addDataFileToContainerWithPath:container.filePath withDataFilePath:self.dataFilePath];

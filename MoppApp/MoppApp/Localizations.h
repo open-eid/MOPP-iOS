@@ -169,6 +169,9 @@
 - (NSString *(^)(NSString *))PinActionsNewPin;
 /// Base translation: Format: %@ | Size: %ld kb
 - (NSString *(^)(NSString *, long))ContainerDetailsHeaderDetails;
+/// Base translation: No containers found
+- (NSString *)NoContainersCellTitle;
+
 /// Base translation: https://www.politsei.ee/en/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/
 - (NSString *)MyEidIdCardInfoLink;
 

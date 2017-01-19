@@ -307,6 +307,10 @@
     };
 }
 
+- (NSString *)NoContainersCellTitle {
+    return NSLocalizedStringFromTable(@"no-containers-cell-title", nil, nil);
+}
+
 - (NSString *)MyEidIdCardInfoLink {
     return NSLocalizedStringFromTable(@"my-eid-id-card-info-link", nil, nil);
 }
