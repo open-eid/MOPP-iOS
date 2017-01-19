@@ -8,8 +8,10 @@
 
 #import "ChangePinViewController.h"
 #import <MoppLib/MoppLib.h>
+#import "ButtonWithRoundedCorners.h"
+#import "UIColor+Additions.h"
 
-@interface ChangePinViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface ChangePinViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *currentPinField;
 @property (weak, nonatomic) IBOutlet UITextField *pinField;
 @property (weak, nonatomic) IBOutlet UITextField *pinRepeatedField;
@@ -23,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *currentPinErrorLabel;
 @property (weak, nonatomic) IBOutlet UILabel *pinErrorLabel;
 @property (weak, nonatomic) IBOutlet UILabel *repeatedPinErrorLabel;
+@property (weak, nonatomic) IBOutlet ButtonWithRoundedCorners *okButton;
 @end
 
 @implementation ChangePinViewController
@@ -44,6 +47,7 @@ NSInteger repeatedPinDoesntMatch = 20000;
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
   
   [self setupViewController];
+  [self updateOkButton];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -107,6 +111,19 @@ NSInteger repeatedPinDoesntMatch = 20000;
   self.currentPinErrorLabel.text = nil;
   self.pinErrorLabel.text = nil;
   self.repeatedPinErrorLabel.text = nil;
+}
+
+- (void)updateOkButton {
+  if (self.pinField.text.length > 0 && self.currentPinField.text.length > 0 && self.pinRepeatedField.text.length > 0) {
+    self.okButton.enabled = YES;
+    self.okButton.alpha = 1;
+    self.okButton.backgroundColor = [UIColor darkBlue];
+  } else {
+    self.okButton.enabled = NO;
+    self.okButton.alpha = 0.5;
+    self.okButton.backgroundColor = [UIColor grayColor];
+
+  }
 }
 
 - (IBAction)infoTapped:(id)sender {
@@ -383,6 +400,9 @@ NSInteger repeatedPinDoesntMatch = 20000;
   UIEdgeInsets contentInsets = UIEdgeInsetsZero;
   self.scrollView.contentInset = contentInsets;
   self.scrollView.scrollIndicatorInsets = contentInsets;
+}
+- (IBAction)textFieldEditingChanged:(id)sender {
+  [self updateOkButton];
 }
 
 /*

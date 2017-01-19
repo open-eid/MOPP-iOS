@@ -66,6 +66,10 @@ static CardActionsManager *sharedInstance = nil;
   return sharedInstance;
 }
 
+- (void)testMethod {
+  NSLog(@"Just testing");
+}
+
 - (NSMutableArray *)cardActions {
   if (!_cardActions) {
     _cardActions = [NSMutableArray new];
@@ -79,7 +83,7 @@ static CardActionsManager *sharedInstance = nil;
   [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
 }
 
-- (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure {
+- (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void (^)(MoppLibPersonalData *))success failure:(void (^)(NSError *))failure {
   [self addCardAction:CardActionReadPublicData data:nil viewController:controller success:success failure:failure];
 }
 
@@ -223,7 +227,7 @@ static CardActionsManager *sharedInstance = nil;
     }];
   } else {
     UINavigationController *navController = [[UIStoryboard storyboardWithName:@"ReaderSelection" bundle:[NSBundle bundleForClass:[ReaderSelectionViewController class]]] instantiateInitialViewController];
-    ReaderSelectionViewController *viewController = [navController topViewController];
+    ReaderSelectionViewController *viewController = (ReaderSelectionViewController *)[navController topViewController];
     viewController.delegate = self;
     [action.controller presentViewController:navController animated:YES completion:^{
       

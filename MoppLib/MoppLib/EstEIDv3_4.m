@@ -136,7 +136,7 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   } failure:failure];
   
   [self navigateToFile5044WithSuccess:^(NSData *responseObject) {
-    readNotes1();
+    readNotes4();
   } failure:failure];
 }
 
@@ -324,9 +324,9 @@ int maxReadLength = 254;
       if (markerLocation.location != NSNotFound) {
         
         NSData *bytesData = [responseObject subdataWithRange:NSMakeRange(markerLocation.location + 1, 1)];
-        int *bytesLength = [[bytesData toHexString] hexToInt];
+        int bytesLength = [[bytesData toHexString] hexToInt];
         NSData *lengthData = [responseObject subdataWithRange:NSMakeRange(markerLocation.location + 2, bytesLength)];
-        int *length = [[lengthData toHexString] hexToInt];
+        int length = [[lengthData toHexString] hexToInt];
         
         [self readBinaryWithLength:length startingFrom:0 readData:[NSData new] success:^(NSData *data) {
           success(data);

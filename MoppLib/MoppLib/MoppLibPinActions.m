@@ -18,19 +18,19 @@
   } failure:failure];
 }
 
-+ (void)changePin1To:(NSNumber *)newPin1 withPuk:(NSNumber *)puk viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure {
++ (void)changePin1To:(NSString *)newPin1 withPuk:(NSString *)puk viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure {
   [self verifyType:CodeTypePin1 pin:newPin1 andVerificationCode:puk viewController:controller success:^{
     [[CardActionsManager sharedInstance] changePin:CodeTypePin1 withPuk:puk to:newPin1 viewController:controller success:success failure:failure];
   } failure:failure];
 }
 
-+ (void)changePin2To:(NSNumber *)newPin2 withOldPin2:(NSNumber *)oldPin2 viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure {
++ (void)changePin2To:(NSString *)newPin2 withOldPin2:(NSString *)oldPin2 viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure {
   [self verifyType:CodeTypePin2 pin:newPin2 andVerificationCode:oldPin2 viewController:controller success:^{
     [[CardActionsManager sharedInstance] changeCode:CodeTypePin2 withVerifyCode:oldPin2 to:newPin2 viewController:controller success:success failure:failure];
   } failure:failure];
 }
 
-+ (void)changePin2To:(NSNumber *)newPin2 withPuk:(NSNumber *)puk viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure {
++ (void)changePin2To:(NSString *)newPin2 withPuk:(NSString *)puk viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure {
   [self verifyType:CodeTypePin2 pin:newPin2 andVerificationCode:puk viewController:controller success:^{
     [[CardActionsManager sharedInstance] changePin:CodeTypePin2 withPuk:puk to:newPin2 viewController:controller success:success failure:failure];
   } failure:failure];

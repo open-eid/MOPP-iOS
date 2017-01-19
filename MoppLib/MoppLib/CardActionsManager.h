@@ -15,6 +15,9 @@
 @interface CardActionsManager : NSObject
 + (CardActionsManager *)sharedInstance;
 
+- (void)testMethod;
+
+  
 - (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void(^)(MoppLibPersonalData *))success failure:(void(^)(NSError *))failure;
 
 - (void)cardOwnerBirthDateWithViewController:(UIViewController *)controller success:(void(^)(NSDate *date))success failure:(void(^)(NSError *error))failure;
