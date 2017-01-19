@@ -60,6 +60,8 @@
 		E4C53F341E2F950D00F209BE /* InitializationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C53F331E2F950D00F209BE /* InitializationViewController.m */; };
 		E4C53F371E2FAE6C00F209BE /* datafile.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E4C53F351E2FAE6C00F209BE /* datafile.jpg */; };
 		E4C53F381E2FAE6C00F209BE /* datafile.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E4C53F361E2FAE6C00F209BE /* datafile.pdf */; };
+		E4C53F4B1E30D03500F209BE /* DefaultsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C53F4A1E30D03500F209BE /* DefaultsHelper.m */; };
+		E4C53F4E1E30D13100F209BE /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C53F4D1E30D13100F209BE /* Session.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -168,6 +170,10 @@
 		E4C53F331E2F950D00F209BE /* InitializationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitializationViewController.m; sourceTree = "<group>"; };
 		E4C53F351E2FAE6C00F209BE /* datafile.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = datafile.jpg; sourceTree = "<group>"; };
 		E4C53F361E2FAE6C00F209BE /* datafile.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = datafile.pdf; sourceTree = "<group>"; };
+		E4C53F491E30D03500F209BE /* DefaultsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultsHelper.h; sourceTree = "<group>"; };
+		E4C53F4A1E30D03500F209BE /* DefaultsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultsHelper.m; sourceTree = "<group>"; };
+		E4C53F4C1E30D13100F209BE /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
+		E4C53F4D1E30D13100F209BE /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,7 +301,6 @@
 				E4250D121E0AA93F00530370 /* Base */,
 				540786EA1E1A8BE90016ABA7 /* View */,
 				E4250D0B1E0AA84A00530370 /* ViewController */,
-				E4180C2D1E267A5900FD7B8C /* Settings */,
 				E42B08AB1E1EFC0500EA24A3 /* Utility */,
 				E4250CC61E0968D200530370 /* Supporting Files */,
 			);
@@ -324,12 +329,13 @@
 		E4250D0B1E0AA84A00530370 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				E4C53F321E2F950D00F209BE /* InitializationViewController.h */,
+				E4C53F331E2F950D00F209BE /* InitializationViewController.m */,
 				E42B08961E1562D500EA24A3 /* Landing */,
 				E42B08971E1562E500EA24A3 /* Documents */,
 				545CF8431E1642ED00B66EE8 /* MyEID */,
 				542DCB621E1FD2F000899534 /* PinOperations */,
-				E4C53F321E2F950D00F209BE /* InitializationViewController.h */,
-				E4C53F331E2F950D00F209BE /* InitializationViewController.m */,
+				E4180C2D1E267A5900FD7B8C /* Settings */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -378,6 +384,10 @@
 				E42B08AD1E1EFC1800EA24A3 /* DateFormatter.m */,
 				E42B08AF1E1F049B00EA24A3 /* FileManager.h */,
 				E42B08B01E1F049B00EA24A3 /* FileManager.m */,
+				E4C53F491E30D03500F209BE /* DefaultsHelper.h */,
+				E4C53F4A1E30D03500F209BE /* DefaultsHelper.m */,
+				E4C53F4C1E30D13100F209BE /* Session.h */,
+				E4C53F4D1E30D13100F209BE /* Session.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -597,8 +607,10 @@
 				54825EF51E1CFE9600253FF0 /* NSDate+Additions.m in Sources */,
 				540786F01E1A96900016ABA7 /* SimpleHeaderView.m in Sources */,
 				542DCB671E1FE02900899534 /* PinOperationsViewController.m in Sources */,
+				E4C53F4B1E30D03500F209BE /* DefaultsHelper.m in Sources */,
 				E4250D151E0AA97B00530370 /* MPNavigationController.m in Sources */,
 				54813B2E1E24DD560058CD33 /* ChangePinViewController.m in Sources */,
+				E4C53F4E1E30D13100F209BE /* Session.m in Sources */,
 				E42B08951E15617200EA24A3 /* LandingTabBarController.m in Sources */,
 				E42B08AA1E1D4EF500EA24A3 /* ContainerCell.m in Sources */,
 				E42B088F1E155F2F00EA24A3 /* MPViewController.m in Sources */,

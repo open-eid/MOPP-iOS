@@ -57,6 +57,9 @@
 
 /// Base translation: Current %@ code
 - (NSString *(^)(NSString *))PinActionsCurrentPin;
+/// Base translation: New container format
+- (NSString *)SettingsNewContainerFormat;
+
 /// Base translation: Changing %@
 - (NSString *(^)(NSString *))PinActionsChangingPin;
 /// Base translation: Current %@ was wrong. You have %i tries left.

@@ -8,6 +8,7 @@
 
 #import "FileManager.h"
 #import "DateFormatter.h"
+#import "DefaultsHelper.h"
 
 @interface FileManager ()
 
@@ -43,11 +44,7 @@
 }
 
 - (NSString *)createTestContainer {
-  NSString *extension = @"bdoc";
-  if (arc4random_uniform(2) == 0) {
-    extension = @"asice";
-  }
-  NSString *fileName = [NSString stringWithFormat:@"%@.%@", [[DateFormatter sharedInstance] HHmmssddMMYYYYToString:[NSDate date]], extension];
+  NSString *fileName = [NSString stringWithFormat:@"%@.%@", [[DateFormatter sharedInstance] HHmmssddMMYYYYToString:[NSDate date]], [DefaultsHelper getNewContainerFormat]];
   
   NSString *bdocPath = [[NSBundle mainBundle] pathForResource:@"test1" ofType:@"bdoc"];
   NSData *bdocData = [NSData dataWithContentsOfFile:bdocPath];

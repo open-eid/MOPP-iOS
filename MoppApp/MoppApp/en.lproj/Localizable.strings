@@ -94,3 +94,7 @@
 "pin-actions-verification-option" = "Using current %@ code";
 "pin-actions-unblocking-pin" = "Unblocking %@:";
 "pin-actions-repeated-pin-doesnt-match" = "New %@ and repeated %@ are different.";
+
+
+// *** Settings ***
+"settings-new-container-format" = "New container format";

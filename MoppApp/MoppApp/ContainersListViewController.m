@@ -55,8 +55,6 @@ typedef enum : NSUInteger {
   self.unsignedContainers = [[MoppLibManager sharedInstance] getContainersIsSigned:NO];
   self.signedContainers = [[MoppLibManager sharedInstance] getContainersIsSigned:YES];
   
-//  self.unsignedContainers = [[FileManager sharedInstance] getContainers];
-//  self.signedContainers = [[FileManager sharedInstance] getContainers];
   self.filteredUnsignedContainers = self.unsignedContainers;
   self.filteredSignedContainers = self.signedContainers;
   

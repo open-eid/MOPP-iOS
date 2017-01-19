@@ -101,6 +101,10 @@
     };
 }
 
+- (NSString *)SettingsNewContainerFormat {
+    return NSLocalizedStringFromTable(@"settings-new-container-format", nil, nil);
+}
+
 - (NSString *(^)(NSString *))PinActionsChangingPin {
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-changing-pin", nil, nil), value1];

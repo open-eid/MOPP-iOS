@@ -99,3 +99,7 @@
 "pin-actions-verification-option" = "Kasutades kehtivat %@ koodi";
 "pin-actions-unblocking-pin" = "%@ blokeeringu tühistamine:";
 "pin-actions-repeated-pin-doesnt-match" = "Uus %@ ja uus %@ uuesti on erinevad";
+
+
+// *** Settings ***
+"settings-new-container-format" = "Uue dokumendi formaat";

@@ -13,6 +13,7 @@
 #import "ContainersListViewController.h"
 #import "FileManager.h"
 #import "InitializationViewController.h"
+#import "Session.h"
 
 @interface AppDelegate ()
 
@@ -24,6 +25,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  
+  [[Session sharedInstance] setup];
   
   [[UINavigationBar appearance] setTranslucent:NO]; // Set navBar not translucent by default.
   
