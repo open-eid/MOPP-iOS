@@ -11,6 +11,7 @@
 #import "ContainerCell.h"
 #import "DateFormatter.h"
 #import "NoContainersCell.h"
+#import "DefaultsHelper.h"
 
 @interface FileImportViewController ()
 
@@ -48,7 +49,7 @@
 }
 
 - (void)createNewContainer {
-  NSString *containerFileName = [NSString stringWithFormat:@"%@.bdoc", [[self.dataFilePath lastPathComponent] stringByDeletingPathExtension]];
+  NSString *containerFileName = [NSString stringWithFormat:@"%@.%@", [[self.dataFilePath lastPathComponent] stringByDeletingPathExtension], [DefaultsHelper getNewContainerFormat]];
   NSString *containerPath = [[FileManager sharedInstance] filePathWithFileName:containerFileName];
   MoppLibContainer *container = [[MoppLibManager sharedInstance] createContainerWithPath:containerPath withDataFilePath:self.dataFilePath];
   

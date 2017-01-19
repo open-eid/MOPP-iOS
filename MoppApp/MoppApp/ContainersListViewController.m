@@ -47,9 +47,6 @@ typedef enum : NSUInteger {
   // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
   self.navigationItem.rightBarButtonItem = self.editButtonItem;
   [self setEditing:NO]; // Update edit button title.
-  
-  UIBarButtonItem *importButton = [[UIBarButtonItem alloc] initWithTitle:@"Fake import" style:UIBarButtonItemStylePlain target:self action:@selector(imitateDataFileImport)];
-  [self.navigationItem setLeftBarButtonItem:importButton];
 }
 
 - (void)reloadData {
@@ -83,11 +80,6 @@ typedef enum : NSUInteger {
   [super filterContainers:searchString];
 }
 
-#warning - test method
-- (void)imitateDataFileImport {
-  NSString *dataFilePath = [[NSBundle mainBundle] pathForResource:@"datafile" ofType:@"jpg"];
-  self.dataFilePath = dataFilePath;
-}
 
 #pragma mark - File importing
 - (void)setDataFilePath:(NSString *)dataFilePath {

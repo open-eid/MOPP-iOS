@@ -34,7 +34,7 @@ NSString *const CellIdentifier = @"CellIdentifier";
   
   self.settingsArray = @[@[@(SettingsCellTypeNewContainerFormat)],
                          @[
-//                           @(SettingsCellTypeImportFile),
+                           @(SettingsCellTypeImportFile),
                            @(SettingsCellTypeDuplicateContainer)]];
   
   [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
@@ -74,19 +74,29 @@ NSString *const CellIdentifier = @"CellIdentifier";
   UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"Initiate file import"
                                                                        message:nil
                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
-  [actionSheet addAction:[UIAlertAction actionWithTitle:@"datafile.jpg"
+  [actionSheet addAction:[UIAlertAction actionWithTitle:@"image.jpg"
                                                   style:UIAlertActionStyleDefault
                                                 handler:^(UIAlertAction * _Nonnull action) {
-                                                  NSString *filePath = [[NSBundle mainBundle] pathForResource:@"datafile" ofType:@"jpg"];
-                                                  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:filePath]];
-//                                                  [appDelegate application:nil openURL:nil sourceApplication:nil annotation:nil];
-//                                                  [appDelegate application:[UIApplication sharedApplication] openURL:[NSURL URLWithString:filePath] options:nil];
+                                                  NSString *filePath = [[NSBundle mainBundle] pathForResource:@"image" ofType:@"jpg"];
+                                                  NSURL *fileUrl = [NSURL URLWithString:filePath];
+                                                  [appDelegate application:[UIApplication sharedApplication] openURL:fileUrl sourceApplication:nil annotation:nil];
                                                 }]];
-//  [actionSheet addAction:[UIAlertAction actionWithTitle:ContainerFormatAsice
-//                                                  style:UIAlertActionStyleDefault
-//                                                handler:^(UIAlertAction * _Nonnull action) {
-//                                                  [DefaultsHelper setNewContainerFormat:ContainerFormatAsice];
-//                                                }]];
+
+  [actionSheet addAction:[UIAlertAction actionWithTitle:@"presentation.pdf"
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action) {
+                                                  NSString *filePath = [[NSBundle mainBundle] pathForResource:@"presentation" ofType:@"pdf"];
+                                                  NSURL *fileUrl = [NSURL URLWithString:filePath];
+                                                  [appDelegate application:[UIApplication sharedApplication] openURL:fileUrl sourceApplication:nil annotation:nil];
+                                                }]];
+  
+  [actionSheet addAction:[UIAlertAction actionWithTitle:@"datafile.txt"
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action) {
+                                                  NSString *filePath = [[NSBundle mainBundle] pathForResource:@"datafile" ofType:@"txt"];
+                                                  NSURL *fileUrl = [NSURL URLWithString:filePath];
+                                                  [appDelegate application:[UIApplication sharedApplication] openURL:fileUrl sourceApplication:nil annotation:nil];
+                                                }]];
   
   [actionSheet addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel
                                                   style:UIAlertActionStyleCancel
