@@ -18,15 +18,6 @@ typedef NS_ENUM(NSUInteger, CodeType) {
   CodeTypePin2 = 2
 };
 
-typedef NS_ENUM(NSUInteger, AlgorythmType) {
-  AlgorythmTypeSHA1 = 0,
-  AlgorythmTypeSHA224 = 1,
-  AlgorythmTypeSHA256 = 2,
-  AlgorythmTypeSHA384 = 3,
-  AlgorythmTypeSHA512 = 4
-
-};
-
 extern NSString *const kCommandSelectFileMaster;
 extern NSString *const kCommandSelectFileEEEE;
 extern NSString *const kCommandSelectFile0016;
@@ -44,6 +35,13 @@ extern NSString *const kCommandSetSecurityEnv;
 extern NSString *const kCommandVerifyCode;
 extern NSString *const kCommandCalculateSignature;
 extern NSString *const kCommandResetRetryCounter;
+
+
+extern NSString *const kAlgorythmIdentifyerSHA1;
+extern NSString *const kAlgorythmIdentifyerSHA224;
+extern NSString *const kAlgorythmIdentifyerSHA256;
+extern NSString *const kAlgorythmIdentifyerSHA384;
+extern NSString *const kAlgorythmIdentifyerSHA512;
 
 @protocol CardCommands <NSObject>
 
@@ -137,7 +135,7 @@ extern NSString *const kCommandResetRetryCounter;
  * @param success       block to be executed when action is completed successfully
  * @param failure       block to be executed when action fails
  */
-- (void)calculateSignatureFor:(NSString *)hash withPin2:(NSString *)pin2 success:(void (^)(NSData *data))success failure:(FailureBlock)failure;
+- (void)calculateSignatureFor:(NSData *)hash withPin2:(NSString *)pin2 success:(void (^)(NSData *data))success failure:(FailureBlock)failure;
 
 
 - (void)setSecurityEnvironment:(NSUInteger)env withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
