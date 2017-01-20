@@ -18,6 +18,15 @@ typedef NS_ENUM(NSUInteger, CodeType) {
   CodeTypePin2 = 2
 };
 
+typedef NS_ENUM(NSUInteger, AlgorythmType) {
+  AlgorythmTypeSHA1 = 0,
+  AlgorythmTypeSHA224 = 1,
+  AlgorythmTypeSHA256 = 2,
+  AlgorythmTypeSHA384 = 3,
+  AlgorythmTypeSHA512 = 4
+
+};
+
 extern NSString *const kCommandSelectFileMaster;
 extern NSString *const kCommandSelectFileEEEE;
 extern NSString *const kCommandSelectFile0016;
@@ -120,7 +129,16 @@ extern NSString *const kCommandResetRetryCounter;
  */
 - (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure;
 
-- (void)calculateSignature:(NSString *)hash withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
+/**
+ * Calculates signature for hash
+ *
+ * @param hash          hash to be signed
+ * @param pin2          PIN 2 to be used for verification
+ * @param success       block to be executed when action is completed successfully
+ * @param failure       block to be executed when action fails
+ */
+- (void)calculateSignatureFor:(NSString *)hash withPin2:(NSString *)pin2 success:(void (^)(NSData *data))success failure:(FailureBlock)failure;
+
 
 - (void)setSecurityEnvironment:(NSUInteger)env withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
 

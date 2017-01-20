@@ -28,3 +28,8 @@ NSString *const kCommandVerifyCode = @"00 20 00 %02X %02X %@";
 NSString *const kCommandCalculateSignature = @"00 2A 9E 9A %@";
 NSString *const kCommandResetRetryCounter = @"00 2C 00 %02X %02X %@ %@";
 
+NSString *const kAlgorythmIdentifyerSHA1 = @"3021300906052B0E03021A05000414";
+NSString *const kAlgorythmIdentifyerSHA224 = @"302D300D06096086480165030402040500041C";
+NSString *const kAlgorythmIdentifyerSHA256 = @"3031300D060960864801650304020105000420";
+NSString *const kAlgorythmIdentifyerSHA384 = @"3041300D060960864801650304020205000430";
+NSString *const kAlgorythmIdentifyerSHA512 = @"3051300D060960864801650304020305000440";

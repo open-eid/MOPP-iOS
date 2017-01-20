@@ -24,9 +24,11 @@ typedef NS_ENUM(NSUInteger, CardAction) {
   CardActionPinRetryCount,
   CardActionReadSigningCert,
   CardActionReadAuthenticationCert,
-  CardActionReadOwnerBirthDate
+  CardActionReadOwnerBirthDate,
+  CardActionCalculateSignature
 };
 
+NSString *const kCardActionDataHash = @"Hash";
 NSString *const kCardActionDataCodeType = @"Code type";
 NSString *const kCardActionDataNewCode = @"New code";
 NSString *const kCardActionDataVerify = @"Verify";
@@ -124,6 +126,11 @@ static CardActionsManager *sharedInstance = nil;
   [self addCardAction:CardActionUnblockPin data:data viewController:controller success:^(id data) {
     success();
   } failure:failure];
+}
+
+- (void)calculateSignatureFor:(NSString *)hash pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
+  NSDictionary *data = @{kCardActionDataHash:hash, kCardActionDataVerify:pin2};
+  [self addCardAction:CardActionCalculateSignature data:data viewController:controller success:success failure:failure];
 }
 
 - (void)notifyIdNeeded:(NSError *)error {
@@ -308,6 +315,13 @@ static CardActionsManager *sharedInstance = nil;
       
     case CardActionReadOwnerBirthDate: {
         [self.cardVersionHandler readBirthDateWithSuccess:success failure:failure];
+      break;
+    }
+      
+    case CardActionCalculateSignature: {
+      NSString *pin2 = [actionObject.data objectForKey:kCardActionDataVerify];
+      NSString *hash = [actionObject.data objectForKey:kCardActionDataHash];
+      [self.cardVersionHandler calculateSignatureFor:hash withPin2:pin2 success:success failure:failure];
       break;
     }
       

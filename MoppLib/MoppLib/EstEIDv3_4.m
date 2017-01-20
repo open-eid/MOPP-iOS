@@ -189,12 +189,27 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   } failure:failure];
 }
 
-- (void)calculateSignature:(NSString *)hash withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
+- (void)calculateSignatureFor:(NSString *)hash withPin2:(NSString *)pin2 success:(void (^)(NSData *data))success failure:(FailureBlock)failure {
   // TODO: support all hash algorithm identifyers
-  NSString *algorithmIdentifyer = @"3021300906052B0E03021A05000414";
-  NSString *lengthString = [NSString stringWithFormat:@"%i", hash.length + algorithmIdentifyer.length / 2];
-  NSString *commandSufix = [NSString stringWithFormat:@"%@ %@ %@", [lengthString toHexString], algorithmIdentifyer, [hash toHexString]];
-  [self.reader transmitCommand:[NSString stringWithFormat:kCommandSetSecurityEnv, commandSufix] success:success failure:failure];
+  
+  void (^calculateSignature)(NSData *) = ^void (NSData *responseObject) {
+    NSString *algorithmIdentifyer = AlgorythmTypeSHA1;
+    NSString *commandSufix = [NSString stringWithFormat:@"%02X %@ %@", hash.length + algorithmIdentifyer.length / 2, algorithmIdentifyer, [hash toHexString]];
+    [self.reader transmitCommand:[NSString stringWithFormat:kCommandCalculateSignature, commandSufix] success:success failure:failure];
+  };
+  
+  void (^verifyPin2)(NSData *) = ^void (NSData *responseObject) {
+    [self verifyCode:pin2 ofType:CodeTypePin2 withSuccess:calculateSignature failure:failure];
+  };
+  
+  void (^setSecurityEnv)(NSData *) = ^void (NSData *responseObject) {
+    [self setSecurityEnvironment:1 withSuccess:verifyPin2 failure:failure];
+  };
+  
+  [self navigateToFileEEEEWithSuccess:setSecurityEnv failure:failure];
+  
+  
+  NSString *algorithmIdentifyer = AlgorythmTypeSHA1;
 }
 
 - (void)setSecurityEnvironment:(NSUInteger)env withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
