@@ -76,7 +76,7 @@
 "pin-actions-change-pin" = "Muuda %@";
 "pin-actions-unblock-pin" = "Tühista %@ blokeering";
 "pin-actions-changing-pin" = "%@ muutmine";
-"pin-actions-unblocking-pin" = "%@ blokeeringu tühistamine";
+"pin-actions-title-unblocking-pin" = "%@ blokeeringu tühistamine";
 "pin-actions-current-pin" = "Kehtiv %@ kood";
 "pin-actions-new-pin" = "Uus %@ kood";
 "pin-actions-repeat-pin" = "Uus %@ kood uuesti";

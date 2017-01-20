@@ -71,7 +71,7 @@
 "pin-actions-change-pin" = "Change %@";
 "pin-actions-unblock-pin" = "Unblock %@";
 "pin-actions-changing-pin" = "Changing %@";
-"pin-actions-unblocking-pin" = "Unblocking %@";
+"pin-actions-title-unblocking-pin" = "Unblocking %@";
 "pin-actions-current-pin" = "Current %@ code";
 "pin-actions-new-pin" = "New %@ code";
 "pin-actions-repeat-pin" = "Repeat new %@ code";

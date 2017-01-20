@@ -105,6 +105,8 @@
 /// Base translation: E-mail:
 - (NSString *)MyEidEmail;
 
+/// Base translation: Unblocking %@
+- (NSString *(^)(NSString *))PinActionsTitleUnblockingPin;
 /// Base translation: My eID
 - (NSString *)TabMyEid;
 
@@ -146,11 +148,11 @@
 /// Base translation: Signature certificate
 - (NSString *)MyEidSignatureCertificate;
 
-/// Base translation: Changing %@:
-- (NSString *(^)(NSString *))PinActionsVerificationTitle;
 /// Base translation: PIN1
 - (NSString *)PinActionsPin1;
 
+/// Base translation: Changing %@:
+- (NSString *(^)(NSString *))PinActionsVerificationTitle;
 /// Base translation: OK
 - (NSString *)ActionOk;
 

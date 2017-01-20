@@ -185,6 +185,12 @@
     return NSLocalizedStringFromTable(@"my-eid-email", nil, nil);
 }
 
+- (NSString *(^)(NSString *))PinActionsTitleUnblockingPin {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-title-unblocking-pin", nil, nil), value1];
+    };
+}
+
 - (NSString *)TabMyEid {
     return NSLocalizedStringFromTable(@"tab-my-eid", nil, nil);
 }
@@ -263,14 +269,14 @@
     return NSLocalizedStringFromTable(@"my-eid-signature-certificate", nil, nil);
 }
 
+- (NSString *)PinActionsPin1 {
+    return NSLocalizedStringFromTable(@"pin-actions-pin1", nil, nil);
+}
+
 - (NSString *(^)(NSString *))PinActionsVerificationTitle {
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-verification-title", nil, nil), value1];
     };
-}
-
-- (NSString *)PinActionsPin1 {
-    return NSLocalizedStringFromTable(@"pin-actions-pin1", nil, nil);
 }
 
 - (NSString *)ActionOk {
