@@ -125,6 +125,7 @@ static CardActionsManager *sharedInstance = nil;
 - (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure {
   NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:type], kCardActionDataVerify:puk, kCardActionDataNewCode:newCode};
   [self addCardAction:CardActionUnblockPin data:data viewController:controller success:^(id data) {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationRetryCounterChanged object:nil];
     success();
   } failure:failure];
 }

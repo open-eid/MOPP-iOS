@@ -82,6 +82,9 @@
 /// Base translation: is not valid
 - (NSString *)ContainerDetailsSignatureInvalid;
 
+/// Base translation: PIN actions view
+- (NSString *)MyEidPinActionsView;
+
 /// Base translation: Files
 - (NSString *)ContainerDetailsDatafileSectionHeader;
 
@@ -167,8 +170,8 @@
 
 /// Base translation: Signature %@
 - (NSString *(^)(NSString *))ContainerDetailsSignaturePrefix;
-/// Base translation: New %@ code
-- (NSString *(^)(NSString *))PinActionsNewPin;
+/// Base translation: %@ is blocked. You can unblock %@ in %@.
+- (NSString *(^)(NSString *, NSString *, NSString *))MyEidPinBlocked;
 /// Base translation: Format: %@ | Size: %ld kb
 - (NSString *(^)(NSString *, long))ContainerDetailsHeaderDetails;
 /// Base translation: No containers found
@@ -186,6 +189,8 @@
 /// Base translation: Valid until:
 - (NSString *)MyEidValidUntil;
 
+/// Base translation: New %@ code
+- (NSString *(^)(NSString *))PinActionsNewPin;
 /// Base translation: Surname:
 - (NSString *)MyEidSurname;
 

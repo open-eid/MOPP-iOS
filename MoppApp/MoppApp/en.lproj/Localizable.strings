@@ -62,6 +62,8 @@
 "my-eid-signature-certificate" = "Signature certificate";
 "my-eid-my-eid" = "My eID";
 "my-eid-id-card-info-link" = "https://www.politsei.ee/en/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/";
+"my-eid-pin-blocked" = "%@ is blocked. You can unblock %@ in %@.";
+"my-eid-pin-actions-view" = "PIN actions view";
 
 
 // *** PIN actions ***
