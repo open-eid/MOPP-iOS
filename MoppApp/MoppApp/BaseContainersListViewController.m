@@ -8,6 +8,7 @@
 
 #import "BaseContainersListViewController.h"
 #import "ContainerCell.h"
+#import "NoContainersCell.h"
 
 @interface BaseContainersListViewController ()
 
@@ -22,14 +23,14 @@
   
   self.definesPresentationContext = YES;
   
-  [self.tableView setDataSource:self];
-  [self.tableView setDelegate:self];
+  UINib *containerCellNib = [UINib nibWithNibName:NSStringFromClass([ContainerCell class]) bundle:nil];
+  [self.tableView registerNib:containerCellNib forCellReuseIdentifier:NSStringFromClass([ContainerCell class])];
   
-  UINib *nib = [UINib nibWithNibName:NSStringFromClass([ContainerCell class]) bundle:nil];
-  [self.tableView registerNib:nib forCellReuseIdentifier:NSStringFromClass([ContainerCell class])];
+  UINib *noContainersCellNib = [UINib nibWithNibName:NSStringFromClass([NoContainersCell class]) bundle:nil];
+  [self.tableView registerNib:noContainersCellNib forCellReuseIdentifier:NSStringFromClass([NoContainersCell class])];
   
   // UISearchController
-//  self.extendedLayoutIncludesOpaqueBars = YES; // Remove empty tableHeaderView when activating search bar.
+  self.extendedLayoutIncludesOpaqueBars = YES; // Remove empty tableHeaderView when activating search bar.
   
   self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
   self.searchController.searchResultsUpdater = self;
@@ -55,14 +56,14 @@
 }
 
 - (void)filterContainers:(NSString *)searchString {
-  MSLog(@"searchString: %@", searchString);
+//  MSLog(@"searchString: %@", searchString);
   [self.tableView reloadData];
 }
 
 
 #pragma mark - UISearchResultsUpdating
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-  MSLog(@"updateSearchResultsForSearchController");
+//  MSLog(@"updateSearchResultsForSearchController");
   [self filterContainers:searchController.searchBar.text];
 }
 

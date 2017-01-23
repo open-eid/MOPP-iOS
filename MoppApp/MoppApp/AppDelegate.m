@@ -12,6 +12,8 @@
 #import "LandingTabBarController.h"
 #import "ContainersListViewController.h"
 #import "FileManager.h"
+#import "InitializationViewController.h"
+#import "Session.h"
 
 @interface AppDelegate ()
 
@@ -24,6 +26,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   
+  [[Session sharedInstance] setup];
+  
   [[UINavigationBar appearance] setTranslucent:NO]; // Set navBar not translucent by default.
   
   self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -34,12 +38,17 @@
   [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
   [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
 
-  self.tabBarController = [[UIStoryboard storyboardWithName:@"Landing" bundle:nil] instantiateInitialViewController];
-  self.window.rootViewController = self.tabBarController;
+  InitializationViewController *initializationViewController = [[InitializationViewController alloc] init];
+  self.window.rootViewController = initializationViewController;
   
   [self.window makeKeyAndVisible];
   
   return YES;
+}
+
+- (void)setupTabController {
+  self.tabBarController = [[UIStoryboard storyboardWithName:@"Landing" bundle:nil] instantiateInitialViewController];
+  self.window.rootViewController = self.tabBarController;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {

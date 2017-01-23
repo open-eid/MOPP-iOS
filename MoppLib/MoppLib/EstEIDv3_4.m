@@ -10,6 +10,7 @@
 #import "NSData+Additions.h"
 #import "NSString+Additions.h"
 #import "MoppLibError.h"
+#import <CommonCrypto/CommonDigest.h>
 
 NSString *const kCardErrorCorruptDataWarning = @"62 81";
 NSString *const kCardErrorEndOfFile = @"62 82";
@@ -189,12 +190,46 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   } failure:failure];
 }
 
-- (void)calculateSignature:(NSString *)hash withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
-  // TODO: support all hash algorithm identifyers
-  NSString *algorithmIdentifyer = @"3021300906052B0E03021A05000414";
-  NSString *lengthString = [NSString stringWithFormat:@"%i", hash.length + algorithmIdentifyer.length / 2];
-  NSString *commandSufix = [NSString stringWithFormat:@"%@ %@ %@", [lengthString toHexString], algorithmIdentifyer, [hash toHexString]];
-  [self.reader transmitCommand:[NSString stringWithFormat:kCommandSetSecurityEnv, commandSufix] success:success failure:failure];
+- (void)calculateSignatureFor:(NSData *)hash withPin2:(NSString *)pin2 success:(void (^)(NSData *data))success failure:(FailureBlock)failure {  
+  void (^calculateSignature)(NSData *) = ^void (NSData *responseObject) {
+    NSString *algorithmIdentifyer;
+    switch (hash.length) {
+      case CC_SHA1_DIGEST_LENGTH:
+        algorithmIdentifyer = kAlgorythmIdentifyerSHA1;
+        break;
+        
+      case CC_SHA224_DIGEST_LENGTH:
+        algorithmIdentifyer = kAlgorythmIdentifyerSHA224;
+        break;
+        
+      case CC_SHA256_DIGEST_LENGTH:
+        algorithmIdentifyer = kAlgorythmIdentifyerSHA256;
+        break;
+        
+      case CC_SHA384_DIGEST_LENGTH:
+        algorithmIdentifyer = kAlgorythmIdentifyerSHA384;
+        break;
+        
+      case CC_SHA512_DIGEST_LENGTH:
+        algorithmIdentifyer = kAlgorythmIdentifyerSHA512;
+        break;
+        
+      default:
+        break;
+    }
+    NSString *commandSufix = [NSString stringWithFormat:@"%02X %@ %@", hash.length + algorithmIdentifyer.length / 2, algorithmIdentifyer, [hash toHexString]];
+    [self.reader transmitCommand:[NSString stringWithFormat:kCommandCalculateSignature, commandSufix] success:success failure:failure];
+  };
+  
+  void (^verifyPin2)(NSData *) = ^void (NSData *responseObject) {
+    [self verifyCode:pin2 ofType:CodeTypePin2 withSuccess:calculateSignature failure:failure];
+  };
+  
+  void (^setSecurityEnv)(NSData *) = ^void (NSData *responseObject) {
+    [self setSecurityEnvironment:1 withSuccess:verifyPin2 failure:failure];
+  };
+  
+  [self navigateToFileEEEEWithSuccess:setSecurityEnv failure:failure];
 }
 
 - (void)setSecurityEnvironment:(NSUInteger)env withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {

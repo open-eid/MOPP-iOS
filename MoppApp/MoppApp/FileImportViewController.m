@@ -10,11 +10,11 @@
 #import "FileManager.h"
 #import "ContainerCell.h"
 #import "DateFormatter.h"
-#import <MoppLib/MoppLib.h>
+#import "NoContainersCell.h"
+#import "DefaultsHelper.h"
 
 @interface FileImportViewController ()
 
-@property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 @property (strong, nonatomic) NSArray *unsignedContainers;
 @property (strong, nonatomic) NSArray *filteredUnsignedContainers;
 
@@ -27,15 +27,21 @@
   
   [self setTitle:Localizations.FileImportTitle];
   
-  [self.infoLabel setText:Localizations.FileImportInfo([self.dataFilePath lastPathComponent])];
-  
   self.unsignedContainers = [NSArray array];
   
-  UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:Localizations.Cancel style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonPressed)];
+  UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:Localizations.ActionCancel style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonPressed)];
   [self.navigationItem setRightBarButtonItem:cancelButton];
   
   UIBarButtonItem *createContainerButton = [[UIBarButtonItem alloc] initWithTitle:Localizations.FileImportCreateContainerButton style:UIBarButtonItemStylePlain target:self action:@selector(createNewContainer)];
   [self.navigationItem setLeftBarButtonItem:createContainerButton];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.FileImportTitle message:Localizations.FileImportInfo([self.dataFilePath lastPathComponent]) preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:nil]];
+  [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)cancelButtonPressed {
@@ -43,20 +49,22 @@
 }
 
 - (void)createNewContainer {
-  NSString *containerFileName = [NSString stringWithFormat:@"%@.bdoc", [[self.dataFilePath lastPathComponent] stringByDeletingPathExtension]];
+  NSString *containerFileName = [NSString stringWithFormat:@"%@.%@", [[self.dataFilePath lastPathComponent] stringByDeletingPathExtension], [DefaultsHelper getNewContainerFormat]];
   NSString *containerPath = [[FileManager sharedInstance] filePathWithFileName:containerFileName];
-  [[MoppLibManager sharedInstance] createContainerWithPath:containerPath withDataFilePath:self.dataFilePath];
-  [[FileManager sharedInstance] removeFileWithPath:self.dataFilePath];
+  MoppLibContainer *container = [[MoppLibManager sharedInstance] createContainerWithPath:containerPath withDataFilePath:self.dataFilePath];
+  
+#warning - remove file
+//  [[FileManager sharedInstance] removeFileWithPath:self.dataFilePath];
   
   [self.navigationController dismissViewControllerAnimated:YES completion:^{
     if (self.delegate) {
-      [self.delegate openContainerDetailsWithName:containerFileName];
+      [self.delegate openContainerDetails:container];
     }
   }];
 }
 
 - (void)reloadData {
-  self.unsignedContainers = [[FileManager sharedInstance] getContainers];
+  self.unsignedContainers = [[MoppLibManager sharedInstance] getContainersIsSigned:NO];
   self.filteredUnsignedContainers = self.unsignedContainers;
   
   [super reloadData];
@@ -66,7 +74,7 @@
   if (searchString.length == 0) {
     self.filteredUnsignedContainers = self.unsignedContainers;
   } else {
-    self.filteredUnsignedContainers = [self.unsignedContainers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchString]];
+    self.filteredUnsignedContainers = [self.unsignedContainers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.fileName contains[c] %@", searchString]];
   }
   [super filterContainers:searchString];
 }
@@ -78,34 +86,43 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return self.filteredUnsignedContainers.count;
+  if (self.filteredUnsignedContainers.count > 0) {
+    return self.filteredUnsignedContainers.count;
+  } else {
+    return 1;
+  }
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  ContainerCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ContainerCell class]) forIndexPath:indexPath];
-  
-  NSString *fileName = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
-  
-  NSDictionary *fileAttributes = [[FileManager sharedInstance] fileAttributes:fileName];
-  [cell.titleLabel setText:fileName];
-  [cell.dateLabel setText:[[DateFormatter sharedInstance] dateToRelativeString:[fileAttributes fileCreationDate]]];
-  
-  return cell;
+  if (self.filteredUnsignedContainers.count > 0) {
+    MoppLibContainer *container = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
+    ContainerCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ContainerCell class]) forIndexPath:indexPath];
+    [cell.titleLabel setText:container.fileName];
+    [cell.dateLabel setText:[[DateFormatter sharedInstance] dateToRelativeString:[container.fileAttributes fileCreationDate]]];
+    return cell;
+  } else {
+    NoContainersCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NoContainersCell class]) forIndexPath:indexPath];
+    return cell;
+  }
 }
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   
-  NSString *containerFileName = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
-  NSString *containerPath = [[FileManager sharedInstance] filePathWithFileName:containerFileName];
-  [[MoppLibManager sharedInstance] addFileToContainerWithPath:containerPath withDataFilePath:self.dataFilePath];
-  [[FileManager sharedInstance] removeFileWithPath:self.dataFilePath];
+  if (self.filteredUnsignedContainers.count == 0) {
+    return;
+  }
+  
+  MoppLibContainer *container = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
+  container = [[MoppLibManager sharedInstance] addDataFileToContainerWithPath:container.filePath withDataFilePath:self.dataFilePath];
+#warning - remove file
+//  [[FileManager sharedInstance] removeFileWithPath:self.dataFilePath];
   
   [self.navigationController dismissViewControllerAnimated:YES completion:^{
     if (self.delegate) {
-      [self.delegate openContainerDetailsWithName:containerFileName];
+      [self.delegate openContainerDetails:container];
     }
   }];
 }

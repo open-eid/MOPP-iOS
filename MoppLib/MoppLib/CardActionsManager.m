@@ -15,6 +15,7 @@
 #import "EstEIDv3_5.h"
 #import "CBManagerHelper.h"
 #import "MoppLibCertificate.h"
+#import <CommonCrypto/CommonDigest.h>
 
 typedef NS_ENUM(NSUInteger, CardAction) {
   CardActionReadPublicData,
@@ -24,9 +25,11 @@ typedef NS_ENUM(NSUInteger, CardAction) {
   CardActionPinRetryCount,
   CardActionReadSigningCert,
   CardActionReadAuthenticationCert,
-  CardActionReadOwnerBirthDate
+  CardActionReadOwnerBirthDate,
+  CardActionCalculateSignature
 };
 
+NSString *const kCardActionDataHash = @"Hash";
 NSString *const kCardActionDataCodeType = @"Code type";
 NSString *const kCardActionDataNewCode = @"New code";
 NSString *const kCardActionDataVerify = @"Verify";
@@ -122,8 +125,14 @@ static CardActionsManager *sharedInstance = nil;
 - (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure {
   NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:type], kCardActionDataVerify:puk, kCardActionDataNewCode:newCode};
   [self addCardAction:CardActionUnblockPin data:data viewController:controller success:^(id data) {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationRetryCounterChanged object:nil];
     success();
   } failure:failure];
+}
+
+- (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure {
+  NSDictionary *data = @{kCardActionDataHash:hash, kCardActionDataVerify:pin2};
+  [self addCardAction:CardActionCalculateSignature data:data viewController:controller success:success failure:failure];
 }
 
 - (void)notifyIdNeeded:(NSError *)error {
@@ -131,6 +140,41 @@ static CardActionsManager *sharedInstance = nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationRetryCounterChanged object:nil];
   }
 }
+
+// For testing. Can be removed later
+/*- (void)testSigning:(NSString *)string {
+  NSData *sha = [self stringToSha256:string];
+  [self calculateSignatureFor:sha pin2:@"98171" controller:nil success:^(NSData *data) {
+    NSLog(@"Calculate signature success");
+
+  } failure:^(NSError *error) {
+    NSLog(@"Calculate signature failure");
+
+  }];
+}
+
+- (NSData *)stringToSha1:(NSString *)str {
+  NSMutableData *dataToHash = [[NSMutableData alloc] init];
+  [dataToHash appendData:[str dataUsingEncoding:NSUTF8StringEncoding]];
+  
+  unsigned char hashBytes[CC_SHA1_DIGEST_LENGTH];
+  CC_SHA1([dataToHash bytes], [dataToHash length], hashBytes);
+  NSData *encodedData = [NSData dataWithBytes:hashBytes length:CC_SHA1_DIGEST_LENGTH];
+  
+  return encodedData;
+}
+
+- (NSData *)stringToSha256:(NSString *)str {
+  NSMutableData *dataToHash = [[NSMutableData alloc] init];
+  [dataToHash appendData:[str dataUsingEncoding:NSUTF8StringEncoding]];
+  
+  unsigned char hashBytes[CC_SHA256_DIGEST_LENGTH];
+  CC_SHA256([dataToHash bytes], [dataToHash length], hashBytes);
+  NSData *encodedData = [NSData dataWithBytes:hashBytes length:CC_SHA256_DIGEST_LENGTH];
+  
+  return encodedData;
+}
+*/
 
 /**
  * Adds card action to queue. One card action may require sending multiple commands to id card. These commands often must be executed in specific order. For that reason we must make sure commands from different card actions are not mixed.
@@ -308,6 +352,13 @@ static CardActionsManager *sharedInstance = nil;
       
     case CardActionReadOwnerBirthDate: {
         [self.cardVersionHandler readBirthDateWithSuccess:success failure:failure];
+      break;
+    }
+      
+    case CardActionCalculateSignature: {
+      NSString *pin2 = [actionObject.data objectForKey:kCardActionDataVerify];
+      NSData *hash = [actionObject.data objectForKey:kCardActionDataHash];
+      [self.cardVersionHandler calculateSignatureFor:hash withPin2:pin2 success:success failure:failure];
       break;
     }
       

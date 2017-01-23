@@ -59,6 +59,9 @@
 
 /// Base translation: Current %@ code
 - (NSString *(^)(NSString *))PinActionsCurrentPin;
+/// Base translation: New container format
+- (NSString *)SettingsNewContainerFormat;
+
 /// Base translation: Changing %@
 - (NSString *(^)(NSString *))PinActionsChangingPin;
 /// Base translation: Current %@ was wrong. You have %i tries left.
@@ -66,7 +69,7 @@
 /// Base translation: Document
 - (NSString *)ContainerDetailsTitle;
 
-/// Base translation: You are currenty importing file named "%@". Please select unsigned document or create new one.
+/// Base translation: %@  Please select unsigned document or create new one.
 - (NSString *(^)(NSString *))FileImportInfo;
 /// Base translation: Used:
 - (NSString *)MyEidUseCount;
@@ -78,6 +81,9 @@
 
 /// Base translation: is not valid
 - (NSString *)ContainerDetailsSignatureInvalid;
+
+/// Base translation: PIN actions view
+- (NSString *)MyEidPinActionsView;
 
 /// Base translation: Files
 - (NSString *)ContainerDetailsDatafileSectionHeader;
@@ -102,6 +108,8 @@
 /// Base translation: E-mail:
 - (NSString *)MyEidEmail;
 
+/// Base translation: Unblocking %@
+- (NSString *(^)(NSString *))PinActionsTitleUnblockingPin;
 /// Base translation: My eID
 - (NSString *)TabMyEid;
 
@@ -113,6 +121,9 @@
 
 /// Base translation: Citizenship:
 - (NSString *)MyEidCitizenship;
+
+/// Base translation: Delete
+- (NSString *)ActionDelete;
 
 /// Base translation: Using current %@ code
 - (NSString *(^)(NSString *))PinActionsVerificationOption;
@@ -140,11 +151,11 @@
 /// Base translation: Signature certificate
 - (NSString *)MyEidSignatureCertificate;
 
-/// Base translation: Changing %@:
-- (NSString *(^)(NSString *))PinActionsVerificationTitle;
 /// Base translation: PIN1
 - (NSString *)PinActionsPin1;
 
+/// Base translation: Changing %@:
+- (NSString *(^)(NSString *))PinActionsVerificationTitle;
 /// Base translation: OK
 - (NSString *)ActionOk;
 
@@ -159,22 +170,27 @@
 
 /// Base translation: Signature %@
 - (NSString *(^)(NSString *))ContainerDetailsSignaturePrefix;
-/// Base translation: New %@ code
-- (NSString *(^)(NSString *))PinActionsNewPin;
+/// Base translation: %@ is blocked. You can unblock %@ in %@.
+- (NSString *(^)(NSString *, NSString *, NSString *))MyEidPinBlocked;
 /// Base translation: Format: %@ | Size: %ld kb
 - (NSString *(^)(NSString *, long))ContainerDetailsHeaderDetails;
+/// Base translation: No containers found
+- (NSString *)NoContainersCellTitle;
+
 /// Base translation: https://www.politsei.ee/en/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/
 - (NSString *)MyEidIdCardInfoLink;
 
 /// Base translation: eID
 - (NSString *)MyEidEid;
 
-/// Base translation: Cancel
-- (NSString *)Cancel;
+/// Base translation: Edit
+- (NSString *)ActionEdit;
 
 /// Base translation: Valid until:
 - (NSString *)MyEidValidUntil;
 
+/// Base translation: New %@ code
+- (NSString *(^)(NSString *))PinActionsNewPin;
 /// Base translation: Surname:
 - (NSString *)MyEidSurname;
 
@@ -189,8 +205,9 @@
 /// Base translation: Card in reader:
 - (NSString *)MyEidCardInReader;
 
-/// Base translation: Could not change %@
-- (NSString *(^)(NSString *))PinActionsGeneralError;
+/// Base translation: Cancel
+- (NSString *)ActionCancel;
+
 /// Base translation: Create document
 - (NSString *)FileImportCreateContainerButton;
 
@@ -200,6 +217,8 @@
 /// Base translation: Given names:
 - (NSString *)MyEidGivenNames;
 
+/// Base translation: Could not change %@
+- (NSString *(^)(NSString *))PinActionsGeneralError;
 /// Base translation: Search
 - (NSString *)ContainersListSearchPlaceholder;
 

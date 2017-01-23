@@ -11,8 +11,6 @@
 #import "ContainerDetailsDataFileCell.h"
 #import "ContainerDetailsSignatureCell.h"
 #import "DateFormatter.h"
-#import <MoppLib/MoppLib.h>
-#import "FileManager.h"
 #import "SimpleHeaderView.h"
 #import "UIColor+Additions.h"
 #import "UIViewController+MBProgressHUD.h"
@@ -25,8 +23,6 @@ typedef enum : NSUInteger {
 
 @interface ContainerDetailsViewController ()
 
-@property (strong, nonatomic) MoppLibContainer *container;
-
 @end
 
 @implementation ContainerDetailsViewController
@@ -38,11 +34,10 @@ typedef enum : NSUInteger {
   
   [self.view setBackgroundColor:[UIColor whiteColor]];
   
-  [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  [self setEditing:NO]; // Update edit button title.
   
-  NSString *filePath = [[FileManager sharedInstance] filePathWithFileName:self.containerFileName];
-
-  self.container = [[MoppLibManager sharedInstance] getContainerWithPath:filePath];
+  [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self.tableView reloadData];
 }
 
@@ -51,6 +46,16 @@ typedef enum : NSUInteger {
   [super viewDidAppear:animated];
   
   [self.tableView reloadData];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+  [super setEditing:editing animated:animated];
+  
+  if (editing) {
+    self.editButtonItem.title = Localizations.ActionCancel;
+  } else {
+    self.editButtonItem.title = Localizations.ActionEdit;
+  }
 }
 
 
@@ -87,9 +92,8 @@ typedef enum : NSUInteger {
     case ContainerDetailsSectionHeader: {
       ContainerDetailsHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ContainerDetailsHeaderCell class]) forIndexPath:indexPath];
       
-      NSDictionary *fileAttributes = [[FileManager sharedInstance] fileAttributes:self.containerFileName];
-      [cell.titleLabel setText:self.containerFileName];
-      [cell.detailsLabel setText:Localizations.ContainerDetailsHeaderDetails([self.containerFileName pathExtension], [fileAttributes fileSize] / 1024)];
+      [cell.titleLabel setText:self.container.fileName];
+      [cell.detailsLabel setText:Localizations.ContainerDetailsHeaderDetails([self.container.filePath pathExtension], [self.container.fileAttributes fileSize] / 1024)];
       return cell;
       
       break;
@@ -185,5 +189,55 @@ typedef enum : NSUInteger {
   
   return header;
 }
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+  switch (indexPath.section) {
+    case ContainerDetailsSectionHeader:
+      return NO;
+      break;
+      
+    case ContainerDetailsSectionDataFile:
+      if (self.container.dataFiles.count > 1 && ![self.container isSigned]) {
+        return YES;
+      }
+      break;
+      
+    case ContainerDetailsSectionSignature:
+      return YES;
+      break;
+  
+    default:
+      return NO;
+      break;
+  }
+  return NO;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return Localizations.ActionDelete;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+  if (editingStyle == UITableViewCellEditingStyleDelete) {
+    
+    switch (indexPath.section) {
+      case ContainerDetailsSectionDataFile: {
+//        MoppLibDataFile *dataFile = [self.container.dataFiles objectAtIndex:indexPath.row];
+        self.container = [[MoppLibManager sharedInstance] removeDataFileFromContainerWithPath:self.container.filePath atIndex:indexPath.row];
+        break;
+      }
+      case ContainerDetailsSectionSignature: {
+        MoppLibSignature *signature = [self.container.signatures objectAtIndex:indexPath.row];
+        break;
+      }
+        
+      default:
+        break;
+    }
+    
+    [self.tableView reloadData];
+  }
+}
+
 
 @end

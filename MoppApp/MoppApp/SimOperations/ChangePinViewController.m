@@ -63,8 +63,6 @@ NSInteger repeatedPinDoesntMatch = 20000;
 - (void)setupViewController {
   NSString *pinString = [self pinCodeString];
   
-  self.title = Localizations.PinActionsChangingPin(pinString);
-  
   NSString *currentPinPlaceholder;
   NSString *currentPinText;
   NSString *verificationTitle;
@@ -73,6 +71,8 @@ NSInteger repeatedPinDoesntMatch = 20000;
       
     case PinOperationTypeChangePin2:
     case PinOperationTypeChangePin1: {
+      self.title = Localizations.PinActionsChangingPin(pinString);
+
       NSString *verificationCode = [self verificationCodeString];
       currentPinPlaceholder = Localizations.PinActionsCurrentPin(verificationCode);
       currentPinText = Localizations.PinActionsCurrentPin(verificationCode);
@@ -83,6 +83,8 @@ NSInteger repeatedPinDoesntMatch = 20000;
       
     case PinOperationTypeUnblockPin1:
     case PinOperationTypeUnblockPin2: {
+      self.title = Localizations.PinActionsTitleUnblockingPin(pinString);
+
       self.tableView.userInteractionEnabled = NO;
       self.selectedIndexPath = [NSIndexPath indexPathForRow:1 inSection:0];
 
@@ -234,6 +236,8 @@ NSInteger repeatedPinDoesntMatch = 20000;
   NSString *verifyCode = [self verificationCodeString];
   NSString *message;
   
+  BOOL dismissViewcontroller = NO;
+  
   if(error.code == repeatedPinDoesntMatch) {
     message = Localizations.PinActionsRepeatedPinDoesntMatch(pinString, pinString);
     self.repeatedPinErrorLabel.text = message;
@@ -248,10 +252,9 @@ NSInteger repeatedPinDoesntMatch = 20000;
         self.type = PinOperationTypeUnblockPin2;
       }
       
-      [self setupViewController];
-      [self.tableView reloadData];
-      
       message = Localizations.PinActionsWrongPinBlocked(verifyCode, verifyCode);
+      dismissViewcontroller = YES;
+      
     } else {
       message = Localizations.PinActionsWrongPinRetry(verifyCode, retryCount);
       self.currentPinErrorLabel.text = message;
@@ -302,7 +305,9 @@ NSInteger repeatedPinDoesntMatch = 20000;
   }
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.PinActionsErrorTitle message:message preferredStyle:UIAlertControllerStyleAlert];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-
+    if (dismissViewcontroller) {
+      [self.navigationController popViewControllerAnimated:YES];
+    }
   }]];
   [self presentViewController:alert animated:YES completion:nil];
 }

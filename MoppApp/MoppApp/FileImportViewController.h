@@ -7,9 +7,10 @@
 //
 
 #import "BaseContainersListViewController.h"
+#import <MoppLib/MoppLib.h>
 
 @protocol FileImportViewControllerDelegate
-- (void)openContainerDetailsWithName:(NSString *)containerFileName;
+- (void)openContainerDetails:(MoppLibContainer *)container;
 @end
 
 @interface FileImportViewController : BaseContainersListViewController

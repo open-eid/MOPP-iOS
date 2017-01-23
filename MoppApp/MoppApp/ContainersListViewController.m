@@ -12,7 +12,8 @@
 #import "ContainerCell.h"
 #import "ContainerDetailsViewController.h"
 #import "SimpleHeaderView.h"
-
+#import <MoppLib/MoppLib.h>
+#import "NoContainersCell.h"
 
 typedef enum : NSUInteger {
   ContainersListSectionUnsigned,
@@ -25,7 +26,7 @@ typedef enum : NSUInteger {
 @property (strong, nonatomic) NSArray *signedContainers;
 @property (strong, nonatomic) NSArray *filteredUnsignedContainers;
 @property (strong, nonatomic) NSArray *filteredSignedContainers;
-@property (strong, nonatomic) NSString *containerFileName;
+@property (strong, nonatomic) MoppLibContainer *selectedContainer;
 
 @end
 
@@ -38,23 +39,34 @@ typedef enum : NSUInteger {
   
   self.unsignedContainers = [NSArray array];
   self.signedContainers = [NSArray array];
-//  self.filteredContainers = [NSArray array];
   
   //  NSBundle *bundle = [NSBundle bundleForClass:[self class]];
   //  self.containers = @[[bundle pathForResource:@"test1" ofType:@"bdoc"],
   //                      [bundle pathForResource:@"test2" ofType:@"bdoc"]];
   
   // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-  self.navigationItem.rightBarButtonItem = self.editButtonItem;  
+  self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  [self setEditing:NO]; // Update edit button title.
 }
 
 - (void)reloadData {
-  self.unsignedContainers = [[FileManager sharedInstance] getContainers];
-  self.signedContainers = [[FileManager sharedInstance] getContainers];
+  self.unsignedContainers = [[MoppLibManager sharedInstance] getContainersIsSigned:NO];
+  self.signedContainers = [[MoppLibManager sharedInstance] getContainersIsSigned:YES];
+  
   self.filteredUnsignedContainers = self.unsignedContainers;
   self.filteredSignedContainers = self.signedContainers;
   
   [super reloadData];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+  [super setEditing:editing animated:animated];
+  
+  if (editing) {
+    self.editButtonItem.title = Localizations.ActionCancel;
+  } else {
+    self.editButtonItem.title = Localizations.ActionEdit;
+  }
 }
 
 - (void)filterContainers:(NSString *)searchString {
@@ -62,8 +74,8 @@ typedef enum : NSUInteger {
     self.filteredUnsignedContainers = self.unsignedContainers;
     self.filteredSignedContainers = self.signedContainers;
   } else {
-    self.filteredUnsignedContainers = [self.unsignedContainers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchString]];
-    self.filteredSignedContainers = [self.signedContainers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchString]];
+    self.filteredUnsignedContainers = [self.unsignedContainers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.fileName contains[c] %@", searchString]];
+    self.filteredSignedContainers = [self.signedContainers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.fileName contains[c] %@", searchString]];
   }
   [super filterContainers:searchString];
 }
@@ -85,11 +97,19 @@ typedef enum : NSUInteger {
   NSInteger count = 0;
   switch (section) {
     case ContainersListSectionUnsigned: {
-      count = self.filteredUnsignedContainers.count;
+      if (self.filteredUnsignedContainers.count > 0) {
+        count = self.filteredUnsignedContainers.count;
+      } else {
+        count = 1;
+      }
       break;
     }
     case ContainersListSectionSigned: {
-      count = self.filteredSignedContainers.count;
+      if (self.filteredSignedContainers.count > 0) {
+        count = self.filteredSignedContainers.count;
+      } else {
+        count = 1;
+      }
       break;
     }
       
@@ -101,27 +121,41 @@ typedef enum : NSUInteger {
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  ContainerCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ContainerCell class]) forIndexPath:indexPath];
   
-  NSString *fileName;
+  MoppLibContainer *container;
   switch (indexPath.section) {
     case ContainersListSectionUnsigned: {
-      fileName = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
+      if (self.filteredUnsignedContainers.count > 0) {
+        MoppLibContainer *container = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
+        ContainerCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ContainerCell class]) forIndexPath:indexPath];
+        [cell.titleLabel setText:container.fileName];
+        [cell.dateLabel setText:[[DateFormatter sharedInstance] dateToRelativeString:[container.fileAttributes fileCreationDate]]];
+        return cell;
+      } else {
+        NoContainersCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NoContainersCell class]) forIndexPath:indexPath];
+        return cell;
+      }
       break;
     }
     case ContainersListSectionSigned: {
-      fileName = [self.filteredSignedContainers objectAtIndex:indexPath.row];
+      if (self.filteredSignedContainers.count > 0) {
+        MoppLibContainer *container = [self.filteredSignedContainers objectAtIndex:indexPath.row];
+        ContainerCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ContainerCell class]) forIndexPath:indexPath];
+        [cell.titleLabel setText:container.fileName];
+        [cell.dateLabel setText:[[DateFormatter sharedInstance] dateToRelativeString:[container.fileAttributes fileCreationDate]]];
+        return cell;
+      } else {
+        NoContainersCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NoContainersCell class]) forIndexPath:indexPath];
+        return cell;
+      }
       break;
     }
     default:
       break;
   }
   
-  NSDictionary *fileAttributes = [[FileManager sharedInstance] fileAttributes:fileName];
-  [cell.titleLabel setText:fileName];
-  [cell.dateLabel setText:[[DateFormatter sharedInstance] dateToRelativeString:[fileAttributes fileCreationDate]]];
   
-  return cell;
+  return nil;
 }
 
 #pragma mark - UITableViewDelegate
@@ -130,11 +164,17 @@ typedef enum : NSUInteger {
 
   switch (indexPath.section) {
     case ContainersListSectionUnsigned: {
-      self.containerFileName = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
+      if (self.filteredUnsignedContainers.count == 0) {
+        return;
+      }
+      self.selectedContainer = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
       break;
     }
     case ContainersListSectionSigned: {
-      self.containerFileName = [self.filteredSignedContainers objectAtIndex:indexPath.row];
+      if (self.filteredSignedContainers.count == 0) {
+        return;
+      }
+      self.selectedContainer = [self.filteredSignedContainers objectAtIndex:indexPath.row];
       break;
     }
     default:
@@ -146,7 +186,31 @@ typedef enum : NSUInteger {
 
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-  return YES;
+  switch (indexPath.section) {
+    case ContainersListSectionUnsigned: {
+      if (self.filteredUnsignedContainers.count == 0) {
+        return NO;
+      } else {
+        return YES;
+      }
+      break;
+    }
+    case ContainersListSectionSigned: {
+      if (self.filteredSignedContainers.count == 0) {
+        return NO;
+      } else {
+        return YES;
+      }
+      break;
+    }
+    default:
+      return NO;
+      break;
+  }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return Localizations.ActionDelete;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -154,13 +218,13 @@ typedef enum : NSUInteger {
     
     switch (indexPath.section) {
       case ContainersListSectionUnsigned: {
-        NSString *fileName = [self.unsignedContainers objectAtIndex:indexPath.row];
-        [[FileManager sharedInstance] removeFileWithName:fileName];
+        MoppLibContainer *container = [self.unsignedContainers objectAtIndex:indexPath.row];
+        [[FileManager sharedInstance] removeFileWithName:container.fileName];
         break;
       }
       case ContainersListSectionSigned: {
-        NSString *fileName = [self.signedContainers objectAtIndex:indexPath.row];
-        [[FileManager sharedInstance] removeFileWithName:fileName];
+        MoppLibContainer *container = [self.signedContainers objectAtIndex:indexPath.row];
+        [[FileManager sharedInstance] removeFileWithName:container.fileName];
         break;
       }
         
@@ -168,8 +232,8 @@ typedef enum : NSUInteger {
         break;
     }
     
+//    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     [self reloadData];
-    //    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
   }
 }
 
@@ -208,7 +272,7 @@ typedef enum : NSUInteger {
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
   if ([segue.identifier isEqualToString:@"ContainerDetailsSegue"]) {
     ContainerDetailsViewController *detailsViewController = [segue destinationViewController];
-    detailsViewController.containerFileName = self.containerFileName;
+    detailsViewController.container = self.selectedContainer;
     
   } else if ([segue.identifier isEqualToString:@"FileImportSegue"]) {
     UINavigationController *navController = [segue destinationViewController];
@@ -220,8 +284,8 @@ typedef enum : NSUInteger {
 
 
 #pragma mark - FileImportViewControllerDelegate
-- (void)openContainerDetailsWithName:(NSString *)containerFileName {
-  self.containerFileName = containerFileName;
+- (void)openContainerDetails:(MoppLibContainer *)container {
+  self.selectedContainer = container;
   [self performSegueWithIdentifier:@"ContainerDetailsSegue" sender:self];
 }
 

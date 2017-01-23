@@ -10,7 +10,13 @@
 
 @interface MoppLibContainer : NSObject
 
+@property (strong, nonatomic) NSString *fileName;
+@property (strong, nonatomic) NSString *filePath;
+@property (strong, nonatomic) NSDictionary *fileAttributes;
 @property (strong, nonatomic) NSArray *dataFiles;
 @property (strong, nonatomic) NSArray *signatures;
+
+- (BOOL)isSigned;
+- (BOOL)isEmpty;
 
 @end

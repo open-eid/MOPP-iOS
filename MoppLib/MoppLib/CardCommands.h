@@ -36,6 +36,13 @@ extern NSString *const kCommandVerifyCode;
 extern NSString *const kCommandCalculateSignature;
 extern NSString *const kCommandResetRetryCounter;
 
+
+extern NSString *const kAlgorythmIdentifyerSHA1;
+extern NSString *const kAlgorythmIdentifyerSHA224;
+extern NSString *const kAlgorythmIdentifyerSHA256;
+extern NSString *const kAlgorythmIdentifyerSHA384;
+extern NSString *const kAlgorythmIdentifyerSHA512;
+
 @protocol CardCommands <NSObject>
 
 /**
@@ -120,7 +127,16 @@ extern NSString *const kCommandResetRetryCounter;
  */
 - (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure;
 
-- (void)calculateSignature:(NSString *)hash withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
+/**
+ * Calculates signature for hash
+ *
+ * @param hash          hash to be signed
+ * @param pin2          PIN 2 to be used for verification
+ * @param success       block to be executed when action is completed successfully
+ * @param failure       block to be executed when action fails
+ */
+- (void)calculateSignatureFor:(NSData *)hash withPin2:(NSString *)pin2 success:(void (^)(NSData *data))success failure:(FailureBlock)failure;
+
 
 - (void)setSecurityEnvironment:(NSUInteger)env withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
 

@@ -10,4 +10,12 @@
 
 @implementation MoppLibContainer
 
+- (BOOL)isSigned {
+  return self.signatures.count != 0;
+}
+
+- (BOOL)isEmpty {
+  return self.dataFiles.count != 0;
+}
+
 @end
