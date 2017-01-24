@@ -81,7 +81,7 @@ typedef enum : NSUInteger {
   
   BOOL dismissViewcontroller = NO;
   
- if (error.code == moppLibErrorWrongPin) {
+  if (error.code == moppLibErrorWrongPin) {
     int retryCount = [[error.userInfo objectForKey:kMoppLibUserInfoRetryCount] intValue];
     
     if (retryCount == 0) {
@@ -91,6 +91,9 @@ typedef enum : NSUInteger {
     } else {
       message = Localizations.PinActionsWrongPinRetry(verifyCode, retryCount);
     }
+    
+  } else if(error.code == moppLibErrorSignatureAlreadyExists) {
+    message = Localizations.ContainerDetailsSignatureAlreadyExists;
     
   } else {
     message = Localizations.ContainerDetailsGeneralError;
@@ -121,7 +124,6 @@ typedef enum : NSUInteger {
     self.editButtonItem.title = Localizations.ActionEdit;
   }
 }
-
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

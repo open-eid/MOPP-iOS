@@ -389,12 +389,16 @@
     return NSLocalizedStringFromTable(@"file-import-create-container-button", nil, nil);
 }
 
-- (NSString *)PinActionsRulesTitle {
-    return NSLocalizedStringFromTable(@"pin-actions-rules-title", nil, nil);
+- (NSString *)ContainerDetailsSignatureAlreadyExists {
+    return NSLocalizedStringFromTable(@"container-details-signature-already-exists", nil, nil);
 }
 
 - (NSString *)MyEidGivenNames {
     return NSLocalizedStringFromTable(@"my-eid-given-names", nil, nil);
+}
+
+- (NSString *)PinActionsRulesTitle {
+    return NSLocalizedStringFromTable(@"pin-actions-rules-title", nil, nil);
 }
 
 - (NSString *(^)(NSString *))PinActionsGeneralError {

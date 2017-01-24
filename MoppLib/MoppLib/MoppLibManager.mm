@@ -237,16 +237,28 @@ void parseException(const digidoc::Exception &e) {
 - (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 cert:(NSData *)cert success:(EmptySuccessBlock)success andFailure:(FailureBlock)failure {
   
   try {
+    const unsigned char *bytes = (const unsigned  char *)[cert bytes];
+    digidoc::X509Cert x509Cert = digidoc::X509Cert(bytes, cert.length, digidoc::X509Cert::Format::Der);
     
     digidoc::Container *doc = digidoc::Container::open(moppContainer.filePath.UTF8String);
     
-    const unsigned char *bytes = (const unsigned  char *)[cert bytes];
-    WebSigner *signer = new WebSigner(digidoc::X509Cert(bytes, cert.length, digidoc::X509Cert::Format::Der));
+    // Checking if signature with same certificate already exists
+    for (int i = 0; i < doc->signatures().size(); i++) {
+      digidoc::Signature *signature = doc->signatures().at(i);
+      
+      digidoc::X509Cert signatureCert = signature->signingCertificate();
+      
+      if (x509Cert == signatureCert) {
+        failure([MoppLibError signatureAlreadyExistsError]);
+        return;
+      }
+    }
+    
+    WebSigner *signer = new WebSigner(x509Cert);
     
     digidoc::Signature *signature = doc->prepareSignature(signer);
     std::string profile = signature->profile();
     std::vector<unsigned char> dataToSign = signature->dataToSign();
-    [NSData dataWithBytes:dataToSign.data() length:dataToSign.size()];
     
     [[CardActionsManager sharedInstance] calculateSignatureFor:[NSData dataWithBytes:dataToSign.data() length:dataToSign.size()] pin2:pin2 controller:nil success:^(NSData *calculatedSignature) {
       try {

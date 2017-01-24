@@ -223,11 +223,14 @@
 /// Base translation: Create document
 - (NSString *)FileImportCreateContainerButton;
 
-/// Base translation: Rules
-- (NSString *)PinActionsRulesTitle;
+/// Base translation: Your signature already exists on this document.
+- (NSString *)ContainerDetailsSignatureAlreadyExists;
 
 /// Base translation: Given names:
 - (NSString *)MyEidGivenNames;
+
+/// Base translation: Rules
+- (NSString *)PinActionsRulesTitle;
 
 /// Base translation: Could not change %@
 - (NSString *(^)(NSString *))PinActionsGeneralError;
