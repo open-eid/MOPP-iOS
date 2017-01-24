@@ -12,12 +12,15 @@
 #include <digidocpp/Exception.h>
 #include <digidocpp/crypto/X509Cert.h>
 #include <digidocpp/XmlConf.h>
+#include <digidocpp/crypto/Signer.h>
 
 #import "MoppLibManager.h"
 #import "MoppLibDataFile.h"
 #import "MoppLibSignature.h"
 #import "MLDateFormatter.h"
 #import "MLFileManager.h"
+#import "MoppLibError.h"
+#import "CardActionsManager.h"
 
 class DigiDocConf: public digidoc::ConfCurrent {
 public:
@@ -35,11 +38,28 @@ public:
     NSString *path = [bundle pathForResource:@"schema" ofType:@""];
     return path.UTF8String;
   }
+  
+};
+
+
+class WebSigner: public digidoc::Signer
+{
+public:
+  WebSigner(const digidoc::X509Cert &cert): _cert(cert) {}
+  
+private:
+  digidoc::X509Cert cert() const override { return _cert; }
+  std::vector<unsigned char> sign(const std::string &, const std::vector<unsigned char> &) const override
+  {
+   // THROW("Not implemented");
+    return std::vector<unsigned char>();
+  }
+  
+  digidoc::X509Cert _cert;
 };
 
 
 @interface MoppLibManager ()
-
 @end
 
 @implementation MoppLibManager
@@ -211,6 +231,43 @@ void parseException(const digidoc::Exception &e) {
   NSLog(@"%s", e.msg().c_str());
   for (const digidoc::Exception &ex : e.causes()) {
     parseException(ex);
+  }
+}
+
+- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 cert:(NSData *)cert success:(EmptySuccessBlock)success andFailure:(FailureBlock)failure {
+  
+  try {
+    
+    digidoc::Container *doc = digidoc::Container::open(moppContainer.filePath.UTF8String);
+    
+    const unsigned char *bytes = (const unsigned  char *)[cert bytes];
+    WebSigner *signer = new WebSigner(digidoc::X509Cert(bytes, cert.length, digidoc::X509Cert::Format::Der));
+    
+    digidoc::Signature *signature = doc->prepareSignature(signer);
+    std::string profile = signature->profile();
+    std::vector<unsigned char> dataToSign = signature->dataToSign();
+    [NSData dataWithBytes:dataToSign.data() length:dataToSign.size()];
+    
+    [[CardActionsManager sharedInstance] calculateSignatureFor:[NSData dataWithBytes:dataToSign.data() length:dataToSign.size()] pin2:pin2 controller:nil success:^(NSData *calculatedSignature) {
+      try {
+        unsigned char *buffer = (unsigned char *)[calculatedSignature bytes];
+        std::vector<unsigned char>::size_type size = calculatedSignature.length;
+        std::vector<unsigned char> vec(buffer, buffer + size);
+        
+        signature->setSignatureValue(vec);
+        signature->extendSignatureProfile(profile);
+        //signature->validate();
+        doc->save();
+        success();
+      } catch(const digidoc::Exception &e) {
+        parseException(e);
+        failure([MoppLibError generalError]); // TODO try to find more specific error codes
+      }
+    } failure:failure];
+    
+  } catch(const digidoc::Exception &e) {
+    parseException(e);
+    failure([MoppLibError generalError]);  // TODO try to find more specific error codes
   }
 }
 

@@ -48,6 +48,70 @@ typedef enum : NSUInteger {
   [self.tableView reloadData];
 }
 
+- (IBAction)addSignatureTapped:(id)sender {
+  
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.PinActionsPin2 message:Localizations.ContainerDetailsEnterPin preferredStyle:UIAlertControllerStyleAlert];
+  
+  [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+    textField.keyboardType = UIKeyboardTypeNumberPad;
+    textField.placeholder = Localizations.PinActionsPin2;
+    textField.secureTextEntry = YES;
+  }];
+  
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [self showHUD];
+    NSString *pin = [alert.textFields[0].text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    [MoppLibCardActions addSignature:self.container pin2:pin controller:self success:^(void) {
+      [self hideHUD];
+      [self displaySigningSuccessMessage];
+      
+    } failure:^(NSError *error) {
+      [self hideHUD];
+      [self displayErrorMessage:error];
+    }];
+  }]];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:nil]];
+  
+  [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)displayErrorMessage:(NSError *)error {
+  NSString *verifyCode = Localizations.PinActionsPin2;
+  NSString *message;
+  
+  BOOL dismissViewcontroller = NO;
+  
+ if (error.code == moppLibErrorWrongPin) {
+    int retryCount = [[error.userInfo objectForKey:kMoppLibUserInfoRetryCount] intValue];
+    
+    if (retryCount == 0) {
+      message = Localizations.PinActionsWrongPinBlocked(verifyCode, verifyCode);
+      dismissViewcontroller = YES;
+      
+    } else {
+      message = Localizations.PinActionsWrongPinRetry(verifyCode, retryCount);
+    }
+    
+  } else {
+    message = Localizations.ContainerDetailsGeneralError;
+  }
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.PinActionsErrorTitle message:message preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    if (dismissViewcontroller) {
+      [self.navigationController popViewControllerAnimated:YES];
+    }
+  }]];
+  [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)displaySigningSuccessMessage {
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsSigningSuccess message:Localizations.ContainerDetailsSignatureAdded preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+      [self.navigationController popViewControllerAnimated:YES];
+  }]];
+  [self presentViewController:alert animated:YES completion:nil];
+}
+
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
   [super setEditing:editing animated:animated];
   
@@ -75,7 +139,7 @@ typedef enum : NSUInteger {
       break;
       
     case ContainerDetailsSectionSignature:
-      return self.container.signatures.count;
+      return self.container.signatures.count + 1;
       break;
       
     default:
@@ -112,6 +176,11 @@ typedef enum : NSUInteger {
     }
       
     case ContainerDetailsSectionSignature: {
+      if (self.container.signatures.count <= indexPath.row) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddSignatureCell"];
+        return cell;
+      }
+      
       ContainerDetailsSignatureCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ContainerDetailsSignatureCell class]) forIndexPath:indexPath];
       
       MoppLibSignature *signature = [self.container.signatures objectAtIndex:indexPath.row];

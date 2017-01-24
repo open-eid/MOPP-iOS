@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 #import "MoppLibPersonalData.h"
 #import "MoppLibCertData.h"
+#import "MoppLibContainer.h"
 
 @protocol MoppLibCardActionsDelegate;
 
@@ -73,4 +74,6 @@
  * @param failure       Block to be called when action fails. Includes error.
  */
 + (void)pin2RetryCountWithViewController:(UIViewController *)controller success:(void (^)(NSNumber *))success failure:(void (^)(NSError *))failure;
+
++ (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(void (^)(void))success failure:(void (^)(NSError *))failure;
 @end
