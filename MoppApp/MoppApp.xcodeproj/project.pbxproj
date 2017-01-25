@@ -29,7 +29,7 @@
 		54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */; };
 		E4180C1A1E240AC600FD7B8C /* UIViewController+MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C191E240AC600FD7B8C /* UIViewController+MBProgressHUD.m */; };
 		E4180C311E267A6700FD7B8C /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4180C2E1E267A6700FD7B8C /* Settings.storyboard */; };
-		E4180C321E267A6700FD7B8C /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C301E267A6700FD7B8C /* SettingsViewController.m */; };
+		E4180C321E267A6700FD7B8C /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C301E267A6700FD7B8C /* SettingsTableViewController.m */; };
 		E4180C351E267B5D00FD7B8C /* Localizations.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C341E267B5D00FD7B8C /* Localizations.m */; };
 		E4180C371E26822000FD7B8C /* datafile.txt in Resources */ = {isa = PBXBuildFile; fileRef = E4180C361E26822000FD7B8C /* datafile.txt */; };
 		E4250CC81E0968D200530370 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250CC71E0968D200530370 /* main.m */; };
@@ -119,8 +119,8 @@
 		E4180C181E240AC600FD7B8C /* UIViewController+MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MBProgressHUD.h"; sourceTree = "<group>"; };
 		E4180C191E240AC600FD7B8C /* UIViewController+MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MBProgressHUD.m"; sourceTree = "<group>"; };
 		E4180C2E1E267A6700FD7B8C /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Settings.storyboard; path = MoppApp/Settings.storyboard; sourceTree = SOURCE_ROOT; };
-		E4180C2F1E267A6700FD7B8C /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = MoppApp/SettingsViewController.h; sourceTree = SOURCE_ROOT; };
-		E4180C301E267A6700FD7B8C /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = MoppApp/SettingsViewController.m; sourceTree = SOURCE_ROOT; };
+		E4180C2F1E267A6700FD7B8C /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsTableViewController.h; path = MoppApp/SettingsTableViewController.h; sourceTree = SOURCE_ROOT; };
+		E4180C301E267A6700FD7B8C /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsTableViewController.m; path = MoppApp/SettingsTableViewController.m; sourceTree = SOURCE_ROOT; };
 		E4180C331E267B5D00FD7B8C /* Localizations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Localizations.h; sourceTree = "<group>"; };
 		E4180C341E267B5D00FD7B8C /* Localizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Localizations.m; sourceTree = "<group>"; };
 		E4180C361E26822000FD7B8C /* datafile.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = datafile.txt; sourceTree = "<group>"; };
@@ -271,8 +271,8 @@
 			isa = PBXGroup;
 			children = (
 				E4180C2E1E267A6700FD7B8C /* Settings.storyboard */,
-				E4180C2F1E267A6700FD7B8C /* SettingsViewController.h */,
-				E4180C301E267A6700FD7B8C /* SettingsViewController.m */,
+				E4180C2F1E267A6700FD7B8C /* SettingsTableViewController.h */,
+				E4180C301E267A6700FD7B8C /* SettingsTableViewController.m */,
 			);
 			name = Settings;
 			path = SimOperations;
@@ -628,7 +628,7 @@
 				E45EF53B1E2D856700C37D43 /* ContainersListViewController.m in Sources */,
 				545CF84E1E165DCF00B66EE8 /* PersonalDataCell.m in Sources */,
 				545CF8541E165DFB00B66EE8 /* InfoCell.m in Sources */,
-				E4180C321E267A6700FD7B8C /* SettingsViewController.m in Sources */,
+				E4180C321E267A6700FD7B8C /* SettingsTableViewController.m in Sources */,
 				E42B08BC1E1F0C8900EA24A3 /* ContainerDetailsHeaderCell.m in Sources */,
 				E45EF5411E2D8A9300C37D43 /* FileImportViewController.m in Sources */,
 				540786E91E1A76640016ABA7 /* UITextView+Additions.m in Sources */,

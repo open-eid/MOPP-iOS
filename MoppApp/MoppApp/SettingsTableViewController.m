@@ -6,7 +6,7 @@
 //  Copyright © 2017 Mobi Lab. All rights reserved.
 //
 
-#import "SettingsViewController.h"
+#import "SettingsTableViewController.h"
 #import "FileManager.h"
 #import "DefaultsHelper.h"
 #import "AppDelegate.h"
@@ -15,20 +15,19 @@
 typedef NS_ENUM(NSUInteger, SettingsCellType) {
   SettingsCellTypeNewContainerFormat,
   SettingsCellTypeImportFile,
-  SettingsCellTypeDuplicateContainer
+  SettingsCellTypeDuplicateContainer,
+  SettingsCellTypeApplicationVersion
 };
 
 NSString *const CellIdentifier = @"CellIdentifier";
 
-@interface SettingsViewController ()
+@interface SettingsTableViewController ()
 
 @property (strong, nonatomic) NSArray *settingsArray;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
 
 @end
 
-@implementation SettingsViewController
+@implementation SettingsTableViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -38,14 +37,9 @@ NSString *const CellIdentifier = @"CellIdentifier";
   self.settingsArray = @[@[@(SettingsCellTypeNewContainerFormat)],
                          @[
                            @(SettingsCellTypeImportFile),
-                           @(SettingsCellTypeDuplicateContainer)]];
- 
-  [self.tableView setDelegate:self];
-  [self.tableView setDataSource:self];
-  NSBundle *bundle = [NSBundle mainBundle];
-  NSMutableString *versionString = [[NSMutableString alloc] initWithString:[[bundle infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-  [versionString appendString:[NSString stringWithFormat:@".%@", [[bundle infoDictionary] objectForKey:@"CFBundleVersion"]]];
-  self.versionLabel.text = versionString;
+                           @(SettingsCellTypeDuplicateContainer)],
+                         @[@(SettingsCellTypeApplicationVersion)]];
+  [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
 }
 
 - (void)showNewContainerFormatActionSheet {
@@ -129,14 +123,12 @@ NSString *const CellIdentifier = @"CellIdentifier";
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
   switch (section) {
-    case 0:
-      return nil;
-      break;
-      
     case 1:
       return @"DEV";
       break;
-      
+    case 2:
+      return @" ";
+      break;
     default:
       return nil;
       break;
@@ -169,8 +161,13 @@ NSString *const CellIdentifier = @"CellIdentifier";
     case SettingsCellTypeDuplicateContainer:
       titleLabelText = @"Create duplicate container";
       break;
-      
-    default:
+    case SettingsCellTypeApplicationVersion:
+      titleLabelText = @"Version";
+      cell.selectionStyle = UITableViewCellSelectionStyleNone;
+      NSBundle *bundle = [NSBundle mainBundle];
+      NSMutableString *versionString = [[NSMutableString alloc] initWithString:[[bundle infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+      [versionString appendString:[NSString stringWithFormat:@".%@", [[bundle infoDictionary] objectForKey:@"CFBundleVersion"]]];
+      detailLabelText = versionString;
       break;
   }
   [cell.textLabel setText:titleLabelText];
