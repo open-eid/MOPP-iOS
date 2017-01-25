@@ -42,9 +42,10 @@ NSString *const CellIdentifier = @"CellIdentifier";
  
   [self.tableView setDelegate:self];
   [self.tableView setDataSource:self];
-  NSBundle *bundle = [NSBundle bundleForClass:[MoppLibManager class]];
-  NSString *versionString = [[bundle infoDictionary] objectForKey:@"CFBundleVersion"];
-  self.versionLabel.text = [NSString stringWithFormat:@"Version %@", versionString];
+  NSBundle *bundle = [NSBundle mainBundle];
+  NSMutableString *versionString = [[NSMutableString alloc] initWithString:[[bundle infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+  [versionString appendString:[NSString stringWithFormat:@".%@", [[bundle infoDictionary] objectForKey:@"CFBundleVersion"]]];
+  self.versionLabel.text = versionString;
 }
 
 - (void)showNewContainerFormatActionSheet {
