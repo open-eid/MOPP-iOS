@@ -49,7 +49,10 @@
 
 + (NSError *)pinContainsInvalidCharactersError {
   return [self error:moppLibErrorPinContainsInvalidCharacters];
+}
 
++ (NSError *)signatureAlreadyExistsError {
+  return [self error:moppLibErrorSignatureAlreadyExists];
 }
 
 + (NSError *)error:(NSUInteger)errorCode {

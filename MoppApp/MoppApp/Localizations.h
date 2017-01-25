@@ -54,6 +54,9 @@
 /// Base translation: Personal data
 - (NSString *)MyEidPersonalData;
 
+/// Base translation: Signature added
+- (NSString *)ContainerDetailsSigningSuccess;
+
 /// Base translation: Signed
 - (NSString *)ContainersListSectionHeaderSigned;
 
@@ -91,11 +94,17 @@
 /// Base translation: PUK
 - (NSString *)PinActionsPuk;
 
+/// Base translation: Adding signature failed.
+- (NSString *)ContainerDetailsGeneralError;
+
 /// Base translation: Personal Code:
 - (NSString *)MyEidPersonalCode;
 
 /// Base translation: Not valid
 - (NSString *)MyEidNotValid;
+
+/// Base translation: Please enter your PIN2 code.
+- (NSString *)ContainerDetailsEnterPin;
 
 /// Base translation: %@ has been changed and unblocked.
 - (NSString *(^)(NSString *))PinActionsSuccessPinUnblocked;
@@ -186,14 +195,17 @@
 /// Base translation: Edit
 - (NSString *)ActionEdit;
 
+/// Base translation: Your signature has been added to the document.
+- (NSString *)ContainerDetailsSignatureAdded;
+
 /// Base translation: Valid until:
 - (NSString *)MyEidValidUntil;
 
-/// Base translation: New %@ code
-- (NSString *(^)(NSString *))PinActionsNewPin;
 /// Base translation: Surname:
 - (NSString *)MyEidSurname;
 
+/// Base translation: New %@ code
+- (NSString *(^)(NSString *))PinActionsNewPin;
 /// Base translation: Settings
 - (NSString *)TabSettings;
 
@@ -211,11 +223,14 @@
 /// Base translation: Create document
 - (NSString *)FileImportCreateContainerButton;
 
-/// Base translation: Rules
-- (NSString *)PinActionsRulesTitle;
+/// Base translation: Your signature already exists on this document.
+- (NSString *)ContainerDetailsSignatureAlreadyExists;
 
 /// Base translation: Given names:
 - (NSString *)MyEidGivenNames;
+
+/// Base translation: Rules
+- (NSString *)PinActionsRulesTitle;
 
 /// Base translation: Could not change %@
 - (NSString *(^)(NSString *))PinActionsGeneralError;

@@ -97,6 +97,10 @@
     return NSLocalizedStringFromTable(@"my-eid-personal-data", nil, nil);
 }
 
+- (NSString *)ContainerDetailsSigningSuccess {
+    return NSLocalizedStringFromTable(@"container-details-signing-success", nil, nil);
+}
+
 - (NSString *)ContainersListSectionHeaderSigned {
     return NSLocalizedStringFromTable(@"containers-list-section-header-signed", nil, nil);
 }
@@ -163,12 +167,20 @@
     return NSLocalizedStringFromTable(@"pin-actions-puk", nil, nil);
 }
 
+- (NSString *)ContainerDetailsGeneralError {
+    return NSLocalizedStringFromTable(@"container-details-general-error", nil, nil);
+}
+
 - (NSString *)MyEidPersonalCode {
     return NSLocalizedStringFromTable(@"my-eid-personal-code", nil, nil);
 }
 
 - (NSString *)MyEidNotValid {
     return NSLocalizedStringFromTable(@"my-eid-not-valid", nil, nil);
+}
+
+- (NSString *)ContainerDetailsEnterPin {
+    return NSLocalizedStringFromTable(@"container-details-enter-pin", nil, nil);
 }
 
 - (NSString *(^)(NSString *))PinActionsSuccessPinUnblocked {
@@ -333,18 +345,22 @@
     return NSLocalizedStringFromTable(@"action-edit", nil, nil);
 }
 
+- (NSString *)ContainerDetailsSignatureAdded {
+    return NSLocalizedStringFromTable(@"container-details-signature-added", nil, nil);
+}
+
 - (NSString *)MyEidValidUntil {
     return NSLocalizedStringFromTable(@"my-eid-valid-until", nil, nil);
+}
+
+- (NSString *)MyEidSurname {
+    return NSLocalizedStringFromTable(@"my-eid-surname", nil, nil);
 }
 
 - (NSString *(^)(NSString *))PinActionsNewPin {
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-new-pin", nil, nil), value1];
     };
-}
-
-- (NSString *)MyEidSurname {
-    return NSLocalizedStringFromTable(@"my-eid-surname", nil, nil);
 }
 
 - (NSString *)TabSettings {
@@ -373,12 +389,16 @@
     return NSLocalizedStringFromTable(@"file-import-create-container-button", nil, nil);
 }
 
-- (NSString *)PinActionsRulesTitle {
-    return NSLocalizedStringFromTable(@"pin-actions-rules-title", nil, nil);
+- (NSString *)ContainerDetailsSignatureAlreadyExists {
+    return NSLocalizedStringFromTable(@"container-details-signature-already-exists", nil, nil);
 }
 
 - (NSString *)MyEidGivenNames {
     return NSLocalizedStringFromTable(@"my-eid-given-names", nil, nil);
+}
+
+- (NSString *)PinActionsRulesTitle {
+    return NSLocalizedStringFromTable(@"pin-actions-rules-title", nil, nil);
 }
 
 - (NSString *(^)(NSString *))PinActionsGeneralError {

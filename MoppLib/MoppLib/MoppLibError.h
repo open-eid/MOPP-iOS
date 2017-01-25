@@ -21,5 +21,6 @@
 + (NSError *)incorrectPinLengthError;
 + (NSError *)tooEasyPinError;
 + (NSError *)pinContainsInvalidCharactersError;
++ (NSError *)signatureAlreadyExistsError;
 
 @end

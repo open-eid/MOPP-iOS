@@ -49,7 +49,9 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
 }
 
 - (void)readSignatureCertificateWithSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
-  [self readCertificate:kCommandFileDDCE WithSuccess:success failure:failure];
+  [self readCertificate:kCommandFileDDCE WithSuccess:^(NSData *data) {
+    success([data trimmedData]);
+  } failure:failure];
 }
 
 - (void)readPublicDataWithSuccess:(void (^)(MoppLibPersonalData *personalData))success failure:(FailureBlock)failure {
@@ -218,7 +220,10 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
         break;
     }
     NSString *commandSufix = [NSString stringWithFormat:@"%02X %@ %@", hash.length + algorithmIdentifyer.length / 2, algorithmIdentifyer, [hash toHexString]];
-    [self.reader transmitCommand:[NSString stringWithFormat:kCommandCalculateSignature, commandSufix] success:success failure:failure];
+
+    [self.reader transmitCommand:[NSString stringWithFormat:kCommandCalculateSignature, commandSufix] success:^(NSData *responseObject) {
+      success([responseObject trimmedData]);
+    } failure:failure];
   };
   
   void (^verifyPin2)(NSData *) = ^void (NSData *responseObject) {
@@ -233,11 +238,7 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
 }
 
 - (void)setSecurityEnvironment:(NSUInteger)env withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
-  void (^selectSecureEnv)(NSData *) = ^void (NSData *responseObject) {
     [self.reader transmitCommand:[NSString stringWithFormat:kCommandSetSecurityEnv, env] success:success failure:failure];
-  };
-  
-  [self navigateToFileEEEEWithSuccess:selectSecureEnv failure:failure];
 }
 
 - (void)verifyCode:(NSString *)code ofType:(CodeType)type withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
