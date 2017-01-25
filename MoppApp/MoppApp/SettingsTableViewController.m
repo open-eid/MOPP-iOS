@@ -162,7 +162,7 @@ NSString *const CellIdentifier = @"CellIdentifier";
       titleLabelText = @"Create duplicate container";
       break;
     case SettingsCellTypeApplicationVersion:
-      titleLabelText = @"Version";
+      titleLabelText = Localizations.SettingsApplicationVersion;
       cell.selectionStyle = UITableViewCellSelectionStyleNone;
       NSBundle *bundle = [NSBundle mainBundle];
       NSMutableString *versionString = [[NSMutableString alloc] initWithString:[[bundle infoDictionary] objectForKey:@"CFBundleShortVersionString"]];

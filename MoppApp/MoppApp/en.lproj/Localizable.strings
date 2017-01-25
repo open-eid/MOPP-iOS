@@ -105,3 +105,4 @@
 
 // *** Settings ***
 "settings-new-container-format" = "New container format";
+"settings-application-version" = "Version";

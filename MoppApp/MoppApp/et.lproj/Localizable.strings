@@ -110,3 +110,5 @@
 
 // *** Settings ***
 "settings-new-container-format" = "Uue dokumendi formaat";
+"settings-application-version" = "Versioon";
+
