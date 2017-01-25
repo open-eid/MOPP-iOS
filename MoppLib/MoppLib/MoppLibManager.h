@@ -21,4 +21,6 @@
 - (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex;
 - (NSArray *)getContainersIsSigned:(BOOL)isSigned;
 - (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 cert:(NSData *)cert success:(EmptySuccessBlock)success andFailure:(FailureBlock)failure;
+
+- (NSString *)getMoppLibVersion;
 @end

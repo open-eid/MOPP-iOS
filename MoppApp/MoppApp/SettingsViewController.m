@@ -6,10 +6,11 @@
 //  Copyright © 2017 Mobi Lab. All rights reserved.
 //
 
-#import "SettingsTableViewController.h"
+#import "SettingsViewController.h"
 #import "FileManager.h"
 #import "DefaultsHelper.h"
 #import "AppDelegate.h"
+#import <MoppLib/MoppLib.h>
 
 typedef NS_ENUM(NSUInteger, SettingsCellType) {
   SettingsCellTypeNewContainerFormat,
@@ -19,13 +20,15 @@ typedef NS_ENUM(NSUInteger, SettingsCellType) {
 
 NSString *const CellIdentifier = @"CellIdentifier";
 
-@interface SettingsTableViewController ()
+@interface SettingsViewController ()
 
 @property (strong, nonatomic) NSArray *settingsArray;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
 
 @end
 
-@implementation SettingsTableViewController
+@implementation SettingsViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -36,8 +39,13 @@ NSString *const CellIdentifier = @"CellIdentifier";
                          @[
                            @(SettingsCellTypeImportFile),
                            @(SettingsCellTypeDuplicateContainer)]];
-  
-  [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+ 
+  [self.tableView setDelegate:self];
+  [self.tableView setDataSource:self];
+  NSBundle *bundle = [NSBundle mainBundle];
+  NSMutableString *versionString = [[NSMutableString alloc] initWithString:[[bundle infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+  [versionString appendString:[NSString stringWithFormat:@".%@", [[bundle infoDictionary] objectForKey:@"CFBundleVersion"]]];
+  self.versionLabel.text = versionString;
 }
 
 - (void)showNewContainerFormatActionSheet {
