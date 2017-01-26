@@ -51,6 +51,8 @@
 		E42B08BC1E1F0C8900EA24A3 /* ContainerDetailsHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08BB1E1F0C8900EA24A3 /* ContainerDetailsHeaderCell.m */; };
 		E42B08BF1E1F0C9A00EA24A3 /* ContainerDetailsDataFileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08BE1E1F0C9A00EA24A3 /* ContainerDetailsDataFileCell.m */; };
 		E42B08C21E1F0CA600EA24A3 /* ContainerDetailsSignatureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08C11E1F0CA600EA24A3 /* ContainerDetailsSignatureCell.m */; };
+		E43BD80F1E3A121100F6C39D /* asiceTest.asice in Resources */ = {isa = PBXBuildFile; fileRef = E43BD80E1E3A121100F6C39D /* asiceTest.asice */; };
+		E43BD8111E3A121A00F6C39D /* ddocTest.ddoc in Resources */ = {isa = PBXBuildFile; fileRef = E43BD8101E3A121A00F6C39D /* ddocTest.ddoc */; };
 		E45EF5351E2D850400C37D43 /* Containers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E45EF5341E2D850400C37D43 /* Containers.storyboard */; };
 		E45EF5381E2D855400C37D43 /* BaseContainersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E45EF5371E2D855400C37D43 /* BaseContainersListViewController.m */; };
 		E45EF53B1E2D856700C37D43 /* ContainersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E45EF53A1E2D856700C37D43 /* ContainersListViewController.m */; };
@@ -158,6 +160,8 @@
 		E42B08BE1E1F0C9A00EA24A3 /* ContainerDetailsDataFileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerDetailsDataFileCell.m; sourceTree = "<group>"; };
 		E42B08C01E1F0CA600EA24A3 /* ContainerDetailsSignatureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerDetailsSignatureCell.h; sourceTree = "<group>"; };
 		E42B08C11E1F0CA600EA24A3 /* ContainerDetailsSignatureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerDetailsSignatureCell.m; sourceTree = "<group>"; };
+		E43BD80E1E3A121100F6C39D /* asiceTest.asice */ = {isa = PBXFileReference; lastKnownFileType = file; path = asiceTest.asice; sourceTree = "<group>"; };
+		E43BD8101E3A121A00F6C39D /* ddocTest.ddoc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ddocTest.ddoc; sourceTree = "<group>"; };
 		E45EF5341E2D850400C37D43 /* Containers.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Containers.storyboard; sourceTree = "<group>"; };
 		E45EF5361E2D855400C37D43 /* BaseContainersListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseContainersListViewController.h; sourceTree = "<group>"; };
 		E45EF5371E2D855400C37D43 /* BaseContainersListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseContainersListViewController.m; sourceTree = "<group>"; };
@@ -324,6 +328,8 @@
 				E4180C341E267B5D00FD7B8C /* Localizations.m */,
 				E42B08A41E1D4EE900EA24A3 /* test1.bdoc */,
 				E42B08A51E1D4EE900EA24A3 /* test2.bdoc */,
+				E43BD80E1E3A121100F6C39D /* asiceTest.asice */,
+				E43BD8101E3A121A00F6C39D /* ddocTest.ddoc */,
 				E4C53F351E2FAE6C00F209BE /* image.jpg */,
 				E4C53F361E2FAE6C00F209BE /* presentation.pdf */,
 				E4180C361E26822000FD7B8C /* datafile.txt */,
@@ -516,9 +522,11 @@
 				54813B301E24FD270058CD33 /* InfoCell.xib in Resources */,
 				545CF8481E16563200B66EE8 /* MyEid.storyboard in Resources */,
 				E4C53F371E2FAE6C00F209BE /* image.jpg in Resources */,
+				E43BD8111E3A121A00F6C39D /* ddocTest.ddoc in Resources */,
 				E45EF5431E2D8D8000C37D43 /* ContainerCell.xib in Resources */,
 				E42B08A61E1D4EE900EA24A3 /* test1.bdoc in Resources */,
 				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,
+				E43BD80F1E3A121100F6C39D /* asiceTest.asice in Resources */,
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
 				542DCB641E1FDFC900899534 /* PinOperations.storyboard in Resources */,
 				E4C53F551E30D88500F209BE /* NoContainersCell.xib in Resources */,
