@@ -25,6 +25,8 @@
 "file-import-title" = "Import file";
 "file-import-create-container-button" = "Create document";
 "file-import-info" = "%@\n\nPlease select unsigned document or create new one.";
+"file-import-import-failed-alert-title" = "Import failed";
+"file-import-import-failed-alert-message" = "Failed to open document %@";
 // Details
 "container-details-title" = "Document";
 "container-details-header-details" = "Format: %@ | Size: %ld kb";

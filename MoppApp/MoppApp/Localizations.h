@@ -106,6 +106,8 @@
 /// Base translation: Edit
 - (NSString *)ActionEdit;
 
+/// Base translation: Failed to open document %@
+- (NSString *(^)(NSString *))FileImportImportFailedAlertMessage;
 /// Base translation: SIM settings
 - (NSString *)TabSimSettings;
 
@@ -173,6 +175,9 @@
 
 /// Base translation: Current %@ was wrong. %@ has been blocked.
 - (NSString *(^)(NSString *, NSString *))PinActionsWrongPinBlocked;
+/// Base translation: Import failed
+- (NSString *)FileImportImportFailedAlertTitle;
+
 /// Base translation: Documents
 - (NSString *)TabContainers;
 

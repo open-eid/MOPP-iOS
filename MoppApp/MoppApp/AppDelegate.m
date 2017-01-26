@@ -14,6 +14,8 @@
 #import "FileManager.h"
 #import "InitializationViewController.h"
 #import "Session.h"
+#import <MoppLib/MoppLib.h>
+#import "DefaultsHelper.h"
 
 @interface AppDelegate ()
 
@@ -56,16 +58,44 @@
 //    NSString *dataFileName = [url.absoluteString lastPathComponent];
 //    NSString *dataFilePath = [[FileManager sharedInstance] filePathWithFileName:[NSString stringWithFormat:@"Inbox/%@", dataFileName]];
 
-    NSString *dataFilePath = url.relativePath;
+    NSString *filePath = url.relativePath;
+    NSString *fileName = [filePath lastPathComponent];
+    NSString *fileExtension = [filePath pathExtension];
+    MSLog(@"Imported file: %@", filePath);
     
-    MSLog(@"Opened file: %@", dataFilePath);
     [self.tabBarController setSelectedIndex:0];
-    
     UINavigationController *navController = (UINavigationController *)[self.tabBarController.viewControllers objectAtIndex:0];
     [navController popViewControllerAnimated:NO];
     ContainersListViewController *containersListViewController = (ContainersListViewController *)navController.viewControllers[0];
     
-    [containersListViewController setDataFilePath:dataFilePath];
+    if ([fileExtension isEqualToString:ContainerFormatDdoc] ||
+        [fileExtension isEqualToString:ContainerFormatAsice] ||
+        [fileExtension isEqualToString:ContainerFormatBdoc]) {
+      
+      // Move container from inbox folder to documents folder and cleanup.
+      NSString *newFilePath = [[FileManager sharedInstance] filePathWithFileName:fileName];
+      [[FileManager sharedInstance] moveFileWithPath:filePath toPath:newFilePath];
+      
+      MoppLibContainer *moppLibContainer = [[MoppLibManager sharedInstance] getContainerWithPath:newFilePath];
+      
+      if (moppLibContainer) {
+        [containersListViewController setSelectedContainer:moppLibContainer];
+        
+      } else {
+        
+        // Remove invalid container. Probably ddoc.
+        [[FileManager sharedInstance] removeFileWithName:fileName];
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.FileImportImportFailedAlertTitle message:Localizations.FileImportImportFailedAlertMessage(fileName) preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:nil]];
+        [containersListViewController presentViewController:alert animated:YES completion:nil];
+      }
+      
+    } else {
+      
+      [containersListViewController setDataFilePath:filePath];
+    }
+    
   }
   return YES;
 }

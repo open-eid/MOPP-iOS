@@ -16,5 +16,6 @@
 - (NSString *)createTestContainer;
 - (void)removeFileWithName:(NSString *)fileName;
 - (void)removeFileWithPath:(NSString *)filePath;
+- (void)moveFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath;
 
 @end

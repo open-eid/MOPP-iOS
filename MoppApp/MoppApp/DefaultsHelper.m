@@ -10,6 +10,7 @@
 
 NSString *const ContainerFormatBdoc = @"bdoc";
 NSString *const ContainerFormatAsice = @"asice";
+NSString *const ContainerFormatDdoc = @"ddoc";
 
 // Keys
 NSString *const kNewContainerFormatKey = @"kNewContainerFormatKey";

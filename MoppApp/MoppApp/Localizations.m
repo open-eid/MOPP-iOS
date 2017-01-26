@@ -173,6 +173,12 @@
     return NSLocalizedStringFromTable(@"action-edit", nil, nil);
 }
 
+- (NSString *(^)(NSString *))FileImportImportFailedAlertMessage {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"file-import-import-failed-alert-message", nil, nil), value1];
+    };
+}
+
 - (NSString *)TabSimSettings {
     return NSLocalizedStringFromTable(@"tab-sim-settings", nil, nil);
 }
@@ -287,6 +293,10 @@
     return ^(NSString * value1 , NSString * value2) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-wrong-pin-blocked", nil, nil), value1, value2];
     };
+}
+
+- (NSString *)FileImportImportFailedAlertTitle {
+    return NSLocalizedStringFromTable(@"file-import-import-failed-alert-title", nil, nil);
 }
 
 - (NSString *)TabContainers {

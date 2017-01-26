@@ -59,12 +59,19 @@
 }
 
 - (void)removeFileWithName:(NSString *)fileName {
-  [self.fileManager removeItemAtPath:[self filePathWithFileName:fileName] error:nil];
+  NSError *error;
+  [self.fileManager removeItemAtPath:[self filePathWithFileName:fileName] error:&error];
+  if (error) {
+    MSLog(@"removeFileWithName error: %@", error);
+  }
 }
 
 - (void)removeFileWithPath:(NSString *)filePath {
   [self.fileManager removeItemAtPath:filePath error:nil];
 }
 
+- (void)moveFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath {
+  [self.fileManager moveItemAtPath:sourcePath toPath:destinationPath error:nil];
+}
 
 @end
