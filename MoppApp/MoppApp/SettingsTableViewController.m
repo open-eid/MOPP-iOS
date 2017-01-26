@@ -10,11 +10,13 @@
 #import "FileManager.h"
 #import "DefaultsHelper.h"
 #import "AppDelegate.h"
+#import <MoppLib/MoppLib.h>
 
 typedef NS_ENUM(NSUInteger, SettingsCellType) {
   SettingsCellTypeNewContainerFormat,
   SettingsCellTypeImportFile,
-  SettingsCellTypeDuplicateContainer
+  SettingsCellTypeDuplicateContainer,
+  SettingsCellTypeApplicationVersion
 };
 
 NSString *const CellIdentifier = @"CellIdentifier";
@@ -33,10 +35,11 @@ NSString *const CellIdentifier = @"CellIdentifier";
   [self setTitle:Localizations.TabSettings];
   
   self.settingsArray = @[@[@(SettingsCellTypeNewContainerFormat)],
+                         @[@(SettingsCellTypeApplicationVersion)],
                          @[
                            @(SettingsCellTypeImportFile),
-                           @(SettingsCellTypeDuplicateContainer)]];
-  
+                           @(SettingsCellTypeDuplicateContainer)]
+                         ];
   [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
 }
 
@@ -98,6 +101,30 @@ NSString *const CellIdentifier = @"CellIdentifier";
                                                   [appDelegate application:[UIApplication sharedApplication] openURL:fileUrl sourceApplication:nil annotation:nil];
                                                 }]];
   
+  [actionSheet addAction:[UIAlertAction actionWithTitle:@"test1.bdoc"
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action) {
+                                                  NSString *filePath = [[NSBundle mainBundle] pathForResource:@"test1" ofType:@"bdoc"];
+                                                  NSURL *fileUrl = [NSURL URLWithString:filePath];
+                                                  [appDelegate application:[UIApplication sharedApplication] openURL:fileUrl sourceApplication:nil annotation:nil];
+                                                }]];
+  
+  [actionSheet addAction:[UIAlertAction actionWithTitle:@"asiceTest.asice"
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action) {
+                                                  NSString *filePath = [[NSBundle mainBundle] pathForResource:@"asiceTest" ofType:@"asice"];
+                                                  NSURL *fileUrl = [NSURL URLWithString:filePath];
+                                                  [appDelegate application:[UIApplication sharedApplication] openURL:fileUrl sourceApplication:nil annotation:nil];
+                                                }]];
+  
+  [actionSheet addAction:[UIAlertAction actionWithTitle:@"ddocTest.ddoc"
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action) {
+                                                  NSString *filePath = [[NSBundle mainBundle] pathForResource:@"ddocTest" ofType:@"ddoc"];
+                                                  NSURL *fileUrl = [NSURL URLWithString:filePath];
+                                                  [appDelegate application:[UIApplication sharedApplication] openURL:fileUrl sourceApplication:nil annotation:nil];
+                                                }]];
+  
   [actionSheet addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel
                                                   style:UIAlertActionStyleCancel
                                                 handler:nil]];
@@ -121,11 +148,7 @@ NSString *const CellIdentifier = @"CellIdentifier";
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
   switch (section) {
-    case 0:
-      return nil;
-      break;
-      
-    case 1:
+    case 2:
       return @"DEV";
       break;
       
@@ -161,8 +184,13 @@ NSString *const CellIdentifier = @"CellIdentifier";
     case SettingsCellTypeDuplicateContainer:
       titleLabelText = @"Create duplicate container";
       break;
-      
-    default:
+    case SettingsCellTypeApplicationVersion:
+      titleLabelText = Localizations.SettingsApplicationVersion;
+      cell.selectionStyle = UITableViewCellSelectionStyleNone;
+      NSBundle *bundle = [NSBundle mainBundle];
+      NSMutableString *versionString = [[NSMutableString alloc] initWithString:[[bundle infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+      [versionString appendString:[NSString stringWithFormat:@".%@", [[bundle infoDictionary] objectForKey:@"CFBundleVersion"]]];
+      detailLabelText = versionString;
       break;
   }
   [cell.textLabel setText:titleLabelText];

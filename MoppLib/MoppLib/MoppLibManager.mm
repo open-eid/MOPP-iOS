@@ -282,5 +282,10 @@ void parseException(const digidoc::Exception &e) {
     failure([MoppLibError generalError]);  // TODO try to find more specific error codes
   }
 }
+- (NSString *)getMoppLibVersion {
+  NSMutableString *resultString = [[NSMutableString alloc] initWithString:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+  [resultString appendString:[NSString stringWithFormat:@".%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]]];
+  return resultString;
+}
 
 @end

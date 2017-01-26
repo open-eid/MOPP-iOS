@@ -34,7 +34,11 @@ typedef enum : NSUInteger {
   
   [self.view setBackgroundColor:[UIColor whiteColor]];
   
-  self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                               target:self
+                                                                               action:@selector(shareButtonPressed)];
+  [self.navigationItem setRightBarButtonItems:@[shareButton, self.editButtonItem]];
+  
   [self setEditing:NO]; // Update edit button title.
   
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -123,6 +127,20 @@ typedef enum : NSUInteger {
   } else {
     self.editButtonItem.title = Localizations.ActionEdit;
   }
+}
+
+- (void)shareButtonPressed {
+//  MSLog(@"shareButtonPressed");
+  
+  NSURL *containerUrl = [[NSURL alloc] initFileURLWithPath:self.container.filePath];
+  UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[containerUrl] applicationActivities:nil];
+  activityViewController.popoverPresentationController.sourceView = self.view;
+  CGRect sourceRect = CGRectMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2, 0.0, 0.0);
+  activityViewController.popoverPresentationController.sourceRect = sourceRect;
+
+  [activityViewController.popoverPresentationController setPermittedArrowDirections:0]; // Remove arrow on iPad.
+  
+  [self.navigationController presentViewController:activityViewController animated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDataSource

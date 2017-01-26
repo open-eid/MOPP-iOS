@@ -25,6 +25,8 @@
 "file-import-title" = "Lisa fail";
 "file-import-create-container-button" = "Loo dokument";
 "file-import-info" = "%@\n\nPalun vali allkirjastamata dokument või loo uus.";
+"file-import-import-failed-alert-title" = "Importimine ebaõnnestus";
+"file-import-import-failed-alert-message" = "Dokumendi %@ avamine ebaõnnestus";
 // Details
 "container-details-title" = "Dokument";
 "container-details-header-details" = "Vorming: %@ | Suurus: %ld kb";
@@ -110,3 +112,5 @@
 
 // *** Settings ***
 "settings-new-container-format" = "Uue dokumendi formaat";
+"settings-application-version" = "Versioon";
+
