@@ -74,7 +74,8 @@
       
       // Move container from inbox folder to documents folder and cleanup.
       NSString *newFilePath = [[FileManager sharedInstance] filePathWithFileName:fileName];
-      [[FileManager sharedInstance] moveFileWithPath:filePath toPath:newFilePath];
+      [[FileManager sharedInstance] copyFileWithPath:filePath toPath:newFilePath];
+      [[FileManager sharedInstance] removeFileWithPath:filePath];
       
       MoppLibContainer *moppLibContainer = [[MoppLibManager sharedInstance] getContainerWithPath:newFilePath];
       

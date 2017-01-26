@@ -67,11 +67,27 @@
 }
 
 - (void)removeFileWithPath:(NSString *)filePath {
-  [self.fileManager removeItemAtPath:filePath error:nil];
+  NSError *error;
+  [self.fileManager removeItemAtPath:filePath error:&error];
+  if (error) {
+    MSLog(@"removeFileWithPath error: %@", error);
+  }
 }
 
 - (void)moveFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath {
-  [self.fileManager moveItemAtPath:sourcePath toPath:destinationPath error:nil];
+  NSError *error;
+  [self.fileManager moveItemAtPath:sourcePath toPath:destinationPath error:&error];
+  if (error) {
+    MSLog(@"moveFileWithPath error: %@", error);
+  }
+}
+
+- (void)copyFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath {
+  NSError *error;
+  [self.fileManager copyItemAtPath:sourcePath toPath:destinationPath error:&error];
+  if (error) {
+    MSLog(@"copyFileWithPath error: %@", error);
+  }
 }
 
 @end
