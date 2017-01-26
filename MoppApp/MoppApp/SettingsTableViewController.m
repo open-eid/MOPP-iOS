@@ -11,12 +11,14 @@
 #import "DefaultsHelper.h"
 #import "AppDelegate.h"
 #import <MoppLib/MoppLib.h>
+#import "AboutViewController.h"
 
 typedef NS_ENUM(NSUInteger, SettingsCellType) {
   SettingsCellTypeNewContainerFormat,
   SettingsCellTypeImportFile,
   SettingsCellTypeDuplicateContainer,
-  SettingsCellTypeApplicationVersion
+  SettingsCellTypeApplicationVersion,
+  SettingsCellTypeAbout
 };
 
 NSString *const CellIdentifier = @"CellIdentifier";
@@ -38,7 +40,7 @@ NSString *const CellIdentifier = @"CellIdentifier";
                          @[
                            @(SettingsCellTypeImportFile),
                            @(SettingsCellTypeDuplicateContainer)],
-                         @[@(SettingsCellTypeApplicationVersion)]];
+                         @[@(SettingsCellTypeApplicationVersion), @(SettingsCellTypeAbout)]];
   [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
 }
 
@@ -158,6 +160,10 @@ NSString *const CellIdentifier = @"CellIdentifier";
       titleLabelText = @"Initiate file import";
       break;
       
+    case SettingsCellTypeAbout:
+      titleLabelText = @"About";
+      break;
+    
     case SettingsCellTypeDuplicateContainer:
       titleLabelText = @"Create duplicate container";
       break;
@@ -169,6 +175,7 @@ NSString *const CellIdentifier = @"CellIdentifier";
       [versionString appendString:[NSString stringWithFormat:@".%@", [[bundle infoDictionary] objectForKey:@"CFBundleVersion"]]];
       detailLabelText = versionString;
       break;
+    
   }
   [cell.textLabel setText:titleLabelText];
   [cell.detailTextLabel setText:detailLabelText];
@@ -210,7 +217,10 @@ NSString *const CellIdentifier = @"CellIdentifier";
 
       break;
     }
-      
+    case SettingsCellTypeAbout: {
+      AboutViewController *controller = [[AboutViewController alloc] init];
+      [self.navigationController pushViewController:controller animated:YES ];
+    }
     default:
       break;
   }
