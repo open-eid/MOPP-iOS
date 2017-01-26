@@ -106,13 +106,18 @@
 /// Base translation: Edit
 - (NSString *)ActionEdit;
 
-/// Base translation: SIM settings
-- (NSString *)TabSimSettings;
+/// Base translation: Failed to open document %@
+- (NSString *(^)(NSString *))FileImportImportFailedAlertMessage;
+/// Base translation: Additional dependencies
+- (NSString *)AboutDependencies;
 
 /// Base translation: New %@ must be different from previous one.
 - (NSString *(^)(NSString *))PinActionsRuleDifferentFromPrevious;
 /// Base translation: Validity:
 - (NSString *)MyEidValidity;
+
+/// Base translation: SIM settings
+- (NSString *)TabSimSettings;
 
 /// Base translation: %@ is blocked.
 - (NSString *(^)(NSString *))PinActionsPinBlocked;
@@ -173,6 +178,9 @@
 
 /// Base translation: Current %@ was wrong. %@ has been blocked.
 - (NSString *(^)(NSString *, NSString *))PinActionsWrongPinBlocked;
+/// Base translation: Import failed
+- (NSString *)FileImportImportFailedAlertTitle;
+
 /// Base translation: Documents
 - (NSString *)TabContainers;
 
@@ -200,6 +208,9 @@
 
 /// Base translation: Unblock %@
 - (NSString *(^)(NSString *))PinActionsUnblockPin;
+/// Base translation: Software ordered by RIA, developed by Mobi Lab
+- (NSString *)AboutDevelopment;
+
 /// Base translation: Format: %@ | Size: %ld kb
 - (NSString *(^)(NSString *, long))ContainerDetailsHeaderDetails;
 /// Base translation: PUK

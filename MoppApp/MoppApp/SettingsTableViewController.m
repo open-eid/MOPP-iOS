@@ -37,10 +37,10 @@ NSString *const CellIdentifier = @"CellIdentifier";
   [self setTitle:Localizations.TabSettings];
   
   self.settingsArray = @[@[@(SettingsCellTypeNewContainerFormat)],
-                         @[
-                           @(SettingsCellTypeImportFile),
-                           @(SettingsCellTypeDuplicateContainer)],
-                         @[@(SettingsCellTypeApplicationVersion), @(SettingsCellTypeAbout)]];
+                         @[@(SettingsCellTypeApplicationVersion)],
+                         @[@(SettingsCellTypeAbout)],
+                         @[@(SettingsCellTypeImportFile),
+                           @(SettingsCellTypeDuplicateContainer)]];
   [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
 }
 
@@ -102,6 +102,30 @@ NSString *const CellIdentifier = @"CellIdentifier";
                                                   [appDelegate application:[UIApplication sharedApplication] openURL:fileUrl sourceApplication:nil annotation:nil];
                                                 }]];
   
+  [actionSheet addAction:[UIAlertAction actionWithTitle:@"test1.bdoc"
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action) {
+                                                  NSString *filePath = [[NSBundle mainBundle] pathForResource:@"test1" ofType:@"bdoc"];
+                                                  NSURL *fileUrl = [NSURL URLWithString:filePath];
+                                                  [appDelegate application:[UIApplication sharedApplication] openURL:fileUrl sourceApplication:nil annotation:nil];
+                                                }]];
+  
+  [actionSheet addAction:[UIAlertAction actionWithTitle:@"asiceTest.asice"
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action) {
+                                                  NSString *filePath = [[NSBundle mainBundle] pathForResource:@"asiceTest" ofType:@"asice"];
+                                                  NSURL *fileUrl = [NSURL URLWithString:filePath];
+                                                  [appDelegate application:[UIApplication sharedApplication] openURL:fileUrl sourceApplication:nil annotation:nil];
+                                                }]];
+  
+  [actionSheet addAction:[UIAlertAction actionWithTitle:@"ddocTest.ddoc"
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action) {
+                                                  NSString *filePath = [[NSBundle mainBundle] pathForResource:@"ddocTest" ofType:@"ddoc"];
+                                                  NSURL *fileUrl = [NSURL URLWithString:filePath];
+                                                  [appDelegate application:[UIApplication sharedApplication] openURL:fileUrl sourceApplication:nil annotation:nil];
+                                                }]];
+  
   [actionSheet addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel
                                                   style:UIAlertActionStyleCancel
                                                 handler:nil]];
@@ -125,12 +149,10 @@ NSString *const CellIdentifier = @"CellIdentifier";
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
   switch (section) {
-    case 1:
+    case 3:
       return @"DEV";
       break;
-    case 2:
-      return @" ";
-      break;
+      
     default:
       return nil;
       break;

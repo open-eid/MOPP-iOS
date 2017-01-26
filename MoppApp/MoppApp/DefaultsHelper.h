@@ -10,6 +10,7 @@
 
 extern NSString *const ContainerFormatBdoc;
 extern NSString *const ContainerFormatAsice;
+extern NSString *const ContainerFormatDdoc;
 
 @interface DefaultsHelper : NSObject
 

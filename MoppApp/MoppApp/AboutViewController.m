@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *versionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *developmentLabel;
 @property (weak, nonatomic) IBOutlet UITableView *dependencyTableView;
+@property (weak, nonatomic) IBOutlet UILabel *addtionalDepsLabel;
 
 @property (strong, nonatomic) NSArray<DependencyWrapper *> *dependenciesArray;
 @end
@@ -30,10 +31,18 @@
   DependencyWrapper *PureLayout = [[DependencyWrapper alloc] initWithDependencyName:@"PureLayout" licenseName:@"MIT License" licenseLink:@"https://github.com/PureLayout/PureLayout/blob/master/LICENSE"];
   DependencyWrapper *Libdigidocpp = [[DependencyWrapper alloc] initWithDependencyName:@"libdigidocpp" licenseName:@"GNU Lesser General Public License (LGPL) version 2.1" licenseLink:@"https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"];
   self.dependenciesArray = @[MBProgressHUD, OCMock, PureLayout, Libdigidocpp];
-  [self.versionLabel setText:@"1.0.1"];
-  [self.developmentLabel setText:@"Developed by RIA"];
+  NSBundle *bundle = [NSBundle mainBundle];
+  NSMutableString *versionString = [[NSMutableString alloc] initWithString:Localizations.SettingsApplicationVersion];
+  [versionString appendString:@" "];
+  [versionString appendString:[[bundle infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+  [versionString appendString:[NSString stringWithFormat:@".%@", [[bundle infoDictionary] objectForKey:@"CFBundleVersion"]]];
+  [self.versionLabel setText:versionString];
+  [self.developmentLabel setText:Localizations.AboutDevelopment];
+  self.developmentLabel.numberOfLines = 4;
+  [self.addtionalDepsLabel setText:Localizations.AboutDependencies];
   [self.dependencyTableView setDelegate:self];
   [self.dependencyTableView setDataSource:self];
+  
   
   UINib *dependecyCellNib = [UINib nibWithNibName:NSStringFromClass([DependencyTableViewCell class]) bundle:nil];
   [self.dependencyTableView registerNib:dependecyCellNib forCellReuseIdentifier:NSStringFromClass([DependencyTableViewCell class])];

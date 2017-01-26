@@ -173,8 +173,14 @@
     return NSLocalizedStringFromTable(@"action-edit", nil, nil);
 }
 
-- (NSString *)TabSimSettings {
-    return NSLocalizedStringFromTable(@"tab-sim-settings", nil, nil);
+- (NSString *(^)(NSString *))FileImportImportFailedAlertMessage {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"file-import-import-failed-alert-message", nil, nil), value1];
+    };
+}
+
+- (NSString *)AboutDependencies {
+    return NSLocalizedStringFromTable(@"about-dependencies", nil, nil);
 }
 
 - (NSString *(^)(NSString *))PinActionsRuleDifferentFromPrevious {
@@ -185,6 +191,10 @@
 
 - (NSString *)MyEidValidity {
     return NSLocalizedStringFromTable(@"my-eid-validity", nil, nil);
+}
+
+- (NSString *)TabSimSettings {
+    return NSLocalizedStringFromTable(@"tab-sim-settings", nil, nil);
 }
 
 - (NSString *(^)(NSString *))PinActionsPinBlocked {
@@ -289,6 +299,10 @@
     };
 }
 
+- (NSString *)FileImportImportFailedAlertTitle {
+    return NSLocalizedStringFromTable(@"file-import-import-failed-alert-title", nil, nil);
+}
+
 - (NSString *)TabContainers {
     return NSLocalizedStringFromTable(@"tab-containers", nil, nil);
 }
@@ -333,6 +347,10 @@
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-unblock-pin", nil, nil), value1];
     };
+}
+
+- (NSString *)AboutDevelopment {
+    return NSLocalizedStringFromTable(@"about-development", nil, nil);
 }
 
 - (NSString *(^)(NSString *, long))ContainerDetailsHeaderDetails {

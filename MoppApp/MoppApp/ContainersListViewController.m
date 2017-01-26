@@ -26,7 +26,6 @@ typedef enum : NSUInteger {
 @property (strong, nonatomic) NSArray *signedContainers;
 @property (strong, nonatomic) NSArray *filteredUnsignedContainers;
 @property (strong, nonatomic) NSArray *filteredSignedContainers;
-@property (strong, nonatomic) MoppLibContainer *selectedContainer;
 
 @end
 
@@ -80,6 +79,16 @@ typedef enum : NSUInteger {
   [super filterContainers:searchString];
 }
 
+- (void)cancelEditing {
+  [self setEditing:NO animated:YES];
+}
+
+- (void)setSelectedContainer:(MoppLibContainer *)selectedContainer {
+  _selectedContainer = selectedContainer;
+  
+  [self performSegueWithIdentifier:@"ContainerDetailsSegue" sender:self];
+}
+
 
 #pragma mark - File importing
 - (void)setDataFilePath:(NSString *)dataFilePath {
@@ -122,7 +131,6 @@ typedef enum : NSUInteger {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   
-  MoppLibContainer *container;
   switch (indexPath.section) {
     case ContainersListSectionUnsigned: {
       if (self.filteredUnsignedContainers.count > 0) {
@@ -154,7 +162,6 @@ typedef enum : NSUInteger {
       break;
   }
   
-  
   return nil;
 }
 
@@ -180,8 +187,6 @@ typedef enum : NSUInteger {
     default:
       break;
   }
-  
-  [self performSegueWithIdentifier:@"ContainerDetailsSegue" sender:self];
 }
 
 
@@ -235,6 +240,8 @@ typedef enum : NSUInteger {
 //    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     [self reloadData];
   }
+  
+  [self performSelector:@selector(cancelEditing) withObject:nil afterDelay:0.1];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -286,7 +293,6 @@ typedef enum : NSUInteger {
 #pragma mark - FileImportViewControllerDelegate
 - (void)openContainerDetails:(MoppLibContainer *)container {
   self.selectedContainer = container;
-  [self performSegueWithIdentifier:@"ContainerDetailsSegue" sender:self];
 }
 
 @end

@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AboutViewController">
             <connections>
+                <outlet property="addtionalDepsLabel" destination="I6F-5v-gNj" id="66K-Gr-Tzp"/>
                 <outlet property="dependencyTableView" destination="hDV-vb-R5p" id="xhz-vQ-jcq"/>
                 <outlet property="developmentLabel" destination="Vs7-Ok-lPq" id="Rch-fH-nsB"/>
                 <outlet property="versionLabel" destination="MCB-NI-ZFP" id="09N-aj-eg8"/>
@@ -24,36 +25,47 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EU_RegionalDevelopment_horisontaal" translatesAutoresizingMaskIntoConstraints="NO" id="MO5-pX-mkS" userLabel="FundsImageView">
                     <rect key="frame" x="20" y="0.0" width="335" height="195"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MCB-NI-ZFP" userLabel="versionLabel">
-                    <rect key="frame" x="160" y="195" width="56" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="version" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MCB-NI-ZFP" userLabel="versionLabel">
+                    <rect key="frame" x="12" y="195" width="351" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="developed by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vs7-Ok-lPq" userLabel="developmentLabel">
-                    <rect key="frame" x="136" y="238" width="103" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="developed by" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vs7-Ok-lPq" userLabel="developmentLabel">
+                    <rect key="frame" x="12" y="238" width="351" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hDV-vb-R5p">
-                    <rect key="frame" x="12" y="281" width="351" height="386"/>
+                    <rect key="frame" x="12" y="312" width="351" height="355"/>
                     <color key="backgroundColor" white="0.90000000000000002" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="addtionalDeps" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6F-5v-gNj" userLabel="additionalDepsLabel">
+                    <rect key="frame" x="12" y="281" width="351" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="I6F-5v-gNj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="1ug-PB-M8g"/>
                 <constraint firstItem="MCB-NI-ZFP" firstAttribute="top" secondItem="MO5-pX-mkS" secondAttribute="bottom" id="8CE-pd-rcO"/>
                 <constraint firstItem="MO5-pX-mkS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="8T6-vo-aNb"/>
                 <constraint firstAttribute="trailing" secondItem="MO5-pX-mkS" secondAttribute="trailing" constant="20" id="9aO-L4-iWY"/>
                 <constraint firstAttribute="trailing" secondItem="hDV-vb-R5p" secondAttribute="trailing" constant="12" id="B5p-ap-tnW"/>
                 <constraint firstItem="Vs7-Ok-lPq" firstAttribute="top" secondItem="MCB-NI-ZFP" secondAttribute="bottom" constant="22" id="Ds4-Up-bCK"/>
-                <constraint firstItem="MCB-NI-ZFP" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="HWh-Dz-KoF"/>
+                <constraint firstItem="I6F-5v-gNj" firstAttribute="top" secondItem="Vs7-Ok-lPq" secondAttribute="bottom" constant="22" id="HOd-N1-15E"/>
                 <constraint firstItem="hDV-vb-R5p" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="NoT-31-p6x"/>
                 <constraint firstAttribute="bottom" secondItem="hDV-vb-R5p" secondAttribute="bottom" id="SH7-VX-voU"/>
-                <constraint firstItem="Vs7-Ok-lPq" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="XJP-Zq-shL"/>
+                <constraint firstItem="Vs7-Ok-lPq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="Xli-6n-f15"/>
+                <constraint firstAttribute="trailing" secondItem="Vs7-Ok-lPq" secondAttribute="trailing" constant="12" id="YeK-Fb-3F9"/>
+                <constraint firstItem="MCB-NI-ZFP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="b6v-7k-5TM"/>
                 <constraint firstItem="MO5-pX-mkS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="bjF-qr-mVn"/>
-                <constraint firstItem="hDV-vb-R5p" firstAttribute="top" secondItem="Vs7-Ok-lPq" secondAttribute="bottom" constant="22" id="kXZ-UB-W21"/>
+                <constraint firstAttribute="trailing" secondItem="I6F-5v-gNj" secondAttribute="trailing" constant="12" id="edY-Ia-XCT"/>
+                <constraint firstItem="hDV-vb-R5p" firstAttribute="top" secondItem="I6F-5v-gNj" secondAttribute="bottom" constant="10" id="h9p-zN-AuA"/>
+                <constraint firstAttribute="trailing" secondItem="MCB-NI-ZFP" secondAttribute="trailing" constant="12" id="tq0-xG-9VU"/>
             </constraints>
             <point key="canvasLocation" x="33.5" y="54.5"/>
         </view>
