@@ -114,3 +114,8 @@
 "settings-new-container-format" = "Uue dokumendi formaat";
 "settings-application-version" = "Versioon";
 
+
+// *** About ***
+"about-development" = "ID-tarkvara arendaja on, Riigi Infosüsteemi Ameti tellimusel, Mobi Lab OÜ";
+"about-dependencies" = "Täiendavad litsentsid ja komponendid";
+

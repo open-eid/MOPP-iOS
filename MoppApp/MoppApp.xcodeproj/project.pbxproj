@@ -27,6 +27,11 @@
 		54825EF81E1D270F00253FF0 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF71E1D270F00253FF0 /* NSString+Additions.m */; };
 		54825EFB1E1D28E900253FF0 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EFA1E1D28E900253FF0 /* UIColor+Additions.m */; };
 		54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */; };
+		AEC1646A1E3A0DFD00139C7E /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC164681E3A0DFD00139C7E /* AboutViewController.m */; };
+		AEC1646B1E3A0DFD00139C7E /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEC164691E3A0DFD00139C7E /* AboutViewController.xib */; };
+		AEC1646F1E3A194800139C7E /* DependencyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC1646D1E3A194800139C7E /* DependencyTableViewCell.m */; };
+		AEC164701E3A194800139C7E /* DependencyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEC1646E1E3A194800139C7E /* DependencyTableViewCell.xib */; };
+		AEC164731E3A257100139C7E /* DependencyWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC164721E3A257100139C7E /* DependencyWrapper.m */; };
 		E4180C1A1E240AC600FD7B8C /* UIViewController+MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C191E240AC600FD7B8C /* UIViewController+MBProgressHUD.m */; };
 		E4180C311E267A6700FD7B8C /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4180C2E1E267A6700FD7B8C /* Settings.storyboard */; };
 		E4180C321E267A6700FD7B8C /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C301E267A6700FD7B8C /* SettingsTableViewController.m */; };
@@ -118,6 +123,14 @@
 		6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B5F907F55A4D9D1590D35CB /* Pods-MoppApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.release.xcconfig"; sourceTree = "<group>"; };
 		A0A7AA11ECD67C1248EED708 /* Pods-MoppApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.debug.xcconfig"; sourceTree = "<group>"; };
+		AEC164671E3A0DFD00139C7E /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		AEC164681E3A0DFD00139C7E /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		AEC164691E3A0DFD00139C7E /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
+		AEC1646C1E3A194800139C7E /* DependencyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DependencyTableViewCell.h; sourceTree = "<group>"; };
+		AEC1646D1E3A194800139C7E /* DependencyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DependencyTableViewCell.m; sourceTree = "<group>"; };
+		AEC1646E1E3A194800139C7E /* DependencyTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DependencyTableViewCell.xib; sourceTree = "<group>"; };
+		AEC164711E3A257100139C7E /* DependencyWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DependencyWrapper.h; sourceTree = "<group>"; };
+		AEC164721E3A257100139C7E /* DependencyWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DependencyWrapper.m; sourceTree = "<group>"; };
 		E4180C181E240AC600FD7B8C /* UIViewController+MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MBProgressHUD.h"; sourceTree = "<group>"; };
 		E4180C191E240AC600FD7B8C /* UIViewController+MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MBProgressHUD.m"; sourceTree = "<group>"; };
 		E4180C2E1E267A6700FD7B8C /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Settings.storyboard; path = MoppApp/Settings.storyboard; sourceTree = SOURCE_ROOT; };
@@ -262,6 +275,21 @@
 			name = MyEID;
 			sourceTree = "<group>";
 		};
+		AEC1645F1E3A0B2700139C7E /* About */ = {
+			isa = PBXGroup;
+			children = (
+				AEC164671E3A0DFD00139C7E /* AboutViewController.h */,
+				AEC164681E3A0DFD00139C7E /* AboutViewController.m */,
+				AEC164691E3A0DFD00139C7E /* AboutViewController.xib */,
+				AEC1646C1E3A194800139C7E /* DependencyTableViewCell.h */,
+				AEC1646D1E3A194800139C7E /* DependencyTableViewCell.m */,
+				AEC1646E1E3A194800139C7E /* DependencyTableViewCell.xib */,
+				AEC164711E3A257100139C7E /* DependencyWrapper.h */,
+				AEC164721E3A257100139C7E /* DependencyWrapper.m */,
+			);
+			name = About;
+			sourceTree = "<group>";
+		};
 		BC2D5E4C8EAB0299962763A0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -340,6 +368,7 @@
 		E4250D0B1E0AA84A00530370 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				AEC1645F1E3A0B2700139C7E /* About */,
 				E4C53F321E2F950D00F209BE /* InitializationViewController.h */,
 				E4C53F331E2F950D00F209BE /* InitializationViewController.m */,
 				E42B08961E1562D500EA24A3 /* Landing */,
@@ -521,6 +550,7 @@
 				542DCB691E23856100899534 /* ErrorCell.xib in Resources */,
 				54813B301E24FD270058CD33 /* InfoCell.xib in Resources */,
 				545CF8481E16563200B66EE8 /* MyEid.storyboard in Resources */,
+				AEC164701E3A194800139C7E /* DependencyTableViewCell.xib in Resources */,
 				E4C53F371E2FAE6C00F209BE /* image.jpg in Resources */,
 				E43BD8111E3A121A00F6C39D /* ddocTest.ddoc in Resources */,
 				E45EF5431E2D8D8000C37D43 /* ContainerCell.xib in Resources */,
@@ -528,6 +558,7 @@
 				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,
 				E43BD80F1E3A121100F6C39D /* asiceTest.asice in Resources */,
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
+				AEC1646B1E3A0DFD00139C7E /* AboutViewController.xib in Resources */,
 				542DCB641E1FDFC900899534 /* PinOperations.storyboard in Resources */,
 				E4C53F551E30D88500F209BE /* NoContainersCell.xib in Resources */,
 				540786F41E1AA1B30016ABA7 /* SimpleHeaderView.xib in Resources */,
@@ -627,9 +658,12 @@
 				E4C53F4B1E30D03500F209BE /* DefaultsHelper.m in Sources */,
 				E4250D151E0AA97B00530370 /* MPNavigationController.m in Sources */,
 				54813B2E1E24DD560058CD33 /* ChangePinViewController.m in Sources */,
+				AEC164731E3A257100139C7E /* DependencyWrapper.m in Sources */,
 				E4C53F4E1E30D13100F209BE /* Session.m in Sources */,
 				E42B08951E15617200EA24A3 /* LandingTabBarController.m in Sources */,
+				AEC1646F1E3A194800139C7E /* DependencyTableViewCell.m in Sources */,
 				E42B08AA1E1D4EF500EA24A3 /* ContainerCell.m in Sources */,
+				AEC1646A1E3A0DFD00139C7E /* AboutViewController.m in Sources */,
 				E42B088F1E155F2F00EA24A3 /* MPViewController.m in Sources */,
 				54825EFB1E1D28E900253FF0 /* UIColor+Additions.m in Sources */,
 				E42B08BF1E1F0C9A00EA24A3 /* ContainerDetailsDataFileCell.m in Sources */,

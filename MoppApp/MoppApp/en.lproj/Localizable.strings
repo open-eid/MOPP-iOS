@@ -108,3 +108,7 @@
 // *** Settings ***
 "settings-new-container-format" = "New container format";
 "settings-application-version" = "Version";
+
+// *** About ***
+"about-development" = "Software ordered by RIA, developed by Mobi Lab";
+"about-dependencies" = "Additional dependencies";
