@@ -26,10 +26,9 @@ class DigiDocConf: public digidoc::ConfCurrent {
 public:
   std::string TSLCache() const
   {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-    NSString *libraryDirectory = [paths objectAtIndex:0];
-//    NSLog(@"libraryDirectory: %@", libraryDirectory);
-    return libraryDirectory.UTF8String;
+    NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
+//    NSLog(@"tslCachePath: %@", tslCachePath);
+    return tslCachePath.UTF8String;
   }
   
   std::string xsdPath() const
@@ -74,6 +73,27 @@ private:
 }
 
 - (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure {
+
+  // Copy initial TSL cache for libdigidocpp if needed.
+  NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
+  NSString *eeTslCachePath = [NSString stringWithFormat:@"%@/EE.xml", tslCachePath];
+  if (![[MLFileManager sharedInstance] fileExistsAtPath:eeTslCachePath]) {
+    NSLog(@"Copy TSL cache: true");
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSArray *tslCache = @[[bundle pathForResource:@"EE" ofType:@"xml"],
+                          [bundle pathForResource:@"FI" ofType:@"xml"],
+                          [bundle pathForResource:@"tl-mp" ofType:@"xml"]];
+    
+    for (NSString *sourcePath in tslCache) {
+      NSString *destinationPath = [NSString stringWithFormat:@"%@/%@", tslCachePath, [sourcePath lastPathComponent]];
+      [[MLFileManager sharedInstance] copyFileWithPath:sourcePath toPath:destinationPath];
+    }
+  } else {
+    NSLog(@"Copy TSL cache: false");
+  }
+  
+  
+  // Initialize libdigidocpp.
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     try {
       digidoc::Conf::init(new DigiDocConf);

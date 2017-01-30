@@ -36,6 +36,12 @@
   return documentsDirectory;
 }
 
+- (NSString *)tslCachePath {
+  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+  NSString *libraryDirectory = [paths objectAtIndex:0];
+  return libraryDirectory;
+}
+
 - (NSString *)filePathWithFileName:(NSString *)fileName {
   NSString *filePath = [[self documentsDirectoryPath] stringByAppendingPathComponent:fileName];
   return filePath;
@@ -67,6 +73,19 @@
     return fileAttributes;
   }
   return nil;
+}
+
+- (void)copyFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath {
+  NSError *error;
+  [self.fileManager copyItemAtPath:sourcePath toPath:destinationPath error:&error];
+  if (error) {
+    NSLog(@"copyFileWithPath error: %@", error);
+  }
+}
+
+- (BOOL)fileExistsAtPath:(NSString *)filePath {
+  BOOL exists = [self.fileManager fileExistsAtPath:filePath];
+  return exists;
 }
 
 @end
