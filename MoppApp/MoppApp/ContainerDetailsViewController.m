@@ -292,7 +292,10 @@ typedef enum : NSUInteger {
       break;
       
     case ContainerDetailsSectionSignature:
+      if (self.container.signatures.count > indexPath.row) {
+
       return YES;
+      }
       break;
   
     default:
@@ -317,6 +320,7 @@ typedef enum : NSUInteger {
       }
       case ContainerDetailsSectionSignature: {
         MoppLibSignature *signature = [self.container.signatures objectAtIndex:indexPath.row];
+        self.container = [[MoppLibManager sharedInstance] removeSignature:signature fromContainerWithPath:self.container.filePath];
         break;
       }
         

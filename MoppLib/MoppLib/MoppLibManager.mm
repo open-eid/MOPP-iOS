@@ -39,6 +39,12 @@ public:
     return path.UTF8String;
   }
   
+  virtual std::string PKCS12Cert() const {
+    NSBundle *bundle = [NSBundle bundleForClass:[MoppLibManager class]];
+    NSString *path = [bundle pathForResource:@"878252.p12" ofType:@""];
+    return path.UTF8String;
+  }
+  
 };
 
 
@@ -255,6 +261,9 @@ void parseException(const digidoc::Exception &e) {
     }
     
     WebSigner *signer = new WebSigner(x509Cert);
+    signer->setProfile("time-stamp");
+    signer->setSignatureProductionPlace("", "", "", "");
+    signer->setSignerRoles(std::vector<std::string>());
     
     digidoc::Signature *signature = doc->prepareSignature(signer);
     std::string profile = signature->profile();
@@ -282,6 +291,30 @@ void parseException(const digidoc::Exception &e) {
     failure([MoppLibError generalError]);  // TODO try to find more specific error codes
   }
 }
+
+- (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath {
+  digidoc::Container *doc = digidoc::Container::open(containerPath.UTF8String);
+  for (int i = 0; i < doc->signatures().size(); i++) {
+    digidoc::Signature *signature = doc->signatures().at(i);
+    digidoc::X509Cert cert = signature->signingCertificate();
+    NSString *name = [NSString stringWithUTF8String:cert.subjectName("CN").c_str()];
+    if ([name isEqualToString:[moppSignature subjectName]]) {
+      NSDate *timestamp = [[MLDateFormatter sharedInstance] YYYYMMddTHHmmssZToDate:[NSString stringWithUTF8String:signature->OCSPProducedAt().c_str()]];
+      if ([[moppSignature timestamp] compare:timestamp] == NSOrderedSame) {
+        try {
+          doc->removeSignature(i);
+          doc->save(containerPath.UTF8String);
+        } catch(const digidoc::Exception &e) {
+          parseException(e);
+        }
+        break;
+      }
+    }
+  }
+  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath];
+  return moppLibContainer;
+}
+
 - (NSString *)getMoppLibVersion {
   NSMutableString *resultString = [[NSMutableString alloc] initWithString:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
   [resultString appendString:[NSString stringWithFormat:@".%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]]];
