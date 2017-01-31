@@ -809,6 +809,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEBUG_ACTIVITY_MODE = "";
 				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 4YJSF2LF24;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
