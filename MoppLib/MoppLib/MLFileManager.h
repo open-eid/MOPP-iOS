@@ -12,7 +12,10 @@
 
 + (MLFileManager *)sharedInstance;
 
+- (NSString *)tslCachePath;
 - (NSArray *)getContainers;
 - (NSDictionary *)fileAttributes:(NSString *)filePath;
+- (void)copyFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath;
+- (BOOL)fileExistsAtPath:(NSString *)filePath;
 
 @end
