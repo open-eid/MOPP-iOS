@@ -17,6 +17,7 @@
 #import "NSString+Additions.h"
 #import "UIColor+Additions.h"
 #import "DateFormatter.h"
+#import "MBProgressHUD.h"
 
 typedef enum : NSUInteger {
   PersonalDataSectionErrors,
@@ -87,12 +88,7 @@ typedef enum : NSUInteger {
   
   [MoppLibCardActions isCardInserted:^(BOOL isInserted) {
     self.isCardInserted = isInserted;
-    
-    if (self.isReaderConnected && self.isCardInserted) {
-      [self updateCardData];
-      [self updateCertData];
-      [self updateRetryCounters];
-    }
+    [self updateData];
   }];
 }
 
@@ -137,11 +133,14 @@ typedef enum : NSUInteger {
   }];
   
   [MoppLibCardActions pin2RetryCountWithViewController:self success:^(NSNumber *count) {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+
     if (self.pin2RetryCount != count) {
       self.pin2RetryCount = count;
       [self reloadData];
     }
   } failure:^(NSError *error) {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     NSLog(@"Error %@", error);
   }];
 }
@@ -245,13 +244,17 @@ typedef enum : NSUInteger {
   
   [MoppLibCardActions isCardInserted:^(BOOL isInserted) {
     self.isCardInserted = isInserted;
-    
-    if (self.isReaderConnected && isInserted) {
-      [self updateCardData];
-      [self updateCertData];
-      [self updateRetryCounters];
-    }
+    [self updateData];
   }];
+}
+
+- (void)updateData {
+  if (self.isReaderConnected && self.isCardInserted) {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self updateCardData];
+    [self updateCertData];
+    [self updateRetryCounters];
+  }
 }
 
 - (void)retryCounterChanged {
