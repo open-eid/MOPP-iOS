@@ -5,11 +5,12 @@
 //  Created by Olev Abel on 1/27/17.
 //  Copyright © 2017 Mobi Lab. All rights reserved.
 //
-#import "MoppSOAPManager.h"
-#import <SOAPEngine64/SOAPEngine.h>
+#import "MoppLibSOAPManager.h"
 #import "MoppLibManager.h"
 #import "MoppLibDataFile.h"
 #import <MoppLib/MoppLib-Swift.h>
+#import "MoppLibError.h"
+#import "MoppLibMobileCreateSignatureResponse.h"
 
 
 
@@ -22,24 +23,35 @@ static NSString *kMessagingMode = @"asynchClientServer";
 static NSString *kDigestType = @"sha256";
 static NSInteger kAsyncConfiguration = 0;
 
-@implementation MoppSOAPManager
+@implementation MoppLibSOAPManager
 
-- (void)mobileCreateSignatureWithContainer:(MoppLibContainer *)container persionalData:(MoppLibPersonalData *)personalData {
++ (MoppLibSOAPManager *)sharedInstance {
+  static dispatch_once_t pred;
+  static MoppLibSOAPManager *sharedInstance = nil;
+  dispatch_once(&pred, ^{
+    sharedInstance = [[self alloc] init];
+  });
+  return sharedInstance;
+}
+
+- (NSString *)mobileCreateSignatureWithContainer:(MoppLibContainer *)container
+                                     nationality:(NSString *)nationality
+                                          idCode:(NSString *)idCode
+                                         phoneNo:(NSString *)phoneNo {
   AEXMLDocument *document = [AEXMLDocument new];
   NSMutableDictionary *envelopeAttributes = [[NSMutableDictionary alloc] init];
   [envelopeAttributes setObject:@"http://www.w3.org/2001/XMLSchema-instance" forKey:@"xmlns:xsi"];
   [envelopeAttributes setObject:@"http://www.w3.org/2001/XMLSchema" forKey:@"xmlns:xsd"];
   [envelopeAttributes setObject:@"http://schemas.xmlsoap.org/soap/envelope/" forKey:@"xmlns:soapenv"];
   [envelopeAttributes setObject:@"http://www.sk.ee/DigiDocService/DigiDocService_2_3.wsdl" forKey:@"xmlns:dig"];
-  AEXMLElement *envelope = [[AEXMLElement alloc] initWithName:@"soap:Envelope" value:nil attributes:envelopeAttributes];
-  [envelope addChildWithName:@"soap:Header" value:nil attributes:nil];
-  AEXMLElement *body = [[AEXMLElement alloc] initWithName:@"soap:Body" value:nil attributes:nil];
+  AEXMLElement *envelope = [[AEXMLElement alloc] initWithName:@"soapenv:Envelope" value:nil attributes:envelopeAttributes];
+  AEXMLElement *body = [[AEXMLElement alloc] initWithName:@"soapenv:Body" value:nil attributes:@{@"DdsOperationName" : @"dig:MobileCreateSignature"}];
   [envelope addChild:body];
   AEXMLElement *mobileCreateSignature = [[AEXMLElement alloc] initWithName:@"dig:MobileCreateSignature" value:nil attributes:@{@"soapenv:encodingStyle" : @"http://schemas.xmlsoap.org/soap/encoding/"}];
   [body addChild:mobileCreateSignature];
-  [mobileCreateSignature addChildWithName:@"IDCode" value:personalData.personalIdentificationCode attributes:@{@"xsi:type" : @"xsd:string"}];
-  [mobileCreateSignature addChildWithName:@"PhoneNo" value:@"+37253308299" attributes:@{@"xsi:type" : @"xsd:string"}];
-  [mobileCreateSignature addChildWithName:@"Language" value:personalData.nationality attributes:@{@"xsi:type" : @"xsd:string"}];
+  [mobileCreateSignature addChildWithName:@"IDCode" value:idCode attributes:@{@"xsi:type" : @"xsd:string"}];
+  [mobileCreateSignature addChildWithName:@"PhoneNo" value:phoneNo attributes:@{@"xsi:type" : @"xsd:string"}];
+  [mobileCreateSignature addChildWithName:@"Language" value:nationality attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"ServiceName" value:kServiceName attributes:@{@"xsi:type" : @"xsd:string"}];
   AEXMLElement *dataFiles = [[AEXMLElement alloc] initWithName:@"DataFiles" value:nil attributes:@{@"xsi:type" : @"dig:DataFileDigestList"}];
   [mobileCreateSignature addChild:dataFiles];
@@ -56,7 +68,31 @@ static NSInteger kAsyncConfiguration = 0;
   [mobileCreateSignature addChildWithName:@"MessagingMode" value:kMessagingMode attributes:@{@"xsi:type" : @"xsd:string"}];
   [document addChild:envelope];
   NSLog(@"SOAP REQUEST %@", document.xml);
+  return document.xml;
+}
 
+- (void)parseMobileCreateSignatureResultWithResponseData:(NSData *)data
+                                             withSuccess:(ObjectSuccessBlock)success
+                                              andFailure:(FailureBlock)failure {
+  NSError *error;
+  AEXMLDocument *document = [AEXMLDocument new];
+  MoppLibMobileCreateSignatureResponse *response = [[MoppLibMobileCreateSignatureResponse alloc] init];
+  [document loadXML:data error:&error];
+  if (error.domain) {
+    error = [MoppLibError xmlParsingError];
+    failure(error);
+  } else {
+    AEXMLElement *body = [[document root] objectForKeyedSubscript:@"SOAP-ENV:Body"];
+    NSLog(@"Response body %@", body.xml);
+    AEXMLElement *mobileCreateSignatureResponse = [body objectForKeyedSubscript:@"dig:MobileCreateSignatureResponse"];
+    AEXMLElement *sessCode = [mobileCreateSignatureResponse objectForKeyedSubscript:@"Sesscode"];
+    AEXMLElement *challenge = [mobileCreateSignatureResponse objectForKeyedSubscript:@"ChallengeID"];
+    AEXMLElement *status = [mobileCreateSignatureResponse objectForKeyedSubscript:@"Status"];
+    response.sessCode = [[sessCode value] integerValue];
+    response.challengeId =[challenge value];
+    response.status = [status value];
+    success(response);
+  }
 }
 
 @end

@@ -110,6 +110,8 @@ private:
       digidoc::DataFile *dataFile = doc->dataFiles().at(i);
       
       MoppLibDataFile *moppLibDataFile = [MoppLibDataFile new];
+      moppLibDataFile.fileId = [NSString stringWithUTF8String:dataFile->id().c_str()];
+      moppLibDataFile.mediaType = [NSString stringWithUTF8String:dataFile->mediaType().c_str()];
       moppLibDataFile.fileName = [NSString stringWithUTF8String:dataFile->fileName().c_str()];
       moppLibDataFile.fileSize = dataFile->fileSize();
       
@@ -149,7 +151,23 @@ private:
     return nil;
   }
 }
-
+- (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId {
+  NSLog(@"dataFileCalculateHashWithDigestMehtod %@", method);
+  try {
+    digidoc::Container *container = digidoc::Container::open(moppContainer.filePath.UTF8String);
+    for (int i = 0; i < container->dataFiles().size(); i ++) {
+      digidoc::DataFile *dataFile = container->dataFiles().at(i);
+      NSString *currentId = [NSString stringWithUTF8String:dataFile->id().c_str()];
+      if ([currentId isEqualToString:dataFileId]) {
+        NSData * data = [NSData dataWithBytes:dataFile->calcDigest([method UTF8String]).data() length:dataFile->calcDigest([method UTF8String]).size()];
+        return [data base64EncodedStringWithOptions:0];
+      }
+    }
+  } catch (const digidoc::Exception &e) {
+    parseException(e);
+  }
+  return nil;
+}
 - (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath {
   NSLog(@"createContainerWithPath: %@, dataFilePath: %@", containerPath, dataFilePath);
   

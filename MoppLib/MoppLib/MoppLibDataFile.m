@@ -7,6 +7,7 @@
 //
 
 #import "MoppLibDataFile.h"
+#import <CommonCrypto/CommonCrypto.h>
 
 @implementation MoppLibDataFile
 

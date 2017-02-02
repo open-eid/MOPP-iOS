@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MoppLibSOAPManager.h"
+
 
 @interface MoppLibMobileCreateSignatureResponse : NSObject
-
+@property (nonatomic, strong) NSString *challengeId;
+@property (nonatomic) NSInteger sessCode;
+@property (nonatomic, strong) NSString *status;
 @end

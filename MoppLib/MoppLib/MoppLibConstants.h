@@ -23,14 +23,18 @@ typedef enum {
   moppLibErrorIncorrectPinLength = 10008, // New pin is too short or too long
   moppLibErrorPinTooEasy = 10009,// New pin is too easy
   moppLibErrorPinContainsInvalidCharacters = 10010, // Pin contains invalid characters. Only numbers are allowed
-  moppLibErrorSignatureAlreadyExists = 10011 // Tried to sign document, that has been signed with this certificate already.
+  moppLibErrorSignatureAlreadyExists = 10011, // Tried to sign document, that has been signed with this certificate already.
+  moppLibErrorUrlSessionCanceled = 10012, // NSURLErrorCanceled occured when connecting to external service.
+  moppLibErrorXmlParsingError = 10013 // AEXMLDocument loadXml failed to parse data to XML.
 
   
 } MoppLibErrorCode;
 
+extern NSString *const kDDSServerUrl;
 // Keys for Mopp Lib error user info
 
 extern NSString *const kMoppLibUserInfoRetryCount;
+
 
 
 

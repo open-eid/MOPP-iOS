@@ -18,5 +18,7 @@
 
 - (BOOL)isSigned;
 - (BOOL)isEmpty;
+- (BOOL)isDDocType;
 
+- (NSString *)getNextSignatureId;
 @end

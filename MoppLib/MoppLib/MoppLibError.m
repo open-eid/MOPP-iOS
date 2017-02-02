@@ -8,6 +8,7 @@
 
 #import "MoppLibError.h"
 
+NSString *const MoppLibErrorDomain = @"MoppLibError";
 
 @implementation MoppLibError
 
@@ -53,6 +54,12 @@
 
 + (NSError *)signatureAlreadyExistsError {
   return [self error:moppLibErrorSignatureAlreadyExists];
+}
++ (NSError *)urlSessionCanceledError {
+  return [self error:moppLibErrorUrlSessionCanceled];
+}
++ (NSError *)xmlParsingError {
+  return [self error:moppLibErrorXmlParsingError];
 }
 
 + (NSError *)error:(NSUInteger)errorCode {

@@ -9,9 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "MoppLibContainer.h"
 #import "MoppLibPersonalData.h"
+#import "MoppLibConstants.h"
 
 
-@interface MoppSOAPManager : NSObject
+@interface MoppLibSOAPManager : NSObject
 
-- (void)mobileCreateSignatureWithContainer:(MoppLibContainer *)container persionalData:(MoppLibPersonalData *)personalData;
++ (MoppLibSOAPManager *)sharedInstance;
+
+- (NSString *)mobileCreateSignatureWithContainer:(MoppLibContainer *)container nationality:(NSString *)nationality idCode:(NSString *)idCode phoneNo:(NSString *)phoneNo;
+
+- (void)parseMobileCreateSignatureResultWithResponseData:(NSData *)data withSuccess:(ObjectSuccessBlock)success andFailure:(FailureBlock)failure;
+
 @end

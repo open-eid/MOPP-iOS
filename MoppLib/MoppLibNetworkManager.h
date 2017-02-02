@@ -7,7 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MoppLibSOAPManager.h"
+#import "MoppLibConstants.h"
 
-@interface MoppLibNetworkManager : NSObject
+@interface MoppLibNetworkManager : NSObject<NSURLSessionDelegate>
+
++ (MoppLibNetworkManager *)sharedInstance;
+- (void)mobileCreateSignatureWithContainer:(MoppLibContainer *)container
+                               nationality:(NSString *)nationality
+                                    idCode:(NSString *)idCode
+                                   phoneNo:(NSString *)phoneNo
+                               withSuccess:(ObjectSuccessBlock)success
+                                andFailure:(FailureBlock)failure;
 
 @end

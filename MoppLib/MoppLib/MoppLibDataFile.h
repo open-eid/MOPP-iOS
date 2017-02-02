@@ -11,6 +11,8 @@
 
 @interface MoppLibDataFile : NSObject
 
+@property (strong, nonatomic) NSString *mediaType;
+@property (strong, nonatomic) NSString *fileId;
 @property (strong, nonatomic) NSString *fileName;
 @property (assign, nonatomic) long fileSize;
 
