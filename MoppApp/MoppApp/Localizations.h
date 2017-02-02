@@ -15,11 +15,20 @@
 
 @interface _Localizations : NSObject
 
+/// Base translation: My eID
+- (NSString *)MyEidMyEid;
+
+/// Base translation: ID code
+- (NSString *)ContainerIdcodePhoneAlertIdcodePlacholder;
+
 /// Base translation: E-mail:
 - (NSString *)MyEidEmail;
 
 /// Base translation: Card reader is not connected.  Please make sure your reader is turned on and %@ to select it.
 - (NSString *(^)(NSString *))MyEidWarningReaderNotFound;
+/// Base translation: Phone number
+- (NSString *)ContainerIdcodePhoneAlertPhonenumberPlacholder;
+
 /// Base translation: Used:
 - (NSString *)MyEidUseCount;
 
@@ -35,6 +44,9 @@
 - (NSString *(^)(NSString *))FileImportInfo;
 /// Base translation: Current %@ was wrong. You have %i tries left.
 - (NSString *(^)(NSString *, int))PinActionsWrongPinRetry;
+/// Base translation: Enter details
+- (NSString *)ContainerIdcodePhoneAlertTitle;
+
 /// Base translation: https://www.politsei.ee/en/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/
 - (NSString *)MyEidIdCardInfoLink;
 
@@ -123,6 +135,9 @@
 - (NSString *(^)(NSString *))PinActionsPinBlocked;
 /// Base translation: Using current %@ code
 - (NSString *(^)(NSString *))PinActionsVerificationOption;
+/// Base translation: Enter ID code and phone number
+- (NSString *)ContainerIdcodePhoneAlertMessage;
+
 /// Base translation: Document
 - (NSString *)ContainerDetailsTitle;
 
@@ -159,6 +174,9 @@
 
 /// Base translation: Card in reader:
 - (NSString *)MyEidCardInReader;
+
+/// Base translation: ID card
+- (NSString *)ContainerSigningMethodIdCard;
 
 /// Base translation: Unblocking %@:
 - (NSString *(^)(NSString *))PinActionsUnblockingPin;
@@ -197,6 +215,9 @@
 /// Base translation: Unsigned
 - (NSString *)ContainersListSectionHeaderUnsigned;
 
+/// Base translation: Singing method
+- (NSString *)ContainerSigningMethodAlertTitle;
+
 /// Base translation: Your signature already exists on this document.
 - (NSString *)ContainerDetailsSignatureAlreadyExists;
 
@@ -227,14 +248,17 @@
 
 /// Base translation: This %@ is not allowed.
 - (NSString *(^)(NSString *))PinActionsInvalidFormat;
-/// Base translation: Changing %@:
-- (NSString *(^)(NSString *))PinActionsVerificationTitle;
+/// Base translation: New %@ code
+- (NSString *(^)(NSString *))PinActionsNewPin;
+/// Base translation: Choose signing method
+- (NSString *)ContainerSigningMethodAlertMessage;
+
 /// Base translation: %@ must contain numbers only.
 - (NSString *(^)(NSString *))PinActionsRuleNumbersOnly;
 /// Base translation: Signature %@
 - (NSString *(^)(NSString *))ContainerDetailsSignaturePrefix;
-/// Base translation: New %@ code
-- (NSString *(^)(NSString *))PinActionsNewPin;
+/// Base translation: Changing %@:
+- (NSString *(^)(NSString *))PinActionsVerificationTitle;
 /// Base translation: Personal data
 - (NSString *)MyEidPersonalData;
 
@@ -250,8 +274,8 @@
 /// Base translation: Delete
 - (NSString *)ActionDelete;
 
-/// Base translation: My eID
-- (NSString *)MyEidMyEid;
+/// Base translation: Mobile ID
+- (NSString *)ContainerSigningMethodMobileId;
 
 + (_Localizations *)sharedInstance;
 

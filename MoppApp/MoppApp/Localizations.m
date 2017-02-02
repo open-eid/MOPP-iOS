@@ -15,6 +15,14 @@
 
 @implementation _Localizations
 
+- (NSString *)MyEidMyEid {
+    return NSLocalizedStringFromTable(@"my-eid-my-eid", nil, nil);
+}
+
+- (NSString *)ContainerIdcodePhoneAlertIdcodePlacholder {
+    return NSLocalizedStringFromTable(@"container-idcode-phone-alert-idcode-placholder", nil, nil);
+}
+
 - (NSString *)MyEidEmail {
     return NSLocalizedStringFromTable(@"my-eid-email", nil, nil);
 }
@@ -23,6 +31,10 @@
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-warning-reader-not-found", nil, nil), value1];
     };
+}
+
+- (NSString *)ContainerIdcodePhoneAlertPhonenumberPlacholder {
+    return NSLocalizedStringFromTable(@"container-idcode-phone-alert-phonenumber-placholder", nil, nil);
 }
 
 - (NSString *)MyEidUseCount {
@@ -53,6 +65,10 @@
     return ^(NSString * value1 , int value2) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-wrong-pin-retry", nil, nil), value1, value2];
     };
+}
+
+- (NSString *)ContainerIdcodePhoneAlertTitle {
+    return NSLocalizedStringFromTable(@"container-idcode-phone-alert-title", nil, nil);
 }
 
 - (NSString *)MyEidIdCardInfoLink {
@@ -209,6 +225,10 @@
     };
 }
 
+- (NSString *)ContainerIdcodePhoneAlertMessage {
+    return NSLocalizedStringFromTable(@"container-idcode-phone-alert-message", nil, nil);
+}
+
 - (NSString *)ContainerDetailsTitle {
     return NSLocalizedStringFromTable(@"container-details-title", nil, nil);
 }
@@ -263,6 +283,10 @@
 
 - (NSString *)MyEidCardInReader {
     return NSLocalizedStringFromTable(@"my-eid-card-in-reader", nil, nil);
+}
+
+- (NSString *)ContainerSigningMethodIdCard {
+    return NSLocalizedStringFromTable(@"container-signing-method-id-card", nil, nil);
 }
 
 - (NSString *(^)(NSString *))PinActionsUnblockingPin {
@@ -331,6 +355,10 @@
     return NSLocalizedStringFromTable(@"containers-list-section-header-unsigned", nil, nil);
 }
 
+- (NSString *)ContainerSigningMethodAlertTitle {
+    return NSLocalizedStringFromTable(@"container-signing-method-alert-title", nil, nil);
+}
+
 - (NSString *)ContainerDetailsSignatureAlreadyExists {
     return NSLocalizedStringFromTable(@"container-details-signature-already-exists", nil, nil);
 }
@@ -391,10 +419,14 @@
     };
 }
 
-- (NSString *(^)(NSString *))PinActionsVerificationTitle {
+- (NSString *(^)(NSString *))PinActionsNewPin {
     return ^(NSString * value1) {
-        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-verification-title", nil, nil), value1];
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-new-pin", nil, nil), value1];
     };
+}
+
+- (NSString *)ContainerSigningMethodAlertMessage {
+    return NSLocalizedStringFromTable(@"container-signing-method-alert-message", nil, nil);
 }
 
 - (NSString *(^)(NSString *))PinActionsRuleNumbersOnly {
@@ -409,9 +441,9 @@
     };
 }
 
-- (NSString *(^)(NSString *))PinActionsNewPin {
+- (NSString *(^)(NSString *))PinActionsVerificationTitle {
     return ^(NSString * value1) {
-        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-new-pin", nil, nil), value1];
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-verification-title", nil, nil), value1];
     };
 }
 
@@ -435,8 +467,8 @@
     return NSLocalizedStringFromTable(@"action-delete", nil, nil);
 }
 
-- (NSString *)MyEidMyEid {
-    return NSLocalizedStringFromTable(@"my-eid-my-eid", nil, nil);
+- (NSString *)ContainerSigningMethodMobileId {
+    return NSLocalizedStringFromTable(@"container-signing-method-mobile-id", nil, nil);
 }
 
 + (_Localizations *)sharedInstance {

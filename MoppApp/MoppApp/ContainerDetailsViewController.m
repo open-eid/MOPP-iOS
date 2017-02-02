@@ -53,7 +53,52 @@ typedef enum : NSUInteger {
 }
 
 - (IBAction)addSignatureTapped:(id)sender {
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerSigningMethodAlertTitle message:Localizations.ContainerSigningMethodAlertMessage preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ContainerSigningMethodMobileId style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [self showIDCodeAndPhoneAlert];
+  }]];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ContainerSigningMethodIdCard style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [self displayCardSignatureAlert];
+  }]];
   
+  [self presentViewController:alert animated:YES completion:nil];
+  
+}
+
+- (void)showIDCodeAndPhoneAlert {
+  __weak typeof(self) weakSelf = self;
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerIdcodePhoneAlertTitle message:Localizations.ContainerIdcodePhoneAlertMessage preferredStyle:UIAlertControllerStyleAlert];
+  [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+    textField.placeholder = Localizations.ContainerIdcodePhoneAlertIdcodePlacholder;
+    textField.keyboardType = UIKeyboardTypeNumberPad;
+  }];
+  [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+    textField.placeholder = Localizations.ContainerIdcodePhoneAlertPhonenumberPlacholder;
+    textField.keyboardType = UIKeyboardTypePhonePad;
+  }];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UITextField *idCodeTextField = [alert.textFields firstObject];
+    UITextField *phoneNumberTextField = [alert.textFields objectAtIndex:1];
+    
+#warning TODO - add sanity checks for ID code and phone number
+    [weakSelf mobileCreateSignatureWithIDCode:idCodeTextField.text phoneNumber:phoneNumberTextField.text];
+  }]];
+  [self presentViewController:alert animated:YES completion:nil];
+}
+   
+- (void)mobileCreateSignatureWithIDCode:(NSString *)idCode phoneNumber:(NSString *)phoneNumber {
+  [MoppLibCardActions cardPersonalDataWithViewController:self success:^(MoppLibPersonalData *data) {
+    [[MoppLibNetworkManager sharedInstance] mobileCreateSignatureWithContainer:self.container nationality:data.nationality idCode:idCode phoneNo:phoneNumber withSuccess:^(NSObject *responseObject) {
+      MoppLibMobileCreateSignatureResponse *response = (MoppLibMobileCreateSignatureResponse *) responseObject;
+      NSLog(@"FINISHED with resonse : %@", response);
+    } andFailure:^(NSError *error) {
+      NSLog(@"FAIL");
+    }];
+  } failure:^(NSError *error) {
+    NSLog(@"FAILED");
+  }];
+}
+- (void)displayCardSignatureAlert {
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.PinActionsPin2 message:Localizations.ContainerDetailsEnterPin preferredStyle:UIAlertControllerStyleAlert];
   
   [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
@@ -78,7 +123,6 @@ typedef enum : NSUInteger {
   
   [self presentViewController:alert animated:YES completion:nil];
 }
-
 - (void)displayErrorMessage:(NSError *)error {
   NSString *verifyCode = Localizations.PinActionsPin2;
   NSString *message;
