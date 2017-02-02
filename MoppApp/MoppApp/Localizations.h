@@ -25,6 +25,9 @@
 
 /// Base translation: Repeat new %@ code
 - (NSString *(^)(NSString *))PinActionsRepeatPin;
+/// Base translation: You need to connect card reader to sign documents.
+- (NSString *)ContainerDetailsReaderNotFound;
+
 /// Base translation: Given names:
 - (NSString *)MyEidGivenNames;
 
@@ -196,6 +199,9 @@
 - (NSString *(^)(NSString *))PinActionsCurrentPin;
 /// Base translation: Unsigned
 - (NSString *)ContainersListSectionHeaderUnsigned;
+
+/// Base translation: ID card is missing. Please make sure ID card is inserted correctly.
+- (NSString *)ContainerDetailsCardNotFound;
 
 /// Base translation: Your signature already exists on this document.
 - (NSString *)ContainerDetailsSignatureAlreadyExists;

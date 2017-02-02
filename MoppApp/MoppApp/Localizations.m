@@ -35,6 +35,10 @@
     };
 }
 
+- (NSString *)ContainerDetailsReaderNotFound {
+    return NSLocalizedStringFromTable(@"container-details-reader-not-found", nil, nil);
+}
+
 - (NSString *)MyEidGivenNames {
     return NSLocalizedStringFromTable(@"my-eid-given-names", nil, nil);
 }
@@ -329,6 +333,10 @@
 
 - (NSString *)ContainersListSectionHeaderUnsigned {
     return NSLocalizedStringFromTable(@"containers-list-section-header-unsigned", nil, nil);
+}
+
+- (NSString *)ContainerDetailsCardNotFound {
+    return NSLocalizedStringFromTable(@"container-details-card-not-found", nil, nil);
 }
 
 - (NSString *)ContainerDetailsSignatureAlreadyExists {

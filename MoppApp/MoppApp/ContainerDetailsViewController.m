@@ -101,6 +101,12 @@ typedef enum : NSUInteger {
   } else if(error.code == moppLibErrorSignatureAlreadyExists) {
     message = Localizations.ContainerDetailsSignatureAlreadyExists;
     
+  } else if(error.code == moppLibErrorReaderNotFound) {
+    message = Localizations.ContainerDetailsReaderNotFound;
+    
+  } else if(error.code == moppLibErrorCardNotFound) {
+    message = Localizations.ContainerDetailsCardNotFound;
+    
   } else {
     message = Localizations.ContainerDetailsGeneralError;
   }
