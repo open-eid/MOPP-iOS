@@ -37,7 +37,7 @@
 
 - (void)code:(CodeType)type retryCountWithViewController:(UIViewController *)controller success:(void (^)(NSNumber *))success failure:(void (^)(NSError *))failure;
 
-- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(EmptySuccessBlock)success failure:(FailureBlock)failure;
+- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(void (^)(MoppLibContainer *))success failure:(FailureBlock)failure;
 - (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure;
 
 - (void)isCardInserted:(void(^)(BOOL)) completion;

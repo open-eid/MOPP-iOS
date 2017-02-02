@@ -39,7 +39,7 @@
 + (void)pin2RetryCountWithViewController:(UIViewController *)controller success:(void (^)(NSNumber *))success failure:(void (^)(NSError *))failure {
   [[CardActionsManager sharedInstance] code:CodeTypePin2 retryCountWithViewController:controller success:success failure:failure];
 }
-+ (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(void (^)(void))success failure:(void (^)(NSError *))failure {
++ (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(void (^)(MoppLibContainer *))success failure:(void (^)(NSError *))failure {
   [[CardActionsManager sharedInstance] addSignature:moppContainer pin2:pin2 controller:controller success:success failure:failure];
 }
 

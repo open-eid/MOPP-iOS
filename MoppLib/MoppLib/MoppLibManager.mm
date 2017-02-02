@@ -44,6 +44,11 @@ public:
     return path.UTF8String;
   }
   
+  // Comment in to see libdigidocpp logs
+  /*virtual int logLevel() const {
+    return 3;
+  }*/
+  
 };
 
 
@@ -260,7 +265,7 @@ void parseException(const digidoc::Exception &e) {
   }
 }
 
-- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 cert:(NSData *)cert success:(EmptySuccessBlock)success andFailure:(FailureBlock)failure {
+- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 cert:(NSData *)cert success:(void (^)(MoppLibContainer *))success andFailure:(FailureBlock)failure {
   
   try {
     const unsigned char *bytes = (const unsigned  char *)[cert bytes];
@@ -281,12 +286,27 @@ void parseException(const digidoc::Exception &e) {
     }
     
     WebSigner *signer = new WebSigner(x509Cert);
-    signer->setProfile("time-stamp");
+    
+    std::string profile;
+    if (doc->signatures().size() > 0) {
+      std::string containerProfile = doc->signatures().at(0)->profile();
+      
+      if (containerProfile.find("time-stamp") != std::string::npos) {
+        profile = "time-stamp";
+      } else if (containerProfile.find("time-mark") != std::string::npos) {
+        profile = "time-mark";
+      }
+    }
+    
+    if (profile.length() <= 0) {
+      profile = "time-stamp";
+    }
+        
+    signer->setProfile(profile);
     signer->setSignatureProductionPlace("", "", "", "");
     signer->setSignerRoles(std::vector<std::string>());
     
     digidoc::Signature *signature = doc->prepareSignature(signer);
-    std::string profile = signature->profile();
     std::vector<unsigned char> dataToSign = signature->dataToSign();
     
     [[CardActionsManager sharedInstance] calculateSignatureFor:[NSData dataWithBytes:dataToSign.data() length:dataToSign.size()] pin2:pin2 controller:nil success:^(NSData *calculatedSignature) {
@@ -297,9 +317,10 @@ void parseException(const digidoc::Exception &e) {
         
         signature->setSignatureValue(vec);
         signature->extendSignatureProfile(profile);
-        //signature->validate();
+        signature->validate();
         doc->save();
-        success();
+        MoppLibContainer *moppLibContainer = [self getContainerWithPath:moppContainer.filePath];
+        success(moppLibContainer);
       } catch(const digidoc::Exception &e) {
         parseException(e);
         failure([MoppLibError generalError]); // TODO try to find more specific error codes

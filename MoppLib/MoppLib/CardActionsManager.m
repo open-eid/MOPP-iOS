@@ -167,12 +167,12 @@ static CardActionsManager *sharedInstance = nil;
   } failure:failure];
 }
 
-- (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(EmptySuccessBlock)success failure:(void (^)(NSError *))failure {
+- (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure {
   NSDictionary *data = @{kCardActionDataHash:hash, kCardActionDataVerify:pin2};
   [self addCardAction:CardActionCalculateSignature data:data viewController:controller success:success failure:failure];
 }
 
-- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure {
+- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(void (^)(MoppLibContainer *))success failure:(void (^)(NSError *))failure {
   NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:CodeTypePin2], kCardActionDataVerify:pin2};
 
   [self addCardAction:CardActionVerifyCode data:data viewController:controller success:^(id result) {

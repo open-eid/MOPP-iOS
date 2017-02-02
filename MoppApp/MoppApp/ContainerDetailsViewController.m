@@ -65,9 +65,11 @@ typedef enum : NSUInteger {
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     [self showHUD];
     NSString *pin = [alert.textFields[0].text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    [MoppLibCardActions addSignature:self.container pin2:pin controller:self success:^(void) {
+    [MoppLibCardActions addSignature:self.container pin2:pin controller:self success:^(MoppLibContainer *container) {
       [self hideHUD];
       [self displaySigningSuccessMessage];
+      self.container = container;
+      [self.tableView reloadData];
       
     } failure:^(NSError *error) {
       [self hideHUD];
@@ -114,7 +116,7 @@ typedef enum : NSUInteger {
 - (void)displaySigningSuccessMessage {
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsSigningSuccess message:Localizations.ContainerDetailsSignatureAdded preferredStyle:UIAlertControllerStyleAlert];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-      [self.navigationController popViewControllerAnimated:YES];
+      //[self.navigationController popViewControllerAnimated:YES];
   }]];
   [self presentViewController:alert animated:YES completion:nil];
 }
