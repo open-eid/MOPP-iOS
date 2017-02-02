@@ -41,14 +41,17 @@
 "container-details-signing-success" = "Allkirjastamine õnnestus";
 "container-details-signature-added" = "Sinu allkiri on dokumendile lisatud.";
 "container-details-signature-already-exists" = "Sinu allkiri on sellel dokumendil juba olemas.";
-"container-signing-method-alert-title" = "Allkirjastamise meetod";
-"container-signing-method-alert-message" = "Vali allkirjastamise meetod";
-"container-signing-method-mobile-id" = "Mobiil ID";
-"container-signing-method-id-card" = "ID kaart";
-"container-idcode-phone-alert-title" = "Sisesta andmed";
-"container-idcode-phone-alert-message" = "Sisesta isikukood ja telefoninumber";
-"container-idcode-phone-alert-idcode-placholder" = "Isikukood";
-"container-idcode-phone-alert-phonenumber-placholder" = "Telefoninumber";
+"container-details-signing-method-alert-title" = "Allkirjastamise meetod";
+"container-details-signing-method-alert-message" = "Vali allkirjastamise meetod";
+"container-details-signing-method-mobile-id" = "Mobiil ID";
+"container-details-signing-method-id-card" = "ID kaart";
+"container-details-idcode-phone-alert-title" = "Sisesta andmed";
+"container-details-idcode-phone-alert-message" = "Sisesta isikukood ja telefoninumber";
+"container-details-idcode-phone-alert-idcode-placholder" = "Isikukood";
+"container-details-idcode-phone-alert-phonenumber-placholder" = "Telefoninumber";
+ 
+"container-details-reader-not-found" = "Dokumentide allkirjastamiseks on vaja ühendada kaardilugeja.";
+"container-details-card-not-found" = "ID kaarti ei leitud. Palun kontrolli kas kaart on õigesti lugejasse sisestatud.";
 
 
 // *** My eID ***

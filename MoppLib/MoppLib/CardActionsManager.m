@@ -27,6 +27,7 @@ typedef NS_ENUM(NSUInteger, CardAction) {
   CardActionReadSigningCert,
   CardActionReadAuthenticationCert,
   CardActionReadOwnerBirthDate,
+  CardActionReadSecretKey,
   CardActionVerifyCode,
   CardActionCalculateSignature
 };
@@ -35,9 +36,10 @@ NSString *const kCardActionDataHash = @"Hash";
 NSString *const kCardActionDataCodeType = @"Code type";
 NSString *const kCardActionDataNewCode = @"New code";
 NSString *const kCardActionDataVerify = @"Verify";
+NSString *const kCardActionDataRecord = @"Record";
 
 @interface CardActionObject : NSObject
-@property (nonatomic, assign) NSUInteger cardAction;
+@property (nonatomic, assign) CardAction cardAction;
 @property (nonatomic, strong) void (^successBlock)(id);
 @property (nonatomic, strong) FailureBlock failureBlock;
 @property (nonatomic, strong) UIViewController *controller;
@@ -97,31 +99,30 @@ static CardActionsManager *sharedInstance = nil;
 
 }
 
-- (void (^)(MoppLibCertData *))getCertDataFromCert:(NSData *)certificateData action:(CardAction)certAction success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
-  return ^void (MoppLibCertData *data) {
-    MoppLibCertData *certData = [MoppLibCertData new];
-    [MoppLibCertificate certData:certData updateWithData:[certificateData bytes] length:certificateData.length];
+- (void)getCertDataFromCert:(NSData *)certificateData action:(CardAction)certAction controller:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
+  MoppLibCertData *certData = [MoppLibCertData new];
+  [MoppLibCertificate certData:certData updateWithData:[certificateData bytes] length:certificateData.length];
+  
+  int record = 0;
+  if (certAction == CardActionReadSigningCert) {
+    record = 1;
+  } else {
+    record = 3;
+  }
+  NSDictionary *data = @{kCardActionDataRecord:[NSNumber numberWithInt:record]};
+  [self addCardAction:CardActionReadSecretKey data:data viewController:controller success:^(NSData *data) {
+    NSData *keyUsageData = [data subdataWithRange:NSMakeRange(12, 3)];
+    int counterStart = [@"FF FF FF" hexToInt];
+    int counterValue = [[keyUsageData toHexString] hexToInt];
+    certData.usageCount = counterStart - counterValue;
     
-    int record = 0;
-    if (certAction == CardActionReadSigningCert) {
-      record = 1;
-    } else {
-      record = 3;
-    }
-    [self.cardVersionHandler readSecretKeyRecord:record withSuccess:^(NSData *data) {
-      NSData *keyUsageData = [data subdataWithRange:NSMakeRange(12, 3)];
-      int counterStart = [@"FF FF FF" hexToInt];
-      int counterValue = [[keyUsageData toHexString] hexToInt];
-      certData.usageCount = counterStart - counterValue;
-      
-      success(certData);
-    } failure:failure];
-  };
+    success(certData);
+  } failure:failure];
 }
 
 - (void)signingCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
   [self signingCertDataWithViewController:controller success:^(NSData *data) {
-    [self getCertDataFromCert:data action:CardActionReadSigningCert success:success failure:failure];
+    [self getCertDataFromCert:data action:CardActionReadSigningCert controller:controller success:success failure:failure];
   } failure:failure];
 }
 
@@ -131,7 +132,7 @@ static CardActionsManager *sharedInstance = nil;
 
 - (void)authenticationCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
   [self authenticationCertDataWithViewController:controller success:^(NSData *data) {
-    [self getCertDataFromCert:data action:CardActionReadAuthenticationCert success:success failure:failure];
+    [self getCertDataFromCert:data action:CardActionReadAuthenticationCert controller:controller success:success failure:failure];
   } failure:failure];
 }
 
@@ -166,12 +167,12 @@ static CardActionsManager *sharedInstance = nil;
   } failure:failure];
 }
 
-- (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(EmptySuccessBlock)success failure:(void (^)(NSError *))failure {
+- (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure {
   NSDictionary *data = @{kCardActionDataHash:hash, kCardActionDataVerify:pin2};
   [self addCardAction:CardActionCalculateSignature data:data viewController:controller success:success failure:failure];
 }
 
-- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure {
+- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(void (^)(MoppLibContainer *))success failure:(void (^)(NSError *))failure {
   NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:CodeTypePin2], kCardActionDataVerify:pin2};
 
   [self addCardAction:CardActionVerifyCode data:data viewController:controller success:^(id result) {
@@ -377,6 +378,12 @@ static CardActionsManager *sharedInstance = nil;
       NSString *pin2 = [actionObject.data objectForKey:kCardActionDataVerify];
       NSData *hash = [actionObject.data objectForKey:kCardActionDataHash];
       [self.cardVersionHandler calculateSignatureFor:hash withPin2:pin2 success:success failure:failure];
+      break;
+    }
+      
+    case CardActionReadSecretKey: {
+      NSNumber *record = [actionObject.data objectForKey:kCardActionDataRecord];
+      [self.cardVersionHandler readSecretKeyRecord:record.integerValue withSuccess:success failure:failure];
       break;
     }
       

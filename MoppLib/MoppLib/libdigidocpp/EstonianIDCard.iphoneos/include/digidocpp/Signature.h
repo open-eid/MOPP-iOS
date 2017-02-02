@@ -69,6 +69,9 @@ namespace digidoc
           // Xades properties
           virtual std::string streetAddress() const;
 
+          // Other
+          virtual std::string signedBy() const;
+
       protected:
           Signature();
 

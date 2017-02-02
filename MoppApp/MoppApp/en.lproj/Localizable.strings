@@ -41,16 +41,17 @@
 "container-details-signing-success" = "Signature added";
 "container-details-signature-added" = "Your signature has been added to the document.";
 "container-details-signature-already-exists" = "Your signature already exists on this document.";
-"container-signing-method-alert-title" = "Singing method";
-"container-signing-method-alert-message" = "Choose signing method";
-"container-signing-method-mobile-id" = "Mobile ID";
-"container-signing-method-id-card" = "ID card";
-"container-idcode-phone-alert-title" = "Enter details";
-"container-idcode-phone-alert-message" = "Enter ID code and phone number";
-"container-idcode-phone-alert-idcode-placholder" = "ID code";
-"container-idcode-phone-alert-phonenumber-placholder" = "Phone number";
-
-
+"container-details-signing-method-alert-title" = "Singing method";
+"container-details-signing-method-alert-message" = "Choose signing method";
+"container-details-signing-method-mobile-id" = "Mobile ID";
+"container-details-signing-method-id-card" = "ID card";
+"container-details-idcode-phone-alert-title" = "Enter details";
+"container-details-idcode-phone-alert-message" = "Enter ID code and phone number";
+"container-details-idcode-phone-alert-idcode-placholder" = "ID code";
+"container-details-idcode-phone-alert-phonenumber-placholder" = "Phone number";
+ 
+"container-details-reader-not-found" = "You need to connect card reader to sign documents.";
+"container-details-card-not-found" = "ID card is missing. Please make sure ID card is inserted correctly.";
 
 
 // *** My eID ***

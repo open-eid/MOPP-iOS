@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MoppLibContainer.h"
+#import "MoppLibSignature.h"
 #import "MoppLibConstants.h"
 
 @interface MoppLibManager : NSObject
@@ -20,7 +21,8 @@
 - (MoppLibContainer *)addDataFileToContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath;
 - (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex;
 - (NSArray *)getContainersIsSigned:(BOOL)isSigned;
-- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 cert:(NSData *)cert success:(EmptySuccessBlock)success andFailure:(FailureBlock)failure;
 - (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId;
+- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 cert:(NSData *)cert success:(void (^)(MoppLibContainer *))success andFailure:(FailureBlock)failure;
+- (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath;
 - (NSString *)getMoppLibVersion;
 @end

@@ -15,25 +15,22 @@
 
 @interface _Localizations : NSObject
 
-/// Base translation: My eID
-- (NSString *)MyEidMyEid;
-
-/// Base translation: ID code
-- (NSString *)ContainerIdcodePhoneAlertIdcodePlacholder;
-
 /// Base translation: E-mail:
 - (NSString *)MyEidEmail;
 
 /// Base translation: Card reader is not connected.  Please make sure your reader is turned on and %@ to select it.
 - (NSString *(^)(NSString *))MyEidWarningReaderNotFound;
-/// Base translation: Phone number
-- (NSString *)ContainerIdcodePhoneAlertPhonenumberPlacholder;
-
 /// Base translation: Used:
 - (NSString *)MyEidUseCount;
 
 /// Base translation: Repeat new %@ code
 - (NSString *(^)(NSString *))PinActionsRepeatPin;
+/// Base translation: ID card
+- (NSString *)ContainerDetailsSigningMethodIdCard;
+
+/// Base translation: You need to connect card reader to sign documents.
+- (NSString *)ContainerDetailsReaderNotFound;
+
 /// Base translation: Given names:
 - (NSString *)MyEidGivenNames;
 
@@ -44,9 +41,6 @@
 - (NSString *(^)(NSString *))FileImportInfo;
 /// Base translation: Current %@ was wrong. You have %i tries left.
 - (NSString *(^)(NSString *, int))PinActionsWrongPinRetry;
-/// Base translation: Enter details
-- (NSString *)ContainerIdcodePhoneAlertTitle;
-
 /// Base translation: https://www.politsei.ee/en/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/
 - (NSString *)MyEidIdCardInfoLink;
 
@@ -67,8 +61,17 @@
 
 /// Base translation: Unblocking %@
 - (NSString *(^)(NSString *))PinActionsTitleUnblockingPin;
+/// Base translation: ID code
+- (NSString *)ContainerDetailsIdcodePhoneAlertIdcodePlacholder;
+
 /// Base translation: Cancel
 - (NSString *)ActionCancel;
+
+/// Base translation: Singing method
+- (NSString *)ContainerDetailsSigningMethodAlertTitle;
+
+/// Base translation: Phone number
+- (NSString *)ContainerDetailsIdcodePhoneAlertPhonenumberPlacholder;
 
 /// Base translation: Could not change %@
 - (NSString *(^)(NSString *))PinActionsGeneralError;
@@ -133,11 +136,11 @@
 
 /// Base translation: %@ is blocked.
 - (NSString *(^)(NSString *))PinActionsPinBlocked;
+/// Base translation: Mobile ID
+- (NSString *)ContainerDetailsSigningMethodMobileId;
+
 /// Base translation: Using current %@ code
 - (NSString *(^)(NSString *))PinActionsVerificationOption;
-/// Base translation: Enter ID code and phone number
-- (NSString *)ContainerIdcodePhoneAlertMessage;
-
 /// Base translation: Document
 - (NSString *)ContainerDetailsTitle;
 
@@ -172,11 +175,11 @@
 /// Base translation: Error
 - (NSString *)PinActionsErrorTitle;
 
+/// Base translation: Enter details
+- (NSString *)ContainerDetailsIdcodePhoneAlertTitle;
+
 /// Base translation: Card in reader:
 - (NSString *)MyEidCardInReader;
-
-/// Base translation: ID card
-- (NSString *)ContainerSigningMethodIdCard;
 
 /// Base translation: Unblocking %@:
 - (NSString *(^)(NSString *))PinActionsUnblockingPin;
@@ -215,8 +218,11 @@
 /// Base translation: Unsigned
 - (NSString *)ContainersListSectionHeaderUnsigned;
 
-/// Base translation: Singing method
-- (NSString *)ContainerSigningMethodAlertTitle;
+/// Base translation: Enter ID code and phone number
+- (NSString *)ContainerDetailsIdcodePhoneAlertMessage;
+
+/// Base translation: ID card is missing. Please make sure ID card is inserted correctly.
+- (NSString *)ContainerDetailsCardNotFound;
 
 /// Base translation: Your signature already exists on this document.
 - (NSString *)ContainerDetailsSignatureAlreadyExists;
@@ -250,9 +256,6 @@
 - (NSString *(^)(NSString *))PinActionsInvalidFormat;
 /// Base translation: New %@ code
 - (NSString *(^)(NSString *))PinActionsNewPin;
-/// Base translation: Choose signing method
-- (NSString *)ContainerSigningMethodAlertMessage;
-
 /// Base translation: %@ must contain numbers only.
 - (NSString *(^)(NSString *))PinActionsRuleNumbersOnly;
 /// Base translation: Signature %@
@@ -261,6 +264,9 @@
 - (NSString *(^)(NSString *))PinActionsVerificationTitle;
 /// Base translation: Personal data
 - (NSString *)MyEidPersonalData;
+
+/// Base translation: Choose signing method
+- (NSString *)ContainerDetailsSigningMethodAlertMessage;
 
 /// Base translation: ID card is not found.  Please check if ID card is inserted correctly. New ID cards have chip on the back side of the card.
 - (NSString *)MyEidWarningCardNotFound;
@@ -274,8 +280,8 @@
 /// Base translation: Delete
 - (NSString *)ActionDelete;
 
-/// Base translation: Mobile ID
-- (NSString *)ContainerSigningMethodMobileId;
+/// Base translation: My eID
+- (NSString *)MyEidMyEid;
 
 + (_Localizations *)sharedInstance;
 

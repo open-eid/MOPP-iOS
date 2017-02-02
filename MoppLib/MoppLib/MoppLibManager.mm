@@ -26,10 +26,9 @@ class DigiDocConf: public digidoc::ConfCurrent {
 public:
   std::string TSLCache() const
   {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-    NSString *libraryDirectory = [paths objectAtIndex:0];
-//    NSLog(@"libraryDirectory: %@", libraryDirectory);
-    return libraryDirectory.UTF8String;
+    NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
+//    NSLog(@"tslCachePath: %@", tslCachePath);
+    return tslCachePath.UTF8String;
   }
   
   std::string xsdPath() const
@@ -38,6 +37,17 @@ public:
     NSString *path = [bundle pathForResource:@"schema" ofType:@""];
     return path.UTF8String;
   }
+  
+  virtual std::string PKCS12Cert() const {
+    NSBundle *bundle = [NSBundle bundleForClass:[MoppLibManager class]];
+    NSString *path = [bundle pathForResource:@"878252.p12" ofType:@""];
+    return path.UTF8String;
+  }
+  
+  // Comment in to see libdigidocpp logs
+  /*virtual int logLevel() const {
+    return 3;
+  }*/
   
 };
 
@@ -74,6 +84,27 @@ private:
 }
 
 - (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure {
+
+  // Copy initial TSL cache for libdigidocpp if needed.
+  NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
+  NSString *eeTslCachePath = [NSString stringWithFormat:@"%@/EE.xml", tslCachePath];
+  if (![[MLFileManager sharedInstance] fileExistsAtPath:eeTslCachePath]) {
+    NSLog(@"Copy TSL cache: true");
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSArray *tslCache = @[[bundle pathForResource:@"EE" ofType:@"xml"],
+                          [bundle pathForResource:@"FI" ofType:@"xml"],
+                          [bundle pathForResource:@"tl-mp" ofType:@"xml"]];
+    
+    for (NSString *sourcePath in tslCache) {
+      NSString *destinationPath = [NSString stringWithFormat:@"%@/%@", tslCachePath, [sourcePath lastPathComponent]];
+      [[MLFileManager sharedInstance] copyFileWithPath:sourcePath toPath:destinationPath];
+    }
+  } else {
+    NSLog(@"Copy TSL cache: false");
+  }
+  
+  
+  // Initialize libdigidocpp.
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     try {
       digidoc::Conf::init(new DigiDocConf);
@@ -252,7 +283,7 @@ void parseException(const digidoc::Exception &e) {
   }
 }
 
-- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 cert:(NSData *)cert success:(EmptySuccessBlock)success andFailure:(FailureBlock)failure {
+- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 cert:(NSData *)cert success:(void (^)(MoppLibContainer *))success andFailure:(FailureBlock)failure {
   
   try {
     const unsigned char *bytes = (const unsigned  char *)[cert bytes];
@@ -274,8 +305,31 @@ void parseException(const digidoc::Exception &e) {
     
     WebSigner *signer = new WebSigner(x509Cert);
     
+    std::string profile;
+    if (doc->signatures().size() > 0) {
+      std::string containerProfile = doc->signatures().at(0)->profile();
+      
+      if (containerProfile.find("time-stamp") != std::string::npos) {
+        profile = "time-stamp";
+      } else if (containerProfile.find("time-mark") != std::string::npos) {
+        profile = "time-mark";
+      }
+    } else {
+      // No signatures. bdoc should use time-mark
+      if ([[moppContainer.filePath pathExtension] isEqualToString:@"bdoc"]) {
+        profile = "time-mark";
+      }
+    }
+    
+    if (profile.length() <= 0) {
+      profile = "time-stamp";
+    }
+        
+    signer->setProfile(profile);
+    signer->setSignatureProductionPlace("", "", "", "");
+    signer->setSignerRoles(std::vector<std::string>());
+    
     digidoc::Signature *signature = doc->prepareSignature(signer);
-    std::string profile = signature->profile();
     std::vector<unsigned char> dataToSign = signature->dataToSign();
     
     [[CardActionsManager sharedInstance] calculateSignatureFor:[NSData dataWithBytes:dataToSign.data() length:dataToSign.size()] pin2:pin2 controller:nil success:^(NSData *calculatedSignature) {
@@ -286,9 +340,10 @@ void parseException(const digidoc::Exception &e) {
         
         signature->setSignatureValue(vec);
         signature->extendSignatureProfile(profile);
-        //signature->validate();
+        signature->validate();
         doc->save();
-        success();
+        MoppLibContainer *moppLibContainer = [self getContainerWithPath:moppContainer.filePath];
+        success(moppLibContainer);
       } catch(const digidoc::Exception &e) {
         parseException(e);
         failure([MoppLibError generalError]); // TODO try to find more specific error codes
@@ -300,6 +355,30 @@ void parseException(const digidoc::Exception &e) {
     failure([MoppLibError generalError]);  // TODO try to find more specific error codes
   }
 }
+
+- (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath {
+  digidoc::Container *doc = digidoc::Container::open(containerPath.UTF8String);
+  for (int i = 0; i < doc->signatures().size(); i++) {
+    digidoc::Signature *signature = doc->signatures().at(i);
+    digidoc::X509Cert cert = signature->signingCertificate();
+    NSString *name = [NSString stringWithUTF8String:cert.subjectName("CN").c_str()];
+    if ([name isEqualToString:[moppSignature subjectName]]) {
+      NSDate *timestamp = [[MLDateFormatter sharedInstance] YYYYMMddTHHmmssZToDate:[NSString stringWithUTF8String:signature->OCSPProducedAt().c_str()]];
+      if ([[moppSignature timestamp] compare:timestamp] == NSOrderedSame) {
+        try {
+          doc->removeSignature(i);
+          doc->save(containerPath.UTF8String);
+        } catch(const digidoc::Exception &e) {
+          parseException(e);
+        }
+        break;
+      }
+    }
+  }
+  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath];
+  return moppLibContainer;
+}
+
 - (NSString *)getMoppLibVersion {
   NSMutableString *resultString = [[NSMutableString alloc] initWithString:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
   [resultString appendString:[NSString stringWithFormat:@".%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]]];

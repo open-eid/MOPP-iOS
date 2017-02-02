@@ -53,11 +53,11 @@ typedef enum : NSUInteger {
 }
 
 - (IBAction)addSignatureTapped:(id)sender {
-  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerSigningMethodAlertTitle message:Localizations.ContainerSigningMethodAlertMessage preferredStyle:UIAlertControllerStyleAlert];
-  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ContainerSigningMethodMobileId style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsSigningMethodAlertTitle message:Localizations.ContainerDetailsSigningMethodAlertMessage preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ContainerDetailsSigningMethodMobileId style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     [self showIDCodeAndPhoneAlert];
   }]];
-  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ContainerSigningMethodIdCard style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ContainerDetailsSigningMethodIdCard style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     [self displayCardSignatureAlert];
   }]];
   
@@ -67,13 +67,13 @@ typedef enum : NSUInteger {
 
 - (void)showIDCodeAndPhoneAlert {
   __weak typeof(self) weakSelf = self;
-  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerIdcodePhoneAlertTitle message:Localizations.ContainerIdcodePhoneAlertMessage preferredStyle:UIAlertControllerStyleAlert];
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsIdcodePhoneAlertTitle message:Localizations.ContainerDetailsIdcodePhoneAlertMessage preferredStyle:UIAlertControllerStyleAlert];
   [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-    textField.placeholder = Localizations.ContainerIdcodePhoneAlertIdcodePlacholder;
+    textField.placeholder = Localizations.ContainerDetailsIdcodePhoneAlertIdcodePlacholder;
     textField.keyboardType = UIKeyboardTypeNumberPad;
   }];
   [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-    textField.placeholder = Localizations.ContainerIdcodePhoneAlertPhonenumberPlacholder;
+    textField.placeholder = Localizations.ContainerDetailsIdcodePhoneAlertPhonenumberPlacholder;
     textField.keyboardType = UIKeyboardTypePhonePad;
   }];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -110,9 +110,11 @@ typedef enum : NSUInteger {
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     [self showHUD];
     NSString *pin = [alert.textFields[0].text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    [MoppLibCardActions addSignature:self.container pin2:pin controller:self success:^(void) {
+    [MoppLibCardActions addSignature:self.container pin2:pin controller:self success:^(MoppLibContainer *container) {
       [self hideHUD];
       [self displaySigningSuccessMessage];
+      self.container = container;
+      [self.tableView reloadData];
       
     } failure:^(NSError *error) {
       [self hideHUD];
@@ -143,6 +145,12 @@ typedef enum : NSUInteger {
   } else if(error.code == moppLibErrorSignatureAlreadyExists) {
     message = Localizations.ContainerDetailsSignatureAlreadyExists;
     
+  } else if(error.code == moppLibErrorReaderNotFound) {
+    message = Localizations.ContainerDetailsReaderNotFound;
+    
+  } else if(error.code == moppLibErrorCardNotFound) {
+    message = Localizations.ContainerDetailsCardNotFound;
+    
   } else {
     message = Localizations.ContainerDetailsGeneralError;
   }
@@ -158,7 +166,7 @@ typedef enum : NSUInteger {
 - (void)displaySigningSuccessMessage {
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsSigningSuccess message:Localizations.ContainerDetailsSignatureAdded preferredStyle:UIAlertControllerStyleAlert];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-      [self.navigationController popViewControllerAnimated:YES];
+      //[self.navigationController popViewControllerAnimated:YES];
   }]];
   [self presentViewController:alert animated:YES completion:nil];
 }
@@ -336,7 +344,10 @@ typedef enum : NSUInteger {
       break;
       
     case ContainerDetailsSectionSignature:
+      if (self.container.signatures.count > indexPath.row) {
+
       return YES;
+      }
       break;
   
     default:
@@ -361,6 +372,7 @@ typedef enum : NSUInteger {
       }
       case ContainerDetailsSectionSignature: {
         MoppLibSignature *signature = [self.container.signatures objectAtIndex:indexPath.row];
+        self.container = [[MoppLibManager sharedInstance] removeSignature:signature fromContainerWithPath:self.container.filePath];
         break;
       }
         

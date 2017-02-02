@@ -29,6 +29,7 @@
 		546E57611E2E07C7009A568D /* PinVerificationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 546E57601E2E07C7009A568D /* PinVerificationTests.m */; };
 		546E57631E2E07C7009A568D /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250CE71E09695100530370 /* MoppLib.framework */; };
 		546E576B1E2E1555009A568D /* MoppLibPinActions+Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 546E576A1E2E1555009A568D /* MoppLibPinActions+Tests.m */; };
+		5480396D1E38DA4D000271CF /* 878252.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 5480396C1E38DA4D000271CF /* 878252.p12 */; };
 		54DC0DC51E0BCC2A00C62B3D /* CardReaderWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DC31E0BCC2A00C62B3D /* CardReaderWrapper.h */; };
 		54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DC71E0BCCEF00C62B3D /* MoppLibConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54DC0DCA1E0BCCEF00C62B3D /* MoppLibConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0DC81E0BCCEF00C62B3D /* MoppLibConstants.m */; };
@@ -79,6 +80,9 @@
 		E42B08CA1E1F11C100EA24A3 /* MoppLibSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08C81E1F11C100EA24A3 /* MoppLibSignature.m */; };
 		E42B08CD1E1F136A00EA24A3 /* MoppLibManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E42B08CB1E1F136A00EA24A3 /* MoppLibManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E42B08CE1E1F136A00EA24A3 /* MoppLibManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = E42B08CC1E1F136A00EA24A3 /* MoppLibManager.mm */; };
+		E43BD81D1E3F901D00F6C39D /* EE.xml in Resources */ = {isa = PBXBuildFile; fileRef = E43BD81A1E3F901D00F6C39D /* EE.xml */; };
+		E43BD81E1E3F901D00F6C39D /* FI.xml in Resources */ = {isa = PBXBuildFile; fileRef = E43BD81B1E3F901D00F6C39D /* FI.xml */; };
+		E43BD81F1E3F901D00F6C39D /* tl-mp.xml in Resources */ = {isa = PBXBuildFile; fileRef = E43BD81C1E3F901D00F6C39D /* tl-mp.xml */; };
 		E485A7831E2DF58200C53DBF /* MLFileManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E485A7811E2DF58200C53DBF /* MLFileManager.h */; };
 		E485A7841E2DF58200C53DBF /* MLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E485A7821E2DF58200C53DBF /* MLFileManager.m */; };
 /* End PBXBuildFile section */
@@ -120,6 +124,7 @@
 		546E57621E2E07C7009A568D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		546E57691E2E1555009A568D /* MoppLibPinActions+Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MoppLibPinActions+Tests.h"; sourceTree = "<group>"; };
 		546E576A1E2E1555009A568D /* MoppLibPinActions+Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MoppLibPinActions+Tests.m"; sourceTree = "<group>"; };
+		5480396C1E38DA4D000271CF /* 878252.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; name = 878252.p12; path = libdigidocpp/EstonianIDCard.iphoneos/etc/digidocpp/878252.p12; sourceTree = "<group>"; };
 		54DC0DC31E0BCC2A00C62B3D /* CardReaderWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardReaderWrapper.h; sourceTree = "<group>"; };
 		54DC0DC71E0BCCEF00C62B3D /* MoppLibConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibConstants.h; sourceTree = "<group>"; };
 		54DC0DC81E0BCCEF00C62B3D /* MoppLibConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibConstants.m; sourceTree = "<group>"; };
@@ -174,6 +179,9 @@
 		E42B08C81E1F11C100EA24A3 /* MoppLibSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibSignature.m; sourceTree = "<group>"; };
 		E42B08CB1E1F136A00EA24A3 /* MoppLibManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibManager.h; sourceTree = "<group>"; };
 		E42B08CC1E1F136A00EA24A3 /* MoppLibManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoppLibManager.mm; sourceTree = "<group>"; };
+		E43BD81A1E3F901D00F6C39D /* EE.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = EE.xml; path = "TSL cache/EE.xml"; sourceTree = "<group>"; };
+		E43BD81B1E3F901D00F6C39D /* FI.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = FI.xml; path = "TSL cache/FI.xml"; sourceTree = "<group>"; };
+		E43BD81C1E3F901D00F6C39D /* tl-mp.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "tl-mp.xml"; path = "TSL cache/tl-mp.xml"; sourceTree = "<group>"; };
 		E485A7811E2DF58200C53DBF /* MLFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLFileManager.h; sourceTree = "<group>"; };
 		E485A7821E2DF58200C53DBF /* MLFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLFileManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -381,6 +389,8 @@
 		E4250CF21E096A0500530370 /* libdigidocpp */ = {
 			isa = PBXGroup;
 			children = (
+				5480396C1E38DA4D000271CF /* 878252.p12 */,
+				E43BD8191E3F901400F6C39D /* TSL cache */,
 				E4250CF31E096A1D00530370 /* schema */,
 			);
 			name = libdigidocpp;
@@ -401,6 +411,16 @@
 				E42B08C81E1F11C100EA24A3 /* MoppLibSignature.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		E43BD8191E3F901400F6C39D /* TSL cache */ = {
+			isa = PBXGroup;
+			children = (
+				E43BD81A1E3F901D00F6C39D /* EE.xml */,
+				E43BD81B1E3F901D00F6C39D /* FI.xml */,
+				E43BD81C1E3F901D00F6C39D /* tl-mp.xml */,
+			);
+			name = "TSL cache";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -542,9 +562,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E43BD81D1E3F901D00F6C39D /* EE.xml in Resources */,
 				E4250CF41E096A1D00530370 /* schema in Resources */,
+				E43BD81E1E3F901D00F6C39D /* FI.xml in Resources */,
 				E4250D001E096CAA00530370 /* test.bdoc in Resources */,
 				5463DA471E127150008A1714 /* ReaderSelection.storyboard in Resources */,
+				5480396D1E38DA4D000271CF /* 878252.p12 in Resources */,
+				E43BD81F1E3F901D00F6C39D /* tl-mp.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
