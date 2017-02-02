@@ -296,6 +296,11 @@ void parseException(const digidoc::Exception &e) {
       } else if (containerProfile.find("time-mark") != std::string::npos) {
         profile = "time-mark";
       }
+    } else {
+      // No signatures. bdoc should use time-mark
+      if ([[moppContainer.filePath pathExtension] isEqualToString:@"bdoc"]) {
+        profile = "time-mark";
+      }
     }
     
     if (profile.length() <= 0) {
