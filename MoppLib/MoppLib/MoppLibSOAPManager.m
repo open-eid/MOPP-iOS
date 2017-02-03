@@ -34,17 +34,22 @@ static NSInteger kAsyncConfiguration = 0;
   return sharedInstance;
 }
 
-- (NSString *)mobileCreateSignatureWithContainer:(MoppLibContainer *)container
-                                     nationality:(NSString *)nationality
-                                          idCode:(NSString *)idCode
-                                         phoneNo:(NSString *)phoneNo {
-  AEXMLDocument *document = [AEXMLDocument new];
+- (AEXMLElement *)createEmptySoapEnvelope {
+  
   NSMutableDictionary *envelopeAttributes = [[NSMutableDictionary alloc] init];
   [envelopeAttributes setObject:@"http://www.w3.org/2001/XMLSchema-instance" forKey:@"xmlns:xsi"];
   [envelopeAttributes setObject:@"http://www.w3.org/2001/XMLSchema" forKey:@"xmlns:xsd"];
   [envelopeAttributes setObject:@"http://schemas.xmlsoap.org/soap/envelope/" forKey:@"xmlns:soapenv"];
   [envelopeAttributes setObject:@"http://www.sk.ee/DigiDocService/DigiDocService_2_3.wsdl" forKey:@"xmlns:dig"];
   AEXMLElement *envelope = [[AEXMLElement alloc] initWithName:@"soapenv:Envelope" value:nil attributes:envelopeAttributes];
+  return envelope;
+}
+- (NSString *)mobileCreateSignatureWithContainer:(MoppLibContainer *)container
+                                     language:(NSString *)nationality
+                                          idCode:(NSString *)idCode
+                                         phoneNo:(NSString *)phoneNo {
+  AEXMLElement *document = [AEXMLDocument new];
+  AEXMLElement *envelope = [self createEmptySoapEnvelope];
   AEXMLElement *body = [[AEXMLElement alloc] initWithName:@"soapenv:Body" value:nil attributes:@{@"DdsOperationName" : @"dig:MobileCreateSignature"}];
   [envelope addChild:body];
   AEXMLElement *mobileCreateSignature = [[AEXMLElement alloc] initWithName:@"dig:MobileCreateSignature" value:nil attributes:@{@"soapenv:encodingStyle" : @"http://schemas.xmlsoap.org/soap/encoding/"}];
@@ -94,5 +99,9 @@ static NSInteger kAsyncConfiguration = 0;
     success(response);
   }
 }
+
+/*- (NSString *)getMobileCreateSignatureStatusWithSessCode:(NSString *)sessCode {
+  AEXMLDocument *document = [AEXMLDocument new];
+}*/
 
 @end

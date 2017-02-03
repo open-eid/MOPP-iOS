@@ -78,18 +78,13 @@ typedef NS_ENUM(NSInteger, MoppLibNetworkRequestMethod) {
   [dataTask resume];
 }
 
-/*- (id)processResultWithData:(NSData *)data
- resultModelClass:(Class)resultModelClass
- withError:(NSError * *)resultError {
- 
- }*/
 - (void)mobileCreateSignatureWithContainer:(MoppLibContainer *)container
-                               nationality:(NSString *)nationality
+                               language:(NSString *)language
                                     idCode:(NSString *)idCode
                                    phoneNo:(NSString *)phoneNo
                                withSuccess:(ObjectSuccessBlock)success
                                 andFailure:(FailureBlock)failure {
-  NSString *xmlRequest = [[MoppLibSOAPManager sharedInstance] mobileCreateSignatureWithContainer:container nationality:nationality idCode:idCode phoneNo:phoneNo];
+  NSString *xmlRequest = [[MoppLibSOAPManager sharedInstance] mobileCreateSignatureWithContainer:container language:language idCode:idCode phoneNo:phoneNo];
   [self postDataToPathWithXml:xmlRequest method:MoppLibNetworkRequestMethodMobileCreateSignature success:^(NSObject *responseObject) {
     success(responseObject);
   } andFailure:^(NSError *error) {

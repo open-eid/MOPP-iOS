@@ -85,17 +85,13 @@ typedef enum : NSUInteger {
   }]];
   [self presentViewController:alert animated:YES completion:nil];
 }
-   
+
 - (void)mobileCreateSignatureWithIDCode:(NSString *)idCode phoneNumber:(NSString *)phoneNumber {
-  [MoppLibCardActions cardPersonalDataWithViewController:self success:^(MoppLibPersonalData *data) {
-    [[MoppLibNetworkManager sharedInstance] mobileCreateSignatureWithContainer:self.container nationality:data.nationality idCode:idCode phoneNo:phoneNumber withSuccess:^(NSObject *responseObject) {
-      MoppLibMobileCreateSignatureResponse *response = (MoppLibMobileCreateSignatureResponse *) responseObject;
-      NSLog(@"FINISHED with resonse : %@", response);
-    } andFailure:^(NSError *error) {
-      NSLog(@"FAIL");
-    }];
-  } failure:^(NSError *error) {
-    NSLog(@"FAILED");
+  [[MoppLibNetworkManager sharedInstance] mobileCreateSignatureWithContainer:self.container language:[self decideLanguageBasedOnPreferredLanguages] idCode:idCode phoneNo:phoneNumber withSuccess:^(NSObject *responseObject) {
+    MoppLibMobileCreateSignatureResponse *response = (MoppLibMobileCreateSignatureResponse *) responseObject;
+    NSLog(@"FINISHED with resonse : %@", response);
+  } andFailure:^(NSError *error) {
+    NSLog(@"FAIL");
   }];
 }
 - (void)displayCardSignatureAlert {
@@ -163,10 +159,30 @@ typedef enum : NSUInteger {
   [self presentViewController:alert animated:YES completion:nil];
 }
 
+- (NSString *)decideLanguageBasedOnPreferredLanguages {
+  NSString *language;
+  NSArray<NSString *> *prefLanguages = [NSLocale preferredLanguages];
+  for (int i = 0; i < [prefLanguages count]; i++) {
+    if ([[prefLanguages objectAtIndex:i] hasPrefix:@"et-"]) {
+      language = @"EST";
+      break;
+    } else if ([[prefLanguages objectAtIndex:i] hasPrefix:@"lt-"]) {
+      language = @"LIT";
+      break;
+    } else if ([[prefLanguages objectAtIndex:i] hasPrefix:@"ru-"]) {
+      language = @"RUS";
+      break;
+    }
+  }
+  if (!language) {
+    language = @"ENG";
+  }
+  return language;
+}
 - (void)displaySigningSuccessMessage {
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsSigningSuccess message:Localizations.ContainerDetailsSignatureAdded preferredStyle:UIAlertControllerStyleAlert];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-      //[self.navigationController popViewControllerAnimated:YES];
+    //[self.navigationController popViewControllerAnimated:YES];
   }]];
   [self presentViewController:alert animated:YES completion:nil];
 }
@@ -182,14 +198,14 @@ typedef enum : NSUInteger {
 }
 
 - (void)shareButtonPressed {
-//  MSLog(@"shareButtonPressed");
+  //  MSLog(@"shareButtonPressed");
   
   NSURL *containerUrl = [[NSURL alloc] initFileURLWithPath:self.container.filePath];
   UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[containerUrl] applicationActivities:nil];
   activityViewController.popoverPresentationController.sourceView = self.view;
   CGRect sourceRect = CGRectMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2, 0.0, 0.0);
   activityViewController.popoverPresentationController.sourceRect = sourceRect;
-
+  
   [activityViewController.popoverPresentationController setPermittedArrowDirections:0]; // Remove arrow on iPad.
   
   [self.navigationController presentViewController:activityViewController animated:YES completion:nil];
@@ -345,11 +361,11 @@ typedef enum : NSUInteger {
       
     case ContainerDetailsSectionSignature:
       if (self.container.signatures.count > indexPath.row) {
-
-      return YES;
+        
+        return YES;
       }
       break;
-  
+      
     default:
       return NO;
       break;
@@ -366,7 +382,7 @@ typedef enum : NSUInteger {
     
     switch (indexPath.section) {
       case ContainerDetailsSectionDataFile: {
-//        MoppLibDataFile *dataFile = [self.container.dataFiles objectAtIndex:indexPath.row];
+        //        MoppLibDataFile *dataFile = [self.container.dataFiles objectAtIndex:indexPath.row];
         self.container = [[MoppLibManager sharedInstance] removeDataFileFromContainerWithPath:self.container.filePath atIndex:indexPath.row];
         break;
       }
