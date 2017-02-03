@@ -14,6 +14,7 @@
 #import "SimpleHeaderView.h"
 #import "UIColor+Additions.h"
 #import "UIViewController+MBProgressHUD.h"
+#import "DefaultsHelper.h"
 
 typedef enum : NSUInteger {
   ContainerDetailsSectionHeader,
@@ -226,9 +227,15 @@ typedef enum : NSUInteger {
       return self.container.dataFiles.count;
       break;
       
-    case ContainerDetailsSectionSignature:
-      return self.container.signatures.count + 1;
+    case ContainerDetailsSectionSignature: {
+      int count = self.container.signatures.count;
+      if (![[self.container.filePath pathExtension] isEqualToString:ContainerFormatDdoc]) {
+        count++;
+      }
+
+      return count;
       break;
+    }
       
     default:
       break;
