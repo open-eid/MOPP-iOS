@@ -157,9 +157,19 @@ private:
 //      NSLog(@"Signature: %@", [NSString stringWithUTF8String:cert.subjectName("CN").c_str()]);
       
       MoppLibSignature *moppLibSignature = [MoppLibSignature new];
-      moppLibSignature.subjectName = [NSString stringWithUTF8String:cert.subjectName("CN").c_str()];
+
+      std::string name  = cert.subjectName("CN");
+      if (name.length() <= 0) {
+        name = signature->signedBy();
+      }
+      moppLibSignature.subjectName = [NSString stringWithUTF8String:name.c_str()];
       
-      moppLibSignature.timestamp = [[MLDateFormatter sharedInstance] YYYYMMddTHHmmssZToDate:[NSString stringWithUTF8String:signature->OCSPProducedAt().c_str()]];
+      std::string timestamp = signature->OCSPProducedAt();
+      if (timestamp.length() <= 0) {
+        timestamp = signature->trustedSigningTime();
+      }
+      
+      moppLibSignature.timestamp = [[MLDateFormatter sharedInstance] YYYYMMddTHHmmssZToDate:[NSString stringWithUTF8String:timestamp.c_str()]];
       
       try {
         signature->validate();
