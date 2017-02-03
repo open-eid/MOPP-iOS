@@ -25,6 +25,9 @@
 
 /// Base translation: Repeat new %@ code
 - (NSString *(^)(NSString *))PinActionsRepeatPin;
+/// Base translation: ID card
+- (NSString *)ContainerDetailsSigningMethodIdCard;
+
 /// Base translation: You need to connect card reader to sign documents.
 - (NSString *)ContainerDetailsReaderNotFound;
 
@@ -58,8 +61,17 @@
 
 /// Base translation: Unblocking %@
 - (NSString *(^)(NSString *))PinActionsTitleUnblockingPin;
+/// Base translation: ID code
+- (NSString *)ContainerDetailsIdcodePhoneAlertIdcodePlacholder;
+
 /// Base translation: Cancel
 - (NSString *)ActionCancel;
+
+/// Base translation: Singing method
+- (NSString *)ContainerDetailsSigningMethodAlertTitle;
+
+/// Base translation: Phone number
+- (NSString *)ContainerDetailsIdcodePhoneAlertPhonenumberPlacholder;
 
 /// Base translation: Could not change %@
 - (NSString *(^)(NSString *))PinActionsGeneralError;
@@ -124,6 +136,9 @@
 
 /// Base translation: %@ is blocked.
 - (NSString *(^)(NSString *))PinActionsPinBlocked;
+/// Base translation: Mobile ID
+- (NSString *)ContainerDetailsSigningMethodMobileId;
+
 /// Base translation: Using current %@ code
 - (NSString *(^)(NSString *))PinActionsVerificationOption;
 /// Base translation: Document
@@ -159,6 +174,9 @@
 - (NSString *(^)(NSString *))PinActionsSuccessPinUnblocked;
 /// Base translation: Error
 - (NSString *)PinActionsErrorTitle;
+
+/// Base translation: Enter details
+- (NSString *)ContainerDetailsIdcodePhoneAlertTitle;
 
 /// Base translation: Card in reader:
 - (NSString *)MyEidCardInReader;
@@ -200,6 +218,9 @@
 /// Base translation: Unsigned
 - (NSString *)ContainersListSectionHeaderUnsigned;
 
+/// Base translation: Enter ID code and phone number
+- (NSString *)ContainerDetailsIdcodePhoneAlertMessage;
+
 /// Base translation: ID card is missing. Please make sure ID card is inserted correctly.
 - (NSString *)ContainerDetailsCardNotFound;
 
@@ -233,16 +254,19 @@
 
 /// Base translation: This %@ is not allowed.
 - (NSString *(^)(NSString *))PinActionsInvalidFormat;
-/// Base translation: Changing %@:
-- (NSString *(^)(NSString *))PinActionsVerificationTitle;
+/// Base translation: New %@ code
+- (NSString *(^)(NSString *))PinActionsNewPin;
 /// Base translation: %@ must contain numbers only.
 - (NSString *(^)(NSString *))PinActionsRuleNumbersOnly;
 /// Base translation: Signature %@
 - (NSString *(^)(NSString *))ContainerDetailsSignaturePrefix;
-/// Base translation: New %@ code
-- (NSString *(^)(NSString *))PinActionsNewPin;
+/// Base translation: Changing %@:
+- (NSString *(^)(NSString *))PinActionsVerificationTitle;
 /// Base translation: Personal data
 - (NSString *)MyEidPersonalData;
+
+/// Base translation: Choose signing method
+- (NSString *)ContainerDetailsSigningMethodAlertMessage;
 
 /// Base translation: ID card is not found.  Please check if ID card is inserted correctly. New ID cards have chip on the back side of the card.
 - (NSString *)MyEidWarningCardNotFound;

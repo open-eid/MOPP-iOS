@@ -41,8 +41,18 @@
 "container-details-signing-success" = "Allkirjastamine õnnestus";
 "container-details-signature-added" = "Sinu allkiri on dokumendile lisatud.";
 "container-details-signature-already-exists" = "Sinu allkiri on sellel dokumendil juba olemas.";
+"container-details-signing-method-alert-title" = "Allkirjastamise meetod";
+"container-details-signing-method-alert-message" = "Vali allkirjastamise meetod";
+"container-details-signing-method-mobile-id" = "Mobiil ID";
+"container-details-signing-method-id-card" = "ID kaart";
+"container-details-idcode-phone-alert-title" = "Sisesta andmed";
+"container-details-idcode-phone-alert-message" = "Sisesta isikukood ja telefoninumber";
+"container-details-idcode-phone-alert-idcode-placholder" = "Isikukood";
+"container-details-idcode-phone-alert-phonenumber-placholder" = "Telefoninumber";
+ 
 "container-details-reader-not-found" = "Dokumentide allkirjastamiseks on vaja ühendada kaardilugeja.";
 "container-details-card-not-found" = "ID kaarti ei leitud. Palun kontrolli kas kaart on õigesti lugejasse sisestatud.";
+
 
 // *** My eID ***
 "my-eid-id-card-info" = "ID-kaart on riigi sisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.\n\nID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@";

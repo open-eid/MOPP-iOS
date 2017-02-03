@@ -13,3 +13,5 @@ NSString *const kMoppLibUserInfoRetryCount = @"kMoppLibRetryCount";
 NSString *const kMoppLibNotificationReaderStatusChanged = @"Mopp Lib - Reader status changed";
 NSString *const kMoppLibNotificationRetryCounterChanged = @"Mopp Lib - Retry counter changed";
 
+NSString *const kDDSServerUrl = @"https://digidocservice.sk.ee/";
+

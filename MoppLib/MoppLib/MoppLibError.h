@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "MoppLibConstants.h"
 
+extern NSString *const MoppLibErrorDomain;
+
 @interface MoppLibError : NSObject
 
 + (NSError *)readerNotFoundError;
@@ -22,5 +24,7 @@
 + (NSError *)tooEasyPinError;
 + (NSError *)pinContainsInvalidCharactersError;
 + (NSError *)signatureAlreadyExistsError;
++ (NSError *)urlSessionCanceledError;
++ (NSError *)xmlParsingError;
 
 @end

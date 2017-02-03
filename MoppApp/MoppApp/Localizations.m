@@ -35,6 +35,10 @@
     };
 }
 
+- (NSString *)ContainerDetailsSigningMethodIdCard {
+    return NSLocalizedStringFromTable(@"container-details-signing-method-id-card", nil, nil);
+}
+
 - (NSString *)ContainerDetailsReaderNotFound {
     return NSLocalizedStringFromTable(@"container-details-reader-not-found", nil, nil);
 }
@@ -89,8 +93,20 @@
     };
 }
 
+- (NSString *)ContainerDetailsIdcodePhoneAlertIdcodePlacholder {
+    return NSLocalizedStringFromTable(@"container-details-idcode-phone-alert-idcode-placholder", nil, nil);
+}
+
 - (NSString *)ActionCancel {
     return NSLocalizedStringFromTable(@"action-cancel", nil, nil);
+}
+
+- (NSString *)ContainerDetailsSigningMethodAlertTitle {
+    return NSLocalizedStringFromTable(@"container-details-signing-method-alert-title", nil, nil);
+}
+
+- (NSString *)ContainerDetailsIdcodePhoneAlertPhonenumberPlacholder {
+    return NSLocalizedStringFromTable(@"container-details-idcode-phone-alert-phonenumber-placholder", nil, nil);
 }
 
 - (NSString *(^)(NSString *))PinActionsGeneralError {
@@ -207,6 +223,10 @@
     };
 }
 
+- (NSString *)ContainerDetailsSigningMethodMobileId {
+    return NSLocalizedStringFromTable(@"container-details-signing-method-mobile-id", nil, nil);
+}
+
 - (NSString *(^)(NSString *))PinActionsVerificationOption {
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-verification-option", nil, nil), value1];
@@ -263,6 +283,10 @@
 
 - (NSString *)PinActionsErrorTitle {
     return NSLocalizedStringFromTable(@"pin-actions-error-title", nil, nil);
+}
+
+- (NSString *)ContainerDetailsIdcodePhoneAlertTitle {
+    return NSLocalizedStringFromTable(@"container-details-idcode-phone-alert-title", nil, nil);
 }
 
 - (NSString *)MyEidCardInReader {
@@ -335,6 +359,10 @@
     return NSLocalizedStringFromTable(@"containers-list-section-header-unsigned", nil, nil);
 }
 
+- (NSString *)ContainerDetailsIdcodePhoneAlertMessage {
+    return NSLocalizedStringFromTable(@"container-details-idcode-phone-alert-message", nil, nil);
+}
+
 - (NSString *)ContainerDetailsCardNotFound {
     return NSLocalizedStringFromTable(@"container-details-card-not-found", nil, nil);
 }
@@ -399,9 +427,9 @@
     };
 }
 
-- (NSString *(^)(NSString *))PinActionsVerificationTitle {
+- (NSString *(^)(NSString *))PinActionsNewPin {
     return ^(NSString * value1) {
-        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-verification-title", nil, nil), value1];
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-new-pin", nil, nil), value1];
     };
 }
 
@@ -417,14 +445,18 @@
     };
 }
 
-- (NSString *(^)(NSString *))PinActionsNewPin {
+- (NSString *(^)(NSString *))PinActionsVerificationTitle {
     return ^(NSString * value1) {
-        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-new-pin", nil, nil), value1];
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-verification-title", nil, nil), value1];
     };
 }
 
 - (NSString *)MyEidPersonalData {
     return NSLocalizedStringFromTable(@"my-eid-personal-data", nil, nil);
+}
+
+- (NSString *)ContainerDetailsSigningMethodAlertMessage {
+    return NSLocalizedStringFromTable(@"container-details-signing-method-alert-message", nil, nil);
 }
 
 - (NSString *)MyEidWarningCardNotFound {

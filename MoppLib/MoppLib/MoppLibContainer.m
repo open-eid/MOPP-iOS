@@ -7,6 +7,7 @@
 //
 
 #import "MoppLibContainer.h"
+#import "MoppLibDataFile.h"
 
 @implementation MoppLibContainer
 
@@ -18,4 +19,19 @@
   return self.dataFiles.count != 0;
 }
 
+- (BOOL)isDDocType {
+  return [self.fileName hasSuffix:@".ddoc"];
+}
+
+- (NSString *)getNextSignatureId {
+  NSMutableArray *exitingIds = [[NSMutableArray alloc] init];
+  for (MoppLibDataFile *dataFile in self.dataFiles) {
+    [exitingIds addObject:dataFile.fileId];
+  }
+  int nextId = 0;
+  while ([exitingIds containsObject:[NSString stringWithFormat:@"S%d", nextId]]) {
+    ++nextId;
+  }
+  return [NSString stringWithFormat:@"S%d", nextId];
+}
 @end
