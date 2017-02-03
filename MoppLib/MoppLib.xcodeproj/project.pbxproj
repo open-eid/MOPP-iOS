@@ -52,6 +52,7 @@
 		54DC0E021E0D48C900C62B3D /* MoppLibError.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0E001E0D48C900C62B3D /* MoppLibError.m */; };
 		54DC0E051E1250A200C62B3D /* MoppLibCardActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0E031E1250A200C62B3D /* MoppLibCardActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54DC0E061E1250A200C62B3D /* MoppLibCardActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0E041E1250A200C62B3D /* MoppLibCardActions.m */; };
+		54E1DB571E44939D0060A250 /* SwiftTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E1DB561E44939D0060A250 /* SwiftTestCase.swift */; };
 		AE0A84461E4338DB00CC1465 /* MoppLibNetworkManager.h in Headers */ = {isa = PBXBuildFile; fileRef = AE0A84441E4338DB00CC1465 /* MoppLibNetworkManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE0A84471E4338DB00CC1465 /* MoppLibNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0A84451E4338DB00CC1465 /* MoppLibNetworkManager.m */; };
 		AE0A844A1E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = AE0A84481E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -147,6 +148,8 @@
 		54DC0E001E0D48C900C62B3D /* MoppLibError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibError.m; sourceTree = "<group>"; };
 		54DC0E031E1250A200C62B3D /* MoppLibCardActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibCardActions.h; sourceTree = "<group>"; };
 		54DC0E041E1250A200C62B3D /* MoppLibCardActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibCardActions.m; sourceTree = "<group>"; };
+		54E1DB551E44939C0060A250 /* MoppLibTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoppLibTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		54E1DB561E44939D0060A250 /* SwiftTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftTestCase.swift; sourceTree = "<group>"; };
 		55E9B48F8763942B8B607E6D /* Pods-MoppLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLib.release.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLib/Pods-MoppLib.release.xcconfig"; sourceTree = "<group>"; };
 		8CA8F4A458E375C33114A84F /* Pods-MoppLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLib.debug.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLib/Pods-MoppLib.debug.xcconfig"; sourceTree = "<group>"; };
 		AE0A84441E4338DB00CC1465 /* MoppLibNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibNetworkManager.h; sourceTree = "<group>"; };
@@ -213,10 +216,12 @@
 		546E575F1E2E07C7009A568D /* MoppLibTests */ = {
 			isa = PBXGroup;
 			children = (
+				54E1DB561E44939D0060A250 /* SwiftTestCase.swift */,
 				546E57601E2E07C7009A568D /* PinVerificationTests.m */,
 				546E57621E2E07C7009A568D /* Info.plist */,
 				546E57691E2E1555009A568D /* MoppLibPinActions+Tests.h */,
 				546E576A1E2E1555009A568D /* MoppLibPinActions+Tests.m */,
+				54E1DB551E44939C0060A250 /* MoppLibTests-Bridging-Header.h */,
 			);
 			path = MoppLibTests;
 			sourceTree = "<group>";
@@ -522,6 +527,7 @@
 					546E575D1E2E07C7009A568D = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 4YJSF2LF24;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					E4250CE61E09695100530370 = {
@@ -659,6 +665,7 @@
 			files = (
 				546E57611E2E07C7009A568D /* PinVerificationTests.m in Sources */,
 				546E576B1E2E1555009A568D /* MoppLibPinActions+Tests.m in Sources */,
+				54E1DB571E44939D0060A250 /* SwiftTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -715,6 +722,7 @@
 			baseConfigurationReference = D294A9825C9D24C89C0C4C80 /* Pods-MoppLibTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEVELOPMENT_TEAM = 4YJSF2LF24;
 				INFOPLIST_FILE = MoppLibTests/Info.plist;
@@ -722,6 +730,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MoppLibTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MoppLibTests/MoppLibTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -730,6 +741,7 @@
 			baseConfigurationReference = BB993982ECBC613ED55E2010 /* Pods-MoppLibTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEVELOPMENT_TEAM = 4YJSF2LF24;
 				INFOPLIST_FILE = MoppLibTests/Info.plist;
@@ -737,6 +749,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MoppLibTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MoppLibTests/MoppLibTests-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
