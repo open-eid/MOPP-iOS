@@ -51,7 +51,7 @@
 - (void)createNewContainer {
   NSString *containerFileName = [NSString stringWithFormat:@"%@.%@", [[self.dataFilePath lastPathComponent] stringByDeletingPathExtension], [DefaultsHelper getNewContainerFormat]];
   NSString *containerPath = [[FileManager sharedInstance] filePathWithFileName:containerFileName];
-  MoppLibContainer *container = [[MoppLibManager sharedInstance] createContainerWithPath:containerPath withDataFilePath:self.dataFilePath];
+  MoppLibContainer *container = [[MoppLibContainerActions sharedInstance] createContainerWithPath:containerPath withDataFilePath:self.dataFilePath];
   
 #warning - remove file
 //  [[FileManager sharedInstance] removeFileWithPath:self.dataFilePath];
@@ -64,10 +64,15 @@
 }
 
 - (void)reloadData {
-  self.unsignedContainers = [[MoppLibManager sharedInstance] getContainersIsSigned:NO];
-  self.filteredUnsignedContainers = self.unsignedContainers;
-  
-  [super reloadData];
+  [[MoppLibContainerActions sharedInstance] getContainersIsSigned:NO success:^(NSArray *containers) {
+    self.unsignedContainers = containers;
+    self.filteredUnsignedContainers = self.unsignedContainers;
+    
+    [super reloadData];
+  } failure:^(NSError *error) {
+    
+  }];
+
 }
 
 - (void)filterContainers:(NSString *)searchString {
@@ -116,7 +121,7 @@
   }
   
   MoppLibContainer *container = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
-  container = [[MoppLibManager sharedInstance] addDataFileToContainerWithPath:container.filePath withDataFilePath:self.dataFilePath];
+  container = [[MoppLibContainerActions sharedInstance] addDataFileToContainerWithPath:container.filePath withDataFilePath:self.dataFilePath];
 #warning - remove file
 //  [[FileManager sharedInstance] removeFileWithPath:self.dataFilePath];
   

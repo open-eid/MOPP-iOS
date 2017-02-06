@@ -6,7 +6,7 @@
 //  Copyright © 2017 Mobi Lab. All rights reserved.
 //
 #import "MoppLibSOAPManager.h"
-#import "MoppLibManager.h"
+#import "MoppLibDigidocManager.h"
 #import "MoppLibDataFile.h"
 #import <MoppLib/MoppLib-Swift.h>
 #import "MoppLibError.h"
@@ -64,7 +64,7 @@ static NSInteger kAsyncConfiguration = 0;
     AEXMLElement *dataFileDigest = [[AEXMLElement alloc] initWithName:@"DataFileDigest" value:nil attributes:@{@"xsi:type" : @"dig:DataFileDigest"}];
     [dataFileDigest addChildWithName:@"Id" value:file.fileId attributes:@{@"xsi:type" : @"xsd:string"}];
     [dataFileDigest addChildWithName:@"DigestType" value:kDigestType attributes:@{@"xsi:type" : @"xsd:string"}];
-    [dataFileDigest addChildWithName:@"DigestValue" value:[[MoppLibManager sharedInstance] dataFileCalculateHashWithDigestMethod:kDigestMethodSHA256 container:container dataFileId:file.fileId] attributes:@{@"xsi:type" : @"xsd:string"}];
+    [dataFileDigest addChildWithName:@"DigestValue" value:[[MoppLibDigidocManager sharedInstance] dataFileCalculateHashWithDigestMethod:kDigestMethodSHA256 container:container dataFileId:file.fileId] attributes:@{@"xsi:type" : @"xsd:string"}];
     [dataFiles addChild:dataFileDigest];
   }
   [mobileCreateSignature addChildWithName:@"Format" value:kFormat attributes:@{@"xsi:type" : @"xsd:string"}];

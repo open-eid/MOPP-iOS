@@ -77,21 +77,26 @@
       [[FileManager sharedInstance] copyFileWithPath:filePath toPath:newFilePath];
       [[FileManager sharedInstance] removeFileWithPath:filePath];
       
-      MoppLibContainer *moppLibContainer = [[MoppLibManager sharedInstance] getContainerWithPath:newFilePath];
-      
-      if (moppLibContainer) {
-        [containersListViewController setSelectedContainer:moppLibContainer];
-        
-      } else {
-        
+      void (^failure)(void) = ^void (void) {
         // Remove invalid container. Probably ddoc.
         [[FileManager sharedInstance] removeFileWithName:fileName];
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.FileImportImportFailedAlertTitle message:Localizations.FileImportImportFailedAlertMessage(fileName) preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:nil]];
         [containersListViewController presentViewController:alert animated:YES completion:nil];
-      }
+      };
       
+      [[MoppLibContainerActions sharedInstance] getContainerWithPath:newFilePath success:^(MoppLibContainer *container) {
+        MoppLibContainer *moppLibContainer = container;
+        if (moppLibContainer) {
+          [containersListViewController setSelectedContainer:moppLibContainer];
+          
+        } else {
+          failure();
+        }
+      } failure:^(NSError *error) {
+        failure();
+      }];
     } else {
       
       [containersListViewController setDataFilePath:filePath];

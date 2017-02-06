@@ -44,17 +44,17 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
 
 @implementation EstEIDv3_4
 
-- (void)readAuthenticationCertificateWithSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
+- (void)readAuthenticationCertificateWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
   [self readCertificate:kCommandFileAACE WithSuccess:success failure:failure];
 }
 
-- (void)readSignatureCertificateWithSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
+- (void)readSignatureCertificateWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
   [self readCertificate:kCommandFileDDCE WithSuccess:^(NSData *data) {
     success([data trimmedData]);
   } failure:failure];
 }
 
-- (void)readPublicDataWithSuccess:(void (^)(MoppLibPersonalData *personalData))success failure:(FailureBlock)failure {
+- (void)readPublicDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure {
   
   MoppLibPersonalData *personalData = [MoppLibPersonalData new];
   
@@ -157,7 +157,7 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   } failure:failure];
 }
 
-- (void)readSecretKeyRecord:(NSInteger)record withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
+- (void)readSecretKeyRecord:(NSInteger)record withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
   void (^readRecord)(NSData *) = ^void (NSData *responseObject) {
     [self.reader transmitCommand:[NSString stringWithFormat:kCommandReadRecord, record] success:^(NSData *responseObject) {
       success(responseObject);
@@ -172,7 +172,7 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   [self navigateToFileEEEEWithSuccess:select0013 failure:failure];
 }
 
-- (void)readCodeCounterRecord:(NSInteger)record withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
+- (void)readCodeCounterRecord:(NSInteger)record withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
   void (^readRecord)(NSData *) = ^void (NSData *responseObject) {
     [self.reader transmitCommand:[NSString stringWithFormat:kCommandReadRecord, record] success:success failure:failure];
   };
@@ -184,7 +184,7 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   [self.reader transmitCommand:kCommandSelectFileMaster success:select0016 failure:failure];
 }
 
-- (void)changeCode:(CodeType)type to:(NSString *)code withVerifyCode:(NSString *)verifyCode withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
+- (void)changeCode:(CodeType)type to:(NSString *)code withVerifyCode:(NSString *)verifyCode withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
   NSString *commandSufix = [NSString stringWithFormat:@"%@ %@", [verifyCode toHexString], [code toHexString]];
   NSString *command = [NSString stringWithFormat:kCommandChangeReferenceData, type, code.length + verifyCode.length, commandSufix];
   [self.reader transmitCommand:command success:^(NSData *responseObject) {
@@ -192,7 +192,7 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   } failure:failure];
 }
 
-- (void)calculateSignatureFor:(NSData *)hash withPin2:(NSString *)pin2 success:(void (^)(NSData *data))success failure:(FailureBlock)failure {  
+- (void)calculateSignatureFor:(NSData *)hash withPin2:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure {  
   void (^calculateSignature)(NSData *) = ^void (NSData *responseObject) {
     NSString *algorithmIdentifyer;
     switch (hash.length) {
@@ -237,18 +237,18 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   [self navigateToFileEEEEWithSuccess:setSecurityEnv failure:failure];
 }
 
-- (void)setSecurityEnvironment:(NSUInteger)env withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
+- (void)setSecurityEnvironment:(NSUInteger)env withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
     [self.reader transmitCommand:[NSString stringWithFormat:kCommandSetSecurityEnv, env] success:success failure:failure];
 }
 
-- (void)verifyCode:(NSString *)code ofType:(CodeType)type withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
+- (void)verifyCode:(NSString *)code ofType:(CodeType)type withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
   NSString *command = [NSString stringWithFormat:kCommandVerifyCode, type, code.length, [code toHexString]];
   [self.reader transmitCommand:command success:^(NSData *responseObject) {
     [self checkPinErrors:responseObject success:success failure:failure]();
   } failure:failure];
 }
 
-- (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure {
+- (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode success:(DataSuccessBlock)success failure:(FailureBlock)failure {
   [self.reader transmitCommand:[NSString stringWithFormat:kCommandResetRetryCounter, type, puk.length + newCode.length, [puk toHexString], [newCode toHexString]] success:^(NSData *responseObject) {
     [self checkPinErrors:responseObject success:success failure:failure]();
   } failure:failure];
@@ -256,7 +256,7 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
 
 #pragma mark - private methods
 
-- (void)navigateToFile5044WithSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
+- (void)navigateToFile5044WithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
   void (^select5044)(NSData *) = ^void (NSData *responseObject) {
     [self.reader transmitCommand:kCommandSelectFile5044 success:success failure:failure];
   };
@@ -264,7 +264,7 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   [self navigateToFileEEEEWithSuccess:select5044 failure:failure];
 }
 
-- (void)navigateToFileEEEEWithSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
+- (void)navigateToFileEEEEWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
   void (^selectEEEE)(NSData *) = ^void (NSData *responseObject) {
     [self.reader transmitCommand:kCommandSelectFileEEEE success:success failure:failure];
   };
@@ -272,7 +272,7 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   [self.reader transmitCommand:kCommandSelectFileMaster success:selectEEEE failure:failure];
 }
 
-- (void (^)(void)) checkPinErrors:(NSData *)response success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure{
+- (VoidBlock) checkPinErrors:(NSData *)response success:(DataSuccessBlock)success failure:(FailureBlock)failure{
   return ^void (void) {
     NSError *error = [self errorForPinActionResponse:response];
     if (error) {
@@ -306,7 +306,7 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   return [MoppLibError generalError];
 }
 
-- (void (^)(void))readRecord:(NSInteger)record success:(DataSuccessBlock)success failure:(FailureBlock)failure {
+- (VoidBlock)readRecord:(NSInteger)record success:(DataSuccessBlock)success failure:(FailureBlock)failure {
   return ^void (void) {
     
     [self.reader transmitCommand:[NSString stringWithFormat:kCommandReadRecord, record] success:^(NSData *responseObject) {
@@ -326,7 +326,7 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
 
 int maxReadLength = 254;
 
-- (void)readBinaryWithLength:(int)fullLength startingFrom:(int)location readData:(NSData *)data success:(void (^)(NSData *personalData))success failure:(FailureBlock)failure {
+- (void)readBinaryWithLength:(int)fullLength startingFrom:(int)location readData:(NSData *)data success:(DataSuccessBlock)success failure:(FailureBlock)failure {
   NSString *locationHex = [NSString stringWithFormat:@"%04X", location];
   int lengthToRead = fullLength - location;
   
@@ -351,7 +351,7 @@ int maxReadLength = 254;
 }
 
 
-- (void)readCertificate:(NSString *)name WithSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure {
+- (void)readCertificate:(NSString *)name WithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
   
   void (^selectCertFile)(NSData *) = ^void (NSData *responseObject) {
     [self.reader transmitCommand:[NSString stringWithFormat:kCommandSelectFile, name] success:^(NSData *responseObject) {
