@@ -11,6 +11,7 @@
 #import <MoppLib/MoppLib-Swift.h>
 #import "MoppLibError.h"
 #import "MoppLibMobileCreateSignatureResponse.h"
+#import "MoppLibGetMobileCreateSigntaureStatusResponse.h"
 
 
 
@@ -100,8 +101,41 @@ static NSInteger kAsyncConfiguration = 0;
   }
 }
 
-/*- (NSString *)getMobileCreateSignatureStatusWithSessCode:(NSString *)sessCode {
+- (NSString *)getMobileCreateSignatureStatusWithSessCode:(NSString *)sessCode {
   AEXMLDocument *document = [AEXMLDocument new];
-}*/
+  AEXMLElement *envelope = [self createEmptySoapEnvelope];
+  [document addChild:envelope];
+  AEXMLElement *body = [[AEXMLElement alloc] initWithName:@"soapenv:Body" value:nil attributes:@{@"DdsOperationName" : @"dig:GetMobileCreateSignatureStatus"}];
+  AEXMLElement *getMobileCreateSignatureStatus = [[AEXMLElement alloc] initWithName:@"dig:GetMobileCreateSignatureStatus" value:nil attributes:@{@"soapenv:encodingStyle" : @"http://schemas.xmlsoap.org/soap/encoding/"}];
+  [envelope addChild:body];
+  [body addChild:getMobileCreateSignatureStatus];
+  [getMobileCreateSignatureStatus addChildWithName:@"Sesscode" value:sessCode attributes:@{@"xsi:type" : @"xsd:int"}];
+  [getMobileCreateSignatureStatus addChildWithName:@"WaitSignature" value:false attributes:@{@"xsi:type" : @"xsd:boolean"}];
+  return document.xml;
+}
+
+- (void)parseGetMobileCreateSignatureResponseWithData:(NSData *)data
+                                          withSuccess:(ObjectSuccessBlock)success
+                                           andFailure:(FailureBlock)failure {
+  NSError *error;
+  AEXMLDocument *document = [AEXMLDocument new];
+  MoppLibGetMobileCreateSigntaureStatusResponse *response = [[MoppLibGetMobileCreateSigntaureStatusResponse alloc] init];
+  [document loadXML:data error:&error];
+  if (error.domain) {
+    error = [MoppLibError xmlParsingError];
+    failure(error);
+  } else {
+    AEXMLElement *body = [[document root] objectForKeyedSubscript:@"SOAP-ENV:Body"];
+    NSLog(@"Response  body %@", body.xml);
+    AEXMLElement *getMobileCreateSignatureStatusResponse = [body objectForKeyedSubscript:@"dig:GetMobileCreateSignatureStatus"];
+    AEXMLElement *sessCode = [getMobileCreateSignatureStatusResponse objectForKeyedSubscript:@"Sesscode"];
+    AEXMLElement *status = [getMobileCreateSignatureStatusResponse objectForKeyedSubscript:@"Status"];
+    AEXMLElement *signature = [getMobileCreateSignatureStatusResponse objectForKeyedSubscript:@"Signature"];
+    response.sessCode = [[sessCode value] integerValue];
+    response.status = [status value];
+    response.signature = [signature value];
+    success(response);
+  }
+}
 
 @end

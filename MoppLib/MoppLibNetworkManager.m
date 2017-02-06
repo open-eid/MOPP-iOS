@@ -59,7 +59,11 @@ typedef NS_ENUM(NSInteger, MoppLibNetworkRequestMethod) {
             break;
           }
           case MoppLibNetworkRequestMethodMobileGetMobileCreateSignatureStatus:
-            NSLog(@"NOT IMPLEMENTED");
+            [[MoppLibSOAPManager sharedInstance] parseGetMobileCreateSignatureResponseWithData:data withSuccess:^(NSObject *responseObject) {
+              success(responseObject);
+            } andFailure:^(NSError *error) {
+              failure(error);
+            }];
             break;
         }
     
@@ -86,6 +90,17 @@ typedef NS_ENUM(NSInteger, MoppLibNetworkRequestMethod) {
                                 andFailure:(FailureBlock)failure {
   NSString *xmlRequest = [[MoppLibSOAPManager sharedInstance] mobileCreateSignatureWithContainer:container language:language idCode:idCode phoneNo:phoneNo];
   [self postDataToPathWithXml:xmlRequest method:MoppLibNetworkRequestMethodMobileCreateSignature success:^(NSObject *responseObject) {
+    success(responseObject);
+  } andFailure:^(NSError *error) {
+    failure(error);
+  }];
+}
+
+- (void)getMobileCreateSignatureStatusWithSesscode:(NSString *)sessCode
+                                       withSuccess:(ObjectSuccessBlock)success
+                                        andFailure:(FailureBlock)failure {
+  NSString *xmlRequest = [[MoppLibSOAPManager sharedInstance] getMobileCreateSignatureStatusWithSessCode:sessCode];
+  [self postDataToPathWithXml:xmlRequest method:MoppLibNetworkRequestMethodMobileGetMobileCreateSignatureStatus success:^(NSObject *responseObject) {
     success(responseObject);
   } andFailure:^(NSError *error) {
     failure(error);

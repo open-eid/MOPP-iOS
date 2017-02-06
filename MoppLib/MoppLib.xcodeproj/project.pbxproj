@@ -62,6 +62,10 @@
 		AE1069441E4498A6002BAFDA /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE10693F1E4498A6002BAFDA /* Error.swift */; };
 		AE1069451E4498A6002BAFDA /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1069401E4498A6002BAFDA /* Options.swift */; };
 		AE1069461E4498A6002BAFDA /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1069411E4498A6002BAFDA /* Parser.swift */; };
+		AE1069491E44A25B002BAFDA /* MoppLibGetMobileCreateSigntaureStatusResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = AE1069471E44A25B002BAFDA /* MoppLibGetMobileCreateSigntaureStatusResponse.h */; };
+		AE10694A1E44A25B002BAFDA /* MoppLibGetMobileCreateSigntaureStatusResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1069481E44A25B002BAFDA /* MoppLibGetMobileCreateSigntaureStatusResponse.m */; };
+		AE10694F1E44C4B0002BAFDA /* MoppLibService.h in Headers */ = {isa = PBXBuildFile; fileRef = AE10694D1E44C4B0002BAFDA /* MoppLibService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AE1069501E44C4B0002BAFDA /* MoppLibService.m in Sources */ = {isa = PBXBuildFile; fileRef = AE10694E1E44C4B0002BAFDA /* MoppLibService.m */; };
 		AEC2CC421E3B8B7800A0B869 /* MoppLibSOAPManager.h in Headers */ = {isa = PBXBuildFile; fileRef = AEC2CC401E3B8B7800A0B869 /* MoppLibSOAPManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AEC2CC431E3B8B7800A0B869 /* MoppLibSOAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC2CC411E3B8B7800A0B869 /* MoppLibSOAPManager.m */; };
 		D72F91CE6FD17DE3A2CB2EA9 /* Pods_MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212014B6D572D152A70C2C71 /* Pods_MoppLib.framework */; };
@@ -154,13 +158,17 @@
 		8CA8F4A458E375C33114A84F /* Pods-MoppLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLib.debug.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLib/Pods-MoppLib.debug.xcconfig"; sourceTree = "<group>"; };
 		AE0A84441E4338DB00CC1465 /* MoppLibNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibNetworkManager.h; sourceTree = "<group>"; };
 		AE0A84451E4338DB00CC1465 /* MoppLibNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibNetworkManager.m; sourceTree = "<group>"; };
-		AE0A84481E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibMobileCreateSignatureResponse.h; sourceTree = "<group>"; };
-		AE0A84491E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibMobileCreateSignatureResponse.m; sourceTree = "<group>"; };
+		AE0A84481E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoppLibMobileCreateSignatureResponse.h; path = MoppLib/MoppLibMobileCreateSignatureResponse.h; sourceTree = "<group>"; };
+		AE0A84491E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoppLibMobileCreateSignatureResponse.m; path = MoppLib/MoppLibMobileCreateSignatureResponse.m; sourceTree = "<group>"; };
 		AE10693D1E4498A6002BAFDA /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Document.swift; path = MoppLib/Document.swift; sourceTree = "<group>"; };
 		AE10693E1E4498A6002BAFDA /* Element.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Element.swift; path = MoppLib/Element.swift; sourceTree = "<group>"; };
 		AE10693F1E4498A6002BAFDA /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Error.swift; path = MoppLib/Error.swift; sourceTree = "<group>"; };
 		AE1069401E4498A6002BAFDA /* Options.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Options.swift; path = MoppLib/Options.swift; sourceTree = "<group>"; };
 		AE1069411E4498A6002BAFDA /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Parser.swift; path = MoppLib/Parser.swift; sourceTree = "<group>"; };
+		AE1069471E44A25B002BAFDA /* MoppLibGetMobileCreateSigntaureStatusResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibGetMobileCreateSigntaureStatusResponse.h; sourceTree = "<group>"; };
+		AE1069481E44A25B002BAFDA /* MoppLibGetMobileCreateSigntaureStatusResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibGetMobileCreateSigntaureStatusResponse.m; sourceTree = "<group>"; };
+		AE10694D1E44C4B0002BAFDA /* MoppLibService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibService.h; sourceTree = "<group>"; };
+		AE10694E1E44C4B0002BAFDA /* MoppLibService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibService.m; sourceTree = "<group>"; };
 		AEC2CC401E3B8B7800A0B869 /* MoppLibSOAPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoppLibSOAPManager.h; path = MoppLib/MoppLibSOAPManager.h; sourceTree = "<group>"; };
 		AEC2CC411E3B8B7800A0B869 /* MoppLibSOAPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoppLibSOAPManager.m; path = MoppLib/MoppLibSOAPManager.m; sourceTree = "<group>"; };
 		BB993982ECBC613ED55E2010 /* Pods-MoppLibTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLibTests.release.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLibTests/Pods-MoppLibTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -319,6 +327,8 @@
 		AE0A84431E4338A700CC1465 /* MobileID */ = {
 			isa = PBXGroup;
 			children = (
+				AE0A84481E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h */,
+				AE0A84491E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m */,
 				AE10693D1E4498A6002BAFDA /* Document.swift */,
 				AE10693E1E4498A6002BAFDA /* Element.swift */,
 				AE10693F1E4498A6002BAFDA /* Error.swift */,
@@ -328,6 +338,8 @@
 				AEC2CC411E3B8B7800A0B869 /* MoppLibSOAPManager.m */,
 				AE0A84441E4338DB00CC1465 /* MoppLibNetworkManager.h */,
 				AE0A84451E4338DB00CC1465 /* MoppLibNetworkManager.m */,
+				AE1069471E44A25B002BAFDA /* MoppLibGetMobileCreateSigntaureStatusResponse.h */,
+				AE1069481E44A25B002BAFDA /* MoppLibGetMobileCreateSigntaureStatusResponse.m */,
 			);
 			name = MobileID;
 			sourceTree = "<group>";
@@ -385,8 +397,8 @@
 				540CB21F1E1CDCED00FE18A3 /* MoppLibCertificate.mm */,
 				E4250CFF1E096CAA00530370 /* test.bdoc */,
 				E4250CF21E096A0500530370 /* libdigidocpp */,
-				AE0A84481E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h */,
-				AE0A84491E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m */,
+				AE10694D1E44C4B0002BAFDA /* MoppLibService.h */,
+				AE10694E1E44C4B0002BAFDA /* MoppLibService.m */,
 			);
 			path = MoppLib;
 			sourceTree = "<group>";
@@ -445,6 +457,7 @@
 				AE0A844A1E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h in Headers */,
 				AE0A84461E4338DB00CC1465 /* MoppLibNetworkManager.h in Headers */,
 				54DC0E011E0D48C900C62B3D /* MoppLibError.h in Headers */,
+				AE10694F1E44C4B0002BAFDA /* MoppLibService.h in Headers */,
 				E4180C161E23FE9300FD7B8C /* MLDateFormatter.h in Headers */,
 				E42B08C51E1F11B900EA24A3 /* MoppLibDataFile.h in Headers */,
 				AEC2CC421E3B8B7800A0B869 /* MoppLibSOAPManager.h in Headers */,
@@ -458,6 +471,7 @@
 				54DC0DFD1E0D196D00C62B3D /* CardActionsManager.h in Headers */,
 				54DC0DED1E0BD6E300C62B3D /* ABTBluetoothReaderManager.h in Headers */,
 				E42B08CD1E1F136A00EA24A3 /* MoppLibManager.h in Headers */,
+				AE1069491E44A25B002BAFDA /* MoppLibGetMobileCreateSigntaureStatusResponse.h in Headers */,
 				54DC0DEB1E0BD6E300C62B3D /* ABTAcr3901us1Reader.h in Headers */,
 				54DC0DCE1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.h in Headers */,
 				54DC0DEF1E0BD6E300C62B3D /* ACSBluetooth.h in Headers */,
@@ -688,10 +702,12 @@
 				54DC0DF91E0BF0BA00C62B3D /* NSData+Additions.m in Sources */,
 				AE1069441E4498A6002BAFDA /* Error.swift in Sources */,
 				540CB2261E1CDD8100FE18A3 /* MoppLibCertData.m in Sources */,
+				AE1069501E44C4B0002BAFDA /* MoppLibService.m in Sources */,
 				54DC0DFE1E0D196D00C62B3D /* CardActionsManager.m in Sources */,
 				AE0A844B1E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m in Sources */,
 				545CF8581E16928600B66EE8 /* CBManagerHelper.m in Sources */,
 				5463DA4D1E12927A008A1714 /* CardCommands.m in Sources */,
+				AE10694A1E44A25B002BAFDA /* MoppLibGetMobileCreateSigntaureStatusResponse.m in Sources */,
 				542DCB6D1E23968000899534 /* MoppLibPinActions.m in Sources */,
 				545111731E13BBA800296B80 /* MoppLibPersonalData.m in Sources */,
 				E4180C171E23FE9300FD7B8C /* MLDateFormatter.m in Sources */,

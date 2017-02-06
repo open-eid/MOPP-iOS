@@ -147,6 +147,8 @@
 /// Base translation: eID
 - (NSString *)MyEidEid;
 
+/// Base translation: Code: %@
+- (NSString *(^)(NSString *))ChallengeCodeLabel;
 /// Base translation: Change %@
 - (NSString *(^)(NSString *))PinActionsChangePin;
 /// Base translation: Your signature has been added to the document.

@@ -16,9 +16,18 @@
 
 + (MoppLibSOAPManager *)sharedInstance;
 
-- (NSString *)mobileCreateSignatureWithContainer:(MoppLibContainer *)container language:(NSString *)language idCode:(NSString *)idCode phoneNo:(NSString *)phoneNo;
+- (NSString *)mobileCreateSignatureWithContainer:(MoppLibContainer *)container
+                                        language:(NSString *)language
+                                          idCode:(NSString *)idCode
+                                         phoneNo:(NSString *)phoneNo;
 
-- (void)parseMobileCreateSignatureResultWithResponseData:(NSData *)data withSuccess:(ObjectSuccessBlock)success andFailure:(FailureBlock)failure;
+- (void)parseMobileCreateSignatureResultWithResponseData:(NSData *)data
+                                             withSuccess:(ObjectSuccessBlock)success
+                                              andFailure:(FailureBlock)failure;
 
 - (NSString *)getMobileCreateSignatureStatusWithSessCode:(NSString *)sessCode;
+
+- (void)parseGetMobileCreateSignatureResponseWithData:(NSData *)data
+                                          withSuccess:(ObjectSuccessBlock)success
+                                           andFailure:(FailureBlock)failure;
 @end

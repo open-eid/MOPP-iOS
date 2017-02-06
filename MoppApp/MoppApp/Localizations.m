@@ -241,6 +241,12 @@
     return NSLocalizedStringFromTable(@"my-eid-eid", nil, nil);
 }
 
+- (NSString *(^)(NSString *))ChallengeCodeLabel {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"challenge-code-label", nil, nil), value1];
+    };
+}
+
 - (NSString *(^)(NSString *))PinActionsChangePin {
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-change-pin", nil, nil), value1];

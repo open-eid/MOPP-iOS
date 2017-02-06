@@ -124,3 +124,8 @@
 // *** About ***
 "about-development" = "Software ordered by RIA, developed by Mobi Lab";
 "about-dependencies" = "Additional dependencies";
+
+
+// *** Mobile ID Challenge View ***
+
+"challenge-code-label" = "Code: %@";

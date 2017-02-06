@@ -1,7 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ylY-Rn-2Bi">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ylY-Rn-2Bi">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -54,6 +58,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cRJ-23-xvF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2018" y="735"/>
+        </scene>
+        <!--MobileID Challenge View Controller-->
+        <scene sceneID="Gro-84-xt8">
+            <objects>
+                <viewController storyboardIdentifier="MobileIDChallengeView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rIe-Gs-yuU" customClass="MobileIDChallengeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lRd-pO-SNB"/>
+                        <viewControllerLayoutGuide type="bottom" id="qjJ-iw-rN8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SXm-Hy-3Ux">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kood:1234" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kn9-yO-Va6">
+                                <rect key="frame" x="28" y="598" width="319" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="kn9-yO-Va6" secondAttribute="trailing" constant="12" id="OQ8-9p-4D6"/>
+                            <constraint firstItem="qjJ-iw-rN8" firstAttribute="top" secondItem="kn9-yO-Va6" secondAttribute="bottom" constant="40" id="Z4P-n4-nL2"/>
+                            <constraint firstItem="kn9-yO-Va6" firstAttribute="leading" secondItem="SXm-Hy-3Ux" secondAttribute="leadingMargin" constant="12" id="oqF-80-a4Q"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mobileIDChallengeCodeLabel" destination="kn9-yO-Va6" id="tIj-Js-MsZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jIW-aE-j48" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1785" y="1187"/>
         </scene>
         <!--PinOperations-->
         <scene sceneID="clI-CO-oDs">

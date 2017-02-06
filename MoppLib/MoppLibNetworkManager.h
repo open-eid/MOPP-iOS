@@ -20,4 +20,7 @@
                                withSuccess:(ObjectSuccessBlock)success
                                 andFailure:(FailureBlock)failure;
 
+- (void)getMobileCreateSignatureStatusWithSesscode:(NSString *)sessCode
+                                       withSuccess:(ObjectSuccessBlock)success
+                                        andFailure:(FailureBlock)failure;
 @end

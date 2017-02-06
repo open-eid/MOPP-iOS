@@ -27,6 +27,7 @@
 		54825EF81E1D270F00253FF0 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF71E1D270F00253FF0 /* NSString+Additions.m */; };
 		54825EFB1E1D28E900253FF0 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EFA1E1D28E900253FF0 /* UIColor+Additions.m */; };
 		54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */; };
+		AE6198581E486C7E0021B18B /* MobileIDChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE6198571E486C7E0021B18B /* MobileIDChallengeViewController.m */; };
 		AEC1646A1E3A0DFD00139C7E /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC164681E3A0DFD00139C7E /* AboutViewController.m */; };
 		AEC1646B1E3A0DFD00139C7E /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEC164691E3A0DFD00139C7E /* AboutViewController.xib */; };
 		AEC1646F1E3A194800139C7E /* DependencyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC1646D1E3A194800139C7E /* DependencyTableViewCell.m */; };
@@ -123,6 +124,8 @@
 		6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B5F907F55A4D9D1590D35CB /* Pods-MoppApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.release.xcconfig"; sourceTree = "<group>"; };
 		A0A7AA11ECD67C1248EED708 /* Pods-MoppApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.debug.xcconfig"; sourceTree = "<group>"; };
+		AE6198561E486C7E0021B18B /* MobileIDChallengeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileIDChallengeViewController.h; sourceTree = "<group>"; };
+		AE6198571E486C7E0021B18B /* MobileIDChallengeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobileIDChallengeViewController.m; sourceTree = "<group>"; };
 		AEC164671E3A0DFD00139C7E /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		AEC164681E3A0DFD00139C7E /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		AEC164691E3A0DFD00139C7E /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
@@ -397,6 +400,8 @@
 				E42B08931E15617200EA24A3 /* LandingTabBarController.h */,
 				E42B08941E15617200EA24A3 /* LandingTabBarController.m */,
 				54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */,
+				AE6198561E486C7E0021B18B /* MobileIDChallengeViewController.h */,
+				AE6198571E486C7E0021B18B /* MobileIDChallengeViewController.m */,
 			);
 			name = Landing;
 			sourceTree = "<group>";
@@ -661,6 +666,7 @@
 				AEC164731E3A257100139C7E /* DependencyWrapper.m in Sources */,
 				E4C53F4E1E30D13100F209BE /* Session.m in Sources */,
 				E42B08951E15617200EA24A3 /* LandingTabBarController.m in Sources */,
+				AE6198581E486C7E0021B18B /* MobileIDChallengeViewController.m in Sources */,
 				AEC1646F1E3A194800139C7E /* DependencyTableViewCell.m in Sources */,
 				E42B08AA1E1D4EF500EA24A3 /* ContainerCell.m in Sources */,
 				AEC1646A1E3A0DFD00139C7E /* AboutViewController.m in Sources */,

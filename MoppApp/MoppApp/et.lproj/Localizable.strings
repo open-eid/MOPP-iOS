@@ -131,3 +131,7 @@
 "about-development" = "ID-tarkvara arendaja on, Riigi Infosüsteemi Ameti tellimusel, Mobi Lab OÜ";
 "about-dependencies" = "Täiendavad litsentsid ja komponendid";
 
+
+// *** Mobile ID Challenge View ***
+
+"challenge-code-label" = "Kood: %@";

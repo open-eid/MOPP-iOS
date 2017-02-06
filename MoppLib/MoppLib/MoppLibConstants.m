@@ -15,3 +15,9 @@ NSString *const kMoppLibNotificationRetryCounterChanged = @"Mopp Lib - Retry cou
 
 NSString *const kDDSServerUrl = @"https://digidocservice.sk.ee/";
 
+NSString *const kCreateSignatureNotificationName = @"MobileCreateSignatureNotification";
+NSString *const kCreateSignatureStatusNotificationName = @"MobileCreateSignatureStatusNotification";
+NSString *const kErrorNotificationName = @"ErrorNotification";
+NSString *const kCreateSignatureResponseKey = @"MobileCreateSignatureResponse";
+NSString *const kGetCreateSignatureStatusKey = @"GetMobileCreateSignatureStatusResponse";
+NSString *const kErrorKey = @"Error";

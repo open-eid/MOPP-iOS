@@ -31,6 +31,12 @@ typedef enum {
 } MoppLibErrorCode;
 
 extern NSString *const kDDSServerUrl;
+extern NSString *const kCreateSignatureNotificationName;
+extern NSString *const kCreateSignatureStatusNotificationName;
+extern NSString *const kErrorNotificationName;
+extern NSString *const kCreateSignatureResponseKey;
+extern NSString *const kGetCreateSignatureStatusKey;
+extern NSString *const kErrorKey;
 // Keys for Mopp Lib error user info
 
 extern NSString *const kMoppLibUserInfoRetryCount;
