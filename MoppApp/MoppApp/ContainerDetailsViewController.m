@@ -91,12 +91,7 @@ typedef enum : NSUInteger {
 }
 
 - (void)mobileCreateSignatureWithIDCode:(NSString *)idCode phoneNumber:(NSString *)phoneNumber {
-  [[MoppLibNetworkManager sharedInstance] mobileCreateSignatureWithContainer:self.container language:[self decideLanguageBasedOnPreferredLanguages] idCode:idCode phoneNo:phoneNumber withSuccess:^(NSObject *responseObject) {
-    MoppLibMobileCreateSignatureResponse *response = (MoppLibMobileCreateSignatureResponse *) responseObject;
-    NSLog(@"FINISHED with resonse : %@", response);
-  } andFailure:^(NSError *error) {
-    NSLog(@"FAIL");
-  }];
+  [[MoppLibService sharedInstance] mobileCreateSignatureWithContainer:self.container idCode:idCode language:[self decideLanguageBasedOnPreferredLanguages] phoneNumber:phoneNumber];
 }
 - (void)displayCardSignatureAlert {
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.PinActionsPin2 message:Localizations.ContainerDetailsEnterPin preferredStyle:UIAlertControllerStyleAlert];
