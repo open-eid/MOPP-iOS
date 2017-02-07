@@ -51,7 +51,7 @@ extern NSString *const kAlgorythmIdentifyerSHA512;
  * @param success   block to be executed when action is completed successfully
  * @param failure   block to be executed when action fails
  */
-- (void)readPublicDataWithSuccess:(void (^)(MoppLibPersonalData *personalData))success failure:(FailureBlock)failure;
+- (void)readPublicDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure;
 
 /**
  * Reads card owner birthDate from card.
@@ -67,7 +67,7 @@ extern NSString *const kAlgorythmIdentifyerSHA512;
  * @param success   block to be executed when action is completed successfully
  * @param failure   block to be executed when action fails
  */
-- (void)readAuthenticationCertificateWithSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
+- (void)readAuthenticationCertificateWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 /**
  * Reads signature certificate from card.
@@ -75,7 +75,7 @@ extern NSString *const kAlgorythmIdentifyerSHA512;
  * @param success   block to be executed when action is completed successfully
  * @param failure   block to be executed when action fails
  */
-- (void)readSignatureCertificateWithSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
+- (void)readSignatureCertificateWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 /**
  * Reads secret key record from card.
@@ -84,7 +84,7 @@ extern NSString *const kAlgorythmIdentifyerSHA512;
  * @param success   block to be executed when action is completed successfully
  * @param failure   block to be executed when action fails
  */
-- (void)readSecretKeyRecord:(NSInteger)record withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
+- (void)readSecretKeyRecord:(NSInteger)record withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 /**
  * Reads pin or puk code counter record
@@ -93,7 +93,7 @@ extern NSString *const kAlgorythmIdentifyerSHA512;
  * @param success   block to be executed when action is completed successfully
  * @param failure   block to be executed when action fails
  */
-- (void)readCodeCounterRecord:(NSInteger)record withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
+- (void)readCodeCounterRecord:(NSInteger)record withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 /**
  * Changes PIN or PUK code.
@@ -104,7 +104,7 @@ extern NSString *const kAlgorythmIdentifyerSHA512;
  * @param success       block to be executed when action is completed successfully
  * @param failure       block to be executed when action fails
  */
-- (void)changeCode:(CodeType)type to:(NSString *)code withVerifyCode:(NSString *)verifyCode withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
+- (void)changeCode:(CodeType)type to:(NSString *)code withVerifyCode:(NSString *)verifyCode withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 /**
  * Verifies PIN or PUK code.
@@ -114,7 +114,7 @@ extern NSString *const kAlgorythmIdentifyerSHA512;
  * @param success       block to be executed when action is completed successfully
  * @param failure       block to be executed when action fails
  */
-- (void)verifyCode:(NSString *)code ofType:(CodeType)type withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
+- (void)verifyCode:(NSString *)code ofType:(CodeType)type withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 /**
  * Unblocks PIN.
@@ -125,7 +125,7 @@ extern NSString *const kAlgorythmIdentifyerSHA512;
  * @param success       block to be executed when action is completed successfully
  * @param failure       block to be executed when action fails
  */
-- (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode success:(void(^)(NSData *))success failure:(void(^)(NSError *))failure;
+- (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 /**
  * Calculates signature for hash
@@ -135,10 +135,10 @@ extern NSString *const kAlgorythmIdentifyerSHA512;
  * @param success       block to be executed when action is completed successfully
  * @param failure       block to be executed when action fails
  */
-- (void)calculateSignatureFor:(NSData *)hash withPin2:(NSString *)pin2 success:(void (^)(NSData *data))success failure:(FailureBlock)failure;
+- (void)calculateSignatureFor:(NSData *)hash withPin2:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 
-- (void)setSecurityEnvironment:(NSUInteger)env withSuccess:(void (^)(NSData *data))success failure:(FailureBlock)failure;
+- (void)setSecurityEnvironment:(NSUInteger)env withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 
 @end

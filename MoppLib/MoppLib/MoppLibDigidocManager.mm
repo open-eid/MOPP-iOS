@@ -1,5 +1,5 @@
 //
-//  MoppLibManager.m
+//  MoppLibDigidocManager.m
 //  MoppLib
 //
 //  Created by Ants Käär on 06.01.17.
@@ -14,7 +14,7 @@
 #include <digidocpp/XmlConf.h>
 #include <digidocpp/crypto/Signer.h>
 
-#import "MoppLibManager.h"
+#import "MoppLibDigidocManager.h"
 #import "MoppLibDataFile.h"
 #import "MoppLibSignature.h"
 #import "MLDateFormatter.h"
@@ -33,13 +33,13 @@ public:
   
   std::string xsdPath() const
   {
-    NSBundle *bundle = [NSBundle bundleForClass:[MoppLibManager class]];
+    NSBundle *bundle = [NSBundle bundleForClass:[MoppLibDigidocManager class]];
     NSString *path = [bundle pathForResource:@"schema" ofType:@""];
     return path.UTF8String;
   }
   
   virtual std::string PKCS12Cert() const {
-    NSBundle *bundle = [NSBundle bundleForClass:[MoppLibManager class]];
+    NSBundle *bundle = [NSBundle bundleForClass:[MoppLibDigidocManager class]];
     NSString *path = [bundle pathForResource:@"878252.p12" ofType:@""];
     return path.UTF8String;
   }
@@ -69,14 +69,14 @@ private:
 };
 
 
-@interface MoppLibManager ()
+@interface MoppLibDigidocManager ()
 @end
 
-@implementation MoppLibManager
+@implementation MoppLibDigidocManager
 
-+ (MoppLibManager *)sharedInstance {
++ (MoppLibDigidocManager *)sharedInstance {
   static dispatch_once_t pred;
-  static MoppLibManager *sharedInstance = nil;
+  static MoppLibDigidocManager *sharedInstance = nil;
   dispatch_once(&pred, ^{
     sharedInstance = [[self alloc] init];
   });
@@ -293,7 +293,7 @@ void parseException(const digidoc::Exception &e) {
   }
 }
 
-- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 cert:(NSData *)cert success:(void (^)(MoppLibContainer *))success andFailure:(FailureBlock)failure {
+- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 cert:(NSData *)cert success:(ContainerBlock)success andFailure:(FailureBlock)failure {
   
   try {
     const unsigned char *bytes = (const unsigned  char *)[cert bytes];
@@ -393,6 +393,22 @@ void parseException(const digidoc::Exception &e) {
   NSMutableString *resultString = [[NSMutableString alloc] initWithString:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
   [resultString appendString:[NSString stringWithFormat:@".%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]]];
   return resultString;
+}
+
+- (void)addMobileIDSignatureToContainer:(MoppLibContainer *)moppContainer signature:(NSString *)signature {
+  try {
+    digidoc::Container *container = digidoc::Container::open(moppContainer.filePath.UTF8String);
+    NSData *data = [signature dataUsingEncoding:NSUTF8StringEncoding];
+    unsigned char bytes[[data length]];
+    [data getBytes:bytes length:data.length];
+    std::vector<unsigned char> v(data.length);
+    for (int i = 0; i < data.length; i++) {
+      v.push_back(bytes[i]);
+    }
+    container->addAdESSignature(v);
+  } catch(const digidoc::Exception &e) {
+    parseException(e);
+  }
 }
 
 @end

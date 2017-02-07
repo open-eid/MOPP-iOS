@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "MoppLibCertData.h"
+#import "MoppLibPersonalData.h"
+#import "MoppLibContainer.h"
 
 // Mopp Lib error codes
 
@@ -44,9 +47,13 @@ extern NSString *const kMoppLibUserInfoRetryCount;
 
 
 
-typedef void (^DataSuccessBlock)(NSData *responseObject);
+typedef void (^DataSuccessBlock)(NSData *responseData);
 typedef void (^ObjectSuccessBlock)(NSObject *responseObject);
 typedef void (^FailureBlock)(NSError *error);
+typedef void (^CertDataBlock)(MoppLibCertData *certData);
+typedef void (^PersonalDataBlock)(MoppLibPersonalData *personalData);
+typedef void (^ContainerBlock)(MoppLibContainer *container);
+typedef void (^VoidBlock)(void);
 typedef void (^EmptySuccessBlock)();
 
 /**

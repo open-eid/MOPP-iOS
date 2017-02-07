@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "MoppLibConstants.h"
 
 @interface MoppLibPinActions : NSObject
 
@@ -20,7 +21,7 @@
  * @param success       Block to be called on successful completion of action
  * @param failure       Block to be called when action fails. Includes error.
  */
-+ (void)changePin1To:(NSString *)newPin1 withOldPin1:(NSString *)oldPin1 viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure;
++ (void)changePin1To:(NSString *)newPin1 withOldPin1:(NSString *)oldPin1 viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure;
 
 /**
  * Changes current PIN1 to new one by using current PUK for verification.
@@ -31,7 +32,7 @@
  * @param success       Block to be called on successful completion of action.
  * @param failure       Block to be called when action fails. Includes error.
  */
-+ (void)changePin1To:(NSString *)newPin1 withPuk:(NSString *)puk viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure;
++ (void)changePin1To:(NSString *)newPin1 withPuk:(NSString *)puk viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure;
 
 /**
  * Changes current PIN2 to new one by using current PIN2 for verification.
@@ -42,7 +43,7 @@
  * @param success       Block to be called on successful completion of action.
  * @param failure       Block to be called when action fails. Includes error.
  */
-+ (void)changePin2To:(NSString *)newPin2 withOldPin2:(NSString *)oldPin2 viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure;
++ (void)changePin2To:(NSString *)newPin2 withOldPin2:(NSString *)oldPin2 viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure;
 
 /**
  * Changes current PIN2 to new one by using current PUK for verification.
@@ -53,7 +54,7 @@
  * @param success       Block to be called on successful completion of action.
  * @param failure       Block to be called when action fails. Includes error.
  */
-+ (void)changePin2To:(NSString *)newPin2 withPuk:(NSString *)puk viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure;
++ (void)changePin2To:(NSString *)newPin2 withPuk:(NSString *)puk viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure;
 
 /**
  * Unblocks PIN1 by changing current PIN1.
@@ -64,7 +65,7 @@
  * @param success       Block to be called on successful completion of action.
  * @param failure       Block to be called when action fails. Includes error.
  */
-+ (void)unblockPin1WithPuk:(NSString *)puk newPin1:(NSString *)newPin1 viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure;
++ (void)unblockPin1WithPuk:(NSString *)puk newPin1:(NSString *)newPin1 viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure;
 
 /**
  * Unblocks PIN2 by changing current PIN2.
@@ -75,7 +76,7 @@
  * @param success       Block to be called on successful completion of action.
  * @param failure       Block to be called when action fails. Includes error.
  */
-+ (void)unblockPin2WithPuk:(NSString *)puk newPin2:(NSString *)newPin2 viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure;
++ (void)unblockPin2WithPuk:(NSString *)puk newPin2:(NSString *)newPin2 viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure;
 
 
 + (NSArray *)forbiddenPin1s;

@@ -387,12 +387,12 @@ typedef enum : NSUInteger {
     switch (indexPath.section) {
       case ContainerDetailsSectionDataFile: {
         //        MoppLibDataFile *dataFile = [self.container.dataFiles objectAtIndex:indexPath.row];
-        self.container = [[MoppLibManager sharedInstance] removeDataFileFromContainerWithPath:self.container.filePath atIndex:indexPath.row];
+        self.container = [[MoppLibContainerActions sharedInstance] removeDataFileFromContainerWithPath:self.container.filePath atIndex:indexPath.row];
         break;
       }
       case ContainerDetailsSectionSignature: {
         MoppLibSignature *signature = [self.container.signatures objectAtIndex:indexPath.row];
-        self.container = [[MoppLibManager sharedInstance] removeSignature:signature fromContainerWithPath:self.container.filePath];
+        self.container = [[MoppLibContainerActions sharedInstance] removeSignature:signature fromContainerWithPath:self.container.filePath];
         break;
       }
         

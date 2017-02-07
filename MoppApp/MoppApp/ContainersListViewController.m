@@ -49,8 +49,17 @@ typedef enum : NSUInteger {
 }
 
 - (void)reloadData {
-  self.unsignedContainers = [[MoppLibManager sharedInstance] getContainersIsSigned:NO];
-  self.signedContainers = [[MoppLibManager sharedInstance] getContainersIsSigned:YES];
+  [[MoppLibContainerActions sharedInstance] getContainersIsSigned:NO success:^(NSArray *containers) {
+    self.unsignedContainers = containers;
+  } failure:^(NSError *error) {
+    self.unsignedContainers = nil;
+  }];
+  
+  [[MoppLibContainerActions sharedInstance] getContainersIsSigned:YES success:^(NSArray *containers) {
+    self.signedContainers = containers;
+  } failure:^(NSError *error) {
+    self.signedContainers = nil;
+  }];
   
   self.filteredUnsignedContainers = self.unsignedContainers;
   self.filteredSignedContainers = self.signedContainers;

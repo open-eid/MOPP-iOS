@@ -11,6 +11,7 @@
 #import "MoppLibConstants.h"
 #import "MoppLibMobileCreateSignatureResponse.h"
 #import "MoppLibGetMobileCreateSigntaureStatusResponse.h"
+#import "MoppLibDigidocManager.h"
 
 static NSInteger *kInitialStatusRequestDelay = 10;
 static NSInteger *kSubsequentStatusRequestDelay = 5;
@@ -57,7 +58,10 @@ static NSInteger *kSubsequentStatusRequestDelay = 5;
       sleep(kSubsequentStatusRequestDelay);
       [self getMobileCreateSignatureWithSessCode:sessCode];
     } else if ([response.status isEqualToString:@"SIGNATURE"]) {
+      [[MoppLibDigidocManager sharedInstance] addMobileIDSignatureToContainer:self.currentContainer signature:response.signature];
       [[NSNotificationCenter defaultCenter] postNotificationName:kCreateSignatureStatusNotificationName object:nil userInfo:@{kGetCreateSignatureStatusKey : responseObject}];
+    } else {
+      NSLog(@"FAILURE with status: %@", response.status);
     }
   } andFailure:^(NSError *error) {
     [[NSNotificationCenter defaultCenter] postNotificationName:kErrorNotificationName object:nil userInfo:@{kErrorKey : error}];

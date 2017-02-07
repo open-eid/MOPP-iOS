@@ -6,7 +6,7 @@
 //  Copyright © 2017 Mobi Lab. All rights reserved.
 //
 #import "MoppLibSOAPManager.h"
-#import "MoppLibManager.h"
+#import "MoppLibDigidocManager.h"
 #import "MoppLibDataFile.h"
 #import <MoppLib/MoppLib-Swift.h>
 #import "MoppLibError.h"
@@ -59,13 +59,14 @@ static NSInteger kAsyncConfiguration = 0;
   [mobileCreateSignature addChildWithName:@"PhoneNo" value:phoneNo attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"Language" value:nationality attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"ServiceName" value:kServiceName attributes:@{@"xsi:type" : @"xsd:string"}];
+  [mobileCreateSignature addChildWithName:@"SigningProfile" value:@"LT" attributes:nil];
   AEXMLElement *dataFiles = [[AEXMLElement alloc] initWithName:@"DataFiles" value:nil attributes:@{@"xsi:type" : @"dig:DataFileDigestList"}];
   [mobileCreateSignature addChild:dataFiles];
   for (MoppLibDataFile *file in container.dataFiles) {
     AEXMLElement *dataFileDigest = [[AEXMLElement alloc] initWithName:@"DataFileDigest" value:nil attributes:@{@"xsi:type" : @"dig:DataFileDigest"}];
     [dataFileDigest addChildWithName:@"Id" value:file.fileId attributes:@{@"xsi:type" : @"xsd:string"}];
     [dataFileDigest addChildWithName:@"DigestType" value:kDigestType attributes:@{@"xsi:type" : @"xsd:string"}];
-    [dataFileDigest addChildWithName:@"DigestValue" value:[[MoppLibManager sharedInstance] dataFileCalculateHashWithDigestMethod:kDigestMethodSHA256 container:container dataFileId:file.fileId] attributes:@{@"xsi:type" : @"xsd:string"}];
+    [dataFileDigest addChildWithName:@"DigestValue" value:[[MoppLibDigidocManager sharedInstance] dataFileCalculateHashWithDigestMethod:kDigestMethodSHA256 container:container dataFileId:file.fileId] attributes:@{@"xsi:type" : @"xsd:string"}];
     [dataFiles addChild:dataFileDigest];
   }
   [mobileCreateSignature addChildWithName:@"Format" value:kFormat attributes:@{@"xsi:type" : @"xsd:string"}];
@@ -127,7 +128,7 @@ static NSInteger kAsyncConfiguration = 0;
   } else {
     AEXMLElement *body = [[document root] objectForKeyedSubscript:@"SOAP-ENV:Body"];
     NSLog(@"Response  body %@", body.xml);
-    AEXMLElement *getMobileCreateSignatureStatusResponse = [body objectForKeyedSubscript:@"dig:GetMobileCreateSignatureStatus"];
+    AEXMLElement *getMobileCreateSignatureStatusResponse = [body objectForKeyedSubscript:@"dig:GetMobileCreateSignatureStatusResponse"];
     AEXMLElement *sessCode = [getMobileCreateSignatureStatusResponse objectForKeyedSubscript:@"Sesscode"];
     AEXMLElement *status = [getMobileCreateSignatureStatusResponse objectForKeyedSubscript:@"Status"];
     AEXMLElement *signature = [getMobileCreateSignatureStatusResponse objectForKeyedSubscript:@"Signature"];

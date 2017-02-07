@@ -15,7 +15,7 @@
 #import "EstEIDv3_5.h"
 #import "CBManagerHelper.h"
 #import "MoppLibCertificate.h"
-#import "MoppLibManager.h"
+#import "MoppLibDigidocManager.h"
 #import <CommonCrypto/CommonDigest.h>
 
 typedef NS_ENUM(NSUInteger, CardAction) {
@@ -90,16 +90,16 @@ static CardActionsManager *sharedInstance = nil;
   [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
 }
 
-- (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(void (^)(MoppLibPersonalData *))success failure:(void (^)(NSError *))failure {
+- (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(PersonalDataBlock)success failure:(FailureBlock)failure {
   [self addCardAction:CardActionReadPublicData data:nil viewController:controller success:success failure:failure];
 }
 
-- (void)cardOwnerBirthDateWithViewController:(UIViewController *)controller success:(void(^)(NSDate *date))success failure:(void(^)(NSError *error))failure {
+- (void)cardOwnerBirthDateWithViewController:(UIViewController *)controller success:(void(^)(NSDate *date))success failure:(FailureBlock)failure {
   [self addCardAction:CardActionReadOwnerBirthDate data:nil viewController:controller success:success failure:failure];
 
 }
 
-- (void)getCertDataFromCert:(NSData *)certificateData action:(CardAction)certAction controller:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
+- (void)getCertDataFromCert:(NSData *)certificateData action:(CardAction)certAction controller:(UIViewController *)controller success:(CertDataBlock)success failure:(FailureBlock)failure {
   MoppLibCertData *certData = [MoppLibCertData new];
   [MoppLibCertificate certData:certData updateWithData:[certificateData bytes] length:certificateData.length];
   
@@ -120,46 +120,46 @@ static CardActionsManager *sharedInstance = nil;
   } failure:failure];
 }
 
-- (void)signingCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
+- (void)signingCertWithViewController:(UIViewController *)controller success:(CertDataBlock)success failure:(FailureBlock)failure {
   [self signingCertDataWithViewController:controller success:^(NSData *data) {
     [self getCertDataFromCert:data action:CardActionReadSigningCert controller:controller success:success failure:failure];
   } failure:failure];
 }
 
-- (void)signingCertDataWithViewController:(UIViewController *)controller success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure {
+- (void)signingCertDataWithViewController:(UIViewController *)controller success:(DataSuccessBlock)success failure:(FailureBlock)failure {
   [self addCardAction:CardActionReadSigningCert data:nil viewController:controller success:success failure:failure];
 }
 
-- (void)authenticationCertWithViewController:(UIViewController *)controller success:(void (^)(MoppLibCertData *))success failure:(void (^)(NSError *))failure {
+- (void)authenticationCertWithViewController:(UIViewController *)controller success:(CertDataBlock)success failure:(FailureBlock)failure {
   [self authenticationCertDataWithViewController:controller success:^(NSData *data) {
     [self getCertDataFromCert:data action:CardActionReadAuthenticationCert controller:controller success:success failure:failure];
   } failure:failure];
 }
 
-- (void)authenticationCertDataWithViewController:(UIViewController *)controller success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure {
+- (void)authenticationCertDataWithViewController:(UIViewController *)controller success:(DataSuccessBlock)success failure:(FailureBlock)failure {
   [self addCardAction:CardActionReadAuthenticationCert data:nil viewController:controller success:success failure:failure];
 }
 
-- (void)changeCode:(CodeType)type withVerifyCode:(NSString *)verify to:(NSString *)newCode viewController:(UIViewController *)controller success:(void (^)(void))success failure:(void (^)(NSError *))failure {
+- (void)changeCode:(CodeType)type withVerifyCode:(NSString *)verify to:(NSString *)newCode viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
   NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:type], kCardActionDataVerify:verify, kCardActionDataNewCode:newCode};
   [self addCardAction:CardActionChangePin data:data viewController:controller success:^(id data) {
     success();
   } failure:failure];
 }
 
-- (void)changePin:(CodeType)type withPuk:(NSString *)puk to:(NSString *)newPin viewController:(UIViewController *)controller success:(void (^)(void))success failure:(void (^)(NSError *))failure {
+- (void)changePin:(CodeType)type withPuk:(NSString *)puk to:(NSString *)newPin viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
   NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:type], kCardActionDataVerify:puk, kCardActionDataNewCode:newPin};
   [self addCardAction:CardActionChangePinWithPuk data:data viewController:controller success:^(id data) {
     success();
   } failure:failure];
 }
 
-- (void)code:(CodeType)type retryCountWithViewController:(UIViewController *)controller success:(void (^)(NSNumber *))success failure:(void (^)(NSError *))failure {
+- (void)code:(CodeType)type retryCountWithViewController:(UIViewController *)controller success:(void (^)(NSNumber *))success failure:(FailureBlock)failure {
   NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:type]};
   [self addCardAction:CardActionPinRetryCount data:data viewController:controller success:success failure:failure];
 }
 
-- (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure {
+- (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
   NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:type], kCardActionDataVerify:puk, kCardActionDataNewCode:newCode};
   [self addCardAction:CardActionUnblockPin data:data viewController:controller success:^(id data) {
     [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationRetryCounterChanged object:nil];
@@ -167,17 +167,17 @@ static CardActionsManager *sharedInstance = nil;
   } failure:failure];
 }
 
-- (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure {
+- (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(DataSuccessBlock)success failure:(FailureBlock)failure {
   NSDictionary *data = @{kCardActionDataHash:hash, kCardActionDataVerify:pin2};
   [self addCardAction:CardActionCalculateSignature data:data viewController:controller success:success failure:failure];
 }
 
-- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(void (^)(MoppLibContainer *))success failure:(void (^)(NSError *))failure {
+- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(ContainerBlock)success failure:(FailureBlock)failure {
   NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:CodeTypePin2], kCardActionDataVerify:pin2};
 
   [self addCardAction:CardActionVerifyCode data:data viewController:controller success:^(id result) {
     [self signingCertDataWithViewController:controller success:^(NSData *certData) {
-      [[MoppLibManager sharedInstance] addSignature:moppContainer pin2:pin2 cert:certData success:success andFailure:failure];
+      [[MoppLibDigidocManager sharedInstance] addSignature:moppContainer pin2:pin2 cert:certData success:success andFailure:failure];
     } failure:failure];
   } failure:failure];
 }
@@ -195,7 +195,7 @@ static CardActionsManager *sharedInstance = nil;
  * @param success   block to be called when card action is completed successfully
  * @param failure   block to be called when executing card action fails
  */
-- (void)addCardAction:(NSUInteger)action data:(NSDictionary *)data viewController:(UIViewController *)controller success:(void (^)(id))success failure:(void (^)(NSError *))failure {
+- (void)addCardAction:(NSUInteger)action data:(NSDictionary *)data viewController:(UIViewController *)controller success:(void (^)(id))success failure:(FailureBlock)failure {
   
   @synchronized (self) {
     CardActionObject *actionObject = [CardActionObject new];
@@ -392,12 +392,12 @@ static CardActionsManager *sharedInstance = nil;
   }
 }
 
-- (void) blockPin:(CodeType)pinId completion:(void (^)(void))completion {
+- (void) blockPin:(CodeType)pinId completion:(VoidBlock)completion {
   [self blockPin:pinId withCode:@"00000" completion:completion];
 }
 
 NSString *blockBackupCode = @"00001";
-- (void)blockPin:(CodeType)pinId withCode:(NSString *)code completion:(void (^)(void))completion {
+- (void)blockPin:(CodeType)pinId withCode:(NSString *)code completion:(VoidBlock)completion {
   void (^failure)(NSError *) = ^(NSError *error) {
     if (error.code == moppLibErrorWrongPin) {
       NSNumber *count = [error.userInfo objectForKey:kMoppLibUserInfoRetryCount];
@@ -448,7 +448,7 @@ NSString *blockBackupCode = @"00001";
   return nil;
 }
 
-- (void)readCert:(CardAction)certAction success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure {
+- (void)readCert:(CardAction)certAction success:(DataSuccessBlock)success failure:(FailureBlock)failure {
   
   if (certAction == CardActionReadSigningCert) {
     [self.cardVersionHandler readSignatureCertificateWithSuccess:success failure:failure];
@@ -482,7 +482,7 @@ NSString *blockBackupCode = @"00001";
 }
 
 #pragma mark - Reader setup
-- (void)setupWithPeripheral:(CBPeripheral *)peripheral success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure {
+- (void)setupWithPeripheral:(CBPeripheral *)peripheral success:(DataSuccessBlock)success failure:(FailureBlock)failure {
   CardReaderACR3901U_S1 *reader = [CardReaderACR3901U_S1 new];
   reader.delegate = self;
   [reader setupWithPeripheral:peripheral success:^(NSData *responseObject) {
