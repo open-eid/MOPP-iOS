@@ -15,6 +15,7 @@
 #import <MoppLib/MoppLib.h>
 #import "NoContainersCell.h"
 #import "Constants.h"
+#import "MBProgressHUD.h"
 
 typedef enum : NSUInteger {
   ContainersListSectionUnsigned,
@@ -61,12 +62,15 @@ typedef enum : NSUInteger {
 }
 
 - (void)reloadData {
+  [MBProgressHUD showHUDAddedTo:self.view animated:YES];
   void (^updateValues)(NSArray *, NSArray *) = ^void (NSArray *unsignedContainers, NSArray *signedContainers) {
-      self.signedContainers = signedContainers;
-      self.filteredSignedContainers = self.signedContainers;
-      self.unsignedContainers = unsignedContainers;
-      self.filteredUnsignedContainers = self.unsignedContainers;
-      [super reloadData];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
+    self.signedContainers = signedContainers;
+    self.filteredSignedContainers = self.signedContainers;
+    self.unsignedContainers = unsignedContainers;
+    self.filteredUnsignedContainers = self.unsignedContainers;
+    [super reloadData];
   };
   
   void (^loadSigned)(NSArray *) = ^void (NSArray *unsignedContainers) {
@@ -81,7 +85,7 @@ typedef enum : NSUInteger {
   
   [[MoppLibContainerActions sharedInstance] getContainersIsSigned:NO success:^(NSArray *containers) {
     loadSigned(containers);
-
+    
   } failure:^(NSError *error) {
     loadSigned(nil);
   }];
