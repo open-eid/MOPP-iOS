@@ -131,8 +131,9 @@ static NSInteger kAsyncConfiguration = 0;
     failure(error);
   } else {
     AEXMLElement *body = [[document root] objectForKeyedSubscript:@"SOAP-ENV:Body"];
-    if ([body objectForKeyedSubscript:@"SOAP-ENV:Fault"]) {
+    if ([[[body objectForKeyedSubscript:@"SOAP-ENV:Fault"] children] count] > 0) {
       AEXMLElement *fault = [body objectForKeyedSubscript:@"SOAP-ENV:Fault"];
+      NSLog(@"Fault %@", fault.xml);
       AEXMLElement *detail = [fault objectForKeyedSubscript:@"detail"];
       error = [MoppLibError DDSErrorWith:[[detail objectForKeyedSubscript:@"message"] value]];
       failure(error);

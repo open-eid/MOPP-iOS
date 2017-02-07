@@ -253,7 +253,8 @@ NSString *const CellIdentifier = @"CellIdentifier";
     }
     case SettingsCellTypeAbout: {
       AboutViewController *controller = [[AboutViewController alloc] init];
-      [self.navigationController pushViewController:controller animated:YES ];
+      [self.navigationController pushViewController:controller animated:YES];
+      break;
     }
     case SettingsCellTypeIDCode: {
       UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.SettingsIdCodeTitle message:Localizations.SettingsIdCodeAlertMessage preferredStyle:UIAlertControllerStyleAlert];
@@ -268,6 +269,7 @@ NSString *const CellIdentifier = @"CellIdentifier";
       }]];
       [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleDefault handler:nil]];
       [self presentViewController:alert animated:YES completion:nil];
+      break;
     }
     case SettingsCellTypePhoneNumber: {
       UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.SettingsPhoneNumberTitle message:Localizations.SettingsPhoneNumberAlertMessage preferredStyle:UIAlertControllerStyleAlert];
@@ -282,6 +284,7 @@ NSString *const CellIdentifier = @"CellIdentifier";
       }]];
       [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleDefault handler:nil]];
       [self presentViewController:alert animated:YES completion:nil];
+      break;
     }
     default:
       break;
