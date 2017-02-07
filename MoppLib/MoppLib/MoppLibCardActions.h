@@ -9,9 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <UIKit/UIKit.h>
-#import "MoppLibPersonalData.h"
-//#import "MoppLibCertData.h"
-#import "MoppLibContainer.h"
 #import "MoppLibConstants.h"
 
 @protocol MoppLibCardActionsDelegate;

@@ -15,7 +15,7 @@
 #import "UIColor+Additions.h"
 #import "UIViewController+MBProgressHUD.h"
 #import "DefaultsHelper.h"
-#import "MobileIDChallengeViewController.h"
+#import "Constants.h"
 
 typedef enum : NSUInteger {
   ContainerDetailsSectionHeader,
@@ -65,21 +65,18 @@ typedef enum : NSUInteger {
   
   [self presentViewController:alert animated:YES completion:nil];
   
-  
 }
 
 - (void)showIDCodeAndPhoneAlert {
   __weak typeof(self) weakSelf = self;
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsIdcodePhoneAlertTitle message:Localizations.ContainerDetailsIdcodePhoneAlertMessage preferredStyle:UIAlertControllerStyleAlert];
   [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-    NSString *persistedIDCode = [DefaultsHelper getIDCode];
-    textField.text = persistedIDCode ? persistedIDCode : @"";
+    textField.text = [DefaultsHelper getIDCode];
     textField.placeholder = Localizations.ContainerDetailsIdcodePhoneAlertIdcodePlacholder;
     textField.keyboardType = UIKeyboardTypeNumberPad;
   }];
   [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-    NSString *persistedPhoneNumber = [DefaultsHelper getPhoneNumber];
-    textField.text = persistedPhoneNumber ? persistedPhoneNumber : @"";
+    textField.text = [DefaultsHelper getPhoneNumber];
     textField.placeholder = Localizations.ContainerDetailsIdcodePhoneAlertPhonenumberPlacholder;
     textField.keyboardType = UIKeyboardTypePhonePad;
   }];
@@ -94,7 +91,12 @@ typedef enum : NSUInteger {
 }
 
 - (void)mobileCreateSignatureWithIDCode:(NSString *)idCode phoneNumber:(NSString *)phoneNumber {
-  [[MoppLibService sharedInstance] mobileCreateSignatureWithContainer:self.container idCode:idCode language:[self decideLanguageBasedOnPreferredLanguages] phoneNumber:phoneNumber];
+  [[MoppLibNetworkManager sharedInstance] mobileCreateSignatureWithContainer:self.container language:[self decideLanguageBasedOnPreferredLanguages] idCode:idCode phoneNo:phoneNumber withSuccess:^(NSObject *responseObject) {
+    MoppLibMobileCreateSignatureResponse *response = (MoppLibMobileCreateSignatureResponse *) responseObject;
+    NSLog(@"FINISHED with resonse : %@", response);
+  } andFailure:^(NSError *error) {
+    NSLog(@"FAIL");
+  }];
 }
 - (void)displayCardSignatureAlert {
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.PinActionsPin2 message:Localizations.ContainerDetailsEnterPin preferredStyle:UIAlertControllerStyleAlert];
@@ -233,7 +235,7 @@ typedef enum : NSUInteger {
       if (![[self.container.filePath pathExtension] isEqualToString:ContainerFormatDdoc]) {
         count++;
       }
-      
+
       return count;
       break;
     }
@@ -391,20 +393,33 @@ typedef enum : NSUInteger {
     switch (indexPath.section) {
       case ContainerDetailsSectionDataFile: {
         //        MoppLibDataFile *dataFile = [self.container.dataFiles objectAtIndex:indexPath.row];
-        self.container = [[MoppLibContainerActions sharedInstance] removeDataFileFromContainerWithPath:self.container.filePath atIndex:indexPath.row];
+        [[MoppLibContainerActions sharedInstance] removeDataFileFromContainerWithPath:self.container.filePath atIndex:indexPath.row success:^(MoppLibContainer *container) {
+          [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
+
+          self.container = container;
+          [self.tableView reloadData];
+
+        } failure:^(NSError *error) {
+          
+        }];
         break;
       }
       case ContainerDetailsSectionSignature: {
         MoppLibSignature *signature = [self.container.signatures objectAtIndex:indexPath.row];
-        self.container = [[MoppLibContainerActions sharedInstance] removeSignature:signature fromContainerWithPath:self.container.filePath];
+        [[MoppLibContainerActions sharedInstance] removeSignature:signature fromContainerWithPath:self.container.filePath success:^(MoppLibContainer *container) {
+          [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
+
+          self.container = container;
+          [self.tableView reloadData];
+        } failure:^(NSError *error) {
+          
+        }];
         break;
       }
         
       default:
         break;
     }
-    
-    [self.tableView reloadData];
   }
 }
 

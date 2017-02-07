@@ -14,6 +14,8 @@
 #import "SimpleHeaderView.h"
 #import <MoppLib/MoppLib.h>
 #import "NoContainersCell.h"
+#import "Constants.h"
+#import "MBProgressHUD.h"
 
 typedef enum : NSUInteger {
   ContainersListSectionUnsigned,
@@ -34,6 +36,8 @@ typedef enum : NSUInteger {
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(containerChanged:) name:kNotificationContainerChanged object:nil];
+
   [self setTitle:Localizations.TabContainers];
   
   self.unsignedContainers = [NSArray array];
@@ -46,25 +50,45 @@ typedef enum : NSUInteger {
   // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
   self.navigationItem.rightBarButtonItem = self.editButtonItem;
   [self setEditing:NO]; // Update edit button title.
+  
+  [self reloadData];
+
+}
+
+- (void)containerChanged:(NSNotification *)notification {
+  // May consider updating just one file
+  //MoppLibContainer *container = [[notification userInfo] objectForKey:kKeyContainer];
+  [self reloadData];
 }
 
 - (void)reloadData {
+  [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+  void (^updateValues)(NSArray *, NSArray *) = ^void (NSArray *unsignedContainers, NSArray *signedContainers) {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
+    self.signedContainers = signedContainers;
+    self.filteredSignedContainers = self.signedContainers;
+    self.unsignedContainers = unsignedContainers;
+    self.filteredUnsignedContainers = self.unsignedContainers;
+    [super reloadData];
+  };
+  
+  void (^loadSigned)(NSArray *) = ^void (NSArray *unsignedContainers) {
+    
+    [[MoppLibContainerActions sharedInstance] getContainersIsSigned:YES success:^(NSArray *containers) {
+      updateValues(unsignedContainers, containers);
+      
+    } failure:^(NSError *error) {
+      updateValues(unsignedContainers, nil);
+    }];
+  };
+  
   [[MoppLibContainerActions sharedInstance] getContainersIsSigned:NO success:^(NSArray *containers) {
-    self.unsignedContainers = containers;
+    loadSigned(containers);
+    
   } failure:^(NSError *error) {
-    self.unsignedContainers = nil;
+    loadSigned(nil);
   }];
-  
-  [[MoppLibContainerActions sharedInstance] getContainersIsSigned:YES success:^(NSArray *containers) {
-    self.signedContainers = containers;
-  } failure:^(NSError *error) {
-    self.signedContainers = nil;
-  }];
-  
-  self.filteredUnsignedContainers = self.unsignedContainers;
-  self.filteredSignedContainers = self.signedContainers;
-  
-  [super reloadData];
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
