@@ -49,22 +49,30 @@ typedef enum : NSUInteger {
 }
 
 - (void)reloadData {
+  void (^updateValues)(NSArray *, NSArray *) = ^void (NSArray *unsignedContainers, NSArray *signedContainers) {
+      self.signedContainers = signedContainers;
+      self.filteredSignedContainers = self.signedContainers;
+      self.unsignedContainers = unsignedContainers;
+      self.filteredUnsignedContainers = self.unsignedContainers;
+      [super reloadData];
+  };
+  
+  void (^loadSigned)(NSArray *) = ^void (NSArray *unsignedContainers) {
+    
+    [[MoppLibContainerActions sharedInstance] getContainersIsSigned:YES success:^(NSArray *containers) {
+      updateValues(unsignedContainers, containers);
+      
+    } failure:^(NSError *error) {
+      updateValues(unsignedContainers, nil);
+    }];
+  };
+  
   [[MoppLibContainerActions sharedInstance] getContainersIsSigned:NO success:^(NSArray *containers) {
-    self.unsignedContainers = containers;
+    loadSigned(containers);
+
   } failure:^(NSError *error) {
-    self.unsignedContainers = nil;
+    loadSigned(nil);
   }];
-  
-  [[MoppLibContainerActions sharedInstance] getContainersIsSigned:YES success:^(NSArray *containers) {
-    self.signedContainers = containers;
-  } failure:^(NSError *error) {
-    self.signedContainers = nil;
-  }];
-  
-  self.filteredUnsignedContainers = self.unsignedContainers;
-  self.filteredSignedContainers = self.signedContainers;
-  
-  [super reloadData];
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
