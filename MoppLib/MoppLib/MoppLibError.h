@@ -26,5 +26,5 @@ extern NSString *const MoppLibErrorDomain;
 + (NSError *)signatureAlreadyExistsError;
 + (NSError *)urlSessionCanceledError;
 + (NSError *)xmlParsingError;
-
++ (NSError *)DDSErrorWith:(NSString *)message;
 @end

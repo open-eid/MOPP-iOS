@@ -401,11 +401,9 @@ void parseException(const digidoc::Exception &e) {
     NSData *data = [signature dataUsingEncoding:NSUTF8StringEncoding];
     unsigned char bytes[[data length]];
     [data getBytes:bytes length:data.length];
-    std::vector<unsigned char> v(data.length);
-    for (int i = 0; i < data.length; i++) {
-      v.push_back(bytes[i]);
-    }
+    std::vector<unsigned char> v(bytes, bytes + data.length);
     container->addAdESSignature(v);
+    NSLog(@"Mobile ID signature added");
   } catch(const digidoc::Exception &e) {
     parseException(e);
   }

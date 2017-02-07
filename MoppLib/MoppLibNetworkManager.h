@@ -7,8 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MoppLibSOAPManager.h"
 #import "MoppLibConstants.h"
+
+typedef NS_ENUM(NSInteger, MoppLibNetworkRequestMethod) {
+  MoppLibNetworkRequestMethodMobileCreateSignature,
+  MoppLibNetworkRequestMethodMobileGetMobileCreateSignatureStatus
+};
 
 @interface MoppLibNetworkManager : NSObject<NSURLSessionDelegate>
 

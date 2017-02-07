@@ -17,5 +17,8 @@ extern NSString *const ContainerFormatDdoc;
 // New container format
 + (void)setNewContainerFormat:(NSString *)newContainerFormat;
 + (NSString *)getNewContainerFormat;
-
++ (void)setPhoneNumber:(NSString *)phoneNumber;
++ (NSString *)getPhoneNumber;
++ (void)setIDCode:(NSString *)idCode;
++ (NSString *)getIDCode;
 @end

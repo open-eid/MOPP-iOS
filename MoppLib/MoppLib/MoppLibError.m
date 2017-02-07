@@ -62,6 +62,10 @@ NSString *const MoppLibErrorDomain = @"MoppLibError";
   return [self error:moppLibErrorXmlParsingError];
 }
 
++ (NSError *)DDSErrorWith:(NSString *)message {
+  return [self error:MoppLibErrorDDSError userInfo:@{NSLocalizedDescriptionKey : message}];
+}
+
 + (NSError *)error:(NSUInteger)errorCode {
   return [self error:errorCode userInfo:nil];
 }

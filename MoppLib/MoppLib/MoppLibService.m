@@ -41,6 +41,7 @@ static NSInteger *kSubsequentStatusRequestDelay = 5;
     dispatch_async(dispatch_get_main_queue(), ^{
       [[NSNotificationCenter defaultCenter] postNotificationName:kCreateSignatureNotificationName object:nil userInfo:@{kCreateSignatureResponseKey : responseObject}];
     });
+    sleep(kInitialStatusRequestDelay);
     [self getMobileCreateSignatureWithSessCode:[NSString stringWithFormat:@"%d", response.sessCode]];
   } andFailure:^(NSError *error) {
     dispatch_async(dispatch_get_main_queue(), ^{

@@ -123,6 +123,9 @@
 
 /// Base translation: Failed to open document %@
 - (NSString *(^)(NSString *))FileImportImportFailedAlertMessage;
+/// Base translation: Type in your ID code
+- (NSString *)SettingsIdCodeAlertMessage;
+
 /// Base translation: Additional dependencies
 - (NSString *)AboutDependencies;
 
@@ -187,6 +190,9 @@
 - (NSString *(^)(NSString *))PinActionsUnblockingPin;
 /// Base translation: New %@ must be different from current %@.
 - (NSString *(^)(NSString *, NSString *))PinActionsSameAsCurrent;
+/// Base translation: ID code
+- (NSString *)SettingsIdCodeTitle;
+
 /// Base translation: Search
 - (NSString *)ContainersListSearchPlaceholder;
 
@@ -201,6 +207,9 @@
 
 /// Base translation: Current %@ was wrong. %@ has been blocked.
 - (NSString *(^)(NSString *, NSString *))PinActionsWrongPinBlocked;
+/// Base translation: About
+- (NSString *)SettingsAbout;
+
 /// Base translation: Import failed
 - (NSString *)FileImportImportFailedAlertTitle;
 
@@ -229,6 +238,9 @@
 /// Base translation: Your signature already exists on this document.
 - (NSString *)ContainerDetailsSignatureAlreadyExists;
 
+/// Base translation: Phone number
+- (NSString *)SettingsPhoneNumberTitle;
+
 /// Base translation: Signature certificate
 - (NSString *)MyEidSignatureCertificate;
 
@@ -249,6 +261,9 @@
 - (NSString *(^)(int))MyEidTimesUsed;
 /// Base translation: %@ is blocked. You can unblock %@ in %@.
 - (NSString *(^)(NSString *, NSString *, NSString *))MyEidPinBlocked;
+/// Base translation: Type in your phone number
+- (NSString *)SettingsPhoneNumberAlertMessage;
+
 /// Base translation: New %@ can't be %@, or contain combination of your birthdate.
 - (NSString *(^)(NSString *, NSString *))PinActionsRuleForbiddenPins;
 /// Base translation: My eID

@@ -14,6 +14,9 @@ NSString *const ContainerFormatDdoc = @"ddoc";
 
 // Keys
 NSString *const kNewContainerFormatKey = @"kNewContainerFormatKey";
+NSString *const kPhoneNumberKey = @"kPhoneNumberKey";
+NSString *const kIDCodeKey = @"kIDCodeKey";
+
 
 @implementation DefaultsHelper
 
@@ -25,6 +28,24 @@ NSString *const kNewContainerFormatKey = @"kNewContainerFormatKey";
 + (NSString *)getNewContainerFormat {
   NSString *newContainerFormat = (NSString *)[[NSUserDefaults standardUserDefaults] objectForKey:kNewContainerFormatKey];
   return newContainerFormat;
+}
+
++ (void)setPhoneNumber:(NSString *)phoneNumber {
+  [[NSUserDefaults standardUserDefaults] setObject:phoneNumber forKey:kPhoneNumberKey];
+}
+
++ (NSString *)getPhoneNumber {
+  NSString *phoneNumber = (NSString *) [[NSUserDefaults standardUserDefaults] objectForKey:kPhoneNumberKey];
+  return phoneNumber;
+}
+
++ (void)setIDCode:(NSString *)idCode {
+  [[NSUserDefaults standardUserDefaults] setObject:idCode forKey:kIDCodeKey];
+}
+
++ (NSString *)getIDCode {
+  NSString *idCode = [[NSUserDefaults standardUserDefaults] objectForKey:kIDCodeKey];
+  return idCode;
 }
 
 @end

@@ -46,7 +46,7 @@ static NSInteger kAsyncConfiguration = 0;
   return envelope;
 }
 - (NSString *)mobileCreateSignatureWithContainer:(MoppLibContainer *)container
-                                     language:(NSString *)nationality
+                                        language:(NSString *)nationality
                                           idCode:(NSString *)idCode
                                          phoneNo:(NSString *)phoneNo {
   AEXMLElement *document = [AEXMLDocument new];
@@ -78,28 +78,20 @@ static NSInteger kAsyncConfiguration = 0;
   return document.xml;
 }
 
-- (void)parseMobileCreateSignatureResultWithResponseData:(NSData *)data
-                                             withSuccess:(ObjectSuccessBlock)success
-                                              andFailure:(FailureBlock)failure {
-  NSError *error;
-  AEXMLDocument *document = [AEXMLDocument new];
+- (void)parseMobileCreateSignatureResultWithBody:(AEXMLElement *)body
+                                     withSuccess:(ObjectSuccessBlock)success
+                                      andFailure:(FailureBlock)failure {
   MoppLibMobileCreateSignatureResponse *response = [[MoppLibMobileCreateSignatureResponse alloc] init];
-  [document loadXML:data error:&error];
-  if (error.domain) {
-    error = [MoppLibError xmlParsingError];
-    failure(error);
-  } else {
-    AEXMLElement *body = [[document root] objectForKeyedSubscript:@"SOAP-ENV:Body"];
-    NSLog(@"Response body %@", body.xml);
-    AEXMLElement *mobileCreateSignatureResponse = [body objectForKeyedSubscript:@"dig:MobileCreateSignatureResponse"];
-    AEXMLElement *sessCode = [mobileCreateSignatureResponse objectForKeyedSubscript:@"Sesscode"];
-    AEXMLElement *challenge = [mobileCreateSignatureResponse objectForKeyedSubscript:@"ChallengeID"];
-    AEXMLElement *status = [mobileCreateSignatureResponse objectForKeyedSubscript:@"Status"];
-    response.sessCode = [[sessCode value] integerValue];
-    response.challengeId =[challenge value];
-    response.status = [status value];
-    success(response);
-  }
+  NSLog(@"Response body %@", body.xml);
+  AEXMLElement *mobileCreateSignatureResponse = [body objectForKeyedSubscript:@"dig:MobileCreateSignatureResponse"];
+  AEXMLElement *sessCode = [mobileCreateSignatureResponse objectForKeyedSubscript:@"Sesscode"];
+  AEXMLElement *challenge = [mobileCreateSignatureResponse objectForKeyedSubscript:@"ChallengeID"];
+  AEXMLElement *status = [mobileCreateSignatureResponse objectForKeyedSubscript:@"Status"];
+  response.sessCode = [[sessCode value] integerValue];
+  response.challengeId =[challenge value];
+  response.status = [status value];
+  success(response);
+  
 }
 
 - (NSString *)getMobileCreateSignatureStatusWithSessCode:(NSString *)sessCode {
@@ -115,27 +107,54 @@ static NSInteger kAsyncConfiguration = 0;
   return document.xml;
 }
 
-- (void)parseGetMobileCreateSignatureResponseWithData:(NSData *)data
+- (void)parseGetMobileCreateSignatureResponseWithBody:(AEXMLElement *)body
                                           withSuccess:(ObjectSuccessBlock)success
                                            andFailure:(FailureBlock)failure {
+  MoppLibGetMobileCreateSigntaureStatusResponse *response = [[MoppLibGetMobileCreateSigntaureStatusResponse alloc] init];
+  NSLog(@"Response  body %@", body.xml);
+  AEXMLElement *getMobileCreateSignatureStatusResponse = [body objectForKeyedSubscript:@"dig:GetMobileCreateSignatureStatusResponse"];
+  AEXMLElement *sessCode = [getMobileCreateSignatureStatusResponse objectForKeyedSubscript:@"Sesscode"];
+  AEXMLElement *status = [getMobileCreateSignatureStatusResponse objectForKeyedSubscript:@"Status"];
+  AEXMLElement *signature = [getMobileCreateSignatureStatusResponse objectForKeyedSubscript:@"Signature"];
+  response.sessCode = [[sessCode value] integerValue];
+  response.status = [status value];
+  response.signature = [signature value];
+  success(response);
+}
+
+- (void)processResultWithData:(NSData *)data method:(MoppLibNetworkRequestMethod)method withSuccess:(ObjectSuccessBlock)success andFailure:(FailureBlock)failure {
   NSError *error;
   AEXMLDocument *document = [AEXMLDocument new];
-  MoppLibGetMobileCreateSigntaureStatusResponse *response = [[MoppLibGetMobileCreateSigntaureStatusResponse alloc] init];
   [document loadXML:data error:&error];
   if (error.domain) {
     error = [MoppLibError xmlParsingError];
     failure(error);
   } else {
     AEXMLElement *body = [[document root] objectForKeyedSubscript:@"SOAP-ENV:Body"];
-    NSLog(@"Response  body %@", body.xml);
-    AEXMLElement *getMobileCreateSignatureStatusResponse = [body objectForKeyedSubscript:@"dig:GetMobileCreateSignatureStatusResponse"];
-    AEXMLElement *sessCode = [getMobileCreateSignatureStatusResponse objectForKeyedSubscript:@"Sesscode"];
-    AEXMLElement *status = [getMobileCreateSignatureStatusResponse objectForKeyedSubscript:@"Status"];
-    AEXMLElement *signature = [getMobileCreateSignatureStatusResponse objectForKeyedSubscript:@"Signature"];
-    response.sessCode = [[sessCode value] integerValue];
-    response.status = [status value];
-    response.signature = [signature value];
-    success(response);
+    if ([body objectForKeyedSubscript:@"SOAP-ENV:Fault"]) {
+      AEXMLElement *fault = [body objectForKeyedSubscript:@"SOAP-ENV:Fault"];
+      AEXMLElement *detail = [fault objectForKeyedSubscript:@"detail"];
+      error = [MoppLibError DDSErrorWith:[[detail objectForKeyedSubscript:@"message"] value]];
+      failure(error);
+    }else {
+      switch (method) {
+        case MoppLibNetworkRequestMethodMobileCreateSignature:{
+          [self parseMobileCreateSignatureResultWithBody:body withSuccess:^(NSObject *responseObject) {
+            success(responseObject);
+          } andFailure:^(NSError *error) {
+            failure(error);
+          }];
+          break;
+        }
+        case MoppLibNetworkRequestMethodMobileGetMobileCreateSignatureStatus:{
+          [self parseGetMobileCreateSignatureResponseWithBody:body withSuccess:^(NSObject *responseObject) {
+            success(responseObject);
+          } andFailure:^(NSError *error) {
+            failure(error);
+          }];
+        }
+      }
+    }
   }
 }
 

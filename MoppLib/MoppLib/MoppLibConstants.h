@@ -28,7 +28,8 @@ typedef enum {
   moppLibErrorPinContainsInvalidCharacters = 10010, // Pin contains invalid characters. Only numbers are allowed
   moppLibErrorSignatureAlreadyExists = 10011, // Tried to sign document, that has been signed with this certificate already.
   moppLibErrorUrlSessionCanceled = 10012, // NSURLErrorCanceled occured when connecting to external service.
-  moppLibErrorXmlParsingError = 10013 // AEXMLDocument loadXml failed to parse data to XML.
+  moppLibErrorXmlParsingError = 10013, // AEXMLDocument loadXml failed to parse data to XML.
+  MoppLibErrorDDSError = 10014 // Error from DDS
 
   
 } MoppLibErrorCode;

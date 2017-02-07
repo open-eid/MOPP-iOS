@@ -18,7 +18,9 @@ typedef NS_ENUM(NSUInteger, SettingsCellType) {
   SettingsCellTypeImportFile,
   SettingsCellTypeDuplicateContainer,
   SettingsCellTypeApplicationVersion,
-  SettingsCellTypeAbout
+  SettingsCellTypeAbout,
+  SettingsCellTypeIDCode,
+  SettingsCellTypePhoneNumber
 };
 
 NSString *const CellIdentifier = @"CellIdentifier";
@@ -39,6 +41,7 @@ NSString *const CellIdentifier = @"CellIdentifier";
   self.settingsArray = @[@[@(SettingsCellTypeNewContainerFormat)],
                          @[@(SettingsCellTypeApplicationVersion)],
                          @[@(SettingsCellTypeAbout)],
+                         @[@(SettingsCellTypeIDCode),@(SettingsCellTypePhoneNumber)],
                          @[@(SettingsCellTypeImportFile),
                            @(SettingsCellTypeDuplicateContainer)]];
   [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
@@ -85,7 +88,7 @@ NSString *const CellIdentifier = @"CellIdentifier";
                                                   NSURL *fileUrl = [NSURL URLWithString:filePath];
                                                   [appDelegate application:[UIApplication sharedApplication] openURL:fileUrl sourceApplication:nil annotation:nil];
                                                 }]];
-
+  
   [actionSheet addAction:[UIAlertAction actionWithTitle:@"presentation.pdf"
                                                   style:UIAlertActionStyleDefault
                                                 handler:^(UIAlertAction * _Nonnull action) {
@@ -149,7 +152,7 @@ NSString *const CellIdentifier = @"CellIdentifier";
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
   switch (section) {
-    case 3:
+    case 4:
       return @"DEV";
       break;
       
@@ -183,9 +186,16 @@ NSString *const CellIdentifier = @"CellIdentifier";
       break;
       
     case SettingsCellTypeAbout:
-      titleLabelText = @"About";
+      titleLabelText = Localizations.SettingsAbout;
       break;
-    
+    case SettingsCellTypeIDCode:
+      titleLabelText = Localizations.SettingsIdCodeTitle;
+      detailLabelText = [DefaultsHelper getIDCode];
+      break;
+    case SettingsCellTypePhoneNumber:
+      titleLabelText = Localizations.SettingsPhoneNumberTitle;
+      detailLabelText = [DefaultsHelper getPhoneNumber];
+      break;
     case SettingsCellTypeDuplicateContainer:
       titleLabelText = @"Create duplicate container";
       break;
@@ -198,6 +208,8 @@ NSString *const CellIdentifier = @"CellIdentifier";
       detailLabelText = versionString;
       break;
     
+      
+      
   }
   [cell.textLabel setText:titleLabelText];
   [cell.detailTextLabel setText:detailLabelText];
@@ -236,12 +248,40 @@ NSString *const CellIdentifier = @"CellIdentifier";
       UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Success" message:[NSString stringWithFormat:@"TEST container named \"%@\" has been created. It's now visible under \"%@\" tab.", containerName, Localizations.TabContainers] preferredStyle:UIAlertControllerStyleAlert];
       [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
       [self presentViewController:alert animated:YES completion:nil];
-
+      
       break;
     }
     case SettingsCellTypeAbout: {
       AboutViewController *controller = [[AboutViewController alloc] init];
       [self.navigationController pushViewController:controller animated:YES ];
+    }
+    case SettingsCellTypeIDCode: {
+      UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.SettingsIdCodeTitle message:Localizations.SettingsIdCodeAlertMessage preferredStyle:UIAlertControllerStyleAlert];
+      [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = Localizations.SettingsIdCodeTitle;
+        textField.keyboardType = UIKeyboardTypeNumberPad;
+      }];
+      [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UITextField *idCodeTextField = [alert.textFields firstObject];
+        [DefaultsHelper setIDCode:idCodeTextField.text];
+        [self.tableView reloadData];
+      }]];
+      [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleDefault handler:nil]];
+      [self presentViewController:alert animated:YES completion:nil];
+    }
+    case SettingsCellTypePhoneNumber: {
+      UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.SettingsPhoneNumberTitle message:Localizations.SettingsPhoneNumberAlertMessage preferredStyle:UIAlertControllerStyleAlert];
+      [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = Localizations.SettingsPhoneNumberTitle;
+        textField.keyboardType = UIKeyboardTypeNumberPad;
+      }];
+      [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UITextField *phoneNumberTextField = [alert.textFields firstObject];
+        [DefaultsHelper setPhoneNumber:phoneNumberTextField.text];
+        [self.tableView reloadData];
+      }]];
+      [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleDefault handler:nil]];
+      [self presentViewController:alert animated:YES completion:nil];
     }
     default:
       break;

@@ -8,14 +8,9 @@
 
 #import "MoppLibNetworkManager.h"
 #import "MoppLibError.h"
+#import "MoppLibSOAPManager.h"
 
-typedef NS_ENUM(NSInteger, MoppLibNetworkRequestMethod) {
-  MoppLibNetworkRequestMethodMobileCreateSignature,
-  MoppLibNetworkRequestMethodMobileGetMobileCreateSignatureStatus
-};
-@interface MoppLibNetworkManager ()
 
-@end
 @implementation MoppLibNetworkManager
 
 + (MoppLibNetworkManager *)sharedInstance {
@@ -49,24 +44,11 @@ typedef NS_ENUM(NSInteger, MoppLibNetworkRequestMethod) {
       NSInteger statusCode = [(NSHTTPURLResponse *) response statusCode];
       if (statusCode != 401) {
         NSError *resultError;
-        switch (method) {
-          case MoppLibNetworkRequestMethodMobileCreateSignature:{
-            [[MoppLibSOAPManager sharedInstance] parseMobileCreateSignatureResultWithResponseData:data withSuccess:^(NSObject *responseObject) {
-              success(responseObject);
-            } andFailure:^(NSError *error) {
-              failure(error);
-            }];
-            break;
-          }
-          case MoppLibNetworkRequestMethodMobileGetMobileCreateSignatureStatus:
-            [[MoppLibSOAPManager sharedInstance] parseGetMobileCreateSignatureResponseWithData:data withSuccess:^(NSObject *responseObject) {
-              success(responseObject);
-            } andFailure:^(NSError *error) {
-              failure(error);
-            }];
-            break;
-        }
-    
+        [[MoppLibSOAPManager sharedInstance] processResultWithData:data method:method withSuccess:^(NSObject *responseObject) {
+          success(responseObject);
+        } andFailure:^(NSError *error) {
+          failure(error);
+        }];
       } else {
         NSString *errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:statusCode];
         failure([NSError errorWithDomain:@"MoppLib" code:statusCode userInfo:@{NSLocalizedDescriptionKey : errorDescription}]);
@@ -83,7 +65,7 @@ typedef NS_ENUM(NSInteger, MoppLibNetworkRequestMethod) {
 }
 
 - (void)mobileCreateSignatureWithContainer:(MoppLibContainer *)container
-                               language:(NSString *)language
+                                  language:(NSString *)language
                                     idCode:(NSString *)idCode
                                    phoneNo:(NSString *)phoneNo
                                withSuccess:(ObjectSuccessBlock)success

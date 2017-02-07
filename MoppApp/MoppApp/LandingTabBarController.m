@@ -27,6 +27,7 @@
   [[self.viewControllers objectAtIndex:3] setTitle:Localizations.TabSettings];
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveMobileCreateSignatureNotification:) name:kCreateSignatureNotificationName object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveErrorNotification:) name:kErrorNotificationName object:nil];
 }
 
 - (void)receiveMobileCreateSignatureNotification:(NSNotification *)notification {
@@ -34,6 +35,13 @@
   MobileIDChallengeViewController *mobileIDChallengeview = [self.storyboard instantiateViewControllerWithIdentifier:@"MobileIDChallengeView"];
   mobileIDChallengeview.challengeID = response.challengeId;
   [self presentViewController:mobileIDChallengeview animated:YES completion:nil];
+}
+
+- (void)receiveErrorNotification:(NSNotification *)notification {
+  NSError *error = [[notification userInfo] objectForKey:kErrorKey];
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Failure" message:[[error userInfo] objectForKey:NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:nil]];
+  [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

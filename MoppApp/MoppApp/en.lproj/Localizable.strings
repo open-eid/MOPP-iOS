@@ -120,6 +120,11 @@
 // *** Settings ***
 "settings-new-container-format" = "New container format";
 "settings-application-version" = "Version";
+"settings-about" = "About";
+"settings-id-code-title"= "ID code";
+"settings-phone-number-title" = "Phone number";
+"settings-id-code-alert-message" = "Type in your ID code";
+"settings-phone-number-alert-message" = "Type in your phone number";
 
 // *** About ***
 "about-development" = "Software ordered by RIA, developed by Mobi Lab";

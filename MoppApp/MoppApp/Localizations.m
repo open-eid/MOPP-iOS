@@ -199,6 +199,10 @@
     };
 }
 
+- (NSString *)SettingsIdCodeAlertMessage {
+    return NSLocalizedStringFromTable(@"settings-id-code-alert-message", nil, nil);
+}
+
 - (NSString *)AboutDependencies {
     return NSLocalizedStringFromTable(@"about-dependencies", nil, nil);
 }
@@ -311,6 +315,10 @@
     };
 }
 
+- (NSString *)SettingsIdCodeTitle {
+    return NSLocalizedStringFromTable(@"settings-id-code-title", nil, nil);
+}
+
 - (NSString *)ContainersListSearchPlaceholder {
     return NSLocalizedStringFromTable(@"containers-list-search-placeholder", nil, nil);
 }
@@ -331,6 +339,10 @@
     return ^(NSString * value1 , NSString * value2) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-wrong-pin-blocked", nil, nil), value1, value2];
     };
+}
+
+- (NSString *)SettingsAbout {
+    return NSLocalizedStringFromTable(@"settings-about", nil, nil);
 }
 
 - (NSString *)FileImportImportFailedAlertTitle {
@@ -377,6 +389,10 @@
     return NSLocalizedStringFromTable(@"container-details-signature-already-exists", nil, nil);
 }
 
+- (NSString *)SettingsPhoneNumberTitle {
+    return NSLocalizedStringFromTable(@"settings-phone-number-title", nil, nil);
+}
+
 - (NSString *)MyEidSignatureCertificate {
     return NSLocalizedStringFromTable(@"my-eid-signature-certificate", nil, nil);
 }
@@ -415,6 +431,10 @@
     return ^(NSString * value1 , NSString * value2 , NSString * value3) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-pin-blocked", nil, nil), value1, value2, value3];
     };
+}
+
+- (NSString *)SettingsPhoneNumberAlertMessage {
+    return NSLocalizedStringFromTable(@"settings-phone-number-alert-message", nil, nil);
 }
 
 - (NSString *(^)(NSString *, NSString *))PinActionsRuleForbiddenPins {

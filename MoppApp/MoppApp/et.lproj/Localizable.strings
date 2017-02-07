@@ -125,6 +125,11 @@
 // *** Settings ***
 "settings-new-container-format" = "Uue dokumendi formaat";
 "settings-application-version" = "Versioon";
+"settings-about" = "Rakendusest";
+"settings-id-code-title"= "Isikukood";
+"settings-phone-number-title" = "Telefoni number";
+"settings-id-code-alert-message" = "Sisesta isikukood";
+"settings-phone-number-alert-message" = "Sisesta telefoni number";
 
 
 // *** About ***

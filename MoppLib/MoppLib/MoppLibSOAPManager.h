@@ -10,6 +10,7 @@
 #import "MoppLibContainer.h"
 #import "MoppLibPersonalData.h"
 #import "MoppLibConstants.h"
+#import "MoppLibNetworkManager.h"
 
 
 @interface MoppLibSOAPManager : NSObject
@@ -21,13 +22,10 @@
                                           idCode:(NSString *)idCode
                                          phoneNo:(NSString *)phoneNo;
 
-- (void)parseMobileCreateSignatureResultWithResponseData:(NSData *)data
-                                             withSuccess:(ObjectSuccessBlock)success
-                                              andFailure:(FailureBlock)failure;
-
 - (NSString *)getMobileCreateSignatureStatusWithSessCode:(NSString *)sessCode;
 
-- (void)parseGetMobileCreateSignatureResponseWithData:(NSData *)data
-                                          withSuccess:(ObjectSuccessBlock)success
-                                           andFailure:(FailureBlock)failure;
+- (void)processResultWithData:(NSData *)data
+                       method:(MoppLibNetworkRequestMethod)method
+                  withSuccess:(ObjectSuccessBlock)success
+                   andFailure:(FailureBlock)failure;
 @end

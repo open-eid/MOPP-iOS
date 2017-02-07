@@ -72,10 +72,14 @@ typedef enum : NSUInteger {
   __weak typeof(self) weakSelf = self;
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsIdcodePhoneAlertTitle message:Localizations.ContainerDetailsIdcodePhoneAlertMessage preferredStyle:UIAlertControllerStyleAlert];
   [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+    NSString *persistedIDCode = [DefaultsHelper getIDCode];
+    textField.text = persistedIDCode ? persistedIDCode : @"";
     textField.placeholder = Localizations.ContainerDetailsIdcodePhoneAlertIdcodePlacholder;
     textField.keyboardType = UIKeyboardTypeNumberPad;
   }];
   [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+    NSString *persistedPhoneNumber = [DefaultsHelper getPhoneNumber];
+    textField.text = persistedPhoneNumber ? persistedPhoneNumber : @"";
     textField.placeholder = Localizations.ContainerDetailsIdcodePhoneAlertPhonenumberPlacholder;
     textField.keyboardType = UIKeyboardTypePhonePad;
   }];
