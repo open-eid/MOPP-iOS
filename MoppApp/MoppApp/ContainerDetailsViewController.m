@@ -15,6 +15,7 @@
 #import "UIColor+Additions.h"
 #import "UIViewController+MBProgressHUD.h"
 #import "DefaultsHelper.h"
+#import "Constants.h"
 
 typedef enum : NSUInteger {
   ContainerDetailsSectionHeader,
@@ -391,6 +392,8 @@ typedef enum : NSUInteger {
       case ContainerDetailsSectionDataFile: {
         //        MoppLibDataFile *dataFile = [self.container.dataFiles objectAtIndex:indexPath.row];
         [[MoppLibContainerActions sharedInstance] removeDataFileFromContainerWithPath:self.container.filePath atIndex:indexPath.row success:^(MoppLibContainer *container) {
+          [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
+
           self.container = container;
           [self.tableView reloadData];
 
@@ -402,6 +405,8 @@ typedef enum : NSUInteger {
       case ContainerDetailsSectionSignature: {
         MoppLibSignature *signature = [self.container.signatures objectAtIndex:indexPath.row];
         [[MoppLibContainerActions sharedInstance] removeSignature:signature fromContainerWithPath:self.container.filePath success:^(MoppLibContainer *container) {
+          [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
+
           self.container = container;
           [self.tableView reloadData];
         } failure:^(NSError *error) {

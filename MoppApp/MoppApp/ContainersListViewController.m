@@ -14,6 +14,7 @@
 #import "SimpleHeaderView.h"
 #import <MoppLib/MoppLib.h>
 #import "NoContainersCell.h"
+#import "Constants.h"
 
 typedef enum : NSUInteger {
   ContainersListSectionUnsigned,
@@ -34,6 +35,8 @@ typedef enum : NSUInteger {
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(containerChanged:) name:kNotificationContainerChanged object:nil];
+
   [self setTitle:Localizations.TabContainers];
   
   self.unsignedContainers = [NSArray array];
@@ -46,6 +49,15 @@ typedef enum : NSUInteger {
   // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
   self.navigationItem.rightBarButtonItem = self.editButtonItem;
   [self setEditing:NO]; // Update edit button title.
+  
+  [self reloadData];
+
+}
+
+- (void)containerChanged:(NSNotification *)notification {
+  // May consider updating just one file
+  //MoppLibContainer *container = [[notification userInfo] objectForKey:kKeyContainer];
+  [self reloadData];
 }
 
 - (void)reloadData {
