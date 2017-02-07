@@ -13,7 +13,7 @@
 #import <MoppLib/MoppLibMobileCreateSignatureResponse.h>
 
 @interface LandingTabBarController ()
-
+@property (nonatomic, strong) MobileIDChallengeViewController *currentMobileIDChallengeView;
 @end
 
 @implementation LandingTabBarController
@@ -33,12 +33,16 @@
 - (void)receiveMobileCreateSignatureNotification:(NSNotification *)notification {
   MoppLibMobileCreateSignatureResponse *response = [notification.userInfo objectForKey:kCreateSignatureResponseKey];
   MobileIDChallengeViewController *mobileIDChallengeview = [self.storyboard instantiateViewControllerWithIdentifier:@"MobileIDChallengeView"];
-  mobileIDChallengeview.challengeID = response.challengeId;
-  [self presentViewController:mobileIDChallengeview animated:YES completion:nil];
+  self.currentMobileIDChallengeView = mobileIDChallengeview;
+  self.currentMobileIDChallengeView.challengeID = response.challengeId;
+  self.currentMobileIDChallengeView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+  self.currentMobileIDChallengeView.view.alpha = 0.75f;
+  [self presentViewController:self.currentMobileIDChallengeView animated:YES completion:nil];
 }
 
 - (void)receiveErrorNotification:(NSNotification *)notification {
   NSError *error = [[notification userInfo] objectForKey:kErrorKey];
+  [self.currentMobileIDChallengeView dismissViewControllerAnimated:YES completion:nil];
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Failure" message:[[error userInfo] objectForKey:NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:nil]];
   [self presentViewController:alert animated:YES completion:nil];

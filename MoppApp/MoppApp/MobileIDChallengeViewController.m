@@ -7,6 +7,7 @@
 //
 
 #import "MobileIDChallengeViewController.h"
+#import <MoppLib/MoppLibConstants.h>
 
 @interface MobileIDChallengeViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *mobileIDChallengeCodeLabel;
@@ -18,6 +19,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.mobileIDChallengeCodeLabel.text = Localizations.ChallengeCodeLabel(self.challengeID);
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveCreateSignatureStatus:) name:kCreateSignatureStatusNotificationName object:nil];
 }
 
 
@@ -26,5 +28,8 @@
   // Dispose of any resources that can be recreated.
 }
 
+- (void)receiveCreateSignatureStatus:(NSNotification *)notification {
+  [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end
