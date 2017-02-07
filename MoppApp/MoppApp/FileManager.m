@@ -9,6 +9,7 @@
 #import "FileManager.h"
 #import "DateFormatter.h"
 #import "DefaultsHelper.h"
+#import "Constants.h"
 
 @interface FileManager ()
 
@@ -56,6 +57,7 @@
 
 - (void)createFileAtPath:(NSString *)filePath contents:(NSData *)fileContents {
   [self.fileManager createFileAtPath:filePath contents:fileContents attributes:nil];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil];
 }
 
 - (void)removeFileWithName:(NSString *)fileName {

@@ -62,9 +62,9 @@ typedef enum : NSUInteger {
 }
 
 - (void)reloadData {
-  [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+  [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
   void (^updateValues)(NSArray *, NSArray *) = ^void (NSArray *unsignedContainers, NSArray *signedContainers) {
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
     
     self.signedContainers = signedContainers;
     self.filteredSignedContainers = self.signedContainers;
