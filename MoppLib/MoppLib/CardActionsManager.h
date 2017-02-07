@@ -10,8 +10,6 @@
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "CardCommands.h"
-#import "MoppLibCertData.h"
-//#import "MoppLibContainer.h"
 
 @interface CardActionsManager : NSObject
 + (CardActionsManager *)sharedInstance;

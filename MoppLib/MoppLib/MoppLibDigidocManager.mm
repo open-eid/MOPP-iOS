@@ -16,7 +16,6 @@
 
 #import "MoppLibDigidocManager.h"
 #import "MoppLibDataFile.h"
-#import "MoppLibSignature.h"
 #import "MLDateFormatter.h"
 #import "MLFileManager.h"
 #import "MoppLibError.h"
@@ -124,6 +123,10 @@ private:
 }
 
 - (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath {
+  
+  // Having two container instances of the same file is causing crashes. Should synchronize all container operations?
+  @synchronized (self) {
+    
   MoppLibContainer *moppLibContainer = [MoppLibContainer new];
   
   [moppLibContainer setFileName:[containerPath lastPathComponent]];
@@ -185,12 +188,16 @@ private:
     }
     moppLibContainer.signatures = [signatures copy];
     
+
     return moppLibContainer;
     
   } catch(const digidoc::Exception &e) {
     parseException(e);
+
     return nil;
   }
+  }
+
 }
 - (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId {
   NSLog(@"dataFileCalculateHashWithDigestMehtod %@", method);
@@ -272,6 +279,7 @@ private:
 }
 
 - (NSArray *)getContainersIsSigned:(BOOL)isSigned {
+  
   NSMutableArray *containers = [NSMutableArray array];
   NSArray *containerPaths = [[MLFileManager sharedInstance] getContainers];
   for (NSString *containerPath in containerPaths) {
