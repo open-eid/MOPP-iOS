@@ -417,4 +417,17 @@ void parseException(const digidoc::Exception &e) {
   }
 }
 
+- (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path {
+  digidoc::Container *doc = digidoc::Container::open(containerPath.UTF8String);
+  
+  for (int i = 0; i < doc->dataFiles().size(); i++) {
+    digidoc::DataFile *dataFile = doc->dataFiles().at(i);
+
+    if([fileName isEqualToString:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]) {
+      dataFile->saveAs(path.UTF8String);
+      break;
+    }
+  }
+}
+
 @end

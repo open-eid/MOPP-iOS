@@ -16,6 +16,7 @@
 #import "UIViewController+MBProgressHUD.h"
 #import "DefaultsHelper.h"
 #import "Constants.h"
+#import "FileManager.h"
 
 typedef enum : NSUInteger {
   ContainerDetailsSectionHeader,
@@ -23,8 +24,8 @@ typedef enum : NSUInteger {
   ContainerDetailsSectionSignature
 } ContainerDetailsSection;
 
-@interface ContainerDetailsViewController ()
-
+@interface ContainerDetailsViewController ()<UIDocumentInteractionControllerDelegate>
+@property (nonatomic, strong) UIDocumentInteractionController *previewController;
 @end
 
 @implementation ContainerDetailsViewController
@@ -421,6 +422,38 @@ typedef enum : NSUInteger {
         break;
     }
   }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  switch (indexPath.section) {
+    case ContainerDetailsSectionDataFile: {
+      MoppLibDataFile *dataFile = [self.container.dataFiles objectAtIndex:indexPath.row];
+      NSString *toPath = [[FileManager sharedInstance] filePathWithFileName:dataFile.fileName];
+      [[MoppLibContainerActions sharedInstance] container:self.container.filePath saveDataFile:dataFile.fileName to:toPath success:^{
+        NSURL *fileUrl = [NSURL fileURLWithPath:toPath];
+        self.previewController = [UIDocumentInteractionController interactionControllerWithURL:fileUrl];
+        self.previewController.delegate = self;
+        BOOL success = [self.previewController presentPreviewAnimated:YES];
+        if (!success) {
+          [self.previewController presentOptionsMenuFromRect:self.view.frame inView:self.view animated:YES];
+
+        }
+      } failure:^(NSError *error) {
+        
+      }];
+      break;
+    }
+      
+    default:
+      break;
+  }
+}
+
+#pragma mark - UIDocumentInteractionControllerDelegate
+
+- (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)interactionController
+{
+  return self;
 }
 
 
