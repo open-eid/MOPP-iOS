@@ -13,6 +13,7 @@
 + (FileManager *)sharedInstance;
 
 - (NSString *)filePathWithFileName:(NSString *)fileName;
+- (NSString *)tempFilePathWithFileName:(NSString *)fileName;
 - (NSString *)createTestContainer;
 - (void)removeFileWithName:(NSString *)fileName;
 - (void)removeFileWithPath:(NSString *)filePath;

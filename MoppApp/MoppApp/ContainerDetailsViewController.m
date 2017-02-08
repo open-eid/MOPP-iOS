@@ -26,6 +26,7 @@ typedef enum : NSUInteger {
 
 @interface ContainerDetailsViewController ()<UIDocumentInteractionControllerDelegate>
 @property (nonatomic, strong) UIDocumentInteractionController *previewController;
+@property (nonatomic, strong) NSString *tempFilePath;
 @end
 
 @implementation ContainerDetailsViewController
@@ -422,19 +423,22 @@ typedef enum : NSUInteger {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   switch (indexPath.section) {
     case ContainerDetailsSectionDataFile: {
+      [self showHUD];
       MoppLibDataFile *dataFile = [self.container.dataFiles objectAtIndex:indexPath.row];
-      NSString *toPath = [[FileManager sharedInstance] filePathWithFileName:dataFile.fileName];
-      [[MoppLibContainerActions sharedInstance] container:self.container.filePath saveDataFile:dataFile.fileName to:toPath success:^{
-        NSURL *fileUrl = [NSURL fileURLWithPath:toPath];
+      self.tempFilePath = [[FileManager sharedInstance] filePathWithFileName:dataFile.fileName];
+      [[MoppLibContainerActions sharedInstance] container:self.container.filePath saveDataFile:dataFile.fileName to:self.tempFilePath success:^{
+        NSURL *fileUrl = [NSURL fileURLWithPath:self.tempFilePath];
         self.previewController = [UIDocumentInteractionController interactionControllerWithURL:fileUrl];
         self.previewController.delegate = self;
+        [self hideHUD];
+
         BOOL success = [self.previewController presentPreviewAnimated:YES];
         if (!success) {
           [self.previewController presentOptionsMenuFromRect:self.view.frame inView:self.view animated:YES];
 
         }
       } failure:^(NSError *error) {
-        
+        [self hideHUD];
       }];
       break;
     }
@@ -446,9 +450,16 @@ typedef enum : NSUInteger {
 
 #pragma mark - UIDocumentInteractionControllerDelegate
 
-- (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)interactionController
-{
+- (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)interactionController {
   return self;
+}
+
+- (void)documentInteractionControllerDidEndPreview:(UIDocumentInteractionController *)controller {
+  [[FileManager sharedInstance] removeFileWithPath:self.tempFilePath];
+}
+
+- (void)documentInteractionControllerDidDismissOptionsMenu:(UIDocumentInteractionController *)controller {
+  [[FileManager sharedInstance] removeFileWithPath:self.tempFilePath];
 }
 
 
