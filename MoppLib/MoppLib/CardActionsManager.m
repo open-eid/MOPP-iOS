@@ -104,30 +104,29 @@ static CardActionsManager *sharedInstance = nil;
 
 }
 
-- (void)getCertDataFromCert:(NSData *)certificateData action:(CardAction)certAction controller:(UIViewController *)controller success:(CertDataBlock)success failure:(FailureBlock)failure {
-  MoppLibCertData *certData = [MoppLibCertData new];
-  [MoppLibCertificate certData:certData updateWithData:[certificateData bytes] length:certificateData.length];
-  
-  int record = 0;
-  if (certAction == CardActionReadSigningCert) {
-    record = 1;
-  } else {
-    record = 3;
-  }
+- (void)certUsageCountForRecord:(int)record controller:(UIViewController *)controller success:(void(^)(int))success failure:(FailureBlock)failure {
+
   NSDictionary *data = @{kCardActionDataRecord:[NSNumber numberWithInt:record]};
   [self addCardAction:CardActionReadSecretKey data:data viewController:controller success:^(NSData *data) {
     NSData *keyUsageData = [data subdataWithRange:NSMakeRange(12, 3)];
     int counterStart = [@"FF FF FF" hexToInt];
     int counterValue = [[keyUsageData toHexString] hexToInt];
-    certData.usageCount = counterStart - counterValue;
-    
-    success(certData);
+    success(counterStart - counterValue);
   } failure:failure];
 }
 
 - (void)signingCertWithViewController:(UIViewController *)controller success:(CertDataBlock)success failure:(FailureBlock)failure {
+  
+  MoppLibCertData *certData = [MoppLibCertData new];
+
   [self signingCertDataWithViewController:controller success:^(NSData *data) {
-    [self getCertDataFromCert:data action:CardActionReadSigningCert controller:controller success:success failure:failure];
+    [MoppLibCertificate certData:certData updateWithData:[data bytes] length:data.length];
+  } failure:failure];
+  
+  [self certUsageCountForRecord:1 controller:controller success:^(int usageCount) {
+    certData.usageCount = usageCount;
+    
+    success(certData);
   } failure:failure];
 }
 
@@ -136,8 +135,16 @@ static CardActionsManager *sharedInstance = nil;
 }
 
 - (void)authenticationCertWithViewController:(UIViewController *)controller success:(CertDataBlock)success failure:(FailureBlock)failure {
+  MoppLibCertData *certData = [MoppLibCertData new];
+
   [self authenticationCertDataWithViewController:controller success:^(NSData *data) {
-    [self getCertDataFromCert:data action:CardActionReadAuthenticationCert controller:controller success:success failure:failure];
+    [MoppLibCertificate certData:certData updateWithData:[data bytes] length:data.length];
+  } failure:failure];
+  
+  [self certUsageCountForRecord:3 controller:controller success:^(int usageCount) {
+    certData.usageCount = usageCount;
+    
+    success(certData);
   } failure:failure];
 }
 
