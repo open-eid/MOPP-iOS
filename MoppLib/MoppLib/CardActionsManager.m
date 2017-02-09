@@ -19,6 +19,7 @@
 #import <CommonCrypto/CommonDigest.h>
 
 typedef NS_ENUM(NSUInteger, CardAction) {
+  CardActionReadMinPublicData,
   CardActionReadPublicData,
   CardActionChangePin,
   CardActionChangePinWithPuk,
@@ -88,6 +89,10 @@ static CardActionsManager *sharedInstance = nil;
 - (void)setCardReader:(id<CardReaderWrapper>)cardReader {
   _cardReader = cardReader;
   [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
+}
+
+- (void)minimalCardPersonalDataWithViewController:(UIViewController *)controller success:(PersonalDataBlock)success failure:(FailureBlock)failure {
+  [self addCardAction:CardActionReadMinPublicData data:nil viewController:controller success:success failure:failure];
 }
 
 - (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(PersonalDataBlock)success failure:(FailureBlock)failure {
@@ -312,6 +317,11 @@ static CardActionsManager *sharedInstance = nil;
   switch (actionObject.cardAction) {
     case CardActionReadPublicData: {
       [self.cardVersionHandler readPublicDataWithSuccess:success failure:failure];
+      break;
+    }
+      
+    case CardActionReadMinPublicData: {
+      [self.cardVersionHandler readMinimalPublicDataWithSuccess:success failure:failure];
       break;
     }
       

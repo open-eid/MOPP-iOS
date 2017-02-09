@@ -98,22 +98,23 @@ typedef enum : NSUInteger {
 }
 
 - (void)updateCardData {
-  [MoppLibCardActions cardPersonalDataWithViewController:self success:^(MoppLibPersonalData *data) {
-    self.personalData = data;
-    
+  [MoppLibCardActions minimalCardPersonalDataWithViewController:self success:^(MoppLibPersonalData *personalData) {
+    self.personalData = personalData;
+
   } failure:^(NSError *error) {
     self.personalData = nil;
   }];
 }
 
 - (void)updateCertData {
+  
   [MoppLibCardActions signingCertWithViewController:self success:^(MoppLibCertData *data) {
     self.signingCertData = data;
     
   } failure:^(NSError *error) {
     self.signingCertData = nil;
   }];
-
+  
   [MoppLibCardActions authenticationCertWithViewController:self success:^(MoppLibCertData *data) {
     self.authenticationCertData = data;
     

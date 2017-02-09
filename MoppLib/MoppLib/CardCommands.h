@@ -46,6 +46,14 @@ extern NSString *const kAlgorythmIdentifyerSHA512;
 @protocol CardCommands <NSObject>
 
 /**
+ * Reads only minimal public data from card. That includes name, id code, birth date, nationality, document number and document expiry date.
+ *
+ * @param success   block to be executed when action is completed successfully
+ * @param failure   block to be executed when action fails
+ */
+- (void)readMinimalPublicDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure;
+
+/**
  * Reads public data from card.
  *
  * @param success   block to be executed when action is completed successfully
