@@ -130,7 +130,7 @@ typedef enum : NSUInteger {
       [self reloadData];
     }
   } failure:^(NSError *error) {
-    NSLog(@"Error %@", error);
+    MSLog(@"Error %@", error);
   }];
   
   [MoppLibCardActions pin2RetryCountWithViewController:self success:^(NSNumber *count) {
@@ -142,7 +142,7 @@ typedef enum : NSUInteger {
     }
   } failure:^(NSError *error) {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
-    NSLog(@"Error %@", error);
+    MSLog(@"Error %@", error);
   }];
 }
 

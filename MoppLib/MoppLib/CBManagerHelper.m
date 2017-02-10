@@ -76,30 +76,30 @@ static CBManagerHelper *sharedInstance = nil;
   
   switch (central.state) {
     case CBManagerStatePoweredOff:
-      NSLog(@"Central manager state powered off");
+      MLLog(@"Central manager state powered off");
       break;
       
     case CBManagerStateUnknown:
-      NSLog(@"Central manager state unknown");
+      MLLog(@"Central manager state unknown");
       break;
       
     case CBManagerStatePoweredOn:
-      NSLog(@"Central manager state powered on");
+      MLLog(@"Central manager state powered on");
       if (self.scanInProgress) {
         [self startScan];
       }
       break;
       
     case CBManagerStateResetting:
-      NSLog(@"Central manager state resetting");
+      MLLog(@"Central manager state resetting");
       break;
       
     case CBManagerStateUnsupported:
-      NSLog(@"Central manager state unsupported");
+      MLLog(@"Central manager state unsupported");
       break;
       
     case CBManagerStateUnauthorized:
-      NSLog(@"Central manager state unauthorized");
+      MLLog(@"Central manager state unauthorized");
       break;
       
     default:

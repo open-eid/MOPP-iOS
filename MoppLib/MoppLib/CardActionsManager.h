@@ -14,8 +14,6 @@
 @interface CardActionsManager : NSObject
 + (CardActionsManager *)sharedInstance;
 
-- (void)testMethod;
-
 - (void)minimalCardPersonalDataWithViewController:(UIViewController *)controller success:(PersonalDataBlock)success failure:(FailureBlock)failure;
 
 - (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(PersonalDataBlock)success failure:(FailureBlock)failure;

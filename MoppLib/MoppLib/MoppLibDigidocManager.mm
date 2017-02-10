@@ -88,7 +88,7 @@ private:
   NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
   NSString *eeTslCachePath = [NSString stringWithFormat:@"%@/EE.xml", tslCachePath];
   if (![[MLFileManager sharedInstance] fileExistsAtPath:eeTslCachePath]) {
-    NSLog(@"Copy TSL cache: true");
+    MLLog(@"Copy TSL cache: true");
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     NSArray *tslCache = @[[bundle pathForResource:@"EE" ofType:@"xml"],
                           [bundle pathForResource:@"FI" ofType:@"xml"],
@@ -99,7 +99,7 @@ private:
       [[MLFileManager sharedInstance] copyFileWithPath:sourcePath toPath:destinationPath];
     }
   } else {
-    NSLog(@"Copy TSL cache: false");
+    MLLog(@"Copy TSL cache: false");
   }
   
   
@@ -200,7 +200,7 @@ private:
   }
 }
 - (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId {
-  NSLog(@"dataFileCalculateHashWithDigestMehtod %@", method);
+  MLLog(@"dataFileCalculateHashWithDigestMehtod %@", method);
   digidoc::Container *container;
   try {
     container = digidoc::Container::open(moppContainer.filePath.UTF8String);
@@ -220,7 +220,7 @@ private:
   return nil;
 }
 - (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath {
-  NSLog(@"createContainerWithPath: %@, dataFilePath: %@", containerPath, dataFilePath);
+  MLLog(@"createContainerWithPath: %@, dataFilePath: %@", containerPath, dataFilePath);
   
   digidoc::Container *container;
   try {
@@ -431,7 +431,7 @@ void parseException(const digidoc::Exception &e) {
     [data getBytes:bytes length:data.length];
     std::vector<unsigned char> v(bytes, bytes + data.length);
     container->addAdESSignature(v);
-    NSLog(@"Mobile ID signature added");
+    MLLog(@"Mobile ID signature added");
   } catch(const digidoc::Exception &e) {
     parseException(e);
   }

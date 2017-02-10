@@ -74,10 +74,6 @@ static CardActionsManager *sharedInstance = nil;
   return sharedInstance;
 }
 
-- (void)testMethod {
-  NSLog(@"Just testing");
-}
-
 - (NSMutableArray *)cardActions {
   if (!_cardActions) {
     _cardActions = [NSMutableArray new];
@@ -263,7 +259,7 @@ static CardActionsManager *sharedInstance = nil;
                     self.cardVersionHandler = handler;
                   
                   } else {
-                    NSLog(@"Unsupported card version. Going to use v3.5 protocol");
+                    MLLog(@"Unsupported card version. Going to use v3.5 protocol");
                     EstEIDv3_5 *handler = [EstEIDv3_5 new];
                     [handler setReader:self.cardReader];
                     self.cardVersionHandler = handler;
@@ -274,13 +270,13 @@ static CardActionsManager *sharedInstance = nil;
                 [self executeAction:action];
 
               } failure:^(NSError *error) {
-                NSLog(@"Unable to determine card version");
+                MLLog(@"Unable to determine card version");
                 action.failureBlock([MoppLibError cardVersionUnknownError]);
                 [self finishCurrentAction];
               }];
 
             } failure:^(NSError *error) {
-              NSLog(@"Unable to power on card");
+              MLLog(@"Unable to power on card");
               action.failureBlock([MoppLibError cardNotFoundError]);
               [self finishCurrentAction];
             }];
@@ -288,7 +284,7 @@ static CardActionsManager *sharedInstance = nil;
         }];
         
       } else {
-        NSLog(@"Card not inserted");
+        MLLog(@"Card not inserted");
         action.failureBlock([MoppLibError cardNotFoundError]);
         [self finishCurrentAction];
       }
@@ -507,7 +503,7 @@ NSString *blockBackupCode = @"00001";
     success(responseObject);
     
   } failure:^(NSError *error) {
-    NSLog(@"Failed to set up peripheral: %@", [error localizedDescription]);
+    MLLog(@"Failed to set up peripheral: %@", [error localizedDescription]);
     failure(error);
   }];
 }

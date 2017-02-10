@@ -1,0 +1,7 @@
+
+"Select reader" = "Vali kaardilugeja";
+"Cancel" = "Katkesta";
+"Connect reader message" = "Kaardilugeja ei ole ühendatud. Palun kontrolli, et lugeja oleks aktiivne ja vali lugeja.";
+"Problem connecting %@" = "Seadme ühendamisel tekkis probleem: %@";
+"Error" = "Viga";
+"Ok" = "Ok";

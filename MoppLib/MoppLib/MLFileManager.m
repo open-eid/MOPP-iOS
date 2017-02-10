@@ -79,7 +79,7 @@
   NSError *error;
   [self.fileManager copyItemAtPath:sourcePath toPath:destinationPath error:&error];
   if (error) {
-    NSLog(@"copyFileWithPath error: %@", error);
+    MLLog(@"copyFileWithPath error: %@", error);
   }
 }
 
