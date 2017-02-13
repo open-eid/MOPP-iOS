@@ -64,6 +64,9 @@
 /// Base translation: ID code
 - (NSString *)ContainerDetailsIdcodePhoneAlertIdcodePlacholder;
 
+/// Base translation: Enter new container name
+- (NSString *)ContainerDetailsEnterNewName;
+
 /// Base translation: Cancel
 - (NSString *)ActionCancel;
 
@@ -186,6 +189,9 @@
 /// Base translation: Card in reader:
 - (NSString *)MyEidCardInReader;
 
+/// Base translation: Rename
+- (NSString *)ContainerDetailsRename;
+
 /// Base translation: Unblocking %@:
 - (NSString *(^)(NSString *))PinActionsUnblockingPin;
 /// Base translation: New %@ must be different from current %@.
@@ -221,6 +227,9 @@
 
 /// Base translation: Uus %@ peab olema %i-%i - numbriline.
 - (NSString *(^)(NSString *, int, int))PinActionsRulePinLength;
+/// Base translation: Name
+- (NSString *)ContainerDetailsName;
+
 /// Base translation: Signatures
 - (NSString *)ContainerDetailsSignatureSectionHeader;
 
@@ -257,13 +266,13 @@
 /// Base translation: PUK
 - (NSString *)PinActionsPuk;
 
+/// Base translation: Rename container
+- (NSString *)ContainerDetailsRenameContainer;
+
 /// Base translation: %i times
 - (NSString *(^)(int))MyEidTimesUsed;
 /// Base translation: %@ is blocked. You can unblock %@ in %@.
 - (NSString *(^)(NSString *, NSString *, NSString *))MyEidPinBlocked;
-/// Base translation: Type in your phone number
-- (NSString *)SettingsPhoneNumberAlertMessage;
-
 /// Base translation: New %@ can't be %@, or contain combination of your birthdate.
 - (NSString *(^)(NSString *, NSString *))PinActionsRuleForbiddenPins;
 /// Base translation: My eID
@@ -271,6 +280,9 @@
 
 /// Base translation: This %@ is not allowed.
 - (NSString *(^)(NSString *))PinActionsInvalidFormat;
+/// Base translation: Type in your phone number
+- (NSString *)SettingsPhoneNumberAlertMessage;
+
 /// Base translation: New %@ code
 - (NSString *(^)(NSString *))PinActionsNewPin;
 /// Base translation: %@ must contain numbers only.

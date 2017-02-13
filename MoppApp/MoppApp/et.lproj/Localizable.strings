@@ -49,7 +49,10 @@
 "container-details-idcode-phone-alert-message" = "Sisesta isikukood ja telefoninumber";
 "container-details-idcode-phone-alert-idcode-placholder" = "Isikukood";
 "container-details-idcode-phone-alert-phonenumber-placholder" = "Telefoninumber";
- 
+"container-details-rename" = "Konteineri nime muutmine";
+"container-details-rename" = "Muuda nime";
+"container-details-enter-new-name" = "Sisesta uus konteineri nimi";
+"container-details-name" = "Nimi";
 "container-details-reader-not-found" = "Dokumentide allkirjastamiseks on vaja ühendada kaardilugeja.";
 "container-details-card-not-found" = "ID kaarti ei leitud. Palun kontrolli kas kaart on õigesti lugejasse sisestatud.";
 

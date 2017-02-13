@@ -49,7 +49,10 @@
 "container-details-idcode-phone-alert-message" = "Enter ID code and phone number";
 "container-details-idcode-phone-alert-idcode-placholder" = "ID code";
 "container-details-idcode-phone-alert-phonenumber-placholder" = "Phone number";
- 
+"container-details-rename-container" = "Rename container";
+"container-details-rename" = "Rename";
+"container-details-enter-new-name" = "Enter new container name";
+"container-details-name" = "Name";
 "container-details-reader-not-found" = "You need to connect card reader to sign documents.";
 "container-details-card-not-found" = "ID card is missing. Please make sure ID card is inserted correctly.";
 

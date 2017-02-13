@@ -69,6 +69,34 @@ typedef enum : NSUInteger {
   
 }
 
+- (IBAction)editContainerName:(id)sender {
+  
+  NSString *extenstion = self.container.fileName.pathExtension;
+  NSString *currentName = [self.container.fileName substringToIndex:self.container.fileName.length - extenstion.length - 1];
+  
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsRename message:Localizations.ContainerDetailsEnterNewName preferredStyle:UIAlertControllerStyleAlert];
+  [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+    textField.text = currentName;
+    textField.placeholder = Localizations.ContainerDetailsName;
+    textField.keyboardType = UIKeyboardTypeDefault;
+  }];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UITextField *nameTextField = [alert.textFields firstObject];
+    NSString *newName = [nameTextField.text stringByAppendingString:[NSString stringWithFormat:@".%@", extenstion]];
+    NSString *newPath = [[FileManager sharedInstance] filePathWithFileName:newName];
+    [[FileManager sharedInstance] moveFileWithPath:self.container.filePath toPath:newPath];
+    [[MoppLibContainerActions sharedInstance] getContainerWithPath:newPath success:^(MoppLibContainer *container) {
+      [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
+      self.container = container;
+      [self.tableView reloadData];
+    } failure:^(NSError *error) {
+      
+    }];
+  }]];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:nil]];
+  [self presentViewController:alert animated:YES completion:nil];
+}
+
 - (void)showIDCodeAndPhoneAlert {
   __weak typeof(self) weakSelf = self;
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsIdcodePhoneAlertTitle message:Localizations.ContainerDetailsIdcodePhoneAlertMessage preferredStyle:UIAlertControllerStyleAlert];
@@ -243,7 +271,6 @@ typedef enum : NSUInteger {
   return 1;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   
   switch (indexPath.section) {
@@ -253,6 +280,8 @@ typedef enum : NSUInteger {
       
       [cell.titleLabel setText:self.container.fileName];
       [cell.detailsLabel setText:Localizations.ContainerDetailsHeaderDetails([self.container.filePath pathExtension], [self.container.fileAttributes fileSize] / 1024)];
+      [cell.editButton addTarget:self action:@selector(editContainerName:) forControlEvents:UIControlEventTouchUpInside];
+      [cell.editButton setTitle:Localizations.ContainerDetailsRename forState:UIControlStateNormal];
       return cell;
       
       break;

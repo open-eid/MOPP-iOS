@@ -21,5 +21,7 @@
 
     // Configure the view for the selected state
 }
+- (IBAction)editTapped:(id)sender {
+}
 
 @end
