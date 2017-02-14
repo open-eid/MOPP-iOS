@@ -12,8 +12,11 @@
 @implementation MoppLibCardActions
 
 + (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(PersonalDataBlock)success failure:(FailureBlock)failure {
-  
   [[CardActionsManager sharedInstance] cardPersonalDataWithViewController:controller success:success failure:failure];
+}
+
++ (void)minimalCardPersonalDataWithViewController:(UIViewController *)controller success:(PersonalDataBlock)success failure:(FailureBlock)failure {
+  [[CardActionsManager sharedInstance] minimalCardPersonalDataWithViewController:controller success:success failure:failure];
 }
 
 + (void)isCardInserted:(void (^)(BOOL))completion {

@@ -27,13 +27,11 @@
   // Do any additional setup after loading the view.
   
   [[CBManagerHelper sharedInstance] startScan];
-
-  
   [[CBManagerHelper sharedInstance] addDelegate:self];
   
-  self.title = NSLocalizedString(@"Select reader", nil);
-  self.navigationItem.leftBarButtonItem.title = NSLocalizedString(@"Cancel", nil);
-  self.infoLabel.text = NSLocalizedString(@"Card reader is not connected. Please make sure your reader is active and select reader.", nil);
+  self.title = MLLocalizedString(@"Select reader", nil);
+  self.navigationItem.leftBarButtonItem.title = MLLocalizedString(@"Cancel", nil);
+  self.infoLabel.text = MLLocalizedString(@"Connect reader message", nil);
   
   [self.navigationController.navigationBar setHidden:NO];
 }
@@ -72,9 +70,12 @@
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
   [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
   
-  UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Viga" message:[NSString stringWithFormat:@"Seadme ühendamisel tekkis probleem: %@", [error localizedDescription]] preferredStyle:UIAlertControllerStyleAlert];
+  NSString *title = MLLocalizedString(@"Error", nil);
+  NSString *message = MLLocalizedString(@"Problem connecting %@", nil);
+  NSString *ok = MLLocalizedString(@"Ok", nil);
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:[NSString stringWithFormat:message, [error localizedDescription]] preferredStyle:UIAlertControllerStyleAlert];
   
-  [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+  [alert addAction:[UIAlertAction actionWithTitle:ok style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
   }]];
   
   [self presentViewController:alert animated:YES completion:^{

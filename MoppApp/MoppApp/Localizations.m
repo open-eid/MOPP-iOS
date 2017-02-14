@@ -101,6 +101,10 @@
     return NSLocalizedStringFromTable(@"container-details-idcode-phone-alert-idcode-placholder", nil, nil);
 }
 
+- (NSString *)ContainerDetailsEnterNewName {
+    return NSLocalizedStringFromTable(@"container-details-enter-new-name", nil, nil);
+}
+
 - (NSString *)ActionCancel {
     return NSLocalizedStringFromTable(@"action-cancel", nil, nil);
 }
@@ -311,6 +315,10 @@
     return NSLocalizedStringFromTable(@"my-eid-card-in-reader", nil, nil);
 }
 
+- (NSString *)ContainerDetailsRename {
+    return NSLocalizedStringFromTable(@"container-details-rename", nil, nil);
+}
+
 - (NSString *(^)(NSString *))PinActionsUnblockingPin {
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-unblocking-pin", nil, nil), value1];
@@ -371,6 +379,10 @@
     };
 }
 
+- (NSString *)ContainerDetailsName {
+    return NSLocalizedStringFromTable(@"container-details-name", nil, nil);
+}
+
 - (NSString *)ContainerDetailsSignatureSectionHeader {
     return NSLocalizedStringFromTable(@"container-details-signature-section-header", nil, nil);
 }
@@ -429,6 +441,10 @@
     return NSLocalizedStringFromTable(@"pin-actions-puk", nil, nil);
 }
 
+- (NSString *)ContainerDetailsRenameContainer {
+    return NSLocalizedStringFromTable(@"container-details-rename-container", nil, nil);
+}
+
 - (NSString *(^)(int))MyEidTimesUsed {
     return ^(int value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-times-used", nil, nil), value1];
@@ -439,10 +455,6 @@
     return ^(NSString * value1 , NSString * value2 , NSString * value3) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-pin-blocked", nil, nil), value1, value2, value3];
     };
-}
-
-- (NSString *)SettingsPhoneNumberAlertMessage {
-    return NSLocalizedStringFromTable(@"settings-phone-number-alert-message", nil, nil);
 }
 
 - (NSString *(^)(NSString *, NSString *))PinActionsRuleForbiddenPins {
@@ -459,6 +471,10 @@
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-invalid-format", nil, nil), value1];
     };
+}
+
+- (NSString *)SettingsPhoneNumberAlertMessage {
+    return NSLocalizedStringFromTable(@"settings-phone-number-alert-message", nil, nil);
 }
 
 - (NSString *(^)(NSString *))PinActionsNewPin {

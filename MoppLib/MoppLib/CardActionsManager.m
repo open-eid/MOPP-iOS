@@ -19,6 +19,7 @@
 #import <CommonCrypto/CommonDigest.h>
 
 typedef NS_ENUM(NSUInteger, CardAction) {
+  CardActionReadMinPublicData,
   CardActionReadPublicData,
   CardActionChangePin,
   CardActionChangePinWithPuk,
@@ -73,10 +74,6 @@ static CardActionsManager *sharedInstance = nil;
   return sharedInstance;
 }
 
-- (void)testMethod {
-  NSLog(@"Just testing");
-}
-
 - (NSMutableArray *)cardActions {
   if (!_cardActions) {
     _cardActions = [NSMutableArray new];
@@ -90,6 +87,10 @@ static CardActionsManager *sharedInstance = nil;
   [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
 }
 
+- (void)minimalCardPersonalDataWithViewController:(UIViewController *)controller success:(PersonalDataBlock)success failure:(FailureBlock)failure {
+  [self addCardAction:CardActionReadMinPublicData data:nil viewController:controller success:success failure:failure];
+}
+
 - (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(PersonalDataBlock)success failure:(FailureBlock)failure {
   [self addCardAction:CardActionReadPublicData data:nil viewController:controller success:success failure:failure];
 }
@@ -99,30 +100,29 @@ static CardActionsManager *sharedInstance = nil;
 
 }
 
-- (void)getCertDataFromCert:(NSData *)certificateData action:(CardAction)certAction controller:(UIViewController *)controller success:(CertDataBlock)success failure:(FailureBlock)failure {
-  MoppLibCertData *certData = [MoppLibCertData new];
-  [MoppLibCertificate certData:certData updateWithData:[certificateData bytes] length:certificateData.length];
-  
-  int record = 0;
-  if (certAction == CardActionReadSigningCert) {
-    record = 1;
-  } else {
-    record = 3;
-  }
+- (void)certUsageCountForRecord:(int)record controller:(UIViewController *)controller success:(void(^)(int))success failure:(FailureBlock)failure {
+
   NSDictionary *data = @{kCardActionDataRecord:[NSNumber numberWithInt:record]};
   [self addCardAction:CardActionReadSecretKey data:data viewController:controller success:^(NSData *data) {
     NSData *keyUsageData = [data subdataWithRange:NSMakeRange(12, 3)];
     int counterStart = [@"FF FF FF" hexToInt];
     int counterValue = [[keyUsageData toHexString] hexToInt];
-    certData.usageCount = counterStart - counterValue;
-    
-    success(certData);
+    success(counterStart - counterValue);
   } failure:failure];
 }
 
 - (void)signingCertWithViewController:(UIViewController *)controller success:(CertDataBlock)success failure:(FailureBlock)failure {
+  
+  MoppLibCertData *certData = [MoppLibCertData new];
+
   [self signingCertDataWithViewController:controller success:^(NSData *data) {
-    [self getCertDataFromCert:data action:CardActionReadSigningCert controller:controller success:success failure:failure];
+    [MoppLibCertificate certData:certData updateWithData:[data bytes] length:data.length];
+  } failure:failure];
+  
+  [self certUsageCountForRecord:1 controller:controller success:^(int usageCount) {
+    certData.usageCount = usageCount;
+    
+    success(certData);
   } failure:failure];
 }
 
@@ -131,8 +131,16 @@ static CardActionsManager *sharedInstance = nil;
 }
 
 - (void)authenticationCertWithViewController:(UIViewController *)controller success:(CertDataBlock)success failure:(FailureBlock)failure {
+  MoppLibCertData *certData = [MoppLibCertData new];
+
   [self authenticationCertDataWithViewController:controller success:^(NSData *data) {
-    [self getCertDataFromCert:data action:CardActionReadAuthenticationCert controller:controller success:success failure:failure];
+    [MoppLibCertificate certData:certData updateWithData:[data bytes] length:data.length];
+  } failure:failure];
+  
+  [self certUsageCountForRecord:3 controller:controller success:^(int usageCount) {
+    certData.usageCount = usageCount;
+    
+    success(certData);
   } failure:failure];
 }
 
@@ -251,7 +259,7 @@ static CardActionsManager *sharedInstance = nil;
                     self.cardVersionHandler = handler;
                   
                   } else {
-                    NSLog(@"Unsupported card version. Going to use v3.5 protocol");
+                    MLLog(@"Unsupported card version. Going to use v3.5 protocol");
                     EstEIDv3_5 *handler = [EstEIDv3_5 new];
                     [handler setReader:self.cardReader];
                     self.cardVersionHandler = handler;
@@ -262,13 +270,13 @@ static CardActionsManager *sharedInstance = nil;
                 [self executeAction:action];
 
               } failure:^(NSError *error) {
-                NSLog(@"Unable to determine card version");
+                MLLog(@"Unable to determine card version");
                 action.failureBlock([MoppLibError cardVersionUnknownError]);
                 [self finishCurrentAction];
               }];
 
             } failure:^(NSError *error) {
-              NSLog(@"Unable to power on card");
+              MLLog(@"Unable to power on card");
               action.failureBlock([MoppLibError cardNotFoundError]);
               [self finishCurrentAction];
             }];
@@ -276,7 +284,7 @@ static CardActionsManager *sharedInstance = nil;
         }];
         
       } else {
-        NSLog(@"Card not inserted");
+        MLLog(@"Card not inserted");
         action.failureBlock([MoppLibError cardNotFoundError]);
         [self finishCurrentAction];
       }
@@ -312,6 +320,11 @@ static CardActionsManager *sharedInstance = nil;
   switch (actionObject.cardAction) {
     case CardActionReadPublicData: {
       [self.cardVersionHandler readPublicDataWithSuccess:success failure:failure];
+      break;
+    }
+      
+    case CardActionReadMinPublicData: {
+      [self.cardVersionHandler readMinimalPublicDataWithSuccess:success failure:failure];
       break;
     }
       
@@ -490,7 +503,7 @@ NSString *blockBackupCode = @"00001";
     success(responseObject);
     
   } failure:^(NSError *error) {
-    NSLog(@"Failed to set up peripheral: %@", [error localizedDescription]);
+    MLLog(@"Failed to set up peripheral: %@", [error localizedDescription]);
     failure(error);
   }];
 }

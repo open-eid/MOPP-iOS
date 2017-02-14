@@ -59,7 +59,7 @@
 - (void)setSuccessBlock:(DataSuccessBlock)successBlock {
   @synchronized (self) {
     if (self.successBlock != nil && successBlock != nil) {
-      NSLog(@"ERROR: tried to start new reader action before previous one was finished");
+      MLLog(@"ERROR: tried to start new reader action before previous one was finished");
     } else {
       _successBlock = successBlock;
     }
@@ -70,7 +70,7 @@
   @synchronized (self) {
     
     if (self.failureBlock != nil && failureBlock != nil) {
-      NSLog(@"ERROR: tried to start new reader action before previous one was finished");
+      MLLog(@"ERROR: tried to start new reader action before previous one was finished");
     } else {
       _failureBlock = failureBlock;
     }
@@ -85,7 +85,7 @@
 }
 
 - (void)transmitCommand:(NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure {
-  NSLog(@"Transmit command %@", commandHex);
+  MLLog(@"Transmit command %@", commandHex);
   //void (^transmit)(void) = ^(void) {
     self.successBlock = success;
     self.failureBlock = failure;
@@ -155,7 +155,7 @@
 }
 
 - (void)powerOnCard:(DataSuccessBlock)success failure:(FailureBlock)failure  {
-  NSLog(@"Power on card");
+  MLLog(@"Power on card");
   self.successBlock = success;
   self.failureBlock = failure;
   BOOL isReaderAttached = [self.bluetoothReader powerOnCard];
@@ -189,7 +189,7 @@
   if (error) {
     [self respondWithError:error];
   } else {
-    NSLog(@"Did detect reader");
+    MLLog(@"Did detect reader");
 
     self.bluetoothReader = reader;
     self.bluetoothReader.delegate = self;
@@ -203,7 +203,7 @@
   if (error) {
     [self respondWithError:error];
   } else {
-    NSLog(@"Did attach reader");
+    MLLog(@"Did attach reader");
 
     NSString *masterKey = @"FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF";
     [self.bluetoothReader authenticateWithMasterKey:[masterKey toHexData]];
@@ -214,14 +214,14 @@
   if (error) {
     [self respondWithError:error];
   } else {
-    NSLog(@"Did authenticate reader");
+    MLLog(@"Did authenticate reader");
 
     [self respondWithSuccess:nil];
   }
 }
 
 - (void)bluetoothReader:(ABTBluetoothReader *)bluetoothReader didReturnAtr:(NSData *)atr error:(NSError *)error {
-  NSLog(@"Did power on card");
+  MLLog(@"Did power on card");
 
   self.atr = atr;
   if (error) {
@@ -233,23 +233,23 @@
 
 - (void)bluetoothReader:(ABTBluetoothReader *)bluetoothReader didReturnResponseApdu:(NSData *)apdu error:(NSError *)error {
   if (error) {
-    NSLog(@"Apdu error %i %@", error.code, error.localizedDescription);
+    MLLog(@"Apdu error %i %@", error.code, error.localizedDescription);
 
     [self respondWithError:error];
   } else {
     
-    NSLog(@"Respnded with apdu %@", [apdu toHexString]);
+    MLLog(@"Respnded with apdu %@", [apdu toHexString]);
     [self respondWithSuccess:apdu];
   }
 }
 
 - (void)bluetoothReader:(ABTBluetoothReader *)bluetoothReader didChangeCardStatus:(ABTBluetoothReaderCardStatus)cardStatus error:(NSError *)error {
-  NSLog(@"Card status changed to %i", cardStatus);
+  MLLog(@"Card status changed to %i", cardStatus);
   self.cardStatus = cardStatus;
 }
 
 - (void)bluetoothReader:(ABTBluetoothReader *)bluetoothReader didReturnCardStatus:(ABTBluetoothReaderCardStatus)cardStatus error:(NSError *)error {
-  NSLog(@"Card status changed to %i", cardStatus);
+  MLLog(@"Card status changed to %i", cardStatus);
   self.cardStatus = cardStatus;
   
   if (error) {

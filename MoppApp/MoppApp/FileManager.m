@@ -39,6 +39,21 @@
   return documentsDirectory;
 }
 
+- (NSString *)tempDocumentsDirectoryPath {
+  NSString *path = [[self documentsDirectoryPath] stringByAppendingString:@"/temp"];
+  BOOL isDir;
+  if(![self.fileManager fileExistsAtPath:path isDirectory:&isDir]) {
+    NSError *error;
+    [self.fileManager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
+  }
+  return path;
+}
+
+- (NSString *)tempFilePathWithFileName:(NSString *)fileName {
+  NSString *filePath = [[self tempDocumentsDirectoryPath] stringByAppendingPathComponent:fileName];
+  return filePath;
+}
+
 - (NSString *)filePathWithFileName:(NSString *)fileName {
   NSString *filePath = [[self documentsDirectoryPath] stringByAppendingPathComponent:fileName];
   return filePath;

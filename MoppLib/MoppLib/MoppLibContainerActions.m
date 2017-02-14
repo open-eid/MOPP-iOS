@@ -78,6 +78,15 @@
   });
 }
 
+- (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(void(^)(void))success failure:(FailureBlock)failure {
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    [[MoppLibDigidocManager sharedInstance] container:containerPath saveDataFile:fileName to:path];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      success();
+    });
+  });
+}
+
 - (NSString *)getMoppLibVersion {
   return [[MoppLibDigidocManager sharedInstance] getMoppLibVersion];
 }

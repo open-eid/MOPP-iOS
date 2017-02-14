@@ -74,7 +74,7 @@ static NSInteger kAsyncConfiguration = 0;
   [mobileCreateSignature addChildWithName:@"SignatureID" value:container.getNextSignatureId attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"MessagingMode" value:kMessagingMode attributes:@{@"xsi:type" : @"xsd:string"}];
   [document addChild:envelope];
-  NSLog(@"SOAP REQUEST %@", document.xml);
+  MLLog(@"SOAP REQUEST %@", document.xml);
   return document.xml;
 }
 
@@ -82,7 +82,7 @@ static NSInteger kAsyncConfiguration = 0;
                                      withSuccess:(ObjectSuccessBlock)success
                                       andFailure:(FailureBlock)failure {
   MoppLibMobileCreateSignatureResponse *response = [[MoppLibMobileCreateSignatureResponse alloc] init];
-  NSLog(@"Response body %@", body.xml);
+  MLLog(@"Response body %@", body.xml);
   AEXMLElement *mobileCreateSignatureResponse = [body objectForKeyedSubscript:@"dig:MobileCreateSignatureResponse"];
   AEXMLElement *sessCode = [mobileCreateSignatureResponse objectForKeyedSubscript:@"Sesscode"];
   AEXMLElement *challenge = [mobileCreateSignatureResponse objectForKeyedSubscript:@"ChallengeID"];
@@ -111,7 +111,7 @@ static NSInteger kAsyncConfiguration = 0;
                                           withSuccess:(ObjectSuccessBlock)success
                                            andFailure:(FailureBlock)failure {
   MoppLibGetMobileCreateSignatureStatusResponse *response = [[MoppLibGetMobileCreateSignatureStatusResponse alloc] init];
-  NSLog(@"Response  body %@", body.xml);
+  MLLog(@"Response  body %@", body.xml);
   AEXMLElement *getMobileCreateSignatureStatusResponse = [body objectForKeyedSubscript:@"dig:GetMobileCreateSignatureStatusResponse"];
   AEXMLElement *sessCode = [getMobileCreateSignatureStatusResponse objectForKeyedSubscript:@"Sesscode"];
   AEXMLElement *status = [getMobileCreateSignatureStatusResponse objectForKeyedSubscript:@"Status"];
@@ -133,7 +133,7 @@ static NSInteger kAsyncConfiguration = 0;
     AEXMLElement *body = [[document root] objectForKeyedSubscript:@"SOAP-ENV:Body"];
     if ([[[body objectForKeyedSubscript:@"SOAP-ENV:Fault"] children] count] > 0) {
       AEXMLElement *fault = [body objectForKeyedSubscript:@"SOAP-ENV:Fault"];
-      NSLog(@"Fault %@", fault.xml);
+      MLLog(@"Fault %@", fault.xml);
       AEXMLElement *detail = [fault objectForKeyedSubscript:@"detail"];
       error = [MoppLibError DDSErrorWith:[[detail objectForKeyedSubscript:@"message"] value]];
       failure(error);

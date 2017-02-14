@@ -28,4 +28,5 @@
 - (void)addMobileIDSignatureToContainer:(MoppLibContainer *)moppContainer signature:(NSString *)signature success:(ContainerBlock)success andFailure:(FailureBlock)failure;
 - (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath;
 - (NSString *)getMoppLibVersion;
+- (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path;
 @end

@@ -71,7 +71,7 @@ static NSInteger *kSubsequentStatusRequestDelay = 5;
      
     } else {
 #warning TODO - add all posible statuses if necessary
-      NSLog(@"FAILURE with status: %@", response.status);
+      MLLog(@"FAILURE with status: %@", response.status);
       dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:kErrorNotificationName object:nil ];
       });

@@ -47,8 +47,9 @@
 - (void)postDataToPathWithXml:(NSString *)xmlBody method:(MoppLibNetworkRequestMethod)method success:(ObjectSuccessBlock)success andFailure:(FailureBlock)failure {
   
   NSURLRequest *request = [self requestWithXMLBody:xmlBody];
-  NSLog(@"Request : %@", request);
+  
   NSURLSessionTask *dataTask = [self.urlSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    MLLog(@"Request : %@", request);
     if (!error) {
       NSInteger statusCode = [(NSHTTPURLResponse *) response statusCode];
       if (statusCode != 401) {

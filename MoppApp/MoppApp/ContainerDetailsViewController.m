@@ -17,6 +17,7 @@
 #import "DefaultsHelper.h"
 #import "Constants.h"
 #import <MoppLib/MoppLibConstants.h>
+#import "FileManager.h"
 
 typedef enum : NSUInteger {
   ContainerDetailsSectionHeader,
@@ -24,8 +25,9 @@ typedef enum : NSUInteger {
   ContainerDetailsSectionSignature
 } ContainerDetailsSection;
 
-@interface ContainerDetailsViewController ()
-
+@interface ContainerDetailsViewController ()<UIDocumentInteractionControllerDelegate>
+@property (nonatomic, strong) UIDocumentInteractionController *previewController;
+@property (nonatomic, strong) NSString *tempFilePath;
 @end
 
 @implementation ContainerDetailsViewController
@@ -67,6 +69,34 @@ typedef enum : NSUInteger {
   
   [self presentViewController:alert animated:YES completion:nil];
   
+}
+
+- (IBAction)editContainerName:(id)sender {
+  
+  NSString *extenstion = self.container.fileName.pathExtension;
+  NSString *currentName = [self.container.fileName substringToIndex:self.container.fileName.length - extenstion.length - 1];
+  
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsRename message:Localizations.ContainerDetailsEnterNewName preferredStyle:UIAlertControllerStyleAlert];
+  [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+    textField.text = currentName;
+    textField.placeholder = Localizations.ContainerDetailsName;
+    textField.keyboardType = UIKeyboardTypeDefault;
+  }];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UITextField *nameTextField = [alert.textFields firstObject];
+    NSString *newName = [nameTextField.text stringByAppendingString:[NSString stringWithFormat:@".%@", extenstion]];
+    NSString *newPath = [[FileManager sharedInstance] filePathWithFileName:newName];
+    [[FileManager sharedInstance] moveFileWithPath:self.container.filePath toPath:newPath];
+    [[MoppLibContainerActions sharedInstance] getContainerWithPath:newPath success:^(MoppLibContainer *container) {
+      [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
+      self.container = container;
+      [self.tableView reloadData];
+    } failure:^(NSError *error) {
+      
+    }];
+  }]];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:nil]];
+  [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)showIDCodeAndPhoneAlert {
@@ -264,7 +294,6 @@ typedef enum : NSUInteger {
   return 1;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   
   switch (indexPath.section) {
@@ -274,6 +303,8 @@ typedef enum : NSUInteger {
       
       [cell.titleLabel setText:self.container.fileName];
       [cell.detailsLabel setText:Localizations.ContainerDetailsHeaderDetails([self.container.filePath pathExtension], [self.container.fileAttributes fileSize] / 1024)];
+      [cell.editButton addTarget:self action:@selector(editContainerName:) forControlEvents:UIControlEventTouchUpInside];
+      [cell.editButton setTitle:Localizations.ContainerDetailsRename forState:UIControlStateNormal];
       return cell;
       
       break;
@@ -447,5 +478,49 @@ typedef enum : NSUInteger {
   self.container = resultContainer;
   [self.tableView reloadData];
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  switch (indexPath.section) {
+    case ContainerDetailsSectionDataFile: {
+      [self showHUD];
+      MoppLibDataFile *dataFile = [self.container.dataFiles objectAtIndex:indexPath.row];
+      self.tempFilePath = [[FileManager sharedInstance] filePathWithFileName:dataFile.fileName];
+      [[MoppLibContainerActions sharedInstance] container:self.container.filePath saveDataFile:dataFile.fileName to:self.tempFilePath success:^{
+        NSURL *fileUrl = [NSURL fileURLWithPath:self.tempFilePath];
+        self.previewController = [UIDocumentInteractionController interactionControllerWithURL:fileUrl];
+        self.previewController.delegate = self;
+        [self hideHUD];
+
+        BOOL success = [self.previewController presentPreviewAnimated:YES];
+        if (!success) {
+          [self.previewController presentOptionsMenuFromRect:self.view.frame inView:self.view animated:YES];
+
+        }
+      } failure:^(NSError *error) {
+        [self hideHUD];
+      }];
+      break;
+    }
+      
+    default:
+      break;
+  }
+}
+
+#pragma mark - UIDocumentInteractionControllerDelegate
+
+- (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)interactionController {
+  return self;
+}
+
+- (void)documentInteractionControllerDidEndPreview:(UIDocumentInteractionController *)controller {
+  [[FileManager sharedInstance] removeFileWithPath:self.tempFilePath];
+}
+
+- (void)documentInteractionControllerDidDismissOptionsMenu:(UIDocumentInteractionController *)controller {
+  [[FileManager sharedInstance] removeFileWithPath:self.tempFilePath];
+}
+
+
 
 @end

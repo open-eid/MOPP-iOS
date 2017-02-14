@@ -98,22 +98,23 @@ typedef enum : NSUInteger {
 }
 
 - (void)updateCardData {
-  [MoppLibCardActions cardPersonalDataWithViewController:self success:^(MoppLibPersonalData *data) {
-    self.personalData = data;
-    
+  [MoppLibCardActions minimalCardPersonalDataWithViewController:self success:^(MoppLibPersonalData *personalData) {
+    self.personalData = personalData;
+
   } failure:^(NSError *error) {
     self.personalData = nil;
   }];
 }
 
 - (void)updateCertData {
+  
   [MoppLibCardActions signingCertWithViewController:self success:^(MoppLibCertData *data) {
     self.signingCertData = data;
     
   } failure:^(NSError *error) {
     self.signingCertData = nil;
   }];
-
+  
   [MoppLibCardActions authenticationCertWithViewController:self success:^(MoppLibCertData *data) {
     self.authenticationCertData = data;
     
@@ -129,7 +130,7 @@ typedef enum : NSUInteger {
       [self reloadData];
     }
   } failure:^(NSError *error) {
-    NSLog(@"Error %@", error);
+    MSLog(@"Error %@", error);
   }];
   
   [MoppLibCardActions pin2RetryCountWithViewController:self success:^(NSNumber *count) {
@@ -141,7 +142,7 @@ typedef enum : NSUInteger {
     }
   } failure:^(NSError *error) {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
-    NSLog(@"Error %@", error);
+    MSLog(@"Error %@", error);
   }];
 }
 

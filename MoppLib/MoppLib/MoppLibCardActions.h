@@ -15,6 +15,14 @@
 
 @interface MoppLibCardActions : NSObject
 
+/** Gets minimal public personal data from ID card. This includes name, id code, birth date, nationality, document number and document expiry date.
+ *
+ * @param controller    ViewController to be used for card reader selection if needed.
+ * @param success       Block to be called on successful completion of action. Includes card owner public personal data as MoppLibPersonalData. Some of the parameters in MoppLibPersonalData may not be filled. To get all available data use cardPersonalDataWithViewController:success:failure:
+ * @param failure       Block to be called when action fails. Includes error.
+ */
++ (void)minimalCardPersonalDataWithViewController:(UIViewController *)controller success:(PersonalDataBlock)success failure:(FailureBlock)failure;
+
 /** Gets public personal data from ID card.
 *
 * @param controller    ViewController to be used for card reader selection if needed.

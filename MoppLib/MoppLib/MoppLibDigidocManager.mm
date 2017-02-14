@@ -26,7 +26,7 @@ public:
   std::string TSLCache() const
   {
     NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
-//    NSLog(@"tslCachePath: %@", tslCachePath);
+    //    NSLog(@"tslCachePath: %@", tslCachePath);
     return tslCachePath.UTF8String;
   }
   
@@ -45,8 +45,8 @@ public:
   
   // Comment in to see libdigidocpp logs
   /*virtual int logLevel() const {
-    return 3;
-  }*/
+   return 3;
+   }*/
   
 };
 
@@ -60,7 +60,7 @@ private:
   digidoc::X509Cert cert() const override { return _cert; }
   std::vector<unsigned char> sign(const std::string &, const std::vector<unsigned char> &) const override
   {
-   // THROW("Not implemented");
+    // THROW("Not implemented");
     return std::vector<unsigned char>();
   }
   
@@ -83,12 +83,12 @@ private:
 }
 
 - (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure {
-
+  
   // Copy initial TSL cache for libdigidocpp if needed.
   NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
   NSString *eeTslCachePath = [NSString stringWithFormat:@"%@/EE.xml", tslCachePath];
   if (![[MLFileManager sharedInstance] fileExistsAtPath:eeTslCachePath]) {
-    NSLog(@"Copy TSL cache: true");
+    MLLog(@"Copy TSL cache: true");
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     NSArray *tslCache = @[[bundle pathForResource:@"EE" ofType:@"xml"],
                           [bundle pathForResource:@"FI" ofType:@"xml"],
@@ -99,7 +99,7 @@ private:
       [[MLFileManager sharedInstance] copyFileWithPath:sourcePath toPath:destinationPath];
     }
   } else {
-    NSLog(@"Copy TSL cache: false");
+    MLLog(@"Copy TSL cache: false");
   }
   
   
@@ -127,101 +127,105 @@ private:
   // Having two container instances of the same file is causing crashes. Should synchronize all container operations?
   @synchronized (self) {
     
-  MoppLibContainer *moppLibContainer = [MoppLibContainer new];
-  
-  [moppLibContainer setFileName:[containerPath lastPathComponent]];
-  [moppLibContainer setFilePath:containerPath];
-  [moppLibContainer setFileAttributes:[[MLFileManager sharedInstance] fileAttributes:containerPath]];
-  
-  try {
+    MoppLibContainer *moppLibContainer = [MoppLibContainer new];
     
-    digidoc::Container *doc = digidoc::Container::open(containerPath.UTF8String);
+    [moppLibContainer setFileName:[containerPath lastPathComponent]];
+    [moppLibContainer setFilePath:containerPath];
+    [moppLibContainer setFileAttributes:[[MLFileManager sharedInstance] fileAttributes:containerPath]];
     
-    // DataFiles
-    NSMutableArray *dataFiles = [NSMutableArray array];
-    
-    for (int i = 0; i < doc->dataFiles().size(); i++) {
-      digidoc::DataFile *dataFile = doc->dataFiles().at(i);
+    digidoc::Container *doc;
+    try {
       
-      MoppLibDataFile *moppLibDataFile = [MoppLibDataFile new];
-      moppLibDataFile.fileId = [NSString stringWithUTF8String:dataFile->id().c_str()];
-      moppLibDataFile.mediaType = [NSString stringWithUTF8String:dataFile->mediaType().c_str()];
-      moppLibDataFile.fileName = [NSString stringWithUTF8String:dataFile->fileName().c_str()];
-      moppLibDataFile.fileSize = dataFile->fileSize();
+      doc = digidoc::Container::open(containerPath.UTF8String);
       
-      [dataFiles addObject:moppLibDataFile];
+      // DataFiles
+      NSMutableArray *dataFiles = [NSMutableArray array];
+      
+      for (int i = 0; i < doc->dataFiles().size(); i++) {
+        digidoc::DataFile *dataFile = doc->dataFiles().at(i);
+        
+        MoppLibDataFile *moppLibDataFile = [MoppLibDataFile new];
+        moppLibDataFile.fileId = [NSString stringWithUTF8String:dataFile->id().c_str()];
+        moppLibDataFile.mediaType = [NSString stringWithUTF8String:dataFile->mediaType().c_str()];
+        moppLibDataFile.fileName = [NSString stringWithUTF8String:dataFile->fileName().c_str()];
+        moppLibDataFile.fileSize = dataFile->fileSize();
+        
+        [dataFiles addObject:moppLibDataFile];
+      }
+      moppLibContainer.dataFiles = [dataFiles copy];
+      
+      
+      // Signatures
+      NSMutableArray *signatures = [NSMutableArray array];
+      for (int i = 0; i < doc->signatures().size(); i++) {
+        digidoc::Signature *signature = doc->signatures().at(i);
+        digidoc::X509Cert cert = signature->signingCertificate();
+        //      NSLog(@"Signature: %@", [NSString stringWithUTF8String:cert.subjectName("CN").c_str()]);
+        
+        MoppLibSignature *moppLibSignature = [MoppLibSignature new];
+        
+        std::string name  = cert.subjectName("CN");
+        if (name.length() <= 0) {
+          name = signature->signedBy();
+        }
+        moppLibSignature.subjectName = [NSString stringWithUTF8String:name.c_str()];
+        
+        std::string timestamp = signature->OCSPProducedAt();
+        if (timestamp.length() <= 0) {
+          timestamp = signature->trustedSigningTime();
+        }
+        
+        moppLibSignature.timestamp = [[MLDateFormatter sharedInstance] YYYYMMddTHHmmssZToDate:[NSString stringWithUTF8String:timestamp.c_str()]];
+        
+        try {
+          signature->validate();
+          moppLibSignature.isValid = YES;
+        } catch(const digidoc::Exception &e) {
+          parseException(e);
+          moppLibSignature.isValid = NO;
+        }
+        
+        [signatures addObject:moppLibSignature];
+      }
+      moppLibContainer.signatures = [signatures copy];
+      delete doc;
+      return moppLibContainer;
+      
+    } catch(const digidoc::Exception &e) {
+      parseException(e);
+      delete doc;
+      return nil;
     }
-    moppLibContainer.dataFiles = [dataFiles copy];
     
-    
-    // Signatures
-    NSMutableArray *signatures = [NSMutableArray array];
-    for (int i = 0; i < doc->signatures().size(); i++) {
-      digidoc::Signature *signature = doc->signatures().at(i);
-      digidoc::X509Cert cert = signature->signingCertificate();
-//      NSLog(@"Signature: %@", [NSString stringWithUTF8String:cert.subjectName("CN").c_str()]);
-      
-      MoppLibSignature *moppLibSignature = [MoppLibSignature new];
-
-      std::string name  = cert.subjectName("CN");
-      if (name.length() <= 0) {
-        name = signature->signedBy();
-      }
-      moppLibSignature.subjectName = [NSString stringWithUTF8String:name.c_str()];
-      
-      std::string timestamp = signature->OCSPProducedAt();
-      if (timestamp.length() <= 0) {
-        timestamp = signature->trustedSigningTime();
-      }
-      
-      moppLibSignature.timestamp = [[MLDateFormatter sharedInstance] YYYYMMddTHHmmssZToDate:[NSString stringWithUTF8String:timestamp.c_str()]];
-      
-      try {
-        signature->validate();
-        moppLibSignature.isValid = YES;
-      } catch(const digidoc::Exception &e) {
-        parseException(e);
-        moppLibSignature.isValid = NO;
-      }
-      
-      [signatures addObject:moppLibSignature];
-    }
-    moppLibContainer.signatures = [signatures copy];
-    
-
-    return moppLibContainer;
-    
-  } catch(const digidoc::Exception &e) {
-    parseException(e);
-
-    return nil;
   }
-  }
-
 }
 - (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId {
-  NSLog(@"dataFileCalculateHashWithDigestMehtod %@", method);
+  MLLog(@"dataFileCalculateHashWithDigestMehtod %@", method);
+  digidoc::Container *container;
   try {
-    digidoc::Container *container = digidoc::Container::open(moppContainer.filePath.UTF8String);
+    container = digidoc::Container::open(moppContainer.filePath.UTF8String);
     for (int i = 0; i < container->dataFiles().size(); i ++) {
       digidoc::DataFile *dataFile = container->dataFiles().at(i);
       NSString *currentId = [NSString stringWithUTF8String:dataFile->id().c_str()];
       if ([currentId isEqualToString:dataFileId]) {
         NSData * data = [NSData dataWithBytes:dataFile->calcDigest([method UTF8String]).data() length:dataFile->calcDigest([method UTF8String]).size()];
+        delete container;
         return [data base64EncodedStringWithOptions:0];
       }
     }
   } catch (const digidoc::Exception &e) {
     parseException(e);
   }
+  delete container;
   return nil;
 }
 - (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath {
-  NSLog(@"createContainerWithPath: %@, dataFilePath: %@", containerPath, dataFilePath);
+  MLLog(@"createContainerWithPath: %@, dataFilePath: %@", containerPath, dataFilePath);
   
+  digidoc::Container *container;
   try {
     
-    digidoc::Container *container = digidoc::Container::create(containerPath.UTF8String);
+    container = digidoc::Container::create(containerPath.UTF8String);
     container->addDataFile(dataFilePath.UTF8String, @"application/octet-stream".UTF8String);
     
     try {
@@ -229,19 +233,21 @@ private:
     } catch(const digidoc::Exception &e) {
       parseException(e);
     }
-
+    
   } catch(const digidoc::Exception &e) {
     parseException(e);
   }
   
   MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath];
+  delete container;
   return moppLibContainer;
 }
 
 - (MoppLibContainer *)addDataFileToContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath {
+  digidoc::Container *container;
   try {
     
-    digidoc::Container *container = digidoc::Container::open(containerPath.UTF8String);
+    container = digidoc::Container::open(containerPath.UTF8String);
     container->addDataFile(dataFilePath.UTF8String, @"application/octet-stream".UTF8String);
     
     try {
@@ -249,19 +255,20 @@ private:
     } catch(const digidoc::Exception &e) {
       parseException(e);
     }
-    
   } catch(const digidoc::Exception &e) {
     parseException(e);
   }
   
   MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath];
+  delete container;
   return moppLibContainer;
 }
 
 - (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex {
+  digidoc::Container *container;
   try {
     
-    digidoc::Container *container = digidoc::Container::open(containerPath.UTF8String);
+    container = digidoc::Container::open(containerPath.UTF8String);
     container->removeDataFile(dataFileIndex);
     
     try {
@@ -275,6 +282,7 @@ private:
   }
   
   MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath];
+  delete container;
   return moppLibContainer;
 }
 
@@ -302,12 +310,13 @@ void parseException(const digidoc::Exception &e) {
 }
 
 - (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 cert:(NSData *)cert success:(ContainerBlock)success andFailure:(FailureBlock)failure {
+  digidoc::Container *doc;
   
   try {
     const unsigned char *bytes = (const unsigned  char *)[cert bytes];
     digidoc::X509Cert x509Cert = digidoc::X509Cert(bytes, cert.length, digidoc::X509Cert::Format::Der);
     
-    digidoc::Container *doc = digidoc::Container::open(moppContainer.filePath.UTF8String);
+    doc = digidoc::Container::open(moppContainer.filePath.UTF8String);
     
     // Checking if signature with same certificate already exists
     for (int i = 0; i < doc->signatures().size(); i++) {
@@ -316,6 +325,7 @@ void parseException(const digidoc::Exception &e) {
       digidoc::X509Cert signatureCert = signature->signingCertificate();
       
       if (x509Cert == signatureCert) {
+        delete doc;
         failure([MoppLibError signatureAlreadyExistsError]);
         return;
       }
@@ -342,7 +352,7 @@ void parseException(const digidoc::Exception &e) {
     if (profile.length() <= 0) {
       profile = "time-stamp";
     }
-        
+    
     signer->setProfile(profile);
     signer->setSignatureProductionPlace("", "", "", "");
     signer->setSignerRoles(std::vector<std::string>());
@@ -362,13 +372,20 @@ void parseException(const digidoc::Exception &e) {
         doc->save();
         MoppLibContainer *moppLibContainer = [self getContainerWithPath:moppContainer.filePath];
         success(moppLibContainer);
+        delete doc;
       } catch(const digidoc::Exception &e) {
         parseException(e);
+        delete doc;
         failure([MoppLibError generalError]); // TODO try to find more specific error codes
       }
-    } failure:failure];
+    } failure:^(NSError *error) {
+      delete doc;
+      failure(error);
+    }];
+    
     
   } catch(const digidoc::Exception &e) {
+    delete doc;
     parseException(e);
     failure([MoppLibError generalError]);  // TODO try to find more specific error codes
   }
@@ -393,6 +410,8 @@ void parseException(const digidoc::Exception &e) {
       }
     }
   }
+  delete doc;
+  
   MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath];
   return moppLibContainer;
 }
@@ -403,22 +422,43 @@ void parseException(const digidoc::Exception &e) {
   return resultString;
 }
 
-- (void)addMobileIDSignatureToContainer:(MoppLibContainer *)moppContainer signature:(NSString *)signature success:(ContainerBlock)success andFailure:(FailureBlock)failure {
+
+- (void)addMobileIDSignatureToContainer:(MoppLibContainer *)moppContainer
+                              signature:(NSString *)signature
+                                success:(ContainerBlock)success
+                             andFailure:(FailureBlock)failure {
+  digidoc::Container *container;
   try {
-    digidoc::Container *container = digidoc::Container::open(moppContainer.filePath.UTF8String);
+    container = digidoc::Container::open(moppContainer.filePath.UTF8String);
     NSData *data = [signature dataUsingEncoding:NSUTF8StringEncoding];
     unsigned char bytes[[data length]];
     [data getBytes:bytes length:data.length];
     std::vector<unsigned char> v(bytes, bytes + data.length);
     container->addAdESSignature(v);
     container->save();
-    NSLog(@"Mobile ID signature added");
+    MLLog(@"Mobile ID signature added");
     MoppLibContainer *moppLibContainer = [self getContainerWithPath:moppContainer.filePath];
     success(moppLibContainer);
   } catch(const digidoc::Exception &e) {
     parseException(e);
     failure([MoppLibError generalError]);
   }
+  delete container;
+}
+
+- (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path {
+  digidoc::Container *doc = digidoc::Container::open(containerPath.UTF8String);
+  
+  for (int i = 0; i < doc->dataFiles().size(); i++) {
+    digidoc::DataFile *dataFile = doc->dataFiles().at(i);
+    
+    if([fileName isEqualToString:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]) {
+      dataFile->saveAs(path.UTF8String);
+      break;
+    }
+  }
+  delete doc;
+  
 }
 
 @end
