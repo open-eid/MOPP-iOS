@@ -15,6 +15,9 @@
 
 @interface _Localizations : NSObject
 
+/// Base translation: Mobile ID
+- (NSString *)SettingsMobileIdHeader;
+
 /// Base translation: E-mail:
 - (NSString *)MyEidEmail;
 

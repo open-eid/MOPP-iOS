@@ -15,6 +15,10 @@
 
 @implementation _Localizations
 
+- (NSString *)SettingsMobileIdHeader {
+    return NSLocalizedStringFromTable(@"settings-mobile-id-header", nil, nil);
+}
+
 - (NSString *)MyEidEmail {
     return NSLocalizedStringFromTable(@"my-eid-email", nil, nil);
 }

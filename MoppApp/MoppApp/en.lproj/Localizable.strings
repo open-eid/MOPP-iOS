@@ -130,6 +130,7 @@
 "settings-phone-number-title" = "Phone number";
 "settings-id-code-alert-message" = "Type in your ID code";
 "settings-phone-number-alert-message" = "Type in your phone number";
+"settings-mobile-id-header" = "Mobile ID";
 
 // *** About ***
 "about-development" = "Software ordered by RIA, developed by Mobi Lab";

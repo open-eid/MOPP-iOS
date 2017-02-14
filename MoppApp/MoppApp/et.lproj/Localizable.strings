@@ -136,6 +136,7 @@
 "settings-phone-number-title" = "Telefoni number";
 "settings-id-code-alert-message" = "Sisesta isikukood";
 "settings-phone-number-alert-message" = "Sisesta telefoni number";
+"settings-mobile-id-header" = "Mobiil ID";
 
 
 // *** About ***

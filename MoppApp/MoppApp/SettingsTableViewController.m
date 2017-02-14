@@ -154,6 +154,9 @@ NSString *const CellIdentifier = @"CellIdentifier";
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
   switch (section) {
+    case 3:
+      return Localizations.SettingsMobileIdHeader;
+      break;
     case 4:
       return @"DEV";
       break;
