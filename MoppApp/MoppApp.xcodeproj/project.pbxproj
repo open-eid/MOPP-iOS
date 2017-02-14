@@ -503,6 +503,7 @@
 				6B13CD669C3E5A2623D5FE04 /* [CP] Embed Pods Frameworks */,
 				4E44872F8C9839D1D757B3E0 /* [CP] Copy Pods Resources */,
 				E4250D081E0A911100530370 /* Embed Frameworks */,
+				54415B641E52F23C00B66A89 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -596,6 +597,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		54415B641E52F23C00B66A89 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 2d09fce02bca92bd26f18824f9cb302f5ad625e3 fb7f424a3ac43eccda42c76e7f15a400d7b3047945a66a98d0211ec996f584ef";
 		};
 		6B13CD669C3E5A2623D5FE04 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

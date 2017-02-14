@@ -22,7 +22,8 @@ target 'MoppLib' do
   project '../MoppLib/MoppLib.xcodeproj'
   pod 'MBProgressHUD', '~> 0.9.2'
   pod 'SOAPEngine'
-
+  #pod 'Fabric'
+  #pod 'Crashlytics'
 end
 
 target 'MoppLibTests' do

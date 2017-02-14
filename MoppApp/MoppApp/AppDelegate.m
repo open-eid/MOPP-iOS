@@ -17,6 +17,7 @@
 #import <MoppLib/MoppLib.h>
 #import "DefaultsHelper.h"
 #import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @interface AppDelegate ()
 
