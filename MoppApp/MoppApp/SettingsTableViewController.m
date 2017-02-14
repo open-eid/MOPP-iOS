@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import <MoppLib/MoppLib.h>
 #import "AboutViewController.h"
+#import "Constants.h"
 
 typedef NS_ENUM(NSUInteger, SettingsCellType) {
   SettingsCellTypeNewContainerFormat,
@@ -45,6 +46,7 @@ NSString *const CellIdentifier = @"CellIdentifier";
                          @[@(SettingsCellTypeImportFile),
                            @(SettingsCellTypeDuplicateContainer)]];
   [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSettingsChangedNotification:) name:kNotificationSettingsChanged object:nil];
 }
 
 - (void)showNewContainerFormatActionSheet {
@@ -290,6 +292,10 @@ NSString *const CellIdentifier = @"CellIdentifier";
     default:
       break;
   }
+}
+
+- (void)receiveSettingsChangedNotification:(NSNotification *)notification {
+  [self.tableView reloadData];
 }
 
 @end

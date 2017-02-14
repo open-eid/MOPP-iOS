@@ -102,6 +102,7 @@ typedef enum : NSUInteger {
     } if ([[DefaultsHelper getPhoneNumber] length] == 0) {
       [DefaultsHelper setPhoneNumber:phoneNumberTextField.text];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSettingsChanged object:nil];
     [weakSelf mobileCreateSignatureWithIDCode:idCodeTextField.text phoneNumber:phoneNumberWithCountryCode];
   }]];
   [self presentViewController:alert animated:YES completion:nil];
