@@ -9,7 +9,15 @@
 #import "MoppLibNetworkManager.h"
 #import "MoppLibError.h"
 #import "MoppLibSOAPManager.h"
+#import "MLCertificateHelper.h"
+#import "NSString+Additions.h"
 
+@interface MoppLibNetworkManager ()
+
+@property (nonatomic) NSURLSession *urlSession;
+@property (nonatomic) NSMutableData *receivedData;
+
+@end
 
 @implementation MoppLibNetworkManager
 
@@ -18,6 +26,7 @@
   static MoppLibNetworkManager *sharedInstance = nil;
   dispatch_once(&pred, ^{
     sharedInstance = [[self alloc] init];
+    [sharedInstance setUrlSession:[NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:sharedInstance delegateQueue:nil]];
   });
   return sharedInstance;
 }
@@ -39,7 +48,7 @@
   
   NSURLRequest *request = [self requestWithXMLBody:xmlBody];
   NSLog(@"Request : %@", request);
-  NSURLSessionTask *dataTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+  NSURLSessionTask *dataTask = [self.urlSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
     if (!error) {
       NSInteger statusCode = [(NSHTTPURLResponse *) response statusCode];
       if (statusCode != 401) {
@@ -88,4 +97,11 @@
     failure(error);
   }];
 }
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
+didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * _Nullable credential))completionHandler {
+  NSURLCredential *creds = [MLCertificateHelper getCredentialsFormCert];
+  completionHandler(NSURLSessionAuthChallengeUseCredential, creds);
+}
+
 @end

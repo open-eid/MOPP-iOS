@@ -49,6 +49,8 @@
 "container-details-idcode-phone-alert-message" = "Enter ID code and phone number";
 "container-details-idcode-phone-alert-idcode-placholder" = "ID code";
 "container-details-idcode-phone-alert-phonenumber-placholder" = "Phone number";
+"container-details-phone-number-error-alert-title" = "Invalid phone number";
+"container-details-phone-number-error-alert-message" = "It seems that you have provided invalid phone number";
  
 "container-details-reader-not-found" = "You need to connect card reader to sign documents.";
 "container-details-card-not-found" = "ID card is missing. Please make sure ID card is inserted correctly.";

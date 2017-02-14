@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MoppLibGetMobileCreateSigntaureStatusResponse : NSObject
+@interface MoppLibGetMobileCreateSignatureStatusResponse : NSObject
 
 @property (nonatomic) NSInteger sessCode;
 @property (nonatomic, strong) NSString *status;

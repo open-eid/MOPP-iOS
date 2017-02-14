@@ -10,7 +10,7 @@
 #import "MoppLibNetworkManager.h"
 #import "MoppLibConstants.h"
 #import "MoppLibMobileCreateSignatureResponse.h"
-#import "MoppLibGetMobileCreateSigntaureStatusResponse.h"
+#import "MoppLibGetMobileCreateSignatureStatusResponse.h"
 #import "MoppLibDigidocManager.h"
 
 static NSInteger *kInitialStatusRequestDelay = 10;
@@ -54,15 +54,21 @@ static NSInteger *kSubsequentStatusRequestDelay = 5;
 
 - (void)getMobileCreateSignatureWithSessCode:(NSString *)sessCode {
   [[MoppLibNetworkManager sharedInstance] getMobileCreateSignatureStatusWithSesscode:sessCode withSuccess:^(NSObject *responseObject) {
-    MoppLibGetMobileCreateSigntaureStatusResponse *response = (MoppLibGetMobileCreateSigntaureStatusResponse *)responseObject;
+    MoppLibGetMobileCreateSignatureStatusResponse *response = (MoppLibGetMobileCreateSignatureStatusResponse *)responseObject;
     if ([response.status isEqualToString:@"OUTSTANDING_TRANSACTION"]) {
       sleep(kSubsequentStatusRequestDelay);
       [self getMobileCreateSignatureWithSessCode:sessCode];
     } else if ([response.status isEqualToString:@"SIGNATURE"]) {
-      [[MoppLibDigidocManager sharedInstance] addMobileIDSignatureToContainer:self.currentContainer signature:response.signature];
-      dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:kCreateSignatureStatusNotificationName object:nil userInfo:@{kGetCreateSignatureStatusKey : responseObject}];
-      });
+      [[MoppLibDigidocManager sharedInstance] addMobileIDSignatureToContainer:self.currentContainer signature:response.signature success:^(MoppLibContainer *container) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+          [[NSNotificationCenter defaultCenter] postNotificationName:kSignatureAddedToContainerNotificationName object:nil userInfo:@{kContainerKey : container}];
+        });
+      } andFailure:^(NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+          [[NSNotificationCenter defaultCenter] postNotificationName:kErrorNotificationName object:nil ];
+        });
+      }];
+     
     } else {
 #warning TODO - add all posible statuses if necessary
       NSLog(@"FAILURE with status: %@", response.status);

@@ -41,6 +41,9 @@
 - (NSString *(^)(NSString *))FileImportInfo;
 /// Base translation: Current %@ was wrong. You have %i tries left.
 - (NSString *(^)(NSString *, int))PinActionsWrongPinRetry;
+/// Base translation: Invalid phone number
+- (NSString *)ContainerDetailsPhoneNumberErrorAlertTitle;
+
 /// Base translation: https://www.politsei.ee/en/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/
 - (NSString *)MyEidIdCardInfoLink;
 
@@ -133,6 +136,9 @@
 - (NSString *(^)(NSString *))PinActionsRuleDifferentFromPrevious;
 /// Base translation: Validity:
 - (NSString *)MyEidValidity;
+
+/// Base translation: It seems that you have provided invalid phone number
+- (NSString *)ContainerDetailsPhoneNumberErrorAlertMessage;
 
 /// Base translation: SIM settings
 - (NSString *)TabSimSettings;

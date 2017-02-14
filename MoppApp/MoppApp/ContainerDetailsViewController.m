@@ -16,6 +16,7 @@
 #import "UIViewController+MBProgressHUD.h"
 #import "DefaultsHelper.h"
 #import "Constants.h"
+#import <MoppLib/MoppLibConstants.h>
 
 typedef enum : NSUInteger {
   ContainerDetailsSectionHeader,
@@ -45,6 +46,7 @@ typedef enum : NSUInteger {
   
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self.tableView reloadData];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveAdesSignatureAddedToContainer:) name:kSignatureAddedToContainerNotificationName object:nil];
 }
 
 
@@ -83,13 +85,33 @@ typedef enum : NSUInteger {
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     UITextField *idCodeTextField = [alert.textFields firstObject];
     UITextField *phoneNumberTextField = [alert.textFields objectAtIndex:1];
-    
-#warning TODO - add sanity checks for ID code and phone number
-    [weakSelf mobileCreateSignatureWithIDCode:idCodeTextField.text phoneNumber:phoneNumberTextField.text];
+    NSMutableString *phoneNumberWithCountryCode;
+    if (![phoneNumberTextField.text hasPrefix:@"+372"] && ![phoneNumberTextField.text hasPrefix:@"372"] && ![phoneNumberTextField.text hasPrefix:@"+374"] && ![phoneNumberTextField.text hasPrefix:@"374"]) {
+      if([phoneNumberTextField.text hasPrefix:@"5"]) {
+        phoneNumberWithCountryCode = [NSMutableString stringWithString:@"372"];
+        [phoneNumberWithCountryCode appendString:phoneNumberTextField.text];
+      } else {
+        [weakSelf displayPhoneNumberError];
+        return;
+      }
+    }else {
+      phoneNumberWithCountryCode = [phoneNumberTextField.text mutableCopy];
+    }
+    if([[DefaultsHelper getIDCode] length] == 0) {
+      [DefaultsHelper setIDCode:idCodeTextField.text];
+    } if ([[DefaultsHelper getPhoneNumber] length] == 0) {
+      [DefaultsHelper setPhoneNumber:phoneNumberTextField.text];
+    }
+    [weakSelf mobileCreateSignatureWithIDCode:idCodeTextField.text phoneNumber:phoneNumberWithCountryCode];
   }]];
   [self presentViewController:alert animated:YES completion:nil];
 }
 
+- (void)displayPhoneNumberError {
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsPhoneNumberErrorAlertTitle message:Localizations.ContainerDetailsPhoneNumberErrorAlertMessage preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:nil]];
+  [self presentViewController:alert animated:YES completion:nil];
+}
 - (void)mobileCreateSignatureWithIDCode:(NSString *)idCode phoneNumber:(NSString *)phoneNumber {
   [[MoppLibService sharedInstance] mobileCreateSignatureWithContainer:self.container idCode:idCode language:[self decideLanguageBasedOnPreferredLanguages] phoneNumber:phoneNumber];
 }
@@ -418,5 +440,11 @@ typedef enum : NSUInteger {
   }
 }
 
+- (void)receiveAdesSignatureAddedToContainer:(NSNotification *)notification {
+  MoppLibContainer *resultContainer = [[notification userInfo] objectForKey:kContainerKey];
+  [self displaySigningSuccessMessage];
+  self.container = resultContainer;
+  [self.tableView reloadData];
+}
 
 @end

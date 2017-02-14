@@ -63,6 +63,10 @@
     };
 }
 
+- (NSString *)ContainerDetailsPhoneNumberErrorAlertTitle {
+    return NSLocalizedStringFromTable(@"container-details-phone-number-error-alert-title", nil, nil);
+}
+
 - (NSString *)MyEidIdCardInfoLink {
     return NSLocalizedStringFromTable(@"my-eid-id-card-info-link", nil, nil);
 }
@@ -215,6 +219,10 @@
 
 - (NSString *)MyEidValidity {
     return NSLocalizedStringFromTable(@"my-eid-validity", nil, nil);
+}
+
+- (NSString *)ContainerDetailsPhoneNumberErrorAlertMessage {
+    return NSLocalizedStringFromTable(@"container-details-phone-number-error-alert-message", nil, nil);
 }
 
 - (NSString *)TabSimSettings {

@@ -403,7 +403,7 @@ void parseException(const digidoc::Exception &e) {
   return resultString;
 }
 
-- (void)addMobileIDSignatureToContainer:(MoppLibContainer *)moppContainer signature:(NSString *)signature {
+- (void)addMobileIDSignatureToContainer:(MoppLibContainer *)moppContainer signature:(NSString *)signature success:(ContainerBlock)success andFailure:(FailureBlock)failure {
   try {
     digidoc::Container *container = digidoc::Container::open(moppContainer.filePath.UTF8String);
     NSData *data = [signature dataUsingEncoding:NSUTF8StringEncoding];
@@ -411,9 +411,13 @@ void parseException(const digidoc::Exception &e) {
     [data getBytes:bytes length:data.length];
     std::vector<unsigned char> v(bytes, bytes + data.length);
     container->addAdESSignature(v);
+    container->save();
     NSLog(@"Mobile ID signature added");
+    MoppLibContainer *moppLibContainer = [self getContainerWithPath:moppContainer.filePath];
+    success(moppLibContainer);
   } catch(const digidoc::Exception &e) {
     parseException(e);
+    failure([MoppLibError generalError]);
   }
 }
 

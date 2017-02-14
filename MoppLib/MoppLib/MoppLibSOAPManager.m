@@ -11,7 +11,7 @@
 #import <MoppLib/MoppLib-Swift.h>
 #import "MoppLibError.h"
 #import "MoppLibMobileCreateSignatureResponse.h"
-#import "MoppLibGetMobileCreateSigntaureStatusResponse.h"
+#import "MoppLibGetMobileCreateSignatureStatusResponse.h"
 
 
 
@@ -59,7 +59,7 @@ static NSInteger kAsyncConfiguration = 0;
   [mobileCreateSignature addChildWithName:@"PhoneNo" value:phoneNo attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"Language" value:nationality attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"ServiceName" value:kServiceName attributes:@{@"xsi:type" : @"xsd:string"}];
-  [mobileCreateSignature addChildWithName:@"SigningProfile" value:@"LT" attributes:nil];
+  [mobileCreateSignature addChildWithName:@"SigningProfile" value:@"LT_TM" attributes:nil];
   AEXMLElement *dataFiles = [[AEXMLElement alloc] initWithName:@"DataFiles" value:nil attributes:@{@"xsi:type" : @"dig:DataFileDigestList"}];
   [mobileCreateSignature addChild:dataFiles];
   for (MoppLibDataFile *file in container.dataFiles) {
@@ -110,7 +110,7 @@ static NSInteger kAsyncConfiguration = 0;
 - (void)parseGetMobileCreateSignatureResponseWithBody:(AEXMLElement *)body
                                           withSuccess:(ObjectSuccessBlock)success
                                            andFailure:(FailureBlock)failure {
-  MoppLibGetMobileCreateSigntaureStatusResponse *response = [[MoppLibGetMobileCreateSigntaureStatusResponse alloc] init];
+  MoppLibGetMobileCreateSignatureStatusResponse *response = [[MoppLibGetMobileCreateSignatureStatusResponse alloc] init];
   NSLog(@"Response  body %@", body.xml);
   AEXMLElement *getMobileCreateSignatureStatusResponse = [body objectForKeyedSubscript:@"dig:GetMobileCreateSignatureStatusResponse"];
   AEXMLElement *sessCode = [getMobileCreateSignatureStatusResponse objectForKeyedSubscript:@"Sesscode"];

@@ -187,6 +187,7 @@ NSString *const CellIdentifier = @"CellIdentifier";
       
     case SettingsCellTypeAbout:
       titleLabelText = Localizations.SettingsAbout;
+      detailLabelText = @">";
       break;
     case SettingsCellTypeIDCode:
       titleLabelText = Localizations.SettingsIdCodeTitle;

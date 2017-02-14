@@ -66,10 +66,13 @@
 		AE1069441E4498A6002BAFDA /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE10693F1E4498A6002BAFDA /* Error.swift */; };
 		AE1069451E4498A6002BAFDA /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1069401E4498A6002BAFDA /* Options.swift */; };
 		AE1069461E4498A6002BAFDA /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1069411E4498A6002BAFDA /* Parser.swift */; };
+		AE12A8731E51956900B0B03E /* MLCertificateHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = AE12A8711E51956900B0B03E /* MLCertificateHelper.h */; };
+		AE12A8741E51956900B0B03E /* MLCertificateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AE12A8721E51956900B0B03E /* MLCertificateHelper.m */; };
+		AE12A8761E51984A00B0B03E /* sk878252.p12 in Resources */ = {isa = PBXBuildFile; fileRef = AE12A8751E51984A00B0B03E /* sk878252.p12 */; };
 		AE61985B1E489EDF0021B18B /* MoppLibService.h in Headers */ = {isa = PBXBuildFile; fileRef = AE6198591E489EDF0021B18B /* MoppLibService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE61985C1E489EDF0021B18B /* MoppLibService.m in Sources */ = {isa = PBXBuildFile; fileRef = AE61985A1E489EDF0021B18B /* MoppLibService.m */; };
-		AE61985F1E489EFE0021B18B /* MoppLibGetMobileCreateSigntaureStatusResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = AE61985D1E489EFE0021B18B /* MoppLibGetMobileCreateSigntaureStatusResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AE6198601E489EFE0021B18B /* MoppLibGetMobileCreateSigntaureStatusResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AE61985E1E489EFE0021B18B /* MoppLibGetMobileCreateSigntaureStatusResponse.m */; };
+		AE61985F1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = AE61985D1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AE6198601E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AE61985E1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.m */; };
 		AEC2CC421E3B8B7800A0B869 /* MoppLibSOAPManager.h in Headers */ = {isa = PBXBuildFile; fileRef = AEC2CC401E3B8B7800A0B869 /* MoppLibSOAPManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AEC2CC431E3B8B7800A0B869 /* MoppLibSOAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC2CC411E3B8B7800A0B869 /* MoppLibSOAPManager.m */; };
 		D72F91CE6FD17DE3A2CB2EA9 /* Pods_MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212014B6D572D152A70C2C71 /* Pods_MoppLib.framework */; };
@@ -173,10 +176,13 @@
 		AE10693F1E4498A6002BAFDA /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Error.swift; path = MoppLib/Error.swift; sourceTree = "<group>"; };
 		AE1069401E4498A6002BAFDA /* Options.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Options.swift; path = MoppLib/Options.swift; sourceTree = "<group>"; };
 		AE1069411E4498A6002BAFDA /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Parser.swift; path = MoppLib/Parser.swift; sourceTree = "<group>"; };
+		AE12A8711E51956900B0B03E /* MLCertificateHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCertificateHelper.h; sourceTree = "<group>"; };
+		AE12A8721E51956900B0B03E /* MLCertificateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCertificateHelper.m; sourceTree = "<group>"; };
+		AE12A8751E51984A00B0B03E /* sk878252.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sk878252.p12; sourceTree = "<group>"; };
 		AE6198591E489EDF0021B18B /* MoppLibService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibService.h; sourceTree = "<group>"; };
 		AE61985A1E489EDF0021B18B /* MoppLibService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibService.m; sourceTree = "<group>"; };
-		AE61985D1E489EFE0021B18B /* MoppLibGetMobileCreateSigntaureStatusResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibGetMobileCreateSigntaureStatusResponse.h; sourceTree = "<group>"; };
-		AE61985E1E489EFE0021B18B /* MoppLibGetMobileCreateSigntaureStatusResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibGetMobileCreateSigntaureStatusResponse.m; sourceTree = "<group>"; };
+		AE61985D1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibGetMobileCreateSignatureStatusResponse.h; sourceTree = "<group>"; };
+		AE61985E1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibGetMobileCreateSignatureStatusResponse.m; sourceTree = "<group>"; };
 		AEC2CC401E3B8B7800A0B869 /* MoppLibSOAPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoppLibSOAPManager.h; path = MoppLib/MoppLibSOAPManager.h; sourceTree = "<group>"; };
 		AEC2CC411E3B8B7800A0B869 /* MoppLibSOAPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoppLibSOAPManager.m; path = MoppLib/MoppLibSOAPManager.m; sourceTree = "<group>"; };
 		BB993982ECBC613ED55E2010 /* Pods-MoppLibTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLibTests.release.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLibTests/Pods-MoppLibTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -335,8 +341,8 @@
 		AE0A84431E4338A700CC1465 /* MobileID */ = {
 			isa = PBXGroup;
 			children = (
-				AE61985D1E489EFE0021B18B /* MoppLibGetMobileCreateSigntaureStatusResponse.h */,
-				AE61985E1E489EFE0021B18B /* MoppLibGetMobileCreateSigntaureStatusResponse.m */,
+				AE61985D1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.h */,
+				AE61985E1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.m */,
 				AE0A84491E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m */,
 				AE0A84481E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h */,
 				AE10693D1E4498A6002BAFDA /* Document.swift */,
@@ -359,6 +365,8 @@
 				E4180C151E23FE9300FD7B8C /* MLDateFormatter.m */,
 				E485A7811E2DF58200C53DBF /* MLFileManager.h */,
 				E485A7821E2DF58200C53DBF /* MLFileManager.m */,
+				AE12A8711E51956900B0B03E /* MLCertificateHelper.h */,
+				AE12A8721E51956900B0B03E /* MLCertificateHelper.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -388,6 +396,7 @@
 		E4250CE91E09695100530370 /* MoppLib */ = {
 			isa = PBXGroup;
 			children = (
+				AE12A8751E51984A00B0B03E /* sk878252.p12 */,
 				AE6198591E489EDF0021B18B /* MoppLibService.h */,
 				AE61985A1E489EDF0021B18B /* MoppLibService.m */,
 				54DC0DF11E0BEEF900C62B3D /* Category */,
@@ -469,7 +478,7 @@
 				540CB2251E1CDD8100FE18A3 /* MoppLibCertData.h in Headers */,
 				AE0A844A1E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h in Headers */,
 				AE0A84461E4338DB00CC1465 /* MoppLibNetworkManager.h in Headers */,
-				AE61985F1E489EFE0021B18B /* MoppLibGetMobileCreateSigntaureStatusResponse.h in Headers */,
+				AE61985F1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.h in Headers */,
 				54DC0E011E0D48C900C62B3D /* MoppLibError.h in Headers */,
 				E4180C161E23FE9300FD7B8C /* MLDateFormatter.h in Headers */,
 				E42B08C51E1F11B900EA24A3 /* MoppLibDataFile.h in Headers */,
@@ -480,6 +489,7 @@
 				54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */,
 				542DCB6C1E23968000899534 /* MoppLibPinActions.h in Headers */,
 				545111721E13BBA800296B80 /* MoppLibPersonalData.h in Headers */,
+				AE12A8731E51956900B0B03E /* MLCertificateHelper.h in Headers */,
 				5463DA491E127150008A1714 /* ReaderSelectionViewController.h in Headers */,
 				E42B08B51E1F0B3B00EA24A3 /* MoppLibContainer.h in Headers */,
 				54DC0E051E1250A200C62B3D /* MoppLibCardActions.h in Headers */,
@@ -599,6 +609,7 @@
 				E43BD81D1E3F901D00F6C39D /* EE.xml in Resources */,
 				E4250CF41E096A1D00530370 /* schema in Resources */,
 				E43BD81E1E3F901D00F6C39D /* FI.xml in Resources */,
+				AE12A8761E51984A00B0B03E /* sk878252.p12 in Resources */,
 				E4250D001E096CAA00530370 /* test.bdoc in Resources */,
 				5463DA471E127150008A1714 /* ReaderSelection.storyboard in Resources */,
 				5480396D1E38DA4D000271CF /* 878252.p12 in Resources */,
@@ -709,6 +720,7 @@
 				E42B08B61E1F0B3B00EA24A3 /* MoppLibContainer.m in Sources */,
 				AEC2CC431E3B8B7800A0B869 /* MoppLibSOAPManager.m in Sources */,
 				AE0A84471E4338DB00CC1465 /* MoppLibNetworkManager.m in Sources */,
+				AE12A8741E51956900B0B03E /* MLCertificateHelper.m in Sources */,
 				E42B08CA1E1F11C100EA24A3 /* MoppLibSignature.m in Sources */,
 				54DC0DCA1E0BCCEF00C62B3D /* MoppLibConstants.m in Sources */,
 				54DC0DF51E0BEF2A00C62B3D /* NSString+Additions.m in Sources */,
@@ -723,7 +735,7 @@
 				AE61985C1E489EDF0021B18B /* MoppLibService.m in Sources */,
 				5463DA4D1E12927A008A1714 /* CardCommands.m in Sources */,
 				542DCB6D1E23968000899534 /* MoppLibPinActions.m in Sources */,
-				AE6198601E489EFE0021B18B /* MoppLibGetMobileCreateSigntaureStatusResponse.m in Sources */,
+				AE6198601E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.m in Sources */,
 				545111731E13BBA800296B80 /* MoppLibPersonalData.m in Sources */,
 				E4180C171E23FE9300FD7B8C /* MLDateFormatter.m in Sources */,
 				AE1069431E4498A6002BAFDA /* Element.swift in Sources */,

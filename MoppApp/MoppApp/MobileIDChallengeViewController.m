@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.mobileIDChallengeCodeLabel.text = Localizations.ChallengeCodeLabel(self.challengeID);
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveCreateSignatureStatus:) name:kCreateSignatureStatusNotificationName object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveCreateSignatureStatus:) name:kSignatureAddedToContainerNotificationName object:nil];
 }
 
 

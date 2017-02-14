@@ -14,7 +14,7 @@ typedef NS_ENUM(NSInteger, MoppLibNetworkRequestMethod) {
   MoppLibNetworkRequestMethodMobileGetMobileCreateSignatureStatus
 };
 
-@interface MoppLibNetworkManager : NSObject<NSURLSessionDelegate>
+@interface MoppLibNetworkManager : NSObject<NSURLSessionDelegate, NSURLSessionDataDelegate>
 
 + (MoppLibNetworkManager *)sharedInstance;
 - (void)mobileCreateSignatureWithContainer:(MoppLibContainer *)container
