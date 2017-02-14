@@ -16,6 +16,7 @@
 #import "Session.h"
 #import <MoppLib/MoppLib.h>
 #import "DefaultsHelper.h"
+#import <Fabric/Fabric.h>
 
 @interface AppDelegate ()
 
@@ -32,6 +33,8 @@
   
   [[UINavigationBar appearance] setTranslucent:NO]; // Set navBar not translucent by default.
   
+  [Fabric with:@[[Crashlytics class]]];
+
   self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
   [self.window setBackgroundColor:[UIColor whiteColor]];
   
