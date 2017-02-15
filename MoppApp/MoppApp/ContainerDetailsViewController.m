@@ -19,6 +19,12 @@
 #import <MoppLib/MoppLibConstants.h>
 #import "FileManager.h"
 
+static NSString *kCountryCodeEstonia = @"+372";
+static NSString *kCountryCodeEstoniaWithoutPlus = @"372";
+static NSString *kCountryCodeLithuania = @"+370";
+static NSString *kCountryCodeLithuaniaWithoutPlus = @"370";
+static NSString *kEstoniaMobileNumberPrefix = @"5";
+
 typedef enum : NSUInteger {
   ContainerDetailsSectionHeader,
   ContainerDetailsSectionDataFile,
@@ -116,9 +122,9 @@ typedef enum : NSUInteger {
     UITextField *idCodeTextField = [alert.textFields firstObject];
     UITextField *phoneNumberTextField = [alert.textFields objectAtIndex:1];
     NSMutableString *phoneNumberWithCountryCode;
-    if (![phoneNumberTextField.text hasPrefix:@"+372"] && ![phoneNumberTextField.text hasPrefix:@"372"] && ![phoneNumberTextField.text hasPrefix:@"+374"] && ![phoneNumberTextField.text hasPrefix:@"374"]) {
-      if([phoneNumberTextField.text hasPrefix:@"5"]) {
-        phoneNumberWithCountryCode = [NSMutableString stringWithString:@"372"];
+    if (![phoneNumberTextField.text hasPrefix:kCountryCodeEstonia] && ![phoneNumberTextField.text hasPrefix:kCountryCodeEstoniaWithoutPlus] && ![phoneNumberTextField.text hasPrefix:kCountryCodeLithuania] && ![phoneNumberTextField.text hasPrefix:kCountryCodeLithuaniaWithoutPlus]) {
+      if([phoneNumberTextField.text hasPrefix:kEstoniaMobileNumberPrefix]) {
+        phoneNumberWithCountryCode = [NSMutableString stringWithString:kCountryCodeEstoniaWithoutPlus];
         [phoneNumberWithCountryCode appendString:phoneNumberTextField.text];
       } else {
         [weakSelf displayPhoneNumberError];
@@ -332,7 +338,7 @@ typedef enum : NSUInteger {
       
       MoppLibSignature *signature = [self.container.signatures objectAtIndex:indexPath.row];
       [cell.signatureNameLabel setText:signature.subjectName];
-      [cell.detailsLabel setText:[[DateFormatter sharedInstance] HHmmssddMMYYYYToString:signature.timestamp]];
+      [cell.detailsLabel setText:[[DateFormatter sharedInstance] UTCTimestampStringToLocalTime:signature.timestamp]];
       
       NSString *postfix;
       UIColor *postfixColor;
