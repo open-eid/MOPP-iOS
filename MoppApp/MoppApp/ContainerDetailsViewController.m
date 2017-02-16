@@ -146,33 +146,21 @@ typedef enum : NSUInteger {
 - (void)mobileCreateSignatureWithIDCode:(NSString *)idCode phoneNumber:(NSString *)phoneNumber {
   [[MoppLibService sharedInstance] mobileCreateSignatureWithContainer:self.container idCode:idCode language:[self decideLanguageBasedOnPreferredLanguages] phoneNumber:phoneNumber];
 }
+
 - (void)displayCardSignatureAlert {
-  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.PinActionsPin2 message:Localizations.ContainerDetailsEnterPin preferredStyle:UIAlertControllerStyleAlert];
-  
-  [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-    textField.keyboardType = UIKeyboardTypeNumberPad;
-    textField.placeholder = Localizations.PinActionsPin2;
-    textField.secureTextEntry = YES;
+  [self showHUD];
+  [[MoppLibContainerActions sharedInstance] addSignature:self.container controller:self success:^(MoppLibContainer *container) {
+    [self hideHUD];
+    [self displaySigningSuccessMessage];
+    self.container = container;
+    [self.tableView reloadData];
+    
+  } failure:^(NSError *error) {
+    [self hideHUD];
+    [self displayErrorMessage:error];
   }];
-  
-  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    [self showHUD];
-    NSString *pin = [alert.textFields[0].text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    [MoppLibCardActions addSignature:self.container pin2:pin controller:self success:^(MoppLibContainer *container) {
-      [self hideHUD];
-      [self displaySigningSuccessMessage];
-      self.container = container;
-      [self.tableView reloadData];
-      
-    } failure:^(NSError *error) {
-      [self hideHUD];
-      [self displayErrorMessage:error];
-    }];
-  }]];
-  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:nil]];
-  
-  [self presentViewController:alert animated:YES completion:nil];
 }
+
 - (void)displayErrorMessage:(NSError *)error {
   NSString *verifyCode = Localizations.PinActionsPin2;
   NSString *message;
@@ -198,6 +186,12 @@ typedef enum : NSUInteger {
     
   } else if(error.code == moppLibErrorCardNotFound) {
     message = Localizations.ContainerDetailsCardNotFound;
+    
+  } else if(error.code == moppLibErrorPinBlocked) {
+    message = Localizations.PinActionsPinBlocked(verifyCode);
+    
+  } else if(error.code == moppLibErrorPinNotProvided) {
+    message = Localizations.ContainerDetailsPinNotProvided;
     
   } else {
     message = Localizations.ContainerDetailsGeneralError;

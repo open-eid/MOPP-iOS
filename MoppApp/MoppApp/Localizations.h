@@ -93,6 +93,9 @@
 /// Base translation: Here you can change your PIN codes and unblock them if needed. PIN operations need card reader to be connected to your phone.
 - (NSString *)PinActionsInfo;
 
+/// Base translation: Authentication with PIN code is required for signing.
+- (NSString *)ContainerDetailsPinNotProvided;
+
 /// Base translation: Files
 - (NSString *)ContainerDetailsDatafileSectionHeader;
 

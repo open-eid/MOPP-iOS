@@ -27,4 +27,6 @@ extern NSString *const MoppLibErrorDomain;
 + (NSError *)urlSessionCanceledError;
 + (NSError *)xmlParsingError;
 + (NSError *)DDSErrorWith:(NSString *)message;
++ (NSError *)pinNotProvidedError;
++ (NSError *)pinBlockedError;
 @end

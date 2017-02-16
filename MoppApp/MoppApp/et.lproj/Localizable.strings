@@ -58,6 +58,7 @@
 
 "container-details-phone-number-error-alert-title" = "Telefoninumbri viga";
 "container-details-phone-number-error-alert-message" = "Oled sisestanud mitte korrektse telefoni numbri. Palun kontrolli numbrit";
+"container-details-pin-not-provided" = "Allkirjastamiseks on vajalik kasutaja tuvastamine PIN koodiga.";
 
 
 // *** My eID ***

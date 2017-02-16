@@ -1,5 +1,20 @@
 
 // Reader selection
+
+// *** Actions ***
+"action-ok" = "OK";
+"action-cancel" = "Cancel";
+
+// *** PIN actions ***
+"pin-actions-pin1" = "PIN1";
+"pin-actions-pin2" = "PIN2";
+"pin-actions-puk" = "PUK";
+
+"container-details-enter-pin1" = "Please enter your PIN1 code.";
+"container-details-enter-pin2" = "Please enter your PIN2 code.";
+"container-details-enter-puk" = "Please enter your PUK code.";
+"pin-actions-wrong-pin-retry" = "Current %@ was wrong. You have %i tries left.";
+
 "Select reader" = "Select reader";
 "Cancel" = "Cancel";
 "Connect reader message" = "Card reader is not connected. Please make sure your reader is active and select reader.";

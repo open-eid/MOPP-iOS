@@ -180,20 +180,71 @@ static CardActionsManager *sharedInstance = nil;
   [self addCardAction:CardActionCalculateSignature data:data viewController:controller success:success failure:failure];
 }
 
-- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(ContainerBlock)success failure:(FailureBlock)failure {
-  NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:CodeTypePin2], kCardActionDataVerify:pin2};
-
-  [self addCardAction:CardActionVerifyCode data:data viewController:controller success:^(id result) {
-    [self signingCertDataWithViewController:controller success:^(NSData *certData) {
-      [[MoppLibDigidocManager sharedInstance] addSignature:moppContainer pin2:pin2 cert:certData success:success andFailure:failure];
-    } failure:failure];
+- (void)addSignature:(MoppLibContainer *)moppContainer controller:(UIViewController *)controller success:(ContainerBlock)success failure:(FailureBlock)failure {
+  
+  [self code:CodeTypePin2 retryCountWithViewController:controller success:^(NSNumber *count) {
+    if (count.intValue > 0) {
+      NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:CodeTypePin2]};
+      
+      [self addCardAction:CardActionVerifyCode data:data viewController:controller success:^(NSString *pin2) {
+        [self signingCertDataWithViewController:controller success:^(NSData *certData) {
+          [[MoppLibDigidocManager sharedInstance] addSignature:moppContainer pin2:pin2 cert:certData success:success andFailure:failure];
+        } failure:failure];
+      } failure:^(NSError *error) {
+        if (error.code == moppLibErrorWrongPin) {
+          int retryCount = [[error.userInfo objectForKey:kMoppLibUserInfoRetryCount] intValue];
+          
+          if (retryCount == 0) {
+            failure([MoppLibError pinBlockedError]);
+          } else {
+            [self displayInvalidPinError:error on:controller forPin:CodeTypePin2 completion:^{
+              // Repeat until user enters correct PIN, cancels or PIN gets blocked
+              [self addSignature:moppContainer controller:controller success:success failure:failure];
+            }];
+          }
+        } else {
+          failure(error);
+        }
+      }];
+    } else {
+      failure([MoppLibError pinBlockedError]);
+    }
   } failure:failure];
+}
+
+- (void)displayInvalidPinError:(NSError *)error on:(UIViewController *)controller forPin:(CodeType)type completion:(void (^)(void))completion {
+  NSString *pinString = [self pinStringForCode:type];
+  NSString *message;
+  
+  BOOL dismissViewcontroller = NO;
+  int retryCount = [[error.userInfo objectForKey:kMoppLibUserInfoRetryCount] intValue];
+
+  message = [NSString stringWithFormat:MLLocalizedString(@"pin-actions-wrong-pin-retry", nil), pinString, retryCount];
+
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:MLLocalizedString(@"Error", nil) message:message preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:MLLocalizedString(@"action-ok", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    completion();
+  }]];
+  [controller presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)notifyIdNeeded:(NSError *)error {
   if (error.code == moppLibErrorWrongPin) {
     [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationRetryCounterChanged object:nil];
   }
+}
+
+- (NSString *)pinStringForCode:(CodeType)type {
+  if (type == CodeTypePin1) {
+    return MLLocalizedString(@"pin-actions-pin1", nil);
+    
+  } else if (type == CodeTypePin2) {
+    return MLLocalizedString(@"pin-actions-pin2", nil);
+    
+  }else if (type == CodeTypePuk) {
+    return MLLocalizedString(@"pin-actions-puk", nil);
+  }
+  return @"";
 }
 
 /**
@@ -353,7 +404,49 @@ static CardActionsManager *sharedInstance = nil;
     case CardActionVerifyCode: {
       CodeType type = ((NSNumber *)[actionObject.data objectForKey:kCardActionDataCodeType]).integerValue;
       NSString *verifyCode = [actionObject.data objectForKey:kCardActionDataVerify];
-      [self.cardVersionHandler verifyCode:verifyCode ofType:type withSuccess:success failure:failure];
+      if (!verifyCode) {
+        NSString *title = [self pinStringForCode:type];
+        NSString *message;
+        if (type == CodeTypePin1) {
+          message = MLLocalizedString(@"container-details-enter-pin1", nil);
+          
+        } else if (type == CodeTypePin2) {
+          message = MLLocalizedString(@"container-details-enter-pin2", nil);
+
+        } else if (type == CodeTypePuk) {
+          message = MLLocalizedString(@"container-details-enter-puk", nil);
+        }
+        NSString *placeholder = title;
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+          textField.keyboardType = UIKeyboardTypeNumberPad;
+          textField.placeholder = placeholder;
+          textField.secureTextEntry = YES;
+        }];
+        NSString *ok = MLLocalizedString(@"action-ok", nil);
+        NSString *cancel = MLLocalizedString(@"action-cancel", nil);
+
+        [alert addAction:[UIAlertAction actionWithTitle:ok style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+          NSString *pin = [alert.textFields[0].text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+          NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:actionObject.data];
+          [dict setObject:pin forKey:kCardActionDataVerify];
+          actionObject.data = dict;
+          [self executeAction:actionObject]; // New round
+        }]];
+        [alert addAction:[UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+          failure([MoppLibError pinNotProvidedError]);
+        }]];
+        
+        [actionObject.controller presentViewController:alert animated:YES completion:nil];
+
+        
+      } else {
+        [self.cardVersionHandler verifyCode:verifyCode ofType:type withSuccess:^(NSData *responseData) {
+          success(verifyCode);
+        } failure:failure];
+      }
       break;
     }
       

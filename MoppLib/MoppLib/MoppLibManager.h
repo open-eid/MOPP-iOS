@@ -14,4 +14,6 @@
 
 + (MoppLibManager *)sharedInstance;
 - (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure;
+
+- (NSString *)getMoppLibVersion;
 @end
