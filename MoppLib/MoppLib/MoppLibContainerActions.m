@@ -89,7 +89,18 @@
 }
 
 - (void)addSignature:(MoppLibContainer *)moppContainer controller:(UIViewController *)controller success:(ContainerBlock)success failure:(FailureBlock)failure {
-  [[CardActionsManager sharedInstance] addSignature:moppContainer controller:controller success:success failure:failure];
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+    [[CardActionsManager sharedInstance] addSignature:moppContainer controller:controller success:^(MoppLibContainer *container) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        success(container);
+      });
+    } failure:^(NSError *error) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        failure(error);
+      });
+    }];
+  });
 }
 
 @end
