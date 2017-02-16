@@ -175,6 +175,10 @@
     };
 }
 
+- (NSString *)ContainerDetailsSignatureAlreadyExistsAlertTitle {
+    return NSLocalizedStringFromTable(@"container-details-signature-already-exists-alert-title", nil, nil);
+}
+
 - (NSString *)ContainerDetailsGeneralError {
     return NSLocalizedStringFromTable(@"container-details-general-error", nil, nil);
 }
@@ -231,6 +235,10 @@
 
 - (NSString *)MyEidValidity {
     return NSLocalizedStringFromTable(@"my-eid-validity", nil, nil);
+}
+
+- (NSString *)ContainerDetailsSignatureAlreadyExistsAlertMessage {
+    return NSLocalizedStringFromTable(@"container-details-signature-already-exists-alert-message", nil, nil);
 }
 
 - (NSString *)ContainerDetailsPhoneNumberErrorAlertMessage {

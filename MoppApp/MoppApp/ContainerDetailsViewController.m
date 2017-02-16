@@ -34,6 +34,7 @@ typedef enum : NSUInteger {
 @interface ContainerDetailsViewController ()<UIDocumentInteractionControllerDelegate>
 @property (nonatomic, strong) UIDocumentInteractionController *previewController;
 @property (nonatomic, strong) NSString *tempFilePath;
+@property (nonatomic, strong) NSMutableSet<NSString *> *signatureIdCodes;
 @end
 
 @implementation ContainerDetailsViewController
@@ -139,8 +140,14 @@ typedef enum : NSUInteger {
       [DefaultsHelper setPhoneNumber:phoneNumberTextField.text];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSettingsChanged object:nil];
+    if ([self setConsitsOfIdCode:idCodeTextField.text]) {
+      [weakSelf showSignatureAlreadyExistsWarningAlertWithIDCode:idCodeTextField.text andPhoneNumber:phoneNumberTextField.text];
+    }else {
     [weakSelf mobileCreateSignatureWithIDCode:idCodeTextField.text phoneNumber:phoneNumberWithCountryCode];
+    }
   }]];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleDefault handler:nil]];
+  
   [self presentViewController:alert animated:YES completion:nil];
 }
 
@@ -153,6 +160,16 @@ typedef enum : NSUInteger {
   [[MoppLibService sharedInstance] mobileCreateSignatureWithContainer:self.container idCode:idCode language:[self decideLanguageBasedOnPreferredLanguages] phoneNumber:phoneNumber];
 }
 
+- (void)showSignatureAlreadyExistsWarningAlertWithIDCode:(NSString *)idCode andPhoneNumber:(NSString *)phoneNumber {
+  __weak typeof(self) weakSelf = self;
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsSignatureAlreadyExistsAlertTitle message:Localizations.ContainerDetailsSignatureAlreadyExistsAlertMessage preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [weakSelf mobileCreateSignatureWithIDCode:idCode phoneNumber:phoneNumber];
+  }]];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleDefault handler:nil]];
+  
+  [self presentViewController:alert animated:YES completion:nil];
+}
 - (void)displayCardSignatureAlert {
   [self showHUD];
   [[MoppLibContainerActions sharedInstance] addSignature:self.container controller:self success:^(MoppLibContainer *container) {
@@ -331,9 +348,10 @@ typedef enum : NSUInteger {
       ContainerDetailsSignatureCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ContainerDetailsSignatureCell class]) forIndexPath:indexPath];
       
       MoppLibSignature *signature = [self.container.signatures objectAtIndex:indexPath.row];
+      NSString *idCode = [self getIdCodeFromSubjectNameWithSignature:signature];
+      [self addSignatureIdCodeToSet:idCode];
       [cell.signatureNameLabel setText:signature.subjectName];
       [cell.detailsLabel setText:[[DateFormatter sharedInstance] HHmmssddMMYYYYToString:signature.timestamp]];
-      
       NSString *postfix;
       UIColor *postfixColor;
       if (signature.isValid) {
@@ -455,11 +473,13 @@ typedef enum : NSUInteger {
       }
       case ContainerDetailsSectionSignature: {
         MoppLibSignature *signature = [self.container.signatures objectAtIndex:indexPath.row];
+        NSString *idCode = [self getIdCodeFromSubjectNameWithSignature:signature];
         [[MoppLibContainerActions sharedInstance] removeSignature:signature fromContainerWithPath:self.container.filePath success:^(MoppLibContainer *container) {
           [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
-
+  
           self.container = container;
           [self.tableView reloadData];
+          [self removeSignatureIdCodeFromSet:idCode];
         } failure:^(NSError *error) {
           
         }];
@@ -508,6 +528,30 @@ typedef enum : NSUInteger {
   }
 }
 
+- (NSSet *)addSignatureIdCodeToSet:(NSString *)idCode {
+  if (!self.signatureIdCodes) {
+    self.signatureIdCodes = [[NSMutableSet alloc] init];
+  }
+  [self.signatureIdCodes addObject:idCode];
+  return self.signatureIdCodes;
+}
+
+- (BOOL)setConsitsOfIdCode:(NSString *)idCode {
+  return [self.signatureIdCodes containsObject:idCode];
+}
+
+- (NSSet *)removeSignatureIdCodeFromSet:(NSString *)idCode {
+  if (!self.signatureIdCodes) {
+    return nil;
+  }
+  [self.signatureIdCodes removeObject:idCode];
+  return self.signatureIdCodes;
+}
+
+- (NSString *)getIdCodeFromSubjectNameWithSignature:(MoppLibSignature *)signature {
+  NSString *subjectName = signature.subjectName;
+  return [subjectName substringFromIndex:[subjectName length] - 11];
+}
 #pragma mark - UIDocumentInteractionControllerDelegate
 
 - (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)interactionController {

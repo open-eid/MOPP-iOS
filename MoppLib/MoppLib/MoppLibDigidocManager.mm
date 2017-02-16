@@ -433,8 +433,8 @@ void parseException(const digidoc::Exception &e) {
     NSData *data = [signature dataUsingEncoding:NSUTF8StringEncoding];
     unsigned char bytes[[data length]];
     [data getBytes:bytes length:data.length];
-    std::vector<unsigned char> v(bytes, bytes + data.length);
-    container->addAdESSignature(v);
+    std::vector<unsigned char> signatureVector(bytes, bytes + data.length);
+    container->addAdESSignature(signatureVector);
     container->save();
     MLLog(@"Mobile ID signature added");
     MoppLibContainer *moppLibContainer = [self getContainerWithPath:moppContainer.filePath];

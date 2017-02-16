@@ -110,6 +110,9 @@
 - (NSString *(^)(NSString *))MyEidIdCardInfo;
 /// Base translation: New %@ and repeated %@ are different.
 - (NSString *(^)(NSString *, NSString *))PinActionsRepeatedPinDoesntMatch;
+/// Base translation: Signture exists
+- (NSString *)ContainerDetailsSignatureAlreadyExistsAlertTitle;
+
 /// Base translation: Adding signature failed.
 - (NSString *)ContainerDetailsGeneralError;
 
@@ -145,6 +148,9 @@
 - (NSString *(^)(NSString *))PinActionsRuleDifferentFromPrevious;
 /// Base translation: Validity:
 - (NSString *)MyEidValidity;
+
+/// Base translation: You have already signed the container, are you sure you want to add another signature ?
+- (NSString *)ContainerDetailsSignatureAlreadyExistsAlertMessage;
 
 /// Base translation: It seems that you have provided invalid phone number
 - (NSString *)ContainerDetailsPhoneNumberErrorAlertMessage;

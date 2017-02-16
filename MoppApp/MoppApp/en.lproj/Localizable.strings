@@ -58,6 +58,9 @@
 "container-details-reader-not-found" = "You need to connect card reader to sign documents.";
 "container-details-card-not-found" = "ID card is missing. Please make sure ID card is inserted correctly.";
 "container-details-pin-not-provided" = "Authentication with PIN code is required for signing.";
+"container-details-signature-already-exists-alert-title" = "Signture exists";
+"container-details-signature-already-exists-alert-message" = "You have already signed the container, are you sure you want to add another signature ?";
+
 
 // *** My eID ***
 "my-eid-id-card-info" = "ID-kaart on riigi sisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.\n\nID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@";
