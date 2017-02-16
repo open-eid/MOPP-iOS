@@ -24,4 +24,5 @@
 // 21. Nov OR relative string "Today" etc.
 - (NSString *)dateToRelativeString:(NSDate *)date;
 
+- (NSString *)UTCTimestampStringToLocalTime:(NSDate *)date;
 @end
