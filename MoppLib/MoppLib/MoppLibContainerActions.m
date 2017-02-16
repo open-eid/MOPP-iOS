@@ -8,6 +8,7 @@
 
 #import "MoppLibContainerActions.h"
 #import "MoppLibDigidocManager.h"
+#import "CardActionsManager.h"
 
 @implementation MoppLibContainerActions
 
@@ -87,8 +88,19 @@
   });
 }
 
-- (NSString *)getMoppLibVersion {
-  return [[MoppLibDigidocManager sharedInstance] getMoppLibVersion];
+- (void)addSignature:(MoppLibContainer *)moppContainer controller:(UIViewController *)controller success:(ContainerBlock)success failure:(FailureBlock)failure {
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+    [[CardActionsManager sharedInstance] addSignature:moppContainer controller:controller success:^(MoppLibContainer *container) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        success(container);
+      });
+    } failure:^(NSError *error) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        failure(error);
+      });
+    }];
+  });
 }
 
 @end

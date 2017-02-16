@@ -29,9 +29,10 @@ typedef enum {
   moppLibErrorSignatureAlreadyExists = 10011, // Tried to sign document, that has been signed with this certificate already.
   moppLibErrorUrlSessionCanceled = 10012, // NSURLErrorCanceled occured when connecting to external service.
   moppLibErrorXmlParsingError = 10013, // AEXMLDocument loadXml failed to parse data to XML.
-  MoppLibErrorDDSError = 10014 // Error from DDS
+  MoppLibErrorDDSError = 10014, // Error from DDS
+  moppLibErrorPinNotProvided = 10015, // User did not provide pin for action that required authentication
+  moppLibErrorPinBlocked = 10016 // User did not provide pin for action that required authentication
 
-  
 } MoppLibErrorCode;
 
 extern NSString *const kDDSServerUrl;

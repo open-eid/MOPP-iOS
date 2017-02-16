@@ -23,4 +23,8 @@
 - (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure {
   [[MoppLibDigidocManager sharedInstance] setupWithSuccess:success andFailure:failure];
 }
+
+- (NSString *)getMoppLibVersion {
+  return [[MoppLibDigidocManager sharedInstance] getMoppLibVersion];
+}
 @end

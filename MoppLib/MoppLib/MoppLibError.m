@@ -32,8 +32,16 @@ NSString *const MoppLibErrorDomain = @"MoppLibError";
   return [self error:moppLibErrorGeneral];
 }
 
++ (NSError *)pinBlockedError {
+  return [self error:moppLibErrorPinBlocked];
+}
+
 + (NSError *)invalidPinError {
   return [self error:moppLibErrorInvalidPin];
+}
+
++ (NSError *)pinNotProvidedError {
+  return [self error:moppLibErrorPinNotProvided];
 }
 
 + (NSError *)pinMatchesVerificationCodeError {

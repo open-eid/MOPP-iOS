@@ -139,6 +139,10 @@
     return NSLocalizedStringFromTable(@"pin-actions-info", nil, nil);
 }
 
+- (NSString *)ContainerDetailsPinNotProvided {
+    return NSLocalizedStringFromTable(@"container-details-pin-not-provided", nil, nil);
+}
+
 - (NSString *)ContainerDetailsDatafileSectionHeader {
     return NSLocalizedStringFromTable(@"container-details-datafile-section-header", nil, nil);
 }

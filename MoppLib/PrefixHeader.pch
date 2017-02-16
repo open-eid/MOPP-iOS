@@ -18,7 +18,7 @@
 #define MLLog(s, ...) //
 #endif
 
-#define MLLocalizedString(key, comment) NSLocalizedStringFromTableInBundle(key, nil, [NSBundle bundleForClass:[ReaderSelectionViewController class]], comment);//[[NSBundle bundleForClass:[ReaderSelectionViewController class]] localizedStringForKey:(key) value:@"" table:nil]
+#define MLLocalizedString(key, comment) NSLocalizedStringFromTableInBundle(key, nil, [NSBundle bundleForClass:[ReaderSelectionViewController class]], comment)
 
 
 #endif /* PrefixHeader_pch */
