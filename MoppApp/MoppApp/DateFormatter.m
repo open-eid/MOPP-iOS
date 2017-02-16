@@ -77,7 +77,10 @@
 }
 
 - (NSString *)UTCTimestampStringToLocalTime:(NSDate *)date {
-  NSDate* localDateTime = [NSDate dateWithTimeInterval:[[NSTimeZone localTimeZone] secondsFromGMTForDate:date] sinceDate:date];
-  return [self.HHmmssddMMYYYYDateFormatter stringFromDate:localDateTime];
+  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+  [dateFormatter setDateFormat:@"HH:mm:ss dd.MM.YYYY"];
+  NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
+  [dateFormatter setTimeZone:localTimeZone];
+  return [dateFormatter stringFromDate:date];
 }
 @end

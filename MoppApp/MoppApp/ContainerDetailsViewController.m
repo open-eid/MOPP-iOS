@@ -338,7 +338,7 @@ typedef enum : NSUInteger {
       
       MoppLibSignature *signature = [self.container.signatures objectAtIndex:indexPath.row];
       [cell.signatureNameLabel setText:signature.subjectName];
-      [cell.detailsLabel setText:[[DateFormatter sharedInstance] UTCTimestampStringToLocalTime:signature.timestamp]];
+      [cell.detailsLabel setText:[[DateFormatter sharedInstance] HHmmssddMMYYYYToString:signature.timestamp]];
       
       NSString *postfix;
       UIColor *postfixColor;
@@ -483,6 +483,7 @@ typedef enum : NSUInteger {
   [self displaySigningSuccessMessage];
   self.container = resultContainer;
   [self.tableView reloadData];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -34,7 +34,10 @@
 
 // 2013-12-10T09:11:39Z
 - (NSDate *)YYYYMMddTHHmmssZToDate:(NSString *)string {
-  return [self.YYYYMMddTHHmmssZDateFormatter dateFromString:string];
+  NSDateFormatter *dateFormatter = self.YYYYMMddTHHmmssZDateFormatter;
+  NSTimeZone *timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+  [dateFormatter setTimeZone:timeZone];
+  return [dateFormatter dateFromString:string];
 }
 
 @end
