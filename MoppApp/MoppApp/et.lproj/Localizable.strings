@@ -61,6 +61,8 @@
 "container-details-pin-not-provided" = "Allkirjastamiseks on vajalik kasutaja tuvastamine PIN koodiga.";
 "container-details-signature-already-exists-alert-title" = "Allkiri eksisteerib";
 "container-details-signature-already-exists-alert-message" = "Dokument on sinu poolt juba allkirjastatud. Kas soovid jätkata ?";
+"container-details-persist-mobile-id-credentials-alert-title" = "Salvesta andmed";
+"container-details-persist-mobile-id-credentials-alert-message" = "Kas soovid salvestada isikukoodi ja telefoni numbri tulevaste kasutuskordade jaoks ?";
 
 
 

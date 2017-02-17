@@ -249,6 +249,10 @@
     return NSLocalizedStringFromTable(@"tab-sim-settings", nil, nil);
 }
 
+- (NSString *)ContainerDetailsPersistMobileIdCredentialsAlertMessage {
+    return NSLocalizedStringFromTable(@"container-details-persist-mobile-id-credentials-alert-message", nil, nil);
+}
+
 - (NSString *(^)(NSString *))PinActionsPinBlocked {
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-pin-blocked", nil, nil), value1];
@@ -333,6 +337,10 @@
 
 - (NSString *)ContainerDetailsRename {
     return NSLocalizedStringFromTable(@"container-details-rename", nil, nil);
+}
+
+- (NSString *)ContainerDetailsPersistMobileIdCredentialsAlertTitle {
+    return NSLocalizedStringFromTable(@"container-details-persist-mobile-id-credentials-alert-title", nil, nil);
 }
 
 - (NSString *(^)(NSString *))PinActionsUnblockingPin {

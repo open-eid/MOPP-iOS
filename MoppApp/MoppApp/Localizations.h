@@ -158,6 +158,9 @@
 /// Base translation: SIM settings
 - (NSString *)TabSimSettings;
 
+/// Base translation: Do you wish to persist entered ID code and phone number for feature uses ? 
+- (NSString *)ContainerDetailsPersistMobileIdCredentialsAlertMessage;
+
 /// Base translation: %@ is blocked.
 - (NSString *(^)(NSString *))PinActionsPinBlocked;
 /// Base translation: Mobile ID
@@ -209,6 +212,9 @@
 
 /// Base translation: Rename
 - (NSString *)ContainerDetailsRename;
+
+/// Base translation: Persist credentials
+- (NSString *)ContainerDetailsPersistMobileIdCredentialsAlertTitle;
 
 /// Base translation: Unblocking %@:
 - (NSString *(^)(NSString *))PinActionsUnblockingPin;

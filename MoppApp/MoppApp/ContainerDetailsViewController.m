@@ -139,12 +139,14 @@ typedef enum : NSUInteger {
     } if ([[DefaultsHelper getPhoneNumber] length] == 0) {
       [DefaultsHelper setPhoneNumber:phoneNumberTextField.text];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSettingsChanged object:nil];
-    if ([self setConsitsOfIdCode:idCodeTextField.text]) {
+    if (![[DefaultsHelper getIDCode] isEqualToString:idCodeTextField.text] || ![[DefaultsHelper getPhoneNumber] isEqualToString:phoneNumberTextField.text]) {
+      [weakSelf askToPersistMobileIDCredentialsWithIdCode:idCodeTextField.text andPhoneNumber:phoneNumberTextField.text];
+    }else if ([self setConsitsOfIdCode:idCodeTextField.text]) {
       [weakSelf showSignatureAlreadyExistsWarningAlertWithIDCode:idCodeTextField.text andPhoneNumber:phoneNumberTextField.text];
     }else {
     [weakSelf mobileCreateSignatureWithIDCode:idCodeTextField.text phoneNumber:phoneNumberWithCountryCode];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSettingsChanged object:nil];
   }]];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleDefault handler:nil]];
   
@@ -160,6 +162,19 @@ typedef enum : NSUInteger {
   [[MoppLibService sharedInstance] mobileCreateSignatureWithContainer:self.container idCode:idCode language:[self decideLanguageBasedOnPreferredLanguages] phoneNumber:phoneNumber];
 }
 
+- (void)askToPersistMobileIDCredentialsWithIdCode:(NSString *)idCode andPhoneNumber:(NSString *)phoneNumber {
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsPersistMobileIdCredentialsAlertTitle message:Localizations.ContainerDetailsPersistMobileIdCredentialsAlertMessage preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [DefaultsHelper setIDCode:idCode];
+    [DefaultsHelper setPhoneNumber:phoneNumber];
+  }]];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [self mobileCreateSignatureWithIDCode:idCode phoneNumber:phoneNumber];
+  }]];
+  
+  [self presentViewController:alert animated:YES completion:nil];
+
+}
 - (void)showSignatureAlreadyExistsWarningAlertWithIDCode:(NSString *)idCode andPhoneNumber:(NSString *)phoneNumber {
   __weak typeof(self) weakSelf = self;
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsSignatureAlreadyExistsAlertTitle message:Localizations.ContainerDetailsSignatureAlreadyExistsAlertMessage preferredStyle:UIAlertControllerStyleAlert];
