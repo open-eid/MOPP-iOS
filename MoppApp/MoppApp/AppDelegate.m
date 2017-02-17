@@ -22,14 +22,15 @@
 @interface AppDelegate ()
 
 @property (strong, nonatomic) LandingTabBarController *tabBarController;
-
+@property (strong, nonatomic) NSURL *tempUrl;
+@property (strong, nonatomic) NSString *sourceApplication;
+@property (strong, nonatomic) id annotation;
 @end
 
 @implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  
   [[Session sharedInstance] setup];
   
   [[UINavigationBar appearance] setTranslucent:NO]; // Set navBar not translucent by default.
@@ -48,17 +49,33 @@
   self.window.rootViewController = initializationViewController;
   
   [self.window makeKeyAndVisible];
-  
+
   return YES;
 }
 
 - (void)setupTabController {
   self.tabBarController = [[UIStoryboard storyboardWithName:@"Landing" bundle:nil] instantiateInitialViewController];
   self.window.rootViewController = self.tabBarController;
+  
+  if (self.tempUrl) {
+    [self application:[UIApplication sharedApplication] openURL:self.tempUrl sourceApplication:self.sourceApplication annotation:self.annotation];
+    self.tempUrl = nil;
+    self.sourceApplication = nil;
+    self.annotation = nil;
+  }
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
   if (url) {
+
+    // When app has just been launched, it may not be ready to deal with containers yet. We need to wait until libdigidocpp setup is complete.
+    if (!self.tabBarController) {
+      self.annotation = annotation;
+      self.sourceApplication = sourceApplication;
+      self.tempUrl = url;
+      return YES;
+    }
+
 //    NSString *dataFileName = [url.absoluteString lastPathComponent];
 //    NSString *dataFilePath = [[FileManager sharedInstance] filePathWithFileName:[NSString stringWithFormat:@"Inbox/%@", dataFileName]];
 
