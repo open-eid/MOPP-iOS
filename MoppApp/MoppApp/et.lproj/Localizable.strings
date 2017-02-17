@@ -12,7 +12,8 @@
 "action-cancel" = "Tühista";
 "action-delete" = "Eemalda";
 "action-edit" = "Muuda";
-
+"action-yes" = "Jah";
+"action-no" = "Ei";
 
 // *** Signed containers ***
 // General
@@ -61,6 +62,8 @@
 "container-details-pin-not-provided" = "Allkirjastamiseks on vajalik kasutaja tuvastamine PIN koodiga.";
 "container-details-signature-already-exists-alert-title" = "Allkiri eksisteerib";
 "container-details-signature-already-exists-alert-message" = "Dokument on sinu poolt juba allkirjastatud. Kas soovid jätkata ?";
+"container-details-file-already-exists" = "Sellise nimega fail on juba olemas. Kas tahad üle kirjutada?";
+"container-details-attention" = "Tähelepanu!";
 
 
 

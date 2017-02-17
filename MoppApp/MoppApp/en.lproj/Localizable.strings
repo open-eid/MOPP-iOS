@@ -12,6 +12,8 @@
 "action-cancel" = "Cancel";
 "action-delete" = "Delete";
 "action-edit" = "Edit";
+"action-yes" = "Yes";
+"action-no" = "No";
 
 
 // *** Signed containers ***
@@ -60,6 +62,8 @@
 "container-details-pin-not-provided" = "Authentication with PIN code is required for signing.";
 "container-details-signature-already-exists-alert-title" = "Signture exists";
 "container-details-signature-already-exists-alert-message" = "You have already signed the container, are you sure you want to add another signature ?";
+"container-details-file-already-exists" = "File with same name already exists. Do you want to overwrite?";
+"container-details-attention" = "Attention!";
 
 
 // *** My eID ***

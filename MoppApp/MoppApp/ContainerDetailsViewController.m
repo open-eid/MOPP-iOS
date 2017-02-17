@@ -79,31 +79,56 @@ typedef enum : NSUInteger {
 }
 
 - (IBAction)editContainerName:(id)sender {
-  
-  NSString *extenstion = self.container.fileName.pathExtension;
-  NSString *currentName = [self.container.fileName substringToIndex:self.container.fileName.length - extenstion.length - 1];
-  
+  NSString *extension = self.container.fileName.pathExtension;
+  NSString *currentName = [self.container.fileName substringToIndex:self.container.fileName.length - extension.length - 1];
+  [self displayNameChangeAlertForName:currentName andExtension:extension];
+}
+
+- (void)displayNameChangeAlertForName:(NSString *)name andExtension:(NSString *)extension {
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsRename message:Localizations.ContainerDetailsEnterNewName preferredStyle:UIAlertControllerStyleAlert];
   [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-    textField.text = currentName;
+    textField.text = name;
     textField.placeholder = Localizations.ContainerDetailsName;
     textField.keyboardType = UIKeyboardTypeDefault;
   }];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    
+    
     UITextField *nameTextField = [alert.textFields firstObject];
-    NSString *newName = [nameTextField.text stringByAppendingString:[NSString stringWithFormat:@".%@", extenstion]];
+    NSString *newName = [nameTextField.text stringByAppendingString:[NSString stringWithFormat:@".%@", extension]];
     NSString *newPath = [[FileManager sharedInstance] filePathWithFileName:newName];
-    [[FileManager sharedInstance] moveFileWithPath:self.container.filePath toPath:newPath];
-    [[MoppLibContainerActions sharedInstance] getContainerWithPath:newPath success:^(MoppLibContainer *container) {
-      [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
-      self.container = container;
-      [self.tableView reloadData];
-    } failure:^(NSError *error) {
-      
-    }];
+    
+    if ([[FileManager sharedInstance] fileExists:newPath]) {
+      [self displayFileExistsMessage:newPath fileName:nameTextField.text extension:extension];
+    } else {
+      [self moveFileTo:newPath];
+    }
   }]];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:nil]];
   [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)displayFileExistsMessage:(NSString *)path fileName:(NSString *)name extension:(NSString *)extension {
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsAttention message:Localizations.ContainerDetailsFileAlreadyExists preferredStyle:UIAlertControllerStyleAlert];
+  
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionYes style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [self moveFileTo:path];
+  }]];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionNo style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    [self displayNameChangeAlertForName:name andExtension:extension];
+  }]];
+  [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)moveFileTo:(NSString *)path {
+  [[FileManager sharedInstance] moveFileWithPath:self.container.filePath toPath:path overwrite:YES];
+  [[MoppLibContainerActions sharedInstance] getContainerWithPath:path success:^(MoppLibContainer *container) {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
+    self.container = container;
+    [self.tableView reloadData];
+  } failure:^(NSError *error) {
+    
+  }];
 }
 
 - (void)showIDCodeAndPhoneAlert {
@@ -143,7 +168,7 @@ typedef enum : NSUInteger {
     if ([self setConsitsOfIdCode:idCodeTextField.text]) {
       [weakSelf showSignatureAlreadyExistsWarningAlertWithIDCode:idCodeTextField.text andPhoneNumber:phoneNumberTextField.text];
     }else {
-    [weakSelf mobileCreateSignatureWithIDCode:idCodeTextField.text phoneNumber:phoneNumberWithCountryCode];
+      [weakSelf mobileCreateSignatureWithIDCode:idCodeTextField.text phoneNumber:phoneNumberWithCountryCode];
     }
   }]];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleDefault handler:nil]];
@@ -300,7 +325,7 @@ typedef enum : NSUInteger {
       if (![[self.container.filePath pathExtension] isEqualToString:ContainerFormatDdoc]) {
         count++;
       }
-
+      
       return count;
       break;
     }
@@ -462,10 +487,10 @@ typedef enum : NSUInteger {
         //        MoppLibDataFile *dataFile = [self.container.dataFiles objectAtIndex:indexPath.row];
         [[MoppLibContainerActions sharedInstance] removeDataFileFromContainerWithPath:self.container.filePath atIndex:indexPath.row success:^(MoppLibContainer *container) {
           [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
-
+          
           self.container = container;
           [self.tableView reloadData];
-
+          
         } failure:^(NSError *error) {
           
         }];
@@ -476,7 +501,7 @@ typedef enum : NSUInteger {
         NSString *idCode = [self getIdCodeFromSubjectNameWithSignature:signature];
         [[MoppLibContainerActions sharedInstance] removeSignature:signature fromContainerWithPath:self.container.filePath success:^(MoppLibContainer *container) {
           [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
-  
+          
           self.container = container;
           [self.tableView reloadData];
           [self removeSignatureIdCodeFromSet:idCode];
@@ -511,11 +536,11 @@ typedef enum : NSUInteger {
         self.previewController = [UIDocumentInteractionController interactionControllerWithURL:fileUrl];
         self.previewController.delegate = self;
         [self hideHUD];
-
+        
         BOOL success = [self.previewController presentPreviewAnimated:YES];
         if (!success) {
           [self.previewController presentOptionsMenuFromRect:self.view.frame inView:self.view animated:YES];
-
+          
         }
       } failure:^(NSError *error) {
         [self hideHUD];
