@@ -64,7 +64,8 @@
 "container-details-signature-already-exists-alert-message" = "You have already signed the container, are you sure you want to add another signature ?";
 "container-details-file-already-exists" = "File with same name already exists. Do you want to overwrite?";
 "container-details-attention" = "Attention!";
-
+"container-details-persist-mobile-id-credentials-alert-title" = "Persist credentials";
+"container-details-persist-mobile-id-credentials-alert-message" = "Do you wish to persist entered ID code and phone number for feature uses ? ";
 
 // *** My eID ***
 "my-eid-id-card-info" = "ID-kaart on riigi sisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.\n\nID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@";

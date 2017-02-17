@@ -94,21 +94,24 @@
 /// Base translation: Validity:
 - (NSString *)MyEidValidity;
 
+/// Base translation: Persist credentials
+- (NSString *)ContainerDetailsPersistMobileIdCredentialsAlertTitle;
+
 /// Base translation: %i times
 - (NSString *(^)(int))MyEidTimesUsed;
-/// Base translation: Changing %@:
-- (NSString *(^)(NSString *))PinActionsVerificationTitle;
 /// Base translation: Invalid phone number
 - (NSString *)ContainerDetailsPhoneNumberErrorAlertTitle;
 
-/// Base translation: Choose signing method
-- (NSString *)ContainerDetailsSigningMethodAlertMessage;
-
+/// Base translation: Changing %@:
+- (NSString *(^)(NSString *))PinActionsVerificationTitle;
 /// Base translation: New container format
 - (NSString *)SettingsNewContainerFormat;
 
 /// Base translation: eID
 - (NSString *)MyEidEid;
+
+/// Base translation: Choose signing method
+- (NSString *)ContainerDetailsSigningMethodAlertMessage;
 
 /// Base translation: Adding signature failed.
 - (NSString *)ContainerDetailsGeneralError;
@@ -253,6 +256,9 @@
 - (NSString *(^)(NSString *))PinActionsUnblockingPin;
 /// Base translation: %@  Please select unsigned document or create new one.
 - (NSString *(^)(NSString *))FileImportInfo;
+/// Base translation: Do you wish to persist entered ID code and phone number for feature uses ? 
+- (NSString *)ContainerDetailsPersistMobileIdCredentialsAlertMessage;
+
 /// Base translation: ID code
 - (NSString *)SettingsIdCodeTitle;
 

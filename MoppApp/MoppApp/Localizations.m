@@ -147,10 +147,18 @@
     return NSLocalizedStringFromTable(@"my-eid-validity", nil, nil);
 }
 
+- (NSString *)ContainerDetailsPersistMobileIdCredentialsAlertTitle {
+    return NSLocalizedStringFromTable(@"container-details-persist-mobile-id-credentials-alert-title", nil, nil);
+}
+
 - (NSString *(^)(int))MyEidTimesUsed {
     return ^(int value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-times-used", nil, nil), value1];
     };
+}
+
+- (NSString *)ContainerDetailsPhoneNumberErrorAlertTitle {
+    return NSLocalizedStringFromTable(@"container-details-phone-number-error-alert-title", nil, nil);
 }
 
 - (NSString *(^)(NSString *))PinActionsVerificationTitle {
@@ -159,20 +167,16 @@
     };
 }
 
-- (NSString *)ContainerDetailsPhoneNumberErrorAlertTitle {
-    return NSLocalizedStringFromTable(@"container-details-phone-number-error-alert-title", nil, nil);
-}
-
-- (NSString *)ContainerDetailsSigningMethodAlertMessage {
-    return NSLocalizedStringFromTable(@"container-details-signing-method-alert-message", nil, nil);
-}
-
 - (NSString *)SettingsNewContainerFormat {
     return NSLocalizedStringFromTable(@"settings-new-container-format", nil, nil);
 }
 
 - (NSString *)MyEidEid {
     return NSLocalizedStringFromTable(@"my-eid-eid", nil, nil);
+}
+
+- (NSString *)ContainerDetailsSigningMethodAlertMessage {
+    return NSLocalizedStringFromTable(@"container-details-signing-method-alert-message", nil, nil);
 }
 
 - (NSString *)ContainerDetailsGeneralError {
@@ -407,6 +411,10 @@
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"file-import-info", nil, nil), value1];
     };
+}
+
+- (NSString *)ContainerDetailsPersistMobileIdCredentialsAlertMessage {
+    return NSLocalizedStringFromTable(@"container-details-persist-mobile-id-credentials-alert-message", nil, nil);
 }
 
 - (NSString *)SettingsIdCodeTitle {
