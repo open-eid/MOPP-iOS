@@ -363,6 +363,10 @@
     return NSLocalizedStringFromTable(@"tab-sim-settings", nil, nil);
 }
 
+- (NSString *)MobileIdTimeoutMessage {
+    return NSLocalizedStringFromTable(@"mobile-id-timeout-message", nil, nil);
+}
+
 - (NSString *)ActionOk {
     return NSLocalizedStringFromTable(@"action-ok", nil, nil);
 }

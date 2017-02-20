@@ -12,6 +12,7 @@
 #import "MoppLibError.h"
 #import "MoppLibMobileCreateSignatureResponse.h"
 #import "MoppLibGetMobileCreateSignatureStatusResponse.h"
+#import "MoppLibCloseSessionResponse.h"
 
 
 
@@ -153,6 +154,7 @@ static NSInteger kAsyncConfiguration = 0;
           } andFailure:^(NSError *error) {
             failure(error);
           }];
+          break;
         }
       }
     }

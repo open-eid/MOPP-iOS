@@ -35,6 +35,7 @@
   MobileIDChallengeViewController *mobileIDChallengeview = [self.storyboard instantiateViewControllerWithIdentifier:@"MobileIDChallengeView"];
   self.currentMobileIDChallengeView = mobileIDChallengeview;
   self.currentMobileIDChallengeView.challengeID = response.challengeId;
+  self.currentMobileIDChallengeView.sessCode = [NSString stringWithFormat:@"%ld", (long)response.sessCode];
   self.currentMobileIDChallengeView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
   self.currentMobileIDChallengeView.view.alpha = 0.75f;
   [self presentViewController:self.currentMobileIDChallengeView animated:YES completion:nil];

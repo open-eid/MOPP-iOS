@@ -34,15 +34,18 @@ static NSInteger *kSubsequentStatusRequestDelay = 5;
 }
 
 - (void)mobileCreateSignatureWithContainer:(MoppLibContainer *)container idCode:(NSString *)idCode language:(NSString *)language phoneNumber:(NSString *)phoneNumber {
+  __weak typeof(self) weakSelf = self;
   self.currentContainer = container;
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     [[MoppLibNetworkManager sharedInstance] mobileCreateSignatureWithContainer:container language:language idCode:idCode phoneNo:phoneNumber withSuccess:^(NSObject *responseObject) {
       MoppLibMobileCreateSignatureResponse *response = (MoppLibMobileCreateSignatureResponse *)responseObject;
       dispatch_async(dispatch_get_main_queue(), ^{
+        self.willPollForSignatureResponse = YES;
         [[NSNotificationCenter defaultCenter] postNotificationName:kCreateSignatureNotificationName object:nil userInfo:@{kCreateSignatureResponseKey : responseObject}];
       });
-      sleep(kInitialStatusRequestDelay);
-      [self getMobileCreateSignatureWithSessCode:[NSString stringWithFormat:@"%d", response.sessCode]];
+      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self getMobileCreateSignatureWithSessCode:[NSString stringWithFormat:@"%d", response.sessCode]];
+      });
     } andFailure:^(NSError *error) {
       dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:kErrorNotificationName object:nil userInfo:@{kErrorKey : error}];
@@ -53,34 +56,40 @@ static NSInteger *kSubsequentStatusRequestDelay = 5;
 }
 
 - (void)getMobileCreateSignatureWithSessCode:(NSString *)sessCode {
-  [[MoppLibNetworkManager sharedInstance] getMobileCreateSignatureStatusWithSesscode:sessCode withSuccess:^(NSObject *responseObject) {
-    MoppLibGetMobileCreateSignatureStatusResponse *response = (MoppLibGetMobileCreateSignatureStatusResponse *)responseObject;
-    if ([response.status isEqualToString:@"OUTSTANDING_TRANSACTION"]) {
-      sleep(kSubsequentStatusRequestDelay);
-      [self getMobileCreateSignatureWithSessCode:sessCode];
-    } else if ([response.status isEqualToString:@"SIGNATURE"]) {
-      [[MoppLibDigidocManager sharedInstance] addMobileIDSignatureToContainer:self.currentContainer signature:response.signature success:^(MoppLibContainer *container) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-          [[NSNotificationCenter defaultCenter] postNotificationName:kSignatureAddedToContainerNotificationName object:nil userInfo:@{kContainerKey : container}];
+  if (self.willPollForSignatureResponse) {
+    [[MoppLibNetworkManager sharedInstance] getMobileCreateSignatureStatusWithSesscode:sessCode withSuccess:^(NSObject *responseObject) {
+      MoppLibGetMobileCreateSignatureStatusResponse *response = (MoppLibGetMobileCreateSignatureStatusResponse *)responseObject;
+      if ([response.status isEqualToString:@"OUTSTANDING_TRANSACTION"]) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+          [self getMobileCreateSignatureWithSessCode:sessCode];
         });
-      } andFailure:^(NSError *error) {
+      } else if ([response.status isEqualToString:@"SIGNATURE"]) {
+        [[MoppLibDigidocManager sharedInstance] addMobileIDSignatureToContainer:self.currentContainer signature:response.signature success:^(MoppLibContainer *container) {
+          dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kSignatureAddedToContainerNotificationName object:nil userInfo:@{kContainerKey : container}];
+          });
+        } andFailure:^(NSError *error) {
+          dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kErrorNotificationName object:nil ];
+          });
+        }];
+        
+      } else {
+#warning TODO - add all posible statuses if necessary
+        MLLog(@"FAILURE with status: %@", response.status);
         dispatch_async(dispatch_get_main_queue(), ^{
           [[NSNotificationCenter defaultCenter] postNotificationName:kErrorNotificationName object:nil ];
         });
-      }];
-     
-    } else {
-#warning TODO - add all posible statuses if necessary
-      MLLog(@"FAILURE with status: %@", response.status);
+      }
+    } andFailure:^(NSError *error) {
       dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:kErrorNotificationName object:nil ];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kErrorNotificationName object:nil userInfo:@{kErrorKey : error}];
       });
-    }
-  } andFailure:^(NSError *error) {
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [[NSNotificationCenter defaultCenter] postNotificationName:kErrorNotificationName object:nil userInfo:@{kErrorKey : error}];
-    });
-  }];
+    }];
+  }
 }
 
+- (void)cancelMobileSignatureStatusPolling {
+  self.willPollForSignatureResponse = NO;
+}
 @end

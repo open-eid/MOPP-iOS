@@ -226,6 +226,9 @@
 /// Base translation: SIM settings
 - (NSString *)TabSimSettings;
 
+/// Base translation: Mobile ID request timeout
+- (NSString *)MobileIdTimeoutMessage;
+
 /// Base translation: OK
 - (NSString *)ActionOk;
 

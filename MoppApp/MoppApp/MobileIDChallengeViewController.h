@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MoppLib/MoppLib.h>
 
 @interface MobileIDChallengeViewController : UIViewController
 
 @property (nonatomic, strong) NSString *challengeID;
+@property (nonatomic, strong) NSString *sessCode;
 @end

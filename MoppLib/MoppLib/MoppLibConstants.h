@@ -42,6 +42,8 @@ extern NSString *const kErrorNotificationName;
 extern NSString *const kCreateSignatureResponseKey;
 extern NSString *const kContainerKey;
 extern NSString *const kErrorKey;
+extern NSString *const kCloseSessionNotificationName;
+extern NSString *const kErrorMessage;
 // Keys for Mopp Lib error user info
 
 extern NSString *const kMoppLibUserInfoRetryCount;

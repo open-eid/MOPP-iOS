@@ -21,3 +21,5 @@ NSString *const kErrorNotificationName = @"ErrorNotification";
 NSString *const kCreateSignatureResponseKey = @"MobileCreateSignatureResponse";
 NSString *const kContainerKey = @"MoppLibContainer";
 NSString *const kErrorKey = @"Error";
+NSString *const kErrorMessage = @"Error message";
+NSString *const kCloseSessionNotificationName = @"Close session";

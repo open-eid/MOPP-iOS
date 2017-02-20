@@ -11,7 +11,12 @@
 
 @interface MoppLibService : NSObject
 
+@property (nonatomic) BOOL willPollForSignatureResponse;
+
+
 + (MoppLibService *)sharedInstance;
 
 - (void)mobileCreateSignatureWithContainer:(MoppLibContainer *)container idCode:(NSString *)idCode language:(NSString *)language phoneNumber:(NSString *)phoneNumber;
+
+- (void)cancelMobileSignatureStatusPolling;
 @end

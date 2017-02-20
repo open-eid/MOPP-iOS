@@ -154,3 +154,6 @@
 // *** Mobile ID Challenge View ***
 
 "challenge-code-label" = "Kood: %@";
+
+// *** Errors ***
+"mobile-id-timeout-message" = "Mobile ID päring aegus";

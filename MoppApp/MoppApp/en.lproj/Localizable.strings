@@ -148,3 +148,6 @@
 // *** Mobile ID Challenge View ***
 
 "challenge-code-label" = "Code: %@";
+
+// *** Errors ***
+"mobile-id-timeout-message" = "Mobile ID request timeout";

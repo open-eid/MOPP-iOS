@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ylY-Rn-2Bi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ylY-Rn-2Bi">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -77,16 +77,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VKH-8c-7RZ" userLabel="MobileID Session Counter">
+                                <rect key="frame" x="28" y="333" width="319" height="2"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="VKH-8c-7RZ" secondAttribute="trailing" constant="12" id="3Tr-Jk-xws"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kn9-yO-Va6" secondAttribute="trailing" constant="12" id="OQ8-9p-4D6"/>
                             <constraint firstItem="qjJ-iw-rN8" firstAttribute="top" secondItem="kn9-yO-Va6" secondAttribute="bottom" constant="40" id="Z4P-n4-nL2"/>
+                            <constraint firstItem="VKH-8c-7RZ" firstAttribute="centerY" secondItem="SXm-Hy-3Ux" secondAttribute="centerY" id="mwe-EC-GRs"/>
                             <constraint firstItem="kn9-yO-Va6" firstAttribute="leading" secondItem="SXm-Hy-3Ux" secondAttribute="leadingMargin" constant="12" id="oqF-80-a4Q"/>
+                            <constraint firstItem="VKH-8c-7RZ" firstAttribute="leading" secondItem="SXm-Hy-3Ux" secondAttribute="leadingMargin" constant="12" id="yQK-8A-bbh"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="mobileIDChallengeCodeLabel" destination="kn9-yO-Va6" id="tIj-Js-MsZ"/>
+                        <outlet property="mobileIDSessionCounter" destination="VKH-8c-7RZ" id="MBS-ou-u1O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jIW-aE-j48" userLabel="First Responder" sceneMemberID="firstResponder"/>
