@@ -46,7 +46,7 @@ static double kRequestTimeout = 60.0;
 
 - (void)updateSessionProgress:(NSTimer *)timer {
   if (self.currentProgress < 1.0) {
-    double step = 1.0/kRequestTimeout;
+    double step = 1.0 / kRequestTimeout;
     self.currentProgress = self.currentProgress + step;
     [self.mobileIDSessionCounter setProgress:self.currentProgress];
   } else {
