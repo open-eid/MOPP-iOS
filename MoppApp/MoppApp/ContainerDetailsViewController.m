@@ -565,6 +565,9 @@ typedef enum : NSUInteger {
 
 - (NSString *)getIdCodeFromSubjectNameWithSignature:(MoppLibSignature *)signature {
   NSString *subjectName = signature.subjectName;
+  if (subjectName.length < 12) {
+    return @"";
+  }
   return [subjectName substringFromIndex:[subjectName length] - 11];
 }
 #pragma mark - UIDocumentInteractionControllerDelegate
