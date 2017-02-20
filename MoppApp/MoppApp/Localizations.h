@@ -107,6 +107,9 @@
 /// Base translation: New container format
 - (NSString *)SettingsNewContainerFormat;
 
+/// Base translation: Add to existing document
+- (NSString *)ActionAddToDocument;
+
 /// Base translation: eID
 - (NSString *)MyEidEid;
 
@@ -217,6 +220,9 @@
 - (NSString *(^)(NSString *, NSString *))PinActionsRuleForbiddenPins;
 /// Base translation: This %@ is not allowed.
 - (NSString *(^)(NSString *))PinActionsInvalidFormat;
+/// Base translation: Create new document
+- (NSString *)ActionCreateNewDocument;
+
 /// Base translation: ID card is missing. Please make sure ID card is inserted correctly.
 - (NSString *)ContainerDetailsCardNotFound;
 

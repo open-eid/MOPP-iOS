@@ -14,6 +14,8 @@
 "action-edit" = "Muuda";
 "action-yes" = "Jah";
 "action-no" = "Ei";
+"action-create-new-document" = "Loo uus dokument";
+"action-add-to-document" = "Lisa olemasolevale dokumendile";
 
 // *** Signed containers ***
 // General

@@ -14,7 +14,8 @@
 "action-edit" = "Edit";
 "action-yes" = "Yes";
 "action-no" = "No";
-
+"action-create-new-document" = "Create new document";
+"action-add-to-document" = "Add to existing document";
 
 // *** Signed containers ***
 // General

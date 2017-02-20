@@ -41,10 +41,6 @@
   [super viewWillAppear:animated];
   
   [self reloadData];
-  
-  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.FileImportTitle message:Localizations.FileImportInfo([self.dataFilePath lastPathComponent]) preferredStyle:UIAlertControllerStyleAlert];
-  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:nil]];
-  [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)cancelButtonPressed {
@@ -56,7 +52,7 @@
   NSString *containerPath = [[FileManager sharedInstance] filePathWithFileName:containerFileName];
   [[MoppLibContainerActions sharedInstance] createContainerWithPath:containerPath withDataFilePath:self.dataFilePath success:^(MoppLibContainer *container) {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
-
+    
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
       if (self.delegate) {
         [self.delegate openContainerDetails:container];
@@ -67,19 +63,29 @@
   }];
   
 #warning - remove file
-//  [[FileManager sharedInstance] removeFileWithPath:self.dataFilePath];
+  //  [[FileManager sharedInstance] removeFileWithPath:self.dataFilePath];
 }
 
 - (void)reloadData {
   [[MoppLibContainerActions sharedInstance] getContainersIsSigned:NO success:^(NSArray *containers) {
     self.unsignedContainers = containers;
     self.filteredUnsignedContainers = self.unsignedContainers;
-    
     [super reloadData];
+    
+    if (self.filteredUnsignedContainers.count == 0) {
+      [self createNewContainer];
+    } else {
+      UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.FileImportTitle message:Localizations.FileImportInfo([self.dataFilePath lastPathComponent]) preferredStyle:UIAlertControllerStyleAlert];
+      [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCreateNewDocument style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self createNewContainer];
+      }]];
+      [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionAddToDocument style:UIAlertActionStyleDefault handler:nil]];
+      [self presentViewController:alert animated:YES completion:nil];
+    }
   } failure:^(NSError *error) {
     
   }];
-
+  
 }
 
 - (void)filterContainers:(NSString *)searchString {
@@ -130,7 +136,7 @@
   MoppLibContainer *container = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
   [[MoppLibContainerActions sharedInstance] addDataFileToContainerWithPath:container.filePath withDataFilePath:self.dataFilePath success:^(MoppLibContainer *container) {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
-
+    
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
       if (self.delegate) {
         [self.delegate openContainerDetails:container];
@@ -140,7 +146,7 @@
     
   }];
 #warning - remove file
-//  [[FileManager sharedInstance] removeFileWithPath:self.dataFilePath];
+  //  [[FileManager sharedInstance] removeFileWithPath:self.dataFilePath];
   
 }
 

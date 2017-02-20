@@ -171,6 +171,10 @@
     return NSLocalizedStringFromTable(@"settings-new-container-format", nil, nil);
 }
 
+- (NSString *)ActionAddToDocument {
+    return NSLocalizedStringFromTable(@"action-add-to-document", nil, nil);
+}
+
 - (NSString *)MyEidEid {
     return NSLocalizedStringFromTable(@"my-eid-eid", nil, nil);
 }
@@ -349,6 +353,10 @@
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-invalid-format", nil, nil), value1];
     };
+}
+
+- (NSString *)ActionCreateNewDocument {
+    return NSLocalizedStringFromTable(@"action-create-new-document", nil, nil);
 }
 
 - (NSString *)ContainerDetailsCardNotFound {
