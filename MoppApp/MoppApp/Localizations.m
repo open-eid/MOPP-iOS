@@ -379,6 +379,10 @@
     return NSLocalizedStringFromTable(@"action-ok", nil, nil);
 }
 
+- (NSString *)ErrorAlertTitleGeneral {
+    return NSLocalizedStringFromTable(@"error-alert-title-general", nil, nil);
+}
+
 - (NSString *)ContainerDetailsTitle {
     return NSLocalizedStringFromTable(@"container-details-title", nil, nil);
 }

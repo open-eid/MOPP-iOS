@@ -159,3 +159,4 @@
 
 // *** Errors ***
 "mobile-id-timeout-message" = "Mobile ID päring aegus";
+"error-alert-title-general" = "Viga";

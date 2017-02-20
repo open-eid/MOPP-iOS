@@ -135,8 +135,8 @@ static NSInteger kAsyncConfiguration = 0;
     if ([[[body objectForKeyedSubscript:@"SOAP-ENV:Fault"] children] count] > 0) {
       AEXMLElement *fault = [body objectForKeyedSubscript:@"SOAP-ENV:Fault"];
       MLLog(@"Fault %@", fault.xml);
-      AEXMLElement *detail = [fault objectForKeyedSubscript:@"detail"];
-      error = [MoppLibError DDSErrorWith:[[detail objectForKeyedSubscript:@"message"] value]];
+      AEXMLElement *faultString = [fault objectForKeyedSubscript:@"faultstring"];
+      error = [MoppLibError DDSErrorWith:[[faultString  value] integerValue]];
       failure(error);
     }else {
       switch (method) {

@@ -238,6 +238,9 @@
 /// Base translation: OK
 - (NSString *)ActionOk;
 
+/// Base translation: Failure
+- (NSString *)ErrorAlertTitleGeneral;
+
 /// Base translation: Document
 - (NSString *)ContainerDetailsTitle;
 
