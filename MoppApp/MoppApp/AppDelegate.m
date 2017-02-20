@@ -18,6 +18,7 @@
 #import "DefaultsHelper.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+#import "Constants.h"
 
 @interface AppDelegate ()
 
@@ -95,7 +96,7 @@
       
       // Move container from inbox folder to documents folder and cleanup.
       NSString *newFilePath = [[FileManager sharedInstance] filePathWithFileName:fileName];
-      [[FileManager sharedInstance] copyFileWithPath:filePath toPath:newFilePath];
+      newFilePath = [[FileManager sharedInstance] copyFileWithPath:filePath toPath:newFilePath];
       [[FileManager sharedInstance] removeFileWithPath:filePath];
       
       void (^failure)(void) = ^void (void) {
@@ -108,6 +109,8 @@
       };
       
       [[MoppLibContainerActions sharedInstance] getContainerWithPath:newFilePath success:^(MoppLibContainer *container) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
+
         MoppLibContainer *moppLibContainer = container;
         if (moppLibContainer) {
           [containersListViewController setSelectedContainer:moppLibContainer];

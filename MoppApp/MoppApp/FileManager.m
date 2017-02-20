@@ -91,7 +91,16 @@
   }
 }
 
-- (void)moveFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath {
+- (BOOL)fileExists:(NSString *)sourcePath {
+  return [self.fileManager fileExistsAtPath:sourcePath];
+}
+
+- (void)moveFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath overwrite:(BOOL)overwrite {
+  
+  if (overwrite) {
+    [self removeFileWithPath:destinationPath];
+  }
+  
   NSError *error;
   [self.fileManager moveItemAtPath:sourcePath toPath:destinationPath error:&error];
   if (error) {
@@ -99,12 +108,30 @@
   }
 }
 
-- (void)copyFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath {
+- (NSString *)copyFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath {
+  return [self copyFileWithPath:sourcePath toPath:destinationPath duplicteCount:0];
+}
+
+- (NSString *)copyFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath duplicteCount:(int)count {
+  NSString *finalName = destinationPath;
+  
+  if (count > 0) {
+    NSString *ext = [destinationPath pathExtension];
+    finalName = [finalName substringToIndex:finalName.length - ext.length - 1];
+    finalName = [finalName stringByAppendingString:[NSString stringWithFormat:@"(%i).%@", count, ext]];
+  }
+  
+  if ([self fileExists:finalName]) {
+    return [self copyFileWithPath:sourcePath toPath:destinationPath duplicteCount:count+1];
+  }
+  
   NSError *error;
-  [self.fileManager copyItemAtPath:sourcePath toPath:destinationPath error:&error];
+  [self.fileManager copyItemAtPath:sourcePath toPath:finalName error:&error];
   if (error) {
     MSLog(@"copyFileWithPath error: %@", error);
   }
+  
+  return finalName;
 }
 
 @end
