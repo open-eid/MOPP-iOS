@@ -214,6 +214,7 @@ typedef enum : NSUInteger {
   [self showHUD];
   [[MoppLibContainerActions sharedInstance] addSignature:self.container controller:self success:^(MoppLibContainer *container) {
     [self hideHUD];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
     [self displaySigningSuccessMessage];
     self.container = container;
     [self.tableView reloadData];
@@ -534,6 +535,7 @@ typedef enum : NSUInteger {
 
 - (void)receiveAdesSignatureAddedToContainer:(NSNotification *)notification {
   MoppLibContainer *resultContainer = [[notification userInfo] objectForKey:kContainerKey];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:resultContainer}];
   [self displaySigningSuccessMessage];
   self.container = resultContainer;
   [self.tableView reloadData];
