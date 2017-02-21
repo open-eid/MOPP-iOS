@@ -91,6 +91,7 @@ typedef enum : NSUInteger {
     textField.placeholder = Localizations.ContainerDetailsName;
     textField.keyboardType = UIKeyboardTypeDefault;
   }];
+
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     
     
@@ -105,6 +106,7 @@ typedef enum : NSUInteger {
     }
   }]];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:nil]];
+
   [self presentViewController:alert animated:YES completion:nil];
 }
 
@@ -173,7 +175,7 @@ typedef enum : NSUInteger {
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSettingsChanged object:nil];
   }]];
-  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleDefault handler:nil]];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:nil]];
   
   [self presentViewController:alert animated:YES completion:nil];
 }
@@ -193,7 +195,7 @@ typedef enum : NSUInteger {
     [DefaultsHelper setIDCode:idCode];
     [DefaultsHelper setPhoneNumber:phoneNumber];
   }]];
-  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     [self mobileCreateSignatureWithIDCode:idCode phoneNumber:phoneNumber];
   }]];
   
@@ -206,7 +208,7 @@ typedef enum : NSUInteger {
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     [weakSelf mobileCreateSignatureWithIDCode:idCode phoneNumber:phoneNumber];
   }]];
-  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleDefault handler:nil]];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:nil]];
   
   [self presentViewController:alert animated:YES completion:nil];
 }
