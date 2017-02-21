@@ -91,7 +91,7 @@
 		E42B08C61E1F11B900EA24A3 /* MoppLibDataFile.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08C41E1F11B900EA24A3 /* MoppLibDataFile.m */; };
 		E42B08C91E1F11C100EA24A3 /* MoppLibSignature.h in Headers */ = {isa = PBXBuildFile; fileRef = E42B08C71E1F11C100EA24A3 /* MoppLibSignature.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E42B08CA1E1F11C100EA24A3 /* MoppLibSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08C81E1F11C100EA24A3 /* MoppLibSignature.m */; };
-		E42B08CD1E1F136A00EA24A3 /* MoppLibDigidocManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E42B08CB1E1F136A00EA24A3 /* MoppLibDigidocManager.h */; };
+		E42B08CD1E1F136A00EA24A3 /* MoppLibDigidocManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E42B08CB1E1F136A00EA24A3 /* MoppLibDigidocManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E42B08CE1E1F136A00EA24A3 /* MoppLibDigidocManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = E42B08CC1E1F136A00EA24A3 /* MoppLibDigidocManager.mm */; };
 		E43BD81D1E3F901D00F6C39D /* EE.xml in Resources */ = {isa = PBXBuildFile; fileRef = E43BD81A1E3F901D00F6C39D /* EE.xml */; };
 		E43BD81E1E3F901D00F6C39D /* FI.xml in Resources */ = {isa = PBXBuildFile; fileRef = E43BD81B1E3F901D00F6C39D /* FI.xml */; };
@@ -493,8 +493,8 @@
 				E42B08C51E1F11B900EA24A3 /* MoppLibDataFile.h in Headers */,
 				54E1DB601E44AE730060A250 /* MoppLibContainerActions.h in Headers */,
 				54E1DB5C1E44A9060060A250 /* MoppLibManager.h in Headers */,
-				AEC2CC421E3B8B7800A0B869 /* MoppLibSOAPManager.h in Headers */,
 				E42B08CD1E1F136A00EA24A3 /* MoppLibDigidocManager.h in Headers */,
+				AEC2CC421E3B8B7800A0B869 /* MoppLibSOAPManager.h in Headers */,
 				54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */,
 				542DCB6C1E23968000899534 /* MoppLibPinActions.h in Headers */,
 				545111721E13BBA800296B80 /* MoppLibPersonalData.h in Headers */,

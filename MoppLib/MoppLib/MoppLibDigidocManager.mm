@@ -21,6 +21,19 @@
 #import "MoppLibError.h"
 #import "CardActionsManager.h"
 
+#import <CommonCrypto/CommonDigest.h>
+#import <Security/Security.h>
+
+@interface NSString (Digidoc)
++ (NSString*)stdstring:(const std::string&)str;
+@end
+
+@implementation NSString (Digidoc)
++ (NSString*)stdstring:(const std::string&)str {
+    return str.empty() ? [NSString string] : [NSString stringWithUTF8String:str.c_str()];
+}
+@end
+
 class DigiDocConf: public digidoc::ConfCurrent {
 public:
   std::string TSLCache() const
@@ -67,6 +80,167 @@ private:
   digidoc::X509Cert _cert;
 };
 
+class SmartID: public digidoc::Signer
+{
+    const NSString *m_url = @"https://rp-api.smart-id.com/v1";
+    const NSData *UUID_ENCRYPTED = [[NSData alloc] initWithBase64EncodedString:@"k3S0bg/YQhrBPgWhLW6G6TbA6h3vdU8765lNFR3Fnu3isF/7/r0d+8z0ED85fXSVIzQLGTCR+coiy9vYhvcgmVLUmEMXtJDXNrFoI8qKxYmPH+t0dtao3PyDwGKez06pCfPCV1Vur6/NnTj6aJGeK3qMy8CEFWHF95trARNGaac=" options:0];
+    NSString *m_UUID;
+    mutable digidoc::X509Cert m_cert;
+    mutable NSString *documentNR;
+    UIAlertController *m_alert;
+    mutable bool running = true;
+
+public:
+    SmartID(NSString *account, UIAlertController *alert): documentNR(account), m_alert(alert)
+    {
+        NSData *PKCS12Data = [NSData dataWithContentsOfFile:[NSString stdstring:digidoc::Conf::instance()->PKCS12Cert()]];
+        NSDictionary *options = @{(__bridge NSString *)kSecImportExportPassphrase: [NSString stdstring:digidoc::Conf::instance()->PKCS12Pass()]};
+        CFArrayRef items = nullptr;
+        SecKeyRef privateKey = nullptr;
+        if (SecPKCS12Import((__bridge CFDataRef)PKCS12Data, (__bridge CFDictionaryRef)options, &items) == errSecSuccess) {
+            SecIdentityRef identity = SecIdentityRef(CFDictionaryGetValue(CFDictionaryRef(CFArrayGetValueAtIndex(items, 0)), kSecImportItemIdentity));
+            SecIdentityCopyPrivateKey(identity, &privateKey);
+        } else {
+            NSLog(@"Failed to import PKCS12 certificate");
+        }
+        CFRelease(items);
+
+        if (!privateKey) {
+            NSLog(@"Failed to import PKCS12 certificate");
+        }
+
+        NSMutableData *UUID = [[NSMutableData alloc] initWithLength:SecKeyGetBlockSize(privateKey)];
+        size_t size = UUID.length;
+        SecKeyDecrypt(privateKey, kSecPaddingPKCS1, (const uint8_t*)UUID_ENCRYPTED.bytes, UUID_ENCRYPTED.length, (uint8_t*)UUID.mutableBytes, &size);
+        UUID.length = size;
+        m_UUID = [[NSString alloc] initWithData:UUID encoding:NSUTF8StringEncoding];
+        if (privateKey) {
+            CFRelease(privateKey);
+        }
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [m_alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) { running = false; }]];
+        });
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * 60 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            running = false;
+            [m_alert dismissViewControllerAnimated:YES completion:nil];
+        });
+
+        m_cert = digidoc::X509Cert(sendRequest(
+                                               [NSString stringWithFormat:@"%@/certificatechoice/document/%@", m_url, documentNR],
+                                               @{
+                                                 @"relyingPartyUUID": m_UUID,
+                                                 @"relyingPartyName": @"DigiDoc3",
+                                                 @"certificateLevel": @"ADVANCED",
+                                                 }), digidoc::X509Cert::Der);
+    }
+    digidoc::X509Cert cert() const override
+    {
+        return m_cert;
+    }
+
+    std::vector<unsigned char> sign(const std::string &method, const std::vector<unsigned char> &digest) const override
+    {
+        NSString *digestMethod;
+        if(method == "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256")
+            digestMethod = @"SHA256";
+        else if(method == "http://www.w3.org/2001/04/xmldsig-more#rsa-sha384")
+            digestMethod = @"SHA384";
+        else if(method == "http://www.w3.org/2001/04/xmldsig-more#rsa-sha512")
+            digestMethod = @"SHA512";
+        else
+            throw digidoc::Exception(__FILE__, __LINE__, "Unsupported digest method");
+
+        std::vector<unsigned char> codeDigest(CC_SHA256_DIGEST_LENGTH);
+        CC_SHA256(digest.data(), CC_LONG(digest.size()), codeDigest.data());
+        int code = codeDigest[CC_SHA256_DIGEST_LENGTH - 2] << 8 | codeDigest[CC_SHA256_DIGEST_LENGTH - 1];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            m_alert.message = [NSString stringWithFormat:@"Make sure verification code matches with one in phone screen\nVerification code: %04d", (code % 10000)];
+        });
+
+        return sendRequest(
+                           [NSString stringWithFormat:@"%@/signature/document/%@", m_url, documentNR],
+                           @{
+                             @"relyingPartyUUID": m_UUID,
+                             @"relyingPartyName": @"DigiDoc3",
+                             @"certificateLevel": @"ADVANCED",
+                             @"hash": [[NSData dataWithBytesNoCopy:(void*)digest.data() length:digest.size() freeWhenDone:NO] base64EncodedStringWithOptions:0],
+                             @"hashType": digestMethod,
+                             @"displayText": @"Sign document"
+                             });
+    }
+
+    std::vector<unsigned char> sendRequest(NSString *url, NSDictionary *req) const
+    {
+        static const NSArray *contentType = @[@"application/json", @"application/json-rpc", @"application/json;charset=UTF-8"];
+        NSDictionary *json;
+        NSString *sessionID;
+        NSError *error;
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+        while (true) {
+            [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+            if (req) {
+                request.HTTPMethod = @"POST";
+                request.HTTPBody = [NSJSONSerialization dataWithJSONObject:req options:NSJSONWritingPrettyPrinted error:&error];
+                [request addValue:[NSString stringWithFormat:@"%d", int(request.HTTPBody.length)] forHTTPHeaderField:@"Content-Length"];
+            }
+
+            NSHTTPURLResponse *urlResponse;
+            NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&error];
+
+            if (error) {
+                throw digidoc::Exception(__FILE__, __LINE__, error.localizedDescription.UTF8String);
+            }
+            else if (urlResponse.statusCode == 404 && sessionID == nil) {
+                throw digidoc::Exception(__FILE__, __LINE__, "Account not found");
+            }
+            else if (urlResponse.statusCode == 404 && sessionID != nil) {
+                throw digidoc::Exception(__FILE__, __LINE__, "Request not found");
+            }
+            else if (urlResponse.statusCode != 200) {
+                throw digidoc::Exception(__FILE__, __LINE__, (const char*)data.bytes);
+            }
+            else if (![contentType containsObject:urlResponse.allHeaderFields[@"Content-Type"]]) {
+                throw digidoc::Exception(__FILE__, __LINE__, "Invalid Content-Type header");
+            }
+            json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            if(!running) {
+                digidoc::Exception e(__FILE__, __LINE__, "Signing canceled");
+                e.setCode(digidoc::Exception::PINCanceled);
+                throw e;
+            }
+            else if (error) {
+                throw digidoc::Exception(__FILE__, __LINE__, error.localizedDescription.UTF8String);
+            }
+            else if (sessionID == nil) {
+                sessionID = json[@"sessionID"];
+                request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/session/%@?timeoutMs=10000", m_url, sessionID]]];
+                req = nil;
+            }
+            else if ([json[@"state"] isEqualToString:@"RUNNING"]) {
+                continue;
+            }
+            else if ([json objectForKey:@"signature"] != nil && json[@"signature"] != (id)[NSNull null]) {
+                NSData *b64 = [[NSData alloc] initWithBase64EncodedString:json[@"signature"][@"value"] options:0];
+                return std::vector<unsigned char>((const unsigned char*)b64.bytes, (const unsigned char*)b64.bytes + b64.length);
+            }
+            else if ([json objectForKey:@"cert"] != nil && json[@"cert"] != (id)[NSNull null]) {
+                documentNR = json[@"result"][@"documentNumber"];
+                NSData *b64 = [[NSData alloc] initWithBase64EncodedString:json[@"cert"][@"value"] options:0];
+                return std::vector<unsigned char>((const unsigned char*)b64.bytes, (const unsigned char*)b64.bytes + b64.length);
+            }
+            else if([json[@"result"][@"endResult"] isEqualToString:@"USER_REFUSED"]) {
+                digidoc::Exception e(__FILE__, __LINE__, "Signing canceled");
+                e.setCode(digidoc::Exception::PINCanceled);
+                throw e;
+            }
+            else {
+                NSLog(@"Service result: %@", json[@"result"][@"endResult"]);
+                throw digidoc::Exception(__FILE__, __LINE__, "Failed to sign container");
+            }
+        }
+    }
+};
 
 @interface MoppLibDigidocManager ()
 @end
@@ -389,6 +563,20 @@ void parseException(const digidoc::Exception &e) {
     parseException(e);
     failure([MoppLibError generalError]);  // TODO try to find more specific error codes
   }
+}
+
+- (void)addSignature:(MoppLibContainer *)moppContainer controller:(UIAlertController*)alert smartID:(NSString *)account success:(ContainerBlock)success andFailure:(FailureBlock)failure {
+
+    try {
+        std::unique_ptr<digidoc::Container> doc(digidoc::Container::open(moppContainer.filePath.UTF8String));
+        SmartID *signer = new SmartID(account, alert);
+        doc->sign(signer)->validate();
+        doc->save();
+        success([self getContainerWithPath:moppContainer.filePath]);
+    } catch(const digidoc::Exception &e) {
+        parseException(e);
+        failure([MoppLibError generalError]);  // TODO try to find more specific error codes
+    }
 }
 
 - (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath {

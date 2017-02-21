@@ -21,4 +21,6 @@ extern NSString *const ContainerFormatDdoc;
 + (NSString *)getPhoneNumber;
 + (void)setIDCode:(NSString *)idCode;
 + (NSString *)getIDCode;
++ (void)setSmartID:(NSString*)account;
++ (NSString *)getSmartID;
 @end

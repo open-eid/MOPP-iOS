@@ -25,6 +25,7 @@
 
 - (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId;
 - (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 cert:(NSData *)cert success:(ContainerBlock)success andFailure:(FailureBlock)failure;
+- (void)addSignature:(MoppLibContainer *)moppContainer controller:(UIAlertController*)alert smartID:(NSString *)account success:(ContainerBlock)success andFailure:(FailureBlock)failure;
 - (void)addMobileIDSignatureToContainer:(MoppLibContainer *)moppContainer signature:(NSString *)signature success:(ContainerBlock)success andFailure:(FailureBlock)failure;
 - (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath;
 - (NSString *)getMoppLibVersion;

@@ -17,6 +17,7 @@
 #import "DefaultsHelper.h"
 #import "Constants.h"
 #import <MoppLib/MoppLibConstants.h>
+#import <MoppLib/MoppLibDigidocManager.h>
 #import "FileManager.h"
 
 static NSString *kCountryCodeEstonia = @"+372";
@@ -73,7 +74,10 @@ typedef enum : NSUInteger {
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ContainerDetailsSigningMethodIdCard style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     [self displayCardSignatureAlert];
   }]];
-  
+  [alert addAction:[UIAlertAction actionWithTitle:@"Smart-ID" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [self showSmartID];
+  }]];
+
   [self presentViewController:alert animated:YES completion:nil];
   
 }
@@ -179,6 +183,37 @@ typedef enum : NSUInteger {
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:nil]];
   
   [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)showSmartID {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Sign with Smart-ID" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.text = [DefaultsHelper getSmartID];
+        textField.placeholder = @"PNOEE-47101010027-ABCD-Q";
+        textField.keyboardType = UIKeyboardTypeAlphabet;
+    }];
+    [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UITextField *accountTextField = alert.textFields.firstObject;
+        [DefaultsHelper setIDCode:accountTextField.text];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Signing in progress" message:@"Please activate Smart-ID application" preferredStyle:UIAlertControllerStyleAlert];
+        [self presentViewController:alert animated:YES completion: ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [[MoppLibDigidocManager sharedInstance] addSignature:self.container controller:alert smartID:accountTextField.text success:^(MoppLibContainer *container) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [alert dismissViewControllerAnimated:YES completion:nil];
+                        [self displaySigningSuccessMessage];
+                        self.container = container;
+                        [self.tableView reloadData];
+                    });
+                } andFailure:^(NSError *error) {
+                    [NSNotificationCenter.defaultCenter postNotificationName:kErrorNotificationName object:nil userInfo:@{kErrorKey : error}];
+                }];
+            });
+        }];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:nil]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)displayPhoneNumberError {
