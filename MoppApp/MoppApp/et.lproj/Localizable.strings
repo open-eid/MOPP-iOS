@@ -4,7 +4,7 @@
 // TabBar
 "tab-containers" = "Dokumendid";
 "tab-my-eid" = "Minu eID";
-"tab-sim-settings" = "SIM'i toimingud";
+"tab-sim-settings" = "PIN toimingud";
 "tab-settings" = "Sätted";
 
 // *** Actions ***

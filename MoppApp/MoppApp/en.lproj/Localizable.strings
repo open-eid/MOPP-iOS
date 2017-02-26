@@ -4,7 +4,7 @@
 // TabBar
 "tab-containers" = "Documents";
 "tab-my-eid" = "My eID";
-"tab-sim-settings" = "SIM settings";
+"tab-sim-settings" = "PIN settings";
 "tab-settings" = "Settings";
 
 // *** Actions ***
