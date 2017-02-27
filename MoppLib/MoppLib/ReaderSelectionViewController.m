@@ -75,7 +75,7 @@
   NSString *ok = MLLocalizedString(@"Ok", nil);
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:[NSString stringWithFormat:message, [error localizedDescription]] preferredStyle:UIAlertControllerStyleAlert];
   
-  [alert addAction:[UIAlertAction actionWithTitle:ok style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+  [alert addAction:[UIAlertAction actionWithTitle:ok style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
   }]];
   
   [self presentViewController:alert animated:YES completion:^{

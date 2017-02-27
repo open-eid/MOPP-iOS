@@ -229,7 +229,7 @@
 /// Base translation: Enter details
 - (NSString *)ContainerDetailsIdcodePhoneAlertTitle;
 
-/// Base translation: SIM settings
+/// Base translation: PIN settings
 - (NSString *)TabSimSettings;
 
 /// Base translation: Mobile ID request timeout

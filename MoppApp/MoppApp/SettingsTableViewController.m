@@ -252,7 +252,7 @@ NSString *const CellIdentifier = @"CellIdentifier";
       NSString *containerName = [[FileManager sharedInstance] createTestContainer];
       
       UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Success" message:[NSString stringWithFormat:@"TEST container named \"%@\" has been created. It's now visible under \"%@\" tab.", containerName, Localizations.TabContainers] preferredStyle:UIAlertControllerStyleAlert];
-      [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+      [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
       [self presentViewController:alert animated:YES completion:nil];
       
       break;
@@ -273,7 +273,7 @@ NSString *const CellIdentifier = @"CellIdentifier";
         [DefaultsHelper setIDCode:idCodeTextField.text];
         [self.tableView reloadData];
       }]];
-      [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleDefault handler:nil]];
+      [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:nil]];
       [self presentViewController:alert animated:YES completion:nil];
       break;
     }
@@ -288,7 +288,7 @@ NSString *const CellIdentifier = @"CellIdentifier";
         [DefaultsHelper setPhoneNumber:phoneNumberTextField.text];
         [self.tableView reloadData];
       }]];
-      [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleDefault handler:nil]];
+      [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:nil]];
       [self presentViewController:alert animated:YES completion:nil];
       break;
     }

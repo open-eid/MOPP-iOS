@@ -11,6 +11,7 @@
 #import "MobileIDChallengeViewController.h"
 #import <MoppLib/MoppLibConstants.h>
 #import <MoppLib/MoppLibMobileCreateSignatureResponse.h>
+#import "UIColor+Additions.h"
 
 @interface LandingTabBarController ()
 @property (nonatomic, strong) MobileIDChallengeViewController *currentMobileIDChallengeView;
@@ -21,13 +22,21 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  [[self.viewControllers objectAtIndex:0] setTitle:Localizations.TabContainers];
-  [[self.viewControllers objectAtIndex:1] setTitle:Localizations.TabMyEid];
-  [[self.viewControllers objectAtIndex:2] setTitle:Localizations.TabSimSettings];
-  [[self.viewControllers objectAtIndex:3] setTitle:Localizations.TabSettings];
+  [self.tabBar setTintColor:[UIColor darkBlue]];
   
+  [self setupTabFor:[self.viewControllers objectAtIndex:0] title:Localizations.TabContainers image:@"documentsNormal_2" selectedImage:@"documentsNormal"];
+  [self setupTabFor:[self.viewControllers objectAtIndex:1] title:Localizations.TabMyEid image:@"eIDNormal" selectedImage:@"eIDNormal_2"];
+  [self setupTabFor:[self.viewControllers objectAtIndex:2] title:Localizations.TabSimSettings image:@"pinNormal" selectedImage:@"pinNormal_2"];
+  [self setupTabFor:[self.viewControllers objectAtIndex:3] title:Localizations.TabSettings image:@"settingsNormal" selectedImage:@"settingsNormal_2"];
+
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveMobileCreateSignatureNotification:) name:kCreateSignatureNotificationName object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveErrorNotification:) name:kErrorNotificationName object:nil];
+}
+
+- (void)setupTabFor:(UIViewController *)controller title:(NSString *)title image:(NSString *)image selectedImage:(NSString *)selectedImage {
+  [controller setTitle:Localizations.TabContainers];
+  [[controller tabBarItem] setImage:[UIImage imageNamed:image]];
+  [[controller tabBarItem] setSelectedImage:[UIImage imageNamed:selectedImage]];
 }
 
 - (void)receiveMobileCreateSignatureNotification:(NSNotification *)notification {

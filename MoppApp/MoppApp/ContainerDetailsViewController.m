@@ -91,6 +91,7 @@ typedef enum : NSUInteger {
     textField.placeholder = Localizations.ContainerDetailsName;
     textField.keyboardType = UIKeyboardTypeDefault;
   }];
+
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     
     
@@ -105,6 +106,7 @@ typedef enum : NSUInteger {
     }
   }]];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:nil]];
+
   [self presentViewController:alert animated:YES completion:nil];
 }
 
@@ -167,13 +169,13 @@ typedef enum : NSUInteger {
     if (![[DefaultsHelper getIDCode] isEqualToString:idCodeTextField.text] || ![[DefaultsHelper getPhoneNumber] isEqualToString:phoneNumberTextField.text]) {
       [weakSelf askToPersistMobileIDCredentialsWithIdCode:idCodeTextField.text andPhoneNumber:phoneNumberTextField.text];
     }else if ([self setConsitsOfIdCode:idCodeTextField.text]) {
-      [weakSelf showSignatureAlreadyExistsWarningAlertWithIDCode:idCodeTextField.text andPhoneNumber:phoneNumberWithCountryCode];
+      [weakSelf showSignatureAlreadyExistsWarningAlertWithIDCode:idCodeTextField.text andPhoneNumber:phoneNumberTextField.text];
     }else {
       [weakSelf mobileCreateSignatureWithIDCode:idCodeTextField.text phoneNumber:phoneNumberWithCountryCode];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSettingsChanged object:nil];
   }]];
-  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleDefault handler:nil]];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:nil]];
   
   [self presentViewController:alert animated:YES completion:nil];
 }
@@ -193,7 +195,7 @@ typedef enum : NSUInteger {
     [DefaultsHelper setIDCode:idCode];
     [DefaultsHelper setPhoneNumber:phoneNumber];
   }]];
-  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     [self mobileCreateSignatureWithIDCode:idCode phoneNumber:phoneNumber];
   }]];
   
@@ -206,7 +208,7 @@ typedef enum : NSUInteger {
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     [weakSelf mobileCreateSignatureWithIDCode:idCode phoneNumber:phoneNumber];
   }]];
-  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleDefault handler:nil]];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:nil]];
   
   [self presentViewController:alert animated:YES completion:nil];
 }
@@ -214,6 +216,7 @@ typedef enum : NSUInteger {
   [self showHUD];
   [[MoppLibContainerActions sharedInstance] addSignature:self.container controller:self success:^(MoppLibContainer *container) {
     [self hideHUD];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
     [self displaySigningSuccessMessage];
     self.container = container;
     [self.tableView reloadData];
@@ -534,6 +537,8 @@ typedef enum : NSUInteger {
 
 - (void)receiveAdesSignatureAddedToContainer:(NSNotification *)notification {
   MoppLibContainer *resultContainer = [[notification userInfo] objectForKey:kContainerKey];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:resultContainer}];
+  [self displaySigningSuccessMessage];
   self.container = resultContainer;
   [self.tableView reloadData];
   [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil];
