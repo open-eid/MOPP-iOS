@@ -541,7 +541,6 @@ typedef enum : NSUInteger {
   [self displaySigningSuccessMessage];
   self.container = resultContainer;
   [self.tableView reloadData];
-  [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
