@@ -168,7 +168,7 @@ typedef enum : NSUInteger {
       [DefaultsHelper setPhoneNumber:phoneNumberTextField.text];
     }
     if (![[DefaultsHelper getIDCode] isEqualToString:idCodeTextField.text] || ![[DefaultsHelper getPhoneNumber] isEqualToString:phoneNumberTextField.text]) {
-      [weakSelf askToPersistMobileIDCredentialsWithIdCode:idCodeTextField.text andPhoneNumber:phoneNumberWithCountryCode];
+      [weakSelf askToStoreMobileIDCredentialsWithIdCode:idCodeTextField.text andPhoneNumber:phoneNumberWithCountryCode];
     }else if ([self setConsitsOfIdCode:idCodeTextField.text]) {
       [weakSelf showSignatureAlreadyExistsWarningAlertWithIDCode:idCodeTextField.text andPhoneNumber:phoneNumberTextField.text];
     }else {
@@ -190,8 +190,8 @@ typedef enum : NSUInteger {
   [[MoppLibService sharedInstance] mobileCreateSignatureWithContainer:self.container idCode:idCode language:[self decideLanguageBasedOnPreferredLanguages] phoneNumber:phoneNumber];
 }
 
-- (void)askToPersistMobileIDCredentialsWithIdCode:(NSString *)idCode andPhoneNumber:(NSString *)phoneNumber {
-  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsPersistMobileIdCredentialsAlertTitle message:Localizations.ContainerDetailsPersistMobileIdCredentialsAlertMessage preferredStyle:UIAlertControllerStyleAlert];
+- (void)askToStoreMobileIDCredentialsWithIdCode:(NSString *)idCode andPhoneNumber:(NSString *)phoneNumber {
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsStoreMobileIdCredentialsAlertTitle message:Localizations.ContainerDetailsStoreMobileIdCredentialsAlertMessage preferredStyle:UIAlertControllerStyleAlert];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     [DefaultsHelper setIDCode:idCode];
     [DefaultsHelper setPhoneNumber:phoneNumber];

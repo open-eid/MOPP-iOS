@@ -94,8 +94,8 @@
 /// Base translation: Validity:
 - (NSString *)MyEidValidity;
 
-/// Base translation: Persist credentials
-- (NSString *)ContainerDetailsPersistMobileIdCredentialsAlertTitle;
+/// Base translation: Store credentials
+- (NSString *)ContainerDetailsStoreMobileIdCredentialsAlertTitle;
 
 /// Base translation: %i times
 - (NSString *(^)(int))MyEidTimesUsed;
@@ -268,8 +268,8 @@
 - (NSString *(^)(NSString *))PinActionsUnblockingPin;
 /// Base translation: %@  Please select unsigned document or create new one.
 - (NSString *(^)(NSString *))FileImportInfo;
-/// Base translation: Do you wish to persist entered ID code and phone number for feature uses ? 
-- (NSString *)ContainerDetailsPersistMobileIdCredentialsAlertMessage;
+/// Base translation: Do you wish to store entered ID code and phone number for feature uses ? 
+- (NSString *)ContainerDetailsStoreMobileIdCredentialsAlertMessage;
 
 /// Base translation: ID code
 - (NSString *)SettingsIdCodeTitle;
