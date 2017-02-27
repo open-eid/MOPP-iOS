@@ -555,7 +555,6 @@ typedef enum : NSUInteger {
         self.previewController = [UIDocumentInteractionController interactionControllerWithURL:fileUrl];
         self.previewController.delegate = self;
         [self hideHUD];
-        
         BOOL success = [self.previewController presentPreviewAnimated:YES];
         if (!success) {
           [self.previewController presentOptionsMenuFromRect:self.view.frame inView:self.view animated:YES];
