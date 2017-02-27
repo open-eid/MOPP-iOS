@@ -31,7 +31,7 @@ typedef enum : NSUInteger {
   ContainerDetailsSectionSignature
 } ContainerDetailsSection;
 
-@interface ContainerDetailsViewController ()<UIDocumentInteractionControllerDelegate>
+@interface ContainerDetailsViewController ()<UIDocumentInteractionControllerDelegate, UITextFieldDelegate>
 @property (nonatomic, strong) UIDocumentInteractionController *previewController;
 @property (nonatomic, strong) NSString *tempFilePath;
 @property (nonatomic, strong) NSMutableSet<NSString *> *signatureIdCodes;
@@ -138,6 +138,7 @@ typedef enum : NSUInteger {
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsIdcodePhoneAlertTitle message:Localizations.ContainerDetailsIdcodePhoneAlertMessage preferredStyle:UIAlertControllerStyleAlert];
   [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
     textField.text = [DefaultsHelper getIDCode];
+    textField.delegate = self;
     textField.placeholder = Localizations.ContainerDetailsIdcodePhoneAlertIdcodePlacholder;
     textField.keyboardType = UIKeyboardTypeNumberPad;
   }];
@@ -613,5 +614,20 @@ typedef enum : NSUInteger {
 }
 
 
+#pragma mark - UITextFieldDelegate
+#define MAXLENGTH 11
+
+- (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+  
+  NSUInteger oldLength = [textField.text length];
+  NSUInteger replacementLength = [string length];
+  NSUInteger rangeLength = range.length;
+  
+  NSUInteger newLength = oldLength - rangeLength + replacementLength;
+  
+  BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
+  
+  return newLength <= MAXLENGTH || returnKey;
+}
 
 @end

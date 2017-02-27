@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger, SettingsCellType) {
 
 NSString *const CellIdentifier = @"CellIdentifier";
 
-@interface SettingsTableViewController ()
+@interface SettingsTableViewController ()<UITextFieldDelegate>
 
 @property (strong, nonatomic) NSArray *settingsArray;
 
@@ -265,6 +265,7 @@ NSString *const CellIdentifier = @"CellIdentifier";
     case SettingsCellTypeIDCode: {
       UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.SettingsIdCodeTitle message:Localizations.SettingsIdCodeAlertMessage preferredStyle:UIAlertControllerStyleAlert];
       [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.delegate = self;
         textField.placeholder = Localizations.SettingsIdCodeTitle;
         textField.keyboardType = UIKeyboardTypeNumberPad;
       }];
@@ -299,6 +300,22 @@ NSString *const CellIdentifier = @"CellIdentifier";
 
 - (void)receiveSettingsChangedNotification:(NSNotification *)notification {
   [self.tableView reloadData];
+}
+
+#pragma mark - UITextFieldDelegate
+#define MAXLENGTH 11
+
+- (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+  
+  NSUInteger oldLength = [textField.text length];
+  NSUInteger replacementLength = [string length];
+  NSUInteger rangeLength = range.length;
+  
+  NSUInteger newLength = oldLength - rangeLength + replacementLength;
+  
+  BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
+  
+  return newLength <= MAXLENGTH || returnKey;
 }
 
 @end

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MoppLib/MoppLib.h>
 
-@interface ContainerDetailsViewController : UITableViewController
+@interface ContainerDetailsViewController : UITableViewController 
 
 @property (strong, nonatomic) MoppLibContainer *container;
 
