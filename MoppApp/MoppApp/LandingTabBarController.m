@@ -34,7 +34,7 @@
 }
 
 - (void)setupTabFor:(UIViewController *)controller title:(NSString *)title image:(NSString *)image selectedImage:(NSString *)selectedImage {
-  [controller setTitle:Localizations.TabContainers];
+  [controller setTitle:title];
   [[controller tabBarItem] setImage:[UIImage imageNamed:image]];
   [[controller tabBarItem] setSelectedImage:[UIImage imageNamed:selectedImage]];
 }
