@@ -195,7 +195,9 @@ typedef enum : NSUInteger {
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     [DefaultsHelper setIDCode:idCode];
     [DefaultsHelper setPhoneNumber:phoneNumber];
+    [self mobileCreateSignatureWithIDCode:idCode phoneNumber:phoneNumber];
   }]];
+  
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     [self mobileCreateSignatureWithIDCode:idCode phoneNumber:phoneNumber];
   }]];
