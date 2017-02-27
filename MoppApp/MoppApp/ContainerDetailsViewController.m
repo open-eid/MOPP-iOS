@@ -520,7 +520,6 @@ typedef enum : NSUInteger {
         NSString *idCode = [self getIdCodeFromSubjectNameWithSignature:signature];
         [[MoppLibContainerActions sharedInstance] removeSignature:signature fromContainerWithPath:self.container.filePath success:^(MoppLibContainer *container) {
           [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
-          
           self.container = container;
           [self.tableView reloadData];
           [self removeSignatureIdCodeFromSet:idCode];
@@ -540,6 +539,7 @@ typedef enum : NSUInteger {
   MoppLibContainer *resultContainer = [[notification userInfo] objectForKey:kContainerKey];
   [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:resultContainer}];
   [self displaySigningSuccessMessage];
+  
   self.container = resultContainer;
   [self.tableView reloadData];
 }
