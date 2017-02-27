@@ -44,7 +44,10 @@
 - (void)receiveErrorNotification:(NSNotification *)notification {
   NSError *error = [[notification userInfo] objectForKey:kErrorKey];
   [self.currentMobileIDChallengeView dismissViewControllerAnimated:YES completion:nil];
-  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ErrorAlertTitleGeneral message:[[error userInfo] objectForKey:NSLocalizedDescriptionKey] preferredStyle:UIAlertControllerStyleAlert];
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ErrorAlertTitleGeneral
+                                                                 message:[[error userInfo]
+                                                                          objectForKey:NSLocalizedDescriptionKey]
+                                                          preferredStyle:UIAlertControllerStyleAlert];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:nil]];
   [self presentViewController:alert animated:YES completion:nil];
 }

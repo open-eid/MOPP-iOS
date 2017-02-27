@@ -24,6 +24,7 @@ static NSString *kVersion = @"2.1";
 static NSString *kMessagingMode = @"asynchClientServer";
 static NSString *kDigestType = @"sha256";
 static NSInteger kAsyncConfiguration = 0;
+static NSUInteger kDDsMessageMaximumByteSize = 40;
 
 @implementation MoppLibSOAPManager
 
@@ -71,6 +72,7 @@ static NSInteger kAsyncConfiguration = 0;
     [dataFiles addChild:dataFileDigest];
   }
   [mobileCreateSignature addChildWithName:@"Format" value:kFormat attributes:@{@"xsi:type" : @"xsd:string"}];
+  [mobileCreateSignature addChildWithName:@"MessageToDisplay" value:[self getMessageToDisplayWithMessage:container.fileName] attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"Version" value:kVersion attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"SignatureID" value:container.getNextSignatureId attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"MessagingMode" value:kMessagingMode attributes:@{@"xsi:type" : @"xsd:string"}];
@@ -161,4 +163,15 @@ static NSInteger kAsyncConfiguration = 0;
   }
 }
 
+
+- (NSString *)getMessageToDisplayWithMessage:(NSString *)message {
+  NSData *msgData = [message dataUsingEncoding:NSUTF8StringEncoding];
+  if (msgData.length > kDDsMessageMaximumByteSize) {
+    NSData * modifiedMsgData = [msgData subdataWithRange:NSMakeRange(0, 36)];
+    NSMutableString *resultString = [[NSMutableString alloc] initWithData:modifiedMsgData encoding:NSUTF8StringEncoding];
+    [resultString appendString:@"..."];
+    return resultString;
+  }
+  return message;
+}
 @end

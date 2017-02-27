@@ -167,7 +167,7 @@ typedef enum : NSUInteger {
     if (![[DefaultsHelper getIDCode] isEqualToString:idCodeTextField.text] || ![[DefaultsHelper getPhoneNumber] isEqualToString:phoneNumberTextField.text]) {
       [weakSelf askToPersistMobileIDCredentialsWithIdCode:idCodeTextField.text andPhoneNumber:phoneNumberTextField.text];
     }else if ([self setConsitsOfIdCode:idCodeTextField.text]) {
-      [weakSelf showSignatureAlreadyExistsWarningAlertWithIDCode:idCodeTextField.text andPhoneNumber:phoneNumberTextField.text];
+      [weakSelf showSignatureAlreadyExistsWarningAlertWithIDCode:idCodeTextField.text andPhoneNumber:phoneNumberWithCountryCode];
     }else {
       [weakSelf mobileCreateSignatureWithIDCode:idCodeTextField.text phoneNumber:phoneNumberWithCountryCode];
     }
@@ -534,7 +534,6 @@ typedef enum : NSUInteger {
 
 - (void)receiveAdesSignatureAddedToContainer:(NSNotification *)notification {
   MoppLibContainer *resultContainer = [[notification userInfo] objectForKey:kContainerKey];
-  [self displaySigningSuccessMessage];
   self.container = resultContainer;
   [self.tableView reloadData];
   [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil];
