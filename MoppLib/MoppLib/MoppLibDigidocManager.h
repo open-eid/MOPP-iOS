@@ -17,7 +17,7 @@
 
 - (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure;
 
-- (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath;
+- (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath error:(NSError **)error;
 - (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath;
 - (MoppLibContainer *)addDataFileToContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath;
 - (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex;

@@ -24,9 +24,14 @@
 - (void)getContainerWithPath:(NSString *)containerPath success:(ContainerBlock)success failure:(FailureBlock)failure {
   
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    MoppLibContainer *container = [[MoppLibDigidocManager sharedInstance] getContainerWithPath:containerPath];
+    NSError *error;
+    MoppLibContainer *container = [[MoppLibDigidocManager sharedInstance] getContainerWithPath:containerPath error:&error];
     dispatch_async(dispatch_get_main_queue(), ^{
-      success(container);
+      if (error) {
+        failure(error);
+      } else {
+        success(container);
+      }
     });
   });
 }

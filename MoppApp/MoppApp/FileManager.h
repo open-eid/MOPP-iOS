@@ -17,7 +17,7 @@
 - (NSString *)createTestContainer;
 - (void)removeFileWithName:(NSString *)fileName;
 - (void)removeFileWithPath:(NSString *)filePath;
-- (void)moveFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath overwrite:(BOOL)overwrite;
+- (void)moveFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath overwrite:(BOOL)overwrite error:(NSError **)error;
 - (NSString *)copyFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath;
 - (BOOL)fileExists:(NSString *)sourcePath;
 @end

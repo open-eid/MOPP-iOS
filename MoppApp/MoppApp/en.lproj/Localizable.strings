@@ -67,6 +67,8 @@
 "container-details-attention" = "Attention!";
 "container-details-persist-mobile-id-credentials-alert-title" = "Persist credentials";
 "container-details-persist-mobile-id-credentials-alert-message" = "Do you wish to persist entered ID code and phone number for feature uses ? ";
+"container-details-file-name-too-long" = "Document name too long.";
+"container-details-name-change-failed" = "Failed to change document name.";
 
 // *** My eID ***
 "my-eid-id-card-info" = "ID-kaart on riigi sisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.\n\nID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@";

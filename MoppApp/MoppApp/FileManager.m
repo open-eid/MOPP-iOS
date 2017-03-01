@@ -95,16 +95,17 @@
   return [self.fileManager fileExistsAtPath:sourcePath];
 }
 
-- (void)moveFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath overwrite:(BOOL)overwrite {
+- (void)moveFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath overwrite:(BOOL)overwrite error:(NSError **)error {
   
-  if (overwrite) {
+  if (overwrite && [self fileExists:destinationPath]) {
     [self removeFileWithPath:destinationPath];
   }
   
-  NSError *error;
-  [self.fileManager moveItemAtPath:sourcePath toPath:destinationPath error:&error];
+  NSError *err;
+  [self.fileManager moveItemAtPath:sourcePath toPath:destinationPath error:&err];
   if (error) {
-    MSLog(@"moveFileWithPath error: %@", error);
+    MSLog(@"moveFileWithPath error: %@", err);
+    *error = err;
   }
 }
 

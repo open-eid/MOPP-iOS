@@ -102,7 +102,7 @@ typedef enum : NSUInteger {
     if ([[FileManager sharedInstance] fileExists:newPath]) {
       [self displayFileExistsMessage:newPath fileName:nameTextField.text extension:extension];
     } else {
-      [self moveFileTo:newPath];
+      [self moveFileTo:newPath fileName:nameTextField.text extension:extension];
     }
   }]];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:nil]];
@@ -114,7 +114,7 @@ typedef enum : NSUInteger {
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsAttention message:Localizations.ContainerDetailsFileAlreadyExists preferredStyle:UIAlertControllerStyleAlert];
   
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionYes style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    [self moveFileTo:path];
+    [self moveFileTo:path fileName:name extension:extension];
   }]];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionNo style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     [self displayNameChangeAlertForName:name andExtension:extension];
@@ -122,14 +122,41 @@ typedef enum : NSUInteger {
   [self presentViewController:alert animated:YES completion:nil];
 }
 
-- (void)moveFileTo:(NSString *)path {
-  [[FileManager sharedInstance] moveFileWithPath:self.container.filePath toPath:path overwrite:YES];
+- (void)displayNameTooLongMessage:(NSString *)path fileName:(NSString *)name extension:(NSString *)extension {
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ErrorAlertTitleGeneral message:Localizations.ContainerDetailsFileNameTooLong preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    [self displayNameChangeAlertForName:name andExtension:extension];
+  }]];
+  [self presentViewController:alert animated:YES completion:nil];
+}
+- (void)displayNamechangeFailedMessage:(NSString *)path fileName:(NSString *)name extension:(NSString *)extension {
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ErrorAlertTitleGeneral message:Localizations.ContainerDetailsNameChangeFailed preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    [self displayNameChangeAlertForName:name andExtension:extension];
+  }]];
+  [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)moveFileTo:(NSString *)path fileName:(NSString *)name extension:(NSString *)extension {
+  NSString *oldPath = self.container.filePath;
+  NSError *error;
+  [[FileManager sharedInstance] moveFileWithPath:oldPath toPath:path overwrite:YES error:&error];
+  if (error) {
+    [self displayNameTooLongMessage:path fileName:name extension:extension];
+    return;
+  }
+
   [[MoppLibContainerActions sharedInstance] getContainerWithPath:path success:^(MoppLibContainer *container) {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
     self.container = container;
     [self.tableView reloadData];
   } failure:^(NSError *error) {
-    
+    [[FileManager sharedInstance] moveFileWithPath:path toPath:oldPath overwrite:YES error:&error];
+    if (error.code == moppLibErrorFileNameTooLong) {
+      [self displayNameTooLongMessage:path fileName:name extension:extension];
+    } else {
+      [self displayNamechangeFailedMessage:path fileName:name extension:extension];
+    }
   }];
 }
 

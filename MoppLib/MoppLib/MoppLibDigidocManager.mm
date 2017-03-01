@@ -122,7 +122,7 @@ private:
   });
 }
 
-- (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath {
+- (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath error:(NSError **)error {
   
   // Having two container instances of the same file is causing crashes. Should synchronize all container operations?
   @synchronized (self) {
@@ -138,6 +138,17 @@ private:
       
       doc = digidoc::Container::open(containerPath.UTF8String);
       
+    } catch(const digidoc::Exception &e) {
+      parseException(e);
+      
+      if (e.code() == 63) {
+        *error = [MoppLibError fileNameTooLongError];
+      } else {
+        *error = [MoppLibError generalError];
+      }
+      return nil;
+    }
+    try {
       // DataFiles
       NSMutableArray *dataFiles = [NSMutableArray array];
       
@@ -193,12 +204,16 @@ private:
       
     } catch(const digidoc::Exception &e) {
       parseException(e);
-      delete doc;
+      if (doc != nil) {
+        delete doc;
+      }
+      *error = [MoppLibError generalError];
       return nil;
     }
     
   }
 }
+
 - (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId {
   MLLog(@"dataFileCalculateHashWithDigestMehtod %@", method);
   digidoc::Container *container;
@@ -238,7 +253,8 @@ private:
     parseException(e);
   }
   
-  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath];
+  NSError *error;
+  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error];
   delete container;
   return moppLibContainer;
 }
@@ -259,7 +275,8 @@ private:
     parseException(e);
   }
   
-  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath];
+  NSError *error;
+  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error];
   delete container;
   return moppLibContainer;
 }
@@ -281,7 +298,8 @@ private:
     parseException(e);
   }
   
-  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath];
+  NSError *error;
+  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error];
   delete container;
   return moppLibContainer;
 }
@@ -291,7 +309,8 @@ private:
   NSMutableArray *containers = [NSMutableArray array];
   NSArray *containerPaths = [[MLFileManager sharedInstance] getContainers];
   for (NSString *containerPath in containerPaths) {
-    MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath];
+    NSError *error;
+    MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error];
     
     if (isSigned && [moppLibContainer isSigned]) {
       [containers addObject:moppLibContainer];
@@ -370,7 +389,8 @@ void parseException(const digidoc::Exception &e) {
         signature->extendSignatureProfile(profile);
         signature->validate();
         doc->save();
-        MoppLibContainer *moppLibContainer = [self getContainerWithPath:moppContainer.filePath];
+        NSError *error;
+        MoppLibContainer *moppLibContainer = [self getContainerWithPath:moppContainer.filePath error:&error];
         success(moppLibContainer);
         delete doc;
       } catch(const digidoc::Exception &e) {
@@ -412,7 +432,8 @@ void parseException(const digidoc::Exception &e) {
   }
   delete doc;
   
-  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath];
+  NSError *error;
+  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error];
   return moppLibContainer;
 }
 
@@ -437,7 +458,8 @@ void parseException(const digidoc::Exception &e) {
     container->addAdESSignature(signatureVector);
     container->save();
     MLLog(@"Mobile ID signature added");
-    MoppLibContainer *moppLibContainer = [self getContainerWithPath:moppContainer.filePath];
+    NSError *error;
+    MoppLibContainer *moppLibContainer = [self getContainerWithPath:moppContainer.filePath error:&error];
     success(moppLibContainer);
   } catch(const digidoc::Exception &e) {
     parseException(e);
