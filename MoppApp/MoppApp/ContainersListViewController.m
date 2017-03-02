@@ -105,8 +105,9 @@ typedef enum : NSUInteger {
     self.filteredUnsignedContainers = self.unsignedContainers;
     self.filteredSignedContainers = self.signedContainers;
   } else {
-    self.filteredUnsignedContainers = [self.unsignedContainers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.fileName contains[c] %@", searchString]];
-    self.filteredSignedContainers = [self.signedContainers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.fileName contains[c] %@", searchString]];
+    
+    self.filteredUnsignedContainers = [self.unsignedContainers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.fileNameWithoutExtension contains[c] %@", searchString]];
+    self.filteredSignedContainers = [self.signedContainers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.fileNameWithoutExtension contains[c] %@", searchString]];
   }
   [super filterContainers:searchString];
 }

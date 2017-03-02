@@ -94,16 +94,16 @@
 /// Base translation: Validity:
 - (NSString *)MyEidValidity;
 
-/// Base translation: Store credentials
-- (NSString *)ContainerDetailsStoreMobileIdCredentialsAlertTitle;
-
 /// Base translation: %i times
 - (NSString *(^)(int))MyEidTimesUsed;
+/// Base translation: Changing %@:
+- (NSString *(^)(NSString *))PinActionsVerificationTitle;
 /// Base translation: Invalid phone number
 - (NSString *)ContainerDetailsPhoneNumberErrorAlertTitle;
 
-/// Base translation: Changing %@:
-- (NSString *(^)(NSString *))PinActionsVerificationTitle;
+/// Base translation: Choose signing method
+- (NSString *)ContainerDetailsSigningMethodAlertMessage;
+
 /// Base translation: New container format
 - (NSString *)SettingsNewContainerFormat;
 
@@ -112,9 +112,6 @@
 
 /// Base translation: eID
 - (NSString *)MyEidEid;
-
-/// Base translation: Choose signing method
-- (NSString *)ContainerDetailsSigningMethodAlertMessage;
 
 /// Base translation: Adding signature failed.
 - (NSString *)ContainerDetailsGeneralError;
@@ -125,7 +122,7 @@
 /// Base translation: Delete
 - (NSString *)ActionDelete;
 
-/// Base translation: ID-kaart on riigi sisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.  ID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@
+/// Base translation: ID-card is a compulsory identity document in Estonia. ID-card can be used to travel in Member States of the European Union and the European Economic Area.  The ID-card can be applied for in Service Offices of Police and Border Guard Administration, in foreign representations of the Republic of Estonia, by post or by e-mail. %@
 - (NSString *(^)(NSString *))MyEidIdCardInfo;
 /// Base translation: About
 - (NSString *)SettingsAbout;
@@ -133,7 +130,7 @@
 /// Base translation: File with same name already exists. Do you want to overwrite?
 - (NSString *)ContainerDetailsFileAlreadyExists;
 
-/// Base translation: Here you can change your PIN codes and unblock them if needed. PIN operations need card reader to be connected to your phone.
+/// Base translation: Here you can change your PIN codes and unblock them if needed. PIN operations require a card reader to be connected to your phone.
 - (NSString *)PinActionsInfo;
 
 /// Base translation: New %@ must be different from current %@.
@@ -156,6 +153,9 @@
 
 /// Base translation: %@ has been changed.
 - (NSString *(^)(NSString *))PinActionsSuccessPinChanged;
+/// Base translation: Do you wish to store the entered ID code and phone number for future use ? 
+- (NSString *)ContainerDetailsStoreMobileIdCredentialsAlertMessage;
+
 /// Base translation: Size: %ld kb
 - (NSString *(^)(long))ContainerDetailsDatafileDetails;
 /// Base translation: Citizenship:
@@ -211,7 +211,7 @@
 /// Base translation: Not valid
 - (NSString *)MyEidNotValid;
 
-/// Base translation: Uus %@ peab olema %i-%i - numbriline.
+/// Base translation: New %@ must be %i-%i digits long.
 - (NSString *(^)(NSString *, int, int))PinActionsRulePinLength;
 /// Base translation: Documents
 - (NSString *)TabContainers;
@@ -271,9 +271,6 @@
 - (NSString *(^)(NSString *))PinActionsUnblockingPin;
 /// Base translation: %@  Please select unsigned document or create new one.
 - (NSString *(^)(NSString *))FileImportInfo;
-/// Base translation: Do you wish to store entered ID code and phone number for feature uses ? 
-- (NSString *)ContainerDetailsStoreMobileIdCredentialsAlertMessage;
-
 /// Base translation: ID code
 - (NSString *)SettingsIdCodeTitle;
 
@@ -286,7 +283,7 @@
 /// Base translation: Type in your phone number
 - (NSString *)SettingsPhoneNumberAlertMessage;
 
-/// Base translation: It seems that you have provided invalid phone number
+/// Base translation: It seems that you have provided an invalid phone number
 - (NSString *)ContainerDetailsPhoneNumberErrorAlertMessage;
 
 /// Base translation: Signatures
@@ -306,6 +303,9 @@
 
 /// Base translation: %@ is blocked. You can unblock %@ in %@.
 - (NSString *(^)(NSString *, NSString *, NSString *))MyEidPinBlocked;
+/// Base translation: Store credentials
+- (NSString *)ContainerDetailsStoreMobileIdCredentialsAlertTitle;
+
 /// Base translation: Repeat new %@ code
 - (NSString *(^)(NSString *))PinActionsRepeatPin;
 /// Base translation: Yes
@@ -341,7 +341,7 @@
 /// Base translation: Signture exists
 - (NSString *)ContainerDetailsSignatureAlreadyExistsAlertTitle;
 
-/// Base translation: You need to connect card reader to sign documents.
+/// Base translation: You need to connect a card reader to sign documents.
 - (NSString *)ContainerDetailsReaderNotFound;
 
 /// Base translation: Phone number

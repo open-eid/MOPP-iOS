@@ -37,4 +37,9 @@
   }
   return [NSString stringWithFormat:@"S%d", nextId];
 }
+
+- (NSString *)fileNameWithoutExtension {
+  return [self.fileName stringByDeletingPathExtension];
+}
+
 @end

@@ -20,6 +20,7 @@
 - (BOOL)isEmpty;
 - (BOOL)isDDocType;
 - (BOOL)isAsiceType;
+- (NSString *)fileNameWithoutExtension;
 
 - (NSString *)getNextSignatureId;
 @end
