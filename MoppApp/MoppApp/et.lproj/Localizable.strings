@@ -100,11 +100,6 @@
 "my-eid-pin-blocked" = "%@ on blokeeritud. %@ blokeeringu saad tühistada %@.";
 "my-eid-pin-actions-view" = "PIN'i toimingute vaates";
 
-// *** PIN actions ***
-"pin-actions-change-pin-1" = "Muuda PIN 1";
-"pin-actions-change-pin-2" = "Muuda PIN 2";
-"pin-actions-unblock-pin-1" = "Lukusta lahti PIN 1";
-"pin-actions-unblock-pin-2" = "Lukusta lahti PIN 2";
 
 // *** PIN actions ***
 "pin-actions-pin1" = "PIN1";
