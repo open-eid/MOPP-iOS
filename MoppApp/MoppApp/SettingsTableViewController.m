@@ -184,6 +184,7 @@ NSString *const CellIdentifier = @"CellIdentifier";
     case SettingsCellTypeNewContainerFormat:
       titleLabelText = Localizations.SettingsNewContainerFormat;
       detailLabelText = [DefaultsHelper getNewContainerFormat];
+      cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
       break;
       
     case SettingsCellTypeImportFile:
@@ -192,15 +193,18 @@ NSString *const CellIdentifier = @"CellIdentifier";
       
     case SettingsCellTypeAbout:
       titleLabelText = Localizations.SettingsAbout;
-      detailLabelText = @">";
+      cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+      
       break;
     case SettingsCellTypeIDCode:
       titleLabelText = Localizations.SettingsIdCodeTitle;
       detailLabelText = [DefaultsHelper getIDCode];
+      cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
       break;
     case SettingsCellTypePhoneNumber:
       titleLabelText = Localizations.SettingsPhoneNumberTitle;
       detailLabelText = [DefaultsHelper getPhoneNumber];
+      cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
       break;
     case SettingsCellTypeDuplicateContainer:
       titleLabelText = @"Create duplicate container";
