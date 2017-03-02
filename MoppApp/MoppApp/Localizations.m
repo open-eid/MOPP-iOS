@@ -147,8 +147,8 @@
     return NSLocalizedStringFromTable(@"my-eid-validity", nil, nil);
 }
 
-- (NSString *)ContainerDetailsPersistMobileIdCredentialsAlertTitle {
-    return NSLocalizedStringFromTable(@"container-details-persist-mobile-id-credentials-alert-title", nil, nil);
+- (NSString *)ContainerDetailsStoreMobileIdCredentialsAlertTitle {
+    return NSLocalizedStringFromTable(@"container-details-store-mobile-id-credentials-alert-title", nil, nil);
 }
 
 - (NSString *(^)(int))MyEidTimesUsed {
@@ -433,8 +433,8 @@
     };
 }
 
-- (NSString *)ContainerDetailsPersistMobileIdCredentialsAlertMessage {
-    return NSLocalizedStringFromTable(@"container-details-persist-mobile-id-credentials-alert-message", nil, nil);
+- (NSString *)ContainerDetailsStoreMobileIdCredentialsAlertMessage {
+    return NSLocalizedStringFromTable(@"container-details-store-mobile-id-credentials-alert-message", nil, nil);
 }
 
 - (NSString *)SettingsIdCodeTitle {
