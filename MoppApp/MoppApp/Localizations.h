@@ -247,6 +247,9 @@
 /// Base translation: My eID
 - (NSString *)MyEidMyEid;
 
+/// Base translation: Document name too long.
+- (NSString *)ContainerDetailsFileNameTooLong;
+
 /// Base translation: New %@ code
 - (NSString *(^)(NSString *))PinActionsNewPin;
 /// Base translation: is valid
@@ -288,6 +291,9 @@
 
 /// Base translation: Signatures
 - (NSString *)ContainerDetailsSignatureSectionHeader;
+
+/// Base translation: Failed to change document name.
+- (NSString *)ContainerDetailsNameChangeFailed;
 
 /// Base translation: Edit
 - (NSString *)ActionEdit;

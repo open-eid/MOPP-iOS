@@ -31,7 +31,9 @@ typedef enum {
   moppLibErrorXmlParsingError = 10013, // AEXMLDocument loadXml failed to parse data to XML.
   MoppLibErrorDDSError = 10014, // Error from DDS
   moppLibErrorPinNotProvided = 10015, // User did not provide pin for action that required authentication
-  moppLibErrorPinBlocked = 10016 // User did not provide pin for action that required authentication
+  moppLibErrorPinBlocked = 10016, // User did not provide pin for action that required authentication
+  moppLibErrorFileNameTooLong = 10017 // File name too long
+
 
 } MoppLibErrorCode;
 

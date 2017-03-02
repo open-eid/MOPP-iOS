@@ -89,6 +89,10 @@ typedef enum {
   return [self error:moppLibErrorXmlParsingError];
 }
 
++ (NSError *)fileNameTooLongError {
+    return [self error:moppLibErrorFileNameTooLong];
+}
+
 + (NSError *)DDSErrorWith:(NSInteger)errorCode {
   NSString *errorMessage;
   switch (errorCode) {

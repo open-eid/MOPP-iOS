@@ -391,6 +391,10 @@
     return NSLocalizedStringFromTable(@"my-eid-my-eid", nil, nil);
 }
 
+- (NSString *)ContainerDetailsFileNameTooLong {
+    return NSLocalizedStringFromTable(@"container-details-file-name-too-long", nil, nil);
+}
+
 - (NSString *(^)(NSString *))PinActionsNewPin {
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-new-pin", nil, nil), value1];
@@ -455,6 +459,10 @@
 
 - (NSString *)ContainerDetailsSignatureSectionHeader {
     return NSLocalizedStringFromTable(@"container-details-signature-section-header", nil, nil);
+}
+
+- (NSString *)ContainerDetailsNameChangeFailed {
+    return NSLocalizedStringFromTable(@"container-details-name-change-failed", nil, nil);
 }
 
 - (NSString *)ActionEdit {

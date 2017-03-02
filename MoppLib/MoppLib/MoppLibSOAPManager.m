@@ -61,7 +61,7 @@ static NSUInteger kDDsMessageMaximumByteSize = 40;
   [mobileCreateSignature addChildWithName:@"PhoneNo" value:phoneNo attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"Language" value:nationality attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"ServiceName" value:kServiceName attributes:@{@"xsi:type" : @"xsd:string"}];
-  [mobileCreateSignature addChildWithName:@"SigningProfile" value:@"LT_TM" attributes:nil];
+  [mobileCreateSignature addChildWithName:@"SigningProfile" value:@"LT_TM"attributes:nil];
   AEXMLElement *dataFiles = [[AEXMLElement alloc] initWithName:@"DataFiles" value:nil attributes:@{@"xsi:type" : @"dig:DataFileDigestList"}];
   [mobileCreateSignature addChild:dataFiles];
   for (MoppLibDataFile *file in container.dataFiles) {
@@ -69,6 +69,7 @@ static NSUInteger kDDsMessageMaximumByteSize = 40;
     [dataFileDigest addChildWithName:@"Id" value:file.fileId attributes:@{@"xsi:type" : @"xsd:string"}];
     [dataFileDigest addChildWithName:@"DigestType" value:kDigestType attributes:@{@"xsi:type" : @"xsd:string"}];
     [dataFileDigest addChildWithName:@"DigestValue" value:[[MoppLibDigidocManager sharedInstance] dataFileCalculateHashWithDigestMethod:kDigestMethodSHA256 container:container dataFileId:file.fileId] attributes:@{@"xsi:type" : @"xsd:string"}];
+    [dataFileDigest addChildWithName:@"MimeType" value:file.mediaType attributes:@{@"xsi:type" : @"xsd:string"}];
     [dataFiles addChild:dataFileDigest];
   }
   [mobileCreateSignature addChildWithName:@"Format" value:kFormat attributes:@{@"xsi:type" : @"xsd:string"}];
@@ -173,5 +174,9 @@ static NSUInteger kDDsMessageMaximumByteSize = 40;
     return resultString;
   }
   return message;
+}
+
+- (NSString *)getSignatureProfileWithContainer:(MoppLibContainer *)container {
+  return [container isAsiceType] ? @"LT" : @"LT_TM";
 }
 @end

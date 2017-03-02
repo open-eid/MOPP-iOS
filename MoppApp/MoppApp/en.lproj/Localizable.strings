@@ -67,6 +67,9 @@
 "container-details-attention" = "Attention!";
 "container-details-store-mobile-id-credentials-alert-title" = "Store credentials";
 "container-details-store-mobile-id-credentials-alert-message" = "Do you wish to store the entered ID code and phone number for future use ? ";
+"container-details-file-name-too-long" = "Document name too long.";
+"container-details-name-change-failed" = "Failed to change document name.";
+
 
 // *** My eID ***
 "my-eid-id-card-info" = "ID-card is a compulsory identity document in Estonia. ID-card can be used to travel in Member States of the European Union and the European Economic Area.\n\nThe ID-card can be applied for in Service Offices of Police and Border Guard Administration, in foreign representations of the Republic of Estonia, by post or by e-mail. %@";

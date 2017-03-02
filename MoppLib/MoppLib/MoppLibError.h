@@ -29,4 +29,5 @@ extern NSString *const MoppLibErrorDomain;
 + (NSError *)DDSErrorWith:(NSInteger)errorCode;
 + (NSError *)pinNotProvidedError;
 + (NSError *)pinBlockedError;
++ (NSError *)fileNameTooLongError;
 @end

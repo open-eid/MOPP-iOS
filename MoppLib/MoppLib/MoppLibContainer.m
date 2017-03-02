@@ -22,6 +22,9 @@
 - (BOOL)isDDocType {
   return [self.fileName hasSuffix:@".ddoc"];
 }
+- (BOOL)isAsiceType {
+  return [self.fileName hasSuffix:@".asice"];
+}
 
 - (NSString *)getNextSignatureId {
   NSMutableArray *exitingIds = [[NSMutableArray alloc] init];
