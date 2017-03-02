@@ -96,6 +96,12 @@ typedef enum : NSUInteger {
     
     
     UITextField *nameTextField = [alert.textFields firstObject];
+    
+    if ([name isEqualToString:nameTextField.text]) {
+      // Name wasn't changed
+      return;
+    }
+    
     NSString *newName = [nameTextField.text stringByAppendingString:[NSString stringWithFormat:@".%@", extension]];
     NSString *newPath = [[FileManager sharedInstance] filePathWithFileName:newName];
     
