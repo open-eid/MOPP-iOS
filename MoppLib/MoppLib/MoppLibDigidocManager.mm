@@ -13,6 +13,7 @@
 #include <digidocpp/crypto/X509Cert.h>
 #include <digidocpp/XmlConf.h>
 #include <digidocpp/crypto/Signer.h>
+#include <fstream>
 
 #import "MoppLibDigidocManager.h"
 #import "MoppLibDataFile.h"
@@ -260,11 +261,25 @@ private:
 }
 
 - (MoppLibContainer *)addDataFileToContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath {
+  return [self addDataFileToContainerWithPath:containerPath withDataFilePath:dataFilePath duplicteCount:0];
+}
+
+- (MoppLibContainer *)addDataFileToContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath duplicteCount:(int)count {
   digidoc::Container *container;
+  
+  NSString *fileName = [dataFilePath lastPathComponent];
+  if (count > 0) {
+    NSString *extension = [fileName pathExtension];
+    NSString *withoutExtension = [fileName stringByDeletingPathExtension];
+    fileName = [withoutExtension stringByAppendingString:[NSString stringWithFormat:@"(%i).%@", count, extension]];
+  }
+  std::ifstream *stream;
   try {
     
     container = digidoc::Container::open(containerPath.UTF8String);
-    container->addDataFile(dataFilePath.UTF8String, @"application/octet-stream".UTF8String);
+    stream = new std::ifstream(dataFilePath.UTF8String);
+    
+    container->addDataFile(stream, [fileName lastPathComponent].UTF8String, @"application/octet-stream".UTF8String);
     
     try {
       container->save(containerPath.UTF8String);
@@ -272,12 +287,20 @@ private:
       parseException(e);
     }
   } catch(const digidoc::Exception &e) {
-    parseException(e);
+    NSString *message = [NSString stringWithCString:e.msg().c_str() encoding:NSNonLossyASCIIStringEncoding];
+    
+    // libdigidoc doesn't send specific error code when file with same name already exists.
+    if (e.code() == 0 && [message hasPrefix:@"Document with same file name"]) {
+      return [self addDataFileToContainerWithPath:containerPath withDataFilePath:dataFilePath duplicteCount:count + 1];
+    } else {
+      parseException(e);
+    }
   }
   
-  NSError *error;
-  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error];
+  NSError *error2;
+  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error2];
   delete container;
+
   return moppLibContainer;
 }
 
