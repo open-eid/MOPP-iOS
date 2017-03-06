@@ -17,6 +17,7 @@ NSString *const kThemeWarningBorderColor = @"FBE3BC";
 NSString *const kThemeErrorIconTint = @"EC0821";
 NSString *const kThemeErrorBackgroundColor = @"FFE6E6";
 NSString *const kThemeErrorBorderColor = @"FFCED0";
+NSString *const kThemeSelectedTextColor = @"006FFF";
 
 @implementation UIColor (Additions)
 
@@ -68,6 +69,10 @@ NSString *const kThemeErrorBorderColor = @"FFCED0";
 
 + (UIColor *)errorBorderColor {
   return [self colorFromHexString:kThemeErrorBorderColor];
+}
+
++ (UIColor *)selectedTextColor {
+  return [self colorFromHexString:kThemeSelectedTextColor];
 }
 
 @end

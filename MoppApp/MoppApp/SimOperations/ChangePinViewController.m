@@ -358,11 +358,7 @@ NSInteger repeatedPinDoesntMatch = 20000;
     cell.textLabel.text = Localizations.PinActionsVerificationOption(Localizations.PinActionsPuk);
   }
   
-  if (self.selectedIndexPath.row == indexPath.row) {
-    cell.accessoryType = UITableViewCellAccessoryCheckmark;
-  } else {
-    cell.accessoryType = UITableViewCellAccessoryNone;
-  }
+  [self updateCell:cell selected:self.selectedIndexPath.row == indexPath.row];
   
   return cell;
 }
@@ -372,18 +368,26 @@ NSInteger repeatedPinDoesntMatch = 20000;
   NSArray *cells = [tableView visibleCells];
   for (UITableViewCell *cell in cells) {
     NSIndexPath *cellIndex = [tableView indexPathForCell:cell];
-    if (cellIndex.row == indexPath.row) {
-      cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    } else {
-      cell.accessoryType = UITableViewCellAccessoryNone;
-    }
+    [self updateCell:cell selected:cellIndex.row == indexPath.row];
   }
   
   return indexPath;
 }
 
+- (void)updateCell:(UITableViewCell *)cell selected:(BOOL)isSelected {
+  if (isSelected) {
+    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    cell.textLabel.textColor = [UIColor blueColor];
+    
+  } else {
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.textLabel.textColor = [UIColor blackColor];
+  }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   self.selectedIndexPath = indexPath;
+  
   [self setupViewController];
 }
 

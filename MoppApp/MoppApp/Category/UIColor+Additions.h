@@ -18,4 +18,5 @@
 + (UIColor *)errorIconTint;
 + (UIColor *)errorBackgroundColor;
 + (UIColor *)errorBorderColor;
++ (UIColor *)selectedTextColor;
 @end
