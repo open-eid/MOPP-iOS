@@ -1,3 +1,158 @@
 
-"test_string" = "DemoViewController RU";
+// *** General ***
+// TabBar
+"tab-containers" = "Документы";
+"tab-my-eid" = "Мой eID";
+"tab-sim-settings" = "Операции с PIN кодами";
+"tab-settings" = "Настройки";
+
+// *** Actions ***
+"action-ok" = "OK";
+"action-cancel" = "Отменить";
+"action-delete" = "Удаление";
+"action-edit" = "Edit";
+"action-yes" = "Да";
+"action-no" = "Нет";
+"action-create-new-document" = "Создать новый документ";
+"action-add-to-document" = "Add to existing document";
+
+// *** Signed containers ***
+// General
+"no-containers-cell-title" = "No containers found";
+// List
+"containers-list-search-placeholder" = "Искать";
+"containers-list-section-header-unsigned" = "Unsigned";
+"containers-list-section-header-signed" = "Signed";
+// DataFile import
+"file-import-title" = "Import file";
+"file-import-create-container-button" = "Создать документ";
+"file-import-info" = "%@\n\nPlease select unsigned document or create new one.";
+"file-import-import-failed-alert-title" = "Import failed";
+"file-import-import-failed-alert-message" = "Открытие файла %@ не удалось";
+// Details
+"container-details-title" = "Документ";
+"container-details-header-details" = "Format: %@ | Size: %ld kb";
+"container-details-datafile-section-header" = "Files";
+"container-details-datafile-details" = "Size: %ld kb";
+"container-details-signature-section-header" = "Подписи";
+"container-details-signature-prefix" = "Подпись %@";
+"container-details-signature-valid" = "действительна";
+"container-details-signature-invalid" = "недействительна";
+"container-details-enter-pin" = "Введите PIN2";
+"container-details-general-error" = "Oдписание не удалось.";
+"container-details-signing-success" = "Подпись добавлена.";
+"container-details-signature-added" = "Your signature has been added to the document.";
+"container-details-signature-already-exists" = "Your signature already exists on this document.";
+"container-details-signing-method-alert-title" = "Cпособ подписания";
+"container-details-signing-method-alert-message" = "Выберите способ подписания";
+"container-details-signing-method-mobile-id" = "Mobiil-ID";
+"container-details-signing-method-id-card" = "ID-карта";
+"container-details-idcode-phone-alert-title" = "Enter details";
+"container-details-idcode-phone-alert-message" = "Enter ID code and phone number";
+"container-details-idcode-phone-alert-idcode-placholder" = "Личный код";
+"container-details-idcode-phone-alert-phonenumber-placholder" = "Номер мобильного телефона";
+"container-details-phone-number-error-alert-title" = "Invalid phone number";
+"container-details-phone-number-error-alert-message" = "It seems that you have provided an invalid phone number";
+"container-details-rename-container" = "Rename container";
+"container-details-rename" = "Rename";
+"container-details-enter-new-name" = "Enter new container name";
+"container-details-name" = "Name";
+"container-details-reader-not-found" = "You need to connect a card reader to sign documents.";
+"container-details-card-not-found" = "ID card is missing. Please make sure ID card is inserted correctly.";
+"container-details-pin-not-provided" = "Authentication with PIN code is required for signing.";
+"container-details-signature-already-exists-alert-title" = "Ваша подпись уже есть";
+"container-details-signature-already-exists-alert-message" = "You have already signed the container, are you sure you want to add another signature ?";
+"container-details-file-already-exists" = "File with same name already exists. Do you want to overwrite?";
+"container-details-attention" = "Attention!";
+"container-details-store-mobile-id-credentials-alert-title" = "Store credentials";
+"container-details-store-mobile-id-credentials-alert-message" = "Do you wish to store the entered ID code and phone number for future use ? ";
+"container-details-file-name-too-long" = "Document name too long.";
+"container-details-name-change-failed" = "Failed to change document name.";
+
+
+// *** My eID ***
+"my-eid-id-card-info" = "ID-карта - это внутригосударственный документ, удостоверяющий личность начиная с 15-ти лет. Гражданин Эстонии с ID-картой может путешествовать по Европейскому Союзу и в странах Европейской экономической зоны.\n\nID-карту можете ходатайствовать в Департамента полиции и пограничной охраны, в зарубежных представительствах Эстонской республики, по почте или по электронной посте.. %@";
+"my-eid-warning-card-not-found" = "ID card is not found.\n\nPlease check if ID card is inserted correctly. New ID cards have chip on the back side of the card.";
+"my-eid-warning-reader-not-found" = "Card reader is not connected.\n\nPlease make sure your reader is turned on and %@ to select it.";
+"my-eid-tap-here" = "tap here";
+"my-eid-find-more-info" = "Read more.";
+"my-eid-given-names" = "Имя:";
+"my-eid-surname" = "Фамилия:";
+"my-eid-personal-code" = "Личный номер:";
+"my-eid-birth" = "День рождения:";
+"my-eid-citizenship" = "Гражданство:";
+"my-eid-email" = "Эл. почта:";
+"my-eid-card-in-reader" = "В считывателе карта:";
+"my-eid-valid-until" = "Действителен до:";
+"my-eid-use-count" = "Сертификат использован:";
+"my-eid-validity" = "Validity:";
+"my-eid-valid" = "Действителен";
+"my-eid-not-valid" = "Недействителен";
+"my-eid-valid-until" = "Действителен до:";
+"my-eid-personal-data" = "Personal data";
+"my-eid-times-used" = "%i раза";
+"my-eid-used-once" = "1 раз";
+"my-eid-eid" = "eID";
+"my-eid-signature-certificate" = "Сертификат подписи";
+"my-eid-my-eid" = "Мой eID";
 "my-eid-id-card-info-link" = "https://www.politsei.ee/ru/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/";
+"my-eid-pin-blocked" = "%@ is blocked. You can unblock %@ in %@.";
+"my-eid-pin-actions-view" = "PIN actions view";
+
+
+// *** PIN actions ***
+"pin-actions-pin1" = "PIN1";
+"pin-actions-pin2" = "PIN2";
+"pin-actions-puk" = "PUK";
+"pin-actions-change-pin" = "Изменить %@";
+"pin-actions-unblock-pin" = "Разблокировать  %@";
+"pin-actions-changing-pin" = "Изменение %@";
+"pin-actions-title-unblocking-pin" = "Unblocking %@";
+"pin-actions-current-pin" = "Текущий %@ код";
+"pin-actions-new-pin" = "Новый %@ код";
+"pin-actions-repeat-pin" = "Повторять Новый %@ код";
+"pin-actions-rules-title" = "Rules";
+"pin-actions-rule-different-from-previous" = "Старый и новый %@ должны быть разные.";
+"pin-actions-rule-numbers-only" = "%@ must contain numbers only.";
+"pin-actions-rule-pin-length" = "New %@ must be %i-%i digits long.";
+"pin-actions-rule-forbidden-pins" = "Новый %@ can't be %@, or contain combination of your birthdate.";
+"pin-actions-info" = "Here you can change your PIN codes and unblock them if needed. PIN operations require a card reader to be connected to your phone.";
+"pin-actions-general-error" = "Could not change %@";
+"pin-actions-same-as-current" = "New %@ must be different from current %@.";
+"pin-actions-invalid-format" = "This %@ is not allowed.";
+"pin-actions-wrong-pin-retry" = "Current %@ was wrong. You have %i tries left.";
+"pin-actions-wrong-pin-blocked" = "Current %@ was wrong. %@ has been blocked.";
+"pin-actions-error-title" = "Ошибка";
+"pin-actions-success-title" = "PIN action was successful";
+"pin-actions-success-pin-changed" = "%@ has been changed.";
+"pin-actions-success-pin-unblocked" = "%@ has been changed and unblocked.";
+"pin-actions-verification-title" = "Changing %@:";
+"pin-actions-verification-option" = "Using current %@ code";
+"pin-actions-unblocking-pin" = "Unblocking %@:";
+"pin-actions-repeated-pin-doesnt-match" = "New %@ and repeated %@ are different.";
+"pin-actions-pin-blocked" = "%@ заблокирован.";
+
+
+// *** Settings ***
+"settings-new-container-format" = "Формат файла по умолчанию";
+"settings-application-version" = "Версия";
+"settings-about" = "Около";
+"settings-id-code-title"= "Личный номер";
+"settings-phone-number-title" = "Номер мобильного телефона";
+"settings-id-code-alert-message" = "Введите личный номер";
+"settings-phone-number-alert-message" = "Введите номер мобильного телефона";
+"mobile-id-header-Mobile" = "Mobiil ID";
+
+// *** About ***
+"about-development" = "Software ordered by RIA, developed by Mobi Lab";
+"about-dependencies" = "Additional dependencies";
+
+
+// *** Mobile ID Challenge View ***
+
+"challenge-code-label" = "Code: %@";
+
+// *** Errors ***
+"mobile-id-timeout-message" = "Mobile ID request timeout";
+"error-alert-title-general" = "Failure";
+
