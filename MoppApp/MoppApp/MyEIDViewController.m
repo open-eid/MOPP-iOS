@@ -336,6 +336,7 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
       
     case PersonalDataCellTypeInfo: {
       InfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell" forIndexPath:indexPath];
+      cell.infoTextView.delegate = self;
       [self setupIDCardIntroMessage:cell.infoTextView];
       return cell;
     }
