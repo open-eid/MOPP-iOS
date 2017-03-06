@@ -51,12 +51,12 @@
 "container-details-idcode-phone-alert-message" = "Enter ID code and phone number";
 "container-details-idcode-phone-alert-idcode-placholder" = "Личный код";
 "container-details-idcode-phone-alert-phonenumber-placholder" = "Номер мобильного телефона";
-"container-details-phone-number-error-alert-title" = "Invalid phone number";
-"container-details-phone-number-error-alert-message" = "It seems that you have provided an invalid phone number";
+"container-details-phone-number-error-alert-title" = "Неверный номер телефона";
+"container-details-phone-number-error-alert-message" = "You have provided an invalid phone number";
 "container-details-rename-container" = "Rename container";
 "container-details-rename" = "Rename";
-"container-details-enter-new-name" = "Enter new container name";
-"container-details-name" = "Name";
+"container-details-enter-new-name" = "Введите новое имя контейнера";
+"container-details-name" = "Имя";
 "container-details-reader-not-found" = "You need to connect a card reader to sign documents.";
 "container-details-card-not-found" = "ID card is missing. Please make sure ID card is inserted correctly.";
 "container-details-pin-not-provided" = "Authentication with PIN code is required for signing.";
@@ -89,7 +89,7 @@
 "my-eid-valid" = "Действителен";
 "my-eid-not-valid" = "Недействителен";
 "my-eid-valid-until" = "Действителен до:";
-"my-eid-personal-data" = "Personal data";
+"my-eid-personal-data" = "Личные данные";
 "my-eid-times-used" = "%i раза";
 "my-eid-used-once" = "1 раз";
 "my-eid-eid" = "eID";
@@ -150,7 +150,7 @@
 
 // *** Mobile ID Challenge View ***
 
-"challenge-code-label" = "Code: %@";
+"challenge-code-label" = "Код: %@";
 
 // *** Errors ***
 "mobile-id-timeout-message" = "Mobile ID request timeout";
