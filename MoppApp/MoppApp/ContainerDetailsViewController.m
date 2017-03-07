@@ -248,14 +248,17 @@ typedef enum : NSUInteger {
   
   [self presentViewController:alert animated:YES completion:nil];
 }
+
 - (void)displayCardSignatureAlert {
   [self showHUD];
-  [[MoppLibContainerActions sharedInstance] addSignature:self.container controller:self success:^(MoppLibContainer *container) {
+  [[MoppLibContainerActions sharedInstance] addSignature:self.container controller:self success:^(MoppLibContainer *container, BOOL signatureWasAdded) {
     [self hideHUD];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
-    [self displaySigningSuccessMessage];
-    self.container = container;
-    [self.tableView reloadData];
+    if (signatureWasAdded) {
+      [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
+      [self displaySigningSuccessMessage];
+      self.container = container;
+      [self.tableView reloadData];
+    }
     
   } failure:^(NSError *error) {
     [self hideHUD];
@@ -279,9 +282,6 @@ typedef enum : NSUInteger {
     } else {
       message = Localizations.PinActionsWrongPinRetry(verifyCode, retryCount);
     }
-    
-  } else if(error.code == moppLibErrorSignatureAlreadyExists) {
-    message = Localizations.ContainerDetailsSignatureAlreadyExists;
     
   } else if(error.code == moppLibErrorReaderNotFound) {
     message = Localizations.ContainerDetailsReaderNotFound;

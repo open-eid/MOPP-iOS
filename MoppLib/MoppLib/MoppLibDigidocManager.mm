@@ -351,7 +351,7 @@ void parseException(const digidoc::Exception &e) {
   }
 }
 
-- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 cert:(NSData *)cert success:(ContainerBlock)success andFailure:(FailureBlock)failure {
+- (BOOL)container:(MoppLibContainer *)moppContainer containsSignatureWithCert:(NSData *)cert {
   digidoc::Container *doc;
   
   try {
@@ -368,10 +368,26 @@ void parseException(const digidoc::Exception &e) {
       
       if (x509Cert == signatureCert) {
         delete doc;
-        failure([MoppLibError signatureAlreadyExistsError]);
-        return;
+        return YES;
       }
     }
+    
+  } catch(const digidoc::Exception &e) {
+    delete doc;
+    parseException(e);
+  }
+  return NO;
+
+}
+
+- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 cert:(NSData *)cert success:(ContainerBlock)success andFailure:(FailureBlock)failure {
+  digidoc::Container *doc;
+  
+  try {
+    const unsigned char *bytes = (const unsigned  char *)[cert bytes];
+    digidoc::X509Cert x509Cert = digidoc::X509Cert(bytes, cert.length, digidoc::X509Cert::Format::Der);
+    
+    doc = digidoc::Container::open(moppContainer.filePath.UTF8String);
     
     WebSigner *signer = new WebSigner(x509Cert);
     

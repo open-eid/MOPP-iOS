@@ -79,9 +79,6 @@ typedef enum {
   return [self error:moppLibErrorPinContainsInvalidCharacters];
 }
 
-+ (NSError *)signatureAlreadyExistsError {
-  return [self error:moppLibErrorSignatureAlreadyExists];
-}
 + (NSError *)urlSessionCanceledError {
   return [self error:moppLibErrorUrlSessionCanceled];
 }

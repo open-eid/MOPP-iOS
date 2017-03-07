@@ -93,12 +93,12 @@
   });
 }
 
-- (void)addSignature:(MoppLibContainer *)moppContainer controller:(UIViewController *)controller success:(ContainerBlock)success failure:(FailureBlock)failure {
+- (void)addSignature:(MoppLibContainer *)moppContainer controller:(UIViewController *)controller success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
-    [[CardActionsManager sharedInstance] addSignature:moppContainer controller:controller success:^(MoppLibContainer *container) {
+    [[CardActionsManager sharedInstance] addSignature:moppContainer controller:controller success:^(MoppLibContainer *container, BOOL signatureWasAdded) {
       dispatch_async(dispatch_get_main_queue(), ^{
-        success(container);
+        success(container, signatureWasAdded);
       });
     } failure:^(NSError *error) {
       dispatch_async(dispatch_get_main_queue(), ^{

@@ -23,7 +23,6 @@ extern NSString *const MoppLibErrorDomain;
 + (NSError *)incorrectPinLengthError;
 + (NSError *)tooEasyPinError;
 + (NSError *)pinContainsInvalidCharactersError;
-+ (NSError *)signatureAlreadyExistsError;
 + (NSError *)urlSessionCanceledError;
 + (NSError *)xmlParsingError;
 + (NSError *)DDSErrorWith:(NSInteger)errorCode;

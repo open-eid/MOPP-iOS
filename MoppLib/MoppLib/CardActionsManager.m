@@ -180,16 +180,15 @@ static CardActionsManager *sharedInstance = nil;
   [self addCardAction:CardActionCalculateSignature data:data viewController:controller success:success failure:failure];
 }
 
-- (void)addSignature:(MoppLibContainer *)moppContainer controller:(UIViewController *)controller success:(ContainerBlock)success failure:(FailureBlock)failure {
+- (void)addSignature:(MoppLibContainer *)moppContainer controller:(UIViewController *)controller success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure {
   
   [self code:CodeTypePin2 retryCountWithViewController:controller success:^(NSNumber *count) {
     if (count.intValue > 0) {
       NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:CodeTypePin2]};
       
       [self addCardAction:CardActionVerifyCode data:data viewController:controller success:^(NSString *pin2) {
-        [self signingCertDataWithViewController:controller success:^(NSData *certData) {
-          [[MoppLibDigidocManager sharedInstance] addSignature:moppContainer pin2:pin2 cert:certData success:success andFailure:failure];
-        } failure:failure];
+        [self addSignatureTo:moppContainer controller:controller pin2:pin2 success:success andFailure:failure];
+        
       } failure:^(NSError *error) {
         if (error.code == moppLibErrorWrongPin) {
           int retryCount = [[error.userInfo objectForKey:kMoppLibUserInfoRetryCount] intValue];
@@ -208,6 +207,32 @@ static CardActionsManager *sharedInstance = nil;
       }];
     } else {
       failure([MoppLibError pinBlockedError]);
+    }
+  } failure:failure];
+}
+
+- (void)addSignatureTo:(MoppLibContainer *)moppContainer controller:(UIViewController *)controller pin2:(NSString *)pin2 success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success andFailure:(FailureBlock)failure {
+  [self signingCertDataWithViewController:controller success:^(NSData *certData) {
+    
+    if ([[MoppLibDigidocManager sharedInstance] container:moppContainer containsSignatureWithCert:certData]) {
+      NSString *title = MLLocalizedString(@"signature-already-exists-title", nil);
+      NSString *message = MLLocalizedString(@"signature-already-exists-message", nil);
+      UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+      [alert addAction:[UIAlertAction actionWithTitle:MLLocalizedString(@"action-yes", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[MoppLibDigidocManager sharedInstance] addSignature:moppContainer pin2:pin2 cert:certData success:^(MoppLibContainer *container) {
+          success(container, YES);
+        } andFailure:failure];
+      }]];
+      
+      [alert addAction:[UIAlertAction actionWithTitle:MLLocalizedString(@"action-no", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        success(moppContainer, NO);
+      }]];
+      [controller presentViewController:alert animated:YES completion:nil];
+      
+    } else {
+      [[MoppLibDigidocManager sharedInstance] addSignature:moppContainer pin2:pin2 cert:certData success:^(MoppLibContainer *container) {
+        success(container, YES);
+      } andFailure:failure];
     }
   } failure:failure];
 }

@@ -2,6 +2,8 @@
 // *** Actions ***
 "action-ok" = "OK";
 "action-cancel" = "Tühista";
+"action-yes" = "Jah";
+"action-no" = "Ei";
 
 // *** PIN actions ***
 "pin-actions-pin1" = "PIN1";
@@ -19,6 +21,9 @@
 "Problem connecting %@" = "Seadme ühendamisel tekkis probleem: %@";
 "Error" = "Viga";
 "Ok" = "Ok";
+
+"signature-already-exists-title" = "Allkiri eksisteerib";
+"signature-already-exists-message" = "Dokument on sinu poolt juba allkirjastatud. Kas soovid jätkata?";
 
 // *** Digidoc service status ***
 
