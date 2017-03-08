@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *developmentLabel;
 @property (weak, nonatomic) IBOutlet UITableView *dependencyTableView;
 @property (weak, nonatomic) IBOutlet UILabel *addtionalDepsLabel;
+@property (strong, nonatomic) IBOutlet UIView *tableviewHeader;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerWidthConstraint;
 
 @property (strong, nonatomic) NSArray<DependencyWrapper *> *dependenciesArray;
 @end
@@ -46,12 +48,27 @@
   
   UINib *dependecyCellNib = [UINib nibWithNibName:NSStringFromClass([DependencyTableViewCell class]) bundle:nil];
   [self.dependencyTableView registerNib:dependecyCellNib forCellReuseIdentifier:NSStringFromClass([DependencyTableViewCell class])];
-  // Do any additional setup after loading the view from its nib.
 }
 
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
+}
+
+- (void)viewDidLayoutSubviews {
+  [super viewDidLayoutSubviews];
+  if (self.headerWidthConstraint.constant != self.dependencyTableView.frame.size.width) {
+    self.headerWidthConstraint.constant = self.dependencyTableView.frame.size.width;
+  }
+  
+  if (self.dependencyTableView.tableHeaderView) {
+    CGSize size = [self.dependencyTableView.tableHeaderView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    CGRect frame = self.dependencyTableView.tableHeaderView.frame;
+    if (frame.size.height != size.height) {
+      frame.size.height = size.height;
+      [self.tableviewHeader setFrame:frame];
+    }
+  }
 }
 
 - (void)licenseLinkClicked:(UITapGestureRecognizer *)recognizer{

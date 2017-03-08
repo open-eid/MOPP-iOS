@@ -262,8 +262,7 @@ NSString *const CellIdentifier = @"CellIdentifier";
       break;
     }
     case SettingsCellTypeAbout: {
-      AboutViewController *controller = [[AboutViewController alloc] init];
-      [self.navigationController pushViewController:controller animated:YES];
+      [self performSegueWithIdentifier:@"AboutSegue" sender:self];
       break;
     }
     case SettingsCellTypeIDCode: {

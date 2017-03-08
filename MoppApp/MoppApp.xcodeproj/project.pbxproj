@@ -28,9 +28,9 @@
 		54825EFB1E1D28E900253FF0 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EFA1E1D28E900253FF0 /* UIColor+Additions.m */; };
 		54B1812C1E49F7C9005A0755 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B1812B1E49F7C9005A0755 /* Constants.m */; };
 		54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */; };
+		54EFCE1C1E6F0DF100AE5D46 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54EFCE1B1E6F0DF100AE5D46 /* About.storyboard */; };
 		AE6198581E486C7E0021B18B /* MobileIDChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE6198571E486C7E0021B18B /* MobileIDChallengeViewController.m */; };
 		AEC1646A1E3A0DFD00139C7E /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC164681E3A0DFD00139C7E /* AboutViewController.m */; };
-		AEC1646B1E3A0DFD00139C7E /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEC164691E3A0DFD00139C7E /* AboutViewController.xib */; };
 		AEC1646F1E3A194800139C7E /* DependencyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC1646D1E3A194800139C7E /* DependencyTableViewCell.m */; };
 		AEC164701E3A194800139C7E /* DependencyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEC1646E1E3A194800139C7E /* DependencyTableViewCell.xib */; };
 		AEC164731E3A257100139C7E /* DependencyWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC164721E3A257100139C7E /* DependencyWrapper.m */; };
@@ -124,6 +124,7 @@
 		54B1812A1E49F7C9005A0755 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		54B1812B1E49F7C9005A0755 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Landing.storyboard; sourceTree = "<group>"; };
+		54EFCE1B1E6F0DF100AE5D46 /* About.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = About.storyboard; sourceTree = "<group>"; };
 		6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B5F907F55A4D9D1590D35CB /* Pods-MoppApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.release.xcconfig"; sourceTree = "<group>"; };
 		A0A7AA11ECD67C1248EED708 /* Pods-MoppApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -131,7 +132,6 @@
 		AE6198571E486C7E0021B18B /* MobileIDChallengeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobileIDChallengeViewController.m; sourceTree = "<group>"; };
 		AEC164671E3A0DFD00139C7E /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		AEC164681E3A0DFD00139C7E /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
-		AEC164691E3A0DFD00139C7E /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		AEC1646C1E3A194800139C7E /* DependencyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DependencyTableViewCell.h; sourceTree = "<group>"; };
 		AEC1646D1E3A194800139C7E /* DependencyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DependencyTableViewCell.m; sourceTree = "<group>"; };
 		AEC1646E1E3A194800139C7E /* DependencyTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DependencyTableViewCell.xib; sourceTree = "<group>"; };
@@ -286,7 +286,7 @@
 			children = (
 				AEC164671E3A0DFD00139C7E /* AboutViewController.h */,
 				AEC164681E3A0DFD00139C7E /* AboutViewController.m */,
-				AEC164691E3A0DFD00139C7E /* AboutViewController.xib */,
+				54EFCE1B1E6F0DF100AE5D46 /* About.storyboard */,
 				AEC1646C1E3A194800139C7E /* DependencyTableViewCell.h */,
 				AEC1646D1E3A194800139C7E /* DependencyTableViewCell.m */,
 				AEC1646E1E3A194800139C7E /* DependencyTableViewCell.xib */,
@@ -565,11 +565,11 @@
 				E4C53F371E2FAE6C00F209BE /* image.jpg in Resources */,
 				E43BD8111E3A121A00F6C39D /* ddocTest.ddoc in Resources */,
 				E45EF5431E2D8D8000C37D43 /* ContainerCell.xib in Resources */,
+				54EFCE1C1E6F0DF100AE5D46 /* About.storyboard in Resources */,
 				E42B08A61E1D4EE900EA24A3 /* test1.bdoc in Resources */,
 				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,
 				E43BD80F1E3A121100F6C39D /* asiceTest.asice in Resources */,
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
-				AEC1646B1E3A0DFD00139C7E /* AboutViewController.xib in Resources */,
 				542DCB641E1FDFC900899534 /* PinOperations.storyboard in Resources */,
 				E4C53F551E30D88500F209BE /* NoContainersCell.xib in Resources */,
 				540786F41E1AA1B30016ABA7 /* SimpleHeaderView.xib in Resources */,

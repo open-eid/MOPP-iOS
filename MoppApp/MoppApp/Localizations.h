@@ -319,7 +319,7 @@
 /// Base translation: PIN1
 - (NSString *)PinActionsPin1;
 
-/// Base translation: You have already signed the container, are you sure you want to add another signature ?
+/// Base translation: You have already signed the container, are you sure you want to add another signature?
 - (NSString *)ContainerDetailsSignatureAlreadyExistsAlertMessage;
 
 /// Base translation: Signature added
