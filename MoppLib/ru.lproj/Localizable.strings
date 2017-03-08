@@ -13,12 +13,12 @@
 "container-details-enter-pin1" = "Введите PIN1";
 "container-details-enter-pin2" = "Введите PIN2";
 "container-details-enter-puk" = "Введите PUK";
-"pin-actions-wrong-pin-retry" = "Current %@ was wrong. Осталось попыток: %i";
+"pin-actions-wrong-pin-retry" = "Текущий% @ был неправильным. Осталось попыток: %i";
 
-"Select reader" = "Select reader";
+"Select reader" = "Выберите устройство для чтения ID-карт";
 "Cancel" = "Отменить";
-"Connect reader message" = "Card reader is not connected. Please make sure your reader is active and select reader.";
-"Problem connecting %@" = "There was a problem connecting your reader: %@";
+"Connect reader message" = "Устройство чтения ID-карт не подключено. Убедитесь, что устройство активно и выберите правильное устройство.";
+"Problem connecting %@" = "Не удалось подключиться к вашему устройству чтения ID-карт: %@";
 "Error" = "Ошибка";
 "Ok" = "Ok";
 
@@ -33,7 +33,7 @@
 "digidoc-service-status-request-mid-not-ready" = "Mobiil-ID недоступен, попробуйте позже";
 "digidoc-service-status-request-phone-absent" = "Телефон выключен или находится вне зоны доступа";
 "digidoc-service-status-request-sending-error" = "Ошибка SIM-приложения";
-"digidoc-service-status-request-sim-error" = "SIM application error";
+"digidoc-service-status-request-sim-error" = "Ошибка SIM-приложения";
 "digidoc-service-status-request-not-valid" = "Цифровая подпись недействительна";
 "digidoc-service-status-request-revoked-certificate" = "Сертификаты отозваны";
 "digidoc-service-status-request-internal-error" = "Техническая ошибка";
