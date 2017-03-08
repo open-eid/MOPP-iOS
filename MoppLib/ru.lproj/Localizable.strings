@@ -1,1 +1,60 @@
 
+// Reader selection
+
+// *** Actions ***
+"action-ok" = "OK";
+"action-cancel" = "Отменить";
+
+// *** PIN actions ***
+"pin-actions-pin1" = "PIN1";
+"pin-actions-pin2" = "PIN2";
+"pin-actions-puk" = "PUK";
+
+"container-details-enter-pin1" = "Введите PIN1";
+"container-details-enter-pin2" = "Введите PIN2";
+"container-details-enter-puk" = "Введите PUK";
+"pin-actions-wrong-pin-retry" = "Текущий% @ был неправильным. Осталось попыток: %i";
+
+"Select reader" = "Выберите устройство для чтения ID-карт";
+"Cancel" = "Отменить";
+"Connect reader message" = "Устройство чтения ID-карт не подключено. Убедитесь, что устройство активно и выберите правильное устройство.";
+"Problem connecting %@" = "Не удалось подключиться к вашему устройству чтения ID-карт: %@";
+"Error" = "Ошибка";
+"Ok" = "Ok";
+
+// *** Digidoc service status ***
+
+"digidoc-service-status-request-sent" = "Запрос на подпись отправлен";
+"digidoc-service-status-request-ok" = "Запрос принят";
+"digidoc-service-status-request-expired-transaction" = "Превышение лимита времени запроса";
+"digidoc-service-status-request-user-cancel" = "Пользователь прервал";
+"digidoc-service-status-request-signature" = "Подпись получена";
+"digidoc-service-status-request-outstanding-transaction" = "Запрос незакончен";
+"digidoc-service-status-request-mid-not-ready" = "Mobiil-ID недоступен, попробуйте позже";
+"digidoc-service-status-request-phone-absent" = "Телефон выключен или находится вне зоны доступа";
+"digidoc-service-status-request-sending-error" = "Ошибка SIM-приложения";
+"digidoc-service-status-request-sim-error" = "Ошибка SIM-приложения";
+"digidoc-service-status-request-not-valid" = "Цифровая подпись недействительна";
+"digidoc-service-status-request-revoked-certificate" = "Сертификаты отозваны";
+"digidoc-service-status-request-internal-error" = "Техническая ошибка";
+
+
+
+// ** Mobile ID faults ***
+"digidoc-service-error-unknown" = "Неизвестная ошибка при подписании с помощю Mobiil-ID";
+"digidoc-service-error-general" = "Ошибка, что-то пошло не так! попробуйте позже";
+"digidoc-service-error-incorrect-parameters" = "Неверный номер телефона или/и личный код, не Эстонские номера телефонов должны начинаться с кода страны";
+"digidoc-service-error-missing-parameters" = "Отсутствует номер телефона или/и личный код";
+"digidoc-service-error-ocsp-unauthorized" = "Сервис мобильной подписи недоступен";
+"digidoc-service-error-general-service" = "Ошибка сервиса DigiDoc, попробуйте позже";
+"digidoc-service-error-missing-user-certificate" = "Отсутствует сертификат пользователя";
+"digidoc-service-error-certificate-validity-unknown" = "Невозможно проверить действительность сертификата";
+"digidoc-service-error-session-locked" = "Сессия мобильной подписи заблокирована, попробуйте позже";
+"digidoc-service-error-general-user" = "Ошабка приложения Mobiil-ID в телефоне пользователя";
+"digidoc-service-error-not-mobile-id-user" = "Не пользователь Mobiil-ID";
+"digidoc-service-error-user-certificate-revoked" = "Ваш сертификат цифровой подписи отозван";
+"digidoc-service-error-user-certificate-status-unknown" = "Статус Вашего сертификата цифровой подписи неизвестен";
+"digidoc-service-error-user-certificate-suspended" = "Ваш сертификат цифровой подписи временно приостановлен";
+"digidoc-service-error-user-certificate-expired" = "Срок действительности Вашего сертификата цифровой подписи истек";
+"digidoc-service-error-message-exceeds-volume-limit" = "Слишком много файлов в контейнере";
+"digidoc-service-error-simlutaneous-requests-limit-exceeded" = "Превышен лимит подобный запросов";
