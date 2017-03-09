@@ -225,13 +225,13 @@ typedef enum : NSUInteger {
 
 - (void)askToStoreMobileIDCredentialsWithIdCode:(NSString *)idCode andPhoneNumber:(NSString *)phoneNumber {
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsStoreMobileIdCredentialsAlertTitle message:Localizations.ContainerDetailsStoreMobileIdCredentialsAlertMessage preferredStyle:UIAlertControllerStyleAlert];
-  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionYes style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     [DefaultsHelper setIDCode:idCode];
     [DefaultsHelper setPhoneNumber:phoneNumber];
     [self mobileCreateSignatureWithIDCode:idCode phoneNumber:phoneNumber];
   }]];
   
-  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionNo style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     [self mobileCreateSignatureWithIDCode:idCode phoneNumber:phoneNumber];
   }]];
   
