@@ -53,6 +53,8 @@
 		54DC0E021E0D48C900C62B3D /* MoppLibError.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0E001E0D48C900C62B3D /* MoppLibError.m */; };
 		54DC0E051E1250A200C62B3D /* MoppLibCardActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0E031E1250A200C62B3D /* MoppLibCardActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54DC0E061E1250A200C62B3D /* MoppLibCardActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0E041E1250A200C62B3D /* MoppLibCardActions.m */; };
+		54E085EA1E71A63C00431F1A /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 54E085E81E71A63C00431F1A /* Reachability.h */; };
+		54E085EB1E71A63C00431F1A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E085E91E71A63C00431F1A /* Reachability.m */; };
 		54E1DB571E44939D0060A250 /* SwiftTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E1DB561E44939D0060A250 /* SwiftTestCase.swift */; };
 		54E1DB5C1E44A9060060A250 /* MoppLibManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 54E1DB5A1E44A9060060A250 /* MoppLibManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54E1DB5D1E44A9060060A250 /* MoppLibManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E1DB5B1E44A9060060A250 /* MoppLibManager.m */; };
@@ -166,6 +168,8 @@
 		54DC0E001E0D48C900C62B3D /* MoppLibError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibError.m; sourceTree = "<group>"; };
 		54DC0E031E1250A200C62B3D /* MoppLibCardActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibCardActions.h; sourceTree = "<group>"; };
 		54DC0E041E1250A200C62B3D /* MoppLibCardActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibCardActions.m; sourceTree = "<group>"; };
+		54E085E81E71A63C00431F1A /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		54E085E91E71A63C00431F1A /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		54E1DB551E44939C0060A250 /* MoppLibTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoppLibTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		54E1DB561E44939D0060A250 /* SwiftTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftTestCase.swift; sourceTree = "<group>"; };
 		54E1DB5A1E44A9060060A250 /* MoppLibManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibManager.h; sourceTree = "<group>"; };
@@ -323,6 +327,16 @@
 			name = CardActions;
 			sourceTree = "<group>";
 		};
+		54E085E71E71A61900431F1A /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				54E085E81E71A63C00431F1A /* Reachability.h */,
+				54E085E91E71A63C00431F1A /* Reachability.m */,
+			);
+			name = Reachability;
+			path = MoppLib/Reachability;
+			sourceTree = "<group>";
+		};
 		A80A16CFB65AE0AF2A553445 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -381,6 +395,7 @@
 		E4250CDD1E09695100530370 = {
 			isa = PBXGroup;
 			children = (
+				54E085E71E71A61900431F1A /* Reachability */,
 				54D1FF821E4DA075006BF123 /* PrefixHeader.pch */,
 				54D1FF751E4CB6AD006BF123 /* Localizable.strings */,
 				AE0A84431E4338A700CC1465 /* MobileID */,
@@ -504,6 +519,7 @@
 				54DC0E051E1250A200C62B3D /* MoppLibCardActions.h in Headers */,
 				E42B08C91E1F11C100EA24A3 /* MoppLibSignature.h in Headers */,
 				54DC0DFD1E0D196D00C62B3D /* CardActionsManager.h in Headers */,
+				54E085EA1E71A63C00431F1A /* Reachability.h in Headers */,
 				54DC0DED1E0BD6E300C62B3D /* ABTBluetoothReaderManager.h in Headers */,
 				54DC0DEB1E0BD6E300C62B3D /* ABTAcr3901us1Reader.h in Headers */,
 				54DC0DCE1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.h in Headers */,
@@ -759,6 +775,7 @@
 				545CF8421E13F30300B66EE8 /* EstEIDv3_4.m in Sources */,
 				5451117B1E13C52900296B80 /* EstEIDv3_5.m in Sources */,
 				54DC0DCF1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.m in Sources */,
+				54E085EB1E71A63C00431F1A /* Reachability.m in Sources */,
 				AE1069451E4498A6002BAFDA /* Options.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

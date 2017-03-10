@@ -70,6 +70,9 @@
 "container-details-file-name-too-long" = "Document name too long.";
 "container-details-name-change-failed" = "Failed to change document name.";
 
+"container-details-internet-connection-error-title" = "No internet connection";
+"container-details-internet-connection-error-message" = "Internet connection must be available for signing.";
+
 
 // *** My eID ***
 "my-eid-id-card-info" = "ID-card is a compulsory identity document in Estonia. ID-card can be used to travel in Member States of the European Union and the European Economic Area.\n\nThe ID-card can be applied for in Service Offices of Police and Border Guard Administration, in foreign representations of the Republic of Estonia, by post or by e-mail. %@";

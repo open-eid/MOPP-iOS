@@ -75,7 +75,6 @@ typedef enum : NSUInteger {
   }]];
   
   [self presentViewController:alert animated:YES completion:nil];
-  
 }
 
 - (IBAction)editContainerName:(id)sender {
@@ -269,6 +268,7 @@ typedef enum : NSUInteger {
 - (void)displayErrorMessage:(NSError *)error {
   NSString *verifyCode = Localizations.PinActionsPin2;
   NSString *message;
+  NSString *title = Localizations.PinActionsErrorTitle;
   
   BOOL dismissViewcontroller = NO;
   
@@ -295,10 +295,15 @@ typedef enum : NSUInteger {
   } else if(error.code == moppLibErrorPinNotProvided) {
     message = Localizations.ContainerDetailsPinNotProvided;
     
+  } else if(error.code == moppLibErrorNoInternetConnection) {
+    title = Localizations.ContainerDetailsInternetConnectionErrorTitle;
+    message = Localizations.ContainerDetailsInternetConnectionErrorMessage;
+    
   } else {
     message = Localizations.ContainerDetailsGeneralError;
   }
-  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.PinActionsErrorTitle message:message preferredStyle:UIAlertControllerStyleAlert];
+
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     if (dismissViewcontroller) {
       [self.navigationController popViewControllerAnimated:YES];

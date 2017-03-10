@@ -73,6 +73,10 @@
     return NSLocalizedStringFromTable(@"my-eid-email", nil, nil);
 }
 
+- (NSString *)ContainerDetailsInternetConnectionErrorTitle {
+    return NSLocalizedStringFromTable(@"container-details-internet-connection-error-title", nil, nil);
+}
+
 - (NSString *)ContainerDetailsName {
     return NSLocalizedStringFromTable(@"container-details-name", nil, nil);
 }
@@ -451,6 +455,10 @@
 
 - (NSString *)ContainerDetailsPhoneNumberErrorAlertMessage {
     return NSLocalizedStringFromTable(@"container-details-phone-number-error-alert-message", nil, nil);
+}
+
+- (NSString *)ContainerDetailsInternetConnectionErrorMessage {
+    return NSLocalizedStringFromTable(@"container-details-internet-connection-error-message", nil, nil);
 }
 
 - (NSString *)ContainerDetailsSignatureSectionHeader {

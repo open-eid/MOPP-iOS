@@ -82,12 +82,17 @@ typedef enum {
 + (NSError *)urlSessionCanceledError {
   return [self error:moppLibErrorUrlSessionCanceled];
 }
+
 + (NSError *)xmlParsingError {
   return [self error:moppLibErrorXmlParsingError];
 }
 
 + (NSError *)fileNameTooLongError {
     return [self error:moppLibErrorFileNameTooLong];
+}
+
++ (NSError *)noInternetConnectionError {
+  return [self error:moppLibErrorNoInternetConnection];
 }
 
 + (NSError *)DDSErrorWith:(NSInteger)errorCode {

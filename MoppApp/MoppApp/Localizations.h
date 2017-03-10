@@ -51,6 +51,9 @@
 /// Base translation: E-mail:
 - (NSString *)MyEidEmail;
 
+/// Base translation: No internet connection
+- (NSString *)ContainerDetailsInternetConnectionErrorTitle;
+
 /// Base translation: Name
 - (NSString *)ContainerDetailsName;
 
@@ -285,6 +288,9 @@
 
 /// Base translation: It seems that you have provided an invalid phone number
 - (NSString *)ContainerDetailsPhoneNumberErrorAlertMessage;
+
+/// Base translation: Internet connection must be available for signing.
+- (NSString *)ContainerDetailsInternetConnectionErrorMessage;
 
 /// Base translation: Signatures
 - (NSString *)ContainerDetailsSignatureSectionHeader;

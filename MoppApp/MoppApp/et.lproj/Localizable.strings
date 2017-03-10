@@ -70,6 +70,8 @@
 "container-details-file-name-too-long" = "Dokumendi nimi on liiga pikk.";
 "container-details-name-change-failed" = "Dokumendi nime muutmine ebaõnnestus.";
 
+"container-details-internet-connection-error-title" = "Internetiühendus puudub";
+"container-details-internet-connection-error-message" = "Allkirja andmiseks on vajalik internetiühendus.";
 
 // *** My eID ***
 "my-eid-id-card-info" = "ID-kaart on riigi sisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.\n\nID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@";

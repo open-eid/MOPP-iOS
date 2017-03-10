@@ -9,6 +9,8 @@
 #import "MoppLibContainerActions.h"
 #import "MoppLibDigidocManager.h"
 #import "CardActionsManager.h"
+#import "Reachability.h"
+#import "MoppLibError.h"
 
 @implementation MoppLibContainerActions
 
@@ -94,6 +96,14 @@
 }
 
 - (void)addSignature:(MoppLibContainer *)moppContainer controller:(UIViewController *)controller success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure {
+  
+  Reachability *reachability = [Reachability reachabilityForInternetConnection];
+  NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+  if (networkStatus == NotReachable) {
+    failure([MoppLibError noInternetConnectionError]);
+    return;
+  }
+  
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
     [[CardActionsManager sharedInstance] addSignature:moppContainer controller:controller success:^(MoppLibContainer *container, BOOL signatureWasAdded) {

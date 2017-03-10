@@ -31,7 +31,9 @@ typedef enum {
   MoppLibErrorDDSError = 10014, // Error from DDS
   moppLibErrorPinNotProvided = 10015, // User did not provide pin for action that required authentication
   moppLibErrorPinBlocked = 10016, // User did not provide pin for action that required authentication
-  moppLibErrorFileNameTooLong = 10017 // File name too long
+  moppLibErrorFileNameTooLong = 10017, // File name too long
+  moppLibErrorNoInternetConnection = 10018 // No internet connection
+
 
 
 } MoppLibErrorCode;

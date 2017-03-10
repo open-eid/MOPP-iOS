@@ -86,7 +86,7 @@
 - (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(void(^)(void))success failure:(FailureBlock)failure;
 
 /**
- * Adds signature to container. If document has already been signed byt this user, they will be given an opportunity to cancel signing. If they cancel, signatureWasAdded will be set to NO in success block.
+ * Adds signature to container. If document has already been signed by this user, they will be given an opportunity to cancel signing. If they cancel, signatureWasAdded will be set to NO in success block.\n\nInternet connection is needed for signing containers. 
  *
  * @param moppContainer    Container that will get new signature.
  * @param controller    UIViewController for displaying alerts if needed.
