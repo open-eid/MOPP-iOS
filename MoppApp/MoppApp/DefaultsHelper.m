@@ -16,6 +16,7 @@ NSString *const ContainerFormatDdoc = @"ddoc";
 NSString *const kNewContainerFormatKey = @"kNewContainerFormatKey";
 NSString *const kPhoneNumberKey = @"kPhoneNumberKey";
 NSString *const kIDCodeKey = @"kIDCodeKey";
+NSString *const kSmartIDKey = @"kSmartIDKey";
 
 
 @implementation DefaultsHelper
@@ -46,6 +47,15 @@ NSString *const kIDCodeKey = @"kIDCodeKey";
 + (NSString *)getIDCode {
   NSString *idCode = [[NSUserDefaults standardUserDefaults] objectForKey:kIDCodeKey];
   return idCode;
+}
+
++ (void)setSmartID:(NSString *)account {
+    [[NSUserDefaults standardUserDefaults] setObject:account forKey:kSmartIDKey];
+}
+
++ (NSString *)getSmartID {
+    NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:kSmartIDKey];
+    return account;
 }
 
 @end
