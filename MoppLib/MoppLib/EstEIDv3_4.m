@@ -289,18 +289,18 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   NSData *trailerData = [response responseTrailerData];
   const unsigned char *trailer = [trailerData bytes];
   
-  if (trailer[0] == 0x90 && trailer[1] == 0x00) {
+  if (trailerData.length >= 2 && trailer[0] == 0x90 && trailer[1] == 0x00) {
     // Action was completed successfully. No error here
     return nil;
     
-  } else if (trailer[0] == 0x63) {
+  } else if (trailerData.length >= 1 && trailer[0] == 0x63) {
     //  For pin codes this means verification failed due to wrong pin
     NSString *dataHex = [trailerData toHexString];
     // Last char in trailer holds retry count
     NSString *retryCount = [dataHex substringFromIndex:dataHex.length - 1];
     return [MoppLibError wrongPinErrorWithRetryCount:retryCount.intValue];
     
-  } else if (trailer[0] == 0x6A && trailer[1] == 0x80) {
+  } else if (trailerData.length >= 2 && trailer[0] == 0x6A && trailer[1] == 0x80) {
     // New pin is invalid
     return [MoppLibError invalidPinError];
   }
@@ -312,14 +312,17 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   return ^void (void) {
     
     [self.reader transmitCommand:[NSString stringWithFormat:kCommandReadRecord, record] success:^(NSData *responseObject) {
+      NSData *trailerData = [responseObject responseTrailerData];
       const unsigned char *trailer = [[responseObject responseTrailerData] bytes];
       
-      if (trailer[0] == 0x90 && trailer[1] == 0x00) {
+      if (trailerData.length >= 2 && trailer[0] == 0x90 && trailer[1] == 0x00) {
         success(responseObject);
         
-      } else if (trailer[0] == 0x61) {
+      } else if (trailerData.length >= 1 && trailer[0] == 0x61) {
         NSData *length = [responseObject subdataWithRange:NSMakeRange(responseObject.length - 1, 1)];
         [self.reader transmitCommand:[NSString stringWithFormat:kCommandReadBytes, [length toHexString]] success:success failure:failure];
+      } else {
+        failure([MoppLibError generalError]);
       }
       
     } failure:failure];

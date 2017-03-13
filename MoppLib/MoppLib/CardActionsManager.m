@@ -321,15 +321,15 @@ static CardActionsManager *sharedInstance = nil;
                 NSData *trailerData = [responseObject responseTrailerData];
                 const unsigned char *trailer = [trailerData bytes];
                 
-                if (trailer[0] == 0x90 && trailer[1] == 0x00) {
+                if (trailerData.length >= 2 && trailer[0] == 0x90 && trailer[1] == 0x00) {
                   const unsigned char *responseBytes = [responseObject bytes];
 
-                  if (responseBytes[0] == 0x03 && responseBytes[1] == 0x05) {
+                  if (trailerData.length >= 2 && responseBytes[0] == 0x03 && responseBytes[1] == 0x05) {
                     EstEIDv3_5 *handler = [EstEIDv3_5 new];
                     [handler setReader:self.cardReader];
                     self.cardVersionHandler = handler;
                   
-                  } else if (responseBytes[0] == 0x03 && responseBytes[1] == 0x04) {
+                  } else if (trailerData.length >= 2 && responseBytes[0] == 0x03 && responseBytes[1] == 0x04) {
                     EstEIDv3_4 *handler = [EstEIDv3_4 new];
                     [handler setReader:self.cardReader];
                     self.cardVersionHandler = handler;

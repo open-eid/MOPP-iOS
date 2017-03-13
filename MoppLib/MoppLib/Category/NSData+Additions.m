@@ -33,11 +33,18 @@
 }
 
 - (NSData *)responseTrailerData {
-  return [self subdataWithRange:NSMakeRange(self.length - 2, 2)];
+  if (self.length >= 2) {
+    return [self subdataWithRange:NSMakeRange(self.length - 2, 2)];
+
+  }
+  return [NSData new];
 }
 
 - (NSData *)trimmedData {
-  return  [self subdataWithRange:NSMakeRange(0, self.length - 2)];
+  if (self.length > 2) {
+    return  [self subdataWithRange:NSMakeRange(0, self.length - 2)];
+  }
+  return [NSData new];
 }
 
 - (NSString *)responseString {
