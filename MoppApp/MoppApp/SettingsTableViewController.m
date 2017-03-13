@@ -39,12 +39,19 @@ NSString *const CellIdentifier = @"CellIdentifier";
   
   [self setTitle:Localizations.TabSettings];
   
-  self.settingsArray = @[@[@(SettingsCellTypeNewContainerFormat)],
-                         @[@(SettingsCellTypeApplicationVersion)],
-                         @[@(SettingsCellTypeAbout)],
-                         @[@(SettingsCellTypeIDCode),@(SettingsCellTypePhoneNumber)],
-                         @[@(SettingsCellTypeImportFile),
+  NSMutableArray *settings = [NSMutableArray arrayWithArray:@[@[@(SettingsCellTypeNewContainerFormat)],
+                                                              @[@(SettingsCellTypeApplicationVersion)],
+                                                              @[@(SettingsCellTypeAbout)],
+                                                              @[@(SettingsCellTypeIDCode),@(SettingsCellTypePhoneNumber)]
+                                                              ]];
+  
+#ifdef DEBUG
+  
+  [settings addObject:@[@(SettingsCellTypeImportFile),
                            @(SettingsCellTypeDuplicateContainer)]];
+#endif
+  self.settingsArray = settings;
+  
   [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSettingsChangedNotification:) name:kNotificationSettingsChanged object:nil];
 }
