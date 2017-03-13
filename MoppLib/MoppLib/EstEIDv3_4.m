@@ -359,7 +359,7 @@ int maxReadLength = 254;
     [self.reader transmitCommand:[NSString stringWithFormat:kCommandSelectFile, name] success:^(NSData *responseObject) {
       NSString *marker = @"85";
       NSRange markerLocation = [responseObject rangeOfData:[marker toHexData] options:nil range:NSMakeRange(0, responseObject.length)];
-      if (markerLocation.location != NSNotFound) {
+      if (markerLocation.location != NSNotFound && markerLocation.location < responseObject.length) {
         
         NSData *bytesData = [responseObject subdataWithRange:NSMakeRange(markerLocation.location + 1, 1)];
         int bytesLength = [[bytesData toHexString] hexToInt];
@@ -369,6 +369,8 @@ int maxReadLength = 254;
         [self readBinaryWithLength:length startingFrom:0 readData:[NSData new] success:^(NSData *data) {
           success(data);
         } failure:failure];
+      } else {
+          failure([MoppLibError generalError]);
       }
     } failure:failure];
   };

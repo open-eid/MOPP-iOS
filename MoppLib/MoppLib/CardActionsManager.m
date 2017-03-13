@@ -646,16 +646,18 @@ NSString *blockBackupCode = @"00001";
 
 - (void)cancelledReaderSelection {
   if (self.isExecutingAction) {
-    CardActionObject *action = [self.cardActions firstObject];
-    action.failureBlock([MoppLibError readerNotFoundError]);
-    
-    [self clearActions];
+    [self clearActionsWithError:[MoppLibError readerNotFoundError]];
   }
 }
 
-- (void)clearActions {
+- (void)clearActionsWithError:(NSError *)error {
   self.isExecutingAction = NO;
-  [self.cardActions removeAllObjects];
+  
+  while (self.cardActions.count > 0) {
+    CardActionObject *action = [self.cardActions firstObject];
+    action.failureBlock([MoppLibError readerNotFoundError]);
+    [self.cardActions removeObject:action];
+  }
 }
 
 #pragma mark - CBManagerHelperDelegate
@@ -668,7 +670,7 @@ NSString *blockBackupCode = @"00001";
   [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
   
   //Making sure we don't get stuck with some action, that can't be completed anymore
-  [self clearActions];
+  [self clearActionsWithError:[MoppLibError readerNotFoundError]];
 }
 
 #pragma mark - CardReaderWrapperDelegate
@@ -679,7 +681,7 @@ NSString *blockBackupCode = @"00001";
   if (status == CardStatusAbsent) {
     //Making sure we don't get stuck with some action, that can't be completed anymore
     [self.cardReader resetReader];
-    [self clearActions];
+    [self clearActionsWithError:[MoppLibError cardNotFoundError]];
   }
 }
 @end
