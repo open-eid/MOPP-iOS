@@ -22,7 +22,7 @@
 		545CF8571E16928600B66EE8 /* CBManagerHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 545CF8551E16928600B66EE8 /* CBManagerHelper.h */; };
 		545CF8581E16928600B66EE8 /* CBManagerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8561E16928600B66EE8 /* CBManagerHelper.m */; };
 		5463DA481E127150008A1714 /* ReaderSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5463DA451E127150008A1714 /* ReaderSelectionViewController.m */; };
-		5463DA491E127150008A1714 /* ReaderSelectionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5463DA461E127150008A1714 /* ReaderSelectionViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5463DA491E127150008A1714 /* ReaderSelectionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5463DA461E127150008A1714 /* ReaderSelectionViewController.h */; };
 		5463DA4C1E12927A008A1714 /* CardCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 5463DA4A1E12927A008A1714 /* CardCommands.h */; };
 		5463DA4D1E12927A008A1714 /* CardCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 5463DA4B1E12927A008A1714 /* CardCommands.m */; };
 		546E57611E2E07C7009A568D /* PinVerificationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 546E57601E2E07C7009A568D /* PinVerificationTests.m */; };
@@ -510,11 +510,11 @@
 				54E1DB5C1E44A9060060A250 /* MoppLibManager.h in Headers */,
 				AEC2CC421E3B8B7800A0B869 /* MoppLibSOAPManager.h in Headers */,
 				E42B08CD1E1F136A00EA24A3 /* MoppLibDigidocManager.h in Headers */,
+				5463DA491E127150008A1714 /* ReaderSelectionViewController.h in Headers */,
 				54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */,
 				542DCB6C1E23968000899534 /* MoppLibPinActions.h in Headers */,
 				545111721E13BBA800296B80 /* MoppLibPersonalData.h in Headers */,
 				AE12A8731E51956900B0B03E /* MLCertificateHelper.h in Headers */,
-				5463DA491E127150008A1714 /* ReaderSelectionViewController.h in Headers */,
 				E42B08B51E1F0B3B00EA24A3 /* MoppLibContainer.h in Headers */,
 				54DC0E051E1250A200C62B3D /* MoppLibCardActions.h in Headers */,
 				E42B08C91E1F11C100EA24A3 /* MoppLibSignature.h in Headers */,
