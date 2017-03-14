@@ -64,6 +64,9 @@
 /// Base translation: Read more.
 - (NSString *)MyEidFindMoreInfo;
 
+/// Base translation: Send crash report?
+- (NSString *)CrashlyticsTitle;
+
 /// Base translation: Birth:
 - (NSString *)MyEidBirth;
 
@@ -72,6 +75,9 @@
 
 /// Base translation: Signature %@
 - (NSString *(^)(NSString *))ContainerDetailsSignaturePrefix;
+/// Base translation: Always send
+- (NSString *)CrashlyticsActionAlwaysSend;
+
 /// Base translation: Error
 - (NSString *)PinActionsErrorTitle;
 
@@ -219,21 +225,27 @@
 /// Base translation: Documents
 - (NSString *)TabContainers;
 
+/// Base translation: Don’t send
+- (NSString *)CrashlyticsActionDoNotSend;
+
 /// Base translation: New %@ can't be %@, or contain combination of your birthdate.
 - (NSString *(^)(NSString *, NSString *))PinActionsRuleForbiddenPins;
 /// Base translation: This %@ is not allowed.
 - (NSString *(^)(NSString *))PinActionsInvalidFormat;
-/// Base translation: Create new document
-- (NSString *)ActionCreateNewDocument;
-
 /// Base translation: ID card is missing. Please make sure ID card is inserted correctly.
 - (NSString *)ContainerDetailsCardNotFound;
+
+/// Base translation: Create new document
+- (NSString *)ActionCreateNewDocument;
 
 /// Base translation: Enter details
 - (NSString *)ContainerDetailsIdcodePhoneAlertTitle;
 
 /// Base translation: PIN settings
 - (NSString *)TabSimSettings;
+
+/// Base translation: Send
+- (NSString *)CrashlyticsActionSend;
 
 /// Base translation: Mobile ID request timeout
 - (NSString *)MobileIdTimeoutMessage;
@@ -266,6 +278,9 @@
 
 /// Base translation: PIN action was successful
 - (NSString *)PinActionsSuccessTitle;
+
+/// Base translation: Hey. Looks like we crashed! Please help us fix the problem by sending a crash report.
+- (NSString *)CrashlyticsMessage;
 
 /// Base translation: 1 time
 - (NSString *)MyEidUsedOnce;

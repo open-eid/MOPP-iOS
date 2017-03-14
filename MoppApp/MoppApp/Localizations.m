@@ -97,6 +97,10 @@
     return NSLocalizedStringFromTable(@"my-eid-find-more-info", nil, nil);
 }
 
+- (NSString *)CrashlyticsTitle {
+    return NSLocalizedStringFromTable(@"crashlytics-title", nil, nil);
+}
+
 - (NSString *)MyEidBirth {
     return NSLocalizedStringFromTable(@"my-eid-birth", nil, nil);
 }
@@ -109,6 +113,10 @@
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"container-details-signature-prefix", nil, nil), value1];
     };
+}
+
+- (NSString *)CrashlyticsActionAlwaysSend {
+    return NSLocalizedStringFromTable(@"crashlytics-action-always-send", nil, nil);
 }
 
 - (NSString *)PinActionsErrorTitle {
@@ -347,6 +355,10 @@
     return NSLocalizedStringFromTable(@"tab-containers", nil, nil);
 }
 
+- (NSString *)CrashlyticsActionDoNotSend {
+    return NSLocalizedStringFromTable(@"crashlytics-action-do-not-send", nil, nil);
+}
+
 - (NSString *(^)(NSString *, NSString *))PinActionsRuleForbiddenPins {
     return ^(NSString * value1 , NSString * value2) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-rule-forbidden-pins", nil, nil), value1, value2];
@@ -359,12 +371,12 @@
     };
 }
 
-- (NSString *)ActionCreateNewDocument {
-    return NSLocalizedStringFromTable(@"action-create-new-document", nil, nil);
-}
-
 - (NSString *)ContainerDetailsCardNotFound {
     return NSLocalizedStringFromTable(@"container-details-card-not-found", nil, nil);
+}
+
+- (NSString *)ActionCreateNewDocument {
+    return NSLocalizedStringFromTable(@"action-create-new-document", nil, nil);
 }
 
 - (NSString *)ContainerDetailsIdcodePhoneAlertTitle {
@@ -373,6 +385,10 @@
 
 - (NSString *)TabSimSettings {
     return NSLocalizedStringFromTable(@"tab-sim-settings", nil, nil);
+}
+
+- (NSString *)CrashlyticsActionSend {
+    return NSLocalizedStringFromTable(@"crashlytics-action-send", nil, nil);
 }
 
 - (NSString *)MobileIdTimeoutMessage {
@@ -419,6 +435,10 @@
 
 - (NSString *)PinActionsSuccessTitle {
     return NSLocalizedStringFromTable(@"pin-actions-success-title", nil, nil);
+}
+
+- (NSString *)CrashlyticsMessage {
+    return NSLocalizedStringFromTable(@"crashlytics-message", nil, nil);
 }
 
 - (NSString *)MyEidUsedOnce {

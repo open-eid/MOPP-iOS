@@ -6,6 +6,13 @@
 "tab-sim-settings" = "Операции с PIN кодами";
 "tab-settings" = "Настройки";
 
+// Crashlytics
+"crashlytics-title" = "Send crash report?";
+"crashlytics-message" = "Looks like we crashed! Please help us fix the problem by sending a crash report.";
+"crashlytics-action-send" = "Send";
+"crashlytics-action-always-send" = "Always send";
+"crashlytics-action-do-not-send" = "Don’t send";
+
 // *** Actions ***
 "action-ok" = "OK";
 "action-cancel" = "Отменить";

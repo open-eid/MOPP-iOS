@@ -20,12 +20,13 @@
 #import <Crashlytics/Crashlytics.h>
 #import "Constants.h"
 
-@interface AppDelegate ()
+@interface AppDelegate () <CrashlyticsDelegate>
 
 @property (strong, nonatomic) LandingTabBarController *tabBarController;
 @property (strong, nonatomic) NSURL *tempUrl;
 @property (strong, nonatomic) NSString *sourceApplication;
 @property (strong, nonatomic) id annotation;
+@property (nonatomic, copy) void (^crashReportCompletion)(BOOL);
 @end
 
 @implementation AppDelegate
@@ -36,6 +37,7 @@
   
   [[UINavigationBar appearance] setTranslucent:NO]; // Set navBar not translucent by default.
   
+  [CrashlyticsKit setDelegate:self];
   [Fabric with:@[[Crashlytics class]]];
 
   self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -54,6 +56,14 @@
   return YES;
 }
 
+- (void)crashlyticsDidDetectReportForLastExecution:(CLSReport *)report completionHandler:(void (^)(BOOL))completionHandler {
+  if ([[DefaultsHelper crashReportSetting] isEqualToString:CrashlyticsAlwaysSend]) {
+    completionHandler(YES);
+  } else {
+    self.crashReportCompletion = completionHandler;
+  }
+}
+
 - (void)setupTabController {
   self.tabBarController = [[UIStoryboard storyboardWithName:@"Landing" bundle:nil] instantiateInitialViewController];
   self.window.rootViewController = self.tabBarController;
@@ -64,6 +74,30 @@
     self.sourceApplication = nil;
     self.annotation = nil;
   }
+  
+  if (self.crashReportCompletion) {
+    [self displayCrashReportDialog];
+  }
+}
+
+- (void)displayCrashReportDialog {
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.CrashlyticsTitle message:Localizations.CrashlyticsMessage preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.CrashlyticsActionSend style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    self.crashReportCompletion(YES);
+    self.crashReportCompletion = nil;
+  }]];
+  
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.CrashlyticsActionAlwaysSend style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [DefaultsHelper setCrashReportSetting:CrashlyticsAlwaysSend];
+    self.crashReportCompletion(YES);
+    self.crashReportCompletion = nil;
+  }]];
+  
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.CrashlyticsActionDoNotSend style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    self.crashReportCompletion(NO);
+    self.crashReportCompletion = nil;
+  }]];
+  [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {

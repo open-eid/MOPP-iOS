@@ -12,11 +12,15 @@ NSString *const ContainerFormatBdoc = @"bdoc";
 NSString *const ContainerFormatAsice = @"asice";
 NSString *const ContainerFormatDdoc = @"ddoc";
 
+NSString *const CrashlyticsAlwaysSend = @"Always";
+NSString *const CrashlyticsNeverSend = @"Never";
+NSString *const CrashlyticsDefault = @"Default";
+
 // Keys
 NSString *const kNewContainerFormatKey = @"kNewContainerFormatKey";
 NSString *const kPhoneNumberKey = @"kPhoneNumberKey";
 NSString *const kIDCodeKey = @"kIDCodeKey";
-
+NSString *const kCrashReportSettingKey = @"kCrashReportSettingKey";
 
 @implementation DefaultsHelper
 
@@ -46,6 +50,14 @@ NSString *const kIDCodeKey = @"kIDCodeKey";
 + (NSString *)getIDCode {
   NSString *idCode = [[NSUserDefaults standardUserDefaults] objectForKey:kIDCodeKey];
   return idCode;
+}
+
++ (void)setCrashReportSetting:(NSString *)setting {
+  return [[NSUserDefaults standardUserDefaults] setObject:setting forKey:kCrashReportSettingKey];
+}
+
++ (NSString *)crashReportSetting {
+  return [[NSUserDefaults standardUserDefaults] objectForKey:kCrashReportSettingKey];
 }
 
 @end

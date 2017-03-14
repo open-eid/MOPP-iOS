@@ -7,6 +7,13 @@
 "tab-sim-settings" = "PIN settings";
 "tab-settings" = "Settings";
 
+// Crashlytics
+"crashlytics-title" = "Send crash report?";
+"crashlytics-message" = "Hey. Looks like we crashed! Please help us fix the problem by sending a crash report.";
+"crashlytics-action-send" = "Send";
+"crashlytics-action-always-send" = "Always send";
+"crashlytics-action-do-not-send" = "Don’t send";
+
 // *** Actions ***
 "action-ok" = "OK";
 "action-cancel" = "Cancel";

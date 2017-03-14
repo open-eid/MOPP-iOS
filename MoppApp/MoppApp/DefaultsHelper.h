@@ -12,6 +12,10 @@ extern NSString *const ContainerFormatBdoc;
 extern NSString *const ContainerFormatAsice;
 extern NSString *const ContainerFormatDdoc;
 
+extern NSString *const CrashlyticsAlwaysSend;
+extern NSString *const CrashlyticsNeverSend;
+extern NSString *const CrashlyticsDefault;
+
 @interface DefaultsHelper : NSObject
 
 // New container format
@@ -21,4 +25,7 @@ extern NSString *const ContainerFormatDdoc;
 + (NSString *)getPhoneNumber;
 + (void)setIDCode:(NSString *)idCode;
 + (NSString *)getIDCode;
+
++ (void)setCrashReportSetting:(NSString *)setting;
++ (NSString *)crashReportSetting;
 @end
