@@ -327,19 +327,14 @@ private:
   return moppLibContainer;
 }
 
-- (NSArray *)getContainersIsSigned:(BOOL)isSigned {
+- (NSArray *)getContainers {
   
   NSMutableArray *containers = [NSMutableArray array];
   NSArray *containerPaths = [[MLFileManager sharedInstance] getContainers];
   for (NSString *containerPath in containerPaths) {
     NSError *error;
     MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error];
-    
-    if (isSigned && [moppLibContainer isSigned]) {
-      [containers addObject:moppLibContainer];
-    } else if (!isSigned && ![moppLibContainer isSigned]){
-      [containers addObject:moppLibContainer];
-    }
+    [containers addObject:moppLibContainer];
   }
   return containers;
 }

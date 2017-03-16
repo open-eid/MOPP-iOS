@@ -68,9 +68,9 @@
   
 }
 
-- (void)getContainersIsSigned:(BOOL)isSigned success:(void(^)(NSArray *containers))success failure:(FailureBlock)failure {
+- (void)getContainersWithSuccess:(void(^)(NSArray *containers))success failure:(FailureBlock)failure {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    NSArray *containers = [[MoppLibDigidocManager sharedInstance] getContainersIsSigned:isSigned];
+    NSArray *containers = [[MoppLibDigidocManager sharedInstance] getContainers];
     dispatch_async(dispatch_get_main_queue(), ^{
       success(containers);
     });

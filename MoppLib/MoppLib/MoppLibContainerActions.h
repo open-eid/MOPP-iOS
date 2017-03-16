@@ -57,12 +57,11 @@
 /**
  * Gets available containers.
  *
- * @param isSigned    Set YES if you only want to get signed containers, NO if you only want containers that have not been signed by anyone.
  * @param success       Block to be called on successful completion of action. Includes container data as array of MoppLibContainer.
  * @param failure       Block to be called when action fails. Includes error.
  */
-- (void)getContainersIsSigned:(BOOL)isSigned success:(void(^)(NSArray *containers))success failure:(FailureBlock)failure;
-#warning - this method is not very useful for third-party developer as it is. Can we change it into something more reasonable?
+- (void)getContainersWithSuccess:(void(^)(NSArray *containers))success failure:(FailureBlock)failure;
+
 
 
 /**
@@ -94,5 +93,7 @@
  * @param failure       Block to be called when action fails. Includes error.
  */
 - (void)addSignature:(MoppLibContainer *)moppContainer controller:(UIViewController *)controller success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure;
+
+
 
 @end

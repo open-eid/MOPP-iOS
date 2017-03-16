@@ -12,4 +12,8 @@ NSString *const kNotificationContainerChanged = @"Notification - container chang
 
 NSString *const kKeyContainer = @"container";
 
+NSString *const kKeyContainerNew = @"containerNew";
+
+NSString *const kKeyContainerOld = @"containerOld";
+
 NSString *const kNotificationSettingsChanged = @"Notification - settigns changed";

@@ -8,15 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import "MoppLibContainer.h"
+#import "MoppLibConstants.h"
 
 @interface MoppLibService : NSObject
 
 @property (nonatomic) BOOL willPollForSignatureResponse;
 
 
+
 + (MoppLibService *)sharedInstance;
 
-- (void)mobileCreateSignatureWithContainer:(MoppLibContainer *)container idCode:(NSString *)idCode language:(NSString *)language phoneNumber:(NSString *)phoneNumber;
+- (void)mobileCreateSignatureWithContainer:(MoppLibContainer *)container idCode:(NSString *)idCode language:(NSString *)language phoneNumber:(NSString *)phoneNumber withCompletion:(ObjectSuccessBlock)success andStatus:(SignatureStatusBlock)failure;
 
 - (void)cancelMobileSignatureStatusPolling;
 @end

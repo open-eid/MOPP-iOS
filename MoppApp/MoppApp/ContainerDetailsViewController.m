@@ -18,6 +18,7 @@
 #import "Constants.h"
 #import <MoppLib/MoppLibConstants.h>
 #import "FileManager.h"
+#import "Session.h"
 
 static NSString *kCountryCodeEstonia = @"+372";
 static NSString *kCountryCodeEstoniaWithoutPlus = @"372";
@@ -219,7 +220,7 @@ typedef enum : NSUInteger {
   [self presentViewController:alert animated:YES completion:nil];
 }
 - (void)mobileCreateSignatureWithIDCode:(NSString *)idCode phoneNumber:(NSString *)phoneNumber {
-  [[MoppLibService sharedInstance] mobileCreateSignatureWithContainer:self.container idCode:idCode language:[self decideLanguageBasedOnPreferredLanguages] phoneNumber:phoneNumber];
+  [[Session sharedInstance] createMobileSignatureWithContainer:self.container idCode:idCode language:[self decideLanguageBasedOnPreferredLanguages] phoneNumber:phoneNumber];
 }
 
 - (void)askToStoreMobileIDCredentialsWithIdCode:(NSString *)idCode andPhoneNumber:(NSString *)phoneNumber {
@@ -253,7 +254,7 @@ typedef enum : NSUInteger {
   [[MoppLibContainerActions sharedInstance] addSignature:self.container controller:self success:^(MoppLibContainer *container, BOOL signatureWasAdded) {
     [self hideHUD];
     if (signatureWasAdded) {
-      [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
+      [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kNewContainerKey:container, kOldContainerKey: self.container}];
       [self displaySigningSuccessMessage];
       self.container = container;
       [self.tableView reloadData];
@@ -576,11 +577,12 @@ typedef enum : NSUInteger {
 }
 
 - (void)receiveAdesSignatureAddedToContainer:(NSNotification *)notification {
-  MoppLibContainer *resultContainer = [[notification userInfo] objectForKey:kContainerKey];
-  [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:resultContainer}];
+  MoppLibContainer *resultNewContainer = [[notification userInfo] objectForKey:kNewContainerKey];
+  MoppLibContainer *resultOldContainer = [[notification userInfo] objectForKey:kOldContainerKey];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainerNew:resultNewContainer, kKeyContainerOld:resultOldContainer}];
   [self displaySigningSuccessMessage];
   
-  self.container = resultContainer;
+  self.container = resultNewContainer;
   [self.tableView reloadData];
 }
 

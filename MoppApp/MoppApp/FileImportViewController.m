@@ -67,8 +67,14 @@
 }
 
 - (void)reloadData {
-  [[MoppLibContainerActions sharedInstance] getContainersIsSigned:NO success:^(NSArray *containers) {
-    self.unsignedContainers = containers;
+  [[MoppLibContainerActions sharedInstance] getContainersWithSuccess:^(NSArray *containers) {
+    NSMutableArray *unsign = [NSMutableArray array];
+    for (MoppLibContainer *container in containers) {
+      if(!container.isSigned) {
+        [unsign addObject:container];
+      }
+    }
+    self.unsignedContainers = [unsign copy];
     self.filteredUnsignedContainers = self.unsignedContainers;
     [super reloadData];
     

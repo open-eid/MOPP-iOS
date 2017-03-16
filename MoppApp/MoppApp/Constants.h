@@ -12,4 +12,8 @@ extern NSString *const kNotificationContainerChanged;
 
 extern NSString *const kKeyContainer;
 
+extern NSString *const kKeyContainerNew;
+
+extern NSString *const kKeyContainerOld;
+
 extern NSString *const kNotificationSettingsChanged;

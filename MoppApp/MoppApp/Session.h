@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <MoppLib/MoppLib.h>
 @interface Session : NSObject
 
 + (Session *)sharedInstance;
 
 - (void)setup;
 
+- (void)createMobileSignatureWithContainer:(MoppLibContainer *)initialContainer idCode:(NSString *)idCode language:(NSString *)language phoneNumber:(NSString *)phoneNumber;
 @end

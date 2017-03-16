@@ -57,8 +57,38 @@ typedef enum : NSUInteger {
 
 - (void)containerChanged:(NSNotification *)notification {
   // May consider updating just one file
-  //MoppLibContainer *container = [[notification userInfo] objectForKey:kKeyContainer];
-  [self reloadData];
+  MoppLibContainer *newContainer = [[notification userInfo] objectForKey:kKeyContainerNew];
+  MoppLibContainer *oldContainer = [[notification userInfo] objectForKey:kKeyContainerOld];
+  MoppLibContainer *container = [[notification userInfo] objectForKey:kKeyContainer];
+  if (container) {
+    [self reloadData];
+  }else {
+    [self signatureChangeOperationWithNewContainer:newContainer oldContainer:oldContainer];
+  }
+  
+}
+
+-(void)signatureChangeOperationWithNewContainer:(MoppLibContainer *)newContainer oldContainer:(MoppLibContainer *)oldContainer {
+  if(newContainer.isSigned && [self.unsignedContainers containsObject:oldContainer]) {
+    NSMutableArray *mutSigned = [NSMutableArray array];
+    NSMutableArray *mutUnsigned = [NSMutableArray array];
+    mutSigned = [self.signedContainers mutableCopy];
+    mutUnsigned = [self.unsignedContainers mutableCopy];
+    [mutSigned addObject:newContainer];
+    [mutUnsigned removeObject:oldContainer];
+    self.signedContainers = [mutSigned copy];
+    self.unsignedContainers = [mutUnsigned copy];
+  } else if (!newContainer.isSigned && [self.signedContainers containsObject:oldContainer]) {
+    NSMutableArray *mutSigned = [NSMutableArray array];
+    NSMutableArray *mutUnsigned = [NSMutableArray array];
+    mutSigned = [self.signedContainers mutableCopy];
+    mutUnsigned = [self.unsignedContainers mutableCopy];
+    [mutUnsigned addObject:newContainer];
+    [mutSigned removeObject:oldContainer];
+    self.signedContainers = [mutSigned copy];
+    self.unsignedContainers = [mutUnsigned copy];
+  }
+  [super reloadData];
 }
 
 - (void)reloadData {
@@ -72,21 +102,19 @@ typedef enum : NSUInteger {
     [super reloadData];
   };
   
-  void (^loadSigned)(NSArray *) = ^void (NSArray *unsignedContainers) {
-    
-    [[MoppLibContainerActions sharedInstance] getContainersIsSigned:YES success:^(NSArray *containers) {
-      updateValues(unsignedContainers, containers);
-      
-    } failure:^(NSError *error) {
-      updateValues(unsignedContainers, nil);
-    }];
-  };
-  
-  [[MoppLibContainerActions sharedInstance] getContainersIsSigned:NO success:^(NSArray *containers) {
-    loadSigned(containers);
-    
+  [[MoppLibContainerActions sharedInstance] getContainersWithSuccess:^(NSArray *containers) {
+    NSMutableArray *sign = [NSMutableArray array];
+    NSMutableArray *unsign = [NSMutableArray array];
+    for (MoppLibContainer *container in containers) {
+      if(container.isSigned) {
+        [sign addObject:container];
+      } else {
+        [unsign addObject:container];
+      }
+    }
+    updateValues([unsign copy], [sign copy]);
   } failure:^(NSError *error) {
-    loadSigned(nil);
+    updateValues(self.unsignedContainers, self.signedContainers);
   }];
 }
 
