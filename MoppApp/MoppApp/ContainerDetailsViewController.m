@@ -170,19 +170,19 @@ typedef enum : NSUInteger {
   __weak typeof(self) weakSelf = self;
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsIdcodePhoneAlertTitle message:Localizations.ContainerDetailsIdcodePhoneAlertMessage preferredStyle:UIAlertControllerStyleAlert];
   [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-    textField.text = [DefaultsHelper getIDCode];
+    textField.text = [DefaultsHelper getPhoneNumber];
     textField.delegate = self;
-    textField.placeholder = Localizations.ContainerDetailsIdcodePhoneAlertIdcodePlacholder;
+    textField.placeholder = Localizations.ContainerDetailsIdcodePhoneAlertPhonenumberPlacholder;
     textField.keyboardType = UIKeyboardTypeNumberPad;
   }];
   [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-    textField.text = [DefaultsHelper getPhoneNumber];
-    textField.placeholder = Localizations.ContainerDetailsIdcodePhoneAlertPhonenumberPlacholder;
+    textField.text = [DefaultsHelper getIDCode];
+    textField.placeholder = Localizations.ContainerDetailsIdcodePhoneAlertIdcodePlacholder;
     textField.keyboardType = UIKeyboardTypePhonePad;
   }];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    UITextField *idCodeTextField = [alert.textFields firstObject];
-    UITextField *phoneNumberTextField = [alert.textFields objectAtIndex:1];
+    UITextField *phoneNumberTextField = [alert.textFields firstObject];
+    UITextField *idCodeTextField = [alert.textFields objectAtIndex:1];
     NSMutableString *phoneNumberWithCountryCode;
     if (![phoneNumberTextField.text hasPrefix:kCountryCodeEstonia] && ![phoneNumberTextField.text hasPrefix:kCountryCodeEstoniaWithoutPlus] && ![phoneNumberTextField.text hasPrefix:kCountryCodeLithuania] && ![phoneNumberTextField.text hasPrefix:kCountryCodeLithuaniaWithoutPlus]) {
       if([phoneNumberTextField.text hasPrefix:kEstoniaMobileNumberPrefix]) {
