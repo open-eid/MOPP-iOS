@@ -5,7 +5,6 @@ PODS:
   - MBProgressHUD (0.9.2)
   - OCMock (3.4)
   - PureLayout (3.0.2)
-  - SOAPEngine (1.31)
 
 DEPENDENCIES:
   - Crashlytics
@@ -13,7 +12,6 @@ DEPENDENCIES:
   - MBProgressHUD (~> 0.9.2)
   - OCMock
   - PureLayout (~> 3.0.1)
-  - SOAPEngine
 
 SPEC CHECKSUMS:
   Crashlytics: 79e236942ca1e7fc641df1feb9a275360a78ab6a
@@ -21,8 +19,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   OCMock: 35ae71d6a8fcc1b59434d561d1520b9dd4f15765
   PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
-  SOAPEngine: eac166d07cb20579db9a476660d51a0d73271869
 
-PODFILE CHECKSUM: 03687b4f7fb475702ecc95565d44d48819f33673
+PODFILE CHECKSUM: 5e75a06124cf9db5d15c0410255ead0f878001c1
 
 COCOAPODS: 1.2.0
