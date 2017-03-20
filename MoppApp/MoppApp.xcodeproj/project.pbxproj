@@ -15,6 +15,7 @@
 		542DCB641E1FDFC900899534 /* PinOperations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 542DCB631E1FDFC900899534 /* PinOperations.storyboard */; };
 		542DCB671E1FE02900899534 /* PinOperationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 542DCB661E1FE02900899534 /* PinOperationsViewController.m */; };
 		542DCB691E23856100899534 /* ErrorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 542DCB681E23856100899534 /* ErrorCell.xib */; };
+		543FBEBF1E7FC7C4004297A1 /* digidoc.png in Resources */ = {isa = PBXBuildFile; fileRef = 543FBEBE1E7FC7C4004297A1 /* digidoc.png */; };
 		545CF8461E16453300B66EE8 /* MyEIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8451E16453300B66EE8 /* MyEIDViewController.m */; };
 		545CF8481E16563200B66EE8 /* MyEid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545CF8471E16563200B66EE8 /* MyEid.storyboard */; };
 		545CF84B1E165DBA00B66EE8 /* NameAndPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF84A1E165DBA00B66EE8 /* NameAndPhotoCell.m */; };
@@ -101,6 +102,7 @@
 		542DCB651E1FE02900899534 /* PinOperationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinOperationsViewController.h; sourceTree = "<group>"; };
 		542DCB661E1FE02900899534 /* PinOperationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinOperationsViewController.m; sourceTree = "<group>"; };
 		542DCB681E23856100899534 /* ErrorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorCell.xib; sourceTree = "<group>"; };
+		543FBEBE1E7FC7C4004297A1 /* digidoc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc.png; sourceTree = "<group>"; };
 		545CF8441E16453300B66EE8 /* MyEIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIDViewController.h; sourceTree = "<group>"; };
 		545CF8451E16453300B66EE8 /* MyEIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEIDViewController.m; sourceTree = "<group>"; };
 		545CF8471E16563200B66EE8 /* MyEid.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyEid.storyboard; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 				E4C53F351E2FAE6C00F209BE /* image.jpg */,
 				E4C53F361E2FAE6C00F209BE /* presentation.pdf */,
 				E4180C361E26822000FD7B8C /* datafile.txt */,
+				543FBEBE1E7FC7C4004297A1 /* digidoc.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -561,6 +564,7 @@
 				542DCB691E23856100899534 /* ErrorCell.xib in Resources */,
 				54813B301E24FD270058CD33 /* InfoCell.xib in Resources */,
 				545CF8481E16563200B66EE8 /* MyEid.storyboard in Resources */,
+				543FBEBF1E7FC7C4004297A1 /* digidoc.png in Resources */,
 				AEC164701E3A194800139C7E /* DependencyTableViewCell.xib in Resources */,
 				E4C53F371E2FAE6C00F209BE /* image.jpg in Resources */,
 				E43BD8111E3A121A00F6C39D /* ddocTest.ddoc in Resources */,
