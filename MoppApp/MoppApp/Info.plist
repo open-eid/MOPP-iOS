@@ -14,7 +14,7 @@
 				<string>digidoc.png</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string></string>
+			<string>Digidoc file</string>
 			<key>LSHandlerRank</key>
 			<string>Alternate</string>
 			<key>LSItemContentTypes</key>
@@ -79,7 +79,7 @@
 			<array>
 				<string>public.data</string>
 				<string>public.bdoc</string>
-                <string>public.ddoc</string>
+				<string>public.ddoc</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>digidoc container</string>
@@ -90,16 +90,16 @@
 			<key>UTTypeSize64IconFile</key>
 			<string>digidoc</string>
 			<key>UTTypeTagSpecification</key>
-            <dict>
-                <key>ee.ria.bdoc</key>
-                <string>bdoc</string>
-                <key>public.filename-extension</key>
-                <array>
-                    <string>bdoc</string>
-                    <string>asice</string>
-                    <string>ddoc</string>
-                </array>
-            </dict>
+			<dict>
+				<key>ee.ria.bdoc</key>
+				<string>bdoc</string>
+				<key>public.filename-extension</key>
+				<array>
+					<string>bdoc</string>
+					<string>asice</string>
+					<string>ddoc</string>
+				</array>
+			</dict>
 		</dict>
 	</array>
 </dict>
