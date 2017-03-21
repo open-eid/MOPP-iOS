@@ -18,7 +18,7 @@
 #define MSLog(s, ...) //
 #endif
 
-#import "PureLayout.h"
+#import <PureLayout/PureLayout.h>
 #import "Localizations.h"
 
 #endif

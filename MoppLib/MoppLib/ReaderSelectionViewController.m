@@ -7,7 +7,7 @@
 //
 
 #import "ReaderSelectionViewController.h"
-#import "MBProgressHUD.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 #import "CBManagerHelper.h"
 
 @interface ReaderSelectionViewController () <CBManagerHelperDelegate>

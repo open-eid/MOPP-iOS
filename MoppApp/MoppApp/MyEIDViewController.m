@@ -17,7 +17,7 @@
 #import "NSString+Additions.h"
 #import "UIColor+Additions.h"
 #import "DateFormatter.h"
-#import "MBProgressHUD.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 typedef enum : NSUInteger {
   PersonalDataSectionErrors,

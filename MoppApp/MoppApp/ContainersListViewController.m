@@ -15,7 +15,7 @@
 #import <MoppLib/MoppLib.h>
 #import "NoContainersCell.h"
 #import "Constants.h"
-#import "MBProgressHUD.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 typedef enum : NSUInteger {
   ContainersListSectionUnsigned,
