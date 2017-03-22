@@ -27,6 +27,73 @@
 		54825EF51E1CFE9600253FF0 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF41E1CFE9600253FF0 /* NSDate+Additions.m */; };
 		54825EF81E1D270F00253FF0 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF71E1D270F00253FF0 /* NSString+Additions.m */; };
 		54825EFB1E1D28E900253FF0 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EFA1E1D28E900253FF0 /* UIColor+Additions.m */; };
+		54A571FC1E8285AC0099BFAF /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF41E1CFE9600253FF0 /* NSDate+Additions.m */; };
+		54A571FD1E8285AC0099BFAF /* SimpleHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 540786EF1E1A96900016ABA7 /* SimpleHeaderView.m */; };
+		54A571FE1E8285AC0099BFAF /* PinOperationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 542DCB661E1FE02900899534 /* PinOperationsViewController.m */; };
+		54A571FF1E8285AC0099BFAF /* DefaultsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C53F4A1E30D03500F209BE /* DefaultsHelper.m */; };
+		54A572001E8285AC0099BFAF /* MPNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250D141E0AA97B00530370 /* MPNavigationController.m */; };
+		54A572011E8285AC0099BFAF /* ChangePinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54813B2D1E24DD560058CD33 /* ChangePinViewController.m */; };
+		54A572021E8285AC0099BFAF /* DependencyWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC164721E3A257100139C7E /* DependencyWrapper.m */; };
+		54A572031E8285AC0099BFAF /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C53F4D1E30D13100F209BE /* Session.m */; };
+		54A572041E8285AC0099BFAF /* LandingTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08941E15617200EA24A3 /* LandingTabBarController.m */; };
+		54A572051E8285AC0099BFAF /* MobileIDChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE6198571E486C7E0021B18B /* MobileIDChallengeViewController.m */; };
+		54A572061E8285AC0099BFAF /* DependencyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC1646D1E3A194800139C7E /* DependencyTableViewCell.m */; };
+		54A572071E8285AC0099BFAF /* ContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08A91E1D4EF500EA24A3 /* ContainerCell.m */; };
+		54A572081E8285AC0099BFAF /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC164681E3A0DFD00139C7E /* AboutViewController.m */; };
+		54A572091E8285AC0099BFAF /* MPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B088E1E155F2F00EA24A3 /* MPViewController.m */; };
+		54A5720A1E8285AC0099BFAF /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EFA1E1D28E900253FF0 /* UIColor+Additions.m */; };
+		54A5720B1E8285AC0099BFAF /* ContainerDetailsDataFileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08BE1E1F0C9A00EA24A3 /* ContainerDetailsDataFileCell.m */; };
+		54A5720C1E8285AC0099BFAF /* ContainersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E45EF53A1E2D856700C37D43 /* ContainersListViewController.m */; };
+		54A5720D1E8285AC0099BFAF /* PersonalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF84D1E165DCF00B66EE8 /* PersonalDataCell.m */; };
+		54A5720E1E8285AC0099BFAF /* InfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8531E165DFB00B66EE8 /* InfoCell.m */; };
+		54A5720F1E8285AC0099BFAF /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C301E267A6700FD7B8C /* SettingsTableViewController.m */; };
+		54A572101E8285AC0099BFAF /* ContainerDetailsHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08BB1E1F0C8900EA24A3 /* ContainerDetailsHeaderCell.m */; };
+		54A572111E8285AC0099BFAF /* FileImportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E45EF5401E2D8A9300C37D43 /* FileImportViewController.m */; };
+		54A572121E8285AC0099BFAF /* UITextView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.m */; };
+		54A572131E8285AC0099BFAF /* ViewWithRoundedCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = 540786EC1E1A8C650016ABA7 /* ViewWithRoundedCorners.m */; };
+		54A572141E8285AC0099BFAF /* ContainerDetailsSignatureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08C11E1F0CA600EA24A3 /* ContainerDetailsSignatureCell.m */; };
+		54A572151E8285AC0099BFAF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCA1E0968D200530370 /* AppDelegate.m */; };
+		54A572161E8285AC0099BFAF /* ErrorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8501E165DEC00B66EE8 /* ErrorCell.m */; };
+		54A572171E8285AC0099BFAF /* DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08AD1E1EFC1800EA24A3 /* DateFormatter.m */; };
+		54A572181E8285AC0099BFAF /* NoContainersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C53F501E30D7EA00F209BE /* NoContainersCell.m */; };
+		54A572191E8285AC0099BFAF /* ContainerDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08B81E1F0C7500EA24A3 /* ContainerDetailsViewController.m */; };
+		54A5721A1E8285AC0099BFAF /* BaseContainersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E45EF5371E2D855400C37D43 /* BaseContainersListViewController.m */; };
+		54A5721B1E8285AC0099BFAF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E4250CC71E0968D200530370 /* main.m */; };
+		54A5721C1E8285AC0099BFAF /* MyEIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8451E16453300B66EE8 /* MyEIDViewController.m */; };
+		54A5721D1E8285AC0099BFAF /* ButtonWithRoundedCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = E485A7861E2DF9A500C53DBF /* ButtonWithRoundedCorners.m */; };
+		54A5721E1E8285AC0099BFAF /* UIViewController+MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C191E240AC600FD7B8C /* UIViewController+MBProgressHUD.m */; };
+		54A5721F1E8285AC0099BFAF /* NameAndPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF84A1E165DBA00B66EE8 /* NameAndPhotoCell.m */; };
+		54A572201E8285AC0099BFAF /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B1812B1E49F7C9005A0755 /* Constants.m */; };
+		54A572211E8285AC0099BFAF /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF71E1D270F00253FF0 /* NSString+Additions.m */; };
+		54A572221E8285AC0099BFAF /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08B01E1F049B00EA24A3 /* FileManager.m */; };
+		54A572231E8285AC0099BFAF /* InitializationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C53F331E2F950D00F209BE /* InitializationViewController.m */; };
+		54A572241E8285AC0099BFAF /* Localizations.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C341E267B5D00FD7B8C /* Localizations.m */; };
+		54A572261E8285AC0099BFAF /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; };
+		54A572271E8285AC0099BFAF /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
+		54A572291E8285AC0099BFAF /* presentation.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E4C53F361E2FAE6C00F209BE /* presentation.pdf */; };
+		54A5722A1E8285AC0099BFAF /* Containers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E45EF5341E2D850400C37D43 /* Containers.storyboard */; };
+		54A5722B1E8285AC0099BFAF /* datafile.txt in Resources */ = {isa = PBXBuildFile; fileRef = E4180C361E26822000FD7B8C /* datafile.txt */; };
+		54A5722C1E8285AC0099BFAF /* ErrorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 542DCB681E23856100899534 /* ErrorCell.xib */; };
+		54A5722D1E8285AC0099BFAF /* InfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54813B2F1E24FD270058CD33 /* InfoCell.xib */; };
+		54A5722E1E8285AC0099BFAF /* MyEid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545CF8471E16563200B66EE8 /* MyEid.storyboard */; };
+		54A5722F1E8285AC0099BFAF /* digidoc.png in Resources */ = {isa = PBXBuildFile; fileRef = 543FBEBE1E7FC7C4004297A1 /* digidoc.png */; };
+		54A572301E8285AC0099BFAF /* DependencyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEC1646E1E3A194800139C7E /* DependencyTableViewCell.xib */; };
+		54A572311E8285AC0099BFAF /* image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E4C53F351E2FAE6C00F209BE /* image.jpg */; };
+		54A572321E8285AC0099BFAF /* ddocTest.ddoc in Resources */ = {isa = PBXBuildFile; fileRef = E43BD8101E3A121A00F6C39D /* ddocTest.ddoc */; };
+		54A572331E8285AC0099BFAF /* ContainerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E45EF5421E2D8D8000C37D43 /* ContainerCell.xib */; };
+		54A572341E8285AC0099BFAF /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54EFCE1B1E6F0DF100AE5D46 /* About.storyboard */; };
+		54A572351E8285AC0099BFAF /* test1.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E42B08A41E1D4EE900EA24A3 /* test1.bdoc */; };
+		54A572361E8285AC0099BFAF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4250D091E0AA7AF00530370 /* LaunchScreen.xib */; };
+		54A572371E8285AC0099BFAF /* asiceTest.asice in Resources */ = {isa = PBXBuildFile; fileRef = E43BD80E1E3A121100F6C39D /* asiceTest.asice */; };
+		54A572381E8285AC0099BFAF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
+		54A572391E8285AC0099BFAF /* PinOperations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 542DCB631E1FDFC900899534 /* PinOperations.storyboard */; };
+		54A5723A1E8285AC0099BFAF /* NoContainersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4C53F541E30D88500F209BE /* NoContainersCell.xib */; };
+		54A5723B1E8285AC0099BFAF /* SimpleHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 540786F31E1AA1B30016ABA7 /* SimpleHeaderView.xib */; };
+		54A5723C1E8285AC0099BFAF /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */; };
+		54A5723D1E8285AC0099BFAF /* test2.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E42B08A51E1D4EE900EA24A3 /* test2.bdoc */; };
+		54A5723E1E8285AC0099BFAF /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4180C2E1E267A6700FD7B8C /* Settings.storyboard */; };
+		54A5723F1E8285AC0099BFAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4250CD21E0968D200530370 /* Assets.xcassets */; };
+		54A572441E8285AC0099BFAF /* MoppLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		54B1812C1E49F7C9005A0755 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B1812B1E49F7C9005A0755 /* Constants.m */; };
 		54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */; };
 		54EFCE1C1E6F0DF100AE5D46 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54EFCE1B1E6F0DF100AE5D46 /* About.storyboard */; };
@@ -77,6 +144,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		54A572431E8285AC0099BFAF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				54A572441E8285AC0099BFAF /* MoppLib.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E4250D081E0A911100530370 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -123,6 +201,7 @@
 		54825EF71E1D270F00253FF0 /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
 		54825EF91E1D28E900253FF0 /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
 		54825EFA1E1D28E900253FF0 /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
+		54A572491E8285AC0099BFAF /* MoppApp Mobi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MoppApp Mobi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		54B1812A1E49F7C9005A0755 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		54B1812B1E49F7C9005A0755 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Landing.storyboard; sourceTree = "<group>"; };
@@ -207,6 +286,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		54A572251E8285AC0099BFAF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54A572261E8285AC0099BFAF /* MoppLib.framework in Frameworks */,
+				54A572271E8285AC0099BFAF /* Pods_MoppApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E4250CC01E0968D200530370 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -332,6 +420,7 @@
 			isa = PBXGroup;
 			children = (
 				E4250CC31E0968D200530370 /* MoppApp.app */,
+				54A572491E8285AC0099BFAF /* MoppApp Mobi.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -493,6 +582,30 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		54A571F81E8285AC0099BFAF /* MoppApp Mobi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 54A572461E8285AC0099BFAF /* Build configuration list for PBXNativeTarget "MoppApp Mobi" */;
+			buildPhases = (
+				54A571F91E8285AC0099BFAF /* [CP] Check Pods Manifest.lock */,
+				54A571FA1E8285AC0099BFAF /* Laurine Generator */,
+				54A571FB1E8285AC0099BFAF /* Sources */,
+				54A572251E8285AC0099BFAF /* Frameworks */,
+				54A572281E8285AC0099BFAF /* Resources */,
+				54A572401E8285AC0099BFAF /* Set GH build number to plist */,
+				54A572411E8285AC0099BFAF /* [CP] Embed Pods Frameworks */,
+				54A572421E8285AC0099BFAF /* [CP] Copy Pods Resources */,
+				54A572431E8285AC0099BFAF /* Embed Frameworks */,
+				54A572451E8285AC0099BFAF /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MoppApp Mobi";
+			productName = MoppApp;
+			productReference = 54A572491E8285AC0099BFAF /* MoppApp Mobi.app */;
+			productType = "com.apple.product-type.application";
+		};
 		E4250CC21E0968D200530370 /* MoppApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E4250CDA1E0968D200530370 /* Build configuration list for PBXNativeTarget "MoppApp" */;
@@ -526,9 +639,12 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Mobi Lab";
 				TargetAttributes = {
+					54A571F81E8285AC0099BFAF = {
+						DevelopmentTeam = 4YJSF2LF24;
+					};
 					E4250CC21E0968D200530370 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 4YJSF2LF24;
+						DevelopmentTeam = ET847QJV9F;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -549,11 +665,42 @@
 			projectRoot = "";
 			targets = (
 				E4250CC21E0968D200530370 /* MoppApp */,
+				54A571F81E8285AC0099BFAF /* MoppApp Mobi */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		54A572281E8285AC0099BFAF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54A572291E8285AC0099BFAF /* presentation.pdf in Resources */,
+				54A5722A1E8285AC0099BFAF /* Containers.storyboard in Resources */,
+				54A5722B1E8285AC0099BFAF /* datafile.txt in Resources */,
+				54A5722C1E8285AC0099BFAF /* ErrorCell.xib in Resources */,
+				54A5722D1E8285AC0099BFAF /* InfoCell.xib in Resources */,
+				54A5722E1E8285AC0099BFAF /* MyEid.storyboard in Resources */,
+				54A5722F1E8285AC0099BFAF /* digidoc.png in Resources */,
+				54A572301E8285AC0099BFAF /* DependencyTableViewCell.xib in Resources */,
+				54A572311E8285AC0099BFAF /* image.jpg in Resources */,
+				54A572321E8285AC0099BFAF /* ddocTest.ddoc in Resources */,
+				54A572331E8285AC0099BFAF /* ContainerCell.xib in Resources */,
+				54A572341E8285AC0099BFAF /* About.storyboard in Resources */,
+				54A572351E8285AC0099BFAF /* test1.bdoc in Resources */,
+				54A572361E8285AC0099BFAF /* LaunchScreen.xib in Resources */,
+				54A572371E8285AC0099BFAF /* asiceTest.asice in Resources */,
+				54A572381E8285AC0099BFAF /* Localizable.strings in Resources */,
+				54A572391E8285AC0099BFAF /* PinOperations.storyboard in Resources */,
+				54A5723A1E8285AC0099BFAF /* NoContainersCell.xib in Resources */,
+				54A5723B1E8285AC0099BFAF /* SimpleHeaderView.xib in Resources */,
+				54A5723C1E8285AC0099BFAF /* Landing.storyboard in Resources */,
+				54A5723D1E8285AC0099BFAF /* test2.bdoc in Resources */,
+				54A5723E1E8285AC0099BFAF /* Settings.storyboard in Resources */,
+				54A5723F1E8285AC0099BFAF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E4250CC11E0968D200530370 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -603,6 +750,92 @@
 			showEnvVarsInLog = 0;
 		};
 		54415B641E52F23C00B66A89 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 2d09fce02bca92bd26f18824f9cb302f5ad625e3 fb7f424a3ac43eccda42c76e7f15a400d7b3047945a66a98d0211ec996f584ef";
+		};
+		54A571F91E8285AC0099BFAF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		54A571FA1E8285AC0099BFAF /* Laurine Generator */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Laurine Generator";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -x\n\n#--------- START OF CONFIGURATION\n\n# Get base path to project\nBASE_PATH=\"$PROJECT_DIR/$PROJECT_NAME\"\n\n# Get path to Laurine Generator script\nLAURINE_PATH=\"$BASE_PATH/LaurineGenerator.swift\"\n\n# Get path to main localization file (usually english).\nSOURCE_PATH=\"$BASE_PATH/en.lproj/Localizable.strings\"\n\n# Get path to output. If you use ObjC version of output, set implementation file (.m), as header will be generated automatically\nOUTPUT_PATH=\"$BASE_PATH/Localizations.m\"\n\n#--------- END OF CONFIGURATION\n\n# Add permission to generator for script execution\nchmod 755 $LAURINE_PATH\n\n# Actually generate output. -- CUSTOMIZE -- parameters to your needs (see documentation).\n# Will only re-generate script if something changed\nif [ \"$OUTPUT_PATH\" -ot \"$SOURCE_PATH\" ]; then\n\"$LAURINE_PATH\" -i \"$SOURCE_PATH\" -c -o \"$OUTPUT_PATH\" -l objc\nfi";
+		};
+		54A572401E8285AC0099BFAF /* Set GH build number to plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Set GH build number to plist";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$GREENHOUSE_BUILD_NUMBER\nstringLength=${#buildNumber}\n    if [ $stringLength -ne 0 ]; then\n    echo \"Updating build number to $buildNumber\"\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n    else\n    echo \"Missing build number, skip updating\"\n    fi";
+		};
+		54A572411E8285AC0099BFAF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		54A572421E8285AC0099BFAF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		54A572451E8285AC0099BFAF /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -676,6 +909,54 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		54A571FB1E8285AC0099BFAF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54A571FC1E8285AC0099BFAF /* NSDate+Additions.m in Sources */,
+				54A571FD1E8285AC0099BFAF /* SimpleHeaderView.m in Sources */,
+				54A571FE1E8285AC0099BFAF /* PinOperationsViewController.m in Sources */,
+				54A571FF1E8285AC0099BFAF /* DefaultsHelper.m in Sources */,
+				54A572001E8285AC0099BFAF /* MPNavigationController.m in Sources */,
+				54A572011E8285AC0099BFAF /* ChangePinViewController.m in Sources */,
+				54A572021E8285AC0099BFAF /* DependencyWrapper.m in Sources */,
+				54A572031E8285AC0099BFAF /* Session.m in Sources */,
+				54A572041E8285AC0099BFAF /* LandingTabBarController.m in Sources */,
+				54A572051E8285AC0099BFAF /* MobileIDChallengeViewController.m in Sources */,
+				54A572061E8285AC0099BFAF /* DependencyTableViewCell.m in Sources */,
+				54A572071E8285AC0099BFAF /* ContainerCell.m in Sources */,
+				54A572081E8285AC0099BFAF /* AboutViewController.m in Sources */,
+				54A572091E8285AC0099BFAF /* MPViewController.m in Sources */,
+				54A5720A1E8285AC0099BFAF /* UIColor+Additions.m in Sources */,
+				54A5720B1E8285AC0099BFAF /* ContainerDetailsDataFileCell.m in Sources */,
+				54A5720C1E8285AC0099BFAF /* ContainersListViewController.m in Sources */,
+				54A5720D1E8285AC0099BFAF /* PersonalDataCell.m in Sources */,
+				54A5720E1E8285AC0099BFAF /* InfoCell.m in Sources */,
+				54A5720F1E8285AC0099BFAF /* SettingsTableViewController.m in Sources */,
+				54A572101E8285AC0099BFAF /* ContainerDetailsHeaderCell.m in Sources */,
+				54A572111E8285AC0099BFAF /* FileImportViewController.m in Sources */,
+				54A572121E8285AC0099BFAF /* UITextView+Additions.m in Sources */,
+				54A572131E8285AC0099BFAF /* ViewWithRoundedCorners.m in Sources */,
+				54A572141E8285AC0099BFAF /* ContainerDetailsSignatureCell.m in Sources */,
+				54A572151E8285AC0099BFAF /* AppDelegate.m in Sources */,
+				54A572161E8285AC0099BFAF /* ErrorCell.m in Sources */,
+				54A572171E8285AC0099BFAF /* DateFormatter.m in Sources */,
+				54A572181E8285AC0099BFAF /* NoContainersCell.m in Sources */,
+				54A572191E8285AC0099BFAF /* ContainerDetailsViewController.m in Sources */,
+				54A5721A1E8285AC0099BFAF /* BaseContainersListViewController.m in Sources */,
+				54A5721B1E8285AC0099BFAF /* main.m in Sources */,
+				54A5721C1E8285AC0099BFAF /* MyEIDViewController.m in Sources */,
+				54A5721D1E8285AC0099BFAF /* ButtonWithRoundedCorners.m in Sources */,
+				54A5721E1E8285AC0099BFAF /* UIViewController+MBProgressHUD.m in Sources */,
+				54A5721F1E8285AC0099BFAF /* NameAndPhotoCell.m in Sources */,
+				54A572201E8285AC0099BFAF /* Constants.m in Sources */,
+				54A572211E8285AC0099BFAF /* NSString+Additions.m in Sources */,
+				54A572221E8285AC0099BFAF /* FileManager.m in Sources */,
+				54A572231E8285AC0099BFAF /* InitializationViewController.m in Sources */,
+				54A572241E8285AC0099BFAF /* Localizations.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E4250CBF1E0968D200530370 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -740,6 +1021,44 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		54A572471E8285AC0099BFAF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A0A7AA11ECD67C1248EED708 /* Pods-MoppApp.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_ACTIVITY_MODE = "";
+				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4YJSF2LF24;
+				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
+				INFOPLIST_FILE = MoppApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mobi.lab.MoppApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		54A572481E8285AC0099BFAF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B5F907F55A4D9D1590D35CB /* Pods-MoppApp.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_ACTIVITY_MODE = "";
+				DEVELOPMENT_TEAM = 4YJSF2LF24;
+				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
+				INFOPLIST_FILE = MoppApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mobi.lab.MoppApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		E4250CD81E0968D200530370 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -840,16 +1159,17 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_ACTIVITY_MODE = "";
 				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 4YJSF2LF24;
+				DEVELOPMENT_TEAM = ET847QJV9F;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
 				INFOPLIST_FILE = MoppApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mobi.lab.MoppApp;
+				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -860,14 +1180,15 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_ACTIVITY_MODE = "";
-				DEVELOPMENT_TEAM = 4YJSF2LF24;
+				DEVELOPMENT_TEAM = ET847QJV9F;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
 				INFOPLIST_FILE = MoppApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mobi.lab.MoppApp;
+				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -875,6 +1196,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		54A572461E8285AC0099BFAF /* Build configuration list for PBXNativeTarget "MoppApp Mobi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				54A572471E8285AC0099BFAF /* Debug */,
+				54A572481E8285AC0099BFAF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E4250CBE1E0968D200530370 /* Build configuration list for PBXProject "MoppApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
