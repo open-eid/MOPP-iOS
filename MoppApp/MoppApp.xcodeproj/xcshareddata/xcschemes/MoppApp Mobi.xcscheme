@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "54A5724B1E82A48A0099BFAF"
-               BuildableName = "MoppApp Mobi.app"
-               BlueprintName = "MoppApp Mobi"
+               BuildableName = "MoppAppMobi.app"
+               BlueprintName = "MoppAppMobi"
                ReferencedContainer = "container:MoppApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,8 +46,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "54A5724B1E82A48A0099BFAF"
-            BuildableName = "MoppApp Mobi.app"
-            BlueprintName = "MoppApp Mobi"
+            BuildableName = "MoppAppMobi.app"
+            BlueprintName = "MoppAppMobi"
             ReferencedContainer = "container:MoppApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,8 +64,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "54A5724B1E82A48A0099BFAF"
-            BuildableName = "MoppApp Mobi.app"
-            BlueprintName = "MoppApp Mobi"
+            BuildableName = "MoppAppMobi.app"
+            BlueprintName = "MoppAppMobi"
             ReferencedContainer = "container:MoppApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

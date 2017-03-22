@@ -202,7 +202,7 @@
 		54825EF71E1D270F00253FF0 /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
 		54825EF91E1D28E900253FF0 /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
 		54825EFA1E1D28E900253FF0 /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
-		54A5729C1E82A48A0099BFAF /* MoppApp Mobi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MoppApp Mobi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		54A5729C1E82A48A0099BFAF /* MoppAppMobi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoppAppMobi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54A5729D1E82A48A0099BFAF /* MoppApp copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MoppApp copy-Info.plist"; path = "/Users/katrin/Development/iOS/MOPP/MoppApp/MoppApp copy-Info.plist"; sourceTree = "<absolute>"; };
 		54A5729E1E82AC760099BFAF /* AppStore.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppStore.plist; sourceTree = "<group>"; };
 		54B1812A1E49F7C9005A0755 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -423,7 +423,7 @@
 			isa = PBXGroup;
 			children = (
 				E4250CC31E0968D200530370 /* MoppApp.app */,
-				54A5729C1E82A48A0099BFAF /* MoppApp Mobi.app */,
+				54A5729C1E82A48A0099BFAF /* MoppAppMobi.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -587,9 +587,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		54A5724B1E82A48A0099BFAF /* MoppApp Mobi */ = {
+		54A5724B1E82A48A0099BFAF /* MoppAppMobi */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 54A572991E82A48A0099BFAF /* Build configuration list for PBXNativeTarget "MoppApp Mobi" */;
+			buildConfigurationList = 54A572991E82A48A0099BFAF /* Build configuration list for PBXNativeTarget "MoppAppMobi" */;
 			buildPhases = (
 				54A5724C1E82A48A0099BFAF /* [CP] Check Pods Manifest.lock */,
 				54A5724D1E82A48A0099BFAF /* Laurine Generator */,
@@ -606,9 +606,9 @@
 			);
 			dependencies = (
 			);
-			name = "MoppApp Mobi";
+			name = MoppAppMobi;
 			productName = MoppApp;
-			productReference = 54A5729C1E82A48A0099BFAF /* MoppApp Mobi.app */;
+			productReference = 54A5729C1E82A48A0099BFAF /* MoppAppMobi.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E4250CC21E0968D200530370 /* MoppApp */ = {
@@ -671,7 +671,7 @@
 			projectRoot = "";
 			targets = (
 				E4250CC21E0968D200530370 /* MoppApp */,
-				54A5724B1E82A48A0099BFAF /* MoppApp Mobi */,
+				54A5724B1E82A48A0099BFAF /* MoppAppMobi */,
 			);
 		};
 /* End PBXProject section */
@@ -1213,7 +1213,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		54A572991E82A48A0099BFAF /* Build configuration list for PBXNativeTarget "MoppApp Mobi" */ = {
+		54A572991E82A48A0099BFAF /* Build configuration list for PBXNativeTarget "MoppAppMobi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				54A5729A1E82A48A0099BFAF /* Debug */,
