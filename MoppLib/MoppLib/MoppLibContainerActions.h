@@ -85,14 +85,14 @@
 - (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(void(^)(void))success failure:(FailureBlock)failure;
 
 /**
- * Adds signature to container. If document has already been signed by this user, they will be given an opportunity to cancel signing. If they cancel, signatureWasAdded will be set to NO in success block.\n\nInternet connection is needed for signing containers. 
+ * Signs container with certtificates on ID card. If document has already been signed by this certificate, they will be given an opportunity to cancel signing. If they cancel, signatureWasAdded will be set to NO in success block. Updated container will be included in success block if signing is successful. Otherwise it may be missing.\n\nInternet connection is needed for signing containers. 
  *
- * @param moppContainer    Container that will get new signature.
+ * @param containerPath    Path to container.
  * @param controller    UIViewController for displaying alerts if needed.
  * @param success       Block to be called on successful completion of action. Includes container data as MoppLibContainer and BOOL to indicate if signature was added.
  * @param failure       Block to be called when action fails. Includes error.
  */
-- (void)addSignature:(MoppLibContainer *)moppContainer controller:(UIViewController *)controller success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure;
+- (void)addSignature:(NSString *)containerPath controller:(UIViewController *)controller success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure;
 
 
 

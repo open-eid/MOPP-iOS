@@ -251,7 +251,7 @@ typedef enum : NSUInteger {
 
 - (void)displayCardSignatureAlert {
   [self showHUD];
-  [[MoppLibContainerActions sharedInstance] addSignature:self.container controller:self success:^(MoppLibContainer *container, BOOL signatureWasAdded) {
+  [[MoppLibContainerActions sharedInstance] addSignature:self.container.filePath controller:self success:^(MoppLibContainer *container, BOOL signatureWasAdded) {
     [self hideHUD];
     if (signatureWasAdded) {
       [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kNewContainerKey:container, kOldContainerKey: self.container}];

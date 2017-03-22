@@ -346,14 +346,14 @@ void parseException(const digidoc::Exception &e) {
   }
 }
 
-- (BOOL)container:(MoppLibContainer *)moppContainer containsSignatureWithCert:(NSData *)cert {
+- (BOOL)container:(NSString *)containerPath containsSignatureWithCert:(NSData *)cert {
   digidoc::Container *doc;
   
   try {
     const unsigned char *bytes = (const unsigned  char *)[cert bytes];
     digidoc::X509Cert x509Cert = digidoc::X509Cert(bytes, cert.length, digidoc::X509Cert::Format::Der);
     
-    doc = digidoc::Container::open(moppContainer.filePath.UTF8String);
+    doc = digidoc::Container::open(containerPath.UTF8String);
     
     // Checking if signature with same certificate already exists
     for (int i = 0; i < doc->signatures().size(); i++) {
@@ -375,14 +375,14 @@ void parseException(const digidoc::Exception &e) {
 
 }
 
-- (void)addSignature:(MoppLibContainer *)moppContainer pin2:(NSString *)pin2 cert:(NSData *)cert success:(ContainerBlock)success andFailure:(FailureBlock)failure {
+- (void)addSignature:(NSString *)containerPath pin2:(NSString *)pin2 cert:(NSData *)cert success:(ContainerBlock)success andFailure:(FailureBlock)failure {
   digidoc::Container *doc;
   
   try {
     const unsigned char *bytes = (const unsigned  char *)[cert bytes];
     digidoc::X509Cert x509Cert = digidoc::X509Cert(bytes, cert.length, digidoc::X509Cert::Format::Der);
     
-    doc = digidoc::Container::open(moppContainer.filePath.UTF8String);
+    doc = digidoc::Container::open(containerPath.UTF8String);
     
     WebSigner *signer = new WebSigner(x509Cert);
     
@@ -397,7 +397,7 @@ void parseException(const digidoc::Exception &e) {
       }
     } else {
       // No signatures. bdoc should use time-mark
-      if ([[moppContainer.filePath pathExtension] isEqualToString:@"bdoc"]) {
+      if ([[containerPath pathExtension] isEqualToString:@"bdoc"]) {
         profile = "time-mark";
       }
     }
@@ -424,7 +424,7 @@ void parseException(const digidoc::Exception &e) {
         signature->validate();
         doc->save();
         NSError *error;
-        MoppLibContainer *moppLibContainer = [self getContainerWithPath:moppContainer.filePath error:&error];
+        MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error];
         success(moppLibContainer);
         delete doc;
       } catch(const digidoc::Exception &e) {

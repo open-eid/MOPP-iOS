@@ -431,8 +431,8 @@
 		E4250CC51E0968D200530370 /* MoppApp */ = {
 			isa = PBXGroup;
 			children = (
-				E4250CC91E0968D200530370 /* AppDelegate.h */,
 				54A5729E1E82AC760099BFAF /* AppStore.plist */,
+				E4250CC91E0968D200530370 /* AppDelegate.h */,
 				E4250CCA1E0968D200530370 /* AppDelegate.m */,
 				E4250CD21E0968D200530370 /* Assets.xcassets */,
 				540786E61E1A76280016ABA7 /* Category */,

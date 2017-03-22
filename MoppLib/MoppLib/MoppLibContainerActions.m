@@ -95,7 +95,7 @@
   });
 }
 
-- (void)addSignature:(MoppLibContainer *)moppContainer controller:(UIViewController *)controller success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure {
+- (void)addSignature:(NSString *)containerPath controller:(UIViewController *)controller success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure {
   
   Reachability *reachability = [Reachability reachabilityForInternetConnection];
   NetworkStatus networkStatus = [reachability currentReachabilityStatus];
@@ -106,7 +106,7 @@
   
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
-    [[CardActionsManager sharedInstance] addSignature:moppContainer controller:controller success:^(MoppLibContainer *container, BOOL signatureWasAdded) {
+    [[CardActionsManager sharedInstance] addSignature:containerPath controller:controller success:^(MoppLibContainer *container, BOOL signatureWasAdded) {
       dispatch_async(dispatch_get_main_queue(), ^{
         success(container, signatureWasAdded);
       });
