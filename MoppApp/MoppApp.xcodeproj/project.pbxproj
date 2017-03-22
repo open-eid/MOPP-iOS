@@ -94,6 +94,7 @@
 		54A572911E82A48A0099BFAF /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4180C2E1E267A6700FD7B8C /* Settings.storyboard */; };
 		54A572921E82A48A0099BFAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4250CD21E0968D200530370 /* Assets.xcassets */; };
 		54A572971E82A48A0099BFAF /* MoppLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		54A5729F1E82AC760099BFAF /* AppStore.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54A5729E1E82AC760099BFAF /* AppStore.plist */; };
 		54B1812C1E49F7C9005A0755 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B1812B1E49F7C9005A0755 /* Constants.m */; };
 		54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */; };
 		54EFCE1C1E6F0DF100AE5D46 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54EFCE1B1E6F0DF100AE5D46 /* About.storyboard */; };
@@ -203,6 +204,7 @@
 		54825EFA1E1D28E900253FF0 /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
 		54A5729C1E82A48A0099BFAF /* MoppApp Mobi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MoppApp Mobi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		54A5729D1E82A48A0099BFAF /* MoppApp copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MoppApp copy-Info.plist"; path = "/Users/katrin/Development/iOS/MOPP/MoppApp/MoppApp copy-Info.plist"; sourceTree = "<absolute>"; };
+		54A5729E1E82AC760099BFAF /* AppStore.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppStore.plist; sourceTree = "<group>"; };
 		54B1812A1E49F7C9005A0755 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		54B1812B1E49F7C9005A0755 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Landing.storyboard; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 			isa = PBXGroup;
 			children = (
 				E4250CC91E0968D200530370 /* AppDelegate.h */,
+				54A5729E1E82AC760099BFAF /* AppStore.plist */,
 				E4250CCA1E0968D200530370 /* AppDelegate.m */,
 				E4250CD21E0968D200530370 /* Assets.xcassets */,
 				540786E61E1A76280016ABA7 /* Category */,
@@ -722,6 +725,7 @@
 				54EFCE1C1E6F0DF100AE5D46 /* About.storyboard in Resources */,
 				E42B08A61E1D4EE900EA24A3 /* test1.bdoc in Resources */,
 				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,
+				54A5729F1E82AC760099BFAF /* AppStore.plist in Resources */,
 				E43BD80F1E3A121100F6C39D /* asiceTest.asice in Resources */,
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
 				542DCB641E1FDFC900899534 /* PinOperations.storyboard in Resources */,
