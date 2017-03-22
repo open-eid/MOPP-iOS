@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "54A571F81E8285AC0099BFAF"
+               BlueprintIdentifier = "54A5724B1E82A48A0099BFAF"
                BuildableName = "MoppApp Mobi.app"
                BlueprintName = "MoppApp Mobi"
                ReferencedContainer = "container:MoppApp.xcodeproj">
@@ -29,15 +29,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "54A571F81E8285AC0099BFAF"
-            BuildableName = "MoppApp Mobi.app"
-            BlueprintName = "MoppApp Mobi"
-            ReferencedContainer = "container:MoppApp.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -51,16 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "54A571F81E8285AC0099BFAF"
+            BlueprintIdentifier = "54A5724B1E82A48A0099BFAF"
             BuildableName = "MoppApp Mobi.app"
             BlueprintName = "MoppApp Mobi"
             ReferencedContainer = "container:MoppApp.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -70,16 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "54A571F81E8285AC0099BFAF"
+            BlueprintIdentifier = "54A5724B1E82A48A0099BFAF"
             BuildableName = "MoppApp Mobi.app"
             BlueprintName = "MoppApp Mobi"
             ReferencedContainer = "container:MoppApp.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
