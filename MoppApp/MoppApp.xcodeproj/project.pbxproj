@@ -15,7 +15,6 @@
 		542DCB641E1FDFC900899534 /* PinOperations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 542DCB631E1FDFC900899534 /* PinOperations.storyboard */; };
 		542DCB671E1FE02900899534 /* PinOperationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 542DCB661E1FE02900899534 /* PinOperationsViewController.m */; };
 		542DCB691E23856100899534 /* ErrorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 542DCB681E23856100899534 /* ErrorCell.xib */; };
-		543FBEBF1E7FC7C4004297A1 /* digidoc.png in Resources */ = {isa = PBXBuildFile; fileRef = 543FBEBE1E7FC7C4004297A1 /* digidoc.png */; };
 		545CF8461E16453300B66EE8 /* MyEIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8451E16453300B66EE8 /* MyEIDViewController.m */; };
 		545CF8481E16563200B66EE8 /* MyEid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545CF8471E16563200B66EE8 /* MyEid.storyboard */; };
 		545CF84B1E165DBA00B66EE8 /* NameAndPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF84A1E165DBA00B66EE8 /* NameAndPhotoCell.m */; };
@@ -27,6 +26,10 @@
 		54825EF51E1CFE9600253FF0 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF41E1CFE9600253FF0 /* NSDate+Additions.m */; };
 		54825EF81E1D270F00253FF0 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF71E1D270F00253FF0 /* NSString+Additions.m */; };
 		54825EFB1E1D28E900253FF0 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EFA1E1D28E900253FF0 /* UIColor+Additions.m */; };
+		54A418041E83C10100559E2B /* digidoc_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 54A418031E83C10100559E2B /* digidoc_64.png */; };
+		54A418051E83C10100559E2B /* digidoc_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 54A418031E83C10100559E2B /* digidoc_64.png */; };
+		54A418071E83C10B00559E2B /* digidoc_320.png in Resources */ = {isa = PBXBuildFile; fileRef = 54A418061E83C10B00559E2B /* digidoc_320.png */; };
+		54A418081E83C10B00559E2B /* digidoc_320.png in Resources */ = {isa = PBXBuildFile; fileRef = 54A418061E83C10B00559E2B /* digidoc_320.png */; };
 		54A5724F1E82A48A0099BFAF /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF41E1CFE9600253FF0 /* NSDate+Additions.m */; };
 		54A572501E82A48A0099BFAF /* SimpleHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 540786EF1E1A96900016ABA7 /* SimpleHeaderView.m */; };
 		54A572511E82A48A0099BFAF /* PinOperationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 542DCB661E1FE02900899534 /* PinOperationsViewController.m */; };
@@ -76,7 +79,6 @@
 		54A5727F1E82A48A0099BFAF /* ErrorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 542DCB681E23856100899534 /* ErrorCell.xib */; };
 		54A572801E82A48A0099BFAF /* InfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54813B2F1E24FD270058CD33 /* InfoCell.xib */; };
 		54A572811E82A48A0099BFAF /* MyEid.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545CF8471E16563200B66EE8 /* MyEid.storyboard */; };
-		54A572821E82A48A0099BFAF /* digidoc.png in Resources */ = {isa = PBXBuildFile; fileRef = 543FBEBE1E7FC7C4004297A1 /* digidoc.png */; };
 		54A572831E82A48A0099BFAF /* DependencyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEC1646E1E3A194800139C7E /* DependencyTableViewCell.xib */; };
 		54A572841E82A48A0099BFAF /* image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E4C53F351E2FAE6C00F209BE /* image.jpg */; };
 		54A572851E82A48A0099BFAF /* ddocTest.ddoc in Resources */ = {isa = PBXBuildFile; fileRef = E43BD8101E3A121A00F6C39D /* ddocTest.ddoc */; };
@@ -181,7 +183,6 @@
 		542DCB651E1FE02900899534 /* PinOperationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinOperationsViewController.h; sourceTree = "<group>"; };
 		542DCB661E1FE02900899534 /* PinOperationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinOperationsViewController.m; sourceTree = "<group>"; };
 		542DCB681E23856100899534 /* ErrorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorCell.xib; sourceTree = "<group>"; };
-		543FBEBE1E7FC7C4004297A1 /* digidoc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc.png; sourceTree = "<group>"; };
 		545CF8441E16453300B66EE8 /* MyEIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIDViewController.h; sourceTree = "<group>"; };
 		545CF8451E16453300B66EE8 /* MyEIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEIDViewController.m; sourceTree = "<group>"; };
 		545CF8471E16563200B66EE8 /* MyEid.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyEid.storyboard; sourceTree = "<group>"; };
@@ -202,6 +203,8 @@
 		54825EF71E1D270F00253FF0 /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
 		54825EF91E1D28E900253FF0 /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
 		54825EFA1E1D28E900253FF0 /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
+		54A418031E83C10100559E2B /* digidoc_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_64.png; sourceTree = "<group>"; };
+		54A418061E83C10B00559E2B /* digidoc_320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_320.png; sourceTree = "<group>"; };
 		54A5729C1E82A48A0099BFAF /* MoppAppMobi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoppAppMobi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54A5729D1E82A48A0099BFAF /* MoppApp copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MoppApp copy-Info.plist"; path = "/Users/katrin/Development/iOS/MOPP/MoppApp/MoppApp copy-Info.plist"; sourceTree = "<absolute>"; };
 		54A5729E1E82AC760099BFAF /* AppStore.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppStore.plist; sourceTree = "<group>"; };
@@ -463,7 +466,8 @@
 				E4C53F351E2FAE6C00F209BE /* image.jpg */,
 				E4C53F361E2FAE6C00F209BE /* presentation.pdf */,
 				E4180C361E26822000FD7B8C /* datafile.txt */,
-				543FBEBE1E7FC7C4004297A1 /* digidoc.png */,
+				54A418031E83C10100559E2B /* digidoc_64.png */,
+				54A418061E83C10B00559E2B /* digidoc_320.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -686,14 +690,15 @@
 				54A5727E1E82A48A0099BFAF /* datafile.txt in Resources */,
 				54A5727F1E82A48A0099BFAF /* ErrorCell.xib in Resources */,
 				54A572801E82A48A0099BFAF /* InfoCell.xib in Resources */,
+				54A418081E83C10B00559E2B /* digidoc_320.png in Resources */,
 				54A572811E82A48A0099BFAF /* MyEid.storyboard in Resources */,
-				54A572821E82A48A0099BFAF /* digidoc.png in Resources */,
 				54A572831E82A48A0099BFAF /* DependencyTableViewCell.xib in Resources */,
 				54A572841E82A48A0099BFAF /* image.jpg in Resources */,
 				54A572851E82A48A0099BFAF /* ddocTest.ddoc in Resources */,
 				54A572861E82A48A0099BFAF /* ContainerCell.xib in Resources */,
 				54A572871E82A48A0099BFAF /* About.storyboard in Resources */,
 				54A572881E82A48A0099BFAF /* test1.bdoc in Resources */,
+				54A418051E83C10100559E2B /* digidoc_64.png in Resources */,
 				54A572891E82A48A0099BFAF /* LaunchScreen.xib in Resources */,
 				54A5728A1E82A48A0099BFAF /* asiceTest.asice in Resources */,
 				54A5728B1E82A48A0099BFAF /* Localizable.strings in Resources */,
@@ -714,13 +719,14 @@
 				E4C53F381E2FAE6C00F209BE /* presentation.pdf in Resources */,
 				E45EF5351E2D850400C37D43 /* Containers.storyboard in Resources */,
 				E4180C371E26822000FD7B8C /* datafile.txt in Resources */,
+				54A418041E83C10100559E2B /* digidoc_64.png in Resources */,
 				542DCB691E23856100899534 /* ErrorCell.xib in Resources */,
 				54813B301E24FD270058CD33 /* InfoCell.xib in Resources */,
 				545CF8481E16563200B66EE8 /* MyEid.storyboard in Resources */,
-				543FBEBF1E7FC7C4004297A1 /* digidoc.png in Resources */,
 				AEC164701E3A194800139C7E /* DependencyTableViewCell.xib in Resources */,
 				E4C53F371E2FAE6C00F209BE /* image.jpg in Resources */,
 				E43BD8111E3A121A00F6C39D /* ddocTest.ddoc in Resources */,
+				54A418071E83C10B00559E2B /* digidoc_320.png in Resources */,
 				E45EF5431E2D8D8000C37D43 /* ContainerCell.xib in Resources */,
 				54EFCE1C1E6F0DF100AE5D46 /* About.storyboard in Resources */,
 				E42B08A61E1D4EE900EA24A3 /* test1.bdoc in Resources */,

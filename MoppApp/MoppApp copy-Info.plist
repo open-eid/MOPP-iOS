@@ -15,7 +15,8 @@
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
 			<array>
-				<string>digidoc.png</string>
+				<string>digidoc_64.png</string>
+				<string>digidoc_320.png</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>Digidoc file</string>
@@ -90,9 +91,9 @@
 			<key>UTTypeIdentifier</key>
 			<string>public.bdoc</string>
 			<key>UTTypeSize320IconFile</key>
-			<string>digidoc</string>
+			<string>digidoc_64.png</string>
 			<key>UTTypeSize64IconFile</key>
-			<string>digidoc</string>
+			<string>digidoc_320.png</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>ee.ria.bdoc</key>
