@@ -18,52 +18,56 @@
   [super viewDidLoad];
   
   NSArray *array = self.extensionContext.inputItems;
-  NSExtensionItem *item = [array firstObject];
-  if (item) {
+  
+  for (NSExtensionItem *item in array) {
     for (NSItemProvider *provider in item.attachments) {
-      
-      if ([provider hasItemConformingToTypeIdentifier:@"public.data"]) {
-        
-        [provider loadItemForTypeIdentifier:@"public.data" options:nil completionHandler:^(id<NSSecureCoding>  _Nullable item, NSError * _Null_unspecified error) {
-          if ([((NSObject*)item) isKindOfClass: [NSURL class]]) {
-            NSURL *itemUrl = (NSURL *)item;
-            
-            NSData *data = [NSData dataWithContentsOfURL:itemUrl];
-            if (data) {
-              
-              NSURL *groupFolderUrl = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.ee.ria.digidoc.ios"];
-              groupFolderUrl = [groupFolderUrl URLByAppendingPathComponent:@"Temp"];
-              NSError *err;
-              [[NSFileManager defaultManager] createDirectoryAtURL:groupFolderUrl withIntermediateDirectories:NO attributes:nil error:&err];
-              
-              NSURL  *filePath = [groupFolderUrl URLByAppendingPathComponent:itemUrl.lastPathComponent] ;
-              
-              NSError *error;
-              [[NSFileManager defaultManager] copyItemAtURL:itemUrl toURL:filePath error:&error];
-              // [data writeToFile:[filePath absoluteString] atomically:YES];
-              
-              UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Importing file" message:@"File is now cached for you. Go to RIA DigiDoc application to finish import"  preferredStyle:UIAlertControllerStyleAlert];
-              [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self.extensionContext completeRequestReturningItems:@[] completionHandler:nil];
-                
-              }]];
-              [self presentViewController:alert animated:YES completion:nil];
-              
-            }
-          }
-          
-        }];
-        
-      } else if ([provider hasItemConformingToTypeIdentifier:@"public.content"]) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Test" message:@"Has public.content" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-          [self.extensionContext completeRequestReturningItems:@[] completionHandler:nil];
-        }]];
-        [self presentViewController:alert animated:YES completion:nil];
-      }
-      
+      [self cacheFileForProvider:provider];
     }
   }
+}
+
+- (void)cacheFileForProvider:(NSItemProvider *)provider {
+  if ([provider hasItemConformingToTypeIdentifier:@"public.data"]) {
+    
+    [provider loadItemForTypeIdentifier:@"public.data" options:nil completionHandler:^(id<NSSecureCoding>  _Nullable item, NSError * _Null_unspecified error) {
+      if ([((NSObject*)item) isKindOfClass: [NSURL class]]) {
+        NSURL *itemUrl = (NSURL *)item;
+        [self cacheFileOnUrl:itemUrl];
+      }
+    }];
+    
+  } /*else if ([provider hasItemConformingToTypeIdentifier:@"public.content"]) {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Test" message:@"Has public.content" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+      [self.extensionContext completeRequestReturningItems:@[] completionHandler:nil];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
+  }*/
+}
+
+- (void)cacheFileOnUrl:(NSURL *)itemUrl {
+  NSData *data = [NSData dataWithContentsOfURL:itemUrl];
+  if (data) {
+    
+    NSURL *groupFolderUrl = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.ee.ria.digidoc.ios"];
+    groupFolderUrl = [groupFolderUrl URLByAppendingPathComponent:@"Temp"];
+    NSError *err;
+    [[NSFileManager defaultManager] createDirectoryAtURL:groupFolderUrl withIntermediateDirectories:NO attributes:nil error:&err];
+    
+    NSURL  *filePath = [groupFolderUrl URLByAppendingPathComponent:itemUrl.lastPathComponent] ;
+    
+    NSError *error;
+    [[NSFileManager defaultManager] copyItemAtURL:itemUrl toURL:filePath error:&error];
+    // [data writeToFile:[filePath absoluteString] atomically:YES];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Importing file" message:@"File is now cached for you. Go to RIA DigiDoc application to finish import"  preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+      [self.extensionContext completeRequestReturningItems:@[] completionHandler:nil];
+      
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
+  }
+  
 }
 
 - (BOOL)isContentValid {
