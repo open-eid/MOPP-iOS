@@ -59,6 +59,25 @@
   return filePath;
 }
 
+- (NSString *)sharedDocumentsPath {
+  NSURL *groupFolderUrl = [self.fileManager containerURLForSecurityApplicationGroupIdentifier:@"group.ee.ria.digidoc.ios"];
+  return [groupFolderUrl URLByAppendingPathComponent:@"Temp"].path;
+}
+
+- (NSArray *)sharedDocuments {
+  return [self.fileManager contentsOfDirectoryAtPath:[self sharedDocumentsPath] error:nil];
+}
+
+- (void)clearSharedCache {
+  NSArray *cachedDocs = [self sharedDocuments];
+  NSString *cachePath = [self sharedDocumentsPath];
+  for (NSString *file in cachedDocs) {
+    NSString *filePath = [NSString stringWithFormat:@"%@/%@", cachePath, file];
+    NSLog(@"******* going to remove %@", filePath);
+    [self removeFileWithPath:filePath];
+  }
+}
+
 - (NSString *)createTestContainer {
   NSString *fileName = [NSString stringWithFormat:@"%@.%@", [[DateFormatter sharedInstance] HHmmssddMMYYYYToString:[NSDate date]], [DefaultsHelper getNewContainerFormat]];
   

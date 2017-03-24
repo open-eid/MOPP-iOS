@@ -20,4 +20,6 @@
 - (void)moveFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath overwrite:(BOOL)overwrite error:(NSError **)error;
 - (NSString *)copyFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath;
 - (BOOL)fileExists:(NSString *)sourcePath;
+- (NSArray *)sharedDocuments;
+- (void)clearSharedCache;
 @end

@@ -37,7 +37,9 @@ typedef enum : NSUInteger {
   [super viewDidLoad];
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(containerChanged:) name:kNotificationContainerChanged object:nil];
-
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEnterForeground:) name:kNotificationWillEnterForeground object:nil];
+  
+  
   [self setTitle:Localizations.TabContainers];
   
   self.unsignedContainers = [NSArray array];
@@ -52,7 +54,24 @@ typedef enum : NSUInteger {
   [self setEditing:NO]; // Update edit button title.
   
   [self reloadData];
+  
+  [self checkSharedDocsCache];
+  
+}
 
+- (void)viewDidAppear:(BOOL)animated {
+  [super viewDidAppear:animated];
+  
+  NSURL *groupFolderUrl = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.ee.ria.digidoc.ios"];
+  groupFolderUrl = [groupFolderUrl URLByAppendingPathComponent:@"Temp"];
+  
+  NSArray *allFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:groupFolderUrl.path error:nil];
+  
+  NSLog(@"******* %@    %@",groupFolderUrl.path, allFiles);
+}
+
+- (void)willEnterForeground:(NSNotification *)notification {
+  [self checkSharedDocsCache];
 }
 
 - (void)containerChanged:(NSNotification *)notification {
@@ -66,6 +85,23 @@ typedef enum : NSUInteger {
     [self signatureChangeOperationWithNewContainer:newContainer oldContainer:oldContainer];
   }
   
+}
+
+- (void) checkSharedDocsCache {
+  NSArray *cachedDocs = [[FileManager sharedInstance] sharedDocuments];
+  if (cachedDocs > 0) {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Imported files" message:@"You have some imported files. What do you want to do with them?" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Create new container" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+      
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Add to existing container" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+      
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Nothing. Delete them" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+      [[FileManager sharedInstance] clearSharedCache];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
+  }
 }
 
 -(void)signatureChangeOperationWithNewContainer:(MoppLibContainer *)newContainer oldContainer:(MoppLibContainer *)oldContainer {
@@ -154,7 +190,7 @@ typedef enum : NSUInteger {
 #pragma mark - File importing
 - (void)setDataFilePath:(NSString *)dataFilePath {
   _dataFilePath = dataFilePath;
-
+  
   [self performSegueWithIdentifier:@"FileImportSegue" sender:self];
 }
 
@@ -229,7 +265,7 @@ typedef enum : NSUInteger {
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
+  
   switch (indexPath.section) {
     case ContainersListSectionUnsigned: {
       if (self.filteredUnsignedContainers.count == 0) {
@@ -298,7 +334,7 @@ typedef enum : NSUInteger {
         break;
     }
     
-//    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    //    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     [self reloadData];
   }
   
