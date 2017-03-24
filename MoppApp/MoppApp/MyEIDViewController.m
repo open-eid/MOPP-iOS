@@ -24,6 +24,7 @@ typedef enum : NSUInteger {
   PersonalDataSectionData,
   PersonalDataSectionEid,
   PersonalDataSectionSigningCert,
+  PersonalDataSectionAuthenticationCert,
   PersonalDataSectionInfo
 } PersonalDataSection;
 
@@ -231,6 +232,8 @@ typedef enum : NSUInteger {
                      [NSNumber numberWithInt:PersonalDataCellTypeCertExpiration],
                      [NSNumber numberWithInt:PersonalDataCellTypeCertUsed]];
     [array addObject:@[[NSNumber numberWithInt:PersonalDataSectionSigningCert], cert]];
+    [array addObject:@[[NSNumber numberWithInt:PersonalDataSectionAuthenticationCert], cert]];
+
   }
   
   if (!self.personalData) {
@@ -298,6 +301,12 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
   return type.integerValue;
 }
 
+- (NSInteger)sectionTypInSection:(int)section {
+  NSArray *sectionData = self.sectionData[section];
+  NSNumber *type =  sectionData[0];
+  return type.integerValue;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
   return self.sectionData.count;
 }
@@ -315,7 +324,8 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   PersonalDataCellType cellType = [self cellTypeForRow:indexPath.row inSection:indexPath.section];
-  
+  PersonalDataSection sectionType = [self sectionTypInSection:indexPath.section];
+
   switch (cellType) {
     case PersonalDataCellTypeErrorPin1Blocked:
     case PersonalDataCellTypeErrorPin2Blocked:
@@ -353,7 +363,7 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
     case PersonalDataCellTypeId:
     case PersonalDataCellTypeSurname:
     case PersonalDataCellTypeName: {
-      return [self personalDataCellForType:cellType];
+      return [self personalDataCellForType:cellType section:sectionType];
     }
       
       break;
@@ -365,18 +375,20 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
   return nil;
 }
 
-- (PersonalDataCell *)personalDataCellForType:(NSInteger)type {
+- (PersonalDataCell *)personalDataCellForType:(PersonalDataCellType)type section:(PersonalDataSection)section {
   NSString *titleString;
   NSString *dataString;
   UIColor *labelColor = [UIColor blackColor];
   
+  MoppLibCertData *cert = section == PersonalDataSectionAuthenticationCert ? self.authenticationCertData : self.signingCertData;
+
   switch (type) {
       
     case PersonalDataCellTypeCertUsed: {
       titleString = Localizations.MyEidUseCount;
       
-      if (self.signingCertData) {
-        dataString = self.signingCertData.usageCount == 1 ? Localizations.MyEidUsedOnce : Localizations.MyEidTimesUsed(self.signingCertData.usageCount);
+      if (cert) {
+        dataString = cert.usageCount == 1 ? Localizations.MyEidUsedOnce : Localizations.MyEidTimesUsed(cert.usageCount);
         
       } else {
         dataString = @"-";
@@ -386,8 +398,8 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
       
     case PersonalDataCellTypeCertExpiration: {
       titleString = Localizations.MyEidValidUntil;
-      if (self.signingCertData) {
-        dataString = [[DateFormatter sharedInstance] ddMMYYYYToString:self.signingCertData.expiryDate];
+      if (cert) {
+        dataString = [[DateFormatter sharedInstance] ddMMYYYYToString:cert.expiryDate];
         
       } else {
         dataString = @"-";
@@ -397,8 +409,8 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
       
     case PersonalDataCellTypeCertValidity: {
       titleString = Localizations.MyEidValidity;
-      if (self.signingCertData) {
-        BOOL isValid = self.signingCertData.isValid && [[NSDate date] compare:self.signingCertData.expiryDate] == NSOrderedAscending;
+      if (cert) {
+        BOOL isValid = cert.isValid && [[NSDate date] compare:cert.expiryDate] == NSOrderedAscending;
         dataString = isValid ? Localizations.MyEidValid : Localizations.MyEidNotValid;
         labelColor = isValid ? [UIColor darkGreen] : [UIColor red];
         
@@ -519,10 +531,15 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
     
     if (sectionType == PersonalDataSectionData) {
       title = Localizations.MyEidPersonalData;
+    
     } else if (sectionType == PersonalDataSectionEid) {
       title = Localizations.MyEidEid;
+    
     } else if (sectionType == PersonalDataSectionSigningCert) {
       title = Localizations.MyEidSignatureCertificate;
+      
+    } else if (sectionType == PersonalDataSectionAuthenticationCert) {
+      title = Localizations.MyEidAuthenticationCertificate;
     }
     
     if (title.length > 0) {

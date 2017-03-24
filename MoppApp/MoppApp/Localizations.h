@@ -33,14 +33,17 @@
 /// Base translation: Card in reader:
 - (NSString *)MyEidCardInReader;
 
+/// Base translation: Authentication certificate
+- (NSString *)MyEidAuthenticationCertificate;
+
 /// Base translation: Create document
 - (NSString *)FileImportCreateContainerButton;
 
-/// Base translation: Personal Code:
-- (NSString *)MyEidPersonalCode;
-
 /// Base translation: PIN actions view
 - (NSString *)MyEidPinActionsView;
+
+/// Base translation: Personal Code:
+- (NSString *)MyEidPersonalCode;
 
 /// Base translation: Rename
 - (NSString *)ContainerDetailsRename;

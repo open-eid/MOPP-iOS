@@ -105,6 +105,7 @@
 "my-eid-used-once" = "1 time";
 "my-eid-eid" = "eID";
 "my-eid-signature-certificate" = "Signature certificate";
+"my-eid-authentication-certificate" = "Authentication certificate";
 "my-eid-my-eid" = "My eID";
 "my-eid-id-card-info-link" = "https://www.politsei.ee/en/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/";
 "my-eid-pin-blocked" = "%@ is blocked. You can unblock %@ in %@.";
