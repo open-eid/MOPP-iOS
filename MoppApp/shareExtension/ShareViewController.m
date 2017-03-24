@@ -24,6 +24,19 @@
       [self cacheFileForProvider:provider];
     }
   }
+  
+  // TODO some files might not be importable
+  
+  // TODO can there be other formats than public.data
+  
+  // TODO add download for items on web
+  
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Importing file" message:@"File is now cached for you. Go to RIA DigiDoc application to finish import"  preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [self.extensionContext completeRequestReturningItems:@[] completionHandler:nil];
+    
+  }]];
+  [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)cacheFileForProvider:(NSItemProvider *)provider {
@@ -37,11 +50,7 @@
     }];
     
   } /*else if ([provider hasItemConformingToTypeIdentifier:@"public.content"]) {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Test" message:@"Has public.content" preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-      [self.extensionContext completeRequestReturningItems:@[] completionHandler:nil];
-    }]];
-    [self presentViewController:alert animated:YES completion:nil];
+
   }*/
 }
 
@@ -59,13 +68,6 @@
     NSError *error;
     [[NSFileManager defaultManager] copyItemAtURL:itemUrl toURL:filePath error:&error];
     // [data writeToFile:[filePath absoluteString] atomically:YES];
-    
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Importing file" message:@"File is now cached for you. Go to RIA DigiDoc application to finish import"  preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-      [self.extensionContext completeRequestReturningItems:@[] completionHandler:nil];
-      
-    }]];
-    [self presentViewController:alert animated:YES completion:nil];
   }
   
 }

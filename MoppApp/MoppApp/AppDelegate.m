@@ -157,7 +157,7 @@
       }];
     } else {
       
-      [containersListViewController setDataFilePath:filePath];
+      [containersListViewController setDataFilePaths:@[filePath]];
     }
     
   }

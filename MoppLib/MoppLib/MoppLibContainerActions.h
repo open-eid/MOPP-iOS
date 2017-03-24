@@ -32,7 +32,7 @@
  * @param success       Block to be called on successful completion of action. Includes container data as MoppLibContainer.
  * @param failure       Block to be called when action fails. Includes error.
  */
-- (void)createContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath success:(ContainerBlock)success failure:(FailureBlock)failure;
+- (void)createContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths success:(ContainerBlock)success failure:(FailureBlock)failure;
 
 /**
  * Adds file to container.
@@ -42,7 +42,7 @@
  * @param success       Block to be called on successful completion of action. Includes container data as MoppLibContainer.
  * @param failure       Block to be called when action fails. Includes error.
  */
-- (void)addDataFileToContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath success:(ContainerBlock)success failure:(FailureBlock)failure;
+- (void)addDataFilesToContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths success:(ContainerBlock)success failure:(FailureBlock)failure;
 
 /**
  * Removes file from container.

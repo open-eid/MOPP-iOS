@@ -44,15 +44,37 @@
 }
 
 - (void)cancelButtonPressed {
+  [self deleteTempFiles];
   [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (NSString *)fileNamesStringExtensionIncluded:(BOOL)includeExtension {
+  NSMutableString *names = [NSMutableString new];
+  
+  for (NSString *filePath in self.dataFilePaths) {
+    NSString *name = [filePath lastPathComponent];
+    if (!includeExtension) {
+      name = [name stringByDeletingPathExtension];
+    }
+    
+    if (names.length > 0) {
+      [names appendString:[NSString stringWithFormat:@", %@", name]];
+    } else {
+      [names appendString:name];
+    }
+  }
+  
+  return names;
+}
+
 - (void)createNewContainer {
-  NSString *containerFileName = [NSString stringWithFormat:@"%@.%@", [[self.dataFilePath lastPathComponent] stringByDeletingPathExtension], [DefaultsHelper getNewContainerFormat]];
+
+  NSString *containerFileName = [NSString stringWithFormat:@"%@.%@", [[[self.dataFilePaths firstObject] lastPathComponent] stringByDeletingPathExtension], [DefaultsHelper getNewContainerFormat]];
   NSString *containerPath = [[FileManager sharedInstance] filePathWithFileName:containerFileName];
-  [[MoppLibContainerActions sharedInstance] createContainerWithPath:containerPath withDataFilePath:self.dataFilePath success:^(MoppLibContainer *container) {
+  [[MoppLibContainerActions sharedInstance] createContainerWithPath:containerPath withDataFilePaths:self.dataFilePaths success:^(MoppLibContainer *container) {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
     
+    [self deleteTempFiles];
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
       if (self.delegate) {
         [self.delegate openContainerDetails:container];
@@ -61,9 +83,6 @@
   } failure:^(NSError *error) {
     
   }];
-  
-#warning - remove file
-  //  [[FileManager sharedInstance] removeFileWithPath:self.dataFilePath];
 }
 
 - (void)reloadData {
@@ -81,7 +100,7 @@
     if (self.filteredUnsignedContainers.count == 0) {
       [self createNewContainer];
     } else {
-      UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.FileImportTitle message:Localizations.FileImportInfo([self.dataFilePath lastPathComponent]) preferredStyle:UIAlertControllerStyleAlert];
+      UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.FileImportTitle message:Localizations.FileImportInfo([self fileNamesStringExtensionIncluded:YES]) preferredStyle:UIAlertControllerStyleAlert];
       [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCreateNewDocument style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self createNewContainer];
       }]];
@@ -140,9 +159,10 @@
   }
   
   MoppLibContainer *container = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
-  [[MoppLibContainerActions sharedInstance] addDataFileToContainerWithPath:container.filePath withDataFilePath:self.dataFilePath success:^(MoppLibContainer *container) {
+  [[MoppLibContainerActions sharedInstance] addDataFilesToContainerWithPath:container.filePath withDataFilePaths:self.dataFilePaths success:^(MoppLibContainer *container) {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
     
+    [self deleteTempFiles];
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
       if (self.delegate) {
         [self.delegate openContainerDetails:container];
@@ -151,9 +171,10 @@
   } failure:^(NSError *error) {
     
   }];
-#warning - remove file
-  //  [[FileManager sharedInstance] removeFileWithPath:self.dataFilePath];
-  
+}
+
+- (void)deleteTempFiles {
+  [[FileManager sharedInstance] removeFilesAtPaths:self.dataFilePaths];
 }
 
 @end

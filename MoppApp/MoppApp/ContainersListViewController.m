@@ -54,20 +54,11 @@ typedef enum : NSUInteger {
   [self setEditing:NO]; // Update edit button title.
   
   [self reloadData];
-  
-  [self checkSharedDocsCache];
-  
 }
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
-  
-  NSURL *groupFolderUrl = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.ee.ria.digidoc.ios"];
-  groupFolderUrl = [groupFolderUrl URLByAppendingPathComponent:@"Temp"];
-  
-  NSArray *allFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:groupFolderUrl.path error:nil];
-  
-  NSLog(@"******* %@    %@",groupFolderUrl.path, allFiles);
+  [self checkSharedDocsCache];
 }
 
 - (void)willEnterForeground:(NSNotification *)notification {
@@ -84,21 +75,18 @@ typedef enum : NSUInteger {
   }else {
     [self signatureChangeOperationWithNewContainer:newContainer oldContainer:oldContainer];
   }
-  
 }
 
 - (void) checkSharedDocsCache {
-  NSArray *cachedDocs = [[FileManager sharedInstance] sharedDocuments];
-  if (cachedDocs > 0) {
+  NSArray *cachedDocs = [[FileManager sharedInstance] sharedDocumentPaths];
+  if (cachedDocs.count > 0) {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Imported files" message:@"You have some imported files. What do you want to do with them?" preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Create new container" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-      
+    [alert addAction:[UIAlertAction actionWithTitle:@"Put them in container" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+      [self setDataFilePaths:cachedDocs];
     }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Add to existing container" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-      
-    }]];
+    
     [alert addAction:[UIAlertAction actionWithTitle:@"Nothing. Delete them" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-      [[FileManager sharedInstance] clearSharedCache];
+      [[FileManager sharedInstance] removeFilesAtPaths:cachedDocs];
     }]];
     [self presentViewController:alert animated:YES completion:nil];
   }
@@ -188,8 +176,8 @@ typedef enum : NSUInteger {
 
 
 #pragma mark - File importing
-- (void)setDataFilePath:(NSString *)dataFilePath {
-  _dataFilePath = dataFilePath;
+- (void)setDataFilePaths:(NSArray *)dataFilePaths {
+  _dataFilePaths = dataFilePaths;
   
   [self performSegueWithIdentifier:@"FileImportSegue" sender:self];
 }
@@ -382,7 +370,7 @@ typedef enum : NSUInteger {
     UINavigationController *navController = [segue destinationViewController];
     FileImportViewController *fileImportViewController = (FileImportViewController *)navController.viewControllers[0];
     fileImportViewController.delegate = self;
-    fileImportViewController.dataFilePath = self.dataFilePath;
+    fileImportViewController.dataFilePaths = self.dataFilePaths;
   }
 }
 

@@ -64,17 +64,26 @@
   return [groupFolderUrl URLByAppendingPathComponent:@"Temp"].path;
 }
 
-- (NSArray *)sharedDocuments {
-  return [self.fileManager contentsOfDirectoryAtPath:[self sharedDocumentsPath] error:nil];
+- (NSArray *)sharedDocumentPaths {
+  NSString *cachePath = [self sharedDocumentsPath];
+
+  NSArray *files = [self.fileManager contentsOfDirectoryAtPath:[self sharedDocumentsPath] error:nil];
+  NSMutableArray *array = [NSMutableArray new];
+  for (NSString *file in files) {
+    [array addObject:[NSString stringWithFormat:@"%@/%@", cachePath, file]];
+  }
+  return array;
 }
 
+- (void)removeFilesAtPaths:(NSArray *)paths {
+  for (NSString *file in paths) {
+    [self removeFileWithPath:file];
+  }
+}
 - (void)clearSharedCache {
-  NSArray *cachedDocs = [self sharedDocuments];
-  NSString *cachePath = [self sharedDocumentsPath];
+  NSArray *cachedDocs = [self sharedDocumentPaths];
   for (NSString *file in cachedDocs) {
-    NSString *filePath = [NSString stringWithFormat:@"%@/%@", cachePath, file];
-    NSLog(@"******* going to remove %@", filePath);
-    [self removeFileWithPath:filePath];
+    [self removeFileWithPath:file];
   }
 }
 

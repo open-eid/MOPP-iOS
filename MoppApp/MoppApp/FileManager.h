@@ -15,11 +15,14 @@
 - (NSString *)filePathWithFileName:(NSString *)fileName;
 - (NSString *)tempFilePathWithFileName:(NSString *)fileName;
 - (NSString *)createTestContainer;
+
 - (void)removeFileWithName:(NSString *)fileName;
 - (void)removeFileWithPath:(NSString *)filePath;
+- (void)removeFilesAtPaths:(NSArray *)paths;
+
 - (void)moveFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath overwrite:(BOOL)overwrite error:(NSError **)error;
 - (NSString *)copyFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath;
 - (BOOL)fileExists:(NSString *)sourcePath;
-- (NSArray *)sharedDocuments;
+- (NSArray *)sharedDocumentPaths;
 - (void)clearSharedCache;
 @end
