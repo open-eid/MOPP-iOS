@@ -10,6 +10,7 @@
 #import "DateFormatter.h"
 #import "DefaultsHelper.h"
 #import "Constants.h"
+#import <MoppLib/MoppLib.h>
 
 @interface FileManager ()
 
@@ -72,7 +73,12 @@
 
 - (void)createFileAtPath:(NSString *)filePath contents:(NSData *)fileContents {
   [self.fileManager createFileAtPath:filePath contents:fileContents attributes:nil];
-  [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil];
+  [[MoppLibContainerActions sharedInstance] getContainerWithPath:filePath success:^(MoppLibContainer *container) {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainerNew:container}];
+    
+  } failure:^(NSError *error) {
+      
+  }];
 }
 
 - (void)removeFileWithName:(NSString *)fileName {

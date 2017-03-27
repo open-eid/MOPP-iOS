@@ -143,7 +143,7 @@
       };
       
       [[MoppLibContainerActions sharedInstance] getContainerWithPath:newFilePath success:^(MoppLibContainer *container) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainerNew:container}];
 
         MoppLibContainer *moppLibContainer = container;
         if (moppLibContainer) {
