@@ -230,6 +230,9 @@ private:
       }
     }
   } catch (const digidoc::Exception &e) {
+    if (container) {
+      delete container;
+    }
     parseException(e);
   }
   delete container;
@@ -288,9 +291,14 @@ private:
     }
   } catch(const digidoc::Exception &e) {
     NSString *message = [NSString stringWithCString:e.msg().c_str() encoding:NSNonLossyASCIIStringEncoding];
-    
+
+    if (container) {
+      delete container;
+      
+    }
     // libdigidoc doesn't send specific error code when file with same name already exists.
     if (e.code() == 0 && [message hasPrefix:@"Document with same file name"]) {
+
       return [self addDataFileToContainerWithPath:containerPath withDataFilePath:dataFilePath duplicteCount:count + 1];
     } else {
       parseException(e);
@@ -368,9 +376,12 @@ void parseException(const digidoc::Exception &e) {
     }
     
   } catch(const digidoc::Exception &e) {
-    delete doc;
     parseException(e);
   }
+  if (doc) {
+    delete doc;
+  }
+
   return NO;
 
 }
