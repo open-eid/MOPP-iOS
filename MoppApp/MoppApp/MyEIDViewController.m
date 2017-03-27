@@ -168,6 +168,7 @@ typedef enum : NSUInteger {
     if (!isCardInserted) {
       self.personalData = nil;
       self.signingCertData = nil;
+      self.authenticationCertData = nil;
     }
     [self reloadData];
   }
@@ -179,6 +180,7 @@ typedef enum : NSUInteger {
     if (!isReaderConnected) {
       self.personalData = nil;
       self.signingCertData = nil;
+      self.authenticationCertData = nil;
     }
     [self reloadData];
   }
