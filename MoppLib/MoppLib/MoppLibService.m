@@ -15,6 +15,9 @@
 
 static NSInteger *kInitialStatusRequestDelay = 10;
 static NSInteger *kSubsequentStatusRequestDelay = 5;
+static NSString *kCreateSignatureStatusOutstandingTransaction = @"OUTSTANDING_TRANSACTION";
+static NSString *kCreateSignatureStatusRequestOk = @"REQUEST_OK";
+static NSString *kCreateSignatureStatusSignature = @"SIGNATURE";
 
 @interface MoppLibService ()
 
@@ -33,8 +36,14 @@ static NSInteger *kSubsequentStatusRequestDelay = 5;
   return sharedInstance;
 }
 
-- (void)mobileCreateSignatureWithContainer:(MoppLibContainer *)container idCode:(NSString *)idCode language:(NSString *)language phoneNumber:(NSString *)phoneNumber withCompletion:(ObjectSuccessBlock)completion andStatus:(SignatureStatusBlock)signatureStatus {
+- (void)mobileCreateSignatureWithContainer:(NSString *)containerPath idCode:(NSString *)idCode language:(NSString *)language phoneNumber:(NSString *)phoneNumber withCompletion:(MobileCreateSignatureResponseBlock)completion andStatus:(SignatureStatusBlock)signatureStatus {
   __weak typeof(self) weakSelf = self;
+  NSError *localError = [[NSError alloc] init];
+  MoppLibContainer *container = [[MoppLibDigidocManager sharedInstance] getContainerWithPath:containerPath error:&localError];
+  if (localError.domain) {
+    signatureStatus(nil,localError, nil);
+    return;
+  }
   self.currentContainer = container;
   [[MoppLibNetworkManager sharedInstance] mobileCreateSignatureWithContainer:container language:language idCode:idCode phoneNo:phoneNumber withSuccess:^(NSObject *responseObject) {
     MoppLibMobileCreateSignatureResponse *response = (MoppLibMobileCreateSignatureResponse *)responseObject;
@@ -59,14 +68,14 @@ static NSInteger *kSubsequentStatusRequestDelay = 5;
   if (self.willPollForSignatureResponse) {
     [[MoppLibNetworkManager sharedInstance] getMobileCreateSignatureStatusWithSesscode:sessCode withSuccess:^(NSObject *responseObject) {
       MoppLibGetMobileCreateSignatureStatusResponse *response = (MoppLibGetMobileCreateSignatureStatusResponse *)responseObject;
-      if ([response.status isEqualToString:@"OUTSTANDING_TRANSACTION"]) {
+      if ([response.status isEqualToString:kCreateSignatureStatusOutstandingTransaction] || [response.status isEqualToString:kCreateSignatureStatusRequestOk]) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
           MLLog(@"Session started");
           [self getMobileCreateSignatureWithSessCode:sessCode withSignatureStatus:^(MoppLibContainer *container, NSError *error, NSString *status) {
             signatureStatus(container, error, status);
           }];
         });
-      } else if ([response.status isEqualToString:@"SIGNATURE"]) {
+      } else if ([response.status isEqualToString:kCreateSignatureStatusSignature]) {
         [[MoppLibDigidocManager sharedInstance] addMobileIDSignatureToContainer:self.currentContainer signature:response.signature success:^(MoppLibContainer *container) {
           dispatch_async(dispatch_get_main_queue(), ^{
             MLLog(@"Notification sent out");
@@ -79,7 +88,6 @@ static NSInteger *kSubsequentStatusRequestDelay = 5;
         }];
         
       } else {
-#warning TODO - add all posible statuses if necessary
         MLLog(@"FAILURE with status: %@", response.status);
         dispatch_async(dispatch_get_main_queue(), ^{
           signatureStatus(nil, nil, response.status);

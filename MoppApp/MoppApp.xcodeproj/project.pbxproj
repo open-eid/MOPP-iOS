@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		40E98450D7093ADEFB316D19 /* Pods_MoppAppMobi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2355981C890673E3E897BFD9 /* Pods_MoppAppMobi.framework */; };
 		51EAB865AC99468B5AC77D6C /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
 		540786E91E1A76640016ABA7 /* UITextView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.m */; };
 		540786ED1E1A8C650016ABA7 /* ViewWithRoundedCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = 540786EC1E1A8C650016ABA7 /* ViewWithRoundedCorners.m */; };
@@ -172,6 +173,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1770BB83F006C8A2FD63FDC9 /* Pods-MoppAppMobi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppAppMobi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppAppMobi/Pods-MoppAppMobi.debug.xcconfig"; sourceTree = "<group>"; };
+		2355981C890673E3E897BFD9 /* Pods_MoppAppMobi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppAppMobi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		540786E71E1A76640016ABA7 /* UITextView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Additions.h"; sourceTree = "<group>"; };
 		540786E81E1A76640016ABA7 /* UITextView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Additions.m"; sourceTree = "<group>"; };
 		540786EB1E1A8C650016ABA7 /* ViewWithRoundedCorners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewWithRoundedCorners.h; sourceTree = "<group>"; };
@@ -215,6 +218,7 @@
 		6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B5F907F55A4D9D1590D35CB /* Pods-MoppApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.release.xcconfig"; sourceTree = "<group>"; };
 		A0A7AA11ECD67C1248EED708 /* Pods-MoppApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.debug.xcconfig"; sourceTree = "<group>"; };
+		A759EAB0FC4CDDBB8E08EF54 /* Pods-MoppAppMobi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppAppMobi.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoppAppMobi/Pods-MoppAppMobi.release.xcconfig"; sourceTree = "<group>"; };
 		AE6198561E486C7E0021B18B /* MobileIDChallengeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileIDChallengeViewController.h; sourceTree = "<group>"; };
 		AE6198571E486C7E0021B18B /* MobileIDChallengeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobileIDChallengeViewController.m; sourceTree = "<group>"; };
 		AEC164671E3A0DFD00139C7E /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
@@ -298,6 +302,7 @@
 			files = (
 				54A572791E82A48A0099BFAF /* MoppLib.framework in Frameworks */,
 				54A5727A1E82A48A0099BFAF /* Pods_MoppApp.framework in Frameworks */,
+				40E98450D7093ADEFB316D19 /* Pods_MoppAppMobi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,6 +402,8 @@
 			children = (
 				A0A7AA11ECD67C1248EED708 /* Pods-MoppApp.debug.xcconfig */,
 				7B5F907F55A4D9D1590D35CB /* Pods-MoppApp.release.xcconfig */,
+				1770BB83F006C8A2FD63FDC9 /* Pods-MoppAppMobi.debug.xcconfig */,
+				A759EAB0FC4CDDBB8E08EF54 /* Pods-MoppAppMobi.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -584,6 +591,7 @@
 			children = (
 				E4250D051E0A911100530370 /* MoppLib.framework */,
 				6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */,
+				2355981C890673E3E897BFD9 /* Pods_MoppAppMobi.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -655,7 +663,7 @@
 					E4250CC21E0968D200530370 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = ET847QJV9F;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -830,7 +838,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoppAppMobi/Pods-MoppAppMobi-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		54A572951E82A48A0099BFAF /* [CP] Copy Pods Resources */ = {
@@ -845,7 +853,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoppAppMobi/Pods-MoppAppMobi-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		54A572981E82A48A0099BFAF /* ShellScript */ = {
@@ -1036,7 +1044,7 @@
 /* Begin XCBuildConfiguration section */
 		54A5729A1E82A48A0099BFAF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A0A7AA11ECD67C1248EED708 /* Pods-MoppApp.debug.xcconfig */;
+			baseConfigurationReference = 1770BB83F006C8A2FD63FDC9 /* Pods-MoppAppMobi.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1059,7 +1067,7 @@
 		};
 		54A5729B1E82A48A0099BFAF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7B5F907F55A4D9D1590D35CB /* Pods-MoppApp.release.xcconfig */;
+			baseConfigurationReference = A759EAB0FC4CDDBB8E08EF54 /* Pods-MoppAppMobi.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1178,7 +1186,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_ACTIVITY_MODE = "";
 				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1190,8 +1198,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8802afdf-ea26-49a0-ac6a-fa619cee3bef";
-				PROVISIONING_PROFILE_SPECIFIER = "MOPP iOS App Store";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -1201,7 +1209,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_ACTIVITY_MODE = "";
 				DEVELOPMENT_TEAM = ET847QJV9F;
 				ENABLE_BITCODE = NO;
@@ -1211,8 +1219,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8802afdf-ea26-49a0-ac6a-fa619cee3bef";
-				PROVISIONING_PROFILE_SPECIFIER = "MOPP iOS App Store";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

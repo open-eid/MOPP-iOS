@@ -14,5 +14,5 @@
 
 - (void)setup;
 
-- (void)createMobileSignatureWithContainer:(MoppLibContainer *)initialContainer idCode:(NSString *)idCode language:(NSString *)language phoneNumber:(NSString *)phoneNumber;
+- (void)createMobileSignatureWithContainer:(NSString *)containerPath idCode:(NSString *)idCode language:(NSString *)language phoneNumber:(NSString *)phoneNumber;
 @end
