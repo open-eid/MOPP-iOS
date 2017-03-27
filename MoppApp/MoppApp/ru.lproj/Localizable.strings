@@ -103,6 +103,7 @@
 "my-eid-used-once" = "1 раз";
 "my-eid-eid" = "eID";
 "my-eid-signature-certificate" = "Сертификат подписи";
+"my-eid-authentication-certificate" = "Authentication certificate";
 "my-eid-my-eid" = "Мой eID";
 "my-eid-id-card-info-link" = "https://www.politsei.ee/ru/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/";
 "my-eid-pin-blocked" = "%@ заблокирован. Вы можете разблокировать %@ в %@.";

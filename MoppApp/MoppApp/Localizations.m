@@ -49,16 +49,20 @@
     return NSLocalizedStringFromTable(@"my-eid-card-in-reader", nil, nil);
 }
 
+- (NSString *)MyEidAuthenticationCertificate {
+    return NSLocalizedStringFromTable(@"my-eid-authentication-certificate", nil, nil);
+}
+
 - (NSString *)FileImportCreateContainerButton {
     return NSLocalizedStringFromTable(@"file-import-create-container-button", nil, nil);
 }
 
-- (NSString *)MyEidPersonalCode {
-    return NSLocalizedStringFromTable(@"my-eid-personal-code", nil, nil);
-}
-
 - (NSString *)MyEidPinActionsView {
     return NSLocalizedStringFromTable(@"my-eid-pin-actions-view", nil, nil);
+}
+
+- (NSString *)MyEidPersonalCode {
+    return NSLocalizedStringFromTable(@"my-eid-personal-code", nil, nil);
 }
 
 - (NSString *)ContainerDetailsRename {

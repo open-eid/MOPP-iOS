@@ -16,16 +16,6 @@ target 'MoppApp' do
   pod 'Crashlytics'
 end
 
-target 'MoppAppMobi' do
-    platform :ios, '9.0'
-    project 'MoppApp.xcodeproj'
-    
-    pod 'MBProgressHUD', '~> 0.9.2'
-    pod 'PureLayout', '~> 3.0.1'
-    pod 'Fabric'
-    pod 'Crashlytics'
-end
-
 target 'MoppLib' do
   platform :ios, '9.0'
   project '../MoppLib/MoppLib.xcodeproj'
