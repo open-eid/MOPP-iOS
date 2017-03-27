@@ -70,12 +70,16 @@ typedef enum : NSUInteger {
   // May consider updating just one file
   MoppLibContainer *newContainer = [[notification userInfo] objectForKey:kKeyContainerNew];
   MoppLibContainer *oldContainer = [[notification userInfo] objectForKey:kKeyContainerOld];
-  MoppLibContainer *container = [[notification userInfo] objectForKey:kKeyContainer];
-  if (container) {
-    [self reloadData];
-  }else {
-    [self signatureChangeOperationWithNewContainer:newContainer oldContainer:oldContainer];
+  [self signatureChangeOperationWithNewContainer:newContainer oldContainer:oldContainer];
+}
+
+- (BOOL)removeContainer:(MoppLibContainer *)container fromArray:(NSMutableArray *)array {
+  NSInteger index = [self indexOfContainer:container inArray:array];
+  if (index != NSNotFound) {
+    [array removeObjectAtIndex:index];
+    return YES;
   }
+  return NO;
 }
 
 - (void) checkSharedDocsCache {
@@ -113,27 +117,40 @@ typedef enum : NSUInteger {
   [self presentViewController:alert animated:YES completion:nil];
 }
 
--(void)signatureChangeOperationWithNewContainer:(MoppLibContainer *)newContainer oldContainer:(MoppLibContainer *)oldContainer {
-  if(newContainer.isSigned && [self.unsignedContainers containsObject:oldContainer]) {
-    NSMutableArray *mutSigned = [NSMutableArray array];
-    NSMutableArray *mutUnsigned = [NSMutableArray array];
-    mutSigned = [self.signedContainers mutableCopy];
-    mutUnsigned = [self.unsignedContainers mutableCopy];
-    [mutSigned addObject:newContainer];
-    [mutUnsigned removeObject:oldContainer];
-    self.signedContainers = [mutSigned copy];
-    self.unsignedContainers = [mutUnsigned copy];
-  } else if (!newContainer.isSigned && [self.signedContainers containsObject:oldContainer]) {
-    NSMutableArray *mutSigned = [NSMutableArray array];
-    NSMutableArray *mutUnsigned = [NSMutableArray array];
-    mutSigned = [self.signedContainers mutableCopy];
-    mutUnsigned = [self.unsignedContainers mutableCopy];
-    [mutUnsigned addObject:newContainer];
-    [mutSigned removeObject:oldContainer];
-    self.signedContainers = [mutSigned copy];
-    self.unsignedContainers = [mutUnsigned copy];
+- (void)signatureChangeOperationWithNewContainer:(MoppLibContainer *)newContainer oldContainer:(MoppLibContainer *)oldContainer {
+  
+  NSMutableArray *mutSigned = [NSMutableArray array];
+  mutSigned = [self.signedContainers mutableCopy];
+  NSMutableArray *mutUnsigned = [NSMutableArray array];
+  mutUnsigned = [self.unsignedContainers mutableCopy];
+  
+  if (![self removeContainer:oldContainer fromArray:mutSigned]) {
+    if (![self removeContainer:oldContainer fromArray:mutUnsigned]) {
+      if (![self removeContainer:newContainer fromArray:mutSigned]) {
+        [self removeContainer:newContainer fromArray:mutUnsigned];
+      }
+    }
   }
+
+  if (newContainer.isSigned) {
+    [mutSigned addObject:newContainer];
+  } else {
+    [mutUnsigned addObject:newContainer];
+  }
+  self.signedContainers = [mutSigned copy];
+  self.unsignedContainers = [mutUnsigned copy];
+
   [super reloadData];
+}
+
+- (NSInteger)indexOfContainer:(MoppLibContainer *)container inArray:(NSArray *)array {
+  for (int i = 0; i < array.count; i++) {
+    MoppLibContainer *con = array[i];
+    if ([con.filePath isEqualToString:container.filePath]) {
+      return i;
+    }
+  }
+  return NSNotFound;
 }
 
 - (void)reloadData {

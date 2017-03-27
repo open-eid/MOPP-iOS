@@ -104,6 +104,7 @@
 "my-eid-used-once" = "1 kord";
 "my-eid-eid" = "eID";
 "my-eid-signature-certificate" = "Allkirjastamise sertifikaat";
+"my-eid-authentication-certificate" = "Isikutuvastamise sertifikaat";
 "my-eid-my-eid" = "Minu eID";
 "my-eid-id-card-info-link" = "https://www.politsei.ee/et/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/";
 "my-eid-pin-blocked" = "%@ on blokeeritud. %@ blokeeringu saad tühistada %@.";

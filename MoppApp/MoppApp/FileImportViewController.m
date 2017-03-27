@@ -71,8 +71,9 @@
 
   NSString *containerFileName = [NSString stringWithFormat:@"%@.%@", [[[self.dataFilePaths firstObject] lastPathComponent] stringByDeletingPathExtension], [DefaultsHelper getNewContainerFormat]];
   NSString *containerPath = [[FileManager sharedInstance] filePathWithFileName:containerFileName];
+  
   [[MoppLibContainerActions sharedInstance] createContainerWithPath:containerPath withDataFilePaths:self.dataFilePaths success:^(MoppLibContainer *container) {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainerNew:container}];
     
     [self deleteTempFiles];
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
@@ -158,10 +159,10 @@
     return;
   }
   
-  MoppLibContainer *container = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
-  [[MoppLibContainerActions sharedInstance] addDataFilesToContainerWithPath:container.filePath withDataFilePaths:self.dataFilePaths success:^(MoppLibContainer *container) {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
-    
+  MoppLibContainer *origContainer = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
+  [[MoppLibContainerActions sharedInstance] addDataFilesToContainerWithPath:origContainer.filePath withDataFilePaths:self.dataFilePaths success:^(MoppLibContainer *container) {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainerNew:container, kKeyContainerOld:origContainer}];
+
     [self deleteTempFiles];
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
       if (self.delegate) {
