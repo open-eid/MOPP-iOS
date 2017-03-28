@@ -607,7 +607,7 @@
 					54A418231E83FAD200559E2B = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = ET847QJV9F;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -880,6 +880,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.shareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "68de1df4-96a9-4da7-91d1-5f2462e16f2d";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS share extension Development";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -889,13 +891,15 @@
 			buildSettings = {
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CODE_SIGN_ENTITLEMENTS = shareExtension/shareExtension.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = ET847QJV9F;
 				INFOPLIST_FILE = shareExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.shareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e83cc59f-2e66-4b4e-a6b4-616e54ad4a81";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS share extension App Store";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -1050,6 +1054,7 @@
 				54A418311E83FAD200559E2B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E4250CBE1E0968D200530370 /* Build configuration list for PBXProject "MoppApp" */ = {
 			isa = XCConfigurationList;
