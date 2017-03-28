@@ -7,6 +7,7 @@
 //
 
 #import "FileImportViewController.h"
+#import "UIViewController+MBProgressHUD.h"
 #import "FileManager.h"
 #import "ContainerCell.h"
 #import "DateFormatter.h"
@@ -68,7 +69,8 @@
 }
 
 - (void)createNewContainer {
-
+  [self showHUD];
+  
   NSString *containerFileName = [NSString stringWithFormat:@"%@.%@", [[[self.dataFilePaths firstObject] lastPathComponent] stringByDeletingPathExtension], [DefaultsHelper getNewContainerFormat]];
   NSString *containerPath = [[FileManager sharedInstance] filePathWithFileName:containerFileName];
   
@@ -76,6 +78,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainerNew:container}];
     
     [self deleteTempFiles];
+    [self hideHUD];
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
       if (self.delegate) {
         [self.delegate openContainerDetails:container];
@@ -159,11 +162,14 @@
     return;
   }
   
+  [self showHUD];
+  
   MoppLibContainer *origContainer = [self.filteredUnsignedContainers objectAtIndex:indexPath.row];
   [[MoppLibContainerActions sharedInstance] addDataFilesToContainerWithPath:origContainer.filePath withDataFilePaths:self.dataFilePaths success:^(MoppLibContainer *container) {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainerNew:container, kKeyContainerOld:origContainer}];
 
     [self deleteTempFiles];
+    [self hideHUD];
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
       if (self.delegate) {
         [self.delegate openContainerDetails:container];

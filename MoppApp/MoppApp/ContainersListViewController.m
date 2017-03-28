@@ -30,6 +30,7 @@ typedef enum : NSUInteger {
 @property (strong, nonatomic) NSArray *filteredUnsignedContainers;
 @property (strong, nonatomic) NSArray *filteredSignedContainers;
 
+
 @end
 
 @implementation ContainersListViewController
@@ -83,9 +84,6 @@ typedef enum : NSUInteger {
 }
 
 - (void) checkSharedDocsCache {
-  
-#warning TODO - display spinner while container is made because it might take long
-  
   NSArray *cachedDocs = [[FileManager sharedInstance] sharedDocumentPaths];
   if (cachedDocs.count > 0) {
     for (NSString *file in cachedDocs) {

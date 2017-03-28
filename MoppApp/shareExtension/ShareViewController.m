@@ -8,7 +8,7 @@
 
 #import "ShareViewController.h"
 
-@interface ShareViewController ()
+@interface ShareViewController () <NSURLSessionDelegate>
 
 @end
 
@@ -17,12 +17,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-#warning TODO - some files might not be importable
-#warning TODO - can there be other formats than public.data
-#warning TODO - add download for items on web
-  
-  
-  [self performSelectorInBackground:@selector(cacheFilesWithCompletion:) withObject:  ^(BOOL imported) {
+  [self performSelectorInBackground:@selector(cacheFilesWithCompletion:) withObject: ^(BOOL imported) {
     if (imported) {
       [self performSelectorOnMainThread:@selector(displayFilesImportedMessage) withObject:nil waitUntilDone:NO];
     }
@@ -73,9 +68,7 @@
       }
     }];
     
-  } /*else if ([provider hasItemConformingToTypeIdentifier:@"public.content"]) {
-
-  }*/
+  }
   
 }
 
@@ -83,50 +76,36 @@
 
   if ([[itemUrl scheme] isEqualToString:@"file"]) {
     
-
-  NSData *data = [NSData dataWithContentsOfURL:itemUrl];
-  if (data) {
     
-    NSURL *groupFolderUrl = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.ee.ria.digidoc.ios"];
-    groupFolderUrl = [groupFolderUrl URLByAppendingPathComponent:@"Temp"];
-    NSError *err;
-    [[NSFileManager defaultManager] createDirectoryAtURL:groupFolderUrl withIntermediateDirectories:NO attributes:nil error:&err];
-    
-    NSURL  *filePath = [groupFolderUrl URLByAppendingPathComponent:itemUrl.lastPathComponent] ;
-    
-    NSError *error;
-    [[NSFileManager defaultManager] copyItemAtURL:itemUrl toURL:filePath error:&error];
-    // [data writeToFile:[filePath absoluteString] atomically:YES];
-
-    if (!error) {
-      return YES;
+    NSData *data = [NSData dataWithContentsOfURL:itemUrl];
+    if (data) {
+      
+      NSURL *groupFolderUrl = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.ee.ria.digidoc.ios"];
+      groupFolderUrl = [groupFolderUrl URLByAppendingPathComponent:@"Temp"];
+      NSError *err;
+      [[NSFileManager defaultManager] createDirectoryAtURL:groupFolderUrl withIntermediateDirectories:NO attributes:nil error:&err];
+      
+      NSURL  *filePath = [groupFolderUrl URLByAppendingPathComponent:itemUrl.lastPathComponent] ;
+      
+      NSError *error;
+      [[NSFileManager defaultManager] copyItemAtURL:itemUrl toURL:filePath error:&error];
+      
+      if (!error) {
+        return YES;
+      }
     }
-  }
     
   } else {
-  //  NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"digidoc.share.background.task"]];
-   // NSURLSessionDownloadTask *task = [session downloadTaskWithURL:itemUrl];
+    NSURLSessionConfiguration *conf = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"digidoc.share.background.task"];
+    conf.sharedContainerIdentifier = @"group.ee.ria.digidoc.ios";
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:conf delegate:self delegateQueue:nil];
+
+    NSURLSessionDownloadTask *task = [session downloadTaskWithURL:itemUrl];
     
-   // [task resume];
+    [task resume];
+    return YES;
   }
   return NO;
-}
-
-- (BOOL)isContentValid {
-  // Do validation of contentText and/or NSExtensionContext attachments here
-  return YES;
-}
-
-- (void)didSelectPost {
-  // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
-  
-  // Inform the host that we're done, so it un-blocks its UI. Note: Alternatively you could call super's -didSelectPost, which will similarly complete the extension context.
-  [self.extensionContext completeRequestReturningItems:@[] completionHandler:nil];
-}
-
-- (NSArray *)configurationItems {
-  // To add configuration options via table cells at the bottom of the sheet, return an array of SLComposeSheetConfigurationItem here.
-  return @[];
 }
 
 @end
