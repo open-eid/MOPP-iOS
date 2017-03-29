@@ -104,12 +104,12 @@ typedef enum : NSUInteger {
 - (void)importNonContainersIfNeeded {
   NSArray *cachedDocs = [[FileManager sharedInstance] sharedDocumentPaths];
   
-  UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Imported files" message:@"You have some imported files. What do you want to do with them?" preferredStyle:UIAlertControllerStyleAlert];
-  [alert addAction:[UIAlertAction actionWithTitle:@"Put them in container" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainersListCachedFilesTitle message:Localizations.ContainersListCachedFilesMessage preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ContainersListCachedFilesOption1 style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     [self setDataFilePaths:cachedDocs];
   }]];
   
-  [alert addAction:[UIAlertAction actionWithTitle:@"Nothing. Delete them" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ContainersListCachedFilesOption2 style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     [[FileManager sharedInstance] removeFilesAtPaths:cachedDocs];
   }]];
   [self presentViewController:alert animated:YES completion:nil];

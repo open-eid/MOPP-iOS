@@ -21,6 +21,7 @@
 		545CF84E1E165DCF00B66EE8 /* PersonalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF84D1E165DCF00B66EE8 /* PersonalDataCell.m */; };
 		545CF8511E165DEC00B66EE8 /* ErrorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8501E165DEC00B66EE8 /* ErrorCell.m */; };
 		545CF8541E165DFB00B66EE8 /* InfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8531E165DFB00B66EE8 /* InfoCell.m */; };
+		547BDF221E8BDEB40093931F /* ButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 547BDF211E8BDEB40093931F /* ButtonCell.m */; };
 		54813B2E1E24DD560058CD33 /* ChangePinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54813B2D1E24DD560058CD33 /* ChangePinViewController.m */; };
 		54813B301E24FD270058CD33 /* InfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54813B2F1E24FD270058CD33 /* InfoCell.xib */; };
 		54825EF51E1CFE9600253FF0 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF41E1CFE9600253FF0 /* NSDate+Additions.m */; };
@@ -139,6 +140,8 @@
 		545CF8501E165DEC00B66EE8 /* ErrorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorCell.m; sourceTree = "<group>"; };
 		545CF8521E165DFB00B66EE8 /* InfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoCell.h; sourceTree = "<group>"; };
 		545CF8531E165DFB00B66EE8 /* InfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoCell.m; sourceTree = "<group>"; };
+		547BDF201E8BDEB40093931F /* ButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonCell.h; sourceTree = "<group>"; };
+		547BDF211E8BDEB40093931F /* ButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonCell.m; sourceTree = "<group>"; };
 		54813B2C1E24DD560058CD33 /* ChangePinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePinViewController.h; sourceTree = "<group>"; };
 		54813B2D1E24DD560058CD33 /* ChangePinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePinViewController.m; sourceTree = "<group>"; };
 		54813B2F1E24FD270058CD33 /* InfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoCell.xib; sourceTree = "<group>"; };
@@ -477,6 +480,8 @@
 				E45EF5341E2D850400C37D43 /* Containers.storyboard */,
 				E45EF5361E2D855400C37D43 /* BaseContainersListViewController.h */,
 				E45EF5371E2D855400C37D43 /* BaseContainersListViewController.m */,
+				547BDF201E8BDEB40093931F /* ButtonCell.h */,
+				547BDF211E8BDEB40093931F /* ButtonCell.m */,
 				E42B08A81E1D4EF500EA24A3 /* ContainerCell.h */,
 				E42B08A91E1D4EF500EA24A3 /* ContainerCell.m */,
 				E45EF5421E2D8D8000C37D43 /* ContainerCell.xib */,
@@ -817,6 +822,7 @@
 				540786E91E1A76640016ABA7 /* UITextView+Additions.m in Sources */,
 				540786ED1E1A8C650016ABA7 /* ViewWithRoundedCorners.m in Sources */,
 				E42B08C21E1F0CA600EA24A3 /* ContainerDetailsSignatureCell.m in Sources */,
+				547BDF221E8BDEB40093931F /* ButtonCell.m in Sources */,
 				E4250CCB1E0968D200530370 /* AppDelegate.m in Sources */,
 				545CF8511E165DEC00B66EE8 /* ErrorCell.m in Sources */,
 				E42B08AE1E1EFC1800EA24A3 /* DateFormatter.m in Sources */,

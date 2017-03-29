@@ -10,6 +10,7 @@
 #import "ContainerDetailsHeaderCell.h"
 #import "ContainerDetailsDataFileCell.h"
 #import "ContainerDetailsSignatureCell.h"
+#import "ButtonCell.h"
 #import "DateFormatter.h"
 #import "SimpleHeaderView.h"
 #import "UIColor+Additions.h"
@@ -426,7 +427,8 @@ typedef enum : NSUInteger {
       
     case ContainerDetailsSectionSignature: {
       if (self.container.signatures.count <= indexPath.row) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddSignatureCell"];
+        ButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddSignatureCell"];
+        [cell.addSignatureButton setTitle:Localizations.ContainerDetailsAddSignature forState:UIControlStateNormal];
         return cell;
       }
       

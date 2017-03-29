@@ -283,12 +283,20 @@
     return NSLocalizedStringFromTable(@"container-details-signature-added", nil, nil);
 }
 
+- (NSString *)ContainersListCachedFilesTitle {
+    return NSLocalizedStringFromTable(@"containers-list-cached-files-title", nil, nil);
+}
+
 - (NSString *)ContainerDetailsAttention {
     return NSLocalizedStringFromTable(@"container-details-attention", nil, nil);
 }
 
 - (NSString *)MyEidSurname {
     return NSLocalizedStringFromTable(@"my-eid-surname", nil, nil);
+}
+
+- (NSString *)ContainersListCachedFilesMessage {
+    return NSLocalizedStringFromTable(@"containers-list-cached-files-message", nil, nil);
 }
 
 - (NSString *(^)(NSString *))PinActionsTitleUnblockingPin {
@@ -399,12 +407,16 @@
     return NSLocalizedStringFromTable(@"crashlytics-action-send", nil, nil);
 }
 
-- (NSString *)MobileIdTimeoutMessage {
-    return NSLocalizedStringFromTable(@"mobile-id-timeout-message", nil, nil);
+- (NSString *)ContainersListCachedFilesOption1 {
+    return NSLocalizedStringFromTable(@"containers-list-cached-files-option1", nil, nil);
 }
 
 - (NSString *)ActionOk {
     return NSLocalizedStringFromTable(@"action-ok", nil, nil);
+}
+
+- (NSString *)MobileIdTimeoutMessage {
+    return NSLocalizedStringFromTable(@"mobile-id-timeout-message", nil, nil);
 }
 
 - (NSString *)ErrorAlertTitleGeneral {
@@ -435,6 +447,10 @@
 
 - (NSString *)ContainerDetailsEnterNewName {
     return NSLocalizedStringFromTable(@"container-details-enter-new-name", nil, nil);
+}
+
+- (NSString *)ContainersListCachedFilesOption2 {
+    return NSLocalizedStringFromTable(@"containers-list-cached-files-option2", nil, nil);
 }
 
 - (NSString *)FileImportTitle {
@@ -513,6 +529,10 @@
     return ^(NSString * value1 , NSString * value2 , NSString * value3) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-pin-blocked", nil, nil), value1, value2, value3];
     };
+}
+
+- (NSString *)ContainerDetailsAddSignature {
+    return NSLocalizedStringFromTable(@"container-details-add-signature", nil, nil);
 }
 
 - (NSString *)ContainerDetailsStoreMobileIdCredentialsAlertTitle {
@@ -607,14 +627,14 @@
     return NSLocalizedStringFromTable(@"file-import-import-failed-alert-title", nil, nil);
 }
 
+- (NSString *)PinActionsPin2 {
+    return NSLocalizedStringFromTable(@"pin-actions-pin2", nil, nil);
+}
+
 - (NSString *(^)(NSString *, int))PinActionsWrongPinRetry {
     return ^(NSString * value1 , int value2) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-wrong-pin-retry", nil, nil), value1, value2];
     };
-}
-
-- (NSString *)PinActionsPin2 {
-    return NSLocalizedStringFromTable(@"pin-actions-pin2", nil, nil);
 }
 
 - (NSString *(^)(NSString *))PinActionsCurrentPin {

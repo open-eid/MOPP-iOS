@@ -60,6 +60,24 @@
   return filePath;
 }
 
+- (NSString *)uniqueFilePathWithFileName:(NSString *)fileName {
+  return [self filePathWithFileName:fileName index:0];
+}
+
+- (NSString *)filePathWithFileName:(NSString *)fileName index:(int)index {
+  NSString *filePath = [[self documentsDirectoryPath] stringByAppendingPathComponent:fileName];
+  if (index > 0) {
+    NSString *ext = [filePath pathExtension];
+    NSString *withoutExt = [filePath substringToIndex:filePath.length - ext.length - 1];
+    filePath = [NSString stringWithFormat:@"%@(%i).%@", withoutExt, index, ext];
+  }
+  
+  if ([self.fileManager fileExistsAtPath:filePath isDirectory:NO]) {
+    return [self filePathWithFileName:fileName index:index + 1];
+  }
+  return filePath;
+}
+  
 - (NSString *)sharedDocumentsPath {
   NSURL *groupFolderUrl = [self.fileManager containerURLForSecurityApplicationGroupIdentifier:@"group.ee.ria.digidoc.ios"];
   return [groupFolderUrl URLByAppendingPathComponent:@"Temp"].path;

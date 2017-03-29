@@ -31,6 +31,11 @@
 "containers-list-search-placeholder" = "Search";
 "containers-list-section-header-unsigned" = "Unsigned";
 "containers-list-section-header-signed" = "Signed";
+"containers-list-cached-files-title" = "Imported files";
+"containers-list-cached-files-message" = "You have some imported files. What do you want to do with them?";
+"containers-list-cached-files-option1" = "Put them in container";
+"containers-list-cached-files-option2" = "Delete them";
+
 // DataFile import
 "file-import-title" = "Import file";
 "file-import-create-container-button" = "Create document";
@@ -53,7 +58,7 @@
 "container-details-signature-already-exists" = "Your signature already exists on this document.";
 "container-details-signing-method-alert-title" = "Singing method";
 "container-details-signing-method-alert-message" = "Choose signing method";
-"container-details-signing-method-mobile-id" = "Mobile ID";
+"container-details-signing-method-mobile-id" = "Mobile-ID";
 "container-details-signing-method-id-card" = "ID card";
 "container-details-idcode-phone-alert-title" = "Enter details";
 "container-details-idcode-phone-alert-message" = "Enter ID code and phone number";
@@ -79,6 +84,7 @@
 
 "container-details-internet-connection-error-title" = "No internet connection";
 "container-details-internet-connection-error-message" = "Internet connection must be available for signing.";
+"container-details-add-signature" = "Add signature";
 
 
 // *** My eID ***
@@ -154,7 +160,7 @@
 "settings-phone-number-title" = "Phone number";
 "settings-id-code-alert-message" = "Type in your ID code";
 "settings-phone-number-alert-message" = "Type in your phone number";
-"settings-mobile-id-header" = "Mobile ID";
+"settings-mobile-id-header" = "Mobile-ID";
 
 // *** About ***
 "about-development" = "Software ordered by RIA, developed by Mobi Lab";
@@ -166,6 +172,6 @@
 "challenge-code-label" = "Code: %@";
 
 // *** Errors ***
-"mobile-id-timeout-message" = "Mobile ID request timeout";
+"mobile-id-timeout-message" = "Mobile-ID request timeout";
 "error-alert-title-general" = "Failure";
 

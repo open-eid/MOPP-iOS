@@ -243,7 +243,6 @@ private:
   
   digidoc::Container *container;
   try {
-    
     container = digidoc::Container::create(containerPath.UTF8String);
     for (NSString *dataFilePath in dataFilePaths) {
       container->addDataFile(dataFilePath.UTF8String, @"application/octet-stream".UTF8String);
@@ -289,7 +288,7 @@ private:
   return moppLibContainer;
 }
 
-- (void)addDataFileToContainer:(digidoc::Container *)container/*WithPath:(NSString *)containerPath*/ withDataFilePath:(NSString *)dataFilePath duplicteCount:(int)count {
+- (void)addDataFileToContainer:(digidoc::Container *)container withDataFilePath:(NSString *)dataFilePath duplicteCount:(int)count {
   
   NSString *fileName = [dataFilePath lastPathComponent];
   if (count > 0) {

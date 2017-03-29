@@ -98,7 +98,7 @@
 /// Base translation: PUK
 - (NSString *)PinActionsPuk;
 
-/// Base translation: Mobile ID
+/// Base translation: Mobile-ID
 - (NSString *)SettingsMobileIdHeader;
 
 /// Base translation: Unblock %@
@@ -176,15 +176,21 @@
 /// Base translation: Your signature has been added to the document.
 - (NSString *)ContainerDetailsSignatureAdded;
 
+/// Base translation: Imported files
+- (NSString *)ContainersListCachedFilesTitle;
+
 /// Base translation: Attention!
 - (NSString *)ContainerDetailsAttention;
 
 /// Base translation: Surname:
 - (NSString *)MyEidSurname;
 
+/// Base translation: You have some imported files. What do you want to do with them?
+- (NSString *)ContainersListCachedFilesMessage;
+
 /// Base translation: Unblocking %@
 - (NSString *(^)(NSString *))PinActionsTitleUnblockingPin;
-/// Base translation: Mobile ID
+/// Base translation: Mobile-ID
 - (NSString *)ContainerDetailsSigningMethodMobileId;
 
 /// Base translation: Settings
@@ -253,11 +259,14 @@
 /// Base translation: Send
 - (NSString *)CrashlyticsActionSend;
 
-/// Base translation: Mobile ID request timeout
-- (NSString *)MobileIdTimeoutMessage;
+/// Base translation: Put them in container
+- (NSString *)ContainersListCachedFilesOption1;
 
 /// Base translation: OK
 - (NSString *)ActionOk;
+
+/// Base translation: Mobile-ID request timeout
+- (NSString *)MobileIdTimeoutMessage;
 
 /// Base translation: Failure
 - (NSString *)ErrorAlertTitleGeneral;
@@ -278,6 +287,9 @@
 
 /// Base translation: Enter new container name
 - (NSString *)ContainerDetailsEnterNewName;
+
+/// Base translation: Delete them
+- (NSString *)ContainersListCachedFilesOption2;
 
 /// Base translation: Import file
 - (NSString *)FileImportTitle;
@@ -330,6 +342,9 @@
 
 /// Base translation: %@ is blocked. You can unblock %@ in %@.
 - (NSString *(^)(NSString *, NSString *, NSString *))MyEidPinBlocked;
+/// Base translation: Add signature
+- (NSString *)ContainerDetailsAddSignature;
+
 /// Base translation: Store credentials
 - (NSString *)ContainerDetailsStoreMobileIdCredentialsAlertTitle;
 
@@ -384,11 +399,11 @@
 /// Base translation: Import failed
 - (NSString *)FileImportImportFailedAlertTitle;
 
-/// Base translation: Current %@ was wrong. You have %i tries left.
-- (NSString *(^)(NSString *, int))PinActionsWrongPinRetry;
 /// Base translation: PIN2
 - (NSString *)PinActionsPin2;
 
+/// Base translation: Current %@ was wrong. You have %i tries left.
+- (NSString *(^)(NSString *, int))PinActionsWrongPinRetry;
 /// Base translation: Current %@ code
 - (NSString *(^)(NSString *))PinActionsCurrentPin;
 /// Base translation: Using current %@ code

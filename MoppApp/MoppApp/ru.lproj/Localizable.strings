@@ -30,6 +30,11 @@
 "containers-list-search-placeholder" = "Искать";
 "containers-list-section-header-unsigned" = "Не подписан";
 "containers-list-section-header-signed" = "Подписан";
+"containers-list-cached-files-title" = "Imported files";
+"containers-list-cached-files-message" = "You have some imported files. What do you want to do with them?";
+"containers-list-cached-files-option1" = "Put them in container";
+"containers-list-cached-files-option2" = "Delete them";
+
 // DataFile import
 "file-import-title" = "Импортировать файл";
 "file-import-create-container-button" = "Создать документ";
@@ -78,6 +83,8 @@
 
 "container-details-internet-connection-error-title" = "No internet connection";
 "container-details-internet-connection-error-message" = "Internet connection must be available for signing.";
+
+"container-details-add-signature" = "Add signature";
 
 // *** My eID ***
 "my-eid-id-card-info" = "ID-карта - это внутригосударственный документ, удостоверяющий личность начиная с 15-ти лет. Гражданин Эстонии с ID-картой может путешествовать по Европейскому Союзу и в странах Европейской экономической зоны.\n\nID-карту можете ходатайствовать в Департамента полиции и пограничной охраны, в зарубежных представительствах Эстонской республики, по почте или по электронной посте.. %@";
@@ -152,7 +159,7 @@
 "settings-phone-number-title" = "Номер мобильного телефона";
 "settings-id-code-alert-message" = "Введите личный номер";
 "settings-phone-number-alert-message" = "Введите номер мобильного телефона";
-"mobile-id-header-Mobile" = "Mobiil ID";
+"mobile-id-header-Mobile" = "Mobiil-ID";
 
 // *** About ***
 "about-development" = "Программное обеспечение заказано RIA, разработано Mobi Lab";
@@ -164,6 +171,6 @@
 "challenge-code-label" = "Код: %@";
 
 // *** Errors ***
-"mobile-id-timeout-message" = "Тайм-аут запроса Mobiil ID";
+"mobile-id-timeout-message" = "Тайм-аут запроса Mobiil-ID";
 "error-alert-title-general" = "Отказ";
 

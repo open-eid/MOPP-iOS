@@ -72,7 +72,7 @@
   [self showHUD];
   
   NSString *containerFileName = [NSString stringWithFormat:@"%@.%@", [[[self.dataFilePaths firstObject] lastPathComponent] stringByDeletingPathExtension], [DefaultsHelper getNewContainerFormat]];
-  NSString *containerPath = [[FileManager sharedInstance] filePathWithFileName:containerFileName];
+  NSString *containerPath = [[FileManager sharedInstance] uniqueFilePathWithFileName:containerFileName];
   
   [[MoppLibContainerActions sharedInstance] createContainerWithPath:containerPath withDataFilePaths:self.dataFilePaths success:^(MoppLibContainer *container) {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainerNew:container}];

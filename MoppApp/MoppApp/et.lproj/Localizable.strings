@@ -8,11 +8,11 @@
 "tab-settings" = "Sätted";
 
 // Crashlytics
-"crashlytics-title" = "Send crash report?";
-"crashlytics-message" = "Looks like we crashed! Please help us fix the problem by sending a crash report.";
-"crashlytics-action-send" = "Send";
-"crashlytics-action-always-send" = "Always send";
-"crashlytics-action-do-not-send" = "Don’t send";
+"crashlytics-title" = "Kas saata vearaport?";
+"crashlytics-message" = "Programmi töö on ootamatult peatunud! Palun aita meil viga parandada ja saada vearaport.";
+"crashlytics-action-send" = "Saada";
+"crashlytics-action-always-send" = "Saada alati";
+"crashlytics-action-do-not-send" = "Ära saada";
 
 // *** Actions ***
 "action-ok" = "OK";
@@ -31,6 +31,11 @@
 "containers-list-search-placeholder" = "Otsi";
 "containers-list-section-header-unsigned" = "Allkirjastamata";
 "containers-list-section-header-signed" = "Allkirjastatud";
+"containers-list-cached-files-title" = "Imporditud failid";
+"containers-list-cached-files-message" = "Sul on mõned imporditud failid. Mida sa soovid nendega teha?";
+"containers-list-cached-files-option1" = "Pane konteinerisse";
+"containers-list-cached-files-option2" = "Kustuta need";
+
 // DataFile import
 "file-import-title" = "Lisa fail";
 "file-import-create-container-button" = "Loo dokument";
@@ -53,7 +58,7 @@
 "container-details-signature-already-exists" = "Sinu allkiri on sellel dokumendil juba olemas.";
 "container-details-signing-method-alert-title" = "Allkirjastamise meetod";
 "container-details-signing-method-alert-message" = "Vali allkirjastamise meetod";
-"container-details-signing-method-mobile-id" = "Mobiil ID";
+"container-details-signing-method-mobile-id" = "Mobiil-ID";
 "container-details-signing-method-id-card" = "ID kaart";
 "container-details-idcode-phone-alert-title" = "Sisesta andmed";
 "container-details-idcode-phone-alert-message" = "Sisesta isikukood ja telefoninumber";
@@ -79,6 +84,9 @@
 
 "container-details-internet-connection-error-title" = "Internetiühendus puudub";
 "container-details-internet-connection-error-message" = "Allkirja andmiseks on vajalik internetiühendus.";
+
+"container-details-add-signature" = "Lisa allkiri";
+
 
 // *** My eID ***
 "my-eid-id-card-info" = "ID-kaart on riigi sisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.\n\nID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@";
@@ -153,7 +161,7 @@
 "settings-phone-number-title" = "Telefoni number";
 "settings-id-code-alert-message" = "Sisesta isikukood";
 "settings-phone-number-alert-message" = "Sisesta telefoni number";
-"settings-mobile-id-header" = "Mobiil ID";
+"settings-mobile-id-header" = "Mobiil-ID";
 
 
 // *** About ***
@@ -166,5 +174,5 @@
 "challenge-code-label" = "Kood: %@";
 
 // *** Errors ***
-"mobile-id-timeout-message" = "Mobile ID päring aegus";
+"mobile-id-timeout-message" = "Mobiil-ID päring aegus";
 "error-alert-title-general" = "Viga";

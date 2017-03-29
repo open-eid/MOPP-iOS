@@ -46,7 +46,7 @@
 
 
 // ** Mobile ID faults ***
-"digidoc-service-error-unknown" = "Unknown error occurred when signing with Mobile ID";
+"digidoc-service-error-unknown" = "Unknown error occurred when signing with Mobile-ID";
 "digidoc-service-error-general" = "Something went wrong, try again";
 "digidoc-service-error-incorrect-parameters" = "Incorrect mobile number and/or personal code, non-Estonian mobile numbers must be prefixed with the country code";
 "digidoc-service-error-missing-parameters" = "Missing mobile number and/or personal code";
@@ -56,7 +56,7 @@
 "digidoc-service-error-certificate-validity-unknown" = "Unable to verify certificate validity";
 "digidoc-service-error-session-locked" = "Mobile signing session is locked, try again later";
 "digidoc-service-error-general-user" = "An error occurred with the signers mobile phone";
-"digidoc-service-error-not-mobile-id-user" = "Not a mobile ID user";
+"digidoc-service-error-not-mobile-id-user" = "Not a Mobile-ID user";
 "digidoc-service-error-user-certificate-revoked" = "Your mobile signing certificate is revoked";
 "digidoc-service-error-user-certificate-status-unknown" = "Your mobile signing certificate status is unkown";
 "digidoc-service-error-user-certificate-suspended" = "Your mobile signing certificate is suspended";

@@ -227,7 +227,7 @@
                                     <outlet property="signatureValidityLabel" destination="STY-be-0ni" id="l9B-xj-e97"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AddSignatureCell" rowHeight="65" id="b6p-zr-QRs">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AddSignatureCell" rowHeight="65" id="b6p-zr-QRs" customClass="ButtonCell">
                                 <rect key="frame" x="0.0" y="307" width="375" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b6p-zr-QRs" id="t50-cq-gwx">
@@ -256,6 +256,9 @@
                                         <constraint firstItem="KZk-x1-0gJ" firstAttribute="centerX" secondItem="t50-cq-gwx" secondAttribute="centerX" id="Nl5-0h-Ghj"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="addSignatureButton" destination="KZk-x1-0gJ" id="0Pw-9d-jPF"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TestIdentifier" rowHeight="133" id="vxl-na-nwh">
                                 <rect key="frame" x="0.0" y="372" width="375" height="133"/>
