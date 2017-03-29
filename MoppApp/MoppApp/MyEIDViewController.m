@@ -275,10 +275,14 @@ NSString *pinBlockedPath = @"myeid://pinBlocked";
 }
 
 NSString *readerNotFoundPath = @"myeid://readerNotConnected";
+NSString *supportedReaderPath = @"myeid://supportedReader";
 
 - (void)setupReaderNotFoundMessage:(UITextView *)textView {
   NSString *tapHere = Localizations.MyEidTapHere;
-  [textView setLinkedText:Localizations.MyEidWarningReaderNotFound(tapHere) withLinks:@{readerNotFoundPath:tapHere}];
+  NSString *supportedReader = Localizations.MyEidSupportedReader;
+
+  [textView setLinkedText:Localizations.MyEidWarningReaderNotFound(tapHere, supportedReader) withLinks:@{readerNotFoundPath:tapHere, supportedReaderPath:supportedReader}];
+
 }
 
 NSString *idCardIntroPath = @"myeid://readIDCardInfo";
@@ -563,11 +567,15 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
     
   } else if ([[URL absoluteString] isEqualToString:idCardIntroPath]) {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:Localizations.MyEidIdCardInfoLink]];
+  
   } else if ([[URL absoluteString] isEqualToString:pinBlockedPath]) {
     // Navigate to PIN actions view
     if ([self.navigationController.parentViewController isKindOfClass:[UITabBarController class]]) {
       ((UITabBarController *)self.navigationController.parentViewController).selectedIndex = 2;
     }
+  
+  } else if ([[URL absoluteString] isEqualToString:supportedReaderPath]) {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.acs.com.hk/en/products/392/acr3901u-s1-secure-bluetooth%C2%AE-contact-card-reader/"]];
   }
 
   return YES; // let the system open this URL

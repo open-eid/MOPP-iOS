@@ -206,10 +206,13 @@ typedef enum : NSUInteger {
 }
 
 NSString *readerNotFoundPath2 = @"myeid://readerNotConnected";
+NSString *supportedReaderPath2 = @"myeid://supportedReader";
 
 - (void)setupReaderNotFoundMessage:(UITextView *)textView {
   NSString *tapHere = Localizations.MyEidTapHere;
-  [textView setLinkedText:Localizations.MyEidWarningReaderNotFound(tapHere) withLinks:@{readerNotFoundPath2:tapHere}];
+  NSString *supportedReader = Localizations.MyEidSupportedReader;
+  
+  [textView setLinkedText:Localizations.MyEidWarningReaderNotFound(tapHere, supportedReader) withLinks:@{readerNotFoundPath2:tapHere, supportedReaderPath2:supportedReader}];
 }
 
 #pragma mark - Tableview
@@ -341,6 +344,8 @@ NSString *readerNotFoundPath2 = @"myeid://readerNotConnected";
     [self updateRetryCounters];
     return NO;
     
+  } else if ([[URL absoluteString] isEqualToString:supportedReaderPath2]) {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.acs.com.hk/en/products/392/acr3901u-s1-secure-bluetooth%C2%AE-contact-card-reader/"]];
   }
   
   return YES; // let the system open this URL

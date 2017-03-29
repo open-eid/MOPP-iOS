@@ -33,9 +33,9 @@
     return NSLocalizedStringFromTable(@"my-eid-signature-certificate", nil, nil);
 }
 
-- (NSString *(^)(NSString *))MyEidWarningReaderNotFound {
-    return ^(NSString * value1) {
-        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-warning-reader-not-found", nil, nil), value1];
+- (NSString *(^)(NSString *, NSString *))MyEidWarningReaderNotFound {
+    return ^(NSString * value1 , NSString * value2) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"my-eid-warning-reader-not-found", nil, nil), value1, value2];
     };
 }
 
@@ -369,22 +369,26 @@
     };
 }
 
-- (NSString *(^)(NSString *))PinActionsInvalidFormat {
-    return ^(NSString * value1) {
-        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-invalid-format", nil, nil), value1];
-    };
+- (NSString *)MyEidSupportedReader {
+    return NSLocalizedStringFromTable(@"my-eid-supported-reader", nil, nil);
 }
 
 - (NSString *)ContainerDetailsCardNotFound {
     return NSLocalizedStringFromTable(@"container-details-card-not-found", nil, nil);
 }
 
-- (NSString *)ActionCreateNewDocument {
-    return NSLocalizedStringFromTable(@"action-create-new-document", nil, nil);
+- (NSString *(^)(NSString *))PinActionsInvalidFormat {
+    return ^(NSString * value1) {
+        return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-invalid-format", nil, nil), value1];
+    };
 }
 
 - (NSString *)ContainerDetailsIdcodePhoneAlertTitle {
     return NSLocalizedStringFromTable(@"container-details-idcode-phone-alert-title", nil, nil);
+}
+
+- (NSString *)ActionCreateNewDocument {
+    return NSLocalizedStringFromTable(@"action-create-new-document", nil, nil);
 }
 
 - (NSString *)TabSimSettings {

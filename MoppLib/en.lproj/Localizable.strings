@@ -19,7 +19,7 @@
 
 "Select reader" = "Select reader";
 "Cancel" = "Cancel";
-"Connect reader message" = "Card reader is not connected. Please make sure your reader is active and select reader.";
+"Connect reader message" = "Select bluetooth reader. Please make sure your reader is active and bluetooth is switched on.";
 "Problem connecting %@" = "There was a problem connecting your reader: %@";
 "Error" = "Error";
 "Ok" = "Ok";

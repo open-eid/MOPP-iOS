@@ -26,8 +26,8 @@
 /// Base translation: Signature certificate
 - (NSString *)MyEidSignatureCertificate;
 
-/// Base translation: Card reader is not connected.  Please make sure your reader is turned on and %@ to select it.
-- (NSString *(^)(NSString *))MyEidWarningReaderNotFound;
+/// Base translation: Card reader is not connected.  Please make sure your reader is turned on and %@ to select it.   %@
+- (NSString *(^)(NSString *, NSString *))MyEidWarningReaderNotFound;
 /// Base translation: Changing %@
 - (NSString *(^)(NSString *))PinActionsChangingPin;
 /// Base translation: Card in reader:
@@ -233,16 +233,19 @@
 
 /// Base translation: New %@ can't be %@, or contain combination of your birthdate.
 - (NSString *(^)(NSString *, NSString *))PinActionsRuleForbiddenPins;
-/// Base translation: This %@ is not allowed.
-- (NSString *(^)(NSString *))PinActionsInvalidFormat;
+/// Base translation: Supported reader
+- (NSString *)MyEidSupportedReader;
+
 /// Base translation: ID card is missing. Please make sure ID card is inserted correctly.
 - (NSString *)ContainerDetailsCardNotFound;
 
-/// Base translation: Create new document
-- (NSString *)ActionCreateNewDocument;
-
+/// Base translation: This %@ is not allowed.
+- (NSString *(^)(NSString *))PinActionsInvalidFormat;
 /// Base translation: Enter details
 - (NSString *)ContainerDetailsIdcodePhoneAlertTitle;
+
+/// Base translation: Create new document
+- (NSString *)ActionCreateNewDocument;
 
 /// Base translation: PIN settings
 - (NSString *)TabSimSettings;

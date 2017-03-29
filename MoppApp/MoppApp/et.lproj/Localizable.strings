@@ -83,8 +83,9 @@
 // *** My eID ***
 "my-eid-id-card-info" = "ID-kaart on riigi sisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.\n\nID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@";
 "my-eid-warning-card-not-found" = "ID-kaarti ei leitud.\n\nKontrolli, kas ID-kaart on õiget pidi lugejas. Uutel ID-kaartidel on kiip kaardi tagumisel küljel.";
-"my-eid-warning-reader-not-found" = "Kaardilugeja ei ole ühendatud.\n\nKontrolli kas lugeja on sisse lülitatud ja vali see %@";
+"my-eid-warning-reader-not-found" = "Kaardilugeja ei ole ühendatud.\n\nKontrolli kas lugeja on sisse lülitatud ja vali see %@.\n\n %@";
 "my-eid-tap-here" = "vajutades siia";
+"my-eid-supported-reader" = "Toetatud lugeja";
 "my-eid-find-more-info" = "Lisainfot loe siit";
 "my-eid-given-names" = "Eesnimed:";
 "my-eid-surname" = "Perekonnanimi:";

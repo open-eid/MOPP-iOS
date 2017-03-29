@@ -84,8 +84,9 @@
 // *** My eID ***
 "my-eid-id-card-info" = "ID-card is a compulsory identity document in Estonia. ID-card can be used to travel in Member States of the European Union and the European Economic Area.\n\nThe ID-card can be applied for in Service Offices of Police and Border Guard Administration, in foreign representations of the Republic of Estonia, by post or by e-mail. %@";
 "my-eid-warning-card-not-found" = "ID card is not found.\n\nPlease check if ID card is inserted correctly. New ID cards have chip on the back side of the card.";
-"my-eid-warning-reader-not-found" = "Card reader is not connected.\n\nPlease make sure your reader is turned on and %@ to select it.";
+"my-eid-warning-reader-not-found" = "Card reader is not connected.\n\nPlease make sure your reader is turned on and %@ to select it.\n\n %@";
 "my-eid-tap-here" = "tap here";
+"my-eid-supported-reader" = "Supported reader";
 "my-eid-find-more-info" = "Read more.";
 "my-eid-given-names" = "Given names:";
 "my-eid-surname" = "Surname:";
