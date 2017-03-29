@@ -60,7 +60,6 @@
 		54E1DB5D1E44A9060060A250 /* MoppLibManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E1DB5B1E44A9060060A250 /* MoppLibManager.m */; };
 		54E1DB601E44AE730060A250 /* MoppLibContainerActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54E1DB5E1E44AE730060A250 /* MoppLibContainerActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54E1DB611E44AE730060A250 /* MoppLibContainerActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E1DB5F1E44AE730060A250 /* MoppLibContainerActions.m */; };
-		AE0A84461E4338DB00CC1465 /* MoppLibNetworkManager.h in Headers */ = {isa = PBXBuildFile; fileRef = AE0A84441E4338DB00CC1465 /* MoppLibNetworkManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE0A84471E4338DB00CC1465 /* MoppLibNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0A84451E4338DB00CC1465 /* MoppLibNetworkManager.m */; };
 		AE0A844A1E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = AE0A84481E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE0A844B1E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0A84491E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m */; };
@@ -74,9 +73,7 @@
 		AE12A8761E51984A00B0B03E /* sk878252.p12 in Resources */ = {isa = PBXBuildFile; fileRef = AE12A8751E51984A00B0B03E /* sk878252.p12 */; };
 		AE61985B1E489EDF0021B18B /* MoppLibService.h in Headers */ = {isa = PBXBuildFile; fileRef = AE6198591E489EDF0021B18B /* MoppLibService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE61985C1E489EDF0021B18B /* MoppLibService.m in Sources */ = {isa = PBXBuildFile; fileRef = AE61985A1E489EDF0021B18B /* MoppLibService.m */; };
-		AE61985F1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = AE61985D1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE6198601E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AE61985E1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.m */; };
-		AEC2CC421E3B8B7800A0B869 /* MoppLibSOAPManager.h in Headers */ = {isa = PBXBuildFile; fileRef = AEC2CC401E3B8B7800A0B869 /* MoppLibSOAPManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AEC2CC431E3B8B7800A0B869 /* MoppLibSOAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC2CC411E3B8B7800A0B869 /* MoppLibSOAPManager.m */; };
 		D72F91CE6FD17DE3A2CB2EA9 /* Pods_MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212014B6D572D152A70C2C71 /* Pods_MoppLib.framework */; };
 		E061FB0356C72259D6A941E8 /* Pods_MoppLibTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BB12B033D5C8237B002F59 /* Pods_MoppLibTests.framework */; };
@@ -501,14 +498,11 @@
 				AE61985B1E489EDF0021B18B /* MoppLibService.h in Headers */,
 				540CB2251E1CDD8100FE18A3 /* MoppLibCertData.h in Headers */,
 				AE0A844A1E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h in Headers */,
-				AE0A84461E4338DB00CC1465 /* MoppLibNetworkManager.h in Headers */,
-				AE61985F1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.h in Headers */,
 				54DC0E011E0D48C900C62B3D /* MoppLibError.h in Headers */,
 				E4180C161E23FE9300FD7B8C /* MLDateFormatter.h in Headers */,
 				E42B08C51E1F11B900EA24A3 /* MoppLibDataFile.h in Headers */,
 				54E1DB601E44AE730060A250 /* MoppLibContainerActions.h in Headers */,
 				54E1DB5C1E44A9060060A250 /* MoppLibManager.h in Headers */,
-				AEC2CC421E3B8B7800A0B869 /* MoppLibSOAPManager.h in Headers */,
 				E42B08CD1E1F136A00EA24A3 /* MoppLibDigidocManager.h in Headers */,
 				5463DA491E127150008A1714 /* ReaderSelectionViewController.h in Headers */,
 				54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */,

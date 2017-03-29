@@ -11,6 +11,7 @@
 #import "MoppLibCertData.h"
 #import "MoppLibPersonalData.h"
 #import "MoppLibContainer.h"
+#import "MoppLibMobileCreateSignatureResponse.h"
 
 // Mopp Lib error codes
 
@@ -62,6 +63,7 @@ typedef void (^CertDataBlock)(MoppLibCertData *certData);
 typedef void (^PersonalDataBlock)(MoppLibPersonalData *personalData);
 typedef void (^SignatureStatusBlock) (MoppLibContainer *container, NSError *error, NSString *status);
 typedef void (^ContainerBlock)(MoppLibContainer *container);
+typedef void (^MobileCreateSignatureResponseBlock)(MoppLibMobileCreateSignatureResponse *createSignatureResponse);
 typedef void (^VoidBlock)(void);
 typedef void (^EmptySuccessBlock)();
 

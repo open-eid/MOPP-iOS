@@ -18,7 +18,7 @@
 
 + (MoppLibService *)sharedInstance;
 
-- (void)mobileCreateSignatureWithContainer:(MoppLibContainer *)container idCode:(NSString *)idCode language:(NSString *)language phoneNumber:(NSString *)phoneNumber withCompletion:(ObjectSuccessBlock)success andStatus:(SignatureStatusBlock)failure;
+- (void)mobileCreateSignatureWithContainer:(NSString *)containerPath idCode:(NSString *)idCode language:(NSString *)language phoneNumber:(NSString *)phoneNumber withCompletion:(MobileCreateSignatureResponseBlock)success andStatus:(SignatureStatusBlock)failure;
 
 - (void)cancelMobileSignatureStatusPolling;
 @end

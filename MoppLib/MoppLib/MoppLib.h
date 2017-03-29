@@ -25,8 +25,6 @@ FOUNDATION_EXPORT const unsigned char MoppLibVersionString[];
 #import <MoppLib/MoppLibContainer.h>
 #import <MoppLib/MoppLibDataFile.h>
 #import <MoppLib/MoppLibSignature.h>
-#import <MoppLib/MoppLibSOAPManager.h>
-#import <MoppLib/MoppLibNetworkManager.h>
 #import <MoppLib/MoppLibMobileCreateSignatureResponse.h>
 #import <MoppLib/MoppLibService.h>
 

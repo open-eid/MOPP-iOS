@@ -220,7 +220,7 @@ typedef enum : NSUInteger {
   [self presentViewController:alert animated:YES completion:nil];
 }
 - (void)mobileCreateSignatureWithIDCode:(NSString *)idCode phoneNumber:(NSString *)phoneNumber {
-  [[Session sharedInstance] createMobileSignatureWithContainer:self.container idCode:idCode language:[self decideLanguageBasedOnPreferredLanguages] phoneNumber:phoneNumber];
+  [[Session sharedInstance] createMobileSignatureWithContainer:self.container.filePath idCode:idCode language:[self decideLanguageBasedOnPreferredLanguages] phoneNumber:phoneNumber];
 }
 
 - (void)askToStoreMobileIDCredentialsWithIdCode:(NSString *)idCode andPhoneNumber:(NSString *)phoneNumber {
