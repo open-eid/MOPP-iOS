@@ -176,3 +176,7 @@
 // *** Errors ***
 "mobile-id-timeout-message" = "Mobiil-ID päring aegus";
 "error-alert-title-general" = "Viga";
+
+// *** Share Extension ***
+"share-extension-import-title" = "Faili import";
+"share-extension-import-message" = "Fail on ajutisse kausta salvestatud. Impordi lõpetamiseks mine RIA DigiDoc rakendusse.";

@@ -67,6 +67,9 @@
 /// Base translation: Read more.
 - (NSString *)MyEidFindMoreInfo;
 
+/// Base translation: Importing file
+- (NSString *)ShareExtensionImportTitle;
+
 /// Base translation: Send crash report?
 - (NSString *)CrashlyticsTitle;
 
@@ -369,6 +372,9 @@
 
 /// Base translation: New %@ must be different from previous one.
 - (NSString *(^)(NSString *))PinActionsRuleDifferentFromPrevious;
+/// Base translation: File is now cached for you. Go to RIA DigiDoc application to finish import
+- (NSString *)ShareExtensionImportMessage;
+
 /// Base translation: %@ is blocked.
 - (NSString *(^)(NSString *))PinActionsPinBlocked;
 /// Base translation: Personal data

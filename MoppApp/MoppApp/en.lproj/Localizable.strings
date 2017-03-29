@@ -175,3 +175,6 @@
 "mobile-id-timeout-message" = "Mobile-ID request timeout";
 "error-alert-title-general" = "Failure";
 
+// *** Share Extension ***
+"share-extension-import-title" = "Importing file";
+"share-extension-import-message" = "File is now cached for you. Go to RIA DigiDoc application to finish import";

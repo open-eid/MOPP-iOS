@@ -25,7 +25,7 @@
 }
 
 - (void)displayFilesImportedMessage {
-  UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Importing file" message:@"File is now cached for you. Go to RIA DigiDoc application to finish import"  preferredStyle:UIAlertControllerStyleAlert];
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"share-extension-import-title", nil) message:NSLocalizedString(@"share-extension-import-message", nil)  preferredStyle:UIAlertControllerStyleAlert];
   [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     [self.extensionContext completeRequestReturningItems:@[] completionHandler:nil];
     

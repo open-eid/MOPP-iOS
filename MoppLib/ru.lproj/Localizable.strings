@@ -17,7 +17,7 @@
 
 "Select reader" = "Выберите устройство для чтения ID-карт";
 "Cancel" = "Отменить";
-"Connect reader message" = "Select bluetooth reader. Please make sure your reader is active and bluetooth is switched on.";
+"Connect reader message" = "Выберите Bluetooth-считыватель. Убедитесь, что ваш считыватель активен и включен Bluetooth.";
 "Problem connecting %@" = "Не удалось подключиться к вашему устройству чтения ID-карт: %@";
 "Error" = "Ошибка";
 "Ok" = "Ok";

@@ -7,11 +7,11 @@
 "tab-settings" = "Настройки";
 
 // Crashlytics
-"crashlytics-title" = "Send crash report?";
-"crashlytics-message" = "Looks like we crashed! Please help us fix the problem by sending a crash report.";
-"crashlytics-action-send" = "Send";
-"crashlytics-action-always-send" = "Always send";
-"crashlytics-action-do-not-send" = "Don’t send";
+"crashlytics-title" = "Отправить отчет о сбое?";
+"crashlytics-message" = "Похоже произошел сбой! Помогите нам устранить проблему, отправив отчет о сбое.";
+"crashlytics-action-send" = "Отправить";
+"crashlytics-action-always-send" = "Всегда отправлять";
+"crashlytics-action-do-not-send" = "Не отправлять";
 
 // *** Actions ***
 "action-ok" = "OK";
@@ -81,8 +81,8 @@
 "container-details-file-name-too-long" = "Слишком длинное имя документа.";
 "container-details-name-change-failed" = "Не удалось изменить имя документа.";
 
-"container-details-internet-connection-error-title" = "No internet connection";
-"container-details-internet-connection-error-message" = "Internet connection must be available for signing.";
+"container-details-internet-connection-error-title" = "Нет соединения с интернетом";
+"container-details-internet-connection-error-message" = "Для подписания должно быть доступно интернет-соединение.";
 
 "container-details-add-signature" = "Add signature";
 
@@ -91,7 +91,7 @@
 "my-eid-warning-card-not-found" = "ID-карта не найдена. \n\nПожалуйста, проверьте правильность установки ID-карты. Новые идентификационные карточки имеют чип на обратной стороне карты.";
 "my-eid-warning-reader-not-found" = "Устройство чтения ID-карт не подключено.\n\nПожалуйста, убедитесь, что ваш считыватель включен и %@, чтобы выбрать его.\n\n %@";
 "my-eid-tap-here" = "нажмите здесь";
-"my-eid-supported-reader" = "Supported reader";
+"my-eid-supported-reader" = "Поддерживаемый считыватель";
 "my-eid-find-more-info" = "Читать дальше.";
 "my-eid-given-names" = "Имя:";
 "my-eid-surname" = "Фамилия:";
@@ -111,7 +111,7 @@
 "my-eid-used-once" = "1 раз";
 "my-eid-eid" = "eID";
 "my-eid-signature-certificate" = "Сертификат подписи";
-"my-eid-authentication-certificate" = "Authentication certificate";
+"my-eid-authentication-certificate" = "Сертификата аутентификации";
 "my-eid-my-eid" = "Мой eID";
 "my-eid-id-card-info-link" = "https://www.politsei.ee/ru/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/";
 "my-eid-pin-blocked" = "%@ заблокирован. Вы можете разблокировать %@ в %@.";
@@ -173,4 +173,8 @@
 // *** Errors ***
 "mobile-id-timeout-message" = "Тайм-аут запроса Mobiil-ID";
 "error-alert-title-general" = "Отказ";
+
+// *** Share Extension ***
+"share-extension-import-title" = "Importing file";
+"share-extension-import-message" = "File is now cached for you. Go to RIA DigiDoc application to finish import";
 

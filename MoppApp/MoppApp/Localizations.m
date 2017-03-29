@@ -101,6 +101,10 @@
     return NSLocalizedStringFromTable(@"my-eid-find-more-info", nil, nil);
 }
 
+- (NSString *)ShareExtensionImportTitle {
+    return NSLocalizedStringFromTable(@"share-extension-import-title", nil, nil);
+}
+
 - (NSString *)CrashlyticsTitle {
     return NSLocalizedStringFromTable(@"crashlytics-title", nil, nil);
 }
@@ -575,6 +579,10 @@
     return ^(NSString * value1) {
         return [NSString stringWithFormat: NSLocalizedStringFromTable(@"pin-actions-rule-different-from-previous", nil, nil), value1];
     };
+}
+
+- (NSString *)ShareExtensionImportMessage {
+    return NSLocalizedStringFromTable(@"share-extension-import-message", nil, nil);
 }
 
 - (NSString *(^)(NSString *))PinActionsPinBlocked {

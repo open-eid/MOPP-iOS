@@ -22,6 +22,7 @@
 		545CF8511E165DEC00B66EE8 /* ErrorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8501E165DEC00B66EE8 /* ErrorCell.m */; };
 		545CF8541E165DFB00B66EE8 /* InfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8531E165DFB00B66EE8 /* InfoCell.m */; };
 		547BDF221E8BDEB40093931F /* ButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 547BDF211E8BDEB40093931F /* ButtonCell.m */; };
+		547BDF251E8BEFA30093931F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
 		54813B2E1E24DD560058CD33 /* ChangePinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54813B2D1E24DD560058CD33 /* ChangePinViewController.m */; };
 		54813B301E24FD270058CD33 /* InfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54813B2F1E24FD270058CD33 /* InfoCell.xib */; };
 		54825EF51E1CFE9600253FF0 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF41E1CFE9600253FF0 /* NSDate+Additions.m */; };
@@ -658,6 +659,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				54A4182B1E83FAD200559E2B /* MainInterface.storyboard in Resources */,
+				547BDF251E8BEFA30093931F /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
