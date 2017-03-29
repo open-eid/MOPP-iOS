@@ -71,14 +71,14 @@
 "container-details-reader-not-found" = "Dokumentide allkirjastamiseks on vaja ühendada kaardilugeja.";
 "container-details-card-not-found" = "ID kaarti ei leitud. Palun kontrolli kas kaart on õigesti lugejasse sisestatud.";
 "container-details-phone-number-error-alert-title" = "Telefoninumbri viga";
-"container-details-phone-number-error-alert-message" = "Oled sisestanud mitte korrektse telefoni numbri. Palun kontrolli numbrit";
+"container-details-phone-number-error-alert-message" = "Oled sisestanud vigase telefoni numbri. Palun kontrolli numbrit";
 "container-details-pin-not-provided" = "Allkirjastamiseks on vajalik kasutaja tuvastamine PIN koodiga.";
 "container-details-signature-already-exists-alert-title" = "Allkiri eksisteerib";
 "container-details-signature-already-exists-alert-message" = "Dokument on sinu poolt juba allkirjastatud. Kas soovid jätkata?";
 "container-details-file-already-exists" = "Sellise nimega fail on juba olemas. Kas tahad üle kirjutada?";
 "container-details-attention" = "Tähelepanu!";
 "container-details-store-mobile-id-credentials-alert-title" = "Salvesta andmed";
-"container-details-store-mobile-id-credentials-alert-message" = "Kas soovid salvestada isikukoodi ja telefoni numbri tulevaste kasutuskordade jaoks ?";
+"container-details-store-mobile-id-credentials-alert-message" = "Kas soovid salvestada isikukoodi ja telefoni numbri tulevaste kasutuskordade jaoks?";
 "container-details-file-name-too-long" = "Dokumendi nimi on liiga pikk.";
 "container-details-name-change-failed" = "Dokumendi nime muutmine ebaõnnestus.";
 
