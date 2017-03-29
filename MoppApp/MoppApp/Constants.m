@@ -17,3 +17,5 @@ NSString *const kKeyContainerNew = @"containerNew";
 NSString *const kKeyContainerOld = @"containerOld";
 
 NSString *const kNotificationSettingsChanged = @"Notification - settigns changed";
+
+NSString *const kNotificationWillEnterForeground = @"Notification - will enter foreground";

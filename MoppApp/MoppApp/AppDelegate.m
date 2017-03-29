@@ -20,13 +20,14 @@
 #import <Crashlytics/Crashlytics.h>
 #import "Constants.h"
 
-@interface AppDelegate () <CrashlyticsDelegate>
+@interface AppDelegate () <CrashlyticsDelegate, NSURLSessionDelegate, NSURLSessionDownloadDelegate>
 
 @property (strong, nonatomic) LandingTabBarController *tabBarController;
 @property (strong, nonatomic) NSURL *tempUrl;
 @property (strong, nonatomic) NSString *sourceApplication;
 @property (strong, nonatomic) id annotation;
 @property (nonatomic, copy) void (^crashReportCompletion)(BOOL);
+@property (nonatomic, copy) void (^downloadCompletion)();
 @end
 
 @implementation AppDelegate
@@ -143,7 +144,7 @@
       };
       
       [[MoppLibContainerActions sharedInstance] getContainerWithPath:newFilePath success:^(MoppLibContainer *container) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainerNew:container}];
 
         MoppLibContainer *moppLibContainer = container;
         if (moppLibContainer) {
@@ -157,7 +158,7 @@
       }];
     } else {
       
-      [containersListViewController setDataFilePath:filePath];
+      [containersListViewController setDataFilePaths:@[filePath]];
     }
     
   }
@@ -178,6 +179,8 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
   // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationWillEnterForeground object:nil userInfo:nil];
 }
 
 
@@ -190,5 +193,38 @@
   // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler {
+  
+  self.downloadCompletion = completionHandler;
+  
+  NSURLSessionConfiguration *conf = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:identifier];
+  NSURLSession *session = [NSURLSession sessionWithConfiguration:conf delegate:self delegateQueue:nil];
+  [session getTasksWithCompletionHandler:^(NSArray<NSURLSessionDataTask *> * _Nonnull dataTasks, NSArray<NSURLSessionUploadTask *> * _Nonnull uploadTasks, NSArray<NSURLSessionDownloadTask *> * _Nonnull downloadTasks) {
+
+  }];
+}
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
+
+  NSData *data = [NSData dataWithContentsOfURL:location];
+  if (data) {
+    
+    NSURL *groupFolderUrl = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.ee.ria.digidoc.ios"];
+    groupFolderUrl = [groupFolderUrl URLByAppendingPathComponent:@"Temp"];
+    NSError *err;
+    [[NSFileManager defaultManager] createDirectoryAtURL:groupFolderUrl withIntermediateDirectories:NO attributes:nil error:&err];
+    
+    NSURL  *filePath = [groupFolderUrl URLByAppendingPathComponent:location.lastPathComponent] ;
+    
+    NSError *error;
+    [[NSFileManager defaultManager] copyItemAtURL:location toURL:filePath error:&error];
+  }
+}
+
+- (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session {
+  dispatch_async(dispatch_get_main_queue(), ^{
+    self.downloadCompletion();
+
+  });
+}
 
 @end

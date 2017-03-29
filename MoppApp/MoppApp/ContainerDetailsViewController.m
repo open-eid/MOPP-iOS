@@ -153,7 +153,7 @@ typedef enum : NSUInteger {
   }
 
   [[MoppLibContainerActions sharedInstance] getContainerWithPath:path success:^(MoppLibContainer *container) {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainerNew:container, kKeyContainerOld:self.container}];
     self.container = container;
     [self.tableView reloadData];
   } failure:^(NSError *error) {
@@ -254,7 +254,7 @@ typedef enum : NSUInteger {
   [[MoppLibContainerActions sharedInstance] addSignature:self.container.filePath controller:self success:^(MoppLibContainer *container, BOOL signatureWasAdded) {
     [self hideHUD];
     if (signatureWasAdded) {
-      [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kNewContainerKey:container, kOldContainerKey: self.container}];
+      [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainerNew:container, kOldContainerKey: self.container}];
       [self displaySigningSuccessMessage];
       self.container = container;
       [self.tableView reloadData];
@@ -546,7 +546,7 @@ typedef enum : NSUInteger {
       case ContainerDetailsSectionDataFile: {
         //        MoppLibDataFile *dataFile = [self.container.dataFiles objectAtIndex:indexPath.row];
         [[MoppLibContainerActions sharedInstance] removeDataFileFromContainerWithPath:self.container.filePath atIndex:indexPath.row success:^(MoppLibContainer *container) {
-          [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
+          [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainerNew:container, kKeyContainerOld:self.container}];
           
           self.container = container;
           [self.tableView reloadData];
@@ -560,7 +560,7 @@ typedef enum : NSUInteger {
         MoppLibSignature *signature = [self.container.signatures objectAtIndex:indexPath.row];
         NSString *idCode = [self getIdCodeFromSubjectNameWithSignature:signature];
         [[MoppLibContainerActions sharedInstance] removeSignature:signature fromContainerWithPath:self.container.filePath success:^(MoppLibContainer *container) {
-          [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainer:container}];
+          [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainerNew:container, kKeyContainerOld:self.container}];
           self.container = container;
           [self.tableView reloadData];
           [self removeSignatureIdCodeFromSet:idCode];

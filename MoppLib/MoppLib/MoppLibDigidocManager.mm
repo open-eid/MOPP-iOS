@@ -230,19 +230,24 @@ private:
       }
     }
   } catch (const digidoc::Exception &e) {
+    if (container) {
+      delete container;
+    }
     parseException(e);
   }
   delete container;
   return nil;
 }
-- (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath {
-  MLLog(@"createContainerWithPath: %@, dataFilePath: %@", containerPath, dataFilePath);
+- (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths {
+  MLLog(@"createContainerWithPath: %@, dataFilePaths: %@", containerPath, dataFilePaths);
   
   digidoc::Container *container;
   try {
     
     container = digidoc::Container::create(containerPath.UTF8String);
-    container->addDataFile(dataFilePath.UTF8String, @"application/octet-stream".UTF8String);
+    for (NSString *dataFilePath in dataFilePaths) {
+      container->addDataFile(dataFilePath.UTF8String, @"application/octet-stream".UTF8String);
+    }
     
     try {
       container->save(containerPath.UTF8String);
@@ -260,12 +265,31 @@ private:
   return moppLibContainer;
 }
 
-- (MoppLibContainer *)addDataFileToContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath {
-  return [self addDataFileToContainerWithPath:containerPath withDataFilePath:dataFilePath duplicteCount:0];
+- (MoppLibContainer *)addDataFilesToContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths {
+  digidoc::Container *container;
+  
+  try {
+    container = digidoc::Container::open(containerPath.UTF8String);
+    
+    for (NSString *dataFilePath in dataFilePaths) {
+      [self addDataFileToContainer:container withDataFilePath:dataFilePath duplicteCount:0];
+    }
+    
+    container->save(containerPath.UTF8String);
+    
+  } catch(const digidoc::Exception &e) {
+    parseException(e);
+    
+  }
+  
+  NSError *error2;
+  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error2];
+  delete container;
+  
+  return moppLibContainer;
 }
 
-- (MoppLibContainer *)addDataFileToContainerWithPath:(NSString *)containerPath withDataFilePath:(NSString *)dataFilePath duplicteCount:(int)count {
-  digidoc::Container *container;
+- (void)addDataFileToContainer:(digidoc::Container *)container/*WithPath:(NSString *)containerPath*/ withDataFilePath:(NSString *)dataFilePath duplicteCount:(int)count {
   
   NSString *fileName = [dataFilePath lastPathComponent];
   if (count > 0) {
@@ -275,33 +299,20 @@ private:
   }
   std::ifstream *stream;
   try {
-    
-    container = digidoc::Container::open(containerPath.UTF8String);
     stream = new std::ifstream(dataFilePath.UTF8String);
     
     container->addDataFile(stream, [fileName lastPathComponent].UTF8String, @"application/octet-stream".UTF8String);
-    
-    try {
-      container->save(containerPath.UTF8String);
-    } catch(const digidoc::Exception &e) {
-      parseException(e);
-    }
+
   } catch(const digidoc::Exception &e) {
     NSString *message = [NSString stringWithCString:e.msg().c_str() encoding:NSNonLossyASCIIStringEncoding];
-    
+
     // libdigidoc doesn't send specific error code when file with same name already exists.
     if (e.code() == 0 && [message hasPrefix:@"Document with same file name"]) {
-      return [self addDataFileToContainerWithPath:containerPath withDataFilePath:dataFilePath duplicteCount:count + 1];
+      return [self addDataFileToContainer:container withDataFilePath:dataFilePath duplicteCount:count + 1];
     } else {
       parseException(e);
     }
   }
-  
-  NSError *error2;
-  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error2];
-  delete container;
-
-  return moppLibContainer;
 }
 
 - (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex {
@@ -368,9 +379,12 @@ void parseException(const digidoc::Exception &e) {
     }
     
   } catch(const digidoc::Exception &e) {
-    delete doc;
     parseException(e);
   }
+  if (doc) {
+    delete doc;
+  }
+
   return NO;
 
 }

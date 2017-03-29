@@ -10,6 +10,7 @@
 #import "DateFormatter.h"
 #import "DefaultsHelper.h"
 #import "Constants.h"
+#import <MoppLib/MoppLib.h>
 
 @interface FileManager ()
 
@@ -59,6 +60,34 @@
   return filePath;
 }
 
+- (NSString *)sharedDocumentsPath {
+  NSURL *groupFolderUrl = [self.fileManager containerURLForSecurityApplicationGroupIdentifier:@"group.ee.ria.digidoc.ios"];
+  return [groupFolderUrl URLByAppendingPathComponent:@"Temp"].path;
+}
+
+- (NSArray *)sharedDocumentPaths {
+  NSString *cachePath = [self sharedDocumentsPath];
+
+  NSArray *files = [self.fileManager contentsOfDirectoryAtPath:[self sharedDocumentsPath] error:nil];
+  NSMutableArray *array = [NSMutableArray new];
+  for (NSString *file in files) {
+    [array addObject:[NSString stringWithFormat:@"%@/%@", cachePath, file]];
+  }
+  return array;
+}
+
+- (void)removeFilesAtPaths:(NSArray *)paths {
+  for (NSString *file in paths) {
+    [self removeFileWithPath:file];
+  }
+}
+- (void)clearSharedCache {
+  NSArray *cachedDocs = [self sharedDocumentPaths];
+  for (NSString *file in cachedDocs) {
+    [self removeFileWithPath:file];
+  }
+}
+
 - (NSString *)createTestContainer {
   NSString *fileName = [NSString stringWithFormat:@"%@.%@", [[DateFormatter sharedInstance] HHmmssddMMYYYYToString:[NSDate date]], [DefaultsHelper getNewContainerFormat]];
   
@@ -72,7 +101,12 @@
 
 - (void)createFileAtPath:(NSString *)filePath contents:(NSData *)fileContents {
   [self.fileManager createFileAtPath:filePath contents:fileContents attributes:nil];
-  [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil];
+  [[MoppLibContainerActions sharedInstance] getContainerWithPath:filePath success:^(MoppLibContainer *container) {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationContainerChanged object:nil userInfo:@{kKeyContainerNew:container}];
+    
+  } failure:^(NSError *error) {
+      
+  }];
 }
 
 - (void)removeFileWithName:(NSString *)fileName {

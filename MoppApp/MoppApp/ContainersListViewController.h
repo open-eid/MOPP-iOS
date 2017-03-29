@@ -11,7 +11,7 @@
 
 @interface ContainersListViewController : BaseContainersListViewController <FileImportViewControllerDelegate>
 
-@property (strong, nonatomic) NSString *dataFilePath;
+@property (strong, nonatomic) NSArray *dataFilePaths;
 @property (strong, nonatomic) MoppLibContainer *selectedContainer;
 
 @end

@@ -16,6 +16,7 @@
 #import "NoContainersCell.h"
 #import "Constants.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "DefaultsHelper.h"
 
 typedef enum : NSUInteger {
   ContainersListSectionUnsigned,
@@ -29,6 +30,7 @@ typedef enum : NSUInteger {
 @property (strong, nonatomic) NSArray *filteredUnsignedContainers;
 @property (strong, nonatomic) NSArray *filteredSignedContainers;
 
+
 @end
 
 @implementation ContainersListViewController
@@ -37,7 +39,9 @@ typedef enum : NSUInteger {
   [super viewDidLoad];
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(containerChanged:) name:kNotificationContainerChanged object:nil];
-
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEnterForeground:) name:kNotificationWillEnterForeground object:nil];
+  
+  
   [self setTitle:Localizations.TabContainers];
   
   self.unsignedContainers = [NSArray array];
@@ -52,43 +56,99 @@ typedef enum : NSUInteger {
   [self setEditing:NO]; // Update edit button title.
   
   [self reloadData];
+}
 
+- (void)viewDidAppear:(BOOL)animated {
+  [super viewDidAppear:animated];
+  [self checkSharedDocsCache];
+}
+
+- (void)willEnterForeground:(NSNotification *)notification {
+  [self checkSharedDocsCache];
 }
 
 - (void)containerChanged:(NSNotification *)notification {
   // May consider updating just one file
   MoppLibContainer *newContainer = [[notification userInfo] objectForKey:kKeyContainerNew];
   MoppLibContainer *oldContainer = [[notification userInfo] objectForKey:kKeyContainerOld];
-  MoppLibContainer *container = [[notification userInfo] objectForKey:kKeyContainer];
-  if (container) {
-    [self reloadData];
-  }else {
-    [self signatureChangeOperationWithNewContainer:newContainer oldContainer:oldContainer];
-  }
-  
+  [self signatureChangeOperationWithNewContainer:newContainer oldContainer:oldContainer];
 }
 
--(void)signatureChangeOperationWithNewContainer:(MoppLibContainer *)newContainer oldContainer:(MoppLibContainer *)oldContainer {
-  if(newContainer.isSigned && [self.unsignedContainers containsObject:oldContainer]) {
-    NSMutableArray *mutSigned = [NSMutableArray array];
-    NSMutableArray *mutUnsigned = [NSMutableArray array];
-    mutSigned = [self.signedContainers mutableCopy];
-    mutUnsigned = [self.unsignedContainers mutableCopy];
-    [mutSigned addObject:newContainer];
-    [mutUnsigned removeObject:oldContainer];
-    self.signedContainers = [mutSigned copy];
-    self.unsignedContainers = [mutUnsigned copy];
-  } else if (!newContainer.isSigned && [self.signedContainers containsObject:oldContainer]) {
-    NSMutableArray *mutSigned = [NSMutableArray array];
-    NSMutableArray *mutUnsigned = [NSMutableArray array];
-    mutSigned = [self.signedContainers mutableCopy];
-    mutUnsigned = [self.unsignedContainers mutableCopy];
-    [mutUnsigned addObject:newContainer];
-    [mutSigned removeObject:oldContainer];
-    self.signedContainers = [mutSigned copy];
-    self.unsignedContainers = [mutUnsigned copy];
+- (BOOL)removeContainer:(MoppLibContainer *)container fromArray:(NSMutableArray *)array {
+  NSInteger index = [self indexOfContainer:container inArray:array];
+  if (index != NSNotFound) {
+    [array removeObjectAtIndex:index];
+    return YES;
   }
+  return NO;
+}
+
+- (void) checkSharedDocsCache {
+  NSArray *cachedDocs = [[FileManager sharedInstance] sharedDocumentPaths];
+  if (cachedDocs.count > 0) {
+    for (NSString *file in cachedDocs) {
+      NSString *fileExtension = [file pathExtension];
+        if ([fileExtension isEqualToString:ContainerFormatDdoc] ||
+            [fileExtension isEqualToString:ContainerFormatAsice] ||
+            [fileExtension isEqualToString:ContainerFormatBdoc]) {
+          
+          NSError *error;
+          [[FileManager sharedInstance] moveFileWithPath:file toPath:[[FileManager sharedInstance] filePathWithFileName:file.lastPathComponent] overwrite:NO error:&error];
+      }
+    }
+    
+    [self importNonContainersIfNeeded];
+  }
+}
+
+- (void)importNonContainersIfNeeded {
+  NSArray *cachedDocs = [[FileManager sharedInstance] sharedDocumentPaths];
+  
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Imported files" message:@"You have some imported files. What do you want to do with them?" preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:@"Put them in container" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [self setDataFilePaths:cachedDocs];
+  }]];
+  
+  [alert addAction:[UIAlertAction actionWithTitle:@"Nothing. Delete them" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [[FileManager sharedInstance] removeFilesAtPaths:cachedDocs];
+  }]];
+  [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)signatureChangeOperationWithNewContainer:(MoppLibContainer *)newContainer oldContainer:(MoppLibContainer *)oldContainer {
+  
+  NSMutableArray *mutSigned = [NSMutableArray array];
+  mutSigned = [self.signedContainers mutableCopy];
+  NSMutableArray *mutUnsigned = [NSMutableArray array];
+  mutUnsigned = [self.unsignedContainers mutableCopy];
+  
+  if (![self removeContainer:oldContainer fromArray:mutSigned]) {
+    if (![self removeContainer:oldContainer fromArray:mutUnsigned]) {
+      if (![self removeContainer:newContainer fromArray:mutSigned]) {
+        [self removeContainer:newContainer fromArray:mutUnsigned];
+      }
+    }
+  }
+
+  if (newContainer.isSigned) {
+    [mutSigned addObject:newContainer];
+  } else {
+    [mutUnsigned addObject:newContainer];
+  }
+  self.signedContainers = [mutSigned copy];
+  self.unsignedContainers = [mutUnsigned copy];
+
   [super reloadData];
+}
+
+- (NSInteger)indexOfContainer:(MoppLibContainer *)container inArray:(NSArray *)array {
+  for (int i = 0; i < array.count; i++) {
+    MoppLibContainer *con = array[i];
+    if ([con.filePath isEqualToString:container.filePath]) {
+      return i;
+    }
+  }
+  return NSNotFound;
 }
 
 - (void)reloadData {
@@ -152,9 +212,9 @@ typedef enum : NSUInteger {
 
 
 #pragma mark - File importing
-- (void)setDataFilePath:(NSString *)dataFilePath {
-  _dataFilePath = dataFilePath;
-
+- (void)setDataFilePaths:(NSArray *)dataFilePaths {
+  _dataFilePaths = dataFilePaths;
+  
   [self performSegueWithIdentifier:@"FileImportSegue" sender:self];
 }
 
@@ -229,7 +289,7 @@ typedef enum : NSUInteger {
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
+  
   switch (indexPath.section) {
     case ContainersListSectionUnsigned: {
       if (self.filteredUnsignedContainers.count == 0) {
@@ -298,7 +358,7 @@ typedef enum : NSUInteger {
         break;
     }
     
-//    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    //    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     [self reloadData];
   }
   
@@ -346,7 +406,7 @@ typedef enum : NSUInteger {
     UINavigationController *navController = [segue destinationViewController];
     FileImportViewController *fileImportViewController = (FileImportViewController *)navController.viewControllers[0];
     fileImportViewController.delegate = self;
-    fileImportViewController.dataFilePath = self.dataFilePath;
+    fileImportViewController.dataFilePaths = self.dataFilePaths;
   }
 }
 

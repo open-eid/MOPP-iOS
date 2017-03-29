@@ -15,7 +15,7 @@
 
 @interface FileImportViewController : BaseContainersListViewController
 
-@property (strong, nonatomic) NSString *dataFilePath;
+@property (strong, nonatomic) NSArray *dataFilePaths;
 @property (assign, nonatomic) id <FileImportViewControllerDelegate> delegate;
 
 @end

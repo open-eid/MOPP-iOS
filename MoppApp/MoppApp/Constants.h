@@ -17,3 +17,5 @@ extern NSString *const kKeyContainerNew;
 extern NSString *const kKeyContainerOld;
 
 extern NSString *const kNotificationSettingsChanged;
+
+extern NSString *const kNotificationWillEnterForeground;
