@@ -47,6 +47,7 @@ NSInteger repeatedPinDoesntMatch = 20000;
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
   
   [self setupViewController];
+  [self.okButton setTitle:Localizations.ActionEdit forState:UIControlStateNormal];
   [self updateOkButton];
 }
 
