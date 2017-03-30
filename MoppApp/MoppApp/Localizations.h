@@ -253,6 +253,9 @@
 /// Base translation: Enter details
 - (NSString *)ContainerDetailsIdcodePhoneAlertTitle;
 
+/// Base translation: If you forget the PUK code or the certificates remain blocked, you have to visit the service center to obtain new codes.
+- (NSString *)PinActionsPukChangeWarning;
+
 /// Base translation: Create new document
 - (NSString *)ActionCreateNewDocument;
 

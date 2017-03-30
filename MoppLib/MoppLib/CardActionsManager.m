@@ -513,6 +513,7 @@ static CardActionsManager *sharedInstance = nil;
 
     case CardActionPinRetryCount: {
       CodeType type = ((NSNumber *)[actionObject.data objectForKey:kCardActionDataCodeType]).integerValue;
+      
       [self.cardVersionHandler readCodeCounterRecord:type withSuccess:^(NSData *data) {
         success([self retryCountFromData:data]);
       } failure:failure];

@@ -150,6 +150,7 @@
 "pin-actions-unblocking-pin" = "Unblocking %@:";
 "pin-actions-repeated-pin-doesnt-match" = "New %@ and repeated %@ are different.";
 "pin-actions-pin-blocked" = "%@ is blocked.";
+"pin-actions-puk-change-warning" = "If you forget the PUK code or the certificates remain blocked, you have to visit the service center to obtain new codes.";
 
 
 // *** Settings ***

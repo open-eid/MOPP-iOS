@@ -18,10 +18,12 @@ typedef enum : NSUInteger {
   PinOperationsCellInfo,
   PinOperationsCellChangePin1,
   PinOperationsCellChangePin2,
+  PinOperationsCellChangePuk,
   PinOperationsCellUnblockPin1,
   PinOperationsCellUnblockPin2,
   PinOperationsCellErrorPin1Blocked,
   PinOperationsCellErrorPin2Blocked,
+  PinOperationsCellErrorPukBlocked,
   PinOperationsCellSeparator
   
 } PinOperationsCell;
@@ -33,7 +35,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) NSArray *cellData;
 @property (nonatomic, strong) NSNumber *pin1RetryCount;
 @property (nonatomic, strong) NSNumber *pin2RetryCount;
-
+@property (nonatomic, strong) NSNumber *pukRetryCount;
 @end
 
 @implementation PinOperationsViewController
@@ -47,6 +49,7 @@ typedef enum : NSUInteger {
   
   self.pin2RetryCount = [NSNumber numberWithInt:-1];
   self.pin1RetryCount = [NSNumber numberWithInt:-1];
+  self.pukRetryCount = [NSNumber numberWithInt:-1];
 
   self.title = Localizations.TabSimSettings;
   
@@ -128,22 +131,26 @@ typedef enum : NSUInteger {
       [cellData addObject:[NSNumber numberWithInt:PinOperationsCellErrorPin2Blocked]];
     }
     
-    if (self.pin1RetryCount) {
-      if (self.pin1RetryCount.intValue > 0) {
-        [cellData addObject:[NSNumber numberWithUnsignedInteger:PinOperationsCellChangePin1]];
-        
-      } else if(self.pin1RetryCount.intValue == 0) {
-        [cellData addObject:[NSNumber numberWithUnsignedInteger:PinOperationsCellUnblockPin1]];
-      }
+    if (self.pukRetryCount.integerValue == 0) {
+      [cellData addObject:[NSNumber numberWithInt:PinOperationsCellErrorPukBlocked]];
     }
     
-    if (self.pin2RetryCount) {
-      if (self.pin2RetryCount.intValue > 0) {
-        [cellData addObject:[NSNumber numberWithUnsignedInteger:PinOperationsCellChangePin2]];
-        
-      } else if(self.pin2RetryCount.intValue == 0) {
-        [cellData addObject:[NSNumber numberWithUnsignedInteger:PinOperationsCellUnblockPin2]];
-      }
+    if (self.pin1RetryCount.intValue > 0) {
+      [cellData addObject:[NSNumber numberWithUnsignedInteger:PinOperationsCellChangePin1]];
+      
+    } else if(self.pin1RetryCount.intValue == 0) {
+      [cellData addObject:[NSNumber numberWithUnsignedInteger:PinOperationsCellUnblockPin1]];
+    }
+    
+    if (self.pin2RetryCount.intValue > 0) {
+      [cellData addObject:[NSNumber numberWithUnsignedInteger:PinOperationsCellChangePin2]];
+      
+    } else if(self.pin2RetryCount.intValue == 0) {
+      [cellData addObject:[NSNumber numberWithUnsignedInteger:PinOperationsCellUnblockPin2]];
+    }
+    
+    if (self.pukRetryCount.intValue > 0) {
+      [cellData addObject:[NSNumber numberWithUnsignedInteger:PinOperationsCellChangePuk]];
     }
   }
   
@@ -167,6 +174,16 @@ typedef enum : NSUInteger {
       [self updateBlockingIndicators];
     }
 
+  } failure:^(NSError *error) {
+    MSLog(@"Error %@", error);
+  }];
+  
+  [MoppLibCardActions pukRetryCountWithViewController:self success:^(NSNumber *count) {
+    if (self.pukRetryCount != count) {
+      self.pukRetryCount = count;
+      [self updateBlockingIndicators];
+    }
+    
     
   } failure:^(NSError *error) {
     MSLog(@"Error %@", error);
@@ -180,6 +197,10 @@ typedef enum : NSUInteger {
   }
   
   if (self.pin2RetryCount && self.pin2RetryCount.intValue == 0) {
+    badgeValue++;
+  }
+  
+  if (self.pukRetryCount && self.pukRetryCount.intValue == 0) {
     badgeValue++;
   }
   
@@ -239,11 +260,24 @@ NSString *supportedReaderPath2 = @"myeid://supportedReader";
   switch (cellType.unsignedIntegerValue) {
       
     case PinOperationsCellErrorPin1Blocked:
-    case PinOperationsCellErrorPin2Blocked: {
+    case PinOperationsCellErrorPin2Blocked:
+    case PinOperationsCellErrorPukBlocked: {
       ErrorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ErrorCell" forIndexPath:indexPath];
       cell.errorTextView.delegate = self;
       cell.type = ErrorCellTypeError;
-      cell.errorTextView.text = Localizations.PinActionsPinBlocked(cellType.unsignedIntegerValue == PinOperationsCellErrorPin1Blocked ? Localizations.PinActionsPin1 : Localizations.PinActionsPin2);
+      NSString *pinType;
+      
+      if (cellType.unsignedIntegerValue == PinOperationsCellErrorPin1Blocked) {
+        pinType = Localizations.PinActionsPin1;
+        
+      } else if (cellType.unsignedIntegerValue == PinOperationsCellErrorPin2Blocked) {
+        pinType = Localizations.PinActionsPin2;
+      
+      } else {
+        pinType = Localizations.PinActionsPuk;
+      }
+      
+      cell.errorTextView.text = Localizations.PinActionsPinBlocked(pinType);
       return cell;
     }
 
@@ -269,7 +303,8 @@ NSString *supportedReaderPath2 = @"myeid://supportedReader";
     case PinOperationsCellUnblockPin2:
     case PinOperationsCellUnblockPin1:
     case PinOperationsCellChangePin2:
-    case PinOperationsCellChangePin1: {
+    case PinOperationsCellChangePin1:
+    case PinOperationsCellChangePuk: {
 
       UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PinActionCell" forIndexPath:indexPath];
       
@@ -284,6 +319,9 @@ NSString *supportedReaderPath2 = @"myeid://supportedReader";
         
       } else if (cellType.unsignedIntegerValue == PinOperationsCellUnblockPin2) {
         cell.textLabel.text = Localizations.PinActionsUnblockPin(Localizations.PinActionsPin2);
+      
+      } else if (cellType.unsignedIntegerValue == PinOperationsCellChangePuk) {
+        cell.textLabel.text = Localizations.PinActionsChangePin(Localizations.PinActionsPuk);
       }
       return cell;
     }
@@ -310,6 +348,23 @@ NSString *supportedReaderPath2 = @"myeid://supportedReader";
   return UITableViewAutomaticDimension;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  NSNumber *cellType = self.cellData[indexPath.row];
+  
+  if (cellType.unsignedIntegerValue == PinOperationsCellChangePuk) {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainerDetailsAttention message:Localizations.PinActionsPukChangeWarning preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+      [self performPinChangeSegue:indexPath];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+  } else {
+    [self performPinChangeSegue:indexPath];
+  }
+}
+
 
 #pragma mark - Navigation
 
@@ -331,12 +386,18 @@ NSString *supportedReaderPath2 = @"myeid://supportedReader";
 
     } else if (cellType.unsignedIntegerValue == PinOperationsCellUnblockPin2) {
       controller.type = PinOperationTypeUnblockPin2;
+    
+    } else if (cellType.unsignedIntegerValue == PinOperationsCellChangePuk) {
+      controller.type = PinOperationTypeChangePuk;
     }
   }
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
 
+- (void)performPinChangeSegue:(NSIndexPath *)indexPath {
+  [self performSegueWithIdentifier:@"ChangePin" sender:[self tableView:self.tableView cellForRowAtIndexPath:indexPath]];
+}
 #pragma mark - UITextViewDelegate
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {

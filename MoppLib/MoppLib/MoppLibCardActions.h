@@ -81,4 +81,13 @@
  */
 + (void)pin2RetryCountWithViewController:(UIViewController *)controller success:(void (^)(NSNumber *))success failure:(FailureBlock)failure;
 
+/**
+ * Gets PUK retry counter value.
+ *
+ * @param controller    ViewController to be used for card reader selection if needed.
+ * @param success       Block to be called on successful completion of action. Includes retry counter value as NSNumber
+ * @param failure       Block to be called when action fails. Includes error.
+ */
++ (void)pukRetryCountWithViewController:(UIViewController *)controller success:(void (^)(NSNumber *))success failure:(FailureBlock)failure;
+
 @end

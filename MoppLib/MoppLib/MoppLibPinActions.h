@@ -13,6 +13,17 @@
 @interface MoppLibPinActions : NSObject
 
 /**
+ * Changes current PUK to new one by using current PUK for verification.
+ *
+ * @param newPuk       New PUK that will replace current PUK
+ * @param oldPuk       Current PUK to be used for verification
+ * @param controller    ViewController to be used for card reader selection if needed
+ * @param success       Block to be called on successful completion of action
+ * @param failure       Block to be called when action fails. Includes error.
+ */
++ (void)changePukTo:(NSString *)newPuk withOldPuk:(NSString *)oldPuk viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure;
+
+/**
  * Changes current PIN1 to new one by using current PIN1 for verification.
  *
  * @param newPin1       New PIN1 that will replace current PIN1
@@ -81,8 +92,11 @@
 
 + (NSArray *)forbiddenPin1s;
 + (NSArray *)forbiddenPin2s;
++ (NSArray *)forbiddenPuks;
 + (int)pin1MinLength;
 + (int)pin2MinLength;
 + (int)pin1MaxLength;
 + (int)pin2MaxLength;
++ (int)pukMinLength;
++ (int)pukMaxLength;
 @end

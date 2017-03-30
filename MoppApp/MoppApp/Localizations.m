@@ -399,6 +399,10 @@
     return NSLocalizedStringFromTable(@"container-details-idcode-phone-alert-title", nil, nil);
 }
 
+- (NSString *)PinActionsPukChangeWarning {
+    return NSLocalizedStringFromTable(@"pin-actions-puk-change-warning", nil, nil);
+}
+
 - (NSString *)ActionCreateNewDocument {
     return NSLocalizedStringFromTable(@"action-create-new-document", nil, nil);
 }

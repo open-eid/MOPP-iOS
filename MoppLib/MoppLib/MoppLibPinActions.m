@@ -12,6 +12,26 @@
 
 @implementation MoppLibPinActions
 
++ (void)changePukTo:(NSString *)newPuk withOldPuk:(NSString *)oldPuk viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
+  
+  // PUK change command gives unusual error in case of incorrect length. Checking these requirements here instead.
+  if (newPuk.length < [self pukMinLength] || newPuk.length > [self pukMaxLength]) {
+    failure([MoppLibError incorrectPinLengthError]);
+    return;
+  }
+  
+  for (NSString *puk in [self forbiddenPuks]) {
+    if ([puk isEqualToString:newPuk]) {
+      failure([MoppLibError invalidPinError]);
+      return;
+    }
+  }
+  
+  [self verifyType:CodeTypePuk pin:newPuk andVerificationCode:oldPuk viewController:controller success:^{
+    [[CardActionsManager sharedInstance] changeCode:CodeTypePuk withVerifyCode:oldPuk to:newPuk viewController:controller success:success failure:failure];
+  } failure:failure];
+}
+
 + (void)changePin1To:(NSString *)newPin1 withOldPin1:(NSString *)oldPin1 viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
   [self verifyType:CodeTypePin1 pin:newPin1 andVerificationCode:oldPin1 viewController:controller success:^{
     [[CardActionsManager sharedInstance] changeCode:CodeTypePin1 withVerifyCode:oldPin1 to:newPin1 viewController:controller success:success failure:failure];
@@ -120,6 +140,18 @@
 + (NSArray *)forbiddenPin2s {
   return @[@"00000", @"12345"];
 };
+
++ (NSArray *)forbiddenPuks {
+  return @[@"00000000", @"12345678"];
+};
+
++ (int)pukMinLength {
+  return 8;
+}
+
++ (int)pukMaxLength {
+  return 12;
+}
 
 + (int)pin1MinLength {
   return 4;

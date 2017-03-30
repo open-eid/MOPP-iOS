@@ -19,7 +19,7 @@
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PinActionCell" textLabel="qnj-OD-tRS" style="IBUITableViewCellStyleDefault" id="gyM-73-QQr">
-                                <rect key="frame" x="0.0" y="56" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gyM-73-QQr" id="mfr-HC-wSu">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
@@ -34,12 +34,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="ZqK-mS-ico" kind="show" id="SZw-Cn-gcG"/>
-                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SeparatorCell" rowHeight="30" id="HGb-3T-KnR">
-                                <rect key="frame" x="0.0" y="100" width="375" height="30"/>
+                                <rect key="frame" x="0.0" y="99.5" width="375" height="30"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HGb-3T-KnR" id="KM3-Ej-kbI">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
@@ -69,6 +66,9 @@
                     <navigationItem key="navigationItem" title="Title" id="K2Z-yY-SRe">
                         <barButtonItem key="backBarButtonItem" title=" " id="dw9-Kk-mgH"/>
                     </navigationItem>
+                    <connections>
+                        <segue destination="ZqK-mS-ico" kind="show" identifier="ChangePin" id="aK2-T8-Mkw"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TYD-aV-rQN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

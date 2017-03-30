@@ -71,7 +71,8 @@ NSInteger repeatedPinDoesntMatch = 20000;
   switch (self.type) {
       
     case PinOperationTypeChangePin2:
-    case PinOperationTypeChangePin1: {
+    case PinOperationTypeChangePin1:
+    case PinOperationTypeChangePuk: {
       self.title = Localizations.PinActionsChangingPin(pinString);
 
       NSString *verificationCode = [self verificationCodeString];
@@ -140,7 +141,12 @@ NSInteger repeatedPinDoesntMatch = 20000;
   int max;
   NSArray *forbiddenPins;
   
-  if (self.type == PinOperationTypeChangePin1 || self.type == PinOperationTypeUnblockPin1) {
+  if (self.type == PinOperationTypeChangePuk) {
+    min = [MoppLibPinActions pukMinLength];
+    max = [MoppLibPinActions pukMaxLength];
+    forbiddenPins = [MoppLibPinActions forbiddenPuks];
+    
+  } else if (self.type == PinOperationTypeChangePin1 || self.type == PinOperationTypeUnblockPin1) {
     min = [MoppLibPinActions pin1MinLength];
     max = [MoppLibPinActions pin1MaxLength];
     forbiddenPins = [MoppLibPinActions forbiddenPin1s];
@@ -198,6 +204,11 @@ NSInteger repeatedPinDoesntMatch = 20000;
       } else {
         [MoppLibPinActions changePin1To:self.pinField.text withPuk:self.currentPinField.text viewController:self success:successBlock failure:errorBlock];
       }
+      break;
+    }
+      
+    case PinOperationTypeChangePuk: {
+        [MoppLibPinActions changePukTo:self.pinField.text withOldPuk:self.currentPinField.text viewController:self success:successBlock failure:errorBlock];
       break;
     }
       
@@ -277,6 +288,10 @@ NSInteger repeatedPinDoesntMatch = 20000;
       min = [MoppLibPinActions pin1MinLength];
       max = [MoppLibPinActions pin1MaxLength];
       
+    } else if (self.type == PinOperationTypeChangePuk) {
+      min = [MoppLibPinActions pukMinLength];
+      max = [MoppLibPinActions pukMaxLength];
+      
     } else {
       min = [MoppLibPinActions pin2MinLength];
       max = [MoppLibPinActions pin2MaxLength];
@@ -290,6 +305,9 @@ NSInteger repeatedPinDoesntMatch = 20000;
     if (self.type == PinOperationTypeChangePin1 || self.type == PinOperationTypeUnblockPin1) {
       forbiddenPins = [MoppLibPinActions forbiddenPin1s];
       
+    } else if (self.type == PinOperationTypeChangePuk) {
+      forbiddenPins = [MoppLibPinActions forbiddenPuks];
+      
     } else {
       forbiddenPins = [MoppLibPinActions forbiddenPin2s];
     }
@@ -300,7 +318,7 @@ NSInteger repeatedPinDoesntMatch = 20000;
     message = Localizations.PinActionsRuleNumbersOnly(pinString);
     self.pinErrorLabel.text = message;
 
-  }else {
+  } else {
     message = Localizations.PinActionsGeneralError(pinString);
     self.pinErrorLabel.text = message;
   }
@@ -325,8 +343,12 @@ NSInteger repeatedPinDoesntMatch = 20000;
 - (NSString *)pinCodeString {
   if (self.type == PinOperationTypeChangePin1 || self.type == PinOperationTypeUnblockPin1) {
     return Localizations.PinActionsPin1;
-  } else {
+    
+  } else if (self.type == PinOperationTypeChangePin2 || self.type == PinOperationTypeUnblockPin2) {
     return Localizations.PinActionsPin2;
+    
+  } else {
+    return Localizations.PinActionsPuk;
   }
 }
 
@@ -334,7 +356,7 @@ NSInteger repeatedPinDoesntMatch = 20000;
  * String for pin/puk code that we are using for verification
  */
 - (NSString *)verificationCodeString {
-  if (self.type == PinOperationTypeUnblockPin2 || self.type == PinOperationTypeUnblockPin1 || self.selectedIndexPath.row == 1) {
+  if (self.type == PinOperationTypeChangePuk || self.type == PinOperationTypeUnblockPin2 || self.type == PinOperationTypeUnblockPin1 || self.selectedIndexPath.row == 1) {
     return Localizations.PinActionsPuk;
     
   } else {
@@ -343,11 +365,15 @@ NSInteger repeatedPinDoesntMatch = 20000;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+  if (self.type == PinOperationTypeChangePuk) {
+    return 1;
+  }
   return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  NSString *identifyer = indexPath.row == 1 || self.tableView.userInteractionEnabled ? @"VerifyOptionCell" : @"VerifyOptionDisabledCell";
+  BOOL isActiveCell = indexPath.row == 1 || self.tableView.userInteractionEnabled || self.type == PinOperationTypeChangePuk;
+  NSString *identifyer = isActiveCell ? @"VerifyOptionCell" : @"VerifyOptionDisabledCell";
   UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifyer forIndexPath:indexPath];
 
   

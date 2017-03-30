@@ -151,7 +151,7 @@
 "pin-actions-unblocking-pin" = "%@ blokeeringu tühistamine:";
 "pin-actions-repeated-pin-doesnt-match" = "Uus %@ ja uus %@ uuesti on erinevad";
 "pin-actions-pin-blocked" = "%@ on blokeeritud.";
-
+"pin-actions-puk-change-warning" = "Kui peale vahetamist PUK kood läheb meelest ära ja sertifikaat jääb blokeerituks kolme vale PIN1 või PIN2 sisetamise järel, siis ainus võimalus ID-kaart jälle tööle saada on pöörduda klienditeeninduspunkti poole.";
 
 // *** Settings ***
 "settings-new-container-format" = "Uue dokumendi formaat";

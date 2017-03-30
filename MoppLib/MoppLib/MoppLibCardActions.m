@@ -43,4 +43,8 @@
   [[CardActionsManager sharedInstance] code:CodeTypePin2 retryCountWithViewController:controller success:success failure:failure];
 }
 
++ (void)pukRetryCountWithViewController:(UIViewController *)controller success:(void (^)(NSNumber *))success failure:(FailureBlock)failure {
+  [[CardActionsManager sharedInstance] code:CodeTypePuk retryCountWithViewController:controller success:success failure:failure];
+}
+
 @end

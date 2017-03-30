@@ -175,6 +175,9 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
 }
 
 - (void)readCodeCounterRecord:(NSInteger)record withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
+  if (record == CodeTypePuk) {
+    record = 3;
+  }
   void (^readRecord)(NSData *) = ^void (NSData *responseObject) {
     [self.reader transmitCommand:[NSString stringWithFormat:kCommandReadRecord, record] success:success failure:failure];
   };

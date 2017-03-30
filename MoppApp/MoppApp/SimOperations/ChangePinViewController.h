@@ -11,6 +11,7 @@
 typedef enum : NSUInteger {
   PinOperationTypeChangePin1,
   PinOperationTypeChangePin2,
+  PinOperationTypeChangePuk,
   PinOperationTypeUnblockPin1,
   PinOperationTypeUnblockPin2
 } PinOperationType;
