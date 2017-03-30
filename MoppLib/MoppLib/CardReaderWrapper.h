@@ -51,6 +51,8 @@
 
 - (void)resetReader;
 
+- (void)updateCardStatusWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
+
 @end
 
 typedef NS_ENUM(NSUInteger, CardStatus) {

@@ -18,6 +18,7 @@
 #import "UIColor+Additions.h"
 #import "DateFormatter.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "Constants.h"
 
 typedef enum : NSUInteger {
   PersonalDataSectionErrors,
@@ -76,6 +77,7 @@ typedef enum : NSUInteger {
 
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardStatusChanged) name:kMoppLibNotificationReaderStatusChanged object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(retryCounterChanged) name:kMoppLibNotificationRetryCounterChanged object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEnterForeground:) name:kNotificationWillEnterForeground object:nil];
 
   UINib *nib = [UINib nibWithNibName:@"ErrorCell" bundle:nil];
   [self.tableView registerNib:nib forCellReuseIdentifier:@"ErrorCell"];
@@ -98,12 +100,46 @@ typedef enum : NSUInteger {
   // Dispose of any resources that can be recreated.
 }
 
-- (void)updateCardData {
-  [MoppLibCardActions minimalCardPersonalDataWithViewController:self success:^(MoppLibPersonalData *personalData) {
-    self.personalData = personalData;
+- (void)willEnterForeground:(NSNotification *)notification {
 
+  self.isReaderConnected = [MoppLibCardActions isReaderConnected];
+  
+  [MoppLibCardActions isCardInserted:^(BOOL isInserted) {
+    self.isCardInserted = isInserted;
+    if (self.isCardInserted) {
+      [self updateCardDataWithCompletion:^(BOOL documentHasChanged) {
+        if (documentHasChanged) {
+          [self updateCertData];
+          [self updateRetryCounters];
+        }
+      }];
+    }
+  }];
+}
+
+- (void)updateCardDataWithCompletion:(void (^)(BOOL))completion {
+  [MoppLibCardActions minimalCardPersonalDataWithViewController:self success:^(MoppLibPersonalData *personalData) {
+    if (!completion) {
+      self.personalData = personalData;
+    } else if ([self.personalData.documentNumber isEqualToString:personalData.documentNumber]) {
+      self.personalData = personalData;
+      completion(YES);
+      
+    } else {
+      completion(NO);
+    }
   } failure:^(NSError *error) {
-    self.personalData = nil;
+    if (!completion) {
+      self.personalData = nil;
+
+    } else if (self.personalData.documentNumber) {
+      self.personalData = nil;
+      completion(YES);
+      
+    } else {
+      completion(NO);
+    }
+    
   }];
 }
 
@@ -128,6 +164,8 @@ typedef enum : NSUInteger {
   [MoppLibCardActions pin1RetryCountWithViewController:self success:^(NSNumber *count) {
     if (self.pin1RetryCount != count) {
       self.pin1RetryCount = count;
+      NSLog(@"******* updateRetryCounters 1");
+
       [self reloadData];
     }
   } failure:^(NSError *error) {
@@ -139,6 +177,8 @@ typedef enum : NSUInteger {
 
     if (self.pin2RetryCount != count) {
       self.pin2RetryCount = count;
+      NSLog(@"******* updateRetryCounters 2");
+
       [self reloadData];
     }
   } failure:^(NSError *error) {
@@ -149,16 +189,22 @@ typedef enum : NSUInteger {
 
 - (void)setSigningCertData:(MoppLibCertData *)signingCertData {
   _signingCertData = signingCertData;
+  NSLog(@"******* setSigningCertData");
+
   [self reloadData];
 }
 
 - (void)setAuthenticationCertData:(MoppLibCertData *)authenticationCertData {
   _authenticationCertData = authenticationCertData;
+  NSLog(@"******* setAuthenticationCertData");
+
   [self reloadData];
 }
 
 - (void)setPersonalData:(MoppLibPersonalData *)personalData {
   _personalData = personalData;
+  NSLog(@"******* setPersonalData");
+
   [self reloadData];
 }
 
@@ -170,6 +216,8 @@ typedef enum : NSUInteger {
       self.signingCertData = nil;
       self.authenticationCertData = nil;
     }
+    NSLog(@"******* setIsCardInserted");
+
     [self reloadData];
   }
 }
@@ -182,6 +230,7 @@ typedef enum : NSUInteger {
       self.signingCertData = nil;
       self.authenticationCertData = nil;
     }
+    NSLog(@"******* setIsReaderConnected");
     [self reloadData];
   }
 }
@@ -257,7 +306,7 @@ typedef enum : NSUInteger {
 - (void)updateData {
   if (self.isReaderConnected && self.isCardInserted) {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [self updateCardData];
+    [self updateCardDataWithCompletion:nil];
     [self updateCertData];
     [self updateRetryCounters];
   }
@@ -562,7 +611,7 @@ NSString *idCardIntroPath = @"myeid://readIDCardInfo";
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
   if ([[URL absoluteString] isEqualToString:readerNotFoundPath]) {
-    [self updateCardData];
+    [self updateCardDataWithCompletion:nil];
     return NO;
     
   } else if ([[URL absoluteString] isEqualToString:idCardIntroPath]) {
