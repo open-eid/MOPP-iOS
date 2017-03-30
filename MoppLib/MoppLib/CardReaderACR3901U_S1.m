@@ -95,21 +95,12 @@
     }
 }
 
-/*- (void)updateCardStatusWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
-  self.successBlock = success;
-  self.failureBlock = failure;
-  BOOL updated = [self.bluetoothReader getCardStatus];
-  if (!updated) {
-    [self respondWithError:[MoppLibError cardNotFoundError]];
-  }
-}*/
-
 - (void)respondWithError:(NSError *)error {
   @synchronized (self) {
     FailureBlock failure = self.failureBlock;
     self.failureBlock = nil;
     self.successBlock = nil;
-
+    
     if (failure) {
       failure(error);
     }
@@ -129,8 +120,6 @@
 }
 
 - (void)isCardInserted:(void(^)(BOOL)) completion {
-  NSLog(@"******* card status %i", self.cardStatus);
-
   //if (self.cardStatus == ABTBluetoothReaderCardStatusPowerSavingMode) {
     [self getCardStatusWithSuccess:^(NSData *responseObject) {
       completion(self.cardStatus == ABTBluetoothReaderCardStatusPresent || self.cardStatus == ABTBluetoothReaderCardStatusPowered);
@@ -144,7 +133,6 @@
 }
 
 - (BOOL)isConnected {
-  NSLog(@"****** peripheral state is %i", self.peripheral.state);
   if (self.peripheral && self.peripheral.state == CBPeripheralStateConnected) {
     return YES;
   }

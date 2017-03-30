@@ -10,8 +10,10 @@
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "CardCommands.h"
+#import "CBManagerHelper.h"
 
-@interface CardActionsManager : NSObject
+
+@interface CardActionsManager : NSObject <CBManagerHelperDelegate>
 + (CardActionsManager *)sharedInstance;
 
 - (void)minimalCardPersonalDataWithViewController:(UIViewController *)controller success:(PersonalDataBlock)success failure:(FailureBlock)failure;

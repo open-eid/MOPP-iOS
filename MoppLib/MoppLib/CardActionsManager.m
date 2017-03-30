@@ -13,7 +13,6 @@
 #import "NSData+Additions.h"
 #import "EstEIDv3_4.h"
 #import "EstEIDv3_5.h"
-#import "CBManagerHelper.h"
 #import "MoppLibCertificate.h"
 #import "MoppLibDigidocManager.h"
 #import <CommonCrypto/CommonDigest.h>
@@ -30,7 +29,8 @@ typedef NS_ENUM(NSUInteger, CardAction) {
   CardActionReadOwnerBirthDate,
   CardActionReadSecretKey,
   CardActionVerifyCode,
-  CardActionCalculateSignature
+  CardActionCalculateSignature,
+  CardActionGetCardStatus
 };
 
 NSString *const kCardActionDataHash = @"Hash";
@@ -43,8 +43,10 @@ NSString *const kCardActionDataRecord = @"Record";
 @property (nonatomic, assign) CardAction cardAction;
 @property (nonatomic, strong) void (^successBlock)(id);
 @property (nonatomic, strong) FailureBlock failureBlock;
+@property (nonatomic, strong) void (^boolBlock)(BOOL);
 @property (nonatomic, strong) UIViewController *controller;
 @property (nonatomic, strong) NSDictionary *data;
+@property (nonatomic, assign) NSUInteger retryCount;
 @end
 
 @implementation CardActionObject
@@ -52,7 +54,7 @@ NSString *const kCardActionDataRecord = @"Record";
 @end
 
 
-@interface CardActionsManager() <ReaderSelectionViewControllerDelegate, CBManagerHelperDelegate, CardReaderWrapperDelegate>
+@interface CardActionsManager() <ReaderSelectionViewControllerDelegate, CardReaderWrapperDelegate>
 
 @property (nonatomic, strong) id<CardReaderWrapper> cardReader;
 @property (nonatomic, strong) NSMutableArray *cardActions;
@@ -291,6 +293,7 @@ static CardActionsManager *sharedInstance = nil;
     actionObject.cardAction = action;
     actionObject.controller = controller;
     actionObject.data = data;
+    actionObject.retryCount = 0;
     
     [self.cardActions addObject:actionObject];
     [self executeNextAction];
@@ -310,8 +313,14 @@ static CardActionsManager *sharedInstance = nil;
 - (void)executeAfterReaderCheck:(CardActionObject *)action {
   if ([self isReaderConnected]) {
     [self.cardReader isCardInserted:^(BOOL isInserted) {
+      
+      if (action.cardAction == CardActionGetCardStatus) {
+        action.boolBlock(isInserted);
+        [self finishCurrentAction];
+        return;
+      }
+      
       if (isInserted) {
-        
         [self.cardReader isCardPoweredOn:^(BOOL isPoweredOn) {
           if (isPoweredOn) {
             [self executeAction:action];
@@ -361,17 +370,23 @@ static CardActionsManager *sharedInstance = nil;
         
       } else {
         MLLog(@"Card not inserted");
-        action.failureBlock([MoppLibError cardNotFoundError]);
-        [self finishCurrentAction];
+          action.failureBlock([MoppLibError cardNotFoundError]);
+          [self finishCurrentAction];
       }
     }];
   } else {
-    UINavigationController *navController = [[UIStoryboard storyboardWithName:@"ReaderSelection" bundle:[NSBundle bundleForClass:[ReaderSelectionViewController class]]] instantiateInitialViewController];
-    ReaderSelectionViewController *viewController = (ReaderSelectionViewController *)[navController topViewController];
-    viewController.delegate = self;
-    [action.controller presentViewController:navController animated:YES completion:^{
-      
-    }];
+    if (action.cardAction == CardActionGetCardStatus) {
+      action.boolBlock(NO);
+      [self finishCurrentAction];
+
+    } else {
+      UINavigationController *navController = [[UIStoryboard storyboardWithName:@"ReaderSelection" bundle:[NSBundle bundleForClass:[ReaderSelectionViewController class]]] instantiateInitialViewController];
+      ReaderSelectionViewController *viewController = (ReaderSelectionViewController *)[navController topViewController];
+      viewController.delegate = self;
+      [action.controller presentViewController:navController animated:YES completion:^{
+        
+      }];
+    }
   }
 }
 
@@ -389,8 +404,21 @@ static CardActionsManager *sharedInstance = nil;
   };
   
   void (^failure)(id) = ^void (NSError *error) {
-    actionObject.failureBlock(error);
-    [self finishCurrentAction];
+    if (error.code == 5 && actionObject.retryCount < 1) {
+      actionObject.retryCount = actionObject.retryCount + 1;
+      
+      // Could be caused bu card change and card is not powered on
+      [self.cardReader powerOnCard:^(NSData *responseData) {
+        [self executeAction:actionObject];
+      } failure:^(NSError *error) {
+        actionObject.failureBlock(error);
+        [self finishCurrentAction];
+      }];
+      
+    } else {
+      actionObject.failureBlock(error);
+      [self finishCurrentAction];
+    }
   };
   
   switch (actionObject.cardAction) {
@@ -605,10 +633,13 @@ NSString *blockBackupCode = @"00001";
 }
 
 - (void)isCardInserted:(void(^)(BOOL)) completion {
-  if (self.cardReader) {
-    [self.cardReader isCardInserted:completion];
-  } else {
-    completion(NO);
+  @synchronized (self) {
+    CardActionObject *actionObject = [CardActionObject new];
+    actionObject.boolBlock = completion;
+    actionObject.cardAction = CardActionGetCardStatus;
+    
+    [self.cardActions addObject:actionObject];
+    [self executeNextAction];
   }
 }
 
@@ -655,7 +686,11 @@ NSString *blockBackupCode = @"00001";
   
   while (self.cardActions.count > 0) {
     CardActionObject *action = [self.cardActions firstObject];
-    action.failureBlock([MoppLibError readerNotFoundError]);
+    if (action.failureBlock) {
+      action.failureBlock([MoppLibError readerNotFoundError]);
+    } else if (action.boolBlock) {
+      action.boolBlock(NO);
+    }
     [self.cardActions removeObject:action];
   }
 }
@@ -667,6 +702,7 @@ NSString *blockBackupCode = @"00001";
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
+
   [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
   
   //Making sure we don't get stuck with some action, that can't be completed anymore
@@ -676,6 +712,7 @@ NSString *blockBackupCode = @"00001";
 #pragma mark - CardReaderWrapperDelegate
 
 - (void)cardStatusUpdated:(CardStatus)status {
+
   [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
   
   if (status == CardStatusAbsent) {

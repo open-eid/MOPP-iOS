@@ -109,8 +109,11 @@ typedef enum : NSUInteger {
     if (self.isCardInserted) {
       [self updateCardDataWithCompletion:^(BOOL documentHasChanged) {
         if (documentHasChanged) {
+          [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
           [self updateCertData];
           [self updateRetryCounters];
+          
         }
       }];
     }
@@ -118,10 +121,12 @@ typedef enum : NSUInteger {
 }
 
 - (void)updateCardDataWithCompletion:(void (^)(BOOL))completion {
+  
   [MoppLibCardActions minimalCardPersonalDataWithViewController:self success:^(MoppLibPersonalData *personalData) {
     if (!completion) {
       self.personalData = personalData;
-    } else if ([self.personalData.documentNumber isEqualToString:personalData.documentNumber]) {
+    } else if (self.personalData && personalData && ![self.personalData.documentNumber isEqualToString:personalData.documentNumber]) {
+      [self resetData];
       self.personalData = personalData;
       completion(YES);
       
@@ -164,7 +169,6 @@ typedef enum : NSUInteger {
   [MoppLibCardActions pin1RetryCountWithViewController:self success:^(NSNumber *count) {
     if (self.pin1RetryCount != count) {
       self.pin1RetryCount = count;
-      NSLog(@"******* updateRetryCounters 1");
 
       [self reloadData];
     }
@@ -177,7 +181,6 @@ typedef enum : NSUInteger {
 
     if (self.pin2RetryCount != count) {
       self.pin2RetryCount = count;
-      NSLog(@"******* updateRetryCounters 2");
 
       [self reloadData];
     }
@@ -189,22 +192,16 @@ typedef enum : NSUInteger {
 
 - (void)setSigningCertData:(MoppLibCertData *)signingCertData {
   _signingCertData = signingCertData;
-  NSLog(@"******* setSigningCertData");
-
   [self reloadData];
 }
 
 - (void)setAuthenticationCertData:(MoppLibCertData *)authenticationCertData {
   _authenticationCertData = authenticationCertData;
-  NSLog(@"******* setAuthenticationCertData");
-
   [self reloadData];
 }
 
 - (void)setPersonalData:(MoppLibPersonalData *)personalData {
   _personalData = personalData;
-  NSLog(@"******* setPersonalData");
-
   [self reloadData];
 }
 
@@ -212,11 +209,8 @@ typedef enum : NSUInteger {
   if (_isCardInserted != isCardInserted) {
     _isCardInserted = isCardInserted;
     if (!isCardInserted) {
-      self.personalData = nil;
-      self.signingCertData = nil;
-      self.authenticationCertData = nil;
+      [self resetData];
     }
-    NSLog(@"******* setIsCardInserted");
 
     [self reloadData];
   }
@@ -226,13 +220,16 @@ typedef enum : NSUInteger {
   if (_isReaderConnected != isReaderConnected) {
     _isReaderConnected = isReaderConnected;
     if (!isReaderConnected) {
-      self.personalData = nil;
-      self.signingCertData = nil;
-      self.authenticationCertData = nil;
+      [self resetData];
     }
-    NSLog(@"******* setIsReaderConnected");
     [self reloadData];
   }
+}
+
+- (void)resetData {
+  self.personalData = nil;
+  self.signingCertData = nil;
+  self.authenticationCertData = nil;
 }
 
 - (void)reloadData {
@@ -298,8 +295,10 @@ typedef enum : NSUInteger {
   self.isReaderConnected = [MoppLibCardActions isReaderConnected];
   
   [MoppLibCardActions isCardInserted:^(BOOL isInserted) {
-    self.isCardInserted = isInserted;
-    [self updateData];
+    if (self.isCardInserted != isInserted) {
+      self.isCardInserted = isInserted;
+      [self updateData];
+    }
   }];
 }
 
