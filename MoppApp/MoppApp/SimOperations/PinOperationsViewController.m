@@ -349,6 +349,8 @@ NSString *supportedReaderPath2 = @"myeid://supportedReader";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  [tableView deselectRowAtIndexPath:indexPath animated:NO];
+  
   NSNumber *cellType = self.cellData[indexPath.row];
   
   if (cellType.unsignedIntegerValue == PinOperationsCellChangePuk) {
