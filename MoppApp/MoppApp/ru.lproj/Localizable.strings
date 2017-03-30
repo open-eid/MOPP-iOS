@@ -30,10 +30,10 @@
 "containers-list-search-placeholder" = "Искать";
 "containers-list-section-header-unsigned" = "Не подписан";
 "containers-list-section-header-signed" = "Подписан";
-"containers-list-cached-files-title" = "Imported files";
-"containers-list-cached-files-message" = "You have some imported files. What do you want to do with them?";
-"containers-list-cached-files-option1" = "Put them in container";
-"containers-list-cached-files-option2" = "Delete them";
+"containers-list-cached-files-title" = "Импорт файла";
+"containers-list-cached-files-message" = "У вас есть импортированные файлы. Что вы хотите с ними cделать?";
+"containers-list-cached-files-option1" = "Поместить их в контейнер";
+"containers-list-cached-files-option2" = "Удалать их";
 
 // DataFile import
 "file-import-title" = "Импортировать файл";
@@ -84,7 +84,7 @@
 "container-details-internet-connection-error-title" = "Нет соединения с интернетом";
 "container-details-internet-connection-error-message" = "Для подписания должно быть доступно интернет-соединение.";
 
-"container-details-add-signature" = "Add signature";
+"container-details-add-signature" = "Добавить подпись";
 
 // *** My eID ***
 "my-eid-id-card-info" = "ID-карта - это внутригосударственный документ, удостоверяющий личность начиная с 15-ти лет. Гражданин Эстонии с ID-картой может путешествовать по Европейскому Союзу и в странах Европейской экономической зоны.\n\nID-карту можете ходатайствовать в Департамента полиции и пограничной охраны, в зарубежных представительствах Эстонской республики, по почте или по электронной посте.. %@";
@@ -175,6 +175,6 @@
 "error-alert-title-general" = "Отказ";
 
 // *** Share Extension ***
-"share-extension-import-title" = "Importing file";
-"share-extension-import-message" = "File is now cached for you. Go to RIA DigiDoc application to finish import";
+"share-extension-import-title" = "Импорт файла";
+"share-extension-import-message" = "Файл кэширован. Перейти к приложению RIA DigiDoc для завершения импорта";
 
