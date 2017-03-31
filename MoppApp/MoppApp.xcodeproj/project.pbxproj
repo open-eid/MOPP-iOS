@@ -608,7 +608,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0800;
-				ORGANIZATIONNAME = "Mobi Lab";
+				ORGANIZATIONNAME = "Riigi Infosüsteemide Amet";
 				TargetAttributes = {
 					54A418231E83FAD200559E2B = {
 						CreatedOnToolsVersion = 8.2.1;

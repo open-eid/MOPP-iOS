@@ -579,7 +579,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0800;
-				ORGANIZATIONNAME = "Mobi Lab";
+				ORGANIZATIONNAME = "Riigi Infosüsteemide Amet";
 				TargetAttributes = {
 					546E575D1E2E07C7009A568D = {
 						CreatedOnToolsVersion = 8.2.1;
