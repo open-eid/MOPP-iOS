@@ -82,6 +82,10 @@ typedef enum {
   return [self error:moppLibErrorPinMatchesVerificationCode];
 }
 
++ (NSError *)pinMatchesOldCodeError {
+  return [self error:moppLibErrorPinMatchesOldCode];
+}
+
 + (NSError *)incorrectPinLengthError {
   return [self error:moppLibErrorIncorrectPinLength];
 }

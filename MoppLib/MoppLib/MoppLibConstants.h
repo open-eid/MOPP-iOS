@@ -48,7 +48,9 @@ typedef enum {
   moppLibErrorPinNotProvided = 10015, // User did not provide pin for action that required authentication
   moppLibErrorPinBlocked = 10016, // User did not provide pin for action that required authentication
   moppLibErrorFileNameTooLong = 10017, // File name too long
-  moppLibErrorNoInternetConnection = 10018 // No internet connection
+  moppLibErrorNoInternetConnection = 10018, // No internet connection
+  moppLibErrorPinMatchesOldCode = 10019, // New pin must be different from old pin or puk
+
 
 
 

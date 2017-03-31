@@ -320,7 +320,7 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
     
   } else if (trailerData.length >= 2 && trailer[0] == 0x6A && trailer[1] == 0x80) {
     // New pin is invalid
-    return [MoppLibError invalidPinError];
+    return [MoppLibError pinMatchesOldCodeError];
   }
   
   return [MoppLibError generalError];

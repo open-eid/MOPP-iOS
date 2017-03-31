@@ -295,6 +295,10 @@ NSInteger repeatedPinDoesntMatch = 20000;
     message = Localizations.PinActionsSameAsCurrent(pinString, verifyCode);
     self.pinErrorLabel.text = message;
     
+  } else if (error.code == moppLibErrorPinMatchesOldCode) {
+    message = Localizations.PinActionsSameAsCurrent(pinString, pinString);
+    self.pinErrorLabel.text = message;
+    
   } else if (error.code == moppLibErrorIncorrectPinLength) {
     
     int min;

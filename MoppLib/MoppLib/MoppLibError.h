@@ -35,6 +35,7 @@ extern NSString *const MoppLibErrorDomain;
 + (NSError *)generalError;
 + (NSError *)invalidPinError;
 + (NSError *)pinMatchesVerificationCodeError;
++ (NSError *)pinMatchesOldCodeError;
 + (NSError *)incorrectPinLengthError;
 + (NSError *)tooEasyPinError;
 + (NSError *)pinContainsInvalidCharactersError;
