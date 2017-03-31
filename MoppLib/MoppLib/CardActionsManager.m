@@ -693,7 +693,7 @@ NSString *blockBackupCode = @"00001";
 
 - (void)cancelledReaderSelection {
   if (self.isExecutingAction) {
-    [self clearActionsWithError:[MoppLibError readerNotFoundError]];
+    [self clearActionsWithError:[MoppLibError readerSelectionCanceledError]];
   }
 }
 
@@ -703,7 +703,7 @@ NSString *blockBackupCode = @"00001";
   while (self.cardActions.count > 0) {
     CardActionObject *action = [self.cardActions firstObject];
     if (action.failureBlock) {
-      action.failureBlock([MoppLibError readerNotFoundError]);
+      action.failureBlock(error);
     } else if (action.boolBlock) {
       action.boolBlock(NO);
     }

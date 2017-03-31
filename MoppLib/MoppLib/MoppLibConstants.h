@@ -50,9 +50,7 @@ typedef enum {
   moppLibErrorFileNameTooLong = 10017, // File name too long
   moppLibErrorNoInternetConnection = 10018, // No internet connection
   moppLibErrorPinMatchesOldCode = 10019, // New pin must be different from old pin or puk
-
-
-
+  moppLibErrorReaderSelectionCanceled = 10020 // User canceled card reader selection
 
 } MoppLibErrorCode;
 

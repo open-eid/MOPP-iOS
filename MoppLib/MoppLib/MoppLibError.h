@@ -29,6 +29,7 @@ extern NSString *const MoppLibErrorDomain;
 @interface MoppLibError : NSObject
 
 + (NSError *)readerNotFoundError;
++ (NSError *)readerSelectionCanceledError;
 + (NSError *)cardNotFoundError;
 + (NSError *)cardVersionUnknownError;
 + (NSError *)wrongPinErrorWithRetryCount:(int)count;

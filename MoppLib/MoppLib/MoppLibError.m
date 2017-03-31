@@ -50,6 +50,10 @@ typedef enum {
   return [self error:moppLibErrorReaderNotFound];
 }
 
++ (NSError *)readerSelectionCanceledError {
+  return [self error:moppLibErrorReaderSelectionCanceled];
+}
+
 + (NSError *)cardNotFoundError {
   return [self error:moppLibErrorCardNotFound];
 }

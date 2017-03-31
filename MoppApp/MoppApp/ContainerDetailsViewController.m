@@ -91,6 +91,8 @@ typedef enum : NSUInteger {
     [self displayCardSignatureAlert];
   }]];
   
+  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionCancel style:UIAlertActionStyleCancel handler:nil]];
+  
   [self presentViewController:alert animated:YES completion:nil];
 }
 
@@ -300,6 +302,9 @@ typedef enum : NSUInteger {
       message = Localizations.PinActionsWrongPinRetry(verifyCode, retryCount);
     }
     
+  } else if(error.code == moppLibErrorReaderSelectionCanceled) {
+    //message = Localizations.ContainerDetailsReaderNotFound;
+
   } else if(error.code == moppLibErrorReaderNotFound) {
     message = Localizations.ContainerDetailsReaderNotFound;
     
@@ -310,7 +315,7 @@ typedef enum : NSUInteger {
     message = Localizations.PinActionsPinBlocked(verifyCode);
     
   } else if(error.code == moppLibErrorPinNotProvided) {
-    message = Localizations.ContainerDetailsPinNotProvided;
+   // message = Localizations.ContainerDetailsPinNotProvided;
     
   } else if(error.code == moppLibErrorNoInternetConnection) {
     title = Localizations.ContainerDetailsInternetConnectionErrorTitle;
@@ -320,13 +325,15 @@ typedef enum : NSUInteger {
     message = Localizations.ContainerDetailsGeneralError;
   }
 
-  UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-  [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    if (dismissViewcontroller) {
-      [self.navigationController popViewControllerAnimated:YES];
-    }
-  }]];
-  [self presentViewController:alert animated:YES completion:nil];
+  if (message) {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:Localizations.ActionOk style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+      if (dismissViewcontroller) {
+        [self.navigationController popViewControllerAnimated:YES];
+      }
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
+  }
 }
 
 - (NSString *)decideLanguageBasedOnPreferredLanguages {
