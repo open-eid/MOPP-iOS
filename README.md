@@ -1,5 +1,10 @@
 # MOPP-iOS
 
+![EU Regional Development Fund](doc/images/EL_Regionaalarengu_Fond_horisontaalne-vaike.jpg)
+
+* License: LGPL 2.1
+* &copy; Estonian Information System Authority
+
 # libdigidocpp
 Teek, millest sõltub RIA digidoc app, kasutab staatilist mitteametlikku libdigidocpp versiooni.
 Rohkem infot: https://github.com/open-eid/libdigidocpp
