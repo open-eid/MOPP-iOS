@@ -1,6 +1,6 @@
 # MOPP-iOS
 
-![EU Regional Development Fund](doc/images/EL_Regionaalarengu_Fond_horisontaalne-vaike.jpg)
+![EU Regional Development Fund](EL_Regionaalarengu_Fond_horisontaalne-vaike.jpg)
 
 * License: LGPL 2.1
 * &copy; Estonian Information System Authority
