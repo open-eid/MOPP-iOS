@@ -78,6 +78,11 @@ typedef enum : NSUInteger {
   [self checkSharedDocsCache];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+  [super viewWillDisappear:animated];
+  [self cancelEditing];
+}
+
 - (void)willEnterForeground:(NSNotification *)notification {
   [self checkSharedDocsCache];
 }
