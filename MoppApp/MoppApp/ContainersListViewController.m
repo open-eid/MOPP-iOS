@@ -121,6 +121,9 @@ typedef enum : NSUInteger {
   
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:Localizations.ContainersListCachedFilesTitle message:Localizations.ContainersListCachedFilesMessage preferredStyle:UIAlertControllerStyleAlert];
   [alert addAction:[UIAlertAction actionWithTitle:Localizations.ContainersListCachedFilesOption1 style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [self.tabBarController setSelectedIndex:0];
+    [self.navigationController popViewControllerAnimated:NO];
+
     [self setDataFilePaths:cachedDocs];
   }]];
   
