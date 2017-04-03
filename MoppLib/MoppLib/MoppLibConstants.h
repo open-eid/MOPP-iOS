@@ -50,11 +50,11 @@ typedef enum {
   moppLibErrorFileNameTooLong = 10017, // File name too long
   moppLibErrorNoInternetConnection = 10018, // No internet connection
   moppLibErrorPinMatchesOldCode = 10019, // New pin must be different from old pin or puk
-  moppLibErrorReaderSelectionCanceled = 10020 // User canceled card reader selection
+  moppLibErrorReaderSelectionCanceled = 10020, // User canceled card reader selection
+  moppLibErrorRestrictedApi = 10021 // Restricted API. Some functionality is not available for third-party apps
 
 } MoppLibErrorCode;
 
-extern NSString *const kDDSServerUrl;
 extern NSString *const kCreateSignatureNotificationName;
 extern NSString *const kSignatureAddedToContainerNotificationName;
 extern NSString *const kErrorNotificationName;
@@ -62,7 +62,6 @@ extern NSString *const kCreateSignatureResponseKey;
 extern NSString *const kNewContainerKey;
 extern NSString *const kOldContainerKey;
 extern NSString *const kErrorKey;
-extern NSString *const kCloseSessionNotificationName;
 extern NSString *const kErrorMessage;
 // Keys for Mopp Lib error user info
 

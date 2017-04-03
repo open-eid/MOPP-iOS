@@ -22,6 +22,7 @@
  */
 
 #import "MoppLibError.h"
+#import "MoppLibConstants.h"
 
 NSString *const MoppLibErrorDomain = @"MoppLibError";
 
@@ -116,6 +117,10 @@ typedef enum {
 
 + (NSError *)noInternetConnectionError {
   return [self error:moppLibErrorNoInternetConnection];
+}
+
++ (NSError *)restrictedAPIError {
+  return [self error:moppLibErrorRestrictedApi];
 }
 
 + (NSError *)DDSErrorWith:(NSInteger)errorCode {

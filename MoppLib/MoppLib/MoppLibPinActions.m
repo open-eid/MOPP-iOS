@@ -24,10 +24,16 @@
 #import "MoppLibPinActions.h"
 #import "CardActionsManager.h"
 #import "MoppLibError.h"
+#import "MoppLibPrivateConstants.h"
 
 @implementation MoppLibPinActions
 
 + (void)changePukTo:(NSString *)newPuk withOldPuk:(NSString *)oldPuk viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
+  
+  if (![self canDoPinModifications]) {
+    failure([MoppLibError restrictedAPIError]);
+    return;
+  }
   
   // PUK change command gives unusual error in case of incorrect length. Checking these requirements here instead.
   if (newPuk.length < [self pukMinLength] || newPuk.length > [self pukMaxLength]) {
@@ -48,42 +54,79 @@
 }
 
 + (void)changePin1To:(NSString *)newPin1 withOldPin1:(NSString *)oldPin1 viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
+  
+  if (![self canDoPinModifications]) {
+    failure([MoppLibError restrictedAPIError]);
+    return;
+  }
+  
   [self verifyType:CodeTypePin1 pin:newPin1 andVerificationCode:oldPin1 viewController:controller success:^{
     [[CardActionsManager sharedInstance] changeCode:CodeTypePin1 withVerifyCode:oldPin1 to:newPin1 viewController:controller success:success failure:failure];
   } failure:failure];
 }
 
 + (void)changePin1To:(NSString *)newPin1 withPuk:(NSString *)puk viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
+  
+  if (![self canDoPinModifications]) {
+    failure([MoppLibError restrictedAPIError]);
+    return;
+  }
+  
   [self verifyType:CodeTypePin1 pin:newPin1 andVerificationCode:puk viewController:controller success:^{
     [[CardActionsManager sharedInstance] changePin:CodeTypePin1 withPuk:puk to:newPin1 viewController:controller success:success failure:failure];
   } failure:failure];
 }
 
 + (void)changePin2To:(NSString *)newPin2 withOldPin2:(NSString *)oldPin2 viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
+  
+  if (![self canDoPinModifications]) {
+    failure([MoppLibError restrictedAPIError]);
+    return;
+  }
+  
   [self verifyType:CodeTypePin2 pin:newPin2 andVerificationCode:oldPin2 viewController:controller success:^{
     [[CardActionsManager sharedInstance] changeCode:CodeTypePin2 withVerifyCode:oldPin2 to:newPin2 viewController:controller success:success failure:failure];
   } failure:failure];
 }
 
 + (void)changePin2To:(NSString *)newPin2 withPuk:(NSString *)puk viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
+  
+  if (![self canDoPinModifications]) {
+    failure([MoppLibError restrictedAPIError]);
+    return;
+  }
+  
   [self verifyType:CodeTypePin2 pin:newPin2 andVerificationCode:puk viewController:controller success:^{
     [[CardActionsManager sharedInstance] changePin:CodeTypePin2 withPuk:puk to:newPin2 viewController:controller success:success failure:failure];
   } failure:failure];
 }
 
 + (void)unblockPin1WithPuk:(NSString *)puk newPin1:(NSString *)newPin1 viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
+  
+  if (![self canDoPinModifications]) {
+    failure([MoppLibError restrictedAPIError]);
+    return;
+  }
+  
   [self verifyType:CodeTypePin1 pin:newPin1 andVerificationCode:puk viewController:controller success:^{
     [[CardActionsManager sharedInstance] unblockCode:CodeTypePin1 withPuk:puk newCode:newPin1 viewController:controller success:success failure:failure];
   } failure:failure];
 }
 
 + (void)unblockPin2WithPuk:(NSString *)puk newPin2:(NSString *)newPin2 viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
+  
+  if (![self canDoPinModifications]) {
+    failure([MoppLibError restrictedAPIError]);
+    return;
+  }
+  
   [self verifyType:CodeTypePin2 pin:newPin2 andVerificationCode:puk viewController:controller success:^{
     [[CardActionsManager sharedInstance] unblockCode:CodeTypePin2 withPuk:puk newCode:newPin2 viewController:controller success:success failure:failure];
   } failure:failure];
 }
 
 + (void)verifyType:(CodeType)type pin:(NSString *)pin andVerificationCode:(NSString *)verificationCode viewController:(UIViewController *)controller success:(VoidBlock)success failure:(void(^)(NSError *))failure {
+  
     if ([pin isEqualToString:verificationCode]) {
       failure([MoppLibError pinMatchesVerificationCodeError]);
       
@@ -182,6 +225,10 @@
 
 + (int)pin2MaxLength {
   return 12;
+}
+
++ (BOOL)canDoPinModifications {
+  return [[[NSBundle mainBundle] bundleIdentifier] isEqualToString:kRIADigiDocId];
 }
 
 @end

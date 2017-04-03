@@ -26,6 +26,7 @@
 #import "MoppLibSOAPManager.h"
 #import "MLCertificateHelper.h"
 #import "NSString+Additions.h"
+#import "MoppLibPrivateConstants.h"
 
 @interface MoppLibNetworkManager ()
 

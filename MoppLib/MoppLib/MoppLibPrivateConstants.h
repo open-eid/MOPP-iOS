@@ -1,5 +1,5 @@
 //
-//  MoppLibError.h
+//  MoppLibPrivateConstants.h
 //  MoppLib
 //
 /*
@@ -22,30 +22,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-extern NSString *const MoppLibErrorDomain;
-
-@interface MoppLibError : NSObject
-
-+ (NSError *)readerNotFoundError;
-+ (NSError *)readerSelectionCanceledError;
-+ (NSError *)cardNotFoundError;
-+ (NSError *)cardVersionUnknownError;
-+ (NSError *)wrongPinErrorWithRetryCount:(int)count;
-+ (NSError *)generalError;
-+ (NSError *)invalidPinError;
-+ (NSError *)pinMatchesVerificationCodeError;
-+ (NSError *)pinMatchesOldCodeError;
-+ (NSError *)incorrectPinLengthError;
-+ (NSError *)tooEasyPinError;
-+ (NSError *)pinContainsInvalidCharactersError;
-+ (NSError *)urlSessionCanceledError;
-+ (NSError *)xmlParsingError;
-+ (NSError *)DDSErrorWith:(NSInteger)errorCode;
-+ (NSError *)pinNotProvidedError;
-+ (NSError *)pinBlockedError;
-+ (NSError *)fileNameTooLongError;
-+ (NSError *)noInternetConnectionError;
-+ (NSError *)restrictedAPIError;
-
-@end
+extern NSString *const kDDSServerUrl;
+extern NSString *const kRIADigiDocId;
