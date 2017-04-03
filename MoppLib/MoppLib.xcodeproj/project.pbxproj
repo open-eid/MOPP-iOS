@@ -31,6 +31,10 @@
 		5480396D1E38DA4D000271CF /* 878252.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 5480396C1E38DA4D000271CF /* 878252.p12 */; };
 		54D164701E923F920069C725 /* MoppLibPrivateConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 54D1646E1E923F920069C725 /* MoppLibPrivateConstants.h */; };
 		54D164711E923F920069C725 /* MoppLibPrivateConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D1646F1E923F920069C725 /* MoppLibPrivateConstants.m */; };
+		54D164771E9269C50069C725 /* MoppLibContainerActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54D164751E9269C50069C725 /* MoppLibContainerActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		54D164781E9269C50069C725 /* MoppLibContainerActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D164761E9269C50069C725 /* MoppLibContainerActions.m */; };
+		54D1647B1E926AAB0069C725 /* MoppLibCardActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54D164791E926AAB0069C725 /* MoppLibCardActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		54D1647C1E926AAB0069C725 /* MoppLibCardActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D1647A1E926AAB0069C725 /* MoppLibCardActions.m */; };
 		54D1FF731E4CB6AD006BF123 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 54D1FF751E4CB6AD006BF123 /* Localizable.strings */; };
 		54D1FF781E4CC030006BF123 /* ReaderSelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54D1FF7A1E4CC030006BF123 /* ReaderSelection.storyboard */; };
 		54DC0DC51E0BCC2A00C62B3D /* CardReaderWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DC31E0BCC2A00C62B3D /* CardReaderWrapper.h */; };
@@ -53,15 +57,11 @@
 		54DC0DFE1E0D196D00C62B3D /* CardActionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0DFC1E0D196D00C62B3D /* CardActionsManager.m */; };
 		54DC0E011E0D48C900C62B3D /* MoppLibError.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DFF1E0D48C900C62B3D /* MoppLibError.h */; };
 		54DC0E021E0D48C900C62B3D /* MoppLibError.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0E001E0D48C900C62B3D /* MoppLibError.m */; };
-		54DC0E051E1250A200C62B3D /* MoppLibCardActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0E031E1250A200C62B3D /* MoppLibCardActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		54DC0E061E1250A200C62B3D /* MoppLibCardActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0E041E1250A200C62B3D /* MoppLibCardActions.m */; };
 		54E085EA1E71A63C00431F1A /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 54E085E81E71A63C00431F1A /* Reachability.h */; };
 		54E085EB1E71A63C00431F1A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E085E91E71A63C00431F1A /* Reachability.m */; };
 		54E1DB571E44939D0060A250 /* SwiftTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E1DB561E44939D0060A250 /* SwiftTestCase.swift */; };
 		54E1DB5C1E44A9060060A250 /* MoppLibManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 54E1DB5A1E44A9060060A250 /* MoppLibManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54E1DB5D1E44A9060060A250 /* MoppLibManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E1DB5B1E44A9060060A250 /* MoppLibManager.m */; };
-		54E1DB601E44AE730060A250 /* MoppLibContainerActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54E1DB5E1E44AE730060A250 /* MoppLibContainerActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		54E1DB611E44AE730060A250 /* MoppLibContainerActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E1DB5F1E44AE730060A250 /* MoppLibContainerActions.m */; };
 		AE0A84471E4338DB00CC1465 /* MoppLibNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0A84451E4338DB00CC1465 /* MoppLibNetworkManager.m */; };
 		AE0A844A1E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = AE0A84481E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE0A844B1E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0A84491E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m */; };
@@ -140,6 +140,10 @@
 		5480396C1E38DA4D000271CF /* 878252.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; name = 878252.p12; path = libdigidocpp/EstonianIDCard.iphoneos/etc/digidocpp/878252.p12; sourceTree = "<group>"; };
 		54D1646E1E923F920069C725 /* MoppLibPrivateConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibPrivateConstants.h; sourceTree = "<group>"; };
 		54D1646F1E923F920069C725 /* MoppLibPrivateConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibPrivateConstants.m; sourceTree = "<group>"; };
+		54D164751E9269C50069C725 /* MoppLibContainerActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibContainerActions.h; sourceTree = "<group>"; };
+		54D164761E9269C50069C725 /* MoppLibContainerActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibContainerActions.m; sourceTree = "<group>"; };
+		54D164791E926AAB0069C725 /* MoppLibCardActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibCardActions.h; sourceTree = "<group>"; };
+		54D1647A1E926AAB0069C725 /* MoppLibCardActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibCardActions.m; sourceTree = "<group>"; };
 		54D1FF741E4CB6AD006BF123 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		54D1FF761E4CB6C8006BF123 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		54D1FF771E4CB6D4006BF123 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = et.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -167,22 +171,18 @@
 		54DC0DFC1E0D196D00C62B3D /* CardActionsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardActionsManager.m; sourceTree = "<group>"; };
 		54DC0DFF1E0D48C900C62B3D /* MoppLibError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibError.h; sourceTree = "<group>"; };
 		54DC0E001E0D48C900C62B3D /* MoppLibError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibError.m; sourceTree = "<group>"; };
-		54DC0E031E1250A200C62B3D /* MoppLibCardActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibCardActions.h; sourceTree = "<group>"; };
-		54DC0E041E1250A200C62B3D /* MoppLibCardActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibCardActions.m; sourceTree = "<group>"; };
 		54E085E81E71A63C00431F1A /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		54E085E91E71A63C00431F1A /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		54E1DB551E44939C0060A250 /* MoppLibTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoppLibTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		54E1DB561E44939D0060A250 /* SwiftTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftTestCase.swift; sourceTree = "<group>"; };
 		54E1DB5A1E44A9060060A250 /* MoppLibManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibManager.h; sourceTree = "<group>"; };
 		54E1DB5B1E44A9060060A250 /* MoppLibManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibManager.m; sourceTree = "<group>"; };
-		54E1DB5E1E44AE730060A250 /* MoppLibContainerActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibContainerActions.h; sourceTree = "<group>"; };
-		54E1DB5F1E44AE730060A250 /* MoppLibContainerActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibContainerActions.m; sourceTree = "<group>"; };
 		55E9B48F8763942B8B607E6D /* Pods-MoppLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLib.release.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLib/Pods-MoppLib.release.xcconfig"; sourceTree = "<group>"; };
 		8CA8F4A458E375C33114A84F /* Pods-MoppLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLib.debug.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLib/Pods-MoppLib.debug.xcconfig"; sourceTree = "<group>"; };
 		AE0A84441E4338DB00CC1465 /* MoppLibNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibNetworkManager.h; sourceTree = "<group>"; };
 		AE0A84451E4338DB00CC1465 /* MoppLibNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibNetworkManager.m; sourceTree = "<group>"; };
-		AE0A84481E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoppLibMobileCreateSignatureResponse.h; path = MoppLib/MoppLibMobileCreateSignatureResponse.h; sourceTree = "<group>"; };
-		AE0A84491E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoppLibMobileCreateSignatureResponse.m; path = MoppLib/MoppLibMobileCreateSignatureResponse.m; sourceTree = "<group>"; };
+		AE0A84481E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibMobileCreateSignatureResponse.h; sourceTree = "<group>"; };
+		AE0A84491E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibMobileCreateSignatureResponse.m; sourceTree = "<group>"; };
 		AE10693D1E4498A6002BAFDA /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Document.swift; path = MoppLib/Document.swift; sourceTree = "<group>"; };
 		AE10693E1E4498A6002BAFDA /* Element.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Element.swift; path = MoppLib/Element.swift; sourceTree = "<group>"; };
 		AE10693F1E4498A6002BAFDA /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Error.swift; path = MoppLib/Error.swift; sourceTree = "<group>"; };
@@ -191,8 +191,8 @@
 		AE12A8711E51956900B0B03E /* MLCertificateHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCertificateHelper.h; sourceTree = "<group>"; };
 		AE12A8721E51956900B0B03E /* MLCertificateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCertificateHelper.m; sourceTree = "<group>"; };
 		AE12A8751E51984A00B0B03E /* sk878252.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sk878252.p12; sourceTree = "<group>"; };
-		AE6198591E489EDF0021B18B /* MoppLibService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibService.h; sourceTree = "<group>"; };
-		AE61985A1E489EDF0021B18B /* MoppLibService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibService.m; sourceTree = "<group>"; };
+		AE6198591E489EDF0021B18B /* MoppLibService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoppLibService.h; path = ../MoppLibService.h; sourceTree = "<group>"; };
+		AE61985A1E489EDF0021B18B /* MoppLibService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoppLibService.m; path = ../MoppLibService.m; sourceTree = "<group>"; };
 		AE61985D1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibGetMobileCreateSignatureStatusResponse.h; sourceTree = "<group>"; };
 		AE61985E1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibGetMobileCreateSignatureStatusResponse.m; sourceTree = "<group>"; };
 		AEC2CC401E3B8B7800A0B869 /* MoppLibSOAPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoppLibSOAPManager.h; path = MoppLib/MoppLibSOAPManager.h; sourceTree = "<group>"; };
@@ -260,6 +260,47 @@
 			path = MoppLibTests;
 			sourceTree = "<group>";
 		};
+		54D164741E9269520069C725 /* PublicInterface */ = {
+			isa = PBXGroup;
+			children = (
+				54D1647D1E926BA00069C725 /* ResponseObjects */,
+				E4250CEA1E09695100530370 /* MoppLib.h */,
+				54E1DB5A1E44A9060060A250 /* MoppLibManager.h */,
+				54E1DB5B1E44A9060060A250 /* MoppLibManager.m */,
+				54D164751E9269C50069C725 /* MoppLibContainerActions.h */,
+				54D164761E9269C50069C725 /* MoppLibContainerActions.m */,
+				54D164791E926AAB0069C725 /* MoppLibCardActions.h */,
+				54D1647A1E926AAB0069C725 /* MoppLibCardActions.m */,
+				542DCB6A1E23968000899534 /* MoppLibPinActions.h */,
+				542DCB6B1E23968000899534 /* MoppLibPinActions.m */,
+				54DC0DC71E0BCCEF00C62B3D /* MoppLibConstants.h */,
+				54DC0DC81E0BCCEF00C62B3D /* MoppLibConstants.m */,
+				AE6198591E489EDF0021B18B /* MoppLibService.h */,
+				AE61985A1E489EDF0021B18B /* MoppLibService.m */,
+			);
+			name = PublicInterface;
+			path = MoppLib/PublicInterface;
+			sourceTree = "<group>";
+		};
+		54D1647D1E926BA00069C725 /* ResponseObjects */ = {
+			isa = PBXGroup;
+			children = (
+				540CB2231E1CDD8100FE18A3 /* MoppLibCertData.h */,
+				540CB2241E1CDD8100FE18A3 /* MoppLibCertData.m */,
+				545111701E13BBA800296B80 /* MoppLibPersonalData.h */,
+				545111711E13BBA800296B80 /* MoppLibPersonalData.m */,
+				E42B08B31E1F0B3B00EA24A3 /* MoppLibContainer.h */,
+				E42B08B41E1F0B3B00EA24A3 /* MoppLibContainer.m */,
+				E42B08C31E1F11B900EA24A3 /* MoppLibDataFile.h */,
+				E42B08C41E1F11B900EA24A3 /* MoppLibDataFile.m */,
+				E42B08C71E1F11C100EA24A3 /* MoppLibSignature.h */,
+				E42B08C81E1F11C100EA24A3 /* MoppLibSignature.m */,
+				AE0A84481E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h */,
+				AE0A84491E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m */,
+			);
+			name = ResponseObjects;
+			sourceTree = "<group>";
+		};
 		54DC0DC21E0BCBB400C62B3D /* CardReaders */ = {
 			isa = PBXGroup;
 			children = (
@@ -314,10 +355,6 @@
 			children = (
 				54DC0DFB1E0D196D00C62B3D /* CardActionsManager.h */,
 				54DC0DFC1E0D196D00C62B3D /* CardActionsManager.m */,
-				54DC0E031E1250A200C62B3D /* MoppLibCardActions.h */,
-				54DC0E041E1250A200C62B3D /* MoppLibCardActions.m */,
-				542DCB6A1E23968000899534 /* MoppLibPinActions.h */,
-				542DCB6B1E23968000899534 /* MoppLibPinActions.m */,
 				5463DA4A1E12927A008A1714 /* CardCommands.h */,
 				5463DA4B1E12927A008A1714 /* CardCommands.m */,
 				545CF83F1E13F30300B66EE8 /* EstEIDv3_4.h */,
@@ -363,10 +400,8 @@
 		AE0A84431E4338A700CC1465 /* MobileID */ = {
 			isa = PBXGroup;
 			children = (
-				AE61985D1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.h */,
 				AE61985E1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.m */,
-				AE0A84491E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m */,
-				AE0A84481E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h */,
+				AE61985D1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.h */,
 				AE10693D1E4498A6002BAFDA /* Document.swift */,
 				AE10693E1E4498A6002BAFDA /* Element.swift */,
 				AE10693F1E4498A6002BAFDA /* Error.swift */,
@@ -399,6 +434,7 @@
 				54E085E71E71A61900431F1A /* Reachability */,
 				54D1FF821E4DA075006BF123 /* PrefixHeader.pch */,
 				54D1FF751E4CB6AD006BF123 /* Localizable.strings */,
+				54D164741E9269520069C725 /* PublicInterface */,
 				AE0A84431E4338A700CC1465 /* MobileID */,
 				E4250CE91E09695100530370 /* MoppLib */,
 				546E575F1E2E07C7009A568D /* MoppLibTests */,
@@ -422,26 +458,16 @@
 			isa = PBXGroup;
 			children = (
 				AE12A8751E51984A00B0B03E /* sk878252.p12 */,
-				AE6198591E489EDF0021B18B /* MoppLibService.h */,
-				AE61985A1E489EDF0021B18B /* MoppLibService.m */,
 				54DC0DF11E0BEEF900C62B3D /* Category */,
 				54DC0DC21E0BCBB400C62B3D /* CardReaders */,
 				54DC0DFA1E0D195200C62B3D /* CardActions */,
-				E4250CEA1E09695100530370 /* MoppLib.h */,
-				E42B08B21E1F0B1D00EA24A3 /* Model */,
 				E4180C131E23FE7100FD7B8C /* Utility */,
 				54DC0DFF1E0D48C900C62B3D /* MoppLibError.h */,
 				54DC0E001E0D48C900C62B3D /* MoppLibError.m */,
-				54DC0DC71E0BCCEF00C62B3D /* MoppLibConstants.h */,
-				54DC0DC81E0BCCEF00C62B3D /* MoppLibConstants.m */,
 				54D1646E1E923F920069C725 /* MoppLibPrivateConstants.h */,
 				54D1646F1E923F920069C725 /* MoppLibPrivateConstants.m */,
 				E42B08CB1E1F136A00EA24A3 /* MoppLibDigidocManager.h */,
 				E42B08CC1E1F136A00EA24A3 /* MoppLibDigidocManager.mm */,
-				54E1DB5A1E44A9060060A250 /* MoppLibManager.h */,
-				54E1DB5B1E44A9060060A250 /* MoppLibManager.m */,
-				54E1DB5E1E44AE730060A250 /* MoppLibContainerActions.h */,
-				54E1DB5F1E44AE730060A250 /* MoppLibContainerActions.m */,
 				E4250CEB1E09695100530370 /* Info.plist */,
 				540CB21E1E1CDCED00FE18A3 /* MoppLibCertificate.h */,
 				540CB21F1E1CDCED00FE18A3 /* MoppLibCertificate.mm */,
@@ -459,23 +485,6 @@
 				E4250CF31E096A1D00530370 /* schema */,
 			);
 			name = libdigidocpp;
-			sourceTree = "<group>";
-		};
-		E42B08B21E1F0B1D00EA24A3 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				540CB2231E1CDD8100FE18A3 /* MoppLibCertData.h */,
-				540CB2241E1CDD8100FE18A3 /* MoppLibCertData.m */,
-				545111701E13BBA800296B80 /* MoppLibPersonalData.h */,
-				545111711E13BBA800296B80 /* MoppLibPersonalData.m */,
-				E42B08B31E1F0B3B00EA24A3 /* MoppLibContainer.h */,
-				E42B08B41E1F0B3B00EA24A3 /* MoppLibContainer.m */,
-				E42B08C31E1F11B900EA24A3 /* MoppLibDataFile.h */,
-				E42B08C41E1F11B900EA24A3 /* MoppLibDataFile.m */,
-				E42B08C71E1F11C100EA24A3 /* MoppLibSignature.h */,
-				E42B08C81E1F11C100EA24A3 /* MoppLibSignature.m */,
-			);
-			name = Model;
 			sourceTree = "<group>";
 		};
 		E43BD8191E3F901400F6C39D /* TSL cache */ = {
@@ -508,17 +517,17 @@
 				54DC0E011E0D48C900C62B3D /* MoppLibError.h in Headers */,
 				E4180C161E23FE9300FD7B8C /* MLDateFormatter.h in Headers */,
 				E42B08C51E1F11B900EA24A3 /* MoppLibDataFile.h in Headers */,
-				54E1DB601E44AE730060A250 /* MoppLibContainerActions.h in Headers */,
 				54E1DB5C1E44A9060060A250 /* MoppLibManager.h in Headers */,
 				E42B08CD1E1F136A00EA24A3 /* MoppLibDigidocManager.h in Headers */,
 				5463DA491E127150008A1714 /* ReaderSelectionViewController.h in Headers */,
 				54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */,
 				542DCB6C1E23968000899534 /* MoppLibPinActions.h in Headers */,
+				54D164771E9269C50069C725 /* MoppLibContainerActions.h in Headers */,
 				545111721E13BBA800296B80 /* MoppLibPersonalData.h in Headers */,
 				AE12A8731E51956900B0B03E /* MLCertificateHelper.h in Headers */,
 				E42B08B51E1F0B3B00EA24A3 /* MoppLibContainer.h in Headers */,
-				54DC0E051E1250A200C62B3D /* MoppLibCardActions.h in Headers */,
 				E42B08C91E1F11C100EA24A3 /* MoppLibSignature.h in Headers */,
+				54D1647B1E926AAB0069C725 /* MoppLibCardActions.h in Headers */,
 				54DC0DFD1E0D196D00C62B3D /* CardActionsManager.h in Headers */,
 				54E085EA1E71A63C00431F1A /* Reachability.h in Headers */,
 				54DC0DED1E0BD6E300C62B3D /* ABTBluetoothReaderManager.h in Headers */,
@@ -750,12 +759,12 @@
 				E42B08B61E1F0B3B00EA24A3 /* MoppLibContainer.m in Sources */,
 				AEC2CC431E3B8B7800A0B869 /* MoppLibSOAPManager.m in Sources */,
 				AE0A84471E4338DB00CC1465 /* MoppLibNetworkManager.m in Sources */,
+				54D1647C1E926AAB0069C725 /* MoppLibCardActions.m in Sources */,
 				AE12A8741E51956900B0B03E /* MLCertificateHelper.m in Sources */,
 				E42B08CA1E1F11C100EA24A3 /* MoppLibSignature.m in Sources */,
 				54DC0DCA1E0BCCEF00C62B3D /* MoppLibConstants.m in Sources */,
 				54DC0DF51E0BEF2A00C62B3D /* NSString+Additions.m in Sources */,
 				540CB2211E1CDCED00FE18A3 /* MoppLibCertificate.mm in Sources */,
-				54DC0E061E1250A200C62B3D /* MoppLibCardActions.m in Sources */,
 				54DC0DF91E0BF0BA00C62B3D /* NSData+Additions.m in Sources */,
 				AE1069441E4498A6002BAFDA /* Error.swift in Sources */,
 				540CB2261E1CDD8100FE18A3 /* MoppLibCertData.m in Sources */,
@@ -772,13 +781,13 @@
 				54DC0E021E0D48C900C62B3D /* MoppLibError.m in Sources */,
 				E42B08C61E1F11B900EA24A3 /* MoppLibDataFile.m in Sources */,
 				AE1069421E4498A6002BAFDA /* Document.swift in Sources */,
-				54E1DB611E44AE730060A250 /* MoppLibContainerActions.m in Sources */,
 				545CF8421E13F30300B66EE8 /* EstEIDv3_4.m in Sources */,
 				54D164711E923F920069C725 /* MoppLibPrivateConstants.m in Sources */,
 				5451117B1E13C52900296B80 /* EstEIDv3_5.m in Sources */,
 				54DC0DCF1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.m in Sources */,
 				54E085EB1E71A63C00431F1A /* Reachability.m in Sources */,
 				AE1069451E4498A6002BAFDA /* Options.swift in Sources */,
+				54D164781E9269C50069C725 /* MoppLibContainerActions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -980,6 +989,7 @@
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphonesimulator/include",
 					"$(SRCROOT)/MoppLib",
+					"$(SRCROOT)/MoppLib/PublicInterface",
 				);
 				INFOPLIST_FILE = MoppLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1043,6 +1053,7 @@
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphonesimulator/include",
 					"$(SRCROOT)/MoppLib",
+					"$(SRCROOT)/MoppLib/PublicInterface",
 				);
 				INFOPLIST_FILE = MoppLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

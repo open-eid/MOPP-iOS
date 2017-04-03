@@ -30,13 +30,13 @@ MoppLib enables you to add document signing capability to you app. Library suppo
 
   s.ios.deployment_target = '9.0'
 
-  s.source_files = 'MoppLib/Classes/**/*'
+  s.source_files = 'MoppLib/**/*'
   
   # s.resource_bundles = {
   #   'MoppLib' => ['MoppLib/Assets/*.png']
   # }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
+  s.public_header_files = ‘MoppLib/PublicInterface/*.h’
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
 end
