@@ -413,7 +413,8 @@ NSString *supportedReaderPath2 = @"myeid://supportedReader";
 }
 
 - (void)performPinChangeSegue:(NSIndexPath *)indexPath {
-  [self performSegueWithIdentifier:@"ChangePin" sender:[self tableView:self.tableView cellForRowAtIndexPath:indexPath]];
+  UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+  [self performSegueWithIdentifier:@"ChangePin" sender:cell];
 }
 #pragma mark - UITextViewDelegate
 

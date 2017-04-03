@@ -337,6 +337,10 @@ NSInteger repeatedPinDoesntMatch = 20000;
     message = Localizations.PinActionsRuleNumbersOnly(pinString);
     self.pinErrorLabel.text = message;
 
+  } else if (error.code == moppLibErrorCardNotFound) {
+    message = Localizations.ContainerDetailsCardNotFound;
+    self.pinErrorLabel.text = message;
+    
   } else {
     message = Localizations.PinActionsGeneralError(pinString);
     self.pinErrorLabel.text = message;
@@ -425,6 +429,10 @@ NSInteger repeatedPinDoesntMatch = 20000;
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
     cell.textLabel.textColor = [UIColor blueColor];
     
+  } else if(!self.tableView.userInteractionEnabled) {
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.textLabel.textColor = [UIColor lightGrayColor];
+
   } else {
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.textLabel.textColor = [UIColor blackColor];
