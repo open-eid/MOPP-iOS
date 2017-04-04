@@ -39,7 +39,7 @@ static NSString *kFormat = @"BDOC";
 static NSString *kVersion = @"2.1";
 static NSString *kMessagingMode = @"asynchClientServer";
 static NSString *kDigestType = @"sha256";
-static NSInteger kAsyncConfiguration = 0;
+//static NSInteger kAsyncConfiguration = 0;
 static NSUInteger kDDsMessageMaximumByteSize = 40;
 
 @implementation MoppLibSOAPManager

@@ -28,8 +28,8 @@
 #import "MoppLibGetMobileCreateSignatureStatusResponse.h"
 #import "MoppLibDigidocManager.h"
 
-static NSInteger *kInitialStatusRequestDelay = 10;
-static NSInteger *kSubsequentStatusRequestDelay = 5;
+//static NSInteger *kInitialStatusRequestDelay = 10;
+//static NSInteger *kSubsequentStatusRequestDelay = 5;
 static NSString *kCreateSignatureStatusOutstandingTransaction = @"OUTSTANDING_TRANSACTION";
 static NSString *kCreateSignatureStatusRequestOk = @"REQUEST_OK";
 static NSString *kCreateSignatureStatusSignature = @"SIGNATURE";

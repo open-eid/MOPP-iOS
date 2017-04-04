@@ -48,7 +48,7 @@
 }
 
 - (NSMutableURLRequest *)requestWithXMLBody:(NSString *)xmlBody {
-  NSError *error;
+ // NSError *error;
   NSURL *url = [NSURL URLWithString:kDDSServerUrl];
   NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
   NSData *requestBodyData = [xmlBody dataUsingEncoding:NSUTF8StringEncoding];
@@ -69,7 +69,7 @@
     if (!error) {
       NSInteger statusCode = [(NSHTTPURLResponse *) response statusCode];
       if (statusCode != 401) {
-        NSError *resultError;
+      //  NSError *resultError;
         [[MoppLibSOAPManager sharedInstance] processResultWithData:data method:method withSuccess:^(NSObject *responseObject) {
           success(responseObject);
         } andFailure:^(NSError *error) {

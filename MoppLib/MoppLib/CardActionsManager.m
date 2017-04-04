@@ -202,9 +202,9 @@ static CardActionsManager *sharedInstance = nil;
   [self code:CodeTypePin2 retryCountWithViewController:controller success:^(NSNumber *count) {
     if (count.intValue > 0) {
       NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:CodeTypePin2]};
-      
+      __weak typeof(self) weakSelf = self;
       [self addCardAction:CardActionVerifyCode data:data viewController:controller success:^(NSString *pin2) {
-        [self addSignatureTo:containerPath controller:controller pin2:pin2 success:success andFailure:failure];
+        [weakSelf addSignatureTo:containerPath controller:controller pin2:pin2 success:success andFailure:failure];
         
       } failure:^(NSError *error) {
         if (error.code == moppLibErrorWrongPin) {
@@ -213,9 +213,9 @@ static CardActionsManager *sharedInstance = nil;
           if (retryCount == 0) {
             failure([MoppLibError pinBlockedError]);
           } else {
-            [self displayInvalidPinError:error on:controller forPin:CodeTypePin2 completion:^{
+            [weakSelf displayInvalidPinError:error on:controller forPin:CodeTypePin2 completion:^{
               // Repeat until user enters correct PIN, cancels or PIN gets blocked
-              [self addSignature:containerPath controller:controller success:success failure:failure];
+              [weakSelf addSignature:containerPath controller:controller success:success failure:failure];
             }];
           }
         } else {
@@ -258,7 +258,7 @@ static CardActionsManager *sharedInstance = nil;
   NSString *pinString = [self pinStringForCode:type];
   NSString *message;
   
-  BOOL dismissViewcontroller = NO;
+//  BOOL dismissViewcontroller = NO;
   int retryCount = [[error.userInfo objectForKey:kMoppLibUserInfoRetryCount] intValue];
 
   message = [NSString stringWithFormat:MLLocalizedString(@"pin-actions-wrong-pin-retry", nil), pinString, retryCount];

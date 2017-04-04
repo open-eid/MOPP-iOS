@@ -43,7 +43,7 @@
  * Creates container on specified path.
  *
  * @param containerPath    Path where container is created.
- * @param dataFilePath    Path to file that will be included in container.
+ * @param dataFilePaths    Paths to files that will be included in container.
  * @param success       Block to be called on successful completion of action. Includes container data as MoppLibContainer.
  * @param failure       Block to be called when action fails. Includes error.
  */
@@ -53,7 +53,7 @@
  * Adds file to container.
  *
  * @param containerPath    Path to container that will be modified.
- * @param dataFilePath    Path to file that will be included in container.
+ * @param dataFilePaths    Paths to file that will be included in container.
  * @param success       Block to be called on successful completion of action. Includes container data as MoppLibContainer.
  * @param failure       Block to be called when action fails. Includes error.
  */
