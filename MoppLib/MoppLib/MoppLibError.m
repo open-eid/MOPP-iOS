@@ -48,19 +48,19 @@ typedef enum {
 @implementation MoppLibError
 
 + (NSError *)readerNotFoundError {
-  return [self error:moppLibErrorReaderNotFound];
+  return [self error:moppLibErrorReaderNotFound withMessage:@"Reader is not commected to device."];
 }
 
 + (NSError *)readerSelectionCanceledError {
-  return [self error:moppLibErrorReaderSelectionCanceled];
+  return [self error:moppLibErrorReaderSelectionCanceled withMessage:@"User canceled reader selection."];
 }
 
 + (NSError *)cardNotFoundError {
-  return [self error:moppLibErrorCardNotFound];
+  return [self error:moppLibErrorCardNotFound withMessage:@"ID card could not be detected in reader."];
 }
 
 + (NSError *)cardVersionUnknownError {
-  return [self error:moppLibErrorCardVersionUnknown];
+  return [self error:moppLibErrorCardVersionUnknown withMessage:@"Card version could not be detected."];
 }
 
 + (NSError *)wrongPinErrorWithRetryCount:(int)count {
@@ -68,59 +68,59 @@ typedef enum {
 }
 
 + (NSError *)generalError {
-  return [self error:moppLibErrorGeneral];
+  return [self error:moppLibErrorGeneral withMessage:@"Could not complete action due to unknown error"];
 }
 
 + (NSError *)pinBlockedError {
-  return [self error:moppLibErrorPinBlocked];
+  return [self error:moppLibErrorPinBlocked withMessage:@"PIN retry count has been exceeded. PIN is blocked."];
 }
 
 + (NSError *)invalidPinError {
-  return [self error:moppLibErrorInvalidPin];
+  return [self error:moppLibErrorInvalidPin withMessage:@"Invalid PIN"];
 }
 
 + (NSError *)pinNotProvidedError {
-  return [self error:moppLibErrorPinNotProvided];
+  return [self error:moppLibErrorPinNotProvided withMessage:@"PIN was not provided while it was required."];
 }
 
 + (NSError *)pinMatchesVerificationCodeError {
-  return [self error:moppLibErrorPinMatchesVerificationCode];
+  return [self error:moppLibErrorPinMatchesVerificationCode withMessage:@"New PIN must be different from verification code."];
 }
 
 + (NSError *)pinMatchesOldCodeError {
-  return [self error:moppLibErrorPinMatchesOldCode];
+  return [self error:moppLibErrorPinMatchesOldCode withMessage:@"New PIN must be different from old PIN."];
 }
 
 + (NSError *)incorrectPinLengthError {
-  return [self error:moppLibErrorIncorrectPinLength];
+  return [self error:moppLibErrorIncorrectPinLength withMessage:@"PIN length didn't pass validation. Make sure minimum and maximum length requirements are met."];
 }
 
 + (NSError *)tooEasyPinError {
-  return [self error:moppLibErrorPinTooEasy];
+  return [self error:moppLibErrorPinTooEasy withMessage:@"New PIN code is too easy."];
 }
 
 + (NSError *)pinContainsInvalidCharactersError {
-  return [self error:moppLibErrorPinContainsInvalidCharacters];
+  return [self error:moppLibErrorPinContainsInvalidCharacters withMessage:@"New PIN contains invalid characters."];
 }
 
 + (NSError *)urlSessionCanceledError {
-  return [self error:moppLibErrorUrlSessionCanceled];
+  return [self error:moppLibErrorUrlSessionCanceled withMessage:@"Url session canceled"];
 }
 
 + (NSError *)xmlParsingError {
-  return [self error:moppLibErrorXmlParsingError];
+  return [self error:moppLibErrorXmlParsingError withMessage:@"XML parsing error."];
 }
 
 + (NSError *)fileNameTooLongError {
-    return [self error:moppLibErrorFileNameTooLong];
+    return [self error:moppLibErrorFileNameTooLong withMessage:@"File name is too long"];
 }
 
 + (NSError *)noInternetConnectionError {
-  return [self error:moppLibErrorNoInternetConnection];
+  return [self error:moppLibErrorNoInternetConnection withMessage:@"Internet connection not detected."];
 }
 
 + (NSError *)restrictedAPIError {
-  return [self error:moppLibErrorRestrictedApi];
+  return [self error:moppLibErrorRestrictedApi withMessage:@"This API method is not supported on third-party applications."];
 }
 
 + (NSError *)DDSErrorWith:(NSInteger)errorCode {
@@ -185,8 +185,8 @@ typedef enum {
   return [[NSError alloc] initWithDomain:MoppLibErrorDomain code:errorCode userInfo:@{NSLocalizedDescriptionKey : errorMessage}];
 }
 
-+ (NSError *)error:(NSUInteger)errorCode {
-  return [self error:errorCode userInfo:nil];
++ (NSError *)error:(NSUInteger)errorCode withMessage:(NSString *)message {
+  return [self error:errorCode userInfo:@{NSLocalizedDescriptionKey : message}];
 }
 
 + (NSError *)error:(NSUInteger)errorCode userInfo:(NSDictionary *)userInfo {
