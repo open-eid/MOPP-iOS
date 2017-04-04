@@ -1002,10 +1002,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-framework",
-					"\"MBProgressHUD\"",
-					"-framework",
-					"\"CoreGraphics\"",
 					"-ldigidocpp_priv",
 					"-ldigidocpp",
 					"-lssl",
@@ -1066,10 +1062,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-framework",
-					"\"MBProgressHUD\"",
-					"-framework",
-					"\"CoreGraphics\"",
 					"-ldigidocpp_priv",
 					"-ldigidocpp",
 					"-lssl",
