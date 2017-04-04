@@ -30,7 +30,7 @@
 - (void)cancelledReaderSelection;
 @end
 
-@interface ReaderSelectionViewController : UITableViewController
+@interface ReaderSelectionViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) CBPeripheral *selectedPeripheral;
 @property (nonatomic, strong) id<ReaderSelectionViewControllerDelegate> delegate;
 @end

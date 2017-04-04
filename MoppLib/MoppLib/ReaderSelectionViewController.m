@@ -22,11 +22,13 @@
  */
 
 #import "ReaderSelectionViewController.h"
-#import <MBProgressHUD/MBProgressHUD.h>
 #import "CBManagerHelper.h"
 
 @interface ReaderSelectionViewController () <CBManagerHelperDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *myTableView;
 
+@property (weak, nonatomic) IBOutlet UIView *spinnerView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 @end
 
@@ -40,6 +42,11 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   // Do any additional setup after loading the view.
+  self.spinnerView.layer.borderWidth = 0;
+  self.spinnerView.layer.cornerRadius = 10;
+  self.spinnerView.clipsToBounds = YES;
+  
+  [self stopSpinner];
   
   [[CBManagerHelper sharedInstance] startScan];
   [[CBManagerHelper sharedInstance] addDelegate:self];
@@ -73,7 +80,7 @@
 
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
-  [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+  [self stopSpinner];
   
   [self dismissViewControllerAnimated:YES completion:^{
     if (self.delegate) {
@@ -83,7 +90,7 @@
 }
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-  [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+  [self stopSpinner];
   
   NSString *title = MLLocalizedString(@"Error", nil);
   NSString *message = MLLocalizedString(@"Problem connecting %@", nil);
@@ -99,7 +106,9 @@
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI {
-  [self.tableView reloadData];
+
+  [self.myTableView reloadData];
+
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
@@ -144,7 +153,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   
-  UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PeripheralCell" forIndexPath:indexPath];
+  UITableViewCell *cell = [self.myTableView dequeueReusableCellWithIdentifier:@"PeripheralCell" forIndexPath:indexPath];
   
   if (indexPath.row < [CBManagerHelper sharedInstance].foundPeripherals.count) {
     CBPeripheral *peripheral = [CBManagerHelper sharedInstance].foundPeripherals[indexPath.row];
@@ -165,13 +174,21 @@
     
     self.selectedPeripheral = [CBManagerHelper sharedInstance].foundPeripherals[indexPath.row];
     
-    if (![MBProgressHUD HUDForView:self.view]) {
-      [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    }
+    [self startSpinner];
     
     // TODO may need cancel option or timeout in case user selects incorrect peripheral. Connection attempts do not time out by default.
     [[CBManagerHelper sharedInstance] connectPeripheral:self.selectedPeripheral];
   }
+}
+
+- (void)startSpinner {
+  self.spinnerView.hidden = NO;
+  [self.spinner startAnimating];
+}
+
+- (void)stopSpinner {
+  self.spinnerView.hidden = YES;
+  [self.spinner stopAnimating];
 }
 
 /*- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {

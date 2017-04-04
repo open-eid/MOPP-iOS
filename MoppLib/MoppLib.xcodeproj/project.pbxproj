@@ -29,6 +29,7 @@
 		546E57631E2E07C7009A568D /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250CE71E09695100530370 /* MoppLib.framework */; };
 		546E576B1E2E1555009A568D /* MoppLibPinActions+Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 546E576A1E2E1555009A568D /* MoppLibPinActions+Tests.m */; };
 		5480396D1E38DA4D000271CF /* 878252.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 5480396C1E38DA4D000271CF /* 878252.p12 */; };
+		54AFE9891E93A04F005DC7B3 /* ReaderSelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54AFE9881E93A04F005DC7B3 /* ReaderSelection.storyboard */; };
 		54D164701E923F920069C725 /* MoppLibPrivateConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 54D1646E1E923F920069C725 /* MoppLibPrivateConstants.h */; };
 		54D164711E923F920069C725 /* MoppLibPrivateConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D1646F1E923F920069C725 /* MoppLibPrivateConstants.m */; };
 		54D164771E9269C50069C725 /* MoppLibContainerActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54D164751E9269C50069C725 /* MoppLibContainerActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -37,7 +38,6 @@
 		54D1647C1E926AAB0069C725 /* MoppLibCardActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D1647A1E926AAB0069C725 /* MoppLibCardActions.m */; };
 		54D164A21E9287140069C725 /* MoppLib.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 54D164A11E9287140069C725 /* MoppLib.podspec */; };
 		54D1FF731E4CB6AD006BF123 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 54D1FF751E4CB6AD006BF123 /* Localizable.strings */; };
-		54D1FF781E4CC030006BF123 /* ReaderSelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54D1FF7A1E4CC030006BF123 /* ReaderSelection.storyboard */; };
 		54DC0DC51E0BCC2A00C62B3D /* CardReaderWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DC31E0BCC2A00C62B3D /* CardReaderWrapper.h */; };
 		54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DC71E0BCCEF00C62B3D /* MoppLibConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54DC0DCA1E0BCCEF00C62B3D /* MoppLibConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0DC81E0BCCEF00C62B3D /* MoppLibConstants.m */; };
@@ -139,6 +139,7 @@
 		546E57691E2E1555009A568D /* MoppLibPinActions+Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MoppLibPinActions+Tests.h"; sourceTree = "<group>"; };
 		546E576A1E2E1555009A568D /* MoppLibPinActions+Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MoppLibPinActions+Tests.m"; sourceTree = "<group>"; };
 		5480396C1E38DA4D000271CF /* 878252.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; name = 878252.p12; path = libdigidocpp/EstonianIDCard.iphoneos/etc/digidocpp/878252.p12; sourceTree = "<group>"; };
+		54AFE9881E93A04F005DC7B3 /* ReaderSelection.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ReaderSelection.storyboard; sourceTree = "<group>"; };
 		54D1646E1E923F920069C725 /* MoppLibPrivateConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibPrivateConstants.h; sourceTree = "<group>"; };
 		54D1646F1E923F920069C725 /* MoppLibPrivateConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibPrivateConstants.m; sourceTree = "<group>"; };
 		54D164751E9269C50069C725 /* MoppLibContainerActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibContainerActions.h; sourceTree = "<group>"; };
@@ -149,9 +150,6 @@
 		54D1FF741E4CB6AD006BF123 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		54D1FF761E4CB6C8006BF123 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		54D1FF771E4CB6D4006BF123 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = et.lproj/Localizable.strings; sourceTree = "<group>"; };
-		54D1FF7B1E4CC034006BF123 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ru; path = ru.lproj/ReaderSelection.storyboard; sourceTree = "<group>"; };
-		54D1FF7C1E4CC036006BF123 /* et */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = et; path = et.lproj/ReaderSelection.storyboard; sourceTree = "<group>"; };
-		54D1FF7D1E4CC043006BF123 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ReaderSelection.storyboard; sourceTree = "<group>"; };
 		54D1FF821E4DA075006BF123 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		54DC0DC31E0BCC2A00C62B3D /* CardReaderWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardReaderWrapper.h; sourceTree = "<group>"; };
 		54DC0DC71E0BCCEF00C62B3D /* MoppLibConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibConstants.h; sourceTree = "<group>"; };
@@ -306,7 +304,7 @@
 		54DC0DC21E0BCBB400C62B3D /* CardReaders */ = {
 			isa = PBXGroup;
 			children = (
-				54D1FF7A1E4CC030006BF123 /* ReaderSelection.storyboard */,
+				54AFE9881E93A04F005DC7B3 /* ReaderSelection.storyboard */,
 				5463DA461E127150008A1714 /* ReaderSelectionViewController.h */,
 				5463DA451E127150008A1714 /* ReaderSelectionViewController.m */,
 				545CF8551E16928600B66EE8 /* CBManagerHelper.h */,
@@ -652,10 +650,10 @@
 				E43BD81E1E3F901D00F6C39D /* FI.xml in Resources */,
 				AE12A8761E51984A00B0B03E /* sk878252.p12 in Resources */,
 				E4250D001E096CAA00530370 /* test.bdoc in Resources */,
-				54D1FF781E4CC030006BF123 /* ReaderSelection.storyboard in Resources */,
 				54D1FF731E4CB6AD006BF123 /* Localizable.strings in Resources */,
 				5480396D1E38DA4D000271CF /* 878252.p12 in Resources */,
 				54D164A21E9287140069C725 /* MoppLib.podspec in Resources */,
+				54AFE9891E93A04F005DC7B3 /* ReaderSelection.storyboard in Resources */,
 				E43BD81F1E3F901D00F6C39D /* tl-mp.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -814,16 +812,6 @@
 				54D1FF771E4CB6D4006BF123 /* et */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		54D1FF7A1E4CC030006BF123 /* ReaderSelection.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				54D1FF7B1E4CC034006BF123 /* ru */,
-				54D1FF7C1E4CC036006BF123 /* et */,
-				54D1FF7D1E4CC043006BF123 /* Base */,
-			);
-			name = ReaderSelection.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
