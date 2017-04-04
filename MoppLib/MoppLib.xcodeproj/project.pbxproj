@@ -36,7 +36,6 @@
 		54D164781E9269C50069C725 /* MoppLibContainerActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D164761E9269C50069C725 /* MoppLibContainerActions.m */; };
 		54D1647B1E926AAB0069C725 /* MoppLibCardActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54D164791E926AAB0069C725 /* MoppLibCardActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54D1647C1E926AAB0069C725 /* MoppLibCardActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D1647A1E926AAB0069C725 /* MoppLibCardActions.m */; };
-		54D164A21E9287140069C725 /* MoppLib.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 54D164A11E9287140069C725 /* MoppLib.podspec */; };
 		54D1FF731E4CB6AD006BF123 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 54D1FF751E4CB6AD006BF123 /* Localizable.strings */; };
 		54DC0DC51E0BCC2A00C62B3D /* CardReaderWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DC31E0BCC2A00C62B3D /* CardReaderWrapper.h */; };
 		54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DC71E0BCCEF00C62B3D /* MoppLibConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -146,7 +145,6 @@
 		54D164761E9269C50069C725 /* MoppLibContainerActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibContainerActions.m; sourceTree = "<group>"; };
 		54D164791E926AAB0069C725 /* MoppLibCardActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibCardActions.h; sourceTree = "<group>"; };
 		54D1647A1E926AAB0069C725 /* MoppLibCardActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibCardActions.m; sourceTree = "<group>"; };
-		54D164A11E9287140069C725 /* MoppLib.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MoppLib.podspec; path = ../MoppLib.podspec; sourceTree = "<group>"; };
 		54D1FF741E4CB6AD006BF123 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		54D1FF761E4CB6C8006BF123 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		54D1FF771E4CB6D4006BF123 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = et.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -431,7 +429,6 @@
 		E4250CDD1E09695100530370 = {
 			isa = PBXGroup;
 			children = (
-				54D164A11E9287140069C725 /* MoppLib.podspec */,
 				54E085E71E71A61900431F1A /* Reachability */,
 				54D1FF821E4DA075006BF123 /* PrefixHeader.pch */,
 				54D1FF751E4CB6AD006BF123 /* Localizable.strings */,
@@ -652,7 +649,6 @@
 				E4250D001E096CAA00530370 /* test.bdoc in Resources */,
 				54D1FF731E4CB6AD006BF123 /* Localizable.strings in Resources */,
 				5480396D1E38DA4D000271CF /* 878252.p12 in Resources */,
-				54D164A21E9287140069C725 /* MoppLib.podspec in Resources */,
 				54AFE9891E93A04F005DC7B3 /* ReaderSelection.storyboard in Resources */,
 				E43BD81F1E3F901D00F6C39D /* tl-mp.xml in Resources */,
 			);
