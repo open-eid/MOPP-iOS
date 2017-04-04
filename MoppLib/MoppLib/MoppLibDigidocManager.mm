@@ -500,8 +500,9 @@ void parseException(const digidoc::Exception &e) {
 }
 
 - (NSString *)getMoppLibVersion {
-  NSMutableString *resultString = [[NSMutableString alloc] initWithString:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-  [resultString appendString:[NSString stringWithFormat:@".%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]]];
+  NSBundle *bundle = [NSBundle bundleForClass:[MoppLibDigidocManager class]];
+  NSMutableString *resultString = [[NSMutableString alloc] initWithString:[[bundle infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+  [resultString appendString:[NSString stringWithFormat:@".%@", [[bundle infoDictionary] objectForKey:@"CFBundleVersion"]]];
   return resultString;
 }
 
