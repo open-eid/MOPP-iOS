@@ -84,6 +84,7 @@ static NSString *kCreateSignatureStatusSignature = @"SIGNATURE";
     [[MoppLibNetworkManager sharedInstance] getMobileCreateSignatureStatusWithSesscode:sessCode withSuccess:^(NSObject *responseObject) {
       MoppLibGetMobileCreateSignatureStatusResponse *response = (MoppLibGetMobileCreateSignatureStatusResponse *)responseObject;
       if ([response.status isEqualToString:kCreateSignatureStatusOutstandingTransaction] || [response.status isEqualToString:kCreateSignatureStatusRequestOk]) {
+        signatureStatus(nil,nil, response.status);
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
           MLLog(@"Session started");
           [self getMobileCreateSignatureWithSessCode:sessCode withSignatureStatus:^(MoppLibContainer *container, NSError *error, NSString *status) {
@@ -94,7 +95,7 @@ static NSString *kCreateSignatureStatusSignature = @"SIGNATURE";
         [[MoppLibDigidocManager sharedInstance] addMobileIDSignatureToContainer:self.currentContainer signature:response.signature success:^(MoppLibContainer *container) {
           dispatch_async(dispatch_get_main_queue(), ^{
             MLLog(@"Notification sent out");
-            signatureStatus(container, nil, response.status);
+            signatureStatus(container, nil, nil);
           });
         } andFailure:^(NSError *error) {
           dispatch_async(dispatch_get_main_queue(), ^{
@@ -105,7 +106,8 @@ static NSString *kCreateSignatureStatusSignature = @"SIGNATURE";
       } else {
         MLLog(@"FAILURE with status: %@", response.status);
         dispatch_async(dispatch_get_main_queue(), ^{
-          signatureStatus(nil, nil, response.status);
+          NSError *error = [NSError errorWithDomain:@"MoppLib" code:1000 userInfo:@{NSLocalizedDescriptionKey : response.status}]
+          signatureStatus(nil, error, nil);
         });
       }
     } andFailure:^(NSError *error) {

@@ -33,7 +33,25 @@
 
 + (MoppLibService *)sharedInstance;
 
-- (void)mobileCreateSignatureWithContainer:(NSString *)containerPath idCode:(NSString *)idCode language:(NSString *)language phoneNumber:(NSString *)phoneNumber withCompletion:(MobileCreateSignatureResponseBlock)success andStatus:(SignatureStatusBlock)failure;
+/**
+ * Prepares library for operations with containers. Setup must be completed before any container action is carried out. It is recommended, that you initiate setup at earliest opportunity.
+ *
+ * @param containerPath Path to container.
+ * @param idCode       Personal identification code.
+ * @param language     Language code for SIM tool kit. Possible values: ENG, EST, RUS, LIT.
+ * @param phoneNumber  Mobile phone number. Must use country code!.
+ * @param completion   Block to be called on successful completion of request. Will return MoppLibMobileCreateSignatureResponse, that contains challengeId, which must be displayed in UI.
+ * @param signatureStatus Block returning three objects: MoppLibContainer, NSError, NSString for request status. The possible three scenarios are: 
+                                                                                                                    1) request failed - NSError object is populated, other two are nil.
+                                                                                                                    2) polling start  - NSString object is populated, other two are nil.
+                                                                                                                    3) signature obtained - MoppLibContainer object is populated, other two are nil.
+ */
+- (void)mobileCreateSignatureWithContainer:(NSString *)containerPath
+                                    idCode:(NSString *)idCode
+                                  language:(NSString *)language
+                               phoneNumber:(NSString *)phoneNumber
+                            withCompletion:(MobileCreateSignatureResponseBlock)completion
+                                 andStatus:(SignatureStatusBlock)signatureStatus;
 
 - (void)cancelMobileSignatureStatusPolling;
 @end
