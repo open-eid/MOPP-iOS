@@ -106,7 +106,7 @@ static NSString *kCreateSignatureStatusSignature = @"SIGNATURE";
       } else {
         MLLog(@"FAILURE with status: %@", response.status);
         dispatch_async(dispatch_get_main_queue(), ^{
-          NSError *error = [NSError errorWithDomain:@"MoppLib" code:1000 userInfo:@{NSLocalizedDescriptionKey : response.status}]
+          NSError *error = [NSError errorWithDomain:@"MoppLib" code:1000 userInfo:@{NSLocalizedDescriptionKey : response.status}];
           signatureStatus(nil, error, nil);
         });
       }
