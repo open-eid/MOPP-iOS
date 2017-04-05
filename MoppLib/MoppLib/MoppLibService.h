@@ -34,7 +34,7 @@
 + (MoppLibService *)sharedInstance;
 
 /**
- * Prepares library for operations with containers. Setup must be completed before any container action is carried out. It is recommended, that you initiate setup at earliest opportunity.
+ * Method to start mobile ID signing process. This method will invoke SIM toolkit.
  *
  * @param containerPath Path to container.
  * @param idCode       Personal identification code.
