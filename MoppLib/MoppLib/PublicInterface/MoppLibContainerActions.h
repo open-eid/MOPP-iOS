@@ -42,7 +42,7 @@
 /**
  * Creates container on specified path.
  *
- * @param containerPath    Path where container is created.
+ * @param containerPath    Path where container is created. Must include container name and extension. Supported extensions are .bdoc and .asice
  * @param dataFilePaths    Paths to files that will be included in container.
  * @param success       Block to be called on successful completion of action. Includes container data as MoppLibContainer.
  * @param failure       Block to be called when action fails. Includes error.
