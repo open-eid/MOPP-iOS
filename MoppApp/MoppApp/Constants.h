@@ -34,3 +34,12 @@ extern NSString *const kKeyContainerOld;
 extern NSString *const kNotificationSettingsChanged;
 
 extern NSString *const kNotificationWillEnterForeground;
+
+extern NSString *const kCreateSignatureNotificationName;
+extern NSString *const kSignatureAddedToContainerNotificationName;
+extern NSString *const kErrorNotificationName;
+extern NSString *const kCreateSignatureResponseKey;
+extern NSString *const kNewContainerKey;
+extern NSString *const kOldContainerKey;
+extern NSString *const kErrorKey;
+extern NSString *const kErrorMessage;

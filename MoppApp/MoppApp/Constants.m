@@ -34,3 +34,12 @@ NSString *const kKeyContainerOld = @"containerOld";
 NSString *const kNotificationSettingsChanged = @"Notification - settigns changed";
 
 NSString *const kNotificationWillEnterForeground = @"Notification - will enter foreground";
+
+NSString *const kCreateSignatureNotificationName = @"MobileCreateSignatureNotification";
+NSString *const kSignatureAddedToContainerNotificationName = @"SignatureAddedToContainer";
+NSString *const kErrorNotificationName = @"ErrorNotification";
+NSString *const kCreateSignatureResponseKey = @"MobileCreateSignatureResponse";
+NSString *const kNewContainerKey = @"MoppLibContainerNew";
+NSString *const kOldContainerKey = @"MoppLibContainerOld";
+NSString *const kErrorKey = @"Error";
+NSString *const kErrorMessage = @"Error message";

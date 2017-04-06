@@ -55,19 +55,8 @@ typedef enum {
 
 } MoppLibErrorCode;
 
-extern NSString *const kCreateSignatureNotificationName;
-extern NSString *const kSignatureAddedToContainerNotificationName;
-extern NSString *const kErrorNotificationName;
-extern NSString *const kCreateSignatureResponseKey;
-extern NSString *const kNewContainerKey;
-extern NSString *const kOldContainerKey;
-extern NSString *const kErrorKey;
-extern NSString *const kErrorMessage;
-// Keys for Mopp Lib error user info
 
 extern NSString *const kMoppLibUserInfoRetryCount;
-
-
 
 
 typedef void (^DataSuccessBlock)(NSData *responseData);

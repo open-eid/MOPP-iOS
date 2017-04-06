@@ -23,6 +23,7 @@
 
 #import "Session.h"
 #import "DefaultsHelper.h"
+#import "Constants.h"
 
 @implementation Session
 

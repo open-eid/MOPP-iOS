@@ -22,8 +22,7 @@
  */
 
 #import "MobileIDChallengeViewController.h"
-#import <MoppLib/MoppLibConstants.h>
-
+#import "Constants.h"
 
 static double kRequestTimeout = 60.0;
 

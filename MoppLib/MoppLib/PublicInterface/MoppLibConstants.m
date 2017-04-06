@@ -27,12 +27,3 @@ NSString *const kMoppLibUserInfoRetryCount = @"kMoppLibRetryCount";
 
 NSString *const kMoppLibNotificationReaderStatusChanged = @"Mopp Lib - Reader status changed";
 NSString *const kMoppLibNotificationRetryCounterChanged = @"Mopp Lib - Retry counter changed";
-
-NSString *const kCreateSignatureNotificationName = @"MobileCreateSignatureNotification";
-NSString *const kSignatureAddedToContainerNotificationName = @"SignatureAddedToContainer";
-NSString *const kErrorNotificationName = @"ErrorNotification";
-NSString *const kCreateSignatureResponseKey = @"MobileCreateSignatureResponse";
-NSString *const kNewContainerKey = @"MoppLibContainerNew";
-NSString *const kOldContainerKey = @"MoppLibContainerOld";
-NSString *const kErrorKey = @"Error";
-NSString *const kErrorMessage = @"Error message";

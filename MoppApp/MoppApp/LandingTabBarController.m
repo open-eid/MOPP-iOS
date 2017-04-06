@@ -24,7 +24,7 @@
 #import "LandingTabBarController.h"
 #import "UIViewController+MBProgressHUD.h"
 #import "MobileIDChallengeViewController.h"
-#import <MoppLib/MoppLibConstants.h>
+#import "Constants.h"
 #import <MoppLib/MoppLibMobileCreateSignatureResponse.h>
 #import "UIColor+Additions.h"
 

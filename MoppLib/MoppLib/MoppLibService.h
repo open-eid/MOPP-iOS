@@ -53,5 +53,8 @@
                             withCompletion:(MobileCreateSignatureResponseBlock)completion
                                  andStatus:(SignatureStatusBlock)signatureStatus;
 
+/**
+ * Stops polling for signature status.
+ */
 - (void)cancelMobileSignatureStatusPolling;
 @end
