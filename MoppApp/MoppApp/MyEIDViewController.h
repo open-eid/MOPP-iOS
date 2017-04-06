@@ -23,6 +23,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyEIDViewController : UITableViewController
+@interface MyEIDViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @end

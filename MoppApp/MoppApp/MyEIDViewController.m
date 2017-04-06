@@ -74,6 +74,7 @@ typedef enum : NSUInteger {
 @property (strong, nonatomic) IBOutlet UIView *sectionHeaderLine;
 @property (nonatomic, strong) NSNumber *pin1RetryCount;
 @property (nonatomic, strong) NSNumber *pin2RetryCount;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end
 
 @implementation MyEIDViewController
