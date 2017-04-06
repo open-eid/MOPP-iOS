@@ -5,21 +5,22 @@
 * License: LGPL 2.1
 * &copy; Estonian Information System Authority
 
+This repo contains source code for RIA DigiDoc application for iOS. This application enables user to sign documents with ID card or Mobile-ID.
+
 ## libdigidocpp
-Teek, millest sõltub RIA digidoc app, kasutab staatilist mitteametlikku libdigidocpp versiooni.
-Rohkem infot: https://github.com/open-eid/libdigidocpp
+MOPP-iOS is using unofficial static version of libdigidoc. libdigidoc is used in app for managing container manipulations. More info: https://github.com/open-eid/libdigidocpp
 
 
-## Buildi tegemine Xcode abil
-Buildi tegemise eelduseks on cocoapods'i olemasolu masinas. Juhul kui cocoapods on puudu või sul on vanem versioon kui projekt ette näeb, jooksuta käsureal käsku "sudo gem install cocoapods". Rohkem infot: https://cocoapods.org/
+## Building source code with Xcode
+This project uses cocoapods for dependencies management. If you don't have cocoapods installed in your machine, or are using older version of cocoapods, you can install it in terminal by running command "sudo gem install cocoapods". For more information go to https://cocoapods.org/
 
-Esimesel korral tuleb projektis ära määratud pod failid installida. Selleks tee nii:
- 1. Navigeeri käsureal projekti kausta ja selle sees MoppApp kausta
- 2. Jooksuta käsku "pod install"
+Once you have cocoapods installed, you need to install podfiles, that this project requires.
+ 1. In terminal navigate to MoppApp folder in project.
+ 2. Run command "pod install".
 
-Edaspidi võib olla vajalik "pod install" käsku korrata kui projektis on olnud pod failide osas muudatusi. Kui tegemist on ainult pod faili versiooni muudatusega siis piisab "pod update" käsust.
+In the future, when you pull updates from repo, you may need to repeat "pod install". This is necessary when there are changes to pod dependencies. When only pod version has changed, you may use "pod update" instead.
 
-Ava projekt MoppApp.xcworkspace faili kaudu. Rakenduse buildimiseks kasuta MoppApp targetit.
+Make sure you open project with MoppApp.xcworkspace after installing pod files. Use MoppApp target for building.
 
-## Dokumentide allkirjastamine kolmanda osapoole rakendustes
-"Release" tabi alt leiad valmis frameworki mida saad kasutada oma rakenduses. Täpsema juhendi jaoks pöördu wiki poole.
+## Signing documents in third-party application
+In [releases](https://github.com/open-eid/MOPP-iOS/releases) you will find framework, that you can use in your own application to implement document signing feature. For more detailed instructions check out [wiki page](https://github.com/open-eid/MOPP-iOS/wiki).
