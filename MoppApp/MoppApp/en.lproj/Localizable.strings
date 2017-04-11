@@ -61,9 +61,9 @@
 "file-import-import-failed-alert-message" = "Failed to open document %@";
 // Details
 "container-details-title" = "Document";
-"container-details-header-details" = "Format: %@ | Size: %ld kb";
+"container-details-header-details" = "Format: %@ | Size: %ld kB";
 "container-details-datafile-section-header" = "Files";
-"container-details-datafile-details" = "Size: %ld kb";
+"container-details-datafile-details" = "Size: %ld kB";
 "container-details-signature-section-header" = "Signatures";
 "container-details-signature-prefix" = "Signature %@";
 "container-details-signature-valid" = "is valid";

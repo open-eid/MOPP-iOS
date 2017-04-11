@@ -61,9 +61,9 @@
 "file-import-import-failed-alert-message" = "Dokumendi %@ avamine ebaõnnestus";
 // Details
 "container-details-title" = "Dokument";
-"container-details-header-details" = "Vorming: %@ | Suurus: %ld kb";
+"container-details-header-details" = "Vorming: %@ | Suurus: %ld kB";
 "container-details-datafile-section-header" = "Failid";
-"container-details-datafile-details" = "Suurus: %ld kb";
+"container-details-datafile-details" = "Suurus: %ld kB";
 "container-details-signature-section-header" = "Allkirjad";
 "container-details-signature-prefix" = "Allkiri %@";
 "container-details-signature-valid" = "on kehtiv";
@@ -88,14 +88,14 @@
 "container-details-reader-not-found" = "Dokumentide allkirjastamiseks on vaja ühendada kaardilugeja.";
 "container-details-card-not-found" = "ID kaarti ei leitud. Palun kontrolli kas kaart on õigesti lugejasse sisestatud.";
 "container-details-phone-number-error-alert-title" = "Telefoninumbri viga";
-"container-details-phone-number-error-alert-message" = "Oled sisestanud vigase telefoni numbri. Palun kontrolli numbrit";
+"container-details-phone-number-error-alert-message" = "Oled sisestanud vigase telefoninumbri. Palun kontrolli numbrit";
 "container-details-pin-not-provided" = "Allkirjastamiseks on vajalik kasutaja tuvastamine PIN koodiga.";
 "container-details-signature-already-exists-alert-title" = "Allkiri eksisteerib";
 "container-details-signature-already-exists-alert-message" = "Dokument on sinu poolt juba allkirjastatud. Kas soovid jätkata?";
-"container-details-file-already-exists" = "Sellise nimega fail on juba olemas. Kas tahad üle kirjutada?";
+"container-details-file-already-exists" = "Sellise nimega fail on juba olemas. Kas soovid üle kirjutada?";
 "container-details-attention" = "Tähelepanu!";
 "container-details-store-mobile-id-credentials-alert-title" = "Salvesta andmed";
-"container-details-store-mobile-id-credentials-alert-message" = "Kas soovid salvestada isikukoodi ja telefoni numbri tulevaste kasutuskordade jaoks?";
+"container-details-store-mobile-id-credentials-alert-message" = "Kas soovid salvestada isikukoodi ja telefoninumbri tulevaste kasutuskordade jaoks?";
 "container-details-file-name-too-long" = "Dokumendi nimi on liiga pikk.";
 "container-details-name-change-failed" = "Dokumendi nime muutmine ebaõnnestus.";
 
@@ -106,9 +106,9 @@
 
 
 // *** My eID ***
-"my-eid-id-card-info" = "ID-kaart on riigi sisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.\n\nID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@";
+"my-eid-id-card-info" = "ID-kaart on riigisisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.\n\nID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@";
 "my-eid-warning-card-not-found" = "ID-kaarti ei leitud.\n\nKontrolli, kas ID-kaart on õiget pidi lugejas. Uutel ID-kaartidel on kiip kaardi tagumisel küljel.";
-"my-eid-warning-reader-not-found" = "Kaardilugeja ei ole ühendatud.\n\nKontrolli kas lugeja on sisse lülitatud ja vali see %@.\n\n %@";
+"my-eid-warning-reader-not-found" = "Kaardilugeja ei ole ühendatud.\n\nKontrolli, kas lugeja on sisse lülitatud ja vali see %@.\n\n %@";
 "my-eid-tap-here" = "vajutades siia";
 "my-eid-supported-reader" = "Toetatud lugeja";
 "my-eid-find-more-info" = "Lisainfot loe siit";
@@ -153,7 +153,7 @@
 "pin-actions-rule-numbers-only" = "%@ ei tohi sisaldada tähti.";
 "pin-actions-rule-pin-length" = "Uus %@ peab olema %i-%i - numbriline.";
 "pin-actions-rule-forbidden-pins" = "Uus %@ ei saa olla %@, ega tohi sisaldada sinu sünnikuupäeva või osa sellest.";
-"pin-actions-info" = "Siin saad muuta oma PIN koode ja PIN koodi blokeeringut tühistada. PINi toiminguteks on vaja ühendada kaardilugeja telefoniga.";
+"pin-actions-info" = "Siin saad muuta oma PIN koode ja PIN koodi blokeeringut tühistada. PIN'i toiminguteks on vaja ühendada kaardilugeja telefoniga.";
 "pin-actions-general-error" = "%@ muutmine ebaõnnestus.";
 "pin-actions-same-as-current" = "Uus %@ peab erinema kehtivast %@-st.";
 "pin-actions-invalid-format" = "Selline %@ ei ole lubatud.";
@@ -168,21 +168,21 @@
 "pin-actions-unblocking-pin" = "%@ blokeeringu tühistamine:";
 "pin-actions-repeated-pin-doesnt-match" = "Uus %@ ja uus %@ uuesti on erinevad";
 "pin-actions-pin-blocked" = "%@ on blokeeritud.";
-"pin-actions-puk-change-warning" = "Kui peale vahetamist PUK kood läheb meelest ära ja sertifikaat jääb blokeerituks kolme vale PIN1 või PIN2 sisetamise järel, siis ainus võimalus ID-kaart jälle tööle saada on pöörduda klienditeeninduspunkti poole.";
+"pin-actions-puk-change-warning" = "Kui peale vahetamist PUK kood läheb meelest ära ja sertifikaat jääb blokeerituks kolme vale PIN1 või PIN2 sisestamise järel, siis ainus võimalus ID-kaart jälle tööle saada on pöörduda klienditeeninduspunkti poole.";
 
 // *** Settings ***
 "settings-new-container-format" = "Uue dokumendi formaat";
 "settings-application-version" = "Versioon";
 "settings-about" = "Rakendusest";
 "settings-id-code-title"= "Isikukood";
-"settings-phone-number-title" = "Telefoni number";
+"settings-phone-number-title" = "Telefoninumber";
 "settings-id-code-alert-message" = "Sisesta isikukood";
-"settings-phone-number-alert-message" = "Sisesta telefoni number";
+"settings-phone-number-alert-message" = "Sisesta telefoninumber";
 "settings-mobile-id-header" = "Mobiil-ID";
 
 
 // *** About ***
-"about-development" = "ID-tarkvara arendaja on, Riigi Infosüsteemi Ameti tellimusel, Mobi Lab OÜ";
+"about-development" = "ID-tarkvara arendaja on Riigi Infosüsteemi Ameti tellimusel Mobi Lab OÜ";
 "about-dependencies" = "Täiendavad litsentsid ja komponendid";
 
 

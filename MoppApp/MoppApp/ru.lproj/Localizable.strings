@@ -61,9 +61,9 @@
 "file-import-import-failed-alert-message" = "Открытие файла %@ не удалось";
 // Details
 "container-details-title" = "Документ";
-"container-details-header-details" = "Формат: %@ | Размер: %ld кб";
+"container-details-header-details" = "Формат: %@ | Размер: %ld кБ";
 "container-details-datafile-section-header" = "Файл";
-"container-details-datafile-details" = "Размер: %ld кб";
+"container-details-datafile-details" = "Размер: %ld кБ";
 "container-details-signature-section-header" = "Подписи";
 "container-details-signature-prefix" = "Подпись %@";
 "container-details-signature-valid" = "действительна";
