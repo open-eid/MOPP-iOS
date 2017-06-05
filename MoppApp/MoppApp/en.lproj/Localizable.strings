@@ -73,7 +73,7 @@
 "container-details-signing-success" = "Signature added";
 "container-details-signature-added" = "Your signature has been added to the document.";
 "container-details-signature-already-exists" = "Your signature already exists on this document.";
-"container-details-signing-method-alert-title" = "Singing method";
+"container-details-signing-method-alert-title" = "Signing method";
 "container-details-signing-method-alert-message" = "Choose signing method";
 "container-details-signing-method-mobile-id" = "Mobile-ID";
 "container-details-signing-method-id-card" = "ID card";
