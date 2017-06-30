@@ -137,7 +137,7 @@
 		546E57621E2E07C7009A568D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		546E57691E2E1555009A568D /* MoppLibPinActions+Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MoppLibPinActions+Tests.h"; sourceTree = "<group>"; };
 		546E576A1E2E1555009A568D /* MoppLibPinActions+Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MoppLibPinActions+Tests.m"; sourceTree = "<group>"; };
-		5480396C1E38DA4D000271CF /* 878252.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; name = 878252.p12; path = libdigidocpp/EstonianIDCard.iphoneos/etc/digidocpp/878252.p12; sourceTree = "<group>"; };
+		5480396C1E38DA4D000271CF /* 878252.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; name = 878252.p12; path = "$(DIGIDOCPP_PATH)/etc/digidocpp/878252.p12"; sourceTree = "<group>"; };
 		54AFE9881E93A04F005DC7B3 /* ReaderSelection.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ReaderSelection.storyboard; sourceTree = "<group>"; };
 		54D1646E1E923F920069C725 /* MoppLibPrivateConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibPrivateConstants.h; sourceTree = "<group>"; };
 		54D1646F1E923F920069C725 /* MoppLibPrivateConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibPrivateConstants.m; sourceTree = "<group>"; };
@@ -202,7 +202,7 @@
 		E4250CE71E09695100530370 /* MoppLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoppLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250CEA1E09695100530370 /* MoppLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLib.h; sourceTree = "<group>"; };
 		E4250CEB1E09695100530370 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E4250CF31E096A1D00530370 /* schema */ = {isa = PBXFileReference; lastKnownFileType = folder; name = schema; path = libdigidocpp/EstonianIDCard.iphoneos/etc/digidocpp/schema; sourceTree = "<group>"; };
+		E4250CF31E096A1D00530370 /* schema */ = {isa = PBXFileReference; lastKnownFileType = folder; name = schema; path = "$(DIGIDOCPP_PATH)/etc/digidocpp/schema"; sourceTree = "<group>"; };
 		E4250CFB1E096BEA00530370 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		E4250CFD1E096BEF00530370 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		E4250CFF1E096CAA00530370 /* test.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.bdoc; sourceTree = "<group>"; };
@@ -968,6 +968,8 @@
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4YJSF2LF24;
+				"DIGIDOCPP_PATH[sdk=iphoneos*]" = "$(SRCROOT)/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
+				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -975,7 +977,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
-					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphonesimulator/include",
+					"$(DIGIDOCPP_PATH)/include",
 					"$(SRCROOT)/MoppLib",
 					"$(SRCROOT)/MoppLib/PublicInterface",
 				);
@@ -986,14 +988,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MoppLib/ACSBluetooth",
-				);
-				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
-					"$(inherited)",
-					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphoneos/lib",
-				);
-				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
-					"$(inherited)",
-					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphonesimulator/lib",
+					"$(DIGIDOCPP_PATH)/lib",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1028,6 +1023,8 @@
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4YJSF2LF24;
+				"DIGIDOCPP_PATH[sdk=iphoneos*]" = "$(SRCROOT)/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
+				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1035,7 +1032,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
-					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphonesimulator/include",
+					"$(DIGIDOCPP_PATH)/include",
 					"$(SRCROOT)/MoppLib",
 					"$(SRCROOT)/MoppLib/PublicInterface",
 				);
@@ -1046,14 +1043,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MoppLib/ACSBluetooth",
-				);
-				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
-					"$(inherited)",
-					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphoneos/lib",
-				);
-				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
-					"$(inherited)",
-					"$(SRCROOT)/MoppLib/libdigidocpp/EstonianIDCard.iphonesimulator/lib",
+					"$(DIGIDOCPP_PATH)/lib",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
