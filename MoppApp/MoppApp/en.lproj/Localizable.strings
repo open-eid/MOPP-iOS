@@ -19,10 +19,29 @@
 
 // *** General ***
 // TabBar
-"tab-containers" = "Documents";
-"tab-my-eid" = "My eID";
-"tab-sim-settings" = "PIN settings";
-"tab-settings" = "Settings";
+"tab-my-eid" = "MY eID";
+"tab-crypto" = "CRYPTO";
+"tab-signature" = "SIGNATURE";
+
+// Main menu
+"menu-help" = "HELP";
+"menu-intro" = "INTRODUCTION";
+"menu-filemanager" = "DOCUMENTS";
+"menu-settings" = "SETTINGS";
+"menu-about" = "ABOUT";
+
+// Signature view
+"signature-view-begin-label" = "Choose file to sign or validate";
+"signature-view-begin-button" = "CHOOSE FILE";
+
+// Crypto
+"crypto-view-begin-label" = "Choose file to crypt or decrypt";
+"crypto-view-begin-button" = "CHOOSE FILE";
+
+// My eID
+"myeid-view-begin-label" = "Sign in to see your eIDs";
+"myeid-view-begin-button" = "LOG IN WITH MOBILE-ID";
+"myeid-view-begin-alt-label" = "Or attach ID-card reader to your device and insert your ID-card";
 
 // Crashlytics
 "crashlytics-title" = "Send crash report?";

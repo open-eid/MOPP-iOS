@@ -19,10 +19,29 @@
 
 // *** General ***
 // TabBar
-"tab-containers" = "Dokumendid";
-"tab-my-eid" = "Minu eID";
-"tab-sim-settings" = "PIN toimingud";
-"tab-settings" = "Sätted";
+"tab-my-eid" = "MINU eID";
+"tab-crypto" = "KRÜPTO";
+"tab-signature" = "ALLKIRI";
+
+// Main menu
+"menu-help" = "ABI";
+"menu-intro" = "ESMATUTVUSTUS";
+"menu-filemanager" = "FAILIDE HALDUS";
+"menu-settings" = "SEADED";
+"menu-about" = "RAKENDUSE INFO";
+
+// Signature view
+"signature-view-begin-label" = "Allkirjastamiseks või kontrollimiseks vali fail";
+"signature-view-begin-button" = "VALI FAIL";
+
+// Crypto
+"crypto-view-begin-label" = "Krüpteerimiseks või dekrüpteerimiseks vali fail";
+"crypto-view-begin-button" = "VALI FAIL";
+
+// My eID
+"myeid-view-begin-label" = "Ome eID-de vaatamiseks pead sisse logima";
+"myeid-view-begin-button" = "LOGI SISSE MOBIILI-IDGA";
+"myeid-view-begin-alt-label" = "Või ühenda ID-kaardi lugeja oma seadmega ja sisesta ID kaart";
 
 // Crashlytics
 "crashlytics-title" = "Kas saata vearaport?";
