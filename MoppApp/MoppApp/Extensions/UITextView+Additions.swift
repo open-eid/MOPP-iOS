@@ -1,5 +1,5 @@
 //
-//  UITextView+Additions.m
+//  UITextView+Additions.swift
 //  MoppApp
 //
 /*

@@ -1,5 +1,5 @@
 //
-//  MobileIDChallengeViewController.m
+//  MobileIDChallengeViewController.swift
 //  MoppApp
 //
 /*

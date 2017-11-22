@@ -1,5 +1,5 @@
 //
-//  SigningViewController.swift
+//  NSString+Additions.swift
 //  MoppApp
 //
 /*
@@ -21,18 +21,20 @@
  *
  */
 
-import Foundation
+extension String {
 
-
-class SigningViewController : MoppViewController {
-
-    @IBOutlet weak var beginLabel: UILabel!
-    @IBOutlet weak var beginButton: UIButton!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        beginLabel.text = L(LocKey.SignatureViewBeginLabel)
-        beginButton.localizedTitle = LocKey.SignatureViewBeginButton
+    func filenameComponents() -> (name:String,ext:String) {
+        if let range = self.range(of: ".", options: .backwards, range: nil, locale: nil) {
+            let nameRange = self.startIndex ..< range.upperBound
+            let extRange = range.lowerBound ..< self.endIndex
+            var name = self
+            var ext = self
+            name.removeSubrange(extRange)
+            ext.removeSubrange(nameRange)
+            return (name:name, ext:ext)
+        } else {
+            return (name:self, ext:String())
+        }
     }
+
 }

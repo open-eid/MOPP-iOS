@@ -1,6 +1,7 @@
 //
 //  LocalizationKeys.swift
 //  MoppApp
+//
 /*
  * Copyright 2017 Riigi Infosüsteemide Amet
  *

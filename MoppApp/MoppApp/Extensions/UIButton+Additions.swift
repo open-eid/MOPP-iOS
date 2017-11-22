@@ -1,5 +1,5 @@
 //
-//  NSString+Additions.m
+//  UIButton+Additions.swift
 //  MoppApp
 //
 /*
@@ -21,20 +21,28 @@
  *
  */
 
-extension String {
+import Foundation
 
-    func filenameComponents() -> (name:String,ext:String) {
-        if let range = self.range(of: ".", options: .backwards, range: nil, locale: nil) {
-            let nameRange = self.startIndex ..< range.upperBound
-            let extRange = range.lowerBound ..< self.endIndex
-            var name = self
-            var ext = self
-            name.removeSubrange(extRange)
-            ext.removeSubrange(nameRange)
-            return (name:name, ext:ext)
-        } else {
-            return (name:self, ext:String())
-        }
+
+extension UIButton {
+    func setLocalizedTitle(_ key: LocKey, _ arguments: Any...) {
+        setTitle(L(key, arguments), for: .normal)
+        setTitle(L(key, arguments), for: .selected)
+        setTitle(L(key, arguments), for: .disabled)
     }
-
+    
+    var localizedTitle: LocKey? {
+        set {
+            if let key = newValue {
+                setTitle(L(key), for: .normal)
+                setTitle(L(key), for: .selected)
+                setTitle(L(key), for: .disabled)
+            } else {
+                setTitle(nil, for: .normal)
+                setTitle(nil, for: .selected)
+                setTitle(nil, for: .disabled)
+            }
+        }
+        get { return nil /* Getter is unsed */ }
+    }
 }

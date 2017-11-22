@@ -1,5 +1,5 @@
 //
-//  UIColor+Additions.m
+//  UIColor+Additions.swift
 //  MoppApp
 //
 /*
