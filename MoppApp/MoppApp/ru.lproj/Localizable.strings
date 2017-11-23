@@ -19,10 +19,29 @@
 
 // *** General ***
 // TabBar
-"tab-containers" = "Документы";
-"tab-my-eid" = "Мой eID";
-"tab-sim-settings" = "Операции с PIN кодами";
-"tab-settings" = "Настройки";
+"tab-my-eid" = "МОЙ eID";
+"tab-crypto" = "КРИПТО";
+"tab-signature" = "ПОДПИСЬ";
+
+// Main menu
+"menu-help" = "ПОМОГАТЬ";
+"menu-intro" = "ВВЕДЕНИЕ";
+"menu-filemanager" = "ДОКУМЕНТЫ";
+"menu-settings" = "НАСТРОЙКИ";
+"menu-about" = "ОКОЛО";
+
+// Signature view
+"signature-view-begin-label" = "Выберите файл для подписи или проверки";
+"signature-view-begin-button" = "ВЫБЕРИТЕ ФАЙЛ";
+
+// Crypto
+"crypto-view-begin-label" = "Выбрать файл для шифрования или дешифрования";
+"crypto-view-begin-button" = "ВЫБЕРИТЕ ФАЙЛ";
+
+// My eID
+"myeid-view-begin-label" = "Войдите, чтобы увидеть свои eIDs";
+"myeid-view-begin-button" = "ВХОД В СИСТЕМУ С ИДЕНТИФИКАТОРОМ MOBILE-ID";
+"myeid-view-begin-alt-label" = "Или подключите считыватель ID-карт к устройству и вставьте свою ID-карту";
 
 // Crashlytics
 "crashlytics-title" = "Отправить отчет о сбое?";

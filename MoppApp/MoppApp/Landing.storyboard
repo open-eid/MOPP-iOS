@@ -1,29 +1,30 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ylY-Rn-2Bi">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ylY-Rn-2Bi">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Containers-->
+        <!--Signing-->
         <scene sceneID="peH-oX-y2Q">
             <objects>
-                <viewControllerPlaceholder storyboardName="Containers" id="b4N-MH-WmG" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Signed" image="documentsNormal" selectedImage="documentsNormal_2" id="ga6-PB-Ws7"/>
+                <viewControllerPlaceholder storyboardName="Signing" id="b4N-MH-WmG" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Signature" image="icon_Allkiri" selectedImage="icon_Allkiri hover" id="ga6-PB-Ws7"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vae-w1-17S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2019" y="587"/>
         </scene>
-        <!--MyEid-->
+        <!--Crypto-->
         <scene sceneID="soZ-1K-mUT">
             <objects>
-                <viewControllerPlaceholder storyboardName="MyEid" id="FAY-20-bhQ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My eID" image="eIDNormal_2" selectedImage="eIDNormal" id="w9D-e6-WVW"/>
+                <viewControllerPlaceholder storyboardName="Crypto" id="FAY-20-bhQ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Crypto" image="icon_Minu eID" selectedImage="icon_Minu eID hover" id="w9D-e6-WVW"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vAi-2t-nVj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -32,33 +33,22 @@
         <!--Landing Tab Bar Controller-->
         <scene sceneID="XXu-xe-V6X">
             <objects>
-                <tabBarController id="ylY-Rn-2Bi" customClass="LandingTabBarController" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="Asn-1d-WkJ">
+                <tabBarController storyboardIdentifier="LandingTabBarController" id="ylY-Rn-2Bi" customClass="LandingTabBarController" customModule="MoppApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" backgroundImage="tabbar_background" id="Asn-1d-WkJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.027450980619999999" green="0.21176470820000001" blue="0.36078432199999999" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="b4N-MH-WmG" kind="relationship" relationship="viewControllers" id="mgY-BI-w22"/>
                         <segue destination="FAY-20-bhQ" kind="relationship" relationship="viewControllers" id="eap-m2-IzJ"/>
                         <segue destination="POD-22-eUM" kind="relationship" relationship="viewControllers" id="UdE-0E-yMT"/>
-                        <segue destination="pmt-cj-EVx" kind="relationship" relationship="viewControllers" id="xvk-ux-yXV"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S8Q-9G-fP8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2792" y="832"/>
-        </scene>
-        <!--Settings-->
-        <scene sceneID="3FP-ZZ-bzB">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Settings" id="pmt-cj-EVx" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" image="settingsNormal" selectedImage="settingsNormal_2" id="fFi-cr-Xcb" userLabel="Settings"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cRJ-23-xvF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2018" y="735"/>
         </scene>
         <!--MobileID Challenge View Controller-->
         <scene sceneID="Gro-84-xt8">
@@ -101,11 +91,11 @@
             </objects>
             <point key="canvasLocation" x="-1785" y="1187"/>
         </scene>
-        <!--PinOperations-->
+        <!--MyeID-->
         <scene sceneID="clI-CO-oDs">
             <objects>
-                <viewControllerPlaceholder storyboardName="PinOperations" id="POD-22-eUM" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Pin Operations" selectedImage="pinNormal_2" id="gQP-GK-7dS"/>
+                <viewControllerPlaceholder storyboardName="MyeID" id="POD-22-eUM" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="My eID" image="icon_Krupto" selectedImage="icon_Krupto hover" id="gQP-GK-7dS"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fcg-yW-xvi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -113,12 +103,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="documentsNormal" width="25" height="25"/>
-        <image name="documentsNormal_2" width="25" height="25"/>
-        <image name="eIDNormal" width="25" height="25"/>
-        <image name="eIDNormal_2" width="25" height="25"/>
-        <image name="pinNormal_2" width="25" height="25"/>
-        <image name="settingsNormal" width="25" height="25"/>
-        <image name="settingsNormal_2" width="25" height="25"/>
+        <image name="icon_Allkiri" width="15" height="11"/>
+        <image name="icon_Allkiri hover" width="30" height="23"/>
+        <image name="icon_Krupto" width="11" height="12"/>
+        <image name="icon_Krupto hover" width="22" height="25"/>
+        <image name="icon_Minu eID" width="28" height="20"/>
+        <image name="icon_Minu eID hover" width="28" height="20"/>
+        <image name="tabbar_background" width="1" height="1"/>
     </resources>
 </document>
