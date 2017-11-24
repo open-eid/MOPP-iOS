@@ -39,7 +39,13 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
     var downloadCompletion: (() -> Void)? = nil
     var window: UIWindow?
 
+    enum Nib : String {
+        case containerElements = "ContainerElements"
+    }
+    var nibs: [Nib: UINib] = [:]
+
     func didFinishLaunchingWithOptions(launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+        loadNibs()
         Session.shared.setup()
         // Set navBar not translucent by default.
         Crashlytics.sharedInstance().delegate = self
@@ -214,4 +220,10 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         })
     }
 
+}
+
+extension MoppApp {
+    func loadNibs() {
+        nibs[.containerElements] = UINib(nibName: Nib.containerElements.rawValue, bundle: Bundle.main)
+    }
 }
