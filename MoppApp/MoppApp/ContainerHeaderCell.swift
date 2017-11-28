@@ -24,10 +24,13 @@ import Foundation
 
 
 class ContainerHeaderCell: UITableViewCell {
+    static let height: CGFloat = 58
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var filenameLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        titleLabel.text = L(.containerHeaderTitle)
     }
 }

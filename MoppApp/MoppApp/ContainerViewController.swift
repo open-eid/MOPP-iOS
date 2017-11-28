@@ -34,14 +34,16 @@ class ContainerViewController : MoppViewController {
         case timestamp
         case files
         case header
+        case search
     }
 
     var sectionCellHeight: [Section: CGFloat] = [
-        .error          : 44,
-        .signatures     : 60,
-        .timestamp      : 60,
-        .files           : 44,
-        .header         : 58
+        .error          : ContainerErrorCell.height,
+        .signatures     : ContainerSignatureCell.height,
+        .timestamp      : ContainerSignatureCell.height,
+        .files           : ContainerFileCell.height,
+        .header         : ContainerHeaderCell.height,
+        .search         : ContainerSearchCell.height
         ]
 
     var isSectionRowEditable: [Section: Bool] = [
@@ -49,31 +51,41 @@ class ContainerViewController : MoppViewController {
         .signatures     : true,
         .timestamp      : false,
         .files           : true,
-        .header         : false
+        .header         : false,
+        .search         : false
         ]
 
     var sectionHeaderTitle: [Section: String] = [
-        .files           : "Files",
-        .timestamp      : "Container timestamp",
-        .signatures     : "Signatures"
+        .files           : L(LocKey.containerHeaderFilesTitle),
+        .timestamp      : L(LocKey.containerHeaderTimestampTitle),
+        .signatures     : L(LocKey.containerHeaderSignaturesTitle)
         ]
 
-    private static let sectionsWithError: [Section] = [.error, .files, .signatures, .timestamp]
-    private static let sectionsDefault: [Section] = [.files, .signatures, .timestamp]
+    private static let sectionsWithError: [Section] = [.header, .error, .files, .signatures, .timestamp]
+    private static let sectionsDefault: [Section] = [.header, .files, .signatures, .timestamp]
     var sections: [Section] = ContainerViewController.sectionsDefault
 
-    let mockFiles = ["Document 1.pdf", "Document 2.pdf", "Some important document.xdoc"]
-    let mockTimestamp = ["KARL-MARTIN SINIJÄRV"]
-    let mockSignatures = ["KARL-MARTIN SINIJÄRV", "PEETER PAKIRAAM", "VELLO VILJANDI"]
+    let mockFiles = [
+        "Document 1.pdf",
+        "Document 2.pdf",
+        "Document 3.pdf",
+        "Document 4.pdf",
+        "Document 5.pdf",
+        "Document 6.pdf",
+        "Document 7.pdf",
+        "Document with a longer name.xdoc"
+        ]
+    let mockTimestamp = ["MARI MAASIKAS"]
+    let mockSignatures = ["MARI MAASIKAS", "PEETER PALINDROOM", "MEELIS METAFOOR", "VELLO VEEKEERIS"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        errorHidden = false
         setupOnce()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        errorHidden = false
     }
 }
 
@@ -106,6 +118,8 @@ extension ContainerViewController : UITableViewDataSource {
             return mockFiles.count
         case .header:
             return 1
+        case .search:
+            return 1
         }
     }
     
@@ -130,6 +144,9 @@ extension ContainerViewController : UITableViewDataSource {
         case .header:
             let cell = tableView.dequeueReusableCell(withType: ContainerHeaderCell.self, for: indexPath)!
             return cell
+        case .search:
+            let cell = tableView.dequeueReusableCell(withType: ContainerSearchCell.self, for: indexPath)!
+            return cell
         }
     }
 }
@@ -151,6 +168,8 @@ extension ContainerViewController : UITableViewDelegate {
             break
         case .header:
             break
+        case .search:
+            break
         }
     }
     
@@ -158,11 +177,19 @@ extension ContainerViewController : UITableViewDelegate {
         return isSectionRowEditable[sections[indexPath.section]]!
     }
     
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .destructive, title: L(LocKey.containerRowEditRemove)) { (action, indexPath) in
+        }
+        delete.backgroundColor = UIColor.moppWarning
+        return [delete]
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection _section: Int) -> UIView? {
         let section = sections[_section]
         if let title = sectionHeaderTitle[section] {
             if let header = MoppApp.instance.nibs[.containerElements]?.instantiate(withOwner: self, type: ContainerTableViewHeaderView.self) {
-                header.populate(withTitle: title, showAddButton: section == .files || section == .signatures)
+                header.delegate = self
+                header.populate(withTitle: title, showAddButton: section == .files || section == .signatures, section: section)
                 return header
             }
         }
@@ -172,7 +199,7 @@ extension ContainerViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
         let section = sections[_section]
         if sectionHeaderTitle[section] != nil {
-            return 60
+            return ContainerTableViewHeaderView.height
         }
         return 0
     }
@@ -181,7 +208,7 @@ extension ContainerViewController : UITableViewDelegate {
 extension ContainerViewController {
     func setupOnce() {
         navigationItem.titleView = nil
-        navigationItem.title = "Document 1.bdoc"
+        navigationItem.title = L(LocKey.containerTitle)
         let backBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarBack"), style: .plain, target: self, action: #selector(backAction))
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarShare"), style: .plain, target: self, action: #selector(backAction))
         navigationItem.setLeftBarButton(backBarButtonItem, animated: true)
@@ -193,5 +220,11 @@ extension ContainerViewController {
     @objc
     func backAction() {
         _ = navigationController?.popViewController(animated: true)
+    }
+}
+
+extension ContainerViewController : ContainerTableViewHeaderViewDelegate {
+    func containerTableViewHeaderViewAddFiles(forSection section: ContainerViewController.Section) {
+        
     }
 }

@@ -27,7 +27,8 @@ func MSLog(_ format: String, _ arguments: Any...) {
     print(format, arguments)
 }
 
-func L(_ key: LocKey, _ arguments: Any...) -> String {
+// Fixme: couldn't get around erroneous output using CVarArg... or Any... as 'arguments' type
+func L(_ key: LocKey, _ arguments: [CVarArg] = []) -> String {
     let format = NSLocalizedString(key.rawValue, comment: String())
-    return String(format: format, arguments)
+    return String(format: format, arguments: arguments)
 }

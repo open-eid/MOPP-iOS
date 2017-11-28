@@ -24,6 +24,7 @@ import Foundation
 
 
 class ContainerErrorCell: UITableViewCell {
+    static let height: CGFloat = 44
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var linkLabel: UILabel!
     

@@ -32,7 +32,7 @@ class SigningViewController : MoppViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        beginLabel.text = L(LocKey.SignatureViewBeginLabel)
-        beginButton.localizedTitle = LocKey.SignatureViewBeginButton
+        beginLabel.text = L(LocKey.signatureViewBeginLabel)
+        beginButton.localizedTitle = LocKey.signatureViewBeginButton
     }
 }

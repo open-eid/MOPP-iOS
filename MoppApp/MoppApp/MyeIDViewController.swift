@@ -33,8 +33,8 @@ class MyeIDViewController : MoppViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        beginLabel.text = L(LocKey.MyeidViewBeginLabel)
-        beginAltLabel.text = L(LocKey.MyeidViewBeginAltLabel)
-        beginButton.localizedTitle = LocKey.MyeidViewBeginButton
+        beginLabel.text = L(LocKey.myEidViewBeginLabel)
+        beginAltLabel.text = L(LocKey.myEidViewBeginAltLabel)
+        beginButton.localizedTitle = LocKey.myEidViewBeginButton
     }
 }

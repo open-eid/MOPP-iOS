@@ -24,6 +24,7 @@ import Foundation
 
 
 class ContainerFileCell: UITableViewCell {
+    static let height: CGFloat = 44
     @IBOutlet weak var filenameLabel: UILabel!
     @IBOutlet weak var bottomBorderView: UIView!
     

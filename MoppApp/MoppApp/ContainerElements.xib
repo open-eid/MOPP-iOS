@@ -49,9 +49,12 @@
                     </constraints>
                     <color key="tintColor" red="0.015686274509803921" green="0.11764705882352941" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <state key="normal" image="addIcon"/>
+                    <connections>
+                        <action selector="addAction" destination="iN0-l3-epB" eventType="touchUpInside" id="tfn-og-CCD"/>
+                    </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.89990903253424659" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="RjT-uf-eo4" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="6no-PB-RtY"/>
                 <constraint firstItem="RjT-uf-eo4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="7k9-Rd-zYD"/>

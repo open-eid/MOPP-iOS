@@ -24,11 +24,13 @@ import Foundation
 
 
 class ContainerSignatureCell: UITableViewCell {
+    static let height: CGFloat = 60
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var personalCodeLabel: UILabel!
     @IBOutlet weak var signedInfoLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var bottomBorderView: UIView!
+    @IBOutlet weak var statusIconImageView: UIImageView!
     
     enum ColorTheme {
         case neutral
@@ -50,6 +52,7 @@ class ContainerSignatureCell: UITableViewCell {
     func populate(name: String, kind: Kind, colorTheme: ColorTheme, showBottomBorder: Bool) {
         self.kind = kind
         nameLabel.text = name
+        signedInfoLabel.text = L(LocKey.containerSignatureSigned, ["12.08.2017, 13:22"])
         iconImageView.image = kind == .signature ?
             UIImage(named: "Icon_Allkiri_small") :
             UIImage(named: "Icon_ajatempel")
@@ -58,10 +61,13 @@ class ContainerSignatureCell: UITableViewCell {
         switch colorTheme {
         case .neutral:
             nameLabel.textColor = UIColor.moppText
+            statusIconImageView.image = UIImage(named: "icon_success")
         case .showInvalid:
             nameLabel.textColor = UIColor.moppWarning
+            statusIconImageView.image = UIImage(named: "icon_invalid_cert")
         case .showSuccess:
-            nameLabel.textColor = UIColor.moppSuccess
+            nameLabel.textColor = UIColor.moppText
+            statusIconImageView.image = UIImage(named: "icon_success")
         }
     }
 }

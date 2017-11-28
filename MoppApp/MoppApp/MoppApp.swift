@@ -53,6 +53,7 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
         
+        
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().tintColor = UIColor.moppText
         UINavigationBar.appearance().barTintColor = UIColor.moppBaseBackground
@@ -103,17 +104,17 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
     }
 
     func displayCrashReportDialog() {
-        let alert = UIAlertController(title: L(.CrashlyticsTitle), message: L(.CrashlyticsMessage), preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: L(.CrashlyticsActionSend), style: .default, handler: { (_ action: UIAlertAction) in
+        let alert = UIAlertController(title: L(.crashlyticsTitle), message: L(.crashlyticsMessage), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: L(.crashlyticsActionSend), style: .default, handler: { (_ action: UIAlertAction) in
             self.crashReportCompletion?(true)
             self.crashReportCompletion = nil
         }))
-        alert.addAction(UIAlertAction(title: L(.CrashlyticsActionAlwaysSend), style: .default, handler: {(_ action: UIAlertAction) -> Void in
+        alert.addAction(UIAlertAction(title: L(.crashlyticsActionAlwaysSend), style: .default, handler: {(_ action: UIAlertAction) -> Void in
             DefaultsHelper.crashReportSetting = CrashlyticsAlwaysSend
             self.crashReportCompletion?(true)
             self.crashReportCompletion = nil
         }))
-        alert.addAction(UIAlertAction(title: L(.CrashlyticsActionDoNotSend), style: .cancel, handler: {(_ action: UIAlertAction) -> Void in
+        alert.addAction(UIAlertAction(title: L(.crashlyticsActionDoNotSend), style: .cancel, handler: {(_ action: UIAlertAction) -> Void in
             self.crashReportCompletion?(false)
             self.crashReportCompletion = nil
         }))
@@ -136,7 +137,7 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
             tabBarController?.selectedIndex = 0
             var navController = tabBarController?.viewControllers?[0] as? UINavigationController
             navController?.popViewController(animated: false)
-            var containersListViewController = navController?.viewControllers[0] as? ContainersListViewController
+            var containersListViewController = navController?.viewControllers[0] as? ContainerViewController
          
             if (fileExtension == ContainerFormatDdoc) || (fileExtension == ContainerFormatAsice) || (fileExtension == ContainerFormatBdoc) {
                 // Move container from inbox folder to documents folder and cleanup.

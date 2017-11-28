@@ -42,35 +42,35 @@ enum MoppFontName : String {
 }
 
 extension UIFont {
-    var moppHeadline: UIFont {
+    class var moppHeadline: UIFont {
         return UIFont(name: MoppFontName.medium.rawValue, size: 16)!
     }
     
-    var moppText: UIFont {
+    class var moppText: UIFont {
         return UIFont(name: MoppFontName.regular.rawValue, size: 13)!
     }
     
-    var moppDescriptiveText: UIFont {
+    class var moppDescriptiveText: UIFont {
         return UIFont(name: MoppFontName.regular.rawValue, size: 10)!
     }
     
-    var moppMainMenu: UIFont {
+    class var moppMainMenu: UIFont {
         return UIFont(name: MoppFontName.allCapsRegular.rawValue, size: 10)!
     }
     
-    var moppButtonTitle: UIFont {
+    class var moppButtonTitle: UIFont {
         return UIFont(name: MoppFontName.allCapsRegular.rawValue, size: 14)!
     }
     
-    var moppSmallButtonTitle: UIFont {
+    class var moppSmallButtonTitle: UIFont {
         return UIFont(name: MoppFontName.allCapsRegular.rawValue, size: 10)!
     }
     
-    var moppDatafieldLabel: UIFont {
+    class var moppDatafieldLabel: UIFont {
         return UIFont(name: MoppFontName.allCapsRegular.rawValue, size: 10)!
     }
     
-    var moppAccordionLabel: UIFont {
+    class var moppAccordionLabel: UIFont {
         return UIFont(name: MoppFontName.allCapsRegular.rawValue, size: 13)!
     }
 

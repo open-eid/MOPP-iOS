@@ -59,6 +59,8 @@
 		C50DCD0D1FC7147100D48E16 /* ContainerTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD0C1FC7147100D48E16 /* ContainerTableViewHeaderView.swift */; };
 		C50DCD0F1FC7181400D48E16 /* UITableView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD0E1FC7181400D48E16 /* UITableView+Additions.swift */; };
 		C50DCD111FC82F9E00D48E16 /* UINib+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD101FC82F9E00D48E16 /* UINib+Additions.swift */; };
+		C50DCD131FCC4D3000D48E16 /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD121FCC4D3000D48E16 /* UIView+Additions.swift */; };
+		C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD141FCC681100D48E16 /* ContainerSearchCell.swift */; };
 		C51B7FB21FBB12E80046D6E0 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB11FBB12E80046D6E0 /* ShareViewController.m */; };
 		C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB41FBB2AB10046D6E0 /* Utils.swift */; };
 		C51B7FB71FBC45DD0046D6E0 /* LocalizationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB61FBC45DD0046D6E0 /* LocalizationKeys.swift */; };
@@ -183,6 +185,8 @@
 		C50DCD0C1FC7147100D48E16 /* ContainerTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerTableViewHeaderView.swift; sourceTree = "<group>"; };
 		C50DCD0E1FC7181400D48E16 /* UITableView+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Additions.swift"; sourceTree = "<group>"; };
 		C50DCD101FC82F9E00D48E16 /* UINib+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINib+Additions.swift"; sourceTree = "<group>"; };
+		C50DCD121FCC4D3000D48E16 /* UIView+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Additions.swift"; sourceTree = "<group>"; };
+		C50DCD141FCC681100D48E16 /* ContainerSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerSearchCell.swift; sourceTree = "<group>"; };
 		C51B7FB01FBB12E70046D6E0 /* shareExtension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shareExtension-Bridging-Header.h"; sourceTree = "<group>"; };
 		C51B7FB11FBB12E80046D6E0 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		C51B7FB31FBB12FC0046D6E0 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
@@ -254,6 +258,7 @@
 				C50DCCC41FC31EFC00D48E16 /* UIButton+Additions.swift */,
 				C50DCD0E1FC7181400D48E16 /* UITableView+Additions.swift */,
 				C50DCD101FC82F9E00D48E16 /* UINib+Additions.swift */,
+				C50DCD121FCC4D3000D48E16 /* UIView+Additions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -328,6 +333,7 @@
 				C50DCD061FC7126100D48E16 /* ContainerSignatureCell.swift */,
 				C50DCD081FC7127400D48E16 /* ContainerFileCell.swift */,
 				C50DCD0A1FC7128900D48E16 /* ContainerHeaderCell.swift */,
+				C50DCD141FCC681100D48E16 /* ContainerSearchCell.swift */,
 				C50DCD0C1FC7147100D48E16 /* ContainerTableViewHeaderView.swift */,
 			);
 			name = Container;
@@ -749,6 +755,7 @@
 				C54BB10F1FBD93A100A274F6 /* MobileIDChallengeViewController.swift in Sources */,
 				C506EC7C1FB9CBFD00E07226 /* Constants.swift in Sources */,
 				C506EC811FB9F4AF00E07226 /* UIImage+Additions.swift in Sources */,
+				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
 				540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */,
 				C50DCCC31FC2D54200D48E16 /* UIFont+Additions.swift in Sources */,
 				C50DCD051FC7125300D48E16 /* ContainerErrorCell.swift in Sources */,
@@ -760,6 +767,7 @@
 				E4250CCB1E0968D200530370 /* AppDelegate.swift in Sources */,
 				C52E827A1FC1D7000074B280 /* main.swift in Sources */,
 				C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */,
+				C50DCD131FCC4D3000D48E16 /* UIView+Additions.swift in Sources */,
 				C50DCCCB1FC32A3E00D48E16 /* SigningViewController.swift in Sources */,
 				E42B08AE1E1EFC1800EA24A3 /* DateFormatter.swift in Sources */,
 				54825EF81E1D270F00253FF0 /* String+Additions.swift in Sources */,

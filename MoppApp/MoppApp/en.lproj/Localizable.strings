@@ -18,6 +18,7 @@
  */
 
 // *** General ***
+
 // TabBar
 "tab-my-eid" = "MY eID";
 "tab-crypto" = "CRYPTO";
@@ -39,9 +40,9 @@
 "crypto-view-begin-button" = "CHOOSE FILE";
 
 // My eID
-"myeid-view-begin-label" = "Sign in to see your eIDs";
-"myeid-view-begin-button" = "LOG IN WITH MOBILE-ID";
-"myeid-view-begin-alt-label" = "Or attach ID-card reader to your device and insert your ID-card";
+"my-eid-view-begin-label" = "Sign in to see your eIDs";
+"my-eid-view-begin-button" = "LOG IN WITH MOBILE-ID";
+"my-eid-view-begin-alt-label" = "Or attach ID-card reader to your device and insert your ID-card";
 
 // Crashlytics
 "crashlytics-title" = "Send crash report?";
@@ -122,6 +123,14 @@
 "container-details-internet-connection-error-message" = "Internet connection must be available for signing.";
 "container-details-add-signature" = "Add signature";
 
+"container-header-files-title" = "Files";
+"container-header-timestamp-title" = "Timestamp";
+"container-header-signatures-title" = "Signatures";
+"container-row-edit-remove" = "Delete";
+"container-header-title" = "CONTAINER:";
+"container-error-message-invalid-signature" = "INVALID SIGNATURE";
+"container-signature-signed" = "Signed %@";
+"container-title" = "Container";
 
 // *** My eID ***
 "my-eid-id-card-info" = "ID-card is a compulsory identity document in Estonia. ID-card can be used to travel in Member States of the European Union and the European Economic Area.\n\nThe ID-card can be applied for in Service Offices of Police and Border Guard Administration, in foreign representations of the Republic of Estonia, by post or by e-mail. %@";

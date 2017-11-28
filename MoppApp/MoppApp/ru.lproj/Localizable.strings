@@ -18,6 +18,7 @@
  */
 
 // *** General ***
+
 // TabBar
 "tab-my-eid" = "МОЙ eID";
 "tab-crypto" = "КРИПТО";
@@ -39,9 +40,9 @@
 "crypto-view-begin-button" = "ВЫБЕРИТЕ ФАЙЛ";
 
 // My eID
-"myeid-view-begin-label" = "Войдите, чтобы увидеть свои eIDs";
-"myeid-view-begin-button" = "ВХОД В СИСТЕМУ С ИДЕНТИФИКАТОРОМ MOBILE-ID";
-"myeid-view-begin-alt-label" = "Или подключите считыватель ID-карт к устройству и вставьте свою ID-карту";
+"my-eid-view-begin-label" = "Войдите, чтобы увидеть свои eIDs";
+"my-eid-view-begin-button" = "ВХОД В СИСТЕМУ С ИДЕНТИФИКАТОРОМ MOBILE-ID";
+"my-eid-view-begin-alt-label" = "Или подключите считыватель ID-карт к устройству и вставьте свою ID-карту";
 
 // Crashlytics
 "crashlytics-title" = "Отправить отчет о сбое?";
@@ -122,6 +123,15 @@
 "container-details-internet-connection-error-message" = "Для подписания должно быть доступно интернет-соединение.";
 
 "container-details-add-signature" = "Добавить подпись";
+
+"container-header-files-title" = "Файлы";
+"container-header-timestamp-title" = "Отметка времени";
+"container-header-signatures-title" = "Подписи";
+"container-row-edit-remove" = "Стирать";
+"container-header-title" = "КОНТЕЙНЕР:";
+"container-error-message-invalid-signature" = "НЕПРАВИЛЬНАЯ ПОДПИСЬ";
+"container-signature-signed" = "Подписанный %@";
+"container-title" = "Контейнер";
 
 // *** My eID ***
 "my-eid-id-card-info" = "ID-карта - это внутригосударственный документ, удостоверяющий личность начиная с 15-ти лет. Гражданин Эстонии с ID-картой может путешествовать по Европейскому Союзу и в странах Европейской экономической зоны.\n\nID-карту можете ходатайствовать в Департамента полиции и пограничной охраны, в зарубежных представительствах Эстонской республики, по почте или по электронной посте.. %@";
