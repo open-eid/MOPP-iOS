@@ -36,7 +36,7 @@ class MobileIDChallengeViewController : UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        mobileIDChallengeCodeLabel.text = L(LocKey.ChallengeCodeLabel, challengeID)
+        mobileIDChallengeCodeLabel.text = L(LocKey.challengeCodeLabel, [challengeID])
         currentProgress = 0.0
         NotificationCenter.default.addObserver(self, selector: #selector(self.receiveCreateSignatureStatus), name: .signatureAddedToContainerNotificationName, object: nil)
         sessionTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSessionProgress), userInfo: nil, repeats: true)
@@ -65,7 +65,7 @@ class MobileIDChallengeViewController : UIViewController {
         else {
             timer.invalidate()
             MoppLibService.sharedInstance().cancelMobileSignatureStatusPolling()
-            NotificationCenter.default.post(name: .errorNotificationName, object: nil, userInfo: [kErrorMessage: L(.MobileIdTimeoutMessage)])
+            NotificationCenter.default.post(name: .errorNotificationName, object: nil, userInfo: [kErrorMessage: L(.mobileIdTimeoutMessage)])
         }
     }
 

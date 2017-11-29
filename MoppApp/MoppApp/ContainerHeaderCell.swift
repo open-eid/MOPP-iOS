@@ -1,5 +1,5 @@
 //
-//  UIButton+Additions.swift
+//  ContainerHeaderCell.swift
 //  MoppApp
 //
 /*
@@ -20,29 +20,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-
 import Foundation
 
 
-extension UIButton {
-    func setLocalizedTitle(_ key: LocKey, _ arguments: [CVarArg] = []) {
-        setTitle(L(key, arguments), for: .normal)
-        setTitle(L(key, arguments), for: .selected)
-        setTitle(L(key, arguments), for: .disabled)
-    }
-    
-    var localizedTitle: LocKey? {
-        set {
-            if let key = newValue {
-                setTitle(L(key), for: .normal)
-                setTitle(L(key), for: .selected)
-                setTitle(L(key), for: .disabled)
-            } else {
-                setTitle(nil, for: .normal)
-                setTitle(nil, for: .selected)
-                setTitle(nil, for: .disabled)
-            }
-        }
-        get { return nil /* Getter is unsed */ }
+class ContainerHeaderCell: UITableViewCell {
+    static let height: CGFloat = 58
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var filenameLabel: UILabel!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        titleLabel.text = L(.containerHeaderTitle)
     }
 }

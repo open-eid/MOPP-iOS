@@ -18,6 +18,7 @@
  */
 
 // *** General ***
+
 // TabBar
 "tab-my-eid" = "MINU eID";
 "tab-crypto" = "KRÜPTO";
@@ -39,9 +40,9 @@
 "crypto-view-begin-button" = "VALI FAIL";
 
 // My eID
-"myeid-view-begin-label" = "Ome eID-de vaatamiseks pead sisse logima";
-"myeid-view-begin-button" = "LOGI SISSE MOBIILI-IDGA";
-"myeid-view-begin-alt-label" = "Või ühenda ID-kaardi lugeja oma seadmega ja sisesta ID kaart";
+"my-eid-view-begin-label" = "Ome eID-de vaatamiseks pead sisse logima";
+"my-eid-view-begin-button" = "LOGI SISSE MOBIILI-IDGA";
+"my-eid-view-begin-alt-label" = "Või ühenda ID-kaardi lugeja oma seadmega ja sisesta ID kaart";
 
 // Crashlytics
 "crashlytics-title" = "Kas saata vearaport?";
@@ -123,6 +124,14 @@
 
 "container-details-add-signature" = "Lisa allkiri";
 
+"container-header-files-title" = "Failid";
+"container-header-timestamp-title" = "Ajatempel";
+"container-header-signatures-title" = "Allkirjad";
+"container-row-edit-remove" = "Eemalda";
+"container-header-title" = "KONTEINER:";
+"container-error-message-invalid-signature" = "VIGANE ALLKIRI";
+"container-signature-signed" = "Allkirjastatud %@";
+"container-title" = "Konteiner";
 
 // *** My eID ***
 "my-eid-id-card-info" = "ID-kaart on riigisisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.\n\nID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@";

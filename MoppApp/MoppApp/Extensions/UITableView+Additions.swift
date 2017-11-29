@@ -1,5 +1,5 @@
 //
-//  UIButton+Additions.swift
+//  UITableView+Additions.swift
 //  MoppApp
 //
 /*
@@ -24,25 +24,8 @@
 import Foundation
 
 
-extension UIButton {
-    func setLocalizedTitle(_ key: LocKey, _ arguments: [CVarArg] = []) {
-        setTitle(L(key, arguments), for: .normal)
-        setTitle(L(key, arguments), for: .selected)
-        setTitle(L(key, arguments), for: .disabled)
-    }
-    
-    var localizedTitle: LocKey? {
-        set {
-            if let key = newValue {
-                setTitle(L(key), for: .normal)
-                setTitle(L(key), for: .selected)
-                setTitle(L(key), for: .disabled)
-            } else {
-                setTitle(nil, for: .normal)
-                setTitle(nil, for: .selected)
-                setTitle(nil, for: .disabled)
-            }
-        }
-        get { return nil /* Getter is unsed */ }
+extension UITableView {
+    func dequeueReusableCell<T: UITableViewCell>(withType: T.Type, for indexPath: IndexPath) -> T? {
+        return dequeueReusableCell(withIdentifier: String(describing: T.self), for: indexPath) as? T
     }
 }

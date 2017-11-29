@@ -49,6 +49,18 @@
 		C50DCCFA1FC5741900D48E16 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCE41FC5741900D48E16 /* Roboto-Black.ttf */; };
 		C50DCCFB1FC5741900D48E16 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCE51FC5741900D48E16 /* Roboto-BlackItalic.ttf */; };
 		C50DCCFC1FC5741900D48E16 /* RobotoCondensed-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCE61FC5741900D48E16 /* RobotoCondensed-BoldItalic.ttf */; };
+		C50DCCFF1FC6E95A00D48E16 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCCFE1FC6E95A00D48E16 /* ContainerViewController.swift */; };
+		C50DCD011FC6E97400D48E16 /* Container.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50DCD001FC6E97400D48E16 /* Container.storyboard */; };
+		C50DCD031FC7117700D48E16 /* ContainerElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50DCD021FC7117700D48E16 /* ContainerElements.xib */; };
+		C50DCD051FC7125300D48E16 /* ContainerErrorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD041FC7125300D48E16 /* ContainerErrorCell.swift */; };
+		C50DCD071FC7126100D48E16 /* ContainerSignatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD061FC7126100D48E16 /* ContainerSignatureCell.swift */; };
+		C50DCD091FC7127400D48E16 /* ContainerFileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD081FC7127400D48E16 /* ContainerFileCell.swift */; };
+		C50DCD0B1FC7128900D48E16 /* ContainerHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD0A1FC7128900D48E16 /* ContainerHeaderCell.swift */; };
+		C50DCD0D1FC7147100D48E16 /* ContainerTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD0C1FC7147100D48E16 /* ContainerTableViewHeaderView.swift */; };
+		C50DCD0F1FC7181400D48E16 /* UITableView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD0E1FC7181400D48E16 /* UITableView+Additions.swift */; };
+		C50DCD111FC82F9E00D48E16 /* UINib+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD101FC82F9E00D48E16 /* UINib+Additions.swift */; };
+		C50DCD131FCC4D3000D48E16 /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD121FCC4D3000D48E16 /* UIView+Additions.swift */; };
+		C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD141FCC681100D48E16 /* ContainerSearchCell.swift */; };
 		C51B7FB21FBB12E80046D6E0 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB11FBB12E80046D6E0 /* ShareViewController.m */; };
 		C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB41FBB2AB10046D6E0 /* Utils.swift */; };
 		C51B7FB71FBC45DD0046D6E0 /* LocalizationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB61FBC45DD0046D6E0 /* LocalizationKeys.swift */; };
@@ -163,6 +175,18 @@
 		C50DCCE41FC5741900D48E16 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Black.ttf"; path = "MoppApp/Fonts/Roboto/Roboto-Black.ttf"; sourceTree = SOURCE_ROOT; };
 		C50DCCE51FC5741900D48E16 /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-BlackItalic.ttf"; path = "MoppApp/Fonts/Roboto/Roboto-BlackItalic.ttf"; sourceTree = SOURCE_ROOT; };
 		C50DCCE61FC5741900D48E16 /* RobotoCondensed-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoCondensed-BoldItalic.ttf"; path = "MoppApp/Fonts/Roboto/RobotoCondensed-BoldItalic.ttf"; sourceTree = SOURCE_ROOT; };
+		C50DCCFE1FC6E95A00D48E16 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		C50DCD001FC6E97400D48E16 /* Container.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Container.storyboard; sourceTree = "<group>"; };
+		C50DCD021FC7117700D48E16 /* ContainerElements.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContainerElements.xib; sourceTree = "<group>"; };
+		C50DCD041FC7125300D48E16 /* ContainerErrorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerErrorCell.swift; sourceTree = "<group>"; };
+		C50DCD061FC7126100D48E16 /* ContainerSignatureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerSignatureCell.swift; sourceTree = "<group>"; };
+		C50DCD081FC7127400D48E16 /* ContainerFileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerFileCell.swift; sourceTree = "<group>"; };
+		C50DCD0A1FC7128900D48E16 /* ContainerHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerHeaderCell.swift; sourceTree = "<group>"; };
+		C50DCD0C1FC7147100D48E16 /* ContainerTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerTableViewHeaderView.swift; sourceTree = "<group>"; };
+		C50DCD0E1FC7181400D48E16 /* UITableView+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Additions.swift"; sourceTree = "<group>"; };
+		C50DCD101FC82F9E00D48E16 /* UINib+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINib+Additions.swift"; sourceTree = "<group>"; };
+		C50DCD121FCC4D3000D48E16 /* UIView+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Additions.swift"; sourceTree = "<group>"; };
+		C50DCD141FCC681100D48E16 /* ContainerSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerSearchCell.swift; sourceTree = "<group>"; };
 		C51B7FB01FBB12E70046D6E0 /* shareExtension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shareExtension-Bridging-Header.h"; sourceTree = "<group>"; };
 		C51B7FB11FBB12E80046D6E0 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		C51B7FB31FBB12FC0046D6E0 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
@@ -232,6 +256,9 @@
 				C506EC801FB9F4AF00E07226 /* UIImage+Additions.swift */,
 				C50DCCC21FC2D54200D48E16 /* UIFont+Additions.swift */,
 				C50DCCC41FC31EFC00D48E16 /* UIButton+Additions.swift */,
+				C50DCD0E1FC7181400D48E16 /* UITableView+Additions.swift */,
+				C50DCD101FC82F9E00D48E16 /* UINib+Additions.swift */,
+				C50DCD121FCC4D3000D48E16 /* UIView+Additions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -294,6 +321,22 @@
 				C50DCCDC1FC5741800D48E16 /* RobotoCondensed-Regular.ttf */,
 			);
 			path = Roboto;
+			sourceTree = "<group>";
+		};
+		C50DCCFD1FC6E94800D48E16 /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				C50DCD001FC6E97400D48E16 /* Container.storyboard */,
+				C50DCD021FC7117700D48E16 /* ContainerElements.xib */,
+				C50DCCFE1FC6E95A00D48E16 /* ContainerViewController.swift */,
+				C50DCD041FC7125300D48E16 /* ContainerErrorCell.swift */,
+				C50DCD061FC7126100D48E16 /* ContainerSignatureCell.swift */,
+				C50DCD081FC7127400D48E16 /* ContainerFileCell.swift */,
+				C50DCD0A1FC7128900D48E16 /* ContainerHeaderCell.swift */,
+				C50DCD141FCC681100D48E16 /* ContainerSearchCell.swift */,
+				C50DCD0C1FC7147100D48E16 /* ContainerTableViewHeaderView.swift */,
+			);
+			name = Container;
 			sourceTree = "<group>";
 		};
 		C52E82721FC1D38D0074B280 /* Menu */ = {
@@ -394,6 +437,7 @@
 		E4250D0B1E0AA84A00530370 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C50DCCFD1FC6E94800D48E16 /* Container */,
 				C52E82721FC1D38D0074B280 /* Menu */,
 				C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */,
 				C54BB1071FBD8C1F00A274F6 /* MyeID */,
@@ -579,11 +623,13 @@
 				C50DCCF21FC5741900D48E16 /* RobotoCondensed-Regular.ttf in Resources */,
 				C54BB1091FBD8CC600A274F6 /* MyeID.storyboard in Resources */,
 				E43BD80F1E3A121100F6C39D /* asiceTest.asice in Resources */,
+				C50DCD011FC6E97400D48E16 /* Container.storyboard in Resources */,
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
 				54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */,
 				C50DCCFC1FC5741900D48E16 /* RobotoCondensed-BoldItalic.ttf in Resources */,
 				C50DCCEE1FC5741900D48E16 /* RobotoCondensed-Light.ttf in Resources */,
 				C50DCCE71FC5741900D48E16 /* Roboto-ThinItalic.ttf in Resources */,
+				C50DCD031FC7117700D48E16 /* ContainerElements.xib in Resources */,
 				C50DCCF91FC5741900D48E16 /* Roboto-Bold.ttf in Resources */,
 				C50DCCE91FC5741900D48E16 /* RobotoCondensed-Italic.ttf in Resources */,
 				C50DCCFA1FC5741900D48E16 /* Roboto-Black.ttf in Resources */,
@@ -693,7 +739,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				54825EF51E1CFE9600253FF0 /* Date+Additions.swift in Sources */,
+				C50DCD0F1FC7181400D48E16 /* UITableView+Additions.swift in Sources */,
 				E4C53F4B1E30D03500F209BE /* DefaultsHelper.swift in Sources */,
+				C50DCCFF1FC6E95A00D48E16 /* ContainerViewController.swift in Sources */,
 				C52E827E1FC1DBFE0074B280 /* MoppViewController.swift in Sources */,
 				C52E827C1FC1D7BC0074B280 /* MoppApp.swift in Sources */,
 				E4C53F4E1E30D13100F209BE /* Session.swift in Sources */,
@@ -703,20 +751,28 @@
 				E42B08951E15617200EA24A3 /* LandingTabBarController.swift in Sources */,
 				54825EFB1E1D28E900253FF0 /* UIColor+Additions.swift in Sources */,
 				C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */,
+				C50DCD0B1FC7128900D48E16 /* ContainerHeaderCell.swift in Sources */,
 				C54BB10F1FBD93A100A274F6 /* MobileIDChallengeViewController.swift in Sources */,
 				C506EC7C1FB9CBFD00E07226 /* Constants.swift in Sources */,
 				C506EC811FB9F4AF00E07226 /* UIImage+Additions.swift in Sources */,
+				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
 				540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */,
 				C50DCCC31FC2D54200D48E16 /* UIFont+Additions.swift in Sources */,
+				C50DCD051FC7125300D48E16 /* ContainerErrorCell.swift in Sources */,
 				C52E82781FC1D3ED0074B280 /* MenuViewController.swift in Sources */,
 				C50DCCC71FC32A2500D48E16 /* MyeIDViewController.swift in Sources */,
+				C50DCD071FC7126100D48E16 /* ContainerSignatureCell.swift in Sources */,
+				C50DCD111FC82F9E00D48E16 /* UINib+Additions.swift in Sources */,
+				C50DCD091FC7127400D48E16 /* ContainerFileCell.swift in Sources */,
 				E4250CCB1E0968D200530370 /* AppDelegate.swift in Sources */,
 				C52E827A1FC1D7000074B280 /* main.swift in Sources */,
 				C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */,
+				C50DCD131FCC4D3000D48E16 /* UIView+Additions.swift in Sources */,
 				C50DCCCB1FC32A3E00D48E16 /* SigningViewController.swift in Sources */,
 				E42B08AE1E1EFC1800EA24A3 /* DateFormatter.swift in Sources */,
 				54825EF81E1D270F00253FF0 /* String+Additions.swift in Sources */,
 				E42B08B11E1F049B00EA24A3 /* FileManager.swift in Sources */,
+				C50DCD0D1FC7147100D48E16 /* ContainerTableViewHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

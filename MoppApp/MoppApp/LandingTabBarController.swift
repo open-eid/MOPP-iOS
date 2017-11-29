@@ -29,9 +29,9 @@ class LandingTabBarController : UITabBarController
         super.viewDidLoad()
         tabBar.barTintColor = UIColor.white
         if let viewControllers = viewControllers {
-            setupTab(for: viewControllers[0], title: L(LocKey.TabSignature), image: "IconSignature", selectedImage: "IconSignature")
-            setupTab(for: viewControllers[1], title: L(LocKey.TabCrypto), image: "IconCrypto", selectedImage: "IconCryptoSelected")
-            setupTab(for: viewControllers[2], title: L(LocKey.TabMyEid), image: "IconMyEID", selectedImage: "IconMyEIDSelected")
+            setupTab(for: viewControllers[0], title: L(LocKey.tabSignature), image: "IconSignature", selectedImage: "IconSignature")
+            setupTab(for: viewControllers[1], title: L(LocKey.tabCrypto), image: "IconCrypto", selectedImage: "IconCryptoSelected")
+            setupTab(for: viewControllers[2], title: L(LocKey.tabMyEid), image: "IconMyEID", selectedImage: "IconMyEIDSelected")
         }
         // [self setupTabFor:[self.viewControllers objectAtIndex:3] title:Localizations.TabSettings image:@"settingsNormal" selectedImage:@"settingsNormal_2"];
         NotificationCenter.default.addObserver(self, selector: #selector(receiveMobileCreateSignatureNotification), name: .createSignatureNotificationName, object: nil)
@@ -65,9 +65,9 @@ class LandingTabBarController : UITabBarController
     @objc func receiveErrorNotification(_ notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         guard let error = userInfo[kErrorKey] as? NSError else { return }
-        let alert = UIAlertController(title: L(.ErrorAlertTitleGeneral), message: error.userInfo[NSLocalizedDescriptionKey] as? String, preferredStyle: .alert)
+        let alert = UIAlertController(title: L(.errorAlertTitleGeneral), message: error.userInfo[NSLocalizedDescriptionKey] as? String, preferredStyle: .alert)
         currentMobileIDChallengeView?.dismiss(animated: true)
-        alert.addAction(UIAlertAction(title: L(.ActionOk), style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
         present(alert, animated: true)
     }
 

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Bold.ttf">
+            <string>Roboto-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ContainerTableViewHeaderView" customModule="MoppApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="104"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Container files" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Th8-Lk-whe">
+                    <rect key="frame" x="16" y="0.0" width="343" height="103"/>
+                    <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="21"/>
+                    <color key="textColor" red="0.015686274509803921" green="0.11764705882352941" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xKk-QQ-QG2">
+                    <rect key="frame" x="0.0" y="103" width="375" height="1"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="y7B-S6-WlM"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RjT-uf-eo4">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                    <color key="backgroundColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="0.30404537671232879" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="SVd-xT-z1l"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agI-iX-TOD">
+                    <rect key="frame" x="323" y="30" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="Cfa-MW-tgn"/>
+                        <constraint firstAttribute="width" constant="44" id="rxz-gf-Y7u"/>
+                    </constraints>
+                    <color key="tintColor" red="0.015686274509803921" green="0.11764705882352941" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" image="addIcon"/>
+                    <connections>
+                        <action selector="addAction" destination="iN0-l3-epB" eventType="touchUpInside" id="tfn-og-CCD"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="RjT-uf-eo4" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="6no-PB-RtY"/>
+                <constraint firstItem="RjT-uf-eo4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="7k9-Rd-zYD"/>
+                <constraint firstItem="RjT-uf-eo4" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="BvS-KL-LD2"/>
+                <constraint firstItem="xKk-QQ-QG2" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="GBM-fN-riy"/>
+                <constraint firstItem="xKk-QQ-QG2" firstAttribute="top" secondItem="Th8-Lk-whe" secondAttribute="bottom" id="Jf2-SY-huE"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="agI-iX-TOD" secondAttribute="trailing" constant="8" id="T1K-3i-L7P"/>
+                <constraint firstItem="agI-iX-TOD" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="TQ5-9P-yZy"/>
+                <constraint firstItem="xKk-QQ-QG2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="V9n-Wv-K5T"/>
+                <constraint firstItem="Th8-Lk-whe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="X92-RB-WvW"/>
+                <constraint firstItem="Th8-Lk-whe" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Zzv-iD-ddb"/>
+                <constraint firstAttribute="bottom" secondItem="xKk-QQ-QG2" secondAttribute="bottom" id="qy1-VA-ZMN"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Th8-Lk-whe" secondAttribute="trailing" constant="16" id="xlL-qu-zya"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="addButton" destination="agI-iX-TOD" id="cTo-HE-T59"/>
+                <outlet property="titleLabel" destination="Th8-Lk-whe" id="JKO-vN-rZf"/>
+            </connections>
+            <point key="canvasLocation" x="-22.5" y="-250"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="addIcon" width="25" height="25"/>
+    </resources>
+</document>

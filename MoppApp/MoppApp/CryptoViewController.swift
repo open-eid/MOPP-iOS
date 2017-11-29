@@ -32,7 +32,7 @@ class CryptoViewController : MoppViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        beginLabel.text = L(LocKey.CryptoViewBeginLabel)
-        beginButton.localizedTitle = LocKey.CryptoViewBeginButton
+        beginLabel.text = L(LocKey.cryptoViewBeginLabel)
+        beginButton.localizedTitle = LocKey.cryptoViewBeginButton
     }
 }

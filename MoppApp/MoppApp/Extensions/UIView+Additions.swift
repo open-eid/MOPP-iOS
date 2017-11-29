@@ -1,5 +1,5 @@
 //
-//  UIButton+Additions.swift
+//  UIView+Additions.swift
 //  MoppApp
 //
 /*
@@ -20,29 +20,23 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-
 import Foundation
 
 
-extension UIButton {
-    func setLocalizedTitle(_ key: LocKey, _ arguments: [CVarArg] = []) {
-        setTitle(L(key, arguments), for: .normal)
-        setTitle(L(key, arguments), for: .selected)
-        setTitle(L(key, arguments), for: .disabled)
-    }
+extension UIView {
+    func createGradientLayer(topColor: UIColor, bottomColor: UIColor) {
     
-    var localizedTitle: LocKey? {
-        set {
-            if let key = newValue {
-                setTitle(L(key), for: .normal)
-                setTitle(L(key), for: .selected)
-                setTitle(L(key), for: .disabled)
-            } else {
-                setTitle(nil, for: .normal)
-                setTitle(nil, for: .selected)
-                setTitle(nil, for: .disabled)
+        // Remove previously added gradient layer
+        if let sublayers = layer.sublayers {
+            if let sl = sublayers.first(where:{ $0.name == "__backgroundGradient" }) {
+                sl.removeFromSuperlayer()
             }
         }
-        get { return nil /* Getter is unsed */ }
+    
+        let result = CAGradientLayer()
+            result.name = "__backgroundGradient"
+            result.colors = [topColor.cgColor, bottomColor.cgColor]
+            result.frame = bounds
+            layer.insertSublayer(result, at: 0)
     }
 }

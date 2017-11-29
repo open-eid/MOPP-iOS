@@ -1,5 +1,5 @@
 //
-//  UIButton+Additions.swift
+//  UINib+Additions.swift
 //  MoppApp
 //
 /*
@@ -24,25 +24,22 @@
 import Foundation
 
 
-extension UIButton {
-    func setLocalizedTitle(_ key: LocKey, _ arguments: [CVarArg] = []) {
-        setTitle(L(key, arguments), for: .normal)
-        setTitle(L(key, arguments), for: .selected)
-        setTitle(L(key, arguments), for: .disabled)
+extension UINib {
+    class func nib<T: UIView>(with _: T.Type, bundle: Bundle? = Bundle.main) -> UINib? {
+        return UINib(nibName: String(describing: T.self), bundle: bundle)
     }
     
-    var localizedTitle: LocKey? {
-        set {
-            if let key = newValue {
-                setTitle(L(key), for: .normal)
-                setTitle(L(key), for: .selected)
-                setTitle(L(key), for: .disabled)
-            } else {
-                setTitle(nil, for: .normal)
-                setTitle(nil, for: .selected)
-                setTitle(nil, for: .disabled)
+    func instantiateFirst<T: UIView>(withOwner owner: Any?, type _: T.Type) -> UIView? {
+        return instantiate(withOwner: owner, options: nil).first as? UIView
+    }
+    
+    func instantiate<T: UIView>(withOwner owner: Any?, type _: T.Type) -> T? {
+        let views = instantiate(withOwner: owner, options: nil)
+        for v in views {
+            if v is T {
+                return v as? T
             }
         }
-        get { return nil /* Getter is unsed */ }
+        return nil
     }
 }
