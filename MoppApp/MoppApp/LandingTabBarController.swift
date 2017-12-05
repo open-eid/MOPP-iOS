@@ -36,6 +36,7 @@ class LandingTabBarController : UITabBarController
         // [self setupTabFor:[self.viewControllers objectAtIndex:3] title:Localizations.TabSettings image:@"settingsNormal" selectedImage:@"settingsNormal_2"];
         NotificationCenter.default.addObserver(self, selector: #selector(receiveMobileCreateSignatureNotification), name: .createSignatureNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveErrorNotification), name: .errorNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveOpenContainerNotification), name: .openContainerNotificationName, object: nil)
     }
 
     func setupTab(for controller: UIViewController, title: String, image imageName: String, selectedImage selectedImageName: String) {
@@ -44,6 +45,23 @@ class LandingTabBarController : UITabBarController
         let image: UIImage? = selectedImage?.applyingAlpha(UIColor.moppUnselectedTabBarItemAlpha).withRenderingMode(.alwaysOriginal)
         controller.tabBarItem.image = image
         controller.tabBarItem.selectedImage = selectedImage
+    }
+
+    @objc func receiveOpenContainerNotification(_ notification: Notification) {
+        guard let container = notification.userInfo?[kKeyContainerNew] as? MoppLibContainer else {
+            return
+        }
+        // Select signing tab
+        selectedIndex = 0
+        if let navigationController = viewControllers?.first as? UINavigationController {
+            if let signingViewController = navigationController.viewControllers.first as? SigningViewController {
+                signingViewController.refresh()
+            }
+            if let containerViewController = UIStoryboard.container.instantiateInitialViewController() as? ContainerViewController {
+                containerViewController.container = container
+                navigationController.pushViewController(containerViewController, animated: false)
+            }
+        }
     }
 
     @objc func receiveMobileCreateSignatureNotification(_ notification: Notification) {

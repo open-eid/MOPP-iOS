@@ -35,6 +35,9 @@
 "signature-view-begin-label" = "Allkirjastamiseks või kontrollimiseks vali fail";
 "signature-view-begin-button" = "VALI FAIL";
 
+// Signing view
+"signing-recent-containers" = "Hiljutised konteinerid";
+
 // Crypto
 "crypto-view-begin-label" = "Krüpteerimiseks või dekrüpteerimiseks vali fail";
 "crypto-view-begin-button" = "VALI FAIL";

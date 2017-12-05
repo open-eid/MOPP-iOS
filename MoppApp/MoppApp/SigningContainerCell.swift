@@ -1,5 +1,5 @@
 //
-//  ContainerHeaderCell.swift
+//  SigningContainerCell.swift
 //  MoppApp
 //
 /*
@@ -23,18 +23,14 @@
 import Foundation
 
 
-class ContainerHeaderCell: UITableViewCell {
-    static let height: CGFloat = 58
-    @IBOutlet weak var titleLabel: UILabel!
+class SigningContainerCell : UITableViewCell {
     @IBOutlet weak var filenameLabel: UILabel!
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        titleLabel.text = L(.containerHeaderTitle)
     }
     
-    func populate(name: String) {
-        filenameLabel.text = name
+    func populate(filename: String) {
+        filenameLabel.text = filename
     }
 }

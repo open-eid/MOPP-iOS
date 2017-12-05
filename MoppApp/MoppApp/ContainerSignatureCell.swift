@@ -49,15 +49,25 @@ class ContainerSignatureCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func populate(name: String, kind: Kind, colorTheme: ColorTheme, showBottomBorder: Bool) {
+    func populate(with signature: MoppLibSignature, kind: Kind, showBottomBorder: Bool) {
         self.kind = kind
-        nameLabel.text = name
-        signedInfoLabel.text = L(LocKey.containerSignatureSigned, ["12.08.2017, 13:22"])
+        // Fixme: this should be handled in MoppLib
+        let nameComponents = signature.subjectName.components(separatedBy: ",")
+        if nameComponents.count == 3 {
+            let displayName = "\(nameComponents[1]) \(nameComponents[0])"
+            let serialNumber = nameComponents[2]
+            nameLabel.text = displayName
+            personalCodeLabel.text = serialNumber
+        }
+        
+        signedInfoLabel.text = L(LocKey.containerSignatureSigned, [MoppDateFormatter.shared.hHmmssddMMYYYY(toString: signature.timestamp)])
+        
         iconImageView.image = kind == .signature ?
             UIImage(named: "Icon_Allkiri_small") :
             UIImage(named: "Icon_ajatempel")
         bottomBorderView.isHidden = !showBottomBorder
         
+        let colorTheme = signature.isValid ? ColorTheme.showSuccess : ColorTheme.showInvalid
         switch colorTheme {
         case .neutral:
             nameLabel.textColor = UIColor.moppText

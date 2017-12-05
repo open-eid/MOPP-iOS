@@ -38,4 +38,5 @@ extension Notification.Name {
     static let createSignatureNotificationName = Notification.Name("MobileCreateSignatureNotification")
     static let signatureAddedToContainerNotificationName = Notification.Name("SignatureAddedToContainer")
     static let errorNotificationName = Notification.Name("ErrorNotification")
+    static let openContainerNotificationName = Notification.Name("OpenContainerNotificationName")
 }

@@ -35,6 +35,9 @@
 "signature-view-begin-label" = "Выберите файл для подписи или проверки";
 "signature-view-begin-button" = "ВЫБЕРИТЕ ФАЙЛ";
 
+// Signing view
+"signing-recent-containers" = "Последние контейнеры";
+
 // Crypto
 "crypto-view-begin-label" = "Выбрать файл для шифрования или дешифрования";
 "crypto-view-begin-button" = "ВЫБЕРИТЕ ФАЙЛ";
