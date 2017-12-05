@@ -66,6 +66,8 @@
 		C50DCD1B1FD1576B00D48E16 /* SigningTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD1A1FD1576B00D48E16 /* SigningTableViewHeaderView.swift */; };
 		C50DCD1D1FD1579700D48E16 /* SigningElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50DCD1C1FD1579700D48E16 /* SigningElements.xib */; };
 		C50DCD1F1FD1831500D48E16 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD1E1FD1831500D48E16 /* SearchTextField.swift */; };
+		C50DCD221FD69A8500D48E16 /* CustomElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50DCD211FD69A8500D48E16 /* CustomElements.xib */; };
+		C50DCD241FD69B0C00D48E16 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD231FD69B0C00D48E16 /* SpinnerView.swift */; };
 		C51B7FB21FBB12E80046D6E0 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB11FBB12E80046D6E0 /* ShareViewController.m */; };
 		C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB41FBB2AB10046D6E0 /* Utils.swift */; };
 		C51B7FB71FBC45DD0046D6E0 /* LocalizationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB61FBC45DD0046D6E0 /* LocalizationKeys.swift */; };
@@ -197,6 +199,8 @@
 		C50DCD1A1FD1576B00D48E16 /* SigningTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningTableViewHeaderView.swift; sourceTree = "<group>"; };
 		C50DCD1C1FD1579700D48E16 /* SigningElements.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SigningElements.xib; sourceTree = "<group>"; };
 		C50DCD1E1FD1831500D48E16 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
+		C50DCD211FD69A8500D48E16 /* CustomElements.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomElements.xib; sourceTree = "<group>"; };
+		C50DCD231FD69B0C00D48E16 /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		C51B7FB01FBB12E70046D6E0 /* shareExtension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shareExtension-Bridging-Header.h"; sourceTree = "<group>"; };
 		C51B7FB11FBB12E80046D6E0 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		C51B7FB31FBB12FC0046D6E0 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
@@ -354,6 +358,7 @@
 			isa = PBXGroup;
 			children = (
 				C50DCD1E1FD1831500D48E16 /* SearchTextField.swift */,
+				C50DCD231FD69B0C00D48E16 /* SpinnerView.swift */,
 			);
 			name = "Custom views";
 			sourceTree = "<group>";
@@ -432,6 +437,7 @@
 				E4250D0B1E0AA84A00530370 /* ViewController */,
 				E42B08AB1E1EFC0500EA24A3 /* Utility */,
 				E4250CC61E0968D200530370 /* Supporting Files */,
+				C50DCD211FD69A8500D48E16 /* CustomElements.xib */,
 			);
 			path = MoppApp;
 			sourceTree = "<group>";
@@ -661,6 +667,7 @@
 				C50DCCE81FC5741900D48E16 /* Roboto-Italic.ttf in Resources */,
 				E42B08A71E1D4EE900EA24A3 /* test2.bdoc in Resources */,
 				C506EC7E1FB9D5A000E07226 /* Assets.xcassets in Resources */,
+				C50DCD221FD69A8500D48E16 /* CustomElements.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -768,6 +775,7 @@
 				E4C53F4B1E30D03500F209BE /* DefaultsHelper.swift in Sources */,
 				C50DCCFF1FC6E95A00D48E16 /* ContainerViewController.swift in Sources */,
 				C50DCD171FCEF17100D48E16 /* UIStoryBoard+Additions.swift in Sources */,
+				C50DCD241FD69B0C00D48E16 /* SpinnerView.swift in Sources */,
 				C52E827E1FC1DBFE0074B280 /* MoppViewController.swift in Sources */,
 				C52E827C1FC1D7BC0074B280 /* MoppApp.swift in Sources */,
 				E4C53F4E1E30D13100F209BE /* Session.swift in Sources */,

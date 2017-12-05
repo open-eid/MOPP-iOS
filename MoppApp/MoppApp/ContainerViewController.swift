@@ -66,19 +66,6 @@ class ContainerViewController : MoppViewController {
     private static let sectionsDefault: [Section] = [.header, .files, .signatures]
     var sections: [Section] = ContainerViewController.sectionsDefault
 
-    let mockFiles = [
-        "Document 1.pdf",
-        "Document 2.pdf",
-        "Document 3.pdf",
-        "Document 4.pdf",
-        "Document 5.pdf",
-        "Document 6.pdf",
-        "Document 7.pdf",
-        "Document with a longer name.xdoc"
-        ]
-    let mockTimestamp = ["MARI MAASIKAS"]
-    let mockSignatures = ["MARI MAASIKAS", "PEETER PALINDROOM", "MEELIS METAFOOR", "VELLO VEEKEERIS"]
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupOnce()
@@ -113,7 +100,7 @@ extension ContainerViewController : UITableViewDataSource {
         case .signatures:
             return container.signatures.count
         case .timestamp:
-            return mockTimestamp.count
+            return 1
         case .files:
             return container.dataFiles.count
         case .header:
@@ -131,8 +118,6 @@ extension ContainerViewController : UITableViewDataSource {
             return cell
         case .signatures:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
-            let signature = (container.signatures as! [MoppLibSignature])[row]
-            cell.populate(with: signature, kind: .signature, showBottomBorder: row < mockSignatures.count - 1)
             return cell
         case .timestamp:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
