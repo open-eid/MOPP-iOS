@@ -139,6 +139,8 @@ extension ContainerViewController : UITableViewDataSource {
             return cell
         case .signatures:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
+                let signature = container.signatures[row] as! MoppLibSignature
+                cell.populate(with: signature, kind: .signature, showBottomBorder: row < container.signatures.count - 1)
             return cell
         case .timestamp:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
