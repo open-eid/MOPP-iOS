@@ -1,5 +1,5 @@
 //
-//  ContainerHeaderCell.swift
+//  SpinnerView.swift
 //  MoppApp
 //
 /*
@@ -23,18 +23,23 @@
 import Foundation
 
 
-class ContainerHeaderCell: UITableViewCell {
-    static let height: CGFloat = 58
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var filenameLabel: UILabel!
-
+class SpinnerView : UIView {
+    @IBOutlet weak var spinningElement: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        titleLabel.text = L(.containerHeaderTitle)
+        show(true)
     }
-    
-    func populate(name: String) {
-        filenameLabel.text = name
+
+    func show(_ show: Bool) {
+        
+        spinningElement.isHidden = !show
+        
+        let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
+            rotation.toValue = Double.pi * 2
+            rotation.duration = 1.0
+            rotation.isCumulative = true
+            rotation.repeatCount = .greatestFiniteMagnitude
+        
+        spinningElement.layer.add(rotation, forKey: "loaderRotation")
     }
 }

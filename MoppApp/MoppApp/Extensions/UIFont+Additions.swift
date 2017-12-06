@@ -74,4 +74,8 @@ extension UIFont {
         return UIFont(name: MoppFontName.allCapsRegular.rawValue, size: 13)!
     }
 
+    class var moppTextField: UIFont {
+        return UIFont(name: MoppFontName.medium.rawValue, size: 17)!
+    }
+
 }

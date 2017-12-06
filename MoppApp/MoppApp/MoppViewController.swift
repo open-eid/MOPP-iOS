@@ -31,8 +31,17 @@ class MoppViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(forName: .willEnterForegroundNotificationName, object: self, queue: OperationQueue.main) { [weak self] _ in
+            self?.willEnterForeground()
+        }
+        
         let titleImageView = UIImageView(image: UIImage(named: "Logo_Vaike"))
         navigationItem.titleView = titleImageView
+        
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -64,5 +73,13 @@ class MoppViewController : UIViewController {
         else {
             MoppApp.instance.statusBarStyle = .default
         }
+    }
+    
+    func willEnterForeground() {
+    
+    }
+    
+    func showLoading(show: Bool) {
+        
     }
 }

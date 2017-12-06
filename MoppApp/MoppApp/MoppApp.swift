@@ -41,6 +41,8 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
 
     enum Nib : String {
         case containerElements = "ContainerElements"
+        case signingElements = "SigningElements"
+        case customElements = "CustomElements"
     }
     var nibs: [Nib: UINib] = [:]
 
@@ -88,9 +90,7 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
     }
 
     func setupTabController() {
-        print(Thread.isMainThread)
-        print(UIStoryboard(name: "Landing", bundle: nil))
-        tabBarController = UIStoryboard(name: "Landing", bundle: nil).instantiateInitialViewController() as? LandingTabBarController
+        tabBarController = UIStoryboard.landing.instantiateInitialViewController() as? LandingTabBarController
         window?.rootViewController = tabBarController
         if let tempUrl = self.tempUrl {
             _ = openUrl(url: tempUrl, sourceApplication: sourceApplication, annotation: annotation)
@@ -122,7 +122,8 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
     }
 
     func openUrl(url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        /*if !url.absoluteString.isEmpty {
+        if !url.absoluteString.isEmpty {
+        
             // When app has just been launched, it may not be ready to deal with containers yet. We need to wait until libdigidocpp setup is complete.
             if tabBarController == nil {
                 self.annotation = annotation
@@ -130,43 +131,54 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
                 tempUrl = url
                 return true
             }
+            
             let filePath = url.relativePath
-            let fileName = filePath.lastPathComponent
+            let fileName = url.lastPathComponent
             let fileExtension: String? = URL(fileURLWithPath: filePath).pathExtension
+            
             MSLog("Imported file: %@", filePath)
+            
             tabBarController?.selectedIndex = 0
-            var navController = tabBarController?.viewControllers?[0] as? UINavigationController
-            navController?.popViewController(animated: false)
-            var containersListViewController = navController?.viewControllers[0] as? ContainerViewController
+            
+            let navController = tabBarController?.viewControllers?[0] as? UINavigationController
+                navController?.popViewController(animated: false)
+            
+            let signingViewController = navController?.viewControllers.first as? SigningViewController
          
-            if (fileExtension == ContainerFormatDdoc) || (fileExtension == ContainerFormatAsice) || (fileExtension == ContainerFormatBdoc) {
+            if fileExtension == ContainerFormatDdoc ||
+                fileExtension == ContainerFormatAsice ||
+                fileExtension == ContainerFormatBdoc {
+                
                 // Move container from inbox folder to documents folder and cleanup.
                 var newFilePath: String = MoppFileManager.shared.filePath(withFileName: fileName)
-                newFilePath = MoppFileManager.shared.copyFile(withPath: filePath, toPath: newFilePath)
+                    newFilePath = MoppFileManager.shared.copyFile(withPath: filePath, toPath: newFilePath)
+                
                 MoppFileManager.shared.removeFile(withPath: filePath)
-                var failure: (() -> Void)? = {(_: Void) -> Void in
+                
+                let failure: (() -> Void) = {
                     // Remove invalid container. Probably ddoc.
                     MoppFileManager.shared.removeFile(withName: fileName)
-                    var alert = UIAlertController(title: L(.FileImportImportFailedAlertTitle), message: L(.FileImportImportFailedAlertMessage, fileName), preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: L(.ActionOk), style: .default, handler: nil))
-                    containersListViewController.present(alert, animated: true) { _ in }
+                    
+                    let alert = UIAlertController(title: L(.fileImportImportFailedAlertTitle), message: L(.fileImportImportFailedAlertMessage, [fileName]), preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
+        
+                    signingViewController?.present(alert, animated: true)
                 }
+                
                 MoppLibContainerActions.sharedInstance().getContainerWithPath(newFilePath, success: {(_ container: MoppLibContainer?) -> Void in
-                    NotificationCenter.default.post(name: .containerChangedNotificationName, object: nil, userInfo: [kKeyContainerNew: container])
-                    var moppLibContainer: MoppLibContainer? = container
-                    if moppLibContainer != nil {
-                        containersListViewController.selectedContainer = moppLibContainer
+                    guard let container = container else {
+                        failure()
+                        return
                     }
-                    else {
-                        failure?()
-                    }
-                }, failure: {(_ error: Error?) -> Void in
-                    failure?()
+                    NotificationCenter.default.post(name: .openContainerNotificationName, object: nil, userInfo: [kKeyContainerNew: container])
+                    
+                }, failure: { _ in
+                    failure()
                 })
             } else {
-                containersListViewController.dataFilePaths = [filePath]
+                // signingViewController = [filePath]
             }
-        }*/
+        }
         return true
     }
 
@@ -226,5 +238,7 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
 extension MoppApp {
     func loadNibs() {
         nibs[.containerElements] = UINib(nibName: Nib.containerElements.rawValue, bundle: Bundle.main)
+        nibs[.signingElements] = UINib(nibName: Nib.signingElements.rawValue, bundle: Bundle.main)
+        nibs[.customElements] = UINib(nibName: Nib.containerElements.rawValue, bundle: Bundle.main)
     }
 }

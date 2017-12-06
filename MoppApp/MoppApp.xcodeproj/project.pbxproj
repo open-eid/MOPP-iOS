@@ -61,6 +61,13 @@
 		C50DCD111FC82F9E00D48E16 /* UINib+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD101FC82F9E00D48E16 /* UINib+Additions.swift */; };
 		C50DCD131FCC4D3000D48E16 /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD121FCC4D3000D48E16 /* UIView+Additions.swift */; };
 		C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD141FCC681100D48E16 /* ContainerSearchCell.swift */; };
+		C50DCD171FCEF17100D48E16 /* UIStoryBoard+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD161FCEF17000D48E16 /* UIStoryBoard+Additions.swift */; };
+		C50DCD191FD1542A00D48E16 /* SigningContainerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD181FD1542A00D48E16 /* SigningContainerCell.swift */; };
+		C50DCD1B1FD1576B00D48E16 /* SigningTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD1A1FD1576B00D48E16 /* SigningTableViewHeaderView.swift */; };
+		C50DCD1D1FD1579700D48E16 /* SigningElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50DCD1C1FD1579700D48E16 /* SigningElements.xib */; };
+		C50DCD1F1FD1831500D48E16 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD1E1FD1831500D48E16 /* SearchTextField.swift */; };
+		C50DCD221FD69A8500D48E16 /* CustomElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50DCD211FD69A8500D48E16 /* CustomElements.xib */; };
+		C50DCD241FD69B0C00D48E16 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD231FD69B0C00D48E16 /* SpinnerView.swift */; };
 		C51B7FB21FBB12E80046D6E0 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB11FBB12E80046D6E0 /* ShareViewController.m */; };
 		C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB41FBB2AB10046D6E0 /* Utils.swift */; };
 		C51B7FB71FBC45DD0046D6E0 /* LocalizationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB61FBC45DD0046D6E0 /* LocalizationKeys.swift */; };
@@ -187,6 +194,13 @@
 		C50DCD101FC82F9E00D48E16 /* UINib+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINib+Additions.swift"; sourceTree = "<group>"; };
 		C50DCD121FCC4D3000D48E16 /* UIView+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Additions.swift"; sourceTree = "<group>"; };
 		C50DCD141FCC681100D48E16 /* ContainerSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerSearchCell.swift; sourceTree = "<group>"; };
+		C50DCD161FCEF17000D48E16 /* UIStoryBoard+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryBoard+Additions.swift"; sourceTree = "<group>"; };
+		C50DCD181FD1542A00D48E16 /* SigningContainerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningContainerCell.swift; sourceTree = "<group>"; };
+		C50DCD1A1FD1576B00D48E16 /* SigningTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningTableViewHeaderView.swift; sourceTree = "<group>"; };
+		C50DCD1C1FD1579700D48E16 /* SigningElements.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SigningElements.xib; sourceTree = "<group>"; };
+		C50DCD1E1FD1831500D48E16 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
+		C50DCD211FD69A8500D48E16 /* CustomElements.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomElements.xib; sourceTree = "<group>"; };
+		C50DCD231FD69B0C00D48E16 /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		C51B7FB01FBB12E70046D6E0 /* shareExtension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shareExtension-Bridging-Header.h"; sourceTree = "<group>"; };
 		C51B7FB11FBB12E80046D6E0 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		C51B7FB31FBB12FC0046D6E0 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
@@ -259,6 +273,7 @@
 				C50DCD0E1FC7181400D48E16 /* UITableView+Additions.swift */,
 				C50DCD101FC82F9E00D48E16 /* UINib+Additions.swift */,
 				C50DCD121FCC4D3000D48E16 /* UIView+Additions.swift */,
+				C50DCD161FCEF17000D48E16 /* UIStoryBoard+Additions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -339,6 +354,15 @@
 			name = Container;
 			sourceTree = "<group>";
 		};
+		C50DCD201FD193E400D48E16 /* Custom views */ = {
+			isa = PBXGroup;
+			children = (
+				C50DCD1E1FD1831500D48E16 /* SearchTextField.swift */,
+				C50DCD231FD69B0C00D48E16 /* SpinnerView.swift */,
+			);
+			name = "Custom views";
+			sourceTree = "<group>";
+		};
 		C52E82721FC1D38D0074B280 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
@@ -352,7 +376,10 @@
 			isa = PBXGroup;
 			children = (
 				C54BB10C1FBD8CE900A274F6 /* Signing.storyboard */,
+				C50DCD1C1FD1579700D48E16 /* SigningElements.xib */,
 				C50DCCCA1FC32A3E00D48E16 /* SigningViewController.swift */,
+				C50DCD181FD1542A00D48E16 /* SigningContainerCell.swift */,
+				C50DCD1A1FD1576B00D48E16 /* SigningTableViewHeaderView.swift */,
 			);
 			name = Signing;
 			sourceTree = "<group>";
@@ -405,10 +432,12 @@
 				E4250CCA1E0968D200530370 /* AppDelegate.swift */,
 				C59A958C1FB5B9E100D0E1F9 /* MoppApp-Bridging-Header.h */,
 				C506EC7D1FB9D5A000E07226 /* Assets.xcassets */,
+				C50DCD201FD193E400D48E16 /* Custom views */,
 				540786E61E1A76280016ABA7 /* Extensions */,
 				E4250D0B1E0AA84A00530370 /* ViewController */,
 				E42B08AB1E1EFC0500EA24A3 /* Utility */,
 				E4250CC61E0968D200530370 /* Supporting Files */,
+				C50DCD211FD69A8500D48E16 /* CustomElements.xib */,
 			);
 			path = MoppApp;
 			sourceTree = "<group>";
@@ -438,11 +467,11 @@
 			isa = PBXGroup;
 			children = (
 				C50DCCFD1FC6E94800D48E16 /* Container */,
+				C54BB1051FBD8C1000A274F6 /* Signing */,
 				C52E82721FC1D38D0074B280 /* Menu */,
 				C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */,
 				C54BB1071FBD8C1F00A274F6 /* MyeID */,
 				C54BB1061FBD8C1700A274F6 /* Crypto */,
-				C54BB1051FBD8C1000A274F6 /* Signing */,
 				E42B08961E1562D500EA24A3 /* Landing */,
 				C59A958D1FB5B9E100D0E1F9 /* InitializationViewController.swift */,
 				C52E827D1FC1DBFE0074B280 /* MoppViewController.swift */,
@@ -622,6 +651,7 @@
 				C54BB10B1FBD8CD900A274F6 /* Crypto.storyboard in Resources */,
 				C50DCCF21FC5741900D48E16 /* RobotoCondensed-Regular.ttf in Resources */,
 				C54BB1091FBD8CC600A274F6 /* MyeID.storyboard in Resources */,
+				C50DCD1D1FD1579700D48E16 /* SigningElements.xib in Resources */,
 				E43BD80F1E3A121100F6C39D /* asiceTest.asice in Resources */,
 				C50DCD011FC6E97400D48E16 /* Container.storyboard in Resources */,
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
@@ -637,6 +667,7 @@
 				C50DCCE81FC5741900D48E16 /* Roboto-Italic.ttf in Resources */,
 				E42B08A71E1D4EE900EA24A3 /* test2.bdoc in Resources */,
 				C506EC7E1FB9D5A000E07226 /* Assets.xcassets in Resources */,
+				C50DCD221FD69A8500D48E16 /* CustomElements.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -739,9 +770,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				54825EF51E1CFE9600253FF0 /* Date+Additions.swift in Sources */,
+				C50DCD1F1FD1831500D48E16 /* SearchTextField.swift in Sources */,
 				C50DCD0F1FC7181400D48E16 /* UITableView+Additions.swift in Sources */,
 				E4C53F4B1E30D03500F209BE /* DefaultsHelper.swift in Sources */,
 				C50DCCFF1FC6E95A00D48E16 /* ContainerViewController.swift in Sources */,
+				C50DCD171FCEF17100D48E16 /* UIStoryBoard+Additions.swift in Sources */,
+				C50DCD241FD69B0C00D48E16 /* SpinnerView.swift in Sources */,
 				C52E827E1FC1DBFE0074B280 /* MoppViewController.swift in Sources */,
 				C52E827C1FC1D7BC0074B280 /* MoppApp.swift in Sources */,
 				E4C53F4E1E30D13100F209BE /* Session.swift in Sources */,
@@ -750,6 +784,7 @@
 				C51B7FB71FBC45DD0046D6E0 /* LocalizationKeys.swift in Sources */,
 				E42B08951E15617200EA24A3 /* LandingTabBarController.swift in Sources */,
 				54825EFB1E1D28E900253FF0 /* UIColor+Additions.swift in Sources */,
+				C50DCD191FD1542A00D48E16 /* SigningContainerCell.swift in Sources */,
 				C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */,
 				C50DCD0B1FC7128900D48E16 /* ContainerHeaderCell.swift in Sources */,
 				C54BB10F1FBD93A100A274F6 /* MobileIDChallengeViewController.swift in Sources */,
@@ -766,6 +801,7 @@
 				C50DCD091FC7127400D48E16 /* ContainerFileCell.swift in Sources */,
 				E4250CCB1E0968D200530370 /* AppDelegate.swift in Sources */,
 				C52E827A1FC1D7000074B280 /* main.swift in Sources */,
+				C50DCD1B1FD1576B00D48E16 /* SigningTableViewHeaderView.swift in Sources */,
 				C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */,
 				C50DCD131FCC4D3000D48E16 /* UIView+Additions.swift in Sources */,
 				C50DCCCB1FC32A3E00D48E16 /* SigningViewController.swift in Sources */,

@@ -36,6 +36,30 @@ class MoppFileManager {
         return documentsDirectory
     }
 
+    func documentsFiles() -> [String] {
+    
+        let directory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        if let urlArr = try? fileManager.contentsOfDirectory(at: directory, includingPropertiesForKeys: [.contentModificationDateKey], options: .skipsHiddenFiles) {
+            return urlArr.map { url -> (String, Date) in
+                (url.lastPathComponent, (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? Date.distantPast)
+            }
+            .sorted { $0.1 > $1.1 }
+            .map { $0.0 }
+            .filter { file in
+                let components = file.filenameComponents()
+                return !components.ext.isEmpty
+            }
+        }
+        
+        return []
+    }
+
+    func removeDocumentsFile(with name: String) {
+        var directory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        directory.appendPathComponent(name)
+        try! fileManager.removeItem(at: directory)
+    }
+
     func tempDocumentsDirectoryPath() -> String {
         let path: String = documentsDirectoryPath() + ("/temp")
         var isDir : ObjCBool = false
@@ -47,12 +71,12 @@ class MoppFileManager {
     }
 
     func tempFilePath(withFileName fileName: String) -> String {
-        let filePath: String = URL(fileURLWithPath: tempDocumentsDirectoryPath()).appendingPathComponent(fileName).absoluteString
+        let filePath: String = URL(fileURLWithPath: tempDocumentsDirectoryPath()).appendingPathComponent(fileName).path
         return filePath
     }
 
     func filePath(withFileName fileName: String) -> String {
-        let filePath: String = URL(fileURLWithPath: documentsDirectoryPath()).appendingPathComponent(fileName).absoluteString
+        let filePath: String = URL(fileURLWithPath: documentsDirectoryPath()).appendingPathComponent(fileName).path
         return filePath
     }
 
@@ -61,7 +85,7 @@ class MoppFileManager {
     }
 
     func filePath(withFileName fileName: String, index: Int) -> String {
-        var filePath: String = URL(fileURLWithPath: documentsDirectoryPath()).appendingPathComponent(fileName).absoluteString
+        var filePath: String = URL(fileURLWithPath: documentsDirectoryPath()).appendingPathComponent(fileName).path
         if index > 0 {
             let components = filePath.filenameComponents()
             filePath = "\(components.name)(\(index)).\(components.ext)"
@@ -74,7 +98,7 @@ class MoppFileManager {
     }
     
     func sharedDocumentsPath() -> String {
-        guard let groupFolderUrl = fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.ee.ria.digidoc.ios") else {
+        guard let groupFolderUrl = fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.ee.fob.digidoc.ios") else {
             return String()
         }
         return groupFolderUrl.appendingPathComponent("Temp").path

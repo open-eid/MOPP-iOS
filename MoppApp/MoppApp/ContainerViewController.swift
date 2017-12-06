@@ -26,6 +26,8 @@ import Foundation
 
 class ContainerViewController : MoppViewController {
 
+    var container: MoppLibContainer!
+    var containerPath: String? = nil
     @IBOutlet weak var tableView: UITableView!
 
     enum Section {
@@ -61,31 +63,33 @@ class ContainerViewController : MoppViewController {
         .signatures     : L(LocKey.containerHeaderSignaturesTitle)
         ]
 
-    private static let sectionsWithError: [Section] = [.header, .error, .files, .signatures, .timestamp]
-    private static let sectionsDefault: [Section] = [.header, .files, .signatures, .timestamp]
+    private static let sectionsWithError: [Section] = [.header, .error, .files, .signatures]
+    private static let sectionsDefault: [Section] = [.header, .files, .signatures]
     var sections: [Section] = ContainerViewController.sectionsDefault
-
-    let mockFiles = [
-        "Document 1.pdf",
-        "Document 2.pdf",
-        "Document 3.pdf",
-        "Document 4.pdf",
-        "Document 5.pdf",
-        "Document 6.pdf",
-        "Document 7.pdf",
-        "Document with a longer name.xdoc"
-        ]
-    let mockTimestamp = ["MARI MAASIKAS"]
-    let mockSignatures = ["MARI MAASIKAS", "PEETER PALINDROOM", "MEELIS METAFOOR", "VELLO VEEKEERIS"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        errorHidden = false
         setupOnce()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let containerPath = containerPath else {
+            return
+        }
+        
+        showLoading(show: true)
+        MoppLibContainerActions.sharedInstance().getContainerWithPath(containerPath, success: {(_ container: MoppLibContainer?) -> Void in
+            guard let container = container else {
+                return
+            }
+            self.container = container
+            self.tableView.reloadData()
+            self.showLoading(show: false)
+        }, failure: { _ in
+            self.showLoading(show: false)
+        })
     }
 }
 
@@ -107,15 +111,19 @@ extension ContainerViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let container = container else {
+            return 0
+        }
+        
         switch sections[section] {
         case .error:
             return 1
         case .signatures:
-            return mockSignatures.count
+            return container.signatures.count
         case .timestamp:
-            return mockTimestamp.count
+            return 1
         case .files:
-            return mockFiles.count
+            return container.dataFiles.count
         case .header:
             return 1
         case .search:
@@ -131,18 +139,20 @@ extension ContainerViewController : UITableViewDataSource {
             return cell
         case .signatures:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
-                cell.populate(name: mockSignatures[row], kind: .signature, colorTheme: (row == 0 ? .showInvalid : .showSuccess), showBottomBorder: row < mockSignatures.count - 1)
+                let signature = container.signatures[row] as! MoppLibSignature
+                cell.populate(with: signature, kind: .signature, showBottomBorder: row < container.signatures.count - 1)
             return cell
         case .timestamp:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
-                cell.populate(name: mockTimestamp[row], kind: .timestamp, colorTheme: .neutral, showBottomBorder: row < mockTimestamp.count - 1)
+                //cell.populate(name: mockTimestamp[row], kind: .timestamp, colorTheme: .neutral, showBottomBorder: row < mockTimestamp.count - 1)
             return cell
         case .files:
             let cell = tableView.dequeueReusableCell(withType: ContainerFileCell.self, for: indexPath)!
-                cell.populate(name: mockFiles[row], showBottomBorder: row < mockFiles.count - 1)
+                cell.populate(name: (container.dataFiles as! [MoppLibDataFile])[row].fileName, showBottomBorder: row < container.dataFiles.count - 1)
             return cell
         case .header:
             let cell = tableView.dequeueReusableCell(withType: ContainerHeaderCell.self, for: indexPath)!
+                cell.populate(name: container.fileName)
             return cell
         case .search:
             let cell = tableView.dequeueReusableCell(withType: ContainerSearchCell.self, for: indexPath)!
