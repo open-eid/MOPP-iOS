@@ -51,14 +51,9 @@ class ContainerSignatureCell: UITableViewCell {
     
     func populate(with signature: MoppLibSignature, kind: Kind, showBottomBorder: Bool) {
         self.kind = kind
-        // Fixme: this should be handled in MoppLib
-        let nameComponents = signature.subjectName.components(separatedBy: ",")
-        if nameComponents.count == 3 {
-            let displayName = "\(nameComponents[1]) \(nameComponents[0])"
-            let serialNumber = nameComponents[2]
-            nameLabel.text = displayName
-            personalCodeLabel.text = serialNumber
-        }
+
+        nameLabel.text = signature.subjectName
+        personalCodeLabel.text = signature.subjectSerialNumber
         
         signedInfoLabel.text = L(LocKey.containerSignatureSigned, [MoppDateFormatter.shared.hHmmssddMMYYYY(toString: signature.timestamp)])
         
