@@ -27,6 +27,7 @@ import Foundation
 class ContainerViewController : MoppViewController {
 
     var container: MoppLibContainer!
+    var containerPath: String? = nil
     @IBOutlet weak var tableView: UITableView!
 
     enum Section {
@@ -71,8 +72,24 @@ class ContainerViewController : MoppViewController {
         setupOnce()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let containerPath = containerPath else {
+            return
+        }
+        
+        showLoading(show: true)
+        MoppLibContainerActions.sharedInstance().getContainerWithPath(containerPath, success: {(_ container: MoppLibContainer?) -> Void in
+            guard let container = container else {
+                return
+            }
+            self.container = container
+            self.tableView.reloadData()
+            self.showLoading(show: false)
+        }, failure: { _ in
+            self.showLoading(show: false)
+        })
     }
 }
 
@@ -94,6 +111,10 @@ extension ContainerViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let container = container else {
+            return 0
+        }
+        
         switch sections[section] {
         case .error:
             return 1

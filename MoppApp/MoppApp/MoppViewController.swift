@@ -65,4 +65,8 @@ class MoppViewController : UIViewController {
             MoppApp.instance.statusBarStyle = .default
         }
     }
+    
+    func showLoading(show: Bool) {
+        
+    }
 }

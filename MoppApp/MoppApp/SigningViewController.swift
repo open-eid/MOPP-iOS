@@ -94,19 +94,11 @@ extension SigningViewController : UITableViewDelegate {
         let filename = containerFiles[indexPath.row]
         let containerPath = MoppFileManager.shared.documentsDirectoryPath() + "/" + filename
         
-        MoppLibContainerActions.sharedInstance().getContainerWithPath(containerPath, success: {(_ container: MoppLibContainer?) -> Void in
-            guard let container = container else {
-                return
-            }
-            let containerViewController = UIStoryboard.container.instantiateInitialViewController() as! ContainerViewController
-            containerViewController.container = container
+        let containerViewController = UIStoryboard.container.instantiateInitialViewController() as! ContainerViewController
+            containerViewController.containerPath = containerPath
         
-            self.requestCloseSearch()
-            self.navigationController?.pushViewController(containerViewController, animated: true)
-        
-        }, failure: { _ in
-                
-        })
+        self.requestCloseSearch()
+        self.navigationController?.pushViewController(containerViewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
