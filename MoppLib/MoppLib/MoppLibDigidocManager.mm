@@ -191,35 +191,12 @@ private:
         
         MoppLibSignature *moppLibSignature = [MoppLibSignature new];
         
-        std::string serialNumber = cert.subjectName("serialNumber");
-        std::string CN  = cert.subjectName("CN");
-        std::string GN = cert.subjectName("GN");
-        std::string SN = cert.subjectName("SN");
-        
-        std::string subjectName;
-        std::string subjectSerialNumber;
-        
-        if (CN.empty()) {
-            std::string signedBy = signature->signedBy();
-            std::vector<std::string> components = splitString(signedBy, ",");
-            if (components.size() == 3) {
-                std::string surname = components[0];
-                std::string givenName = components[1];
-                std::string serialNumber = components[2];
-                subjectName = givenName + " " + surname;
-                subjectSerialNumber = serialNumber;
-            } else {
-                subjectName = signedBy;
-                subjectSerialNumber = std::string();
-            }
-        } else {
-            bool showCN = GN.empty() && SN.empty();
-         
-            subjectName = showCN ? CN : GN + " " + SN;
-            subjectSerialNumber = serialNumber;
+        std::string name  = cert.subjectName("CN");
+        if (name.empty()) {
+            name = signature->signedBy();
         }
-        moppLibSignature.subjectName = [NSString stringWithUTF8String:subjectName.c_str()];
-        moppLibSignature.subjectSerialNumber = [NSString stringWithUTF8String:subjectSerialNumber.c_str()];
+        
+        moppLibSignature.subjectName = [NSString stringWithUTF8String:name.c_str()];
         
         std::string timestamp = signature->OCSPProducedAt();
         if (timestamp.length() <= 0) {

@@ -204,7 +204,23 @@ extension ContainerViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let delete = UITableViewRowAction(style: .destructive, title: L(LocKey.containerRowEditRemove)) { (action, indexPath) in
+        let delete = UITableViewRowAction(style: .destructive, title: L(LocKey.containerRowEditRemove)) { [weak self] action, indexPath in
+            guard let strongSelf = self else { return }
+            guard let signature = strongSelf.container.signatures[indexPath.row] as? MoppLibSignature else {
+                return
+            }
+            // remove signature
+            MoppLibContainerActions.sharedInstance().remove(signature,
+                fromContainerWithPath: strongSelf.container.filePath,
+                success: { [weak self] container in
+                    self?.container.signatures.remove(at: indexPath.row)
+                    self?.tableView.reloadData()
+                    print("success")
+                },
+                failure: { [weak self] error in
+                    self?.tableView.reloadData()
+                    print("failure")
+                })
         }
         delete.backgroundColor = UIColor.moppWarning
         return [delete]

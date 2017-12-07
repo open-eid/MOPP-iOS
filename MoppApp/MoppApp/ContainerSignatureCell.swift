@@ -22,7 +22,6 @@
  */
 import Foundation
 
-
 class ContainerSignatureCell: UITableViewCell {
     static let height: CGFloat = 60
     @IBOutlet weak var nameLabel: UILabel!
