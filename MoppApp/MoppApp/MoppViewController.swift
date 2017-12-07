@@ -79,7 +79,34 @@ class MoppViewController : UIViewController {
     
     }
     
-    func showLoading(show: Bool) {
-        
+    var spinnerView: SpinnerView? {
+        get {
+            return view.subviews.first(where: { $0 is SpinnerView }) as? SpinnerView
+        }
+    }
+    
+    func showLoading(show: Bool, forFrame: CGRect? = nil) {
+        if show {
+            if let spinnerView = spinnerView {
+                spinnerView.show(true)
+            } else {
+                if let spinnerView = MoppApp.instance.nibs[.customElements]?.instantiate(withOwner: self, type: SpinnerView.self) {
+                    spinnerView.show(true)
+                    spinnerView.frame = forFrame ?? view.frame
+                    view.addSubview(spinnerView)
+                }
+            }
+        } else {
+            if let spinnerView = spinnerView {
+                spinnerView.show(false)
+                spinnerView.removeFromSuperview()
+            }
+        }
+    }
+    
+    func refreshLoadingAnimation() {
+        if let spinnerView = view.subviews.first(where: { $0 is SpinnerView }) as? SpinnerView {
+            spinnerView.show(true)
+        }
     }
 }

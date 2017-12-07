@@ -75,11 +75,18 @@ class ContainerViewController : MoppViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if containerPath != nil {
+            showLoading(show: true)
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         guard let containerPath = containerPath else {
             return
         }
         
-        showLoading(show: true)
         MoppLibContainerActions.sharedInstance().getContainerWithPath(containerPath, success: {(_ container: MoppLibContainer?) -> Void in
             guard let container = container else {
                 return
@@ -90,6 +97,15 @@ class ContainerViewController : MoppViewController {
         }, failure: { _ in
             self.showLoading(show: false)
         })
+    }
+    
+    override func showLoading(show: Bool, forFrame: CGRect? = nil) {
+        super.showLoading(show: show, forFrame: tableView.frame)
+        tableView.isHidden = show
+    }
+    
+    override func willEnterForeground() {
+        refreshLoadingAnimation()
     }
 }
 
