@@ -60,7 +60,7 @@ class ContainerViewController : MoppViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupOnce()
+        setupNavigationItemForPushedViewController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,6 +100,18 @@ class ContainerViewController : MoppViewController {
     
     override func willEnterForeground() {
         refreshLoadingAnimation()
+    }
+}
+
+extension ContainerViewController {
+    func setupNavigationItemForPushedViewController() {
+        setupNavigationItemForPushedViewController(title: L(LocKey.containerTitle))
+        let rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarShare"), style: .plain, target: self, action: #selector(shareAction))
+        navigationItem.setRightBarButton(rightBarButtonItem, animated: true)
+    }
+    
+    @objc func shareAction() {
+        
     }
 }
 
@@ -181,6 +193,19 @@ extension ContainerViewController : UITableViewDelegate {
         case .timestamp:
             break;
         case .files:
+            let dataFile = container.dataFiles[0] as! MoppLibDataFile
+            let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: dataFile.fileName)
+            MoppLibContainerActions.sharedInstance().container(
+                container.filePath,
+                saveDataFile: dataFile.fileName,
+                to: destinationPath,
+                success: {
+                    let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(with: DataFilePreviewViewController.self)!
+                    dataFilePreviewViewController.previewFilePath = destinationPath
+                    self.navigationController?.pushViewController(dataFilePreviewViewController, animated: true)
+                }, failure: { error in
+                    print("failure", error)
+                })
             break
         case .header:
             break
@@ -261,24 +286,6 @@ extension ContainerViewController : UITableViewDelegate {
             return ContainerTableViewHeaderView.height
         }
         return 0
-    }
-}
-
-extension ContainerViewController {
-    func setupOnce() {
-        navigationItem.titleView = nil
-        navigationItem.title = L(LocKey.containerTitle)
-        let backBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarBack"), style: .plain, target: self, action: #selector(backAction))
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarShare"), style: .plain, target: self, action: #selector(backAction))
-        navigationItem.setLeftBarButton(backBarButtonItem, animated: true)
-        navigationItem.setRightBarButton(rightBarButtonItem, animated: true)
-    }
-}
-
-extension ContainerViewController {
-    @objc
-    func backAction() {
-        _ = navigationController?.popViewController(animated: true)
     }
 }
 

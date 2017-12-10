@@ -266,6 +266,36 @@
             </objects>
             <point key="canvasLocation" x="28" y="135.38230884557723"/>
         </scene>
+        <!--Data File Preview View Controller-->
+        <scene sceneID="ntf-f4-ulG">
+            <objects>
+                <viewController storyboardIdentifier="DataFilePreviewViewController" id="96D-CP-7El" customClass="DataFilePreviewViewController" customModule="MoppApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hwe-Ge-hAE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CHi-q9-uID">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottomMargin" secondItem="CHi-q9-uID" secondAttribute="bottom" id="Umk-hx-7Qg"/>
+                            <constraint firstItem="CHi-q9-uID" firstAttribute="trailing" secondItem="6s0-iQ-FJv" secondAttribute="trailing" id="WlL-5c-v4T"/>
+                            <constraint firstItem="CHi-q9-uID" firstAttribute="leading" secondItem="6s0-iQ-FJv" secondAttribute="leading" id="igB-RB-LPF"/>
+                            <constraint firstItem="CHi-q9-uID" firstAttribute="top" secondItem="hwe-Ge-hAE" secondAttribute="top" id="w62-Ra-jwf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6s0-iQ-FJv"/>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="CHi-q9-uID" id="6VZ-ag-FFC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uXE-tx-tFU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="704.5" y="134.5"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Icon_ajatempel" width="17" height="17"/>

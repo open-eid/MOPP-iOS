@@ -78,4 +78,7 @@ extension UIFont {
         return UIFont(name: MoppFontName.medium.rawValue, size: 17)!
     }
 
+    class var moppNavigationItemTitle: UIFont {
+        return UIFont(name: MoppFontName.medium.rawValue, size: 20)!
+    }
 }

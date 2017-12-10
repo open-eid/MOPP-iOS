@@ -109,4 +109,22 @@ class MoppViewController : UIViewController {
             spinnerView.show(true)
         }
     }
+    
+    func setupNavigationItemForPushedViewController(title: String) {
+        let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
+            titleLabel.text = title
+            titleLabel.textColor = UIColor.black
+            titleLabel.textAlignment = .center
+            titleLabel.lineBreakMode = .byTruncatingMiddle
+            titleLabel.font = UIFont.moppNavigationItemTitle
+        navigationItem.titleView = titleLabel
+        
+        let backBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarBack"), style: .plain, target: self, action: #selector(backAction))
+        navigationItem.setLeftBarButton(backBarButtonItem, animated: true)
+    }
+
+    @objc func backAction() {
+        _ = navigationController?.popViewController(animated: true)
+    }
+
 }
