@@ -231,20 +231,6 @@ private:
   }
 }
 
-std::vector<std::string> splitString(const std::string& input, const std::string& separator) {
-    std::vector<std::string> result;
-    size_t start, offset = 0;
-    while (true) {
-        start = offset;
-        offset = input.find(separator, offset);
-        result.push_back(input.substr(start, offset - start));
-        if (offset == std::string::npos)
-            break;
-        offset++;
-    }
-    return result;
-}
-
 - (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId {
   MLLog(@"dataFileCalculateHashWithDigestMehtod %@", method);
   digidoc::Container *container;

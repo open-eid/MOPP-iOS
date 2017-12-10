@@ -39,15 +39,6 @@ class ContainerViewController : MoppViewController {
         case search
     }
 
-    var sectionCellHeight: [Section: CGFloat] = [
-        .error          : ContainerErrorCell.height,
-        .signatures     : ContainerSignatureCell.height,
-        .timestamp      : ContainerSignatureCell.height,
-        .files           : ContainerFileCell.height,
-        .header         : ContainerHeaderCell.height,
-        .search         : ContainerSearchCell.height
-        ]
-
     var isSectionRowEditable: [Section: Bool] = [
         .error          : false,
         .signatures     : true,
@@ -74,6 +65,9 @@ class ContainerViewController : MoppViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        tableView.estimatedRowHeight = ContainerSignatureCell.height
+        tableView.rowHeight = UITableViewAutomaticDimension
         
         if containerPath != nil {
             showLoading(show: true)
@@ -178,10 +172,6 @@ extension ContainerViewController : UITableViewDataSource {
 }
 
 extension ContainerViewController : UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return sectionCellHeight[sections[indexPath.section]]!
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch sections[indexPath.section] {
         case .error:
@@ -204,26 +194,53 @@ extension ContainerViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let delete = UITableViewRowAction(style: .destructive, title: L(LocKey.containerRowEditRemove)) { [weak self] action, indexPath in
+        let removeSignatureRowAction = UITableViewRowAction(style: .destructive, title: L(LocKey.containerRowEditRemove)) { [weak self] action, indexPath in
             guard let strongSelf = self else { return }
             guard let signature = strongSelf.container.signatures[indexPath.row] as? MoppLibSignature else {
                 return
             }
-            // remove signature
             MoppLibContainerActions.sharedInstance().remove(signature,
                 fromContainerWithPath: strongSelf.container.filePath,
                 success: { [weak self] container in
                     self?.container.signatures.remove(at: indexPath.row)
                     self?.tableView.reloadData()
-                    print("success")
+
                 },
                 failure: { [weak self] error in
                     self?.tableView.reloadData()
-                    print("failure")
+
                 })
         }
-        delete.backgroundColor = UIColor.moppWarning
-        return [delete]
+        
+        let removeDataFileRowAction = UITableViewRowAction(style: .destructive, title: L(LocKey.containerRowEditRemove)) { [weak self] action, indexPath in
+            guard let strongSelf = self else { return }
+            guard let dataFile = strongSelf.container.dataFiles[indexPath.row] as? MoppLibDataFile else {
+                return
+            }
+            MoppLibContainerActions.sharedInstance().removeDataFileFromContainer(
+                withPath: strongSelf.containerPath,
+                at: UInt(indexPath.row),
+                success: { [weak self] container in
+                    self?.container.dataFiles.remove(at: indexPath.row)
+                    self?.tableView.reloadData()
+                    print("success")
+                },
+                failure: { [weak self] error in
+                    print("failure", error)
+                    self?.tableView.reloadData()
+                })
+        }
+        
+        let section = sections[indexPath.section]
+        if section == .files {
+            removeDataFileRowAction.backgroundColor = UIColor.moppWarning
+            return [removeDataFileRowAction]
+        }
+        else if section == .signatures {
+            removeSignatureRowAction.backgroundColor = UIColor.moppWarning
+            return [removeSignatureRowAction]
+        }
+        return []
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection _section: Int) -> UIView? {
@@ -231,7 +248,7 @@ extension ContainerViewController : UITableViewDelegate {
         if let title = sectionHeaderTitle[section] {
             if let header = MoppApp.instance.nibs[.containerElements]?.instantiate(withOwner: self, type: ContainerTableViewHeaderView.self) {
                 header.delegate = self
-                header.populate(withTitle: title, showAddButton: section == .files || section == .signatures, section: section)
+                header.populate(withTitle: title, showAddButton: section == .signatures, section: section)
                 return header
             }
         }
