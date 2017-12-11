@@ -41,5 +41,13 @@ class SpinnerView : UIView {
             rotation.repeatCount = .greatestFiniteMagnitude
         
         spinningElement.layer.add(rotation, forKey: "loaderRotation")
+        
+        updateFrame()
+    }
+    
+    func updateFrame() {
+        guard let superview = superview else { return }
+        let newFrame = CGRect(x: 0, y: 0, width: superview.frame.width, height: superview.frame.height)
+        frame = newFrame
     }
 }

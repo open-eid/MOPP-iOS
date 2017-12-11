@@ -56,6 +56,11 @@ class MoppViewController : UIViewController {
         restoreStatusBarStyle()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        spinnerView?.updateFrame()
+    }
+    
     fileprivate func setupStatusBarStyle() {
         MoppApp.instance.statusBarStyle = (lightContentStatusBarStyle ? .lightContent : .default)
     }
