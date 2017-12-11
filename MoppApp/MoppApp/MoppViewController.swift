@@ -79,7 +79,52 @@ class MoppViewController : UIViewController {
     
     }
     
-    func showLoading(show: Bool) {
-        
+    var spinnerView: SpinnerView? {
+        get {
+            return view.subviews.first(where: { $0 is SpinnerView }) as? SpinnerView
+        }
     }
+    
+    func showLoading(show: Bool, forFrame: CGRect? = nil) {
+        if show {
+            if let spinnerView = spinnerView {
+                spinnerView.show(true)
+            } else {
+                if let spinnerView = MoppApp.instance.nibs[.customElements]?.instantiate(withOwner: self, type: SpinnerView.self) {
+                    spinnerView.show(true)
+                    spinnerView.frame = forFrame ?? view.frame
+                    view.addSubview(spinnerView)
+                }
+            }
+        } else {
+            if let spinnerView = spinnerView {
+                spinnerView.show(false)
+                spinnerView.removeFromSuperview()
+            }
+        }
+    }
+    
+    func refreshLoadingAnimation() {
+        if let spinnerView = view.subviews.first(where: { $0 is SpinnerView }) as? SpinnerView {
+            spinnerView.show(true)
+        }
+    }
+    
+    func setupNavigationItemForPushedViewController(title: String) {
+        let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
+            titleLabel.text = title
+            titleLabel.textColor = UIColor.black
+            titleLabel.textAlignment = .center
+            titleLabel.lineBreakMode = .byTruncatingMiddle
+            titleLabel.font = UIFont.moppNavigationItemTitle
+        navigationItem.titleView = titleLabel
+        
+        let backBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarBack"), style: .plain, target: self, action: #selector(backAction))
+        navigationItem.setLeftBarButton(backBarButtonItem, animated: true)
+    }
+
+    @objc func backAction() {
+        _ = navigationController?.popViewController(animated: true)
+    }
+
 }

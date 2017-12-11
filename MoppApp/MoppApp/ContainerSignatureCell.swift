@@ -22,7 +22,6 @@
  */
 import Foundation
 
-
 class ContainerSignatureCell: UITableViewCell {
     static let height: CGFloat = 60
     @IBOutlet weak var nameLabel: UILabel!
@@ -53,7 +52,6 @@ class ContainerSignatureCell: UITableViewCell {
         self.kind = kind
 
         nameLabel.text = signature.subjectName
-        personalCodeLabel.text = signature.subjectSerialNumber
         
         signedInfoLabel.text = L(LocKey.containerSignatureSigned, [MoppDateFormatter.shared.hHmmssddMMYYYY(toString: signature.timestamp)])
         

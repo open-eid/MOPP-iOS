@@ -239,6 +239,6 @@ extension MoppApp {
     func loadNibs() {
         nibs[.containerElements] = UINib(nibName: Nib.containerElements.rawValue, bundle: Bundle.main)
         nibs[.signingElements] = UINib(nibName: Nib.signingElements.rawValue, bundle: Bundle.main)
-        nibs[.customElements] = UINib(nibName: Nib.containerElements.rawValue, bundle: Bundle.main)
+        nibs[.customElements] = UINib(nibName: Nib.customElements.rawValue, bundle: Bundle.main)
     }
 }

@@ -1,6 +1,6 @@
 //
-//  MoppLibSignature.h
-//  MoppLib
+//  DataFilePreviewViewController.swift
+//  MoppApp
 //
 /*
  * Copyright 2017 Riigi Infosüsteemide Amet
@@ -20,13 +20,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+import Foundation
+import WebKit
 
-#import <Foundation/Foundation.h>
-
-@interface MoppLibSignature : NSObject
-
-@property (strong, nonatomic) NSString *subjectName;
-@property (strong, nonatomic) NSDate *timestamp;
-@property (assign, nonatomic) BOOL isValid;
-
-@end
+class DataFilePreviewViewController : MoppViewController {
+    @IBOutlet weak var webView: UIWebView!
+    var previewFilePath: String!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let url = URL(fileURLWithPath: previewFilePath)
+        setupNavigationItemForPushedViewController(title: url.lastPathComponent)
+        webView.loadRequest(URLRequest(url: url))
+    }
+}
