@@ -69,6 +69,8 @@
 		C50DCD221FD69A8500D48E16 /* CustomElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50DCD211FD69A8500D48E16 /* CustomElements.xib */; };
 		C50DCD241FD69B0C00D48E16 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD231FD69B0C00D48E16 /* SpinnerView.swift */; };
 		C50DCD441FDD7E4A00D48E16 /* DataFilePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD431FDD7E4A00D48E16 /* DataFilePreviewViewController.swift */; };
+		C50DCD461FDECE2B00D48E16 /* SignatureDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD451FDECE2B00D48E16 /* SignatureDetailsViewController.swift */; };
+		C50DCD481FDED76400D48E16 /* SignatureDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD471FDED76400D48E16 /* SignatureDetailsCell.swift */; };
 		C51B7FB21FBB12E80046D6E0 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB11FBB12E80046D6E0 /* ShareViewController.m */; };
 		C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB41FBB2AB10046D6E0 /* Utils.swift */; };
 		C51B7FB71FBC45DD0046D6E0 /* LocalizationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB61FBC45DD0046D6E0 /* LocalizationKeys.swift */; };
@@ -203,6 +205,8 @@
 		C50DCD211FD69A8500D48E16 /* CustomElements.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomElements.xib; sourceTree = "<group>"; };
 		C50DCD231FD69B0C00D48E16 /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		C50DCD431FDD7E4A00D48E16 /* DataFilePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFilePreviewViewController.swift; sourceTree = "<group>"; };
+		C50DCD451FDECE2B00D48E16 /* SignatureDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureDetailsViewController.swift; sourceTree = "<group>"; };
+		C50DCD471FDED76400D48E16 /* SignatureDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureDetailsCell.swift; sourceTree = "<group>"; };
 		C51B7FB01FBB12E70046D6E0 /* shareExtension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shareExtension-Bridging-Header.h"; sourceTree = "<group>"; };
 		C51B7FB11FBB12E80046D6E0 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		C51B7FB31FBB12FC0046D6E0 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
@@ -353,6 +357,8 @@
 				C50DCD141FCC681100D48E16 /* ContainerSearchCell.swift */,
 				C50DCD0C1FC7147100D48E16 /* ContainerTableViewHeaderView.swift */,
 				C50DCD431FDD7E4A00D48E16 /* DataFilePreviewViewController.swift */,
+				C50DCD451FDECE2B00D48E16 /* SignatureDetailsViewController.swift */,
+				C50DCD471FDED76400D48E16 /* SignatureDetailsCell.swift */,
 			);
 			name = Container;
 			sourceTree = "<group>";
@@ -776,7 +782,9 @@
 				C50DCD1F1FD1831500D48E16 /* SearchTextField.swift in Sources */,
 				C50DCD0F1FC7181400D48E16 /* UITableView+Additions.swift in Sources */,
 				E4C53F4B1E30D03500F209BE /* DefaultsHelper.swift in Sources */,
+				C50DCD461FDECE2B00D48E16 /* SignatureDetailsViewController.swift in Sources */,
 				C50DCCFF1FC6E95A00D48E16 /* ContainerViewController.swift in Sources */,
+				C50DCD481FDED76400D48E16 /* SignatureDetailsCell.swift in Sources */,
 				C50DCD171FCEF17100D48E16 /* UIStoryBoard+Additions.swift in Sources */,
 				C50DCD241FD69B0C00D48E16 /* SpinnerView.swift in Sources */,
 				C52E827E1FC1DBFE0074B280 /* MoppViewController.swift in Sources */,

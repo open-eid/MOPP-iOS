@@ -34,6 +34,7 @@
 // Signature view
 "signature-view-begin-label" = "Allkirjastamiseks või kontrollimiseks vali fail";
 "signature-view-begin-button" = "VALI FAIL";
+"signature-details-title" = "Allkirja detailid";
 
 // Signing view
 "signing-recent-containers" = "Hiljutised konteinerid";

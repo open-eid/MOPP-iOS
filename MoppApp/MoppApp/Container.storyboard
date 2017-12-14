@@ -294,7 +294,75 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uXE-tx-tFU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="704.5" y="134.5"/>
+            <point key="canvasLocation" x="665" y="134"/>
+        </scene>
+        <!--Signature Details View Controller-->
+        <scene sceneID="Fda-2X-vdc">
+            <objects>
+                <viewController storyboardIdentifier="SignatureDetailsViewController" id="aPu-52-cd7" customClass="SignatureDetailsViewController" customModule="MoppApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="noA-ex-SBD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RGO-Dz-E0J">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SignatureDetailsCell" rowHeight="84" id="78W-Oi-k02" customClass="SignatureDetailsCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="84"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="78W-Oi-k02" id="AIb-r8-3wU">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WnJ-Pf-Awn">
+                                                    <rect key="frame" x="15" y="11" width="345" height="23.5"/>
+                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Bold" family="Roboto Condensed" pointSize="20"/>
+                                                    <color key="textColor" red="0.21176470589999999" green="0.2156862745" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Label asdf asdf asdf asdf asdf asdf asdfas sdfasdf sdf sdf" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4d-TL-apZ">
+                                                    <rect key="frame" x="15" y="42.5" width="345" height="30.5"/>
+                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="p4d-TL-apZ" firstAttribute="leading" secondItem="AIb-r8-3wU" secondAttribute="leadingMargin" id="BEt-E3-EfT"/>
+                                                <constraint firstItem="p4d-TL-apZ" firstAttribute="trailing" secondItem="AIb-r8-3wU" secondAttribute="trailingMargin" id="BUa-rW-Iqf"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="p4d-TL-apZ" secondAttribute="bottom" id="k0i-sN-Ult"/>
+                                                <constraint firstItem="WnJ-Pf-Awn" firstAttribute="trailing" secondItem="AIb-r8-3wU" secondAttribute="trailingMargin" id="pLI-9s-584"/>
+                                                <constraint firstItem="p4d-TL-apZ" firstAttribute="top" secondItem="WnJ-Pf-Awn" secondAttribute="bottom" constant="8" id="rwY-9Z-ANj"/>
+                                                <constraint firstItem="WnJ-Pf-Awn" firstAttribute="top" secondItem="AIb-r8-3wU" secondAttribute="topMargin" id="wil-I6-pZa"/>
+                                                <constraint firstItem="WnJ-Pf-Awn" firstAttribute="leading" secondItem="AIb-r8-3wU" secondAttribute="leadingMargin" id="yIk-JR-V65"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="contentLabel" destination="p4d-TL-apZ" id="9Hn-Rg-NWp"/>
+                                            <outlet property="titleLabel" destination="WnJ-Pf-Awn" id="Sdf-XX-QnA"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottomMargin" secondItem="RGO-Dz-E0J" secondAttribute="bottom" id="41i-Td-FP8"/>
+                            <constraint firstItem="RGO-Dz-E0J" firstAttribute="top" secondItem="noA-ex-SBD" secondAttribute="top" id="eoI-rK-qRH"/>
+                            <constraint firstItem="RGO-Dz-E0J" firstAttribute="trailing" secondItem="g5c-G2-qft" secondAttribute="trailing" id="mmM-Fo-rJU"/>
+                            <constraint firstItem="RGO-Dz-E0J" firstAttribute="leading" secondItem="g5c-G2-qft" secondAttribute="leading" id="swD-7H-AUp"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="g5c-G2-qft"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="RGO-Dz-E0J" id="f4A-8n-hSH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fhp-Kj-AAU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1308" y="134"/>
         </scene>
     </scenes>
     <resources>

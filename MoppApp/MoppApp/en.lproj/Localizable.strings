@@ -34,6 +34,7 @@
 // Signature view
 "signature-view-begin-label" = "Choose file to sign or validate";
 "signature-view-begin-button" = "CHOOSE FILE";
+"signature-details-title" = "Signature details";
 
 // Signing view
 "signing-recent-containers" = "Recent containers";

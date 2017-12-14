@@ -20,7 +20,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-
 import Foundation
 
 
@@ -189,6 +188,8 @@ extension ContainerViewController : UITableViewDelegate {
         case .error:
             break
         case .signatures:
+            let signatureDetailsViewController = UIStoryboard.container.instantiateViewController(with: SignatureDetailsViewController.self)!
+            navigationController?.pushViewController(signatureDetailsViewController, animated: true)
             break
         case .timestamp:
             break;

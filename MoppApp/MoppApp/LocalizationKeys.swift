@@ -41,6 +41,7 @@ enum LocKey : String
     case tabSignature = "tab-signature"
     case signatureViewBeginLabel = "signature-view-begin-label"
     case signatureViewBeginButton = "signature-view-begin-button"
+    case signatureDetailsTitle = "signature-details-title"
     case signingRecentContainers = "signing-recent-containers"
     case cryptoViewBeginLabel = "crypto-view-begin-label"
     case cryptoViewBeginButton = "crypto-view-begin-button"

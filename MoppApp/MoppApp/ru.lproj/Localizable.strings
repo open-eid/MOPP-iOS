@@ -34,6 +34,7 @@
 // Signature view
 "signature-view-begin-label" = "Выберите файл для подписи или проверки";
 "signature-view-begin-button" = "ВЫБЕРИТЕ ФАЙЛ";
+"signature-details-title" = "Детали подписи";
 
 // Signing view
 "signing-recent-containers" = "Последние контейнеры";
