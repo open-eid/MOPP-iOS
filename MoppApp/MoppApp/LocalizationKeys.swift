@@ -123,6 +123,7 @@ enum LocKey : String
     case containerErrorMessageInvalidSignature = "container-error-message-invalid-signature"
     case containerSignatureSigned = "container-signature-signed"
     case containerTitle = "container-title"
+    case containerMissingSignatures = "container-missing-signatures"
     case myEidIdCardInfo = "my-eid-id-card-info"
     case myEidWarningCardNotFound = "my-eid-warning-card-not-found"
     case myEidWarningReaderNotFound = "my-eid-warning-reader-not-found"

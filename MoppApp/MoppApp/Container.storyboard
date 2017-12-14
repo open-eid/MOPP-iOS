@@ -240,6 +240,31 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerNoSignaturesCell" id="5lc-fV-mc6" customClass="ContainerNoSignaturesCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="278" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5lc-fV-mc6" id="Ca6-4c-NYM">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Missing signatures" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQF-XJ-qkZ">
+                                                    <rect key="frame" x="15" y="11" width="345" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="KQF-XJ-qkZ" firstAttribute="leading" secondItem="Ca6-4c-NYM" secondAttribute="leadingMargin" id="8FE-Ht-OLh"/>
+                                                <constraint firstItem="KQF-XJ-qkZ" firstAttribute="trailing" secondItem="Ca6-4c-NYM" secondAttribute="trailingMargin" id="CxX-hn-U5U"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="KQF-XJ-qkZ" secondAttribute="bottom" id="cPP-HV-bQ7"/>
+                                                <constraint firstItem="KQF-XJ-qkZ" firstAttribute="top" secondItem="Ca6-4c-NYM" secondAttribute="topMargin" id="nwB-VO-pCZ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="label" destination="KQF-XJ-qkZ" id="hqP-QL-Era"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="aqa-at-L24" id="bSK-mw-3QC"/>

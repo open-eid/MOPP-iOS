@@ -32,6 +32,7 @@ class ContainerViewController : MoppViewController {
     enum Section {
         case error
         case signatures
+        case missingSignatures
         case timestamp
         case files
         case header
@@ -85,7 +86,7 @@ class ContainerViewController : MoppViewController {
                 return
             }
             self.container = container
-            self.tableView.reloadData()
+            self.reloadData()
             self.showLoading(show: false)
         }, failure: { _ in
             self.showLoading(show: false)
@@ -121,7 +122,7 @@ extension ContainerViewController {
             sections = newValue ?
                 ContainerViewController.sectionsDefault :
                 ContainerViewController.sectionsWithError
-            tableView.reloadData()
+            reloadData()
         }
     }
 }
@@ -137,17 +138,11 @@ extension ContainerViewController : UITableViewDataSource {
         }
         
         switch sections[section] {
-        case .error:
-            return 1
         case .signatures:
             return container.signatures.count
-        case .timestamp:
-            return 1
         case .files:
             return container.dataFiles.count
-        case .header:
-            return 1
-        case .search:
+        case .error, .missingSignatures, .header, .search, .timestamp:
             return 1
         }
     }
@@ -162,6 +157,9 @@ extension ContainerViewController : UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
                 let signature = container.signatures[row] as! MoppLibSignature
                 cell.populate(with: signature, kind: .signature, showBottomBorder: row < container.signatures.count - 1)
+            return cell
+        case .missingSignatures:
+            let cell = tableView.dequeueReusableCell(withType: ContainerNoSignaturesCell.self, for: indexPath)!
             return cell
         case .timestamp:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
@@ -191,6 +189,8 @@ extension ContainerViewController : UITableViewDelegate {
             let signatureDetailsViewController = UIStoryboard.container.instantiateViewController(with: SignatureDetailsViewController.self)!
             navigationController?.pushViewController(signatureDetailsViewController, animated: true)
             break
+        case .missingSignatures:
+            break
         case .timestamp:
             break;
         case .files:
@@ -216,7 +216,7 @@ extension ContainerViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return isSectionRowEditable[sections[indexPath.section]]!
+        return isSectionRowEditable[sections[indexPath.section]] ?? false
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -229,11 +229,11 @@ extension ContainerViewController : UITableViewDelegate {
                 fromContainerWithPath: strongSelf.container.filePath,
                 success: { [weak self] container in
                     self?.container.signatures.remove(at: indexPath.row)
-                    self?.tableView.reloadData()
+                    self?.reloadData()
 
                 },
                 failure: { [weak self] error in
-                    self?.tableView.reloadData()
+                    self?.reloadData()
 
                 })
         }
@@ -248,12 +248,12 @@ extension ContainerViewController : UITableViewDelegate {
                 at: UInt(indexPath.row),
                 success: { [weak self] container in
                     self?.container.dataFiles.remove(at: indexPath.row)
-                    self?.tableView.reloadData()
+                    self?.reloadData()
                     print("success")
                 },
                 failure: { [weak self] error in
                     print("failure", error)
-                    self?.tableView.reloadData()
+                    self?.reloadData()
                 })
         }
         
@@ -287,6 +287,20 @@ extension ContainerViewController : UITableViewDelegate {
             return ContainerTableViewHeaderView.height
         }
         return 0
+    }
+    
+    func reloadData() {
+        guard let container = container else {
+            return
+        }
+
+        if container.signatures.isEmpty {
+            if let signaturesIndex = sections.index(where: { $0 == .signatures }) {
+                sections.insert(.missingSignatures, at: signaturesIndex + 1)
+            }
+        }
+        
+        self.tableView.reloadData()
     }
 }
 
