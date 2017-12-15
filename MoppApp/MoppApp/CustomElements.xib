@@ -26,7 +26,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="GEM-PU-aE3" firstAttribute="centerX" secondItem="PUs-Eo-qBR" secondAttribute="centerX" id="6WZ-Or-OQx"/>
-                <constraint firstItem="GEM-PU-aE3" firstAttribute="top" secondItem="PUs-Eo-qBR" secondAttribute="top" constant="140" id="xmG-wA-k9C"/>
+                <constraint firstItem="GEM-PU-aE3" firstAttribute="centerY" secondItem="PUs-Eo-qBR" secondAttribute="centerY" id="BkE-Up-Kbf"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="PUs-Eo-qBR"/>

@@ -34,6 +34,7 @@
 // Signature view
 "signature-view-begin-label" = "Allkirjastamiseks või kontrollimiseks vali fail";
 "signature-view-begin-button" = "VALI FAIL";
+"signature-details-title" = "Allkirja detailid";
 
 // Signing view
 "signing-recent-containers" = "Hiljutised konteinerid";
@@ -135,6 +136,7 @@
 "container-error-message-invalid-signature" = "VIGANE ALLKIRI";
 "container-signature-signed" = "Allkirjastatud %@";
 "container-title" = "Konteiner";
+"container-missing-signatures" = "Allkirjad puuduvad";
 
 // *** My eID ***
 "my-eid-id-card-info" = "ID-kaart on riigisisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.\n\nID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@";

@@ -69,6 +69,8 @@
 		C50DCD221FD69A8500D48E16 /* CustomElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50DCD211FD69A8500D48E16 /* CustomElements.xib */; };
 		C50DCD241FD69B0C00D48E16 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD231FD69B0C00D48E16 /* SpinnerView.swift */; };
 		C50DCD441FDD7E4A00D48E16 /* DataFilePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD431FDD7E4A00D48E16 /* DataFilePreviewViewController.swift */; };
+		C50DCD461FDECE2B00D48E16 /* SignatureDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD451FDECE2B00D48E16 /* SignatureDetailsViewController.swift */; };
+		C50DCD481FDED76400D48E16 /* SignatureDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD471FDED76400D48E16 /* SignatureDetailsCell.swift */; };
 		C51B7FB21FBB12E80046D6E0 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB11FBB12E80046D6E0 /* ShareViewController.m */; };
 		C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB41FBB2AB10046D6E0 /* Utils.swift */; };
 		C51B7FB71FBC45DD0046D6E0 /* LocalizationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB61FBC45DD0046D6E0 /* LocalizationKeys.swift */; };
@@ -82,6 +84,7 @@
 		C54BB10D1FBD8CE900A274F6 /* Signing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54BB10C1FBD8CE900A274F6 /* Signing.storyboard */; };
 		C54BB10F1FBD93A100A274F6 /* MobileIDChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */; };
 		C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59A958D1FB5B9E100D0E1F9 /* InitializationViewController.swift */; };
+		C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */; };
 		E4180C371E26822000FD7B8C /* datafile.txt in Resources */ = {isa = PBXBuildFile; fileRef = E4180C361E26822000FD7B8C /* datafile.txt */; };
 		E4250CCB1E0968D200530370 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCA1E0968D200530370 /* AppDelegate.swift */; };
 		E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; };
@@ -203,6 +206,8 @@
 		C50DCD211FD69A8500D48E16 /* CustomElements.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomElements.xib; sourceTree = "<group>"; };
 		C50DCD231FD69B0C00D48E16 /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		C50DCD431FDD7E4A00D48E16 /* DataFilePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFilePreviewViewController.swift; sourceTree = "<group>"; };
+		C50DCD451FDECE2B00D48E16 /* SignatureDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureDetailsViewController.swift; sourceTree = "<group>"; };
+		C50DCD471FDED76400D48E16 /* SignatureDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureDetailsCell.swift; sourceTree = "<group>"; };
 		C51B7FB01FBB12E70046D6E0 /* shareExtension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shareExtension-Bridging-Header.h"; sourceTree = "<group>"; };
 		C51B7FB11FBB12E80046D6E0 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		C51B7FB31FBB12FC0046D6E0 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
@@ -219,6 +224,7 @@
 		C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileIDChallengeViewController.swift; sourceTree = "<group>"; };
 		C59A958C1FB5B9E100D0E1F9 /* MoppApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoppApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		C59A958D1FB5B9E100D0E1F9 /* InitializationViewController.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = InitializationViewController.swift; sourceTree = "<group>"; };
+		C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerNoSignaturesCell.swift; sourceTree = "<group>"; };
 		E4180C361E26822000FD7B8C /* datafile.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = datafile.txt; sourceTree = "<group>"; };
 		E4250CC31E0968D200530370 /* MoppApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoppApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250CCA1E0968D200530370 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -351,8 +357,11 @@
 				C50DCD081FC7127400D48E16 /* ContainerFileCell.swift */,
 				C50DCD0A1FC7128900D48E16 /* ContainerHeaderCell.swift */,
 				C50DCD141FCC681100D48E16 /* ContainerSearchCell.swift */,
+				C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */,
 				C50DCD0C1FC7147100D48E16 /* ContainerTableViewHeaderView.swift */,
 				C50DCD431FDD7E4A00D48E16 /* DataFilePreviewViewController.swift */,
+				C50DCD451FDECE2B00D48E16 /* SignatureDetailsViewController.swift */,
+				C50DCD471FDED76400D48E16 /* SignatureDetailsCell.swift */,
 			);
 			name = Container;
 			sourceTree = "<group>";
@@ -776,7 +785,10 @@
 				C50DCD1F1FD1831500D48E16 /* SearchTextField.swift in Sources */,
 				C50DCD0F1FC7181400D48E16 /* UITableView+Additions.swift in Sources */,
 				E4C53F4B1E30D03500F209BE /* DefaultsHelper.swift in Sources */,
+				C50DCD461FDECE2B00D48E16 /* SignatureDetailsViewController.swift in Sources */,
 				C50DCCFF1FC6E95A00D48E16 /* ContainerViewController.swift in Sources */,
+				C50DCD481FDED76400D48E16 /* SignatureDetailsCell.swift in Sources */,
+				C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */,
 				C50DCD171FCEF17100D48E16 /* UIStoryBoard+Additions.swift in Sources */,
 				C50DCD241FD69B0C00D48E16 /* SpinnerView.swift in Sources */,
 				C52E827E1FC1DBFE0074B280 /* MoppViewController.swift in Sources */,

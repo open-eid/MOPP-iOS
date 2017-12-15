@@ -1,5 +1,5 @@
 //
-//  SpinnerView.swift
+//  SignatureDetailsCell.swift
 //  MoppApp
 //
 /*
@@ -23,31 +23,16 @@
 import Foundation
 
 
-class SpinnerView : UIView {
-    @IBOutlet weak var spinningElement: UIView!
+class SignatureDetailsCell: UITableViewCell {
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var contentLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        show(true)
-    }
-
-    func show(_ show: Bool) {
-        
-        spinningElement.isHidden = !show
-        
-        let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
-            rotation.toValue = Double.pi * 2
-            rotation.duration = 1.0
-            rotation.isCumulative = true
-            rotation.repeatCount = .greatestFiniteMagnitude
-        
-        spinningElement.layer.add(rotation, forKey: "loaderRotation")
-        
-        updateFrame()
     }
     
-    func updateFrame() {
-        guard let superview = superview else { return }
-        let newFrame = CGRect(x: 0, y: 0, width: superview.frame.width, height: superview.frame.height)
-        frame = newFrame
+    func populate(title: String, content: String) {
+        titleLabel.text = title
+        contentLabel.text = content
     }
 }
