@@ -81,4 +81,12 @@ extension UIFont {
     class var moppNavigationItemTitle: UIFont {
         return UIFont(name: MoppFontName.medium.rawValue, size: 20)!
     }
+    
+    class var moppRecentContainers: UIFont {
+        return UIFont(name: MoppFontName.regular.rawValue, size: 16)!
+    }
+    
+    class var moppRecentContainersSearchKeyword: UIFont {
+        return UIFont(name: MoppFontName.bold.rawValue, size: 16)!
+    }
 }

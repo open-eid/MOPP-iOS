@@ -28,6 +28,7 @@ class SigningViewController : MoppViewController {
     @IBOutlet weak var beginButton: UIButton!
     @IBOutlet weak var documentsTableView: UITableView!
 
+    var searchKeyword: String = String()
     var containerFiles: [String] = []
 
     override func viewDidLoad() {
@@ -53,7 +54,7 @@ class SigningViewController : MoppViewController {
         var files = MoppFileManager.shared.documentsFiles()
         if let searchKey = searchKey {
             files = files.filter {
-                let range = $0.range(of: searchKey)
+                let range = $0.range(of: searchKey, options: String.CompareOptions.caseInsensitive, range: nil, locale: nil)
                 return range != nil
             }
         }
@@ -62,6 +63,7 @@ class SigningViewController : MoppViewController {
     }
     
     func closeSearch() {
+        searchKeyword = String()
         requestCloseSearch()
         containerFiles = MoppFileManager.shared.documentsFiles()
         documentsTableView.reloadData()
@@ -79,7 +81,7 @@ extension SigningViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withType: SigningContainerCell.self, for: indexPath)!
-            cell.populate(filename: containerFiles[indexPath.row])
+            cell.populate(filename: containerFiles[indexPath.row], searchKeyword: searchKeyword)
         return cell
     }
 }
@@ -130,6 +132,7 @@ extension SigningViewController : UITableViewDelegate {
 
 extension SigningViewController: SigningTableViewHeaderViewDelegate {
     func signingTableViewHeaderViewSearchKeyChanged(_ searchKeyValue: String) {
+        self.searchKeyword = searchKeyValue
         refresh(searchKey: searchKeyValue.isEmpty ? nil : searchKeyValue)
     }
     func signingTableViewHeaderViewDidEndSearch() {
