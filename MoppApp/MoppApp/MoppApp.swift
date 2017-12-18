@@ -145,38 +145,61 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
             
             let signingViewController = navController?.viewControllers.first as? SigningViewController
          
-            if fileExtension == ContainerFormatDdoc ||
-                fileExtension == ContainerFormatAsice ||
-                fileExtension == ContainerFormatBdoc {
+            let openExistingContainer =
+                fileExtension == ContainerFormatDdoc    ||
+                fileExtension == ContainerFormatAsice   ||
+                fileExtension == ContainerFormatBdoc
+         
+            let failure: (() -> Void) = {
+                
+                let alert = UIAlertController(title: L(.fileImportImportFailedAlertTitle), message: L(.fileImportImportFailedAlertMessage, [fileName]), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
+    
+                signingViewController?.present(alert, animated: true)
+            }
+            
+            if openExistingContainer {
                 
                 // Move container from inbox folder to documents folder and cleanup.
+                
                 var newFilePath: String = MoppFileManager.shared.filePath(withFileName: fileName)
                     newFilePath = MoppFileManager.shared.copyFile(withPath: filePath, toPath: newFilePath)
                 
                 MoppFileManager.shared.removeFile(withPath: filePath)
-                
-                let failure: (() -> Void) = {
-                    // Remove invalid container. Probably ddoc.
-                    MoppFileManager.shared.removeFile(withName: fileName)
-                    
-                    let alert = UIAlertController(title: L(.fileImportImportFailedAlertTitle), message: L(.fileImportImportFailedAlertMessage, [fileName]), preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
-        
-                    signingViewController?.present(alert, animated: true)
-                }
-                
+            
                 MoppLibContainerActions.sharedInstance().getContainerWithPath(newFilePath, success: {(_ container: MoppLibContainer?) -> Void in
                     guard let container = container else {
+                        // Remove invalid container. Probably ddoc.
+                        MoppFileManager.shared.removeFile(withName: fileName)
                         failure()
                         return
                     }
-                    NotificationCenter.default.post(name: .openContainerNotificationName, object: nil, userInfo: [kKeyContainerNew: container])
+                    NotificationCenter.default.post(name: .openContainerNotificationName, object: nil, userInfo: [kKeyContainer: container])
                     
                 }, failure: { _ in
                     failure()
                 })
             } else {
-                // signingViewController = [filePath]
+            
+                // Create new container
+            
+                let (filenameWithoutExt, _) = fileName.filenameComponents()
+                let containerFilename = filenameWithoutExt + ".bdoc"
+                var containerPath = MoppFileManager.shared.filePath(withFileName: containerFilename)
+            
+                containerPath = MoppFileManager.shared.duplicateFilename(atPath: containerPath)
+            
+                MoppLibContainerActions.sharedInstance().createContainer(withPath: containerPath, withDataFilePaths: [filePath], success: { container in
+                    guard let container = container else {
+                        failure()
+                        return
+                    }
+                    NotificationCenter.default.post(name: .openContainerNotificationName, object: nil, userInfo: [kKeyContainer: container])
+                    
+                }, failure: { error in
+                    MoppFileManager.shared.removeFile(withPath: filePath)
+                })
+
             }
         }
         return true

@@ -46,7 +46,7 @@ class SigningViewController : MoppViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        requestCloseSearch()
+        closeSearch()
     }
     
     func refresh(searchKey: String? = nil) {
@@ -58,6 +58,12 @@ class SigningViewController : MoppViewController {
             }
         }
         containerFiles = files
+        documentsTableView.reloadData()
+    }
+    
+    func closeSearch() {
+        requestCloseSearch()
+        containerFiles = MoppFileManager.shared.documentsFiles()
         documentsTableView.reloadData()
     }
 }
@@ -97,7 +103,7 @@ extension SigningViewController : UITableViewDelegate {
         let containerViewController = UIStoryboard.container.instantiateInitialViewController() as! ContainerViewController
             containerViewController.containerPath = containerPath
         
-        self.requestCloseSearch()
+        self.closeSearch()
         self.navigationController?.pushViewController(containerViewController, animated: true)
     }
     
@@ -125,5 +131,9 @@ extension SigningViewController : UITableViewDelegate {
 extension SigningViewController: SigningTableViewHeaderViewDelegate {
     func signingTableViewHeaderViewSearchKeyChanged(_ searchKeyValue: String) {
         refresh(searchKey: searchKeyValue.isEmpty ? nil : searchKeyValue)
+    }
+    func signingTableViewHeaderViewDidEndSearch() {
+        containerFiles = MoppFileManager.shared.documentsFiles()
+        documentsTableView.reloadData()
     }
 }

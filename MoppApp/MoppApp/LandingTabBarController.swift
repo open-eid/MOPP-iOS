@@ -39,6 +39,10 @@ class LandingTabBarController : UITabBarController
         NotificationCenter.default.addObserver(self, selector: #selector(receiveOpenContainerNotification), name: .openContainerNotificationName, object: nil)
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     func setupTab(for controller: UIViewController, title: String, image imageName: String, selectedImage selectedImageName: String) {
         controller.title = title
         let selectedImage = UIImage(named: imageName)
@@ -48,9 +52,12 @@ class LandingTabBarController : UITabBarController
     }
 
     @objc func receiveOpenContainerNotification(_ notification: Notification) {
-        guard let container = notification.userInfo?[kKeyContainerNew] as? MoppLibContainer else {
+        guard let container = notification.userInfo?[kKeyContainer] as? MoppLibContainer else {
             return
         }
+        
+        navigationController?.dismiss(animated: true, completion: nil)
+        
         // Select signing tab
         selectedIndex = 0
         if let navigationController = viewControllers?.first as? UINavigationController {

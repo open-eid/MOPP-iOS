@@ -296,7 +296,9 @@ extension ContainerViewController : UITableViewDelegate {
 
         if container.signatures.isEmpty {
             if let signaturesIndex = sections.index(where: { $0 == .signatures }) {
-                sections.insert(.missingSignatures, at: signaturesIndex + 1)
+                if !sections.contains(.missingSignatures) {
+                    sections.insert(.missingSignatures, at: signaturesIndex + 1)
+                }
             }
         }
         
