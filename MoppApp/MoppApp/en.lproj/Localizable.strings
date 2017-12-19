@@ -229,3 +229,6 @@
 // *** Share Extension ***
 "share-extension-import-title" = "Importing file";
 "share-extension-import-message" = "File is now cached for you. Go to RIA DigiDoc application to finish import";
+
+"signature-remove-confirm-message" = "Do you want to remove a signature?";
+"datafile-remove-confirm-message" = "Do you want to remove document from container?";

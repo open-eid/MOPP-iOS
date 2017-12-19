@@ -198,4 +198,6 @@ enum LocKey : String
     case errorAlertTitleGeneral = "error-alert-title-general"
     case shareExtensionImportTitle = "share-extension-import-title"
     case shareExtensionImportMessage = "share-extension-import-message"
+    case signatureRemoveConfirmMessage = "signature-remove-confirm-message"
+    case datafileRemoveConfirmMessage = "datafile-remove-confirm-message"
 }
