@@ -52,5 +52,16 @@ class MenuViewController : MoppViewController {
             blurLayer.backgroundFilters = [filter]
             view.layer.addSublayer(blurLayer)
         }
+        
+        // Needed to dismiss this view controller in case of opening a container from outside the app
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveOpenContainerNotification), name: .openContainerNotificationName, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func receiveOpenContainerNotification() {
+        dismiss(animated: true, completion: nil)
     }
 }

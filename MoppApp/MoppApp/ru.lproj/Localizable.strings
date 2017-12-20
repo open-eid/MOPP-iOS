@@ -231,3 +231,5 @@
 "share-extension-import-title" = "Импорт файла";
 "share-extension-import-message" = "Файл кэширован. Перейти к приложению RIA DigiDoc для завершения импорта";
 
+"signature-remove-confirm-message" = "Вы хотите удалить подпись?";
+"datafile-remove-confirm-message" = "Вы хотите удалить документ из контейнера?";

@@ -194,7 +194,7 @@ extension ContainerViewController : UITableViewDelegate {
         case .timestamp:
             break;
         case .files:
-            let dataFile = container.dataFiles[0] as! MoppLibDataFile
+            let dataFile = container.dataFiles[indexPath.row] as! MoppLibDataFile
             let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: dataFile.fileName)
             MoppLibContainerActions.sharedInstance().container(
                 container.filePath,
@@ -225,17 +225,23 @@ extension ContainerViewController : UITableViewDelegate {
             guard let signature = strongSelf.container.signatures[indexPath.row] as? MoppLibSignature else {
                 return
             }
-            MoppLibContainerActions.sharedInstance().remove(signature,
-                fromContainerWithPath: strongSelf.container.filePath,
-                success: { [weak self] container in
-                    self?.container.signatures.remove(at: indexPath.row)
-                    self?.reloadData()
+            
+            let confirmDialog = UIAlertController(title: nil, message: L(.signatureRemoveConfirmMessage), preferredStyle: UIAlertControllerStyle.alert)
+            confirmDialog.addAction(UIAlertAction(title: L(.actionCancel), style: .default, handler: nil))
+            confirmDialog.addAction(UIAlertAction(title: L(.actionDelete), style: .destructive, handler: { (action) in
+                MoppLibContainerActions.sharedInstance().remove(
+                    signature,
+                    fromContainerWithPath: strongSelf.container.filePath,
+                    success: { [weak self] container in
+                        self?.container.signatures.remove(at: indexPath.row)
+                        self?.reloadData()
 
-                },
-                failure: { [weak self] error in
-                    self?.reloadData()
-
-                })
+                    },
+                    failure: { [weak self] error in
+                        self?.reloadData()
+                    })
+            }))
+            strongSelf.present(confirmDialog, animated: true, completion: nil)
         }
         
         let removeDataFileRowAction = UITableViewRowAction(style: .destructive, title: L(LocKey.containerRowEditRemove)) { [weak self] action, indexPath in
@@ -243,18 +249,24 @@ extension ContainerViewController : UITableViewDelegate {
             guard let dataFile = strongSelf.container.dataFiles[indexPath.row] as? MoppLibDataFile else {
                 return
             }
-            MoppLibContainerActions.sharedInstance().removeDataFileFromContainer(
-                withPath: strongSelf.containerPath,
-                at: UInt(indexPath.row),
-                success: { [weak self] container in
-                    self?.container.dataFiles.remove(at: indexPath.row)
-                    self?.reloadData()
-                    print("success")
-                },
-                failure: { [weak self] error in
-                    print("failure", error)
-                    self?.reloadData()
-                })
+            
+            let confirmDialog = UIAlertController(title: nil, message: L(.datafileRemoveConfirmMessage), preferredStyle: UIAlertControllerStyle.alert)
+            confirmDialog.addAction(UIAlertAction(title: L(.actionCancel), style: .default, handler: nil))
+            confirmDialog.addAction(UIAlertAction(title: L(.actionDelete), style: .destructive, handler: { (action) in
+                MoppLibContainerActions.sharedInstance().removeDataFileFromContainer(
+                    withPath: strongSelf.containerPath,
+                    at: UInt(indexPath.row),
+                    success: { [weak self] container in
+                        self?.container.dataFiles.remove(at: indexPath.row)
+                        self?.reloadData()
+                        print("success")
+                    },
+                    failure: { [weak self] error in
+                        print("failure", error)
+                        self?.reloadData()
+                    })
+            }))
+            strongSelf.present(confirmDialog, animated: true, completion: nil)
         }
         
         let section = sections[indexPath.section]
@@ -296,7 +308,9 @@ extension ContainerViewController : UITableViewDelegate {
 
         if container.signatures.isEmpty {
             if let signaturesIndex = sections.index(where: { $0 == .signatures }) {
-                sections.insert(.missingSignatures, at: signaturesIndex + 1)
+                if !sections.contains(.missingSignatures) {
+                    sections.insert(.missingSignatures, at: signaturesIndex + 1)
+                }
             }
         }
         

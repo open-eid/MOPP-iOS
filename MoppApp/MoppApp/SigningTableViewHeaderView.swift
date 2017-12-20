@@ -24,6 +24,7 @@ import Foundation
 
 protocol SigningTableViewHeaderViewDelegate: class {
     func signingTableViewHeaderViewSearchKeyChanged(_ searchKeyValue: String)
+    func signingTableViewHeaderViewDidEndSearch()
 }
 
 class SigningTableViewHeaderView: UIView {
@@ -83,6 +84,7 @@ class SigningTableViewHeaderView: UIView {
             } else {
                 self.searchTextField.resignFirstResponder()
                 self.searchTextField.text = nil
+                self.delegate?.signingTableViewHeaderViewDidEndSearch()
             }
         }
     

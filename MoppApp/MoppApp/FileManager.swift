@@ -206,4 +206,22 @@ class MoppFileManager {
         return finalName
     }
 
+    func duplicateFilename(atPath path: String) -> String {
+        let url = URL(fileURLWithPath: path)
+        let (filenameBase, filenameExt) = url.lastPathComponent.filenameComponents()
+        guard let lastForwardSlashIndex = url.absoluteString.lastOf(ch: "/") else {
+            return String()
+        }
+        guard let pathWithoutName = url.absoluteString.substr(offset: 0, count: lastForwardSlashIndex + 1) else {
+            return String()
+        }
+        var newPath = path
+        var counter = 0
+        while(MoppFileManager.shared.fileExists(newPath)) {
+            newPath = pathWithoutName + filenameBase + "-\(counter)." + filenameExt
+            counter += 1
+        }
+        return newPath
+    }
+
 }

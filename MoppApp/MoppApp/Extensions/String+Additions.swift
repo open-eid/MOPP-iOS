@@ -37,4 +37,29 @@ extension String {
         }
     }
 
+    func substr(offset: Int, count: Int) -> String? {
+        guard offset < self.count
+            else { return nil }
+        guard count > 0
+            else { return String() }
+        guard (count + offset) <= self.count
+            else { return nil }
+        let start   = index(startIndex, offsetBy: offset)
+        let end     = index(start, offsetBy: count)
+        return String(describing: self[start..<end])
+    }
+    
+    subscript(offset: Int) -> Character? {
+        guard offset < self.count
+            else { return nil }
+        return self[index(startIndex, offsetBy: offset)]
+    }
+
+    func lastOf(ch: Character) -> Int? {
+        guard let start = self.reversed().index(of: ch) else {
+            return nil
+        }
+        return distance(from: startIndex, to: start.base) - 1
+    }
+    
 }

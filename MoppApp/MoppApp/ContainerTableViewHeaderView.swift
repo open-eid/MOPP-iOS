@@ -43,8 +43,6 @@ class ContainerTableViewHeaderView: UIView {
     var gradientLayer: CAGradientLayer!
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-
     }
     
     override func layoutSubviews() {
@@ -60,7 +58,5 @@ class ContainerTableViewHeaderView: UIView {
         targetSection = section
         addButton.isHidden = !showAddButton
         titleLabel.text = title
-        
-
     }
 }
