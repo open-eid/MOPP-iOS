@@ -32,3 +32,4 @@ func L(_ key: LocKey, _ arguments: [CVarArg] = []) -> String {
     let format = NSLocalizedString(key.rawValue, comment: String())
     return String(format: format, arguments: arguments)
 }
+

@@ -81,15 +81,23 @@ class ContainerViewController : MoppViewController {
             return
         }
         
-        MoppLibContainerActions.sharedInstance().getContainerWithPath(containerPath, success: {(_ container: MoppLibContainer?) -> Void in
+        MoppLibContainerActions.sharedInstance().getContainerWithPath(containerPath, success: { [weak self] container in
             guard let container = container else {
                 return
             }
-            self.container = container
-            self.reloadData()
-            self.showLoading(show: false)
-        }, failure: { _ in
-            self.showLoading(show: false)
+            self?.container = container
+            self?.reloadData()
+            self?.showLoading(show: false)
+        }, failure: { [weak self] error in
+            self?.showLoading(show: false)
+            let nserror = error! as NSError
+            var message = nserror.domain
+            if (nserror.code == moppLibErrorGeneral.rawValue) {
+                message = L(LocKey.errorAlertTitleGeneral)
+            }
+            self?.errorAlert(message: message, dismissCallback: { _ in
+                _ = self?.navigationController?.popViewController(animated: true)
+            });
         })
     }
     
@@ -200,12 +208,12 @@ extension ContainerViewController : UITableViewDelegate {
                 container.filePath,
                 saveDataFile: dataFile.fileName,
                 to: destinationPath,
-                success: {
+                success: { [weak self] in
                     let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(with: DataFilePreviewViewController.self)!
-                    dataFilePreviewViewController.previewFilePath = destinationPath
-                    self.navigationController?.pushViewController(dataFilePreviewViewController, animated: true)
-                }, failure: { error in
-                    print("failure", error)
+                        dataFilePreviewViewController.previewFilePath = destinationPath
+                    self?.navigationController?.pushViewController(dataFilePreviewViewController, animated: true)
+                }, failure: { [weak self] error in
+                    self?.errorAlert(message: error?.localizedDescription)
                 })
             break
         case .header:
@@ -226,22 +234,19 @@ extension ContainerViewController : UITableViewDelegate {
                 return
             }
             
-            let confirmDialog = UIAlertController(title: nil, message: L(.signatureRemoveConfirmMessage), preferredStyle: UIAlertControllerStyle.alert)
-            confirmDialog.addAction(UIAlertAction(title: L(.actionCancel), style: .default, handler: nil))
-            confirmDialog.addAction(UIAlertAction(title: L(.actionDelete), style: .destructive, handler: { (action) in
+            strongSelf.confirmDeleteAlert(message: L(.signatureRemoveConfirmMessage), confirmCallback: { (alertAction) in
                 MoppLibContainerActions.sharedInstance().remove(
                     signature,
                     fromContainerWithPath: strongSelf.container.filePath,
                     success: { [weak self] container in
                         self?.container.signatures.remove(at: indexPath.row)
                         self?.reloadData()
-
                     },
                     failure: { [weak self] error in
                         self?.reloadData()
+                        self?.errorAlert(message: error?.localizedDescription)
                     })
-            }))
-            strongSelf.present(confirmDialog, animated: true, completion: nil)
+            })
         }
         
         let removeDataFileRowAction = UITableViewRowAction(style: .destructive, title: L(LocKey.containerRowEditRemove)) { [weak self] action, indexPath in
@@ -250,23 +255,19 @@ extension ContainerViewController : UITableViewDelegate {
                 return
             }
             
-            let confirmDialog = UIAlertController(title: nil, message: L(.datafileRemoveConfirmMessage), preferredStyle: UIAlertControllerStyle.alert)
-            confirmDialog.addAction(UIAlertAction(title: L(.actionCancel), style: .default, handler: nil))
-            confirmDialog.addAction(UIAlertAction(title: L(.actionDelete), style: .destructive, handler: { (action) in
+            strongSelf.confirmDeleteAlert(message: L(.datafileRemoveConfirmMessage), confirmCallback: { (alertAction) in
                 MoppLibContainerActions.sharedInstance().removeDataFileFromContainer(
                     withPath: strongSelf.containerPath,
                     at: UInt(indexPath.row),
                     success: { [weak self] container in
                         self?.container.dataFiles.remove(at: indexPath.row)
                         self?.reloadData()
-                        print("success")
                     },
                     failure: { [weak self] error in
-                        print("failure", error)
                         self?.reloadData()
+                        self?.errorAlert(message: error?.localizedDescription)
                     })
-            }))
-            strongSelf.present(confirmDialog, animated: true, completion: nil)
+            })
         }
         
         let section = sections[indexPath.section]
