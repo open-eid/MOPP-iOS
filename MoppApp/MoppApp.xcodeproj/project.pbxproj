@@ -22,6 +22,7 @@
 		C506EC7C1FB9CBFD00E07226 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C506EC7B1FB9CBFD00E07226 /* Constants.swift */; };
 		C506EC7E1FB9D5A000E07226 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C506EC7D1FB9D5A000E07226 /* Assets.xcassets */; };
 		C506EC811FB9F4AF00E07226 /* UIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C506EC801FB9F4AF00E07226 /* UIImage+Additions.swift */; };
+		C50787881FEA807500D9AAC0 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50787871FEA807500D9AAC0 /* UIViewController+Additions.swift */; };
 		C50DCCC31FC2D54200D48E16 /* UIFont+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCCC21FC2D54200D48E16 /* UIFont+Additions.swift */; };
 		C50DCCC51FC31EFC00D48E16 /* UIButton+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCCC41FC31EFC00D48E16 /* UIButton+Additions.swift */; };
 		C50DCCC71FC32A2500D48E16 /* MyeIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCCC61FC32A2500D48E16 /* MyeIDViewController.swift */; };
@@ -83,6 +84,8 @@
 		C54BB10B1FBD8CD900A274F6 /* Crypto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54BB10A1FBD8CD900A274F6 /* Crypto.storyboard */; };
 		C54BB10D1FBD8CE900A274F6 /* Signing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54BB10C1FBD8CE900A274F6 /* Signing.storyboard */; };
 		C54BB10F1FBD93A100A274F6 /* MobileIDChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */; };
+		C560CB0A1FFCEEF000C01FE4 /* SigningFileImportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */; };
+		C560CB0C1FFD0D4B00C01FE4 /* SigningFileImportMissingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C560CB0B1FFD0D4B00C01FE4 /* SigningFileImportMissingCell.swift */; };
 		C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59A958D1FB5B9E100D0E1F9 /* InitializationViewController.swift */; };
 		C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */; };
 		E4180C371E26822000FD7B8C /* datafile.txt in Resources */ = {isa = PBXBuildFile; fileRef = E4180C361E26822000FD7B8C /* datafile.txt */; };
@@ -159,6 +162,7 @@
 		C506EC7B1FB9CBFD00E07226 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C506EC7D1FB9D5A000E07226 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C506EC801FB9F4AF00E07226 /* UIImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Additions.swift"; sourceTree = "<group>"; };
+		C50787871FEA807500D9AAC0 /* UIViewController+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
 		C50DCCC21FC2D54200D48E16 /* UIFont+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Additions.swift"; sourceTree = "<group>"; };
 		C50DCCC41FC31EFC00D48E16 /* UIButton+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Additions.swift"; sourceTree = "<group>"; };
 		C50DCCC61FC32A2500D48E16 /* MyeIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDViewController.swift; sourceTree = "<group>"; };
@@ -222,6 +226,8 @@
 		C54BB10A1FBD8CD900A274F6 /* Crypto.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Crypto.storyboard; sourceTree = "<group>"; };
 		C54BB10C1FBD8CE900A274F6 /* Signing.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Signing.storyboard; sourceTree = "<group>"; };
 		C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileIDChallengeViewController.swift; sourceTree = "<group>"; };
+		C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningFileImportCell.swift; sourceTree = "<group>"; };
+		C560CB0B1FFD0D4B00C01FE4 /* SigningFileImportMissingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningFileImportMissingCell.swift; sourceTree = "<group>"; };
 		C59A958C1FB5B9E100D0E1F9 /* MoppApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoppApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		C59A958D1FB5B9E100D0E1F9 /* InitializationViewController.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = InitializationViewController.swift; sourceTree = "<group>"; };
 		C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerNoSignaturesCell.swift; sourceTree = "<group>"; };
@@ -282,6 +288,7 @@
 				C50DCD101FC82F9E00D48E16 /* UINib+Additions.swift */,
 				C50DCD121FCC4D3000D48E16 /* UIView+Additions.swift */,
 				C50DCD161FCEF17000D48E16 /* UIStoryBoard+Additions.swift */,
+				C50787871FEA807500D9AAC0 /* UIViewController+Additions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -391,7 +398,9 @@
 				C50DCD1C1FD1579700D48E16 /* SigningElements.xib */,
 				C50DCCCA1FC32A3E00D48E16 /* SigningViewController.swift */,
 				C50DCD181FD1542A00D48E16 /* SigningContainerCell.swift */,
+				C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */,
 				C50DCD1A1FD1576B00D48E16 /* SigningTableViewHeaderView.swift */,
+				C560CB0B1FFD0D4B00C01FE4 /* SigningFileImportMissingCell.swift */,
 			);
 			name = Signing;
 			sourceTree = "<group>";
@@ -804,6 +813,8 @@
 				C50DCD0B1FC7128900D48E16 /* ContainerHeaderCell.swift in Sources */,
 				C54BB10F1FBD93A100A274F6 /* MobileIDChallengeViewController.swift in Sources */,
 				C50DCD441FDD7E4A00D48E16 /* DataFilePreviewViewController.swift in Sources */,
+				C560CB0C1FFD0D4B00C01FE4 /* SigningFileImportMissingCell.swift in Sources */,
+				C50787881FEA807500D9AAC0 /* UIViewController+Additions.swift in Sources */,
 				C506EC7C1FB9CBFD00E07226 /* Constants.swift in Sources */,
 				C506EC811FB9F4AF00E07226 /* UIImage+Additions.swift in Sources */,
 				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
@@ -814,6 +825,7 @@
 				C50DCCC71FC32A2500D48E16 /* MyeIDViewController.swift in Sources */,
 				C50DCD071FC7126100D48E16 /* ContainerSignatureCell.swift in Sources */,
 				C50DCD111FC82F9E00D48E16 /* UINib+Additions.swift in Sources */,
+				C560CB0A1FFCEEF000C01FE4 /* SigningFileImportCell.swift in Sources */,
 				C50DCD091FC7127400D48E16 /* ContainerFileCell.swift in Sources */,
 				E4250CCB1E0968D200530370 /* AppDelegate.swift in Sources */,
 				C52E827A1FC1D7000074B280 /* main.swift in Sources */,

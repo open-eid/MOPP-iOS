@@ -1,5 +1,5 @@
 //
-//  Utils.swift
+//  SigningFileImportCell.swift
 //  MoppApp
 //
 /*
@@ -20,16 +20,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-
 import Foundation
 
-func MSLog(_ format: String, _ arguments: Any...) {
-    print(format, arguments)
-}
 
-// Fixme: couldn't get around erroneous output using CVarArg... or Any... as 'arguments' type
-func L(_ key: LocKey, _ arguments: [CVarArg] = []) -> String {
-    let format = NSLocalizedString(key.rawValue, comment: String())
-    return String(format: format, arguments: arguments)
+class SigningFileImportCell : UITableViewCell {
+    static let height: CGFloat = 50.0
+    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var button: UIButton!
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    
+        label.text = L(LocKey.signatureViewBeginLabel)
+        button.localizedTitle = LocKey.signatureViewBeginButton
+    }
 }
-

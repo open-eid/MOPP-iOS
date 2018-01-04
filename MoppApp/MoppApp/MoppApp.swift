@@ -134,7 +134,7 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
             
             let filePath = url.relativePath
             let fileName = url.lastPathComponent
-            let fileExtension: String? = URL(fileURLWithPath: filePath).pathExtension
+            let fileExtension: String = URL(fileURLWithPath: filePath).pathExtension
             
             MSLog("Imported file: %@", filePath)
             
@@ -144,11 +144,7 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
                 navController?.popViewController(animated: false)
             
             let signingViewController = navController?.viewControllers.first as? SigningViewController
-         
-            let openExistingContainer =
-                fileExtension == ContainerFormatDdoc    ||
-                fileExtension == ContainerFormatAsice   ||
-                fileExtension == ContainerFormatBdoc
+            let openExistingContainer = fileExtension.isContainerExtension
          
             let failure: (() -> Void) = {
                 

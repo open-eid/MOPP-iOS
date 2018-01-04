@@ -233,3 +233,5 @@
 
 "signature-remove-confirm-message" = "Вы хотите удалить подпись?";
 "datafile-remove-confirm-message" = "Вы хотите удалить документ из контейнера?";
+
+"signing-missing-file-import-message" = "This iOS version doesn't support importing files from app.\n\nUse file from outside the app and open it with RIA DigiDoc.";

@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bky-k6-9RW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bky-k6-9RW">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Roboto-Bold.ttf">
+            <string>Roboto-Bold</string>
+        </array>
         <array key="Roboto-Regular.ttf">
             <string>Roboto-Regular</string>
+        </array>
+        <array key="RobotoCondensed-Regular.ttf">
+            <string>RobotoCondensed-Regular</string>
         </array>
     </customFonts>
     <scenes>
@@ -61,6 +67,77 @@
                                             <outlet property="filenameLabel" destination="2fe-OR-Sgp" id="glc-Bz-c5O"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SigningFileImportCell" rowHeight="185" id="bA0-HQ-aHy" customClass="SigningFileImportCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="375" height="185"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bA0-HQ-aHy" id="LDe-Tu-aDW">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="185"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allkirjastamiseks või dekrüpteerimiseks vali fail" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NeM-I1-l2q">
+                                                    <rect key="frame" x="15" y="43" width="345" height="20"/>
+                                                    <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="21"/>
+                                                    <color key="textColor" red="0.015686274509803921" green="0.11764705882352941" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zMi-Py-db5">
+                                                    <rect key="frame" x="15" y="95" width="345" height="50"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.43137254901960786" blue="0.70980392156862748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="HIm-UB-9lY"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
+                                                    <state key="normal" title="VALI FAIL">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="3"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="zMi-Py-db5" secondAttribute="bottom" constant="40" id="E3G-6o-ckb"/>
+                                                <constraint firstItem="NeM-I1-l2q" firstAttribute="top" secondItem="LDe-Tu-aDW" secondAttribute="topMargin" constant="32" id="JLY-mU-Epy"/>
+                                                <constraint firstItem="NeM-I1-l2q" firstAttribute="leading" secondItem="LDe-Tu-aDW" secondAttribute="leadingMargin" id="LD9-mE-I1J"/>
+                                                <constraint firstItem="zMi-Py-db5" firstAttribute="leading" secondItem="LDe-Tu-aDW" secondAttribute="leadingMargin" id="P3v-rx-1a0"/>
+                                                <constraint firstItem="NeM-I1-l2q" firstAttribute="trailing" secondItem="LDe-Tu-aDW" secondAttribute="trailingMargin" id="Xez-0q-v6u"/>
+                                                <constraint firstItem="zMi-Py-db5" firstAttribute="top" secondItem="NeM-I1-l2q" secondAttribute="bottom" constant="32" id="dij-ns-ciL"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="zMi-Py-db5" secondAttribute="trailing" id="pmg-Nu-xz3"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="button" destination="zMi-Py-db5" id="n3J-cH-nEr"/>
+                                            <outlet property="label" destination="NeM-I1-l2q" id="LQ2-M1-65d"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SigningFileImportMissingCell" rowHeight="195" id="pRu-HO-XEh" customClass="SigningFileImportMissingCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="257" width="375" height="195"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pRu-HO-XEh" id="cHw-W8-DPc">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="195"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This iOS version doesn't support importing files from app.  Use file from outside the app and open it with RIA DigiDoc." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pbn-Cf-t7x">
+                                                    <rect key="frame" x="15" y="43" width="345" height="109"/>
+                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="19"/>
+                                                    <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="0.050000000000000003" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Pbn-Cf-t7x" secondAttribute="trailing" id="IWW-O8-W67"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Pbn-Cf-t7x" secondAttribute="bottom" constant="32" id="rnT-px-vUD"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="Pbn-Cf-t7x" secondAttribute="leading" id="xUj-vA-zfE"/>
+                                                <constraint firstItem="Pbn-Cf-t7x" firstAttribute="top" secondItem="cHw-W8-DPc" secondAttribute="topMargin" constant="32" id="zV0-qz-roJ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="label" destination="Pbn-Cf-t7x" id="lXb-QI-3AB"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="vA0-9v-0On" id="Eox-yY-ag6"/>
@@ -71,9 +148,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="kei-Bu-SSx" firstAttribute="leading" secondItem="E3T-IJ-uAi" secondAttribute="leading" id="0SF-Mw-vly"/>
-                            <constraint firstItem="kei-Bu-SSx" firstAttribute="bottom" secondItem="E3T-IJ-uAi" secondAttribute="bottom" id="JQj-5b-pIC"/>
                             <constraint firstItem="kei-Bu-SSx" firstAttribute="top" secondItem="E3T-IJ-uAi" secondAttribute="top" id="XVT-Xr-jGB"/>
                             <constraint firstItem="kei-Bu-SSx" firstAttribute="trailing" secondItem="E3T-IJ-uAi" secondAttribute="trailing" id="ePC-Wj-tFa"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="kei-Bu-SSx" secondAttribute="bottom" id="phK-qn-Wgw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="E3T-IJ-uAi"/>
                     </view>
@@ -87,6 +164,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="documentsTableView" destination="kei-Bu-SSx" id="0Sa-mj-WdU"/>
+                        <outlet property="tableView" destination="kei-Bu-SSx" id="OrP-oj-Rg7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l8I-Bf-tlZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

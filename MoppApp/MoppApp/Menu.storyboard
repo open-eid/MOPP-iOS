@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="czA-yQ-yzD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="czA-yQ-yzD">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
+        </array>
         <array key="RobotoCondensed-Regular.ttf">
             <string>RobotoCondensed-Regular</string>
         </array>
@@ -210,17 +213,26 @@
                                     <constraint firstItem="XcP-IA-xuw" firstAttribute="centerY" secondItem="83h-cY-6E5" secondAttribute="centerY" id="lsG-19-kwo"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qab-td-DTl">
+                                <rect key="frame" x="16" y="651.5" width="343" height="15.5"/>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.015686274509803921" green="0.11764705882352941" blue="0.25882352941176467" alpha="0.95023544520547942" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="9zc-BY-AeD" firstAttribute="trailing" secondItem="tb9-JE-6FD" secondAttribute="trailing" id="0uI-Uy-FVe"/>
                             <constraint firstItem="83h-cY-6E5" firstAttribute="leading" secondItem="TkN-3Z-y7g" secondAttribute="leading" id="1iJ-or-bZ9"/>
                             <constraint firstItem="xJL-Ad-KIo" firstAttribute="leading" secondItem="9zc-BY-AeD" secondAttribute="leading" constant="16" id="3I6-DM-ciN"/>
+                            <constraint firstItem="qab-td-DTl" firstAttribute="bottom" secondItem="9zc-BY-AeD" secondAttribute="bottom" id="6el-jB-3Kx"/>
                             <constraint firstItem="9zc-BY-AeD" firstAttribute="trailing" secondItem="xJL-Ad-KIo" secondAttribute="trailing" constant="16" id="9on-uZ-Fu5"/>
                             <constraint firstItem="tb9-JE-6FD" firstAttribute="top" secondItem="9zc-BY-AeD" secondAttribute="top" id="C2p-s3-ln8"/>
                             <constraint firstAttribute="trailing" secondItem="83h-cY-6E5" secondAttribute="trailing" id="F7e-9h-nqf"/>
                             <constraint firstItem="9zc-BY-AeD" firstAttribute="trailing" secondItem="HNo-wU-bKY" secondAttribute="trailing" constant="16" id="FIN-SU-pEZ"/>
                             <constraint firstItem="Hd7-kc-K1m" firstAttribute="top" secondItem="9zc-BY-AeD" secondAttribute="top" constant="70" id="Fkk-Hu-XCe"/>
+                            <constraint firstItem="9zc-BY-AeD" firstAttribute="trailing" secondItem="qab-td-DTl" secondAttribute="trailing" constant="16" id="Mfk-1t-Luh"/>
+                            <constraint firstItem="qab-td-DTl" firstAttribute="leading" secondItem="9zc-BY-AeD" secondAttribute="leading" constant="16" id="Mzs-Qh-6GU"/>
                             <constraint firstItem="6vr-Dg-brs" firstAttribute="top" secondItem="ZD3-ZR-oYc" secondAttribute="bottom" id="Onr-hF-ksc"/>
                             <constraint firstItem="9zc-BY-AeD" firstAttribute="trailing" secondItem="6vr-Dg-brs" secondAttribute="trailing" constant="16" id="Pl4-mr-Ohs"/>
                             <constraint firstItem="9zc-BY-AeD" firstAttribute="trailing" secondItem="ZD3-ZR-oYc" secondAttribute="trailing" constant="16" id="WMM-JU-mt2"/>
@@ -242,6 +254,7 @@
                         <outlet property="helpButton" destination="Feb-Lg-xiR" id="XHc-YF-fwG"/>
                         <outlet property="introButton" destination="Jai-iX-vlL" id="mxF-Mz-xHe"/>
                         <outlet property="settingsButton" destination="HJe-RP-IA7" id="ydJ-1R-Fa1"/>
+                        <outlet property="versionLabel" destination="qab-td-DTl" id="uM4-f7-4lx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h2h-Ig-Akf" userLabel="First Responder" sceneMemberID="firstResponder"/>

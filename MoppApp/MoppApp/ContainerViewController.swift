@@ -81,15 +81,36 @@ class ContainerViewController : MoppViewController {
             return
         }
         
-        MoppLibContainerActions.sharedInstance().getContainerWithPath(containerPath, success: {(_ container: MoppLibContainer?) -> Void in
+        MoppLibContainerActions.sharedInstance().getContainerWithPath(containerPath, success: { [weak self] container in
             guard let container = container else {
                 return
             }
-            self.container = container
-            self.reloadData()
-            self.showLoading(show: false)
-        }, failure: { _ in
-            self.showLoading(show: false)
+            
+            let signautre: MoppLibSignature!
+            
+            
+            guard let strongSelf = self else { return }
+            
+            let containsInvalidSignature = (container.signatures as! [MoppLibSignature]).contains(where: { !$0.isValid })
+            if containsInvalidSignature {
+                strongSelf.sections = ContainerViewController.sectionsWithError
+            } else {
+                strongSelf.sections = ContainerViewController.sectionsDefault
+            }
+            
+            strongSelf.container = container
+            strongSelf.reloadData()
+            strongSelf.showLoading(show: false)
+        }, failure: { [weak self] error in
+            self?.showLoading(show: false)
+            let nserror = error! as NSError
+            var message = nserror.domain
+            if (nserror.code == moppLibErrorGeneral.rawValue) {
+                message = L(LocKey.errorAlertTitleGeneral)
+            }
+            self?.errorAlert(message: message, dismissCallback: { _ in
+                _ = self?.navigationController?.popViewController(animated: true)
+            });
         })
     }
     
@@ -101,6 +122,7 @@ class ContainerViewController : MoppViewController {
     override func willEnterForeground() {
         refreshLoadingAnimation()
     }
+
 }
 
 extension ContainerViewController {
@@ -200,13 +222,22 @@ extension ContainerViewController : UITableViewDelegate {
                 container.filePath,
                 saveDataFile: dataFile.fileName,
                 to: destinationPath,
-                success: {
-                    let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(with: DataFilePreviewViewController.self)!
-                    dataFilePreviewViewController.previewFilePath = destinationPath
-                    self.navigationController?.pushViewController(dataFilePreviewViewController, animated: true)
-                }, failure: { error in
-                    print("failure", error)
+                success: { [weak self] in
+                    let (_, ext) = dataFile.fileName.filenameComponents()
+                    if ext.isContainerExtension {
+                        let containerViewController = UIStoryboard.container.instantiateInitialViewController() as! ContainerViewController
+                            containerViewController.containerPath = destinationPath
+                            self?.navigationController?.pushViewController(containerViewController, animated: true)
+                    } else {
+                        let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(with: DataFilePreviewViewController.self)!
+                            dataFilePreviewViewController.previewFilePath = destinationPath
+                        self?.navigationController?.pushViewController(dataFilePreviewViewController, animated: true)
+                    }
+                    
+                }, failure: { [weak self] error in
+                    self?.errorAlert(message: error?.localizedDescription)
                 })
+            
             break
         case .header:
             break
@@ -226,22 +257,19 @@ extension ContainerViewController : UITableViewDelegate {
                 return
             }
             
-            let confirmDialog = UIAlertController(title: nil, message: L(.signatureRemoveConfirmMessage), preferredStyle: UIAlertControllerStyle.alert)
-            confirmDialog.addAction(UIAlertAction(title: L(.actionCancel), style: .default, handler: nil))
-            confirmDialog.addAction(UIAlertAction(title: L(.actionDelete), style: .destructive, handler: { (action) in
+            strongSelf.confirmDeleteAlert(message: L(.signatureRemoveConfirmMessage), confirmCallback: { (alertAction) in
                 MoppLibContainerActions.sharedInstance().remove(
                     signature,
                     fromContainerWithPath: strongSelf.container.filePath,
                     success: { [weak self] container in
                         self?.container.signatures.remove(at: indexPath.row)
                         self?.reloadData()
-
                     },
                     failure: { [weak self] error in
                         self?.reloadData()
+                        self?.errorAlert(message: error?.localizedDescription)
                     })
-            }))
-            strongSelf.present(confirmDialog, animated: true, completion: nil)
+            })
         }
         
         let removeDataFileRowAction = UITableViewRowAction(style: .destructive, title: L(LocKey.containerRowEditRemove)) { [weak self] action, indexPath in
@@ -250,23 +278,19 @@ extension ContainerViewController : UITableViewDelegate {
                 return
             }
             
-            let confirmDialog = UIAlertController(title: nil, message: L(.datafileRemoveConfirmMessage), preferredStyle: UIAlertControllerStyle.alert)
-            confirmDialog.addAction(UIAlertAction(title: L(.actionCancel), style: .default, handler: nil))
-            confirmDialog.addAction(UIAlertAction(title: L(.actionDelete), style: .destructive, handler: { (action) in
+            strongSelf.confirmDeleteAlert(message: L(.datafileRemoveConfirmMessage), confirmCallback: { (alertAction) in
                 MoppLibContainerActions.sharedInstance().removeDataFileFromContainer(
                     withPath: strongSelf.containerPath,
                     at: UInt(indexPath.row),
                     success: { [weak self] container in
                         self?.container.dataFiles.remove(at: indexPath.row)
                         self?.reloadData()
-                        print("success")
                     },
                     failure: { [weak self] error in
-                        print("failure", error)
                         self?.reloadData()
+                        self?.errorAlert(message: error?.localizedDescription)
                     })
-            }))
-            strongSelf.present(confirmDialog, animated: true, completion: nil)
+            })
         }
         
         let section = sections[indexPath.section]
@@ -286,7 +310,11 @@ extension ContainerViewController : UITableViewDelegate {
         if let title = sectionHeaderTitle[section] {
             if let header = MoppApp.instance.nibs[.containerElements]?.instantiate(withOwner: self, type: ContainerTableViewHeaderView.self) {
                 header.delegate = self
-                header.populate(withTitle: title, showAddButton: section == .signatures, section: section)
+                var showAddButton = section == .signatures
+                if #available(iOS 11, *) {
+                    showAddButton = section == .signatures || section == .files
+                }
+                header.populate(withTitle: title, showAddButton: showAddButton, section: section)
                 return header
             }
         }

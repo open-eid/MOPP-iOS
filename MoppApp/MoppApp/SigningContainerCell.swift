@@ -24,6 +24,7 @@ import Foundation
 
 
 class SigningContainerCell : UITableViewCell {
+    static let height: CGFloat = 50.0
     @IBOutlet weak var filenameLabel: UILabel!
     
     override func awakeFromNib() {

@@ -254,7 +254,7 @@ private:
   delete container;
   return nil;
 }
-- (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths {
+- (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths error:(NSError **)error {
   MLLog(@"createContainerWithPath: %@, dataFilePaths: %@", containerPath, dataFilePaths);
   
   digidoc::Container *container;
@@ -268,19 +268,21 @@ private:
       container->save(containerPath.UTF8String);
     } catch(const digidoc::Exception &e) {
       parseException(e);
+      *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
     }
     
   } catch(const digidoc::Exception &e) {
     parseException(e);
+    *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
   }
   
-  NSError *error;
-  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error];
+  NSError *err;
+  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&err];
   delete container;
   return moppLibContainer;
 }
 
-- (MoppLibContainer *)addDataFilesToContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths {
+- (MoppLibContainer *)addDataFilesToContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths error:(NSError **)error {
   digidoc::Container *container;
   
   try {
@@ -294,7 +296,7 @@ private:
     
   } catch(const digidoc::Exception &e) {
     parseException(e);
-    
+    *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
   }
   
   NSError *error2;
@@ -330,7 +332,7 @@ private:
   }
 }
 
-- (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex {
+- (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex error:(NSError **)error {
   digidoc::Container *container;
   try {
     
@@ -340,15 +342,17 @@ private:
     try {
       container->save(containerPath.UTF8String);
     } catch(const digidoc::Exception &e) {
+      *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
       parseException(e);
     }
     
   } catch(const digidoc::Exception &e) {
+    *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
     parseException(e);
   }
   
-  NSError *error;
-  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error];
+  NSError *err;
+  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&err];
   delete container;
   return moppLibContainer;
 }
@@ -474,7 +478,7 @@ void parseException(const digidoc::Exception &e) {
   }
 }
 
-- (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath {
+- (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath error:(NSError **)error {
   digidoc::Container *doc = digidoc::Container::open(containerPath.UTF8String);
   for (int i = 0; i < doc->signatures().size(); i++) {
     digidoc::Signature *signature = doc->signatures().at(i);
@@ -488,6 +492,7 @@ void parseException(const digidoc::Exception &e) {
           doc->save(containerPath.UTF8String);
         } catch(const digidoc::Exception &e) {
           parseException(e);
+          *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
         }
         break;
       }
@@ -495,8 +500,8 @@ void parseException(const digidoc::Exception &e) {
   }
   delete doc;
   
-  NSError *error;
-  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error];
+  NSError *err;
+  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&err];
   return moppLibContainer;
 }
 

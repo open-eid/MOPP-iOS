@@ -44,20 +44,17 @@
     NSError *error;
     MoppLibContainer *container = [[MoppLibDigidocManager sharedInstance] getContainerWithPath:containerPath error:&error];
     dispatch_async(dispatch_get_main_queue(), ^{
-      if (error) {
-        failure(error);
-      } else {
-        success(container);
-      }
+        error == nil ? success(container) : failure(error);
     });
   });
 }
 
 - (void)createContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths success:(ContainerBlock)success failure:(FailureBlock)failure {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    MoppLibContainer *container = [[MoppLibDigidocManager sharedInstance] createContainerWithPath:containerPath withDataFilePaths:dataFilePaths];
+    NSError *error;
+    MoppLibContainer *container = [[MoppLibDigidocManager sharedInstance] createContainerWithPath:containerPath withDataFilePaths:dataFilePaths error:&error];
     dispatch_async(dispatch_get_main_queue(), ^{
-      success(container);
+      error == nil ? success(container) : failure(error);
     });
   });
   
@@ -65,9 +62,10 @@
 
 - (void)addDataFilesToContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths success:(ContainerBlock)success failure:(FailureBlock)failure {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    MoppLibContainer *container = [[MoppLibDigidocManager sharedInstance] addDataFilesToContainerWithPath:containerPath withDataFilePaths:dataFilePaths];
+    NSError *error;
+    MoppLibContainer *container = [[MoppLibDigidocManager sharedInstance] addDataFilesToContainerWithPath:containerPath withDataFilePaths:dataFilePaths error:&error];
     dispatch_async(dispatch_get_main_queue(), ^{
-      success(container);
+      error == nil ? success(container) : failure(error);
     });
   });
   
@@ -75,9 +73,10 @@
 
 - (void)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex success:(ContainerBlock)success failure:(FailureBlock)failure {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    MoppLibContainer *container = [[MoppLibDigidocManager sharedInstance] removeDataFileFromContainerWithPath:containerPath atIndex:dataFileIndex];
+    NSError *error;
+    MoppLibContainer *container = [[MoppLibDigidocManager sharedInstance] removeDataFileFromContainerWithPath:containerPath atIndex:dataFileIndex error:&error];
     dispatch_async(dispatch_get_main_queue(), ^{
-      success(container);
+        error == nil ? success(container) : failure(error);
     });
   });
   
@@ -94,9 +93,10 @@
 
 - (void)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath success:(ContainerBlock)success failure:(FailureBlock)failure {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    MoppLibContainer *container = [[MoppLibDigidocManager sharedInstance] removeSignature:moppSignature fromContainerWithPath:containerPath];
+    NSError *error;
+    MoppLibContainer *container = [[MoppLibDigidocManager sharedInstance] removeSignature:moppSignature fromContainerWithPath:containerPath error:&error];
     dispatch_async(dispatch_get_main_queue(), ^{
-      success(container);
+      error == nil ? success(container) : failure(error);
     });
   });
 }

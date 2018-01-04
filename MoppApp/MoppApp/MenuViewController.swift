@@ -26,6 +26,7 @@ import UIKit
 
 class MenuViewController : MoppViewController {
 
+    @IBOutlet weak var versionLabel     : UILabel!
     @IBOutlet weak var helpButton       : UIButton!
     @IBOutlet weak var introButton      : UIButton!
     @IBOutlet weak var documentsButton  : UIButton!
@@ -38,6 +39,9 @@ class MenuViewController : MoppViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? String()
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? String()
+        versionLabel.text = "Version \(version) - \(build)"
         
         helpButton      .setLocalizedTitle(.menuHelp)
         introButton     .setLocalizedTitle(.menuIntro)
