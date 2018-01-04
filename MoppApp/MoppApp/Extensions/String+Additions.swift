@@ -22,7 +22,6 @@
  */
 
 extension String {
-
     func filenameComponents() -> (name:String,ext:String) {
         if let range = self.range(of: ".", options: .backwards, range: nil, locale: nil) {
             let nameRange = self.startIndex ..< range.upperBound
@@ -60,6 +59,14 @@ extension String {
             return nil
         }
         return distance(from: startIndex, to: start.base) - 1
+    }
+    
+    var isContainerExtension: Bool {
+        let ext = self.lowercased()
+        return
+            ext == ContainerFormatDdoc    ||
+            ext == ContainerFormatAsice   ||
+            ext == ContainerFormatBdoc
     }
     
 }

@@ -200,4 +200,5 @@ enum LocKey : String
     case shareExtensionImportMessage = "share-extension-import-message"
     case signatureRemoveConfirmMessage = "signature-remove-confirm-message"
     case datafileRemoveConfirmMessage = "datafile-remove-confirm-message"
+    case signingMissingFileImportMessage = "signing-missing-file-import-message"
 }

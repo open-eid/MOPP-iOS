@@ -85,9 +85,22 @@ class ContainerViewController : MoppViewController {
             guard let container = container else {
                 return
             }
-            self?.container = container
-            self?.reloadData()
-            self?.showLoading(show: false)
+            
+            let signautre: MoppLibSignature!
+            
+            
+            guard let strongSelf = self else { return }
+            
+            let containsInvalidSignature = (container.signatures as! [MoppLibSignature]).contains(where: { !$0.isValid })
+            if containsInvalidSignature {
+                strongSelf.sections = ContainerViewController.sectionsWithError
+            } else {
+                strongSelf.sections = ContainerViewController.sectionsDefault
+            }
+            
+            strongSelf.container = container
+            strongSelf.reloadData()
+            strongSelf.showLoading(show: false)
         }, failure: { [weak self] error in
             self?.showLoading(show: false)
             let nserror = error! as NSError
@@ -109,6 +122,7 @@ class ContainerViewController : MoppViewController {
     override func willEnterForeground() {
         refreshLoadingAnimation()
     }
+
 }
 
 extension ContainerViewController {
@@ -209,12 +223,21 @@ extension ContainerViewController : UITableViewDelegate {
                 saveDataFile: dataFile.fileName,
                 to: destinationPath,
                 success: { [weak self] in
-                    let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(with: DataFilePreviewViewController.self)!
-                        dataFilePreviewViewController.previewFilePath = destinationPath
-                    self?.navigationController?.pushViewController(dataFilePreviewViewController, animated: true)
+                    let (_, ext) = dataFile.fileName.filenameComponents()
+                    if ext.isContainerExtension {
+                        let containerViewController = UIStoryboard.container.instantiateInitialViewController() as! ContainerViewController
+                            containerViewController.containerPath = destinationPath
+                            self?.navigationController?.pushViewController(containerViewController, animated: true)
+                    } else {
+                        let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(with: DataFilePreviewViewController.self)!
+                            dataFilePreviewViewController.previewFilePath = destinationPath
+                        self?.navigationController?.pushViewController(dataFilePreviewViewController, animated: true)
+                    }
+                    
                 }, failure: { [weak self] error in
                     self?.errorAlert(message: error?.localizedDescription)
                 })
+            
             break
         case .header:
             break
@@ -287,7 +310,11 @@ extension ContainerViewController : UITableViewDelegate {
         if let title = sectionHeaderTitle[section] {
             if let header = MoppApp.instance.nibs[.containerElements]?.instantiate(withOwner: self, type: ContainerTableViewHeaderView.self) {
                 header.delegate = self
-                header.populate(withTitle: title, showAddButton: section == .signatures, section: section)
+                var showAddButton = section == .signatures
+                if #available(iOS 11, *) {
+                    showAddButton = section == .signatures || section == .files
+                }
+                header.populate(withTitle: title, showAddButton: showAddButton, section: section)
                 return header
             }
         }

@@ -1,5 +1,5 @@
 //
-//  SigningContainerCell.swift
+//  SigningFileImportCell.swift
 //  MoppApp
 //
 /*
@@ -23,27 +23,14 @@
 import Foundation
 
 
-class SigningContainerCell : UITableViewCell {
+class SigningFileImportCell : UITableViewCell {
     static let height: CGFloat = 50.0
-    @IBOutlet weak var filenameLabel: UILabel!
-    
+    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var button: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
-    }
     
-    func populate(filename: String, searchKeyword: String) {
-        print(searchKeyword, filename)
-        
-        let searchKeywordRange = (filename as NSString).range(
-            of: searchKeyword,
-            options: String.CompareOptions.caseInsensitive,
-            range: NSMakeRange(0, filename.count),
-            locale: nil)
-        
-        let attributedString = NSMutableAttributedString(string: filename, attributes: nil)
-            attributedString.addAttributes([NSAttributedStringKey.font : UIFont.moppRecentContainers], range: NSMakeRange(0, filename.count))
-            attributedString.addAttributes([NSAttributedStringKey.font : UIFont.moppRecentContainersSearchKeyword], range: searchKeywordRange)
-    
-        filenameLabel.attributedText = attributedString
+        label.text = L(LocKey.signatureViewBeginLabel)
+        button.localizedTitle = LocKey.signatureViewBeginButton
     }
 }
