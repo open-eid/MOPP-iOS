@@ -140,8 +140,8 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="vA0-9v-0On" id="Eox-yY-ag6"/>
-                                    <outlet property="delegate" destination="vA0-9v-0On" id="0Ok-B2-dZi"/>
+                                    <outlet property="dataSource" destination="vA0-9v-0On" id="xxc-ao-LNi"/>
+                                    <outlet property="delegate" destination="vA0-9v-0On" id="PPA-Xf-rME"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -163,7 +163,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="documentsTableView" destination="kei-Bu-SSx" id="0Sa-mj-WdU"/>
                         <outlet property="tableView" destination="kei-Bu-SSx" id="OrP-oj-Rg7"/>
                     </connections>
                 </viewController>

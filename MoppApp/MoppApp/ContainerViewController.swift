@@ -54,18 +54,35 @@ class ContainerViewController : MoppViewController {
         .signatures     : L(LocKey.containerHeaderSignaturesTitle)
         ]
 
-    private static let sectionsWithError: [Section] = [.header, .error, .files, .signatures]
-    private static let sectionsDefault: [Section] = [.header, .files, .signatures]
+    private static let sectionsWithError: [Section] = [.error, .header, .files, .signatures]
+    private static let sectionsDefault  : [Section] = [.header, .files, .signatures]
+    
     var sections: [Section] = ContainerViewController.sectionsDefault
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationItemForPushedViewController()
+        NotificationCenter.default.addObserver(self, selector: #selector(signatureCreatedFinished), name: .signatureCreatedFinishedNotificationName, object: nil)
+        LandingTabBarController.shared.tabButtonsDelegate = self
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func signatureCreatedFinished() {
+        DispatchQueue.main.async {
+        [weak self] in
+            self?.openContainer()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        LandingTabBarController.shared.presentButtons([.signButton, .shareButton])
+    
         tableView.estimatedRowHeight = ContainerSignatureCell.height
         tableView.rowHeight = UITableViewAutomaticDimension
         
@@ -81,13 +98,14 @@ class ContainerViewController : MoppViewController {
             return
         }
         
-        MoppLibContainerActions.sharedInstance().getContainerWithPath(containerPath, success: { [weak self] container in
+        openContainer()
+    }
+    
+    func openContainer() {
+            MoppLibContainerActions.sharedInstance().getContainerWithPath(containerPath, success: { [weak self] container in
             guard let container = container else {
                 return
             }
-            
-            let signautre: MoppLibSignature!
-            
             
             guard let strongSelf = self else { return }
             
@@ -101,6 +119,7 @@ class ContainerViewController : MoppViewController {
             strongSelf.container = container
             strongSelf.reloadData()
             strongSelf.showLoading(show: false)
+            
         }, failure: { [weak self] error in
             self?.showLoading(show: false)
             let nserror = error! as NSError
@@ -123,12 +142,18 @@ class ContainerViewController : MoppViewController {
         refreshLoadingAnimation()
     }
 
+    func startSigningWithMobileID() {
+        let mobileIdEditViewController = UIStoryboard.landing.instantiateViewController(with: MobileIDEditViewController.self)
+            mobileIdEditViewController.modalPresentationStyle = .overFullScreen
+            mobileIdEditViewController.delegate = self
+        present(mobileIdEditViewController, animated: false, completion: nil)
+    }
 }
 
 extension ContainerViewController {
     func setupNavigationItemForPushedViewController() {
         setupNavigationItemForPushedViewController(title: L(LocKey.containerTitle))
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarShare"), style: .plain, target: self, action: #selector(shareAction))
+        let rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "VerticalDotsMenu"), style: .plain, target: self, action: #selector(shareAction))
         navigationItem.setRightBarButton(rightBarButtonItem, animated: true)
     }
     
@@ -145,6 +170,14 @@ extension ContainerViewController {
                 ContainerViewController.sectionsDefault :
                 ContainerViewController.sectionsWithError
             reloadData()
+        }
+    }
+}
+
+extension ContainerViewController : LandingTabBarControllerTabButtonsDelegate {
+    func landingTabBarControllerTabButtonTapped(tabButtonId: LandingTabBarController.TabButtonId) {
+        if tabButtonId == .signButton {
+            startSigningWithMobileID()
         }
     }
 }
@@ -208,7 +241,7 @@ extension ContainerViewController : UITableViewDelegate {
         case .error:
             break
         case .signatures:
-            let signatureDetailsViewController = UIStoryboard.container.instantiateViewController(with: SignatureDetailsViewController.self)!
+            let signatureDetailsViewController = UIStoryboard.container.instantiateViewController(with: SignatureDetailsViewController.self)
             navigationController?.pushViewController(signatureDetailsViewController, animated: true)
             break
         case .missingSignatures:
@@ -225,11 +258,11 @@ extension ContainerViewController : UITableViewDelegate {
                 success: { [weak self] in
                     let (_, ext) = dataFile.fileName.filenameComponents()
                     if ext.isContainerExtension {
-                        let containerViewController = UIStoryboard.container.instantiateInitialViewController() as! ContainerViewController
+                        let containerViewController = UIStoryboard.container.instantiateInitialViewController(of: ContainerViewController.self)
                             containerViewController.containerPath = destinationPath
                             self?.navigationController?.pushViewController(containerViewController, animated: true)
                     } else {
-                        let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(with: DataFilePreviewViewController.self)!
+                        let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(with: DataFilePreviewViewController.self)
                             dataFilePreviewViewController.previewFilePath = destinationPath
                         self?.navigationController?.pushViewController(dataFilePreviewViewController, animated: true)
                     }
@@ -335,6 +368,14 @@ extension ContainerViewController : UITableViewDelegate {
         }
 
         if container.signatures.isEmpty {
+            LandingTabBarController.shared.presentButtons([.signButton])
+            setupNavigationItemForPushedViewController(title: L(.containerSignTitle))
+        } else {
+            LandingTabBarController.shared.presentButtons([.signButton, .shareButton])
+            setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
+        }
+
+        if container.signatures.isEmpty {
             if let signaturesIndex = sections.index(where: { $0 == .signatures }) {
                 if !sections.contains(.missingSignatures) {
                     sections.insert(.missingSignatures, at: signaturesIndex + 1)
@@ -342,12 +383,58 @@ extension ContainerViewController : UITableViewDelegate {
             }
         }
         
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
 }
 
 extension ContainerViewController : ContainerTableViewHeaderViewDelegate {
     func containerTableViewHeaderViewAddFiles(forSection section: ContainerViewController.Section) {
+        if section == .signatures {
+            startSigningWithMobileID()
+        }
+    }
+    
+    func decideLanguageBasedOnPreferredLanguages() -> String {
+        var language: String = String()
+        let prefLanguages = NSLocale.preferredLanguages
+        for i in 0..<prefLanguages.count {
+            if prefLanguages[i].hasPrefix("et-") {
+                language = "EST"
+                break
+            }
+            else if prefLanguages[i].hasPrefix("lt-") {
+                language = "LIT"
+                break
+            }
+            else if prefLanguages[i].hasPrefix("ru-") {
+                language = "RUS"
+                break
+            }
+        }
+        if language.isEmpty {
+            language = "ENG"
+        }
         
+        return language
+    }
+
+}
+
+extension ContainerViewController : MobileIDEditViewControllerDelegate {   
+    func mobileIDEditViewControllerDidDismiss(cancelled: Bool, phoneNumber: String?, idCode: String?) {
+        if cancelled { return }
+        
+        guard let phoneNumber = phoneNumber else { return }
+        guard let idCode = idCode else { return }
+        
+        let mobileIDChallengeview = UIStoryboard.landing.instantiateViewController(with: MobileIDChallengeViewController.self)
+        mobileIDChallengeview.modalPresentationStyle = .overFullScreen
+        present(mobileIDChallengeview, animated: false)
+
+        Session.shared.createMobileSignature(
+            withContainer: container.filePath,
+            idCode: idCode,
+            language: decideLanguageBasedOnPreferredLanguages(),
+            phoneNumber: phoneNumber)
     }
 }

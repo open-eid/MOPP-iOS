@@ -23,6 +23,9 @@
 "tab-my-eid" = "МОЙ eID";
 "tab-crypto" = "КРИПТО";
 "tab-signature" = "ПОДПИСЬ";
+"tab-sign-button" = "ПОДПИСЬ";
+"tab-share-button" = "ДОЛЯ";
+"tab-encrypt-button" = "ШИФРОВАТЬ";
 
 // Main menu
 "menu-help" = "ПОМОГАТЬ";
@@ -235,3 +238,14 @@
 "datafile-remove-confirm-message" = "Вы хотите удалить документ из контейнера?";
 
 "signing-missing-file-import-message" = "This iOS version doesn't support importing files from app.\n\nUse file from outside the app and open it with RIA DigiDoc.";
+
+"mobile-id-title" = "Введите номер мобильного телефона и идентификационный код, который будет подписан с помощью Mobile-ID";
+"mobile-id-phone-title" = "Код страны и номер телефона";
+"mobile-id-idcode-title" = "Код идентификатора";
+"mobile-id-remember-me" = "Запомнить меня";
+"mobile-id-cancel-button-title" = "ОТМЕНА";
+"mobile-id-sign-button-title" = "ПОДПИСАТЬ";
+"mobile-id-challenge-title" = "Подписать с помощью приложения Mobile-ID";
+"mobile-id-challenge-waiting-response" = "Жду ответа ...";
+"container-sign-title" = "Регистрация";
+"container-validate-title" = "Проверить контейнер";

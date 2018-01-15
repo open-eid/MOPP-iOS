@@ -20,26 +20,39 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-
 private var kRequestTimeout: Double = 60.0
+
 
 class MobileIDChallengeViewController : UIViewController {
     
-    @IBOutlet weak var mobileIDChallengeCodeLabel: UILabel!
-    @IBOutlet weak var mobileIDSessionCounter: UIProgressView!
+    @IBOutlet weak var codeLabel: UILabel!
+    @IBOutlet weak var timeoutProgressView: UIProgressView!
+    @IBOutlet weak var titleLabel: UILabel!
     
-    var challengeID = ""
-    var sessCode = ""
+    var challengeID = String()
+    var sessCode = String()
 
     var currentProgress: Double = 0.0
     var sessionTimer: Timer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        mobileIDChallengeCodeLabel.text = L(LocKey.challengeCodeLabel, [challengeID])
-        currentProgress = 0.0
+        titleLabel.text = L(.mobileIdChallengeWaitingForResponse)
+        codeLabel.isHidden = true
+        timeoutProgressView.progress = 0
+
         NotificationCenter.default.addObserver(self, selector: #selector(self.receiveCreateSignatureStatus), name: .signatureAddedToContainerNotificationName, object: nil)
-        sessionTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSessionProgress), userInfo: nil, repeats: true)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.receiveErrorNotification), name: .errorNotificationName, object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(receiveMobileCreateSignatureNotification),
+            name: .createSignatureNotificationName,
+            object: nil)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,7 +62,39 @@ class MobileIDChallengeViewController : UIViewController {
 
     @objc func receiveCreateSignatureStatus(_ notification: Notification) {
         sessionTimer?.invalidate()
-        dismiss(animated: true)
+        NotificationCenter.default.post(name: .signatureCreatedFinishedNotificationName, object: nil)
+        dismiss(animated: false)
+    }
+    
+    @objc func receiveMobileCreateSignatureNotification(_ notification: Notification) {
+
+        guard let response = notification.userInfo?[kCreateSignatureResponseKey] as? MoppLibMobileCreateSignatureResponse else {
+            return
+        }
+    
+        challengeID = response.challengeId!
+        sessCode = "\(Int(response.sessCode))"
+    
+        codeLabel.isHidden = false
+    
+        titleLabel.text = L(LocKey.mobileIdChallengeTitle)
+        codeLabel.text = L(LocKey.challengeCodeLabel, [challengeID])
+        currentProgress = 0.0
+        
+        sessionTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSessionProgress), userInfo: nil, repeats: true)
+    }
+    
+    @objc func receiveErrorNotification() {
+        dismiss(animated: false)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.0)
+        UIView.animate(withDuration: 0.35) {
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        }
     }
 
     func viewWillDisAppear(_ animated: Bool) {
@@ -60,11 +105,12 @@ class MobileIDChallengeViewController : UIViewController {
         if currentProgress < 1.0 {
             let step: Double = 1.0 / kRequestTimeout
             currentProgress = currentProgress + step
-            mobileIDSessionCounter.progress = Float(currentProgress)
+            timeoutProgressView.progress = Float(currentProgress)
         }
         else {
             timer.invalidate()
             MoppLibService.sharedInstance().cancelMobileSignatureStatusPolling()
+            dismiss(animated: false, completion: nil)
             NotificationCenter.default.post(name: .errorNotificationName, object: nil, userInfo: [kErrorMessage: L(.mobileIdTimeoutMessage)])
         }
     }

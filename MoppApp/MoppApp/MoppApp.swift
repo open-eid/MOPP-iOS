@@ -90,7 +90,7 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
     }
 
     func setupTabController() {
-        tabBarController = UIStoryboard.landing.instantiateInitialViewController() as? LandingTabBarController
+        tabBarController = UIStoryboard.landing.instantiateInitialViewController(of: LandingTabBarController.self)
         window?.rootViewController = tabBarController
         if let tempUrl = self.tempUrl {
             _ = openUrl(url: tempUrl, sourceApplication: sourceApplication, annotation: annotation)
@@ -138,12 +138,11 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
             
             MSLog("Imported file: %@", filePath)
             
-            tabBarController?.selectedIndex = 0
-            
-            let navController = tabBarController?.viewControllers?[0] as? UINavigationController
+            let navController = tabBarController?.viewControllers[0] as? UINavigationController
                 navController?.popViewController(animated: false)
             
             let signingViewController = navController?.viewControllers.first as? SigningViewController
+
             let openExistingContainer = fileExtension.isContainerExtension
          
             let failure: (() -> Void) = {
