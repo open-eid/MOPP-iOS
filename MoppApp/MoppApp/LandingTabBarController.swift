@@ -126,7 +126,7 @@ class LandingTabBarController : UIViewController
                 signingViewController.refresh()
             }
             let containerViewController = UIStoryboard.container.instantiateInitialViewController(of: ContainerViewController.self)
-                containerViewController.container = container
+                containerViewController.containerPath = container.filePath
             navigationController.pushViewController(containerViewController, animated: false)
         }
     }

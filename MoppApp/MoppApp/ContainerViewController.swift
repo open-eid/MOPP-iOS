@@ -342,11 +342,8 @@ extension ContainerViewController : UITableViewDelegate {
         let section = sections[_section]
         if let title = sectionHeaderTitle[section] {
             if let header = MoppApp.instance.nibs[.containerElements]?.instantiate(withOwner: self, type: ContainerTableViewHeaderView.self) {
+                let showAddButton = section == .signatures || section == .files
                 header.delegate = self
-                var showAddButton = section == .signatures
-                if #available(iOS 11, *) {
-                    showAddButton = section == .signatures || section == .files
-                }
                 header.populate(withTitle: title, showAddButton: showAddButton, section: section)
                 return header
             }

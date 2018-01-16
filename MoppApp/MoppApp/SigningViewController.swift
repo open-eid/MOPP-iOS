@@ -40,15 +40,8 @@ class SigningViewController : MoppViewController {
         super.viewDidLoad()
         
         refresh()
-        
-        if #available(iOS 11, *) {
-            sections = [.fileImport, .containerFilesHeader, .containerFiles]
-        } else {
-            sections = [.containerFilesHeader, .containerFiles]
-        }
-        
-        //beginLabel.text = L(LocKey.signatureViewBeginLabel)
-        //beginButton.localizedTitle = LocKey.signatureViewBeginButton
+
+        sections = [.fileImport, .containerFilesHeader, .containerFiles]
     }
     
     override func viewWillDisappear(_ animated: Bool) {
