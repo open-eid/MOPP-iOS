@@ -35,35 +35,38 @@ class Session
     func createMobileSignature(withContainer containerPath: String, idCode: String, language: String, phoneNumber: String) {
         MoppLibContainerActions.sharedInstance().getContainerWithPath(
             containerPath,
-            success: { (_ initialContainer: MoppLibContainer) -> Void in
-        
+            success: { (_ initialContainer: MoppLibContainer!) -> Void in
                 MoppLibService.sharedInstance().mobileCreateSignature(
                     withContainer: containerPath,
                     idCode: idCode,
                     language: language,
                     phoneNumber: phoneNumber,
-                    withCompletion: { (_ response: MoppLibMobileCreateSignatureResponse) -> Void in
-                    
+                    withCompletion: { (_ response: MoppLibMobileCreateSignatureResponse!) -> Void in
                         NotificationCenter.default.post(
                             name: .createSignatureNotificationName,
                             object: nil,
                             userInfo: [kCreateSignatureResponseKey: response])
                         
-                    } as! MobileCreateSignatureResponseBlock,
-                    andStatus: { (_ container: MoppLibContainer?, _ error: NSError?, _ status: String) -> Void in
-                    
-                        if error?.domain != nil {
-                            NotificationCenter.default.post(name: .errorNotificationName, object: nil, userInfo: [kErrorKey: error])
+                    },
+                    andStatus: { (_ container: MoppLibContainer?, _ error: Error?, _ status: String?) -> Void in
+                        if let error = error {
+                            NotificationCenter.default.post(
+                                name: .errorNotificationName,
+                                object: nil,
+                                userInfo: [kErrorKey: error])
                         }
-                        else if container != nil {
-                            NotificationCenter.default.post(name: .signatureAddedToContainerNotificationName, object: nil, userInfo: [kNewContainerKey: container, kOldContainerKey: initialContainer])
+                        else
+                        if let container = container {
+                            NotificationCenter.default.post(
+                                name: .signatureAddedToContainerNotificationName,
+                                object: nil,
+                                userInfo: [kNewContainerKey: container, kOldContainerKey: initialContainer])
                         }
-
-                        } as! SignatureStatusBlock
+                    }
                     
-                )} as! ContainerBlock,
+            )},
             failure: { (_ error: Error?) -> Void in
-            NotificationCenter.default.post(name: .errorNotificationName, object: nil, userInfo: [kErrorKey: error])
+                NotificationCenter.default.post(name: .errorNotificationName, object: nil, userInfo: [kErrorKey: error!])
                 return
             })
     }

@@ -23,6 +23,9 @@
 "tab-my-eid" = "MINU eID";
 "tab-crypto" = "KRÜPTO";
 "tab-signature" = "ALLKIRI";
+"tab-sign-button" = "ALLKIRJASTA";
+"tab-share-button" = "JAGA";
+"tab-encrypt-button" = "KRÜPTEERI";
 
 // Main menu
 "menu-help" = "ABI";
@@ -235,3 +238,15 @@
 "datafile-remove-confirm-message" = "Kas soovite dokumendi konteinerist eemaldada?";
 
 "signing-missing-file-import-message" = "This iOS version doesn't support importing files from app.\n\nUse file from outside the app and open it with RIA DigiDoc.";
+
+"mobile-id-title" = "Sisesta oma mobiiltelefoni number ja isikukood, et allkirjastada\nMobiil-ID abil";
+"mobile-id-phone-title" = "Riigi suunakood ja mobiiltelefoni number";
+"mobile-id-idcode-title" = "Isikukood";
+"mobile-id-remember-me" = "Jäta meelde";
+"mobile-id-cancel-button-title" = "TÜHISTA";
+"mobile-id-sign-button-title" = "ALLKIRJASTA";
+"mobile-id-challenge-title" = "Allkirjasta Mobiil-ID äpiga";
+"mobile-id-challenge-waiting-response" = "Ootan vastust ...";
+"container-sign-title" = "Allkirjastamine";
+"container-validate-title" = "Konteineri kontroll";
+"mobile-id-user-cancel-message" = "Toiming katkestati kasutaja poolt";

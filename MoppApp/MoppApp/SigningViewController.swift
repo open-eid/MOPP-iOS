@@ -24,13 +24,12 @@ import Foundation
 
 class SigningViewController : MoppViewController {
     var requestCloseSearch: (() -> Void) = {}
-    @IBOutlet weak var documentsTableView: UITableView!
     @IBOutlet weak var tableView: UITableView!
 
     enum Section {
         case containerFiles
+        case containerFilesHeader
         case fileImport
-        case fileImportMissing
     }
 
     var searchKeyword: String = String()
@@ -43,9 +42,9 @@ class SigningViewController : MoppViewController {
         refresh()
         
         if #available(iOS 11, *) {
-            sections = [.fileImport, .containerFiles]
+            sections = [.fileImport, .containerFilesHeader, .containerFiles]
         } else {
-            sections = [.fileImportMissing, .containerFiles]
+            sections = [.containerFilesHeader, .containerFiles]
         }
         
         //beginLabel.text = L(LocKey.signatureViewBeginLabel)
@@ -58,6 +57,9 @@ class SigningViewController : MoppViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        LandingTabBarController.shared.presentButtons([.signTab, .cryptoTab, .myeIDTab])
+        
         tableView.estimatedRowHeight = ContainerSignatureCell.height
         tableView.rowHeight = UITableViewAutomaticDimension
     }
@@ -77,14 +79,20 @@ class SigningViewController : MoppViewController {
             }
         }
         containerFiles = files
-        documentsTableView.reloadData()
+        reloadContainerFilesSection()
+    }
+    
+    func reloadContainerFilesSection() {
+        if let containerSectionIndex = sections.index(where: { $0 == .containerFiles }) {
+            tableView.reloadSections([containerSectionIndex], with: .none)
+        }
     }
     
     func closeSearch() {
         searchKeyword = String()
         requestCloseSearch()
         containerFiles = MoppFileManager.shared.documentsFiles()
-        documentsTableView.reloadData()
+        tableView.reloadData()
     }
 }
 
@@ -96,11 +104,11 @@ extension SigningViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section_: Int) -> Int {
         let section = sections[section_]
         switch section {
+        case .containerFilesHeader:
+            return 0
         case .containerFiles:
             return containerFiles.count
         case .fileImport:
-            return 1
-        case .fileImportMissing:
             return 1
         }
     }
@@ -114,8 +122,8 @@ extension SigningViewController : UITableViewDataSource {
                 return cell
             case .fileImport:
                 return tableView.dequeueReusableCell(withType: SigningFileImportCell.self, for: indexPath)!
-            case .fileImportMissing:
-                return tableView.dequeueReusableCell(withType: SigningFileImportMissingCell.self, for: indexPath)!
+            case .containerFilesHeader:
+                return UITableViewCell()
         }
     }
 }
@@ -123,7 +131,7 @@ extension SigningViewController : UITableViewDataSource {
 extension SigningViewController : UITableViewDelegate {    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section_: Int) -> UIView? {
         let section = sections[section_]
-        if section == .containerFiles {
+        if section == .containerFilesHeader {
             let headerView = MoppApp.instance.nibs[.signingElements]?.instantiate(withOwner: self, type: SigningTableViewHeaderView.self)
                 headerView?.delegate = self
                 headerView?.populate(title: L(.signingRecentContainers), &requestCloseSearch)
@@ -148,7 +156,7 @@ extension SigningViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section_: Int) -> CGFloat {
         let section = sections[section_]
-        return section == .containerFiles ? 50.0 : 0
+        return section == .containerFilesHeader ? 50.0 : 0
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -178,8 +186,10 @@ extension SigningViewController: SigningTableViewHeaderViewDelegate {
         self.searchKeyword = searchKeyValue
         refresh(searchKey: searchKeyValue.isEmpty ? nil : searchKeyValue)
     }
+    
     func signingTableViewHeaderViewDidEndSearch() {
+        self.searchKeyword = String()
         containerFiles = MoppFileManager.shared.documentsFiles()
-        documentsTableView.reloadData()
+        tableView.reloadData()
     }
 }

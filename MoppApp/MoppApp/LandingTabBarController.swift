@@ -20,27 +20,88 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+protocol LandingTabBarControllerTabButtonsDelegate {
+    func landingTabBarControllerTabButtonTapped(tabButtonId: LandingTabBarController.TabButtonId)
+}
 
-class LandingTabBarController : UITabBarController
+class LandingTabBarController : UIViewController
 {
-    var currentMobileIDChallengeView: MobileIDChallengeViewController? = nil
+    var tabButtonsDelegate: LandingTabBarControllerTabButtonsDelegate? = nil
+
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet var buttonsCollection: [TabButton]!
+
+    @IBAction func selectTab(sender: UIButton)
+     {
+        let tabId = TabButtonId(rawValue: sender.superview!.accessibilityIdentifier!)!
+        selectTabButton(tabId)
+        
+        if tabId == .signTab {
+            selectedIndex = 0
+        }
+        else if tabId == .cryptoTab {
+            selectedIndex = 1
+        }
+        else if tabId == .myeIDTab {
+            selectedIndex = 2
+        }
+    }
+
+    enum TabButtonId: String {
+        case signTab
+        case cryptoTab
+        case myeIDTab
+        case shareButton
+        case signButton
+        case encryptButton
+    }
+
+    var selectedIndex = 0 {
+        didSet {
+            viewControllers.forEach { $0.view.removeFromSuperview() }
+            viewControllers[selectedIndex].view.frame = containerView.bounds
+            containerView.addSubview(viewControllers[selectedIndex].view)
+        }
+    }
+    var viewControllers: [UIViewController] = []
+    static private(set) var shared: LandingTabBarController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBar.barTintColor = UIColor.white
-        if let viewControllers = viewControllers {
-            setupTab(for: viewControllers[0], title: L(LocKey.tabSignature), image: "IconSignature", selectedImage: "IconSignature")
-            setupTab(for: viewControllers[1], title: L(LocKey.tabCrypto), image: "IconCrypto", selectedImage: "IconCryptoSelected")
-            setupTab(for: viewControllers[2], title: L(LocKey.tabMyEid), image: "IconMyEID", selectedImage: "IconMyEIDSelected")
+        LandingTabBarController.shared = self
+        
+        viewControllers.append(UIStoryboard.signing.instantiateInitialViewController()!)
+        viewControllers.append(UIStoryboard.crypto.instantiateInitialViewController()!)
+        viewControllers.append(UIStoryboard.myEID.instantiateInitialViewController()!)
+        viewControllers[selectedIndex].view.frame = containerView.bounds
+        containerView.addSubview(viewControllers[selectedIndex].view)
+        
+        buttonsCollection.forEach {
+            if $0.kind == .button {
+                $0.button.addTarget(self, action: #selector(tabButtonTapAction), for: .touchUpInside)
+            }
         }
-        // [self setupTabFor:[self.viewControllers objectAtIndex:3] title:Localizations.TabSettings image:@"settingsNormal" selectedImage:@"settingsNormal_2"];
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveMobileCreateSignatureNotification), name: .createSignatureNotificationName, object: nil)
+        
+        presentButtons([.signTab, .cryptoTab, .myeIDTab])
+        selectTabButton(.signTab)
+
         NotificationCenter.default.addObserver(self, selector: #selector(receiveErrorNotification), name: .errorNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveOpenContainerNotification), name: .openContainerNotificationName, object: nil)
     }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+        buttonsCollection.forEach {
+            if $0.kind == .button {
+                $0.button.removeTarget(self, action: #selector(tabButtonTapAction), for: .touchUpInside)
+            }
+        }
+    }
+
+    @objc func tabButtonTapAction(sender: UIButton) {
+        let tabButton = buttonsCollection.first { $0.button == sender }!
+        let buttonId = TabButtonId(rawValue: tabButton.accessibilityIdentifier!)!
+        tabButtonsDelegate?.landingTabBarControllerTabButtonTapped(tabButtonId: buttonId)
     }
 
     func setupTab(for controller: UIViewController, title: String, image imageName: String, selectedImage selectedImageName: String) {
@@ -60,40 +121,57 @@ class LandingTabBarController : UITabBarController
         
         // Select signing tab
         selectedIndex = 0
-        if let navigationController = viewControllers?.first as? UINavigationController {
+        if let navigationController = viewControllers.first as? UINavigationController {
             if let signingViewController = navigationController.viewControllers.first as? SigningViewController {
                 signingViewController.refresh()
             }
-            if let containerViewController = UIStoryboard.container.instantiateInitialViewController() as? ContainerViewController {
+            let containerViewController = UIStoryboard.container.instantiateInitialViewController(of: ContainerViewController.self)
                 containerViewController.container = container
-                navigationController.pushViewController(containerViewController, animated: false)
-            }
+            navigationController.pushViewController(containerViewController, animated: false)
         }
-    }
-
-    @objc func receiveMobileCreateSignatureNotification(_ notification: Notification) {
-    
-        guard let response = notification.userInfo?[kCreateSignatureResponseKey] as? MoppLibMobileCreateSignatureResponse else {
-            return
-        }
-        
-        let mobileIDChallengeview = storyboard?.instantiateViewController(withIdentifier: "MobileIDChallengeView") as? MobileIDChallengeViewController
-        
-        currentMobileIDChallengeView = mobileIDChallengeview
-        currentMobileIDChallengeView!.challengeID = response.challengeId!
-        currentMobileIDChallengeView!.sessCode = "\(Int(response.sessCode))"
-        currentMobileIDChallengeView!.modalPresentationStyle = .overCurrentContext
-        currentMobileIDChallengeView!.view.alpha = 0.75
-        present(currentMobileIDChallengeView!, animated: true)
     }
 
     @objc func receiveErrorNotification(_ notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
-        guard let error = userInfo[kErrorKey] as? NSError else { return }
-        let alert = UIAlertController(title: L(.errorAlertTitleGeneral), message: error.userInfo[NSLocalizedDescriptionKey] as? String, preferredStyle: .alert)
-        currentMobileIDChallengeView?.dismiss(animated: true)
+        let error = userInfo[kErrorKey] as? NSError
+        var errorMessage = error?.userInfo[NSLocalizedDescriptionKey] as? String ??
+            userInfo[kErrorMessage] as? String
+        
+        if errorMessage == "USER_CANCEL" {
+            errorMessage = L(.mobileIdUserCancelMessage)
+        }
+        
+        let alert = UIAlertController(
+            title: L(.errorAlertTitleGeneral),
+            message: errorMessage,
+            preferredStyle: .alert)
+        
+        presentedViewController?.dismiss(animated: true, completion: nil)
         alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
         present(alert, animated: true)
     }
 
+}
+
+extension LandingTabBarController {
+    func presentButtons(_ buttons: [TabButtonId]) {
+        for b in buttons {
+            self.buttonsCollection.first(where: { $0.accessibilityIdentifier == b.rawValue })?.isHidden = false
+        }
+        let buttonsToHide = self.buttonsCollection.filter {
+            !buttons.contains(TabButtonId(rawValue: $0.accessibilityIdentifier!)!)
+        }
+        buttonsToHide.forEach {
+            $0.isHidden = true
+        }
+    }
+    
+    func selectTabButton(_ button: TabButtonId) {
+        for b in buttonsCollection {
+            if b.kind == .tab {
+                let id = TabButtonId(rawValue: b.accessibilityIdentifier!)!
+                b.setSelected(id == button)
+            }
+        }
+    }
 }

@@ -23,6 +23,9 @@
 "tab-my-eid" = "MY eID";
 "tab-crypto" = "CRYPTO";
 "tab-signature" = "SIGNATURE";
+"tab-sign-button" = "SIGN CONTAINER";
+"tab-share-button" = "SHARE";
+"tab-encrypt-button" = "ENCRYPT";
 
 // Main menu
 "menu-help" = "HELP";
@@ -234,3 +237,15 @@
 "datafile-remove-confirm-message" = "Do you want to remove document from container?";
 
 "signing-missing-file-import-message" = "This iOS version doesn't support importing files from app.\n\nUse file from outside the app and open it with RIA DigiDoc.";
+
+"mobile-id-title" = "Enter your mobile number and ID code to sign with Mobile-ID";
+"mobile-id-phone-title" = "Country code and phone number";
+"mobile-id-idcode-title" = "ID code";
+"mobile-id-remember-me" = "Remember me";
+"mobile-id-cancel-button-title" = "CANCEL";
+"mobile-id-sign-button-title" = "SIGN";
+"mobile-id-challenge-title" = "Sign with Mobile-ID app";
+"mobile-id-challenge-waiting-response" = "Waiting for response ...";
+"container-sign-title" = "Sign";
+"container-validate-title" = "Validate container";
+"mobile-id-user-cancel-message" = "Signing cancelled by user";
