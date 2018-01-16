@@ -153,12 +153,6 @@ class ContainerViewController : MoppViewController {
 extension ContainerViewController {
     func setupNavigationItemForPushedViewController() {
         setupNavigationItemForPushedViewController(title: L(LocKey.containerTitle))
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "VerticalDotsMenu"), style: .plain, target: self, action: #selector(shareAction))
-        navigationItem.setRightBarButton(rightBarButtonItem, animated: true)
-    }
-    
-    @objc func shareAction() {
-        
     }
 }
 
