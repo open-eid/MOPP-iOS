@@ -134,8 +134,12 @@ class LandingTabBarController : UIViewController
     @objc func receiveErrorNotification(_ notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         let error = userInfo[kErrorKey] as? NSError
-        let errorMessage = error?.userInfo[NSLocalizedDescriptionKey] as? String ??
+        var errorMessage = error?.userInfo[NSLocalizedDescriptionKey] as? String ??
             userInfo[kErrorMessage] as? String
+        
+        if errorMessage == "USER_CANCEL" {
+            errorMessage = L(.mobileIdUserCancelMessage)
+        }
         
         let alert = UIAlertController(
             title: L(.errorAlertTitleGeneral),

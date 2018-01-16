@@ -249,3 +249,4 @@
 "mobile-id-challenge-waiting-response" = "Жду ответа ...";
 "container-sign-title" = "Регистрация";
 "container-validate-title" = "Проверить контейнер";
+"mobile-id-user-cancel-message" = "Подписание отменено пользователем";

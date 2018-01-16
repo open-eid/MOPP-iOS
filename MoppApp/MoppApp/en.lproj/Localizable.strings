@@ -248,3 +248,4 @@
 "mobile-id-challenge-waiting-response" = "Waiting for response ...";
 "container-sign-title" = "Sign";
 "container-validate-title" = "Validate container";
+"mobile-id-user-cancel-message" = "Signing cancelled by user";

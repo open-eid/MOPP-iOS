@@ -245,7 +245,8 @@
 "mobile-id-remember-me" = "Jäta meelde";
 "mobile-id-cancel-button-title" = "TÜHISTA";
 "mobile-id-sign-button-title" = "ALLKIRJASTA";
-"mobile-id-challenge-title" = "Allkirjasta Mobile-ID äpiga";
+"mobile-id-challenge-title" = "Allkirjasta Mobiil-ID äpiga";
 "mobile-id-challenge-waiting-response" = "Ootan vastust ...";
 "container-sign-title" = "Allkirjastamine";
 "container-validate-title" = "Konteineri kontroll";
+"mobile-id-user-cancel-message" = "Toiming katkestati kasutaja poolt";

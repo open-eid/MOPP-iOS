@@ -92,6 +92,10 @@ class MobileIDEditViewController : MoppViewController {
     }
     
     @IBAction func signAction() {
+        if rememberSwitch.isOn {
+            DefaultsHelper.idCode = idCodeTextField.text ?? String()
+            DefaultsHelper.phoneNumber = phoneTextField.text ?? String()
+        }
         dismiss(animated: false) {
             [weak self] in
             guard let sself = self else { return }
@@ -104,6 +108,11 @@ class MobileIDEditViewController : MoppViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    
+        let idCode = DefaultsHelper.idCode
+    
+        idCodeTextField.text = DefaultsHelper.idCode
+        phoneTextField.text = DefaultsHelper.phoneNumber
     
         view.backgroundColor = UIColor.black.withAlphaComponent(0.0)
         UIView.animate(withDuration: 0.35) {

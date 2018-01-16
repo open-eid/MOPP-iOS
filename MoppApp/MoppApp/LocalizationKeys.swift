@@ -215,4 +215,5 @@ enum LocKey : String
     case mobileIdChallengeWaitingForResponse = "mobile-id-challenge-waiting-response"
     case containerSignTitle = "container-sign-title"
     case containerValidateTitle = "container-validate-title"
+    case mobileIdUserCancelMessage = "mobile-id-user-cancel-message"
 }
