@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -41,18 +40,6 @@
                         <constraint firstAttribute="height" constant="1" id="SVd-xT-z1l"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agI-iX-TOD">
-                    <rect key="frame" x="323" y="30" width="44" height="44"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="44" id="Cfa-MW-tgn"/>
-                        <constraint firstAttribute="width" constant="44" id="rxz-gf-Y7u"/>
-                    </constraints>
-                    <color key="tintColor" red="0.015686274509803921" green="0.11764705882352941" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <state key="normal" image="addIcon"/>
-                    <connections>
-                        <action selector="addAction" destination="iN0-l3-epB" eventType="touchUpInside" id="tfn-og-CCD"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
@@ -61,8 +48,6 @@
                 <constraint firstItem="RjT-uf-eo4" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="BvS-KL-LD2"/>
                 <constraint firstItem="xKk-QQ-QG2" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="GBM-fN-riy"/>
                 <constraint firstItem="xKk-QQ-QG2" firstAttribute="top" secondItem="Th8-Lk-whe" secondAttribute="bottom" id="Jf2-SY-huE"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="agI-iX-TOD" secondAttribute="trailing" constant="8" id="T1K-3i-L7P"/>
-                <constraint firstItem="agI-iX-TOD" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="TQ5-9P-yZy"/>
                 <constraint firstItem="xKk-QQ-QG2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="V9n-Wv-K5T"/>
                 <constraint firstItem="Th8-Lk-whe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="X92-RB-WvW"/>
                 <constraint firstItem="Th8-Lk-whe" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Zzv-iD-ddb"/>
@@ -72,13 +57,9 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outlet property="addButton" destination="agI-iX-TOD" id="cTo-HE-T59"/>
                 <outlet property="titleLabel" destination="Th8-Lk-whe" id="JKO-vN-rZf"/>
             </connections>
             <point key="canvasLocation" x="-22.5" y="-250"/>
         </view>
     </objects>
-    <resources>
-        <image name="addIcon" width="25" height="25"/>
-    </resources>
 </document>

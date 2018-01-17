@@ -81,7 +81,7 @@
 "containers-list-cached-files-option2" = "Удалать их";
 
 // DataFile import
-"file-import-title" = "Импортировать файл";
+"file-import-title" = "+ ДОБАВИТЬ БОЛЬШЕ ФАЙЛОВ";
 "file-import-create-container-button" = "Создать документ";
 "file-import-info" = "%@\n\nПожалуйста выберите неподписанный документ или создайте новый.";
 "file-import-import-failed-alert-title" = "Ошибка импорта";

@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -86,7 +85,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="HIm-UB-9lY"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
                                                     <state key="normal" title="VALI FAIL">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
@@ -110,32 +109,6 @@
                                         <connections>
                                             <outlet property="button" destination="zMi-Py-db5" id="n3J-cH-nEr"/>
                                             <outlet property="label" destination="NeM-I1-l2q" id="LQ2-M1-65d"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SigningFileImportMissingCell" rowHeight="195" id="pRu-HO-XEh" customClass="SigningFileImportMissingCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="257" width="375" height="195"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pRu-HO-XEh" id="cHw-W8-DPc">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="195"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This iOS version doesn't support importing files from app.  Use file from outside the app and open it with RIA DigiDoc." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pbn-Cf-t7x">
-                                                    <rect key="frame" x="15" y="43" width="345" height="109"/>
-                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="19"/>
-                                                    <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="0.050000000000000003" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Pbn-Cf-t7x" secondAttribute="trailing" id="IWW-O8-W67"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Pbn-Cf-t7x" secondAttribute="bottom" constant="32" id="rnT-px-vUD"/>
-                                                <constraint firstAttribute="leadingMargin" secondItem="Pbn-Cf-t7x" secondAttribute="leading" id="xUj-vA-zfE"/>
-                                                <constraint firstItem="Pbn-Cf-t7x" firstAttribute="top" secondItem="cHw-W8-DPc" secondAttribute="topMargin" constant="32" id="zV0-qz-roJ"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="label" destination="Pbn-Cf-t7x" id="lXb-QI-3AB"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

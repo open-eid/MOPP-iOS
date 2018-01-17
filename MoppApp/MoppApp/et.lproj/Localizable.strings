@@ -81,7 +81,7 @@
 "containers-list-cached-files-option2" = "Kustuta need";
 
 // DataFile import
-"file-import-title" = "Lisa fail";
+"file-import-title" = "+ LISA VEEL FAILE";
 "file-import-create-container-button" = "Loo dokument";
 "file-import-info" = "%@\n\nPalun vali allkirjastamata dokument või loo uus.";
 "file-import-import-failed-alert-title" = "Importimine ebaõnnestus";

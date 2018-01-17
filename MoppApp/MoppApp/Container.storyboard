@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -117,43 +116,59 @@
                                             <outlet property="titleLabel" destination="c0X-dZ-CUW" id="DZL-Jk-2yZ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerFileCell" id="6pq-Cm-b20" userLabel="ContainerFileCell" customClass="ContainerFileCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="130" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerFileCell" rowHeight="77" id="6pq-Cm-b20" userLabel="ContainerFileCell" customClass="ContainerFileCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="130" width="375" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6pq-Cm-b20" id="o5E-gs-VpH">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="77"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.pdf" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="dlt-jI-SME">
-                                                    <rect key="frame" x="15" y="19" width="116" height="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.pdf" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="dlt-jI-SME">
+                                                    <rect key="frame" x="15" y="27" width="301" height="33"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
                                                     <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tgu-rh-2tI">
-                                                    <rect key="frame" x="16" y="43" width="343" height="1"/>
+                                                    <rect key="frame" x="16" y="76" width="343" height="1"/>
                                                     <color key="backgroundColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="0.20732555650000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="pYQ-aO-5JY"/>
                                                     </constraints>
                                                 </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zV0-PM-P6i">
+                                                    <rect key="frame" x="324" y="21.5" width="44" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="MmI-r1-XJ4"/>
+                                                        <constraint firstAttribute="width" constant="44" id="qWy-OZ-3nc"/>
+                                                    </constraints>
+                                                    <state key="normal" image="icon_remove-1"/>
+                                                    <connections>
+                                                        <action selector="removeAction" destination="6pq-Cm-b20" eventType="touchUpInside" id="dz7-pi-paM"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Tgu-rh-2tI" firstAttribute="top" secondItem="dlt-jI-SME" secondAttribute="bottom" constant="8" id="2Q8-fI-W7G"/>
-                                                <constraint firstItem="dlt-jI-SME" firstAttribute="top" secondItem="o5E-gs-VpH" secondAttribute="topMargin" constant="8" id="4dC-pt-IpZ"/>
+                                                <constraint firstItem="Tgu-rh-2tI" firstAttribute="top" secondItem="dlt-jI-SME" secondAttribute="bottom" constant="16" id="2Q8-fI-W7G"/>
+                                                <constraint firstItem="dlt-jI-SME" firstAttribute="top" secondItem="o5E-gs-VpH" secondAttribute="topMargin" constant="16" id="4dC-pt-IpZ"/>
+                                                <constraint firstItem="zV0-PM-P6i" firstAttribute="leading" secondItem="dlt-jI-SME" secondAttribute="trailing" priority="750" constant="8" id="65Y-7b-ZBt"/>
+                                                <constraint firstAttribute="trailing" secondItem="zV0-PM-P6i" secondAttribute="trailing" constant="7" id="7Xa-J1-Yxa"/>
                                                 <constraint firstAttribute="trailing" secondItem="Tgu-rh-2tI" secondAttribute="trailing" constant="16" id="8XZ-T2-tL2"/>
                                                 <constraint firstItem="Tgu-rh-2tI" firstAttribute="leading" secondItem="o5E-gs-VpH" secondAttribute="leading" constant="16" id="QVO-jK-dQM"/>
                                                 <constraint firstItem="dlt-jI-SME" firstAttribute="leading" secondItem="o5E-gs-VpH" secondAttribute="leadingMargin" id="dys-r1-Yd3"/>
+                                                <constraint firstItem="zV0-PM-P6i" firstAttribute="centerY" secondItem="dlt-jI-SME" secondAttribute="centerY" id="fnS-8N-vFM"/>
                                                 <constraint firstAttribute="bottom" secondItem="Tgu-rh-2tI" secondAttribute="bottom" id="izr-ax-UrV"/>
+                                                <constraint firstAttribute="trailing" secondItem="dlt-jI-SME" secondAttribute="trailing" priority="250" constant="59" id="lw8-Rm-Jwx"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="bottomBorderView" destination="Tgu-rh-2tI" id="zTR-rZ-x4y"/>
                                             <outlet property="filenameLabel" destination="dlt-jI-SME" id="ld3-fd-Ypy"/>
+                                            <outlet property="removeButton" destination="zV0-PM-P6i" id="dkJ-5c-GmP"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerSignatureCell" editingAccessoryType="disclosureIndicator" rowHeight="60" id="STu-Fe-0aP" customClass="ContainerSignatureCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="174" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="207" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="STu-Fe-0aP" id="Fv4-kU-K5l">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
@@ -186,13 +201,24 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="icon_alert_red" translatesAutoresizingMaskIntoConstraints="NO" id="Jrd-hQ-CT9">
-                                                    <rect key="frame" x="170" y="15" width="13" height="13"/>
+                                                    <rect key="frame" x="170" y="13" width="13" height="13"/>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S00-xe-5JY">
+                                                    <rect key="frame" x="324" y="4" width="44" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="44" id="Fgg-Kd-THt"/>
+                                                        <constraint firstAttribute="height" constant="44" id="oFm-x4-jXj"/>
+                                                    </constraints>
+                                                    <state key="normal" image="icon_remove-1"/>
+                                                    <connections>
+                                                        <action selector="removeAction" destination="STu-Fe-0aP" eventType="touchUpInside" id="YIz-n2-UtC"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="hpW-Rn-1bR" firstAttribute="top" secondItem="VhO-fS-PmX" secondAttribute="bottom" constant="4" id="1yp-ZK-Twr"/>
                                                 <constraint firstItem="vOz-nq-F7B" firstAttribute="top" secondItem="Fv4-kU-K5l" secondAttribute="topMargin" id="9dy-z7-Lko"/>
-                                                <constraint firstItem="Jrd-hQ-CT9" firstAttribute="top" secondItem="VhO-fS-PmX" secondAttribute="top" constant="4" id="CIJ-cQ-K8m"/>
+                                                <constraint firstItem="Jrd-hQ-CT9" firstAttribute="top" secondItem="VhO-fS-PmX" secondAttribute="top" constant="2" id="CIJ-cQ-K8m"/>
                                                 <constraint firstItem="pqJ-cj-2Ef" firstAttribute="leading" secondItem="Fv4-kU-K5l" secondAttribute="leading" constant="16" id="Mda-wJ-iyR"/>
                                                 <constraint firstItem="Jrd-hQ-CT9" firstAttribute="leading" secondItem="VhO-fS-PmX" secondAttribute="trailing" constant="8" id="QWA-Ad-j6x"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="hpW-Rn-1bR" secondAttribute="trailing" id="bPa-Rx-fv5"/>
@@ -202,6 +228,8 @@
                                                 <constraint firstItem="VhO-fS-PmX" firstAttribute="top" secondItem="Fv4-kU-K5l" secondAttribute="topMargin" id="f8h-xw-kNL"/>
                                                 <constraint firstItem="VhO-fS-PmX" firstAttribute="leading" secondItem="vOz-nq-F7B" secondAttribute="trailing" constant="8" id="ggV-pj-12A"/>
                                                 <constraint firstItem="vOz-nq-F7B" firstAttribute="leading" secondItem="Fv4-kU-K5l" secondAttribute="leadingMargin" id="h2i-Ft-KhX"/>
+                                                <constraint firstItem="S00-xe-5JY" firstAttribute="centerY" secondItem="Fv4-kU-K5l" secondAttribute="centerY" constant="-4" id="qCn-P9-1X5"/>
+                                                <constraint firstAttribute="trailing" secondItem="S00-xe-5JY" secondAttribute="trailing" constant="7" id="sD5-fv-dPk"/>
                                                 <constraint firstAttribute="trailing" secondItem="pqJ-cj-2Ef" secondAttribute="trailing" constant="16" id="v8A-t9-xNc"/>
                                                 <constraint firstAttribute="bottom" secondItem="pqJ-cj-2Ef" secondAttribute="bottom" id="x64-xp-XLq"/>
                                             </constraints>
@@ -211,12 +239,13 @@
                                             <outlet property="bottomBorderView" destination="pqJ-cj-2Ef" id="sBZ-sc-RhT"/>
                                             <outlet property="iconImageView" destination="vOz-nq-F7B" id="bVk-G1-a46"/>
                                             <outlet property="nameLabel" destination="VhO-fS-PmX" id="G2D-3o-NPn"/>
+                                            <outlet property="removeButton" destination="S00-xe-5JY" id="khh-qI-uWX"/>
                                             <outlet property="signedInfoLabel" destination="hpW-Rn-1bR" id="drD-Wd-E48"/>
                                             <outlet property="statusIconImageView" destination="Jrd-hQ-CT9" id="dzs-Ny-cXu"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerSearchCell" rowHeight="44" id="M6t-R4-cVe" customClass="ContainerSearchCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="234" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="267" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M6t-R4-cVe" id="Peo-st-QFt">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -241,7 +270,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerNoSignaturesCell" id="5lc-fV-mc6" customClass="ContainerNoSignaturesCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="278" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="311" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5lc-fV-mc6" id="Ca6-4c-NYM">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -263,6 +292,42 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="label" destination="KQF-XJ-qkZ" id="hqP-QL-Era"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerImportFilesCell" rowHeight="96" id="qwL-cE-udC" customClass="ContainerImportFilesCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="355" width="375" height="96"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qwL-cE-udC" id="gdd-9U-o25">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9nm-lT-W8h">
+                                                    <rect key="frame" x="15" y="19" width="345" height="50"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="Nlm-EK-LPN"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
+                                                    <state key="normal" title="CHOOSE FILE">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="4"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="9nm-lT-W8h" secondAttribute="bottom" constant="8" id="CYb-jz-GRl"/>
+                                                <constraint firstItem="9nm-lT-W8h" firstAttribute="trailing" secondItem="gdd-9U-o25" secondAttribute="trailingMargin" id="FaN-PF-ncV"/>
+                                                <constraint firstItem="9nm-lT-W8h" firstAttribute="top" secondItem="gdd-9U-o25" secondAttribute="topMargin" constant="8" id="Hs0-CI-LFB"/>
+                                                <constraint firstItem="9nm-lT-W8h" firstAttribute="leading" secondItem="gdd-9U-o25" secondAttribute="leadingMargin" id="d7C-p8-c7l"/>
+                                                <constraint firstItem="9nm-lT-W8h" firstAttribute="centerY" secondItem="gdd-9U-o25" secondAttribute="centerY" id="lri-lU-RvN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="button" destination="9nm-lT-W8h" id="8DT-fN-6HB"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -393,5 +458,6 @@
     <resources>
         <image name="Icon_ajatempel" width="17" height="17"/>
         <image name="icon_alert_red" width="13" height="13"/>
+        <image name="icon_remove-1" width="25" height="25"/>
     </resources>
 </document>

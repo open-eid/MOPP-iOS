@@ -81,7 +81,7 @@
 "containers-list-cached-files-option2" = "Delete them";
 
 // DataFile import
-"file-import-title" = "Import file";
+"file-import-title" = "+ ADD MORE FILES";
 "file-import-create-container-button" = "Create document";
 "file-import-info" = "%@\n\nPlease select unsigned document or create new one.";
 "file-import-import-failed-alert-title" = "Import failed";

@@ -1,5 +1,5 @@
 //
-//  ContainerFileCell.swift
+//  ContainerImportFilesCell.swift
 //  MoppApp
 //
 /*
@@ -23,31 +23,10 @@
 import Foundation
 
 
-protocol ContainerFileDelegate: class {
-    func removeDataFile(dataFileIndex: Int)
-}
-
-class ContainerFileCell: UITableViewCell {
-    static let height: CGFloat = 44
-    @IBOutlet weak var filenameLabel: UILabel!
-    @IBOutlet weak var bottomBorderView: UIView!
-    @IBOutlet weak var removeButton: UIView!
-    
-    weak var delegate: ContainerFileDelegate? = nil
-    var dataFileIndex: Int!
-    
-    @IBAction func removeAction() {
-        delegate?.removeDataFile(dataFileIndex: dataFileIndex)
-    }
-    
+class ContainerImportFilesCell : UITableViewCell {
+    @IBOutlet weak var button: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
-    }
-    
-    func populate(name: String, showBottomBorder: Bool, showRemoveButton: Bool, dataFileIndex: Int) {
-        bottomBorderView.isHidden = !showBottomBorder
-        filenameLabel.text = name
-        removeButton.isHidden = !showRemoveButton
-        self.dataFileIndex = dataFileIndex
+        button.localizedTitle = LocKey.fileImportTitle
     }
 }
