@@ -11,14 +11,8 @@ extern "C" {
 #ifndef OPENSSL_DOING_MAKEDEPEND
 
 
-#ifndef OPENSSL_NO_APPS
-# define OPENSSL_NO_APPS
-#endif
 #ifndef OPENSSL_NO_EC_NISTP_64_GCC_128
 # define OPENSSL_NO_EC_NISTP_64_GCC_128
-#endif
-#ifndef OPENSSL_NO_ENGINES
-# define OPENSSL_NO_ENGINES
 #endif
 #ifndef OPENSSL_NO_GMP
 # define OPENSSL_NO_GMP
@@ -77,14 +71,8 @@ extern "C" {
    who haven't had the time to do the appropriate changes in their
    applications.  */
 #ifdef OPENSSL_ALGORITHM_DEFINES
-# if defined(OPENSSL_NO_APPS) && !defined(NO_APPS)
-#  define NO_APPS
-# endif
 # if defined(OPENSSL_NO_EC_NISTP_64_GCC_128) && !defined(NO_EC_NISTP_64_GCC_128)
 #  define NO_EC_NISTP_64_GCC_128
-# endif
-# if defined(OPENSSL_NO_ENGINES) && !defined(NO_ENGINES)
-#  define NO_ENGINES
 # endif
 # if defined(OPENSSL_NO_GMP) && !defined(NO_GMP)
 #  define NO_GMP
@@ -136,8 +124,8 @@ extern "C" {
 
 #if !(defined(VMS) || defined(__VMS)) /* VMS uses logical names instead */
 #if defined(HEADER_CRYPTLIB_H) && !defined(OPENSSLDIR)
-#define ENGINESDIR "/Library/EstonianIDCard.iphonesimulator/lib/engines"
-#define OPENSSLDIR "/Library/EstonianIDCard.iphonesimulator"
+#define ENGINESDIR "/Library/libdigidocpp.iphonesimulator/lib/engines"
+#define OPENSSLDIR "/Library/libdigidocpp.iphonesimulator"
 #endif
 #endif
 

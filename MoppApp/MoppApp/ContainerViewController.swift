@@ -153,12 +153,6 @@ class ContainerViewController : MoppViewController {
 extension ContainerViewController {
     func setupNavigationItemForPushedViewController() {
         setupNavigationItemForPushedViewController(title: L(LocKey.containerTitle))
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "VerticalDotsMenu"), style: .plain, target: self, action: #selector(shareAction))
-        navigationItem.setRightBarButton(rightBarButtonItem, animated: true)
-    }
-    
-    @objc func shareAction() {
-        
     }
 }
 
@@ -342,11 +336,8 @@ extension ContainerViewController : UITableViewDelegate {
         let section = sections[_section]
         if let title = sectionHeaderTitle[section] {
             if let header = MoppApp.instance.nibs[.containerElements]?.instantiate(withOwner: self, type: ContainerTableViewHeaderView.self) {
+                let showAddButton = section == .signatures || section == .files
                 header.delegate = self
-                var showAddButton = section == .signatures
-                if #available(iOS 11, *) {
-                    showAddButton = section == .signatures || section == .files
-                }
                 header.populate(withTitle: title, showAddButton: showAddButton, section: section)
                 return header
             }
