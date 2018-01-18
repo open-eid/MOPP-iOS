@@ -31,7 +31,6 @@ protocol ContainerTableViewHeaderViewDelegate: class {
 class ContainerTableViewHeaderView: UIView {
     static let height: CGFloat = 60
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var addButton: UIButton!
     
     var targetSection: ContainerViewController.Section!
     weak var delegate: ContainerTableViewHeaderViewDelegate?
@@ -54,9 +53,8 @@ class ContainerTableViewHeaderView: UIView {
         _ = createGradientLayer(topColor: topColor, bottomColor: botColor)
     }
     
-    func populate(withTitle title: String, showAddButton: Bool, section: ContainerViewController.Section) {
+    func populate(withTitle title: String, section: ContainerViewController.Section) {
         targetSection = section
-        addButton.isHidden = !showAddButton
         titleLabel.text = title
     }
 }

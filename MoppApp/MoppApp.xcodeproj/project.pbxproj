@@ -89,6 +89,7 @@
 		C560CB0A1FFCEEF000C01FE4 /* SigningFileImportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */; };
 		C560CB0C1FFD0D4B00C01FE4 /* SigningFileImportMissingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C560CB0B1FFD0D4B00C01FE4 /* SigningFileImportMissingCell.swift */; };
 		C5964CE820079AE0001FE732 /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5964CE720079AE0001FE732 /* TabButton.swift */; };
+		C5964CEA200F8607001FE732 /* ContainerImportFilesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5964CE9200F8607001FE732 /* ContainerImportFilesCell.swift */; };
 		C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59A958D1FB5B9E100D0E1F9 /* InitializationViewController.swift */; };
 		C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */; };
 		E4180C371E26822000FD7B8C /* datafile.txt in Resources */ = {isa = PBXBuildFile; fileRef = E4180C361E26822000FD7B8C /* datafile.txt */; };
@@ -234,6 +235,7 @@
 		C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningFileImportCell.swift; sourceTree = "<group>"; };
 		C560CB0B1FFD0D4B00C01FE4 /* SigningFileImportMissingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningFileImportMissingCell.swift; sourceTree = "<group>"; };
 		C5964CE720079AE0001FE732 /* TabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButton.swift; sourceTree = "<group>"; };
+		C5964CE9200F8607001FE732 /* ContainerImportFilesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerImportFilesCell.swift; sourceTree = "<group>"; };
 		C59A958C1FB5B9E100D0E1F9 /* MoppApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoppApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		C59A958D1FB5B9E100D0E1F9 /* InitializationViewController.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = InitializationViewController.swift; sourceTree = "<group>"; };
 		C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerNoSignaturesCell.swift; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 				C50DCD431FDD7E4A00D48E16 /* DataFilePreviewViewController.swift */,
 				C50DCD451FDECE2B00D48E16 /* SignatureDetailsViewController.swift */,
 				C50DCD471FDED76400D48E16 /* SignatureDetailsCell.swift */,
+				C5964CE9200F8607001FE732 /* ContainerImportFilesCell.swift */,
 			);
 			name = Container;
 			sourceTree = "<group>";
@@ -840,6 +843,7 @@
 				C50DCD091FC7127400D48E16 /* ContainerFileCell.swift in Sources */,
 				E4250CCB1E0968D200530370 /* AppDelegate.swift in Sources */,
 				C52E827A1FC1D7000074B280 /* main.swift in Sources */,
+				C5964CEA200F8607001FE732 /* ContainerImportFilesCell.swift in Sources */,
 				C50DCD1B1FD1576B00D48E16 /* SigningTableViewHeaderView.swift in Sources */,
 				C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */,
 				C50DCD131FCC4D3000D48E16 /* UIView+Additions.swift in Sources */,

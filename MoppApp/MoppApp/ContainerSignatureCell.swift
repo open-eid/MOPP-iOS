@@ -22,6 +22,11 @@
  */
 import Foundation
 
+protocol ContainerSignatureDelegate: class {
+    func containerSignatureRemove(signatureIndex: Int)
+}
+
+
 class ContainerSignatureCell: UITableViewCell {
     static let height: CGFloat = 60
     @IBOutlet weak var nameLabel: UILabel!
@@ -30,6 +35,9 @@ class ContainerSignatureCell: UITableViewCell {
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var bottomBorderView: UIView!
     @IBOutlet weak var statusIconImageView: UIImageView!
+    @IBOutlet weak var removeButton: UIButton!
+    
+    weak var delegate: ContainerSignatureDelegate? = nil
     
     enum ColorTheme {
         case neutral
@@ -43,13 +51,19 @@ class ContainerSignatureCell: UITableViewCell {
     }
     
     var kind: Kind = .signature
+    var signatureIndex: Int!
+    
+    @IBAction func removeAction() {
+        delegate?.containerSignatureRemove(signatureIndex: signatureIndex)
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
-    func populate(with signature: MoppLibSignature, kind: Kind, showBottomBorder: Bool) {
+    func populate(with signature: MoppLibSignature, kind: Kind, showBottomBorder: Bool, signatureIndex: Int) {
         self.kind = kind
+        self.signatureIndex = signatureIndex
 
         nameLabel.text = signature.subjectName
         
@@ -64,13 +78,13 @@ class ContainerSignatureCell: UITableViewCell {
         switch colorTheme {
         case .neutral:
             nameLabel.textColor = UIColor.moppText
-            statusIconImageView.image = UIImage(named: "icon_success")
+            statusIconImageView.image = UIImage(named: "icon_check")
         case .showInvalid:
             nameLabel.textColor = UIColor.moppWarning
-            statusIconImageView.image = UIImage(named: "icon_invalid_cert")
+            statusIconImageView.image = UIImage(named: "icon_alert_red")
         case .showSuccess:
             nameLabel.textColor = UIColor.moppText
-            statusIconImageView.image = UIImage(named: "icon_success")
+            statusIconImageView.image = UIImage(named: "icon_check")
         }
     }
 }

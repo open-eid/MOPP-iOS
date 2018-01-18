@@ -35,6 +35,7 @@ class ContainerViewController : MoppViewController {
         case missingSignatures
         case timestamp
         case files
+        case importFiles
         case header
         case search
     }
@@ -56,6 +57,7 @@ class ContainerViewController : MoppViewController {
 
     private static let sectionsWithError: [Section] = [.error, .header, .files, .signatures]
     private static let sectionsDefault  : [Section] = [.header, .files, .signatures]
+    private static let sectionsNoSignatures : [Section] = [.header, .files, .importFiles]
     
     var sections: [Section] = ContainerViewController.sectionsDefault
 
@@ -191,7 +193,7 @@ extension ContainerViewController : UITableViewDataSource {
             return container.signatures.count
         case .files:
             return container.dataFiles.count
-        case .error, .missingSignatures, .header, .search, .timestamp:
+        case .error, .missingSignatures, .header, .search, .timestamp, .importFiles:
             return 1
         }
     }
@@ -204,8 +206,13 @@ extension ContainerViewController : UITableViewDataSource {
             return cell
         case .signatures:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
-                let signature = container.signatures[row] as! MoppLibSignature
-                cell.populate(with: signature, kind: .signature, showBottomBorder: row < container.signatures.count - 1)
+            cell.delegate = self
+            let signature = container.signatures[row] as! MoppLibSignature
+            cell.populate(
+                with: signature,
+                kind: .signature,
+                showBottomBorder: row < container.signatures.count - 1,
+                signatureIndex: row)
             return cell
         case .missingSignatures:
             let cell = tableView.dequeueReusableCell(withType: ContainerNoSignaturesCell.self, for: indexPath)!
@@ -216,8 +223,15 @@ extension ContainerViewController : UITableViewDataSource {
             return cell
         case .files:
             let cell = tableView.dequeueReusableCell(withType: ContainerFileCell.self, for: indexPath)!
-                cell.populate(name: (container.dataFiles as! [MoppLibDataFile])[row].fileName, showBottomBorder: row < container.dataFiles.count - 1)
+                cell.delegate = self
+                cell.populate(
+                    name: (container.dataFiles as! [MoppLibDataFile])[row].fileName,
+                    showBottomBorder: row < container.dataFiles.count - 1,
+                    showRemoveButton: container.dataFiles.count > 1,
+                    dataFileIndex: row)
             return cell
+        case .importFiles:
+            return tableView.dequeueReusableCell(withType: ContainerImportFilesCell.self, for: indexPath)!
         case .header:
             let cell = tableView.dequeueReusableCell(withType: ContainerHeaderCell.self, for: indexPath)!
                 cell.populate(name: container.fileName)
@@ -226,6 +240,51 @@ extension ContainerViewController : UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withType: ContainerSearchCell.self, for: indexPath)!
             return cell
         }
+    }
+}
+
+extension ContainerViewController : ContainerSignatureDelegate {
+    func containerSignatureRemove(signatureIndex: Int) {
+            guard let signature = container.signatures[signatureIndex] as? MoppLibSignature else {
+                return
+            }
+        
+            confirmDeleteAlert(
+                message: L(.signatureRemoveConfirmMessage),
+                confirmCallback: { [weak self] (alertAction) in
+                
+                MoppLibContainerActions.sharedInstance().remove(
+                    signature,
+                    fromContainerWithPath: self?.container.filePath,
+                    success: { [weak self] container in
+                        self?.container.signatures.remove(at: signatureIndex)
+                        self?.reloadData()
+                    },
+                    failure: { [weak self] error in
+                        self?.reloadData()
+                        self?.errorAlert(message: error?.localizedDescription)
+                    })
+            })
+    }
+}
+
+extension ContainerViewController : ContainerFileDelegate {
+    func removeDataFile(dataFileIndex: Int) {    
+        confirmDeleteAlert(
+            message: L(.datafileRemoveConfirmMessage),
+            confirmCallback: { [weak self] (alertAction) in
+            MoppLibContainerActions.sharedInstance().removeDataFileFromContainer(
+                withPath: self?.containerPath,
+                at: UInt(dataFileIndex),
+                success: { [weak self] container in
+                    self?.container.dataFiles.remove(at: dataFileIndex)
+                    self?.reloadData()
+                },
+                failure: { [weak self] error in
+                    self?.reloadData()
+                    self?.errorAlert(message: error?.localizedDescription)
+                })
+        })
     }
 }
 
@@ -270,75 +329,17 @@ extension ContainerViewController : UITableViewDelegate {
             break
         case .search:
             break
+        case .importFiles:
+            break
         }
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return isSectionRowEditable[sections[indexPath.section]] ?? false
-    }
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let removeSignatureRowAction = UITableViewRowAction(style: .destructive, title: L(LocKey.containerRowEditRemove)) { [weak self] action, indexPath in
-            guard let strongSelf = self else { return }
-            guard let signature = strongSelf.container.signatures[indexPath.row] as? MoppLibSignature else {
-                return
-            }
-            
-            strongSelf.confirmDeleteAlert(message: L(.signatureRemoveConfirmMessage), confirmCallback: { (alertAction) in
-                MoppLibContainerActions.sharedInstance().remove(
-                    signature,
-                    fromContainerWithPath: strongSelf.container.filePath,
-                    success: { [weak self] container in
-                        self?.container.signatures.remove(at: indexPath.row)
-                        self?.reloadData()
-                    },
-                    failure: { [weak self] error in
-                        self?.reloadData()
-                        self?.errorAlert(message: error?.localizedDescription)
-                    })
-            })
-        }
-        
-        let removeDataFileRowAction = UITableViewRowAction(style: .destructive, title: L(LocKey.containerRowEditRemove)) { [weak self] action, indexPath in
-            guard let strongSelf = self else { return }
-            guard let dataFile = strongSelf.container.dataFiles[indexPath.row] as? MoppLibDataFile else {
-                return
-            }
-            
-            strongSelf.confirmDeleteAlert(message: L(.datafileRemoveConfirmMessage), confirmCallback: { (alertAction) in
-                MoppLibContainerActions.sharedInstance().removeDataFileFromContainer(
-                    withPath: strongSelf.containerPath,
-                    at: UInt(indexPath.row),
-                    success: { [weak self] container in
-                        self?.container.dataFiles.remove(at: indexPath.row)
-                        self?.reloadData()
-                    },
-                    failure: { [weak self] error in
-                        self?.reloadData()
-                        self?.errorAlert(message: error?.localizedDescription)
-                    })
-            })
-        }
-        
-        let section = sections[indexPath.section]
-        if section == .files {
-            removeDataFileRowAction.backgroundColor = UIColor.moppWarning
-            return [removeDataFileRowAction]
-        }
-        else if section == .signatures {
-            removeSignatureRowAction.backgroundColor = UIColor.moppWarning
-            return [removeSignatureRowAction]
-        }
-        return []
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection _section: Int) -> UIView? {
         let section = sections[_section]
         if let title = sectionHeaderTitle[section] {
             if let header = MoppApp.instance.nibs[.containerElements]?.instantiate(withOwner: self, type: ContainerTableViewHeaderView.self) {
-                let showAddButton = section == .signatures || section == .files
                 header.delegate = self
-                header.populate(withTitle: title, showAddButton: showAddButton, section: section)
+                header.populate(withTitle: title, section: section)
                 return header
             }
         }
@@ -367,11 +368,14 @@ extension ContainerViewController : UITableViewDelegate {
         }
 
         if container.signatures.isEmpty {
+            sections = ContainerViewController.sectionsNoSignatures
             if let signaturesIndex = sections.index(where: { $0 == .signatures }) {
                 if !sections.contains(.missingSignatures) {
                     sections.insert(.missingSignatures, at: signaturesIndex + 1)
                 }
             }
+        } else {
+            sections = ContainerViewController.sectionsDefault
         }
         
         tableView.reloadData()
