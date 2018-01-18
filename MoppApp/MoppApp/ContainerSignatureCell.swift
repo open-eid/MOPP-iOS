@@ -61,7 +61,7 @@ class ContainerSignatureCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func populate(with signature: MoppLibSignature, kind: Kind, showBottomBorder: Bool, signatureIndex: Int) {
+    func populate(with signature: MoppLibSignature, kind: Kind, showBottomBorder: Bool, showRemoveButton: Bool, signatureIndex: Int) {
         self.kind = kind
         self.signatureIndex = signatureIndex
 
@@ -73,6 +73,7 @@ class ContainerSignatureCell: UITableViewCell {
             UIImage(named: "Icon_Allkiri_small") :
             UIImage(named: "Icon_ajatempel")
         bottomBorderView.isHidden = !showBottomBorder
+        removeButton.isHidden = !showRemoveButton
         
         let colorTheme = signature.isValid ? ColorTheme.showSuccess : ColorTheme.showInvalid
         switch colorTheme {

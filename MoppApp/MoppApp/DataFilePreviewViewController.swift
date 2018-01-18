@@ -33,4 +33,9 @@ class DataFilePreviewViewController : MoppViewController {
         setupNavigationItemForPushedViewController(title: url.lastPathComponent)
         webView.loadRequest(URLRequest(url: url))
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        LandingTabBarController.shared.presentButtons([])
+    }
 }

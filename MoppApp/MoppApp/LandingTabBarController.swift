@@ -28,8 +28,11 @@ class LandingTabBarController : UIViewController
 {
     var tabButtonsDelegate: LandingTabBarControllerTabButtonsDelegate? = nil
 
+    @IBOutlet weak var containerViewBottomCSTR: NSLayoutConstraint!
+    @IBOutlet weak var containerViewButtonBarCSTR: NSLayoutConstraint!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet var buttonsCollection: [TabButton]!
+    @IBOutlet weak var buttonBarView: UIView!
 
     @IBAction func selectTab(sender: UIButton)
      {
@@ -58,13 +61,24 @@ class LandingTabBarController : UIViewController
 
     var selectedIndex = 0 {
         didSet {
-            viewControllers.forEach { $0.view.removeFromSuperview() }
-            viewControllers[selectedIndex].view.frame = containerView.bounds
-            containerView.addSubview(viewControllers[selectedIndex].view)
+            for i in 0..<viewControllers.count {
+                viewControllers[i].view.isHidden = selectedIndex != i
+            }
         }
     }
     var viewControllers: [UIViewController] = []
     static private(set) var shared: LandingTabBarController!
+
+    func configureConstraints(for targetView: UIView) {
+        let margins = self.containerView.safeAreaLayoutGuide
+
+        targetView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        targetView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        targetView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        targetView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        targetView.translatesAutoresizingMaskIntoConstraints = false
+        targetView.updateConstraints()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,8 +87,16 @@ class LandingTabBarController : UIViewController
         viewControllers.append(UIStoryboard.signing.instantiateInitialViewController()!)
         viewControllers.append(UIStoryboard.crypto.instantiateInitialViewController()!)
         viewControllers.append(UIStoryboard.myEID.instantiateInitialViewController()!)
-        viewControllers[selectedIndex].view.frame = containerView.bounds
-        containerView.addSubview(viewControllers[selectedIndex].view)
+        
+        viewControllers.forEach { viewController in
+            viewController.view.frame = view.bounds
+            containerView.addSubview(viewController.view)
+            viewController.view.frame = containerView.bounds
+            configureConstraints(for: viewController.view)
+            containerView.updateConstraints()
+        }
+        
+        selectedIndex = 0
         
         buttonsCollection.forEach {
             if $0.kind == .button {
@@ -155,6 +177,15 @@ class LandingTabBarController : UIViewController
 
 extension LandingTabBarController {
     func presentButtons(_ buttons: [TabButtonId]) {
+        buttonBarView.isHidden = buttons.isEmpty
+        if buttons.isEmpty {
+            containerViewBottomCSTR.priority = .defaultHigh
+            containerViewButtonBarCSTR.priority = .defaultLow
+        } else {
+            containerViewBottomCSTR.priority = .defaultLow
+            containerViewButtonBarCSTR.priority = .defaultHigh
+        }
+        view.layoutIfNeeded()
         for b in buttons {
             self.buttonsCollection.first(where: { $0.accessibilityIdentifier == b.rawValue })?.isHidden = false
         }
