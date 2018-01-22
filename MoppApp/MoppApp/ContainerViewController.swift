@@ -27,6 +27,7 @@ class ContainerViewController : MoppViewController {
 
     var container: MoppLibContainer!
     var containerPath: String? = nil
+    var isForPreview: Bool = false
     @IBOutlet weak var tableView: UITableView!
 
     enum Section {
@@ -64,6 +65,7 @@ class ContainerViewController : MoppViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.contentInsetAdjustmentBehavior = .never
         setupNavigationItemForPushedViewController()
         NotificationCenter.default.addObserver(self, selector: #selector(signatureCreatedFinished), name: .signatureCreatedFinishedNotificationName, object: nil)
         LandingTabBarController.shared.tabButtonsDelegate = self
@@ -83,7 +85,7 @@ class ContainerViewController : MoppViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        LandingTabBarController.shared.presentButtons([.signButton, .shareButton])
+        LandingTabBarController.shared.presentButtons(isForPreview ? [] : [.signButton, .shareButton])
     
         tableView.estimatedRowHeight = ContainerSignatureCell.height
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -212,6 +214,7 @@ extension ContainerViewController : UITableViewDataSource {
                 with: signature,
                 kind: .signature,
                 showBottomBorder: row < container.signatures.count - 1,
+                showRemoveButton: !isForPreview,
                 signatureIndex: row)
             return cell
         case .missingSignatures:
@@ -227,7 +230,7 @@ extension ContainerViewController : UITableViewDataSource {
                 cell.populate(
                     name: (container.dataFiles as! [MoppLibDataFile])[row].fileName,
                     showBottomBorder: row < container.dataFiles.count - 1,
-                    showRemoveButton: container.dataFiles.count > 1,
+                    showRemoveButton: container.dataFiles.count > 1 && !isForPreview,
                     dataFileIndex: row)
             return cell
         case .importFiles:
@@ -313,6 +316,7 @@ extension ContainerViewController : UITableViewDelegate {
                     if ext.isContainerExtension {
                         let containerViewController = UIStoryboard.container.instantiateInitialViewController(of: ContainerViewController.self)
                             containerViewController.containerPath = destinationPath
+                            containerViewController.isForPreview = true
                             self?.navigationController?.pushViewController(containerViewController, animated: true)
                     } else {
                         let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(with: DataFilePreviewViewController.self)
@@ -360,15 +364,15 @@ extension ContainerViewController : UITableViewDelegate {
         }
 
         if container.signatures.isEmpty {
-            LandingTabBarController.shared.presentButtons([.signButton])
+            LandingTabBarController.shared.presentButtons(isForPreview ? [] : [.signButton])
             setupNavigationItemForPushedViewController(title: L(.containerSignTitle))
         } else {
-            LandingTabBarController.shared.presentButtons([.signButton, .shareButton])
+            LandingTabBarController.shared.presentButtons(isForPreview ? [] : [.signButton, .shareButton])
             setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
         }
 
         if container.signatures.isEmpty {
-            sections = ContainerViewController.sectionsNoSignatures
+            sections = isForPreview ? ContainerViewController.sectionsDefault : ContainerViewController.sectionsNoSignatures
             if let signaturesIndex = sections.index(where: { $0 == .signatures }) {
                 if !sections.contains(.missingSignatures) {
                     sections.insert(.missingSignatures, at: signaturesIndex + 1)

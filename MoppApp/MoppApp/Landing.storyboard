@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -40,26 +39,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vAi-2t-nVj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2018" y="639"/>
-        </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="XXu-xe-V6X">
-            <objects>
-                <tabBarController id="ylY-Rn-2Bi" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" backgroundImage="tabbar_background" id="Asn-1d-WkJ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="tintColor" red="0.027450980619999999" green="0.21176470820000001" blue="0.36078432199999999" alpha="1" colorSpace="calibratedRGB"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="b4N-MH-WmG" kind="relationship" relationship="viewControllers" id="mgY-BI-w22"/>
-                        <segue destination="FAY-20-bhQ" kind="relationship" relationship="viewControllers" id="eap-m2-IzJ"/>
-                        <segue destination="POD-22-eUM" kind="relationship" relationship="viewControllers" id="UdE-0E-yMT"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="S8Q-9G-fP8" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2792" y="832"/>
         </scene>
         <!--Landing Tab Bar Controller-->
         <scene sceneID="zas-ik-Kjn">
@@ -334,17 +313,21 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="gkS-a1-DbX" firstAttribute="top" secondItem="PKn-M4-JkH" secondAttribute="bottom" priority="250" id="137-iC-9Gn"/>
                             <constraint firstItem="gkS-a1-DbX" firstAttribute="top" secondItem="FFs-YW-Nvy" secondAttribute="bottom" id="Rpe-9U-0Nr"/>
                             <constraint firstItem="PKn-M4-JkH" firstAttribute="top" secondItem="l1c-KT-v3G" secondAttribute="top" id="ZS6-xE-2Iy"/>
                             <constraint firstAttribute="trailing" secondItem="PKn-M4-JkH" secondAttribute="trailing" id="aNL-Bg-R3C"/>
-                            <constraint firstItem="FFs-YW-Nvy" firstAttribute="top" secondItem="PKn-M4-JkH" secondAttribute="bottom" id="gLS-pp-3mc"/>
+                            <constraint firstItem="FFs-YW-Nvy" firstAttribute="top" secondItem="PKn-M4-JkH" secondAttribute="bottom" priority="750" id="gLS-pp-3mc"/>
                             <constraint firstAttribute="trailing" secondItem="FFs-YW-Nvy" secondAttribute="trailing" id="lYm-Qx-qpU"/>
                             <constraint firstItem="PKn-M4-JkH" firstAttribute="leading" secondItem="l1c-KT-v3G" secondAttribute="leading" id="rlt-eR-VsC"/>
                             <constraint firstItem="FFs-YW-Nvy" firstAttribute="leading" secondItem="l1c-KT-v3G" secondAttribute="leading" id="zDS-1k-tSs"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="buttonBarView" destination="FFs-YW-Nvy" id="HHR-D3-X3O"/>
                         <outlet property="containerView" destination="PKn-M4-JkH" id="CWY-cK-fLN"/>
+                        <outlet property="containerViewBottomCSTR" destination="137-iC-9Gn" id="fwy-8z-oap"/>
+                        <outlet property="containerViewButtonBarCSTR" destination="gLS-pp-3mc" id="n9I-NF-DNL"/>
                         <outletCollection property="buttonsCollection" destination="862-wV-bqw" collectionClass="NSMutableArray" id="uVq-Fr-d5T"/>
                         <outletCollection property="buttonsCollection" destination="3CH-ps-XPm" collectionClass="NSMutableArray" id="yB2-b1-sxh"/>
                         <outletCollection property="buttonsCollection" destination="p9f-rb-NUo" collectionClass="NSMutableArray" id="GfO-gK-R2Q"/>
@@ -635,6 +618,5 @@
         <image name="icon_Minu eID" width="28" height="20"/>
         <image name="icon_Minu eID hover" width="28" height="20"/>
         <image name="icon_share" width="17" height="24"/>
-        <image name="tabbar_background" width="1" height="1"/>
     </resources>
 </document>

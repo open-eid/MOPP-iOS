@@ -138,7 +138,7 @@
 "container-error-message-invalid-signature" = "INVALID SIGNATURE";
 "container-signature-signed" = "Signed %@";
 "container-title" = "Container";
-"container-missing-signatures" = "No signatures";
+"container-missing-signatures" = "Container is not signed";
 
 // *** My eID ***
 "my-eid-id-card-info" = "ID-card is a compulsory identity document in Estonia. ID-card can be used to travel in Member States of the European Union and the European Economic Area.\n\nThe ID-card can be applied for in Service Offices of Police and Border Guard Administration, in foreign representations of the Republic of Estonia, by post or by e-mail. %@";

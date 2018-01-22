@@ -201,7 +201,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="icon_alert_red" translatesAutoresizingMaskIntoConstraints="NO" id="Jrd-hQ-CT9">
-                                                    <rect key="frame" x="170" y="13" width="13" height="13"/>
+                                                    <rect key="frame" x="170" y="13" width="15" height="15"/>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S00-xe-5JY">
                                                     <rect key="frame" x="324" y="4" width="44" height="44"/>
@@ -337,12 +337,11 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="SYZ-JF-XKt" firstAttribute="leading" secondItem="TQu-0T-ruE" secondAttribute="leading" id="N3S-CH-hLs"/>
                             <constraint firstItem="SYZ-JF-XKt" firstAttribute="trailing" secondItem="TQu-0T-ruE" secondAttribute="trailing" id="Rcu-Zf-GH4"/>
                             <constraint firstItem="SYZ-JF-XKt" firstAttribute="top" secondItem="TQu-0T-ruE" secondAttribute="top" id="VsR-O5-DsB"/>
-                            <constraint firstAttribute="bottom" secondItem="SYZ-JF-XKt" secondAttribute="bottom" id="q4g-Yd-Srg"/>
+                            <constraint firstItem="TQu-0T-ruE" firstAttribute="bottom" secondItem="SYZ-JF-XKt" secondAttribute="bottom" id="q4g-Yd-Srg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TQu-0T-ruE"/>
                     </view>
@@ -457,7 +456,7 @@
     </scenes>
     <resources>
         <image name="Icon_ajatempel" width="17" height="17"/>
-        <image name="icon_alert_red" width="13" height="13"/>
+        <image name="icon_alert_red" width="15" height="15"/>
         <image name="icon_remove-1" width="25" height="25"/>
     </resources>
 </document>

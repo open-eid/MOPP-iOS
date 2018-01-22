@@ -38,6 +38,7 @@ class SigningViewController : MoppViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.contentInsetAdjustmentBehavior = .never
         
         refresh()
 
