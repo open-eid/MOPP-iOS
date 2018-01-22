@@ -247,5 +247,6 @@
 "mobile-id-challenge-title" = "Sign with Mobile-ID app";
 "mobile-id-challenge-waiting-response" = "Waiting for response ...";
 "container-sign-title" = "Sign";
-"container-validate-title" = "Validate container";
+"container-validate-title" = "Container control";
 "mobile-id-user-cancel-message" = "Signing cancelled by user";
+"container-validating" = "Loading...";

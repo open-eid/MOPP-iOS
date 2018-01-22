@@ -20,26 +20,6 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Signing-->
-        <scene sceneID="peH-oX-y2Q">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Signing" id="b4N-MH-WmG" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Signature" image="icon_Allkiri" selectedImage="icon_Allkiri hover" id="ga6-PB-Ws7"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vae-w1-17S" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2019" y="587"/>
-        </scene>
-        <!--Crypto-->
-        <scene sceneID="soZ-1K-mUT">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Crypto" id="FAY-20-bhQ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Crypto" image="icon_Minu eID" selectedImage="icon_Minu eID hover" id="w9D-e6-WVW"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vAi-2t-nVj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2018" y="639"/>
-        </scene>
         <!--Landing Tab Bar Controller-->
         <scene sceneID="zas-ik-Kjn">
             <objects>
@@ -406,7 +386,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jIW-aE-j48" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1786.4000000000001" y="1186.9565217391305"/>
+            <point key="canvasLocation" x="-2070" y="1513"/>
         </scene>
         <!--MobileID Edit View Controller-->
         <scene sceneID="hI2-1v-JfM">
@@ -594,29 +574,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1kW-Le-foC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1101.5999999999999" y="1186.9565217391305"/>
-        </scene>
-        <!--MyeID-->
-        <scene sceneID="clI-CO-oDs">
-            <objects>
-                <viewControllerPlaceholder storyboardName="MyeID" id="POD-22-eUM" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My eID" image="icon_Krupto" selectedImage="icon_Krupto hover" id="gQP-GK-7dS"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fcg-yW-xvi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2019" y="685"/>
+            <point key="canvasLocation" x="-1407" y="1513"/>
         </scene>
     </scenes>
     <resources>
         <image name="IconCrypto" width="22" height="25"/>
         <image name="IconMyEID" width="28" height="20"/>
         <image name="IconSignature" width="30" height="23"/>
-        <image name="icon_Allkiri" width="15" height="11"/>
-        <image name="icon_Allkiri hover" width="30" height="23"/>
-        <image name="icon_Krupto" width="11" height="12"/>
-        <image name="icon_Krupto hover" width="22" height="25"/>
-        <image name="icon_Minu eID" width="28" height="20"/>
-        <image name="icon_Minu eID hover" width="28" height="20"/>
         <image name="icon_share" width="17" height="24"/>
     </resources>
 </document>

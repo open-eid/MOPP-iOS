@@ -216,4 +216,5 @@ enum LocKey : String
     case containerSignTitle = "container-sign-title"
     case containerValidateTitle = "container-validate-title"
     case mobileIdUserCancelMessage = "mobile-id-user-cancel-message"
+    case containerValidating = "container-validating"
 }

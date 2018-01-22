@@ -250,3 +250,4 @@
 "container-sign-title" = "Allkirjastamine";
 "container-validate-title" = "Konteineri kontroll";
 "mobile-id-user-cancel-message" = "Toiming katkestati kasutaja poolt";
+"container-validating" = "Laadimine...";

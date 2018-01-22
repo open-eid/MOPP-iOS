@@ -20,24 +20,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-
 import Foundation
 
-
-protocol ContainerTableViewHeaderViewDelegate: class {
-    func containerTableViewHeaderViewAddFiles(forSection section: ContainerViewController.Section)
-}
 
 class ContainerTableViewHeaderView: UIView {
     static let height: CGFloat = 60
     @IBOutlet weak var titleLabel: UILabel!
     
     var targetSection: ContainerViewController.Section!
-    weak var delegate: ContainerTableViewHeaderViewDelegate?
-    
-    @IBAction func addAction() {
-        delegate?.containerTableViewHeaderViewAddFiles(forSection: targetSection)
-    }
     
     var gradientLayer: CAGradientLayer!
     override func awakeFromNib() {
