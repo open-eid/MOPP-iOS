@@ -131,7 +131,8 @@
 
 "container-details-add-signature" = "Добавить подпись";
 
-"container-header-files-title" = "Файлы";
+"container-header-files-title" = "Контейнерные файлы";
+"container-header-create-files-title" = "Файлы, выбранные для подписания";
 "container-header-timestamp-title" = "Отметка времени";
 "container-header-signatures-title" = "Подписи";
 "container-row-edit-remove" = "Стирать";

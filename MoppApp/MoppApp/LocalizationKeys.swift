@@ -119,6 +119,7 @@ enum LocKey : String
     case containerDetailsInternetConnectionErrorMessage = "container-details-internet-connection-error-message"
     case containerDetailsAddSignature = "container-details-add-signature"
     case containerHeaderFilesTitle = "container-header-files-title"
+    case containerHeaderCreateFilesTitle = "container-header-create-files-title"
     case containerHeaderTimestampTitle = "container-header-timestamp-title"
     case containerHeaderSignaturesTitle = "container-header-signatures-title"
     case containerRowEditRemove = "container-row-edit-remove"

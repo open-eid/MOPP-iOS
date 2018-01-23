@@ -22,14 +22,19 @@
  */
 import Foundation
 
+protocol ContainerTableViewHeaderDelegate : class {
+    func didTapContainerHeaderButton()
+}
 
 class ContainerTableViewHeaderView: UIView {
     static let height: CGFloat = 60
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var addButton: UIButton!
     
+    weak var delegate: ContainerTableViewHeaderDelegate? = nil
     var targetSection: ContainerViewController.Section!
-    
     var gradientLayer: CAGradientLayer!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -43,8 +48,13 @@ class ContainerTableViewHeaderView: UIView {
         _ = createGradientLayer(topColor: topColor, bottomColor: botColor)
     }
     
-    func populate(withTitle title: String, section: ContainerViewController.Section) {
+    func populate(withTitle title: String, section: ContainerViewController.Section, showAddButton: Bool) {
+        addButton.isHidden = !showAddButton
         targetSection = section
         titleLabel.text = title
+    }
+    
+    @IBAction func addAction() {
+        delegate?.didTapContainerHeaderButton()
     }
 }

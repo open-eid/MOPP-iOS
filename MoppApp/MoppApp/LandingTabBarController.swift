@@ -139,6 +139,8 @@ class LandingTabBarController : UIViewController
             return
         }
         
+        let isCreated = (notification.userInfo?["isCreated"] as? Bool) ?? false
+        
         navigationController?.dismiss(animated: true, completion: nil)
         
         // Select signing tab
@@ -147,8 +149,9 @@ class LandingTabBarController : UIViewController
             if let signingViewController = navigationController.viewControllers.first as? SigningViewController {
                 signingViewController.refresh()
             }
-            let containerViewController = UIStoryboard.container.instantiateInitialViewController(of: ContainerViewController.self)
+            let containerViewController = ContainerViewController.instantiate()
                 containerViewController.containerPath = container.filePath
+                containerViewController.isCreated = isCreated
             navigationController.pushViewController(containerViewController, animated: false)
         }
     }

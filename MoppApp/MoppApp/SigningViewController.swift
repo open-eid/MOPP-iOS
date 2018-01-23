@@ -140,7 +140,7 @@ extension SigningViewController : UITableViewDelegate {
             let filename = containerFiles[indexPath.row]
             let containerPath = MoppFileManager.shared.documentsDirectoryPath() + "/" + filename
             
-            let containerViewController = UIStoryboard.container.instantiateInitialViewController() as! ContainerViewController
+            let containerViewController = ContainerViewController.instantiate()
                 containerViewController.containerPath = containerPath
             
             self.closeSearch()

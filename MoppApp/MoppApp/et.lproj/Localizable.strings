@@ -131,7 +131,8 @@
 
 "container-details-add-signature" = "Lisa allkiri";
 
-"container-header-files-title" = "Failid";
+"container-header-files-title" = "Konteineri failid";
+"container-header-create-files-title" = "Allkirjastamiseks valitud failid";
 "container-header-timestamp-title" = "Ajatempel";
 "container-header-signatures-title" = "Allkirjad";
 "container-row-edit-remove" = "Eemalda";

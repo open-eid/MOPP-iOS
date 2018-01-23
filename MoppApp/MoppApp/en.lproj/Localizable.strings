@@ -130,7 +130,8 @@
 "container-details-internet-connection-error-message" = "Internet connection must be available for signing.";
 "container-details-add-signature" = "Add signature";
 
-"container-header-files-title" = "Files";
+"container-header-files-title" = "Container files";
+"container-header-create-files-title" = "Files chosen for signing";
 "container-header-timestamp-title" = "Timestamp";
 "container-header-signatures-title" = "Signatures";
 "container-row-edit-remove" = "Delete";

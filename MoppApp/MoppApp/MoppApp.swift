@@ -189,7 +189,12 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
                         failure()
                         return
                     }
-                    NotificationCenter.default.post(name: .openContainerNotificationName, object: nil, userInfo: [kKeyContainer: container])
+                    let userInfo : [AnyHashable : Any] = [
+                        kKeyContainer: container,
+                        "isCreated": true
+                        ]
+            
+                    NotificationCenter.default.post(name: .openContainerNotificationName, object: nil, userInfo: userInfo)
                     
                 }, failure: { error in
                     MoppFileManager.shared.removeFile(withPath: filePath)
