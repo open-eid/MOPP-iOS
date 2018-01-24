@@ -316,6 +316,9 @@
                                                             <integer key="value" value="4"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="importAction" destination="qwL-cE-udC" eventType="touchUpInside" id="s1o-1F-Dte"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>

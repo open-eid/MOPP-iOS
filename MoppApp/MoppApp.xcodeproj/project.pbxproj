@@ -92,13 +92,14 @@
 		C5964CEA200F8607001FE732 /* ContainerImportFilesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5964CE9200F8607001FE732 /* ContainerImportFilesCell.swift */; };
 		C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59A958D1FB5B9E100D0E1F9 /* InitializationViewController.swift */; };
 		C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */; };
+		C5CF5EEC2017E4CC008FBBD6 /* FileImportProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CF5EEB2017E4CC008FBBD6 /* FileImportProgressViewController.swift */; };
 		E4180C371E26822000FD7B8C /* datafile.txt in Resources */ = {isa = PBXBuildFile; fileRef = E4180C361E26822000FD7B8C /* datafile.txt */; };
 		E4250CCB1E0968D200530370 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCA1E0968D200530370 /* AppDelegate.swift */; };
 		E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; };
 		E4250D071E0A911100530370 /* MoppLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4250D091E0AA7AF00530370 /* LaunchScreen.xib */; };
 		E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
-		E42B08951E15617200EA24A3 /* LandingTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B08941E15617200EA24A3 /* LandingTabBarController.swift */; };
+		E42B08951E15617200EA24A3 /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B08941E15617200EA24A3 /* LandingViewController.swift */; };
 		E42B08A61E1D4EE900EA24A3 /* test1.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E42B08A41E1D4EE900EA24A3 /* test1.bdoc */; };
 		E42B08A71E1D4EE900EA24A3 /* test2.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E42B08A51E1D4EE900EA24A3 /* test2.bdoc */; };
 		E42B08AE1E1EFC1800EA24A3 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B08AD1E1EFC1800EA24A3 /* DateFormatter.swift */; };
@@ -239,6 +240,7 @@
 		C59A958C1FB5B9E100D0E1F9 /* MoppApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoppApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		C59A958D1FB5B9E100D0E1F9 /* InitializationViewController.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = InitializationViewController.swift; sourceTree = "<group>"; };
 		C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerNoSignaturesCell.swift; sourceTree = "<group>"; };
+		C5CF5EEB2017E4CC008FBBD6 /* FileImportProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImportProgressViewController.swift; sourceTree = "<group>"; };
 		E4180C361E26822000FD7B8C /* datafile.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = datafile.txt; sourceTree = "<group>"; };
 		E4250CC31E0968D200530370 /* MoppApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoppApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250CCA1E0968D200530370 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -249,7 +251,7 @@
 		E4250D101E0AA8E900530370 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = et.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E4250D111E0AA8EE00530370 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E4250D1A1E0AB1B300530370 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		E42B08941E15617200EA24A3 /* LandingTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingTabBarController.swift; sourceTree = "<group>"; };
+		E42B08941E15617200EA24A3 /* LandingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
 		E42B08A41E1D4EE900EA24A3 /* test1.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test1.bdoc; sourceTree = "<group>"; };
 		E42B08A51E1D4EE900EA24A3 /* test2.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test2.bdoc; sourceTree = "<group>"; };
 		E42B08AD1E1EFC1800EA24A3 /* DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
@@ -514,9 +516,10 @@
 				54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */,
 				C537AE7720063E48009037E5 /* LandingElements.xib */,
 				C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */,
-				E42B08941E15617200EA24A3 /* LandingTabBarController.swift */,
+				E42B08941E15617200EA24A3 /* LandingViewController.swift */,
 				C537AE532004C29E009037E5 /* MobileIDEditViewController.swift */,
 				C5964CE720079AE0001FE732 /* TabButton.swift */,
+				C5CF5EEB2017E4CC008FBBD6 /* FileImportProgressViewController.swift */,
 			);
 			name = Landing;
 			sourceTree = "<group>";
@@ -819,7 +822,7 @@
 				C50DCCC91FC32A3200D48E16 /* CryptoViewController.swift in Sources */,
 				C50DCCC51FC31EFC00D48E16 /* UIButton+Additions.swift in Sources */,
 				C51B7FB71FBC45DD0046D6E0 /* LocalizationKeys.swift in Sources */,
-				E42B08951E15617200EA24A3 /* LandingTabBarController.swift in Sources */,
+				E42B08951E15617200EA24A3 /* LandingViewController.swift in Sources */,
 				54825EFB1E1D28E900253FF0 /* UIColor+Additions.swift in Sources */,
 				C50DCD191FD1542A00D48E16 /* SigningContainerCell.swift in Sources */,
 				C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */,
@@ -838,6 +841,7 @@
 				C50DCCC71FC32A2500D48E16 /* MyeIDViewController.swift in Sources */,
 				C50DCD071FC7126100D48E16 /* ContainerSignatureCell.swift in Sources */,
 				C5964CE820079AE0001FE732 /* TabButton.swift in Sources */,
+				C5CF5EEC2017E4CC008FBBD6 /* FileImportProgressViewController.swift in Sources */,
 				C50DCD111FC82F9E00D48E16 /* UINib+Additions.swift in Sources */,
 				C560CB0A1FFCEEF000C01FE4 /* SigningFileImportCell.swift in Sources */,
 				C50DCD091FC7127400D48E16 /* ContainerFileCell.swift in Sources */,

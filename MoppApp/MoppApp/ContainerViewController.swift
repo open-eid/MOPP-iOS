@@ -73,7 +73,7 @@ class ContainerViewController : MoppViewController {
         tableView.contentInsetAdjustmentBehavior = .never
         
         updateState(.loading)
-        LandingTabBarController.shared.tabButtonsDelegate = self
+        LandingViewController.shared.tabButtonsDelegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(signatureCreatedFinished), name: .signatureCreatedFinishedNotificationName, object: nil)
     }
@@ -96,7 +96,7 @@ class ContainerViewController : MoppViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        LandingTabBarController.shared.presentButtons(isForPreview ? [] : [.signButton, .shareButton])
+        LandingViewController.shared.presentButtons(isForPreview ? [] : [.signButton, .shareButton])
     
         tableView.estimatedRowHeight = ContainerSignatureCell.height
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -116,11 +116,11 @@ class ContainerViewController : MoppViewController {
                 setupNavigationItemForPushedViewController(title: L(.containerValidating))
             
             case .created:
-                LandingTabBarController.shared.presentButtons(isForPreview ? [] : [.signButton])
+                LandingViewController.shared.presentButtons(isForPreview ? [] : [.signButton])
                 setupNavigationItemForPushedViewController(title: L(.containerSignTitle))
             
             case .opened:
-                LandingTabBarController.shared.presentButtons(isForPreview ? [] : [.signButton, .shareButton])
+                LandingViewController.shared.presentButtons(isForPreview ? [] : [.signButton, .shareButton])
                 setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
             
             case .preview:
@@ -184,6 +184,13 @@ class ContainerViewController : MoppViewController {
     class func instantiate() -> ContainerViewController {
         return UIStoryboard.container.instantiateInitialViewController(of: ContainerViewController.self)
     }
+    
+    func reloadContainer() {
+        state = .loading
+        showLoading(show: true)
+        openContainer()
+        reloadData()
+    }
 }
 
 extension ContainerViewController {
@@ -198,8 +205,8 @@ extension ContainerViewController {
     }
 }
 
-extension ContainerViewController : LandingTabBarControllerTabButtonsDelegate {
-    func landingTabBarControllerTabButtonTapped(tabButtonId: LandingTabBarController.TabButtonId) {
+extension ContainerViewController : LandingViewControllerTabButtonsDelegate {
+    func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId) {
         if tabButtonId == .signButton {
             startSigningWithMobileID()
         }
@@ -262,7 +269,9 @@ extension ContainerViewController : UITableViewDataSource {
                     dataFileIndex: row)
             return cell
         case .importDataFiles:
-            return tableView.dequeueReusableCell(withType: ContainerImportFilesCell.self, for: indexPath)!
+            let cell = tableView.dequeueReusableCell(withType: ContainerImportFilesCell.self, for: indexPath)!
+                cell.delegate = self
+            return cell
         case .header:
             let cell = tableView.dequeueReusableCell(withType: ContainerHeaderCell.self, for: indexPath)!
                 cell.populate(name: container.fileName)
@@ -471,5 +480,18 @@ extension ContainerViewController : MobileIDEditViewControllerDelegate {
 
 extension ContainerViewController : ContainerTableViewHeaderDelegate {
     func didTapContainerHeaderButton() {
+        NotificationCenter.default.post(
+            name: .startImportingFilesWithDocumentPickerNotificationName,
+            object: nil,
+            userInfo: [kKeyFileImportIntent: MoppApp.FileImportIntent.addToContainer])
+    }
+}
+
+extension ContainerViewController : ContainerImportCellDelegate {
+    func containerImportCellAddFiles() {
+        NotificationCenter.default.post(
+            name: .startImportingFilesWithDocumentPickerNotificationName,
+            object: nil,
+            userInfo: [kKeyFileImportIntent: MoppApp.FileImportIntent.addToContainer])
     }
 }

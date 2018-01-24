@@ -1,5 +1,5 @@
 //
-//  SigningFileImportCell.swift
+//  FileImportProgressViewController.swift
 //  MoppApp
 //
 /*
@@ -22,24 +22,14 @@
  */
 import Foundation
 
-protocol SigningFileImportCellDelegate : class {
-    func signingFileImportDidTapAddFiles()
-}
 
-class SigningFileImportCell : UITableViewCell {
-    static let height: CGFloat = 50.0
-    @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var button: UIButton!
-    weak var delegate: SigningFileImportCellDelegate!
-    
-    @IBAction func importFilesAction() {
-        delegate.signingFileImportDidTapAddFiles()
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    
-        label.text = L(LocKey.signatureViewBeginLabel)
-        button.localizedTitle = LocKey.signatureViewBeginButton
+class FileImportProgressViewController : MoppViewController {    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.0)
+        UIView.animate(withDuration: 0.35) {
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        }
     }
 }

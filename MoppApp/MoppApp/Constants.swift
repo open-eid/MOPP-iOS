@@ -30,6 +30,8 @@ let kNewContainerKey = "MoppLibContainerNew"
 let kOldContainerKey = "MoppLibContainerOld"
 let kErrorKey = "Error"
 let kErrorMessage = "Error message"
+let kKeyImportedFilePaths = "importedFilePaths"
+let kKeyFileImportIntent = "fileImportIntent"
 
 extension Notification.Name {
     static let containerChangedNotificationName = Notification.Name("Notification - container changed")
@@ -40,4 +42,6 @@ extension Notification.Name {
     static let errorNotificationName = Notification.Name("ErrorNotification")
     static let openContainerNotificationName = Notification.Name("OpenContainerNotificationName")
     static let signatureCreatedFinishedNotificationName = Notification.Name("SignatureCreatedFinishedNotificationName")
+    static let filesImportedNotificationName = Notification.Name("FilesImportedNotificationName")
+    static let startImportingFilesWithDocumentPickerNotificationName = Notification.Name("StartImportingFilesNotificationName")
 }

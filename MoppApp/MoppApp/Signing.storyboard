@@ -94,6 +94,9 @@
                                                             <integer key="value" value="3"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="importFilesAction" destination="bA0-HQ-aHy" eventType="touchUpInside" id="q8d-P4-WED"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
