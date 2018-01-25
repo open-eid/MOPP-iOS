@@ -252,3 +252,4 @@
 "container-validate-title" = "Konteineri kontroll";
 "mobile-id-user-cancel-message" = "Toiming katkestati kasutaja poolt";
 "container-validating" = "Laadimine...";
+"importing-files-progress-message" = "Failide laadimine...";

@@ -617,6 +617,9 @@
                             <constraint firstItem="fOE-NE-O7m" firstAttribute="centerY" secondItem="Mpb-nb-Huv" secondAttribute="centerY" id="wbQ-bD-XW3"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="titleLabel" destination="Wq7-O0-BHP" id="TAi-Fl-yU1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iUL-2X-Gi0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -252,4 +252,5 @@
 "container-validate-title" = "Проверить контейнер";
 "mobile-id-user-cancel-message" = "Подписание отменено пользователем";
 "container-validating" = "Загрузка...";
+"importing-files-progress-message" = "Загрузка файлов...";
 

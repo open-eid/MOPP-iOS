@@ -251,3 +251,4 @@
 "container-validate-title" = "Container control";
 "mobile-id-user-cancel-message" = "Signing cancelled by user";
 "container-validating" = "Loading...";
+"importing-files-progress-message" = "Importing files...";
