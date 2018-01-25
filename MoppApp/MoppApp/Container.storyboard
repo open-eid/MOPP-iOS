@@ -167,11 +167,11 @@
                                             <outlet property="removeButton" destination="zV0-PM-P6i" id="dkJ-5c-GmP"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerSignatureCell" editingAccessoryType="disclosureIndicator" rowHeight="60" id="STu-Fe-0aP" customClass="ContainerSignatureCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="207" width="375" height="60"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerSignatureCell" editingAccessoryType="disclosureIndicator" rowHeight="103" id="STu-Fe-0aP" customClass="ContainerSignatureCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="207" width="375" height="103"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="STu-Fe-0aP" id="Fv4-kU-K5l">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="103"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_ajatempel" translatesAutoresizingMaskIntoConstraints="NO" id="vOz-nq-F7B">
@@ -181,30 +181,30 @@
                                                         <constraint firstAttribute="width" secondItem="vOz-nq-F7B" secondAttribute="height" multiplier="1:1" id="iWl-4l-heO"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="MARI MAASIKAS" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VhO-fS-PmX">
-                                                    <rect key="frame" x="45" y="11" width="117" height="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" text="MARI MAASIKAS,ASDF,asf,adf,asdf,asdf,asdf,sdfgdfg" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VhO-fS-PmX">
+                                                    <rect key="frame" x="45" y="11" width="256" height="60"/>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Bold" family="Roboto Condensed" pointSize="17"/>
                                                     <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pqJ-cj-2Ef">
-                                                    <rect key="frame" x="16" y="59" width="343" height="1"/>
+                                                    <rect key="frame" x="16" y="102" width="343" height="1"/>
                                                     <color key="backgroundColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="0.20732555650000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="No3-Ng-e0E"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signed 12.08.2017, 13:22" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="hpW-Rn-1bR">
-                                                    <rect key="frame" x="45" y="35" width="315" height="16"/>
+                                                    <rect key="frame" x="45" y="75" width="315" height="19"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                                     <color key="textColor" red="0.60860168147208116" green="0.60860168147208116" blue="0.60860168147208116" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="icon_alert_red" translatesAutoresizingMaskIntoConstraints="NO" id="Jrd-hQ-CT9">
-                                                    <rect key="frame" x="170" y="13" width="15" height="15"/>
+                                                    <rect key="frame" x="309" y="13" width="15" height="15"/>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S00-xe-5JY">
-                                                    <rect key="frame" x="324" y="4" width="44" height="44"/>
+                                                    <rect key="frame" x="324" y="25.5" width="44" height="44"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="Fgg-Kd-THt"/>
                                                         <constraint firstAttribute="height" constant="44" id="oFm-x4-jXj"/>
@@ -221,9 +221,9 @@
                                                 <constraint firstItem="Jrd-hQ-CT9" firstAttribute="top" secondItem="VhO-fS-PmX" secondAttribute="top" constant="2" id="CIJ-cQ-K8m"/>
                                                 <constraint firstItem="pqJ-cj-2Ef" firstAttribute="leading" secondItem="Fv4-kU-K5l" secondAttribute="leading" constant="16" id="Mda-wJ-iyR"/>
                                                 <constraint firstItem="Jrd-hQ-CT9" firstAttribute="leading" secondItem="VhO-fS-PmX" secondAttribute="trailing" constant="8" id="QWA-Ad-j6x"/>
+                                                <constraint firstItem="S00-xe-5JY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Jrd-hQ-CT9" secondAttribute="trailing" id="RsY-GU-E2h"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="hpW-Rn-1bR" secondAttribute="trailing" id="bPa-Rx-fv5"/>
                                                 <constraint firstItem="pqJ-cj-2Ef" firstAttribute="top" secondItem="hpW-Rn-1bR" secondAttribute="bottom" constant="8" id="eJc-5z-QFS"/>
-                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="Jrd-hQ-CT9" secondAttribute="trailing" id="edQ-mn-SKz"/>
                                                 <constraint firstItem="hpW-Rn-1bR" firstAttribute="leading" secondItem="VhO-fS-PmX" secondAttribute="leading" id="f3P-Jj-o8A"/>
                                                 <constraint firstItem="VhO-fS-PmX" firstAttribute="top" secondItem="Fv4-kU-K5l" secondAttribute="topMargin" id="f8h-xw-kNL"/>
                                                 <constraint firstItem="VhO-fS-PmX" firstAttribute="leading" secondItem="vOz-nq-F7B" secondAttribute="trailing" constant="8" id="ggV-pj-12A"/>
@@ -245,7 +245,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerSearchCell" rowHeight="44" id="M6t-R4-cVe" customClass="ContainerSearchCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="267" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="310" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M6t-R4-cVe" id="Peo-st-QFt">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -270,7 +270,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerNoSignaturesCell" id="5lc-fV-mc6" customClass="ContainerNoSignaturesCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="311" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="354" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5lc-fV-mc6" id="Ca6-4c-NYM">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -295,7 +295,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerImportFilesCell" rowHeight="96" id="qwL-cE-udC" customClass="ContainerImportFilesCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="355" width="375" height="96"/>
+                                        <rect key="frame" x="0.0" y="398" width="375" height="96"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qwL-cE-udC" id="gdd-9U-o25">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
