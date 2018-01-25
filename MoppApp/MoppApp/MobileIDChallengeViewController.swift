@@ -28,6 +28,7 @@ class MobileIDChallengeViewController : UIViewController {
     @IBOutlet weak var codeLabel: UILabel!
     @IBOutlet weak var timeoutProgressView: UIProgressView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var helpLabel: UILabel!
     
     var challengeID = String()
     var sessCode = String()
@@ -38,6 +39,7 @@ class MobileIDChallengeViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         titleLabel.text = L(.mobileIdChallengeWaitingForResponse)
+        helpLabel.text = L(.mobileIdSignHelpTitle)
         codeLabel.isHidden = true
         timeoutProgressView.progress = 0
 

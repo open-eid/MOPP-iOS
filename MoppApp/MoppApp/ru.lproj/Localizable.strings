@@ -253,4 +253,4 @@
 "mobile-id-user-cancel-message" = "Подписание отменено пользователем";
 "container-validating" = "Загрузка...";
 "importing-files-progress-message" = "Загрузка файлов...";
-
+"mobile-id-sign-help-title" = "Убедитесь, что контрольный код выше соответствует одному на экране телефона и введите PIN2-код Mobile-ID";
