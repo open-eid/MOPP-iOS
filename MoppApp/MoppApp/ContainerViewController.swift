@@ -20,55 +20,62 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-import Foundation
-
-
 class ContainerViewController : MoppViewController {
-
     var container: MoppLibContainer!
-    var containerPath: String? = nil
+    var containerPath: String!
     var isForPreview: Bool = false
+    var isCreated: Bool = false
+    
     @IBOutlet weak var tableView: UITableView!
 
     enum Section {
-        case error
+        case notifications
         case signatures
         case missingSignatures
         case timestamp
-        case files
-        case importFiles
+        case dataFiles
+        case importDataFiles
         case header
         case search
     }
 
+    enum ContainerState {
+        case loading        // Before container is opened or created
+        case created
+        case opened
+        case preview
+    }
+    
     var isSectionRowEditable: [Section: Bool] = [
-        .error          : false,
+        .notifications   : false,
         .signatures     : true,
         .timestamp      : false,
-        .files           : true,
+        .dataFiles      : true,
         .header         : false,
         .search         : false
         ]
 
     var sectionHeaderTitle: [Section: String] = [
-        .files           : L(LocKey.containerHeaderFilesTitle),
+        .dataFiles      : L(LocKey.containerHeaderFilesTitle),
         .timestamp      : L(LocKey.containerHeaderTimestampTitle),
         .signatures     : L(LocKey.containerHeaderSignaturesTitle)
         ]
 
-    private static let sectionsWithError: [Section] = [.error, .header, .files, .signatures]
-    private static let sectionsDefault  : [Section] = [.header, .files, .signatures]
-    private static let sectionsNoSignatures : [Section] = [.header, .files, .importFiles]
+    private static let sectionsWithNotifications: [Section] = [.notifications, .header, .dataFiles, .signatures]
+    private static let sectionsDefault  : [Section] = [.header, .dataFiles, .signatures]
+    private static let sectionsNoSignatures : [Section] = [.header, .dataFiles, .importDataFiles]
     
     var sections: [Section] = ContainerViewController.sectionsDefault
-
+    var state: ContainerState!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInsetAdjustmentBehavior = .never
-        setupNavigationItemForPushedViewController()
+        
+        updateState(.loading)
+        LandingViewController.shared.tabButtonsDelegate = self
+        
         NotificationCenter.default.addObserver(self, selector: #selector(signatureCreatedFinished), name: .signatureCreatedFinishedNotificationName, object: nil)
-        LandingTabBarController.shared.tabButtonsDelegate = self
     }
     
     deinit {
@@ -78,6 +85,10 @@ class ContainerViewController : MoppViewController {
     @objc func signatureCreatedFinished() {
         DispatchQueue.main.async {
         [weak self] in
+            self?.isCreated = false
+            self?.isForPreview = false
+            self?.state = .loading
+            self?.showLoading(show: true)
             self?.openContainer()
         }
     }
@@ -85,28 +96,45 @@ class ContainerViewController : MoppViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        LandingTabBarController.shared.presentButtons(isForPreview ? [] : [.signButton, .shareButton])
+        LandingViewController.shared.presentButtons(isForPreview ? [] : [.signButton, .shareButton])
     
         tableView.estimatedRowHeight = ContainerSignatureCell.height
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        if containerPath != nil {
-            showLoading(show: true)
-        }
+        showLoading(show: state == .loading)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        guard let containerPath = containerPath else {
-            return
-        }
-        
         openContainer()
     }
     
+    func updateState(_ newState: ContainerState) {
+        switch newState {
+            case .loading:
+                setupNavigationItemForPushedViewController(title: L(.containerValidating))
+            
+            case .created:
+                LandingViewController.shared.presentButtons(isForPreview ? [] : [.signButton])
+                setupNavigationItemForPushedViewController(title: L(.containerSignTitle))
+            
+            case .opened:
+                LandingViewController.shared.presentButtons(isForPreview ? [] : [.signButton, .shareButton])
+                setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
+            
+            case .preview:
+                let containerUrl = URL(fileURLWithPath: containerPath!)
+                let (filename, ext) = containerUrl.lastPathComponent.filenameComponents()
+                setupNavigationItemForPushedViewController(title: filename + "." + ext)
+            
+        }
+        state = newState
+    }
+    
     func openContainer() {
-            MoppLibContainerActions.sharedInstance().getContainerWithPath(containerPath, success: { [weak self] container in
+        if state != .loading { return }
+        MoppLibContainerActions.sharedInstance().getContainerWithPath(containerPath, success: { [weak self] container in
             guard let container = container else {
                 return
             }
@@ -115,7 +143,7 @@ class ContainerViewController : MoppViewController {
             
             let containsInvalidSignature = (container.signatures as! [MoppLibSignature]).contains(where: { !$0.isValid })
             if containsInvalidSignature {
-                strongSelf.sections = ContainerViewController.sectionsWithError
+                strongSelf.sections = ContainerViewController.sectionsWithNotifications
             } else {
                 strongSelf.sections = ContainerViewController.sectionsDefault
             }
@@ -152,28 +180,33 @@ class ContainerViewController : MoppViewController {
             mobileIdEditViewController.delegate = self
         present(mobileIdEditViewController, animated: false, completion: nil)
     }
-}
-
-extension ContainerViewController {
-    func setupNavigationItemForPushedViewController() {
-        setupNavigationItemForPushedViewController(title: L(LocKey.containerTitle))
+    
+    class func instantiate() -> ContainerViewController {
+        return UIStoryboard.container.instantiateInitialViewController(of: ContainerViewController.self)
+    }
+    
+    func reloadContainer() {
+        state = .loading
+        showLoading(show: true)
+        openContainer()
+        reloadData()
     }
 }
 
 extension ContainerViewController {
     var errorHidden: Bool {
-        get { return !sections.contains(.error) }
+        get { return !sections.contains(.notifications) }
         set {
             sections = newValue ?
                 ContainerViewController.sectionsDefault :
-                ContainerViewController.sectionsWithError
+                ContainerViewController.sectionsWithNotifications
             reloadData()
         }
     }
 }
 
-extension ContainerViewController : LandingTabBarControllerTabButtonsDelegate {
-    func landingTabBarControllerTabButtonTapped(tabButtonId: LandingTabBarController.TabButtonId) {
+extension ContainerViewController : LandingViewControllerTabButtonsDelegate {
+    func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId) {
         if tabButtonId == .signButton {
             startSigningWithMobileID()
         }
@@ -191,11 +224,13 @@ extension ContainerViewController : UITableViewDataSource {
         }
         
         switch sections[section] {
+        case .notifications:
+            return 1
         case .signatures:
             return container.signatures.count
-        case .files:
+        case .dataFiles:
             return container.dataFiles.count
-        case .error, .missingSignatures, .header, .search, .timestamp, .importFiles:
+        case .missingSignatures, .header, .search, .timestamp, .importDataFiles:
             return 1
         }
     }
@@ -203,12 +238,12 @@ extension ContainerViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = indexPath.row
         switch sections[indexPath.section] {
-        case .error:
+        case .notifications:
             let cell = tableView.dequeueReusableCell(withType: ContainerErrorCell.self, for: indexPath)!
             return cell
         case .signatures:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
-            cell.delegate = self
+                cell.delegate = self
             let signature = container.signatures[row] as! MoppLibSignature
             cell.populate(
                 with: signature,
@@ -224,7 +259,7 @@ extension ContainerViewController : UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
                 //cell.populate(name: mockTimestamp[row], kind: .timestamp, colorTheme: .neutral, showBottomBorder: row < mockTimestamp.count - 1)
             return cell
-        case .files:
+        case .dataFiles:
             let cell = tableView.dequeueReusableCell(withType: ContainerFileCell.self, for: indexPath)!
                 cell.delegate = self
                 cell.populate(
@@ -233,8 +268,10 @@ extension ContainerViewController : UITableViewDataSource {
                     showRemoveButton: container.dataFiles.count > 1 && !isForPreview,
                     dataFileIndex: row)
             return cell
-        case .importFiles:
-            return tableView.dequeueReusableCell(withType: ContainerImportFilesCell.self, for: indexPath)!
+        case .importDataFiles:
+            let cell = tableView.dequeueReusableCell(withType: ContainerImportFilesCell.self, for: indexPath)!
+                cell.delegate = self
+            return cell
         case .header:
             let cell = tableView.dequeueReusableCell(withType: ContainerHeaderCell.self, for: indexPath)!
                 cell.populate(name: container.fileName)
@@ -294,7 +331,7 @@ extension ContainerViewController : ContainerFileDelegate {
 extension ContainerViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch sections[indexPath.section] {
-        case .error:
+        case .notifications:
             break
         case .signatures:
             let signatureDetailsViewController = UIStoryboard.container.instantiateViewController(with: SignatureDetailsViewController.self)
@@ -304,7 +341,10 @@ extension ContainerViewController : UITableViewDelegate {
             break
         case .timestamp:
             break;
-        case .files:
+        case .dataFiles:
+            
+            // Open preview of data file
+            
             let dataFile = container.dataFiles[indexPath.row] as! MoppLibDataFile
             let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: dataFile.fileName)
             MoppLibContainerActions.sharedInstance().container(
@@ -314,7 +354,7 @@ extension ContainerViewController : UITableViewDelegate {
                 success: { [weak self] in
                     let (_, ext) = dataFile.fileName.filenameComponents()
                     if ext.isContainerExtension {
-                        let containerViewController = UIStoryboard.container.instantiateInitialViewController(of: ContainerViewController.self)
+                        let containerViewController = ContainerViewController.instantiate()
                             containerViewController.containerPath = destinationPath
                             containerViewController.isForPreview = true
                             self?.navigationController?.pushViewController(containerViewController, animated: true)
@@ -333,20 +373,27 @@ extension ContainerViewController : UITableViewDelegate {
             break
         case .search:
             break
-        case .importFiles:
+        case .importDataFiles:
             break
         }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection _section: Int) -> UIView? {
         let section = sections[_section]
-        if let title = sectionHeaderTitle[section] {
-            if let header = MoppApp.instance.nibs[.containerElements]?.instantiate(withOwner: self, type: ContainerTableViewHeaderView.self) {
-                header.delegate = self
-                header.populate(withTitle: title, section: section)
-                return header
-            }
+        var title: String!
+        switch section {
+            case .dataFiles:
+                title = isCreated ? L(LocKey.containerHeaderCreateFilesTitle) : L(LocKey.containerHeaderFilesTitle)
+            default:
+                title = sectionHeaderTitle[section]
         }
+
+        if let header = MoppApp.instance.nibs[.containerElements]?.instantiate(withOwner: self, type: ContainerTableViewHeaderView.self) {
+            header.delegate = self
+            header.populate(withTitle: title, section: section, showAddButton: section == .dataFiles && !isCreated)
+            return header
+        }
+
         return nil
     }
     
@@ -363,16 +410,18 @@ extension ContainerViewController : UITableViewDelegate {
             return
         }
 
-        if container.signatures.isEmpty {
-            LandingTabBarController.shared.presentButtons(isForPreview ? [] : [.signButton])
-            setupNavigationItemForPushedViewController(title: L(.containerSignTitle))
-        } else {
-            LandingTabBarController.shared.presentButtons(isForPreview ? [] : [.signButton, .shareButton])
-            setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
+        if isForPreview {
+            updateState(.preview)
+        }
+        else if container.signatures.isEmpty && isCreated {
+            updateState(.created)
+        }
+        else {
+            updateState(.opened)
         }
 
         if container.signatures.isEmpty {
-            sections = isForPreview ? ContainerViewController.sectionsDefault : ContainerViewController.sectionsNoSignatures
+            sections = (isForPreview || !isCreated) ? ContainerViewController.sectionsDefault : ContainerViewController.sectionsNoSignatures
             if let signaturesIndex = sections.index(where: { $0 == .signatures }) {
                 if !sections.contains(.missingSignatures) {
                     sections.insert(.missingSignatures, at: signaturesIndex + 1)
@@ -386,11 +435,22 @@ extension ContainerViewController : UITableViewDelegate {
     }
 }
 
-extension ContainerViewController : ContainerTableViewHeaderViewDelegate {
-    func containerTableViewHeaderViewAddFiles(forSection section: ContainerViewController.Section) {
-        if section == .signatures {
-            startSigningWithMobileID()
-        }
+extension ContainerViewController : MobileIDEditViewControllerDelegate {   
+    func mobileIDEditViewControllerDidDismiss(cancelled: Bool, phoneNumber: String?, idCode: String?) {
+        if cancelled { return }
+        
+        guard let phoneNumber = phoneNumber else { return }
+        guard let idCode = idCode else { return }
+        
+        let mobileIDChallengeview = UIStoryboard.landing.instantiateViewController(with: MobileIDChallengeViewController.self)
+        mobileIDChallengeview.modalPresentationStyle = .overFullScreen
+        present(mobileIDChallengeview, animated: false)
+
+        Session.shared.createMobileSignature(
+            withContainer: container.filePath,
+            idCode: idCode,
+            language: decideLanguageBasedOnPreferredLanguages(),
+            phoneNumber: phoneNumber)
     }
     
     func decideLanguageBasedOnPreferredLanguages() -> String {
@@ -416,24 +476,22 @@ extension ContainerViewController : ContainerTableViewHeaderViewDelegate {
         
         return language
     }
-
 }
 
-extension ContainerViewController : MobileIDEditViewControllerDelegate {   
-    func mobileIDEditViewControllerDidDismiss(cancelled: Bool, phoneNumber: String?, idCode: String?) {
-        if cancelled { return }
-        
-        guard let phoneNumber = phoneNumber else { return }
-        guard let idCode = idCode else { return }
-        
-        let mobileIDChallengeview = UIStoryboard.landing.instantiateViewController(with: MobileIDChallengeViewController.self)
-        mobileIDChallengeview.modalPresentationStyle = .overFullScreen
-        present(mobileIDChallengeview, animated: false)
+extension ContainerViewController : ContainerTableViewHeaderDelegate {
+    func didTapContainerHeaderButton() {
+        NotificationCenter.default.post(
+            name: .startImportingFilesWithDocumentPickerNotificationName,
+            object: nil,
+            userInfo: [kKeyFileImportIntent: MoppApp.FileImportIntent.addToContainer])
+    }
+}
 
-        Session.shared.createMobileSignature(
-            withContainer: container.filePath,
-            idCode: idCode,
-            language: decideLanguageBasedOnPreferredLanguages(),
-            phoneNumber: phoneNumber)
+extension ContainerViewController : ContainerImportCellDelegate {
+    func containerImportCellAddFiles() {
+        NotificationCenter.default.post(
+            name: .startImportingFilesWithDocumentPickerNotificationName,
+            object: nil,
+            userInfo: [kKeyFileImportIntent: MoppApp.FileImportIntent.addToContainer])
     }
 }

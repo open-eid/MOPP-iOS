@@ -31,7 +31,7 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
 
     static let instance = UIApplication.shared as! MoppApp
 
-    var tabBarController: LandingTabBarController?
+    var landingViewController: LandingViewController?
     var tempUrl: URL?
     var sourceApplication = ""
     var annotation: Any?
@@ -45,6 +45,11 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         case customElements = "CustomElements"
     }
     var nibs: [Nib: UINib] = [:]
+
+    enum FileImportIntent {
+        case openOrCreate
+        case addToContainer
+    }
 
     func didFinishLaunchingWithOptions(launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         loadNibs()
@@ -90,8 +95,8 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
     }
 
     func setupTabController() {
-        tabBarController = UIStoryboard.landing.instantiateInitialViewController(of: LandingTabBarController.self)
-        window?.rootViewController = tabBarController
+        landingViewController = UIStoryboard.landing.instantiateInitialViewController(of: LandingViewController.self)
+        window?.rootViewController = landingViewController
         if let tempUrl = self.tempUrl {
             _ = openUrl(url: tempUrl, sourceApplication: sourceApplication, annotation: annotation)
             self.tempUrl = nil
@@ -125,77 +130,15 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         if !url.absoluteString.isEmpty {
         
             // When app has just been launched, it may not be ready to deal with containers yet. We need to wait until libdigidocpp setup is complete.
-            if tabBarController == nil {
+            if landingViewController == nil {
                 self.annotation = annotation
                 self.sourceApplication = sourceApplication!
                 tempUrl = url
                 return true
             }
             
-            let filePath = url.relativePath
-            let fileName = url.lastPathComponent
-            let fileExtension: String = URL(fileURLWithPath: filePath).pathExtension
-            
-            MSLog("Imported file: %@", filePath)
-            
-            let navController = tabBarController?.viewControllers[0] as? UINavigationController
-                navController?.popViewController(animated: false)
-            
-            let signingViewController = navController?.viewControllers.first as? SigningViewController
-
-            let openExistingContainer = fileExtension.isContainerExtension
-         
-            let failure: (() -> Void) = {
-                
-                let alert = UIAlertController(title: L(.fileImportImportFailedAlertTitle), message: L(.fileImportImportFailedAlertMessage, [fileName]), preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
-    
-                signingViewController?.present(alert, animated: true)
-            }
-            
-            if openExistingContainer {
-                
-                // Move container from inbox folder to documents folder and cleanup.
-                
-                var newFilePath: String = MoppFileManager.shared.filePath(withFileName: fileName)
-                    newFilePath = MoppFileManager.shared.copyFile(withPath: filePath, toPath: newFilePath)
-                
-                MoppFileManager.shared.removeFile(withPath: filePath)
-            
-                MoppLibContainerActions.sharedInstance().getContainerWithPath(newFilePath, success: {(_ container: MoppLibContainer?) -> Void in
-                    guard let container = container else {
-                        // Remove invalid container. Probably ddoc.
-                        MoppFileManager.shared.removeFile(withName: fileName)
-                        failure()
-                        return
-                    }
-                    NotificationCenter.default.post(name: .openContainerNotificationName, object: nil, userInfo: [kKeyContainer: container])
-                    
-                }, failure: { _ in
-                    failure()
-                })
-            } else {
-            
-                // Create new container
-            
-                let (filenameWithoutExt, _) = fileName.filenameComponents()
-                let containerFilename = filenameWithoutExt + ".bdoc"
-                var containerPath = MoppFileManager.shared.filePath(withFileName: containerFilename)
-            
-                containerPath = MoppFileManager.shared.duplicateFilename(atPath: containerPath)
-            
-                MoppLibContainerActions.sharedInstance().createContainer(withPath: containerPath, withDataFilePaths: [filePath], success: { container in
-                    guard let container = container else {
-                        failure()
-                        return
-                    }
-                    NotificationCenter.default.post(name: .openContainerNotificationName, object: nil, userInfo: [kKeyContainer: container])
-                    
-                }, failure: { error in
-                    MoppFileManager.shared.removeFile(withPath: filePath)
-                })
-
-            }
+            landingViewController?.fileImportIntent = .openOrCreate
+            landingViewController?.importFiles(with: [url])
         }
         return true
     }

@@ -131,7 +131,8 @@
 
 "container-details-add-signature" = "Добавить подпись";
 
-"container-header-files-title" = "Файлы";
+"container-header-files-title" = "Контейнерные файлы";
+"container-header-create-files-title" = "Файлы, выбранные для подписания";
 "container-header-timestamp-title" = "Отметка времени";
 "container-header-signatures-title" = "Подписи";
 "container-row-edit-remove" = "Стирать";
@@ -139,7 +140,7 @@
 "container-error-message-invalid-signature" = "НЕПРАВИЛЬНАЯ ПОДПИСЬ";
 "container-signature-signed" = "Подписанный %@";
 "container-title" = "Контейнер";
-"container-missing-signatures" = "Контейнер не подписан";
+"container-missing-signatures" = "Контейнерное управление";
 
 // *** My eID ***
 "my-eid-id-card-info" = "ID-карта - это внутригосударственный документ, удостоверяющий личность начиная с 15-ти лет. Гражданин Эстонии с ID-картой может путешествовать по Европейскому Союзу и в странах Европейской экономической зоны.\n\nID-карту можете ходатайствовать в Департамента полиции и пограничной охраны, в зарубежных представительствах Эстонской республики, по почте или по электронной посте.. %@";
@@ -250,3 +251,6 @@
 "container-sign-title" = "Регистрация";
 "container-validate-title" = "Проверить контейнер";
 "mobile-id-user-cancel-message" = "Подписание отменено пользователем";
+"container-validating" = "Загрузка...";
+"importing-files-progress-message" = "Загрузка файлов...";
+

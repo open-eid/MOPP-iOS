@@ -131,7 +131,8 @@
 
 "container-details-add-signature" = "Lisa allkiri";
 
-"container-header-files-title" = "Failid";
+"container-header-files-title" = "Konteineri failid";
+"container-header-create-files-title" = "Allkirjastamiseks valitud failid";
 "container-header-timestamp-title" = "Ajatempel";
 "container-header-signatures-title" = "Allkirjad";
 "container-row-edit-remove" = "Eemalda";
@@ -250,3 +251,5 @@
 "container-sign-title" = "Allkirjastamine";
 "container-validate-title" = "Konteineri kontroll";
 "mobile-id-user-cancel-message" = "Toiming katkestati kasutaja poolt";
+"container-validating" = "Laadimine...";
+"importing-files-progress-message" = "Failide laadimine...";

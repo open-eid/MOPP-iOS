@@ -209,11 +209,11 @@ class MoppFileManager {
     func duplicateFilename(atPath path: String) -> String {
         let url = URL(fileURLWithPath: path)
         let (filenameBase, filenameExt) = url.lastPathComponent.filenameComponents()
-        guard let lastForwardSlashIndex = url.absoluteString.lastOf(ch: "/") else {
-            return String()
+        guard let lastForwardSlashIndex = path.lastOf(ch: "/") else {
+            return path
         }
-        guard let pathWithoutName = url.absoluteString.substr(offset: 0, count: lastForwardSlashIndex + 1) else {
-            return String()
+        guard let pathWithoutName = path.substr(offset: 0, count: lastForwardSlashIndex + 1) else {
+            return path
         }
         var newPath = path
         var counter = 0
@@ -224,4 +224,49 @@ class MoppFileManager {
         return newPath
     }
 
+    // Import files returned from UIDocumentPickerViewController
+    func importFiles(with urls: [URL], completion: ((_ error: Error?, _ paths: [String]) -> Void)?) {
+        importFiles_recursive(with: urls, importedPaths: [], completion: completion)
+    }
+    
+    private func importFiles_recursive(with urls: [URL], importedPaths: [String], completion: ((_ error: Error?, _ paths: [String]) -> Void)?) {
+        var mutableURLs = urls
+        
+        guard let url = mutableURLs.first else {
+            completion?(nil, importedPaths)
+            return
+        }
+        
+        let isUrlSSR = url.startAccessingSecurityScopedResource()
+        let coordinator = NSFileCoordinator(filePresenter: nil)
+        let readingIntent = NSFileAccessIntent.readingIntent(with: url, options: .withoutChanges)
+        
+        coordinator.coordinate(with: [readingIntent], queue: OperationQueue.main) { [weak self] error in
+            var data: Data!
+            if error == nil {
+                let safeURL = readingIntent.url
+                
+                data = try! Data(contentsOf: safeURL)
+                
+                let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: safeURL.lastPathComponent)
+                MoppFileManager.shared.createFile(atPath: destinationPath, contents: data)
+                
+                if isUrlSSR {
+                    url.stopAccessingSecurityScopedResource()
+                }
+                
+                _ = mutableURLs.removeFirst()
+                
+                var modifiedImportedPaths = importedPaths
+                    modifiedImportedPaths.append(destinationPath)
+                
+                self?.importFiles_recursive(with: mutableURLs, importedPaths: modifiedImportedPaths, completion: completion)
+            } else {
+                if isUrlSSR {
+                    url.stopAccessingSecurityScopedResource()
+                }
+                completion?(error, [])
+            }
+        }
+    }
 }

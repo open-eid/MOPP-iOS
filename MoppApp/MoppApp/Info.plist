@@ -6,24 +6,6 @@
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
 	<string>RIA DigiDoc</string>
-	<key>CFBundleDocumentTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeIconFiles</key>
-			<array>
-				<string>digidoc_64.png</string>
-				<string>digidoc_320.png</string>
-			</array>
-			<key>CFBundleTypeName</key>
-			<string>Digidoc file</string>
-			<key>LSHandlerRank</key>
-			<string>Alternate</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>public.data</string>
-			</array>
-		</dict>
-	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -37,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>2.0</string>
 	<key>CFBundleVersion</key>
-	<string>17</string>
+	<string>18</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -113,7 +95,7 @@
 				<string>public.ddoc</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>digidoc container</string>
+			<string>Digidoc container</string>
 			<key>UTTypeIdentifier</key>
 			<string>public.bdoc</string>
 			<key>UTTypeSize320IconFile</key>

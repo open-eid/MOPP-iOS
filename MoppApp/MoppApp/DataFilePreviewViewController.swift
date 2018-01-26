@@ -36,6 +36,6 @@ class DataFilePreviewViewController : MoppViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        LandingTabBarController.shared.presentButtons([])
+        LandingViewController.shared.presentButtons([])
     }
 }

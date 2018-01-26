@@ -23,8 +23,18 @@
 import Foundation
 
 
+protocol ContainerImportCellDelegate : class {
+    func containerImportCellAddFiles()
+}
+
 class ContainerImportFilesCell : UITableViewCell {
     @IBOutlet weak var button: UIButton!
+    weak var delegate: ContainerImportCellDelegate!
+    
+    @IBAction func importAction() {
+        delegate.containerImportCellAddFiles()
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         button.localizedTitle = LocKey.fileImportTitle

@@ -20,26 +20,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-
 import Foundation
 
-
-protocol ContainerTableViewHeaderViewDelegate: class {
-    func containerTableViewHeaderViewAddFiles(forSection section: ContainerViewController.Section)
+protocol ContainerTableViewHeaderDelegate : class {
+    func didTapContainerHeaderButton()
 }
 
 class ContainerTableViewHeaderView: UIView {
     static let height: CGFloat = 60
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var addButton: UIButton!
     
+    weak var delegate: ContainerTableViewHeaderDelegate? = nil
     var targetSection: ContainerViewController.Section!
-    weak var delegate: ContainerTableViewHeaderViewDelegate?
-    
-    @IBAction func addAction() {
-        delegate?.containerTableViewHeaderViewAddFiles(forSection: targetSection)
-    }
-    
     var gradientLayer: CAGradientLayer!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -53,8 +48,13 @@ class ContainerTableViewHeaderView: UIView {
         _ = createGradientLayer(topColor: topColor, bottomColor: botColor)
     }
     
-    func populate(withTitle title: String, section: ContainerViewController.Section) {
+    func populate(withTitle title: String, section: ContainerViewController.Section, showAddButton: Bool) {
+        addButton.isHidden = !showAddButton
         targetSection = section
         titleLabel.text = title
+    }
+    
+    @IBAction func addAction() {
+        delegate?.didTapContainerHeaderButton()
     }
 }

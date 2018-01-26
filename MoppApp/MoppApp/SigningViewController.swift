@@ -52,7 +52,7 @@ class SigningViewController : MoppViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        LandingTabBarController.shared.presentButtons([.signTab, .cryptoTab, .myeIDTab])
+        LandingViewController.shared.presentButtons([.signTab, .cryptoTab, .myeIDTab])
         
         tableView.estimatedRowHeight = ContainerSignatureCell.height
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -115,7 +115,9 @@ extension SigningViewController : UITableViewDataSource {
                     cell.populate(filename: containerFiles[indexPath.row], searchKeyword: searchKeyword)
                 return cell
             case .fileImport:
-                return tableView.dequeueReusableCell(withType: SigningFileImportCell.self, for: indexPath)!
+                let cell = tableView.dequeueReusableCell(withType: SigningFileImportCell.self, for: indexPath)!
+                    cell.delegate = self
+                return cell
             case .containerFilesHeader:
                 return UITableViewCell()
         }
@@ -140,7 +142,7 @@ extension SigningViewController : UITableViewDelegate {
             let filename = containerFiles[indexPath.row]
             let containerPath = MoppFileManager.shared.documentsDirectoryPath() + "/" + filename
             
-            let containerViewController = UIStoryboard.container.instantiateInitialViewController() as! ContainerViewController
+            let containerViewController = ContainerViewController.instantiate()
                 containerViewController.containerPath = containerPath
             
             self.closeSearch()
@@ -185,5 +187,14 @@ extension SigningViewController: SigningTableViewHeaderViewDelegate {
         self.searchKeyword = String()
         containerFiles = MoppFileManager.shared.documentsFiles()
         tableView.reloadData()
+    }
+}
+
+extension SigningViewController : SigningFileImportCellDelegate {
+    func signingFileImportDidTapAddFiles() {
+        NotificationCenter.default.post(
+            name: .startImportingFilesWithDocumentPickerNotificationName,
+            object: nil,
+            userInfo: [kKeyFileImportIntent: MoppApp.FileImportIntent.openOrCreate])
     }
 }

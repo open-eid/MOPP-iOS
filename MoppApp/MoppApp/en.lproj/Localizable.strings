@@ -130,7 +130,8 @@
 "container-details-internet-connection-error-message" = "Internet connection must be available for signing.";
 "container-details-add-signature" = "Add signature";
 
-"container-header-files-title" = "Files";
+"container-header-files-title" = "Container files";
+"container-header-create-files-title" = "Files chosen for signing";
 "container-header-timestamp-title" = "Timestamp";
 "container-header-signatures-title" = "Signatures";
 "container-row-edit-remove" = "Delete";
@@ -247,5 +248,7 @@
 "mobile-id-challenge-title" = "Sign with Mobile-ID app";
 "mobile-id-challenge-waiting-response" = "Waiting for response ...";
 "container-sign-title" = "Sign";
-"container-validate-title" = "Validate container";
+"container-validate-title" = "Container control";
 "mobile-id-user-cancel-message" = "Signing cancelled by user";
+"container-validating" = "Loading...";
+"importing-files-progress-message" = "Importing files...";
