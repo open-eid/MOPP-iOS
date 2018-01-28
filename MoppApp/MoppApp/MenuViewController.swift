@@ -63,7 +63,7 @@ class MenuViewController : MoppViewController {
         
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? String()
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? String()
-        versionLabel.text = "Version \(version) - \(build)"
+        versionLabel.text = "Version \(version).\(build)"
         
         lightContentStatusBarStyle = true
     
