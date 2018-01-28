@@ -30,7 +30,7 @@
 // Main menu
 "menu-help" = "ABI";
 "menu-intro" = "ESMATUTVUSTUS";
-"menu-filemanager" = "FAILIDE HALDUS";
+"menu-recent-containers" = "HIILJUTISED KONTEINERID";
 "menu-settings" = "SEADED";
 "menu-about" = "RAKENDUSE INFO";
 

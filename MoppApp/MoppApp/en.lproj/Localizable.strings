@@ -30,7 +30,7 @@
 // Main menu
 "menu-help" = "HELP";
 "menu-intro" = "INTRODUCTION";
-"menu-filemanager" = "DOCUMENTS";
+"menu-recent-containers" = "RECENT CONTAINERS";
 "menu-settings" = "SETTINGS";
 "menu-about" = "ABOUT";
 

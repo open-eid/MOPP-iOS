@@ -30,7 +30,7 @@ enum LocKey : String
 
     case menuHelp = "menu-help"
     case menuIntro = "menu-intro"
-    case menuFilemanager = "menu-filemanager"
+    case menuRecentContainers = "menu-recent-containers"
     case menuSettings = "menu-settings"
     case menuAbout = "menu-about"
     case tabContainers = "tab-containers"

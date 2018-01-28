@@ -47,6 +47,10 @@ extension UIStoryboard {
     static var crypto: UIStoryboard {
         return UIStoryboard(name: "Crypto", bundle: Bundle.main)
     }
+    
+    static var recentContainers: UIStoryboard {
+        return UIStoryboard(name: "RecentContainers", bundle: Bundle.main)
+    }
 }
 
 extension UIStoryboard {

@@ -1,5 +1,5 @@
 //
-//  SigningFileImportMissingCell.swift
+//  MenuCell.swift
 //  MoppApp
 //
 /*
@@ -20,14 +20,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-import Foundation
-
-
-class SigningFileImportMissingCell : UITableViewCell {
-    @IBOutlet weak var label: UILabel!
+class MenuCell: UITableViewCell {
+    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        label.text = L(LocKey.signingMissingFileImportMessage)
+    }
+    
+    func populate(iconName: String, title: String) {
+        titleLabel.text = title
+        iconImageView.image = UIImage(named: iconName)
     }
 }

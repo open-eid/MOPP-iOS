@@ -390,7 +390,10 @@ extension ContainerViewController : UITableViewDelegate {
 
         if let header = MoppApp.instance.nibs[.containerElements]?.instantiate(withOwner: self, type: ContainerTableViewHeaderView.self) {
             header.delegate = self
-            header.populate(withTitle: title, section: section, showAddButton: section == .dataFiles && !isCreated)
+            header.populate(
+                withTitle: title,
+                section: section,
+                showAddButton: section == .dataFiles && !isCreated)
             return header
         }
 
@@ -443,7 +446,7 @@ extension ContainerViewController : MobileIDEditViewControllerDelegate {
         guard let idCode = idCode else { return }
         
         let mobileIDChallengeview = UIStoryboard.landing.instantiateViewController(with: MobileIDChallengeViewController.self)
-        mobileIDChallengeview.modalPresentationStyle = .overFullScreen
+            mobileIDChallengeview.modalPresentationStyle = .overFullScreen
         present(mobileIDChallengeview, animated: false)
 
         Session.shared.createMobileSignature(

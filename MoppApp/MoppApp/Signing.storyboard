@@ -5,16 +5,12 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Roboto-Bold.ttf">
-            <string>Roboto-Bold</string>
-        </array>
-        <array key="Roboto-Regular.ttf">
-            <string>Roboto-Regular</string>
+        <array key="Roboto-Medium.ttf">
+            <string>Roboto-Medium</string>
         </array>
         <array key="RobotoCondensed-Regular.ttf">
             <string>RobotoCondensed-Regular</string>
@@ -29,104 +25,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kei-Bu-SSx">
-                                <rect key="frame" x="0.0" y="64" width="375" height="436"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SigningContainerCell" id="TCF-21-gXP" customClass="SigningContainerCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TCF-21-gXP" id="4V7-BP-TgD">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.bdoc" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fe-OR-Sgp">
-                                                    <rect key="frame" x="15" y="12" width="135.5" height="20"/>
-                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
-                                                    <color key="textColor" red="0.21176470589999999" green="0.2156862745" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oB0-0u-wMM">
-                                                    <rect key="frame" x="15" y="43" width="345" height="1"/>
-                                                    <color key="backgroundColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="0.20732555650000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="U08-xZ-8os"/>
-                                                    </constraints>
-                                                </view>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="oB0-0u-wMM" firstAttribute="leading" secondItem="4V7-BP-TgD" secondAttribute="leading" constant="15" id="I04-Y2-jfZ"/>
-                                                <constraint firstItem="2fe-OR-Sgp" firstAttribute="centerY" secondItem="4V7-BP-TgD" secondAttribute="centerY" id="YAq-lb-Q2e"/>
-                                                <constraint firstAttribute="trailing" secondItem="oB0-0u-wMM" secondAttribute="trailing" constant="15" id="cre-Q9-eRU"/>
-                                                <constraint firstAttribute="bottom" secondItem="oB0-0u-wMM" secondAttribute="bottom" id="xXx-q0-Gtw"/>
-                                                <constraint firstItem="2fe-OR-Sgp" firstAttribute="leading" secondItem="4V7-BP-TgD" secondAttribute="leadingMargin" id="z52-q8-Dra"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="filenameLabel" destination="2fe-OR-Sgp" id="glc-Bz-c5O"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SigningFileImportCell" rowHeight="185" id="bA0-HQ-aHy" customClass="SigningFileImportCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="375" height="185"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bA0-HQ-aHy" id="LDe-Tu-aDW">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="185"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allkirjastamiseks või dekrüpteerimiseks vali fail" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NeM-I1-l2q">
-                                                    <rect key="frame" x="15" y="43" width="345" height="20"/>
-                                                    <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="21"/>
-                                                    <color key="textColor" red="0.015686274509803921" green="0.11764705882352941" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zMi-Py-db5">
-                                                    <rect key="frame" x="15" y="95" width="345" height="50"/>
-                                                    <color key="backgroundColor" red="0.0" green="0.43137254901960786" blue="0.70980392156862748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="HIm-UB-9lY"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
-                                                    <state key="normal" title="VALI FAIL">
-                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="3"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="importFilesAction" destination="bA0-HQ-aHy" eventType="touchUpInside" id="q8d-P4-WED"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="zMi-Py-db5" secondAttribute="bottom" constant="40" id="E3G-6o-ckb"/>
-                                                <constraint firstItem="NeM-I1-l2q" firstAttribute="top" secondItem="LDe-Tu-aDW" secondAttribute="topMargin" constant="32" id="JLY-mU-Epy"/>
-                                                <constraint firstItem="NeM-I1-l2q" firstAttribute="leading" secondItem="LDe-Tu-aDW" secondAttribute="leadingMargin" id="LD9-mE-I1J"/>
-                                                <constraint firstItem="zMi-Py-db5" firstAttribute="leading" secondItem="LDe-Tu-aDW" secondAttribute="leadingMargin" id="P3v-rx-1a0"/>
-                                                <constraint firstItem="NeM-I1-l2q" firstAttribute="trailing" secondItem="LDe-Tu-aDW" secondAttribute="trailingMargin" id="Xez-0q-v6u"/>
-                                                <constraint firstItem="zMi-Py-db5" firstAttribute="top" secondItem="NeM-I1-l2q" secondAttribute="bottom" constant="32" id="dij-ns-ciL"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="zMi-Py-db5" secondAttribute="trailing" id="pmg-Nu-xz3"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="button" destination="zMi-Py-db5" id="n3J-cH-nEr"/>
-                                            <outlet property="label" destination="NeM-I1-l2q" id="LQ2-M1-65d"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allkirjastamiseks või dekrüpteerimiseks vali fail" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xC0-jh-5MV">
+                                <rect key="frame" x="16" y="194" width="343" height="47"/>
+                                <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="20"/>
+                                <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CaL-ug-7D1">
+                                <rect key="frame" x="16" y="257" width="343" height="50"/>
+                                <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="I1A-W0-heN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
+                                <state key="normal" title="VALI FAIL">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outlet property="dataSource" destination="vA0-9v-0On" id="xxc-ao-LNi"/>
-                                    <outlet property="delegate" destination="vA0-9v-0On" id="PPA-Xf-rME"/>
+                                    <action selector="importFilesAction" destination="vA0-9v-0On" eventType="touchUpInside" id="TGx-hJ-gZx"/>
                                 </connections>
-                            </tableView>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="kei-Bu-SSx" firstAttribute="leading" secondItem="E3T-IJ-uAi" secondAttribute="leading" id="0SF-Mw-vly"/>
-                            <constraint firstItem="kei-Bu-SSx" firstAttribute="top" secondItem="E3T-IJ-uAi" secondAttribute="top" id="XVT-Xr-jGB"/>
-                            <constraint firstItem="kei-Bu-SSx" firstAttribute="trailing" secondItem="E3T-IJ-uAi" secondAttribute="trailing" id="ePC-Wj-tFa"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="kei-Bu-SSx" secondAttribute="bottom" id="phK-qn-Wgw"/>
+                            <constraint firstItem="E3T-IJ-uAi" firstAttribute="trailing" secondItem="CaL-ug-7D1" secondAttribute="trailing" constant="16" id="3K6-qu-He7"/>
+                            <constraint firstItem="CaL-ug-7D1" firstAttribute="leading" secondItem="E3T-IJ-uAi" secondAttribute="leading" constant="16" id="Fon-uG-3Zm"/>
+                            <constraint firstItem="CaL-ug-7D1" firstAttribute="top" secondItem="xC0-jh-5MV" secondAttribute="bottom" constant="16" id="N59-4v-oUQ"/>
+                            <constraint firstItem="E3T-IJ-uAi" firstAttribute="trailing" secondItem="xC0-jh-5MV" secondAttribute="trailing" constant="16" id="hIO-wT-1cA"/>
+                            <constraint firstItem="xC0-jh-5MV" firstAttribute="leading" secondItem="E3T-IJ-uAi" secondAttribute="leading" constant="16" id="lIe-Rb-BIU"/>
+                            <constraint firstItem="CaL-ug-7D1" firstAttribute="centerY" secondItem="E3T-IJ-uAi" secondAttribute="centerY" id="mMD-K8-Iy9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="E3T-IJ-uAi"/>
                     </view>
@@ -134,25 +66,18 @@
                         <barButtonItem key="rightBarButtonItem" image="VerticalDotsMenu" style="plain" id="5Sn-xe-ssA">
                             <color key="tintColor" red="0.21176470589999999" green="0.2156862745" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <segue destination="AHF-bS-tOB" kind="presentation" modalPresentationStyle="overFullScreen" id="n7T-is-LJD"/>
+                                <action selector="menuActivationSelector" destination="vA0-9v-0On" id="jGF-ZC-wEP"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="tableView" destination="kei-Bu-SSx" id="OrP-oj-Rg7"/>
+                        <outlet property="importButton" destination="CaL-ug-7D1" id="5fU-XL-mtr"/>
+                        <outlet property="titleLabel" destination="xC0-jh-5MV" id="ffg-Gu-siT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l8I-Bf-tlZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="754.39999999999998" y="150.67466266866569"/>
-        </scene>
-        <!--Menu-->
-        <scene sceneID="Dva-UK-5KN">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Menu" id="AHF-bS-tOB" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Rp9-fu-9Aw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1274" y="-26"/>
+            <point key="canvasLocation" x="754.39999999999998" y="149.32533733133434"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YBV-PF-rmm">

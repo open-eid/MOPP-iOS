@@ -148,9 +148,6 @@ class LandingViewController : UIViewController
         // Select signing tab
         selectedIndex = 0
         if let navigationController = viewControllers.first as? UINavigationController {
-            if let signingViewController = navigationController.viewControllers.first as? SigningViewController {
-                signingViewController.refresh()
-            }
             let containerViewController = ContainerViewController.instantiate()
                 containerViewController.containerPath = container.filePath
                 containerViewController.isCreated = isCreated
