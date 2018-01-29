@@ -38,13 +38,14 @@ class MobileIDChallengeViewController : UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.text = L(.mobileIdChallengeWaitingForResponse)
+        titleLabel.text = MoppLib_LocalizedString("digidoc-service-status-request-sent")
         helpLabel.text = L(.mobileIdSignHelpTitle)
-        codeLabel.isHidden = true
+        codeLabel.text = L(LocKey.challengeCodeLabel, ["----"])
         timeoutProgressView.progress = 0
 
-        NotificationCenter.default.addObserver(self, selector: #selector(self.receiveCreateSignatureStatus), name: .signatureAddedToContainerNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.receiveErrorNotification), name: .errorNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveCreateSignatureStatus), name: .signatureAddedToContainerNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveErrorNotification), name: .errorNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveStatusPendingNotification), name: .signatureMobileIDPendingRequestNotificationName, object: nil)
         
         NotificationCenter.default.addObserver(
             self,
@@ -62,7 +63,16 @@ class MobileIDChallengeViewController : UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @objc func receiveStatusPendingNotification(_ notification: Notification) {
+        DispatchQueue.main.async { [weak self] in
+            self?.titleLabel.text = MoppLib_LocalizedString("digidoc-service-status-request-outstanding-transaction")
+        }
+    }
+
     @objc func receiveCreateSignatureStatus(_ notification: Notification) {
+        DispatchQueue.main.async { [weak self] in
+            self?.titleLabel.text = MoppLib_LocalizedString("digidoc-service-status-request-signature")
+        }
         sessionTimer?.invalidate()
         NotificationCenter.default.post(name: .signatureCreatedFinishedNotificationName, object: nil)
         dismiss(animated: false)
@@ -78,8 +88,7 @@ class MobileIDChallengeViewController : UIViewController {
         sessCode = "\(Int(response.sessCode))"
     
         codeLabel.isHidden = false
-    
-        titleLabel.text = L(LocKey.mobileIdChallengeTitle)
+        titleLabel.text = MoppLib_LocalizedString("digidoc-service-status-request-ok")
         codeLabel.text = L(LocKey.challengeCodeLabel, [challengeID])
         currentProgress = 0.0
         

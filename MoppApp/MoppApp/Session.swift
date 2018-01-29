@@ -49,6 +49,12 @@ class Session
                         
                     },
                     andStatus: { (_ container: MoppLibContainer?, _ error: Error?, _ status: String?) -> Void in
+                        if let status = status {
+                            if status == "OUTSTANDING_TRANSACTION" {
+                                NotificationCenter.default.post(name: .signatureMobileIDPendingRequestNotificationName, object: nil)
+                            }
+                        }
+                        
                         if let error = error {
                             NotificationCenter.default.post(
                                 name: .errorNotificationName,

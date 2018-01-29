@@ -333,7 +333,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n0c-Dn-QQK">
-                                <rect key="frame" x="57.5" y="257.5" width="260" height="152.5"/>
+                                <rect key="frame" x="57.5" y="253.5" width="260" height="160.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allkirjasta Mobiil-ID äpiga" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebk-VA-thg">
                                         <rect key="frame" x="16" y="16" width="228" height="19"/>
@@ -346,13 +346,13 @@
                                         <color key="tintColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </progressView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kood:1234" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kn9-yO-Va6">
-                                        <rect key="frame" x="15.5" y="77" width="228.5" height="19"/>
+                                        <rect key="frame" x="15.5" y="93" width="228.5" height="19"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                         <color key="textColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure the control code above matches and enter Mobile-ID PIN2 code" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gne-Hx-5cH">
-                                        <rect key="frame" x="16" y="120" width="228" height="16.5"/>
+                                        <rect key="frame" x="16" y="128" width="228" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                         <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -365,11 +365,11 @@
                                     <constraint firstItem="ebk-VA-thg" firstAttribute="leading" secondItem="n0c-Dn-QQK" secondAttribute="leading" constant="16" id="9Y6-Zj-Okp"/>
                                     <constraint firstAttribute="trailing" secondItem="kn9-yO-Va6" secondAttribute="trailing" constant="16" id="IpI-3z-tUX"/>
                                     <constraint firstItem="kn9-yO-Va6" firstAttribute="leading" secondItem="n0c-Dn-QQK" secondAttribute="leading" constant="16" id="MiW-w9-W40"/>
-                                    <constraint firstItem="kn9-yO-Va6" firstAttribute="top" secondItem="VKH-8c-7RZ" secondAttribute="bottom" constant="24" id="OUR-rc-yo8"/>
+                                    <constraint firstItem="kn9-yO-Va6" firstAttribute="top" secondItem="VKH-8c-7RZ" secondAttribute="bottom" constant="40" id="OUR-rc-yo8"/>
                                     <constraint firstAttribute="trailing" secondItem="ebk-VA-thg" secondAttribute="trailing" constant="16" id="Pgp-PA-gYl"/>
                                     <constraint firstAttribute="trailing" secondItem="Gne-Hx-5cH" secondAttribute="trailing" constant="16" id="T9Y-h8-SEY"/>
                                     <constraint firstAttribute="trailing" secondItem="VKH-8c-7RZ" secondAttribute="trailing" constant="16" id="TtL-sp-eQc"/>
-                                    <constraint firstItem="Gne-Hx-5cH" firstAttribute="top" secondItem="kn9-yO-Va6" secondAttribute="bottom" constant="24" id="aXQ-H8-TuY"/>
+                                    <constraint firstItem="Gne-Hx-5cH" firstAttribute="top" secondItem="kn9-yO-Va6" secondAttribute="bottom" constant="16" id="aXQ-H8-TuY"/>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="260" id="h2u-gK-i40"/>
                                     <constraint firstItem="VKH-8c-7RZ" firstAttribute="leading" secondItem="n0c-Dn-QQK" secondAttribute="leading" constant="16" id="kLL-Fj-LM9"/>
                                     <constraint firstItem="ebk-VA-thg" firstAttribute="top" secondItem="n0c-Dn-QQK" secondAttribute="top" constant="16" id="kfj-lu-ebO"/>
