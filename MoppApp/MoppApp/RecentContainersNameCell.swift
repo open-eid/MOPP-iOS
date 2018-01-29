@@ -1,5 +1,5 @@
 //
-//  SigningContainerCell.swift
+//  RecentContainersNameCell.swift
 //  MoppApp
 //
 /*
@@ -23,16 +23,17 @@
 import Foundation
 
 
-class SigningContainerCell : UITableViewCell {
+class RecentContainersNameCell : UITableViewCell {
     static let height: CGFloat = 50.0
     @IBOutlet weak var filenameLabel: UILabel!
+    @IBOutlet weak var separatorView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
-    func populate(filename: String, searchKeyword: String) {
-        print(searchKeyword, filename)
+    func populate(filename: String, searchKeyword: String, showSeparator: Bool) {
+        separatorView.isHidden = !showSeparator
         
         let searchKeywordRange = (filename as NSString).range(
             of: searchKeyword,

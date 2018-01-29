@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -33,13 +32,13 @@
                     <textInputTraits key="textInputTraits" returnKeyType="done"/>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent containers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yr2-Tq-KJ0">
-                    <rect key="frame" x="16" y="11.5" width="343" height="25"/>
+                    <rect key="frame" x="102.5" y="11.5" width="170.5" height="25"/>
                     <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="21"/>
                     <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Fx-J3-DpC">
-                    <rect key="frame" x="323" y="0.0" width="48" height="48"/>
+                    <rect key="frame" x="273" y="0.0" width="48" height="48"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="9Fx-J3-DpC" secondAttribute="height" multiplier="1:1" id="2Ca-N8-aup"/>
                         <constraint firstAttribute="width" constant="48" id="flP-zC-d12"/>
@@ -52,11 +51,10 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="zkY-Ou-pn7" firstAttribute="trailing" secondItem="yr2-Tq-KJ0" secondAttribute="trailing" constant="16" id="6Qi-5r-JRv"/>
+                <constraint firstItem="yr2-Tq-KJ0" firstAttribute="centerX" secondItem="zkY-Ou-pn7" secondAttribute="centerX" id="6bp-G2-OoW"/>
                 <constraint firstItem="zkY-Ou-pn7" firstAttribute="trailing" secondItem="YC1-OL-BjW" secondAttribute="trailing" id="9Hb-WD-2AF"/>
+                <constraint firstItem="9Fx-J3-DpC" firstAttribute="leading" secondItem="yr2-Tq-KJ0" secondAttribute="trailing" id="C4N-P9-6rS"/>
                 <constraint firstItem="YC1-OL-BjW" firstAttribute="leading" secondItem="zkY-Ou-pn7" secondAttribute="leading" id="Gor-K3-uzx"/>
-                <constraint firstItem="zkY-Ou-pn7" firstAttribute="trailing" secondItem="9Fx-J3-DpC" secondAttribute="trailing" constant="4" id="Phb-i6-nlg"/>
-                <constraint firstItem="yr2-Tq-KJ0" firstAttribute="leading" secondItem="zkY-Ou-pn7" secondAttribute="leading" constant="16" id="Rv8-if-ZlZ"/>
                 <constraint firstItem="yr2-Tq-KJ0" firstAttribute="centerY" secondItem="zkY-Ou-pn7" secondAttribute="centerY" id="aqY-rT-95h"/>
                 <constraint firstItem="YC1-OL-BjW" firstAttribute="top" secondItem="zkY-Ou-pn7" secondAttribute="top" id="d6l-ez-9HY"/>
                 <constraint firstItem="9Fx-J3-DpC" firstAttribute="centerY" secondItem="zkY-Ou-pn7" secondAttribute="centerY" id="lPF-L4-EAk"/>
