@@ -30,7 +30,7 @@
 // Main menu
 "menu-help" = "ABI";
 "menu-intro" = "ESMATUTVUSTUS";
-"menu-recent-containers" = "HIILJUTISED KONTEINERID";
+"menu-recent-containers" = "HIILJUTISED DOKUMENDID";
 "menu-settings" = "SEADED";
 "menu-about" = "RAKENDUSE INFO";
 
