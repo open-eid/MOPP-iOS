@@ -53,7 +53,7 @@
 		C50DCCFF1FC6E95A00D48E16 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCCFE1FC6E95A00D48E16 /* ContainerViewController.swift */; };
 		C50DCD011FC6E97400D48E16 /* Container.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50DCD001FC6E97400D48E16 /* Container.storyboard */; };
 		C50DCD031FC7117700D48E16 /* ContainerElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50DCD021FC7117700D48E16 /* ContainerElements.xib */; };
-		C50DCD051FC7125300D48E16 /* ContainerErrorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD041FC7125300D48E16 /* ContainerErrorCell.swift */; };
+		C50DCD051FC7125300D48E16 /* ContainerNotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD041FC7125300D48E16 /* ContainerNotificationCell.swift */; };
 		C50DCD071FC7126100D48E16 /* ContainerSignatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD061FC7126100D48E16 /* ContainerSignatureCell.swift */; };
 		C50DCD091FC7127400D48E16 /* ContainerFileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD081FC7127400D48E16 /* ContainerFileCell.swift */; };
 		C50DCD0B1FC7128900D48E16 /* ContainerHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD0A1FC7128900D48E16 /* ContainerHeaderCell.swift */; };
@@ -203,7 +203,7 @@
 		C50DCCFE1FC6E95A00D48E16 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		C50DCD001FC6E97400D48E16 /* Container.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Container.storyboard; sourceTree = "<group>"; };
 		C50DCD021FC7117700D48E16 /* ContainerElements.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContainerElements.xib; sourceTree = "<group>"; };
-		C50DCD041FC7125300D48E16 /* ContainerErrorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerErrorCell.swift; sourceTree = "<group>"; };
+		C50DCD041FC7125300D48E16 /* ContainerNotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerNotificationCell.swift; sourceTree = "<group>"; };
 		C50DCD061FC7126100D48E16 /* ContainerSignatureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerSignatureCell.swift; sourceTree = "<group>"; };
 		C50DCD081FC7127400D48E16 /* ContainerFileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerFileCell.swift; sourceTree = "<group>"; };
 		C50DCD0A1FC7128900D48E16 /* ContainerHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerHeaderCell.swift; sourceTree = "<group>"; };
@@ -379,7 +379,7 @@
 				C50DCD001FC6E97400D48E16 /* Container.storyboard */,
 				C50DCD021FC7117700D48E16 /* ContainerElements.xib */,
 				C50DCCFE1FC6E95A00D48E16 /* ContainerViewController.swift */,
-				C50DCD041FC7125300D48E16 /* ContainerErrorCell.swift */,
+				C50DCD041FC7125300D48E16 /* ContainerNotificationCell.swift */,
 				C50DCD061FC7126100D48E16 /* ContainerSignatureCell.swift */,
 				C50DCD081FC7127400D48E16 /* ContainerFileCell.swift */,
 				C50DCD0A1FC7128900D48E16 /* ContainerHeaderCell.swift */,
@@ -860,7 +860,7 @@
 				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
 				540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */,
 				C50DCCC31FC2D54200D48E16 /* UIFont+Additions.swift in Sources */,
-				C50DCD051FC7125300D48E16 /* ContainerErrorCell.swift in Sources */,
+				C50DCD051FC7125300D48E16 /* ContainerNotificationCell.swift in Sources */,
 				C56C6208201A1B4C00CCC2A5 /* MenuSeparatorCell.swift in Sources */,
 				C52E82781FC1D3ED0074B280 /* MenuViewController.swift in Sources */,
 				C50DCCC71FC32A2500D48E16 /* MyeIDViewController.swift in Sources */,

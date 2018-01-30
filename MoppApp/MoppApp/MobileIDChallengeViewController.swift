@@ -38,15 +38,15 @@ class MobileIDChallengeViewController : UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         titleLabel.text = MoppLib_LocalizedString("digidoc-service-status-request-sent")
         helpLabel.text = L(.mobileIdSignHelpTitle)
-        codeLabel.text = L(LocKey.challengeCodeLabel, ["----"])
+        codeLabel.isHidden = true
         timeoutProgressView.progress = 0
 
         NotificationCenter.default.addObserver(self, selector: #selector(receiveCreateSignatureStatus), name: .signatureAddedToContainerNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveErrorNotification), name: .errorNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveStatusPendingNotification), name: .signatureMobileIDPendingRequestNotificationName, object: nil)
-        
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(receiveMobileCreateSignatureNotification),

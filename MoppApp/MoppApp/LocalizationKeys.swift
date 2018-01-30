@@ -125,6 +125,7 @@ enum LocKey : String
     case containerRowEditRemove = "container-row-edit-remove"
     case containerHeaderTitle = "container-header-title"
     case containerErrorMessageInvalidSignature = "container-error-message-invalid-signature"
+    case containerErrorMessageInvalidSignatures = "container-error-message-invalid-signatures"
     case containerSignatureSigned = "container-signature-signed"
     case containerTitle = "container-title"
     case containerMissingSignatures = "container-missing-signatures"

@@ -97,7 +97,7 @@
 "container-details-signature-invalid" = "is not valid";
 "container-details-enter-pin" = "Please enter your PIN2 code.";
 "container-details-general-error" = "Adding signature failed.";
-"container-details-signing-success" = "Signature added";
+"container-details-signing-success" = "SIGNATURE ADDED";
 "container-details-signature-added" = "Your signature has been added to the document.";
 "container-details-signature-already-exists" = "Your signature already exists on this document.";
 "container-details-signing-method-alert-title" = "Signing method";
@@ -136,7 +136,8 @@
 "container-header-signatures-title" = "Signatures";
 "container-row-edit-remove" = "Delete";
 "container-header-title" = "CONTAINER:";
-"container-error-message-invalid-signature" = "INVALID SIGNATURE";
+"container-error-message-invalid-signature" = "ONE INVALID SIGNATURE";
+"container-error-message-invalid-signatures" = "%d INVALID SIGNATURES";
 "container-signature-signed" = "Signed %@";
 "container-title" = "Container";
 "container-missing-signatures" = "Container is not signed";

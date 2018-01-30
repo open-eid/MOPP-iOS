@@ -97,7 +97,7 @@
 "container-details-signature-invalid" = "недействительна";
 "container-details-enter-pin" = "Введите PIN2";
 "container-details-general-error" = "Oдписание не удалось.";
-"container-details-signing-success" = "Подпись добавлена.";
+"container-details-signing-success" = "ПОДПИСЬ ДОБАВЛЕНА";
 "container-details-signature-added" = "Ваша подпись добавлена в документ.";
 "container-details-signature-already-exists" = "Этот документ уже содержит вашу подпись.";
 "container-details-signing-method-alert-title" = "Cпособ подписания";
@@ -137,7 +137,8 @@
 "container-header-signatures-title" = "Подписи";
 "container-row-edit-remove" = "Стирать";
 "container-header-title" = "КОНТЕЙНЕР:";
-"container-error-message-invalid-signature" = "НЕПРАВИЛЬНАЯ ПОДПИСЬ";
+"container-error-message-invalid-signature" = "ОДНА НЕДОПУСТИМАЯ ПОДПИСЬ";
+"container-error-message-invalid-signatures" = "%d НЕДОПУСТИМЫХ ПОДПИСИ";
 "container-signature-signed" = "Подписанный %@";
 "container-title" = "Контейнер";
 "container-missing-signatures" = "Контейнерное управление";
