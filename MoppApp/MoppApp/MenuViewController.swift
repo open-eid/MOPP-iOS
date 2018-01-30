@@ -47,9 +47,7 @@ class MenuViewController : MoppViewController {
 
     let menuItems: [(title: String, imageName: String, id: MenuItemID)] = [
         (L(.menuHelp), "icon_help white", .help),
-        (L(.menuIntro), "icon_intro white", .intro),
         (L(.menuRecentContainers), "icon_files white", .containersHistory),
-        (String(), String(), .separator),
         (L(.menuSettings), "icon_settings white", .settings),
         (L(.menuAbout), "icon_info white", .about)
         ]

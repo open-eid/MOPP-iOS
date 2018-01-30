@@ -54,21 +54,21 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="RecentContainersNameCell" id="8VZ-we-F6P" customClass="RecentContainersNameCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="86" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="RecentContainersNameCell" rowHeight="79" id="8VZ-we-F6P" customClass="RecentContainersNameCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="86" width="375" height="79"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8VZ-we-F6P" id="9Go-IS-pHB">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.bdoc" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLb-WW-ysY">
-                                                    <rect key="frame" x="15" y="12" width="135.5" height="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.bdoc" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLb-WW-ysY">
+                                                    <rect key="frame" x="15" y="18" width="345" height="49"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                                     <color key="textColor" red="0.21176470589999999" green="0.2156862745" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fvy-vR-2KA">
-                                                    <rect key="frame" x="15" y="43" width="345" height="1"/>
+                                                    <rect key="frame" x="15" y="78" width="345" height="1"/>
                                                     <color key="backgroundColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="0.20732555650000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="HWC-xW-KLF"/>
@@ -76,8 +76,10 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="uLb-WW-ysY" firstAttribute="centerY" secondItem="9Go-IS-pHB" secondAttribute="centerY" id="3EW-GU-fLK"/>
+                                                <constraint firstItem="uLb-WW-ysY" firstAttribute="top" secondItem="9Go-IS-pHB" secondAttribute="topMargin" constant="7" id="2Q3-IM-6aj"/>
                                                 <constraint firstAttribute="bottom" secondItem="Fvy-vR-2KA" secondAttribute="bottom" id="7zk-xq-HF6"/>
+                                                <constraint firstItem="Fvy-vR-2KA" firstAttribute="top" secondItem="uLb-WW-ysY" secondAttribute="bottom" constant="11" id="8bh-Js-v2w"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="uLb-WW-ysY" secondAttribute="trailing" id="aRP-8h-KKD"/>
                                                 <constraint firstItem="Fvy-vR-2KA" firstAttribute="leading" secondItem="9Go-IS-pHB" secondAttribute="leading" constant="15" id="fnv-4b-M2P"/>
                                                 <constraint firstItem="uLb-WW-ysY" firstAttribute="leading" secondItem="9Go-IS-pHB" secondAttribute="leadingMargin" id="oep-Dh-XIK"/>
                                                 <constraint firstAttribute="trailing" secondItem="Fvy-vR-2KA" secondAttribute="trailing" constant="15" id="z9q-YT-6hc"/>

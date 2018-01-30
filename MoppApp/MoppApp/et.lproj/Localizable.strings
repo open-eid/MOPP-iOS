@@ -30,7 +30,7 @@
 // Main menu
 "menu-help" = "ABI";
 "menu-intro" = "ESMATUTVUSTUS";
-"menu-recent-containers" = "HIILJUTISED KONTEINERID";
+"menu-recent-containers" = "HIILJUTISED DOKUMENDID";
 "menu-settings" = "SEADED";
 "menu-about" = "RAKENDUSE INFO";
 
@@ -97,7 +97,7 @@
 "container-details-signature-invalid" = "ei ole kehtiv";
 "container-details-enter-pin" = "Palun sisesta PIN2 kood.";
 "container-details-general-error" = "Allkirjastamine ebaõnnestus.";
-"container-details-signing-success" = "Allkirjastamine õnnestus";
+"container-details-signing-success" = "ALLKIRJASTAMINE ÕNNESTUS";
 "container-details-signature-added" = "Sinu allkiri on dokumendile lisatud.";
 "container-details-signature-already-exists" = "Sinu allkiri on sellel dokumendil juba olemas.";
 "container-details-signing-method-alert-title" = "Allkirjastamise meetod";
@@ -137,7 +137,8 @@
 "container-header-signatures-title" = "Allkirjad";
 "container-row-edit-remove" = "Eemalda";
 "container-header-title" = "KONTEINER:";
-"container-error-message-invalid-signature" = "VIGANE ALLKIRI";
+"container-error-message-invalid-signature" = "ÜKS KEHTETU ALLKIRI";
+"container-error-message-invalid-signatures" = "%d KEHTETUT ALLKIRJA";
 "container-signature-signed" = "Allkirjastatud %@";
 "container-title" = "Konteiner";
 "container-missing-signatures" = "Konteiner ei ole allkirjastatud";

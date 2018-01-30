@@ -33,3 +33,13 @@ func L(_ key: LocKey, _ arguments: [CVarArg] = []) -> String {
     return String(format: format, arguments: arguments)
 }
 
+func MoppLib_LocalizedString(_ key: String,_ arguments: [CVarArg] = []) -> String {
+    let format = NSLocalizedString(
+        key,
+        tableName: nil,
+        bundle: Bundle(identifier: "mobi.lab.MoppLib")!,
+        value: String(),
+        comment: String())
+    return String(format: format, arguments: arguments)
+}
+

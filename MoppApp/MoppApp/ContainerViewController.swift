@@ -61,12 +61,16 @@ class ContainerViewController : MoppViewController {
         .signatures     : L(LocKey.containerHeaderSignaturesTitle)
         ]
 
-    private static let sectionsWithNotifications: [Section] = [.notifications, .header, .dataFiles, .signatures]
-    private static let sectionsDefault  : [Section] = [.header, .dataFiles, .signatures]
-    private static let sectionsNoSignatures : [Section] = [.header, .dataFiles, .importDataFiles]
+    private static let sectionsDefault  : [Section] = [.notifications, .header, .dataFiles, .signatures]
+    private static let sectionsNoSignatures : [Section] = [.notifications, .header, .dataFiles, .importDataFiles]
     
     var sections: [Section] = ContainerViewController.sectionsDefault
+    var notifications: [(isSuccess: Bool, text: String)] = []
     var state: ContainerState!
+    private var invalidSignaturesCount: Int {
+        if container == nil { return 0 }
+        return (container.signatures as! [MoppLibSignature]).filter { !$0.isValid }.count
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,7 +93,7 @@ class ContainerViewController : MoppViewController {
             self?.isForPreview = false
             self?.state = .loading
             self?.showLoading(show: true)
-            self?.openContainer()
+            self?.openContainer(afterSignatureCreated: true)
         }
     }
     
@@ -120,7 +124,11 @@ class ContainerViewController : MoppViewController {
                 setupNavigationItemForPushedViewController(title: L(.containerSignTitle))
             
             case .opened:
-                LandingViewController.shared.presentButtons(isForPreview ? [] : [.signButton, .shareButton])
+                var tabButtons: [LandingViewController.TabButtonId] = []
+                if !isForPreview {
+                    tabButtons = invalidSignaturesCount > 0 ? [.shareButton] : [.signButton, .shareButton]
+                }
+                LandingViewController.shared.presentButtons(tabButtons)
                 setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
             
             case .preview:
@@ -132,7 +140,7 @@ class ContainerViewController : MoppViewController {
         state = newState
     }
     
-    func openContainer() {
+    func openContainer(afterSignatureCreated: Bool = false) {
         if state != .loading { return }
         MoppLibContainerActions.sharedInstance().getContainerWithPath(containerPath, success: { [weak self] container in
             guard let container = container else {
@@ -141,12 +149,24 @@ class ContainerViewController : MoppViewController {
             
             guard let strongSelf = self else { return }
             
-            let containsInvalidSignature = (container.signatures as! [MoppLibSignature]).contains(where: { !$0.isValid })
-            if containsInvalidSignature {
-                strongSelf.sections = ContainerViewController.sectionsWithNotifications
-            } else {
-                strongSelf.sections = ContainerViewController.sectionsDefault
+            strongSelf.notifications = []
+            
+            if afterSignatureCreated {
+                strongSelf.notifications.append((true, L(.containerDetailsSigningSuccess)))
             }
+            
+            let invalidSignaturesCount = (container.signatures as! [MoppLibSignature]).filter { !$0.isValid }.count
+            if invalidSignaturesCount > 0 {
+                var signatureWarningText: String!
+                if invalidSignaturesCount == 1 {
+                    signatureWarningText = L(.containerErrorMessageInvalidSignature)
+                } else if invalidSignaturesCount > 1 {
+                    signatureWarningText = L(.containerErrorMessageInvalidSignatures, [invalidSignaturesCount])
+                }
+                strongSelf.notifications.append((false, signatureWarningText))
+            }
+
+            strongSelf.sections = ContainerViewController.sectionsDefault
             
             strongSelf.container = container
             strongSelf.reloadData()
@@ -193,18 +213,6 @@ class ContainerViewController : MoppViewController {
     }
 }
 
-extension ContainerViewController {
-    var errorHidden: Bool {
-        get { return !sections.contains(.notifications) }
-        set {
-            sections = newValue ?
-                ContainerViewController.sectionsDefault :
-                ContainerViewController.sectionsWithNotifications
-            reloadData()
-        }
-    }
-}
-
 extension ContainerViewController : LandingViewControllerTabButtonsDelegate {
     func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId) {
         if tabButtonId == .signButton {
@@ -225,7 +233,7 @@ extension ContainerViewController : UITableViewDataSource {
         
         switch sections[section] {
         case .notifications:
-            return 1
+            return notifications.count
         case .signatures:
             return container.signatures.count
         case .dataFiles:
@@ -239,7 +247,8 @@ extension ContainerViewController : UITableViewDataSource {
         let row = indexPath.row
         switch sections[indexPath.section] {
         case .notifications:
-            let cell = tableView.dequeueReusableCell(withType: ContainerErrorCell.self, for: indexPath)!
+            let cell = tableView.dequeueReusableCell(withType: ContainerNotificationCell.self, for: indexPath)!
+                cell.populate(isSuccess: notifications[indexPath.row].isSuccess, text: notifications[indexPath.row].text)
             return cell
         case .signatures:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
@@ -293,6 +302,7 @@ extension ContainerViewController : ContainerSignatureDelegate {
                 message: L(.signatureRemoveConfirmMessage),
                 confirmCallback: { [weak self] (alertAction) in
                 
+                self?.notifications = []
                 MoppLibContainerActions.sharedInstance().remove(
                     signature,
                     fromContainerWithPath: self?.container.filePath,
@@ -313,6 +323,8 @@ extension ContainerViewController : ContainerFileDelegate {
         confirmDeleteAlert(
             message: L(.datafileRemoveConfirmMessage),
             confirmCallback: { [weak self] (alertAction) in
+            
+            self?.notifications = []
             MoppLibContainerActions.sharedInstance().removeDataFileFromContainer(
                 withPath: self?.containerPath,
                 at: UInt(dataFileIndex),
@@ -334,8 +346,6 @@ extension ContainerViewController : UITableViewDelegate {
         case .notifications:
             break
         case .signatures:
-            let signatureDetailsViewController = UIStoryboard.container.instantiateViewController(with: SignatureDetailsViewController.self)
-            navigationController?.pushViewController(signatureDetailsViewController, animated: true)
             break
         case .missingSignatures:
             break
@@ -352,12 +362,14 @@ extension ContainerViewController : UITableViewDelegate {
                 saveDataFile: dataFile.fileName,
                 to: destinationPath,
                 success: { [weak self] in
+                    self?.notifications = []
+                    self?.tableView.reloadData()
                     let (_, ext) = dataFile.fileName.filenameComponents()
                     if ext.isContainerExtension {
                         let containerViewController = ContainerViewController.instantiate()
                             containerViewController.containerPath = destinationPath
                             containerViewController.isForPreview = true
-                            self?.navigationController?.pushViewController(containerViewController, animated: true)
+                        self?.navigationController?.pushViewController(containerViewController, animated: true)
                     } else {
                         let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(with: DataFilePreviewViewController.self)
                             dataFilePreviewViewController.previewFilePath = destinationPath
@@ -389,11 +401,12 @@ extension ContainerViewController : UITableViewDelegate {
         }
 
         if let header = MoppApp.instance.nibs[.containerElements]?.instantiate(withOwner: self, type: ContainerTableViewHeaderView.self) {
+            let signaturesCount = container?.signatures?.count ?? 0
             header.delegate = self
             header.populate(
                 withTitle: title,
                 section: section,
-                showAddButton: section == .dataFiles && !isCreated)
+                showAddButton: section == .dataFiles && !isCreated && signaturesCount == 0)
             return header
         }
 

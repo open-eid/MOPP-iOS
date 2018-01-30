@@ -33,6 +33,7 @@ enum MoppColorHexCode : String {
     case emblem             = "998B66"   //  Dark beige
     case warning            = "981E32"   //  Red
     case success            = "8CC368"   //  Green
+    case containerWarning   = "FFEABE"   //  Yellow
     case mainMenu           = "023664"   //  Dark blue
 }
 
@@ -108,6 +109,10 @@ extension UIColor {
         return UIColor.fromHexString(MoppColorHexCode.success.rawValue)
     }
 
+    class var moppContainerWarning: UIColor {
+        return UIColor.fromHexString(MoppColorHexCode.containerWarning.rawValue)
+    }
+    
     class var moppMainMenu: UIColor {
         return UIColor.fromHexString(MoppColorHexCode.mainMenu.rawValue)
     }

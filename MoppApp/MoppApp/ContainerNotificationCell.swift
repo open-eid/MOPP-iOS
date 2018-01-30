@@ -1,5 +1,5 @@
 //
-//  ContainerErrorCell.swift
+//  ContainerNotificationCell.swift
 //  MoppApp
 //
 /*
@@ -23,12 +23,17 @@
 import Foundation
 
 
-class ContainerErrorCell: UITableViewCell {
+class ContainerNotificationCell: UITableViewCell {
     static let height: CGFloat = 44
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var linkLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+
+    func populate(isSuccess: Bool, text: String) {
+        contentView.backgroundColor = isSuccess ? UIColor.moppSuccess : UIColor.moppContainerWarning
+        infoLabel.text = text
     }
 }
