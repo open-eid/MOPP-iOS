@@ -162,7 +162,10 @@ class LandingViewController : UIViewController
             userInfo[kErrorMessage] as? String
         
         if errorMessage == "USER_CANCEL" {
-            errorMessage = L(.mobileIdUserCancelMessage)
+            errorMessage = MoppLib_LocalizedString("digidoc-service-status-request-user-cancel")
+        }
+        else if errorMessage == "EXPIRED_TRANSACTION" {
+            errorMessage = MoppLib_LocalizedString("digidoc-service-status-request-expired-transaction")
         }
         
         let alert = UIAlertController(
