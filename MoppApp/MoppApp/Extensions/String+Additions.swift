@@ -69,4 +69,15 @@ extension String {
             ext == ContainerFormatBdoc
     }
     
+    var isNumeric: Bool {
+        let decimals = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        var digitNotFound = false
+        for i in 0..<count {
+            if decimals.first(where: { $0 == substr(offset: i, count: 1) }) == nil {
+                digitNotFound = true
+                break
+            }
+        }
+        return !digitNotFound
+    }
 }

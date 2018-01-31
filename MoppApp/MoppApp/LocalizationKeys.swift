@@ -221,4 +221,5 @@ enum LocKey : String
     case containerValidating = "container-validating"
     case importingFilesProgressMessage = "importing-files-progress-message"
     case mobileIdSignHelpTitle = "mobile-id-sign-help-title"
+    case doneButtonTitle = "done-button-title"
 }

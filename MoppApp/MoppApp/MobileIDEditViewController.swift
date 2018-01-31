@@ -62,6 +62,18 @@ class MobileIDEditViewController : MoppViewController {
         override func viewDidLoad() {
         super.viewDidLoad()
         
+        let doneToolbar = UIToolbar()
+        let doneItem = UIBarButtonItem(title: L(.doneButtonTitle), style: UIBarButtonItemStyle.plain, target: self, action: #selector(dismissKeyboard))
+            doneItem.tintColor = UIColor.moppBase
+        doneToolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil),
+            doneItem
+        ]
+        doneToolbar.sizeToFit()
+        
+        idCodeTextField.inputAccessoryView = doneToolbar
+        phoneTextField.inputAccessoryView = doneToolbar
+        
         titleLabel.text = L(.mobileIdTitle)
         phoneLabel.text = L(.mobileIdPhoneTitle)
         idCodeLabel.text = L(.mobileIdIdcodeTitle)
@@ -78,6 +90,11 @@ class MobileIDEditViewController : MoppViewController {
         tapGR = UITapGestureRecognizer()
         tapGR.addTarget(self, action: #selector(cancelAction))
         view.addGestureRecognizer(tapGR)
+    }
+    
+    @objc func dismissKeyboard(_ notification: NSNotification) {
+        idCodeTextField.resignFirstResponder()
+        phoneTextField.resignFirstResponder()
     }
     
     @IBAction func cancelAction() {
@@ -108,9 +125,7 @@ class MobileIDEditViewController : MoppViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    
-        let idCode = DefaultsHelper.idCode
-    
+
         idCodeTextField.text = DefaultsHelper.idCode
         phoneTextField.text = DefaultsHelper.phoneNumber
     
@@ -140,6 +155,14 @@ class MobileIDEditViewController : MoppViewController {
 extension MobileIDEditViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let text = textField.text as NSString? {
+            let textAfterUpdate = text.replacingCharacters(in: range, with: string)
+            return textAfterUpdate.isNumeric || textAfterUpdate.isEmpty
+        }
         return true
     }
 }
