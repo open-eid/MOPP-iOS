@@ -64,9 +64,14 @@ extension String {
     var isContainerExtension: Bool {
         let ext = self.lowercased()
         return
+            ext == ContainerFormatAdoc    ||
+            ext == ContainerFormatBdoc    ||
             ext == ContainerFormatDdoc    ||
+            ext == ContainerFormatEdoc    ||
             ext == ContainerFormatAsice   ||
-            ext == ContainerFormatBdoc
+            ext == ContainerFormatAscis   ||
+            ext == ContainerFormatAsiceShort    ||
+            ext == ContainerFormatAsicsShort
     }
     
     var isNumeric: Bool {
