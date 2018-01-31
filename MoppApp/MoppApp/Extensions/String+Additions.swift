@@ -64,9 +64,25 @@ extension String {
     var isContainerExtension: Bool {
         let ext = self.lowercased()
         return
+            ext == ContainerFormatAdoc    ||
+            ext == ContainerFormatBdoc    ||
             ext == ContainerFormatDdoc    ||
+            ext == ContainerFormatEdoc    ||
             ext == ContainerFormatAsice   ||
-            ext == ContainerFormatBdoc
+            ext == ContainerFormatAscis   ||
+            ext == ContainerFormatAsiceShort    ||
+            ext == ContainerFormatAsicsShort
     }
     
+    var isNumeric: Bool {
+        let decimals = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        var digitNotFound = false
+        for i in 0..<count {
+            if decimals.first(where: { $0 == substr(offset: i, count: 1) }) == nil {
+                digitNotFound = true
+                break
+            }
+        }
+        return !digitNotFound
+    }
 }

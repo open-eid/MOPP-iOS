@@ -111,6 +111,9 @@
 				<string>public.data</string>
 				<string>public.bdoc</string>
 				<string>public.ddoc</string>
+                <string>public.edoc</string>
+                <string>public.adoc</string>
+                <string>public.asice</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>digidoc container</string>
@@ -126,9 +129,14 @@
 				<string>bdoc</string>
 				<key>public.filename-extension</key>
 				<array>
-					<string>bdoc</string>
+                    <string>adoc</string>
+                    <string>bdoc</string>
+                    <string>ddoc</string>
+                    <string>edoc</string>
 					<string>asice</string>
-					<string>ddoc</string>
+                    <string>sce</string>
+                    <string>asics</string>
+                    <string>scs</string>
 				</array>
 			</dict>
 		</dict>

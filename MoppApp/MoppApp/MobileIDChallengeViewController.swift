@@ -96,6 +96,8 @@ class MobileIDChallengeViewController : UIViewController {
     }
     
     @objc func receiveErrorNotification() {
+        sessionTimer?.invalidate()
+        MoppLibService.sharedInstance().cancelMobileSignatureStatusPolling()
         dismiss(animated: false)
     }
 

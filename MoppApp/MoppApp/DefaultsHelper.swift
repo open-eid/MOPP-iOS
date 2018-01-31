@@ -21,9 +21,15 @@
  *
  */
 
+let ContainerFormatAdoc = "adoc"
 let ContainerFormatBdoc = "bdoc"
-let ContainerFormatAsice = "asice"
+let ContainerFormatEdoc = "edoc"
 let ContainerFormatDdoc = "ddoc"
+let ContainerFormatAsice = "asice"
+let ContainerFormatAsiceShort = "sce"
+let ContainerFormatAscis = "asics"
+let ContainerFormatAsicsShort = "scs"
+
 let CrashlyticsAlwaysSend = "Always"
 let CrashlyticsNeverSend = "Never"
 let CrashlyticsDefault = "Default"

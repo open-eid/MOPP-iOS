@@ -254,3 +254,4 @@
 "container-validating" = "Loading...";
 "importing-files-progress-message" = "Importing files...";
 "mobile-id-sign-help-title" = "Make sure control code matches with one in phone screen and enter Mobile-ID PIN2-code";
+"done-button-title" = "Done";
