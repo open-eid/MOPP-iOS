@@ -98,6 +98,7 @@
 		C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59A958D1FB5B9E100D0E1F9 /* InitializationViewController.swift */; };
 		C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */; };
 		C5CF5EEC2017E4CC008FBBD6 /* FileImportProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CF5EEB2017E4CC008FBBD6 /* FileImportProgressViewController.swift */; };
+		C5D057022023016300875F44 /* RecentContainersEmptyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D057012023016300875F44 /* RecentContainersEmptyListCell.swift */; };
 		E4180C371E26822000FD7B8C /* datafile.txt in Resources */ = {isa = PBXBuildFile; fileRef = E4180C361E26822000FD7B8C /* datafile.txt */; };
 		E4250CCB1E0968D200530370 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCA1E0968D200530370 /* AppDelegate.swift */; };
 		E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; };
@@ -251,6 +252,7 @@
 		C59A958D1FB5B9E100D0E1F9 /* InitializationViewController.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = InitializationViewController.swift; sourceTree = "<group>"; };
 		C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerNoSignaturesCell.swift; sourceTree = "<group>"; };
 		C5CF5EEB2017E4CC008FBBD6 /* FileImportProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImportProgressViewController.swift; sourceTree = "<group>"; };
+		C5D057012023016300875F44 /* RecentContainersEmptyListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentContainersEmptyListCell.swift; sourceTree = "<group>"; };
 		E4180C361E26822000FD7B8C /* datafile.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = datafile.txt; sourceTree = "<group>"; };
 		E4250CC31E0968D200530370 /* MoppApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoppApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250CCA1E0968D200530370 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -451,6 +453,7 @@
 				C56C620C201A256E00CCC2A5 /* RecentContainersViewController.swift */,
 				C50DCD181FD1542A00D48E16 /* RecentContainersNameCell.swift */,
 				C56C620E201A2B6500CCC2A5 /* RecentContainersHeaderCell.swift */,
+				C5D057012023016300875F44 /* RecentContainersEmptyListCell.swift */,
 				C50DCD1C1FD1579700D48E16 /* RecentContainersElements.xib */,
 			);
 			name = "Recent containers";
@@ -838,6 +841,7 @@
 				C50DCCFF1FC6E95A00D48E16 /* ContainerViewController.swift in Sources */,
 				C50DCD481FDED76400D48E16 /* SignatureDetailsCell.swift in Sources */,
 				C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */,
+				C5D057022023016300875F44 /* RecentContainersEmptyListCell.swift in Sources */,
 				C50DCD171FCEF17100D48E16 /* UIStoryBoard+Additions.swift in Sources */,
 				C50DCD241FD69B0C00D48E16 /* SpinnerView.swift in Sources */,
 				C52E827E1FC1DBFE0074B280 /* MoppViewController.swift in Sources */,

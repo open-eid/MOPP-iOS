@@ -28,19 +28,27 @@ class RecentContainersViewController : MoppViewController {
         case header
         case containerFiles
         case containerFilesHeaderViewPlaceholder
+        case filesMissing
     }
 
     var searchKeyword: String = String()
-    var containerFiles: [String] = []
     var sections: [Section] = []
+    
+    var containerFiles: [String] = [] {
+        didSet {
+            if containerFiles.isEmpty {
+                sections = [.header, .containerFilesHeaderViewPlaceholder, .containerFiles, .filesMissing]
+            } else {
+                sections = [.header, .containerFilesHeaderViewPlaceholder, .containerFiles]
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInsetAdjustmentBehavior = .never
         
         refresh()
-
-        sections = [.header, .containerFilesHeaderViewPlaceholder, .containerFiles]
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -94,7 +102,7 @@ extension RecentContainersViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section_: Int) -> Int {
         let section = sections[section_]
         switch section {
-        case .header:
+        case .header, .filesMissing:
             return 1
         case .containerFilesHeaderViewPlaceholder:
             return 0
@@ -114,6 +122,8 @@ extension RecentContainersViewController : UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withType: RecentContainersNameCell.self, for: indexPath)!
                     cell.populate(filename: containerFiles[indexPath.row], searchKeyword: searchKeyword, showSeparator: indexPath.row < containerFiles.count - 1)
                 return cell
+            case .filesMissing:
+                return tableView.dequeueReusableCell(withType: RecentContainersEmptyListCell.self, for: indexPath)!
             case .containerFilesHeaderViewPlaceholder:
                 return UITableViewCell()
         }

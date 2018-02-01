@@ -40,7 +40,7 @@
 "signature-details-title" = "Детали подписи";
 
 // Signing view
-"signing-recent-containers" = "Последние контейнеры";
+"signing-recent-containers" = "Последние документы";
 
 // Crypto
 "crypto-view-begin-label" = "Выбрать файл для шифрования или дешифрования";
@@ -256,3 +256,4 @@
 "importing-files-progress-message" = "Загрузка файлов...";
 "mobile-id-sign-help-title" = "Убедитесь, что контрольный код выше соответствует одному на экране телефона и введите PIN2-код Mobile-ID";
 "done-button-title" = "Оконченный";
+"recent-containers-empty-list-title" = "Нет последних документов";
