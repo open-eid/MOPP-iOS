@@ -297,20 +297,22 @@ extension ContainerViewController : ContainerSignatureDelegate {
             guard let signature = container.signatures[signatureIndex] as? MoppLibSignature else {
                 return
             }
-        
             confirmDeleteAlert(
                 message: L(.signatureRemoveConfirmMessage),
                 confirmCallback: { [weak self] (alertAction) in
                 
                 self?.notifications = []
+                self?.showLoading(show: true)
                 MoppLibContainerActions.sharedInstance().remove(
                     signature,
                     fromContainerWithPath: self?.container.filePath,
                     success: { [weak self] container in
+                        self?.showLoading(show: false)
                         self?.container.signatures.remove(at: signatureIndex)
                         self?.reloadData()
                     },
                     failure: { [weak self] error in
+                        self?.showLoading(show: false)
                         self?.reloadData()
                         self?.errorAlert(message: error?.localizedDescription)
                     })
