@@ -408,7 +408,7 @@ extension ContainerViewController : UITableViewDelegate {
             header.populate(
                 withTitle: title,
                 section: section,
-                showAddButton: section == .dataFiles && !isCreated && signaturesCount == 0)
+                showAddButton: section == .dataFiles && !isCreated && signaturesCount == 0 && !isForPreview)
             return header
         }
 
