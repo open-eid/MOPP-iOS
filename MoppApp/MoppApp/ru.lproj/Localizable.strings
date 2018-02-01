@@ -137,7 +137,7 @@
 "container-header-signatures-title" = "Подписи";
 "container-row-edit-remove" = "Стирать";
 "container-header-title" = "КОНТЕЙНЕР:";
-"container-error-message-invalid-signature" = "ОДНА НЕДОПУСТИМАЯ ПОДПИСЬ";
+"container-error-message-invalid-signature" = "1 НЕПРАВИЛЬНАЯ ПОДПИСЬ";
 "container-error-message-invalid-signatures" = "%d НЕДОПУСТИМЫХ ПОДПИСИ";
 "container-signature-signed" = "Подписанный %@";
 "container-title" = "Контейнер";

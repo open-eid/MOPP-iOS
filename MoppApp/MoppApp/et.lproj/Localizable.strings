@@ -137,7 +137,7 @@
 "container-header-signatures-title" = "Allkirjad";
 "container-row-edit-remove" = "Eemalda";
 "container-header-title" = "KONTEINER:";
-"container-error-message-invalid-signature" = "ÜKS KEHTETU ALLKIRI";
+"container-error-message-invalid-signature" = "1 KEHTETU ALLKIRI";
 "container-error-message-invalid-signatures" = "%d KEHTETUT ALLKIRJA";
 "container-signature-signed" = "Allkirjastatud %@";
 "container-title" = "Konteiner";

@@ -136,7 +136,7 @@
 "container-header-signatures-title" = "Signatures";
 "container-row-edit-remove" = "Delete";
 "container-header-title" = "CONTAINER:";
-"container-error-message-invalid-signature" = "ONE INVALID SIGNATURE";
+"container-error-message-invalid-signature" = "1 INVALID SIGNATURE";
 "container-error-message-invalid-signatures" = "%d INVALID SIGNATURES";
 "container-signature-signed" = "Signed %@";
 "container-title" = "Container";
