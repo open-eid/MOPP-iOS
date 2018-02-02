@@ -29,6 +29,7 @@ let ContainerFormatAsice = "asice"
 let ContainerFormatAsiceShort = "sce"
 let ContainerFormatAscis = "asics"
 let ContainerFormatAsicsShort = "scs"
+let ContainerFormatPDF  = "pdf"
 
 let CrashlyticsAlwaysSend = "Always"
 let CrashlyticsNeverSend = "Never"

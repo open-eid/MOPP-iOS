@@ -29,6 +29,12 @@ class LandingViewController : UIViewController
     var tabButtonsDelegate: LandingViewControllerTabButtonsDelegate? = nil
     var fileImportIntent: MoppApp.FileImportIntent!
 
+    var importProgressViewController: FileImportProgressViewController = {
+        let importProgressViewController = UIStoryboard.landing.instantiateViewController(with: FileImportProgressViewController.self)
+            importProgressViewController.modalPresentationStyle = .overFullScreen
+        return importProgressViewController
+    }()
+
     @IBOutlet weak var containerViewBottomCSTR: NSLayoutConstraint!
     @IBOutlet weak var containerViewButtonBarCSTR: NSLayoutConstraint!
     @IBOutlet weak var containerView: UIView!
@@ -194,114 +200,139 @@ class LandingViewController : UIViewController
     func importFiles(with urls: [URL]) {
         let navController = viewControllers[0] as! UINavigationController
         let topSigningViewController = navController.viewControllers.last!
-        var containerViewController = topSigningViewController as? ContainerViewController
         
-        let importProgressViewController = UIStoryboard.landing.instantiateViewController(with: FileImportProgressViewController.self)
-            importProgressViewController.modalPresentationStyle = .overFullScreen
         topSigningViewController.present(importProgressViewController, animated: false)
         
         MoppFileManager.shared.importFiles(with: urls) { [weak self] error, dataFilePaths in
             guard let strongSelf = self else { return }
-            var containerPath: String!
         
             if strongSelf.fileImportIntent == .addToContainer {
-                containerPath = containerViewController!.containerPath
-                
-                MoppLibContainerActions.sharedInstance().addDataFilesToContainer(
-                    withPath: containerPath,
-                    withDataFilePaths: dataFilePaths,
-                    success: { container in
-                        importProgressViewController.dismiss(animated: false, completion: nil)
-                        containerViewController?.reloadContainer()
-                    },
-                    failure: { error in
-                        importProgressViewController.dismiss(animated: false, completion: nil)
-                    }
-                )
+                self?.addDataFilesToContainer(dataFilePaths: dataFilePaths)
             }
             else if strongSelf.fileImportIntent == .openOrCreate {
-            
-                let url = urls.first!
-
-                let filePath = url.relativePath
-                let fileName = url.lastPathComponent
-                let fileExtension: String = URL(fileURLWithPath: filePath).pathExtension
-                
-                MSLog("Imported file: %@", filePath)
-                
                 navController.setViewControllers([navController.viewControllers.first!], animated: false)
              
-                let failure: (() -> Void) = {
-                    
-                    importProgressViewController.dismiss(animated: false, completion: nil)
+                let ext = urls.first!.pathExtension
+                if (ext.isContainerExtension || ext == ContainerFormatPDF) && urls.count == 1 {
+                    self?.openExistingContainer(with: urls.first!)
+                } else {
+                    self?.createNewContainer(with: urls.first!, dataFilePaths: dataFilePaths)
+                }
+            }
+        }
+    }
+
+    func addDataFilesToContainer(dataFilePaths: [String]) {
+        let navController = viewControllers[0] as! UINavigationController
+        let topSigningViewController = navController.viewControllers.last!
+        let containerViewController = topSigningViewController as? ContainerViewController
+        let containerPath = containerViewController!.containerPath
+        MoppLibContainerActions.sharedInstance().addDataFilesToContainer(
+            withPath: containerPath,
+            withDataFilePaths: dataFilePaths,
+            success: { [weak self] container in
+                self?.importProgressViewController.dismiss(animated: false, completion: nil)
+                containerViewController?.reloadContainer()
+            },
+            failure: { [weak self] error in
+                self?.importProgressViewController.dismiss(animated: false, completion: nil)
+            }
+        )
+    }
+    
+    func openExistingContainer(with url: URL) {
+        // Move container from inbox folder to documents folder and cleanup.
+        let filePath = url.relativePath
+        let fileName = url.lastPathComponent
+
+        let navController = viewControllers[0] as! UINavigationController
+        let topSigningViewController = navController.viewControllers.last!
+        var containerViewController = topSigningViewController as? ContainerViewController
+
+        var newFilePath: String = MoppFileManager.shared.filePath(withFileName: fileName)
+            newFilePath = MoppFileManager.shared.copyFile(withPath: filePath, toPath: newFilePath)
+
+        MoppFileManager.shared.removeFile(withPath: filePath)
+
+        let failure: (() -> Void) = { [weak self] in
+            
+            self?.importProgressViewController.dismiss(animated: false, completion: nil)
+            
+            let alert = UIAlertController(title: L(.fileImportImportFailedAlertTitle), message: L(.fileImportImportFailedAlertMessage, [fileName]), preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
+
+            navController.viewControllers.first!.present(alert, animated: true)
+        }
+
+        MoppLibContainerActions.sharedInstance().getContainerWithPath(newFilePath,
+            success: { [weak self] (_ container: MoppLibContainer?) -> Void in
+                if container == nil {
+                    // Remove invalid container. Probably ddoc.
+                    MoppFileManager.shared.removeFile(withName: fileName)
+                    failure()
+                    return
+                }
+            
+                self?.importProgressViewController.dismiss(animated: false, completion: nil)
+            
+                // If file to open is PDF and there is no signatures then create new container
+                if url.pathExtension.lowercased() == ContainerFormatPDF && container!.signatures.isEmpty {
+                    self?.createNewContainer(with: url, dataFilePaths: [newFilePath])
+                    return
+                }
+            
+                containerViewController = ContainerViewController.instantiate()
+                containerViewController?.containerPath = newFilePath
+                
+                navController.pushViewController(containerViewController!, animated: true)
+            },
+            failure: { _ in
+                failure()
+            }
+        )
+    }
+    
+    func createNewContainer(with url: URL, dataFilePaths: [String]) {
+        let filePath = url.relativePath
+        let fileName = url.lastPathComponent
+        
+        let (filename, _) = fileName.filenameComponents()
+        let containerFilename = filename + ".bdoc"
+        var containerPath = MoppFileManager.shared.filePath(withFileName: containerFilename)
+
+        containerPath = MoppFileManager.shared.duplicateFilename(atPath: containerPath)
+
+        let navController = viewControllers[0] as! UINavigationController
+        let topSigningViewController = navController.viewControllers.last!
+        var containerViewController = topSigningViewController as? ContainerViewController
+
+        MoppLibContainerActions.sharedInstance().createContainer(
+            withPath: containerPath,
+            withDataFilePaths: dataFilePaths,
+            success: { [weak self] container in
+                if container == nil {
+                    self?.importProgressViewController.dismiss(animated: false, completion: nil)
                     
                     let alert = UIAlertController(title: L(.fileImportImportFailedAlertTitle), message: L(.fileImportImportFailedAlertMessage, [fileName]), preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
 
                     navController.viewControllers.first!.present(alert, animated: true)
+                    return
                 }
+            
+                self?.importProgressViewController.dismiss(animated: false, completion: nil)
+            
+                containerViewController = ContainerViewController.instantiate()
+                containerViewController?.containerPath = containerPath
+                containerViewController?.isCreated = true
                 
-                if fileExtension.isContainerExtension && urls.count == 1 {
-                    // Open existing container
-                    // Move container from inbox folder to documents folder and cleanup.
-                    
-                    var newFilePath: String = MoppFileManager.shared.filePath(withFileName: fileName)
-                        newFilePath = MoppFileManager.shared.copyFile(withPath: filePath, toPath: newFilePath)
-                    
-                    MoppFileManager.shared.removeFile(withPath: filePath)
-                
-                    MoppLibContainerActions.sharedInstance().getContainerWithPath(newFilePath,
-                        success: { (_ container: MoppLibContainer?) -> Void in
-                            if container == nil {
-                                // Remove invalid container. Probably ddoc.
-                                MoppFileManager.shared.removeFile(withName: fileName)
-                                failure()
-                                return
-                            }
-                        
-                            importProgressViewController.dismiss(animated: false, completion: nil)
-                        
-                            containerViewController = ContainerViewController.instantiate()
-                            containerViewController?.containerPath = newFilePath
-                            navController.pushViewController(containerViewController!, animated: true)
-                        },
-                        failure: { _ in
-                            failure()
-                        }
-                    )
-                } else {
-                    // Create new container
-                
-                    let (filename, _) = fileName.filenameComponents()
-                    let containerFilename = filename + ".bdoc"
-                    var containerPath = MoppFileManager.shared.filePath(withFileName: containerFilename)
-                
-                    containerPath = MoppFileManager.shared.duplicateFilename(atPath: containerPath)
-                
-                    MoppLibContainerActions.sharedInstance().createContainer(
-                        withPath: containerPath,
-                        withDataFilePaths: dataFilePaths,
-                        success: { container in
-                            if container == nil {
-                                failure()
-                                return
-                            }
-                        
-                            importProgressViewController.dismiss(animated: false, completion: nil)
-                        
-                            containerViewController = ContainerViewController.instantiate()
-                            containerViewController?.containerPath = containerPath
-                            containerViewController?.isCreated = true
-                            navController.pushViewController(containerViewController!, animated: true)
-                        
-                        }, failure: { error in
-                            importProgressViewController.dismiss(animated: false, completion: nil)
-                            MoppFileManager.shared.removeFile(withPath: filePath)
-                        }
-                    )
-                }
+                navController.pushViewController(containerViewController!, animated: true)
+            
+            }, failure: { [weak self] error in
+                self?.importProgressViewController.dismiss(animated: false, completion: nil)
+                MoppFileManager.shared.removeFile(withPath: filePath)
             }
-        }
+        )
     }
 }
 
