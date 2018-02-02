@@ -366,8 +366,8 @@ extension ContainerViewController : UITableViewDelegate {
                 success: { [weak self] in
                     self?.notifications = []
                     self?.tableView.reloadData()
-                    let (_, ext) = dataFile.fileName.filenameComponents()
-                    if ext.isContainerExtension {
+                    let (_, dataFileExt) = dataFile.fileName.filenameComponents()
+                    if dataFileExt.isContainerExtension {
                         let containerViewController = ContainerViewController.instantiate()
                             containerViewController.containerPath = destinationPath
                             containerViewController.isForPreview = true
