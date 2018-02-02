@@ -40,7 +40,7 @@
 "signature-details-title" = "Allkirja detailid";
 
 // Signing view
-"signing-recent-containers" = "Hiljutised konteinerid";
+"signing-recent-containers" = "Hiljutised dokumendid";
 
 // Crypto
 "crypto-view-begin-label" = "Krüpteerimiseks või dekrüpteerimiseks vali fail";
@@ -137,7 +137,7 @@
 "container-header-signatures-title" = "Allkirjad";
 "container-row-edit-remove" = "Eemalda";
 "container-header-title" = "KONTEINER:";
-"container-error-message-invalid-signature" = "ÜKS KEHTETU ALLKIRI";
+"container-error-message-invalid-signature" = "1 KEHTETU ALLKIRI";
 "container-error-message-invalid-signatures" = "%d KEHTETUT ALLKIRJA";
 "container-signature-signed" = "Allkirjastatud %@";
 "container-title" = "Konteiner";
@@ -256,3 +256,4 @@
 "importing-files-progress-message" = "Failide laadimine...";
 "mobile-id-sign-help-title" = "Veendu kontollkoodi õigsuses ja sisesta telefonil Mobiil-ID PIN2-kood";
 "done-button-title" = "Valmis";
+"recent-containers-empty-list-title" = "Hiljutised dokumendid puuduvad";

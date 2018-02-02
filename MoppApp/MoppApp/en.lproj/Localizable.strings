@@ -40,7 +40,7 @@
 "signature-details-title" = "Signature details";
 
 // Signing view
-"signing-recent-containers" = "Recent containers";
+"signing-recent-containers" = "Recent documents";
 
 // Crypto
 "crypto-view-begin-label" = "Choose file to crypt or decrypt";
@@ -136,7 +136,7 @@
 "container-header-signatures-title" = "Signatures";
 "container-row-edit-remove" = "Delete";
 "container-header-title" = "CONTAINER:";
-"container-error-message-invalid-signature" = "ONE INVALID SIGNATURE";
+"container-error-message-invalid-signature" = "1 INVALID SIGNATURE";
 "container-error-message-invalid-signatures" = "%d INVALID SIGNATURES";
 "container-signature-signed" = "Signed %@";
 "container-title" = "Container";
@@ -255,3 +255,4 @@
 "importing-files-progress-message" = "Importing files...";
 "mobile-id-sign-help-title" = "Make sure control code matches with one in phone screen and enter Mobile-ID PIN2-code";
 "done-button-title" = "Done";
+"recent-containers-empty-list-title" = "No recent documents";

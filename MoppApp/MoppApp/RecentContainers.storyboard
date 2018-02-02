@@ -90,6 +90,31 @@
                                             <outlet property="separatorView" destination="Fvy-vR-2KA" id="eB4-tA-c5K"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecentContainersEmptyListCell" rowHeight="64" id="22T-9D-jTO" customClass="RecentContainersEmptyListCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="165" width="375" height="64"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="22T-9D-jTO" id="VlM-ar-yGl">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No recent documents" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVk-wF-bWD">
+                                                    <rect key="frame" x="15" y="19" width="345" height="26"/>
+                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                    <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="hVk-wF-bWD" firstAttribute="trailing" secondItem="VlM-ar-yGl" secondAttribute="trailingMargin" id="7f9-uW-QCp"/>
+                                                <constraint firstItem="hVk-wF-bWD" firstAttribute="leading" secondItem="VlM-ar-yGl" secondAttribute="leadingMargin" id="Ley-pp-5pm"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="hVk-wF-bWD" secondAttribute="bottom" constant="8" id="VKg-mG-ev7"/>
+                                                <constraint firstItem="hVk-wF-bWD" firstAttribute="top" secondItem="VlM-ar-yGl" secondAttribute="topMargin" constant="8" id="elP-8v-dAU"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="hVk-wF-bWD" id="KTH-ar-zC9"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="nHM-IS-xuZ" id="y9J-xg-AHA"/>
