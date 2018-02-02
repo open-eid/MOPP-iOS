@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-class MenuViewController : MoppViewController {
+class MenuViewController : MoppModalViewController {
 
     @IBOutlet weak var versionLabel     : UILabel!
     @IBOutlet weak var helpButton       : UIButton!
@@ -70,17 +70,6 @@ class MenuViewController : MoppViewController {
             blurLayer.backgroundFilters = [filter]
             view.layer.addSublayer(blurLayer)
         }
-        
-        // Needed to dismiss this view controller in case of opening a container from outside the app
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveOpenContainerNotification), name: .openContainerNotificationName, object: nil)
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    @objc func receiveOpenContainerNotification() {
-        dismiss(animated: true, completion: nil)
     }
 }
 

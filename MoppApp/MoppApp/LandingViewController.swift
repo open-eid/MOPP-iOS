@@ -119,7 +119,6 @@ class LandingViewController : UIViewController
         selectTabButton(.signTab)
 
         NotificationCenter.default.addObserver(self, selector: #selector(receiveErrorNotification), name: .errorNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveOpenContainerNotification), name: .openContainerNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveStartImportingFilesWithDocumentPickerNotification), name: .startImportingFilesWithDocumentPickerNotificationName, object: nil)
     }
 
@@ -144,25 +143,6 @@ class LandingViewController : UIViewController
         let image: UIImage? = selectedImage?.applyingAlpha(UIColor.moppUnselectedTabBarItemAlpha).withRenderingMode(.alwaysOriginal)
         controller.tabBarItem.image = image
         controller.tabBarItem.selectedImage = selectedImage
-    }
-
-    @objc func receiveOpenContainerNotification(_ notification: Notification) {
-        guard let container = notification.userInfo?[kKeyContainer] as? MoppLibContainer else {
-            return
-        }
-        
-        let isCreated = (notification.userInfo?["isCreated"] as? Bool) ?? false
-        
-        navigationController?.dismiss(animated: true, completion: nil)
-        
-        selectedTab = .signTab
-        
-        if let navigationController = viewControllers.first as? UINavigationController {
-            let containerViewController = ContainerViewController.instantiate()
-                containerViewController.containerPath = container.filePath
-                containerViewController.isCreated = isCreated
-            navigationController.pushViewController(containerViewController, animated: false)
-        }
     }
 
     @objc func receiveErrorNotification(_ notification: Notification) {
