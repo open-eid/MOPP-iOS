@@ -41,20 +41,12 @@ class LandingViewController : UIViewController
     @IBOutlet var buttonsCollection: [TabButton]!
     @IBOutlet weak var buttonBarView: UIView!
 
-    @IBAction func selectTab(sender: UIButton)
+    @IBAction func selectTabAction(sender: UIButton)
      {
         let tabId = TabButtonId(rawValue: sender.superview!.accessibilityIdentifier!)!
-        selectTabButton(tabId)
         
-        if tabId == .signTab {
-            selectedIndex = 0
-        }
-        else if tabId == .cryptoTab {
-            selectedIndex = 1
-        }
-        else if tabId == .myeIDTab {
-            selectedIndex = 2
-        }
+        selectTabButton(tabId)
+        selectedTab = tabId
     }
 
     enum TabButtonId: String {
@@ -66,15 +58,23 @@ class LandingViewController : UIViewController
         case encryptButton
     }
 
-    var selectedIndex = 0 {
+    var selectedTab: TabButtonId = .signTab {
         didSet {
-            for i in 0..<viewControllers.count {
-                viewControllers[i].view.isHidden = selectedIndex != i
+            for (id, vc) in viewControllersToTabs {
+                vc.view.isHidden = id != selectedTab
             }
+            selectTab(with: selectedTab)
         }
     }
     var viewControllers: [UIViewController] = []
+    var viewControllersToTabs: [TabButtonId: UIViewController] = [:]
     static private(set) var shared: LandingViewController!
+
+    func selectTab(with tabButtonId: TabButtonId) {
+        buttonsCollection.forEach {
+            $0.setSelected(TabButtonId(rawValue: $0.accessibilityIdentifier!)! == tabButtonId)
+        }
+    }
 
     func configureConstraints(for targetView: UIView) {
         let margins = self.containerView.safeAreaLayoutGuide
@@ -95,6 +95,10 @@ class LandingViewController : UIViewController
         viewControllers.append(UIStoryboard.crypto.instantiateInitialViewController()!)
         viewControllers.append(UIStoryboard.myEID.instantiateInitialViewController()!)
         
+        viewControllersToTabs[.signTab] = viewControllers[0]
+        viewControllersToTabs[.cryptoTab] = viewControllers[1]
+        viewControllersToTabs[.myeIDTab] = viewControllers[2]
+        
         viewControllers.forEach { viewController in
             viewController.view.frame = view.bounds
             containerView.addSubview(viewController.view)
@@ -103,7 +107,7 @@ class LandingViewController : UIViewController
             containerView.updateConstraints()
         }
         
-        selectedIndex = 0
+        selectedTab = .signTab
         
         buttonsCollection.forEach {
             if $0.kind == .button {
@@ -151,8 +155,8 @@ class LandingViewController : UIViewController
         
         navigationController?.dismiss(animated: true, completion: nil)
         
-        // Select signing tab
-        selectedIndex = 0
+        selectedTab = .signTab
+        
         if let navigationController = viewControllers.first as? UINavigationController {
             let containerViewController = ContainerViewController.instantiate()
                 containerViewController.containerPath = container.filePath
@@ -281,6 +285,7 @@ class LandingViewController : UIViewController
                     return
                 }
             
+                self?.selectedTab = .signTab
                 containerViewController = ContainerViewController.instantiate()
                 containerViewController?.containerPath = newFilePath
                 
@@ -322,6 +327,7 @@ class LandingViewController : UIViewController
             
                 self?.importProgressViewController.dismiss(animated: false, completion: nil)
             
+                self?.selectedTab = .signTab
                 containerViewController = ContainerViewController.instantiate()
                 containerViewController?.containerPath = containerPath
                 containerViewController?.isCreated = true
