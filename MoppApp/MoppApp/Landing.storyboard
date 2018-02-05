@@ -50,7 +50,7 @@
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                                                         <state key="normal" image="IconSignature"/>
                                                         <connections>
-                                                            <action selector="selectTabWithSender:" destination="qJh-BA-pxe" eventType="touchUpInside" id="NNc-HQ-4yS"/>
+                                                            <action selector="selectTabActionWithSender:" destination="qJh-BA-pxe" eventType="touchUpInside" id="thS-yk-KsK"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGNATURE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="139-2h-o7N">
@@ -94,7 +94,7 @@
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                                                         <state key="normal" image="IconCrypto"/>
                                                         <connections>
-                                                            <action selector="selectTabWithSender:" destination="qJh-BA-pxe" eventType="touchUpInside" id="cOa-s2-ohM"/>
+                                                            <action selector="selectTabActionWithSender:" destination="qJh-BA-pxe" eventType="touchUpInside" id="HX6-I5-QH8"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CRYPTO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkQ-rV-8BM">
@@ -138,7 +138,7 @@
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                                                         <state key="normal" image="IconMyEID"/>
                                                         <connections>
-                                                            <action selector="selectTabWithSender:" destination="qJh-BA-pxe" eventType="touchUpInside" id="E3N-Fs-HGF"/>
+                                                            <action selector="selectTabActionWithSender:" destination="qJh-BA-pxe" eventType="touchUpInside" id="pNG-Cm-wx3"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MY eID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckz-6p-Acp">

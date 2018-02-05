@@ -129,6 +129,9 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
     func openUrl(url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         if !url.absoluteString.isEmpty {
         
+            // Let all the modal view controllers know that they should dismiss themselves
+            NotificationCenter.default.post(name: .didOpenUrlNotificationName, object: nil)
+        
             // When app has just been launched, it may not be ready to deal with containers yet. We need to wait until libdigidocpp setup is complete.
             if landingViewController == nil {
                 self.annotation = annotation
