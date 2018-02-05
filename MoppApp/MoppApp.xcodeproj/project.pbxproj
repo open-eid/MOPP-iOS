@@ -816,12 +816,12 @@
 						};
 					};
 					C5D057052028835000875F44 = {
-						DevelopmentTeam = MEZZPMNQ75;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = ET847QJV9F;
+						ProvisioningStyle = Manual;
 					};
 					E4250CC21E0968D200530370 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = MEZZPMNQ75;
+						DevelopmentTeam = ET847QJV9F;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
@@ -1329,6 +1329,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "shareExtension/shareExtension-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1351,6 +1352,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "shareExtension/shareExtension-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1362,12 +1364,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MoppApp/MoppApp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_ACTIVITY_MODE = "";
 				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = MEZZPMNQ75;
+				DEVELOPMENT_TEAM = ET847QJV9F;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
@@ -1384,11 +1386,12 @@
 				OTHER_SWIFT_FLAGS = "-DUSE_TEST_DDS";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.fob.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "b913e4d7-5a06-41ef-819b-bff86d89eb1d";
+				PROVISIONING_PROFILE_SPECIFIER = "MOPP iOS Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "MoppApp/MoppApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1400,10 +1403,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MoppApp/MoppApp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_ACTIVITY_MODE = "";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = MEZZPMNQ75;
+				DEVELOPMENT_TEAM = ET847QJV9F;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
@@ -1421,9 +1424,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ee.fob.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "MOPP iOS App Store";
 				SWIFT_OBJC_BRIDGING_HEADER = "MoppApp/MoppApp-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1476,7 +1480,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1522,8 +1525,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -1561,6 +1562,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "MoppApp/MoppApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1595,6 +1597,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "MOPP iOS App Store";
 				SWIFT_OBJC_BRIDGING_HEADER = "MoppApp/MoppApp-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
