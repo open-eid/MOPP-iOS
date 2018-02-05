@@ -25,4 +25,5 @@
 #import <UIKit/UIKit.h>
 
 extern NSString *const kDDSServerUrl;
+extern NSString *const kTestDDSServerUrl;
 extern NSString *const kRIADigiDocId;

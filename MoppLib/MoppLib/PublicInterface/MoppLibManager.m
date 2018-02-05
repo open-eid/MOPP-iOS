@@ -35,8 +35,8 @@
   return sharedInstance;
 }
 
-- (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure {
-  [[MoppLibDigidocManager sharedInstance] setupWithSuccess:success andFailure:failure];
+- (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS {
+  [[MoppLibDigidocManager sharedInstance] setupWithSuccess:success andFailure:failure usingTestDigiDocService:useTestDDS];
 }
 
 - (NSString *)getMoppLibVersion {

@@ -31,6 +31,7 @@
 #include <fstream>
 
 #import "MoppLibDigidocManager.h"
+#import "MoppLibSOAPManager.h"
 #import "MoppLibDataFile.h"
 #import "MLDateFormatter.h"
 #import "MLFileManager.h"
@@ -98,7 +99,9 @@ private:
   return sharedInstance;
 }
 
-- (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure {
+- (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS {
+  
+  MoppLibSOAPManager.sharedInstance.useTestDigiDocService = useTestDDS;
   
   // Copy initial TSL cache for libdigidocpp if needed.
   NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
