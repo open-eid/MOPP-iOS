@@ -126,7 +126,7 @@ class ContainerViewController : MoppViewController {
             case .opened:
                 var tabButtons: [LandingViewController.TabButtonId] = []
                 if !isForPreview {
-                    tabButtons = invalidSignaturesCount > 0 ? [.shareButton] : [.shareButton, .signButton]
+                    tabButtons = [.shareButton, .signButton]
                 }
                 LandingViewController.shared.presentButtons(tabButtons)
                 setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
@@ -452,6 +452,17 @@ extension ContainerViewController : UITableViewDelegate {
         }
         
         tableView.reloadData()
+        
+        // Animate away success message if there is any
+        if let notificationIndex = notifications.index(where: { $0.0 == true }), sections.contains(.notifications) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                self?.notifications.remove(at: notificationIndex)
+                if let notificationsSection = self?.sections.index(where: { $0 == .notifications }) {
+                    self?.tableView.reloadSections([notificationsSection], with: .automatic)
+                }
+            }
+        }
+        
     }
 }
 
