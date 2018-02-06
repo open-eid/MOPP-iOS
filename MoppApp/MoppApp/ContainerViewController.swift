@@ -173,13 +173,15 @@ class ContainerViewController : MoppViewController {
             strongSelf.showLoading(show: false)
             
         }, failure: { [weak self] error in
-            self?.showLoading(show: false)
+
             let nserror = error! as NSError
             var message = nserror.domain
+            var title: String? = nil
             if (nserror.code == moppLibErrorGeneral.rawValue) {
-                message = L(LocKey.errorAlertTitleGeneral)
+                title = L(.fileImportOpenExistingFailedAlertTitle)
+                message = L(.fileImportOpenExistingFailedAlertMessage, [self?.containerPath.substr(fromLast: "/") ?? String()])
             }
-            self?.errorAlert(message: message, dismissCallback: { _ in
+            self?.errorAlert(message: message, title: title, dismissCallback: { _ in
                 _ = self?.navigationController?.popViewController(animated: true)
             });
         })

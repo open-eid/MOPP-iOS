@@ -84,8 +84,10 @@
 "file-import-title" = "+ ADD MORE FILES";
 "file-import-create-container-button" = "Create document";
 "file-import-info" = "%@\n\nPlease select unsigned document or create new one.";
-"file-import-import-failed-alert-title" = "Import failed";
-"file-import-import-failed-alert-message" = "Failed to open document %@";
+"file-import-open-existing-failed-alert-title" = "Unable to open document";
+"file-import-open-existing-failed-alert-message" = "Failed to open document %@";
+"file-import-create-new-failed-alert-title" = "Error creating document";
+"file-import-create-new-failed-alert-message" = "Unable to create document %@";
 // Details
 "container-details-title" = "Document";
 "container-details-header-details" = "Format: %@ | Size: %ld kB";

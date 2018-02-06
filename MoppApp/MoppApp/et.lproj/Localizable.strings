@@ -84,8 +84,10 @@
 "file-import-title" = "+ LISA VEEL FAILE";
 "file-import-create-container-button" = "Loo dokument";
 "file-import-info" = "%@\n\nPalun vali allkirjastamata dokument või loo uus.";
-"file-import-import-failed-alert-title" = "Importimine ebaõnnestus";
-"file-import-import-failed-alert-message" = "Dokumendi %@ avamine ebaõnnestus";
+"file-import-open-existing-failed-alert-title" = "Viga dokumendi avamisel";
+"file-import-open-existing-failed-alert-message" = "Dokumendi %@ avamine ebaõnnestus";
+"file-import-create-new-failed-alert-title" = "Viga dokumendi loomisel";
+"file-import-create-new-failed-alert-message" = "Dokumendi %@ loomine ebaõnnestus";
 // Details
 "container-details-title" = "Dokument";
 "container-details-header-details" = "Vorming: %@ | Suurus: %ld kB";
