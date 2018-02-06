@@ -35,6 +35,7 @@
 
 static NSString *kDigestMethodSHA256 = @"http://www.w3.org/2001/04/xmlenc#sha256";
 static NSString *kServiceName = @"DigiDoc3";
+static NSString *kTestServiceName = @"Testimine";
 static NSString *kFormat = @"BDOC";
 static NSString *kVersion = @"2.1";
 static NSString *kMessagingMode = @"asynchClientServer";
@@ -76,7 +77,7 @@ static NSUInteger kDDsMessageMaximumByteSize = 40;
   [mobileCreateSignature addChildWithName:@"IDCode" value:idCode attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"PhoneNo" value:phoneNo attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"Language" value:nationality attributes:@{@"xsi:type" : @"xsd:string"}];
-  [mobileCreateSignature addChildWithName:@"ServiceName" value:kServiceName attributes:@{@"xsi:type" : @"xsd:string"}];
+  [mobileCreateSignature addChildWithName:@"ServiceName" value:(_useTestDigiDocService ? kTestServiceName : kServiceName) attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"SigningProfile" value:@"LT_TM"attributes:nil];
   AEXMLElement *dataFiles = [[AEXMLElement alloc] initWithName:@"DataFiles" value:nil attributes:@{@"xsi:type" : @"dig:DataFileDigestList"}];
   [mobileCreateSignature addChild:dataFiles];

@@ -35,7 +35,7 @@
  * @param success       Block to be called on successful completion of action.
  * @param failure       Block to be called when action fails. Includes error.
  */
-- (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure;
+- (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS;
 
 - (NSString *)getMoppLibVersion;
 @end

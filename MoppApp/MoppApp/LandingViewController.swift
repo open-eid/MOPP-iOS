@@ -40,6 +40,7 @@ class LandingViewController : UIViewController
     @IBOutlet weak var containerView: UIView!
     @IBOutlet var buttonsCollection: [TabButton]!
     @IBOutlet weak var buttonBarView: UIView!
+    @IBOutlet weak var buttonsStackView: UIStackView!
 
     @IBAction func selectTabAction(sender: UIButton)
      {
@@ -329,24 +330,31 @@ extension LandingViewController : UIDocumentPickerDelegate {
 }
 
 extension LandingViewController {
-    func presentButtons(_ buttons: [TabButtonId]) {
-        buttonBarView.isHidden = buttons.isEmpty
-        if buttons.isEmpty {
+    func presentButtons(_ buttonIDs: [TabButtonId]) {
+        
+        buttonBarView.isHidden = buttonIDs.isEmpty
+        if buttonIDs.isEmpty {
             containerViewBottomCSTR.priority = .defaultHigh
             containerViewButtonBarCSTR.priority = .defaultLow
         } else {
             containerViewBottomCSTR.priority = .defaultLow
             containerViewButtonBarCSTR.priority = .defaultHigh
         }
+        
         view.layoutIfNeeded()
-        for b in buttons {
-            self.buttonsCollection.first(where: { $0.accessibilityIdentifier == b.rawValue })?.isHidden = false
+        
+        var visibleViews: [UIView] = []
+        buttonsCollection.forEach { button in
+            if buttonIDs.first(where: { TabButtonId(rawValue: button.accessibilityIdentifier!)! == $0 }) != nil {
+                visibleViews.append(button)
+            }
+            buttonsStackView.removeArrangedSubview(button)
+            button.removeFromSuperview()
         }
-        let buttonsToHide = self.buttonsCollection.filter {
-            !buttons.contains(TabButtonId(rawValue: $0.accessibilityIdentifier!)!)
-        }
-        buttonsToHide.forEach {
-            $0.isHidden = true
+
+        buttonIDs.forEach { buttonID in
+            let button = visibleViews.first(where: { buttonID == TabButtonId(rawValue: $0.accessibilityIdentifier!)! })!
+            buttonsStackView.addArrangedSubview(button)
         }
     }
     

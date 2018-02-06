@@ -31,6 +31,7 @@
 @interface MoppLibSOAPManager : NSObject
 
 + (MoppLibSOAPManager *)sharedInstance;
+@property BOOL useTestDigiDocService;
 
 - (NSString *)mobileCreateSignatureWithContainer:(MoppLibContainer *)container
                                         language:(NSString *)language

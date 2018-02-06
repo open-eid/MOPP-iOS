@@ -100,7 +100,7 @@ class ContainerViewController : MoppViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        LandingViewController.shared.presentButtons(isForPreview ? [] : [.signButton, .shareButton])
+        LandingViewController.shared.presentButtons(isForPreview ? [] : [.shareButton, .signButton])
     
         tableView.estimatedRowHeight = ContainerSignatureCell.height
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -126,7 +126,7 @@ class ContainerViewController : MoppViewController {
             case .opened:
                 var tabButtons: [LandingViewController.TabButtonId] = []
                 if !isForPreview {
-                    tabButtons = invalidSignaturesCount > 0 ? [.shareButton] : [.signButton, .shareButton]
+                    tabButtons = invalidSignaturesCount > 0 ? [.shareButton] : [.shareButton, .signButton]
                 }
                 LandingViewController.shared.presentButtons(tabButtons)
                 setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))

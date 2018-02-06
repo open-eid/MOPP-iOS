@@ -49,7 +49,9 @@
 
 - (NSMutableURLRequest *)requestWithXMLBody:(NSString *)xmlBody {
  // NSError *error;
-  NSURL *url = [NSURL URLWithString:kDDSServerUrl];
+  
+  BOOL useTestDDS = MoppLibSOAPManager.sharedInstance.useTestDigiDocService;
+  NSURL *url = [NSURL URLWithString:(useTestDDS ? kTestDDSServerUrl : kDDSServerUrl)];
   NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
   NSData *requestBodyData = [xmlBody dataUsingEncoding:NSUTF8StringEncoding];
   [request setURL:url];
