@@ -333,14 +333,17 @@ extension ContainerViewController : ContainerFileDelegate {
             confirmCallback: { [weak self] (alertAction) in
             
             self?.notifications = []
+            self?.showLoading(show: true)
             MoppLibContainerActions.sharedInstance().removeDataFileFromContainer(
                 withPath: self?.containerPath,
                 at: UInt(dataFileIndex),
                 success: { [weak self] container in
+                    self?.showLoading(show: false)
                     self?.container.dataFiles.remove(at: dataFileIndex)
                     self?.reloadData()
                 },
                 failure: { [weak self] error in
+                    self?.showLoading(show: false)
                     self?.reloadData()
                     self?.errorAlert(message: error?.localizedDescription)
                 })
