@@ -25,6 +25,7 @@ class ContainerViewController : MoppViewController {
     var containerPath: String!
     var isForPreview: Bool = false
     var isCreated: Bool = false
+    var forcePDFContentPreview: Bool = false
     
     @IBOutlet weak var tableView: UITableView!
 
@@ -67,6 +68,7 @@ class ContainerViewController : MoppViewController {
     var sections: [Section] = ContainerViewController.sectionsDefault
     var notifications: [(isSuccess: Bool, text: String)] = []
     var state: ContainerState!
+    
     private var invalidSignaturesCount: Int {
         if container == nil { return 0 }
         return (container.signatures as! [MoppLibSignature]).filter { !$0.isValid }.count
@@ -142,6 +144,8 @@ class ContainerViewController : MoppViewController {
     
     func openContainer(afterSignatureCreated: Bool = false) {
         if state != .loading { return }
+        let isPDF = containerPath.filenameComponents().ext.lowercased() == ContainerFormatPDF
+        forcePDFContentPreview = isPDF
         MoppLibContainerActions.sharedInstance().getContainerWithPath(containerPath, success: { [weak self] container in
             guard let container = container else {
                 return
@@ -361,29 +365,76 @@ extension ContainerViewController : UITableViewDelegate {
             
             let dataFile = container.dataFiles[indexPath.row] as! MoppLibDataFile
             let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: dataFile.fileName)
-            MoppLibContainerActions.sharedInstance().container(
-                container.filePath,
-                saveDataFile: dataFile.fileName,
-                to: destinationPath,
-                success: { [weak self] in
-                    self?.notifications = []
-                    self?.tableView.reloadData()
-                    let (_, dataFileExt) = dataFile.fileName.filenameComponents()
-                    if dataFileExt.isContainerExtension {
-                        let containerViewController = ContainerViewController.instantiate()
-                            containerViewController.containerPath = destinationPath
-                            containerViewController.isForPreview = true
-                        self?.navigationController?.pushViewController(containerViewController, animated: true)
-                    } else {
-                        let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(with: DataFilePreviewViewController.self)
-                            dataFilePreviewViewController.previewFilePath = destinationPath
-                        self?.navigationController?.pushViewController(dataFilePreviewViewController, animated: true)
-                    }
+    
+            let openContainerPreview: (_ isPDF: Bool) -> Void = { [weak self] isPDF in
+                let containerViewController = ContainerViewController.instantiate()
+                    containerViewController.containerPath = destinationPath
+                    containerViewController.isForPreview = true
+                    containerViewController.forcePDFContentPreview = isPDF
+                self?.navigationController?.pushViewController(containerViewController, animated: true)
+            }
+    
+            let openContentPreview: (_ filePath: String) -> Void = { [weak self] filePath in
+                let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(with: DataFilePreviewViewController.self)
+                    dataFilePreviewViewController.previewFilePath = filePath
+                self?.navigationController?.pushViewController(dataFilePreviewViewController, animated: true)
+            }
+    
+            let openPDFPreview: () -> Void = { [weak self] in
+                self?.showLoading(show: true)
+                self?.updateState(.loading)
+                MoppLibContainerActions.sharedInstance().getContainerWithPath(destinationPath,
+                    success: { [weak self] (_ container: MoppLibContainer?) -> Void in
+                        self?.showLoading(show: false)
+                        self?.updateState(.opened)
+                        if container == nil {
+                            return
+                        }
                     
-                }, failure: { [weak self] error in
-                    self?.errorAlert(message: error?.localizedDescription)
-                })
-            
+                        let signatureCount = container?.signatures.count ?? 0
+                        if signatureCount > 0 && !(self?.forcePDFContentPreview ?? false) {
+                            openContainerPreview(true)
+                        } else {
+                            openContentPreview(destinationPath)
+                        }
+                    },
+                    failure: { [weak self] error in
+                        self?.errorAlert(message: error?.localizedDescription)
+                    })
+            }
+    
+            // If current container is PDF opened as a container preview then open it as a content preview which
+            // is same as opening it's data file (which is a reference to itself) as a content preview
+            if forcePDFContentPreview {
+                openContentPreview(containerPath)
+            } else {
+                MoppLibContainerActions.sharedInstance().container(
+                    container.filePath,
+                    saveDataFile: dataFile.fileName,
+                    to: destinationPath,
+                    success: { [weak self] in
+                        self?.notifications = []
+                        self?.tableView.reloadData()
+                        let (_, dataFileExt) = dataFile.fileName.filenameComponents()
+                        let isPDF = dataFileExt.lowercased() == ContainerFormatPDF
+                        let forcePDFContentPreview = self?.forcePDFContentPreview ?? false
+                        
+                        if dataFileExt.isContainerExtension || (isPDF && !forcePDFContentPreview) {
+                        
+                            // If container is PDF check signatures count with showing loading
+                            if isPDF {
+                                openPDFPreview()
+                            } else {
+                                openContainerPreview(isPDF)
+                            }
+                        } else {
+                            openContentPreview(destinationPath)
+                        }
+                        
+                    }, failure: { [weak self] error in
+                        self?.errorAlert(message: error?.localizedDescription)
+                    })
+            }
             break
         case .header:
             break
