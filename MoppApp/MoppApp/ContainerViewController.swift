@@ -280,7 +280,7 @@ extension ContainerViewController : UITableViewDataSource {
                 cell.populate(
                     name: (container.dataFiles as! [MoppLibDataFile])[row].fileName,
                     showBottomBorder: row < container.dataFiles.count - 1,
-                    showRemoveButton: container.dataFiles.count > 1 && !isForPreview,
+                    showRemoveButton: container.dataFiles.count > 1 && !isForPreview && container.signatures.isEmpty,
                     dataFileIndex: row)
             return cell
         case .importDataFiles:
