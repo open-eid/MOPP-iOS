@@ -102,7 +102,8 @@ class ContainerViewController : MoppViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        LandingViewController.shared.presentButtons(isForPreview ? [] : [.shareButton, .signButton])
+        reloadData()
+        updateState(state)
     
         tableView.estimatedRowHeight = ContainerSignatureCell.height
         tableView.rowHeight = UITableViewAutomaticDimension
