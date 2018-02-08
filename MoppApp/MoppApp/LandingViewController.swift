@@ -243,7 +243,7 @@ class LandingViewController : UIViewController
             
             self?.importProgressViewController.dismiss(animated: false, completion: nil)
             
-            let alert = UIAlertController(title: L(.fileImportImportFailedAlertTitle), message: L(.fileImportImportFailedAlertMessage, [fileName]), preferredStyle: .alert)
+            let alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [fileName]), preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
 
             navController.viewControllers.first!.present(alert, animated: true)
@@ -261,7 +261,8 @@ class LandingViewController : UIViewController
                 self?.importProgressViewController.dismiss(animated: false, completion: nil)
             
                 // If file to open is PDF and there is no signatures then create new container
-                if url.pathExtension.lowercased() == ContainerFormatPDF && container!.signatures.isEmpty {
+                let isPDF = url.pathExtension.lowercased() == ContainerFormatPDF
+                if isPDF && container!.signatures.isEmpty {
                     self?.createNewContainer(with: url, dataFilePaths: [newFilePath])
                     return
                 }
@@ -269,6 +270,7 @@ class LandingViewController : UIViewController
                 self?.selectedTab = .signTab
                 containerViewController = ContainerViewController.instantiate()
                 containerViewController?.containerPath = newFilePath
+                containerViewController?.forcePDFContentPreview = isPDF
                 
                 navController.pushViewController(containerViewController!, animated: true)
             },
@@ -299,7 +301,7 @@ class LandingViewController : UIViewController
                 if container == nil {
                     self?.importProgressViewController.dismiss(animated: false, completion: nil)
                     
-                    let alert = UIAlertController(title: L(.fileImportImportFailedAlertTitle), message: L(.fileImportImportFailedAlertMessage, [fileName]), preferredStyle: .alert)
+                    let alert = UIAlertController(title: L(.fileImportCreateNewFailedAlertTitle), message: L(.fileImportCreateNewFailedAlertMessage, [fileName]), preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
 
                     navController.viewControllers.first!.present(alert, animated: true)

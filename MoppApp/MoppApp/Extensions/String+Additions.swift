@@ -85,4 +85,24 @@ extension String {
         }
         return !digitNotFound
     }
+    
+    func substr(toLast character: Character) -> String? {
+        guard let lastCharIndex = self.lastOf(ch: character) else {
+            return nil
+        }
+        guard let substrTo = self.substr(offset: 0, count: lastCharIndex + 1) else {
+            return nil
+        }
+        return substrTo
+    }
+    
+    func substr(fromLast character: Character) -> String? {
+        guard let lastCharIndex = self.lastOf(ch: character) else {
+            return nil
+        }
+        guard let substrFrom = self.substr(offset: lastCharIndex + 1, count: count - lastCharIndex - 1) else {
+            return nil
+        }
+        return substrFrom
+    }
 }

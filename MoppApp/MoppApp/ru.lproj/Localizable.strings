@@ -84,8 +84,11 @@
 "file-import-title" = "+ ДОБАВИТЬ БОЛЬШЕ ФАЙЛОВ";
 "file-import-create-container-button" = "Создать документ";
 "file-import-info" = "%@\n\nПожалуйста выберите неподписанный документ или создайте новый.";
-"file-import-import-failed-alert-title" = "Ошибка импорта";
-"file-import-import-failed-alert-message" = "Открытие файла %@ не удалось";
+"file-import-open-existing-failed-alert-title" = "Ошибка импорта";
+"file-import-open-existing-failed-alert-message" = "Открытие файла %@ не удалось";
+"file-import-create-new-failed-alert-title" = "Ошибка при создании документа";
+"file-import-create-new-failed-alert-message" = "Не удалось создать новый документ %@";
+
 // Details
 "container-details-title" = "Документ";
 "container-details-header-details" = "Формат: %@ | Размер: %ld кБ";

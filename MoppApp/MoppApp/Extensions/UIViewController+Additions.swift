@@ -31,8 +31,8 @@ extension UIViewController {
         present(confirmDialog, animated: true, completion: nil)
     }
     
-    func errorAlert(message: String?, dismissCallback: ((_ action: UIAlertAction) -> Swift.Void)? = nil) {
-        let errorAlert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+    func errorAlert(message: String?, title: String? = nil, dismissCallback: ((_ action: UIAlertAction) -> Swift.Void)? = nil) {
+        let errorAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: dismissCallback))
         present(errorAlert, animated: true, completion: nil)
     }
