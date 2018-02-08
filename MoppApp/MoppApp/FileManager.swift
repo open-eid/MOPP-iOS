@@ -46,8 +46,7 @@ class MoppFileManager {
             .sorted { $0.1 > $1.1 }
             .map { $0.0 }
             .filter { file in
-                let components = file.filenameComponents()
-                return !components.ext.isEmpty
+                return !file.filenameComponents().ext.isEmpty
             }
         }
         

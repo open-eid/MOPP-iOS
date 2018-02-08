@@ -297,10 +297,19 @@ class LandingViewController : UIViewController
         let topSigningViewController = navController.viewControllers.last!
         var containerViewController = topSigningViewController as? ContainerViewController
 
+        let cleanUpDataFilesInDocumentsFolder: () -> Void = {
+            dataFilePaths.forEach {
+                if $0.hasPrefix(MoppFileManager.shared.documentsDirectoryPath()) {
+                    MoppFileManager.shared.removeFile(withPath: $0)
+                }
+            }
+        }
+
         MoppLibContainerActions.sharedInstance().createContainer(
             withPath: containerPath,
             withDataFilePaths: dataFilePaths,
             success: { [weak self] container in
+                cleanUpDataFilesInDocumentsFolder()
                 if container == nil {
                     self?.importProgressViewController.dismiss(animated: false, completion: nil)
                     
@@ -321,6 +330,7 @@ class LandingViewController : UIViewController
                 navController.pushViewController(containerViewController!, animated: true)
             
             }, failure: { [weak self] error in
+                cleanUpDataFilesInDocumentsFolder()
                 self?.importProgressViewController.dismiss(animated: false, completion: nil)
                 MoppFileManager.shared.removeFile(withPath: filePath)
             }
