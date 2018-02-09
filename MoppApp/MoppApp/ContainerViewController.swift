@@ -26,6 +26,7 @@ class ContainerViewController : MoppViewController {
     var isForPreview: Bool = false
     var isCreated: Bool = false
     var forcePDFContentPreview: Bool = false
+    var startSigningWhenOpened = false
     
     @IBOutlet weak var tableView: UITableView!
 
@@ -79,7 +80,6 @@ class ContainerViewController : MoppViewController {
         tableView.contentInsetAdjustmentBehavior = .never
         
         updateState(.loading)
-        LandingViewController.shared.tabButtonsDelegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(signatureCreatedFinished), name: .signatureCreatedFinishedNotificationName, object: nil)
     }
@@ -101,6 +101,8 @@ class ContainerViewController : MoppViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        LandingViewController.shared.tabButtonsDelegate = self
         
         reloadData()
         updateState(state)
@@ -177,6 +179,11 @@ class ContainerViewController : MoppViewController {
             strongSelf.reloadData()
             strongSelf.showLoading(show: false)
             
+            if strongSelf.startSigningWhenOpened {
+                strongSelf.startSigningWhenOpened = false
+                strongSelf.startSigningWithMobileID()
+            }
+            
         }, failure: { [weak self] error in
 
             let nserror = error! as NSError
@@ -202,10 +209,42 @@ class ContainerViewController : MoppViewController {
     }
 
     func startSigningWithMobileID() {
-        let mobileIdEditViewController = UIStoryboard.landing.instantiateViewController(with: MobileIDEditViewController.self)
-            mobileIdEditViewController.modalPresentationStyle = .overFullScreen
-            mobileIdEditViewController.delegate = self
-        present(mobileIdEditViewController, animated: false, completion: nil)
+        
+        if container.isLegacyType() {
+            let containerFilename = container.fileName.filenameComponents().name + "." + DefaultNewContainerFormat
+            var newContainerPath = MoppFileManager.shared.filePath(withFileName: containerFilename)
+                newContainerPath = MoppFileManager.shared.duplicateFilename(atPath: newContainerPath)
+            MoppLibContainerActions.sharedInstance().createContainer(
+                withPath: newContainerPath,
+                withDataFilePaths: [containerPath],
+                success: { [weak self] container in
+
+                    if container == nil {
+                        
+                        let alert = UIAlertController(title: L(.fileImportCreateNewFailedAlertTitle), message: L(.fileImportCreateNewFailedAlertMessage, [containerFilename]), preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
+
+                        self?.navigationController?.viewControllers.first!.present(alert, animated: true)
+                        return
+                    }
+                
+                    let containerViewController = ContainerViewController.instantiate()
+                        containerViewController.containerPath = newContainerPath
+                        containerViewController.isCreated = true
+                        containerViewController.startSigningWhenOpened = true
+                    
+                    self?.navigationController?.pushViewController(containerViewController, animated: true)
+                
+                }, failure: { [weak self] error in
+                    MoppFileManager.shared.removeFile(withPath: newContainerPath)
+                }
+            )
+        } else {
+            let mobileIdEditViewController = UIStoryboard.landing.instantiateViewController(with: MobileIDEditViewController.self)
+                mobileIdEditViewController.modalPresentationStyle = .overFullScreen
+                mobileIdEditViewController.delegate = self
+            LandingViewController.shared.present(mobileIdEditViewController, animated: false, completion: nil)
+        }
     }
     
     class func instantiate() -> ContainerViewController {

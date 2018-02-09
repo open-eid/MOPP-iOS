@@ -20,13 +20,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-protocol LandingViewControllerTabButtonsDelegate {
+protocol LandingViewControllerTabButtonsDelegate: class {
     func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId)
 }
 
 class LandingViewController : UIViewController
 {
-    var tabButtonsDelegate: LandingViewControllerTabButtonsDelegate? = nil
+    weak var tabButtonsDelegate: LandingViewControllerTabButtonsDelegate? = nil
     var fileImportIntent: MoppApp.FileImportIntent!
 
     var importProgressViewController: FileImportProgressViewController = {
@@ -288,7 +288,7 @@ class LandingViewController : UIViewController
         let fileName = url.lastPathComponent
         
         let (filename, _) = fileName.filenameComponents()
-        let containerFilename = filename + "." + ContainerFormatAsice
+        let containerFilename = filename + "." + DefaultNewContainerFormat
         var containerPath = MoppFileManager.shared.filePath(withFileName: containerFilename)
 
         containerPath = MoppFileManager.shared.duplicateFilename(atPath: containerPath)

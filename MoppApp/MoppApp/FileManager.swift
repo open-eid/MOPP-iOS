@@ -210,7 +210,7 @@ class MoppFileManager {
         let (filenameBase, filenameExt) = url.lastPathComponent.filenameComponents()
         let pathWithoutName = path.substr(toLast: "/") ?? path
         var newPath = path
-        var counter = 0
+        var counter = 1
         while(MoppFileManager.shared.fileExists(newPath)) {
             newPath = pathWithoutName + filenameBase + "-\(counter)." + filenameExt
             counter += 1
