@@ -288,7 +288,7 @@ class LandingViewController : UIViewController
         let fileName = url.lastPathComponent
         
         let (filename, _) = fileName.filenameComponents()
-        let containerFilename = filename + ".bdoc"
+        let containerFilename = filename + "." + ContainerFormatAsice
         var containerPath = MoppFileManager.shared.filePath(withFileName: containerFilename)
 
         containerPath = MoppFileManager.shared.duplicateFilename(atPath: containerPath)
