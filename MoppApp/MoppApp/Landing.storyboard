@@ -212,12 +212,14 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sai-Rz-wOx" userLabel="SignButton" customClass="TabButton" customModule="MoppApp" customModuleProvider="target">
                                                 <rect key="frame" x="250" y="0.0" width="62.5" height="50"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oD2-eQ-zo1">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oD2-eQ-zo1">
                                                         <rect key="frame" x="0.0" y="0.0" width="62.5" height="50"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
+                                                        <state key="normal" image="IconSignature"/>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN CONTAINER" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flY-yF-y29">
-                                                        <rect key="frame" x="0.0" y="10.5" width="62.5" height="30.5"/>
-                                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="13"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flY-yF-y29">
+                                                        <rect key="frame" x="0.0" y="35" width="62.5" height="13"/>
+                                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
                                                         <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -225,12 +227,12 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="signButton"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="flY-yF-y29" secondAttribute="bottom" constant="2" id="23s-bh-yDR"/>
                                                     <constraint firstItem="oD2-eQ-zo1" firstAttribute="top" secondItem="Sai-Rz-wOx" secondAttribute="top" id="8MD-8K-fX8"/>
                                                     <constraint firstItem="oD2-eQ-zo1" firstAttribute="leading" secondItem="Sai-Rz-wOx" secondAttribute="leading" id="LIF-9M-fkb"/>
                                                     <constraint firstAttribute="trailing" secondItem="flY-yF-y29" secondAttribute="trailing" id="Put-1s-E4Q"/>
                                                     <constraint firstItem="flY-yF-y29" firstAttribute="leading" secondItem="Sai-Rz-wOx" secondAttribute="leading" id="ehK-Ev-i5W"/>
                                                     <constraint firstAttribute="bottom" secondItem="oD2-eQ-zo1" secondAttribute="bottom" id="rBq-Uy-tb7"/>
-                                                    <constraint firstItem="flY-yF-y29" firstAttribute="centerY" secondItem="Sai-Rz-wOx" secondAttribute="centerY" id="tVb-XH-oDe"/>
                                                     <constraint firstAttribute="trailing" secondItem="oD2-eQ-zo1" secondAttribute="trailing" id="wzU-15-5lD"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>

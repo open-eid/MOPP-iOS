@@ -102,7 +102,8 @@ class ContainerViewController : MoppViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        LandingViewController.shared.presentButtons(isForPreview ? [] : [.shareButton, .signButton])
+        reloadData()
+        updateState(state)
     
         tableView.estimatedRowHeight = ContainerSignatureCell.height
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -280,7 +281,7 @@ extension ContainerViewController : UITableViewDataSource {
                 cell.populate(
                     name: (container.dataFiles as! [MoppLibDataFile])[row].fileName,
                     showBottomBorder: row < container.dataFiles.count - 1,
-                    showRemoveButton: container.dataFiles.count > 1 && !isForPreview,
+                    showRemoveButton: container.dataFiles.count > 1 && !isForPreview && container.signatures.isEmpty,
                     dataFileIndex: row)
             return cell
         case .importDataFiles:
@@ -333,14 +334,17 @@ extension ContainerViewController : ContainerFileDelegate {
             confirmCallback: { [weak self] (alertAction) in
             
             self?.notifications = []
+            self?.showLoading(show: true)
             MoppLibContainerActions.sharedInstance().removeDataFileFromContainer(
                 withPath: self?.containerPath,
                 at: UInt(dataFileIndex),
                 success: { [weak self] container in
+                    self?.showLoading(show: false)
                     self?.container.dataFiles.remove(at: dataFileIndex)
                     self?.reloadData()
                 },
                 failure: { [weak self] error in
+                    self?.showLoading(show: false)
                     self?.reloadData()
                     self?.errorAlert(message: error?.localizedDescription)
                 })

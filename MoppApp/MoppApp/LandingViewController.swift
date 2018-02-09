@@ -35,6 +35,14 @@ class LandingViewController : UIViewController
         return importProgressViewController
     }()
 
+    var documentPicker: UIDocumentPickerViewController = {
+        let allowedDocumentTypes = ["public.content", "public.data", "public.image", "public.movie", "public.audio", "public.item"]
+        let documentPicker = UIDocumentPickerViewController(documentTypes: allowedDocumentTypes, in: .import)
+            documentPicker.modalPresentationStyle = .overCurrentContext
+            documentPicker.allowsMultipleSelection = true
+        return documentPicker
+    }()
+
     @IBOutlet weak var containerViewBottomCSTR: NSLayoutConstraint!
     @IBOutlet weak var containerViewButtonBarCSTR: NSLayoutConstraint!
     @IBOutlet weak var containerView: UIView!
@@ -170,21 +178,16 @@ class LandingViewController : UIViewController
     }
     
     @objc func receiveStartImportingFilesWithDocumentPickerNotification(_ notification: Notification) {
-        let allowedDocumentTypes = ["public.content", "public.data", "public.image", "public.movie", "public.audio", "public.item"]
-    
         fileImportIntent = notification.userInfo![kKeyFileImportIntent] as! MoppApp.FileImportIntent
-    
-        let documentPicker = UIDocumentPickerViewController(documentTypes: allowedDocumentTypes, in: .import)
-            documentPicker.modalPresentationStyle = .overCurrentContext
-            documentPicker.delegate = self
-            documentPicker.allowsMultipleSelection = true
-        
+        documentPicker.delegate = self
         present(documentPicker, animated: false, completion: nil)
     }
 
     func importFiles(with urls: [URL]) {
         let navController = viewControllers[0] as! UINavigationController
         let topSigningViewController = navController.viewControllers.last!
+        
+        documentPicker.dismiss(animated: false, completion: nil)
         
         topSigningViewController.present(importProgressViewController, animated: false)
         
@@ -294,10 +297,19 @@ class LandingViewController : UIViewController
         let topSigningViewController = navController.viewControllers.last!
         var containerViewController = topSigningViewController as? ContainerViewController
 
+        let cleanUpDataFilesInDocumentsFolder: () -> Void = {
+            dataFilePaths.forEach {
+                if $0.hasPrefix(MoppFileManager.shared.documentsDirectoryPath()) {
+                    MoppFileManager.shared.removeFile(withPath: $0)
+                }
+            }
+        }
+
         MoppLibContainerActions.sharedInstance().createContainer(
             withPath: containerPath,
             withDataFilePaths: dataFilePaths,
             success: { [weak self] container in
+                cleanUpDataFilesInDocumentsFolder()
                 if container == nil {
                     self?.importProgressViewController.dismiss(animated: false, completion: nil)
                     
@@ -318,6 +330,7 @@ class LandingViewController : UIViewController
                 navController.pushViewController(containerViewController!, animated: true)
             
             }, failure: { [weak self] error in
+                cleanUpDataFilesInDocumentsFolder()
                 self?.importProgressViewController.dismiss(animated: false, completion: nil)
                 MoppFileManager.shared.removeFile(withPath: filePath)
             }

@@ -36,10 +36,14 @@ class RecentContainersViewController : MoppModalViewController {
     
     var containerFiles: [String] = [] {
         didSet {
+            let currentSectionsCount = sections.count
             if containerFiles.isEmpty {
                 sections = [.header, .containerFilesHeaderViewPlaceholder, .containerFiles, .filesMissing]
             } else {
                 sections = [.header, .containerFilesHeaderViewPlaceholder, .containerFiles]
+            }
+            if currentSectionsCount != sections.count {
+                tableView.reloadData()
             }
         }
     }
@@ -68,14 +72,14 @@ class RecentContainersViewController : MoppModalViewController {
     }
     
     func refresh(searchKey: String? = nil) {
-        var files = MoppFileManager.shared.documentsFiles()
+        var filesFound = MoppFileManager.shared.documentsFiles()
         if let searchKey = searchKey {
-            files = files.filter {
+            filesFound = filesFound.filter {
                 let range = $0.range(of: searchKey, options: String.CompareOptions.caseInsensitive, range: nil, locale: nil)
                 return range != nil
             }
         }
-        containerFiles = files
+        containerFiles = filesFound
         reloadContainerFilesSection()
     }
     
@@ -122,7 +126,9 @@ extension RecentContainersViewController : UITableViewDataSource {
                     cell.populate(filename: containerFiles[indexPath.row], searchKeyword: searchKeyword, showSeparator: indexPath.row < containerFiles.count - 1)
                 return cell
             case .filesMissing:
-                return tableView.dequeueReusableCell(withType: RecentContainersEmptyListCell.self, for: indexPath)!
+                let cell = tableView.dequeueReusableCell(withType: RecentContainersEmptyListCell.self, for: indexPath)!
+                    cell.populate(emptySearch: !searchKeyword.isEmpty)
+                return cell
             case .containerFilesHeaderViewPlaceholder:
                 return UITableViewCell()
         }
@@ -149,6 +155,7 @@ extension RecentContainersViewController : UITableViewDelegate {
             
             self.closeSearch()
             dismiss(animated: true, completion: {
+                LandingViewController.shared.selectedTab = .signTab
                 let containerViewController = ContainerViewController.instantiate()
                     containerViewController.containerPath = containerPath
                 let firstTabViewController = LandingViewController.shared.viewControllers.first as! UINavigationController

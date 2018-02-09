@@ -225,4 +225,5 @@ enum LocKey : String
     case mobileIdSignHelpTitle = "mobile-id-sign-help-title"
     case doneButtonTitle = "done-button-title"
     case recentContainersEmptyListTitle = "recent-containers-empty-list-title"
+    case recentContainersEmptySearchMessage = "recent-containers-empty-search-message"
 }

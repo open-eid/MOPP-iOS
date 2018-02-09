@@ -22,9 +22,12 @@
  */
  class RecentContainersEmptyListCell : UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
-    override func awakeFromNib() {
-        super.awakeFromNib()
     
-        titleLabel.text = L(.recentContainersEmptyListTitle)
+    func populate(emptySearch: Bool) {
+        if emptySearch {
+            titleLabel.text = L(.recentContainersEmptySearchMessage)
+        } else {
+            titleLabel.text = L(.recentContainersEmptyListTitle)
+        }
     }
 }
