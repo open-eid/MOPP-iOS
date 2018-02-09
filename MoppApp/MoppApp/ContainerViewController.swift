@@ -265,7 +265,7 @@ extension ContainerViewController : UITableViewDataSource {
                 with: signature,
                 kind: .signature,
                 showBottomBorder: row < container.signatures.count - 1,
-                showRemoveButton: !isForPreview,
+                showRemoveButton: !isForPreview && !container.isLegacyType(),
                 signatureIndex: row)
             return cell
         case .missingSignatures:
@@ -281,7 +281,11 @@ extension ContainerViewController : UITableViewDataSource {
                 cell.populate(
                     name: (container.dataFiles as! [MoppLibDataFile])[row].fileName,
                     showBottomBorder: row < container.dataFiles.count - 1,
-                    showRemoveButton: container.dataFiles.count > 1 && !isForPreview && container.signatures.isEmpty,
+                    showRemoveButton:
+                        container.dataFiles.count > 1   &&
+                        !isForPreview                   &&
+                        container.signatures.isEmpty    &&
+                        !container.isLegacyType(),
                     dataFileIndex: row)
             return cell
         case .importDataFiles:
@@ -461,11 +465,17 @@ extension ContainerViewController : UITableViewDelegate {
 
         if let header = MoppApp.instance.nibs[.containerElements]?.instantiate(withOwner: self, type: ContainerTableViewHeaderView.self) {
             let signaturesCount = container?.signatures?.count ?? 0
+            let isContainerLegacyType = container?.isLegacyType() ?? true
             header.delegate = self
             header.populate(
                 withTitle: title,
                 section: section,
-                showAddButton: section == .dataFiles && !isCreated && signaturesCount == 0 && !isForPreview)
+                showAddButton:
+                    section == .dataFiles   &&
+                    !isCreated              &&
+                    signaturesCount == 0    &&
+                    !isForPreview           &&
+                    !isContainerLegacyType)
             return header
         }
 
