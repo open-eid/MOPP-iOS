@@ -21,10 +21,10 @@
  *
  */
 protocol LandingViewControllerTabButtonsDelegate: class {
-    func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId)
+    func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId, sender: UIView)
 }
 
-class LandingViewController : UIViewController
+class LandingViewController : UIViewController, NativeShare
 {
     weak var tabButtonsDelegate: LandingViewControllerTabButtonsDelegate? = nil
     var fileImportIntent: MoppApp.FileImportIntent!
@@ -143,7 +143,7 @@ class LandingViewController : UIViewController
     @objc func tabButtonTapAction(sender: UIButton) {
         let tabButton = buttonsCollection.first { $0.button == sender }!
         let buttonId = TabButtonId(rawValue: tabButton.accessibilityIdentifier!)!
-        tabButtonsDelegate?.landingViewControllerTabButtonTapped(tabButtonId: buttonId)
+        tabButtonsDelegate?.landingViewControllerTabButtonTapped(tabButtonId: buttonId, sender: sender)
     }
 
     func setupTab(for controller: UIViewController, title: String, image imageName: String, selectedImage selectedImageName: String) {

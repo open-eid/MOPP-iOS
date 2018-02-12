@@ -260,9 +260,12 @@ class ContainerViewController : MoppViewController {
 }
 
 extension ContainerViewController : LandingViewControllerTabButtonsDelegate {
-    func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId) {
+    func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId, sender: UIView) {
         if tabButtonId == .signButton {
             startSigningWithMobileID()
+        }
+        else if tabButtonId == .shareButton {
+            LandingViewController.shared.shareFile(using: URL(fileURLWithPath: containerPath), sender: sender, completion: { bool in })
         }
     }
 }
