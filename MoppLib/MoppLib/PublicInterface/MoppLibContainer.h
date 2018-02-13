@@ -35,6 +35,7 @@
 - (BOOL)isEmpty;
 - (BOOL)isDDocType;
 - (BOOL)isAsiceType;
+- (BOOL)isLegacyType;
 - (NSString *)fileNameWithoutExtension;
 
 - (NSString *)getNextSignatureId;

@@ -31,6 +31,8 @@ let ContainerFormatAscis = "asics"
 let ContainerFormatAsicsShort = "scs"
 let ContainerFormatPDF  = "pdf"
 
+let DefaultNewContainerFormat = ContainerFormatAsice
+
 let CrashlyticsAlwaysSend = "Always"
 let CrashlyticsNeverSend = "Never"
 let CrashlyticsDefault = "Default"

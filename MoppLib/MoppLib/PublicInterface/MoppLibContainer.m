@@ -41,6 +41,17 @@
   return [self.fileName hasSuffix:@".asice"];
 }
 
+- (BOOL)isLegacyType {
+    NSString *fileNameLowercase = [self.fileName lowercaseString];
+    return
+        [fileNameLowercase hasSuffix:@".adoc"]    ||
+        [fileNameLowercase hasSuffix:@".edoc"]    ||
+        [fileNameLowercase hasSuffix:@".ddoc"]    ||
+        [fileNameLowercase hasSuffix:@".asics"]   ||
+        [fileNameLowercase hasSuffix:@".scs"]     ||
+        [fileNameLowercase hasSuffix:@".pdf"];
+}
+
 - (NSString *)getNextSignatureId {
   NSMutableArray *exitingIds = [[NSMutableArray alloc] init];
   for (MoppLibDataFile *dataFile in self.dataFiles) {
