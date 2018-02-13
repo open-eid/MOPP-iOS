@@ -96,6 +96,7 @@
 		C5964CE820079AE0001FE732 /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5964CE720079AE0001FE732 /* TabButton.swift */; };
 		C5964CEA200F8607001FE732 /* ContainerImportFilesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5964CE9200F8607001FE732 /* ContainerImportFilesCell.swift */; };
 		C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59A958D1FB5B9E100D0E1F9 /* InitializationViewController.swift */; };
+		C5A1D1CD2031D5B80024CD4C /* ContainerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A1D1CC2031D5B80024CD4C /* ContainerActions.swift */; };
 		C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */; };
 		C5CF5EEC2017E4CC008FBBD6 /* FileImportProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CF5EEB2017E4CC008FBBD6 /* FileImportProgressViewController.swift */; };
 		C5D057022023016300875F44 /* RecentContainersEmptyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D057012023016300875F44 /* RecentContainersEmptyListCell.swift */; };
@@ -388,6 +389,7 @@
 		C5964CE9200F8607001FE732 /* ContainerImportFilesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerImportFilesCell.swift; sourceTree = "<group>"; };
 		C59A958C1FB5B9E100D0E1F9 /* MoppApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoppApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		C59A958D1FB5B9E100D0E1F9 /* InitializationViewController.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = InitializationViewController.swift; sourceTree = "<group>"; };
+		C5A1D1CC2031D5B80024CD4C /* ContainerActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerActions.swift; sourceTree = "<group>"; };
 		C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerNoSignaturesCell.swift; sourceTree = "<group>"; };
 		C5CF5EEB2017E4CC008FBBD6 /* FileImportProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImportProgressViewController.swift; sourceTree = "<group>"; };
 		C5D057012023016300875F44 /* RecentContainersEmptyListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentContainersEmptyListCell.swift; sourceTree = "<group>"; };
@@ -614,6 +616,7 @@
 			isa = PBXGroup;
 			children = (
 				C5E7D08C2031B1040081416F /* NativeShare.swift */,
+				C5A1D1CC2031D5B80024CD4C /* ContainerActions.swift */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -1279,6 +1282,7 @@
 				E42B08AE1E1EFC1800EA24A3 /* DateFormatter.swift in Sources */,
 				54825EF81E1D270F00253FF0 /* String+Additions.swift in Sources */,
 				E42B08B11E1F049B00EA24A3 /* FileManager.swift in Sources */,
+				C5A1D1CD2031D5B80024CD4C /* ContainerActions.swift in Sources */,
 				C56C6204201A0D9300CCC2A5 /* MenuCell.swift in Sources */,
 				C50DCD0D1FC7147100D48E16 /* ContainerTableViewHeaderView.swift in Sources */,
 			);
