@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-class ContainerViewController : MoppViewController {
+class ContainerViewController : MoppViewController, ContainerActions {
     var container: MoppLibContainer!
     var containerPath: String!
     var isForPreview: Bool = false
@@ -211,34 +211,7 @@ class ContainerViewController : MoppViewController {
     func startSigningWithMobileID() {
         
         if container.isLegacyType() {
-            let containerFilename = container.fileName.filenameComponents().name + "." + DefaultNewContainerFormat
-            var newContainerPath = MoppFileManager.shared.filePath(withFileName: containerFilename)
-                newContainerPath = MoppFileManager.shared.duplicateFilename(atPath: newContainerPath)
-            MoppLibContainerActions.sharedInstance().createContainer(
-                withPath: newContainerPath,
-                withDataFilePaths: [containerPath],
-                success: { [weak self] container in
-
-                    if container == nil {
-                        
-                        let alert = UIAlertController(title: L(.fileImportCreateNewFailedAlertTitle), message: L(.fileImportCreateNewFailedAlertMessage, [containerFilename]), preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
-
-                        self?.navigationController?.viewControllers.first!.present(alert, animated: true)
-                        return
-                    }
-                
-                    let containerViewController = ContainerViewController.instantiate()
-                        containerViewController.containerPath = newContainerPath
-                        containerViewController.isCreated = true
-                        containerViewController.startSigningWhenOpened = true
-                    
-                    self?.navigationController?.pushViewController(containerViewController, animated: true)
-                
-                }, failure: { [weak self] error in
-                    MoppFileManager.shared.removeFile(withPath: newContainerPath)
-                }
-            )
+            createLegacyContainer()
         } else {
             let mobileIdEditViewController = UIStoryboard.landing.instantiateViewController(with: MobileIDEditViewController.self)
                 mobileIdEditViewController.modalPresentationStyle = .overFullScreen
@@ -260,9 +233,12 @@ class ContainerViewController : MoppViewController {
 }
 
 extension ContainerViewController : LandingViewControllerTabButtonsDelegate {
-    func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId) {
+    func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId, sender: UIView) {
         if tabButtonId == .signButton {
             startSigningWithMobileID()
+        }
+        else if tabButtonId == .shareButton {
+            LandingViewController.shared.shareFile(using: URL(fileURLWithPath: containerPath), sender: sender, completion: { bool in })
         }
     }
 }
