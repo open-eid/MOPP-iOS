@@ -24,7 +24,7 @@ protocol ContainerActions {
     func openExistingContainer(with url: URL)
     func importFiles(with urls: [URL])
     func addDataFilesToContainer(dataFilePaths: [String])
-    func createNewContainer(with url: URL, dataFilePaths: [String], startSigningWhenCreated: Bool)
+    func createNewContainer(with url: URL, dataFilePaths: [String], startSigningWhenCreated: Bool, cleanUpDataFilesInDocumentsFolder: Bool)
     func createLegacyContainer()
 }
 
@@ -131,7 +131,7 @@ extension ContainerActions where Self: UIViewController {
         )
     }
     
-    func createNewContainer(with url: URL, dataFilePaths: [String], startSigningWhenCreated: Bool = false) {
+    func createNewContainer(with url: URL, dataFilePaths: [String], startSigningWhenCreated: Bool = false, cleanUpDataFilesInDocumentsFolder: Bool = true) {
         let landingViewController = LandingViewController.shared!
     
         let filePath = url.relativePath
@@ -144,7 +144,7 @@ extension ContainerActions where Self: UIViewController {
 
         let navController = landingViewController.viewControllers[0] as! UINavigationController
 
-        let cleanUpDataFilesInDocumentsFolder: () -> Void = {
+        let cleanUpDataFilesInDocumentsFolderCode: () -> Void = {
             dataFilePaths.forEach {
                 if $0.hasPrefix(MoppFileManager.shared.documentsDirectoryPath()) {
                     MoppFileManager.shared.removeFile(withPath: $0)
@@ -156,7 +156,9 @@ extension ContainerActions where Self: UIViewController {
             withPath: containerPath,
             withDataFilePaths: dataFilePaths,
             success: { container in
-                cleanUpDataFilesInDocumentsFolder()
+                if cleanUpDataFilesInDocumentsFolder {
+                    cleanUpDataFilesInDocumentsFolderCode()
+                }
                 if container == nil {
                 
                     landingViewController.importProgressViewController.dismiss(animated: false, completion: nil)
@@ -178,8 +180,10 @@ extension ContainerActions where Self: UIViewController {
                 
                 navController.pushViewController(containerViewController, animated: true)
             
-            }, failure: {_ in
-                cleanUpDataFilesInDocumentsFolder()
+            }, failure: { error in
+                if cleanUpDataFilesInDocumentsFolder {
+                    cleanUpDataFilesInDocumentsFolderCode()
+                }
                 landingViewController.importProgressViewController.dismiss(animated: false, completion: nil)
                 MoppFileManager.shared.removeFile(withPath: filePath)
             }
@@ -191,7 +195,7 @@ extension ContainerActions where Self: UIViewController {
         if let containerViewController = self as? ContainerViewController {
             let containerPath = containerViewController.containerPath!
             let containerPathURL = URL(fileURLWithPath: containerPath)
-            createNewContainer(with: containerPathURL, dataFilePaths: [containerPath], startSigningWhenCreated: true)
+            createNewContainer(with: containerPathURL, dataFilePaths: [containerPath], startSigningWhenCreated: true, cleanUpDataFilesInDocumentsFolder: false)
         }
     }
 }
