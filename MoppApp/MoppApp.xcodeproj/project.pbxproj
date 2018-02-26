@@ -86,6 +86,10 @@
 		C54BB10B1FBD8CD900A274F6 /* Crypto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54BB10A1FBD8CD900A274F6 /* Crypto.storyboard */; };
 		C54BB10D1FBD8CE900A274F6 /* Signing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54BB10C1FBD8CE900A274F6 /* Signing.storyboard */; };
 		C54BB10F1FBD93A100A274F6 /* MobileIDChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */; };
+		C54EA6DA2035C7190039AC78 /* ReaderScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6D92035C7190039AC78 /* ReaderScannerViewController.swift */; };
+		C54EA6DF20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6DE20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift */; };
+		C54EA6E1203724730039AC78 /* ReaderScannerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E0203724730039AC78 /* ReaderScannerHeaderView.swift */; };
+		C54EA6E320372F490039AC78 /* SigningElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54EA6E220372F490039AC78 /* SigningElements.xib */; };
 		C560CB0A1FFCEEF000C01FE4 /* SigningFileImportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */; };
 		C56C6204201A0D9300CCC2A5 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C6203201A0D9300CCC2A5 /* MenuCell.swift */; };
 		C56C6206201A189600CCC2A5 /* MenuHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C6205201A189600CCC2A5 /* MenuHeaderCell.swift */; };
@@ -378,6 +382,10 @@
 		C54BB10A1FBD8CD900A274F6 /* Crypto.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Crypto.storyboard; sourceTree = "<group>"; };
 		C54BB10C1FBD8CE900A274F6 /* Signing.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Signing.storyboard; sourceTree = "<group>"; };
 		C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileIDChallengeViewController.swift; sourceTree = "<group>"; };
+		C54EA6D92035C7190039AC78 /* ReaderScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderScannerViewController.swift; sourceTree = "<group>"; };
+		C54EA6DE20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderScannerPeripheralCell.swift; sourceTree = "<group>"; };
+		C54EA6E0203724730039AC78 /* ReaderScannerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderScannerHeaderView.swift; sourceTree = "<group>"; };
+		C54EA6E220372F490039AC78 /* SigningElements.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SigningElements.xib; sourceTree = "<group>"; };
 		C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningFileImportCell.swift; sourceTree = "<group>"; };
 		C56C6203201A0D9300CCC2A5 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		C56C6205201A189600CCC2A5 /* MenuHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeaderCell.swift; sourceTree = "<group>"; };
@@ -573,10 +581,12 @@
 		C54BB1051FBD8C1000A274F6 /* Signing */ = {
 			isa = PBXGroup;
 			children = (
+				C54EA6DD20371E3B0039AC78 /* SmartCard */,
 				C54BB10C1FBD8CE900A274F6 /* Signing.storyboard */,
 				C50DCCCA1FC32A3E00D48E16 /* SigningViewController.swift */,
 				C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */,
 				C50DCD1A1FD1576B00D48E16 /* SigningTableViewHeaderView.swift */,
+				C54EA6E220372F490039AC78 /* SigningElements.xib */,
 			);
 			name = Signing;
 			sourceTree = "<group>";
@@ -597,6 +607,16 @@
 				C50DCCC61FC32A2500D48E16 /* MyeIDViewController.swift */,
 			);
 			name = MyeID;
+			sourceTree = "<group>";
+		};
+		C54EA6DD20371E3B0039AC78 /* SmartCard */ = {
+			isa = PBXGroup;
+			children = (
+				C54EA6D92035C7190039AC78 /* ReaderScannerViewController.swift */,
+				C54EA6DE20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift */,
+				C54EA6E0203724730039AC78 /* ReaderScannerHeaderView.swift */,
+			);
+			name = SmartCard;
 			sourceTree = "<group>";
 		};
 		C56C6209201A252F00CCC2A5 /* Recent containers */ = {
@@ -940,6 +960,7 @@
 				C50DCCF71FC5741900D48E16 /* Roboto-LightItalic.ttf in Resources */,
 				C56C620B201A255900CCC2A5 /* RecentContainers.storyboard in Resources */,
 				C50DCCEC1FC5741900D48E16 /* Roboto-CondensedItalic.ttf in Resources */,
+				C54EA6E320372F490039AC78 /* SigningElements.xib in Resources */,
 				C50DCCF31FC5741900D48E16 /* Roboto-BoldItalic.ttf in Resources */,
 				E4180C371E26822000FD7B8C /* datafile.txt in Resources */,
 				C50DCCF81FC5741900D48E16 /* Roboto-Regular.ttf in Resources */,
@@ -1258,6 +1279,7 @@
 				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
 				540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */,
 				C50DCCC31FC2D54200D48E16 /* UIFont+Additions.swift in Sources */,
+				C54EA6DA2035C7190039AC78 /* ReaderScannerViewController.swift in Sources */,
 				C50DCD051FC7125300D48E16 /* ContainerNotificationCell.swift in Sources */,
 				C56C6208201A1B4C00CCC2A5 /* MenuSeparatorCell.swift in Sources */,
 				C52E82781FC1D3ED0074B280 /* MenuViewController.swift in Sources */,
@@ -1275,9 +1297,11 @@
 				C52E827A1FC1D7000074B280 /* main.swift in Sources */,
 				C5964CEA200F8607001FE732 /* ContainerImportFilesCell.swift in Sources */,
 				C50DCD1B1FD1576B00D48E16 /* SigningTableViewHeaderView.swift in Sources */,
+				C54EA6E1203724730039AC78 /* ReaderScannerHeaderView.swift in Sources */,
 				C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */,
 				C50DCD131FCC4D3000D48E16 /* UIView+Additions.swift in Sources */,
 				C537AE542004C29E009037E5 /* MobileIDEditViewController.swift in Sources */,
+				C54EA6DF20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift in Sources */,
 				C50DCCCB1FC32A3E00D48E16 /* SigningViewController.swift in Sources */,
 				E42B08AE1E1EFC1800EA24A3 /* DateFormatter.swift in Sources */,
 				54825EF81E1D270F00253FF0 /* String+Additions.swift in Sources */,

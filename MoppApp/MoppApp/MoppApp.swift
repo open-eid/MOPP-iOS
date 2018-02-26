@@ -43,6 +43,7 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         case containerElements = "ContainerElements"
         case recentContainersElements = "RecentContainersElements"
         case customElements = "CustomElements"
+        case signingElements = "SigningElements"
     }
     var nibs: [Nib: UINib] = [:]
 
@@ -204,5 +205,6 @@ extension MoppApp {
         nibs[.containerElements] = UINib(nibName: Nib.containerElements.rawValue, bundle: Bundle.main)
         nibs[.recentContainersElements] = UINib(nibName: Nib.recentContainersElements.rawValue, bundle: Bundle.main)
         nibs[.customElements] = UINib(nibName: Nib.customElements.rawValue, bundle: Bundle.main)
+        nibs[.signingElements] = UINib(nibName: Nib.signingElements.rawValue, bundle: Bundle.main)
     }
 }
