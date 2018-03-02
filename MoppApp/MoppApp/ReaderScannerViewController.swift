@@ -20,7 +20,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+protocol ReaderScannerDelegate : class {
+    func readerScannerDidSelectPeripheral(peripheral: CBPeripheral?)
+}
+
+
 class ReaderScannerViewController : MoppViewController {
+    weak var delegate: ReaderScannerDelegate!
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -57,6 +63,10 @@ extension ReaderScannerViewController : UITableViewDataSource {
 }
 
 extension ReaderScannerViewController : UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate.readerScannerDidSelectPeripheral(peripheral: CBManagerHelper.sharedInstance().foundPeripherals?[indexPath.row] as? CBPeripheral)
+    }
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = MoppApp.instance.nibs[.signingElements]?.instantiate(withOwner: self, type: ReaderScannerHeaderView.self)
             view?.delegate = self

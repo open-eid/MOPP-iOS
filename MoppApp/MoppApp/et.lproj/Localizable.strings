@@ -65,6 +65,7 @@
 "action-edit" = "Muuda";
 "action-yes" = "Jah";
 "action-no" = "Ei";
+"action-sign" = "Allkirjasta";
 "action-create-new-document" = "Loo uus dokument";
 "action-add-to-document" = "Lisa olemasolevale dokumendile";
 
@@ -247,8 +248,6 @@
 "mobile-id-phone-title" = "Riigi suunakood ja mobiiltelefoni number";
 "mobile-id-idcode-title" = "Isikukood";
 "mobile-id-remember-me" = "Jäta meelde";
-"mobile-id-cancel-button-title" = "TÜHISTA";
-"mobile-id-sign-button-title" = "ALLKIRJASTA";
 "mobile-id-challenge-title" = "Allkirjasta Mobiil-ID äpiga";
 "mobile-id-challenge-waiting-response" = "Ootan vastust ...";
 "container-sign-title" = "Allkirjastamine";
@@ -260,3 +259,7 @@
 "done-button-title" = "Valmis";
 "recent-containers-empty-list-title" = "Hiljutised dokumendid puuduvad";
 "recent-containers-empty-search-message" = "Dokumenti ei leitud";
+"sign-title-mobile-id" = "Mobiil-ID";
+"sign-title-id-card" = "ID kaart";
+"card-reader-state-not-ready" = "Kaardilugejat ei leitud.Palun veendu, et Bluetooth oleks lubatud ja kaardilugeja sisse lülitatud";
+"card-reader-state-ready" = "Valmis allkirjastamiseks ID kaardiga.\nPalun sisesta PIN2";

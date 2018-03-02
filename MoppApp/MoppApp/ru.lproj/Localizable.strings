@@ -65,6 +65,7 @@
 "action-edit" = "Редактировать";
 "action-yes" = "Да";
 "action-no" = "Нет";
+"action-sign" = "Подписать";
 "action-create-new-document" = "Создать новый документ";
 "action-add-to-document" = "Добавить в существующий документ";
 
@@ -248,8 +249,6 @@
 "mobile-id-phone-title" = "Код страны и номер телефона";
 "mobile-id-idcode-title" = "Код идентификатора";
 "mobile-id-remember-me" = "Запомнить меня";
-"mobile-id-cancel-button-title" = "ОТМЕНА";
-"mobile-id-sign-button-title" = "ПОДПИСАТЬ";
 "mobile-id-challenge-title" = "Подписать с помощью приложения Mobile-ID";
 "mobile-id-challenge-waiting-response" = "Жду ответа ...";
 "container-sign-title" = "Регистрация";
@@ -261,3 +260,7 @@
 "done-button-title" = "Оконченный";
 "recent-containers-empty-list-title" = "Нет последних документов";
 "recent-containers-empty-search-message" = "Документ не найден";
+"sign-title-mobile-id" = "Mобильный-ID";
+"sign-title-id-card" = "ID карта";
+"card-reader-state-not-ready" = "Кард-ридер не найден. Убедитесь, что Bluetooth включен и устройство чтения карт включено.";
+"card-reader-state-ready" = "Готов подписать с удостоверением личности. Введите PIN2";

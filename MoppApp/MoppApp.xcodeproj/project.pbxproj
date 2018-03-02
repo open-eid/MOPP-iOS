@@ -90,6 +90,12 @@
 		C54EA6DF20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6DE20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift */; };
 		C54EA6E1203724730039AC78 /* ReaderScannerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E0203724730039AC78 /* ReaderScannerHeaderView.swift */; };
 		C54EA6E320372F490039AC78 /* SigningElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54EA6E220372F490039AC78 /* SigningElements.xib */; };
+		C54EA6E520444EC90039AC78 /* SignSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E420444EC90039AC78 /* SignSelectionViewController.swift */; };
+		C54EA6E620444EC90039AC78 /* SignSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E420444EC90039AC78 /* SignSelectionViewController.swift */; };
+		C54EA6E82045A9E30039AC78 /* IdCardSignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E72045A9E30039AC78 /* IdCardSignViewController.swift */; };
+		C54EA6E92045A9E30039AC78 /* IdCardSignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E72045A9E30039AC78 /* IdCardSignViewController.swift */; };
+		C54EA6EB2046C3BA0039AC78 /* UITextField+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6EA2046C3BA0039AC78 /* UITextField+Additions.swift */; };
+		C54EA6EC2046C3BA0039AC78 /* UITextField+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6EA2046C3BA0039AC78 /* UITextField+Additions.swift */; };
 		C560CB0A1FFCEEF000C01FE4 /* SigningFileImportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */; };
 		C56C6204201A0D9300CCC2A5 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C6203201A0D9300CCC2A5 /* MenuCell.swift */; };
 		C56C6206201A189600CCC2A5 /* MenuHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C6205201A189600CCC2A5 /* MenuHeaderCell.swift */; };
@@ -386,6 +392,9 @@
 		C54EA6DE20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderScannerPeripheralCell.swift; sourceTree = "<group>"; };
 		C54EA6E0203724730039AC78 /* ReaderScannerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderScannerHeaderView.swift; sourceTree = "<group>"; };
 		C54EA6E220372F490039AC78 /* SigningElements.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SigningElements.xib; sourceTree = "<group>"; };
+		C54EA6E420444EC90039AC78 /* SignSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignSelectionViewController.swift; sourceTree = "<group>"; };
+		C54EA6E72045A9E30039AC78 /* IdCardSignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdCardSignViewController.swift; sourceTree = "<group>"; };
+		C54EA6EA2046C3BA0039AC78 /* UITextField+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Additions.swift"; sourceTree = "<group>"; };
 		C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningFileImportCell.swift; sourceTree = "<group>"; };
 		C56C6203201A0D9300CCC2A5 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		C56C6205201A189600CCC2A5 /* MenuHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeaderCell.swift; sourceTree = "<group>"; };
@@ -472,6 +481,7 @@
 				C50DCD121FCC4D3000D48E16 /* UIView+Additions.swift */,
 				C50DCD161FCEF17000D48E16 /* UIStoryBoard+Additions.swift */,
 				C50787871FEA807500D9AAC0 /* UIViewController+Additions.swift */,
+				C54EA6EA2046C3BA0039AC78 /* UITextField+Additions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -586,6 +596,7 @@
 				C50DCCCA1FC32A3E00D48E16 /* SigningViewController.swift */,
 				C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */,
 				C50DCD1A1FD1576B00D48E16 /* SigningTableViewHeaderView.swift */,
+				C54EA6E420444EC90039AC78 /* SignSelectionViewController.swift */,
 				C54EA6E220372F490039AC78 /* SigningElements.xib */,
 			);
 			name = Signing;
@@ -615,6 +626,7 @@
 				C54EA6D92035C7190039AC78 /* ReaderScannerViewController.swift */,
 				C54EA6DE20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift */,
 				C54EA6E0203724730039AC78 /* ReaderScannerHeaderView.swift */,
+				C54EA6E72045A9E30039AC78 /* IdCardSignViewController.swift */,
 			);
 			name = SmartCard;
 			sourceTree = "<group>";
@@ -1210,6 +1222,7 @@
 				C5D057222028835000875F44 /* DataFilePreviewViewController.swift in Sources */,
 				C5D057232028835000875F44 /* UIViewController+Additions.swift in Sources */,
 				C5D057242028835000875F44 /* Constants.swift in Sources */,
+				C54EA6EC2046C3BA0039AC78 /* UITextField+Additions.swift in Sources */,
 				C5D057252028835000875F44 /* UIImage+Additions.swift in Sources */,
 				C5D057262028835000875F44 /* ContainerSearchCell.swift in Sources */,
 				C5D057272028835000875F44 /* UITextView+Additions.swift in Sources */,
@@ -1233,6 +1246,8 @@
 				C5D057392028835000875F44 /* SigningTableViewHeaderView.swift in Sources */,
 				C5D0573A2028835000875F44 /* Utils.swift in Sources */,
 				C5D0573B2028835000875F44 /* UIView+Additions.swift in Sources */,
+				C54EA6E92045A9E30039AC78 /* IdCardSignViewController.swift in Sources */,
+				C54EA6E620444EC90039AC78 /* SignSelectionViewController.swift in Sources */,
 				C5D0573C2028835000875F44 /* MobileIDEditViewController.swift in Sources */,
 				C5D0573D2028835000875F44 /* SigningViewController.swift in Sources */,
 				C5D0573E2028835000875F44 /* DateFormatter.swift in Sources */,
@@ -1268,6 +1283,7 @@
 				E42B08951E15617200EA24A3 /* LandingViewController.swift in Sources */,
 				54825EFB1E1D28E900253FF0 /* UIColor+Additions.swift in Sources */,
 				C50DCD191FD1542A00D48E16 /* RecentContainersNameCell.swift in Sources */,
+				C54EA6E520444EC90039AC78 /* SignSelectionViewController.swift in Sources */,
 				C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */,
 				C50DCD0B1FC7128900D48E16 /* ContainerHeaderCell.swift in Sources */,
 				C54BB10F1FBD93A100A274F6 /* MobileIDChallengeViewController.swift in Sources */,
@@ -1278,6 +1294,7 @@
 				C506EC811FB9F4AF00E07226 /* UIImage+Additions.swift in Sources */,
 				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
 				540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */,
+				C54EA6EB2046C3BA0039AC78 /* UITextField+Additions.swift in Sources */,
 				C50DCCC31FC2D54200D48E16 /* UIFont+Additions.swift in Sources */,
 				C54EA6DA2035C7190039AC78 /* ReaderScannerViewController.swift in Sources */,
 				C50DCD051FC7125300D48E16 /* ContainerNotificationCell.swift in Sources */,
@@ -1285,6 +1302,7 @@
 				C52E82781FC1D3ED0074B280 /* MenuViewController.swift in Sources */,
 				C50DCCC71FC32A2500D48E16 /* MyeIDViewController.swift in Sources */,
 				C50DCD071FC7126100D48E16 /* ContainerSignatureCell.swift in Sources */,
+				C54EA6E82045A9E30039AC78 /* IdCardSignViewController.swift in Sources */,
 				C56C620D201A256E00CCC2A5 /* RecentContainersViewController.swift in Sources */,
 				C5964CE820079AE0001FE732 /* TabButton.swift in Sources */,
 				C56C620F201A2B6500CCC2A5 /* RecentContainersHeaderCell.swift in Sources */,

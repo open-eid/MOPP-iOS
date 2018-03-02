@@ -122,6 +122,9 @@ class ContainerViewController : MoppViewController, ContainerActions {
     func updateState(_ newState: ContainerState) {
         switch newState {
             case .loading:
+                if isForPreview {
+                    LandingViewController.shared.presentButtons([])
+                }
                 setupNavigationItemForPushedViewController(title: L(.containerValidating))
             
             case .created:
@@ -139,8 +142,8 @@ class ContainerViewController : MoppViewController, ContainerActions {
             case .preview:
                 let containerUrl = URL(fileURLWithPath: containerPath!)
                 let (filename, ext) = containerUrl.lastPathComponent.filenameComponents()
+                LandingViewController.shared.presentButtons([])
                 setupNavigationItemForPushedViewController(title: filename + "." + ext)
-            
         }
         state = newState
     }
@@ -213,10 +216,14 @@ class ContainerViewController : MoppViewController, ContainerActions {
         if container.isLegacyType() {
             createLegacyContainer()
         } else {
-            let mobileIdEditViewController = UIStoryboard.landing.instantiateViewController(with: MobileIDEditViewController.self)
-                mobileIdEditViewController.modalPresentationStyle = .overFullScreen
-                mobileIdEditViewController.delegate = self
-            LandingViewController.shared.present(mobileIdEditViewController, animated: false, completion: nil)
+        
+            let signSelectionVC = UIStoryboard.signing.instantiateViewController(with: SignSelectionViewController.self)
+                signSelectionVC.modalPresentationStyle = .overFullScreen
+            
+            signSelectionVC.mobileIdEditViewControllerDelegate = self
+            signSelectionVC.idCardSignViewControllerDelegate = self
+            
+            LandingViewController.shared.present(signSelectionVC, animated: false, completion: nil)
         }
     }
     
@@ -553,7 +560,7 @@ extension ContainerViewController : MobileIDEditViewControllerDelegate {
         guard let phoneNumber = phoneNumber else { return }
         guard let idCode = idCode else { return }
         
-        let mobileIDChallengeview = UIStoryboard.landing.instantiateViewController(with: MobileIDChallengeViewController.self)
+        let mobileIDChallengeview = UIStoryboard.signing.instantiateViewController(with: MobileIDChallengeViewController.self)
             mobileIDChallengeview.modalPresentationStyle = .overFullScreen
         present(mobileIDChallengeview, animated: false)
 
@@ -586,6 +593,11 @@ extension ContainerViewController : MobileIDEditViewControllerDelegate {
         }
         
         return language
+    }
+}
+
+extension ContainerViewController : IdCardSignViewControllerDelegate {
+    func idCardViewControllerDidDismiss(cancelled: Bool) {
     }
 }
 
