@@ -5,3 +5,4 @@
 #import <MoppLib/MoppLib.h>
 #import <MoppLib/MoppLibMobileCreateSignatureResponse.h>
 #import <PureLayout/ALView+PureLayout.h>
+#import <MoppLib/CBManagerHelper.h>

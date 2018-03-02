@@ -19,7 +19,7 @@
 		5451117B1E13C52900296B80 /* EstEIDv3_5.m in Sources */ = {isa = PBXBuildFile; fileRef = 545111791E13C52900296B80 /* EstEIDv3_5.m */; };
 		545CF8411E13F30300B66EE8 /* EstEIDv3_4.h in Headers */ = {isa = PBXBuildFile; fileRef = 545CF83F1E13F30300B66EE8 /* EstEIDv3_4.h */; };
 		545CF8421E13F30300B66EE8 /* EstEIDv3_4.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8401E13F30300B66EE8 /* EstEIDv3_4.m */; };
-		545CF8571E16928600B66EE8 /* CBManagerHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 545CF8551E16928600B66EE8 /* CBManagerHelper.h */; };
+		545CF8571E16928600B66EE8 /* CBManagerHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 545CF8551E16928600B66EE8 /* CBManagerHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		545CF8581E16928600B66EE8 /* CBManagerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8561E16928600B66EE8 /* CBManagerHelper.m */; };
 		5463DA481E127150008A1714 /* ReaderSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5463DA451E127150008A1714 /* ReaderSelectionViewController.m */; };
 		5463DA491E127150008A1714 /* ReaderSelectionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5463DA461E127150008A1714 /* ReaderSelectionViewController.h */; };
@@ -275,6 +275,7 @@
 				54DC0DC81E0BCCEF00C62B3D /* MoppLibConstants.m */,
 				AE6198591E489EDF0021B18B /* MoppLibService.h */,
 				AE61985A1E489EDF0021B18B /* MoppLibService.m */,
+				545CF8551E16928600B66EE8 /* CBManagerHelper.h */,
 			);
 			name = PublicInterface;
 			path = MoppLib/PublicInterface;
@@ -305,7 +306,6 @@
 				54AFE9881E93A04F005DC7B3 /* ReaderSelection.storyboard */,
 				5463DA461E127150008A1714 /* ReaderSelectionViewController.h */,
 				5463DA451E127150008A1714 /* ReaderSelectionViewController.m */,
-				545CF8551E16928600B66EE8 /* CBManagerHelper.h */,
 				545CF8561E16928600B66EE8 /* CBManagerHelper.m */,
 				54DC0DC31E0BCC2A00C62B3D /* CardReaderWrapper.h */,
 				54DC0DCB1E0BCFCB00C62B3D /* ACR3901U-S1 */,
@@ -505,7 +505,6 @@
 				540CB2201E1CDCED00FE18A3 /* MoppLibCertificate.h in Headers */,
 				54D164701E923F920069C725 /* MoppLibPrivateConstants.h in Headers */,
 				5463DA4C1E12927A008A1714 /* CardCommands.h in Headers */,
-				545CF8571E16928600B66EE8 /* CBManagerHelper.h in Headers */,
 				E485A7831E2DF58200C53DBF /* MLFileManager.h in Headers */,
 				5451117A1E13C52900296B80 /* EstEIDv3_5.h in Headers */,
 				54DC0DEC1E0BD6E300C62B3D /* ABTBluetoothReader.h in Headers */,
@@ -515,6 +514,7 @@
 				54DC0E011E0D48C900C62B3D /* MoppLibError.h in Headers */,
 				E4180C161E23FE9300FD7B8C /* MLDateFormatter.h in Headers */,
 				E42B08C51E1F11B900EA24A3 /* MoppLibDataFile.h in Headers */,
+				545CF8571E16928600B66EE8 /* CBManagerHelper.h in Headers */,
 				54E1DB5C1E44A9060060A250 /* MoppLibManager.h in Headers */,
 				E42B08CD1E1F136A00EA24A3 /* MoppLibDigidocManager.h in Headers */,
 				5463DA491E127150008A1714 /* ReaderSelectionViewController.h in Headers */,

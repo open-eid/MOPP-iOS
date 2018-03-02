@@ -27,7 +27,7 @@
 
 @protocol CBManagerHelperDelegate;
 
-@interface CBManagerHelper : NSObject
+@interface CBManagerHelper : NSObject <CBCentralManagerDelegate>
 @property (nonatomic, strong) NSMutableArray *foundPeripherals;
 @property (nonatomic, strong) CBPeripheral *connectedPeripheral;
 
@@ -51,3 +51,4 @@
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI;
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error;
 @end
+

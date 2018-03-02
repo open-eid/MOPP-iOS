@@ -45,4 +45,10 @@ extension UIButton {
         }
         get { return nil /* Getter is unsed */ }
     }
+    
+    func setTitle(_ title: String?) {
+        setTitle(title, for: .normal)
+        setTitle(title, for: .disabled)
+        setTitle(title, for: .highlighted)
+    }
 }
