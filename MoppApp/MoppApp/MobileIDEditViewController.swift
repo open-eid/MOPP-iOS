@@ -59,26 +59,17 @@ class MobileIDEditViewController : MoppViewController {
     weak var delegate: MobileIDEditViewControllerDelegate? = nil
     var tapGR: UITapGestureRecognizer!
     
-        override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
-        let doneToolbar = UIToolbar()
-        let doneItem = UIBarButtonItem(title: L(.doneButtonTitle), style: UIBarButtonItemStyle.plain, target: self, action: #selector(dismissKeyboard))
-            doneItem.tintColor = UIColor.moppBase
-        doneToolbar.items = [
-            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil),
-            doneItem
-        ]
-        doneToolbar.sizeToFit()
-        
-        idCodeTextField.inputAccessoryView = doneToolbar
-        phoneTextField.inputAccessoryView = doneToolbar
+        idCodeTextField.moppPresentDismissButton()
+        phoneTextField.moppPresentDismissButton()
         
         titleLabel.text = L(.mobileIdTitle)
         phoneLabel.text = L(.mobileIdPhoneTitle)
         idCodeLabel.text = L(.mobileIdIdcodeTitle)
-        cancelButton.localizedTitle = LocKey.mobileIdCancelButtonTitle
-        signButton.localizedTitle = LocKey.mobileIdSignButtonTitle
+        cancelButton.setTitle(L(.actionCancel).uppercased())
+        signButton.setTitle(L(.actionSign).uppercased())
         rememberLabel.text = L(.mobileIdRememberMe)
         
         idCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor
@@ -128,22 +119,6 @@ class MobileIDEditViewController : MoppViewController {
 
         idCodeTextField.text = DefaultsHelper.idCode
         phoneTextField.text = DefaultsHelper.phoneNumber
-    
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.0)
-        UIView.animate(withDuration: 0.35) {
-            self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        }
-        
-        centerViewCenterCSTR.priority = .defaultLow
-        centerViewOutofscreenCSTR.priority = .defaultHigh
-        view.layoutIfNeeded()
-        UIView.animate(withDuration: 0.35, delay: 0.0, options: .curveEaseOut, animations: {
-            self.centerViewCenterCSTR.priority = .defaultHigh
-            self.centerViewOutofscreenCSTR.priority = .defaultLow
-            self.view.layoutIfNeeded()
-        }) { _ in
-            
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

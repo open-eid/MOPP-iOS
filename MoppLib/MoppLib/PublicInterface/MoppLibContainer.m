@@ -38,7 +38,7 @@
   return [self.fileName hasSuffix:@".ddoc"];
 }
 - (BOOL)isAsiceType {
-  return [self.fileName hasSuffix:@".asice"];
+  return [self.fileName hasSuffix:@".asice"] || [self.fileName hasSuffix:@".sce"];
 }
 
 - (BOOL)isLegacyType {

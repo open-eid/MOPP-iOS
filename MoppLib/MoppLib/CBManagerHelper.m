@@ -150,13 +150,15 @@ static CBManagerHelper *sharedInstance = nil;
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI {
   
   if ([self.foundPeripherals indexOfObject:peripheral] == NSNotFound) {
-    [self.foundPeripherals addObject:peripheral];
-    
-    for (id<CBManagerHelperDelegate> delegate in self.delegates) {
-      if ([delegate respondsToSelector:@selector(centralManager:didDiscoverPeripheral:advertisementData:RSSI:)]) {
-        [delegate centralManager:central didDiscoverPeripheral:peripheral advertisementData:advertisementData RSSI:RSSI];
+    if (peripheral.name.length > 0) {
+        [self.foundPeripherals insertObject:peripheral atIndex:0];
 
-      }
+        for (id<CBManagerHelperDelegate> delegate in self.delegates) {
+          if ([delegate respondsToSelector:@selector(centralManager:didDiscoverPeripheral:advertisementData:RSSI:)]) {
+            [delegate centralManager:central didDiscoverPeripheral:peripheral advertisementData:advertisementData RSSI:RSSI];
+
+          }
+        }
     }
   }
 }

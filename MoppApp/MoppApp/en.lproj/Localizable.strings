@@ -65,6 +65,7 @@
 "action-edit" = "Edit";
 "action-yes" = "Yes";
 "action-no" = "No";
+"action-sign" = "Sign";
 "action-create-new-document" = "Create new document";
 "action-add-to-document" = "Add to existing document";
 
@@ -246,8 +247,6 @@
 "mobile-id-phone-title" = "Country code and phone number";
 "mobile-id-idcode-title" = "ID code";
 "mobile-id-remember-me" = "Remember me";
-"mobile-id-cancel-button-title" = "CANCEL";
-"mobile-id-sign-button-title" = "SIGN";
 "mobile-id-challenge-title" = "Sign with Mobile-ID app";
 "mobile-id-challenge-waiting-response" = "Waiting for response ...";
 "container-sign-title" = "Sign";
@@ -259,3 +258,7 @@
 "done-button-title" = "Done";
 "recent-containers-empty-list-title" = "No recent documents";
 "recent-containers-empty-search-message" = "Document not found";
+"sign-title-mobile-id" = "Mobile-ID";
+"sign-title-id-card" = "ID Card";
+"card-reader-state-not-ready" = "No readers found. Please make sure your bluetooth and card reader is turned on";
+"card-reader-state-ready" = "ID card connected.\nPlease enter PIN2";
