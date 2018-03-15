@@ -30,7 +30,7 @@
 
 // Mopp Lib error codes
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, MoppLibErrorCode) {
   
   moppLibErrorReaderNotFound = 10001, // Reader is not connected to phone
   moppLibErrorCardNotFound = 10002, // Reader is connected, but card is not detected
@@ -53,7 +53,7 @@ typedef enum {
   moppLibErrorReaderSelectionCanceled = 10020, // User canceled card reader selection
   moppLibErrorRestrictedApi = 10021 // Restricted API. Some functionality is not available for third-party apps
 
-} MoppLibErrorCode;
+};
 
 
 extern NSString *const kMoppLibUserInfoRetryCount;

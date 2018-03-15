@@ -262,5 +262,10 @@
 "recent-containers-empty-search-message" = "Документ не найден";
 "sign-title-mobile-id" = "Mобильный-ID";
 "sign-title-id-card" = "ID карта";
-"card-reader-state-not-ready" = "Кард-ридер не найден. Убедитесь, что Bluetooth включен и устройство чтения карт включено.";
+"card-reader-state-initial" = "Подключите устройство чтения карт памяти к телефону и вставьте идентификационную карту в устройство чтения.";
+"card-reader-state-reader-not-found" = "Кард-ридер не найден. Убедитесь, что Bluetooth включен и устройство чтения карт включено.";
+"card-reader-state-id-card-not-found" = "Считыватель карт.\nВставьте свою ID-карту в устройство чтения.";
 "card-reader-state-ready" = "Готов подписать с удостоверением личности. Введите PIN2";
+"signing-in-progress" = "Подписание.\nПодождите пожалуйста";
+"wrong-pin2" = "Неверный PIN2. У вас осталось %d попытки.";
+"wrong-pin2-single" = "Неверный PIN2. У вас есть 1 попытка.";

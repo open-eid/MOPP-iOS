@@ -21,7 +21,7 @@
  *
  */
 protocol IdCardSignViewControllerDelegate : class {
-    func idCardViewControllerDidDismiss(cancelled: Bool)
+    func idCardSignDidFinished(cancelled: Bool, success: Bool, error: Error?)
 }
 
 class IdCardSignViewController : MoppViewController {
@@ -31,26 +31,35 @@ class IdCardSignViewController : MoppViewController {
     @IBOutlet weak var signButton: UIButton!
     @IBOutlet weak var pin2TextFieldTitleLabel: UILabel!
     @IBOutlet weak var loadingSpinner: SpinnerView!
-    @IBOutlet weak var cancelButtonTrailingToSuperViewCSTR: NSLayoutConstraint!
-    @IBOutlet weak var cancelButtonTrailingToSignButtonCSTR: NSLayoutConstraint!
     @IBOutlet weak var titleLabelBottomToCancelButtonCSTR: NSLayoutConstraint!
     @IBOutlet weak var titleLabelBottomToPin2TextFieldCSTR: NSLayoutConstraint!
     
+    var containerPath: String!
     weak var delegate: IdCardSignViewControllerDelegate!
     
     enum State {
-        case waitingConnection
-        case cardConnected
+        case initial
+        case readerNotFound     // Reader not found/selected
+        case idCardNotFound     // ID card not found
+        case readyForSigning    // Reader and ID card found
+        case signing            // Signing in-progress
+        case wrongPin2
     }
     
-    var state: State = .waitingConnection {
+    var state: State = .readerNotFound {
         didSet {
             updateStateUI(newState: state)
         }
     }
     
+    var pin2AttemptsLeft: UInt = 0
+    var initialStateStartedTime: TimeInterval = 0
+    var initialStateExpirationTimer: Timer? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        MoppLibCardReaderManager.sharedInstance().delegate = self
     
         cancelButton.setTitle(L(.actionCancel).uppercased())
         signButton.setTitle(L(.actionSign).uppercased())
@@ -58,45 +67,87 @@ class IdCardSignViewController : MoppViewController {
         pin2TextField.layer.borderColor = UIColor.moppContentLine.cgColor
         pin2TextField.layer.borderWidth = 1.0
         pin2TextField.moppPresentDismissButton()
+        
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name.UIApplicationDidBecomeActive,
+            object: nil,
+            queue: OperationQueue.main) { [weak self]_ in
+            self?.loadingSpinner.show(true)
+        }
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        state = .waitingConnection
-        loadingSpinner.show(true)
+        state = .initial
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
-            self.changeState()
-        })
+        MoppLibCardReaderManager.sharedInstance().startDetecting()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+
+        MoppLibCardReaderManager.sharedInstance().stopDetecting()
     }
     
     @objc func changeState() {
-        state = .cardConnected
+        state = .readyForSigning
     }
     
     func updateStateUI(newState: State) {
+        print("Update state", newState)
         switch newState {
-        case .cardConnected:
-            signButton.isHidden = false
+        case .initial:
+            signButton.isEnabled = false
+            pin2TextField.isHidden = true
+            pin2TextFieldTitleLabel.isHidden = true
+            loadingSpinner.show(true)
+            titleLabel.text = L(.cardReaderStateInitial)
+        case .readerNotFound:
+            signButton.isEnabled = false
+            pin2TextField.isHidden = true
+            pin2TextFieldTitleLabel.isHidden = true
+            // loadingSpinner.show(true)
+            titleLabel.text = L(.cardReaderStateReaderNotFound)
+        case .idCardNotFound:
+            signButton.isEnabled = false
+            pin2TextField.isHidden = true
+            pin2TextFieldTitleLabel.isHidden = true
+            loadingSpinner.show(true)
+            titleLabel.text = L(.cardReaderStateIdCardNotFound)
+        case .readyForSigning:
+            signButton.isEnabled = true
             pin2TextField.isHidden = false
             pin2TextFieldTitleLabel.isHidden = false
             loadingSpinner.isHidden = true
-            cancelButtonTrailingToSuperViewCSTR.priority = UILayoutPriority.defaultLow
-            cancelButtonTrailingToSignButtonCSTR.priority = UILayoutPriority.defaultHigh
             titleLabel.text = L(.cardReaderStateReady)
-        case .waitingConnection:
-            signButton.isHidden = true
+        case .signing:
+            signButton.isEnabled = false
             pin2TextField.isHidden = true
             pin2TextFieldTitleLabel.isHidden = true
             loadingSpinner.isHidden = false
-            cancelButtonTrailingToSuperViewCSTR.priority = UILayoutPriority.defaultHigh
-            cancelButtonTrailingToSignButtonCSTR.priority = UILayoutPriority.defaultLow
-            titleLabel.text = L(.cardReaderStateNotReady)
+            titleLabel.text = L(.signingInProgress)
+        case .wrongPin2:
+            titleLabel.text = pin2AttemptsLeft > 1 ? L(.wrongPin2, [pin2AttemptsLeft]) : L(.wrongPin2Single)
+            break
+        }
+        
+        if newState == .initial {
+            initialStateExpirationTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: { [weak self]_ in
+                DispatchQueue.main.async {
+                    self?.state = .readerNotFound
+                }
+            })
+        } else {
+            initialStateExpirationTimer?.invalidate()
+            initialStateExpirationTimer = nil
         }
         
         view.layoutIfNeeded()
@@ -110,14 +161,44 @@ class IdCardSignViewController : MoppViewController {
     @IBAction func cancelAction() {
         dismiss(animated: false) {
             [weak self] in
-            self?.delegate?.idCardViewControllerDidDismiss(cancelled: true)
+            self?.delegate?.idCardSignDidFinished(cancelled: true, success: false, error: nil)
         }
     }
     
     @IBAction func signAction() {
-        dismiss(animated: false) {
-            [weak self] in
-            self?.delegate?.idCardViewControllerDidDismiss(cancelled: false)
+        guard let pin2 = pin2TextField.text else {
+            // TODO: Display error message about empty PIN 2 text field
+            return
         }
+        
+        state = .signing
+        MoppLibContainerActions.sharedInstance().addSignature(containerPath, withPin2:pin2, controller: self, success: { [weak self] container, signatureAdded in
+            DispatchQueue.main.async {
+                self?.dismiss(animated: false, completion: {
+                    self?.delegate?.idCardSignDidFinished(cancelled: false, success: signatureAdded, error: nil)
+                })
+            }
+        }, failure: { [weak self] error in
+            guard let nsError = error as NSError? else { return }
+            if nsError.code == Int(MoppLibErrorCode.moppLibErrorWrongPin.rawValue) { // Wrong PIN2 error
+                DispatchQueue.main.async {
+                    self?.pin2AttemptsLeft = (nsError.userInfo[kMoppLibUserInfoRetryCount] as? NSNumber)?.uintValue ?? 0
+                    self?.state = .wrongPin2
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.dismiss(animated: false, completion: {
+                        self?.delegate?.idCardSignDidFinished(cancelled: false, success: false, error: error)
+                    })
+                }
+            }
+        })
+        
+    }
+}
+
+extension IdCardSignViewController : MoppLibCardReaderManagerDelegate {
+    func moppLibCardReaderStatusDidChange(_ readyForUse: Bool) {
+        state = readyForUse ? .readyForSigning : .readerNotFound;
     }
 }

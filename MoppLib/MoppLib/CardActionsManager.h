@@ -31,6 +31,8 @@
 @interface CardActionsManager : NSObject <CBManagerHelperDelegate>
 + (CardActionsManager *)sharedInstance;
 
+- (void)setCardReader:(id<CardReaderWrapper>)cardReader;
+
 - (void)minimalCardPersonalDataWithViewController:(UIViewController *)controller success:(PersonalDataBlock)success failure:(FailureBlock)failure;
 
 - (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(PersonalDataBlock)success failure:(FailureBlock)failure;
@@ -41,7 +43,7 @@
 - (void)authenticationCertWithViewController:(UIViewController *)controller success:(CertDataBlock)success failure:(FailureBlock)failure;
 
 - (void)authenticationCertDataWithViewController:(UIViewController *)controller success:(DataSuccessBlock)success failure:(FailureBlock)failure;
-- (void)signingCertDataWithViewController:(UIViewController *)controller success:(DataSuccessBlock)success failure:(FailureBlock)failure;
+- (void)signingCertDataWithViewController:(UIViewController *)controller pin2:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 - (void)changePin:(CodeType)type withPuk:(NSString *)puk to:(NSString *)newPin viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure;
 
@@ -51,7 +53,7 @@
 
 - (void)code:(CodeType)type retryCountWithViewController:(UIViewController *)controller success:(void (^)(NSNumber *))success failure:(FailureBlock)failure;
 
-- (void)addSignature:(NSString *)containerPath controller:(UIViewController *)controller success:(void (^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure;
+- (void)addSignature:(NSString *)containerPath withPin2:(NSString *)pin2 controller:(UIViewController *)controller success:(void (^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure;
 - (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 - (void)isCardInserted:(void(^)(BOOL)) completion;

@@ -98,6 +98,7 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         LandingViewController.shared = self
         
         viewControllers.append(UIStoryboard.signing.instantiateInitialViewController()!)

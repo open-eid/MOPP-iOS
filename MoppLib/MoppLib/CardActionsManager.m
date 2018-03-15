@@ -23,6 +23,9 @@
 
 #import "CardActionsManager.h"
 #import "CardReaderACR3901U_S1.h"
+#import "CardReaderiR301.h"
+#import "ReaderInterface.h"
+#import "wintypes.h"
 #import "ReaderSelectionViewController.h"
 #import "MoppLibError.h"
 #import "NSData+Additions.h"
@@ -62,6 +65,7 @@ NSString *const kCardActionDataRecord = @"Record";
 @property (nonatomic, strong) UIViewController *controller;
 @property (nonatomic, strong) NSDictionary *data;
 @property (nonatomic, assign) NSUInteger retryCount;
+@property (nonatomic, strong) NSString *pin;
 @end
 
 @implementation CardActionObject
@@ -75,8 +79,6 @@ NSString *const kCardActionDataRecord = @"Record";
 @property (nonatomic, strong) NSMutableArray *cardActions;
 @property (nonatomic, assign) BOOL isExecutingAction;
 @property (nonatomic, strong) id<CardCommands> cardVersionHandler;
-
-
 @end
 
 @implementation CardActionsManager
@@ -86,7 +88,8 @@ static CardActionsManager *sharedInstance = nil;
 + (CardActionsManager *)sharedInstance {
   if (sharedInstance == nil) {
     sharedInstance = [CardActionsManager new];
-    [[CBManagerHelper sharedInstance] addDelegate:sharedInstance];
+    // FIXME:
+    // [[CBManagerHelper sharedInstance] addDelegate:sharedInstance];
   }
   return sharedInstance;
 }
@@ -101,7 +104,7 @@ static CardActionsManager *sharedInstance = nil;
 
 - (void)setCardReader:(id<CardReaderWrapper>)cardReader {
   _cardReader = cardReader;
-  [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
+[[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
 }
 
 - (void)minimalCardPersonalDataWithViewController:(UIViewController *)controller success:(PersonalDataBlock)success failure:(FailureBlock)failure {
@@ -128,11 +131,11 @@ static CardActionsManager *sharedInstance = nil;
   } failure:failure];
 }
 
-- (void)signingCertWithViewController:(UIViewController *)controller success:(CertDataBlock)success failure:(FailureBlock)failure {
+- (void)signingCertWithViewController:(UIViewController *)controller pin2:(NSString *)pin2 success:(CertDataBlock)success failure:(FailureBlock)failure {
   
   MoppLibCertData *certData = [MoppLibCertData new];
 
-  [self signingCertDataWithViewController:controller success:^(NSData *data) {
+  [self signingCertDataWithViewController:controller pin2:pin2 success:^(NSData *data) {
     [MoppLibCertificate certData:certData updateWithData:[data bytes] length:data.length];
   } failure:failure];
   
@@ -143,8 +146,8 @@ static CardActionsManager *sharedInstance = nil;
   } failure:failure];
 }
 
-- (void)signingCertDataWithViewController:(UIViewController *)controller success:(DataSuccessBlock)success failure:(FailureBlock)failure {
-  [self addCardAction:CardActionReadSigningCert data:nil viewController:controller success:success failure:failure];
+- (void)signingCertDataWithViewController:(UIViewController *)controller pin2:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure {
+  [self addCardAction:CardActionReadSigningCert data:@{kCardActionDataVerify: pin2} viewController:controller success:success failure:failure];
 }
 
 - (void)authenticationCertWithViewController:(UIViewController *)controller success:(CertDataBlock)success failure:(FailureBlock)failure {
@@ -197,11 +200,11 @@ static CardActionsManager *sharedInstance = nil;
   [self addCardAction:CardActionCalculateSignature data:data viewController:controller success:success failure:failure];
 }
 
-- (void)addSignature:(NSString *)containerPath controller:(UIViewController *)controller success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure {
+- (void)addSignature:(NSString *)containerPath withPin2:(NSString *)pin2 controller:(UIViewController *)controller success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure {
   
   [self code:CodeTypePin2 retryCountWithViewController:controller success:^(NSNumber *count) {
     if (count.intValue > 0) {
-      NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:CodeTypePin2]};
+      NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:CodeTypePin2], kCardActionDataVerify:pin2};
       __weak typeof(self) weakSelf = self;
       [self addCardAction:CardActionVerifyCode data:data viewController:controller success:^(NSString *pin2) {
         [weakSelf addSignatureTo:containerPath controller:controller pin2:pin2 success:success andFailure:failure];
@@ -213,10 +216,7 @@ static CardActionsManager *sharedInstance = nil;
           if (retryCount == 0) {
             failure([MoppLibError pinBlockedError]);
           } else {
-            [weakSelf displayInvalidPinError:error on:controller forPin:CodeTypePin2 completion:^{
-              // Repeat until user enters correct PIN, cancels or PIN gets blocked
-              [weakSelf addSignature:containerPath controller:controller success:success failure:failure];
-            }];
+            failure([MoppLibError wrongPinErrorWithRetryCount:retryCount]);
           }
         } else {
           failure(error);
@@ -229,7 +229,7 @@ static CardActionsManager *sharedInstance = nil;
 }
 
 - (void)addSignatureTo:(NSString *)containerPath controller:(UIViewController *)controller pin2:(NSString *)pin2 success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success andFailure:(FailureBlock)failure {
-  [self signingCertDataWithViewController:controller success:^(NSData *certData) {
+  [self signingCertDataWithViewController:controller pin2:pin2 success:^(NSData *certData) {
     
     if ([[MoppLibDigidocManager sharedInstance] container:containerPath containsSignatureWithCert:certData]) {
       NSString *title = MLLocalizedString(@"signature-already-exists-title", nil);
@@ -320,12 +320,12 @@ static CardActionsManager *sharedInstance = nil;
     if (self.cardActions.count > 0 && !self.isExecutingAction) {
       self.isExecutingAction = YES;
       CardActionObject *action = self.cardActions.firstObject;
-      [self executeAfterReaderCheck:action];
+      [self executeAfterReaderCheck:action abduLength:0];
     }
   }
 }
 
-- (void)executeAfterReaderCheck:(CardActionObject *)action {
+- (void)executeAfterReaderCheck:(CardActionObject *)action abduLength:(unsigned char)length {
   if ([self isReaderConnected]) {
     [self.cardReader isCardInserted:^(BOOL isInserted) {
       
@@ -341,19 +341,27 @@ static CardActionsManager *sharedInstance = nil;
             [self executeAction:action];
           } else {
             [self.cardReader powerOnCard:^(NSData *responseObject) {
-              [self.cardReader transmitCommand:kCommandGetCardVersion success:^(NSData *responseObject) {
+              NSString *hexCommand = [kCommandGetCardVersion replaceHexStringLastValue:length];
+              [self.cardReader transmitCommand:hexCommand success:^(NSData *responseObject) {
                 NSData *trailerData = [responseObject responseTrailerData];
                 const unsigned char *trailer = [trailerData bytes];
+                
+                // if '6C XY' :Y´ Send same command with Le = ’XY’
+                if (trailerData.length >=2 && trailer[0] == 0x6C) {
+                    unsigned char newLe = trailer[1];
+                    [self executeAfterReaderCheck:action abduLength:newLe];
+                    return;
+                }
                 
                 if (trailerData.length >= 2 && trailer[0] == 0x90 && trailer[1] == 0x00) {
                   const unsigned char *responseBytes = [responseObject bytes];
 
-                  if (trailerData.length >= 2 && responseBytes[0] == 0x03 && responseBytes[1] == 0x05) {
+                  if (responseBytes[0] == 0x03 && responseBytes[1] == 0x05) {
                     EstEIDv3_5 *handler = [EstEIDv3_5 new];
                     [handler setReader:self.cardReader];
                     self.cardVersionHandler = handler;
                   
-                  } else if (trailerData.length >= 2 && responseBytes[0] == 0x03 && responseBytes[1] == 0x04) {
+                  } else if (responseBytes[0] == 0x03 && responseBytes[1] == 0x04) {
                     EstEIDv3_4 *handler = [EstEIDv3_4 new];
                     [handler setReader:self.cardReader];
                     self.cardVersionHandler = handler;
@@ -395,12 +403,12 @@ static CardActionsManager *sharedInstance = nil;
       [self finishCurrentAction];
 
     } else {
-      UINavigationController *navController = [[UIStoryboard storyboardWithName:@"ReaderSelection" bundle:[NSBundle bundleForClass:[ReaderSelectionViewController class]]] instantiateInitialViewController];
+      /*UINavigationController *navController = [[UIStoryboard storyboardWithName:@"ReaderSelection" bundle:[NSBundle bundleForClass:[ReaderSelectionViewController class]]] instantiateInitialViewController];
       ReaderSelectionViewController *viewController = (ReaderSelectionViewController *)[navController topViewController];
       viewController.delegate = self;
       [action.controller presentViewController:navController animated:YES completion:^{
         
-      }];
+      }];*/
     }
   }
 }
@@ -409,7 +417,7 @@ static CardActionsManager *sharedInstance = nil;
   if (!self.cardVersionHandler) {
     // Something went wrong with reader setup. Let's make another round
     self.cardReader = nil;
-    [self executeAfterReaderCheck:actionObject];
+    [self executeAfterReaderCheck:actionObject abduLength:0];
     return;
   }
   
@@ -493,9 +501,11 @@ static CardActionsManager *sharedInstance = nil;
           textField.placeholder = placeholder;
           textField.secureTextEntry = YES;
         }];
+        
         NSString *ok = MLLocalizedString(@"action-ok", nil);
         NSString *cancel = MLLocalizedString(@"action-cancel", nil);
 
+        // SIGN
         [alert addAction:[UIAlertAction actionWithTitle:ok style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
           NSString *pin = [alert.textFields[0].text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
           NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:actionObject.data];
@@ -503,6 +513,8 @@ static CardActionsManager *sharedInstance = nil;
           actionObject.data = dict;
           [self executeAction:actionObject]; // New round
         }]];
+        
+        // CANCEL
         [alert addAction:[UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
           failure([MoppLibError pinNotProvidedError]);
         }]];
@@ -679,7 +691,7 @@ NSString *blockBackupCode = @"00001";
 - (void)peripheralSelected:(CBPeripheral *)peripheral {
   [self setupWithPeripheral:peripheral success:^(NSData *data) {
     if (self.isExecutingAction) {
-      [self executeAfterReaderCheck:[self.cardActions firstObject]];
+      [self executeAfterReaderCheck:[self.cardActions firstObject] abduLength:0];
     }
   } failure:^(NSError *error) {
     

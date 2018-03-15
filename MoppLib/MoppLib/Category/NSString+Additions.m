@@ -95,6 +95,13 @@
 
 }
 
+- (NSString *)replaceHexStringLastValue:(unsigned char)valueToReplace {
+    NSData *data = [self toHexData];
+    unsigned char *buf = (unsigned char *)[data bytes];
+    buf[data.length - 1] = valueToReplace;
+    return [[NSData dataWithBytes:buf length:[data length]] toHexString];
+}
+
 - (int)hexToInt {
   NSString *hexString = [self stringByReplacingOccurrencesOfString:@" " withString:@""];
   unsigned result = 0;

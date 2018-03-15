@@ -96,6 +96,7 @@
 		C54EA6E92045A9E30039AC78 /* IdCardSignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E72045A9E30039AC78 /* IdCardSignViewController.swift */; };
 		C54EA6EB2046C3BA0039AC78 /* UITextField+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6EA2046C3BA0039AC78 /* UITextField+Additions.swift */; };
 		C54EA6EC2046C3BA0039AC78 /* UITextField+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6EA2046C3BA0039AC78 /* UITextField+Additions.swift */; };
+		C54EA73A2057E58D0039AC78 /* MoppButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA7392057E58D0039AC78 /* MoppButton.swift */; };
 		C560CB0A1FFCEEF000C01FE4 /* SigningFileImportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */; };
 		C56C6204201A0D9300CCC2A5 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C6203201A0D9300CCC2A5 /* MenuCell.swift */; };
 		C56C6206201A189600CCC2A5 /* MenuHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C6205201A189600CCC2A5 /* MenuHeaderCell.swift */; };
@@ -395,6 +396,7 @@
 		C54EA6E420444EC90039AC78 /* SignSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignSelectionViewController.swift; sourceTree = "<group>"; };
 		C54EA6E72045A9E30039AC78 /* IdCardSignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdCardSignViewController.swift; sourceTree = "<group>"; };
 		C54EA6EA2046C3BA0039AC78 /* UITextField+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Additions.swift"; sourceTree = "<group>"; };
+		C54EA7392057E58D0039AC78 /* MoppButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoppButton.swift; sourceTree = "<group>"; };
 		C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningFileImportCell.swift; sourceTree = "<group>"; };
 		C56C6203201A0D9300CCC2A5 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		C56C6205201A189600CCC2A5 /* MenuHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeaderCell.swift; sourceTree = "<group>"; };
@@ -572,6 +574,7 @@
 			children = (
 				C50DCD1E1FD1831500D48E16 /* SearchTextField.swift */,
 				C50DCD231FD69B0C00D48E16 /* SpinnerView.swift */,
+				C54EA7392057E58D0039AC78 /* MoppButton.swift */,
 			);
 			name = "Custom views";
 			sourceTree = "<group>";
@@ -1315,6 +1318,7 @@
 				C52E827A1FC1D7000074B280 /* main.swift in Sources */,
 				C5964CEA200F8607001FE732 /* ContainerImportFilesCell.swift in Sources */,
 				C50DCD1B1FD1576B00D48E16 /* SigningTableViewHeaderView.swift in Sources */,
+				C54EA73A2057E58D0039AC78 /* MoppButton.swift in Sources */,
 				C54EA6E1203724730039AC78 /* ReaderScannerHeaderView.swift in Sources */,
 				C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */,
 				C50DCD131FCC4D3000D48E16 /* UIView+Additions.swift in Sources */,
