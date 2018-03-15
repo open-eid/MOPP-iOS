@@ -234,4 +234,5 @@ enum LocKey : String
     case signingInProgress = "signing-in-progress"
     case wrongPin2 = "wrong-pin2"
     case wrongPin2Single = "wrong-pin2-single"
+    case pin2TextfieldLabel = "pin2-textfield-label"
 }

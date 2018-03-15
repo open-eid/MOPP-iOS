@@ -184,7 +184,7 @@ extension RecentContainersViewController : UITableViewDelegate {
                 strongSelf.containerFiles = MoppFileManager.shared.documentsFiles()
                 tableView.reloadData()
             }
-            delete.backgroundColor = UIColor.moppWarning
+            delete.backgroundColor = UIColor.moppError
             return [delete]
         }
         return []

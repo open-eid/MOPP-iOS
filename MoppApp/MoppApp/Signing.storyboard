@@ -594,9 +594,7 @@
                                             <constraint firstAttribute="trailing" secondItem="UcT-lN-zyz" secondAttribute="trailing" id="6vm-Ch-JLb"/>
                                             <constraint firstItem="UcT-lN-zyz" firstAttribute="leading" secondItem="lYv-II-Ccw" secondAttribute="leading" id="BuI-3l-85i"/>
                                             <constraint firstAttribute="bottom" secondItem="UcT-lN-zyz" secondAttribute="bottom" id="JGk-SS-gT3"/>
-                                            <constraint firstItem="UcT-lN-zyz" firstAttribute="centerY" secondItem="lYv-II-Ccw" secondAttribute="centerY" id="JML-ob-wAg"/>
                                             <constraint firstItem="UcT-lN-zyz" firstAttribute="top" secondItem="lYv-II-Ccw" secondAttribute="top" id="SRn-Dd-Gqb"/>
-                                            <constraint firstItem="UcT-lN-zyz" firstAttribute="centerX" secondItem="lYv-II-Ccw" secondAttribute="centerX" id="aZS-MW-ixs"/>
                                             <constraint firstAttribute="height" constant="40" id="ich-ro-dZo"/>
                                         </constraints>
                                         <connections>

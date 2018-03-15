@@ -263,7 +263,8 @@
 "card-reader-state-initial" = "Connect your card reader to your phone and insert ID-card into the reader.";
 "card-reader-state-reader-not-found" = "Please ensure that your card reader is connected and ID card is inserted in the reader";
 "card-reader-state-id-card-not-found" = "Card reader found.\Insert your ID-card into the reader.";
-"card-reader-state-ready" = "Ready to sign with ID card.\nPlease enter PIN2";
+"card-reader-state-ready" = "ID-Card is in the reader.\n%@ (%@)\nPlease enter PIN2";
 "signing-in-progress" = "Signing in progress.\nPlease wait.";
 "wrong-pin2" = "Wrong PIN 2. You have %d attempts left.";
 "wrong-pin2-single" = "Wrong PIN2. You have 1 attempt left.";
+"pin2-textfield-label" = "PIN2";

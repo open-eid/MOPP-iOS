@@ -230,27 +230,9 @@ static CardActionsManager *sharedInstance = nil;
 
 - (void)addSignatureTo:(NSString *)containerPath controller:(UIViewController *)controller pin2:(NSString *)pin2 success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success andFailure:(FailureBlock)failure {
   [self signingCertDataWithViewController:controller pin2:pin2 success:^(NSData *certData) {
-    
-    if ([[MoppLibDigidocManager sharedInstance] container:containerPath containsSignatureWithCert:certData]) {
-      NSString *title = MLLocalizedString(@"signature-already-exists-title", nil);
-      NSString *message = MLLocalizedString(@"signature-already-exists-message", nil);
-      UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-      [alert addAction:[UIAlertAction actionWithTitle:MLLocalizedString(@"action-yes", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [[MoppLibDigidocManager sharedInstance] addSignature:containerPath pin2:pin2 cert:certData success:^(MoppLibContainer *container) {
-          success(container, YES);
-        } andFailure:failure];
-      }]];
-      
-      [alert addAction:[UIAlertAction actionWithTitle:MLLocalizedString(@"action-no", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        success(nil, NO);
-      }]];
-      [controller presentViewController:alert animated:YES completion:nil];
-      
-    } else {
       [[MoppLibDigidocManager sharedInstance] addSignature:containerPath pin2:pin2 cert:certData success:^(MoppLibContainer *container) {
         success(container, YES);
       } andFailure:failure];
-    }
   } failure:failure];
 }
 

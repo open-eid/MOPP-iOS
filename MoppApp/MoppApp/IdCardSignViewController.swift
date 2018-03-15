@@ -55,6 +55,7 @@ class IdCardSignViewController : MoppViewController {
     var pin2AttemptsLeft: UInt = 0
     var initialStateStartedTime: TimeInterval = 0
     var initialStateExpirationTimer: Timer? = nil
+    var idCardPersonalData: MoppLibPersonalData? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,35 +109,55 @@ class IdCardSignViewController : MoppViewController {
             signButton.isEnabled = false
             pin2TextField.isHidden = true
             pin2TextFieldTitleLabel.isHidden = true
+            pin2TextFieldTitleLabel.text = nil
+            pin2TextFieldTitleLabel.textColor = UIColor.moppBaseBackground
             loadingSpinner.show(true)
             titleLabel.text = L(.cardReaderStateInitial)
         case .readerNotFound:
             signButton.isEnabled = false
             pin2TextField.isHidden = true
             pin2TextFieldTitleLabel.isHidden = true
-            // loadingSpinner.show(true)
+            pin2TextFieldTitleLabel.text = nil
+            pin2TextFieldTitleLabel.textColor = UIColor.moppBaseBackground
+            loadingSpinner.show(true)
             titleLabel.text = L(.cardReaderStateReaderNotFound)
         case .idCardNotFound:
             signButton.isEnabled = false
             pin2TextField.isHidden = true
             pin2TextFieldTitleLabel.isHidden = true
+            pin2TextFieldTitleLabel.text = nil
+            pin2TextFieldTitleLabel.textColor = UIColor.moppBaseBackground
             loadingSpinner.show(true)
             titleLabel.text = L(.cardReaderStateIdCardNotFound)
         case .readyForSigning:
+            let fullname = idCardPersonalData?.fullName() ?? String()
+            let personalCode = idCardPersonalData?.personalIdentificationCode ?? String()
+            titleLabel.text = L(.cardReaderStateReady, [fullname, personalCode])
             signButton.isEnabled = true
             pin2TextField.isHidden = false
             pin2TextFieldTitleLabel.isHidden = false
-            loadingSpinner.isHidden = true
-            titleLabel.text = L(.cardReaderStateReady)
+            pin2TextFieldTitleLabel.text = L(.pin2TextfieldLabel)
+            pin2TextFieldTitleLabel.textColor = UIColor.moppText
+            loadingSpinner.show(false)
         case .signing:
             signButton.isEnabled = false
             pin2TextField.isHidden = true
             pin2TextFieldTitleLabel.isHidden = true
-            loadingSpinner.isHidden = false
+            pin2TextFieldTitleLabel.text = nil
+            pin2TextFieldTitleLabel.textColor = UIColor.moppBaseBackground
+            loadingSpinner.show(true)
             titleLabel.text = L(.signingInProgress)
         case .wrongPin2:
-            titleLabel.text = pin2AttemptsLeft > 1 ? L(.wrongPin2, [pin2AttemptsLeft]) : L(.wrongPin2Single)
-            break
+            let fullname = idCardPersonalData?.fullName() ?? String()
+            let personalCode = idCardPersonalData?.personalIdentificationCode ?? String()
+            titleLabel.text = L(.cardReaderStateReady, [fullname, personalCode])
+            signButton.isEnabled = false
+            pin2TextField.isHidden = false
+            pin2TextFieldTitleLabel.isHidden = false
+            pin2TextField.text = nil
+            loadingSpinner.show(false)
+            pin2TextFieldTitleLabel.textColor = UIColor.moppError
+            pin2TextFieldTitleLabel.text = pin2AttemptsLeft > 1 ? L(.wrongPin2, [pin2AttemptsLeft]) : L(.wrongPin2Single)
         }
         
         if newState == .initial {
@@ -199,6 +220,18 @@ class IdCardSignViewController : MoppViewController {
 
 extension IdCardSignViewController : MoppLibCardReaderManagerDelegate {
     func moppLibCardReaderStatusDidChange(_ readyForUse: Bool) {
-        state = readyForUse ? .readyForSigning : .readerNotFound;
+        if readyForUse {
+            MoppLibCardActions.minimalCardPersonalData(with: self, success: { [weak self] moppLibPersonalData in
+                DispatchQueue.main.async {
+                    print(moppLibPersonalData?.fullName(), moppLibPersonalData?.personalIdentificationCode)
+                    self?.idCardPersonalData = moppLibPersonalData
+                    self?.state = .readyForSigning
+                }
+            }, failure: { [weak self]_ in
+                self?.state = .readerNotFound
+            })
+        } else {
+            state = .readerNotFound
+        }
     }
 }
