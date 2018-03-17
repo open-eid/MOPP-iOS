@@ -50,9 +50,9 @@ class SigningViewController : MoppViewController {
     }
     
     @IBAction func menuActivationSelector() {
-        let menuViewController = UIStoryboard.menu.instantiateInitialViewController(of: MenuViewController.self)
+        let menuViewController = UIStoryboard.menu.instantiateInitialViewController()!
             menuViewController.modalPresentationStyle = .overFullScreen
-        self.view.window?.rootViewController?.present(menuViewController, animated: true, completion: nil)
+        MoppApp.instance.rootViewController?.present(menuViewController, animated: true, completion: nil)
     }
     
     @IBAction func importFilesAction() {

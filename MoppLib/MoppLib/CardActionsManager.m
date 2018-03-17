@@ -380,18 +380,8 @@ static CardActionsManager *sharedInstance = nil;
       }
     }];
   } else {
-    if (action.cardAction == CardActionGetCardStatus) {
-      action.boolBlock(NO);
-      [self finishCurrentAction];
-
-    } else {
-      /*UINavigationController *navController = [[UIStoryboard storyboardWithName:@"ReaderSelection" bundle:[NSBundle bundleForClass:[ReaderSelectionViewController class]]] instantiateInitialViewController];
-      ReaderSelectionViewController *viewController = (ReaderSelectionViewController *)[navController topViewController];
-      viewController.delegate = self;
-      [action.controller presentViewController:navController animated:YES completion:^{
-        
-      }];*/
-    }
+    action.boolBlock(NO);
+    [self finishCurrentAction];
   }
 }
 

@@ -155,11 +155,10 @@ extension RecentContainersViewController : UITableViewDelegate {
             
             self.closeSearch()
             dismiss(animated: true, completion: {
-                LandingViewController.shared.selectedTab = .signTab
                 let containerViewController = ContainerViewController.instantiate()
                     containerViewController.containerPath = containerPath
-                let firstTabViewController = LandingViewController.shared.viewControllers.first as! UINavigationController
-                firstTabViewController.pushViewController(containerViewController, animated: true)
+                let navController = LandingViewController.shared.viewController(for: .signTab) as? UINavigationController
+                navController?.pushViewController(containerViewController, animated: true)
             })
         }
     }

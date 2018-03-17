@@ -37,7 +37,7 @@ extension ContainerActions where Self: UIViewController {
         let filePath = url.relativePath
         let fileName = url.lastPathComponent
 
-        let navController = landingViewController.viewControllers[0] as! UINavigationController
+        let navController = landingViewController.viewController(for: .signTab) as? UINavigationController
 
         var newFilePath: String = MoppFileManager.shared.filePath(withFileName: fileName)
             newFilePath = MoppFileManager.shared.copyFile(withPath: filePath, toPath: newFilePath)
@@ -51,7 +51,7 @@ extension ContainerActions where Self: UIViewController {
             let alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [fileName]), preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
 
-            navController.viewControllers.first!.present(alert, animated: true)
+            navController?.viewControllers.last!.present(alert, animated: true)
         }
 
         MoppLibContainerActions.sharedInstance().getContainerWithPath(newFilePath,
@@ -71,14 +71,12 @@ extension ContainerActions where Self: UIViewController {
                     landingViewController.createNewContainer(with: url, dataFilePaths: [newFilePath])
                     return
                 }
-            
-                landingViewController.selectedTab = .signTab
                 
                 let containerViewController = ContainerViewController.instantiate()
                     containerViewController.containerPath = newFilePath
                     containerViewController.forcePDFContentPreview = isPDF
                 
-                navController.pushViewController(containerViewController, animated: true)
+                navController?.pushViewController(containerViewController, animated: true)
             },
             failure: { _ in
                 failure()
@@ -87,7 +85,7 @@ extension ContainerActions where Self: UIViewController {
     }
     func importFiles(with urls: [URL]) {
         let landingViewController = LandingViewController.shared!
-        let navController = landingViewController.viewControllers[0] as! UINavigationController
+        let navController = landingViewController.viewController(for: .signTab) as! UINavigationController
         let topSigningViewController = navController.viewControllers.last!
         
         landingViewController.documentPicker.dismiss(animated: false, completion: nil)
@@ -114,7 +112,7 @@ extension ContainerActions where Self: UIViewController {
 
     func addDataFilesToContainer(dataFilePaths: [String]) {
         let landingViewController = LandingViewController.shared!
-        let navController = landingViewController.viewControllers[0] as! UINavigationController
+        let navController = landingViewController.viewController(for: .signTab) as! UINavigationController
         let topSigningViewController = navController.viewControllers.last!
         let containerViewController = topSigningViewController as? ContainerViewController
         let containerPath = containerViewController!.containerPath
@@ -142,7 +140,7 @@ extension ContainerActions where Self: UIViewController {
         var containerPath = MoppFileManager.shared.filePath(withFileName: containerFilename)
             containerPath = MoppFileManager.shared.duplicateFilename(atPath: containerPath)
 
-        let navController = landingViewController.viewControllers[0] as! UINavigationController
+        let navController = landingViewController.viewController(for: .signTab) as? UINavigationController
 
         let cleanUpDataFilesInDocumentsFolderCode: () -> Void = {
             dataFilePaths.forEach {
@@ -171,14 +169,13 @@ extension ContainerActions where Self: UIViewController {
                 }
             
                 landingViewController.importProgressViewController.dismiss(animated: false, completion: nil)
-                landingViewController.selectedTab = .signTab
                 
                 let containerViewController = ContainerViewController.instantiate()
                 containerViewController.containerPath = containerPath
                 containerViewController.isCreated = true
                 containerViewController.startSigningWhenOpened = startSigningWhenCreated
                 
-                navController.pushViewController(containerViewController, animated: true)
+                navController?.pushViewController(containerViewController, animated: true)
             
             }, failure: { error in
                 if cleanUpDataFilesInDocumentsFolder {

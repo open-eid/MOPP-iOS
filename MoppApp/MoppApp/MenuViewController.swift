@@ -126,8 +126,7 @@ extension MenuViewController : UITableViewDelegate {
                     self.dismiss(animated: true, completion: {
                         let recentContainersViewController = UIStoryboard.recentContainers.instantiateInitialViewController()!
                             recentContainersViewController.modalPresentationStyle = .overFullScreen
-                        let firstTabViewController = LandingViewController.shared.viewControllers.first as! UINavigationController
-                        firstTabViewController.viewControllers.last!.present(recentContainersViewController, animated: true, completion: nil)
+                        MoppApp.instance.rootViewController?.present(recentContainersViewController, animated: true, completion: nil)
                     })
                 })
                 break
