@@ -32,7 +32,7 @@
 @property (nonatomic) SCARDCONTEXT contextHandle;
 @property (nonatomic, strong) ReaderInterface *readerInterface;
 @property (nonatomic, strong) NSTimer *cardStatusPollingTimer;
-@property (nonatomic) BOOL cardConnected;
+@property (nonatomic) MoppLibCardReaderStatus status;
 @end
 
 @implementation MoppLibCardReaderManager
@@ -42,6 +42,7 @@
   static MoppLibCardReaderManager *sharedInstance = nil;
   dispatch_once(&pred, ^{
     sharedInstance = [[self alloc] init];
+    sharedInstance.status = ReaderNotConnected;
     sharedInstance.readerInterface = [ReaderInterface new];
     [sharedInstance.readerInterface setDelegate:sharedInstance];
   });
@@ -53,7 +54,7 @@
 }
 
 - (void)stopDetecting {
-    if (_cardConnected) {
+    if (_status == CardConnected) {
         [self disconnectCard];
     }
     
@@ -66,26 +67,28 @@
     SCardReleaseContext(_contextHandle);
 }
 
-- (BOOL)isCardInserted {
+- (void)handleCardStatus {
     DWORD dwState;
-    LONG rv = 0;
-    rv = SCardStatus(_contextHandle, NULL, NULL, &dwState, NULL, NULL, NULL );
+    LONG ret = 0;
+    
+    ret = SCardStatus(_contextHandle, NULL, NULL, &dwState, NULL, NULL, NULL );
+    if (ret != SCARD_S_SUCCESS) {
+        // No luck on getting card status. Reconnect the reader.
+        [self updateStatus:ReaderNotConnected];
+        return;
+    }
     
     switch (dwState) {
     case SCARD_PRESENT:
-        NSLog(@"Present");
+        [self updateStatus:CardConnected];
         break;
     case SCARD_ABSENT:
-        NSLog(@"Absent");
+        [self updateStatus:ReaderConnected];
         break;
     case SCARD_SWALLOWED:
-        NSLog(@"Swallowed");
         [self connectCard];
         break;
     }
-    
-    // card absent = SCARD_ABSENT; should we handle SCARD_SWALLOWED (card not powered)
-    return rv == 0 && dwState == SCARD_PRESENT;
 }
 
 - (BOOL)connectCard {
@@ -95,19 +98,19 @@
     DWORD dwReaders = -1;
   
     iRet = SCardListReaders(_contextHandle, NULL, mszReaders, &dwReaders);
-    if(iRet != SCARD_S_SUCCESS)
-    {
+    if(iRet != SCARD_S_SUCCESS) {
         NSLog(@"SCardListReaders error %08x",iRet);
+        return NO;
     }
 
     iRet = SCardConnect(_contextHandle,mszReaders,SCARD_SHARE_SHARED,SCARD_PROTOCOL_T0 | SCARD_PROTOCOL_T1,&_contextHandle,&dwActiveProtocol);
-    _cardConnected = iRet == SCARD_S_SUCCESS;
-    
-    if (_cardConnected) {
-        [[CardActionsManager sharedInstance] setCardReader:[[CardReaderiR301 alloc] init]];
+    if (iRet != SCARD_S_SUCCESS) {
+        return NO;
     }
     
-    return _cardConnected;
+    [[CardActionsManager sharedInstance] setCardReader:[[CardReaderiR301 alloc] init]];
+    
+    return YES;
 }
 
 - (void)transmitCommand:(NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure {
@@ -188,24 +191,31 @@
 
 - (void)disconnectCard {
     SCardDisconnect(_contextHandle,SCARD_UNPOWER_CARD);
-    _cardConnected = NO;
+    [self updateStatus:ReaderConnected];
 }
 
-- (void)pollCardStatus {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        _cardStatusPollingTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(cardStatusPollingTimerCallback:) userInfo:nil repeats:YES];
-    });
+- (void)startPollingCardStatus {
+    _cardStatusPollingTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(cardStatusPollingTimerCallback:) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:_cardStatusPollingTimer forMode:NSDefaultRunLoopMode];
+}
+
+- (void)stopPollingCardStatus {
+    if (_cardStatusPollingTimer != nil) {
+        [_cardStatusPollingTimer invalidate];
+        _cardStatusPollingTimer = nil;
+    }
 }
 
 - (void)cardStatusPollingTimerCallback:(NSTimer *)timer {
-    if (_delegate) {
-        BOOL cardInserted = [self isCardInserted];
-        if (cardInserted) {
-            [_cardStatusPollingTimer invalidate];
-            _cardStatusPollingTimer = nil;
-        }
+    [self handleCardStatus];
+}
+
+- (void)updateStatus:(MoppLibCardReaderStatus)status {
+    if (_status != status) {
+        _status = status;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [_delegate moppLibCardReaderStatusDidChange:cardInserted];
+            if (_delegate)
+                [_delegate moppLibCardReaderStatusDidChange:status];
         });
     }
 }
@@ -214,21 +224,16 @@
 
 - (void) readerInterfaceDidChange:(BOOL)attached {
     if (attached) {
-        _cardConnected = NO;
-        [self pollCardStatus];
-    } else {
-        _cardConnected = NO;
-        [_cardStatusPollingTimer invalidate];
-        _cardStatusPollingTimer = nil;
-        
         dispatch_async(dispatch_get_main_queue(), ^{
-            [_delegate moppLibCardReaderStatusDidChange:false];
+            [self startPollingCardStatus];
+            [_delegate moppLibCardReaderStatusDidChange: ReaderConnected];
+        });
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self stopPollingCardStatus];
+            [_delegate moppLibCardReaderStatusDidChange: ReaderNotConnected];
         });
     }
-}
-
-- (void) cardInterfaceDidDetach:(BOOL)attached {
-
 }
 
 @end

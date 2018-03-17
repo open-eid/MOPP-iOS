@@ -605,6 +605,11 @@ extension ContainerViewController : IdCardSignViewControllerDelegate {
                     name: .signatureCreatedFinishedNotificationName,
                     object: nil,
                     userInfo: nil)
+            } else {
+                guard let nsError = error as NSError? else { return }
+                if nsError.code == Int(MoppLibErrorCode.moppLibErrorPinBlocked.rawValue) {
+                    errorAlert(message: L(.pin2BlockedAlert))
+                }
             }
         }
     }

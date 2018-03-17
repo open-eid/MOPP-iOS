@@ -23,9 +23,15 @@
 #import <Foundation/Foundation.h>
 #import "MoppLibConstants.h"
 
+typedef NS_ENUM(NSUInteger, MoppLibCardReaderStatus) {
+    ReaderNotConnected,     // Reader not found/selected
+    ReaderConnected,        // Reader connected but card not in the reader
+    CardConnected           // Card in the reader
+};
+
 @protocol MoppLibCardReaderManagerDelegate
 @required
-- (void)moppLibCardReaderStatusDidChange:(BOOL)readyForUse;
+- (void)moppLibCardReaderStatusDidChange:(MoppLibCardReaderStatus)status;
 @end
 
 @interface MoppLibCardReaderManager : NSObject

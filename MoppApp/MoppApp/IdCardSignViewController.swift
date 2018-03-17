@@ -46,7 +46,7 @@ class IdCardSignViewController : MoppViewController {
         case wrongPin2
     }
     
-    var state: State = .readerNotFound {
+    var state: State = .initial {
         didSet {
             updateStateUI(newState: state)
         }
@@ -65,6 +65,8 @@ class IdCardSignViewController : MoppViewController {
         cancelButton.setTitle(L(.actionCancel).uppercased())
         signButton.setTitle(L(.actionSign).uppercased())
     
+        pin2TextField.delegate = self
+        pin2TextField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
         pin2TextField.layer.borderColor = UIColor.moppContentLine.cgColor
         pin2TextField.layer.borderWidth = 1.0
         pin2TextField.moppPresentDismissButton()
@@ -73,16 +75,33 @@ class IdCardSignViewController : MoppViewController {
             forName: NSNotification.Name.UIApplicationDidBecomeActive,
             object: nil,
             queue: OperationQueue.main) { [weak self]_ in
-            self?.loadingSpinner.show(true)
+            guard let sself = self else { return }
+            let showLoading =
+                sself.state == .initial ||
+                sself.state == .readerNotFound ||
+                sself.state == .idCardNotFound ||
+                sself.state == .signing
+            self?.loadingSpinner.show(showLoading)
+            self?.pin2TextField.resignFirstResponder()
         }
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        if (pin2TextField != nil) {
+            pin2TextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
+        }
+    }
     
+    @objc func editingChanged(sender: UITextField) {
+        let count = (sender.text?.count ?? 0)
+        signButton.isEnabled = count >= 4 && count <= 6
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        state = .initial
+        updateStateUI(newState: state)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -94,7 +113,6 @@ class IdCardSignViewController : MoppViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-
         MoppLibCardReaderManager.sharedInstance().stopDetecting()
     }
     
@@ -108,6 +126,7 @@ class IdCardSignViewController : MoppViewController {
         case .initial:
             signButton.isEnabled = false
             pin2TextField.isHidden = true
+            pin2TextField.text = nil
             pin2TextFieldTitleLabel.isHidden = true
             pin2TextFieldTitleLabel.text = nil
             pin2TextFieldTitleLabel.textColor = UIColor.moppBaseBackground
@@ -116,6 +135,7 @@ class IdCardSignViewController : MoppViewController {
         case .readerNotFound:
             signButton.isEnabled = false
             pin2TextField.isHidden = true
+            pin2TextField.text = nil
             pin2TextFieldTitleLabel.isHidden = true
             pin2TextFieldTitleLabel.text = nil
             pin2TextFieldTitleLabel.textColor = UIColor.moppBaseBackground
@@ -124,6 +144,7 @@ class IdCardSignViewController : MoppViewController {
         case .idCardNotFound:
             signButton.isEnabled = false
             pin2TextField.isHidden = true
+            pin2TextField.text = nil
             pin2TextFieldTitleLabel.isHidden = true
             pin2TextFieldTitleLabel.text = nil
             pin2TextFieldTitleLabel.textColor = UIColor.moppBaseBackground
@@ -133,8 +154,9 @@ class IdCardSignViewController : MoppViewController {
             let fullname = idCardPersonalData?.fullName() ?? String()
             let personalCode = idCardPersonalData?.personalIdentificationCode ?? String()
             titleLabel.text = L(.cardReaderStateReady, [fullname, personalCode])
-            signButton.isEnabled = true
+            signButton.isEnabled = false
             pin2TextField.isHidden = false
+            pin2TextField.text = nil
             pin2TextFieldTitleLabel.isHidden = false
             pin2TextFieldTitleLabel.text = L(.pin2TextfieldLabel)
             pin2TextFieldTitleLabel.textColor = UIColor.moppText
@@ -142,6 +164,7 @@ class IdCardSignViewController : MoppViewController {
         case .signing:
             signButton.isEnabled = false
             pin2TextField.isHidden = true
+            pin2TextField.text = nil
             pin2TextFieldTitleLabel.isHidden = true
             pin2TextFieldTitleLabel.text = nil
             pin2TextFieldTitleLabel.textColor = UIColor.moppBaseBackground
@@ -153,6 +176,7 @@ class IdCardSignViewController : MoppViewController {
             titleLabel.text = L(.cardReaderStateReady, [fullname, personalCode])
             signButton.isEnabled = false
             pin2TextField.isHidden = false
+            pin2TextField.text = nil
             pin2TextFieldTitleLabel.isHidden = false
             pin2TextField.text = nil
             loadingSpinner.show(false)
@@ -161,7 +185,7 @@ class IdCardSignViewController : MoppViewController {
         }
         
         if newState == .initial {
-            initialStateExpirationTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: { [weak self]_ in
+            initialStateExpirationTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false, block: { [weak self]_ in
                 DispatchQueue.main.async {
                     self?.state = .readerNotFound
                 }
@@ -219,19 +243,32 @@ class IdCardSignViewController : MoppViewController {
 }
 
 extension IdCardSignViewController : MoppLibCardReaderManagerDelegate {
-    func moppLibCardReaderStatusDidChange(_ readyForUse: Bool) {
-        if readyForUse {
+    func moppLibCardReaderStatusDidChange(_ readerStatus: MoppLibCardReaderStatus) {
+        switch readerStatus {
+        case .ReaderNotConnected:
+            state = .readerNotFound
+        case .ReaderConnected:
+            state = .idCardNotFound
+        case .CardConnected:
             MoppLibCardActions.minimalCardPersonalData(with: self, success: { [weak self] moppLibPersonalData in
                 DispatchQueue.main.async {
-                    print(moppLibPersonalData?.fullName(), moppLibPersonalData?.personalIdentificationCode)
                     self?.idCardPersonalData = moppLibPersonalData
                     self?.state = .readyForSigning
                 }
             }, failure: { [weak self]_ in
                 self?.state = .readerNotFound
             })
-        } else {
-            state = .readerNotFound
         }
+    }
+}
+
+extension IdCardSignViewController : UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        state = .readyForSigning
+        if string.count == 0 {
+            return true
+        }
+        let text = (textField.text ?? String()) + string
+        return text.isNumeric && text.count < 6
     }
 }
