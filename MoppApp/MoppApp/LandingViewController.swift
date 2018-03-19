@@ -69,13 +69,21 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
 
     var selectedTab: TabButtonId = .signTab {
         didSet {
-            for (id, vc) in viewControllersToTabs {
-                vc.view.isHidden = id != selectedTab
-            }
+            changeTabViewController(with: selectedTab)
             selectTab(with: selectedTab)
         }
     }
-    var viewControllers: [UIViewController] = []
+    
+    var signingViewController: UIViewController = {
+        UIStoryboard.signing.instantiateInitialViewController()!
+    }()
+    var cryptoViewController: UIViewController = {
+        UIStoryboard.crypto.instantiateInitialViewController()!
+    }()
+    var myeIDViewController: UIViewController = {
+        UIStoryboard.myEID.instantiateInitialViewController()!
+    }()
+    
     var viewControllersToTabs: [TabButtonId: UIViewController] = [:]
     static private(set) var shared: LandingViewController!
 
@@ -85,36 +93,14 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
         }
     }
 
-    func configureConstraints(for targetView: UIView) {
-        let margins = self.containerView.safeAreaLayoutGuide
-
-        targetView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        targetView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        targetView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        targetView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        targetView.translatesAutoresizingMaskIntoConstraints = false
-        targetView.updateConstraints()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         LandingViewController.shared = self
         
-        viewControllers.append(UIStoryboard.signing.instantiateInitialViewController()!)
-        viewControllers.append(UIStoryboard.crypto.instantiateInitialViewController()!)
-        viewControllers.append(UIStoryboard.myEID.instantiateInitialViewController()!)
-        
-        viewControllersToTabs[.signTab] = viewControllers[0]
-        viewControllersToTabs[.cryptoTab] = viewControllers[1]
-        viewControllersToTabs[.myeIDTab] = viewControllers[2]
-        
-        viewControllers.forEach { viewController in
-            viewController.view.frame = view.bounds
-            containerView.addSubview(viewController.view)
-            viewController.view.frame = containerView.bounds
-            configureConstraints(for: viewController.view)
-            containerView.updateConstraints()
-        }
+        viewControllersToTabs[.signTab] = signingViewController
+        viewControllersToTabs[.cryptoTab] = cryptoViewController
+        viewControllersToTabs[.myeIDTab] = myeIDViewController
         
         selectedTab = .signTab
         
@@ -138,6 +124,49 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
                 $0.button.removeTarget(self, action: #selector(tabButtonTapAction), for: .touchUpInside)
             }
         }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        selectedTab = .signTab
+    }
+
+    func changeTabViewController(with buttonID: TabButtonId) {
+        let oldViewController = childViewControllers.first
+        let newViewController = viewControllersToTabs[buttonID]!
+        
+        if oldViewController == newViewController {
+            return
+        }
+        
+        oldViewController?.willMove(toParentViewController: nil)
+        addChildViewController(newViewController)
+        
+        oldViewController?.removeFromParentViewController()
+        newViewController.didMove(toParentViewController: self)
+    
+        newViewController.view.translatesAutoresizingMaskIntoConstraints = false
+    
+        oldViewController?.view.removeFromSuperview()
+        containerView.addSubview(newViewController.view)
+    
+        let margins = containerView.safeAreaLayoutGuide
+        let leading = newViewController.view.leadingAnchor.constraint(equalTo: margins.leadingAnchor)
+        let trailing = newViewController.view.trailingAnchor.constraint(equalTo: margins.trailingAnchor)
+        let top = newViewController.view.topAnchor.constraint(equalTo: margins.topAnchor)
+        let bottom = newViewController.view.bottomAnchor.constraint(equalTo: margins.bottomAnchor)
+    
+        leading.isActive = true
+        trailing.isActive = true
+        top.isActive = true
+        bottom.isActive = true
+
+        newViewController.view.updateConstraintsIfNeeded()
+    }
+
+    func viewController(for tab: TabButtonId) -> UIViewController {
+        selectedTab = tab
+        return childViewControllers.first!
     }
 
     @objc func tabButtonTapAction(sender: UIButton) {

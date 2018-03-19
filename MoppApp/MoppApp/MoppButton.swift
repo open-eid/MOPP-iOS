@@ -1,6 +1,6 @@
 //
-//  NSString+Additions.h
-//  MoppLib
+//  MoppButton.swift
+//  MoppApp
 //
 /*
  * Copyright 2017 Riigi Infosüsteemide Amet
@@ -20,15 +20,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-
-#import <Foundation/Foundation.h>
-
-@interface NSString (Additions)
-
-- (NSString *)toHexString;
-- (NSData *)toHexData;
-- (NSString *)hexToString;
-- (int)hexToInt;
-- (NSString *)SHA256;
-- (NSString *)replaceHexStringLastValue:(unsigned char)valueToReplace;
-@end
+ class MoppButton: UIButton {
+    override var isEnabled: Bool {
+        willSet {
+            let enabling = newValue
+            backgroundColor = enabling ? UIColor.moppBase : UIColor.moppDescriptiveText
+        }
+    }
+}

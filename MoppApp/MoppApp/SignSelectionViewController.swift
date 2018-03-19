@@ -29,6 +29,8 @@ class SignSelectionViewController : MoppViewController {
     weak var mobileIdEditViewControllerDelegate: MobileIDEditViewControllerDelegate!
     weak var idCardSignViewControllerDelegate: IdCardSignViewControllerDelegate!
     
+    var containerPath: String!
+    
     var isSwitchingBlockedByTransition: Bool = false
     
     let idCardSignViewController: IdCardSignViewController = {
@@ -99,6 +101,7 @@ extension SignSelectionViewController {
         case .idCard:
             newViewController = idCardSignViewController
             (newViewController as! IdCardSignViewController).delegate = idCardSignViewControllerDelegate
+            (newViewController as! IdCardSignViewController).containerPath = containerPath
         case .mobileID:
             newViewController = mobileIdEditViewController
             (newViewController as! MobileIDEditViewController).delegate = mobileIdEditViewControllerDelegate

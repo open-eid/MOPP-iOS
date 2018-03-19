@@ -42,9 +42,6 @@
 "Error" = "Error";
 "Ok" = "Ok";
 
-"signature-already-exists-title" = "Signature exists";
-"signature-already-exists-message" = "You have already signed the container, are you sure you want to add another signature?";
-
 // *** Digidoc service status ***
 
 "digidoc-service-status-request-sent" = "Signing request sent";

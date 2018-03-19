@@ -81,7 +81,7 @@ class ContainerSignatureCell: UITableViewCell {
             nameLabel.textColor = UIColor.moppText
             statusIconImageView.image = UIImage(named: "icon_check")
         case .showInvalid:
-            nameLabel.textColor = UIColor.moppWarning
+            nameLabel.textColor = UIColor.moppError
             statusIconImageView.image = UIImage(named: "icon_alert_red")
         case .showSuccess:
             nameLabel.textColor = UIColor.moppText

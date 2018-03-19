@@ -72,7 +72,7 @@ typedef enum {
 }
 
 + (NSError *)pinBlockedError {
-  return [self error:moppLibErrorPinBlocked withMessage:@"PIN retry count has been exceeded. PIN is blocked."];
+  return [self error:moppLibErrorPinBlocked userInfo:nil];
 }
 
 + (NSError *)invalidPinError {

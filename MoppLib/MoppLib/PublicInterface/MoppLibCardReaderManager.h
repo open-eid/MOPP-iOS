@@ -1,5 +1,5 @@
 //
-//  NSString+Additions.h
+//  MoppLibCardReaderManager.h
 //  MoppLib
 //
 /*
@@ -20,15 +20,24 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-
 #import <Foundation/Foundation.h>
+#import "MoppLibConstants.h"
 
-@interface NSString (Additions)
+typedef NS_ENUM(NSUInteger, MoppLibCardReaderStatus) {
+    ReaderNotConnected,     // Reader not found/selected
+    ReaderConnected,        // Reader connected but card not in the reader
+    CardConnected           // Card in the reader
+};
 
-- (NSString *)toHexString;
-- (NSData *)toHexData;
-- (NSString *)hexToString;
-- (int)hexToInt;
-- (NSString *)SHA256;
-- (NSString *)replaceHexStringLastValue:(unsigned char)valueToReplace;
+@protocol MoppLibCardReaderManagerDelegate
+@required
+- (void)moppLibCardReaderStatusDidChange:(MoppLibCardReaderStatus)status;
+@end
+
+@interface MoppLibCardReaderManager : NSObject
+@property (weak) id <MoppLibCardReaderManagerDelegate> delegate;
++ (MoppLibCardReaderManager *)sharedInstance;
+- (void)transmitCommand:(NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure;
+- (void)startDetecting;
+- (void)stopDetecting;
 @end

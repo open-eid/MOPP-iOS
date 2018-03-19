@@ -1,5 +1,5 @@
 //
-//  NSString+Additions.h
+//  CardReaderiR301.h
 //  MoppLib
 //
 /*
@@ -20,15 +20,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-
 #import <Foundation/Foundation.h>
+#import "CardReaderWrapper.h"
+#import "MoppLibConstants.h"
+#import "ReaderInterface.h"
 
-@interface NSString (Additions)
+@interface CardReaderiR301 : NSObject <CardReaderWrapper>
 
-- (NSString *)toHexString;
-- (NSData *)toHexData;
-- (NSString *)hexToString;
-- (int)hexToInt;
-- (NSString *)SHA256;
-- (NSString *)replaceHexStringLastValue:(unsigned char)valueToReplace;
+@property (nonatomic, strong) id<CardReaderWrapperDelegate> delegate;
+-(id)initWithInterface:(ReaderInterface*)interface;
+-(void)setupWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
+
 @end

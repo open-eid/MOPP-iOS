@@ -20,11 +20,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-import Foundation
-
-
 class SpinnerView : UIView {
     @IBOutlet weak var spinningElement: UIView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         show(true)
@@ -32,7 +30,7 @@ class SpinnerView : UIView {
 
     func show(_ show: Bool) {
         
-        spinningElement.isHidden = !show
+        isHidden = !show
         
         let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
             rotation.toValue = Double.pi * 2
@@ -41,8 +39,6 @@ class SpinnerView : UIView {
             rotation.repeatCount = .greatestFiniteMagnitude
         
         spinningElement.layer.add(rotation, forKey: "loaderRotation")
-        
-        updateFrame()
     }
     
     func updateFrame() {

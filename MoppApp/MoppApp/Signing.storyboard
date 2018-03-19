@@ -5,7 +5,6 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -517,7 +516,7 @@
                                         <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gaf-dW-Wt7">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gaf-dW-Wt7" customClass="MoppButton" customModule="MoppApp" customModuleProvider="target">
                                         <rect key="frame" x="16" y="184" width="137.5" height="40"/>
                                         <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -536,7 +535,7 @@
                                             <action selector="cancelAction" destination="vYM-BV-eGM" eventType="touchUpInside" id="h50-fH-3LE"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lD7-6o-CiX">
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lD7-6o-CiX" customClass="MoppButton" customModule="MoppApp" customModuleProvider="target">
                                         <rect key="frame" x="157.5" y="184" width="137.5" height="40"/>
                                         <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -580,10 +579,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lYv-II-Ccw" customClass="SpinnerView" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="125.5" y="92" width="60" height="60"/>
+                                        <rect key="frame" x="135.5" y="97" width="40" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UcT-lN-zyz">
-                                                <rect key="frame" x="5" y="5" width="50" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                 <viewLayoutGuide key="safeArea" id="B7E-Ak-oxz"/>
                                                 <color key="tintColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="Spinner"/>
@@ -591,10 +590,12 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="60" id="6Hx-ea-vbF"/>
-                                            <constraint firstItem="UcT-lN-zyz" firstAttribute="centerY" secondItem="lYv-II-Ccw" secondAttribute="centerY" id="JML-ob-wAg"/>
-                                            <constraint firstItem="UcT-lN-zyz" firstAttribute="centerX" secondItem="lYv-II-Ccw" secondAttribute="centerX" id="aZS-MW-ixs"/>
-                                            <constraint firstAttribute="height" constant="60" id="ich-ro-dZo"/>
+                                            <constraint firstAttribute="width" constant="40" id="6Hx-ea-vbF"/>
+                                            <constraint firstAttribute="trailing" secondItem="UcT-lN-zyz" secondAttribute="trailing" id="6vm-Ch-JLb"/>
+                                            <constraint firstItem="UcT-lN-zyz" firstAttribute="leading" secondItem="lYv-II-Ccw" secondAttribute="leading" id="BuI-3l-85i"/>
+                                            <constraint firstAttribute="bottom" secondItem="UcT-lN-zyz" secondAttribute="bottom" id="JGk-SS-gT3"/>
+                                            <constraint firstItem="UcT-lN-zyz" firstAttribute="top" secondItem="lYv-II-Ccw" secondAttribute="top" id="SRn-Dd-Gqb"/>
+                                            <constraint firstAttribute="height" constant="40" id="ich-ro-dZo"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="spinningElement" destination="UcT-lN-zyz" id="73z-8e-D0O"/>
@@ -611,10 +612,9 @@
                                     <constraint firstAttribute="trailing" secondItem="YUz-dn-xax" secondAttribute="trailing" constant="16" id="DID-b7-q6L"/>
                                     <constraint firstItem="hzW-m8-9U3" firstAttribute="leading" secondItem="aph-Na-PNS" secondAttribute="leading" constant="16" id="IQI-L8-zCX"/>
                                     <constraint firstItem="lD7-6o-CiX" firstAttribute="leading" secondItem="gaf-dW-Wt7" secondAttribute="trailing" priority="750" constant="4" id="JFn-dB-0Jk"/>
-                                    <constraint firstAttribute="trailing" secondItem="gaf-dW-Wt7" secondAttribute="trailing" priority="250" constant="16" id="JHL-aO-NFi"/>
                                     <constraint firstAttribute="bottom" secondItem="gaf-dW-Wt7" secondAttribute="bottom" constant="16" id="Jo7-ep-Khf"/>
                                     <constraint firstItem="gaf-dW-Wt7" firstAttribute="leading" secondItem="aph-Na-PNS" secondAttribute="leading" constant="16" id="ODz-zI-mws"/>
-                                    <constraint firstItem="lYv-II-Ccw" firstAttribute="top" secondItem="YUz-dn-xax" secondAttribute="bottom" constant="13" id="Tph-dS-aiI"/>
+                                    <constraint firstItem="lYv-II-Ccw" firstAttribute="top" secondItem="YUz-dn-xax" secondAttribute="bottom" constant="18" id="Tph-dS-aiI"/>
                                     <constraint firstItem="gaf-dW-Wt7" firstAttribute="top" secondItem="hzW-m8-9U3" secondAttribute="bottom" constant="24" id="bK6-Ni-jZY"/>
                                     <constraint firstItem="gaf-dW-Wt7" firstAttribute="width" secondItem="lD7-6o-CiX" secondAttribute="width" id="f2s-oV-zAq"/>
                                     <constraint firstItem="YUz-dn-xax" firstAttribute="top" secondItem="aph-Na-PNS" secondAttribute="top" constant="8" id="gc8-j0-NMR"/>
@@ -639,8 +639,6 @@
                     <size key="freeformSize" width="343" height="240"/>
                     <connections>
                         <outlet property="cancelButton" destination="gaf-dW-Wt7" id="CCk-8o-YME"/>
-                        <outlet property="cancelButtonTrailingToSignButtonCSTR" destination="JFn-dB-0Jk" id="qsd-81-MNG"/>
-                        <outlet property="cancelButtonTrailingToSuperViewCSTR" destination="JHL-aO-NFi" id="UFq-Ad-Gjx"/>
                         <outlet property="loadingSpinner" destination="lYv-II-Ccw" id="WQI-Re-Qt1"/>
                         <outlet property="pin2TextField" destination="6IK-84-n36" id="HYC-5i-0Ce"/>
                         <outlet property="pin2TextFieldTitleLabel" destination="hzW-m8-9U3" id="Wnb-Mv-Iit"/>

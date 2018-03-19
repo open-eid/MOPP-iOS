@@ -39,6 +39,10 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
     var downloadCompletion: (() -> Void)? = nil
     var window: UIWindow?
 
+    var rootViewController: UIViewController? {
+        return window?.rootViewController
+    }
+
     enum Nib : String {
         case containerElements = "ContainerElements"
         case recentContainersElements = "RecentContainersElements"

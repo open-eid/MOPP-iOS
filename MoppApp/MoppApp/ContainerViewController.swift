@@ -184,7 +184,7 @@ class ContainerViewController : MoppViewController, ContainerActions {
             
             if strongSelf.startSigningWhenOpened {
                 strongSelf.startSigningWhenOpened = false
-                strongSelf.startSigningWithMobileID()
+                strongSelf.startSigning()
             }
             
         }, failure: { [weak self] error in
@@ -192,7 +192,7 @@ class ContainerViewController : MoppViewController, ContainerActions {
             let nserror = error! as NSError
             var message = nserror.domain
             var title: String? = nil
-            if (nserror.code == moppLibErrorGeneral.rawValue) {
+            if nserror.code == Int(MoppLibErrorCode.moppLibErrorGeneral.rawValue) {
                 title = L(.fileImportOpenExistingFailedAlertTitle)
                 message = L(.fileImportOpenExistingFailedAlertMessage, [self?.containerPath.substr(fromLast: "/") ?? String()])
             }
@@ -211,7 +211,7 @@ class ContainerViewController : MoppViewController, ContainerActions {
         refreshLoadingAnimation()
     }
 
-    func startSigningWithMobileID() {
+    func startSigning() {
         
         if container.isLegacyType() {
             createLegacyContainer()
@@ -222,6 +222,7 @@ class ContainerViewController : MoppViewController, ContainerActions {
             
             signSelectionVC.mobileIdEditViewControllerDelegate = self
             signSelectionVC.idCardSignViewControllerDelegate = self
+            signSelectionVC.containerPath = containerPath
             
             LandingViewController.shared.present(signSelectionVC, animated: false, completion: nil)
         }
@@ -242,7 +243,7 @@ class ContainerViewController : MoppViewController, ContainerActions {
 extension ContainerViewController : LandingViewControllerTabButtonsDelegate {
     func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId, sender: UIView) {
         if tabButtonId == .signButton {
-            startSigningWithMobileID()
+            startSigning()
         }
         else if tabButtonId == .shareButton {
             LandingViewController.shared.shareFile(using: URL(fileURLWithPath: containerPath), sender: sender, completion: { bool in })
@@ -597,7 +598,20 @@ extension ContainerViewController : MobileIDEditViewControllerDelegate {
 }
 
 extension ContainerViewController : IdCardSignViewControllerDelegate {
-    func idCardViewControllerDidDismiss(cancelled: Bool) {
+    func idCardSignDidFinished(cancelled: Bool, success: Bool, error: Error?) {
+        if !cancelled {
+            if success {
+                NotificationCenter.default.post(
+                    name: .signatureCreatedFinishedNotificationName,
+                    object: nil,
+                    userInfo: nil)
+            } else {
+                guard let nsError = error as NSError? else { return }
+                if nsError.code == Int(MoppLibErrorCode.moppLibErrorPinBlocked.rawValue) {
+                    errorAlert(message: L(.pin2BlockedAlert))
+                }
+            }
+        }
     }
 }
 
