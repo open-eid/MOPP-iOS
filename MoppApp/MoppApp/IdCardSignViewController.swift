@@ -264,11 +264,10 @@ extension IdCardSignViewController : MoppLibCardReaderManagerDelegate {
 
 extension IdCardSignViewController : UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        state = .readyForSigning
         if string.count == 0 {
             return true
         }
         let text = (textField.text ?? String()) + string
-        return text.isNumeric && text.count < 6
+        return text.isNumeric && text.count < 12
     }
 }
