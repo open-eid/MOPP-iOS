@@ -56,6 +56,7 @@ NSString *const kCardActionDataCodeType = @"Code type";
 NSString *const kCardActionDataNewCode = @"New code";
 NSString *const kCardActionDataVerify = @"Verify";
 NSString *const kCardActionDataRecord = @"Record";
+NSString *const kCardActionDataUseECC = @"Use ECC";
 
 @interface CardActionObject : NSObject
 @property (nonatomic, assign) CardAction cardAction;
@@ -66,6 +67,7 @@ NSString *const kCardActionDataRecord = @"Record";
 @property (nonatomic, strong) NSDictionary *data;
 @property (nonatomic, assign) NSUInteger retryCount;
 @property (nonatomic, strong) NSString *pin;
+@property (nonatomic)         BOOL useECC;
 @end
 
 @implementation CardActionObject
@@ -195,8 +197,8 @@ static CardActionsManager *sharedInstance = nil;
   } failure:failure];
 }
 
-- (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 controller:(UIViewController *)controller success:(DataSuccessBlock)success failure:(FailureBlock)failure {
-  NSDictionary *data = @{kCardActionDataHash:hash, kCardActionDataVerify:pin2};
+- (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 controller:(UIViewController *)controller useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure {
+  NSDictionary *data = @{kCardActionDataHash:hash, kCardActionDataVerify:pin2, kCardActionDataUseECC:[NSNumber numberWithBool:useECC]};
   [self addCardAction:CardActionCalculateSignature data:data viewController:controller success:success failure:failure];
 }
 
@@ -349,7 +351,6 @@ static CardActionsManager *sharedInstance = nil;
                     self.cardVersionHandler = handler;
                   
                   } else {
-                    MLLog(@"Unsupported card version. Going to use v3.5 protocol");
                     EstEIDv3_5 *handler = [EstEIDv3_5 new];
                     [handler setReader:self.cardReader];
                     self.cardVersionHandler = handler;
@@ -536,7 +537,8 @@ static CardActionsManager *sharedInstance = nil;
     case CardActionCalculateSignature: {
       NSString *pin2 = [actionObject.data objectForKey:kCardActionDataVerify];
       NSData *hash = [actionObject.data objectForKey:kCardActionDataHash];
-      [self.cardVersionHandler calculateSignatureFor:hash withPin2:pin2 success:success failure:failure];
+      BOOL useECC = [(NSNumber *)[actionObject.data objectForKey:kCardActionDataUseECC] boolValue];
+      [self.cardVersionHandler calculateSignatureFor:hash withPin2:pin2 useECC:useECC success:success failure:failure];
       break;
     }
       
