@@ -236,4 +236,5 @@ enum LocKey : String
     case wrongPin2Single = "wrong-pin2-single"
     case pin2TextfieldLabel = "pin2-textfield-label"
     case pin2BlockedAlert = "pin2-blocked-alert"
+    case idCardSignGenericErrorMessage = "id-card-sign-generic-error-message"
 }

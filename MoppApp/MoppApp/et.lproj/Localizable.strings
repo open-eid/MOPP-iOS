@@ -270,3 +270,4 @@
 "card-reader-state-initial" = "Allkirjastamiseks ühenda kaardilugeja telefoniga ja sisesta enda ID-kaart lugejasse";
 "pin2-textfield-label" = "PIN2";
 "pin2-blocked-alert" = "Sinu PIN2 on lukustatud.\nPIN2 avamiseks kasuta ID-kaardi haldusvahendit";
+"id-card-sign-generic-error-message" = "Midagi läks valesti. Palun proovi uuesti";
