@@ -212,7 +212,7 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   } failure:failure];
 }
 
-- (void)calculateSignatureFor:(NSData *)hash withPin2:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure {  
+- (void)calculateSignatureFor:(NSData *)hash withPin2:(NSString *)pin2 useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure {
   void (^calculateSignature)(NSData *) = ^void (NSData *responseObject) {
     NSString *algorithmIdentifyer;
     switch (hash.length) {
@@ -239,9 +239,15 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
       default:
         break;
     }
-    NSString *commandSufix = [NSString stringWithFormat:@"%02X %@ %@", hash.length + algorithmIdentifyer.length / 2, algorithmIdentifyer, [hash toHexString]];
-
-    [self.reader transmitCommand:[NSString stringWithFormat:kCommandCalculateSignature, commandSufix] success:^(NSData *responseObject) {
+    
+    NSString *commandSuffix;
+    
+    if (useECC)
+        commandSuffix = [NSString stringWithFormat:@"%02lX %@", hash.length, [hash toHexString]];
+    else
+        commandSuffix = [NSString stringWithFormat:@"%02lX %@ %@", hash.length + algorithmIdentifyer.length / 2, algorithmIdentifyer, [hash toHexString]];
+    
+    [self.reader transmitCommand:[NSString stringWithFormat:kCommandCalculateSignature, commandSuffix] success:^(NSData *responseObject) {
       success([responseObject trimmedData]);
     } failure:failure];
   };
