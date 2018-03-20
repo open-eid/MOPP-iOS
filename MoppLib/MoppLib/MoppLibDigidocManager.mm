@@ -37,6 +37,8 @@
 #import "MLFileManager.h"
 #import "MoppLibError.h"
 #import "CardActionsManager.h"
+#import <Security/SecCertificate.h>
+#import <Security/SecKey.h>
 
 class DigiDocConf: public digidoc::ConfCurrent {
 public:
@@ -420,6 +422,14 @@ void parseException(const digidoc::Exception &e) {
     
     doc = digidoc::Container::open(containerPath.UTF8String);
     
+    // Check if key type in certificate supports ECC algorithm
+    CFDataRef cfData = CFDataCreateWithBytesNoCopy(nil, (const UInt8 *)bytes, cert.length, kCFAllocatorNull);
+    SecCertificateRef certRef = SecCertificateCreateWithData(kCFAllocatorDefault, cfData);
+    SecKeyRef publicKey = SecCertificateCopyPublicKey(certRef);
+    CFStringRef descrRef = CFCopyDescription(publicKey);
+    NSString *publicKeyInfo = (NSString *)CFBridgingRelease(descrRef);
+    BOOL useECC = [publicKeyInfo containsString:@"ECPublicKey"];
+    
     WebSigner *signer = new WebSigner(x509Cert);
     
     std::string profile;
@@ -449,7 +459,7 @@ void parseException(const digidoc::Exception &e) {
     digidoc::Signature *signature = doc->prepareSignature(signer);
     std::vector<unsigned char> dataToSign = signature->dataToSign();
     
-    [[CardActionsManager sharedInstance] calculateSignatureFor:[NSData dataWithBytes:dataToSign.data() length:dataToSign.size()] pin2:pin2 controller:nil success:^(NSData *calculatedSignature) {
+    [[CardActionsManager sharedInstance] calculateSignatureFor:[NSData dataWithBytes:dataToSign.data() length:dataToSign.size()] pin2:pin2 controller:nil useECC: useECC success:^(NSData *calculatedSignature) {
       try {
         unsigned char *buffer = (unsigned char *)[calculatedSignature bytes];
         std::vector<unsigned char>::size_type size = calculatedSignature.length;
