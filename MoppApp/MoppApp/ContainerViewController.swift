@@ -613,6 +613,12 @@ extension ContainerViewController : IdCardSignViewControllerDelegate {
                     errorAlert(message: L(.idCardSignGenericErrorMessage))
                 }
             }
+        } else {
+            if let error = error as? IdCardSigningError {
+                if error == .signingCancelled {
+                    errorAlert(message: L(.signingAbortedMessage))
+                }
+            }
         }
     }
 }

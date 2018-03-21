@@ -265,9 +265,10 @@
 "card-reader-state-id-card-not-found" = "Kaardilugeja leitud.\nSisesta enda ID-kaart kaardilugejasse.";
 "card-reader-state-ready" = "Valmis allkirjastamiseks ID-kaardiga.\n%@ (%@)\nSisesta PIN2";
 "signing-in-progress" = "Toimub allkirjastamine.\nPalun oota.";
-"wrong-pin2" = "Vale PIN2. %d katset järgi.";
-"wrong-pin2-single" = "Vale PIN2. 1 katse järgi.";
+"wrong-pin2" = "Vale PIN2. %d katset järgi.\nSisestades %d korda vale PIN2 sinu PIN2 lukustub";
+"wrong-pin2-single" = "Vale PIN2. 1 katse järgi.Sisestades vale PIN2-e sinu PIN2 lukustub";
 "card-reader-state-initial" = "Allkirjastamiseks ühenda kaardilugeja telefoniga ja sisesta enda ID-kaart lugejasse";
 "pin2-textfield-label" = "PIN2";
 "pin2-blocked-alert" = "Sinu PIN2 on lukustatud.\nPIN2 avamiseks kasuta ID-kaardi haldusvahendit";
 "id-card-sign-generic-error-message" = "Midagi läks valesti. Palun proovi uuesti";
+"signing-aborted-message" = "Viga: signeerimise protsess katkestatud";
