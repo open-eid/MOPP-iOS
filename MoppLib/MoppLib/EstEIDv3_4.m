@@ -72,42 +72,42 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
 - (void)readMinimalPublicDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure {
   MoppLibPersonalData *personalData = [MoppLibPersonalData new];
   void (^readSurname)(void) = [self readRecord:1 success:^(NSData *responseObject) {
-    personalData.surname = [responseObject responseString];
+    personalData.surname = [responseObject responseStringWCP1252];
     success(personalData);
   } failure:failure];
   
   void (^readFirstNameLine1)(void) = [self readRecord:2 success:^(NSData *responseObject) {
-    personalData.firstNameLine1 = [responseObject responseString];
+    personalData.firstNameLine1 = [responseObject responseStringWCP1252];
     readSurname();
   } failure:failure];
   
   void (^readFirstNameLine2)(void) = [self readRecord:3 success:^(NSData *responseObject) {
-    personalData.firstNameLine2 = [responseObject responseString];
+    personalData.firstNameLine2 = [responseObject responseStringWCP1252];
     readFirstNameLine1();
   } failure:failure];
   
   void (^readNationality)(void) = [self readRecord:5 success:^(NSData *responseObject) {
-    personalData.nationality = [responseObject responseString];
+    personalData.nationality = [responseObject responseStringWCP1252];
     readFirstNameLine2();
   } failure:failure];
   
   void (^readBirthDate)(void) = [self readRecord:6 success:^(NSData *responseObject) {
-    personalData.birthDate = [responseObject responseString];
+    personalData.birthDate = [responseObject responseStringWCP1252];
     readNationality();
   } failure:failure];
   
   void (^readIdCode)(void) = [self readRecord:7 success:^(NSData *responseObject) {
-    personalData.personalIdentificationCode = [responseObject responseString];
+    personalData.personalIdentificationCode = [responseObject responseStringWCP1252];
     readBirthDate();
   } failure:failure];
   
   void (^readDocumentNr)(void) = [self readRecord:8 success:^(NSData *responseObject) {
-    personalData.documentNumber = [responseObject responseString];
+    personalData.documentNumber = [responseObject responseStringWCP1252];
     readIdCode();
   } failure:failure];
   
   void (^readExpiryDate)(void) = [self readRecord:9 success:^(NSData *responseObject) {
-    personalData.expiryDate = [responseObject responseString];
+    personalData.expiryDate = [responseObject responseStringWCP1252];
     readDocumentNr();
   } failure:failure];
   
@@ -122,37 +122,37 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   [self readMinimalPublicDataWithSuccess:^(MoppLibPersonalData *personalData) {
     
     void (^readSex)(void) = [self readRecord:4 success:^(NSData *responseObject) {
-      personalData.sex = [responseObject responseString];
+      personalData.sex = [responseObject responseStringWCP1252];
       success(personalData);
     } failure:failure];
     
     void (^readDateIssued)(void) = [self readRecord:11 success:^(NSData *responseObject) {
-      personalData.dateIssued = [responseObject responseString];
+      personalData.dateIssued = [responseObject responseStringWCP1252];
       readSex();
     } failure:failure];
     
     void (^readTypeOfPermit)(void) = [self readRecord:12 success:^(NSData *responseObject) {
-      personalData.residentPermitType = [responseObject responseString];
+      personalData.residentPermitType = [responseObject responseStringWCP1252];
       readDateIssued();
     } failure:failure];
     
     void (^readNotes1)(void) = [self readRecord:13 success:^(NSData *responseObject) {
-      personalData.notes1 = [responseObject responseString];
+      personalData.notes1 = [responseObject responseStringWCP1252];
       readTypeOfPermit();
     } failure:failure];
     
     void (^readNotes2)(void) = [self readRecord:14 success:^(NSData *responseObject) {
-      personalData.notes2 = [responseObject responseString];
+      personalData.notes2 = [responseObject responseStringWCP1252];
       readNotes1();
     } failure:failure];
     
     void (^readNotes3)(void) = [self readRecord:15 success:^(NSData *responseObject) {
-      personalData.notes3 = [responseObject responseString];
+      personalData.notes3 = [responseObject responseStringWCP1252];
       readNotes2();
     } failure:failure];
     
     void (^readNotes4)(void) = [self readRecord:16 success:^(NSData *responseObject) {
-      personalData.notes4 = [responseObject responseString];
+      personalData.notes4 = [responseObject responseStringWCP1252];
       readNotes3();
     } failure:failure];
     
@@ -164,7 +164,7 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   void (^readBirthDate)(void) = [self readRecord:6 success:^(NSData *responseObject) {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"dd.MM.yyyy"];
-    NSString *dateString = [responseObject responseString];
+    NSString *dateString = [responseObject responseStringWCP1252];
     success([dateFormatter dateFromString:dateString]);
     
   } failure:failure];

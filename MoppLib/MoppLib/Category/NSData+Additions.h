@@ -26,6 +26,6 @@
 @interface NSData (Additions)
 - (NSString *)toHexString;
 - (NSData *)responseTrailerData;
-- (NSString *)responseString;
+- (NSString *)responseStringWCP1252;
 - (NSData *)trimmedData;
 @end
