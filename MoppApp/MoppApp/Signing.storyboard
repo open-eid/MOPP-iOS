@@ -293,12 +293,14 @@
                         <constraints>
                             <constraint firstItem="HxK-Xa-vBF" firstAttribute="leading" secondItem="l9o-S4-h7Q" secondAttribute="leading" constant="16" id="0ZL-hN-Q1f"/>
                             <constraint firstItem="xtI-Lw-3HZ" firstAttribute="bottom" secondItem="HxK-Xa-vBF" secondAttribute="bottom" priority="250" constant="-10" id="1GS-RE-YIY"/>
+                            <constraint firstItem="HxK-Xa-vBF" firstAttribute="centerY" secondItem="l9o-S4-h7Q" secondAttribute="centerY" priority="700" constant="-50" id="Sfv-ou-dfs"/>
                             <constraint firstAttribute="trailing" secondItem="HxK-Xa-vBF" secondAttribute="trailing" constant="16" id="Tw3-xX-LOK"/>
                             <constraint firstItem="HxK-Xa-vBF" firstAttribute="centerY" secondItem="l9o-S4-h7Q" secondAttribute="centerY" priority="750" id="fBG-vb-azK"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="centerViewCenterCSTR" destination="fBG-vb-azK" id="fAa-8z-ap2"/>
+                        <outlet property="centerViewKeyboardCSTR" destination="Sfv-ou-dfs" id="GyO-fo-ATd"/>
                         <outlet property="centerViewOutofscreenCSTR" destination="1GS-RE-YIY" id="Ga0-H5-Xdm"/>
                         <outlet property="containerView" destination="Df6-GD-Zbt" id="q8l-NE-7iA"/>
                         <outletCollection property="signMethodButtons" destination="hAb-Sh-AD7" collectionClass="NSMutableArray" id="AqI-aE-h4M"/>

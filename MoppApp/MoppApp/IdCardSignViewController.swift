@@ -24,6 +24,11 @@ enum IdCardSigningError: Error {
     case signingCancelled
 }
 
+protocol IdCardSignViewKeyboardDelegate : class {
+    func idCardSignPIN2KeyboardWillAppear()
+    func idCardSignPIN2KeyboardWillDisappear()
+}
+
 protocol IdCardSignViewControllerDelegate : class {
     func idCardSignDidFinished(cancelled: Bool, success: Bool, error: Error?)
 }
@@ -40,6 +45,7 @@ class IdCardSignViewController : MoppViewController {
     
     var containerPath: String!
     weak var delegate: IdCardSignViewControllerDelegate!
+    weak var keyboardDelegate: IdCardSignViewKeyboardDelegate? = nil
     
     enum State {
         case initial
@@ -87,6 +93,12 @@ class IdCardSignViewController : MoppViewController {
                 sself.state == .signing
             self?.loadingSpinner.show(showLoading)
             self?.pin2TextField.resignFirstResponder()
+        }
+        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil, queue: OperationQueue.main) { [weak self]_ in
+            self?.keyboardDelegate?.idCardSignPIN2KeyboardWillAppear()
+        }
+        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { [weak self]_ in
+            self?.keyboardDelegate?.idCardSignPIN2KeyboardWillDisappear()
         }
     }
     

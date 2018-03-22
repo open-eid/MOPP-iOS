@@ -23,6 +23,7 @@
 class SignSelectionViewController : MoppViewController {
     @IBOutlet weak var centerViewCenterCSTR: NSLayoutConstraint!
     @IBOutlet weak var centerViewOutofscreenCSTR: NSLayoutConstraint!
+    @IBOutlet weak var centerViewKeyboardCSTR: NSLayoutConstraint!
     @IBOutlet var signMethodButtons: [UIButton]!
     @IBOutlet weak var containerView: UIView!
     
@@ -102,6 +103,7 @@ extension SignSelectionViewController {
             newViewController = idCardSignViewController
             (newViewController as! IdCardSignViewController).delegate = idCardSignViewControllerDelegate
             (newViewController as! IdCardSignViewController).containerPath = containerPath
+            (newViewController as! IdCardSignViewController).keyboardDelegate = self
         case .mobileID:
             newViewController = mobileIdEditViewController
             (newViewController as! MobileIDEditViewController).delegate = mobileIdEditViewControllerDelegate
@@ -162,6 +164,28 @@ extension SignSelectionViewController {
                 $0.titleLabel?.font = UIFont(name: MoppFontName.allCapsRegular.rawValue, size: 17.0)
                 $0.isSelected = false
             }
+        }
+    }
+}
+
+extension SignSelectionViewController : IdCardSignViewKeyboardDelegate {
+    func idCardSignPIN2KeyboardWillAppear() {
+        if DeviceType.IS_IPHONE_5 {
+            self.centerViewCenterCSTR.priority = UILayoutPriority(rawValue: 700)
+            self.centerViewKeyboardCSTR.priority = UILayoutPriority(rawValue: 750)
+            UIView.animate(withDuration: 0.35, delay: 0.0, options: .curveEaseOut, animations: {
+                self.view.layoutIfNeeded()
+            }) {_ in }
+        }
+    }
+    
+    func idCardSignPIN2KeyboardWillDisappear() {
+        if DeviceType.IS_IPHONE_5 {
+            self.centerViewCenterCSTR.priority = UILayoutPriority(rawValue: 750)
+            self.centerViewKeyboardCSTR.priority = UILayoutPriority(rawValue: 700)
+            UIView.animate(withDuration: 0.35, delay: 0.0, options: .curveEaseOut, animations: {
+                self.view.layoutIfNeeded()
+            }) {_ in }
         }
     }
 }
