@@ -265,7 +265,9 @@
 "card-reader-state-id-card-not-found" = "Card reader found.\nInsert your ID-card into the reader.";
 "card-reader-state-ready" = "Ready to sign with ID-card.\n%@ (%@)\nPlease enter PIN2";
 "signing-in-progress" = "Signing in progress.\nPlease wait.";
-"wrong-pin2" = "Wrong PIN2. You have %d attempts left.";
-"wrong-pin2-single" = "Wrong PIN2. You have 1 attempt left.";
+"wrong-pin2" = "Wrong PIN2. You have %d attempts left.\nBy typing wrong PIN2 %d more times, your PIN2 will be locked";
+"wrong-pin2-single" = "Wrong PIN2. You have 1 attempt left.\nBy typing wrong PIN2 again, your PIN2 will be locked";
 "pin2-textfield-label" = "PIN2";
 "pin2-blocked-alert" = "Your PIN2 is blocked.\nPlease use ID-card utility app to unlock your PIN2";
+"id-card-sign-generic-error-message" = "Something went wrong. Please try again";
+"signing-aborted-message" = "Error: signing process aborted";

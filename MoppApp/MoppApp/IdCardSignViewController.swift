@@ -20,6 +20,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+enum IdCardSigningError: Error {
+    case signingCancelled
+}
+
 protocol IdCardSignViewControllerDelegate : class {
     func idCardSignDidFinished(cancelled: Bool, success: Bool, error: Error?)
 }
@@ -181,7 +185,7 @@ class IdCardSignViewController : MoppViewController {
             pin2TextField.text = nil
             loadingSpinner.show(false)
             pin2TextFieldTitleLabel.textColor = UIColor.moppError
-            pin2TextFieldTitleLabel.text = pin2AttemptsLeft > 1 ? L(.wrongPin2, [pin2AttemptsLeft]) : L(.wrongPin2Single)
+            pin2TextFieldTitleLabel.text = pin2AttemptsLeft > 1 ? L(.wrongPin2, [pin2AttemptsLeft, pin2AttemptsLeft]) : L(.wrongPin2Single)
         }
         
         if newState == .initial {
@@ -204,9 +208,15 @@ class IdCardSignViewController : MoppViewController {
     }
     
     @IBAction func cancelAction() {
+        let signingCancelled = state == .signing
         dismiss(animated: false) {
             [weak self] in
-            self?.delegate?.idCardSignDidFinished(cancelled: true, success: false, error: nil)
+            guard let sself = self else { return }
+            var error: IdCardSigningError? = nil
+            if signingCancelled {
+                error = .signingCancelled
+            }
+            sself.delegate?.idCardSignDidFinished(cancelled: true, success: false, error: error)
         }
     }
     
