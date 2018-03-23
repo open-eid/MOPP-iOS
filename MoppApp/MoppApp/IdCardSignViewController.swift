@@ -24,6 +24,11 @@ enum IdCardSigningError: Error {
     case signingCancelled
 }
 
+protocol IdCardSignViewKeyboardDelegate : class {
+    func idCardSignPIN2KeyboardWillAppear()
+    func idCardSignPIN2KeyboardWillDisappear()
+}
+
 protocol IdCardSignViewControllerDelegate : class {
     func idCardSignDidFinished(cancelled: Bool, success: Bool, error: Error?)
 }
@@ -40,6 +45,7 @@ class IdCardSignViewController : MoppViewController {
     
     var containerPath: String!
     weak var delegate: IdCardSignViewControllerDelegate!
+    weak var keyboardDelegate: IdCardSignViewKeyboardDelegate? = nil
     
     enum State {
         case initial
@@ -74,20 +80,6 @@ class IdCardSignViewController : MoppViewController {
         pin2TextField.layer.borderColor = UIColor.moppContentLine.cgColor
         pin2TextField.layer.borderWidth = 1.0
         pin2TextField.moppPresentDismissButton()
-        
-        NotificationCenter.default.addObserver(
-            forName: NSNotification.Name.UIApplicationDidBecomeActive,
-            object: nil,
-            queue: OperationQueue.main) { [weak self]_ in
-            guard let sself = self else { return }
-            let showLoading =
-                sself.state == .initial ||
-                sself.state == .readerNotFound ||
-                sself.state == .idCardNotFound ||
-                sself.state == .signing
-            self?.loadingSpinner.show(showLoading)
-            self?.pin2TextField.resignFirstResponder()
-        }
     }
     
     deinit {
@@ -106,6 +98,33 @@ class IdCardSignViewController : MoppViewController {
         super.viewWillAppear(animated)
         
         updateStateUI(newState: state)
+        
+        // Application did become active
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name.UIApplicationDidBecomeActive,
+            object: nil,
+            queue: OperationQueue.main) { [weak self]_ in
+            guard let sself = self else { return }
+            let showLoading =
+                sself.state == .initial ||
+                sself.state == .readerNotFound ||
+                sself.state == .idCardNotFound ||
+                sself.state == .signing
+            self?.loadingSpinner.show(showLoading)
+            self?.pin2TextField.resignFirstResponder()
+        }
+        // Application will resign active
+        NotificationCenter.default.addObserver(forName: Notification.Name.UIApplicationWillResignActive, object: nil, queue: OperationQueue.main) {_ in
+            MoppLibCardReaderManager.sharedInstance().stopDetecting()
+        }
+        // PIN2 keyboard will appear
+        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil, queue: OperationQueue.main) { [weak self]_ in
+            self?.keyboardDelegate?.idCardSignPIN2KeyboardWillAppear()
+        }
+        // PIN2 keyboard will disappear
+        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { [weak self]_ in
+            self?.keyboardDelegate?.idCardSignPIN2KeyboardWillDisappear()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -118,6 +137,7 @@ class IdCardSignViewController : MoppViewController {
         super.viewWillDisappear(animated)
         
         MoppLibCardReaderManager.sharedInstance().stopDetecting()
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func changeState() {

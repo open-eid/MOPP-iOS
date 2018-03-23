@@ -63,6 +63,7 @@
         _cardStatusPollingTimer = nil;
     }
     
+    [[CardActionsManager sharedInstance] setCardReader:nil];
     FtDidEnterBackground(1);
     SCardReleaseContext(_contextHandle);
 }
@@ -225,11 +226,13 @@
 - (void) readerInterfaceDidChange:(BOOL)attached {
     if (attached) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateStatus:ReaderConnected];
             [self startPollingCardStatus];
             [_delegate moppLibCardReaderStatusDidChange: ReaderConnected];
         });
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateStatus:ReaderNotConnected];
             [self stopPollingCardStatus];
             [_delegate moppLibCardReaderStatusDidChange: ReaderNotConnected];
         });

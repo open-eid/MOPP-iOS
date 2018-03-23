@@ -62,13 +62,10 @@
   return [NSData new];
 }
 
-- (NSString *)responseString {
+- (NSString *)responseStringWCP1252 {
   //Removing trailer
   NSData *responseData = [self trimmedData];
-  
-  // Converting from hex to string
-  NSString *string = [[responseData toHexString] hexToString];
-  
+  NSString *string = [[NSString alloc] initWithData:responseData encoding:NSWindowsCP1252StringEncoding];
   return [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 @end
