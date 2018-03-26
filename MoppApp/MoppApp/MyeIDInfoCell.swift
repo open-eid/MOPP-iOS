@@ -33,27 +33,28 @@ class MyeIDInfoCell: UITableViewCell {
         contentLabel.text = contentText
     }
     
-    func populate(titleText: String, with expirationDate: Date?) {
-        guard let expirationDate = expirationDate else { return }
-        //let expirationDate = Date()
-        let documentExpired = expirationDate < Date()
-        let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd.MM.yyyy"
-        let dateStr = dateFormatter.string(from: expirationDate)
+    func populate(titleText: String, with expiryDateString: String) {
+
         titleLabel.text = titleText
         
-        let attrText = NSMutableAttributedString(string: dateStr + " | ")
+        let attrText = NSMutableAttributedString(string: expiryDateString)
         
-        if documentExpired {
-            let expiredText = NSAttributedString(string: "Aegunud", attributes:
-                [NSAttributedStringKey.foregroundColor : UIColor.moppError,
-                 NSAttributedStringKey.font : UIFont(name: MoppFontName.allCapsBold.rawValue, size: 17)!])
-            attrText.append(expiredText)
-        } else {
-            let validText = NSAttributedString(string: "Kehtiv", attributes:
-                [NSAttributedStringKey.foregroundColor : UIColor.moppSuccess,
-                 NSAttributedStringKey.font : UIFont(name: MoppFontName.allCapsBold.rawValue, size: 17)!])
-            attrText.append(validText)
+        let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd.MM.yyyy"; // Estonian date format
+        
+        if let expiryDate = dateFormatter.date(from: expiryDateString) {
+            attrText.append(NSAttributedString(string: " | "))
+            if expiryDate < Date() {
+                let expiredText = NSAttributedString(string: L(.myEidAuthCertExpired), attributes:
+                    [NSAttributedStringKey.foregroundColor : UIColor.moppError,
+                     NSAttributedStringKey.font : UIFont(name: MoppFontName.allCapsBold.rawValue, size: 17)!])
+                attrText.append(expiredText)
+            } else {
+                let validText = NSAttributedString(string: L(.myEidAuthCertValid), attributes:
+                    [NSAttributedStringKey.foregroundColor : UIColor.moppSuccess,
+                     NSAttributedStringKey.font : UIFont(name: MoppFontName.allCapsBold.rawValue, size: 17)!])
+                attrText.append(validText)
+            }
         }
         
         contentLabel.attributedText = attrText

@@ -33,12 +33,12 @@ class MyeIDInfoViewController: MoppViewController {
     }
     
     var itemTitles: [ItemType: String] = [
-        .givenNames: "EESNIMED",
-        .surname: "PEREKONNANIMI",
-        .personalCode: "ISIKUKOOD",
-        .citizenship: "KODAKONDSUS",
-        .documentNumber: "DOKUMENDI NUMBER",
-        .expiryDate: "KEHTIV KUNI"
+        .givenNames:    L(.myEidInfoItemGivenNames),
+        .surname:       L(.myEidInfoItemSurname),
+        .personalCode:  L(.myEidInfoItemPersonalCode),
+        .citizenship:   L(.myEidInfoItemCitizenship),
+        .documentNumber: L(.myEidInfoItemDocumentNumber),
+        .expiryDate:    L(.myEidInfoItemExpiryDate)
     ]
     
     var items: [(type: ItemType, value: String)] = []
@@ -47,6 +47,7 @@ class MyeIDInfoViewController: MoppViewController {
         super.viewDidLoad()
         tableView.estimatedRowHeight = 62
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.contentInset = UIEdgeInsetsMake(7, 0, 0, 0)
     }
     
     func loadItems(personalData: MoppLibPersonalData?) {
@@ -70,10 +71,7 @@ extension MyeIDInfoViewController: UITableViewDataSource, UITableViewDelegate {
         let item = items[indexPath.row]
         let cell = tableView.dequeueReusableCell(withType: MyeIDInfoCell.self, for: indexPath)!
         if item.type == .expiryDate {
-            let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "dd.MM.yyyy";
-            let date = dateFormatter.date(from: item.value)
-            cell.populate(titleText: itemTitles[item.type]!, with: date)
+            cell.populate(titleText: itemTitles[item.type]!, with: item.value)
         } else {
             cell.populate(titleText: itemTitles[item.type]!, contentText: item.value)
         }

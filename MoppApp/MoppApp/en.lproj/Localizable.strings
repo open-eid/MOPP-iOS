@@ -271,3 +271,13 @@
 "pin2-blocked-alert" = "Your PIN2 is blocked.\nPlease use ID-card utility app to unlock your PIN2";
 "id-card-sign-generic-error-message" = "Something went wrong. Please try again";
 "signing-aborted-message" = "Error: signing process aborted";
+"my-eid-status-reader-not-found" = "Connect ID-card reader to your phone and insert your ID-card into the reader";
+"my-eid-status-card-not-found" = "Reader found.\nInsert your ID-card into the reader";
+"my-eid-auth-cert-expired" = "Expired";
+"my-eid-auth-cert-valid" = "Valid";
+"my-eid-info-item-given-names" = "GIVEN NAMES";
+"my-eid-info-item-surname" = "SURNAME";
+"my-eid-info-item-personal-code" = "PERSONAL CODE";
+"my-eid-info-item-citizenship" = "CITIZENSHIP";
+"my-eid-info-item-document-number" = "DOCUMENT NUMBER";
+"my-eid-info-item-expiry-date" = "VALID UNTIL";

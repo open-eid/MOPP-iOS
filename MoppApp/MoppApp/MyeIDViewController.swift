@@ -38,8 +38,8 @@ class MyeIDViewController : MoppViewController {
         MoppLibCardReaderManager.sharedInstance().delegate = self
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         MoppLibCardReaderManager.sharedInstance().startDetecting()
     }
     
@@ -73,10 +73,10 @@ class MyeIDViewController : MoppViewController {
         let top = newViewController.view.topAnchor.constraint(equalTo: margins.topAnchor)
         let bottom = newViewController.view.bottomAnchor.constraint(equalTo: margins.bottomAnchor)
     
-        leading.isActive = true
-        trailing.isActive = true
-        top.isActive = true
-        bottom.isActive = true
+        leading.isActive    = true
+        trailing.isActive   = true
+        top.isActive        = true
+        bottom.isActive     = true
 
         newViewController.view.updateConstraintsIfNeeded()
     }
@@ -86,8 +86,10 @@ extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
     func moppLibCardReaderStatusDidChange(_ readerStatus: MoppLibCardReaderStatus) {
         switch readerStatus {
         case .ReaderNotConnected:
+            statusViewController.state = .readerNotFound
             showViewController(statusViewController)
         case .ReaderConnected:
+            statusViewController.state = .idCardNotFound
             showViewController(statusViewController)
         case .CardConnected:
             MoppLibCardActions.minimalCardPersonalData(with: self, success: { [weak self] moppLibPersonalData in

@@ -21,7 +21,22 @@
  *
  */
 class MyeIDStatusViewController : MoppViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    enum State {
+        case readerNotFound
+        case idCardNotFound
+    }
+    
+    var state: State = .readerNotFound {
+        didSet {
+            switch (state) {
+            case .readerNotFound:
+                titleLabel.text = L(.myEidStatusReaderNotFound)
+            case .idCardNotFound:
+                titleLabel.text = L(.myEidStatusCardNotFound)
+            }
+        }
     }
 }
+

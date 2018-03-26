@@ -273,3 +273,13 @@
 "pin2-blocked-alert" = "Ваш PIN2 заблокирован.\nПожалуйста, используйте утилиту утилиты ID-карты, чтобы разблокировать свой PIN2";
 "id-card-sign-generic-error-message" = "Что-то пошло не так. Пожалуйста, попробуйте еще раз";
 "signing-aborted-message" = "Ошибка: процесс подписи прерывается";
+"my-eid-status-reader-not-found" = "Подключите считыватель ID-карт к телефону и вставьте идентификационную карту в устройство чтения";
+"my-eid-status-card-not-found" = "Читатель нашел.\nВставьте свою идентификационную карту в считыватель";
+"my-eid-auth-cert-expired" = "Истекший";
+"my-eid-auth-cert-valid" = "Действительно";
+"my-eid-info-item-given-names" = "ИМЯ";
+"my-eid-info-item-surname" = "ФАМИЛИЯ";
+"my-eid-info-item-personal-code" = "ПЕРСОНАЛЬНЫЙ КОД";
+"my-eid-info-item-citizenship" = "НАЦИОНАЛЬНОСТЬ";
+"my-eid-info-item-document-number" = "НОМЕР ДОКУМЕНТА";
+"my-eid-info-item-expiry-date" = "СРОК ДЕЙСТВИЯ";

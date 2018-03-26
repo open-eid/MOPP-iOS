@@ -272,3 +272,13 @@
 "pin2-blocked-alert" = "Sinu PIN2 on lukustatud.\nPIN2 avamiseks kasuta ID-kaardi haldusvahendit";
 "id-card-sign-generic-error-message" = "Midagi läks valesti. Palun proovi uuesti";
 "signing-aborted-message" = "Viga: signeerimise protsess katkestatud";
+"my-eid-status-reader-not-found" = "Ühenda ID-kaardi lugeja telefoniga ja sisesta enda ID-kaart lugejasse";
+"my-eid-status-card-not-found" = "Kaardilugeja leitud.\nSisesta enda ID-kaart kaardilugejasse";
+"my-eid-auth-cert-expired" = "Aegunud";
+"my-eid-auth-cert-valid" = "Kehtiv";
+"my-eid-info-item-given-names" = "EESNIMED";
+"my-eid-info-item-surname" = "PEREKONNANIMI";
+"my-eid-info-item-personal-code" = "ISIKUKOOD";
+"my-eid-info-item-citizenship" = "KODAKONDSUS";
+"my-eid-info-item-document-number" = "DOKUMENDI NUMBER";
+"my-eid-info-item-expiry-date" = "KEHTIV KUNI";
