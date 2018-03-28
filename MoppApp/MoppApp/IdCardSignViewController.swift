@@ -299,6 +299,6 @@ extension IdCardSignViewController : UITextFieldDelegate {
             return true
         }
         let text = (textField.text ?? String()) + string
-        return text.isNumeric && text.count < 12
+        return text.isNumeric && text.count <= 12
     }
 }
