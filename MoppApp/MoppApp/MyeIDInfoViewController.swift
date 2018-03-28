@@ -50,6 +50,11 @@ class MyeIDInfoViewController: MoppViewController {
         tableView.contentInset = UIEdgeInsetsMake(7, 0, 0, 0)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
     func loadItems(personalData: MoppLibPersonalData?) {
         items.removeAll()
         guard let personalData = personalData else { return }
