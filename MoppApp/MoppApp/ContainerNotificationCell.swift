@@ -33,7 +33,7 @@ class ContainerNotificationCell: UITableViewCell {
     }
 
     func populate(isSuccess: Bool, text: String) {
-        contentView.backgroundColor = isSuccess ? UIColor.moppSuccess : UIColor.moppContainerWarning
+        contentView.backgroundColor = isSuccess ? UIColor.moppSuccess : UIColor.moppWarning
         infoLabel.text = text
     }
 }
