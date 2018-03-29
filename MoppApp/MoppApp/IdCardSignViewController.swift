@@ -58,7 +58,7 @@ class IdCardSignViewController : MoppViewController {
     
     var state: State = .initial {
         didSet {
-            updateStateUI(newState: state)
+            updateUI(for: state)
         }
     }
     
@@ -96,8 +96,13 @@ class IdCardSignViewController : MoppViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        updateUI(for: .initial)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        updateStateUI(newState: state)
+        updateUI(for: state)
         
         // Application did become active
         NotificationCenter.default.addObserver(
@@ -125,10 +130,6 @@ class IdCardSignViewController : MoppViewController {
         NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { [weak self]_ in
             self?.keyboardDelegate?.idCardSignPIN2KeyboardWillDisappear()
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
         MoppLibCardReaderManager.sharedInstance().startDetecting()
     }
@@ -136,6 +137,7 @@ class IdCardSignViewController : MoppViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        MoppLibCardReaderManager.sharedInstance().delegate = nil
         MoppLibCardReaderManager.sharedInstance().stopDetecting()
         NotificationCenter.default.removeObserver(self)
     }
@@ -144,9 +146,8 @@ class IdCardSignViewController : MoppViewController {
         state = .readyForSigning
     }
     
-    func updateStateUI(newState: State) {
-        print("Update state", newState)
-        switch newState {
+    func updateUI(for state: State) {
+        switch state {
         case .initial:
             signButton.isEnabled = false
             pin2TextField.isHidden = true
@@ -208,7 +209,7 @@ class IdCardSignViewController : MoppViewController {
             pin2TextFieldTitleLabel.text = pin2AttemptsLeft > 1 ? L(.wrongPin2, [pin2AttemptsLeft, pin2AttemptsLeft]) : L(.wrongPin2Single)
         }
         
-        if newState == .initial {
+        if state == .initial {
             initialStateExpirationTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false, block: { [weak self]_ in
                 DispatchQueue.main.async {
                     self?.state = .readerNotFound
@@ -298,6 +299,6 @@ extension IdCardSignViewController : UITextFieldDelegate {
             return true
         }
         let text = (textField.text ?? String()) + string
-        return text.isNumeric && text.count < 12
+        return text.isNumeric && text.count <= 12
     }
 }

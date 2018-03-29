@@ -50,6 +50,7 @@
 }
 
 - (void)startDetecting {
+    [self updateStatus:ReaderNotConnected];
     SCardEstablishContext(SCARD_SCOPE_SYSTEM, NULL, NULL, &_contextHandle);
 }
 

@@ -212,6 +212,7 @@ class ContainerViewController : MoppViewController, ContainerActions {
     }
 
     func startSigning() {
+        guard let _ = container else { return }
         
         if container.isLegacyType() {
             createLegacyContainer()

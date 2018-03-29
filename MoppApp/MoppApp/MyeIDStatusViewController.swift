@@ -1,5 +1,5 @@
 //
-//  ContainerNotificationCell.swift
+//  MyeIDStatusViewController.swift
 //  MoppApp
 //
 /*
@@ -20,20 +20,23 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-import Foundation
-
-
-class ContainerNotificationCell: UITableViewCell {
-    static let height: CGFloat = 44
-    @IBOutlet weak var infoLabel: UILabel!
-    @IBOutlet weak var linkLabel: UILabel!
+class MyeIDStatusViewController : MoppViewController {
+    @IBOutlet weak var titleLabel: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    enum State {
+        case readerNotFound
+        case idCardNotFound
     }
-
-    func populate(isSuccess: Bool, text: String) {
-        contentView.backgroundColor = isSuccess ? UIColor.moppSuccess : UIColor.moppWarning
-        infoLabel.text = text
+    
+    var state: State = .readerNotFound {
+        didSet {
+            switch (state) {
+            case .readerNotFound:
+                titleLabel.text = L(.myEidStatusReaderNotFound)
+            case .idCardNotFound:
+                titleLabel.text = L(.myEidStatusCardNotFound)
+            }
+        }
     }
 }
+
