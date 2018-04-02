@@ -118,6 +118,11 @@ class IdCardSignViewController : MoppViewController {
             self?.loadingSpinner.show(showLoading)
             self?.pin2TextField.resignFirstResponder()
         }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: OperationQueue.main) { [weak self]_ in
+            self?.loadingSpinner.show(true)
+        }
+        
         // Application will resign active
         NotificationCenter.default.addObserver(forName: Notification.Name.UIApplicationWillResignActive, object: nil, queue: OperationQueue.main) {_ in
             MoppLibCardReaderManager.sharedInstance().stopDetecting()
@@ -221,11 +226,6 @@ class IdCardSignViewController : MoppViewController {
         }
         
         view.layoutIfNeeded()
-    }
-    
-    override func willEnterForeground() {
-        super.willEnterForeground()
-        loadingSpinner.show(true)
     }
     
     @IBAction func cancelAction() {
