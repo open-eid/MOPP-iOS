@@ -248,4 +248,5 @@ enum LocKey : String
     case myEidInfoItemCitizenship = "my-eid-info-item-citizenship"
     case myEidInfoItemDocumentNumber = "my-eid-info-item-document-number"
     case myEidInfoItemExpiryDate = "my-eid-info-item-expiry-date"
+    case fileImportAlreadyInProgressMessage = "file-import-already-in-progress-message"
 }

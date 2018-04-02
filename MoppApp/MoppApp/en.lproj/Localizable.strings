@@ -281,3 +281,4 @@
 "my-eid-info-item-citizenship" = "CITIZENSHIP";
 "my-eid-info-item-document-number" = "DOCUMENT NUMBER";
 "my-eid-info-item-expiry-date" = "VALID UNTIL";
+"file-import-already-in-progress-message" = "File importing already in progress.\nPlease wait until it is finished and try again";

@@ -283,3 +283,4 @@
 "my-eid-info-item-citizenship" = "НАЦИОНАЛЬНОСТЬ";
 "my-eid-info-item-document-number" = "НОМЕР ДОКУМЕНТА";
 "my-eid-info-item-expiry-date" = "СРОК ДЕЙСТВИЯ";
+"file-import-already-in-progress-message" = "Уже импортирован файл.\nПодождите, пока все будет готово, и повторите попытку.";

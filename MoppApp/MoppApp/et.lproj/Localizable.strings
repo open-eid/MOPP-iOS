@@ -282,3 +282,4 @@
 "my-eid-info-item-citizenship" = "KODAKONDSUS";
 "my-eid-info-item-document-number" = "DOKUMENDI NUMBER";
 "my-eid-info-item-expiry-date" = "KEHTIV KUNI";
+"file-import-already-in-progress-message" = "Faili laadimine hetkel toimumas.\nPalun oota selle toimingu lõppemist ning seejärel proovi uuesti";
