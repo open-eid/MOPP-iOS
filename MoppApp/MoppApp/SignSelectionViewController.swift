@@ -34,14 +34,6 @@ class SignSelectionViewController : MoppViewController {
     
     var isSwitchingBlockedByTransition: Bool = false
     
-    let idCardSignViewController: IdCardSignViewController = {
-        return UIStoryboard.signing.instantiateViewController(with: IdCardSignViewController.self)
-    }()
-    
-    let mobileIdEditViewController: MobileIDEditViewController = {
-        return UIStoryboard.signing.instantiateViewController(with: MobileIDEditViewController.self)
-    }()
-    
     enum SignMethodButtonID: String {
         case mobileID
         case idCard
@@ -100,12 +92,12 @@ extension SignSelectionViewController {
         let newViewController: MoppViewController!
         switch newSignMethod {
         case .idCard:
-            newViewController = idCardSignViewController
+            newViewController = UIStoryboard.signing.instantiateViewController(with: IdCardSignViewController.self)
             (newViewController as! IdCardSignViewController).delegate = idCardSignViewControllerDelegate
             (newViewController as! IdCardSignViewController).containerPath = containerPath
             (newViewController as! IdCardSignViewController).keyboardDelegate = self
         case .mobileID:
-            newViewController = mobileIdEditViewController
+            newViewController = UIStoryboard.signing.instantiateViewController(with: MobileIDEditViewController.self)
             (newViewController as! MobileIDEditViewController).delegate = mobileIdEditViewControllerDelegate
         }
         

@@ -213,13 +213,13 @@
 }
 
 - (void)updateStatus:(MoppLibCardReaderStatus)status {
-    if (_status != status) {
-        _status = status;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (_delegate)
-                [_delegate moppLibCardReaderStatusDidChange:status];
-        });
-    }
+    if (_status == status) return;
+    
+    _status = status;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (_delegate)
+            [_delegate moppLibCardReaderStatusDidChange:status];
+    });
 }
 
 #pragma mark - ReaderInterfaceDelegate
