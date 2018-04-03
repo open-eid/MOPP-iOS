@@ -26,10 +26,6 @@ class MoppViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(forName: .willEnterForegroundNotificationName, object: self, queue: OperationQueue.main) { [weak self] _ in
-            self?.willEnterForeground()
-        }
-        
         let titleImageView = UIImageView(image: UIImage(named: "Logo_Vaike"))
         navigationItem.titleView = titleImageView
         
@@ -73,10 +69,6 @@ class MoppViewController : UIViewController {
         else {
             MoppApp.instance.statusBarStyle = .default
         }
-    }
-    
-    func willEnterForeground() {
-    
     }
     
     var spinnerView: SpinnerView? {
@@ -127,4 +119,14 @@ class MoppViewController : UIViewController {
         _ = navigationController?.popViewController(animated: true)
     }
 
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        // Make sure all the other presented view controllers are dismissed
+        if let presentedVC = presentedViewController {
+            presentedVC.dismiss(animated: false, completion: {
+                super.dismiss(animated: flag, completion: completion)
+            })
+        } else {
+            super.dismiss(animated: flag, completion: completion)
+        }
+    }
 }

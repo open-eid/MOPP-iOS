@@ -63,8 +63,6 @@ extension ContainerActions where Self: UIViewController {
                     return
                 }
             
-                landingViewController.importProgressViewController.dismiss(animated: false, completion: nil)
-            
                 // If file to open is PDF and there is no signatures then create new container
                 let isPDF = url.pathExtension.lowercased() == ContainerFormatPDF
                 if isPDF && container!.signatures.isEmpty {
@@ -76,7 +74,16 @@ extension ContainerActions where Self: UIViewController {
                     containerViewController.containerPath = newFilePath
                     containerViewController.forcePDFContentPreview = isPDF
                 
-                navController?.pushViewController(containerViewController, animated: true)
+                let pushContainerVCClosure = {
+                    navController?.pushViewController(containerViewController, animated: true)
+                }
+                if let presentedVC = navController?.viewControllers.last?.presentedViewController {
+                    presentedVC.dismiss(animated: false) {
+                        pushContainerVCClosure()
+                    }
+                } else {
+                    pushContainerVCClosure()
+                }
             },
             failure: { _ in
                 failure()
@@ -89,6 +96,11 @@ extension ContainerActions where Self: UIViewController {
         let topSigningViewController = navController.viewControllers.last!
         
         landingViewController.documentPicker.dismiss(animated: false, completion: nil)
+        
+        if topSigningViewController.presentedViewController is FileImportProgressViewController {
+            topSigningViewController.presentedViewController?.errorAlert(message: L(.fileImportAlreadyInProgressMessage))
+            return
+        }
         
         topSigningViewController.present(landingViewController.importProgressViewController, animated: false)
         
@@ -167,15 +179,23 @@ extension ContainerActions where Self: UIViewController {
                     landingViewController.present(alert, animated: true)
                     return
                 }
-            
-                landingViewController.importProgressViewController.dismiss(animated: false, completion: nil)
                 
                 let containerViewController = ContainerViewController.instantiate()
-                containerViewController.containerPath = containerPath
-                containerViewController.isCreated = true
-                containerViewController.startSigningWhenOpened = startSigningWhenCreated
+                    containerViewController.containerPath = containerPath
+                    containerViewController.isCreated = true
+                    containerViewController.startSigningWhenOpened = startSigningWhenCreated
                 
-                navController?.pushViewController(containerViewController, animated: true)
+                let pushContainerVCClosure = {
+                    navController?.pushViewController(containerViewController, animated: true)
+                }
+                
+                if let presentedVC = navController?.viewControllers.last?.presentedViewController {
+                    presentedVC.dismiss(animated: false) {
+                        pushContainerVCClosure()
+                    }
+                } else {
+                    pushContainerVCClosure()
+                }
             
             }, failure: { error in
                 if cleanUpDataFilesInDocumentsFolder {

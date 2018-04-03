@@ -82,6 +82,10 @@ class ContainerViewController : MoppViewController, ContainerActions {
         updateState(.loading)
         
         NotificationCenter.default.addObserver(self, selector: #selector(signatureCreatedFinished), name: .signatureCreatedFinishedNotificationName, object: nil)
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: OperationQueue.main) { [weak self]_ in
+            self?.refreshLoadingAnimation()
+        }
     }
     
     deinit {
@@ -205,10 +209,6 @@ class ContainerViewController : MoppViewController, ContainerActions {
     override func showLoading(show: Bool, forFrame: CGRect? = nil) {
         super.showLoading(show: show, forFrame: tableView.frame)
         tableView.isHidden = show
-    }
-    
-    override func willEnterForeground() {
-        refreshLoadingAnimation()
     }
 
     func startSigning() {
