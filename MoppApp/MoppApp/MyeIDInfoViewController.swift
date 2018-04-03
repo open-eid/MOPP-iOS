@@ -24,6 +24,7 @@ class MyeIDInfoViewController: MoppViewController {
     @IBOutlet weak var tableView: UITableView!
     
     enum ItemType {
+        case myeID
         case givenNames
         case surname
         case personalCode
@@ -33,6 +34,7 @@ class MyeIDInfoViewController: MoppViewController {
     }
     
     var itemTitles: [ItemType: String] = [
+        .myeID:         L(.myEidInfoMyEid),
         .givenNames:    L(.myEidInfoItemGivenNames),
         .surname:       L(.myEidInfoItemSurname),
         .personalCode:  L(.myEidInfoItemPersonalCode),
@@ -55,15 +57,30 @@ class MyeIDInfoViewController: MoppViewController {
         tableView.reloadData()
     }
     
-    func loadItems(personalData: MoppLibPersonalData?) {
+    func loadItems(personalData: MoppLibPersonalData?, authCertData: MoppLibCertData?) {
         items.removeAll()
         guard let personalData = personalData else { return }
+        let certOrganization = authCertData?.organization ?? MoppLibCertOrganization.Unknown
+        items.append((type: .myeID, value: organizationDisplayString(certOrganization)))
         items.append((type: .givenNames, value: personalData.givenNames()))
         items.append((type: .surname, value: personalData.surname))
         items.append((type: .personalCode, value: personalData.personalIdentificationCode))
         items.append((type: .citizenship, value: personalData.nationality))
         items.append((type: .documentNumber, value: personalData.documentNumber))
         items.append((type: .expiryDate, value: personalData.expiryDate))
+    }
+    
+    func organizationDisplayString(_ certOrganization: MoppLibCertOrganization) -> String {
+        switch certOrganization {
+        case .IDCard:
+            return L(.myEidInfoMyEidIdCard)
+        case .DigiID:
+            return L(.myEidInfoMyEidDigiId)
+        case .MobileID:
+            return L(.myEidInfoMyEidMobileId)
+        case .Unknown:
+            return L(.myEidInfoMyEidUnknown)
+        }
     }
 }
 

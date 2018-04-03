@@ -25,9 +25,17 @@
 
 @interface MoppLibCertData : NSObject
 
+typedef NS_ENUM(int, MoppLibCertOrganization) {
+    IDCard,
+    MobileID,
+    DigiID,
+    Unknown
+};
+
 @property (nonatomic, assign) BOOL isValid;
 @property (nonatomic, strong) NSDate *expiryDate;
 @property (nonatomic, assign) int usageCount;
 @property (nonatomic, strong) NSString *email;
+@property (nonatomic, assign) MoppLibCertOrganization organization;
 
 @end

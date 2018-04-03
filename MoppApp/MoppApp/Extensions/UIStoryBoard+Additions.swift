@@ -54,7 +54,7 @@ extension UIStoryboard {
 }
 
 extension UIStoryboard {
-    func instantiateViewController<T: UIViewController>(with type: T.Type) -> T {
+    func instantiateViewController<T: UIViewController>(of type: T.Type) -> T {
         return instantiateViewController(withIdentifier: String(describing: T.self)) as! T
     }
     

@@ -218,7 +218,7 @@ class ContainerViewController : MoppViewController, ContainerActions {
             createLegacyContainer()
         } else {
         
-            let signSelectionVC = UIStoryboard.signing.instantiateViewController(with: SignSelectionViewController.self)
+            let signSelectionVC = UIStoryboard.signing.instantiateViewController(of: SignSelectionViewController.self)
                 signSelectionVC.modalPresentationStyle = .overFullScreen
             
             signSelectionVC.mobileIdEditViewControllerDelegate = self
@@ -407,7 +407,7 @@ extension ContainerViewController : UITableViewDelegate {
             }
     
             let openContentPreview: (_ filePath: String) -> Void = { [weak self] filePath in
-                let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(with: DataFilePreviewViewController.self)
+                let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(of: DataFilePreviewViewController.self)
                     dataFilePreviewViewController.previewFilePath = filePath
                 self?.navigationController?.pushViewController(dataFilePreviewViewController, animated: true)
             }
@@ -562,7 +562,7 @@ extension ContainerViewController : MobileIDEditViewControllerDelegate {
         guard let phoneNumber = phoneNumber else { return }
         guard let idCode = idCode else { return }
         
-        let mobileIDChallengeview = UIStoryboard.signing.instantiateViewController(with: MobileIDChallengeViewController.self)
+        let mobileIDChallengeview = UIStoryboard.signing.instantiateViewController(of: MobileIDChallengeViewController.self)
             mobileIDChallengeview.modalPresentationStyle = .overFullScreen
         present(mobileIDChallengeview, animated: false)
 

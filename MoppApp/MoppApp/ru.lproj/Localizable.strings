@@ -283,4 +283,9 @@
 "my-eid-info-item-citizenship" = "НАЦИОНАЛЬНОСТЬ";
 "my-eid-info-item-document-number" = "НОМЕР ДОКУМЕНТА";
 "my-eid-info-item-expiry-date" = "СРОК ДЕЙСТВИЯ";
+"my-eid-info-my-eid" = "МОЙ eID";
+"my-eid-info-my-eid-id-card" = "ID-CARD";
+"my-eid-info-my-eid-mobile-id" = "MOBILE-ID";
+"my-eid-info-my-eid-digi-id" = "DIGI-ID";
+"my-eid-info-my-eid-unknown" = "НЕИЗВЕСТНЫЙ";
 "file-import-already-in-progress-message" = "Уже импортирован файл.\nПодождите, пока все будет готово, и повторите попытку.";

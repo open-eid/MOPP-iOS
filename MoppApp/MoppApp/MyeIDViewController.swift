@@ -23,18 +23,10 @@
 class MyeIDViewController : MoppViewController {
     @IBOutlet weak var containerView: UIView!
     
-    let statusViewController: MyeIDStatusViewController = {
-        UIStoryboard.myEID.instantiateViewController(with: MyeIDStatusViewController.self)
-    }()
-    
-    let infoViewController: MyeIDInfoViewController = {
-        UIStoryboard.myEID.instantiateViewController(with: MyeIDInfoViewController.self)
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        showViewController(statusViewController)
+        _ = showViewController(createStatusViewController())
         MoppLibCardReaderManager.sharedInstance().delegate = self
     }
     
@@ -48,12 +40,20 @@ class MyeIDViewController : MoppViewController {
         MoppLibCardReaderManager.sharedInstance().stopDetecting()
     }
     
-    func showViewController(_ viewController: MoppViewController) {
+    func createStatusViewController() -> MyeIDStatusViewController {
+        return UIStoryboard.myEID.instantiateViewController(of: MyeIDStatusViewController.self)
+    }
+    
+    func createInfoViewController() -> MyeIDInfoViewController {
+        return UIStoryboard.myEID.instantiateViewController(of: MyeIDInfoViewController.self)
+    }
+    
+    func showViewController(_ viewController: MoppViewController) -> UIViewController {
         let oldViewController = childViewControllers.first
         let newViewController = viewController
 
-        if oldViewController == newViewController {
-            return
+        if type(of: oldViewController) == type(of: newViewController) {
+            return newViewController
         }
         
         oldViewController?.willMove(toParentViewController: nil)
@@ -79,6 +79,7 @@ class MyeIDViewController : MoppViewController {
         bottom.isActive     = true
 
         newViewController.view.updateConstraintsIfNeeded()
+        return newViewController
     }
 }
 
@@ -86,18 +87,29 @@ extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
     func moppLibCardReaderStatusDidChange(_ readerStatus: MoppLibCardReaderStatus) {
         switch readerStatus {
         case .ReaderNotConnected:
-            statusViewController.state = .readerNotFound
-            showViewController(statusViewController)
+            var statusVC = childViewControllers.first as? MyeIDStatusViewController
+            if statusVC == nil {
+                statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
+            }
+            statusVC?.state = .readerNotFound
         case .ReaderConnected:
-            statusViewController.state = .idCardNotFound
-            showViewController(statusViewController)
+            var statusVC = childViewControllers.first as? MyeIDStatusViewController
+            if statusVC == nil {
+                statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
+            }
+            statusVC?.state = .idCardNotFound
         case .CardConnected:
             MoppLibCardActions.minimalCardPersonalData(with: self, success: { [weak self] moppLibPersonalData in
-                DispatchQueue.main.async { [weak self] in
-                    guard let sself = self else { return }
-                    sself.infoViewController.loadItems(personalData: moppLibPersonalData)
-                    sself.showViewController(sself.infoViewController)
-                }
+                MoppLibCardActions.authenticationCert(with: self, success: { moppLibCertData in
+                    DispatchQueue.main.async { [weak self] in
+                        guard let sself = self else { return }
+                        let infoViewController = sself.createInfoViewController()
+                            infoViewController.loadItems(personalData: moppLibPersonalData, authCertData: moppLibCertData)
+                        sself.showViewController(infoViewController)
+                    }
+                }, failure: { error in
+
+                })
             }, failure: { [weak self]_ in
                 
             })

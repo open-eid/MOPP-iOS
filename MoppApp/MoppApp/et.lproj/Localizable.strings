@@ -282,4 +282,9 @@
 "my-eid-info-item-citizenship" = "KODAKONDSUS";
 "my-eid-info-item-document-number" = "DOKUMENDI NUMBER";
 "my-eid-info-item-expiry-date" = "KEHTIV KUNI";
+"my-eid-info-my-eid" = "MINU eID";
+"my-eid-info-my-eid-id-card" = "ID-KAART";
+"my-eid-info-my-eid-mobile-id" = "MOBIIL-ID";
+"my-eid-info-my-eid-digi-id" = "DIGI-ID";
+"my-eid-info-my-eid-unknown" = "TUNDMATU";
 "file-import-already-in-progress-message" = "Faili laadimine hetkel toimumas.\nPalun oota selle toimingu lõppemist ning seejärel proovi uuesti";

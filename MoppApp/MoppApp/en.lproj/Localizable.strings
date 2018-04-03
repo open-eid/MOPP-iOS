@@ -281,4 +281,9 @@
 "my-eid-info-item-citizenship" = "CITIZENSHIP";
 "my-eid-info-item-document-number" = "DOCUMENT NUMBER";
 "my-eid-info-item-expiry-date" = "VALID UNTIL";
+"my-eid-info-my-eid" = "MY eID";
+"my-eid-info-my-eid-id-card" = "ID-CARD";
+"my-eid-info-my-eid-mobile-id" = "MOBILE-ID";
+"my-eid-info-my-eid-digi-id" = "DIGI-ID";
+"my-eid-info-my-eid-unknown" = "UNKNOWN";
 "file-import-already-in-progress-message" = "File importing already in progress.\nPlease wait until it is finished and try again";

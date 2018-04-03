@@ -30,7 +30,7 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
     var fileImportIntent: MoppApp.FileImportIntent!
 
     var importProgressViewController: FileImportProgressViewController = {
-        let importProgressViewController = UIStoryboard.landing.instantiateViewController(with: FileImportProgressViewController.self)
+        let importProgressViewController = UIStoryboard.landing.instantiateViewController(of: FileImportProgressViewController.self)
             importProgressViewController.modalPresentationStyle = .overFullScreen
         return importProgressViewController
     }()
@@ -74,17 +74,32 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
         }
     }
     
-    var signingViewController: UIViewController = {
-        UIStoryboard.signing.instantiateInitialViewController()!
-    }()
-    var cryptoViewController: UIViewController = {
-        UIStoryboard.crypto.instantiateInitialViewController()!
-    }()
-    var myeIDViewController: UIViewController = {
-        UIStoryboard.myEID.instantiateInitialViewController()!
-    }()
+    func createSigningViewController() -> UIViewController {
+        return UIStoryboard.signing.instantiateInitialViewController()!
+    }
     
-    var viewControllersToTabs: [TabButtonId: UIViewController] = [:]
+    func createCryptoViewController() -> UIViewController {
+        return UIStoryboard.crypto.instantiateInitialViewController()!
+    }
+    
+    func createMyeIDViewController() -> UIViewController {
+        return UIStoryboard.myEID.instantiateInitialViewController()!
+    }
+    
+    func createViewController(for tab:TabButtonId) -> UIViewController {
+        switch tab {
+        case .signTab:
+            return createSigningViewController()
+        case .cryptoTab:
+            return createCryptoViewController()
+        case .myeIDTab:
+            return createMyeIDViewController()
+        default:
+            break
+        }
+        return UIViewController()
+    }
+    
     static private(set) var shared: LandingViewController!
 
     func selectTab(with tabButtonId: TabButtonId) {
@@ -97,11 +112,7 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
         super.viewDidLoad()
         
         LandingViewController.shared = self
-        
-        viewControllersToTabs[.signTab] = signingViewController
-        viewControllersToTabs[.cryptoTab] = cryptoViewController
-        viewControllersToTabs[.myeIDTab] = myeIDViewController
-        
+
         selectedTab = .signTab
         
         buttonsCollection.forEach {
@@ -133,9 +144,9 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
 
     func changeTabViewController(with buttonID: TabButtonId) {
         let oldViewController = childViewControllers.first
-        let newViewController = viewControllersToTabs[buttonID]!
+        let newViewController = createViewController(for: buttonID)
         
-        if oldViewController == newViewController {
+        if type(of: oldViewController) == type(of: newViewController) {
             return
         }
         
