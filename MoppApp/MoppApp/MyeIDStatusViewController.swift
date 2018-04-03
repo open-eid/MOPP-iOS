@@ -26,6 +26,7 @@ class MyeIDStatusViewController : MoppViewController {
     enum State {
         case readerNotFound
         case idCardNotFound
+        case requestingData
     }
     
     var state: State = .readerNotFound {
@@ -35,7 +36,10 @@ class MyeIDStatusViewController : MoppViewController {
                 titleLabel.text = L(.myEidStatusReaderNotFound)
             case .idCardNotFound:
                 titleLabel.text = L(.myEidStatusCardNotFound)
+            case .requestingData:
+                titleLabel.text = L(.myEidStatusRequestingData)
             }
+            titleLabel.setNeedsDisplay()
         }
     }
 }

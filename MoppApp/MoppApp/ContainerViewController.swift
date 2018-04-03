@@ -611,7 +611,7 @@ extension ContainerViewController : IdCardSignViewControllerDelegate {
                 if nsError.code == Int(MoppLibErrorCode.moppLibErrorPinBlocked.rawValue) {
                     errorAlert(message: L(.pin2BlockedAlert))
                 } else {
-                    errorAlert(message: L(.idCardSignGenericErrorMessage))
+                    errorAlert(message: L(.genericErrorMessage))
                 }
             }
         } else {

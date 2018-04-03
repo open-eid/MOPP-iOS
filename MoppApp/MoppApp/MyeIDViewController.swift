@@ -99,19 +99,28 @@ extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
             }
             statusVC?.state = .idCardNotFound
         case .CardConnected:
-            MoppLibCardActions.minimalCardPersonalData(with: self, success: { [weak self] moppLibPersonalData in
-                MoppLibCardActions.authenticationCert(with: self, success: { moppLibCertData in
-                    DispatchQueue.main.async { [weak self] in
-                        guard let sself = self else { return }
-                        let infoViewController = sself.createInfoViewController()
-                            infoViewController.loadItems(personalData: moppLibPersonalData, authCertData: moppLibCertData)
-                        sself.showViewController(infoViewController)
-                    }
-                }, failure: { error in
-
-                })
-            }, failure: { [weak self]_ in
-                
+            var statusVC = childViewControllers.first as? MyeIDStatusViewController
+            if statusVC == nil {
+                statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
+            }
+            statusVC?.state = .requestingData
+            
+            let failureClosure = { [weak self] in
+                self?.childViewControllers.first?.errorAlert(message: L(.genericErrorMessage))
+            }
+            
+            // Give some time for status textfield to update before executing data requests
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                MoppLibCardActions.minimalCardPersonalData(with: self, success: { [weak self] moppLibPersonalData in
+                    MoppLibCardActions.authenticationCert(with: self, success: { moppLibCertData in
+                        DispatchQueue.main.async { [weak self] in
+                            guard let sself = self else { return }
+                            let infoViewController = sself.createInfoViewController()
+                                infoViewController.loadItems(personalData: moppLibPersonalData, authCertData: moppLibCertData)
+                            _ = sself.showViewController(infoViewController)
+                        }
+                    }, failure: {_ in failureClosure() })
+                }, failure: {_ in failureClosure() })
             })
         }
     }
