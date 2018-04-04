@@ -29,6 +29,38 @@ protocol ContainerActions {
 }
 
 extension ContainerActions where Self: UIViewController {
+    func importFiles(with urls: [URL]) {
+        let landingViewController = LandingViewController.shared!
+        let navController = landingViewController.viewController(for: .signTab) as! UINavigationController
+        let topSigningViewController = navController.viewControllers.last!
+        
+        landingViewController.documentPicker.dismiss(animated: false, completion: nil)
+        
+        if topSigningViewController.presentedViewController is FileImportProgressViewController {
+            topSigningViewController.presentedViewController?.errorAlert(message: L(.fileImportAlreadyInProgressMessage))
+            return
+        }
+        
+        topSigningViewController.present(landingViewController.importProgressViewController, animated: false)
+        
+        MoppFileManager.shared.importFiles(with: urls) { [weak self] error, dataFilePaths in
+        
+            if landingViewController.fileImportIntent == .addToContainer {
+                landingViewController.addDataFilesToContainer(dataFilePaths: dataFilePaths)
+            }
+            else if landingViewController.fileImportIntent == .openOrCreate {
+                navController.setViewControllers([navController.viewControllers.first!], animated: false)
+             
+                let ext = urls.first!.pathExtension
+                if (ext.isContainerExtension || ext == ContainerFormatPDF) && urls.count == 1 {
+                    self?.openExistingContainer(with: urls.first!)
+                } else {
+                    self?.createNewContainer(with: urls.first!, dataFilePaths: dataFilePaths)
+                }
+            }
+        }
+    }
+    
     func openExistingContainer(with url: URL) {
     
         let landingViewController = LandingViewController.shared!
@@ -74,52 +106,15 @@ extension ContainerActions where Self: UIViewController {
                     containerViewController.containerPath = newFilePath
                     containerViewController.forcePDFContentPreview = isPDF
                 
-                let pushContainerVCClosure = {
+                landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
                     navController?.pushViewController(containerViewController, animated: true)
-                }
-                if let presentedVC = navController?.viewControllers.last?.presentedViewController {
-                    presentedVC.dismiss(animated: false) {
-                        pushContainerVCClosure()
-                    }
-                } else {
-                    pushContainerVCClosure()
-                }
+                })
+
             },
             failure: { _ in
                 failure()
             }
         )
-    }
-    func importFiles(with urls: [URL]) {
-        let landingViewController = LandingViewController.shared!
-        let navController = landingViewController.viewController(for: .signTab) as! UINavigationController
-        let topSigningViewController = navController.viewControllers.last!
-        
-        landingViewController.documentPicker.dismiss(animated: false, completion: nil)
-        
-        if topSigningViewController.presentedViewController is FileImportProgressViewController {
-            topSigningViewController.presentedViewController?.errorAlert(message: L(.fileImportAlreadyInProgressMessage))
-            return
-        }
-        
-        topSigningViewController.present(landingViewController.importProgressViewController, animated: false)
-        
-        MoppFileManager.shared.importFiles(with: urls) { [weak self] error, dataFilePaths in
-        
-            if landingViewController.fileImportIntent == .addToContainer {
-                landingViewController.addDataFilesToContainer(dataFilePaths: dataFilePaths)
-            }
-            else if landingViewController.fileImportIntent == .openOrCreate {
-                navController.setViewControllers([navController.viewControllers.first!], animated: false)
-             
-                let ext = urls.first!.pathExtension
-                if (ext.isContainerExtension || ext == ContainerFormatPDF) && urls.count == 1 {
-                    self?.openExistingContainer(with: urls.first!)
-                } else {
-                    self?.createNewContainer(with: urls.first!, dataFilePaths: dataFilePaths)
-                }
-            }
-        }
     }
 
     func addDataFilesToContainer(dataFilePaths: [String]) {
@@ -128,15 +123,17 @@ extension ContainerActions where Self: UIViewController {
         let topSigningViewController = navController.viewControllers.last!
         let containerViewController = topSigningViewController as? ContainerViewController
         let containerPath = containerViewController!.containerPath
+        
         MoppLibContainerActions.sharedInstance().addDataFilesToContainer(
             withPath: containerPath,
             withDataFilePaths: dataFilePaths,
             success: { container in
-                landingViewController.importProgressViewController.dismiss(animated: false, completion: nil)
-                containerViewController?.reloadContainer()
+                landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                    containerViewController?.reloadContainer()
+                })
             },
             failure: { error in
-                landingViewController.importProgressViewController.dismiss(animated: false, completion: nil)
+                landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: nil)
             }
         )
     }
@@ -171,7 +168,7 @@ extension ContainerActions where Self: UIViewController {
                 }
                 if container == nil {
                 
-                    landingViewController.importProgressViewController.dismiss(animated: false, completion: nil)
+                    landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: nil)
                     
                     let alert = UIAlertController(title: L(.fileImportCreateNewFailedAlertTitle), message: L(.fileImportCreateNewFailedAlertMessage, [fileName]), preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
@@ -185,17 +182,9 @@ extension ContainerActions where Self: UIViewController {
                     containerViewController.isCreated = true
                     containerViewController.startSigningWhenOpened = startSigningWhenCreated
                 
-                let pushContainerVCClosure = {
+                landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
                     navController?.pushViewController(containerViewController, animated: true)
-                }
-                
-                if let presentedVC = navController?.viewControllers.last?.presentedViewController {
-                    presentedVC.dismiss(animated: false) {
-                        pushContainerVCClosure()
-                    }
-                } else {
-                    pushContainerVCClosure()
-                }
+                })
             
             }, failure: { error in
                 if cleanUpDataFilesInDocumentsFolder {
@@ -207,8 +196,7 @@ extension ContainerActions where Self: UIViewController {
         )
     }
     
-    func createLegacyContainer()
-    {
+    func createLegacyContainer() {
         if let containerViewController = self as? ContainerViewController {
             let containerPath = containerViewController.containerPath!
             let containerPathURL = URL(fileURLWithPath: containerPath)

@@ -118,15 +118,4 @@ class MoppViewController : UIViewController {
     @objc func backAction() {
         _ = navigationController?.popViewController(animated: true)
     }
-
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        // Make sure all the other presented view controllers are dismissed
-        if let presentedVC = presentedViewController {
-            presentedVC.dismiss(animated: false, completion: {
-                super.dismiss(animated: flag, completion: completion)
-            })
-        } else {
-            super.dismiss(animated: flag, completion: completion)
-        }
-    }
 }
