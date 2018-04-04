@@ -68,9 +68,12 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
     }
 
     var selectedTab: TabButtonId = .signTab {
-        didSet {
-            changeTabViewController(with: selectedTab)
-            selectTab(with: selectedTab)
+        willSet {
+            if childViewControllers.first != nil && selectedTab == newValue {
+                return
+            }
+            changeTabViewController(with: newValue)
+            selectTab(with: newValue)
         }
     }
     
@@ -145,10 +148,6 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
     func changeTabViewController(with buttonID: TabButtonId) {
         let oldViewController = childViewControllers.first
         let newViewController = createViewController(for: buttonID)
-        
-        if type(of: oldViewController) == type(of: newViewController) {
-            return
-        }
         
         oldViewController?.willMove(toParentViewController: nil)
         addChildViewController(newViewController)

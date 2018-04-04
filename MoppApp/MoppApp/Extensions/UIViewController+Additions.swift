@@ -22,7 +22,6 @@
  */
 import Foundation
 
-
 extension UIViewController {
     func confirmDeleteAlert(message: String?, confirmCallback: @escaping (_ action: UIAlertAction) -> Void) {
         let confirmDialog = UIAlertController(title: nil, message: message, preferredStyle: .alert)
@@ -35,5 +34,15 @@ extension UIViewController {
         let errorAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: dismissCallback))
         present(errorAlert, animated: true, completion: nil)
+    }
+    
+    func dismissRecursively(animated flag: Bool, completion: (() -> Void)? = nil) {
+        if let presentedVC = presentedViewController {
+            presentedVC.dismissRecursively(animated: flag) { [weak self] in
+                self?.dismiss(animated: flag, completion: completion)
+            }
+        } else {
+            dismiss(animated: flag, completion: completion)
+        }
     }
 }
