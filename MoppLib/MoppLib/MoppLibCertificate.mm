@@ -34,11 +34,42 @@
   certData.isValid = [self certificateIsValid:digiDocCert];
   certData.expiryDate = [self certificateExpiryDate:digiDocCert];
   certData.email = [self certificateSubjectEmail:digiDocCert];
+  certData.organization = [self certificateOrganization:digiDocCert];
 }
 
 + (digidoc::X509Cert)digidocCertFrom:(const unsigned char *)certData length:(size_t)length {
   digidoc::X509Cert cert = digidoc::X509Cert(certData, length, digidoc::X509Cert::Format::Der);
   return cert;
+}
+
++ (MoppLibCertOrganization)certificateOrganization:(digidoc::X509Cert)cert {
+  X509 *certificateX509 = cert.handle();
+  
+  if (certificateX509 != NULL) {
+    std::string name(certificateX509->name);
+    
+    auto offset = name.find("/O=");
+    if (offset != std::string::npos) {
+        
+        auto start = offset + 3;
+        auto end = name.find("/", start);
+        
+        std::string result = name.substr(start, end - start);
+        
+        if (result == "ESTEID") {
+            return IDCard;
+        }
+        else if (result == "ESTEID (DIGI-ID)") {
+            return DigiID;
+        }
+        else if (result == "ESTEID (MOBIIL-ID)") {
+            return MobileID;
+        }
+        else
+            return Unknown;
+    }
+  }
+  return Unknown;
 }
 
 + (NSString *)certificateSubjectEmail:(digidoc::X509Cert)cert {

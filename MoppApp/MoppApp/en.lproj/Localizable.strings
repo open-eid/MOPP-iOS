@@ -269,10 +269,11 @@
 "wrong-pin2-single" = "Wrong PIN2. You have 1 attempt left.\nBy typing wrong PIN2 again, your PIN2 will be locked";
 "pin2-textfield-label" = "PIN2";
 "pin2-blocked-alert" = "PIN2 blocked.\nGo to My eID to unblock your PIN2.";
-"id-card-sign-generic-error-message" = "Something went wrong. Please try again";
+"generic-error-message" = "Something went wrong. Please try again";
 "signing-aborted-message" = "Error: signing process aborted";
 "my-eid-status-reader-not-found" = "Connect ID-card reader to your phone and insert your ID-card into the reader";
 "my-eid-status-card-not-found" = "Reader found.\nInsert your ID-card into the reader";
+"my-eid-status-requesting-data" = "ID-card found.\nRequesting information";
 "my-eid-auth-cert-expired" = "Expired";
 "my-eid-auth-cert-valid" = "Valid";
 "my-eid-info-item-given-names" = "GIVEN NAMES";
@@ -281,4 +282,9 @@
 "my-eid-info-item-citizenship" = "CITIZENSHIP";
 "my-eid-info-item-document-number" = "DOCUMENT NUMBER";
 "my-eid-info-item-expiry-date" = "VALID UNTIL";
+"my-eid-info-my-eid" = "MY eID";
+"my-eid-info-my-eid-id-card" = "ID-CARD";
+"my-eid-info-my-eid-mobile-id" = "MOBILE-ID";
+"my-eid-info-my-eid-digi-id" = "DIGI-ID";
+"my-eid-info-my-eid-unknown" = "UNKNOWN";
 "file-import-already-in-progress-message" = "File importing already in progress.\nPlease wait until it is finished and try again";

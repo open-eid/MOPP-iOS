@@ -271,10 +271,11 @@
 "wrong-pin2-single" = "Неверный PIN2. У вас есть 1 попытка.\nНабрав неправильный PIN2, ваш PIN2 будет заблокирован";
 "pin2-textfield-label" = "PIN2";
 "pin2-blocked-alert" = "PIN2 заблокирован. Перейдите в «Мой eID», чтобы разблокировать свой PIN2.";
-"id-card-sign-generic-error-message" = "Что-то пошло не так. Пожалуйста, попробуйте еще раз";
+"generic-error-message" = "Что-то пошло не так. Пожалуйста, попробуйте еще раз";
 "signing-aborted-message" = "Ошибка: процесс подписи прерывается";
 "my-eid-status-reader-not-found" = "Подключите считыватель ID-карт к телефону и вставьте идентификационную карту в устройство чтения";
 "my-eid-status-card-not-found" = "Читатель нашел.\nВставьте свою идентификационную карту в считыватель";
+"my-eid-status-requesting-data" = "ID-карта найдена.\nЗапрос информации";
 "my-eid-auth-cert-expired" = "Истекший";
 "my-eid-auth-cert-valid" = "Действительно";
 "my-eid-info-item-given-names" = "ИМЯ";
@@ -283,4 +284,9 @@
 "my-eid-info-item-citizenship" = "НАЦИОНАЛЬНОСТЬ";
 "my-eid-info-item-document-number" = "НОМЕР ДОКУМЕНТА";
 "my-eid-info-item-expiry-date" = "СРОК ДЕЙСТВИЯ";
+"my-eid-info-my-eid" = "МОЙ eID";
+"my-eid-info-my-eid-id-card" = "ID-CARD";
+"my-eid-info-my-eid-mobile-id" = "MOBILE-ID";
+"my-eid-info-my-eid-digi-id" = "DIGI-ID";
+"my-eid-info-my-eid-unknown" = "НЕИЗВЕСТНЫЙ";
 "file-import-already-in-progress-message" = "Уже импортирован файл.\nПодождите, пока все будет готово, и повторите попытку.";

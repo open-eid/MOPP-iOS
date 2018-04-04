@@ -90,15 +90,18 @@ extension SignSelectionViewController {
     func changeSignMethod(newSignMethod: SignMethodButtonID) {
         let oldViewController = childViewControllers.first
         let newViewController: MoppViewController!
+        
         switch newSignMethod {
         case .idCard:
-            newViewController = UIStoryboard.signing.instantiateViewController(with: IdCardSignViewController.self)
-            (newViewController as! IdCardSignViewController).delegate = idCardSignViewControllerDelegate
-            (newViewController as! IdCardSignViewController).containerPath = containerPath
-            (newViewController as! IdCardSignViewController).keyboardDelegate = self
+            let idCardSignVC = UIStoryboard.signing.instantiateViewController(of: IdCardSignViewController.self)
+                idCardSignVC.delegate = idCardSignViewControllerDelegate
+                idCardSignVC.containerPath = containerPath
+                idCardSignVC.keyboardDelegate = self
+            newViewController = idCardSignVC
         case .mobileID:
-            newViewController = UIStoryboard.signing.instantiateViewController(with: MobileIDEditViewController.self)
-            (newViewController as! MobileIDEditViewController).delegate = mobileIdEditViewControllerDelegate
+            let mobileIdEditVC = UIStoryboard.signing.instantiateViewController(of: MobileIDEditViewController.self)
+                mobileIdEditVC.delegate = mobileIdEditViewControllerDelegate
+            newViewController = mobileIdEditVC
         }
         
         oldViewController?.willMove(toParentViewController: nil)
