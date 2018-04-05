@@ -254,5 +254,6 @@ enum LocKey : String
     case myEidInfoMyEidMobileId = "my-eid-info-my-eid-mobile-id"
     case myEidInfoMyEidDigiId = "my-eid-info-my-eid-digi-id"
     case myEidInfoMyEidUnknown = "my-eid-info-my-eid-unknown"
+    case myEidInfoMyEidEResident = "my-eid-info-my-eid-e-resident"
     case fileImportAlreadyInProgressMessage = "file-import-already-in-progress-message"
 }

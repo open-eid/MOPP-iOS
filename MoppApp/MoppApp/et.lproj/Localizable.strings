@@ -288,4 +288,5 @@
 "my-eid-info-my-eid-mobile-id" = "MOBIIL-ID";
 "my-eid-info-my-eid-digi-id" = "DIGI-ID";
 "my-eid-info-my-eid-unknown" = "TUNDMATU";
+"my-eid-info-my-eid-e-resident" = "E-RESIDENT";
 "file-import-already-in-progress-message" = "Faili laadimine hetkel toimumas.\nPalun oota selle toimingu lõppemist ning seejärel proovi uuesti";
