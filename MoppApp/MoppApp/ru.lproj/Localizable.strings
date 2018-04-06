@@ -289,4 +289,5 @@
 "my-eid-info-my-eid-mobile-id" = "MOBILE-ID";
 "my-eid-info-my-eid-digi-id" = "DIGI-ID";
 "my-eid-info-my-eid-unknown" = "НЕИЗВЕСТНЫЙ";
+"my-eid-info-my-eid-e-resident" = "E-РЕЗИДЕНТ";
 "file-import-already-in-progress-message" = "Уже импортирован файл.\nПодождите, пока все будет готово, и повторите попытку.";

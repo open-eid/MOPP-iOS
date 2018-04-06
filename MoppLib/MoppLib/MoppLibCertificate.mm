@@ -65,6 +65,9 @@
         else if (result == "ESTEID (MOBIIL-ID)") {
             return MobileID;
         }
+        else if (result == "ESTEID (DIGI-ID E-RESIDENT)") {
+            return EResident;
+        }
         else
             return Unknown;
     }

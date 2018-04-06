@@ -78,6 +78,8 @@ class MyeIDInfoViewController: MoppViewController {
             return L(.myEidInfoMyEidDigiId)
         case .MobileID:
             return L(.myEidInfoMyEidMobileId)
+        case .EResident:
+            return L(.myEidInfoMyEidEResident)
         case .Unknown:
             return L(.myEidInfoMyEidUnknown)
         }

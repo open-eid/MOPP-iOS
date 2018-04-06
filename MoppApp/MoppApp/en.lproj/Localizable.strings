@@ -287,4 +287,5 @@
 "my-eid-info-my-eid-mobile-id" = "MOBILE-ID";
 "my-eid-info-my-eid-digi-id" = "DIGI-ID";
 "my-eid-info-my-eid-unknown" = "UNKNOWN";
+"my-eid-info-my-eid-e-resident" = "E-RESIDENT";
 "file-import-already-in-progress-message" = "File importing already in progress.\nPlease wait until it is finished and try again";

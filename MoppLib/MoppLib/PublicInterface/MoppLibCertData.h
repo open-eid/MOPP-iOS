@@ -29,6 +29,7 @@ typedef NS_ENUM(int, MoppLibCertOrganization) {
     IDCard,
     MobileID,
     DigiID,
+    EResident,
     Unknown
 };
 
