@@ -146,7 +146,7 @@ class MyeIDInfoManager {
         switch certOrganization {
         case .IDCard:
             return L(.myEidInfoMyEidIdCard)
-        case .DigiID:
+        case .DigiID, .EResident:
             return L(.myEidInfoMyEidDigiId)
         case .MobileID:
             return L(.myEidInfoMyEidMobileId)
