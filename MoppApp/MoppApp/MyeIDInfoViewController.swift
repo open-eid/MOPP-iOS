@@ -21,85 +21,137 @@
  *
  */
 class MyeIDInfoViewController: MoppViewController {
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var ui: MyeIDInfoViewControllerUI!
     
-    enum ItemType {
-        case myeID
-        case givenNames
-        case surname
-        case personalCode
-        case citizenship
-        case documentNumber
-        case expiryDate
+    enum Segment {
+        case info
+        case changePins
+        case margin
     }
     
-    var itemTitles: [ItemType: String] = [
-        .myeID:         L(.myEidInfoMyEid),
-        .givenNames:    L(.myEidInfoItemGivenNames),
-        .surname:       L(.myEidInfoItemSurname),
-        .personalCode:  L(.myEidInfoItemPersonalCode),
-        .citizenship:   L(.myEidInfoItemCitizenship),
-        .documentNumber: L(.myEidInfoItemDocumentNumber),
-        .expiryDate:    L(.myEidInfoItemExpiryDate)
-    ]
-    
-    var items: [(type: ItemType, value: String)] = []
+    var segments: [Segment] = [.info, .margin, .changePins]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.estimatedRowHeight = 62
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.contentInset = UIEdgeInsetsMake(7, 0, 0, 0)
+        ui.setupOnce()
+        ui.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
-    }
-    
-    func loadItems(personalData: MoppLibPersonalData?, authCertData: MoppLibCertData?) {
-        items.removeAll()
-        guard let personalData = personalData else { return }
-        let certOrganization = authCertData?.organization ?? MoppLibCertOrganization.Unknown
-        items.append((type: .myeID, value: organizationDisplayString(certOrganization)))
-        items.append((type: .givenNames, value: personalData.givenNames()))
-        items.append((type: .surname, value: personalData.surname))
-        items.append((type: .personalCode, value: personalData.personalIdentificationCode))
-        items.append((type: .citizenship, value: personalData.nationality))
-        items.append((type: .documentNumber, value: personalData.documentNumber))
-        items.append((type: .expiryDate, value: personalData.expiryDate))
-    }
-    
-    func organizationDisplayString(_ certOrganization: MoppLibCertOrganization) -> String {
-        switch certOrganization {
-        case .IDCard:
-            return L(.myEidInfoMyEidIdCard)
-        case .DigiID:
-            return L(.myEidInfoMyEidDigiId)
-        case .MobileID:
-            return L(.myEidInfoMyEidMobileId)
-        case .EResident:
-            return L(.myEidInfoMyEidEResident)
-        case .Unknown:
-            return L(.myEidInfoMyEidUnknown)
-        }
+        ui.tableView.reloadData()
     }
 }
 
 extension MyeIDInfoViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return MyeIDInfoManager.shared.personalInfo.items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = items[indexPath.row]
+        let item = MyeIDInfoManager.shared.personalInfo.items[indexPath.row]
         let cell = tableView.dequeueReusableCell(withType: MyeIDInfoCell.self, for: indexPath)!
         if item.type == .expiryDate {
-            cell.populate(titleText: itemTitles[item.type]!, with: item.value)
+            cell.populate(titleText: MyeIDInfoManager.shared.personalInfo.itemTitles[item.type]!, with: item.value)
         } else {
-            cell.populate(titleText: itemTitles[item.type]!, contentText: item.value)
+            cell.populate(titleText: MyeIDInfoManager.shared.personalInfo.itemTitles[item.type]!, contentText: item.value)
         }
         
         return cell
+    }
+}
+
+extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
+    func numberOfContentCells(in segment: Int) -> Int {
+        switch segments[segment] {
+        case .info:
+            return MyeIDInfoManager.shared.personalInfo.items.count
+        case .changePins:
+            return MyeIDInfoManager.shared.pinPukCell.items.count
+        case .margin:
+            return 1
+        }
+    }
+    
+    func numberOfSegments() -> Int {
+        return segments.count
+    }
+    
+    func contentCell(at indexPath: IndexPath) -> UITableViewCell {
+        let segment = segments[indexPath.section]
+        switch segment {
+        case .info:
+            let item = MyeIDInfoManager.shared.personalInfo.items[indexPath.row]
+            let cell = ui.tableView.dequeueReusableCell(withType: MyeIDInfoCell.self, for: indexPath)!
+            if item.type == .expiryDate {
+                cell.populate(titleText: MyeIDInfoManager.shared.personalInfo.itemTitles[item.type]!, with: item.value)
+            } else {
+                cell.populate(titleText: MyeIDInfoManager.shared.personalInfo.itemTitles[item.type]!, contentText: item.value)
+            }
+            return cell
+        case .changePins:
+            return ui.tableView.dequeueReusableCell(withType: MyeIDPinPukCell.self, for: indexPath)!
+        case .margin:
+            return ui.tableView.dequeueReusableCell(withIdentifier: "marginCell", for: indexPath)
+        }
+    }
+    
+    func segmentHeaderCell(for segment: Int, at indexPath: IndexPath) -> UITableViewCell {
+        switch segments[segment] {
+        case .info, .margin:
+            return UITableViewCell()
+        case .changePins:
+            let cell = ui.tableView.dequeueReusableCell(withType: MyeIDSegmentHeaderCell.self, for: indexPath)!
+            return cell
+        }
+    }
+    
+    func didSelectContentCell(at row:Int, in segment:Int) {
+    }
+    
+    func shouldShowSegmentHeader(in segment:Int) -> Bool {
+        switch segments[segment] {
+        case .info, .margin:
+            return false
+        case .changePins:
+            return true
+        }
+    }
+    
+    func shouldAlwaysShowContent(in segment:Int) -> Bool {
+        switch segments[segment] {
+        case .info, .margin:
+            return true
+        case .changePins:
+            return false
+        }
+    }
+    
+    func shouldScrollToTopWhenExpanding(segment:Int) -> Bool {
+        return true
+    }
+    
+    func willExpandContent(in segment:Int, segmentHeaderCell: UITableViewCell?) {
+        if segments[segment] == .changePins {
+            if let cell = segmentHeaderCell as? MyeIDSegmentHeaderCell {
+                cell.updateExpandedState(with: true)
+            }
+        }
+    }
+    
+    func willCollapseContent(in segment:Int, segmentHeaderCell: UITableViewCell?) {
+        if segments[segment] == .changePins {
+            if let cell = segmentHeaderCell as? MyeIDSegmentHeaderCell {
+                cell.updateExpandedState(with: false)
+            }
+        }
+    }
+    
+    func willDisplayContentCell(_ cell: UITableViewCell, in segment:Int, at row:Int) {
+        if segments[segment] == .changePins {
+            if let pinPukCell = cell as? MyeIDPinPukCell {
+                pinPukCell.populate(pinPukCellInfo: MyeIDInfoManager.shared.pinPukCell.items[row])
+            }
+        }
     }
 }

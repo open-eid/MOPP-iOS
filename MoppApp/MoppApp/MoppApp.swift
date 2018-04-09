@@ -69,19 +69,19 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().tintColor = UIColor.moppText
         UINavigationBar.appearance().barTintColor = UIColor.moppBaseBackground
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.moppText]
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor : UIColor.moppText]
         UINavigationBar.appearance().barStyle = .default
         
         // Selected TabBar item text color
         UITabBarItem.appearance().setTitleTextAttributes(
-            [NSAttributedStringKey.foregroundColor:UIColor.white,
-             NSAttributedStringKey.font:UIFont(name: "RobotoCondensed-Regular", size: 10)!],
+            [.foregroundColor:UIColor.white,
+             .font:UIFont(name: "RobotoCondensed-Regular", size: 10)!],
             for: .selected)
 
         // Unselected TabBar item text color
         UITabBarItem.appearance().setTitleTextAttributes(
-            [NSAttributedStringKey.foregroundColor:UIColor.moppUnselectedTabBarItem,
-             NSAttributedStringKey.font:UIFont(name: "RobotoCondensed-Regular", size: 10)!],
+            [.foregroundColor:UIColor.moppUnselectedTabBarItem,
+             .font:UIFont(name: "RobotoCondensed-Regular", size: 10)!],
             for: .normal)
         
         let initializationViewController = InitializationViewController()

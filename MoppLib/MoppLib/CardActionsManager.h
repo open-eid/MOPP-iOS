@@ -39,7 +39,7 @@
 
 - (void)cardOwnerBirthDateWithViewController:(UIViewController *)controller success:(void(^)(NSDate *date))success failure:(FailureBlock)failure;
 
-- (void)signingCertWithViewController:(UIViewController *)controller success:(CertDataBlock)success failure:(FailureBlock)failure;
+- (void)signingCertWithViewController:(UIViewController *)controller pin2:(NSString *)pin2 success:(CertDataBlock)success failure:(FailureBlock)failure;
 - (void)authenticationCertWithViewController:(UIViewController *)controller success:(CertDataBlock)success failure:(FailureBlock)failure;
 
 - (void)authenticationCertDataWithViewController:(UIViewController *)controller success:(DataSuccessBlock)success failure:(FailureBlock)failure;
