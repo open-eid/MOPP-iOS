@@ -28,13 +28,20 @@ class MyeIDViewController : MoppViewController {
     
         MyeIDInfoManager.shared.delegate = self
     
-        _ = showViewController(createStatusViewController())
+        let statusVC = createStatusViewController()
+        _ = showViewController(statusVC)
+        
         MoppLibCardReaderManager.sharedInstance().delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        MoppLibCardReaderManager.sharedInstance().startDetecting()
+        let statusVC = childViewControllers.first as? MyeIDStatusViewController
+            statusVC?.state = .readerNotFound
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            MoppLibCardReaderManager.sharedInstance().startDetecting()
+        })
     }
     
     override func viewWillDisappear(_ animated: Bool) {
