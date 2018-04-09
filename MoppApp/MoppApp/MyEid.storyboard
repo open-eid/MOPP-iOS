@@ -6,12 +6,19 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Roboto-Bold.ttf">
+            <string>Roboto-Bold</string>
+        </array>
         <array key="Roboto-Medium.ttf">
             <string>Roboto-Medium</string>
+        </array>
+        <array key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
         </array>
         <array key="RobotoCondensed-Bold.ttf">
             <string>RobotoCondensed-Bold</string>
@@ -116,7 +123,7 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kHp-sg-HRn">
                                                     <rect key="frame" x="15" y="49" width="345" height="20"/>
-                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Bold" family="Roboto Condensed" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="17"/>
                                                     <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -136,10 +143,161 @@
                                             <outlet property="titleLabel" destination="w8A-R2-bu9" id="n3U-7h-zgd"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="marginCell" rowHeight="15" id="A6s-au-iZz">
+                                        <rect key="frame" x="0.0" y="97" width="375" height="15"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A6s-au-iZz" id="E0S-re-LFz">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YFV-pb-WFC">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="15"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="15" id="Wmb-qc-Nh5"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="YFV-pb-WFC" secondAttribute="trailing" id="NTJ-AM-bFg"/>
+                                                <constraint firstItem="YFV-pb-WFC" firstAttribute="leading" secondItem="E0S-re-LFz" secondAttribute="leading" id="W7A-Vf-RAK"/>
+                                                <constraint firstItem="YFV-pb-WFC" firstAttribute="top" secondItem="E0S-re-LFz" secondAttribute="top" id="c9E-7y-VdY"/>
+                                                <constraint firstAttribute="bottom" secondItem="YFV-pb-WFC" secondAttribute="bottom" id="gT8-5g-1wg"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MyeIDSegmentHeaderCell" rowHeight="55" id="A8A-0d-Gn2" customClass="MyeIDSegmentHeaderCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="112" width="375" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A8A-0d-Gn2" id="V7o-I5-DV0">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Accordion_arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="GWn-fO-chL">
+                                                    <rect key="frame" x="6" y="9" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="O3j-X3-mea"/>
+                                                        <constraint firstAttribute="width" constant="30" id="Txe-l3-srT"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PIN/PUK KOODID JA SERTIFIKAATIDE KONTROLL" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZe-Sb-oBY">
+                                                    <rect key="frame" x="36" y="15" width="324" height="25"/>
+                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Bold" family="Roboto Condensed" pointSize="16"/>
+                                                    <color key="textColor" name="MoppBase"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="GWn-fO-chL" firstAttribute="leading" secondItem="V7o-I5-DV0" secondAttribute="leading" constant="6" id="2ge-iD-eMs"/>
+                                                <constraint firstItem="GWn-fO-chL" firstAttribute="top" secondItem="xZe-Sb-oBY" secondAttribute="top" constant="-6" id="FZK-bH-oId"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="xZe-Sb-oBY" secondAttribute="bottom" constant="4" id="OT6-hz-JmU"/>
+                                                <constraint firstItem="xZe-Sb-oBY" firstAttribute="trailing" secondItem="V7o-I5-DV0" secondAttribute="trailingMargin" id="Pep-Cd-IaM"/>
+                                                <constraint firstItem="xZe-Sb-oBY" firstAttribute="top" secondItem="V7o-I5-DV0" secondAttribute="topMargin" constant="4" id="ddX-nB-axo"/>
+                                                <constraint firstItem="xZe-Sb-oBY" firstAttribute="leading" secondItem="GWn-fO-chL" secondAttribute="trailing" id="hKc-Wf-zlr"/>
+                                                <constraint firstItem="xZe-Sb-oBY" firstAttribute="centerY" secondItem="V7o-I5-DV0" secondAttribute="centerY" id="sL8-Kv-cYZ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="iconImageView" destination="GWn-fO-chL" id="dsR-Qd-jc5"/>
+                                            <outlet property="titleLabel" destination="xZe-Sb-oBY" id="IjJ-RX-9WZ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MyeIDPinPukCell" rowHeight="227" id="4lc-dq-tbf" customClass="MyeIDPinPukCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="167" width="375" height="227"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4lc-dq-tbf" id="TpW-2W-W0x">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="227"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PIN - Isikutuvastamise sertifikaat" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJu-2L-EAd">
+                                                    <rect key="frame" x="15" y="19" width="345" height="24"/>
+                                                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="20"/>
+                                                    <color key="textColor" name="MoppTitle"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Sertifikaat kehtib kuni 10. august 2019" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qQ-fi-sih">
+                                                    <rect key="frame" x="15" y="47" width="345" height="20"/>
+                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                    <color key="textColor" name="MoppLabel"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ea3-dl-Wz3">
+                                                    <rect key="frame" x="15" y="99" width="345" height="50"/>
+                                                    <color key="backgroundColor" name="MoppBase"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="KZ9-h4-g4H"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
+                                                    <state key="normal" title="MUUDA PIN1">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" text="Unustasid PIN1 koodi?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9vn-PN-mob">
+                                                    <rect key="frame" x="15" y="181" width="345" height="19"/>
+                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
+                                                    <color key="textColor" name="MoppLabel"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DKW-MG-75P">
+                                                    <rect key="frame" x="15" y="226" width="345" height="1"/>
+                                                    <color key="backgroundColor" red="0.83514291957700759" green="0.85184577796854777" blue="0.85184577796854777" alpha="0.7560199058219178" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="mT7-d5-mZK"/>
+                                                    </constraints>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRI-cY-Mwr">
+                                                    <rect key="frame" x="15" y="168.5" width="345" height="44"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="pUV-Mw-39o"/>
+                                                    </constraints>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <state key="normal">
+                                                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="9vn-PN-mob" secondAttribute="bottom" constant="16" id="1nY-OQ-IsU"/>
+                                                <constraint firstItem="bRI-cY-Mwr" firstAttribute="centerY" secondItem="9vn-PN-mob" secondAttribute="centerY" id="3lK-hb-zGy"/>
+                                                <constraint firstItem="DKW-MG-75P" firstAttribute="leading" secondItem="TpW-2W-W0x" secondAttribute="leading" constant="15" id="EyQ-Ke-VQf"/>
+                                                <constraint firstItem="9vn-PN-mob" firstAttribute="leading" secondItem="TpW-2W-W0x" secondAttribute="leadingMargin" id="MiZ-62-bmj"/>
+                                                <constraint firstItem="Ea3-dl-Wz3" firstAttribute="top" secondItem="7qQ-fi-sih" secondAttribute="bottom" constant="32" id="NfE-GS-nbR"/>
+                                                <constraint firstItem="Ea3-dl-Wz3" firstAttribute="trailing" secondItem="TpW-2W-W0x" secondAttribute="trailingMargin" id="RZb-tO-KNq"/>
+                                                <constraint firstItem="7qQ-fi-sih" firstAttribute="top" secondItem="NJu-2L-EAd" secondAttribute="bottom" constant="4" id="TtV-cf-bWZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="bRI-cY-Mwr" secondAttribute="trailing" constant="15" id="VLT-Ka-XcN"/>
+                                                <constraint firstItem="9vn-PN-mob" firstAttribute="top" secondItem="Ea3-dl-Wz3" secondAttribute="bottom" constant="32" id="XFF-WF-qRL"/>
+                                                <constraint firstItem="bRI-cY-Mwr" firstAttribute="leading" secondItem="TpW-2W-W0x" secondAttribute="leading" constant="15" id="Yy4-QR-d2x"/>
+                                                <constraint firstItem="NJu-2L-EAd" firstAttribute="top" secondItem="TpW-2W-W0x" secondAttribute="topMargin" constant="8" id="cjN-Dp-SbP"/>
+                                                <constraint firstItem="7qQ-fi-sih" firstAttribute="leading" secondItem="TpW-2W-W0x" secondAttribute="leadingMargin" id="iaa-V5-P17"/>
+                                                <constraint firstItem="NJu-2L-EAd" firstAttribute="trailing" secondItem="TpW-2W-W0x" secondAttribute="trailingMargin" id="irx-e2-V7e"/>
+                                                <constraint firstItem="7qQ-fi-sih" firstAttribute="trailing" secondItem="TpW-2W-W0x" secondAttribute="trailingMargin" id="lN7-oh-cvY"/>
+                                                <constraint firstItem="NJu-2L-EAd" firstAttribute="leading" secondItem="TpW-2W-W0x" secondAttribute="leadingMargin" id="lid-df-Dra"/>
+                                                <constraint firstAttribute="trailing" secondItem="DKW-MG-75P" secondAttribute="trailing" constant="15" id="ttS-R0-TMT"/>
+                                                <constraint firstItem="Ea3-dl-Wz3" firstAttribute="leading" secondItem="TpW-2W-W0x" secondAttribute="leadingMargin" id="uaD-3w-sLv"/>
+                                                <constraint firstItem="9vn-PN-mob" firstAttribute="trailing" secondItem="TpW-2W-W0x" secondAttribute="trailingMargin" id="zGh-W3-rQP"/>
+                                                <constraint firstAttribute="bottom" secondItem="DKW-MG-75P" secondAttribute="bottom" id="zm9-mN-kSo"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="bottomLine" destination="DKW-MG-75P" id="qzk-1I-cCF"/>
+                                            <outlet property="button" destination="Ea3-dl-Wz3" id="1ql-or-fx5"/>
+                                            <outlet property="certInfoLabel" destination="7qQ-fi-sih" id="a0h-vL-rds"/>
+                                            <outlet property="linkLabel" destination="9vn-PN-mob" id="LDM-Ek-1vC"/>
+                                            <outlet property="titleLabel" destination="NJu-2L-EAd" id="KTE-BU-vS4"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="njo-Ew-aKf" id="sNq-7S-nKQ"/>
-                                    <outlet property="delegate" destination="njo-Ew-aKf" id="dMX-aq-Y0p"/>
+                                    <outlet property="dataSource" destination="BwH-nR-tQl" id="hEd-5P-6BH"/>
+                                    <outlet property="delegate" destination="BwH-nR-tQl" id="Gjd-a7-Xsa"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -153,10 +311,15 @@
                         <viewLayoutGuide key="safeArea" id="SjF-s2-2nL"/>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="YRp-KX-D2F" id="dll-WM-4nF"/>
+                        <outlet property="ui" destination="BwH-nR-tQl" id="z1S-FG-kGa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r2h-xa-Lmg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="BwH-nR-tQl" customClass="MyeIDInfoViewControllerUI" customModule="MoppApp" customModuleProvider="target">
+                    <connections>
+                        <outlet property="tableView" destination="YRp-KX-D2F" id="gPa-Xl-oTH"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="1804" y="25.637181409295355"/>
         </scene>
@@ -188,6 +351,16 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Accordion_arrow_right" width="9" height="14"/>
         <image name="VerticalDotsMenu" width="25" height="25"/>
+        <namedColor name="MoppBase">
+            <color red="0.0" green="0.43137254901960786" blue="0.70980392156862748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="MoppLabel">
+            <color red="0.45882352941176469" green="0.47058823529411764" blue="0.4823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="MoppTitle">
+            <color red="0.015686274509803921" green="0.11764705882352941" blue="0.25882352941176473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

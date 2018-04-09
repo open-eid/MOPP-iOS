@@ -43,7 +43,7 @@
 }
 
 + (void)signingCertWithViewController:(UIViewController *)controller success:(CertDataBlock)success failure:(FailureBlock)failure {
-  [[CardActionsManager sharedInstance] signingCertWithViewController:controller success:success failure:failure];
+  [[CardActionsManager sharedInstance] signingCertWithViewController:controller pin2:@"" success:success failure:failure];
 }
 
 + (void)authenticationCertWithViewController:(UIViewController *)controller success:(CertDataBlock)success failure:(FailureBlock)failure {

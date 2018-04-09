@@ -42,8 +42,8 @@ class RecentContainersNameCell : UITableViewCell {
             locale: nil)
         
         let attributedString = NSMutableAttributedString(string: filename, attributes: nil)
-            attributedString.addAttributes([NSAttributedStringKey.font : UIFont.moppRecentContainers], range: NSMakeRange(0, filename.count))
-            attributedString.addAttributes([NSAttributedStringKey.font : UIFont.moppRecentContainersSearchKeyword], range: searchKeywordRange)
+            attributedString.addAttributes([.font : UIFont.moppRecentContainers], range: NSMakeRange(0, filename.count))
+            attributedString.addAttributes([.font : UIFont.moppRecentContainersSearchKeyword], range: searchKeywordRange)
     
         filenameLabel.attributedText = attributedString
     }

@@ -22,9 +22,11 @@
  */
 class MyeIDViewController : MoppViewController {
     @IBOutlet weak var containerView: UIView!
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        MyeIDInfoManager.shared.delegate = self
     
         _ = showViewController(createStatusViewController())
         MoppLibCardReaderManager.sharedInstance().delegate = self
@@ -105,23 +107,28 @@ extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
             }
             statusVC?.state = .requestingData
             
-            let failureClosure = { [weak self] in
-                self?.childViewControllers.first?.errorAlert(message: L(.genericErrorMessage))
-            }
-            
             // Give some time for status textfield to update before executing data requests
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-                MoppLibCardActions.minimalCardPersonalData(with: self, success: { [weak self] moppLibPersonalData in
-                    MoppLibCardActions.authenticationCert(with: self, success: { moppLibCertData in
-                        DispatchQueue.main.async { [weak self] in
-                            guard let sself = self else { return }
-                            let infoViewController = sself.createInfoViewController()
-                                infoViewController.loadItems(personalData: moppLibPersonalData, authCertData: moppLibCertData)
-                            _ = sself.showViewController(infoViewController)
-                        }
-                    }, failure: {_ in failureClosure() })
-                }, failure: {_ in failureClosure() })
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
+                guard let strongSelf = self else { return }
+                MyeIDInfoManager.shared.requestInformation(with: strongSelf)
             })
         }
+    }
+}
+
+extension MyeIDViewController: MyeIDInfoManagerDelegate {
+    func didCompleteInformationRequest(success:Bool) {
+        if success {
+            DispatchQueue.main.async { [weak self] in
+                guard let strongSelf = self else { return }
+                let infoViewController = strongSelf.createInfoViewController()
+                _ = strongSelf.showViewController(infoViewController)
+            }
+        } else {
+            childViewControllers.first?.errorAlert(message: L(.genericErrorMessage))
+        }
+    }
+    
+    func didTapChangePinPukCode(kind: MyeIDInfoManager.PinPukCell.Kind) {
     }
 }
