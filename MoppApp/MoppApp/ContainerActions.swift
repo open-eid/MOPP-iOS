@@ -78,7 +78,7 @@ extension ContainerActions where Self: UIViewController {
 
         let failure: (() -> Void) = {
             
-            landingViewController.importProgressViewController.dismiss(animated: false, completion: nil)
+            landingViewController.importProgressViewController.dismissRecursivelyIfPresented(animated: false, completion: nil)
             
             let alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [fileName]), preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))

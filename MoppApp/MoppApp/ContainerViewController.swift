@@ -97,8 +97,7 @@ class ContainerViewController : MoppViewController, ContainerActions {
         [weak self] in
             self?.isCreated = false
             self?.isForPreview = false
-            self?.state = .loading
-            self?.showLoading(show: true)
+            self?.updateState(.loading)
             self?.openContainer(afterSignatureCreated: true)
         }
     }
@@ -124,13 +123,14 @@ class ContainerViewController : MoppViewController, ContainerActions {
     }
     
     func updateState(_ newState: ContainerState) {
+        showLoading(show: newState == .loading)
         switch newState {
             case .loading:
                 if isForPreview {
                     LandingViewController.shared.presentButtons([])
                 }
                 setupNavigationItemForPushedViewController(title: L(.containerValidating))
-            
+
             case .created:
                 LandingViewController.shared.presentButtons(isForPreview ? [] : [.signButton])
                 setupNavigationItemForPushedViewController(title: L(.containerSignTitle))
@@ -165,7 +165,7 @@ class ContainerViewController : MoppViewController, ContainerActions {
             
             strongSelf.notifications = []
             
-            if afterSignatureCreated {
+            if afterSignatureCreated && !container.isLegacyType() && !strongSelf.isForPreview {
                 strongSelf.notifications.append((true, L(.containerDetailsSigningSuccess)))
             }
             
@@ -184,7 +184,7 @@ class ContainerViewController : MoppViewController, ContainerActions {
             
             strongSelf.container = container
             strongSelf.reloadData()
-            strongSelf.showLoading(show: false)
+            strongSelf.updateState((self?.isCreated ?? false) ? .created : .opened)
             
             if strongSelf.startSigningWhenOpened {
                 strongSelf.startSigningWhenOpened = false
@@ -234,8 +234,7 @@ class ContainerViewController : MoppViewController, ContainerActions {
     }
     
     func reloadContainer() {
-        state = .loading
-        showLoading(show: true)
+        updateState(.loading)
         openContainer()
         reloadData()
     }
@@ -337,17 +336,17 @@ extension ContainerViewController : ContainerSignatureDelegate {
                 confirmCallback: { [weak self] (alertAction) in
                 
                 self?.notifications = []
-                self?.showLoading(show: true)
+                self?.updateState(.loading)
                 MoppLibContainerActions.sharedInstance().remove(
                     signature,
                     fromContainerWithPath: self?.container.filePath,
                     success: { [weak self] container in
-                        self?.showLoading(show: false)
+                        self?.updateState((self?.isCreated ?? false) ? .created : .opened)
                         self?.container.signatures.remove(at: signatureIndex)
                         self?.reloadData()
                     },
                     failure: { [weak self] error in
-                        self?.showLoading(show: false)
+                        self?.updateState((self?.isCreated ?? false) ? .created : .opened)
                         self?.reloadData()
                         self?.errorAlert(message: error?.localizedDescription)
                     })
@@ -362,17 +361,17 @@ extension ContainerViewController : ContainerFileDelegate {
             confirmCallback: { [weak self] (alertAction) in
             
             self?.notifications = []
-            self?.showLoading(show: true)
+            self?.updateState(.loading)
             MoppLibContainerActions.sharedInstance().removeDataFileFromContainer(
                 withPath: self?.containerPath,
                 at: UInt(dataFileIndex),
                 success: { [weak self] container in
-                    self?.showLoading(show: false)
+                    self?.updateState((self?.isCreated ?? false) ? .created : .opened)
                     self?.container.dataFiles.remove(at: dataFileIndex)
                     self?.reloadData()
                 },
                 failure: { [weak self] error in
-                    self?.showLoading(show: false)
+                    self?.updateState((self?.isCreated ?? false) ? .created : .opened)
                     self?.reloadData()
                     self?.errorAlert(message: error?.localizedDescription)
                 })
@@ -413,12 +412,10 @@ extension ContainerViewController : UITableViewDelegate {
             }
     
             let openPDFPreview: () -> Void = { [weak self] in
-                self?.showLoading(show: true)
                 self?.updateState(.loading)
                 MoppLibContainerActions.sharedInstance().getContainerWithPath(destinationPath,
                     success: { [weak self] (_ container: MoppLibContainer?) -> Void in
-                        self?.showLoading(show: false)
-                        self?.updateState(.opened)
+                        self?.updateState((self?.isCreated ?? false) ? .created : .opened)
                         if container == nil {
                             return
                         }
