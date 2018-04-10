@@ -37,12 +37,28 @@ extension UIViewController {
     }
     
     func dismissRecursively(animated flag: Bool, completion: (() -> Void)? = nil) {
+        dismissRecursively(animated: flag, forceCompletion: true, completion: completion)
+    }
+    
+    func dismissRecursivelyIfPresented(animated flag: Bool, completion: (() -> Void)? = nil) {
+        dismissRecursively(animated: flag, forceCompletion: false, completion: completion)
+    }
+    
+    private func dismissRecursively(animated flag: Bool, forceCompletion:Bool, completion: (() -> Void)? = nil) {
         if let presentedVC = presentedViewController {
             presentedVC.dismissRecursively(animated: flag) { [weak self] in
                 self?.dismiss(animated: flag, completion: completion)
             }
         } else {
-            dismiss(animated: flag, completion: completion)
+            if !forceCompletion && presentingViewController == nil {
+                return
+            } else {
+                if presentingViewController == nil {
+                    completion?()
+                } else {
+                    dismiss(animated: flag, completion: completion)
+                }
+            }
         }
     }
 }

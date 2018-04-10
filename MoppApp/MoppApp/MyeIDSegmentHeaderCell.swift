@@ -1,5 +1,5 @@
 //
-//  MyeIDInfoCell.swift
+//  MyeIDSegmentHeaderCell.swift
 //  MoppApp
 //
 /*
@@ -20,32 +20,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-class MyeIDInfoCell: UITableViewCell {
+class MyeIDSegmentHeaderCell: UITableViewCell {
+    @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var contentLabel: UILabel!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
+        titleLabel.text = L(.myEidInfoPinPukSegmentTitle)
     }
     
-    func populate(titleText: String, contentText: String) {
-        titleLabel.text = titleText
-        contentLabel.text = contentText
-    }
-    
-    func populate(titleText: String, with expiryDateString: String) {
-
-        titleLabel.text = titleText
-        
-        let font = UIFont(name: MoppFontName.allCapsBold.rawValue, size: 17)!
-        let attrText = NSMutableAttributedString(string: expiryDateString, attributes: [.font: font])
-        
-        var valid: Bool = false
-        if let expiryDateDisplayString = MyeIDInfoManager.shared.expiryDateAttributedString(dateString: expiryDateString, font: font, capitalized: true, valid: &valid) {
-            attrText.append(NSAttributedString(string: " | "))
-            attrText.append(expiryDateDisplayString)
+    func updateExpandedState(with expanded: Bool) {
+        if expanded {
+            iconImageView.image = UIImage(named: "Accordion_arrow_down")
+        } else {
+            iconImageView.image = UIImage(named: "Accordion_arrow_right")
         }
-        
-        contentLabel.attributedText = attrText
     }
 }

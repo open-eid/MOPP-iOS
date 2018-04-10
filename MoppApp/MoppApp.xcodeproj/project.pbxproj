@@ -107,6 +107,10 @@
 		C58FCD5B206505BE00FE3B57 /* MyeIDStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58FCD5A206505BD00FE3B57 /* MyeIDStatusViewController.swift */; };
 		C58FCD5D206505D500FE3B57 /* MyeIDInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58FCD5C206505D500FE3B57 /* MyeIDInfoViewController.swift */; };
 		C58FCD5F20650BBE00FE3B57 /* MyeIDInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58FCD5E20650BBE00FE3B57 /* MyeIDInfoCell.swift */; };
+		C5927FC720751402003B7F41 /* MyeIDPinPukCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5927FC620751402003B7F41 /* MyeIDPinPukCell.swift */; };
+		C5927FC92075144F003B7F41 /* MyeIDSegmentHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5927FC82075144F003B7F41 /* MyeIDSegmentHeaderCell.swift */; };
+		C5927FEB2078FD40003B7F41 /* MyeIDInfoViewControllerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5927FEA2078FD40003B7F41 /* MyeIDInfoViewControllerUI.swift */; };
+		C5927FED20790B7C003B7F41 /* MyeIDInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5927FEC20790B7C003B7F41 /* MyeIDInfoManager.swift */; };
 		C5964CE820079AE0001FE732 /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5964CE720079AE0001FE732 /* TabButton.swift */; };
 		C5964CEA200F8607001FE732 /* ContainerImportFilesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5964CE9200F8607001FE732 /* ContainerImportFilesCell.swift */; };
 		C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59A958D1FB5B9E100D0E1F9 /* InitializationViewController.swift */; };
@@ -410,6 +414,10 @@
 		C58FCD5A206505BD00FE3B57 /* MyeIDStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDStatusViewController.swift; sourceTree = "<group>"; };
 		C58FCD5C206505D500FE3B57 /* MyeIDInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDInfoViewController.swift; sourceTree = "<group>"; };
 		C58FCD5E20650BBE00FE3B57 /* MyeIDInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDInfoCell.swift; sourceTree = "<group>"; };
+		C5927FC620751402003B7F41 /* MyeIDPinPukCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDPinPukCell.swift; sourceTree = "<group>"; };
+		C5927FC82075144F003B7F41 /* MyeIDSegmentHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDSegmentHeaderCell.swift; sourceTree = "<group>"; };
+		C5927FEA2078FD40003B7F41 /* MyeIDInfoViewControllerUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDInfoViewControllerUI.swift; sourceTree = "<group>"; };
+		C5927FEC20790B7C003B7F41 /* MyeIDInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDInfoManager.swift; sourceTree = "<group>"; };
 		C5964CE720079AE0001FE732 /* TabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButton.swift; sourceTree = "<group>"; };
 		C5964CE9200F8607001FE732 /* ContainerImportFilesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerImportFilesCell.swift; sourceTree = "<group>"; };
 		C59A958C1FB5B9E100D0E1F9 /* MoppApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoppApp-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -623,11 +631,10 @@
 		C54BB1071FBD8C1F00A274F6 /* MyeID */ = {
 			isa = PBXGroup;
 			children = (
+				C5927FE92078FC6A003B7F41 /* Status */,
+				C5927FE82078FC4F003B7F41 /* Info */,
 				C54BB1081FBD8CC600A274F6 /* MyeID.storyboard */,
 				C50DCCC61FC32A2500D48E16 /* MyeIDViewController.swift */,
-				C58FCD5A206505BD00FE3B57 /* MyeIDStatusViewController.swift */,
-				C58FCD5C206505D500FE3B57 /* MyeIDInfoViewController.swift */,
-				C58FCD5E20650BBE00FE3B57 /* MyeIDInfoCell.swift */,
 			);
 			name = MyeID;
 			sourceTree = "<group>";
@@ -654,6 +661,27 @@
 				C50DCD1C1FD1579700D48E16 /* RecentContainersElements.xib */,
 			);
 			name = "Recent containers";
+			sourceTree = "<group>";
+		};
+		C5927FE82078FC4F003B7F41 /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				C58FCD5C206505D500FE3B57 /* MyeIDInfoViewController.swift */,
+				C5927FEA2078FD40003B7F41 /* MyeIDInfoViewControllerUI.swift */,
+				C5927FEC20790B7C003B7F41 /* MyeIDInfoManager.swift */,
+				C58FCD5E20650BBE00FE3B57 /* MyeIDInfoCell.swift */,
+				C5927FC620751402003B7F41 /* MyeIDPinPukCell.swift */,
+				C5927FC82075144F003B7F41 /* MyeIDSegmentHeaderCell.swift */,
+			);
+			name = Info;
+			sourceTree = "<group>";
+		};
+		C5927FE92078FC6A003B7F41 /* Status */ = {
+			isa = PBXGroup;
+			children = (
+				C58FCD5A206505BD00FE3B57 /* MyeIDStatusViewController.swift */,
+			);
+			name = Status;
 			sourceTree = "<group>";
 		};
 		C5E7D08E2031BA920081416F /* Shared */ = {
@@ -1307,7 +1335,9 @@
 				C506EC7C1FB9CBFD00E07226 /* Constants.swift in Sources */,
 				C58FCD5B206505BE00FE3B57 /* MyeIDStatusViewController.swift in Sources */,
 				C506EC811FB9F4AF00E07226 /* UIImage+Additions.swift in Sources */,
+				C5927FC720751402003B7F41 /* MyeIDPinPukCell.swift in Sources */,
 				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
+				C5927FEB2078FD40003B7F41 /* MyeIDInfoViewControllerUI.swift in Sources */,
 				540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */,
 				C54EA6EB2046C3BA0039AC78 /* UITextField+Additions.swift in Sources */,
 				C50DCCC31FC2D54200D48E16 /* UIFont+Additions.swift in Sources */,
@@ -1324,6 +1354,7 @@
 				C5CF5EEC2017E4CC008FBBD6 /* FileImportProgressViewController.swift in Sources */,
 				C5D057042024B5B700875F44 /* MoppModalViewController.swift in Sources */,
 				C50DCD111FC82F9E00D48E16 /* UINib+Additions.swift in Sources */,
+				C5927FED20790B7C003B7F41 /* MyeIDInfoManager.swift in Sources */,
 				C560CB0A1FFCEEF000C01FE4 /* SigningFileImportCell.swift in Sources */,
 				C50DCD091FC7127400D48E16 /* ContainerFileCell.swift in Sources */,
 				E4250CCB1E0968D200530370 /* AppDelegate.swift in Sources */,
@@ -1343,6 +1374,7 @@
 				C5A1D1CD2031D5B80024CD4C /* ContainerActions.swift in Sources */,
 				C56C6204201A0D9300CCC2A5 /* MenuCell.swift in Sources */,
 				C50DCD0D1FC7147100D48E16 /* ContainerTableViewHeaderView.swift in Sources */,
+				C5927FC92075144F003B7F41 /* MyeIDSegmentHeaderCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
