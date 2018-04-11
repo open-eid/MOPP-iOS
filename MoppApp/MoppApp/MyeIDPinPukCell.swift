@@ -136,7 +136,7 @@ class MyeIDPinPukCell: UITableViewCell {
         }
     }
     
-    func populate2(pinPukCellInfo: MyeIDInfoManager.PinPukCell.Info) {
+    func populateForWillDisplayCell(pinPukCellInfo: MyeIDInfoManager.PinPukCell.Info) {
         if let certInfoText = pinPukCellInfo.certInfoText {
             certInfoLabel.text = certInfoText
         } else {

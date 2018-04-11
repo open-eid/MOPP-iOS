@@ -153,7 +153,7 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
     func willDisplayContentCell(_ cell: UITableViewCell, in segment:Int, at row:Int) {
         if segments[segment] == .changePins {
             if let cell = cell as? MyeIDPinPukCell {
-                cell.populate2(pinPukCellInfo: MyeIDInfoManager.shared.pinPukCell.items[row])
+                cell.populateForWillDisplayCell(pinPukCellInfo: MyeIDInfoManager.shared.pinPukCell.items[row])
                 cell.layoutIfNeeded()
             }
         }
