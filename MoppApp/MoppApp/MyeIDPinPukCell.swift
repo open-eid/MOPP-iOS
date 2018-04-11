@@ -32,62 +32,125 @@ class MyeIDPinPukCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var certInfoLabel: UILabel!
     @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var linkLabel: UILabel!
+    @IBOutlet weak var linkButton: UIButton!
     @IBOutlet weak var bottomLine: UIView!
+    @IBOutlet weak var hideChangeButtonCSTR: NSLayoutConstraint!
+    @IBOutlet weak var showChangeButtonCSTR: NSLayoutConstraint!
     
     @IBAction func changeCodeAction() {
         MyeIDInfoManager.shared.delegate?.didTapChangePinPukCode(kind: kind)
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
     func populate(pinPukCellInfo: MyeIDInfoManager.PinPukCell.Info) {
+        contentView.bounds = bounds
+        layoutIfNeeded()
+        
+        errorLabel.preferredMaxLayoutWidth = errorLabel.frame.width
+        certInfoLabel.preferredMaxLayoutWidth = certInfoLabel.frame.width
+        
         kind = pinPukCellInfo.kind
         titleLabel.text = pinPukCellInfo.title
         linkLabel.attributedText = NSAttributedString(string: pinPukCellInfo.linkText, attributes: [.underlineStyle : NSUnderlineStyle.styleSingle.rawValue])
         button.setTitle(pinPukCellInfo.buttonText)
         
+        let pin1Blocked = MyeIDInfoManager.shared.retryCounts.pin1 == 0
+        let pin2Blocked = MyeIDInfoManager.shared.retryCounts.pin2 == 0
+        let pukBlocked = MyeIDInfoManager.shared.retryCounts.puk == 0
+        
+        if kind == .pin1 {
+            if pin1Blocked {
+                linkLabel.isHidden = true
+                linkLabel.text = nil
+                linkButton.isEnabled = false
+                errorLabel.isHidden = false
+                errorLabel.text = L(.myEidInfoPin1BlockedMessage)
+                button.setTitle(L(.myEidUnblockPin1ButtonTitle))
+                if pukBlocked {
+                    showChangeButton(false)
+                    button.backgroundColor = UIColor.moppDescriptiveText
+                } else {
+                    showChangeButton(true)
+                    button.backgroundColor = UIColor.moppBase
+                }
+            } else {
+                linkLabel.isHidden = false
+                titleLabel.text = pinPukCellInfo.title
+                linkButton.isEnabled = true
+                errorLabel.isHidden = true
+                errorLabel.text = nil
+                button.setTitle(pinPukCellInfo.buttonText)
+                showChangeButton(true)
+                button.backgroundColor = UIColor.moppBase
+            }
+        }
+        else if kind == .pin2 {
+            if pin2Blocked {
+                linkLabel.isHidden = true
+                linkLabel.text = nil
+                linkButton.isEnabled = false
+                errorLabel.isHidden = false
+                errorLabel.text = L(.myEidInfoPin2BlockedMessage)
+                button.setTitle(L(.myEidUnblockPin2ButtonTitle))
+                if pukBlocked {
+                    showChangeButton(false)
+                    button.backgroundColor = UIColor.moppDescriptiveText
+                } else {
+                    showChangeButton(true)
+                    button.backgroundColor = UIColor.moppBase
+                }
+            } else {
+                linkLabel.isHidden = false
+                titleLabel.text = pinPukCellInfo.title
+                linkButton.isEnabled = true
+                errorLabel.isHidden = true
+                errorLabel.text = nil
+                button.setTitle(pinPukCellInfo.buttonText)
+                showChangeButton(true)
+                button.backgroundColor = UIColor.moppBase
+            }
+        }
+        else if kind == .puk {
+            if pukBlocked {
+                linkLabel.isHidden = false
+                linkLabel.attributedText = NSAttributedString(string: L(.myEidHowToGetCodesMessage), attributes: [.underlineStyle : NSUnderlineStyle.styleSingle.rawValue])
+                linkButton.isEnabled = true
+                errorLabel.isHidden = false
+                errorLabel.text = L(.myEidInfoPukBlockedMessage)
+                button.setTitle(pinPukCellInfo.buttonText)
+                showChangeButton(false)
+                button.backgroundColor = UIColor.moppDescriptiveText
+            } else {
+                linkLabel.isHidden = true
+                linkLabel.text = nil
+                titleLabel.text = pinPukCellInfo.title
+                linkButton.isEnabled = false
+                errorLabel.isHidden = true
+                errorLabel.text = nil
+                button.setTitle(pinPukCellInfo.buttonText)
+                let bothCertsExpired = !MyeIDInfoManager.shared.isAuthCertValid && !MyeIDInfoManager.shared.isSignCertValid
+                showChangeButton(!bothCertsExpired)
+                button.backgroundColor = UIColor.moppBase
+            }
+        }
+    }
+    
+    func populate2(pinPukCellInfo: MyeIDInfoManager.PinPukCell.Info) {
         if let certInfoText = pinPukCellInfo.certInfoText {
             certInfoLabel.text = certInfoText
         } else {
-            var certExpiryDate: Date? = nil
-            if kind == .pin1 {
-                certExpiryDate = MyeIDInfoManager.shared.authCertData?.expiryDate
-            }
-            else if kind == .pin2 {
-                certExpiryDate = MyeIDInfoManager.shared.signCertData?.expiryDate
-            }
-        
-            let font = UIFont(name: MoppFontName.regular.rawValue, size: 16)!
-        
-            let certInfoString = NSMutableAttributedString()
-            certInfoString.append(NSAttributedString(
-                string: L(.myEidCertInfoPrefix),
-                attributes: [.font: font]
-                ))
-            var valid: Bool = false
-            certInfoString.append(MyeIDInfoManager.shared.expiryDateAttributedString(date: certExpiryDate, font: font, capitalized: false, valid: &valid) ?? NSAttributedString())
-            
-            if valid {
-                if let expiryDate = certExpiryDate {
-                    certInfoString.append(NSAttributedString(string: L(.myEidCertInfoValidSuffix)))
-                    let dateString = MyeIDInfoManager.shared.expiryDateFormatter.string(from: expiryDate)
-                    certInfoString.append(NSAttributedString(string: dateString))
-                }
-            } else {
-                if let expiryDate = certExpiryDate {
-                    certInfoString.append(NSAttributedString(string: L(.myEidCertInfoExpiredSuffix)))
-                    let dateString = MyeIDInfoManager.shared.expiryDateFormatter.string(from: expiryDate)
-                    certInfoString.append(NSAttributedString(string: dateString))
-                }
-            }
-            
             certInfoLabel.text = nil
             certInfoLabel.font = nil
-            certInfoLabel.attributedText = certInfoString
+            certInfoLabel.attributedText = MyeIDInfoManager.shared.certInfoAttributedString(for: kind)
             certInfoLabel.setNeedsDisplay()
         }
+    }
+    
+    func showChangeButton(_ show:Bool) {
+        button.isHidden = !show
+        button.isEnabled = show
+        showChangeButtonCSTR.priority = show ? UILayoutPriority.defaultHigh : UILayoutPriority.defaultLow
+        hideChangeButtonCSTR.priority = show ? UILayoutPriority.defaultLow : UILayoutPriority.defaultHigh
     }
 }

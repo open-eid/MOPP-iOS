@@ -111,22 +111,69 @@ class MyeIDInfoManager {
     
     var pinPukCell = PinPukCell()
 
+    struct RetryCounts {
+        var pin1:Int = 0
+        var pin2:Int = 0
+        var puk:Int = 0
+    }
+
+    var retryCounts = RetryCounts()
+    
+    var pin1CertInfoAttributedString: NSAttributedString? = nil
+    var pin2CertInfoAttributedString: NSAttributedString? = nil
+
+    var isAuthCertValid:Bool {
+        get {
+            return Date() < authCertData?.expiryDate ?? Date()
+        }
+    }
+    
+    var isSignCertValid:Bool {
+        get {
+            return Date() < signCertData?.expiryDate ?? Date()
+        }
+    }
+
     func requestInformation(with viewController: UIViewController) {
         let failureClosure = { [weak self] in
             self?.delegate?.didCompleteInformationRequest(success: false)
         }
+        
         MoppLibCardActions.minimalCardPersonalData(with: viewController, success: { moppLibPersonalData in
             MoppLibCardActions.authenticationCert(with: viewController, success: { moppLibAuthCertData in
                 MoppLibCardActions.signingCert(with: viewController, success: { [weak self] moppLibSignCertData in
-                    guard let strongSelf = self else { return }
-                    strongSelf.personalData = moppLibPersonalData
-                    strongSelf.authCertData = moppLibAuthCertData
-                    strongSelf.signCertData = moppLibSignCertData
-                    strongSelf.setup()
-                    self?.delegate?.didCompleteInformationRequest(success: true)
+                    self?.requestRetryCounts(with: viewController, success: { [weak self] (pin1RetryCount, pin2RetryCount, pukRetryCount) in
+                        guard let strongSelf = self else { return }
+                        strongSelf.personalData = moppLibPersonalData
+                        strongSelf.authCertData = moppLibAuthCertData
+                        strongSelf.signCertData = moppLibSignCertData
+                        strongSelf.retryCounts.pin1 = pin1RetryCount
+                        strongSelf.retryCounts.pin2 = pin2RetryCount
+                        strongSelf.retryCounts.puk  = pukRetryCount
+                        strongSelf.setup()
+                        strongSelf.createCertInfoAttributedString(kind: .pin1)
+                        strongSelf.createCertInfoAttributedString(kind: .pin2)
+                        self?.delegate?.didCompleteInformationRequest(success: true)
+                    }, failure: {_ in failureClosure() })
                 }, failure: {_ in failureClosure() })
             }, failure: {_ in failureClosure() })
         }, failure: {_ in failureClosure() })
+    }
+    
+    func requestRetryCounts(with viewController: UIViewController, success:@escaping (_ pin1RetryCount:Int, _ pin2RetryCount:Int, _ pukRetryCount:Int)->Void, failure:@escaping (Error?)->Void) {
+        var pin1RetryCount:Int = 0
+        var pin2RetryCount:Int = 0
+        var pukRetryCount:Int = 0
+        MoppLibCardActions.pin1RetryCount(with: viewController, success: { number in
+            pin1RetryCount = number?.intValue ?? 0
+            MoppLibCardActions.pin2RetryCount(with: viewController, success: { number in
+                pin2RetryCount = number?.intValue ?? 0
+                MoppLibCardActions.pukRetryCount(with: viewController, success: { number in
+                    pukRetryCount = number?.intValue ?? 0
+                    success(pin1RetryCount, pin2RetryCount, pukRetryCount)
+                }, failure: failure)
+            }, failure: failure)
+        }, failure: failure)
     }
     
     func setup() {
@@ -155,33 +202,83 @@ class MyeIDInfoManager {
         }
     }
     
-    func expiryDateAttributedString(dateString: String, font: UIFont, capitalized: Bool, valid: inout Bool) -> NSAttributedString? {
-        return expiryDateAttributedString(date: expiryDateFormatter.date(from: dateString), font: font, capitalized: capitalized, valid: &valid)
+    func expiryDateAttributedString(dateString: String, font: UIFont, capitalized: Bool) -> NSAttributedString? {
+        let isValid = Date() < expiryDateFormatter.date(from: dateString) ?? Date()
+        return expiryDateAttributedString(isValid: isValid, font: font, capitalized: capitalized)
     }
     
-    func expiryDateAttributedString(date: Date?, font: UIFont, capitalized: Bool, valid: inout Bool) -> NSAttributedString? {
-        if let expiryDate = date {
-            let attrText = NSMutableAttributedString()
-        
-            valid = expiryDate >= Date()
-        
-            if valid {
-                let certValidText = capitalized ? L(.myEidCertValid).capitalized : L(.myEidCertValid)
-                let validText = NSAttributedString(string: certValidText, attributes:
-                    [.foregroundColor : UIColor.moppSuccess,
-                     .font : font])
-                attrText.append(validText)
-            } else {
-                let certExpiredText = capitalized ? L(.myEidCertExpired).capitalized : L(.myEidCertExpired)
-                let expiredText = NSAttributedString(string: certExpiredText, attributes:
-                    [.foregroundColor : UIColor.moppError,
-                     .font : font])
-                attrText.append(expiredText)
-            }
-            
-            return attrText
+    func expiryDateAttributedString(isValid:Bool, font: UIFont, capitalized: Bool) -> NSAttributedString {
+        let attrText = NSMutableAttributedString()
+    
+        if isValid {
+            let certValidText = capitalized ? L(.myEidCertValid).capitalized : L(.myEidCertValid)
+            let validText = NSAttributedString(string: certValidText, attributes:
+                [.foregroundColor : UIColor.moppSuccess,
+                 .font : font])
+            attrText.append(validText)
+        } else {
+            let certExpiredText = capitalized ? L(.myEidCertExpired).capitalized : L(.myEidCertExpired)
+            let expiredText = NSAttributedString(string: certExpiredText, attributes:
+                [.foregroundColor : UIColor.moppError,
+                 .font : font])
+            attrText.append(expiredText)
         }
-
+        
+        return attrText
+    }
+    
+    func certInfoAttributedString(for kind: PinPukCell.Kind) -> NSAttributedString? {
+        if kind == .pin1 {
+            return pin1CertInfoAttributedString
+        }
+        else if kind == .pin2 {
+            return pin2CertInfoAttributedString
+        }
+        
         return nil
+    }
+    
+    func createCertInfoAttributedString(kind: PinPukCell.Kind) {
+        var certExpiryDate: Date? = nil
+        var isCertValid = false
+        if kind == .pin1 {
+            certExpiryDate = MyeIDInfoManager.shared.authCertData?.expiryDate
+            isCertValid = MyeIDInfoManager.shared.isAuthCertValid
+        }
+        else if kind == .pin2 {
+            certExpiryDate = MyeIDInfoManager.shared.signCertData?.expiryDate
+            isCertValid = MyeIDInfoManager.shared.isSignCertValid
+        }
+    
+        let font = UIFont(name: MoppFontName.regular.rawValue, size: 16)!
+    
+        let certInfoString = NSMutableAttributedString()
+        certInfoString.append(NSAttributedString(
+            string: L(.myEidCertInfoPrefix),
+            attributes: [.font: font]
+            ))
+
+        certInfoString.append(MyeIDInfoManager.shared.expiryDateAttributedString(isValid:isCertValid, font: font, capitalized: false))
+    
+        if isCertValid {
+            if let expiryDate = certExpiryDate {
+                certInfoString.append(NSAttributedString(string: L(.myEidCertInfoValidSuffix), attributes:[.font: font]))
+                let dateString = MyeIDInfoManager.shared.expiryDateFormatter.string(from: expiryDate)
+                certInfoString.append(NSAttributedString(string: dateString, attributes:[.font: font]))
+            }
+        } else {
+            if let expiryDate = certExpiryDate {
+                certInfoString.append(NSAttributedString(string: L(.myEidCertInfoExpiredSuffix), attributes:[.font: font]))
+                let dateString = MyeIDInfoManager.shared.expiryDateFormatter.string(from: expiryDate)
+                certInfoString.append(NSAttributedString(string: dateString, attributes:[.font: font]))
+            }
+        }
+        
+        if kind == .pin1 {
+            pin1CertInfoAttributedString = certInfoString
+        }
+        else if kind == .pin2 {
+            pin2CertInfoAttributedString = certInfoString
+        }
     }
 }

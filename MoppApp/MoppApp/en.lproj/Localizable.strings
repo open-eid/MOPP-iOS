@@ -303,3 +303,10 @@
 "my-eid-info-puk-button-title" = "CHANGE PUK";
 "my-eid-info-puk-cert-info-text" = "PUK code is in your code envelope";
 "my-eid-info-pin-puk-segment-title" = "PIN/PUK CODES AND CERTIFICATES CONTROL";
+"my-eid-info-pin1-blocked-message" = "You have entered 3 times wrong PIN1 code.\nPIN1 is blocked";
+"my-eid-info-pin2-blocked-message" = "You have entered 3 times wrong PIN2 code.\nPIN2 is blocked";
+"my-eid-info-puk-blocked-message" = "You have entered 3 times wrong PUK code.\nPUK code is blocked";
+"my-eid-unblock-pin1-button-title" = "UNBLOCK PIN1";
+"my-eid-unblock-pin2-button-title" = "UNBLOCK PIN2";
+"my-eid-how-to-get-codes-message" = "See how to get new codes";
+
