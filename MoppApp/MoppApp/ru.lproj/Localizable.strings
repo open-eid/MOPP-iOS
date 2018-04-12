@@ -305,3 +305,6 @@
 "my-eid-info-puk-button-title" = "ИЗМЕНИТЬ PUK";
 "my-eid-info-puk-cert-info-text" = "Код PUK находится в конверте кода";
 "my-eid-info-pin-puk-segment-title" = "PIN-КОД / ​​PUK-КОДЫ И КОНТРОЛЬ СЕРТИФИКАТОВ";
+"my-eid-info-pin1-blocked-message" = "Вы ввели неверный код PIN1 в 3 раза.\nPIN1 заблокирован.";
+"my-eid-info-pin2-blocked-message" = "Вы ввели неверный код PIN2 в 3 раза.\nPIN2 заблокирован.";
+"my-eid-info-puk-blocked-message" = "Вы ввели неверный код PUK в 3 раза.\nPUK заблокирован.";

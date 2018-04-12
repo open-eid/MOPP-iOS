@@ -304,3 +304,9 @@
 "my-eid-info-puk-button-title" = "MUUDA PUK";
 "my-eid-info-puk-cert-info-text" = "PUK kood asub teie koodiümbrikus";
 "my-eid-info-pin-puk-segment-title" = "PIN/PUK KOODID JA SERTIFIKAATIDE KONTROLL";
+"my-eid-info-pin1-blocked-message" = "Sisestasid PIN1 koodi 3 korda valesti.\nPIN1 on lukustatud";
+"my-eid-info-pin2-blocked-message" = "Sisestasid PIN2 koodi 3 korda valesti.\nPIN2 on lukustatud";
+"my-eid-info-puk-blocked-message" = "Sisestasid PUK koodi 3 korda valesti.\nPUK on lukustatud";
+"my-eid-unblock-pin1-button-title" = "LUKUSTA LAHTI PIN1";
+"my-eid-unblock-pin2-button-title" = "LUKUSTA LAHTI PIN2";
+"my-eid-how-to-get-codes-message" = "Uuri kuidas saada uued koodid";

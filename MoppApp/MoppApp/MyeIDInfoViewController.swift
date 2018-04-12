@@ -90,7 +90,10 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
             }
             return cell
         case .changePins:
-            return ui.tableView.dequeueReusableCell(withType: MyeIDPinPukCell.self, for: indexPath)!
+            let cell = ui.tableView.dequeueReusableCell(withType: MyeIDPinPukCell.self, for: indexPath)!
+                cell.bounds = CGRect(x: 0, y: 0, width: ui.tableView.bounds.width, height: 99999)
+                cell.populate(pinPukCellInfo: MyeIDInfoManager.shared.pinPukCell.items[indexPath.row])
+            return cell
         case .margin:
             return ui.tableView.dequeueReusableCell(withIdentifier: "marginCell", for: indexPath)
         }
@@ -149,8 +152,9 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
     
     func willDisplayContentCell(_ cell: UITableViewCell, in segment:Int, at row:Int) {
         if segments[segment] == .changePins {
-            if let pinPukCell = cell as? MyeIDPinPukCell {
-                pinPukCell.populate(pinPukCellInfo: MyeIDInfoManager.shared.pinPukCell.items[row])
+            if let cell = cell as? MyeIDPinPukCell {
+                cell.populateForWillDisplayCell(pinPukCellInfo: MyeIDInfoManager.shared.pinPukCell.items[row])
+                cell.layoutIfNeeded()
             }
         }
     }

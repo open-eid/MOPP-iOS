@@ -49,7 +49,7 @@ class MyeIDInfoViewControllerUI: NSObject {
     weak var delegate: MyeIDInfoViewControllerUIDelegate? = nil
     
     func setupOnce() {
-        tableView.estimatedRowHeight = 62
+        tableView.estimatedRowHeight = 260
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.contentInset = UIEdgeInsetsMake(7, 0, 0, 0)
     }

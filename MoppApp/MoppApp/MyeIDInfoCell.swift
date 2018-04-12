@@ -40,8 +40,7 @@ class MyeIDInfoCell: UITableViewCell {
         let font = UIFont(name: MoppFontName.allCapsBold.rawValue, size: 17)!
         let attrText = NSMutableAttributedString(string: expiryDateString, attributes: [.font: font])
         
-        var valid: Bool = false
-        if let expiryDateDisplayString = MyeIDInfoManager.shared.expiryDateAttributedString(dateString: expiryDateString, font: font, capitalized: true, valid: &valid) {
+        if let expiryDateDisplayString = MyeIDInfoManager.shared.expiryDateAttributedString(dateString: expiryDateString, font: font, capitalized: true) {
             attrText.append(NSAttributedString(string: " | "))
             attrText.append(expiryDateDisplayString)
         }
