@@ -40,7 +40,47 @@ class MyeIDPinPukCell: UITableViewCell {
     @IBOutlet weak var showChangeButtonCSTR: NSLayoutConstraint!
     
     @IBAction func changeCodeAction() {
-        MyeIDInfoManager.shared.delegate?.didTapChangePinPukCode(kind: kind)
+        guard let kind = kind else { return }
+    
+        var actionType: MyeIDChangeCodesModel.ActionType? = nil
+        switch kind {
+        case .pin1:
+            if MyeIDInfoManager.shared.retryCounts.pin1 == 0 {
+                actionType = .unblockPin1
+            } else {
+                actionType = .changePin1
+            }
+        case .pin2:
+            if MyeIDInfoManager.shared.retryCounts.pin2 == 0 {
+                actionType = .unblockPin2
+            } else {
+                actionType = .changePin2
+            }
+        case .puk:
+            actionType = .changePuk
+        }
+        
+        if let actionType = actionType {
+            MyeIDInfoManager.shared.delegate?.didTapChangePinPukCode(actionType: actionType)
+        }
+    }
+    
+    @IBAction func linkAction() {
+        guard let kind = kind else { return }
+        
+        var actionType: MyeIDChangeCodesModel.ActionType? = nil
+        switch kind {
+        case .pin1:
+            actionType = .unblockPin1
+        case .pin2:
+            actionType = .unblockPin2
+        case .puk:
+            break // open link in browser
+        }
+        
+        if let actionType = actionType {
+            MyeIDInfoManager.shared.delegate?.didTapChangePinPukCode(actionType: actionType)
+        }
     }
     
     func populate(pinPukCellInfo: MyeIDInfoManager.PinPukCell.Info) {
@@ -58,6 +98,9 @@ class MyeIDPinPukCell: UITableViewCell {
         let pin1Blocked = MyeIDInfoManager.shared.retryCounts.pin1 == 0
         let pin2Blocked = MyeIDInfoManager.shared.retryCounts.pin2 == 0
         let pukBlocked = MyeIDInfoManager.shared.retryCounts.puk == 0
+        
+        let authCertValid = MyeIDInfoManager.shared.isAuthCertValid
+        let signCertValid = MyeIDInfoManager.shared.isSignCertValid
         
         if kind == .pin1 {
             if pin1Blocked {

@@ -80,6 +80,10 @@ extension String {
         return prevCount == digits.count
     }
     
+    static var zeroWidthSpace: String {
+        return "\u{200b}"
+    }
+    
     func substr(toLast character: Character) -> String? {
         guard let lastCharIndex = self.lastOf(ch: character) else {
             return nil

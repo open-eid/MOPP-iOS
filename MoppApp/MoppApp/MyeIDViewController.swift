@@ -22,6 +22,7 @@
  */
 class MyeIDViewController : MoppViewController {
     @IBOutlet weak var containerView: UIView!
+    var changingCodesVCPresented: Bool = false
  
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,19 +35,31 @@ class MyeIDViewController : MoppViewController {
         MoppLibCardReaderManager.sharedInstance().delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        LandingViewController.shared.presentButtons([.signTab, .cryptoTab, .myeIDTab])
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let statusVC = childViewControllers.first as? MyeIDStatusViewController
-            statusVC?.state = .readerNotFound
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-            MoppLibCardReaderManager.sharedInstance().startDetecting()
-        })
+        if !changingCodesVCPresented {
+            changingCodesVCPresented = false
+            let statusVC = childViewControllers.first as? MyeIDStatusViewController
+                statusVC?.state = .readerNotFound
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                MoppLibCardReaderManager.sharedInstance().startDetecting()
+            })
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        MoppLibCardReaderManager.sharedInstance().stopDetecting()
+        if !changingCodesVCPresented {
+            MoppLibCardReaderManager.sharedInstance().stopDetecting()
+        }
     }
     
     func createStatusViewController() -> MyeIDStatusViewController {
@@ -136,6 +149,11 @@ extension MyeIDViewController: MyeIDInfoManagerDelegate {
         }
     }
     
-    func didTapChangePinPukCode(kind: MyeIDInfoManager.PinPukCell.Kind) {
+    func didTapChangePinPukCode(actionType: MyeIDChangeCodesModel.ActionType) {
+        let changeCodesViewController = UIStoryboard.myEID.instantiateViewController(of: ChangeCodesViewController.self)
+            changeCodesViewController.model = MyeIDInfoManager.createChangeCodesModel(actionType: actionType)
+        
+        changingCodesVCPresented = true
+        navigationController?.pushViewController(changeCodesViewController, animated: true)
     }
 }
