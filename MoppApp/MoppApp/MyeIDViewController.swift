@@ -45,10 +45,9 @@ class MyeIDViewController : MoppViewController {
         super.viewDidAppear(animated)
         
         if !changingCodesVCPresented {
-            changingCodesVCPresented = false
             let statusVC = childViewControllers.first as? MyeIDStatusViewController
                 statusVC?.state = .readerNotFound
-            
+        
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                 MoppLibCardReaderManager.sharedInstance().startDetecting()
             })
@@ -103,24 +102,33 @@ class MyeIDViewController : MoppViewController {
         newViewController.view.updateConstraintsIfNeeded()
         return newViewController
     }
+    
+    func popChangeCodesViewControllerIfPushed() {
+        if let _ = navigationController?.viewControllers.last as? ChangeCodesViewController {
+            navigationController?.popViewController(animated: false)
+        }
+    }
 }
 
 extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
     func moppLibCardReaderStatusDidChange(_ readerStatus: MoppLibCardReaderStatus) {
         switch readerStatus {
         case .ReaderNotConnected:
+            popChangeCodesViewControllerIfPushed()
             var statusVC = childViewControllers.first as? MyeIDStatusViewController
             if statusVC == nil {
                 statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
             }
             statusVC?.state = .readerNotFound
         case .ReaderConnected:
+            popChangeCodesViewControllerIfPushed()
             var statusVC = childViewControllers.first as? MyeIDStatusViewController
             if statusVC == nil {
                 statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
             }
             statusVC?.state = .idCardNotFound
         case .CardConnected:
+            popChangeCodesViewControllerIfPushed()
             var statusVC = childViewControllers.first as? MyeIDStatusViewController
             if statusVC == nil {
                 statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
