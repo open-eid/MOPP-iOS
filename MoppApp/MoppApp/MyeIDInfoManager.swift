@@ -22,7 +22,20 @@
  */
 protocol MyeIDInfoManagerDelegate: class {
     func didCompleteInformationRequest(success:Bool)
-    func didTapChangePinPukCode(kind: MyeIDInfoManager.PinPukCell.Kind)
+    func didTapChangePinPukCode(actionType: MyeIDChangeCodesModel.ActionType)
+}
+
+enum IdCardCodeName: String {
+    case pin1 = "PIN1"
+    case pin2 = "PIN2"
+    case puk = "PUK"
+}
+
+enum IdCardCodeLengthLimits:Int {
+    case pin1Minimum = 4
+    case pin2Minimum = 5
+    case pukMinimum = 8
+    case maxRetryCount = 3
 }
 
 class MyeIDInfoManager {
@@ -34,9 +47,9 @@ class MyeIDInfoManager {
     var authCertData: MoppLibCertData? = nil
     var signCertData: MoppLibCertData? = nil
 
-    var expiryDateFormatter: DateFormatter = {
+    var estonianDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd.MM.yyyy"; // Estonian date format
+            dateFormatter.dateFormat = "dd.MM.yyyy";
         return dateFormatter
     }()
 
@@ -115,6 +128,17 @@ class MyeIDInfoManager {
         var pin1:Int = 0
         var pin2:Int = 0
         var puk:Int = 0
+        
+        mutating func retryCount(for actionType: MyeIDChangeCodesModel.ActionType, with value:Int) {
+            switch actionType {
+            case .changePin1, .unblockPin1:
+                pin1 = value
+            case .changePin2, .unblockPin2:
+                pin2 = value
+            case .changePuk:
+                puk = value
+            }
+        }
     }
 
     var retryCounts = RetryCounts()
@@ -203,7 +227,7 @@ class MyeIDInfoManager {
     }
     
     func expiryDateAttributedString(dateString: String, font: UIFont, capitalized: Bool) -> NSAttributedString? {
-        let isValid = Date() < expiryDateFormatter.date(from: dateString) ?? Date()
+        let isValid = Date() < estonianDateFormatter.date(from: dateString) ?? Date()
         return expiryDateAttributedString(isValid: isValid, font: font, capitalized: capitalized)
     }
     
@@ -263,13 +287,13 @@ class MyeIDInfoManager {
         if isCertValid {
             if let expiryDate = certExpiryDate {
                 certInfoString.append(NSAttributedString(string: L(.myEidCertInfoValidSuffix), attributes:[.font: font]))
-                let dateString = MyeIDInfoManager.shared.expiryDateFormatter.string(from: expiryDate)
+                let dateString = MyeIDInfoManager.shared.estonianDateFormatter.string(from: expiryDate)
                 certInfoString.append(NSAttributedString(string: dateString, attributes:[.font: font]))
             }
         } else {
             if let expiryDate = certExpiryDate {
                 certInfoString.append(NSAttributedString(string: L(.myEidCertInfoExpiredSuffix), attributes:[.font: font]))
-                let dateString = MyeIDInfoManager.shared.expiryDateFormatter.string(from: expiryDate)
+                let dateString = MyeIDInfoManager.shared.estonianDateFormatter.string(from: expiryDate)
                 certInfoString.append(NSAttributedString(string: dateString, attributes:[.font: font]))
             }
         }
@@ -280,5 +304,143 @@ class MyeIDInfoManager {
         else if kind == .pin2 {
             pin2CertInfoAttributedString = certInfoString
         }
+    }
+}
+
+class MyeIDChangeCodesModel {
+    enum ActionType {
+        case changePin1
+        case unblockPin1
+        case changePin2
+        case unblockPin2
+        case changePuk
+        
+        func associatedCodeName() -> String {
+            switch self {
+            case .changePin1, .unblockPin1:
+                return "PIN1"
+            case .changePin2, .unblockPin2:
+                return "PIN2"
+            case .changePuk:
+                return "PUK"
+            }
+        }
+    }
+    var actionType: ActionType = .changePin1
+    var titleText = String()
+    var infoBullets = [String]()
+    var firstTextFieldLabelText = String()
+    var secondTextFieldLabelText = String()
+    var thirdTextFieldLabelText = String()
+    var discardButtonTitleText = String()
+    var confirmButtonTitleText = String()
+}
+
+extension MyeIDInfoManager {
+    class func createChangeCodesModel(actionType: MyeIDChangeCodesModel.ActionType) -> MyeIDChangeCodesModel {
+        let model = MyeIDChangeCodesModel()
+            model.actionType = actionType
+        
+        switch actionType {
+        case .changePin1:
+        
+            model.titleText = L(.myEidChangeCodeTitle, ["PIN1"])
+            model.infoBullets.append(L(.myEidInfoBulletSameCodesWarning, ["PIN1"]))
+            model.infoBullets.append(L(.myEidInfoBulletAuthCertInfo))
+            model.infoBullets.append(L(.myEidInfoBulletPin1BlockedWarning))
+            
+            model.firstTextFieldLabelText = L(.myEidCurrentCodeLabel, ["PIN1"])
+            model.secondTextFieldLabelText = L(.myEidNewCodeLabel, ["PIN1", 4])
+            model.thirdTextFieldLabelText = L(.myEidNewCodeAgainLabel, ["PIN1"])
+            
+            model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
+            model.confirmButtonTitleText = L(.myEidConfirmChangeButtonTitle)
+            
+        case .unblockPin1:
+        
+            model.titleText = L(.myEidUnblockCodeTitle, ["PIN1"])
+            model.infoBullets.append(L(.myEidInfoBulletSameCodesWarning, ["PIN1"]))
+            model.infoBullets.append(L(.myEidInfoBulletAuthCertInfo))
+            model.infoBullets.append(L(.myEidInfoBulletForgotCodeNote, ["PIN1", "PIN1"]))
+            model.infoBullets.append(L(.myEidInfoBulletPukEnvelopeInfo))
+            
+            model.firstTextFieldLabelText = L(.myEidCurrentCodeLabel, ["PUK"])
+            model.secondTextFieldLabelText = L(.myEidNewCodeLabel, ["PIN1", 4])
+            model.thirdTextFieldLabelText = L(.myEidNewCodeAgainLabel, ["PIN1"])
+            
+            model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
+            model.confirmButtonTitleText = L(.myEidConfirmUnblockButtonTitle)
+            
+        case .changePin2:
+        
+            model.titleText = L(.myEidChangeCodeTitle, ["PIN2"])
+            model.infoBullets.append(L(.myEidInfoBulletSameCodesWarning, ["PIN2"]))
+            model.infoBullets.append(L(.myEidInfoBulletSignCertInfo))
+            model.infoBullets.append(L(.myEidInfoBulletPin2BlockedWarning))
+            
+            model.firstTextFieldLabelText = L(.myEidCurrentCodeLabel, ["PIN2"])
+            model.secondTextFieldLabelText = L(.myEidNewCodeLabel, ["PIN2", 5])
+            model.thirdTextFieldLabelText = L(.myEidNewCodeAgainLabel, ["PIN2"])
+            
+            model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
+            model.confirmButtonTitleText = L(.myEidConfirmChangeButtonTitle)
+            
+        case .unblockPin2:
+        
+            model.titleText = L(.myEidUnblockCodeTitle, ["PIN2"])
+            model.infoBullets.append(L(.myEidInfoBulletSameCodesWarning, ["PIN2"]))
+            model.infoBullets.append(L(.myEidInfoBulletSignCertInfo))
+            model.infoBullets.append(L(.myEidInfoBulletForgotCodeNote, ["PIN2", "PIN2"]))
+            model.infoBullets.append(L(.myEidInfoBulletPukEnvelopeInfo))
+            
+            model.firstTextFieldLabelText = L(.myEidCurrentCodeLabel, ["PUK"])
+            model.secondTextFieldLabelText = L(.myEidNewCodeLabel, ["PIN2", 5])
+            model.thirdTextFieldLabelText = L(.myEidNewCodeAgainLabel, ["PIN2"])
+            
+            model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
+            model.confirmButtonTitleText = L(.myEidConfirmUnblockButtonTitle)
+            
+        case .changePuk:
+        
+            model.titleText = L(.myEidChangeCodeTitle, ["PUK"])
+            model.infoBullets.append(L(.myEidInfoBulletPukUnblockInfo))
+            model.infoBullets.append(L(.myEidInfoBulletPukBlockedWarning))
+            
+            model.firstTextFieldLabelText = L(.myEidCurrentCodeLabel, ["PUK"])
+            model.secondTextFieldLabelText = L(.myEidNewCodeLabel, ["PUK", 8])
+            model.thirdTextFieldLabelText = L(.myEidNewCodeAgainLabel, ["PUK"])
+            
+            model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
+            model.confirmButtonTitleText = L(.myEidConfirmChangeButtonTitle)
+            
+        }
+        return model
+    }
+    
+    func isNewCodeBirthdateVariant(_ newCodeValue:String) -> Bool? {
+        guard let birthDateString = personalData?.birthDate,
+            let birthDate = estonianDateFormatter.date(from: birthDateString) else {
+            return nil
+        }
+    
+        let dateComponents = Calendar.current.dateComponents([.year,.month,.day], from: birthDate)
+    
+        guard let year = dateComponents.year else {
+            return nil
+        }
+    
+        guard let month = dateComponents.month else {
+            return nil
+        }
+        
+        guard let day = dateComponents.day else {
+            return nil
+        }
+    
+        let birthYear = String(year)
+        let birthMonth = String(format: "%.2i", month)
+        let birthDay = String(format: "%.2i", day)
+    
+        return newCodeValue == birthYear || newCodeValue == (birthMonth + birthDay) || newCodeValue == (birthDay + birthMonth)
     }
 }

@@ -22,6 +22,7 @@
  */
 class MyeIDViewController : MoppViewController {
     @IBOutlet weak var containerView: UIView!
+    var changingCodesVCPresented: Bool = false
  
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,19 +35,30 @@ class MyeIDViewController : MoppViewController {
         MoppLibCardReaderManager.sharedInstance().delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        LandingViewController.shared.presentButtons([.signTab, .cryptoTab, .myeIDTab])
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let statusVC = childViewControllers.first as? MyeIDStatusViewController
-            statusVC?.state = .readerNotFound
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-            MoppLibCardReaderManager.sharedInstance().startDetecting()
-        })
+        if !changingCodesVCPresented {
+            let statusVC = childViewControllers.first as? MyeIDStatusViewController
+                statusVC?.state = .readerNotFound
+        
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                MoppLibCardReaderManager.sharedInstance().startDetecting()
+            })
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        MoppLibCardReaderManager.sharedInstance().stopDetecting()
+        if !changingCodesVCPresented {
+            MoppLibCardReaderManager.sharedInstance().stopDetecting()
+        }
     }
     
     func createStatusViewController() -> MyeIDStatusViewController {
@@ -90,24 +102,33 @@ class MyeIDViewController : MoppViewController {
         newViewController.view.updateConstraintsIfNeeded()
         return newViewController
     }
+    
+    func popChangeCodesViewControllerIfPushed() {
+        if let _ = navigationController?.viewControllers.last as? MyeIDChangeCodesViewController {
+            navigationController?.popViewController(animated: false)
+        }
+    }
 }
 
 extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
     func moppLibCardReaderStatusDidChange(_ readerStatus: MoppLibCardReaderStatus) {
         switch readerStatus {
         case .ReaderNotConnected:
+            popChangeCodesViewControllerIfPushed()
             var statusVC = childViewControllers.first as? MyeIDStatusViewController
             if statusVC == nil {
                 statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
             }
             statusVC?.state = .readerNotFound
         case .ReaderConnected:
+            popChangeCodesViewControllerIfPushed()
             var statusVC = childViewControllers.first as? MyeIDStatusViewController
             if statusVC == nil {
                 statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
             }
             statusVC?.state = .idCardNotFound
         case .CardConnected:
+            popChangeCodesViewControllerIfPushed()
             var statusVC = childViewControllers.first as? MyeIDStatusViewController
             if statusVC == nil {
                 statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
@@ -136,6 +157,11 @@ extension MyeIDViewController: MyeIDInfoManagerDelegate {
         }
     }
     
-    func didTapChangePinPukCode(kind: MyeIDInfoManager.PinPukCell.Kind) {
+    func didTapChangePinPukCode(actionType: MyeIDChangeCodesModel.ActionType) {
+        let changeCodesViewController = UIStoryboard.myEID.instantiateViewController(of: MyeIDChangeCodesViewController.self)
+            changeCodesViewController.model = MyeIDInfoManager.createChangeCodesModel(actionType: actionType)
+        
+        changingCodesVCPresented = true
+        navigationController?.pushViewController(changeCodesViewController, animated: true)
     }
 }
