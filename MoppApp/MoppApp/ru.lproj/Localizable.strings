@@ -331,3 +331,10 @@
 "my-eid-discard-button-title" = "CANCEL";
 "my-eid-confirm-change-button-title" = "CHANGE";
 "my-eid-confirm-unblock-button-title" = "UNBLOCK";
+"my-eid-error-new-code-too-short" = "New %@ code must be at least %i digits long";
+"my-eid-error-current-code-too-short" = "Current %@ code must be at least %i digits long";
+"my-eid-error-codes-mismatch" = "New %@ code must match";
+"my-eid-error-codes-are-same" = "Current %@ code and new %@ code must be different";
+"my-eid-error-code-contained-in-personal-code" = "New %@ code can't be part of your personal code";
+"my-eid-error-code-is-date-of-birth" = "New %@ code can't be your date of birth";
+"my-eid-error-code-too-easy" = "New %@ code can't be so easy";

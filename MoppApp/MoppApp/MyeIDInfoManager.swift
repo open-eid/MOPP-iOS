@@ -25,6 +25,19 @@ protocol MyeIDInfoManagerDelegate: class {
     func didTapChangePinPukCode(actionType: MyeIDChangeCodesModel.ActionType)
 }
 
+enum IdCardCodeName: String {
+    case pin1 = "PIN1"
+    case pin2 = "PIN2"
+    case puk = "PUK"
+}
+
+enum IdCardCodeLengthLimits:Int {
+    case pin1Minimum = 4
+    case pin2Minimum = 5
+    case pukMinimum = 8
+    case maxRetryCount = 3
+}
+
 class MyeIDInfoManager {
     public static var shared = MyeIDInfoManager()
 
@@ -34,9 +47,9 @@ class MyeIDInfoManager {
     var authCertData: MoppLibCertData? = nil
     var signCertData: MoppLibCertData? = nil
 
-    var expiryDateFormatter: DateFormatter = {
+    var estonianDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd.MM.yyyy"; // Estonian date format
+            dateFormatter.dateFormat = "dd.MM.yyyy";
         return dateFormatter
     }()
 
@@ -214,7 +227,7 @@ class MyeIDInfoManager {
     }
     
     func expiryDateAttributedString(dateString: String, font: UIFont, capitalized: Bool) -> NSAttributedString? {
-        let isValid = Date() < expiryDateFormatter.date(from: dateString) ?? Date()
+        let isValid = Date() < estonianDateFormatter.date(from: dateString) ?? Date()
         return expiryDateAttributedString(isValid: isValid, font: font, capitalized: capitalized)
     }
     
@@ -274,13 +287,13 @@ class MyeIDInfoManager {
         if isCertValid {
             if let expiryDate = certExpiryDate {
                 certInfoString.append(NSAttributedString(string: L(.myEidCertInfoValidSuffix), attributes:[.font: font]))
-                let dateString = MyeIDInfoManager.shared.expiryDateFormatter.string(from: expiryDate)
+                let dateString = MyeIDInfoManager.shared.estonianDateFormatter.string(from: expiryDate)
                 certInfoString.append(NSAttributedString(string: dateString, attributes:[.font: font]))
             }
         } else {
             if let expiryDate = certExpiryDate {
                 certInfoString.append(NSAttributedString(string: L(.myEidCertInfoExpiredSuffix), attributes:[.font: font]))
-                let dateString = MyeIDInfoManager.shared.expiryDateFormatter.string(from: expiryDate)
+                let dateString = MyeIDInfoManager.shared.estonianDateFormatter.string(from: expiryDate)
                 certInfoString.append(NSAttributedString(string: dateString, attributes:[.font: font]))
             }
         }
@@ -402,5 +415,32 @@ extension MyeIDInfoManager {
             
         }
         return model
+    }
+    
+    func isNewCodeBirthdateVariant(_ newCodeValue:String) -> Bool? {
+        guard let birthDateString = personalData?.birthDate,
+            let birthDate = estonianDateFormatter.date(from: birthDateString) else {
+            return nil
+        }
+    
+        let dateComponents = Calendar.current.dateComponents([.year,.month,.day], from: birthDate)
+    
+        guard let year = dateComponents.year else {
+            return nil
+        }
+    
+        guard let month = dateComponents.month else {
+            return nil
+        }
+        
+        guard let day = dateComponents.day else {
+            return nil
+        }
+    
+        let birthYear = String(year)
+        let birthMonth = String(format: "%.2i", month)
+        let birthDay = String(format: "%.2i", day)
+    
+        return newCodeValue == birthYear || newCodeValue == (birthMonth + birthDay) || newCodeValue == (birthDay + birthMonth)
     }
 }

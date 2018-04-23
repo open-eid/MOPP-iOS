@@ -103,4 +103,50 @@ extension String {
         }
         return substrFrom
     }
+    
+    var containsSameDigits: Bool {
+        var prevDigit:Int? = nil
+        for ch in self {
+            if let digit = Int(String(ch)) {
+                if let prevDigit = prevDigit {
+                    if digit != prevDigit {
+                        return false
+                    }
+                }
+                prevDigit = digit
+            }
+        }
+        return true
+    }
+    
+    var isDigitsGrowingOrShrinking: Bool {
+        var prevDigit:Int? = nil
+        var delta:Int = 0
+        var prevDelta:Int? = nil
+        for ch in self {
+            if let digit = Int(String(ch)) {
+                if let prevDigit = prevDigit {
+                    delta = digit - prevDigit
+                    if abs(delta) != 1 {
+                        return false
+                    }
+                    if let prevDelta = prevDelta, prevDelta != delta {
+                        return false
+                    }
+                    prevDelta = delta
+                }
+                prevDigit = digit
+            }
+        }
+        return true
+    }
+}
+
+extension Optional where Wrapped == String {
+    var isNilOrEmpty:Bool {
+        if let value = self, !value.isEmpty {
+            return false
+        }
+        return true
+    }
 }

@@ -298,4 +298,12 @@ enum LocKey : String
     case myEidDiscardButtonTitle = "my-eid-discard-button-title"
     case myEidConfirmChangeButtonTitle = "my-eid-confirm-change-button-title"
     case myEidConfirmUnblockButtonTitle = "my-eid-confirm-unblock-button-title"
+    case myEidErrorNewCodeTooShort = "my-eid-error-new-code-too-short"
+    case myEidErrorCurrentCodeTooShort = "my-eid-error-current-code-too-short"
+    case myEidErrorCodesMismatch = "my-eid-error-codes-mismatch"
+    case myEidErrorCodesAreSame = "my-eid-error-codes-are-same"
+    case myEidErrorCodeContainedInPersonalCode = "my-eid-error-code-contained-in-personal-code"
+    case myEidErrorCodeIsDateOfBirth = "my-eid-error-code-is-date-of-birth"
+    case myEidErrorCodeTooEasy = "my-eid-error-code-too-easy"
+    
 }

@@ -104,7 +104,7 @@ class MyeIDViewController : MoppViewController {
     }
     
     func popChangeCodesViewControllerIfPushed() {
-        if let _ = navigationController?.viewControllers.last as? ChangeCodesViewController {
+        if let _ = navigationController?.viewControllers.last as? MyeIDChangeCodesViewController {
             navigationController?.popViewController(animated: false)
         }
     }
@@ -158,7 +158,7 @@ extension MyeIDViewController: MyeIDInfoManagerDelegate {
     }
     
     func didTapChangePinPukCode(actionType: MyeIDChangeCodesModel.ActionType) {
-        let changeCodesViewController = UIStoryboard.myEID.instantiateViewController(of: ChangeCodesViewController.self)
+        let changeCodesViewController = UIStoryboard.myEID.instantiateViewController(of: MyeIDChangeCodesViewController.self)
             changeCodesViewController.model = MyeIDInfoManager.createChangeCodesModel(actionType: actionType)
         
         changingCodesVCPresented = true

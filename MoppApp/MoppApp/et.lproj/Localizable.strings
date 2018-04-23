@@ -337,3 +337,10 @@
 "my-eid-discard-button-title" = "KATKESTA";
 "my-eid-confirm-change-button-title" = "MUUDA";
 "my-eid-confirm-unblock-button-title" = "LUKUSTA LAHTI";
+"my-eid-error-new-code-too-short" = "Uus %@ kood peab olema vähemalt %i numbri pikkune";
+"my-eid-error-current-code-too-short" = "Praegune %@ kood peab olema vähemalt %i numbri pikkune";
+"my-eid-error-codes-mismatch" = "Kontroll %@ kood ei ühildu";
+"my-eid-error-codes-are-same" = "Praegune %@ kood ja uus %@ kood peavad olema erinevad";
+"my-eid-error-code-contained-in-personal-code" = "Uus %@ kood ei tohi olla osa sinu isikukoodist";
+"my-eid-error-code-is-date-of-birth" = "Uus %@ kood ei tohi olla sinu sünnikuupäev";
+"my-eid-error-code-too-easy" = "Uus %@ kood ei tohi olla lihtne";
