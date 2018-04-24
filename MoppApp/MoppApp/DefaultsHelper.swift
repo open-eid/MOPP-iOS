@@ -31,7 +31,7 @@ let ContainerFormatAscis = "asics"
 let ContainerFormatAsicsShort = "scs"
 let ContainerFormatPDF  = "pdf"
 
-let DefaultNewContainerFormat = ContainerFormatBdoc
+let DefaultContainerFormat = ContainerFormatBdoc
 
 let CrashlyticsAlwaysSend = "Always"
 let CrashlyticsNeverSend = "Never"
@@ -46,23 +46,39 @@ class DefaultsHelper
 {
     // New container format
     class var newContainerFormat: String {
-        set { UserDefaults.standard.set(newValue, forKey: kNewContainerFormatKey) }
-        get { return (UserDefaults.standard.value(forKey: kNewContainerFormatKey) as? String) ?? String() }
+        set {
+            UserDefaults.standard.set(newValue, forKey: kNewContainerFormatKey)
+        }
+        get {
+            return (UserDefaults.standard.value(forKey: kNewContainerFormatKey) as? String) ?? String()
+        }
     }
 
     class var phoneNumber: String? {
-        set { UserDefaults.standard.set(newValue, forKey: kPhoneNumberKey) }
-        get { return UserDefaults.standard.value(forKey: kPhoneNumberKey) as? String }
+        set {
+            UserDefaults.standard.set(newValue, forKey: kPhoneNumberKey)
+        }
+        get {
+            return UserDefaults.standard.value(forKey: kPhoneNumberKey) as? String
+        }
     }
 
     class var idCode: String {
-        set { UserDefaults.standard.set(newValue, forKey: kIDCodeKey) }
-        get { return (UserDefaults.standard.value(forKey: kIDCodeKey) as? String) ?? String() }
+        set {
+            UserDefaults.standard.set(newValue, forKey: kIDCodeKey)
+        }
+        get {
+            return (UserDefaults.standard.value(forKey: kIDCodeKey) as? String) ?? String()
+        }
     }
 
     class var crashReportSetting: String {
-        set { UserDefaults.standard.set(newValue, forKey: kCrashReportSettingKey) }
-        get { return (UserDefaults.standard.value(forKey: kCrashReportSettingKey) as? String) ?? String() }
+        set {
+            UserDefaults.standard.set(newValue, forKey: kCrashReportSettingKey)
+        }
+        get {
+            return (UserDefaults.standard.value(forKey: kCrashReportSettingKey) as? String) ?? String()
+        }
     }
 
 }

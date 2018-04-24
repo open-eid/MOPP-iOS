@@ -131,7 +131,13 @@ extension MenuViewController : UITableViewDelegate {
                 })
                 break
             case .settings:
-                break
+                DispatchQueue.main.async(execute: {
+                    self.dismiss(animated: true) {
+                        let settingsViewController = UIStoryboard.settings.instantiateInitialViewController(of: SettingsViewController.self)
+                            settingsViewController.modalPresentationStyle = .overFullScreen
+                        MoppApp.instance.rootViewController?.present(settingsViewController, animated: true, completion: nil)
+                    }
+                })
             case .about:
                 break
             case .separator:

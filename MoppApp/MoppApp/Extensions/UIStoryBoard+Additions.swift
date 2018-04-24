@@ -51,6 +51,10 @@ extension UIStoryboard {
     static var recentContainers: UIStoryboard {
         return UIStoryboard(name: "RecentContainers", bundle: Bundle.main)
     }
+    
+    static var settings: UIStoryboard {
+        return UIStoryboard(name: "Settings", bundle: Bundle.main)
+    }
 }
 
 extension UIStoryboard {

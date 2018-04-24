@@ -145,7 +145,11 @@ extension ContainerActions where Self: UIViewController {
         let fileName = url.lastPathComponent
         
         let (filename, _) = fileName.filenameComponents()
-        let containerFilename = filename + "." + DefaultNewContainerFormat
+        var newContainerFormat = DefaultsHelper.newContainerFormat
+        if newContainerFormat.isEmpty {
+            newContainerFormat = DefaultContainerFormat
+        }
+        let containerFilename = filename + "." + newContainerFormat
         var containerPath = MoppFileManager.shared.filePath(withFileName: containerFilename)
             containerPath = MoppFileManager.shared.duplicateFilename(atPath: containerPath)
 

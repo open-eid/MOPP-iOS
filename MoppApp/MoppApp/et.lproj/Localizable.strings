@@ -211,17 +211,6 @@
 "pin-actions-pin-blocked" = "%@ on blokeeritud.";
 "pin-actions-puk-change-warning" = "Kui peale vahetamist PUK kood läheb meelest ära ja sertifikaat jääb blokeerituks kolme vale PIN1 või PIN2 sisestamise järel, siis ainus võimalus ID-kaart jälle tööle saada on pöörduda klienditeeninduspunkti poole.";
 
-// *** Settings ***
-"settings-new-container-format" = "Uue dokumendi formaat";
-"settings-application-version" = "Versioon";
-"settings-about" = "Rakendusest";
-"settings-id-code-title"= "Isikukood";
-"settings-phone-number-title" = "Telefoninumber";
-"settings-id-code-alert-message" = "Sisesta isikukood";
-"settings-phone-number-alert-message" = "Sisesta telefoninumber";
-"settings-mobile-id-header" = "Mobiil-ID";
-
-
 // *** About ***
 "about-development" = "ID-tarkvara arendaja on Riigi Infosüsteemi Ameti tellimusel Mobi Lab OÜ";
 "about-dependencies" = "Täiendavad litsentsid ja komponendid";
@@ -344,3 +333,9 @@
 "my-eid-error-code-contained-in-personal-code" = "Uus %@ kood ei tohi olla osa sinu isikukoodist";
 "my-eid-error-code-is-date-of-birth" = "Uus %@ kood ei tohi olla sinu sünnikuupäev";
 "my-eid-error-code-too-easy" = "Uus %@ kood ei tohi olla lihtne";
+"settings-title" = "Seaded";
+"settings-phone-number-title" = "MOBIIL-ID TELEFONINUMBER";
+"settings-phone-number-placeholder" = "Riigikood ja telefoninumber";
+"settings-id-code-title" = "ISIKUKOOD";
+"settings-id-code-placeholder" = "Isikukood";
+"settings-container-type-title" = "VAIKIMISI KONTEINERI TÜÜP";

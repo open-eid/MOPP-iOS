@@ -212,17 +212,6 @@
 "pin-actions-pin-blocked" = "%@ заблокирован.";
 "pin-actions-puk-change-warning" = "Если после смены PUK код забывается и сетрификат блокируется из-за неверно введённых PIN1 или PIN2, то единственной возможностью восстановить работоспособность ID- карты, это обратиться в бюро обслуживания.";
 
-
-// *** Settings ***
-"settings-new-container-format" = "Формат файла по умолчанию";
-"settings-application-version" = "Версия";
-"settings-about" = "Около";
-"settings-id-code-title"= "Личный номер";
-"settings-phone-number-title" = "Номер мобильного телефона";
-"settings-id-code-alert-message" = "Введите личный номер";
-"settings-phone-number-alert-message" = "Введите номер мобильного телефона";
-"mobile-id-header-Mobile" = "Mobiil-ID";
-
 // *** About ***
 "about-development" = "Программное обеспечение заказано RIA, разработано Mobi Lab";
 "about-dependencies" = "Дополнительные зависимости";
@@ -338,3 +327,9 @@
 "my-eid-error-code-contained-in-personal-code" = "New %@ code can't be part of your personal code";
 "my-eid-error-code-is-date-of-birth" = "New %@ code can't be your date of birth";
 "my-eid-error-code-too-easy" = "New %@ code can't be so easy";
+"settings-title" = "Settings";
+"settings-phone-number-title" = "MOBILE-ID PHONE NUMBER";
+"settings-phone-number-placeholder" = "Country code and phone number";
+"settings-id-code-title" = "ID CODE";
+"settings-id-code-placeholder" = "ID code";
+"settings-container-type-title" = "DEFAULT CONTAINER TYPE";
