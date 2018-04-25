@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Sh7-45-xtX">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Bold.ttf">
+            <string>Roboto-Bold</string>
+        </array>
+        <array key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
+        </array>
+        <array key="RobotoCondensed-Regular.ttf">
+            <string>RobotoCondensed-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Settings View Controller-->
+        <scene sceneID="hSh-iQ-8bZ">
+            <objects>
+                <viewController storyboardIdentifier="SettingsViewController" id="Sh7-45-xtX" customClass="SettingsViewController" customModule="MoppApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AZY-Pk-idj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AAa-T3-Ggw">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsHeaderCell" rowHeight="118" id="jXf-Fq-jhZ" customClass="SettingsHeaderCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="118"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jXf-Fq-jhZ" id="cRF-oI-BcV">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="118"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a1t-M9-oGI">
+                                                    <rect key="frame" x="316" y="11" width="44" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="OiK-Y4-PGA"/>
+                                                        <constraint firstAttribute="width" constant="44" id="YIM-an-FVS"/>
+                                                    </constraints>
+                                                    <color key="tintColor" name="MoppTitle"/>
+                                                    <state key="normal" image="DismissPopup"/>
+                                                    <connections>
+                                                        <action selector="dismissAction" destination="jXf-Fq-jhZ" eventType="touchUpInside" id="QDH-96-J2N"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K3i-bD-xmf">
+                                                    <rect key="frame" x="15" y="19" width="345" height="25"/>
+                                                    <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="21"/>
+                                                    <color key="textColor" name="MoppTitle"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="K3i-bD-xmf" firstAttribute="top" secondItem="cRF-oI-BcV" secondAttribute="topMargin" constant="8" id="6HJ-gt-iqz"/>
+                                                <constraint firstItem="K3i-bD-xmf" firstAttribute="leading" secondItem="cRF-oI-BcV" secondAttribute="leadingMargin" id="DOV-we-ulu"/>
+                                                <constraint firstItem="a1t-M9-oGI" firstAttribute="top" secondItem="cRF-oI-BcV" secondAttribute="topMargin" id="F5F-Bx-ncu"/>
+                                                <constraint firstItem="K3i-bD-xmf" firstAttribute="trailing" secondItem="cRF-oI-BcV" secondAttribute="trailingMargin" id="FwT-go-BLy"/>
+                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="K3i-bD-xmf" secondAttribute="bottom" constant="32" id="Nug-kx-h9w"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="a1t-M9-oGI" secondAttribute="trailing" id="jst-3w-e4K"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="K3i-bD-xmf" id="soL-H3-nHb"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsFieldCell" rowHeight="135" id="WdY-6x-5g4" customClass="SettingsFieldCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="146" width="375" height="135"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WdY-6x-5g4" id="TYs-0y-7CU">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="135"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MOBIIL-ID TELEFONINUMBER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfZ-Wm-PED">
+                                                    <rect key="frame" x="23" y="11" width="337" height="18"/>
+                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="15"/>
+                                                    <color key="textColor" name="MoppLabel"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Riigikood ja telefoninumber" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CvN-fs-oAD" customClass="SettingsTextField" customModule="MoppApp" customModuleProvider="target">
+                                                    <rect key="frame" x="15" y="33" width="345" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="RBM-jG-5sa"/>
+                                                    </constraints>
+                                                    <color key="textColor" name="MoppText"/>
+                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="CvN-fs-oAD" firstAttribute="top" secondItem="hfZ-Wm-PED" secondAttribute="bottom" constant="4" id="Q4G-UN-lzQ"/>
+                                                <constraint firstItem="hfZ-Wm-PED" firstAttribute="leading" secondItem="TYs-0y-7CU" secondAttribute="leadingMargin" constant="8" id="RUe-F4-qNH"/>
+                                                <constraint firstItem="hfZ-Wm-PED" firstAttribute="top" secondItem="TYs-0y-7CU" secondAttribute="topMargin" id="RgR-D0-oa1"/>
+                                                <constraint firstItem="hfZ-Wm-PED" firstAttribute="trailing" secondItem="TYs-0y-7CU" secondAttribute="trailingMargin" id="SGg-kX-XMe"/>
+                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="CvN-fs-oAD" secondAttribute="bottom" constant="8" id="SM3-QZ-V12"/>
+                                                <constraint firstItem="CvN-fs-oAD" firstAttribute="leading" secondItem="TYs-0y-7CU" secondAttribute="leadingMargin" id="a9X-uW-wOQ"/>
+                                                <constraint firstItem="CvN-fs-oAD" firstAttribute="trailing" secondItem="TYs-0y-7CU" secondAttribute="trailingMargin" id="cUW-yc-1At"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="textField" destination="CvN-fs-oAD" id="esu-wa-djo"/>
+                                            <outlet property="titleLabel" destination="hfZ-Wm-PED" id="yfn-73-Qym"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsChoiceCell" rowHeight="126" id="DcP-fJ-3lt" customClass="SettingsChoiceCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="281" width="375" height="126"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DcP-fJ-3lt" id="cT5-Ed-aRg">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="126"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DEFAULT CONTAINER TYPE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlZ-VA-EQr">
+                                                    <rect key="frame" x="23" y="11" width="337" height="18"/>
+                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="15"/>
+                                                    <color key="textColor" name="MoppLabel"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SsO-W3-Uvi" customClass="SettingsChoiceView" customModule="MoppApp" customModuleProvider="target">
+                                                    <rect key="frame" x="15" y="33" width="345" height="44"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="S6z-Zi-ic2">
+                                                            <rect key="frame" x="0.0" y="0.0" width="345" height="44"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zW7-22-u9J">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="172.5" height="44"/>
+                                                                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
+                                                                    <state key="normal" title="Choice 1">
+                                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sfp-ow-98H">
+                                                                    <rect key="frame" x="172.5" y="0.0" width="172.5" height="44"/>
+                                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
+                                                                    <state key="normal" title="Choice 2"/>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="S6z-Zi-ic2" firstAttribute="top" secondItem="SsO-W3-Uvi" secondAttribute="top" id="CFk-Y2-ODj"/>
+                                                        <constraint firstAttribute="trailing" secondItem="S6z-Zi-ic2" secondAttribute="trailing" id="O1j-iV-Qkt"/>
+                                                        <constraint firstItem="S6z-Zi-ic2" firstAttribute="leading" secondItem="SsO-W3-Uvi" secondAttribute="leading" id="Vnh-2o-YPq"/>
+                                                        <constraint firstAttribute="height" constant="44" id="o0g-6N-UWi"/>
+                                                        <constraint firstAttribute="bottom" secondItem="S6z-Zi-ic2" secondAttribute="bottom" id="vX5-vJ-i2H"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outlet property="stackView" destination="S6z-Zi-ic2" id="rCl-f1-dfg"/>
+                                                    </connections>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="tlZ-VA-EQr" firstAttribute="leading" secondItem="cT5-Ed-aRg" secondAttribute="leadingMargin" constant="8" id="LGn-MC-6vf"/>
+                                                <constraint firstItem="tlZ-VA-EQr" firstAttribute="trailing" secondItem="cT5-Ed-aRg" secondAttribute="trailingMargin" id="QHc-NN-NOq"/>
+                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="SsO-W3-Uvi" secondAttribute="bottom" constant="24" id="XJs-vu-qBB"/>
+                                                <constraint firstItem="tlZ-VA-EQr" firstAttribute="top" secondItem="cT5-Ed-aRg" secondAttribute="topMargin" id="XRM-3e-BTL"/>
+                                                <constraint firstItem="SsO-W3-Uvi" firstAttribute="trailing" secondItem="cT5-Ed-aRg" secondAttribute="trailingMargin" id="bWt-s4-1M8"/>
+                                                <constraint firstItem="SsO-W3-Uvi" firstAttribute="leading" secondItem="cT5-Ed-aRg" secondAttribute="leadingMargin" id="fGE-Hl-Xf5"/>
+                                                <constraint firstItem="SsO-W3-Uvi" firstAttribute="top" secondItem="tlZ-VA-EQr" secondAttribute="bottom" constant="4" id="i0v-7K-6rm"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="choiceView" destination="SsO-W3-Uvi" id="Xg5-UF-PPb"/>
+                                            <outlet property="titleLabel" destination="tlZ-VA-EQr" id="DdD-Rr-Wpj"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Sh7-45-xtX" id="fHf-VL-4F7"/>
+                                    <outlet property="delegate" destination="Sh7-45-xtX" id="wnP-7D-XNE"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="AAa-T3-Ggw" firstAttribute="trailing" secondItem="fCG-eI-IFp" secondAttribute="trailing" id="9cz-RZ-31P"/>
+                            <constraint firstItem="AAa-T3-Ggw" firstAttribute="top" secondItem="fCG-eI-IFp" secondAttribute="top" id="Crg-Cp-sBc"/>
+                            <constraint firstItem="AAa-T3-Ggw" firstAttribute="leading" secondItem="fCG-eI-IFp" secondAttribute="leading" id="ovE-yy-uFi"/>
+                            <constraint firstItem="AAa-T3-Ggw" firstAttribute="bottom" secondItem="fCG-eI-IFp" secondAttribute="bottom" id="w0w-Xs-w2L"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="fCG-eI-IFp"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="AAa-T3-Ggw" id="Oip-3a-EBO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="baP-Xx-os6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="312.80000000000001" y="-154.27286356821591"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="DismissPopup" width="25" height="25"/>
+        <namedColor name="MoppLabel">
+            <color red="0.45882352941176469" green="0.47058823529411764" blue="0.4823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="MoppText">
+            <color red="0.21176470588235294" green="0.21568627450980393" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="MoppTitle">
+            <color red="0.015686274509803921" green="0.11764705882352941" blue="0.25882352941176473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

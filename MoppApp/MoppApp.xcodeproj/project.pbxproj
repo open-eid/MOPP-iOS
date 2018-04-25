@@ -97,6 +97,8 @@
 		C54EA6EB2046C3BA0039AC78 /* UITextField+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6EA2046C3BA0039AC78 /* UITextField+Additions.swift */; };
 		C54EA6EC2046C3BA0039AC78 /* UITextField+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6EA2046C3BA0039AC78 /* UITextField+Additions.swift */; };
 		C54EA73A2057E58D0039AC78 /* MoppButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA7392057E58D0039AC78 /* MoppButton.swift */; };
+		C55A6E402086351C000F3386 /* MyeIDChangeCodesTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55A6E3F2086351C000F3386 /* MyeIDChangeCodesTextField.swift */; };
+		C55A6E42208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55A6E41208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift */; };
 		C560CB0A1FFCEEF000C01FE4 /* SigningFileImportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */; };
 		C56C6204201A0D9300CCC2A5 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C6203201A0D9300CCC2A5 /* MenuCell.swift */; };
 		C56C6206201A189600CCC2A5 /* MenuHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C6205201A189600CCC2A5 /* MenuHeaderCell.swift */; };
@@ -111,10 +113,19 @@
 		C5927FC92075144F003B7F41 /* MyeIDSegmentHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5927FC82075144F003B7F41 /* MyeIDSegmentHeaderCell.swift */; };
 		C5927FEB2078FD40003B7F41 /* MyeIDInfoViewControllerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5927FEA2078FD40003B7F41 /* MyeIDInfoViewControllerUI.swift */; };
 		C5927FED20790B7C003B7F41 /* MyeIDInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5927FEC20790B7C003B7F41 /* MyeIDInfoManager.swift */; };
+		C593D9E8208F1986000B3BF6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C593D9E7208F1986000B3BF6 /* SettingsViewController.swift */; };
+		C593D9EC208F19D7000B3BF6 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C593D9EB208F19D7000B3BF6 /* Settings.storyboard */; };
+		C593D9EE208F1C09000B3BF6 /* SettingsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C593D9ED208F1C09000B3BF6 /* SettingsHeaderCell.swift */; };
+		C593D9F0208F1C16000B3BF6 /* SettingsFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C593D9EF208F1C16000B3BF6 /* SettingsFieldCell.swift */; };
+		C593D9F2208F269A000B3BF6 /* SettingsChoiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C593D9F1208F269A000B3BF6 /* SettingsChoiceCell.swift */; };
+		C593D9F4208F3526000B3BF6 /* SettingsChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C593D9F3208F3526000B3BF6 /* SettingsChoiceView.swift */; };
+		C593D9F6208F39DF000B3BF6 /* SettingsChoiceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C593D9F5208F39DF000B3BF6 /* SettingsChoiceButton.swift */; };
 		C5964CE820079AE0001FE732 /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5964CE720079AE0001FE732 /* TabButton.swift */; };
 		C5964CEA200F8607001FE732 /* ContainerImportFilesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5964CE9200F8607001FE732 /* ContainerImportFilesCell.swift */; };
 		C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59A958D1FB5B9E100D0E1F9 /* InitializationViewController.swift */; };
 		C5A1D1CD2031D5B80024CD4C /* ContainerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A1D1CC2031D5B80024CD4C /* ContainerActions.swift */; };
+		C5A795D3208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A795D2208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift */; };
+		C5AA42C7207F51EB0031F3AA /* MyeIDChangeCodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AA42C6207F51EB0031F3AA /* MyeIDChangeCodesViewController.swift */; };
 		C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */; };
 		C5CF5EEC2017E4CC008FBBD6 /* FileImportProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CF5EEB2017E4CC008FBBD6 /* FileImportProgressViewController.swift */; };
 		C5D057022023016300875F44 /* RecentContainersEmptyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D057012023016300875F44 /* RecentContainersEmptyListCell.swift */; };
@@ -404,6 +415,8 @@
 		C54EA6E72045A9E30039AC78 /* IdCardSignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdCardSignViewController.swift; sourceTree = "<group>"; };
 		C54EA6EA2046C3BA0039AC78 /* UITextField+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Additions.swift"; sourceTree = "<group>"; };
 		C54EA7392057E58D0039AC78 /* MoppButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoppButton.swift; sourceTree = "<group>"; };
+		C55A6E3F2086351C000F3386 /* MyeIDChangeCodesTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDChangeCodesTextField.swift; sourceTree = "<group>"; };
+		C55A6E41208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDChangeCodesLoadingViewController.swift; sourceTree = "<group>"; };
 		C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningFileImportCell.swift; sourceTree = "<group>"; };
 		C56C6203201A0D9300CCC2A5 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		C56C6205201A189600CCC2A5 /* MenuHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeaderCell.swift; sourceTree = "<group>"; };
@@ -418,11 +431,20 @@
 		C5927FC82075144F003B7F41 /* MyeIDSegmentHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDSegmentHeaderCell.swift; sourceTree = "<group>"; };
 		C5927FEA2078FD40003B7F41 /* MyeIDInfoViewControllerUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDInfoViewControllerUI.swift; sourceTree = "<group>"; };
 		C5927FEC20790B7C003B7F41 /* MyeIDInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDInfoManager.swift; sourceTree = "<group>"; };
+		C593D9E7208F1986000B3BF6 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		C593D9EB208F19D7000B3BF6 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		C593D9ED208F1C09000B3BF6 /* SettingsHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderCell.swift; sourceTree = "<group>"; };
+		C593D9EF208F1C16000B3BF6 /* SettingsFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFieldCell.swift; sourceTree = "<group>"; };
+		C593D9F1208F269A000B3BF6 /* SettingsChoiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsChoiceCell.swift; sourceTree = "<group>"; };
+		C593D9F3208F3526000B3BF6 /* SettingsChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsChoiceView.swift; sourceTree = "<group>"; };
+		C593D9F5208F39DF000B3BF6 /* SettingsChoiceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsChoiceButton.swift; sourceTree = "<group>"; };
 		C5964CE720079AE0001FE732 /* TabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButton.swift; sourceTree = "<group>"; };
 		C5964CE9200F8607001FE732 /* ContainerImportFilesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerImportFilesCell.swift; sourceTree = "<group>"; };
 		C59A958C1FB5B9E100D0E1F9 /* MoppApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoppApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		C59A958D1FB5B9E100D0E1F9 /* InitializationViewController.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = InitializationViewController.swift; sourceTree = "<group>"; };
 		C5A1D1CC2031D5B80024CD4C /* ContainerActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerActions.swift; sourceTree = "<group>"; };
+		C5A795D2208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDChangeCodeViewControllerUI.swift; sourceTree = "<group>"; };
+		C5AA42C6207F51EB0031F3AA /* MyeIDChangeCodesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDChangeCodesViewController.swift; sourceTree = "<group>"; };
 		C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerNoSignaturesCell.swift; sourceTree = "<group>"; };
 		C5CF5EEB2017E4CC008FBBD6 /* FileImportProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImportProgressViewController.swift; sourceTree = "<group>"; };
 		C5D057012023016300875F44 /* RecentContainersEmptyListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentContainersEmptyListCell.swift; sourceTree = "<group>"; };
@@ -631,6 +653,7 @@
 		C54BB1071FBD8C1F00A274F6 /* MyeID */ = {
 			isa = PBXGroup;
 			children = (
+				C5AA42C5207F51210031F3AA /* Codes */,
 				C5927FE92078FC6A003B7F41 /* Status */,
 				C5927FE82078FC4F003B7F41 /* Info */,
 				C54BB1081FBD8CC600A274F6 /* MyeID.storyboard */,
@@ -682,6 +705,31 @@
 				C58FCD5A206505BD00FE3B57 /* MyeIDStatusViewController.swift */,
 			);
 			name = Status;
+			sourceTree = "<group>";
+		};
+		C593D9E6208F1972000B3BF6 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C593D9EB208F19D7000B3BF6 /* Settings.storyboard */,
+				C593D9E7208F1986000B3BF6 /* SettingsViewController.swift */,
+				C593D9ED208F1C09000B3BF6 /* SettingsHeaderCell.swift */,
+				C593D9EF208F1C16000B3BF6 /* SettingsFieldCell.swift */,
+				C593D9F1208F269A000B3BF6 /* SettingsChoiceCell.swift */,
+				C593D9F3208F3526000B3BF6 /* SettingsChoiceView.swift */,
+				C593D9F5208F39DF000B3BF6 /* SettingsChoiceButton.swift */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		C5AA42C5207F51210031F3AA /* Codes */ = {
+			isa = PBXGroup;
+			children = (
+				C5AA42C6207F51EB0031F3AA /* MyeIDChangeCodesViewController.swift */,
+				C5A795D2208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift */,
+				C55A6E3F2086351C000F3386 /* MyeIDChangeCodesTextField.swift */,
+				C55A6E41208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift */,
+			);
+			name = Codes;
 			sourceTree = "<group>";
 		};
 		C5E7D08E2031BA920081416F /* Shared */ = {
@@ -759,6 +807,7 @@
 		E4250D0B1E0AA84A00530370 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C593D9E6208F1972000B3BF6 /* Settings */,
 				C5E7D08E2031BA920081416F /* Shared */,
 				C56C6209201A252F00CCC2A5 /* Recent containers */,
 				C50DCCFD1FC6E94800D48E16 /* Container */,
@@ -1034,6 +1083,7 @@
 				54A5729F1E82AC760099BFAF /* AppStore.plist in Resources */,
 				C50DCCF61FC5741900D48E16 /* Roboto-BoldCondensedItalic.ttf in Resources */,
 				C54BB10B1FBD8CD900A274F6 /* Crypto.storyboard in Resources */,
+				C593D9EC208F19D7000B3BF6 /* Settings.storyboard in Resources */,
 				C50DCCF21FC5741900D48E16 /* RobotoCondensed-Regular.ttf in Resources */,
 				C537AE7820063E48009037E5 /* LandingElements.xib in Resources */,
 				C54BB1091FBD8CC600A274F6 /* MyeID.storyboard in Resources */,
@@ -1310,9 +1360,11 @@
 				C50DCCFF1FC6E95A00D48E16 /* ContainerViewController.swift in Sources */,
 				C50DCD481FDED76400D48E16 /* SignatureDetailsCell.swift in Sources */,
 				C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */,
+				C593D9F6208F39DF000B3BF6 /* SettingsChoiceButton.swift in Sources */,
 				C58FCD5F20650BBE00FE3B57 /* MyeIDInfoCell.swift in Sources */,
 				C5D057022023016300875F44 /* RecentContainersEmptyListCell.swift in Sources */,
 				C50DCD171FCEF17100D48E16 /* UIStoryBoard+Additions.swift in Sources */,
+				C5AA42C7207F51EB0031F3AA /* MyeIDChangeCodesViewController.swift in Sources */,
 				C50DCD241FD69B0C00D48E16 /* SpinnerView.swift in Sources */,
 				C52E827E1FC1DBFE0074B280 /* MoppViewController.swift in Sources */,
 				C5E7D08D2031B1040081416F /* NativeShare.swift in Sources */,
@@ -1324,17 +1376,23 @@
 				E42B08951E15617200EA24A3 /* LandingViewController.swift in Sources */,
 				54825EFB1E1D28E900253FF0 /* UIColor+Additions.swift in Sources */,
 				C50DCD191FD1542A00D48E16 /* RecentContainersNameCell.swift in Sources */,
+				C593D9F0208F1C16000B3BF6 /* SettingsFieldCell.swift in Sources */,
+				C593D9E8208F1986000B3BF6 /* SettingsViewController.swift in Sources */,
 				C54EA6E520444EC90039AC78 /* SignSelectionViewController.swift in Sources */,
 				C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */,
 				C58FCD5D206505D500FE3B57 /* MyeIDInfoViewController.swift in Sources */,
 				C50DCD0B1FC7128900D48E16 /* ContainerHeaderCell.swift in Sources */,
+				C593D9F2208F269A000B3BF6 /* SettingsChoiceCell.swift in Sources */,
 				C54BB10F1FBD93A100A274F6 /* MobileIDChallengeViewController.swift in Sources */,
+				C593D9EE208F1C09000B3BF6 /* SettingsHeaderCell.swift in Sources */,
 				C56C6206201A189600CCC2A5 /* MenuHeaderCell.swift in Sources */,
 				C50DCD441FDD7E4A00D48E16 /* DataFilePreviewViewController.swift in Sources */,
 				C50787881FEA807500D9AAC0 /* UIViewController+Additions.swift in Sources */,
 				C506EC7C1FB9CBFD00E07226 /* Constants.swift in Sources */,
 				C58FCD5B206505BE00FE3B57 /* MyeIDStatusViewController.swift in Sources */,
+				C5A795D3208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift in Sources */,
 				C506EC811FB9F4AF00E07226 /* UIImage+Additions.swift in Sources */,
+				C55A6E42208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift in Sources */,
 				C5927FC720751402003B7F41 /* MyeIDPinPukCell.swift in Sources */,
 				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
 				C5927FEB2078FD40003B7F41 /* MyeIDInfoViewControllerUI.swift in Sources */,
@@ -1351,6 +1409,7 @@
 				C56C620D201A256E00CCC2A5 /* RecentContainersViewController.swift in Sources */,
 				C5964CE820079AE0001FE732 /* TabButton.swift in Sources */,
 				C56C620F201A2B6500CCC2A5 /* RecentContainersHeaderCell.swift in Sources */,
+				C593D9F4208F3526000B3BF6 /* SettingsChoiceView.swift in Sources */,
 				C5CF5EEC2017E4CC008FBBD6 /* FileImportProgressViewController.swift in Sources */,
 				C5D057042024B5B700875F44 /* MoppModalViewController.swift in Sources */,
 				C50DCD111FC82F9E00D48E16 /* UINib+Additions.swift in Sources */,
@@ -1362,6 +1421,7 @@
 				C5964CEA200F8607001FE732 /* ContainerImportFilesCell.swift in Sources */,
 				C50DCD1B1FD1576B00D48E16 /* SigningTableViewHeaderView.swift in Sources */,
 				C54EA73A2057E58D0039AC78 /* MoppButton.swift in Sources */,
+				C55A6E402086351C000F3386 /* MyeIDChangeCodesTextField.swift in Sources */,
 				C54EA6E1203724730039AC78 /* ReaderScannerHeaderView.swift in Sources */,
 				C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */,
 				C50DCD131FCC4D3000D48E16 /* UIView+Additions.swift in Sources */,

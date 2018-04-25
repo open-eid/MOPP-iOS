@@ -140,6 +140,11 @@
         NSData *respData = [NSData dataWithBytes:&response[0] length:responseSize];
         NSLog(@"IR301 Response: %@", [respData toHexString]);
         
+        if ( [respData length] < 2 ) {
+            failure (nil);
+            return;
+        }
+        
         unsigned char trailing[2] = {
             response[ responseSize - 2 ],
             response[ responseSize - 1 ]

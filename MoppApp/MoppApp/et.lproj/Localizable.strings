@@ -211,17 +211,6 @@
 "pin-actions-pin-blocked" = "%@ on blokeeritud.";
 "pin-actions-puk-change-warning" = "Kui peale vahetamist PUK kood läheb meelest ära ja sertifikaat jääb blokeerituks kolme vale PIN1 või PIN2 sisestamise järel, siis ainus võimalus ID-kaart jälle tööle saada on pöörduda klienditeeninduspunkti poole.";
 
-// *** Settings ***
-"settings-new-container-format" = "Uue dokumendi formaat";
-"settings-application-version" = "Versioon";
-"settings-about" = "Rakendusest";
-"settings-id-code-title"= "Isikukood";
-"settings-phone-number-title" = "Telefoninumber";
-"settings-id-code-alert-message" = "Sisesta isikukood";
-"settings-phone-number-alert-message" = "Sisesta telefoninumber";
-"settings-mobile-id-header" = "Mobiil-ID";
-
-
 // *** About ***
 "about-development" = "ID-tarkvara arendaja on Riigi Infosüsteemi Ameti tellimusel Mobi Lab OÜ";
 "about-dependencies" = "Täiendavad litsentsid ja komponendid";
@@ -310,3 +299,43 @@
 "my-eid-unblock-pin1-button-title" = "LUKUSTA LAHTI PIN1";
 "my-eid-unblock-pin2-button-title" = "LUKUSTA LAHTI PIN2";
 "my-eid-how-to-get-codes-message" = "Uuri kuidas saada uued koodid";
+"my-eid-info-bullet-change-pin1-title" = "PIN1 koodi muutmine";
+"my-eid-info-bullet-pin1-difference-warning" = "Uus PIN1 peab olema eelmisest erinev";
+"my-eid-info-bullet-pin1-cert-info" = "PIN1 koodi kasutatakse isikutuvastamise sertifikaadi juurdepääsemiseks";
+"my-eid-info-bullet-wrong-pin1-warning" = "Kui sisestad PIN1 koodi kolm korda valesti siis isikutuvastamise sertifikaat blokeeritakse ning ID-kaarti pole võimalik isikutuvamiseks kasutada enne blokeeringu tühistamist PUK koodi abil";
+"my-eid-code-changed-success-message" = "%@ MUUDETUD";
+"my-eid-code-unblocked-success-message" = "%@ LAHTI LUKUSTATUD";
+"my-eid-wrong-code-message" = "Oled sisestanud %i korda vale %@ koodi. Sul on järgi veel %i katset.";
+"my-eid-wrong-code-message-singular" = "Oled sisestanud 2 korda vale %@ koodi. Sul on järgi veel 1 katse";
+"my-eid-code-blocked-message" = "Sa oled sisestanud 3 korda vale %@ koodi. %@ on blokeeritud";
+// *** My eID info bullets ***
+"my-eid-info-bullet-same-codes-warning" = "Uus %@ peab olema eelmisest erinev";
+"my-eid-info-bullet-auth-cert-info" = "PIN1 koodi kasutatakse isikutuvastamiseks";
+"my-eid-info-bullet-pin1-blocked-warning" = "Kui sisestad PIN1 koodi kolm korda valesti siis isikutuvastamise sertifikaat blokeeritakse ning ID-kaarti pole võimalik isikutuvamiseks kasutada enne blokeeringu tühistamist PUK koodi abil";
+"my-eid-info-bullet-forgot-code-note" = "Kui olete unustanud %@ koodi, kuid teate PUK koodi siis siin saate määrata uue %@ koodi";
+"my-eid-info-bullet-puk-envelope-info" = "PUK koodi leiad ID kaardi koodiümbrikust, kui sa pole seda vahepeal muutnud";
+"my-eid-info-bullet-sign-cert-info" = "PIN2 koodi kasutatakse digitaalallkirja andmiseks";
+"my-eid-info-bullet-pin2-blocked-warning" = "Kui sisestad PIN2 koodi kolm korda valesti siis allkirjastamise sertifikaat blokeeritakse ning ID-kaardi pole võimalik allkirjastamiseks kasutada enne blokeeringu tühistamist PUK koodi abil";
+"my-eid-info-bullet-puk-unblock-info" = "PUK koodi abil saab tühistada sertifikaadi blokeeringu, kui PIN1 või PIN2 koodi on 3 korda järjest valesti sisestatud";
+"my-eid-info-bullet-puk-blocked-warning" = "Kui peale vahetamist PUK kood ununeb ja sertifikaat jääb blokeerituks kolme vale PIN1 või PIN2 koodi sisestamise järel, siis ainus võimalus ID-kaart jälle tööle saada on pöörduda klienditeeninduse poole";
+"my-eid-change-code-title" = "%@ vahetamine";
+"my-eid-unblock-code-title" = "%@ lahti lukustamine";
+"my-eid-current-code-label" = "KEHTIV %@ KOOD";
+"my-eid-new-code-label" = "UUS %@ KOOD (vähemalt %i sümbolit)";
+"my-eid-new-code-again-label" = "UUS %@ KOOD UUESTI";
+"my-eid-discard-button-title" = "KATKESTA";
+"my-eid-confirm-change-button-title" = "MUUDA";
+"my-eid-confirm-unblock-button-title" = "LUKUSTA LAHTI";
+"my-eid-error-new-code-too-short" = "Uus %@ kood peab olema vähemalt %i numbri pikkune";
+"my-eid-error-current-code-too-short" = "Praegune %@ kood peab olema vähemalt %i numbri pikkune";
+"my-eid-error-codes-mismatch" = "Kontroll %@ kood ei ühildu";
+"my-eid-error-codes-are-same" = "Praegune %@ kood ja uus %@ kood peavad olema erinevad";
+"my-eid-error-code-contained-in-personal-code" = "Uus %@ kood ei tohi olla osa sinu isikukoodist";
+"my-eid-error-code-is-date-of-birth" = "Uus %@ kood ei tohi olla sinu sünnikuupäev";
+"my-eid-error-code-too-easy" = "Uus %@ kood ei tohi olla lihtne";
+"settings-title" = "Seaded";
+"settings-phone-number-title" = "MOBIIL-ID TELEFONINUMBER";
+"settings-phone-number-placeholder" = "Riigikood ja telefoninumber";
+"settings-id-code-title" = "ISIKUKOOD";
+"settings-id-code-placeholder" = "Isikukood";
+"settings-container-type-title" = "VAIKIMISI KONTEINERI TÜÜP";

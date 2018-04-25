@@ -210,17 +210,6 @@
 "pin-actions-pin-blocked" = "%@ is blocked.";
 "pin-actions-puk-change-warning" = "If you forget the PUK code or the certificates remain blocked, you have to visit the service center to obtain new codes.";
 
-
-// *** Settings ***
-"settings-new-container-format" = "New container format";
-"settings-application-version" = "Version";
-"settings-about" = "About";
-"settings-id-code-title"= "ID code";
-"settings-phone-number-title" = "Phone number";
-"settings-id-code-alert-message" = "Type in your ID code";
-"settings-phone-number-alert-message" = "Type in your phone number";
-"settings-mobile-id-header" = "Mobile-ID";
-
 // *** About ***
 "about-development" = "Software ordered by RIA, developed by Mobi Lab";
 "about-dependencies" = "Additional dependencies";
@@ -309,4 +298,39 @@
 "my-eid-unblock-pin1-button-title" = "UNBLOCK PIN1";
 "my-eid-unblock-pin2-button-title" = "UNBLOCK PIN2";
 "my-eid-how-to-get-codes-message" = "See how to get new codes";
-
+"my-eid-code-changed-success-message" = "%@ SUCCESSFULLY CHANGED";
+"my-eid-code-unblocked-success-message" = "%@ SUCCESSFULLY UNBLOCKED";
+"my-eid-wrong-code-message" = "You have entered %i times wrong %@. %i attempts left.";
+"my-eid-wrong-code-message-singular" = "You have entered 2 times wrong %@ code. You have 1 attempt left";
+"my-eid-code-blocked-message" = "You have entere 3 times wrong %@ code. %@ code is blocked";
+// *** My eID info bullets ***
+"my-eid-info-bullet-same-codes-warning" = "New %@ must be different from the previous one";
+"my-eid-info-bullet-auth-cert-info" = "PIN1 code is used for authentication";
+"my-eid-info-bullet-pin1-blocked-warning" = "If you enter three times wrong PIN1 code then authentication certificate will be blocked and ID-card cannot be used for authentication until blocking has been revoked with PUK code";
+"my-eid-info-bullet-forgot-code-note" = "If you have forget %@ code but you know your PUK code then you can change your %@ here with PUK code";
+"my-eid-info-bullet-puk-envelope-info" = "You can find PUK code from your codes envelope if you haven't changed it yourself";
+"my-eid-info-bullet-sign-cert-info" = "PIN2 is used for digital signatures";
+"my-eid-info-bullet-pin2-blocked-warning" = "If you enter three times wrong PIN2 code then signing certificate will be blocked and ID-card cannot be used for digital signatures until you have revoked blocking with PUK code";
+"my-eid-info-bullet-puk-unblock-info" = "PUK code can be used for revoking certificate blocking if wrong PIN1 or PIN2 has been entered three times.";
+"my-eid-info-bullet-puk-blocked-warning" = "If the PUK code goes away after changing the code, and the certificate will be blocked by entering three incorrect PIN1 then the only way to get an ID-card is to turn to work customer service point";
+"my-eid-change-code-title" = "Change %@";
+"my-eid-unblock-code-title" = "Unblock %@";
+"my-eid-current-code-label" = "CURRENT %@ CODE";
+"my-eid-new-code-label" = "NEW %@ CODE (at least %i symbols)";
+"my-eid-new-code-again-label" = "NEW %@ CODE AGAIN";
+"my-eid-discard-button-title" = "CANCEL";
+"my-eid-confirm-change-button-title" = "CHANGE";
+"my-eid-confirm-unblock-button-title" = "UNBLOCK";
+"my-eid-error-new-code-too-short" = "New %@ code must be at least %i digits long";
+"my-eid-error-current-code-too-short" = "Current %@ code must be at least %i digits long";
+"my-eid-error-codes-mismatch" = "New %@ code must match";
+"my-eid-error-codes-are-same" = "Current %@ code and new %@ code must be different";
+"my-eid-error-code-contained-in-personal-code" = "New %@ code can't be part of your personal code";
+"my-eid-error-code-is-date-of-birth" = "New %@ code can't be your date of birth";
+"my-eid-error-code-too-easy" = "New %@ code can't be so easy";
+"settings-title" = "Settings";
+"settings-phone-number-title" = "MOBILE-ID PHONE NUMBER";
+"settings-phone-number-placeholder" = "Country code and phone number";
+"settings-id-code-title" = "ID CODE";
+"settings-id-code-placeholder" = "ID code";
+"settings-container-type-title" = "DEFAULT CONTAINER TYPE";
