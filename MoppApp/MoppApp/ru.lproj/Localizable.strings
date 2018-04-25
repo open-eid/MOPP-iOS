@@ -335,6 +335,6 @@
 "settings-id-code-placeholder" = "ID code";
 "settings-container-type-title" = "DEFAULT CONTAINER TYPE";
 "diagnostics-title" = "Diagnostics";
-"diagnostics-app-version" = "Application version: ";
-"diagnostics-ios-version" = "Operating system version: ";
+"diagnostics-app-version" = "Application version";
+"diagnostics-ios-version" = "Operating system version";
 "diagnostics-libraries-label" = "Libraries";
