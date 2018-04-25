@@ -99,6 +99,7 @@
 		C54EA73A2057E58D0039AC78 /* MoppButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA7392057E58D0039AC78 /* MoppButton.swift */; };
 		C55A6E402086351C000F3386 /* MyeIDChangeCodesTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55A6E3F2086351C000F3386 /* MyeIDChangeCodesTextField.swift */; };
 		C55A6E42208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55A6E41208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift */; };
+		C55BB1C720908EF300618AC4 /* DiagnosticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BB1C620908EF300618AC4 /* DiagnosticsViewController.swift */; };
 		C560CB0A1FFCEEF000C01FE4 /* SigningFileImportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */; };
 		C56C6204201A0D9300CCC2A5 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C6203201A0D9300CCC2A5 /* MenuCell.swift */; };
 		C56C6206201A189600CCC2A5 /* MenuHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C6205201A189600CCC2A5 /* MenuHeaderCell.swift */; };
@@ -417,6 +418,7 @@
 		C54EA7392057E58D0039AC78 /* MoppButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoppButton.swift; sourceTree = "<group>"; };
 		C55A6E3F2086351C000F3386 /* MyeIDChangeCodesTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDChangeCodesTextField.swift; sourceTree = "<group>"; };
 		C55A6E41208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDChangeCodesLoadingViewController.swift; sourceTree = "<group>"; };
+		C55BB1C620908EF300618AC4 /* DiagnosticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsViewController.swift; sourceTree = "<group>"; };
 		C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningFileImportCell.swift; sourceTree = "<group>"; };
 		C56C6203201A0D9300CCC2A5 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		C56C6205201A189600CCC2A5 /* MenuHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeaderCell.swift; sourceTree = "<group>"; };
@@ -673,6 +675,14 @@
 			name = SmartCard;
 			sourceTree = "<group>";
 		};
+		C55BB1C520908EE300618AC4 /* Diagnostics */ = {
+			isa = PBXGroup;
+			children = (
+				C55BB1C620908EF300618AC4 /* DiagnosticsViewController.swift */,
+			);
+			name = Diagnostics;
+			sourceTree = "<group>";
+		};
 		C56C6209201A252F00CCC2A5 /* Recent containers */ = {
 			isa = PBXGroup;
 			children = (
@@ -710,6 +720,7 @@
 		C593D9E6208F1972000B3BF6 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				C55BB1C520908EE300618AC4 /* Diagnostics */,
 				C593D9EB208F19D7000B3BF6 /* Settings.storyboard */,
 				C593D9E7208F1986000B3BF6 /* SettingsViewController.swift */,
 				C593D9ED208F1C09000B3BF6 /* SettingsHeaderCell.swift */,
@@ -1429,6 +1440,7 @@
 				C54EA6DF20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift in Sources */,
 				C50DCCCB1FC32A3E00D48E16 /* SigningViewController.swift in Sources */,
 				E42B08AE1E1EFC1800EA24A3 /* DateFormatter.swift in Sources */,
+				C55BB1C720908EF300618AC4 /* DiagnosticsViewController.swift in Sources */,
 				54825EF81E1D270F00253FF0 /* String+Additions.swift in Sources */,
 				E42B08B11E1F049B00EA24A3 /* FileManager.swift in Sources */,
 				C5A1D1CD2031D5B80024CD4C /* ContainerActions.swift in Sources */,

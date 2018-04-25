@@ -56,6 +56,18 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         case addToContainer
     }
 
+    static var versionString:String {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? String()
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? String()
+        return "\(version).\(build)"
+    }
+
+    static var iosVersion:String {
+        let majorVersion = ProcessInfo.processInfo.operatingSystemVersion.majorVersion
+        let minorVersion = ProcessInfo.processInfo.operatingSystemVersion.minorVersion
+        return "\(majorVersion).\(minorVersion)"
+    }
+
     func didFinishLaunchingWithOptions(launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         loadNibs()
         Session.shared.setup()

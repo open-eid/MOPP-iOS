@@ -33,6 +33,7 @@
 "menu-recent-containers" = "ПОСЛЕДНИЕ ДОКУМЕНТЫ";
 "menu-settings" = "НАСТРОЙКИ";
 "menu-about" = "ОКОЛО";
+"menu-diagnostics" = "ДИАГНОСТИКА";
 
 // Signature view
 "signature-view-begin-label" = "Выберите файл для подписи или проверки";
@@ -333,3 +334,7 @@
 "settings-id-code-title" = "ID CODE";
 "settings-id-code-placeholder" = "ID code";
 "settings-container-type-title" = "DEFAULT CONTAINER TYPE";
+"diagnostics-title" = "Diagnostics";
+"diagnostics-app-version" = "Application version: ";
+"diagnostics-ios-version" = "Operating system version: ";
+"diagnostics-libraries-label" = "Libraries";
