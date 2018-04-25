@@ -118,7 +118,20 @@ extension MenuViewController : UITableViewDelegate {
         if section == .items {
             switch menuItems[indexPath.row].id {
             case .help:
-                break
+                let currentPreferredLanguage = (Locale.preferredLanguages.first ?? String()).lowercased()
+                var helpUrl: URL!
+                if currentPreferredLanguage.hasPrefix("et") {
+                    helpUrl = URL(string: "https://www.id.ee/index.php?id=10583")
+                }
+                else if currentPreferredLanguage.hasPrefix("ru") {
+                    helpUrl = URL(string: "https://www.id.ee/index.php?id=30515")
+                }
+                else {
+                    helpUrl = URL(string: "https://www.id.ee/index.php?id=30466")
+                }
+                if helpUrl != nil {
+                    MoppApp.shared.open(helpUrl, options: [:], completionHandler: nil)
+                }
             case .intro:
                 break
             case .containersHistory:
