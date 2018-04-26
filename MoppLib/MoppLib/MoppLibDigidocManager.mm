@@ -565,4 +565,9 @@ void parseException(const digidoc::Exception &e) {
   
 }
 
+- (NSString *)digidocVersion {
+    std::string version = digidoc::version();
+    return [[NSString alloc] initWithBytes:version.c_str() length:version.length() encoding:NSUTF8StringEncoding];
+}
+
 @end

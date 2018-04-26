@@ -38,7 +38,7 @@ class DiagnosticsViewController: MoppViewController {
         appVersionLabel.attributedText = attributedTextForBoldRegularText(key: L(.diagnosticsAppVersion) + ": ", value: MoppApp.versionString)
         opSysVersionLabel.attributedText = attributedTextForBoldRegularText(key: L(.diagnosticsIosVersion) + ": ", value: "iOS " +  MoppApp.iosVersion)
         librariesTitleLabel.attributedText = attributedTextForBoldRegularText(key: L(.diagnosticsLibrariesLabel), value: String())
-        let libdigidocppVersion = MoppLibManager.sharedInstance().getMoppLibVersion() ?? String()
+        let libdigidocppVersion = MoppLibManager.sharedInstance().digidocVersion() ?? String()
         librariesLabel.attributedText = attributedTextForBoldRegularText(key: String(), value: "libdigidocpp \(libdigidocppVersion)")
     }
     

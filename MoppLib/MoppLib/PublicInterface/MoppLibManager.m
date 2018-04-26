@@ -42,4 +42,9 @@
 - (NSString *)getMoppLibVersion {
   return [[MoppLibDigidocManager sharedInstance] getMoppLibVersion];
 }
+
+- (NSString *)digidocVersion {
+    return [[MoppLibDigidocManager sharedInstance] digidocVersion];
+}
+
 @end

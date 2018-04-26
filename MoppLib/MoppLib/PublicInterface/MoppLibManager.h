@@ -38,4 +38,6 @@
 - (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS;
 
 - (NSString *)getMoppLibVersion;
+- (NSString *)digidocVersion;
+
 @end
