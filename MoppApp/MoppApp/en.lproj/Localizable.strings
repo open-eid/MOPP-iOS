@@ -33,6 +33,7 @@
 "menu-recent-containers" = "RECENT DOCUMENTS";
 "menu-settings" = "SETTINGS";
 "menu-about" = "ABOUT";
+"menu-diagnostics" = "DIAGNOSTICS";
 
 // Signature view
 "signature-view-begin-label" = "Choose file to sign or validate";
@@ -334,3 +335,7 @@
 "settings-id-code-title" = "ID CODE";
 "settings-id-code-placeholder" = "ID code";
 "settings-container-type-title" = "DEFAULT CONTAINER TYPE";
+"diagnostics-title" = "Diagnostics";
+"diagnostics-app-version" = "Application version";
+"diagnostics-ios-version" = "Operating system version";
+"diagnostics-libraries-label" = "Libraries";

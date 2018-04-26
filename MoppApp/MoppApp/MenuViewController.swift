@@ -38,18 +38,18 @@ class MenuViewController : MoppModalViewController {
 
     enum MenuItemID {
         case help
-        case intro
         case containersHistory
-        case separator
         case settings
         case about
+        case diagnostics
     }
 
     let menuItems: [(title: String, imageName: String, id: MenuItemID)] = [
         (L(.menuHelp), "icon_help white", .help),
         (L(.menuRecentContainers), "icon_files white", .containersHistory),
         (L(.menuSettings), "icon_settings white", .settings),
-        (L(.menuAbout), "icon_info white", .about)
+        (L(.menuAbout), "icon_info white", .about),
+        (L(.menuDiagnostics), "icon_graph white", .diagnostics)
         ]
 
     @IBAction func dismissAction() {
@@ -59,9 +59,7 @@ class MenuViewController : MoppModalViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? String()
-        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? String()
-        versionLabel.text = "Version \(version).\(build)"
+        versionLabel.text = "Version " + MoppApp.versionString
         
         lightContentStatusBarStyle = true
     
@@ -98,15 +96,9 @@ extension MenuViewController : UITableViewDataSource {
         case .items:
             let title = menuItems[indexPath.row].title
             let iconName = menuItems[indexPath.row].imageName
-            let id = menuItems[indexPath.row].id
-            if id == .separator {
-                let cell = tableView.dequeueReusableCell(withType: MenuSeparatorCell.self, for: indexPath)!
-                return cell
-            } else {
-                let cell = tableView.dequeueReusableCell(withType: MenuCell.self, for: indexPath)!
-                    cell.populate(iconName: iconName, title: title)
-                return cell
-            }
+            let cell = tableView.dequeueReusableCell(withType: MenuCell.self, for: indexPath)!
+                cell.populate(iconName: iconName, title: title)
+            return cell
         }
 
     }
@@ -132,8 +124,6 @@ extension MenuViewController : UITableViewDelegate {
                 if helpUrl != nil {
                     MoppApp.shared.open(helpUrl, options: [:], completionHandler: nil)
                 }
-            case .intro:
-                break
             case .containersHistory:
                 DispatchQueue.main.async(execute: {
                     self.dismiss(animated: true, completion: {
@@ -153,8 +143,14 @@ extension MenuViewController : UITableViewDelegate {
                 })
             case .about:
                 break
-            case .separator:
-                break
+            case .diagnostics:
+                DispatchQueue.main.async(execute: {
+                    self.dismiss(animated: true) {
+                        let diagnosticsViewController = UIStoryboard.settings.instantiateViewController(of: DiagnosticsViewController.self)
+                            diagnosticsViewController.modalPresentationStyle = .overFullScreen
+                        MoppApp.instance.rootViewController?.present(diagnosticsViewController, animated: true, completion: nil)
+                    }
+                })
             }
         }
     }

@@ -198,6 +198,91 @@
             </objects>
             <point key="canvasLocation" x="312.80000000000001" y="-154.27286356821591"/>
         </scene>
+        <!--Diagnostics View Controller-->
+        <scene sceneID="i9o-Sy-8lJ">
+            <objects>
+                <viewController storyboardIdentifier="DiagnosticsViewController" id="B8K-Cg-QcU" customClass="DiagnosticsViewController" customModule="MoppApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="urH-58-wqg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Diagnostics" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsg-kH-FdR">
+                                <rect key="frame" x="15" y="36" width="345" height="25"/>
+                                <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="21"/>
+                                <color key="textColor" name="MoppTitle"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BfW-sn-d7r">
+                                <rect key="frame" x="315" y="26.5" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="BMW-WK-SCj"/>
+                                    <constraint firstAttribute="width" constant="44" id="eel-hO-5E1"/>
+                                </constraints>
+                                <color key="tintColor" name="MoppTitle"/>
+                                <state key="normal" image="DismissPopup"/>
+                                <connections>
+                                    <action selector="dismissAction" destination="B8K-Cg-QcU" eventType="touchUpInside" id="2bA-fO-1B4"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rakenduse versioon: " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1h-Wv-jK4">
+                                <rect key="frame" x="16" y="110.5" width="343" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Operatsioonisüsteem:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0IR-hS-aJO">
+                                <rect key="frame" x="16" y="139" width="343" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Libraries" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B71-Bc-rYA">
+                                <rect key="frame" x="16" y="191.5" width="343" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="libdigidocpp" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nul-b2-VU3">
+                                <rect key="frame" x="16" y="220" width="343" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="B71-Bc-rYA" firstAttribute="top" secondItem="0IR-hS-aJO" secondAttribute="bottom" constant="32" id="0fi-ZM-S22"/>
+                            <constraint firstItem="Vsg-kH-FdR" firstAttribute="top" secondItem="ieV-Tc-v8g" secondAttribute="top" constant="16" id="3tK-fT-UBa"/>
+                            <constraint firstItem="0IR-hS-aJO" firstAttribute="leading" secondItem="ieV-Tc-v8g" secondAttribute="leading" constant="16" id="46z-Lq-BZx"/>
+                            <constraint firstItem="ieV-Tc-v8g" firstAttribute="trailing" secondItem="Vsg-kH-FdR" secondAttribute="trailing" constant="15" id="5ok-Da-4pi"/>
+                            <constraint firstItem="0IR-hS-aJO" firstAttribute="top" secondItem="a1h-Wv-jK4" secondAttribute="bottom" constant="8" id="IiN-F4-YRJ"/>
+                            <constraint firstItem="ieV-Tc-v8g" firstAttribute="trailing" secondItem="0IR-hS-aJO" secondAttribute="trailing" constant="16" id="LOT-rv-qFQ"/>
+                            <constraint firstItem="BfW-sn-d7r" firstAttribute="centerY" secondItem="Vsg-kH-FdR" secondAttribute="centerY" id="MTz-E3-v8w"/>
+                            <constraint firstItem="a1h-Wv-jK4" firstAttribute="leading" secondItem="ieV-Tc-v8g" secondAttribute="leading" constant="16" id="OJF-l8-rV3"/>
+                            <constraint firstItem="Vsg-kH-FdR" firstAttribute="leading" secondItem="ieV-Tc-v8g" secondAttribute="leading" constant="15" id="Pmw-5Y-UCF"/>
+                            <constraint firstItem="a1h-Wv-jK4" firstAttribute="top" secondItem="BfW-sn-d7r" secondAttribute="bottom" constant="40" id="SAg-F7-LXI"/>
+                            <constraint firstItem="Nul-b2-VU3" firstAttribute="leading" secondItem="ieV-Tc-v8g" secondAttribute="leading" constant="16" id="bXn-Tc-ayv"/>
+                            <constraint firstItem="ieV-Tc-v8g" firstAttribute="trailing" secondItem="Nul-b2-VU3" secondAttribute="trailing" constant="16" id="dG1-rt-VMG"/>
+                            <constraint firstItem="ieV-Tc-v8g" firstAttribute="trailing" secondItem="a1h-Wv-jK4" secondAttribute="trailing" constant="16" id="iCj-5G-ho4"/>
+                            <constraint firstItem="ieV-Tc-v8g" firstAttribute="trailing" secondItem="BfW-sn-d7r" secondAttribute="trailing" constant="16" id="nXE-7S-Vo1"/>
+                            <constraint firstItem="ieV-Tc-v8g" firstAttribute="trailing" secondItem="B71-Bc-rYA" secondAttribute="trailing" constant="16" id="rWh-Rb-Gda"/>
+                            <constraint firstItem="B71-Bc-rYA" firstAttribute="leading" secondItem="ieV-Tc-v8g" secondAttribute="leading" constant="16" id="u5q-8r-DbL"/>
+                            <constraint firstItem="Nul-b2-VU3" firstAttribute="top" secondItem="B71-Bc-rYA" secondAttribute="bottom" constant="8" id="wPz-rM-muT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ieV-Tc-v8g"/>
+                    </view>
+                    <connections>
+                        <outlet property="appVersionLabel" destination="a1h-Wv-jK4" id="aKK-Tr-1hc"/>
+                        <outlet property="librariesLabel" destination="Nul-b2-VU3" id="DyP-2S-Av0"/>
+                        <outlet property="librariesTitleLabel" destination="B71-Bc-rYA" id="ZUW-GI-nVa"/>
+                        <outlet property="opSysVersionLabel" destination="0IR-hS-aJO" id="bMG-ZH-P2B"/>
+                        <outlet property="titleLabel" destination="Vsg-kH-FdR" id="Obs-HE-N76"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ae5-L7-aqA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1101.5999999999999" y="-157.87106446776613"/>
+        </scene>
     </scenes>
     <resources>
         <image name="DismissPopup" width="25" height="25"/>
@@ -206,6 +291,12 @@
         </namedColor>
         <namedColor name="MoppText">
             <color red="0.21176470588235294" green="0.21568627450980393" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="MoppTitle">
+            <color red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="MoppTitle">
+            <color red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="MoppTitle">
             <color red="0.015686274509803921" green="0.11764705882352941" blue="0.25882352941176473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -33,6 +33,7 @@
 "menu-recent-containers" = "HIILJUTISED DOKUMENDID";
 "menu-settings" = "SEADED";
 "menu-about" = "RAKENDUSE INFO";
+"menu-diagnostics" = "DIAGNOSTIKA";
 
 // Signature view
 "signature-view-begin-label" = "Allkirjastamiseks või kontrollimiseks vali fail";
@@ -339,3 +340,7 @@
 "settings-id-code-title" = "ISIKUKOOD";
 "settings-id-code-placeholder" = "Isikukood";
 "settings-container-type-title" = "VAIKIMISI KONTEINERI TÜÜP";
+"diagnostics-title" = "Diagnostika";
+"diagnostics-app-version" = "Rakenduse versioon";
+"diagnostics-ios-version" = "Operatsioonisüsteemi versioon";
+"diagnostics-libraries-label" = "Teegid";

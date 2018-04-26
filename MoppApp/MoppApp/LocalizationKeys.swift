@@ -33,6 +33,7 @@ enum LocKey : String
     case menuRecentContainers = "menu-recent-containers"
     case menuSettings = "menu-settings"
     case menuAbout = "menu-about"
+    case menuDiagnostics = "menu-diagnostics"
     case tabContainers = "tab-containers"
     case tabMyEid = "tab-my-eid"
     case tabSimSettings = "tab-sim-settings"
@@ -303,4 +304,8 @@ enum LocKey : String
     case settingsIdCodeTitle = "settings-id-code-title"
     case settingsIdCodePlaceholder = "settings-id-code-placeholder"
     case settingsContainerTypeTitle = "settings-container-type-title"
+    case diagnosticsTitle = "diagnostics-title"
+    case diagnosticsAppVersion = "diagnostics-app-version"
+    case diagnosticsIosVersion = "diagnostics-ios-version"
+    case diagnosticsLibrariesLabel = "diagnostics-libraries-label"
 }
