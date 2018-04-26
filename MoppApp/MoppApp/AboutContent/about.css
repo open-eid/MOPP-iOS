@@ -1,0 +1,51 @@
+* {
+    font-family: "Roboto";
+    font-size: 12pt;
+}
+body {
+    padding-left: 8pt;
+    padding-right: 8pt;
+}
+div {
+    max-width: 100%;
+    margin: auto;
+    text-align: center;
+    padding-top: 8pt;
+    padding-bottom: 8pt;
+    color: #363739; // MOPP text
+}
+a:link {
+    text-decoration: none;
+}
+img {
+    max-width: 70%;
+    margin: auto;
+}
+h1 {
+    font-size: 16pt;
+    font-weight: medium;
+    margin: auto;
+    max-width: 100%;
+    text-align: center;
+    color: #041E42; // MOPP title
+}
+h2 {
+    font-size: 15pt;
+    font-weight: medium;
+    margin: auto;
+    max-width: 100%;
+    text-align: center;
+    color: #041E42; // MOPP title
+}
+b {
+    color: #041E42; // MOPP title
+}
+a[href^="tel:"] {
+    color: #8CC368; // MOPP success
+}
+.link {
+    color: #006EB5; // MOPP base
+}
+.email_link {
+    color: #8CC368; // MOPP success
+}

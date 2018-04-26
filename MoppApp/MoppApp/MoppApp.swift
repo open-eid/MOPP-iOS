@@ -43,6 +43,13 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         return window?.rootViewController
     }
 
+    // Instantiated here for preloading webview content
+    var aboutViewController: AboutViewController = {
+        let aboutViewController = UIStoryboard.settings.instantiateViewController(of: AboutViewController.self)
+            aboutViewController.modalPresentationStyle = .overFullScreen
+        return aboutViewController
+    }()
+
     enum Nib : String {
         case containerElements = "ContainerElements"
         case recentContainersElements = "RecentContainersElements"
@@ -76,7 +83,6 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         Fabric.with([Crashlytics.self])
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
-        
         
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().tintColor = UIColor.moppText

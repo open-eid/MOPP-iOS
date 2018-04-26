@@ -344,3 +344,4 @@
 "diagnostics-app-version" = "Rakenduse versioon";
 "diagnostics-ios-version" = "Operatsioonisüsteemi versioon";
 "diagnostics-libraries-label" = "Teegid";
+"about-title" = "Rakenduse info";

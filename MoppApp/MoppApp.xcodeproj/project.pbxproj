@@ -100,6 +100,22 @@
 		C55A6E402086351C000F3386 /* MyeIDChangeCodesTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55A6E3F2086351C000F3386 /* MyeIDChangeCodesTextField.swift */; };
 		C55A6E42208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55A6E41208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift */; };
 		C55BB1C720908EF300618AC4 /* DiagnosticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BB1C620908EF300618AC4 /* DiagnosticsViewController.swift */; };
+		C55BB1CA2090C17F00618AC4 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BB1C92090C17E00618AC4 /* AboutViewController.swift */; };
+		C55BB1CC2091BD2000618AC4 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C55BB1CB2091BD2000618AC4 /* WebKit.framework */; };
+		C55BB1CF2091BEBD00618AC4 /* about_et.html in Sources */ = {isa = PBXBuildFile; fileRef = C55BB1CE2091BEBD00618AC4 /* about_et.html */; };
+		C55BB1D02091BEBD00618AC4 /* about_et.html in Sources */ = {isa = PBXBuildFile; fileRef = C55BB1CE2091BEBD00618AC4 /* about_et.html */; };
+		C55BB1D12091C30500618AC4 /* about_et.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1CE2091BEBD00618AC4 /* about_et.html */; };
+		C55BB1D32091C68200618AC4 /* main_about_fonds.png in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D22091C68200618AC4 /* main_about_fonds.png */; };
+		C55BB1D42091C68200618AC4 /* main_about_fonds.png in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D22091C68200618AC4 /* main_about_fonds.png */; };
+		C55BB1D72091F44000618AC4 /* about_en.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D52091F44000618AC4 /* about_en.html */; };
+		C55BB1D82091F44000618AC4 /* about_en.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D52091F44000618AC4 /* about_en.html */; };
+		C55BB1D92091F44000618AC4 /* about_ru.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D62091F44000618AC4 /* about_ru.html */; };
+		C55BB1DA2091F44000618AC4 /* about_ru.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D62091F44000618AC4 /* about_ru.html */; };
+		C55BB1DC2091FBCF00618AC4 /* about.css in Sources */ = {isa = PBXBuildFile; fileRef = C55BB1DB2091FBCF00618AC4 /* about.css */; };
+		C55BB1DD2091FBCF00618AC4 /* about.css in Sources */ = {isa = PBXBuildFile; fileRef = C55BB1DB2091FBCF00618AC4 /* about.css */; };
+		C55BB1DE2091FDFE00618AC4 /* about.css in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1DB2091FBCF00618AC4 /* about.css */; };
+		C55BB1E02091FECD00618AC4 /* licenses.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1DF2091FECD00618AC4 /* licenses.html */; };
+		C55BB1E12091FECD00618AC4 /* licenses.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1DF2091FECD00618AC4 /* licenses.html */; };
 		C560CB0A1FFCEEF000C01FE4 /* SigningFileImportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */; };
 		C56C6204201A0D9300CCC2A5 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C6203201A0D9300CCC2A5 /* MenuCell.swift */; };
 		C56C6206201A189600CCC2A5 /* MenuHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C6205201A189600CCC2A5 /* MenuHeaderCell.swift */; };
@@ -419,6 +435,14 @@
 		C55A6E3F2086351C000F3386 /* MyeIDChangeCodesTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDChangeCodesTextField.swift; sourceTree = "<group>"; };
 		C55A6E41208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDChangeCodesLoadingViewController.swift; sourceTree = "<group>"; };
 		C55BB1C620908EF300618AC4 /* DiagnosticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsViewController.swift; sourceTree = "<group>"; };
+		C55BB1C92090C17E00618AC4 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		C55BB1CB2091BD2000618AC4 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		C55BB1CE2091BEBD00618AC4 /* about_et.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about_et.html; sourceTree = "<group>"; };
+		C55BB1D22091C68200618AC4 /* main_about_fonds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_about_fonds.png; sourceTree = "<group>"; };
+		C55BB1D52091F44000618AC4 /* about_en.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about_en.html; sourceTree = "<group>"; };
+		C55BB1D62091F44000618AC4 /* about_ru.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about_ru.html; sourceTree = "<group>"; };
+		C55BB1DB2091FBCF00618AC4 /* about.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = about.css; sourceTree = "<group>"; };
+		C55BB1DF2091FECD00618AC4 /* licenses.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = licenses.html; sourceTree = "<group>"; };
 		C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningFileImportCell.swift; sourceTree = "<group>"; };
 		C56C6203201A0D9300CCC2A5 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		C56C6205201A189600CCC2A5 /* MenuHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeaderCell.swift; sourceTree = "<group>"; };
@@ -498,6 +522,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C55BB1CC2091BD2000618AC4 /* WebKit.framework in Frameworks */,
 				E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */,
 				51EAB865AC99468B5AC77D6C /* Pods_MoppApp.framework in Frameworks */,
 			);
@@ -683,6 +708,27 @@
 			name = Diagnostics;
 			sourceTree = "<group>";
 		};
+		C55BB1C82090BF4A00618AC4 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				C55BB1C92090C17E00618AC4 /* AboutViewController.swift */,
+			);
+			name = About;
+			sourceTree = "<group>";
+		};
+		C55BB1CD2091BE9000618AC4 /* AboutContent */ = {
+			isa = PBXGroup;
+			children = (
+				C55BB1D52091F44000618AC4 /* about_en.html */,
+				C55BB1D62091F44000618AC4 /* about_ru.html */,
+				C55BB1CE2091BEBD00618AC4 /* about_et.html */,
+				C55BB1DF2091FECD00618AC4 /* licenses.html */,
+				C55BB1DB2091FBCF00618AC4 /* about.css */,
+				C55BB1D22091C68200618AC4 /* main_about_fonds.png */,
+			);
+			path = AboutContent;
+			sourceTree = "<group>";
+		};
 		C56C6209201A252F00CCC2A5 /* Recent containers */ = {
 			isa = PBXGroup;
 			children = (
@@ -720,6 +766,7 @@
 		C593D9E6208F1972000B3BF6 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				C55BB1C82090BF4A00618AC4 /* About */,
 				C55BB1C520908EE300618AC4 /* Diagnostics */,
 				C593D9EB208F19D7000B3BF6 /* Settings.storyboard */,
 				C593D9E7208F1986000B3BF6 /* SettingsViewController.swift */,
@@ -796,6 +843,7 @@
 		E4250CC61E0968D200530370 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C55BB1CD2091BE9000618AC4 /* AboutContent */,
 				C50DCCCE1FC5738F00D48E16 /* Fonts */,
 				E4250CD71E0968D200530370 /* Info.plist */,
 				C5D057812028835100875F44 /* MoppAppTestDDS-Info.plist */,
@@ -865,6 +913,7 @@
 		F9074FEF4DC2DB83A60B75B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C55BB1CB2091BD2000618AC4 /* WebKit.framework */,
 				E4250D051E0A911100530370 /* MoppLib.framework */,
 				6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */,
 			);
@@ -1019,12 +1068,15 @@
 				C5D057492028835000875F44 /* Roboto-LightItalic.ttf in Resources */,
 				C5D0574A2028835000875F44 /* RecentContainers.storyboard in Resources */,
 				C5D0574B2028835000875F44 /* Roboto-CondensedItalic.ttf in Resources */,
+				C55BB1DA2091F44000618AC4 /* about_ru.html in Resources */,
+				C55BB1E12091FECD00618AC4 /* licenses.html in Resources */,
 				C5D0574C2028835000875F44 /* Roboto-BoldItalic.ttf in Resources */,
 				C5D0574D2028835000875F44 /* datafile.txt in Resources */,
 				C5D0574E2028835000875F44 /* Roboto-Regular.ttf in Resources */,
 				C5D0574F2028835000875F44 /* Roboto-Condensed.ttf in Resources */,
 				C5D057502028835000875F44 /* digidoc_64.png in Resources */,
 				C5D057512028835000875F44 /* Roboto-Light.ttf in Resources */,
+				C55BB1D42091C68200618AC4 /* main_about_fonds.png in Resources */,
 				C5D057522028835000875F44 /* Menu.storyboard in Resources */,
 				C5D057532028835000875F44 /* Roboto-MediumItalic.ttf in Resources */,
 				C5D057542028835000875F44 /* RobotoCondensed-LightItalic.ttf in Resources */,
@@ -1042,6 +1094,7 @@
 				C5D057602028835000875F44 /* Crypto.storyboard in Resources */,
 				C5D057612028835000875F44 /* RobotoCondensed-Regular.ttf in Resources */,
 				C5D057622028835000875F44 /* LandingElements.xib in Resources */,
+				C55BB1D82091F44000618AC4 /* about_en.html in Resources */,
 				C5D057632028835000875F44 /* MyeID.storyboard in Resources */,
 				C5D057642028835000875F44 /* RecentContainersElements.xib in Resources */,
 				C5D057652028835000875F44 /* asiceTest.asice in Resources */,
@@ -1067,6 +1120,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C55BB1DE2091FDFE00618AC4 /* about.css in Resources */,
+				C55BB1D12091C30500618AC4 /* about_et.html in Resources */,
 				E4C53F381E2FAE6C00F209BE /* presentation.pdf in Resources */,
 				C50DCCED1FC5741900D48E16 /* RobotoCondensed-Bold.ttf in Resources */,
 				C50DCCF71FC5741900D48E16 /* Roboto-LightItalic.ttf in Resources */,
@@ -1083,6 +1138,7 @@
 				C50DCCEF1FC5741900D48E16 /* Roboto-MediumItalic.ttf in Resources */,
 				C50DCCF11FC5741900D48E16 /* RobotoCondensed-LightItalic.ttf in Resources */,
 				C50DCCEA1FC5741900D48E16 /* Roboto-Thin.ttf in Resources */,
+				C55BB1E02091FECD00618AC4 /* licenses.html in Resources */,
 				E4C53F371E2FAE6C00F209BE /* image.jpg in Resources */,
 				E43BD8111E3A121A00F6C39D /* ddocTest.ddoc in Resources */,
 				54A418071E83C10B00559E2B /* digidoc_320.png in Resources */,
@@ -1095,6 +1151,8 @@
 				C50DCCF61FC5741900D48E16 /* Roboto-BoldCondensedItalic.ttf in Resources */,
 				C54BB10B1FBD8CD900A274F6 /* Crypto.storyboard in Resources */,
 				C593D9EC208F19D7000B3BF6 /* Settings.storyboard in Resources */,
+				C55BB1D92091F44000618AC4 /* about_ru.html in Resources */,
+				C55BB1D72091F44000618AC4 /* about_en.html in Resources */,
 				C50DCCF21FC5741900D48E16 /* RobotoCondensed-Regular.ttf in Resources */,
 				C537AE7820063E48009037E5 /* LandingElements.xib in Resources */,
 				C54BB1091FBD8CC600A274F6 /* MyeID.storyboard in Resources */,
@@ -1103,6 +1161,7 @@
 				C50DCD011FC6E97400D48E16 /* Container.storyboard in Resources */,
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
 				54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */,
+				C55BB1D32091C68200618AC4 /* main_about_fonds.png in Resources */,
 				C50DCCFC1FC5741900D48E16 /* RobotoCondensed-BoldItalic.ttf in Resources */,
 				C50DCCEE1FC5741900D48E16 /* RobotoCondensed-Light.ttf in Resources */,
 				C50DCCE71FC5741900D48E16 /* Roboto-ThinItalic.ttf in Resources */,
@@ -1310,6 +1369,7 @@
 				C5D057152028835000875F44 /* MoppViewController.swift in Sources */,
 				C5D057162028835000875F44 /* MoppApp.swift in Sources */,
 				C5D057172028835000875F44 /* Session.swift in Sources */,
+				C55BB1D02091BEBD00618AC4 /* about_et.html in Sources */,
 				C5D057182028835000875F44 /* CryptoViewController.swift in Sources */,
 				C5D057192028835000875F44 /* UIButton+Additions.swift in Sources */,
 				C5D0571A2028835000875F44 /* LocalizationKeys.swift in Sources */,
@@ -1354,6 +1414,7 @@
 				C5D0573E2028835000875F44 /* DateFormatter.swift in Sources */,
 				C5D0573F2028835000875F44 /* String+Additions.swift in Sources */,
 				C5D057402028835000875F44 /* FileManager.swift in Sources */,
+				C55BB1DD2091FBCF00618AC4 /* about.css in Sources */,
 				C5D057412028835000875F44 /* MenuCell.swift in Sources */,
 				C5D057422028835000875F44 /* ContainerTableViewHeaderView.swift in Sources */,
 			);
@@ -1383,6 +1444,7 @@
 				E4C53F4E1E30D13100F209BE /* Session.swift in Sources */,
 				C50DCCC91FC32A3200D48E16 /* CryptoViewController.swift in Sources */,
 				C50DCCC51FC31EFC00D48E16 /* UIButton+Additions.swift in Sources */,
+				C55BB1DC2091FBCF00618AC4 /* about.css in Sources */,
 				C51B7FB71FBC45DD0046D6E0 /* LocalizationKeys.swift in Sources */,
 				E42B08951E15617200EA24A3 /* LandingViewController.swift in Sources */,
 				54825EFB1E1D28E900253FF0 /* UIColor+Additions.swift in Sources */,
@@ -1400,12 +1462,14 @@
 				C50DCD441FDD7E4A00D48E16 /* DataFilePreviewViewController.swift in Sources */,
 				C50787881FEA807500D9AAC0 /* UIViewController+Additions.swift in Sources */,
 				C506EC7C1FB9CBFD00E07226 /* Constants.swift in Sources */,
+				C55BB1CF2091BEBD00618AC4 /* about_et.html in Sources */,
 				C58FCD5B206505BE00FE3B57 /* MyeIDStatusViewController.swift in Sources */,
 				C5A795D3208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift in Sources */,
 				C506EC811FB9F4AF00E07226 /* UIImage+Additions.swift in Sources */,
 				C55A6E42208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift in Sources */,
 				C5927FC720751402003B7F41 /* MyeIDPinPukCell.swift in Sources */,
 				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
+				C55BB1CA2090C17F00618AC4 /* AboutViewController.swift in Sources */,
 				C5927FEB2078FD40003B7F41 /* MyeIDInfoViewControllerUI.swift in Sources */,
 				540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */,
 				C54EA6EB2046C3BA0039AC78 /* UITextField+Additions.swift in Sources */,

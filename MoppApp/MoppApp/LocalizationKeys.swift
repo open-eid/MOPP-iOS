@@ -308,4 +308,5 @@ enum LocKey : String
     case diagnosticsAppVersion = "diagnostics-app-version"
     case diagnosticsIosVersion = "diagnostics-ios-version"
     case diagnosticsLibrariesLabel = "diagnostics-libraries-label"
+    case aboutTitle = "about-title"
 }

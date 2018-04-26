@@ -142,7 +142,11 @@ extension MenuViewController : UITableViewDelegate {
                     }
                 })
             case .about:
-                break
+                DispatchQueue.main.async(execute: {
+                    self.dismiss(animated: true) {
+                        MoppApp.instance.rootViewController?.present(MoppApp.instance.aboutViewController, animated: true, completion: nil)
+                    }
+                })
             case .diagnostics:
                 DispatchQueue.main.async(execute: {
                     self.dismiss(animated: true) {
