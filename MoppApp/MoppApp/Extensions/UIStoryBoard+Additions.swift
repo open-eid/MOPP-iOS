@@ -43,10 +43,6 @@ extension UIStoryboard {
     static var myEID: UIStoryboard {
         return UIStoryboard(name: "MyeID", bundle: Bundle.main)
     }
-
-    static var crypto: UIStoryboard {
-        return UIStoryboard(name: "Crypto", bundle: Bundle.main)
-    }
     
     static var recentContainers: UIStoryboard {
         return UIStoryboard(name: "RecentContainers", bundle: Bundle.main)

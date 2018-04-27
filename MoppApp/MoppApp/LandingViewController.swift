@@ -60,7 +60,6 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
 
     enum TabButtonId: String {
         case signTab
-        case cryptoTab
         case myeIDTab
         case shareButton
         case signButton
@@ -80,11 +79,7 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
     func createSigningViewController() -> UIViewController {
         return UIStoryboard.signing.instantiateInitialViewController()!
     }
-    
-    func createCryptoViewController() -> UIViewController {
-        return UIStoryboard.crypto.instantiateInitialViewController()!
-    }
-    
+        
     func createMyeIDViewController() -> UIViewController {
         return UIStoryboard.myEID.instantiateInitialViewController()!
     }
@@ -93,8 +88,6 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
         switch tab {
         case .signTab:
             return createSigningViewController()
-        case .cryptoTab:
-            return createCryptoViewController()
         case .myeIDTab:
             return createMyeIDViewController()
         default:
@@ -124,7 +117,7 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
             }
         }
         
-        presentButtons([.signTab, .cryptoTab, .myeIDTab])
+        presentButtons([.signTab, .myeIDTab])
         selectTabButton(.signTab)
 
         NotificationCenter.default.addObserver(self, selector: #selector(receiveErrorNotification), name: .errorNotificationName, object: nil)

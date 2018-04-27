@@ -21,7 +21,6 @@
 
 // TabBar
 "tab-my-eid" = "MY eID";
-"tab-crypto" = "CRYPTO";
 "tab-signature" = "SIGNATURE";
 "tab-sign-button" = "SIGN";
 "tab-share-button" = "SHARE";
@@ -42,10 +41,6 @@
 
 // Signing view
 "signing-recent-containers" = "Recent documents";
-
-// Crypto
-"crypto-view-begin-label" = "Choose file to crypt or decrypt";
-"crypto-view-begin-button" = "CHOOSE FILE";
 
 // My eID
 "my-eid-view-begin-label" = "Sign in to see your eIDs";

@@ -26,7 +26,6 @@
 		C50DCCC31FC2D54200D48E16 /* UIFont+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCCC21FC2D54200D48E16 /* UIFont+Additions.swift */; };
 		C50DCCC51FC31EFC00D48E16 /* UIButton+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCCC41FC31EFC00D48E16 /* UIButton+Additions.swift */; };
 		C50DCCC71FC32A2500D48E16 /* MyeIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCCC61FC32A2500D48E16 /* MyeIDViewController.swift */; };
-		C50DCCC91FC32A3200D48E16 /* CryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCCC81FC32A3200D48E16 /* CryptoViewController.swift */; };
 		C50DCCCB1FC32A3E00D48E16 /* SigningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCCCA1FC32A3E00D48E16 /* SigningViewController.swift */; };
 		C50DCCE71FC5741900D48E16 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCD11FC5741700D48E16 /* Roboto-ThinItalic.ttf */; };
 		C50DCCE81FC5741900D48E16 /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCD21FC5741700D48E16 /* Roboto-Italic.ttf */; };
@@ -83,7 +82,6 @@
 		C537AE542004C29E009037E5 /* MobileIDEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C537AE532004C29E009037E5 /* MobileIDEditViewController.swift */; };
 		C537AE7820063E48009037E5 /* LandingElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C537AE7720063E48009037E5 /* LandingElements.xib */; };
 		C54BB1091FBD8CC600A274F6 /* MyeID.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54BB1081FBD8CC600A274F6 /* MyeID.storyboard */; };
-		C54BB10B1FBD8CD900A274F6 /* Crypto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54BB10A1FBD8CD900A274F6 /* Crypto.storyboard */; };
 		C54BB10D1FBD8CE900A274F6 /* Signing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54BB10C1FBD8CE900A274F6 /* Signing.storyboard */; };
 		C54BB10F1FBD93A100A274F6 /* MobileIDChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */; };
 		C54EA6DA2035C7190039AC78 /* ReaderScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6D92035C7190039AC78 /* ReaderScannerViewController.swift */; };
@@ -161,7 +159,6 @@
 		C5D057152028835000875F44 /* MoppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52E827D1FC1DBFE0074B280 /* MoppViewController.swift */; };
 		C5D057162028835000875F44 /* MoppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52E827B1FC1D7BC0074B280 /* MoppApp.swift */; };
 		C5D057172028835000875F44 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C53F4D1E30D13100F209BE /* Session.swift */; };
-		C5D057182028835000875F44 /* CryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCCC81FC32A3200D48E16 /* CryptoViewController.swift */; };
 		C5D057192028835000875F44 /* UIButton+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCCC41FC31EFC00D48E16 /* UIButton+Additions.swift */; };
 		C5D0571A2028835000875F44 /* LocalizationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB61FBC45DD0046D6E0 /* LocalizationKeys.swift */; };
 		C5D0571B2028835000875F44 /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B08941E15617200EA24A3 /* LandingViewController.swift */; };
@@ -231,7 +228,6 @@
 		C5D0575D2028835000875F44 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4250D091E0AA7AF00530370 /* LaunchScreen.xib */; };
 		C5D0575E2028835000875F44 /* AppStore.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54A5729E1E82AC760099BFAF /* AppStore.plist */; };
 		C5D0575F2028835000875F44 /* Roboto-BoldCondensedItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCE01FC5741800D48E16 /* Roboto-BoldCondensedItalic.ttf */; };
-		C5D057602028835000875F44 /* Crypto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54BB10A1FBD8CD900A274F6 /* Crypto.storyboard */; };
 		C5D057612028835000875F44 /* RobotoCondensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCDC1FC5741800D48E16 /* RobotoCondensed-Regular.ttf */; };
 		C5D057622028835000875F44 /* LandingElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C537AE7720063E48009037E5 /* LandingElements.xib */; };
 		C5D057632028835000875F44 /* MyeID.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54BB1081FBD8CC600A274F6 /* MyeID.storyboard */; };
@@ -362,7 +358,6 @@
 		C50DCCC21FC2D54200D48E16 /* UIFont+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Additions.swift"; sourceTree = "<group>"; };
 		C50DCCC41FC31EFC00D48E16 /* UIButton+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Additions.swift"; sourceTree = "<group>"; };
 		C50DCCC61FC32A2500D48E16 /* MyeIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDViewController.swift; sourceTree = "<group>"; };
-		C50DCCC81FC32A3200D48E16 /* CryptoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoViewController.swift; sourceTree = "<group>"; };
 		C50DCCCA1FC32A3E00D48E16 /* SigningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningViewController.swift; sourceTree = "<group>"; };
 		C50DCCD11FC5741700D48E16 /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-ThinItalic.ttf"; path = "MoppApp/Fonts/Roboto/Roboto-ThinItalic.ttf"; sourceTree = SOURCE_ROOT; };
 		C50DCCD21FC5741700D48E16 /* Roboto-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Italic.ttf"; path = "MoppApp/Fonts/Roboto/Roboto-Italic.ttf"; sourceTree = SOURCE_ROOT; };
@@ -421,7 +416,6 @@
 		C537AE532004C29E009037E5 /* MobileIDEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileIDEditViewController.swift; sourceTree = "<group>"; };
 		C537AE7720063E48009037E5 /* LandingElements.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LandingElements.xib; sourceTree = "<group>"; };
 		C54BB1081FBD8CC600A274F6 /* MyeID.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyeID.storyboard; sourceTree = "<group>"; };
-		C54BB10A1FBD8CD900A274F6 /* Crypto.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Crypto.storyboard; sourceTree = "<group>"; };
 		C54BB10C1FBD8CE900A274F6 /* Signing.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Signing.storyboard; sourceTree = "<group>"; };
 		C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileIDChallengeViewController.swift; sourceTree = "<group>"; };
 		C54EA6D92035C7190039AC78 /* ReaderScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderScannerViewController.swift; sourceTree = "<group>"; };
@@ -668,15 +662,6 @@
 			name = Signing;
 			sourceTree = "<group>";
 		};
-		C54BB1061FBD8C1700A274F6 /* Crypto */ = {
-			isa = PBXGroup;
-			children = (
-				C54BB10A1FBD8CD900A274F6 /* Crypto.storyboard */,
-				C50DCCC81FC32A3200D48E16 /* CryptoViewController.swift */,
-			);
-			name = Crypto;
-			sourceTree = "<group>";
-		};
 		C54BB1071FBD8C1F00A274F6 /* MyeID */ = {
 			isa = PBXGroup;
 			children = (
@@ -873,7 +858,6 @@
 				C54BB1051FBD8C1000A274F6 /* Signing */,
 				C52E82721FC1D38D0074B280 /* Menu */,
 				C54BB1071FBD8C1F00A274F6 /* MyeID */,
-				C54BB1061FBD8C1700A274F6 /* Crypto */,
 				E42B08961E1562D500EA24A3 /* Landing */,
 				C59A958D1FB5B9E100D0E1F9 /* InitializationViewController.swift */,
 				C5D057032024B5B700875F44 /* MoppModalViewController.swift */,
@@ -1091,7 +1075,6 @@
 				C5D0575D2028835000875F44 /* LaunchScreen.xib in Resources */,
 				C5D0575E2028835000875F44 /* AppStore.plist in Resources */,
 				C5D0575F2028835000875F44 /* Roboto-BoldCondensedItalic.ttf in Resources */,
-				C5D057602028835000875F44 /* Crypto.storyboard in Resources */,
 				C5D057612028835000875F44 /* RobotoCondensed-Regular.ttf in Resources */,
 				C5D057622028835000875F44 /* LandingElements.xib in Resources */,
 				C55BB1D82091F44000618AC4 /* about_en.html in Resources */,
@@ -1149,7 +1132,6 @@
 				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,
 				54A5729F1E82AC760099BFAF /* AppStore.plist in Resources */,
 				C50DCCF61FC5741900D48E16 /* Roboto-BoldCondensedItalic.ttf in Resources */,
-				C54BB10B1FBD8CD900A274F6 /* Crypto.storyboard in Resources */,
 				C593D9EC208F19D7000B3BF6 /* Settings.storyboard in Resources */,
 				C55BB1D92091F44000618AC4 /* about_ru.html in Resources */,
 				C55BB1D72091F44000618AC4 /* about_en.html in Resources */,
@@ -1370,7 +1352,6 @@
 				C5D057162028835000875F44 /* MoppApp.swift in Sources */,
 				C5D057172028835000875F44 /* Session.swift in Sources */,
 				C55BB1D02091BEBD00618AC4 /* about_et.html in Sources */,
-				C5D057182028835000875F44 /* CryptoViewController.swift in Sources */,
 				C5D057192028835000875F44 /* UIButton+Additions.swift in Sources */,
 				C5D0571A2028835000875F44 /* LocalizationKeys.swift in Sources */,
 				C5D0571B2028835000875F44 /* LandingViewController.swift in Sources */,
@@ -1442,7 +1423,6 @@
 				C5E7D08D2031B1040081416F /* NativeShare.swift in Sources */,
 				C52E827C1FC1D7BC0074B280 /* MoppApp.swift in Sources */,
 				E4C53F4E1E30D13100F209BE /* Session.swift in Sources */,
-				C50DCCC91FC32A3200D48E16 /* CryptoViewController.swift in Sources */,
 				C50DCCC51FC31EFC00D48E16 /* UIButton+Additions.swift in Sources */,
 				C55BB1DC2091FBCF00618AC4 /* about.css in Sources */,
 				C51B7FB71FBC45DD0046D6E0 /* LocalizationKeys.swift in Sources */,

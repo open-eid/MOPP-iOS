@@ -46,7 +46,7 @@ class SigningViewController : MoppViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        LandingViewController.shared.presentButtons([.signTab, .cryptoTab, .myeIDTab])
+        LandingViewController.shared.presentButtons([.signTab, .myeIDTab])
     }
     
     @IBAction func menuActivationSelector() {

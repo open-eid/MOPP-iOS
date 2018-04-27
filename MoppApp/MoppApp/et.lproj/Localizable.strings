@@ -21,7 +21,6 @@
 
 // TabBar
 "tab-my-eid" = "MINU eID";
-"tab-crypto" = "KRÜPTO";
 "tab-signature" = "ALLKIRI";
 "tab-sign-button" = "ALLKIRJASTA";
 "tab-share-button" = "JAGA";
@@ -42,10 +41,6 @@
 
 // Signing view
 "signing-recent-containers" = "Hiljutised dokumendid";
-
-// Crypto
-"crypto-view-begin-label" = "Krüpteerimiseks või dekrüpteerimiseks vali fail";
-"crypto-view-begin-button" = "VALI FAIL";
 
 // My eID
 "my-eid-view-begin-label" = "Ome eID-de vaatamiseks pead sisse logima";
