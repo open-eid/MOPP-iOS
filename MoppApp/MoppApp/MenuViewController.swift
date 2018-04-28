@@ -21,8 +21,6 @@
  *
  */
 class MenuViewController : MoppModalViewController {
-
-    @IBOutlet weak var versionLabel     : UILabel!
     @IBOutlet weak var helpButton       : UIButton!
     @IBOutlet weak var introButton      : UIButton!
     @IBOutlet weak var documentsButton  : UIButton!
@@ -58,9 +56,6 @@ class MenuViewController : MoppModalViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        versionLabel.text = "Version " + MoppApp.versionString
-        
         lightContentStatusBarStyle = true
     
         let blurLayer = CALayer()

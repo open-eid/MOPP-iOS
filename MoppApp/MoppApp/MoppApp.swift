@@ -72,7 +72,8 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
     static var iosVersion:String {
         let majorVersion = ProcessInfo.processInfo.operatingSystemVersion.majorVersion
         let minorVersion = ProcessInfo.processInfo.operatingSystemVersion.minorVersion
-        return "\(majorVersion).\(minorVersion)"
+        let patchVersion = ProcessInfo.processInfo.operatingSystemVersion.patchVersion
+        return "\(majorVersion).\(minorVersion).\(patchVersion)"
     }
 
     func didFinishLaunchingWithOptions(launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
