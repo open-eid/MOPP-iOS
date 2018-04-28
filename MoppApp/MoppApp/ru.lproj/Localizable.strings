@@ -295,7 +295,7 @@
 "my-eid-info-puk-blocked-message" = "Вы ввели неверный код PUK в 3 раза.\nPUK заблокирован.";
 "my-eid-code-changed-success-message" = "%@ ИЗМЕНЕНО";
 "my-eid-code-unblocked-success-message" = "%@ РАЗБЛОКИРОВАН";
-"my-eid-wrong-code-message" = "You have entered %i times wrong %@. %i attempts left.";
+"my-eid-wrong-code-message" = "You have entered 1 time wrong %@. 2 attempts left.";
 "my-eid-wrong-code-message-singular" = "You have entered 2 times wrong %@ code. You have 1 attempt left";
 "my-eid-code-blocked-message" = "You have entered 3 times wrong %@ code. %@ code is blocked";
 // *** My eID info bullets ***

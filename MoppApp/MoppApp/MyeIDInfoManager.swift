@@ -129,13 +129,13 @@ class MyeIDInfoManager {
         var pin2:Int = 0
         var puk:Int = 0
         
-        mutating func retryCount(for actionType: MyeIDChangeCodesModel.ActionType, with value:Int) {
+        mutating func setRetryCount(for actionType: MyeIDChangeCodesModel.ActionType, with value:Int) {
             switch actionType {
-            case .changePin1, .unblockPin1:
+            case .changePin1:
                 pin1 = value
-            case .changePin2, .unblockPin2:
+            case .changePin2:
                 pin2 = value
-            case .changePuk:
+            case .changePuk, .unblockPin1, .unblockPin2:
                 puk = value
             }
         }
@@ -315,13 +315,24 @@ class MyeIDChangeCodesModel {
         case unblockPin2
         case changePuk
         
-        func associatedCodeName() -> String {
+        var codeDisplayName: String {
             switch self {
             case .changePin1, .unblockPin1:
                 return "PIN1"
             case .changePin2, .unblockPin2:
                 return "PIN2"
             case .changePuk:
+                return "PUK"
+            }
+        }
+        
+        var codeDisplayNameForWrongOrBlocked: String {
+            switch self {
+            case .changePin1:
+                return "PIN1"
+            case .changePin2:
+                return "PIN2"
+            case .changePuk, .unblockPin1, .unblockPin2:
                 return "PUK"
             }
         }

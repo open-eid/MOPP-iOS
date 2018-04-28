@@ -296,7 +296,7 @@
 "my-eid-how-to-get-codes-message" = "See how to get new codes";
 "my-eid-code-changed-success-message" = "%@ SUCCESSFULLY CHANGED";
 "my-eid-code-unblocked-success-message" = "%@ SUCCESSFULLY UNBLOCKED";
-"my-eid-wrong-code-message" = "You have entered %i times wrong %@. %i attempts left.";
+"my-eid-wrong-code-message" = "You have entered 1 time wrong %@. 2 attempts left.";
 "my-eid-wrong-code-message-singular" = "You have entered 2 times wrong %@ code. You have 1 attempt left";
 "my-eid-code-blocked-message" = "You have entere 3 times wrong %@ code. %@ code is blocked";
 // *** My eID info bullets ***
