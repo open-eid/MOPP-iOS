@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -29,7 +30,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PKn-M4-JkH">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="597"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFs-YW-Nvy">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
@@ -235,7 +237,7 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" name="MoppTitle"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="90N-hi-Cjm" secondAttribute="trailing" id="LsP-pH-nDl"/>
                                     <constraint firstAttribute="bottom" secondItem="90N-hi-Cjm" secondAttribute="bottom" id="TKY-7i-1kq"/>
@@ -244,14 +246,22 @@
                                     <constraint firstAttribute="height" constant="50" id="srI-ee-JAE"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MSz-6b-QjN" userLabel="iPhone X bottom filler">
+                                <rect key="frame" x="0.0" y="667" width="375" height="0.0"/>
+                                <color key="backgroundColor" name="MoppTitle"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="MoppBaseBackground"/>
                         <constraints>
                             <constraint firstItem="gkS-a1-DbX" firstAttribute="top" secondItem="PKn-M4-JkH" secondAttribute="bottom" priority="250" id="137-iC-9Gn"/>
-                            <constraint firstItem="gkS-a1-DbX" firstAttribute="top" secondItem="FFs-YW-Nvy" secondAttribute="bottom" id="Rpe-9U-0Nr"/>
-                            <constraint firstItem="PKn-M4-JkH" firstAttribute="top" secondItem="l1c-KT-v3G" secondAttribute="top" id="ZS6-xE-2Iy"/>
+                            <constraint firstItem="MSz-6b-QjN" firstAttribute="leading" secondItem="l1c-KT-v3G" secondAttribute="leading" id="D2F-MT-xdL"/>
+                            <constraint firstAttribute="trailing" secondItem="MSz-6b-QjN" secondAttribute="trailing" id="LX0-Wc-QZM"/>
+                            <constraint firstAttribute="bottom" secondItem="MSz-6b-QjN" secondAttribute="bottom" id="Qra-ir-AU9"/>
+                            <constraint firstItem="gkS-a1-DbX" firstAttribute="top" secondItem="FFs-YW-Nvy" secondAttribute="bottom" id="TDI-st-GMD"/>
+                            <constraint firstItem="PKn-M4-JkH" firstAttribute="top" secondItem="Ogv-h1-kdE" secondAttribute="bottom" id="ZS6-xE-2Iy"/>
                             <constraint firstAttribute="trailing" secondItem="PKn-M4-JkH" secondAttribute="trailing" id="aNL-Bg-R3C"/>
                             <constraint firstItem="FFs-YW-Nvy" firstAttribute="top" secondItem="PKn-M4-JkH" secondAttribute="bottom" priority="750" id="gLS-pp-3mc"/>
+                            <constraint firstItem="MSz-6b-QjN" firstAttribute="top" secondItem="FFs-YW-Nvy" secondAttribute="bottom" id="lO0-Fd-eOZ"/>
                             <constraint firstAttribute="trailing" secondItem="FFs-YW-Nvy" secondAttribute="trailing" id="lYm-Qx-qpU"/>
                             <constraint firstItem="PKn-M4-JkH" firstAttribute="leading" secondItem="l1c-KT-v3G" secondAttribute="leading" id="rlt-eR-VsC"/>
                             <constraint firstItem="FFs-YW-Nvy" firstAttribute="leading" secondItem="l1c-KT-v3G" secondAttribute="leading" id="zDS-1k-tSs"/>
@@ -329,5 +339,11 @@
         <image name="IconMyEID" width="28" height="20"/>
         <image name="IconSignature" width="30" height="23"/>
         <image name="icon_share" width="17" height="24"/>
+        <namedColor name="MoppBaseBackground">
+            <color red="0.95686274509803926" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="MoppTitle">
+            <color red="0.015686274509803921" green="0.11764705882352941" blue="0.25882352941176473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
