@@ -77,7 +77,18 @@ class MyeIDPinPukCell: UITableViewCell {
         case .pin2:
             actionType = .unblockPin2
         case .puk:
-            break // open link in browser
+            var url: URL!
+            let currentPreferredLanguage = (Locale.preferredLanguages.first ?? String()).lowercased()
+            if currentPreferredLanguage.hasPrefix("et") {
+                url = URL(string: "https://www.id.ee/index.php?id=30133")
+            }
+            else if currentPreferredLanguage.hasPrefix("ru") {
+                url = URL(string: "https://www.id.ee/?lang=ru&id=33922")
+            }
+            else {
+                url = URL(string: "https://www.id.ee/?lang=en&id=31027")
+            }
+            MoppApp.instance.open(url, options: [:], completionHandler: nil)
         }
         
         if let actionType = actionType {
