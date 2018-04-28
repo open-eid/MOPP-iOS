@@ -26,6 +26,12 @@
 #import "MoppLibSignature.h"
 #import "MoppLibConstants.h"
 
+typedef enum {
+    Unspecified,
+    TimeStamp,
+    TimeMark
+} SigningProfileType;
+
 @interface MoppLibDigidocManager : NSObject
 
 @property (readonly) BOOL useTestDigiDocService;
@@ -47,4 +53,5 @@
 - (NSString *)getMoppLibVersion;
 - (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path;
 - (NSString *)digidocVersion;
++ (SigningProfileType)signingProfileTypeUsingProfiles:(NSArray *)profiles andContainerExtension:(NSString *)containerExtension;
 @end
