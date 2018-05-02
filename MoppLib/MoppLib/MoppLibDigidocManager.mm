@@ -432,25 +432,13 @@ void parseException(const digidoc::Exception &e) {
     
     WebSigner *signer = new WebSigner(x509Cert);
     
-    std::string profile;
-    if (doc->signatures().size() > 0) {
-      std::string containerProfile = doc->signatures().at(0)->profile();
-      
-      if (containerProfile.find("time-stamp") != std::string::npos) {
-        profile = "time-stamp";
-      } else if (containerProfile.find("time-mark") != std::string::npos) {
-        profile = "time-mark";
-      }
-    } else {
-      // No signatures. bdoc should use time-mark
-      if ([[containerPath pathExtension] isEqualToString:@"bdoc"]) {
-        profile = "time-mark";
-      }
+    NSMutableArray *profiles = [NSMutableArray new];
+    for (auto signature : doc->signatures()) {
+        [profiles addObject:[[NSString alloc] initWithBytes:signature->profile().c_str() length:signature->profile().size() encoding:NSUTF8StringEncoding]];
     }
+    SigningProfileType profileType = [MoppLibDigidocManager signingProfileTypeUsingProfiles:profiles andContainerExtension:[containerPath pathExtension]];
     
-    if (profile.length() <= 0) {
-      profile = "time-stamp";
-    }
+    std::string profile = profileType == TimeStamp ? "time-stamp" : "time-mark";
     
     signer->setProfile(profile);
     signer->setSignatureProductionPlace("", "", "", "");
@@ -563,6 +551,68 @@ void parseException(const digidoc::Exception &e) {
   }
   delete doc;
   
+}
+
+- (NSString *)digidocVersion {
+    std::string version = digidoc::version();
+    return [[NSString alloc] initWithBytes:version.c_str() length:version.length() encoding:NSUTF8StringEncoding];
+}
+
++ (SigningProfileType)signingProfileTypeUsingProfiles:(NSArray *)profiles andContainerExtension:(NSString *)containerExtension {
+    SigningProfileType profileType = Unspecified;
+    
+    BOOL sameSignatures = YES;
+    {
+        NSString *prevProfile = nil;
+        for (id prof in profiles) {
+            NSString *profile = (NSString *)prof;
+            if (prevProfile != nil && ![prevProfile containsString:profile]) {
+                sameSignatures = NO;
+                break;
+            }
+            prevProfile = profile;
+        }
+    }
+    
+    BOOL isAsice = [containerExtension isEqualToString:@"asice"] ||
+                    [containerExtension isEqualToString:@"sce"];
+    
+    if (profiles.count == 1) {
+      NSString *profile = profiles[0];
+      
+      if (isAsice) {
+        profileType = TimeStamp;
+      } else {
+        if ([profile containsString:@"time-stamp"]) {
+            profileType = TimeStamp;
+        } else if ([profile containsString:@"time-mark"]) {
+            profileType = TimeMark;
+        }
+      }
+      
+    } else if (profiles.count > 1) {
+        if (sameSignatures) {
+            profileType = [profiles[0] containsString:@"time-stamp"] ? TimeStamp : TimeMark;
+        } else {
+            if (isAsice) {
+                profileType = TimeStamp;
+            } else {
+                profileType = TimeMark;
+            }
+        }
+    } else {
+      if (isAsice) {
+        profileType = TimeStamp;
+      } else {
+        profileType = TimeMark;
+      }
+    }
+    
+    if (profileType == Unspecified) {
+      profileType = TimeStamp;
+    }
+    
+    return profileType;
 }
 
 @end

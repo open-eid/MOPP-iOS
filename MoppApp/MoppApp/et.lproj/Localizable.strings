@@ -21,7 +21,6 @@
 
 // TabBar
 "tab-my-eid" = "MINU eID";
-"tab-crypto" = "KRÜPTO";
 "tab-signature" = "ALLKIRI";
 "tab-sign-button" = "ALLKIRJASTA";
 "tab-share-button" = "JAGA";
@@ -42,10 +41,6 @@
 
 // Signing view
 "signing-recent-containers" = "Hiljutised dokumendid";
-
-// Crypto
-"crypto-view-begin-label" = "Krüpteerimiseks või dekrüpteerimiseks vali fail";
-"crypto-view-begin-button" = "VALI FAIL";
 
 // My eID
 "my-eid-view-begin-label" = "Ome eID-de vaatamiseks pead sisse logima";
@@ -306,7 +301,7 @@
 "my-eid-info-bullet-wrong-pin1-warning" = "Kui sisestad PIN1 koodi kolm korda valesti siis isikutuvastamise sertifikaat blokeeritakse ning ID-kaarti pole võimalik isikutuvamiseks kasutada enne blokeeringu tühistamist PUK koodi abil";
 "my-eid-code-changed-success-message" = "%@ MUUDETUD";
 "my-eid-code-unblocked-success-message" = "%@ LAHTI LUKUSTATUD";
-"my-eid-wrong-code-message" = "Oled sisestanud %i korda vale %@ koodi. Sul on järgi veel %i katset.";
+"my-eid-wrong-code-message" = "Oled sisestanud 1 kord vale %@ koodi. Sul on järgi veel 2 katset.";
 "my-eid-wrong-code-message-singular" = "Oled sisestanud 2 korda vale %@ koodi. Sul on järgi veel 1 katse";
 "my-eid-code-blocked-message" = "Sa oled sisestanud 3 korda vale %@ koodi. %@ on blokeeritud";
 // *** My eID info bullets ***
@@ -344,3 +339,4 @@
 "diagnostics-app-version" = "Rakenduse versioon";
 "diagnostics-ios-version" = "Operatsioonisüsteemi versioon";
 "diagnostics-libraries-label" = "Teegid";
+"about-title" = "Rakenduse info";

@@ -43,6 +43,13 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         return window?.rootViewController
     }
 
+    // Instantiated here for preloading webview content
+    var aboutViewController: AboutViewController = {
+        let aboutViewController = UIStoryboard.settings.instantiateViewController(of: AboutViewController.self)
+            aboutViewController.modalPresentationStyle = .overFullScreen
+        return aboutViewController
+    }()
+
     enum Nib : String {
         case containerElements = "ContainerElements"
         case recentContainersElements = "RecentContainersElements"
@@ -65,7 +72,8 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
     static var iosVersion:String {
         let majorVersion = ProcessInfo.processInfo.operatingSystemVersion.majorVersion
         let minorVersion = ProcessInfo.processInfo.operatingSystemVersion.minorVersion
-        return "\(majorVersion).\(minorVersion)"
+        let patchVersion = ProcessInfo.processInfo.operatingSystemVersion.patchVersion
+        return "\(majorVersion).\(minorVersion).\(patchVersion)"
     }
 
     func didFinishLaunchingWithOptions(launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
@@ -76,7 +84,6 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         Fabric.with([Crashlytics.self])
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
-        
         
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().tintColor = UIColor.moppText

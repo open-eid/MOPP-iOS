@@ -61,20 +61,29 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
             var errorMessage = L(.genericErrorMessage)
             if let nsError = error as NSError? {
                 let actionType = strongSelf.model.actionType
-                if nsError.code == MoppLibErrorCode.moppLibErrorWrongPin.rawValue {
+                var errorCode:UInt = UInt(nsError.code)
+                
+                let retryCount = (nsError.userInfo[kMoppLibUserInfoRetryCount] as? NSNumber)?.intValue ?? 0
+                if errorCode == MoppLibErrorCode.moppLibErrorWrongPin.rawValue && retryCount == 0 {
+                    errorCode = MoppLibErrorCode.moppLibErrorPinBlocked.rawValue
+                }
+                
+                if errorCode == MoppLibErrorCode.moppLibErrorWrongPin.rawValue {
                     let retryCount = (nsError.userInfo[kMoppLibUserInfoRetryCount] as? NSNumber)?.intValue ?? 0
-                    MyeIDInfoManager.shared.retryCounts.retryCount(for: actionType, with: retryCount)
-                    if retryCount == 0 {
-                        errorMessage = L(.myEidCodeBlockedMessage, [actionType.associatedCodeName(), actionType.associatedCodeName()])
-                    }
-                    else if retryCount == 1 {
-                        errorMessage = L(.myEidWrongCodeMessageSingular, [actionType.associatedCodeName()])
+                    MyeIDInfoManager.shared.retryCounts.setRetryCount(for: actionType, with: retryCount)
+                    if retryCount == 1 {
+                        errorMessage = L(.myEidWrongCodeMessageSingular, [actionType.codeDisplayNameForWrongOrBlocked])
                         showErrorInline = true
                     }
                     else {
-                        errorMessage = L(.myEidWrongCodeMessage, [IdCardCodeLengthLimits.maxRetryCount.rawValue - retryCount, actionType.associatedCodeName(), retryCount])
+                        errorMessage = L(.myEidWrongCodeMessage, [actionType.codeDisplayNameForWrongOrBlocked])
                         showErrorInline = true
                     }
+                }
+                else if errorCode == MoppLibErrorCode.moppLibErrorPinBlocked.rawValue {
+                    MyeIDInfoManager.shared.retryCounts.setRetryCount(for: actionType, with: 0)
+                    let codeDisplayName = actionType.codeDisplayNameForWrongOrBlocked
+                    errorMessage = L(.myEidCodeBlockedMessage, [codeDisplayName, codeDisplayName])
                 }
                 else if let localizedDescription = nsError.userInfo[NSLocalizedDescriptionKey.self] as? String {
                     self?.loadingViewController.dismiss(animated: false, completion: {

@@ -21,8 +21,6 @@
  *
  */
 class MenuViewController : MoppModalViewController {
-
-    @IBOutlet weak var versionLabel     : UILabel!
     @IBOutlet weak var helpButton       : UIButton!
     @IBOutlet weak var introButton      : UIButton!
     @IBOutlet weak var documentsButton  : UIButton!
@@ -58,9 +56,6 @@ class MenuViewController : MoppModalViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        versionLabel.text = "Version " + MoppApp.versionString
-        
         lightContentStatusBarStyle = true
     
         let blurLayer = CALayer()
@@ -142,7 +137,11 @@ extension MenuViewController : UITableViewDelegate {
                     }
                 })
             case .about:
-                break
+                DispatchQueue.main.async(execute: {
+                    self.dismiss(animated: true) {
+                        MoppApp.instance.rootViewController?.present(MoppApp.instance.aboutViewController, animated: true, completion: nil)
+                    }
+                })
             case .diagnostics:
                 DispatchQueue.main.async(execute: {
                     self.dismiss(animated: true) {

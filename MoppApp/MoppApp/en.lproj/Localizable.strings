@@ -21,7 +21,6 @@
 
 // TabBar
 "tab-my-eid" = "MY eID";
-"tab-crypto" = "CRYPTO";
 "tab-signature" = "SIGNATURE";
 "tab-sign-button" = "SIGN";
 "tab-share-button" = "SHARE";
@@ -42,10 +41,6 @@
 
 // Signing view
 "signing-recent-containers" = "Recent documents";
-
-// Crypto
-"crypto-view-begin-label" = "Choose file to crypt or decrypt";
-"crypto-view-begin-button" = "CHOOSE FILE";
 
 // My eID
 "my-eid-view-begin-label" = "Sign in to see your eIDs";
@@ -301,7 +296,7 @@
 "my-eid-how-to-get-codes-message" = "See how to get new codes";
 "my-eid-code-changed-success-message" = "%@ SUCCESSFULLY CHANGED";
 "my-eid-code-unblocked-success-message" = "%@ SUCCESSFULLY UNBLOCKED";
-"my-eid-wrong-code-message" = "You have entered %i times wrong %@. %i attempts left.";
+"my-eid-wrong-code-message" = "You have entered 1 time wrong %@. 2 attempts left.";
 "my-eid-wrong-code-message-singular" = "You have entered 2 times wrong %@ code. You have 1 attempt left";
 "my-eid-code-blocked-message" = "You have entere 3 times wrong %@ code. %@ code is blocked";
 // *** My eID info bullets ***
@@ -339,3 +334,4 @@
 "diagnostics-app-version" = "Application version";
 "diagnostics-ios-version" = "Operating system version";
 "diagnostics-libraries-label" = "Libraries";
+"about-title" = "About";

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qJh-BA-pxe">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qJh-BA-pxe">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -29,7 +30,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PKn-M4-JkH">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="597"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFs-YW-Nvy">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
@@ -38,10 +40,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="862-wV-bqw" userLabel="SignTab" customClass="TabButton" customModule="MoppApp" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="62.5" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="75" height="50"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xTR-NE-6lJ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="62.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="75" height="50"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                                                         <state key="normal" image="IconSignature"/>
@@ -50,7 +52,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGNATURE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="139-2h-o7N">
-                                                        <rect key="frame" x="0.0" y="35" width="62.5" height="13"/>
+                                                        <rect key="frame" x="0.0" y="35" width="75" height="13"/>
                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
                                                         <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -82,55 +84,11 @@
                                                     <outlet property="title" destination="139-2h-o7N" id="uIe-2D-c7R"/>
                                                 </connections>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3CH-ps-XPm" userLabel="CryptoTab" customClass="TabButton" customModule="MoppApp" customModuleProvider="target">
-                                                <rect key="frame" x="62.5" y="0.0" width="62.5" height="50"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AE7-o1-KML">
-                                                        <rect key="frame" x="0.0" y="0.0" width="62.5" height="50"/>
-                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
-                                                        <state key="normal" image="IconCrypto"/>
-                                                        <connections>
-                                                            <action selector="selectTabActionWithSender:" destination="qJh-BA-pxe" eventType="touchUpInside" id="HX6-I5-QH8"/>
-                                                        </connections>
-                                                    </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CRYPTO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkQ-rV-8BM">
-                                                        <rect key="frame" x="0.0" y="35" width="62.5" height="13"/>
-                                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
-                                                        <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <accessibility key="accessibilityConfiguration" identifier="cryptoTab"/>
-                                                <constraints>
-                                                    <constraint firstItem="AE7-o1-KML" firstAttribute="leading" secondItem="3CH-ps-XPm" secondAttribute="leading" id="0Uu-jR-vCx"/>
-                                                    <constraint firstAttribute="bottom" secondItem="hkQ-rV-8BM" secondAttribute="bottom" constant="2" id="0ta-P5-Y7h"/>
-                                                    <constraint firstAttribute="trailing" secondItem="AE7-o1-KML" secondAttribute="trailing" id="GUx-bw-CKl"/>
-                                                    <constraint firstItem="AE7-o1-KML" firstAttribute="top" secondItem="3CH-ps-XPm" secondAttribute="top" id="XQ0-pg-E1D"/>
-                                                    <constraint firstAttribute="bottom" secondItem="AE7-o1-KML" secondAttribute="bottom" id="kWf-3E-pkk"/>
-                                                    <constraint firstItem="hkQ-rV-8BM" firstAttribute="leading" secondItem="3CH-ps-XPm" secondAttribute="leading" id="rpo-Yk-OnR"/>
-                                                    <constraint firstAttribute="trailing" secondItem="hkQ-rV-8BM" secondAttribute="trailing" id="zo9-Bw-1X1"/>
-                                                </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="tab" value="YES"/>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="unselectedColor">
-                                                        <color key="value" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
-                                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="tab-crypto"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <outlet property="button" destination="AE7-o1-KML" id="bmE-pp-3ZI"/>
-                                                    <outlet property="title" destination="hkQ-rV-8BM" id="mRV-Wu-iiN"/>
-                                                </connections>
-                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p9f-rb-NUo" userLabel="MyeIDTab" customClass="TabButton" customModule="MoppApp" customModuleProvider="target">
-                                                <rect key="frame" x="125" y="0.0" width="62.5" height="50"/>
+                                                <rect key="frame" x="75" y="0.0" width="75" height="50"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gKq-vF-hm9">
-                                                        <rect key="frame" x="-0.5" y="0.0" width="63" height="50"/>
+                                                        <rect key="frame" x="-0.5" y="0.0" width="75.5" height="50"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                                                         <state key="normal" image="IconMyEID"/>
                                                         <connections>
@@ -138,7 +96,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MY eID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckz-6p-Acp">
-                                                        <rect key="frame" x="0.0" y="35" width="62.5" height="13"/>
+                                                        <rect key="frame" x="0.0" y="35" width="75" height="13"/>
                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
                                                         <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -171,15 +129,15 @@
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uIu-AD-w9S" userLabel="ShareButton" customClass="TabButton" customModule="MoppApp" customModuleProvider="target">
-                                                <rect key="frame" x="187.5" y="0.0" width="62.5" height="50"/>
+                                                <rect key="frame" x="150" y="0.0" width="75" height="50"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D7z-3P-MfZ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="62.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="75" height="50"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                                                         <state key="normal" image="icon_share"/>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHARE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qmQ-pj-mTP">
-                                                        <rect key="frame" x="0.0" y="35" width="62.5" height="13"/>
+                                                        <rect key="frame" x="0.0" y="35" width="75" height="13"/>
                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
                                                         <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -206,15 +164,15 @@
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sai-Rz-wOx" userLabel="SignButton" customClass="TabButton" customModule="MoppApp" customModuleProvider="target">
-                                                <rect key="frame" x="250" y="0.0" width="62.5" height="50"/>
+                                                <rect key="frame" x="225" y="0.0" width="75" height="50"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oD2-eQ-zo1">
-                                                        <rect key="frame" x="0.0" y="0.0" width="62.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="75" height="50"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                                                         <state key="normal" image="IconSignature"/>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flY-yF-y29">
-                                                        <rect key="frame" x="0.0" y="35" width="62.5" height="13"/>
+                                                        <rect key="frame" x="0.0" y="35" width="75" height="13"/>
                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
                                                         <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -241,16 +199,16 @@
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zZy-Vl-dNV" userLabel="EncryptButton" customClass="TabButton" customModule="MoppApp" customModuleProvider="target">
-                                                <rect key="frame" x="312.5" y="0.0" width="62.5" height="50"/>
+                                                <rect key="frame" x="300" y="0.0" width="75" height="50"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rtQ-Jt-Uv9">
-                                                        <rect key="frame" x="0.0" y="0.0" width="62.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="75" height="50"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                                                         <state key="normal" image="IconCrypto"/>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ENCRYPT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drn-Aa-Odq">
-                                                        <rect key="frame" x="0.0" y="35" width="62.5" height="13"/>
+                                                        <rect key="frame" x="0.0" y="35" width="75" height="13"/>
                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
                                                         <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -279,7 +237,7 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" name="MoppTitle"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="90N-hi-Cjm" secondAttribute="trailing" id="LsP-pH-nDl"/>
                                     <constraint firstAttribute="bottom" secondItem="90N-hi-Cjm" secondAttribute="bottom" id="TKY-7i-1kq"/>
@@ -288,14 +246,22 @@
                                     <constraint firstAttribute="height" constant="50" id="srI-ee-JAE"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MSz-6b-QjN" userLabel="iPhone X bottom filler">
+                                <rect key="frame" x="0.0" y="667" width="375" height="0.0"/>
+                                <color key="backgroundColor" name="MoppTitle"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="MoppBaseBackground"/>
                         <constraints>
                             <constraint firstItem="gkS-a1-DbX" firstAttribute="top" secondItem="PKn-M4-JkH" secondAttribute="bottom" priority="250" id="137-iC-9Gn"/>
-                            <constraint firstItem="gkS-a1-DbX" firstAttribute="top" secondItem="FFs-YW-Nvy" secondAttribute="bottom" id="Rpe-9U-0Nr"/>
-                            <constraint firstItem="PKn-M4-JkH" firstAttribute="top" secondItem="l1c-KT-v3G" secondAttribute="top" id="ZS6-xE-2Iy"/>
+                            <constraint firstItem="MSz-6b-QjN" firstAttribute="leading" secondItem="l1c-KT-v3G" secondAttribute="leading" id="D2F-MT-xdL"/>
+                            <constraint firstAttribute="trailing" secondItem="MSz-6b-QjN" secondAttribute="trailing" id="LX0-Wc-QZM"/>
+                            <constraint firstAttribute="bottom" secondItem="MSz-6b-QjN" secondAttribute="bottom" id="Qra-ir-AU9"/>
+                            <constraint firstItem="gkS-a1-DbX" firstAttribute="top" secondItem="FFs-YW-Nvy" secondAttribute="bottom" id="TDI-st-GMD"/>
+                            <constraint firstItem="PKn-M4-JkH" firstAttribute="top" secondItem="Ogv-h1-kdE" secondAttribute="bottom" id="ZS6-xE-2Iy"/>
                             <constraint firstAttribute="trailing" secondItem="PKn-M4-JkH" secondAttribute="trailing" id="aNL-Bg-R3C"/>
                             <constraint firstItem="FFs-YW-Nvy" firstAttribute="top" secondItem="PKn-M4-JkH" secondAttribute="bottom" priority="750" id="gLS-pp-3mc"/>
+                            <constraint firstItem="MSz-6b-QjN" firstAttribute="top" secondItem="FFs-YW-Nvy" secondAttribute="bottom" id="lO0-Fd-eOZ"/>
                             <constraint firstAttribute="trailing" secondItem="FFs-YW-Nvy" secondAttribute="trailing" id="lYm-Qx-qpU"/>
                             <constraint firstItem="PKn-M4-JkH" firstAttribute="leading" secondItem="l1c-KT-v3G" secondAttribute="leading" id="rlt-eR-VsC"/>
                             <constraint firstItem="FFs-YW-Nvy" firstAttribute="leading" secondItem="l1c-KT-v3G" secondAttribute="leading" id="zDS-1k-tSs"/>
@@ -308,7 +274,6 @@
                         <outlet property="containerViewBottomCSTR" destination="137-iC-9Gn" id="fwy-8z-oap"/>
                         <outlet property="containerViewButtonBarCSTR" destination="gLS-pp-3mc" id="n9I-NF-DNL"/>
                         <outletCollection property="buttonsCollection" destination="862-wV-bqw" collectionClass="NSMutableArray" id="uVq-Fr-d5T"/>
-                        <outletCollection property="buttonsCollection" destination="3CH-ps-XPm" collectionClass="NSMutableArray" id="yB2-b1-sxh"/>
                         <outletCollection property="buttonsCollection" destination="p9f-rb-NUo" collectionClass="NSMutableArray" id="GfO-gK-R2Q"/>
                         <outletCollection property="buttonsCollection" destination="uIu-AD-w9S" collectionClass="NSMutableArray" id="kkc-2T-5Ig"/>
                         <outletCollection property="buttonsCollection" destination="Sai-Rz-wOx" collectionClass="NSMutableArray" id="fxn-Ah-JVx"/>
@@ -374,5 +339,11 @@
         <image name="IconMyEID" width="28" height="20"/>
         <image name="IconSignature" width="30" height="23"/>
         <image name="icon_share" width="17" height="24"/>
+        <namedColor name="MoppBaseBackground">
+            <color red="0.95686274509803926" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="MoppTitle">
+            <color red="0.015686274509803921" green="0.11764705882352941" blue="0.25882352941176473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
