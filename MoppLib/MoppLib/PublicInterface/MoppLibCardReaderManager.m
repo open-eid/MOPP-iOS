@@ -20,19 +20,28 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+#import <Foundation/Foundation.h>
+#import <CoreBluetooth/CoreBluetooth.h>
 #import "MoppLibCardReaderManager.h"
 #import "CardActionsManager.h"
 #import "CardReaderiR301.h"
+#import "CardReaderACR3901U_S1.h"
 #import "ReaderInterface.h"
 #import "winscard.h"
 #import "wintypes.h"
 #import "ft301u.h"
 
-@interface MoppLibCardReaderManager() <ReaderInterfaceDelegate>
+@interface MoppLibCardReaderManager() <ReaderInterfaceDelegate, CBCentralManagerDelegate>
 @property (nonatomic) SCARDCONTEXT contextHandle;
 @property (nonatomic, strong) ReaderInterface *readerInterface;
 @property (nonatomic, strong) NSTimer *cardStatusPollingTimer;
 @property (nonatomic) MoppLibCardReaderStatus status;
+@property (nonatomic, strong) CardReaderiR301 *reader;
+#pragma mark BlueTooth
+@property (nonatomic, strong) CBCentralManager *coreBluetoothManager;
+@property (nonatomic) BOOL scanningBluetoothPeripherals;
+@property (nonatomic, strong) NSArray *peripherals; // of type CBPeripheral*
+@property (nonatomic, strong) CBPeripheral *currentPeripheral;
 @end
 
 @implementation MoppLibCardReaderManager
@@ -110,90 +119,10 @@
         return NO;
     }
     
-    [[CardActionsManager sharedInstance] setCardReader:[[CardReaderiR301 alloc] init]];
+    _reader = [[CardReaderiR301 alloc] initWithInterface:_readerInterface andContentHandle:_contextHandle];
+    [[CardActionsManager sharedInstance] setCardReader:_reader];
     
     return YES;
-}
-
-- (void)transmitCommand:(NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure {
-    NSData *apduData = [commandHex toHexData];
-    unsigned char response[512];
-    unsigned char apdu[512];
-    unsigned int responseSize = sizeof(response);
-    NSUInteger apduSize = [apduData length];
-    
-    NSMutableData *responseData = [[NSMutableData alloc] init];
-    
-    [apduData getBytes:apdu length:apduSize];
-    
-    SCARD_IO_REQUEST pioSendPci;
-    pioSendPci.cbPciLength = sizeof(pioSendPci);
-    pioSendPci.dwProtocol = SCARD_PROTOCOL_T1;
-
-    if (SCARD_S_SUCCESS == SCardTransmit(
-        _contextHandle,
-        &pioSendPci,
-        &apdu[0], (DWORD)apduSize,
-        NULL,
-        &response[0], &responseSize)) {
-        
-        NSData *respData = [NSData dataWithBytes:&response[0] length:responseSize];
-        NSLog(@"IR301 Response: %@", [respData toHexString]);
-        
-        if ( [respData length] < 2 ) {
-            failure (nil);
-            return;
-        }
-        
-        unsigned char trailing[2] = {
-            response[ responseSize - 2 ],
-            response[ responseSize - 1 ]
-        };
-        
-        BOOL needMoreData = ( trailing[0] == 0x61 );
-        [responseData appendBytes:&response[0] length: ( needMoreData ? responseSize - 2 : responseSize )];
-        
-        // While there is additional response data in the chip card: 61 XX
-        // where XX defines the size of additional data in bytes)
-        while (needMoreData) {
-            unsigned char getResponseApdu[5] = { 0x00, 0xC0, 0x00, 0x00, 0x00 };
-            
-            // Set the size of additional data to get from the chip
-            getResponseApdu[4] = trailing[1];
-            
-            // (Re)set the response size
-            responseSize = sizeof(response);
-            
-            if (SCARD_S_SUCCESS == SCardTransmit(
-                _contextHandle,
-                &pioSendPci,
-                &getResponseApdu[0], sizeof(getResponseApdu),
-                NULL,
-                &response[0], &responseSize)) {
-                
-                NSData *respData = [NSData dataWithBytes:&response[0] length:responseSize];
-                NSLog(@"IR301 Response: %@", [respData toHexString]);
-                
-                trailing[0] = response[ responseSize - 2 ];
-                trailing[1] = response[ responseSize - 1 ];
-                
-                needMoreData = ( trailing[0] == 0x61 );
-                [responseData appendBytes:&response[0] length: ( needMoreData ? responseSize - 2 : responseSize )];
-
-            } else {
-                NSLog(@"FAILED to send APDU");
-                failure(nil);
-                return;
-            }
-        }
-        
-        NSLog(@"------------ %@", [responseData toHexString]);
-        success(responseData);
-    } else {
-        NSLog(@"FAILED to send APDU");
-        failure(nil);
-    }
-    
 }
 
 - (void)disconnectCard {
@@ -242,6 +171,91 @@
             [self stopPollingCardStatus];
             [_delegate moppLibCardReaderStatusDidChange: ReaderNotConnected];
         });
+    }
+}
+
+#pragma mark Bluetooth
+
+- (void)startScanningBluetoothPeripherals {
+    _peripherals = nil;
+    _scanningBluetoothPeripherals = YES;
+    _coreBluetoothManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:@{CBCentralManagerOptionShowPowerAlertKey: [NSNumber numberWithBool:YES]}];
+}
+
+- (void)stopScanningBluetoothPeripherals {
+    [_coreBluetoothManager stopScan];
+    _coreBluetoothManager = nil;
+}
+
+#pragma mark CBCentralManagerDelegate
+
+- (void)centralManagerDidUpdateState:(CBCentralManager *)central {
+  switch (central.state) {
+    case CBManagerStatePoweredOff:
+      MLLog(@"Central manager state powered off");
+      break;
+      
+    case CBManagerStateUnknown:
+      MLLog(@"Central manager state unknown");
+      break;
+      
+    case CBManagerStatePoweredOn:
+      MLLog(@"Central manager state powered on");
+      if (self.scanningBluetoothPeripherals) {
+        [_coreBluetoothManager scanForPeripheralsWithServices:nil options:nil];
+      }
+      break;
+      
+    case CBManagerStateResetting:
+      MLLog(@"Central manager state resetting");
+      break;
+      
+    case CBManagerStateUnsupported:
+      MLLog(@"Central manager state unsupported");
+      break;
+      
+    case CBManagerStateUnauthorized:
+      MLLog(@"Central manager state unauthorized");
+      break;
+      
+    default:
+      break;
+  }
+}
+
+- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
+    NSLog(@"Did connect %@", peripheral.name);
+    CardReaderACR3901U_S1 *reader = [[CardReaderACR3901U_S1 alloc] init];
+    [reader setupWithPeripheral:_currentPeripheral success:^(NSData *responseData) {
+        NSLog(@"SUCCESS");
+        
+        [reader setCardReaderManagerDelegate:_delegate];
+        [_delegate moppLibCardReaderStatusDidChange: ReaderConnected];
+        [[CardActionsManager sharedInstance] setCardReader:reader];
+        
+    } failure:^(NSError *error) {
+        NSLog(@"FAILURE %@", error);
+    }];
+}
+
+- (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
+    NSLog(@"%@", error);
+}
+
+- (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI {
+    NSLog(@"%@", peripheral.name);
+    if (peripheral.name != nil && [peripheral.name hasPrefix:@"ACR3901U-S1"]) {
+        NSLog(@"Card ACR3901U-S1 found");
+        _currentPeripheral = peripheral;
+        [central connectPeripheral:_currentPeripheral options:nil];
+    }
+}
+
+- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
+    [_delegate moppLibCardReaderStatusDidChange:ReaderNotConnected];
+    NSLog(@"%@", peripheral.name);
+    if (peripheral.name != nil && [peripheral.name hasPrefix:@"ACR3901U-S1"]) {
+        NSLog(@"Card ACR3901U-S1 found");
     }
 }
 

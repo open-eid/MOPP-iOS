@@ -50,6 +50,7 @@ class MyeIDViewController : MoppViewController {
         
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                 MoppLibCardReaderManager.sharedInstance().startDetecting()
+                MoppLibCardReaderManager.sharedInstance().startScanningBluetoothPeripherals()
             })
         }
     }
@@ -58,6 +59,7 @@ class MyeIDViewController : MoppViewController {
         super.viewWillDisappear(animated)
         if !changingCodesVCPresented {
             MoppLibCardReaderManager.sharedInstance().stopDetecting()
+            MoppLibCardReaderManager.sharedInstance().stopScanningBluetoothPeripherals()
         }
     }
     

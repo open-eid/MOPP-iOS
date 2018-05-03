@@ -28,6 +28,7 @@
 #import "ft301u.h"
 #import "wintypes.h"
 #import "NSString+Additions.h"
+#import "NSData+Additions.h"
 #import "MoppLibCardReaderManager.h"
 
 @interface CardReaderiR301() <ReaderInterfaceDelegate>
@@ -39,10 +40,11 @@
 
 @implementation CardReaderiR301
 
--(id)initWithInterface:(ReaderInterface*)interface
+-(id)initWithInterface:(ReaderInterface*)interface andContentHandle:(SCARDHANDLE)contextHandle
 {
     if (self = [super init]) {
         _interface = interface;
+        _contextHandle = contextHandle;
         return self;
     }
     return nil;
@@ -56,7 +58,83 @@
 #pragma mark - CardReaderWrapper
 
 - (void)transmitCommand:(NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure {
-    [[MoppLibCardReaderManager sharedInstance] transmitCommand:commandHex success:success failure:failure];
+    NSData *apduData = [commandHex toHexData];
+    unsigned char response[512];
+    unsigned char apdu[512];
+    unsigned int responseSize = sizeof(response);
+    NSUInteger apduSize = [apduData length];
+    
+    NSMutableData *responseData = [[NSMutableData alloc] init];
+    
+    [apduData getBytes:apdu length:apduSize];
+    
+    SCARD_IO_REQUEST pioSendPci;
+    pioSendPci.cbPciLength = sizeof(pioSendPci);
+    pioSendPci.dwProtocol = SCARD_PROTOCOL_T1;
+
+    if (SCARD_S_SUCCESS == SCardTransmit(
+        _contextHandle,
+        &pioSendPci,
+        &apdu[0], (DWORD)apduSize,
+        NULL,
+        &response[0], &responseSize)) {
+        
+        NSData *respData = [NSData dataWithBytes:&response[0] length:responseSize];
+        NSLog(@"IR301 Response: %@", [respData toHexString]);
+        
+        if ( [respData length] < 2 ) {
+            failure (nil);
+            return;
+        }
+        
+        unsigned char trailing[2] = {
+            response[ responseSize - 2 ],
+            response[ responseSize - 1 ]
+        };
+        
+        BOOL needMoreData = ( trailing[0] == 0x61 );
+        [responseData appendBytes:&response[0] length: ( needMoreData ? responseSize - 2 : responseSize )];
+        
+        // While there is additional response data in the chip card: 61 XX
+        // where XX defines the size of additional data in bytes)
+        while (needMoreData) {
+            unsigned char getResponseApdu[5] = { 0x00, 0xC0, 0x00, 0x00, 0x00 };
+            
+            // Set the size of additional data to get from the chip
+            getResponseApdu[4] = trailing[1];
+            
+            // (Re)set the response size
+            responseSize = sizeof(response);
+            
+            if (SCARD_S_SUCCESS == SCardTransmit(
+                _contextHandle,
+                &pioSendPci,
+                &getResponseApdu[0], sizeof(getResponseApdu),
+                NULL,
+                &response[0], &responseSize)) {
+                
+                NSData *respData = [NSData dataWithBytes:&response[0] length:responseSize];
+                NSLog(@"IR301 Response: %@", [respData toHexString]);
+                
+                trailing[0] = response[ responseSize - 2 ];
+                trailing[1] = response[ responseSize - 1 ];
+                
+                needMoreData = ( trailing[0] == 0x61 );
+                [responseData appendBytes:&response[0] length: ( needMoreData ? responseSize - 2 : responseSize )];
+
+            } else {
+                NSLog(@"FAILED to send APDU");
+                failure(nil);
+                return;
+            }
+        }
+        
+        NSLog(@"------------ %@", [responseData toHexString]);
+        success(responseData);
+    } else {
+        NSLog(@"FAILED to send APDU");
+        failure(nil);
+    }
 }
 
 - (void)powerOnCard:(DataSuccessBlock)success failure:(FailureBlock)failure  {

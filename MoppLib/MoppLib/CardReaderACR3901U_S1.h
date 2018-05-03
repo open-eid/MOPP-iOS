@@ -25,10 +25,16 @@
 #import "CardReaderWrapper.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "MoppLibConstants.h"
+#import "MoppLibCardReaderManager.h"
+
+@protocol CardReaderACR3901U_S1Delegate <NSObject>
+
+@end
 
 @interface CardReaderACR3901U_S1 : NSObject <CardReaderWrapper>
 
 @property (nonatomic, strong) id<CardReaderWrapperDelegate> delegate;
+@property (nonatomic, weak) id<MoppLibCardReaderManagerDelegate> cardReaderManagerDelegate;
 /**
  * Performs peripheral detection, attaching and authenticating reader.
  *

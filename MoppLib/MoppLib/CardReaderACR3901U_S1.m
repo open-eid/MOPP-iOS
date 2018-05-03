@@ -260,6 +260,14 @@
 
 - (void)bluetoothReader:(ABTBluetoothReader *)bluetoothReader didChangeCardStatus:(ABTBluetoothReaderCardStatus)cardStatus error:(NSError *)error {
   MLLog(@"Card status changed to %i", cardStatus);
+  switch (cardStatus) {
+  case ABTBluetoothReaderCardStatusAbsent:
+    [_cardReaderManagerDelegate moppLibCardReaderStatusDidChange:ReaderConnected];
+    break;
+  case ABTBluetoothReaderCardStatusPresent:
+    [_cardReaderManagerDelegate moppLibCardReaderStatusDidChange:CardConnected];
+    break;
+  }
   self.cardStatus = cardStatus;
 }
 
