@@ -251,6 +251,7 @@
 		C5D057792028835000875F44 /* MoppLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C5D0577C2028835000875F44 /* shareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 54A418241E83FAD200559E2B /* shareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C5E7D08D2031B1040081416F /* NativeShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7D08C2031B1040081416F /* NativeShare.swift */; };
+		C5F462AA209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F462A9209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift */; };
 		E4180C371E26822000FD7B8C /* datafile.txt in Resources */ = {isa = PBXBuildFile; fileRef = E4180C361E26822000FD7B8C /* datafile.txt */; };
 		E4250CCB1E0968D200530370 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCA1E0968D200530370 /* AppDelegate.swift */; };
 		E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; };
@@ -472,6 +473,7 @@
 		C5D057802028835000875F44 /* MoppAppTestDDS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoppAppTestDDS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5D057812028835100875F44 /* MoppAppTestDDS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MoppAppTestDDS-Info.plist"; path = "/Users/sander/MOPP-iOS/MoppApp/MoppAppTestDDS-Info.plist"; sourceTree = "<absolute>"; };
 		C5E7D08C2031B1040081416F /* NativeShare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeShare.swift; sourceTree = "<group>"; };
+		C5F462A9209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Additions.swift"; sourceTree = "<group>"; };
 		E4180C361E26822000FD7B8C /* datafile.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = datafile.txt; sourceTree = "<group>"; };
 		E4250CC31E0968D200530370 /* MoppApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoppApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250CCA1E0968D200530370 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -541,6 +543,7 @@
 				C50DCD161FCEF17000D48E16 /* UIStoryBoard+Additions.swift */,
 				C50787871FEA807500D9AAC0 /* UIViewController+Additions.swift */,
 				C54EA6EA2046C3BA0039AC78 /* UITextField+Additions.swift */,
+				C5F462A9209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1415,6 +1418,7 @@
 				C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */,
 				C593D9F6208F39DF000B3BF6 /* SettingsChoiceButton.swift in Sources */,
 				C58FCD5F20650BBE00FE3B57 /* MyeIDInfoCell.swift in Sources */,
+				C5F462AA209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift in Sources */,
 				C5D057022023016300875F44 /* RecentContainersEmptyListCell.swift in Sources */,
 				C50DCD171FCEF17100D48E16 /* UIStoryBoard+Additions.swift in Sources */,
 				C5AA42C7207F51EB0031F3AA /* MyeIDChangeCodesViewController.swift in Sources */,

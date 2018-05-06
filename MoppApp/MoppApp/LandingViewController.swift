@@ -204,7 +204,7 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
             message: errorMessage,
             preferredStyle: .alert)
         
-        presentedViewController?.dismiss(animated: true, completion: nil)
+        presentedViewController?.dismiss(animated: false, completion: nil)
         alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
         present(alert, animated: true)
     }
