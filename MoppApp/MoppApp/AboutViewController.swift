@@ -66,7 +66,7 @@ extension AboutViewController: UIWebViewDelegate {
         guard let url = request.url else {
             return true
         }
-        if url.scheme == "mailto" || url.scheme == "http" {
+        if url.scheme == "mailto" || url.scheme == "http" || url.scheme == "https" {
             MoppApp.shared.open(url, options: [:], completionHandler: nil)
             return false
         }
