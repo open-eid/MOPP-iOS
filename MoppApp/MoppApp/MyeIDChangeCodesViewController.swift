@@ -94,8 +94,8 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
             self?.loadingViewController.dismiss(animated: false, completion: {
                 self?.ui.clearCodeTextFields()
                 if showErrorInline {
-                    self?.ui.thirdInlineErrorLabel.text = errorMessage
-                    self?.ui.thirdInlineErrorLabel.isHidden = false
+                    self?.ui.firstInlineErrorLabel.text = errorMessage
+                    self?.ui.firstInlineErrorLabel.isHidden = false
                 } else {
                     self?.errorAlert(message: errorMessage, title: nil, dismissCallback: { _ in
                         self?.navigationController?.popViewController(animated: true)
