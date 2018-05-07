@@ -227,7 +227,6 @@
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="tab" value="NO"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="tab-encrypt-button"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <outlet property="button" destination="rtQ-Jt-Uv9" id="sn0-Nx-jfK"/>
@@ -297,7 +296,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fOE-NE-O7m">
-                                <rect key="frame" x="113" y="308" width="150" height="51"/>
+                                <rect key="frame" x="112.5" y="308" width="150" height="51"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Importing files..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wq7-O0-BHP">
                                         <rect key="frame" x="16" y="16" width="118" height="19"/>
