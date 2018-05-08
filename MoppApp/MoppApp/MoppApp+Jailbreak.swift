@@ -27,7 +27,7 @@ extension MoppApp {
         // ignore simulator
         return false
         #else
-        return true
+
         let jailbreakFiles = [
             "/Library/MobileSubstrate/MobileSubstrate.dylib",
             "/Applications/Cydia.app",
