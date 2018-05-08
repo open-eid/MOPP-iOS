@@ -198,3 +198,4 @@
 "diagnostics-ios-version" = "Operatsioonisüsteem";
 "diagnostics-libraries-label" = "Teegid";
 "about-title" = "Info";
+"jailbreak-message" = "Seda rakendust ei saa kasutada turvamata (ingl jailbroken) seadmes";

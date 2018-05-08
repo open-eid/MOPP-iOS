@@ -198,3 +198,4 @@
 "diagnostics-ios-version" = "OS";
 "diagnostics-libraries-label" = "Libraries";
 "about-title" = "Info";
+"jailbreak-message" = "This app cannot be used in jailbroken device";

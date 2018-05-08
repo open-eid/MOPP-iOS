@@ -252,6 +252,9 @@
 		C5D0577C2028835000875F44 /* shareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 54A418241E83FAD200559E2B /* shareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C5E7D08D2031B1040081416F /* NativeShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7D08C2031B1040081416F /* NativeShare.swift */; };
 		C5F462AA209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F462A9209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift */; };
+		C5FA0BE920A1930400A208E5 /* MoppApp+Jailbreak.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0BE820A1930400A208E5 /* MoppApp+Jailbreak.swift */; };
+		C5FA0BEC20A19AE100A208E5 /* Jailbreak.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5FA0BEB20A19AE100A208E5 /* Jailbreak.storyboard */; };
+		C5FA0BEE20A19E4200A208E5 /* JailbreakViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0BED20A19E4200A208E5 /* JailbreakViewController.swift */; };
 		E4180C371E26822000FD7B8C /* datafile.txt in Resources */ = {isa = PBXBuildFile; fileRef = E4180C361E26822000FD7B8C /* datafile.txt */; };
 		E4250CCB1E0968D200530370 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCA1E0968D200530370 /* AppDelegate.swift */; };
 		E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; };
@@ -474,6 +477,9 @@
 		C5D057812028835100875F44 /* MoppAppTestDDS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MoppAppTestDDS-Info.plist"; path = "/Users/sander/MOPP-iOS/MoppApp/MoppAppTestDDS-Info.plist"; sourceTree = "<absolute>"; };
 		C5E7D08C2031B1040081416F /* NativeShare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeShare.swift; sourceTree = "<group>"; };
 		C5F462A9209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Additions.swift"; sourceTree = "<group>"; };
+		C5FA0BE820A1930400A208E5 /* MoppApp+Jailbreak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoppApp+Jailbreak.swift"; sourceTree = "<group>"; };
+		C5FA0BEB20A19AE100A208E5 /* Jailbreak.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Jailbreak.storyboard; sourceTree = "<group>"; };
+		C5FA0BED20A19E4200A208E5 /* JailbreakViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JailbreakViewController.swift; sourceTree = "<group>"; };
 		E4180C361E26822000FD7B8C /* datafile.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = datafile.txt; sourceTree = "<group>"; };
 		E4250CC31E0968D200530370 /* MoppApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoppApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250CCA1E0968D200530370 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -787,6 +793,15 @@
 			name = Shared;
 			sourceTree = "<group>";
 		};
+		C5FA0BEA20A19AC900A208E5 /* JailBroken */ = {
+			isa = PBXGroup;
+			children = (
+				C5FA0BEB20A19AE100A208E5 /* Jailbreak.storyboard */,
+				C5FA0BED20A19E4200A208E5 /* JailbreakViewController.swift */,
+			);
+			name = JailBroken;
+			sourceTree = "<group>";
+		};
 		E4250CBA1E0968D200530370 = {
 			isa = PBXGroup;
 			children = (
@@ -815,6 +830,7 @@
 				54A5729E1E82AC760099BFAF /* AppStore.plist */,
 				C52E82791FC1D7000074B280 /* main.swift */,
 				C52E827B1FC1D7BC0074B280 /* MoppApp.swift */,
+				C5FA0BE820A1930400A208E5 /* MoppApp+Jailbreak.swift */,
 				E4250CCA1E0968D200530370 /* AppDelegate.swift */,
 				C59A958C1FB5B9E100D0E1F9 /* MoppApp-Bridging-Header.h */,
 				C506EC7D1FB9D5A000E07226 /* Assets.xcassets */,
@@ -854,6 +870,7 @@
 		E4250D0B1E0AA84A00530370 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C5FA0BEA20A19AC900A208E5 /* JailBroken */,
 				C593D9E6208F1972000B3BF6 /* Settings */,
 				C5E7D08E2031BA920081416F /* Shared */,
 				C56C6209201A252F00CCC2A5 /* Recent containers */,
@@ -1111,6 +1128,7 @@
 				E4C53F381E2FAE6C00F209BE /* presentation.pdf in Resources */,
 				C50DCCED1FC5741900D48E16 /* RobotoCondensed-Bold.ttf in Resources */,
 				C50DCCF71FC5741900D48E16 /* Roboto-LightItalic.ttf in Resources */,
+				C5FA0BEC20A19AE100A208E5 /* Jailbreak.storyboard in Resources */,
 				C56C620B201A255900CCC2A5 /* RecentContainers.storyboard in Resources */,
 				C50DCCEC1FC5741900D48E16 /* Roboto-CondensedItalic.ttf in Resources */,
 				C54EA6E320372F490039AC78 /* SigningElements.xib in Resources */,
@@ -1471,6 +1489,7 @@
 				C593D9F4208F3526000B3BF6 /* SettingsChoiceView.swift in Sources */,
 				C5CF5EEC2017E4CC008FBBD6 /* FileImportProgressViewController.swift in Sources */,
 				C5D057042024B5B700875F44 /* MoppModalViewController.swift in Sources */,
+				C5FA0BEE20A19E4200A208E5 /* JailbreakViewController.swift in Sources */,
 				C50DCD111FC82F9E00D48E16 /* UINib+Additions.swift in Sources */,
 				C5927FED20790B7C003B7F41 /* MyeIDInfoManager.swift in Sources */,
 				C560CB0A1FFCEEF000C01FE4 /* SigningFileImportCell.swift in Sources */,
@@ -1487,6 +1506,7 @@
 				C537AE542004C29E009037E5 /* MobileIDEditViewController.swift in Sources */,
 				C54EA6DF20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift in Sources */,
 				C50DCCCB1FC32A3E00D48E16 /* SigningViewController.swift in Sources */,
+				C5FA0BE920A1930400A208E5 /* MoppApp+Jailbreak.swift in Sources */,
 				E42B08AE1E1EFC1800EA24A3 /* DateFormatter.swift in Sources */,
 				C55BB1C720908EF300618AC4 /* DiagnosticsViewController.swift in Sources */,
 				54825EF81E1D270F00253FF0 /* String+Additions.swift in Sources */,
