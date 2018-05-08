@@ -28,7 +28,6 @@
 
 // Main menu
 "menu-help" = "ABI";
-"menu-intro" = "ESMATUTVUSTUS";
 "menu-recent-containers" = "HIILJUTISED DOKUMENDID";
 "menu-settings" = "SEADED";
 "menu-about" = "RAKENDUSE INFO";
@@ -42,11 +41,6 @@
 // Signing view
 "signing-recent-containers" = "Hiljutised dokumendid";
 
-// My eID
-"my-eid-view-begin-label" = "Ome eID-de vaatamiseks pead sisse logima";
-"my-eid-view-begin-button" = "LOGI SISSE MOBIILI-IDGA";
-"my-eid-view-begin-alt-label" = "Või ühenda ID-kaardi lugeja oma seadmega ja sisesta ID kaart";
-
 // Crashlytics
 "crashlytics-title" = "Kas saata vearaport?";
 "crashlytics-message" = "Programmi töö on ootamatult peatunud! Palun aita meil viga parandada ja saada vearaport.";
@@ -58,159 +52,29 @@
 "action-ok" = "OK";
 "action-cancel" = "Tühista";
 "action-delete" = "Eemalda";
-"action-edit" = "Muuda";
-"action-yes" = "Jah";
-"action-no" = "Ei";
 "action-sign" = "Allkirjasta";
-"action-create-new-document" = "Loo uus dokument";
-"action-add-to-document" = "Lisa olemasolevale dokumendile";
 
 // *** Signed containers ***
-// General
-"no-containers-cell-title" = "Dokumendid puuduvad";
-// List
-"containers-list-search-placeholder" = "Otsi";
-"containers-list-section-header-unsigned" = "Allkirjastamata";
-"containers-list-section-header-signed" = "Allkirjastatud";
-"containers-list-cached-files-title" = "Imporditud failid";
-"containers-list-cached-files-message" = "Sul on mõned imporditud failid. Mida sa soovid nendega teha?";
-"containers-list-cached-files-option1" = "Pane konteinerisse";
-"containers-list-cached-files-option2" = "Kustuta need";
 
 // DataFile import
 "file-import-title" = "+ LISA VEEL FAILE";
-"file-import-create-container-button" = "Loo dokument";
-"file-import-info" = "%@\n\nPalun vali allkirjastamata dokument või loo uus.";
-"file-import-open-existing-failed-alert-title" = "Viga dokumendi avamisel";
+"file-import-open-existing-failed-alert-title" = "Ümbriku laadimine ebaõnnestus";
 "file-import-open-existing-failed-alert-message" = "Dokumendi %@ avamine ebaõnnestus";
-"file-import-create-new-failed-alert-title" = "Viga dokumendi loomisel";
-"file-import-create-new-failed-alert-message" = "Dokumendi %@ loomine ebaõnnestus";
+"file-import-create-new-failed-alert-title" = "Ümbriku loomine ebaõnnestus";
+"file-import-create-new-failed-alert-message" = "%@ laadmine ebaõnnesus";
 // Details
-"container-details-title" = "Dokument";
-"container-details-header-details" = "Vorming: %@ | Suurus: %ld kB";
-"container-details-datafile-section-header" = "Failid";
-"container-details-datafile-details" = "Suurus: %ld kB";
-"container-details-signature-section-header" = "Allkirjad";
-"container-details-signature-prefix" = "Allkiri %@";
-"container-details-signature-valid" = "on kehtiv";
-"container-details-signature-invalid" = "ei ole kehtiv";
-"container-details-enter-pin" = "Palun sisesta PIN2 kood.";
-"container-details-general-error" = "Allkirjastamine ebaõnnestus.";
-"container-details-signing-success" = "ALLKIRJASTAMINE ÕNNESTUS";
-"container-details-signature-added" = "Sinu allkiri on dokumendile lisatud.";
-"container-details-signature-already-exists" = "Sinu allkiri on sellel dokumendil juba olemas.";
-"container-details-signing-method-alert-title" = "Allkirjastamise meetod";
-"container-details-signing-method-alert-message" = "Vali allkirjastamise meetod";
-"container-details-signing-method-mobile-id" = "Mobiil-ID";
-"container-details-signing-method-id-card" = "ID kaart";
-"container-details-idcode-phone-alert-title" = "Sisesta andmed";
-"container-details-idcode-phone-alert-message" = "Sisesta isikukood ja telefoninumber";
-"container-details-idcode-phone-alert-idcode-placholder" = "Isikukood";
-"container-details-idcode-phone-alert-phonenumber-placholder" = "Telefoninumber";
-"container-details-rename" = "Konteineri nime muutmine";
-"container-details-rename" = "Muuda nime";
-"container-details-enter-new-name" = "Sisesta uus konteineri nimi";
-"container-details-name" = "Nimi";
-"container-details-reader-not-found" = "Dokumentide allkirjastamiseks on vaja ühendada kaardilugeja.";
-"container-details-card-not-found" = "ID kaarti ei leitud. Palun kontrolli kas kaart on õigesti lugejasse sisestatud.";
-"container-details-phone-number-error-alert-title" = "Telefoninumbri viga";
-"container-details-phone-number-error-alert-message" = "Oled sisestanud vigase telefoninumbri. Palun kontrolli numbrit";
-"container-details-pin-not-provided" = "Allkirjastamiseks on vajalik kasutaja tuvastamine PIN koodiga.";
-"container-details-signature-already-exists-alert-title" = "Allkiri eksisteerib";
-"container-details-signature-already-exists-alert-message" = "Dokument on sinu poolt juba allkirjastatud. Kas soovid jätkata?";
-"container-details-file-already-exists" = "Sellise nimega fail on juba olemas. Kas soovid üle kirjutada?";
-"container-details-attention" = "Tähelepanu!";
-"container-details-store-mobile-id-credentials-alert-title" = "Salvesta andmed";
-"container-details-store-mobile-id-credentials-alert-message" = "Kas soovid salvestada isikukoodi ja telefoninumbri tulevaste kasutuskordade jaoks?";
-"container-details-file-name-too-long" = "Dokumendi nimi on liiga pikk.";
-"container-details-name-change-failed" = "Dokumendi nime muutmine ebaõnnestus.";
+"container-details-signing-success" = "ALLKIRI LISATUD";
 
-"container-details-internet-connection-error-title" = "Internetiühendus puudub";
-"container-details-internet-connection-error-message" = "Allkirja andmiseks on vajalik internetiühendus.";
-
-"container-details-add-signature" = "Lisa allkiri";
-
-"container-header-files-title" = "Konteineri failid";
+"container-header-files-title" = "Ümbriku sisu";
 "container-header-create-files-title" = "Allkirjastamiseks valitud failid";
 "container-header-timestamp-title" = "Ajatempel";
-"container-header-signatures-title" = "Allkirjad";
+"container-header-signatures-title" = "Ümbriku allkirjad";
 "container-row-edit-remove" = "Eemalda";
 "container-header-title" = "KONTEINER:";
-"container-error-message-invalid-signature" = "1 KEHTETU ALLKIRI";
-"container-error-message-invalid-signatures" = "%d KEHTETUT ALLKIRJA";
+"container-error-message-invalid-signature" = "1 ALLKIRI EI OLE KEHTIV";
+"container-error-message-invalid-signatures" = "%d ALLKIRJA EI KEHTI";
 "container-signature-signed" = "Allkirjastatud %@";
-"container-title" = "Konteiner";
-"container-missing-signatures" = "Konteiner ei ole allkirjastatud";
-
-// *** My eID ***
-"my-eid-id-card-info" = "ID-kaart on riigisisene kohustuslik isikut tõendav dokument alates 15-aastast. Eesti kodanik saab ID-kaardiga reisida Euroopa Liidu ja Euroopa Majanduspiirkonna riikides.\n\nID-kaarti saab taotleda Politsei- ja Piirivalveameti teenindustes, Eesti Vabariigi välisteeninduses, posti võ e-posti teel. %@";
-"my-eid-warning-card-not-found" = "ID-kaarti ei leitud.\n\nKontrolli, kas ID-kaart on õiget pidi lugejas. Uutel ID-kaartidel on kiip kaardi tagumisel küljel.";
-"my-eid-warning-reader-not-found" = "Kaardilugeja ei ole ühendatud.\n\nKontrolli, kas lugeja on sisse lülitatud ja vali see %@.\n\n %@";
-"my-eid-tap-here" = "vajutades siia";
-"my-eid-supported-reader" = "Toetatud lugeja";
-"my-eid-find-more-info" = "Lisainfot loe siit";
-"my-eid-given-names" = "Eesnimed:";
-"my-eid-surname" = "Perekonnanimi:";
-"my-eid-personal-code" = "Isikukood:";
-"my-eid-birth" = "Sündinud:";
-"my-eid-citizenship" = "Kodakondsus:";
-"my-eid-email" = "E-post:";
-"my-eid-card-in-reader" = "Dokument lugejas:";
-"my-eid-valid-until" = "Kehtiv kuni:";
-"my-eid-use-count" = "Kasutatud:";
-"my-eid-validity" = "Kehtivus:";
-"my-eid-valid" = "Kehtiv";
-"my-eid-not-valid" = "Kehtetu";
-"my-eid-valid-until" = "Kehtib kuni:";
-"my-eid-personal-data" = "Isikuandmed";
-"my-eid-times-used" = "%i korda";
-"my-eid-used-once" = "1 kord";
-"my-eid-eid" = "eID";
-"my-eid-signature-certificate" = "Allkirjastamise sertifikaat";
-"my-eid-authentication-certificate" = "Isikutuvastamise sertifikaat";
-"my-eid-my-eid" = "Minu eID";
-"my-eid-id-card-info-link" = "https://www.politsei.ee/et/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/";
-"my-eid-pin-blocked" = "%@ on blokeeritud. %@ blokeeringu saad tühistada %@.";
-"my-eid-pin-actions-view" = "PIN'i toimingute vaates";
-
-
-// *** PIN actions ***
-"pin-actions-pin1" = "PIN1";
-"pin-actions-pin2" = "PIN2";
-"pin-actions-puk" = "PUK";
-"pin-actions-change-pin" = "Muuda %@";
-"pin-actions-unblock-pin" = "Tühista %@ blokeering";
-"pin-actions-changing-pin" = "%@ muutmine";
-"pin-actions-title-unblocking-pin" = "%@ blokeeringu tühistamine";
-"pin-actions-current-pin" = "Kehtiv %@ kood";
-"pin-actions-new-pin" = "Uus %@ kood";
-"pin-actions-repeat-pin" = "Uus %@ kood uuesti";
-"pin-actions-rules-title" = "Reeglid";
-"pin-actions-rule-different-from-previous" = "Uus %@ peab olema erinev eelmisest.";
-"pin-actions-rule-numbers-only" = "%@ ei tohi sisaldada tähti.";
-"pin-actions-rule-pin-length" = "Uus %@ peab olema %i-%i - numbriline.";
-"pin-actions-rule-forbidden-pins" = "Uus %@ ei saa olla %@, ega tohi sisaldada sinu sünnikuupäeva või osa sellest.";
-"pin-actions-info" = "Siin saad muuta oma PIN koode ja PIN koodi blokeeringut tühistada. PIN'i toiminguteks on vaja ühendada kaardilugeja telefoniga.";
-"pin-actions-general-error" = "%@ muutmine ebaõnnestus.";
-"pin-actions-same-as-current" = "Uus %@ peab erinema kehtivast %@-st.";
-"pin-actions-invalid-format" = "Selline %@ ei ole lubatud.";
-"pin-actions-wrong-pin-retry" = "Kehtiv %@ on vale. Saad proovida veel %i korda.";
-"pin-actions-wrong-pin-blocked" = "Kehtiv %@ on vale. %@ blokeeriti.";
-"pin-actions-error-title" = "Viga";
-"pin-actions-success-title" = "PIN'i toiming õnnestus";
-"pin-actions-success-pin-changed" = "%@ on muudetud.";
-"pin-actions-success-pin-unblocked" = "%@ on muudetud ja blokeering tühistatud.";
-"pin-actions-verification-title" = "%@ muutmine:";
-"pin-actions-verification-option" = "Kasutades kehtivat %@ koodi";
-"pin-actions-unblocking-pin" = "%@ blokeeringu tühistamine:";
-"pin-actions-repeated-pin-doesnt-match" = "Uus %@ ja uus %@ uuesti on erinevad";
-"pin-actions-pin-blocked" = "%@ on blokeeritud.";
-"pin-actions-puk-change-warning" = "Kui peale vahetamist PUK kood läheb meelest ära ja sertifikaat jääb blokeerituks kolme vale PIN1 või PIN2 sisestamise järel, siis ainus võimalus ID-kaart jälle tööle saada on pöörduda klienditeeninduspunkti poole.";
-
-// *** About ***
-"about-development" = "ID-tarkvara arendaja on Riigi Infosüsteemi Ameti tellimusel Mobi Lab OÜ";
-"about-dependencies" = "Täiendavad litsentsid ja komponendid";
-
+"container-missing-signatures" = "Allkirjad puuduvad";
 
 // *** Mobile ID Challenge View ***
 
@@ -224,30 +88,27 @@
 "share-extension-import-title" = "Faili import";
 "share-extension-import-message" = "Fail on ajutisse kausta salvestatud. Impordi lõpetamiseks mine RIA DigiDoc rakendusse.";
 
-"signature-remove-confirm-message" = "Kas soovid eemaldada allkirja?";
-"datafile-remove-confirm-message" = "Kas soovite dokumendi konteinerist eemaldada?";
+"signature-remove-confirm-message" = "Soovid eemaldada allkirja?";
+"datafile-remove-confirm-message" = "Soovid eemaldada faili ümbrikust?";
 
-"signing-missing-file-import-message" = "This iOS version doesn't support importing files from app.\n\nUse file from outside the app and open it with RIA DigiDoc.";
-
-"mobile-id-title" = "Sisesta oma mobiiltelefoni number ja isikukood, et allkirjastada\nMobiil-ID abil";
+"mobile-id-title" = "Sisesta oma telefoninumber ja isikukood Mobiil-IDga allkirjastamiseks";
 "mobile-id-phone-title" = "Riigi suunakood ja mobiiltelefoni number";
 "mobile-id-idcode-title" = "Isikukood";
-"mobile-id-remember-me" = "Jäta meelde";
+"mobile-id-remember-me" = "Pea mind meeles";
 "mobile-id-challenge-title" = "Allkirjasta Mobiil-ID äpiga";
 "mobile-id-challenge-waiting-response" = "Ootan vastust ...";
 "container-sign-title" = "Allkirjastamine";
-"container-validate-title" = "Konteineri kontroll";
-"mobile-id-user-cancel-message" = "Toiming katkestati kasutaja poolt";
-"container-validating" = "Laadimine...";
-"importing-files-progress-message" = "Failide laadimine...";
-"mobile-id-sign-help-title" = "Veendu kontollkoodi õigsuses ja sisesta telefonil Mobiil-ID PIN2-kood";
+"container-validate-title" = "Ümbriku valideerimine";
+"container-validating" = "Laen...";
+"importing-files-progress-message" = "Laen faile...";
+"mobile-id-sign-help-title" = "Veendu kontrollkoodi õiguses ja sisesta telefonil Mobiil-ID PIN2 kood.";
 "done-button-title" = "Valmis";
-"recent-containers-empty-list-title" = "Hiljutised dokumendid puuduvad";
+"recent-containers-empty-list-title" = "Dokumendid puuduvad";
 "recent-containers-empty-search-message" = "Dokumenti ei leitud";
 "sign-title-mobile-id" = "Mobiil-ID";
 "sign-title-id-card" = "ID kaart";
-"card-reader-state-reader-not-found" = "Palun veendu et kaardilugeja oleks ühendatud ja ID kaart kaardilugejas";
-"card-reader-state-id-card-not-found" = "Kaardilugeja leitud.\nSisesta enda ID-kaart kaardilugejasse.";
+"card-reader-state-reader-not-found" = "Ühtegi kaardilugejate pole ühendatud";
+"card-reader-state-id-card-not-found" = "Kaardilugeja leitud.\nSisesta ID-kaart lugejasse.";
 "card-reader-state-ready" = "Valmis allkirjastamiseks ID-kaardiga.\n%@ (%@)\nSisesta PIN2";
 "signing-in-progress" = "Toimub allkirjastamine.\nPalun oota.";
 "wrong-pin2" = "Vale PIN2. %d katset järgi.\nSisestades %d korda vale PIN2 sinu PIN2 lukustub";
@@ -257,29 +118,30 @@
 "pin2-blocked-alert" = "PIN2 blokeeritud.\nMine Minu eID vaatele, et avada PIN2";
 "generic-error-message" = "Midagi läks valesti. Palun proovi uuesti";
 "signing-aborted-message" = "Viga: signeerimise protsess katkestatud";
-"my-eid-status-reader-not-found" = "Ühenda ID-kaardi lugeja telefoniga ja sisesta enda ID-kaart lugejasse";
-"my-eid-status-card-not-found" = "Kaardilugeja leitud.\nSisesta enda ID-kaart kaardilugejasse";
-"my-eid-status-requesting-data" = "ID-kaart leitud.\nKaardilt loetakse infot";
+"my-eid-status-reader-not-found" = "Ühenda kaardilugeja telefoniga ja sisesta ID-kaart lugejasse.";
+"my-eid-status-card-not-found" = "Kaardilugeja leitud.\nSisesta ID-kaart lugejasse.";
+"my-eid-status-requesting-data" = "ID-kaart leitud.\nPärin andmeid.";
 "my-eid-cert-expired" = "aegunud";
-"my-eid-cert-valid" = "kehtiv";
-"my-eid-info-item-given-names" = "EESNIMED";
+"my-eid-cert-valid" = "kehtib";
+"my-eid-info-item-given-names" = "EESNIMI";
 "my-eid-info-item-surname" = "PEREKONNANIMI";
 "my-eid-info-item-personal-code" = "ISIKUKOOD";
 "my-eid-info-item-citizenship" = "KODAKONDSUS";
-"my-eid-info-item-document-number" = "DOKUMENDI NUMBER";
+"my-eid-info-item-document-number" = "DOKUMENT";
 "my-eid-info-item-expiry-date" = "KEHTIV KUNI";
 "my-eid-info-my-eid" = "MINU eID";
 "my-eid-info-my-eid-id-card" = "ID-KAART";
 "my-eid-info-my-eid-mobile-id" = "MOBIIL-ID";
 "my-eid-info-my-eid-digi-id" = "DIGI-ID";
-"my-eid-info-my-eid-unknown" = "TUNDMATU";
+"my-eid-info-my-eid-unknown" = "TEADMATA";
 "my-eid-info-my-eid-e-resident" = "E-RESIDENT";
 "file-import-already-in-progress-message" = "Faili laadimine hetkel toimumas.\nPalun oota selle toimingu lõppemist ning seejärel proovi uuesti";
-"my-eid-cert-info-prefix" = "Sertifikaat on ";
-"my-eid-cert-info-valid-suffix" = " kuni ";
-"my-eid-cert-info-expired-suffix"= ", oli kehtiv kuni ";
-"my-eid-info-pin1-title" = "PIN1 - Isikutuvastuse sertifikaat";
-"my-eid-info-pin2-title" = "PIN2 - Allkirjastamise sertifikaat";
+"my-eid-cert-info-valid" = "Sertifikaat [VALID_EXPIRY_STATUS] kuni [EXPIRY_DATE]";
+"my-eid-cert-info-expired" = "Sertifikaat on [EXPIRED_EXPIRY_STATUS]! [PIN] ei saa kasutada, kuna sertifikaat on aegunud.";
+"my-eid-cert-info-status-valid" = "kehtib";
+"my-eid-cert-info-status-expired" = "aegunud";
+"my-eid-info-pin1-title" = "Isikutuvastamise sertifikaat";
+"my-eid-info-pin2-title" = "Allkirjastamise sertifikaat";
 "my-eid-info-puk-title" = "PUK kood";
 "my-eid-info-pin1-link-text" = "Unustasid PIN1 koodi?";
 "my-eid-info-pin2-link-text" = "Unustasid PIN2 koodi?";
@@ -287,56 +149,52 @@
 "my-eid-info-pin1-button-title" = "MUUDA PIN1";
 "my-eid-info-pin2-button-title" = "MUUDA PIN2";
 "my-eid-info-puk-button-title" = "MUUDA PUK";
-"my-eid-info-puk-cert-info-text" = "PUK kood asub teie koodiümbrikus";
+"my-eid-info-puk-cert-info-text" = "PUK koodi leiad enda koodiümbrikust";
 "my-eid-info-pin-puk-segment-title" = "PIN/PUK KOODID JA SERTIFIKAATIDE KONTROLL";
-"my-eid-info-pin1-blocked-message" = "Sisestasid PIN1 koodi 3 korda valesti.\nPIN1 on lukustatud";
-"my-eid-info-pin2-blocked-message" = "Sisestasid PIN2 koodi 3 korda valesti.\nPIN2 on lukustatud";
-"my-eid-info-puk-blocked-message" = "Sisestasid PUK koodi 3 korda valesti.\nPUK on lukustatud";
-"my-eid-unblock-pin1-button-title" = "LUKUSTA LAHTI PIN1";
-"my-eid-unblock-pin2-button-title" = "LUKUSTA LAHTI PIN2";
-"my-eid-how-to-get-codes-message" = "Uuri kuidas saada uued koodid";
-"my-eid-info-bullet-change-pin1-title" = "PIN1 koodi muutmine";
-"my-eid-info-bullet-pin1-difference-warning" = "Uus PIN1 peab olema eelmisest erinev";
-"my-eid-info-bullet-pin1-cert-info" = "PIN1 koodi kasutatakse isikutuvastamise sertifikaadi juurdepääsemiseks";
-"my-eid-info-bullet-wrong-pin1-warning" = "Kui sisestad PIN1 koodi kolm korda valesti siis isikutuvastamise sertifikaat blokeeritakse ning ID-kaarti pole võimalik isikutuvamiseks kasutada enne blokeeringu tühistamist PUK koodi abil";
+"my-eid-info-pin1-blocked-message" = "PIN1 on blokeeritud, kuna PIN1 koodi on sisestatud 3 korda valesti.";
+"my-eid-info-pin2-blocked-message" = "PIN2 on blokeeritud, kuna PIN2 koodi on sisestatud 3 korda valesti.";
+"my-eid-info-puk-blocked-message" = "PUK on blokeeritud, kuna PUK koodi on sisestatud 3 korda valesti.";
+"my-eid-unblock-pin1-button-title" = "TÜHISTA BLOKEERING";
+"my-eid-unblock-pin2-button-title" = "TÜHISTA BLOKEERING";
+"my-eid-how-to-get-codes-message" = "Juhised uue dokumendi taotlemiseks leiad siit.";
 "my-eid-code-changed-success-message" = "%@ MUUDETUD";
 "my-eid-code-unblocked-success-message" = "%@ LAHTI LUKUSTATUD";
-"my-eid-wrong-code-message" = "Oled sisestanud 1 kord vale %@ koodi. Sul on järgi veel 2 katset.";
-"my-eid-wrong-code-message-singular" = "Oled sisestanud 2 korda vale %@ koodi. Sul on järgi veel 1 katse";
-"my-eid-code-blocked-message" = "Sa oled sisestanud 3 korda vale %@ koodi. %@ on blokeeritud";
+"my-eid-wrong-code-message" = "Vale %@ kood. Saad veel proovida 2 korda.";
+"my-eid-wrong-code-message-singular" = "Vale %@ kood. Saad veel proovida 1 kord.";
+"my-eid-code-blocked-message" = "%1$@ on blokeeritud, kuna %1$@ koodi on sisestatud 3 korda valesti. Tühista blokeering, et %1$@ taas kasutada.";
 // *** My eID info bullets ***
-"my-eid-info-bullet-same-codes-warning" = "Uus %@ peab olema eelmisest erinev";
+"my-eid-info-bullet-same-codes-warning" = "Uus %@ peab olema erinev eelmisest.";
 "my-eid-info-bullet-auth-cert-info" = "PIN1 koodi kasutatakse isikutuvastamiseks";
-"my-eid-info-bullet-pin1-blocked-warning" = "Kui sisestad PIN1 koodi kolm korda valesti siis isikutuvastamise sertifikaat blokeeritakse ning ID-kaarti pole võimalik isikutuvamiseks kasutada enne blokeeringu tühistamist PUK koodi abil";
-"my-eid-info-bullet-forgot-code-note" = "Kui olete unustanud %@ koodi, kuid teate PUK koodi siis siin saate määrata uue %@ koodi";
-"my-eid-info-bullet-puk-envelope-info" = "PUK koodi leiad ID kaardi koodiümbrikust, kui sa pole seda vahepeal muutnud";
-"my-eid-info-bullet-sign-cert-info" = "PIN2 koodi kasutatakse digitaalallkirja andmiseks";
-"my-eid-info-bullet-pin2-blocked-warning" = "Kui sisestad PIN2 koodi kolm korda valesti siis allkirjastamise sertifikaat blokeeritakse ning ID-kaardi pole võimalik allkirjastamiseks kasutada enne blokeeringu tühistamist PUK koodi abil";
-"my-eid-info-bullet-puk-unblock-info" = "PUK koodi abil saab tühistada sertifikaadi blokeeringu, kui PIN1 või PIN2 koodi on 3 korda järjest valesti sisestatud";
-"my-eid-info-bullet-puk-blocked-warning" = "Kui peale vahetamist PUK kood ununeb ja sertifikaat jääb blokeerituks kolme vale PIN1 või PIN2 koodi sisestamise järel, siis ainus võimalus ID-kaart jälle tööle saada on pöörduda klienditeeninduse poole";
-"my-eid-change-code-title" = "%@ vahetamine";
-"my-eid-unblock-code-title" = "%@ lahti lukustamine";
+"my-eid-info-bullet-pin1-blocked-warning" = "Kui sisestad PIN1 koodi kolm korda valesti, siis isikutuvastamise sertifikaat blokeeritakse ning ID-kaarti pole võimalik isikutuvastamiseks kasutada enne blokeeringu tühistamist PUK koodi abil.";
+"my-eid-info-bullet-forgot-code-note" = "Kui olete unustanud %1$@ koodi, kuid teate PUK koodi, siis siin saate määrata uue %1$@ koodi.";
+"my-eid-info-bullet-puk-envelope-info" = "PUK koodi leiad ID-kaardi koodiümbrikus, kui sa pole seda vahepeal muutnud.";
+"my-eid-info-bullet-sign-cert-info" = "PIN2 koodi kasutatakse digitaalallkirja andmiseks.";
+"my-eid-info-bullet-pin2-blocked-warning" = "Kui sisestad PIN2 koodi kolm korda valesti, siis allkirjastamise sertifikaat blokeeritakse ning ID-kaarti pole võimalik allkirjastamiseks kasutada enne blokeeringu tühistamist PUK koodi abil.";
+"my-eid-info-bullet-puk-unblock-info" = "PUK koodi abil saab tühistada sertifikaadi blokeeringu, kui PIN1 või PIN2 koodi on 3 korda järjest valesti sisestatud.";
+"my-eid-info-bullet-puk-blocked-warning" = "Kui peale vahetamist PUK kood ununeb ja sertifikaat jääb blokeerituks kolme vale PIN1 või PIN2 sisestamise järel, siis ainus võimalus ID-kaart jälle tööle saada on pöörduda klienditeeninduspunkti poole.";
+"my-eid-change-code-title" = "%@ muutmine";
+"my-eid-unblock-code-title" = "%@ blokeeringu tühistamine";
 "my-eid-current-code-label" = "KEHTIV %@ KOOD";
 "my-eid-new-code-label" = "UUS %@ KOOD (vähemalt %i sümbolit)";
 "my-eid-new-code-again-label" = "UUS %@ KOOD UUESTI";
 "my-eid-discard-button-title" = "KATKESTA";
 "my-eid-confirm-change-button-title" = "MUUDA";
-"my-eid-confirm-unblock-button-title" = "LUKUSTA LAHTI";
-"my-eid-error-new-code-too-short" = "Uus %@ kood peab olema vähemalt %i numbri pikkune";
-"my-eid-error-current-code-too-short" = "Praegune %@ kood peab olema vähemalt %i numbri pikkune";
-"my-eid-error-codes-mismatch" = "Kontroll %@ kood ei ühildu";
-"my-eid-error-codes-are-same" = "Praegune %@ kood ja uus %@ kood peavad olema erinevad";
-"my-eid-error-code-contained-in-personal-code" = "Uus %@ kood ei tohi olla osa sinu isikukoodist";
-"my-eid-error-code-is-date-of-birth" = "Uus %@ kood ei tohi olla sinu sünnikuupäev";
-"my-eid-error-code-too-easy" = "Uus %@ kood ei tohi olla lihtne";
+"my-eid-confirm-unblock-button-title" = "TÜHISTA BLOKEERING";
+"my-eid-error-new-code-too-short" = "Uus %@ kood peab olema vähemalt %i-kohaline";
+"my-eid-error-current-code-too-short" = "Kehtiv %@ kood peab olema vähemalt %i-kohaline";
+"my-eid-error-codes-mismatch" = "Uued %@ koodid peavad olema samad";
+"my-eid-error-codes-are-same" = "Kehtiv ja uus %@ peavad olema erinevad";
+"my-eid-error-code-contained-in-personal-code" = "Uus %@ kood ei saa olla osa sinu isikukoodist";
+"my-eid-error-code-is-date-of-birth" = "Uus %@ kood ei saa olla sinu sünnikuupäev";
+"my-eid-error-code-too-easy" = "Uus %@ kood ei saa olla lihtne";
 "settings-title" = "Seaded";
-"settings-phone-number-title" = "MOBIIL-ID TELEFONINUMBER";
-"settings-phone-number-placeholder" = "Riigikood ja telefoninumber";
-"settings-id-code-title" = "ISIKUKOOD";
+"settings-phone-number-title" = "Riigi kood ja telefoninumber";
+"settings-phone-number-placeholder" = "372XXXXXXXX";
+"settings-id-code-title" = "Isikukood";
 "settings-id-code-placeholder" = "Isikukood";
-"settings-container-type-title" = "VAIKIMISI KONTEINERI TÜÜP";
+"settings-container-type-title" = "Vaikimisi faili tüüp";
 "diagnostics-title" = "Diagnostika";
 "diagnostics-app-version" = "Rakenduse versioon";
-"diagnostics-ios-version" = "Operatsioonisüsteemi versioon";
+"diagnostics-ios-version" = "Operatsioonisüsteem";
 "diagnostics-libraries-label" = "Teegid";
-"about-title" = "Rakenduse info";
+"about-title" = "Info";

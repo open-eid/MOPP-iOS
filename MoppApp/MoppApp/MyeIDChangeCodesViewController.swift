@@ -92,11 +92,10 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
                 }
             }
             self?.loadingViewController.dismiss(animated: false, completion: {
-                let s = self
                 self?.ui.clearCodeTextFields()
                 if showErrorInline {
-                    self?.ui.thirdInlineErrorLabel.text = errorMessage
-                    self?.ui.thirdInlineErrorLabel.isHidden = false
+                    self?.ui.firstInlineErrorLabel.text = errorMessage
+                    self?.ui.firstInlineErrorLabel.isHidden = false
                 } else {
                     self?.errorAlert(message: errorMessage, title: nil, dismissCallback: { _ in
                         self?.navigationController?.popViewController(animated: true)
@@ -112,17 +111,17 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
                 var statusText = String()
                 switch strongSelf.model.actionType {
                 case .changePin1:
-                    statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.pin1.rawValue])
+                    statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.PIN1.rawValue])
                 case .changePin2:
-                    statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.pin2.rawValue])
+                    statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.PIN2.rawValue])
                 case .unblockPin1:
-                    statusText = L(.myEidCodeUnblockedSuccessMessage, [IdCardCodeName.pin1.rawValue])
+                    statusText = L(.myEidCodeUnblockedSuccessMessage, [IdCardCodeName.PIN1.rawValue])
                     MyeIDInfoManager.shared.retryCounts.pin1 = IdCardCodeLengthLimits.maxRetryCount.rawValue
                 case .unblockPin2:
-                    statusText = L(.myEidCodeUnblockedSuccessMessage, [IdCardCodeName.pin2.rawValue])
+                    statusText = L(.myEidCodeUnblockedSuccessMessage, [IdCardCodeName.PIN2.rawValue])
                     MyeIDInfoManager.shared.retryCounts.pin2 = IdCardCodeLengthLimits.maxRetryCount.rawValue
                 case .changePuk:
-                    statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.puk.rawValue])
+                    statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.PUK.rawValue])
                 }
                 ui.showStatusView(with: statusText)
             }
@@ -209,72 +208,72 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
         
         let validateCurrentPin1 = { (value:String) -> (message:String, textFieldIndex:Int)? in
             if value.count < IdCardCodeLengthLimits.pin1Minimum.rawValue {
-                return (message:L(.myEidErrorCurrentCodeTooShort, [IdCardCodeName.pin1.rawValue, IdCardCodeLengthLimits.pin1Minimum.rawValue]), textFieldIndex:0)
+                return (message:L(.myEidErrorCurrentCodeTooShort, [IdCardCodeName.PIN1.rawValue, IdCardCodeLengthLimits.pin1Minimum.rawValue]), textFieldIndex:0)
             }
             return nil
         }
         
         let validateNewPin1 = { (value:String) -> (message:String, textFieldIndex:Int)? in
             if value.count < IdCardCodeLengthLimits.pin1Minimum.rawValue {
-                return (message:L(.myEidErrorNewCodeTooShort, [IdCardCodeName.pin1.rawValue, IdCardCodeLengthLimits.pin1Minimum.rawValue]), textFieldIndex:1)
+                return (message:L(.myEidErrorNewCodeTooShort, [IdCardCodeName.PIN1.rawValue, IdCardCodeLengthLimits.pin1Minimum.rawValue]), textFieldIndex:1)
             }
             else if value == firstCode {
-                return (message:L(.myEidErrorCodesAreSame, [IdCardCodeName.pin1.rawValue, IdCardCodeName.pin1.rawValue]), textFieldIndex:1)
+                return (message:L(.myEidErrorCodesAreSame, [IdCardCodeName.PIN1.rawValue]), textFieldIndex:1)
             }
-            return generalNewCodeValidation(value, IdCardCodeName.pin1.rawValue, 1)
+            return generalNewCodeValidation(value, IdCardCodeName.PIN1.rawValue, 1)
         }
         
         let validateNewControlPin1 = { (value:String) -> (message:String, textFieldIndex:Int)? in
             if value != secondCode {
-                return (message:L(.myEidErrorCodesMismatch, [IdCardCodeName.pin1.rawValue]), textFieldIndex:2)
+                return (message:L(.myEidErrorCodesMismatch, [IdCardCodeName.PIN1.rawValue]), textFieldIndex:2)
             }
             return nil
         }
         
         let validateCurrentPin2 = { (value:String) -> (message:String, textFieldIndex:Int)? in
             if value.count < IdCardCodeLengthLimits.pin2Minimum.rawValue {
-                return (message:L(.myEidErrorCurrentCodeTooShort, [IdCardCodeName.pin2.rawValue, IdCardCodeLengthLimits.pin2Minimum.rawValue]), textFieldIndex:0)
+                return (message:L(.myEidErrorCurrentCodeTooShort, [IdCardCodeName.PIN2.rawValue, IdCardCodeLengthLimits.pin2Minimum.rawValue]), textFieldIndex:0)
             }
             return nil
         }
         
         let validateNewPin2 = { (value:String) -> (message:String, textFieldIndex:Int)? in
             if value.count < IdCardCodeLengthLimits.pin2Minimum.rawValue {
-                return (message:L(.myEidErrorNewCodeTooShort, [IdCardCodeName.pin2.rawValue, IdCardCodeLengthLimits.pin2Minimum.rawValue]), textFieldIndex:1)
+                return (message:L(.myEidErrorNewCodeTooShort, [IdCardCodeName.PIN2.rawValue, IdCardCodeLengthLimits.pin2Minimum.rawValue]), textFieldIndex:1)
             }
             else if value == firstCode {
-                return (message:L(.myEidErrorCodesAreSame, [IdCardCodeName.pin2.rawValue, IdCardCodeName.pin2.rawValue]), textFieldIndex:1)
+                return (message:L(.myEidErrorCodesAreSame, [IdCardCodeName.PIN2.rawValue]), textFieldIndex:1)
             }
-            return generalNewCodeValidation(value, IdCardCodeName.pin2.rawValue, 1)
+            return generalNewCodeValidation(value, IdCardCodeName.PIN2.rawValue, 1)
         }
         
         let validateNewControlPin2 = { (value:String) -> (message:String, textFieldIndex:Int)? in
             if value != secondCode {
-                return (message:L(.myEidErrorCodesMismatch, [IdCardCodeName.pin2.rawValue]), textFieldIndex:2)
+                return (message:L(.myEidErrorCodesMismatch, [IdCardCodeName.PIN2.rawValue]), textFieldIndex:2)
             }
             return nil
         }
         
         let validateCurrentPuk = { (value:String) -> (message:String, textFieldIndex:Int)? in
             if value.count < IdCardCodeLengthLimits.pukMinimum.rawValue {
-                return (message:L(.myEidErrorCurrentCodeTooShort, [IdCardCodeName.puk.rawValue, IdCardCodeLengthLimits.pukMinimum.rawValue]), textFieldIndex:0)
+                return (message:L(.myEidErrorCurrentCodeTooShort, [IdCardCodeName.PUK.rawValue, IdCardCodeLengthLimits.pukMinimum.rawValue]), textFieldIndex:0)
             }
             return nil
         }
         
         let validateNewPuk = { (value:String) -> (message:String, textFieldIndex:Int)? in
             if value.count < IdCardCodeLengthLimits.pukMinimum.rawValue {
-                return (message:L(.myEidErrorNewCodeTooShort, [IdCardCodeName.puk.rawValue, IdCardCodeLengthLimits.pukMinimum.rawValue]), textFieldIndex:1)
+                return (message:L(.myEidErrorNewCodeTooShort, [IdCardCodeName.PUK.rawValue, IdCardCodeLengthLimits.pukMinimum.rawValue]), textFieldIndex:1)
             }
             else if value == firstCode {
-                return (message:L(.myEidErrorCodesAreSame, [IdCardCodeName.puk.rawValue, IdCardCodeName.puk.rawValue]), textFieldIndex:1)
+                return (message:L(.myEidErrorCodesAreSame, [IdCardCodeName.PUK.rawValue]), textFieldIndex:1)
             }
-            return generalNewCodeValidation(value, IdCardCodeName.puk.rawValue, 1)
+            return generalNewCodeValidation(value, IdCardCodeName.PUK.rawValue, 1)
         }
         
         let validateNewControlPuk = { (value:String) -> (message:String, textFieldIndex:Int)? in
             if value != secondCode {
-                return (message:L(.myEidErrorCodesMismatch, [IdCardCodeName.puk.rawValue]), textFieldIndex:2)
+                return (message:L(.myEidErrorCodesMismatch, [IdCardCodeName.PUK.rawValue]), textFieldIndex:2)
             }
             return nil
         }

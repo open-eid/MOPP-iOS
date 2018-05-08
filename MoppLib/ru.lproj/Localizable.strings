@@ -44,10 +44,10 @@
 
 "digidoc-service-status-request-sent" = "Запрос на подпись отправлен";
 "digidoc-service-status-request-ok" = "Запрос принят";
-"digidoc-service-status-request-expired-transaction" = "Превышение лимита времени запроса";
-"digidoc-service-status-request-user-cancel" = "Пользователь прервал";
+"digidoc-service-status-request-expired-transaction" = "Время запроса истекло";
+"digidoc-service-status-request-user-cancel" = "Пользователю отказано";
 "digidoc-service-status-request-signature" = "Подпись получена";
-"digidoc-service-status-request-outstanding-transaction" = "Запрос незакончен";
+"digidoc-service-status-request-outstanding-transaction" = "Запрос в ожидании";
 "digidoc-service-status-request-mid-not-ready" = "Mobiil-ID недоступен, попробуйте позже";
 "digidoc-service-status-request-phone-absent" = "Телефон выключен или находится вне зоны доступа";
 "digidoc-service-status-request-sending-error" = "Ошибка SIM-приложения";
