@@ -199,3 +199,4 @@
 "diagnostics-ios-version" = "Операционная система";
 "diagnostics-libraries-label" = "Библиотеки";
 "about-title" = "Информация";
+"jailbreak-message" = "Данное приложение не может быть использовано на взломанном (джейлбрейк) устройстве";
