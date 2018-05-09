@@ -51,6 +51,10 @@ extension UIStoryboard {
     static var settings: UIStoryboard {
         return UIStoryboard(name: "Settings", bundle: Bundle.main)
     }
+    
+    static var jailbreak: UIStoryboard {
+        return UIStoryboard(name: "Jailbreak", bundle: Bundle.main)
+    }
 }
 
 extension UIStoryboard {

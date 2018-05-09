@@ -175,4 +175,5 @@ enum LocKey : String
     case diagnosticsIosVersion = "diagnostics-ios-version"
     case diagnosticsLibrariesLabel = "diagnostics-libraries-label"
     case aboutTitle = "about-title"
+    case jailbreakMessage = "jailbreak-message"
 }
