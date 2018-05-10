@@ -23,7 +23,7 @@
 extension MoppApp {
     var isDeviceJailbroken: Bool {
     
-        #if (arch(i386) || arch(x86_64)) && os(iOS)
+        #if targetEnvironment(simulator)
         // ignore simulator
         return false
         #else
