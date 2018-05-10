@@ -22,11 +22,12 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "MoppLibConstants.h"
 
 @interface MoppLibSignature : NSObject
 
 @property (strong, nonatomic) NSString *subjectName;
 @property (strong, nonatomic) NSDate *timestamp;
-@property (assign, nonatomic) BOOL isValid;
+@property (assign, nonatomic) MoppLibSignatureStatus status;
 
 @end

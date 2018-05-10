@@ -73,8 +73,15 @@
 "container-header-title" = "KONTEINER:";
 "container-error-message-invalid-signature" = "1 ALLKIRI EI OLE KEHTIV";
 "container-error-message-invalid-signatures" = "%d ALLKIRJA EI KEHTI";
+"container-error-message-unknown-signature" = "1 ALLKIRI ON TEADMATA";
+"container-error-message-unknown-signatures" = "%d ALLKIRJA ON TEADMATA";
 "container-signature-signed" = "Allkirjastatud %@";
 "container-missing-signatures" = "Allkirjad puuduvad";
+"container-signature-status-valid" = "Allkiri on kehtiv";
+"container-signature-status-warning" = "(Hoiatused)";
+"container-signature-status-non-qscd" = "(Piirangud)";
+"container-signature-status-invalid" = "Allkiri ei ole kehtiv";
+"container-signature-status-unknown" = "Allkiri on teadmata";
 
 // *** Mobile ID Challenge View ***
 
