@@ -72,12 +72,12 @@ class ContainerViewController : MoppViewController, ContainerActions {
     
     private var invalidSignaturesCount: Int {
         if container == nil { return 0 }
-        return (container.signatures as! [MoppLibSignature]).filter { (invalid == $0.status) }.count
+        return (container.signatures as! [MoppLibSignature]).filter { (MoppLibSignatureStatus.Invalid == $0.status) }.count
     }
 
     private var unknownSignaturesCount: Int {
         if container == nil { return 0 }
-        return (container.signatures as! [MoppLibSignature]).filter { (unknown == $0.status) }.count
+        return (container.signatures as! [MoppLibSignature]).filter { (MoppLibSignatureStatus.UnknownStatus == $0.status) }.count
     }
     
     override func viewDidLoad() {

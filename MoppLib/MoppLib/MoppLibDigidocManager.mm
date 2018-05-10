@@ -217,7 +217,7 @@ private:
           moppLibSignature.status = [self determineSignatureStatus:status];
             
         } catch(const digidoc::Exception &e) {
-          moppLibSignature.status = invalid;
+          moppLibSignature.status = Invalid;
         }
         
         [signatures addObject:moppLibSignature];
@@ -241,18 +241,18 @@ private:
 - (MoppLibSignatureStatus)determineSignatureStatus:(int) status{
    
     if(digidoc::Signature::Validator::Status::Valid==status){
-        return valid;
+        return Valid;
     }
     else if(digidoc::Signature::Validator::Status::NonQSCD==status){
-        return nonQSCD;
+        return NonQSCD;
     }
     else if(digidoc::Signature::Validator::Status::Warning==status){
-        return warning;
+        return Warning;
     }
     else if(digidoc::Signature::Validator::Status::Unknown==status){
-        return unknown;
+        return UnknownStatus;
     }
-    return invalid;
+    return Invalid;
 }
 
 - (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId {

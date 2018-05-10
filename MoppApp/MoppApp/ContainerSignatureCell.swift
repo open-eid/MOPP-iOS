@@ -67,15 +67,15 @@ class ContainerSignatureCell: UITableViewCell {
         self.signatureIndex = signatureIndex
         var signatureStatus : NSMutableAttributedString
         switch (signature.status) {
-            case valid:
+            case MoppLibSignatureStatus.Valid:
                 signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: "", valid: true)
-            case warning:
+            case MoppLibSignatureStatus.Warning:
                 signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: L(LocKey.containerSignatureStatusWarning), valid: true)
-            case nonQSCD:
+            case MoppLibSignatureStatus.NonQSCD:
                 signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: L(LocKey.containerSignatureStatusNonQscd), valid: true)
-            case unknown:
+            case MoppLibSignatureStatus.UnknownStatus:
                 signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusUnknown), translationSufix: "", valid: false)
-            default:
+            case MoppLibSignatureStatus.Invalid:
                 signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusInvalid), translationSufix: "", valid: false)
         }
         nameLabel.text = signature.subjectName
