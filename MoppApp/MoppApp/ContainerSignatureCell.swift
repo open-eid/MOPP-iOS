@@ -34,7 +34,7 @@ class ContainerSignatureCell: UITableViewCell {
     @IBOutlet weak var signedInfoLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var bottomBorderView: UIView!
-    @IBOutlet weak var statusIconImageView: UIImageView!
+    @IBOutlet weak var signatureStatusLabel: UILabel!
     @IBOutlet weak var removeButton: UIButton!
     
     weak var delegate: ContainerSignatureDelegate? = nil
@@ -53,6 +53,7 @@ class ContainerSignatureCell: UITableViewCell {
     var kind: Kind = .signature
     var signatureIndex: Int!
     
+
     @IBAction func removeAction() {
         delegate?.containerSignatureRemove(signatureIndex: signatureIndex)
     }
@@ -64,9 +65,21 @@ class ContainerSignatureCell: UITableViewCell {
     func populate(with signature: MoppLibSignature, kind: Kind, showBottomBorder: Bool, showRemoveButton: Bool, signatureIndex: Int) {
         self.kind = kind
         self.signatureIndex = signatureIndex
-
+        var signatureStatus : NSMutableAttributedString
+        switch (signature.status) {
+            case MoppLibSignatureStatus.Valid:
+                signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: "", valid: true)
+            case MoppLibSignatureStatus.Warning:
+                signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: L(LocKey.containerSignatureStatusWarning), valid: true)
+            case MoppLibSignatureStatus.NonQSCD:
+                signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: L(LocKey.containerSignatureStatusNonQscd), valid: true)
+            case MoppLibSignatureStatus.UnknownStatus:
+                signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusUnknown), translationSufix: "", valid: false)
+            case MoppLibSignatureStatus.Invalid:
+                signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusInvalid), translationSufix: "", valid: false)
+        }
         nameLabel.text = signature.subjectName
-        
+        signatureStatusLabel.attributedText = signatureStatus
         signedInfoLabel.text = L(LocKey.containerSignatureSigned, [MoppDateFormatter.shared.hHmmssddMMYYYY(toString: signature.timestamp)])
         
         iconImageView.image = kind == .signature ?
@@ -74,18 +87,21 @@ class ContainerSignatureCell: UITableViewCell {
             UIImage(named: "Icon_ajatempel")
         bottomBorderView.isHidden = !showBottomBorder
         removeButton.isHidden = !showRemoveButton
+
+    }
+    
+    func getSignatureStatusText(translationPrefix: String, translationSufix: String, valid: Bool) -> NSMutableAttributedString{
         
-        let colorTheme = signature.isValid ? ColorTheme.showSuccess : ColorTheme.showInvalid
-        switch colorTheme {
-        case .neutral:
-            nameLabel.textColor = UIColor.moppText
-            statusIconImageView.image = UIImage(named: "icon_check")
-        case .showInvalid:
-            nameLabel.textColor = UIColor.moppError
-            statusIconImageView.image = UIImage(named: "icon_alert_red")
-        case .showSuccess:
-            nameLabel.textColor = UIColor.moppText
-            statusIconImageView.image = UIImage(named: "icon_check")
+        let signatureStatusText = translationPrefix + " " + translationSufix
+        let signatureStatus = NSMutableAttributedString(string: signatureStatusText)
+        let mainColor: UIColor
+        if(valid){
+            mainColor = UIColor.moppSuccessText
+        }else{
+            mainColor = UIColor.moppError
         }
+        signatureStatus.addAttribute(NSAttributedStringKey.foregroundColor, value: mainColor, range: NSRange(location:0,length:translationPrefix.count))
+        signatureStatus.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.moppWarningText, range: NSRange(location:translationPrefix.count+1,length:translationSufix.count))
+        return signatureStatus
     }
 }

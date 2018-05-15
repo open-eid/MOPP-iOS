@@ -72,9 +72,14 @@ class ContainerViewController : MoppViewController, ContainerActions {
     
     private var invalidSignaturesCount: Int {
         if container == nil { return 0 }
-        return (container.signatures as! [MoppLibSignature]).filter { !$0.isValid }.count
+        return (container.signatures as! [MoppLibSignature]).filter { (MoppLibSignatureStatus.Invalid == $0.status) }.count
     }
 
+    private var unknownSignaturesCount: Int {
+        if container == nil { return 0 }
+        return (container.signatures as! [MoppLibSignature]).filter { (MoppLibSignatureStatus.UnknownStatus == $0.status) }.count
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInsetAdjustmentBehavior = .never
@@ -169,20 +174,11 @@ class ContainerViewController : MoppViewController, ContainerActions {
                 strongSelf.notifications.append((true, L(.containerDetailsSigningSuccess)))
             }
             
-            let invalidSignaturesCount = (container.signatures as! [MoppLibSignature]).filter { !$0.isValid }.count
-            if invalidSignaturesCount > 0 {
-                var signatureWarningText: String!
-                if invalidSignaturesCount == 1 {
-                    signatureWarningText = L(.containerErrorMessageInvalidSignature)
-                } else if invalidSignaturesCount > 1 {
-                    signatureWarningText = L(.containerErrorMessageInvalidSignatures, [invalidSignaturesCount])
-                }
-                strongSelf.notifications.append((false, signatureWarningText))
-            }
-
             strongSelf.sections = ContainerViewController.sectionsDefault
             
             strongSelf.container = container
+            strongSelf.appendSignatureWarnings()
+            strongSelf.sortSignatures()
             strongSelf.reloadData()
             strongSelf.updateState((self?.isCreated ?? false) ? .created : .opened)
             
@@ -210,7 +206,7 @@ class ContainerViewController : MoppViewController, ContainerActions {
         super.showLoading(show: show, forFrame: tableView.frame)
         tableView.isHidden = show
     }
-
+    
     func startSigning() {
         guard let _ = container else { return }
         
@@ -237,6 +233,41 @@ class ContainerViewController : MoppViewController, ContainerActions {
         updateState(.loading)
         openContainer()
         reloadData()
+    }
+    
+    func appendSignatureWarnings() {
+        
+        if self.invalidSignaturesCount > 0 {
+            var signatureWarningText: String!
+            if self.invalidSignaturesCount == 1 {
+                signatureWarningText = L(.containerErrorMessageInvalidSignature)
+            } else if self.invalidSignaturesCount > 1 {
+                signatureWarningText = L(.containerErrorMessageInvalidSignatures, [self.invalidSignaturesCount])
+            }
+            self.notifications.append((false, signatureWarningText))
+        }
+        
+        if self.unknownSignaturesCount > 0 {
+            var signatureWarningText: String!
+            if self.unknownSignaturesCount == 1 {
+                signatureWarningText = L(.containerErrorMessageUnknownSignature)
+            } else if self.unknownSignaturesCount > 1 {
+                signatureWarningText = L(.containerErrorMessageUnknownSignatures, [self.unknownSignaturesCount])
+            }
+            self.notifications.append((false, signatureWarningText))
+        }
+    }
+    
+    func sortSignatures() {
+        container.signatures.sort { (sig1: Any, sig2: Any) -> Bool in
+            let signatureStatusValue1 = (sig1 as! MoppLibSignature).status.rawValue
+            let signatureStatusValue2 = (sig2 as! MoppLibSignature).status.rawValue
+            if(signatureStatusValue1 == signatureStatusValue2){
+                return (sig1 as! MoppLibSignature).timestamp < (sig2 as! MoppLibSignature).timestamp
+            }
+            return signatureStatusValue1 > signatureStatusValue2
+            
+        }
     }
 }
 

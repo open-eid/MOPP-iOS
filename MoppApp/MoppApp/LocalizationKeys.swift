@@ -61,8 +61,15 @@ enum LocKey : String
     case containerHeaderTitle = "container-header-title"
     case containerErrorMessageInvalidSignature = "container-error-message-invalid-signature"
     case containerErrorMessageInvalidSignatures = "container-error-message-invalid-signatures"
+    case containerErrorMessageUnknownSignature = "container-error-message-unknown-signature"
+    case containerErrorMessageUnknownSignatures = "container-error-message-unknown-signatures"
     case containerSignatureSigned = "container-signature-signed"
     case containerMissingSignatures = "container-missing-signatures"
+    case containerSignatureStatusValid = "container-signature-status-valid"
+    case containerSignatureStatusWarning = "container-signature-status-warning";
+    case containerSignatureStatusNonQscd = "container-signature-status-non-qscd";
+    case containerSignatureStatusInvalid = "container-signature-status-invalid";
+    case containerSignatureStatusUnknown = "container-signature-status-unknown";
     case challengeCodeLabel = "challenge-code-label"
     case mobileIdTimeoutMessage = "mobile-id-timeout-message"
     case errorAlertTitleGeneral = "error-alert-title-general"
