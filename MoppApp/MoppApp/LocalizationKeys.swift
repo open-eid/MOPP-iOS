@@ -87,6 +87,7 @@ enum LocKey : String
     case signTitleIdCard = "sign-title-id-card"
     case cardReaderStateReaderNotFound = "card-reader-state-reader-not-found"
     case cardReaderStateIdCardNotFound = "card-reader-state-id-card-not-found"
+    case cardReaderStateIdCardConnected = "card-reader-state-id-card-connected"
     case cardReaderStateInitial = "card-reader-state-initial"
     case cardReaderStateReady = "card-reader-state-ready"
     case signingInProgress = "signing-in-progress"

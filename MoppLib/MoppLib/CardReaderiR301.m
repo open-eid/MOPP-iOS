@@ -30,6 +30,7 @@
 #import "NSString+Additions.h"
 #import "NSData+Additions.h"
 #import "MoppLibCardReaderManager.h"
+#import "MoppLibError.h"
 
 @interface CardReaderiR301() <ReaderInterfaceDelegate>
 @property (nonatomic, strong) DataSuccessBlock successBlock;
@@ -137,23 +138,44 @@
     }
 }
 
-- (void)powerOnCard:(DataSuccessBlock)success failure:(FailureBlock)failure  {
-    success(nil);
+- (void)powerOnCard:(EmptySuccessBlock)success failure:(FailureBlock)failure  {
+    success();
 }
 
 - (void)isCardInserted:(void(^)(BOOL)) completion {
-    completion(YES);
+    DWORD status = [self cardStatus];
+    completion(status == SCARD_PRESENT || status == SCARD_POWERED || status == SCARD_SWALLOWED);
 }
 
 - (BOOL)isConnected {
-    return YES;
+    return SCardStatus(_contextHandle, NULL, NULL, NULL, NULL, NULL, NULL ) == SCARD_S_SUCCESS;
+}
+
+- (DWORD)cardStatus {
+    DWORD status;
+    LONG ret = 0;
+    
+    ret = SCardStatus(_contextHandle, NULL, NULL, &status, NULL, NULL, NULL );
+    if (ret != SCARD_S_SUCCESS) {
+        return SCARD_ABSENT;
+    }
+    
+    return status;
 }
 
 - (void)isCardPoweredOn:(void(^)(BOOL)) completion {
-    completion(NO);
+    completion([self cardStatus] == SCARD_PRESENT);
 }
 
 - (void)resetReader {
+}
+
+- (void)cardInterfaceDidDetach:(BOOL)attached {
+    
+}
+
+- (void)readerInterfaceDidChange:(BOOL)attached {
+    
 }
 
 @end

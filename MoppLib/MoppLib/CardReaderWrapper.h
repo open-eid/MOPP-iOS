@@ -41,7 +41,7 @@
  * @param success   block to be called when card action is completed successfully
  * @param failure   block to be called when executing card action fails
  */
-- (void)powerOnCard:(DataSuccessBlock)success failure:(FailureBlock)failure;
+- (void)powerOnCard:(EmptySuccessBlock)success failure:(FailureBlock)failure;
 
 /**
  * Checks if card is inserted in reader

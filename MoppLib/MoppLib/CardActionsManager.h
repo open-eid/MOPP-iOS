@@ -31,6 +31,8 @@
 @interface CardActionsManager : NSObject <CBManagerHelperDelegate>
 + (CardActionsManager *)sharedInstance;
 
+@property (nonatomic, strong) id<CardReaderWrapper> cardReader;
+
 - (void)setCardReader:(id<CardReaderWrapper>)cardReader;
 
 - (void)minimalCardPersonalDataWithViewController:(UIViewController *)controller success:(PersonalDataBlock)success failure:(FailureBlock)failure;
@@ -58,4 +60,6 @@
 
 - (void)isCardInserted:(void(^)(BOOL)) completion;
 - (BOOL)isReaderConnected;
+
+- (void)resetCardActions;
 @end

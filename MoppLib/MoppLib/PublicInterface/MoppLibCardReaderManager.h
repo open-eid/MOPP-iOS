@@ -37,8 +37,6 @@ typedef NS_ENUM(NSUInteger, MoppLibCardReaderStatus) {
 @interface MoppLibCardReaderManager : NSObject
 @property (weak) id <MoppLibCardReaderManagerDelegate> delegate;
 + (MoppLibCardReaderManager *)sharedInstance;
-- (void)startDetecting;
-- (void)stopDetecting;
-- (void)startScanningBluetoothPeripherals;
-- (void)stopScanningBluetoothPeripherals;
+- (void)startDiscoveringReaders;
+- (void)stopDiscoveringReaders;
 @end

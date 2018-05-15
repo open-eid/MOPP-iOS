@@ -28,13 +28,13 @@
 #import "MoppLibCardReaderManager.h"
 
 @protocol CardReaderACR3901U_S1Delegate <NSObject>
-
+- (void)cardReaderACR3901U_S1StatusDidChange:(MoppLibCardReaderStatus)status;
 @end
 
 @interface CardReaderACR3901U_S1 : NSObject <CardReaderWrapper>
 
 @property (nonatomic, strong) id<CardReaderWrapperDelegate> delegate;
-@property (nonatomic, weak) id<MoppLibCardReaderManagerDelegate> cardReaderManagerDelegate;
+@property (nonatomic, strong) id<CardReaderACR3901U_S1Delegate> cr3901U_S1Delegate;
 /**
  * Performs peripheral detection, attaching and authenticating reader.
  *

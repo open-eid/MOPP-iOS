@@ -31,7 +31,8 @@
 #import "wintypes.h"
 #import "ft301u.h"
 
-@interface MoppLibCardReaderManager() <ReaderInterfaceDelegate, CBCentralManagerDelegate>
+@interface MoppLibCardReaderManager()<ReaderInterfaceDelegate, CBCentralManagerDelegate, CardReaderACR3901U_S1Delegate>
+
 @property (nonatomic) SCARDCONTEXT contextHandle;
 @property (nonatomic, strong) ReaderInterface *readerInterface;
 @property (nonatomic, strong) NSTimer *cardStatusPollingTimer;
@@ -58,12 +59,26 @@
   return sharedInstance;
 }
 
-- (void)startDetecting {
+- (void)startDiscoveringReaders {
+    [self startDiscoveringFeitianReader];
+    [self startDiscoveringBluetoothPeripherals];
+}
+
+- (void)stopDiscoveringReaders {
+    [self stopDiscoveringFeitianReader];
+    [self stopDiscoveringBluetoothPeripherals];
+    
+    [[CardActionsManager sharedInstance] setCardReader:nil];
+    [[CardActionsManager sharedInstance] resetCardActions];
+    _status = ReaderNotConnected;
+}
+
+- (void)startDiscoveringFeitianReader {
     [self updateStatus:ReaderNotConnected];
     SCardEstablishContext(SCARD_SCOPE_SYSTEM, NULL, NULL, &_contextHandle);
 }
 
-- (void)stopDetecting {
+- (void)stopDiscoveringFeitianReader {
     if (_status == CardConnected) {
         [self disconnectCard];
     }
@@ -73,7 +88,6 @@
         _cardStatusPollingTimer = nil;
     }
     
-    [[CardActionsManager sharedInstance] setCardReader:nil];
     FtDidEnterBackground(1);
     SCardReleaseContext(_contextHandle);
 }
@@ -82,7 +96,7 @@
     DWORD dwState;
     LONG ret = 0;
     
-    ret = SCardStatus(_contextHandle, NULL, NULL, &dwState, NULL, NULL, NULL );
+    ret = SCardStatus(_contextHandle, NULL, NULL, &dwState, NULL, NULL, NULL);
     if (ret != SCARD_S_SUCCESS) {
         // No luck on getting card status. Reconnect the reader.
         [self updateStatus:ReaderNotConnected];
@@ -90,15 +104,38 @@
     }
     
     switch (dwState) {
-    case SCARD_PRESENT:
-        [self updateStatus:CardConnected];
-        break;
-    case SCARD_ABSENT:
-        [self updateStatus:ReaderConnected];
-        break;
-    case SCARD_SWALLOWED:
-        [self connectCard];
-        break;
+        // There is no card in the reader.
+        case SCARD_ABSENT:
+            [self updateStatus:ReaderConnected];
+        
+        // There is a card in the reader, but it has not been moved into position for use.
+        case SCARD_PRESENT:
+            break;
+
+        // There is a card in the reader in position for use. The card is not powered.
+        case SCARD_SWALLOWED:
+            {
+                id<CardReaderWrapper> cardReader = [[CardActionsManager sharedInstance] cardReader];
+                if (cardReader == nil || ![cardReader isKindOfClass:[CardReaderiR301 class]]) {
+                    cardReader = [[CardReaderiR301 alloc] initWithInterface:_readerInterface andContentHandle:_contextHandle];
+              
+                    [[CardActionsManager sharedInstance] setCardReader:cardReader];
+                    [self connectCard];
+                }
+            }
+            break;
+            
+        // Power is being provided to the card, but the reader driver is unaware of the mode of the card.
+        case SCARD_POWERED:
+            break;
+        
+        // The card has been reset and is awaiting PTS negotiation.
+        case SCARD_NEGOTIABLE:
+            break;
+            
+        // The card has been reset and specific communication protocols have been established.
+        case SCARD_SPECIFIC:
+            break;
     }
 }
 
@@ -119,8 +156,7 @@
         return NO;
     }
     
-    _reader = [[CardReaderiR301 alloc] initWithInterface:_readerInterface andContentHandle:_contextHandle];
-    [[CardActionsManager sharedInstance] setCardReader:_reader];
+    [self updateStatus:CardConnected];
     
     return YES;
 }
@@ -147,7 +183,10 @@
 }
 
 - (void)updateStatus:(MoppLibCardReaderStatus)status {
-    if (_status == status) return;
+    if (_status == status) {
+        MLLog(@"WARNING: trying to set state that manager is already in: %lu", (unsigned long)_status);
+        return;
+    }
     
     _status = status;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -163,100 +202,124 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self updateStatus:ReaderConnected];
             [self startPollingCardStatus];
-            [_delegate moppLibCardReaderStatusDidChange: ReaderConnected];
+            [_delegate moppLibCardReaderStatusDidChange:ReaderConnected];
+            
+            [self stopDiscoveringBluetoothPeripherals];
         });
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self updateStatus:ReaderNotConnected];
             [self stopPollingCardStatus];
             [_delegate moppLibCardReaderStatusDidChange: ReaderNotConnected];
+            
+            [self startDiscoveringBluetoothPeripherals];
         });
     }
 }
 
 #pragma mark Bluetooth
 
-- (void)startScanningBluetoothPeripherals {
+- (void)startDiscoveringBluetoothPeripherals {
     _peripherals = nil;
     _scanningBluetoothPeripherals = YES;
     _coreBluetoothManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:@{CBCentralManagerOptionShowPowerAlertKey: [NSNumber numberWithBool:YES]}];
 }
 
-- (void)stopScanningBluetoothPeripherals {
+- (void)stopDiscoveringBluetoothPeripherals {
     [_coreBluetoothManager stopScan];
     _coreBluetoothManager = nil;
 }
 
 #pragma mark CBCentralManagerDelegate
 
-- (void)centralManagerDidUpdateState:(CBCentralManager *)central {
-  switch (central.state) {
-    case CBManagerStatePoweredOff:
-      MLLog(@"Central manager state powered off");
-      break;
-      
-    case CBManagerStateUnknown:
-      MLLog(@"Central manager state unknown");
-      break;
-      
-    case CBManagerStatePoweredOn:
-      MLLog(@"Central manager state powered on");
-      if (self.scanningBluetoothPeripherals) {
-        [_coreBluetoothManager scanForPeripheralsWithServices:nil options:nil];
-      }
-      break;
-      
-    case CBManagerStateResetting:
-      MLLog(@"Central manager state resetting");
-      break;
-      
-    case CBManagerStateUnsupported:
-      MLLog(@"Central manager state unsupported");
-      break;
-      
-    case CBManagerStateUnauthorized:
-      MLLog(@"Central manager state unauthorized");
-      break;
-      
-    default:
-      break;
-  }
-}
-
-- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
-    NSLog(@"Did connect %@", peripheral.name);
-    CardReaderACR3901U_S1 *reader = [[CardReaderACR3901U_S1 alloc] init];
-    [reader setupWithPeripheral:_currentPeripheral success:^(NSData *responseData) {
-        NSLog(@"SUCCESS");
-        
-        [reader setCardReaderManagerDelegate:_delegate];
-        [_delegate moppLibCardReaderStatusDidChange: ReaderConnected];
-        [[CardActionsManager sharedInstance] setCardReader:reader];
-        
-    } failure:^(NSError *error) {
-        NSLog(@"FAILURE %@", error);
-    }];
-}
-
-- (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-    NSLog(@"%@", error);
-}
-
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI {
-    NSLog(@"%@", peripheral.name);
+    //
+    //  Connect ACR3901U-S1
+    //
     if (peripheral.name != nil && [peripheral.name hasPrefix:@"ACR3901U-S1"]) {
-        NSLog(@"Card ACR3901U-S1 found");
+        MLLog(@"Discovered ACR3901U-S1");
         _currentPeripheral = peripheral;
         [central connectPeripheral:_currentPeripheral options:nil];
     }
 }
 
+- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
+    //
+    //  Setup ACR3901U-S1 interface
+    //
+    [central stopScan];
+    
+    CardReaderACR3901U_S1 *reader = [[CardReaderACR3901U_S1 alloc] init];
+    [reader setCr3901U_S1Delegate:self];
+    [[CardActionsManager sharedInstance] setCardReader:reader];
+    
+    [reader setupWithPeripheral:_currentPeripheral success:^(NSData *responseData) {
+        MLLog(@"Successfully set up ACR3901U-S1 interface");
+        
+        [self cardReaderACR3901U_S1StatusDidChange: ReaderConnected];
+    } failure:^(NSError *error) {
+        MLLog(@"Failed to set up ACR3901U-S1 interface with error %@", error);
+    }];
+}
+
+- (void)centralManagerDidUpdateState:(CBCentralManager *)central {
+  switch (central.state) {
+    case CBManagerStatePoweredOff:
+      MLLog(@"Central manager state powered off");
+      break;
+    case CBManagerStateUnknown:
+      MLLog(@"Central manager state unknown");
+      break;
+    case CBManagerStatePoweredOn:
+      MLLog(@"Central manager state powered on");
+      if (_scanningBluetoothPeripherals) {
+        [_coreBluetoothManager scanForPeripheralsWithServices:nil options:nil];
+      }
+      break;
+    case CBManagerStateResetting:
+      MLLog(@"Central manager state resetting");
+      break;
+    case CBManagerStateUnsupported:
+      MLLog(@"Central manager state unsupported");
+      break;
+    case CBManagerStateUnauthorized:
+      MLLog(@"Central manager state unauthorized");
+      break;
+  }
+}
+
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-    [_delegate moppLibCardReaderStatusDidChange:ReaderNotConnected];
-    NSLog(@"%@", peripheral.name);
+    //
+    //  Cleanup ACR3901U-S1 connection
+    //
+    [self startDiscoveringBluetoothPeripherals];
+    
     if (peripheral.name != nil && [peripheral.name hasPrefix:@"ACR3901U-S1"]) {
-        NSLog(@"Card ACR3901U-S1 found");
+        MLLog(@"Disconnected ACR3901U-S1");
+        [self cardReaderACR3901U_S1StatusDidChange:ReaderNotConnected];
+        [[CardActionsManager sharedInstance] setCardReader:nil];
+        _status = ReaderNotConnected;
+        _currentPeripheral = nil;
     }
+}
+
+- (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
+    MLLog(@"didFailToConnectPeripheral: %@", error);
+}
+
+#pragma mark CardReaderACR3901U_S1Delegate
+
+- (void)cardReaderACR3901U_S1StatusDidChange:(MoppLibCardReaderStatus)status {
+    // Stop scanning other readers when Bluetooth reader is connected
+    if (status == ReaderConnected) {
+        [self stopDiscoveringFeitianReader];
+    }
+    // Start scanning other reader when Bluetooth reader is disconnected
+    else if (status == ReaderNotConnected) {
+        [self startDiscoveringFeitianReader];
+    }
+    // Propagate status
+    [_delegate moppLibCardReaderStatusDidChange:status];
 }
 
 @end
