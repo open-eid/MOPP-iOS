@@ -74,8 +74,15 @@
 "container-header-title" = "КОНТЕЙНЕР:";
 "container-error-message-invalid-signature" = "1 НЕВЕРНАЯ ПОДПИСЬ";
 "container-error-message-invalid-signatures" = "%d НЕВЕРНАЯ ПОДПИСЬ";
+"container-error-message-unknown-signature" = "1 UNKNOWN SIGNATURE"; //TODO: 
+"container-error-message-unknown-signatures" = "%d UNKNOWN SIGNATURES";
 "container-signature-signed" = "Подписано %@";
 "container-missing-signatures" = "Контейнер не подписан";
+"container-signature-status-valid" = "Подпись действительна";
+"container-signature-status-warning" = "(Предупреждения)";
+"container-signature-status-non-qscd" = "(Ограничения)";
+"container-signature-status-invalid" = "Подпись недействительна";
+"container-signature-status-unknown" = "Подпись неизвестная";
 
 // *** Mobile ID Challenge View ***
 

@@ -66,8 +66,16 @@ extension UIColor {
         return UIColor(named: "MoppSuccess")!
     }
 
+    class var moppSuccessText: UIColor {
+        return UIColor(named: "MoppSuccessText")!
+    }
+    
     class var moppWarning: UIColor {
         return UIColor(named: "MoppWarning")!
+    }
+    
+    class var moppWarningText: UIColor {
+        return UIColor(named: "MoppWarningText")!
     }
     
     class var moppMainMenu: UIColor {

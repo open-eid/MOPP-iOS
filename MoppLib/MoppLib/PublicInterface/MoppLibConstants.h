@@ -28,6 +28,14 @@
 #import "MoppLibContainer.h"
 #import "MoppLibMobileCreateSignatureResponse.h"
 
+typedef NS_ENUM(int, MoppLibSignatureStatus) {
+    Valid,
+    Warning,
+    NonQSCD,
+    Invalid,
+    UnknownStatus
+};
+
 // Mopp Lib error codes
 
 typedef NS_ENUM(NSUInteger, MoppLibErrorCode) {

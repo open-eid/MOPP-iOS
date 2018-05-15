@@ -88,6 +88,7 @@ private:
 
 
 @interface MoppLibDigidocManager ()
+    - (MoppLibSignatureStatus)determineSignatureStatus:(int) status;
 @end
 
 @implementation MoppLibDigidocManager
@@ -211,11 +212,12 @@ private:
         moppLibSignature.timestamp = [[MLDateFormatter sharedInstance] YYYYMMddTHHmmssZToDate:[NSString stringWithUTF8String:timestamp.c_str()]];
         
         try {
-          signature->validate();
-          moppLibSignature.isValid = YES;
+          digidoc::Signature::Validator *validator =  new digidoc::Signature::Validator(signature);
+          digidoc::Signature::Validator::Status status = validator->status();
+          moppLibSignature.status = [self determineSignatureStatus:status];
+            
         } catch(const digidoc::Exception &e) {
-          parseException(e);
-          moppLibSignature.isValid = NO;
+          moppLibSignature.status = Invalid;
         }
         
         [signatures addObject:moppLibSignature];
@@ -234,6 +236,23 @@ private:
     }
     
   }
+}
+
+- (MoppLibSignatureStatus)determineSignatureStatus:(int) status{
+   
+    if(digidoc::Signature::Validator::Status::Valid==status){
+        return Valid;
+    }
+    else if(digidoc::Signature::Validator::Status::NonQSCD==status){
+        return NonQSCD;
+    }
+    else if(digidoc::Signature::Validator::Status::Warning==status){
+        return Warning;
+    }
+    else if(digidoc::Signature::Validator::Status::Unknown==status){
+        return UnknownStatus;
+    }
+    return Invalid;
 }
 
 - (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId {

@@ -73,8 +73,15 @@
 "container-header-title" = "CONTAINER:";
 "container-error-message-invalid-signature" = "1 INVALID SIGNATURE";
 "container-error-message-invalid-signatures" = "%d INVALID SIGNATURES";
+"container-error-message-unknown-signature" = "1 UNKNOWN SIGNATURE";
+"container-error-message-unknown-signatures" = "%d UNKNOWN SIGNATURES";
 "container-signature-signed" = "Signed %@";
 "container-missing-signatures" = "Container is not signed";
+"container-signature-status-valid" = "Signature is valid";
+"container-signature-status-warning" = "(Warnings)";
+"container-signature-status-non-qscd" = "(Restrictions)";
+"container-signature-status-invalid" = "Signature is not valid";
+"container-signature-status-unknown" = "Signature is unknown";
 
 // *** Mobile ID Challenge View ***
 
