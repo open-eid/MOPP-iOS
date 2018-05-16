@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -211,11 +211,12 @@
 				TargetAttributes = {
 					39231FA920AB1C6C00E1E2B4 = {
 						CreatedOnToolsVersion = 9.3.1;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
 			buildConfigurationList = 39231FA420AB1C6C00E1E2B4 /* Build configuration list for PBXProject "CryptoLib" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -430,11 +431,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/include";
 				INFOPLIST_FILE = CryptoLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries",
 					"$(PROJECT_DIR)/CryptoLib/openldap/OpenLDAP.iphoneos/libraries",
@@ -464,11 +461,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/include";
 				INFOPLIST_FILE = CryptoLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries",
 					"$(PROJECT_DIR)/CryptoLib/openldap/OpenLDAP.iphoneos/libraries",
