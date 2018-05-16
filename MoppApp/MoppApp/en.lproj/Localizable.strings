@@ -114,7 +114,7 @@
 "recent-containers-empty-search-message" = "Document not found";
 "sign-title-mobile-id" = "Mobile-ID";
 "sign-title-id-card" = "ID Card";
-"card-reader-state-initial" = "Connect your card reader to your phone and insert ID-card into the reader.";
+"card-reader-state-initial" = "Connect your card reader to your phone and insert ID-card into the reader.\nIf you are using bluetooth reader, phone's bluetooth connection must be enabled.";
 "card-reader-state-reader-not-found" = "No card readers found";
 "card-reader-state-id-card-not-found" = "Reader found.\nInsert your ID-card into the reader.";
 "card-reader-state-id-card-connected" = "ID-card found.\nRequesting information.";

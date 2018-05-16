@@ -121,7 +121,7 @@
 "signing-in-progress" = "Toimub allkirjastamine.\nPalun oota.";
 "wrong-pin2" = "Vale PIN2. %d katset järgi.\nSisestades %d korda vale PIN2 sinu PIN2 lukustub";
 "wrong-pin2-single" = "Vale PIN2. 1 katse järgi.Sisestades vale PIN2-e sinu PIN2 lukustub";
-"card-reader-state-initial" = "Allkirjastamiseks ühenda kaardilugeja telefoniga ja sisesta enda ID-kaart lugejasse";
+"card-reader-state-initial" = "Allkirjastamiseks ühenda kaardilugeja telefoniga ja sisesta enda ID-kaart lugejasse.\nKui kasutad Bluetooth lugejat siis veendu, et telefonis on sisse lülitatud Bluetooth";
 "pin2-textfield-label" = "PIN2";
 "pin2-blocked-alert" = "PIN2 blokeeritud.\nMine Minu eID vaatele, et avada PIN2";
 "generic-error-message" = "Midagi läks valesti. Palun proovi uuesti";
