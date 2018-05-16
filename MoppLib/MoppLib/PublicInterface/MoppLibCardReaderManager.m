@@ -37,7 +37,7 @@
 @property (nonatomic, strong) ReaderInterface *readerInterface;
 @property (nonatomic, strong) NSTimer *cardStatusPollingTimer;
 @property (nonatomic) MoppLibCardReaderStatus status;
-@property (nonatomic, strong) CardReaderiR301 *reader;
+@property (nonatomic, strong) CardReaderiR301 *feitianReader;
 #pragma mark BlueTooth
 @property (nonatomic, strong) CBCentralManager *coreBluetoothManager;
 @property (nonatomic) BOOL scanningBluetoothPeripherals;
@@ -74,22 +74,32 @@
 }
 
 - (void)startDiscoveringFeitianReader {
-    [self updateStatus:ReaderNotConnected];
-    SCardEstablishContext(SCARD_SCOPE_SYSTEM, NULL, NULL, &_contextHandle);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateStatus:ReaderNotConnected];
+        SCardEstablishContext(SCARD_SCOPE_SYSTEM, NULL, NULL, &_contextHandle);
+    });
 }
 
 - (void)stopDiscoveringFeitianReader {
-    if (_status == CardConnected) {
-        [self disconnectCard];
-    }
-    
-    if (_cardStatusPollingTimer != nil) {
-        [_cardStatusPollingTimer invalidate];
-        _cardStatusPollingTimer = nil;
-    }
-    
-    FtDidEnterBackground(1);
-    SCardReleaseContext(_contextHandle);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (_status == CardConnected) {
+            [self disconnectCard];
+        }
+        
+        if (_cardStatusPollingTimer != nil) {
+            [_cardStatusPollingTimer invalidate];
+            _cardStatusPollingTimer = nil;
+        }
+        
+        FtDidEnterBackground(1);
+        SCardCancel(_contextHandle);
+        SCardReleaseContext(_contextHandle);
+        
+        _feitianReader = nil;
+        if ([[[CardActionsManager sharedInstance] cardReader] isKindOfClass:[CardReaderiR301 class]]) {
+            [[CardActionsManager sharedInstance] setCardReader:nil];
+        }
+    });
 }
 
 - (void)handleCardStatus {
@@ -220,14 +230,22 @@
 #pragma mark Bluetooth
 
 - (void)startDiscoveringBluetoothPeripherals {
-    _peripherals = nil;
-    _scanningBluetoothPeripherals = YES;
-    _coreBluetoothManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:@{CBCentralManagerOptionShowPowerAlertKey: [NSNumber numberWithBool:YES]}];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _peripherals = nil;
+        _scanningBluetoothPeripherals = YES;
+        _coreBluetoothManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:@{CBCentralManagerOptionShowPowerAlertKey: [NSNumber numberWithBool:YES]}];
+    });
 }
 
 - (void)stopDiscoveringBluetoothPeripherals {
-    [_coreBluetoothManager stopScan];
-    _coreBluetoothManager = nil;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_coreBluetoothManager stopScan];
+        _coreBluetoothManager = nil;
+        
+        if ([[[CardActionsManager sharedInstance] cardReader] isKindOfClass:[CardReaderACR3901U_S1 class]]) {
+            [[CardActionsManager sharedInstance] setCardReader:nil];
+        }
+    });
 }
 
 #pragma mark CBCentralManagerDelegate
