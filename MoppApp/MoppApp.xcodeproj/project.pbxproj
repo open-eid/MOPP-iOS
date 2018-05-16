@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		063A655C7ECF195296250527 /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
+		390C016520AC3FF300827230 /* CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39852A6120AB2949004CB100 /* CryptoLib.framework */; };
+		390C016620AC3FF300827230 /* CryptoLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 39852A6120AB2949004CB100 /* CryptoLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		390C016E20AC44BA00827230 /* cdoc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 390C016A20AC430300827230 /* cdoc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		51EAB865AC99468B5AC77D6C /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
 		540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.swift */; };
 		547BDF251E8BEFA30093931F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
@@ -202,7 +206,6 @@
 		C5D057412028835000875F44 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C6203201A0D9300CCC2A5 /* MenuCell.swift */; };
 		C5D057422028835000875F44 /* ContainerTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD0C1FC7147100D48E16 /* ContainerTableViewHeaderView.swift */; };
 		C5D057442028835000875F44 /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; };
-		C5D057452028835000875F44 /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
 		C5D057472028835000875F44 /* presentation.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E4C53F361E2FAE6C00F209BE /* presentation.pdf */; };
 		C5D057482028835000875F44 /* RobotoCondensed-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCD71FC5741800D48E16 /* RobotoCondensed-Bold.ttf */; };
 		C5D057492028835000875F44 /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCE11FC5741900D48E16 /* Roboto-LightItalic.ttf */; };
@@ -332,6 +335,8 @@
 			dstSubfolderSpec = 10;
 			files = (
 				E4250D071E0A911100530370 /* MoppLib.framework in Embed Frameworks */,
+				390C016E20AC44BA00827230 /* cdoc.framework in Embed Frameworks */,
+				390C016620AC3FF300827230 /* CryptoLib.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,6 +344,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		390C016A20AC430300827230 /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = ../CryptoLib/CryptoLib/cdoc.framework; sourceTree = "<group>"; };
+		39852A6120AB2949004CB100 /* CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F911EB9E3AB94D442FA9F9D /* Pods-MoppApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.release.xcconfig"; sourceTree = "<group>"; };
 		540786E81E1A76640016ABA7 /* UITextView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Additions.swift"; sourceTree = "<group>"; };
 		54825EF41E1CFE9600253FF0 /* Date+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Additions.swift"; sourceTree = "<group>"; };
 		54825EF71E1D270F00253FF0 /* String+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Additions.swift"; sourceTree = "<group>"; };
@@ -353,8 +361,7 @@
 		54A5729E1E82AC760099BFAF /* AppStore.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppStore.plist; sourceTree = "<group>"; };
 		54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Landing.storyboard; sourceTree = "<group>"; };
 		6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7B5F907F55A4D9D1590D35CB /* Pods-MoppApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.release.xcconfig"; sourceTree = "<group>"; };
-		A0A7AA11ECD67C1248EED708 /* Pods-MoppApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.debug.xcconfig"; sourceTree = "<group>"; };
+		A3E46CB1F1CE88C94094587D /* Pods-MoppApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.debug.xcconfig"; sourceTree = "<group>"; };
 		C506EC7B1FB9CBFD00E07226 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C506EC7D1FB9D5A000E07226 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C506EC801FB9F4AF00E07226 /* UIImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Additions.swift"; sourceTree = "<group>"; };
@@ -516,7 +523,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5D057442028835000875F44 /* MoppLib.framework in Frameworks */,
-				C5D057452028835000875F44 /* Pods_MoppApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,9 +530,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				390C016520AC3FF300827230 /* CryptoLib.framework in Frameworks */,
 				C55BB1CC2091BD2000618AC4 /* WebKit.framework in Frameworks */,
 				E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */,
 				51EAB865AC99468B5AC77D6C /* Pods_MoppApp.framework in Frameworks */,
+				063A655C7ECF195296250527 /* Pods_MoppApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -570,8 +578,8 @@
 		BC2D5E4C8EAB0299962763A0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A0A7AA11ECD67C1248EED708 /* Pods-MoppApp.debug.xcconfig */,
-				7B5F907F55A4D9D1590D35CB /* Pods-MoppApp.release.xcconfig */,
+				A3E46CB1F1CE88C94094587D /* Pods-MoppApp.debug.xcconfig */,
+				3F911EB9E3AB94D442FA9F9D /* Pods-MoppApp.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -917,6 +925,8 @@
 		F9074FEF4DC2DB83A60B75B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				390C016A20AC430300827230 /* cdoc.framework */,
+				39852A6120AB2949004CB100 /* CryptoLib.framework */,
 				C55BB1CB2091BD2000618AC4 /* WebKit.framework */,
 				E4250D051E0A911100530370 /* MoppLib.framework */,
 				6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */,
@@ -948,13 +958,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C5D0577D2028835000875F44 /* Build configuration list for PBXNativeTarget "MoppAppTestDDS" */;
 			buildPhases = (
-				C5D057082028835000875F44 /* [CP] Check Pods Manifest.lock */,
 				C5D057092028835000875F44 /* Sources */,
 				C5D057432028835000875F44 /* Frameworks */,
 				C5D057462028835000875F44 /* Resources */,
 				C5D057752028835000875F44 /* Set GH build number to plist */,
-				C5D057762028835000875F44 /* [CP] Embed Pods Frameworks */,
-				C5D057772028835000875F44 /* [CP] Copy Pods Resources */,
 				C5D057782028835000875F44 /* Embed Frameworks */,
 				C5D0577A2028835000875F44 /* ShellScript */,
 				C5D0577B2028835000875F44 /* Embed App Extensions */,

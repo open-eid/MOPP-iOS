@@ -1,0 +1,509 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		390C015D20AC3D7300827230 /* cdoc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 390C015C20AC3D7200827230 /* cdoc.framework */; };
+		390C015F20AC3DC800827230 /* libldap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 390C015E20AC3DC700827230 /* libldap.a */; };
+		390C016120AC3DE000827230 /* liblber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 390C016020AC3DE000827230 /* liblber.a */; };
+		39231FAF20AB1C6C00E1E2B4 /* CryptoLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 39231FAD20AB1C6C00E1E2B4 /* CryptoLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		39852A3C20AB20C6004CB100 /* AttributeSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A3820AB20C6004CB100 /* AttributeSet.h */; };
+		39852A3D20AB20C6004CB100 /* Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 39852A3920AB20C6004CB100 /* Attribute.m */; };
+		39852A3E20AB20C6004CB100 /* Attribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A3A20AB20C6004CB100 /* Attribute.h */; };
+		39852A3F20AB20C6004CB100 /* AttributeSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 39852A3B20AB20C6004CB100 /* AttributeSet.m */; };
+		39852A4B20AB2418004CB100 /* CdocReaderWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4120AB2418004CB100 /* CdocReaderWrapper.h */; };
+		39852A4C20AB2418004CB100 /* CdocWriterWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4220AB2418004CB100 /* CdocWriterWrapper.h */; };
+		39852A4D20AB2418004CB100 /* base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4320AB2418004CB100 /* base64.h */; };
+		39852A4E20AB2418004CB100 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39852A4420AB2418004CB100 /* base64.cpp */; };
+		39852A4F20AB2418004CB100 /* ApduToken.mm in Sources */ = {isa = PBXBuildFile; fileRef = 39852A4520AB2418004CB100 /* ApduToken.mm */; };
+		39852A5020AB2418004CB100 /* XmlParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 39852A4620AB2418004CB100 /* XmlParserDelegate.m */; };
+		39852A5120AB2418004CB100 /* ApduToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4720AB2418004CB100 /* ApduToken.h */; };
+		39852A5220AB2418004CB100 /* CdocReaderWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 39852A4820AB2418004CB100 /* CdocReaderWrapper.mm */; };
+		39852A5320AB2418004CB100 /* CdocWriterWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 39852A4920AB2418004CB100 /* CdocWriterWrapper.mm */; };
+		39852A5420AB2418004CB100 /* XmlParserDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4A20AB2418004CB100 /* XmlParserDelegate.h */; };
+		39852A5720AB249A004CB100 /* LdapResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A5520AB2499004CB100 /* LdapResponse.h */; };
+		39852A5820AB249A004CB100 /* LdapResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 39852A5620AB249A004CB100 /* LdapResponse.m */; };
+		39852A5D20AB24A0004CB100 /* ResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 39852A5920AB249F004CB100 /* ResultSet.m */; };
+		39852A5E20AB24A0004CB100 /* OpenLdap.m in Sources */ = {isa = PBXBuildFile; fileRef = 39852A5A20AB249F004CB100 /* OpenLdap.m */; };
+		39852A5F20AB24A0004CB100 /* OpenLdap.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A5B20AB24A0004CB100 /* OpenLdap.h */; };
+		39852A6020AB24A0004CB100 /* ResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A5C20AB24A0004CB100 /* ResultSet.h */; };
+		D1E62632CCCD9195F3D8E2EE /* Pods_CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2337FC39B457D26F7140179 /* Pods_CryptoLib.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		390C015C20AC3D7200827230 /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = CryptoLib/cdoc.framework; sourceTree = "<group>"; };
+		390C015E20AC3DC700827230 /* libldap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libldap.a; path = CryptoLib/openldap/OpenLDAP.iphoneos/libraries/libldap.a; sourceTree = "<group>"; };
+		390C016020AC3DE000827230 /* liblber.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblber.a; path = CryptoLib/openldap/OpenLDAP.iphoneos/libraries/liblber.a; sourceTree = "<group>"; };
+		39231FAA20AB1C6C00E1E2B4 /* CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		39231FAD20AB1C6C00E1E2B4 /* CryptoLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptoLib.h; sourceTree = "<group>"; };
+		39231FAE20AB1C6C00E1E2B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		39852A3820AB20C6004CB100 /* AttributeSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttributeSet.h; sourceTree = "<group>"; };
+		39852A3920AB20C6004CB100 /* Attribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attribute.m; sourceTree = "<group>"; };
+		39852A3A20AB20C6004CB100 /* Attribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attribute.h; sourceTree = "<group>"; };
+		39852A3B20AB20C6004CB100 /* AttributeSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttributeSet.m; sourceTree = "<group>"; };
+		39852A4120AB2418004CB100 /* CdocReaderWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CdocReaderWrapper.h; sourceTree = "<group>"; };
+		39852A4220AB2418004CB100 /* CdocWriterWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CdocWriterWrapper.h; sourceTree = "<group>"; };
+		39852A4320AB2418004CB100 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
+		39852A4420AB2418004CB100 /* base64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base64.cpp; sourceTree = "<group>"; };
+		39852A4520AB2418004CB100 /* ApduToken.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ApduToken.mm; sourceTree = "<group>"; };
+		39852A4620AB2418004CB100 /* XmlParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XmlParserDelegate.m; sourceTree = "<group>"; };
+		39852A4720AB2418004CB100 /* ApduToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApduToken.h; sourceTree = "<group>"; };
+		39852A4820AB2418004CB100 /* CdocReaderWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CdocReaderWrapper.mm; sourceTree = "<group>"; };
+		39852A4920AB2418004CB100 /* CdocWriterWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CdocWriterWrapper.mm; sourceTree = "<group>"; };
+		39852A4A20AB2418004CB100 /* XmlParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XmlParserDelegate.h; sourceTree = "<group>"; };
+		39852A5520AB2499004CB100 /* LdapResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LdapResponse.h; sourceTree = "<group>"; };
+		39852A5620AB249A004CB100 /* LdapResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LdapResponse.m; sourceTree = "<group>"; };
+		39852A5920AB249F004CB100 /* ResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultSet.m; sourceTree = "<group>"; };
+		39852A5A20AB249F004CB100 /* OpenLdap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenLdap.m; sourceTree = "<group>"; };
+		39852A5B20AB24A0004CB100 /* OpenLdap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenLdap.h; sourceTree = "<group>"; };
+		39852A5C20AB24A0004CB100 /* ResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultSet.h; sourceTree = "<group>"; };
+		8B92C4AD1DA967C9A6803AA8 /* Pods-CryptoLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoLib.release.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-CryptoLib/Pods-CryptoLib.release.xcconfig"; sourceTree = "<group>"; };
+		96E123961B6332200D700AC2 /* Pods-CryptoLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoLib.debug.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-CryptoLib/Pods-CryptoLib.debug.xcconfig"; sourceTree = "<group>"; };
+		B2337FC39B457D26F7140179 /* Pods_CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		39231FA620AB1C6C00E1E2B4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				390C016120AC3DE000827230 /* liblber.a in Frameworks */,
+				390C015F20AC3DC800827230 /* libldap.a in Frameworks */,
+				390C015D20AC3D7300827230 /* cdoc.framework in Frameworks */,
+				D1E62632CCCD9195F3D8E2EE /* Pods_CryptoLib.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2F17A286E2A2AF6B019B41A6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				96E123961B6332200D700AC2 /* Pods-CryptoLib.debug.xcconfig */,
+				8B92C4AD1DA967C9A6803AA8 /* Pods-CryptoLib.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		39231FA020AB1C6C00E1E2B4 = {
+			isa = PBXGroup;
+			children = (
+				39231FAC20AB1C6C00E1E2B4 /* CryptoLib */,
+				39231FAB20AB1C6C00E1E2B4 /* Products */,
+				2F17A286E2A2AF6B019B41A6 /* Pods */,
+				D5B2B96758D5CBE2A4F80170 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		39231FAB20AB1C6C00E1E2B4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				39231FAA20AB1C6C00E1E2B4 /* CryptoLib.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		39231FAC20AB1C6C00E1E2B4 /* CryptoLib */ = {
+			isa = PBXGroup;
+			children = (
+				39852A4020AB2418004CB100 /* Wrapper */,
+				39852A3A20AB20C6004CB100 /* Attribute.h */,
+				39852A3920AB20C6004CB100 /* Attribute.m */,
+				39852A3820AB20C6004CB100 /* AttributeSet.h */,
+				39852A3B20AB20C6004CB100 /* AttributeSet.m */,
+				39852A5B20AB24A0004CB100 /* OpenLdap.h */,
+				39852A5A20AB249F004CB100 /* OpenLdap.m */,
+				39852A5C20AB24A0004CB100 /* ResultSet.h */,
+				39852A5920AB249F004CB100 /* ResultSet.m */,
+				39852A5520AB2499004CB100 /* LdapResponse.h */,
+				39852A5620AB249A004CB100 /* LdapResponse.m */,
+				39231FAE20AB1C6C00E1E2B4 /* Info.plist */,
+				39231FAD20AB1C6C00E1E2B4 /* CryptoLib.h */,
+			);
+			path = CryptoLib;
+			sourceTree = "<group>";
+		};
+		39852A4020AB2418004CB100 /* Wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				39852A4120AB2418004CB100 /* CdocReaderWrapper.h */,
+				39852A4220AB2418004CB100 /* CdocWriterWrapper.h */,
+				39852A4320AB2418004CB100 /* base64.h */,
+				39852A4420AB2418004CB100 /* base64.cpp */,
+				39852A4520AB2418004CB100 /* ApduToken.mm */,
+				39852A4620AB2418004CB100 /* XmlParserDelegate.m */,
+				39852A4720AB2418004CB100 /* ApduToken.h */,
+				39852A4820AB2418004CB100 /* CdocReaderWrapper.mm */,
+				39852A4920AB2418004CB100 /* CdocWriterWrapper.mm */,
+				39852A4A20AB2418004CB100 /* XmlParserDelegate.h */,
+			);
+			path = Wrapper;
+			sourceTree = "<group>";
+		};
+		D5B2B96758D5CBE2A4F80170 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				390C016020AC3DE000827230 /* liblber.a */,
+				390C015E20AC3DC700827230 /* libldap.a */,
+				390C015C20AC3D7200827230 /* cdoc.framework */,
+				B2337FC39B457D26F7140179 /* Pods_CryptoLib.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		39231FA720AB1C6C00E1E2B4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				39852A4C20AB2418004CB100 /* CdocWriterWrapper.h in Headers */,
+				39852A3C20AB20C6004CB100 /* AttributeSet.h in Headers */,
+				39852A5420AB2418004CB100 /* XmlParserDelegate.h in Headers */,
+				39231FAF20AB1C6C00E1E2B4 /* CryptoLib.h in Headers */,
+				39852A4B20AB2418004CB100 /* CdocReaderWrapper.h in Headers */,
+				39852A5720AB249A004CB100 /* LdapResponse.h in Headers */,
+				39852A6020AB24A0004CB100 /* ResultSet.h in Headers */,
+				39852A3E20AB20C6004CB100 /* Attribute.h in Headers */,
+				39852A5120AB2418004CB100 /* ApduToken.h in Headers */,
+				39852A4D20AB2418004CB100 /* base64.h in Headers */,
+				39852A5F20AB24A0004CB100 /* OpenLdap.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		39231FA920AB1C6C00E1E2B4 /* CryptoLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 39231FB220AB1C6C00E1E2B4 /* Build configuration list for PBXNativeTarget "CryptoLib" */;
+			buildPhases = (
+				3419AB27DCA4FCE170E3B11B /* [CP] Check Pods Manifest.lock */,
+				39231FA520AB1C6C00E1E2B4 /* Sources */,
+				39231FA620AB1C6C00E1E2B4 /* Frameworks */,
+				39231FA720AB1C6C00E1E2B4 /* Headers */,
+				39231FA820AB1C6C00E1E2B4 /* Resources */,
+				4F76331712D4079F3B157B07 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CryptoLib;
+			productName = CryptoLib;
+			productReference = 39231FAA20AB1C6C00E1E2B4 /* CryptoLib.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		39231FA120AB1C6C00E1E2B4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = "Siim Suu";
+				TargetAttributes = {
+					39231FA920AB1C6C00E1E2B4 = {
+						CreatedOnToolsVersion = 9.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 39231FA420AB1C6C00E1E2B4 /* Build configuration list for PBXProject "CryptoLib" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 39231FA020AB1C6C00E1E2B4;
+			productRefGroup = 39231FAB20AB1C6C00E1E2B4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				39231FA920AB1C6C00E1E2B4 /* CryptoLib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		39231FA820AB1C6C00E1E2B4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3419AB27DCA4FCE170E3B11B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CryptoLib-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4F76331712D4079F3B157B07 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../MoppApp/Pods/Target Support Files/Pods-CryptoLib/Pods-CryptoLib-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		39231FA520AB1C6C00E1E2B4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				39852A5020AB2418004CB100 /* XmlParserDelegate.m in Sources */,
+				39852A5820AB249A004CB100 /* LdapResponse.m in Sources */,
+				39852A3D20AB20C6004CB100 /* Attribute.m in Sources */,
+				39852A5D20AB24A0004CB100 /* ResultSet.m in Sources */,
+				39852A5E20AB24A0004CB100 /* OpenLdap.m in Sources */,
+				39852A3F20AB20C6004CB100 /* AttributeSet.m in Sources */,
+				39852A5220AB2418004CB100 /* CdocReaderWrapper.mm in Sources */,
+				39852A5320AB2418004CB100 /* CdocWriterWrapper.mm in Sources */,
+				39852A4E20AB2418004CB100 /* base64.cpp in Sources */,
+				39852A4F20AB2418004CB100 /* ApduToken.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		39231FB020AB1C6C00E1E2B4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		39231FB120AB1C6C00E1E2B4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		39231FB320AB1C6C00E1E2B4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96E123961B6332200D700AC2 /* Pods-CryptoLib.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/CryptoLib";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/include";
+				INFOPLIST_FILE = CryptoLib/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries",
+					"$(PROJECT_DIR)/CryptoLib/openldap/OpenLDAP.iphoneos/libraries",
+				);
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = ria.ee.digidoc.CryptoLib;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		39231FB420AB1C6C00E1E2B4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8B92C4AD1DA967C9A6803AA8 /* Pods-CryptoLib.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/CryptoLib";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/include";
+				INFOPLIST_FILE = CryptoLib/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries",
+					"$(PROJECT_DIR)/CryptoLib/openldap/OpenLDAP.iphoneos/libraries",
+				);
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = ria.ee.digidoc.CryptoLib;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		39231FA420AB1C6C00E1E2B4 /* Build configuration list for PBXProject "CryptoLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				39231FB020AB1C6C00E1E2B4 /* Debug */,
+				39231FB120AB1C6C00E1E2B4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		39231FB220AB1C6C00E1E2B4 /* Build configuration list for PBXNativeTarget "CryptoLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				39231FB320AB1C6C00E1E2B4 /* Debug */,
+				39231FB420AB1C6C00E1E2B4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 39231FA120AB1C6C00E1E2B4 /* Project object */;
+}
