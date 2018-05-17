@@ -36,7 +36,6 @@ let kKeyFileImportIntent = "fileImportIntent"
 extension Notification.Name {
     static let containerChangedNotificationName = Notification.Name("Notification - container changed")
     static let settingsChangedNotificationName = Notification.Name("Notification - settigns changed")
-    static let willEnterForegroundNotificationName = Notification.Name("Notification - will enter foreground")
     static let createSignatureNotificationName = Notification.Name("MobileCreateSignatureNotification")
     static let signatureAddedToContainerNotificationName = Notification.Name("SignatureAddedToContainer")
     static let errorNotificationName = Notification.Name("ErrorNotification")
