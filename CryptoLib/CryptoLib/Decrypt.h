@@ -7,8 +7,6 @@
 //
 
 
-
-
 #ifndef CdocWriter_h
 #define CdocWriter_h
 
@@ -20,7 +18,7 @@
 #if __cplusplus
 #import "cdoc/CdocReader.h"
 #endif
-@interface CdocReaderWrapper : NSObject
+@interface Decrypt : NSObject
 - (BOOL)decryptFile: (NSString *)fullPath withPin :(NSString *) pin withController :(UIViewController *) controller;
 @end
 

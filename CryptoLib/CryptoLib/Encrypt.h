@@ -12,7 +12,7 @@
 #if __cplusplus
 #import "cdoc/CdocWriter.h"
 #endif
-@interface CdocWriterWrapper : NSObject
+@interface Encrypt : NSObject
 - (void)encryptFile: (NSString *)fullPath withPath :(NSString *) dataFilePath withCert: (NSData *) data withName: (NSString *) filename;
 @end
 

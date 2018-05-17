@@ -21,8 +21,8 @@ public:
     ApduToken(const std::string &password,  UIViewController *controller);
     ApduToken();
     virtual std::vector<uchar> cert() const override;
-    std::vector<uchar> decrypt(const std::vector<uchar> &data) const override;
-    std::vector<uchar> derive(const std::vector<uchar> &publicKey) const override;
+    virtual std::vector<uchar> decrypt(const std::vector<uchar> &data) const override;
+    virtual std::vector<uchar> derive(const std::vector<uchar> &publicKey) const override;
 private:
     DISABLE_COPY(ApduToken);
     class Private;

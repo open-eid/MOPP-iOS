@@ -6,7 +6,7 @@
 //  Copyright © 2018 Siim Suu. All rights reserved.
 //
 
-#import "CdocReaderWrapper.h"
+#import "Decrypt.h"
 #import "cdoc/CdocReader.h"
 #import "cdoc/Token.h"
 #import "ApduToken.h"
@@ -14,7 +14,7 @@
 #import "base64.h"
 #import <UIKit/UIKit.h>
 
-@implementation CdocReaderWrapper
+@implementation Decrypt
 
 - (BOOL)decryptFile: (NSString *)fullPath withPin :(NSString *) pin withController :(UIViewController *) controller {
     
@@ -31,7 +31,7 @@
     if(response.empty()){
         return NO;
     }
-    std::string encoded = base64_encode(reinterpret_cast<const unsigned char*>(&response[0]), response.size());
+    std::string encoded = base64_encode(reinterpret_cast<const unsigned char*>(&response[0]), (uint32_t)response.size());
     std::string filename = cdocReader.fileName();
     std::string mimetype = cdocReader.mimeType();
     NSString* result2 = [NSString stringWithUTF8String:encoded.c_str()];
@@ -44,7 +44,7 @@
     if([[nsFilename pathExtension] isEqualToString: @"ddoc"]){
         NSXMLParser *parser = [[NSXMLParser alloc] initWithData:nsdataFromBase64String];
         XmlParserDelegate *parserDelegate = [[XmlParserDelegate alloc] init];
-        [parser setDelegate:parserDelegate];
+        [parser setDelegate:(id<NSXMLParserDelegate>)parserDelegate];
         [parser parse];
         NSMutableDictionary *fileDictionary;
         fileDictionary = parserDelegate.dictionary;

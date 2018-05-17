@@ -1,9 +1,9 @@
 
-#import "CdocWriterWrapper.h"
+#import "Encrypt.h"
 #import "cdoc/CdocWriter.h"
 
 
-@implementation CdocWriterWrapper
+@implementation Encrypt
 
 - (void)encryptFile : (NSString *)fullPath withPath: (NSString *) dataFilePath withCert: (NSData *) cert withName: (NSString *) filename {
     
@@ -30,7 +30,6 @@
     cdocWriter.addRecipient(result);
     cdocWriter.encrypt();
 
-    
 }
 
 @end
