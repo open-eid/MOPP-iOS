@@ -47,7 +47,9 @@
 }
 
 -(void) parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-    if (string != nil && [string length] != 0 && ![string isEqualToString:@"\n    "] && ![string isEqualToString:@"\n"]){
+    
+    // If parsing ddoc original filenames, sometimes filename may contain new line symbols
+    if (string != nil && [string length] != 0 && ![string isEqualToString:@"\n    "] && ![string isEqualToString:@"\n"]){ 
         string = [string stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
         [_dictionary setValue:string forKey:_lastKey];
     }
