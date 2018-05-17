@@ -450,7 +450,7 @@
 					"$(PROJECT_DIR)/CryptoLib/openldap/OpenLDAP.iphoneos/libraries",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = ria.ee.digidoc.CryptoLib;
+				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.CryptoLib;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -480,7 +480,7 @@
 					"$(PROJECT_DIR)/CryptoLib/openldap/OpenLDAP.iphoneos/libraries",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = ria.ee.digidoc.CryptoLib;
+				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.CryptoLib;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
