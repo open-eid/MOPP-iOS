@@ -16,18 +16,16 @@
 
 @implementation Decrypt
 
-- (BOOL)decryptFile: (NSString *)fullPath withPin :(NSString *) pin withController :(UIViewController *) controller {
+- (BOOL)decryptFile: (NSString *)fullPath withPin :(NSString *) pin withToken :(ApduToken *) apduToken {
     
     std::string encodedFullPath = std::string([fullPath UTF8String]);
     std::string encodedPin = std::string([pin UTF8String]);
     CDOCReader cdocReader(encodedFullPath);
     
-    ApduToken apduToken(encodedPin, controller);
-    
-    Token *s;
-    s = &apduToken;
+    Token *token;
+    token = apduToken;
 
-    std::vector<unsigned char> response = cdocReader.decryptData(s);
+    std::vector<unsigned char> response = cdocReader.decryptData(token);
     if(response.empty()){
         return NO;
     }

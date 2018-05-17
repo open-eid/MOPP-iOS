@@ -15,11 +15,13 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "ApduToken.h"
 #if __cplusplus
 #import "cdoc/CdocReader.h"
 #endif
 @interface Decrypt : NSObject
-- (BOOL)decryptFile: (NSString *)fullPath withPin :(NSString *) pin withController :(UIViewController *) controller;
+
+- (BOOL)decryptFile: (NSString *)fullPath withPin :(NSString *) pin withToken :(ApduToken *) apduToken;
 @end
 
 
