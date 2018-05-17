@@ -32,8 +32,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         return (application as! MoppApp).didFinishLaunchingWithOptions(launchOptions: launchOptions)
     }
 
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        return (application as! MoppApp).openUrl(url: url, sourceApplication: sourceApplication, annotation: annotation)
+    func application(_ application: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        return (application as! MoppApp).openUrl(url: url, options: options)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
