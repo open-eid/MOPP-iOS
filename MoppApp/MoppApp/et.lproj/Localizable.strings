@@ -114,13 +114,14 @@
 "recent-containers-empty-search-message" = "Dokumenti ei leitud";
 "sign-title-mobile-id" = "Mobiil-ID";
 "sign-title-id-card" = "ID kaart";
-"card-reader-state-reader-not-found" = "Ühtegi kaardilugejate pole ühendatud";
+"card-reader-state-reader-not-found" = "Ühtegi kaardilugejat pole ühendatud";
 "card-reader-state-id-card-not-found" = "Kaardilugeja leitud.\nSisesta ID-kaart lugejasse.";
+"card-reader-state-id-card-connected" = "ID-kaart leitud.\nPärin andmeid.";
 "card-reader-state-ready" = "Valmis allkirjastamiseks ID-kaardiga.\n%@ (%@)\nSisesta PIN2";
 "signing-in-progress" = "Toimub allkirjastamine.\nPalun oota.";
 "wrong-pin2" = "Vale PIN2. %d katset järgi.\nSisestades %d korda vale PIN2 sinu PIN2 lukustub";
 "wrong-pin2-single" = "Vale PIN2. 1 katse järgi.Sisestades vale PIN2-e sinu PIN2 lukustub";
-"card-reader-state-initial" = "Allkirjastamiseks ühenda kaardilugeja telefoniga ja sisesta enda ID-kaart lugejasse";
+"card-reader-state-initial" = "Allkirjastamiseks ühenda kaardilugeja telefoniga ja sisesta enda ID-kaart lugejasse.\nKui kasutad Bluetooth lugejat siis veendu, et telefonis on sisse lülitatud Bluetooth";
 "pin2-textfield-label" = "PIN2";
 "pin2-blocked-alert" = "PIN2 blokeeritud.\nMine Minu eID vaatele, et avada PIN2";
 "generic-error-message" = "Midagi läks valesti. Palun proovi uuesti";

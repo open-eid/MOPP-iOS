@@ -49,7 +49,7 @@ class MyeIDViewController : MoppViewController {
                 statusVC?.state = .readerNotFound
         
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-                MoppLibCardReaderManager.sharedInstance().startDetecting()
+                MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
             })
         }
     }
@@ -57,7 +57,7 @@ class MyeIDViewController : MoppViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if !changingCodesVCPresented {
-            MoppLibCardReaderManager.sharedInstance().stopDetecting()
+            MoppLibCardReaderManager.sharedInstance().stopDiscoveringReaders()
         }
     }
     

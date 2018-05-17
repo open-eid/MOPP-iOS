@@ -24,11 +24,12 @@
 #import "CardReaderWrapper.h"
 #import "MoppLibConstants.h"
 #import "ReaderInterface.h"
+#import "winscard.h"
 
 @interface CardReaderiR301 : NSObject <CardReaderWrapper>
 
 @property (nonatomic, strong) id<CardReaderWrapperDelegate> delegate;
--(id)initWithInterface:(ReaderInterface*)interface;
+-(id)initWithInterface:(ReaderInterface*)interface andContentHandle:(SCARDHANDLE)contextHandle;
 -(void)setupWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 @end

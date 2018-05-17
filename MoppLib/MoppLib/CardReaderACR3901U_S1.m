@@ -73,11 +73,12 @@
 
 - (void)setSuccessBlock:(DataSuccessBlock)successBlock {
   @synchronized (self) {
+  
     if (self.successBlock != nil && successBlock != nil) {
-      MLLog(@"ERROR: tried to start new reader action before previous one was finished");
-    } else {
-      _successBlock = successBlock;
+        MLLog(@"WARNING: overwriting existing success block");
     }
+    
+    _successBlock = successBlock;
   }
 }
 
@@ -85,10 +86,10 @@
   @synchronized (self) {
     
     if (self.failureBlock != nil && failureBlock != nil) {
-      MLLog(@"ERROR: tried to start new reader action before previous one was finished");
-    } else {
-      _failureBlock = failureBlock;
+      MLLog(@"WARNING: overwriting existing failure block");
     }
+    
+    _failureBlock = failureBlock;
   }
 }
 
@@ -135,19 +136,19 @@
 }
 
 - (void)isCardInserted:(void(^)(BOOL)) completion {
-  //if (self.cardStatus == ABTBluetoothReaderCardStatusPowerSavingMode) {
     [self getCardStatusWithSuccess:^(NSData *responseObject) {
       completion(self.cardStatus == ABTBluetoothReaderCardStatusPresent || self.cardStatus == ABTBluetoothReaderCardStatusPowered);
       
     } failure:^(NSError *error) {
+      MLLog(@"getCardStatus ERROR: %@", error);
       completion(NO);
     }];
- // } else {
- //   completion(self.cardStatus == ABTBluetoothReaderCardStatusPresent || self.cardStatus == ABTBluetoothReaderCardStatusPowered);
- // }
 }
 
 - (BOOL)isConnected {
+  if (self.peripheral == nil) {
+    MLLog(@"_peripheral is nil");
+  }
   if (self.peripheral && self.peripheral.state == CBPeripheralStateConnected) {
     return YES;
   }
@@ -169,7 +170,7 @@
   }
 }
 
-- (void)powerOnCard:(DataSuccessBlock)success failure:(FailureBlock)failure  {
+- (void)powerOnCard:(EmptySuccessBlock)success failure:(FailureBlock)failure  {
   MLLog(@"Power on card");
   self.successBlock = success;
   self.failureBlock = failure;
@@ -259,7 +260,16 @@
 }
 
 - (void)bluetoothReader:(ABTBluetoothReader *)bluetoothReader didChangeCardStatus:(ABTBluetoothReaderCardStatus)cardStatus error:(NSError *)error {
-  MLLog(@"Card status changed to %i", cardStatus);
+  switch (cardStatus) {
+  case ABTBluetoothReaderCardStatusAbsent:
+    MLLog(@"Card status changed to ABTBluetoothReaderCardStatusAbsent");
+    [_cr3901U_S1Delegate cardReaderACR3901U_S1StatusDidChange:ReaderConnected];
+    break;
+  case ABTBluetoothReaderCardStatusPresent:
+    MLLog(@"Card status changed to ABTBluetoothReaderCardStatusPresent");
+    [_cr3901U_S1Delegate cardReaderACR3901U_S1StatusDidChange:CardConnected];
+    break;
+  }
   self.cardStatus = cardStatus;
 }
 

@@ -114,9 +114,10 @@
 "recent-containers-empty-search-message" = "Document not found";
 "sign-title-mobile-id" = "Mobile-ID";
 "sign-title-id-card" = "ID Card";
-"card-reader-state-initial" = "Connect your card reader to your phone and insert ID-card into the reader.";
+"card-reader-state-initial" = "Connect your card reader to your phone and insert ID-card into the reader.\nIf you are using bluetooth reader, phone's bluetooth connection must be enabled.";
 "card-reader-state-reader-not-found" = "No card readers found";
 "card-reader-state-id-card-not-found" = "Reader found.\nInsert your ID-card into the reader.";
+"card-reader-state-id-card-connected" = "ID-card found.\nRequesting information.";
 "card-reader-state-ready" = "Ready to sign with ID-card.\n%@ (%@)\nPlease enter PIN2";
 "signing-in-progress" = "Signing in progress.\nPlease wait.";
 "wrong-pin2" = "Wrong PIN2. You have %d attempts left.\nBy typing wrong PIN2 %d more times, your PIN2 will be locked";
