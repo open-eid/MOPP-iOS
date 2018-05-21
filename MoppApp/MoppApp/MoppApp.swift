@@ -33,8 +33,6 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
 
     var landingViewController: LandingViewController?
     var tempUrl: URL?
-    var sourceApplication = ""
-    var annotation: Any?
     var crashReportCompletion: ((_ submit: Bool) -> Void)? = nil
     var downloadCompletion: (() -> Void)? = nil
     var window: UIWindow?
@@ -127,10 +125,8 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         landingViewController = UIStoryboard.landing.instantiateInitialViewController(of: LandingViewController.self)
         window?.rootViewController = landingViewController
         if let tempUrl = self.tempUrl {
-            _ = openUrl(url: tempUrl, sourceApplication: sourceApplication, annotation: annotation)
+            _ = openUrl(url: tempUrl, options: [:])
             self.tempUrl = nil
-            sourceApplication = String()
-            annotation = nil
         }
         if crashReportCompletion != nil {
             displayCrashReportDialog()
@@ -155,7 +151,7 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true)
     }
 
-    func openUrl(url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+    func openUrl(url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         if !url.absoluteString.isEmpty {
         
             // Let all the modal view controllers know that they should dismiss themselves
@@ -163,8 +159,6 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         
             // When app has just been launched, it may not be ready to deal with containers yet. We need to wait until libdigidocpp setup is complete.
             if landingViewController == nil {
-                self.annotation = annotation
-                self.sourceApplication = sourceApplication!
                 tempUrl = url
                 return true
             }
@@ -188,7 +182,6 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
 
     func willEnterForeground() {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-        NotificationCenter.default.post(name: .willEnterForegroundNotificationName, object: nil, userInfo: nil)
     }
 
     func didBecomeActive() {
