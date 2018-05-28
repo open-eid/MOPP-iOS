@@ -103,11 +103,10 @@
  * Signs container with certtificates on ID card. If document has already been signed by this certificate, they will be given an opportunity to cancel signing. If they cancel, signatureWasAdded will be set to NO in success block. Updated container will be included in success block if signing is successful. Otherwise it may be missing.\n\nInternet connection is needed for signing containers. 
  *
  * @param containerPath    Path to container.
- * @param controller    UIViewController for displaying alerts if needed.
  * @param success       Block to be called on successful completion of action. Includes container data as MoppLibContainer and BOOL to indicate if signature was added.
  * @param failure       Block to be called when action fails. Includes error.
  */
-- (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 controller:(UIViewController *)controller success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure;
+- (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure;
 
 
 

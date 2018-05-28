@@ -26,12 +26,12 @@
 
 @implementation MoppLibCardActions
 
-+ (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(PersonalDataBlock)success failure:(FailureBlock)failure {
-  [[CardActionsManager sharedInstance] cardPersonalDataWithViewController:controller success:success failure:failure];
++ (void)cardPersonalDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure {
+  [[CardActionsManager sharedInstance] cardPersonalDataWithSuccess:success failure:failure];
 }
 
-+ (void)minimalCardPersonalDataWithViewController:(UIViewController *)controller success:(PersonalDataBlock)success failure:(FailureBlock)failure {
-  [[CardActionsManager sharedInstance] minimalCardPersonalDataWithViewController:controller success:success failure:failure];
++ (void)minimalCardPersonalDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure {
+  [[CardActionsManager sharedInstance] minimalCardPersonalDataWithSuccess:success failure:failure];
 }
 
 + (void)isCardInserted:(void (^)(BOOL))completion {
@@ -42,24 +42,24 @@
   return [[CardActionsManager sharedInstance] isReaderConnected];
 }
 
-+ (void)signingCertWithViewController:(UIViewController *)controller success:(CertDataBlock)success failure:(FailureBlock)failure {
-  [[CardActionsManager sharedInstance] signingCertWithViewController:controller pin2:@"" success:success failure:failure];
++ (void)signingCertWithSuccess:(CertDataBlock)success failure:(FailureBlock)failure {
+  [[CardActionsManager sharedInstance] signingCertWithPin2:@"" success:success failure:failure];
 }
 
-+ (void)authenticationCertWithViewController:(UIViewController *)controller success:(CertDataBlock)success failure:(FailureBlock)failure {
-  [[CardActionsManager sharedInstance] authenticationCertWithViewController:controller success:success failure:failure];
++ (void)authenticationCertWithSuccess:(CertDataBlock)success failure:(FailureBlock)failure {
+  [[CardActionsManager sharedInstance] authenticationCertWithSuccess:success failure:failure];
 }
 
-+ (void)pin1RetryCountWithViewController:(UIViewController *)controller success:(void (^)(NSNumber *))success failure:(FailureBlock)failure {
-  [[CardActionsManager sharedInstance] code:CodeTypePin1 retryCountWithViewController:controller success:success failure:failure];
++ (void)pin1RetryCountWithSuccess:(void (^)(NSNumber *))success failure:(FailureBlock)failure {
+  [[CardActionsManager sharedInstance] code:CodeTypePin1 retryCountWithSuccess:success failure:failure];
 }
 
-+ (void)pin2RetryCountWithViewController:(UIViewController *)controller success:(void (^)(NSNumber *))success failure:(FailureBlock)failure {
-  [[CardActionsManager sharedInstance] code:CodeTypePin2 retryCountWithViewController:controller success:success failure:failure];
++ (void)pin2RetryCountWithSuccess:(void (^)(NSNumber *))success failure:(FailureBlock)failure {
+  [[CardActionsManager sharedInstance] code:CodeTypePin2 retryCountWithSuccess:success failure:failure];
 }
 
-+ (void)pukRetryCountWithViewController:(UIViewController *)controller success:(void (^)(NSNumber *))success failure:(FailureBlock)failure {
-  [[CardActionsManager sharedInstance] code:CodeTypePuk retryCountWithViewController:controller success:success failure:failure];
++ (void)pukRetryCountWithSuccess:(void (^)(NSNumber *))success failure:(FailureBlock)failure {
+  [[CardActionsManager sharedInstance] code:CodeTypePuk retryCountWithSuccess:success failure:failure];
 }
 
 @end

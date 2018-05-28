@@ -170,9 +170,9 @@ class MyeIDInfoManager {
             self?.delegate?.didCompleteInformationRequest(success: false)
         }
         
-        MoppLibCardActions.minimalCardPersonalData(with: viewController, success: { moppLibPersonalData in
-            MoppLibCardActions.authenticationCert(with: viewController, success: { moppLibAuthCertData in
-                MoppLibCardActions.signingCert(with: viewController, success: { [weak self] moppLibSignCertData in
+        MoppLibCardActions.minimalCardPersonalData(success: { moppLibPersonalData in
+            MoppLibCardActions.authenticationCert(success: { moppLibAuthCertData in
+                MoppLibCardActions.signingCert(success: { [weak self] moppLibSignCertData in
                     self?.requestRetryCounts(with: viewController, success: { [weak self] (pin1RetryCount, pin2RetryCount, pukRetryCount) in
                         guard let strongSelf = self else { return }
                         strongSelf.personalData = moppLibPersonalData
@@ -195,11 +195,11 @@ class MyeIDInfoManager {
         var pin1RetryCount:Int = 0
         var pin2RetryCount:Int = 0
         var pukRetryCount:Int = 0
-        MoppLibCardActions.pin1RetryCount(with: viewController, success: { number in
+        MoppLibCardActions.pin1RetryCount(success: { number in
             pin1RetryCount = number?.intValue ?? 0
-            MoppLibCardActions.pin2RetryCount(with: viewController, success: { number in
+            MoppLibCardActions.pin2RetryCount(success: { number in
                 pin2RetryCount = number?.intValue ?? 0
-                MoppLibCardActions.pukRetryCount(with: viewController, success: { number in
+                MoppLibCardActions.pukRetryCount(success: { number in
                     pukRetryCount = number?.intValue ?? 0
                     success(pin1RetryCount, pin2RetryCount, pukRetryCount)
                 }, failure: failure)
