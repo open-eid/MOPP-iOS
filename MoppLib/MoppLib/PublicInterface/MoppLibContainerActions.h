@@ -97,7 +97,7 @@
  * @param success       Block to be called on successful completion of action.
  * @param failure       Block to be called when action fails. Includes error.
  */
-- (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(void(^)(void))success failure:(FailureBlock)failure;
+- (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure;
 
 /**
  * Signs container with certtificates on ID card. If document has already been signed by this certificate, they will be given an opportunity to cancel signing. If they cancel, signatureWasAdded will be set to NO in success block. Updated container will be included in success block if signing is successful. Otherwise it may be missing.\n\nInternet connection is needed for signing containers. 
