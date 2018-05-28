@@ -33,8 +33,8 @@ class Session
     }
 
     func createMobileSignature(withContainer containerPath: String, idCode: String, language: String, phoneNumber: String) {
-        MoppLibContainerActions.sharedInstance().getContainerWithPath(
-            containerPath,
+        MoppLibContainerActions.sharedInstance().openContainer(
+            withPath: containerPath,
             success: { (_ initialContainer: MoppLibContainer!) -> Void in
                 MoppLibService.sharedInstance().mobileCreateSignature(
                     withContainer: containerPath,

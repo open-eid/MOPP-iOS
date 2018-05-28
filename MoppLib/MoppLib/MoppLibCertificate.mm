@@ -28,7 +28,7 @@
 
 @implementation MoppLibCertificate
 
-+ (void)certData:(MoppLibCertData *)certData updateWithData:(const unsigned char *)data length:(size_t)length {
++ (void)certData:(MoppLibCerificatetData *)certData updateWithData:(const unsigned char *)data length:(size_t)length {
   digidoc::X509Cert digiDocCert = [self digidocCertFrom:data length:length];
   
   certData.isValid = [self certificateIsValid:digiDocCert];
@@ -42,7 +42,7 @@
   return cert;
 }
 
-+ (MoppLibCertOrganization)certificateOrganization:(digidoc::X509Cert)cert {
++ (MoppLibCertificateOrganization)certificateOrganization:(digidoc::X509Cert)cert {
   X509 *certificateX509 = cert.handle();
   
   if (certificateX509 != NULL) {

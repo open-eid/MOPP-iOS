@@ -1,5 +1,5 @@
 //
-//  MoppLibCertificate.h
+//  MoppLibCertData.h
 //  MoppLib
 //
 /*
@@ -21,9 +21,22 @@
  *
  */
 
-#include <Foundation/Foundation.h>
-#import "MoppLibCerificatetData.h"
+#import <Foundation/Foundation.h>
 
-@interface MoppLibCertificate : NSObject
-+ (void)certData:(MoppLibCerificatetData *)certData updateWithData:(const unsigned char *)data length:(size_t)length;
+@interface MoppLibCerificatetData : NSObject
+
+typedef NS_ENUM(int, MoppLibCertificateOrganization) {
+    IDCard,
+    MobileID,
+    DigiID,
+    EResident,
+    Unknown
+};
+
+@property (nonatomic, assign) BOOL isValid;
+@property (nonatomic, strong) NSDate *expiryDate;
+@property (nonatomic, assign) int usageCount;
+@property (nonatomic, strong) NSString *email;
+@property (nonatomic, assign) MoppLibCertificateOrganization organization;
+
 @end

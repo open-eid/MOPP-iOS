@@ -39,11 +39,11 @@
   [[MoppLibDigidocManager sharedInstance] setupWithSuccess:success andFailure:failure usingTestDigiDocService:useTestDDS];
 }
 
-- (NSString *)getMoppLibVersion {
+- (NSString *)moppLibVersion {
   return [[MoppLibDigidocManager sharedInstance] getMoppLibVersion];
 }
 
-- (NSString *)digidocVersion {
+- (NSString *)libdigidocppVersion {
     return [[MoppLibDigidocManager sharedInstance] digidocVersion];
 }
 

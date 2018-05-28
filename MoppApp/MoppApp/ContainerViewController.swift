@@ -161,7 +161,7 @@ class ContainerViewController : MoppViewController, ContainerActions {
         if state != .loading { return }
         let isPDF = containerPath.filenameComponents().ext.lowercased() == ContainerFormatPDF
         forcePDFContentPreview = isPDF
-        MoppLibContainerActions.sharedInstance().getContainerWithPath(containerPath, success: { [weak self] container in
+        MoppLibContainerActions.sharedInstance().openContainer(withPath: containerPath, success: { [weak self] container in
             guard let container = container else {
                 return
             }
@@ -445,7 +445,7 @@ extension ContainerViewController : UITableViewDelegate {
     
             let openPDFPreview: () -> Void = { [weak self] in
                 self?.updateState(.loading)
-                MoppLibContainerActions.sharedInstance().getContainerWithPath(destinationPath,
+                MoppLibContainerActions.sharedInstance().openContainer(withPath: destinationPath,
                     success: { [weak self] (_ container: MoppLibContainer?) -> Void in
                         self?.updateState((self?.isCreated ?? false) ? .created : .opened)
                         if container == nil {

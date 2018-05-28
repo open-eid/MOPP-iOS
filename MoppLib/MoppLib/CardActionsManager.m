@@ -136,7 +136,7 @@ static CardActionsManager *sharedInstance = nil;
 
 - (void)signingCertWithPin2:(NSString *)pin2 success:(CertDataBlock)success failure:(FailureBlock)failure {
     
-    MoppLibCertData *certData = [MoppLibCertData new];
+    MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
     
     [self signingCertDataWithPin2:pin2 success:^(NSData *data) {
         [MoppLibCertificate certData:certData updateWithData:[data bytes] length:data.length];
@@ -154,7 +154,7 @@ static CardActionsManager *sharedInstance = nil;
 }
 
 - (void)authenticationCertWithSuccess:(CertDataBlock)success failure:(FailureBlock)failure {
-    MoppLibCertData *certData = [MoppLibCertData new];
+    MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
     
     [self authenticationCertDataWithSuccess:^(NSData *data) {
         [MoppLibCertificate certData:certData updateWithData:[data bytes] length:data.length];

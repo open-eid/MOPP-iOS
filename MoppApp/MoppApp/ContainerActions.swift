@@ -86,7 +86,7 @@ extension ContainerActions where Self: UIViewController {
             navController?.viewControllers.last!.present(alert, animated: true)
         }
 
-        MoppLibContainerActions.sharedInstance().getContainerWithPath(newFilePath,
+        MoppLibContainerActions.sharedInstance().openContainer(withPath: newFilePath,
             success: { (_ container: MoppLibContainer?) -> Void in
                 if container == nil {
                     // Remove invalid container. Probably ddoc.

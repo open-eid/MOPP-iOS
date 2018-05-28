@@ -1,5 +1,5 @@
 //
-//  MoppLibCertificate.h
+//  MoppLibCertData.m
 //  MoppLib
 //
 /*
@@ -21,9 +21,8 @@
  *
  */
 
-#include <Foundation/Foundation.h>
 #import "MoppLibCerificatetData.h"
 
-@interface MoppLibCertificate : NSObject
-+ (void)certData:(MoppLibCerificatetData *)certData updateWithData:(const unsigned char *)data length:(size_t)length;
+@implementation MoppLibCerificatetData
+
 @end

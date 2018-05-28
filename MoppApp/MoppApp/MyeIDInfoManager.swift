@@ -44,8 +44,8 @@ class MyeIDInfoManager {
     weak var delegate: MyeIDInfoManagerDelegate? = nil
 
     var personalData: MoppLibPersonalData? = nil
-    var authCertData: MoppLibCertData? = nil
-    var signCertData: MoppLibCertData? = nil
+    var authCertData: MoppLibCerificatetData? = nil
+    var signCertData: MoppLibCerificatetData? = nil
 
     var estonianDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -171,8 +171,8 @@ class MyeIDInfoManager {
         }
         
         MoppLibCardActions.minimalCardPersonalData(success: { moppLibPersonalData in
-            MoppLibCardActions.authenticationCert(success: { moppLibAuthCertData in
-                MoppLibCardActions.signingCert(success: { [weak self] moppLibSignCertData in
+            MoppLibCardActions.authenticationCertificate(success: { moppLibAuthCertData in
+                MoppLibCardActions.signingCertificate(success: { [weak self] moppLibSignCertData in
                     self?.requestRetryCounts(with: viewController, success: { [weak self] (pin1RetryCount, pin2RetryCount, pukRetryCount) in
                         guard let strongSelf = self else { return }
                         strongSelf.personalData = moppLibPersonalData
@@ -210,7 +210,7 @@ class MyeIDInfoManager {
     func setup() {
         personalInfo.items.removeAll()
         guard let personalData = personalData else { return }
-        let certOrganization = authCertData?.organization ?? MoppLibCertOrganization.Unknown
+        let certOrganization = authCertData?.organization ?? MoppLibCertificateOrganization.Unknown
         personalInfo.items.append((type: .myeID, value: organizationDisplayString(certOrganization)))
         personalInfo.items.append((type: .givenNames, value: personalData.givenNames()))
         personalInfo.items.append((type: .surname, value: personalData.surname))
@@ -220,7 +220,7 @@ class MyeIDInfoManager {
         personalInfo.items.append((type: .expiryDate, value: personalData.expiryDate))
     }
     
-    func organizationDisplayString(_ certOrganization: MoppLibCertOrganization) -> String {
+    func organizationDisplayString(_ certOrganization: MoppLibCertificateOrganization) -> String {
         switch certOrganization {
         case .IDCard:
             return L(.myEidInfoMyEidIdCard)

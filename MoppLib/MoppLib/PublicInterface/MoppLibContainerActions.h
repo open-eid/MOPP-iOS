@@ -31,13 +31,13 @@
 + (MoppLibContainerActions *)sharedInstance;
 
 /**
- * Gets container with specified path.
+ * Opens container at specified path.
  *
  * @param containerPath    Path to container.
  * @param success       Block to be called on successful completion of action. Includes container data as MoppLibContainer.
  * @param failure       Block to be called when action fails. Includes error.
  */
-- (void)getContainerWithPath:(NSString *)containerPath success:(ContainerBlock)success failure:(FailureBlock)failure;
+- (void)openContainerWithPath:(NSString *)containerPath success:(ContainerBlock)success failure:(FailureBlock)failure;
 
 /**
  * Creates container on specified path.
