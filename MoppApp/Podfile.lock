@@ -2,21 +2,18 @@ PODS:
   - Crashlytics (3.8.4):
     - Fabric (~> 1.6.3)
   - Fabric (1.6.11)
-  - MBProgressHUD (0.9.2)
   - OCMock (3.4)
 
 DEPENDENCIES:
   - Crashlytics
   - Fabric
-  - MBProgressHUD (~> 0.9.2)
   - OCMock
 
 SPEC CHECKSUMS:
   Crashlytics: 79e236942ca1e7fc641df1feb9a275360a78ab6a
   Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
-  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   OCMock: 35ae71d6a8fcc1b59434d561d1520b9dd4f15765
 
-PODFILE CHECKSUM: 9318e1033df855ddb379cac297fda15c3c963d20
+PODFILE CHECKSUM: a073617bdfd534729fd9846dab96a7af8739543f
 
 COCOAPODS: 1.3.1
