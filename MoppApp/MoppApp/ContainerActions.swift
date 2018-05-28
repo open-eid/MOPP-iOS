@@ -25,7 +25,7 @@ protocol ContainerActions {
     func importFiles(with urls: [URL])
     func addDataFilesToContainer(dataFilePaths: [String])
     func createNewContainer(with url: URL, dataFilePaths: [String], startSigningWhenCreated: Bool, cleanUpDataFilesInDocumentsFolder: Bool)
-    func createLegacyContainer()
+    func createNewContainerForNonSignableContainerAndSign()
 }
 
 extension ContainerActions where Self: UIViewController {
@@ -200,7 +200,7 @@ extension ContainerActions where Self: UIViewController {
         )
     }
     
-    func createLegacyContainer() {
+    func createNewContainerForNonSignableContainerAndSign() {
         if let containerViewController = self as? ContainerViewController {
             let containerPath = containerViewController.containerPath!
             let containerPathURL = URL(fileURLWithPath: containerPath)

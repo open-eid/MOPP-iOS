@@ -33,10 +33,13 @@
 
 - (BOOL)isSigned;
 - (BOOL)isEmpty;
-- (BOOL)isDDocType;
-- (BOOL)isAsiceType;
-- (BOOL)isLegacyType;
-- (NSString *)fileNameWithoutExtension;
+- (BOOL)isDdoc;
+- (BOOL)isBdoc;
+- (BOOL)isAsice;
+- (BOOL)isAsics;
+- (BOOL)isSignable;
+- (BOOL)isLegacy;
 
+- (NSString *)fileNameWithoutExtension;
 - (NSString *)getNextSignatureId;
 @end

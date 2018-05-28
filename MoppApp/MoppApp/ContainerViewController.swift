@@ -170,7 +170,7 @@ class ContainerViewController : MoppViewController, ContainerActions {
             
             strongSelf.notifications = []
             
-            if afterSignatureCreated && !container.isLegacyType() && !strongSelf.isForPreview {
+            if afterSignatureCreated && container.isSignable() && !strongSelf.isForPreview {
                 strongSelf.notifications.append((true, L(.containerDetailsSigningSuccess)))
             }
             
@@ -210,10 +210,7 @@ class ContainerViewController : MoppViewController, ContainerActions {
     func startSigning() {
         guard let _ = container else { return }
         
-        if container.isLegacyType() {
-            createLegacyContainer()
-        } else {
-        
+        if container.isSignable() {
             let signSelectionVC = UIStoryboard.signing.instantiateViewController(of: SignSelectionViewController.self)
                 signSelectionVC.modalPresentationStyle = .overFullScreen
             
@@ -222,6 +219,10 @@ class ContainerViewController : MoppViewController, ContainerActions {
             signSelectionVC.containerPath = containerPath
             
             LandingViewController.shared.present(signSelectionVC, animated: false, completion: nil)
+            
+        } else {
+            createNewContainerForNonSignableContainerAndSign()
+
         }
     }
     
@@ -319,7 +320,7 @@ extension ContainerViewController : UITableViewDataSource {
                 with: signature,
                 kind: .signature,
                 showBottomBorder: row < container.signatures.count - 1,
-                showRemoveButton: !isForPreview && !container.isLegacyType(),
+                showRemoveButton: !isForPreview && container.isSignable(),
                 signatureIndex: row)
             return cell
         case .missingSignatures:
@@ -339,7 +340,7 @@ extension ContainerViewController : UITableViewDataSource {
                         container.dataFiles.count > 1   &&
                         !isForPreview                   &&
                         container.signatures.isEmpty    &&
-                        !container.isLegacyType(),
+                        container.isSignable(),
                     dataFileIndex: row)
             return cell
         case .importDataFiles:
@@ -517,7 +518,7 @@ extension ContainerViewController : UITableViewDelegate {
 
         if let header = MoppApp.instance.nibs[.containerElements]?.instantiate(withOwner: self, type: ContainerTableViewHeaderView.self) {
             let signaturesCount = container?.signatures?.count ?? 0
-            let isContainerLegacyType = container?.isLegacyType() ?? true
+            let isContainerSignable = container?.isSignable() ?? false
             header.delegate = self
             header.populate(
                 withTitle: title,
@@ -527,7 +528,7 @@ extension ContainerViewController : UITableViewDelegate {
                     !isCreated              &&
                     signaturesCount == 0    &&
                     !isForPreview           &&
-                    !isContainerLegacyType)
+                    isContainerSignable)
             return header
         }
 
