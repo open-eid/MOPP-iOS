@@ -26,7 +26,6 @@
 #import "CardReaderiR301.h"
 #import "ReaderInterface.h"
 #import "wintypes.h"
-#import "ReaderSelectionViewController.h"
 #import "MoppLibError.h"
 #import "NSData+Additions.h"
 #import "EstEIDv3_4.h"
@@ -73,7 +72,7 @@ NSString *const kCardActionDataUseECC = @"Use ECC";
 @end
 
 
-@interface CardActionsManager() <ReaderSelectionViewControllerDelegate, CardReaderWrapperDelegate>
+@interface CardActionsManager() <CardReaderWrapperDelegate>
 
 @property (nonatomic, strong) NSMutableArray *cardActions;
 @property (nonatomic, assign) BOOL isExecutingAction;
@@ -229,19 +228,6 @@ static CardActionsManager *sharedInstance = nil;
     if (error.code == moppLibErrorWrongPin) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationRetryCounterChanged object:nil];
     }
-}
-
-- (NSString *)pinStringForCode:(CodeType)type {
-    if (type == CodeTypePin1) {
-        return MLLocalizedString(@"pin-actions-pin1", nil);
-        
-    } else if (type == CodeTypePin2) {
-        return MLLocalizedString(@"pin-actions-pin2", nil);
-        
-    }else if (type == CodeTypePuk) {
-        return MLLocalizedString(@"pin-actions-puk", nil);
-    }
-    return @"";
 }
 
 /**

@@ -21,15 +21,12 @@
 		545CF8421E13F30300B66EE8 /* EstEIDv3_4.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8401E13F30300B66EE8 /* EstEIDv3_4.m */; };
 		545CF8571E16928600B66EE8 /* CBManagerHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 545CF8551E16928600B66EE8 /* CBManagerHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		545CF8581E16928600B66EE8 /* CBManagerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8561E16928600B66EE8 /* CBManagerHelper.m */; };
-		5463DA481E127150008A1714 /* ReaderSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5463DA451E127150008A1714 /* ReaderSelectionViewController.m */; };
-		5463DA491E127150008A1714 /* ReaderSelectionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5463DA461E127150008A1714 /* ReaderSelectionViewController.h */; };
 		5463DA4C1E12927A008A1714 /* CardCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 5463DA4A1E12927A008A1714 /* CardCommands.h */; };
 		5463DA4D1E12927A008A1714 /* CardCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 5463DA4B1E12927A008A1714 /* CardCommands.m */; };
 		546E57611E2E07C7009A568D /* PinVerificationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 546E57601E2E07C7009A568D /* PinVerificationTests.m */; };
 		546E57631E2E07C7009A568D /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250CE71E09695100530370 /* MoppLib.framework */; };
 		546E576B1E2E1555009A568D /* MoppLibPinActions+Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 546E576A1E2E1555009A568D /* MoppLibPinActions+Tests.m */; };
 		5480396D1E38DA4D000271CF /* 878252.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 5480396C1E38DA4D000271CF /* 878252.p12 */; };
-		54AFE9891E93A04F005DC7B3 /* ReaderSelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54AFE9881E93A04F005DC7B3 /* ReaderSelection.storyboard */; };
 		54D164701E923F920069C725 /* MoppLibPrivateConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 54D1646E1E923F920069C725 /* MoppLibPrivateConstants.h */; };
 		54D164711E923F920069C725 /* MoppLibPrivateConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D1646F1E923F920069C725 /* MoppLibPrivateConstants.m */; };
 		54D164771E9269C50069C725 /* MoppLibContainerActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54D164751E9269C50069C725 /* MoppLibContainerActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -139,8 +136,6 @@
 		545CF8401E13F30300B66EE8 /* EstEIDv3_4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EstEIDv3_4.m; sourceTree = "<group>"; };
 		545CF8551E16928600B66EE8 /* CBManagerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBManagerHelper.h; sourceTree = "<group>"; };
 		545CF8561E16928600B66EE8 /* CBManagerHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBManagerHelper.m; sourceTree = "<group>"; };
-		5463DA451E127150008A1714 /* ReaderSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderSelectionViewController.m; sourceTree = "<group>"; };
-		5463DA461E127150008A1714 /* ReaderSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderSelectionViewController.h; sourceTree = "<group>"; };
 		5463DA4A1E12927A008A1714 /* CardCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardCommands.h; sourceTree = "<group>"; };
 		5463DA4B1E12927A008A1714 /* CardCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardCommands.m; sourceTree = "<group>"; };
 		546E575E1E2E07C7009A568D /* MoppLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoppLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,7 +144,6 @@
 		546E57691E2E1555009A568D /* MoppLibPinActions+Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MoppLibPinActions+Tests.h"; sourceTree = "<group>"; };
 		546E576A1E2E1555009A568D /* MoppLibPinActions+Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MoppLibPinActions+Tests.m"; sourceTree = "<group>"; };
 		5480396C1E38DA4D000271CF /* 878252.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; name = 878252.p12; path = "$(DIGIDOCPP_PATH)/etc/digidocpp/878252.p12"; sourceTree = "<group>"; };
-		54AFE9881E93A04F005DC7B3 /* ReaderSelection.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ReaderSelection.storyboard; sourceTree = "<group>"; };
 		54D1646E1E923F920069C725 /* MoppLibPrivateConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibPrivateConstants.h; sourceTree = "<group>"; };
 		54D1646F1E923F920069C725 /* MoppLibPrivateConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibPrivateConstants.m; sourceTree = "<group>"; };
 		54D164751E9269C50069C725 /* MoppLibContainerActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibContainerActions.h; sourceTree = "<group>"; };
@@ -332,9 +326,6 @@
 		54DC0DC21E0BCBB400C62B3D /* CardReaders */ = {
 			isa = PBXGroup;
 			children = (
-				54AFE9881E93A04F005DC7B3 /* ReaderSelection.storyboard */,
-				5463DA461E127150008A1714 /* ReaderSelectionViewController.h */,
-				5463DA451E127150008A1714 /* ReaderSelectionViewController.m */,
 				54DC0DC31E0BCC2A00C62B3D /* CardReaderWrapper.h */,
 				C54EA6EE2049630F0039AC78 /* bR301 */,
 				54DC0DCB1E0BCFCB00C62B3D /* ACR3901U-S1 */,
@@ -575,7 +566,6 @@
 				54E1DB5C1E44A9060060A250 /* MoppLibManager.h in Headers */,
 				C54EA6F82049641E0039AC78 /* winscard.h in Headers */,
 				E42B08CD1E1F136A00EA24A3 /* MoppLibDigidocManager.h in Headers */,
-				5463DA491E127150008A1714 /* ReaderSelectionViewController.h in Headers */,
 				54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */,
 				542DCB6C1E23968000899534 /* MoppLibPinActions.h in Headers */,
 				54D164771E9269C50069C725 /* MoppLibContainerActions.h in Headers */,
@@ -709,7 +699,6 @@
 				E4250D001E096CAA00530370 /* test.bdoc in Resources */,
 				54D1FF731E4CB6AD006BF123 /* Localizable.strings in Resources */,
 				5480396D1E38DA4D000271CF /* 878252.p12 in Resources */,
-				54AFE9891E93A04F005DC7B3 /* ReaderSelection.storyboard in Resources */,
 				E43BD81F1E3F901D00F6C39D /* tl-mp.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -821,7 +810,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				54E1DB5D1E44A9060060A250 /* MoppLibManager.m in Sources */,
-				5463DA481E127150008A1714 /* ReaderSelectionViewController.m in Sources */,
 				E42B08CE1E1F136A00EA24A3 /* MoppLibDigidocManager.mm in Sources */,
 				AE1069461E4498A6002BAFDA /* Parser.swift in Sources */,
 				E485A7841E2DF58200C53DBF /* MLFileManager.m in Sources */,
