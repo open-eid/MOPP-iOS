@@ -31,9 +31,10 @@ class InitializationViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let launchImageView = Bundle.main.loadNibNamed("LaunchScreen", owner: self, options: nil)?.last as? UIView
-        view.addSubview(launchImageView!)
-        launchImageView?.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets.zero)
+        if let launchImageView = Bundle.main.loadNibNamed("LaunchScreen", owner: self, options: nil)?.last as? UIView {
+            view.addSubview(launchImageView)
+            launchImageView.translatesAutoresizingMaskIntoConstraints = true
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
