@@ -53,12 +53,12 @@
 
 - (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode success:(VoidBlock)success failure:(FailureBlock)failure ;
 
-- (void)code:(CodeType)type retryCountWithSuccess:(void (^)(NSNumber *))success failure:(FailureBlock)failure;
+- (void)code:(CodeType)type retryCountWithSuccess:(NumberBlock)success failure:(FailureBlock)failure;
 
 - (void)addSignature:(NSString *)containerPath withPin2:(NSString *)pin2 success:(void (^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure;
 - (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
-- (void)isCardInserted:(void(^)(BOOL)) completion;
+- (void)isCardInserted:(BoolBlock)completion;
 - (BOOL)isReaderConnected;
 
 - (void)resetCardActions;

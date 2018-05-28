@@ -48,7 +48,7 @@
  *
  * @param completion   block to be called when card action is completed. Block includes boolean attribute to indicate whether card is inserted or not
  */
-- (void)isCardInserted:(void(^)(BOOL)) completion;
+- (void)isCardInserted:(BoolBlock)completion;
 
 /**
  * Checks if card reader is connected
@@ -62,7 +62,7 @@
  *
  * @param completion   block to be called when card action is completed. Block includes boolean attribute to indicate whether card is powered on or not
  */
-- (void)isCardPoweredOn:(void(^)(BOOL)) completion;
+- (void)isCardPoweredOn:(BoolBlock)completion;
 
 - (void)resetReader;
 

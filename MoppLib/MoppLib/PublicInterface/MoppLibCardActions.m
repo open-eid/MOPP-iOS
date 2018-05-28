@@ -34,7 +34,7 @@
   [[CardActionsManager sharedInstance] minimalCardPersonalDataWithSuccess:success failure:failure];
 }
 
-+ (void)isCardInserted:(void (^)(BOOL))completion {
++ (void)isCardInserted:(BoolBlock)completion {
   [[CardActionsManager sharedInstance] isCardInserted:completion];
 }
 
@@ -50,15 +50,15 @@
   [[CardActionsManager sharedInstance] authenticationCertWithSuccess:success failure:failure];
 }
 
-+ (void)pin1RetryCountWithSuccess:(void (^)(NSNumber *))success failure:(FailureBlock)failure {
++ (void)pin1RetryCountWithSuccess:(NumberBlock)success failure:(FailureBlock)failure {
   [[CardActionsManager sharedInstance] code:CodeTypePin1 retryCountWithSuccess:success failure:failure];
 }
 
-+ (void)pin2RetryCountWithSuccess:(void (^)(NSNumber *))success failure:(FailureBlock)failure {
++ (void)pin2RetryCountWithSuccess:(NumberBlock)success failure:(FailureBlock)failure {
   [[CardActionsManager sharedInstance] code:CodeTypePin2 retryCountWithSuccess:success failure:failure];
 }
 
-+ (void)pukRetryCountWithSuccess:(void (^)(NSNumber *))success failure:(FailureBlock)failure {
++ (void)pukRetryCountWithSuccess:(NumberBlock)success failure:(FailureBlock)failure {
   [[CardActionsManager sharedInstance] code:CodeTypePuk retryCountWithSuccess:success failure:failure];
 }
 

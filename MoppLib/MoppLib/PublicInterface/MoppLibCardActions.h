@@ -56,7 +56,7 @@
  *
  * @param completion    Block to be called when action is complete. Includes BOOL to represent card status - YES if card is detected in reader, NO if card is not found.
  */
-+ (void)isCardInserted:(void(^)(BOOL)) completion;
++ (void)isCardInserted:(BoolBlock) completion;
 
 /**
  * Gets signing certificate data.
@@ -80,7 +80,7 @@
  * @param success       Block to be called on successful completion of action. Includes retry counter value as NSNumber
  * @param failure       Block to be called when action fails. Includes error.
  */
-+ (void)pin1RetryCountWithSuccess:(void (^)(NSNumber *))success failure:(FailureBlock)failure;
++ (void)pin1RetryCountWithSuccess:(NumberBlock)success failure:(FailureBlock)failure;
 
 /**
  * Gets PIN2 retry counter value.
@@ -88,7 +88,7 @@
  * @param success       Block to be called on successful completion of action. Includes retry counter value as NSNumber
  * @param failure       Block to be called when action fails. Includes error.
  */
-+ (void)pin2RetryCountWithSuccess:(void (^)(NSNumber *))success failure:(FailureBlock)failure;
++ (void)pin2RetryCountWithSuccess:(NumberBlock)success failure:(FailureBlock)failure;
 
 /**
  * Gets PUK retry counter value.
@@ -96,6 +96,6 @@
  * @param success       Block to be called on successful completion of action. Includes retry counter value as NSNumber
  * @param failure       Block to be called when action fails. Includes error.
  */
-+ (void)pukRetryCountWithSuccess:(void (^)(NSNumber *))success failure:(FailureBlock)failure;
++ (void)pukRetryCountWithSuccess:(NumberBlock)success failure:(FailureBlock)failure;
 
 @end

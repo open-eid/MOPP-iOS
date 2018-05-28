@@ -60,7 +60,7 @@ NSString *const kCardActionDataUseECC = @"Use ECC";
 @property (nonatomic, assign) CardAction cardAction;
 @property (nonatomic, strong) void (^successBlock)(id);
 @property (nonatomic, strong) FailureBlock failureBlock;
-@property (nonatomic, strong) void (^boolBlock)(BOOL);
+@property (nonatomic, strong) BoolBlock boolBlock;
 @property (nonatomic, strong) NSDictionary *data;
 @property (nonatomic, assign) NSUInteger retryCount;
 @property (nonatomic, strong) NSString *pin;
@@ -543,7 +543,7 @@ NSString *blockBackupCode = @"00001";
     return self.cardReader && [self.cardReader isConnected];
 }
 
-- (void)isCardInserted:(void(^)(BOOL)) completion {
+- (void)isCardInserted:(BoolBlock) completion {
     @synchronized (self) {
         CardActionObject *actionObject = [CardActionObject new];
         actionObject.boolBlock = completion;

@@ -142,7 +142,7 @@
     success(nil);
 }
 
-- (void)isCardInserted:(void(^)(BOOL)) completion {
+- (void)isCardInserted:(BoolBlock)completion {
     DWORD status = [self cardStatus];
     completion(status == SCARD_PRESENT || status == SCARD_POWERED || status == SCARD_SWALLOWED);
 }
@@ -163,7 +163,7 @@
     return status;
 }
 
-- (void)isCardPoweredOn:(void(^)(BOOL)) completion {
+- (void)isCardPoweredOn:(BoolBlock) completion {
     completion([self cardStatus] == SCARD_PRESENT);
 }
 

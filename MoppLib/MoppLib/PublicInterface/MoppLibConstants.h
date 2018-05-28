@@ -76,6 +76,8 @@ typedef void (^SignatureStatusBlock) (MoppLibContainer *container, NSError *erro
 typedef void (^ContainerBlock)(MoppLibContainer *container);
 typedef void (^MobileCreateSignatureResponseBlock)(MoppLibMobileCreateSignatureResponse *createSignatureResponse);
 typedef void (^VoidBlock)(void);
+typedef void (^BoolBlock)(BOOL);
+typedef void (^NumberBlock)(NSNumber*);
 
 /**
  * Posted when card reader status changes. This can be triggered when connected card reader is turned off or connected card reader detects that card is inserted or removed.
