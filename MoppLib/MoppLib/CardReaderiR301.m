@@ -138,8 +138,8 @@
     }
 }
 
-- (void)powerOnCard:(EmptySuccessBlock)success failure:(FailureBlock)failure  {
-    success();
+- (void)powerOnCard:(DataSuccessBlock)success failure:(FailureBlock)failure  {
+    success(nil);
 }
 
 - (void)isCardInserted:(void(^)(BOOL)) completion {

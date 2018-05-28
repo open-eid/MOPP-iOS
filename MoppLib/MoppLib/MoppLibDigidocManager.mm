@@ -102,7 +102,7 @@ private:
   return sharedInstance;
 }
 
-- (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS {
+- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS {
   
   MoppLibSOAPManager.sharedInstance.useTestDigiDocService = useTestDDS;
   

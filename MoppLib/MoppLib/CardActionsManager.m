@@ -283,7 +283,7 @@ static CardActionsManager *sharedInstance = nil;
                     //if (isPoweredOn) {
                     //    [self executeAction:action];
                     //} else {
-                        [self.cardReader powerOnCard:^ {
+                        [self.cardReader powerOnCard:^(NSData* powerData) {
                             NSString *hexCommand = [kCommandGetCardVersion replaceHexStringLastValue:length];
                             [self.cardReader transmitCommand:hexCommand success:^(NSData *responseObject) {
                                 NSData *trailerData = [responseObject responseTrailerData];
@@ -365,7 +365,7 @@ static CardActionsManager *sharedInstance = nil;
             actionObject.retryCount = actionObject.retryCount + 1;
             
             // Could be caused bu card change and card is not powered on
-            [self.cardReader powerOnCard:^{
+            [self.cardReader powerOnCard:^(NSData* powerData){
                 [self executeAction:actionObject];
             } failure:^(NSError *error) {
                 actionObject.failureBlock(error);

@@ -170,7 +170,7 @@
   }
 }
 
-- (void)powerOnCard:(EmptySuccessBlock)success failure:(FailureBlock)failure  {
+- (void)powerOnCard:(DataSuccessBlock)success failure:(FailureBlock)failure  {
   MLLog(@"Power on card");
   self.successBlock = success;
   self.failureBlock = failure;
