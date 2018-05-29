@@ -33,7 +33,6 @@
   
   certData.isValid = [self certificateIsValid:digiDocCert];
   certData.expiryDate = [self certificateExpiryDate:digiDocCert];
-  certData.email = [self certificateSubjectEmail:digiDocCert];
   certData.organization = [self certificateOrganization:digiDocCert];
 }
 
@@ -73,36 +72,6 @@
     }
   }
   return Unknown;
-}
-
-+ (NSString *)certificateSubjectEmail:(digidoc::X509Cert)cert {
-  X509 *certificateX509 = cert.handle();
-  if (certificateX509 != NULL) {
-    int loc = X509_get_ext_by_NID(certificateX509, NID_subject_alt_name, -1);
-    
-    if (loc >= 0) {
-      X509_EXTENSION *ext = X509_get_ext(certificateX509, loc);
-      BUF_MEM *bptr = NULL;
-      char *buf = NULL;
-      
-      BIO *bio = BIO_new(BIO_s_mem());
-      BIO_flush(bio);
-      BIO_get_mem_ptr(bio, &bptr);
-      X509V3_EXT_print(bio, ext, 0, 0);
-      
-      buf = (char *)malloc( (bptr->length + 1)*sizeof(char) );
-      memcpy(buf, bptr->data, bptr->length);
-      buf[bptr->length] = '\0';
-    
-      NSString *email = [NSString stringWithUTF8String:buf];
-      NSString *prefix = @"email:";
-      if ([email hasPrefix:prefix]) {
-        return [email substringFromIndex:prefix.length];
-      }
-    }
-  }
-  
-  return nil;
 }
 
 + (NSDate *)certificateExpiryDate:(digidoc::X509Cert)cert {

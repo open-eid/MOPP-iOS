@@ -123,28 +123,12 @@ static CardActionsManager *sharedInstance = nil;
     
 }
 
-- (void)certUsageCountForRecord:(int)record success:(void(^)(int))success failure:(FailureBlock)failure {
-    
-    NSDictionary *data = @{kCardActionDataRecord:[NSNumber numberWithInt:record]};
-    [self addCardAction:CardActionReadSecretKey data:data success:^(NSData *data) {
-        NSData *keyUsageData = [data subdataWithRange:NSMakeRange(12, 3)];
-        int counterStart = [@"FF FF FF" hexToInt];
-        int counterValue = [[keyUsageData toHexString] hexToInt];
-        success(counterStart - counterValue);
-    } failure:failure];
-}
-
 - (void)signingCertWithPin2:(NSString *)pin2 success:(CertDataBlock)success failure:(FailureBlock)failure {
     
     MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
     
     [self signingCertDataWithPin2:pin2 success:^(NSData *data) {
         [MoppLibCertificate certData:certData updateWithData:[data bytes] length:data.length];
-    } failure:failure];
-    
-    [self certUsageCountForRecord:1 success:^(int usageCount) {
-        certData.usageCount = usageCount;
-        
         success(certData);
     } failure:failure];
 }
@@ -158,11 +142,6 @@ static CardActionsManager *sharedInstance = nil;
     
     [self authenticationCertDataWithSuccess:^(NSData *data) {
         [MoppLibCertificate certData:certData updateWithData:[data bytes] length:data.length];
-    } failure:failure];
-    
-    [self certUsageCountForRecord:3 success:^(int usageCount) {
-        certData.usageCount = usageCount;
-        
         success(certData);
     } failure:failure];
 }
