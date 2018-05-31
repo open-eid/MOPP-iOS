@@ -135,7 +135,7 @@
   }
 }
 
-- (void)isCardInserted:(void(^)(BOOL)) completion {
+- (void)isCardInserted:(BoolBlock)completion {
     [self getCardStatusWithSuccess:^(NSData *responseObject) {
       completion(self.cardStatus == ABTBluetoothReaderCardStatusPresent || self.cardStatus == ABTBluetoothReaderCardStatusPowered);
       
@@ -156,7 +156,7 @@
   return NO;
 }
 
-- (void)isCardPoweredOn:(void(^)(BOOL)) completion {
+- (void)isCardPoweredOn:(BoolBlock) completion {
   
   if (self.cardStatus == ABTBluetoothReaderCardStatusPowerSavingMode) {
     [self getCardStatusWithSuccess:^(NSData *responseObject) {
@@ -170,7 +170,7 @@
   }
 }
 
-- (void)powerOnCard:(EmptySuccessBlock)success failure:(FailureBlock)failure  {
+- (void)powerOnCard:(DataSuccessBlock)success failure:(FailureBlock)failure  {
   MLLog(@"Power on card");
   self.successBlock = success;
   self.failureBlock = failure;

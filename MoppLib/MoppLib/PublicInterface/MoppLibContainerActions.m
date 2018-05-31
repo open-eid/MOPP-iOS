@@ -38,7 +38,7 @@
   return sharedInstance;
 }
 
-- (void)getContainerWithPath:(NSString *)containerPath success:(ContainerBlock)success failure:(FailureBlock)failure {
+- (void)openContainerWithPath:(NSString *)containerPath success:(ContainerBlock)success failure:(FailureBlock)failure {
   
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     NSError *error;
@@ -101,7 +101,7 @@
   });
 }
 
-- (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(void(^)(void))success failure:(FailureBlock)failure {
+- (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     [[MoppLibDigidocManager sharedInstance] container:containerPath saveDataFile:fileName to:path];
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -110,7 +110,7 @@
   });
 }
 
-- (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 controller:(UIViewController *)controller success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure {
+- (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure {
   
   Reachability *reachability = [Reachability reachabilityForInternetConnection];
   NetworkStatus networkStatus = [reachability currentReachabilityStatus];
@@ -121,7 +121,7 @@
   
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
-    [[CardActionsManager sharedInstance] addSignature:containerPath withPin2:(NSString *)pin2 controller:controller success:^(MoppLibContainer *container, BOOL signatureWasAdded) {
+    [[CardActionsManager sharedInstance] addSignature:containerPath withPin2:(NSString *)pin2 success:^(MoppLibContainer *container, BOOL signatureWasAdded) {
       dispatch_async(dispatch_get_main_queue(), ^{
         success(container, signatureWasAdded);
       });

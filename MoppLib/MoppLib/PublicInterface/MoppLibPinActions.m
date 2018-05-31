@@ -28,7 +28,7 @@
 
 @implementation MoppLibPinActions
 
-+ (void)changePukTo:(NSString *)newPuk withOldPuk:(NSString *)oldPuk viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
++ (void)changePukTo:(NSString *)newPuk withOldPuk:(NSString *)oldPuk success:(VoidBlock)success failure:(FailureBlock)failure {
   
   if (![self canDoPinModifications]) {
     failure([MoppLibError restrictedAPIError]);
@@ -48,84 +48,84 @@
     }
   }
   
-  [self verifyType:CodeTypePuk pin:newPuk andVerificationCode:oldPuk viewController:controller success:^{
-    [[CardActionsManager sharedInstance] changeCode:CodeTypePuk withVerifyCode:oldPuk to:newPuk viewController:controller success:success failure:failure];
+  [self verifyType:CodeTypePuk pin:newPuk andVerificationCode:oldPuk success:^{
+    [[CardActionsManager sharedInstance] changeCode:CodeTypePuk withVerifyCode:oldPuk to:newPuk success:success failure:failure];
   } failure:failure];
 }
 
-+ (void)changePin1To:(NSString *)newPin1 withOldPin1:(NSString *)oldPin1 viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
++ (void)changePin1To:(NSString *)newPin1 withOldPin1:(NSString *)oldPin1 success:(VoidBlock)success failure:(FailureBlock)failure {
   
   if (![self canDoPinModifications]) {
     failure([MoppLibError restrictedAPIError]);
     return;
   }
   
-  [self verifyType:CodeTypePin1 pin:newPin1 andVerificationCode:oldPin1 viewController:controller success:^{
-    [[CardActionsManager sharedInstance] changeCode:CodeTypePin1 withVerifyCode:oldPin1 to:newPin1 viewController:controller success:success failure:failure];
+  [self verifyType:CodeTypePin1 pin:newPin1 andVerificationCode:oldPin1 success:^{
+    [[CardActionsManager sharedInstance] changeCode:CodeTypePin1 withVerifyCode:oldPin1 to:newPin1 success:success failure:failure];
   } failure:failure];
 }
 
-+ (void)changePin1To:(NSString *)newPin1 withPuk:(NSString *)puk viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
++ (void)changePin1To:(NSString *)newPin1 withPuk:(NSString *)puk success:(VoidBlock)success failure:(FailureBlock)failure {
   
   if (![self canDoPinModifications]) {
     failure([MoppLibError restrictedAPIError]);
     return;
   }
   
-  [self verifyType:CodeTypePin1 pin:newPin1 andVerificationCode:puk viewController:controller success:^{
-    [[CardActionsManager sharedInstance] changePin:CodeTypePin1 withPuk:puk to:newPin1 viewController:controller success:success failure:failure];
+  [self verifyType:CodeTypePin1 pin:newPin1 andVerificationCode:puk success:^{
+    [[CardActionsManager sharedInstance] changePin:CodeTypePin1 withPuk:puk to:newPin1 success:success failure:failure];
   } failure:failure];
 }
 
-+ (void)changePin2To:(NSString *)newPin2 withOldPin2:(NSString *)oldPin2 viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
++ (void)changePin2To:(NSString *)newPin2 withOldPin2:(NSString *)oldPin2 success:(VoidBlock)success failure:(FailureBlock)failure {
   
   if (![self canDoPinModifications]) {
     failure([MoppLibError restrictedAPIError]);
     return;
   }
   
-  [self verifyType:CodeTypePin2 pin:newPin2 andVerificationCode:oldPin2 viewController:controller success:^{
-    [[CardActionsManager sharedInstance] changeCode:CodeTypePin2 withVerifyCode:oldPin2 to:newPin2 viewController:controller success:success failure:failure];
+  [self verifyType:CodeTypePin2 pin:newPin2 andVerificationCode:oldPin2 success:^{
+    [[CardActionsManager sharedInstance] changeCode:CodeTypePin2 withVerifyCode:oldPin2 to:newPin2 success:success failure:failure];
   } failure:failure];
 }
 
-+ (void)changePin2To:(NSString *)newPin2 withPuk:(NSString *)puk viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
++ (void)changePin2To:(NSString *)newPin2 withPuk:(NSString *)puk success:(VoidBlock)success failure:(FailureBlock)failure {
   
   if (![self canDoPinModifications]) {
     failure([MoppLibError restrictedAPIError]);
     return;
   }
   
-  [self verifyType:CodeTypePin2 pin:newPin2 andVerificationCode:puk viewController:controller success:^{
-    [[CardActionsManager sharedInstance] changePin:CodeTypePin2 withPuk:puk to:newPin2 viewController:controller success:success failure:failure];
+  [self verifyType:CodeTypePin2 pin:newPin2 andVerificationCode:puk success:^{
+    [[CardActionsManager sharedInstance] changePin:CodeTypePin2 withPuk:puk to:newPin2 success:success failure:failure];
   } failure:failure];
 }
 
-+ (void)unblockPin1WithPuk:(NSString *)puk newPin1:(NSString *)newPin1 viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
++ (void)unblockPin1WithPuk:(NSString *)puk newPin1:(NSString *)newPin1 success:(VoidBlock)success failure:(FailureBlock)failure {
   
   if (![self canDoPinModifications]) {
     failure([MoppLibError restrictedAPIError]);
     return;
   }
   
-  [self verifyType:CodeTypePin1 pin:newPin1 andVerificationCode:puk viewController:controller success:^{
-    [[CardActionsManager sharedInstance] unblockCode:CodeTypePin1 withPuk:puk newCode:newPin1 viewController:controller success:success failure:failure];
+  [self verifyType:CodeTypePin1 pin:newPin1 andVerificationCode:puk success:^{
+    [[CardActionsManager sharedInstance] unblockCode:CodeTypePin1 withPuk:puk newCode:newPin1 success:success failure:failure];
   } failure:failure];
 }
 
-+ (void)unblockPin2WithPuk:(NSString *)puk newPin2:(NSString *)newPin2 viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
++ (void)unblockPin2WithPuk:(NSString *)puk newPin2:(NSString *)newPin2 success:(VoidBlock)success failure:(FailureBlock)failure {
   
   if (![self canDoPinModifications]) {
     failure([MoppLibError restrictedAPIError]);
     return;
   }
   
-  [self verifyType:CodeTypePin2 pin:newPin2 andVerificationCode:puk viewController:controller success:^{
-    [[CardActionsManager sharedInstance] unblockCode:CodeTypePin2 withPuk:puk newCode:newPin2 viewController:controller success:success failure:failure];
+  [self verifyType:CodeTypePin2 pin:newPin2 andVerificationCode:puk success:^{
+    [[CardActionsManager sharedInstance] unblockCode:CodeTypePin2 withPuk:puk newCode:newPin2 success:success failure:failure];
   } failure:failure];
 }
 
-+ (void)verifyType:(CodeType)type pin:(NSString *)pin andVerificationCode:(NSString *)verificationCode viewController:(UIViewController *)controller success:(VoidBlock)success failure:(void(^)(NSError *))failure {
++ (void)verifyType:(CodeType)type pin:(NSString *)pin andVerificationCode:(NSString *)verificationCode success:(VoidBlock)success failure:(void(^)(NSError *))failure {
   
     if ([pin isEqualToString:verificationCode]) {
       failure([MoppLibError pinMatchesVerificationCodeError]);
@@ -152,7 +152,7 @@
         }
         
         // Checking strings that new pin shouldn't contain
-        [self forbiddenPinPartsForCode:type viewController:controller completion:^(NSArray *forbiddenPins) {
+        [self forbiddenPinPartsForCode:type completion:^(NSArray *forbiddenPins) {
           for (NSString *forbiddenPin in forbiddenPins) {
             if ([pin containsString:forbiddenPin]) {
               failure([MoppLibError tooEasyPinError]);
@@ -167,8 +167,8 @@
     }
 }
 
-+ (void)forbiddenPinPartsForCode:(CodeType)type viewController:(UIViewController *)controller completion:(void(^)(NSArray *))complete {
-  [[CardActionsManager sharedInstance] cardOwnerBirthDateWithViewController:controller success:^(NSDate *date) {
++ (void)forbiddenPinPartsForCode:(CodeType)type completion:(void(^)(NSArray *))complete {
+  [[CardActionsManager sharedInstance] cardOwnerBirthDateWithSuccess:^(NSDate *date) {
     NSMutableArray *array = [[NSMutableArray alloc] init];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

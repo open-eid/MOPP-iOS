@@ -1,6 +1,6 @@
 //
-//  ReaderSelectionViewController.h
-//  MoppApp
+//  MoppLibCertData.h
+//  MoppLib
 //
 /*
  * Copyright 2017 Riigi Infosüsteemide Amet
@@ -21,16 +21,20 @@
  *
  */
 
-#import <UIKit/UIKit.h>
-#import <CoreBluetooth/CoreBluetooth.h>
+#import <Foundation/Foundation.h>
 
-@protocol ReaderSelectionViewControllerDelegate <NSObject>
+@interface MoppLibCerificatetData : NSObject
 
-- (void)peripheralSelected:(CBPeripheral *)peripheral;
-- (void)cancelledReaderSelection;
-@end
+typedef NS_ENUM(int, MoppLibCertificateOrganization) {
+    IDCard,
+    MobileID,
+    DigiID,
+    EResident,
+    Unknown
+};
 
-@interface ReaderSelectionViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
-@property (nonatomic, strong) CBPeripheral *selectedPeripheral;
-@property (nonatomic, strong) id<ReaderSelectionViewControllerDelegate> delegate;
+@property (nonatomic, assign) BOOL isValid;
+@property (nonatomic, strong) NSDate *expiryDate;
+@property (nonatomic, assign) MoppLibCertificateOrganization organization;
+
 @end

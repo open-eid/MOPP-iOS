@@ -33,8 +33,6 @@
 #define MLLog(s, ...) //
 #endif
 
-#define MLLocalizedString(key, comment) NSLocalizedStringFromTableInBundle(key, nil, [NSBundle bundleForClass:[ReaderSelectionViewController class]], comment)
-
 #define MLLocalizedErrors(key, comment) NSLocalizedStringFromTableInBundle(key, nil, [NSBundle bundleForClass:[MoppLibError class]], comment)
 
 

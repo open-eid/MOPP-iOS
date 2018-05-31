@@ -259,7 +259,7 @@ class IdCardSignViewController : MoppViewController {
         }
         
         state = .signing
-        MoppLibContainerActions.sharedInstance().addSignature(containerPath, withPin2:pin2, controller: self, success: { [weak self] container, signatureAdded in
+        MoppLibContainerActions.sharedInstance().addSignature(containerPath, withPin2:pin2, success: { [weak self] container, signatureAdded in
             DispatchQueue.main.async {
                 self?.dismiss(animated: false, completion: {
                     self?.delegate?.idCardSignDidFinished(cancelled: false, success: signatureAdded, error: nil)
@@ -297,7 +297,7 @@ extension IdCardSignViewController : MoppLibCardReaderManagerDelegate {
             // Give some time for UI to update before executing data requests
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
                 guard let strongSelf = self else { return }
-                MoppLibCardActions.minimalCardPersonalData(with: strongSelf, success: { [weak self] moppLibPersonalData in
+                MoppLibCardActions.minimalCardPersonalData(success: { [weak self] moppLibPersonalData in
                     DispatchQueue.main.async {
                         self?.idCardPersonalData = moppLibPersonalData
                         self?.state = .readyForSigning

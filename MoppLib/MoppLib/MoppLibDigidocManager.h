@@ -37,7 +37,7 @@ typedef enum {
 @property (readonly) BOOL useTestDigiDocService;
 + (MoppLibDigidocManager *)sharedInstance;
 
-- (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS;
+- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS;
 
 - (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath error:(NSError **)error;
 - (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths error:(NSError **)error;
