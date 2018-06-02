@@ -102,7 +102,7 @@ private:
   return sharedInstance;
 }
 
-- (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS {
+- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS {
   
   MoppLibSOAPManager.sharedInstance.useTestDigiDocService = useTestDDS;
   
@@ -466,7 +466,7 @@ void parseException(const digidoc::Exception &e) {
     digidoc::Signature *signature = doc->prepareSignature(signer);
     std::vector<unsigned char> dataToSign = signature->dataToSign();
     
-    [[CardActionsManager sharedInstance] calculateSignatureFor:[NSData dataWithBytes:dataToSign.data() length:dataToSign.size()] pin2:pin2 controller:nil useECC: useECC success:^(NSData *calculatedSignature) {
+    [[CardActionsManager sharedInstance] calculateSignatureFor:[NSData dataWithBytes:dataToSign.data() length:dataToSign.size()] pin2:pin2 useECC: useECC success:^(NSData *calculatedSignature) {
       try {
         unsigned char *buffer = (unsigned char *)[calculatedSignature bytes];
         std::vector<unsigned char>::size_type size = calculatedSignature.length;

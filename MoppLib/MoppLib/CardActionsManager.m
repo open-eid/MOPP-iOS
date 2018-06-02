@@ -26,7 +26,6 @@
 #import "CardReaderiR301.h"
 #import "ReaderInterface.h"
 #import "wintypes.h"
-#import "ReaderSelectionViewController.h"
 #import "MoppLibError.h"
 #import "NSData+Additions.h"
 #import "EstEIDv3_4.h"
@@ -46,7 +45,6 @@ typedef NS_ENUM(NSUInteger, CardAction) {
     CardActionReadAuthenticationCert,
     CardActionReadOwnerBirthDate,
     CardActionReadSecretKey,
-    CardActionVerifyCode,
     CardActionCalculateSignature,
     CardActionGetCardStatus
 };
@@ -62,8 +60,7 @@ NSString *const kCardActionDataUseECC = @"Use ECC";
 @property (nonatomic, assign) CardAction cardAction;
 @property (nonatomic, strong) void (^successBlock)(id);
 @property (nonatomic, strong) FailureBlock failureBlock;
-@property (nonatomic, strong) void (^boolBlock)(BOOL);
-@property (nonatomic, strong) UIViewController *controller;
+@property (nonatomic, strong) BoolBlock boolBlock;
 @property (nonatomic, strong) NSDictionary *data;
 @property (nonatomic, assign) NSUInteger retryCount;
 @property (nonatomic, strong) NSString *pin;
@@ -75,7 +72,7 @@ NSString *const kCardActionDataUseECC = @"Use ECC";
 @end
 
 
-@interface CardActionsManager() <ReaderSelectionViewControllerDelegate, CardReaderWrapperDelegate>
+@interface CardActionsManager() <CardReaderWrapperDelegate>
 
 @property (nonatomic, strong) NSMutableArray *cardActions;
 @property (nonatomic, assign) BOOL isExecutingAction;
@@ -113,168 +110,103 @@ static CardActionsManager *sharedInstance = nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
 }
 
-- (void)minimalCardPersonalDataWithViewController:(UIViewController *)controller success:(PersonalDataBlock)success failure:(FailureBlock)failure {
-    [self addCardAction:CardActionReadMinPublicData data:nil viewController:controller success:success failure:failure];
+- (void)minimalCardPersonalDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure {
+    [self addCardAction:CardActionReadMinPublicData data:nil success:success failure:failure];
 }
 
-- (void)cardPersonalDataWithViewController:(UIViewController *)controller success:(PersonalDataBlock)success failure:(FailureBlock)failure {
-    [self addCardAction:CardActionReadPublicData data:nil viewController:controller success:success failure:failure];
+- (void)cardPersonalDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure {
+    [self addCardAction:CardActionReadPublicData data:nil success:success failure:failure];
 }
 
-- (void)cardOwnerBirthDateWithViewController:(UIViewController *)controller success:(void(^)(NSDate *date))success failure:(FailureBlock)failure {
-    [self addCardAction:CardActionReadOwnerBirthDate data:nil viewController:controller success:success failure:failure];
+- (void)cardOwnerBirthDateWithSuccess:(void(^)(NSDate *date))success failure:(FailureBlock)failure {
+    [self addCardAction:CardActionReadOwnerBirthDate data:nil success:success failure:failure];
     
 }
 
-- (void)certUsageCountForRecord:(int)record controller:(UIViewController *)controller success:(void(^)(int))success failure:(FailureBlock)failure {
+- (void)signingCertWithPin2:(NSString *)pin2 success:(CertDataBlock)success failure:(FailureBlock)failure {
     
-    NSDictionary *data = @{kCardActionDataRecord:[NSNumber numberWithInt:record]};
-    [self addCardAction:CardActionReadSecretKey data:data viewController:controller success:^(NSData *data) {
-        NSData *keyUsageData = [data subdataWithRange:NSMakeRange(12, 3)];
-        int counterStart = [@"FF FF FF" hexToInt];
-        int counterValue = [[keyUsageData toHexString] hexToInt];
-        success(counterStart - counterValue);
-    } failure:failure];
-}
-
-- (void)signingCertWithViewController:(UIViewController *)controller pin2:(NSString *)pin2 success:(CertDataBlock)success failure:(FailureBlock)failure {
+    MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
     
-    MoppLibCertData *certData = [MoppLibCertData new];
-    
-    [self signingCertDataWithViewController:controller pin2:pin2 success:^(NSData *data) {
+    [self signingCertDataWithPin2:pin2 success:^(NSData *data) {
         [MoppLibCertificate certData:certData updateWithData:[data bytes] length:data.length];
-    } failure:failure];
-    
-    [self certUsageCountForRecord:1 controller:controller success:^(int usageCount) {
-        certData.usageCount = usageCount;
-        
         success(certData);
     } failure:failure];
 }
 
-- (void)signingCertDataWithViewController:(UIViewController *)controller pin2:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure {
-    [self addCardAction:CardActionReadSigningCert data:@{kCardActionDataVerify: pin2} viewController:controller success:success failure:failure];
+- (void)signingCertDataWithPin2:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure {
+    [self addCardAction:CardActionReadSigningCert data:@{kCardActionDataVerify: pin2} success:success failure:failure];
 }
 
-- (void)authenticationCertWithViewController:(UIViewController *)controller success:(CertDataBlock)success failure:(FailureBlock)failure {
-    MoppLibCertData *certData = [MoppLibCertData new];
+- (void)authenticationCertWithSuccess:(CertDataBlock)success failure:(FailureBlock)failure {
+    MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
     
-    [self authenticationCertDataWithViewController:controller success:^(NSData *data) {
+    [self authenticationCertDataWithSuccess:^(NSData *data) {
         [MoppLibCertificate certData:certData updateWithData:[data bytes] length:data.length];
-    } failure:failure];
-    
-    [self certUsageCountForRecord:3 controller:controller success:^(int usageCount) {
-        certData.usageCount = usageCount;
-        
         success(certData);
     } failure:failure];
 }
 
-- (void)authenticationCertDataWithViewController:(UIViewController *)controller success:(DataSuccessBlock)success failure:(FailureBlock)failure {
-    [self addCardAction:CardActionReadAuthenticationCert data:nil viewController:controller success:success failure:failure];
+- (void)authenticationCertDataWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
+    [self addCardAction:CardActionReadAuthenticationCert data:nil success:success failure:failure];
 }
 
-- (void)changeCode:(CodeType)type withVerifyCode:(NSString *)verify to:(NSString *)newCode viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
+- (void)changeCode:(CodeType)type withVerifyCode:(NSString *)verify to:(NSString *)newCode success:(VoidBlock)success failure:(FailureBlock)failure {
     NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:type], kCardActionDataVerify:verify, kCardActionDataNewCode:newCode};
-    [self addCardAction:CardActionChangePin data:data viewController:controller success:^(id data) {
+    [self addCardAction:CardActionChangePin data:data success:^(id data) {
         success();
     } failure:failure];
 }
 
-- (void)changePin:(CodeType)type withPuk:(NSString *)puk to:(NSString *)newPin viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
+- (void)changePin:(CodeType)type withPuk:(NSString *)puk to:(NSString *)newPin success:(VoidBlock)success failure:(FailureBlock)failure {
     NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:type], kCardActionDataVerify:puk, kCardActionDataNewCode:newPin};
-    [self addCardAction:CardActionChangePinWithPuk data:data viewController:controller success:^(id data) {
+    [self addCardAction:CardActionChangePinWithPuk data:data success:^(id data) {
         success();
     } failure:failure];
 }
 
-- (void)code:(CodeType)type retryCountWithViewController:(UIViewController *)controller success:(void (^)(NSNumber *))success failure:(FailureBlock)failure {
+- (void)code:(CodeType)type retryCountWithSuccess:(void (^)(NSNumber *))success failure:(FailureBlock)failure {
     NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:type]};
-    [self addCardAction:CardActionPinRetryCount data:data viewController:controller success:success failure:failure];
+    [self addCardAction:CardActionPinRetryCount data:data success:success failure:failure];
 }
 
-- (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode viewController:(UIViewController *)controller success:(VoidBlock)success failure:(FailureBlock)failure {
+- (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode success:(VoidBlock)success failure:(FailureBlock)failure {
     NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:type], kCardActionDataVerify:puk, kCardActionDataNewCode:newCode};
-    [self addCardAction:CardActionUnblockPin data:data viewController:controller success:^(id data) {
+    [self addCardAction:CardActionUnblockPin data:data success:^(id data) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationRetryCounterChanged object:nil];
         success();
     } failure:failure];
 }
 
-- (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 controller:(UIViewController *)controller useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure {
+- (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure {
     NSDictionary *data = @{kCardActionDataHash:hash, kCardActionDataVerify:pin2, kCardActionDataUseECC:[NSNumber numberWithBool:useECC]};
-    [self addCardAction:CardActionCalculateSignature data:data viewController:controller success:success failure:failure];
+    [self addCardAction:CardActionCalculateSignature data:data success:success failure:failure];
 }
 
-- (void)addSignature:(NSString *)containerPath withPin2:(NSString *)pin2 controller:(UIViewController *)controller success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure {
+- (void)addSignature:(NSString *)containerPath withPin2:(NSString *)pin2 success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure {
     
-    [self code:CodeTypePin2 retryCountWithViewController:controller success:^(NSNumber *count) {
+    [self code:CodeTypePin2 retryCountWithSuccess:^(NSNumber *count) {
         if (count.intValue > 0) {
-            NSDictionary *data = @{kCardActionDataCodeType:[NSNumber numberWithInt:CodeTypePin2], kCardActionDataVerify:pin2};
             __weak typeof(self) weakSelf = self;
-            [self addCardAction:CardActionVerifyCode data:data viewController:controller success:^(NSString *pin2) {
-                [weakSelf addSignatureTo:containerPath controller:controller pin2:pin2 success:success andFailure:failure];
-                
-            } failure:^(NSError *error) {
-                if (error.code == moppLibErrorWrongPin) {
-                    int retryCount = [[error.userInfo objectForKey:kMoppLibUserInfoRetryCount] intValue];
-                    
-                    if (retryCount == 0) {
-                        failure([MoppLibError pinBlockedError]);
-                    } else {
-                        failure([MoppLibError wrongPinErrorWithRetryCount:retryCount]);
-                    }
-                } else {
-                    failure(error);
-                }
-            }];
+            [weakSelf addSignatureTo:containerPath pin2:pin2 success:success andFailure:failure];
+
         } else {
             failure([MoppLibError pinBlockedError]);
         }
     } failure:failure];
 }
 
-- (void)addSignatureTo:(NSString *)containerPath controller:(UIViewController *)controller pin2:(NSString *)pin2 success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success andFailure:(FailureBlock)failure {
-    [self signingCertDataWithViewController:controller pin2:pin2 success:^(NSData *certData) {
+- (void)addSignatureTo:(NSString *)containerPath pin2:(NSString *)pin2 success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success andFailure:(FailureBlock)failure {
+    [self signingCertDataWithPin2:pin2 success:^(NSData *certData) {
         [[MoppLibDigidocManager sharedInstance] addSignature:containerPath pin2:pin2 cert:certData success:^(MoppLibContainer *container) {
             success(container, YES);
         } andFailure:failure];
     } failure:failure];
 }
 
-- (void)displayInvalidPinError:(NSError *)error on:(UIViewController *)controller forPin:(CodeType)type completion:(void (^)(void))completion {
-    NSString *pinString = [self pinStringForCode:type];
-    NSString *message;
-    
-    //  BOOL dismissViewcontroller = NO;
-    int retryCount = [[error.userInfo objectForKey:kMoppLibUserInfoRetryCount] intValue];
-    
-    message = [NSString stringWithFormat:MLLocalizedString(@"pin-actions-wrong-pin-retry", nil), pinString, retryCount];
-    
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:MLLocalizedString(@"Error", nil) message:message preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:MLLocalizedString(@"action-ok", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        completion();
-    }]];
-    [controller presentViewController:alert animated:YES completion:nil];
-}
-
 - (void)notifyIdNeeded:(NSError *)error {
     if (error.code == moppLibErrorWrongPin) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationRetryCounterChanged object:nil];
     }
-}
-
-- (NSString *)pinStringForCode:(CodeType)type {
-    if (type == CodeTypePin1) {
-        return MLLocalizedString(@"pin-actions-pin1", nil);
-        
-    } else if (type == CodeTypePin2) {
-        return MLLocalizedString(@"pin-actions-pin2", nil);
-        
-    }else if (type == CodeTypePuk) {
-        return MLLocalizedString(@"pin-actions-puk", nil);
-    }
-    return @"";
 }
 
 /**
@@ -284,7 +216,7 @@ static CardActionsManager *sharedInstance = nil;
  * @param success   block to be called when card action is completed successfully
  * @param failure   block to be called when executing card action fails
  */
-- (void)addCardAction:(NSUInteger)action data:(NSDictionary *)data viewController:(UIViewController *)controller success:(void (^)(id))success failure:(FailureBlock)failure {
+- (void)addCardAction:(NSUInteger)action data:(NSDictionary *)data success:(void (^)(id))success failure:(FailureBlock)failure {
     NSLog(@"addCardAction");
     @synchronized (self) {
         CardActionObject *actionObject = [CardActionObject new];
@@ -294,7 +226,6 @@ static CardActionsManager *sharedInstance = nil;
             failure(error);
         };
         actionObject.cardAction = action;
-        actionObject.controller = controller;
         actionObject.data = data;
         actionObject.retryCount = 0;
         
@@ -331,7 +262,7 @@ static CardActionsManager *sharedInstance = nil;
                     //if (isPoweredOn) {
                     //    [self executeAction:action];
                     //} else {
-                        [self.cardReader powerOnCard:^ {
+                        [self.cardReader powerOnCard:^(NSData* powerData) {
                             NSString *hexCommand = [kCommandGetCardVersion replaceHexStringLastValue:length];
                             [self.cardReader transmitCommand:hexCommand success:^(NSData *responseObject) {
                                 NSData *trailerData = [responseObject responseTrailerData];
@@ -413,7 +344,7 @@ static CardActionsManager *sharedInstance = nil;
             actionObject.retryCount = actionObject.retryCount + 1;
             
             // Could be caused bu card change and card is not powered on
-            [self.cardReader powerOnCard:^{
+            [self.cardReader powerOnCard:^(NSData* powerData){
                 [self executeAction:actionObject];
             } failure:^(NSError *error) {
                 actionObject.failureBlock(error);
@@ -456,59 +387,6 @@ static CardActionsManager *sharedInstance = nil;
                     [self.cardVersionHandler unblockCode:type withPuk:verifyCode newCode:newCode success:success failure:failure];
                 }];
             } failure:failure];
-            break;
-        }
-            
-        case CardActionVerifyCode: {
-            CodeType type = ((NSNumber *)[actionObject.data objectForKey:kCardActionDataCodeType]).integerValue;
-            NSString *verifyCode = [actionObject.data objectForKey:kCardActionDataVerify];
-            if (!verifyCode) {
-                NSString *title = [self pinStringForCode:type];
-                NSString *message;
-                if (type == CodeTypePin1) {
-                    message = MLLocalizedString(@"container-details-enter-pin1", nil);
-                    
-                } else if (type == CodeTypePin2) {
-                    message = MLLocalizedString(@"container-details-enter-pin2", nil);
-                    
-                } else if (type == CodeTypePuk) {
-                    message = MLLocalizedString(@"container-details-enter-puk", nil);
-                }
-                NSString *placeholder = title;
-                
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-                
-                [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-                    textField.keyboardType = UIKeyboardTypeNumberPad;
-                    textField.placeholder = placeholder;
-                    textField.secureTextEntry = YES;
-                }];
-                
-                NSString *ok = MLLocalizedString(@"action-ok", nil);
-                NSString *cancel = MLLocalizedString(@"action-cancel", nil);
-                
-                // SIGN
-                [alert addAction:[UIAlertAction actionWithTitle:ok style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    NSString *pin = [alert.textFields[0].text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:actionObject.data];
-                    [dict setObject:pin forKey:kCardActionDataVerify];
-                    actionObject.data = dict;
-                    [self executeAction:actionObject]; // New round
-                }]];
-                
-                // CANCEL
-                [alert addAction:[UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    failure([MoppLibError pinNotProvidedError]);
-                }]];
-                
-                [actionObject.controller presentViewController:alert animated:YES completion:nil];
-                
-                
-            } else {
-                [self.cardVersionHandler verifyCode:verifyCode ofType:type withSuccess:^(NSData *responseData) {
-                    success(verifyCode);
-                } failure:failure];
-            }
             break;
         }
             
@@ -644,7 +522,7 @@ NSString *blockBackupCode = @"00001";
     return self.cardReader && [self.cardReader isConnected];
 }
 
-- (void)isCardInserted:(void(^)(BOOL)) completion {
+- (void)isCardInserted:(BoolBlock) completion {
     @synchronized (self) {
         CardActionObject *actionObject = [CardActionObject new];
         actionObject.boolBlock = completion;

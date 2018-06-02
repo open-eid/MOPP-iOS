@@ -34,22 +34,34 @@
   return self.dataFiles.count != 0;
 }
 
-- (BOOL)isDDocType {
-  return [self.fileName hasSuffix:@".ddoc"];
-}
-- (BOOL)isAsiceType {
-  return [self.fileName hasSuffix:@".asice"] || [self.fileName hasSuffix:@".sce"];
+- (BOOL)isDdoc {
+  return [[self.fileName lowercaseString] hasSuffix:@".ddoc"];
 }
 
-- (BOOL)isLegacyType {
+- (BOOL)isAsice {
+  NSString *lowerCaseFilename = [self.fileName lowercaseString];
+  return [lowerCaseFilename hasSuffix:@".asice"] || [lowerCaseFilename hasSuffix:@".sce"];
+}
+
+- (BOOL)isAsics {
+  NSString *lowerCaseFilename = [self.fileName lowercaseString];
+  return [lowerCaseFilename hasSuffix:@".asics"] || [lowerCaseFilename hasSuffix:@".scs"];
+}
+
+- (BOOL)isBdoc {
+    return [[self.fileName lowercaseString] hasSuffix:@".bdoc"];
+}
+
+- (BOOL)isLegacy {
     NSString *fileNameLowercase = [self.fileName lowercaseString];
     return
         [fileNameLowercase hasSuffix:@".adoc"]    ||
         [fileNameLowercase hasSuffix:@".edoc"]    ||
-        [fileNameLowercase hasSuffix:@".ddoc"]    ||
-        [fileNameLowercase hasSuffix:@".asics"]   ||
-        [fileNameLowercase hasSuffix:@".scs"]     ||
-        [fileNameLowercase hasSuffix:@".pdf"];
+        [fileNameLowercase hasSuffix:@".ddoc"];
+}
+
+- (BOOL)isSignable {
+    return [self isBdoc] || [self isAsice];
 }
 
 - (NSString *)getNextSignatureId {

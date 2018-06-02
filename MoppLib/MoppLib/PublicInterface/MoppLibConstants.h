@@ -23,7 +23,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "MoppLibCertData.h"
+#import "MoppLibCerificatetData.h"
 #import "MoppLibPersonalData.h"
 #import "MoppLibContainer.h"
 #import "MoppLibMobileCreateSignatureResponse.h"
@@ -70,13 +70,14 @@ extern NSString *const kMoppLibUserInfoRetryCount;
 typedef void (^DataSuccessBlock)(NSData *responseData);
 typedef void (^ObjectSuccessBlock)(NSObject *responseObject);
 typedef void (^FailureBlock)(NSError *error);
-typedef void (^CertDataBlock)(MoppLibCertData *certData);
+typedef void (^CertDataBlock)(MoppLibCerificatetData *certData);
 typedef void (^PersonalDataBlock)(MoppLibPersonalData *personalData);
 typedef void (^SignatureStatusBlock) (MoppLibContainer *container, NSError *error, NSString *status);
 typedef void (^ContainerBlock)(MoppLibContainer *container);
 typedef void (^MobileCreateSignatureResponseBlock)(MoppLibMobileCreateSignatureResponse *createSignatureResponse);
 typedef void (^VoidBlock)(void);
-typedef void (^EmptySuccessBlock)();
+typedef void (^BoolBlock)(BOOL);
+typedef void (^NumberBlock)(NSNumber*);
 
 /**
  * Posted when card reader status changes. This can be triggered when connected card reader is turned off or connected card reader detects that card is inserted or removed.

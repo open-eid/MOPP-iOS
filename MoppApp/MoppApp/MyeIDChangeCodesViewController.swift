@@ -153,27 +153,27 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
             guard let strongSelf = self else { return }
             switch strongSelf.model.actionType {
             case .changePin1:
-                MoppLibPinActions.changePin1(to: newCode, withOldPin1: oldCode, viewController: self, success: {
+                MoppLibPinActions.changePin1(to: newCode, withOldPin1: oldCode, success: {
                     commonSuccessClosure()
                 }, failure: failureClosure)
                 
             case .changePin2:
-                MoppLibPinActions.changePin2(to: newCode, withOldPin2: oldCode, viewController: self, success: {
+                MoppLibPinActions.changePin2(to: newCode, withOldPin2: oldCode, success: {
                     commonSuccessClosure()
                 }, failure: failureClosure)
                 
             case .unblockPin1:
-                MoppLibPinActions.changePin1(to: newCode, withPuk: pukCode, viewController: self, success: {
+                MoppLibPinActions.changePin1(to: newCode, withPuk: pukCode, success: {
                     commonSuccessClosure()
                 }, failure: failureClosure)
                 
             case .unblockPin2:
-                MoppLibPinActions.changePin2(to: newCode, withPuk: pukCode, viewController: self, success: {
+                MoppLibPinActions.changePin2(to: newCode, withPuk: pukCode, success: {
                     commonSuccessClosure()
                 }, failure: failureClosure)
                 
             case .changePuk:
-                MoppLibPinActions.changePuk(to: newCode, withOldPuk: oldCode, viewController: self, success: {
+                MoppLibPinActions.changePuk(to: newCode, withOldPuk: oldCode, success: {
                     commonSuccessClosure()
                 }, failure: failureClosure)
             }

@@ -141,8 +141,8 @@ class MoppFileManager {
         
         fileManager.createFile(atPath: filePath, contents: fileContents, attributes: nil)
         
-        MoppLibContainerActions.sharedInstance().getContainerWithPath(
-            filePath,
+        MoppLibContainerActions.sharedInstance().openContainer(
+            withPath: filePath,
             success: { (_ container: MoppLibContainer?) in
                 NotificationCenter.default.post(name: .containerChangedNotificationName, object: nil, userInfo: [kKeyContainerNew: container!])
             },
