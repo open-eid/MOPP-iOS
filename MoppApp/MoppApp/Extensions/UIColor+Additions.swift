@@ -93,4 +93,16 @@ extension UIColor {
     class var moppUnselectedTabBarItemAlpha: CGFloat {
         return 0.5
     }
+    
+    class var moppMenuSeparator: UIColor {
+        return UIColor(named: "MoppMenuSeparator")!
+    }
+    
+    class var moppMenuLanguageUnselected: UIColor {
+        return UIColor(named: "MoppMenuLanguageUnselected")!
+    }
+    
+    class var moppMenuLanguageTextUnselected: UIColor {
+        return UIColor(named: "MoppMenuLanguageTextUnselected")!
+    }
 }

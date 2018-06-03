@@ -83,6 +83,8 @@
 		C52E827A1FC1D7000074B280 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52E82791FC1D7000074B280 /* main.swift */; };
 		C52E827C1FC1D7BC0074B280 /* MoppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52E827B1FC1D7BC0074B280 /* MoppApp.swift */; };
 		C52E827E1FC1DBFE0074B280 /* MoppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52E827D1FC1DBFE0074B280 /* MoppViewController.swift */; };
+		C5310F2620C1777B004D3E78 /* MenuLanguageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5310F2520C1777B004D3E78 /* MenuLanguageCell.swift */; };
+		C5310F4620C2F0F7004D3E78 /* MenuLanguageButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5310F4520C2F0F7004D3E78 /* MenuLanguageButtonView.swift */; };
 		C537AE542004C29E009037E5 /* MobileIDEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C537AE532004C29E009037E5 /* MobileIDEditViewController.swift */; };
 		C537AE7820063E48009037E5 /* LandingElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C537AE7720063E48009037E5 /* LandingElements.xib */; };
 		C54BB1091FBD8CC600A274F6 /* MyeID.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54BB1081FBD8CC600A274F6 /* MyeID.storyboard */; };
@@ -424,6 +426,8 @@
 		C52E82791FC1D7000074B280 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		C52E827B1FC1D7BC0074B280 /* MoppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoppApp.swift; sourceTree = "<group>"; };
 		C52E827D1FC1DBFE0074B280 /* MoppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoppViewController.swift; sourceTree = "<group>"; };
+		C5310F2520C1777B004D3E78 /* MenuLanguageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuLanguageCell.swift; sourceTree = "<group>"; };
+		C5310F4520C2F0F7004D3E78 /* MenuLanguageButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuLanguageButtonView.swift; sourceTree = "<group>"; };
 		C537AE532004C29E009037E5 /* MobileIDEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileIDEditViewController.swift; sourceTree = "<group>"; };
 		C537AE7720063E48009037E5 /* LandingElements.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LandingElements.xib; sourceTree = "<group>"; };
 		C54BB1081FBD8CC600A274F6 /* MyeID.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyeID.storyboard; sourceTree = "<group>"; };
@@ -661,6 +665,8 @@
 				C56C6203201A0D9300CCC2A5 /* MenuCell.swift */,
 				C56C6205201A189600CCC2A5 /* MenuHeaderCell.swift */,
 				C56C6207201A1B4C00CCC2A5 /* MenuSeparatorCell.swift */,
+				C5310F2520C1777B004D3E78 /* MenuLanguageCell.swift */,
+				C5310F4520C2F0F7004D3E78 /* MenuLanguageButtonView.swift */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -1420,6 +1426,7 @@
 				C506EC7C1FB9CBFD00E07226 /* Constants.swift in Sources */,
 				C55BB1CF2091BEBD00618AC4 /* about_et.html in Sources */,
 				C58FCD5B206505BE00FE3B57 /* MyeIDStatusViewController.swift in Sources */,
+				C5310F2620C1777B004D3E78 /* MenuLanguageCell.swift in Sources */,
 				C5A795D3208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift in Sources */,
 				C506EC811FB9F4AF00E07226 /* UIImage+Additions.swift in Sources */,
 				C55A6E42208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift in Sources */,
@@ -1468,6 +1475,7 @@
 				C5A1D1CD2031D5B80024CD4C /* ContainerActions.swift in Sources */,
 				C56C6204201A0D9300CCC2A5 /* MenuCell.swift in Sources */,
 				C50DCD0D1FC7147100D48E16 /* ContainerTableViewHeaderView.swift in Sources */,
+				C5310F4620C2F0F7004D3E78 /* MenuLanguageButtonView.swift in Sources */,
 				C5927FC92075144F003B7F41 /* MyeIDSegmentHeaderCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

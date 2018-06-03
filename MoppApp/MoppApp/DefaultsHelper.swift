@@ -41,6 +41,8 @@ let kNewContainerFormatKey = "kNewContainerFormatKey"
 let kPhoneNumberKey = "kPhoneNumberKey"
 let kIDCodeKey = "kIDCodeKey"
 let kCrashReportSettingKey = "kCrashReportSettingKey"
+let kPreviousPreferredLanguage = "kPreviousPreferredLanguage"
+let kMoppLanguage = "kMoppLanguage"
 
 class DefaultsHelper
 {
@@ -78,6 +80,33 @@ class DefaultsHelper
         }
         get {
             return (UserDefaults.standard.value(forKey: kCrashReportSettingKey) as? String) ?? String()
+        }
+    }
+
+    class var moppLanguageID: String {
+        get {
+            // Force app language to system language only if it has changed or first run
+            
+            let preferredLanguage = Locale.preferredLanguages.first?.lowercased().substr(offset: 0, count: 2) ?? kDefaultLanguageID
+            let previousPreferredLanguage: String! = UserDefaults.standard.value(forKey: kPreviousPreferredLanguage) as? String
+            
+            if previousPreferredLanguage == nil || preferredLanguage != previousPreferredLanguage {
+                UserDefaults.standard.set(preferredLanguage, forKey: kMoppLanguage)
+                UserDefaults.standard.set(preferredLanguage, forKey: kPreviousPreferredLanguage)
+                UserDefaults.standard.synchronize()
+            }
+        
+            var languageId: String! = UserDefaults.standard.value(forKey: kMoppLanguage) as? String
+            if languageId == nil {
+                languageId = preferredLanguage
+                UserDefaults.standard.set(languageId, forKey: kMoppLanguage)
+                UserDefaults.standard.synchronize()
+            }
+            return languageId
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: kMoppLanguage)
+            UserDefaults.standard.synchronize()
         }
     }
 
