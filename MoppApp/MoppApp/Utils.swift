@@ -46,10 +46,15 @@ func MSLog(_ format: String, _ arguments: Any...) {
     print(format, arguments)
 }
 
+let kDefaultLanguageID = "en"
+
 // Fixme: couldn't get around erroneous output using CVarArg... or Any... as 'arguments' type
 func L(_ key: LocKey, _ arguments: [CVarArg] = []) -> String {
-    let format = NSLocalizedString(key.rawValue, comment: String())
-    return String(format: format, arguments: arguments)
+    let languageId = DefaultsHelper.moppLanguageID
+    let path = Bundle.main.path(forResource: languageId, ofType: "lproj", inDirectory: String())
+    let bundle = Bundle(path: path!)
+    let format = bundle?.localizedString(forKey: key.rawValue, value: nil, table: nil)
+    return String(format: format!, arguments: arguments)
 }
 
 func MoppLib_LocalizedString(_ key: String,_ arguments: [CVarArg] = []) -> String {

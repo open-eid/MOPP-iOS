@@ -219,6 +219,11 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         })
     }
 
+    func resetRootViewController() {
+        landingViewController = UIStoryboard.landing.instantiateInitialViewController(of: LandingViewController.self)
+        window?.rootViewController = landingViewController
+        window?.makeKeyAndVisible()
+    }
 }
 
 extension MoppApp {
