@@ -21,6 +21,7 @@
  *
  */
 class MenuViewController : MoppModalViewController {
+    @IBOutlet weak var tableView        : UITableView!
     @IBOutlet weak var helpButton       : UIButton!
     @IBOutlet weak var introButton      : UIButton!
     @IBOutlet weak var documentsButton  : UIButton!
@@ -40,6 +41,8 @@ class MenuViewController : MoppModalViewController {
         case settings
         case about
         case diagnostics
+        case language
+        case separator
     }
 
     let menuItems: [(title: String, imageName: String, id: MenuItemID)] = [
@@ -47,7 +50,9 @@ class MenuViewController : MoppModalViewController {
         (L(.menuRecentContainers), "icon_files white", .containersHistory),
         (L(.menuSettings), "icon_settings white", .settings),
         (L(.menuAbout), "icon_info white", .about),
-        (L(.menuDiagnostics), "icon_graph white", .diagnostics)
+        (L(.menuDiagnostics), "icon_graph white", .diagnostics),
+        (String(), String(), .separator),
+        (String(), String(), .language)
         ]
 
     @IBAction func dismissAction() {
@@ -56,6 +61,9 @@ class MenuViewController : MoppModalViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.estimatedRowHeight = 200
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
         lightContentStatusBarStyle = true
     
         let blurLayer = CALayer()
@@ -91,9 +99,18 @@ extension MenuViewController : UITableViewDataSource {
         case .items:
             let title = menuItems[indexPath.row].title
             let iconName = menuItems[indexPath.row].imageName
-            let cell = tableView.dequeueReusableCell(withType: MenuCell.self, for: indexPath)!
-                cell.populate(iconName: iconName, title: title)
-            return cell
+            let id = menuItems[indexPath.row].id
+            if id == .language {
+                let cell = tableView.dequeueReusableCell(withType: MenuLanguageCell.self, for: indexPath)!
+                    cell.delegate = self
+                return cell
+            } else if id == .separator {
+                return tableView.dequeueReusableCell(withType: MenuSeparatorCell.self, for: indexPath)!
+            } else {
+                let cell = tableView.dequeueReusableCell(withType: MenuCell.self, for: indexPath)!
+                    cell.populate(iconName: iconName, title: title)
+                return cell
+            }
         }
 
     }
@@ -150,23 +167,30 @@ extension MenuViewController : UITableViewDelegate {
                         MoppApp.instance.rootViewController?.present(diagnosticsViewController, animated: true, completion: nil)
                     }
                 })
+            case .language:
+                break
+            case .separator:
+                break
             }
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let section = sections[indexPath.section]
-        switch section {
-        case .header:
-            return 100
-        case .items:
-            return 48
-        }
-    }
 }
 
 extension MenuViewController : MenuHeaderDelegate {
     func menuHeaderDismiss() {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension MenuViewController : MenuLanguageCellDelegate {
+    func didSelectLanguage(languageId: String) {
+        
+        DefaultsHelper.moppLanguageID = languageId
+        
+        dismiss(animated: true) {
+            MoppApp.instance.resetRootViewController()
+        }
+        
     }
 }
