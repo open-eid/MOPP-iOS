@@ -60,7 +60,12 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         case openOrCreate
         case addToContainer
     }
-
+    
+    enum ContainerType {
+        case asic
+        case cdoc
+    }
+    
     static var versionString:String {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? String()
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? String()

@@ -38,7 +38,7 @@ class MyeIDViewController : MoppViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        LandingViewController.shared.presentButtons([.signTab, .myeIDTab])
+        LandingViewController.shared.presentButtons([.signTab, .cryptoTab, .myeIDTab])
     }
     
     override func viewDidAppear(_ animated: Bool) {

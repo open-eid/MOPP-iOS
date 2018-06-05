@@ -11,6 +11,20 @@
 		390C016520AC3FF300827230 /* CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39852A6120AB2949004CB100 /* CryptoLib.framework */; };
 		390C016620AC3FF300827230 /* CryptoLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 39852A6120AB2949004CB100 /* CryptoLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		390C016E20AC44BA00827230 /* cdoc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 390C016A20AC430300827230 /* cdoc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		39158A1920C6C49100B71DD6 /* AddresseeActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39158A1820C6C49100B71DD6 /* AddresseeActions.swift */; };
+		3921CA9520B2D6D600BF3178 /* CryptoActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CA9420B2D6D600BF3178 /* CryptoActions.swift */; };
+		3921CA9720B2D8A600BF3178 /* SigningActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CA9620B2D8A600BF3178 /* SigningActions.swift */; };
+		3921CA9920B2F5B200BF3178 /* PreviewActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CA9820B2F5B200BF3178 /* PreviewActions.swift */; };
+		3921CAA120B45DCF00BF3178 /* SigningContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAA020B45DCF00BF3178 /* SigningContainerViewController.swift */; };
+		3921CAA520B5A24A00BF3178 /* CryptoContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAA420B5A24A00BF3178 /* CryptoContainerViewController.swift */; };
+		3921CAA720B5A39F00BF3178 /* ContainerAddresseeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAA620B5A39F00BF3178 /* ContainerAddresseeCell.swift */; };
+		3921CAA920B5A54600BF3178 /* ContainerImportAddressees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAA820B5A54600BF3178 /* ContainerImportAddressees.swift */; };
+		3921CAAB20B5B92100BF3178 /* CryptoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAAA20B5B92100BF3178 /* CryptoContainer.swift */; };
+		3921CAAD20B819B500BF3178 /* ContainerNoAddresseesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAAC20B819B500BF3178 /* ContainerNoAddresseesCell.swift */; };
+		3921CAAF20B826E700BF3178 /* AddresseeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAAE20B826E700BF3178 /* AddresseeViewController.swift */; };
+		399C01EA20BD98730056D7AC /* ContainerFoundAddresseeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399C01E920BD98730056D7AC /* ContainerFoundAddresseeCell.swift */; };
+		39CDA7EA20ADBCEC006E2E9F /* Crypto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */; };
+		39CDA7EE20ADBE93006E2E9F /* CryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */; };
 		51EAB865AC99468B5AC77D6C /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
 		540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.swift */; };
 		547BDF251E8BEFA30093931F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
@@ -347,7 +361,21 @@
 
 /* Begin PBXFileReference section */
 		390C016A20AC430300827230 /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = ../CryptoLib/CryptoLib/cdoc.framework; sourceTree = "<group>"; };
+		39158A1820C6C49100B71DD6 /* AddresseeActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddresseeActions.swift; sourceTree = "<group>"; };
+		3921CA9420B2D6D600BF3178 /* CryptoActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoActions.swift; sourceTree = "<group>"; };
+		3921CA9620B2D8A600BF3178 /* SigningActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningActions.swift; sourceTree = "<group>"; };
+		3921CA9820B2F5B200BF3178 /* PreviewActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewActions.swift; sourceTree = "<group>"; };
+		3921CAA020B45DCF00BF3178 /* SigningContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningContainerViewController.swift; sourceTree = "<group>"; };
+		3921CAA420B5A24A00BF3178 /* CryptoContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoContainerViewController.swift; sourceTree = "<group>"; };
+		3921CAA620B5A39F00BF3178 /* ContainerAddresseeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerAddresseeCell.swift; sourceTree = "<group>"; };
+		3921CAA820B5A54600BF3178 /* ContainerImportAddressees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerImportAddressees.swift; sourceTree = "<group>"; };
+		3921CAAA20B5B92100BF3178 /* CryptoContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoContainer.swift; sourceTree = "<group>"; };
+		3921CAAC20B819B500BF3178 /* ContainerNoAddresseesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerNoAddresseesCell.swift; sourceTree = "<group>"; };
+		3921CAAE20B826E700BF3178 /* AddresseeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddresseeViewController.swift; sourceTree = "<group>"; };
 		39852A6120AB2949004CB100 /* CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		399C01E920BD98730056D7AC /* ContainerFoundAddresseeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerFoundAddresseeCell.swift; sourceTree = "<group>"; };
+		39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Crypto.storyboard; sourceTree = "<group>"; };
+		39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoViewController.swift; sourceTree = "<group>"; };
 		3F911EB9E3AB94D442FA9F9D /* Pods-MoppApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.release.xcconfig"; sourceTree = "<group>"; };
 		540786E81E1A76640016ABA7 /* UITextView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Additions.swift"; sourceTree = "<group>"; };
 		54825EF41E1CFE9600253FF0 /* Date+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Additions.swift"; sourceTree = "<group>"; };
@@ -545,6 +573,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		39158A1720C6AC0B00B71DD6 /* actions */ = {
+			isa = PBXGroup;
+			children = (
+				3921CA9420B2D6D600BF3178 /* CryptoActions.swift */,
+				3921CA9620B2D8A600BF3178 /* SigningActions.swift */,
+				3921CA9820B2F5B200BF3178 /* PreviewActions.swift */,
+				39158A1820C6C49100B71DD6 /* AddresseeActions.swift */,
+			);
+			name = actions;
+			sourceTree = "<group>";
+		};
+		3950027D20ADB543008D946D /* Crypto */ = {
+			isa = PBXGroup;
+			children = (
+				39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */,
+				39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */,
+			);
+			name = Crypto;
+			sourceTree = "<group>";
+		};
 		540786E61E1A76280016ABA7 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -629,13 +677,18 @@
 		C50DCCFD1FC6E94800D48E16 /* Container */ = {
 			isa = PBXGroup;
 			children = (
+				39158A1720C6AC0B00B71DD6 /* actions */,
 				C50DCD001FC6E97400D48E16 /* Container.storyboard */,
 				C50DCD021FC7117700D48E16 /* ContainerElements.xib */,
 				C50DCCFE1FC6E95A00D48E16 /* ContainerViewController.swift */,
+				3921CAAE20B826E700BF3178 /* AddresseeViewController.swift */,
 				C50DCD041FC7125300D48E16 /* ContainerNotificationCell.swift */,
 				C50DCD061FC7126100D48E16 /* ContainerSignatureCell.swift */,
 				C50DCD081FC7127400D48E16 /* ContainerFileCell.swift */,
 				C50DCD0A1FC7128900D48E16 /* ContainerHeaderCell.swift */,
+				3921CAA620B5A39F00BF3178 /* ContainerAddresseeCell.swift */,
+				399C01E920BD98730056D7AC /* ContainerFoundAddresseeCell.swift */,
+				3921CAAC20B819B500BF3178 /* ContainerNoAddresseesCell.swift */,
 				C50DCD141FCC681100D48E16 /* ContainerSearchCell.swift */,
 				C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */,
 				C50DCD0C1FC7147100D48E16 /* ContainerTableViewHeaderView.swift */,
@@ -643,6 +696,10 @@
 				C50DCD451FDECE2B00D48E16 /* SignatureDetailsViewController.swift */,
 				C50DCD471FDED76400D48E16 /* SignatureDetailsCell.swift */,
 				C5964CE9200F8607001FE732 /* ContainerImportFilesCell.swift */,
+				3921CAA820B5A54600BF3178 /* ContainerImportAddressees.swift */,
+				3921CAA020B45DCF00BF3178 /* SigningContainerViewController.swift */,
+				3921CAA420B5A24A00BF3178 /* CryptoContainerViewController.swift */,
+				3921CAAA20B5B92100BF3178 /* CryptoContainer.swift */,
 			);
 			name = Container;
 			sourceTree = "<group>";
@@ -884,6 +941,7 @@
 		E4250D0B1E0AA84A00530370 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				3950027D20ADB543008D946D /* Crypto */,
 				C5FA0BEA20A19AC900A208E5 /* JailBroken */,
 				C593D9E6208F1972000B3BF6 /* Settings */,
 				C5E7D08E2031BA920081416F /* Shared */,
@@ -1137,6 +1195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C55BB1DE2091FDFE00618AC4 /* about.css in Resources */,
+				39CDA7EA20ADBCEC006E2E9F /* Crypto.storyboard in Resources */,
 				C55BB1D12091C30500618AC4 /* about_et.html in Resources */,
 				E4C53F381E2FAE6C00F209BE /* presentation.pdf in Resources */,
 				C50DCCED1FC5741900D48E16 /* RobotoCondensed-Bold.ttf in Resources */,
@@ -1386,10 +1445,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3921CAAD20B819B500BF3178 /* ContainerNoAddresseesCell.swift in Sources */,
 				54825EF51E1CFE9600253FF0 /* Date+Additions.swift in Sources */,
 				C50DCD1F1FD1831500D48E16 /* SearchTextField.swift in Sources */,
+				3921CAAF20B826E700BF3178 /* AddresseeViewController.swift in Sources */,
 				C50DCD0F1FC7181400D48E16 /* UITableView+Additions.swift in Sources */,
 				E4C53F4B1E30D03500F209BE /* DefaultsHelper.swift in Sources */,
+				3921CAAB20B5B92100BF3178 /* CryptoContainer.swift in Sources */,
 				C50DCD461FDECE2B00D48E16 /* SignatureDetailsViewController.swift in Sources */,
 				C50DCCFF1FC6E95A00D48E16 /* ContainerViewController.swift in Sources */,
 				C50DCD481FDED76400D48E16 /* SignatureDetailsCell.swift in Sources */,
@@ -1417,9 +1479,12 @@
 				C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */,
 				C58FCD5D206505D500FE3B57 /* MyeIDInfoViewController.swift in Sources */,
 				C50DCD0B1FC7128900D48E16 /* ContainerHeaderCell.swift in Sources */,
+				39158A1920C6C49100B71DD6 /* AddresseeActions.swift in Sources */,
 				C593D9F2208F269A000B3BF6 /* SettingsChoiceCell.swift in Sources */,
 				C54BB10F1FBD93A100A274F6 /* MobileIDChallengeViewController.swift in Sources */,
+				399C01EA20BD98730056D7AC /* ContainerFoundAddresseeCell.swift in Sources */,
 				C593D9EE208F1C09000B3BF6 /* SettingsHeaderCell.swift in Sources */,
+				3921CAA920B5A54600BF3178 /* ContainerImportAddressees.swift in Sources */,
 				C56C6206201A189600CCC2A5 /* MenuHeaderCell.swift in Sources */,
 				C50DCD441FDD7E4A00D48E16 /* DataFilePreviewViewController.swift in Sources */,
 				C50787881FEA807500D9AAC0 /* UIViewController+Additions.swift in Sources */,
@@ -1434,18 +1499,22 @@
 				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
 				C55BB1CA2090C17F00618AC4 /* AboutViewController.swift in Sources */,
 				C5927FEB2078FD40003B7F41 /* MyeIDInfoViewControllerUI.swift in Sources */,
+				3921CAA120B45DCF00BF3178 /* SigningContainerViewController.swift in Sources */,
+				3921CA9520B2D6D600BF3178 /* CryptoActions.swift in Sources */,
 				540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */,
 				C54EA6EB2046C3BA0039AC78 /* UITextField+Additions.swift in Sources */,
 				C50DCCC31FC2D54200D48E16 /* UIFont+Additions.swift in Sources */,
 				C54EA6DA2035C7190039AC78 /* ReaderScannerViewController.swift in Sources */,
 				C50DCD051FC7125300D48E16 /* ContainerNotificationCell.swift in Sources */,
 				C56C6208201A1B4C00CCC2A5 /* MenuSeparatorCell.swift in Sources */,
+				39CDA7EE20ADBE93006E2E9F /* CryptoViewController.swift in Sources */,
 				C52E82781FC1D3ED0074B280 /* MenuViewController.swift in Sources */,
 				C50DCCC71FC32A2500D48E16 /* MyeIDViewController.swift in Sources */,
 				C50DCD071FC7126100D48E16 /* ContainerSignatureCell.swift in Sources */,
 				C54EA6E82045A9E30039AC78 /* IdCardSignViewController.swift in Sources */,
 				C56C620D201A256E00CCC2A5 /* RecentContainersViewController.swift in Sources */,
 				C5964CE820079AE0001FE732 /* TabButton.swift in Sources */,
+				3921CA9920B2F5B200BF3178 /* PreviewActions.swift in Sources */,
 				C56C620F201A2B6500CCC2A5 /* RecentContainersHeaderCell.swift in Sources */,
 				C593D9F4208F3526000B3BF6 /* SettingsChoiceView.swift in Sources */,
 				C5CF5EEC2017E4CC008FBBD6 /* FileImportProgressViewController.swift in Sources */,
@@ -1456,16 +1525,19 @@
 				C560CB0A1FFCEEF000C01FE4 /* SigningFileImportCell.swift in Sources */,
 				C50DCD091FC7127400D48E16 /* ContainerFileCell.swift in Sources */,
 				E4250CCB1E0968D200530370 /* AppDelegate.swift in Sources */,
+				3921CA9720B2D8A600BF3178 /* SigningActions.swift in Sources */,
 				C52E827A1FC1D7000074B280 /* main.swift in Sources */,
 				C5964CEA200F8607001FE732 /* ContainerImportFilesCell.swift in Sources */,
 				C50DCD1B1FD1576B00D48E16 /* SigningTableViewHeaderView.swift in Sources */,
 				C54EA73A2057E58D0039AC78 /* MoppButton.swift in Sources */,
+				3921CAA720B5A39F00BF3178 /* ContainerAddresseeCell.swift in Sources */,
 				C55A6E402086351C000F3386 /* MyeIDChangeCodesTextField.swift in Sources */,
 				C54EA6E1203724730039AC78 /* ReaderScannerHeaderView.swift in Sources */,
 				C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */,
 				C50DCD131FCC4D3000D48E16 /* UIView+Additions.swift in Sources */,
 				C537AE542004C29E009037E5 /* MobileIDEditViewController.swift in Sources */,
 				C54EA6DF20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift in Sources */,
+				3921CAA520B5A24A00BF3178 /* CryptoContainerViewController.swift in Sources */,
 				C50DCCCB1FC32A3E00D48E16 /* SigningViewController.swift in Sources */,
 				C5FA0BE920A1930400A208E5 /* MoppApp+Jailbreak.swift in Sources */,
 				E42B08AE1E1EFC1800EA24A3 /* DateFormatter.swift in Sources */,

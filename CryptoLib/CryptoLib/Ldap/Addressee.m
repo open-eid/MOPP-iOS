@@ -1,5 +1,5 @@
 //
-//  LdapResponse.h
+//  Addressee.m
 //  CryptoLib
 /*
  * Copyright 2017 Riigi Infosüsteemide Amet
@@ -21,11 +21,8 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "Addressee.h"
 
-@interface LdapResponse : NSObject
-@property (nonatomic, strong) NSString *givenName;
-@property (nonatomic, strong) NSString *surname;
-@property (nonatomic, strong) NSString *identityCode;
-@property (nonatomic, strong) NSData *cert;
+@implementation Addressee
 
 @end

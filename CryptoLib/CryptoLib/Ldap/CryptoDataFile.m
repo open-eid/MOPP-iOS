@@ -1,5 +1,5 @@
 //
-//  LdapResponse.m
+//  DataFile.m
 //  CryptoLib
 /*
  * Copyright 2017 Riigi Infosüsteemide Amet
@@ -21,8 +21,8 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "LdapResponse.h"
+#import "CryptoDataFile.h"
 
-@implementation LdapResponse
-
+@implementation CryptoDataFile
+    
 @end

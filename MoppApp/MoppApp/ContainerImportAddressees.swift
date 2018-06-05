@@ -1,6 +1,7 @@
 //
-//  OpenLdap.h
-//  CryptoLib
+//  ContainerImportAddressees.swift
+//  MoppApp
+//
 /*
  * Copyright 2017 Riigi Infosüsteemide Amet
  *
@@ -20,11 +21,23 @@
  *
  */
 
-#import <Foundation/Foundation.h>
-#import "Addressee.h"
-
-@interface OpenLdap : NSObject
-- (NSMutableArray*)search:(NSString*)identityCode;
-@end
+import Foundation
 
 
+protocol ContainerImportAddresseeCellDelegate : class {
+    func containerImportCellAddAddressee()
+}
+
+class ContainerImportAddresseesCell : UITableViewCell {
+    @IBOutlet weak var button: UIButton!
+    weak var delegate: ContainerImportAddresseeCellDelegate!
+    
+    @IBAction func importAction() {
+        delegate.containerImportCellAddAddressee()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        button.localizedTitle = LocKey.addresseeImportTitle
+    }
+}

@@ -1,5 +1,5 @@
 //
-//  ContainerTableViewHeaderView.swift
+//  ContainerAddresseeCell.swift
 //  MoppApp
 //
 /*
@@ -20,40 +20,37 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
 import Foundation
 
-protocol ContainerTableViewHeaderDelegate : class {
-    func didTapContainerHeaderButton()
+protocol ContainerAddresseeCellDelegate : class {
+    func removeAddressee(index: Int)
 }
 
-class ContainerTableViewHeaderView: UIView {
-    static let height: CGFloat = 60
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var addButton: UIButton!
+class ContainerAddresseeCell: UITableViewCell, AddresseeActions {
+    static let height: CGFloat = 58
+
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var iconImage: UIImageView!
+    @IBOutlet weak var bottomBorder: UIView!
+    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var removeButton: UIButton!
+    weak var delegate: ContainerAddresseeCellDelegate!
+    var removeIndex: Int = 0
     
-    weak var delegate: ContainerTableViewHeaderDelegate? = nil
-    
-    var gradientLayer: CAGradientLayer!
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        let topColor = UIColor.white.withAlphaComponent(1.0)
-        let botColor = UIColor.white.withAlphaComponent(0.8)
-        _ = createGradientLayer(topColor: topColor, bottomColor: botColor)
+    @IBAction func removeAddressee(_ sender: Any) {
+        delegate.removeAddressee(index: removeIndex)
     }
     
-    func populate(withTitle title: String, showAddButton: Bool) {
-        addButton.isHidden = !showAddButton
-        
-        titleLabel.text = title
-    }
-    
-    @IBAction func addAction() {
-        delegate?.didTapContainerHeaderButton()
+    func populate(addressee: Addressee, index: Int, showRemoveButton: Bool) {
+        removeButton.isHidden = !showRemoveButton
+        removeIndex = index
+        nameLabel.text = determineName(addressee: addressee)
+        infoLabel.text = determineInfo(addressee: addressee)
     }
 }

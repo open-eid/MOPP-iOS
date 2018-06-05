@@ -1,6 +1,7 @@
 //
-//  OpenLdap.h
-//  CryptoLib
+//  CryptoContainer.swift
+//  MoppApp
+//
 /*
  * Copyright 2017 Riigi Infosüsteemide Amet
  *
@@ -20,11 +21,19 @@
  *
  */
 
-#import <Foundation/Foundation.h>
-#import "Addressee.h"
+import Foundation
 
-@interface OpenLdap : NSObject
-- (NSMutableArray*)search:(NSString*)identityCode;
-@end
-
+class CryptoContainer {
+    
+    var filename: NSString!
+    var filePath: NSString!
+    var dataFiles: NSMutableArray = []
+    var addressees: NSMutableArray = []
+    
+    init(filename: NSString, filePath: NSString){
+        self.filename = filename
+        self.filePath = filePath
+    }
+    
+}
 

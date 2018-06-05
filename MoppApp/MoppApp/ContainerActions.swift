@@ -52,7 +52,7 @@ extension ContainerActions where Self: UIViewController {
                 navController.setViewControllers([navController.viewControllers.first!], animated: false)
              
                 let ext = urls.first!.pathExtension
-                if (ext.isContainerExtension || ext == ContainerFormatPDF) && urls.count == 1 {
+                if ((ext.isAsicContainerExtension || ext == ContainerFormatPDF) && landingViewController.containerType == .asic) && urls.count == 1 {
                     self?.openExistingContainer(with: urls.first!)
                 } else {
                     self?.createNewContainer(with: urls.first!, dataFilePaths: dataFilePaths)
@@ -121,21 +121,54 @@ extension ContainerActions where Self: UIViewController {
         let landingViewController = LandingViewController.shared!
         let navController = landingViewController.viewController(for: .signTab) as! UINavigationController
         let topSigningViewController = navController.viewControllers.last!
-        let containerViewController = topSigningViewController as? ContainerViewController
-        let containerPath = containerViewController!.containerPath
-        
-        MoppLibContainerActions.sharedInstance().addDataFilesToContainer(
-            withPath: containerPath,
-            withDataFilePaths: dataFilePaths,
-            success: { container in
-                landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
-                    containerViewController?.reloadContainer()
-                })
-            },
-            failure: { error in
-                landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: nil)
+
+        if (landingViewController.containerType == .asic) {
+            let containerViewController = topSigningViewController as? ContainerViewController
+            let containerPath = containerViewController!.containerPath
+            MoppLibContainerActions.sharedInstance().addDataFilesToContainer(
+                withPath: containerPath,
+                withDataFilePaths: dataFilePaths,
+                success: { container in
+                    landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                        containerViewController?.reloadContainer()
+                    })
+                },
+                failure: { error in
+                    landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: nil)
+                }
+            )
+        } else {
+            let containerViewController = topSigningViewController as? CryptoContainerViewController
+            dataFilePaths.forEach {
+                var filename = ($0 as NSString).lastPathComponent as NSString
+                filename = generateNewFilename(container :(containerViewController?.container)!, filename: filename, count: 0)
+                let dataFile = CryptoDataFile.init()
+                dataFile.filename = filename as String?
+                dataFile.filePath = $0
+                
+                containerViewController?.container.dataFiles.add(dataFile)
             }
-        )
+            
+            landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                containerViewController?.reloadContainer()
+            })
+        }
+    }
+    
+    private func generateNewFilename(container: CryptoContainer, filename: NSString, count: Int) -> NSString {
+        var newFilename = filename
+        if (count > 0){
+            let fileExtension  = filename.pathExtension
+            let withoutExtension = filename.deletingPathExtension
+            newFilename = withoutExtension.appendingFormat("("+String(count)+")."+fileExtension) as NSString
+            
+        }
+        container.dataFiles.forEach {
+            if ((($0 as! CryptoDataFile).filename as NSString) == newFilename){
+                newFilename =  generateNewFilename(container: container, filename: filename, count: count + 1)
+            }
+        }
+        return newFilename
     }
     
     func createNewContainer(with url: URL, dataFilePaths: [String], startSigningWhenCreated: Bool = false, cleanUpDataFilesInDocumentsFolder: Bool = true) {
@@ -145,11 +178,17 @@ extension ContainerActions where Self: UIViewController {
         let fileName = url.lastPathComponent
         
         let (filename, _) = fileName.filenameComponents()
-        var newContainerFormat = DefaultsHelper.newContainerFormat
-        if newContainerFormat.isEmpty {
-            newContainerFormat = DefaultContainerFormat
+        let containerFilename: String
+        if (landingViewController.containerType == .asic){
+            var newContainerFormat = DefaultsHelper.newContainerFormat
+            if newContainerFormat.isEmpty {
+                newContainerFormat = DefaultContainerFormat
+            }
+            containerFilename = filename + "." + newContainerFormat
+        }else{
+            containerFilename = filename + "." + ContainerFormatCdoc
         }
-        let containerFilename = filename + "." + newContainerFormat
+        
         var containerPath = MoppFileManager.shared.filePath(withFileName: containerFilename)
             containerPath = MoppFileManager.shared.duplicateFilename(atPath: containerPath)
 
@@ -162,34 +201,35 @@ extension ContainerActions where Self: UIViewController {
                 }
             }
         }
-
-        MoppLibContainerActions.sharedInstance().createContainer(
-            withPath: containerPath,
-            withDataFilePaths: dataFilePaths,
-            success: { container in
-                if cleanUpDataFilesInDocumentsFolder {
-                    cleanUpDataFilesInDocumentsFolderCode()
-                }
-                if container == nil {
-                
-                    landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: nil)
-                    
-                    let alert = UIAlertController(title: L(.fileImportCreateNewFailedAlertTitle), message: L(.fileImportCreateNewFailedAlertMessage, [fileName]), preferredStyle: .alert)
+        if (landingViewController.containerType == .asic) {
+            MoppLibContainerActions.sharedInstance().createContainer(
+                withPath: containerPath,
+                withDataFilePaths: dataFilePaths,
+                success: { container in
+                    if cleanUpDataFilesInDocumentsFolder {
+                        cleanUpDataFilesInDocumentsFolderCode()
+                    }
+                    if container == nil {
+                        
+                        landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: nil)
+                        
+                        let alert = UIAlertController(title: L(.fileImportCreateNewFailedAlertTitle), message: L(.fileImportCreateNewFailedAlertMessage, [fileName]), preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
-
-                    landingViewController.present(alert, animated: true)
-                    return
-                }
-                
-                let containerViewController = ContainerViewController.instantiate()
+                        
+                        landingViewController.present(alert, animated: true)
+                        return
+                    }
+                    
+                    let containerViewController = SigningContainerViewController.instantiate()
                     containerViewController.containerPath = containerPath
+                    
                     containerViewController.isCreated = true
                     containerViewController.startSigningWhenOpened = startSigningWhenCreated
-                
-                landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
-                    navController?.pushViewController(containerViewController, animated: true)
-                })
-            
+                    
+                    landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                        navController?.pushViewController(containerViewController, animated: true)
+                    })
+                    
             }, failure: { error in
                 if cleanUpDataFilesInDocumentsFolder {
                     cleanUpDataFilesInDocumentsFolderCode()
@@ -197,7 +237,28 @@ extension ContainerActions where Self: UIViewController {
                 landingViewController.importProgressViewController.dismiss(animated: false, completion: nil)
                 MoppFileManager.shared.removeFile(withPath: filePath)
             }
-        )
+            )
+        }else{
+
+            let containerViewController = CryptoContainerViewController.instantiate()
+            let container = CryptoContainer.init(filename: containerFilename as NSString, filePath: containerPath as NSString)
+            containerViewController.containerPath = containerPath
+            
+            dataFilePaths.forEach {
+                let dataFile = CryptoDataFile.init()
+                dataFile.filename = ($0 as NSString).lastPathComponent
+                dataFile.filePath = $0
+                container.dataFiles.add(dataFile)
+            }
+            
+            containerViewController.container = container
+            containerViewController.isCreated = true
+            
+            landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                navController?.pushViewController(containerViewController, animated: true)
+            })
+        }
+
     }
     
     func createNewContainerForNonSignableContainerAndSign() {

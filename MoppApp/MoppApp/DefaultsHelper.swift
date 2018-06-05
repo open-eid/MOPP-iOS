@@ -30,6 +30,7 @@ let ContainerFormatAsiceShort = "sce"
 let ContainerFormatAscis = "asics"
 let ContainerFormatAsicsShort = "scs"
 let ContainerFormatPDF  = "pdf"
+let ContainerFormatCdoc = "cdoc"
 
 let DefaultContainerFormat = ContainerFormatBdoc
 

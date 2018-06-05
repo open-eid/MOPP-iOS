@@ -21,10 +21,12 @@
 
 // TabBar
 "tab-my-eid" = "МОЙ eID";
+"tab-crypto" = "КРИПТО";
 "tab-signature" = "ПОДПИСЬ";
 "tab-sign-button" = "ПОДПИСАТЬ";
 "tab-share-button" = "ПОДЕЛИТЬСЯ";
 "tab-encrypt-button" = "ЗАШИФРОВАТЬ";
+"tab-confirm-button" = "CONFIRM SELECTION";
 
 // Main menu
 "menu-help" = "ПОМОЩЬ";
@@ -37,6 +39,21 @@
 "signature-view-begin-label" = "Выберите файл для подписи или проверки";
 "signature-view-begin-button" = "ВЫБЕРИТЕ ФАЙЛ";
 "signature-details-title" = "Детали подписи";
+
+// Crypto
+"crypto-view-begin-label" = "Выберите файл для шифрования или расшифровки";
+"crypto-view-begin-button" = "ВЫБРАТЬ ФАЙЛ";
+"crypto-empty-ldap-label" = "У лица или учреждения отсутствует действующий сертификат.\nДля зашифровывания необходим действующий сертификат.\nВ случае проблем обращайтесь по адресу электронной почты abi@id.ee или звоните в пределах Эстонии на короткий номер ID-помощи 1777 или из-за границы на номер (+372) 677 3377.";
+"crypto-ldap-search-placeholder" = "Enter personal code, company or registry code";
+"crypto-encryption-error-text" = "Something went wrong with encryption";
+"crypto-encryption-success" = "ENCRYPTION SUCCEEDED";
+"crypto-no-addressees-warning" = "No addressees specified";
+"crypto-valid-to" = "valid to";
+"crypto-type-id-card" = "ID-card";
+"crypto-type-digi-id" = "Digi-ID";
+"crypto-type-eseal" = "e-Seal";
+"crypto-add-addressee-button-title" = "ADD";
+"crypto-addressee-added-button-title" = "ADDED";
 
 // Signing view
 "signing-recent-containers" = "Недавние документы";
@@ -58,6 +75,7 @@
 
 // DataFile import
 "file-import-title" = "+ ДОБАВИТЬ БОЛЬШЕ ФАЙЛОВ";
+"addressee-import-title" = "+ ADD ADDRESSEE";
 "file-import-open-existing-failed-alert-title" = "Ошибка при открывании контейнера";
 "file-import-open-existing-failed-alert-message" = "Не удалось открыть контейнер %@";
 "file-import-create-new-failed-alert-title" = "Ошибка при создании контейнера";
@@ -67,7 +85,9 @@
 "container-details-signing-success" = "ПОДПИСЬ ДОБАВЛЕНА";
 
 "container-header-files-title" = "Файлы контейнера";
-"container-header-create-files-title" = "Файлы, выбранные для подписания";
+"container-header-create-signing-files-title" = "Файлы, выбранные для подписания";
+"container-header-create-encryption-files-title" = "Files chosen for encryption";
+"container-header-create-addressee-title" = "Addressees";
 "container-header-timestamp-title" = "Отметка времени";
 "container-header-signatures-title" = "Подписи контейнера";
 "container-row-edit-remove" = "Стирать";
@@ -78,6 +98,7 @@
 "container-error-message-unknown-signatures" = "%d UNKNOWN SIGNATURES";
 "container-signature-signed" = "Подписано %@";
 "container-missing-signatures" = "Контейнер не подписан";
+"container-missing-addressees" = "Addressees are missing";
 "container-signature-status-valid" = "Подпись действительна";
 "container-signature-status-warning" = "(Предупреждения)";
 "container-signature-status-non-qscd" = "(Ограничения)";
@@ -106,6 +127,8 @@
 "mobile-id-challenge-title" = "Подписать с помощью приложения Mobile-ID";
 "mobile-id-challenge-waiting-response" = "Жду ответа ...";
 "container-sign-title" = "Подписание";
+"container-encryption-title" = "Encryption";
+"container-addressee-title" = "Adding addressees";
 "container-validate-title" = "Проверка контейнера";
 "container-validating" = "Загрузка...";
 "importing-files-progress-message" = "Импорт файлов...";

@@ -24,6 +24,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "MoppLibCerificatetData.h"
+#import "CryptoLib/Addressee.h"
+#import "CryptoLib/CryptoDataFile.h"
 #import "MoppLibPersonalData.h"
 #import "MoppLibContainer.h"
 #import "MoppLibMobileCreateSignatureResponse.h"
@@ -59,7 +61,8 @@ typedef NS_ENUM(NSUInteger, MoppLibErrorCode) {
   moppLibErrorNoInternetConnection = 10018, // No internet connection
   moppLibErrorPinMatchesOldCode = 10019, // New pin must be different from old pin or puk
   moppLibErrorReaderSelectionCanceled = 10020, // User canceled card reader selection
-  moppLibErrorRestrictedApi = 10021 // Restricted API. Some functionality is not available for third-party apps
+  moppLibErrorRestrictedApi = 10021, // Restricted API. Some functionality is not available for third-party apps
+  moppLibErrorLdapResponseNotFound = 10022 // Ldap response not found
 
 };
 
@@ -74,6 +77,7 @@ typedef void (^CertDataBlock)(MoppLibCerificatetData *certData);
 typedef void (^PersonalDataBlock)(MoppLibPersonalData *personalData);
 typedef void (^SignatureStatusBlock) (MoppLibContainer *container, NSError *error, NSString *status);
 typedef void (^ContainerBlock)(MoppLibContainer *container);
+typedef void (^LdapBlock)(NSMutableArray *ldapResponse);
 typedef void (^MobileCreateSignatureResponseBlock)(MoppLibMobileCreateSignatureResponse *createSignatureResponse);
 typedef void (^VoidBlock)(void);
 typedef void (^BoolBlock)(BOOL);

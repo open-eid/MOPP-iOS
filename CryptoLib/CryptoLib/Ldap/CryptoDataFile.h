@@ -1,5 +1,5 @@
 //
-//  OpenLdap.h
+//  CryptoDataFile.h
 //  CryptoLib
 /*
  * Copyright 2017 Riigi Infosüsteemide Amet
@@ -21,10 +21,9 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "Addressee.h"
 
-@interface OpenLdap : NSObject
-- (NSMutableArray*)search:(NSString*)identityCode;
+@interface CryptoDataFile : NSObject
+@property (nonatomic, strong) NSString *filename;
+@property (nonatomic, strong) NSString *filePath;
+
 @end
-
-

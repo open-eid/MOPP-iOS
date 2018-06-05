@@ -58,7 +58,11 @@ typedef enum {
 + (NSError *)cardNotFoundError {
   return [self error:moppLibErrorCardNotFound withMessage:@"ID card could not be detected in reader."];
 }
-
+    
++ (NSError *)ldapResponseNotFoundError {
+    return [self error:moppLibErrorLdapResponseNotFound withMessage:@"Ldap response is empty"];
+}
+    
 + (NSError *)cardVersionUnknownError {
   return [self error:moppLibErrorCardVersionUnknown withMessage:@"Card version could not be detected."];
 }

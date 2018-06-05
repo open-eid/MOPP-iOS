@@ -1,6 +1,7 @@
 //
-//  OpenLdap.h
-//  CryptoLib
+//  ContainerNoAddressees.swift
+//  MoppApp
+//
 /*
  * Copyright 2017 Riigi Infosüsteemide Amet
  *
@@ -20,11 +21,12 @@
  *
  */
 
-#import <Foundation/Foundation.h>
-#import "Addressee.h"
+import Foundation
 
-@interface OpenLdap : NSObject
-- (NSMutableArray*)search:(NSString*)identityCode;
-@end
-
-
+class ContainerNoAddresseesCell: UITableViewCell {
+    @IBOutlet weak var label: UILabel!
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        label.text = L(LocKey.containerMissingAddressees)
+    }
+}

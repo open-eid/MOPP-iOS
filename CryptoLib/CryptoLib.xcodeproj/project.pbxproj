@@ -11,6 +11,8 @@
 		390C015F20AC3DC800827230 /* libldap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 390C015E20AC3DC700827230 /* libldap.a */; };
 		390C016120AC3DE000827230 /* liblber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 390C016020AC3DE000827230 /* liblber.a */; };
 		39231FAF20AB1C6C00E1E2B4 /* CryptoLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 39231FAD20AB1C6C00E1E2B4 /* CryptoLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3960E50520C02E5900D4D2FC /* CryptoDataFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 3960E50420C02E5900D4D2FC /* CryptoDataFile.m */; };
+		3960E50620C044EE00D4D2FC /* CryptoDataFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 3960E50320C02DA400D4D2FC /* CryptoDataFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39852A4B20AB2418004CB100 /* Decrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4120AB2418004CB100 /* Decrypt.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39852A4C20AB2418004CB100 /* Encrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4220AB2418004CB100 /* Encrypt.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39852A4D20AB2418004CB100 /* base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4320AB2418004CB100 /* base64.h */; };
@@ -23,13 +25,13 @@
 		39E2B4D620AD7A3400CA74A8 /* ResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4CC20AD7A3400CA74A8 /* ResultSet.h */; };
 		39E2B4D720AD7A3400CA74A8 /* AttributeSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4CD20AD7A3400CA74A8 /* AttributeSet.h */; };
 		39E2B4D820AD7A3400CA74A8 /* Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E2B4CE20AD7A3400CA74A8 /* Attribute.m */; };
-		39E2B4D920AD7A3400CA74A8 /* LdapResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E2B4CF20AD7A3400CA74A8 /* LdapResponse.m */; };
+		39E2B4D920AD7A3400CA74A8 /* Addressee.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E2B4CF20AD7A3400CA74A8 /* Addressee.m */; };
 		39E2B4DA20AD7A3400CA74A8 /* OpenLdap.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E2B4D020AD7A3400CA74A8 /* OpenLdap.m */; };
 		39E2B4DB20AD7A3400CA74A8 /* AttributeSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E2B4D120AD7A3400CA74A8 /* AttributeSet.m */; };
 		39E2B4DC20AD7A3400CA74A8 /* ResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E2B4D220AD7A3400CA74A8 /* ResultSet.m */; };
 		39E2B4DD20AD7A3400CA74A8 /* Attribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4D320AD7A3400CA74A8 /* Attribute.h */; };
 		39E2B4DE20AD7A3400CA74A8 /* OpenLdap.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4D420AD7A3400CA74A8 /* OpenLdap.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		39E2B4DF20AD7A3400CA74A8 /* LdapResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4D520AD7A3400CA74A8 /* LdapResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		39E2B4DF20AD7A3400CA74A8 /* Addressee.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4D520AD7A3400CA74A8 /* Addressee.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1E62632CCCD9195F3D8E2EE /* Pods_CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2337FC39B457D26F7140179 /* Pods_CryptoLib.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +42,8 @@
 		39231FAA20AB1C6C00E1E2B4 /* CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		39231FAD20AB1C6C00E1E2B4 /* CryptoLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptoLib.h; sourceTree = "<group>"; };
 		39231FAE20AB1C6C00E1E2B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3960E50320C02DA400D4D2FC /* CryptoDataFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptoDataFile.h; sourceTree = "<group>"; };
+		3960E50420C02E5900D4D2FC /* CryptoDataFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CryptoDataFile.m; sourceTree = "<group>"; };
 		39852A4120AB2418004CB100 /* Decrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decrypt.h; sourceTree = "<group>"; };
 		39852A4220AB2418004CB100 /* Encrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Encrypt.h; sourceTree = "<group>"; };
 		39852A4320AB2418004CB100 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
@@ -52,13 +56,13 @@
 		39E2B4CC20AD7A3400CA74A8 /* ResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultSet.h; sourceTree = "<group>"; };
 		39E2B4CD20AD7A3400CA74A8 /* AttributeSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttributeSet.h; sourceTree = "<group>"; };
 		39E2B4CE20AD7A3400CA74A8 /* Attribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attribute.m; sourceTree = "<group>"; };
-		39E2B4CF20AD7A3400CA74A8 /* LdapResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LdapResponse.m; sourceTree = "<group>"; };
+		39E2B4CF20AD7A3400CA74A8 /* Addressee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Addressee.m; sourceTree = "<group>"; };
 		39E2B4D020AD7A3400CA74A8 /* OpenLdap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenLdap.m; sourceTree = "<group>"; };
 		39E2B4D120AD7A3400CA74A8 /* AttributeSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttributeSet.m; sourceTree = "<group>"; };
 		39E2B4D220AD7A3400CA74A8 /* ResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultSet.m; sourceTree = "<group>"; };
 		39E2B4D320AD7A3400CA74A8 /* Attribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attribute.h; sourceTree = "<group>"; };
 		39E2B4D420AD7A3400CA74A8 /* OpenLdap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenLdap.h; sourceTree = "<group>"; };
-		39E2B4D520AD7A3400CA74A8 /* LdapResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LdapResponse.h; sourceTree = "<group>"; };
+		39E2B4D520AD7A3400CA74A8 /* Addressee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Addressee.h; sourceTree = "<group>"; };
 		8B92C4AD1DA967C9A6803AA8 /* Pods-CryptoLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoLib.release.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-CryptoLib/Pods-CryptoLib.release.xcconfig"; sourceTree = "<group>"; };
 		96E123961B6332200D700AC2 /* Pods-CryptoLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoLib.debug.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-CryptoLib/Pods-CryptoLib.debug.xcconfig"; sourceTree = "<group>"; };
 		B2337FC39B457D26F7140179 /* Pods_CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,15 +131,17 @@
 			isa = PBXGroup;
 			children = (
 				39E2B4CC20AD7A3400CA74A8 /* ResultSet.h */,
-				39E2B4CD20AD7A3400CA74A8 /* AttributeSet.h */,
-				39E2B4CE20AD7A3400CA74A8 /* Attribute.m */,
-				39E2B4CF20AD7A3400CA74A8 /* LdapResponse.m */,
-				39E2B4D020AD7A3400CA74A8 /* OpenLdap.m */,
-				39E2B4D120AD7A3400CA74A8 /* AttributeSet.m */,
 				39E2B4D220AD7A3400CA74A8 /* ResultSet.m */,
+				39E2B4CD20AD7A3400CA74A8 /* AttributeSet.h */,
+				39E2B4D120AD7A3400CA74A8 /* AttributeSet.m */,
 				39E2B4D320AD7A3400CA74A8 /* Attribute.h */,
+				39E2B4CE20AD7A3400CA74A8 /* Attribute.m */,
+				39E2B4D520AD7A3400CA74A8 /* Addressee.h */,
+				39E2B4CF20AD7A3400CA74A8 /* Addressee.m */,
 				39E2B4D420AD7A3400CA74A8 /* OpenLdap.h */,
-				39E2B4D520AD7A3400CA74A8 /* LdapResponse.h */,
+				39E2B4D020AD7A3400CA74A8 /* OpenLdap.m */,
+				3960E50320C02DA400D4D2FC /* CryptoDataFile.h */,
+				3960E50420C02E5900D4D2FC /* CryptoDataFile.m */,
 			);
 			name = Ldap;
 			path = CryptoLib/Ldap;
@@ -181,8 +187,9 @@
 				39852A4C20AB2418004CB100 /* Encrypt.h in Headers */,
 				39852A5420AB2418004CB100 /* XmlParserDelegate.h in Headers */,
 				39852A5120AB2418004CB100 /* ApduToken.h in Headers */,
-				39E2B4DF20AD7A3400CA74A8 /* LdapResponse.h in Headers */,
+				39E2B4DF20AD7A3400CA74A8 /* Addressee.h in Headers */,
 				39E2B4DE20AD7A3400CA74A8 /* OpenLdap.h in Headers */,
+				3960E50620C044EE00D4D2FC /* CryptoDataFile.h in Headers */,
 				39231FAF20AB1C6C00E1E2B4 /* CryptoLib.h in Headers */,
 				39E2B4D720AD7A3400CA74A8 /* AttributeSet.h in Headers */,
 				39E2B4DD20AD7A3400CA74A8 /* Attribute.h in Headers */,
@@ -298,10 +305,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				39E2B4DA20AD7A3400CA74A8 /* OpenLdap.m in Sources */,
+				3960E50520C02E5900D4D2FC /* CryptoDataFile.m in Sources */,
 				39E2B4DB20AD7A3400CA74A8 /* AttributeSet.m in Sources */,
 				39852A5020AB2418004CB100 /* XmlParserDelegate.m in Sources */,
 				39852A5220AB2418004CB100 /* Decrypt.mm in Sources */,
-				39E2B4D920AD7A3400CA74A8 /* LdapResponse.m in Sources */,
+				39E2B4D920AD7A3400CA74A8 /* Addressee.m in Sources */,
 				39E2B4DC20AD7A3400CA74A8 /* ResultSet.m in Sources */,
 				39E2B4D820AD7A3400CA74A8 /* Attribute.m in Sources */,
 				39852A5320AB2418004CB100 /* Encrypt.mm in Sources */,
@@ -441,13 +449,28 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/CryptoLib";
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = "$(PROJECT_DIR)/CryptoLib";
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(PROJECT_DIR)/CryptoLib",
+					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphonesimulator/libraries",
+				);
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/include";
+				"HEADER_SEARCH_PATHS[sdk=iphoneos*]" = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/include";
+				"HEADER_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphonesimulator/include";
 				INFOPLIST_FILE = CryptoLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries",
-					"$(PROJECT_DIR)/CryptoLib/openldap/OpenLDAP.iphoneos/libraries",
+					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries",
+					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphonesimulator/libraries",
+					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphonesimulator/libraries",
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.CryptoLib;
