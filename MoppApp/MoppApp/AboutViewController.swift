@@ -29,18 +29,18 @@ class AboutViewController: MoppViewController {
     @IBAction func dismissAction() {
         dismiss(animated: true, completion: nil)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
         titleLabel.text = L(.aboutTitle)
         
         var localizedAboutHtmlPath:String!
-        let currentPreferredLanguage = (Locale.preferredLanguages.first ?? String()).lowercased()
-        if currentPreferredLanguage.hasPrefix("et") {
+        let appLanguageID = DefaultsHelper.moppLanguageID
+        if appLanguageID == "et" {
             localizedAboutHtmlPath = Bundle.main.path(forResource: "about_et", ofType: "html")!
         }
-        else if currentPreferredLanguage.hasPrefix("ru") {
+        else if appLanguageID == "ru" {
             localizedAboutHtmlPath = Bundle.main.path(forResource: "about_ru", ofType: "html")!
         }
         else {
