@@ -78,11 +78,11 @@ class MyeIDPinPukCell: UITableViewCell {
             actionType = .unblockPin2
         case .puk:
             var url: URL!
-            let currentPreferredLanguage = (Locale.preferredLanguages.first ?? String()).lowercased()
-            if currentPreferredLanguage.hasPrefix("et") {
+            let appLanguageID = DefaultsHelper.moppLanguageID
+            if appLanguageID  == "et" {
                 url = URL(string: "https://www.id.ee/index.php?id=30133")
             }
-            else if currentPreferredLanguage.hasPrefix("ru") {
+            else if appLanguageID == "ru" {
                 url = URL(string: "https://www.id.ee/?lang=ru&id=33922")
             }
             else {
