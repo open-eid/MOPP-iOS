@@ -26,7 +26,7 @@ protocol ContainerViewControllerDelegate: class {
     func openContainer(afterSignatureCreated: Bool)
     func getContainerFilename() -> String
     func getDataFileFilename(index: Int) -> String
-    func getDataFileOriginFilename(index: Int) -> String
+    func getDataFileOriginFilename(index: Int) -> String?
     func isContainerEmpty() -> Bool
     func removeDataFile(index: Int)
 }
@@ -347,7 +347,8 @@ extension ContainerViewController : UITableViewDelegate {
             break;
         case .dataFiles:
             if !(!isAsicContainer && state == .opened) {
-                openFilePreview(dataFileFilename: containerViewDelegate.getDataFileOriginFilename(index: indexPath.row), containerFilePath:                 containerViewDelegate.getContainerPath())
+                guard let originDataFile = containerViewDelegate.getDataFileOriginFilename(index: indexPath.row) else { return }
+                openFilePreview(dataFileFilename: originDataFile, containerFilePath: containerViewDelegate.getContainerPath())
             }
             break
         case .header:

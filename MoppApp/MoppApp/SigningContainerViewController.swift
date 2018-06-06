@@ -106,7 +106,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
         })
     }
     
-    func getDataFileOriginFilename(index: Int) -> String {
+    func getDataFileOriginFilename(index: Int) -> String? {
         return (container.dataFiles as! [MoppLibDataFile])[index].fileName
     }
     
