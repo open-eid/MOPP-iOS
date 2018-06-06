@@ -30,4 +30,5 @@ FOUNDATION_EXPORT const unsigned char CryptoLibVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <CryptoLib/PublicHeader.h>
 
+#import <CryptoLib/CryptoDataFile.h>
 
