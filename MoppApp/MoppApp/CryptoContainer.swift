@@ -1,5 +1,5 @@
 //
-//  ReaderScannerPeripheralCell.swift
+//  CryptoContainer.swift
 //  MoppApp
 //
 /*
@@ -20,14 +20,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-class ReaderScannerPeripheralCell : UITableViewCell {
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var uuidLabel: UILabel!
-    @IBOutlet weak var bottomBorderView: UIView!
+
+import Foundation
+
+class CryptoContainer {
     
-    func populate(with name: String, uuid: String, showBottomBorder: Bool) {
-        nameLabel.text = name
-        uuidLabel.text = uuid
-        bottomBorderView.isHidden = !showBottomBorder
+    var filename: NSString!
+    var filePath: NSString!
+    var dataFiles: NSMutableArray = []
+    var addressees: NSMutableArray = []
+    
+    init(filename: NSString, filePath: NSString){
+        self.filename = filename
+        self.filePath = filePath
     }
+    
 }
+

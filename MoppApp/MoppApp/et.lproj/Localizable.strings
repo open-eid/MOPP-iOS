@@ -21,10 +21,12 @@
 
 // TabBar
 "tab-my-eid" = "MINU eID";
+"tab-crypto" = "KRÜPTO";
 "tab-signature" = "ALLKIRI";
 "tab-sign-button" = "ALLKIRJASTA";
 "tab-share-button" = "JAGA";
 "tab-encrypt-button" = "KRÜPTEERI";
+"tab-confirm-button" = "KINNITA VALIK";
 
 // Main menu
 "menu-help" = "ABI";
@@ -40,6 +42,21 @@
 
 // Signing view
 "signing-recent-containers" = "Hiljutised dokumendid";
+
+// Crypto
+"crypto-view-begin-label" = "Vali fail krüpteerimiseks või dekrüpteerimiseks";
+"crypto-view-begin-button" = "VALI FAIL";
+"crypto-empty-ldap-label" = "Isikul või asutusel puudub kehtiv sertifikaat.\nKrüpteerimiseks on vaja kehtivat sertifikaati.\nKüsimustega pöördu ID-abiliini poole e-postiaadressil abi@id.ee või helista Eesti piires lühinumbril 1777 ja välismaalt (+372) 677 3377.";
+"crypto-ldap-search-placeholder" = "Sisesta isikukood, asutus või registrikood";
+"crypto-encryption-error-text" = "Midagi läks krüpteerimisel valesti";
+"crypto-encryption-success" = "KRÜPTEERIMINE ÕNNESTUS";
+"crypto-no-addressees-warning" = "Ühtegi adressaati ei ole lisatud";
+"crypto-valid-to" = "kehtiv kuni";
+"crypto-type-id-card" = "ID-kaart";
+"crypto-type-digi-id" = "Digi-ID";
+"crypto-type-eseal" = "e-Tempel";
+"crypto-add-addressee-button-title" = "LISA";
+"crypto-addressee-added-button-title" = "LISATUD";
 
 // Crashlytics
 "crashlytics-title" = "Kas saata vearaport?";
@@ -58,6 +75,7 @@
 
 // DataFile import
 "file-import-title" = "+ LISA VEEL FAILE";
+"addressee-import-title" = "+ LISA ADRESSAAT";
 "file-import-open-existing-failed-alert-title" = "Ümbriku laadimine ebaõnnestus";
 "file-import-open-existing-failed-alert-message" = "Dokumendi %@ avamine ebaõnnestus";
 "file-import-create-new-failed-alert-title" = "Ümbriku loomine ebaõnnestus";
@@ -66,7 +84,9 @@
 "container-details-signing-success" = "ALLKIRI LISATUD";
 
 "container-header-files-title" = "Ümbriku sisu";
-"container-header-create-files-title" = "Allkirjastamiseks valitud failid";
+"container-header-create-signing-files-title" = "Allkirjastamiseks valitud failid";
+"container-header-create-encryption-files-title" = "Krüpteerimiseks valitud failid";
+"container-header-create-addressee-title" = "Adressaadid";
 "container-header-timestamp-title" = "Ajatempel";
 "container-header-signatures-title" = "Ümbriku allkirjad";
 "container-row-edit-remove" = "Eemalda";
@@ -77,6 +97,7 @@
 "container-error-message-unknown-signatures" = "%d ALLKIRJA ON TEADMATA";
 "container-signature-signed" = "Allkirjastatud %@";
 "container-missing-signatures" = "Allkirjad puuduvad";
+"container-missing-addressees" = "Adressaadid puuduvad";
 "container-signature-status-valid" = "Allkiri on kehtiv";
 "container-signature-status-warning" = "(Hoiatused)";
 "container-signature-status-non-qscd" = "(Piirangud)";
@@ -105,6 +126,8 @@
 "mobile-id-challenge-title" = "Allkirjasta Mobiil-ID äpiga";
 "mobile-id-challenge-waiting-response" = "Ootan vastust ...";
 "container-sign-title" = "Allkirjastamine";
+"container-encryption-title" = "Krüpteerimine";
+"container-addressee-title" = "Adressaatide lisamine";
 "container-validate-title" = "Ümbriku valideerimine";
 "container-validating" = "Laen...";
 "importing-files-progress-message" = "Laen faile...";

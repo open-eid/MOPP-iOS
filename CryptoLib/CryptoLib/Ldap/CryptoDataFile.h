@@ -1,7 +1,6 @@
 //
-//  ReaderScannerPeripheralCell.swift
-//  MoppApp
-//
+//  CryptoDataFile.h
+//  CryptoLib
 /*
  * Copyright 2017 Riigi Infosüsteemide Amet
  *
@@ -20,14 +19,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-class ReaderScannerPeripheralCell : UITableViewCell {
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var uuidLabel: UILabel!
-    @IBOutlet weak var bottomBorderView: UIView!
-    
-    func populate(with name: String, uuid: String, showBottomBorder: Bool) {
-        nameLabel.text = name
-        uuidLabel.text = uuid
-        bottomBorderView.isHidden = !showBottomBorder
-    }
-}
+
+#import <Foundation/Foundation.h>
+
+@interface CryptoDataFile : NSObject
+@property (nonatomic, strong) NSString *filename;
+@property (nonatomic, strong) NSString *filePath;
+
+@end

@@ -1,5 +1,5 @@
 //
-//  ContainerFileCell.swift
+//  ContainerAddresseeCell.swift
 //  MoppApp
 //
 /*
@@ -20,30 +20,33 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
 import Foundation
 
-
-protocol ContainerFileDelegate: class {
-    func removeDataFile(dataFileIndex: Int)
+protocol ContainerAddresseeCellDelegate : class {
+    func removeAddressee(index: Int)
 }
 
-class ContainerFileCell: UITableViewCell {
-    static let height: CGFloat = 44
-    @IBOutlet weak var filenameLabel: UILabel!
-    @IBOutlet weak var bottomBorderView: UIView!
-    @IBOutlet weak var removeButton: UIView!
+class ContainerAddresseeCell: UITableViewCell, AddresseeActions {
+    static let height: CGFloat = 58
+
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var iconImage: UIImageView!
+    @IBOutlet weak var bottomBorder: UIView!
+    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var removeButton: UIButton!
+    weak var delegate: ContainerAddresseeCellDelegate!
+    var removeIndex: Int = 0
     
-    weak var delegate: ContainerFileDelegate? = nil
-    var dataFileIndex: Int!
     
-    @IBAction func removeAction() {
-        delegate?.removeDataFile(dataFileIndex: dataFileIndex)
+    @IBAction func removeAddressee(_ sender: Any) {
+        delegate.removeAddressee(index: removeIndex)
     }
     
-    func populate(name: String, showBottomBorder: Bool, showRemoveButton: Bool, dataFileIndex: Int) {
-        bottomBorderView.isHidden = !showBottomBorder
-        filenameLabel.text = name
+    func populate(addressee: Addressee, index: Int, showRemoveButton: Bool) {
         removeButton.isHidden = !showRemoveButton
-        self.dataFileIndex = dataFileIndex
+        removeIndex = index
+        nameLabel.text = determineName(addressee: addressee)
+        infoLabel.text = determineInfo(addressee: addressee)
     }
 }

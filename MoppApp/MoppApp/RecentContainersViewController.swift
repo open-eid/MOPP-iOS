@@ -155,10 +155,22 @@ extension RecentContainersViewController : UITableViewDelegate {
             
             self.closeSearch()
             dismiss(animated: true, completion: {
-                let containerViewController = ContainerViewController.instantiate()
+                let ext = (filename as NSString).pathExtension
+                var navController: UINavigationController
+                let containerViewController: ContainerViewController
+                if ext.isAsicContainerExtension {
+                    LandingViewController.shared.containerType = .asic
+                    containerViewController = SigningContainerViewController.instantiate()
                     containerViewController.containerPath = containerPath
-                let navController = LandingViewController.shared.viewController(for: .signTab) as? UINavigationController
-                navController?.pushViewController(containerViewController, animated: true)
+                    navController = (LandingViewController.shared.viewController(for: .signTab) as? UINavigationController)!
+                } else {
+                    LandingViewController.shared.containerType = .cdoc
+                    containerViewController = CryptoContainerViewController.instantiate()
+                    containerViewController.containerPath = containerPath
+                    navController = (LandingViewController.shared.viewController(for: .cryptoTab) as? UINavigationController)!
+                }
+              
+                navController.pushViewController(containerViewController, animated: true)
             })
         }
     }
@@ -208,7 +220,7 @@ extension RecentContainersViewController : SigningFileImportCellDelegate {
         NotificationCenter.default.post(
             name: .startImportingFilesWithDocumentPickerNotificationName,
             object: nil,
-            userInfo: [kKeyFileImportIntent: MoppApp.FileImportIntent.openOrCreate])
+            userInfo: [kKeyFileImportIntent: MoppApp.FileImportIntent.openOrCreate, kKeyContainerType: MoppApp.ContainerType.asic])
     }
 }
 

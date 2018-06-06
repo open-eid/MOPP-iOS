@@ -30,10 +30,12 @@ enum LocKey : String
     case menuAbout = "menu-about"
     case menuDiagnostics = "menu-diagnostics"
     case tabMyEid = "tab-my-eid"
+    case tabCrypto = "tab-crypto"
     case tabSignature = "tab-signature"
     case tabSignButton = "tab-sign-button"
     case tabShareButton = "tab-share-button"
     case tabEncryptButton = "tab-encrypt-button"
+    case tabConfirmButton = "tab-confirm-button"
     case signatureViewBeginLabel = "signature-view-begin-label"
     case signatureViewBeginButton = "signature-view-begin-button"
     case signatureDetailsTitle = "signature-details-title"
@@ -48,13 +50,16 @@ enum LocKey : String
     case actionDelete = "action-delete"
     case actionSign = "action-sign"
     case fileImportTitle = "file-import-title"
+    case addresseeImportTitle = "addressee-import-title"
     case fileImportOpenExistingFailedAlertTitle = "file-import-open-existing-failed-alert-title"
     case fileImportOpenExistingFailedAlertMessage = "file-import-open-existing-failed-alert-message"
     case fileImportCreateNewFailedAlertTitle = "file-import-create-new-failed-alert-title"
     case fileImportCreateNewFailedAlertMessage = "file-import-create-new-failed-alert-message"
     case containerDetailsSigningSuccess = "container-details-signing-success"
     case containerHeaderFilesTitle = "container-header-files-title"
-    case containerHeaderCreateFilesTitle = "container-header-create-files-title"
+    case containerHeaderCreateSigningFilesTitle = "container-header-create-signing-files-title"
+    case containerHeaderCreateEncryptionFilesTitle = "container-header-create-encryption-files-title"
+    case containerHeaderCreateAddresseesTitle = "container-header-create-addressee-title"
     case containerHeaderTimestampTitle = "container-header-timestamp-title"
     case containerHeaderSignaturesTitle = "container-header-signatures-title"
     case containerRowEditRemove = "container-row-edit-remove"
@@ -65,6 +70,7 @@ enum LocKey : String
     case containerErrorMessageUnknownSignatures = "container-error-message-unknown-signatures"
     case containerSignatureSigned = "container-signature-signed"
     case containerMissingSignatures = "container-missing-signatures"
+    case containerMissingAddressees = "container-missing-addressees"
     case containerSignatureStatusValid = "container-signature-status-valid"
     case containerSignatureStatusWarning = "container-signature-status-warning";
     case containerSignatureStatusNonQscd = "container-signature-status-non-qscd";
@@ -83,6 +89,8 @@ enum LocKey : String
     case mobileIdChallengeTitle = "mobile-id-challenge-title"
     case mobileIdChallengeWaitingForResponse = "mobile-id-challenge-waiting-response"
     case containerSignTitle = "container-sign-title"
+    case containerEncryptionTitle = "container-encryption-title"
+    case containerAddresseeTitle = "container-addressee-title"
     case containerValidateTitle = "container-validate-title"
     case containerValidating = "container-validating"
     case importingFilesProgressMessage = "importing-files-progress-message"
@@ -184,4 +192,17 @@ enum LocKey : String
     case diagnosticsLibrariesLabel = "diagnostics-libraries-label"
     case aboutTitle = "about-title"
     case jailbreakMessage = "jailbreak-message"
+    case cryptoViewBeginLabel = "crypto-view-begin-label"
+    case cryptoViewBeginButton = "crypto-view-begin-button"
+    case cryptoEmptyLdapLabel = "crypto-empty-ldap-label"
+    case cryptpEncryptionErrorText = "crypto-encryption-error-text"
+    case cryptoLdapSearchPlaceholder = "crypto-ldap-search-placeholder"
+    case cryptoEncryptionSuccess = "crypto-encryption-success"
+    case cryptoNoAddresseesWarning = "crypto-no-addressees-warning"
+    case cryptoValidTo = "crypto-valid-to";
+    case cryptoTypeIdCard = "crypto-type-id-card";
+    case cryptoTypeDigiId = "crypto-type-digi-id";
+    case cryptoTypeESeal = "crypto-type-eseal";
+    case cryptoAddAddresseeButtonTitle = "crypto-add-addressee-button-title";
+    case cryptoAddresseeAddedButtonTitle = "crypto-addressee-added-button-title";
 }

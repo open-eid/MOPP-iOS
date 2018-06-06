@@ -21,10 +21,10 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "LdapResponse.h"
+#import "Addressee.h"
 
 @interface OpenLdap : NSObject
-- (LdapResponse*)search:(NSString*)identityCode;
+- (NSMutableArray*)search:(NSString*)identityCode;
 @end
 
 

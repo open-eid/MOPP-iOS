@@ -32,6 +32,7 @@ let kErrorKey = "Error"
 let kErrorMessage = "Error message"
 let kKeyImportedFilePaths = "importedFilePaths"
 let kKeyFileImportIntent = "fileImportIntent"
+let kKeyContainerType = "containerType";
 
 extension Notification.Name {
     static let containerChangedNotificationName = Notification.Name("Notification - container changed")

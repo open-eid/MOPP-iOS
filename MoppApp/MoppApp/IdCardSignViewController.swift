@@ -85,7 +85,7 @@ class IdCardSignViewController : MoppViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-        if (pin2TextField != nil) {
+        if pin2TextField != nil {
             pin2TextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
         }
     }

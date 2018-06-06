@@ -23,15 +23,24 @@
 #import "ldap.h"
 #import "ResultSet.h"
 
+
 @implementation OpenLdap
 
-- (LdapResponse*)search:(NSString*)identityCode {
+- (NSMutableArray*)search:(NSString*)identityCode {
 
     LDAP *ldap;
     LDAPMessage *msg;
     const char *base = "c=EE";
     const char *url = "ldap://ldap.sk.ee:389";
-    NSString *filter = [[@"(serialNumber=" stringByAppendingString:identityCode] stringByAppendingString:@")"];
+    NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+    NSString *filter;
+    if ([identityCode rangeOfCharacterFromSet:notDigits].location == NSNotFound) {
+        filter = [[@"(serialNumber=" stringByAppendingString:identityCode] stringByAppendingString:@")"];
+    } else {
+        filter = [[@"(cn=*" stringByAppendingString:identityCode] stringByAppendingString:@"*)"];
+    }
+    
+    
     const char *formattedFilter = [filter UTF8String];
     int ldapInitResponse = ldap_initialize(&ldap, url);
     NSDictionary *ldapResponse;
@@ -46,23 +55,46 @@
         }
     }
     
-    LdapResponse *response = [[LdapResponse alloc] init];
+    NSMutableArray *response = [NSMutableArray new];
     for (NSString* key in ldapResponse) {
-        if ([key rangeOfString:@"ou=authentication"].location != NSNotFound) {
+        Addressee *ldapRow = [[Addressee alloc] init];
+        if (([key rangeOfString:@"ou=authentication"].location != NSNotFound) || ([key rangeOfString:@"ou=Key Encipherment"].location != NSNotFound)) {
             id value = [ldapResponse objectForKey:key];
             for (NSString* innerKey in value){
                 if ([innerKey rangeOfString:@"userCertificate;binary"].location != NSNotFound){
-                    SecCertificateRef certificate = (__bridge SecCertificateRef)([value objectForKey:innerKey]);
-                    response.cert = (__bridge NSData *)SecCertificateCopyData(certificate);
+                    id certValue = ([value objectForKey:innerKey]);
+                    SecCertificateRef certificate;
+                    if ([certValue isKindOfClass: [NSArray class]]) {
+                        // Do nothing with mobile-id certificate
+                    }else{
+                        certificate = (__bridge SecCertificateRef)(certValue);
+                         ldapRow.cert = (__bridge NSData *)SecCertificateCopyData(certificate);
+                    }
+                    
                 }
                 if ([innerKey isEqual:@"cn"]){
                     id innerValue = [value objectForKey:innerKey];
                     NSArray *cn = [innerValue componentsSeparatedByString:@","];
-                    response.surname = cn[0];
-                    response.givenName = cn[1];
-                    response.identityCode = cn[2];
+                    if (cn.count > 1) {
+                        ldapRow.surname = cn[0];
+                        ldapRow.givenName = cn[1];
+                        ldapRow.identifier = cn[2];
+                        if([key rangeOfString:@"o=ESTEID (DIGI-ID)"].location != NSNotFound){
+                            ldapRow.type = @"DIGI-ID";
+                        } else if ([key rangeOfString:@"o=ESTEID (MOBIIL-ID)"].location != NSNotFound){
+                            ldapRow.type = @"MOBILE-ID";
+                        }else {
+                            ldapRow.type = @"ID-CARD";
+                        }
+                    }else{
+                        ldapRow.identifier = cn[0];
+                        ldapRow.type = @"E-SEAL";
+                    }
                 }
             }
+        }
+        if(ldapRow.cert != nil){
+            [response addObject: ldapRow];
         }
     }
     return response;

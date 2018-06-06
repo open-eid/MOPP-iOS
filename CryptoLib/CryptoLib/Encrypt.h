@@ -33,7 +33,7 @@
 #import "cdoc/CdocWriter.h"
 #endif
 @interface Encrypt : NSObject
-- (void)encryptFile: (NSString *)fullPath withPath :(NSString *) dataFilePath withCert: (NSData *) data withName: (NSString *) filename;
+- (void)encryptFile: (NSString *)fullPath withDataFiles :(NSArray *) dataFiles withAddressees: (NSArray *) addressees;
 @end
 
 

@@ -21,7 +21,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "LdapResponse.h"
+#import "Addressee.h"
 #import "ldap.h"
 
 @interface AttributeSet : NSObject

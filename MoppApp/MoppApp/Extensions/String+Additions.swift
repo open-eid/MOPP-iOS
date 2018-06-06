@@ -61,7 +61,7 @@ extension String {
         return distance(from: startIndex, to: start.base) - 1
     }
     
-    var isContainerExtension: Bool {
+    var isAsicContainerExtension: Bool {
         let ext = self.lowercased()
         return
             ext == ContainerFormatAdoc    ||
@@ -72,6 +72,11 @@ extension String {
             ext == ContainerFormatAscis   ||
             ext == ContainerFormatAsiceShort    ||
             ext == ContainerFormatAsicsShort
+    }
+    
+    var isCdocContainerExtension: Bool {
+        let ext = self.lowercased()
+        return ext == ContainerFormatCdoc
     }
     
     var isNumeric: Bool {

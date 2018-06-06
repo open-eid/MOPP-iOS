@@ -28,7 +28,8 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
 {
     weak var tabButtonsDelegate: LandingViewControllerTabButtonsDelegate? = nil
     var fileImportIntent: MoppApp.FileImportIntent!
-
+    var containerType: MoppApp.ContainerType!
+    
     var importProgressViewController: FileImportProgressViewController = {
         let importProgressViewController = UIStoryboard.landing.instantiateViewController(of: FileImportProgressViewController.self)
             importProgressViewController.modalPresentationStyle = .overFullScreen
@@ -61,9 +62,11 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
     enum TabButtonId: String {
         case signTab
         case myeIDTab
+        case cryptoTab
         case shareButton
         case signButton
         case encryptButton
+        case confirmButton
     }
 
     var selectedTab: TabButtonId = .signTab {
@@ -75,7 +78,7 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
             selectTab(with: newValue)
         }
     }
-    
+
     func createSigningViewController() -> UIViewController {
         return UIStoryboard.signing.instantiateInitialViewController()!
     }
@@ -84,12 +87,18 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
         return UIStoryboard.myEID.instantiateInitialViewController()!
     }
     
+    func createCryptoViewController() -> UIViewController {
+        return UIStoryboard.crypto.instantiateInitialViewController()!
+    }
+    
     func createViewController(for tab:TabButtonId) -> UIViewController {
         switch tab {
         case .signTab:
             return createSigningViewController()
         case .myeIDTab:
             return createMyeIDViewController()
+        case .cryptoTab:
+            return createCryptoViewController()
         default:
             break
         }
@@ -117,7 +126,7 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
             }
         }
         
-        presentButtons([.signTab, .myeIDTab])
+        presentButtons([.signTab, .cryptoTab, .myeIDTab])
         selectTabButton(.signTab)
 
         NotificationCenter.default.addObserver(self, selector: #selector(receiveErrorNotification), name: .errorNotificationName, object: nil)
@@ -211,6 +220,7 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
     
     @objc func receiveStartImportingFilesWithDocumentPickerNotification(_ notification: Notification) {
         fileImportIntent = notification.userInfo![kKeyFileImportIntent] as! MoppApp.FileImportIntent
+        containerType = notification.userInfo![kKeyContainerType] as! MoppApp.ContainerType
         documentPicker.delegate = self
         present(documentPicker, animated: false, completion: nil)
     }

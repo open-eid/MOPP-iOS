@@ -60,7 +60,12 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         case openOrCreate
         case addToContainer
     }
-
+    
+    enum ContainerType {
+        case asic
+        case cdoc
+    }
+    
     static var versionString:String {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? String()
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? String()
@@ -113,7 +118,7 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
     }
 
     func crashlyticsDidDetectReport(forLastExecution report: CLSReport, completionHandler: @escaping (_ submit: Bool) -> Void) {
-        if (DefaultsHelper.crashReportSetting == CrashlyticsAlwaysSend) {
+        if DefaultsHelper.crashReportSetting == CrashlyticsAlwaysSend {
             completionHandler(true)
         }
         else {

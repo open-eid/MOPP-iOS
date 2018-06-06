@@ -1,5 +1,5 @@
 //
-//  ReaderScannerPeripheralCell.swift
+//  ContainerNoAddressees.swift
 //  MoppApp
 //
 /*
@@ -20,14 +20,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-class ReaderScannerPeripheralCell : UITableViewCell {
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var uuidLabel: UILabel!
-    @IBOutlet weak var bottomBorderView: UIView!
-    
-    func populate(with name: String, uuid: String, showBottomBorder: Bool) {
-        nameLabel.text = name
-        uuidLabel.text = uuid
-        bottomBorderView.isHidden = !showBottomBorder
+
+import Foundation
+
+class ContainerNoAddresseesCell: UITableViewCell {
+    @IBOutlet weak var label: UILabel!
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        label.text = L(LocKey.containerMissingAddressees)
     }
 }

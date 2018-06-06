@@ -1,5 +1,5 @@
 //
-//  SigningViewController.swift
+//  CryptoViewController.swift
 //  MoppApp
 //
 /*
@@ -20,23 +20,26 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
 import Foundation
 
-class SigningViewController : MoppViewController {
+
+class CryptoViewController : MoppViewController {
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var importButton: UIButton!
-
+    
     enum Section {
         case fileImport
     }
-
+    
     var sections: [Section] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        titleLabel.text = L(LocKey.signatureViewBeginLabel)
-        importButton.localizedTitle = LocKey.signatureViewBeginButton
+        
+        titleLabel.text = L(LocKey.cryptoViewBeginLabel)
+        importButton.localizedTitle = LocKey.cryptoViewBeginButton
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -51,14 +54,17 @@ class SigningViewController : MoppViewController {
     
     @IBAction func menuActivationSelector() {
         let menuViewController = UIStoryboard.menu.instantiateInitialViewController()!
-            menuViewController.modalPresentationStyle = .overFullScreen
+        menuViewController.modalPresentationStyle = .overFullScreen
         MoppApp.instance.rootViewController?.present(menuViewController, animated: true, completion: nil)
     }
     
     @IBAction func importFilesAction() {
+        let tempPath = MoppFileManager.shared.tempDocumentsDirectoryPath()
+        MoppFileManager.shared.removeFile(withPath: tempPath)
+        
         NotificationCenter.default.post(
             name: .startImportingFilesWithDocumentPickerNotificationName,
             object: nil,
-            userInfo: [kKeyFileImportIntent: MoppApp.FileImportIntent.openOrCreate, kKeyContainerType: MoppApp.ContainerType.asic])
+            userInfo: [kKeyFileImportIntent: MoppApp.FileImportIntent.openOrCreate, kKeyContainerType: MoppApp.ContainerType.cdoc])
     }
 }

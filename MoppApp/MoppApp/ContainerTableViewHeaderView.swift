@@ -32,25 +32,20 @@ class ContainerTableViewHeaderView: UIView {
     @IBOutlet weak var addButton: UIButton!
     
     weak var delegate: ContainerTableViewHeaderDelegate? = nil
-    var targetSection: ContainerViewController.Section!
-    var gradientLayer: CAGradientLayer!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+    var gradientLayer: CAGradientLayer!
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
         let topColor = UIColor.white.withAlphaComponent(1.0)
-        // let topColor = UIColor.fromHexString("E6F1FF").withAlphaComponent(0.9)
         let botColor = UIColor.white.withAlphaComponent(0.8)
         _ = createGradientLayer(topColor: topColor, bottomColor: botColor)
     }
     
-    func populate(withTitle title: String, section: ContainerViewController.Section, showAddButton: Bool) {
+    func populate(withTitle title: String, showAddButton: Bool) {
         addButton.isHidden = !showAddButton
-        targetSection = section
+        
         titleLabel.text = title
     }
     

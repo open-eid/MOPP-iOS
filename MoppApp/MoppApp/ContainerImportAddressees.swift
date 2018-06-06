@@ -1,5 +1,5 @@
 //
-//  ReaderScannerPeripheralCell.swift
+//  ContainerImportAddressees.swift
 //  MoppApp
 //
 /*
@@ -20,14 +20,24 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-class ReaderScannerPeripheralCell : UITableViewCell {
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var uuidLabel: UILabel!
-    @IBOutlet weak var bottomBorderView: UIView!
+
+import Foundation
+
+
+protocol ContainerImportAddresseeCellDelegate : class {
+    func containerImportCellAddAddressee()
+}
+
+class ContainerImportAddresseesCell : UITableViewCell {
+    @IBOutlet weak var button: UIButton!
+    weak var delegate: ContainerImportAddresseeCellDelegate!
     
-    func populate(with name: String, uuid: String, showBottomBorder: Bool) {
-        nameLabel.text = name
-        uuidLabel.text = uuid
-        bottomBorderView.isHidden = !showBottomBorder
+    @IBAction func importAction() {
+        delegate.containerImportCellAddAddressee()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        button.localizedTitle = LocKey.addresseeImportTitle
     }
 }
