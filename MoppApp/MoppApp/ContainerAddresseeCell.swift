@@ -39,10 +39,6 @@ class ContainerAddresseeCell: UITableViewCell, AddresseeActions {
     var removeIndex: Int = 0
     
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
     @IBAction func removeAddressee(_ sender: Any) {
         delegate.removeAddressee(index: removeIndex)
     }

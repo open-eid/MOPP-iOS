@@ -38,9 +38,9 @@ class CryptoContainerViewController : ContainerViewController, CryptoActions {
     }
     
     func reloadCryptoData() {
-        if (container.addressees.count > 0 && state == .opened){
+        if container.addressees.count > 0 && state == .opened {
             self.sections = ContainerViewController.sectionsEncrypted
-        } else if (container.addressees.count > 0) {
+        } else if container.addressees.count > 0 {
             self.sections = ContainerViewController.sectionsWithAddresses
         } else {
             self.sections = ContainerViewController.sectionsNoAddresses
@@ -53,7 +53,7 @@ class CryptoContainerViewController : ContainerViewController, CryptoActions {
         containerViewDelegate = self
         cryptoContainerViewDelegate = self
         delegate = self
-        if (container == nil) {
+        if container == nil {
             self.sections = ContainerViewController.sectionsEncrypted
         } else {
             self.sections = ContainerViewController.sectionsNoAddresses
@@ -104,17 +104,21 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
         confirmDeleteAlert(
             message: L(.datafileRemoveConfirmMessage),
             confirmCallback: { [weak self] (alertAction) in
-                self?.notifications = []
-                self?.updateState(.loading)
-                self?.updateState((self?.isCreated)! ? .created : .opened)
-                self?.container.dataFiles.removeObject(at:index)
-                self?.reloadData()
+                guard let strongSelf = self else { return }
+                strongSelf.notifications = []
+                strongSelf.updateState(.loading)
+                strongSelf.updateState((self?.isCreated)! ? .created : .opened)
+                strongSelf.container.dataFiles.removeObject(at:index)
+                strongSelf.reloadData()
         })
 
     }
     
     func getDataFileOriginFilename(index: Int) -> String {
-        return ((container.dataFiles[index] as! CryptoDataFile).filePath as NSString).lastPathComponent
+        guard let dataFile =  (container.dataFiles[index] as? CryptoDataFile) else {
+            return ""
+        }
+        return (dataFile.filePath as NSString).lastPathComponent
     }
     
     func getContainerPath() -> String {
@@ -127,13 +131,13 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
     
     func openContainer(afterSignatureCreated: Bool = false) {
         if state != .loading { return }
-        if (container == nil) {
+        if container == nil {
             let containerFilename = (containerPath as NSString).lastPathComponent
             container = CryptoContainer.init(filename: containerFilename as NSString, filePath: containerPath as NSString)
             self.reloadData()
         }
         self.notifications = []
-        self.updateState((self.isCreated) ? .created : .opened)
+        self.updateState(self.isCreated ? .created : .opened)
     }
     
     func getContainerFilename() -> String {

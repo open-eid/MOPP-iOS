@@ -67,14 +67,14 @@ extension SigningContainerViewController : SigningContainerViewControllerDelegat
     }
     
     func getSignaturesCount() -> Int {
-        if (isContainerEmpty()) {
+        if isContainerEmpty() {
             return 0
         }
         return container.signatures.count
     }
     
     func isContainerSignable() -> Bool {
-        if (isContainerEmpty()) {
+        if isContainerEmpty() {
             return true
         }
         return container.isSignable()
@@ -127,7 +127,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
     }
     
     func isContainerEmpty() -> Bool {
-        if (container == nil) {
+        if container == nil {
             return true
         }
         return false

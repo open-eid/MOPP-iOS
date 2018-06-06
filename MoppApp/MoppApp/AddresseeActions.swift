@@ -30,17 +30,17 @@ protocol AddresseeActions {
 extension AddresseeActions {
     
     func determineName(addressee: Addressee) -> String {
-        if (addressee.givenName == nil) {
+        if addressee.givenName == nil {
             return addressee.identifier
         } else {
-            return addressee.surname + "," + addressee.givenName + "," + addressee.identifier
+            return "\(addressee.surname.uppercased()), \(addressee.givenName.uppercased()) ,\(addressee.identifier.uppercased())"
         }
     }
     
     func determineInfo(addressee: Addressee) -> String {
         let addresseeType = displayAddresseeType(addressee.type)
-        let validTo = L(LocKey.cryptoValidTo) + " " + MoppDateFormatter.shared.ddMMYYYY(toString: addressee.validTo)
-        return addresseeType + " (" + validTo + ")"
+        let validTo = "\(L(LocKey.cryptoValidTo)) \(MoppDateFormatter.shared.ddMMYYYY(toString: addressee.validTo))"
+        return "\(addresseeType) (\(validTo))"
     }
     
     func displayAddresseeType(_ addresseetype: String) -> String {

@@ -45,17 +45,13 @@ class ContainerFoundAddresseeCell: UITableViewCell, AddresseeActions {
         delegate.addAddresseeToSelectedArea(index: index)
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
     func populate(addressee: Addressee, index: Int, isAddButtonDisabled: Bool) {
         self.index = index
 
         nameLabel.text = determineName(addressee: addressee)
         infoLabel.text = determineInfo(addressee: addressee)
         
-        if (isAddButtonDisabled) {
+        if isAddButtonDisabled {
             addButton.isEnabled = false
             addButton.setTitle(L(LocKey.cryptoAddresseeAddedButtonTitle))
         } else {

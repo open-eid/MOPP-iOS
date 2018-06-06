@@ -40,10 +40,6 @@ class ContainerFileCell: UITableViewCell {
         delegate?.removeDataFile(dataFileIndex: dataFileIndex)
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
     func populate(name: String, showBottomBorder: Bool, showRemoveButton: Bool, dataFileIndex: Int) {
         bottomBorderView.isHidden = !showBottomBorder
         filenameLabel.text = name

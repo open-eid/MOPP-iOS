@@ -55,7 +55,7 @@
         }
     }
     
-    NSMutableArray *response = [[NSMutableArray alloc] init];
+    NSMutableArray *response = [NSMutableArray new];
     for (NSString* key in ldapResponse) {
         Addressee *ldapRow = [[Addressee alloc] init];
         if (([key rangeOfString:@"ou=authentication"].location != NSNotFound) || ([key rangeOfString:@"ou=Key Encipherment"].location != NSNotFound)) {

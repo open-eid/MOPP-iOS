@@ -49,9 +49,9 @@ protocol CryptoContainerViewControllerDelegate: class {
 
 class ContainerViewController : MoppViewController, ContainerActions, PreviewActions {
     
-    var containerViewDelegate: ContainerViewControllerDelegate! = nil
-    var cryptoContainerViewDelegate: CryptoContainerViewControllerDelegate! = nil
-    var signingContainerViewDelegate: SigningContainerViewControllerDelegate! = nil
+    var containerViewDelegate: ContainerViewControllerDelegate!
+    var cryptoContainerViewDelegate: CryptoContainerViewControllerDelegate!
+    var signingContainerViewDelegate: SigningContainerViewControllerDelegate! 
     var containerModel: Any!
     
     var containerPath: String!
@@ -169,7 +169,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                 setupNavigationItemForPushedViewController(title: L(.containerValidating))
 
             case .created:
-                if (isAsicContainer){
+                if isAsicContainer {
                     setupNavigationItemForPushedViewController(title: L(.containerSignTitle))
                     LandingViewController.shared.presentButtons(isForPreview ? [] : [.signButton])
                 }else{
@@ -179,7 +179,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
 
             case .opened:
                 var tabButtons: [LandingViewController.TabButtonId] = []
-                if (!isForPreview && isAsicContainer) {
+                if !isForPreview && isAsicContainer {
                     tabButtons = [.shareButton, .signButton]
                 } else {
                     tabButtons = [.shareButton]
@@ -233,14 +233,14 @@ extension ContainerViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (containerViewDelegate.isContainerEmpty()) {
+        if containerViewDelegate.isContainerEmpty() {
             return 0
         }
         switch sections[section] {
         case .notifications:
             return notifications.count
         case .signatures:
-            if (!isAsicContainer){
+            if !isAsicContainer {
                 return 0
             }
             return signingContainerViewDelegate.getSignaturesCount()
@@ -283,7 +283,7 @@ extension ContainerViewController : UITableViewDataSource {
                 cell.delegate = self
             
             var isRemoveButtonShown = false
-            if (isAsicContainer) {
+            if isAsicContainer {
                 isRemoveButtonShown = containerViewDelegate.getDataFileCount() > 1   &&
                     !isForPreview   &&
                     (signingContainerViewDelegate.getSignaturesCount() == 0)    &&
@@ -315,7 +315,7 @@ extension ContainerViewController : UITableViewDataSource {
             cell.delegate = self
             cell.populate(addressee: cryptoContainerViewDelegate.getAddressee(index: indexPath.row) as! Addressee,
                           index: row,
-                          showRemoveButton: (!(!isAsicContainer && state == .opened)))
+                          showRemoveButton: !(!isAsicContainer && state == .opened))
             return cell
         case .importAddressees:
             let cell = tableView.dequeueReusableCell(withType: ContainerImportAddresseesCell.self, for: indexPath)!
@@ -346,7 +346,7 @@ extension ContainerViewController : UITableViewDelegate {
         case .timestamp:
             break;
         case .dataFiles:
-            if (!(!isAsicContainer && state == .opened)) {
+            if !(!isAsicContainer && state == .opened) {
                 openFilePreview(dataFileFilename: containerViewDelegate.getDataFileOriginFilename(index: indexPath.row), containerFilePath:                 containerViewDelegate.getContainerPath())
             }
             break
@@ -379,7 +379,7 @@ extension ContainerViewController : UITableViewDelegate {
         if let header = MoppApp.instance.nibs[.containerElements]?.instantiate(withOwner: self, type: ContainerTableViewHeaderView.self) {
             var signaturesCount = 0
             var isContainerSignable = false
-            if (isAsicContainer) {
+            if isAsicContainer {
                 signaturesCount = signingContainerViewDelegate.getSignaturesCount()
                 isContainerSignable = signingContainerViewDelegate.isContainerSignable()
             }
@@ -408,11 +408,11 @@ extension ContainerViewController : UITableViewDelegate {
     }
     
     func reloadData() {
-        if (containerViewDelegate.isContainerEmpty()) {
+        if containerViewDelegate.isContainerEmpty() {
             return
         }
         var isSignaturesEmpty: Bool {
-            if (!isAsicContainer) { return true }
+            if !isAsicContainer { return true }
             return signingContainerViewDelegate.getSignaturesCount() == 0
         }
         if isForPreview {
@@ -424,7 +424,7 @@ extension ContainerViewController : UITableViewDelegate {
         else {
             updateState(.opened)
         }
-        if (isAsicContainer) {
+        if isAsicContainer {
             if isSignaturesEmpty {
                     sections = (isForPreview || !isCreated) ? ContainerViewController.sectionsDefault : ContainerViewController.sectionsNoSignatures
                 if let signaturesIndex = sections.index(where: { $0 == .signatures }) {

@@ -118,7 +118,7 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
     }
 
     func crashlyticsDidDetectReport(forLastExecution report: CLSReport, completionHandler: @escaping (_ submit: Bool) -> Void) {
-        if (DefaultsHelper.crashReportSetting == CrashlyticsAlwaysSend) {
+        if DefaultsHelper.crashReportSetting == CrashlyticsAlwaysSend {
             completionHandler(true)
         }
         else {

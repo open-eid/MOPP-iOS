@@ -101,7 +101,7 @@ extension SigningActions where Self: SigningContainerViewController {
         container.signatures.sort { (sig1: Any, sig2: Any) -> Bool in
             let signatureStatusValue1 = (sig1 as! MoppLibSignature).status.rawValue
             let signatureStatusValue2 = (sig2 as! MoppLibSignature).status.rawValue
-            if (signatureStatusValue1 == signatureStatusValue2){
+            if signatureStatusValue1 == signatureStatusValue2 {
                 return (sig1 as! MoppLibSignature).timestamp < (sig2 as! MoppLibSignature).timestamp
             }
             return signatureStatusValue1 > signatureStatusValue2

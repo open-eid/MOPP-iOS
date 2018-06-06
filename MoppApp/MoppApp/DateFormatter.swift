@@ -71,7 +71,7 @@ class MoppDateFormatter {
     func date(toRelativeString date: Date) -> String {
         let relativeString: String = relativeDateFormatter.string(from: date)
         let nonRelativeString: String = nonRelativeDateFormatter.string(from: date)
-        if (relativeString == nonRelativeString) {
+        if relativeString == nonRelativeString {
             return ddMMMDateFormatter.string(from: date)
             // No relative date available, use custom format.
         }

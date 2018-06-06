@@ -29,7 +29,7 @@ protocol CryptoActions {
 extension CryptoActions where Self: CryptoContainerViewController {
     
     func startEncryptingProcess() {
-        if (container.addressees.count > 0) {
+        if container.addressees.count > 0 {
             MoppLibCryptoActions.sharedInstance().encryptData(
                 container.filePath as String?,
                 withDataFiles: container.dataFiles as! [Any],

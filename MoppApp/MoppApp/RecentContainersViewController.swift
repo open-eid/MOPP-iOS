@@ -158,7 +158,7 @@ extension RecentContainersViewController : UITableViewDelegate {
                 let ext = (filename as NSString).pathExtension
                 var navController: UINavigationController
                 let containerViewController: ContainerViewController
-                if (ext.isAsicContainerExtension) {
+                if ext.isAsicContainerExtension {
                     LandingViewController.shared.containerType = .asic
                     containerViewController = SigningContainerViewController.instantiate()
                     containerViewController.containerPath = containerPath

@@ -24,9 +24,6 @@ class ReaderScannerPeripheralCell : UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var uuidLabel: UILabel!
     @IBOutlet weak var bottomBorderView: UIView!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
     
     func populate(with name: String, uuid: String, showBottomBorder: Bool) {
         nameLabel.text = name

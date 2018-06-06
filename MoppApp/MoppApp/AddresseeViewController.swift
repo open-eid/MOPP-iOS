@@ -164,7 +164,7 @@ extension AddresseeViewController : UITableViewDelegate {
         let section = sections[_section]
         switch section {
             case .addressees:
-                if (selectedAddressees.count > 0) {
+                if selectedAddressees.count > 0 {
                     var title: String!
                     title = sectionHeaderTitle[section]
                     
@@ -190,7 +190,7 @@ extension AddresseeViewController : UITableViewDelegate {
         let section = sections[_section]
         switch section {
             case .addressees:
-                if (selectedAddressees.count > 0) {
+                if selectedAddressees.count > 0 {
                     return ContainerTableViewHeaderView.height
                 } else {
                     return 0
@@ -214,11 +214,12 @@ extension AddresseeViewController : ContainerTableViewHeaderDelegate {
 
 extension AddresseeViewController : ContainerAddresseeCellDelegate {
     func removeAddressee(index: Int) {
-        let oldSelectedAddressees = selectedAddressees.count - selectedIndexes.count
+        let previouslySelectedAddresseesCount = selectedAddressees.count - selectedIndexes.count
         
-        if (oldSelectedAddressees > 0) {
-            let indexCount = selectedAddressees.count - oldSelectedAddressees - index - 1
-            if (indexCount > -1) {
+        if previouslySelectedAddresseesCount > 0 {
+            // Checking if selected addressee is in foundAddressee
+            let indexCount = selectedAddressees.count - previouslySelectedAddresseesCount - index - 1
+            if indexCount > -1 {
                 selectedIndexes.removeObject(at: indexCount)
             }
         } else {

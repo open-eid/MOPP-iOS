@@ -85,7 +85,7 @@ extension PreviewActions where Self: ContainerViewController {
         if forcePDFContentPreview {
             openContentPreview(containerPath)
         } else {
-            if (self.isAsicContainer){
+            if self.isAsicContainer {
                 MoppLibContainerActions.sharedInstance().container(
                     containerFilePath,
                     saveDataFile: dataFileFilename,
@@ -126,7 +126,7 @@ extension PreviewActions where Self: ContainerViewController {
                     } else {
                         openAsicContainerPreview(isPDF)
                     }
-                } else if (dataFileExt.isCdocContainerExtension) {
+                } else if dataFileExt.isCdocContainerExtension {
                     openCdocContainerPreview()
                 } else {
                     openContentPreview(destinationPath)

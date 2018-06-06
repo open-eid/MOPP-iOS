@@ -35,10 +35,6 @@ class ContainerTableViewHeaderView: UIView {
     
     var gradientLayer: CAGradientLayer!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         

@@ -52,7 +52,10 @@ extension ContainerActions where Self: UIViewController {
                 navController.setViewControllers([navController.viewControllers.first!], animated: false)
              
                 let ext = urls.first!.pathExtension
-                if ((ext.isAsicContainerExtension || ext == ContainerFormatPDF) && landingViewController.containerType == .asic) && urls.count == 1 {
+                if ((ext.isAsicContainerExtension || ext == ContainerFormatPDF) &&
+                    landingViewController.containerType == .asic) &&
+                    urls.count == 1 {
+                    
                     self?.openExistingContainer(with: urls.first!)
                 } else {
                     self?.createNewContainer(with: urls.first!, dataFilePaths: dataFilePaths)
@@ -122,7 +125,7 @@ extension ContainerActions where Self: UIViewController {
         let navController = landingViewController.viewController(for: .signTab) as! UINavigationController
         let topSigningViewController = navController.viewControllers.last!
 
-        if (landingViewController.containerType == .asic) {
+        if landingViewController.containerType == .asic {
             let containerViewController = topSigningViewController as? ContainerViewController
             let containerPath = containerViewController!.containerPath
             MoppLibContainerActions.sharedInstance().addDataFilesToContainer(
@@ -157,14 +160,14 @@ extension ContainerActions where Self: UIViewController {
     
     private func generateNewFilename(container: CryptoContainer, filename: NSString, count: Int) -> NSString {
         var newFilename = filename
-        if (count > 0){
+        if count > 0{
             let fileExtension  = filename.pathExtension
             let withoutExtension = filename.deletingPathExtension
-            newFilename = withoutExtension.appendingFormat("("+String(count)+")."+fileExtension) as NSString
+            newFilename = withoutExtension.appendingFormat("(\(String(count))).\(fileExtension)") as NSString
             
         }
-        container.dataFiles.forEach {
-            if ((($0 as! CryptoDataFile).filename as NSString) == newFilename){
+        for dataFile in container.dataFiles {
+            if ((dataFile as! CryptoDataFile).filename as NSString) == newFilename {
                 newFilename =  generateNewFilename(container: container, filename: filename, count: count + 1)
             }
         }
@@ -179,7 +182,7 @@ extension ContainerActions where Self: UIViewController {
         
         let (filename, _) = fileName.filenameComponents()
         let containerFilename: String
-        if (landingViewController.containerType == .asic){
+        if landingViewController.containerType == .asic {
             var newContainerFormat = DefaultsHelper.newContainerFormat
             if newContainerFormat.isEmpty {
                 newContainerFormat = DefaultContainerFormat
@@ -201,7 +204,7 @@ extension ContainerActions where Self: UIViewController {
                 }
             }
         }
-        if (landingViewController.containerType == .asic) {
+        if landingViewController.containerType == .asic {
             MoppLibContainerActions.sharedInstance().createContainer(
                 withPath: containerPath,
                 withDataFilePaths: dataFilePaths,
@@ -244,10 +247,10 @@ extension ContainerActions where Self: UIViewController {
             let container = CryptoContainer.init(filename: containerFilename as NSString, filePath: containerPath as NSString)
             containerViewController.containerPath = containerPath
             
-            dataFilePaths.forEach {
+            for dataFilePath in dataFilePaths {
                 let dataFile = CryptoDataFile.init()
-                dataFile.filename = ($0 as NSString).lastPathComponent
-                dataFile.filePath = $0
+                dataFile.filename = (dataFilePath as NSString).lastPathComponent
+                dataFile.filePath = dataFilePath
                 container.dataFiles.add(dataFile)
             }
             
