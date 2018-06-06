@@ -24,7 +24,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "MoppLibCerificatetData.h"
-#import "CryptoLib/Addressee.h"
 #import "CryptoLib/CryptoDataFile.h"
 #import "MoppLibPersonalData.h"
 #import "MoppLibContainer.h"
