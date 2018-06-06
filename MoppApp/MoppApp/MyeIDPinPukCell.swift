@@ -26,7 +26,7 @@ protocol MyeIDPinPukCellDelegate: class {
 
 class MyeIDPinPukCell: UITableViewCell {
     weak var delegate: MyeIDPinPukCellDelegate? = nil
-    
+    weak var infoManager: MyeIDInfoManager!
     var kind: MyeIDInfoManager.PinPukCell.Kind!
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -47,13 +47,13 @@ class MyeIDPinPukCell: UITableViewCell {
         var actionType: MyeIDChangeCodesModel.ActionType? = nil
         switch kind {
         case .pin1:
-            if MyeIDInfoManager.shared.retryCounts.pin1 == 0 {
+            if infoManager.retryCounts.pin1 == 0 {
                 actionType = .unblockPin1
             } else {
                 actionType = .changePin1
             }
         case .pin2:
-            if MyeIDInfoManager.shared.retryCounts.pin2 == 0 {
+            if infoManager.retryCounts.pin2 == 0 {
                 actionType = .unblockPin2
             } else {
                 actionType = .changePin2
@@ -63,7 +63,7 @@ class MyeIDPinPukCell: UITableViewCell {
         }
         
         if let actionType = actionType {
-            MyeIDInfoManager.shared.delegate?.didTapChangePinPukCode(actionType: actionType)
+            infoManager.delegate?.didTapChangePinPukCode(actionType: actionType)
         }
     }
     
@@ -78,11 +78,11 @@ class MyeIDPinPukCell: UITableViewCell {
             actionType = .unblockPin2
         case .puk:
             var url: URL!
-            let currentPreferredLanguage = (Locale.preferredLanguages.first ?? String()).lowercased()
-            if currentPreferredLanguage.hasPrefix("et") {
+            let appLanguageID = DefaultsHelper.moppLanguageID
+            if appLanguageID  == "et" {
                 url = URL(string: "https://www.id.ee/index.php?id=30133")
             }
-            else if currentPreferredLanguage.hasPrefix("ru") {
+            else if appLanguageID == "ru" {
                 url = URL(string: "https://www.id.ee/?lang=ru&id=33922")
             }
             else {
@@ -92,7 +92,7 @@ class MyeIDPinPukCell: UITableViewCell {
         }
         
         if let actionType = actionType {
-            MyeIDInfoManager.shared.delegate?.didTapChangePinPukCode(actionType: actionType)
+            infoManager.delegate?.didTapChangePinPukCode(actionType: actionType)
         }
     }
     
@@ -109,12 +109,12 @@ class MyeIDPinPukCell: UITableViewCell {
 
         button.setTitle(pinPukCellInfo.buttonText)
         
-        let pin1Blocked = MyeIDInfoManager.shared.retryCounts.pin1 == 0
-        let pin2Blocked = MyeIDInfoManager.shared.retryCounts.pin2 == 0
-        let pukBlocked = MyeIDInfoManager.shared.retryCounts.puk == 0
+        let pin1Blocked = infoManager.retryCounts.pin1 == 0
+        let pin2Blocked = infoManager.retryCounts.pin2 == 0
+        let pukBlocked = infoManager.retryCounts.puk == 0
         
-        let authCertValid = MyeIDInfoManager.shared.isAuthCertValid
-        let signCertValid = MyeIDInfoManager.shared.isSignCertValid
+        let authCertValid = infoManager.isAuthCertValid
+        let signCertValid = infoManager.isSignCertValid
         
         if kind == .pin1 {
             titleLabel.text = pinPukCellInfo.title
@@ -184,7 +184,7 @@ class MyeIDPinPukCell: UITableViewCell {
         } else {
             certInfoLabel.text = nil
             certInfoLabel.font = nil
-            certInfoLabel.attributedText = MyeIDInfoManager.shared.certInfoAttributedString(for: kind)
+            certInfoLabel.attributedText = infoManager.certInfoAttributedString(for: kind)
             certInfoLabel.setNeedsDisplay()
         }
     }

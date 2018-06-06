@@ -24,6 +24,8 @@ class MyeIDChangeCodesViewController: MoppViewController {
     @IBOutlet weak var ui: MyeIDChangeCodesViewControllerUI!
     var model = MyeIDChangeCodesModel()
     
+    weak var infoManager: MyeIDInfoManager!
+    
     private var loadingViewController: MyeIDChangeCodesLoadingViewController! = {
         let loadingViewController = UIStoryboard.myEID.instantiateViewController(of: MyeIDChangeCodesLoadingViewController.self)
             loadingViewController.modalPresentationStyle = .overFullScreen
@@ -70,7 +72,7 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
                 
                 if errorCode == MoppLibErrorCode.moppLibErrorWrongPin.rawValue {
                     let retryCount = (nsError.userInfo[kMoppLibUserInfoRetryCount] as? NSNumber)?.intValue ?? 0
-                    MyeIDInfoManager.shared.retryCounts.setRetryCount(for: actionType, with: retryCount)
+                    strongSelf.infoManager.retryCounts.setRetryCount(for: actionType, with: retryCount)
                     if retryCount == 1 {
                         errorMessage = L(.myEidWrongCodeMessageSingular, [actionType.codeDisplayNameForWrongOrBlocked])
                         showErrorInline = true
@@ -81,7 +83,7 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
                     }
                 }
                 else if errorCode == MoppLibErrorCode.moppLibErrorPinBlocked.rawValue {
-                    MyeIDInfoManager.shared.retryCounts.setRetryCount(for: actionType, with: 0)
+                    strongSelf.infoManager.retryCounts.setRetryCount(for: actionType, with: 0)
                     let codeDisplayName = actionType.codeDisplayNameForWrongOrBlocked
                     errorMessage = L(.myEidCodeBlockedMessage, [codeDisplayName, codeDisplayName])
                 }
@@ -116,10 +118,10 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
                     statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.PIN2.rawValue])
                 case .unblockPin1:
                     statusText = L(.myEidCodeUnblockedSuccessMessage, [IdCardCodeName.PIN1.rawValue])
-                    MyeIDInfoManager.shared.retryCounts.pin1 = IdCardCodeLengthLimits.maxRetryCount.rawValue
+                    strongSelf.infoManager.retryCounts.pin1 = IdCardCodeLengthLimits.maxRetryCount.rawValue
                 case .unblockPin2:
                     statusText = L(.myEidCodeUnblockedSuccessMessage, [IdCardCodeName.PIN2.rawValue])
-                    MyeIDInfoManager.shared.retryCounts.pin2 = IdCardCodeLengthLimits.maxRetryCount.rawValue
+                    strongSelf.infoManager.retryCounts.pin2 = IdCardCodeLengthLimits.maxRetryCount.rawValue
                 case .changePuk:
                     statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.PUK.rawValue])
                 }
@@ -188,14 +190,15 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
         let secondCode = ui.secondCodeTextField.text ?? String()
         let thirdCode = ui.thirdCodeTextField.text ?? String()
         
-        let personalCode = MyeIDInfoManager.shared.personalData?.personalIdentificationCode ?? String()
+        let personalCode = infoManager.personalData?.personalIdentificationCode ?? String()
         
-        let generalNewCodeValidation = { (value:String, codeName:String, textFieldIndex:Int) -> (message:String, textFieldIndex:Int)? in
+        let generalNewCodeValidation = { [weak self] (value:String, codeName:String, textFieldIndex:Int) -> (message:String, textFieldIndex:Int)? in
+            guard let strongSelf = self else { return nil }
             if personalCode.contains(value) {
                 return (message:L(.myEidErrorCodeContainedInPersonalCode, [codeName]), textFieldIndex:textFieldIndex)
             }
             
-            if MyeIDInfoManager.shared.isNewCodeBirthdateVariant(value) ?? false {
+            if strongSelf.infoManager.isNewCodeBirthdateVariant(value) ?? false {
                 return (message:L(.myEidErrorCodeIsDateOfBirth, [codeName]), textFieldIndex:textFieldIndex)
             }
             

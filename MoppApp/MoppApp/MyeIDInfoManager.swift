@@ -39,8 +39,6 @@ enum IdCardCodeLengthLimits:Int {
 }
 
 class MyeIDInfoManager {
-    public static var shared = MyeIDInfoManager()
-
     weak var delegate: MyeIDInfoManagerDelegate? = nil
 
     var personalData: MoppLibPersonalData? = nil
@@ -273,21 +271,21 @@ class MyeIDInfoManager {
         var certExpiryDate: Date? = nil
         var isCertValid = false
         if kind == .pin1 {
-            certExpiryDate = MyeIDInfoManager.shared.authCertData?.expiryDate
-            isCertValid = MyeIDInfoManager.shared.isAuthCertValid
+            certExpiryDate = authCertData?.expiryDate
+            isCertValid = isAuthCertValid
         }
         else if kind == .pin2 {
-            certExpiryDate = MyeIDInfoManager.shared.signCertData?.expiryDate
-            isCertValid = MyeIDInfoManager.shared.isSignCertValid
+            certExpiryDate = signCertData?.expiryDate
+            isCertValid = isSignCertValid
         }
     
         let font = UIFont(name: MoppFontName.regular.rawValue, size: 16)!
     
-        let statusAttributedString = MyeIDInfoManager.shared.expiryDateAttributedString(isValid:isCertValid, font: font, capitalized: false)
+        let statusAttributedString = self.expiryDateAttributedString(isValid:isCertValid, font: font, capitalized: false)
         
         var expiryDateAttributedString: NSAttributedString!
         if let expiryDate = certExpiryDate {
-            let expiryDateString = MyeIDInfoManager.shared.estonianDateFormatter.string(from: expiryDate)
+            let expiryDateString = estonianDateFormatter.string(from: expiryDate)
             expiryDateAttributedString = NSAttributedString(string: expiryDateString, attributes:[.font: font])
         }
         

@@ -23,6 +23,8 @@
 class MyeIDInfoViewController: MoppViewController {
     @IBOutlet weak var ui: MyeIDInfoViewControllerUI!
     
+    weak var infoManager: MyeIDInfoManager!
+    
     enum Segment {
         case info
         case changePins
@@ -45,16 +47,17 @@ class MyeIDInfoViewController: MoppViewController {
 
 extension MyeIDInfoViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MyeIDInfoManager.shared.personalInfo.items.count
+        return infoManager.personalInfo.items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = MyeIDInfoManager.shared.personalInfo.items[indexPath.row]
+        let item = infoManager.personalInfo.items[indexPath.row]
         let cell = tableView.dequeueReusableCell(withType: MyeIDInfoCell.self, for: indexPath)!
+            cell.infoManager = infoManager
         if item.type == .expiryDate {
-            cell.populate(titleText: MyeIDInfoManager.shared.personalInfo.itemTitles[item.type]!, with: item.value)
+            cell.populate(titleText: infoManager.personalInfo.itemTitles[item.type]!, with: item.value)
         } else {
-            cell.populate(titleText: MyeIDInfoManager.shared.personalInfo.itemTitles[item.type]!, contentText: item.value)
+            cell.populate(titleText: infoManager.personalInfo.itemTitles[item.type]!, contentText: item.value)
         }
         
         return cell
@@ -65,9 +68,9 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
     func numberOfContentCells(in segment: Int) -> Int {
         switch segments[segment] {
         case .info:
-            return MyeIDInfoManager.shared.personalInfo.items.count
+            return infoManager.personalInfo.items.count
         case .changePins:
-            return MyeIDInfoManager.shared.pinPukCell.items.count
+            return infoManager.pinPukCell.items.count
         case .margin:
             return 1
         }
@@ -81,18 +84,20 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
         let segment = segments[indexPath.section]
         switch segment {
         case .info:
-            let item = MyeIDInfoManager.shared.personalInfo.items[indexPath.row]
+            let item = infoManager.personalInfo.items[indexPath.row]
             let cell = ui.tableView.dequeueReusableCell(withType: MyeIDInfoCell.self, for: indexPath)!
+                cell.infoManager = infoManager
             if item.type == .expiryDate {
-                cell.populate(titleText: MyeIDInfoManager.shared.personalInfo.itemTitles[item.type]!, with: item.value)
+                cell.populate(titleText: infoManager.personalInfo.itemTitles[item.type]!, with: item.value)
             } else {
-                cell.populate(titleText: MyeIDInfoManager.shared.personalInfo.itemTitles[item.type]!, contentText: item.value)
+                cell.populate(titleText: infoManager.personalInfo.itemTitles[item.type]!, contentText: item.value)
             }
             return cell
         case .changePins:
             let cell = ui.tableView.dequeueReusableCell(withType: MyeIDPinPukCell.self, for: indexPath)!
+                cell.infoManager = infoManager
                 cell.bounds = CGRect(x: 0, y: 0, width: ui.tableView.bounds.width, height: 99999)
-                cell.populate(pinPukCellInfo: MyeIDInfoManager.shared.pinPukCell.items[indexPath.row])
+                cell.populate(pinPukCellInfo: infoManager.pinPukCell.items[indexPath.row])
             return cell
         case .margin:
             return ui.tableView.dequeueReusableCell(withIdentifier: "marginCell", for: indexPath)
@@ -153,7 +158,7 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
     func willDisplayContentCell(_ cell: UITableViewCell, in segment:Int, at row:Int) {
         if segments[segment] == .changePins {
             if let cell = cell as? MyeIDPinPukCell {
-                cell.populateForWillDisplayCell(pinPukCellInfo: MyeIDInfoManager.shared.pinPukCell.items[row])
+                cell.populateForWillDisplayCell(pinPukCellInfo: infoManager.pinPukCell.items[row])
                 cell.layoutIfNeeded()
             }
         }

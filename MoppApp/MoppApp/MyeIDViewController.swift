@@ -23,11 +23,13 @@
 class MyeIDViewController : MoppViewController {
     @IBOutlet weak var containerView: UIView!
     var changingCodesVCPresented: Bool = false
+    
+    var infoManager: MyeIDInfoManager!
  
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        MyeIDInfoManager.shared.delegate = self
+        infoManager = MyeIDInfoManager()
+        infoManager.delegate = self
     
         let statusVC = createStatusViewController()
         _ = showViewController(statusVC)
@@ -66,7 +68,9 @@ class MyeIDViewController : MoppViewController {
     }
     
     func createInfoViewController() -> MyeIDInfoViewController {
-        return UIStoryboard.myEID.instantiateViewController(of: MyeIDInfoViewController.self)
+        let infoViewController = UIStoryboard.myEID.instantiateViewController(of: MyeIDInfoViewController.self)
+            infoViewController.infoManager = infoManager
+        return infoViewController
     }
     
     func showViewController(_ viewController: MoppViewController) -> UIViewController {
@@ -138,7 +142,7 @@ extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
             // Give some time for status textfield to update before executing data requests
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
                 guard let strongSelf = self else { return }
-                MyeIDInfoManager.shared.requestInformation(with: strongSelf)
+                strongSelf.infoManager.requestInformation(with: strongSelf)
             })
         }
     }

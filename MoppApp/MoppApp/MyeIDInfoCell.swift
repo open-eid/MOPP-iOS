@@ -24,6 +24,8 @@ class MyeIDInfoCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     
+    weak var infoManager: MyeIDInfoManager!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -40,7 +42,7 @@ class MyeIDInfoCell: UITableViewCell {
         let font = UIFont(name: MoppFontName.allCapsBold.rawValue, size: 17)!
         let attrText = NSMutableAttributedString(string: expiryDateString, attributes: [.font: font])
         
-        if let expiryDateDisplayString = MyeIDInfoManager.shared.expiryDateAttributedString(dateString: expiryDateString, font: font, capitalized: true) {
+        if let expiryDateDisplayString = infoManager.expiryDateAttributedString(dateString: expiryDateString, font: font, capitalized: true) {
             attrText.append(NSAttributedString(string: " | "))
             attrText.append(expiryDateDisplayString)
         }

@@ -122,12 +122,12 @@ extension MenuViewController : UITableViewDelegate {
         if section == .items {
             switch menuItems[indexPath.row].id {
             case .help:
-                let currentPreferredLanguage = (Locale.preferredLanguages.first ?? String()).lowercased()
+                let appLanguageID = DefaultsHelper.moppLanguageID
                 var helpUrl: URL!
-                if currentPreferredLanguage.hasPrefix("et") {
+                if appLanguageID == "et" {
                     helpUrl = URL(string: "https://www.id.ee/index.php?id=10583")
                 }
-                else if currentPreferredLanguage.hasPrefix("ru") {
+                else if appLanguageID == "ru" {
                     helpUrl = URL(string: "https://www.id.ee/index.php?id=30515")
                 }
                 else {
