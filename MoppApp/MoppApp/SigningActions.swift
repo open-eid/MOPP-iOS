@@ -122,7 +122,7 @@ extension ContainerViewController : MobileIDEditViewControllerDelegate {
         present(mobileIDChallengeview, animated: false)
         
         Session.shared.createMobileSignature(
-            withContainer: containerViewDelegate.getContainerFilename(),
+            withContainer: containerViewDelegate.getContainerPath(),
             idCode: idCode,
             language: decideLanguageBasedOnPreferredLanguages(),
             phoneNumber: phoneNumber)
