@@ -123,8 +123,8 @@
 		C55BB1CF2091BEBD00618AC4 /* about_et.html in Sources */ = {isa = PBXBuildFile; fileRef = C55BB1CE2091BEBD00618AC4 /* about_et.html */; };
 		C55BB1D02091BEBD00618AC4 /* about_et.html in Sources */ = {isa = PBXBuildFile; fileRef = C55BB1CE2091BEBD00618AC4 /* about_et.html */; };
 		C55BB1D12091C30500618AC4 /* about_et.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1CE2091BEBD00618AC4 /* about_et.html */; };
-		C55BB1D32091C68200618AC4 /* main_about_fonds.png in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D22091C68200618AC4 /* main_about_fonds.png */; };
-		C55BB1D42091C68200618AC4 /* main_about_fonds.png in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D22091C68200618AC4 /* main_about_fonds.png */; };
+		C55BB1D32091C68200618AC4 /* main_about_fonds_et.png in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D22091C68200618AC4 /* main_about_fonds_et.png */; };
+		C55BB1D42091C68200618AC4 /* main_about_fonds_et.png in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D22091C68200618AC4 /* main_about_fonds_et.png */; };
 		C55BB1D72091F44000618AC4 /* about_en.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D52091F44000618AC4 /* about_en.html */; };
 		C55BB1D82091F44000618AC4 /* about_en.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D52091F44000618AC4 /* about_en.html */; };
 		C55BB1D92091F44000618AC4 /* about_ru.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D62091F44000618AC4 /* about_ru.html */; };
@@ -161,6 +161,7 @@
 		C5A1D1CD2031D5B80024CD4C /* ContainerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A1D1CC2031D5B80024CD4C /* ContainerActions.swift */; };
 		C5A795D3208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A795D2208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift */; };
 		C5AA42C7207F51EB0031F3AA /* MyeIDChangeCodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AA42C6207F51EB0031F3AA /* MyeIDChangeCodesViewController.swift */; };
+		C5AAAF8020C93B920087D6DA /* main_about_fonds_en.png in Resources */ = {isa = PBXBuildFile; fileRef = C5AAAF7F20C93B910087D6DA /* main_about_fonds_en.png */; };
 		C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */; };
 		C5CF5EEC2017E4CC008FBBD6 /* FileImportProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CF5EEB2017E4CC008FBBD6 /* FileImportProgressViewController.swift */; };
 		C5D057022023016300875F44 /* RecentContainersEmptyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D057012023016300875F44 /* RecentContainersEmptyListCell.swift */; };
@@ -475,7 +476,7 @@
 		C55BB1C92090C17E00618AC4 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		C55BB1CB2091BD2000618AC4 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		C55BB1CE2091BEBD00618AC4 /* about_et.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about_et.html; sourceTree = "<group>"; };
-		C55BB1D22091C68200618AC4 /* main_about_fonds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_about_fonds.png; sourceTree = "<group>"; };
+		C55BB1D22091C68200618AC4 /* main_about_fonds_et.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_about_fonds_et.png; sourceTree = "<group>"; };
 		C55BB1D52091F44000618AC4 /* about_en.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about_en.html; sourceTree = "<group>"; };
 		C55BB1D62091F44000618AC4 /* about_ru.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about_ru.html; sourceTree = "<group>"; };
 		C55BB1DB2091FBCF00618AC4 /* about.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = about.css; sourceTree = "<group>"; };
@@ -508,6 +509,7 @@
 		C5A1D1CC2031D5B80024CD4C /* ContainerActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerActions.swift; sourceTree = "<group>"; };
 		C5A795D2208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDChangeCodeViewControllerUI.swift; sourceTree = "<group>"; };
 		C5AA42C6207F51EB0031F3AA /* MyeIDChangeCodesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDChangeCodesViewController.swift; sourceTree = "<group>"; };
+		C5AAAF7F20C93B910087D6DA /* main_about_fonds_en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_about_fonds_en.png; sourceTree = "<group>"; };
 		C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerNoSignaturesCell.swift; sourceTree = "<group>"; };
 		C5CF5EEB2017E4CC008FBBD6 /* FileImportProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImportProgressViewController.swift; sourceTree = "<group>"; };
 		C5D057012023016300875F44 /* RecentContainersEmptyListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentContainersEmptyListCell.swift; sourceTree = "<group>"; };
@@ -789,7 +791,8 @@
 				C55BB1CE2091BEBD00618AC4 /* about_et.html */,
 				C55BB1DF2091FECD00618AC4 /* licenses.html */,
 				C55BB1DB2091FBCF00618AC4 /* about.css */,
-				C55BB1D22091C68200618AC4 /* main_about_fonds.png */,
+				C5AAAF7F20C93B910087D6DA /* main_about_fonds_en.png */,
+				C55BB1D22091C68200618AC4 /* main_about_fonds_et.png */,
 			);
 			path = AboutContent;
 			sourceTree = "<group>";
@@ -1151,7 +1154,7 @@
 				C5D0574F2028835000875F44 /* Roboto-Condensed.ttf in Resources */,
 				C5D057502028835000875F44 /* digidoc_64.png in Resources */,
 				C5D057512028835000875F44 /* Roboto-Light.ttf in Resources */,
-				C55BB1D42091C68200618AC4 /* main_about_fonds.png in Resources */,
+				C55BB1D42091C68200618AC4 /* main_about_fonds_et.png in Resources */,
 				C5D057522028835000875F44 /* Menu.storyboard in Resources */,
 				C5D057532028835000875F44 /* Roboto-MediumItalic.ttf in Resources */,
 				C5D057542028835000875F44 /* RobotoCondensed-LightItalic.ttf in Resources */,
@@ -1226,6 +1229,7 @@
 				54A5729F1E82AC760099BFAF /* AppStore.plist in Resources */,
 				C50DCCF61FC5741900D48E16 /* Roboto-BoldCondensedItalic.ttf in Resources */,
 				C593D9EC208F19D7000B3BF6 /* Settings.storyboard in Resources */,
+				C5AAAF8020C93B920087D6DA /* main_about_fonds_en.png in Resources */,
 				C55BB1D92091F44000618AC4 /* about_ru.html in Resources */,
 				C55BB1D72091F44000618AC4 /* about_en.html in Resources */,
 				C50DCCF21FC5741900D48E16 /* RobotoCondensed-Regular.ttf in Resources */,
@@ -1236,7 +1240,7 @@
 				C50DCD011FC6E97400D48E16 /* Container.storyboard in Resources */,
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
 				54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */,
-				C55BB1D32091C68200618AC4 /* main_about_fonds.png in Resources */,
+				C55BB1D32091C68200618AC4 /* main_about_fonds_et.png in Resources */,
 				C50DCCFC1FC5741900D48E16 /* RobotoCondensed-BoldItalic.ttf in Resources */,
 				C50DCCEE1FC5741900D48E16 /* RobotoCondensed-Light.ttf in Resources */,
 				C50DCCE71FC5741900D48E16 /* Roboto-ThinItalic.ttf in Resources */,
