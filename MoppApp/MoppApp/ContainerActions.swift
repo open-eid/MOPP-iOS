@@ -59,10 +59,10 @@ extension ContainerActions where Self: UIViewController {
                         landingViewController.containerType = .cdoc
                     }
                 }
-                let isAsicContainer = (ext.isAsicContainerExtension || ext == ContainerFormatPDF) &&
+                let isAsicOrPadesContainer = (ext.isAsicContainerExtension || ext == ContainerFormatPDF) &&
                     landingViewController.containerType == .asic
                 let isCdocContainer = ext.isCdocContainerExtension && landingViewController.containerType == .cdoc
-                if  (isAsicContainer || isCdocContainer) && urls.count == 1 {
+                if  (isAsicOrPadesContainer || isCdocContainer) && urls.count == 1 {
                     self?.openExistingContainer(with: urls.first!)
                 } else {
                     self?.createNewContainer(with: urls.first!, dataFilePaths: dataFilePaths)
