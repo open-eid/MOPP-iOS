@@ -59,13 +59,10 @@ extension ContainerActions where Self: UIViewController {
                         landingViewController.containerType = .cdoc
                     }
                 }
-                
-                if  (((ext.isAsicContainerExtension ||
-                        ext == ContainerFormatPDF) &&
-                            landingViewController.containerType == .asic) ||
-                    (ext.isCdocContainerExtension &&
-                        landingViewController.containerType == .cdoc)) &&
-                    urls.count == 1 {
+                let isAsicContainer = (ext.isAsicContainerExtension || ext == ContainerFormatPDF) &&
+                    landingViewController.containerType == .asic
+                let isCdocContainer = ext.isCdocContainerExtension && landingViewController.containerType == .cdoc
+                if  (isAsicContainer || isCdocContainer) && urls.count == 1 {
                     self?.openExistingContainer(with: urls.first!)
                 } else {
                     self?.createNewContainer(with: urls.first!, dataFilePaths: dataFilePaths)
@@ -130,7 +127,7 @@ extension ContainerActions where Self: UIViewController {
             )
         } else {
             let containerViewController = CryptoContainerViewController.instantiate()
-            let container = CryptoContainer.init(filename: fileName as NSString, filePath: newFilePath as NSString)
+            let container = CryptoContainer(filename: fileName as NSString, filePath: newFilePath as NSString)
             containerViewController.containerPath = newFilePath
             containerViewController.state = .opened
             containerViewController.container = container
@@ -264,7 +261,7 @@ extension ContainerActions where Self: UIViewController {
         } else {
 
             let containerViewController = CryptoContainerViewController.instantiate()
-            let container = CryptoContainer.init(filename: containerFilename as NSString, filePath: containerPath as NSString)
+            let container = CryptoContainer(filename: containerFilename as NSString, filePath: containerPath as NSString)
             containerViewController.containerPath = containerPath
             
             for dataFilePath in dataFilePaths {
