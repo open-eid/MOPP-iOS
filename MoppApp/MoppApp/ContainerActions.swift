@@ -44,7 +44,7 @@ extension ContainerActions where Self: UIViewController {
         topSigningViewController.present(landingViewController.importProgressViewController, animated: false)
         
         MoppFileManager.shared.importFiles(with: urls) { [weak self] error, dataFilePaths in
-        
+
             if landingViewController.fileImportIntent == .addToContainer {
                 landingViewController.addDataFilesToContainer(dataFilePaths: dataFilePaths)
             }
@@ -52,10 +52,17 @@ extension ContainerActions where Self: UIViewController {
                 navController.setViewControllers([navController.viewControllers.first!], animated: false)
              
                 let ext = urls.first!.pathExtension
-                if ((ext.isAsicContainerExtension || ext == ContainerFormatPDF) &&
-                    landingViewController.containerType == .asic) &&
-                    urls.count == 1 {
-                    
+                if landingViewController.containerType == nil {
+                    if ext.isAsicContainerExtension {
+                        landingViewController.containerType = .asic
+                    } else {
+                        landingViewController.containerType = .cdoc
+                    }
+                }
+                let isAsicOrPadesContainer = (ext.isAsicContainerExtension || ext == ContainerFormatPDF) &&
+                    landingViewController.containerType == .asic
+                let isCdocContainer = ext.isCdocContainerExtension && landingViewController.containerType == .cdoc
+                if  (isAsicOrPadesContainer || isCdocContainer) && urls.count == 1 {
                     self?.openExistingContainer(with: urls.first!)
                 } else {
                     self?.createNewContainer(with: urls.first!, dataFilePaths: dataFilePaths)
@@ -88,36 +95,46 @@ extension ContainerActions where Self: UIViewController {
 
             navController?.viewControllers.last!.present(alert, animated: true)
         }
+        if landingViewController.containerType == .asic {
+            MoppLibContainerActions.sharedInstance().openContainer(withPath: newFilePath,
+                success: { (_ container: MoppLibContainer?) -> Void in
+                    if container == nil {
+                        // Remove invalid container. Probably ddoc.
+                        MoppFileManager.shared.removeFile(withName: fileName)
+                        failure()
+                        return
+                    }
+                
+                    // If file to open is PDF and there is no signatures then create new container
+                    let isPDF = url.pathExtension.lowercased() == ContainerFormatPDF
+                    if isPDF && container!.signatures.isEmpty {
+                        landingViewController.createNewContainer(with: url, dataFilePaths: [newFilePath])
+                        return
+                    }
+                    
+                    let containerViewController = ContainerViewController.instantiate()
+                        containerViewController.containerPath = newFilePath
+                        containerViewController.forcePDFContentPreview = isPDF
+                    
+                    landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                        navController?.pushViewController(containerViewController, animated: true)
+                    })
 
-        MoppLibContainerActions.sharedInstance().openContainer(withPath: newFilePath,
-            success: { (_ container: MoppLibContainer?) -> Void in
-                if container == nil {
-                    // Remove invalid container. Probably ddoc.
-                    MoppFileManager.shared.removeFile(withName: fileName)
+                },
+                failure: { _ in
                     failure()
-                    return
                 }
-            
-                // If file to open is PDF and there is no signatures then create new container
-                let isPDF = url.pathExtension.lowercased() == ContainerFormatPDF
-                if isPDF && container!.signatures.isEmpty {
-                    landingViewController.createNewContainer(with: url, dataFilePaths: [newFilePath])
-                    return
-                }
-                
-                let containerViewController = ContainerViewController.instantiate()
-                    containerViewController.containerPath = newFilePath
-                    containerViewController.forcePDFContentPreview = isPDF
-                
-                landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
-                    navController?.pushViewController(containerViewController, animated: true)
-                })
-
-            },
-            failure: { _ in
-                failure()
-            }
-        )
+            )
+        } else {
+            let containerViewController = CryptoContainerViewController.instantiate()
+            let container = CryptoContainer(filename: fileName as NSString, filePath: newFilePath as NSString)
+            containerViewController.containerPath = newFilePath
+            containerViewController.state = .opened
+            containerViewController.container = container
+            landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                navController?.pushViewController(containerViewController, animated: true)
+            })
+        }
     }
 
     func addDataFilesToContainer(dataFilePaths: [String]) {
@@ -241,10 +258,10 @@ extension ContainerActions where Self: UIViewController {
                 MoppFileManager.shared.removeFile(withPath: filePath)
             }
             )
-        }else{
+        } else {
 
             let containerViewController = CryptoContainerViewController.instantiate()
-            let container = CryptoContainer.init(filename: containerFilename as NSString, filePath: containerPath as NSString)
+            let container = CryptoContainer(filename: containerFilename as NSString, filePath: containerPath as NSString)
             containerViewController.containerPath = containerPath
             
             for dataFilePath in dataFilePaths {
