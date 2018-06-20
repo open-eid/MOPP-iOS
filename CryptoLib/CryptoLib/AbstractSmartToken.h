@@ -1,5 +1,5 @@
 //
-//  Decrypt.h
+//  AbstractSmartToken.h
 //  CryptoLib
 /*
  * Copyright 2017 Riigi Infosüsteemide Amet
@@ -20,26 +20,12 @@
  *
  */
 
-
-#ifndef CdocWriter_h
-#define CdocWriter_h
-
-
-#endif /* CdocWriter_h */
-
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import "SmartCardTokenWrapper.h"
-#import "AbstractSmartToken.h"
-#if __cplusplus
-#import "cdoc/CdocReader.h"
-#endif
-@interface Decrypt : NSObject
 
-- (NSMutableDictionary *)decryptFile: (NSString *)fullPath withPin :(NSString *) pin withToken :(AbstractSmartToken *) smartToken;
+@interface AbstractSmartToken : NSObject
+- (NSData*)getCertificate;
+- (NSData*)decrypt:(NSData*)data pin1:(NSString *)pin1;
+- (NSData*)derive:(NSData*)data pin1:(NSString *)pin1;
 @end
-
-
-
 
 

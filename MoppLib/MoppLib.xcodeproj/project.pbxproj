@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		39266A5320CFC0F4002E3F23 /* SmartToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5220CFC0F4002E3F23 /* SmartToken.m */; };
 		399C01E320BC11C20056D7AC /* MoppLibCryptoActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 399C01E220BC11C20056D7AC /* MoppLibCryptoActions.m */; };
-		399C01E520BC13320056D7AC /* CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 399C01E420BC13320056D7AC /* CryptoLib.framework */; };
 		399C01E620BC17A10056D7AC /* MoppLibCryptoActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		39DFDA6320C81F5D00D0D134 /* CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 399C01E420BC13320056D7AC /* CryptoLib.framework */; };
 		540CB2201E1CDCED00FE18A3 /* MoppLibCertificate.h in Headers */ = {isa = PBXBuildFile; fileRef = 540CB21E1E1CDCED00FE18A3 /* MoppLibCertificate.h */; };
 		540CB2211E1CDCED00FE18A3 /* MoppLibCertificate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 540CB21F1E1CDCED00FE18A3 /* MoppLibCertificate.mm */; };
 		540CB2251E1CDD8100FE18A3 /* MoppLibCerificatetData.h in Headers */ = {isa = PBXBuildFile; fileRef = 540CB2231E1CDD8100FE18A3 /* MoppLibCerificatetData.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -125,9 +126,12 @@
 /* Begin PBXFileReference section */
 		02BB12B033D5C8237B002F59 /* Pods_MoppLibTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppLibTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		212014B6D572D152A70C2C71 /* Pods_MoppLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		39266A5220CFC0F4002E3F23 /* SmartToken.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmartToken.m; sourceTree = "<group>"; };
+		39266A5420CFC105002E3F23 /* SmartToken.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SmartToken.h; sourceTree = "<group>"; };
 		399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLibCryptoActions.h; sourceTree = "<group>"; };
 		399C01E220BC11C20056D7AC /* MoppLibCryptoActions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoppLibCryptoActions.m; sourceTree = "<group>"; };
 		399C01E420BC13320056D7AC /* CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		39DFDA6420C8224000D0D134 /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = ../CryptoLib/CryptoLib/cdoc.framework; sourceTree = "<group>"; };
 		540CB21E1E1CDCED00FE18A3 /* MoppLibCertificate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibCertificate.h; sourceTree = "<group>"; };
 		540CB21F1E1CDCED00FE18A3 /* MoppLibCertificate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoppLibCertificate.mm; sourceTree = "<group>"; };
 		540CB2231E1CDD8100FE18A3 /* MoppLibCerificatetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibCerificatetData.h; sourceTree = "<group>"; };
@@ -258,7 +262,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				399C01E520BC13320056D7AC /* CryptoLib.framework in Frameworks */,
+				39DFDA6320C81F5D00D0D134 /* CryptoLib.framework in Frameworks */,
 				C5F462A8209727E8001B7D59 /* CoreBluetooth.framework in Frameworks */,
 				C54EA73020499DFC0039AC78 /* ExternalAccessory.framework in Frameworks */,
 				C54EA6FE204968080039AC78 /* libiRockey301_ccid_V1.32.3_debug.a in Frameworks */,
@@ -515,6 +519,8 @@
 				54DC0DC21E0BCBB400C62B3D /* CardReaders */,
 				54DC0DFA1E0D195200C62B3D /* CardActions */,
 				E4180C131E23FE7100FD7B8C /* Utility */,
+				39266A5420CFC105002E3F23 /* SmartToken.h */,
+				39266A5220CFC0F4002E3F23 /* SmartToken.m */,
 				54DC0DFF1E0D48C900C62B3D /* MoppLibError.h */,
 				54DC0E001E0D48C900C62B3D /* MoppLibError.m */,
 				54D1646E1E923F920069C725 /* MoppLibPrivateConstants.h */,
@@ -840,6 +846,7 @@
 				545CF8581E16928600B66EE8 /* CBManagerHelper.m in Sources */,
 				AE61985C1E489EDF0021B18B /* MoppLibService.m in Sources */,
 				5463DA4D1E12927A008A1714 /* CardCommands.m in Sources */,
+				39266A5320CFC0F4002E3F23 /* SmartToken.m in Sources */,
 				542DCB6D1E23968000899534 /* MoppLibPinActions.m in Sources */,
 				AE6198601E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.m in Sources */,
 				C54EA732204D5E860039AC78 /* CardReaderiR301.m in Sources */,

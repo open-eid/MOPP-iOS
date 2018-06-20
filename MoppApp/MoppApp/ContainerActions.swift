@@ -53,10 +53,10 @@ extension ContainerActions where Self: UIViewController {
              
                 let ext = urls.first!.pathExtension
                 if landingViewController.containerType == nil {
-                    if ext.isAsicContainerExtension {
-                        landingViewController.containerType = .asic
-                    } else {
+                    if ext.isCdocContainerExtension {
                         landingViewController.containerType = .cdoc
+                    } else {
+                        landingViewController.containerType = .asic
                     }
                 }
                 let isAsicOrPadesContainer = (ext.isAsicContainerExtension || ext == ContainerFormatPDF) &&
@@ -128,12 +128,27 @@ extension ContainerActions where Self: UIViewController {
         } else {
             let containerViewController = CryptoContainerViewController.instantiate()
             let container = CryptoContainer(filename: fileName as NSString, filePath: newFilePath as NSString)
-            containerViewController.containerPath = newFilePath
-            containerViewController.state = .opened
-            containerViewController.container = container
-            landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
-                navController?.pushViewController(containerViewController, animated: true)
-            })
+            
+            MoppLibCryptoActions.sharedInstance().parseCdocInfo(
+                newFilePath as String?,
+                success: {(_ cdocInfo: CdocInfo?) -> Void in
+                    guard let strongCdocInfo = cdocInfo else { return }
+                    container.addressees = strongCdocInfo.addressees
+                    container.dataFiles = strongCdocInfo.dataFiles
+                    containerViewController.containerPath = newFilePath
+                    containerViewController.state = .opened
+                    containerViewController.container = container
+                    containerViewController.isContainerEncrypted = true
+                    landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                        navController?.pushViewController(containerViewController, animated: true)
+                    })
+                },
+                failure: { _ in
+                    DispatchQueue.main.async {
+                         failure()
+                    }
+                }
+            )
         }
     }
 
@@ -177,7 +192,7 @@ extension ContainerActions where Self: UIViewController {
     
     private func generateNewFilename(container: CryptoContainer, filename: NSString, count: Int) -> NSString {
         var newFilename = filename
-        if count > 0{
+        if count > 0 {
             let fileExtension  = filename.pathExtension
             let withoutExtension = filename.deletingPathExtension
             newFilename = withoutExtension.appendingFormat("(\(String(count))).\(fileExtension)") as NSString

@@ -1,5 +1,5 @@
 //
-//  ApduToken.hpp
+//  AbstractSmartToken.mm
 //  CryptoLib
 /*
  * Copyright 2017 Riigi Infosüsteemide Amet
@@ -19,26 +19,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+#import "AbstractSmartToken.h"
 
-#ifndef ApduToken_hpp
-#define ApduToken_hpp
+@implementation AbstractSmartToken
 
-#include <stdio.h>
-#import "cdoc/Token.h"
-#import <UIKit/UIKit.h>
-#endif /* ApduToken_hpp */
-
-
-class CDOC_EXPORT ApduToken: public Token
-{
-public:
-    ApduToken(const std::string &password,  UIViewController *controller);
-    ApduToken();
-    virtual std::vector<uchar> cert() const override;
-    virtual std::vector<uchar> decrypt(const std::vector<uchar> &data) const override;
-    virtual std::vector<uchar> derive(const std::vector<uchar> &publicKey) const override;
-private:
-    DISABLE_COPY(ApduToken);
-    class Private;
-    Private *d;
-};
+- (NSData*)getCertificate {
+    return nil;
+}
+- (NSData*)decrypt:(NSData*)data pin1:(NSString *)pin1 {
+    return nil;
+}
+- (NSData*)dervive:(NSData*)data pin1:(NSString *)pin1 {
+    return nil;
+}
+@end

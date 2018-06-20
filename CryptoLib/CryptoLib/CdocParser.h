@@ -1,5 +1,5 @@
 //
-//  XmlParserDelegate.h
+//  CdocParser.h
 //  CryptoLib
 /*
  * Copyright 2017 Riigi Infosüsteemide Amet
@@ -21,10 +21,10 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "CdocInfo.h"
 
-@interface XmlParserDelegate : NSObject
-{
-}
-@property (nonatomic, retain) NSMutableDictionary *dictionary;
-@property (nonatomic, retain) NSString *lastKey;
+@interface CdocParser : NSObject
+- (CdocInfo*)parseCdocInfo:(NSString*)fullpath;
 @end
+
+

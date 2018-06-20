@@ -66,6 +66,7 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
         case shareButton
         case signButton
         case encryptButton
+        case decryptButton
         case confirmButton
     }
 

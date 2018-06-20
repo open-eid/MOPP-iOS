@@ -26,6 +26,7 @@
 "tab-sign-button" = "ПОДПИСАТЬ";
 "tab-share-button" = "ПОДЕЛИТЬСЯ";
 "tab-encrypt-button" = "ЗАШИФРОВАТЬ";
+"tab-decrypt-button" = "DECRYPT";
 "tab-confirm-button" = "CONFIRM SELECTION";
 
 // Main menu
@@ -46,6 +47,7 @@
 "crypto-empty-ldap-label" = "У лица или учреждения отсутствует действующий сертификат.\nДля зашифровывания необходим действующий сертификат.\nВ случае проблем обращайтесь по адресу электронной почты abi@id.ee или звоните в пределах Эстонии на короткий номер ID-помощи 1777 или из-за границы на номер (+372) 677 3377.";
 "crypto-ldap-search-placeholder" = "Enter personal code, company or registry code";
 "crypto-encryption-error-text" = "Something went wrong with encryption";
+"crypto-decryption-error-text" = "Something went wrong with decryption";
 "crypto-encryption-success" = "ENCRYPTION SUCCEEDED";
 "crypto-no-addressees-warning" = "No addressees specified";
 "crypto-valid-to" = "valid to";
@@ -70,6 +72,7 @@
 "action-cancel" = "Отменить";
 "action-delete" = "Удалить";
 "action-sign" = "Подписать";
+"action-decrypt" = "Decrypt";
 
 // *** Signed containers ***
 
@@ -83,7 +86,7 @@
 
 // Details
 "container-details-signing-success" = "ПОДПИСЬ ДОБАВЛЕНА";
-
+"container-details-decryption-success" = "DECRYPTION SUCCESSFUL";
 "container-header-files-title" = "Файлы контейнера";
 "container-header-create-signing-files-title" = "Файлы, выбранные для подписания";
 "container-header-create-encryption-files-title" = "Files chosen for encryption";
@@ -128,6 +131,7 @@
 "mobile-id-challenge-waiting-response" = "Жду ответа ...";
 "container-sign-title" = "Подписание";
 "container-encryption-title" = "Encryption";
+"container-decryption-title" = "Decryption";
 "container-addressee-title" = "Adding addressees";
 "container-validate-title" = "Проверка контейнера";
 "container-validating" = "Загрузка...";
@@ -142,13 +146,19 @@
 "card-reader-state-reader-not-found" = "Считыватель карты не обнаружен";
 "card-reader-state-id-card-not-found" = "Считыватель карт.\nВставьте свою ID-карту в устройство чтения.";
 "card-reader-state-id-card-connected" = "Обнаружена ID-карта.\nЗапрашивается информация.";
-"card-reader-state-ready" = "Готов подписать с удостоверением личности.\n%@ (%@)\nВведите PIN2";
+"card-reader-state-ready-for-pin2" = "Готов подписать с удостоверением личности.\n%@ (%@)\nВведите PIN2";
+"card-reader-state-ready-for-pin1" = "Готов подписать с удостоверением личности.\n%@ (%@)\nВведите PIN1";
 "signing-in-progress" = "Подписание.\nПодождите пожалуйста";
+"decryption-in-progress" = "Decryption in progress.\nPlease wait.";
 "wrong-pin2" = "Неверный PIN2. У вас осталось %d попытки.\nНабрав неверный PIN2 еще 2 раза, ваш PIN2 будет заблокирован";
+"wrong-pin1" = "Неверный PIN1. У вас осталось %d попытки.\nНабрав неверный PIN1 еще 2 раза, ваш PIN1 будет заблокирован";
 "wrong-pin2-single" = "Неверный PIN2. У вас есть 1 попытка.\nНабрав неправильный PIN2, ваш PIN2 будет заблокирован";
+"wrong-pin1-single" = "Неверный PIN1. У вас есть 1 попытка.\nНабрав неправильный PIN1, ваш PIN1 будет заблокирован";
 "pin2-textfield-label" = "PIN2";
+"pin1-textfield-label" = "PIN1";
 "pin2-blocked-alert" = "PIN2 заблокирован. Перейдите в «Мой eID», чтобы разблокировать свой PIN2.";
 "generic-error-message" = "Что-то пошло не так. Пожалуйста, попробуйте снова.";
+"decryption-error-message" = "Something went wrong with decryption. Please try again";
 "signing-aborted-message" = "Ошибка: процесс подписи прерывается";
 "my-eid-status-reader-not-found" = "Подключите считыватель карты и вставьте в него Вашу ID-карту.";
 "my-eid-status-card-not-found" = "Обнаружен считыватель карты.\nВставьте в него Вашу ID-карту.";

@@ -1,5 +1,5 @@
 //
-//  Decrypt.h
+//  CdocInfo.h
 //  CryptoLib
 /*
  * Copyright 2017 Riigi Infosüsteemide Amet
@@ -20,26 +20,12 @@
  *
  */
 
-
-#ifndef CdocWriter_h
-#define CdocWriter_h
-
-
-#endif /* CdocWriter_h */
-
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import "SmartCardTokenWrapper.h"
-#import "AbstractSmartToken.h"
-#if __cplusplus
-#import "cdoc/CdocReader.h"
-#endif
-@interface Decrypt : NSObject
+#import "CryptoDataFile.h"
+#import "Addressee.h"
 
-- (NSMutableDictionary *)decryptFile: (NSString *)fullPath withPin :(NSString *) pin withToken :(AbstractSmartToken *) smartToken;
+@interface CdocInfo : NSObject
+@property (nonatomic, strong) NSMutableArray<Addressee *> *addressees;
+@property (nonatomic, strong) NSMutableArray<CryptoDataFile *> *dataFiles;
+
 @end
-
-
-
-
-

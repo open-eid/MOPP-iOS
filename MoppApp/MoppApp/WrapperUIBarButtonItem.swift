@@ -1,6 +1,6 @@
 //
-//  Decrypt.h
-//  CryptoLib
+//  WrapperUIBarButtonItem.swift
+//  MoppApp
 /*
  * Copyright 2017 Riigi Infosüsteemide Amet
  *
@@ -19,27 +19,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+import Foundation
 
-
-#ifndef CdocWriter_h
-#define CdocWriter_h
-
-
-#endif /* CdocWriter_h */
-
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import "SmartCardTokenWrapper.h"
-#import "AbstractSmartToken.h"
-#if __cplusplus
-#import "cdoc/CdocReader.h"
-#endif
-@interface Decrypt : NSObject
-
-- (NSMutableDictionary *)decryptFile: (NSString *)fullPath withPin :(NSString *) pin withToken :(AbstractSmartToken *) smartToken;
-@end
-
-
-
-
-
+class WrapperUIBarButtonItem: UIBarButtonItem {
+    var filePath: String?
+}

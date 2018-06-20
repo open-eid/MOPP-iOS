@@ -102,7 +102,7 @@ class MoppViewController : UIViewController {
         }
     }
     
-    func setupNavigationItemForPushedViewController(title: String) {
+    func setupNavigationItemForPushedViewController(title: String, filePath: String = "") {
         let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
             titleLabel.text = title
             titleLabel.textColor = UIColor.black
@@ -113,9 +113,19 @@ class MoppViewController : UIViewController {
         
         let backBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarBack"), style: .plain, target: self, action: #selector(backAction))
         navigationItem.setLeftBarButton(backBarButtonItem, animated: true)
+        if !filePath.isEmpty {
+            let shareBarButtonItem = WrapperUIBarButtonItem(image: UIImage(named: "navBarShare"), style: .plain, target: self, action: #selector(shareAction(sender:)))
+            shareBarButtonItem.filePath = filePath
+            navigationItem.setRightBarButton(shareBarButtonItem, animated: true)
+        }
     }
 
     @objc func backAction() {
         _ = navigationController?.popViewController(animated: true)
     }
+    @objc func shareAction(sender: WrapperUIBarButtonItem) {
+        LandingViewController.shared.shareFile(using: URL(fileURLWithPath: sender.filePath!), sender: self.view, completion: { bool in })
+    }
+    
+    
 }

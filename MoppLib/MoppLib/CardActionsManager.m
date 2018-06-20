@@ -46,6 +46,7 @@ typedef NS_ENUM(NSUInteger, CardAction) {
     CardActionReadOwnerBirthDate,
     CardActionReadSecretKey,
     CardActionCalculateSignature,
+    CardActionDecryptData,
     CardActionGetCardStatus
 };
 
@@ -128,7 +129,7 @@ static CardActionsManager *sharedInstance = nil;
     MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
     
     [self signingCertDataWithPin2:pin2 success:^(NSData *data) {
-        [MoppLibCertificate certData:certData updateWithData:[data bytes] length:data.length];
+        [MoppLibCertificate certData:certData updateWithDataDer:[data bytes] length:data.length];
         success(certData);
     } failure:failure];
 }
@@ -141,7 +142,7 @@ static CardActionsManager *sharedInstance = nil;
     MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
     
     [self authenticationCertDataWithSuccess:^(NSData *data) {
-        [MoppLibCertificate certData:certData updateWithData:[data bytes] length:data.length];
+        [MoppLibCertificate certData:certData updateWithDataDer:[data bytes] length:data.length];
         success(certData);
     } failure:failure];
 }
@@ -180,6 +181,11 @@ static CardActionsManager *sharedInstance = nil;
 - (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure {
     NSDictionary *data = @{kCardActionDataHash:hash, kCardActionDataVerify:pin2, kCardActionDataUseECC:[NSNumber numberWithBool:useECC]};
     [self addCardAction:CardActionCalculateSignature data:data success:success failure:failure];
+}
+
+- (void)decryptData:(NSData *)hash pin1:(NSString *)pin1 useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure {
+    NSDictionary *data = @{kCardActionDataHash:hash, kCardActionDataVerify:pin1, kCardActionDataUseECC:[NSNumber numberWithBool:useECC]};
+     [self addCardAction:CardActionDecryptData data:data success:success failure:failure];
 }
 
 - (void)addSignature:(NSString *)containerPath withPin2:(NSString *)pin2 success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure {
@@ -426,6 +432,14 @@ static CardActionsManager *sharedInstance = nil;
             NSData *hash = [actionObject.data objectForKey:kCardActionDataHash];
             BOOL useECC = [(NSNumber *)[actionObject.data objectForKey:kCardActionDataUseECC] boolValue];
             [self.cardVersionHandler calculateSignatureFor:hash withPin2:pin2 useECC:useECC success:success failure:failure];
+            break;
+        }
+        
+        case CardActionDecryptData: {
+            NSString *pin1 = [actionObject.data objectForKey:kCardActionDataVerify];
+            NSData *hash = [actionObject.data objectForKey:kCardActionDataHash];
+            BOOL useECC = [(NSNumber *)[actionObject.data objectForKey:kCardActionDataUseECC] boolValue];
+            [self.cardVersionHandler decryptData:hash withPin1:pin1 useECC:useECC success:success failure:failure];
             break;
         }
             

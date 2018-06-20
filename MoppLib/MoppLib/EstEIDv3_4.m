@@ -394,7 +394,7 @@ int maxReadLength = 254;
         int length = [[lengthData toHexString] hexToInt];
         
         [self readBinaryWithLength:length startingFrom:0 readData:[NSData new] success:^(NSData *data) {
-          success(data);
+            success(data);
         } failure:failure];
       } else {
           failure([MoppLibError generalError]);
@@ -405,5 +405,53 @@ int maxReadLength = 254;
   [self navigateToFileEEEEWithSuccess:selectCertFile failure:failure];
 }
 
+- (void)decryptData:(NSData *)hash withPin1:(NSString *)pin1 useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure {
+    void (^decryptData)(NSData *) = ^void (NSData *responseObject) {
+        if (useECC) {
+            NSString *commandSuffix;
+            long hashLength = hash.length;
+            commandSuffix = [NSString stringWithFormat:@"%02lX A6 66 7F 49 63 86 61 %@" ,hashLength +7 , [hash toHexString]];
+            [self.reader transmitCommand:[NSString stringWithFormat:kCommandFinalDecryption, commandSuffix] success:^(NSData *responseObject) {
+                success([responseObject trimmedData]);
+            } failure:failure];
+            
+        } else {
+            NSMutableData * data = [NSMutableData dataWithData:hash];
+            NSString *commandSuffix;
+            long hashLength = hash.length;
+            
+            if (hashLength>=254) {
+                long dataLength = 0;
+                while(hashLength - dataLength >= 254){
+                    NSData *tempData = [data subdataWithRange:NSMakeRange(dataLength, 254)];
+                    commandSuffix = [NSString stringWithFormat:@"%02lX 00 %@" ,tempData.length +1 , [tempData toHexString]];
+                    [self.reader transmitCommand:[NSString stringWithFormat:kCommandOngoingDecryption, commandSuffix] success:success failure:failure];
+                    dataLength +=254;
+                }
+                commandSuffix = [NSString stringWithFormat:@"%02lX %@" ,hashLength-dataLength  , [[data subdataWithRange:NSMakeRange(dataLength, hashLength-dataLength)] toHexString]];
+                [self.reader transmitCommand:[NSString stringWithFormat:kCommandFinalDecryption, commandSuffix] success:^(NSData *responseObject) {
+                    success([responseObject trimmedData]);
+                } failure:failure];
+            } else {
+                commandSuffix = [NSString stringWithFormat:@"%02lX %@" ,data.length  , [data toHexString]];
+                [self.reader transmitCommand:[NSString stringWithFormat:kCommandFinalDecryption, commandSuffix] success:^(NSData *responseObject) {
+                    success([responseObject trimmedData]);
+                } failure:failure];
+            }
+        }
+    };
+    
+    
+    void (^verifyPin1)(NSData *) = ^void (NSData *responseObject) {
+        [self verifyCode:pin1 ofType:CodeTypePin1 withSuccess:decryptData failure:failure];
+    };
+    
+    void (^setSecurityEnv)(NSData *) = ^void (NSData *responseObject) {
+        [self setSecurityEnvironment:6 withSuccess:verifyPin1 failure:failure];
+    };
+    
+    [self navigateToFileEEEEWithSuccess:setSecurityEnv failure:failure];
+    
+}
 
 @end

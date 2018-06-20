@@ -49,6 +49,9 @@ extern NSString *const kCommandChangeReferenceData;
 extern NSString *const kCommandSetSecurityEnv;
 extern NSString *const kCommandVerifyCode;
 extern NSString *const kCommandCalculateSignature;
+extern NSString *const kCommandOngoingDecryption;
+extern NSString *const kCommandFinalDecryption;
+
 extern NSString *const kCommandResetRetryCounter;
 
 
@@ -160,6 +163,15 @@ extern NSString *const kAlgorythmIdentifyerSHA512;
  */
 - (void)calculateSignatureFor:(NSData *)hash withPin2:(NSString *)pin2 useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
+/**
+ * Decrypt data
+ *
+ * @param hash          hash to be signed
+ * @param pin1          PIN 1 to be used for verification
+ * @param success       block to be executed when action is completed successfully
+ * @param failure       block to be executed when action fails
+ */
+- (void)decryptData:(NSData *)hash withPin1:(NSString *)pin1 useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 - (void)setSecurityEnvironment:(NSUInteger)env withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
 

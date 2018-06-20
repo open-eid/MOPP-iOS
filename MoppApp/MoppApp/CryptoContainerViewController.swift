@@ -28,7 +28,7 @@ class CryptoContainerViewController : ContainerViewController, CryptoActions {
 
     var container: CryptoContainer!
     var delegate: AddresseeViewControllerDelegate?
-    
+    var isContainerEncrypted = false
     override class func instantiate() -> CryptoContainerViewController {
         return UIStoryboard.container.instantiateViewController(of: CryptoContainerViewController.self)
     }
@@ -38,9 +38,10 @@ class CryptoContainerViewController : ContainerViewController, CryptoActions {
     }
     
     func reloadCryptoData() {
-        if container.addressees.count > 0 && state == .opened {
+        
+        if container != nil && container.addressees.count > 0 && (state == .opened || isContainerEncrypted) {
             self.sections = ContainerViewController.sectionsEncrypted
-        } else if container.addressees.count > 0 {
+        } else if container != nil && container.addressees.count > 0 {
             self.sections = ContainerViewController.sectionsWithAddresses
         } else {
             self.sections = ContainerViewController.sectionsNoAddresses
@@ -53,16 +54,15 @@ class CryptoContainerViewController : ContainerViewController, CryptoActions {
         containerViewDelegate = self
         cryptoContainerViewDelegate = self
         delegate = self
-        if container == nil {
-            self.sections = ContainerViewController.sectionsEncrypted
-        } else {
-            self.sections = ContainerViewController.sectionsNoAddresses
-        }
-        
+        reloadCryptoData()
     }
 }
 
 extension CryptoContainerViewController : CryptoContainerViewControllerDelegate {
+    func startDecrypting() {
+        startDecryptingProcess()
+    }
+    
     func startEncrypting() {
         startEncryptingProcess()
     }
@@ -118,6 +118,9 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
         guard let dataFile =  (container.dataFiles[index] as? CryptoDataFile) else {
             return nil
         }
+        if dataFile.filePath == nil {
+            return dataFile.filename
+        }
         return (dataFile.filePath as NSString).lastPathComponent
     }
     
@@ -130,11 +133,32 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
     }
     
     func openContainer(afterSignatureCreated: Bool = false) {
+        
         if state != .loading { return }
         if container == nil {
-            let containerFilename = (containerPath as NSString).lastPathComponent
-            container = CryptoContainer.init(filename: containerFilename as NSString, filePath: containerPath as NSString)
-            self.reloadData()
+            let filePath = containerPath as NSString
+            let container = CryptoContainer(filename: filePath.lastPathComponent as NSString, filePath: filePath)
+            MoppLibCryptoActions.sharedInstance().parseCdocInfo(
+                filePath as String?,
+                success: {(_ cdocInfo: CdocInfo?) -> Void in
+                    guard let strongCdocInfo = cdocInfo else { return }
+                    
+                    container.addressees = strongCdocInfo.addressees
+                    container.dataFiles = strongCdocInfo.dataFiles
+                    self.containerPath = filePath as String?
+                    self.state = .opened
+                    
+                    self.container = container
+                    self.isDecrypted = true
+                    self.reloadCryptoData()
+            },
+                failure: { _ in
+                    DispatchQueue.main.async {
+                        self.errorAlert(message: L(.fileImportOpenExistingFailedAlertMessage, [filePath.lastPathComponent]))
+                    }
+                }
+            )
+           
         }
         self.notifications = []
         self.updateState(self.isCreated ? .created : .opened)

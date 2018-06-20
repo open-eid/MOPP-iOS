@@ -1,5 +1,5 @@
 //
-//  XmlParserDelegate.m
+//  DdocParserDelegate.m
 //  CryptoLib
 /*
  * Copyright 2017 Riigi Infosüsteemide Amet
@@ -20,11 +20,11 @@
  *
  */
 
-#import "XmlParserDelegate.h"
-@interface XmlParserDelegate ()  <NSXMLParserDelegate>
+#import "DdocParserDelegate.h"
+@interface DdocParserDelegate ()  <NSXMLParserDelegate>
 @end
 
-@implementation XmlParserDelegate {
+@implementation DdocParserDelegate {
     
 }
 

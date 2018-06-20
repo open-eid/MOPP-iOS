@@ -1,5 +1,5 @@
 //
-//  Decrypt.h
+//  ApduToken.hpp
 //  CryptoLib
 /*
  * Copyright 2017 Riigi Infosüsteemide Amet
@@ -21,25 +21,28 @@
  */
 
 
-#ifndef CdocWriter_h
-#define CdocWriter_h
 
-
-#endif /* CdocWriter_h */
-
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import "SmartCardTokenWrapper.h"
-#import "AbstractSmartToken.h"
 #if __cplusplus
-#import "cdoc/CdocReader.h"
+#import "cdoc/Token.h"
+
+#include <stdio.h>
+#import "AbstractSmartToken.h"
+
+#import <UIKit/UIKit.h>
+
+class  SmartCardTokenWrapper: public Token
+{
+public:
+    SmartCardTokenWrapper(const std::string &password,  AbstractSmartToken *smartToken);
+    SmartCardTokenWrapper();
+    virtual std::vector<uchar> cert() const override;
+    virtual std::vector<uchar> decrypt(const std::vector<uchar> &data) const override;
+    virtual std::vector<uchar> derive(const std::vector<uchar> &publicKey) const override;
+    
+private:
+    class Private;
+    Private *d;
+    std::vector<uchar> encodeData(const NSData *dataBlock) const;
+};
+
 #endif
-@interface Decrypt : NSObject
-
-- (NSMutableDictionary *)decryptFile: (NSString *)fullPath withPin :(NSString *) pin withToken :(AbstractSmartToken *) smartToken;
-@end
-
-
-
-
-

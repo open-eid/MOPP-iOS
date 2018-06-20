@@ -11,17 +11,25 @@
 		390C015F20AC3DC800827230 /* libldap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 390C015E20AC3DC700827230 /* libldap.a */; };
 		390C016120AC3DE000827230 /* liblber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 390C016020AC3DE000827230 /* liblber.a */; };
 		39231FAF20AB1C6C00E1E2B4 /* CryptoLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 39231FAD20AB1C6C00E1E2B4 /* CryptoLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		39266A5120CFBDF8002E3F23 /* SmartCardTokenWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5020CFBDF8002E3F23 /* SmartCardTokenWrapper.mm */; };
+		39266A5A20CFD956002E3F23 /* AbstractSmartToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 39266A5920CFD93E002E3F23 /* AbstractSmartToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		39266A5D20CFDC59002E3F23 /* CdocParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5C20CFDC59002E3F23 /* CdocParser.m */; };
+		39266A5F20CFDCB9002E3F23 /* CdocInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5E20CFDCB9002E3F23 /* CdocInfo.m */; };
+		39266A6320CFE3D4002E3F23 /* CdocParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 39266A6220CFE3D4002E3F23 /* CdocParserDelegate.m */; };
+		39266A6420CFE63D002E3F23 /* CdocParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 39266A5B20CFDC41002E3F23 /* CdocParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		39266A6520CFE643002E3F23 /* CdocInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 39266A6020CFDCDF002E3F23 /* CdocInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		393B66BC20D8F361001DC89B /* AbstractSmartToken.mm in Sources */ = {isa = PBXBuildFile; fileRef = 393B66BB20D8F361001DC89B /* AbstractSmartToken.mm */; };
 		3960E50520C02E5900D4D2FC /* CryptoDataFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 3960E50420C02E5900D4D2FC /* CryptoDataFile.m */; };
 		3960E50620C044EE00D4D2FC /* CryptoDataFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 3960E50320C02DA400D4D2FC /* CryptoDataFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39852A4B20AB2418004CB100 /* Decrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4120AB2418004CB100 /* Decrypt.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39852A4C20AB2418004CB100 /* Encrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4220AB2418004CB100 /* Encrypt.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39852A4D20AB2418004CB100 /* base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4320AB2418004CB100 /* base64.h */; };
 		39852A4E20AB2418004CB100 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39852A4420AB2418004CB100 /* base64.cpp */; };
-		39852A5020AB2418004CB100 /* XmlParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 39852A4620AB2418004CB100 /* XmlParserDelegate.m */; };
-		39852A5120AB2418004CB100 /* ApduToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4720AB2418004CB100 /* ApduToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		39852A5020AB2418004CB100 /* DdocParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 39852A4620AB2418004CB100 /* DdocParserDelegate.m */; };
+		39852A5120AB2418004CB100 /* SmartCardTokenWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4720AB2418004CB100 /* SmartCardTokenWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39852A5220AB2418004CB100 /* Decrypt.mm in Sources */ = {isa = PBXBuildFile; fileRef = 39852A4820AB2418004CB100 /* Decrypt.mm */; };
 		39852A5320AB2418004CB100 /* Encrypt.mm in Sources */ = {isa = PBXBuildFile; fileRef = 39852A4920AB2418004CB100 /* Encrypt.mm */; };
-		39852A5420AB2418004CB100 /* XmlParserDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4A20AB2418004CB100 /* XmlParserDelegate.h */; };
+		39852A5420AB2418004CB100 /* DdocParserDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4A20AB2418004CB100 /* DdocParserDelegate.h */; };
 		39E2B4D620AD7A3400CA74A8 /* ResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4CC20AD7A3400CA74A8 /* ResultSet.h */; };
 		39E2B4D720AD7A3400CA74A8 /* AttributeSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4CD20AD7A3400CA74A8 /* AttributeSet.h */; };
 		39E2B4D820AD7A3400CA74A8 /* Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E2B4CE20AD7A3400CA74A8 /* Attribute.m */; };
@@ -42,17 +50,26 @@
 		39231FAA20AB1C6C00E1E2B4 /* CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		39231FAD20AB1C6C00E1E2B4 /* CryptoLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptoLib.h; sourceTree = "<group>"; };
 		39231FAE20AB1C6C00E1E2B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		39266A5020CFBDF8002E3F23 /* SmartCardTokenWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SmartCardTokenWrapper.mm; sourceTree = "<group>"; };
+		39266A5920CFD93E002E3F23 /* AbstractSmartToken.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AbstractSmartToken.h; sourceTree = "<group>"; };
+		39266A5B20CFDC41002E3F23 /* CdocParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CdocParser.h; sourceTree = "<group>"; };
+		39266A5C20CFDC59002E3F23 /* CdocParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CdocParser.m; sourceTree = "<group>"; };
+		39266A5E20CFDCB9002E3F23 /* CdocInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CdocInfo.m; sourceTree = "<group>"; };
+		39266A6020CFDCDF002E3F23 /* CdocInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CdocInfo.h; sourceTree = "<group>"; };
+		39266A6120CFE36A002E3F23 /* CdocParserDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CdocParserDelegate.h; sourceTree = "<group>"; };
+		39266A6220CFE3D4002E3F23 /* CdocParserDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CdocParserDelegate.m; sourceTree = "<group>"; };
+		393B66BB20D8F361001DC89B /* AbstractSmartToken.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AbstractSmartToken.mm; sourceTree = "<group>"; };
 		3960E50320C02DA400D4D2FC /* CryptoDataFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptoDataFile.h; sourceTree = "<group>"; };
 		3960E50420C02E5900D4D2FC /* CryptoDataFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CryptoDataFile.m; sourceTree = "<group>"; };
 		39852A4120AB2418004CB100 /* Decrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decrypt.h; sourceTree = "<group>"; };
 		39852A4220AB2418004CB100 /* Encrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Encrypt.h; sourceTree = "<group>"; };
 		39852A4320AB2418004CB100 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		39852A4420AB2418004CB100 /* base64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base64.cpp; sourceTree = "<group>"; };
-		39852A4620AB2418004CB100 /* XmlParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XmlParserDelegate.m; sourceTree = "<group>"; };
-		39852A4720AB2418004CB100 /* ApduToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApduToken.h; sourceTree = "<group>"; };
+		39852A4620AB2418004CB100 /* DdocParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DdocParserDelegate.m; sourceTree = "<group>"; };
+		39852A4720AB2418004CB100 /* SmartCardTokenWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmartCardTokenWrapper.h; sourceTree = "<group>"; };
 		39852A4820AB2418004CB100 /* Decrypt.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Decrypt.mm; sourceTree = "<group>"; };
 		39852A4920AB2418004CB100 /* Encrypt.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Encrypt.mm; sourceTree = "<group>"; };
-		39852A4A20AB2418004CB100 /* XmlParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XmlParserDelegate.h; sourceTree = "<group>"; };
+		39852A4A20AB2418004CB100 /* DdocParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DdocParserDelegate.h; sourceTree = "<group>"; };
 		39E2B4CC20AD7A3400CA74A8 /* ResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultSet.h; sourceTree = "<group>"; };
 		39E2B4CD20AD7A3400CA74A8 /* AttributeSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttributeSet.h; sourceTree = "<group>"; };
 		39E2B4CE20AD7A3400CA74A8 /* Attribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attribute.m; sourceTree = "<group>"; };
@@ -120,9 +137,16 @@
 				39852A4820AB2418004CB100 /* Decrypt.mm */,
 				39852A4220AB2418004CB100 /* Encrypt.h */,
 				39852A4920AB2418004CB100 /* Encrypt.mm */,
-				39852A4720AB2418004CB100 /* ApduToken.h */,
+				39852A4720AB2418004CB100 /* SmartCardTokenWrapper.h */,
+				39266A5020CFBDF8002E3F23 /* SmartCardTokenWrapper.mm */,
+				39266A5B20CFDC41002E3F23 /* CdocParser.h */,
+				39266A5C20CFDC59002E3F23 /* CdocParser.m */,
 				39231FAE20AB1C6C00E1E2B4 /* Info.plist */,
 				39231FAD20AB1C6C00E1E2B4 /* CryptoLib.h */,
+				39266A5920CFD93E002E3F23 /* AbstractSmartToken.h */,
+				393B66BB20D8F361001DC89B /* AbstractSmartToken.mm */,
+				39266A5E20CFDCB9002E3F23 /* CdocInfo.m */,
+				39266A6020CFDCDF002E3F23 /* CdocInfo.h */,
 			);
 			path = CryptoLib;
 			sourceTree = "<group>";
@@ -159,8 +183,10 @@
 		39E414E020AC5C9300141574 /* XmlParser */ = {
 			isa = PBXGroup;
 			children = (
-				39852A4A20AB2418004CB100 /* XmlParserDelegate.h */,
-				39852A4620AB2418004CB100 /* XmlParserDelegate.m */,
+				39852A4A20AB2418004CB100 /* DdocParserDelegate.h */,
+				39852A4620AB2418004CB100 /* DdocParserDelegate.m */,
+				39266A6120CFE36A002E3F23 /* CdocParserDelegate.h */,
+				39266A6220CFE3D4002E3F23 /* CdocParserDelegate.m */,
 			);
 			path = XmlParser;
 			sourceTree = "<group>";
@@ -185,11 +211,14 @@
 			files = (
 				39852A4B20AB2418004CB100 /* Decrypt.h in Headers */,
 				39852A4C20AB2418004CB100 /* Encrypt.h in Headers */,
-				39852A5420AB2418004CB100 /* XmlParserDelegate.h in Headers */,
-				39852A5120AB2418004CB100 /* ApduToken.h in Headers */,
+				39852A5420AB2418004CB100 /* DdocParserDelegate.h in Headers */,
+				39852A5120AB2418004CB100 /* SmartCardTokenWrapper.h in Headers */,
 				39E2B4DF20AD7A3400CA74A8 /* Addressee.h in Headers */,
 				39E2B4DE20AD7A3400CA74A8 /* OpenLdap.h in Headers */,
 				3960E50620C044EE00D4D2FC /* CryptoDataFile.h in Headers */,
+				39266A5A20CFD956002E3F23 /* AbstractSmartToken.h in Headers */,
+				39266A6520CFE643002E3F23 /* CdocInfo.h in Headers */,
+				39266A6420CFE63D002E3F23 /* CdocParser.h in Headers */,
 				39231FAF20AB1C6C00E1E2B4 /* CryptoLib.h in Headers */,
 				39E2B4D720AD7A3400CA74A8 /* AttributeSet.h in Headers */,
 				39E2B4DD20AD7A3400CA74A8 /* Attribute.h in Headers */,
@@ -304,16 +333,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39266A5F20CFDCB9002E3F23 /* CdocInfo.m in Sources */,
 				39E2B4DA20AD7A3400CA74A8 /* OpenLdap.m in Sources */,
+				39266A6320CFE3D4002E3F23 /* CdocParserDelegate.m in Sources */,
+				39266A5D20CFDC59002E3F23 /* CdocParser.m in Sources */,
+				393B66BC20D8F361001DC89B /* AbstractSmartToken.mm in Sources */,
 				3960E50520C02E5900D4D2FC /* CryptoDataFile.m in Sources */,
 				39E2B4DB20AD7A3400CA74A8 /* AttributeSet.m in Sources */,
-				39852A5020AB2418004CB100 /* XmlParserDelegate.m in Sources */,
+				39852A5020AB2418004CB100 /* DdocParserDelegate.m in Sources */,
 				39852A5220AB2418004CB100 /* Decrypt.mm in Sources */,
 				39E2B4D920AD7A3400CA74A8 /* Addressee.m in Sources */,
 				39E2B4DC20AD7A3400CA74A8 /* ResultSet.m in Sources */,
 				39E2B4D820AD7A3400CA74A8 /* Attribute.m in Sources */,
 				39852A5320AB2418004CB100 /* Encrypt.mm in Sources */,
 				39852A4E20AB2418004CB100 /* base64.cpp in Sources */,
+				39266A5120CFBDF8002E3F23 /* SmartCardTokenWrapper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

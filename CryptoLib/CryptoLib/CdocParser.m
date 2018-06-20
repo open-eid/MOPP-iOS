@@ -1,5 +1,5 @@
 //
-//  Decrypt.h
+//  CdocParser.m
 //  CryptoLib
 /*
  * Copyright 2017 Riigi Infosüsteemide Amet
@@ -19,27 +19,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+#import "CdocParser.h"
+#import "CdocInfo.h"
+#import "CdocParserDelegate.h"
 
+@implementation CdocParser
 
-#ifndef CdocWriter_h
-#define CdocWriter_h
-
-
-#endif /* CdocWriter_h */
-
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import "SmartCardTokenWrapper.h"
-#import "AbstractSmartToken.h"
-#if __cplusplus
-#import "cdoc/CdocReader.h"
-#endif
-@interface Decrypt : NSObject
-
-- (NSMutableDictionary *)decryptFile: (NSString *)fullPath withPin :(NSString *) pin withToken :(AbstractSmartToken *) smartToken;
+- (CdocInfo*)parseCdocInfo:(NSString*)fullpath {
+    NSData *data = [[NSData alloc] initWithContentsOfFile:fullpath];
+    NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
+    CdocParserDelegate *parserDelegate = [CdocParserDelegate new];
+    [parser setDelegate:(id<NSXMLParserDelegate>)parserDelegate];
+    [parser parse];
+    CdocInfo *response = [CdocInfo new];
+    response.addressees = parserDelegate.addressees;
+    response.dataFiles = parserDelegate.dataFiles;
+    return response;
+}
 @end
-
-
-
-
-

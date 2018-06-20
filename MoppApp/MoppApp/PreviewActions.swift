@@ -23,12 +23,12 @@
 import Foundation
 
 protocol PreviewActions {
-    func openFilePreview(dataFileFilename: String, containerFilePath: String)
+    func openFilePreview(dataFileFilename: String, containerFilePath: String, isShareButtonNeeded: Bool)
 }
 
 extension PreviewActions where Self: ContainerViewController {
     
-    func openFilePreview(dataFileFilename: String, containerFilePath: String) {
+    func openFilePreview(dataFileFilename: String, containerFilePath: String, isShareButtonNeeded: Bool) {
         
         let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: dataFileFilename)
 
@@ -47,6 +47,7 @@ extension PreviewActions where Self: ContainerViewController {
             let containerViewController = CryptoContainerViewController.instantiate()
             
             containerViewController.sections = ContainerViewController.sectionsEncrypted
+            containerViewController.isContainerEncrypted = true
             containerViewController.isAsicContainer = false
             containerViewController.containerPath = destinationPath
             containerViewController.isForPreview = true
@@ -55,6 +56,7 @@ extension PreviewActions where Self: ContainerViewController {
         
         let openContentPreview: (_ filePath: String) -> Void = { [weak self] filePath in
             let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(of: DataFilePreviewViewController.self)
+            dataFilePreviewViewController.isShareNeeded = isShareButtonNeeded
             dataFilePreviewViewController.previewFilePath = filePath
             self?.navigationController?.pushViewController(dataFilePreviewViewController, animated: true)
         }
@@ -105,6 +107,8 @@ extension PreviewActions where Self: ContainerViewController {
                             } else {
                                 openAsicContainerPreview(isPDF)
                             }
+                        } else if dataFileExt.isCdocContainerExtension {
+                            openCdocContainerPreview()
                         } else {
                             openContentPreview(destinationPath)
                         }

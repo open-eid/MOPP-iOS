@@ -22,9 +22,11 @@
 		3921CAAB20B5B92100BF3178 /* CryptoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAAA20B5B92100BF3178 /* CryptoContainer.swift */; };
 		3921CAAD20B819B500BF3178 /* ContainerNoAddresseesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAAC20B819B500BF3178 /* ContainerNoAddresseesCell.swift */; };
 		3921CAAF20B826E700BF3178 /* AddresseeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAAE20B826E700BF3178 /* AddresseeViewController.swift */; };
+		393B66BA20D7EC9D001DC89B /* WrapperUIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393B66B920D7EC9D001DC89B /* WrapperUIBarButtonItem.swift */; };
 		399C01EA20BD98730056D7AC /* ContainerFoundAddresseeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399C01E920BD98730056D7AC /* ContainerFoundAddresseeCell.swift */; };
 		39CDA7EA20ADBCEC006E2E9F /* Crypto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */; };
 		39CDA7EE20ADBE93006E2E9F /* CryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */; };
+		39F8EFE720D263B5001BCF73 /* TokenFlow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39F8EFE620D263B5001BCF73 /* TokenFlow.storyboard */; };
 		51EAB865AC99468B5AC77D6C /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
 		540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.swift */; };
 		547BDF251E8BEFA30093931F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
@@ -108,10 +110,10 @@
 		C54EA6DF20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6DE20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift */; };
 		C54EA6E1203724730039AC78 /* ReaderScannerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E0203724730039AC78 /* ReaderScannerHeaderView.swift */; };
 		C54EA6E320372F490039AC78 /* SigningElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54EA6E220372F490039AC78 /* SigningElements.xib */; };
-		C54EA6E520444EC90039AC78 /* SignSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E420444EC90039AC78 /* SignSelectionViewController.swift */; };
-		C54EA6E620444EC90039AC78 /* SignSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E420444EC90039AC78 /* SignSelectionViewController.swift */; };
-		C54EA6E82045A9E30039AC78 /* IdCardSignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E72045A9E30039AC78 /* IdCardSignViewController.swift */; };
-		C54EA6E92045A9E30039AC78 /* IdCardSignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E72045A9E30039AC78 /* IdCardSignViewController.swift */; };
+		C54EA6E520444EC90039AC78 /* TokenFlowSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E420444EC90039AC78 /* TokenFlowSelectionViewController.swift */; };
+		C54EA6E620444EC90039AC78 /* TokenFlowSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E420444EC90039AC78 /* TokenFlowSelectionViewController.swift */; };
+		C54EA6E82045A9E30039AC78 /* IdCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E72045A9E30039AC78 /* IdCardViewController.swift */; };
+		C54EA6E92045A9E30039AC78 /* IdCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E72045A9E30039AC78 /* IdCardViewController.swift */; };
 		C54EA6EB2046C3BA0039AC78 /* UITextField+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6EA2046C3BA0039AC78 /* UITextField+Additions.swift */; };
 		C54EA6EC2046C3BA0039AC78 /* UITextField+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6EA2046C3BA0039AC78 /* UITextField+Additions.swift */; };
 		C54EA73A2057E58D0039AC78 /* MoppButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA7392057E58D0039AC78 /* MoppButton.swift */; };
@@ -372,10 +374,12 @@
 		3921CAAA20B5B92100BF3178 /* CryptoContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoContainer.swift; sourceTree = "<group>"; };
 		3921CAAC20B819B500BF3178 /* ContainerNoAddresseesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerNoAddresseesCell.swift; sourceTree = "<group>"; };
 		3921CAAE20B826E700BF3178 /* AddresseeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddresseeViewController.swift; sourceTree = "<group>"; };
+		393B66B920D7EC9D001DC89B /* WrapperUIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapperUIBarButtonItem.swift; sourceTree = "<group>"; };
 		39852A6120AB2949004CB100 /* CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		399C01E920BD98730056D7AC /* ContainerFoundAddresseeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerFoundAddresseeCell.swift; sourceTree = "<group>"; };
 		39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Crypto.storyboard; sourceTree = "<group>"; };
 		39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoViewController.swift; sourceTree = "<group>"; };
+		39F8EFE620D263B5001BCF73 /* TokenFlow.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TokenFlow.storyboard; sourceTree = "<group>"; };
 		3F911EB9E3AB94D442FA9F9D /* Pods-MoppApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.release.xcconfig"; sourceTree = "<group>"; };
 		540786E81E1A76640016ABA7 /* UITextView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Additions.swift"; sourceTree = "<group>"; };
 		54825EF41E1CFE9600253FF0 /* Date+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Additions.swift"; sourceTree = "<group>"; };
@@ -465,8 +469,8 @@
 		C54EA6DE20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderScannerPeripheralCell.swift; sourceTree = "<group>"; };
 		C54EA6E0203724730039AC78 /* ReaderScannerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderScannerHeaderView.swift; sourceTree = "<group>"; };
 		C54EA6E220372F490039AC78 /* SigningElements.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SigningElements.xib; sourceTree = "<group>"; };
-		C54EA6E420444EC90039AC78 /* SignSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignSelectionViewController.swift; sourceTree = "<group>"; };
-		C54EA6E72045A9E30039AC78 /* IdCardSignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdCardSignViewController.swift; sourceTree = "<group>"; };
+		C54EA6E420444EC90039AC78 /* TokenFlowSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenFlowSelectionViewController.swift; sourceTree = "<group>"; };
+		C54EA6E72045A9E30039AC78 /* IdCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdCardViewController.swift; sourceTree = "<group>"; };
 		C54EA6EA2046C3BA0039AC78 /* UITextField+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Additions.swift"; sourceTree = "<group>"; };
 		C54EA7392057E58D0039AC78 /* MoppButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoppButton.swift; sourceTree = "<group>"; };
 		C55A6E3F2086351C000F3386 /* MyeIDChangeCodesTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDChangeCodesTextField.swift; sourceTree = "<group>"; };
@@ -593,6 +597,20 @@
 			name = Crypto;
 			sourceTree = "<group>";
 		};
+		39F8EFE520D261AE001BCF73 /* Token flow */ = {
+			isa = PBXGroup;
+			children = (
+				39F8EFE620D263B5001BCF73 /* TokenFlow.storyboard */,
+				C54EA6E72045A9E30039AC78 /* IdCardViewController.swift */,
+				C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */,
+				C537AE532004C29E009037E5 /* MobileIDEditViewController.swift */,
+				C50DCD1A1FD1576B00D48E16 /* SigningTableViewHeaderView.swift */,
+				C54EA6E420444EC90039AC78 /* TokenFlowSelectionViewController.swift */,
+				C54EA6DD20371E3B0039AC78 /* SmartCard */,
+			);
+			name = "Token flow";
+			sourceTree = "<group>";
+		};
 		540786E61E1A76280016ABA7 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -700,6 +718,7 @@
 				3921CAA020B45DCF00BF3178 /* SigningContainerViewController.swift */,
 				3921CAA420B5A24A00BF3178 /* CryptoContainerViewController.swift */,
 				3921CAAA20B5B92100BF3178 /* CryptoContainer.swift */,
+				393B66B920D7EC9D001DC89B /* WrapperUIBarButtonItem.swift */,
 			);
 			name = Container;
 			sourceTree = "<group>";
@@ -731,12 +750,9 @@
 		C54BB1051FBD8C1000A274F6 /* Signing */ = {
 			isa = PBXGroup;
 			children = (
-				C54EA6DD20371E3B0039AC78 /* SmartCard */,
 				C54BB10C1FBD8CE900A274F6 /* Signing.storyboard */,
 				C50DCCCA1FC32A3E00D48E16 /* SigningViewController.swift */,
 				C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */,
-				C50DCD1A1FD1576B00D48E16 /* SigningTableViewHeaderView.swift */,
-				C54EA6E420444EC90039AC78 /* SignSelectionViewController.swift */,
 				C54EA6E220372F490039AC78 /* SigningElements.xib */,
 			);
 			name = Signing;
@@ -760,7 +776,6 @@
 				C54EA6D92035C7190039AC78 /* ReaderScannerViewController.swift */,
 				C54EA6DE20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift */,
 				C54EA6E0203724730039AC78 /* ReaderScannerHeaderView.swift */,
-				C54EA6E72045A9E30039AC78 /* IdCardSignViewController.swift */,
 			);
 			name = SmartCard;
 			sourceTree = "<group>";
@@ -946,6 +961,7 @@
 				C593D9E6208F1972000B3BF6 /* Settings */,
 				C5E7D08E2031BA920081416F /* Shared */,
 				C56C6209201A252F00CCC2A5 /* Recent containers */,
+				39F8EFE520D261AE001BCF73 /* Token flow */,
 				C50DCCFD1FC6E94800D48E16 /* Container */,
 				C54BB1051FBD8C1000A274F6 /* Signing */,
 				C52E82721FC1D38D0074B280 /* Menu */,
@@ -963,9 +979,7 @@
 			children = (
 				54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */,
 				C537AE7720063E48009037E5 /* LandingElements.xib */,
-				C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */,
 				E42B08941E15617200EA24A3 /* LandingViewController.swift */,
-				C537AE532004C29E009037E5 /* MobileIDEditViewController.swift */,
 				C5964CE720079AE0001FE732 /* TabButton.swift */,
 				C5CF5EEB2017E4CC008FBBD6 /* FileImportProgressViewController.swift */,
 			);
@@ -1231,6 +1245,7 @@
 				C50DCCF21FC5741900D48E16 /* RobotoCondensed-Regular.ttf in Resources */,
 				C537AE7820063E48009037E5 /* LandingElements.xib in Resources */,
 				C54BB1091FBD8CC600A274F6 /* MyeID.storyboard in Resources */,
+				39F8EFE720D263B5001BCF73 /* TokenFlow.storyboard in Resources */,
 				C50DCD1D1FD1579700D48E16 /* RecentContainersElements.xib in Resources */,
 				E43BD80F1E3A121100F6C39D /* asiceTest.asice in Resources */,
 				C50DCD011FC6E97400D48E16 /* Container.storyboard in Resources */,
@@ -1428,8 +1443,8 @@
 				C5D057392028835000875F44 /* SigningTableViewHeaderView.swift in Sources */,
 				C5D0573A2028835000875F44 /* Utils.swift in Sources */,
 				C5D0573B2028835000875F44 /* UIView+Additions.swift in Sources */,
-				C54EA6E92045A9E30039AC78 /* IdCardSignViewController.swift in Sources */,
-				C54EA6E620444EC90039AC78 /* SignSelectionViewController.swift in Sources */,
+				C54EA6E92045A9E30039AC78 /* IdCardViewController.swift in Sources */,
+				C54EA6E620444EC90039AC78 /* TokenFlowSelectionViewController.swift in Sources */,
 				C5D0573C2028835000875F44 /* MobileIDEditViewController.swift in Sources */,
 				C5D0573D2028835000875F44 /* SigningViewController.swift in Sources */,
 				C5D0573E2028835000875F44 /* DateFormatter.swift in Sources */,
@@ -1475,7 +1490,7 @@
 				C50DCD191FD1542A00D48E16 /* RecentContainersNameCell.swift in Sources */,
 				C593D9F0208F1C16000B3BF6 /* SettingsFieldCell.swift in Sources */,
 				C593D9E8208F1986000B3BF6 /* SettingsViewController.swift in Sources */,
-				C54EA6E520444EC90039AC78 /* SignSelectionViewController.swift in Sources */,
+				C54EA6E520444EC90039AC78 /* TokenFlowSelectionViewController.swift in Sources */,
 				C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */,
 				C58FCD5D206505D500FE3B57 /* MyeIDInfoViewController.swift in Sources */,
 				C50DCD0B1FC7128900D48E16 /* ContainerHeaderCell.swift in Sources */,
@@ -1496,6 +1511,7 @@
 				C506EC811FB9F4AF00E07226 /* UIImage+Additions.swift in Sources */,
 				C55A6E42208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift in Sources */,
 				C5927FC720751402003B7F41 /* MyeIDPinPukCell.swift in Sources */,
+				393B66BA20D7EC9D001DC89B /* WrapperUIBarButtonItem.swift in Sources */,
 				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
 				C55BB1CA2090C17F00618AC4 /* AboutViewController.swift in Sources */,
 				C5927FEB2078FD40003B7F41 /* MyeIDInfoViewControllerUI.swift in Sources */,
@@ -1511,7 +1527,7 @@
 				C52E82781FC1D3ED0074B280 /* MenuViewController.swift in Sources */,
 				C50DCCC71FC32A2500D48E16 /* MyeIDViewController.swift in Sources */,
 				C50DCD071FC7126100D48E16 /* ContainerSignatureCell.swift in Sources */,
-				C54EA6E82045A9E30039AC78 /* IdCardSignViewController.swift in Sources */,
+				C54EA6E82045A9E30039AC78 /* IdCardViewController.swift in Sources */,
 				C56C620D201A256E00CCC2A5 /* RecentContainersViewController.swift in Sources */,
 				C5964CE820079AE0001FE732 /* TabButton.swift in Sources */,
 				3921CA9920B2F5B200BF3178 /* PreviewActions.swift in Sources */,

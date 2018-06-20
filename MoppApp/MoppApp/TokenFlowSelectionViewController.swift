@@ -1,5 +1,5 @@
 //
-//  SignSelectionViewController.swift
+//  TokenFlowSelectionViewController.swift
 //  MoppApp
 //
 /*
@@ -20,21 +20,24 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-class SignSelectionViewController : MoppViewController {
+class TokenFlowSelectionViewController : MoppViewController {
     @IBOutlet weak var centerViewCenterCSTR: NSLayoutConstraint!
     @IBOutlet weak var centerViewOutofscreenCSTR: NSLayoutConstraint!
     @IBOutlet weak var centerViewKeyboardCSTR: NSLayoutConstraint!
-    @IBOutlet var signMethodButtons: [UIButton]!
+    @IBOutlet var tokenFlowMethodButtons: [UIButton]!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var tokenNavbar: UIView!
     
+    var isFlowForDecrypting = false
     weak var mobileIdEditViewControllerDelegate: MobileIDEditViewControllerDelegate!
-    weak var idCardSignViewControllerDelegate: IdCardSignViewControllerDelegate!
+    weak var idCardSignViewControllerDelegate: IdCardSignViewControllerDelegate?
+    weak var idCardDecryptViewControllerDelegate: IdCardDecryptViewControllerDelegate?
     
     var containerPath: String!
     
     var isSwitchingBlockedByTransition: Bool = false
     
-    enum SignMethodButtonID: String {
+    enum TokenFlowMethodButtonID: String {
         case mobileID
         case idCard
     }
@@ -51,8 +54,13 @@ class SignSelectionViewController : MoppViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        changeSignMethod(newSignMethod: .mobileID)
-        
+        changeTokenFlowMethod(newSignMethod: .mobileID)
+        if isFlowForDecrypting {
+            tokenNavbar.isHidden = true
+            changeTokenFlowMethod(newSignMethod: .idCard)
+        } else {
+            changeTokenFlowMethod(newSignMethod: .mobileID)
+        }
         view.backgroundColor = UIColor.black.withAlphaComponent(0.0)
         
         UIView.animate(withDuration: 0.35) {
@@ -74,8 +82,8 @@ class SignSelectionViewController : MoppViewController {
     }
     
     func localizeButtonTitles() {
-        signMethodButtons.forEach {
-            let id = SignMethodButtonID(rawValue: $0.accessibilityIdentifier!)!
+        tokenFlowMethodButtons.forEach {
+            let id = TokenFlowMethodButtonID(rawValue: $0.accessibilityIdentifier!)!
             switch id {
             case .idCard:
                 $0.setTitle(L(.signTitleIdCard))
@@ -86,20 +94,25 @@ class SignSelectionViewController : MoppViewController {
     }
 }
 
-extension SignSelectionViewController {
-    func changeSignMethod(newSignMethod: SignMethodButtonID) {
+extension TokenFlowSelectionViewController {
+    func changeTokenFlowMethod(newSignMethod: TokenFlowMethodButtonID) {
         let oldViewController = childViewControllers.first
         let newViewController: MoppViewController!
         
         switch newSignMethod {
         case .idCard:
-            let idCardSignVC = UIStoryboard.signing.instantiateViewController(of: IdCardSignViewController.self)
-                idCardSignVC.delegate = idCardSignViewControllerDelegate
+            let idCardSignVC = UIStoryboard.tokenFlow.instantiateViewController(of: IdCardViewController.self)
                 idCardSignVC.containerPath = containerPath
-                idCardSignVC.keyboardDelegate = self
+            if isFlowForDecrypting {
+                idCardSignVC.isActionDecryption = true
+                idCardSignVC.decryptDelegate = idCardDecryptViewControllerDelegate
+            } else {
+                idCardSignVC.signDelegate = idCardSignViewControllerDelegate
+            }
+            idCardSignVC.keyboardDelegate = self
             newViewController = idCardSignVC
         case .mobileID:
-            let mobileIdEditVC = UIStoryboard.signing.instantiateViewController(of: MobileIDEditViewController.self)
+            let mobileIdEditVC = UIStoryboard.tokenFlow.instantiateViewController(of: MobileIDEditViewController.self)
                 mobileIdEditVC.delegate = mobileIdEditViewControllerDelegate
             newViewController = mobileIdEditVC
         }
@@ -130,18 +143,18 @@ extension SignSelectionViewController {
     }
     
     @IBAction func didTapSignMethodButton(sender: UIButton) {
-        let id = SignMethodButtonID(rawValue: sender.accessibilityIdentifier ?? String())!
+        let id = TokenFlowMethodButtonID(rawValue: sender.accessibilityIdentifier ?? String())!
         if !sender.isSelected && !isSwitchingBlockedByTransition {
             selectButton(buttonID: id)
-            changeSignMethod(newSignMethod: id)
+            changeTokenFlowMethod(newSignMethod: id)
         }
     }
     
-    func selectButton(buttonID: SignMethodButtonID) {
-        signMethodButtons.forEach {
+    func selectButton(buttonID: TokenFlowMethodButtonID) {
+        tokenFlowMethodButtons.forEach {
             let darkColor = UIColor.moppTitle
             let lightColor = UIColor.white
-            let id = SignMethodButtonID(rawValue: $0.accessibilityIdentifier ?? String())!
+            let id = TokenFlowMethodButtonID(rawValue: $0.accessibilityIdentifier ?? String())!
             if id == buttonID {
                 // set selected state
                 $0.backgroundColor = darkColor
@@ -163,8 +176,8 @@ extension SignSelectionViewController {
     }
 }
 
-extension SignSelectionViewController : IdCardSignViewKeyboardDelegate {
-    func idCardSignPIN2KeyboardWillAppear() {
+extension TokenFlowSelectionViewController : IdCardSignViewKeyboardDelegate {
+    func idCardPINKeyboardWillAppear() {
         if DeviceType.IS_IPHONE_5 {
             self.centerViewCenterCSTR.priority = UILayoutPriority(rawValue: 700)
             self.centerViewKeyboardCSTR.priority = UILayoutPriority(rawValue: 750)
@@ -174,7 +187,7 @@ extension SignSelectionViewController : IdCardSignViewKeyboardDelegate {
         }
     }
     
-    func idCardSignPIN2KeyboardWillDisappear() {
+    func idCardPINKeyboardWillDisappear() {
         if DeviceType.IS_IPHONE_5 {
             self.centerViewCenterCSTR.priority = UILayoutPriority(rawValue: 750)
             self.centerViewKeyboardCSTR.priority = UILayoutPriority(rawValue: 700)
