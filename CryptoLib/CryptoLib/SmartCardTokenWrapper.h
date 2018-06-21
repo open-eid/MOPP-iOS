@@ -41,7 +41,7 @@ public:
     
 private:
     class Private;
-    Private *d;
+    Private *token;
     std::vector<uchar> encodeData(const NSData *dataBlock) const;
 };
 

@@ -29,7 +29,7 @@
 - (NSData*)decrypt:(NSData*)data pin1:(NSString *)pin1 {
     return nil;
 }
-- (NSData*)dervive:(NSData*)data pin1:(NSString *)pin1 {
+- (NSData*)derive:(NSData*)data pin1:(NSString *)pin1 {
     return nil;
 }
 @end

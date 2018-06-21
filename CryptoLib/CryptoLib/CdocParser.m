@@ -29,7 +29,7 @@
     NSData *data = [[NSData alloc] initWithContentsOfFile:fullpath];
     NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
     CdocParserDelegate *parserDelegate = [CdocParserDelegate new];
-    [parser setDelegate:(id<NSXMLParserDelegate>)parserDelegate];
+    [parser setDelegate:(id)parserDelegate];
     [parser parse];
     CdocInfo *response = [CdocInfo new];
     response.addressees = parserDelegate.addressees;

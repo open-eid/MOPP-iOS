@@ -35,9 +35,10 @@
     std::string encodedFullPath = std::string([fullPath UTF8String]);
     std::string encodedPin = std::string([pin UTF8String]);
     CDOCReader cdocReader(encodedFullPath);
-    SmartCardTokenWrapper * apduToken = new SmartCardTokenWrapper(encodedPin, smartToken);
+    std::unique_ptr<SmartCardTokenWrapper> smartCardWrapper = std::make_unique<SmartCardTokenWrapper>(encodedPin, smartToken);
+
     Token *token;
-    token = apduToken;
+    token = smartCardWrapper.get();
     NSMutableDictionary *response = [NSMutableDictionary new];
     std::vector<unsigned char> decryptedData = cdocReader.decryptData(token);
     if (decryptedData.empty()){
@@ -54,7 +55,7 @@
     if ([[nsFilename pathExtension] isEqualToString: @"ddoc"]){
         NSXMLParser *parser = [[NSXMLParser alloc] initWithData:nsdataFromBase64String];
         DdocParserDelegate *parserDelegate = [[DdocParserDelegate alloc] init];
-        [parser setDelegate:(id<NSXMLParserDelegate>)parserDelegate];
+        [parser setDelegate:(id)parserDelegate];
         [parser parse];
         NSMutableDictionary *fileDictionary;
         fileDictionary = parserDelegate.dictionary;

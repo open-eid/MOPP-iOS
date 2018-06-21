@@ -176,7 +176,7 @@ extension ContainerActions where Self: UIViewController {
             let containerViewController = topSigningViewController as? CryptoContainerViewController
             dataFilePaths.forEach {
                 var filename = ($0 as NSString).lastPathComponent as NSString
-                filename = generateNewFilename(container :(containerViewController?.container)!, filename: filename, count: 0)
+                filename = generateNewFilename(container :(containerViewController?.container)!, filename: filename, similarFilenameCount: 0)
                 let dataFile = CryptoDataFile.init()
                 dataFile.filename = filename as String?
                 dataFile.filePath = $0
@@ -190,17 +190,17 @@ extension ContainerActions where Self: UIViewController {
         }
     }
     
-    private func generateNewFilename(container: CryptoContainer, filename: NSString, count: Int) -> NSString {
+    private func generateNewFilename(container: CryptoContainer, filename: NSString, similarFilenameCount: Int) -> NSString {
         var newFilename = filename
-        if count > 0 {
+        if similarFilenameCount > 0 {
             let fileExtension  = filename.pathExtension
             let withoutExtension = filename.deletingPathExtension
-            newFilename = withoutExtension.appendingFormat("(\(String(count))).\(fileExtension)") as NSString
+            newFilename = withoutExtension.appendingFormat("(\(String(similarFilenameCount))).\(fileExtension)") as NSString
             
         }
         for dataFile in container.dataFiles {
             if ((dataFile as! CryptoDataFile).filename as NSString) == newFilename {
-                newFilename =  generateNewFilename(container: container, filename: filename, count: count + 1)
+                newFilename =  generateNewFilename(container: container, filename: filename, similarFilenameCount: similarFilenameCount + 1)
             }
         }
         return newFilename

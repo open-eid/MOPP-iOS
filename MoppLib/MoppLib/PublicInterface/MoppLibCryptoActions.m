@@ -64,7 +64,7 @@
                 NSString *formattedCertificate = [certificateWithUTF8 stringByReplacingOccurrencesOfString:@"\n\n" withString:@"\n"];
                 NSData* decodedCertificate = [formattedCertificate dataUsingEncoding:NSUTF8StringEncoding];
 
-                [MoppLibCertificate certData:certData updateWithDataPem:[decodedCertificate bytes] length:decodedCertificate.length];
+                [MoppLibCertificate certData:certData updateWithPemEncodingData:[decodedCertificate bytes] length:decodedCertificate.length];
                 addressee.type = [self formatTypeToString :certData.organization];
                 addressee.validTo = certData.expiryDate;
             }

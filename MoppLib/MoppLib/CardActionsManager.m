@@ -129,7 +129,7 @@ static CardActionsManager *sharedInstance = nil;
     MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
     
     [self signingCertDataWithPin2:pin2 success:^(NSData *data) {
-        [MoppLibCertificate certData:certData updateWithDataDer:[data bytes] length:data.length];
+        [MoppLibCertificate certData:certData updateWithDerEncodingData:[data bytes] length:data.length];
         success(certData);
     } failure:failure];
 }
@@ -142,7 +142,7 @@ static CardActionsManager *sharedInstance = nil;
     MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
     
     [self authenticationCertDataWithSuccess:^(NSData *data) {
-        [MoppLibCertificate certData:certData updateWithDataDer:[data bytes] length:data.length];
+        [MoppLibCertificate certData:certData updateWithDerEncodingData:[data bytes] length:data.length];
         success(certData);
     } failure:failure];
 }

@@ -28,12 +28,12 @@
 #include <iostream>
 @implementation MoppLibCertificate
 
-+ (void)certData:(MoppLibCerificatetData *)certData updateWithDataDer:(const unsigned char *)data length:(size_t)length {
++ (void)certData:(MoppLibCerificatetData *)certData updateWithDerEncodingData:(const unsigned char *)data length:(size_t)length {
     digidoc::X509Cert digiDocCert = digidoc::X509Cert(data, length, digidoc::X509Cert::Format::Der);
     [self setCertData:certData digiDocCert:digiDocCert];
 }
 
-+ (void)certData:(MoppLibCerificatetData *)certData updateWithDataPem:(const unsigned char *)data length:(size_t)length {
++ (void)certData:(MoppLibCerificatetData *)certData updateWithPemEncodingData:(const unsigned char *)data length:(size_t)length {
     digidoc::X509Cert digiDocCert = digidoc::X509Cert(data, length, digidoc::X509Cert::Format::Pem);
     [self setCertData:certData digiDocCert:digiDocCert];
 }

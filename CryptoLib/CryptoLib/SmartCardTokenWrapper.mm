@@ -39,15 +39,15 @@ public:
 
 
 SmartCardTokenWrapper::SmartCardTokenWrapper(const std::string &password,  AbstractSmartToken *smartToken)
-: d(new Private) {
-    d->pin1 = password;
-    d->smartTokenClass = smartToken;
+: token(new Private) {
+    token->pin1 = password;
+    token->smartTokenClass = smartToken;
 }
 
 std::vector<uchar> SmartCardTokenWrapper::cert() const{
-    NSData *certDataBlock = [d->smartTokenClass getCertificate];
-    d->certResponse = this->encodeData(certDataBlock);
-    return d->certResponse;
+    NSData *certDataBlock = [token->smartTokenClass getCertificate];
+    token->certResponse = this->encodeData(certDataBlock);
+    return token->certResponse;
 }
 
 std::vector<uchar> SmartCardTokenWrapper::decrypt(const std::vector<uchar> &data) const{
@@ -56,12 +56,12 @@ std::vector<uchar> SmartCardTokenWrapper::decrypt(const std::vector<uchar> &data
     NSString* base64 = [NSString stringWithUTF8String:encoded.c_str()];
     
     NSData *nsdataFromBase64String = [[NSData alloc] initWithBase64EncodedString:base64 options:0];
-    NSString* pin1Encoded = [NSString stringWithUTF8String:d->pin1.c_str()];
-    NSData *dataBlock = [d->smartTokenClass decrypt:nsdataFromBase64String pin1:pin1Encoded];
+    NSString* pin1Encoded = [NSString stringWithUTF8String:token->pin1.c_str()];
+    NSData *dataBlock = [token->smartTokenClass decrypt:nsdataFromBase64String pin1:pin1Encoded];
    
-    d->decryptResponse = this->encodeData(dataBlock);
+    token->decryptResponse = this->encodeData(dataBlock);
 
-    return d->decryptResponse;
+    return token->decryptResponse;
 }
 
 std::vector<uchar> SmartCardTokenWrapper::derive(const std::vector<uchar> &publicKey) const{
@@ -70,11 +70,11 @@ std::vector<uchar> SmartCardTokenWrapper::derive(const std::vector<uchar> &publi
     NSString* base64 = [NSString stringWithUTF8String:encoded.c_str()];
     
     NSData *nsdataFromBase64String = [[NSData alloc] initWithBase64EncodedString:base64 options:0];
-    NSString* pin1Encoded = [NSString stringWithUTF8String:d->pin1.c_str()];
-    NSData *dataBlock = [d->smartTokenClass derive:nsdataFromBase64String pin1:pin1Encoded];
+    NSString* pin1Encoded = [NSString stringWithUTF8String:token->pin1.c_str()];
+    NSData *dataBlock = [token->smartTokenClass derive:nsdataFromBase64String pin1:pin1Encoded];
     
-    d->decryptResponse = this->encodeData(dataBlock);
-    return d->decryptResponse;
+    token->decryptResponse = this->encodeData(dataBlock);
+    return token->decryptResponse;
 }
 
 std::vector<uchar> SmartCardTokenWrapper::encodeData(const NSData *dataBlock) const{
