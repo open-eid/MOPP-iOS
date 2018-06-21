@@ -45,6 +45,7 @@ protocol CryptoContainerViewControllerDelegate: class {
     func getAddresseeCount() -> Int
     func removeSelectedAddressee(index: Int)
     func startEncrypting()
+    func startDecrypting()
 }
 
 class ContainerViewController : MoppViewController, ContainerActions, PreviewActions {
@@ -59,6 +60,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var isCreated: Bool = false
     var forcePDFContentPreview: Bool = false
     var startSigningWhenOpened = false
+    var isDecrypted = false
     let landingViewController = LandingViewController.shared!
     var isAsicContainer = LandingViewController.shared.containerType == .asic
     @IBOutlet weak var tableView: UITableView!
@@ -181,11 +183,19 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                 var tabButtons: [LandingViewController.TabButtonId] = []
                 if !isForPreview && isAsicContainer {
                     tabButtons = [.shareButton, .signButton]
+                    setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
+                } else if !isForPreview {
+                    if isDecrypted {
+                         tabButtons = [.shareButton]
+                    } else {
+                        tabButtons = [.decryptButton, .shareButton]
+                    }
+                    setupNavigationItemForPushedViewController(title: L(.containerDecryptionTitle))
                 } else {
+                    setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
                     tabButtons = [.shareButton]
                 }
                 LandingViewController.shared.presentButtons(tabButtons)
-                setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
             
             case .preview:
                 let containerUrl = URL(fileURLWithPath: containerPath!)
@@ -223,6 +233,9 @@ extension ContainerViewController : LandingViewControllerTabButtonsDelegate {
         }
         else if tabButtonId == .encryptButton {
             cryptoContainerViewDelegate.startEncrypting()
+        }
+        else if tabButtonId == .decryptButton {
+            cryptoContainerViewDelegate.startDecrypting()
         }
     }
 }
@@ -346,9 +359,15 @@ extension ContainerViewController : UITableViewDelegate {
         case .timestamp:
             break;
         case .dataFiles:
-            if !(!isAsicContainer && state == .opened) {
+            let isEncryptedDataFiles = ((!isAsicContainer && state == .opened) && isDecrypted == false)
+            if  !(isEncryptedDataFiles || state == .preview) {
                 guard let originDataFile = containerViewDelegate.getDataFileOriginFilename(index: indexPath.row) else { return }
-                openFilePreview(dataFileFilename: originDataFile, containerFilePath: containerViewDelegate.getContainerPath())
+                if isDecrypted {
+                    openFilePreview(dataFileFilename: originDataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: true)
+                } else {
+                    openFilePreview(dataFileFilename: originDataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: false)
+                }
+                
             }
             break
         case .header:
@@ -445,6 +464,7 @@ extension ContainerViewController : UITableViewDelegate {
         // Animate away success message if there is any
         if let notificationIndex = notifications.index(where: { $0.0 == true }), sections.contains(.notifications) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                if (self?.notifications.isEmpty)! { return }
                 self?.notifications.remove(at: notificationIndex)
                 if let notificationsSection = self?.sections.index(where: { $0 == .notifications }) {
                     self?.tableView.reloadSections([notificationsSection], with: .automatic)

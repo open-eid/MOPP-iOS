@@ -29,13 +29,14 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "ApduToken.h"
+#import "SmartCardTokenWrapper.h"
+#import "AbstractSmartToken.h"
 #if __cplusplus
 #import "cdoc/CdocReader.h"
 #endif
 @interface Decrypt : NSObject
 
-- (BOOL)decryptFile: (NSString *)fullPath withPin :(NSString *) pin withToken :(ApduToken *) apduToken;
+- (NSMutableDictionary *)decryptFile: (NSString *)fullPath withPin :(NSString *) pin withToken :(AbstractSmartToken *) smartToken;
 @end
 
 

@@ -124,7 +124,7 @@
 /* Keep in sync with win32/common.mak */
 #define SASL_VERSION_MAJOR 2
 #define SASL_VERSION_MINOR 1
-#define SASL_VERSION_STEP 23
+#define SASL_VERSION_STEP 26
 
 /* A convenience macro: same as was defined in the OpenLDAP LDAPDB */
 #define SASL_VERSION_FULL ((SASL_VERSION_MAJOR << 16) |\
@@ -171,6 +171,12 @@
 #define SASL_NOCHANGE   -22  /* requested change was not needed */
 #define SASL_WEAKPASS   -27  /* passphrase is too weak for security policy */
 #define SASL_NOUSERPASS -28  /* user supplied passwords not permitted */
+#define SASL_NEED_OLD_PASSWD -29 /* sasl_setpass needs old password in order
+                    to perform password change */
+#define SASL_CONSTRAINT_VIOLAT  -30 /* a property can't be stored,
+                       because of some constrains/policy violation */
+
+#define SASL_BADBINDING -32  /* channel binding failure */
 
 /* max size of a sasl mechanism name */
 #define SASL_MECHNAMEMAX 20
@@ -217,11 +223,13 @@ extern "C" {
  * they must be called before all other SASL functions:
  */
 
+#include <sys/types.h>
+
 /* memory allocation functions which may optionally be replaced:
  */
-typedef void *sasl_malloc_t(unsigned long);
-typedef void *sasl_calloc_t(unsigned long, unsigned long);
-typedef void *sasl_realloc_t(void *, unsigned long);
+typedef void *sasl_malloc_t(size_t);
+typedef void *sasl_calloc_t(size_t, size_t);
+typedef void *sasl_realloc_t(void *, size_t);
 typedef void sasl_free_t(void *);
 
 LIBSASL_API void sasl_set_alloc(sasl_malloc_t *,
@@ -267,6 +275,7 @@ typedef unsigned sasl_ssf_t;
  */
 #define SASL_SUCCESS_DATA    0x0004 /* server supports data on success */
 #define SASL_NEED_PROXY      0x0008 /* require a mech that allows proxying */
+#define SASL_NEED_HTTP       0x0010 /* require a mech that can do HTTP auth */
 
 /***************************
  * Security Property Types *
@@ -346,7 +355,7 @@ typedef struct sasl_callback {
      * Mechanisms must ignore callbacks with id's they don't recognize.
      */
     unsigned long id;
-    int (*proc)();   /* Callback function.  Types of arguments vary by 'id' */
+    int (*proc)(void);   /* Callback function.  Types of arguments vary by 'id' */
     void *context;
 } sasl_callback_t;
 
@@ -426,7 +435,6 @@ typedef int sasl_getpath_t(void *context,
  *  context     -- verifypath context from the callback record
  *  file        -- full path to file to verify
  *  type        -- type of file to verify (see below)
-
  * returns:
  *  SASL_OK        -- no error (file can safely be used)
  *  SASL_CONTINUE  -- continue WITHOUT using this file
@@ -627,6 +635,19 @@ typedef int sasl_server_userdb_setpass_t(sasl_conn_t *conn,
 #define SASL_CU_AUTHID  0x01
 #define SASL_CU_AUTHZID 0x02
 
+/* Combine the following with SASL_CU_AUTHID, if you don't want
+   to fail if auxprop returned SASL_NOUSER/SASL_NOMECH.
+   This flag has no effect on SASL_CU_AUTHZID. */
+#define SASL_CU_EXTERNALLY_VERIFIED 0x04
+
+#define SASL_CU_OVERRIDE        0x08    /* mapped to SASL_AUXPROP_OVERRIDE */
+
+/* The following CU flags are passed "as is" down to auxprop lookup */
+#define SASL_CU_ASIS_MASK       0xFFF0
+/* NOTE: Keep in sync with SASL_AUXPROP_<XXX> flags */
+#define SASL_CU_VERIFY_AGAINST_HASH 0x10
+
+
 typedef int sasl_canon_user_t(sasl_conn_t *conn,
                   void *context,
                   const char *in, unsigned inlen,
@@ -645,6 +666,8 @@ typedef int sasl_canon_user_t(sasl_conn_t *conn,
 #define SASL_PATH_TYPE_PLUGIN   0
 #define SASL_PATH_TYPE_CONFIG   1
 
+LIBSASL_API char * sasl_path_relocation(const char *from, const char *to);
+LIBSASL_API char * sasl_pathlist_relocation(const char *from_path, const char *to_path_list);
 /* a simpler way to set plugin path or configuration file path
  * without the need to set sasl_getpath_t callback.
  *
@@ -679,8 +702,25 @@ LIBSASL_API void sasl_version_info (const char **implementation,
 
 /* dispose of all SASL plugins.  Connection
  * states have to be disposed of before calling this.
+ *
+ * This function is DEPRECATED in favour of sasl_server_done/
+ * sasl_client_done.
  */
 LIBSASL_API void sasl_done(void);
+
+/* dispose of all SASL plugins.  Connection
+ * states have to be disposed of before calling this.
+ * This function should be called instead of sasl_done(),
+   whenever possible.
+ */
+LIBSASL_API int sasl_server_done(void);
+
+/* dispose of all SASL plugins.  Connection
+ * states have to be disposed of before calling this.
+ * This function should be called instead of sasl_done(),
+   whenever possible.
+ */
+LIBSASL_API int sasl_client_done(void);
 
 /* dispose connection state, sets it to NULL
  *  checks for pointer to NULL
@@ -764,7 +804,7 @@ LIBSASL_API int sasl_getprop(sasl_conn_t *conn, int propnum,
  * is returned by the mechanism. The user will probably need to know
  * which mechanism was used to actually known how to make use of them
  * currently only implemented for the gssapi mechanism */
-#define SASL_DELEGATEDCREDS 11  
+#define SASL_DELEGATEDCREDS 11
 
 #define SASL_SERVICE      12    /* service passed to sasl_*_new */
 #define SASL_SERVERFQDN   13    /* serverFQDN passed to sasl_*_new */
@@ -791,6 +831,26 @@ LIBSASL_API int sasl_getprop(sasl_conn_t *conn, int propnum,
  * is particularly useful for servers that respond to multiple names. */
 #define SASL_GSS_LOCAL_NAME 20
 
+/* Channel binding information. Memory is managed by the caller. */
+typedef struct sasl_channel_binding {
+    const char *name;
+    int critical;
+    unsigned long len;
+    const unsigned char *data;
+} sasl_channel_binding_t;
+
+#define SASL_CHANNEL_BINDING    21
+
+/* HTTP Request (RFC 2616) - ONLY used for HTTP Digest Auth (RFC 2617) */
+typedef struct sasl_http_request {
+    const char *method;         /* HTTP Method */
+    const char *uri;            /* request-URI */
+    const unsigned char *entity;    /* entity-body */
+    unsigned long elen;         /* entity-body length */
+    unsigned non_persist;       /* Is it a non-persistent connection? */
+} sasl_http_request_t;
+
+#define SASL_HTTP_REQUEST   22
 
 /* set property in SASL connection state
  * returns:
@@ -1103,6 +1163,7 @@ LIBSASL_API int sasl_checkpass(sasl_conn_t *conn,
  *  SASL_NOUSER   -- user not found
  *  SASL_NOVERIFY -- user found, but no usable mechanism
  *  SASL_NOMECH   -- no mechanisms enabled
+ *  SASL_UNAVAIL  -- remote authentication server unavailable, try again later
  */
 LIBSASL_API int sasl_user_exists(sasl_conn_t *conn,
                  const char *service,
@@ -1146,6 +1207,8 @@ LIBSASL_API int sasl_setpass(sasl_conn_t *conn,
  *********************************************************/
 
 #define SASL_AUX_END      NULL  /* last auxiliary property */
+
+#define SASL_AUX_ALL "*" /* A special flag to signal user deletion */
 
 /* traditional Posix items (should be implemented on Posix systems) */
 #define SASL_AUX_PASSWORD_PROP "userPassword" /* User Password */

@@ -26,6 +26,7 @@
 "tab-sign-button" = "SIGN";
 "tab-share-button" = "SHARE";
 "tab-encrypt-button" = "ENCRYPT";
+"tab-decrypt-button" = "DECRYPT";
 "tab-confirm-button" = "CONFIRM SELECTION";
 
 // Main menu
@@ -46,6 +47,7 @@
 "crypto-empty-ldap-label" = "Person or company does not own a valid certificate.\nIt is necessary to have a valid certificate for encryption.\nContact for assistance by email abi@id.ee or call 1777 (only from Estonia), (+372) 677 3377 when calling from abroad.";
 "crypto-ldap-search-placeholder" = "Enter personal code, company or registry code";
 "crypto-encryption-error-text" = "Something went wrong with encryption";
+"crypto-decryption-error-text" = "Something went wrong with decryption";
 "crypto-encryption-success" = "ENCRYPTION SUCCEEDED";
 "crypto-no-addressees-warning" = "No addressees specified";
 "crypto-valid-to" = "valid to";
@@ -70,6 +72,7 @@
 "action-cancel" = "Cancel";
 "action-delete" = "Delete";
 "action-sign" = "Sign";
+"action-decrypt" = "Decrypt";
 
 // *** Signed containers ***
 
@@ -82,7 +85,7 @@
 "file-import-create-new-failed-alert-message" = "Unable to open file %@";
 // Details
 "container-details-signing-success" = "SIGNATURE ADDED";
-
+"container-details-decryption-success" = "DECRYPTION SUCCESSFUL";
 "container-header-files-title" = "Container files";
 "container-header-create-signing-files-title" = "Files chosen for signing";
 "container-header-create-encryption-files-title" = "Files chosen for encryption";
@@ -127,6 +130,7 @@
 "mobile-id-challenge-waiting-response" = "Waiting for response ...";
 "container-sign-title" = "Sign";
 "container-encryption-title" = "Encryption";
+"container-decryption-title" = "Decryption";
 "container-addressee-title" = "Adding addressees";
 "container-validate-title" = "Container verification";
 "container-validating" = "Loading...";
@@ -141,13 +145,19 @@
 "card-reader-state-reader-not-found" = "No card readers found";
 "card-reader-state-id-card-not-found" = "Reader found.\nInsert your ID-card into the reader.";
 "card-reader-state-id-card-connected" = "ID-card found.\nRequesting information.";
-"card-reader-state-ready" = "Ready to sign with ID-card.\n%@ (%@)\nPlease enter PIN2";
+"card-reader-state-ready-for-pin2" = "Ready to sign with ID-card.\n%@ (%@)\nPlease enter PIN2";
+"card-reader-state-ready-for-pin1" = "Ready to sign with ID-card.\n%@ (%@)\nPlease enter PIN1";
 "signing-in-progress" = "Signing in progress.\nPlease wait.";
+"decryption-in-progress" = "Decryption in progress.\nPlease wait.";
 "wrong-pin2" = "Wrong PIN2. You have %d attempts left.\nBy typing wrong PIN2 %d more times, your PIN2 will be locked";
+"wrong-pin1" = "Wrong PIN1. You have %d attempts left.\nBy typing wrong PIN1 %d more times, your PIN1 will be locked";
 "wrong-pin2-single" = "Wrong PIN2. You have 1 attempt left.\nBy typing wrong PIN2 again, your PIN2 will be locked";
+"wrong-pin1-single" = "Wrong PIN1. You have 1 attempt left.\nBy typing wrong PIN1 again, your PIN1 will be locked";
 "pin2-textfield-label" = "PIN2";
+"pin1-textfield-label" = "PIN1";
 "pin2-blocked-alert" = "PIN2 blocked.\nGo to My eID to unblock your PIN2.";
 "generic-error-message" = "Something went wrong. Please try again";
+"decryption-error-message" = "Something went wrong with decryption. Please try again";
 "signing-aborted-message" = "Error: signing process aborted";
 "my-eid-status-reader-not-found" = "Connect the card reader and insert your ID-card into the reader.";
 "my-eid-status-card-not-found" = "Reader found.\nInsert your ID-card into the reader.";

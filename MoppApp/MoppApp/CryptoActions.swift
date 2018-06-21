@@ -24,6 +24,7 @@ import Foundation
 
 protocol CryptoActions {
     func startEncryptingProcess()
+    func startDecryptingProcess()
 }
 
 extension CryptoActions where Self: CryptoContainerViewController {
@@ -45,7 +46,7 @@ extension CryptoActions where Self: CryptoContainerViewController {
             },
                 failure: { _ in
                     DispatchQueue.main.async {
-                        self.errorAlert(message: L(.cryptpEncryptionErrorText))
+                        self.errorAlert(message: L(.cryptoEncryptionErrorText))
                     }
                 }
             )
@@ -53,5 +54,46 @@ extension CryptoActions where Self: CryptoContainerViewController {
             self.errorAlert(message: L(.cryptoNoAddresseesWarning))
         }
     }
+    func startDecryptingProcess() {
+        let decryptSelectionVC = UIStoryboard.tokenFlow.instantiateViewController(of: TokenFlowSelectionViewController.self)
+        decryptSelectionVC.modalPresentationStyle = .overFullScreen
+        
+        decryptSelectionVC.idCardDecryptViewControllerDelegate = self
+        decryptSelectionVC.containerPath = containerPath
+        decryptSelectionVC.isFlowForDecrypting = true
+        LandingViewController.shared.present(decryptSelectionVC, animated: false, completion: nil)
+    }
+}
+
+extension CryptoContainerViewController : IdCardDecryptViewControllerDelegate {
     
+    func idCardDecryptDidFinished(cancelled: Bool, success: Bool, dataFiles: NSMutableDictionary, error: Error?) {
+        if !cancelled {
+            if success {
+                container.dataFiles.removeAllObjects()
+                for dataFile in dataFiles {
+                    let cryptoDataFile = CryptoDataFile()
+                    cryptoDataFile.filename = dataFile.key as! String
+                    let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: cryptoDataFile.filename)
+                    cryptoDataFile.filePath = destinationPath
+                    container.dataFiles.add(cryptoDataFile)
+                    MoppFileManager.shared.createFile(atPath: destinationPath, contents: dataFile.value as! Data)
+                }
+                
+                self.isCreated = false
+                self.isForPreview = false
+                self.dismiss(animated: false)
+                self.isDecrypted = true
+                
+                self.notifications.append((true, L(.containerDetailsDecryptionSuccess)))
+                self.reloadCryptoData()
+            } else {
+                 self.dismiss(animated: false)
+                 errorAlert(message: L(.decryptionErrorMessage))
+            }
+        }
+    }
+    
+    
+
 }

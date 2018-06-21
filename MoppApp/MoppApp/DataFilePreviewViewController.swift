@@ -24,13 +24,19 @@ import Foundation
 import WebKit
 
 class DataFilePreviewViewController : MoppViewController {
+    
     @IBOutlet weak var webView: UIWebView!
     var previewFilePath: String!
+    var isShareNeeded: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let url = URL(fileURLWithPath: previewFilePath)
-        setupNavigationItemForPushedViewController(title: url.lastPathComponent)
+        if isShareNeeded {
+            setupNavigationItemForPushedViewController(title: url.lastPathComponent, filePath: previewFilePath)
+        } else {
+            setupNavigationItemForPushedViewController(title: url.lastPathComponent)
+        }
         webView.loadRequest(URLRequest(url: url))
     }
     

@@ -40,6 +40,10 @@ extension UIStoryboard {
         return UIStoryboard(name: "Signing", bundle: Bundle.main)
     }
 
+    static var tokenFlow: UIStoryboard {
+        return UIStoryboard(name: "TokenFlow", bundle: Bundle.main)
+    }
+    
     static var myEID: UIStoryboard {
         return UIStoryboard(name: "MyeID", bundle: Bundle.main)
     }

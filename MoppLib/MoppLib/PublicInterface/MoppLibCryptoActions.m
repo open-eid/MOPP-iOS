@@ -27,7 +27,16 @@
 #import "CryptoLib/CryptoDataFile.h"
 #import "CryptoLib/OpenLdap.h"
 #import "CryptoLib/Encrypt.h"
-#import <openssl/x509.h>
+#import "CryptoLib/Decrypt.h"
+#import "CryptoLib/CdocParser.h"
+#import "MoppLibCertificate.h"
+#import "CryptoLib/CdocInfo.h"
+#import "SmartToken.h"
+#include <stdio.h>
+#include <openssl/x509.h>
+#include <openssl/pem.h>
+#include <openssl/err.h>
+#import "NSData+Additions.h"
 
 @implementation MoppLibCryptoActions
     
@@ -39,7 +48,78 @@
     });
     return sharedInstance;
 }
+
+- (void)parseCdocInfo:(NSString *)fullPath success:(CdocContainerBlock)success failure:(FailureBlock)failure {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError *error;
+        CdocInfo *response;
+         @try {
+            CdocParser *cdocParser = [CdocParser new];
+            response = [cdocParser parseCdocInfo:fullPath];
+            for (Addressee* addressee in response.addressees) {
+                MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
+                NSData *certificate = addressee.cert;
+                NSString* certificateWithUTF8 = [NSString stringWithUTF8String:[certificate bytes]];
+                //Sometimes there may be a redundant line change
+                NSString *formattedCertificate = [certificateWithUTF8 stringByReplacingOccurrencesOfString:@"\n\n" withString:@"\n"];
+                NSData* decodedCertificate = [formattedCertificate dataUsingEncoding:NSUTF8StringEncoding];
+
+                [MoppLibCertificate certData:certData updateWithPemEncodingData:[decodedCertificate bytes] length:decodedCertificate.length];
+                addressee.type = [self formatTypeToString :certData.organization];
+                addressee.validTo = certData.expiryDate;
+            }
+         }
+        @catch (...) {
+            error = [MoppLibError generalError];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            error == nil ? success(response) : failure(error);
+        });
+    });
+}
+
+- (NSString*)formatTypeToString:(MoppLibCertificateOrganization)formatType {
+    NSString *result = nil;
+    switch(formatType) {
+        case DigiID:
+            result = @"DIGI-ID";
+            break;
+        case IDCard:
+            result = @"ID-CARD";
+            break;
+        default:
+            result = @"E-SEAL";
+            break;
+    }
     
+    return result;
+}
+
+- (void)decryptData:(NSString *)fullPath withPin1:(NSString*)pin1 success:(DecryptedDataBlock)success failure:(FailureBlock)failure {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError *error;
+        NSMutableDictionary *response;
+        @try {
+            Decrypt *decrypter = [Decrypt new];
+            SmartToken *smartToken = [SmartToken new];
+            response = [decrypter decryptFile:fullPath withPin:pin1 withToken:smartToken];
+        }
+        @catch (NSException *exception) {
+            if([[exception name] isEqualToString:@"wrong_pin"]) {
+                error = [MoppLibError wrongPinErrorWithRetryCount:[[exception reason] intValue]];
+            } else {
+                error = [MoppLibError generalError];
+            }
+        }
+        @catch (...) {
+            error = [MoppLibError generalError];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            error == nil ? success(response) : failure(error);
+        });
+    });
+}
+
 - (void)encryptData:(NSString *)fullPath withDataFiles:(NSArray*)dataFiles withAddressees:(NSArray*)addressees success:(VoidBlock)success failure:(FailureBlock)failure {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

@@ -167,10 +167,10 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
                 tempUrl = url
                 return true
             }
-            if url.pathExtension.isAsicContainerExtension {
-                landingViewController?.containerType = .asic
-            } else {
+            if url.pathExtension.isCdocContainerExtension {
                 landingViewController?.containerType = .cdoc
+            } else {
+                landingViewController?.containerType = .asic
             }
             landingViewController?.fileImportIntent = .openOrCreate
             landingViewController?.importFiles(with: [url])

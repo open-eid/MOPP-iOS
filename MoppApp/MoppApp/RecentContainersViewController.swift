@@ -156,21 +156,51 @@ extension RecentContainersViewController : UITableViewDelegate {
             self.closeSearch()
             dismiss(animated: true, completion: {
                 let ext = (filename as NSString).pathExtension
-                var navController: UINavigationController
-                let containerViewController: ContainerViewController
+                var containerViewController: ContainerViewController
+                var navController: UINavigationController = (LandingViewController.shared.viewController(for: .signTab) as? UINavigationController)!
+                
+                let failure: (() -> Void) = {
+                    LandingViewController.shared.importProgressViewController.dismissRecursivelyIfPresented(animated: false, completion: nil)
+                    let alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [filename]), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
+                    
+                    navController.viewControllers.last!.present(alert, animated: true)
+                }
+                
                 if ext.isAsicContainerExtension {
                     LandingViewController.shared.containerType = .asic
                     containerViewController = SigningContainerViewController.instantiate()
                     containerViewController.containerPath = containerPath
-                    navController = (LandingViewController.shared.viewController(for: .signTab) as? UINavigationController)!
+                    navController.pushViewController(containerViewController, animated: true)
                 } else {
                     LandingViewController.shared.containerType = .cdoc
                     containerViewController = CryptoContainerViewController.instantiate()
                     containerViewController.containerPath = containerPath
-                    navController = (LandingViewController.shared.viewController(for: .cryptoTab) as? UINavigationController)!
+                    let filePath = containerPath as NSString
+                    let container = CryptoContainer(filename: filePath.lastPathComponent as NSString, filePath: filePath)
+                    
+                    MoppLibCryptoActions.sharedInstance().parseCdocInfo(
+                        filePath as String?,
+                        success: {(_ cdocInfo: CdocInfo?) -> Void in
+                            guard let strongCdocInfo = cdocInfo else { return }
+                            let cryptoContainer = (containerViewController as! CryptoContainerViewController)
+                            container.addressees = strongCdocInfo.addressees
+                            container.dataFiles = strongCdocInfo.dataFiles
+                            cryptoContainer.containerPath = filePath as String?
+                            cryptoContainer.state = .opened
+                            
+                            cryptoContainer.container = container
+                            cryptoContainer.isContainerEncrypted = true
+
+                            navController = (LandingViewController.shared.viewController(for: .cryptoTab) as? UINavigationController)!
+                            navController.pushViewController(cryptoContainer, animated: true)
+                    },
+                        failure: { _ in
+                            failure()
+                        }
+                    )
                 }
-              
-                navController.pushViewController(containerViewController, animated: true)
+                
             })
         }
     }

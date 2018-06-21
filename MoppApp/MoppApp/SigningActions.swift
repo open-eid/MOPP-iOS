@@ -61,7 +61,7 @@ extension SigningActions where Self: SigningContainerViewController {
     func startSigningProcess() {
         
         if signingContainerViewDelegate.isContainerSignable() {
-            let signSelectionVC = UIStoryboard.signing.instantiateViewController(of: SignSelectionViewController.self)
+            let signSelectionVC = UIStoryboard.tokenFlow.instantiateViewController(of: TokenFlowSelectionViewController.self)
             signSelectionVC.modalPresentationStyle = .overFullScreen
             
             signSelectionVC.mobileIdEditViewControllerDelegate = self
@@ -110,14 +110,14 @@ extension SigningActions where Self: SigningContainerViewController {
     }
 }
 
-extension ContainerViewController : MobileIDEditViewControllerDelegate {
+extension SigningContainerViewController : MobileIDEditViewControllerDelegate {
     func mobileIDEditViewControllerDidDismiss(cancelled: Bool, phoneNumber: String?, idCode: String?) {
         if cancelled { return }
         
         guard let phoneNumber = phoneNumber else { return }
         guard let idCode = idCode else { return }
         
-        let mobileIDChallengeview = UIStoryboard.signing.instantiateViewController(of: MobileIDChallengeViewController.self)
+        let mobileIDChallengeview = UIStoryboard.tokenFlow.instantiateViewController(of: MobileIDChallengeViewController.self)
         mobileIDChallengeview.modalPresentationStyle = .overFullScreen
         present(mobileIDChallengeview, animated: false)
         
@@ -153,7 +153,7 @@ extension ContainerViewController : MobileIDEditViewControllerDelegate {
     }
 }
 
-extension ContainerViewController : IdCardSignViewControllerDelegate {
+extension SigningContainerViewController : IdCardSignViewControllerDelegate {
     func idCardSignDidFinished(cancelled: Bool, success: Bool, error: Error?) {
         if !cancelled {
             if success {
@@ -170,8 +170,8 @@ extension ContainerViewController : IdCardSignViewControllerDelegate {
                 }
             }
         } else {
-            if let error = error as? IdCardSigningError {
-                if error == .signingCancelled {
+            if let error = error as? IdCardActionError {
+                if error == .actionCancelled {
                     errorAlert(message: L(.signingAbortedMessage))
                 }
             }

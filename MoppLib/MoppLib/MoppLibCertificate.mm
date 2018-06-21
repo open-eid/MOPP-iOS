@@ -25,20 +25,23 @@
 #include <digidocpp/crypto/X509Cert.h>
 #import <openssl/x509.h>
 #import <openssl/x509v3.h>
-
+#include <iostream>
 @implementation MoppLibCertificate
 
-+ (void)certData:(MoppLibCerificatetData *)certData updateWithData:(const unsigned char *)data length:(size_t)length {
-  digidoc::X509Cert digiDocCert = [self digidocCertFrom:data length:length];
-  
-  certData.isValid = [self certificateIsValid:digiDocCert];
-  certData.expiryDate = [self certificateExpiryDate:digiDocCert];
-  certData.organization = [self certificateOrganization:digiDocCert];
++ (void)certData:(MoppLibCerificatetData *)certData updateWithDerEncodingData:(const unsigned char *)data length:(size_t)length {
+    digidoc::X509Cert digiDocCert = digidoc::X509Cert(data, length, digidoc::X509Cert::Format::Der);
+    [self setCertData:certData digiDocCert:digiDocCert];
 }
 
-+ (digidoc::X509Cert)digidocCertFrom:(const unsigned char *)certData length:(size_t)length {
-  digidoc::X509Cert cert = digidoc::X509Cert(certData, length, digidoc::X509Cert::Format::Der);
-  return cert;
++ (void)certData:(MoppLibCerificatetData *)certData updateWithPemEncodingData:(const unsigned char *)data length:(size_t)length {
+    digidoc::X509Cert digiDocCert = digidoc::X509Cert(data, length, digidoc::X509Cert::Format::Pem);
+    [self setCertData:certData digiDocCert:digiDocCert];
+}
+
++ (void)setCertData:(MoppLibCerificatetData *)certData digiDocCert:(digidoc::X509Cert)digiDocCert {
+    certData.isValid = [self certificateIsValid:digiDocCert];
+    certData.expiryDate = [self certificateExpiryDate:digiDocCert];
+    certData.organization = [self certificateOrganization:digiDocCert];
 }
 
 + (MoppLibCertificateOrganization)certificateOrganization:(digidoc::X509Cert)cert {
