@@ -105,7 +105,7 @@
             response = [decrypter decryptFile:fullPath withPin:pin1 withToken:smartToken];
         }
         @catch (NSException *exception) {
-            if([[exception name] isEqualToString:@"Wrong PIN"]) {
+            if([[exception name] isEqualToString:@"wrong_pin"]) {
                 error = [MoppLibError wrongPinErrorWithRetryCount:[[exception reason] intValue]];
             } else {
                 error = [MoppLibError generalError];

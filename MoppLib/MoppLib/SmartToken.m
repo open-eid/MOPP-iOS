@@ -55,7 +55,7 @@
         NSDictionary *userInfo = [error userInfo];
         for (NSString* key in userInfo) {
             if ([key isEqualToString:@"kMoppLibRetryCount"]) {
-                [NSException raise:@"Wrong PIN" format:@"%@", userInfo[key]];
+                [NSException raise:@"wrong_pin" format:@"%@", userInfo[key]];
             }
         }
         [NSException raise:@"Decryption failed" format:@""];
@@ -71,7 +71,7 @@
         NSDictionary *userInfo = [error userInfo];
         for (NSString* key in userInfo) {
             if ([key isEqualToString:@"kMoppLibRetryCount"]) {
-                [NSException raise:@"Wrong PIN" format:@"%@", userInfo[key]];
+                [NSException raise:@"wrong_pin" format:@"%@", userInfo[key]];
             }
         }
         [NSException raise:@"Decryption failed" format:@""];
