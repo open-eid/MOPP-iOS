@@ -35,7 +35,7 @@
     std::string encodedFullPath = std::string([fullPath UTF8String]);
     std::string encodedPin = std::string([pin UTF8String]);
     CDOCReader cdocReader(encodedFullPath);
-    std::unique_ptr<SmartCardTokenWrapper> smartCardWrapper = std::make_unique<SmartCardTokenWrapper>(encodedPin, smartToken);
+    std::shared_ptr<SmartCardTokenWrapper> smartCardWrapper = std::make_shared<SmartCardTokenWrapper>(encodedPin, smartToken);
 
     Token *token;
     token = smartCardWrapper.get();
