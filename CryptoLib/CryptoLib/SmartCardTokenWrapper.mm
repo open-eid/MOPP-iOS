@@ -78,21 +78,8 @@ std::vector<uchar> SmartCardTokenWrapper::derive(const std::vector<uchar> &publi
 }
 
 std::vector<uchar> SmartCardTokenWrapper::encodeData(const NSData *dataBlock) const{
-    const void *bytes = [dataBlock bytes];
-    NSMutableArray *ary = [NSMutableArray array];
-    for (NSUInteger i = 0; i < [dataBlock length]; i += sizeof(int8_t)) {
-        int8_t elem = OSReadLittleInt(bytes, i);
-        [ary addObject:[NSNumber numberWithInt:elem]];
-    }
-    std::vector<uchar> result;
-    
-    result.reserve(ary.count);
-    for (NSNumber* bar in ary) {
-        result.push_back(bar.charValue);
-    }
-
-    return result;
-
+    unsigned char *buffer = reinterpret_cast<unsigned char*>(const_cast<void*>(dataBlock.bytes));
+    return std::vector<uchar>(buffer, buffer + dataBlock.length);
 }
 
 SmartCardTokenWrapper::SmartCardTokenWrapper()

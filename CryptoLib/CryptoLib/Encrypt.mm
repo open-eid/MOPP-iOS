@@ -42,18 +42,9 @@
     }
     for (Addressee *addressee in addressees) {
         NSData *cert = addressee.cert;
-        const void *bytes = [cert bytes];
-        NSMutableArray *ary = [NSMutableArray array];
-        for (NSUInteger i = 0; i < [cert length]; i += sizeof(int8_t)) {
-            int8_t elem = OSReadLittleInt(bytes, i);
-            [ary addObject:[NSNumber numberWithInt:elem]];
-        }
+        unsigned char *buffer = reinterpret_cast<unsigned char*>(const_cast<void*>(cert.bytes));
+        std::vector<unsigned char> result = std::vector<unsigned char>(buffer, buffer + cert.length);
         
-        std::vector<unsigned char> result;
-        result.reserve(ary.count);
-        for (NSNumber* bar in ary) {
-            result.push_back(bar.charValue);
-        }
         cdocWriter.addRecipient(result);
     }
     
