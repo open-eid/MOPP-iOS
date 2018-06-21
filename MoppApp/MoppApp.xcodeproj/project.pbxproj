@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		063A655C7ECF195296250527 /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
-		390C016520AC3FF300827230 /* CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39852A6120AB2949004CB100 /* CryptoLib.framework */; };
-		390C016620AC3FF300827230 /* CryptoLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 39852A6120AB2949004CB100 /* CryptoLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		390C016E20AC44BA00827230 /* cdoc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 390C016A20AC430300827230 /* cdoc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		39158A1920C6C49100B71DD6 /* AddresseeActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39158A1820C6C49100B71DD6 /* AddresseeActions.swift */; };
 		3921CA9520B2D6D600BF3178 /* CryptoActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CA9420B2D6D600BF3178 /* CryptoActions.swift */; };
 		3921CA9720B2D8A600BF3178 /* SigningActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CA9620B2D8A600BF3178 /* SigningActions.swift */; };
@@ -23,6 +20,9 @@
 		3921CAAD20B819B500BF3178 /* ContainerNoAddresseesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAAC20B819B500BF3178 /* ContainerNoAddresseesCell.swift */; };
 		3921CAAF20B826E700BF3178 /* AddresseeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAAE20B826E700BF3178 /* AddresseeViewController.swift */; };
 		393B66BA20D7EC9D001DC89B /* WrapperUIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393B66B920D7EC9D001DC89B /* WrapperUIBarButtonItem.swift */; };
+		393B66E320DB94CD001DC89B /* cdoc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 393B66E120DB94CD001DC89B /* cdoc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		393B66E820DB9C19001DC89B /* CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39852A6120AB2949004CB100 /* CryptoLib.framework */; };
+		393B66E920DB9C19001DC89B /* CryptoLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 39852A6120AB2949004CB100 /* CryptoLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		399C01EA20BD98730056D7AC /* ContainerFoundAddresseeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399C01E920BD98730056D7AC /* ContainerFoundAddresseeCell.swift */; };
 		39CDA7EA20ADBCEC006E2E9F /* Crypto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */; };
 		39CDA7EE20ADBE93006E2E9F /* CryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */; };
@@ -353,8 +353,8 @@
 			dstSubfolderSpec = 10;
 			files = (
 				E4250D071E0A911100530370 /* MoppLib.framework in Embed Frameworks */,
-				390C016E20AC44BA00827230 /* cdoc.framework in Embed Frameworks */,
-				390C016620AC3FF300827230 /* CryptoLib.framework in Embed Frameworks */,
+				393B66E920DB9C19001DC89B /* CryptoLib.framework in Embed Frameworks */,
+				393B66E320DB94CD001DC89B /* cdoc.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,6 +375,7 @@
 		3921CAAC20B819B500BF3178 /* ContainerNoAddresseesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerNoAddresseesCell.swift; sourceTree = "<group>"; };
 		3921CAAE20B826E700BF3178 /* AddresseeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddresseeViewController.swift; sourceTree = "<group>"; };
 		393B66B920D7EC9D001DC89B /* WrapperUIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapperUIBarButtonItem.swift; sourceTree = "<group>"; };
+		393B66E120DB94CD001DC89B /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = ../CryptoLib/CryptoLib/cdocFramework/cdoc.framework; sourceTree = "<group>"; };
 		39852A6120AB2949004CB100 /* CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		399C01E920BD98730056D7AC /* ContainerFoundAddresseeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerFoundAddresseeCell.swift; sourceTree = "<group>"; };
 		39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Crypto.storyboard; sourceTree = "<group>"; };
@@ -566,11 +567,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				390C016520AC3FF300827230 /* CryptoLib.framework in Frameworks */,
 				C55BB1CC2091BD2000618AC4 /* WebKit.framework in Frameworks */,
 				E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */,
 				51EAB865AC99468B5AC77D6C /* Pods_MoppApp.framework in Frameworks */,
 				063A655C7ECF195296250527 /* Pods_MoppApp.framework in Frameworks */,
+				393B66E820DB9C19001DC89B /* CryptoLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -891,6 +892,7 @@
 		E4250CBA1E0968D200530370 = {
 			isa = PBXGroup;
 			children = (
+				393B66E120DB94CD001DC89B /* cdoc.framework */,
 				E4250CC51E0968D200530370 /* MoppApp */,
 				54A418251E83FAD200559E2B /* shareExtension */,
 				E4250CC41E0968D200530370 /* Products */,
