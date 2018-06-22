@@ -94,7 +94,7 @@ class DefaultsHelper
                 UserDefaults.standard.synchronize()
             }
         
-            return languageId ?? kMoppLanguage
+            return languageId ?? kDefaultLanguageID
         }
         set {
             UserDefaults.standard.set(newValue, forKey: kMoppLanguage)
