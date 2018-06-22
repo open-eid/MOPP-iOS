@@ -86,24 +86,15 @@ class DefaultsHelper
 
     class var moppLanguageID: String {
         get {
-            // Force app language to system language only if it has changed or first run
-            
-            let preferredLanguage = Locale.preferredLanguages.first?.lowercased().substr(offset: 0, count: 2) ?? kDefaultLanguageID
-            let previousPreferredLanguage: String! = UserDefaults.standard.value(forKey: kPreviousPreferredLanguage) as? String
-            
-            if previousPreferredLanguage == nil || preferredLanguage != previousPreferredLanguage {
-                UserDefaults.standard.set(preferredLanguage, forKey: kMoppLanguage)
-                UserDefaults.standard.set(preferredLanguage, forKey: kPreviousPreferredLanguage)
-                UserDefaults.standard.synchronize()
-            }
-        
             var languageId: String! = UserDefaults.standard.value(forKey: kMoppLanguage) as? String
+            
             if languageId == nil {
-                languageId = preferredLanguage
+                languageId = Locale.preferredLanguages.first?.lowercased().substr(offset: 0, count: 2) ?? kDefaultLanguageID
                 UserDefaults.standard.set(languageId, forKey: kMoppLanguage)
                 UserDefaults.standard.synchronize()
             }
-            return languageId
+        
+            return languageId ?? kMoppLanguage
         }
         set {
             UserDefaults.standard.set(newValue, forKey: kMoppLanguage)
