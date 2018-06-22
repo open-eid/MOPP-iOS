@@ -27,7 +27,6 @@
 	<key>CFBundleSupportedPlatforms</key>
 	<array>
 		<string>iPhoneOS</string>
-		<string>iPhoneSimulator</string>
 	</array>
 	<key>CFBundleDisplayName</key>
 	<string></string>
