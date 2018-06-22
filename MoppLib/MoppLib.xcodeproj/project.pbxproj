@@ -77,16 +77,16 @@
 		AE61985C1E489EDF0021B18B /* MoppLibService.m in Sources */ = {isa = PBXBuildFile; fileRef = AE61985A1E489EDF0021B18B /* MoppLibService.m */; };
 		AE6198601E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AE61985E1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.m */; };
 		AEC2CC431E3B8B7800A0B869 /* MoppLibSOAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC2CC411E3B8B7800A0B869 /* MoppLibSOAPManager.m */; };
-		C54EA6F22049640F0039AC78 /* ft301u.h in Headers */ = {isa = PBXBuildFile; fileRef = C54EA6F12049640E0039AC78 /* ft301u.h */; };
-		C54EA6F62049641E0039AC78 /* ReaderInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = C54EA6F32049641E0039AC78 /* ReaderInterface.h */; };
-		C54EA6F72049641E0039AC78 /* wintypes.h in Headers */ = {isa = PBXBuildFile; fileRef = C54EA6F42049641E0039AC78 /* wintypes.h */; };
-		C54EA6F82049641E0039AC78 /* winscard.h in Headers */ = {isa = PBXBuildFile; fileRef = C54EA6F52049641E0039AC78 /* winscard.h */; };
-		C54EA6FE204968080039AC78 /* libiRockey301_ccid_V1.32.3_debug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C54EA6F9204964660039AC78 /* libiRockey301_ccid_V1.32.3_debug.a */; };
 		C54EA73020499DFC0039AC78 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C54EA72F20499DFC0039AC78 /* ExternalAccessory.framework */; };
 		C54EA732204D5E860039AC78 /* CardReaderiR301.m in Sources */ = {isa = PBXBuildFile; fileRef = C54EA731204D5E860039AC78 /* CardReaderiR301.m */; };
 		C54EA734204D5EAA0039AC78 /* CardReaderiR301.h in Headers */ = {isa = PBXBuildFile; fileRef = C54EA733204D5EA70039AC78 /* CardReaderiR301.h */; };
 		C54EA736204D90D50039AC78 /* MoppLibCardReaderManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C54EA735204D90D50039AC78 /* MoppLibCardReaderManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C54EA738204D91730039AC78 /* MoppLibCardReaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C54EA737204D91730039AC78 /* MoppLibCardReaderManager.m */; };
+		C5AAAF8220C9621D0087D6DA /* libiRockey301_ccid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5AAAF8120C9621D0087D6DA /* libiRockey301_ccid.a */; };
+		C5AAAF8420CAA3D00087D6DA /* ReaderInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = C5AAAF8320CAA3D00087D6DA /* ReaderInterface.h */; };
+		C5AAAF8620CAA3F00087D6DA /* winscard.h in Headers */ = {isa = PBXBuildFile; fileRef = C5AAAF8520CAA3F00087D6DA /* winscard.h */; };
+		C5AAAF8820CAA4240087D6DA /* wintypes.h in Headers */ = {isa = PBXBuildFile; fileRef = C5AAAF8720CAA4230087D6DA /* wintypes.h */; };
+		C5AAAF8A20CAA4790087D6DA /* ft301u.h in Headers */ = {isa = PBXBuildFile; fileRef = C5AAAF8920CAA4790087D6DA /* ft301u.h */; };
 		C5F462A8209727E8001B7D59 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */; };
 		D72F91CE6FD17DE3A2CB2EA9 /* Pods_MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212014B6D572D152A70C2C71 /* Pods_MoppLib.framework */; };
 		E061FB0356C72259D6A941E8 /* Pods_MoppLibTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BB12B033D5C8237B002F59 /* Pods_MoppLibTests.framework */; };
@@ -207,17 +207,16 @@
 		AEC2CC401E3B8B7800A0B869 /* MoppLibSOAPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoppLibSOAPManager.h; path = MoppLib/MoppLibSOAPManager.h; sourceTree = "<group>"; };
 		AEC2CC411E3B8B7800A0B869 /* MoppLibSOAPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoppLibSOAPManager.m; path = MoppLib/MoppLibSOAPManager.m; sourceTree = "<group>"; };
 		BB993982ECBC613ED55E2010 /* Pods-MoppLibTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLibTests.release.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLibTests/Pods-MoppLibTests.release.xcconfig"; sourceTree = "<group>"; };
-		C54EA6F12049640E0039AC78 /* ft301u.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ft301u.h; path = include/ft301u.h; sourceTree = "<group>"; };
-		C54EA6F32049641E0039AC78 /* ReaderInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReaderInterface.h; path = include/ReaderInterface.h; sourceTree = "<group>"; };
-		C54EA6F42049641E0039AC78 /* wintypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wintypes.h; path = include/wintypes.h; sourceTree = "<group>"; };
-		C54EA6F52049641E0039AC78 /* winscard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = winscard.h; path = include/winscard.h; sourceTree = "<group>"; };
-		C54EA6F9204964660039AC78 /* libiRockey301_ccid_V1.32.3_debug.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiRockey301_ccid_V1.32.3_debug.a; path = MoppLib/bR301/lib/libiRockey301_ccid_V1.32.3_debug.a; sourceTree = "<group>"; };
-		C54EA6FB204964A20039AC78 /* libiRockey301_ccid_V1.32.3_release.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiRockey301_ccid_V1.32.3_release.a; path = MoppLib/bR301/lib/libiRockey301_ccid_V1.32.3_release.a; sourceTree = "<group>"; };
 		C54EA72F20499DFC0039AC78 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		C54EA731204D5E860039AC78 /* CardReaderiR301.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CardReaderiR301.m; path = MoppLib/CardReaderiR301.m; sourceTree = SOURCE_ROOT; };
 		C54EA733204D5EA70039AC78 /* CardReaderiR301.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardReaderiR301.h; sourceTree = "<group>"; };
 		C54EA735204D90D50039AC78 /* MoppLibCardReaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibCardReaderManager.h; sourceTree = "<group>"; };
 		C54EA737204D91730039AC78 /* MoppLibCardReaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibCardReaderManager.m; sourceTree = "<group>"; };
+		C5AAAF8120C9621D0087D6DA /* libiRockey301_ccid.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libiRockey301_ccid.a; sourceTree = "<group>"; };
+		C5AAAF8320CAA3D00087D6DA /* ReaderInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderInterface.h; sourceTree = "<group>"; };
+		C5AAAF8520CAA3F00087D6DA /* winscard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = winscard.h; sourceTree = "<group>"; };
+		C5AAAF8720CAA4230087D6DA /* wintypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wintypes.h; sourceTree = "<group>"; };
+		C5AAAF8920CAA4790087D6DA /* ft301u.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ft301u.h; sourceTree = "<group>"; };
 		C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		D294A9825C9D24C89C0C4C80 /* Pods-MoppLibTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLibTests.debug.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLibTests/Pods-MoppLibTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E4180C141E23FE9300FD7B8C /* MLDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLDateFormatter.h; sourceTree = "<group>"; };
@@ -261,10 +260,10 @@
 				399C01E520BC13320056D7AC /* CryptoLib.framework in Frameworks */,
 				C5F462A8209727E8001B7D59 /* CoreBluetooth.framework in Frameworks */,
 				C54EA73020499DFC0039AC78 /* ExternalAccessory.framework in Frameworks */,
-				C54EA6FE204968080039AC78 /* libiRockey301_ccid_V1.32.3_debug.a in Frameworks */,
 				54DC0DF01E0BD6E300C62B3D /* libACSBluetooth.a in Frameworks */,
 				E4250CFE1E096BEF00530370 /* libxml2.tbd in Frameworks */,
 				E4250CFC1E096BEA00530370 /* libz.tbd in Frameworks */,
+				C5AAAF8220C9621D0087D6DA /* libiRockey301_ccid.a in Frameworks */,
 				D72F91CE6FD17DE3A2CB2EA9 /* Pods_MoppLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -408,8 +407,7 @@
 				399C01E420BC13320056D7AC /* CryptoLib.framework */,
 				C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */,
 				C54EA72F20499DFC0039AC78 /* ExternalAccessory.framework */,
-				C54EA6FB204964A20039AC78 /* libiRockey301_ccid_V1.32.3_release.a */,
-				C54EA6F9204964660039AC78 /* libiRockey301_ccid_V1.32.3_debug.a */,
+				C5AAAF8120C9621D0087D6DA /* libiRockey301_ccid.a */,
 				E4250CFD1E096BEF00530370 /* libxml2.tbd */,
 				E4250CFB1E096BEA00530370 /* libz.tbd */,
 				212014B6D572D152A70C2C71 /* Pods_MoppLib.framework */,
@@ -460,10 +458,10 @@
 		C54EA6F0204963CF0039AC78 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				C54EA6F32049641E0039AC78 /* ReaderInterface.h */,
-				C54EA6F52049641E0039AC78 /* winscard.h */,
-				C54EA6F42049641E0039AC78 /* wintypes.h */,
-				C54EA6F12049640E0039AC78 /* ft301u.h */,
+				C5AAAF8320CAA3D00087D6DA /* ReaderInterface.h */,
+				C5AAAF8520CAA3F00087D6DA /* winscard.h */,
+				C5AAAF8720CAA4230087D6DA /* wintypes.h */,
+				C5AAAF8920CAA4790087D6DA /* ft301u.h */,
 			);
 			name = include;
 			sourceTree = "<group>";
@@ -557,10 +555,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5AAAF8620CAA3F00087D6DA /* winscard.h in Headers */,
+				C5AAAF8820CAA4240087D6DA /* wintypes.h in Headers */,
 				540CB2201E1CDCED00FE18A3 /* MoppLibCertificate.h in Headers */,
 				54D164701E923F920069C725 /* MoppLibPrivateConstants.h in Headers */,
 				5463DA4C1E12927A008A1714 /* CardCommands.h in Headers */,
 				E485A7831E2DF58200C53DBF /* MLFileManager.h in Headers */,
+				C5AAAF8A20CAA4790087D6DA /* ft301u.h in Headers */,
 				5451117A1E13C52900296B80 /* EstEIDv3_5.h in Headers */,
 				54DC0DEC1E0BD6E300C62B3D /* ABTBluetoothReader.h in Headers */,
 				AE61985B1E489EDF0021B18B /* MoppLibService.h in Headers */,
@@ -575,7 +576,6 @@
 				399C01E620BC17A10056D7AC /* MoppLibCryptoActions.h in Headers */,
 				C54EA6F62049641E0039AC78 /* ReaderInterface.h in Headers */,
 				54E1DB5C1E44A9060060A250 /* MoppLibManager.h in Headers */,
-				C54EA6F82049641E0039AC78 /* winscard.h in Headers */,
 				E42B08CD1E1F136A00EA24A3 /* MoppLibDigidocManager.h in Headers */,
 				54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */,
 				542DCB6C1E23968000899534 /* MoppLibPinActions.h in Headers */,
@@ -587,9 +587,7 @@
 				54D1647B1E926AAB0069C725 /* MoppLibCardActions.h in Headers */,
 				54DC0DFD1E0D196D00C62B3D /* CardActionsManager.h in Headers */,
 				54E085EA1E71A63C00431F1A /* Reachability.h in Headers */,
-				C54EA6F72049641E0039AC78 /* wintypes.h in Headers */,
 				54DC0DED1E0BD6E300C62B3D /* ABTBluetoothReaderManager.h in Headers */,
-				C54EA6F22049640F0039AC78 /* ft301u.h in Headers */,
 				54DC0DEB1E0BD6E300C62B3D /* ABTAcr3901us1Reader.h in Headers */,
 				54DC0DCE1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.h in Headers */,
 				54DC0DEF1E0BD6E300C62B3D /* ACSBluetooth.h in Headers */,
@@ -599,6 +597,7 @@
 				E4250CEC1E09695100530370 /* MoppLib.h in Headers */,
 				54DC0DF41E0BEF2A00C62B3D /* NSString+Additions.h in Headers */,
 				545CF8411E13F30300B66EE8 /* EstEIDv3_4.h in Headers */,
+				C5AAAF8420CAA3D00087D6DA /* ReaderInterface.h in Headers */,
 				54DC0DC51E0BCC2A00C62B3D /* CardReaderWrapper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1061,6 +1060,7 @@
 					"$(PROJECT_DIR)/MoppLib/ACSBluetooth",
 					"$(DIGIDOCPP_PATH)/lib",
 					"$(PROJECT_DIR)/MoppLib/bR301/lib",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1118,6 +1118,7 @@
 					"$(PROJECT_DIR)/MoppLib/ACSBluetooth",
 					"$(DIGIDOCPP_PATH)/lib",
 					"$(PROJECT_DIR)/MoppLib/bR301/lib",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",

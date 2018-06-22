@@ -29,7 +29,7 @@
 @interface CardReaderiR301 : NSObject <CardReaderWrapper>
 
 @property (nonatomic, strong) id<CardReaderWrapperDelegate> delegate;
--(id)initWithInterface:(ReaderInterface*)interface andContentHandle:(SCARDHANDLE)contextHandle;
+-(id)initWithInterface:(ReaderInterface*)interface andContextHandle:(SCARDHANDLE)contextHandle;
 -(void)setupWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
-
+-(void)updateContextHandle:(SCARDCONTEXT) contextHandle;
 @end

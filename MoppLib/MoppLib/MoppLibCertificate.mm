@@ -28,8 +28,8 @@
 
 @implementation MoppLibCertificate
 
-+ (void)certData:(MoppLibCerificatetData *)certData updateWithData:(const unsigned char *)data length:(size_t)length {
-  digidoc::X509Cert digiDocCert = [self digidocCertFrom:data length:length];
++ (void)updateCertData:(MoppLibCerificatetData *)certData withBytes:(const unsigned char *)bytes length:(size_t)length {
+  digidoc::X509Cert digiDocCert = [self digidocCertFrom:bytes length:length];
   
   certData.isValid = [self certificateIsValid:digiDocCert];
   certData.expiryDate = [self certificateExpiryDate:digiDocCert];

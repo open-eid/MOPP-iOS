@@ -65,49 +65,49 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
 
 - (void)readSignatureCertificateWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
   [self readCertificate:kCommandFileDDCE WithSuccess:^(NSData *data) {
-    success([data trimmedData]);
+    success([data trailingTwoBytesTrimmed]);
   } failure:failure];
 }
 
 - (void)readMinimalPublicDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure {
   MoppLibPersonalData *personalData = [MoppLibPersonalData new];
   void (^readSurname)(void) = [self readRecord:1 success:^(NSData *responseObject) {
-    personalData.surname = [responseObject responseStringWCP1252];
+    personalData.surname = [responseObject codePage1252String];
     success(personalData);
   } failure:failure];
   
   void (^readFirstNameLine1)(void) = [self readRecord:2 success:^(NSData *responseObject) {
-    personalData.firstNameLine1 = [responseObject responseStringWCP1252];
+    personalData.firstNameLine1 = [responseObject codePage1252String];
     readSurname();
   } failure:failure];
   
   void (^readFirstNameLine2)(void) = [self readRecord:3 success:^(NSData *responseObject) {
-    personalData.firstNameLine2 = [responseObject responseStringWCP1252];
+    personalData.firstNameLine2 = [responseObject codePage1252String];
     readFirstNameLine1();
   } failure:failure];
   
   void (^readNationality)(void) = [self readRecord:5 success:^(NSData *responseObject) {
-    personalData.nationality = [responseObject responseStringWCP1252];
+    personalData.nationality = [responseObject codePage1252String];
     readFirstNameLine2();
   } failure:failure];
   
   void (^readBirthDate)(void) = [self readRecord:6 success:^(NSData *responseObject) {
-    personalData.birthDate = [responseObject responseStringWCP1252];
+    personalData.birthDate = [responseObject codePage1252String];
     readNationality();
   } failure:failure];
   
   void (^readIdCode)(void) = [self readRecord:7 success:^(NSData *responseObject) {
-    personalData.personalIdentificationCode = [responseObject responseStringWCP1252];
+    personalData.personalIdentificationCode = [responseObject codePage1252String];
     readBirthDate();
   } failure:failure];
   
   void (^readDocumentNr)(void) = [self readRecord:8 success:^(NSData *responseObject) {
-    personalData.documentNumber = [responseObject responseStringWCP1252];
+    personalData.documentNumber = [responseObject codePage1252String];
     readIdCode();
   } failure:failure];
   
   void (^readExpiryDate)(void) = [self readRecord:9 success:^(NSData *responseObject) {
-    personalData.expiryDate = [responseObject responseStringWCP1252];
+    personalData.expiryDate = [responseObject codePage1252String];
     readDocumentNr();
   } failure:failure];
   
@@ -122,37 +122,37 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   [self readMinimalPublicDataWithSuccess:^(MoppLibPersonalData *personalData) {
     
     void (^readSex)(void) = [self readRecord:4 success:^(NSData *responseObject) {
-      personalData.sex = [responseObject responseStringWCP1252];
+      personalData.sex = [responseObject codePage1252String];
       success(personalData);
     } failure:failure];
     
     void (^readDateIssued)(void) = [self readRecord:11 success:^(NSData *responseObject) {
-      personalData.dateIssued = [responseObject responseStringWCP1252];
+      personalData.dateIssued = [responseObject codePage1252String];
       readSex();
     } failure:failure];
     
     void (^readTypeOfPermit)(void) = [self readRecord:12 success:^(NSData *responseObject) {
-      personalData.residentPermitType = [responseObject responseStringWCP1252];
+      personalData.residentPermitType = [responseObject codePage1252String];
       readDateIssued();
     } failure:failure];
     
     void (^readNotes1)(void) = [self readRecord:13 success:^(NSData *responseObject) {
-      personalData.notes1 = [responseObject responseStringWCP1252];
+      personalData.notes1 = [responseObject codePage1252String];
       readTypeOfPermit();
     } failure:failure];
     
     void (^readNotes2)(void) = [self readRecord:14 success:^(NSData *responseObject) {
-      personalData.notes2 = [responseObject responseStringWCP1252];
+      personalData.notes2 = [responseObject codePage1252String];
       readNotes1();
     } failure:failure];
     
     void (^readNotes3)(void) = [self readRecord:15 success:^(NSData *responseObject) {
-      personalData.notes3 = [responseObject responseStringWCP1252];
+      personalData.notes3 = [responseObject codePage1252String];
       readNotes2();
     } failure:failure];
     
     void (^readNotes4)(void) = [self readRecord:16 success:^(NSData *responseObject) {
-      personalData.notes4 = [responseObject responseStringWCP1252];
+      personalData.notes4 = [responseObject codePage1252String];
       readNotes3();
     } failure:failure];
     
@@ -164,7 +164,7 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   void (^readBirthDate)(void) = [self readRecord:6 success:^(NSData *responseObject) {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"dd.MM.yyyy"];
-    NSString *dateString = [responseObject responseStringWCP1252];
+    NSString *dateString = [responseObject codePage1252String];
     success([dateFormatter dateFromString:dateString]);
     
   } failure:failure];
@@ -243,12 +243,12 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
     NSString *commandSuffix;
     
     if (useECC)
-        commandSuffix = [NSString stringWithFormat:@"%02lX %@", hash.length, [hash toHexString]];
+        commandSuffix = [NSString stringWithFormat:@"%02lX %@", hash.length, [hash hexString]];
     else
-        commandSuffix = [NSString stringWithFormat:@"%02lX %@ %@", hash.length + algorithmIdentifyer.length / 2, algorithmIdentifyer, [hash toHexString]];
+        commandSuffix = [NSString stringWithFormat:@"%02lX %@ %@", hash.length + algorithmIdentifyer.length / 2, algorithmIdentifyer, [hash hexString]];
     
     [self.reader transmitCommand:[NSString stringWithFormat:kCommandCalculateSignature, commandSuffix] success:^(NSData *responseObject) {
-      success([responseObject trimmedData]);
+      success([responseObject trailingTwoBytesTrimmed]);
     } failure:failure];
   };
   
@@ -310,7 +310,7 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
 }
 
 - (NSError *)errorForPinActionResponse:(NSData *)response {
-  NSData *trailerData = [response responseTrailerData];
+  NSData *trailerData = [response trailingTwoBytes];
   const unsigned char *trailer = [trailerData bytes];
   
   if (trailerData.length >= 2 && trailer[0] == 0x90 && trailer[1] == 0x00) {
@@ -319,7 +319,7 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
     
   } else if (trailerData.length >= 1 && trailer[0] == 0x63) {
     //  For pin codes this means verification failed due to wrong pin
-    NSString *dataHex = [trailerData toHexString];
+    NSString *dataHex = [trailerData hexString];
     // Last char in trailer holds retry count
     NSString *retryCount = [dataHex substringFromIndex:dataHex.length - 1];
     return [MoppLibError wrongPinErrorWithRetryCount:retryCount.intValue];
@@ -336,15 +336,15 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   return ^void (void) {
     
     [self.reader transmitCommand:[NSString stringWithFormat:kCommandReadRecord, record] success:^(NSData *responseObject) {
-      NSData *trailerData = [responseObject responseTrailerData];
-      const unsigned char *trailer = [[responseObject responseTrailerData] bytes];
+      NSData *trailerData = [responseObject trailingTwoBytes];
+      const unsigned char *trailer = [[responseObject trailingTwoBytes] bytes];
       
       if (trailerData.length >= 2 && trailer[0] == 0x90 && trailer[1] == 0x00) {
         success(responseObject);
         
       } else if (trailerData.length >= 1 && trailer[0] == 0x61) {
         NSData *length = [responseObject subdataWithRange:NSMakeRange(responseObject.length - 1, 1)];
-        [self.reader transmitCommand:[NSString stringWithFormat:kCommandReadBytes, [length toHexString]] success:success failure:failure];
+        [self.reader transmitCommand:[NSString stringWithFormat:kCommandReadBytes, [length hexString]] success:success failure:failure];
       } else {
         failure([MoppLibError generalError]);
       }
@@ -368,7 +368,7 @@ int maxReadLength = 254;
   NSString *command = [NSString stringWithFormat:kCommandReadBinary, locationHex, lengthHex];
   [self.reader transmitCommand:command success:^(NSData *responseObject) {
     NSMutableData *newData = [NSMutableData dataWithData:data];
-    [newData appendData:[responseObject trimmedData]];
+    [newData appendData:[responseObject trailingTwoBytesTrimmed]];
     
     if (location + lengthToRead < fullLength) {
       [self readBinaryWithLength:fullLength startingFrom:location + lengthToRead readData:newData success:success failure:failure];
@@ -389,9 +389,9 @@ int maxReadLength = 254;
       if (markerLocation.location != NSNotFound && markerLocation.location < responseObject.length) {
         
         NSData *bytesData = [responseObject subdataWithRange:NSMakeRange(markerLocation.location + 1, 1)];
-        int bytesLength = [[bytesData toHexString] hexToInt];
+        int bytesLength = [[bytesData hexString] hexToInt];
         NSData *lengthData = [responseObject subdataWithRange:NSMakeRange(markerLocation.location + 2, bytesLength)];
-        int length = [[lengthData toHexString] hexToInt];
+        int length = [[lengthData hexString] hexToInt];
         
         [self readBinaryWithLength:length startingFrom:0 readData:[NSData new] success:^(NSData *data) {
           success(data);

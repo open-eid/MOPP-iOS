@@ -25,5 +25,5 @@
 #import "MoppLibCerificatetData.h"
 
 @interface MoppLibCertificate : NSObject
-+ (void)certData:(MoppLibCerificatetData *)certData updateWithData:(const unsigned char *)data length:(size_t)length;
++ (void)updateCertData:(MoppLibCerificatetData *)certData withBytes:(const unsigned char *)data length:(size_t)length;
 @end

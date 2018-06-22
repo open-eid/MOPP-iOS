@@ -31,9 +31,9 @@
 @interface CardActionsManager : NSObject <CBManagerHelperDelegate>
 + (CardActionsManager *)sharedInstance;
 
-@property (nonatomic, strong) id<CardReaderWrapper> cardReader;
+@property (nonatomic, strong) id<CardReaderWrapper> reader;
 
-- (void)setCardReader:(id<CardReaderWrapper>)cardReader;
+- (void)setReader:(id<CardReaderWrapper>)cardReader;
 
 - (void)minimalCardPersonalDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure;
 
