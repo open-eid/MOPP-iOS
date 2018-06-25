@@ -37,7 +37,7 @@
     
     if ([elementName isEqualToString:@"DataFile"]) {
         if (_dictionary == nil){
-            _dictionary  = [[NSMutableDictionary alloc] init];
+            _dictionary  = [NSMutableDictionary new];
         }
         NSString *attribute = attributeDict[@"Filename"];
         [_dictionary setObject:@"" forKey:attribute];
@@ -51,12 +51,19 @@
     // If parsing ddoc original filenames, sometimes filename may contain new line symbols
     if (string != nil && [string length] != 0 && ![string isEqualToString:@"\n    "] && ![string isEqualToString:@"\n"]){ 
         string = [string stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-        [_dictionary setValue:string forKey:_lastKey];
+        if (_currentElement == nil ) {
+            _currentElement = [NSString new];
+        }
+        _currentElement = [NSString stringWithFormat:@"%@%@", _currentElement, string];
     }
     NSLog(@"foundCharacters --> %@", string);
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
+    if ([_currentElement length] != 0) {
+        [_dictionary setValue:_currentElement forKey:_lastKey];
+        _currentElement = @"";
+    }
     NSLog(@"didEndElement   --> %@", elementName);
 }
 
