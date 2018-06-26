@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qFP-og-5IC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qFP-og-5IC">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -243,8 +243,11 @@
                                                         <action selector="changeCodeAction" destination="4lc-dq-tbf" eventType="touchUpInside" id="Seh-Po-G57"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" text="Unustasid PIN1 koodi?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9vn-PN-mob">
-                                                    <rect key="frame" x="106" y="218" width="163.5" height="19"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" text="Unustasid PIN1 koodi?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9vn-PN-mob">
+                                                    <rect key="frame" x="12" y="218" width="352" height="19"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="352" id="Xkh-K6-uZp"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                     <color key="textColor" name="MoppLabel"/>
                                                     <nil key="highlightedColor"/>
@@ -263,7 +266,7 @@
                                                     </constraints>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRI-cY-Mwr">
-                                                    <rect key="frame" x="106" y="205.5" width="163.5" height="44"/>
+                                                    <rect key="frame" x="12" y="205.5" width="352" height="44"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="pUV-Mw-39o"/>
@@ -294,6 +297,7 @@
                                                 <constraint firstItem="ST5-E7-4MQ" firstAttribute="top" secondItem="7qQ-fi-sih" secondAttribute="bottom" priority="250" constant="8" id="cym-Fg-aF2"/>
                                                 <constraint firstItem="7qQ-fi-sih" firstAttribute="leading" secondItem="TpW-2W-W0x" secondAttribute="leadingMargin" id="iaa-V5-P17"/>
                                                 <constraint firstItem="NJu-2L-EAd" firstAttribute="trailing" secondItem="TpW-2W-W0x" secondAttribute="trailingMargin" id="irx-e2-V7e"/>
+                                                <constraint firstAttribute="trailing" secondItem="bRI-cY-Mwr" secondAttribute="trailing" constant="11" id="kQy-gy-41f"/>
                                                 <constraint firstItem="7qQ-fi-sih" firstAttribute="trailing" secondItem="TpW-2W-W0x" secondAttribute="trailingMargin" id="lN7-oh-cvY"/>
                                                 <constraint firstItem="NJu-2L-EAd" firstAttribute="leading" secondItem="TpW-2W-W0x" secondAttribute="leadingMargin" id="lid-df-Dra"/>
                                                 <constraint firstItem="9vn-PN-mob" firstAttribute="top" secondItem="ST5-E7-4MQ" secondAttribute="bottom" constant="16" id="n8P-1N-NBL"/>
