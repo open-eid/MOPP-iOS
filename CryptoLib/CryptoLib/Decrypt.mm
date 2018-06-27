@@ -60,7 +60,8 @@
         NSMutableDictionary *fileDictionary;
         fileDictionary = parserDelegate.dictionary;
         for (id key in fileDictionary){
-            NSData *nsdataFromBase64String = [[NSData alloc] initWithBase64EncodedString:[fileDictionary objectForKey:key] options:0];
+            NSString *value = [fileDictionary objectForKey:key];
+            NSData *nsdataFromBase64String = [[NSData alloc] initWithBase64EncodedString: value options:NSDataBase64DecodingIgnoreUnknownCharacters];
             [response setObject:nsdataFromBase64String forKey:key];
             
         }

@@ -27,4 +27,5 @@
 }
 @property (nonatomic, retain) NSMutableDictionary *dictionary;
 @property (nonatomic, retain) NSString *lastKey;
+@property (nonatomic, retain) NSString *currentElement;
 @end
