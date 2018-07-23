@@ -128,7 +128,7 @@ static CardActionsManager *sharedInstance = nil;
     MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
     
     [self signingCertDataWithPin2:pin2 success:^(NSData *data) {
-        [MoppLibCertificate updateCertData:certData withBytes:[data bytes] length:data.length];
+        [MoppLibCertificate certData:certData updateWithDerEncodingData:[data bytes] length:[data length]];
         success(certData);
     } failure:failure];
 }
@@ -466,7 +466,7 @@ static CardActionsManager *sharedInstance = nil;
             NSString *pin1 = [actionObject.data objectForKey:kCardActionDataVerify];
             NSData *hash = [actionObject.data objectForKey:kCardActionDataHash];
             BOOL useECC = [(NSNumber *)[actionObject.data objectForKey:kCardActionDataUseECC] boolValue];
-            [self.cardVersionHandler decryptData:hash withPin1:pin1 useECC:useECC success:success failure:failure];
+            [self.cardCommandHandler decryptData:hash withPin1:pin1 useECC:useECC success:success failure:failure];
             break;
         }
             
