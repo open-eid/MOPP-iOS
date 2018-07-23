@@ -253,8 +253,8 @@
 
     [self respondWithError:error];
   } else {
-    
-    MLLog(@"Respnded with apdu %@", [apdu toHexString]);
+    NSString *hexApdu = [apdu hexString];
+    MLLog(@"Responded with APDU [%lu more bytes] %@", [apdu length] - 2, [hexApdu length] >= 5 ? [hexApdu substringFromIndex:[hexApdu length] - 5] : hexApdu);
     [self respondWithSuccess:apdu];
   }
 }

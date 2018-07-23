@@ -26,7 +26,7 @@
 
 @implementation NSData (Additions)
 
-- (NSString *)toHexString {
+- (NSString *)hexString {
   return [self hexStringFromByteArray:[self bytes] length:[self length]];
 
 }
@@ -47,24 +47,23 @@
   return hexString;
 }
 
-- (NSData *)responseTrailerData {
-  if (self.length >= 2) {
+- (NSData *)trailingTwoBytes {
+  if (self.length >= 2)
     return [self subdataWithRange:NSMakeRange(self.length - 2, 2)];
-
-  }
-  return [NSData new];
+  
+  return nil;
 }
 
-- (NSData *)trimmedData {
-  if (self.length > 2) {
-    return  [self subdataWithRange:NSMakeRange(0, self.length - 2)];
-  }
-  return [NSData new];
+- (NSData *)trailingTwoBytesTrimmed {
+  if (self.length < 2)
+    return nil;
+    
+  return  [self subdataWithRange:NSMakeRange(0, self.length - 2)];
 }
 
-- (NSString *)responseStringWCP1252 {
+- (NSString *)codePage1252String {
   //Removing trailer
-  NSData *responseData = [self trimmedData];
+  NSData *responseData = [self trailingTwoBytesTrimmed];
   NSString *string = [[NSString alloc] initWithData:responseData encoding:NSWindowsCP1252StringEncoding];
   return [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }

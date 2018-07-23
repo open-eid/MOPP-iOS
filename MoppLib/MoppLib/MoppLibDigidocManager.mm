@@ -433,16 +433,16 @@ void parseException(const digidoc::Exception &e) {
 }
 
 - (void)addSignature:(NSString *)containerPath pin2:(NSString *)pin2 cert:(NSData *)cert success:(ContainerBlock)success andFailure:(FailureBlock)failure {
-  digidoc::Container *doc;
+  digidoc::Container *container;
   
   try {
-    const unsigned char *bytes = (const unsigned  char *)[cert bytes];
-    digidoc::X509Cert x509Cert = digidoc::X509Cert(bytes, cert.length, digidoc::X509Cert::Format::Der);
+    const unsigned char *certBytes = (const unsigned  char *)[cert bytes];
+    digidoc::X509Cert x509Cert = digidoc::X509Cert(certBytes, cert.length, digidoc::X509Cert::Format::Der);
     
-    doc = digidoc::Container::open(containerPath.UTF8String);
+    container = digidoc::Container::open(containerPath.UTF8String);
     
     // Check if key type in certificate supports ECC algorithm
-    CFDataRef cfData = CFDataCreateWithBytesNoCopy(nil, (const UInt8 *)bytes, cert.length, kCFAllocatorNull);
+    CFDataRef cfData = CFDataCreateWithBytesNoCopy(nil, (const UInt8 *)certBytes, cert.length, kCFAllocatorNull);
     SecCertificateRef certRef = SecCertificateCreateWithData(kCFAllocatorDefault, cfData);
     SecKeyRef publicKey = SecCertificateCopyPublicKey(certRef);
     CFStringRef descrRef = CFCopyDescription(publicKey);
@@ -452,7 +452,7 @@ void parseException(const digidoc::Exception &e) {
     WebSigner *signer = new WebSigner(x509Cert);
     
     NSMutableArray *profiles = [NSMutableArray new];
-    for (auto signature : doc->signatures()) {
+    for (auto signature : container->signatures()) {
         [profiles addObject:[[NSString alloc] initWithBytes:signature->profile().c_str() length:signature->profile().size() encoding:NSUTF8StringEncoding]];
     }
     SigningProfileType profileType = [MoppLibDigidocManager signingProfileTypeUsingProfiles:profiles andContainerExtension:[containerPath pathExtension]];
@@ -463,7 +463,7 @@ void parseException(const digidoc::Exception &e) {
     signer->setSignatureProductionPlace("", "", "", "");
     signer->setSignerRoles(std::vector<std::string>());
     
-    digidoc::Signature *signature = doc->prepareSignature(signer);
+    digidoc::Signature *signature = container->prepareSignature(signer);
     std::vector<unsigned char> dataToSign = signature->dataToSign();
     
     [[CardActionsManager sharedInstance] calculateSignatureFor:[NSData dataWithBytes:dataToSign.data() length:dataToSign.size()] pin2:pin2 useECC: useECC success:^(NSData *calculatedSignature) {
@@ -475,24 +475,24 @@ void parseException(const digidoc::Exception &e) {
         signature->setSignatureValue(vec);
         signature->extendSignatureProfile(profile);
         signature->validate();
-        doc->save();
+        container->save();
         NSError *error;
         MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error];
         success(moppLibContainer);
-        delete doc;
+        delete container;
       } catch(const digidoc::Exception &e) {
         parseException(e);
-        delete doc;
+        delete container;
         failure([MoppLibError generalError]); // TODO try to find more specific error codes
       }
     } failure:^(NSError *error) {
-      delete doc;
+      delete container;
       failure(error);
     }];
     
     
   } catch(const digidoc::Exception &e) {
-    delete doc;
+    delete container;
     parseException(e);
     failure([MoppLibError generalError]);  // TODO try to find more specific error codes
   }
