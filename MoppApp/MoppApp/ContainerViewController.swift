@@ -326,9 +326,10 @@ extension ContainerViewController : UITableViewDataSource {
         case .addressees:
             let cell = tableView.dequeueReusableCell(withType: ContainerAddresseeCell.self, for: indexPath)!
             cell.delegate = self
+            let isStatePreviewOrOpened = state == .opened || state == .preview
             cell.populate(addressee: cryptoContainerViewDelegate.getAddressee(index: indexPath.row) as! Addressee,
                           index: row,
-                          showRemoveButton: !(!isAsicContainer && state == .opened))
+                          showRemoveButton: !(!isAsicContainer && isStatePreviewOrOpened))
             return cell
         case .importAddressees:
             let cell = tableView.dequeueReusableCell(withType: ContainerImportAddresseesCell.self, for: indexPath)!
