@@ -327,9 +327,10 @@ extension ContainerViewController : UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withType: ContainerAddresseeCell.self, for: indexPath)!
             cell.delegate = self
             let isStatePreviewOrOpened = state == .opened || state == .preview
+            let isRemoveButtonHidden = !isAsicContainer && isStatePreviewOrOpened
             cell.populate(addressee: cryptoContainerViewDelegate.getAddressee(index: indexPath.row) as! Addressee,
                           index: row,
-                          showRemoveButton: !(!isAsicContainer && isStatePreviewOrOpened))
+                          showRemoveButton: !isRemoveButtonHidden)
             return cell
         case .importAddressees:
             let cell = tableView.dequeueReusableCell(withType: ContainerImportAddresseesCell.self, for: indexPath)!
@@ -360,8 +361,12 @@ extension ContainerViewController : UITableViewDelegate {
         case .timestamp:
             break;
         case .dataFiles:
-            let isEncryptedDataFiles = ((!isAsicContainer && state == .opened) && isDecrypted == false)
-            if  !(isEncryptedDataFiles || state == .preview) {
+            let isStatePreviewOrOpened = state == .opened || state == .preview
+            let isEncryptedDataFiles =
+                !isAsicContainer &&
+                isStatePreviewOrOpened &&
+                isDecrypted == false
+            if  !isEncryptedDataFiles {
                 guard let originDataFile = containerViewDelegate.getDataFileOriginFilename(index: indexPath.row) else { return }
                 if isDecrypted {
                     openFilePreview(dataFileFilename: originDataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: true)

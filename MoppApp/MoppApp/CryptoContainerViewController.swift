@@ -149,7 +149,7 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
                     self.state = .opened
                     
                     self.container = container
-                    self.isDecrypted = true
+                    self.isDecrypted = false
                     self.reloadCryptoData()
             },
                 failure: { _ in
