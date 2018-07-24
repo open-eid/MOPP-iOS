@@ -167,7 +167,7 @@ extension RecentContainersViewController : UITableViewDelegate {
                     navController.viewControllers.last!.present(alert, animated: true)
                 }
                 
-                if ext.isAsicContainerExtension {
+                if ext.isAsicContainerExtension || ext.isPdfContainerExtension {
                     LandingViewController.shared.containerType = .asic
                     containerViewController = SigningContainerViewController.instantiate()
                     containerViewController.containerPath = containerPath
