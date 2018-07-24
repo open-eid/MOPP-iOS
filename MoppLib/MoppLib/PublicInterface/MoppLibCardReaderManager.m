@@ -68,7 +68,7 @@
     [self stopDiscoveringFeitianReader];
     [self stopDiscoveringBluetoothPeripherals];
     
-    [[CardActionsManager sharedInstance] setCardReader:nil];
+    [[CardActionsManager sharedInstance] setReader:nil];
     [[CardActionsManager sharedInstance] resetCardActions];
     _status = ReaderNotConnected;
 }
@@ -96,8 +96,8 @@
         SCardReleaseContext(_contextHandle);
         
         _feitianReader = nil;
-        if ([[[CardActionsManager sharedInstance] cardReader] isKindOfClass:[CardReaderiR301 class]]) {
-            [[CardActionsManager sharedInstance] setCardReader:nil];
+        if ([[[CardActionsManager sharedInstance] reader] isKindOfClass:[CardReaderiR301 class]]) {
+            [[CardActionsManager sharedInstance] setReader:nil];
         }
     });
 }
@@ -125,12 +125,14 @@
         // There is a card in the reader in position for use. The card is not powered.
         case SCARD_SWALLOWED:
             {
-                id<CardReaderWrapper> cardReader = [[CardActionsManager sharedInstance] cardReader];
+                id<CardReaderWrapper> cardReader = [[CardActionsManager sharedInstance] reader];
                 if (cardReader == nil || ![cardReader isKindOfClass:[CardReaderiR301 class]]) {
-                    cardReader = [[CardReaderiR301 alloc] initWithInterface:_readerInterface andContentHandle:_contextHandle];
+                    cardReader = [[CardReaderiR301 alloc] initWithInterface:_readerInterface andContextHandle:_contextHandle];
               
-                    [[CardActionsManager sharedInstance] setCardReader:cardReader];
-                    [self connectCard];
+                    [[CardActionsManager sharedInstance] setReader:cardReader];
+                    [self updateStatus:CardConnected];
+                    
+                    [self stopPollingCardStatus];
                 }
             }
             break;
@@ -147,28 +149,6 @@
         case SCARD_SPECIFIC:
             break;
     }
-}
-
-- (BOOL)connectCard {
-    LONG iRet = 0;
-    DWORD dwActiveProtocol = -1;
-    char mszReaders[128] = "";
-    DWORD dwReaders = -1;
-  
-    iRet = SCardListReaders(_contextHandle, NULL, mszReaders, &dwReaders);
-    if(iRet != SCARD_S_SUCCESS) {
-        NSLog(@"SCardListReaders error %08x",iRet);
-        return NO;
-    }
-
-    iRet = SCardConnect(_contextHandle,mszReaders,SCARD_SHARE_SHARED,SCARD_PROTOCOL_T0 | SCARD_PROTOCOL_T1,&_contextHandle,&dwActiveProtocol);
-    if (iRet != SCARD_S_SUCCESS) {
-        return NO;
-    }
-    
-    [self updateStatus:CardConnected];
-    
-    return YES;
 }
 
 - (void)disconnectCard {
@@ -242,8 +222,8 @@
         [_coreBluetoothManager stopScan];
         _coreBluetoothManager = nil;
         
-        if ([[[CardActionsManager sharedInstance] cardReader] isKindOfClass:[CardReaderACR3901U_S1 class]]) {
-            [[CardActionsManager sharedInstance] setCardReader:nil];
+        if ([[[CardActionsManager sharedInstance] reader] isKindOfClass:[CardReaderACR3901U_S1 class]]) {
+            [[CardActionsManager sharedInstance] setReader:nil];
         }
     });
 }
@@ -269,7 +249,7 @@
     
     CardReaderACR3901U_S1 *reader = [[CardReaderACR3901U_S1 alloc] init];
     [reader setCr3901U_S1Delegate:self];
-    [[CardActionsManager sharedInstance] setCardReader:reader];
+    [[CardActionsManager sharedInstance] setReader:reader];
     
     [reader setupWithPeripheral:_currentPeripheral success:^(NSData *responseData) {
         MLLog(@"Successfully set up ACR3901U-S1 interface");
@@ -315,7 +295,7 @@
     if (peripheral.name != nil && [peripheral.name hasPrefix:@"ACR3901U-S1"]) {
         MLLog(@"Disconnected ACR3901U-S1");
         [self cardReaderACR3901U_S1StatusDidChange:ReaderNotConnected];
-        [[CardActionsManager sharedInstance] setCardReader:nil];
+        [[CardActionsManager sharedInstance] setReader:nil];
         _status = ReaderNotConnected;
         _currentPeripheral = nil;
     }

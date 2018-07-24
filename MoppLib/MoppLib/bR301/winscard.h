@@ -1,18 +1,4 @@
-/*
- * MUSCLE SmartCard Development ( http://www.linuxnet.com )
- *
- * Copyright (C) 1999-2003
- *  David Corcoran <corcoran@linuxnet.com>
- * Copyright (C) 2002-2009
- *  Ludovic Rousseau <ludovic.rousseau@free.fr>
- *
- * $Id: winscard.h 5341 2010-10-22 11:36:06Z rousseau $
- */
 
-/**
- * @file
- * @brief This handles smartcard reader communications.
- */
 
 #ifndef __winscard_h__
 #define __winscard_h__

@@ -24,8 +24,8 @@
 #import <Foundation/Foundation.h>
 
 @interface NSData (Additions)
-- (NSString *)toHexString;
-- (NSData *)responseTrailerData;
-- (NSString *)responseStringWCP1252;
-- (NSData *)trimmedData;
+- (NSString *)hexString;
+- (NSData *)trailingTwoBytes;
+- (NSString *)codePage1252String;
+- (NSData *)trailingTwoBytesTrimmed;
 @end
