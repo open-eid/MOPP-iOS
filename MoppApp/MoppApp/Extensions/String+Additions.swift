@@ -74,9 +74,12 @@ extension String {
             ext == ContainerFormatAsicsShort
     }
     
+    var isPdfContainerExtension: Bool {
+        return self.lowercased() == ContainerFormatPDF
+    }
+    
     var isCdocContainerExtension: Bool {
-        let ext = self.lowercased()
-        return ext == ContainerFormatCdoc
+        return self.lowercased() == ContainerFormatCdoc
     }
     
     var isNumeric: Bool {

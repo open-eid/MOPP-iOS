@@ -51,6 +51,7 @@ extension PreviewActions where Self: ContainerViewController {
             containerViewController.isAsicContainer = false
             containerViewController.containerPath = destinationPath
             containerViewController.isForPreview = true
+            containerViewController.isDecrypted = false
             self?.navigationController?.pushViewController(containerViewController, animated: true)
         }
         
