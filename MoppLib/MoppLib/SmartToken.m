@@ -44,38 +44,55 @@
     } failure:^(NSError *error) {
         [NSException raise:@"Decryption failed" format:@""];
     }];
-    
+    while(!response) {
+        [NSThread sleepForTimeInterval:0.05];
+    }
     return response;
 }
 - (NSData*)decrypt:(NSData*)data pin1:(NSString *)pin1 {
     __block NSData *response = nil;
+        __block NSString *errorMessage = nil;
     [[CardActionsManager sharedInstance] decryptData:data pin1:pin1 useECC:NO success:^(NSData *certDataBlock){
-            response = certDataBlock;
+        response = certDataBlock;
     } failure:^(NSError *error) {
+        errorMessage = [NSString stringWithFormat:@"%@", @"Decryption failed"];
         NSDictionary *userInfo = [error userInfo];
         for (NSString* key in userInfo) {
             if ([key isEqualToString:@"kMoppLibRetryCount"]) {
-                [NSException raise:@"wrong_pin" format:@"%@", userInfo[key]];
+                errorMessage = [NSString stringWithFormat:@"%@ %@", @"wrong_pin", userInfo[key]];
             }
         }
-        [NSException raise:@"Decryption failed" format:@""];
     }];
+    while(!response) {
+        if(errorMessage){
+            [NSException raise: errorMessage format:@""];
+        }
+        [NSThread sleepForTimeInterval:0.1];
+    }
     return response;
 }
 
 - (NSData*)derive:(NSData*)data pin1:(NSString *)pin1 {
     __block NSData *response = nil;
+    __block NSString *errorMessage = nil;
     [[CardActionsManager sharedInstance] decryptData:data pin1:pin1 useECC:YES success:^(NSData *certDataBlock){
         response = certDataBlock;
     } failure:^(NSError *error) {
+        errorMessage = [NSString stringWithFormat:@"%@", @"Decryption failed"];
         NSDictionary *userInfo = [error userInfo];
         for (NSString* key in userInfo) {
             if ([key isEqualToString:@"kMoppLibRetryCount"]) {
-                [NSException raise:@"wrong_pin" format:@"%@", userInfo[key]];
+                errorMessage = [NSString stringWithFormat:@"%@ %@", @"wrong_pin", userInfo[key]];
             }
         }
-        [NSException raise:@"Decryption failed" format:@""];
     }];
+    
+    while(!response) {
+        if(errorMessage){
+            [NSException raise: errorMessage format:@""];
+        }
+        [NSThread sleepForTimeInterval:0.1];
+    }
     return response;
 }
 

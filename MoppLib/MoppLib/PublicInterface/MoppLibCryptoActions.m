@@ -105,8 +105,10 @@
             response = [decrypter decryptFile:fullPath withPin:pin1 withToken:smartToken];
         }
         @catch (NSException *exception) {
-            if([[exception name] isEqualToString:@"wrong_pin"]) {
-                error = [MoppLibError wrongPinErrorWithRetryCount:[[exception reason] intValue]];
+            if([[exception name] hasPrefix:@"wrong_pin"]) {
+                // Last character of wrong_pin shows retry count
+                NSString *retryCount = [[exception name] substringFromIndex: [[exception name] length] - 1];
+                error = [MoppLibError wrongPinErrorWithRetryCount:[retryCount intValue]];
             } else {
                 error = [MoppLibError generalError];
             }
