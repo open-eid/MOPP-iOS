@@ -146,7 +146,7 @@
 "card-reader-state-id-card-not-found" = "Reader found.\nInsert your ID-card into the reader.";
 "card-reader-state-id-card-connected" = "ID-card found.\nRequesting information.";
 "card-reader-state-ready-for-pin2" = "Ready to sign with ID-card.\n%@ (%@)\nPlease enter PIN2";
-"card-reader-state-ready-for-pin1" = "Ready to sign with ID-card.\n%@ (%@)\nPlease enter PIN1";
+"card-reader-state-ready-for-pin1" = "Ready to decrypt with ID-card.\n%@ (%@)\nPlease enter PIN1";
 "signing-in-progress" = "Signing in progress.\nPlease wait.";
 "decryption-in-progress" = "Decryption in progress.\nPlease wait.";
 "wrong-pin2" = "Wrong PIN2. You have %d attempts left.\nBy typing wrong PIN2 %d more times, your PIN2 will be locked";
