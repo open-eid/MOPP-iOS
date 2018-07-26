@@ -249,7 +249,7 @@ class IdCardViewController : MoppViewController {
             loadingSpinner.show(false)
             pinTextFieldTitleLabel.textColor = UIColor.moppError
             if isActionDecryption {
-                pinTextFieldTitleLabel.text = pinAttemptsLeft > 1 ? L(.wrongPin1, [pinAttemptsLeft, pinAttemptsLeft]) : L(.wrongPin1Single)
+                pinTextFieldTitleLabel.text = pinAttemptsLeft > 1 ? L(.wrongPin1, [pinAttemptsLeft]) : L(.wrongPin1Single)
             } else {
                 pinTextFieldTitleLabel.text = pinAttemptsLeft > 1 ? L(.wrongPin2, [pinAttemptsLeft, pinAttemptsLeft]) : L(.wrongPin2Single)
             }
@@ -294,16 +294,11 @@ class IdCardViewController : MoppViewController {
             MoppLibCryptoActions.sharedInstance().decryptData(containerPath, withPin1: pin,
                 success: {(_ decryptedData: NSMutableDictionary?) -> Void in
                     guard let strongDecryptedData = decryptedData else { return }
-                    if strongDecryptedData.count == 0 {
-                        self.decryptDelegate?.idCardDecryptDidFinished(cancelled: false, success: false, dataFiles: NSMutableDictionary(), error: nil)
-                    } else {
-                        self.decryptDelegate?.idCardDecryptDidFinished(cancelled: false, success: true,  dataFiles: strongDecryptedData, error: nil)
-                    }
-                    
+                    self.decryptDelegate?.idCardDecryptDidFinished(cancelled: false, success: true,  dataFiles: strongDecryptedData, error: nil)
             },
                 failure: { [weak self] error in
                     guard let nsError = error as NSError? else { return }
-                    if nsError.code == Int(MoppLibErrorCode.moppLibErrorWrongPin.rawValue) { // Wrong PIN2 error
+                    if nsError.code == Int(MoppLibErrorCode.moppLibErrorWrongPin.rawValue) { // Wrong PIN1 error
                         DispatchQueue.main.async {
                             self?.pinAttemptsLeft = (nsError.userInfo[kMoppLibUserInfoRetryCount] as? NSNumber)?.uintValue ?? 0
                             self?.state = .wrongPin

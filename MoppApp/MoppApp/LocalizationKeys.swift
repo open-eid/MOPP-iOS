@@ -119,6 +119,7 @@ enum LocKey : String
     case pin2TextfieldLabel = "pin2-textfield-label"
     case pin1TextfieldLabel = "pin1-textfield-label"
     case pin2BlockedAlert = "pin2-blocked-alert"
+    case pin1BlockedAlert = "pin1-blocked-alert"
     case genericErrorMessage = "generic-error-message"
     case decryptionErrorMessage = "decryption-error-message"
     case signingAbortedMessage = "signing-aborted-message"

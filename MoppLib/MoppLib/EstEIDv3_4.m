@@ -327,8 +327,12 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   } else if (trailerData.length >= 2 && trailer[0] == 0x6A && trailer[1] == 0x80) {
     // New pin is invalid
     return [MoppLibError pinMatchesOldCodeError];
+      
+  } else if (trailerData.length >= 2 && trailer[0] == 0x69 && trailer[1] == 0x83) {
+    // Authentication method blocked
+    return [MoppLibError pinBlockedError];
   }
-  
+    
   return [MoppLibError generalError];
 }
 

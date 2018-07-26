@@ -150,12 +150,13 @@
 "signing-in-progress" = "Signing in progress.\nPlease wait.";
 "decryption-in-progress" = "Decryption in progress.\nPlease wait.";
 "wrong-pin2" = "Wrong PIN2. You have %d attempts left.\nBy typing wrong PIN2 %d more times, your PIN2 will be locked";
-"wrong-pin1" = "Wrong PIN1. You have %d attempts left.\nBy typing wrong PIN1 %d more times, your PIN1 will be locked";
+"wrong-pin1" = "Wrong PIN1. You have %1$d attempts left.";
 "wrong-pin2-single" = "Wrong PIN2. You have 1 attempt left.\nBy typing wrong PIN2 again, your PIN2 will be locked";
-"wrong-pin1-single" = "Wrong PIN1. You have 1 attempt left.\nBy typing wrong PIN1 again, your PIN1 will be locked";
+"wrong-pin1-single" = "Wrong PIN1. You have 1 attempt left until your PIN1 is blocked.";
 "pin2-textfield-label" = "PIN2";
 "pin1-textfield-label" = "PIN1";
 "pin2-blocked-alert" = "PIN2 blocked.\nGo to My eID to unblock your PIN2.";
+"pin1-blocked-alert" = "PIN1 blocked. Go to My eID to unblock it.";
 "generic-error-message" = "Something went wrong. Please try again";
 "decryption-error-message" = "Something went wrong with decryption. Please try again";
 "signing-aborted-message" = "Error: signing process aborted";

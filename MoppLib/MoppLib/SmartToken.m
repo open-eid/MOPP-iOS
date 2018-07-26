@@ -23,6 +23,13 @@
 #import <Foundation/Foundation.h>
 #import "SmartToken.h"
 #import "CardActionsManager.h"
+#import "MoppLibError.h"
+
+@interface SmartToken()
+
+- (NSString*)handleErrorMessage:(NSError*)error;
+
+@end
 
 @implementation SmartToken
 
@@ -51,18 +58,13 @@
 }
 - (NSData*)decrypt:(NSData*)data pin1:(NSString *)pin1 {
     __block NSData *response = nil;
-        __block NSString *errorMessage = nil;
+    __block NSString *errorMessage = nil;
     [[CardActionsManager sharedInstance] decryptData:data pin1:pin1 useECC:NO success:^(NSData *certDataBlock){
         response = certDataBlock;
     } failure:^(NSError *error) {
-        errorMessage = [NSString stringWithFormat:@"%@", @"Decryption failed"];
-        NSDictionary *userInfo = [error userInfo];
-        for (NSString* key in userInfo) {
-            if ([key isEqualToString:@"kMoppLibRetryCount"]) {
-                errorMessage = [NSString stringWithFormat:@"%@ %@", @"wrong_pin", userInfo[key]];
-            }
-        }
+        errorMessage = [self handleErrorMessage:error];
     }];
+    
     while(!response) {
         if(errorMessage){
             [NSException raise: errorMessage format:@""];
@@ -78,13 +80,7 @@
     [[CardActionsManager sharedInstance] decryptData:data pin1:pin1 useECC:YES success:^(NSData *certDataBlock){
         response = certDataBlock;
     } failure:^(NSError *error) {
-        errorMessage = [NSString stringWithFormat:@"%@", @"Decryption failed"];
-        NSDictionary *userInfo = [error userInfo];
-        for (NSString* key in userInfo) {
-            if ([key isEqualToString:@"kMoppLibRetryCount"]) {
-                errorMessage = [NSString stringWithFormat:@"%@ %@", @"wrong_pin", userInfo[key]];
-            }
-        }
+        errorMessage = [self handleErrorMessage:error];
     }];
     
     while(!response) {
@@ -96,4 +92,18 @@
     return response;
 }
 
+- (NSString*)handleErrorMessage:(NSError*)error {
+    if (error.code == moppLibErrorPinBlocked) {
+        return [NSString stringWithFormat:@"%@", @"pin_blocked"];
+    } else if (error.code == moppLibErrorWrongPin) {
+        NSDictionary *userInfo = [error userInfo];
+        for (NSString* key in userInfo) {
+            if ([key isEqualToString:@"kMoppLibRetryCount"]) {
+                return [NSString stringWithFormat:@"%@ %@", @"wrong_pin", userInfo[key]];
+            }
+        }
+    }
+    return [NSString stringWithFormat:@"%@", @"Decryption failed"];
+    
+}
 @end
