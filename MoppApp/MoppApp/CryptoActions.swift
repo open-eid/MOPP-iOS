@@ -88,12 +88,17 @@ extension CryptoContainerViewController : IdCardDecryptViewControllerDelegate {
                 self.notifications.append((true, L(.containerDetailsDecryptionSuccess)))
                 self.reloadCryptoData()
             } else {
-                 self.dismiss(animated: false)
-                 errorAlert(message: L(.decryptionErrorMessage))
+                self.dismiss(animated: false)
+                guard let nsError = error as NSError? else { return }
+                if nsError.code == Int(MoppLibErrorCode.moppLibErrorPinBlocked.rawValue) {
+                    errorAlert(message: L(.pin1BlockedAlert))
+                } else {
+                    errorAlert(message: L(.decryptionErrorMessage))
+                }
             }
         }
     }
     
     
-
+    
 }

@@ -36,7 +36,9 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
     var crashReportCompletion: ((_ submit: Bool) -> Void)? = nil
     var downloadCompletion: (() -> Void)? = nil
     var window: UIWindow?
-
+    var currentElement:String = ""
+    var documentFormat:String = ""
+    
     var rootViewController: UIViewController? {
         return window?.rootViewController
     }
@@ -167,13 +169,32 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
                 tempUrl = url
                 return true
             }
-            if url.pathExtension.isCdocContainerExtension {
+            
+            var newUrl = url
+            var isXmlExtensionFileCdoc = false
+            if newUrl.pathExtension.isXmlFileExtension {
+                //Google Drive will change file extension and puts it to Inbox folder
+                if newUrl.absoluteString.range(of: "/Inbox/") != nil {
+                    newUrl = URL (string: newUrl.absoluteString.replacingOccurrences(of: "/Inbox", with: ""))!
+                    isXmlExtensionFileCdoc = self.isXmlExtensionFileCdoc(with: newUrl)
+                    if isXmlExtensionFileCdoc {
+                        newUrl.deletePathExtension()
+                        newUrl.appendPathExtension("cdoc")
+                    }
+                    let isFileMoved = MoppFileManager.shared.moveFile(withPath: url.path, toPath: newUrl.path, overwrite: true)
+                    if !isFileMoved {
+                        newUrl = url
+                    }
+                }
+            }
+            
+            if newUrl.pathExtension.isCdocContainerExtension {
                 landingViewController?.containerType = .cdoc
             } else {
                 landingViewController?.containerType = .asic
             }
             landingViewController?.fileImportIntent = .openOrCreate
-            landingViewController?.importFiles(with: [url])
+            landingViewController?.importFiles(with: [newUrl])
         }
         return true
     }
@@ -232,6 +253,17 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         landingViewController = UIStoryboard.landing.instantiateInitialViewController(of: LandingViewController.self)
         window?.rootViewController = landingViewController
         window?.makeKeyAndVisible()
+    }
+    
+    func isXmlExtensionFileCdoc(with url: URL) -> Bool {
+        let parser = XMLParser(contentsOf: url)
+        parser?.delegate = self;
+        parser?.parse()
+        if documentFormat.hasPrefix("ENCDOC-XML|1.") {
+            documentFormat = ""
+            return true
+        }
+        return false
     }
 }
 

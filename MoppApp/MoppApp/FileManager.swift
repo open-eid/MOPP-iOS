@@ -169,8 +169,8 @@ class MoppFileManager {
     func fileExists(_ sourcePath: String) -> Bool {
         return fileManager.fileExists(atPath: sourcePath)
     }
-
-    func moveFile(withPath sourcePath: String, toPath destinationPath: String, overwrite: Bool, outError:inout Error) throws {
+    
+    func moveFile(withPath sourcePath: String, toPath destinationPath: String, overwrite: Bool) -> Bool {
         if overwrite && fileExists(destinationPath) {
             removeFile(withPath: destinationPath)
         }
@@ -178,8 +178,9 @@ class MoppFileManager {
             try fileManager.moveItem(atPath: sourcePath, toPath: destinationPath)
         } catch {
             MSLog("moveFileWithPath error: %@", error)
-            outError = error
+            return false
         }
+        return true
     }
 
     func copyFile(withPath sourcePath: String, toPath destinationPath: String) -> String {

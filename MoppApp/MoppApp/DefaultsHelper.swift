@@ -31,6 +31,7 @@ let ContainerFormatAscis = "asics"
 let ContainerFormatAsicsShort = "scs"
 let ContainerFormatPDF  = "pdf"
 let ContainerFormatCdoc = "cdoc"
+let FileFormatXml = "xml"
 
 let DefaultContainerFormat = ContainerFormatBdoc
 

@@ -23,6 +23,13 @@
 #import <Foundation/Foundation.h>
 #import "SmartToken.h"
 #import "CardActionsManager.h"
+#import "MoppLibError.h"
+
+@interface SmartToken()
+
+- (NSString*)handleErrorMessage:(NSError*)error;
+
+@end
 
 @implementation SmartToken
 
@@ -44,39 +51,60 @@
     } failure:^(NSError *error) {
         [NSException raise:@"Decryption failed" format:@""];
     }];
-    
+    // Need to wait CardActionsManager response with ACS readers.
+    while(!response) {
+        [NSThread sleepForTimeInterval:0.05];
+    }
     return response;
 }
 - (NSData*)decrypt:(NSData*)data pin1:(NSString *)pin1 {
     __block NSData *response = nil;
+    __block NSString *errorMessage = nil;
     [[CardActionsManager sharedInstance] decryptData:data pin1:pin1 useECC:NO success:^(NSData *certDataBlock){
-            response = certDataBlock;
+        response = certDataBlock;
     } failure:^(NSError *error) {
-        NSDictionary *userInfo = [error userInfo];
-        for (NSString* key in userInfo) {
-            if ([key isEqualToString:@"kMoppLibRetryCount"]) {
-                [NSException raise:@"wrong_pin" format:@"%@", userInfo[key]];
-            }
-        }
-        [NSException raise:@"Decryption failed" format:@""];
+        errorMessage = [self handleErrorMessage:error];
     }];
+    // Need to wait CardActionsManager response with ACS readers.
+    while(!response) {
+        if(errorMessage){
+            [NSException raise: errorMessage format:@""];
+        }
+        [NSThread sleepForTimeInterval:0.1];
+    }
     return response;
 }
 
 - (NSData*)derive:(NSData*)data pin1:(NSString *)pin1 {
     __block NSData *response = nil;
+    __block NSString *errorMessage = nil;
     [[CardActionsManager sharedInstance] decryptData:data pin1:pin1 useECC:YES success:^(NSData *certDataBlock){
         response = certDataBlock;
     } failure:^(NSError *error) {
-        NSDictionary *userInfo = [error userInfo];
-        for (NSString* key in userInfo) {
-            if ([key isEqualToString:@"kMoppLibRetryCount"]) {
-                [NSException raise:@"wrong_pin" format:@"%@", userInfo[key]];
-            }
-        }
-        [NSException raise:@"Decryption failed" format:@""];
+        errorMessage = [self handleErrorMessage:error];
     }];
+    // Need to wait CardActionsManager response with ACS readers.
+    while(!response) {
+        if(errorMessage){
+            [NSException raise: errorMessage format:@""];
+        }
+        [NSThread sleepForTimeInterval:0.1];
+    }
     return response;
 }
 
+- (NSString*)handleErrorMessage:(NSError*)error {
+    if (error.code == moppLibErrorPinBlocked) {
+        return [NSString stringWithFormat:@"%@", @"pin_blocked"];
+    } else if (error.code == moppLibErrorWrongPin) {
+        NSDictionary *userInfo = [error userInfo];
+        for (NSString* key in userInfo) {
+            if ([key isEqualToString:@"kMoppLibRetryCount"]) {
+                return [NSString stringWithFormat:@"%@ %@", @"wrong_pin", userInfo[key]];
+            }
+        }
+    }
+    return [NSString stringWithFormat:@"%@", @"Decryption failed"];
+    
+}
 @end

@@ -103,10 +103,21 @@
             Decrypt *decrypter = [Decrypt new];
             SmartToken *smartToken = [SmartToken new];
             response = [decrypter decryptFile:fullPath withPin:pin1 withToken:smartToken];
+            if (response.count==0) {
+                error = [MoppLibError generalError];
+            }
         }
         @catch (NSException *exception) {
-            if([[exception name] isEqualToString:@"wrong_pin"]) {
-                error = [MoppLibError wrongPinErrorWithRetryCount:[[exception reason] intValue]];
+            if([[exception name] hasPrefix:@"wrong_pin"]) {
+                // Last character of wrong_pin shows retry count
+                NSString *retryCount = [[exception name] substringFromIndex: [[exception name] length] - 1];
+                if ([retryCount intValue] < 1) {
+                    error = [MoppLibError pinBlockedError];
+                } else {
+                    error = [MoppLibError wrongPinErrorWithRetryCount:[retryCount intValue]];
+                }
+            } else if ([[exception name] isEqualToString:@"pin_blocked"]) {
+                error = [MoppLibError pinBlockedError];
             } else {
                 error = [MoppLibError generalError];
             }

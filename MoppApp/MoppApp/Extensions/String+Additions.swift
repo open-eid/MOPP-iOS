@@ -82,6 +82,10 @@ extension String {
         return self.lowercased() == ContainerFormatCdoc
     }
     
+    var isXmlFileExtension: Bool {
+        return self.lowercased() == FileFormatXml
+    }
+    
     var isNumeric: Bool {
         let prevCount = count
         let digits = components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")
