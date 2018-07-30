@@ -51,6 +51,7 @@
     } failure:^(NSError *error) {
         [NSException raise:@"Decryption failed" format:@""];
     }];
+    // Need to wait CardActionsManager response with ACS readers.
     while(!response) {
         [NSThread sleepForTimeInterval:0.05];
     }
@@ -64,7 +65,7 @@
     } failure:^(NSError *error) {
         errorMessage = [self handleErrorMessage:error];
     }];
-    
+    // Need to wait CardActionsManager response with ACS readers.
     while(!response) {
         if(errorMessage){
             [NSException raise: errorMessage format:@""];
@@ -82,7 +83,7 @@
     } failure:^(NSError *error) {
         errorMessage = [self handleErrorMessage:error];
     }];
-    
+    // Need to wait CardActionsManager response with ACS readers.
     while(!response) {
         if(errorMessage){
             [NSException raise: errorMessage format:@""];

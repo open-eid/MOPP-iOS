@@ -23,6 +23,7 @@
 		393B66E320DB94CD001DC89B /* cdoc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 393B66E120DB94CD001DC89B /* cdoc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		393B66E820DB9C19001DC89B /* CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39852A6120AB2949004CB100 /* CryptoLib.framework */; };
 		393B66E920DB9C19001DC89B /* CryptoLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 39852A6120AB2949004CB100 /* CryptoLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		39487CBE210B18F90082D910 /* CdocParserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39487CBD210B18F90082D910 /* CdocParserDelegate.swift */; };
 		399C01EA20BD98730056D7AC /* ContainerFoundAddresseeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399C01E920BD98730056D7AC /* ContainerFoundAddresseeCell.swift */; };
 		39CDA7EA20ADBCEC006E2E9F /* Crypto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */; };
 		39CDA7EE20ADBE93006E2E9F /* CryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */; };
@@ -377,6 +378,7 @@
 		3921CAAE20B826E700BF3178 /* AddresseeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddresseeViewController.swift; sourceTree = "<group>"; };
 		393B66B920D7EC9D001DC89B /* WrapperUIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapperUIBarButtonItem.swift; sourceTree = "<group>"; };
 		393B66E120DB94CD001DC89B /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = ../CryptoLib/CryptoLib/cdocFramework/cdoc.framework; sourceTree = "<group>"; };
+		39487CBD210B18F90082D910 /* CdocParserDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdocParserDelegate.swift; sourceTree = "<group>"; };
 		39852A6120AB2949004CB100 /* CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		399C01E920BD98730056D7AC /* ContainerFoundAddresseeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerFoundAddresseeCell.swift; sourceTree = "<group>"; };
 		39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Crypto.storyboard; sourceTree = "<group>"; };
@@ -879,6 +881,7 @@
 			children = (
 				C5E7D08C2031B1040081416F /* NativeShare.swift */,
 				C5A1D1CC2031D5B80024CD4C /* ContainerActions.swift */,
+				39487CBD210B18F90082D910 /* CdocParserDelegate.swift */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -1518,6 +1521,7 @@
 				C55A6E42208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift in Sources */,
 				C5927FC720751402003B7F41 /* MyeIDPinPukCell.swift in Sources */,
 				393B66BA20D7EC9D001DC89B /* WrapperUIBarButtonItem.swift in Sources */,
+				39487CBE210B18F90082D910 /* CdocParserDelegate.swift in Sources */,
 				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
 				C55BB1CA2090C17F00618AC4 /* AboutViewController.swift in Sources */,
 				C5927FEB2078FD40003B7F41 /* MyeIDInfoViewControllerUI.swift in Sources */,
