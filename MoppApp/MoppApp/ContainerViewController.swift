@@ -186,7 +186,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                     setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
                 } else if !isForPreview {
                     if isDecrypted {
-                         tabButtons = [.shareButton]
+                         tabButtons = []
                     } else {
                         tabButtons = [.decryptButton, .shareButton]
                     }
