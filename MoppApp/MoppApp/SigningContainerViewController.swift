@@ -46,6 +46,7 @@ class SigningContainerViewController : ContainerViewController, SigningActions {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        landingViewController.isAlreadyInMainPage = false
         containerViewDelegate = self
         signingContainerViewDelegate = self
         
@@ -155,8 +156,13 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
             strongSelf.container = container
             strongSelf.appendSignatureWarnings()
             strongSelf.sortSignatures()
-            strongSelf.reloadData()
-            strongSelf.updateState((self?.isCreated ?? false) ? .created : .opened)
+            // State cannot change if back button is pressed
+            if(strongSelf.landingViewController.isAlreadyInMainPage == false){
+                strongSelf.updateState((self?.isCreated ?? false) ? .created : .opened)
+                strongSelf.reloadData()
+            } else {
+                strongSelf.landingViewController.isAlreadyInMainPage = false
+            }
             
             if strongSelf.startSigningWhenOpened {
                 strongSelf.startSigningWhenOpened = false
