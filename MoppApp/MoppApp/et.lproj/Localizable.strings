@@ -87,6 +87,7 @@
 // Details
 "container-details-signing-success" = "ALLKIRI LISATUD";
 "container-details-decryption-success" = "DEKRÜPTEERIMINE ÕNNESTUS";
+"container-details-file-already-exists" = "Fail on juba ümbrikus olemas";
 "container-header-files-title" = "Ümbriku sisu";
 "container-header-create-signing-files-title" = "Allkirjastamiseks valitud failid";
 "container-header-create-encryption-files-title" = "Krüpteerimiseks valitud failid";

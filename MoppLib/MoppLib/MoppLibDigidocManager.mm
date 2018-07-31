@@ -313,7 +313,7 @@ private:
     container = digidoc::Container::open(containerPath.UTF8String);
     
     for (NSString *dataFilePath in dataFilePaths) {
-      [self addDataFileToContainer:container withDataFilePath:dataFilePath duplicteCount:0];
+      [self addDataFileToContainer:container withDataFilePath:dataFilePath error: error];
     }
     
     container->save(containerPath.UTF8String);
@@ -330,14 +330,10 @@ private:
   return moppLibContainer;
 }
 
-- (void)addDataFileToContainer:(digidoc::Container *)container withDataFilePath:(NSString *)dataFilePath duplicteCount:(int)count {
+- (void)addDataFileToContainer:(digidoc::Container *)container withDataFilePath:(NSString *)dataFilePath error:(NSError **)error  {
   
   NSString *fileName = [dataFilePath lastPathComponent];
-  if (count > 0) {
-    NSString *extension = [fileName pathExtension];
-    NSString *withoutExtension = [fileName stringByDeletingPathExtension];
-    fileName = [withoutExtension stringByAppendingString:[NSString stringWithFormat:@"(%i).%@", count, extension]];
-  }
+
   std::ifstream *stream;
   try {
     stream = new std::ifstream(dataFilePath.UTF8String);
@@ -349,7 +345,7 @@ private:
 
     // libdigidoc doesn't send specific error code when file with same name already exists.
     if (e.code() == 0 && [message hasPrefix:@"Document with same file name"]) {
-      return [self addDataFileToContainer:container withDataFilePath:dataFilePath duplicteCount:count + 1];
+        *error = [MoppLibError duplicatedFilenameError];
     } else {
       parseException(e);
     }

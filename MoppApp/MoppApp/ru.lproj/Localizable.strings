@@ -87,6 +87,7 @@
 // Details
 "container-details-signing-success" = "ПОДПИСЬ ДОБАВЛЕНА";
 "container-details-decryption-success" = "DECRYPTION SUCCESSFUL";
+"container-details-file-already-exists" = "Файл уже существует в контейнере";
 "container-header-files-title" = "Файлы контейнера";
 "container-header-create-signing-files-title" = "Файлы, выбранные для подписания";
 "container-header-create-encryption-files-title" = "Files chosen for encryption";

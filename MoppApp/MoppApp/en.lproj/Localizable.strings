@@ -86,6 +86,7 @@
 // Details
 "container-details-signing-success" = "SIGNATURE ADDED";
 "container-details-decryption-success" = "DECRYPTION SUCCESSFUL";
+"container-details-file-already-exists" = "File already exists in the container";
 "container-header-files-title" = "Container files";
 "container-header-create-signing-files-title" = "Files chosen for signing";
 "container-header-create-encryption-files-title" = "Files chosen for encryption";

@@ -59,6 +59,7 @@ enum LocKey : String
     case fileImportCreateNewFailedAlertMessage = "file-import-create-new-failed-alert-message"
     case containerDetailsSigningSuccess = "container-details-signing-success"
     case containerDetailsDecryptionSuccess = "container-details-decryption-success"
+    case containerDetailsFileAlreadyExists = "container-details-file-already-exists"
     case containerHeaderFilesTitle = "container-header-files-title"
     case containerHeaderCreateSigningFilesTitle = "container-header-create-signing-files-title"
     case containerHeaderCreateEncryptionFilesTitle = "container-header-create-encryption-files-title"
