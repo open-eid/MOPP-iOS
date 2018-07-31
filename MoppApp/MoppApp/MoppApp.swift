@@ -175,8 +175,8 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
             if newUrl.pathExtension.isXmlFileExtension {
                 //Google Drive will change file extension and puts it to Inbox folder
                 if newUrl.absoluteString.range(of: "/Inbox/") != nil {
-                    newUrl = URL (string: newUrl.absoluteString.replacingOccurrences(of: "/Inbox", with: ""))!
-                    isXmlExtensionFileCdoc = self.isXmlExtensionFileCdoc(with: newUrl)
+                    newUrl = URL (string: newUrl.absoluteString.replacingOccurrences(of: "/Inbox", with: "/temp"))!
+                    isXmlExtensionFileCdoc = self.isXmlExtensionFileCdoc(with: url)
                     if isXmlExtensionFileCdoc {
                         newUrl.deletePathExtension()
                         newUrl.appendPathExtension("cdoc")
