@@ -161,7 +161,7 @@
 "generic-error-message" = "Something went wrong. Please try again";
 "decryption-error-message" = "Something went wrong with decryption. Please try again";
 "signing-aborted-message" = "Signing process aborted";
-"my-eid-status-reader-not-found" = "Connect the card reader and insert your ID-card into the reader.";
+"my-eid-status-reader-not-found" = "Connect your card reader to your phone and insert ID-card into the reader.\nIf you are using bluetooth reader, phone's bluetooth connection must be enabled.";
 "my-eid-status-card-not-found" = "Reader found.\nInsert your ID-card into the reader.";
 "my-eid-status-requesting-data" = "ID-card found.\nRequesting information.";
 "my-eid-cert-expired" = "expired";

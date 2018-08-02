@@ -162,7 +162,7 @@
 "generic-error-message" = "Midagi läks valesti. Palun proovi uuesti";
 "decryption-error-message" = "Midagi läks dekrüpteerimisel valesti. Palun proovi uuesti";
 "signing-aborted-message" = "Allkirjastamine katkestatud";
-"my-eid-status-reader-not-found" = "Ühenda kaardilugeja telefoniga ja sisesta ID-kaart lugejasse.";
+"my-eid-status-reader-not-found" = "Ühenda kaardilugeja telefoniga ja sisesta ID-kaart lugejasse. \nKui kasutad Bluetooth lugejat siis veendu, et telefonis on sisse lülitatud Bluetooth.";
 "my-eid-status-card-not-found" = "Kaardilugeja leitud.\nSisesta ID-kaart lugejasse.";
 "my-eid-status-requesting-data" = "ID-kaart leitud.\nPärin andmeid.";
 "my-eid-cert-expired" = "aegunud";
