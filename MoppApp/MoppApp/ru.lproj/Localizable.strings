@@ -38,7 +38,7 @@
 
 // Signature view
 "signature-view-begin-label" = "Выберите файл для подписи или проверки";
-"signature-view-begin-button" = "ВЫБЕРИТЕ ФАЙЛ";
+"signature-view-begin-button" = "ВЫБРАТЬ ФАЙЛ";
 "signature-details-title" = "Детали подписи";
 
 // Crypto
@@ -89,12 +89,11 @@
 "container-details-decryption-success" = "DECRYPTION SUCCESSFUL";
 "container-details-file-already-exists" = "Файл уже существует в контейнере";
 "container-header-files-title" = "Файлы контейнера";
-"container-header-create-signing-files-title" = "Файлы, выбранные для подписания";
-"container-header-create-encryption-files-title" = "Files chosen for encryption";
+"container-header-create-files-title" = "Файлы контейнера";
 "container-header-create-addressee-title" = "Addressees";
 "container-header-timestamp-title" = "Отметка времени";
 "container-header-signatures-title" = "Подписи контейнера";
-"container-row-edit-remove" = "Стирать";
+"container-row-edit-remove" = "Удалить";
 "container-header-title" = "КОНТЕЙНЕР:";
 "container-error-message-invalid-signature" = "1 НЕВЕРНАЯ ПОДПИСЬ";
 "container-error-message-invalid-signatures" = "%d НЕВЕРНАЯ ПОДПИСЬ";
@@ -138,29 +137,31 @@
 "container-validating" = "Загрузка...";
 "importing-files-progress-message" = "Импорт файлов...";
 "mobile-id-sign-help-title" = "Убедитесь в правильности контрольного кодa и введите PIN2-код для Mobiil-ID";
-"done-button-title" = "Оконченный";
+"done-button-title" = "Готово";
 "recent-containers-empty-list-title" = "Недавние документы отсутствуют";
 "recent-containers-empty-search-message" = "Документ не найден";
-"sign-title-mobile-id" = "Mобильный-ID";
-"sign-title-id-card" = "ID карта";
+"search-container-file" = "Search container file";
+"sign-title-mobile-id" = "Mobiil-ID";
+"sign-title-id-card" = "ID-карта";
 "card-reader-state-initial" = "Подключите считыватель карты и вставьте в него Вашу ID-карту";
 "card-reader-state-reader-not-found" = "Считыватель карты не обнаружен";
-"card-reader-state-id-card-not-found" = "Считыватель карт.\nВставьте свою ID-карту в устройство чтения.";
+"card-reader-state-id-card-not-found" = "Обнаружен считыватель карты.\nВставьте в него Вашу ID-карту.";
 "card-reader-state-id-card-connected" = "Обнаружена ID-карта.\nЗапрашивается информация.";
-"card-reader-state-ready-for-pin2" = "Готов подписать с удостоверением личности.\n%@ (%@)\nВведите PIN2";
-"card-reader-state-ready-for-pin1" = "Готов подписать с удостоверением личности.\n%@ (%@)\nВведите PIN1";
-"signing-in-progress" = "Подписание.\nПодождите пожалуйста";
+"card-reader-state-ready-for-pin2" = "Готово к подписанию с использованием ID-карты";
+"card-reader-state-ready-for-pin1" = "Ready to decrypt with ID-card.";
+"signing-in-progress" = "Происходит подписание.\nПожалуйста, подождите.";
 "decryption-in-progress" = "Decryption in progress.\nPlease wait.";
-"wrong-pin2" = "Неверный PIN2. У вас осталось %d попытки.\nНабрав неверный PIN2 еще 2 раза, ваш PIN2 будет заблокирован";
-"wrong-pin1" = "Неверный PIN1. У вас осталось %d попытки.\nНабрав неверный PIN1 еще 2 раза, ваш PIN1 будет заблокирован";
-"wrong-pin2-single" = "Неверный PIN2. У вас есть 1 попытка.\nНабрав неправильный PIN2, ваш PIN2 будет заблокирован";
-"wrong-pin1-single" = "Неверный PIN1. У вас есть 1 попытка.\nНабрав неправильный PIN1, ваш PIN1 будет заблокирован";
-"pin2-textfield-label" = "PIN2";
-"pin1-textfield-label" = "PIN1";
-"pin2-blocked-alert" = "PIN2 заблокирован. Перейдите в «Мой eID», чтобы разблокировать свой PIN2.";
+"wrong-pin2" = "Неверный PIN2. У Вас осталось %d попыток.";
+"wrong-pin1" = "Неверный PIN1. У Вас осталось %d попыток.";
+"wrong-pin2-single" = "Неверный PIN2. У Вас осталась 1 попытка до блокировки Вашего PIN2.";
+"wrong-pin1-single" = "Неверный PIN1. У Вас осталась 1 попытка до блокировки Вашего PIN1.";
+"pin2-textfield-label" = "Введите PIN2";
+"pin1-textfield-label" = "Введите PIN1";
+"pin2-blocked-alert" = "PIN2 заблокирован. Зайдите в Мой eID, чтобы разблокировать его.";
+"pin1-blocked-alert" = "PIN1 заблокирован. Зайдите в Мой eID, чтобы разблокировать его.";
 "generic-error-message" = "Что-то пошло не так. Пожалуйста, попробуйте снова.";
 "decryption-error-message" = "Something went wrong with decryption. Please try again";
-"signing-aborted-message" = "Ошибка: процесс подписи прерывается";
+"signing-aborted-message" = "Процесс подписания прерван";
 "my-eid-status-reader-not-found" = "Подключите считыватель карты и вставьте в него Вашу ID-карту.";
 "my-eid-status-card-not-found" = "Обнаружен считыватель карты.\nВставьте в него Вашу ID-карту.";
 "my-eid-status-requesting-data" = "Обнаружена ID-карта.\nЗапрашивается информация.";
