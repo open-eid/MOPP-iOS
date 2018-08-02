@@ -204,8 +204,10 @@ extension ContainerActions where Self: UIViewController {
     
     private func isDuplicatedFilename(container: CryptoContainer, filename: NSString) -> Bool {
         for dataFile in container.dataFiles {
-            if ((dataFile as! CryptoDataFile).filename as NSString) == filename {
-                return true
+            if let strongDataFile = dataFile as? CryptoDataFile {
+                if strongDataFile.filename as NSString == filename {
+                    return true
+                }
             }
         }
         return false
