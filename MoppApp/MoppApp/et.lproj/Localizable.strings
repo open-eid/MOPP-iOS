@@ -151,7 +151,7 @@
 "signing-in-progress" = "Toimub allkirjastamine.\nPalun oota.";
 "decryption-in-progress" = "Toimub dekrüpteerimine.\nPalun oota.";
 "wrong-pin2" = "Vale PIN2. Saad PIN2 koodi sisestada veel %d korda.";
-"wrong-pin1" = "Vale PIN1. Saad PIN1 koodi sisestada veel %d korda.";
+"wrong-pin1" = "Vale PIN1. Saad PIN1 koodi sisestada veel %1$d korda.";
 "wrong-pin2-single" = "Vale PIN2. Järgmise vale sisestusega lukustub PIN.";
 "wrong-pin1-single" = "Vale PIN1. Järgmise vale sisestusega lukustub PIN.";
 "card-reader-state-initial" = "Ühenda kaardilugeja telefoniga ja sisesta ID-kaart lugejasse. \nKui kasutad Bluetooth lugejat siis veendu, et telefonis on sisse lülitatud Bluetooth.";
