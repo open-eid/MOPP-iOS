@@ -29,7 +29,7 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
     weak var tabButtonsDelegate: LandingViewControllerTabButtonsDelegate? = nil
     var fileImportIntent: MoppApp.FileImportIntent!
     var containerType: MoppApp.ContainerType!
-    
+    var isAlreadyInMainPage: Bool = false
     var importProgressViewController: FileImportProgressViewController = {
         let importProgressViewController = UIStoryboard.landing.instantiateViewController(of: FileImportProgressViewController.self)
             importProgressViewController.modalPresentationStyle = .overFullScreen

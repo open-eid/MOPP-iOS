@@ -169,14 +169,26 @@ extension ContainerActions where Self: UIViewController {
                     })
                 },
                 failure: { error in
-                    landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: nil)
+                    landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                        guard let nsError = error as NSError? else { return }
+                        if nsError.code == Int(MoppLibErrorCode.moppLibErrorDuplicatedFilename.rawValue) {
+                            DispatchQueue.main.async {
+                                self.errorAlert(message: L(.containerDetailsFileAlreadyExists))
+                            }
+                        }
+                    })
                 }
             )
         } else {
             let containerViewController = topSigningViewController as? CryptoContainerViewController
             dataFilePaths.forEach {
-                var filename = ($0 as NSString).lastPathComponent as NSString
-                filename = generateNewFilename(container :(containerViewController?.container)!, filename: filename, similarFilenameCount: 0)
+                let filename = ($0 as NSString).lastPathComponent as NSString
+                if isDuplicatedFilename(container: (containerViewController?.container)!, filename: filename) {
+                    DispatchQueue.main.async {
+                        self.errorAlert(message: L(.containerDetailsFileAlreadyExists))
+                    }
+                    return
+                }
                 let dataFile = CryptoDataFile.init()
                 dataFile.filename = filename as String?
                 dataFile.filePath = $0
@@ -190,20 +202,15 @@ extension ContainerActions where Self: UIViewController {
         }
     }
     
-    private func generateNewFilename(container: CryptoContainer, filename: NSString, similarFilenameCount: Int) -> NSString {
-        var newFilename = filename
-        if similarFilenameCount > 0 {
-            let fileExtension  = filename.pathExtension
-            let withoutExtension = filename.deletingPathExtension
-            newFilename = withoutExtension.appendingFormat("(\(String(similarFilenameCount))).\(fileExtension)") as NSString
-            
-        }
+    private func isDuplicatedFilename(container: CryptoContainer, filename: NSString) -> Bool {
         for dataFile in container.dataFiles {
-            if ((dataFile as! CryptoDataFile).filename as NSString) == newFilename {
-                newFilename =  generateNewFilename(container: container, filename: filename, similarFilenameCount: similarFilenameCount + 1)
+            if let strongDataFile = dataFile as? CryptoDataFile {
+                if strongDataFile.filename as NSString == filename {
+                    return true
+                }
             }
         }
-        return newFilename
+        return false
     }
     
     func createNewContainer(with url: URL, dataFilePaths: [String], startSigningWhenCreated: Bool = false, cleanUpDataFilesInDocumentsFolder: Bool = true) {

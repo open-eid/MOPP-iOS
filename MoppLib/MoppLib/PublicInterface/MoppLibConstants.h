@@ -62,7 +62,8 @@ typedef NS_ENUM(NSUInteger, MoppLibErrorCode) {
   moppLibErrorPinMatchesOldCode = 10019, // New pin must be different from old pin or puk
   moppLibErrorReaderSelectionCanceled = 10020, // User canceled card reader selection
   moppLibErrorRestrictedApi = 10021, // Restricted API. Some functionality is not available for third-party apps
-  moppLibErrorLdapResponseNotFound = 10022 // Ldap response not found
+  moppLibErrorLdapResponseNotFound = 10022, // Ldap response not found
+  moppLibErrorDuplicatedFilename = 10023 // Filename already exists
 
 };
 

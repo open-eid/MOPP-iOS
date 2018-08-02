@@ -294,7 +294,7 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
         else if model.actionType == .changePin2 {
             if let errorMessage = validateCurrentPin2(firstCode) { return errorMessage }
             if let errorMessage = validateNewPin2(secondCode) { return errorMessage }
-            if let errorMessage = validateNewControlPin1(thirdCode) { return errorMessage }
+            if let errorMessage = validateNewControlPin2(thirdCode) { return errorMessage }
         }
         else if model.actionType == .unblockPin2 {
             if let errorMessage = validateCurrentPuk(firstCode) { return errorMessage }

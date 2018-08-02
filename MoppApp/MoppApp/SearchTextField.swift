@@ -40,7 +40,7 @@ class SearchTextField: UITextField {
         delegate = self
         font = UIFont.moppTextField
         textColor = UIColor.moppText
-        placeholder = "Search container file"
+        placeholder = L(.searchContainerFile)
         
         addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
     }

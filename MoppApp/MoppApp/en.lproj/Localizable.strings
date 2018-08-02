@@ -33,7 +33,7 @@
 "menu-help" = "HELP";
 "menu-recent-containers" = "RECENT DOCUMENTS";
 "menu-settings" = "SETTINGS";
-"menu-about" = "ABOUT";
+"menu-about" = "INFO";
 "menu-diagnostics" = "DIAGNOSTICS";
 
 // Signature view
@@ -86,9 +86,9 @@
 // Details
 "container-details-signing-success" = "SIGNATURE ADDED";
 "container-details-decryption-success" = "DECRYPTION SUCCESSFUL";
+"container-details-file-already-exists" = "File already exists in the container";
 "container-header-files-title" = "Container files";
-"container-header-create-signing-files-title" = "Files chosen for signing";
-"container-header-create-encryption-files-title" = "Files chosen for encryption";
+"container-header-create-files-title" = "Container files";
 "container-header-create-addressee-title" = "Addressees";
 "container-header-timestamp-title" = "Timestamp";
 "container-header-signatures-title" = "Container signatures";
@@ -139,28 +139,29 @@
 "done-button-title" = "Done";
 "recent-containers-empty-list-title" = "No recent documents";
 "recent-containers-empty-search-message" = "Document not found";
+"search-container-file" = "Search container file";
 "sign-title-mobile-id" = "Mobile-ID";
-"sign-title-id-card" = "ID Card";
+"sign-title-id-card" = "ID-Card";
 "card-reader-state-initial" = "Connect your card reader to your phone and insert ID-card into the reader.\nIf you are using bluetooth reader, phone's bluetooth connection must be enabled.";
 "card-reader-state-reader-not-found" = "No card readers found";
 "card-reader-state-id-card-not-found" = "Reader found.\nInsert your ID-card into the reader.";
 "card-reader-state-id-card-connected" = "ID-card found.\nRequesting information.";
-"card-reader-state-ready-for-pin2" = "Ready to sign with ID-card.\n%@ (%@)\nPlease enter PIN2";
-"card-reader-state-ready-for-pin1" = "Ready to decrypt with ID-card.\n%@ (%@)\nPlease enter PIN1";
+"card-reader-state-ready-for-pin2" = "Ready to sign with ID-card";
+"card-reader-state-ready-for-pin1" = "Ready to decrypt with ID-card.";
 "signing-in-progress" = "Signing in progress.\nPlease wait.";
 "decryption-in-progress" = "Decryption in progress.\nPlease wait.";
-"wrong-pin2" = "Wrong PIN2. You have %d attempts left.\nBy typing wrong PIN2 %d more times, your PIN2 will be locked";
+"wrong-pin2" = "Wrong PIN2. You have %d attempts left.";
 "wrong-pin1" = "Wrong PIN1. You have %1$d attempts left.";
-"wrong-pin2-single" = "Wrong PIN2. You have 1 attempt left.\nBy typing wrong PIN2 again, your PIN2 will be locked";
+"wrong-pin2-single" = "Wrong PIN2. You have 1 attempt left until your PIN2 is blocked.";
 "wrong-pin1-single" = "Wrong PIN1. You have 1 attempt left until your PIN1 is blocked.";
-"pin2-textfield-label" = "PIN2";
-"pin1-textfield-label" = "PIN1";
-"pin2-blocked-alert" = "PIN2 blocked.\nGo to My eID to unblock your PIN2.";
+"pin2-textfield-label" = "Enter PIN2";
+"pin1-textfield-label" = "Enter PIN1";
+"pin2-blocked-alert" = "PIN2 blocked. Go to My eID to unblock it.";
 "pin1-blocked-alert" = "PIN1 blocked. Go to My eID to unblock it.";
 "generic-error-message" = "Something went wrong. Please try again";
 "decryption-error-message" = "Something went wrong with decryption. Please try again";
-"signing-aborted-message" = "Error: signing process aborted";
-"my-eid-status-reader-not-found" = "Connect the card reader and insert your ID-card into the reader.";
+"signing-aborted-message" = "Signing process aborted";
+"my-eid-status-reader-not-found" = "Connect your card reader to your phone and insert ID-card into the reader.\nIf you are using bluetooth reader, phone's bluetooth connection must be enabled.";
 "my-eid-status-card-not-found" = "Reader found.\nInsert your ID-card into the reader.";
 "my-eid-status-requesting-data" = "ID-card found.\nRequesting information.";
 "my-eid-cert-expired" = "expired";

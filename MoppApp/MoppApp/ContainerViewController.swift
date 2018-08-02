@@ -186,7 +186,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                     setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
                 } else if !isForPreview {
                     if isDecrypted {
-                         tabButtons = [.shareButton]
+                         tabButtons = []
                     } else {
                         tabButtons = [.decryptButton, .shareButton]
                     }
@@ -396,7 +396,7 @@ extension ContainerViewController : UITableViewDelegate {
         var title: String!
         switch section {
             case .dataFiles:
-                let createFileTitle = (isAsicContainer) ? L(LocKey.containerHeaderCreateSigningFilesTitle) : L(LocKey.containerHeaderCreateEncryptionFilesTitle)
+                let createFileTitle = L(LocKey.containerHeaderCreateFilesTitle)
                 title = isCreated ? createFileTitle : L(LocKey.containerHeaderFilesTitle)
             default:
                 title = sectionHeaderTitle[section]

@@ -45,7 +45,7 @@ class SigningViewController : MoppViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        LandingViewController.shared.isAlreadyInMainPage = true
         LandingViewController.shared.presentButtons([.signTab, .cryptoTab, .myeIDTab])
     }
     

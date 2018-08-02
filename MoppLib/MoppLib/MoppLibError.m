@@ -62,7 +62,11 @@ typedef enum {
 + (NSError *)ldapResponseNotFoundError {
     return [self error:moppLibErrorLdapResponseNotFound withMessage:@"Ldap response is empty"];
 }
-    
+
++ (NSError *)duplicatedFilenameError {
+    return [self error:moppLibErrorDuplicatedFilename withMessage:@"Filename already exists"];
+}
+
 + (NSError *)cardVersionUnknownError {
   return [self error:moppLibErrorCardVersionUnknown withMessage:@"Card version could not be detected."];
 }
