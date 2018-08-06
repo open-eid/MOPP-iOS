@@ -26,8 +26,8 @@
 "tab-sign-button" = "ПОДПИСАТЬ";
 "tab-share-button" = "ПОДЕЛИТЬСЯ";
 "tab-encrypt-button" = "ЗАШИФРОВАТЬ";
-"tab-decrypt-button" = "DECRYPT";
-"tab-confirm-button" = "CONFIRM SELECTION";
+"tab-decrypt-button" = "ДЕШИФРОВАТЬ";
+"tab-confirm-button" = "ПОДВЕРДИТЬ ВЫБОР";
 
 // Main menu
 "menu-help" = "ПОМОЩЬ";
@@ -44,18 +44,17 @@
 // Crypto
 "crypto-view-begin-label" = "Выберите файл для шифрования или расшифровки";
 "crypto-view-begin-button" = "ВЫБРАТЬ ФАЙЛ";
-"crypto-empty-ldap-label" = "У лица или учреждения отсутствует действующий сертификат.\nДля зашифровывания необходим действующий сертификат.\nВ случае проблем обращайтесь по адресу электронной почты abi@id.ee или звоните в пределах Эстонии на короткий номер ID-помощи 1777 или из-за границы на номер (+372) 677 3377.";
-"crypto-ldap-search-placeholder" = "Enter personal code, company or registry code";
-"crypto-encryption-error-text" = "Something went wrong with encryption";
-"crypto-decryption-error-text" = "Something went wrong with decryption";
-"crypto-encryption-success" = "ENCRYPTION SUCCEEDED";
-"crypto-no-addressees-warning" = "No addressees specified";
-"crypto-valid-to" = "valid to";
-"crypto-type-id-card" = "ID-card";
+"crypto-empty-ldap-label" = "У человека или компании нет действующего сертификата.\nДля шифрования необходимо иметь действующий сертификат.\nЕсли у вас возникнут вопросы, пожалуйста, обратитесь на id.ee.";
+"crypto-ldap-search-placeholder" = "Введите личный код, код компании или регистра";
+"crypto-encryption-error-text" = "Что-то пошло не так с шифрованием";
+"crypto-encryption-success" = "ШИФРОВАНИЕ УДАЛОСЬ";
+"crypto-no-addressees-warning" = "Не добавлено ни одного получателя";
+"crypto-valid-to" = "действителен до";
+"crypto-type-id-card" = "ID-карта";
 "crypto-type-digi-id" = "Digi-ID";
-"crypto-type-eseal" = "e-Seal";
-"crypto-add-addressee-button-title" = "ADD";
-"crypto-addressee-added-button-title" = "ADDED";
+"crypto-type-eseal" = "e-Печать";
+"crypto-add-addressee-button-title" = "ДОБАВИТЬ";
+"crypto-addressee-added-button-title" = "ДОБАВЛЕН";
 
 // Signing view
 "signing-recent-containers" = "Недавние документы";
@@ -72,36 +71,36 @@
 "action-cancel" = "Отменить";
 "action-delete" = "Удалить";
 "action-sign" = "Подписать";
-"action-decrypt" = "Decrypt";
+"action-decrypt" = "Дешифровать";
 
 // *** Signed containers ***
 
 // DataFile import
 "file-import-title" = "+ ДОБАВИТЬ БОЛЬШЕ ФАЙЛОВ";
-"addressee-import-title" = "+ ADD ADDRESSEE";
+"addressee-import-title" = "+ ДОБАВИТЬ ПОЛУЧАТЕЛЯ";
 "file-import-open-existing-failed-alert-title" = "Ошибка при открывании контейнера";
 "file-import-open-existing-failed-alert-message" = "Не удалось открыть контейнер %@";
 "file-import-create-new-failed-alert-title" = "Ошибка при создании контейнера";
-"file-import-create-new-failed-alert-message" = "Не удалось открыть файл %@";
+"file-import-create-new-failed-alert-message" = "Не удалось открыть контейнер %@";
 
 // Details
 "container-details-signing-success" = "ПОДПИСЬ ДОБАВЛЕНА";
-"container-details-decryption-success" = "DECRYPTION SUCCESSFUL";
+"container-details-decryption-success" = "ДЕШИФРОВАНИЕ УДАЛОСЬ";
 "container-details-file-already-exists" = "Файл уже существует в контейнере";
 "container-header-files-title" = "Файлы контейнера";
 "container-header-create-files-title" = "Файлы контейнера";
-"container-header-create-addressee-title" = "Addressees";
-"container-header-timestamp-title" = "Отметка времени";
+"container-header-create-addressee-title" = "Получатели";
+"container-header-timestamp-title" = "Временной штамп контейнера";
 "container-header-signatures-title" = "Подписи контейнера";
 "container-row-edit-remove" = "Удалить";
 "container-header-title" = "КОНТЕЙНЕР:";
 "container-error-message-invalid-signature" = "1 НЕВЕРНАЯ ПОДПИСЬ";
 "container-error-message-invalid-signatures" = "%d НЕВЕРНАЯ ПОДПИСЬ";
-"container-error-message-unknown-signature" = "1 UNKNOWN SIGNATURE"; //TODO: 
-"container-error-message-unknown-signatures" = "%d UNKNOWN SIGNATURES";
+"container-error-message-unknown-signature" = "1 НЕИЗВЕСТНАЯ ПОДПИСЬ";
+"container-error-message-unknown-signatures" = "%d НЕИЗВЕСТНЫХ ПОДПИСЕЙ";
 "container-signature-signed" = "Подписано %@";
 "container-missing-signatures" = "Контейнер не подписан";
-"container-missing-addressees" = "Addressees are missing";
+"container-missing-addressees" = "Получатели отсутствуют";
 "container-signature-status-valid" = "Подпись действительна";
 "container-signature-status-warning" = "(Предупреждения)";
 "container-signature-status-non-qscd" = "(Ограничения)";
@@ -130,9 +129,9 @@
 "mobile-id-challenge-title" = "Подписать с помощью приложения Mobile-ID";
 "mobile-id-challenge-waiting-response" = "Жду ответа ...";
 "container-sign-title" = "Подписание";
-"container-encryption-title" = "Encryption";
-"container-decryption-title" = "Decryption";
-"container-addressee-title" = "Adding addressees";
+"container-encryption-title" = "Шифрование";
+"container-decryption-title" = "Дешифрование";
+"container-addressee-title" = "Добавить получателей";
 "container-validate-title" = "Проверка контейнера";
 "container-validating" = "Загрузка...";
 "importing-files-progress-message" = "Импорт файлов...";
@@ -140,17 +139,17 @@
 "done-button-title" = "Готово";
 "recent-containers-empty-list-title" = "Недавние документы отсутствуют";
 "recent-containers-empty-search-message" = "Документ не найден";
-"search-container-file" = "Search container file";
+"search-container-file" = "Искать контейнер";
 "sign-title-mobile-id" = "Mobiil-ID";
 "sign-title-id-card" = "ID-карта";
-"card-reader-state-initial" = "Подключите считыватель карты и вставьте в него Вашу ID-карту";
+"card-reader-state-initial" = "Подключите считыватель карты к телефону и вставьте в него Вашу ID-карту.\nЕсли Вы используете считыватель карты по Bluetooth, то убедитесь, что Bluetooth в телефоне включен.";
 "card-reader-state-reader-not-found" = "Считыватель карты не обнаружен";
 "card-reader-state-id-card-not-found" = "Обнаружен считыватель карты.\nВставьте в него Вашу ID-карту.";
 "card-reader-state-id-card-connected" = "Обнаружена ID-карта.\nЗапрашивается информация.";
 "card-reader-state-ready-for-pin2" = "Готово к подписанию с использованием ID-карты";
-"card-reader-state-ready-for-pin1" = "Ready to decrypt with ID-card.";
+"card-reader-state-ready-for-pin1" = "Готово к дешифрованию с помощью ID-карты.";
 "signing-in-progress" = "Происходит подписание.\nПожалуйста, подождите.";
-"decryption-in-progress" = "Decryption in progress.\nPlease wait.";
+"decryption-in-progress" = "Происходит дешифрование. Пожалуйста, подождите.";
 "wrong-pin2" = "Неверный PIN2. У Вас осталось %d попыток.";
 "wrong-pin1" = "Неверный PIN1. У Вас осталось %1$d попыток.";
 "wrong-pin2-single" = "Неверный PIN2. У Вас осталась 1 попытка до блокировки Вашего PIN2.";
@@ -160,9 +159,9 @@
 "pin2-blocked-alert" = "PIN2 заблокирован. Зайдите в Мой eID, чтобы разблокировать его.";
 "pin1-blocked-alert" = "PIN1 заблокирован. Зайдите в Мой eID, чтобы разблокировать его.";
 "generic-error-message" = "Что-то пошло не так. Пожалуйста, попробуйте снова.";
-"decryption-error-message" = "Something went wrong with decryption. Please try again";
+"decryption-error-message" = "Что-то пошло не так с дешифрованием. Пожалуйста, попробуйте снова.";
 "signing-aborted-message" = "Процесс подписания прерван";
-"my-eid-status-reader-not-found" = "Подключите считыватель карты и вставьте в него Вашу ID-карту.";
+"my-eid-status-reader-not-found" = "Подключите считыватель карты к телефону и вставьте в него Вашу ID-карту.\nЕсли Вы используете считыватель карты по Bluetooth, то убедитесь, что Bluetooth в телефоне включен.";
 "my-eid-status-card-not-found" = "Обнаружен считыватель карты.\nВставьте в него Вашу ID-карту.";
 "my-eid-status-requesting-data" = "Обнаружена ID-карта.\nЗапрашивается информация.";
 "my-eid-cert-expired" = "недействителен";
@@ -197,7 +196,7 @@
 "my-eid-info-pin-puk-segment-title" = "PIN/PUK КОДЫ И СЕРТИФИКАТЫ";
 "my-eid-info-pin1-blocked-message" = "PIN1 заблокирован, потому что был неверно введен 3 раза.";
 "my-eid-info-pin2-blocked-message" = "PIN2 заблокирован, потому что был неверно введен 3 раза.";
-"my-eid-info-puk-blocked-message" = "PUK заблокирован, потому что был неверно введен 3 раза.";
+"my-eid-info-puk-blocked-message" = "PUK заблокирован, потому что был неверно введен 3 раза. Здесь Вы можете найти инструкции о том, как получить новый документ.";
 "my-eid-unblock-pin1-button-title" = "РАЗБЛОКИРОВАТЬ";
 "my-eid-unblock-pin2-button-title" = "РАЗБЛОКИРОВАТЬ";
 "my-eid-how-to-get-codes-message" = "Здесь Вы можете найти инструкции о том, как получить новый документ.";

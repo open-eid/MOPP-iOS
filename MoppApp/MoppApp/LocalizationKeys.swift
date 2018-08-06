@@ -208,7 +208,6 @@ enum LocKey : String
     case cryptoViewBeginButton = "crypto-view-begin-button"
     case cryptoEmptyLdapLabel = "crypto-empty-ldap-label"
     case cryptoEncryptionErrorText = "crypto-encryption-error-text"
-    case cryptoDecryptionErrorText = "crypto-decryption-error-text"
     case cryptoLdapSearchPlaceholder = "crypto-ldap-search-placeholder"
     case cryptoEncryptionSuccess = "crypto-encryption-success"
     case cryptoNoAddresseesWarning = "crypto-no-addressees-warning"

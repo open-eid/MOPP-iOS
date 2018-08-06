@@ -47,10 +47,9 @@
 // Crypto
 "crypto-view-begin-label" = "Vali fail krüpteerimiseks või dekrüpteerimiseks";
 "crypto-view-begin-button" = "VALI FAIL";
-"crypto-empty-ldap-label" = "Isikul või asutusel puudub kehtiv sertifikaat.\nKrüpteerimiseks on vaja kehtivat sertifikaati.\nKüsimustega pöördu ID-abiliini poole e-postiaadressil abi@id.ee või helista Eesti piires lühinumbril 1777 ja välismaalt (+372) 677 3377.";
+"crypto-empty-ldap-label" = "Isikul või asutusel puudub kehtiv sertifikaat. \nKrüpteerimiseks on vaja kehtivat sertikaati.\nKüsimuste korral pöörduge id.ee";
 "crypto-ldap-search-placeholder" = "Sisesta isikukood, asutus või registrikood";
 "crypto-encryption-error-text" = "Midagi läks krüpteerimisel valesti";
-"crypto-decryption-error-text" = "Midagi läks dekrüpteerimisel valesti";
 
 "crypto-encryption-success" = "KRÜPTEERIMINE ÕNNESTUS";
 "crypto-no-addressees-warning" = "Ühtegi adressaati ei ole lisatud";
@@ -140,7 +139,7 @@
 "done-button-title" = "Valmis";
 "recent-containers-empty-list-title" = "Dokumendid puuduvad";
 "recent-containers-empty-search-message" = "Dokumenti ei leitud";
-"search-container-file" = "Search container file";
+"search-container-file" = "Otsi ümbrikku";
 "sign-title-mobile-id" = "Mobiil-ID";
 "sign-title-id-card" = "ID-kaart";
 "card-reader-state-reader-not-found" = "Ühtegi kaardilugejat pole ühendatud";
@@ -197,12 +196,12 @@
 "my-eid-info-pin-puk-segment-title" = "PIN/PUK KOODID JA SERTIFIKAATIDE KONTROLL";
 "my-eid-info-pin1-blocked-message" = "PIN1 on blokeeritud, kuna PIN1 koodi on sisestatud 3 korda valesti.";
 "my-eid-info-pin2-blocked-message" = "PIN2 on blokeeritud, kuna PIN2 koodi on sisestatud 3 korda valesti.";
-"my-eid-info-puk-blocked-message" = "PUK on blokeeritud, kuna PUK koodi on sisestatud 3 korda valesti.";
+"my-eid-info-puk-blocked-message" = "PUK on blokeeritud, kuna PUK koodi on sisestatud 3 korda valesti.Juhised uue dokumendi taotlemiseks leiad siit.";
 "my-eid-unblock-pin1-button-title" = "TÜHISTA BLOKEERING";
 "my-eid-unblock-pin2-button-title" = "TÜHISTA BLOKEERING";
 "my-eid-how-to-get-codes-message" = "Juhised uue dokumendi taotlemiseks leiad siit.";
 "my-eid-code-changed-success-message" = "%@ MUUDETUD";
-"my-eid-code-unblocked-success-message" = "%@ LAHTI LUKUSTATUD";
+"my-eid-code-unblocked-success-message" = "%@ BLOKEERING TÜHISTATUD";
 "my-eid-wrong-code-message" = "Vale %@ kood. Saad veel proovida 2 korda.";
 "my-eid-wrong-code-message-singular" = "Vale %@ kood. Saad veel proovida 1 kord.";
 "my-eid-code-blocked-message" = "%1$@ on blokeeritud, kuna %1$@ koodi on sisestatud 3 korda valesti. Tühista blokeering, et %1$@ taas kasutada.";
