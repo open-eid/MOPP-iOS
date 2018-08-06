@@ -37,17 +37,16 @@
 "menu-diagnostics" = "DIAGNOSTICS";
 
 // Signature view
-"signature-view-begin-label" = "Choose file to sign or validate";
+"signature-view-begin-label" = "Choose a file to sign or validate";
 "signature-view-begin-button" = "CHOOSE FILE";
 "signature-details-title" = "Signature details";
 
 // Crypto
 "crypto-view-begin-label" = "Choose a file to encrypt or decrypt";
 "crypto-view-begin-button" = "CHOOSE FILE";
-"crypto-empty-ldap-label" = "Person or company does not own a valid certificate.\nIt is necessary to have a valid certificate for encryption.\nContact for assistance by email abi@id.ee or call 1777 (only from Estonia), (+372) 677 3377 when calling from abroad.";
+"crypto-empty-ldap-label" = "Person or company does not own a valid certificate.\nIt is necessary to have a valid certificate for encryption.\nIn case of questions please contact our support via id.ee."";
 "crypto-ldap-search-placeholder" = "Enter personal code, company or registry code";
 "crypto-encryption-error-text" = "Something went wrong with encryption";
-"crypto-decryption-error-text" = "Something went wrong with decryption";
 "crypto-encryption-success" = "ENCRYPTION SUCCEEDED";
 "crypto-no-addressees-warning" = "No addressees specified";
 "crypto-valid-to" = "valid to";
@@ -78,19 +77,19 @@
 
 // DataFile import
 "file-import-title" = "+ ADD MORE FILES";
-"addressee-import-title" = "+ ADD ADDRESSEE";
+"addressee-import-title" = "+ ADD RECIPIENT";
 "file-import-open-existing-failed-alert-title" = "Error opening container";
 "file-import-open-existing-failed-alert-message" = "Failed to open container %@";
 "file-import-create-new-failed-alert-title" = "Error creating container";
-"file-import-create-new-failed-alert-message" = "Unable to open file %@";
+"file-import-create-new-failed-alert-message" = "Failed to open container %@";
 // Details
 "container-details-signing-success" = "SIGNATURE ADDED";
 "container-details-decryption-success" = "DECRYPTION SUCCESSFUL";
 "container-details-file-already-exists" = "File already exists in the container";
 "container-header-files-title" = "Container files";
 "container-header-create-files-title" = "Container files";
-"container-header-create-addressee-title" = "Addressees";
-"container-header-timestamp-title" = "Timestamp";
+"container-header-create-addressee-title" = "Recipients";
+"container-header-timestamp-title" = "Container timestamps";
 "container-header-signatures-title" = "Container signatures";
 "container-row-edit-remove" = "Delete";
 "container-header-title" = "CONTAINER:";
@@ -100,7 +99,7 @@
 "container-error-message-unknown-signatures" = "%d UNKNOWN SIGNATURES";
 "container-signature-signed" = "Signed %@";
 "container-missing-signatures" = "Container is not signed";
-"container-missing-addressees" = "Addressees are missing";
+"container-missing-addressees" = "Recipients are missing";
 "container-signature-status-valid" = "Signature is valid";
 "container-signature-status-warning" = "(Warnings)";
 "container-signature-status-non-qscd" = "(Restrictions)";
@@ -131,7 +130,7 @@
 "container-sign-title" = "Sign";
 "container-encryption-title" = "Encryption";
 "container-decryption-title" = "Decryption";
-"container-addressee-title" = "Adding addressees";
+"container-addressee-title" = "Add recipients";
 "container-validate-title" = "Container verification";
 "container-validating" = "Loading...";
 "importing-files-progress-message" = "Importing files...";
@@ -196,7 +195,7 @@
 "my-eid-info-pin-puk-segment-title" = "PIN/PUK CODES AND CERTIFICATES";
 "my-eid-info-pin1-blocked-message" = "PIN1 is blocked, because PIN1 has been inserted 3 times incorrectly.";
 "my-eid-info-pin2-blocked-message" = "PIN2 is blocked, because PIN2 has been inserted 3 times incorrectly.";
-"my-eid-info-puk-blocked-message" = "PUK is blocked, because PUK code has been inserted 3 times incorrectly.";
+"my-eid-info-puk-blocked-message" = "PUK is blocked, because PUK code has been inserted 3 times incorrectly. You can find instructions on how to get a new document from here.";
 "my-eid-unblock-pin1-button-title" = "UNBLOCK";
 "my-eid-unblock-pin2-button-title" = "UNBLOCK";
 "my-eid-how-to-get-codes-message" = "You can find instructions on how to get a new document from here.";
@@ -239,6 +238,6 @@
 "diagnostics-title" = "Diagnostics";
 "diagnostics-app-version" = "Application version";
 "diagnostics-ios-version" = "OS";
-"diagnostics-libraries-label" = "Libraries";
+"diagnostics-libraries-label" = "Libraries:";
 "about-title" = "Info";
 "jailbreak-message" = "This app cannot be used in jailbroken device";
