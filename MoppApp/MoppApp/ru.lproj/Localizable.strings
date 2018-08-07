@@ -61,7 +61,7 @@
 
 // Crashlytics
 "crashlytics-title" = "Отправить отчет о сбое?";
-"crashlytics-message" = "Похоже произошел сбой! Помогите нам устранить проблему, отправив отчет о сбое.";
+"crashlytics-message" = "Похоже, произошел какой-то сбой! Помогите нам решить проблему отправив отчет о сбое.";
 "crashlytics-action-send" = "Отправить";
 "crashlytics-action-always-send" = "Всегда отправлять";
 "crashlytics-action-do-not-send" = "Не отправлять";
@@ -146,8 +146,8 @@
 "card-reader-state-reader-not-found" = "Считыватель карты не обнаружен";
 "card-reader-state-id-card-not-found" = "Обнаружен считыватель карты.\nВставьте в него Вашу ID-карту.";
 "card-reader-state-id-card-connected" = "Обнаружена ID-карта.\nЗапрашивается информация.";
-"card-reader-state-ready-for-pin2" = "Готово к подписанию с использованием ID-карты";
-"card-reader-state-ready-for-pin1" = "Готово к дешифрованию с помощью ID-карты.";
+"card-reader-state-ready-for-pin2" = "Готово к подписанию с использованием ID-карты.\n%@ (%@)";
+"card-reader-state-ready-for-pin1" = "Готово к дешифрованию с помощью ID-карты.\n%@ (%@)";
 "signing-in-progress" = "Происходит подписание.\nПожалуйста, подождите.";
 "decryption-in-progress" = "Происходит дешифрование. Пожалуйста, подождите.";
 "wrong-pin2" = "Неверный PIN2. У Вас осталось %d попыток.";
