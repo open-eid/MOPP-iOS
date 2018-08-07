@@ -145,8 +145,8 @@
 "card-reader-state-reader-not-found" = "Ühtegi kaardilugejat pole ühendatud";
 "card-reader-state-id-card-not-found" = "Kaardilugeja leitud.\nSisesta ID-kaart lugejasse.";
 "card-reader-state-id-card-connected" = "ID-kaart leitud.\nPärin andmeid.";
-"card-reader-state-ready-for-pin2" = "ID-kaart on valmis allkirjastamiseks";
-"card-reader-state-ready-for-pin1" = "ID-kaart on valmis dekrüpteerimiseks";
+"card-reader-state-ready-for-pin2" = "ID-kaart on valmis allkirjastamiseks.\n%@ (%@)";
+"card-reader-state-ready-for-pin1" = "ID-kaart on valmis dekrüpteerimiseks.\n%@ (%@)";
 "signing-in-progress" = "Toimub allkirjastamine.\nPalun oota.";
 "decryption-in-progress" = "Toimub dekrüpteerimine.\nPalun oota.";
 "wrong-pin2" = "Vale PIN2. Saad PIN2 koodi sisestada veel %d korda.";

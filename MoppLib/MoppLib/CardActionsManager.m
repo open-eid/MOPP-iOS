@@ -352,7 +352,9 @@ static CardActionsManager *sharedInstance = nil;
         }]; // if [self.cardReader isCardInserted:^(BOOL isInserted)
         
     } else { // ![self isReaderConnected]
-        assert(action.completionBlock != nil);
+        if (action.completionBlock == nil) {
+            return;
+        }
         action.completionBlock(NO);
         [self finishCurrentAction];
     }
@@ -559,7 +561,9 @@ NSString *blockBackupCode = @"00001";
 }
 
 - (BOOL)isReaderConnected {
-    assert(self.reader != nil);
+    if (self.reader == nil) {
+        return false;
+    }
     return self.reader && [self.reader isConnected];
 }
 
