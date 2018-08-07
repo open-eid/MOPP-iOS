@@ -61,7 +61,7 @@
 
 // Crashlytics
 "crashlytics-title" = "Отправить отчет о сбое?";
-"crashlytics-message" = "Похоже произошел сбой! Помогите нам устранить проблему, отправив отчет о сбое.";
+"crashlytics-message" = "Похоже, произошел какой-то сбой! Помогите нам решить проблему отправив отчет о сбое.";
 "crashlytics-action-send" = "Отправить";
 "crashlytics-action-always-send" = "Всегда отправлять";
 "crashlytics-action-do-not-send" = "Не отправлять";

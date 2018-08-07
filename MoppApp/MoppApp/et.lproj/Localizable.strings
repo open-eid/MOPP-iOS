@@ -62,7 +62,7 @@
 
 // Crashlytics
 "crashlytics-title" = "Kas saata vearaport?";
-"crashlytics-message" = "Programmi töö on ootamatult peatunud! Palun aita meil viga parandada ja saada vearaport.";
+"crashlytics-message" = "Hei. Rakenduses juhtus viga. Palun aita meid ja saada meile vearaport, et saaksime selle vea parandada.";
 "crashlytics-action-send" = "Saada";
 "crashlytics-action-always-send" = "Saada alati";
 "crashlytics-action-do-not-send" = "Ära saada";
