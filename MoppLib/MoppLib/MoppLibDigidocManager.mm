@@ -575,6 +575,12 @@ void parseException(const digidoc::Exception &e) {
     return [[NSString alloc] initWithBytes:version.c_str() length:version.length() encoding:NSUTF8StringEncoding];
 }
 
+- (NSString *)pkcs12Cert {
+    DigiDocConf *conf = new DigiDocConf;
+    std::string certPath = conf->PKCS12Cert();
+    return [NSString stringWithUTF8String:certPath.c_str()];
+}
+    
 + (SigningProfileType)signingProfileTypeUsingProfiles:(NSArray *)profiles andContainerExtension:(NSString *)containerExtension {
     SigningProfileType profileType = Unspecified;
     

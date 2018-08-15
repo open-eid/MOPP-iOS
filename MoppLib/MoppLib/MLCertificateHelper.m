@@ -23,12 +23,13 @@
 
 #import "MLCertificateHelper.h"
 #import <CommonCrypto/CommonDigest.h>
-
+#import "MoppLibDigidocManager.h"
 
 @implementation MLCertificateHelper
 
 + (NSURLCredential *)getCredentialsFormCert {
-  NSString *certPath = [[NSBundle bundleForClass:self] pathForResource:@"sk878252" ofType:@"p12"];
+  NSString *cert = [[MoppLibDigidocManager sharedInstance ] pkcs12Cert];
+  NSString *certPath = [[NSBundle bundleForClass:self] pathForResource:[cert lastPathComponent] ofType:@""];
   NSData *p12Data = [NSData dataWithContentsOfFile:certPath];
   CFDataRef certDataRef = (__bridge_retained CFDataRef)p12Data;
   CFStringRef password = (__bridge CFStringRef)@"aPQ11ti4";
