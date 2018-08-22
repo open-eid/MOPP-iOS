@@ -57,8 +57,10 @@ public:
   }
   
   virtual std::string PKCS12Cert() const {
+    std::string certPath = Conf::PKCS12Cert();
+    NSString *encodedCertPath = [NSString stringWithUTF8String:certPath.c_str()];
     NSBundle *bundle = [NSBundle bundleForClass:[MoppLibDigidocManager class]];
-    NSString *path = [bundle pathForResource:@"878252.p12" ofType:@""];
+    NSString *path = [bundle pathForResource:encodedCertPath ofType:@""];
     return path.UTF8String;
   }
   
@@ -573,6 +575,12 @@ void parseException(const digidoc::Exception &e) {
     return [[NSString alloc] initWithBytes:version.c_str() length:version.length() encoding:NSUTF8StringEncoding];
 }
 
+- (NSString *)pkcs12Cert {
+    DigiDocConf *conf = new DigiDocConf;
+    std::string certPath = conf->PKCS12Cert();
+    return [NSString stringWithUTF8String:certPath.c_str()];
+}
+    
 + (SigningProfileType)signingProfileTypeUsingProfiles:(NSArray *)profiles andContainerExtension:(NSString *)containerExtension {
     SigningProfileType profileType = Unspecified;
     
