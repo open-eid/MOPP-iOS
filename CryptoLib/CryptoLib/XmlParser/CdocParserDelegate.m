@@ -58,10 +58,11 @@
 
 -(void) parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
     if (_isNextCharactersFilename) {
-        if (!_currentFilenameNode) {
-            _currentFilenameNode = [NSString new];
+        if (_currentFilenameNode) {
+            _currentFilenameNode = [_currentFilenameNode stringByAppendingString:string];
+        } else {
+            _currentFilenameNode = string;
         }
-        _currentFilenameNode = [_currentFilenameNode stringByAppendingString:string];
     }
         
     if (_isNextCharactersCertificate) {

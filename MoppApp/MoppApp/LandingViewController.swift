@@ -201,8 +201,8 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
         let error = userInfo[kErrorKey] as? NSError
         var errorMessage = error?.userInfo[NSLocalizedDescriptionKey] as? String ??
             userInfo[kErrorMessage] as? String
-
-        errorMessage = MoppLib_LocalizedString(errorMessage!)
+        guard let strongErrorMessage = errorMessage else { return }
+        errorMessage = MoppLib_LocalizedString(strongErrorMessage)
 
         let alert = UIAlertController(
             title: L(.errorAlertTitleGeneral),
