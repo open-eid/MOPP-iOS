@@ -28,6 +28,7 @@
 }
 @property (nonatomic, strong) NSMutableArray<Addressee *> *addressees;
 @property (nonatomic, strong) NSMutableArray<CryptoDataFile *> *dataFiles;
+@property (nonatomic, retain) NSString *currentFilenameNode;
 @property (nonatomic) BOOL isNextCharactersFilename;
 @property (nonatomic) BOOL isNextCharactersCertificate;
 @property (nonatomic, strong) Addressee *lastAddressee;

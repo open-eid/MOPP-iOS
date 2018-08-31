@@ -135,59 +135,55 @@ typedef enum {
   NSString *errorMessage;
   switch (errorCode) {
     case kDDSErrorCodeGeneral:
-      errorMessage = [NSString stringWithFormat:MLLocalizedErrors(@"digidoc-service-error-general", nil)];
+      errorMessage = @"digidoc-service-error-general";
       break;
-      
     case kDDSErrorCodeIncorrectParameters:
-      errorMessage = [NSString stringWithFormat:MLLocalizedErrors(@"digidoc-service-error-incorrect-parameters", nil)];
+      errorMessage = @"digidoc-service-error-incorrect-parameters";
       break;
     case kDDSErrorCodeMissingParameters:
-      errorMessage = [NSString stringWithFormat:MLLocalizedErrors(@"digidoc-service-error-missing-parameters", nil)];
+      errorMessage = @"digidoc-service-error-missing-parameters";
       break;
     case kDDSErrorCodeOCSPUnauthorized:
-      errorMessage = [NSString stringWithFormat:MLLocalizedErrors(@"digidoc-service-error-ocsp-unauthorized", nil)];
+      errorMessage = @"digidoc-service-error-ocsp-unauthorized";
       break;
     case kDDSErrorCodeGeneralService:
-      errorMessage = [NSString stringWithFormat:MLLocalizedErrors(@"digidoc-service-error-general-service", nil)];
+      errorMessage = @"digidoc-service-error-general-service";
       break;
     case kDDSErrorCodeMissingUserCertificate:
-      errorMessage = [NSString stringWithFormat:MLLocalizedErrors(@"digidoc-service-error-missing-user-certificate", nil)];
+      errorMessage = @"digidoc-service-error-missing-user-certificate";
       break;
     case kDDSErrorCodeCertificateValidityUnknown:
-      errorMessage = [NSString stringWithFormat:MLLocalizedErrors(@"digidoc-service-error-certificate-validity-unknown", nil)];
+      errorMessage = @"digidoc-service-error-certificate-validity-unknown";
       break;
     case kDDSErrorCodeSessionLocked:
-      errorMessage = [NSString stringWithFormat:MLLocalizedErrors(@"digidoc-service-error-session-locked", nil)];
+      errorMessage = @"digidoc-service-error-session-locked";
       break;
     case kDDSErrorCodeGeneralUser:
-      errorMessage = [NSString stringWithFormat:MLLocalizedErrors(@"digidoc-service-error-general-user", nil)];
+      errorMessage = @"digidoc-service-error-general-user";
       break;
     case kDDSErrorCodeNotMobileIdUser:
-      errorMessage = [NSString stringWithFormat:MLLocalizedErrors(@"digidoc-service-error-not-mobile-id-user", nil)];
+      errorMessage = @"digidoc-service-error-not-mobile-id-user";
       break;
     case kDDSErrorCodeUserCertificateRevoked:
-      errorMessage = [NSString stringWithFormat:MLLocalizedErrors(@"digidoc-service-error-user-certificate-revoked", nil)];
+      errorMessage = @"digidoc-service-error-user-certificate-revoked";
       break;
     case kDDSErrorCodeUserCertificateStatusUnknown:
-      errorMessage = [NSString stringWithFormat:MLLocalizedErrors(@"digidoc-service-error-user-certificate-status-unknown", nil)];
+      errorMessage = @"digidoc-service-error-user-certificate-status-unknown";
       break;
-
     case kDDSErrorCodeUserCertificateSuspended:
-      errorMessage = [NSString stringWithFormat:MLLocalizedErrors(@"digidoc-service-error-user-certificate-suspended", nil)];
+      errorMessage = @"digidoc-service-error-user-certificate-suspended";
       break;
     case kDDSErrorCodeUserCertificateExpired:
-      errorMessage = [NSString stringWithFormat:MLLocalizedErrors(@"digidoc-service-error-user-certificate-expired", nil)];
+      errorMessage = @"digidoc-service-error-user-certificate-expired";
       break;
     case kDDSErrorCodeMessageExceedsVolumeLimit:
-      errorMessage = [NSString stringWithFormat:MLLocalizedErrors(@"digidoc-service-error-message-exceeds-volume-limit", nil)];
+      errorMessage = @"digidoc-service-error-message-exceeds-volume-limit";
       break;
     case kDDSErrorCodeSimultaneousRequestsLimitExceeded:
-      errorMessage = [NSString stringWithFormat:MLLocalizedErrors(@"digidoc-service-error-simlutaneous-requests-limit-exceeded", nil)];
+      errorMessage = @"digidoc-service-error-simlutaneous-requests-limit-exceeded";
       break;
-
-      
     default:
-      errorMessage = [NSString stringWithFormat:MLLocalizedErrors(@"digidoc-service-error-unknown", nil)];
+      errorMessage = @"digidoc-service-error-unknown";
       break;
   }
   return [[NSError alloc] initWithDomain:MoppLibErrorDomain code:errorCode userInfo:@{NSLocalizedDescriptionKey : errorMessage}];

@@ -56,6 +56,9 @@
          @try {
             CdocParser *cdocParser = [CdocParser new];
             response = [cdocParser parseCdocInfo:fullPath];
+            if (response.addressees == nil || response.dataFiles == nil) {
+                 error = [MoppLibError generalError];
+            }
             for (Addressee* addressee in response.addressees) {
                 MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
                 NSData *certificate = addressee.cert;

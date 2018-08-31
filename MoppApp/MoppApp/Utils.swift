@@ -58,12 +58,12 @@ func L(_ key: LocKey, _ arguments: [CVarArg] = []) -> String {
 }
 
 func MoppLib_LocalizedString(_ key: String,_ arguments: [CVarArg] = []) -> String {
-    let format = NSLocalizedString(
-        key,
-        tableName: nil,
-        bundle: Bundle(identifier: "mobi.lab.MoppLib")!,
-        value: String(),
-        comment: String())
-    return String(format: format, arguments: arguments)
+    let languageId = DefaultsHelper.moppLanguageID
+    let moppLibBundlePath = Bundle(identifier: "mobi.lab.MoppLib")?.path(forResource: languageId, ofType: "lproj")
+    guard let strongMoppLibBundlePath = moppLibBundlePath else { return String()}
+    let bundle = Bundle(path: strongMoppLibBundlePath)
+    let format = bundle?.localizedString(forKey: key, value: String(), table: nil)
+    guard let strongFormat = format else { return String()}
+    return String(format: strongFormat, arguments: arguments)
 }
 

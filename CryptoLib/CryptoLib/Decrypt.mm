@@ -51,7 +51,7 @@
     
     NSData *nsdataFromBase64String = [[NSData alloc] initWithBase64EncodedString:result options:0];
 
-    NSString *nsFilename = [NSString stringWithCString:filename.c_str() encoding:[NSString defaultCStringEncoding]];
+    NSString *nsFilename = [NSString stringWithCString:filename.c_str() encoding: NSUTF8StringEncoding];
     if ([[nsFilename pathExtension] isEqualToString: @"ddoc"]){
         NSXMLParser *parser = [[NSXMLParser alloc] initWithData:nsdataFromBase64String];
         DdocParserDelegate *parserDelegate = [[DdocParserDelegate alloc] init];

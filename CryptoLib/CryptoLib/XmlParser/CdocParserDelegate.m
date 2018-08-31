@@ -57,23 +57,34 @@
 }
 
 -(void) parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-    
+    if (_isNextCharactersFilename) {
+        if (_currentFilenameNode) {
+            _currentFilenameNode = [_currentFilenameNode stringByAppendingString:string];
+        } else {
+            _currentFilenameNode = string;
+        }
+    }
+        
+    if (_isNextCharactersCertificate) {
+        NSData *pemFormattedCertificate = [[NSString stringWithFormat:@"%@%@%@", @"-----BEGIN CERTIFICATE-----\n", string, @"\n-----END CERTIFICATE------"] dataUsingEncoding:NSUTF8StringEncoding];
+        _lastAddressee.cert = [pemFormattedCertificate subdataWithRange:NSMakeRange(0, [pemFormattedCertificate length] - 1)];
+    }
+}
+
+- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(nullable NSString *)namespaceURI qualifiedName:(nullable NSString *)qName {
     if (_isNextCharactersFilename) {
         if (_dataFiles == nil){
             _dataFiles  = [NSMutableArray new];
         }
-        NSArray *filenameWithBytesLength = [string componentsSeparatedByString:@"|"];
+        NSArray *filenameWithBytesLength = [_currentFilenameNode componentsSeparatedByString:@"|"];
         NSString *filename = filenameWithBytesLength[0];
         CryptoDataFile *dataFile = [CryptoDataFile new];
         dataFile.filename = filename;
         [_dataFiles addObject:dataFile];
-        _isNextCharactersFilename = NO;
     }
-    if (_isNextCharactersCertificate) {
-        NSData *pemFormattedCertificate = [[NSString stringWithFormat:@"%@%@%@", @"-----BEGIN CERTIFICATE-----\n", string, @"\n-----END CERTIFICATE------"] dataUsingEncoding:NSUTF8StringEncoding];
-        _lastAddressee.cert = [pemFormattedCertificate subdataWithRange:NSMakeRange(0, [pemFormattedCertificate length] - 1)];
-        _isNextCharactersCertificate = NO;
-    }
+    _currentFilenameNode = nil;
+    _isNextCharactersFilename = NO;
+    _isNextCharactersCertificate = NO;
 }
 
 @end
