@@ -201,9 +201,15 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
         let error = userInfo[kErrorKey] as? NSError
         var errorMessage = error?.userInfo[NSLocalizedDescriptionKey] as? String ??
             userInfo[kErrorMessage] as? String
-        guard let strongErrorMessage = errorMessage else { return }
-        errorMessage = MoppLib_LocalizedString(strongErrorMessage)
-
+        if errorMessage == "USER_CANCEL" {
+            errorMessage = MoppLib_LocalizedString("digidoc-service-status-request-user-cancel")
+        }
+        else if errorMessage == "EXPIRED_TRANSACTION" {
+            errorMessage = MoppLib_LocalizedString("digidoc-service-status-request-expired-transaction")
+        } else {
+            guard let strongErrorMessage = errorMessage else { return }
+            errorMessage = MoppLib_LocalizedString(strongErrorMessage)
+        }
         let alert = UIAlertController(
             title: L(.errorAlertTitleGeneral),
             message: errorMessage,
