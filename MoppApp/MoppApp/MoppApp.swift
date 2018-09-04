@@ -108,12 +108,10 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
              .font:UIFont(name: "RobotoCondensed-Regular", size: 10)!],
             for: .normal)
         
-        if isDeviceJailbroken {
-            window?.rootViewController = UIStoryboard.jailbreak.instantiateInitialViewController()
-        } else {
-            let initializationViewController = InitializationViewController()
-            window?.rootViewController = initializationViewController
-        }
+        
+        let initializationViewController = InitializationViewController()
+        window?.rootViewController = initializationViewController
+    
 
         window?.makeKeyAndVisible()
         return true
