@@ -241,3 +241,4 @@
 "diagnostics-libraries-label" = "Libraries:";
 "about-title" = "Info";
 "jailbreak-message" = "This app cannot be used in jailbroken device";
+"datafile-preview-failed" = "Error opening document for preview";
