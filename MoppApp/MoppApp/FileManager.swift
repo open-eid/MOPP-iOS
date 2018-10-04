@@ -69,9 +69,20 @@ class MoppFileManager {
         return path
     }
 
-    func tempFilePath(withFileName fileName: String) -> String {
-        let filePath: String = URL(fileURLWithPath: tempDocumentsDirectoryPath()).appendingPathComponent(fileName).path
-        return filePath
+    func tempFilePath(withFileName fileName: String) -> String? {
+        let tempPathURL = URL(fileURLWithPath: tempDocumentsDirectoryPath())
+        let filePathURL = URL(fileURLWithPath: fileName,
+            isDirectory: false, relativeTo: tempPathURL).absoluteURL
+
+        // Create intermediate directories for possibility of creating temporary
+        // file if filename contains relative path
+        guard let _ = try? fileManager.createDirectory(at:
+            filePathURL.deletingLastPathComponent(),
+            withIntermediateDirectories: true, attributes: nil) else {
+            return nil
+        }
+        
+        return filePathURL.path
     }
 
     func filePath(withFileName fileName: String) -> String {
@@ -243,7 +254,11 @@ class MoppFileManager {
                 
                 data = try! Data(contentsOf: safeURL)
                 
-                let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: safeURL.lastPathComponent)
+                guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: safeURL.lastPathComponent) else {
+                    completion?(NSError(domain: String(), code: 0, userInfo: nil), [])
+                    return
+                }
+                
                 MoppFileManager.shared.createFile(atPath: destinationPath, contents: data)
                 
                 if isUrlSSR {

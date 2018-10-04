@@ -114,7 +114,7 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
 
     }
     
-    func getDataFileOriginFilename(index: Int) -> String? {
+    func getDataFileDisplayName(index: Int) -> String? {
         guard let dataFile =  (container.dataFiles[index] as? CryptoDataFile) else {
             return nil
         }
@@ -168,7 +168,7 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
         return container.filename as String
     }
     
-    func getDataFileFilename(index: Int) -> String {
+    func getDataFileRelativePath(index: Int) -> String {
         return (container.dataFiles[index] as! CryptoDataFile).filename! as String
     }
     
