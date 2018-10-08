@@ -30,7 +30,12 @@ extension PreviewActions where Self: ContainerViewController {
     
     func openFilePreview(dataFileFilename: String, containerFilePath: String, isShareButtonNeeded: Bool) {
         
-        let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: dataFileFilename)
+        guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: dataFileFilename) else {
+            DispatchQueue.main.async { [weak self] in
+                self?.errorAlert(message: L(.datafilePreviewFailed))
+            }
+            return
+        }
 
         let openAsicContainerPreview: (_ isPDF: Bool) -> Void = { [weak self] isPDF in
             let containerViewController = SigningContainerViewController.instantiate()
