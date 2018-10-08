@@ -27,9 +27,6 @@ class MoppFileManager {
     static let shared = MoppFileManager()
     var fileManager: FileManager = FileManager()
 
-    func setup() {
-    }
-
     func documentsDirectoryPath() -> String {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsDirectory: String = paths[0]
@@ -64,7 +61,7 @@ class MoppFileManager {
         var isDir : ObjCBool = false
         if !(fileManager.fileExists(atPath: path, isDirectory: &isDir)) {
             var error: Error?
-            try? fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+            try? fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: [FileAttributeKey.protectionKey: FileProtectionType.complete])
         }
         return path
     }
@@ -89,26 +86,9 @@ class MoppFileManager {
         let filePath: String = URL(fileURLWithPath: documentsDirectoryPath()).appendingPathComponent(fileName).path
         return filePath
     }
-
-    func uniqueFilePath(withFileName fileName: String) -> String {
-        return filePath(withFileName: fileName, index: 0)
-    }
-
-    func filePath(withFileName fileName: String, index: Int) -> String {
-        var filePath: String = URL(fileURLWithPath: documentsDirectoryPath()).appendingPathComponent(fileName).path
-        if index > 0 {
-            let components = filePath.filenameComponents()
-            filePath = "\(components.name)(\(index)).\(components.ext)"
-        }
-        var isDir : ObjCBool = false
-        if fileManager.fileExists(atPath: filePath, isDirectory: &isDir) {
-            return self.filePath(withFileName: fileName, index: index + 1)
-        }
-        return filePath
-    }
     
     func sharedDocumentsPath() -> String {
-        guard let groupFolderUrl = fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.ee.fob.digidoc.ios") else {
+        guard let groupFolderUrl = fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.ee.ria.digidoc.ios") else {
             return String()
         }
         return groupFolderUrl.appendingPathComponent("Temp").path
@@ -124,19 +104,6 @@ class MoppFileManager {
         return array
     }
 
-    func removeFiles(atPaths paths: [String]) {
-        for file in paths {
-            removeFile(withPath: file)
-        }
-    }
-
-    func clearSharedCache() {
-        let cachedDocs = sharedDocumentPaths()
-        for file in cachedDocs {
-            removeFile(withPath: file)
-        }
-    }
-
     func createTestContainer() -> String {
         let fileName = "\(MoppDateFormatter.shared.hHmmssddMMYYYY(toString: Date())).\(DefaultsHelper.newContainerFormat)"
         guard let bdocPath = Bundle.main.path(forResource: "test1", ofType: "bdoc") else {
@@ -150,7 +117,9 @@ class MoppFileManager {
 
     func createFile(atPath filePath: String, contents fileContents: Data) {
         
-        fileManager.createFile(atPath: filePath, contents: fileContents, attributes: nil)
+        fileManager.createFile(atPath: filePath,
+            contents: fileContents,
+            attributes: [FileAttributeKey.protectionKey: FileProtectionType.complete])
         
         MoppLibContainerActions.sharedInstance().openContainer(
             withPath: filePath,

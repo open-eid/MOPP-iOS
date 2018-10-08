@@ -98,7 +98,9 @@
       NSURL *groupFolderUrl = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.ee.ria.digidoc.ios"];
       groupFolderUrl = [groupFolderUrl URLByAppendingPathComponent:@"Temp"];
       NSError *err;
-      [[NSFileManager defaultManager] createDirectoryAtURL:groupFolderUrl withIntermediateDirectories:NO attributes:nil error:&err];
+      [[NSFileManager defaultManager] createDirectoryAtURL:groupFolderUrl
+        withIntermediateDirectories:NO
+        attributes:@{NSFileProtectionKey: NSFileProtectionComplete} error:&err];
       
       NSURL  *filePath = [groupFolderUrl URLByAppendingPathComponent:itemUrl.lastPathComponent] ;
       
