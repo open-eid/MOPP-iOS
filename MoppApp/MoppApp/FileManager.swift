@@ -27,9 +27,6 @@ class MoppFileManager {
     static let shared = MoppFileManager()
     var fileManager: FileManager = FileManager()
 
-    func setup() {
-    }
-
     func documentsDirectoryPath() -> String {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsDirectory: String = paths[0]
@@ -64,40 +61,34 @@ class MoppFileManager {
         var isDir : ObjCBool = false
         if !(fileManager.fileExists(atPath: path, isDirectory: &isDir)) {
             var error: Error?
-            try? fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+            try? fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: [FileAttributeKey.protectionKey: FileProtectionType.complete])
         }
         return path
     }
 
-    func tempFilePath(withFileName fileName: String) -> String {
-        let filePath: String = URL(fileURLWithPath: tempDocumentsDirectoryPath()).appendingPathComponent(fileName).path
-        return filePath
+    func tempFilePath(withFileName fileName: String) -> String? {
+        let tempPathURL = URL(fileURLWithPath: tempDocumentsDirectoryPath())
+        let filePathURL = URL(fileURLWithPath: fileName,
+            isDirectory: false, relativeTo: tempPathURL).absoluteURL
+
+        // Create intermediate directories for possibility of creating temporary
+        // file if filename contains relative path
+        guard let _ = try? fileManager.createDirectory(at:
+            filePathURL.deletingLastPathComponent(),
+            withIntermediateDirectories: true, attributes: nil) else {
+            return nil
+        }
+        
+        return filePathURL.path
     }
 
     func filePath(withFileName fileName: String) -> String {
         let filePath: String = URL(fileURLWithPath: documentsDirectoryPath()).appendingPathComponent(fileName).path
         return filePath
     }
-
-    func uniqueFilePath(withFileName fileName: String) -> String {
-        return filePath(withFileName: fileName, index: 0)
-    }
-
-    func filePath(withFileName fileName: String, index: Int) -> String {
-        var filePath: String = URL(fileURLWithPath: documentsDirectoryPath()).appendingPathComponent(fileName).path
-        if index > 0 {
-            let components = filePath.filenameComponents()
-            filePath = "\(components.name)(\(index)).\(components.ext)"
-        }
-        var isDir : ObjCBool = false
-        if fileManager.fileExists(atPath: filePath, isDirectory: &isDir) {
-            return self.filePath(withFileName: fileName, index: index + 1)
-        }
-        return filePath
-    }
     
     func sharedDocumentsPath() -> String {
-        guard let groupFolderUrl = fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.ee.fob.digidoc.ios") else {
+        guard let groupFolderUrl = fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.ee.ria.digidoc.ios") else {
             return String()
         }
         return groupFolderUrl.appendingPathComponent("Temp").path
@@ -113,19 +104,6 @@ class MoppFileManager {
         return array
     }
 
-    func removeFiles(atPaths paths: [String]) {
-        for file in paths {
-            removeFile(withPath: file)
-        }
-    }
-
-    func clearSharedCache() {
-        let cachedDocs = sharedDocumentPaths()
-        for file in cachedDocs {
-            removeFile(withPath: file)
-        }
-    }
-
     func createTestContainer() -> String {
         let fileName = "\(MoppDateFormatter.shared.hHmmssddMMYYYY(toString: Date())).\(DefaultsHelper.newContainerFormat)"
         guard let bdocPath = Bundle.main.path(forResource: "test1", ofType: "bdoc") else {
@@ -139,7 +117,9 @@ class MoppFileManager {
 
     func createFile(atPath filePath: String, contents fileContents: Data) {
         
-        fileManager.createFile(atPath: filePath, contents: fileContents, attributes: nil)
+        fileManager.createFile(atPath: filePath,
+            contents: fileContents,
+            attributes: [FileAttributeKey.protectionKey: FileProtectionType.complete])
         
         MoppLibContainerActions.sharedInstance().openContainer(
             withPath: filePath,
@@ -243,7 +223,11 @@ class MoppFileManager {
                 
                 data = try! Data(contentsOf: safeURL)
                 
-                let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: safeURL.lastPathComponent)
+                guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: safeURL.lastPathComponent) else {
+                    completion?(NSError(domain: String(), code: 0, userInfo: nil), [])
+                    return
+                }
+                
                 MoppFileManager.shared.createFile(atPath: destinationPath, contents: data)
                 
                 if isUrlSSR {

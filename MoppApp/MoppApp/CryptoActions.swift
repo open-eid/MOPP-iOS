@@ -74,7 +74,11 @@ extension CryptoContainerViewController : IdCardDecryptViewControllerDelegate {
                 for dataFile in dataFiles {
                     let cryptoDataFile = CryptoDataFile()
                     cryptoDataFile.filename = dataFile.key as! String
-                    let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: cryptoDataFile.filename)
+                    guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: cryptoDataFile.filename) else {
+                        dismiss(animated: false)
+                        errorAlert(message: L(.decryptionErrorMessage))
+                        return
+                    }
                     cryptoDataFile.filePath = destinationPath
                     container.dataFiles.add(cryptoDataFile)
                     MoppFileManager.shared.createFile(atPath: destinationPath, contents: dataFile.value as! Data)

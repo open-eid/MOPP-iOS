@@ -117,11 +117,38 @@
   }];
 }
 
+- (BOOL)certificatePinningCheckedWith:(NSURLAuthenticationChallenge *)challenge {
+    SecTrustRef serverTrust = challenge.protectionSpace.serverTrust;
+    SecCertificateRef certificate = SecTrustGetCertificateAtIndex(serverTrust, 0);
+
+    NSMutableArray *policies = [NSMutableArray array];
+    [policies addObject:(__bridge_transfer id)SecPolicyCreateSSL(true, (__bridge CFStringRef)challenge.protectionSpace.host)];
+    SecTrustSetPolicies(serverTrust, (__bridge CFArrayRef)policies);
+
+    SecTrustResultType result;
+    SecTrustEvaluate(serverTrust, &result);
+    BOOL certificateIsValid = (result == kSecTrustResultUnspecified || result == kSecTrustResultProceed);
+
+    NSData *remoteCertificateData = CFBridgingRelease(SecCertificateCopyData(certificate));
+    
+    NSString *certificateName = challenge.protectionSpace.host;
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSString *pathToCert = [bundle pathForResource:certificateName ofType:@"cer"];
+    NSData *localCertificate = [NSData dataWithContentsOfFile:pathToCert];
+    
+    return certificateIsValid && [remoteCertificateData isEqualToData:localCertificate];
+}
+
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
 didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
  completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * _Nullable credential))completionHandler {
-  NSURLCredential *creds = [MLCertificateHelper getCredentialsFormCert];
-  completionHandler(NSURLSessionAuthChallengeUseCredential, creds);
+  
+    if ([self certificatePinningCheckedWith:challenge]) {
+        NSURLCredential *credential = [MLCertificateHelper getCredentialsFormCert];
+        completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+    } else {
+        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, NULL);
+    }
 }
 
 @end

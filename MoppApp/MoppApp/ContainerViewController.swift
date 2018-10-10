@@ -25,8 +25,8 @@ protocol ContainerViewControllerDelegate: class {
     func getContainerPath() -> String
     func openContainer(afterSignatureCreated: Bool)
     func getContainerFilename() -> String
-    func getDataFileFilename(index: Int) -> String
-    func getDataFileOriginFilename(index: Int) -> String?
+    func getDataFileRelativePath(index: Int) -> String
+    func getDataFileDisplayName(index: Int) -> String?
     func isContainerEmpty() -> Bool
     func removeDataFile(index: Int)
 }
@@ -307,7 +307,7 @@ extension ContainerViewController : UITableViewDataSource {
                     (!(!isAsicContainer && state == .opened))
             }
                 cell.populate(
-                    name: containerViewDelegate.getDataFileFilename(index: row),
+                    name: containerViewDelegate.getDataFileDisplayName(index: row) ?? String(),
                     showBottomBorder: row < containerViewDelegate.getDataFileCount() - 1,
                     showRemoveButton: isRemoveButtonShown,
                     dataFileIndex: row)
@@ -367,11 +367,12 @@ extension ContainerViewController : UITableViewDelegate {
                 isStatePreviewOrOpened &&
                 isDecrypted == false
             if  !isEncryptedDataFiles {
-                guard let originDataFile = containerViewDelegate.getDataFileOriginFilename(index: indexPath.row) else { return }
                 if isDecrypted {
-                    openFilePreview(dataFileFilename: originDataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: true)
+                    guard let dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) else { return }
+                    openFilePreview(dataFileFilename: dataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: true)
                 } else {
-                    openFilePreview(dataFileFilename: originDataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: false)
+                    let dataFile = containerViewDelegate.getDataFileRelativePath(index: indexPath.row)
+                    openFilePreview(dataFileFilename: dataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: false)
                 }
                 
             }

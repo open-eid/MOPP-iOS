@@ -107,15 +107,18 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
         })
     }
     
-    func getDataFileOriginFilename(index: Int) -> String? {
-        return (container.dataFiles as! [MoppLibDataFile])[index].fileName
+    func getDataFileDisplayName(index: Int) -> String? {
+        guard let dataFile = container.dataFiles[index] as? MoppLibDataFile else {
+            return nil
+        }
+        return (dataFile.fileName as NSString).lastPathComponent
     }
     
     func getContainerPath() -> String {
         return container.filePath
     }
     
-    func getDataFileFilename(index: Int) -> String {
+    func getDataFileRelativePath(index: Int) -> String {
         return (container.dataFiles as! [MoppLibDataFile])[index].fileName
     }
     

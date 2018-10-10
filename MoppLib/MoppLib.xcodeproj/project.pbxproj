@@ -79,6 +79,7 @@
 		AE61985C1E489EDF0021B18B /* MoppLibService.m in Sources */ = {isa = PBXBuildFile; fileRef = AE61985A1E489EDF0021B18B /* MoppLibService.m */; };
 		AE6198601E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AE61985E1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.m */; };
 		AEC2CC431E3B8B7800A0B869 /* MoppLibSOAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC2CC411E3B8B7800A0B869 /* MoppLibSOAPManager.m */; };
+		C517CF9321665F90008D4962 /* digidocservice.sk.ee.cer in Resources */ = {isa = PBXBuildFile; fileRef = C517CF9221665F8F008D4962 /* digidocservice.sk.ee.cer */; };
 		C54EA73020499DFC0039AC78 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C54EA72F20499DFC0039AC78 /* ExternalAccessory.framework */; };
 		C54EA732204D5E860039AC78 /* CardReaderiR301.m in Sources */ = {isa = PBXBuildFile; fileRef = C54EA731204D5E860039AC78 /* CardReaderiR301.m */; };
 		C54EA734204D5EAA0039AC78 /* CardReaderiR301.h in Headers */ = {isa = PBXBuildFile; fileRef = C54EA733204D5EA70039AC78 /* CardReaderiR301.h */; };
@@ -212,6 +213,7 @@
 		AEC2CC401E3B8B7800A0B869 /* MoppLibSOAPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoppLibSOAPManager.h; path = MoppLib/MoppLibSOAPManager.h; sourceTree = "<group>"; };
 		AEC2CC411E3B8B7800A0B869 /* MoppLibSOAPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoppLibSOAPManager.m; path = MoppLib/MoppLibSOAPManager.m; sourceTree = "<group>"; };
 		BB993982ECBC613ED55E2010 /* Pods-MoppLibTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLibTests.release.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLibTests/Pods-MoppLibTests.release.xcconfig"; sourceTree = "<group>"; };
+		C517CF9221665F8F008D4962 /* digidocservice.sk.ee.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = digidocservice.sk.ee.cer; sourceTree = "<group>"; };
 		C54EA72F20499DFC0039AC78 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		C54EA731204D5E860039AC78 /* CardReaderiR301.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CardReaderiR301.m; path = MoppLib/CardReaderiR301.m; sourceTree = SOURCE_ROOT; };
 		C54EA733204D5EA70039AC78 /* CardReaderiR301.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardReaderiR301.h; sourceTree = "<group>"; };
@@ -487,6 +489,7 @@
 		E4250CDD1E09695100530370 = {
 			isa = PBXGroup;
 			children = (
+				C517CF9221665F8F008D4962 /* digidocservice.sk.ee.cer */,
 				39E5338D2122E38B00FBE148 /* 798.p12 */,
 				54E085E71E71A61900431F1A /* Reachability */,
 				54D1FF821E4DA075006BF123 /* PrefixHeader.pch */,
@@ -582,7 +585,6 @@
 				C54EA736204D90D50039AC78 /* MoppLibCardReaderManager.h in Headers */,
 				545CF8571E16928600B66EE8 /* CBManagerHelper.h in Headers */,
 				399C01E620BC17A10056D7AC /* MoppLibCryptoActions.h in Headers */,
-				C54EA6F62049641E0039AC78 /* ReaderInterface.h in Headers */,
 				54E1DB5C1E44A9060060A250 /* MoppLibManager.h in Headers */,
 				E42B08CD1E1F136A00EA24A3 /* MoppLibDigidocManager.h in Headers */,
 				54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */,
@@ -622,7 +624,6 @@
 				546E575B1E2E07C7009A568D /* Frameworks */,
 				546E575C1E2E07C7009A568D /* Resources */,
 				0EDB3077CF442378CB2183A9 /* [CP] Embed Pods Frameworks */,
-				A1234490CD8D8EAFFF674486 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -643,7 +644,6 @@
 				E4250CE31E09695100530370 /* Frameworks */,
 				E4250CE41E09695100530370 /* Headers */,
 				E4250CE51E09695100530370 /* Resources */,
-				654C74A832102C837E2C757D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -714,6 +714,7 @@
 				E4250CF41E096A1D00530370 /* schema in Resources */,
 				E43BD81E1E3F901D00F6C39D /* FI.xml in Resources */,
 				AE12A8761E51984A00B0B03E /* sk878252.p12 in Resources */,
+				C517CF9321665F90008D4962 /* digidocservice.sk.ee.cer in Resources */,
 				E4250D001E096CAA00530370 /* test.bdoc in Resources */,
 				54D1FF731E4CB6AD006BF123 /* Localizable.strings in Resources */,
 				39E5338E2122E38B00FBE148 /* 798.p12 in Resources */,
@@ -743,21 +744,6 @@
 			shellScript = "\"${SRCROOT}/../MoppApp/Pods/Target Support Files/Pods-MoppLibTests/Pods-MoppLibTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		654C74A832102C837E2C757D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../MoppApp/Pods/Target Support Files/Pods-MoppLib/Pods-MoppLib-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8AB91662076C06D972FCF518 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -774,21 +760,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A1234490CD8D8EAFFF674486 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../MoppApp/Pods/Target Support Files/Pods-MoppLibTests/Pods-MoppLibTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AC6E341FFF2264A49B39A4BB /* [CP] Check Pods Manifest.lock */ = {
