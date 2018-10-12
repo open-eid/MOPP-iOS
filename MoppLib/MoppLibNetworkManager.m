@@ -119,8 +119,9 @@
 
 - (BOOL)certificatePinningCheckedWith:(NSURLAuthenticationChallenge *)challenge {
     SecTrustRef serverTrust = challenge.protectionSpace.serverTrust;
+    if (SecTrustGetCertificateCount(serverTrust) == 0)
+        return YES;
     SecCertificateRef certificate = SecTrustGetCertificateAtIndex(serverTrust, 0);
-
     NSMutableArray *policies = [NSMutableArray array];
     [policies addObject:(__bridge_transfer id)SecPolicyCreateSSL(true, (__bridge CFStringRef)challenge.protectionSpace.host)];
     SecTrustSetPolicies(serverTrust, (__bridge CFArrayRef)policies);
