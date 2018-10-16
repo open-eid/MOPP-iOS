@@ -64,6 +64,7 @@
 		54E1DB571E44939D0060A250 /* SwiftTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E1DB561E44939D0060A250 /* SwiftTestCase.swift */; };
 		54E1DB5C1E44A9060060A250 /* MoppLibManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 54E1DB5A1E44A9060060A250 /* MoppLibManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54E1DB5D1E44A9060060A250 /* MoppLibManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E1DB5B1E44A9060060A250 /* MoppLibManager.m */; };
+		8AE0EFF5024A6ACD15D6C6CE /* Pods_MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212014B6D572D152A70C2C71 /* Pods_MoppLib.framework */; };
 		AE0A84471E4338DB00CC1465 /* MoppLibNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0A84451E4338DB00CC1465 /* MoppLibNetworkManager.m */; };
 		AE0A844A1E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = AE0A84481E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE0A844B1E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0A84491E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m */; };
@@ -90,7 +91,108 @@
 		C5AAAF8620CAA3F00087D6DA /* winscard.h in Headers */ = {isa = PBXBuildFile; fileRef = C5AAAF8520CAA3F00087D6DA /* winscard.h */; };
 		C5AAAF8820CAA4240087D6DA /* wintypes.h in Headers */ = {isa = PBXBuildFile; fileRef = C5AAAF8720CAA4230087D6DA /* wintypes.h */; };
 		C5AAAF8A20CAA4790087D6DA /* ft301u.h in Headers */ = {isa = PBXBuildFile; fileRef = C5AAAF8920CAA4790087D6DA /* ft301u.h */; };
+		C5DB94AA217618AF00512CAA /* MoppLibManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E1DB5B1E44A9060060A250 /* MoppLibManager.m */; };
+		C5DB94AB217618AF00512CAA /* MoppLibDigidocManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = E42B08CC1E1F136A00EA24A3 /* MoppLibDigidocManager.mm */; };
+		C5DB94AC217618AF00512CAA /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1069411E4498A6002BAFDA /* Parser.swift */; };
+		C5DB94AD217618AF00512CAA /* MLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E485A7821E2DF58200C53DBF /* MLFileManager.m */; };
+		C5DB94AE217618AF00512CAA /* MoppLibContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08B41E1F0B3B00EA24A3 /* MoppLibContainer.m */; };
+		C5DB94AF217618AF00512CAA /* MoppLibSOAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC2CC411E3B8B7800A0B869 /* MoppLibSOAPManager.m */; };
+		C5DB94B0217618AF00512CAA /* MoppLibNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0A84451E4338DB00CC1465 /* MoppLibNetworkManager.m */; };
+		C5DB94B1217618AF00512CAA /* MoppLibCardActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D1647A1E926AAB0069C725 /* MoppLibCardActions.m */; };
+		C5DB94B2217618AF00512CAA /* MLCertificateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AE12A8721E51956900B0B03E /* MLCertificateHelper.m */; };
+		C5DB94B3217618AF00512CAA /* MoppLibSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08C81E1F11C100EA24A3 /* MoppLibSignature.m */; };
+		C5DB94B4217618AF00512CAA /* MoppLibConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0DC81E0BCCEF00C62B3D /* MoppLibConstants.m */; };
+		C5DB94B5217618AF00512CAA /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0DF31E0BEF2A00C62B3D /* NSString+Additions.m */; };
+		C5DB94B6217618AF00512CAA /* MoppLibCertificate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 540CB21F1E1CDCED00FE18A3 /* MoppLibCertificate.mm */; };
+		C5DB94B7217618AF00512CAA /* MoppLibCryptoActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 399C01E220BC11C20056D7AC /* MoppLibCryptoActions.m */; };
+		C5DB94B8217618AF00512CAA /* NSData+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0DF71E0BF0BA00C62B3D /* NSData+Additions.m */; };
+		C5DB94B9217618AF00512CAA /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE10693F1E4498A6002BAFDA /* Error.swift */; };
+		C5DB94BA217618AF00512CAA /* MoppLibCerificatetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 540CB2241E1CDD8100FE18A3 /* MoppLibCerificatetData.m */; };
+		C5DB94BB217618AF00512CAA /* CardActionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0DFC1E0D196D00C62B3D /* CardActionsManager.m */; };
+		C5DB94BC217618AF00512CAA /* MoppLibMobileCreateSignatureResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0A84491E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m */; };
+		C5DB94BD217618AF00512CAA /* CBManagerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8561E16928600B66EE8 /* CBManagerHelper.m */; };
+		C5DB94BE217618AF00512CAA /* MoppLibService.m in Sources */ = {isa = PBXBuildFile; fileRef = AE61985A1E489EDF0021B18B /* MoppLibService.m */; };
+		C5DB94BF217618AF00512CAA /* CardCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 5463DA4B1E12927A008A1714 /* CardCommands.m */; };
+		C5DB94C0217618AF00512CAA /* SmartToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5220CFC0F4002E3F23 /* SmartToken.m */; };
+		C5DB94C1217618AF00512CAA /* MoppLibPinActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 542DCB6B1E23968000899534 /* MoppLibPinActions.m */; };
+		C5DB94C2217618AF00512CAA /* MoppLibGetMobileCreateSignatureStatusResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AE61985E1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.m */; };
+		C5DB94C3217618AF00512CAA /* CardReaderiR301.m in Sources */ = {isa = PBXBuildFile; fileRef = C54EA731204D5E860039AC78 /* CardReaderiR301.m */; };
+		C5DB94C4217618AF00512CAA /* MoppLibPersonalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 545111711E13BBA800296B80 /* MoppLibPersonalData.m */; };
+		C5DB94C5217618AF00512CAA /* MLDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C151E23FE9300FD7B8C /* MLDateFormatter.m */; };
+		C5DB94C6217618AF00512CAA /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE10693E1E4498A6002BAFDA /* Element.swift */; };
+		C5DB94C7217618AF00512CAA /* MoppLibError.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0E001E0D48C900C62B3D /* MoppLibError.m */; };
+		C5DB94C8217618AF00512CAA /* MoppLibDataFile.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08C41E1F11B900EA24A3 /* MoppLibDataFile.m */; };
+		C5DB94C9217618AF00512CAA /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE10693D1E4498A6002BAFDA /* Document.swift */; };
+		C5DB94CA217618AF00512CAA /* EstEIDv3_4.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8401E13F30300B66EE8 /* EstEIDv3_4.m */; };
+		C5DB94CB217618AF00512CAA /* MoppLibCardReaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C54EA737204D91730039AC78 /* MoppLibCardReaderManager.m */; };
+		C5DB94CC217618AF00512CAA /* MoppLibPrivateConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D1646F1E923F920069C725 /* MoppLibPrivateConstants.m */; };
+		C5DB94CD217618AF00512CAA /* EstEIDv3_5.m in Sources */ = {isa = PBXBuildFile; fileRef = 545111791E13C52900296B80 /* EstEIDv3_5.m */; };
+		C5DB94CE217618AF00512CAA /* CardReaderACR3901U_S1.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0DCD1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.m */; };
+		C5DB94CF217618AF00512CAA /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E085E91E71A63C00431F1A /* Reachability.m */; };
+		C5DB94D0217618AF00512CAA /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1069401E4498A6002BAFDA /* Options.swift */; };
+		C5DB94D1217618AF00512CAA /* MoppLibContainerActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D164761E9269C50069C725 /* MoppLibContainerActions.m */; };
+		C5DB94D3217618AF00512CAA /* CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 399C01E420BC13320056D7AC /* CryptoLib.framework */; };
+		C5DB94D4217618AF00512CAA /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */; };
+		C5DB94D5217618AF00512CAA /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C54EA72F20499DFC0039AC78 /* ExternalAccessory.framework */; };
+		C5DB94D6217618AF00512CAA /* libACSBluetooth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DC0DE91E0BD6E300C62B3D /* libACSBluetooth.a */; };
+		C5DB94D7217618AF00512CAA /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250CFD1E096BEF00530370 /* libxml2.tbd */; };
+		C5DB94D8217618AF00512CAA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250CFB1E096BEA00530370 /* libz.tbd */; };
+		C5DB94D9217618AF00512CAA /* libiRockey301_ccid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5AAAF8120C9621D0087D6DA /* libiRockey301_ccid.a */; };
+		C5DB94DC217618AF00512CAA /* winscard.h in Headers */ = {isa = PBXBuildFile; fileRef = C5AAAF8520CAA3F00087D6DA /* winscard.h */; };
+		C5DB94DD217618AF00512CAA /* wintypes.h in Headers */ = {isa = PBXBuildFile; fileRef = C5AAAF8720CAA4230087D6DA /* wintypes.h */; };
+		C5DB94DE217618AF00512CAA /* MoppLibCertificate.h in Headers */ = {isa = PBXBuildFile; fileRef = 540CB21E1E1CDCED00FE18A3 /* MoppLibCertificate.h */; };
+		C5DB94DF217618AF00512CAA /* MoppLibPrivateConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 54D1646E1E923F920069C725 /* MoppLibPrivateConstants.h */; };
+		C5DB94E0217618AF00512CAA /* CardCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 5463DA4A1E12927A008A1714 /* CardCommands.h */; };
+		C5DB94E1217618AF00512CAA /* MLFileManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E485A7811E2DF58200C53DBF /* MLFileManager.h */; };
+		C5DB94E2217618AF00512CAA /* ft301u.h in Headers */ = {isa = PBXBuildFile; fileRef = C5AAAF8920CAA4790087D6DA /* ft301u.h */; };
+		C5DB94E3217618AF00512CAA /* EstEIDv3_5.h in Headers */ = {isa = PBXBuildFile; fileRef = 545111781E13C52900296B80 /* EstEIDv3_5.h */; };
+		C5DB94E4217618AF00512CAA /* ABTBluetoothReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DE51E0BD6E300C62B3D /* ABTBluetoothReader.h */; };
+		C5DB94E5217618AF00512CAA /* MoppLibService.h in Headers */ = {isa = PBXBuildFile; fileRef = AE6198591E489EDF0021B18B /* MoppLibService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5DB94E6217618AF00512CAA /* CardReaderiR301.h in Headers */ = {isa = PBXBuildFile; fileRef = C54EA733204D5EA70039AC78 /* CardReaderiR301.h */; };
+		C5DB94E7217618AF00512CAA /* MoppLibCerificatetData.h in Headers */ = {isa = PBXBuildFile; fileRef = 540CB2231E1CDD8100FE18A3 /* MoppLibCerificatetData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5DB94E8217618AF00512CAA /* MoppLibMobileCreateSignatureResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = AE0A84481E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5DB94E9217618AF00512CAA /* MoppLibError.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DFF1E0D48C900C62B3D /* MoppLibError.h */; };
+		C5DB94EA217618AF00512CAA /* MLDateFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = E4180C141E23FE9300FD7B8C /* MLDateFormatter.h */; };
+		C5DB94EB217618AF00512CAA /* MoppLibDataFile.h in Headers */ = {isa = PBXBuildFile; fileRef = E42B08C31E1F11B900EA24A3 /* MoppLibDataFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5DB94EC217618AF00512CAA /* MoppLibCardReaderManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C54EA735204D90D50039AC78 /* MoppLibCardReaderManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5DB94ED217618AF00512CAA /* CBManagerHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 545CF8551E16928600B66EE8 /* CBManagerHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5DB94EE217618AF00512CAA /* MoppLibCryptoActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5DB94EF217618AF00512CAA /* MoppLibManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 54E1DB5A1E44A9060060A250 /* MoppLibManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5DB94F0217618AF00512CAA /* MoppLibDigidocManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E42B08CB1E1F136A00EA24A3 /* MoppLibDigidocManager.h */; };
+		C5DB94F1217618AF00512CAA /* MoppLibConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DC71E0BCCEF00C62B3D /* MoppLibConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5DB94F2217618AF00512CAA /* MoppLibPinActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 542DCB6A1E23968000899534 /* MoppLibPinActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5DB94F3217618AF00512CAA /* MoppLibContainerActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54D164751E9269C50069C725 /* MoppLibContainerActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5DB94F4217618AF00512CAA /* MoppLibPersonalData.h in Headers */ = {isa = PBXBuildFile; fileRef = 545111701E13BBA800296B80 /* MoppLibPersonalData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5DB94F5217618AF00512CAA /* MLCertificateHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = AE12A8711E51956900B0B03E /* MLCertificateHelper.h */; };
+		C5DB94F6217618AF00512CAA /* MoppLibContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = E42B08B31E1F0B3B00EA24A3 /* MoppLibContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5DB94F7217618AF00512CAA /* MoppLibSignature.h in Headers */ = {isa = PBXBuildFile; fileRef = E42B08C71E1F11C100EA24A3 /* MoppLibSignature.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5DB94F8217618AF00512CAA /* MoppLibCardActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54D164791E926AAB0069C725 /* MoppLibCardActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5DB94F9217618AF00512CAA /* CardActionsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DFB1E0D196D00C62B3D /* CardActionsManager.h */; };
+		C5DB94FA217618AF00512CAA /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 54E085E81E71A63C00431F1A /* Reachability.h */; };
+		C5DB94FB217618AF00512CAA /* ABTBluetoothReaderManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DE61E0BD6E300C62B3D /* ABTBluetoothReaderManager.h */; };
+		C5DB94FC217618AF00512CAA /* ABTAcr3901us1Reader.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DE41E0BD6E300C62B3D /* ABTAcr3901us1Reader.h */; };
+		C5DB94FD217618AF00512CAA /* CardReaderACR3901U_S1.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DCC1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.h */; };
+		C5DB94FE217618AF00512CAA /* ACSBluetooth.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DE81E0BD6E300C62B3D /* ACSBluetooth.h */; };
+		C5DB94FF217618AF00512CAA /* ABTAcr1255uj1Reader.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DE31E0BD6E300C62B3D /* ABTAcr1255uj1Reader.h */; };
+		C5DB9500217618AF00512CAA /* NSData+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DF61E0BF0BA00C62B3D /* NSData+Additions.h */; };
+		C5DB9501217618AF00512CAA /* ABTError.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DE71E0BD6E300C62B3D /* ABTError.h */; };
+		C5DB9502217618AF00512CAA /* MoppLib.h in Headers */ = {isa = PBXBuildFile; fileRef = E4250CEA1E09695100530370 /* MoppLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5DB9503217618AF00512CAA /* NSString+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DF21E0BEF2A00C62B3D /* NSString+Additions.h */; };
+		C5DB9504217618AF00512CAA /* EstEIDv3_4.h in Headers */ = {isa = PBXBuildFile; fileRef = 545CF83F1E13F30300B66EE8 /* EstEIDv3_4.h */; };
+		C5DB9505217618AF00512CAA /* ReaderInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = C5AAAF8320CAA3D00087D6DA /* ReaderInterface.h */; };
+		C5DB9506217618AF00512CAA /* CardReaderWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DC31E0BCC2A00C62B3D /* CardReaderWrapper.h */; };
+		C5DB9508217618AF00512CAA /* EE.xml in Resources */ = {isa = PBXBuildFile; fileRef = E43BD81A1E3F901D00F6C39D /* EE.xml */; };
+		C5DB9509217618AF00512CAA /* schema in Resources */ = {isa = PBXBuildFile; fileRef = E4250CF31E096A1D00530370 /* schema */; };
+		C5DB950A217618AF00512CAA /* FI.xml in Resources */ = {isa = PBXBuildFile; fileRef = E43BD81B1E3F901D00F6C39D /* FI.xml */; };
+		C5DB950B217618AF00512CAA /* sk878252.p12 in Resources */ = {isa = PBXBuildFile; fileRef = AE12A8751E51984A00B0B03E /* sk878252.p12 */; };
+		C5DB950C217618AF00512CAA /* digidocservice.sk.ee.cer in Resources */ = {isa = PBXBuildFile; fileRef = C517CF9221665F8F008D4962 /* digidocservice.sk.ee.cer */; };
+		C5DB950D217618AF00512CAA /* test.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E4250CFF1E096CAA00530370 /* test.bdoc */; };
+		C5DB950E217618AF00512CAA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 54D1FF751E4CB6AD006BF123 /* Localizable.strings */; };
+		C5DB950F217618AF00512CAA /* 798.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 39E5338D2122E38B00FBE148 /* 798.p12 */; };
+		C5DB9510217618AF00512CAA /* 878252.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 5480396C1E38DA4D000271CF /* 878252.p12 */; };
+		C5DB9511217618AF00512CAA /* tl-mp.xml in Resources */ = {isa = PBXBuildFile; fileRef = E43BD81C1E3F901D00F6C39D /* tl-mp.xml */; };
 		C5F462A8209727E8001B7D59 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */; };
+		C5F974D4217646CD00A167C7 /* TestEnvInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5F974D3217646CC00A167C7 /* TestEnvInfo.plist */; };
 		D72F91CE6FD17DE3A2CB2EA9 /* Pods_MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212014B6D572D152A70C2C71 /* Pods_MoppLib.framework */; };
 		E061FB0356C72259D6A941E8 /* Pods_MoppLibTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BB12B033D5C8237B002F59 /* Pods_MoppLibTests.framework */; };
 		E4180C161E23FE9300FD7B8C /* MLDateFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = E4180C141E23FE9300FD7B8C /* MLDateFormatter.h */; };
@@ -192,8 +294,7 @@
 		54E1DB561E44939D0060A250 /* SwiftTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftTestCase.swift; sourceTree = "<group>"; };
 		54E1DB5A1E44A9060060A250 /* MoppLibManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibManager.h; sourceTree = "<group>"; };
 		54E1DB5B1E44A9060060A250 /* MoppLibManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibManager.m; sourceTree = "<group>"; };
-		55E9B48F8763942B8B607E6D /* Pods-MoppLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLib.release.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLib/Pods-MoppLib.release.xcconfig"; sourceTree = "<group>"; };
-		8CA8F4A458E375C33114A84F /* Pods-MoppLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLib.debug.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLib/Pods-MoppLib.debug.xcconfig"; sourceTree = "<group>"; };
+		6E9DC136A95B9301231F5A32 /* Pods-MoppLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLib.debug.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLib/Pods-MoppLib.debug.xcconfig"; sourceTree = "<group>"; };
 		AE0A84441E4338DB00CC1465 /* MoppLibNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibNetworkManager.h; sourceTree = "<group>"; };
 		AE0A84451E4338DB00CC1465 /* MoppLibNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibNetworkManager.m; sourceTree = "<group>"; };
 		AE0A84481E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibMobileCreateSignatureResponse.h; sourceTree = "<group>"; };
@@ -219,12 +320,16 @@
 		C54EA733204D5EA70039AC78 /* CardReaderiR301.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardReaderiR301.h; sourceTree = "<group>"; };
 		C54EA735204D90D50039AC78 /* MoppLibCardReaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibCardReaderManager.h; sourceTree = "<group>"; };
 		C54EA737204D91730039AC78 /* MoppLibCardReaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibCardReaderManager.m; sourceTree = "<group>"; };
+		C55A20C321762448007BB191 /* mopplib.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = mopplib.modulemap; sourceTree = "<group>"; };
+		C55A20C42176259E007BB191 /* mopplibtestenv.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = mopplibtestenv.modulemap; sourceTree = "<group>"; };
 		C5AAAF8120C9621D0087D6DA /* libiRockey301_ccid.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libiRockey301_ccid.a; sourceTree = "<group>"; };
 		C5AAAF8320CAA3D00087D6DA /* ReaderInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderInterface.h; sourceTree = "<group>"; };
 		C5AAAF8520CAA3F00087D6DA /* winscard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = winscard.h; sourceTree = "<group>"; };
 		C5AAAF8720CAA4230087D6DA /* wintypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wintypes.h; sourceTree = "<group>"; };
 		C5AAAF8920CAA4790087D6DA /* ft301u.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ft301u.h; sourceTree = "<group>"; };
+		C5DB9515217618AF00512CAA /* MoppLibTestEnv.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoppLibTestEnv.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		C5F974D3217646CC00A167C7 /* TestEnvInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TestEnvInfo.plist; sourceTree = "<group>"; };
 		D294A9825C9D24C89C0C4C80 /* Pods-MoppLibTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLibTests.debug.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLibTests/Pods-MoppLibTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E4180C141E23FE9300FD7B8C /* MLDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLDateFormatter.h; sourceTree = "<group>"; };
 		E4180C151E23FE9300FD7B8C /* MLDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLDateFormatter.m; sourceTree = "<group>"; };
@@ -248,6 +353,7 @@
 		E43BD81C1E3F901D00F6C39D /* tl-mp.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "tl-mp.xml"; path = "TSL cache/tl-mp.xml"; sourceTree = "<group>"; };
 		E485A7811E2DF58200C53DBF /* MLFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLFileManager.h; sourceTree = "<group>"; };
 		E485A7821E2DF58200C53DBF /* MLFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLFileManager.m; sourceTree = "<group>"; };
+		FAA0023EE26578A498BA35F2 /* Pods-MoppLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLib.release.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLib/Pods-MoppLib.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +363,20 @@
 			files = (
 				546E57631E2E07C7009A568D /* MoppLib.framework in Frameworks */,
 				E061FB0356C72259D6A941E8 /* Pods_MoppLibTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5DB94D2217618AF00512CAA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5DB94D3217618AF00512CAA /* CryptoLib.framework in Frameworks */,
+				C5DB94D4217618AF00512CAA /* CoreBluetooth.framework in Frameworks */,
+				C5DB94D5217618AF00512CAA /* ExternalAccessory.framework in Frameworks */,
+				C5DB94D6217618AF00512CAA /* libACSBluetooth.a in Frameworks */,
+				C5DB94D7217618AF00512CAA /* libxml2.tbd in Frameworks */,
+				C5DB94D8217618AF00512CAA /* libz.tbd in Frameworks */,
+				C5DB94D9217618AF00512CAA /* libiRockey301_ccid.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +392,7 @@
 				E4250CFC1E096BEA00530370 /* libz.tbd in Frameworks */,
 				C5AAAF8220C9621D0087D6DA /* libiRockey301_ccid.a in Frameworks */,
 				D72F91CE6FD17DE3A2CB2EA9 /* Pods_MoppLib.framework in Frameworks */,
+				8AE0EFF5024A6ACD15D6C6CE /* Pods_MoppLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,10 +547,10 @@
 		AB737430B57EFE78CEC44EB9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				8CA8F4A458E375C33114A84F /* Pods-MoppLib.debug.xcconfig */,
-				55E9B48F8763942B8B607E6D /* Pods-MoppLib.release.xcconfig */,
 				D294A9825C9D24C89C0C4C80 /* Pods-MoppLibTests.debug.xcconfig */,
 				BB993982ECBC613ED55E2010 /* Pods-MoppLibTests.release.xcconfig */,
+				6E9DC136A95B9301231F5A32 /* Pods-MoppLib.debug.xcconfig */,
+				FAA0023EE26578A498BA35F2 /* Pods-MoppLib.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -510,6 +631,7 @@
 			children = (
 				E4250CE71E09695100530370 /* MoppLib.framework */,
 				546E575E1E2E07C7009A568D /* MoppLibTests.xctest */,
+				C5DB9515217618AF00512CAA /* MoppLibTestEnv.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -531,10 +653,13 @@
 				E42B08CB1E1F136A00EA24A3 /* MoppLibDigidocManager.h */,
 				E42B08CC1E1F136A00EA24A3 /* MoppLibDigidocManager.mm */,
 				E4250CEB1E09695100530370 /* Info.plist */,
+				C5F974D3217646CC00A167C7 /* TestEnvInfo.plist */,
 				540CB21E1E1CDCED00FE18A3 /* MoppLibCertificate.h */,
 				540CB21F1E1CDCED00FE18A3 /* MoppLibCertificate.mm */,
 				E4250CFF1E096CAA00530370 /* test.bdoc */,
 				E4250CF21E096A0500530370 /* libdigidocpp */,
+				C55A20C321762448007BB191 /* mopplib.modulemap */,
+				C55A20C42176259E007BB191 /* mopplibtestenv.modulemap */,
 			);
 			path = MoppLib;
 			sourceTree = "<group>";
@@ -562,6 +687,56 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		C5DB94DB217618AF00512CAA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5DB94DC217618AF00512CAA /* winscard.h in Headers */,
+				C5DB94DD217618AF00512CAA /* wintypes.h in Headers */,
+				C5DB94DE217618AF00512CAA /* MoppLibCertificate.h in Headers */,
+				C5DB94DF217618AF00512CAA /* MoppLibPrivateConstants.h in Headers */,
+				C5DB94E0217618AF00512CAA /* CardCommands.h in Headers */,
+				C5DB94E1217618AF00512CAA /* MLFileManager.h in Headers */,
+				C5DB94E2217618AF00512CAA /* ft301u.h in Headers */,
+				C5DB94E3217618AF00512CAA /* EstEIDv3_5.h in Headers */,
+				C5DB94E4217618AF00512CAA /* ABTBluetoothReader.h in Headers */,
+				C5DB94E5217618AF00512CAA /* MoppLibService.h in Headers */,
+				C5DB94E6217618AF00512CAA /* CardReaderiR301.h in Headers */,
+				C5DB94E7217618AF00512CAA /* MoppLibCerificatetData.h in Headers */,
+				C5DB94E8217618AF00512CAA /* MoppLibMobileCreateSignatureResponse.h in Headers */,
+				C5DB94E9217618AF00512CAA /* MoppLibError.h in Headers */,
+				C5DB94EA217618AF00512CAA /* MLDateFormatter.h in Headers */,
+				C5DB94EB217618AF00512CAA /* MoppLibDataFile.h in Headers */,
+				C5DB94EC217618AF00512CAA /* MoppLibCardReaderManager.h in Headers */,
+				C5DB94ED217618AF00512CAA /* CBManagerHelper.h in Headers */,
+				C5DB94EE217618AF00512CAA /* MoppLibCryptoActions.h in Headers */,
+				C5DB94EF217618AF00512CAA /* MoppLibManager.h in Headers */,
+				C5DB94F0217618AF00512CAA /* MoppLibDigidocManager.h in Headers */,
+				C5DB94F1217618AF00512CAA /* MoppLibConstants.h in Headers */,
+				C5DB94F2217618AF00512CAA /* MoppLibPinActions.h in Headers */,
+				C5DB94F3217618AF00512CAA /* MoppLibContainerActions.h in Headers */,
+				C5DB94F4217618AF00512CAA /* MoppLibPersonalData.h in Headers */,
+				C5DB94F5217618AF00512CAA /* MLCertificateHelper.h in Headers */,
+				C5DB94F6217618AF00512CAA /* MoppLibContainer.h in Headers */,
+				C5DB94F7217618AF00512CAA /* MoppLibSignature.h in Headers */,
+				C5DB94F8217618AF00512CAA /* MoppLibCardActions.h in Headers */,
+				C5DB94F9217618AF00512CAA /* CardActionsManager.h in Headers */,
+				C5DB94FA217618AF00512CAA /* Reachability.h in Headers */,
+				C5DB94FB217618AF00512CAA /* ABTBluetoothReaderManager.h in Headers */,
+				C5DB94FC217618AF00512CAA /* ABTAcr3901us1Reader.h in Headers */,
+				C5DB94FD217618AF00512CAA /* CardReaderACR3901U_S1.h in Headers */,
+				C5DB94FE217618AF00512CAA /* ACSBluetooth.h in Headers */,
+				C5DB94FF217618AF00512CAA /* ABTAcr1255uj1Reader.h in Headers */,
+				C5DB9500217618AF00512CAA /* NSData+Additions.h in Headers */,
+				C5DB9501217618AF00512CAA /* ABTError.h in Headers */,
+				C5DB9502217618AF00512CAA /* MoppLib.h in Headers */,
+				C5DB9503217618AF00512CAA /* NSString+Additions.h in Headers */,
+				C5DB9504217618AF00512CAA /* EstEIDv3_4.h in Headers */,
+				C5DB9505217618AF00512CAA /* ReaderInterface.h in Headers */,
+				C5DB9506217618AF00512CAA /* CardReaderWrapper.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E4250CE41E09695100530370 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -635,6 +810,24 @@
 			productReference = 546E575E1E2E07C7009A568D /* MoppLibTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		C5DB94A7217618AF00512CAA /* MoppLibTestEnv */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C5DB9512217618AF00512CAA /* Build configuration list for PBXNativeTarget "MoppLibTestEnv" */;
+			buildPhases = (
+				C5DB94A9217618AF00512CAA /* Sources */,
+				C5DB94D2217618AF00512CAA /* Frameworks */,
+				C5DB94DB217618AF00512CAA /* Headers */,
+				C5DB9507217618AF00512CAA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MoppLibTestEnv;
+			productName = MoppLib;
+			productReference = C5DB9515217618AF00512CAA /* MoppLibTestEnv.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		E4250CE61E09695100530370 /* MoppLib */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E4250CEF1E09695100530370 /* Build configuration list for PBXNativeTarget "MoppLib" */;
@@ -669,6 +862,9 @@
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
+					C5DB94A7217618AF00512CAA = {
+						DevelopmentTeam = 4YJSF2LF24;
+					};
 					E4250CE61E09695100530370 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 4YJSF2LF24;
@@ -693,6 +889,7 @@
 			projectRoot = "";
 			targets = (
 				E4250CE61E09695100530370 /* MoppLib */,
+				C5DB94A7217618AF00512CAA /* MoppLibTestEnv */,
 				546E575D1E2E07C7009A568D /* MoppLibTests */,
 			);
 		};
@@ -706,10 +903,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C5DB9507217618AF00512CAA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5DB9508217618AF00512CAA /* EE.xml in Resources */,
+				C5DB9509217618AF00512CAA /* schema in Resources */,
+				C5DB950A217618AF00512CAA /* FI.xml in Resources */,
+				C5DB950B217618AF00512CAA /* sk878252.p12 in Resources */,
+				C5DB950C217618AF00512CAA /* digidocservice.sk.ee.cer in Resources */,
+				C5DB950D217618AF00512CAA /* test.bdoc in Resources */,
+				C5DB950E217618AF00512CAA /* Localizable.strings in Resources */,
+				C5DB950F217618AF00512CAA /* 798.p12 in Resources */,
+				C5DB9510217618AF00512CAA /* 878252.p12 in Resources */,
+				C5DB9511217618AF00512CAA /* tl-mp.xml in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E4250CE51E09695100530370 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5F974D4217646CD00A167C7 /* TestEnvInfo.plist in Resources */,
 				E43BD81D1E3F901D00F6C39D /* EE.xml in Resources */,
 				E4250CF41E096A1D00530370 /* schema in Resources */,
 				E43BD81E1E3F901D00F6C39D /* FI.xml in Resources */,
@@ -790,6 +1005,53 @@
 				546E57611E2E07C7009A568D /* PinVerificationTests.m in Sources */,
 				546E576B1E2E1555009A568D /* MoppLibPinActions+Tests.m in Sources */,
 				54E1DB571E44939D0060A250 /* SwiftTestCase.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5DB94A9217618AF00512CAA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5DB94AA217618AF00512CAA /* MoppLibManager.m in Sources */,
+				C5DB94AB217618AF00512CAA /* MoppLibDigidocManager.mm in Sources */,
+				C5DB94AC217618AF00512CAA /* Parser.swift in Sources */,
+				C5DB94AD217618AF00512CAA /* MLFileManager.m in Sources */,
+				C5DB94AE217618AF00512CAA /* MoppLibContainer.m in Sources */,
+				C5DB94AF217618AF00512CAA /* MoppLibSOAPManager.m in Sources */,
+				C5DB94B0217618AF00512CAA /* MoppLibNetworkManager.m in Sources */,
+				C5DB94B1217618AF00512CAA /* MoppLibCardActions.m in Sources */,
+				C5DB94B2217618AF00512CAA /* MLCertificateHelper.m in Sources */,
+				C5DB94B3217618AF00512CAA /* MoppLibSignature.m in Sources */,
+				C5DB94B4217618AF00512CAA /* MoppLibConstants.m in Sources */,
+				C5DB94B5217618AF00512CAA /* NSString+Additions.m in Sources */,
+				C5DB94B6217618AF00512CAA /* MoppLibCertificate.mm in Sources */,
+				C5DB94B7217618AF00512CAA /* MoppLibCryptoActions.m in Sources */,
+				C5DB94B8217618AF00512CAA /* NSData+Additions.m in Sources */,
+				C5DB94B9217618AF00512CAA /* Error.swift in Sources */,
+				C5DB94BA217618AF00512CAA /* MoppLibCerificatetData.m in Sources */,
+				C5DB94BB217618AF00512CAA /* CardActionsManager.m in Sources */,
+				C5DB94BC217618AF00512CAA /* MoppLibMobileCreateSignatureResponse.m in Sources */,
+				C5DB94BD217618AF00512CAA /* CBManagerHelper.m in Sources */,
+				C5DB94BE217618AF00512CAA /* MoppLibService.m in Sources */,
+				C5DB94BF217618AF00512CAA /* CardCommands.m in Sources */,
+				C5DB94C0217618AF00512CAA /* SmartToken.m in Sources */,
+				C5DB94C1217618AF00512CAA /* MoppLibPinActions.m in Sources */,
+				C5DB94C2217618AF00512CAA /* MoppLibGetMobileCreateSignatureStatusResponse.m in Sources */,
+				C5DB94C3217618AF00512CAA /* CardReaderiR301.m in Sources */,
+				C5DB94C4217618AF00512CAA /* MoppLibPersonalData.m in Sources */,
+				C5DB94C5217618AF00512CAA /* MLDateFormatter.m in Sources */,
+				C5DB94C6217618AF00512CAA /* Element.swift in Sources */,
+				C5DB94C7217618AF00512CAA /* MoppLibError.m in Sources */,
+				C5DB94C8217618AF00512CAA /* MoppLibDataFile.m in Sources */,
+				C5DB94C9217618AF00512CAA /* Document.swift in Sources */,
+				C5DB94CA217618AF00512CAA /* EstEIDv3_4.m in Sources */,
+				C5DB94CB217618AF00512CAA /* MoppLibCardReaderManager.m in Sources */,
+				C5DB94CC217618AF00512CAA /* MoppLibPrivateConstants.m in Sources */,
+				C5DB94CD217618AF00512CAA /* EstEIDv3_5.m in Sources */,
+				C5DB94CE217618AF00512CAA /* CardReaderACR3901U_S1.m in Sources */,
+				C5DB94CF217618AF00512CAA /* Reachability.m in Sources */,
+				C5DB94D0217618AF00512CAA /* Options.swift in Sources */,
+				C5DB94D1217618AF00512CAA /* MoppLibContainerActions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -898,6 +1160,138 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MoppLibTests/MoppLibTests-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		C5DB9513217618AF00512CAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 4YJSF2LF24;
+				"DIGIDOCPP_PATH[sdk=iphoneos*]" = "$(SRCROOT)/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
+				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"TEST_ENV=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"$(DIGIDOCPP_PATH)/include",
+					"$(SRCROOT)/MoppLib",
+					"$(SRCROOT)/MoppLib/PublicInterface",
+				);
+				INFOPLIST_FILE = MoppLib/TestEnvInfo.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MoppLib/ACSBluetooth",
+					"$(DIGIDOCPP_PATH)/lib",
+					"$(PROJECT_DIR)/MoppLib/bR301/lib",
+					"$(PROJECT_DIR)",
+				);
+				MODULEMAP_FILE = MoppLib/mopplibtestenv.modulemap;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-ldigidocpp_priv",
+					"-ldigidocpp",
+					"-lssl",
+					"-lxalan-c",
+					"-lcrypto",
+					"-lxml-security-c",
+					"-lxerces-c",
+					"-lminizip",
+					"-lxalanMsg",
+					"-lxml2",
+				);
+				OTHER_SWIFT_FLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = mobi.lab.MoppLib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_TEST_DDS;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "MoppLib-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				VALID_ARCHS = "arm64 armv7 armv7s";
+			};
+			name = Debug;
+		};
+		C5DB9514217618AF00512CAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 4YJSF2LF24;
+				"DIGIDOCPP_PATH[sdk=iphoneos*]" = "$(SRCROOT)/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
+				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"TEST_ENV=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"$(DIGIDOCPP_PATH)/include",
+					"$(SRCROOT)/MoppLib",
+					"$(SRCROOT)/MoppLib/PublicInterface",
+				);
+				INFOPLIST_FILE = MoppLib/TestEnvInfo.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MoppLib/ACSBluetooth",
+					"$(DIGIDOCPP_PATH)/lib",
+					"$(PROJECT_DIR)/MoppLib/bR301/lib",
+					"$(PROJECT_DIR)",
+				);
+				MODULEMAP_FILE = MoppLib/mopplibtestenv.modulemap;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-ldigidocpp_priv",
+					"-ldigidocpp",
+					"-lssl",
+					"-lxalan-c",
+					"-lcrypto",
+					"-lxml-security-c",
+					"-lxerces-c",
+					"-lminizip",
+					"-lxalanMsg",
+					"-lxml2",
+				);
+				OTHER_SWIFT_FLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = mobi.lab.MoppLib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_TEST_DDS;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "MoppLib-Swift.h";
+				SWIFT_VERSION = 3.0;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};
@@ -1011,7 +1405,7 @@
 		};
 		E4250CF01E09695100530370 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8CA8F4A458E375C33114A84F /* Pods-MoppLib.debug.xcconfig */;
+			baseConfigurationReference = 6E9DC136A95B9301231F5A32 /* Pods-MoppLib.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
@@ -1043,6 +1437,8 @@
 					"$(PROJECT_DIR)/MoppLib/bR301/lib",
 					"$(PROJECT_DIR)",
 				);
+				MODULEMAP_FILE = MoppLib/mopplib.modulemap;
+				MODULEMAP_PRIVATE_FILE = "";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1069,7 +1465,7 @@
 		};
 		E4250CF11E09695100530370 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 55E9B48F8763942B8B607E6D /* Pods-MoppLib.release.xcconfig */;
+			baseConfigurationReference = FAA0023EE26578A498BA35F2 /* Pods-MoppLib.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
@@ -1101,6 +1497,8 @@
 					"$(PROJECT_DIR)/MoppLib/bR301/lib",
 					"$(PROJECT_DIR)",
 				);
+				MODULEMAP_FILE = MoppLib/mopplib.modulemap;
+				MODULEMAP_PRIVATE_FILE = "";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1132,6 +1530,15 @@
 			buildConfigurations = (
 				546E57661E2E07C7009A568D /* Debug */,
 				546E57671E2E07C7009A568D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C5DB9512217618AF00512CAA /* Build configuration list for PBXNativeTarget "MoppLibTestEnv" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5DB9513217618AF00512CAA /* Debug */,
+				C5DB9514217618AF00512CAA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

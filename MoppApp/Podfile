@@ -30,6 +30,13 @@ target 'MoppLib' do
   #pod 'Crashlytics'
 end
 
+target 'MoppLibTestEnv' do
+  platform :ios, '9.0'
+  project '../MoppLib/MoppLib.xcodeproj'
+  #pod 'Fabric'
+  #pod 'Crashlytics'
+end
+
 target 'CryptoLib' do
     platform :ios, '9.0'
     project '../CryptoLib/CryptoLib.xcodeproj'

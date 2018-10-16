@@ -40,6 +40,7 @@
 		54A4182F1E83FAD200559E2B /* shareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 54A418241E83FAD200559E2B /* shareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		54A5729F1E82AC760099BFAF /* AppStore.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54A5729E1E82AC760099BFAF /* AppStore.plist */; };
 		54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */; };
+		A8396987106A0BBF27196838 /* Pods_MoppAppTestEnv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9243254AA71C9AE306830EF1 /* Pods_MoppAppTestEnv.framework */; };
 		C506EC7C1FB9CBFD00E07226 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C506EC7B1FB9CBFD00E07226 /* Constants.swift */; };
 		C506EC7E1FB9D5A000E07226 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C506EC7D1FB9D5A000E07226 /* Assets.xcassets */; };
 		C506EC811FB9F4AF00E07226 /* UIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C506EC801FB9F4AF00E07226 /* UIImage+Additions.swift */; };
@@ -268,7 +269,6 @@
 		C5EA713A2176057A00440F4A /* MenuLanguageButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5310F4520C2F0F7004D3E78 /* MenuLanguageButtonView.swift */; };
 		C5EA713B2176057A00440F4A /* MyeIDSegmentHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5927FC82075144F003B7F41 /* MyeIDSegmentHeaderCell.swift */; };
 		C5EA713D2176057A00440F4A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C55BB1CB2091BD2000618AC4 /* WebKit.framework */; };
-		C5EA713E2176057A00440F4A /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; };
 		C5EA713F2176057A00440F4A /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
 		C5EA71402176057A00440F4A /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
 		C5EA71412176057A00440F4A /* CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39852A6120AB2949004CB100 /* CryptoLib.framework */; };
@@ -334,6 +334,7 @@
 		C5EA71822176057A00440F4A /* cdoc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 393B66E120DB94CD001DC89B /* cdoc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C5EA71852176057A00440F4A /* shareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 54A418241E83FAD200559E2B /* shareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C5F462AA209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F462A9209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift */; };
+		C5F974D22176465400A167C7 /* MoppLibTestEnv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5F974D12176465400A167C7 /* MoppLibTestEnv.framework */; };
 		C5FA0BE920A1930400A208E5 /* MoppApp+Jailbreak.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0BE820A1930400A208E5 /* MoppApp+Jailbreak.swift */; };
 		C5FA0BEC20A19AE100A208E5 /* Jailbreak.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5FA0BEB20A19AE100A208E5 /* Jailbreak.storyboard */; };
 		C5FA0BEE20A19E4200A208E5 /* JailbreakViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0BED20A19E4200A208E5 /* JailbreakViewController.swift */; };
@@ -460,6 +461,8 @@
 		54A5729E1E82AC760099BFAF /* AppStore.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppStore.plist; sourceTree = "<group>"; };
 		54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Landing.storyboard; sourceTree = "<group>"; };
 		6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8184F28EF072722FEA0124A2 /* Pods-MoppAppTestEnv.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppAppTestEnv.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoppAppTestEnv/Pods-MoppAppTestEnv.release.xcconfig"; sourceTree = "<group>"; };
+		9243254AA71C9AE306830EF1 /* Pods_MoppAppTestEnv.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppAppTestEnv.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3E46CB1F1CE88C94094587D /* Pods-MoppApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.debug.xcconfig"; sourceTree = "<group>"; };
 		C506EC7B1FB9CBFD00E07226 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C506EC7D1FB9D5A000E07226 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -587,9 +590,11 @@
 		C5EA71892176057A00440F4A /* MoppAppTestEnv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoppAppTestEnv.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5EA718A2176057A00440F4A /* TestEnvInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = TestEnvInfo.plist; path = "/Users/sander/MOPP-iOS/MoppApp/TestEnvInfo.plist"; sourceTree = "<absolute>"; };
 		C5F462A9209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Additions.swift"; sourceTree = "<group>"; };
+		C5F974D12176465400A167C7 /* MoppLibTestEnv.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MoppLibTestEnv.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5FA0BE820A1930400A208E5 /* MoppApp+Jailbreak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoppApp+Jailbreak.swift"; sourceTree = "<group>"; };
 		C5FA0BEB20A19AE100A208E5 /* Jailbreak.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Jailbreak.storyboard; sourceTree = "<group>"; };
 		C5FA0BED20A19E4200A208E5 /* JailbreakViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JailbreakViewController.swift; sourceTree = "<group>"; };
+		CD15B1228E3C241B478D570C /* Pods-MoppAppTestEnv.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppAppTestEnv.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppAppTestEnv/Pods-MoppAppTestEnv.debug.xcconfig"; sourceTree = "<group>"; };
 		E4180C361E26822000FD7B8C /* datafile.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = datafile.txt; sourceTree = "<group>"; };
 		E4250CC31E0968D200530370 /* MoppApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoppApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250CCA1E0968D200530370 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -625,11 +630,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5F974D22176465400A167C7 /* MoppLibTestEnv.framework in Frameworks */,
 				C5EA713D2176057A00440F4A /* WebKit.framework in Frameworks */,
-				C5EA713E2176057A00440F4A /* MoppLib.framework in Frameworks */,
 				C5EA713F2176057A00440F4A /* Pods_MoppApp.framework in Frameworks */,
 				C5EA71402176057A00440F4A /* Pods_MoppApp.framework in Frameworks */,
 				C5EA71412176057A00440F4A /* CryptoLib.framework in Frameworks */,
+				A8396987106A0BBF27196838 /* Pods_MoppAppTestEnv.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -721,6 +727,8 @@
 			children = (
 				A3E46CB1F1CE88C94094587D /* Pods-MoppApp.debug.xcconfig */,
 				3F911EB9E3AB94D442FA9F9D /* Pods-MoppApp.release.xcconfig */,
+				CD15B1228E3C241B478D570C /* Pods-MoppAppTestEnv.debug.xcconfig */,
+				8184F28EF072722FEA0124A2 /* Pods-MoppAppTestEnv.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1078,11 +1086,13 @@
 		F9074FEF4DC2DB83A60B75B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5F974D12176465400A167C7 /* MoppLibTestEnv.framework */,
 				390C016A20AC430300827230 /* cdoc.framework */,
 				39852A6120AB2949004CB100 /* CryptoLib.framework */,
 				C55BB1CB2091BD2000618AC4 /* WebKit.framework */,
 				E4250D051E0A911100530370 /* MoppLib.framework */,
 				6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */,
+				9243254AA71C9AE306830EF1 /* Pods_MoppAppTestEnv.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1116,8 +1126,6 @@
 				C5EA713C2176057A00440F4A /* Frameworks */,
 				C5EA71422176057A00440F4A /* Resources */,
 				C5EA717C2176057A00440F4A /* Set GH build number to plist */,
-				C5EA717D2176057A00440F4A /* [CP] Embed Pods Frameworks */,
-				C5EA717E2176057A00440F4A /* [CP] Copy Pods Resources */,
 				C5EA717F2176057A00440F4A /* Embed Frameworks */,
 				C5EA71832176057A00440F4A /* ShellScript */,
 				C5EA71842176057A00440F4A /* Embed App Extensions */,
@@ -1141,8 +1149,6 @@
 				E4250CC01E0968D200530370 /* Frameworks */,
 				E4250CC11E0968D200530370 /* Resources */,
 				E4250D1B1E0AB34400530370 /* Set GH build number to plist */,
-				6B13CD669C3E5A2623D5FE04 /* [CP] Embed Pods Frameworks */,
-				4E44872F8C9839D1D757B3E0 /* [CP] Copy Pods Resources */,
 				E4250D081E0A911100530370 /* Embed Frameworks */,
 				54415B641E52F23C00B66A89 /* ShellScript */,
 				54A418331E83FAD200559E2B /* Embed App Extensions */,
@@ -1357,21 +1363,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4E44872F8C9839D1D757B3E0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		54415B641E52F23C00B66A89 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1384,26 +1375,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 2d09fce02bca92bd26f18824f9cb302f5ad625e3 fb7f424a3ac43eccda42c76e7f15a400d7b3047945a66a98d0211ec996f584ef";
-		};
-		6B13CD669C3E5A2623D5FE04 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		A61DA2EE951A985EAE19BDEB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1434,7 +1405,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MoppApp-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-MoppAppTestEnv-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1454,41 +1425,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "buildNumber=$GREENHOUSE_BUILD_NUMBER\nstringLength=${#buildNumber}\n    if [ $stringLength -ne 0 ]; then\n    echo \"Updating build number to $buildNumber\"\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n    else\n    echo \"Missing build number, skip updating\"\n    fi";
-		};
-		C5EA717D2176057A00440F4A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C5EA717E2176057A00440F4A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		C5EA71832176057A00440F4A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1840,7 +1776,7 @@
 		};
 		C5EA71872176057A00440F4A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3E46CB1F1CE88C94094587D /* Pods-MoppApp.debug.xcconfig */;
+			baseConfigurationReference = CD15B1228E3C241B478D570C /* Pods-MoppAppTestEnv.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1879,7 +1815,7 @@
 		};
 		C5EA71882176057A00440F4A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3F911EB9E3AB94D442FA9F9D /* Pods-MoppApp.release.xcconfig */;
+			baseConfigurationReference = 8184F28EF072722FEA0124A2 /* Pods-MoppAppTestEnv.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

@@ -1,0 +1,6 @@
+framework module MoppLib {
+  umbrella header "MoppLib.h"
+
+  export *
+  module * { export * }
+}

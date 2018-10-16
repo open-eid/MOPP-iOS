@@ -59,7 +59,6 @@
 		39266A6120CFE36A002E3F23 /* CdocParserDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CdocParserDelegate.h; sourceTree = "<group>"; };
 		39266A6220CFE3D4002E3F23 /* CdocParserDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CdocParserDelegate.m; sourceTree = "<group>"; };
 		393B66BB20D8F361001DC89B /* AbstractSmartToken.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AbstractSmartToken.mm; sourceTree = "<group>"; };
-		393B66C220DA6956001DC89B /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = CryptoLib/cdocFramework/cdoc.iphoneios/cdoc.framework; sourceTree = "<group>"; };
 		393B66C420DA6964001DC89B /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = CryptoLib/cdocFramework/cdoc.iphonesimulator/cdoc.framework; sourceTree = "<group>"; };
 		393B66DF20DB94B4001DC89B /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = CryptoLib/cdocFramework/cdoc.framework; sourceTree = "<group>"; };
 		3960E50320C02DA400D4D2FC /* CryptoDataFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptoDataFile.h; sourceTree = "<group>"; };
@@ -243,7 +242,6 @@
 				39231FA620AB1C6C00E1E2B4 /* Frameworks */,
 				39231FA720AB1C6C00E1E2B4 /* Headers */,
 				39231FA820AB1C6C00E1E2B4 /* Resources */,
-				4F76331712D4079F3B157B07 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -313,21 +311,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4F76331712D4079F3B157B07 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../MoppApp/Pods/Target Support Files/Pods-CryptoLib/Pods-CryptoLib-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

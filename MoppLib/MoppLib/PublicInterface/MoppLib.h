@@ -30,6 +30,21 @@ FOUNDATION_EXPORT double MoppLibVersionNumber;
 FOUNDATION_EXPORT const unsigned char MoppLibVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <MoppLib/PublicHeader.h>
+#ifdef TEST_ENV
+#import <MoppLibTestEnv/MoppLibManager.h>
+#import <MoppLibTestEnv/MoppLibContainerActions.h>
+#import <MoppLibTestEnv/MoppLibCryptoActions.h>
+#import <MoppLibTestEnv/MoppLibCardActions.h>
+#import <MoppLibTestEnv/MoppLibPinActions.h>
+#import <MoppLibTestEnv/MoppLibConstants.h>
+#import <MoppLibTestEnv/MoppLibPersonalData.h>
+#import <MoppLibTestEnv/MoppLibCerificatetData.h>
+#import <MoppLibTestEnv/MoppLibContainer.h>
+#import <MoppLibTestEnv/MoppLibDataFile.h>
+#import <MoppLibTestEnv/MoppLibSignature.h>
+#import <MoppLibTestEnv/MoppLibMobileCreateSignatureResponse.h>
+#import <MoppLibTestEnv/MoppLibService.h>
+#else
 #import <MoppLib/MoppLibManager.h>
 #import <MoppLib/MoppLibContainerActions.h>
 #import <MoppLib/MoppLibCryptoActions.h>
@@ -43,5 +58,4 @@ FOUNDATION_EXPORT const unsigned char MoppLibVersionString[];
 #import <MoppLib/MoppLibSignature.h>
 #import <MoppLib/MoppLibMobileCreateSignatureResponse.h>
 #import <MoppLib/MoppLibService.h>
-
-
+#endif
