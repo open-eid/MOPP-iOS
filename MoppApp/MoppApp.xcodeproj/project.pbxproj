@@ -161,6 +161,178 @@
 		C5D057022023016300875F44 /* RecentContainersEmptyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D057012023016300875F44 /* RecentContainersEmptyListCell.swift */; };
 		C5D057042024B5B700875F44 /* MoppModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D057032024B5B700875F44 /* MoppModalViewController.swift */; };
 		C5E7D08D2031B1040081416F /* NativeShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7D08C2031B1040081416F /* NativeShare.swift */; };
+		C5EA70D22176057A00440F4A /* ContainerNoAddresseesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAAC20B819B500BF3178 /* ContainerNoAddresseesCell.swift */; };
+		C5EA70D32176057A00440F4A /* Date+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF41E1CFE9600253FF0 /* Date+Additions.swift */; };
+		C5EA70D42176057A00440F4A /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD1E1FD1831500D48E16 /* SearchTextField.swift */; };
+		C5EA70D52176057A00440F4A /* AddresseeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAAE20B826E700BF3178 /* AddresseeViewController.swift */; };
+		C5EA70D62176057A00440F4A /* UITableView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD0E1FC7181400D48E16 /* UITableView+Additions.swift */; };
+		C5EA70D72176057A00440F4A /* DefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C53F4A1E30D03500F209BE /* DefaultsHelper.swift */; };
+		C5EA70D82176057A00440F4A /* CryptoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAAA20B5B92100BF3178 /* CryptoContainer.swift */; };
+		C5EA70D92176057A00440F4A /* SignatureDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD451FDECE2B00D48E16 /* SignatureDetailsViewController.swift */; };
+		C5EA70DA2176057A00440F4A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCCFE1FC6E95A00D48E16 /* ContainerViewController.swift */; };
+		C5EA70DB2176057A00440F4A /* SignatureDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD471FDED76400D48E16 /* SignatureDetailsCell.swift */; };
+		C5EA70DC2176057A00440F4A /* ContainerNoSignaturesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */; };
+		C5EA70DD2176057A00440F4A /* SettingsChoiceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C593D9F5208F39DF000B3BF6 /* SettingsChoiceButton.swift */; };
+		C5EA70DE2176057A00440F4A /* MyeIDInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58FCD5E20650BBE00FE3B57 /* MyeIDInfoCell.swift */; };
+		C5EA70DF2176057A00440F4A /* NSMutableAttributedString+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F462A9209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift */; };
+		C5EA70E02176057A00440F4A /* RecentContainersEmptyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D057012023016300875F44 /* RecentContainersEmptyListCell.swift */; };
+		C5EA70E12176057A00440F4A /* UIStoryBoard+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD161FCEF17000D48E16 /* UIStoryBoard+Additions.swift */; };
+		C5EA70E22176057A00440F4A /* MyeIDChangeCodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AA42C6207F51EB0031F3AA /* MyeIDChangeCodesViewController.swift */; };
+		C5EA70E32176057A00440F4A /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD231FD69B0C00D48E16 /* SpinnerView.swift */; };
+		C5EA70E42176057A00440F4A /* MoppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52E827D1FC1DBFE0074B280 /* MoppViewController.swift */; };
+		C5EA70E52176057A00440F4A /* NativeShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7D08C2031B1040081416F /* NativeShare.swift */; };
+		C5EA70E62176057A00440F4A /* MoppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52E827B1FC1D7BC0074B280 /* MoppApp.swift */; };
+		C5EA70E72176057A00440F4A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C53F4D1E30D13100F209BE /* Session.swift */; };
+		C5EA70E82176057A00440F4A /* UIButton+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCCC41FC31EFC00D48E16 /* UIButton+Additions.swift */; };
+		C5EA70E92176057A00440F4A /* about.css in Sources */ = {isa = PBXBuildFile; fileRef = C55BB1DB2091FBCF00618AC4 /* about.css */; };
+		C5EA70EA2176057A00440F4A /* LocalizationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB61FBC45DD0046D6E0 /* LocalizationKeys.swift */; };
+		C5EA70EB2176057A00440F4A /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B08941E15617200EA24A3 /* LandingViewController.swift */; };
+		C5EA70EC2176057A00440F4A /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54825EFA1E1D28E900253FF0 /* UIColor+Additions.swift */; };
+		C5EA70ED2176057A00440F4A /* RecentContainersNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD181FD1542A00D48E16 /* RecentContainersNameCell.swift */; };
+		C5EA70EE2176057A00440F4A /* SettingsFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C593D9EF208F1C16000B3BF6 /* SettingsFieldCell.swift */; };
+		C5EA70EF2176057A00440F4A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C593D9E7208F1986000B3BF6 /* SettingsViewController.swift */; };
+		C5EA70F02176057A00440F4A /* TokenFlowSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E420444EC90039AC78 /* TokenFlowSelectionViewController.swift */; };
+		C5EA70F12176057A00440F4A /* InitializationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59A958D1FB5B9E100D0E1F9 /* InitializationViewController.swift */; };
+		C5EA70F22176057A00440F4A /* MyeIDInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58FCD5C206505D500FE3B57 /* MyeIDInfoViewController.swift */; };
+		C5EA70F32176057A00440F4A /* ContainerHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD0A1FC7128900D48E16 /* ContainerHeaderCell.swift */; };
+		C5EA70F42176057A00440F4A /* AddresseeActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39158A1820C6C49100B71DD6 /* AddresseeActions.swift */; };
+		C5EA70F52176057A00440F4A /* SettingsChoiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C593D9F1208F269A000B3BF6 /* SettingsChoiceCell.swift */; };
+		C5EA70F62176057A00440F4A /* MobileIDChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */; };
+		C5EA70F72176057A00440F4A /* ContainerFoundAddresseeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399C01E920BD98730056D7AC /* ContainerFoundAddresseeCell.swift */; };
+		C5EA70F82176057A00440F4A /* SettingsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C593D9ED208F1C09000B3BF6 /* SettingsHeaderCell.swift */; };
+		C5EA70F92176057A00440F4A /* ContainerImportAddressees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAA820B5A54600BF3178 /* ContainerImportAddressees.swift */; };
+		C5EA70FA2176057A00440F4A /* MenuHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C6205201A189600CCC2A5 /* MenuHeaderCell.swift */; };
+		C5EA70FB2176057A00440F4A /* DataFilePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD431FDD7E4A00D48E16 /* DataFilePreviewViewController.swift */; };
+		C5EA70FC2176057A00440F4A /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50787871FEA807500D9AAC0 /* UIViewController+Additions.swift */; };
+		C5EA70FD2176057A00440F4A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C506EC7B1FB9CBFD00E07226 /* Constants.swift */; };
+		C5EA70FE2176057A00440F4A /* about_et.html in Sources */ = {isa = PBXBuildFile; fileRef = C55BB1CE2091BEBD00618AC4 /* about_et.html */; };
+		C5EA70FF2176057A00440F4A /* MyeIDStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58FCD5A206505BD00FE3B57 /* MyeIDStatusViewController.swift */; };
+		C5EA71002176057A00440F4A /* MenuLanguageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5310F2520C1777B004D3E78 /* MenuLanguageCell.swift */; };
+		C5EA71012176057A00440F4A /* MyeIDChangeCodeViewControllerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A795D2208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift */; };
+		C5EA71022176057A00440F4A /* UIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C506EC801FB9F4AF00E07226 /* UIImage+Additions.swift */; };
+		C5EA71032176057A00440F4A /* MyeIDChangeCodesLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55A6E41208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift */; };
+		C5EA71042176057A00440F4A /* MyeIDPinPukCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5927FC620751402003B7F41 /* MyeIDPinPukCell.swift */; };
+		C5EA71052176057A00440F4A /* WrapperUIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393B66B920D7EC9D001DC89B /* WrapperUIBarButtonItem.swift */; };
+		C5EA71062176057A00440F4A /* CdocParserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39487CBD210B18F90082D910 /* CdocParserDelegate.swift */; };
+		C5EA71072176057A00440F4A /* ContainerSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD141FCC681100D48E16 /* ContainerSearchCell.swift */; };
+		C5EA71082176057A00440F4A /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BB1C92090C17E00618AC4 /* AboutViewController.swift */; };
+		C5EA71092176057A00440F4A /* MyeIDInfoViewControllerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5927FEA2078FD40003B7F41 /* MyeIDInfoViewControllerUI.swift */; };
+		C5EA710A2176057A00440F4A /* SigningContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAA020B45DCF00BF3178 /* SigningContainerViewController.swift */; };
+		C5EA710B2176057A00440F4A /* CryptoActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CA9420B2D6D600BF3178 /* CryptoActions.swift */; };
+		C5EA710C2176057A00440F4A /* UITextView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.swift */; };
+		C5EA710D2176057A00440F4A /* UITextField+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6EA2046C3BA0039AC78 /* UITextField+Additions.swift */; };
+		C5EA710E2176057A00440F4A /* UIFont+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCCC21FC2D54200D48E16 /* UIFont+Additions.swift */; };
+		C5EA710F2176057A00440F4A /* ReaderScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6D92035C7190039AC78 /* ReaderScannerViewController.swift */; };
+		C5EA71102176057A00440F4A /* ContainerNotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD041FC7125300D48E16 /* ContainerNotificationCell.swift */; };
+		C5EA71112176057A00440F4A /* MenuSeparatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C6207201A1B4C00CCC2A5 /* MenuSeparatorCell.swift */; };
+		C5EA71122176057A00440F4A /* CryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */; };
+		C5EA71132176057A00440F4A /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52E82771FC1D3ED0074B280 /* MenuViewController.swift */; };
+		C5EA71142176057A00440F4A /* MyeIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCCC61FC32A2500D48E16 /* MyeIDViewController.swift */; };
+		C5EA71152176057A00440F4A /* ContainerSignatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD061FC7126100D48E16 /* ContainerSignatureCell.swift */; };
+		C5EA71162176057A00440F4A /* IdCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E72045A9E30039AC78 /* IdCardViewController.swift */; };
+		C5EA71172176057A00440F4A /* RecentContainersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C620C201A256E00CCC2A5 /* RecentContainersViewController.swift */; };
+		C5EA71182176057A00440F4A /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5964CE720079AE0001FE732 /* TabButton.swift */; };
+		C5EA71192176057A00440F4A /* PreviewActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CA9820B2F5B200BF3178 /* PreviewActions.swift */; };
+		C5EA711A2176057A00440F4A /* RecentContainersHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C620E201A2B6500CCC2A5 /* RecentContainersHeaderCell.swift */; };
+		C5EA711B2176057A00440F4A /* SettingsChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C593D9F3208F3526000B3BF6 /* SettingsChoiceView.swift */; };
+		C5EA711C2176057A00440F4A /* FileImportProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CF5EEB2017E4CC008FBBD6 /* FileImportProgressViewController.swift */; };
+		C5EA711D2176057A00440F4A /* MoppModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D057032024B5B700875F44 /* MoppModalViewController.swift */; };
+		C5EA711E2176057A00440F4A /* JailbreakViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0BED20A19E4200A208E5 /* JailbreakViewController.swift */; };
+		C5EA711F2176057A00440F4A /* UINib+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD101FC82F9E00D48E16 /* UINib+Additions.swift */; };
+		C5EA71202176057A00440F4A /* MyeIDInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5927FEC20790B7C003B7F41 /* MyeIDInfoManager.swift */; };
+		C5EA71212176057A00440F4A /* SigningFileImportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */; };
+		C5EA71222176057A00440F4A /* ContainerFileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD081FC7127400D48E16 /* ContainerFileCell.swift */; };
+		C5EA71232176057A00440F4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCA1E0968D200530370 /* AppDelegate.swift */; };
+		C5EA71242176057A00440F4A /* SigningActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CA9620B2D8A600BF3178 /* SigningActions.swift */; };
+		C5EA71252176057A00440F4A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52E82791FC1D7000074B280 /* main.swift */; };
+		C5EA71262176057A00440F4A /* ContainerImportFilesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5964CE9200F8607001FE732 /* ContainerImportFilesCell.swift */; };
+		C5EA71272176057A00440F4A /* SigningTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD1A1FD1576B00D48E16 /* SigningTableViewHeaderView.swift */; };
+		C5EA71282176057A00440F4A /* MoppButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA7392057E58D0039AC78 /* MoppButton.swift */; };
+		C5EA71292176057A00440F4A /* ContainerAddresseeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAA620B5A39F00BF3178 /* ContainerAddresseeCell.swift */; };
+		C5EA712A2176057A00440F4A /* MyeIDChangeCodesTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55A6E3F2086351C000F3386 /* MyeIDChangeCodesTextField.swift */; };
+		C5EA712B2176057A00440F4A /* ReaderScannerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E0203724730039AC78 /* ReaderScannerHeaderView.swift */; };
+		C5EA712C2176057A00440F4A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB41FBB2AB10046D6E0 /* Utils.swift */; };
+		C5EA712D2176057A00440F4A /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD121FCC4D3000D48E16 /* UIView+Additions.swift */; };
+		C5EA712E2176057A00440F4A /* MobileIDEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C537AE532004C29E009037E5 /* MobileIDEditViewController.swift */; };
+		C5EA712F2176057A00440F4A /* ReaderScannerPeripheralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6DE20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift */; };
+		C5EA71302176057A00440F4A /* CryptoContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAA420B5A24A00BF3178 /* CryptoContainerViewController.swift */; };
+		C5EA71312176057A00440F4A /* SigningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCCCA1FC32A3E00D48E16 /* SigningViewController.swift */; };
+		C5EA71322176057A00440F4A /* MoppApp+Jailbreak.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0BE820A1930400A208E5 /* MoppApp+Jailbreak.swift */; };
+		C5EA71332176057A00440F4A /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B08AD1E1EFC1800EA24A3 /* DateFormatter.swift */; };
+		C5EA71342176057A00440F4A /* DiagnosticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BB1C620908EF300618AC4 /* DiagnosticsViewController.swift */; };
+		C5EA71352176057A00440F4A /* String+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF71E1D270F00253FF0 /* String+Additions.swift */; };
+		C5EA71362176057A00440F4A /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B08B01E1F049B00EA24A3 /* FileManager.swift */; };
+		C5EA71372176057A00440F4A /* ContainerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A1D1CC2031D5B80024CD4C /* ContainerActions.swift */; };
+		C5EA71382176057A00440F4A /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C6203201A0D9300CCC2A5 /* MenuCell.swift */; };
+		C5EA71392176057A00440F4A /* ContainerTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD0C1FC7147100D48E16 /* ContainerTableViewHeaderView.swift */; };
+		C5EA713A2176057A00440F4A /* MenuLanguageButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5310F4520C2F0F7004D3E78 /* MenuLanguageButtonView.swift */; };
+		C5EA713B2176057A00440F4A /* MyeIDSegmentHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5927FC82075144F003B7F41 /* MyeIDSegmentHeaderCell.swift */; };
+		C5EA713D2176057A00440F4A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C55BB1CB2091BD2000618AC4 /* WebKit.framework */; };
+		C5EA713E2176057A00440F4A /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; };
+		C5EA713F2176057A00440F4A /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
+		C5EA71402176057A00440F4A /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
+		C5EA71412176057A00440F4A /* CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39852A6120AB2949004CB100 /* CryptoLib.framework */; };
+		C5EA71432176057A00440F4A /* about.css in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1DB2091FBCF00618AC4 /* about.css */; };
+		C5EA71442176057A00440F4A /* Crypto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */; };
+		C5EA71452176057A00440F4A /* about_et.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1CE2091BEBD00618AC4 /* about_et.html */; };
+		C5EA71462176057A00440F4A /* presentation.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E4C53F361E2FAE6C00F209BE /* presentation.pdf */; };
+		C5EA71472176057A00440F4A /* RobotoCondensed-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCD71FC5741800D48E16 /* RobotoCondensed-Bold.ttf */; };
+		C5EA71482176057A00440F4A /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCE11FC5741900D48E16 /* Roboto-LightItalic.ttf */; };
+		C5EA71492176057A00440F4A /* Jailbreak.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5FA0BEB20A19AE100A208E5 /* Jailbreak.storyboard */; };
+		C5EA714A2176057A00440F4A /* RecentContainers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C56C620A201A255900CCC2A5 /* RecentContainers.storyboard */; };
+		C5EA714B2176057A00440F4A /* Roboto-CondensedItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCD61FC5741800D48E16 /* Roboto-CondensedItalic.ttf */; };
+		C5EA714C2176057A00440F4A /* SigningElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54EA6E220372F490039AC78 /* SigningElements.xib */; };
+		C5EA714D2176057A00440F4A /* Roboto-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCDD1FC5741800D48E16 /* Roboto-BoldItalic.ttf */; };
+		C5EA714E2176057A00440F4A /* datafile.txt in Resources */ = {isa = PBXBuildFile; fileRef = E4180C361E26822000FD7B8C /* datafile.txt */; };
+		C5EA714F2176057A00440F4A /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCE21FC5741900D48E16 /* Roboto-Regular.ttf */; };
+		C5EA71502176057A00440F4A /* Roboto-Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCDE1FC5741800D48E16 /* Roboto-Condensed.ttf */; };
+		C5EA71512176057A00440F4A /* digidoc_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 54A418031E83C10100559E2B /* digidoc_64.png */; };
+		C5EA71522176057A00440F4A /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCD51FC5741800D48E16 /* Roboto-Light.ttf */; };
+		C5EA71532176057A00440F4A /* Menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C52E82751FC1D3DD0074B280 /* Menu.storyboard */; };
+		C5EA71542176057A00440F4A /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCD91FC5741800D48E16 /* Roboto-MediumItalic.ttf */; };
+		C5EA71552176057A00440F4A /* RobotoCondensed-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCDB1FC5741800D48E16 /* RobotoCondensed-LightItalic.ttf */; };
+		C5EA71562176057A00440F4A /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCD41FC5741800D48E16 /* Roboto-Thin.ttf */; };
+		C5EA71572176057A00440F4A /* licenses.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1DF2091FECD00618AC4 /* licenses.html */; };
+		C5EA71582176057A00440F4A /* image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E4C53F351E2FAE6C00F209BE /* image.jpg */; };
+		C5EA71592176057A00440F4A /* ddocTest.ddoc in Resources */ = {isa = PBXBuildFile; fileRef = E43BD8101E3A121A00F6C39D /* ddocTest.ddoc */; };
+		C5EA715A2176057A00440F4A /* digidoc_320.png in Resources */ = {isa = PBXBuildFile; fileRef = 54A418061E83C10B00559E2B /* digidoc_320.png */; };
+		C5EA715B2176057A00440F4A /* Signing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54BB10C1FBD8CE900A274F6 /* Signing.storyboard */; };
+		C5EA715C2176057A00440F4A /* Roboto-BoldCondensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCDF1FC5741800D48E16 /* Roboto-BoldCondensed.ttf */; };
+		C5EA715D2176057A00440F4A /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCE51FC5741900D48E16 /* Roboto-BlackItalic.ttf */; };
+		C5EA715E2176057A00440F4A /* test1.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E42B08A41E1D4EE900EA24A3 /* test1.bdoc */; };
+		C5EA715F2176057A00440F4A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4250D091E0AA7AF00530370 /* LaunchScreen.xib */; };
+		C5EA71602176057A00440F4A /* AppStore.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54A5729E1E82AC760099BFAF /* AppStore.plist */; };
+		C5EA71612176057A00440F4A /* Roboto-BoldCondensedItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCE01FC5741800D48E16 /* Roboto-BoldCondensedItalic.ttf */; };
+		C5EA71622176057A00440F4A /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C593D9EB208F19D7000B3BF6 /* Settings.storyboard */; };
+		C5EA71632176057A00440F4A /* main_about_fonds_en.png in Resources */ = {isa = PBXBuildFile; fileRef = C5AAAF7F20C93B910087D6DA /* main_about_fonds_en.png */; };
+		C5EA71642176057A00440F4A /* about_ru.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D62091F44000618AC4 /* about_ru.html */; };
+		C5EA71652176057A00440F4A /* about_en.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D52091F44000618AC4 /* about_en.html */; };
+		C5EA71662176057A00440F4A /* RobotoCondensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCDC1FC5741800D48E16 /* RobotoCondensed-Regular.ttf */; };
+		C5EA71672176057A00440F4A /* LandingElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C537AE7720063E48009037E5 /* LandingElements.xib */; };
+		C5EA71682176057A00440F4A /* MyeID.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54BB1081FBD8CC600A274F6 /* MyeID.storyboard */; };
+		C5EA71692176057A00440F4A /* TokenFlow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39F8EFE620D263B5001BCF73 /* TokenFlow.storyboard */; };
+		C5EA716A2176057A00440F4A /* RecentContainersElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50DCD1C1FD1579700D48E16 /* RecentContainersElements.xib */; };
+		C5EA716B2176057A00440F4A /* asiceTest.asice in Resources */ = {isa = PBXBuildFile; fileRef = E43BD80E1E3A121100F6C39D /* asiceTest.asice */; };
+		C5EA716C2176057A00440F4A /* Container.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50DCD001FC6E97400D48E16 /* Container.storyboard */; };
+		C5EA716D2176057A00440F4A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
+		C5EA716E2176057A00440F4A /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */; };
+		C5EA716F2176057A00440F4A /* main_about_fonds_et.png in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D22091C68200618AC4 /* main_about_fonds_et.png */; };
+		C5EA71702176057A00440F4A /* RobotoCondensed-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCE61FC5741900D48E16 /* RobotoCondensed-BoldItalic.ttf */; };
+		C5EA71712176057A00440F4A /* RobotoCondensed-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCD81FC5741800D48E16 /* RobotoCondensed-Light.ttf */; };
+		C5EA71722176057A00440F4A /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCD11FC5741700D48E16 /* Roboto-ThinItalic.ttf */; };
+		C5EA71732176057A00440F4A /* ContainerElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50DCD021FC7117700D48E16 /* ContainerElements.xib */; };
+		C5EA71742176057A00440F4A /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCE31FC5741900D48E16 /* Roboto-Bold.ttf */; };
+		C5EA71752176057A00440F4A /* RobotoCondensed-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCD31FC5741700D48E16 /* RobotoCondensed-Italic.ttf */; };
+		C5EA71762176057A00440F4A /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCE41FC5741900D48E16 /* Roboto-Black.ttf */; };
+		C5EA71772176057A00440F4A /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCDA1FC5741800D48E16 /* Roboto-Medium.ttf */; };
+		C5EA71782176057A00440F4A /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCD21FC5741700D48E16 /* Roboto-Italic.ttf */; };
+		C5EA71792176057A00440F4A /* test2.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E42B08A51E1D4EE900EA24A3 /* test2.bdoc */; };
+		C5EA717A2176057A00440F4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C506EC7D1FB9D5A000E07226 /* Assets.xcassets */; };
+		C5EA717B2176057A00440F4A /* CustomElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50DCD211FD69A8500D48E16 /* CustomElements.xib */; };
+		C5EA71802176057A00440F4A /* MoppLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C5EA71812176057A00440F4A /* CryptoLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 39852A6120AB2949004CB100 /* CryptoLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C5EA71822176057A00440F4A /* cdoc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 393B66E120DB94CD001DC89B /* cdoc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C5EA71852176057A00440F4A /* shareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 54A418241E83FAD200559E2B /* shareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C5F462AA209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F462A9209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift */; };
 		C5FA0BE920A1930400A208E5 /* MoppApp+Jailbreak.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0BE820A1930400A208E5 /* MoppApp+Jailbreak.swift */; };
 		C5FA0BEC20A19AE100A208E5 /* Jailbreak.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5FA0BEB20A19AE100A208E5 /* Jailbreak.storyboard */; };
@@ -192,6 +364,13 @@
 			remoteGlobalIDString = 54A418231E83FAD200559E2B;
 			remoteInfo = shareExtension;
 		};
+		C5EA70CF2176057A00440F4A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4250CBB1E0968D200530370 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 54A418231E83FAD200559E2B;
+			remoteInfo = shareExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -202,6 +381,30 @@
 			dstSubfolderSpec = 13;
 			files = (
 				54A4182F1E83FAD200559E2B /* shareExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5EA717F2176057A00440F4A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C5EA71802176057A00440F4A /* MoppLib.framework in Embed Frameworks */,
+				C5EA71812176057A00440F4A /* CryptoLib.framework in Embed Frameworks */,
+				C5EA71822176057A00440F4A /* cdoc.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5EA71842176057A00440F4A /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C5EA71852176057A00440F4A /* shareExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -381,6 +584,8 @@
 		C5D057032024B5B700875F44 /* MoppModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoppModalViewController.swift; sourceTree = "<group>"; };
 		C5D057812028835100875F44 /* MoppAppTestDDS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MoppAppTestDDS-Info.plist"; path = "/Users/sander/MOPP-iOS/MoppApp/MoppAppTestDDS-Info.plist"; sourceTree = "<absolute>"; };
 		C5E7D08C2031B1040081416F /* NativeShare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeShare.swift; sourceTree = "<group>"; };
+		C5EA71892176057A00440F4A /* MoppAppTestEnv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoppAppTestEnv.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5EA718A2176057A00440F4A /* TestEnvInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = TestEnvInfo.plist; path = "/Users/sander/MOPP-iOS/MoppApp/TestEnvInfo.plist"; sourceTree = "<absolute>"; };
 		C5F462A9209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Additions.swift"; sourceTree = "<group>"; };
 		C5FA0BE820A1930400A208E5 /* MoppApp+Jailbreak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoppApp+Jailbreak.swift"; sourceTree = "<group>"; };
 		C5FA0BEB20A19AE100A208E5 /* Jailbreak.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Jailbreak.storyboard; sourceTree = "<group>"; };
@@ -413,6 +618,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5EA713C2176057A00440F4A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5EA713D2176057A00440F4A /* WebKit.framework in Frameworks */,
+				C5EA713E2176057A00440F4A /* MoppLib.framework in Frameworks */,
+				C5EA713F2176057A00440F4A /* Pods_MoppApp.framework in Frameworks */,
+				C5EA71402176057A00440F4A /* Pods_MoppApp.framework in Frameworks */,
+				C5EA71412176057A00440F4A /* CryptoLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -761,6 +978,7 @@
 			children = (
 				E4250CC31E0968D200530370 /* MoppApp.app */,
 				54A418241E83FAD200559E2B /* shareExtension.appex */,
+				C5EA71892176057A00440F4A /* MoppAppTestEnv.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -792,6 +1010,7 @@
 				C55BB1CD2091BE9000618AC4 /* AboutContent */,
 				C50DCCCE1FC5738F00D48E16 /* Fonts */,
 				E4250CD71E0968D200530370 /* Info.plist */,
+				C5EA718A2176057A00440F4A /* TestEnvInfo.plist */,
 				C5D057812028835100875F44 /* MoppAppTestDDS-Info.plist */,
 				E4250D0D1E0AA8E500530370 /* Localizable.strings */,
 				E4250D091E0AA7AF00530370 /* LaunchScreen.xib */,
@@ -888,6 +1107,31 @@
 			productReference = 54A418241E83FAD200559E2B /* shareExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		C5EA70CD2176057A00440F4A /* MoppAppTestEnv */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C5EA71862176057A00440F4A /* Build configuration list for PBXNativeTarget "MoppAppTestEnv" */;
+			buildPhases = (
+				C5EA70D02176057A00440F4A /* [CP] Check Pods Manifest.lock */,
+				C5EA70D12176057A00440F4A /* Sources */,
+				C5EA713C2176057A00440F4A /* Frameworks */,
+				C5EA71422176057A00440F4A /* Resources */,
+				C5EA717C2176057A00440F4A /* Set GH build number to plist */,
+				C5EA717D2176057A00440F4A /* [CP] Embed Pods Frameworks */,
+				C5EA717E2176057A00440F4A /* [CP] Copy Pods Resources */,
+				C5EA717F2176057A00440F4A /* Embed Frameworks */,
+				C5EA71832176057A00440F4A /* ShellScript */,
+				C5EA71842176057A00440F4A /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C5EA70CE2176057A00440F4A /* PBXTargetDependency */,
+			);
+			name = MoppAppTestEnv;
+			productName = MoppApp;
+			productReference = C5EA71892176057A00440F4A /* MoppAppTestEnv.app */;
+			productType = "com.apple.product-type.application";
+		};
 		E4250CC21E0968D200530370 /* MoppApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E4250CDA1E0968D200530370 /* Build configuration list for PBXNativeTarget "MoppApp" */;
@@ -933,6 +1177,10 @@
 							};
 						};
 					};
+					C5EA70CD2176057A00440F4A = {
+						DevelopmentTeam = ET847QJV9F;
+						ProvisioningStyle = Manual;
+					};
 					E4250CC21E0968D200530370 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = ET847QJV9F;
@@ -962,6 +1210,7 @@
 			projectRoot = "";
 			targets = (
 				E4250CC21E0968D200530370 /* MoppApp */,
+				C5EA70CD2176057A00440F4A /* MoppAppTestEnv */,
 				54A418231E83FAD200559E2B /* shareExtension */,
 			);
 		};
@@ -974,6 +1223,70 @@
 			files = (
 				54A4182B1E83FAD200559E2B /* MainInterface.storyboard in Resources */,
 				547BDF251E8BEFA30093931F /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5EA71422176057A00440F4A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5EA71432176057A00440F4A /* about.css in Resources */,
+				C5EA71442176057A00440F4A /* Crypto.storyboard in Resources */,
+				C5EA71452176057A00440F4A /* about_et.html in Resources */,
+				C5EA71462176057A00440F4A /* presentation.pdf in Resources */,
+				C5EA71472176057A00440F4A /* RobotoCondensed-Bold.ttf in Resources */,
+				C5EA71482176057A00440F4A /* Roboto-LightItalic.ttf in Resources */,
+				C5EA71492176057A00440F4A /* Jailbreak.storyboard in Resources */,
+				C5EA714A2176057A00440F4A /* RecentContainers.storyboard in Resources */,
+				C5EA714B2176057A00440F4A /* Roboto-CondensedItalic.ttf in Resources */,
+				C5EA714C2176057A00440F4A /* SigningElements.xib in Resources */,
+				C5EA714D2176057A00440F4A /* Roboto-BoldItalic.ttf in Resources */,
+				C5EA714E2176057A00440F4A /* datafile.txt in Resources */,
+				C5EA714F2176057A00440F4A /* Roboto-Regular.ttf in Resources */,
+				C5EA71502176057A00440F4A /* Roboto-Condensed.ttf in Resources */,
+				C5EA71512176057A00440F4A /* digidoc_64.png in Resources */,
+				C5EA71522176057A00440F4A /* Roboto-Light.ttf in Resources */,
+				C5EA71532176057A00440F4A /* Menu.storyboard in Resources */,
+				C5EA71542176057A00440F4A /* Roboto-MediumItalic.ttf in Resources */,
+				C5EA71552176057A00440F4A /* RobotoCondensed-LightItalic.ttf in Resources */,
+				C5EA71562176057A00440F4A /* Roboto-Thin.ttf in Resources */,
+				C5EA71572176057A00440F4A /* licenses.html in Resources */,
+				C5EA71582176057A00440F4A /* image.jpg in Resources */,
+				C5EA71592176057A00440F4A /* ddocTest.ddoc in Resources */,
+				C5EA715A2176057A00440F4A /* digidoc_320.png in Resources */,
+				C5EA715B2176057A00440F4A /* Signing.storyboard in Resources */,
+				C5EA715C2176057A00440F4A /* Roboto-BoldCondensed.ttf in Resources */,
+				C5EA715D2176057A00440F4A /* Roboto-BlackItalic.ttf in Resources */,
+				C5EA715E2176057A00440F4A /* test1.bdoc in Resources */,
+				C5EA715F2176057A00440F4A /* LaunchScreen.xib in Resources */,
+				C5EA71602176057A00440F4A /* AppStore.plist in Resources */,
+				C5EA71612176057A00440F4A /* Roboto-BoldCondensedItalic.ttf in Resources */,
+				C5EA71622176057A00440F4A /* Settings.storyboard in Resources */,
+				C5EA71632176057A00440F4A /* main_about_fonds_en.png in Resources */,
+				C5EA71642176057A00440F4A /* about_ru.html in Resources */,
+				C5EA71652176057A00440F4A /* about_en.html in Resources */,
+				C5EA71662176057A00440F4A /* RobotoCondensed-Regular.ttf in Resources */,
+				C5EA71672176057A00440F4A /* LandingElements.xib in Resources */,
+				C5EA71682176057A00440F4A /* MyeID.storyboard in Resources */,
+				C5EA71692176057A00440F4A /* TokenFlow.storyboard in Resources */,
+				C5EA716A2176057A00440F4A /* RecentContainersElements.xib in Resources */,
+				C5EA716B2176057A00440F4A /* asiceTest.asice in Resources */,
+				C5EA716C2176057A00440F4A /* Container.storyboard in Resources */,
+				C5EA716D2176057A00440F4A /* Localizable.strings in Resources */,
+				C5EA716E2176057A00440F4A /* Landing.storyboard in Resources */,
+				C5EA716F2176057A00440F4A /* main_about_fonds_et.png in Resources */,
+				C5EA71702176057A00440F4A /* RobotoCondensed-BoldItalic.ttf in Resources */,
+				C5EA71712176057A00440F4A /* RobotoCondensed-Light.ttf in Resources */,
+				C5EA71722176057A00440F4A /* Roboto-ThinItalic.ttf in Resources */,
+				C5EA71732176057A00440F4A /* ContainerElements.xib in Resources */,
+				C5EA71742176057A00440F4A /* Roboto-Bold.ttf in Resources */,
+				C5EA71752176057A00440F4A /* RobotoCondensed-Italic.ttf in Resources */,
+				C5EA71762176057A00440F4A /* Roboto-Black.ttf in Resources */,
+				C5EA71772176057A00440F4A /* Roboto-Medium.ttf in Resources */,
+				C5EA71782176057A00440F4A /* Roboto-Italic.ttf in Resources */,
+				C5EA71792176057A00440F4A /* test2.bdoc in Resources */,
+				C5EA717A2176057A00440F4A /* Assets.xcassets in Resources */,
+				C5EA717B2176057A00440F4A /* CustomElements.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1110,6 +1423,86 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C5EA70D02176057A00440F4A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MoppApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5EA717C2176057A00440F4A /* Set GH build number to plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Set GH build number to plist";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$GREENHOUSE_BUILD_NUMBER\nstringLength=${#buildNumber}\n    if [ $stringLength -ne 0 ]; then\n    echo \"Updating build number to $buildNumber\"\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n    else\n    echo \"Missing build number, skip updating\"\n    fi";
+		};
+		C5EA717D2176057A00440F4A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5EA717E2176057A00440F4A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5EA71832176057A00440F4A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 2d09fce02bca92bd26f18824f9cb302f5ad625e3 fb7f424a3ac43eccda42c76e7f15a400d7b3047945a66a98d0211ec996f584ef";
+		};
 		E4250D1B1E0AB34400530370 /* Set GH build number to plist */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1132,6 +1525,119 @@
 			buildActionMask = 2147483647;
 			files = (
 				C51B7FB21FBB12E80046D6E0 /* ShareViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5EA70D12176057A00440F4A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5EA70D22176057A00440F4A /* ContainerNoAddresseesCell.swift in Sources */,
+				C5EA70D32176057A00440F4A /* Date+Additions.swift in Sources */,
+				C5EA70D42176057A00440F4A /* SearchTextField.swift in Sources */,
+				C5EA70D52176057A00440F4A /* AddresseeViewController.swift in Sources */,
+				C5EA70D62176057A00440F4A /* UITableView+Additions.swift in Sources */,
+				C5EA70D72176057A00440F4A /* DefaultsHelper.swift in Sources */,
+				C5EA70D82176057A00440F4A /* CryptoContainer.swift in Sources */,
+				C5EA70D92176057A00440F4A /* SignatureDetailsViewController.swift in Sources */,
+				C5EA70DA2176057A00440F4A /* ContainerViewController.swift in Sources */,
+				C5EA70DB2176057A00440F4A /* SignatureDetailsCell.swift in Sources */,
+				C5EA70DC2176057A00440F4A /* ContainerNoSignaturesCell.swift in Sources */,
+				C5EA70DD2176057A00440F4A /* SettingsChoiceButton.swift in Sources */,
+				C5EA70DE2176057A00440F4A /* MyeIDInfoCell.swift in Sources */,
+				C5EA70DF2176057A00440F4A /* NSMutableAttributedString+Additions.swift in Sources */,
+				C5EA70E02176057A00440F4A /* RecentContainersEmptyListCell.swift in Sources */,
+				C5EA70E12176057A00440F4A /* UIStoryBoard+Additions.swift in Sources */,
+				C5EA70E22176057A00440F4A /* MyeIDChangeCodesViewController.swift in Sources */,
+				C5EA70E32176057A00440F4A /* SpinnerView.swift in Sources */,
+				C5EA70E42176057A00440F4A /* MoppViewController.swift in Sources */,
+				C5EA70E52176057A00440F4A /* NativeShare.swift in Sources */,
+				C5EA70E62176057A00440F4A /* MoppApp.swift in Sources */,
+				C5EA70E72176057A00440F4A /* Session.swift in Sources */,
+				C5EA70E82176057A00440F4A /* UIButton+Additions.swift in Sources */,
+				C5EA70E92176057A00440F4A /* about.css in Sources */,
+				C5EA70EA2176057A00440F4A /* LocalizationKeys.swift in Sources */,
+				C5EA70EB2176057A00440F4A /* LandingViewController.swift in Sources */,
+				C5EA70EC2176057A00440F4A /* UIColor+Additions.swift in Sources */,
+				C5EA70ED2176057A00440F4A /* RecentContainersNameCell.swift in Sources */,
+				C5EA70EE2176057A00440F4A /* SettingsFieldCell.swift in Sources */,
+				C5EA70EF2176057A00440F4A /* SettingsViewController.swift in Sources */,
+				C5EA70F02176057A00440F4A /* TokenFlowSelectionViewController.swift in Sources */,
+				C5EA70F12176057A00440F4A /* InitializationViewController.swift in Sources */,
+				C5EA70F22176057A00440F4A /* MyeIDInfoViewController.swift in Sources */,
+				C5EA70F32176057A00440F4A /* ContainerHeaderCell.swift in Sources */,
+				C5EA70F42176057A00440F4A /* AddresseeActions.swift in Sources */,
+				C5EA70F52176057A00440F4A /* SettingsChoiceCell.swift in Sources */,
+				C5EA70F62176057A00440F4A /* MobileIDChallengeViewController.swift in Sources */,
+				C5EA70F72176057A00440F4A /* ContainerFoundAddresseeCell.swift in Sources */,
+				C5EA70F82176057A00440F4A /* SettingsHeaderCell.swift in Sources */,
+				C5EA70F92176057A00440F4A /* ContainerImportAddressees.swift in Sources */,
+				C5EA70FA2176057A00440F4A /* MenuHeaderCell.swift in Sources */,
+				C5EA70FB2176057A00440F4A /* DataFilePreviewViewController.swift in Sources */,
+				C5EA70FC2176057A00440F4A /* UIViewController+Additions.swift in Sources */,
+				C5EA70FD2176057A00440F4A /* Constants.swift in Sources */,
+				C5EA70FE2176057A00440F4A /* about_et.html in Sources */,
+				C5EA70FF2176057A00440F4A /* MyeIDStatusViewController.swift in Sources */,
+				C5EA71002176057A00440F4A /* MenuLanguageCell.swift in Sources */,
+				C5EA71012176057A00440F4A /* MyeIDChangeCodeViewControllerUI.swift in Sources */,
+				C5EA71022176057A00440F4A /* UIImage+Additions.swift in Sources */,
+				C5EA71032176057A00440F4A /* MyeIDChangeCodesLoadingViewController.swift in Sources */,
+				C5EA71042176057A00440F4A /* MyeIDPinPukCell.swift in Sources */,
+				C5EA71052176057A00440F4A /* WrapperUIBarButtonItem.swift in Sources */,
+				C5EA71062176057A00440F4A /* CdocParserDelegate.swift in Sources */,
+				C5EA71072176057A00440F4A /* ContainerSearchCell.swift in Sources */,
+				C5EA71082176057A00440F4A /* AboutViewController.swift in Sources */,
+				C5EA71092176057A00440F4A /* MyeIDInfoViewControllerUI.swift in Sources */,
+				C5EA710A2176057A00440F4A /* SigningContainerViewController.swift in Sources */,
+				C5EA710B2176057A00440F4A /* CryptoActions.swift in Sources */,
+				C5EA710C2176057A00440F4A /* UITextView+Additions.swift in Sources */,
+				C5EA710D2176057A00440F4A /* UITextField+Additions.swift in Sources */,
+				C5EA710E2176057A00440F4A /* UIFont+Additions.swift in Sources */,
+				C5EA710F2176057A00440F4A /* ReaderScannerViewController.swift in Sources */,
+				C5EA71102176057A00440F4A /* ContainerNotificationCell.swift in Sources */,
+				C5EA71112176057A00440F4A /* MenuSeparatorCell.swift in Sources */,
+				C5EA71122176057A00440F4A /* CryptoViewController.swift in Sources */,
+				C5EA71132176057A00440F4A /* MenuViewController.swift in Sources */,
+				C5EA71142176057A00440F4A /* MyeIDViewController.swift in Sources */,
+				C5EA71152176057A00440F4A /* ContainerSignatureCell.swift in Sources */,
+				C5EA71162176057A00440F4A /* IdCardViewController.swift in Sources */,
+				C5EA71172176057A00440F4A /* RecentContainersViewController.swift in Sources */,
+				C5EA71182176057A00440F4A /* TabButton.swift in Sources */,
+				C5EA71192176057A00440F4A /* PreviewActions.swift in Sources */,
+				C5EA711A2176057A00440F4A /* RecentContainersHeaderCell.swift in Sources */,
+				C5EA711B2176057A00440F4A /* SettingsChoiceView.swift in Sources */,
+				C5EA711C2176057A00440F4A /* FileImportProgressViewController.swift in Sources */,
+				C5EA711D2176057A00440F4A /* MoppModalViewController.swift in Sources */,
+				C5EA711E2176057A00440F4A /* JailbreakViewController.swift in Sources */,
+				C5EA711F2176057A00440F4A /* UINib+Additions.swift in Sources */,
+				C5EA71202176057A00440F4A /* MyeIDInfoManager.swift in Sources */,
+				C5EA71212176057A00440F4A /* SigningFileImportCell.swift in Sources */,
+				C5EA71222176057A00440F4A /* ContainerFileCell.swift in Sources */,
+				C5EA71232176057A00440F4A /* AppDelegate.swift in Sources */,
+				C5EA71242176057A00440F4A /* SigningActions.swift in Sources */,
+				C5EA71252176057A00440F4A /* main.swift in Sources */,
+				C5EA71262176057A00440F4A /* ContainerImportFilesCell.swift in Sources */,
+				C5EA71272176057A00440F4A /* SigningTableViewHeaderView.swift in Sources */,
+				C5EA71282176057A00440F4A /* MoppButton.swift in Sources */,
+				C5EA71292176057A00440F4A /* ContainerAddresseeCell.swift in Sources */,
+				C5EA712A2176057A00440F4A /* MyeIDChangeCodesTextField.swift in Sources */,
+				C5EA712B2176057A00440F4A /* ReaderScannerHeaderView.swift in Sources */,
+				C5EA712C2176057A00440F4A /* Utils.swift in Sources */,
+				C5EA712D2176057A00440F4A /* UIView+Additions.swift in Sources */,
+				C5EA712E2176057A00440F4A /* MobileIDEditViewController.swift in Sources */,
+				C5EA712F2176057A00440F4A /* ReaderScannerPeripheralCell.swift in Sources */,
+				C5EA71302176057A00440F4A /* CryptoContainerViewController.swift in Sources */,
+				C5EA71312176057A00440F4A /* SigningViewController.swift in Sources */,
+				C5EA71322176057A00440F4A /* MoppApp+Jailbreak.swift in Sources */,
+				C5EA71332176057A00440F4A /* DateFormatter.swift in Sources */,
+				C5EA71342176057A00440F4A /* DiagnosticsViewController.swift in Sources */,
+				C5EA71352176057A00440F4A /* String+Additions.swift in Sources */,
+				C5EA71362176057A00440F4A /* FileManager.swift in Sources */,
+				C5EA71372176057A00440F4A /* ContainerActions.swift in Sources */,
+				C5EA71382176057A00440F4A /* MenuCell.swift in Sources */,
+				C5EA71392176057A00440F4A /* ContainerTableViewHeaderView.swift in Sources */,
+				C5EA713A2176057A00440F4A /* MenuLanguageButtonView.swift in Sources */,
+				C5EA713B2176057A00440F4A /* MyeIDSegmentHeaderCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1256,6 +1762,11 @@
 			target = 54A418231E83FAD200559E2B /* shareExtension */;
 			targetProxy = 54A4182D1E83FAD200559E2B /* PBXContainerItemProxy */;
 		};
+		C5EA70CE2176057A00440F4A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 54A418231E83FAD200559E2B /* shareExtension */;
+			targetProxy = C5EA70CF2176057A00440F4A /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1322,6 +1833,81 @@
 				PROVISIONING_PROFILE_SPECIFIER = "iOS share extension App Store";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "shareExtension/shareExtension-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C5EA71872176057A00440F4A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3E46CB1F1CE88C94094587D /* Pods-MoppApp.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = MoppApp/MoppApp.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEBUG_ACTIVITY_MODE = "";
+				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = ET847QJV9F;
+				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Crashlytics\"",
+					"\"${PODS_ROOT}/Headers/Public/Fabric\"",
+					"\"$(PODS_ROOT)/Headers/Public/PureLayout\"",
+					"\"$(PODS_ROOT)/Headers/Public/MBProgressHUD\"",
+				);
+				INFOPLIST_FILE = TestEnvInfo.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b913e4d7-5a06-41ef-819b-bff86d89eb1d";
+				PROVISIONING_PROFILE_SPECIFIER = "MOPP iOS Development";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_TEST_DDS;
+				SWIFT_OBJC_BRIDGING_HEADER = "MoppApp/MoppApp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C5EA71882176057A00440F4A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3F911EB9E3AB94D442FA9F9D /* Pods-MoppApp.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = MoppApp/MoppApp.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEBUG_ACTIVITY_MODE = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = ET847QJV9F;
+				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Crashlytics\"",
+					"\"${PODS_ROOT}/Headers/Public/Fabric\"",
+					"\"$(PODS_ROOT)/Headers/Public/PureLayout\"",
+					"\"$(PODS_ROOT)/Headers/Public/MBProgressHUD\"",
+				);
+				INFOPLIST_FILE = TestEnvInfo.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8802afdf-ea26-49a0-ac6a-fa619cee3bef";
+				PROVISIONING_PROFILE_SPECIFIER = "MOPP iOS App Store";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_TEST_DDS;
+				SWIFT_OBJC_BRIDGING_HEADER = "MoppApp/MoppApp-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1505,6 +2091,15 @@
 			buildConfigurations = (
 				54A418301E83FAD200559E2B /* Debug */,
 				54A418311E83FAD200559E2B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C5EA71862176057A00440F4A /* Build configuration list for PBXNativeTarget "MoppAppTestEnv" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5EA71872176057A00440F4A /* Debug */,
+				C5EA71882176057A00440F4A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
