@@ -15,6 +15,14 @@ target 'MoppApp' do
   pod 'Crashlytics'
 end
 
+target 'MoppAppTestEnv' do
+  platform :ios, '9.0'
+  project 'MoppApp.xcodeproj'
+
+  pod 'Fabric'
+  pod 'Crashlytics'
+end
+
 target 'MoppLib' do
   platform :ios, '9.0'
   project '../MoppLib/MoppLib.xcodeproj'
