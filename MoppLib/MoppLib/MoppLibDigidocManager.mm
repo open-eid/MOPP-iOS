@@ -42,6 +42,11 @@
 
 class DigiDocConf: public digidoc::ConfCurrent {
 public:
+#ifdef TEST_ENV
+  std::string TSLUrl() const {
+    return "https://open-eid.github.io/test-TL/EE_T.xml";
+  }
+#endif
   std::string TSLCache() const
   {
     NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
@@ -253,6 +258,9 @@ private:
     }
     else if(digidoc::Signature::Validator::Status::Unknown==status){
         return UnknownStatus;
+    }
+    else if(digidoc::Signature::Validator::Status::Test==status){
+        return ValidTest;
     }
     return Invalid;
 }

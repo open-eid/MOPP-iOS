@@ -67,6 +67,8 @@ class ContainerSignatureCell: UITableViewCell {
         self.signatureIndex = signatureIndex
         var signatureStatus : NSMutableAttributedString
         switch (signature.status) {
+            case MoppLibSignatureStatus.ValidTest:
+                fallthrough
             case MoppLibSignatureStatus.Valid:
                 signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: "", valid: true)
             case MoppLibSignatureStatus.Warning:
