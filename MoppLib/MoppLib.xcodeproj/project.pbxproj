@@ -193,6 +193,7 @@
 		C5DB9511217618AF00512CAA /* tl-mp.xml in Resources */ = {isa = PBXBuildFile; fileRef = E43BD81C1E3F901D00F6C39D /* tl-mp.xml */; };
 		C5F462A8209727E8001B7D59 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */; };
 		C5F974D4217646CD00A167C7 /* TestEnvInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5F974D3217646CC00A167C7 /* TestEnvInfo.plist */; };
+		C5F974E32177312300A167C7 /* Pods-MoppLibTestEnv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5F974E22177312300A167C7 /* Pods-MoppLibTestEnv.framework */; };
 		D72F91CE6FD17DE3A2CB2EA9 /* Pods_MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212014B6D572D152A70C2C71 /* Pods_MoppLib.framework */; };
 		E061FB0356C72259D6A941E8 /* Pods_MoppLibTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BB12B033D5C8237B002F59 /* Pods_MoppLibTests.framework */; };
 		E4180C161E23FE9300FD7B8C /* MLDateFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = E4180C141E23FE9300FD7B8C /* MLDateFormatter.h */; };
@@ -330,6 +331,7 @@
 		C5DB9515217618AF00512CAA /* MoppLibTestEnv.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoppLibTestEnv.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		C5F974D3217646CC00A167C7 /* TestEnvInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TestEnvInfo.plist; sourceTree = "<group>"; };
+		C5F974E22177312300A167C7 /* Pods-MoppLibTestEnv.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = "Pods-MoppLibTestEnv.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D294A9825C9D24C89C0C4C80 /* Pods-MoppLibTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLibTests.debug.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLibTests/Pods-MoppLibTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E4180C141E23FE9300FD7B8C /* MLDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLDateFormatter.h; sourceTree = "<group>"; };
 		E4180C151E23FE9300FD7B8C /* MLDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLDateFormatter.m; sourceTree = "<group>"; };
@@ -377,6 +379,7 @@
 				C5DB94D7217618AF00512CAA /* libxml2.tbd in Frameworks */,
 				C5DB94D8217618AF00512CAA /* libz.tbd in Frameworks */,
 				C5DB94D9217618AF00512CAA /* libiRockey301_ccid.a in Frameworks */,
+				C5F974E32177312300A167C7 /* Pods-MoppLibTestEnv.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,6 +535,7 @@
 		A80A16CFB65AE0AF2A553445 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5F974E22177312300A167C7 /* Pods-MoppLibTestEnv.framework */,
 				399C01E420BC13320056D7AC /* CryptoLib.framework */,
 				C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */,
 				C54EA72F20499DFC0039AC78 /* ExternalAccessory.framework */,
@@ -863,7 +867,7 @@
 						ProvisioningStyle = Automatic;
 					};
 					C5DB94A7217618AF00512CAA = {
-						DevelopmentTeam = 4YJSF2LF24;
+						ProvisioningStyle = Automatic;
 					};
 					E4250CE61E09695100530370 = {
 						CreatedOnToolsVersion = 8.0;
@@ -1169,18 +1173,20 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 4YJSF2LF24;
-				"DIGIDOCPP_PATH[sdk=iphoneos*]" = "$(SRCROOT)/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
-				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
+				DEVELOPMENT_TEAM = "";
+				"DIGIDOCPP_PATH[sdk=iphoneos*]" = "$(SRCROOT)/MoppLib/libdigidocpp_testenv/libdigidocpp.iphoneos";
+				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/MoppLib/libdigidocpp_testenv/libdigidocpp.iphonesimulator";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
+					"COCOAPODS=1",
+					"DEBUG=1",
 					"TEST_ENV=1",
 				);
 				HEADER_SEARCH_PATHS = (
@@ -1220,6 +1226,7 @@
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.lab.MoppLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_TEST_DDS;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -1236,18 +1243,20 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 4YJSF2LF24;
-				"DIGIDOCPP_PATH[sdk=iphoneos*]" = "$(SRCROOT)/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
-				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
+				DEVELOPMENT_TEAM = "";
+				"DIGIDOCPP_PATH[sdk=iphoneos*]" = "$(SRCROOT)/MoppLib/libdigidocpp_testenv/libdigidocpp.iphoneos";
+				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/MoppLib/libdigidocpp_testenv/libdigidocpp.iphonesimulator";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"TEST_ENV=1",
 					"$(inherited)",
+					"COCOAPODS=1",
+					"TEST_ENV=1",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1286,6 +1295,7 @@
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.lab.MoppLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_TEST_DDS;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
