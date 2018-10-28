@@ -34,11 +34,15 @@
 @property (nonatomic, strong) DataSuccessBlock successBlock;
 @property (nonatomic, strong) FailureBlock failureBlock;
 @property (nonatomic, assign) ABTBluetoothReaderCardStatus cardStatus;
-@property (nonatomic, strong) NSData *atr;
+@property (nonatomic)         MoppLibCardChipType chipType;
 @property (nonatomic, strong) CBPeripheral *peripheral;
 @end
 
 @implementation CardReaderACR3901U_S1
+
+- (MoppLibCardChipType)cardChipType {
+    return _chipType;
+}
 
 - (ABTBluetoothReaderManager *)bluetoothReaderManager {
   if (!_bluetoothReaderManager) {
@@ -66,7 +70,7 @@
     }
     
     if (cardStatus == ABTBluetoothReaderCardStatusPowerSavingMode || changedToAbsent) {
-      self.atr = nil;
+      _chipType = ChipType_Unknown;
     }
   }
 }
@@ -160,13 +164,13 @@
   
   if (self.cardStatus == ABTBluetoothReaderCardStatusPowerSavingMode) {
     [self getCardStatusWithSuccess:^(NSData *responseObject) {
-      completion(self.atr.length > 0 || self.cardStatus == ABTBluetoothReaderCardStatusPowered);
+      completion(_chipType != ChipType_Unknown || self.cardStatus == ABTBluetoothReaderCardStatusPowered);
       
     } failure:^(NSError *error) {
       completion(NO);
     }];
   } else {
-    completion(self.atr.length > 0 || self.cardStatus == ABTBluetoothReaderCardStatusPowered);
+    completion(_chipType != ChipType_Unknown || self.cardStatus == ABTBluetoothReaderCardStatusPowered);
   }
 }
 
@@ -239,7 +243,7 @@
 - (void)bluetoothReader:(ABTBluetoothReader *)bluetoothReader didReturnAtr:(NSData *)atr error:(NSError *)error {
   MLLog(@"Did power on card");
 
-  self.atr = atr;
+  _chipType = [MoppLibCardReaderManager atrToChipType:atr];
   if (error) {
     [self respondWithError:error];
   } else {

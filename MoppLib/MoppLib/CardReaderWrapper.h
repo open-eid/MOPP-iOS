@@ -26,6 +26,8 @@
 
 @protocol CardReaderWrapper <NSObject>
 
+- (MoppLibCardChipType)cardChipType;
+
 /**
  * Transmits command and gets response from card
  *

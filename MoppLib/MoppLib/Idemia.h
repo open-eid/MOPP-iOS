@@ -1,5 +1,5 @@
 //
-//  CardReaderiR301.h
+//  Idemia.h
 //  MoppLib
 //
 /*
@@ -20,17 +20,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
 #import <Foundation/Foundation.h>
-#import "CardReaderWrapper.h"
-#import "MoppLibConstants.h"
-#import "ReaderInterface.h"
-#import "winscard.h"
+#import "CardCommands.h"
 
-@interface CardReaderiR301 : NSObject <CardReaderWrapper>
+@interface Idemia : NSObject <CardCommands>
 
-@property (nonatomic, strong) id<CardReaderWrapperDelegate> delegate;
--(id)initWithInterface:(ReaderInterface*)interface andContextHandle:(SCARDHANDLE)contextHandle;
--(void)setupWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
--(void)updateContextHandle:(SCARDCONTEXT) contextHandle;
--(NSString *)atr;
+@property (nonatomic, strong) id<CardReaderWrapper> reader;
 @end

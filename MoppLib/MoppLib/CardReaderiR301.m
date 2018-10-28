@@ -37,9 +37,14 @@
 @property (nonatomic, strong) FailureBlock failureBlock;
 @property (nonatomic, strong) ReaderInterface *interface;
 @property (nonatomic) SCARDHANDLE contextHandle;
+@property (nonatomic) MoppLibCardChipType chipType;
 @end
 
 @implementation CardReaderiR301
+
+- (MoppLibCardChipType)cardChipType {
+    return _chipType;
+}
 
 -(void)updateContextHandle:(SCARDCONTEXT) contextHandle {
     _contextHandle = contextHandle;
@@ -195,9 +200,14 @@
         return;
     }
     
+    DWORD atrBufSize = 32;
+    BYTE atrBuf[32];
     DWORD dwStatus;
-    iRet = SCardStatus(_contextHandle, NULL, NULL, &dwStatus, NULL, NULL, NULL);
+    iRet = SCardStatus(_contextHandle, NULL, NULL, &dwStatus, NULL, (LPBYTE)&atrBuf, &atrBufSize);
     NSLog(@"%d", dwStatus);
+    
+    NSData *atr = [[NSData alloc] initWithBytes:atrBuf length:atrBufSize];
+    _chipType = [MoppLibCardReaderManager atrToChipType:atr];
     
     if (dwStatus == SCARD_PRESENT) {
         success(nil);

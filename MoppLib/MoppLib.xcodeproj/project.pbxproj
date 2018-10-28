@@ -10,6 +10,7 @@
 		39266A5320CFC0F4002E3F23 /* SmartToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5220CFC0F4002E3F23 /* SmartToken.m */; };
 		399C01E320BC11C20056D7AC /* MoppLibCryptoActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 399C01E220BC11C20056D7AC /* MoppLibCryptoActions.m */; };
 		399C01E620BC17A10056D7AC /* MoppLibCryptoActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		39CBDE3292C7B61D8AB92A3B /* Pods_MoppLibTestEnv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD6B147E2D735C0AA9A66830 /* Pods_MoppLibTestEnv.framework */; };
 		39DFDA6320C81F5D00D0D134 /* CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 399C01E420BC13320056D7AC /* CryptoLib.framework */; };
 		39E5338E2122E38B00FBE148 /* 798.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 39E5338D2122E38B00FBE148 /* 798.p12 */; };
 		540CB2201E1CDCED00FE18A3 /* MoppLibCertificate.h in Headers */ = {isa = PBXBuildFile; fileRef = 540CB21E1E1CDCED00FE18A3 /* MoppLibCertificate.h */; };
@@ -191,6 +192,9 @@
 		C5DB950F217618AF00512CAA /* 798.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 39E5338D2122E38B00FBE148 /* 798.p12 */; };
 		C5DB9510217618AF00512CAA /* 878252.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 5480396C1E38DA4D000271CF /* 878252.p12 */; };
 		C5DB9511217618AF00512CAA /* tl-mp.xml in Resources */ = {isa = PBXBuildFile; fileRef = E43BD81C1E3F901D00F6C39D /* tl-mp.xml */; };
+		C5E41C5D2180602B00D79B54 /* Idemia.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E41C5B2180602B00D79B54 /* Idemia.h */; };
+		C5E41C5E2180602B00D79B54 /* Idemia.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E41C5C2180602B00D79B54 /* Idemia.m */; };
+		C5E41C5F2180815900D79B54 /* Idemia.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E41C5C2180602B00D79B54 /* Idemia.m */; };
 		C5F462A8209727E8001B7D59 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */; };
 		C5F974D4217646CD00A167C7 /* TestEnvInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5F974D3217646CC00A167C7 /* TestEnvInfo.plist */; };
 		C5F974E32177312300A167C7 /* Pods-MoppLibTestEnv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5F974E22177312300A167C7 /* Pods-MoppLibTestEnv.framework */; };
@@ -296,6 +300,7 @@
 		54E1DB5A1E44A9060060A250 /* MoppLibManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibManager.h; sourceTree = "<group>"; };
 		54E1DB5B1E44A9060060A250 /* MoppLibManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibManager.m; sourceTree = "<group>"; };
 		6E9DC136A95B9301231F5A32 /* Pods-MoppLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLib.debug.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLib/Pods-MoppLib.debug.xcconfig"; sourceTree = "<group>"; };
+		77EC12C57AEE3A7B34443C24 /* Pods-MoppLibTestEnv.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLibTestEnv.debug.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLibTestEnv/Pods-MoppLibTestEnv.debug.xcconfig"; sourceTree = "<group>"; };
 		AE0A84441E4338DB00CC1465 /* MoppLibNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibNetworkManager.h; sourceTree = "<group>"; };
 		AE0A84451E4338DB00CC1465 /* MoppLibNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibNetworkManager.m; sourceTree = "<group>"; };
 		AE0A84481E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibMobileCreateSignatureResponse.h; sourceTree = "<group>"; };
@@ -315,6 +320,7 @@
 		AEC2CC401E3B8B7800A0B869 /* MoppLibSOAPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoppLibSOAPManager.h; path = MoppLib/MoppLibSOAPManager.h; sourceTree = "<group>"; };
 		AEC2CC411E3B8B7800A0B869 /* MoppLibSOAPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoppLibSOAPManager.m; path = MoppLib/MoppLibSOAPManager.m; sourceTree = "<group>"; };
 		BB993982ECBC613ED55E2010 /* Pods-MoppLibTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLibTests.release.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLibTests/Pods-MoppLibTests.release.xcconfig"; sourceTree = "<group>"; };
+		BD6B147E2D735C0AA9A66830 /* Pods_MoppLibTestEnv.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppLibTestEnv.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C517CF9221665F8F008D4962 /* digidocservice.sk.ee.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = digidocservice.sk.ee.cer; sourceTree = "<group>"; };
 		C54EA72F20499DFC0039AC78 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		C54EA731204D5E860039AC78 /* CardReaderiR301.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CardReaderiR301.m; path = MoppLib/CardReaderiR301.m; sourceTree = SOURCE_ROOT; };
@@ -329,6 +335,8 @@
 		C5AAAF8720CAA4230087D6DA /* wintypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wintypes.h; sourceTree = "<group>"; };
 		C5AAAF8920CAA4790087D6DA /* ft301u.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ft301u.h; sourceTree = "<group>"; };
 		C5DB9515217618AF00512CAA /* MoppLibTestEnv.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoppLibTestEnv.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5E41C5B2180602B00D79B54 /* Idemia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Idemia.h; sourceTree = "<group>"; };
+		C5E41C5C2180602B00D79B54 /* Idemia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Idemia.m; sourceTree = "<group>"; };
 		C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		C5F974D3217646CC00A167C7 /* TestEnvInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TestEnvInfo.plist; sourceTree = "<group>"; };
 		C5F974E22177312300A167C7 /* Pods-MoppLibTestEnv.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = "Pods-MoppLibTestEnv.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -355,6 +363,7 @@
 		E43BD81C1E3F901D00F6C39D /* tl-mp.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "tl-mp.xml"; path = "TSL cache/tl-mp.xml"; sourceTree = "<group>"; };
 		E485A7811E2DF58200C53DBF /* MLFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLFileManager.h; sourceTree = "<group>"; };
 		E485A7821E2DF58200C53DBF /* MLFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLFileManager.m; sourceTree = "<group>"; };
+		E9CB08A9EF14A7BC463CD218 /* Pods-MoppLibTestEnv.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLibTestEnv.release.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLibTestEnv/Pods-MoppLibTestEnv.release.xcconfig"; sourceTree = "<group>"; };
 		FAA0023EE26578A498BA35F2 /* Pods-MoppLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLib.release.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLib/Pods-MoppLib.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -380,6 +389,7 @@
 				C5DB94D8217618AF00512CAA /* libz.tbd in Frameworks */,
 				C5DB94D9217618AF00512CAA /* libiRockey301_ccid.a in Frameworks */,
 				C5F974E32177312300A167C7 /* Pods-MoppLibTestEnv.framework in Frameworks */,
+				39CBDE3292C7B61D8AB92A3B /* Pods_MoppLibTestEnv.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +520,8 @@
 		54DC0DFA1E0D195200C62B3D /* CardActions */ = {
 			isa = PBXGroup;
 			children = (
+				C5E41C5B2180602B00D79B54 /* Idemia.h */,
+				C5E41C5C2180602B00D79B54 /* Idemia.m */,
 				54DC0DFB1E0D196D00C62B3D /* CardActionsManager.h */,
 				54DC0DFC1E0D196D00C62B3D /* CardActionsManager.m */,
 				5463DA4A1E12927A008A1714 /* CardCommands.h */,
@@ -544,6 +556,7 @@
 				E4250CFB1E096BEA00530370 /* libz.tbd */,
 				212014B6D572D152A70C2C71 /* Pods_MoppLib.framework */,
 				02BB12B033D5C8237B002F59 /* Pods_MoppLibTests.framework */,
+				BD6B147E2D735C0AA9A66830 /* Pods_MoppLibTestEnv.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -555,6 +568,8 @@
 				BB993982ECBC613ED55E2010 /* Pods-MoppLibTests.release.xcconfig */,
 				6E9DC136A95B9301231F5A32 /* Pods-MoppLib.debug.xcconfig */,
 				FAA0023EE26578A498BA35F2 /* Pods-MoppLib.release.xcconfig */,
+				77EC12C57AEE3A7B34443C24 /* Pods-MoppLibTestEnv.debug.xcconfig */,
+				E9CB08A9EF14A7BC463CD218 /* Pods-MoppLibTestEnv.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -788,6 +803,7 @@
 				545CF8411E13F30300B66EE8 /* EstEIDv3_4.h in Headers */,
 				C5AAAF8420CAA3D00087D6DA /* ReaderInterface.h in Headers */,
 				54DC0DC51E0BCC2A00C62B3D /* CardReaderWrapper.h in Headers */,
+				C5E41C5D2180602B00D79B54 /* Idemia.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -818,6 +834,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C5DB9512217618AF00512CAA /* Build configuration list for PBXNativeTarget "MoppLibTestEnv" */;
 			buildPhases = (
+				D3016514F07B7C4954AF827E /* [CP] Check Pods Manifest.lock */,
 				C5DB94A9217618AF00512CAA /* Sources */,
 				C5DB94D2217618AF00512CAA /* Frameworks */,
 				C5DB94DB217618AF00512CAA /* Headers */,
@@ -999,6 +1016,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D3016514F07B7C4954AF827E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MoppLibTestEnv-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1033,6 +1068,7 @@
 				C5DB94B8217618AF00512CAA /* NSData+Additions.m in Sources */,
 				C5DB94B9217618AF00512CAA /* Error.swift in Sources */,
 				C5DB94BA217618AF00512CAA /* MoppLibCerificatetData.m in Sources */,
+				C5E41C5F2180815900D79B54 /* Idemia.m in Sources */,
 				C5DB94BB217618AF00512CAA /* CardActionsManager.m in Sources */,
 				C5DB94BC217618AF00512CAA /* MoppLibMobileCreateSignatureResponse.m in Sources */,
 				C5DB94BD217618AF00512CAA /* CBManagerHelper.m in Sources */,
@@ -1080,6 +1116,7 @@
 				54DC0DF91E0BF0BA00C62B3D /* NSData+Additions.m in Sources */,
 				AE1069441E4498A6002BAFDA /* Error.swift in Sources */,
 				540CB2261E1CDD8100FE18A3 /* MoppLibCerificatetData.m in Sources */,
+				C5E41C5E2180602B00D79B54 /* Idemia.m in Sources */,
 				54DC0DFE1E0D196D00C62B3D /* CardActionsManager.m in Sources */,
 				AE0A844B1E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m in Sources */,
 				545CF8581E16928600B66EE8 /* CBManagerHelper.m in Sources */,
@@ -1169,6 +1206,7 @@
 		};
 		C5DB9513217618AF00512CAA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77EC12C57AEE3A7B34443C24 /* Pods-MoppLibTestEnv.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
@@ -1239,6 +1277,7 @@
 		};
 		C5DB9514217618AF00512CAA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E9CB08A9EF14A7BC463CD218 /* Pods-MoppLibTestEnv.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
