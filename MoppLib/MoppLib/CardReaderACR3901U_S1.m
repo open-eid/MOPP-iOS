@@ -104,7 +104,7 @@
   [self.bluetoothReaderManager detectReaderWithPeripheral:peripheral];
 }
 
-- (void)transmitCommand:(NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure {
+- (void)transmitCommand:(const NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure {
   MLLog(@"Transmit command %@", commandHex);
   //void (^transmit)(void) = ^(void) {
     self.successBlock = success;

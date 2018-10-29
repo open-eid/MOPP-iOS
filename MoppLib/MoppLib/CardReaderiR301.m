@@ -72,7 +72,7 @@
 
 #pragma mark - CardReaderWrapper
 
-- (void)transmitCommand:(NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure {
+- (void)transmitCommand:(const NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure {
     _successBlock = success;
     _failureBlock = failure;
 

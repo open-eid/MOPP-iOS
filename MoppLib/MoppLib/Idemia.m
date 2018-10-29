@@ -29,6 +29,7 @@
 
 
 const NSString *kAID = @"00 A4 04 00 10 A0 00 00 00 77 01 08 00 07 00 00 FE 00 00 01 00";
+const NSString *kAID_QSCD = @"00 A4 04 0C 10 51 53 43 44 20 41 70 70 6C 69 63 61 74 69 6F 6E";
 const NSString *kSelectMasterFile = @"00 A4 00 0C";
 const NSString *kSelectRecord = @"00 A4 01 0C 02 50 %02X";
 const NSString *kReadBinary = @"00 B0 %02X %02X 00";
@@ -148,13 +149,23 @@ const NSString *kReadCodeCounter = @"00 CB 3F FF 0A 4D 08 70 06 BF 81 %02X 02 A0
 
 - (void)readCodeCounterRecord:(CodeType)codeType withSuccess:(NumberBlock)success failure:(FailureBlock)failure {
     UInt8 recordNr = 0;
+    NSString *aid;
     switch (codeType) {
-        case CodeTypePin1:  recordNr = 1; break;
-        case CodeTypePin2:  recordNr = 5; break;
-        case CodeTypePuk:   recordNr = 2; break;
+        case CodeTypePin1:
+            recordNr = 1;
+            aid = kAID;
+            break;
+        case CodeTypePin2:
+            recordNr = 5;
+            aid = kAID_QSCD;
+            break;
+        case CodeTypePuk:
+            recordNr = 2;
+            aid = kAID;
+            break;
     }
     
-    [_reader transmitCommand:kAID success:^(NSData *responseData) {
+    [_reader transmitCommand:aid success:^(NSData *responseData) {
         [_reader transmitCommand:[NSString stringWithFormat:kReadCodeCounter, recordNr] success:^(NSData *responseData) {
             NSNumber *counter = [NSNumber numberWithUnsignedChar:((UInt8 *)responseData.bytes)[13]];
             success(counter);
