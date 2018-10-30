@@ -39,6 +39,8 @@ const NSString *kSelectAuthCert = @"00 A4 01 0C 02 34 01";
 const NSString *kSelectSignAdf = @"00 A4 01 0C 02 AD F2 00";
 const NSString *kSelectSignCert = @"00 A4 02 04 02 34 1F 00";
 const NSString *kReadCodeCounter = @"00 CB 3F FF 0A 4D 08 70 06 BF 81 %02X 02 A0 80 00";
+const NSString *kChangeCode = @"00 24 00 %02X %02X";
+const NSString *kVerify = @"00 20 00 %02X %02X";
 
 @implementation Idemia
 
@@ -173,12 +175,109 @@ const NSString *kReadCodeCounter = @"00 CB 3F FF 0A 4D 08 70 06 BF 81 %02X 02 A0
     } failure:failure];
 }
 
-- (void)changeCode:(CodeType)type to:(NSString *)code withVerifyCode:(NSString *)verifyCode withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
+- (NSData *)pinTemplate:(NSString *)pin {
+    NSMutableData *result = [pin dataUsingEncoding:NSUTF8StringEncoding];
+    NSUInteger paddingSize = 12 - result.length;
+    for (int i=0; i<paddingSize; i++) {
+        UInt8 ch[1] = { 0xFF };
+        [result appendBytes:ch length:1];
+    }
+    return result;
+}
 
+- (void)changeCode:(CodeType)type to:(NSString *)code withVerifyCode:(NSString *)verifyCode withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
+    NSData *newPin = [self pinTemplate:code];
+    NSData *pin = [self pinTemplate:verifyCode];
+    NSString *aid, *cmd;
+    UInt8 recordNr;
+    switch (type) {
+        case CodeTypePin1:
+            aid = kAID;
+            recordNr = 1;
+            break;
+        case CodeTypePin2:
+            aid = kAID_QSCD;
+            recordNr = 0x85;
+            break;
+        case CodeTypePuk:
+            aid = kAID;
+            recordNr = 2;
+            break;
+    }
+    cmd = [NSString stringWithFormat:kChangeCode, recordNr, pin.length + newPin.length];
+    [_reader transmitCommand:aid success:^(NSData *responseData) {
+        NSMutableData *fullCmd = [NSMutableData dataWithData:[cmd toHexData]];
+        [fullCmd appendData:pin];
+        [fullCmd appendData:newPin];
+        [_reader transmitCommand:[fullCmd hexString] success:^(NSData *responseData) {
+            NSError *error = [self errorForPinActionResponse:responseData];
+            if (error) {
+                failure(error);
+            } else {
+                success(responseData);
+            }
+        } failure:failure];
+    } failure:failure];
+}
+
+- (NSError *)errorForPinActionResponse:(NSData *)response {
+  NSData *trailerData = [response trailingTwoBytes];
+  const unsigned char *trailer = [trailerData bytes];
+  
+  if (trailerData.length >= 2 && trailer[0] == 0x90 && trailer[1] == 0x00) {
+    // Action was completed successfully. No error here
+    return nil;
+    
+  } else if (trailerData.length >= 1 && trailer[0] == 0x63) {
+    //  For pin codes this means verification failed due to wrong pin
+    NSString *dataHex = [trailerData hexString];
+    // Last char in trailer holds retry count
+    NSString *retryCount = [dataHex substringFromIndex:dataHex.length - 1];
+    return [MoppLibError wrongPinErrorWithRetryCount:retryCount.intValue];
+    
+  } else if (trailerData.length >= 2 && trailer[0] == 0x6A && trailer[1] == 0x80) {
+    // New pin is invalid
+    return [MoppLibError pinMatchesOldCodeError];
+      
+  } else if (trailerData.length >= 2 && trailer[0] == 0x69 && trailer[1] == 0x83) {
+    // Authentication method blocked
+    return [MoppLibError pinBlockedError];
+  }
+    
+  return [MoppLibError generalError];
 }
 
 - (void)verifyCode:(NSString *)code ofType:(CodeType)type withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
-
+    NSData *pin = [self pinTemplate:code];
+    NSString *aid;
+    UInt8 recordNr;
+    switch (type) {
+    case CodeTypePin1:
+        aid = kAID;
+        recordNr = 1;
+        break;
+    case CodeTypePin2:
+        aid = kAID_QSCD;
+        recordNr = 0x85;
+        break;
+    case CodeTypePuk:
+        aid = kAID;
+        recordNr = 2;
+        break;
+    }
+    NSString *cmd = [NSString stringWithFormat:kVerify, recordNr, (UInt8)aid.length];
+    [_reader transmitCommand:aid success:^(NSData *responseData) {
+        NSMutableData *fullCmd = [NSMutableData dataWithData:[cmd toHexData]];
+        [fullCmd appendData:pin];
+        [_reader transmitCommand:[fullCmd hexString] success:^(NSData *responseData) {
+            NSError *error = [self errorForPinActionResponse:responseData];
+            if (error) {
+                failure(error);
+            } else {
+                success(responseData);
+            }
+        } failure:failure];
+    } failure:failure];
 }
 
 - (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode success:(DataSuccessBlock)success failure:(FailureBlock)failure {
@@ -186,7 +285,7 @@ const NSString *kReadCodeCounter = @"00 CB 3F FF 0A 4D 08 70 06 BF 81 %02X 02 A0
 }
 
 - (void)calculateSignatureFor:(NSData *)hash withPin2:(NSString *)pin2 useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure {
-
+    
 }
 
 - (void)decryptData:(NSData *)hash withPin1:(NSString *)pin1 useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure {

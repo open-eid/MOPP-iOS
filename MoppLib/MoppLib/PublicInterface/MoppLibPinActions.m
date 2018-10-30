@@ -150,45 +150,11 @@
             return;
           }
         }
-        
-        // Checking strings that new pin shouldn't contain
-        [self forbiddenPinPartsForCode:type completion:^(NSArray *forbiddenPins) {
-          for (NSString *forbiddenPin in forbiddenPins) {
-            if ([pin containsString:forbiddenPin]) {
-              failure([MoppLibError tooEasyPinError]);
-              return;
-            }
-          }
-          success();
-        }];
+        success();
       } else {
         failure([MoppLibError pinContainsInvalidCharactersError]);
       }
     }
-}
-
-+ (void)forbiddenPinPartsForCode:(CodeType)type completion:(void(^)(NSArray *))complete {
-  [[CardActionsManager sharedInstance] cardOwnerBirthDateWithSuccess:^(NSDate *date) {
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YYYY"];
-    NSString *code = [formatter stringFromDate:date];
-    [array addObject:code];
-    
-    [formatter setDateFormat:@"ddMM"];
-    NSString *code2 = [formatter stringFromDate:date];
-    [array addObject:code2];
-    
-    [formatter setDateFormat:@"MMdd"];
-    NSString *code3 = [formatter stringFromDate:date];
-    [array addObject:code3];
-    
-    complete(array);
-    
-  } failure:^(NSError *error) {
-    complete(nil);
-  }];
 }
 
 + (NSArray *)forbiddenPin1s {
