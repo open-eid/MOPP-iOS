@@ -197,7 +197,6 @@ enum LocKey : String
     case settingsPhoneNumberPlaceholder = "settings-phone-number-placeholder"
     case settingsIdCodeTitle = "settings-id-code-title"
     case settingsIdCodePlaceholder = "settings-id-code-placeholder"
-    case settingsContainerTypeTitle = "settings-container-type-title"
     case diagnosticsTitle = "diagnostics-title"
     case diagnosticsAppVersion = "diagnostics-app-version"
     case diagnosticsIosVersion = "diagnostics-ios-version"

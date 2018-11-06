@@ -33,13 +33,12 @@ let ContainerFormatPDF  = "pdf"
 let ContainerFormatCdoc = "cdoc"
 let FileFormatXml = "xml"
 
-let DefaultContainerFormat = ContainerFormatBdoc
+let DefaultContainerFormat = ContainerFormatAsice
 
 let CrashlyticsAlwaysSend = "Always"
 let CrashlyticsNeverSend = "Never"
 let CrashlyticsDefault = "Default"
 // Keys
-let kNewContainerFormatKey = "kNewContainerFormatKey"
 let kPhoneNumberKey = "kPhoneNumberKey"
 let kIDCodeKey = "kIDCodeKey"
 let kCrashReportSettingKey = "kCrashReportSettingKey"
@@ -48,16 +47,6 @@ let kMoppLanguage = "kMoppLanguage"
 
 class DefaultsHelper
 {
-    // New container format
-    class var newContainerFormat: String {
-        set {
-            UserDefaults.standard.set(newValue, forKey: kNewContainerFormatKey)
-        }
-        get {
-            return (UserDefaults.standard.value(forKey: kNewContainerFormatKey) as? String) ?? String()
-        }
-    }
-
     class var phoneNumber: String? {
         set {
             UserDefaults.standard.set(newValue, forKey: kPhoneNumberKey)

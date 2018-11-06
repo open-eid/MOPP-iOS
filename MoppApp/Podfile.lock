@@ -9,6 +9,12 @@ DEPENDENCIES:
   - Fabric
   - OCMock
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Crashlytics
+    - Fabric
+    - OCMock
+
 SPEC CHECKSUMS:
   Crashlytics: 79e236942ca1e7fc641df1feb9a275360a78ab6a
   Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
@@ -16,4 +22,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: a073617bdfd534729fd9846dab96a7af8739543f
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.3

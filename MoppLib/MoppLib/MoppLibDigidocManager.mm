@@ -453,9 +453,8 @@ void parseException(const digidoc::Exception &e) {
     for (auto signature : container->signatures()) {
         [profiles addObject:[[NSString alloc] initWithBytes:signature->profile().c_str() length:signature->profile().size() encoding:NSUTF8StringEncoding]];
     }
-    SigningProfileType profileType = [MoppLibDigidocManager signingProfileTypeUsingProfiles:profiles andContainerExtension:[containerPath pathExtension]];
     
-    std::string profile = profileType == TimeStamp ? "time-stamp" : "time-mark";
+    std::string profile = "time-stamp";
     
     signer->setProfile(profile);
     signer->setSignatureProductionPlace("", "", "", "");
@@ -579,63 +578,6 @@ void parseException(const digidoc::Exception &e) {
     DigiDocConf *conf = new DigiDocConf;
     std::string certPath = conf->PKCS12Cert();
     return [NSString stringWithUTF8String:certPath.c_str()];
-}
-    
-+ (SigningProfileType)signingProfileTypeUsingProfiles:(NSArray *)profiles andContainerExtension:(NSString *)containerExtension {
-    SigningProfileType profileType = Unspecified;
-    
-    BOOL sameSignatures = YES;
-    {
-        NSString *prevProfile = nil;
-        for (id prof in profiles) {
-            NSString *profile = (NSString *)prof;
-            if (prevProfile != nil && ![prevProfile containsString:profile]) {
-                sameSignatures = NO;
-                break;
-            }
-            prevProfile = profile;
-        }
-    }
-    
-    BOOL isAsice = [containerExtension isEqualToString:@"asice"] ||
-                    [containerExtension isEqualToString:@"sce"];
-    
-    if (profiles.count == 1) {
-      NSString *profile = profiles[0];
-      
-      if (isAsice) {
-        profileType = TimeStamp;
-      } else {
-        if ([profile containsString:@"time-stamp"]) {
-            profileType = TimeStamp;
-        } else if ([profile containsString:@"time-mark"]) {
-            profileType = TimeMark;
-        }
-      }
-      
-    } else if (profiles.count > 1) {
-        if (sameSignatures) {
-            profileType = [profiles[0] containsString:@"time-stamp"] ? TimeStamp : TimeMark;
-        } else {
-            if (isAsice) {
-                profileType = TimeStamp;
-            } else {
-                profileType = TimeMark;
-            }
-        }
-    } else {
-      if (isAsice) {
-        profileType = TimeStamp;
-      } else {
-        profileType = TimeMark;
-      }
-    }
-    
-    if (profileType == Unspecified) {
-      profileType = TimeStamp;
-    }
-    
-    return profileType;
 }
 
 @end
