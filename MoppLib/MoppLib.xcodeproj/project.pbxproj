@@ -197,7 +197,6 @@
 		C5E41C5F2180815900D79B54 /* Idemia.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E41C5C2180602B00D79B54 /* Idemia.m */; };
 		C5F462A8209727E8001B7D59 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */; };
 		C5F974D4217646CD00A167C7 /* TestEnvInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5F974D3217646CC00A167C7 /* TestEnvInfo.plist */; };
-		C5F974E32177312300A167C7 /* Pods-MoppLibTestEnv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5F974E22177312300A167C7 /* Pods-MoppLibTestEnv.framework */; };
 		D72F91CE6FD17DE3A2CB2EA9 /* Pods_MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212014B6D572D152A70C2C71 /* Pods_MoppLib.framework */; };
 		E061FB0356C72259D6A941E8 /* Pods_MoppLibTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BB12B033D5C8237B002F59 /* Pods_MoppLibTests.framework */; };
 		E4180C161E23FE9300FD7B8C /* MLDateFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = E4180C141E23FE9300FD7B8C /* MLDateFormatter.h */; };
@@ -388,7 +387,6 @@
 				C5DB94D7217618AF00512CAA /* libxml2.tbd in Frameworks */,
 				C5DB94D8217618AF00512CAA /* libz.tbd in Frameworks */,
 				C5DB94D9217618AF00512CAA /* libiRockey301_ccid.a in Frameworks */,
-				C5F974E32177312300A167C7 /* Pods-MoppLibTestEnv.framework in Frameworks */,
 				39CBDE3292C7B61D8AB92A3B /* Pods_MoppLibTestEnv.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -28,19 +28,24 @@
 #import <CommonCrypto/CommonDigest.h>
 
 
-const NSString *kAID = @"00 A4 04 00 10 A0 00 00 00 77 01 08 00 07 00 00 FE 00 00 01 00";
-const NSString *kAID_QSCD = @"00 A4 04 0C 10 51 53 43 44 20 41 70 70 6C 69 63 61 74 69 6F 6E";
-const NSString *kSelectMasterFile = @"00 A4 00 0C";
-const NSString *kSelectRecord = @"00 A4 01 0C 02 50 %02X";
-const NSString *kReadBinary = @"00 B0 %02X %02X 00";
-const NSString *kSelectPersonalFile = @"00 A4 01 0C 02 50 00";
-const NSString *kSelectAuthAdf = @"00 A4 01 0C 02 AD F1";
-const NSString *kSelectAuthCert = @"00 A4 01 0C 02 34 01";
-const NSString *kSelectSignAdf = @"00 A4 01 0C 02 AD F2 00";
-const NSString *kSelectSignCert = @"00 A4 02 04 02 34 1F 00";
-const NSString *kReadCodeCounter = @"00 CB 3F FF 0A 4D 08 70 06 BF 81 %02X 02 A0 80 00";
-const NSString *kChangeCode = @"00 24 00 %02X %02X";
-const NSString *kVerify = @"00 20 00 %02X %02X";
+NSString *kAID = @"00 A4 04 00 10 A0 00 00 00 77 01 08 00 07 00 00 FE 00 00 01 00";
+NSString *kAID_QSCD = @"00 A4 04 0C 10 51 53 43 44 20 41 70 70 6C 69 63 61 74 69 6F 6E";
+NSString *kAID_OT = @"00 A4 04 0C 0D E8 28 BD 08 0F F2 50 4F 54 20 41 57 50";
+NSString *kSelectMasterFile = @"00 A4 00 0C";
+NSString *kSelectRecord = @"00 A4 01 0C 02 50 %02X";
+NSString *kReadBinary = @"00 B0 %02X %02X 00";
+NSString *kSelectPersonalFile = @"00 A4 01 0C 02 50 00";
+NSString *kSelectAuthAdf = @"00 A4 01 0C 02 AD F1";
+NSString *kSelectAuthCert = @"00 A4 01 0C 02 34 01";
+NSString *kSelectSignAdf = @"00 A4 01 0C 02 AD F2 00";
+NSString *kSelectSignCert = @"00 A4 02 04 02 34 1F 00";
+NSString *kReadCodeCounter = @"00 CB 3F FF 0A 4D 08 70 06 BF 81 %02X 02 A0 80 00";
+NSString *kChangeCode = @"00 24 00 %02X %02X";
+NSString *kVerify = @"00 20 00 %02X %02X";
+NSString *kMutualAuth = @"00 88 00 00 %02X";
+NSString *kSetSecEnv = @"00 22 41 B6 09 80 04 FF 15 08 00 84 01 9F";
+NSString *kSign = @"00 2A 9E 9A %02X";
+NSString *kReplaseCode = @"00 2C 00 00 0C %@";
 
 @implementation Idemia
 
@@ -281,11 +286,73 @@ const NSString *kVerify = @"00 20 00 %02X %02X";
 }
 
 - (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode success:(DataSuccessBlock)success failure:(FailureBlock)failure {
-
+    if (type == CodeTypePuk)
+        return;
+    NSString *aid = type == CodeTypePin1 ? kAID : kAID_QSCD;
+    [self verifyCode:puk ofType:CodeTypePuk withSuccess:^(NSData *responseData) {
+        [_reader transmitCommand:aid success:^(NSData *responseData) {
+            NSString *newPinTemplate = [[self pinTemplate:newCode] hexString];
+            NSString *replaceCmd = [NSString stringWithFormat:kReplaseCode, newPinTemplate];
+            [_reader transmitCommand:replaceCmd success:^(NSData *responseData) {
+                NSError *error = [self errorForPinActionResponse:responseData];
+                if (error) {
+                    failure(error);
+                } else {
+                    success(responseData);
+                }
+            } failure:failure];
+        } failure:failure];
+    } failure:failure];
 }
 
 - (void)calculateSignatureFor:(NSData *)hash withPin2:(NSString *)pin2 useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure {
+
+    NSString *algorithmIdentifyer;
+    switch (hash.length) {
+      case CC_SHA1_DIGEST_LENGTH:
+        NSLog(@"Algorithm SHA1");
+        algorithmIdentifyer = kAlgorythmIdentifyerSHA1;
+        break;
+        
+      case CC_SHA224_DIGEST_LENGTH:
+        NSLog(@"Algorithm SHA224");
+        algorithmIdentifyer = kAlgorythmIdentifyerSHA224;
+        break;
+        
+      case CC_SHA256_DIGEST_LENGTH:
+        NSLog(@"Algorithm SHA256");
+        algorithmIdentifyer = kAlgorythmIdentifyerSHA256;
+        break;
+        
+      case CC_SHA384_DIGEST_LENGTH:
+        NSLog(@"Algorithm SHA384");
+        algorithmIdentifyer = kAlgorythmIdentifyerSHA384;
+        break;
+        
+      case CC_SHA512_DIGEST_LENGTH:
+        NSLog(@"Algorithm SHA512");
+        algorithmIdentifyer = kAlgorythmIdentifyerSHA512;
+        break;
+        
+      default:
+        break;
+    }
     
+    
+    [_reader transmitCommand:kAID_QSCD success:^(NSData *responseData) {
+        [_reader transmitCommand:kSetSecEnv success:^(NSData *responseData) {
+            UInt8 size = MIN(0x30, hash.length);
+            NSString *cmdString = [NSString stringWithFormat:kSign, size];
+            NSMutableData *cmd = [NSMutableData dataWithData:[cmdString toHexData]];
+            [cmd appendData:hash];
+            [cmd appendData:[@"00" toHexData]];
+            [_reader transmitCommand:[cmd hexString] success:^(NSData *responseData) {
+                NSLog(@"success");
+                success(responseData);
+            } failure:failure];
+        } failure:failure];
+    } failure:failure];
+
 }
 
 - (void)decryptData:(NSData *)hash withPin1:(NSString *)pin1 useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure {
