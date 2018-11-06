@@ -107,9 +107,6 @@
 		C54BB1091FBD8CC600A274F6 /* MyeID.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54BB1081FBD8CC600A274F6 /* MyeID.storyboard */; };
 		C54BB10D1FBD8CE900A274F6 /* Signing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54BB10C1FBD8CE900A274F6 /* Signing.storyboard */; };
 		C54BB10F1FBD93A100A274F6 /* MobileIDChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */; };
-		C54EA6DA2035C7190039AC78 /* ReaderScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6D92035C7190039AC78 /* ReaderScannerViewController.swift */; };
-		C54EA6DF20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6DE20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift */; };
-		C54EA6E1203724730039AC78 /* ReaderScannerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E0203724730039AC78 /* ReaderScannerHeaderView.swift */; };
 		C54EA6E320372F490039AC78 /* SigningElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54EA6E220372F490039AC78 /* SigningElements.xib */; };
 		C54EA6E520444EC90039AC78 /* TokenFlowSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E420444EC90039AC78 /* TokenFlowSelectionViewController.swift */; };
 		C54EA6E620444EC90039AC78 /* TokenFlowSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E420444EC90039AC78 /* TokenFlowSelectionViewController.swift */; };
@@ -469,9 +466,6 @@
 		C54BB1081FBD8CC600A274F6 /* MyeID.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyeID.storyboard; sourceTree = "<group>"; };
 		C54BB10C1FBD8CE900A274F6 /* Signing.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Signing.storyboard; sourceTree = "<group>"; };
 		C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileIDChallengeViewController.swift; sourceTree = "<group>"; };
-		C54EA6D92035C7190039AC78 /* ReaderScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderScannerViewController.swift; sourceTree = "<group>"; };
-		C54EA6DE20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderScannerPeripheralCell.swift; sourceTree = "<group>"; };
-		C54EA6E0203724730039AC78 /* ReaderScannerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderScannerHeaderView.swift; sourceTree = "<group>"; };
 		C54EA6E220372F490039AC78 /* SigningElements.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SigningElements.xib; sourceTree = "<group>"; };
 		C54EA6E420444EC90039AC78 /* TokenFlowSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenFlowSelectionViewController.swift; sourceTree = "<group>"; };
 		C54EA6E72045A9E30039AC78 /* IdCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdCardViewController.swift; sourceTree = "<group>"; };
@@ -611,7 +605,6 @@
 				C537AE532004C29E009037E5 /* MobileIDEditViewController.swift */,
 				C50DCD1A1FD1576B00D48E16 /* SigningTableViewHeaderView.swift */,
 				C54EA6E420444EC90039AC78 /* TokenFlowSelectionViewController.swift */,
-				C54EA6DD20371E3B0039AC78 /* SmartCard */,
 			);
 			name = "Token flow";
 			sourceTree = "<group>";
@@ -773,16 +766,6 @@
 				C50DCCC61FC32A2500D48E16 /* MyeIDViewController.swift */,
 			);
 			name = MyeID;
-			sourceTree = "<group>";
-		};
-		C54EA6DD20371E3B0039AC78 /* SmartCard */ = {
-			isa = PBXGroup;
-			children = (
-				C54EA6D92035C7190039AC78 /* ReaderScannerViewController.swift */,
-				C54EA6DE20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift */,
-				C54EA6E0203724730039AC78 /* ReaderScannerHeaderView.swift */,
-			);
-			name = SmartCard;
 			sourceTree = "<group>";
 		};
 		C55BB1C520908EE300618AC4 /* Diagnostics */ = {
@@ -1071,8 +1054,6 @@
 				E4250CC01E0968D200530370 /* Frameworks */,
 				E4250CC11E0968D200530370 /* Resources */,
 				E4250D1B1E0AB34400530370 /* Set GH build number to plist */,
-				6B13CD669C3E5A2623D5FE04 /* [CP] Embed Pods Frameworks */,
-				4E44872F8C9839D1D757B3E0 /* [CP] Copy Pods Resources */,
 				E4250D081E0A911100530370 /* Embed Frameworks */,
 				54415B641E52F23C00B66A89 /* ShellScript */,
 				54A418331E83FAD200559E2B /* Embed App Extensions */,
@@ -1279,21 +1260,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4E44872F8C9839D1D757B3E0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		54415B641E52F23C00B66A89 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1306,26 +1272,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 2d09fce02bca92bd26f18824f9cb302f5ad625e3 fb7f424a3ac43eccda42c76e7f15a400d7b3047945a66a98d0211ec996f584ef";
-		};
-		6B13CD669C3E5A2623D5FE04 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		A61DA2EE951A985EAE19BDEB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1530,7 +1476,6 @@
 				540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */,
 				C54EA6EB2046C3BA0039AC78 /* UITextField+Additions.swift in Sources */,
 				C50DCCC31FC2D54200D48E16 /* UIFont+Additions.swift in Sources */,
-				C54EA6DA2035C7190039AC78 /* ReaderScannerViewController.swift in Sources */,
 				C50DCD051FC7125300D48E16 /* ContainerNotificationCell.swift in Sources */,
 				C56C6208201A1B4C00CCC2A5 /* MenuSeparatorCell.swift in Sources */,
 				39CDA7EE20ADBE93006E2E9F /* CryptoViewController.swift in Sources */,
@@ -1558,11 +1503,9 @@
 				C54EA73A2057E58D0039AC78 /* MoppButton.swift in Sources */,
 				3921CAA720B5A39F00BF3178 /* ContainerAddresseeCell.swift in Sources */,
 				C55A6E402086351C000F3386 /* MyeIDChangeCodesTextField.swift in Sources */,
-				C54EA6E1203724730039AC78 /* ReaderScannerHeaderView.swift in Sources */,
 				C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */,
 				C50DCD131FCC4D3000D48E16 /* UIView+Additions.swift in Sources */,
 				C537AE542004C29E009037E5 /* MobileIDEditViewController.swift in Sources */,
-				C54EA6DF20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift in Sources */,
 				3921CAA520B5A24A00BF3178 /* CryptoContainerViewController.swift in Sources */,
 				C50DCCCB1FC32A3E00D48E16 /* SigningViewController.swift in Sources */,
 				C5FA0BE920A1930400A208E5 /* MoppApp+Jailbreak.swift in Sources */,
