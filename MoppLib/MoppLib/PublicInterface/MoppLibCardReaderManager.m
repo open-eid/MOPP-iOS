@@ -52,8 +52,17 @@
   return sharedInstance;
 }
 
++ (BOOL)isCardReaderModelSupported:(NSString *)modelName {
+    return [modelName isEqualToString:@"iR301-UL"];
+}
+
 - (void)startDiscoveringReaders {
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(revokeUnsupportedReader) name:kMoppLibNotificationRevokeUnsupportedReader object:nil];
     [self startDiscoveringFeitianReader];
+}
+
+- (void)revokeUnsupportedReader {
+    [self stopDiscoveringReaders];
 }
 
 - (void)stopDiscoveringReaders {
@@ -62,6 +71,8 @@
     [[CardActionsManager sharedInstance] setReader:nil];
     [[CardActionsManager sharedInstance] resetCardActions];
     _status = ReaderNotConnected;
+    
+    [NSNotificationCenter.defaultCenter removeObserver:nil];
 }
 
 - (void)startDiscoveringFeitianReader {
