@@ -222,11 +222,7 @@ extension ContainerActions where Self: UIViewController {
         let (filename, _) = fileName.filenameComponents()
         let containerFilename: String
         if landingViewController.containerType == .asic {
-            var newContainerFormat = DefaultsHelper.newContainerFormat
-            if newContainerFormat.isEmpty {
-                newContainerFormat = DefaultContainerFormat
-            }
-            containerFilename = filename + "." + newContainerFormat
+            containerFilename = filename + "." + DefaultContainerFormat
         }else{
             containerFilename = filename + "." + ContainerFormatCdoc
         }

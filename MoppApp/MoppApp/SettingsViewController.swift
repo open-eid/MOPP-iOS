@@ -31,7 +31,6 @@ class SettingsViewController: MoppViewController {
     enum FieldId {
         case phoneNumber
         case personalCode
-        case containerType
     }
     
     struct Field {
@@ -71,13 +70,6 @@ class SettingsViewController: MoppViewController {
             title: L(.settingsIdCodeTitle),
             placeholderText: L(.settingsIdCodePlaceholder),
             value: DefaultsHelper.idCode
-        ),
-        Field(
-            id: .containerType,
-            kind: .choice,
-            title: L(.settingsContainerTypeTitle),
-            placeholderText: String(),
-            value: DefaultsHelper.newContainerFormat
         )
     ]
     
@@ -124,7 +116,6 @@ extension SettingsViewController: UITableViewDataSource {
                 return fieldCell
             case .choice:
                 let choiceCell = tableView.dequeueReusableCell(withType: SettingsChoiceCell.self, for: indexPath)!
-                    choiceCell.delegate = self
                     choiceCell.populate(with: field)
                 return choiceCell
             }
@@ -145,19 +136,6 @@ extension SettingsViewController: SettingsFieldCellDelegate {
         }
         else if fieldId == .personalCode {
             DefaultsHelper.idCode = value
-        }
-    }
-}
-
-extension SettingsViewController: SettingsChoiceCellDelegate {
-    func didChooseOption(_ fieldId: SettingsViewController.FieldId, _ optionId: SettingsChoiceCell.OptionId?) {
-        if fieldId == .containerType {
-            if optionId == .containerTypeBdoc {
-                DefaultsHelper.newContainerFormat = ContainerFormatBdoc
-            }
-            else if optionId == .containerTypeAsice {
-                DefaultsHelper.newContainerFormat = ContainerFormatAsice
-            }
         }
     }
 }

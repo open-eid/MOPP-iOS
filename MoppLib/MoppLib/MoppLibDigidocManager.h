@@ -54,5 +54,4 @@ typedef enum {
 - (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path;
 - (NSString *)digidocVersion;
 - (NSString *)pkcs12Cert;
-+ (SigningProfileType)signingProfileTypeUsingProfiles:(NSArray *)profiles andContainerExtension:(NSString *)containerExtension;
 @end

@@ -105,7 +105,7 @@ class MoppFileManager {
     }
 
     func createTestContainer() -> String {
-        let fileName = "\(MoppDateFormatter.shared.hHmmssddMMYYYY(toString: Date())).\(DefaultsHelper.newContainerFormat)"
+        let fileName = "\(MoppDateFormatter.shared.hHmmssddMMYYYY(toString: Date())).\(DefaultContainerFormat)"
         guard let bdocPath = Bundle.main.path(forResource: "test1", ofType: "bdoc") else {
             return String()
         }

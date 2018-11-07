@@ -235,7 +235,6 @@
 "settings-phone-number-placeholder" = "372XXXXXXXX";
 "settings-id-code-title" = "Личный код";
 "settings-id-code-placeholder" = "Личный код";
-"settings-container-type-title" = "Формат файла по умолчанию";
 "diagnostics-title" = "Диагностика";
 "diagnostics-app-version" = "Версия приложения";
 "diagnostics-ios-version" = "Операционная система";

@@ -25,13 +25,6 @@ class Session
 {
     static let shared = Session()
 
-    func setup() {
-        let newContainerFormat: String = DefaultsHelper.newContainerFormat
-        if newContainerFormat == "" {
-            DefaultsHelper.newContainerFormat = ContainerFormatBdoc
-        }
-    }
-
     func createMobileSignature(withContainer containerPath: String, idCode: String, language: String, phoneNumber: String) {
         MoppLibContainerActions.sharedInstance().openContainer(
             withPath: containerPath,
