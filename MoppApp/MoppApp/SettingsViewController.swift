@@ -29,14 +29,17 @@ class SettingsViewController: MoppViewController {
     }
     
     enum FieldId {
+        case missingId
         case phoneNumber
         case personalCode
+        case timestampUrl
     }
     
     struct Field {
         enum Kind {
             case inputField
             case choice
+            case groupSeparator
         }
         
         let id: FieldId
@@ -70,6 +73,20 @@ class SettingsViewController: MoppViewController {
             title: L(.settingsIdCodeTitle),
             placeholderText: L(.settingsIdCodePlaceholder),
             value: DefaultsHelper.idCode
+        ),
+        Field(
+            id: .missingId,
+            kind: .groupSeparator,
+            title: String(),
+            placeholderText: String(),
+            value: String()
+        ),
+        Field(
+            id: .timestampUrl,
+            kind: .inputField,
+            title: L(.settingsTimestampUrlTitle),
+            placeholderText: L(.settingsTimestampUrlPlaceholder),
+            value: DefaultsHelper.timestampUrl
         )
     ]
     
@@ -118,6 +135,9 @@ extension SettingsViewController: UITableViewDataSource {
                 let choiceCell = tableView.dequeueReusableCell(withType: SettingsChoiceCell.self, for: indexPath)!
                     choiceCell.populate(with: field)
                 return choiceCell
+            case .groupSeparator:
+                let groupSeparatorCell = tableView.dequeueReusableCell(withIdentifier: "SettingsGroupSeparator", for: indexPath)
+                return groupSeparatorCell
             }
         }
     }

@@ -235,6 +235,8 @@
 "settings-phone-number-placeholder" = "372XXXXXXXX";
 "settings-id-code-title" = "Личный код";
 "settings-id-code-placeholder" = "Личный код";
+"settings-timestamp-url-title" = "Time Stamp URL";
+"settings-timestamp-url-placeholder" = "Time Stamp URL";
 "diagnostics-title" = "Диагностика";
 "diagnostics-app-version" = "Версия приложения";
 "diagnostics-ios-version" = "Операционная система";

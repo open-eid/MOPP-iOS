@@ -235,6 +235,8 @@
 "settings-phone-number-placeholder" = "372XXXXXXXX";
 "settings-id-code-title" = "Isikukood";
 "settings-id-code-placeholder" = "Isikukood";
+"settings-timestamp-url-title" = "Time Stamp teenuse URL";
+"settings-timestamp-url-placeholder" = "Time Stamp teenuse URL";
 "diagnostics-title" = "Diagnostika";
 "diagnostics-app-version" = "Rakenduse versioon";
 "diagnostics-ios-version" = "Operatsioonisüsteem";
