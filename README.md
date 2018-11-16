@@ -5,7 +5,7 @@
 * License: LGPL 2.1
 * &copy; Estonian Information System Authority
 
-This repo contains source code for RIA DigiDoc application for iOS. This application enables user to sign documents with ID card or Mobile-ID.
+This repo contains source code for RIA DigiDoc application for iOS. This application enables user to sign documents with ID card or Mobile-ID. It can also be used to encrypt and decrypt documents.
 
 ## libdigidocpp
 MOPP-iOS is using unofficial static version of libdigidoc. libdigidoc is used in app for managing container manipulations. More info: https://github.com/open-eid/libdigidocpp
