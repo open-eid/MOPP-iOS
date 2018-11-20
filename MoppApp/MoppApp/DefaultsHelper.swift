@@ -67,16 +67,12 @@ class DefaultsHelper
         }
     }
     
-    class var timestampUrl: String {
+    class var timestampUrl: String? {
         set {
             UserDefaults.standard.set(newValue, forKey: kTimestampUrlKey)
         }
         get {
-            guard UserDefaults.standard.object(forKey: kTimestampUrlKey) != nil else {
-                UserDefaults.standard.set(DefaultTimestampUrl, forKey: kTimestampUrlKey)
-                return DefaultTimestampUrl
-            }
-            return (UserDefaults.standard.value(forKey: kTimestampUrlKey) as? String) ?? String()
+            return UserDefaults.standard.value(forKey: kTimestampUrlKey) as? String
         }
     }
 

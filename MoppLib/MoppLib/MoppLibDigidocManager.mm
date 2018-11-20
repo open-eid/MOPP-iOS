@@ -40,8 +40,14 @@
 #import <Security/SecCertificate.h>
 #import <Security/SecKey.h>
 
+NSString *kDefaultTSUrl = @"http://dd-at.ria.ee/tsa";
+
 class DigiDocConf: public digidoc::ConfCurrent {
+private:
+  std::string m_tsUrl;
+  
 public:
+  DigiDocConf(const std::string& tsUrl) : m_tsUrl( tsUrl ) {}
   std::string TSLCache() const
   {
     NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
@@ -54,6 +60,13 @@ public:
     NSBundle *bundle = [NSBundle bundleForClass:[MoppLibDigidocManager class]];
     NSString *path = [bundle pathForResource:@"schema" ofType:@""];
     return path.UTF8String;
+  }
+  
+  virtual std::string TSUrl() const {
+    if (m_tsUrl.empty()) {
+        return std::string([kDefaultTSUrl cStringUsingEncoding:NSUTF8StringEncoding]);
+    }
+    return m_tsUrl;
   }
   
   virtual std::string PKCS12Cert() const {
@@ -104,7 +117,7 @@ private:
   return sharedInstance;
 }
 
-- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS {
+- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString*)tsUrl {
   
   MoppLibSOAPManager.sharedInstance.useTestDigiDocService = useTestDDS;
   
@@ -130,7 +143,10 @@ private:
   // Initialize libdigidocpp.
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     try {
-      digidoc::Conf::init(new DigiDocConf);
+      std::string timestampUrl = tsUrl == nil ?
+        [[MoppLibDigidocManager defaultTSUrl] cStringUsingEncoding:NSUTF8StringEncoding] :
+        [tsUrl cStringUsingEncoding:NSUTF8StringEncoding];
+      digidoc::Conf::init(new DigiDocConf(timestampUrl));
       digidoc::initialize("qdigidocclient");
       
       dispatch_async(dispatch_get_main_queue(), ^{
@@ -144,6 +160,10 @@ private:
       });
     }
   });
+}
+
++ (NSString *)defaultTSUrl {
+    return kDefaultTSUrl;
 }
 
 - (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath error:(NSError **)error {
@@ -575,7 +595,7 @@ void parseException(const digidoc::Exception &e) {
 }
 
 - (NSString *)pkcs12Cert {
-    DigiDocConf *conf = new DigiDocConf;
+    DigiDocConf *conf = new DigiDocConf(std::string());
     std::string certPath = conf->PKCS12Cert();
     return [NSString stringWithUTF8String:certPath.c_str()];
 }

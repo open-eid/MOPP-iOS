@@ -27,11 +27,11 @@
             <objects>
                 <viewController storyboardIdentifier="SettingsViewController" id="Sh7-45-xtX" customClass="SettingsViewController" customModule="MoppApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AZY-Pk-idj">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AAa-T3-Ggw">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="880"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsHeaderCell" rowHeight="118" id="jXf-Fq-jhZ" customClass="SettingsHeaderCell" customModule="MoppApp" customModuleProvider="target">
@@ -197,6 +197,63 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsTimeStampCell" rowHeight="200" id="oWS-ur-juU" customClass="SettingsTimeStampCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="457" width="375" height="200"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oWS-ur-juU" id="TQD-FB-ySn">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Stamp teenuse URL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pbc-P0-5nz">
+                                                    <rect key="frame" x="23" y="11" width="337" height="18"/>
+                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="15"/>
+                                                    <color key="textColor" name="MoppLabel"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="URL" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BWD-C2-Ms4" customClass="SettingsTextField" customModule="MoppApp" customModuleProvider="target">
+                                                    <rect key="frame" x="15" y="33" width="345" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="xn0-4h-tGC"/>
+                                                    </constraints>
+                                                    <color key="textColor" name="MoppText"/>
+                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use default" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l3i-7N-WRf">
+                                                    <rect key="frame" x="23" y="93.5" width="280" height="18"/>
+                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="15"/>
+                                                    <color key="textColor" name="MoppLabel"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ZR-f6-fYn">
+                                                    <rect key="frame" x="311" y="87" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="useDefaultToggled:" destination="oWS-ur-juU" eventType="touchUpInside" id="dc7-Jn-HdF"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="pbc-P0-5nz" firstAttribute="top" secondItem="TQD-FB-ySn" secondAttribute="topMargin" id="59b-Tg-vAf"/>
+                                                <constraint firstItem="pbc-P0-5nz" firstAttribute="trailing" secondItem="TQD-FB-ySn" secondAttribute="trailingMargin" id="BcR-vH-qjY"/>
+                                                <constraint firstItem="BWD-C2-Ms4" firstAttribute="trailing" secondItem="TQD-FB-ySn" secondAttribute="trailingMargin" id="JFp-SI-LtS"/>
+                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="5ZR-f6-fYn" secondAttribute="bottom" constant="8" id="SvO-a2-WMl"/>
+                                                <constraint firstItem="BWD-C2-Ms4" firstAttribute="top" secondItem="pbc-P0-5nz" secondAttribute="bottom" constant="4" id="UzR-cC-mCO"/>
+                                                <constraint firstItem="pbc-P0-5nz" firstAttribute="leading" secondItem="TQD-FB-ySn" secondAttribute="leadingMargin" constant="8" id="XlI-lT-q9E"/>
+                                                <constraint firstItem="BWD-C2-Ms4" firstAttribute="leading" secondItem="TQD-FB-ySn" secondAttribute="leadingMargin" id="glD-DE-v4e"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="5ZR-f6-fYn" secondAttribute="trailing" id="i8m-Vg-mB6"/>
+                                                <constraint firstItem="l3i-7N-WRf" firstAttribute="leading" secondItem="TQD-FB-ySn" secondAttribute="leadingMargin" constant="8" id="iOo-Nw-mWd"/>
+                                                <constraint firstItem="5ZR-f6-fYn" firstAttribute="top" secondItem="BWD-C2-Ms4" secondAttribute="bottom" constant="4" id="pFf-L6-0b2"/>
+                                                <constraint firstItem="5ZR-f6-fYn" firstAttribute="leading" secondItem="l3i-7N-WRf" secondAttribute="trailing" constant="8" id="qe9-CC-DTU"/>
+                                                <constraint firstItem="l3i-7N-WRf" firstAttribute="centerY" secondItem="5ZR-f6-fYn" secondAttribute="centerY" id="tXf-Du-jXr"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="textField" destination="BWD-C2-Ms4" id="Fkm-LB-TqV"/>
+                                            <outlet property="titleLabel" destination="pbc-P0-5nz" id="qnc-c5-euj"/>
+                                            <outlet property="useDefaultSwitch" destination="5ZR-f6-fYn" id="BZt-Xx-9lv"/>
+                                            <outlet property="useDefaultTitleLabel" destination="l3i-7N-WRf" id="BBf-oU-Tgq"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="Sh7-45-xtX" id="fHf-VL-4F7"/>
@@ -213,13 +270,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fCG-eI-IFp"/>
                     </view>
+                    <size key="freeformSize" width="375" height="900"/>
                     <connections>
                         <outlet property="tableView" destination="AAa-T3-Ggw" id="Oip-3a-EBO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="baP-Xx-os6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="312.80000000000001" y="-154.27286356821591"/>
+            <point key="canvasLocation" x="312.80000000000001" y="-154.72263868065968"/>
         </scene>
         <!--Diagnostics View Controller-->
         <scene sceneID="i9o-Sy-8lJ">

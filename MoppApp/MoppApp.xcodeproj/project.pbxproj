@@ -95,6 +95,7 @@
 		C51B7FB21FBB12E80046D6E0 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB11FBB12E80046D6E0 /* ShareViewController.m */; };
 		C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB41FBB2AB10046D6E0 /* Utils.swift */; };
 		C51B7FB71FBC45DD0046D6E0 /* LocalizationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB61FBC45DD0046D6E0 /* LocalizationKeys.swift */; };
+		C51E8A0F21A2F2AD0054662A /* SettingsTimeStampCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51E8A0E21A2F2AD0054662A /* SettingsTimeStampCell.swift */; };
 		C52E82761FC1D3DD0074B280 /* Menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C52E82751FC1D3DD0074B280 /* Menu.storyboard */; };
 		C52E82781FC1D3ED0074B280 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52E82771FC1D3ED0074B280 /* MenuViewController.swift */; };
 		C52E827A1FC1D7000074B280 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52E82791FC1D7000074B280 /* main.swift */; };
@@ -457,6 +458,7 @@
 		C51B7FB31FBB12FC0046D6E0 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
 		C51B7FB41FBB2AB10046D6E0 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		C51B7FB61FBC45DD0046D6E0 /* LocalizationKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationKeys.swift; sourceTree = "<group>"; };
+		C51E8A0E21A2F2AD0054662A /* SettingsTimeStampCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTimeStampCell.swift; sourceTree = "<group>"; };
 		C52E82751FC1D3DD0074B280 /* Menu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Menu.storyboard; sourceTree = "<group>"; };
 		C52E82771FC1D3ED0074B280 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		C52E82791FC1D7000074B280 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -861,6 +863,7 @@
 				C593D9F1208F269A000B3BF6 /* SettingsChoiceCell.swift */,
 				C593D9F3208F3526000B3BF6 /* SettingsChoiceView.swift */,
 				C593D9F5208F39DF000B3BF6 /* SettingsChoiceButton.swift */,
+				C51E8A0E21A2F2AD0054662A /* SettingsTimeStampCell.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1071,8 +1074,6 @@
 				E4250CC01E0968D200530370 /* Frameworks */,
 				E4250CC11E0968D200530370 /* Resources */,
 				E4250D1B1E0AB34400530370 /* Set GH build number to plist */,
-				6B13CD669C3E5A2623D5FE04 /* [CP] Embed Pods Frameworks */,
-				4E44872F8C9839D1D757B3E0 /* [CP] Copy Pods Resources */,
 				E4250D081E0A911100530370 /* Embed Frameworks */,
 				54415B641E52F23C00B66A89 /* ShellScript */,
 				54A418331E83FAD200559E2B /* Embed App Extensions */,
@@ -1279,21 +1280,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4E44872F8C9839D1D757B3E0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		54415B641E52F23C00B66A89 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1306,26 +1292,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 2d09fce02bca92bd26f18824f9cb302f5ad625e3 fb7f424a3ac43eccda42c76e7f15a400d7b3047945a66a98d0211ec996f584ef";
-		};
-		6B13CD669C3E5A2623D5FE04 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		A61DA2EE951A985EAE19BDEB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1482,6 +1448,7 @@
 				C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */,
 				C593D9F6208F39DF000B3BF6 /* SettingsChoiceButton.swift in Sources */,
 				C58FCD5F20650BBE00FE3B57 /* MyeIDInfoCell.swift in Sources */,
+				C51E8A0F21A2F2AD0054662A /* SettingsTimeStampCell.swift in Sources */,
 				C5F462AA209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift in Sources */,
 				C5D057022023016300875F44 /* RecentContainersEmptyListCell.swift in Sources */,
 				C50DCD171FCEF17100D48E16 /* UIStoryBoard+Additions.swift in Sources */,

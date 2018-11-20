@@ -198,6 +198,7 @@ enum LocKey : String
     case settingsIdCodeTitle = "settings-id-code-title"
     case settingsTimestampUrlTitle = "settings-timestamp-url-title"
     case settingsTimestampUrlPlaceholder = "settings-timestamp-url-placeholder"
+    case settingsTimestampUseDefaultTitle = "settings-timestamp-use-default-title"
     case settingsIdCodePlaceholder = "settings-id-code-placeholder"
     case diagnosticsTitle = "diagnostics-title"
     case diagnosticsAppVersion = "diagnostics-app-version"
