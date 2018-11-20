@@ -22,7 +22,6 @@
  */
 
 #import "CardActionsManager.h"
-#import "CardReaderACR3901U_S1.h"
 #import "CardReaderiR301.h"
 #import "ReaderInterface.h"
 #import "wintypes.h"
@@ -578,37 +577,7 @@ NSString *blockBackupCode = @"00001";
     }
 }
 
-#pragma mark - Reader setup
-- (void)setupWithPeripheral:(CBPeripheral *)peripheral success:(DataSuccessBlock)success failure:(FailureBlock)failure {
-    CardReaderACR3901U_S1 *reader = [CardReaderACR3901U_S1 new];
-    reader.delegate = self;
-    [reader setupWithPeripheral:peripheral success:^(NSData *responseObject) {
-        self.reader = reader;
-        success(responseObject);
-        
-    } failure:^(NSError *error) {
-        MLLog(@"Failed to set up peripheral: %@", [error localizedDescription]);
-        failure(error);
-    }];
-}
-
-
 #pragma mark - ReaderSelectionViewControllerDelegate
-
-- (void)peripheralSelected:(CBPeripheral *)peripheral {
-    [self setupWithPeripheral:peripheral success:^(NSData *data) {
-        if (self.isActionExecuting) {
-            [self executeAfterReaderCheck:[self.cardActions firstObject] abduLength:0];
-        }
-    } failure:^(NSError *error) {
-        
-        if (self.isActionExecuting) {
-            CardActionObject *action = [self.cardActions firstObject];
-            action.failureBlock(error);
-            [self finishCurrentAction];
-        }
-    }];
-}
 
 - (void)cancelledReaderSelection {
     if (self.isActionExecuting) {
@@ -628,20 +597,6 @@ NSString *blockBackupCode = @"00001";
         }
         [self.cardActions removeObject:action];
     }
-}
-
-#pragma mark - CBManagerHelperDelegate
-
-- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
-}
-
-- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kMoppLibNotificationReaderStatusChanged object:nil];
-    
-    //Making sure we don't get stuck with some action, that can't be completed anymore
-    [self clearActionsWithError:[MoppLibError readerNotFoundError]];
 }
 
 #pragma mark - CardReaderWrapperDelegate

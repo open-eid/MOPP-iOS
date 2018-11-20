@@ -24,8 +24,6 @@
 		5451117B1E13C52900296B80 /* EstEIDv3_5.m in Sources */ = {isa = PBXBuildFile; fileRef = 545111791E13C52900296B80 /* EstEIDv3_5.m */; };
 		545CF8411E13F30300B66EE8 /* EstEIDv3_4.h in Headers */ = {isa = PBXBuildFile; fileRef = 545CF83F1E13F30300B66EE8 /* EstEIDv3_4.h */; };
 		545CF8421E13F30300B66EE8 /* EstEIDv3_4.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8401E13F30300B66EE8 /* EstEIDv3_4.m */; };
-		545CF8571E16928600B66EE8 /* CBManagerHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 545CF8551E16928600B66EE8 /* CBManagerHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		545CF8581E16928600B66EE8 /* CBManagerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8561E16928600B66EE8 /* CBManagerHelper.m */; };
 		5463DA4C1E12927A008A1714 /* CardCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 5463DA4A1E12927A008A1714 /* CardCommands.h */; };
 		5463DA4D1E12927A008A1714 /* CardCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 5463DA4B1E12927A008A1714 /* CardCommands.m */; };
 		546E57611E2E07C7009A568D /* PinVerificationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 546E57601E2E07C7009A568D /* PinVerificationTests.m */; };
@@ -42,15 +40,6 @@
 		54DC0DC51E0BCC2A00C62B3D /* CardReaderWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DC31E0BCC2A00C62B3D /* CardReaderWrapper.h */; };
 		54DC0DC91E0BCCEF00C62B3D /* MoppLibConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DC71E0BCCEF00C62B3D /* MoppLibConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54DC0DCA1E0BCCEF00C62B3D /* MoppLibConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0DC81E0BCCEF00C62B3D /* MoppLibConstants.m */; };
-		54DC0DCE1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DCC1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.h */; };
-		54DC0DCF1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0DCD1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.m */; };
-		54DC0DEA1E0BD6E300C62B3D /* ABTAcr1255uj1Reader.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DE31E0BD6E300C62B3D /* ABTAcr1255uj1Reader.h */; };
-		54DC0DEB1E0BD6E300C62B3D /* ABTAcr3901us1Reader.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DE41E0BD6E300C62B3D /* ABTAcr3901us1Reader.h */; };
-		54DC0DEC1E0BD6E300C62B3D /* ABTBluetoothReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DE51E0BD6E300C62B3D /* ABTBluetoothReader.h */; };
-		54DC0DED1E0BD6E300C62B3D /* ABTBluetoothReaderManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DE61E0BD6E300C62B3D /* ABTBluetoothReaderManager.h */; };
-		54DC0DEE1E0BD6E300C62B3D /* ABTError.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DE71E0BD6E300C62B3D /* ABTError.h */; };
-		54DC0DEF1E0BD6E300C62B3D /* ACSBluetooth.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DE81E0BD6E300C62B3D /* ACSBluetooth.h */; };
-		54DC0DF01E0BD6E300C62B3D /* libACSBluetooth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DC0DE91E0BD6E300C62B3D /* libACSBluetooth.a */; };
 		54DC0DF41E0BEF2A00C62B3D /* NSString+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DF21E0BEF2A00C62B3D /* NSString+Additions.h */; };
 		54DC0DF51E0BEF2A00C62B3D /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0DF31E0BEF2A00C62B3D /* NSString+Additions.m */; };
 		54DC0DF81E0BF0BA00C62B3D /* NSData+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DF61E0BF0BA00C62B3D /* NSData+Additions.h */; };
@@ -146,8 +135,6 @@
 		545111791E13C52900296B80 /* EstEIDv3_5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EstEIDv3_5.m; sourceTree = "<group>"; };
 		545CF83F1E13F30300B66EE8 /* EstEIDv3_4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EstEIDv3_4.h; sourceTree = "<group>"; };
 		545CF8401E13F30300B66EE8 /* EstEIDv3_4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EstEIDv3_4.m; sourceTree = "<group>"; };
-		545CF8551E16928600B66EE8 /* CBManagerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBManagerHelper.h; sourceTree = "<group>"; };
-		545CF8561E16928600B66EE8 /* CBManagerHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBManagerHelper.m; sourceTree = "<group>"; };
 		5463DA4A1E12927A008A1714 /* CardCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardCommands.h; sourceTree = "<group>"; };
 		5463DA4B1E12927A008A1714 /* CardCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardCommands.m; sourceTree = "<group>"; };
 		546E575E1E2E07C7009A568D /* MoppLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoppLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -169,15 +156,6 @@
 		54DC0DC31E0BCC2A00C62B3D /* CardReaderWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardReaderWrapper.h; sourceTree = "<group>"; };
 		54DC0DC71E0BCCEF00C62B3D /* MoppLibConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibConstants.h; sourceTree = "<group>"; };
 		54DC0DC81E0BCCEF00C62B3D /* MoppLibConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibConstants.m; sourceTree = "<group>"; };
-		54DC0DCC1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardReaderACR3901U_S1.h; sourceTree = "<group>"; };
-		54DC0DCD1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardReaderACR3901U_S1.m; sourceTree = "<group>"; };
-		54DC0DE31E0BD6E300C62B3D /* ABTAcr1255uj1Reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTAcr1255uj1Reader.h; sourceTree = "<group>"; };
-		54DC0DE41E0BD6E300C62B3D /* ABTAcr3901us1Reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTAcr3901us1Reader.h; sourceTree = "<group>"; };
-		54DC0DE51E0BD6E300C62B3D /* ABTBluetoothReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTBluetoothReader.h; sourceTree = "<group>"; };
-		54DC0DE61E0BD6E300C62B3D /* ABTBluetoothReaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTBluetoothReaderManager.h; sourceTree = "<group>"; };
-		54DC0DE71E0BD6E300C62B3D /* ABTError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTError.h; sourceTree = "<group>"; };
-		54DC0DE81E0BD6E300C62B3D /* ACSBluetooth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACSBluetooth.h; sourceTree = "<group>"; };
-		54DC0DE91E0BD6E300C62B3D /* libACSBluetooth.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libACSBluetooth.a; sourceTree = "<group>"; };
 		54DC0DF21E0BEF2A00C62B3D /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
 		54DC0DF31E0BEF2A00C62B3D /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
 		54DC0DF61E0BF0BA00C62B3D /* NSData+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Additions.h"; sourceTree = "<group>"; };
@@ -267,7 +245,6 @@
 				39DFDA6320C81F5D00D0D134 /* CryptoLib.framework in Frameworks */,
 				C5F462A8209727E8001B7D59 /* CoreBluetooth.framework in Frameworks */,
 				C54EA73020499DFC0039AC78 /* ExternalAccessory.framework in Frameworks */,
-				54DC0DF01E0BD6E300C62B3D /* libACSBluetooth.a in Frameworks */,
 				E4250CFE1E096BEF00530370 /* libxml2.tbd in Frameworks */,
 				E4250CFC1E096BEA00530370 /* libz.tbd in Frameworks */,
 				C5AAAF8220C9621D0087D6DA /* libiRockey301_ccid.a in Frameworks */,
@@ -310,8 +287,6 @@
 				54DC0DC81E0BCCEF00C62B3D /* MoppLibConstants.m */,
 				AE6198591E489EDF0021B18B /* MoppLibService.h */,
 				AE61985A1E489EDF0021B18B /* MoppLibService.m */,
-				545CF8551E16928600B66EE8 /* CBManagerHelper.h */,
-				545CF8561E16928600B66EE8 /* CBManagerHelper.m */,
 				C54EA735204D90D50039AC78 /* MoppLibCardReaderManager.h */,
 				C54EA737204D91730039AC78 /* MoppLibCardReaderManager.m */,
 			);
@@ -343,33 +318,8 @@
 			children = (
 				54DC0DC31E0BCC2A00C62B3D /* CardReaderWrapper.h */,
 				C54EA6EE2049630F0039AC78 /* bR301 */,
-				54DC0DCB1E0BCFCB00C62B3D /* ACR3901U-S1 */,
 			);
 			name = CardReaders;
-			sourceTree = "<group>";
-		};
-		54DC0DCB1E0BCFCB00C62B3D /* ACR3901U-S1 */ = {
-			isa = PBXGroup;
-			children = (
-				54DC0DCC1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.h */,
-				54DC0DCD1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.m */,
-			);
-			name = "ACR3901U-S1";
-			sourceTree = "<group>";
-		};
-		54DC0DD01E0BD27F00C62B3D /* ACSBluetooth */ = {
-			isa = PBXGroup;
-			children = (
-				54DC0DE31E0BD6E300C62B3D /* ABTAcr1255uj1Reader.h */,
-				54DC0DE41E0BD6E300C62B3D /* ABTAcr3901us1Reader.h */,
-				54DC0DE51E0BD6E300C62B3D /* ABTBluetoothReader.h */,
-				54DC0DE61E0BD6E300C62B3D /* ABTBluetoothReaderManager.h */,
-				54DC0DE71E0BD6E300C62B3D /* ABTError.h */,
-				54DC0DE81E0BD6E300C62B3D /* ACSBluetooth.h */,
-				54DC0DE91E0BD6E300C62B3D /* libACSBluetooth.a */,
-			);
-			name = ACSBluetooth;
-			path = MoppLib/ACSBluetooth;
 			sourceTree = "<group>";
 		};
 		54DC0DF11E0BEEF900C62B3D /* Category */ = {
@@ -500,7 +450,6 @@
 				546E575F1E2E07C7009A568D /* MoppLibTests */,
 				E4250CE81E09695100530370 /* Products */,
 				AB737430B57EFE78CEC44EB9 /* Pods */,
-				54DC0DD01E0BD27F00C62B3D /* ACSBluetooth */,
 				A80A16CFB65AE0AF2A553445 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -574,7 +523,6 @@
 				E485A7831E2DF58200C53DBF /* MLFileManager.h in Headers */,
 				C5AAAF8A20CAA4790087D6DA /* ft301u.h in Headers */,
 				5451117A1E13C52900296B80 /* EstEIDv3_5.h in Headers */,
-				54DC0DEC1E0BD6E300C62B3D /* ABTBluetoothReader.h in Headers */,
 				AE61985B1E489EDF0021B18B /* MoppLibService.h in Headers */,
 				C54EA734204D5EAA0039AC78 /* CardReaderiR301.h in Headers */,
 				540CB2251E1CDD8100FE18A3 /* MoppLibCerificatetData.h in Headers */,
@@ -583,7 +531,6 @@
 				E4180C161E23FE9300FD7B8C /* MLDateFormatter.h in Headers */,
 				E42B08C51E1F11B900EA24A3 /* MoppLibDataFile.h in Headers */,
 				C54EA736204D90D50039AC78 /* MoppLibCardReaderManager.h in Headers */,
-				545CF8571E16928600B66EE8 /* CBManagerHelper.h in Headers */,
 				399C01E620BC17A10056D7AC /* MoppLibCryptoActions.h in Headers */,
 				54E1DB5C1E44A9060060A250 /* MoppLibManager.h in Headers */,
 				E42B08CD1E1F136A00EA24A3 /* MoppLibDigidocManager.h in Headers */,
@@ -597,13 +544,7 @@
 				54D1647B1E926AAB0069C725 /* MoppLibCardActions.h in Headers */,
 				54DC0DFD1E0D196D00C62B3D /* CardActionsManager.h in Headers */,
 				54E085EA1E71A63C00431F1A /* Reachability.h in Headers */,
-				54DC0DED1E0BD6E300C62B3D /* ABTBluetoothReaderManager.h in Headers */,
-				54DC0DEB1E0BD6E300C62B3D /* ABTAcr3901us1Reader.h in Headers */,
-				54DC0DCE1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.h in Headers */,
-				54DC0DEF1E0BD6E300C62B3D /* ACSBluetooth.h in Headers */,
-				54DC0DEA1E0BD6E300C62B3D /* ABTAcr1255uj1Reader.h in Headers */,
 				54DC0DF81E0BF0BA00C62B3D /* NSData+Additions.h in Headers */,
-				54DC0DEE1E0BD6E300C62B3D /* ABTError.h in Headers */,
 				E4250CEC1E09695100530370 /* MoppLib.h in Headers */,
 				54DC0DF41E0BEF2A00C62B3D /* NSString+Additions.h in Headers */,
 				545CF8411E13F30300B66EE8 /* EstEIDv3_4.h in Headers */,
@@ -816,7 +757,6 @@
 				540CB2261E1CDD8100FE18A3 /* MoppLibCerificatetData.m in Sources */,
 				54DC0DFE1E0D196D00C62B3D /* CardActionsManager.m in Sources */,
 				AE0A844B1E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m in Sources */,
-				545CF8581E16928600B66EE8 /* CBManagerHelper.m in Sources */,
 				AE61985C1E489EDF0021B18B /* MoppLibService.m in Sources */,
 				5463DA4D1E12927A008A1714 /* CardCommands.m in Sources */,
 				39266A5320CFC0F4002E3F23 /* SmartToken.m in Sources */,
@@ -833,7 +773,6 @@
 				C54EA738204D91730039AC78 /* MoppLibCardReaderManager.m in Sources */,
 				54D164711E923F920069C725 /* MoppLibPrivateConstants.m in Sources */,
 				5451117B1E13C52900296B80 /* EstEIDv3_5.m in Sources */,
-				54DC0DCF1E0BCFFA00C62B3D /* CardReaderACR3901U_S1.m in Sources */,
 				54E085EB1E71A63C00431F1A /* Reachability.m in Sources */,
 				AE1069451E4498A6002BAFDA /* Options.swift in Sources */,
 				54D164781E9269C50069C725 /* MoppLibContainerActions.m in Sources */,

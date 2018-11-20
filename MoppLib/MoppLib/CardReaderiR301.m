@@ -195,6 +195,17 @@
         return;
     }
     
+    char modelNameBuf[100];
+    unsigned int modelNameLength = sizeof(modelNameBuf);
+    FtGetAccessoryModelName(_contextHandle, &modelNameLength, modelNameBuf);
+    modelNameBuf[modelNameLength] = '\0';
+    NSString *modelName = [NSString  stringWithCString:modelNameBuf encoding:NSUTF8StringEncoding];
+    
+    if (![MoppLibCardReaderManager isCardReaderModelSupported:modelName]) {
+        [NSNotificationCenter.defaultCenter postNotificationName:kMoppLibNotificationRevokeUnsupportedReader object:nil];
+        return;
+    }
+    
     DWORD dwStatus;
     iRet = SCardStatus(_contextHandle, NULL, NULL, &dwStatus, NULL, NULL, NULL);
     NSLog(@"%d", dwStatus);

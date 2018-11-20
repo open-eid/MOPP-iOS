@@ -142,7 +142,7 @@
 "search-container-file" = "Искать контейнер";
 "sign-title-mobile-id" = "Mobiil-ID";
 "sign-title-id-card" = "ID-карта";
-"card-reader-state-initial" = "Подключите считыватель карты к телефону и вставьте в него Вашу ID-карту.\nЕсли Вы используете считыватель карты по Bluetooth, то убедитесь, что Bluetooth в телефоне включен.";
+"card-reader-state-initial" = "Подключите считыватель карты к телефону и вставьте в него Вашу ID-карту.";
 "card-reader-state-reader-not-found" = "Считыватель карты не обнаружен";
 "card-reader-state-id-card-not-found" = "Обнаружен считыватель карты.\nВставьте в него Вашу ID-карту.";
 "card-reader-state-id-card-connected" = "Обнаружена ID-карта.\nЗапрашивается информация.";
@@ -161,7 +161,7 @@
 "generic-error-message" = "Что-то пошло не так. Пожалуйста, попробуйте снова.";
 "decryption-error-message" = "Что-то пошло не так с дешифрованием. Пожалуйста, попробуйте снова.";
 "signing-aborted-message" = "Процесс подписания прерван";
-"my-eid-status-reader-not-found" = "Подключите считыватель карты к телефону и вставьте в него Вашу ID-карту.\nЕсли Вы используете считыватель карты по Bluetooth, то убедитесь, что Bluetooth в телефоне включен.";
+"my-eid-status-reader-not-found" = "Подключите считыватель карты к телефону и вставьте в него Вашу ID-карту.";
 "my-eid-status-card-not-found" = "Обнаружен считыватель карты.\nВставьте в него Вашу ID-карту.";
 "my-eid-status-requesting-data" = "Обнаружена ID-карта.\nЗапрашивается информация.";
 "my-eid-cert-expired" = "недействителен";

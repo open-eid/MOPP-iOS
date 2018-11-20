@@ -39,4 +39,5 @@ typedef NS_ENUM(NSUInteger, MoppLibCardReaderStatus) {
 + (MoppLibCardReaderManager *)sharedInstance;
 - (void)startDiscoveringReaders;
 - (void)stopDiscoveringReaders;
++ (BOOL)isCardReaderModelSupported:(NSString *)modelName;
 @end
