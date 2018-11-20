@@ -7,10 +7,10 @@
 
 This repo contains source code for RIA DigiDoc application for iOS.
 This application contains following functionality:
-* sign documents with ID card or Mobile-ID
-* encrypt and decrypt documents
-* control ID-card certificates validity
-* change or unlock PIN/PUK codes
+* Sign documents with ID card or Mobile-ID
+* Encrypt and decrypt documents
+* Control ID-card certificates validity
+* Change or unlock PIN/PUK codes
 
 ## libdigidocpp
 MOPP-iOS is using unofficial static version of libdigidoc. libdigidoc is used in app for managing container manipulations. More info: https://github.com/open-eid/libdigidocpp
