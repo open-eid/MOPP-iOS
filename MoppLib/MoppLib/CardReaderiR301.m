@@ -200,6 +200,17 @@
         return;
     }
     
+    char modelNameBuf[100];
+    unsigned int modelNameLength = sizeof(modelNameBuf);
+    FtGetAccessoryModelName(_contextHandle, &modelNameLength, modelNameBuf);
+    modelNameBuf[modelNameLength] = '\0';
+    NSString *modelName = [NSString  stringWithCString:modelNameBuf encoding:NSUTF8StringEncoding];
+    
+    if (![MoppLibCardReaderManager isCardReaderModelSupported:modelName]) {
+        [NSNotificationCenter.defaultCenter postNotificationName:kMoppLibNotificationRevokeUnsupportedReader object:nil];
+        return;
+    }
+    
     DWORD atrBufSize = 32;
     BYTE atrBuf[32];
     DWORD dwStatus;

@@ -99,3 +99,4 @@ typedef void (^NumberBlock)(NSNumber*);
  */
 extern NSString *const kMoppLibNotificationReaderStatusChanged;
 extern NSString *const kMoppLibNotificationRetryCounterChanged;
+extern NSString *const kMoppLibNotificationRevokeUnsupportedReader;

@@ -23,12 +23,10 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import <CoreBluetooth/CoreBluetooth.h>
 #import "CardCommands.h"
-#import "CBManagerHelper.h"
 
 
-@interface CardActionsManager : NSObject <CBManagerHelperDelegate>
+@interface CardActionsManager : NSObject
 + (CardActionsManager *)sharedInstance;
 
 @property (nonatomic, strong) id<CardReaderWrapper> reader;

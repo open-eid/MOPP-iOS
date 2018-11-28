@@ -83,7 +83,6 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
 
     func didFinishLaunchingWithOptions(launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         loadNibs()
-        Session.shared.setup()
         // Set navBar not translucent by default.
         Crashlytics.sharedInstance().delegate = self
         Fabric.with([Crashlytics.self])
