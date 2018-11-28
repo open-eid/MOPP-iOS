@@ -66,12 +66,17 @@ NSString *kReplaseCode = @"00 2C 00 00 0C %@";
                             case 1: personalData.surname = record; break;
                             case 2: personalData.firstNameLine1 = record; break;
                             case 3: personalData.sex = record; break;
-                            case 4: personalData.nationality = record; break;
+                            case 4: personalData.nationality = [record length] > 0 ? record : @"-"; break;
                             case 5: {
-                                    if ([record length] > 0) {
+                                    if ([record class] == [NSString class]) {
                                         NSArray *arr = [record componentsSeparatedByString:@" "];
-                                        personalData.birthDate = arr[0];
-                                        personalData.birthPlace = arr[1];
+                                        if (arr.count > 1) {
+                                            personalData.birthDate = arr[0];
+                                            personalData.birthPlace = arr[1];
+                                        }
+                                    } else {
+                                        personalData.birthDate = @"-";
+                                        personalData.birthPlace = @"-";
                                     }
                                 }
                                 break;
@@ -270,10 +275,17 @@ NSString *kReplaseCode = @"00 2C 00 00 0C %@";
         recordNr = 2;
         break;
     }
-    NSString *cmd = [NSString stringWithFormat:kVerify, recordNr, (UInt8)aid.length];
+    NSString *cmd = [NSString stringWithFormat:kVerify, recordNr, 12];
     [_reader transmitCommand:aid success:^(NSData *responseData) {
         NSMutableData *fullCmd = [NSMutableData dataWithData:[cmd toHexData]];
         [fullCmd appendData:pin];
+        // Add padding
+        NSUInteger pinDataLength = 12;
+        UInt8 paddingByte = 0xFF;
+        for (int i=0; i<(pinDataLength - [pin length]); i++) {
+            UInt8 byteZero[1] = { paddingByte };
+            [fullCmd appendBytes:&byteZero[0] length:1];
+        }
         [_reader transmitCommand:[fullCmd hexString] success:^(NSData *responseData) {
             NSError *error = [self errorForPinActionResponse:responseData];
             if (error) {
@@ -338,20 +350,32 @@ NSString *kReplaseCode = @"00 2C 00 00 0C %@";
         break;
     }
     
-    
-    [_reader transmitCommand:kAID_QSCD success:^(NSData *responseData) {
-        [_reader transmitCommand:kSetSecEnv success:^(NSData *responseData) {
-            UInt8 size = MIN(0x30, hash.length);
-            NSString *cmdString = [NSString stringWithFormat:kSign, size];
-            NSMutableData *cmd = [NSMutableData dataWithData:[cmdString toHexData]];
-            [cmd appendData:hash];
-            [cmd appendData:[@"00" toHexData]];
-            [_reader transmitCommand:[cmd hexString] success:^(NSData *responseData) {
-                NSLog(@"success");
-                success(responseData);
+    [self verifyCode:pin2 ofType:CodeTypePin2 withSuccess:^(NSData *responseData) {
+        [_reader transmitCommand:kAID_QSCD success:^(NSData *responseData) {
+            [_reader transmitCommand:kSetSecEnv success:^(NSData *responseData) {
+                NSUInteger paddedHashLength = MAX(48, hash.length);
+                NSString *cmdString = [NSString stringWithFormat:kSign, paddedHashLength];
+                NSMutableData *cmd = [NSMutableData dataWithData:[cmdString toHexData]];
+                
+                NSMutableData *paddedHash = [NSMutableData new];
+                for (int i=0; i<(paddedHashLength - [hash length]); i++) {
+                    char byteZero[1] = { 0x0 };
+                    [paddedHash appendBytes:&byteZero[0] length:1];
+                }
+                [paddedHash appendData:hash];
+                
+                [cmd appendData:paddedHash];
+                [cmd appendData:[@"00" toHexData]];
+            
+                [_reader transmitCommand:[cmd hexString] success:^(NSData *responseData) {
+                    NSLog(@"success");
+                    success(responseData);
+                } failure:failure];
+                
             } failure:failure];
         } failure:failure];
     } failure:failure];
+
 
 }
 
