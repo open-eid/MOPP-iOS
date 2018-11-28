@@ -220,7 +220,6 @@
 		C5EA710C2176057A00440F4A /* UITextView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.swift */; };
 		C5EA710D2176057A00440F4A /* UITextField+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6EA2046C3BA0039AC78 /* UITextField+Additions.swift */; };
 		C5EA710E2176057A00440F4A /* UIFont+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCCC21FC2D54200D48E16 /* UIFont+Additions.swift */; };
-		C5EA710F2176057A00440F4A /* ReaderScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6D92035C7190039AC78 /* ReaderScannerViewController.swift */; };
 		C5EA71102176057A00440F4A /* ContainerNotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD041FC7125300D48E16 /* ContainerNotificationCell.swift */; };
 		C5EA71112176057A00440F4A /* MenuSeparatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C6207201A1B4C00CCC2A5 /* MenuSeparatorCell.swift */; };
 		C5EA71122176057A00440F4A /* CryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */; };
@@ -248,11 +247,9 @@
 		C5EA71282176057A00440F4A /* MoppButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA7392057E58D0039AC78 /* MoppButton.swift */; };
 		C5EA71292176057A00440F4A /* ContainerAddresseeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAA620B5A39F00BF3178 /* ContainerAddresseeCell.swift */; };
 		C5EA712A2176057A00440F4A /* MyeIDChangeCodesTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55A6E3F2086351C000F3386 /* MyeIDChangeCodesTextField.swift */; };
-		C5EA712B2176057A00440F4A /* ReaderScannerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6E0203724730039AC78 /* ReaderScannerHeaderView.swift */; };
 		C5EA712C2176057A00440F4A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB41FBB2AB10046D6E0 /* Utils.swift */; };
 		C5EA712D2176057A00440F4A /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD121FCC4D3000D48E16 /* UIView+Additions.swift */; };
 		C5EA712E2176057A00440F4A /* MobileIDEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C537AE532004C29E009037E5 /* MobileIDEditViewController.swift */; };
-		C5EA712F2176057A00440F4A /* ReaderScannerPeripheralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54EA6DE20371E7E0039AC78 /* ReaderScannerPeripheralCell.swift */; };
 		C5EA71302176057A00440F4A /* CryptoContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAA420B5A24A00BF3178 /* CryptoContainerViewController.swift */; };
 		C5EA71312176057A00440F4A /* SigningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCCCA1FC32A3E00D48E16 /* SigningViewController.swift */; };
 		C5EA71322176057A00440F4A /* MoppApp+Jailbreak.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0BE820A1930400A208E5 /* MoppApp+Jailbreak.swift */; };
@@ -1362,7 +1359,6 @@
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 2d09fce02bca92bd26f18824f9cb302f5ad625e3 fb7f424a3ac43eccda42c76e7f15a400d7b3047945a66a98d0211ec996f584ef";
 		};
 		A61DA2EE951A985EAE19BDEB /* [CP] Check Pods Manifest.lock */ = {
-
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1381,7 +1377,6 @@
 			showEnvVarsInLog = 0;
 		};
 		C5EA70D02176057A00440F4A /* [CP] Check Pods Manifest.lock */ = {
-
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1516,7 +1511,6 @@
 				C5EA710C2176057A00440F4A /* UITextView+Additions.swift in Sources */,
 				C5EA710D2176057A00440F4A /* UITextField+Additions.swift in Sources */,
 				C5EA710E2176057A00440F4A /* UIFont+Additions.swift in Sources */,
-				C5EA710F2176057A00440F4A /* ReaderScannerViewController.swift in Sources */,
 				C5EA71102176057A00440F4A /* ContainerNotificationCell.swift in Sources */,
 				C5EA71112176057A00440F4A /* MenuSeparatorCell.swift in Sources */,
 				C5EA71122176057A00440F4A /* CryptoViewController.swift in Sources */,
@@ -1544,11 +1538,9 @@
 				C5EA71282176057A00440F4A /* MoppButton.swift in Sources */,
 				C5EA71292176057A00440F4A /* ContainerAddresseeCell.swift in Sources */,
 				C5EA712A2176057A00440F4A /* MyeIDChangeCodesTextField.swift in Sources */,
-				C5EA712B2176057A00440F4A /* ReaderScannerHeaderView.swift in Sources */,
 				C5EA712C2176057A00440F4A /* Utils.swift in Sources */,
 				C5EA712D2176057A00440F4A /* UIView+Additions.swift in Sources */,
 				C5EA712E2176057A00440F4A /* MobileIDEditViewController.swift in Sources */,
-				C5EA712F2176057A00440F4A /* ReaderScannerPeripheralCell.swift in Sources */,
 				C5EA71302176057A00440F4A /* CryptoContainerViewController.swift in Sources */,
 				C5EA71312176057A00440F4A /* SigningViewController.swift in Sources */,
 				C5EA71322176057A00440F4A /* MoppApp+Jailbreak.swift in Sources */,

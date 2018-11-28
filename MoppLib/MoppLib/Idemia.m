@@ -368,8 +368,8 @@ NSString *kReplaseCode = @"00 2C 00 00 0C %@";
                 [cmd appendData:[@"00" toHexData]];
             
                 [_reader transmitCommand:[cmd hexString] success:^(NSData *responseData) {
-                    NSLog(@"success");
-                    success(responseData);
+                    NSData *dataWithoutResponseCode = [responseData subdataWithRange:NSMakeRange(0, responseData.length - 2)];
+                    success(dataWithoutResponseCode);
                 } failure:failure];
                 
             } failure:failure];
