@@ -34,7 +34,6 @@ let ContainerFormatCdoc = "cdoc"
 let FileFormatXml = "xml"
 
 let DefaultContainerFormat = ContainerFormatAsice
-fileprivate let DefaultTimestampUrl = "http://dd-at.ria.ee/tsa"
 
 let CrashlyticsAlwaysSend = "Always"
 let CrashlyticsNeverSend = "Never"
