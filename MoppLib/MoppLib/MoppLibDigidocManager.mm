@@ -156,7 +156,8 @@ private:
       parseException(e);
       
       dispatch_async(dispatch_get_main_queue(), ^{
-        failure(nil);
+        NSError *error = [NSError errorWithDomain:@"MoppLib" code:e.code() userInfo:@{@"message":[NSString stringWithUTF8String:e.msg().c_str()]}];
+        failure(error);
       });
     }
   });

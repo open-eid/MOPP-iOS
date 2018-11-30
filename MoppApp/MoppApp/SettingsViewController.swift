@@ -178,8 +178,10 @@ extension SettingsViewController: SettingsTimeStampCellDelegate {
         let useTestDDS = false
 #endif
         MoppLibManager.sharedInstance()?.setup(success: {
+            print("success")
         }, andFailure: { [weak self] error in
-            self?.errorAlert(message: L(.genericErrorMessage))
+            let nsError = error! as NSError
+            self?.errorAlert(message: L(.genericErrorMessage), title: nsError.userInfo["message"] as? String)
         }, usingTestDigiDocService: useTestDDS, andTSUrl: value)
     }
 }

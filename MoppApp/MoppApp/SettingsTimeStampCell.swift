@@ -30,10 +30,6 @@ class SettingsTimeStampCell: UITableViewCell {
     }
     
     func populate(with field:SettingsViewController.Field) {
-        titleLabel.text = L(.settingsTimestampUrlTitle)
-        textField.placeholder = L(.settingsTimestampUrlPlaceholder)
-        textField.text = field.value
-        useDefaultTitleLabel.text = L(.settingsTimestampUseDefaultTitle)
         self.field = field
         updateUI()
     }
@@ -48,11 +44,17 @@ class SettingsTimeStampCell: UITableViewCell {
         useDefaultSwitch.isOn = useDefault
         textField.isEnabled = !useDefault
         textField.textColor = useDefault ? UIColor.moppLabel : UIColor.moppText
+        textField.text = DefaultsHelper.timestampUrl ?? MoppLibManager.defaultTSUrl()
+        
+        titleLabel.text = L(.settingsTimestampUrlTitle)
+        textField.placeholder = L(.settingsTimestampUrlPlaceholder)
+        useDefaultTitleLabel.text = L(.settingsTimestampUseDefaultTitle)
+        
         textField.layoutIfNeeded()
     }
     
     @IBAction func useDefaultToggled(_ sender: UISwitch) {
-        if !sender.isOn {
+        if sender.isOff {
             DefaultsHelper.timestampUrl = textField.text
         } else {
             textField.text = MoppLibManager.defaultTSUrl()
@@ -65,6 +67,7 @@ class SettingsTimeStampCell: UITableViewCell {
 
 extension SettingsTimeStampCell: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
+        DefaultsHelper.timestampUrl = useDefaultSwitch.isOff ? textField.text : nil
         delegate.didChangeTimestamp(field.id, with: textField.text)
     }
 }
