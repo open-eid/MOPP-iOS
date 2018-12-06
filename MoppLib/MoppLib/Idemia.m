@@ -31,6 +31,7 @@
 NSString *kAID = @"00 A4 04 00 10 A0 00 00 00 77 01 08 00 07 00 00 FE 00 00 01 00";
 NSString *kAID_QSCD = @"00 A4 04 0C 10 51 53 43 44 20 41 70 70 6C 69 63 61 74 69 6F 6E";
 NSString *kAID_OT = @"00 A4 04 0C 0D E8 28 BD 08 0F F2 50 4F 54 20 41 57 50";
+NSString *kAID_Oberthur = @"00 A4 04 0C 0D E8 28 BD 08 0F F2 50 4F 54 20 41 57 50";
 NSString *kSelectMasterFile = @"00 A4 00 0C";
 NSString *kSelectRecord = @"00 A4 01 0C 02 50 %02X";
 NSString *kReadBinary = @"00 B0 %02X %02X 00";
@@ -44,8 +45,10 @@ NSString *kChangeCode = @"00 24 00 %02X %02X";
 NSString *kVerify = @"00 20 00 %02X %02X";
 NSString *kMutualAuth = @"00 88 00 00 %02X";
 NSString *kSetSecEnv = @"00 22 41 B6 09 80 04 FF 15 08 00 84 01 9F";
+NSString *kSetSecEnvCrypt = @"00 22 41 B8 09 80 04 FF 30 04 00 84 01 81";
 NSString *kSign = @"00 2A 9E 9A %02X";
 NSString *kReplaseCode = @"00 2C 00 00 0C %@";
+NSString *kDecrypt = @"00 2A 80 86 %02X %@";
 
 @implementation Idemia
 
@@ -137,7 +140,7 @@ NSString *kReplaseCode = @"00 2C 00 00 0C %@";
             [_reader transmitCommand:kSelectAuthAdf success:^(NSData *responseData) {
                 [_reader transmitCommand:kSelectAuthCert success:^(NSData *responseData) {
                     [self readBinaryRecursivelyWithSuccess:success failure:failure data:[NSData new]];
-                } failure:failure] ;
+                } failure:failure];
             } failure:failure];
         } failure:failure];
     } failure:failure];
@@ -149,7 +152,7 @@ NSString *kReplaseCode = @"00 2C 00 00 0C %@";
             [_reader transmitCommand:kSelectSignAdf success:^(NSData *responseData) {
                 [_reader transmitCommand:kSelectSignCert success:^(NSData *responseData) {
                     [self readBinaryRecursivelyWithSuccess:success failure:failure data:[NSData new]];
-                } failure:failure] ;
+                } failure:failure];
             } failure:failure];
         } failure:failure];
     } failure:failure];
@@ -380,11 +383,57 @@ NSString *kReplaseCode = @"00 2C 00 00 0C %@";
 }
 
 - (void)decryptData:(NSData *)hash withPin1:(NSString *)pin1 useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure {
-
+    [self verifyCode:pin1 ofType:CodeTypePin1 withSuccess:^(NSData *responseData) {
+        [_reader transmitCommand:kAID_Oberthur success:^(NSData *responseData) {
+            [_reader transmitCommand:kSetSecEnvCrypt success:^(NSData *responseData) {
+                if (useECC) {
+                    NSUInteger paddedHashLength = MAX(48, hash.length);
+                    NSMutableData *paddedHash = [NSMutableData new];
+                    [paddedHash appendData:[@"00" toHexData]];
+                    for (int i = 0; i < (paddedHashLength - hash.length); i++) {
+                        char byteZero[1] = { 0x0 };
+                        [paddedHash appendBytes:&byteZero[0] length:1];
+                    }
+                    [paddedHash appendData:hash];
+                    
+                    NSString *decryptApdu = [NSString stringWithFormat:kDecrypt, [paddedHash length], [paddedHash hexString]];
+                    decryptApdu = [decryptApdu stringByAppendingString:@" 00"];
+                    
+                    [self.reader transmitCommand:decryptApdu success:^(NSData *responseObject) {
+                        success([responseObject trailingTwoBytesTrimmed]);
+                    } failure:failure];
+                    
+                } else {
+                    NSMutableData * data = [NSMutableData dataWithData:hash];
+                    NSString *commandSuffix;
+                    long hashLength = hash.length;
+                    
+                    if (hashLength>=254) {
+                        long dataLength = 0;
+                        while(hashLength - dataLength >= 254) {
+                            NSData *tempData = [data subdataWithRange:NSMakeRange(dataLength, 254)];
+                            commandSuffix = [NSString stringWithFormat:@"%02lX 00 %@" ,tempData.length +1 , [tempData hexString]];
+                            [self.reader transmitCommand:[NSString stringWithFormat:kCommandOngoingDecryption, commandSuffix] success:success failure:failure];
+                            dataLength +=254;
+                        }
+                        commandSuffix = [NSString stringWithFormat:@"%02lX %@" ,hashLength-dataLength  , [[data subdataWithRange:NSMakeRange(dataLength, hashLength-dataLength)] hexString]];
+                        [self.reader transmitCommand:[NSString stringWithFormat:kCommandFinalDecryption, commandSuffix] success:^(NSData *responseObject) {
+                            success([responseObject trailingTwoBytesTrimmed]);
+                        } failure:failure];
+                    } else {
+                        commandSuffix = [NSString stringWithFormat:@"%02lX %@" ,data.length  , [data hexString]];
+                        [self.reader transmitCommand:[NSString stringWithFormat:kCommandFinalDecryption, commandSuffix] success:^(NSData *responseObject) {
+                            success([responseObject trailingTwoBytesTrimmed]);
+                        } failure:failure];
+                    }
+                }
+            } failure:failure];
+        } failure:failure];
+    } failure:failure];
 }
 
 - (void)setSecurityEnvironment:(NSUInteger)env withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
-
+    
 }
 
 @end
