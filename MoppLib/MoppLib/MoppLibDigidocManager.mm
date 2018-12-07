@@ -151,6 +151,22 @@ private:
   });
 }
 
++ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData {
+    try {
+        const unsigned char *bytes = (const unsigned  char *)[certData bytes];
+        digidoc::X509Cert x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Pem);
+        auto policies = x509Cert.certificatePolicies();
+        NSMutableArray *result = [NSMutableArray new];
+        for (auto p : policies) {
+            [result addObject:[NSString stringWithUTF8String:p.c_str()]];
+        }
+        return result;
+    } catch(...) {
+        printf("exception\n");
+    }
+    return @[];
+}
+
 - (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath error:(NSError **)error {
   
   // Having two container instances of the same file is causing crashes. Should synchronize all container operations?

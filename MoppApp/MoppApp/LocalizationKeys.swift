@@ -214,6 +214,8 @@ enum LocKey : String
     case cryptoTypeIdCard = "crypto-type-id-card";
     case cryptoTypeDigiId = "crypto-type-digi-id";
     case cryptoTypeESeal = "crypto-type-eseal";
+    case cryptoTypeMobileId = "crypto-type-mobile-id";
+    case cryptoTypeUnknown = "crypto-type-unknown";
     case cryptoAddAddresseeButtonTitle = "crypto-add-addressee-button-title";
     case cryptoAddresseeAddedButtonTitle = "crypto-addressee-added-button-title";
     case datafilePreviewFailed = "datafile-preview-failed";

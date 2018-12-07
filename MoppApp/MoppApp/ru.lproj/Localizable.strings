@@ -53,6 +53,8 @@
 "crypto-type-id-card" = "ID-карта";
 "crypto-type-digi-id" = "Digi-ID";
 "crypto-type-eseal" = "e-Печать";
+"crypto-type-mobile-id" = "MOBIIL-ID";
+"crypto-type-unknown" = "НЕИЗВЕСТНО";
 "crypto-add-addressee-button-title" = "ДОБАВИТЬ";
 "crypto-addressee-added-button-title" = "ДОБАВЛЕН";
 
