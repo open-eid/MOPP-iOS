@@ -23,42 +23,79 @@
 #import "ldap.h"
 #import "ResultSet.h"
 
-
 @implementation OpenLdap
 
-- (NSMutableArray*)search:(NSString*)identityCode {
+- (NSArray*)search:(NSString*)identityCode {
+    NSArray *result = [self searchWith:identityCode andUrl:@"ldaps://esteid.ldap.sk.ee:636"];
+    if (result == nil || [result count] == 0) {
+        result = [self searchWith:identityCode andUrl:@"ldap://ldap.sk.ee:389"];
+    }
+    return result;
+}
+
+- (NSArray*)searchWith:(NSString*)identityCode andUrl:(NSString*)url {
 
     LDAP *ldap;
     LDAPMessage *msg;
     const char *base = "c=EE";
-    const char *url = "ldap://ldap.sk.ee:389";
+    
+    BOOL secureLdap = [[url lowercaseString] hasPrefix:@"ldaps"];
+    
     NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
     NSString *filter;
+    
+    NSString *pnoeePrefix = secureLdap ? @"PNOEE-" : @"";
+    NSString *wildcard = secureLdap ? @"" : @"*";
+    
     if ([identityCode rangeOfCharacterFromSet:notDigits].location == NSNotFound) {
-        filter = [[@"(serialNumber=" stringByAppendingString:identityCode] stringByAppendingString:@")"];
+        filter = [NSString stringWithFormat:@"(serialNumber=%@%@%@)", pnoeePrefix, identityCode, wildcard];
     } else {
-        filter = [[@"(cn=*" stringByAppendingString:identityCode] stringByAppendingString:@"*)"];
+        filter = [NSString stringWithFormat:@"(cn=%@%@)", identityCode, wildcard];
+    }
+
+    NSString *certificate = [[NSBundle bundleForClass:[self class]] pathForResource:@"ldapca" ofType:@"pem"];
+    
+    //int debugLevel = -1;
+    //ldap_set_option(NULL, LDAP_OPT_DEBUG_LEVEL, &debugLevel);
+    
+    int ldapReturnCode;
+    if (secureLdap) {
+        ldapReturnCode = ldap_set_option(NULL, LDAP_OPT_X_TLS_CACERTFILE, (void *)[certificate cStringUsingEncoding:NSUTF8StringEncoding]);
+        if (ldapReturnCode != LDAP_SUCCESS)
+        {
+            fprintf(stderr, "ldap_set_option(LDAP_OPT_X_TLS_CACERTFILE): %s\n", ldap_err2string(ldapReturnCode));
+            return @[];
+        };
     }
     
-    
     const char *formattedFilter = [filter UTF8String];
-    int ldapInitResponse = ldap_initialize(&ldap, url);
+    ldapReturnCode = ldap_initialize(&ldap, [url cStringUsingEncoding:NSUTF8StringEncoding]);
     NSDictionary *ldapResponse;
     
+    if (secureLdap) {
+        int ldap_version = LDAP_VERSION3;
+        ldapReturnCode = ldap_set_option(ldap, LDAP_OPT_PROTOCOL_VERSION, &ldap_version);
+        if (ldapReturnCode != LDAP_SUCCESS)
+        {
+            fprintf(stderr, "ldap_set_option(PROTOCOL_VERSION): %s\n", ldap_err2string(ldapReturnCode));
+            ldap_unbind_ext_s(ldap, NULL, NULL);
+        };
+    }
     
-    if (ldapInitResponse == 0){
+    if (ldapReturnCode == LDAP_SUCCESS){
         ldap_search_ext_s(ldap, base, LDAP_SCOPE_SUBTREE, formattedFilter, nil, 0, 0, 0, 0, 0, &msg);
         if (msg != NULL){
             ResultSet *resultSet = [[ResultSet alloc] initWithParser:ldap chain:msg];
             ldapResponse = [resultSet getResult];
-            
         }
+        ldap_msgfree(msg);
     }
     
     NSMutableArray *response = [NSMutableArray new];
     for (NSString* key in ldapResponse) {
         Addressee *ldapRow = [[Addressee alloc] init];
-        if (([key rangeOfString:@"ou=authentication"].location != NSNotFound) || ([key rangeOfString:@"ou=Key Encipherment"].location != NSNotFound)) {
+        NSString *ouAuthentication = secureLdap ? @"ou=Authentication" : @"ou=authentication";
+        if (([key rangeOfString:ouAuthentication].location != NSNotFound) || ([key rangeOfString:@"ou=Key Encipherment"].location != NSNotFound)) {
             id value = [ldapResponse objectForKey:key];
             for (NSString* innerKey in value){
                 if ([innerKey rangeOfString:@"userCertificate;binary"].location != NSNotFound){
@@ -100,4 +137,5 @@
     return response;
     
 }
+
 @end
