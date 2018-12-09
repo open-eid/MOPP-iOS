@@ -63,7 +63,8 @@ class InitializationViewController : UIViewController {
                 MoppApp.instance.setupTabController()
             }
         },
-        usingTestDigiDocService: useTestDDS
+        usingTestDigiDocService: useTestDDS,
+        andTSUrl: DefaultsHelper.timestampUrl
         )
     }
 

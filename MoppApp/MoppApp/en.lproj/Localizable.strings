@@ -234,6 +234,9 @@
 "settings-phone-number-placeholder" = "372XXXXXXXX";
 "settings-id-code-title" = "Personal code";
 "settings-id-code-placeholder" = "Personal code";
+"settings-timestamp-url-title" = "Time Stamp service URL";
+"settings-timestamp-url-placeholder" = "";
+"settings-timestamp-use-default-title" = "Use default";
 "diagnostics-title" = "Diagnostics";
 "diagnostics-app-version" = "Application version";
 "diagnostics-ios-version" = "OS";

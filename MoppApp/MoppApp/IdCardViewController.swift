@@ -330,7 +330,7 @@ class IdCardViewController : MoppViewController {
                 } else {
                     DispatchQueue.main.async {
                         self?.dismiss(animated: false, completion: {
-                            self?.signDelegate?.idCardSignDidFinished(cancelled: false, success: false, error: error)
+                            self?.signDelegate?.idCardSignDidFinished(cancelled: false, success: false, error: nsError)
                         })
                     }
                 }
