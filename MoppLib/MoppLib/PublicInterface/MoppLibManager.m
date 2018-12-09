@@ -35,8 +35,8 @@
   return sharedInstance;
 }
 
-- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS {
-  [[MoppLibDigidocManager sharedInstance] setupWithSuccess:success andFailure:failure usingTestDigiDocService:useTestDDS];
+- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString *)tsUrl {
+  [[MoppLibDigidocManager sharedInstance] setupWithSuccess:success andFailure:failure usingTestDigiDocService:useTestDDS andTSUrl:tsUrl];
 }
 
 - (NSString *)moppLibVersion {
@@ -45,6 +45,10 @@
 
 - (NSString *)libdigidocppVersion {
     return [[MoppLibDigidocManager sharedInstance] digidocVersion];
+}
+
++ (NSString *)defaultTSUrl {
+    return [MoppLibDigidocManager defaultTSUrl];
 }
 
 @end

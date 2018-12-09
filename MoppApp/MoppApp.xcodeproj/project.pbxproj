@@ -96,6 +96,7 @@
 		C51B7FB21FBB12E80046D6E0 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB11FBB12E80046D6E0 /* ShareViewController.m */; };
 		C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB41FBB2AB10046D6E0 /* Utils.swift */; };
 		C51B7FB71FBC45DD0046D6E0 /* LocalizationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB61FBC45DD0046D6E0 /* LocalizationKeys.swift */; };
+		C51E8A0F21A2F2AD0054662A /* SettingsTimeStampCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51E8A0E21A2F2AD0054662A /* SettingsTimeStampCell.swift */; };
 		C52E82761FC1D3DD0074B280 /* Menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C52E82751FC1D3DD0074B280 /* Menu.storyboard */; };
 		C52E82781FC1D3ED0074B280 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52E82771FC1D3ED0074B280 /* MenuViewController.swift */; };
 		C52E827A1FC1D7000074B280 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52E82791FC1D7000074B280 /* main.swift */; };
@@ -105,6 +106,7 @@
 		C5310F4620C2F0F7004D3E78 /* MenuLanguageButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5310F4520C2F0F7004D3E78 /* MenuLanguageButtonView.swift */; };
 		C537AE542004C29E009037E5 /* MobileIDEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C537AE532004C29E009037E5 /* MobileIDEditViewController.swift */; };
 		C537AE7820063E48009037E5 /* LandingElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = C537AE7720063E48009037E5 /* LandingElements.xib */; };
+		C541E13D21B17CE000685535 /* UISwitch+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C541E13C21B17CE000685535 /* UISwitch+Utils.swift */; };
 		C54BB1091FBD8CC600A274F6 /* MyeID.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54BB1081FBD8CC600A274F6 /* MyeID.storyboard */; };
 		C54BB10D1FBD8CE900A274F6 /* Signing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54BB10C1FBD8CE900A274F6 /* Signing.storyboard */; };
 		C54BB10F1FBD93A100A274F6 /* MobileIDChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */; };
@@ -515,6 +517,7 @@
 		C51B7FB31FBB12FC0046D6E0 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
 		C51B7FB41FBB2AB10046D6E0 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		C51B7FB61FBC45DD0046D6E0 /* LocalizationKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationKeys.swift; sourceTree = "<group>"; };
+		C51E8A0E21A2F2AD0054662A /* SettingsTimeStampCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTimeStampCell.swift; sourceTree = "<group>"; };
 		C52E82751FC1D3DD0074B280 /* Menu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Menu.storyboard; sourceTree = "<group>"; };
 		C52E82771FC1D3ED0074B280 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		C52E82791FC1D7000074B280 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -524,6 +527,7 @@
 		C5310F4520C2F0F7004D3E78 /* MenuLanguageButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuLanguageButtonView.swift; sourceTree = "<group>"; };
 		C537AE532004C29E009037E5 /* MobileIDEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileIDEditViewController.swift; sourceTree = "<group>"; };
 		C537AE7720063E48009037E5 /* LandingElements.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LandingElements.xib; sourceTree = "<group>"; };
+		C541E13C21B17CE000685535 /* UISwitch+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISwitch+Utils.swift"; sourceTree = "<group>"; };
 		C54BB1081FBD8CC600A274F6 /* MyeID.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyeID.storyboard; sourceTree = "<group>"; };
 		C54BB10C1FBD8CE900A274F6 /* Signing.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Signing.storyboard; sourceTree = "<group>"; };
 		C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileIDChallengeViewController.swift; sourceTree = "<group>"; };
@@ -696,6 +700,7 @@
 				C50787871FEA807500D9AAC0 /* UIViewController+Additions.swift */,
 				C54EA6EA2046C3BA0039AC78 /* UITextField+Additions.swift */,
 				C5F462A9209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift */,
+				C541E13C21B17CE000685535 /* UISwitch+Utils.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -916,6 +921,7 @@
 				C593D9F1208F269A000B3BF6 /* SettingsChoiceCell.swift */,
 				C593D9F3208F3526000B3BF6 /* SettingsChoiceView.swift */,
 				C593D9F5208F39DF000B3BF6 /* SettingsChoiceButton.swift */,
+				C51E8A0E21A2F2AD0054662A /* SettingsTimeStampCell.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1573,6 +1579,7 @@
 				C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */,
 				C593D9F6208F39DF000B3BF6 /* SettingsChoiceButton.swift in Sources */,
 				C58FCD5F20650BBE00FE3B57 /* MyeIDInfoCell.swift in Sources */,
+				C51E8A0F21A2F2AD0054662A /* SettingsTimeStampCell.swift in Sources */,
 				C5F462AA209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift in Sources */,
 				C5D057022023016300875F44 /* RecentContainersEmptyListCell.swift in Sources */,
 				C50DCD171FCEF17100D48E16 /* UIStoryBoard+Additions.swift in Sources */,
@@ -1596,6 +1603,7 @@
 				C50DCD0B1FC7128900D48E16 /* ContainerHeaderCell.swift in Sources */,
 				39158A1920C6C49100B71DD6 /* AddresseeActions.swift in Sources */,
 				C593D9F2208F269A000B3BF6 /* SettingsChoiceCell.swift in Sources */,
+				C541E13D21B17CE000685535 /* UISwitch+Utils.swift in Sources */,
 				C54BB10F1FBD93A100A274F6 /* MobileIDChallengeViewController.swift in Sources */,
 				399C01EA20BD98730056D7AC /* ContainerFoundAddresseeCell.swift in Sources */,
 				C593D9EE208F1C09000B3BF6 /* SettingsHeaderCell.swift in Sources */,
