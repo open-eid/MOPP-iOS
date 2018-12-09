@@ -85,7 +85,7 @@ NSString *kDecrypt = @"00 2A 80 86 %02X %@";
                                 break;
                             case 6: personalData.personalIdentificationCode = record; break;
                             case 7: personalData.documentNumber = record; break;
-                            case 8: personalData.expiryDate = record; break;
+                            case 8: personalData.expiryDate = [self expiryDateEstFormatWith:record]; break;
                             case 9: personalData.dateIssued = record; break;
                             case 10: personalData.residentPermitType = record; break;
                             case 11: personalData.notes1 = record; break;
@@ -102,6 +102,13 @@ NSString *kDecrypt = @"00 2A 80 86 %02X %@";
             } failure:failure];
         } failure:failure];
     } failure:failure];
+}
+
+- (NSString*)expiryDateEstFormatWith:(NSString*)record {
+    return [record stringByReplacingOccurrencesOfString:@" "
+        withString:@"."
+        options:0
+        range:NSMakeRange(0, record.length)];
 }
 
 - (void)readPublicDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure {
