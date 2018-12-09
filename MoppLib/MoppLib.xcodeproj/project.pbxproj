@@ -100,7 +100,6 @@
 		C5DB94BA217618AF00512CAA /* MoppLibCerificatetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 540CB2241E1CDD8100FE18A3 /* MoppLibCerificatetData.m */; };
 		C5DB94BB217618AF00512CAA /* CardActionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0DFC1E0D196D00C62B3D /* CardActionsManager.m */; };
 		C5DB94BC217618AF00512CAA /* MoppLibMobileCreateSignatureResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0A84491E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m */; };
-		C5DB94BD217618AF00512CAA /* (null) in Sources */ = {isa = PBXBuildFile; };
 		C5DB94BE217618AF00512CAA /* MoppLibService.m in Sources */ = {isa = PBXBuildFile; fileRef = AE61985A1E489EDF0021B18B /* MoppLibService.m */; };
 		C5DB94BF217618AF00512CAA /* CardCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 5463DA4B1E12927A008A1714 /* CardCommands.m */; };
 		C5DB94C0217618AF00512CAA /* SmartToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5220CFC0F4002E3F23 /* SmartToken.m */; };
@@ -117,14 +116,12 @@
 		C5DB94CB217618AF00512CAA /* MoppLibCardReaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C54EA737204D91730039AC78 /* MoppLibCardReaderManager.m */; };
 		C5DB94CC217618AF00512CAA /* MoppLibPrivateConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D1646F1E923F920069C725 /* MoppLibPrivateConstants.m */; };
 		C5DB94CD217618AF00512CAA /* EstEIDv3_5.m in Sources */ = {isa = PBXBuildFile; fileRef = 545111791E13C52900296B80 /* EstEIDv3_5.m */; };
-		C5DB94CE217618AF00512CAA /* (null) in Sources */ = {isa = PBXBuildFile; };
 		C5DB94CF217618AF00512CAA /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E085E91E71A63C00431F1A /* Reachability.m */; };
 		C5DB94D0217618AF00512CAA /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1069401E4498A6002BAFDA /* Options.swift */; };
 		C5DB94D1217618AF00512CAA /* MoppLibContainerActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D164761E9269C50069C725 /* MoppLibContainerActions.m */; };
 		C5DB94D3217618AF00512CAA /* CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 399C01E420BC13320056D7AC /* CryptoLib.framework */; };
 		C5DB94D4217618AF00512CAA /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */; };
 		C5DB94D5217618AF00512CAA /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C54EA72F20499DFC0039AC78 /* ExternalAccessory.framework */; };
-		C5DB94D6217618AF00512CAA /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		C5DB94D7217618AF00512CAA /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250CFD1E096BEF00530370 /* libxml2.tbd */; };
 		C5DB94D8217618AF00512CAA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250CFB1E096BEA00530370 /* libz.tbd */; };
 		C5DB94D9217618AF00512CAA /* libiRockey301_ccid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5AAAF8120C9621D0087D6DA /* libiRockey301_ccid.a */; };
@@ -136,7 +133,6 @@
 		C5DB94E1217618AF00512CAA /* MLFileManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E485A7811E2DF58200C53DBF /* MLFileManager.h */; };
 		C5DB94E2217618AF00512CAA /* ft301u.h in Headers */ = {isa = PBXBuildFile; fileRef = C5AAAF8920CAA4790087D6DA /* ft301u.h */; };
 		C5DB94E3217618AF00512CAA /* EstEIDv3_5.h in Headers */ = {isa = PBXBuildFile; fileRef = 545111781E13C52900296B80 /* EstEIDv3_5.h */; };
-		C5DB94E4217618AF00512CAA /* (null) in Headers */ = {isa = PBXBuildFile; };
 		C5DB94E5217618AF00512CAA /* MoppLibService.h in Headers */ = {isa = PBXBuildFile; fileRef = AE6198591E489EDF0021B18B /* MoppLibService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5DB94E6217618AF00512CAA /* CardReaderiR301.h in Headers */ = {isa = PBXBuildFile; fileRef = C54EA733204D5EA70039AC78 /* CardReaderiR301.h */; };
 		C5DB94E7217618AF00512CAA /* MoppLibCerificatetData.h in Headers */ = {isa = PBXBuildFile; fileRef = 540CB2231E1CDD8100FE18A3 /* MoppLibCerificatetData.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -145,7 +141,6 @@
 		C5DB94EA217618AF00512CAA /* MLDateFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = E4180C141E23FE9300FD7B8C /* MLDateFormatter.h */; };
 		C5DB94EB217618AF00512CAA /* MoppLibDataFile.h in Headers */ = {isa = PBXBuildFile; fileRef = E42B08C31E1F11B900EA24A3 /* MoppLibDataFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5DB94EC217618AF00512CAA /* MoppLibCardReaderManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C54EA735204D90D50039AC78 /* MoppLibCardReaderManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C5DB94ED217618AF00512CAA /* (null) in Headers */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (Public, ); }; };
 		C5DB94EE217618AF00512CAA /* MoppLibCryptoActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5DB94EF217618AF00512CAA /* MoppLibManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 54E1DB5A1E44A9060060A250 /* MoppLibManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5DB94F0217618AF00512CAA /* MoppLibDigidocManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E42B08CB1E1F136A00EA24A3 /* MoppLibDigidocManager.h */; };
@@ -159,13 +154,7 @@
 		C5DB94F8217618AF00512CAA /* MoppLibCardActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54D164791E926AAB0069C725 /* MoppLibCardActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5DB94F9217618AF00512CAA /* CardActionsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DFB1E0D196D00C62B3D /* CardActionsManager.h */; };
 		C5DB94FA217618AF00512CAA /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 54E085E81E71A63C00431F1A /* Reachability.h */; };
-		C5DB94FB217618AF00512CAA /* (null) in Headers */ = {isa = PBXBuildFile; };
-		C5DB94FC217618AF00512CAA /* (null) in Headers */ = {isa = PBXBuildFile; };
-		C5DB94FD217618AF00512CAA /* (null) in Headers */ = {isa = PBXBuildFile; };
-		C5DB94FE217618AF00512CAA /* (null) in Headers */ = {isa = PBXBuildFile; };
-		C5DB94FF217618AF00512CAA /* (null) in Headers */ = {isa = PBXBuildFile; };
 		C5DB9500217618AF00512CAA /* NSData+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DF61E0BF0BA00C62B3D /* NSData+Additions.h */; };
-		C5DB9501217618AF00512CAA /* (null) in Headers */ = {isa = PBXBuildFile; };
 		C5DB9502217618AF00512CAA /* MoppLib.h in Headers */ = {isa = PBXBuildFile; fileRef = E4250CEA1E09695100530370 /* MoppLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5DB9503217618AF00512CAA /* NSString+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DC0DF21E0BEF2A00C62B3D /* NSString+Additions.h */; };
 		C5DB9504217618AF00512CAA /* EstEIDv3_4.h in Headers */ = {isa = PBXBuildFile; fileRef = 545CF83F1E13F30300B66EE8 /* EstEIDv3_4.h */; };
@@ -361,7 +350,6 @@
 				C5DB94D3217618AF00512CAA /* CryptoLib.framework in Frameworks */,
 				C5DB94D4217618AF00512CAA /* CoreBluetooth.framework in Frameworks */,
 				C5DB94D5217618AF00512CAA /* ExternalAccessory.framework in Frameworks */,
-				C5DB94D6217618AF00512CAA /* (null) in Frameworks */,
 				C5DB94D7217618AF00512CAA /* libxml2.tbd in Frameworks */,
 				C5DB94D8217618AF00512CAA /* libz.tbd in Frameworks */,
 				C5DB94D9217618AF00512CAA /* libiRockey301_ccid.a in Frameworks */,
@@ -665,7 +653,6 @@
 				C5DB94E1217618AF00512CAA /* MLFileManager.h in Headers */,
 				C5DB94E2217618AF00512CAA /* ft301u.h in Headers */,
 				C5DB94E3217618AF00512CAA /* EstEIDv3_5.h in Headers */,
-				C5DB94E4217618AF00512CAA /* (null) in Headers */,
 				C5DB94E5217618AF00512CAA /* MoppLibService.h in Headers */,
 				C5DB94E6217618AF00512CAA /* CardReaderiR301.h in Headers */,
 				C5DB94E7217618AF00512CAA /* MoppLibCerificatetData.h in Headers */,
@@ -674,7 +661,6 @@
 				C5DB94EA217618AF00512CAA /* MLDateFormatter.h in Headers */,
 				C5DB94EB217618AF00512CAA /* MoppLibDataFile.h in Headers */,
 				C5DB94EC217618AF00512CAA /* MoppLibCardReaderManager.h in Headers */,
-				C5DB94ED217618AF00512CAA /* (null) in Headers */,
 				C5DB94EE217618AF00512CAA /* MoppLibCryptoActions.h in Headers */,
 				C5DB94EF217618AF00512CAA /* MoppLibManager.h in Headers */,
 				C5DB94F0217618AF00512CAA /* MoppLibDigidocManager.h in Headers */,
@@ -688,13 +674,7 @@
 				C5DB94F8217618AF00512CAA /* MoppLibCardActions.h in Headers */,
 				C5DB94F9217618AF00512CAA /* CardActionsManager.h in Headers */,
 				C5DB94FA217618AF00512CAA /* Reachability.h in Headers */,
-				C5DB94FB217618AF00512CAA /* (null) in Headers */,
-				C5DB94FC217618AF00512CAA /* (null) in Headers */,
-				C5DB94FD217618AF00512CAA /* (null) in Headers */,
-				C5DB94FE217618AF00512CAA /* (null) in Headers */,
-				C5DB94FF217618AF00512CAA /* (null) in Headers */,
 				C5DB9500217618AF00512CAA /* NSData+Additions.h in Headers */,
-				C5DB9501217618AF00512CAA /* (null) in Headers */,
 				C5DB9502217618AF00512CAA /* MoppLib.h in Headers */,
 				C5DB9503217618AF00512CAA /* NSString+Additions.h in Headers */,
 				C5DB9504217618AF00512CAA /* EstEIDv3_4.h in Headers */,
@@ -1010,7 +990,6 @@
 				C5E41C5F2180815900D79B54 /* Idemia.m in Sources */,
 				C5DB94BB217618AF00512CAA /* CardActionsManager.m in Sources */,
 				C5DB94BC217618AF00512CAA /* MoppLibMobileCreateSignatureResponse.m in Sources */,
-				C5DB94BD217618AF00512CAA /* (null) in Sources */,
 				C5DB94BE217618AF00512CAA /* MoppLibService.m in Sources */,
 				C5DB94BF217618AF00512CAA /* CardCommands.m in Sources */,
 				C5DB94C0217618AF00512CAA /* SmartToken.m in Sources */,
@@ -1027,7 +1006,6 @@
 				C5DB94CB217618AF00512CAA /* MoppLibCardReaderManager.m in Sources */,
 				C5DB94CC217618AF00512CAA /* MoppLibPrivateConstants.m in Sources */,
 				C5DB94CD217618AF00512CAA /* EstEIDv3_5.m in Sources */,
-				C5DB94CE217618AF00512CAA /* (null) in Sources */,
 				C5DB94CF217618AF00512CAA /* Reachability.m in Sources */,
 				C5DB94D0217618AF00512CAA /* Options.swift in Sources */,
 				C5DB94D1217618AF00512CAA /* MoppLibContainerActions.m in Sources */,
