@@ -47,7 +47,7 @@ NSString *kMutualAuth = @"00 88 00 00 %02X";
 NSString *kSetSecEnv = @"00 22 41 B6 09 80 04 FF 15 08 00 84 01 9F";
 NSString *kSetSecEnvCrypt = @"00 22 41 B8 09 80 04 FF 30 04 00 84 01 81";
 NSString *kSign = @"00 2A 9E 9A %02X";
-NSString *kReplaseCode = @"00 2C 00 00 0C %@";
+NSString *kReplaceCode = @"00 2C 02 %02X %02X %@";
 NSString *kDecrypt = @"00 2A 80 86 %02X %@";
 
 @implementation Idemia
@@ -313,8 +313,15 @@ NSString *kDecrypt = @"00 2A 80 86 %02X %@";
     NSString *aid = type == CodeTypePin1 ? kAID : kAID_QSCD;
     [self verifyCode:puk ofType:CodeTypePuk withSuccess:^(NSData *responseData) {
         [_reader transmitCommand:aid success:^(NSData *responseData) {
-            NSString *newPinTemplate = [[self pinTemplate:newCode] hexString];
-            NSString *replaceCmd = [NSString stringWithFormat:kReplaseCode, newPinTemplate];
+            NSMutableData *paddedPin = [NSMutableData dataWithData:[newCode dataUsingEncoding:NSUTF8StringEncoding]];
+            
+            NSUInteger paddingSize = 12 - paddedPin.length;
+            for (int i=0; i<paddingSize; i++) {
+                UInt8 ch[1] = { 0xFF };
+                [paddedPin appendBytes:ch length:1];
+            }
+            
+            NSString *replaceCmd = [NSString stringWithFormat:kReplaceCode, type == CodeTypePin1 ? 1 : 0x85, [paddedPin length], paddedPin];
             [_reader transmitCommand:replaceCmd success:^(NSData *responseData) {
                 NSError *error = [self errorForPinActionResponse:responseData];
                 if (error) {
