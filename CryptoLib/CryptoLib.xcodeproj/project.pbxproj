@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		390C015F20AC3DC800827230 /* libldap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 390C015E20AC3DC700827230 /* libldap.a */; };
-		390C016120AC3DE000827230 /* liblber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 390C016020AC3DE000827230 /* liblber.a */; };
 		39231FAF20AB1C6C00E1E2B4 /* CryptoLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 39231FAD20AB1C6C00E1E2B4 /* CryptoLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39266A5120CFBDF8002E3F23 /* SmartCardTokenWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5020CFBDF8002E3F23 /* SmartCardTokenWrapper.mm */; };
 		39266A5A20CFD956002E3F23 /* AbstractSmartToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 39266A5920CFD93E002E3F23 /* AbstractSmartToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -40,9 +39,10 @@
 		39E2B4DD20AD7A3400CA74A8 /* Attribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4D320AD7A3400CA74A8 /* Attribute.h */; };
 		39E2B4DE20AD7A3400CA74A8 /* OpenLdap.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4D420AD7A3400CA74A8 /* OpenLdap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39E2B4DF20AD7A3400CA74A8 /* Addressee.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4D520AD7A3400CA74A8 /* Addressee.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C5B7957821BABCA800DC2C59 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B7957621BABCA800DC2C59 /* libcrypto.a */; };
-		C5B7957921BABCA800DC2C59 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B7957721BABCA800DC2C59 /* libssl.a */; };
 		C5B7957B21BABD8300DC2C59 /* ldapca.pem in Resources */ = {isa = PBXBuildFile; fileRef = C5B7957A21BABD8300DC2C59 /* ldapca.pem */; };
+		C5B7958221BEA74800DC2C59 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B7957721BABCA800DC2C59 /* libssl.a */; };
+		C5B7958321BEA76300DC2C59 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B7957621BABCA800DC2C59 /* libcrypto.a */; };
+		C5B7958421BEA78200DC2C59 /* liblber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 390C016020AC3DE000827230 /* liblber.a */; };
 		D1E62632CCCD9195F3D8E2EE /* Pods_CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2337FC39B457D26F7140179 /* Pods_CryptoLib.framework */; };
 /* End PBXBuildFile section */
 
@@ -102,9 +102,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5B7957821BABCA800DC2C59 /* libcrypto.a in Frameworks */,
-				C5B7957921BABCA800DC2C59 /* libssl.a in Frameworks */,
-				390C016120AC3DE000827230 /* liblber.a in Frameworks */,
+				C5B7958421BEA78200DC2C59 /* liblber.a in Frameworks */,
+				C5B7958321BEA76300DC2C59 /* libcrypto.a in Frameworks */,
+				C5B7958221BEA74800DC2C59 /* libssl.a in Frameworks */,
 				390C015F20AC3DC800827230 /* libldap.a in Frameworks */,
 				D1E62632CCCD9195F3D8E2EE /* Pods_CryptoLib.framework in Frameworks */,
 				393B66E020DB94B4001DC89B /* cdoc.framework in Frameworks */,
@@ -514,6 +514,7 @@
 					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries",
 					"$(PROJECT_DIR)/CryptoLib/openldap/OpenLDAP.iphoneos/libraries",
 					"$(PROJECT_DIR)/../CryptoLib",
+					"$(PROJECT_DIR)/CryptoLib",
 				);
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries";
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphonesimulator/libraries";
@@ -553,6 +554,7 @@
 					"$(PROJECT_DIR)/CryptoLib/openldap/OpenLDAP.iphoneos/libraries",
 					"$(PROJECT_DIR)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos/lib",
 					"$(PROJECT_DIR)/../CryptoLib",
+					"$(PROJECT_DIR)/CryptoLib",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.CryptoLib;
