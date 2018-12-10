@@ -47,7 +47,15 @@ private:
   std::string m_tsUrl;
   
 public:
+
+#ifdef TEST_ENV
+  std::string TSLUrl() const {
+    return "https://open-eid.github.io/test-TL/EE_T.xml";
+  }
+#endif
+
   DigiDocConf(const std::string& tsUrl) : m_tsUrl( tsUrl ) {}
+
   std::string TSLCache() const
   {
     NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
@@ -163,6 +171,22 @@ private:
   });
 }
 
++ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData {
+    try {
+        const unsigned char *bytes = (const unsigned  char *)[certData bytes];
+        digidoc::X509Cert x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Pem);
+        auto policies = x509Cert.certificatePolicies();
+        NSMutableArray *result = [NSMutableArray new];
+        for (auto p : policies) {
+            [result addObject:[NSString stringWithUTF8String:p.c_str()]];
+        }
+        return result;
+    } catch(...) {
+        printf("exception\n");
+    }
+    return @[];
+}
+
 + (NSString *)defaultTSUrl {
     return kDefaultTSUrl;
 }
@@ -274,6 +298,9 @@ private:
     }
     else if(digidoc::Signature::Validator::Status::Unknown==status){
         return UnknownStatus;
+    }
+    else if(digidoc::Signature::Validator::Status::Test==status){
+        return ValidTest;
     }
     return Invalid;
 }

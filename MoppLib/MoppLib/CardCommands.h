@@ -80,14 +80,6 @@ extern NSString *const kAlgorythmIdentifyerSHA512;
 - (void)readPublicDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure;
 
 /**
- * Reads card owner birthDate from card.
- *
- * @param success   block to be executed when action is completed successfully
- * @param failure   block to be executed when action fails
- */
-- (void)readBirthDateWithSuccess:(void (^)(NSDate *date))success failure:(FailureBlock)failure;
-
-/**
  * Reads authentication certificate from card.
  *
  * @param success   block to be executed when action is completed successfully
@@ -119,7 +111,7 @@ extern NSString *const kAlgorythmIdentifyerSHA512;
  * @param success   block to be executed when action is completed successfully
  * @param failure   block to be executed when action fails
  */
-- (void)readCodeCounterRecord:(NSInteger)record withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
+- (void)readCodeCounterRecord:(CodeType)record withSuccess:(NumberBlock)success failure:(FailureBlock)failure;
 
 /**
  * Changes PIN or PUK code.

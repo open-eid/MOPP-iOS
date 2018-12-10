@@ -57,6 +57,8 @@
 "crypto-type-id-card" = "ID-kaart";
 "crypto-type-digi-id" = "Digi-ID";
 "crypto-type-eseal" = "e-Tempel";
+"crypto-type-mobile-id" = "MOBIIL-ID";
+"crypto-type-unknown" = "TEADMATA";
 "crypto-add-addressee-button-title" = "LISA";
 "crypto-addressee-added-button-title" = "LISATUD";
 

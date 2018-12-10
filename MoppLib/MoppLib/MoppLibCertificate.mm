@@ -23,6 +23,7 @@
 
 #import "MoppLibCertificate.h"
 #include <digidocpp/crypto/X509Cert.h>
+#include <digidocpp/exception.h>
 #import <openssl/x509.h>
 #import <openssl/x509v3.h>
 #include <iostream>
@@ -30,8 +31,12 @@
 @implementation MoppLibCertificate
 
 + (void)certData:(MoppLibCerificatetData *)certData updateWithDerEncodingData:(const unsigned char *)data length:(size_t)length {
-    digidoc::X509Cert digiDocCert = digidoc::X509Cert(data, length, digidoc::X509Cert::Format::Der);
-    [self setCertData:certData digiDocCert:digiDocCert];
+    try {
+        digidoc::X509Cert digiDocCert = digidoc::X509Cert(data, length, digidoc::X509Cert::Format::Der);
+        [self setCertData:certData digiDocCert:digiDocCert];
+    } catch (digidoc::Exception e) {
+        printf("%s\n", e.msg().c_str());
+    }
 }
 
 + (void)certData:(MoppLibCerificatetData *)certData updateWithPemEncodingData:(const unsigned char *)data length:(size_t)length {

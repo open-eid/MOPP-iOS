@@ -24,7 +24,11 @@
 #import "MoppLibSOAPManager.h"
 #import "MoppLibDigidocManager.h"
 #import "MoppLibDataFile.h"
+#ifdef TEST_ENV
+#import <MoppLibTestEnv/MoppLib-Swift.h>
+#else
 #import <MoppLib/MoppLib-Swift.h>
+#endif
 #import "MoppLibError.h"
 #import "MoppLibMobileCreateSignatureResponse.h"
 #import "MoppLibGetMobileCreateSignatureStatusResponse.h"

@@ -53,6 +53,8 @@
 "crypto-type-id-card" = "ID-card";
 "crypto-type-digi-id" = "Digi-ID";
 "crypto-type-eseal" = "e-Seal";
+"crypto-type-mobile-id" = "MOBILE-ID";
+"crypto-type-unknown" = "UNKNOWN";
 "crypto-add-addressee-button-title" = "ADD";
 "crypto-addressee-added-button-title" = "ADDED";
 

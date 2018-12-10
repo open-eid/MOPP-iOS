@@ -189,12 +189,14 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   [self navigateToFileEEEEWithSuccess:select0013 failure:failure];
 }
 
-- (void)readCodeCounterRecord:(NSInteger)record withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
+- (void)readCodeCounterRecord:(CodeType)record withSuccess:(NumberBlock)success failure:(FailureBlock)failure {
   if (record == CodeTypePuk) {
     record = 3;
   }
   void (^readRecord)(NSData *) = ^void (NSData *responseObject) {
-    [self.reader transmitCommand:[NSString stringWithFormat:kCommandReadRecord, record] success:success failure:failure];
+    [self.reader transmitCommand:[NSString stringWithFormat:kCommandReadRecord, record] success:^(NSData *responseData) {
+        success([self retryCountFromData:responseData]);
+    } failure:failure];
   };
   
   void (^select0016)(NSData *) = ^void (NSData *responseObject) {
@@ -202,6 +204,27 @@ NSString *const kCardErrorNoPreciseDiagnosis = @"6F 00";
   };
   
   [self.reader transmitCommand:kCommandSelectFileMaster success:select0016 failure:failure];
+}
+
+- (NSNumber *)retryCountFromData:(NSData *)data {
+    const unsigned char *dataBytes = [data bytes];
+    for (int i = 0; i < [data length]; i++) {
+        if (dataBytes[i] == 0x90) {
+            if ([data length] > i + 1) {
+                NSData *lengthData = [data subdataWithRange:NSMakeRange(i + 1, 1)];
+                int length = [[lengthData hexString] hexToInt];
+                
+                if ([data length] > i + 1 + length) {
+                    NSData *counterData = [data subdataWithRange:NSMakeRange(i + 2, length)];
+                    int countValue = [[counterData hexString] hexToInt];
+                    
+                    return [NSNumber numberWithInt:countValue];
+                }
+            }
+        }
+    }
+    
+    return nil;
 }
 
 - (void)changeCode:(CodeType)type to:(NSString *)code withVerifyCode:(NSString *)verifyCode withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
