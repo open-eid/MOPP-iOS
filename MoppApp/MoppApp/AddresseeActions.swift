@@ -38,8 +38,8 @@ extension AddresseeActions {
     }
     
     func determineInfo(addressee: Addressee) -> String {
-        let policyIdentifiers = addressee.policyIdentifiers as? [String] ?? []
-        let addresseeType = displayAddresseeType(policyIdentifiers)
+        let policyIdentifiers = MoppLibManager.certificatePolicyIdentifiers(addressee.cert)
+        let addresseeType = displayAddresseeType(policyIdentifiers as? [String] ?? [])
         let validTo = "\(L(LocKey.cryptoValidTo)) \(MoppDateFormatter.shared.ddMMYYYY(toString: addressee.validTo))"
         return "\(addresseeType) (\(validTo))"
     }

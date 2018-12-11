@@ -25,6 +25,14 @@
 #import "MoppLibCardActions.h"
 #import "MoppLibConstants.h"
 
+typedef NS_ENUM(NSUInteger, EIDType) {
+    EIDTypeUnknown,
+    EIDTypeMobileID,
+    EIDTypeDigiID,
+    EIDTypeIDCard,
+    EIDTypeESeal
+};
+
 @interface MoppLibManager : NSObject
 
 + (MoppLibManager *)sharedInstance;
@@ -40,5 +48,8 @@
 - (NSString *)moppLibVersion;
 - (NSString *)libdigidocppVersion;
 + (NSString *)defaultTSUrl;
++ (EIDType)eidTypeFromCertificate:(NSData*)certData;
++ (EIDType)eidTypeFromCertificatePolicies:(NSArray<NSString*>*)certificatePolicies;
++ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData;
 
 @end
