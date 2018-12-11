@@ -171,30 +171,32 @@ private:
   });
 }
 
-+ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData {
++ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData withCertFormat:(X509CertFormat)certFormat {
     digidoc::X509Cert x509Cert;
-    bool certCreated = false;
-    const unsigned char *bytes = (const unsigned  char *)[certData bytes];
+    digidoc::X509Cert::Format x509CertFormat;
+    
+    switch (certFormat) {
+    case X509CertFormatDer:
+        x509CertFormat = digidoc::X509Cert::Format::Der;
+        break;
+    case X509CertFormatPem:
+        x509CertFormat = digidoc::X509Cert::Format::Pem;
+        break;
+    }
+    
     try {
-        x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Der);
-        certCreated = true;
-    } catch(...) {
-        try {
-            x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Pem);
-            certCreated = true;
-        } catch(...) {
+        const unsigned char *bytes = (const unsigned  char *)[certData bytes];
+        x509Cert = digidoc::X509Cert(bytes, certData.length, x509CertFormat);
+        auto policies = x509Cert.certificatePolicies();
+        NSMutableArray *result = [NSMutableArray new];
+        for (auto p : policies) {
+            [result addObject:[NSString stringWithUTF8String:p.c_str()]];
         }
-    }
-
-    if (!certCreated)
+        return result;
+    } catch(...) {
+        printf("create X509 certificate object raised exception\n");
         return @[];
-
-    auto policies = x509Cert.certificatePolicies();
-    NSMutableArray *result = [NSMutableArray new];
-    for (auto p : policies) {
-        [result addObject:[NSString stringWithUTF8String:p.c_str()]];
     }
-    return result;
 }
 
 + (NSString *)defaultTSUrl {
