@@ -140,7 +140,11 @@ extension AddresseeViewController : UITableViewDataSource {
             case .addressees:
                 let cell = tableView.dequeueReusableCell(withType: ContainerAddresseeCell.self, for: indexPath)!
                 cell.delegate = self
-                cell.populate(addressee: selectedAddressees[row] as! Addressee, index: row, showRemoveButton: true)
+                cell.populate(
+                    addressee: selectedAddressees[row] as! Addressee,
+                    index: row,
+                    showRemoveButton: true,
+                    certFormat: .der)
                 return cell
         }
     }

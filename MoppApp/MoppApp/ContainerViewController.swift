@@ -330,7 +330,8 @@ extension ContainerViewController : UITableViewDataSource {
             let isRemoveButtonHidden = !isAsicContainer && isStatePreviewOrOpened
             cell.populate(addressee: cryptoContainerViewDelegate.getAddressee(index: indexPath.row) as! Addressee,
                           index: row,
-                          showRemoveButton: !isRemoveButtonHidden)
+                          showRemoveButton: !isRemoveButtonHidden,
+                          certFormat: .pem)
             return cell
         case .importAddressees:
             let cell = tableView.dequeueReusableCell(withType: ContainerImportAddresseesCell.self, for: indexPath)!
