@@ -171,10 +171,22 @@ private:
   });
 }
 
-+ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData {
++ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData withCertFormat:(X509CertFormat)certFormat {
+    digidoc::X509Cert x509Cert;
+    digidoc::X509Cert::Format x509CertFormat;
+    
+    switch (certFormat) {
+    case X509CertFormatDer:
+        x509CertFormat = digidoc::X509Cert::Format::Der;
+        break;
+    case X509CertFormatPem:
+        x509CertFormat = digidoc::X509Cert::Format::Pem;
+        break;
+    }
+    
     try {
         const unsigned char *bytes = (const unsigned  char *)[certData bytes];
-        digidoc::X509Cert x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Pem);
+        x509Cert = digidoc::X509Cert(bytes, certData.length, x509CertFormat);
         auto policies = x509Cert.certificatePolicies();
         NSMutableArray *result = [NSMutableArray new];
         for (auto p : policies) {
@@ -182,9 +194,9 @@ private:
         }
         return result;
     } catch(...) {
-        printf("exception\n");
+        printf("create X509 certificate object raised exception\n");
+        return @[];
     }
-    return @[];
 }
 
 + (NSString *)defaultTSUrl {
