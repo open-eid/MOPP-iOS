@@ -47,6 +47,6 @@ class ContainerAddresseeCell: UITableViewCell, AddresseeActions {
         removeButton.isHidden = !showRemoveButton
         removeIndex = index
         nameLabel.text = determineName(addressee: addressee)
-        infoLabel.text = determineInfo(addressee: addressee, certFormat: certFormat)
+        infoLabel.text = determineInfo(addressee: addressee)
     }
 }

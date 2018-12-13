@@ -52,7 +52,7 @@
 }
 
 + (EIDType)eidTypeFromCertificate:(NSData*)certData {
-    NSArray<NSString*> *policyIdentifiers = [MoppLibDigidocManager certificatePolicyIdentifiers:certData withCertFormat:X509CertFormatPem];
+    NSArray<NSString*> *policyIdentifiers = [MoppLibDigidocManager certificatePolicyIdentifiers:certData];
     if ([policyIdentifiers count] == 0) {
         return EIDTypeUnknown;
     }
@@ -85,8 +85,8 @@
     return EIDTypeUnknown;
 }
 
-+ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData withCertFormat:(X509CertFormat)certFormat {
-    return [MoppLibDigidocManager certificatePolicyIdentifiers:certData withCertFormat:certFormat];
++ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData {
+    return [MoppLibDigidocManager certificatePolicyIdentifiers:certData];
 }
 
 @end

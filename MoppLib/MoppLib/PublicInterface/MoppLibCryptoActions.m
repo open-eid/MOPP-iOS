@@ -64,7 +64,7 @@
                 MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
                 NSData *certificate = addressee.cert;
                 
-                addressee.policyIdentifiers = [MoppLibDigidocManager certificatePolicyIdentifiers:certificate withCertFormat:X509CertFormatPem];
+                addressee.policyIdentifiers = [MoppLibDigidocManager certificatePolicyIdentifiers:certificate];
                 
                 NSString* certificateWithUTF8 = [NSString stringWithUTF8String:[certificate bytes]];
                 //Sometimes there may be a redundant line change
