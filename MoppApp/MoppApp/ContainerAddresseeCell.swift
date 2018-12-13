@@ -43,7 +43,7 @@ class ContainerAddresseeCell: UITableViewCell, AddresseeActions {
         delegate.removeAddressee(index: removeIndex)
     }
     
-    func populate(addressee: Addressee, index: Int, showRemoveButton: Bool, certFormat: X509CertFormat) {
+    func populate(addressee: Addressee, index: Int, showRemoveButton: Bool) {
         removeButton.isHidden = !showRemoveButton
         removeIndex = index
         nameLabel.text = determineName(addressee: addressee)

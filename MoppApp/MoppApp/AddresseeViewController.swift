@@ -143,8 +143,7 @@ extension AddresseeViewController : UITableViewDataSource {
                 cell.populate(
                     addressee: selectedAddressees[row] as! Addressee,
                     index: row,
-                    showRemoveButton: true,
-                    certFormat: .der)
+                    showRemoveButton: true)
                 return cell
         }
     }

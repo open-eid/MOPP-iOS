@@ -46,11 +46,6 @@ typedef NS_ENUM(int, MoppLibSignatureStatus) {
     UnknownStatus
 };
 
-typedef NS_ENUM(NSUInteger, X509CertFormat) {
-    X509CertFormatPem,
-    X509CertFormatDer
-};
-
 // Mopp Lib error codes
 
 typedef NS_ENUM(NSUInteger, MoppLibErrorCode) {
