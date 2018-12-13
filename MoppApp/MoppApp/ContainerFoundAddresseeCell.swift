@@ -49,7 +49,7 @@ class ContainerFoundAddresseeCell: UITableViewCell, AddresseeActions {
         self.index = index
 
         nameLabel.text = determineName(addressee: addressee)
-        infoLabel.text = determineInfo(addressee: addressee, certFormat: .der)
+        infoLabel.text = determineInfo(addressee: addressee)
         
         if isAddButtonDisabled {
             addButton.isEnabled = false

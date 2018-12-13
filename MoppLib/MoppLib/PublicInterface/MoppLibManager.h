@@ -50,6 +50,6 @@ typedef NS_ENUM(NSUInteger, EIDType) {
 + (NSString *)defaultTSUrl;
 + (EIDType)eidTypeFromCertificate:(NSData*)certData;
 + (EIDType)eidTypeFromCertificatePolicies:(NSArray<NSString*>*)certificatePolicies;
-+ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData withCertFormat:(X509CertFormat)certFormat;
++ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData;
 
 @end
