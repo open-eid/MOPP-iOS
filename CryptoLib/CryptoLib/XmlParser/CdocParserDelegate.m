@@ -66,7 +66,22 @@
     }
         
     if (_isNextCharactersCertificate) {
-        NSData *pemFormattedCertificate = [[NSString stringWithFormat:@"%@%@%@", @"-----BEGIN CERTIFICATE-----\n", string, @"\n-----END CERTIFICATE------"] dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *newLine = @"\n";
+        NSString *pemPrefix = @"-----BEGIN CERTIFICATE-----";
+        NSString *pemSuffix = @"-----END CERTIFICATE------";
+        
+        NSMutableString *pemCertificate = [NSMutableString new];
+        [pemCertificate appendString:pemPrefix];
+        if ([string hasPrefix:newLine] == NO) {
+            [pemCertificate appendString:newLine];
+        }
+        [pemCertificate appendString:string];
+        if ([pemCertificate hasSuffix:newLine] == NO) {
+            [pemCertificate appendString:newLine];
+        }
+        [pemCertificate appendString:pemSuffix];
+        
+        NSData *pemFormattedCertificate = [pemCertificate dataUsingEncoding:NSUTF8StringEncoding];
         _lastAddressee.cert = [pemFormattedCertificate subdataWithRange:NSMakeRange(0, [pemFormattedCertificate length] - 1)];
     }
 }
