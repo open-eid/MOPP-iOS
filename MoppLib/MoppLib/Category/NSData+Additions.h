@@ -28,4 +28,5 @@
 - (NSData *)trailingTwoBytes;
 - (NSString *)codePage1252String;
 - (NSData *)trailingTwoBytesTrimmed;
+- (NSData *)utf8String;
 @end

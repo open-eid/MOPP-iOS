@@ -57,6 +57,8 @@
 "crypto-type-id-card" = "ID-kaart";
 "crypto-type-digi-id" = "Digi-ID";
 "crypto-type-eseal" = "e-Tempel";
+"crypto-type-mobile-id" = "MOBIIL-ID";
+"crypto-type-unknown" = "TEADMATA";
 "crypto-add-addressee-button-title" = "LISA";
 "crypto-addressee-added-button-title" = "LISATUD";
 
@@ -153,7 +155,7 @@
 "wrong-pin1" = "Vale PIN1. Saad PIN1 koodi sisestada veel %1$d korda.";
 "wrong-pin2-single" = "Vale PIN2. Järgmise vale sisestusega lukustub PIN.";
 "wrong-pin1-single" = "Vale PIN1. Järgmise vale sisestusega lukustub PIN.";
-"card-reader-state-initial" = "Ühenda kaardilugeja telefoniga ja sisesta ID-kaart lugejasse. \nKui kasutad Bluetooth lugejat siis veendu, et telefonis on sisse lülitatud Bluetooth.";
+"card-reader-state-initial" = "Ühenda kaardilugeja telefoniga ja sisesta ID-kaart lugejasse.";
 "pin2-textfield-label" = "Sisesta PIN2";
 "pin1-textfield-label" = "Sisesta PIN1";
 "pin2-blocked-alert" = "PIN2 on lukus. Mine Minu eID, et avada.";
@@ -161,7 +163,7 @@
 "generic-error-message" = "Midagi läks valesti. Palun proovi uuesti";
 "decryption-error-message" = "Midagi läks dekrüpteerimisel valesti. Palun proovi uuesti";
 "signing-aborted-message" = "Allkirjastamine katkestatud";
-"my-eid-status-reader-not-found" = "Ühenda kaardilugeja telefoniga ja sisesta ID-kaart lugejasse. \nKui kasutad Bluetooth lugejat siis veendu, et telefonis on sisse lülitatud Bluetooth.";
+"my-eid-status-reader-not-found" = "Ühenda kaardilugeja telefoniga ja sisesta ID-kaart lugejasse.";
 "my-eid-status-card-not-found" = "Kaardilugeja leitud.\nSisesta ID-kaart lugejasse.";
 "my-eid-status-requesting-data" = "ID-kaart leitud.\nPärin andmeid.";
 "my-eid-cert-expired" = "aegunud";
@@ -235,7 +237,9 @@
 "settings-phone-number-placeholder" = "372XXXXXXXX";
 "settings-id-code-title" = "Isikukood";
 "settings-id-code-placeholder" = "Isikukood";
-"settings-container-type-title" = "Vaikimisi faili tüüp";
+"settings-timestamp-url-title" = "Ajatempli teenuse URL";
+"settings-timestamp-url-placeholder" = "";
+"settings-timestamp-use-default-title" = "Kasuta vaikeväärtust";
 "diagnostics-title" = "Diagnostika";
 "diagnostics-app-version" = "Rakenduse versioon";
 "diagnostics-ios-version" = "Operatsioonisüsteem";

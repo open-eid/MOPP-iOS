@@ -90,7 +90,7 @@ namespace digidoc
           //TM profile properties
           virtual std::string OCSPProducedAt() const;
           virtual X509Cert OCSPCertificate() const;
-          virtual std::vector<unsigned char> OCSPNonce() const;
+          DEPRECATED_DIGIDOCPP virtual std::vector<unsigned char> OCSPNonce() const;
 
           //TS profile properties
           virtual X509Cert TimeStampCertificate() const;
@@ -108,6 +108,9 @@ namespace digidoc
 
           // DSig properties
           virtual void validate(const std::string &policy) const;
+
+          // Other
+          virtual std::vector<unsigned char> messageImprint() const;
 
       protected:
           Signature();

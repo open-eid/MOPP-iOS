@@ -36,8 +36,8 @@ typedef enum {
 
 @property (readonly) BOOL useTestDigiDocService;
 + (MoppLibDigidocManager *)sharedInstance;
-
-- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS;
+- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString*)tsUrl;
++ (NSString *)defaultTSUrl;
 
 - (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath error:(NSError **)error;
 - (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths error:(NSError **)error;
@@ -54,5 +54,5 @@ typedef enum {
 - (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path;
 - (NSString *)digidocVersion;
 - (NSString *)pkcs12Cert;
-+ (SigningProfileType)signingProfileTypeUsingProfiles:(NSArray *)profiles andContainerExtension:(NSString *)containerExtension;
++ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData;
 @end

@@ -67,4 +67,11 @@
   NSString *string = [[NSString alloc] initWithData:responseData encoding:NSWindowsCP1252StringEncoding];
   return [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
+
+- (NSString *)utf8String {
+    NSData *responseData = [self trailingTwoBytesTrimmed];
+    NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+    return [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
 @end

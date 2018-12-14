@@ -33,31 +33,21 @@ let ContainerFormatPDF  = "pdf"
 let ContainerFormatCdoc = "cdoc"
 let FileFormatXml = "xml"
 
-let DefaultContainerFormat = ContainerFormatBdoc
+let DefaultContainerFormat = ContainerFormatAsice
 
 let CrashlyticsAlwaysSend = "Always"
 let CrashlyticsNeverSend = "Never"
 let CrashlyticsDefault = "Default"
 // Keys
-let kNewContainerFormatKey = "kNewContainerFormatKey"
-let kPhoneNumberKey = "kPhoneNumberKey"
-let kIDCodeKey = "kIDCodeKey"
-let kCrashReportSettingKey = "kCrashReportSettingKey"
-let kPreviousPreferredLanguage = "kPreviousPreferredLanguage"
-let kMoppLanguage = "kMoppLanguage"
+fileprivate let kPhoneNumberKey = "kPhoneNumberKey"
+fileprivate let kIDCodeKey = "kIDCodeKey"
+fileprivate let kTimestampUrlKey = "kTimestampUrlKey"
+fileprivate let kCrashReportSettingKey = "kCrashReportSettingKey"
+fileprivate let kPreviousPreferredLanguage = "kPreviousPreferredLanguage"
+fileprivate let kMoppLanguage = "kMoppLanguage"
 
 class DefaultsHelper
 {
-    // New container format
-    class var newContainerFormat: String {
-        set {
-            UserDefaults.standard.set(newValue, forKey: kNewContainerFormatKey)
-        }
-        get {
-            return (UserDefaults.standard.value(forKey: kNewContainerFormatKey) as? String) ?? String()
-        }
-    }
-
     class var phoneNumber: String? {
         set {
             UserDefaults.standard.set(newValue, forKey: kPhoneNumberKey)
@@ -73,6 +63,15 @@ class DefaultsHelper
         }
         get {
             return (UserDefaults.standard.value(forKey: kIDCodeKey) as? String) ?? String()
+        }
+    }
+    
+    class var timestampUrl: String? {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kTimestampUrlKey)
+        }
+        get {
+            return UserDefaults.standard.value(forKey: kTimestampUrlKey) as? String
         }
     }
 

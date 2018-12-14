@@ -53,6 +53,8 @@
 "crypto-type-id-card" = "ID-карта";
 "crypto-type-digi-id" = "Digi-ID";
 "crypto-type-eseal" = "e-Печать";
+"crypto-type-mobile-id" = "MOBIIL-ID";
+"crypto-type-unknown" = "НЕИЗВЕСТНО";
 "crypto-add-addressee-button-title" = "ДОБАВИТЬ";
 "crypto-addressee-added-button-title" = "ДОБАВЛЕН";
 
@@ -142,7 +144,7 @@
 "search-container-file" = "Искать контейнер";
 "sign-title-mobile-id" = "Mobiil-ID";
 "sign-title-id-card" = "ID-карта";
-"card-reader-state-initial" = "Подключите считыватель карты к телефону и вставьте в него Вашу ID-карту.\nЕсли Вы используете считыватель карты по Bluetooth, то убедитесь, что Bluetooth в телефоне включен.";
+"card-reader-state-initial" = "Подключите считыватель карты к телефону и вставьте в него Вашу ID-карту.";
 "card-reader-state-reader-not-found" = "Считыватель карты не обнаружен";
 "card-reader-state-id-card-not-found" = "Обнаружен считыватель карты.\nВставьте в него Вашу ID-карту.";
 "card-reader-state-id-card-connected" = "Обнаружена ID-карта.\nЗапрашивается информация.";
@@ -161,7 +163,7 @@
 "generic-error-message" = "Что-то пошло не так. Пожалуйста, попробуйте снова.";
 "decryption-error-message" = "Что-то пошло не так с дешифрованием. Пожалуйста, попробуйте снова.";
 "signing-aborted-message" = "Процесс подписания прерван";
-"my-eid-status-reader-not-found" = "Подключите считыватель карты к телефону и вставьте в него Вашу ID-карту.\nЕсли Вы используете считыватель карты по Bluetooth, то убедитесь, что Bluetooth в телефоне включен.";
+"my-eid-status-reader-not-found" = "Подключите считыватель карты к телефону и вставьте в него Вашу ID-карту.";
 "my-eid-status-card-not-found" = "Обнаружен считыватель карты.\nВставьте в него Вашу ID-карту.";
 "my-eid-status-requesting-data" = "Обнаружена ID-карта.\nЗапрашивается информация.";
 "my-eid-cert-expired" = "недействителен";
@@ -235,7 +237,9 @@
 "settings-phone-number-placeholder" = "372XXXXXXXX";
 "settings-id-code-title" = "Личный код";
 "settings-id-code-placeholder" = "Личный код";
-"settings-container-type-title" = "Формат файла по умолчанию";
+"settings-timestamp-url-title" = "URL-адрес временного штампа";
+"settings-timestamp-url-placeholder" = "";
+"settings-timestamp-use-default-title" = "Использовать значение по умолчанию";
 "diagnostics-title" = "Диагностика";
 "diagnostics-app-version" = "Версия приложения";
 "diagnostics-ios-version" = "Операционная система";

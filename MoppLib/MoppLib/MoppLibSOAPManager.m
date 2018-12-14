@@ -24,7 +24,11 @@
 #import "MoppLibSOAPManager.h"
 #import "MoppLibDigidocManager.h"
 #import "MoppLibDataFile.h"
+#ifdef TEST_ENV
+#import <MoppLibTestEnv/MoppLib-Swift.h>
+#else
 #import <MoppLib/MoppLib-Swift.h>
+#endif
 #import "MoppLibError.h"
 #import "MoppLibMobileCreateSignatureResponse.h"
 #import "MoppLibGetMobileCreateSignatureStatusResponse.h"
@@ -82,7 +86,7 @@ static NSUInteger kDDsMessageMaximumByteSize = 40;
   [mobileCreateSignature addChildWithName:@"PhoneNo" value:phoneNo attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"Language" value:nationality attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"ServiceName" value:(_useTestDigiDocService ? kTestServiceName : kServiceName) attributes:@{@"xsi:type" : @"xsd:string"}];
-  NSString *signingProfile = [container isAsice] ? @"LT" : @"LT_TM";
+  NSString *signingProfile = @"LT";
   [mobileCreateSignature addChildWithName:@"SigningProfile" value:signingProfile attributes:nil];
   
   AEXMLElement *dataFiles = [[AEXMLElement alloc] initWithName:@"DataFiles" value:nil attributes:@{@"xsi:type" : @"dig:DataFileDigestList"}];

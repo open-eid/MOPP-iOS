@@ -26,6 +26,8 @@
 
 @protocol CardReaderWrapper <NSObject>
 
+- (MoppLibCardChipType)cardChipType;
+
 /**
  * Transmits command and gets response from card
  *
@@ -33,7 +35,7 @@
  * @param success   block to be called when card action is completed successfully
  * @param failure   block to be called when executing card action fails
  */
-- (void)transmitCommand:(NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure;
+- (void)transmitCommand:(const NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 /**
  * Powers on card

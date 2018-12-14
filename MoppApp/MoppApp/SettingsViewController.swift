@@ -21,6 +21,7 @@
  *
  */
 class SettingsViewController: MoppViewController {
+    private(set) var timestampUrl: String!
     @IBOutlet weak var tableView: UITableView!
     
     enum Section {
@@ -29,15 +30,18 @@ class SettingsViewController: MoppViewController {
     }
     
     enum FieldId {
+        case missingId
         case phoneNumber
         case personalCode
-        case containerType
+        case timestampUrl
     }
     
     struct Field {
         enum Kind {
             case inputField
             case choice
+            case groupSeparator
+            case timestamp
         }
         
         let id: FieldId
@@ -73,21 +77,30 @@ class SettingsViewController: MoppViewController {
             value: DefaultsHelper.idCode
         ),
         Field(
-            id: .containerType,
-            kind: .choice,
-            title: L(.settingsContainerTypeTitle),
+            id: .missingId,
+            kind: .groupSeparator,
+            title: String(),
             placeholderText: String(),
-            value: DefaultsHelper.newContainerFormat
+            value: String()
+        ),
+        Field(
+            id: .timestampUrl,
+            kind: .timestamp,
+            title: L(.settingsTimestampUrlTitle),
+            placeholderText: L(.settingsTimestampUrlPlaceholder),
+            value: DefaultsHelper.timestampUrl ?? MoppLibManager.defaultTSUrl()
         )
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        timestampUrl = DefaultsHelper.timestampUrl
+        
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
     }
-    
+        
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
@@ -122,11 +135,18 @@ extension SettingsViewController: UITableViewDataSource {
                     fieldCell.delegate = self
                     fieldCell.populate(with: field)
                 return fieldCell
+            case .timestamp:
+                let timeStampCell = tableView.dequeueReusableCell(withType: SettingsTimeStampCell.self, for: indexPath)!
+                    timeStampCell.delegate = self
+                    timeStampCell.populate(with: field)
+                return timeStampCell
             case .choice:
                 let choiceCell = tableView.dequeueReusableCell(withType: SettingsChoiceCell.self, for: indexPath)!
-                    choiceCell.delegate = self
                     choiceCell.populate(with: field)
                 return choiceCell
+            case .groupSeparator:
+                let groupSeparatorCell = tableView.dequeueReusableCell(withIdentifier: "SettingsGroupSeparator", for: indexPath)
+                return groupSeparatorCell
             }
         }
     }
@@ -149,15 +169,19 @@ extension SettingsViewController: SettingsFieldCellDelegate {
     }
 }
 
-extension SettingsViewController: SettingsChoiceCellDelegate {
-    func didChooseOption(_ fieldId: SettingsViewController.FieldId, _ optionId: SettingsChoiceCell.OptionId?) {
-        if fieldId == .containerType {
-            if optionId == .containerTypeBdoc {
-                DefaultsHelper.newContainerFormat = ContainerFormatBdoc
-            }
-            else if optionId == .containerTypeAsice {
-                DefaultsHelper.newContainerFormat = ContainerFormatAsice
-            }
-        }
+extension SettingsViewController: SettingsTimeStampCellDelegate {
+    func didChangeTimestamp(_ fieldId: SettingsViewController.FieldId, with value: String?) {
+
+#if USE_TEST_DDS
+        let useTestDDS = true
+#else
+        let useTestDDS = false
+#endif
+        MoppLibManager.sharedInstance()?.setup(success: {
+            print("success")
+        }, andFailure: { [weak self] error in
+            let nsError = error! as NSError
+            self?.errorAlert(message: L(.genericErrorMessage), title: nsError.userInfo["message"] as? String)
+        }, usingTestDigiDocService: useTestDDS, andTSUrl: value)
     }
 }

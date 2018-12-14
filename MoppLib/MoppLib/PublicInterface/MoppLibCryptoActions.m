@@ -37,6 +37,7 @@
 #include <openssl/pem.h>
 #include <openssl/err.h>
 #import "NSData+Additions.h"
+#include "MoppLibDigidocMAnager.h"
 
 @implementation MoppLibCryptoActions
     
@@ -62,6 +63,9 @@
             for (Addressee* addressee in response.addressees) {
                 MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
                 NSData *certificate = addressee.cert;
+                
+                addressee.policyIdentifiers = [MoppLibDigidocManager certificatePolicyIdentifiers:certificate];
+                
                 NSString* certificateWithUTF8 = [NSString stringWithUTF8String:[certificate bytes]];
                 //Sometimes there may be a redundant line change
                 NSString *formattedCertificate = [certificateWithUTF8 stringByReplacingOccurrencesOfString:@"\n\n" withString:@"\n"];

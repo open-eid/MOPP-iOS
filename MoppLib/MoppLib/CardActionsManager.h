@@ -23,12 +23,10 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import <CoreBluetooth/CoreBluetooth.h>
 #import "CardCommands.h"
-#import "CBManagerHelper.h"
 
 
-@interface CardActionsManager : NSObject <CBManagerHelperDelegate>
+@interface CardActionsManager : NSObject
 + (CardActionsManager *)sharedInstance;
 
 @property (nonatomic, strong) id<CardReaderWrapper> reader;
@@ -38,8 +36,6 @@
 - (void)minimalCardPersonalDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure;
 
 - (void)cardPersonalDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure;
-
-- (void)cardOwnerBirthDateWithSuccess:(void(^)(NSDate *date))success failure:(FailureBlock)failure;
 
 - (void)signingCertWithPin2:(NSString *)pin2 success:(CertDataBlock)success failure:(FailureBlock)failure;
 - (void)authenticationCertWithSuccess:(CertDataBlock)success failure:(FailureBlock)failure;

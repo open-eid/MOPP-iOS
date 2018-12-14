@@ -196,8 +196,10 @@ enum LocKey : String
     case settingsPhoneNumberTitle = "settings-phone-number-title"
     case settingsPhoneNumberPlaceholder = "settings-phone-number-placeholder"
     case settingsIdCodeTitle = "settings-id-code-title"
+    case settingsTimestampUrlTitle = "settings-timestamp-url-title"
+    case settingsTimestampUrlPlaceholder = "settings-timestamp-url-placeholder"
+    case settingsTimestampUseDefaultTitle = "settings-timestamp-use-default-title"
     case settingsIdCodePlaceholder = "settings-id-code-placeholder"
-    case settingsContainerTypeTitle = "settings-container-type-title"
     case diagnosticsTitle = "diagnostics-title"
     case diagnosticsAppVersion = "diagnostics-app-version"
     case diagnosticsIosVersion = "diagnostics-ios-version"
@@ -215,6 +217,8 @@ enum LocKey : String
     case cryptoTypeIdCard = "crypto-type-id-card";
     case cryptoTypeDigiId = "crypto-type-digi-id";
     case cryptoTypeESeal = "crypto-type-eseal";
+    case cryptoTypeMobileId = "crypto-type-mobile-id";
+    case cryptoTypeUnknown = "crypto-type-unknown";
     case cryptoAddAddresseeButtonTitle = "crypto-add-addressee-button-title";
     case cryptoAddresseeAddedButtonTitle = "crypto-addressee-added-button-title";
     case datafilePreviewFailed = "datafile-preview-failed";

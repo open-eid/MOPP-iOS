@@ -23,7 +23,7 @@
 import Foundation
 
 protocol AddresseeActions {
-    func displayAddresseeType(_ addresseetype: String) -> String
+    func displayAddresseeType(_ policyIdentifiers: [String]) -> String
     func determineName(addressee: Addressee) -> String
 }
 
@@ -38,20 +38,37 @@ extension AddresseeActions {
     }
     
     func determineInfo(addressee: Addressee) -> String {
-        let addresseeType = displayAddresseeType(addressee.type)
+        let policyIdentifiers = MoppLibManager.certificatePolicyIdentifiers(addressee.cert)
+        let addresseeType = displayAddresseeType(policyIdentifiers as? [String] ?? [])
         let validTo = "\(L(LocKey.cryptoValidTo)) \(MoppDateFormatter.shared.ddMMYYYY(toString: addressee.validTo))"
         return "\(addresseeType) (\(validTo))"
     }
     
-    func displayAddresseeType(_ addresseetype: String) -> String {
-        switch addresseetype {
-        case "DIGI-ID":
-            return L(.cryptoTypeDigiId)
-        case "E-SEAL":
-            return L(.cryptoTypeESeal)
-        default:
-            return L(.cryptoTypeIdCard)
+    func displayAddresseeType(_ policyIdentifiers: [String]) -> String {
+        if policyIdentifiers == [] {
+            return L(.cryptoTypeUnknown)
         }
+        for pi in policyIdentifiers {
+            if pi.hasPrefix("1.3.6.1.4.1.10015.1.1")
+                || pi.hasPrefix("1.3.6.1.4.1.51361.1.1.1") {
+                return L(.cryptoTypeIdCard)
+            }
+            else if pi.hasPrefix("1.3.6.1.4.1.10015.1.2")
+                || pi.hasPrefix("1.3.6.1.4.1.51361.1.1")
+                || pi.hasPrefix("1.3.6.1.4.1.51455.1.1") {
+                return L(.cryptoTypeDigiId)
+            }
+            else if pi.hasPrefix("1.3.6.1.4.1.10015.1.3")
+                || pi.hasPrefix("1.3.6.1.4.1.10015.11.1") {
+                return L(.cryptoTypeMobileId)
+            }
+            else if pi.hasPrefix("1.3.6.1.4.1.10015.7.3")
+                || pi.hasPrefix("1.3.6.1.4.1.10015.7.1")
+                || pi.hasPrefix("1.3.6.1.4.1.10015.2.1") {
+                return L(.cryptoTypeESeal)
+            }
+        }
+        return L(.cryptoTypeUnknown)
     }
     
 }

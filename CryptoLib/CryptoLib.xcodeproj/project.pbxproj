@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		390C015F20AC3DC800827230 /* libldap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 390C015E20AC3DC700827230 /* libldap.a */; };
-		390C016120AC3DE000827230 /* liblber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 390C016020AC3DE000827230 /* liblber.a */; };
 		39231FAF20AB1C6C00E1E2B4 /* CryptoLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 39231FAD20AB1C6C00E1E2B4 /* CryptoLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39266A5120CFBDF8002E3F23 /* SmartCardTokenWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5020CFBDF8002E3F23 /* SmartCardTokenWrapper.mm */; };
 		39266A5A20CFD956002E3F23 /* AbstractSmartToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 39266A5920CFD93E002E3F23 /* AbstractSmartToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -40,6 +39,10 @@
 		39E2B4DD20AD7A3400CA74A8 /* Attribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4D320AD7A3400CA74A8 /* Attribute.h */; };
 		39E2B4DE20AD7A3400CA74A8 /* OpenLdap.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4D420AD7A3400CA74A8 /* OpenLdap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39E2B4DF20AD7A3400CA74A8 /* Addressee.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4D520AD7A3400CA74A8 /* Addressee.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5B7957B21BABD8300DC2C59 /* ldapca.pem in Resources */ = {isa = PBXBuildFile; fileRef = C5B7957A21BABD8300DC2C59 /* ldapca.pem */; };
+		C5B7958221BEA74800DC2C59 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B7957721BABCA800DC2C59 /* libssl.a */; };
+		C5B7958321BEA76300DC2C59 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B7957621BABCA800DC2C59 /* libcrypto.a */; };
+		C5B7958421BEA78200DC2C59 /* liblber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 390C016020AC3DE000827230 /* liblber.a */; };
 		D1E62632CCCD9195F3D8E2EE /* Pods_CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2337FC39B457D26F7140179 /* Pods_CryptoLib.framework */; };
 /* End PBXBuildFile section */
 
@@ -59,7 +62,6 @@
 		39266A6120CFE36A002E3F23 /* CdocParserDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CdocParserDelegate.h; sourceTree = "<group>"; };
 		39266A6220CFE3D4002E3F23 /* CdocParserDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CdocParserDelegate.m; sourceTree = "<group>"; };
 		393B66BB20D8F361001DC89B /* AbstractSmartToken.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AbstractSmartToken.mm; sourceTree = "<group>"; };
-		393B66C220DA6956001DC89B /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = CryptoLib/cdocFramework/cdoc.iphoneios/cdoc.framework; sourceTree = "<group>"; };
 		393B66C420DA6964001DC89B /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = CryptoLib/cdocFramework/cdoc.iphonesimulator/cdoc.framework; sourceTree = "<group>"; };
 		393B66DF20DB94B4001DC89B /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = CryptoLib/cdocFramework/cdoc.framework; sourceTree = "<group>"; };
 		3960E50320C02DA400D4D2FC /* CryptoDataFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptoDataFile.h; sourceTree = "<group>"; };
@@ -86,6 +88,13 @@
 		8B92C4AD1DA967C9A6803AA8 /* Pods-CryptoLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoLib.release.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-CryptoLib/Pods-CryptoLib.release.xcconfig"; sourceTree = "<group>"; };
 		96E123961B6332200D700AC2 /* Pods-CryptoLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoLib.debug.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-CryptoLib/Pods-CryptoLib.debug.xcconfig"; sourceTree = "<group>"; };
 		B2337FC39B457D26F7140179 /* Pods_CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5AE7FEE21BAA14600C25453 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos/lib/libssl.a; sourceTree = "<group>"; };
+		C5AE7FEF21BAA14600C25453 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos/lib/libcrypto.a; sourceTree = "<group>"; };
+		C5B7957221BABB3300DC2C59 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = CryptoLib/libcrypto.a; sourceTree = "<group>"; };
+		C5B7957321BABB3300DC2C59 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = CryptoLib/libssl.a; sourceTree = "<group>"; };
+		C5B7957621BABCA800DC2C59 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = CryptoLib/openldap/OpenLDAP.iphoneos/libraries/libcrypto.a; sourceTree = "<group>"; };
+		C5B7957721BABCA800DC2C59 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = CryptoLib/openldap/OpenLDAP.iphoneos/libraries/libssl.a; sourceTree = "<group>"; };
+		C5B7957A21BABD8300DC2C59 /* ldapca.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ldapca.pem; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,10 +102,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				393B66E020DB94B4001DC89B /* cdoc.framework in Frameworks */,
-				390C016120AC3DE000827230 /* liblber.a in Frameworks */,
+				C5B7958421BEA78200DC2C59 /* liblber.a in Frameworks */,
+				C5B7958321BEA76300DC2C59 /* libcrypto.a in Frameworks */,
+				C5B7958221BEA74800DC2C59 /* libssl.a in Frameworks */,
 				390C015F20AC3DC800827230 /* libldap.a in Frameworks */,
 				D1E62632CCCD9195F3D8E2EE /* Pods_CryptoLib.framework in Frameworks */,
+				393B66E020DB94B4001DC89B /* cdoc.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,10 +126,12 @@
 		39231FA020AB1C6C00E1E2B4 = {
 			isa = PBXGroup;
 			children = (
+				C5B7957A21BABD8300DC2C59 /* ldapca.pem */,
 				39231FAC20AB1C6C00E1E2B4 /* CryptoLib */,
 				39231FAB20AB1C6C00E1E2B4 /* Products */,
 				2F17A286E2A2AF6B019B41A6 /* Pods */,
 				D5B2B96758D5CBE2A4F80170 /* Frameworks */,
+				C5AE7FED21B94FAE00C25453 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -194,9 +207,23 @@
 			path = XmlParser;
 			sourceTree = "<group>";
 		};
+		C5AE7FED21B94FAE00C25453 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				393B66DF20DB94B4001DC89B /* cdoc.framework */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		D5B2B96758D5CBE2A4F80170 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5AE7FEF21BAA14600C25453 /* libcrypto.a */,
+				C5AE7FEE21BAA14600C25453 /* libssl.a */,
+				C5B7957221BABB3300DC2C59 /* libcrypto.a */,
+				C5B7957321BABB3300DC2C59 /* libssl.a */,
+				C5B7957621BABCA800DC2C59 /* libcrypto.a */,
+				C5B7957721BABCA800DC2C59 /* libssl.a */,
 				393B66C420DA6964001DC89B /* cdoc.framework */,
 				390C016020AC3DE000827230 /* liblber.a */,
 				390C015E20AC3DC700827230 /* libldap.a */,
@@ -243,7 +270,6 @@
 				39231FA620AB1C6C00E1E2B4 /* Frameworks */,
 				39231FA720AB1C6C00E1E2B4 /* Headers */,
 				39231FA820AB1C6C00E1E2B4 /* Resources */,
-				4F76331712D4079F3B157B07 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -291,6 +317,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5B7957B21BABD8300DC2C59 /* ldapca.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,21 +340,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4F76331712D4079F3B157B07 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../MoppApp/Pods/Target Support Files/Pods-CryptoLib/Pods-CryptoLib-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -497,10 +509,16 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries",
+					"$(PROJECT_DIR)/CryptoLib/openldap/OpenLDAP.iphoneos/libraries",
+					"$(PROJECT_DIR)/../CryptoLib",
+					"$(PROJECT_DIR)/CryptoLib",
+				);
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries";
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphonesimulator/libraries";
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.CryptoLib;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -531,8 +549,14 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries";
-				OTHER_LDFLAGS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries",
+					"$(PROJECT_DIR)/CryptoLib/openldap/OpenLDAP.iphoneos/libraries",
+					"$(PROJECT_DIR)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos/lib",
+					"$(PROJECT_DIR)/../CryptoLib",
+					"$(PROJECT_DIR)/CryptoLib",
+				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.CryptoLib;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

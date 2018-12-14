@@ -40,8 +40,22 @@
 #import <Security/SecCertificate.h>
 #import <Security/SecKey.h>
 
+NSString *kDefaultTSUrl = @"http://dd-at.ria.ee/tsa";
+
 class DigiDocConf: public digidoc::ConfCurrent {
+private:
+  std::string m_tsUrl;
+  
 public:
+
+#ifdef TEST_ENV
+  std::string TSLUrl() const {
+    return "https://open-eid.github.io/test-TL/EE_T.xml";
+  }
+#endif
+
+  DigiDocConf(const std::string& tsUrl) : m_tsUrl( tsUrl ) {}
+
   std::string TSLCache() const
   {
     NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
@@ -54,6 +68,13 @@ public:
     NSBundle *bundle = [NSBundle bundleForClass:[MoppLibDigidocManager class]];
     NSString *path = [bundle pathForResource:@"schema" ofType:@""];
     return path.UTF8String;
+  }
+  
+  virtual std::string TSUrl() const {
+    if (m_tsUrl.empty()) {
+        return std::string([kDefaultTSUrl cStringUsingEncoding:NSUTF8StringEncoding]);
+    }
+    return m_tsUrl;
   }
   
   virtual std::string PKCS12Cert() const {
@@ -104,7 +125,7 @@ private:
   return sharedInstance;
 }
 
-- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS {
+- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString*)tsUrl {
   
   MoppLibSOAPManager.sharedInstance.useTestDigiDocService = useTestDDS;
   
@@ -130,7 +151,10 @@ private:
   // Initialize libdigidocpp.
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     try {
-      digidoc::Conf::init(new DigiDocConf);
+      std::string timestampUrl = tsUrl == nil ?
+        [[MoppLibDigidocManager defaultTSUrl] cStringUsingEncoding:NSUTF8StringEncoding] :
+        [tsUrl cStringUsingEncoding:NSUTF8StringEncoding];
+      digidoc::Conf::init(new DigiDocConf(timestampUrl));
       digidoc::initialize("qdigidocclient");
       
       dispatch_async(dispatch_get_main_queue(), ^{
@@ -140,10 +164,38 @@ private:
       parseException(e);
       
       dispatch_async(dispatch_get_main_queue(), ^{
-        failure(nil);
+        NSError *error = [NSError errorWithDomain:@"MoppLib" code:e.code() userInfo:@{@"message":[NSString stringWithUTF8String:e.msg().c_str()]}];
+        failure(error);
       });
     }
   });
+}
+
++ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData {
+    digidoc::X509Cert x509Cert;
+    
+    const unsigned char *bytes = (const unsigned  char *)[certData bytes];
+    try {
+        x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Der);
+    } catch(...) {
+        try {
+            x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Pem);
+        } catch(...) {
+            printf("create X509 certificate object raised exception\n");
+            return @[];
+        }
+    }
+
+    auto policies = x509Cert.certificatePolicies();
+    NSMutableArray *result = [NSMutableArray new];
+    for (auto p : policies) {
+        [result addObject:[NSString stringWithUTF8String:p.c_str()]];
+    }
+    return result;
+}
+
++ (NSString *)defaultTSUrl {
+    return kDefaultTSUrl;
 }
 
 - (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath error:(NSError **)error {
@@ -253,6 +305,9 @@ private:
     }
     else if(digidoc::Signature::Validator::Status::Unknown==status){
         return UnknownStatus;
+    }
+    else if(digidoc::Signature::Validator::Status::Test==status){
+        return ValidTest;
     }
     return Invalid;
 }
@@ -453,9 +508,8 @@ void parseException(const digidoc::Exception &e) {
     for (auto signature : container->signatures()) {
         [profiles addObject:[[NSString alloc] initWithBytes:signature->profile().c_str() length:signature->profile().size() encoding:NSUTF8StringEncoding]];
     }
-    SigningProfileType profileType = [MoppLibDigidocManager signingProfileTypeUsingProfiles:profiles andContainerExtension:[containerPath pathExtension]];
     
-    std::string profile = profileType == TimeStamp ? "time-stamp" : "time-mark";
+    std::string profile = "time-stamp";
     
     signer->setProfile(profile);
     signer->setSignatureProductionPlace("", "", "", "");
@@ -576,66 +630,9 @@ void parseException(const digidoc::Exception &e) {
 }
 
 - (NSString *)pkcs12Cert {
-    DigiDocConf *conf = new DigiDocConf;
+    DigiDocConf *conf = new DigiDocConf(std::string());
     std::string certPath = conf->PKCS12Cert();
     return [NSString stringWithUTF8String:certPath.c_str()];
-}
-    
-+ (SigningProfileType)signingProfileTypeUsingProfiles:(NSArray *)profiles andContainerExtension:(NSString *)containerExtension {
-    SigningProfileType profileType = Unspecified;
-    
-    BOOL sameSignatures = YES;
-    {
-        NSString *prevProfile = nil;
-        for (id prof in profiles) {
-            NSString *profile = (NSString *)prof;
-            if (prevProfile != nil && ![prevProfile containsString:profile]) {
-                sameSignatures = NO;
-                break;
-            }
-            prevProfile = profile;
-        }
-    }
-    
-    BOOL isAsice = [containerExtension isEqualToString:@"asice"] ||
-                    [containerExtension isEqualToString:@"sce"];
-    
-    if (profiles.count == 1) {
-      NSString *profile = profiles[0];
-      
-      if (isAsice) {
-        profileType = TimeStamp;
-      } else {
-        if ([profile containsString:@"time-stamp"]) {
-            profileType = TimeStamp;
-        } else if ([profile containsString:@"time-mark"]) {
-            profileType = TimeMark;
-        }
-      }
-      
-    } else if (profiles.count > 1) {
-        if (sameSignatures) {
-            profileType = [profiles[0] containsString:@"time-stamp"] ? TimeStamp : TimeMark;
-        } else {
-            if (isAsice) {
-                profileType = TimeStamp;
-            } else {
-                profileType = TimeMark;
-            }
-        }
-    } else {
-      if (isAsice) {
-        profileType = TimeStamp;
-      } else {
-        profileType = TimeMark;
-      }
-    }
-    
-    if (profileType == Unspecified) {
-      profileType = TimeStamp;
-    }
-    
-    return profileType;
 }
 
 @end
