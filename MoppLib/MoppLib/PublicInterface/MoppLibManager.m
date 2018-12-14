@@ -35,11 +35,58 @@
   return sharedInstance;
 }
 
-- (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure {
-  [[MoppLibDigidocManager sharedInstance] setupWithSuccess:success andFailure:failure];
+- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString *)tsUrl {
+  [[MoppLibDigidocManager sharedInstance] setupWithSuccess:success andFailure:failure usingTestDigiDocService:useTestDDS andTSUrl:tsUrl];
 }
 
-- (NSString *)getMoppLibVersion {
+- (NSString *)moppLibVersion {
   return [[MoppLibDigidocManager sharedInstance] getMoppLibVersion];
 }
+
+- (NSString *)libdigidocppVersion {
+    return [[MoppLibDigidocManager sharedInstance] digidocVersion];
+}
+
++ (NSString *)defaultTSUrl {
+    return [MoppLibDigidocManager defaultTSUrl];
+}
+
++ (EIDType)eidTypeFromCertificate:(NSData*)certData {
+    NSArray<NSString*> *policyIdentifiers = [MoppLibDigidocManager certificatePolicyIdentifiers:certData];
+    if ([policyIdentifiers count] == 0) {
+        return EIDTypeUnknown;
+    }
+
+    return [self eidTypeFromCertificatePolicies:policyIdentifiers];
+}
+
++ (EIDType)eidTypeFromCertificatePolicies:(NSArray<NSString*>*)policyIdentifiers {
+    if ([policyIdentifiers count] == 0) {
+        return EIDTypeUnknown;
+    }
+    
+    for (NSString *policyID in policyIdentifiers) {
+        if ([policyID hasPrefix:@"1.3.6.1.4.1.10015.1.1"]
+            || [policyID hasPrefix:@"1.3.6.1.4.1.51361.1.1.1"])
+            return EIDTypeIDCard;
+        else if ([policyID hasPrefix:@"1.3.6.1.4.1.10015.1.2"]
+            || [policyID hasPrefix:@"1.3.6.1.4.1.51361.1.1"]
+            || [policyID hasPrefix:@"1.3.6.1.4.1.51455.1.1"])
+            return EIDTypeDigiID;
+        else if ([policyID hasPrefix:@"1.3.6.1.4.1.10015.1.3"]
+            || [policyID hasPrefix:@"1.3.6.1.4.1.10015.11.1"])
+            return EIDTypeMobileID;
+        else if ([policyID hasPrefix:@"1.3.6.1.4.1.10015.7.3"]
+            || [policyID hasPrefix:@"1.3.6.1.4.1.10015.7.1"]
+            || [policyID hasPrefix:@"1.3.6.1.4.1.10015.2.1"])
+            return EIDTypeESeal;
+    }
+    
+    return EIDTypeUnknown;
+}
+
++ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData {
+    return [MoppLibDigidocManager certificatePolicyIdentifiers:certData];
+}
+
 @end

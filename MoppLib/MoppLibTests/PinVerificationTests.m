@@ -39,7 +39,7 @@
   self.cardActionsManagerMock = OCMClassMock([CardActionsManager class]);
   OCMStub([self.cardActionsManagerMock sharedInstance]).andReturn(self.cardActionsManagerMock);
   
-  OCMStub([self.cardActionsManagerMock cardOwnerBirthDateWithViewController:nil success:[OCMArg any] failure:[OCMArg any]]).andDo(^(NSInvocation *invocation) {
+  OCMStub([self.cardActionsManagerMock cardOwnerBirthDateWithSuccess:[OCMArg any] failure:[OCMArg any]]).andDo(^(NSInvocation *invocation) {
     void (^successBlock)( NSDate *date);
     
     [invocation getArgument: &successBlock atIndex: 3];
@@ -63,7 +63,7 @@
 - (void)testPin1SameAsVerify {
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin1 pin:@"1252" andVerificationCode:@"1252" viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin1 pin:@"1252" andVerificationCode:@"1252" success:^{
     XCTAssertTrue(NO);
     [expectation fulfill];
     
@@ -80,7 +80,7 @@
 - (void)testPin1Invalid1 {
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin1 pin:@"0000" andVerificationCode:@"0001" viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin1 pin:@"0000" andVerificationCode:@"0001" success:^{
     XCTAssertTrue(NO);
     [expectation fulfill];
     
@@ -97,7 +97,7 @@
 - (void)testPin1Invalid2 {
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin1 pin:@"1234" andVerificationCode:@"0001" viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin1 pin:@"1234" andVerificationCode:@"0001" success:^{
     XCTAssertTrue(NO);
     [expectation fulfill];
     
@@ -114,7 +114,7 @@
 - (void)testPin1TooShort {
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin1 pin:@"223" andVerificationCode:@"0001" viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin1 pin:@"223" andVerificationCode:@"0001" success:^{
     XCTAssertTrue(NO);
     [expectation fulfill];
     
@@ -131,7 +131,7 @@
 - (void)testPin1TooLong {
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin1 pin:@"1122334455667" andVerificationCode:@"0001" viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin1 pin:@"1122334455667" andVerificationCode:@"0001" success:^{
     XCTAssertTrue(NO);
     [expectation fulfill];
     
@@ -150,7 +150,7 @@
   NSString *oldPin = @"0001";
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
 
-  [MoppLibPinActions verifyType:CodeTypePin1 pin:newPin andVerificationCode:oldPin viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin1 pin:newPin andVerificationCode:oldPin success:^{
     XCTAssertTrue(YES);
     [expectation fulfill];
     
@@ -169,7 +169,7 @@
   NSString *oldPin = @"0001";
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin1 pin:newPin andVerificationCode:oldPin viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin1 pin:newPin andVerificationCode:oldPin success:^{
     XCTAssertTrue(YES);
     [expectation fulfill];
     
@@ -186,7 +186,7 @@
 - (void)testPin1ContainsInvalidChars {
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin1 pin:@"12a34" andVerificationCode:@"0001" viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin1 pin:@"12a34" andVerificationCode:@"0001" success:^{
     XCTAssertTrue(NO);
     [expectation fulfill];
     
@@ -205,7 +205,7 @@
   NSString *oldPin = @"0001";
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin1 pin:newPin andVerificationCode:oldPin viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin1 pin:newPin andVerificationCode:oldPin success:^{
     XCTAssertTrue(NO);
     [expectation fulfill];
     
@@ -224,7 +224,7 @@
   NSString *oldPin = @"0001";
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin1 pin:newPin andVerificationCode:oldPin viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin1 pin:newPin andVerificationCode:oldPin success:^{
     XCTAssertTrue(NO);
     [expectation fulfill];
     
@@ -243,7 +243,7 @@
   NSString *oldPin = @"0001";
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin1 pin:newPin andVerificationCode:oldPin viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin1 pin:newPin andVerificationCode:oldPin success:^{
     XCTAssertTrue(NO);
     [expectation fulfill];
     
@@ -260,7 +260,7 @@
 - (void)testPin2SameAsVerify {
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin2 pin:@"23523" andVerificationCode:@"23523" viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin2 pin:@"23523" andVerificationCode:@"23523" success:^{
     XCTAssertTrue(NO);
     [expectation fulfill];
     
@@ -277,7 +277,7 @@
 - (void)testPin2Invalid1 {
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin2 pin:@"00000" andVerificationCode:@"00011" viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin2 pin:@"00000" andVerificationCode:@"00011" success:^{
     XCTAssertTrue(NO);
     [expectation fulfill];
     
@@ -294,7 +294,7 @@
 - (void)testPin2Invalid2 {
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin2 pin:@"12345" andVerificationCode:@"00011" viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin2 pin:@"12345" andVerificationCode:@"00011" success:^{
     XCTAssertTrue(NO);
     [expectation fulfill];
     
@@ -311,7 +311,7 @@
 - (void)testPin2ContainsInvalidChars {
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin2 pin:@"12a34" andVerificationCode:@"00011" viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin2 pin:@"12a34" andVerificationCode:@"00011" success:^{
     XCTAssertTrue(NO);
     [expectation fulfill];
     
@@ -328,7 +328,7 @@
 - (void)testPin2TooShort {
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin2 pin:@"1234" andVerificationCode:@"00011" viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin2 pin:@"1234" andVerificationCode:@"00011" success:^{
     XCTAssertTrue(NO);
     [expectation fulfill];
     
@@ -345,7 +345,7 @@
 - (void)testPin2TooLong {
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin2 pin:@"1122334455667" andVerificationCode:@"00011" viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin2 pin:@"1122334455667" andVerificationCode:@"00011" success:^{
     XCTAssertTrue(NO);
     [expectation fulfill];
     
@@ -364,7 +364,7 @@
   NSString *oldPin = @"00011";
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin2 pin:newPin andVerificationCode:oldPin viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin2 pin:newPin andVerificationCode:oldPin success:^{
     XCTAssertTrue(YES);
     [expectation fulfill];
     
@@ -384,7 +384,7 @@
   NSString *oldPin = @"00011";
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin2 pin:newPin andVerificationCode:oldPin viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin2 pin:newPin andVerificationCode:oldPin success:^{
     XCTAssertTrue(YES);
     [expectation fulfill];
     
@@ -403,7 +403,7 @@
   NSString *oldPin = @"00011";
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin2 pin:newPin andVerificationCode:oldPin viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin2 pin:newPin andVerificationCode:oldPin success:^{
     XCTAssertTrue(NO);
     [expectation fulfill];
     
@@ -422,7 +422,7 @@
   NSString *oldPin = @"00011";
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin2 pin:newPin andVerificationCode:oldPin viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin2 pin:newPin andVerificationCode:oldPin success:^{
     XCTAssertTrue(NO);
     [expectation fulfill];
     
@@ -441,7 +441,7 @@
   NSString *oldPin = @"00011";
   XCTestExpectation *expectation = [self expectationWithDescription:@"Pin verified"];
   
-  [MoppLibPinActions verifyType:CodeTypePin2 pin:newPin andVerificationCode:oldPin viewController:nil success:^{
+  [MoppLibPinActions verifyType:CodeTypePin2 pin:newPin andVerificationCode:oldPin success:^{
     XCTAssertTrue(NO);
     [expectation fulfill];
     

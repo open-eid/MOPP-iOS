@@ -1,124 +1,470 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ylY-Rn-2Bi">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qJh-BA-pxe">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Medium.ttf">
+            <string>Roboto-Medium</string>
+        </array>
+        <array key="RobotoCondensed-Regular.ttf">
+            <string>RobotoCondensed-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
-        <!--Containers-->
-        <scene sceneID="peH-oX-y2Q">
+        <!--Landing View Controller-->
+        <scene sceneID="zas-ik-Kjn">
             <objects>
-                <viewControllerPlaceholder storyboardName="Containers" id="b4N-MH-WmG" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Signed" image="documentsNormal" selectedImage="documentsNormal_2" id="ga6-PB-Ws7"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vae-w1-17S" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2019" y="587"/>
-        </scene>
-        <!--MyEid-->
-        <scene sceneID="soZ-1K-mUT">
-            <objects>
-                <viewControllerPlaceholder storyboardName="MyEid" id="FAY-20-bhQ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My eID" image="eIDNormal_2" selectedImage="eIDNormal" id="w9D-e6-WVW"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vAi-2t-nVj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2018" y="639"/>
-        </scene>
-        <!--Landing Tab Bar Controller-->
-        <scene sceneID="XXu-xe-V6X">
-            <objects>
-                <tabBarController id="ylY-Rn-2Bi" customClass="LandingTabBarController" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="Asn-1d-WkJ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <color key="tintColor" red="0.027450980619999999" green="0.21176470820000001" blue="0.36078432199999999" alpha="1" colorSpace="calibratedRGB"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="b4N-MH-WmG" kind="relationship" relationship="viewControllers" id="mgY-BI-w22"/>
-                        <segue destination="FAY-20-bhQ" kind="relationship" relationship="viewControllers" id="eap-m2-IzJ"/>
-                        <segue destination="POD-22-eUM" kind="relationship" relationship="viewControllers" id="UdE-0E-yMT"/>
-                        <segue destination="pmt-cj-EVx" kind="relationship" relationship="viewControllers" id="xvk-ux-yXV"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="S8Q-9G-fP8" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2792" y="832"/>
-        </scene>
-        <!--Settings-->
-        <scene sceneID="3FP-ZZ-bzB">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Settings" id="pmt-cj-EVx" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" image="settingsNormal" selectedImage="settingsNormal_2" id="fFi-cr-Xcb" userLabel="Settings"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cRJ-23-xvF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2018" y="735"/>
-        </scene>
-        <!--MobileID Challenge View Controller-->
-        <scene sceneID="Gro-84-xt8">
-            <objects>
-                <viewController storyboardIdentifier="MobileIDChallengeView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rIe-Gs-yuU" customClass="MobileIDChallengeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LandingViewController" id="qJh-BA-pxe" customClass="LandingViewController" customModule="MoppApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="lRd-pO-SNB"/>
-                        <viewControllerLayoutGuide type="bottom" id="qjJ-iw-rN8"/>
+                        <viewControllerLayoutGuide type="top" id="Ogv-h1-kdE"/>
+                        <viewControllerLayoutGuide type="bottom" id="gkS-a1-DbX"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="SXm-Hy-3Ux">
+                    <view key="view" contentMode="scaleToFill" id="l1c-KT-v3G">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kood:1234" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kn9-yO-Va6">
-                                <rect key="frame" x="28" y="598" width="319" height="29"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VKH-8c-7RZ" userLabel="MobileID Session Counter">
-                                <rect key="frame" x="28" y="333" width="319" height="2"/>
-                            </progressView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PKn-M4-JkH">
+                                <rect key="frame" x="0.0" y="20" width="375" height="597"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFs-YW-Nvy">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="90N-hi-Cjm">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="veX-VR-bb4" userLabel="SignTab" customClass="TabButton" customModule="MoppApp" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="47" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N02-oa-hn3">
+                                                        <rect key="frame" x="0.0" y="0.0" width="47" height="50"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
+                                                        <state key="normal" image="IconSignature"/>
+                                                        <connections>
+                                                            <action selector="selectTabActionWithSender:" destination="qJh-BA-pxe" eventType="touchUpInside" id="ek4-bT-Jly"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGNATURE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TzF-Zw-beY">
+                                                        <rect key="frame" x="0.0" y="35" width="47" height="13"/>
+                                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
+                                                        <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="signTab"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="N02-oa-hn3" secondAttribute="trailing" id="0uF-eT-JeE"/>
+                                                    <constraint firstItem="N02-oa-hn3" firstAttribute="leading" secondItem="veX-VR-bb4" secondAttribute="leading" id="8Qs-Bb-XVT"/>
+                                                    <constraint firstAttribute="bottom" secondItem="TzF-Zw-beY" secondAttribute="bottom" constant="2" id="WW8-u8-arU"/>
+                                                    <constraint firstItem="N02-oa-hn3" firstAttribute="top" secondItem="veX-VR-bb4" secondAttribute="top" id="hYn-0E-m9W"/>
+                                                    <constraint firstItem="TzF-Zw-beY" firstAttribute="leading" secondItem="veX-VR-bb4" secondAttribute="leading" id="mrJ-nu-PhQ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="TzF-Zw-beY" secondAttribute="trailing" id="p3I-1h-zBz"/>
+                                                    <constraint firstAttribute="bottom" secondItem="N02-oa-hn3" secondAttribute="bottom" id="zEF-wh-EiU"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="tab" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="unselectedColor">
+                                                        <color key="value" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="tab-signature"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="button" destination="N02-oa-hn3" id="iIM-BN-dhb"/>
+                                                    <outlet property="title" destination="TzF-Zw-beY" id="Ts5-zM-dIq"/>
+                                                </connections>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="862-wV-bqw" userLabel="CryptoTab" customClass="TabButton" customModule="MoppApp" customModuleProvider="target">
+                                                <rect key="frame" x="47" y="0.0" width="47" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xTR-NE-6lJ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="47" height="50"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
+                                                        <state key="normal" image="IconCrypto"/>
+                                                        <connections>
+                                                            <action selector="selectTabActionWithSender:" destination="qJh-BA-pxe" eventType="touchUpInside" id="thS-yk-KsK"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CRYPTO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="139-2h-o7N">
+                                                        <rect key="frame" x="0.0" y="35" width="47" height="13"/>
+                                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
+                                                        <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="cryptoTab"/>
+                                                <constraints>
+                                                    <constraint firstItem="139-2h-o7N" firstAttribute="leading" secondItem="862-wV-bqw" secondAttribute="leading" id="6x2-bj-4is"/>
+                                                    <constraint firstItem="xTR-NE-6lJ" firstAttribute="leading" secondItem="862-wV-bqw" secondAttribute="leading" id="b76-MT-eqW"/>
+                                                    <constraint firstAttribute="bottom" secondItem="xTR-NE-6lJ" secondAttribute="bottom" id="erk-GG-w5G"/>
+                                                    <constraint firstItem="xTR-NE-6lJ" firstAttribute="top" secondItem="862-wV-bqw" secondAttribute="top" id="fxY-sx-bG6"/>
+                                                    <constraint firstAttribute="bottom" secondItem="139-2h-o7N" secondAttribute="bottom" constant="2" id="hqc-iP-y0h"/>
+                                                    <constraint firstAttribute="trailing" secondItem="139-2h-o7N" secondAttribute="trailing" id="jTD-EN-es2"/>
+                                                    <constraint firstAttribute="trailing" secondItem="xTR-NE-6lJ" secondAttribute="trailing" id="zXj-u8-NC3"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="tab" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="unselectedColor">
+                                                        <color key="value" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="tab-crypto"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="button" destination="xTR-NE-6lJ" id="Z0n-uJ-cUS"/>
+                                                    <outlet property="title" destination="139-2h-o7N" id="uIe-2D-c7R"/>
+                                                </connections>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p9f-rb-NUo" userLabel="MyeIDTab" customClass="TabButton" customModule="MoppApp" customModuleProvider="target">
+                                                <rect key="frame" x="94" y="0.0" width="46.5" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gKq-vF-hm9">
+                                                        <rect key="frame" x="-0.5" y="0.0" width="47" height="50"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
+                                                        <state key="normal" image="IconMyEID"/>
+                                                        <connections>
+                                                            <action selector="selectTabActionWithSender:" destination="qJh-BA-pxe" eventType="touchUpInside" id="pNG-Cm-wx3"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MY eID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckz-6p-Acp">
+                                                        <rect key="frame" x="0.0" y="35" width="46.5" height="13"/>
+                                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
+                                                        <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="myeIDTab"/>
+                                                <constraints>
+                                                    <constraint firstItem="gKq-vF-hm9" firstAttribute="top" secondItem="p9f-rb-NUo" secondAttribute="top" id="2Ic-IH-wcb"/>
+                                                    <constraint firstAttribute="bottom" secondItem="gKq-vF-hm9" secondAttribute="bottom" id="5cb-fm-rCe"/>
+                                                    <constraint firstAttribute="trailing" secondItem="gKq-vF-hm9" secondAttribute="trailing" id="IZP-P4-wtt"/>
+                                                    <constraint firstAttribute="bottom" secondItem="ckz-6p-Acp" secondAttribute="bottom" constant="2" id="ZXs-tl-Ioe"/>
+                                                    <constraint firstItem="ckz-6p-Acp" firstAttribute="leading" secondItem="p9f-rb-NUo" secondAttribute="leading" id="cVX-93-VKM"/>
+                                                    <constraint firstAttribute="trailing" secondItem="ckz-6p-Acp" secondAttribute="trailing" id="mIv-5G-dJX"/>
+                                                    <constraint firstItem="gKq-vF-hm9" firstAttribute="leading" secondItem="p9f-rb-NUo" secondAttribute="leading" id="xpf-N2-eSn"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="tab" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="unselectedColor">
+                                                        <color key="value" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="tab-my-eid"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="button" destination="gKq-vF-hm9" id="FDn-eu-dPK"/>
+                                                    <outlet property="title" destination="ckz-6p-Acp" id="qnp-P9-GFj"/>
+                                                </connections>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uIu-AD-w9S" userLabel="ShareButton" customClass="TabButton" customModule="MoppApp" customModuleProvider="target">
+                                                <rect key="frame" x="140.5" y="0.0" width="47" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D7z-3P-MfZ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="47" height="50"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
+                                                        <state key="normal" image="icon_share"/>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHARE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qmQ-pj-mTP">
+                                                        <rect key="frame" x="0.0" y="35" width="47" height="13"/>
+                                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
+                                                        <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="shareButton"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="D7z-3P-MfZ" secondAttribute="trailing" id="1S0-di-AAj"/>
+                                                    <constraint firstItem="qmQ-pj-mTP" firstAttribute="leading" secondItem="uIu-AD-w9S" secondAttribute="leading" id="5Wf-ou-4vc"/>
+                                                    <constraint firstAttribute="bottom" secondItem="D7z-3P-MfZ" secondAttribute="bottom" id="DGQ-jk-pxZ"/>
+                                                    <constraint firstItem="D7z-3P-MfZ" firstAttribute="top" secondItem="uIu-AD-w9S" secondAttribute="top" id="IJL-1O-oda"/>
+                                                    <constraint firstAttribute="trailing" secondItem="qmQ-pj-mTP" secondAttribute="trailing" id="eIT-hR-aMH"/>
+                                                    <constraint firstItem="D7z-3P-MfZ" firstAttribute="leading" secondItem="uIu-AD-w9S" secondAttribute="leading" id="hDv-Ov-jko"/>
+                                                    <constraint firstAttribute="bottom" secondItem="qmQ-pj-mTP" secondAttribute="bottom" constant="2" id="zgS-Jd-p4G"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="tab" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="tab-share-button"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="button" destination="D7z-3P-MfZ" id="wlG-0j-A4U"/>
+                                                    <outlet property="title" destination="qmQ-pj-mTP" id="AC5-pm-1JA"/>
+                                                </connections>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sai-Rz-wOx" userLabel="SignButton" customClass="TabButton" customModule="MoppApp" customModuleProvider="target">
+                                                <rect key="frame" x="187.5" y="0.0" width="47" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oD2-eQ-zo1">
+                                                        <rect key="frame" x="0.0" y="0.0" width="47" height="50"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
+                                                        <state key="normal" image="IconSignature"/>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flY-yF-y29">
+                                                        <rect key="frame" x="0.0" y="35" width="47" height="13"/>
+                                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
+                                                        <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="signButton"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="flY-yF-y29" secondAttribute="bottom" constant="2" id="23s-bh-yDR"/>
+                                                    <constraint firstItem="oD2-eQ-zo1" firstAttribute="top" secondItem="Sai-Rz-wOx" secondAttribute="top" id="8MD-8K-fX8"/>
+                                                    <constraint firstItem="oD2-eQ-zo1" firstAttribute="leading" secondItem="Sai-Rz-wOx" secondAttribute="leading" id="LIF-9M-fkb"/>
+                                                    <constraint firstAttribute="trailing" secondItem="flY-yF-y29" secondAttribute="trailing" id="Put-1s-E4Q"/>
+                                                    <constraint firstItem="flY-yF-y29" firstAttribute="leading" secondItem="Sai-Rz-wOx" secondAttribute="leading" id="ehK-Ev-i5W"/>
+                                                    <constraint firstAttribute="bottom" secondItem="oD2-eQ-zo1" secondAttribute="bottom" id="rBq-Uy-tb7"/>
+                                                    <constraint firstAttribute="trailing" secondItem="oD2-eQ-zo1" secondAttribute="trailing" id="wzU-15-5lD"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="tab" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="tab-sign-button"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="button" destination="oD2-eQ-zo1" id="yyJ-Mc-9Wz"/>
+                                                    <outlet property="title" destination="flY-yF-y29" id="1DC-Os-oHC"/>
+                                                </connections>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zZy-Vl-dNV" userLabel="EncryptButton" customClass="TabButton" customModule="MoppApp" customModuleProvider="target">
+                                                <rect key="frame" x="234.5" y="0.0" width="47" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rtQ-Jt-Uv9">
+                                                        <rect key="frame" x="0.0" y="0.0" width="47" height="50"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
+                                                        <state key="normal" image="IconCrypto"/>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ENCRYPT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drn-Aa-Odq">
+                                                        <rect key="frame" x="0.0" y="35" width="47" height="13"/>
+                                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
+                                                        <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="encryptButton"/>
+                                                <constraints>
+                                                    <constraint firstItem="rtQ-Jt-Uv9" firstAttribute="top" secondItem="zZy-Vl-dNV" secondAttribute="top" id="4EI-5s-Nzg"/>
+                                                    <constraint firstItem="rtQ-Jt-Uv9" firstAttribute="leading" secondItem="zZy-Vl-dNV" secondAttribute="leading" id="ARU-CH-LDM"/>
+                                                    <constraint firstAttribute="trailing" secondItem="drn-Aa-Odq" secondAttribute="trailing" id="Ox4-Zk-8V5"/>
+                                                    <constraint firstAttribute="bottom" secondItem="rtQ-Jt-Uv9" secondAttribute="bottom" id="SPU-sL-MrP"/>
+                                                    <constraint firstItem="drn-Aa-Odq" firstAttribute="leading" secondItem="zZy-Vl-dNV" secondAttribute="leading" id="Xtg-fP-H2b"/>
+                                                    <constraint firstAttribute="bottom" secondItem="drn-Aa-Odq" secondAttribute="bottom" constant="2" id="gvQ-ag-gSb"/>
+                                                    <constraint firstAttribute="trailing" secondItem="rtQ-Jt-Uv9" secondAttribute="trailing" id="v8X-mi-R7R"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="tab" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="tab-encrypt-button"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="button" destination="rtQ-Jt-Uv9" id="sn0-Nx-jfK"/>
+                                                    <outlet property="title" destination="drn-Aa-Odq" id="SfG-kn-bUV"/>
+                                                </connections>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fFe-jM-quU" userLabel="DecryptButton" customClass="TabButton" customModule="MoppApp" customModuleProvider="target">
+                                                <rect key="frame" x="281.5" y="0.0" width="46.5" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kLR-Nc-AUC">
+                                                        <rect key="frame" x="0.0" y="0.0" width="46.5" height="50"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
+                                                        <state key="normal" image="IconCrypto"/>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DECRYPT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n79-Pw-cl5">
+                                                        <rect key="frame" x="0.0" y="35" width="46.5" height="13"/>
+                                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
+                                                        <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="decryptButton"/>
+                                                <constraints>
+                                                    <constraint firstItem="kLR-Nc-AUC" firstAttribute="leading" secondItem="fFe-jM-quU" secondAttribute="leading" id="83Z-mE-pYu"/>
+                                                    <constraint firstAttribute="bottom" secondItem="kLR-Nc-AUC" secondAttribute="bottom" id="EJ1-IZ-gRu"/>
+                                                    <constraint firstAttribute="trailing" secondItem="n79-Pw-cl5" secondAttribute="trailing" id="KbR-hD-ODL"/>
+                                                    <constraint firstAttribute="trailing" secondItem="kLR-Nc-AUC" secondAttribute="trailing" id="PdM-M2-kq4"/>
+                                                    <constraint firstItem="kLR-Nc-AUC" firstAttribute="top" secondItem="fFe-jM-quU" secondAttribute="top" id="aYl-TY-ehj"/>
+                                                    <constraint firstAttribute="bottom" secondItem="n79-Pw-cl5" secondAttribute="bottom" constant="2" id="auO-6Y-hBv"/>
+                                                    <constraint firstItem="n79-Pw-cl5" firstAttribute="leading" secondItem="fFe-jM-quU" secondAttribute="leading" id="lVR-gs-8Da"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="tab" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="tab-decrypt-button"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="button" destination="kLR-Nc-AUC" id="M0e-PS-JV5"/>
+                                                    <outlet property="title" destination="n79-Pw-cl5" id="kYw-q8-O2g"/>
+                                                </connections>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ASa-w9-Uui" userLabel="ConfirmButton" customClass="TabButton" customModule="MoppApp" customModuleProvider="target">
+                                                <rect key="frame" x="328" y="0.0" width="47" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wDc-OE-gkF">
+                                                        <rect key="frame" x="0.0" y="0.0" width="47" height="50"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
+                                                        <state key="normal" image="icon_checked_white"/>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONFIRM SELECTION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcr-aT-usx">
+                                                        <rect key="frame" x="0.0" y="35" width="47" height="13"/>
+                                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
+                                                        <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="confirmButton"/>
+                                                <constraints>
+                                                    <constraint firstItem="wDc-OE-gkF" firstAttribute="leading" secondItem="ASa-w9-Uui" secondAttribute="leading" id="0C7-xh-tGG"/>
+                                                    <constraint firstItem="gcr-aT-usx" firstAttribute="leading" secondItem="ASa-w9-Uui" secondAttribute="leading" id="AsI-dQ-kzd"/>
+                                                    <constraint firstAttribute="bottom" secondItem="gcr-aT-usx" secondAttribute="bottom" constant="2" id="CXe-Xl-KOI"/>
+                                                    <constraint firstAttribute="trailing" secondItem="gcr-aT-usx" secondAttribute="trailing" id="Dmq-S4-tLm"/>
+                                                    <constraint firstAttribute="trailing" secondItem="wDc-OE-gkF" secondAttribute="trailing" id="NQJ-71-i6d"/>
+                                                    <constraint firstItem="wDc-OE-gkF" firstAttribute="top" secondItem="ASa-w9-Uui" secondAttribute="top" id="RNe-OB-VQT"/>
+                                                    <constraint firstAttribute="bottom" secondItem="wDc-OE-gkF" secondAttribute="bottom" id="dz3-JU-qRl"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="tab" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="tab-confirm-button"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="button" destination="wDc-OE-gkF" id="ONP-v1-hIu"/>
+                                                    <outlet property="title" destination="gcr-aT-usx" id="L0u-YZ-zhA"/>
+                                                </connections>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" name="MoppTitle"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="90N-hi-Cjm" secondAttribute="trailing" id="LsP-pH-nDl"/>
+                                    <constraint firstAttribute="bottom" secondItem="90N-hi-Cjm" secondAttribute="bottom" id="TKY-7i-1kq"/>
+                                    <constraint firstItem="90N-hi-Cjm" firstAttribute="leading" secondItem="FFs-YW-Nvy" secondAttribute="leading" id="dzJ-xF-cYf"/>
+                                    <constraint firstItem="90N-hi-Cjm" firstAttribute="top" secondItem="FFs-YW-Nvy" secondAttribute="top" id="mZi-en-FMI"/>
+                                    <constraint firstAttribute="height" constant="50" id="srI-ee-JAE"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MSz-6b-QjN" userLabel="iPhone X bottom filler">
+                                <rect key="frame" x="0.0" y="667" width="375" height="0.0"/>
+                                <color key="backgroundColor" name="MoppTitle"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="MoppBaseBackground"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="VKH-8c-7RZ" secondAttribute="trailing" constant="12" id="3Tr-Jk-xws"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="kn9-yO-Va6" secondAttribute="trailing" constant="12" id="OQ8-9p-4D6"/>
-                            <constraint firstItem="qjJ-iw-rN8" firstAttribute="top" secondItem="kn9-yO-Va6" secondAttribute="bottom" constant="40" id="Z4P-n4-nL2"/>
-                            <constraint firstItem="VKH-8c-7RZ" firstAttribute="centerY" secondItem="SXm-Hy-3Ux" secondAttribute="centerY" id="mwe-EC-GRs"/>
-                            <constraint firstItem="kn9-yO-Va6" firstAttribute="leading" secondItem="SXm-Hy-3Ux" secondAttribute="leadingMargin" constant="12" id="oqF-80-a4Q"/>
-                            <constraint firstItem="VKH-8c-7RZ" firstAttribute="leading" secondItem="SXm-Hy-3Ux" secondAttribute="leadingMargin" constant="12" id="yQK-8A-bbh"/>
+                            <constraint firstItem="gkS-a1-DbX" firstAttribute="top" secondItem="PKn-M4-JkH" secondAttribute="bottom" priority="250" id="137-iC-9Gn"/>
+                            <constraint firstItem="MSz-6b-QjN" firstAttribute="leading" secondItem="l1c-KT-v3G" secondAttribute="leading" id="D2F-MT-xdL"/>
+                            <constraint firstAttribute="trailing" secondItem="MSz-6b-QjN" secondAttribute="trailing" id="LX0-Wc-QZM"/>
+                            <constraint firstAttribute="bottom" secondItem="MSz-6b-QjN" secondAttribute="bottom" id="Qra-ir-AU9"/>
+                            <constraint firstItem="gkS-a1-DbX" firstAttribute="top" secondItem="FFs-YW-Nvy" secondAttribute="bottom" id="TDI-st-GMD"/>
+                            <constraint firstItem="PKn-M4-JkH" firstAttribute="top" secondItem="Ogv-h1-kdE" secondAttribute="bottom" id="ZS6-xE-2Iy"/>
+                            <constraint firstAttribute="trailing" secondItem="PKn-M4-JkH" secondAttribute="trailing" id="aNL-Bg-R3C"/>
+                            <constraint firstItem="FFs-YW-Nvy" firstAttribute="top" secondItem="PKn-M4-JkH" secondAttribute="bottom" priority="750" id="gLS-pp-3mc"/>
+                            <constraint firstItem="MSz-6b-QjN" firstAttribute="top" secondItem="FFs-YW-Nvy" secondAttribute="bottom" id="lO0-Fd-eOZ"/>
+                            <constraint firstAttribute="trailing" secondItem="FFs-YW-Nvy" secondAttribute="trailing" id="lYm-Qx-qpU"/>
+                            <constraint firstItem="PKn-M4-JkH" firstAttribute="leading" secondItem="l1c-KT-v3G" secondAttribute="leading" id="rlt-eR-VsC"/>
+                            <constraint firstItem="FFs-YW-Nvy" firstAttribute="leading" secondItem="l1c-KT-v3G" secondAttribute="leading" id="zDS-1k-tSs"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="mobileIDChallengeCodeLabel" destination="kn9-yO-Va6" id="tIj-Js-MsZ"/>
-                        <outlet property="mobileIDSessionCounter" destination="VKH-8c-7RZ" id="MBS-ou-u1O"/>
+                        <outlet property="buttonBarView" destination="FFs-YW-Nvy" id="HHR-D3-X3O"/>
+                        <outlet property="buttonsStackView" destination="90N-hi-Cjm" id="wOr-2F-EX4"/>
+                        <outlet property="containerView" destination="PKn-M4-JkH" id="CWY-cK-fLN"/>
+                        <outlet property="containerViewBottomCSTR" destination="137-iC-9Gn" id="fwy-8z-oap"/>
+                        <outlet property="containerViewButtonBarCSTR" destination="gLS-pp-3mc" id="n9I-NF-DNL"/>
+                        <outletCollection property="buttonsCollection" destination="862-wV-bqw" collectionClass="NSMutableArray" id="uVq-Fr-d5T"/>
+                        <outletCollection property="buttonsCollection" destination="p9f-rb-NUo" collectionClass="NSMutableArray" id="GfO-gK-R2Q"/>
+                        <outletCollection property="buttonsCollection" destination="uIu-AD-w9S" collectionClass="NSMutableArray" id="kkc-2T-5Ig"/>
+                        <outletCollection property="buttonsCollection" destination="Sai-Rz-wOx" collectionClass="NSMutableArray" id="fxn-Ah-JVx"/>
+                        <outletCollection property="buttonsCollection" destination="zZy-Vl-dNV" collectionClass="NSMutableArray" id="V2b-Hl-aMH"/>
+                        <outletCollection property="buttonsCollection" destination="veX-VR-bb4" collectionClass="NSMutableArray" id="iKf-hr-yAh"/>
+                        <outletCollection property="buttonsCollection" destination="ASa-w9-Uui" collectionClass="NSMutableArray" id="5Kq-Ha-uDp"/>
+                        <outletCollection property="buttonsCollection" destination="fFe-jM-quU" collectionClass="NSMutableArray" id="zgB-KL-BrX"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jIW-aE-j48" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VMg-vR-sr3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1785" y="1187"/>
+            <point key="canvasLocation" x="-2762.4000000000001" y="1511.6941529235382"/>
         </scene>
-        <!--PinOperations-->
-        <scene sceneID="clI-CO-oDs">
+        <!--File Import Progress View Controller-->
+        <scene sceneID="ZMn-vB-Crc">
             <objects>
-                <viewControllerPlaceholder storyboardName="PinOperations" id="POD-22-eUM" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Pin Operations" selectedImage="pinNormal_2" id="gQP-GK-7dS"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fcg-yW-xvi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="FileImportProgressViewController" id="OG5-RT-UeE" customClass="FileImportProgressViewController" customModule="MoppApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="g0H-lY-kZb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2jO-CB-gpT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Mpb-nb-Huv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fOE-NE-O7m">
+                                <rect key="frame" x="112.5" y="308" width="150" height="51"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Importing files..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wq7-O0-BHP">
+                                        <rect key="frame" x="16" y="16" width="118" height="19"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
+                                        <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Wq7-O0-BHP" secondAttribute="bottom" constant="16" id="5Rc-kQ-w7i"/>
+                                    <constraint firstItem="Wq7-O0-BHP" firstAttribute="leading" secondItem="fOE-NE-O7m" secondAttribute="leading" constant="16" id="7Db-gr-tOo"/>
+                                    <constraint firstAttribute="trailing" secondItem="Wq7-O0-BHP" secondAttribute="trailing" constant="16" id="TIV-iB-JKg"/>
+                                    <constraint firstItem="Wq7-O0-BHP" firstAttribute="top" secondItem="fOE-NE-O7m" secondAttribute="top" constant="16" id="o50-UK-eRW"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="fOE-NE-O7m" firstAttribute="centerX" secondItem="Mpb-nb-Huv" secondAttribute="centerX" id="8QD-mM-u5o"/>
+                            <constraint firstItem="fOE-NE-O7m" firstAttribute="centerY" secondItem="Mpb-nb-Huv" secondAttribute="centerY" id="wbQ-bD-XW3"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="titleLabel" destination="Wq7-O0-BHP" id="TAi-Fl-yU1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iUL-2X-Gi0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2019" y="685"/>
+            <point key="canvasLocation" x="-2098" y="1513"/>
         </scene>
     </scenes>
     <resources>
-        <image name="documentsNormal" width="25" height="25"/>
-        <image name="documentsNormal_2" width="25" height="25"/>
-        <image name="eIDNormal" width="25" height="25"/>
-        <image name="eIDNormal_2" width="25" height="25"/>
-        <image name="pinNormal_2" width="25" height="25"/>
-        <image name="settingsNormal" width="25" height="25"/>
-        <image name="settingsNormal_2" width="25" height="25"/>
+        <image name="IconCrypto" width="22" height="25"/>
+        <image name="IconMyEID" width="28" height="20"/>
+        <image name="IconSignature" width="30" height="23"/>
+        <image name="icon_checked_white" width="15" height="15"/>
+        <image name="icon_share" width="17" height="24"/>
+        <namedColor name="MoppBaseBackground">
+            <color red="0.95686274509803926" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="MoppTitle">
+            <color red="0.015686274509803921" green="0.11764705882352941" blue="0.25882352941176473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

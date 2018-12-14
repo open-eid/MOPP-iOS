@@ -25,3 +25,4 @@
 
 NSString *const kRIADigiDocId = @"ee.ria.digidoc";
 NSString *const kDDSServerUrl = @"https://digidocservice.sk.ee/";
+NSString *const kTestDDSServerUrl = @"https://tsp.demo.sk.ee";

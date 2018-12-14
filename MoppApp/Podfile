@@ -3,6 +3,7 @@ use_frameworks!
 workspace 'MoppApp.xcworkspace'
 project 'MoppApp.xcodeproj'
 project '../MoppLib/MoppLib.xcodeproj'
+project '../CryptoLib/CryptoLib'
 
 platform :ios, '9.0'
 
@@ -10,8 +11,14 @@ target 'MoppApp' do
   platform :ios, '9.0'
   project 'MoppApp.xcodeproj'
 
-  pod 'MBProgressHUD', '~> 0.9.2'
-  pod 'PureLayout', '~> 3.0.1'
+  pod 'Fabric'
+  pod 'Crashlytics'
+end
+
+target 'MoppAppTestEnv' do
+  platform :ios, '9.0'
+  project 'MoppApp.xcodeproj'
+
   pod 'Fabric'
   pod 'Crashlytics'
 end
@@ -19,15 +26,27 @@ end
 target 'MoppLib' do
   platform :ios, '9.0'
   project '../MoppLib/MoppLib.xcodeproj'
-  #pod 'MBProgressHUD', '~> 0.9.2'
   #pod 'Fabric'
   #pod 'Crashlytics'
+end
+
+target 'MoppLibTestEnv' do
+  platform :ios, '9.0'
+  project '../MoppLib/MoppLib.xcodeproj'
+  #pod 'Fabric'
+  #pod 'Crashlytics'
+end
+
+target 'CryptoLib' do
+    platform :ios, '9.0'
+    project '../CryptoLib/CryptoLib.xcodeproj'
+    #pod 'Fabric'
+    #pod 'Crashlytics'
 end
 
 target 'MoppLibTests' do
   platform :ios, '9.0'
   project '../MoppLib/MoppLib.xcodeproj'
-  pod 'MBProgressHUD', '~> 0.9.2'
   pod 'OCMock'
   
 end

@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include "Exports.h"
+#include "Exception.h"
 
 #include <string>
 #include <vector>
@@ -27,9 +27,40 @@
 namespace digidoc
 {
     class X509Cert;
+
     class EXP_DIGIDOC Signature
     {
       public:
+        class EXP_DIGIDOC Validator
+        {
+        public:
+            enum Status
+            {
+                Valid,
+                Warning,
+                NonQSCD,
+                Test,
+                Invalid,
+                Unknown
+            };
+
+            Validator(const Signature *s);
+            ~Validator();
+
+            std::string diagnostics() const;
+            Status status() const;
+            std::vector<Exception::ExceptionCode> warnings() const;
+
+        private:
+            DISABLE_COPY(Validator);
+
+            bool isTestCert(const X509Cert &cert);
+            void parseException(const Exception &e);
+
+            struct Private;
+            Private *d;
+        };
+
           static const std::string POLv1;
           static const std::string POLv2;
 
@@ -59,7 +90,7 @@ namespace digidoc
           //TM profile properties
           virtual std::string OCSPProducedAt() const;
           virtual X509Cert OCSPCertificate() const;
-          virtual std::vector<unsigned char> OCSPNonce() const;
+          DEPRECATED_DIGIDOCPP virtual std::vector<unsigned char> OCSPNonce() const;
 
           //TS profile properties
           virtual X509Cert TimeStampCertificate() const;
@@ -77,6 +108,9 @@ namespace digidoc
 
           // DSig properties
           virtual void validate(const std::string &policy) const;
+
+          // Other
+          virtual std::vector<unsigned char> messageImprint() const;
 
       protected:
           Signature();

@@ -44,15 +44,15 @@
 
 "digidoc-service-status-request-sent" = "Запрос на подпись отправлен";
 "digidoc-service-status-request-ok" = "Запрос принят";
-"digidoc-service-status-request-expired-transaction" = "Превышение лимита времени запроса";
-"digidoc-service-status-request-user-cancel" = "Пользователь прервал";
+"digidoc-service-status-request-expired-transaction" = "Время запроса истекло";
+"digidoc-service-status-request-user-cancel" = "Пользователю отказано";
 "digidoc-service-status-request-signature" = "Подпись получена";
-"digidoc-service-status-request-outstanding-transaction" = "Запрос незакончен";
-"digidoc-service-status-request-mid-not-ready" = "Mobiil-ID недоступен, попробуйте позже";
+"digidoc-service-status-request-outstanding-transaction" = "Запрос в ожидании";
+"digidoc-service-status-request-mid-not-ready" = "Mobiil-ID не готов, попробуйте позже";
 "digidoc-service-status-request-phone-absent" = "Телефон выключен или находится вне зоны доступа";
-"digidoc-service-status-request-sending-error" = "Ошибка SIM-приложения";
+"digidoc-service-status-request-sending-error" = "Ошибка запроса";
 "digidoc-service-status-request-sim-error" = "Ошибка SIM-приложения";
-"digidoc-service-status-request-not-valid" = "Цифровая подпись недействительна";
+"digidoc-service-status-request-not-valid" = "Подпись недействительна";
 "digidoc-service-status-request-revoked-certificate" = "Сертификаты отозваны";
 "digidoc-service-status-request-internal-error" = "Техническая ошибка";
 
@@ -60,7 +60,7 @@
 
 // ** Mobile ID faults ***
 "digidoc-service-error-unknown" = "Неизвестная ошибка при подписании с помощю Mobiil-ID";
-"digidoc-service-error-general" = "Ошибка, что-то пошло не так! попробуйте позже";
+"digidoc-service-error-general" = "Что-то полшло не так, попробуйте снова";
 "digidoc-service-error-incorrect-parameters" = "Неверный номер телефона или/и личный код, не Эстонские номера телефонов должны начинаться с кода страны";
 "digidoc-service-error-missing-parameters" = "Отсутствует номер телефона или/и личный код";
 "digidoc-service-error-ocsp-unauthorized" = "Сервис мобильной подписи недоступен";

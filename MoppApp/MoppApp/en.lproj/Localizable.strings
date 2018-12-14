@@ -18,11 +18,48 @@
  */
 
 // *** General ***
+
 // TabBar
-"tab-containers" = "Documents";
-"tab-my-eid" = "My eID";
-"tab-sim-settings" = "PIN settings";
-"tab-settings" = "Settings";
+"tab-my-eid" = "MY eID";
+"tab-crypto" = "CRYPTO";
+"tab-signature" = "SIGNATURE";
+"tab-sign-button" = "SIGN";
+"tab-share-button" = "SHARE";
+"tab-encrypt-button" = "ENCRYPT";
+"tab-decrypt-button" = "DECRYPT";
+"tab-confirm-button" = "CONFIRM SELECTION";
+
+// Main menu
+"menu-help" = "HELP";
+"menu-recent-containers" = "RECENT DOCUMENTS";
+"menu-settings" = "SETTINGS";
+"menu-about" = "INFO";
+"menu-diagnostics" = "DIAGNOSTICS";
+
+// Signature view
+"signature-view-begin-label" = "Choose a file to sign or validate";
+"signature-view-begin-button" = "CHOOSE FILE";
+"signature-details-title" = "Signature details";
+
+// Crypto
+"crypto-view-begin-label" = "Choose a file to encrypt or decrypt";
+"crypto-view-begin-button" = "CHOOSE FILE";
+"crypto-empty-ldap-label" = "Person or company does not own a valid certificate.\nIt is necessary to have a valid certificate for encryption.\nIn case of questions please contact our support via id.ee.";
+"crypto-ldap-search-placeholder" = "Enter personal code, company or registry code";
+"crypto-encryption-error-text" = "Something went wrong with encryption";
+"crypto-encryption-success" = "ENCRYPTION SUCCEEDED";
+"crypto-no-addressees-warning" = "No addressees specified";
+"crypto-valid-to" = "valid to";
+"crypto-type-id-card" = "ID-card";
+"crypto-type-digi-id" = "Digi-ID";
+"crypto-type-eseal" = "e-Seal";
+"crypto-type-mobile-id" = "MOBILE-ID";
+"crypto-type-unknown" = "UNKNOWN";
+"crypto-add-addressee-button-title" = "ADD";
+"crypto-addressee-added-button-title" = "ADDED";
+
+// Signing view
+"signing-recent-containers" = "Recent documents";
 
 // Crashlytics
 "crashlytics-title" = "Send crash report?";
@@ -35,159 +72,45 @@
 "action-ok" = "OK";
 "action-cancel" = "Cancel";
 "action-delete" = "Delete";
-"action-edit" = "Edit";
-"action-yes" = "Yes";
-"action-no" = "No";
-"action-create-new-document" = "Create new document";
-"action-add-to-document" = "Add to existing document";
+"action-sign" = "Sign";
+"action-decrypt" = "Decrypt";
 
 // *** Signed containers ***
-// General
-"no-containers-cell-title" = "No containers found";
-// List
-"containers-list-search-placeholder" = "Search";
-"containers-list-section-header-unsigned" = "Unsigned";
-"containers-list-section-header-signed" = "Signed";
-"containers-list-cached-files-title" = "Imported files";
-"containers-list-cached-files-message" = "You have some imported files. What do you want to do with them?";
-"containers-list-cached-files-option1" = "Put them in container";
-"containers-list-cached-files-option2" = "Delete them";
 
 // DataFile import
-"file-import-title" = "Import file";
-"file-import-create-container-button" = "Create document";
-"file-import-info" = "%@\n\nPlease select unsigned document or create new one.";
-"file-import-import-failed-alert-title" = "Import failed";
-"file-import-import-failed-alert-message" = "Failed to open document %@";
+"file-import-title" = "+ ADD MORE FILES";
+"addressee-import-title" = "+ ADD RECIPIENT";
+"file-import-open-existing-failed-alert-title" = "Error opening container";
+"file-import-open-existing-failed-alert-message" = "Failed to open container %@";
+"file-import-create-new-failed-alert-title" = "Error creating container";
+"file-import-create-new-failed-alert-message" = "Failed to open container %@";
 // Details
-"container-details-title" = "Document";
-"container-details-header-details" = "Format: %@ | Size: %ld kB";
-"container-details-datafile-section-header" = "Files";
-"container-details-datafile-details" = "Size: %ld kB";
-"container-details-signature-section-header" = "Signatures";
-"container-details-signature-prefix" = "Signature %@";
-"container-details-signature-valid" = "is valid";
-"container-details-signature-invalid" = "is not valid";
-"container-details-enter-pin" = "Please enter your PIN2 code.";
-"container-details-general-error" = "Adding signature failed.";
-"container-details-signing-success" = "Signature added";
-"container-details-signature-added" = "Your signature has been added to the document.";
-"container-details-signature-already-exists" = "Your signature already exists on this document.";
-"container-details-signing-method-alert-title" = "Signing method";
-"container-details-signing-method-alert-message" = "Choose signing method";
-"container-details-signing-method-mobile-id" = "Mobile-ID";
-"container-details-signing-method-id-card" = "ID card";
-"container-details-idcode-phone-alert-title" = "Enter details";
-"container-details-idcode-phone-alert-message" = "Enter ID code and phone number";
-"container-details-idcode-phone-alert-idcode-placholder" = "ID code";
-"container-details-idcode-phone-alert-phonenumber-placholder" = "Phone number";
-"container-details-phone-number-error-alert-title" = "Invalid phone number";
-"container-details-phone-number-error-alert-message" = "It seems that you have provided an invalid phone number";
-"container-details-rename-container" = "Rename container";
-"container-details-rename" = "Rename";
-"container-details-enter-new-name" = "Enter new container name";
-"container-details-name" = "Name";
-"container-details-reader-not-found" = "You need to connect a card reader to sign documents.";
-"container-details-card-not-found" = "ID card is missing. Please make sure ID card is inserted correctly.";
-"container-details-pin-not-provided" = "Authentication with PIN code is required for signing.";
-"container-details-signature-already-exists-alert-title" = "Signture exists";
-"container-details-signature-already-exists-alert-message" = "You have already signed the container, are you sure you want to add another signature?";
-"container-details-file-already-exists" = "File with same name already exists. Do you want to overwrite?";
-"container-details-attention" = "Attention!";
-"container-details-store-mobile-id-credentials-alert-title" = "Store credentials";
-"container-details-store-mobile-id-credentials-alert-message" = "Do you wish to store the entered ID code and phone number for future use ? ";
-"container-details-file-name-too-long" = "Document name too long.";
-"container-details-name-change-failed" = "Failed to change document name.";
-
-"container-details-internet-connection-error-title" = "No internet connection";
-"container-details-internet-connection-error-message" = "Internet connection must be available for signing.";
-"container-details-add-signature" = "Add signature";
-
-
-// *** My eID ***
-"my-eid-id-card-info" = "ID-card is a compulsory identity document in Estonia. ID-card can be used to travel in Member States of the European Union and the European Economic Area.\n\nThe ID-card can be applied for in Service Offices of Police and Border Guard Administration, in foreign representations of the Republic of Estonia, by post or by e-mail. %@";
-"my-eid-warning-card-not-found" = "ID card is not found.\n\nPlease check if ID card is inserted correctly. New ID cards have chip on the back side of the card.";
-"my-eid-warning-reader-not-found" = "Card reader is not connected.\n\nPlease make sure your reader is turned on and %@ to select it.\n\n %@";
-"my-eid-tap-here" = "tap here";
-"my-eid-supported-reader" = "Supported reader";
-"my-eid-find-more-info" = "Read more.";
-"my-eid-given-names" = "Given names:";
-"my-eid-surname" = "Surname:";
-"my-eid-personal-code" = "Personal Code:";
-"my-eid-birth" = "Birth:";
-"my-eid-citizenship" = "Citizenship:";
-"my-eid-email" = "E-mail:";
-"my-eid-card-in-reader" = "Card in reader:";
-"my-eid-valid-until" = "Valid until:";
-"my-eid-use-count" = "Used:";
-"my-eid-validity" = "Validity:";
-"my-eid-valid" = "Valid";
-"my-eid-not-valid" = "Not valid";
-"my-eid-valid-until" = "Valid until:";
-"my-eid-personal-data" = "Personal data";
-"my-eid-times-used" = "%i times";
-"my-eid-used-once" = "1 time";
-"my-eid-eid" = "eID";
-"my-eid-signature-certificate" = "Signature certificate";
-"my-eid-authentication-certificate" = "Authentication certificate";
-"my-eid-my-eid" = "My eID";
-"my-eid-id-card-info-link" = "https://www.politsei.ee/en/teenused/isikut-toendavad-dokumendid/id-kaart/taiskasvanule/";
-"my-eid-pin-blocked" = "%@ is blocked. You can unblock %@ in %@.";
-"my-eid-pin-actions-view" = "PIN actions view";
-
-
-// *** PIN actions ***
-"pin-actions-pin1" = "PIN1";
-"pin-actions-pin2" = "PIN2";
-"pin-actions-puk" = "PUK";
-"pin-actions-change-pin" = "Change %@";
-"pin-actions-unblock-pin" = "Unblock %@";
-"pin-actions-changing-pin" = "Changing %@";
-"pin-actions-title-unblocking-pin" = "Unblocking %@";
-"pin-actions-current-pin" = "Current %@ code";
-"pin-actions-new-pin" = "New %@ code";
-"pin-actions-repeat-pin" = "Repeat new %@ code";
-"pin-actions-rules-title" = "Rules";
-"pin-actions-rule-different-from-previous" = "New %@ must be different from previous one.";
-"pin-actions-rule-numbers-only" = "%@ must contain numbers only.";
-"pin-actions-rule-pin-length" = "New %@ must be %i-%i digits long.";
-"pin-actions-rule-forbidden-pins" = "New %@ can't be %@, or contain combination of your birthdate.";
-"pin-actions-info" = "Here you can change your PIN codes and unblock them if needed. PIN operations require a card reader to be connected to your phone.";
-"pin-actions-general-error" = "Could not change %@";
-"pin-actions-same-as-current" = "New %@ must be different from current %@.";
-"pin-actions-invalid-format" = "This %@ is not allowed.";
-"pin-actions-wrong-pin-retry" = "Current %@ was wrong. You have %i tries left.";
-"pin-actions-wrong-pin-blocked" = "Current %@ was wrong. %@ has been blocked.";
-"pin-actions-error-title" = "Error";
-"pin-actions-success-title" = "PIN action was successful";
-"pin-actions-success-pin-changed" = "%@ has been changed.";
-"pin-actions-success-pin-unblocked" = "%@ has been changed and unblocked.";
-"pin-actions-verification-title" = "Changing %@:";
-"pin-actions-verification-option" = "Using current %@ code";
-"pin-actions-unblocking-pin" = "Unblocking %@:";
-"pin-actions-repeated-pin-doesnt-match" = "New %@ and repeated %@ are different.";
-"pin-actions-pin-blocked" = "%@ is blocked.";
-"pin-actions-puk-change-warning" = "If you forget the PUK code or the certificates remain blocked, you have to visit the service center to obtain new codes.";
-
-
-// *** Settings ***
-"settings-new-container-format" = "New container format";
-"settings-application-version" = "Version";
-"settings-about" = "About";
-"settings-id-code-title"= "ID code";
-"settings-phone-number-title" = "Phone number";
-"settings-id-code-alert-message" = "Type in your ID code";
-"settings-phone-number-alert-message" = "Type in your phone number";
-"settings-mobile-id-header" = "Mobile-ID";
-
-// *** About ***
-"about-development" = "Software ordered by RIA, developed by Mobi Lab";
-"about-dependencies" = "Additional dependencies";
-
+"container-details-signing-success" = "SIGNATURE ADDED";
+"container-details-decryption-success" = "DECRYPTION SUCCESSFUL";
+"container-details-file-already-exists" = "File already exists in the container";
+"container-header-files-title" = "Container files";
+"container-header-create-files-title" = "Container files";
+"container-header-create-addressee-title" = "Recipients";
+"container-header-timestamp-title" = "Container timestamps";
+"container-header-signatures-title" = "Container signatures";
+"container-row-edit-remove" = "Delete";
+"container-header-title" = "CONTAINER:";
+"container-error-message-invalid-signature" = "1 INVALID SIGNATURE";
+"container-error-message-invalid-signatures" = "%d INVALID SIGNATURES";
+"container-error-message-unknown-signature" = "1 UNKNOWN SIGNATURE";
+"container-error-message-unknown-signatures" = "%d UNKNOWN SIGNATURES";
+"container-signature-signed" = "Signed %@";
+"container-missing-signatures" = "Container is not signed";
+"container-missing-addressees" = "Recipients are missing";
+"container-signature-status-valid" = "Signature is valid";
+"container-signature-status-warning" = "(Warnings)";
+"container-signature-status-non-qscd" = "(Restrictions)";
+"container-signature-status-invalid" = "Signature is not valid";
+"container-signature-status-unknown" = "Signature is unknown";
 
 // *** Mobile ID Challenge View ***
 
-"challenge-code-label" = "Code: %@";
+"challenge-code-label" = "Control code: %@";
 
 // *** Errors ***
 "mobile-id-timeout-message" = "Mobile-ID request timeout";
@@ -196,3 +119,130 @@
 // *** Share Extension ***
 "share-extension-import-title" = "Importing file";
 "share-extension-import-message" = "File is now cached for you. Go to RIA DigiDoc application to finish import";
+
+"signature-remove-confirm-message" = "Remove signature from container?";
+"datafile-remove-confirm-message" = "Remove file from container?";
+
+"mobile-id-title" = "Enter your mobile number and personal code to sign with Mobile-ID";
+"mobile-id-phone-title" = "Country code and phone number";
+"mobile-id-idcode-title" = "Personal code";
+"mobile-id-remember-me" = "Remember me";
+"mobile-id-challenge-title" = "Sign with Mobile-ID app";
+"mobile-id-challenge-waiting-response" = "Waiting for response ...";
+"container-sign-title" = "Sign";
+"container-encryption-title" = "Encryption";
+"container-decryption-title" = "Decryption";
+"container-addressee-title" = "Add recipients";
+"container-validate-title" = "Container verification";
+"container-validating" = "Loading...";
+"importing-files-progress-message" = "Importing files...";
+"mobile-id-sign-help-title" = "Make sure the control code matches the one on phone screen and enter Mobile-ID PIN2-code";
+"done-button-title" = "Done";
+"recent-containers-empty-list-title" = "No recent documents";
+"recent-containers-empty-search-message" = "Document not found";
+"search-container-file" = "Search container file";
+"sign-title-mobile-id" = "Mobile-ID";
+"sign-title-id-card" = "ID-Card";
+"card-reader-state-initial" = "Connect the card reader and insert your ID-card into the reader.";
+"card-reader-state-reader-not-found" = "No card readers found";
+"card-reader-state-id-card-not-found" = "Reader found.\nInsert your ID-card into the reader.";
+"card-reader-state-id-card-connected" = "ID-card found.\nRequesting information.";
+"card-reader-state-ready-for-pin2" = "Ready to sign with ID-card. \n%@ (%@)";
+"card-reader-state-ready-for-pin1" = "Ready to decrypt with ID-card.\n%@ (%@)";
+"signing-in-progress" = "Signing in progress.\nPlease wait.";
+"decryption-in-progress" = "Decryption in progress.\nPlease wait.";
+"wrong-pin2" = "Wrong PIN2. You have %d attempts left.";
+"wrong-pin1" = "Wrong PIN1. You have %1$d attempts left.";
+"wrong-pin2-single" = "Wrong PIN2. You have 1 attempt left until your PIN2 is blocked.";
+"wrong-pin1-single" = "Wrong PIN1. You have 1 attempt left until your PIN1 is blocked.";
+"pin2-textfield-label" = "Enter PIN2";
+"pin1-textfield-label" = "Enter PIN1";
+"pin2-blocked-alert" = "PIN2 blocked. Go to My eID to unblock it.";
+"pin1-blocked-alert" = "PIN1 blocked. Go to My eID to unblock it.";
+"generic-error-message" = "Something went wrong. Please try again";
+"decryption-error-message" = "Something went wrong with decryption. Please try again";
+"signing-aborted-message" = "Signing process aborted";
+"my-eid-status-reader-not-found" = "Connect your card reader to your phone and insert ID-card into the reader.";
+"my-eid-status-card-not-found" = "Reader found.\nInsert your ID-card into the reader.";
+"my-eid-status-requesting-data" = "ID-card found.\nRequesting information.";
+"my-eid-cert-expired" = "expired";
+"my-eid-cert-valid" = "valid";
+"my-eid-info-item-given-names" = "GIVEN NAMES";
+"my-eid-info-item-surname" = "SURNAME";
+"my-eid-info-item-personal-code" = "PERSONAL CODE";
+"my-eid-info-item-citizenship" = "CITIZENSHIP";
+"my-eid-info-item-document-number" = "DOCUMENT NUMBER";
+"my-eid-info-item-expiry-date" = "VALID UNTIL";
+"my-eid-info-my-eid" = "MY eID";
+"my-eid-info-my-eid-id-card" = "ID-CARD";
+"my-eid-info-my-eid-mobile-id" = "MOBILE-ID";
+"my-eid-info-my-eid-digi-id" = "DIGI-ID";
+"my-eid-info-my-eid-unknown" = "UNKNOWN";
+"my-eid-info-my-eid-e-resident" = "E-RESIDENT";
+"file-import-already-in-progress-message" = "File importing already in progress.\nPlease wait until it is finished and try again";
+"my-eid-cert-info-valid" = "Certificate is [VALID_EXPIRY_STATUS] until [EXPIRY_DATE]";
+"my-eid-cert-info-expired" = "Certificate has [EXPIRED_EXPIRY_STATUS]! [PIN] cannot be used because the certificate has expired.";
+"my-eid-cert-info-status-valid" = "valid";
+"my-eid-cert-info-status-expired" = "expired";
+"my-eid-info-pin1-title" = "Authentication certificate";
+"my-eid-info-pin2-title" = "Signing certificate";
+"my-eid-info-puk-title" = "PUK code";
+"my-eid-info-pin1-link-text" = "Forgot PIN1?";
+"my-eid-info-pin2-link-text" = "Forgot PIN2?";
+"my-eid-info-puk-link-text" = "Forgot PUK code?";
+"my-eid-info-pin1-button-title" = "CHANGE PIN1";
+"my-eid-info-pin2-button-title" = "CHANGE PIN2";
+"my-eid-info-puk-button-title" = "CHANGE PUK";
+"my-eid-info-puk-cert-info-text" = "PUK code is in your code envelope";
+"my-eid-info-pin-puk-segment-title" = "PIN/PUK CODES AND CERTIFICATES";
+"my-eid-info-pin1-blocked-message" = "PIN1 is blocked, because PIN1 has been inserted 3 times incorrectly.";
+"my-eid-info-pin2-blocked-message" = "PIN2 is blocked, because PIN2 has been inserted 3 times incorrectly.";
+"my-eid-info-puk-blocked-message" = "PUK is blocked, because PUK code has been inserted 3 times incorrectly. You can find instructions on how to get a new document from here.";
+"my-eid-unblock-pin1-button-title" = "UNBLOCK";
+"my-eid-unblock-pin2-button-title" = "UNBLOCK";
+"my-eid-how-to-get-codes-message" = "You can find instructions on how to get a new document from here.";
+"my-eid-code-changed-success-message" = "%@ CHANGED";
+"my-eid-code-unblocked-success-message" = "%@ UNBLOCKED";
+"my-eid-wrong-code-message" = "Wrong %@ code. You can try 2 more times.";
+"my-eid-wrong-code-message-singular" = "Wrong %@ code. You can try 1 more time.";
+"my-eid-code-blocked-message" = "%1$@ has been blocked because %1$@ code has been entered incorrectly 3 times. Unblock to reuse %1$@.";
+// *** My eID info bullets ***
+"my-eid-info-bullet-same-codes-warning" = "New %1$@ must be different from current %1$@.";
+"my-eid-info-bullet-auth-cert-info" = "PIN1 code is used for authentication";
+"my-eid-info-bullet-pin1-blocked-warning" = "If PIN1 is inserted incorrectly 3 times, the identification certificate will be blocked and it will be impossible to use ID-card to verify identification, until it is unblocked via the PUK code.";
+"my-eid-info-bullet-forgot-code-note" = "If you have forgotten %1$@ code, but you know your PUK code, then here you can change your %1$@ with PUK code.";
+"my-eid-info-bullet-puk-envelope-info" = "PUK code is written in the envelope that is given with the ID-card.";
+"my-eid-info-bullet-sign-cert-info" = "PIN2 code is used to digitally sign documents.";
+"my-eid-info-bullet-pin2-blocked-warning" = "If PIN2 is inserted incorrectly 3 times, the signing certificate will be blocked and it will be impossible to use ID-card for digital signatures, until it is unblocked via the PUK code.";
+"my-eid-info-bullet-puk-unblock-info" = "PUK code is used for unblocking the certificates when PIN1 or PIN2 has been entered 3 times incorrectly.";
+"my-eid-info-bullet-puk-blocked-warning" = "If you forget the PUK code or the certificates remain blocked, you have to visit the service center to obtain new codes.";
+"my-eid-change-code-title" = "Change %@";
+"my-eid-unblock-code-title" = "Unblock %@";
+"my-eid-current-code-label" = "CURRENT %@ CODE";
+"my-eid-new-code-label" = "NEW %@ CODE (at least %i symbols)";
+"my-eid-new-code-again-label" = "REPEAT NEW %@ CODE";
+"my-eid-discard-button-title" = "CANCEL";
+"my-eid-confirm-change-button-title" = "CHANGE";
+"my-eid-confirm-unblock-button-title" = "UNBLOCK";
+"my-eid-error-new-code-too-short" = "New %@ code must be at least %i digits long";
+"my-eid-error-current-code-too-short" = "Current %@ code must be at least %i digits long";
+"my-eid-error-codes-mismatch" = "New %@ codes must match";
+"my-eid-error-codes-are-same" = "Old and new %@ have to be different";
+"my-eid-error-code-contained-in-personal-code" = "New %@ code can't be part of your personal code";
+"my-eid-error-code-is-date-of-birth" = "New %@ code can't be your date of birth";
+"my-eid-error-code-too-easy" = "New %@ code can't be so easy";
+"settings-title" = "Settings";
+"settings-phone-number-title" = "Country code and phone number";
+"settings-phone-number-placeholder" = "372XXXXXXXX";
+"settings-id-code-title" = "Personal code";
+"settings-id-code-placeholder" = "Personal code";
+"settings-timestamp-url-title" = "Time Stamp service URL";
+"settings-timestamp-url-placeholder" = "";
+"settings-timestamp-use-default-title" = "Use default";
+"diagnostics-title" = "Diagnostics";
+"diagnostics-app-version" = "Application version";
+"diagnostics-ios-version" = "OS";
+"diagnostics-libraries-label" = "Libraries:";
+"about-title" = "Info";
+"jailbreak-message" = "This app cannot be used in jailbroken device";
+"datafile-preview-failed" = "Error opening document for preview";

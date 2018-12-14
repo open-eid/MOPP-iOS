@@ -26,23 +26,33 @@
 #import "MoppLibSignature.h"
 #import "MoppLibConstants.h"
 
+typedef enum {
+    Unspecified,
+    TimeStamp,
+    TimeMark
+} SigningProfileType;
+
 @interface MoppLibDigidocManager : NSObject
 
+@property (readonly) BOOL useTestDigiDocService;
 + (MoppLibDigidocManager *)sharedInstance;
-
-- (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure;
+- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString*)tsUrl;
++ (NSString *)defaultTSUrl;
 
 - (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath error:(NSError **)error;
-- (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths;
-- (MoppLibContainer *)addDataFilesToContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths;
-- (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex;
+- (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths error:(NSError **)error;
+- (MoppLibContainer *)addDataFilesToContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths error:(NSError **)error;
+- (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex error:(NSError **)error;
 - (NSArray *)getContainers;
 
 - (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId;
 - (BOOL)container:(MoppLibContainer *)moppContainer containsSignatureWithCert:(NSData *)cert;
 - (void)addSignature:(NSString *)containerPath pin2:(NSString *)pin2 cert:(NSData *)cert success:(ContainerBlock)success andFailure:(FailureBlock)failure;
 - (void)addMobileIDSignatureToContainer:(MoppLibContainer *)moppContainer signature:(NSString *)signature success:(ContainerBlock)success andFailure:(FailureBlock)failure;
-- (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath;
+- (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath error:(NSError **)error;
 - (NSString *)getMoppLibVersion;
 - (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path;
+- (NSString *)digidocVersion;
+- (NSString *)pkcs12Cert;
++ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData;
 @end

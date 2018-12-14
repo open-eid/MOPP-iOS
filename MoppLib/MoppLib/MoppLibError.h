@@ -30,6 +30,7 @@ extern NSString *const MoppLibErrorDomain;
 + (NSError *)readerNotFoundError;
 + (NSError *)readerSelectionCanceledError;
 + (NSError *)cardNotFoundError;
++ (NSError *)ldapResponseNotFoundError;
 + (NSError *)cardVersionUnknownError;
 + (NSError *)wrongPinErrorWithRetryCount:(int)count;
 + (NSError *)generalError;
@@ -47,5 +48,6 @@ extern NSString *const MoppLibErrorDomain;
 + (NSError *)fileNameTooLongError;
 + (NSError *)noInternetConnectionError;
 + (NSError *)restrictedAPIError;
++ (NSError *)duplicatedFilenameError;
 
 @end

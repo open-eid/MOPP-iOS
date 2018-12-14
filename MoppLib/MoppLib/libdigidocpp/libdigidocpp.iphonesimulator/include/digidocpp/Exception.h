@@ -42,6 +42,7 @@ namespace digidoc
               OCSPCertMissing          = 9,
               OCSPTimeSlot             = 7,
               OCSPRequestUnauthorized  = 11,
+              TSTooManyRequests        = 18,
               //Pin exceptions
               PINCanceled              = 2,
               PINFailed                = 4,
@@ -52,15 +53,20 @@ namespace digidoc
               SignatureDigestWeak      = 13,
               DataFileNameSpaceWarning = 14,
               IssuerNameSpaceWarning   = 15,
-              ProducedATLateWarning     = 16,
+              ProducedATLateWarning    = 16,
+              MimeTypeWarning          = 17,
               //DDoc error codes
               DDocError                = 512
           };
-          typedef std::vector<Exception> Causes;
+          using Causes = std::vector<Exception>;
 
           Exception(const std::string& file, int line, const std::string& msg);
           Exception(const std::string& file, int line, const std::string& msg, const Exception& cause);
+          Exception(const Exception &other);
+          Exception(Exception &&other) DIGIDOCPP_NOEXCEPT;
           virtual ~Exception();
+          Exception &operator=(const Exception &other);
+          Exception &operator=(Exception &&other) DIGIDOCPP_NOEXCEPT;
 
           std::string file() const;
           int line() const;

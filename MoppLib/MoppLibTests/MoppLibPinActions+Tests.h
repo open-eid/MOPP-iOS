@@ -25,6 +25,6 @@
 #import "CardActionsManager.h"
 
 @interface MoppLibPinActions (Tests)
-+ (void)verifyType:(CodeType)type pin:(NSString *)pin andVerificationCode:(NSString *)verificationCode viewController:(UIViewController *)controller success:(void(^)(void))success failure:(void(^)(NSError *))failure;
++ (void)verifyType:(CodeType)type pin:(NSString *)pin andVerificationCode:(NSString *)verificationCode success:(void(^)(void))success failure:(void(^)(NSError *))failure;
 
 @end

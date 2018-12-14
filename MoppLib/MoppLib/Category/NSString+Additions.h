@@ -30,4 +30,5 @@
 - (NSString *)hexToString;
 - (int)hexToInt;
 - (NSString *)SHA256;
+- (NSString *)replaceHexStringLastValue:(unsigned char)valueToReplace;
 @end

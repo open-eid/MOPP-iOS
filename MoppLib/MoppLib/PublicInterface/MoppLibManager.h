@@ -25,6 +25,14 @@
 #import "MoppLibCardActions.h"
 #import "MoppLibConstants.h"
 
+typedef NS_ENUM(NSUInteger, EIDType) {
+    EIDTypeUnknown,
+    EIDTypeMobileID,
+    EIDTypeDigiID,
+    EIDTypeIDCard,
+    EIDTypeESeal
+};
+
 @interface MoppLibManager : NSObject
 
 + (MoppLibManager *)sharedInstance;
@@ -35,7 +43,13 @@
  * @param success       Block to be called on successful completion of action.
  * @param failure       Block to be called when action fails. Includes error.
  */
-- (void)setupWithSuccess:(EmptySuccessBlock)success andFailure:(FailureBlock)failure;
+- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString *)tsUrl;
 
-- (NSString *)getMoppLibVersion;
+- (NSString *)moppLibVersion;
+- (NSString *)libdigidocppVersion;
++ (NSString *)defaultTSUrl;
++ (EIDType)eidTypeFromCertificate:(NSData*)certData;
++ (EIDType)eidTypeFromCertificatePolicies:(NSArray<NSString*>*)certificatePolicies;
++ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData;
+
 @end

@@ -24,7 +24,11 @@
 #import "MoppLibSOAPManager.h"
 #import "MoppLibDigidocManager.h"
 #import "MoppLibDataFile.h"
+#ifdef TEST_ENV
+#import <MoppLibTestEnv/MoppLib-Swift.h>
+#else
 #import <MoppLib/MoppLib-Swift.h>
+#endif
 #import "MoppLibError.h"
 #import "MoppLibMobileCreateSignatureResponse.h"
 #import "MoppLibGetMobileCreateSignatureStatusResponse.h"
@@ -35,6 +39,7 @@
 
 static NSString *kDigestMethodSHA256 = @"http://www.w3.org/2001/04/xmlenc#sha256";
 static NSString *kServiceName = @"DigiDoc3";
+static NSString *kTestServiceName = @"Testimine";
 static NSString *kFormat = @"BDOC";
 static NSString *kVersion = @"2.1";
 static NSString *kMessagingMode = @"asynchClientServer";
@@ -70,16 +75,24 @@ static NSUInteger kDDsMessageMaximumByteSize = 40;
   AEXMLElement *document = [AEXMLDocument new];
   AEXMLElement *envelope = [self createEmptySoapEnvelope];
   AEXMLElement *body = [[AEXMLElement alloc] initWithName:@"soapenv:Body" value:nil attributes:@{@"DdsOperationName" : @"dig:MobileCreateSignature"}];
+  
   [envelope addChild:body];
+  
   AEXMLElement *mobileCreateSignature = [[AEXMLElement alloc] initWithName:@"dig:MobileCreateSignature" value:nil attributes:@{@"soapenv:encodingStyle" : @"http://schemas.xmlsoap.org/soap/encoding/"}];
+  
   [body addChild:mobileCreateSignature];
+  
   [mobileCreateSignature addChildWithName:@"IDCode" value:idCode attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"PhoneNo" value:phoneNo attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"Language" value:nationality attributes:@{@"xsi:type" : @"xsd:string"}];
-  [mobileCreateSignature addChildWithName:@"ServiceName" value:kServiceName attributes:@{@"xsi:type" : @"xsd:string"}];
-  [mobileCreateSignature addChildWithName:@"SigningProfile" value:@"LT_TM"attributes:nil];
+  [mobileCreateSignature addChildWithName:@"ServiceName" value:(_useTestDigiDocService ? kTestServiceName : kServiceName) attributes:@{@"xsi:type" : @"xsd:string"}];
+  NSString *signingProfile = @"LT";
+  [mobileCreateSignature addChildWithName:@"SigningProfile" value:signingProfile attributes:nil];
+  
   AEXMLElement *dataFiles = [[AEXMLElement alloc] initWithName:@"DataFiles" value:nil attributes:@{@"xsi:type" : @"dig:DataFileDigestList"}];
+  
   [mobileCreateSignature addChild:dataFiles];
+  
   for (MoppLibDataFile *file in container.dataFiles) {
     AEXMLElement *dataFileDigest = [[AEXMLElement alloc] initWithName:@"DataFileDigest" value:nil attributes:@{@"xsi:type" : @"dig:DataFileDigest"}];
     [dataFileDigest addChildWithName:@"Id" value:file.fileId attributes:@{@"xsi:type" : @"xsd:string"}];
@@ -88,12 +101,15 @@ static NSUInteger kDDsMessageMaximumByteSize = 40;
     [dataFileDigest addChildWithName:@"MimeType" value:file.mediaType attributes:@{@"xsi:type" : @"xsd:string"}];
     [dataFiles addChild:dataFileDigest];
   }
+  
   [mobileCreateSignature addChildWithName:@"Format" value:kFormat attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"MessageToDisplay" value:[self getMessageToDisplayWithMessage:container.fileName] attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"Version" value:kVersion attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"SignatureID" value:container.getNextSignatureId attributes:@{@"xsi:type" : @"xsd:string"}];
   [mobileCreateSignature addChildWithName:@"MessagingMode" value:kMessagingMode attributes:@{@"xsi:type" : @"xsd:string"}];
+  
   [document addChild:envelope];
+  
   MLLog(@"SOAP REQUEST %@", document.xml);
   return document.xml;
 }
@@ -193,6 +209,6 @@ static NSUInteger kDDsMessageMaximumByteSize = 40;
 }
 
 - (NSString *)getSignatureProfileWithContainer:(MoppLibContainer *)container {
-  return [container isAsiceType] ? @"LT" : @"LT_TM";
+  return [container isAsice] ? @"LT" : @"LT_TM";
 }
 @end

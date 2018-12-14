@@ -26,6 +26,8 @@
 
 @protocol CardReaderWrapper <NSObject>
 
+- (MoppLibCardChipType)cardChipType;
+
 /**
  * Transmits command and gets response from card
  *
@@ -33,7 +35,7 @@
  * @param success   block to be called when card action is completed successfully
  * @param failure   block to be called when executing card action fails
  */
-- (void)transmitCommand:(NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure;
+- (void)transmitCommand:(const NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 /**
  * Powers on card
@@ -48,7 +50,7 @@
  *
  * @param completion   block to be called when card action is completed. Block includes boolean attribute to indicate whether card is inserted or not
  */
-- (void)isCardInserted:(void(^)(BOOL)) completion;
+- (void)isCardInserted:(BoolBlock)completion;
 
 /**
  * Checks if card reader is connected
@@ -62,7 +64,7 @@
  *
  * @param completion   block to be called when card action is completed. Block includes boolean attribute to indicate whether card is powered on or not
  */
-- (void)isCardPoweredOn:(void(^)(BOOL)) completion;
+- (void)isCardPoweredOn:(BoolBlock)completion;
 
 - (void)resetReader;
 

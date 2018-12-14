@@ -49,6 +49,9 @@ extern NSString *const kCommandChangeReferenceData;
 extern NSString *const kCommandSetSecurityEnv;
 extern NSString *const kCommandVerifyCode;
 extern NSString *const kCommandCalculateSignature;
+extern NSString *const kCommandOngoingDecryption;
+extern NSString *const kCommandFinalDecryption;
+
 extern NSString *const kCommandResetRetryCounter;
 
 
@@ -75,14 +78,6 @@ extern NSString *const kAlgorythmIdentifyerSHA512;
  * @param failure   block to be executed when action fails
  */
 - (void)readPublicDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure;
-
-/**
- * Reads card owner birthDate from card.
- *
- * @param success   block to be executed when action is completed successfully
- * @param failure   block to be executed when action fails
- */
-- (void)readBirthDateWithSuccess:(void (^)(NSDate *date))success failure:(FailureBlock)failure;
 
 /**
  * Reads authentication certificate from card.
@@ -116,7 +111,7 @@ extern NSString *const kAlgorythmIdentifyerSHA512;
  * @param success   block to be executed when action is completed successfully
  * @param failure   block to be executed when action fails
  */
-- (void)readCodeCounterRecord:(NSInteger)record withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
+- (void)readCodeCounterRecord:(CodeType)record withSuccess:(NumberBlock)success failure:(FailureBlock)failure;
 
 /**
  * Changes PIN or PUK code.
@@ -158,8 +153,17 @@ extern NSString *const kAlgorythmIdentifyerSHA512;
  * @param success       block to be executed when action is completed successfully
  * @param failure       block to be executed when action fails
  */
-- (void)calculateSignatureFor:(NSData *)hash withPin2:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure;
+- (void)calculateSignatureFor:(NSData *)hash withPin2:(NSString *)pin2 useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
+/**
+ * Decrypt data
+ *
+ * @param hash          hash to be signed
+ * @param pin1          PIN 1 to be used for verification
+ * @param success       block to be executed when action is completed successfully
+ * @param failure       block to be executed when action fails
+ */
+- (void)decryptData:(NSData *)hash withPin1:(NSString *)pin1 useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 - (void)setSecurityEnvironment:(NSUInteger)env withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
 

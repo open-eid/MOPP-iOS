@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bky-k6-9RW">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Medium.ttf">
+            <string>Roboto-Medium</string>
+        </array>
+        <array key="RobotoCondensed-Regular.ttf">
+            <string>RobotoCondensed-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Signing-->
+        <scene sceneID="7qX-8r-0dN">
+            <objects>
+                <viewController id="vA0-9v-0On" customClass="SigningViewController" customModule="MoppApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="T97-EC-IOE"/>
+                        <viewControllerLayoutGuide type="bottom" id="xyl-Tx-lc2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iWd-FS-UZS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allkirjastamiseks või dekrüpteerimiseks vali fail" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xC0-jh-5MV">
+                                <rect key="frame" x="16" y="245.5" width="343" height="47"/>
+                                <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="20"/>
+                                <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CaL-ug-7D1">
+                                <rect key="frame" x="16" y="308.5" width="343" height="50"/>
+                                <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="I1A-W0-heN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
+                                <state key="normal" title="VALI FAIL">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="importFilesAction" destination="vA0-9v-0On" eventType="touchUpInside" id="TGx-hJ-gZx"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="CaL-ug-7D1" secondAttribute="trailing" constant="16" id="3K6-qu-He7"/>
+                            <constraint firstItem="CaL-ug-7D1" firstAttribute="leading" secondItem="iWd-FS-UZS" secondAttribute="leading" constant="16" id="Fon-uG-3Zm"/>
+                            <constraint firstItem="CaL-ug-7D1" firstAttribute="top" secondItem="xC0-jh-5MV" secondAttribute="bottom" constant="16" id="N59-4v-oUQ"/>
+                            <constraint firstAttribute="trailing" secondItem="xC0-jh-5MV" secondAttribute="trailing" constant="16" id="hIO-wT-1cA"/>
+                            <constraint firstItem="xC0-jh-5MV" firstAttribute="leading" secondItem="iWd-FS-UZS" secondAttribute="leading" constant="16" id="lIe-Rb-BIU"/>
+                            <constraint firstItem="CaL-ug-7D1" firstAttribute="centerY" secondItem="iWd-FS-UZS" secondAttribute="centerY" id="mMD-K8-Iy9"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Signing" id="2c3-o9-tC3">
+                        <barButtonItem key="rightBarButtonItem" image="VerticalDotsMenu" style="plain" id="5Sn-xe-ssA">
+                            <color key="tintColor" red="0.21176470589999999" green="0.2156862745" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="menuActivationSelector" destination="vA0-9v-0On" id="jGF-ZC-wEP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="importButton" destination="CaL-ug-7D1" id="5fU-XL-mtr"/>
+                        <outlet property="titleLabel" destination="xC0-jh-5MV" id="ffg-Gu-siT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l8I-Bf-tlZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="754.39999999999998" y="149.32533733133434"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="YBV-PF-rmm">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bky-k6-9RW" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="kbu-8k-TYE">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vA0-9v-0On" kind="relationship" relationship="rootViewController" id="CYE-Fr-Vh9"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZA1-4N-qfV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-114" y="151"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="VerticalDotsMenu" width="25" height="25"/>
+    </resources>
+</document>

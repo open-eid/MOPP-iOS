@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Qw4-LB-K7D">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Medium.ttf">
+            <string>Roboto-Medium</string>
+        </array>
+        <array key="RobotoCondensed-Regular.ttf">
+            <string>RobotoCondensed-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Crypto-->
+        <scene sceneID="6Xi-t3-5p4">
+            <objects>
+                <viewController id="J3s-km-sWX" customClass="CryptoViewController" customModule="MoppApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WzN-Kf-XwL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TYv-AQ-7tk">
+                                <rect key="frame" x="16" y="340.5" width="343" height="50"/>
+                                <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="43A-TK-RQA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
+                                <state key="normal" title="CHOOSE FILE">
+                                    <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="importFilesAction" destination="J3s-km-sWX" eventType="touchUpInside" id="ftB-Oq-ago"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose file to crypt to decrypt" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="248-ll-0AR">
+                                <rect key="frame" x="16" y="301" width="343" height="23.5"/>
+                                <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="248-ll-0AR" firstAttribute="leading" secondItem="V6M-eL-nsZ" secondAttribute="leading" constant="16" id="7Ox-KV-N2t"/>
+                            <constraint firstItem="V6M-eL-nsZ" firstAttribute="trailing" secondItem="TYv-AQ-7tk" secondAttribute="trailing" constant="16" id="CnC-Gv-AVf"/>
+                            <constraint firstItem="V6M-eL-nsZ" firstAttribute="trailing" secondItem="248-ll-0AR" secondAttribute="trailing" constant="16" id="epx-i6-gKs"/>
+                            <constraint firstItem="TYv-AQ-7tk" firstAttribute="centerY" secondItem="V6M-eL-nsZ" secondAttribute="centerY" id="lhg-d5-JjL"/>
+                            <constraint firstItem="TYv-AQ-7tk" firstAttribute="top" secondItem="248-ll-0AR" secondAttribute="bottom" constant="16" id="oKV-js-haN"/>
+                            <constraint firstItem="TYv-AQ-7tk" firstAttribute="leading" secondItem="V6M-eL-nsZ" secondAttribute="leading" constant="16" id="yyW-U2-TKt"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="V6M-eL-nsZ"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Crypto" id="EbM-OP-n9X">
+                        <barButtonItem key="rightBarButtonItem" image="VerticalDotsMenu" style="plain" id="tpl-LF-OAz">
+                            <color key="tintColor" red="0.21176470589999999" green="0.2156862745" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="menuActivationSelector" destination="J3s-km-sWX" id="rQD-fk-Sl3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="importButton" destination="TYv-AQ-7tk" id="li8-vM-Ml1"/>
+                        <outlet property="titleLabel" destination="248-ll-0AR" id="xmp-Ew-abB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JnN-8c-FMV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="751" y="82"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="S2r-JZ-Zv7">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qw4-LB-K7D" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PIH-GR-wpu">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="J3s-km-sWX" kind="relationship" relationship="rootViewController" id="ffz-iN-T44"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pk6-Wn-AxK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-153" y="83"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="VerticalDotsMenu" width="25" height="25"/>
+    </resources>
+</document>

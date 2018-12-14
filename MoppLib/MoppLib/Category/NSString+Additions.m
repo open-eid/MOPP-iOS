@@ -29,7 +29,7 @@
 
 - (NSString *)toHexString {
   NSData* nsData = [self dataUsingEncoding:NSUTF8StringEncoding];
-  NSString* hex = [nsData toHexString];
+  NSString* hex = [nsData hexString];
   return hex;
 }
 
@@ -93,6 +93,13 @@
   
   return byteArray;
 
+}
+
+- (NSString *)replaceHexStringLastValue:(unsigned char)valueToReplace {
+    NSData *data = [self toHexData];
+    unsigned char *buf = (unsigned char *)[data bytes];
+    buf[data.length - 1] = valueToReplace;
+    return [[NSData dataWithBytes:buf length:[data length]] hexString];
 }
 
 - (int)hexToInt {

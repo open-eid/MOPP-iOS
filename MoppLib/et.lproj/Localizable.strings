@@ -40,9 +40,6 @@
 "Error" = "Viga";
 "Ok" = "Ok";
 
-"signature-already-exists-title" = "Allkiri eksisteerib";
-"signature-already-exists-message" = "Dokument on sinu poolt juba allkirjastatud. Kas soovid jätkata?";
-
 // *** Digidoc service status ***
 
 "digidoc-service-status-request-sent" = "Allkirjastamispäring saadetud";
@@ -67,7 +64,7 @@
 "digidoc-service-error-incorrect-parameters" = "Vigane telefoninumber ja/või isikukood, välismaa telefoninumber peab algama riigikoodiga";
 "digidoc-service-error-missing-parameters" = "Puudub telefoninumber ja/või isikukood";
 "digidoc-service-error-ocsp-unauthorized" = "Mobiilse allkirjastamise teenusele ei õnnestu ligi pääseda";
-"digidoc-service-error-general-service" = "Viga DigidocService\'ga, proovi hiljem uuesti";
+"digidoc-service-error-general-service" = "Viga Digidoc teenusega, proovi hiljem uuesti";
 "digidoc-service-error-missing-user-certificate" = "Kasutaja sertifikaat puudub";
 "digidoc-service-error-certificate-validity-unknown" = "Sertifikaadi kehtivust ei õnnestu kontrollida";
 "digidoc-service-error-session-locked" = "Mobiilse allkirjastamise sessioon on lukustunud, proovi hiljem uuesti";
