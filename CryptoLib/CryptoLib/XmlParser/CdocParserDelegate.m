@@ -66,7 +66,10 @@
     }
         
     if (_isNextCharactersCertificate) {
-        NSData *pemFormattedCertificate = [[NSString stringWithFormat:@"%@%@%@", @"-----BEGIN CERTIFICATE-----\n", string, @"\n-----END CERTIFICATE------"] dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *trimmedString = [string stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        NSString *pemCertificate = [NSString stringWithFormat:@"-----BEGIN CERTIFICATE-----\n%@\n-----END CERTIFICATE------", trimmedString];
+        
+        NSData *pemFormattedCertificate = [pemCertificate dataUsingEncoding:NSUTF8StringEncoding];
         _lastAddressee.cert = [pemFormattedCertificate subdataWithRange:NSMakeRange(0, [pemFormattedCertificate length] - 1)];
     }
 }
