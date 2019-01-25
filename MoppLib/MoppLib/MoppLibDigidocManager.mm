@@ -78,10 +78,8 @@ public:
   }
   
   virtual std::string PKCS12Cert() const {
-    std::string certPath = Conf::PKCS12Cert();
-    NSString *encodedCertPath = [NSString stringWithUTF8String:certPath.c_str()];
     NSBundle *bundle = [NSBundle bundleForClass:[MoppLibDigidocManager class]];
-    NSString *path = [bundle pathForResource:encodedCertPath ofType:@""];
+    NSString *path = [bundle pathForResource:@"798.p12" ofType:@""];
     return path.UTF8String;
   }
   
