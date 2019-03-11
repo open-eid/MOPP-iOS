@@ -27,6 +27,8 @@ import Fabric
 
 
 final class AppDelegate: UIResponder, UIApplicationDelegate {
+    private var appCoverWindow: UIWindow?
+    private var appCoverVC: UIViewController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         return (application as! MoppApp).didFinishLaunchingWithOptions(launchOptions: launchOptions)
@@ -37,6 +39,15 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
+        if let launchScreenView = Bundle.main.loadNibNamed("LaunchScreen", owner: self, options: nil)?.last as? UIView {
+            appCoverVC = UIStoryboard.landing.instantiateInitialViewController()
+            appCoverVC!.view.addSubview(launchScreenView)
+            
+            appCoverWindow = UIWindow(frame: UIScreen.main.bounds)
+            appCoverVC!.view.frame = appCoverWindow!.bounds
+            appCoverWindow!.rootViewController = appCoverVC!
+            appCoverWindow!.makeKeyAndVisible()
+        }
         (application as! MoppApp).willResignActive()
     }
 
@@ -50,6 +61,10 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
+        if appCoverWindow != nil {
+            appCoverWindow = nil
+            appCoverVC = nil
+        }
         (application as! MoppApp).didBecomeActive()
     }
 
