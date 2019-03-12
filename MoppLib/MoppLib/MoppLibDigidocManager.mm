@@ -127,25 +127,6 @@ private:
   
   MoppLibSOAPManager.sharedInstance.useTestDigiDocService = useTestDDS;
   
-  // Copy initial TSL cache for libdigidocpp if needed.
-  NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
-  NSString *eeTslCachePath = [NSString stringWithFormat:@"%@/EE.xml", tslCachePath];
-  if (![[MLFileManager sharedInstance] fileExistsAtPath:eeTslCachePath]) {
-    MLLog(@"Copy TSL cache: true");
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    NSArray *tslCache = @[[bundle pathForResource:@"EE" ofType:@"xml"],
-                          [bundle pathForResource:@"FI" ofType:@"xml"],
-                          [bundle pathForResource:@"tl-mp" ofType:@"xml"]];
-    
-    for (NSString *sourcePath in tslCache) {
-      NSString *destinationPath = [NSString stringWithFormat:@"%@/%@", tslCachePath, [sourcePath lastPathComponent]];
-      [[MLFileManager sharedInstance] copyFileWithPath:sourcePath toPath:destinationPath];
-    }
-  } else {
-    MLLog(@"Copy TSL cache: false");
-  }
-  
-  
   // Initialize libdigidocpp.
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     try {
