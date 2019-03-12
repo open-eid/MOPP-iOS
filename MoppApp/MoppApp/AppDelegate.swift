@@ -24,6 +24,7 @@
 import Foundation
 import Crashlytics
 import Fabric
+import ScreenBlocker_iOS
 
 
 final class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -37,16 +38,10 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         return (application as! MoppApp).openUrl(url: url, options: options)
     }
-
+    
     func applicationWillResignActive(_ application: UIApplication) {
         if let launchScreenView = Bundle.main.loadNibNamed("LaunchScreen", owner: self, options: nil)?.last as? UIView {
-            appCoverVC = UIStoryboard.landing.instantiateInitialViewController()
-            appCoverVC!.view.addSubview(launchScreenView)
-            
-            appCoverWindow = UIWindow(frame: UIScreen.main.bounds)
-            appCoverVC!.view.frame = appCoverWindow!.bounds
-            appCoverWindow!.rootViewController = appCoverVC!
-            appCoverWindow!.makeKeyAndVisible()
+            ScreenBlocker.shared.show(bgColor:UIColor(patternImage: (application as! MoppApp).convertViewToImage(with:launchScreenView)!))
         }
         (application as! MoppApp).willResignActive()
     }
@@ -61,10 +56,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        if appCoverWindow != nil {
-            appCoverWindow = nil
-            appCoverVC = nil
-        }
+        ScreenBlocker.shared.hide()
         (application as! MoppApp).didBecomeActive()
     }
 
