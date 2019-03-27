@@ -93,6 +93,10 @@
 		C50DCD441FDD7E4A00D48E16 /* DataFilePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD431FDD7E4A00D48E16 /* DataFilePreviewViewController.swift */; };
 		C50DCD461FDECE2B00D48E16 /* SignatureDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD451FDECE2B00D48E16 /* SignatureDetailsViewController.swift */; };
 		C50DCD481FDED76400D48E16 /* SignatureDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD471FDED76400D48E16 /* SignatureDetailsCell.swift */; };
+		C50FC431224BA3B20041925C /* ScreenDisguise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50FC42F224BA3B20041925C /* ScreenDisguise.swift */; };
+		C50FC432224BA3B20041925C /* ScreenDisguiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50FC430224BA3B20041925C /* ScreenDisguiseViewController.swift */; };
+		C50FC433224BA3B60041925C /* ScreenDisguise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50FC42F224BA3B20041925C /* ScreenDisguise.swift */; };
+		C50FC434224BA3B90041925C /* ScreenDisguiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50FC430224BA3B20041925C /* ScreenDisguiseViewController.swift */; };
 		C51B7FB21FBB12E80046D6E0 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB11FBB12E80046D6E0 /* ShareViewController.m */; };
 		C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB41FBB2AB10046D6E0 /* Utils.swift */; };
 		C51B7FB71FBC45DD0046D6E0 /* LocalizationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB61FBC45DD0046D6E0 /* LocalizationKeys.swift */; };
@@ -512,6 +516,8 @@
 		C50DCD431FDD7E4A00D48E16 /* DataFilePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFilePreviewViewController.swift; sourceTree = "<group>"; };
 		C50DCD451FDECE2B00D48E16 /* SignatureDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureDetailsViewController.swift; sourceTree = "<group>"; };
 		C50DCD471FDED76400D48E16 /* SignatureDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureDetailsCell.swift; sourceTree = "<group>"; };
+		C50FC42F224BA3B20041925C /* ScreenDisguise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenDisguise.swift; sourceTree = "<group>"; };
+		C50FC430224BA3B20041925C /* ScreenDisguiseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenDisguiseViewController.swift; sourceTree = "<group>"; };
 		C51B7FB01FBB12E70046D6E0 /* shareExtension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shareExtension-Bridging-Header.h"; sourceTree = "<group>"; };
 		C51B7FB11FBB12E80046D6E0 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		C51B7FB31FBB12FC0046D6E0 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
@@ -808,6 +814,15 @@
 			name = "Custom views";
 			sourceTree = "<group>";
 		};
+		C50FC428224BA2BA0041925C /* ScreenDisguise */ = {
+			isa = PBXGroup;
+			children = (
+				C50FC42F224BA3B20041925C /* ScreenDisguise.swift */,
+				C50FC430224BA3B20041925C /* ScreenDisguiseViewController.swift */,
+			);
+			name = ScreenDisguise;
+			sourceTree = "<group>";
+		};
 		C52E82721FC1D38D0074B280 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
@@ -1027,6 +1042,7 @@
 		E4250D0B1E0AA84A00530370 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C50FC428224BA2BA0041925C /* ScreenDisguise */,
 				3950027D20ADB543008D946D /* Crypto */,
 				C5FA0BEA20A19AC900A208E5 /* JailBroken */,
 				C593D9E6208F1972000B3BF6 /* Settings */,
@@ -1488,6 +1504,7 @@
 				C5EA70EF2176057A00440F4A /* SettingsViewController.swift in Sources */,
 				C5EA70F02176057A00440F4A /* TokenFlowSelectionViewController.swift in Sources */,
 				C5EA70F12176057A00440F4A /* InitializationViewController.swift in Sources */,
+				C50FC433224BA3B60041925C /* ScreenDisguise.swift in Sources */,
 				C5EA70F22176057A00440F4A /* MyeIDInfoViewController.swift in Sources */,
 				C5EA70F32176057A00440F4A /* ContainerHeaderCell.swift in Sources */,
 				C5EA70F42176057A00440F4A /* AddresseeActions.swift in Sources */,
@@ -1510,6 +1527,7 @@
 				C5EA71052176057A00440F4A /* WrapperUIBarButtonItem.swift in Sources */,
 				C5EA71062176057A00440F4A /* CdocParserDelegate.swift in Sources */,
 				C5EA71072176057A00440F4A /* ContainerSearchCell.swift in Sources */,
+				C50FC434224BA3B90041925C /* ScreenDisguiseViewController.swift in Sources */,
 				C5EA71082176057A00440F4A /* AboutViewController.swift in Sources */,
 				C5EA71092176057A00440F4A /* MyeIDInfoViewControllerUI.swift in Sources */,
 				C5EA710A2176057A00440F4A /* SigningContainerViewController.swift in Sources */,
@@ -1610,6 +1628,7 @@
 				3921CAA920B5A54600BF3178 /* ContainerImportAddressees.swift in Sources */,
 				C56C6206201A189600CCC2A5 /* MenuHeaderCell.swift in Sources */,
 				C50DCD441FDD7E4A00D48E16 /* DataFilePreviewViewController.swift in Sources */,
+				C50FC431224BA3B20041925C /* ScreenDisguise.swift in Sources */,
 				C50787881FEA807500D9AAC0 /* UIViewController+Additions.swift in Sources */,
 				C506EC7C1FB9CBFD00E07226 /* Constants.swift in Sources */,
 				C55BB1CF2091BEBD00618AC4 /* about_et.html in Sources */,
@@ -1635,6 +1654,7 @@
 				C52E82781FC1D3ED0074B280 /* MenuViewController.swift in Sources */,
 				C50DCCC71FC32A2500D48E16 /* MyeIDViewController.swift in Sources */,
 				C50DCD071FC7126100D48E16 /* ContainerSignatureCell.swift in Sources */,
+				C50FC432224BA3B20041925C /* ScreenDisguiseViewController.swift in Sources */,
 				C54EA6E82045A9E30039AC78 /* IdCardViewController.swift in Sources */,
 				C56C620D201A256E00CCC2A5 /* RecentContainersViewController.swift in Sources */,
 				C5964CE820079AE0001FE732 /* TabButton.swift in Sources */,
