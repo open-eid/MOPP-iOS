@@ -31,7 +31,7 @@
 
 // Main menu
 "menu-help" = "ABI";
-"menu-recent-containers" = "HIILJUTISED DOKUMENDID";
+"menu-recent-containers" = "HILJUTISED DOKUMENDID";
 "menu-settings" = "SEADED";
 "menu-about" = "INFO";
 "menu-diagnostics" = "DIAGNOSTIKA";

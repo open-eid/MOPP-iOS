@@ -24,7 +24,6 @@
 import Foundation
 import Crashlytics
 import Fabric
-import ScreenBlocker_iOS
 
 
 final class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -40,9 +39,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
-        if let launchScreenView = Bundle.main.loadNibNamed("LaunchScreen", owner: self, options: nil)?.last as? UIView {
-            ScreenBlocker.shared.show(bgColor:UIColor(patternImage: (application as! MoppApp).convertViewToImage(with:launchScreenView)!))
-        }
         (application as! MoppApp).willResignActive()
     }
 
@@ -50,13 +46,11 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         (application as! MoppApp).didEnterBackground()
     }
 
-
     func applicationWillEnterForeground(_ application: UIApplication) {
         (application as! MoppApp).willEnterForeground()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        ScreenBlocker.shared.hide()
         (application as! MoppApp).didBecomeActive()
     }
 
