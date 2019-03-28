@@ -38,6 +38,17 @@ public class ScreenDisguise {
         }
                 
         if let topViewController = topViewController() {
+            let blurEffect = UIBlurEffect(style: .light)
+            let effectView = UIVisualEffectView(effect: blurEffect)
+            
+            tempOverlay.view.addSubview(effectView)
+            
+            effectView.translatesAutoresizingMaskIntoConstraints = false
+            effectView.topAnchor.constraint(equalTo: tempOverlay.view.topAnchor).isActive = true
+            effectView.bottomAnchor.constraint(equalTo: tempOverlay.view.bottomAnchor).isActive = true
+            effectView.trailingAnchor.constraint(equalTo: tempOverlay.view.trailingAnchor).isActive = true
+            effectView.leadingAnchor.constraint(equalTo: tempOverlay.view.leadingAnchor).isActive = true
+
             topViewController.view.addSubview(tempOverlay.view)
             
             let targetLayoutGuide = topViewController.view!

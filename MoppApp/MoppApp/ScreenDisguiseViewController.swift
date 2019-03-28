@@ -26,9 +26,7 @@ import UIKit
 
 class ScreenDisguiseViewController: UIViewController {
     func show() {
-        if let launchScreenView = Bundle.main.loadNibNamed("LaunchScreen", owner: self, options: nil)?.last as? UIView {
-            self.view.backgroundColor = UIColor(patternImage: MoppApp.instance.convertViewToImage(with:launchScreenView)!)
-        }
+        self.view.backgroundColor = UIColor.clear
         self.view.alpha = 1.0
     }
     
