@@ -34,6 +34,7 @@ open class AEXMLDocument: AEXMLElement {
     // MARK: - Properties
     
     /// Root (the first child element) element of XML Document **(Empty element with error if not exists)**.
+    @objc
     open var root: AEXMLElement {
         guard let rootElement = children.first else {
             let errorElement = AEXMLElement(name: "Error")
@@ -112,6 +113,7 @@ open class AEXMLDocument: AEXMLElement {
     
         - parameter data: XML which should be parsed.
     */
+    @objc
     open func loadXML(_ data: Data) throws {
         children.removeAll(keepingCapacity: false)
         let xmlParser = AEXMLParser(document: self, data: data)

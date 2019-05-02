@@ -39,12 +39,14 @@ open class AEXMLElement : NSObject {
   open internal(set) weak var parent: AEXMLElement?
   
   /// Child XML elements.
+  @objc
   open internal(set) var children = [AEXMLElement]()
   
   /// XML Element name.
   open var name: String
   
   /// XML Element value.
+  @objc
   open var value: String?
   
   /// XML Element attributes.
@@ -81,6 +83,7 @@ open class AEXMLElement : NSObject {
     self.value = nil
     self.attributes = ["" : ""]
   }
+  @objc
   public init(name: String, value: String? = nil, attributes: [String : String] = [String : String]()) {
     self.name = name
     self.value = value
@@ -92,6 +95,7 @@ open class AEXMLElement : NSObject {
   // MARK: - XML Read
   
   /// The first element with given name **(Empty element with error if not exists)**.
+  @objc
   open subscript(key: String) -> AEXMLElement {
     guard let
       first = children.first(where: { $0.name == key })
@@ -171,6 +175,7 @@ open class AEXMLElement : NSObject {
    
    - returns: Child XML element with `self` as `parent`.
    */
+  @objc
   @discardableResult open func addChild(_ child: AEXMLElement) -> AEXMLElement {
     child.parent = self
     children.append(child)
@@ -186,6 +191,7 @@ open class AEXMLElement : NSObject {
    
    - returns: Child XML element with `self` as `parent`.
    */
+  @objc
   @discardableResult open func addChild(name: String,
                                         value: String? = nil,
                                         attributes: [String : String] = [String : String]()) -> AEXMLElement
@@ -230,6 +236,7 @@ open class AEXMLElement : NSObject {
   }
   
   /// Complete hierarchy of `self` and `children` in **XML** escaped and formatted String
+  @objc
   open var xml: String {
     var xml = String()
     
