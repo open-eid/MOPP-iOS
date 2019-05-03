@@ -134,10 +134,14 @@
     
     NSString *certificateName = challenge.protectionSpace.host;
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    NSString *pathToCert = [bundle pathForResource:certificateName ofType:@"cer"];
-    NSData *localCertificate = [NSData dataWithContentsOfFile:pathToCert];
     
-    return certificateIsValid && [remoteCertificateData isEqualToData:localCertificate];
+    NSString *pathToOldCert = [bundle pathForResource:certificateName ofType:@"cer"];
+    NSData *oldLocalCertificate = [NSData dataWithContentsOfFile:pathToOldCert];
+    
+    NSString *pathToNewCert = [bundle pathForResource:[certificateName stringByAppendingString:@".new"] ofType:@"cer"];
+    NSData *newLocalCertificate = [NSData dataWithContentsOfFile:pathToNewCert];
+    
+    return certificateIsValid && ([remoteCertificateData isEqualToData:oldLocalCertificate] || [remoteCertificateData isEqualToData:newLocalCertificate]);
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
