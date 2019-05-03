@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		39266A5320CFC0F4002E3F23 /* SmartToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5220CFC0F4002E3F23 /* SmartToken.m */; };
-		392E802B227C4486006A21AF /* digidocservice.sk.ee.new.cer in Resources */ = {isa = PBXBuildFile; fileRef = 392E802A227C4486006A21AF /* digidocservice.sk.ee.new.cer */; };
+		392E802C227C5BED006A21AF /* digidocservice.sk.ee.new.cer in Resources */ = {isa = PBXBuildFile; fileRef = 392E802A227C4486006A21AF /* digidocservice.sk.ee.new.cer */; };
 		399C01E320BC11C20056D7AC /* MoppLibCryptoActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 399C01E220BC11C20056D7AC /* MoppLibCryptoActions.m */; };
 		399C01E620BC17A10056D7AC /* MoppLibCryptoActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39CBDE3292C7B61D8AB92A3B /* Pods_MoppLibTestEnv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD6B147E2D735C0AA9A66830 /* Pods_MoppLibTestEnv.framework */; };
@@ -867,6 +867,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				392E802C227C5BED006A21AF /* digidocservice.sk.ee.new.cer in Resources */,
 				C5F974D4217646CD00A167C7 /* TestEnvInfo.plist in Resources */,
 				E43BD81D1E3F901D00F6C39D /* EE.xml in Resources */,
 				E4250CF41E096A1D00530370 /* schema in Resources */,
