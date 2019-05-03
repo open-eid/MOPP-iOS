@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		39266A5320CFC0F4002E3F23 /* SmartToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5220CFC0F4002E3F23 /* SmartToken.m */; };
+		392E802C227C5BED006A21AF /* digidocservice.sk.ee.new.cer in Resources */ = {isa = PBXBuildFile; fileRef = 392E802A227C4486006A21AF /* digidocservice.sk.ee.new.cer */; };
 		399C01E320BC11C20056D7AC /* MoppLibCryptoActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 399C01E220BC11C20056D7AC /* MoppLibCryptoActions.m */; };
 		399C01E620BC17A10056D7AC /* MoppLibCryptoActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39CBDE3292C7B61D8AB92A3B /* Pods_MoppLibTestEnv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD6B147E2D735C0AA9A66830 /* Pods_MoppLibTestEnv.framework */; };
@@ -214,6 +215,7 @@
 		212014B6D572D152A70C2C71 /* Pods_MoppLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		39266A5220CFC0F4002E3F23 /* SmartToken.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmartToken.m; sourceTree = "<group>"; };
 		39266A5420CFC105002E3F23 /* SmartToken.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SmartToken.h; sourceTree = "<group>"; };
+		392E802A227C4486006A21AF /* digidocservice.sk.ee.new.cer */ = {isa = PBXFileReference; lastKnownFileType = text; path = digidocservice.sk.ee.new.cer; sourceTree = "<group>"; };
 		399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLibCryptoActions.h; sourceTree = "<group>"; };
 		399C01E220BC11C20056D7AC /* MoppLibCryptoActions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoppLibCryptoActions.m; sourceTree = "<group>"; };
 		399C01E420BC13320056D7AC /* CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -565,6 +567,7 @@
 		E4250CDD1E09695100530370 = {
 			isa = PBXGroup;
 			children = (
+				392E802A227C4486006A21AF /* digidocservice.sk.ee.new.cer */,
 				C517CF9221665F8F008D4962 /* digidocservice.sk.ee.cer */,
 				39E5338D2122E38B00FBE148 /* 798.p12 */,
 				54E085E71E71A61900431F1A /* Reachability */,
@@ -864,6 +867,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				392E802C227C5BED006A21AF /* digidocservice.sk.ee.new.cer in Resources */,
 				C5F974D4217646CD00A167C7 /* TestEnvInfo.plist in Resources */,
 				E43BD81D1E3F901D00F6C39D /* EE.xml in Resources */,
 				E4250CF41E096A1D00530370 /* schema in Resources */,
