@@ -87,5 +87,4 @@ class MoppDateFormatter {
             dateFormatter.timeZone = NSTimeZone.local
         return dateFormatter.string(from: date)
     }
-
 }

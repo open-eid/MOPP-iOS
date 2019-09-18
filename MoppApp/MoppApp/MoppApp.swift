@@ -110,6 +110,12 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         if isDeviceJailbroken {
             window?.rootViewController = UIStoryboard.jailbreak.instantiateInitialViewController()
         } else {
+            // Get remote configuration
+            SettingsConfiguration().getCentralConfiguration()
+            
+            let notification = Notification(name: .configurationLoaded)
+            NotificationCenter.default.post(notification)
+            
             let initializationViewController = InitializationViewController()
             window?.rootViewController = initializationViewController
         }

@@ -24,6 +24,7 @@
 #import <Foundation/Foundation.h>
 #import "MoppLibCardActions.h"
 #import "MoppLibConstants.h"
+#import "MOPPLibConfiguration.h"
 
 typedef NS_ENUM(NSUInteger, EIDType) {
     EIDTypeUnknown,
@@ -43,7 +44,7 @@ typedef NS_ENUM(NSUInteger, EIDType) {
  * @param success       Block to be called on successful completion of action.
  * @param failure       Block to be called when action fails. Includes error.
  */
-- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString *)tsUrl;
+- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString *)tsUrl withMoppConfiguration:(MoppLibConfiguration *)moppConfiguration;
 
 - (NSString *)moppLibVersion;
 - (NSString *)libdigidocppVersion;

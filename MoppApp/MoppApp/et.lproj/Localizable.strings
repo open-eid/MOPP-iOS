@@ -247,3 +247,7 @@
 "about-title" = "Info";
 "jailbreak-message" = "Seda rakendust ei saa kasutada turvamata (ingl jailbroken) seadmes";
 "datafile-preview-failed" = "Faili avamine eelvaateks ebaõnnestus";
+"central-configuration" = "Konfiguratsiooni andmed:";
+"last-update-check" = "VIIMATI KONTROLLITUD:";
+"update-date" = "UUENDAMISE KUUPÄEV:";
+"refresh-configuration" = "KONTROLLI VÄRSKENDUSI";

@@ -12,6 +12,7 @@ target 'MoppApp' do
   project 'MoppApp.xcodeproj'
   pod 'Fabric'
   pod 'Crashlytics'
+  pod 'SwiftyRSA'
 end
 
 target 'MoppAppTestEnv' do
