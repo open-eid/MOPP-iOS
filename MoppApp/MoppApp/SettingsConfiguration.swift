@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * Copyright 2019 Riigi Infosüsteemide Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -51,7 +51,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         if let cachedData = getConfigurationFromCache(forKey: "config") as? String {
             var decodedData: MOPPConfiguration? = nil
             do {
-                decodedData = try Decoding().decodeMoppConfiguration(configData: cachedData)
+                decodedData = try MoppConfigurationDecoder().decodeMoppConfiguration(configData: cachedData)
             } catch {
                 MSLog("Unable to decode data: ", error.localizedDescription)
                 loadLocalConfiguration()
@@ -89,7 +89,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         do {
             let localConfigData = try String(contentsOfFile: Bundle.main.path(forResource: "config", ofType: "json")!)
             let localSignature = try String(contentsOfFile: Bundle.main.path(forResource: "signature", ofType: "rsa")!)
-            let decodedData = try Decoding().decodeMoppConfiguration(configData: localConfigData)
+            let decodedData = try MoppConfigurationDecoder().decodeMoppConfiguration(configData: localConfigData)
             setAllConfigurationToCache(configData: localConfigData, signature: localSignature, versionSerial: decodedData.METAINF.SERIAL)
             setConfigurationToCache("", forKey: "lastUpdateDateCheck")
             
@@ -112,7 +112,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             
             _ = try SignatureVerifier().isSignatureCorrect(configData: trim(text: cachedConfigData)!, publicKey: localPublicKey, signature: cachedSignature)
             
-            let decodedData = try Decoding().decodeMoppConfiguration(configData: cachedConfigData)
+            let decodedData = try MoppConfigurationDecoder().decodeMoppConfiguration(configData: cachedConfigData)
             setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS)
             setupMoppLDAPConfiguration(ldapPersonUrl: decodedData.LDAPPERSONURL, ldapCorpUrl: decodedData.LDAPCORPURL)
             
@@ -134,7 +134,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                 let localPublicKey = try String(contentsOfFile: Bundle.main.path(forResource: "publicKey", ofType: "pub")!)
                 
                 _ = try SignatureVerifier().isSignatureCorrect(configData: trim(text: centralConfigData)!, publicKey: localPublicKey, signature: centralSignature)
-                let decodedData = try Decoding().decodeMoppConfiguration(configData: centralConfigData)
+                let decodedData = try MoppConfigurationDecoder().decodeMoppConfiguration(configData: centralConfigData)
                 setAllConfigurationToCache(configData: centralConfigData, signature: centralSignature, versionSerial: decodedData.METAINF.SERIAL)
                 
                 setMoppConfiguration(configuration: decodedData)
@@ -156,7 +156,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     private func getDefaultMoppConfiguration() -> DefaultMoppConfiguration {
         do {
             let defaultConfigData = try String(contentsOfFile: Bundle.main.path(forResource: "defaultConfiguration", ofType: "json")!)
-            return try Decoding().decodeDefaultMoppConfiguration(configData: defaultConfigData)
+            return try MoppConfigurationDecoder().decodeDefaultMoppConfiguration(configData: defaultConfigData)
         } catch {
             MSLog("Unable to decode data: ", error.localizedDescription)
             fatalError("Unable to decode default MOPP configuration!")

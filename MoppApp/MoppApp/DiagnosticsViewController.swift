@@ -148,7 +148,7 @@ class DiagnosticsViewController: MoppViewController {
     private func getDecodedDefaultMoppConfiguration() throws -> DefaultMoppConfiguration {
         do {
             let defaultConfigData = try String(contentsOfFile: Bundle.main.path(forResource: "defaultConfiguration", ofType: "json")!)
-            return try Decoding().decodeDefaultMoppConfiguration(configData: defaultConfigData)
+            return try MoppConfigurationDecoder().decodeDefaultMoppConfiguration(configData: defaultConfigData)
         } catch {
             MSLog("Unable to decode data: ", error.localizedDescription)
             throw error
