@@ -44,7 +44,7 @@ class SettingsTimeStampCell: UITableViewCell {
         useDefaultSwitch.isOn = useDefault
         textField.isEnabled = !useDefault
         textField.textColor = useDefault ? UIColor.moppLabel : UIColor.moppText
-        textField.text = DefaultsHelper.timestampUrl ?? MoppLibManager.defaultTSUrl()
+        textField.text = DefaultsHelper.timestampUrl ?? MoppConfiguration.tsaUrl
         
         titleLabel.text = L(.settingsTimestampUrlTitle)
         textField.placeholder = L(.settingsTimestampUrlPlaceholder)
@@ -57,7 +57,7 @@ class SettingsTimeStampCell: UITableViewCell {
         if sender.isOff {
             DefaultsHelper.timestampUrl = textField.text
         } else {
-            textField.text = MoppLibManager.defaultTSUrl()
+            textField.text = MoppConfiguration.tsaUrl
             DefaultsHelper.timestampUrl = nil
             delegate.didChangeTimestamp(field.id, with: DefaultsHelper.timestampUrl)
         }

@@ -88,7 +88,7 @@ class SettingsViewController: MoppViewController {
             kind: .timestamp,
             title: L(.settingsTimestampUrlTitle),
             placeholderText: L(.settingsTimestampUrlPlaceholder),
-            value: DefaultsHelper.timestampUrl ?? MoppLibManager.defaultTSUrl()
+            value: DefaultsHelper.timestampUrl ?? MoppConfiguration.tsaUrl!
         )
     ]
     
