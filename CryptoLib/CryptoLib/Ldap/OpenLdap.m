@@ -25,10 +25,10 @@
 
 @implementation OpenLdap
 
-- (NSArray*)search:(NSString*)identityCode {
-    NSArray *result = [self searchWith:identityCode andUrl:@"ldaps://esteid.ldap.sk.ee:636"];
+- (NSArray*)search:(NSString*)identityCode configuration:(MoppLdapConfiguration *)moppLdapConfiguration {
+    NSArray *result = [self searchWith:identityCode andUrl:moppLdapConfiguration.LDAPPERSONURL];
     if (result == nil || [result count] == 0) {
-        result = [self searchWith:identityCode andUrl:@"ldap://ldap.sk.ee:389"];
+        result = [self searchWith:identityCode andUrl:moppLdapConfiguration.LDAPCORPURL];
     }
     return result;
 }

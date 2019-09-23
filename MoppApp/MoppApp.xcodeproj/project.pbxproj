@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		063A655C7ECF195296250527 /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
+		063A655C7ECF195296250527 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		39158A1920C6C49100B71DD6 /* AddresseeActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39158A1820C6C49100B71DD6 /* AddresseeActions.swift */; };
 		3921CA9520B2D6D600BF3178 /* CryptoActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CA9420B2D6D600BF3178 /* CryptoActions.swift */; };
 		3921CA9720B2D8A600BF3178 /* SigningActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CA9620B2D8A600BF3178 /* SigningActions.swift */; };
@@ -28,7 +28,7 @@
 		39CDA7EA20ADBCEC006E2E9F /* Crypto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */; };
 		39CDA7EE20ADBE93006E2E9F /* CryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */; };
 		39F8EFE720D263B5001BCF73 /* TokenFlow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39F8EFE620D263B5001BCF73 /* TokenFlow.storyboard */; };
-		51EAB865AC99468B5AC77D6C /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
+		51EAB865AC99468B5AC77D6C /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.swift */; };
 		547BDF251E8BEFA30093931F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
 		54825EF51E1CFE9600253FF0 /* Date+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF41E1CFE9600253FF0 /* Date+Additions.swift */; };
@@ -269,8 +269,6 @@
 		C5EA713A2176057A00440F4A /* MenuLanguageButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5310F4520C2F0F7004D3E78 /* MenuLanguageButtonView.swift */; };
 		C5EA713B2176057A00440F4A /* MyeIDSegmentHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5927FC82075144F003B7F41 /* MyeIDSegmentHeaderCell.swift */; };
 		C5EA713D2176057A00440F4A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C55BB1CB2091BD2000618AC4 /* WebKit.framework */; };
-		C5EA713F2176057A00440F4A /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
-		C5EA71402176057A00440F4A /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */; };
 		C5EA71412176057A00440F4A /* CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39852A6120AB2949004CB100 /* CryptoLib.framework */; };
 		C5EA71432176057A00440F4A /* about.css in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1DB2091FBCF00618AC4 /* about.css */; };
 		C5EA71442176057A00440F4A /* Crypto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */; };
@@ -338,6 +336,17 @@
 		C5FA0BE920A1930400A208E5 /* MoppApp+Jailbreak.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0BE820A1930400A208E5 /* MoppApp+Jailbreak.swift */; };
 		C5FA0BEC20A19AE100A208E5 /* Jailbreak.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5FA0BEB20A19AE100A208E5 /* Jailbreak.storyboard */; };
 		C5FA0BEE20A19E4200A208E5 /* JailbreakViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0BED20A19E4200A208E5 /* JailbreakViewController.swift */; };
+		DF0075C223324AC600BAB3DE /* MoppConfigurationDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */; };
+		DFF3C3AE233231190079458A /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3AC233231180079458A /* Configuration.swift */; };
+		DFF3C3AF233231190079458A /* SettingsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3AD233231190079458A /* SettingsConfiguration.swift */; };
+		DFF3C3B22332314A0079458A /* RuntimeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3B02332314A0079458A /* RuntimeError.swift */; };
+		DFF3C3B32332314A0079458A /* SignatureVerifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3B12332314A0079458A /* SignatureVerifier.swift */; };
+		DFF3C3B5233231F20079458A /* Notification+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3B4233231F20079458A /* Notification+Additions.swift */; };
+		DFF3C3B72332335C0079458A /* Pods_MoppApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF3C3B62332335C0079458A /* Pods_MoppApp.framework */; };
+		DFF3C3BC2332355D0079458A /* publicKey.pub in Resources */ = {isa = PBXBuildFile; fileRef = DFF3C3B82332355C0079458A /* publicKey.pub */; };
+		DFF3C3BD2332355D0079458A /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = DFF3C3B92332355C0079458A /* config.json */; };
+		DFF3C3BE2332355D0079458A /* signature.rsa in Resources */ = {isa = PBXBuildFile; fileRef = DFF3C3BA2332355C0079458A /* signature.rsa */; };
+		DFF3C3BF2332355D0079458A /* defaultConfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = DFF3C3BB2332355D0079458A /* defaultConfiguration.json */; };
 		E4180C371E26822000FD7B8C /* datafile.txt in Resources */ = {isa = PBXBuildFile; fileRef = E4180C361E26822000FD7B8C /* datafile.txt */; };
 		E4250CCB1E0968D200530370 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCA1E0968D200530370 /* AppDelegate.swift */; };
 		E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; };
@@ -460,7 +469,6 @@
 		54A418351E83FB2800559E2B /* MoppApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MoppApp.entitlements; sourceTree = "<group>"; };
 		54A5729E1E82AC760099BFAF /* AppStore.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppStore.plist; sourceTree = "<group>"; };
 		54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Landing.storyboard; sourceTree = "<group>"; };
-		6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8184F28EF072722FEA0124A2 /* Pods-MoppAppTestEnv.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppAppTestEnv.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoppAppTestEnv/Pods-MoppAppTestEnv.release.xcconfig"; sourceTree = "<group>"; };
 		9243254AA71C9AE306830EF1 /* Pods_MoppAppTestEnv.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppAppTestEnv.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3E46CB1F1CE88C94094587D /* Pods-MoppApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -597,6 +605,17 @@
 		C5FA0BEB20A19AE100A208E5 /* Jailbreak.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Jailbreak.storyboard; sourceTree = "<group>"; };
 		C5FA0BED20A19E4200A208E5 /* JailbreakViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JailbreakViewController.swift; sourceTree = "<group>"; };
 		CD15B1228E3C241B478D570C /* Pods-MoppAppTestEnv.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppAppTestEnv.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppAppTestEnv/Pods-MoppAppTestEnv.debug.xcconfig"; sourceTree = "<group>"; };
+		DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoppConfigurationDecoder.swift; sourceTree = "<group>"; };
+		DFF3C3AC233231180079458A /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		DFF3C3AD233231190079458A /* SettingsConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsConfiguration.swift; sourceTree = "<group>"; };
+		DFF3C3B02332314A0079458A /* RuntimeError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeError.swift; sourceTree = "<group>"; };
+		DFF3C3B12332314A0079458A /* SignatureVerifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignatureVerifier.swift; sourceTree = "<group>"; };
+		DFF3C3B4233231F20079458A /* Notification+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notification+Additions.swift"; sourceTree = "<group>"; };
+		DFF3C3B62332335C0079458A /* Pods_MoppApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_MoppApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFF3C3B82332355C0079458A /* publicKey.pub */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = publicKey.pub; path = MoppApp/publicKey.pub; sourceTree = "<group>"; };
+		DFF3C3B92332355C0079458A /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = MoppApp/config.json; sourceTree = "<group>"; };
+		DFF3C3BA2332355C0079458A /* signature.rsa */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = signature.rsa; path = MoppApp/signature.rsa; sourceTree = "<group>"; };
+		DFF3C3BB2332355D0079458A /* defaultConfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = defaultConfiguration.json; path = MoppApp/defaultConfiguration.json; sourceTree = "<group>"; };
 		E4180C361E26822000FD7B8C /* datafile.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = datafile.txt; sourceTree = "<group>"; };
 		E4250CC31E0968D200530370 /* MoppApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoppApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250CCA1E0968D200530370 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -634,8 +653,6 @@
 			files = (
 				C5F974D22176465400A167C7 /* MoppLibTestEnv.framework in Frameworks */,
 				C5EA713D2176057A00440F4A /* WebKit.framework in Frameworks */,
-				C5EA713F2176057A00440F4A /* Pods_MoppApp.framework in Frameworks */,
-				C5EA71402176057A00440F4A /* Pods_MoppApp.framework in Frameworks */,
 				C5EA71412176057A00440F4A /* CryptoLib.framework in Frameworks */,
 				A8396987106A0BBF27196838 /* Pods_MoppAppTestEnv.framework in Frameworks */,
 			);
@@ -647,9 +664,10 @@
 			files = (
 				C55BB1CC2091BD2000618AC4 /* WebKit.framework in Frameworks */,
 				E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */,
-				51EAB865AC99468B5AC77D6C /* Pods_MoppApp.framework in Frameworks */,
-				063A655C7ECF195296250527 /* Pods_MoppApp.framework in Frameworks */,
+				51EAB865AC99468B5AC77D6C /* (null) in Frameworks */,
+				063A655C7ECF195296250527 /* (null) in Frameworks */,
 				393B66E820DB9C19001DC89B /* CryptoLib.framework in Frameworks */,
+				DFF3C3B72332335C0079458A /* Pods_MoppApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -707,6 +725,7 @@
 				C54EA6EA2046C3BA0039AC78 /* UITextField+Additions.swift */,
 				C5F462A9209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift */,
 				C541E13C21B17CE000685535 /* UISwitch+Utils.swift */,
+				DFF3C3B4233231F20079458A /* Notification+Additions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -863,6 +882,8 @@
 		C55BB1C520908EE300618AC4 /* Diagnostics */ = {
 			isa = PBXGroup;
 			children = (
+				DFF3C3AC233231180079458A /* Configuration.swift */,
+				DFF3C3AD233231190079458A /* SettingsConfiguration.swift */,
 				C55BB1C620908EF300618AC4 /* DiagnosticsViewController.swift */,
 			);
 			name = Diagnostics;
@@ -974,6 +995,10 @@
 		E4250CBA1E0968D200530370 = {
 			isa = PBXGroup;
 			children = (
+				DFF3C3B92332355C0079458A /* config.json */,
+				DFF3C3BB2332355D0079458A /* defaultConfiguration.json */,
+				DFF3C3B82332355C0079458A /* publicKey.pub */,
+				DFF3C3BA2332355C0079458A /* signature.rsa */,
 				C5F974E4217733CB00A167C7 /* MoppAppTestEnv.entitlements */,
 				393B66E120DB94CD001DC89B /* cdoc.framework */,
 				E4250CC51E0968D200530370 /* MoppApp */,
@@ -1076,6 +1101,7 @@
 		E42B08AB1E1EFC0500EA24A3 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */,
 				E42B08AD1E1EFC1800EA24A3 /* DateFormatter.swift */,
 				E42B08B01E1F049B00EA24A3 /* FileManager.swift */,
 				E4C53F4A1E30D03500F209BE /* DefaultsHelper.swift */,
@@ -1083,6 +1109,8 @@
 				C506EC7B1FB9CBFD00E07226 /* Constants.swift */,
 				C51B7FB41FBB2AB10046D6E0 /* Utils.swift */,
 				C51B7FB61FBC45DD0046D6E0 /* LocalizationKeys.swift */,
+				DFF3C3B12332314A0079458A /* SignatureVerifier.swift */,
+				DFF3C3B02332314A0079458A /* RuntimeError.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1090,12 +1118,12 @@
 		F9074FEF4DC2DB83A60B75B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DFF3C3B62332335C0079458A /* Pods_MoppApp.framework */,
 				C5F974D12176465400A167C7 /* MoppLibTestEnv.framework */,
 				390C016A20AC430300827230 /* cdoc.framework */,
 				39852A6120AB2949004CB100 /* CryptoLib.framework */,
 				C55BB1CB2091BD2000618AC4 /* WebKit.framework */,
 				E4250D051E0A911100530370 /* MoppLib.framework */,
-				6DF4DB238197E7EBD319CE37 /* Pods_MoppApp.framework */,
 				9243254AA71C9AE306830EF1 /* Pods_MoppAppTestEnv.framework */,
 			);
 			name = Frameworks;
@@ -1148,6 +1176,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E4250CDA1E0968D200530370 /* Build configuration list for PBXNativeTarget "MoppApp" */;
 			buildPhases = (
+				DFF3C3AB233230490079458A /* Initialize default MOPP configuration setup */,
 				A61DA2EE951A985EAE19BDEB /* [CP] Check Pods Manifest.lock */,
 				E4250CBF1E0968D200530370 /* Sources */,
 				E4250CC01E0968D200530370 /* Frameworks */,
@@ -1156,6 +1185,7 @@
 				E4250D081E0A911100530370 /* Embed Frameworks */,
 				54415B641E52F23C00B66A89 /* ShellScript */,
 				54A418331E83FAD200559E2B /* Embed App Extensions */,
+				3587AFB7240E99D207629811 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1209,6 +1239,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 				et,
@@ -1327,10 +1358,12 @@
 				C55BB1E02091FECD00618AC4 /* licenses.html in Resources */,
 				E4C53F371E2FAE6C00F209BE /* image.jpg in Resources */,
 				E43BD8111E3A121A00F6C39D /* ddocTest.ddoc in Resources */,
+				DFF3C3BE2332355D0079458A /* signature.rsa in Resources */,
 				54A418071E83C10B00559E2B /* digidoc_320.png in Resources */,
 				C54BB10D1FBD8CE900A274F6 /* Signing.storyboard in Resources */,
 				C50DCCF51FC5741900D48E16 /* Roboto-BoldCondensed.ttf in Resources */,
 				C50DCCFB1FC5741900D48E16 /* Roboto-BlackItalic.ttf in Resources */,
+				DFF3C3BD2332355D0079458A /* config.json in Resources */,
 				E42B08A61E1D4EE900EA24A3 /* test1.bdoc in Resources */,
 				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,
 				54A5729F1E82AC760099BFAF /* AppStore.plist in Resources */,
@@ -1353,7 +1386,9 @@
 				C50DCCEE1FC5741900D48E16 /* RobotoCondensed-Light.ttf in Resources */,
 				C50DCCE71FC5741900D48E16 /* Roboto-ThinItalic.ttf in Resources */,
 				C50DCD031FC7117700D48E16 /* ContainerElements.xib in Resources */,
+				DFF3C3BF2332355D0079458A /* defaultConfiguration.json in Resources */,
 				C50DCCF91FC5741900D48E16 /* Roboto-Bold.ttf in Resources */,
+				DFF3C3BC2332355D0079458A /* publicKey.pub in Resources */,
 				C50DCCE91FC5741900D48E16 /* RobotoCondensed-Italic.ttf in Resources */,
 				C50DCCFA1FC5741900D48E16 /* Roboto-Black.ttf in Resources */,
 				C50DCCF01FC5741900D48E16 /* Roboto-Medium.ttf in Resources */,
@@ -1367,6 +1402,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3587AFB7240E99D207629811 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MoppApp/Pods-MoppApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwiftyRSA/SwiftyRSA.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyRSA.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MoppApp/Pods-MoppApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		54415B641E52F23C00B66A89 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1378,7 +1431,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 2d09fce02bca92bd26f18824f9cb302f5ad625e3 fb7f424a3ac43eccda42c76e7f15a400d7b3047945a66a98d0211ec996f584ef";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 2d09fce02bca92bd26f18824f9cb302f5ad625e3 fb7f424a3ac43eccda42c76e7f15a400d7b3047945a66a98d0211ec996f584ef\n";
 		};
 		A61DA2EE951A985EAE19BDEB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1442,6 +1495,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 2d09fce02bca92bd26f18824f9cb302f5ad625e3 fb7f424a3ac43eccda42c76e7f15a400d7b3047945a66a98d0211ec996f584ef";
+		};
+		DFF3C3AB233230490079458A /* Initialize default MOPP configuration setup */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Initialize default MOPP configuration setup";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"Initializing default MOPP configuration setup script: \"\n\nwhich -s brew\nif [[ $? != 0 ]] ; then\n    # Install Homebrew\n    ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\"\nelse\n    echo \"Brew is already installed\"\nfi\n\nbrew install mxcl/made/swift-sh\n\nswift sh SetupConfiguration/Sources/main.swift ${DEFAULT_CENTRAL_CONFIGURATION_URL} ${DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL}\n";
 		};
 		E4250D1B1E0AB34400530370 /* Set GH build number to plist */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1603,6 +1674,7 @@
 				C50DCD171FCEF17100D48E16 /* UIStoryBoard+Additions.swift in Sources */,
 				C5AA42C7207F51EB0031F3AA /* MyeIDChangeCodesViewController.swift in Sources */,
 				C50DCD241FD69B0C00D48E16 /* SpinnerView.swift in Sources */,
+				DF0075C223324AC600BAB3DE /* MoppConfigurationDecoder.swift in Sources */,
 				C52E827E1FC1DBFE0074B280 /* MoppViewController.swift in Sources */,
 				C5E7D08D2031B1040081416F /* NativeShare.swift in Sources */,
 				C52E827C1FC1D7BC0074B280 /* MoppApp.swift in Sources */,
@@ -1616,6 +1688,7 @@
 				C593D9F0208F1C16000B3BF6 /* SettingsFieldCell.swift in Sources */,
 				C593D9E8208F1986000B3BF6 /* SettingsViewController.swift in Sources */,
 				C54EA6E520444EC90039AC78 /* TokenFlowSelectionViewController.swift in Sources */,
+				DFF3C3B32332314A0079458A /* SignatureVerifier.swift in Sources */,
 				C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */,
 				C58FCD5D206505D500FE3B57 /* MyeIDInfoViewController.swift in Sources */,
 				C50DCD0B1FC7128900D48E16 /* ContainerHeaderCell.swift in Sources */,
@@ -1638,10 +1711,12 @@
 				C506EC811FB9F4AF00E07226 /* UIImage+Additions.swift in Sources */,
 				C55A6E42208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift in Sources */,
 				C5927FC720751402003B7F41 /* MyeIDPinPukCell.swift in Sources */,
+				DFF3C3AF233231190079458A /* SettingsConfiguration.swift in Sources */,
 				393B66BA20D7EC9D001DC89B /* WrapperUIBarButtonItem.swift in Sources */,
 				39487CBE210B18F90082D910 /* CdocParserDelegate.swift in Sources */,
 				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
 				C55BB1CA2090C17F00618AC4 /* AboutViewController.swift in Sources */,
+				DFF3C3B22332314A0079458A /* RuntimeError.swift in Sources */,
 				C5927FEB2078FD40003B7F41 /* MyeIDInfoViewControllerUI.swift in Sources */,
 				3921CAA120B45DCF00BF3178 /* SigningContainerViewController.swift in Sources */,
 				3921CA9520B2D6D600BF3178 /* CryptoActions.swift in Sources */,
@@ -1653,6 +1728,7 @@
 				39CDA7EE20ADBE93006E2E9F /* CryptoViewController.swift in Sources */,
 				C52E82781FC1D3ED0074B280 /* MenuViewController.swift in Sources */,
 				C50DCCC71FC32A2500D48E16 /* MyeIDViewController.swift in Sources */,
+				DFF3C3B5233231F20079458A /* Notification+Additions.swift in Sources */,
 				C50DCD071FC7126100D48E16 /* ContainerSignatureCell.swift in Sources */,
 				C50FC432224BA3B20041925C /* ScreenDisguiseViewController.swift in Sources */,
 				C54EA6E82045A9E30039AC78 /* IdCardViewController.swift in Sources */,
@@ -1686,6 +1762,7 @@
 				C55BB1C720908EF300618AC4 /* DiagnosticsViewController.swift in Sources */,
 				54825EF81E1D270F00253FF0 /* String+Additions.swift in Sources */,
 				E42B08B11E1F049B00EA24A3 /* FileManager.swift in Sources */,
+				DFF3C3AE233231190079458A /* Configuration.swift in Sources */,
 				C5A1D1CD2031D5B80024CD4C /* ContainerActions.swift in Sources */,
 				C56C6204201A0D9300CCC2A5 /* MenuCell.swift in Sources */,
 				C50DCD0D1FC7147100D48E16 /* ContainerTableViewHeaderView.swift in Sources */,
@@ -1964,10 +2041,18 @@
 				DEBUG_ACTIVITY_MODE = "";
 				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL = 7;
+				DEFAULT_CENTRAL_CONFIGURATION_URL = "https://id.eesti.ee";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ET847QJV9F;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"DEFAULT_CENTRAL_CONFIGURATION_URL=$(DEFAULT_CENTRAL_CONFIGURATION_URL)",
+					"DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL=$(DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -2000,10 +2085,18 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_ACTIVITY_MODE = "";
+				DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL = 7;
+				DEFAULT_CENTRAL_CONFIGURATION_URL = "https://id.eesti.ee";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ET847QJV9F;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"DEFAULT_CENTRAL_CONFIGURATION_URL=$(DEFAULT_CENTRAL_CONFIGURATION_URL)",
+					"DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL=$(DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",

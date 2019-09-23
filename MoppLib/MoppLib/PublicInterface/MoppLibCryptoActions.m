@@ -155,14 +155,14 @@
     });
 }
     
-- (void)searchLdapData:(NSString *)identifier success:(LdapBlock)success failure:(FailureBlock)failure {
+- (void)searchLdapData:(NSString *)identifier success:(LdapBlock)success failure:(FailureBlock)failure configuration:(MoppLdapConfiguration *) moppLdapConfiguration {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableArray *response = [[NSMutableArray alloc] init];
         NSError *error;
         OpenLdap *ldap = [[OpenLdap alloc] init];
         @try {
-            response = [ldap search:identifier];
+            response = [ldap search:identifier configuration:moppLdapConfiguration];
             if (response.count == 0) {
                 failure([MoppLibError ldapResponseNotFoundError]);
                 return;

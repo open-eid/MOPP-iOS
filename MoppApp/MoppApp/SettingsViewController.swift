@@ -88,7 +88,7 @@ class SettingsViewController: MoppViewController {
             kind: .timestamp,
             title: L(.settingsTimestampUrlTitle),
             placeholderText: L(.settingsTimestampUrlPlaceholder),
-            value: DefaultsHelper.timestampUrl ?? MoppLibManager.defaultTSUrl()
+            value: DefaultsHelper.timestampUrl ?? MoppConfiguration.tsaUrl!
         )
     ]
     
@@ -182,6 +182,7 @@ extension SettingsViewController: SettingsTimeStampCellDelegate {
         }, andFailure: { [weak self] error in
             let nsError = error! as NSError
             self?.errorAlert(message: L(.genericErrorMessage), title: nsError.userInfo["message"] as? String)
-        }, usingTestDigiDocService: useTestDDS, andTSUrl: value)
+            }, usingTestDigiDocService: useTestDDS, andTSUrl: value,
+               withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration())
     }
 }
