@@ -1512,7 +1512,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"Initializing default MOPP configuration setup script: \"\n\nwhich -s brew\nif [[ $? != 0 ]] ; then\n    # Install Homebrew\n    ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\"\nelse\n    echo \"Brew is already installed\"\nfi\n\nbrew install mxcl/made/swift-sh\n\nswift sh SetupConfiguration/Sources/main.swift ${DEFAULT_CENTRAL_CONFIGURATION_URL} ${DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL}\n";
+			shellScript = "echo \"Initializing default MOPP configuration setup script: \"\n\nwhich -s /usr/local/bin/brew\nif [[ $? != 0 ]] ; then\n    # Install Homebrew\n    ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\"\nelse\n    echo \"Brew is already installed\"\nfi\n\n/usr/local/bin/brew install mxcl/made/swift-sh\n\nswift sh SetupConfiguration/Sources/main.swift ${DEFAULT_CENTRAL_CONFIGURATION_URL} ${DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL}\n";
 		};
 		E4250D1B1E0AB34400530370 /* Set GH build number to plist */ = {
 			isa = PBXShellScriptBuildPhase;
