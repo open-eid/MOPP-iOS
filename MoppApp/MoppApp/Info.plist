@@ -65,6 +65,8 @@
 	</dict>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Bluetooth card reader is used to read data from ID card</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Bluetooth card reader is used to read data from ID card</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Roboto-Black.ttf</string>
