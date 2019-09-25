@@ -114,7 +114,7 @@ class DiagnosticsViewController: MoppViewController {
         
         
         if let cachedUpdateDate = SettingsConfiguration().getConfigurationFromCache(forKey: "updateDate") as? Date {
-            updateDate.text = dateToString(date: cachedUpdateDate)
+            updateDate.text = MoppDateFormatter().dateToString(date: cachedUpdateDate)
         } else {
             do {
                 updateDate.text = try getDecodedDefaultMoppConfiguration().UPDATEDATE
@@ -124,21 +124,10 @@ class DiagnosticsViewController: MoppViewController {
         }
         
         if let cachedLastUpdateCheckDate = SettingsConfiguration().getConfigurationFromCache(forKey: "lastUpdateCheckDate") as? Date {
-            lastCheckDate.text = dateToString(date: cachedLastUpdateCheckDate)
+            lastCheckDate.text = MoppDateFormatter().dateToString(date: cachedLastUpdateCheckDate)
         } else {
             lastCheckDate.text = ""
         }
-    }
-    
-    private func dateToString(date: Date?) -> String {
-        guard let date = date else { return "" }
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        let formattedDateTime = formatter.date(from: formatter.string(from: date))
-        formatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
-        return formatter.string(from: formattedDateTime!)
     }
     
     private func getMoppConfiguration() -> MOPPConfiguration {

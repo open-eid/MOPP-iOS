@@ -90,7 +90,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             let localConfigData = try String(contentsOfFile: Bundle.main.path(forResource: "config", ofType: "json")!)
             let localSignature = try String(contentsOfFile: Bundle.main.path(forResource: "signature", ofType: "rsa")!)
             let decodedData = try MoppConfigurationDecoder().decodeMoppConfiguration(configData: localConfigData)
-            setAllConfigurationToCache(configData: localConfigData, signature: localSignature, versionSerial: decodedData.METAINF.SERIAL)
+            setAllConfigurationToCache(configData: localConfigData, signature: localSignature, initialUpdateDate: MoppDateFormatter().stringToDate(dateString: getDefaultMoppConfiguration().UPDATEDATE), versionSerial: decodedData.METAINF.SERIAL)
             setConfigurationToCache("", forKey: "lastUpdateDateCheck")
             
             setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS)
@@ -228,14 +228,14 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         defaults.synchronize()
     }
     
-    private func setAllConfigurationToCache(configData: String, signature: String, versionSerial: Int) -> Void {
+    private func setAllConfigurationToCache(configData: String, signature: String, initialUpdateDate: Date? = nil, versionSerial: Int) -> Void {
         
         let updateDate: Date = Date()
         
         self.setConfigurationToCache(configData, forKey: "config")
         self.setConfigurationToCache(signature, forKey: "signature")
-        self.setConfigurationToCache(updateDate, forKey: "lastUpdateCheckDate")
-        self.setConfigurationToCache(updateDate, forKey: "updateDate")
+        initialUpdateDate != nil ? self.setConfigurationToCache(initialUpdateDate, forKey: "lastUpdateCheckDate") : self.setConfigurationToCache(updateDate, forKey: "lastUpdateCheckDate")
+        initialUpdateDate != nil ? self.setConfigurationToCache(initialUpdateDate, forKey: "updateDate") : self.setConfigurationToCache(updateDate, forKey: "updateDate")
         self.setConfigurationToCache(versionSerial, forKey: "versionSerial")
     }
     
