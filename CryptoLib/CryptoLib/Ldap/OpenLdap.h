@@ -22,9 +22,10 @@
 
 #import <Foundation/Foundation.h>
 #import "Addressee.h"
+#import "MoppLdapConfiguration.h"
 
 @interface OpenLdap : NSObject
-- (NSMutableArray*)search:(NSString*)identityCode;
+- (NSMutableArray*)search:(NSString*)identityCode configuration:(MoppLdapConfiguration *) moppLdapConfiguration;
 @end
 
 

@@ -246,3 +246,7 @@
 "about-title" = "Info";
 "jailbreak-message" = "This app cannot be used in jailbroken device";
 "datafile-preview-failed" = "Error opening document for preview";
+"central-configuration" = "Central configuration:";
+"last-update-check" = "LAST CHECK:";
+"update-date" = "UPDATE DATE:";
+"refresh-configuration" = "REFRESH CONFIGURATION";

@@ -44,6 +44,8 @@
 		C5B7958321BEA76300DC2C59 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B7957621BABCA800DC2C59 /* libcrypto.a */; };
 		C5B7958421BEA78200DC2C59 /* liblber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 390C016020AC3DE000827230 /* liblber.a */; };
 		D1E62632CCCD9195F3D8E2EE /* Pods_CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2337FC39B457D26F7140179 /* Pods_CryptoLib.framework */; };
+		DF8FEAC9233239690020DED4 /* MoppLdapConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = DF8FEAC7233239690020DED4 /* MoppLdapConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DF8FEACA233239690020DED4 /* MoppLdapConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = DF8FEAC8233239690020DED4 /* MoppLdapConfiguration.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,6 +97,8 @@
 		C5B7957621BABCA800DC2C59 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = CryptoLib/openldap/OpenLDAP.iphoneos/libraries/libcrypto.a; sourceTree = "<group>"; };
 		C5B7957721BABCA800DC2C59 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = CryptoLib/openldap/OpenLDAP.iphoneos/libraries/libssl.a; sourceTree = "<group>"; };
 		C5B7957A21BABD8300DC2C59 /* ldapca.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ldapca.pem; sourceTree = "<group>"; };
+		DF8FEAC7233239690020DED4 /* MoppLdapConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLdapConfiguration.h; sourceTree = "<group>"; };
+		DF8FEAC8233239690020DED4 /* MoppLdapConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLdapConfiguration.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +186,8 @@
 				39E2B4D020AD7A3400CA74A8 /* OpenLdap.m */,
 				3960E50320C02DA400D4D2FC /* CryptoDataFile.h */,
 				3960E50420C02E5900D4D2FC /* CryptoDataFile.m */,
+				DF8FEAC7233239690020DED4 /* MoppLdapConfiguration.h */,
+				DF8FEAC8233239690020DED4 /* MoppLdapConfiguration.m */,
 			);
 			name = Ldap;
 			path = CryptoLib/Ldap;
@@ -244,6 +250,7 @@
 				39852A4C20AB2418004CB100 /* Encrypt.h in Headers */,
 				39852A5420AB2418004CB100 /* DdocParserDelegate.h in Headers */,
 				39852A5120AB2418004CB100 /* SmartCardTokenWrapper.h in Headers */,
+				DF8FEAC9233239690020DED4 /* MoppLdapConfiguration.h in Headers */,
 				39E2B4DF20AD7A3400CA74A8 /* Addressee.h in Headers */,
 				39E2B4DE20AD7A3400CA74A8 /* OpenLdap.h in Headers */,
 				3960E50620C044EE00D4D2FC /* CryptoDataFile.h in Headers */,
@@ -356,6 +363,7 @@
 				393B66BC20D8F361001DC89B /* AbstractSmartToken.mm in Sources */,
 				3960E50520C02E5900D4D2FC /* CryptoDataFile.m in Sources */,
 				39E2B4DB20AD7A3400CA74A8 /* AttributeSet.m in Sources */,
+				DF8FEACA233239690020DED4 /* MoppLdapConfiguration.m in Sources */,
 				39852A5020AB2418004CB100 /* DdocParserDelegate.m in Sources */,
 				39852A5220AB2418004CB100 /* Decrypt.mm in Sources */,
 				39E2B4D920AD7A3400CA74A8 /* Addressee.m in Sources */,

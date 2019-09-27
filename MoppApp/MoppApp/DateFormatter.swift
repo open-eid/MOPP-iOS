@@ -87,5 +87,21 @@ class MoppDateFormatter {
             dateFormatter.timeZone = NSTimeZone.local
         return dateFormatter.string(from: date)
     }
-
+    
+    func dateToString(date: Date?) -> String {
+        guard let date = date else { return "" }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let formattedDateTime = formatter.date(from: formatter.string(from: date))
+        formatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        return formatter.string(from: formattedDateTime!)
+    }
+    
+    func stringToDate(dateString: String?) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+        return dateFormatter.date(from: dateString!)!
+    }
 }

@@ -90,7 +90,7 @@ extension AddresseeViewController : UISearchBarDelegate {
                      self.errorAlert(message: L(.cryptoEmptyLdapLabel))
                      self.showLoading(show: false)
                 }
-            }
+        }, configuration: MoppLDAPConfiguration.getMoppLDAPConfiguration()
         )
     }
 }

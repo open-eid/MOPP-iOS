@@ -38,7 +38,7 @@
 
 
 static NSString *kDigestMethodSHA256 = @"http://www.w3.org/2001/04/xmlenc#sha256";
-static NSString *kServiceName = @"DigiDoc3";
+static NSString *kServiceName = @"DigiDoc4";
 static NSString *kTestServiceName = @"Testimine";
 static NSString *kFormat = @"BDOC";
 static NSString *kVersion = @"2.1";

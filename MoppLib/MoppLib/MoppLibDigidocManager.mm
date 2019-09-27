@@ -40,49 +40,91 @@
 #import <Security/SecCertificate.h>
 #import <Security/SecKey.h>
 
-NSString *kDefaultTSUrl = @"http://dd-at.ria.ee/tsa";
-
 class DigiDocConf: public digidoc::ConfCurrent {
+    
 private:
   std::string m_tsUrl;
+  MoppLibConfiguration *moppLibConfiguration;
   
 public:
 
-#ifdef TEST_ENV
-  std::string TSLUrl() const {
-    return "https://open-eid.github.io/test-TL/EE_T.xml";
-  }
-#endif
+    DigiDocConf(const std::string& tsUrl, MoppLibConfiguration* moppConfiguration) : m_tsUrl( tsUrl ), moppLibConfiguration( moppConfiguration ) {}
 
-  DigiDocConf(const std::string& tsUrl) : m_tsUrl( tsUrl ) {}
-
-  std::string TSLCache() const
-  {
+  std::string TSLCache() const override {
     NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
     //    NSLog(@"tslCachePath: %@", tslCachePath);
     return tslCachePath.UTF8String;
   }
   
-  std::string xsdPath() const
-  {
+  std::string xsdPath() const override {
     NSBundle *bundle = [NSBundle bundleForClass:[MoppLibDigidocManager class]];
     NSString *path = [bundle pathForResource:@"schema" ofType:@""];
     return path.UTF8String;
   }
-  
-  virtual std::string TSUrl() const {
-    if (m_tsUrl.empty()) {
-        return std::string([kDefaultTSUrl cStringUsingEncoding:NSUTF8StringEncoding]);
-    }
-    return m_tsUrl;
+    
+  virtual std::string TSUrl() const override {
+    return moppLibConfiguration.TSAURL.UTF8String;
   }
   
-  virtual std::string PKCS12Cert() const {
-    std::string certPath = Conf::PKCS12Cert();
-    NSString *encodedCertPath = [NSString stringWithUTF8String:certPath.c_str()];
+  virtual std::string PKCS12Cert() const override {
     NSBundle *bundle = [NSBundle bundleForClass:[MoppLibDigidocManager class]];
-    NSString *path = [bundle pathForResource:encodedCertPath ofType:@""];
+    NSString *path = [bundle pathForResource:@"798.p12" ofType:@""];
     return path.UTF8String;
+  }
+    
+  std::string verifyServiceUri() const override {
+      return moppLibConfiguration.SIVAURL.UTF8String;
+  }
+
+  std::vector<digidoc::X509Cert> TSLCerts() const override {
+    std::vector<digidoc::X509Cert> x509Certs;
+
+    __block std::vector<NSString*> certList;
+    [moppLibConfiguration.TSLCERTS enumerateObjectsUsingBlock:^(NSString* object, NSUInteger idx, BOOL *stop) {
+      certList.push_back(object);
+    }];
+
+    __block std::vector<unsigned char> bytes;
+
+    for (auto const& element : certList) {
+      std::string cString = std::string([element UTF8String]);
+      std::string fullCert = "-----BEGIN CERTIFICATE-----\n" + cString + "\n" + "-----END CERTIFICATE-----";
+
+      for(int i = 0; fullCert[i] != '\0'; i++) {
+        bytes.push_back(fullCert[i]);
+      }
+      x509Certs.push_back(generateX509Cert(bytes));
+      bytes.clear();
+    }
+
+    return x509Certs;
+  }
+
+    std::string TSLUrl() const override {
+      return moppLibConfiguration.TSLURL.UTF8String;
+  }
+    
+  virtual std::string ocsp(const std::string &issuer) const override {
+      NSString *ocspValue = [NSString stringWithCString:issuer.c_str() encoding:[NSString defaultCStringEncoding]];
+      return std::string([moppLibConfiguration.OCSPISSUERS[ocspValue] UTF8String]);
+  }
+
+  digidoc::X509Cert generateX509Cert(std::vector<unsigned char> bytes) const {
+    digidoc::X509Cert x509Cert;
+
+    try {
+      x509Cert = digidoc::X509Cert(bytes, digidoc::X509Cert::Format::Der);
+        return x509Cert;
+    } catch (...) {
+        try {
+          x509Cert = digidoc::X509Cert(bytes, digidoc::X509Cert::Format::Pem);
+          return x509Cert;
+        } catch(...) {
+            printf("\nCreating a X509 certificate object raised an exception!\n");
+            return digidoc::X509Cert();
+          }
+      }
+    return x509Cert;
   }
   
   // Comment in to see libdigidocpp logs
@@ -125,36 +167,17 @@ private:
   return sharedInstance;
 }
 
-- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString*)tsUrl {
+- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString*)tsUrl withMoppConfiguration:(MoppLibConfiguration*)moppConfiguration {
   
   MoppLibSOAPManager.sharedInstance.useTestDigiDocService = useTestDDS;
-  
-  // Copy initial TSL cache for libdigidocpp if needed.
-  NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
-  NSString *eeTslCachePath = [NSString stringWithFormat:@"%@/EE.xml", tslCachePath];
-  if (![[MLFileManager sharedInstance] fileExistsAtPath:eeTslCachePath]) {
-    MLLog(@"Copy TSL cache: true");
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    NSArray *tslCache = @[[bundle pathForResource:@"EE" ofType:@"xml"],
-                          [bundle pathForResource:@"FI" ofType:@"xml"],
-                          [bundle pathForResource:@"tl-mp" ofType:@"xml"]];
-    
-    for (NSString *sourcePath in tslCache) {
-      NSString *destinationPath = [NSString stringWithFormat:@"%@/%@", tslCachePath, [sourcePath lastPathComponent]];
-      [[MLFileManager sharedInstance] copyFileWithPath:sourcePath toPath:destinationPath];
-    }
-  } else {
-    MLLog(@"Copy TSL cache: false");
-  }
-  
   
   // Initialize libdigidocpp.
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     try {
       std::string timestampUrl = tsUrl == nil ?
-        [[MoppLibDigidocManager defaultTSUrl] cStringUsingEncoding:NSUTF8StringEncoding] :
+        [moppConfiguration.TSAURL cStringUsingEncoding:NSUTF8StringEncoding] :
         [tsUrl cStringUsingEncoding:NSUTF8StringEncoding];
-      digidoc::Conf::init(new DigiDocConf(timestampUrl));
+      digidoc::Conf::init(new DigiDocConf(timestampUrl, moppConfiguration));
       digidoc::initialize("qdigidocclient");
       
       dispatch_async(dispatch_get_main_queue(), ^{
@@ -192,10 +215,6 @@ private:
         [result addObject:[NSString stringWithUTF8String:p.c_str()]];
     }
     return result;
-}
-
-+ (NSString *)defaultTSUrl {
-    return kDefaultTSUrl;
 }
 
 - (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath error:(NSError **)error {
@@ -630,7 +649,7 @@ void parseException(const digidoc::Exception &e) {
 }
 
 - (NSString *)pkcs12Cert {
-    DigiDocConf *conf = new DigiDocConf(std::string());
+    DigiDocConf *conf = new DigiDocConf(std::string(), nil);
     std::string certPath = conf->PKCS12Cert();
     return [NSString stringWithUTF8String:certPath.c_str()];
 }

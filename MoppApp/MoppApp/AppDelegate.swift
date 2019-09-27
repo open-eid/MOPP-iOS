@@ -27,6 +27,8 @@ import Fabric
 
 
 final class AppDelegate: UIResponder, UIApplicationDelegate {
+    private var appCoverWindow: UIWindow?
+    private var appCoverVC: UIViewController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         return (application as! MoppApp).didFinishLaunchingWithOptions(launchOptions: launchOptions)
@@ -35,7 +37,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         return (application as! MoppApp).openUrl(url: url, options: options)
     }
-
+    
     func applicationWillResignActive(_ application: UIApplication) {
         (application as! MoppApp).willResignActive()
     }
@@ -43,7 +45,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         (application as! MoppApp).didEnterBackground()
     }
-
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         (application as! MoppApp).willEnterForeground()

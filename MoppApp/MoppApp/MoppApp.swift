@@ -110,6 +110,12 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         if isDeviceJailbroken {
             window?.rootViewController = UIStoryboard.jailbreak.instantiateInitialViewController()
         } else {
+            // Get remote configuration
+            SettingsConfiguration().getCentralConfiguration()
+            
+            let notification = Notification(name: .configurationLoaded)
+            NotificationCenter.default.post(notification)
+            
             let initializationViewController = InitializationViewController()
             window?.rootViewController = initializationViewController
         }
@@ -201,6 +207,7 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
     func willResignActive() {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        ScreenDisguise.shared.show()
     }
 
     func didEnterBackground() {
@@ -215,6 +222,7 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
 
     func didBecomeActive() {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        ScreenDisguise.shared.hide()
     }
 
     func willTerminate() {
@@ -263,6 +271,18 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
             return true
         }
         return false
+    }
+    
+    func convertViewToImage(with view: UIView) -> UIImage? {
+        
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0.0)
+        defer { UIGraphicsEndImageContext() }
+        if let context = UIGraphicsGetCurrentContext() {
+            view.layer.render(in: context)
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            return image
+        }
+        return nil
     }
 }
 
