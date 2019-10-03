@@ -44,7 +44,7 @@ class ContainerFileCell: UITableViewCell {
         bottomBorderView.isHidden = !showBottomBorder
         filenameLabel.text = name
         removeButton.isHidden = !showRemoveButton
-        removeButton.accessibilityLabel = "\(L(.fileImportRemoveFile)) \(filenameLabel.text!)"
+        removeButton.accessibilityLabel = formatString(text: L(.fileImportRemoveFile), additionalText: filenameLabel.text)
         self.dataFileIndex = dataFileIndex
     }
 }

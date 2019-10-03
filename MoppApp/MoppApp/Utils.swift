@@ -67,3 +67,19 @@ func MoppLib_LocalizedString(_ key: String,_ arguments: [CVarArg] = []) -> Strin
     return String(format: strongFormat, arguments: arguments)
 }
 
+func formatString(text: String, additionalText: String? = nil) -> String {
+    if (additionalText != nil) {
+        return "\(text) \(additionalText!)"
+    } else {
+        return text
+    }
+}
+
+func setTabAccessibilityLabel(isTabSelected: Bool, tabName: String, positionInRow: String, viewCount: String) -> String {
+    if isTabSelected {
+        return "\(L(.tabSelected, [tabName, positionInRow, String(viewCount)]))"
+    } else {
+        return "\(L(.tabUnselected, [tabName, positionInRow, String(viewCount)]))"
+    }
+}
+

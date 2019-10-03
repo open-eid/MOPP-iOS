@@ -91,10 +91,10 @@ class TokenFlowSelectionViewController : MoppViewController {
             switch id {
             case .idCard:
                 $0.setTitle(L(.signTitleIdCard))
-                idCardButton.accessibilityLabel = "\(L(.tabUnselected, ["\(L(.signTitleIdCard))", "2", "2"]))"
+                idCardButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleIdCard), positionInRow: "2", viewCount: "2")
             case .mobileID:
                 $0.setTitle(L(.signTitleMobileId))
-                mobileIDButton.accessibilityLabel = "\(L(.tabUnselected, ["\(L(.signTitleMobileId))", "1", "2"]))"
+                mobileIDButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleMobileId), positionInRow: "1", viewCount: "2")
             }
         }
     }

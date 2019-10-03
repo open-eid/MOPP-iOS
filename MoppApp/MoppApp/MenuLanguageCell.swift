@@ -25,6 +25,12 @@ class MenuLanguageCell : UITableViewCell {
     @IBOutlet weak var stackViewContainerView: UIView!
     weak var delegate: MenuLanguageCellDelegate? = nil
     
+    enum AvailableLanguages: String {
+        case estonian = "Eesti keel"
+        case english = "English"
+        case russian = "Русский язык"
+    }
+    
     var currentLanguage: String {
         return DefaultsHelper.moppLanguageID
     }
@@ -42,13 +48,13 @@ class MenuLanguageCell : UITableViewCell {
     
         for view in (stackView.arrangedSubviews as! [MenuLanguageButtonView]) {
             switch view.label.text {
-            case "Eesti keel":
+            case AvailableLanguages.estonian.rawValue:
                 view.button.accessibilityLabel = L(.languageEstonian)
                 break
-            case "English":
+            case AvailableLanguages.english.rawValue:
                 view.button.accessibilityLabel = L(.languageEnglish)
                 break
-            case "Русский язык":
+            case AvailableLanguages.russian.rawValue:
                 view.button.accessibilityLabel = L(.languageRussian)
                 break
             default:
