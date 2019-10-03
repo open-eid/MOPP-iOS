@@ -182,6 +182,11 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
 extension MyeIDChangeCodesViewControllerUI: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, textField)
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, textField)
     }
 }

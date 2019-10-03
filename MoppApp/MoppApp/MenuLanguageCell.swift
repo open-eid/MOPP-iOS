@@ -41,6 +41,19 @@ class MenuLanguageCell : UITableViewCell {
         stackViewContainerView.layer.borderWidth = 1
     
         for view in (stackView.arrangedSubviews as! [MenuLanguageButtonView]) {
+            switch view.label.text {
+            case "Eesti keel":
+                view.button.accessibilityLabel = L(.languageEstonian)
+                break
+            case "English":
+                view.button.accessibilityLabel = L(.languageEnglish)
+                break
+            case "Русский язык":
+                view.button.accessibilityLabel = L(.languageRussian)
+                break
+            default:
+                break
+            }
             view.button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         }
     }

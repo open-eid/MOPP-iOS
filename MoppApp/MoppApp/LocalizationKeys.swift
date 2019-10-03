@@ -24,11 +24,16 @@ enum LocKey : String
 {
     typealias RawValue = String
 
+    case backButton = "back-button"
     case menuHelp = "menu-help"
     case menuRecentContainers = "menu-recent-containers"
     case menuSettings = "menu-settings"
     case menuAbout = "menu-about"
     case menuDiagnostics = "menu-diagnostics"
+    case languageEstonian = "language-estonian"
+    case languageEnglish = "language-english"
+    case languageRussian = "language-russian"
+    case languageUnknown = "language-unknown"
     case tabMyEid = "tab-my-eid"
     case tabCrypto = "tab-crypto"
     case tabSignature = "tab-signature"
@@ -37,10 +42,13 @@ enum LocKey : String
     case tabEncryptButton = "tab-encrypt-button"
     case tabDecryptButton = "tab-decrypt-button"
     case tabConfirmButton = "tab-confirm-button"
+    case tabSelected = "tab-selected"
+    case tabUnselected = "tab-unselected"
     case signatureViewBeginLabel = "signature-view-begin-label"
     case signatureViewBeginButton = "signature-view-begin-button"
     case signatureDetailsTitle = "signature-details-title"
     case signingRecentContainers = "signing-recent-containers"
+    case menuButton = "menu-button"
     case crashlyticsTitle = "crashlytics-title"
     case crashlyticsMessage = "crashlytics-message"
     case crashlyticsActionSend = "crashlytics-action-send"
@@ -52,11 +60,14 @@ enum LocKey : String
     case actionSign = "action-sign"
     case actionDecrypt = "action-decrypt"
     case fileImportTitle = "file-import-title"
+    case fileImportTitleAccessibility = "file-import-title-accessibility"
     case addresseeImportTitle = "addressee-import-title"
+    case addresseeImportTitleAccessibility = "addressee-import-title-accessibility"
     case fileImportOpenExistingFailedAlertTitle = "file-import-open-existing-failed-alert-title"
     case fileImportOpenExistingFailedAlertMessage = "file-import-open-existing-failed-alert-message"
     case fileImportCreateNewFailedAlertTitle = "file-import-create-new-failed-alert-title"
     case fileImportCreateNewFailedAlertMessage = "file-import-create-new-failed-alert-message"
+    case fileImportRemoveFile = "file-import-remove-file"
     case containerDetailsSigningSuccess = "container-details-signing-success"
     case containerDetailsDecryptionSuccess = "container-details-decryption-success"
     case containerDetailsFileAlreadyExists = "container-details-file-already-exists"
@@ -136,6 +147,7 @@ enum LocKey : String
     case myEidInfoItemDocumentNumber = "my-eid-info-item-document-number"
     case myEidInfoItemExpiryDate = "my-eid-info-item-expiry-date"
     case myEidInfoMyEid = "my-eid-info-my-eid"
+    case myEidInfoMyEidAccessibility = "my-eid-info-my-eid-accessibility"
     case myEidInfoMyEidIdCard = "my-eid-info-my-eid-id-card"
     case myEidInfoMyEidMobileId = "my-eid-info-my-eid-mobile-id"
     case myEidInfoMyEidDigiId = "my-eid-info-my-eid-digi-id"
@@ -225,5 +237,6 @@ enum LocKey : String
     case cryptoTypeUnknown = "crypto-type-unknown";
     case cryptoAddAddresseeButtonTitle = "crypto-add-addressee-button-title";
     case cryptoAddresseeAddedButtonTitle = "crypto-addressee-added-button-title";
+    case cryptoRemoveAddresseeButton = "crypto-remove-addressee-button"
     case datafilePreviewFailed = "datafile-preview-failed";
 }

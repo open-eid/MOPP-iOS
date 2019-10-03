@@ -19,6 +19,9 @@
 
 // *** General ***
 
+// Navigation
+"back-button" = "Back";
+
 // TabBar
 "tab-my-eid" = "MY eID";
 "tab-crypto" = "CRYPTO";
@@ -29,6 +32,9 @@
 "tab-decrypt-button" = "DECRYPT";
 "tab-confirm-button" = "CONFIRM SELECTION";
 
+"tab-selected" = "Selected, %@, tab %@ of %@";
+"tab-unselected" = "%@, tab %@ of %@";
+
 // Main menu
 "menu-help" = "HELP";
 "menu-recent-containers" = "RECENT DOCUMENTS";
@@ -36,10 +42,16 @@
 "menu-about" = "INFO";
 "menu-diagnostics" = "DIAGNOSTICS";
 
+// Languages
+"language-estonian" = "Estonian language";
+"language-english" = "English language";
+"language-russian" = "Russian language";
+
 // Signature view
 "signature-view-begin-label" = "Choose a file to sign or validate";
 "signature-view-begin-button" = "CHOOSE FILE";
 "signature-details-title" = "Signature details";
+"menu-button" = "Menu";
 
 // Crypto
 "crypto-view-begin-label" = "Choose a file to encrypt or decrypt";
@@ -57,6 +69,7 @@
 "crypto-type-unknown" = "UNKNOWN";
 "crypto-add-addressee-button-title" = "ADD";
 "crypto-addressee-added-button-title" = "ADDED";
+"crypto-remove-addressee-button" = "Remove Signature";
 
 // Signing view
 "signing-recent-containers" = "Recent documents";
@@ -79,11 +92,15 @@
 
 // DataFile import
 "file-import-title" = "+ ADD MORE FILES";
+"file-import-title-accessibility" = "Add more files";
 "addressee-import-title" = "+ ADD RECIPIENT";
+"addressee-import-title-accessibility" = "Add recipient";
 "file-import-open-existing-failed-alert-title" = "Error opening container";
 "file-import-open-existing-failed-alert-message" = "Failed to open container %@";
 "file-import-create-new-failed-alert-title" = "Error creating container";
 "file-import-create-new-failed-alert-message" = "Failed to open container %@";
+"file-import-remove-file" = "Remove File";
+
 // Details
 "container-details-signing-success" = "SIGNATURE ADDED";
 "container-details-decryption-success" = "DECRYPTION SUCCESSFUL";
@@ -174,6 +191,7 @@
 "my-eid-info-item-document-number" = "DOCUMENT NUMBER";
 "my-eid-info-item-expiry-date" = "VALID UNTIL";
 "my-eid-info-my-eid" = "MY eID";
+"my-eid-info-my-eid-accessibility" = "MY e-ID";
 "my-eid-info-my-eid-id-card" = "ID-CARD";
 "my-eid-info-my-eid-mobile-id" = "MOBILE-ID";
 "my-eid-info-my-eid-digi-id" = "DIGI-ID";

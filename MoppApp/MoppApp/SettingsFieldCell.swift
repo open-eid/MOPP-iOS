@@ -41,7 +41,7 @@ class SettingsFieldCell: UITableViewCell {
     
     func populate(with field:SettingsViewController.Field) {
         titleLabel.text = field.title
-        textField.placeholder = field.placeholderText
+        textField.attributedPlaceholder = field.placeholderText
         textField.text = field.value
         self.field = field
     }
@@ -50,6 +50,7 @@ class SettingsFieldCell: UITableViewCell {
 extension SettingsFieldCell: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         delegate.didEndEditingField(field.id, with: textField.text ?? String())
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, textField)
     }
 }
 

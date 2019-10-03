@@ -25,7 +25,8 @@ import Foundation
 class SigningViewController : MoppViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var importButton: UIButton!
-
+    @IBOutlet weak var menuButton: UIBarButtonItem!
+    
     enum Section {
         case fileImport
     }
@@ -37,6 +38,7 @@ class SigningViewController : MoppViewController {
 
         titleLabel.text = L(LocKey.signatureViewBeginLabel)
         importButton.localizedTitle = LocKey.signatureViewBeginButton
+        menuButton.accessibilityLabel = L(LocKey.menuButton)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -38,5 +38,6 @@ class ContainerImportFilesCell : UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         button.localizedTitle = LocKey.fileImportTitle
+        button.accessibilityLabel = L(.fileImportTitleAccessibility)
     }
 }

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.13.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.9"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -135,6 +133,8 @@
                         <outlet property="centerViewKeyboardCSTR" destination="baj-V7-Ubo" id="yh2-he-LMY"/>
                         <outlet property="centerViewOutofscreenCSTR" destination="5fb-m1-mhq" id="R5R-dX-PiK"/>
                         <outlet property="containerView" destination="pUF-he-w2e" id="jKs-ce-HsS"/>
+                        <outlet property="idCardButton" destination="F3T-ze-EzN" id="7Ko-G9-cW3"/>
+                        <outlet property="mobileIDButton" destination="wT5-SD-vv8" id="rjg-xa-AvI"/>
                         <outlet property="tokenNavbar" destination="mIm-AT-ZoS" id="bu7-aK-X4k"/>
                         <outletCollection property="tokenFlowMethodButtons" destination="wT5-SD-vv8" collectionClass="NSMutableArray" id="jhC-8w-F5L"/>
                         <outletCollection property="tokenFlowMethodButtons" destination="F3T-ze-EzN" collectionClass="NSMutableArray" id="UOu-8I-uqi"/>
@@ -568,6 +568,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Spinner" width="33.333332061767578" height="33.333332061767578"/>
+        <image name="Spinner" width="50" height="50"/>
     </resources>
 </document>

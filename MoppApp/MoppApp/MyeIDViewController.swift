@@ -21,6 +21,7 @@
  *
  */
 class MyeIDViewController : MoppViewController {
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var containerView: UIView!
     var changingCodesVCPresented: Bool = false
     
@@ -35,6 +36,8 @@ class MyeIDViewController : MoppViewController {
         _ = showViewController(statusVC)
         
         MoppLibCardReaderManager.sharedInstance().delegate = self
+        
+        menuButton.accessibilityLabel = L(.menuButton)
     }
     
     override func viewWillAppear(_ animated: Bool) {

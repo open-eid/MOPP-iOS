@@ -39,5 +39,6 @@ class ContainerImportAddresseesCell : UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         button.localizedTitle = LocKey.addresseeImportTitle
+        button.accessibilityLabel = L(.addresseeImportTitleAccessibility)
     }
 }

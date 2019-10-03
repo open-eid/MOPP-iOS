@@ -152,6 +152,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
             
             if afterSignatureCreated && container.isSignable() && !strongSelf.isForPreview {
                 strongSelf.notifications.append((true, L(.containerDetailsSigningSuccess)))
+                UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification,  L(.containerDetailsSigningSuccess))
             }
             
             strongSelf.sections = ContainerViewController.sectionsDefault

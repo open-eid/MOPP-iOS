@@ -33,6 +33,10 @@ class MyeIDInfoCell: UITableViewCell {
     func populate(titleText: String, contentText: String) {
         titleLabel.text = titleText
         contentLabel.text = contentText
+        
+        if titleLabel.text == L(.myEidInfoMyEid) {
+            titleLabel.accessibilityLabel = L(.myEidInfoMyEidAccessibility)
+        }
     }
     
     func populate(titleText: String, with expiryDateString: String) {

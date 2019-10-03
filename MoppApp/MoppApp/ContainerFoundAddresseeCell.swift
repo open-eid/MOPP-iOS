@@ -57,6 +57,7 @@ class ContainerFoundAddresseeCell: UITableViewCell, AddresseeActions {
         } else {
             addButton.isEnabled = true
             addButton.setTitle(L(LocKey.cryptoAddAddresseeButtonTitle))
+            addButton.accessibilityLabel = L(.cryptoAddAddresseeButtonTitle).lowercased()
         }
         
     }

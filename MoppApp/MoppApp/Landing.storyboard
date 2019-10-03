@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qJh-BA-pxe">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qJh-BA-pxe">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,7 +29,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PKn-M4-JkH">
-                                <rect key="frame" x="0.0" y="20" width="375" height="597"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFs-YW-Nvy">
@@ -53,13 +52,19 @@
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGNATURE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TzF-Zw-beY">
                                                         <rect key="frame" x="0.0" y="35" width="47" height="13"/>
+                                                        <accessibility key="accessibilityConfiguration">
+                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                            <bool key="isElement" value="NO"/>
+                                                        </accessibility>
                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
                                                         <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <accessibility key="accessibilityConfiguration" identifier="signTab"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="signTab">
+                                                    <bool key="isElement" value="YES"/>
+                                                </accessibility>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="N02-oa-hn3" secondAttribute="trailing" id="0uF-eT-JeE"/>
                                                     <constraint firstItem="N02-oa-hn3" firstAttribute="leading" secondItem="veX-VR-bb4" secondAttribute="leading" id="8Qs-Bb-XVT"/>
@@ -78,6 +83,7 @@
                                                         <color key="value" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="tab-signature"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="tab-signature"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <outlet property="button" destination="N02-oa-hn3" id="iIM-BN-dhb"/>
@@ -98,13 +104,19 @@
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CRYPTO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="139-2h-o7N">
                                                         <rect key="frame" x="0.0" y="35" width="47" height="13"/>
+                                                        <accessibility key="accessibilityConfiguration">
+                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                            <bool key="isElement" value="NO"/>
+                                                        </accessibility>
                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
                                                         <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <accessibility key="accessibilityConfiguration" identifier="cryptoTab"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="cryptoTab">
+                                                    <bool key="isElement" value="YES"/>
+                                                </accessibility>
                                                 <constraints>
                                                     <constraint firstItem="139-2h-o7N" firstAttribute="leading" secondItem="862-wV-bqw" secondAttribute="leading" id="6x2-bj-4is"/>
                                                     <constraint firstItem="xTR-NE-6lJ" firstAttribute="leading" secondItem="862-wV-bqw" secondAttribute="leading" id="b76-MT-eqW"/>
@@ -123,6 +135,7 @@
                                                         <color key="value" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="tab-crypto"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="tab-crypto"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <outlet property="button" destination="xTR-NE-6lJ" id="Z0n-uJ-cUS"/>
@@ -133,7 +146,7 @@
                                                 <rect key="frame" x="94" y="0.0" width="46.5" height="50"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gKq-vF-hm9">
-                                                        <rect key="frame" x="-0.5" y="0.0" width="47" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="46.5" height="50"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                                                         <state key="normal" image="IconMyEID"/>
                                                         <connections>
@@ -142,13 +155,19 @@
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MY eID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckz-6p-Acp">
                                                         <rect key="frame" x="0.0" y="35" width="46.5" height="13"/>
+                                                        <accessibility key="accessibilityConfiguration">
+                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                            <bool key="isElement" value="NO"/>
+                                                        </accessibility>
                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
                                                         <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <accessibility key="accessibilityConfiguration" identifier="myeIDTab"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="myeIDTab">
+                                                    <bool key="isElement" value="YES"/>
+                                                </accessibility>
                                                 <constraints>
                                                     <constraint firstItem="gKq-vF-hm9" firstAttribute="top" secondItem="p9f-rb-NUo" secondAttribute="top" id="2Ic-IH-wcb"/>
                                                     <constraint firstAttribute="bottom" secondItem="gKq-vF-hm9" secondAttribute="bottom" id="5cb-fm-rCe"/>
@@ -167,6 +186,7 @@
                                                         <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="tab-my-eid"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="tab-my-eid"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <outlet property="button" destination="gKq-vF-hm9" id="FDn-eu-dPK"/>
@@ -183,13 +203,19 @@
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHARE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qmQ-pj-mTP">
                                                         <rect key="frame" x="0.0" y="35" width="47" height="13"/>
+                                                        <accessibility key="accessibilityConfiguration">
+                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                            <bool key="isElement" value="NO"/>
+                                                        </accessibility>
                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
                                                         <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <accessibility key="accessibilityConfiguration" identifier="shareButton"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="shareButton">
+                                                    <bool key="isElement" value="YES"/>
+                                                </accessibility>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="D7z-3P-MfZ" secondAttribute="trailing" id="1S0-di-AAj"/>
                                                     <constraint firstItem="qmQ-pj-mTP" firstAttribute="leading" secondItem="uIu-AD-w9S" secondAttribute="leading" id="5Wf-ou-4vc"/>
@@ -218,13 +244,19 @@
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flY-yF-y29">
                                                         <rect key="frame" x="0.0" y="35" width="47" height="13"/>
+                                                        <accessibility key="accessibilityConfiguration">
+                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                            <bool key="isElement" value="NO"/>
+                                                        </accessibility>
                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
                                                         <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <accessibility key="accessibilityConfiguration" identifier="signButton"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="signButton">
+                                                    <bool key="isElement" value="YES"/>
+                                                </accessibility>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="flY-yF-y29" secondAttribute="bottom" constant="2" id="23s-bh-yDR"/>
                                                     <constraint firstItem="oD2-eQ-zo1" firstAttribute="top" secondItem="Sai-Rz-wOx" secondAttribute="top" id="8MD-8K-fX8"/>
@@ -254,13 +286,19 @@
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ENCRYPT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drn-Aa-Odq">
                                                         <rect key="frame" x="0.0" y="35" width="47" height="13"/>
+                                                        <accessibility key="accessibilityConfiguration">
+                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                            <bool key="isElement" value="NO"/>
+                                                        </accessibility>
                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
                                                         <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <accessibility key="accessibilityConfiguration" identifier="encryptButton"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="encryptButton">
+                                                    <bool key="isElement" value="YES"/>
+                                                </accessibility>
                                                 <constraints>
                                                     <constraint firstItem="rtQ-Jt-Uv9" firstAttribute="top" secondItem="zZy-Vl-dNV" secondAttribute="top" id="4EI-5s-Nzg"/>
                                                     <constraint firstItem="rtQ-Jt-Uv9" firstAttribute="leading" secondItem="zZy-Vl-dNV" secondAttribute="leading" id="ARU-CH-LDM"/>
@@ -290,13 +328,19 @@
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DECRYPT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n79-Pw-cl5">
                                                         <rect key="frame" x="0.0" y="35" width="46.5" height="13"/>
+                                                        <accessibility key="accessibilityConfiguration">
+                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                            <bool key="isElement" value="NO"/>
+                                                        </accessibility>
                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
                                                         <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <accessibility key="accessibilityConfiguration" identifier="decryptButton"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="decryptButton">
+                                                    <bool key="isElement" value="YES"/>
+                                                </accessibility>
                                                 <constraints>
                                                     <constraint firstItem="kLR-Nc-AUC" firstAttribute="leading" secondItem="fFe-jM-quU" secondAttribute="leading" id="83Z-mE-pYu"/>
                                                     <constraint firstAttribute="bottom" secondItem="kLR-Nc-AUC" secondAttribute="bottom" id="EJ1-IZ-gRu"/>
@@ -326,13 +370,19 @@
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONFIRM SELECTION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcr-aT-usx">
                                                         <rect key="frame" x="0.0" y="35" width="47" height="13"/>
+                                                        <accessibility key="accessibilityConfiguration">
+                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                            <bool key="isElement" value="NO"/>
+                                                        </accessibility>
                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
                                                         <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <accessibility key="accessibilityConfiguration" identifier="confirmButton"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="confirmButton">
+                                                    <bool key="isElement" value="YES"/>
+                                                </accessibility>
                                                 <constraints>
                                                     <constraint firstItem="wDc-OE-gkF" firstAttribute="leading" secondItem="ASa-w9-Uui" secondAttribute="leading" id="0C7-xh-tGG"/>
                                                     <constraint firstItem="gcr-aT-usx" firstAttribute="leading" secondItem="ASa-w9-Uui" secondAttribute="leading" id="AsI-dQ-kzd"/>
@@ -402,7 +452,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VMg-vR-sr3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2762.4000000000001" y="1511.6941529235382"/>
+            <point key="canvasLocation" x="-2762.4000000000001" y="1510.7946026986508"/>
         </scene>
         <!--File Import Progress View Controller-->
         <scene sceneID="ZMn-vB-Crc">

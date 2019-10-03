@@ -25,7 +25,8 @@ import WebKit
 class AboutViewController: MoppViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var webView: UIWebView!
-
+    @IBOutlet weak var dismissButton: UIButton!
+    
     @IBAction func dismissAction() {
         dismiss(animated: true, completion: nil)
     }
@@ -34,6 +35,8 @@ class AboutViewController: MoppViewController {
         super.viewWillAppear(animated)
 
         titleLabel.text = L(.aboutTitle)
+        
+        self.view.accessibilityElements = [titleLabel, dismissButton, webView]
         
         var localizedAboutHtmlPath:String!
         let appLanguageID = DefaultsHelper.moppLanguageID
