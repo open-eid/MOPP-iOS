@@ -35,6 +35,8 @@ class MobileIDChallengeViewController : UIViewController {
 
     var currentProgress: Double = 0.0
     var sessionTimer: Timer?
+    
+    var isAnnouncementMade: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +65,17 @@ class MobileIDChallengeViewController : UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @objc func receiveStatusPendingNotification(_ notification: Notification) {
+    @objc func receiveStatusPendingNotification(_ notification: Notification) {        
+        if UIAccessibilityIsVoiceOverRunning() {
+            if !isAnnouncementMade {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: { [weak self] in
+                    let challengeIdNumbers = Array<Character>(self!.challengeID)
+                    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, L(LocKey.challengeCodeLabel, ["\(challengeIdNumbers[0]), \(challengeIdNumbers[1]), \(challengeIdNumbers[2]), \(challengeIdNumbers[3]). \(self!.helpLabel.text!)"]))
+                    self?.isAnnouncementMade = true
+                })
+            }
+        }
+        
         DispatchQueue.main.async { [weak self] in
             self?.titleLabel.text = MoppLib_LocalizedString("digidoc-service-status-request-outstanding-transaction")
         }
@@ -90,6 +102,9 @@ class MobileIDChallengeViewController : UIViewController {
         codeLabel.isHidden = false
         titleLabel.text = MoppLib_LocalizedString("digidoc-service-status-request-ok")
         codeLabel.text = L(LocKey.challengeCodeLabel, [challengeID])
+        
+        let challengeIdNumbers = Array<Character>(challengeID)
+        codeLabel.accessibilityLabel = L(LocKey.challengeCodeLabel, ["\(challengeIdNumbers[0]), \(challengeIdNumbers[1]), \(challengeIdNumbers[2]), \(challengeIdNumbers[3])"])
         currentProgress = 0.0
         
         sessionTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSessionProgress), userInfo: nil, repeats: true)
@@ -110,7 +125,8 @@ class MobileIDChallengeViewController : UIViewController {
         }
     }
 
-    func viewWillDisAppear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         sessionTimer?.invalidate()
     }
 

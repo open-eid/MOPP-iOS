@@ -25,6 +25,7 @@ protocol SettingsHeaderCellDelegate: class {
 }
 class SettingsHeaderCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var dismissButton: UIButton!
     weak var delegate: SettingsHeaderCellDelegate!
     
     @IBAction func dismissAction() {
@@ -33,5 +34,10 @@ class SettingsHeaderCell: UITableViewCell {
     
     func populate(with title:String) {
         titleLabel.text = title
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.accessibilityElements = [titleLabel, dismissButton]
     }
 }

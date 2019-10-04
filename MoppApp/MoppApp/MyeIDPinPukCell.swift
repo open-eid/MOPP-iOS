@@ -132,10 +132,17 @@ class MyeIDPinPukCell: UITableViewCell {
             } else {
                 showLink(authCertValid && !pukBlocked)
                 linkLabel.attributedText = NSAttributedString(string: pinPukCellInfo.linkText, attributes: [.underlineStyle : NSUnderlineStyle.styleSingle.rawValue])
+                linkButton.accessibilityLabel = L(.myEidInfoPin1LinkText)
                 errorLabel.isHidden = true
                 errorLabel.text = nil
                 showChangeButton(authCertValid, with: pinPukCellInfo.buttonText)
                 button.backgroundColor = UIColor.moppBase
+                
+                if savedLastFocusElement == .changePIN1 {
+                    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, button)
+                } else if savedLastFocusElement == .unblockPIN1 {
+                    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, linkButton)
+                }
             }
         }
         else if kind == .pin2 {
@@ -154,9 +161,16 @@ class MyeIDPinPukCell: UITableViewCell {
             } else {
                 showLink(signCertValid && !pukBlocked)
                 linkLabel.attributedText = NSAttributedString(string: pinPukCellInfo.linkText, attributes: [.underlineStyle : NSUnderlineStyle.styleSingle.rawValue])
+                linkButton.accessibilityLabel = L(.myEidInfoPin2LinkText)
                 showErrorLabel(false)
                 showChangeButton(signCertValid, with: pinPukCellInfo.buttonText)
                 button.backgroundColor = UIColor.moppBase
+                
+                if savedLastFocusElement == .changePIN2 {
+                    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, button)
+                } else if savedLastFocusElement == .unblockPIN2 {
+                    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, linkButton)
+                }
             }
         }
         else if kind == .puk {
@@ -164,6 +178,7 @@ class MyeIDPinPukCell: UITableViewCell {
             if pukBlocked {
                 showLink(true)
                 linkLabel.attributedText = NSAttributedString(string: L(.myEidHowToGetCodesMessage), attributes: [.underlineStyle : NSUnderlineStyle.styleSingle.rawValue])
+                linkButton.accessibilityLabel = L(.myEidHowToGetCodesMessage)
                 showErrorLabel(true, with: L(.myEidInfoPukBlockedMessage))
                 showChangeButton(false)
                 button.backgroundColor = UIColor.moppDescriptiveText
@@ -172,6 +187,10 @@ class MyeIDPinPukCell: UITableViewCell {
                 showErrorLabel(false)
                 showChangeButton(authCertValid || signCertValid, with: pinPukCellInfo.buttonText)
                 button.backgroundColor = UIColor.moppBase
+                
+                if savedLastFocusElement == .changePUK {
+                    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, button)
+                }
             }
         }
         

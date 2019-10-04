@@ -110,6 +110,7 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
             return UITableViewCell()
         case .changePins:
             let cell = ui.tableView.dequeueReusableCell(withType: MyeIDSegmentHeaderCell.self, for: indexPath)!
+            cell.accessibilityTraits = UIAccessibilityTraitButton
             return cell
         }
     }

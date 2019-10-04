@@ -25,6 +25,14 @@ protocol MyeIDInfoManagerDelegate: class {
     func didTapChangePinPukCode(actionType: MyeIDChangeCodesModel.ActionType)
 }
 
+enum LastFocusElement: String {
+    case changePIN1
+    case changePIN2
+    case unblockPIN1
+    case unblockPIN2
+    case changePUK
+}
+
 enum IdCardCodeName: String {
     case PIN1 = "PIN1"
     case PIN2 = "PIN2"
@@ -37,6 +45,8 @@ enum IdCardCodeLengthLimits:Int {
     case pukMinimum = 8
     case maxRetryCount = 3
 }
+
+var savedLastFocusElement: LastFocusElement?;
 
 class MyeIDInfoManager {
     weak var delegate: MyeIDInfoManagerDelegate? = nil
@@ -216,6 +226,8 @@ class MyeIDInfoManager {
         personalInfo.items.append((type: .citizenship, value: personalData.nationality))
         personalInfo.items.append((type: .documentNumber, value: personalData.documentNumber))
         personalInfo.items.append((type: .expiryDate, value: personalData.expiryDate))
+        
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, "")
     }
     
     func organizationDisplayString(_ certOrganization: MoppLibCertificateOrganization) -> String {
@@ -377,6 +389,8 @@ extension MyeIDInfoManager {
             model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
             model.confirmButtonTitleText = L(.myEidConfirmChangeButtonTitle)
             
+            savedLastFocusElement = .changePIN1
+            
         case .unblockPin1:
         
             model.titleText = L(.myEidUnblockCodeTitle, [IdCardCodeName.PIN1.rawValue])
@@ -392,6 +406,8 @@ extension MyeIDInfoManager {
             model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
             model.confirmButtonTitleText = L(.myEidConfirmUnblockButtonTitle)
             
+            savedLastFocusElement = .unblockPIN1
+            
         case .changePin2:
         
             model.titleText = L(.myEidChangeCodeTitle, [IdCardCodeName.PIN2.rawValue])
@@ -405,6 +421,8 @@ extension MyeIDInfoManager {
             
             model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
             model.confirmButtonTitleText = L(.myEidConfirmChangeButtonTitle)
+            
+            savedLastFocusElement = .changePIN2
             
         case .unblockPin2:
         
@@ -421,6 +439,8 @@ extension MyeIDInfoManager {
             model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
             model.confirmButtonTitleText = L(.myEidConfirmUnblockButtonTitle)
             
+            savedLastFocusElement = .unblockPIN2
+            
         case .changePuk:
         
             model.titleText = L(.myEidChangeCodeTitle, [IdCardCodeName.PUK.rawValue])
@@ -433,6 +453,8 @@ extension MyeIDInfoManager {
             
             model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
             model.confirmButtonTitleText = L(.myEidConfirmChangeButtonTitle)
+            
+            savedLastFocusElement = .changePUK
             
         }
         return model

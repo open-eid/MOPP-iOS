@@ -28,6 +28,7 @@ class CryptoViewController : MoppViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var importButton: UIButton!
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     
     enum Section {
         case fileImport
@@ -40,6 +41,7 @@ class CryptoViewController : MoppViewController {
         
         titleLabel.text = L(LocKey.cryptoViewBeginLabel)
         importButton.localizedTitle = LocKey.cryptoViewBeginButton
+        menuButton.accessibilityLabel = L(LocKey.menuButton)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -29,5 +29,6 @@
         } else {
             titleLabel.text = L(.recentContainersEmptyListTitle)
         }
+        self.accessibilityElements = [titleLabel]
     }
 }

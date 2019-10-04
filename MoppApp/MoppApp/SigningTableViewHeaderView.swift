@@ -43,6 +43,7 @@ class SigningTableViewHeaderView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         searchTextField._delegate = self
+        self.accessibilityElements = [titleLabel, searchButton, searchTextField]
     }
     
     override func layoutSubviews() {
@@ -70,21 +71,35 @@ class SigningTableViewHeaderView: UIView {
         self.searchTextField.isHidden = false
     
         let changeTo = {
-            self.titleLabel.alpha = show ? 0.0 : 1.0
-            self.searchButton.alpha = show ? 0.0 : 1.0
-            self.searchTextField.alpha = show ? 1.0 : 0.0
+            if !UIAccessibilityIsVoiceOverRunning() {
+                self.titleLabel.alpha = show ? 0.0 : 1.0
+                self.searchButton.alpha = show ? 0.0 : 1.0
+                self.searchTextField.alpha = show ? 1.0 : 0.0
+            } else {
+                self.titleLabel.alpha = 0.0
+                self.searchButton.alpha = 0.0
+                self.searchTextField.alpha = 1.0
+            }
         }
         
         let changeFinished = {
-            self.titleLabel.isHidden = show
-            self.searchButton.isHidden = show
-            self.searchTextField.isHidden = !show
+            if !UIAccessibilityIsVoiceOverRunning() {
+                self.titleLabel.isHidden = show
+                self.searchButton.isHidden = show
+                self.searchTextField.isHidden = !show
+            }
             if show {
                 self.searchTextField.becomeFirstResponder()
             } else {
-                self.searchTextField.resignFirstResponder()
-                self.searchTextField.text = nil
-                self.delegate?.signingTableViewHeaderViewDidEndSearch()
+                if !UIAccessibilityIsVoiceOverRunning() {
+                    self.searchTextField.resignFirstResponder()
+                    self.searchTextField.text = nil
+                    self.delegate?.signingTableViewHeaderViewDidEndSearch()
+                } else {
+                    self.titleLabel.isHidden = false
+                    self.searchButton.isHidden = false
+                    self.searchTextField.isHidden = false
+                }
             }
         }
     
@@ -105,6 +120,7 @@ class SigningTableViewHeaderView: UIView {
 extension SigningTableViewHeaderView: SearchTextFieldDelegate {
     func searchTextFieldDidEndEditing() {
         showSearch(false, animated: true)
+        UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, self.searchTextField)
     }
     
     func searchTextFieldValueChanged(_ newValue: String) {

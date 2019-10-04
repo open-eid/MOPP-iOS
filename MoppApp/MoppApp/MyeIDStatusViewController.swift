@@ -34,10 +34,13 @@ class MyeIDStatusViewController : MoppViewController {
             switch (state) {
             case .readerNotFound:
                 titleLabel.text = L(.myEidStatusReaderNotFound)
+                UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, titleLabel)
             case .idCardNotFound:
                 titleLabel.text = L(.myEidStatusCardNotFound)
+                UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, titleLabel)
             case .requestingData:
                 titleLabel.text = L(.myEidStatusRequestingData)
+                UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, titleLabel)
             }
             titleLabel.setNeedsDisplay()
         }

@@ -66,8 +66,6 @@ class DiagnosticsViewController: MoppViewController {
         let libdigidocppVersion = MoppLibManager.sharedInstance().libdigidocppVersion() ?? String()
         librariesLabel.attributedText = attributedTextForBoldRegularText(key: String(), value: "libdigidocpp \(libdigidocppVersion)")
         centralConfigurationLabel.text = L(.centralConfigurationLabel)
-        updateDateLabel.text = L(.updateDateLabel)
-        lastCheckLabel.text = L(.lastUpdateCheckDateLabel)
         refreshConfigurationLabel.setTitle(L(.refreshConfigurationLabel))
         
         configurationToUI()
@@ -96,37 +94,37 @@ class DiagnosticsViewController: MoppViewController {
     private func configurationToUI() {
         let decodedConf = getMoppConfiguration()
         
-        configURL.text = decodedConf.METAINF.URL
-        tslURL.text = decodedConf.TSLURL
-        sivaURL.text = decodedConf.SIVAURL
-        tsaURL.text = decodedConf.TSAURL
-        midSignURL.text = decodedConf.MIDSIGNURL
-        ldapPersonURL.text = decodedConf.LDAPPERSONURL
-        ldapCorpURL.text = decodedConf.LDAPCORPURL
-        metaDate.text = decodedConf.METAINF.DATE
+        configURL.text = formatString(text: "CONFIG_URL:", additionalText: decodedConf.METAINF.URL)
+        tslURL.text = formatString(text: "TSL_URL:", additionalText: decodedConf.TSLURL)
+        sivaURL.text = formatString(text: "SIVA_URL:", additionalText: decodedConf.SIVAURL)
+        tsaURL.text = formatString(text: "TSA_URL:", additionalText: decodedConf.TSAURL)
+        midSignURL.text = formatString(text: "MID-SIGN-URL:", additionalText: decodedConf.MIDSIGNURL)
+        ldapPersonURL.text = formatString(text: "LDAP_PERSON_URL:", additionalText: decodedConf.LDAPPERSONURL)
+        ldapCorpURL.text = formatString(text: "LDAP_CORP_URL:", additionalText: decodedConf.LDAPCORPURL)
         
+        metaDate.text = formatString(text: "DATE:", additionalText: decodedConf.METAINF.DATE)
         
-        metaSerial.text = "\(decodedConf.METAINF.SERIAL)"
+        metaSerial.text = formatString(text: "SERIAL:", additionalText: String(decodedConf.METAINF.SERIAL))
         
-        metaUrl.text = decodedConf.METAINF.URL
+        metaUrl.text = formatString(text: "URL:", additionalText: decodedConf.METAINF.URL)
         
-        metaVer.text = "\(decodedConf.METAINF.VER)"
+        metaVer.text = formatString(text: "VER:", additionalText: String(decodedConf.METAINF.VER))
         
         
         if let cachedUpdateDate = SettingsConfiguration().getConfigurationFromCache(forKey: "updateDate") as? Date {
-            updateDate.text = MoppDateFormatter().dateToString(date: cachedUpdateDate)
+            updateDate.text = formatString(text: L(.updateDateLabel), additionalText: MoppDateFormatter().dateToString(date: cachedUpdateDate))
         } else {
             do {
-                updateDate.text = try getDecodedDefaultMoppConfiguration().UPDATEDATE
+                updateDate.text = formatString(text: L(.updateDateLabel), additionalText: try getDecodedDefaultMoppConfiguration().UPDATEDATE)
             } catch {
                 MSLog("Unable to decode data: ", error.localizedDescription)
             }
         }
         
         if let cachedLastUpdateCheckDate = SettingsConfiguration().getConfigurationFromCache(forKey: "lastUpdateCheckDate") as? Date {
-            lastCheckDate.text = MoppDateFormatter().dateToString(date: cachedLastUpdateCheckDate)
+            lastCheckDate.text = formatString(text: L(.lastUpdateCheckDateLabel), additionalText: MoppDateFormatter().dateToString(date: cachedLastUpdateCheckDate))
         } else {
-            lastCheckDate.text = ""
+            lastCheckDate.text = formatString(text: L(.lastUpdateCheckDateLabel), additionalText: " ")
         }
     }
     
