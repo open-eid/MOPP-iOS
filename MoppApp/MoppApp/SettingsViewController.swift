@@ -134,6 +134,9 @@ extension SettingsViewController: UITableViewDataSource {
                 let fieldCell = tableView.dequeueReusableCell(withType: SettingsFieldCell.self, for: indexPath)!
                     fieldCell.delegate = self
                     fieldCell.populate(with: field)
+                if (field.id == .personalCode) {
+                    fieldCell.textField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
+                }
                 return fieldCell
             case .timestamp:
                 let timeStampCell = tableView.dequeueReusableCell(withType: SettingsTimeStampCell.self, for: indexPath)!
@@ -148,6 +151,13 @@ extension SettingsViewController: UITableViewDataSource {
                 let groupSeparatorCell = tableView.dequeueReusableCell(withIdentifier: "SettingsGroupSeparator", for: indexPath)
                 return groupSeparatorCell
             }
+        }
+    }
+    
+    @objc func editingChanged(sender: UITextField) {
+        let text = sender.text ?? String()
+        if (text.count > 11) {
+            sender.deleteBackward()
         }
     }
 }
