@@ -57,6 +57,10 @@ class TabButton: UIView {
         super.awakeFromNib()
         
         title.text = titleText
+        
+        if titleText == "MY eID" {
+            title.accessibilityLabel = L(.myEidInfoMyEidAccessibility)
+        }
     }
 
     func configure(kind: Kind) {

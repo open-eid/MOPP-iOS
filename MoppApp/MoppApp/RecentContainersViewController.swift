@@ -128,6 +128,7 @@ extension RecentContainersViewController : UITableViewDataSource {
             case .filesMissing:
                 let cell = tableView.dequeueReusableCell(withType: RecentContainersEmptyListCell.self, for: indexPath)!
                     cell.populate(emptySearch: !searchKeyword.isEmpty)
+                UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, L(.recentContainersEmptySearchMessage))
                 return cell
             case .containerFilesHeaderViewPlaceholder:
                 return UITableViewCell()

@@ -45,6 +45,7 @@ class ContainerAddresseeCell: UITableViewCell, AddresseeActions {
     
     func populate(addressee: Addressee, index: Int, showRemoveButton: Bool) {
         removeButton.isHidden = !showRemoveButton
+        removeButton.accessibilityLabel = L(.cryptoRemoveAddresseeButton)
         removeIndex = index
         nameLabel.text = determineName(addressee: addressee)
         infoLabel.text = determineInfo(addressee: addressee)

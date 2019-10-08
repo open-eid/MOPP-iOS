@@ -81,6 +81,8 @@ class MobileIDEditViewController : MoppViewController {
         tapGR = UITapGestureRecognizer()
         tapGR.addTarget(self, action: #selector(cancelAction))
         view.addGestureRecognizer(tapGR)
+        
+        self.view.accessibilityElements = [titleLabel, phoneLabel, phoneTextField, idCodeLabel, idCodeTextField, rememberLabel, rememberSwitch, cancelButton, signButton]
     }
     
     @objc func dismissKeyboard(_ notification: NSNotification) {

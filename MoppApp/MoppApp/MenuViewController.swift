@@ -105,10 +105,17 @@ extension MenuViewController : UITableViewDataSource {
                     cell.delegate = self
                 return cell
             } else if id == .separator {
-                return tableView.dequeueReusableCell(withType: MenuSeparatorCell.self, for: indexPath)!
+                let cell = tableView.dequeueReusableCell(withType: MenuSeparatorCell.self, for: indexPath)!
+                cell.accessibilityElementsHidden = true
+                return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withType: MenuCell.self, for: indexPath)!
                     cell.populate(iconName: iconName, title: title)
+                if id == .help {
+                    cell.accessibilityTraits = UIAccessibilityTraitLink
+                } else {
+                    cell.accessibilityTraits = UIAccessibilityTraitButton
+                }
                 return cell
             }
         }

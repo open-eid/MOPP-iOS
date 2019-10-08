@@ -19,6 +19,9 @@
 
 // *** General ***
 
+// Navigation
+"back-button" = "Назад";
+
 // TabBar
 "tab-my-eid" = "МОЙ eID";
 "tab-crypto" = "КРИПТО";
@@ -29,6 +32,9 @@
 "tab-decrypt-button" = "ДЕШИФРОВАТЬ";
 "tab-confirm-button" = "ПОДВЕРДИТЬ ВЫБОР";
 
+"tab-selected" = "Выбрано, %@, вкладка %@ из %@";
+"tab-unselected" = "%@, вкладка %@ из %@";
+
 // Main menu
 "menu-help" = "ПОМОЩЬ";
 "menu-recent-containers" = "НЕДАВНИЕ ДОКУМЕНТЫ";
@@ -36,10 +42,16 @@
 "menu-about" = "ИНФОРМАЦИЯ";
 "menu-diagnostics" = "ДИАГНОСТИКА";
 
+// Languages
+"language-estonian" = "Эстонский язык";
+"language-english" = "Английский язык";
+"language-russian" = "Русский язык";
+
 // Signature view
 "signature-view-begin-label" = "Выберите файл для подписи или проверки";
 "signature-view-begin-button" = "ВЫБРАТЬ ФАЙЛ";
 "signature-details-title" = "Детали подписи";
+"menu-button" = "Меню";
 
 // Crypto
 "crypto-view-begin-label" = "Выберите файл для шифрования или расшифровки";
@@ -79,11 +91,14 @@
 
 // DataFile import
 "file-import-title" = "+ ДОБАВИТЬ БОЛЬШЕ ФАЙЛОВ";
+"file-import-title-accessibility" = "Добавить Больше Файлов";
 "addressee-import-title" = "+ ДОБАВИТЬ ПОЛУЧАТЕЛЯ";
+"addressee-import-title-accessibility" = "Добавить Получателя";
 "file-import-open-existing-failed-alert-title" = "Ошибка при открывании контейнера";
 "file-import-open-existing-failed-alert-message" = "Не удалось открыть контейнер %@";
 "file-import-create-new-failed-alert-title" = "Ошибка при создании контейнера";
 "file-import-create-new-failed-alert-message" = "Не удалось открыть контейнер %@";
+"file-import-remove-file" = "Удалить Файл";
 
 // Details
 "container-details-signing-success" = "ПОДПИСЬ ДОБАВЛЕНА";
@@ -108,6 +123,7 @@
 "container-signature-status-non-qscd" = "(Ограничения)";
 "container-signature-status-invalid" = "Подпись недействительна";
 "container-signature-status-unknown" = "Подпись неизвестная";
+"crypto-remove-addressee-button" = "Удалить подпись";
 
 // *** Mobile ID Challenge View ***
 
@@ -175,6 +191,7 @@
 "my-eid-info-item-document-number" = "НОМЕР ДОКУМЕНТА";
 "my-eid-info-item-expiry-date" = "ГОДЕН ДО";
 "my-eid-info-my-eid" = "МОЙ eID";
+"my-eid-info-my-eid-accessibility" = "МОЙ e-ID";
 "my-eid-info-my-eid-id-card" = "ID-КАРТА";
 "my-eid-info-my-eid-mobile-id" = "MOBIIL-ID";
 "my-eid-info-my-eid-digi-id" = "DIGI-ID";

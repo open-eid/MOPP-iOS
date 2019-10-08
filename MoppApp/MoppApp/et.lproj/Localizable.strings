@@ -19,6 +19,9 @@
 
 // *** General ***
 
+// Navigation
+"back-button" = "Tagasi";
+
 // TabBar
 "tab-my-eid" = "MINU eID";
 "tab-crypto" = "KRÜPTO";
@@ -29,6 +32,9 @@
 "tab-decrypt-button" = "DEKRÜPTEERI";
 "tab-confirm-button" = "KINNITA VALIK";
 
+"tab-selected" = "Valitud, %@, vahekaart %@ / %@";
+"tab-unselected" = "%@, vahekaart %@ / %@";
+
 // Main menu
 "menu-help" = "ABI";
 "menu-recent-containers" = "HILJUTISED DOKUMENDID";
@@ -36,10 +42,16 @@
 "menu-about" = "INFO";
 "menu-diagnostics" = "DIAGNOSTIKA";
 
+// Languages
+"language-estonian" = "Eesti keel";
+"language-english" = "Inglise keel";
+"language-russian" = "Vene keel";
+
 // Signature view
 "signature-view-begin-label" = "Allkirjastamiseks või kontrollimiseks vali fail";
 "signature-view-begin-button" = "VALI FAIL";
 "signature-details-title" = "Allkirja detailid";
+"menu-button" = "Menüü";
 
 // Signing view
 "signing-recent-containers" = "Hiljutised dokumendid";
@@ -61,6 +73,7 @@
 "crypto-type-unknown" = "TEADMATA";
 "crypto-add-addressee-button-title" = "LISA";
 "crypto-addressee-added-button-title" = "LISATUD";
+"crypto-remove-addressee-button" = "Eemalda Allkiri";
 
 // Crashlytics
 "crashlytics-title" = "Kas saata vearaport?";
@@ -80,11 +93,15 @@
 
 // DataFile import
 "file-import-title" = "+ LISA VEEL FAILE";
+"file-import-title-accessibility" = "Lisa veel faile";
 "addressee-import-title" = "+ LISA ADRESSAAT";
+"addressee-import-title-accessibility" = "Lisa adressaat";
 "file-import-open-existing-failed-alert-title" = "Ümbriku laadimine ebaõnnestus";
 "file-import-open-existing-failed-alert-message" = "Dokumendi %@ avamine ebaõnnestus";
 "file-import-create-new-failed-alert-title" = "Ümbriku loomine ebaõnnestus";
 "file-import-create-new-failed-alert-message" = "%@ laadmine ebaõnnesus";
+"file-import-remove-file" = "Eemalda Fail";
+
 // Details
 "container-details-signing-success" = "ALLKIRI LISATUD";
 "container-details-decryption-success" = "DEKRÜPTEERIMINE ÕNNESTUS";
@@ -175,6 +192,7 @@
 "my-eid-info-item-document-number" = "DOKUMENT";
 "my-eid-info-item-expiry-date" = "KEHTIV KUNI";
 "my-eid-info-my-eid" = "MINU eID";
+"my-eid-info-my-eid-accessibility" = "MINU e-ID";
 "my-eid-info-my-eid-id-card" = "ID-KAART";
 "my-eid-info-my-eid-mobile-id" = "MOBIIL-ID";
 "my-eid-info-my-eid-digi-id" = "DIGI-ID";

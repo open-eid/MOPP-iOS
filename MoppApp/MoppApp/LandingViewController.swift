@@ -258,6 +258,54 @@ extension LandingViewController {
             buttonsStackView.removeArrangedSubview(button)
             button.removeFromSuperview()
         }
+        
+        visibleViews.forEach { view in
+            switch view.accessibilityIdentifier {
+            case "signTab":
+                view.accessibilityLabel = selectedTab == .signTab ? setTabAccessibilityLabel(isTabSelected: true, tabName: L(.tabSignature), positionInRow: "1", viewCount: String(visibleViews.count)) : setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabSignature), positionInRow: "1", viewCount: String(visibleViews.count))
+                break
+            case "cryptoTab":
+                view.accessibilityLabel = selectedTab == .cryptoTab ? setTabAccessibilityLabel(isTabSelected: true, tabName: L(.tabCrypto), positionInRow: "2", viewCount: String(visibleViews.count)) : setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabCrypto), positionInRow: "2", viewCount: String(visibleViews.count))
+                break
+            case "myeIDTab":
+                view.accessibilityLabel = selectedTab == .myeIDTab ? setTabAccessibilityLabel(isTabSelected: true, tabName: L(.myEidInfoMyEidAccessibility), positionInRow: "3", viewCount: String(visibleViews.count)) : setTabAccessibilityLabel(isTabSelected: false, tabName: L(.myEidInfoMyEidAccessibility), positionInRow: "3", viewCount: String(visibleViews.count))
+                break
+            case "shareButton":
+                if buttonIDs.contains(TabButtonId.decryptButton) && buttonIDs.contains(TabButtonId.shareButton) {
+                    view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabShareButton), positionInRow: "2", viewCount: String(visibleViews.count))
+                } else {
+                    view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabShareButton), positionInRow: "1", viewCount: String(visibleViews.count))
+                }
+                view.accessibilityTraits = UIAccessibilityTraitButton
+                break
+            case "signButton":
+                if buttonIDs.contains(TabButtonId.signButton) && buttonIDs.count == 1 {
+                    view.accessibilityLabel = L(.tabSignButton)
+                } else {
+                    view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabSignButton), positionInRow: "2", viewCount: String(visibleViews.count))
+                }
+                view.accessibilityTraits = UIAccessibilityTraitButton
+                break
+            case "encryptButton":
+                view.accessibilityLabel = L(.tabEncryptButton)
+                view.accessibilityTraits = UIAccessibilityTraitButton
+                break
+            case "decryptButton":
+                if buttonIDs.contains(TabButtonId.decryptButton) && buttonIDs.contains(TabButtonId.shareButton) {
+                    view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabDecryptButton), positionInRow: "1", viewCount: String(visibleViews.count))
+                } else {
+                    view.accessibilityLabel = L(.tabDecryptButton)
+                }
+                view.accessibilityTraits = UIAccessibilityTraitButton
+                break
+            case "confirmButton":
+                view.accessibilityLabel = L(.tabConfirmButton)
+                view.accessibilityTraits = UIAccessibilityTraitButton
+                break
+            default:
+                break
+            }
+        }
 
         buttonIDs.forEach { buttonID in
             let button = visibleViews.first(where: { buttonID == TabButtonId(rawValue: $0.accessibilityIdentifier!)! })!
