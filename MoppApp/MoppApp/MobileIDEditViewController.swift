@@ -121,11 +121,24 @@ class MobileIDEditViewController : MoppViewController {
 
         idCodeTextField.text = DefaultsHelper.idCode
         phoneTextField.text = DefaultsHelper.phoneNumber
+        
+        idCodeTextField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.0)
+    }
+    
+    deinit {
+        idCodeTextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
+    }
+    
+    @objc func editingChanged(sender: UITextField) {
+        let text = sender.text ?? String()
+        if (text.count > 11) {
+            sender.deleteBackward()
+        }
     }
 }
 
