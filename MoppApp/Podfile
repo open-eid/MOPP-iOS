@@ -21,6 +21,7 @@ target 'MoppAppTestEnv' do
 
   pod 'Fabric'
   pod 'Crashlytics'
+  pod 'SwiftyRSA'
 end
 
 target 'MoppLib' do
