@@ -1,6 +1,6 @@
 //
-//  CertificateInfo.mm
-//  CryptoLib
+//  MoppLibCertificateInfo.mm
+//  MoppLib
 /*
 * Copyright 2019 Riigi Infosüsteemide Amet
 *
@@ -22,13 +22,13 @@
 
 #include <digidocpp/crypto/X509Cert.h>
 
-#import "CertificateInfo.h"
+#import "MoppLibCertificateInfo.h"
 #import <Foundation/Foundation.h>
 #import <openssl/x509.h>
 #import <openssl/x509v3.h>
 
 
-@implementation CertificateInfo
+@implementation MoppLibCertificateInfo
 - (NSArray<NSString *> *)certificatePolicies:(NSData *)certificateData {
     const unsigned char *certificateDataBytes = (const unsigned char *)[certificateData bytes];
     X509 *certificateX509 = d2i_X509(NULL, &certificateDataBytes, [certificateData length]);
@@ -136,7 +136,7 @@
 }
 
 - (BOOL) isUnknownType:(NSArray<NSString *> *)certificatePolicies {
-    CertificateInfo *certInfo = [CertificateInfo alloc];
+    MoppLibCertificateInfo *certInfo = [MoppLibCertificateInfo alloc];
     if (![certInfo isIdCardType:(certificatePolicies)] && ![certInfo isDigiIdType:(certificatePolicies)] && ![certInfo isMobileIdType:(certificatePolicies)] && ![certInfo isESealType:(certificatePolicies)]) {
         return true;
     }
