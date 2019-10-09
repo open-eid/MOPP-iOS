@@ -510,9 +510,18 @@
 					"$(PROJECT_DIR)/CryptoLib",
 					"$(PROJECT_DIR)/CryptoLib/cdocFramework",
 				);
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/include";
-				"HEADER_SEARCH_PATHS[sdk=iphoneos*]" = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/include";
-				"HEADER_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphonesimulator/include";
+				HEADER_SEARCH_PATHS = (
+					"${inherited}",
+					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/include",
+				);
+				"HEADER_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"${inherited}",
+					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/include",
+				);
+				"HEADER_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"${inherited}",
+					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphonesimulator/include",
+				);
 				INFOPLIST_FILE = CryptoLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -524,13 +533,20 @@
 					"$(PROJECT_DIR)/../CryptoLib",
 					"$(PROJECT_DIR)/CryptoLib",
 				);
-				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries";
-				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphonesimulator/libraries";
-				OTHER_LDFLAGS = "$(inherited)";
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"${inherited}",
+					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"${inherited}",
+					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphonesimulator/libraries",
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.CryptoLib;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -552,23 +568,29 @@
 					"$(PROJECT_DIR)/CryptoLib",
 					"$(PROJECT_DIR)/CryptoLib/cdocFramework",
 				);
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/include";
+				HEADER_SEARCH_PATHS = (
+					"${inherited}",
+					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/include",
+					"$(DIGIDOCPP_PATH)/include",
+				);
 				INFOPLIST_FILE = CryptoLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
+					"${inherited}",
 					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries",
 					"$(PROJECT_DIR)/CryptoLib/openldap/OpenLDAP.iphoneos/libraries",
 					"$(PROJECT_DIR)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos/lib",
 					"$(PROJECT_DIR)/../CryptoLib",
 					"$(PROJECT_DIR)/CryptoLib",
 				);
-				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.CryptoLib;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -38,6 +38,7 @@
 #include <openssl/err.h>
 #import "NSData+Additions.h"
 #include "MoppLibDigidocMAnager.h"
+#import "MoppLibCertificateInfo.h"
 
 @implementation MoppLibCryptoActions
     
@@ -159,10 +160,12 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableArray *response = [[NSMutableArray alloc] init];
+        NSMutableArray *filteredResponse = [[NSMutableArray alloc] init];
         NSError *error;
         OpenLdap *ldap = [[OpenLdap alloc] init];
         @try {
             response = [ldap search:identifier configuration:moppLdapConfiguration];
+            
             if (response.count == 0) {
                 failure([MoppLibError ldapResponseNotFoundError]);
                 return;
@@ -171,51 +174,64 @@
             for (Addressee* key in response) {
                 const unsigned char *certificateDataBytes;
                 certificateDataBytes = (unsigned char*) [key.cert bytes];
-            
+                
                 X509 *certificateX509 = d2i_X509(NULL, &certificateDataBytes, [key.cert length]);
                 if (certificateX509 != NULL) {
                     ASN1_TIME *certificateExpiryASN1 = X509_get_notAfter(certificateX509);
                     if (certificateExpiryASN1 != NULL) {
                         ASN1_GENERALIZEDTIME *certificateExpiryASN1Generalized = ASN1_TIME_to_generalizedtime(certificateExpiryASN1, NULL);
                         if (certificateExpiryASN1Generalized != NULL) {
-                            unsigned char *certificateExpiryData = ASN1_STRING_data(certificateExpiryASN1Generalized);
                             
-                            // ASN1 generalized times look like this: "20131114230046Z"
-                            //                                format:  YYYYMMDDHHMMSS
-                            //                               indices:  01234567890123
-                            //                                                   1111
-                            // There are other formats (e.g. specifying partial seconds or
-                            // time zones) but this is good enough for our purposes since
-                            // we only use the date and not the time.
-                            //
-                            // (Source: http://www.obj-sys.com/asn1tutorial/node14.html)
+                            MoppLibCertificateInfo *certInfo = [MoppLibCertificateInfo alloc];
+                            NSArray<NSString *> *certPolicies = [certInfo certificatePolicies:(key.cert)];
+                            NSArray<NSNumber *> *certKeyUsages = [certInfo keyUsages:(key.cert)];
                             
-                            NSString *expiryTimeStr = [NSString stringWithUTF8String:(char *)certificateExpiryData];
-                            NSDateComponents *expiryDateComponents = [[NSDateComponents alloc] init];
-                            
-                            expiryDateComponents.year   = [[expiryTimeStr substringWithRange:NSMakeRange(0, 4)] intValue];
-                            expiryDateComponents.month  = [[expiryTimeStr substringWithRange:NSMakeRange(4, 2)] intValue];
-                            expiryDateComponents.day    = [[expiryTimeStr substringWithRange:NSMakeRange(6, 2)] intValue];
-                            expiryDateComponents.hour   = [[expiryTimeStr substringWithRange:NSMakeRange(8, 2)] intValue];
-                            expiryDateComponents.minute = [[expiryTimeStr substringWithRange:NSMakeRange(10, 2)] intValue];
-                            expiryDateComponents.second = [[expiryTimeStr substringWithRange:NSMakeRange(12, 2)] intValue];
-                            
-                            NSCalendar *calendar = [NSCalendar currentCalendar];
-                            key.validTo = [calendar dateFromComponents:expiryDateComponents];
-                            
+                            if (([certInfo hasKeyEnciphermentUsage:(certKeyUsages)] || [certInfo hasKeyAgreementUsage:(certKeyUsages)]) &&
+                                ![certInfo isServerAuthKeyPurpose:(key.cert)] &&
+                                (![certInfo isESealType:(certPolicies)] || ![certInfo isTlsClientAuthKeyPurpose:(key.cert)]) &&
+                                ![certInfo isMobileIdType:(certPolicies)] && ![certInfo isUnknownType:(certPolicies)]) {
+                                
+                                unsigned char *certificateExpiryData = ASN1_STRING_data(certificateExpiryASN1Generalized);
+                                
+                                // ASN1 generalized times look like this: "20131114230046Z"
+                                //                                format:  YYYYMMDDHHMMSS
+                                //                               indices:  01234567890123
+                                //                                                   1111
+                                // There are other formats (e.g. specifying partial seconds or
+                                // time zones) but this is good enough for our purposes since
+                                // we only use the date and not the time.
+                                //
+                                // (Source: http://www.obj-sys.com/asn1tutorial/node14.html)
+                                
+                                NSString *expiryTimeStr = [NSString stringWithUTF8String:(char *)certificateExpiryData];
+                                NSDateComponents *expiryDateComponents = [[NSDateComponents alloc] init];
+                                
+                                expiryDateComponents.year   = [[expiryTimeStr substringWithRange:NSMakeRange(0, 4)] intValue];
+                                expiryDateComponents.month  = [[expiryTimeStr substringWithRange:NSMakeRange(4, 2)] intValue];
+                                expiryDateComponents.day    = [[expiryTimeStr substringWithRange:NSMakeRange(6, 2)] intValue];
+                                expiryDateComponents.hour   = [[expiryTimeStr substringWithRange:NSMakeRange(8, 2)] intValue];
+                                expiryDateComponents.minute = [[expiryTimeStr substringWithRange:NSMakeRange(10, 2)] intValue];
+                                expiryDateComponents.second = [[expiryTimeStr substringWithRange:NSMakeRange(12, 2)] intValue];
+                                
+                                NSCalendar *calendar = [NSCalendar currentCalendar];
+                                key.validTo = [calendar dateFromComponents:expiryDateComponents];
+                                
+                                [filteredResponse addObject:(key)];
+                                
+                            }
                         }
                     }
                 }
-              
+                
             }
         }
         @catch (...) {
             error = [MoppLibError generalError];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            error == nil ? success(response) : failure(error);
+            error == nil ? success(filteredResponse) : failure(error);
         });
     });
 }
-    
-    @end
+
+@end
