@@ -123,6 +123,8 @@ class MobileIDEditViewController : MoppViewController {
         phoneTextField.text = DefaultsHelper.phoneNumber
         
         idCodeTextField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
+        
+        validateIdCodeField()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -134,8 +136,20 @@ class MobileIDEditViewController : MoppViewController {
         idCodeTextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
     }
     
+    func validateIdCodeField() {
+        let textField = idCodeTextField.text ?? String()
+        if (idCodeTextField.text.isNilOrEmpty || textField.count < 11) {
+            signButton.isEnabled = false
+            signButton.backgroundColor = UIColor.moppLabel
+        } else {
+            signButton.isEnabled = true
+            signButton.backgroundColor = UIColor.moppBase
+        }
+    }
+    
     @objc func editingChanged(sender: UITextField) {
         let text = sender.text ?? String()
+        validateIdCodeField()
         if (text.count > 11) {
             sender.deleteBackward()
         }
