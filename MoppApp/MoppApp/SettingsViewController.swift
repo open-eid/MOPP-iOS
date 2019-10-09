@@ -137,6 +137,10 @@ extension SettingsViewController: UITableViewDataSource {
                 if (field.id == .personalCode) {
                     fieldCell.textField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
                 }
+                
+                if (field.id == .phoneNumber) {
+                    countryCodePrefill(textField: fieldCell.textField, countryCode: "372")
+                }
                 return fieldCell
             case .timestamp:
                 let timeStampCell = tableView.dequeueReusableCell(withType: SettingsTimeStampCell.self, for: indexPath)!
