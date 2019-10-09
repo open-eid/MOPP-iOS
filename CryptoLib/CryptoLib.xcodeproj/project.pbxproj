@@ -46,8 +46,6 @@
 		D1E62632CCCD9195F3D8E2EE /* Pods_CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2337FC39B457D26F7140179 /* Pods_CryptoLib.framework */; };
 		DF8FEAC9233239690020DED4 /* MoppLdapConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = DF8FEAC7233239690020DED4 /* MoppLdapConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DF8FEACA233239690020DED4 /* MoppLdapConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = DF8FEAC8233239690020DED4 /* MoppLdapConfiguration.m */; };
-		DFDAA0A4234C87A20092BB03 /* CertificateInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = DFDAA0A2234C87A20092BB03 /* CertificateInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DFDAA0A5234C87A20092BB03 /* CertificateInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = DFDAA0A3234C87A20092BB03 /* CertificateInfo.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,8 +99,6 @@
 		C5B7957A21BABD8300DC2C59 /* ldapca.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ldapca.pem; sourceTree = "<group>"; };
 		DF8FEAC7233239690020DED4 /* MoppLdapConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLdapConfiguration.h; sourceTree = "<group>"; };
 		DF8FEAC8233239690020DED4 /* MoppLdapConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLdapConfiguration.m; sourceTree = "<group>"; };
-		DFDAA0A2234C87A20092BB03 /* CertificateInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificateInfo.h; sourceTree = "<group>"; };
-		DFDAA0A3234C87A20092BB03 /* CertificateInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CertificateInfo.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,8 +184,6 @@
 				39E2B4CF20AD7A3400CA74A8 /* Addressee.m */,
 				39E2B4D420AD7A3400CA74A8 /* OpenLdap.h */,
 				39E2B4D020AD7A3400CA74A8 /* OpenLdap.m */,
-				DFDAA0A2234C87A20092BB03 /* CertificateInfo.h */,
-				DFDAA0A3234C87A20092BB03 /* CertificateInfo.mm */,
 				3960E50320C02DA400D4D2FC /* CryptoDataFile.h */,
 				3960E50420C02E5900D4D2FC /* CryptoDataFile.m */,
 				DF8FEAC7233239690020DED4 /* MoppLdapConfiguration.h */,
@@ -255,7 +249,6 @@
 				39852A4B20AB2418004CB100 /* Decrypt.h in Headers */,
 				39852A4C20AB2418004CB100 /* Encrypt.h in Headers */,
 				39852A5420AB2418004CB100 /* DdocParserDelegate.h in Headers */,
-				DFDAA0A4234C87A20092BB03 /* CertificateInfo.h in Headers */,
 				39852A5120AB2418004CB100 /* SmartCardTokenWrapper.h in Headers */,
 				DF8FEAC9233239690020DED4 /* MoppLdapConfiguration.h in Headers */,
 				39E2B4DF20AD7A3400CA74A8 /* Addressee.h in Headers */,
@@ -368,7 +361,6 @@
 				39266A6320CFE3D4002E3F23 /* CdocParserDelegate.m in Sources */,
 				39266A5D20CFDC59002E3F23 /* CdocParser.m in Sources */,
 				393B66BC20D8F361001DC89B /* AbstractSmartToken.mm in Sources */,
-				DFDAA0A5234C87A20092BB03 /* CertificateInfo.mm in Sources */,
 				3960E50520C02E5900D4D2FC /* CryptoDataFile.m in Sources */,
 				39E2B4DB20AD7A3400CA74A8 /* AttributeSet.m in Sources */,
 				DF8FEACA233239690020DED4 /* MoppLdapConfiguration.m in Sources */,
@@ -510,9 +502,6 @@
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
-				DIGIDOCPP_PATH = "";
-				"DIGIDOCPP_PATH[sdk=iphoneos*]" = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
-				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -524,17 +513,14 @@
 				HEADER_SEARCH_PATHS = (
 					"${inherited}",
 					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/include",
-					"$(DIGIDOCPP_PATH)/include",
 				);
 				"HEADER_SEARCH_PATHS[sdk=iphoneos*]" = (
 					"${inherited}",
 					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/include",
-					"$(DIGIDOCPP_PATH)/include",
 				);
 				"HEADER_SEARCH_PATHS[sdk=iphonesimulator*]" = (
 					"${inherited}",
 					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphonesimulator/include",
-					"$(DIGIDOCPP_PATH)/include",
 				);
 				INFOPLIST_FILE = CryptoLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -546,36 +532,21 @@
 					"$(PROJECT_DIR)/CryptoLib/openldap/OpenLDAP.iphoneos/libraries",
 					"$(PROJECT_DIR)/../CryptoLib",
 					"$(PROJECT_DIR)/CryptoLib",
-					"$(DIGIDOCPP_PATH)/lib",
 				);
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
 					"${inherited}",
 					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries",
-					"$(DIGIDOCPP_PATH)/lib",
 				);
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
 					"${inherited}",
 					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphonesimulator/libraries",
-					"$(DIGIDOCPP_PATH)/lib",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-ldigidocpp_priv",
-					"-ldigidocpp",
-					"-lssl",
-					"-lxalan-c",
-					"-lcrypto",
-					"-lxml-security-c",
-					"-lxerces-c",
-					"-lminizip",
-					"-lxalanMsg",
-					"-lxml2",
-				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.CryptoLib;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -589,9 +560,6 @@
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
-				DIGIDOCPP_PATH = "";
-				"DIGIDOCPP_PATH[sdk=iphoneos*]" = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
-				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -616,26 +584,13 @@
 					"$(PROJECT_DIR)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos/lib",
 					"$(PROJECT_DIR)/../CryptoLib",
 					"$(PROJECT_DIR)/CryptoLib",
-					"$(DIGIDOCPP_PATH)/lib",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-ldigidocpp_priv",
-					"-ldigidocpp",
-					"-lssl",
-					"-lxalan-c",
-					"-lcrypto",
-					"-lxml-security-c",
-					"-lxerces-c",
-					"-lminizip",
-					"-lxalanMsg",
-					"-lxml2",
-				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.CryptoLib;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

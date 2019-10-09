@@ -177,6 +177,8 @@
 		C5F462A8209727E8001B7D59 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */; };
 		C5F974D4217646CD00A167C7 /* TestEnvInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5F974D3217646CC00A167C7 /* TestEnvInfo.plist */; };
 		D72F91CE6FD17DE3A2CB2EA9 /* Pods_MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212014B6D572D152A70C2C71 /* Pods_MoppLib.framework */; };
+		DF1EE2BD234DD20500E37CA8 /* MoppLibCertificateInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = DF1EE2BB234DD20500E37CA8 /* MoppLibCertificateInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DF1EE2BE234DD20500E37CA8 /* MoppLibCertificateInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = DF1EE2BC234DD20500E37CA8 /* MoppLibCertificateInfo.mm */; };
 		DFF3C3A923322E0D0079458A /* MOPPLibConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = DFF3C3A723322E0C0079458A /* MOPPLibConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DFF3C3AA23322E0D0079458A /* MOPPLibConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3A823322E0C0079458A /* MOPPLibConfiguration.m */; };
 		E061FB0356C72259D6A941E8 /* Pods_MoppLibTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BB12B033D5C8237B002F59 /* Pods_MoppLibTests.framework */; };
@@ -311,6 +313,8 @@
 		C5F974D3217646CC00A167C7 /* TestEnvInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TestEnvInfo.plist; sourceTree = "<group>"; };
 		C5F974E22177312300A167C7 /* Pods-MoppLibTestEnv.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = "Pods-MoppLibTestEnv.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D294A9825C9D24C89C0C4C80 /* Pods-MoppLibTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppLibTests.debug.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-MoppLibTests/Pods-MoppLibTests.debug.xcconfig"; sourceTree = "<group>"; };
+		DF1EE2BB234DD20500E37CA8 /* MoppLibCertificateInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibCertificateInfo.h; sourceTree = "<group>"; };
+		DF1EE2BC234DD20500E37CA8 /* MoppLibCertificateInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoppLibCertificateInfo.mm; sourceTree = "<group>"; };
 		DFF3C3A723322E0C0079458A /* MOPPLibConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOPPLibConfiguration.h; sourceTree = "<group>"; };
 		DFF3C3A823322E0C0079458A /* MOPPLibConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOPPLibConfiguration.m; sourceTree = "<group>"; };
 		E4180C141E23FE9300FD7B8C /* MLDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLDateFormatter.h; sourceTree = "<group>"; };
@@ -437,6 +441,8 @@
 				AE0A84491E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m */,
 				DFF3C3A723322E0C0079458A /* MOPPLibConfiguration.h */,
 				DFF3C3A823322E0C0079458A /* MOPPLibConfiguration.m */,
+				DF1EE2BB234DD20500E37CA8 /* MoppLibCertificateInfo.h */,
+				DF1EE2BC234DD20500E37CA8 /* MoppLibCertificateInfo.mm */,
 			);
 			name = ResponseObjects;
 			sourceTree = "<group>";
@@ -711,6 +717,7 @@
 				AE0A844A1E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h in Headers */,
 				54DC0E011E0D48C900C62B3D /* MoppLibError.h in Headers */,
 				E4180C161E23FE9300FD7B8C /* MLDateFormatter.h in Headers */,
+				DF1EE2BD234DD20500E37CA8 /* MoppLibCertificateInfo.h in Headers */,
 				E42B08C51E1F11B900EA24A3 /* MoppLibDataFile.h in Headers */,
 				C54EA736204D90D50039AC78 /* MoppLibCardReaderManager.h in Headers */,
 				399C01E620BC17A10056D7AC /* MoppLibCryptoActions.h in Headers */,
@@ -1056,6 +1063,7 @@
 				C54EA732204D5E860039AC78 /* CardReaderiR301.m in Sources */,
 				545111731E13BBA800296B80 /* MoppLibPersonalData.m in Sources */,
 				E4180C171E23FE9300FD7B8C /* MLDateFormatter.m in Sources */,
+				DF1EE2BE234DD20500E37CA8 /* MoppLibCertificateInfo.mm in Sources */,
 				DFF3C3AA23322E0D0079458A /* MOPPLibConfiguration.m in Sources */,
 				AE1069431E4498A6002BAFDA /* Element.swift in Sources */,
 				54DC0E021E0D48C900C62B3D /* MoppLibError.m in Sources */,
