@@ -131,6 +131,8 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>digidoc container</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
 			<key>UTTypeIdentifier</key>
 			<string>public.bdoc</string>
 			<key>UTTypeSize320IconFile</key>
@@ -151,6 +153,15 @@
 					<string>sce</string>
 					<string>asics</string>
 					<string>scs</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-p12d</string>
+					<string>application/vnd.lt.archyvai.adoc-2008</string>
+					<string>application/x-ddoc</string>
+					<string>application/vnd.etsi.asic-s+zip</string>
+					<string>application/vnd.etsi.asic-e+zip</string>
+					<string>application/x-zip</string>
 				</array>
 			</dict>
 		</dict>
