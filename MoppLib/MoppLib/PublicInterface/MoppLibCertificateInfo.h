@@ -1,6 +1,6 @@
 //
-//  CertificateInfo.h
-//  CryptoLib
+//  MoppLibCertificateInfo.h
+//  MoppLib
 /*
 * Copyright 2019 Riigi Infosüsteemide Amet
 *
@@ -22,9 +22,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CertificateInfo : NSObject
-- (NSArray<NSString *>*) certificatePolicies:(NSData *)certData;
-- (NSArray<NSNumber *>*) keyUsages:(NSData *)certData;
+@interface MoppLibCertificateInfo : NSObject
+- (NSArray<NSString *> *) certificatePolicies:(NSData *)certData;
+- (NSArray<NSNumber *> *) keyUsages:(NSData *)certData;
 - (BOOL) hasKeyEnciphermentUsage:(NSArray<NSNumber *> *)keyUsages;
 - (BOOL) hasKeyAgreementUsage:(NSArray<NSNumber *> *)keyUsages;
 - (BOOL) isServerAuthKeyPurpose:(NSData *)certData;

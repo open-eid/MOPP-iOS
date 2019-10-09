@@ -22,9 +22,6 @@
 #import "OpenLdap.h"
 #import "ldap.h"
 #import "ResultSet.h"
-#import <openssl/x509.h>
-#import <openssl/x509v3.h>
-#import "CertificateInfo.h"
 
 @implementation OpenLdap
 
@@ -106,20 +103,7 @@
                     // Do nothing with mobile-id certificate
                 } else {
                     certificate = (__bridge SecCertificateRef)(certValue);
-                    
-                    NSData *certificateData = (NSData *) CFBridgingRelease(SecCertificateCopyData(certificate));
-                    
-                    CertificateInfo *certInfo = [CertificateInfo alloc];
-                    NSArray<NSString *> *certPolicies = [certInfo certificatePolicies:(certificateData)];
-                    NSArray<NSNumber *> *certKeyUsages = [certInfo keyUsages:(certificateData)];
-                    
-                    if (([certInfo hasKeyEnciphermentUsage:(certKeyUsages)] || [certInfo hasKeyAgreementUsage:(certKeyUsages)]) &&
-                        ![certInfo isServerAuthKeyPurpose:certificateData] &&
-                        (![certInfo isESealType:(certPolicies)] || ![certInfo isTlsClientAuthKeyPurpose:(certificateData)]) &&
-                        ![certInfo isMobileIdType:(certPolicies)] && ![certInfo isUnknownType:(certPolicies)]) {
-                        
-                        ldapRow.cert = (__bridge NSData *)SecCertificateCopyData(certificate);
-                    }
+                    ldapRow.cert = (__bridge NSData *)SecCertificateCopyData(certificate);
                 }
             }
             
