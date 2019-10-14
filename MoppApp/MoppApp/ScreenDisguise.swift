@@ -44,22 +44,28 @@ public class ScreenDisguise {
             tempOverlay.view.addSubview(effectView)
             
             effectView.translatesAutoresizingMaskIntoConstraints = false
-            effectView.topAnchor.constraint(equalTo: tempOverlay.view.topAnchor).isActive = true
-            effectView.bottomAnchor.constraint(equalTo: tempOverlay.view.bottomAnchor).isActive = true
-            effectView.trailingAnchor.constraint(equalTo: tempOverlay.view.trailingAnchor).isActive = true
-            effectView.leadingAnchor.constraint(equalTo: tempOverlay.view.leadingAnchor).isActive = true
+            effectView.frame = UIScreen.main.bounds
 
             topViewController.view.addSubview(tempOverlay.view)
             
-            let targetLayoutGuide = topViewController.view!
             tempOverlay.view.translatesAutoresizingMaskIntoConstraints = false
-            tempOverlay.view.topAnchor.constraint(equalTo: targetLayoutGuide.topAnchor).isActive = true
-            tempOverlay.view.bottomAnchor.constraint(equalTo: targetLayoutGuide.bottomAnchor).isActive = true
-            tempOverlay.view.trailingAnchor.constraint(equalTo: targetLayoutGuide.trailingAnchor).isActive = true
-            tempOverlay.view.leadingAnchor.constraint(equalTo: targetLayoutGuide.leadingAnchor).isActive = true
+            tempOverlay.view.frame = UIScreen.main.bounds
             
-            topViewController.addChildViewController(tempOverlay)
-        }
+            guard let parent = topViewController.presentingViewController else {
+                return
+            }
+            
+            parent.view.superview?.addSubview(tempOverlay.view)
+            
+            let tempMainController = UIViewController()
+            
+            tempMainController.addChildViewController(tempOverlay)
+            tempMainController.view.frame = UIScreen.main.bounds
+            tempMainController.view.addSubview(tempOverlay.view)
+            tempMainController.modalPresentationStyle = .overFullScreen
+            
+            topViewController.present(tempMainController, animated: true, completion: nil)
+    }
 
         tempOverlay.show()
     }
@@ -79,6 +85,7 @@ public class ScreenDisguise {
         guard let tempOverlay = viewController else {
             // Cleanup disguise view controller
             if let topViewController = topViewController() {
+                topViewController.dismiss(animated: true, completion: nil)
                 for vc in topViewController.childViewControllers {
                     if vc is ScreenDisguiseViewController {
                         vc.removeFromParentViewController()
@@ -88,6 +95,8 @@ public class ScreenDisguise {
             }
             return
         }
+        
+        tempOverlay.dismiss(animated: true, completion: nil)
         
         tempOverlay.hide() {
             tempOverlay.removeFromParentViewController()
