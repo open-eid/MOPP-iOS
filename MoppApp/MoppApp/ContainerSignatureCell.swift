@@ -36,6 +36,7 @@ class ContainerSignatureCell: UITableViewCell {
     @IBOutlet weak var bottomBorderView: UIView!
     @IBOutlet weak var signatureStatusLabel: UILabel!
     @IBOutlet weak var removeButton: UIButton!
+    @IBOutlet weak var testSignatureLabel: UILabel!
     
     weak var delegate: ContainerSignatureDelegate? = nil
     
@@ -68,16 +69,22 @@ class ContainerSignatureCell: UITableViewCell {
         var signatureStatus : NSMutableAttributedString
         switch (signature.status) {
             case MoppLibSignatureStatus.ValidTest:
-                fallthrough
+                signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: "", valid: true)
+                showTestSignatureLabel()
             case MoppLibSignatureStatus.Valid:
+                testSignatureLabel.isHidden = true
                 signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: "", valid: true)
             case MoppLibSignatureStatus.Warning:
+                testSignatureLabel.isHidden = true
                 signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: L(LocKey.containerSignatureStatusWarning), valid: true)
             case MoppLibSignatureStatus.NonQSCD:
+                testSignatureLabel.isHidden = true
                 signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: L(LocKey.containerSignatureStatusNonQscd), valid: true)
             case MoppLibSignatureStatus.UnknownStatus:
+                testSignatureLabel.isHidden = true
                 signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusUnknown), translationSufix: "", valid: false)
             case MoppLibSignatureStatus.Invalid:
+                testSignatureLabel.isHidden = true
                 signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusInvalid), translationSufix: "", valid: false)
         }
         nameLabel.text = signature.subjectName
@@ -105,5 +112,14 @@ class ContainerSignatureCell: UITableViewCell {
         signatureStatus.addAttribute(NSAttributedStringKey.foregroundColor, value: mainColor, range: NSRange(location:0,length:translationPrefix.count))
         signatureStatus.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.moppWarningText, range: NSRange(location:translationPrefix.count+1,length:translationSufix.count))
         return signatureStatus
+    }
+    
+    private func showTestSignatureLabel() {
+        testSignatureLabel.layer.zPosition = 999;
+        testSignatureLabel.isHidden = false
+        testSignatureLabel.text = L(LocKey.conatinerSignatureTestSignatureTitle)
+        testSignatureLabel.textColor = .black
+        testSignatureLabel.layer.masksToBounds = true
+        testSignatureLabel.layer.cornerRadius = 4
     }
 }

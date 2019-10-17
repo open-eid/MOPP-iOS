@@ -31,9 +31,10 @@ class SignatureVerifier {
         do {
             let confData = try ClearMessage(string: configData, using: .utf8)
             let signatureBase64 = try Signature(base64Encoded: removeAllWhitespace(data: signature))
-            let isVerificationSuccessful = try confData.verify(with: PublicKey(data: data), signature: signatureBase64, digestType: .sha512)
+            let isVerificationSuccessful: Bool = try confData.verify(with: PublicKey(data: data), signature: signatureBase64, digestType: .sha512)
             
             if isVerificationSuccessful == false {
+                MSLog("Signature verification unsuccessful")
                 throw Exception("Signature verification unsuccessful")
             }
             
