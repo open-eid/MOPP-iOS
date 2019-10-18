@@ -127,10 +127,13 @@ public:
     return x509Cert;
   }
   
-  // Comment in to see libdigidocpp logs
-  /*virtual int logLevel() const {
-   return 3;
-   }*/
+    // Comment in / out to see / hide libdigidocpp logs
+    // Currently enabled on DEBUG mode
+#if DEBUG
+    virtual int logLevel() const {
+        return 3;
+    }
+#endif
   
 };
 

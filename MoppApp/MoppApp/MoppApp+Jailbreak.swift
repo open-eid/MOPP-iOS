@@ -23,8 +23,8 @@
 extension MoppApp {
     var isDeviceJailbroken: Bool {
     
-        #if targetEnvironment(simulator)
-        // ignore simulator
+        #if targetEnvironment(simulator) || DEBUG
+        // Ignore simulator and DEBUG mode
         return false
         #else
 

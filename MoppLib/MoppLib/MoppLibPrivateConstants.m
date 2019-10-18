@@ -24,5 +24,17 @@
 #import "MoppLibPrivateConstants.h"
 
 NSString *const kRIADigiDocId = @"ee.ria.digidoc";
-NSString *const kDDSServerUrl = @"https://digidocservice.sk.ee/";
-NSString *const kTestDDSServerUrl = @"https://tsp.demo.sk.ee";
+NSString *const kTestServiceNames = @"Testimine";
+NSString *const kMessagingModes = @"asynchClientServer";
+
+@implementation PrivateConstants
+
++ (NSDictionary *)getCentralConfigurationFromCache {
+    NSString *stringg = [[NSString alloc] initWithString: [[NSUserDefaults standardUserDefaults] stringForKey:@"config"]];
+    NSData *jsonData = [stringg dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error = nil;
+    return [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error: &error];
+}
+
+@end
+
