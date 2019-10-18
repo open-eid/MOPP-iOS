@@ -243,7 +243,6 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                             completionHandler(URLSession.AuthChallengeDisposition.useCredential, URLCredential(trust:serverTrust))
                         }
                         
-                        
                         guard let localCertData = localCert else {
                             completionHandler(URLSession.AuthChallengeDisposition.cancelAuthenticationChallenge, nil)
                             return
@@ -311,7 +310,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         return text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
     
-    internal func reloadDigiDocConf() {
+    private func reloadDigiDocConf() {
         #if USE_TEST_DDS
             let useTestDDS = true
         #else

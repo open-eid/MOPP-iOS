@@ -111,33 +111,6 @@
         }];
     }];
     [dataTask resume];
-    
-    
-    
-    //  NSURLSessionTask *dataTask = [self.urlSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-    //    MLLog(@"Request : %@", request);
-    //    if (!error) {
-    //      NSInteger statusCode = [(NSHTTPURLResponse *) response statusCode];
-    //      if (statusCode != 401) {
-    //      //  NSError *resultError;
-    //        [[MoppLibSOAPManager sharedInstance] processResultWithData:data method:method withSuccess:^(NSObject *responseObject) {
-    //          success(responseObject);
-    //        } andFailure:^(NSError *error) {
-    //          failure(error);
-    //        }];
-    //      } else {
-    //        NSString *errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:statusCode];
-    //        failure([NSError errorWithDomain:@"MoppLib" code:statusCode userInfo:@{NSLocalizedDescriptionKey : errorDescription}]);
-    //      }
-    //    }else {
-    //      if (error.code == NSURLErrorCancelled) {
-    //        failure([MoppLibError urlSessionCanceledError]);
-    //      } else {
-    //        failure(error);
-    //      }
-    //    }
-    //  }];
-    //  [dataTask resume];
 }
 
 - (void)postDataRequest:(NSData * _Nullable)data method:(MoppLibNetworkRequestMethod)method response:(NSURLResponse * _Nullable)response error:(NSError * _Nullable)error success:(ObjectSuccessBlock)success andFailure:(FailureBlock)failure {
