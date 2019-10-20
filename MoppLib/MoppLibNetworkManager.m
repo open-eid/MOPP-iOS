@@ -27,14 +27,11 @@
 #import "MLCertificateHelper.h"
 #import "NSString+Additions.h"
 #import "MoppLibPrivateConstants.h"
-#import "MOPPLibConfiguration.h"
 
 @interface MoppLibNetworkManager ()
 
-@property (nonatomic, strong) NSURLSession *urlSession;
-@property (nonatomic, strong) NSMutableData *receivedData;
-
-@property (nonatomic, retain) NSMutableArray<NSString *> *testData;
+@property (nonatomic) NSURLSession *urlSession;
+@property (nonatomic) NSMutableData *receivedData;
 
 @end
 
@@ -65,75 +62,34 @@
   return [request copy];
 }
 
-/**
-* Method used when using test ID-cards with test configuration.
-*
-* @param userData - Must include Mobile-ID user's "idCode", "phoneNo" and "language".
-*
-*/
-- (void)postDataToTestPathWithXml:(NSString *)xmlBody userData:(NSDictionary *)userData method:(MoppLibNetworkRequestMethod)method success:(ObjectSuccessBlock)success andFailure:(FailureBlock)failure {
-    
-    NSData *requestBodyData = [xmlBody dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSDictionary *headers = @{ @"Content-Type": @"text/xml",
-                               @"Accept-Encoding": @"gzip,deflate" };
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?IDCode=%@&PhoneNo=%@&Language=%@&ServiceName=%@&MessagingMode=%@", PrivateConstants.getCentralConfigurationFromCache[@"MID-SIGN-TEST-URL"], userData[@"idCode"], userData[@"phoneNo"], userData[@"language"], kTestServiceNames, kMessagingModes]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
-    
-    [request setHTTPMethod:@"POST"];
-    [request setAllHTTPHeaderFields:headers];
-    [request setHTTPBody:requestBodyData];
-    
-    NSURLSession *session = [NSURLSession sharedSession];
-    
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        MLLog(@"Request : %@", request);
-        [self postDataRequest:data method:method response:response error:error success:^(NSObject *responseObject) {
-            success(responseObject);
-        } andFailure:^(NSError *error) {
-            failure(error);
-        }];
-    }];
-    [dataTask resume];
-}
-
 - (void)postDataToPathWithXml:(NSString *)xmlBody method:(MoppLibNetworkRequestMethod)method success:(ObjectSuccessBlock)success andFailure:(FailureBlock)failure {
-    
-    NSURLRequest *request = [self requestWithXMLBody:xmlBody];
-    
-    NSURLSessionTask *dataTask = [self.urlSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        MLLog(@"Request : %@", request);
-        [self postDataRequest:data method:method response:response error:error success:^(NSObject *responseObject) {
-            success(responseObject);
-        } andFailure:^(NSError *error) {
-            failure(error);
-        }];
-    }];
-    [dataTask resume];
-}
-
-- (void)postDataRequest:(NSData * _Nullable)data method:(MoppLibNetworkRequestMethod)method response:(NSURLResponse * _Nullable)response error:(NSError * _Nullable)error success:(ObjectSuccessBlock)success andFailure:(FailureBlock)failure {
+  
+  NSURLRequest *request = [self requestWithXMLBody:xmlBody];
+  
+  NSURLSessionTask *dataTask = [self.urlSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    MLLog(@"Request : %@", request);
     if (!error) {
-        NSInteger statusCode = [(NSHTTPURLResponse *) response statusCode];
-        if (statusCode != 401) {
-            //  NSError *resultError;
-            [[MoppLibSOAPManager sharedInstance] processResultWithData:data method:method withSuccess:^(NSObject *responseObject) {
-                success(responseObject);
-            } andFailure:^(NSError *error) {
-                failure(error);
-            }];
-        } else {
-            NSString *errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:statusCode];
-            failure([NSError errorWithDomain:@"MoppLib" code:statusCode userInfo:@{NSLocalizedDescriptionKey : errorDescription}]);
-        }
+      NSInteger statusCode = [(NSHTTPURLResponse *) response statusCode];
+      if (statusCode != 401) {
+      //  NSError *resultError;
+        [[MoppLibSOAPManager sharedInstance] processResultWithData:data method:method withSuccess:^(NSObject *responseObject) {
+          success(responseObject);
+        } andFailure:^(NSError *error) {
+          failure(error);
+        }];
+      } else {
+        NSString *errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:statusCode];
+        failure([NSError errorWithDomain:@"MoppLib" code:statusCode userInfo:@{NSLocalizedDescriptionKey : errorDescription}]);
+      }
     }else {
-        if (error.code == NSURLErrorCancelled) {
-            failure([MoppLibError urlSessionCanceledError]);
-        } else {
-            failure(error);
-        }
+      if (error.code == NSURLErrorCancelled) {
+        failure([MoppLibError urlSessionCanceledError]);
+      } else {
+        failure(error);
+      }
     }
+  }];
+  [dataTask resume];
 }
 
 - (void)mobileCreateSignatureWithContainer:(MoppLibContainer *)container
@@ -142,45 +98,23 @@
                                    phoneNo:(NSString *)phoneNo
                                withSuccess:(ObjectSuccessBlock)success
                                 andFailure:(FailureBlock)failure {
-    NSString *xmlRequest = [[MoppLibSOAPManager sharedInstance] mobileCreateSignatureWithContainer:container language:language idCode:idCode phoneNo:phoneNo];
-    if (MoppLibSOAPManager.sharedInstance.useTestDigiDocService) {
-        self.testData = [[NSMutableArray alloc] init];
-        [self.testData addObject:idCode];
-        [self.testData addObject:phoneNo];
-        [self.testData addObject:language];
-        NSDictionary *testUserData = @{ @"idCode": self.testData[0], @"phoneNo": self.testData[1], @"language": self.testData[2] };
-        [self postDataToTestPathWithXml:xmlRequest userData:testUserData method:MoppLibNetworkRequestMethodMobileCreateSignature success:^(NSObject *responseObject) {
-            success(responseObject);
-        } andFailure:^(NSError *error) {
-            failure(error);
-        }];
-    } else {
-        [self postDataToPathWithXml:xmlRequest method:MoppLibNetworkRequestMethodMobileCreateSignature success:^(NSObject *responseObject) {
-            success(responseObject);
-        } andFailure:^(NSError *error) {
-            failure(error);
-        }];
-    }
+  NSString *xmlRequest = [[MoppLibSOAPManager sharedInstance] mobileCreateSignatureWithContainer:container language:language idCode:idCode phoneNo:phoneNo];
+  [self postDataToPathWithXml:xmlRequest method:MoppLibNetworkRequestMethodMobileCreateSignature success:^(NSObject *responseObject) {
+    success(responseObject);
+  } andFailure:^(NSError *error) {
+    failure(error);
+  }];
 }
 
 - (void)getMobileCreateSignatureStatusWithSesscode:(NSString *)sessCode
                                        withSuccess:(ObjectSuccessBlock)success
                                         andFailure:(FailureBlock)failure {
-    NSString *xmlRequest = [[MoppLibSOAPManager sharedInstance] getMobileCreateSignatureStatusWithSessCode:sessCode];
-    if (MoppLibSOAPManager.sharedInstance.useTestDigiDocService) {
-        NSDictionary *testUserData = @{ @"idCode": self.testData[0], @"phoneNo": self.testData[1], @"language": self.testData[2] };
-        [self postDataToTestPathWithXml:xmlRequest userData: testUserData method:MoppLibNetworkRequestMethodMobileGetMobileCreateSignatureStatus success:^(NSObject *responseObject) {
-            success(responseObject);
-        } andFailure:^(NSError *error) {
-            failure(error);
-        }];
-    } else {
-        [self postDataToPathWithXml:xmlRequest method:MoppLibNetworkRequestMethodMobileGetMobileCreateSignatureStatus success:^(NSObject *responseObject) {
-            success(responseObject);
-        } andFailure:^(NSError *error) {
-            failure(error);
-        }];
-    }
+  NSString *xmlRequest = [[MoppLibSOAPManager sharedInstance] getMobileCreateSignatureStatusWithSessCode:sessCode];
+  [self postDataToPathWithXml:xmlRequest method:MoppLibNetworkRequestMethodMobileGetMobileCreateSignatureStatus success:^(NSObject *responseObject) {
+    success(responseObject);
+  } andFailure:^(NSError *error) {
+    failure(error);
+  }];
 }
 
 - (BOOL)certificatePinningCheckedWith:(NSURLAuthenticationChallenge *)challenge {
@@ -213,12 +147,17 @@
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
 didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
  completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * _Nullable credential))completionHandler {
-  
-    if ([self certificatePinningCheckedWith:challenge]) {
+    
+    if (MoppLibSOAPManager.sharedInstance.useTestDigiDocService) {
         NSURLCredential *credential = [MLCertificateHelper getCredentialsFormCert];
         completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
     } else {
-        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, NULL);
+        if ([self certificatePinningCheckedWith:challenge]) {
+            NSURLCredential *credential = [MLCertificateHelper getCredentialsFormCert];
+            completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+        } else {
+            completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, NULL);
+        }
     }
 }
 
