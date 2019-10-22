@@ -26,6 +26,8 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     let configBaseUrl: String = CommandLine.arguments[1] ?? "https://id.eesti.ee"
     let configUpdateInterval: Int = Int(CommandLine.arguments[2]) ?? 7
     
+    let configCertName: String = "test-cert.cer"
+    
     internal func setupConfiguration() {
 
         var configData: String?
@@ -132,7 +134,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             
             let isVerified = try? CC.RSA.verify(configDataData!, derKey: publicKeyData!, padding: .pkcs15, digest: .sha512, saltLen: 0, signedData: signatureData!)
             
-            if isVerified == false {
+            if isVerified == false || isVerified == nil {
                 fatalError("Signature verification unsuccessful")
             }
         } catch {

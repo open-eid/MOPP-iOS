@@ -51,7 +51,7 @@
  // NSError *error;
   
   BOOL useTestDDS = MoppLibSOAPManager.sharedInstance.useTestDigiDocService;
-  NSURL *url = [NSURL URLWithString:(useTestDDS ? kTestDDSServerUrl : kDDSServerUrl)];
+  NSURL *url = [NSURL URLWithString:(useTestDDS ? PrivateConstants.getCentralConfigurationFromCache[@"MID-SIGN-TEST-URL"] : PrivateConstants.getCentralConfigurationFromCache[@"MID-SIGN-URL"])];
   NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
   NSData *requestBodyData = [xmlBody dataUsingEncoding:NSUTF8StringEncoding];
   [request setURL:url];
@@ -147,12 +147,17 @@
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
 didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
  completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * _Nullable credential))completionHandler {
-  
-    if ([self certificatePinningCheckedWith:challenge]) {
+    
+    if (MoppLibSOAPManager.sharedInstance.useTestDigiDocService) {
         NSURLCredential *credential = [MLCertificateHelper getCredentialsFormCert];
         completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
     } else {
-        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, NULL);
+        if ([self certificatePinningCheckedWith:challenge]) {
+            NSURLCredential *credential = [MLCertificateHelper getCredentialsFormCert];
+            completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+        } else {
+            completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, NULL);
+        }
     }
 }
 

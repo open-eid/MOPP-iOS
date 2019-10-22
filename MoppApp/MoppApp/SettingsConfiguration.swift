@@ -139,7 +139,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                 
                 setMoppConfiguration(configuration: decodedData)
                 
-                reloadDigiDocConf(tsUrl: decodedData.TSAURL)
+                reloadDigiDocConf()
                 
             } else {
                 setConfigurationToCache(Date(), forKey: "lastUpdateCheckDate")
@@ -264,7 +264,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         return text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
     
-    private func reloadDigiDocConf(tsUrl: String) {
+    private func reloadDigiDocConf() {
         #if USE_TEST_DDS
             let useTestDDS = true
         #else
@@ -276,7 +276,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         }, andFailure: { error in
             MSLog("Failed to reload DigiDocConf")
             fatalError("Failed to reload DigiDocConf")
-        }, usingTestDigiDocService: useTestDDS, andTSUrl: tsUrl,
+        }, usingTestDigiDocService: useTestDDS, andTSUrl: MoppConfiguration.getMoppLibConfiguration().tsaurl,
            withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration())
     }
 }
