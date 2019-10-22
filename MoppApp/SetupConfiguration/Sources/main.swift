@@ -115,47 +115,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     
     func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         if configBaseUrl.contains("test") {
-            if (challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust) {
-                if let serverTrust = challenge.protectionSpace.serverTrust {
-                    
-                    var secTrustResultType: SecTrustResultType = SecTrustResultType.invalid
-                    SecTrustEvaluate(serverTrust, &secTrustResultType)
-                    
-                    if (secTrustResultType == SecTrustResultType.proceed ) {
-                        guard let websiteCertificate = SecTrustGetCertificateAtIndex(serverTrust, 0) else {
-                            completionHandler(URLSession.AuthChallengeDisposition.cancelAuthenticationChallenge, nil)
-                            return
-                        }
-                        
-                        let serverCertificateData = SecCertificateCopyData(websiteCertificate)
-                        let certificateData = CFDataGetBytePtr(serverCertificateData);
-                        let certificateLength = CFDataGetLength(serverCertificateData);
-                        let webCertData = NSData(bytes: certificateData, length: certificateLength)
-                        var localCert: Data? = Data()
-                        do {
-                            let currentPathAsURL = URL(fileURLWithPath: getCurrentPath())
-                            let fileLocation = currentPathAsURL.appendingPathComponent("MoppApp").appendingPathComponent(configCertName)
-                            if FileManager.default.fileExists(atPath: fileLocation.path) {
-                                localCert = FileManager.default.contents(atPath: fileLocation.path)
-                            } else {
-                                completionHandler(URLSession.AuthChallengeDisposition.useCredential, URLCredential(trust:serverTrust))
-                            }
-                        } catch {
-                            fatalError("Certificate pinning failed")
-                        }
-                        
-                        guard let localCertData = localCert else {
-                            completionHandler(URLSession.AuthChallengeDisposition.cancelAuthenticationChallenge, nil)
-                            return
-                        }
-                        
-                        if webCertData.isEqual(to: localCertData as Data) {
-                            print("Successfully pinned certificate")
-                            completionHandler(URLSession.AuthChallengeDisposition.useCredential, URLCredential(trust:serverTrust))
-                        }
-                    }
-                }
-            }
+            completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
         }
         else {
             completionHandler(.performDefaultHandling, URLCredential(trust: challenge.protectionSpace.serverTrust!))
