@@ -1531,7 +1531,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"Initializing default MOPP configuration setup script: \"\n\n# Detect if Homebrew is installed\nwhich -s /usr/local/bin/brew\nif [[ $? != 0 ]] ; then\n    # Install Homebrew\n    ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\"\nelse\n    echo \"Brew is already installed\"\nfi\n\n# Detect if Swift-sh is installed\nif /usr/local/bin/brew ls --versions swift-sh > /dev/null; then\n    echo \"Swift-sh is already installed\"\nelse\n    # Install Swift-sh\n    /usr/local/bin/brew install mxcl/made/swift-sh\nfi\n\n# Run script with Swift-sh\n/usr/local/Cellar/swift-sh/*/bin/swift-sh SetupConfiguration/Sources/main.swift ${DEFAULT_CENTRAL_CONFIGURATION_URL} ${DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL}\n";
+			shellScript = "echo \"Initializing default MOPP configuration setup script: \"\n\n# Detect if Homebrew is installed\nwhich -s /usr/local/bin/brew\nif [[ $? != 0 ]] ; then\n    # Install Homebrew\n    ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\"\nelse\n    echo \"Brew is already installed\"\nfi\n\n# Detect if Swift-sh is installed\nif /usr/local/bin/brew ls --versions swift-sh > /dev/null; then\n    echo \"Swift-sh is already installed\"\nelse\n    # Install Swift-sh\n    /usr/local/bin/brew install mxcl/made/swift-sh\nfi\n\n# Run script with Swift-sh\n/usr/local/Cellar/swift-sh/*/bin/swift-sh SetupConfiguration/Sources/main.swift ${DEFAULT_CENTRAL_CONFIGURATION_URL} ${DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL} ${DEFAULT_CENTRAL_CONFIGURATION_TSL_URL}\n";
 		};
 		E4250D1B1E0AB34400530370 /* Set GH build number to plist */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2060,6 +2060,7 @@
 				DEBUG_ACTIVITY_MODE = "";
 				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFAULT_CENTRAL_CONFIGURATION_TSL_URL = "https://ec.europa.eu/tools/lotl/eu-lotl.xml";
 				DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL = 7;
 				DEFAULT_CENTRAL_CONFIGURATION_URL = "https://id.eesti.ee";
 				DEFINES_MODULE = YES;
@@ -2104,6 +2105,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_ACTIVITY_MODE = "";
+				DEFAULT_CENTRAL_CONFIGURATION_TSL_URL = "https://ec.europa.eu/tools/lotl/eu-lotl.xml";
 				DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL = 7;
 				DEFAULT_CENTRAL_CONFIGURATION_URL = "https://id.eesti.ee";
 				DEFINES_MODULE = YES;
