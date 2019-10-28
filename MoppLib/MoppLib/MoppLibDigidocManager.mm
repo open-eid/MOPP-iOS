@@ -181,7 +181,8 @@ private:
         [moppConfiguration.TSAURL cStringUsingEncoding:NSUTF8StringEncoding] :
         [tsUrl cStringUsingEncoding:NSUTF8StringEncoding];
       digidoc::Conf::init(new DigiDocConf(timestampUrl, moppConfiguration));
-      digidoc::initialize("qdigidocclient");
+      NSString *appInfo = [NSString stringWithFormat:@"%s/%@ (iOS %@)", "qdigidocclient", [self moppAppVersion], [self iOSVersion]];
+      digidoc::initialize(std::string([appInfo UTF8String]));
       
       dispatch_async(dispatch_get_main_queue(), ^{
         success();
@@ -649,6 +650,16 @@ void parseException(const digidoc::Exception &e) {
 - (NSString *)digidocVersion {
     std::string version = digidoc::version();
     return [[NSString alloc] initWithBytes:version.c_str() length:version.length() encoding:NSUTF8StringEncoding];
+}
+
+- (NSString *)moppAppVersion {
+    NSString * version = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+    NSString * build = [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
+    return [NSString stringWithFormat:@"%@.%@", version, build];
+}
+
+- (NSString *)iOSVersion {
+    return [[UIDevice currentDevice] systemVersion];
 }
 
 - (NSString *)pkcs12Cert {
