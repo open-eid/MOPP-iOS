@@ -25,6 +25,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     
     let configBaseUrl: String = CommandLine.arguments[1] ?? "https://id.eesti.ee"
     let configUpdateInterval: Int = Int(CommandLine.arguments[2]) ?? 7
+    let configTslUrl: String = CommandLine.arguments[3] ?? "https://ec.europa.eu/tools/lotl/eu-lotl.xml"
     
     let configCertName: String = "test-cert.cer"
     
@@ -200,7 +201,8 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             "centralConfigurationServiceUrl": "\(configBaseUrl)",
             "updateInterval": \(configUpdateInterval),
             "updateDate": "\(Date())",
-            "versionSerial": \(versionSerial)
+            "versionSerial": \(versionSerial),
+            "tslUrl": "\(configTslUrl)"
         }
         """
     }

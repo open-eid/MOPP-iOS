@@ -26,7 +26,6 @@ import Foundation
 
 internal struct MOPPConfiguration: Codable {
     let MIDSIGNURL: String
-    let TSLURL: String
     let SIVAURL: String
     let METAINF: MOPPMetaInf
     let TSAURL: String
@@ -37,7 +36,6 @@ internal struct MOPPConfiguration: Codable {
     
     private enum MOPPConfigurationType: String, CodingKey {
         case MIDSIGNURL = "MID-SIGN-URL"
-        case TSLURL = "TSL-URL"
         case SIVAURL = "SIVA-URL"
         case METAINF = "META-INF"
         case TSAURL = "TSA-URL"
@@ -50,7 +48,6 @@ internal struct MOPPConfiguration: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: MOPPConfigurationType.self)
         MIDSIGNURL = try container.decode(String.self, forKey: .MIDSIGNURL)
-        TSLURL = try container.decode(String.self, forKey: .TSLURL)
         SIVAURL = try container.decode(String.self, forKey: .SIVAURL)
         METAINF = try container.decode(MOPPMetaInf.self, forKey: .METAINF)
         TSAURL = try container.decode(String.self, forKey: .TSAURL)
@@ -83,12 +80,14 @@ internal struct DefaultMoppConfiguration: Codable {
     let UPDATEINTERVAL: Int
     let UPDATEDATE: String
     let VERSIONSERIAL: Int
+    let TSLURL: String
     
     private enum DefaultMoppConfigurationType: String, CodingKey {
         case CENTRALCONFIGURATIONSERVICEURL = "centralConfigurationServiceUrl"
         case UPDATEINTERVAL = "updateInterval"
         case UPDATEDATE = "updateDate"
         case VERSIONSERIAL = "versionSerial"
+        case TSLURL = "tslUrl"
     }
     
     init(from decoder: Decoder) throws {
@@ -97,6 +96,7 @@ internal struct DefaultMoppConfiguration: Codable {
         UPDATEINTERVAL = try container.decode(Int.self, forKey: .UPDATEINTERVAL)
         UPDATEDATE = try container.decode(String.self, forKey: .UPDATEDATE)
         VERSIONSERIAL = try container.decode(Int.self, forKey: .VERSIONSERIAL)
+        TSLURL = try container.decode(String.self, forKey: .TSLURL)
     }
 }
 
