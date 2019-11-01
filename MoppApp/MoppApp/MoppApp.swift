@@ -89,6 +89,13 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
         
+        // Check for min Xcode 11 and iOS 13
+        #if compiler(>=5.1)
+        if #available(iOS 13.0, *) {
+            window?.overrideUserInterfaceStyle = .light
+        }
+        #endif
+        
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().tintColor = UIColor.moppText
         UINavigationBar.appearance().barTintColor = UIColor.moppBaseBackground
