@@ -52,6 +52,14 @@ extension SettingsFieldCell: UITextFieldDelegate {
         delegate.didEndEditingField(field.id, with: textField.text ?? String())
         UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, textField)
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let text = textField.text as NSString? {
+            let textAfterUpdate = text.replacingCharacters(in: range, with: string)
+            return textAfterUpdate.isNumeric || textAfterUpdate.isEmpty
+        }
+        return true
+    }
 }
 
 class SettingsTextField: UITextField {

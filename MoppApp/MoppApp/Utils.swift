@@ -83,3 +83,9 @@ func setTabAccessibilityLabel(isTabSelected: Bool, tabName: String, positionInRo
     }
 }
 
+func countryCodePrefill(textField: UITextField, countryCode: String) -> Void {
+    if (textField.text.isNilOrEmpty) {
+        textField.text = countryCode
+    }
+}
+

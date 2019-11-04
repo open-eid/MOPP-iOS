@@ -121,11 +121,43 @@ class MobileIDEditViewController : MoppViewController {
 
         idCodeTextField.text = DefaultsHelper.idCode
         phoneTextField.text = DefaultsHelper.phoneNumber
+        
+        idCodeTextField.attributedPlaceholder = NSAttributedString(string: L(.settingsIdCodePlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.46, green: 0.46, blue: 0.46, alpha: 1.0)])
+        phoneTextField.attributedPlaceholder = NSAttributedString(string: L(.settingsPhoneNumberPlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.46, green: 0.46, blue: 0.46, alpha: 1.0)])
+        
+        idCodeTextField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
+        
+        countryCodePrefill(textField: phoneTextField, countryCode: "372")
+        
+        verifySigningCapability()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.0)
+    }
+    
+    deinit {
+        idCodeTextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
+    }
+    
+    func verifySigningCapability() {
+        let textField = idCodeTextField.text ?? String()
+        if (idCodeTextField.text.isNilOrEmpty || textField.count < 11) {
+            signButton.isEnabled = false
+            signButton.backgroundColor = UIColor.moppLabel
+        } else {
+            signButton.isEnabled = true
+            signButton.backgroundColor = UIColor.moppBase
+        }
+    }
+    
+    @objc func editingChanged(sender: UITextField) {
+        let text = sender.text ?? String()
+        verifySigningCapability()
+        if (text.count > 11) {
+            sender.deleteBackward()
+        }
     }
 }
 

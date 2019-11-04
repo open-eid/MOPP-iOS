@@ -53,6 +53,8 @@ typedef enum {
 - (NSString *)getMoppLibVersion;
 - (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path;
 - (NSString *)digidocVersion;
+- (NSString *)moppAppVersion;
+- (NSString *)iOSVersion;
 - (NSString *)pkcs12Cert;
 + (NSArray *)certificatePolicyIdentifiers:(NSData *)certData;
 @end
