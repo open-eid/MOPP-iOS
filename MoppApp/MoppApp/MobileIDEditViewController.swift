@@ -129,7 +129,7 @@ class MobileIDEditViewController : MoppViewController {
         
         countryCodePrefill(textField: phoneTextField, countryCode: "372")
         
-        validateIdCodeField()
+        verifySigningCapability()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -141,7 +141,7 @@ class MobileIDEditViewController : MoppViewController {
         idCodeTextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
     }
     
-    func validateIdCodeField() {
+    func verifySigningCapability() {
         let textField = idCodeTextField.text ?? String()
         if (idCodeTextField.text.isNilOrEmpty || textField.count < 11) {
             signButton.isEnabled = false
@@ -154,7 +154,7 @@ class MobileIDEditViewController : MoppViewController {
     
     @objc func editingChanged(sender: UITextField) {
         let text = sender.text ?? String()
-        validateIdCodeField()
+        verifySigningCapability()
         if (text.count > 11) {
             sender.deleteBackward()
         }
