@@ -33,6 +33,10 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         var publicKey: String?
         var signature: String?
         
+        print("\nCommand line argument 'ConfigBaseUrl': \(CommandLine.arguments[1])")
+        print("Command line argument 'configUpdateInterval': \(CommandLine.arguments[2])")
+        print("Command line argument 'configTslUrl': \(CommandLine.arguments[3])")
+        
         print("\nConfig base url: \(configBaseUrl)")
         print("Config update interval: \(configUpdateInterval)")
         print("Config TSL url: \(configTslUrl)\n")
