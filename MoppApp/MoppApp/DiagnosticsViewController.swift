@@ -46,11 +46,10 @@ class DiagnosticsViewController: MoppViewController {
     @IBOutlet weak var lastCheckDate: UILabel!
     
     @IBAction func refreshConfiguration(_ sender: Any) {
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .userInitiated).async {
             SettingsConfiguration().loadCentralConfiguration()
-            DispatchQueue.main.async {
-                self.viewDidLoad()
-            }
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(self.onCentralConfigurationResponse(responseNotification:)), name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil)
         }
     }
     
@@ -58,6 +57,15 @@ class DiagnosticsViewController: MoppViewController {
     
     @IBAction func dismissAction() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func onCentralConfigurationResponse(responseNotification: Notification)
+    {
+        if responseNotification.userInfo?["isLoaded"] as! Bool == true {
+            DispatchQueue.main.async { [weak self] in
+                self?.viewDidLoad()
+            }
+        }
     }
     
     override func viewDidLoad() {
