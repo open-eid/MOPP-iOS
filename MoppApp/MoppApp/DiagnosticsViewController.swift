@@ -46,8 +46,12 @@ class DiagnosticsViewController: MoppViewController {
     @IBOutlet weak var lastCheckDate: UILabel!
     
     @IBAction func refreshConfiguration(_ sender: Any) {
-        SettingsConfiguration().loadCentralConfiguration()
-        self.viewDidLoad()
+        DispatchQueue.global(qos: .background).async {
+            SettingsConfiguration().loadCentralConfiguration()
+            DispatchQueue.main.async {
+                self.viewDidLoad()
+            }
+        }
     }
     
     
