@@ -40,6 +40,12 @@ class ContainerSignatureCell: UITableViewCell {
     
     weak var delegate: ContainerSignatureDelegate? = nil
     
+    #if USE_TEST_DDS
+        let useTestDDS = true
+    #else
+        let useTestDDS = false
+    #endif
+    
     enum ColorTheme {
         case neutral
         case showInvalid
@@ -74,6 +80,7 @@ class ContainerSignatureCell: UITableViewCell {
             case MoppLibSignatureStatus.Valid:
                 testSignatureLabel.isHidden = true
                 signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: "", valid: true)
+                if useTestDDS { showTestSignatureLabel() }
             case MoppLibSignatureStatus.Warning:
                 testSignatureLabel.isHidden = true
                 signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: L(LocKey.containerSignatureStatusWarning), valid: true)
