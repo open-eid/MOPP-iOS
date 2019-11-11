@@ -39,6 +39,8 @@
 #import "CardActionsManager.h"
 #import <Security/SecCertificate.h>
 #import <Security/SecKey.h>
+#import <CryptoLib/CryptoLib.h>
+#include <openssl/x509.h>
 
 class DigiDocConf: public digidoc::ConfCurrent {
     
@@ -198,18 +200,60 @@ private:
   });
 }
 
++ (NSString *)removeBeginAndEndFromCertificate:(NSString *)certString {
+    NSString* removeBegin = [certString stringByReplacingOccurrencesOfString:@"-----BEGIN CERTIFICATE-----" withString:@""];
+    NSString* removeEnd = [removeBegin stringByReplacingOccurrencesOfString:@"-----END CERTIFICATE-----" withString:@""];
+    
+    NSArray* whitespacedString = [removeEnd componentsSeparatedByCharactersInSet : [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString* noWhitespaceCertString = [whitespacedString componentsJoinedByString:@""];
+    
+    return noWhitespaceCertString;
+}
+
++ (digidoc::X509Cert)getDerCert:(NSString *)certString {
+    digidoc::X509Cert x509Certs;
+    try {
+        std::vector<unsigned char> bytes;
+
+        NSString* removeBegin = [certString stringByReplacingOccurrencesOfString:@"-----BEGIN CERTIFICATE-----" withString:@""];
+        NSString* removeEnd = [removeBegin stringByReplacingOccurrencesOfString:@"-----END CERTIFICATE-----" withString:@""];
+
+        NSArray* whitespacedString = [removeEnd componentsSeparatedByCharactersInSet : [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSString* noWhitespaceCertString = [whitespacedString componentsJoinedByString:@""];
+
+        std::string decodedCert = base64_decode(std::string([noWhitespaceCertString UTF8String]));
+
+        for(int i = 0; i < decodedCert.length(); i++) {
+            bytes.push_back(decodedCert[i]);
+        }
+
+        x509Certs = digidoc::X509Cert(bytes, digidoc::X509Cert::Format::Der);
+    } catch (...) {
+        printf("\nCreating a X509 certificate object raised an exception!\n");
+        x509Certs = digidoc::X509Cert();
+    }
+
+    return x509Certs;
+}
+
 + (NSArray *)certificatePolicyIdentifiers:(NSData *)certData {
     digidoc::X509Cert x509Cert;
     
-    const unsigned char *bytes = (const unsigned  char *)[certData bytes];
+    NSString* certString = [[NSString alloc] initWithData:certData encoding:NSUTF8StringEncoding];
+    
+    const unsigned char *bytes = (const unsigned char *)[certData bytes];
     try {
         x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Der);
     } catch(...) {
         try {
             x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Pem);
         } catch(...) {
-            printf("create X509 certificate object raised exception\n");
-            return @[];
+            try {
+                [self getDerCert:certString];
+            } catch(...) {
+                printf("create X509 certificate object raised exception\n");
+                return @[];
+            }
         }
     }
 

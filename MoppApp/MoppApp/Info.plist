@@ -134,6 +134,7 @@
 				<string>public.edoc</string>
 				<string>public.adoc</string>
 				<string>public.asice</string>
+				<string>public.cdoc</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>digidoc container</string>
@@ -151,6 +152,7 @@
 				<string>bdoc</string>
 				<key>public.filename-extension</key>
 				<array>
+					<string>cdoc</string>
 					<string>adoc</string>
 					<string>bdoc</string>
 					<string>ddoc</string>
@@ -162,6 +164,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
+					<string>application/x-cdoc</string>
 					<string>application/x-p12d</string>
 					<string>application/vnd.lt.archyvai.adoc-2008</string>
 					<string>application/x-ddoc</string>
