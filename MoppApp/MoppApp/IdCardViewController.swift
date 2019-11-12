@@ -277,7 +277,7 @@ class IdCardViewController : MoppViewController {
         }
         
         if state == .initial {
-            initialStateExpirationTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false, block: { [weak self]_ in
+            initialStateExpirationTimer = Timer.scheduledTimer(withTimeInterval: 600, repeats: false, block: { [weak self]_ in
                 DispatchQueue.main.async {
                     self?.state = .readerNotFound
                 }
