@@ -106,6 +106,10 @@ class MobileIDEditViewController : MoppViewController {
             DefaultsHelper.idCode = idCodeTextField.text ?? String()
             DefaultsHelper.phoneNumber = phoneTextField.text ?? String()
         }
+        else {
+            DefaultsHelper.idCode = String()
+            DefaultsHelper.phoneNumber = String()
+        }
         dismiss(animated: false) {
             [weak self] in
             guard let sself = self else { return }
@@ -126,6 +130,8 @@ class MobileIDEditViewController : MoppViewController {
         phoneTextField.attributedPlaceholder = NSAttributedString(string: L(.settingsPhoneNumberPlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.46, green: 0.46, blue: 0.46, alpha: 1.0)])
         
         idCodeTextField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
+        
+        rememberSwitch.setOn(false, animated: true)
         
         countryCodePrefill(textField: phoneTextField, countryCode: "372")
         
