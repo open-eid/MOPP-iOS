@@ -94,7 +94,7 @@
 
 - (BOOL) isESealType:(NSArray<NSString *> *)certificatePolicies {
     for (NSString* policy in certificatePolicies) {
-        if ([policy isEqual: @"1.3.6.1.4.1.10015.7.3"] || [policy isEqual: @"1.3.6.1.4.1.10015.7.1"] || [policy isEqual: @"1.3.6.1.4.1.10015.2.1"]) {
+        if ([policy hasPrefix: @"1.3.6.1.4.1.10015.7.3"] || [policy hasPrefix: @"1.3.6.1.4.1.10015.7.1"] || [policy hasPrefix: @"1.3.6.1.4.1.10015.2.1"]) {
             return true;
         }
         return false;
@@ -104,7 +104,7 @@
 }
 - (BOOL) isMobileIdType:(NSArray<NSString *> *)certificatePolicies {
     for (NSString* policy in certificatePolicies) {
-        if ([policy isEqual: @"1.3.6.1.4.1.10015.1.3"] || [policy isEqual: @"1.3.6.1.4.1.10015.11.1"]) {
+        if ([policy hasPrefix: @"1.3.6.1.4.1.10015.1.3"] || [policy hasPrefix: @"1.3.6.1.4.1.10015.11.1"]) {
             return true;
         }
         return false;
@@ -115,7 +115,7 @@
 
 - (BOOL) isIdCardType:(NSArray<NSString *> *)certificatePolicies {
     for (NSString* policy in certificatePolicies) {
-        if ([policy isEqual: @"1.3.6.1.4.1.10015.1.1"] || [policy isEqual: @"1.3.6.1.4.1.51361.1.1.1"]) {
+        if ([policy hasPrefix: @"1.3.6.1.4.1.10015.1.1"] || [policy hasPrefix: @"1.3.6.1.4.1.51361.1.1.1"]) {
             return true;
         }
         return false;
@@ -126,7 +126,7 @@
 
 - (BOOL) isDigiIdType:(NSArray<NSString *> *)certificatePolicies {
     for (NSString* policy in certificatePolicies) {
-        if ([policy isEqual: @"1.3.6.1.4.1.10015.1.2"] || [policy isEqual: @"1.3.6.1.4.1.51361.1.1"] || [policy isEqual: @"1.3.6.1.4.1.51455.1.1"]) {
+        if ([policy hasPrefix: @"1.3.6.1.4.1.10015.1.2"] || [policy hasPrefix: @"1.3.6.1.4.1.51361.1.1"] || [policy hasPrefix: @"1.3.6.1.4.1.51455.1.1"]) {
             return true;
         }
         return false;

@@ -39,6 +39,7 @@
 #import "NSData+Additions.h"
 #include "MoppLibDigidocMAnager.h"
 #import "MoppLibCertificateInfo.h"
+#import "MoppLibManager.h"
 
 @implementation MoppLibCryptoActions
     
@@ -155,6 +156,24 @@
         });
     });
 }
+
+- (MoppLibCertificateOrganization)parseEIDType:(NSArray<NSString *>*)certPolicies {
+    
+    EIDType eidType = [MoppLibManager eidTypeFromCertificatePolicies:certPolicies];
+    
+    switch (eidType) {
+        case EIDTypeUnknown:
+        case EIDTypeESeal:
+            return Unknown;
+        case EIDTypeMobileID:
+            return MobileID;
+        case EIDTypeDigiID:
+            return DigiID;
+        case EIDTypeIDCard:
+            return IDCard;
+    }
+    return Unknown;
+}
     
 - (void)searchLdapData:(NSString *)identifier success:(LdapBlock)success failure:(FailureBlock)failure configuration:(MoppLdapConfiguration *) moppLdapConfiguration {
     
@@ -185,6 +204,10 @@
                             MoppLibCertificateInfo *certInfo = [MoppLibCertificateInfo alloc];
                             NSArray<NSString *> *certPolicies = [certInfo certificatePolicies:(key.cert)];
                             NSArray<NSNumber *> *certKeyUsages = [certInfo keyUsages:(key.cert)];
+                            
+                            if (key.type == nil) {
+                                key.type = [self formatTypeToString:[self parseEIDType:certPolicies]];
+                            }
                             
                             if (([certInfo hasKeyEnciphermentUsage:(certKeyUsages)] || [certInfo hasKeyAgreementUsage:(certKeyUsages)]) &&
                                 ![certInfo isServerAuthKeyPurpose:(key.cert)] &&
