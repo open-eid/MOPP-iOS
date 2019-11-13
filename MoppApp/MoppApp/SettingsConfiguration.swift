@@ -91,14 +91,22 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         do {
             let localConfigData = try String(contentsOfFile: Bundle.main.path(forResource: "config", ofType: "json")!)
             let localSignature = try String(contentsOfFile: Bundle.main.path(forResource: "signature", ofType: "rsa")!)
-            let decodedData = try MoppConfigurationDecoder().decodeMoppConfiguration(configData: localConfigData)
+            var decodedData = try MoppConfigurationDecoder().decodeMoppConfiguration(configData: localConfigData)
             setAllConfigurationToCache(configData: localConfigData, signature: localSignature, initialUpdateDate: MoppDateFormatter().stringToDate(dateString: getDefaultMoppConfiguration().UPDATEDATE), versionSerial: decodedData.METAINF.SERIAL)
             setConfigurationToCache("", forKey: "lastUpdateDateCheck")
 
-            setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS)
+            if getConfigurationFromCache(forKey: "isCentralConfigurationLoaded") == nil {
+                setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: getDefaultMoppConfiguration().TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS)
+                decodedData.TSLURL = getDefaultMoppConfiguration().TSLURL
+                setMoppConfiguration(configuration: decodedData)
+            } else {
+                setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS)
+                setMoppConfiguration(configuration: decodedData)
+            }
+            
             setupMoppLDAPConfiguration(ldapPersonUrl: decodedData.LDAPPERSONURL, ldapCorpUrl: decodedData.LDAPCORPURL)
 
-            setMoppConfiguration(configuration: decodedData)
+            
 
         } catch {
             MSLog("Unable to read file: ", error.localizedDescription)
@@ -114,11 +122,16 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
 
             _ = try SignatureVerifier().isSignatureCorrect(configData: trim(text: cachedConfigData)!, publicKey: localPublicKey, signature: cachedSignature)
 
-            let decodedData = try MoppConfigurationDecoder().decodeMoppConfiguration(configData: cachedConfigData)
-            setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS)
+            var decodedData = try MoppConfigurationDecoder().decodeMoppConfiguration(configData: cachedConfigData)
+            if getConfigurationFromCache(forKey: "isCentralConfigurationLoaded") == nil {
+                setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: getDefaultMoppConfiguration().TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS)
+                decodedData.TSLURL = getDefaultMoppConfiguration().TSLURL
+                setMoppConfiguration(configuration: decodedData)
+            } else {
+                setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS)
+                setMoppConfiguration(configuration: decodedData)
+            }
             setupMoppLDAPConfiguration(ldapPersonUrl: decodedData.LDAPPERSONURL, ldapCorpUrl: decodedData.LDAPCORPURL)
-
-            setMoppConfiguration(configuration: decodedData)
 
         } catch {
             MSLog("Unable to read file: ", error.localizedDescription)
@@ -145,6 +158,8 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                         self.setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS)
 
                         NotificationCenter.default.post(name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil, userInfo: ["isLoaded": true])
+                        
+                        self.setConfigurationToCache(true, forKey: "isCentralConfigurationLoaded")
 
                         self.reloadDigiDocConf()
                     }
