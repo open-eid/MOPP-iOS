@@ -66,12 +66,18 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                         self.loadCentralConfiguration()
                     }
                 }
+                if isInitialSetup() {
+                    self.loadCentralConfiguration()
+                }
             } else if decodedData!.METAINF.SERIAL < getDefaultMoppConfiguration().VERSIONSERIAL {
                 loadLocalConfiguration()
                 if self.isDateAfterInterval(updateDate: self.getConfigurationFromCache(forKey: "updateDate") as! Date, interval: getDefaultMoppConfiguration().UPDATEINTERVAL) {
                     DispatchQueue.global(qos: .background).async {
                         self.loadCentralConfiguration()
                     }
+                }
+                if isInitialSetup() {
+                    self.loadCentralConfiguration()
                 }
             }
         }
@@ -95,7 +101,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             setAllConfigurationToCache(configData: localConfigData, signature: localSignature, initialUpdateDate: MoppDateFormatter().stringToDate(dateString: getDefaultMoppConfiguration().UPDATEDATE), versionSerial: decodedData.METAINF.SERIAL)
             setConfigurationToCache("", forKey: "lastUpdateDateCheck")
 
-            if getConfigurationFromCache(forKey: "isCentralConfigurationLoaded") == nil {
+            if isInitialSetup() {
                 setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: getDefaultMoppConfiguration().TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS)
                 decodedData.TSLURL = getDefaultMoppConfiguration().TSLURL
                 setMoppConfiguration(configuration: decodedData)
@@ -123,7 +129,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             _ = try SignatureVerifier().isSignatureCorrect(configData: trim(text: cachedConfigData)!, publicKey: localPublicKey, signature: cachedSignature)
 
             var decodedData = try MoppConfigurationDecoder().decodeMoppConfiguration(configData: cachedConfigData)
-            if getConfigurationFromCache(forKey: "isCentralConfigurationLoaded") == nil {
+            if isInitialSetup() {
                 setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: getDefaultMoppConfiguration().TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS)
                 decodedData.TSLURL = getDefaultMoppConfiguration().TSLURL
                 setMoppConfiguration(configuration: decodedData)
@@ -138,48 +144,63 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             loadLocalConfiguration()
         }
     }
+    
+    private func setupCentralConfiguration(centralConfig: String, centralSignature: String, decodedData: MOPPConfiguration) {
+        setAllConfigurationToCache(configData: centralConfig, signature: centralSignature, versionSerial: decodedData.METAINF.SERIAL)
+        setMoppConfiguration(configuration: decodedData)
+        setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS)
+        NotificationCenter.default.post(name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil, userInfo: ["isLoaded": true])
+        setConfigurationToCache(true, forKey: "isCentralConfigurationLoaded")
+        reloadDigiDocConf()
+    }
 
     internal func loadCentralConfiguration() {
         do {
-
             let cachedSignature = getConfigurationFromCache(forKey: "signature") as? String
             let localPublicKey = try String(contentsOfFile: Bundle.main.path(forResource: "publicKey", ofType: "pub")!)
-
-            getFetchedData(fromConfigUrl: "\(getDefaultMoppConfiguration().CENTRALCONFIGURATIONSERVICEURL)/config.json", fromSignatureUrl: "\(getDefaultMoppConfiguration().CENTRALCONFIGURATIONSERVICEURL)/config.rsa", completionHandler: { (centralConfig, centralSignature, error) in
-                if SignatureVerifier().hasSignatureChanged(oldSignature: cachedSignature!, newSignature: centralSignature!) {
-                    do {
-                        _ = try SignatureVerifier().isSignatureCorrect(configData: self.trim(text: centralConfig)!, publicKey: localPublicKey, signature: centralSignature!)
-
-                        let decodedData = try MoppConfigurationDecoder().decodeMoppConfiguration(configData: centralConfig!)
-                        self.setAllConfigurationToCache(configData: centralConfig!, signature: centralSignature!, versionSerial: decodedData.METAINF.SERIAL)
-
-                        self.setMoppConfiguration(configuration: decodedData)
-                        
-                        self.setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS)
-
-                        NotificationCenter.default.post(name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil, userInfo: ["isLoaded": true])
-                        
-                        self.setConfigurationToCache(true, forKey: "isCentralConfigurationLoaded")
-
-                        self.reloadDigiDocConf()
-                    }
-                    catch {
-                        self.setConfigurationToCache(Date(), forKey: "lastUpdateCheckDate")
-                        self.loadCachedConfiguration()
-                        NotificationCenter.default.post(name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil, userInfo: ["isLoaded": true])
+            
+            getFetchedData(fromUrl: "\(getDefaultMoppConfiguration().CENTRALCONFIGURATIONSERVICEURL)/config.rsa") { (centralSignature, signatureError) in
+                if (signatureError != nil) {
+                    print(signatureError!)
+                }
+                guard let centralSignature = centralSignature else {
+                    self.setConfigurationToCache(Date(), forKey: "lastUpdateCheckDate")
+                    self.loadCachedConfiguration()
+                    NotificationCenter.default.post(name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil, userInfo: ["isLoaded": true])
+                    return
+                }
+                if SignatureVerifier().hasSignatureChanged(oldSignature: cachedSignature!, newSignature: centralSignature) {
+                    self.getFetchedData(fromUrl: "\(self.getDefaultMoppConfiguration().CENTRALCONFIGURATIONSERVICEURL)/config.json") { (centralConfig, configError) in
+                        if (configError != nil) {
+                            print(configError!)
+                        }
+                        guard let centralConfig = centralConfig else {
+                            self.setConfigurationToCache(Date(), forKey: "lastUpdateCheckDate")
+                            self.loadCachedConfiguration()
+                            NotificationCenter.default.post(name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil, userInfo: ["isLoaded": true])
+                            return
+                        }
+                        do {
+                            _ = try SignatureVerifier().isSignatureCorrect(configData: self.trim(text: centralConfig)!, publicKey: localPublicKey, signature: centralSignature)
+                            let decodedData = try MoppConfigurationDecoder().decodeMoppConfiguration(configData: centralConfig)
+                            self.setupCentralConfiguration(centralConfig: centralConfig, centralSignature: centralSignature, decodedData: decodedData)
+                        }
+                        catch {
+                            self.setConfigurationToCache(Date(), forKey: "lastUpdateCheckDate")
+                            self.loadCachedConfiguration()
+                            NotificationCenter.default.post(name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil, userInfo: ["isLoaded": true])
+                        }
                     }
                 } else {
                     self.setConfigurationToCache(Date(), forKey: "lastUpdateCheckDate")
                     self.loadCachedConfiguration()
                     NotificationCenter.default.post(name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil, userInfo: ["isLoaded": true])
                 }
-            })
-
+            }
         } catch {
             MSLog("Unable to load data: ", error.localizedDescription)
             loadCachedConfiguration()
         }
-
     }
 
     internal func getDefaultMoppConfiguration() -> DefaultMoppConfiguration {
@@ -216,23 +237,16 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         task.resume()
     }
 
-private func getFetchedData(fromConfigUrl: String, fromSignatureUrl: String, completionHandler: @escaping (String?, String?, Error?) -> Void) {
-
-    fetchDataFromCentralConfiguration(fromUrl: fromSignatureUrl) { (signatureData, signatureError) in
-        if (signatureError != nil) {
-            print(signatureError!)
-        }
-        guard let signatureData = signatureData else { return }
-
-        self.fetchDataFromCentralConfiguration(fromUrl: "\(self.getDefaultMoppConfiguration().CENTRALCONFIGURATIONSERVICEURL)/config.json") { (configData, configError) in
-            if (configError != nil) {
-                print(configError!)
+    private func getFetchedData(fromUrl url: String, completionHandler: @escaping (String?, Error?) -> Void) {
+        fetchDataFromCentralConfiguration(fromUrl: url) { (data, error) in
+            if (error != nil) {
+                print(error!)
             }
-            guard let configData = configData else { return }
-            completionHandler(configData, signatureData, configError != nil ? configError : signatureError)
+            guard let data = data else { return }
+            
+            completionHandler(data, error)
         }
     }
-}
 
 
     func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
@@ -242,6 +256,10 @@ private func getFetchedData(fromConfigUrl: String, fromSignatureUrl: String, com
         else {
             completionHandler(.performDefaultHandling, URLCredential(trust: challenge.protectionSpace.serverTrust!))
         }
+    }
+    
+    internal func isInitialSetup() -> Bool {
+        return getConfigurationFromCache(forKey: "isCentralConfigurationLoaded") == nil || getConfigurationFromCache(forKey: "isCentralConfigurationLoaded") as! Bool == false ? true : false
     }
 
     internal func getConfigurationFromCache(forKey: String) -> Any? {
