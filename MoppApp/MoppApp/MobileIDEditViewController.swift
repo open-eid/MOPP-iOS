@@ -144,8 +144,9 @@ class MobileIDEditViewController : MoppViewController {
     }
     
     func verifySigningCapability() {
-        let textField = idCodeTextField.text ?? String()
-        if (phoneTextField.text.isNilOrEmpty || idCodeTextField.text.isNilOrEmpty || textField.count < 11) {
+        let phoneField = phoneTextField.text ?? String()
+        let codeTextField = idCodeTextField.text ?? String()
+        if (phoneTextField.text.isNilOrEmpty || phoneField.count <= 3 || idCodeTextField.text.isNilOrEmpty || codeTextField.count < 11) {
             signButton.isEnabled = false
             signButton.backgroundColor = UIColor.moppLabel
         } else {
