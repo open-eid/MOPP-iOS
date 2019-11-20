@@ -170,7 +170,41 @@ private:
   return sharedInstance;
 }
 
+-(void)setupTSLFiles {
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"tslFiles" ofType:@"bundle"];
+    
+    NSArray* dirs = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:bundlePath error:NULL];
+    [dirs enumerateObjectsUsingBlock:^(id file, NSUInteger idx, BOOL *stop) {
+        NSString *filename = (NSString *)file;
+        
+        NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:[bundlePath stringByAppendingPathComponent:filename]];
+        
+        NSURL *libraryPath = [[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] lastObject];
+        NSString *libraryPathWithFilename = [libraryPath.path stringByAppendingPathComponent:filename];
+        
+        NSError *fileRemoveError;
+        if ([[NSFileManager defaultManager] fileExistsAtPath:libraryPathWithFilename]) {
+            [[NSFileManager defaultManager] removeItemAtPath:libraryPathWithFilename error:&fileRemoveError];
+            
+            if (fileRemoveError != nil) {
+                NSLog(@"Error while removing existing file: %@\n", fileRemoveError);
+            } else {
+                NSLog(@"Successfully removed existing file: %@\n", filename);
+            }
+        }
+        NSError *copyingError;
+        BOOL status = [[NSFileManager defaultManager] copyItemAtPath:fileURL.path toPath:libraryPathWithFilename error:&copyingError];
+        if (!status) {
+            NSLog(@"Error while copying file: %@\n", copyingError);
+        } else {
+            NSLog(@"Successfully copied file %@\n", filename);
+        }
+    }];
+}
+
 - (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString*)tsUrl withMoppConfiguration:(MoppLibConfiguration*)moppConfiguration {
+    
+  [self setupTSLFiles];
   
   MoppLibSOAPManager.sharedInstance.useTestDigiDocService = useTestDDS;
   
