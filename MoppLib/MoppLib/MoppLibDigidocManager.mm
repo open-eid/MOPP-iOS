@@ -105,8 +105,12 @@ public:
   }
     
   virtual std::string ocsp(const std::string &issuer) const override {
+      NSMutableDictionary *issuers = [NSMutableDictionary dictionaryWithDictionary:moppLibConfiguration.OCSPISSUERS];
+      [issuers setValue:@"http://aia.sk.ee/esteid2018" forKey:@"ESTEID2018"];
+      [issuers setValue:@"http://aia.demo.sk.ee/esteid2018" forKey:@"TEST of ESTEID2018"];
+      
       NSString *ocspValue = [NSString stringWithCString:issuer.c_str() encoding:[NSString defaultCStringEncoding]];
-      return std::string([moppLibConfiguration.OCSPISSUERS[ocspValue] UTF8String]);
+      return std::string([issuers[ocspValue] UTF8String]);
   }
 
   digidoc::X509Cert generateX509Cert(std::vector<unsigned char> bytes) const {
