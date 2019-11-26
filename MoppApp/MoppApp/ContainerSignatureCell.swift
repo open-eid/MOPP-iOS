@@ -87,9 +87,9 @@ class ContainerSignatureCell: UITableViewCell {
                 testSignatureLabel.isHidden = true
                 signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusInvalid), translationSufix: "", valid: false)
         }
-        nameLabel.text = signature.subjectName
+        
         signatureStatusLabel.attributedText = signatureStatus
-        signedInfoLabel.text = L(LocKey.containerSignatureSigned, [MoppDateFormatter.shared.hHmmssddMMYYYY(toString: signature.timestamp)])
+        checkSignatureValidity(signature: signature)
         
         iconImageView.image = kind == .signature ?
             UIImage(named: "Icon_Allkiri_small") :
@@ -112,6 +112,19 @@ class ContainerSignatureCell: UITableViewCell {
         signatureStatus.addAttribute(NSAttributedStringKey.foregroundColor, value: mainColor, range: NSRange(location:0,length:translationPrefix.count))
         signatureStatus.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.moppWarningText, range: NSRange(location:translationPrefix.count+1,length:translationSufix.count))
         return signatureStatus
+    }
+    
+    private func checkSignatureValidity(signature: MoppLibSignature) -> Void {
+        if (signature.timestamp == nil) {
+            signedInfoLabel.text = ""
+        } else {
+            signedInfoLabel.text = L(LocKey.containerSignatureSigned, [MoppDateFormatter.shared.hHmmssddMMYYYY(toString: signature.timestamp)])
+        }
+        if (signature.subjectName == "") {
+            nameLabel.text = L(LocKey.containerTimestampInvalid)
+        } else {
+            nameLabel.text = signature.subjectName
+        }
     }
     
     private func showTestSignatureLabel() {
