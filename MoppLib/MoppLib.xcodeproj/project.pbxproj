@@ -181,6 +181,8 @@
 		DF1EE2BE234DD20500E37CA8 /* MoppLibCertificateInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = DF1EE2BC234DD20500E37CA8 /* MoppLibCertificateInfo.mm */; };
 		DFF3C3A923322E0D0079458A /* MOPPLibConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = DFF3C3A723322E0C0079458A /* MOPPLibConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DFF3C3AA23322E0D0079458A /* MOPPLibConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3A823322E0C0079458A /* MOPPLibConfiguration.m */; };
+		DFFFCBCC238D470200059717 /* MoppLibGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = DFFFCBCB238D470200059717 /* MoppLibGlobals.h */; };
+		DFFFCBCE238D471400059717 /* MoppLibGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = DFFFCBCD238D471400059717 /* MoppLibGlobals.m */; };
 		E061FB0356C72259D6A941E8 /* Pods_MoppLibTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BB12B033D5C8237B002F59 /* Pods_MoppLibTests.framework */; };
 		E4180C161E23FE9300FD7B8C /* MLDateFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = E4180C141E23FE9300FD7B8C /* MLDateFormatter.h */; };
 		E4180C171E23FE9300FD7B8C /* MLDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C151E23FE9300FD7B8C /* MLDateFormatter.m */; };
@@ -317,6 +319,8 @@
 		DF1EE2BC234DD20500E37CA8 /* MoppLibCertificateInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoppLibCertificateInfo.mm; sourceTree = "<group>"; };
 		DFF3C3A723322E0C0079458A /* MOPPLibConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOPPLibConfiguration.h; sourceTree = "<group>"; };
 		DFF3C3A823322E0C0079458A /* MOPPLibConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOPPLibConfiguration.m; sourceTree = "<group>"; };
+		DFFFCBCB238D470200059717 /* MoppLibGlobals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLibGlobals.h; sourceTree = "<group>"; };
+		DFFFCBCD238D471400059717 /* MoppLibGlobals.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoppLibGlobals.m; sourceTree = "<group>"; };
 		E4180C141E23FE9300FD7B8C /* MLDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLDateFormatter.h; sourceTree = "<group>"; };
 		E4180C151E23FE9300FD7B8C /* MLDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLDateFormatter.m; sourceTree = "<group>"; };
 		E4250CE71E09695100530370 /* MoppLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoppLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -625,6 +629,8 @@
 				C5F974D3217646CC00A167C7 /* TestEnvInfo.plist */,
 				540CB21E1E1CDCED00FE18A3 /* MoppLibCertificate.h */,
 				540CB21F1E1CDCED00FE18A3 /* MoppLibCertificate.mm */,
+				DFFFCBCB238D470200059717 /* MoppLibGlobals.h */,
+				DFFFCBCD238D471400059717 /* MoppLibGlobals.m */,
 				E4250CFF1E096CAA00530370 /* test.bdoc */,
 				E4250CF21E096A0500530370 /* libdigidocpp */,
 				C55A20C321762448007BB191 /* mopplib.modulemap */,
@@ -728,6 +734,7 @@
 				54D164771E9269C50069C725 /* MoppLibContainerActions.h in Headers */,
 				545111721E13BBA800296B80 /* MoppLibPersonalData.h in Headers */,
 				AE12A8731E51956900B0B03E /* MLCertificateHelper.h in Headers */,
+				DFFFCBCC238D470200059717 /* MoppLibGlobals.h in Headers */,
 				E42B08B51E1F0B3B00EA24A3 /* MoppLibContainer.h in Headers */,
 				E42B08C91E1F11C100EA24A3 /* MoppLibSignature.h in Headers */,
 				54D1647B1E926AAB0069C725 /* MoppLibCardActions.h in Headers */,
@@ -1053,6 +1060,7 @@
 				AE1069441E4498A6002BAFDA /* Error.swift in Sources */,
 				540CB2261E1CDD8100FE18A3 /* MoppLibCerificatetData.m in Sources */,
 				C5E41C5E2180602B00D79B54 /* Idemia.m in Sources */,
+				DFFFCBCE238D471400059717 /* MoppLibGlobals.m in Sources */,
 				54DC0DFE1E0D196D00C62B3D /* CardActionsManager.m in Sources */,
 				AE0A844B1E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m in Sources */,
 				AE61985C1E489EDF0021B18B /* MoppLibService.m in Sources */,

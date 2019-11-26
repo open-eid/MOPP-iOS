@@ -30,6 +30,11 @@
 #include <digidocpp/crypto/Signer.h>
 #include <fstream>
 
+#include <openssl/x509.h>
+#include <openssl/asn1t.h>
+#include <openssl/pem.h>
+#include <openssl/x509v3.h>
+
 #import "MoppLibDigidocManager.h"
 #import "MoppLibSOAPManager.h"
 #import "MoppLibDataFile.h"
@@ -39,8 +44,7 @@
 #import "CardActionsManager.h"
 #import <Security/SecCertificate.h>
 #import <Security/SecKey.h>
-#import <CryptoLib/CryptoLib.h>
-#include <openssl/x509.h>
+#import "MoppLibGlobals.h"
 
 class DigiDocConf: public digidoc::ConfCurrent {
     
@@ -107,8 +111,13 @@ public:
   }
     
   virtual std::string ocsp(const std::string &issuer) const override {
-      NSString *ocspValue = [NSString stringWithCString:issuer.c_str() encoding:[NSString defaultCStringEncoding]];
-      return std::string([moppLibConfiguration.OCSPISSUERS[ocspValue] UTF8String]);
+    NSString *ocspIssuer = [NSString stringWithCString:issuer.c_str() encoding:[NSString defaultCStringEncoding]];
+      NSLog(@"%@", OCSPUrl);
+    if ([moppLibConfiguration.OCSPISSUERS objectForKey:ocspIssuer]) {
+        return std::string([moppLibConfiguration.OCSPISSUERS[ocspIssuer] UTF8String]);
+    } else {
+        return std::string([OCSPUrl UTF8String]);
+    }
   }
 
   digidoc::X509Cert generateX509Cert(std::vector<unsigned char> bytes) const {
@@ -172,7 +181,41 @@ private:
   return sharedInstance;
 }
 
+-(void)setupTSLFiles {
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"tslFiles" ofType:@"bundle"];
+    
+    NSArray* dirs = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:bundlePath error:NULL];
+    [dirs enumerateObjectsUsingBlock:^(id file, NSUInteger idx, BOOL *stop) {
+        NSString *filename = (NSString *)file;
+        
+        NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:[bundlePath stringByAppendingPathComponent:filename]];
+        
+        NSURL *libraryPath = [[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] lastObject];
+        NSString *libraryPathWithFilename = [libraryPath.path stringByAppendingPathComponent:filename];
+        
+        NSError *fileRemoveError;
+        if ([[NSFileManager defaultManager] fileExistsAtPath:libraryPathWithFilename]) {
+            [[NSFileManager defaultManager] removeItemAtPath:libraryPathWithFilename error:&fileRemoveError];
+            
+            if (fileRemoveError != nil) {
+                NSLog(@"Error while removing existing file: %@\n", fileRemoveError);
+            } else {
+                NSLog(@"Successfully removed existing file: %@\n", filename);
+            }
+        }
+        NSError *copyingError;
+        BOOL status = [[NSFileManager defaultManager] copyItemAtPath:fileURL.path toPath:libraryPathWithFilename error:&copyingError];
+        if (!status) {
+            NSLog(@"Error while copying file: %@\n", copyingError);
+        } else {
+            NSLog(@"Successfully copied file %@\n", filename);
+        }
+    }];
+}
+
 - (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString*)tsUrl withMoppConfiguration:(MoppLibConfiguration*)moppConfiguration {
+    
+  [self setupTSLFiles];
   
   MoppLibSOAPManager.sharedInstance.useTestDigiDocService = useTestDDS;
   
@@ -183,8 +226,7 @@ private:
         [moppConfiguration.TSAURL cStringUsingEncoding:NSUTF8StringEncoding] :
         [tsUrl cStringUsingEncoding:NSUTF8StringEncoding];
       digidoc::Conf::init(new DigiDocConf(timestampUrl, moppConfiguration));
-      NSString *appInfo = [NSString stringWithFormat:@"%s/%@ (iOS %@)", "qdigidocclient", [self moppAppVersion], [self iOSVersion]];
-      digidoc::initialize(std::string([appInfo UTF8String]));
+      digidoc::initialize("qdigidocclient");
       
       dispatch_async(dispatch_get_main_queue(), ^{
         success();
@@ -200,60 +242,18 @@ private:
   });
 }
 
-+ (NSString *)removeBeginAndEndFromCertificate:(NSString *)certString {
-    NSString* removeBegin = [certString stringByReplacingOccurrencesOfString:@"-----BEGIN CERTIFICATE-----" withString:@""];
-    NSString* removeEnd = [removeBegin stringByReplacingOccurrencesOfString:@"-----END CERTIFICATE-----" withString:@""];
-    
-    NSArray* whitespacedString = [removeEnd componentsSeparatedByCharactersInSet : [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString* noWhitespaceCertString = [whitespacedString componentsJoinedByString:@""];
-    
-    return noWhitespaceCertString;
-}
-
-+ (digidoc::X509Cert)getDerCert:(NSString *)certString {
-    digidoc::X509Cert x509Certs;
-    try {
-        std::vector<unsigned char> bytes;
-
-        NSString* removeBegin = [certString stringByReplacingOccurrencesOfString:@"-----BEGIN CERTIFICATE-----" withString:@""];
-        NSString* removeEnd = [removeBegin stringByReplacingOccurrencesOfString:@"-----END CERTIFICATE-----" withString:@""];
-
-        NSArray* whitespacedString = [removeEnd componentsSeparatedByCharactersInSet : [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        NSString* noWhitespaceCertString = [whitespacedString componentsJoinedByString:@""];
-
-        std::string decodedCert = base64_decode(std::string([noWhitespaceCertString UTF8String]));
-
-        for(int i = 0; i < decodedCert.length(); i++) {
-            bytes.push_back(decodedCert[i]);
-        }
-
-        x509Certs = digidoc::X509Cert(bytes, digidoc::X509Cert::Format::Der);
-    } catch (...) {
-        printf("\nCreating a X509 certificate object raised an exception!\n");
-        x509Certs = digidoc::X509Cert();
-    }
-
-    return x509Certs;
-}
-
 + (NSArray *)certificatePolicyIdentifiers:(NSData *)certData {
     digidoc::X509Cert x509Cert;
     
-    NSString* certString = [[NSString alloc] initWithData:certData encoding:NSUTF8StringEncoding];
-    
-    const unsigned char *bytes = (const unsigned char *)[certData bytes];
+    const unsigned char *bytes = (const unsigned  char *)[certData bytes];
     try {
         x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Der);
     } catch(...) {
         try {
             x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Pem);
         } catch(...) {
-            try {
-                [self getDerCert:certString];
-            } catch(...) {
-                printf("create X509 certificate object raised exception\n");
-                return @[];
-            }
+            printf("create X509 certificate object raised exception\n");
+            return @[];
         }
     }
 
@@ -551,6 +551,14 @@ void parseException(const digidoc::Exception &e) {
   return NO;
 
 }
+    
+  std::string getOCSPUrl(X509 *x509)  {
+    std::string ocspUrl;
+    STACK_OF(OPENSSL_STRING) *ocsps = X509_get1_ocsp(x509);
+    ocspUrl = std::string(sk_OPENSSL_STRING_value(ocsps, 0));
+    X509_email_free(ocsps);
+    return ocspUrl;
+  }
 
 - (void)addSignature:(NSString *)containerPath pin2:(NSString *)pin2 cert:(NSData *)cert success:(ContainerBlock)success andFailure:(FailureBlock)failure {
   digidoc::Container *container;
@@ -558,6 +566,8 @@ void parseException(const digidoc::Exception &e) {
   try {
     const unsigned char *certBytes = (const unsigned  char *)[cert bytes];
     digidoc::X509Cert x509Cert = digidoc::X509Cert(certBytes, cert.length, digidoc::X509Cert::Format::Der);
+      
+    OCSPUrl = [NSString stringWithCString:getOCSPUrl(x509Cert.handle()).c_str() encoding:[NSString defaultCStringEncoding]];
     
     container = digidoc::Container::open(containerPath.UTF8String);
     
@@ -694,16 +704,6 @@ void parseException(const digidoc::Exception &e) {
 - (NSString *)digidocVersion {
     std::string version = digidoc::version();
     return [[NSString alloc] initWithBytes:version.c_str() length:version.length() encoding:NSUTF8StringEncoding];
-}
-
-- (NSString *)moppAppVersion {
-    NSString * version = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
-    NSString * build = [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
-    return [NSString stringWithFormat:@"%@.%@", version, build];
-}
-
-- (NSString *)iOSVersion {
-    return [[UIDevice currentDevice] systemVersion];
 }
 
 - (NSString *)pkcs12Cert {
