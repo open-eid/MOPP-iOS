@@ -172,6 +172,9 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
 
     func openUrl(url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         if !url.absoluteString.isEmpty {
+            
+            // Used to access folders on user device when opening container outside app (otherwise gives "Operation not permitted" error)
+            url.startAccessingSecurityScopedResource()
         
             // Let all the modal view controllers know that they should dismiss themselves
             NotificationCenter.default.post(name: .didOpenUrlNotificationName, object: nil)
@@ -208,6 +211,7 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
             landingViewController?.fileImportIntent = .openOrCreate
             landingViewController?.importFiles(with: [newUrl])
         }
+        url.stopAccessingSecurityScopedResource()
         return true
     }
 
