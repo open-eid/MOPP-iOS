@@ -77,7 +77,7 @@
     X509 *certificateX509 = cert.handle();
     
     if (certificateX509 != NULL) {
-        std::string name(certificateX509->name);
+        std::string name(cert.subjectName());
         
         NSMutableArray *policies = [NSMutableArray new];
         for (int i=0; i<cert.certificatePolicies().size(); i++) {
