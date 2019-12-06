@@ -260,6 +260,8 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
                 removeWindowBlur()
             }
         #endif
+        
+        restartIdCardDiscovering()
     }
 
     func willTerminate() {
@@ -336,6 +338,21 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
             blurEffectView.removeFromSuperview()
         }
     }
+    
+    private func restartIdCardDiscovering() {
+        if var topViewController = UIApplication.shared.keyWindow?.rootViewController {
+            while let currentViewController = topViewController.presentedViewController {
+                topViewController = currentViewController
+            }
+            
+            for childViewController in topViewController.childViewControllers {
+                if childViewController is IdCardViewController {
+                    MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
+                }
+            }
+        }
+    }
+    
 }
 
 extension MoppApp {
