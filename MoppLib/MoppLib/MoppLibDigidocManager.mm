@@ -284,15 +284,21 @@ private:
 + (NSArray *)certificatePolicyIdentifiers:(NSData *)certData {
     digidoc::X509Cert x509Cert;
 
-    const unsigned char *bytes = (const unsigned  char *)[certData bytes];
+    NSString* certString = [[NSString alloc] initWithData:certData encoding:NSUTF8StringEncoding];
+
+    const unsigned char *bytes = (const unsigned char *)[certData bytes];
     try {
         x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Der);
     } catch(...) {
         try {
             x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Pem);
         } catch(...) {
-            printf("create X509 certificate object raised exception\n");
-            return @[];
+            try {
+                [self getDerCert:certString];
+            } catch(...) {
+                printf("create X509 certificate object raised exception\n");
+                return @[];
+            }
         }
     }
 
