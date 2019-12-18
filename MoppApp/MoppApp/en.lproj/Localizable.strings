@@ -125,6 +125,7 @@
 "container-signature-status-invalid" = "Signature is not valid";
 "container-signature-status-unknown" = "Signature is unknown";
 "container-signature-test-signature-title" = "Test signature";
+"container-timestamp-invalid" = "Timestamp is not valid";
 
 // *** Mobile ID Challenge View ***
 

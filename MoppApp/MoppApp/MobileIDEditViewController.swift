@@ -106,6 +106,10 @@ class MobileIDEditViewController : MoppViewController {
             DefaultsHelper.idCode = idCodeTextField.text ?? String()
             DefaultsHelper.phoneNumber = phoneTextField.text ?? String()
         }
+        else {
+            DefaultsHelper.idCode = String()
+            DefaultsHelper.phoneNumber = String()
+        }
         dismiss(animated: false) {
             [weak self] in
             guard let sself = self else { return }
@@ -130,6 +134,8 @@ class MobileIDEditViewController : MoppViewController {
         
         countryCodePrefill(textField: phoneTextField, countryCode: "372")
         
+        defaultRememberMeToggle()
+        
         verifySigningCapability()
     }
     
@@ -141,6 +147,14 @@ class MobileIDEditViewController : MoppViewController {
     deinit {
         idCodeTextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
         phoneTextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
+    }
+    
+    func defaultRememberMeToggle() {
+        if (DefaultsHelper.phoneNumber?.count ?? 0 > 0 && DefaultsHelper.idCode.count > 0) {
+            rememberSwitch.setOn(true, animated: true)
+        } else {
+            rememberSwitch.setOn(false, animated: true)
+        }
     }
     
     func verifySigningCapability() {

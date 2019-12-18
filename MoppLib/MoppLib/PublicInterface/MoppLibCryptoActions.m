@@ -72,7 +72,7 @@
                 NSString *formattedCertificate = [certificateWithUTF8 stringByReplacingOccurrencesOfString:@"\n\n" withString:@"\n"];
                 NSData* decodedCertificate = [formattedCertificate dataUsingEncoding:NSUTF8StringEncoding];
 
-                [MoppLibCertificate certData:certData updateWithPemEncodingData:[decodedCertificate bytes] length:decodedCertificate.length];
+                [MoppLibCertificate certData:certData updateWithPemEncodingData:[decodedCertificate bytes] length:decodedCertificate.length certString:(formattedCertificate)];
                 addressee.type = [self formatTypeToString :certData.organization];
                 addressee.validTo = certData.expiryDate;
             }
@@ -191,7 +191,7 @@
                                 (![certInfo isESealType:(certPolicies)] || ![certInfo isTlsClientAuthKeyPurpose:(key.cert)]) &&
                                 ![certInfo isMobileIdType:(certPolicies)] && ![certInfo isUnknownType:(certPolicies)]) {
                                 
-                                unsigned char *certificateExpiryData = ASN1_STRING_data(certificateExpiryASN1Generalized);
+                                const unsigned char *certificateExpiryData = ASN1_STRING_get0_data(certificateExpiryASN1Generalized);
                                 
                                 // ASN1 generalized times look like this: "20131114230046Z"
                                 //                                format:  YYYYMMDDHHMMSS

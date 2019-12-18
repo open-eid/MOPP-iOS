@@ -29,79 +29,33 @@ public class ScreenDisguise {
     public static let shared = ScreenDisguise()
     private var viewController: ScreenDisguiseViewController? = nil
     
+    var uiVisualEffectView = UIVisualEffectView()
+    var blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+    
     private init() {}
     
     public func show() {
-        viewController = ScreenDisguiseViewController()
-        guard let tempOverlay = viewController else {
-            return
-        }
-                
-        if let topViewController = topViewController() {
-            let blurEffect = UIBlurEffect(style: .light)
-            let effectView = UIVisualEffectView(effect: blurEffect)
-            
-            tempOverlay.view.addSubview(effectView)
-            
-            effectView.translatesAutoresizingMaskIntoConstraints = false
-            effectView.frame = UIScreen.main.bounds
-
-            topViewController.view.addSubview(tempOverlay.view)
-            
-            tempOverlay.view.translatesAutoresizingMaskIntoConstraints = false
-            tempOverlay.view.frame = UIScreen.main.bounds
-            
-            guard let parent = topViewController.presentingViewController else {
-                return
-            }
-            
-            parent.view.superview?.addSubview(tempOverlay.view)
-            
-            let tempMainController = UIViewController()
-            
-            tempMainController.addChildViewController(tempOverlay)
-            tempMainController.view.frame = UIScreen.main.bounds
-            tempMainController.view.addSubview(tempOverlay.view)
-            tempMainController.modalPresentationStyle = .overFullScreen
-            
-            topViewController.present(tempMainController, animated: true, completion: nil)
-    }
-
-        tempOverlay.show()
-    }
-
-    public func topViewController() -> UIViewController? {
-        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-            if let targetPresentedViewController = rootViewController.presentedViewController {
-                return targetPresentedViewController
-            } else {
-                return rootViewController
-            }
-        }
-        return nil
-    }
-
-    public func hide() {
-        guard let tempOverlay = viewController else {
-            // Cleanup disguise view controller
-            if let topViewController = topViewController() {
-                topViewController.dismiss(animated: true, completion: nil)
-                for vc in topViewController.childViewControllers {
-                    if vc is ScreenDisguiseViewController {
-                        vc.removeFromParentViewController()
-                        vc.view.removeFromSuperview()
-                    }
+        if #available(iOS 12, *) {
+            if !uiVisualEffectView.isDescendant(of: UIApplication.shared.keyWindow!) {
+                UIView.animate(withDuration: 0.05) {
+                    self.uiVisualEffectView.effect = UIBlurEffect(style: .light)
+                    self.uiVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+                    self.uiVisualEffectView.frame = (UIApplication.shared.keyWindow?.bounds)!
                 }
+                
+                UIApplication.shared.keyWindow?.addSubview(uiVisualEffectView)
             }
-            return
         }
-        
-        tempOverlay.dismiss(animated: true, completion: nil)
-        
-        tempOverlay.hide() {
-            tempOverlay.removeFromParentViewController()
-            tempOverlay.view.removeFromSuperview()
-            self.viewController = nil
+    }
+    
+    public func hide() {
+        if #available(iOS 12, *) {
+            UIView.animate(withDuration: 0.25, animations: {
+                self.uiVisualEffectView.alpha = 0.0
+                UIApplication.shared.keyWindow!.alpha = 1.0
+            }, completion: {(value: Bool) in
+                self.uiVisualEffectView.removeFromSuperview()
+            })
         }
     }
 }
