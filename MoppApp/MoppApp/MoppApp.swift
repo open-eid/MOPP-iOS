@@ -189,6 +189,24 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
             }
             
             var newUrl = url
+            
+            // Sharing from Google Drive may change file extension
+            if determineFileExtension(mimeType: determineMimeType(url: newUrl)) == "asice" {
+                do {
+                    let newData: Data = try Data(contentsOf: newUrl)
+                    let fileName: String = newUrl.deletingPathExtension().lastPathComponent
+                    let fileURL: URL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("\(fileName).asice")
+                    do {
+                        try newData.write(to: fileURL, options: .atomic)
+                        newUrl = fileURL
+                    } catch {
+                        print("Error writing to file: \(error)")
+                    }
+                } catch {
+                    print("Error getting directory: \(error)")
+                }
+            }
+
             var isXmlExtensionFileCdoc = false
             if newUrl.pathExtension.isXmlFileExtension {
                 //Google Drive will change file extension and puts it to Inbox folder
@@ -351,6 +369,30 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
                 }
             }
         }
+    }
+    
+    private func determineMimeType(url: URL) -> String {
+        do {
+            let urlData: Data = try Data(contentsOf: url)
+            var bytes: UInt8 = 0
+            urlData.copyBytes(to: &bytes, count: 1)
+            
+            if bytes == 80 {
+                return "application/vnd.etsi.asic-e+zip"
+            }
+        } catch {
+            print("Error getting url data \(error)")
+        }
+        
+        return "application/octet-stream"
+    }
+    
+    private func determineFileExtension(mimeType: String) -> String {
+        if (mimeType == "application/vnd.etsi.asic-e+zip") {
+            return "asice"
+        }
+        
+        return ""
     }
     
 }
