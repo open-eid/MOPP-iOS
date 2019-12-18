@@ -27,13 +27,19 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     let configUpdateInterval: Int = Int(CommandLine.arguments[2]) ?? 7
     let configTslUrl: String = CommandLine.arguments[3] ?? "https://ec.europa.eu/tools/lotl/eu-lotl.xml"
     
-    let configCertName: String = "test-cert.cer"
-    
     internal func setupConfiguration() {
 
         var configData: String?
         var publicKey: String?
         var signature: String?
+        
+        print("\nCommand line argument 'ConfigBaseUrl': \(CommandLine.arguments[1])")
+        print("Command line argument 'configUpdateInterval': \(CommandLine.arguments[2])")
+        print("Command line argument 'configTslUrl': \(CommandLine.arguments[3])")
+        
+        print("\nConfig base url: \(configBaseUrl)")
+        print("Config update interval: \(configUpdateInterval)")
+        print("Config TSL url: \(configTslUrl)\n")
         
         print("1 / 4 - Downloading configuration data...")
         
@@ -56,6 +62,8 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         do {
             let decodedData = try decodeMoppConfiguration(configData: configData!)
             defaultConfiguration = createConfigurationFile(versionSerial: decodedData.METAINF.SERIAL)
+            print("\nDefault configuration: ")
+            print("\(defaultConfiguration)\n")
         } catch {
             fatalError("Unable to decode data: \(error.localizedDescription)")
         }

@@ -47,6 +47,14 @@
     return [[MoppLibDigidocManager sharedInstance] digidocVersion];
 }
 
+- (NSString *)appVersion {
+  return [[MoppLibDigidocManager sharedInstance] moppAppVersion];
+}
+
+- (NSString *)iOSVersion {
+    return [[MoppLibDigidocManager sharedInstance] iOSVersion];
+}
+
 + (EIDType)eidTypeFromCertificate:(NSData*)certData {
     NSArray<NSString*> *policyIdentifiers = [MoppLibDigidocManager certificatePolicyIdentifiers:certData];
     if ([policyIdentifiers count] == 0) {

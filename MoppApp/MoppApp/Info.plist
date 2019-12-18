@@ -35,7 +35,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.3.0</string>
+	<string>2.3.1</string>
 	<key>CFBundleVersion</key>
 	<string>17</string>
 	<key>Fabric</key>
@@ -139,9 +139,12 @@
 				<string>public.edoc</string>
 				<string>public.adoc</string>
 				<string>public.asice</string>
+				<string>public.cdoc</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>digidoc container</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
 			<key>UTTypeIdentifier</key>
 			<string>public.bdoc</string>
 			<key>UTTypeSize320IconFile</key>
@@ -154,6 +157,7 @@
 				<string>bdoc</string>
 				<key>public.filename-extension</key>
 				<array>
+					<string>cdoc</string>
 					<string>adoc</string>
 					<string>bdoc</string>
 					<string>ddoc</string>
@@ -162,6 +166,16 @@
 					<string>sce</string>
 					<string>asics</string>
 					<string>scs</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-cdoc</string>
+					<string>application/x-p12d</string>
+					<string>application/vnd.lt.archyvai.adoc-2008</string>
+					<string>application/x-ddoc</string>
+					<string>application/vnd.etsi.asic-s+zip</string>
+					<string>application/vnd.etsi.asic-e+zip</string>
+					<string>application/x-zip</string>
 				</array>
 			</dict>
 		</dict>

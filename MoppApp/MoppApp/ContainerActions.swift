@@ -78,6 +78,9 @@ extension ContainerActions where Self: UIViewController {
         // Move container from inbox folder to documents folder and cleanup.
         let filePath = url.relativePath
         let fileName = url.lastPathComponent
+        
+        // Used to access folders on user device when opening container outside app (otherwise gives "Operation not permitted" error)
+        url.startAccessingSecurityScopedResource()
 
         let navController = landingViewController.viewController(for: .signTab) as? UINavigationController
 
@@ -150,6 +153,7 @@ extension ContainerActions where Self: UIViewController {
                 }
             )
         }
+        url.stopAccessingSecurityScopedResource()
     }
 
     func addDataFilesToContainer(dataFilePaths: [String]) {

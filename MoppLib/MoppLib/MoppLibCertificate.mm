@@ -23,11 +23,13 @@
 
 #import "MoppLibCertificate.h"
 #import "MoppLibManager.h"
+#include "MoppLibDigidocMAnager.h"
 #include <digidocpp/crypto/X509Cert.h>
 #include <digidocpp/exception.h>
 #import <openssl/x509.h>
 #import <openssl/x509v3.h>
 #include <iostream>
+#import <CryptoLib/CryptoLib.h>
 
 @implementation MoppLibCertificate
 
@@ -40,9 +42,29 @@
     }
 }
 
-+ (void)certData:(MoppLibCerificatetData *)certData updateWithPemEncodingData:(const unsigned char *)data length:(size_t)length {
-    digidoc::X509Cert digiDocCert = digidoc::X509Cert(data, length, digidoc::X509Cert::Format::Pem);
-    [self setCertData:certData digiDocCert:digiDocCert];
++ (digidoc::X509Cert)certToDer:(NSString *)certString {
+    std::vector<unsigned char> bytes;
+    NSString* cleanCert = [MoppLibDigidocManager removeBeginAndEndFromCertificate:certString];
+    std::string decodedCert = base64_decode(std::string([cleanCert UTF8String]));
+    
+    for(int i = 0; i < decodedCert.length(); i++) {
+        bytes.push_back(decodedCert[i]);
+    }
+    
+    return digidoc::X509Cert(bytes, digidoc::X509Cert::Format::Der);
+}
+
++ (void)certData:(MoppLibCerificatetData *)certData updateWithPemEncodingData:(const unsigned char *)data length:(size_t)length certString:(NSString *)certString {
+    try {
+        digidoc::X509Cert digiDocCert = digidoc::X509Cert(data, length, digidoc::X509Cert::Format::Pem);
+        [self setCertData:certData digiDocCert:digiDocCert];
+    } catch(...) {
+        try {
+            [self setCertData:certData digiDocCert:[self certToDer:certString]];
+        } catch (digidoc::Exception e) {
+            printf("%s\n", e.msg().c_str());
+        }
+    }
 }
 
 + (void)setCertData:(MoppLibCerificatetData *)certData digiDocCert:(digidoc::X509Cert)digiDocCert {
@@ -55,7 +77,7 @@
     X509 *certificateX509 = cert.handle();
     
     if (certificateX509 != NULL) {
-        std::string name(certificateX509->name);
+        std::string name(cert.subjectName());
         
         NSMutableArray *policies = [NSMutableArray new];
         for (int i=0; i<cert.certificatePolicies().size(); i++) {

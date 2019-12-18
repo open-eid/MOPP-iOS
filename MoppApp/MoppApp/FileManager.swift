@@ -54,6 +54,16 @@ class MoppFileManager {
         var directory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
         directory.appendPathComponent(name)
         try! fileManager.removeItem(at: directory)
+        if let inboxDirectoryPath = inboxDirectoryPath() {
+            try? fileManager.removeItem(atPath: inboxDirectoryPath)
+        }
+    }
+    
+    func inboxDirectoryPath() -> String? {
+        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return nil
+        }
+        return documentsDirectory.appendingPathComponent("Inbox", isDirectory: true).path
     }
 
     func tempDocumentsDirectoryPath() -> String {

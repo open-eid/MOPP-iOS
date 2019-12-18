@@ -77,7 +77,14 @@
     const unsigned char *certificateDataBytes = (const unsigned char *)[certificateData bytes];
     X509 *certificateX509 = d2i_X509(NULL, &certificateDataBytes, [certificateData length]);
     
-    return (certificateX509->ex_xkusage & XKU_SSL_SERVER) == (XKU_SSL_SERVER);
+    const char *subjectChar = X509_NAME_oneline(X509_get_subject_name(certificateX509), NULL, 0);
+    std::string subjectString(subjectChar);
+    
+    if (subjectString.find("SN") != std::string::npos) {
+        return (X509_get_extended_key_usage(certificateX509) & XKU_SSL_SERVER) == XKU_SSL_SERVER;
+    } else {
+        return ((X509_get_extended_key_usage(certificateX509) != UINT32_MAX) & XKU_SSL_SERVER) == XKU_SSL_SERVER;
+    }
 }
 
 - (BOOL) isTlsClientAuthKeyPurpose:(NSData *)certificateData {
@@ -85,7 +92,7 @@
     X509 *certificateX509 = d2i_X509(NULL, &certificateDataBytes, [certificateData length]);
     
     X509_check_purpose(certificateX509, -1, -1);
-    if (certificateX509->ex_flags & EXFLAG_XKUSAGE) {
+    if (X509_get_extended_key_usage(certificateX509) != UINT32_MAX) {
         return true;
     }
     

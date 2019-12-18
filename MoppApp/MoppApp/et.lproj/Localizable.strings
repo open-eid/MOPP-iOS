@@ -125,6 +125,8 @@
 "container-signature-status-non-qscd" = "(Piirangud)";
 "container-signature-status-invalid" = "Allkiri ei ole kehtiv";
 "container-signature-status-unknown" = "Allkiri on teadmata";
+"container-signature-test-signature-title" = "Testallkiri";
+"container-timestamp-invalid" = "Ajatempel ei ole kehtiv";
 
 // *** Mobile ID Challenge View ***
 

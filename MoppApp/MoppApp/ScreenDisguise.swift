@@ -29,70 +29,33 @@ public class ScreenDisguise {
     public static let shared = ScreenDisguise()
     private var viewController: ScreenDisguiseViewController? = nil
     
+    var uiVisualEffectView = UIVisualEffectView()
+    var blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+    
     private init() {}
     
     public func show() {
-        viewController = ScreenDisguiseViewController()
-        guard let tempOverlay = viewController else {
-            return
-        }
-                
-        if let topViewController = topViewController() {
-            let blurEffect = UIBlurEffect(style: .light)
-            let effectView = UIVisualEffectView(effect: blurEffect)
-            
-            tempOverlay.view.addSubview(effectView)
-            
-            effectView.translatesAutoresizingMaskIntoConstraints = false
-            effectView.topAnchor.constraint(equalTo: tempOverlay.view.topAnchor).isActive = true
-            effectView.bottomAnchor.constraint(equalTo: tempOverlay.view.bottomAnchor).isActive = true
-            effectView.trailingAnchor.constraint(equalTo: tempOverlay.view.trailingAnchor).isActive = true
-            effectView.leadingAnchor.constraint(equalTo: tempOverlay.view.leadingAnchor).isActive = true
-
-            topViewController.view.addSubview(tempOverlay.view)
-            
-            let targetLayoutGuide = topViewController.view!
-            tempOverlay.view.translatesAutoresizingMaskIntoConstraints = false
-            tempOverlay.view.topAnchor.constraint(equalTo: targetLayoutGuide.topAnchor).isActive = true
-            tempOverlay.view.bottomAnchor.constraint(equalTo: targetLayoutGuide.bottomAnchor).isActive = true
-            tempOverlay.view.trailingAnchor.constraint(equalTo: targetLayoutGuide.trailingAnchor).isActive = true
-            tempOverlay.view.leadingAnchor.constraint(equalTo: targetLayoutGuide.leadingAnchor).isActive = true
-            
-            topViewController.addChildViewController(tempOverlay)
-        }
-
-        tempOverlay.show()
-    }
-
-    public func topViewController() -> UIViewController? {
-        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-            if let targetPresentedViewController = rootViewController.presentedViewController {
-                return targetPresentedViewController
-            } else {
-                return rootViewController
-            }
-        }
-        return nil
-    }
-
-    public func hide() {
-        guard let tempOverlay = viewController else {
-            // Cleanup disguise view controller
-            if let topViewController = topViewController() {
-                for vc in topViewController.childViewControllers {
-                    if vc is ScreenDisguiseViewController {
-                        vc.removeFromParentViewController()
-                        vc.view.removeFromSuperview()
-                    }
+        if #available(iOS 12, *) {
+            if !uiVisualEffectView.isDescendant(of: UIApplication.shared.keyWindow!) {
+                UIView.animate(withDuration: 0.05) {
+                    self.uiVisualEffectView.effect = UIBlurEffect(style: .light)
+                    self.uiVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+                    self.uiVisualEffectView.frame = (UIApplication.shared.keyWindow?.bounds)!
                 }
+                
+                UIApplication.shared.keyWindow?.addSubview(uiVisualEffectView)
             }
-            return
         }
-        
-        tempOverlay.hide() {
-            tempOverlay.removeFromParentViewController()
-            tempOverlay.view.removeFromSuperview()
-            self.viewController = nil
+    }
+    
+    public func hide() {
+        if #available(iOS 12, *) {
+            UIView.animate(withDuration: 0.25, animations: {
+                self.uiVisualEffectView.alpha = 0.0
+                UIApplication.shared.keyWindow!.alpha = 1.0
+            }, completion: {(value: Bool) in
+                self.uiVisualEffectView.removeFromSuperview()
+            })
         }
     }
 }
