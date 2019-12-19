@@ -69,10 +69,6 @@ class ContainerSignatureCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    private func isTestSignature(issuerName: String) -> Bool {
-        return issuerName.contains("TEST of")
-    }
-    
     func populate(with signature: MoppLibSignature, kind: Kind, showBottomBorder: Bool, showRemoveButton: Bool, signatureIndex: Int) {
         self.kind = kind
         self.signatureIndex = signatureIndex
@@ -82,13 +78,9 @@ class ContainerSignatureCell: UITableViewCell {
                 signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: "", valid: true)
                 showTestSignatureLabel()
             case MoppLibSignatureStatus.Valid:
-                if isTestSignature(issuerName: signature.issuerName) {
-                    signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: "", valid: true)
-                    showTestSignatureLabel()
-                } else {
-                    testSignatureLabel.isHidden = true
-                    signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: "", valid: true)
-                }
+                testSignatureLabel.isHidden = true
+                signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: "", valid: true)
+                if useTestDDS { showTestSignatureLabel() }
             case MoppLibSignatureStatus.Warning:
                 testSignatureLabel.isHidden = true
                 signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: L(LocKey.containerSignatureStatusWarning), valid: true)
