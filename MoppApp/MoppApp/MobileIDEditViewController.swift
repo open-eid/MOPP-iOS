@@ -130,6 +130,7 @@ class MobileIDEditViewController : MoppViewController {
         phoneTextField.attributedPlaceholder = NSAttributedString(string: L(.settingsPhoneNumberPlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.46, green: 0.46, blue: 0.46, alpha: 1.0)])
         
         idCodeTextField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
+        phoneTextField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
         
         countryCodePrefill(textField: phoneTextField, countryCode: "372")
         
@@ -145,6 +146,7 @@ class MobileIDEditViewController : MoppViewController {
     
     deinit {
         idCodeTextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
+        phoneTextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
     }
     
     func defaultRememberMeToggle() {
@@ -156,8 +158,9 @@ class MobileIDEditViewController : MoppViewController {
     }
     
     func verifySigningCapability() {
-        let textField = idCodeTextField.text ?? String()
-        if (idCodeTextField.text.isNilOrEmpty || textField.count < 11) {
+        let phoneField = phoneTextField.text ?? String()
+        let codeTextField = idCodeTextField.text ?? String()
+        if (phoneTextField.text.isNilOrEmpty || phoneField.count <= 3 || idCodeTextField.text.isNilOrEmpty || codeTextField.count < 11) {
             signButton.isEnabled = false
             signButton.backgroundColor = UIColor.moppLabel
         } else {
@@ -167,10 +170,12 @@ class MobileIDEditViewController : MoppViewController {
     }
     
     @objc func editingChanged(sender: UITextField) {
-        let text = sender.text ?? String()
         verifySigningCapability()
-        if (text.count > 11) {
-            sender.deleteBackward()
+        if sender.accessibilityIdentifier == "mobileIDCodeField" {
+            let text = sender.text ?? String()
+            if (text.count > 11) {
+                sender.deleteBackward()
+            }
         }
     }
 }

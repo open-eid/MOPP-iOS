@@ -95,7 +95,7 @@ class DiagnosticsViewController: MoppViewController {
         let decodedConf = getMoppConfiguration()
         
         configURL.text = formatString(text: "CONFIG_URL:", additionalText: decodedConf.METAINF.URL)
-        tslURL.text = formatString(text: "TSL_URL:", additionalText: decodedConf.TSLURL)
+        tslURL.text = formatString(text: "TSL_URL:", additionalText: SettingsConfiguration().getDefaultMoppConfiguration().TSLURL)
         sivaURL.text = formatString(text: "SIVA_URL:", additionalText: decodedConf.SIVAURL)
         tsaURL.text = formatString(text: "TSA_URL:", additionalText: decodedConf.TSAURL)
         midSignURL.text = formatString(text: "MID-SIGN-URL:", additionalText: decodedConf.MIDSIGNURL)

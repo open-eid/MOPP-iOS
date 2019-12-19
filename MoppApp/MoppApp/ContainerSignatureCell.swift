@@ -40,6 +40,12 @@ class ContainerSignatureCell: UITableViewCell {
     
     weak var delegate: ContainerSignatureDelegate? = nil
     
+    #if USE_TEST_DDS
+        let useTestDDS = true
+    #else
+        let useTestDDS = false
+    #endif
+    
     enum ColorTheme {
         case neutral
         case showInvalid
