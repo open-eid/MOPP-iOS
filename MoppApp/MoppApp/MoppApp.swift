@@ -377,6 +377,7 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
             var bytes: UInt8 = 0
             urlData.copyBytes(to: &bytes, count: 1)
             
+            /* Getting mimetype using UTTypeCopyPreferredTagWithClass does not give the correct result, converting file to NSData and using the content's first byte to get the correct value */
             if bytes == 80 {
                 return "application/vnd.etsi.asic-e+zip"
             }
