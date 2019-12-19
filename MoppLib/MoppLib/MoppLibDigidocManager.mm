@@ -385,6 +385,8 @@ private:
         } catch(const digidoc::Exception &e) {
           moppLibSignature.status = Invalid;
         }
+          
+        moppLibSignature.issuerName = [NSString stringWithCString:signature->signingCertificate().issuerName().c_str() encoding:[NSString defaultCStringEncoding]];
 
         [signatures addObject:moppLibSignature];
       }
