@@ -29,6 +29,5 @@
 @property (strong, nonatomic) NSString *subjectName;
 @property (strong, nonatomic) NSDate *timestamp;
 @property (assign, nonatomic) MoppLibSignatureStatus status;
-@property (strong, nonatomic) NSString *issuerName;
 
 @end
