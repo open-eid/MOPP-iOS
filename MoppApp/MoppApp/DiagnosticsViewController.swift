@@ -46,14 +46,26 @@ class DiagnosticsViewController: MoppViewController {
     @IBOutlet weak var lastCheckDate: UILabel!
     
     @IBAction func refreshConfiguration(_ sender: Any) {
-        SettingsConfiguration().loadCentralConfiguration()
-        self.viewDidLoad()
+        DispatchQueue.global(qos: .userInitiated).async {
+            SettingsConfiguration().loadCentralConfiguration()
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(self.onCentralConfigurationResponse(responseNotification:)), name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil)
+        }
     }
     
     
     
     @IBAction func dismissAction() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func onCentralConfigurationResponse(responseNotification: Notification)
+    {
+        if responseNotification.userInfo?["isLoaded"] as! Bool == true {
+            DispatchQueue.main.async { [weak self] in
+                self?.viewDidLoad()
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -95,7 +107,7 @@ class DiagnosticsViewController: MoppViewController {
         let decodedConf = getMoppConfiguration()
         
         configURL.text = formatString(text: "CONFIG_URL:", additionalText: decodedConf.METAINF.URL)
-        tslURL.text = formatString(text: "TSL_URL:", additionalText: SettingsConfiguration().getDefaultMoppConfiguration().TSLURL)
+        tslURL.text = formatString(text: "TSL_URL:", additionalText: getMoppConfiguration().TSLURL)
         sivaURL.text = formatString(text: "SIVA_URL:", additionalText: decodedConf.SIVAURL)
         tsaURL.text = formatString(text: "TSA_URL:", additionalText: decodedConf.TSAURL)
         midSignURL.text = formatString(text: "MID-SIGN-URL:", additionalText: decodedConf.MIDSIGNURL)

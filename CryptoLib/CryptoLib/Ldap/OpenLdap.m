@@ -114,13 +114,6 @@
                     ldapRow.surname = cn[0];
                     ldapRow.givenName = cn[1];
                     ldapRow.identifier = cn[2];
-                    if ([key rangeOfString:@"o=ESTEID (DIGI-ID)"].location != NSNotFound) {
-                        ldapRow.type = @"DIGI-ID";
-                    } else if ([key rangeOfString:@"o=ESTEID (MOBIIL-ID)"].location != NSNotFound) {
-                        ldapRow.type = @"MOBILE-ID";
-                    } else {
-                        ldapRow.type = @"ID-CARD";
-                    }
                 } else {
                     ldapRow.identifier = cn[0];
                     ldapRow.type = @"E-SEAL";
