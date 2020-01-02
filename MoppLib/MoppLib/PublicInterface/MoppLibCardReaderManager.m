@@ -212,7 +212,7 @@
 
 #pragma mark - ReaderInterfaceDelegate
 
-- (void) readerInterfaceDidChange:(BOOL)attached {
+- (void) readerInterfaceDidChange:(BOOL)attached bluetoothID:(NSString *)bluetoothID {
     if (attached) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self updateStatus:ReaderConnected];
