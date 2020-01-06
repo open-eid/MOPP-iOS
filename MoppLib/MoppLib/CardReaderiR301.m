@@ -284,7 +284,7 @@
     
 }
 
-- (void)readerInterfaceDidChange:(BOOL)attached {
+- (void) readerInterfaceDidChange:(BOOL)attached bluetoothID:(NSString *)bluetoothID {
     
 }
 
