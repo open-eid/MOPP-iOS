@@ -186,6 +186,9 @@ private:
         NSURL *libraryPath = [[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] lastObject];
         NSString *libraryPathWithFilename = [libraryPath.path stringByAppendingPathComponent:filename];
         
+        [self removeFilesWithExtension:@"xml" fromDirectory:[[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] lastObject]];
+        [self removeFilesWithExtension:@"etag" fromDirectory:[[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] lastObject]];
+        
         NSError *fileRemoveError;
         if ([[NSFileManager defaultManager] fileExistsAtPath:libraryPathWithFilename]) {
             [[NSFileManager defaultManager] removeItemAtPath:libraryPathWithFilename error:&fileRemoveError];
@@ -206,9 +209,33 @@ private:
     }];
 }
 
+- (void)removeFilesWithExtension:(NSString *)extension fromDirectory:(NSURL *)directory {
+    NSError *error;
+    NSError* fileRemoveError;
+    
+    NSArray *cachedFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directory.path error:&error];
+    
+    for (NSString* file in cachedFiles) {
+        if ([[file pathExtension] isEqual: extension]) {
+            [[NSFileManager defaultManager] removeItemAtPath:[directory.path stringByAppendingPathComponent:file] error:&fileRemoveError];
+            if (fileRemoveError) {
+                NSLog(@"%@", fileRemoveError);
+            }
+        }
+    }
+}
+
 - (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString*)tsUrl withMoppConfiguration:(MoppLibConfiguration*)moppConfiguration {
     
-  [self setupTSLFiles];
+    NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString* savedAppVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"appVersion"];
+    if (!savedAppVersion || currentVersion != savedAppVersion) {
+        
+        [self setupTSLFiles];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:@"appVersion"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
   
   MoppLibSOAPManager.sharedInstance.useTestDigiDocService = useTestDDS;
   
