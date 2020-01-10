@@ -54,7 +54,11 @@ class MoppViewController : UIViewController {
     }
     
     fileprivate func setupStatusBarStyle() {
-        MoppApp.instance.statusBarStyle = (lightContentStatusBarStyle ? .lightContent : .default)
+        if #available(iOS 13.0, *) {
+            MoppApp.instance.statusBarStyle = (lightContentStatusBarStyle ? .lightContent : .darkContent)
+        } else {
+            MoppApp.instance.statusBarStyle = (lightContentStatusBarStyle ? .lightContent : .default)
+        }
     }
     
     fileprivate func restoreStatusBarStyle() {
