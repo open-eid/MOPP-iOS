@@ -39,6 +39,10 @@
     [[MoppLibDigidocManager sharedInstance] setupWithSuccess:success andFailure:failure usingTestDigiDocService:useTestDDS andTSUrl:tsUrl withMoppConfiguration: moppConfiguration];
 }
 
+- (void)checkVersionUpdateAndMissingFiles:(NSURL *)directory {
+    [[MoppLibDigidocManager sharedInstance] checkVersionUpdateAndMissingFiles:directory];
+}
+
 - (NSString *)moppLibVersion {
   return [[MoppLibDigidocManager sharedInstance] getMoppLibVersion];
 }

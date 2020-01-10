@@ -186,9 +186,6 @@ private:
         NSURL *libraryPath = [[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] lastObject];
         NSString *libraryPathWithFilename = [libraryPath.path stringByAppendingPathComponent:filename];
         
-        [self removeFilesWithExtension:@"xml" fromDirectory:[[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] lastObject]];
-        [self removeFilesWithExtension:@"etag" fromDirectory:[[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] lastObject]];
-        
         NSError *fileRemoveError;
         if ([[NSFileManager defaultManager] fileExistsAtPath:libraryPathWithFilename]) {
             [[NSFileManager defaultManager] removeItemAtPath:libraryPathWithFilename error:&fileRemoveError];
@@ -225,17 +222,25 @@ private:
     }
 }
 
-- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString*)tsUrl withMoppConfiguration:(MoppLibConfiguration*)moppConfiguration {
-    
-    NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+- (void)checkVersionUpdateAndMissingFiles:(NSURL *)directory {
+    NSString* currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     NSString* savedAppVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"appVersion"];
-    if (!savedAppVersion || currentVersion != savedAppVersion) {
+    if (!savedAppVersion || currentVersion != savedAppVersion ||
+        ![[NSFileManager defaultManager] fileExistsAtPath:[directory.path stringByAppendingPathComponent:@"EE.xml"]] ||
+        ![[NSFileManager defaultManager] fileExistsAtPath:[directory.path stringByAppendingPathComponent:@"eu-lotl.xml"]]) {
+        
+        [self removeFilesWithExtension:@"xml" fromDirectory:[[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] lastObject]];
+        [self removeFilesWithExtension:@"tmp" fromDirectory:[[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] lastObject]];
+        [self removeFilesWithExtension:@"etag" fromDirectory:[[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] lastObject]];
         
         [self setupTSLFiles];
         
         [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:@"appVersion"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+}
+
+- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString*)tsUrl withMoppConfiguration:(MoppLibConfiguration*)moppConfiguration {
   
   MoppLibSOAPManager.sharedInstance.useTestDigiDocService = useTestDDS;
   

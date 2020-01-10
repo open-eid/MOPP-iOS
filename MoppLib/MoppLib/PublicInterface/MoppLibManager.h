@@ -46,6 +46,8 @@ typedef NS_ENUM(NSUInteger, EIDType) {
  */
 - (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString *)tsUrl withMoppConfiguration:(MoppLibConfiguration *)moppConfiguration;
 
+- (void)checkVersionUpdateAndMissingFiles:(NSURL *)directory;
+
 - (NSString *)moppLibVersion;
 - (NSString *)libdigidocppVersion;
 + (NSString *)defaultTSUrl;
