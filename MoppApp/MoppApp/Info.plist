@@ -107,7 +107,7 @@
 		<string>armv7</string>
 	</array>
 	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleDefault</string>
+	<string>UIStatusBarStyleDarkContent</string>
 	<key>UISupportedExternalAccessoryProtocols</key>
 	<array>
 		<string>com.ftsafe.bR301</string>
