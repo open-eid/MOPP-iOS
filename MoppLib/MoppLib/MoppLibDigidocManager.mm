@@ -215,9 +215,41 @@ private:
     }];
 }
 
-- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString*)tsUrl withMoppConfiguration:(MoppLibConfiguration*)moppConfiguration {
+- (void)removeFilesWithExtension:(NSString *)extension fromDirectory:(NSURL *)directory {
+    NSError *error;
+    NSError* fileRemoveError;
 
-  [self setupTSLFiles];
+    NSArray *cachedFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directory.path error:&error];
+
+    for (NSString* file in cachedFiles) {
+        if ([[file pathExtension] isEqual: extension]) {
+            [[NSFileManager defaultManager] removeItemAtPath:[directory.path stringByAppendingPathComponent:file] error:&fileRemoveError];
+            if (fileRemoveError) {
+                NSLog(@"%@", fileRemoveError);
+            }
+        }
+    }
+}
+
+- (void)checkVersionUpdateAndMissingFiles:(NSURL *)directory {
+    NSString* currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString* savedAppVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"appVersion"];
+    if (!savedAppVersion || currentVersion != savedAppVersion ||
+        ![[NSFileManager defaultManager] fileExistsAtPath:[directory.path stringByAppendingPathComponent:@"EE.xml"]] ||
+        ![[NSFileManager defaultManager] fileExistsAtPath:[directory.path stringByAppendingPathComponent:@"eu-lotl.xml"]]) {
+
+        [self removeFilesWithExtension:@"xml" fromDirectory:[[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] lastObject]];
+        [self removeFilesWithExtension:@"tmp" fromDirectory:[[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] lastObject]];
+        [self removeFilesWithExtension:@"etag" fromDirectory:[[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] lastObject]];
+
+        [self setupTSLFiles];
+
+        [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:@"appVersion"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+
+- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString*)tsUrl withMoppConfiguration:(MoppLibConfiguration*)moppConfiguration {
 
   MoppLibSOAPManager.sharedInstance.useTestDigiDocService = useTestDDS;
 
@@ -385,7 +417,7 @@ private:
         } catch(const digidoc::Exception &e) {
           moppLibSignature.status = Invalid;
         }
-          
+
         moppLibSignature.issuerName = [NSString stringWithCString:signature->signingCertificate().issuerName().c_str() encoding:[NSString defaultCStringEncoding]];
 
         [signatures addObject:moppLibSignature];

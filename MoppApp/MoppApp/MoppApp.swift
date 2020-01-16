@@ -120,6 +120,9 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         if isDeviceJailbroken {
             window?.rootViewController = UIStoryboard.jailbreak.instantiateInitialViewController()
         } else {
+            
+            MoppLibManager().checkVersionUpdateAndMissingFiles(FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0])
+            
             // Get remote configuration
             SettingsConfiguration().getCentralConfiguration()
             

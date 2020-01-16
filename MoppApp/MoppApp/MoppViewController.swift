@@ -36,40 +36,19 @@ class MoppViewController : UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        setupStatusBarStyle()
+        setNeedsStatusBarAppearanceUpdate()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        restoreStatusBarStyle()
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         spinnerView?.updateFrame()
-    }
-    
-    fileprivate func setupStatusBarStyle() {
-        MoppApp.instance.statusBarStyle = (lightContentStatusBarStyle ? .lightContent : .default)
-    }
-    
-    fileprivate func restoreStatusBarStyle() {
-        if let presentingVC = presentingViewController as? MoppViewController {
-            presentingVC.setupStatusBarStyle()
-        }
-        else if let navController = navigationController
-            , navController.viewControllers.count > 1
-            , let prevVC = navController.viewControllers.last as? MoppViewController {
-            
-            prevVC.setupStatusBarStyle()
-        }
-        else {
-            MoppApp.instance.statusBarStyle = .default
-        }
     }
     
     var spinnerView: SpinnerView? {
