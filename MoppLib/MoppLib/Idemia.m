@@ -321,7 +321,7 @@ NSString *kDecrypt = @"00 2A 80 86 %02X %@";
                 [paddedPin appendBytes:ch length:1];
             }
             
-            NSString *replaceCmd = [NSString stringWithFormat:kReplaceCode, type == CodeTypePin1 ? 1 : 0x85, [paddedPin length], paddedPin];
+            NSString *replaceCmd = [NSString stringWithFormat:kReplaceCode, type == CodeTypePin1 ? 1 : 0x85, [paddedPin length], [paddedPin hexString]];
             [_reader transmitCommand:replaceCmd success:^(NSData *responseData) {
                 NSError *error = [self errorForPinActionResponse:responseData];
                 if (error) {
