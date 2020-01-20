@@ -17,15 +17,8 @@ MOPP-iOS is using unofficial static version of libdigidoc. libdigidoc is used in
 
 
 ## Building source code with Xcode
-This project uses cocoapods for dependencies management. If you don't have cocoapods installed in your machine, or are using older version of cocoapods, you can install it in terminal by running command "sudo gem install cocoapods". For more information go to https://cocoapods.org/
-
-Once you have cocoapods installed, you need to install podfiles, that this project requires.
- 1. In terminal navigate to MoppApp folder in project.
- 2. Run command "pod install".
-
-In the future, when you pull updates from repo, you may need to repeat "pod install". This is necessary when there are changes to pod dependencies. When only pod version has changed, you may use "pod update" instead.
-
-Make sure you open project with MoppApp.xcworkspace after installing pod files. Use MoppApp target for building.
+Installation instructions are available in Wiki: 
+[Building source code with Xcode](https://github.com/open-eid/MOPP-iOS/wiki/Building-source-code-with-Xcode)
 
 ## Signing documents in third-party application
 In [releases](https://github.com/open-eid/MOPP-iOS/releases) you will find framework, that you can use in your own application to implement document signing feature. For more detailed instructions check out [wiki page](https://github.com/open-eid/MOPP-iOS/wiki).
