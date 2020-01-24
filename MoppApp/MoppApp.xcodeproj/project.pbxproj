@@ -338,6 +338,8 @@
 		C5FA0BEE20A19E4200A208E5 /* JailbreakViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0BED20A19E4200A208E5 /* JailbreakViewController.swift */; };
 		DF0075C223324AC600BAB3DE /* MoppConfigurationDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */; };
 		DF900C972386768F00887385 /* tslFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DF900C94238567CA00887385 /* tslFiles.bundle */; };
+		DFBF242E23DB0923008DD8D0 /* LOTLDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */; };
+		DFBF242F23DB0923008DD8D0 /* TSLDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF242D23DB0923008DD8D0 /* TSLDownloader.swift */; };
 		DFF3C3AE233231190079458A /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3AC233231180079458A /* Configuration.swift */; };
 		DFF3C3AF233231190079458A /* SettingsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3AD233231190079458A /* SettingsConfiguration.swift */; };
 		DFF3C3B22332314A0079458A /* RuntimeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3B02332314A0079458A /* RuntimeError.swift */; };
@@ -608,6 +610,8 @@
 		CD15B1228E3C241B478D570C /* Pods-MoppAppTestEnv.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppAppTestEnv.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppAppTestEnv/Pods-MoppAppTestEnv.debug.xcconfig"; sourceTree = "<group>"; };
 		DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoppConfigurationDecoder.swift; sourceTree = "<group>"; };
 		DF900C94238567CA00887385 /* tslFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = tslFiles.bundle; sourceTree = "<group>"; };
+		DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOTLDecoder.swift; sourceTree = "<group>"; };
+		DFBF242D23DB0923008DD8D0 /* TSLDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLDownloader.swift; sourceTree = "<group>"; };
 		DFF3C3AC233231180079458A /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		DFF3C3AD233231190079458A /* SettingsConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsConfiguration.swift; sourceTree = "<group>"; };
 		DFF3C3B02332314A0079458A /* RuntimeError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeError.swift; sourceTree = "<group>"; };
@@ -1104,6 +1108,8 @@
 		E42B08AB1E1EFC0500EA24A3 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */,
+				DFBF242D23DB0923008DD8D0 /* TSLDownloader.swift */,
 				DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */,
 				E42B08AD1E1EFC1800EA24A3 /* DateFormatter.swift */,
 				E42B08B01E1F049B00EA24A3 /* FileManager.swift */,
@@ -1742,6 +1748,7 @@
 				C593D9EE208F1C09000B3BF6 /* SettingsHeaderCell.swift in Sources */,
 				3921CAA920B5A54600BF3178 /* ContainerImportAddressees.swift in Sources */,
 				C56C6206201A189600CCC2A5 /* MenuHeaderCell.swift in Sources */,
+				DFBF242E23DB0923008DD8D0 /* LOTLDecoder.swift in Sources */,
 				C50DCD441FDD7E4A00D48E16 /* DataFilePreviewViewController.swift in Sources */,
 				C50FC431224BA3B20041925C /* ScreenDisguise.swift in Sources */,
 				C50787881FEA807500D9AAC0 /* UIViewController+Additions.swift in Sources */,
@@ -1769,6 +1776,7 @@
 				C56C6208201A1B4C00CCC2A5 /* MenuSeparatorCell.swift in Sources */,
 				39CDA7EE20ADBE93006E2E9F /* CryptoViewController.swift in Sources */,
 				C52E82781FC1D3ED0074B280 /* MenuViewController.swift in Sources */,
+				DFBF242F23DB0923008DD8D0 /* TSLDownloader.swift in Sources */,
 				C50DCCC71FC32A2500D48E16 /* MyeIDViewController.swift in Sources */,
 				DFF3C3B5233231F20079458A /* Notification+Additions.swift in Sources */,
 				C50DCD071FC7126100D48E16 /* ContainerSignatureCell.swift in Sources */,

@@ -113,6 +113,28 @@ class MoppFileManager {
         }
         return array
     }
+    
+    func libraryDirectoryPath() -> String {
+        let paths = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)
+        let documentsDirectory: String = paths[0]
+        return documentsDirectory
+    }
+    
+    func libraryFiles() -> [URL] {
+        let directory = fileManager.urls(for: .libraryDirectory, in: .userDomainMask).first!
+        if let urlArr = try? fileManager.contentsOfDirectory(at: directory, includingPropertiesForKeys: [.contentModificationDateKey], options: .skipsHiddenFiles) {
+            return urlArr.map { url -> (URL, Date) in
+                (url, (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? Date.distantPast)
+            }
+            .sorted { $0.1 > $1.1 }
+            .map { $0.0 }
+            .filter { file in
+                return !file.path.filenameComponents().ext.isEmpty
+            }
+        }
+        
+        return []
+    }
 
     func createTestContainer() -> String {
         let fileName = "\(MoppDateFormatter.shared.hHmmssddMMYYYY(toString: Date())).\(DefaultContainerFormat)"

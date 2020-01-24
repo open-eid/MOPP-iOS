@@ -121,10 +121,14 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
             window?.rootViewController = UIStoryboard.jailbreak.instantiateInitialViewController()
         } else {
             
-            MoppLibManager().checkVersionUpdateAndMissingFiles(FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0])
-            
             // Get remote configuration
             SettingsConfiguration().getCentralConfiguration()
+        
+            MoppLibManager().checkVersionUpdateAndMissingFiles(FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0], completionHandler: {
+                DispatchQueue.global(qos: .background).async {
+                    TSLDownloader().checkForTSLUpdate()
+                }
+            })
             
             let notification = Notification(name: .configurationLoaded)
             NotificationCenter.default.post(notification)
