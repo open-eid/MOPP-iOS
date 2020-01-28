@@ -25,7 +25,7 @@ import Foundation
 
 class TSLDownloader: NSObject {
     func checkForTSLUpdate() {
-        if !isEtagFileInLibraryDirectory() || isTSLUpdateNeededOrEtagChanged() {
+        if !isEtagFileInLibraryDirectory() || isTSLUpdateNeeded() {
             print("Updating TSL...")
             updateCountryTSL()
         }
@@ -39,7 +39,7 @@ class TSLDownloader: NSObject {
         }
     }
     
-    private func isTSLUpdateNeededOrEtagChanged() -> Bool {
+    private func isTSLUpdateNeeded() -> Bool {
         if isEtagFileInLibraryDirectory() {
             for file in MoppFileManager.shared.libraryFiles() {
                 do {
@@ -47,18 +47,14 @@ class TSLDownloader: NSObject {
                         if isEtagNonExistantOrChanged(file: file) {
                             print("ETAG changed")
                             saveEtagValues(filename: file.lastPathComponent, etagValue: try String(contentsOfFile: file.path))
-                            return true
                         } else {
                             return false
                         }
                     }
                 } catch {
                     print(error)
-                    return true
                 }
             }
-        } else {
-            return true
         }
         
         return true
