@@ -206,11 +206,13 @@ private:
             }
         }
         NSError *copyingError;
-        BOOL status = [[NSFileManager defaultManager] copyItemAtPath:fileURL.path toPath:libraryPathWithFilename error:&copyingError];
-        if (!status) {
-            NSLog(@"Error while copying file: %@\n", copyingError);
-        } else {
-            NSLog(@"Successfully copied file %@\n", filename);
+        if(![filename hasPrefix:@"."]) {
+            BOOL status = [[NSFileManager defaultManager] copyItemAtPath:fileURL.path toPath:libraryPathWithFilename error:&copyingError];
+            if (!status) {
+                NSLog(@"Error while copying file: %@\n", copyingError);
+            } else {
+                NSLog(@"Successfully copied file %@\n", filename);
+            }
         }
     }];
 }
@@ -231,7 +233,7 @@ private:
     }
 }
 
-- (void)checkVersionUpdateAndMissingFiles:(NSURL *)directory {
+- (void)checkVersionUpdateAndMissingFiles:(NSURL *)directory completionHandler:(void (^)())completionHandler {
     NSString* currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     NSString* savedAppVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"appVersion"];
     if (!savedAppVersion || currentVersion != savedAppVersion ||
@@ -246,6 +248,8 @@ private:
 
         [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:@"appVersion"];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        completionHandler();
     }
 }
 
