@@ -260,7 +260,9 @@ class MoppFileManager {
                     return
                 }
                 
-                MoppFileManager.shared.createFile(atPath: destinationPath, contents: data)
+                if !FileManager.default.fileExists(atPath: destinationPath) {
+                    MoppFileManager.shared.createFile(atPath: destinationPath, contents: data)
+                }
                 
                 if isUrlSSR {
                     url.stopAccessingSecurityScopedResource()

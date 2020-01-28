@@ -202,7 +202,7 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
                 do {
                     let newData: Data = try Data(contentsOf: newUrl)
                     let fileName: String = newUrl.deletingPathExtension().lastPathComponent
-                    let fileURL: URL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("\(fileName).asice")
+                    let fileURL: URL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("temp", isDirectory: true).appendingPathComponent("\(fileName).asice")
                     do {
                         try newData.write(to: fileURL, options: .atomic)
                         newUrl = fileURL
