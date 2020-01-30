@@ -158,7 +158,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             
             getFetchedData(fromUrl: "\(getDefaultMoppConfiguration().CENTRALCONFIGURATIONSERVICEURL)/config.rsa") { (centralSignature, signatureError) in
                 if (signatureError != nil) {
-                    print(signatureError!)
+                    NSLog(signatureError!.localizedDescription)
                 }
                 guard let centralSignature = centralSignature else {
                     self.handleCacheConfiguration()
@@ -167,7 +167,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                 if SignatureVerifier().hasSignatureChanged(oldSignature: cachedSignature!, newSignature: centralSignature) {
                     self.getFetchedData(fromUrl: "\(self.getDefaultMoppConfiguration().CENTRALCONFIGURATIONSERVICEURL)/config.json") { (centralConfig, configError) in
                         if (configError != nil) {
-                            print(configError!)
+                            NSLog(configError!.localizedDescription)
                         }
                         guard let centralConfig = centralConfig else {
                             self.handleCacheConfiguration()
@@ -229,7 +229,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     private func getFetchedData(fromUrl url: String, completionHandler: @escaping (String?, Error?) -> Void) {
         fetchDataFromCentralConfiguration(fromUrl: url) { (data, error) in
             if (error != nil) {
-                print(error!)
+                MSLog(error!.localizedDescription)
             }
             guard let data = data else { return }
             

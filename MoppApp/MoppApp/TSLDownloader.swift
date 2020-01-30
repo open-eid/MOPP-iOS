@@ -26,7 +26,7 @@ import Foundation
 class TSLDownloader: NSObject {
     func checkForTSLUpdate() {
         if !isEtagFileInLibraryDirectory() || isTSLUpdateNeeded() {
-            print("Updating TSL...")
+            MSLog("Updating TSL...")
             updateCountryTSL()
         }
     }
@@ -45,14 +45,14 @@ class TSLDownloader: NSObject {
                 do {
                     if file.pathExtension == "etag" {
                         if isEtagNonExistantOrChanged(file: file) {
-                            print("ETAG changed")
+                            MSLog("ETAG changed")
                             saveEtagValues(filename: file.lastPathComponent, etagValue: try String(contentsOfFile: file.path))
                         } else {
                             return false
                         }
                     }
                 } catch {
-                    print(error)
+                    MSLog(error.localizedDescription)
                 }
             }
         }
@@ -64,12 +64,12 @@ class TSLDownloader: NSObject {
         let userDefaults = UserDefaults.standard
         do {
             let etagValue = try String(contentsOfFile: file.path)
-            print("Etag value on device: \(userDefaults.string(forKey: file.lastPathComponent) ?? ""), Etag value in file: \(etagValue)")
+            MSLog("Etag value on device: \(userDefaults.string(forKey: file.lastPathComponent) ?? ""), Etag value in file: \(etagValue)")
             if (userDefaults.string(forKey: file.lastPathComponent) == nil || userDefaults.string(forKey: file.lastPathComponent) != etagValue) {
                 return true
             }
         } catch {
-            print(error)
+            MSLog(error.localizedDescription)
             return false
         }
         
@@ -98,9 +98,9 @@ class TSLDownloader: NSObject {
     
     private func updateTSL(fullFileName: String) {
         let fileName = URL(string: fullFileName)!.deletingPathExtension().lastPathComponent
-        print("Downloading new TSL for \(fullFileName) from \(Configuration.getConfiguration().TSLURL)")
+        MSLog("Downloading new TSL for \(fullFileName) from \(Configuration.getConfiguration().TSLURL)")
         LOTLDecoder().getUrl(LOTLUrl: Configuration.getConfiguration().TSLURL, country: fileName) { (url) in
-            print("Found TSL url: \(url)")
+            MSLog("Found TSL url: \(url)")
             self.downloadFile(fromUrl: URL(string: url)!, moveTo: URL(string: MoppFileManager.shared.libraryDirectoryPath())!, fileName: fullFileName)
             
         }

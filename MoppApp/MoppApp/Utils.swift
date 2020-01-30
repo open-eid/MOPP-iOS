@@ -43,7 +43,7 @@ struct DeviceType
 }
 
 func MSLog(_ format: String, _ arguments: Any...) {
-    print(format, arguments)
+    NSLog(format, arguments)
 }
 
 let kDefaultLanguageID = "en"

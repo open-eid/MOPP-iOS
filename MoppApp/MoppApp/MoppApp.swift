@@ -85,6 +85,18 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
     }
 
     func didFinishLaunchingWithOptions(launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+        
+        // Log console logs to a file in Documents folder
+        #if DEBUG
+            let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+            let documentsDirectory: String = paths[0]
+            let currentDate = MoppDateFormatter().ddMMYYYY(toString: Date())
+            let fileName = "\(currentDate).log"
+            let logFilePath = URL(string: documentsDirectory)?.appendingPathComponent(fileName)
+            freopen(logFilePath!.absoluteString, "a+", stderr)
+        #endif
+        
+        
         loadNibs()
         // Set navBar not translucent by default.
         Crashlytics.sharedInstance().delegate = self
@@ -207,10 +219,10 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
                         try newData.write(to: fileURL, options: .atomic)
                         newUrl = fileURL
                     } catch {
-                        print("Error writing to file: \(error)")
+                        MSLog("Error writing to file: \(error)")
                     }
                 } catch {
-                    print("Error getting directory: \(error)")
+                    MSLog("Error getting directory: \(error)")
                 }
             }
 
@@ -389,7 +401,7 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
                 return "application/vnd.etsi.asic-e+zip"
             }
         } catch {
-            print("Error getting url data \(error)")
+            MSLog("Error getting url data \(error)")
         }
         
         return "application/octet-stream"
