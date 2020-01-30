@@ -143,8 +143,12 @@ public:
     // Comment in / out to see / hide libdigidocpp logs
     // Currently enabled on DEBUG mode
 #if DEBUG
-    virtual int logLevel() const {
-        return 3;
+    virtual int logLevel() const override {
+        return 4;
+    }
+    
+    std::string logFile() const override {
+        return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/libdigidocpp.log"].UTF8String;
     }
 #endif
 
