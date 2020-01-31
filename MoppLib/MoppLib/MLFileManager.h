@@ -32,5 +32,6 @@
 - (NSDictionary *)fileAttributes:(NSString *)filePath;
 - (void)copyFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath;
 - (BOOL)fileExistsAtPath:(NSString *)filePath;
+- (NSString *)documentsDirectoryPath;
 
 @end

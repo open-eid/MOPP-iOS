@@ -88,12 +88,16 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         
         // Log console logs to a file in Documents folder
         #if DEBUG
+            setDebugMode(value: true)
+            
             let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
             let documentsDirectory: String = paths[0]
             let currentDate = MoppDateFormatter().ddMMYYYY(toString: Date())
             let fileName = "\(currentDate).log"
             let logFilePath = URL(string: documentsDirectory)?.appendingPathComponent(fileName)
             freopen(logFilePath!.absoluteString, "a+", stderr)
+        #else
+            setDebugMode(value: false)
         #endif
         
         
@@ -413,6 +417,12 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         }
         
         return ""
+    }
+    
+    private func setDebugMode(value: Bool) -> Void {
+        let defaults = UserDefaults.standard
+        defaults.set(value, forKey: "isDebugMode")
+        defaults.synchronize()
     }
     
 }

@@ -139,18 +139,31 @@ public:
       }
     return x509Cert;
   }
+    
+    bool isDebugMode() const {
+        return [[NSUserDefaults standardUserDefaults] boolForKey:@"isDebugMode"];
+    }
 
     // Comment in / out to see / hide libdigidocpp logs
     // Currently enabled on DEBUG mode
-#if DEBUG
+
     virtual int logLevel() const override {
-        return 4;
+        if (isDebugMode()) {
+            return 4;
+        } else {
+            return 0;
+        }
     }
-    
+
     std::string logFile() const override {
-        return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/libdigidocpp.log"].UTF8String;
+        if (isDebugMode()) {
+            MLFileManager *mlFM = [[MLFileManager alloc] init];
+            NSURL *url = [[NSURL alloc] initWithString:[mlFM documentsDirectoryPath]];
+            return std::string([[[url URLByAppendingPathComponent: @"libdigidocpp.log"] path] UTF8String]);
+        } else {
+            return std::string();
+        }
     }
-#endif
 
 };
 
