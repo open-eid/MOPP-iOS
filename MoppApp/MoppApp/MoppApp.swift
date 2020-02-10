@@ -214,11 +214,12 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
             var newUrl = url
             
             // Sharing from Google Drive may change file extension
-            if determineFileExtension(mimeType: determineMimeType(url: newUrl)) == "asice" {
+            let fileExtension = determineFileExtension(mimeType: determineMimeType(url: newUrl))
+            if fileExtension != "" {
                 do {
                     let newData: Data = try Data(contentsOf: newUrl)
                     let fileName: String = newUrl.deletingPathExtension().lastPathComponent
-                    let fileURL: URL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("temp", isDirectory: true).appendingPathComponent("\(fileName).asice")
+                    let fileURL: URL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("temp", isDirectory: true).appendingPathComponent("\(fileName).\(fileExtension)")
                     do {
                         try newData.write(to: fileURL, options: .atomic)
                         newUrl = fileURL
@@ -396,13 +397,32 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
     
     private func determineMimeType(url: URL) -> String {
         do {
-            let urlData: Data = try Data(contentsOf: url)
-            var bytes: UInt8 = 0
-            urlData.copyBytes(to: &bytes, count: 1)
+            let fileData = try Data(contentsOf: url)
+            let fileDataAscii = String(data: fileData, encoding: .ascii)
             
-            /* Getting mimetype using UTTypeCopyPreferredTagWithClass does not give the correct result, converting file to NSData and using the content's first byte to get the correct value */
-            if bytes == 80 {
+            var isDdoc: Bool = false
+            var isCdoc: Bool = false
+            
+            if (fileDataAscii?.contains("mimetypeapplication/vnd.etsi.asic-e+zip"))! {
                 return "application/vnd.etsi.asic-e+zip"
+            } else if (fileDataAscii?.contains("mimetypeapplication/vnd.etsi.asic-s+zip"))! {
+                return "application/vnd.etsi.asic-s+zip"
+            } else if ((fileDataAscii?.contains("application/vnd.etsi.asic-e+zip"))! || (fileDataAscii?.contains("BDOC/"))!) {
+                return "application/x-bdoc"
+            }
+            
+            MimeTypeDecoder().getMimeType(fileString: fileDataAscii ?? "") { (containerExtension) in
+                if containerExtension == "ddoc" {
+                    isDdoc = true
+                } else if containerExtension == "cdoc" {
+                    isCdoc = true
+                }
+            }
+            
+            if isDdoc {
+                return "application/x-ddoc"
+            } else if isCdoc {
+                return "application/x-cdoc"
             }
         } catch {
             MSLog("Error getting url data \(error)")
@@ -412,11 +432,20 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
     }
     
     private func determineFileExtension(mimeType: String) -> String {
-        if (mimeType == "application/vnd.etsi.asic-e+zip") {
+        switch mimeType {
+        case "application/vnd.etsi.asic-e+zip":
             return "asice"
+        case "application/vnd.etsi.asic-s+zip":
+            return "asics"
+        case "application/x-ddoc":
+            return "ddoc"
+        case "application/x-bdoc":
+            return "bdoc"
+        case "application/x-cdoc":
+            return "cdoc"
+        default:
+            return ""
         }
-        
-        return ""
     }
     
     private func setDebugMode(value: Bool) -> Void {
