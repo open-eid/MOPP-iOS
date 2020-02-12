@@ -71,7 +71,9 @@ public:
   }
 
   virtual std::string TSUrl() const override {
-    return moppLibConfiguration.TSAURL.UTF8String;
+      NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+      NSString *tsaUrl = [defaults stringForKey:@"kTimestampUrlKey"];
+      return [tsaUrl length] != 0 ? tsaUrl.UTF8String : moppLibConfiguration.TSAURL.UTF8String;
   }
 
   virtual std::string PKCS12Cert() const override {
