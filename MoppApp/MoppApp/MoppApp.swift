@@ -401,29 +401,19 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
             let fileDataAscii = String(data: fileData, encoding: .ascii)
             
             var isDdoc: Bool = false
-            var isCdoc: Bool = false
-            
-            if (fileDataAscii?.contains("mimetypeapplication/vnd.etsi.asic-e+zip"))! {
-                return "application/vnd.etsi.asic-e+zip"
-            } else if (fileDataAscii?.contains("mimetypeapplication/vnd.etsi.asic-s+zip"))! {
-                return "application/vnd.etsi.asic-s+zip"
-            } else if ((fileDataAscii?.contains("application/vnd.etsi.asic-e+zip"))! || (fileDataAscii?.contains("BDOC/"))!) {
-                return "application/x-bdoc"
-            }
             
             MimeTypeDecoder().getMimeType(fileString: fileDataAscii ?? "") { (containerExtension) in
                 if containerExtension == "ddoc" {
                     isDdoc = true
-                } else if containerExtension == "cdoc" {
-                    isCdoc = true
                 }
             }
             
             if isDdoc {
                 return "application/x-ddoc"
-            } else if isCdoc {
-                return "application/x-cdoc"
             }
+            
+            return MimeTypeExtractor().getMimeTypeFromContainer(filePath: url)
+            
         } catch {
             MSLog("Error getting url data \(error)")
         }
@@ -439,8 +429,6 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
             return "asics"
         case "application/x-ddoc":
             return "ddoc"
-        case "application/x-bdoc":
-            return "bdoc"
         case "application/x-cdoc":
             return "cdoc"
         default:
