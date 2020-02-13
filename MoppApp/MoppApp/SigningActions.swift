@@ -165,6 +165,8 @@ extension SigningContainerViewController : IdCardSignViewControllerDelegate {
                 guard let nsError = error as NSError? else { return }
                 if nsError.code == Int(MoppLibErrorCode.moppLibErrorPinBlocked.rawValue) {
                     errorAlert(message: L(.pin2BlockedAlert))
+                } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorTooManyRequests.rawValue) {
+                    errorAlert(message: L(.signingErrorTooManyRequests))
                 } else {
                     errorAlert(message: L(.genericErrorMessage))
                 }

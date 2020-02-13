@@ -42,6 +42,7 @@ typedef enum {
   kDDSErrorCodeUserCertificateSuspended = 304,
   kDDSErrorCodeUserCertificateExpired = 305,
   kDDSErrorCodeMessageExceedsVolumeLimit = 413,
+  kDDSErrorCodeMessageTooManyRequests = 429,
   kDDSErrorCodeSimultaneousRequestsLimitExceeded = 503
 } DDSErrorCode;
 
@@ -131,6 +132,10 @@ typedef enum {
   return [self error:moppLibErrorRestrictedApi withMessage:@"This API method is not supported on third-party applications."];
 }
 
++ (NSError *)tooManyRequests {
+  return [self error:moppLibErrorTooManyRequests withMessage:@"digidoc-service-error-too-many-requests"];
+}
+
 + (NSError *)DDSErrorWith:(NSInteger)errorCode {
   NSString *errorMessage;
   switch (errorCode) {
@@ -181,6 +186,9 @@ typedef enum {
       break;
     case kDDSErrorCodeSimultaneousRequestsLimitExceeded:
       errorMessage = @"digidoc-service-error-simlutaneous-requests-limit-exceeded";
+      break;
+    case kDDSErrorCodeMessageTooManyRequests:
+      errorMessage = @"digidoc-service-error-message-too-many-requests";
       break;
     default:
       errorMessage = @"digidoc-service-error-unknown";
