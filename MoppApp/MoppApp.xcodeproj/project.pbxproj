@@ -337,8 +337,8 @@
 		C5FA0BEC20A19AE100A208E5 /* Jailbreak.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5FA0BEB20A19AE100A208E5 /* Jailbreak.storyboard */; };
 		C5FA0BEE20A19E4200A208E5 /* JailbreakViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0BED20A19E4200A208E5 /* JailbreakViewController.swift */; };
 		DF0075C223324AC600BAB3DE /* MoppConfigurationDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */; };
-		DF3D29C923F6AD55007181B8 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29C823F6AD55007181B8 /* SkSigningLib.framework */; };
-		DF3D29CA23F6AD55007181B8 /* SkSigningLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29C823F6AD55007181B8 /* SkSigningLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF3D29CF23F6B3CF007181B8 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; };
+		DF3D29D023F6B3CF007181B8 /* SkSigningLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF900C972386768F00887385 /* tslFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DF900C94238567CA00887385 /* tslFiles.bundle */; };
 		DFBF242E23DB0923008DD8D0 /* LOTLDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */; };
 		DFBF242F23DB0923008DD8D0 /* TSLDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF242D23DB0923008DD8D0 /* TSLDownloader.swift */; };
@@ -432,7 +432,7 @@
 			files = (
 				E4250D071E0A911100530370 /* MoppLib.framework in Embed Frameworks */,
 				393B66E920DB9C19001DC89B /* CryptoLib.framework in Embed Frameworks */,
-				DF3D29CA23F6AD55007181B8 /* SkSigningLib.framework in Embed Frameworks */,
+				DF3D29D023F6B3CF007181B8 /* SkSigningLib.framework in Embed Frameworks */,
 				393B66E320DB94CD001DC89B /* cdoc.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -612,9 +612,7 @@
 		C5FA0BED20A19E4200A208E5 /* JailbreakViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JailbreakViewController.swift; sourceTree = "<group>"; };
 		CD15B1228E3C241B478D570C /* Pods-MoppAppTestEnv.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppAppTestEnv.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppAppTestEnv/Pods-MoppAppTestEnv.debug.xcconfig"; sourceTree = "<group>"; };
 		DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoppConfigurationDecoder.swift; sourceTree = "<group>"; };
-		DF3D29C223F6A9D6007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF3D29C523F6AB80007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF3D29C823F6AD55007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF900C94238567CA00887385 /* tslFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = tslFiles.bundle; sourceTree = "<group>"; };
 		DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOTLDecoder.swift; sourceTree = "<group>"; };
 		DFBF242D23DB0923008DD8D0 /* TSLDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLDownloader.swift; sourceTree = "<group>"; };
@@ -675,7 +673,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C55BB1CC2091BD2000618AC4 /* WebKit.framework in Frameworks */,
-				DF3D29C923F6AD55007181B8 /* SkSigningLib.framework in Frameworks */,
+				DF3D29CF23F6B3CF007181B8 /* SkSigningLib.framework in Frameworks */,
 				E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */,
 				51EAB865AC99468B5AC77D6C /* (null) in Frameworks */,
 				063A655C7ECF195296250527 /* (null) in Frameworks */,
@@ -1134,16 +1132,14 @@
 		F9074FEF4DC2DB83A60B75B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DF3D29C523F6AB80007181B8 /* SkSigningLib.framework */,
-				DF3D29C223F6A9D6007181B8 /* SkSigningLib.framework */,
 				DFF3C3B62332335C0079458A /* Pods_MoppApp.framework */,
 				C5F974D12176465400A167C7 /* MoppLibTestEnv.framework */,
 				390C016A20AC430300827230 /* cdoc.framework */,
 				39852A6120AB2949004CB100 /* CryptoLib.framework */,
 				C55BB1CB2091BD2000618AC4 /* WebKit.framework */,
-				DF3D29C823F6AD55007181B8 /* SkSigningLib.framework */,
 				E4250D051E0A911100530370 /* MoppLib.framework */,
 				9243254AA71C9AE306830EF1 /* Pods_MoppAppTestEnv.framework */,
+				DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
