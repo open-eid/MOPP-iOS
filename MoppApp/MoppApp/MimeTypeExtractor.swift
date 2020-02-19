@@ -32,6 +32,7 @@ class MimeTypeExtractor {
         
         guard let fileHandle = FileHandle(forReadingAtPath: filePath.path) else { return "" }
         let fileData = fileHandle.readData(ofLength: 4)
+        // Check if file is zip format
         if fileData.starts(with: [0x50, 0x4b, 0x03, 0x04]) {
             let unzippedFile: URL = unZipFile(filePath: filePath)
             let isMimeTypeFileExistent = isMimeTypeFilePresent(filePath: unzippedFile)
