@@ -51,7 +51,7 @@ class IdCardViewController : MoppViewController {
     weak var signDelegate: IdCardSignViewControllerDelegate?
     weak var decryptDelegate: IdCardDecryptViewControllerDelegate?
     weak var keyboardDelegate: IdCardSignViewKeyboardDelegate? = nil
-    
+
     enum State {
         case initial
         case readerNotFound     // Reader not found/selected
@@ -61,64 +61,73 @@ class IdCardViewController : MoppViewController {
         case tokenActionInProcess            // Token action in-progress
         case wrongPin
     }
-    
+
     var state: State = .initial {
         didSet {
             updateUI(for: state)
         }
     }
-    
+
     var pinAttemptsLeft: UInt = 0
     var initialStateStartedTime: TimeInterval = 0
     var initialStateExpirationTimer: Timer? = nil
     var idCardPersonalData: MoppLibPersonalData? = nil
-    
+
+    var accessibilityObjects: [NSObject] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+
         MoppLibCardReaderManager.sharedInstance().delegate = self
-    
+
         cancelButton.setTitle(L(.actionCancel).uppercased())
         if isActionDecryption {
             actionButton.setTitle(L(.actionDecrypt).uppercased())
         } else {
             actionButton.setTitle(L(.actionSign).uppercased())
         }
-        
-    
+
+
         pinTextField.delegate = self
         pinTextField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
         pinTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         pinTextField.layer.borderWidth = 1.0
         pinTextField.moppPresentDismissButton()
-   
-        UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, titleLabel)
+
+        if #available(iOS 12, *) {
+            UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, titleLabel)
+        }
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
         if pinTextField != nil {
             pinTextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
         }
     }
-    
+
     @objc func editingChanged(sender: UITextField) {
         let count = (sender.text?.count ?? 0)
         actionButton.isEnabled = count >= 4 && count <= 6
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateUI(for: .initial)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         updateUI(for: state)
-        
+
         self.view.accessibilityElements = [titleLabel, pinTextFieldTitleLabel, pinTextField, cancelButton, actionButton]
-        
+
+        accessibilityObjects = [titleLabel, pinTextFieldTitleLabel, pinTextField, cancelButton, actionButton]
+
+        self.view.accessibilityElements = accessibilityObjects
+        accessibilityElements = accessibilityObjects
+
         // Application did become active
         NotificationCenter.default.addObserver(
             forName: NSNotification.Name.UIApplicationDidBecomeActive,
@@ -133,12 +142,12 @@ class IdCardViewController : MoppViewController {
             self?.loadingSpinner.show(showLoading)
             self?.pinTextField.resignFirstResponder()
         }
-        
+
         NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: OperationQueue.main) { [weak self]_ in
             self?.loadingSpinner.show(true)
             UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, self?.titleLabel)
         }
-        
+
         // Application will resign active
         NotificationCenter.default.addObserver(forName: Notification.Name.UIApplicationWillResignActive, object: nil, queue: OperationQueue.main) {_ in
             MoppLibCardReaderManager.sharedInstance().stopDiscoveringReaders()
@@ -152,23 +161,23 @@ class IdCardViewController : MoppViewController {
         NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { [weak self]_ in
             self?.keyboardDelegate?.idCardPINKeyboardWillDisappear()
         }
-        
+
         MoppLibCardReaderManager.sharedInstance().delegate = self
         MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
         MoppLibCardReaderManager.sharedInstance().delegate = nil
         MoppLibCardReaderManager.sharedInstance().stopDiscoveringReaders()
         NotificationCenter.default.removeObserver(self)
     }
-    
+
     @objc func changeState() {
         state = .readyForTokenAction
     }
-    
+
     func updateUI(for state: State) {
         switch state {
         case .initial:
@@ -181,6 +190,7 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
             loadingSpinner.show(true)
             titleLabel.text = L(.cardReaderStateInitial)
+            self.view.accessibilityElements = [titleLabel, pinTextFieldTitleLabel, pinTextField, cancelButton, actionButton]
         case .readerNotFound:
             UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification,  L(.cardReaderStateReaderNotFound))
             actionButton.isEnabled = false
@@ -273,9 +283,9 @@ class IdCardViewController : MoppViewController {
                 pinTextFieldTitleLabel.text = pinAttemptsLeft > 1 ? L(.wrongPin2, [pinAttemptsLeft]) : L(.wrongPin2Single)
                 UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, pinTextFieldTitleLabel)
             }
-            
+
         }
-        
+
         if state == .initial {
             initialStateExpirationTimer = Timer.scheduledTimer(withTimeInterval: 600, repeats: false, block: { [weak self]_ in
                 DispatchQueue.main.async {
@@ -286,10 +296,20 @@ class IdCardViewController : MoppViewController {
             initialStateExpirationTimer?.invalidate()
             initialStateExpirationTimer = nil
         }
-        
+
         view.layoutIfNeeded()
+
+        for subview in self.view.subviews {
+            if subview.isKind(of: UIView.self) {
+                self.view.isAccessibilityElement = false
+                subview.accessibilityElements = [titleLabel, pinTextFieldTitleLabel, pinTextField, cancelButton, actionButton]
+                UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, titleLabel)
+            }
+        }
+
+
     }
-    
+
     @IBAction func cancelAction() {
         let actionCancelled = state == .tokenActionInProcess
         dismiss(animated: false) {
@@ -299,10 +319,10 @@ class IdCardViewController : MoppViewController {
             if actionCancelled {
                 error = .actionCancelled
             }
-            sself.signDelegate?.idCardSignDidFinished(cancelled: true, success: false, error: error) 
+            sself.signDelegate?.idCardSignDidFinished(cancelled: true, success: false, error: error)
         }
     }
-    
+
     @IBAction func tokenAction() {
         guard let pin = pinTextField.text else {
             // TODO: Display error message about empty PIN 2 text field
@@ -332,7 +352,7 @@ class IdCardViewController : MoppViewController {
                     }
                 }
             )
-    
+
         } else {
             MoppLibContainerActions.sharedInstance().addSignature(containerPath, withPin2:pin, success: { [weak self] container, signatureAdded in
                 DispatchQueue.main.async {
@@ -355,9 +375,9 @@ class IdCardViewController : MoppViewController {
                     }
                 }
             })
-        
+
         }
-        
+
     }
 }
 
@@ -370,7 +390,7 @@ extension IdCardViewController : MoppLibCardReaderManagerDelegate {
             state = .idCardNotFound
         case .CardConnected:
             state = .idCardConnected
-            
+
             // Give some time for UI to update before executing data requests
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
                 guard let strongSelf = self else { return }
