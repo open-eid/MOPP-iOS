@@ -25,52 +25,84 @@ import Foundation
 
 class TSLUpdater {
     
-    func checkForTSLUpdates() {
-        guard let tslFilesBundlePath = Bundle.main.path(forResource: "tslFiles", ofType: "bundle") else { return }
-        let tslFilesLibraryPath: String = MoppFileManager.shared.libraryDirectoryPath()
+    private var bundleFiles: [URL] = []
+    private var bundleTSLVersions: [String : Int] = [:]
+    private var libraryTSLVersions: [String : Int] = [:]
+    
+    var isMasterTSLUpdated: Bool = false
+    
+    func checkForTSLUpdates() -> Void {
+        let filesInBundle: [URL] = getCountryFileLocations(inPath: getTSLFilesBundlePath())
+        let filesInLibrary: [URL] = getCountryFileLocations(inPath: getLibraryDirectoryPath())
         
-        let bundleFiles: [URL] = getCountryFileLocations(inPath: tslFilesBundlePath)
-        let libraryFiles: [URL] = getCountryFileLocations(inPath: tslFilesLibraryPath)
+        getFilesInBundle()
         
-        guard bundleFiles.count > 0 else { NSLog("No TSL files found in Bundle"); return }
+        guard getBundleFilesCount() > 0 else { NSLog("No TSL files found in Bundle"); return }
         
-        var bundleTSLVersions: [String : Int] = [:]
-        var libraryTSLVersions: [String : Int] = [:]
+        getBundleFileVersions(filesInBundle: filesInBundle)
         
-        var isMasterTSLUpdated: Bool = false
+        getLibraryFileVersions(filesInLibrary: filesInLibrary)
         
-        for bundleFile in bundleFiles {
+        for (bundleCountry, bundleVersion) in bundleTSLVersions {
+            if !isLibraryTSLVersionsEmpty() {
+                for (libraryCountry, libraryVersion) in libraryTSLVersions {
+                    updateTSLFromBundleIfNeeded(libraryCountry: libraryCountry, libraryVersion: libraryVersion, bundleCountry: bundleCountry, bundleVersion: bundleVersion)
+                }
+                addTSLFromBundleIfNotExistent(bundleCountry: bundleCountry, bundleVersion: bundleVersion)
+            } else {
+                addTSLFromBundleIfNotExistent(bundleCountry: bundleCountry, bundleVersion: bundleVersion)
+            }
+        }
+    }
+    
+    private func getTSLFilesBundlePath() -> String {
+        guard let tslFilesBundlePath: String = Bundle.main.path(forResource: "tslFiles", ofType: "bundle") else { return "" }
+        
+        return tslFilesBundlePath
+    }
+    
+    private func getLibraryDirectoryPath() -> String {
+        return MoppFileManager.shared.libraryDirectoryPath()
+    }
+    
+    private func getBundleFilesCount() -> Int {
+        return bundleFiles.count
+    }
+    
+    private func updateTSLFromBundleIfNeeded(libraryCountry: String, libraryVersion: Int, bundleCountry: String, bundleVersion: Int) -> Void {
+        if isTSLExistent(forCountry: libraryCountry) && bundleCountry == libraryCountry && bundleVersion > libraryVersion {
+            NSLog("\(libraryCountry) needs updating, updating version \(libraryVersion) to \(bundleVersion) from Bundle...")
+            updateCountryTSL(country: bundleCountry)
+            if !isMasterTSLUpdated { updateMasterTSL() }
+        } else {
+            logTSLVersions(bundleCountry: bundleCountry, bundleVersion: bundleVersion, libraryCountry: libraryCountry, libraryVersion: libraryVersion)
+        }
+    }
+    
+    private func addTSLFromBundleIfNotExistent(bundleCountry: String, bundleVersion: Int) -> Void {
+        if !isTSLExistent(forCountry: bundleCountry) {
+            NSLog("\(bundleCountry) (version \(bundleVersion)) does not exist")
+            updateCountryTSL(country: bundleCountry)
+            if !isMasterTSLUpdated { updateMasterTSL() }
+        }
+    }
+    
+    private func getBundleFileVersions(filesInBundle: [URL]) -> Void {
+        for bundleFile in filesInBundle {
             let fileName: String = bundleFile.deletingPathExtension().lastPathComponent
             bundleTSLVersions[fileName] = getTSLVersion(fromFile: bundleFile)
         }
-        
-        for libraryFile in libraryFiles {
+    }
+    
+    private func getLibraryFileVersions(filesInLibrary: [URL]) -> Void {
+        for libraryFile in filesInLibrary {
             let fileName: String = libraryFile.deletingPathExtension().lastPathComponent
             libraryTSLVersions[fileName] = getTSLVersion(fromFile: libraryFile)
         }
-        
-        for (bundleCountry, bundleVersion) in bundleTSLVersions {
-            if !libraryTSLVersions.isEmpty {
-                for (libraryCountry, libraryVersion) in libraryTSLVersions {
-                    if isTSLExistent(forCountry: libraryCountry) && bundleCountry == libraryCountry && bundleVersion > libraryVersion {
-                        NSLog("\(libraryCountry) needs updating, updating version \(libraryVersion) to \(bundleVersion) from Bundle...")
-                        updateCountryTSL(country: bundleCountry)
-                        if !isMasterTSLUpdated { updateMasterTSL(); isMasterTSLUpdated = true }
-                    } else {
-                        logTSLVersions(bundleCountry: bundleCountry, bundleVersion: bundleVersion, libraryCountry: libraryCountry, libraryVersion: libraryVersion)
-                    }
-                }
-                if !isTSLExistent(forCountry: bundleCountry) {
-                    NSLog("\(bundleCountry) (version \(bundleVersion)) does not exist")
-                    updateCountryTSL(country: bundleCountry)
-                    if !isMasterTSLUpdated { updateMasterTSL(); isMasterTSLUpdated = true }
-                }
-            } else {
-                NSLog("\(bundleCountry) TSL does not exist, copying version \(bundleVersion)...")
-                updateCountryTSL(country: bundleCountry)
-                if !isMasterTSLUpdated { updateMasterTSL(); isMasterTSLUpdated = true }
-            }
-        }
+    }
+    
+    private func isLibraryTSLVersionsEmpty() -> Bool {
+        return libraryTSLVersions.isEmpty
     }
     
     private func logTSLVersions(bundleCountry: String, bundleVersion: Int, libraryCountry: String, libraryVersion: Int) -> Void {
@@ -79,7 +111,7 @@ class TSLUpdater {
         }
     }
     
-    private func updateMasterTSL() {
+    private func updateMasterTSL() -> Void {
         let tslFilesBundlePath = Bundle.main.path(forResource: "tslFiles", ofType: "bundle") ?? ""
         let libraryFilePath: URL = URL(fileURLWithPath: MoppFileManager.shared.libraryDirectoryPath(), isDirectory: true)
         let masterTSLBundleLocation: URL = URL(fileURLWithPath: tslFilesBundlePath, isDirectory: true).appendingPathComponent("eu-lotl.xml")
@@ -87,13 +119,12 @@ class TSLUpdater {
         let masterTSLLibraryLocation: URL = libraryFilePath.appendingPathComponent("eu-lotl.xml")
         
         if FileManager.default.fileExists(atPath: masterTSLLibraryLocation.path) {
-            NSLog("Overwriting master TSL...")
-            removeEtag(destination: masterTSLLibraryLocation)
-            MoppFileManager().overwriteFile(from: masterTSLBundleLocation, to: masterTSLLibraryLocation)
+            overWriteFile(sourceFilePath: masterTSLBundleLocation, destinationFilePath: masterTSLLibraryLocation)
         } else {
-            NSLog("Copying master TSL to Library directory from Bundle...")
-            _ = MoppFileManager().copyFile(withPath: masterTSLBundleLocation.path, toPath: masterTSLLibraryLocation.path)
+            copyBundleFileToLibrary(sourceFilePath: masterTSLBundleLocation, destinationFilePath: masterTSLLibraryLocation)
         }
+        
+        isMasterTSLUpdated = true
     }
     
     private func isTSLExistent(forCountry country: String) -> Bool {
@@ -101,23 +132,38 @@ class TSLUpdater {
     }
     
     private func updateCountryTSL(country: String) -> Void {
-        guard let tslFilesBundlePath = Bundle.main.path(forResource: "tslFiles", ofType: "bundle") else { return }
-        let bundleFiles = getCountryFileLocations(inPath: tslFilesBundlePath)
-        
-        guard bundleFiles.count > 0 else { NSLog("No TSL files found in Bundle"); return }
-        
         for countryFilePath in bundleFiles {
             let libraryFilePath: URL = URL(fileURLWithPath: MoppFileManager.shared.libraryDirectoryPath(), isDirectory: true).appendingPathComponent(countryFilePath.lastPathComponent)
             if countryFilePath.deletingPathExtension().lastPathComponent == country {
                 if FileManager.default.fileExists(atPath: libraryFilePath.path) {
-                    NSLog("Overwriting \(countryFilePath.lastPathComponent) TSL...")
-                    removeEtag(destination: libraryFilePath)
-                    MoppFileManager().overwriteFile(from: countryFilePath, to: libraryFilePath)
+                    overWriteFile(sourceFilePath: countryFilePath, destinationFilePath: libraryFilePath)
                 } else {
-                    NSLog("Updating \(countryFilePath.lastPathComponent) TSL from Bundle...")
-                    _ = MoppFileManager().copyFile(withPath: countryFilePath.path, toPath: libraryFilePath.path)
+                    copyBundleFileToLibrary(sourceFilePath: countryFilePath, destinationFilePath: libraryFilePath)
                 }
             }
+        }
+    }
+    
+    private func copyBundleFileToLibrary(sourceFilePath: URL, destinationFilePath: URL) -> Void {
+        NSLog("Updating \(sourceFilePath.lastPathComponent) from Bundle...")
+        _ = MoppFileManager().copyFile(withPath: sourceFilePath.path, toPath: destinationFilePath.path)
+    }
+    
+    private func overWriteFile(sourceFilePath: URL, destinationFilePath: URL) -> Void {
+        NSLog("Overwriting \(sourceFilePath.lastPathComponent)...")
+        removeEtag(destination: destinationFilePath)
+        MoppFileManager().overwriteFile(from: sourceFilePath, to: destinationFilePath)
+    }
+    
+    private func getFilesInBundle() -> Void {
+        guard let tslFilesBundlePath = Bundle.main.path(forResource: "tslFiles", ofType: "bundle") else { return }
+        let tslBundleFiles = getCountryFileLocations(inPath: tslFilesBundlePath)
+        
+        bundleFiles.removeAll()
+        
+        for countryFilePath in tslBundleFiles {
+            NSLog("Getting \(countryFilePath.lastPathComponent) from Bundle...")
+            bundleFiles.append(countryFilePath)
         }
     }
     
