@@ -35,13 +35,13 @@ class TSLUpdater {
         let filesInBundle: [URL] = getCountryFileLocations(inPath: getTSLFilesBundlePath())
         let filesInLibrary: [URL] = getCountryFileLocations(inPath: getLibraryDirectoryPath())
         
-        getFilesInBundle()
+        assignFilesInBundle()
         
         guard getBundleFilesCount() > 0 else { NSLog("No TSL files found in Bundle"); return }
         
-        getBundleFileVersions(filesInBundle: filesInBundle)
+        assignBundleFileVersions(filesInBundle: filesInBundle)
         
-        getLibraryFileVersions(filesInLibrary: filesInLibrary)
+        assignLibraryFileVersions(filesInLibrary: filesInLibrary)
         
         for (bundleCountry, bundleVersion) in bundleTSLVersions {
             if !isLibraryTSLVersionsEmpty() {
@@ -87,14 +87,14 @@ class TSLUpdater {
         }
     }
     
-    private func getBundleFileVersions(filesInBundle: [URL]) -> Void {
+    private func assignBundleFileVersions(filesInBundle: [URL]) -> Void {
         for bundleFile in filesInBundle {
             let fileName: String = bundleFile.deletingPathExtension().lastPathComponent
             bundleTSLVersions[fileName] = getTSLVersion(fromFile: bundleFile)
         }
     }
     
-    private func getLibraryFileVersions(filesInLibrary: [URL]) -> Void {
+    private func assignLibraryFileVersions(filesInLibrary: [URL]) -> Void {
         for libraryFile in filesInLibrary {
             let fileName: String = libraryFile.deletingPathExtension().lastPathComponent
             libraryTSLVersions[fileName] = getTSLVersion(fromFile: libraryFile)
@@ -155,7 +155,7 @@ class TSLUpdater {
         MoppFileManager().overwriteFile(from: sourceFilePath, to: destinationFilePath)
     }
     
-    private func getFilesInBundle() -> Void {
+    private func assignFilesInBundle() -> Void {
         guard let tslFilesBundlePath = Bundle.main.path(forResource: "tslFiles", ofType: "bundle") else { return }
         let tslBundleFiles = getCountryFileLocations(inPath: tslFilesBundlePath)
         
