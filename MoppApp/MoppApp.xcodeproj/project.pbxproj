@@ -340,8 +340,9 @@
 		DF3D299D23F5ADB7007181B8 /* MimeTypeExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */; };
 		DF900C972386768F00887385 /* tslFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DF900C94238567CA00887385 /* tslFiles.bundle */; };
 		DFBF242E23DB0923008DD8D0 /* LOTLDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */; };
-		DFBF242F23DB0923008DD8D0 /* TSLDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF242D23DB0923008DD8D0 /* TSLDownloader.swift */; };
 		DFD176CB23F1B78000E2CC52 /* MimeTypeDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176CA23F1B78000E2CC52 /* MimeTypeDecoder.swift */; };
+		DFD176D423F427AD00E2CC52 /* TSLVersionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176D223F427AD00E2CC52 /* TSLVersionChecker.swift */; };
+		DFD176D523F427AD00E2CC52 /* TSLUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176D323F427AD00E2CC52 /* TSLUpdater.swift */; };
 		DFF3C3AE233231190079458A /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3AC233231180079458A /* Configuration.swift */; };
 		DFF3C3AF233231190079458A /* SettingsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3AD233231190079458A /* SettingsConfiguration.swift */; };
 		DFF3C3B22332314A0079458A /* RuntimeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3B02332314A0079458A /* RuntimeError.swift */; };
@@ -614,8 +615,9 @@
 		DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypeExtractor.swift; sourceTree = "<group>"; };
 		DF900C94238567CA00887385 /* tslFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = tslFiles.bundle; sourceTree = "<group>"; };
 		DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOTLDecoder.swift; sourceTree = "<group>"; };
-		DFBF242D23DB0923008DD8D0 /* TSLDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLDownloader.swift; sourceTree = "<group>"; };
 		DFD176CA23F1B78000E2CC52 /* MimeTypeDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypeDecoder.swift; sourceTree = "<group>"; };
+		DFD176D223F427AD00E2CC52 /* TSLVersionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLVersionChecker.swift; sourceTree = "<group>"; };
+		DFD176D323F427AD00E2CC52 /* TSLUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLUpdater.swift; sourceTree = "<group>"; };
 		DFF3C3AC233231180079458A /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		DFF3C3AD233231190079458A /* SettingsConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsConfiguration.swift; sourceTree = "<group>"; };
 		DFF3C3B02332314A0079458A /* RuntimeError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeError.swift; sourceTree = "<group>"; };
@@ -1113,9 +1115,10 @@
 			isa = PBXGroup;
 			children = (
 				DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */,
+				DFD176D323F427AD00E2CC52 /* TSLUpdater.swift */,
+				DFD176D223F427AD00E2CC52 /* TSLVersionChecker.swift */,
 				DFD176CA23F1B78000E2CC52 /* MimeTypeDecoder.swift */,
 				DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */,
-				DFBF242D23DB0923008DD8D0 /* TSLDownloader.swift */,
 				DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */,
 				E42B08AD1E1EFC1800EA24A3 /* DateFormatter.swift */,
 				E42B08B01E1F049B00EA24A3 /* FileManager.swift */,
@@ -1772,6 +1775,7 @@
 				DFF3C3AF233231190079458A /* SettingsConfiguration.swift in Sources */,
 				393B66BA20D7EC9D001DC89B /* WrapperUIBarButtonItem.swift in Sources */,
 				39487CBE210B18F90082D910 /* CdocParserDelegate.swift in Sources */,
+				DFD176D423F427AD00E2CC52 /* TSLVersionChecker.swift in Sources */,
 				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
 				C55BB1CA2090C17F00618AC4 /* AboutViewController.swift in Sources */,
 				DFF3C3B22332314A0079458A /* RuntimeError.swift in Sources */,
@@ -1785,12 +1789,12 @@
 				C56C6208201A1B4C00CCC2A5 /* MenuSeparatorCell.swift in Sources */,
 				39CDA7EE20ADBE93006E2E9F /* CryptoViewController.swift in Sources */,
 				C52E82781FC1D3ED0074B280 /* MenuViewController.swift in Sources */,
-				DFBF242F23DB0923008DD8D0 /* TSLDownloader.swift in Sources */,
 				C50DCCC71FC32A2500D48E16 /* MyeIDViewController.swift in Sources */,
 				DFF3C3B5233231F20079458A /* Notification+Additions.swift in Sources */,
 				C50DCD071FC7126100D48E16 /* ContainerSignatureCell.swift in Sources */,
 				C50FC432224BA3B20041925C /* ScreenDisguiseViewController.swift in Sources */,
 				C54EA6E82045A9E30039AC78 /* IdCardViewController.swift in Sources */,
+				DFD176D523F427AD00E2CC52 /* TSLUpdater.swift in Sources */,
 				C56C620D201A256E00CCC2A5 /* RecentContainersViewController.swift in Sources */,
 				C5964CE820079AE0001FE732 /* TabButton.swift in Sources */,
 				3921CA9920B2F5B200BF3178 /* PreviewActions.swift in Sources */,

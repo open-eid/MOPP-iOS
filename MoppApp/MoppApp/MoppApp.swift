@@ -139,12 +139,8 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
             
             // Get remote configuration
             SettingsConfiguration().getCentralConfiguration()
-        
-            MoppLibManager().checkVersionUpdateAndMissingFiles(FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0], completionHandler: {
-                DispatchQueue.global(qos: .background).async {
-                    TSLDownloader().checkForTSLUpdate()
-                }
-            })
+            
+            TSLUpdater().checkForTSLUpdates()
             
             let notification = Notification(name: .configurationLoaded)
             NotificationCenter.default.post(notification)
