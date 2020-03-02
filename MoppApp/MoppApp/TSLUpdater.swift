@@ -53,6 +53,8 @@ class TSLUpdater {
                 addTSLFromBundleIfNotExistent(bundleCountry: bundleCountry, bundleVersion: bundleVersion)
             }
         }
+        
+        copyOtherTSLBundleFilesToLibrary(inPath: getTSLFilesBundlePath())
     }
     
     private func getTSLFilesBundlePath() -> String {
@@ -187,12 +189,44 @@ class TSLUpdater {
     }
     
     private func getCountryFileLocations(inPath tslFilesLocation: String) -> [URL] {
+        var countryFilesLocations: [URL] = []
+        
+        for file in getFilesFromBundle(inPath: tslFilesLocation) {
+            if !file.lastPathComponent.starts(with: ".") && file.deletingPathExtension().lastPathComponent.count == 2 {
+                countryFilesLocations.append(file)
+            }
+        }
+
+        return countryFilesLocations
+    }
+    
+    private func getOtherTSLBundleFiles(inPath tslFilesLocation: String) -> [URL] {
+        var otherBundleFilesLocations: [URL] = []
+        
+        for file in getFilesFromBundle(inPath: tslFilesLocation) {
+            if !file.lastPathComponent.starts(with: ".") && file.deletingPathExtension().lastPathComponent.count != 2 && file.deletingPathExtension().lastPathComponent != "eu-lotl" {
+                otherBundleFilesLocations.append(file)
+            }
+        }
+
+        return otherBundleFilesLocations
+    }
+    
+    private func copyOtherTSLBundleFilesToLibrary(inPath tslFilesLocation: String) {
+        for file in getOtherTSLBundleFiles(inPath: tslFilesLocation) {
+            let libraryFilePath: URL = URL(fileURLWithPath: MoppFileManager.shared.libraryDirectoryPath(), isDirectory: true).appendingPathComponent(file.lastPathComponent)
+            copyBundleFileToLibrary(sourceFilePath: file, destinationFilePath: libraryFilePath)
+        }
+    }
+    
+    private func getFilesFromBundle(inPath tslFilesLocation: String) -> [URL] {
         var listOfFilesInBundle: [URL] = []
+        
         do {
             let fileURLs = try FileManager().contentsOfDirectory(at: URL(fileURLWithPath: tslFilesLocation, isDirectory: true), includingPropertiesForKeys: nil)
             
             for file in fileURLs {
-                if !file.lastPathComponent.starts(with: ".") && file.deletingPathExtension().lastPathComponent.count == 2 {
+                if !file.lastPathComponent.starts(with: ".") {
                     listOfFilesInBundle.append(file)
                 }
             }
