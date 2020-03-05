@@ -43,6 +43,14 @@
     [[MoppLibDigidocManager sharedInstance] checkVersionUpdateAndMissingFiles:directory completionHandler:completionHandler];
 }
 
+- (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId {
+    return [[MoppLibDigidocManager sharedInstance] dataFileCalculateHashWithDigestMethod:method container:moppContainer dataFileId:dataFileId];
+}
+
+- (NSString *)prepareDataToSign:(NSString *)cert containerPath:(NSString *)containerPath error:(NSError **)error {
+    return [[MoppLibDigidocManager sharedInstance] prepareDataToSign:cert containerPath:containerPath error:error];
+}
+
 - (NSString *)moppLibVersion {
   return [[MoppLibDigidocManager sharedInstance] getMoppLibVersion];
 }

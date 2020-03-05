@@ -363,6 +363,35 @@ private:
     return result;
 }
 
+- (NSString *)prepareDataToSign:(NSString *)cert containerPath:(NSString *)containerPath error:(NSError **)error {
+    
+    digidoc::Container *doc = digidoc::Container::open(containerPath.UTF8String);
+    
+    digidoc::X509Cert x509Cert = [MoppLibDigidocManager getDerCert:cert];
+    
+    WebSigner *signer = new WebSigner(x509Cert);
+    
+    digidoc::Signature *signature = doc->prepareSignature(signer);
+    std::vector<unsigned char> dataToSign = signature->dataToSign();
+    
+    std::vector<unsigned char> message = signature->messageImprint();
+    
+//    NSData * data = [NSData dataWithBytes:dataFile->calcDigest([method UTF8String]).data() length:dataFile->calcDigest([method UTF8String]).size()];
+    
+//    NSData *dataToSignData = [NSData dataWithBytes:dataToSign.data() length:dataToSign.size()];
+    
+    
+//    std::string requestedData { dataToSignData.begin(), dataToSignData.end() };
+    
+//    NSString *requestedDataToSign = [NSString stringWithCString:dataToSignData.c_str() encoding:[NSString defaultCStringEncoding]];
+    
+//    NSString* requestedDataToSign = [[NSString alloc] initWithData:dataToSignData encoding:NSASCIIStringEncoding];
+    
+    std::string encodedData = base64_encode(reinterpret_cast<const unsigned char*>(&dataToSign[0]), (uint32_t)dataToSign.size());
+    
+    return [NSString stringWithCString:encodedData.c_str() encoding:[NSString defaultCStringEncoding]];
+}
+
 - (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath error:(NSError **)error {
 
   // Having two container instances of the same file is causing crashes. Should synchronize all container operations?

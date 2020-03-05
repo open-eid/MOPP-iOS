@@ -48,6 +48,10 @@ typedef NS_ENUM(NSUInteger, EIDType) {
 
 - (void)checkVersionUpdateAndMissingFiles:(NSURL *)directory completionHandler:(void (^)())completionHandler;
 
+- (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId;
+
+- (NSString *)prepareDataToSign:(NSString *)cert containerPath:(NSString *)containerPath error:(NSError **)error;
+
 - (NSString *)moppLibVersion;
 - (NSString *)libdigidocppVersion;
 - (NSString *)appVersion;

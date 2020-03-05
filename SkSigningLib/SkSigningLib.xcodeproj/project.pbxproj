@@ -8,9 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		C9E8EA80369295DCE18967C9 /* Pods_SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054E8BB11CEF2AD574F56A87 /* Pods_SkSigningLib.framework */; };
+		DF04A88D23FEA6950086C9F9 /* RequestSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04A88C23FEA6950086C9F9 /* RequestSignature.swift */; };
+		DF04A89023FEC7130086C9F9 /* EncoderDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04A88F23FEC7130086C9F9 /* EncoderDecoder.swift */; };
+		DF04A89523FEDC810086C9F9 /* CertificateRequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04A89423FEDC810086C9F9 /* CertificateRequestParameters.swift */; };
+		DF04A89723FEDD110086C9F9 /* RequestMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04A89623FEDD110086C9F9 /* RequestMethod.swift */; };
+		DF04A89923FEDE6D0086C9F9 /* CertificateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04A89823FEDE6D0086C9F9 /* CertificateResponse.swift */; };
+		DF04A89E23FEE0FD0086C9F9 /* CertificateResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04A89D23FEE0FD0086C9F9 /* CertificateResponseError.swift */; };
 		DF3D29B223F6A92A007181B8 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29A823F6A929007181B8 /* SkSigningLib.framework */; };
 		DF3D29B723F6A92A007181B8 /* SkSigningLibTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3D29B623F6A92A007181B8 /* SkSigningLibTests.swift */; };
 		DF3D29B923F6A92A007181B8 /* SkSigningLib.h in Headers */ = {isa = PBXBuildFile; fileRef = DF3D29AB23F6A929007181B8 /* SkSigningLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DF3D29D223F6BF0D007181B8 /* TestFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3D29D123F6BF0D007181B8 /* TestFile.swift */; };
+		DFD204E0240D201600EB8150 /* RequestSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204DF240D201600EB8150 /* RequestSession.swift */; };
+		DFD204E4240D20B300EB8150 /* SessionRequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204E3240D20B300EB8150 /* SessionRequestParameters.swift */; };
+		DFD204E7240D274E00EB8150 /* SessionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204E6240D274E00EB8150 /* SessionResponse.swift */; };
+		DFD204E9240D275C00EB8150 /* SessionResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204E8240D275C00EB8150 /* SessionResponseError.swift */; };
+		DFD204EB240FD83D00EB8150 /* SessionPolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204EA240FD83D00EB8150 /* SessionPolling.swift */; };
+		DFD204ED240FD8D100EB8150 /* SessionStatusRequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204EC240FD8D100EB8150 /* SessionStatusRequestParameters.swift */; };
+		DFD204EF240FD9FD00EB8150 /* SessionStatusResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204EE240FD9FD00EB8150 /* SessionStatusResponse.swift */; };
+		DFD204F124100C5500EB8150 /* SessionResponseSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204F024100C5500EB8150 /* SessionResponseSignature.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,12 +42,27 @@
 		054E8BB11CEF2AD574F56A87 /* Pods_SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		06543ADB758D0DC0D669381E /* Pods-SkSigningLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkSigningLib.debug.xcconfig"; path = "Target Support Files/Pods-SkSigningLib/Pods-SkSigningLib.debug.xcconfig"; sourceTree = "<group>"; };
 		B8B3B83F96F0CE5EDAF5BA49 /* Pods-SkSigningLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkSigningLib.release.xcconfig"; path = "Target Support Files/Pods-SkSigningLib/Pods-SkSigningLib.release.xcconfig"; sourceTree = "<group>"; };
+		DF04A88C23FEA6950086C9F9 /* RequestSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSignature.swift; sourceTree = "<group>"; };
+		DF04A88F23FEC7130086C9F9 /* EncoderDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncoderDecoder.swift; sourceTree = "<group>"; };
+		DF04A89423FEDC810086C9F9 /* CertificateRequestParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateRequestParameters.swift; sourceTree = "<group>"; };
+		DF04A89623FEDD110086C9F9 /* RequestMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMethod.swift; sourceTree = "<group>"; };
+		DF04A89823FEDE6D0086C9F9 /* CertificateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateResponse.swift; sourceTree = "<group>"; };
+		DF04A89D23FEE0FD0086C9F9 /* CertificateResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateResponseError.swift; sourceTree = "<group>"; };
 		DF3D29A823F6A929007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF3D29AB23F6A929007181B8 /* SkSigningLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SkSigningLib.h; sourceTree = "<group>"; };
 		DF3D29AC23F6A929007181B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF3D29B123F6A929007181B8 /* SkSigningLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SkSigningLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF3D29B623F6A92A007181B8 /* SkSigningLibTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkSigningLibTests.swift; sourceTree = "<group>"; };
 		DF3D29B823F6A92A007181B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF3D29D123F6BF0D007181B8 /* TestFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFile.swift; sourceTree = "<group>"; };
+		DFD204DF240D201600EB8150 /* RequestSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSession.swift; sourceTree = "<group>"; };
+		DFD204E3240D20B300EB8150 /* SessionRequestParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestParameters.swift; sourceTree = "<group>"; };
+		DFD204E6240D274E00EB8150 /* SessionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionResponse.swift; sourceTree = "<group>"; };
+		DFD204E8240D275C00EB8150 /* SessionResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionResponseError.swift; sourceTree = "<group>"; };
+		DFD204EA240FD83D00EB8150 /* SessionPolling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPolling.swift; sourceTree = "<group>"; };
+		DFD204EC240FD8D100EB8150 /* SessionStatusRequestParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatusRequestParameters.swift; sourceTree = "<group>"; };
+		DFD204EE240FD9FD00EB8150 /* SessionStatusResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatusResponse.swift; sourceTree = "<group>"; };
+		DFD204F024100C5500EB8150 /* SessionResponseSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionResponseSignature.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +95,59 @@
 			path = ../MoppApp/Pods;
 			sourceTree = "<group>";
 		};
+		DF04A88B23FEA6740086C9F9 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				DF04A88C23FEA6950086C9F9 /* RequestSignature.swift */,
+				DFD204DF240D201600EB8150 /* RequestSession.swift */,
+				DFD204EA240FD83D00EB8150 /* SessionPolling.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		DF04A88E23FEC7000086C9F9 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				DF04A88F23FEC7130086C9F9 /* EncoderDecoder.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		DF04A89323FEDC650086C9F9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DFD204E1240D209500EB8150 /* Session */,
+				DF04A89C23FEDFA40086C9F9 /* Certificate */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DF04A89A23FEDF250086C9F9 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				DF04A89423FEDC810086C9F9 /* CertificateRequestParameters.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		DF04A89B23FEDF8B0086C9F9 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				DF04A89823FEDE6D0086C9F9 /* CertificateResponse.swift */,
+				DF04A89D23FEE0FD0086C9F9 /* CertificateResponseError.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		DF04A89C23FEDFA40086C9F9 /* Certificate */ = {
+			isa = PBXGroup;
+			children = (
+				DF04A89B23FEDF8B0086C9F9 /* Response */,
+				DF04A89A23FEDF250086C9F9 /* Request */,
+			);
+			path = Certificate;
+			sourceTree = "<group>";
+		};
 		DF3D299E23F6A929007181B8 = {
 			isa = PBXGroup;
 			children = (
@@ -88,8 +171,13 @@
 		DF3D29AA23F6A929007181B8 /* SkSigningLib */ = {
 			isa = PBXGroup;
 			children = (
+				DF04A89323FEDC650086C9F9 /* Models */,
+				DF04A89623FEDD110086C9F9 /* RequestMethod.swift */,
+				DF04A88E23FEC7000086C9F9 /* Utilities */,
+				DF04A88B23FEA6740086C9F9 /* Requests */,
 				DF3D29AB23F6A929007181B8 /* SkSigningLib.h */,
 				DF3D29AC23F6A929007181B8 /* Info.plist */,
+				DF3D29D123F6BF0D007181B8 /* TestFile.swift */,
 			);
 			path = SkSigningLib;
 			sourceTree = "<group>";
@@ -101,6 +189,35 @@
 				DF3D29B823F6A92A007181B8 /* Info.plist */,
 			);
 			path = SkSigningLibTests;
+			sourceTree = "<group>";
+		};
+		DFD204E1240D209500EB8150 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				DFD204E5240D273E00EB8150 /* Response */,
+				DFD204E2240D209C00EB8150 /* Request */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		DFD204E2240D209C00EB8150 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				DFD204E3240D20B300EB8150 /* SessionRequestParameters.swift */,
+				DFD204EC240FD8D100EB8150 /* SessionStatusRequestParameters.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		DFD204E5240D273E00EB8150 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				DFD204E6240D274E00EB8150 /* SessionResponse.swift */,
+				DFD204E8240D275C00EB8150 /* SessionResponseError.swift */,
+				DFD204EE240FD9FD00EB8150 /* SessionStatusResponse.swift */,
+				DFD204F024100C5500EB8150 /* SessionResponseSignature.swift */,
+			);
+			path = Response;
 			sourceTree = "<group>";
 		};
 		ECE71A8C6AB28ABF77281654 /* Frameworks */ = {
@@ -174,6 +291,7 @@
 				TargetAttributes = {
 					DF3D29A723F6A929007181B8 = {
 						CreatedOnToolsVersion = 11.3.1;
+						LastSwiftMigration = 1130;
 					};
 					DF3D29B023F6A929007181B8 = {
 						CreatedOnToolsVersion = 11.3.1;
@@ -246,6 +364,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFD204EB240FD83D00EB8150 /* SessionPolling.swift in Sources */,
+				DF3D29D223F6BF0D007181B8 /* TestFile.swift in Sources */,
+				DFD204E7240D274E00EB8150 /* SessionResponse.swift in Sources */,
+				DFD204EF240FD9FD00EB8150 /* SessionStatusResponse.swift in Sources */,
+				DF04A88D23FEA6950086C9F9 /* RequestSignature.swift in Sources */,
+				DF04A89023FEC7130086C9F9 /* EncoderDecoder.swift in Sources */,
+				DF04A89723FEDD110086C9F9 /* RequestMethod.swift in Sources */,
+				DFD204ED240FD8D100EB8150 /* SessionStatusRequestParameters.swift in Sources */,
+				DFD204E0240D201600EB8150 /* RequestSession.swift in Sources */,
+				DF04A89923FEDE6D0086C9F9 /* CertificateResponse.swift in Sources */,
+				DFD204E4240D20B300EB8150 /* SessionRequestParameters.swift in Sources */,
+				DF04A89523FEDC810086C9F9 /* CertificateRequestParameters.swift in Sources */,
+				DFD204E9240D275C00EB8150 /* SessionResponseError.swift in Sources */,
+				DF04A89E23FEE0FD0086C9F9 /* CertificateResponseError.swift in Sources */,
+				DFD204F124100C5500EB8150 /* SessionResponseSignature.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +525,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 06543ADB758D0DC0D669381E /* Pods-SkSigningLib.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ET847QJV9F;
@@ -410,6 +544,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -419,6 +554,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B8B3B83F96F0CE5EDAF5BA49 /* Pods-SkSigningLib.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ET847QJV9F;
@@ -445,6 +581,7 @@
 		DF3D29C023F6A92A007181B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ET847QJV9F;
 				INFOPLIST_FILE = SkSigningLibTests/Info.plist;
@@ -463,6 +600,7 @@
 		DF3D29C123F6A92A007181B8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ET847QJV9F;
 				INFOPLIST_FILE = SkSigningLibTests/Info.plist;

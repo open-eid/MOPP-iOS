@@ -32,7 +32,14 @@ let kErrorKey = "Error"
 let kErrorMessage = "Error message"
 let kKeyImportedFilePaths = "importedFilePaths"
 let kKeyFileImportIntent = "fileImportIntent"
-let kKeyContainerType = "containerType";
+let kKeyContainerType = "containerType"
+
+let kRelyingPartyUUID = "00000000-0000-0000-0000-000000000000"
+let kRelyingPartyName = "RIA DigiDoc"
+let kDisplayText = "Allkirjasta dokument"
+let kDisplayTextFormat = "UCS-2"
+let kDigestMethodSHA256 = "http://www.w3.org/2001/04/xmlenc#sha256"
+let kHashType = "SHA256"
 
 extension Notification.Name {
     static let containerChangedNotificationName = Notification.Name("Notification - container changed")
