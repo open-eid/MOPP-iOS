@@ -50,7 +50,10 @@ typedef NS_ENUM(NSUInteger, EIDType) {
 
 - (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId;
 
-- (NSString *)prepareDataToSign:(NSString *)cert containerPath:(NSString *)containerPath error:(NSError **)error;
+- (SigningRequestData)signAndValidate:(NSString *)cert signatureValue:(NSString *)signatureValue containerPath:(NSString *)containerPath validate:(BOOL)validate;
+- (NSData *)getDataToSign;
+- (void)validateSignature:(NSString *)signatureValue signatureId:(NSString *)signatureId containerPath:(NSString *)containerPath cert:(NSString *)cert success:(VoidBlock)success andFailure:(FailureBlock)failure;
+- (void)getVerificationCode:(NSString *)calculatedSignature;
 
 - (NSString *)moppLibVersion;
 - (NSString *)libdigidocppVersion;

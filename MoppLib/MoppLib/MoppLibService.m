@@ -66,11 +66,11 @@ static NSString *kCreateSignatureStatusSignature = @"SIGNATURE";
       self.willPollForSignatureResponse = YES;
       completion(response);
     });
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//      [weakSelf getMobileCreateSignatureWithSessCode:[NSString stringWithFormat:@"%d", response.sessCode] withSignatureStatus:^(MoppLibContainer *container, NSError *error, NSString *status) {
-//        signatureStatus(container, error, status);
-//      }];
-//    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+      [weakSelf getMobileCreateSignatureWithSessCode:[NSString stringWithFormat:@"%d", response.sessCode] withSignatureStatus:^(MoppLibContainer *container, NSError *error, NSString *status) {
+        signatureStatus(container, error, status);
+      }];
+    });
   } andFailure:^(NSError *error) {
     dispatch_async(dispatch_get_main_queue(), ^{
       signatureStatus(nil,error,nil);

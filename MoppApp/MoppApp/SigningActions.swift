@@ -125,16 +125,46 @@ extension SigningContainerViewController : MobileIDEditViewControllerDelegate {
         present(mobileIDChallengeview, animated: false)
         
         // MARK: Get Mobile-ID Certificate
-        getMobileIDCertificate(baseUrl: "https://dd-mid-demo.ria.ee/mid-api", phoneNumber: phoneNumber, nationalIdentityNumber: idCode) { (certificateResult: Result<CertificateResponse, CertificateResponseError>) in
+        getMobileIDCertificate(baseUrl: "https://dd-mid.ria.ee/mid-api", phoneNumber: phoneNumber, nationalIdentityNumber: idCode) { (certificateResult: Result<CertificateResponse, CertificateResponseError>) in
             switch certificateResult {
             case .success(let certificateResponse):
                 // MARK: Generate Hash
-                self.generateHash(cert: certificateResponse.cert ?? "", digestMethod: kDigestMethodSHA256, containerPath: self.containerViewDelegate.getContainerPath()) { (hash, error) in
+                self.generateHash(cert: certificateResponse.cert ?? "", digestMethod: kDigestMethodSHA256, signingValue: "", containerPath: self.containerViewDelegate.getContainerPath()) { (hash, sId, error) in
+//                    MoppLibManager.sharedInstance()?.getVerificationCode(hash);
+                    print("\nReceived hash: \(hash)\n")
+                    
+                    DispatchQueue.main.async {
+                        let response: MoppLibMobileCreateSignatureResponse = MoppLibMobileCreateSignatureResponse()
+                        response.challengeId = "\(self.generateVerificationCode(hash: MoppLibManager.sharedInstance()?.getDataToSign() ?? Data()))"
+                        NotificationCenter.default.post(
+                            name: .createSignatureNotificationName,
+                            object: nil,
+                            userInfo: [kCreateSignatureResponseKey: response]
+                        )
+                    }
+                    
+                    
                     // MARK: Get Mobile ID Session
-                    self.getMobileIDSession(baseUrl: "https://dd-mid-demo.ria.ee/mid-api", phoneNumber: phoneNumber, nationalIdentityNumber: idCode, hash: hash, hashType: kHashType, language: self.decideLanguageBasedOnPreferredLanguages()) { (sessionResult) in
+                    self.getMobileIDSession(baseUrl: "https://dd-mid.ria.ee/mid-api", phoneNumber: phoneNumber, nationalIdentityNumber: idCode, hash: hash, hashType: kHashType, language: self.decideLanguageBasedOnPreferredLanguages()) { (sessionResult) in
                         switch sessionResult {
                         case .success(let sessionResponse):
-                            print(sessionResponse)
+                            // MARK: Get Mobile ID Session Status
+                            self.getMobileIDSessionStatus(baseUrl: "https://dd-mid.ria.ee/mid-api", process: .SIGNING, sessionId: sessionResponse.sessionID ?? "", timeoutMs: 1000) { (sessionStatusResult) in
+                                switch sessionStatusResult {
+                                case .success(let sessionStatusResponse):
+                                    // MARK: Validate Mobile ID Signature
+//                                    MoppLibManager.sharedInstance()?.validateSignature(sessionStatusResponse.signature?.value, signatureId: sId, containerPath: self.containerViewDelegate.getContainerPath(), cert: certificateResponse.cert, success: {
+////                                        self.containerViewDelegate.openContainer(afterSignatureCreated: true)
+//                                    }, andFailure: { error in
+//                                        print(error)
+//                                    })
+                                    
+                                    self.generateHash(cert: certificateResponse.cert!, digestMethod: kDigestMethodSHA256, signingValue: sessionStatusResponse.signature!.value, containerPath: self.containerViewDelegate.getContainerPath()) { (first, second, error) in
+                                    }
+                                case .failure(let sessionStatusError):
+                                    print(sessionStatusError)
+                                }
+                            }
                         case .failure(let sessionError):
                             print(sessionError)
                         }
@@ -158,7 +188,7 @@ extension SigningContainerViewController : MobileIDEditViewControllerDelegate {
                 
                 switch result {
                 case .success(let response):
-                    print(response)
+//                    print(response)
                     completionHandler(.success(response))
                 case .failure(let error):
                     print(error)
@@ -167,11 +197,11 @@ extension SigningContainerViewController : MobileIDEditViewControllerDelegate {
                     completionHandler(.failure(error))
                     
                     DispatchQueue.main.async {
-                        //  self.dismiss(animated: false) {
-                        //      let alert = UIAlertController(title: kErrorKey, message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
-                        //      alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                        //      self.present(alert, animated: true, completion: nil)
-                        //  }
+                          self.dismiss(animated: false) {
+                              let alert = UIAlertController(title: kErrorKey, message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                              alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                              self.present(alert, animated: true, completion: nil)
+                          }
                         
                     }
                 }
@@ -187,7 +217,7 @@ extension SigningContainerViewController : MobileIDEditViewControllerDelegate {
                 
                 switch sessionResult {
                 case .success(let response):
-                    print(response)
+//                    print(response)
                     completionHandler(.success(response))
                 case .failure(let error):
                     print(error)
@@ -201,32 +231,74 @@ extension SigningContainerViewController : MobileIDEditViewControllerDelegate {
         }
     }
     
-    private func generateHash(cert: String, digestMethod: String, containerPath: String, completionHandler: @escaping (String, Error) -> Void) {
-//        MoppLibContainerActions.sharedInstance()?.openContainer(withPath: containerPath, success: { (container) in
-//            for case let dataFile as MoppLibDataFile in container?.dataFiles ?? [] {
-//                completionHandler(MoppLibManager.sharedInstance()?.dataFileCalculateHash(withDigestMethod: digestMethod, container: container, dataFileId: dataFile.fileId) ?? "", NSError(domain: "", code: 0, userInfo: ["Error" : "This is an error"]))
-//            }
-//        }, failure: { (error) in
-//            completionHandler("", error ?? NSError(domain: "", code: 0, userInfo: ["Error" : "This is an error2"]))
-//        })
-        
-        
-//
-//        do {
-//            try MoppLibManager.sharedInstance()?.prepareData(toSign: certData, containerPath: containerPath)
-//        } catch {
-//            print(error)
-//        }
-//
-                MoppLibContainerActions.sharedInstance()?.openContainer(withPath: containerPath, success: { (container) in
-                    do {
-                        completionHandler(try (MoppLibManager.sharedInstance()?.prepareData(toSign: cert, containerPath: container?.filePath) ?? ""), NSError(domain: "", code: 0, userInfo: ["Error" : "This is an error2"]))
-                    } catch {
-                        print(error)
+    func getMobileIDSessionStatus(baseUrl: String, process: PollingProcess, sessionId: String, timeoutMs: Int?, completionHandler: @escaping (Result<SessionStatusResponse, SessionResponseError>) -> Void ) {
+        DispatchQueue.main.async {
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+                do {
+                    _ = try RequestSession.shared.getSessionStatus(baseUrl: baseUrl, process: process, requestParameters: SessionStatusRequestParameters(sessionId: sessionId, timeoutMs: timeoutMs)) { (sessionStatusResult) in
+                        switch sessionStatusResult {
+                        case .success(let sessionStatus):
+                            if sessionStatus.state == SessionResponseState.COMPLETE {
+                                timer.invalidate()
+                                print("REQUEST COMPLETE")
+                                print(sessionStatus)
+                                completionHandler(.success(sessionStatus))
+                            } else {
+                                print("REQUESTING...")
+                                print(sessionStatus)
+                            }
+                        case .failure(let sessionError):
+                            print(sessionError)
+                        }
                     }
-                }, failure: { (error) in
-                    completionHandler("", error ?? NSError(domain: "", code: 0, userInfo: ["Error" : "This is an error2"]))
-                })
+                } catch {
+                    print(error)
+                }
+            }
+        }
+    }
+
+    
+    private func generateHash(cert: String, digestMethod: String, signingValue: String, containerPath: String, completionHandler: @escaping (String, String, Error) -> Void) {
+        if signingValue == "" {
+            let signAndValidate = MoppLibManager.sharedInstance()?.signAndValidate(cert, signatureValue: signingValue, containerPath: containerPath, validate: false);
+            let getDataToSign = MoppLibManager.sharedInstance()?.getDataToSign() ?? Data();
+            
+            
+            
+            print("\nVERIFICATION CODE: \(generateVerificationCode(hash: getDataToSign))\n")
+            
+            completionHandler(signAndValidate?.encodedDataToSign.takeUnretainedValue() as String? ?? "", "Data()", NSError(domain: "", code: 0, userInfo: ["":""]))
+        } else {
+            let signAndValidate = MoppLibManager.sharedInstance()?.signAndValidate(cert, signatureValue: signingValue, containerPath: containerPath, validate: true);
+            
+            completionHandler(signAndValidate?.encodedDataToSign.takeUnretainedValue() as String? ?? "", "Data()", NSError(domain: "", code: 0, userInfo: ["":""]))
+        }
+    }
+    
+    func generateVerificationCode(hash: Data) -> Int {
+//        let binaryData: Data? = Data(hash.utf8)
+        
+        let stringOf01: String = hash.reduce("") { (acc, byte) -> String in
+            acc + String(byte, radix: 2)
+        }
+        
+        let firstSixBytes: Substring = stringOf01.prefix(6)
+        let lastSevenBytes: Substring = stringOf01.suffix(7)
+        let codeBytes: String = String(firstSixBytes) + String(lastSevenBytes)
+        
+        if let numberCode = Int(codeBytes, radix: 2) {
+            print("\n")
+            print("PIN Verification Code: \(numberCode)")
+            print("\n")
+            
+            return numberCode
+        }
+        
+        
+        return 0
+        
+//        return stringOf01 != nil ? ((0xFC & stringOf01[0]) << 5) | (stringOf01[strlen(stringOf01) - 1] & 0x7F) : 0;
         
         
     }

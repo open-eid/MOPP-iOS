@@ -48,6 +48,15 @@
 #import <Security/SecKey.h>
 #import "MoppLibGlobals.h"
 
+#include <CryptoLib/CryptoLib.h>
+
+#include <CommonCrypto/CommonDigest.h>
+#include <CommonCrypto/CommonHMAC.h>
+
+#include <string>
+#include <sstream>
+#include <iostream>
+
 class DigiDocConf: public digidoc::ConfCurrent {
 
 private:
@@ -363,33 +372,200 @@ private:
     return result;
 }
 
-- (NSString *)prepareDataToSign:(NSString *)cert containerPath:(NSString *)containerPath error:(NSError **)error {
+- (void)getVerificationCode:(NSString *)hash {
     
-    digidoc::Container *doc = digidoc::Container::open(containerPath.UTF8String);
+    std::string decoded = base64_decode(hash.UTF8String);
+    
+    NSString *decodedString = [NSString stringWithCString:decoded.c_str() encoding:[NSString defaultCStringEncoding]];
+    
+    NSData* calculatedSignatureDecoded = [decodedString dataUsingEncoding:[NSString defaultCStringEncoding]];
+ 
+    
+    
+//    printf("%04d", calculatedSignatureDecoded != NULL ? ((0xFC & calculatedSignatureDecoded[0]) << 5) | (calculatedSignatureDecoded[strlen(calculatedSignatureDecoded) - 1] & 0x7F) : 0);
+}
+
+digidoc::Signature *signature = nullptr;
+digidoc::Container *doc = nullptr;
+
+- (NSData *)getDataToSign {
+    std::vector<unsigned char> dataToSign = signature->dataToSign();
+    NSData *data = [NSData dataWithBytes:dataToSign.data() length:dataToSign.size()];
+    return data;
+}
+
+- (SigningRequestData)signAndValidate:(NSString *)cert signatureValue:(NSString *)signatureValue containerPath:(NSString *)containerPath validate:(BOOL)validate {
     
     digidoc::X509Cert x509Cert = [MoppLibDigidocManager getDerCert:cert];
-    
     WebSigner *signer = new WebSigner(x509Cert);
     
-    digidoc::Signature *signature = doc->prepareSignature(signer);
-    std::vector<unsigned char> dataToSign = signature->dataToSign();
+    if (validate == false) {
+        
+        
+        doc = digidoc::Container::open(containerPath.UTF8String);
+        
+        std::string profile = "time-stamp";
+        NSMutableArray *profiles = [NSMutableArray new];
+        for (auto signature : doc->signatures()) {
+            printf("%s",signature->id().c_str());
+            [profiles addObject:[[NSString alloc] initWithBytes:signature->profile().c_str() length:signature->profile().size() encoding:NSUTF8StringEncoding]];
+        }
+        
+        signer->setProfile(profile);
+        signer->setSignatureProductionPlace("", "", "", "");
+        signer->setSignerRoles(std::vector<std::string>());
+        
+        signature = doc->prepareSignature(signer);
+        
+        std::vector<unsigned char> dataToSign = signature->dataToSign();
+        std::string signatureId = signature->id();
+        
+        std::string dataToSignBase64 = base64_encode(dataToSign.data(), (uint32_t)dataToSign.size());
+        
+        NSString *dataToSignEncoded = [NSString stringWithUTF8String:dataToSignBase64.c_str()];
+        NSString *sId = [NSString stringWithUTF8String:signatureId.c_str()];
+        
+        NSData * data([[NSData alloc] initWithBytesNoCopy:dataToSign.data() length:dataToSign.size() freeWhenDone:false]);
+        
+//        [self getVerificationCode:dataToSignEncoded];
+        
+        static SigningRequestData signingRequestData = { .encodedDataToSign = dataToSignEncoded, .signatureId = data };
+        
+        return signingRequestData;
+    } else {
+        
+//        doc = digidoc::Container::open(containerPath.UTF8String);
+        
+        std::string calculatedSignatureBase64 = std::string(base64_decode(signatureValue.UTF8String));
+        NSString *calculatedSignatureString = [NSString stringWithCString:calculatedSignatureBase64.c_str() encoding:[NSString defaultCStringEncoding]];
+        
+        NSData* calculatedSignature = [calculatedSignatureString dataUsingEncoding:[NSString defaultCStringEncoding]];
+        
+        try {
+            
+          digidoc::X509Cert x509Cert = [MoppLibDigidocManager getDerCert:cert];
+
+          OCSPUrl = [NSString stringWithCString:getOCSPUrl(x509Cert.handle()).c_str() encoding:[NSString defaultCStringEncoding]];
+
+          WebSigner *signer = new WebSigner(x509Cert);
+
+          NSMutableArray *profiles = [NSMutableArray new];
+          for (auto signature : doc->signatures()) {
+              [profiles addObject:[[NSString alloc] initWithBytes:signature->profile().c_str() length:signature->profile().size() encoding:NSUTF8StringEncoding]];
+          }
+
+          std::string profile = "time-stamp";
+
+          signer->setProfile(profile);
+          signer->setSignatureProductionPlace("", "", "", "");
+          signer->setSignerRoles(std::vector<std::string>());
+            
+            
+
+          
+            try {
+              unsigned char *buffer = (unsigned char *)[calculatedSignature bytes];
+              std::vector<unsigned char>::size_type size = calculatedSignature.length;
+              std::vector<unsigned char> vec(buffer, buffer + size);
+
+              signature->setSignatureValue(vec);
+              signature->extendSignatureProfile(profile);
+              signature->validate();
+              doc->save();
+              delete doc;
+            } catch(const digidoc::Exception &e) {
+              parseException(e);
+              delete doc;
+          }
+        } catch(const digidoc::Exception &e) {
+          delete doc;
+          parseException(e);
+        }
+        
+        
+        
+        
+        
+        
+        
+//        try {
+//            NSError *err;
+//            MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&err];
+//
+//            [self addMobileIDSignatureToContainer:moppLibContainer signature:signatureValue success:^(MoppLibContainer *container) {
+//                printf("ADDED SIGNATURE");
+//            } andFailure:^(NSError *error) {
+//                printf("No signature");
+//            }];
+            
+            
+            
+//            std::string cs = signatureValue.UTF8String;
+//
+//            std::vector<unsigned char> dataCs(cs.begin(), cs.end());
+//
+//            std::string profile = "time-stamp";
+//
+//            digidoc::Container *doc = digidoc::Container::open(containerPath.UTF8String);
+//
+////            signature->setSignatureValue(dataCs);
+////            signature->extendSignatureProfile(profile);
+//            std::string decodedSignatureValue = base64_decode(cs);
+//            NSString *errorMessage = [NSString stringWithCString:decodedSignatureValue.c_str() encoding:[NSString defaultCStringEncoding]];
+//
+//            NSString *asd = [NSString stringWithUTF8String:decodedSignatureValue.c_str()];
+//
+//            NSData* calculatedSignature = [errorMessage dataUsingEncoding:NSUTF8StringEncoding];
+//
+//            unsigned char *buffer = (unsigned char *)[calculatedSignature bytes];
+//            std::vector<unsigned char>::size_type size = calculatedSignature.length;
+//            std::vector<unsigned char> vec(buffer, buffer + size);
+            
+            
+            
+//            digidoc::Signer::sign(<#const std::string &method#>, <#const std::vector<unsigned char> &digest#>)
+
+//            signature->setSignatureValue(dataCs);
+//            signature->extendSignatureProfile(profile);
+            
+            
+//            for (digidoc::Signature *signature : doc->signatures()) {
+//                printf("%s", signature->signedBy().c_str());
+//            }
+            
+//            doc->sign(signer);
+            
+//            digidoc::Signature::Validator v(signature);
+            
+//            doc->addAdESSignature(signature->dataToSign());
+            
+//            signature->validate();
+            
+//            std::istream st(cs);
+//            std::stringstream ss(base64_decode(cs));
+//
+//            doc->addAdESSignature(ss);
+            
+//            doc->save();
+
+//            for (auto signature : doc->signatures()) {
+//                printf("%s",signature->id().c_str());
+//            }
+//            signature->validate();
+            
+            
+            
+//            doc->save();
+            
+//        } catch(const digidoc::Exception &e) {
+//            parseException(e);
+//        }
+        
+        static SigningRequestData signingRequestData = { .encodedDataToSign = @"", .signatureId = [[NSData alloc] init] };
+        return signingRequestData;
+    }
     
-    std::vector<unsigned char> message = signature->messageImprint();
-    
-//    NSData * data = [NSData dataWithBytes:dataFile->calcDigest([method UTF8String]).data() length:dataFile->calcDigest([method UTF8String]).size()];
-    
-//    NSData *dataToSignData = [NSData dataWithBytes:dataToSign.data() length:dataToSign.size()];
-    
-    
-//    std::string requestedData { dataToSignData.begin(), dataToSignData.end() };
-    
-//    NSString *requestedDataToSign = [NSString stringWithCString:dataToSignData.c_str() encoding:[NSString defaultCStringEncoding]];
-    
-//    NSString* requestedDataToSign = [[NSString alloc] initWithData:dataToSignData encoding:NSASCIIStringEncoding];
-    
-    std::string encodedData = base64_encode(reinterpret_cast<const unsigned char*>(&dataToSign[0]), (uint32_t)dataToSign.size());
-    
-    return [NSString stringWithCString:encodedData.c_str() encoding:[NSString defaultCStringEncoding]];
+    return signingRequestData;
 }
 
 - (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath error:(NSError **)error {
@@ -688,6 +864,62 @@ void parseException(const digidoc::Exception &e) {
     X509_email_free(ocsps);
     return ocspUrl;
   }
+
+- (void)validateSignature:(NSString *)signatureValue signatureId:(NSString *)signatureId containerPath:(NSString *)containerPath cert:(NSString *)cert success:(VoidBlock)success andFailure:(FailureBlock)failure {
+    try {
+        digidoc::X509Cert x509Cert = [MoppLibDigidocManager getDerCert:cert];
+        std::string cs = std::string([signatureValue cStringUsingEncoding:NSUTF8StringEncoding]);
+//        std::string q = base64_decode(cs);
+//        std::vector<unsigned char> v( q.begin(), q.end() );
+//        NSString *w = [NSString stringWithCString:base64_decode(cs).c_str() encoding:[NSString defaultCStringEncoding]];
+//        NSData * data = [w dataUsingEncoding:NSASCIIStringEncoding];
+//        unsigned char *buffer = (unsigned char *)[data bytes];
+//        std::vector<unsigned char>::size_type size = data.length;
+//        std::vector<unsigned char> vec(buffer, buffer + size);
+        
+        std::vector<unsigned char> dataCs(cs.begin(), cs.end());
+        
+        digidoc::Container *container = digidoc::Container::open(containerPath.UTF8String);
+        
+//        WebSigner *signer = new WebSigner(x509Cert);
+        
+        std::string profile = "time-stamp";
+        
+        NSLog(@"%lu", container->signatures().size());
+        
+//        signature->setSignatureValue(dataCs);
+//        signature->extendSignatureProfile(profile);
+//        signature->validate();
+        
+        for (int i = 0; i < container->signatures().size(); i++) {
+            digidoc::Signature *signature = container->signatures().at(i);
+            digidoc::X509Cert cert = signature->signingCertificate();
+            
+            std::string sId = std::string([signatureId cStringUsingEncoding:NSUTF8StringEncoding]);
+            
+            printf("%s", signature->id().c_str());
+            
+            
+            
+            
+            container->addAdESSignature(signature->dataToSign());
+            
+        }
+        
+//        digidoc::Signature *signature = container->prepareSignature(signer);
+        
+//        std::vector<unsigned char> dataToSign = signature->dataToSign();
+//        std::string signatureId = signature->id();
+        
+        
+        container->save();
+        success();
+    } catch(const digidoc::Exception &e) {
+        printf("%s", e.msg().c_str());
+        parseException(e);
+        failure([MoppLibError generalError]);
+    }
+}
 
 - (void)addSignature:(NSString *)containerPath pin2:(NSString *)pin2 cert:(NSData *)cert success:(ContainerBlock)success andFailure:(FailureBlock)failure {
   digidoc::Container *container;

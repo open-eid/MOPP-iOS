@@ -24,8 +24,8 @@ import Foundation
 
 // MARK: - SessionStatusRequestParameters
 public struct SessionStatusRequestParameters: Codable {
-    let sessionId: String
-    let timeoutMs: Int?
+    public let sessionId: String
+    public let timeoutMs: Int?
     
     public enum CodingKeys: String, CodingKey {
         case sessionId

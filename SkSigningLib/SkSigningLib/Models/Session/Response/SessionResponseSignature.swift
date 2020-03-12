@@ -24,8 +24,8 @@
 import Foundation
 
 public struct SessionResponseSignature: Decodable {
-    let value: String
-    let algorithm: String
+    public let value: String
+    public let algorithm: String
     
     public enum CodingKeys: String, CodingKey {
         case value

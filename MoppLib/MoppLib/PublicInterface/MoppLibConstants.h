@@ -75,6 +75,13 @@ typedef NS_ENUM(NSUInteger, MoppLibErrorCode) {
 
 };
 
+typedef struct {
+    __unsafe_unretained NSString *encodedDataToSign;
+    __unsafe_unretained NSData *signatureId;
+} SigningRequestData;
+
+
+extern const SigningRequestData signingRequestData;
 
 extern NSString *const kMoppLibUserInfoRetryCount;
 

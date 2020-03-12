@@ -59,31 +59,9 @@ public class RequestSession: SessionRequest {
             if let data: Data = data {
                 EncoderDecoder().decode(data: data, completionHandler: { (response: SessionResponse) in
                     if (response.sessionID != nil) {
-                        DispatchQueue.main.async {
-                            Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-                                do {
-                                    try self.getSessionStatus(baseUrl: baseUrl, process: PollingProcess.SIGNING, requestParameters: SessionStatusRequestParameters(sessionId: response.sessionID ?? "")) { (sessionStatusResult) in
-                                        switch sessionStatusResult {
-                                        case .success(let sessionStatus):
-                                            if sessionStatus.state == SessionResponseState.COMPLETE {
-                                                timer.invalidate()
-                                                print("REQUEST COMPLETE")
-                                                print(sessionStatus)
-                                                completionHandler(.success(response))
-                                            } else {
-                                                print("REQUESTING...")
-                                                print(sessionStatus)
-                                            }
-                                        case .failure(let sessionError):
-                                            print(sessionError)
-                                        }
-                                    }
-                                } catch {
-                                    print(error)
-                                }
-                            }
-                        }
+                        completionHandler(.success(response))
                     } else {
+                        print(response.error ?? "Error received")
                         completionHandler(.failure(httpResponse.sessionErrorCode ?? .generalError))
                     }
                 })
@@ -115,8 +93,12 @@ public class RequestSession: SessionRequest {
             
             if let data: Data = data {
                 EncoderDecoder().decode(data: data, completionHandler: { (response: SessionStatusResponse) in
-                    print(response)
-                    completionHandler(.success(response))
+//                    print(response)
+                    if (response.error == nil) {
+                        completionHandler(.success(response))
+                    } else {
+                        completionHandler(.failure(httpResponse.sessionErrorCode ?? .generalError))
+                    }
                 })
             }
         }.resume()

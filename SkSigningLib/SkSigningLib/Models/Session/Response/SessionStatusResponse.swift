@@ -28,12 +28,13 @@ public enum SessionResponseState: String, Decodable {
 }
 
 public struct SessionStatusResponse: Decodable {
-    let state: SessionResponseState
-    let result: String?
-    let signature: SessionResponseSignature?
-    let cert: String?
-    let time: String?
-    let traceId: String?
+    public let state: SessionResponseState
+    public let result: String?
+    public let signature: SessionResponseSignature?
+    public let cert: String?
+    public let time: String?
+    public let traceId: String?
+    public let error: String?
     
     public enum CodingKeys: String, CodingKey {
         case state
@@ -42,6 +43,7 @@ public struct SessionStatusResponse: Decodable {
         case cert
         case time
         case traceId
+        case error
     }
     
     public init(state: SessionResponseState,
@@ -57,6 +59,7 @@ public struct SessionStatusResponse: Decodable {
         self.cert = cert
         self.time = time
         self.traceId = traceId
+        self.error = nil
     }
     
     public init(from decoder: Decoder) throws {
@@ -67,5 +70,6 @@ public struct SessionStatusResponse: Decodable {
         cert = try values.decodeIfPresent(String.self, forKey: .cert)
         time = try values.decodeIfPresent(String.self, forKey: .time)
         traceId = try values.decodeIfPresent(String.self, forKey: .traceId)
+        error = try values.decodeIfPresent(String.self, forKey: .error)
     }
 }
