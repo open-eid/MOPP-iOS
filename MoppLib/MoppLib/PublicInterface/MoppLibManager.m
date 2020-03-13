@@ -59,9 +59,9 @@
     return [[MoppLibDigidocManager sharedInstance] validateSignature:signatureValue signatureId:signatureId containerPath:containerPath cert:cert success:success andFailure:failure];
 }
 
-- (void)getVerificationCode:(NSString *)calculatedSignature {
-    return [[MoppLibDigidocManager sharedInstance] getVerificationCode:calculatedSignature];
-}
+//- (int)getVerificationCode:(std::vector<unsigned char>)hash {
+//    return [[MoppLibDigidocManager sharedInstance] getVerificationCode:calculatedSignature];
+//}
 
 - (NSString *)moppLibVersion {
   return [[MoppLibDigidocManager sharedInstance] getMoppLibVersion];

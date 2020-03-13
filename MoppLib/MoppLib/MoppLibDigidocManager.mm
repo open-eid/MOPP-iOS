@@ -56,6 +56,7 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#import <CommonCrypto/CommonDigest.h>
 
 class DigiDocConf: public digidoc::ConfCurrent {
 
@@ -372,27 +373,20 @@ private:
     return result;
 }
 
-- (void)getVerificationCode:(NSString *)hash {
-    
-    std::string decoded = base64_decode(hash.UTF8String);
-    
-    NSString *decodedString = [NSString stringWithCString:decoded.c_str() encoding:[NSString defaultCStringEncoding]];
-    
-    NSData* calculatedSignatureDecoded = [decodedString dataUsingEncoding:[NSString defaultCStringEncoding]];
- 
-    
-    
-//    printf("%04d", calculatedSignatureDecoded != NULL ? ((0xFC & calculatedSignatureDecoded[0]) << 5) | (calculatedSignatureDecoded[strlen(calculatedSignatureDecoded) - 1] & 0x7F) : 0);
-}
-
 digidoc::Signature *signature = nullptr;
 digidoc::Container *doc = nullptr;
 
 - (NSData *)getDataToSign {
     std::vector<unsigned char> dataToSign = signature->dataToSign();
-    NSData *data = [NSData dataWithBytes:dataToSign.data() length:dataToSign.size()];
-    return data;
+    NSData *signData ([[NSData alloc] initWithBytes:dataToSign.data() length:dataToSign.size()]);
+    return signData;
 }
+
++ (int)getVerificationCode:(std::vector<unsigned char>)hash {
+    printf("PIN VERIFICATION: %04d", hash.size() > 0 ? ((0xFC & hash[0]) << 5) | (hash[hash.size() - 1] & 0x7F) : 0);
+    return ((0xFC & hash[0]) << 5) | (hash[hash.size() - 1] & 0x7F);
+}
+
 
 - (SigningRequestData)signAndValidate:(NSString *)cert signatureValue:(NSString *)signatureValue containerPath:(NSString *)containerPath validate:(BOOL)validate {
     
@@ -401,6 +395,7 @@ digidoc::Container *doc = nullptr;
     
     if (validate == false) {
         
+        SigningRequestData signingRequestData = { .encodedDataToSign = @"", .pinVerificationCode = 0 };
         
         doc = digidoc::Container::open(containerPath.UTF8String);
         
@@ -410,6 +405,7 @@ digidoc::Container *doc = nullptr;
             printf("%s",signature->id().c_str());
             [profiles addObject:[[NSString alloc] initWithBytes:signature->profile().c_str() length:signature->profile().size() encoding:NSUTF8StringEncoding]];
         }
+        
         
         signer->setProfile(profile);
         signer->setSignatureProductionPlace("", "", "", "");
@@ -423,13 +419,13 @@ digidoc::Container *doc = nullptr;
         std::string dataToSignBase64 = base64_encode(dataToSign.data(), (uint32_t)dataToSign.size());
         
         NSString *dataToSignEncoded = [NSString stringWithUTF8String:dataToSignBase64.c_str()];
+        
+        
         NSString *sId = [NSString stringWithUTF8String:signatureId.c_str()];
         
-        NSData * data([[NSData alloc] initWithBytesNoCopy:dataToSign.data() length:dataToSign.size() freeWhenDone:false]);
+        int verificationCode = [MoppLibDigidocManager getVerificationCode:dataToSign];
         
-//        [self getVerificationCode:dataToSignEncoded];
-        
-        static SigningRequestData signingRequestData = { .encodedDataToSign = dataToSignEncoded, .signatureId = data };
+        signingRequestData = { .encodedDataToSign = dataToSignEncoded, .pinVerificationCode = verificationCode };
         
         return signingRequestData;
     } else {
@@ -443,11 +439,11 @@ digidoc::Container *doc = nullptr;
         
         try {
             
-          digidoc::X509Cert x509Cert = [MoppLibDigidocManager getDerCert:cert];
+          
 
           OCSPUrl = [NSString stringWithCString:getOCSPUrl(x509Cert.handle()).c_str() encoding:[NSString defaultCStringEncoding]];
 
-          WebSigner *signer = new WebSigner(x509Cert);
+          
 
           NSMutableArray *profiles = [NSMutableArray new];
           for (auto signature : doc->signatures()) {
@@ -473,6 +469,8 @@ digidoc::Container *doc = nullptr;
               signature->validate();
               doc->save();
               delete doc;
+              signature = nullptr;
+                
             } catch(const digidoc::Exception &e) {
               parseException(e);
               delete doc;
@@ -561,7 +559,7 @@ digidoc::Container *doc = nullptr;
 //            parseException(e);
 //        }
         
-        static SigningRequestData signingRequestData = { .encodedDataToSign = @"", .signatureId = [[NSData alloc] init] };
+        static SigningRequestData signingRequestData = { .encodedDataToSign = @"", .pinVerificationCode = 0 };
         return signingRequestData;
     }
     
@@ -864,6 +862,12 @@ void parseException(const digidoc::Exception &e) {
     X509_email_free(ocsps);
     return ocspUrl;
   }
+
+//- (void)getVerificationCode:(NSString *)hash {
+//    const char *c = [hash cStringUsingEncoding:NSASCIIStringEncoding];
+//
+//    printf("%04d", hash != NULL ? ((0xFC & c[0]) << 5) | (c[strlen(c) - 1] & 0x7F) : 0);
+//}
 
 - (void)validateSignature:(NSString *)signatureValue signatureId:(NSString *)signatureId containerPath:(NSString *)containerPath cert:(NSString *)cert success:(VoidBlock)success andFailure:(FailureBlock)failure {
     try {

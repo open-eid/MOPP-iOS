@@ -23,6 +23,7 @@
 
 import Foundation
 import SkSigningLib
+import CommonCrypto
 
 
 
@@ -123,9 +124,14 @@ extension SigningContainerViewController : MobileIDEditViewControllerDelegate {
         let mobileIDChallengeview = UIStoryboard.tokenFlow.instantiateViewController(of: MobileIDChallengeViewController.self)
         mobileIDChallengeview.modalPresentationStyle = .overFullScreen
         present(mobileIDChallengeview, animated: false)
+        #if USE_TEST_DDS
+            let mIDBaseUrl: String = "https://dd-mid-demo.ria.ee/mid-api"
+        #else
+            let mIDBaseUrl: String = "https://dd-mid.ria.ee/mid-api"
+        #endif
         
         // MARK: Get Mobile-ID Certificate
-        getMobileIDCertificate(baseUrl: "https://dd-mid.ria.ee/mid-api", phoneNumber: phoneNumber, nationalIdentityNumber: idCode) { (certificateResult: Result<CertificateResponse, CertificateResponseError>) in
+        getMobileIDCertificate(baseUrl: mIDBaseUrl, phoneNumber: phoneNumber, nationalIdentityNumber: idCode) { (certificateResult: Result<CertificateResponse, CertificateResponseError>) in
             switch certificateResult {
             case .success(let certificateResponse):
                 // MARK: Generate Hash
@@ -135,7 +141,7 @@ extension SigningContainerViewController : MobileIDEditViewControllerDelegate {
                     
                     DispatchQueue.main.async {
                         let response: MoppLibMobileCreateSignatureResponse = MoppLibMobileCreateSignatureResponse()
-                        response.challengeId = "\(self.generateVerificationCode(hash: MoppLibManager.sharedInstance()?.getDataToSign() ?? Data()))"
+                        response.challengeId = "\(sId)"
                         NotificationCenter.default.post(
                             name: .createSignatureNotificationName,
                             object: nil,
@@ -145,11 +151,11 @@ extension SigningContainerViewController : MobileIDEditViewControllerDelegate {
                     
                     
                     // MARK: Get Mobile ID Session
-                    self.getMobileIDSession(baseUrl: "https://dd-mid.ria.ee/mid-api", phoneNumber: phoneNumber, nationalIdentityNumber: idCode, hash: hash, hashType: kHashType, language: self.decideLanguageBasedOnPreferredLanguages()) { (sessionResult) in
+                    self.getMobileIDSession(baseUrl: mIDBaseUrl, phoneNumber: phoneNumber, nationalIdentityNumber: idCode, hash: hash, hashType: kHashType, language: self.decideLanguageBasedOnPreferredLanguages()) { (sessionResult) in
                         switch sessionResult {
                         case .success(let sessionResponse):
                             // MARK: Get Mobile ID Session Status
-                            self.getMobileIDSessionStatus(baseUrl: "https://dd-mid.ria.ee/mid-api", process: .SIGNING, sessionId: sessionResponse.sessionID ?? "", timeoutMs: 1000) { (sessionStatusResult) in
+                            self.getMobileIDSessionStatus(baseUrl: mIDBaseUrl, process: .SIGNING, sessionId: sessionResponse.sessionID ?? "", timeoutMs: 1000) { (sessionStatusResult) in
                                 switch sessionStatusResult {
                                 case .success(let sessionStatusResponse):
                                     // MARK: Validate Mobile ID Signature
@@ -159,7 +165,17 @@ extension SigningContainerViewController : MobileIDEditViewControllerDelegate {
 //                                        print(error)
 //                                    })
                                     
-                                    self.generateHash(cert: certificateResponse.cert!, digestMethod: kDigestMethodSHA256, signingValue: sessionStatusResponse.signature!.value, containerPath: self.containerViewDelegate.getContainerPath()) { (first, second, error) in
+                                    self.generateHash(cert: certificateResponse.cert!, digestMethod: kDigestMethodSHA256, signingValue: sessionStatusResponse.signature?.value ?? "", containerPath: self.containerViewDelegate.getContainerPath()) { (first, second, error) in
+                                        
+                                        DispatchQueue.main.async {
+                                            self.dismiss(animated: false, completion: {
+                                                NotificationCenter.default.post(
+                                                name: .signatureCreatedFinishedNotificationName,
+                                                object: nil,
+                                                userInfo: nil)
+                                            })
+                                        }
+                                        
                                     }
                                 case .failure(let sessionStatusError):
                                     print(sessionStatusError)
@@ -259,27 +275,76 @@ extension SigningContainerViewController : MobileIDEditViewControllerDelegate {
     }
 
     
-    private func generateHash(cert: String, digestMethod: String, signingValue: String, containerPath: String, completionHandler: @escaping (String, String, Error) -> Void) {
+    private func generateHash(cert: String, digestMethod: String, signingValue: String, containerPath: String, completionHandler: @escaping (String, Int32, Error) -> Void) {
         if signingValue == "" {
             let signAndValidate = MoppLibManager.sharedInstance()?.signAndValidate(cert, signatureValue: signingValue, containerPath: containerPath, validate: false);
-            let getDataToSign = MoppLibManager.sharedInstance()?.getDataToSign() ?? Data();
-            
-            
-            
-            print("\nVERIFICATION CODE: \(generateVerificationCode(hash: getDataToSign))\n")
-            
-            completionHandler(signAndValidate?.encodedDataToSign.takeUnretainedValue() as String? ?? "", "Data()", NSError(domain: "", code: 0, userInfo: ["":""]))
+//            let getDataToSign: Data = (MoppLibManager.sharedInstance()?.getDataToSign())!
+
+//            print("\n")
+//            print(((0xFC & getDataToSign[0]) << 5) | (getDataToSign[getDataToSign.count - 1] & 0x7F))
+//            print("\n")
+
+//            print("\nVERIFICATION CODE: \(generateVerificationCode(hash: getDataToSign))\n")
+            let pin: Int32 = "\(signAndValidate?.pinVerificationCode ?? 0)".count <= 3 ? Int32("0 \(signAndValidate?.pinVerificationCode ?? 0)") ?? 0 : signAndValidate?.pinVerificationCode ?? 0
+            completionHandler(signAndValidate?.encodedDataToSign.takeUnretainedValue() as String? ?? "", pin, NSError(domain: "", code: 0, userInfo: ["":""]))
         } else {
             let signAndValidate = MoppLibManager.sharedInstance()?.signAndValidate(cert, signatureValue: signingValue, containerPath: containerPath, validate: true);
-            
-            completionHandler(signAndValidate?.encodedDataToSign.takeUnretainedValue() as String? ?? "", "Data()", NSError(domain: "", code: 0, userInfo: ["":""]))
+
+            completionHandler(signAndValidate?.encodedDataToSign.takeUnretainedValue() as String? ?? "", 0, NSError(domain: "", code: 0, userInfo: ["":""]))
         }
     }
     
-    func generateVerificationCode(hash: Data) -> Int {
-//        let binaryData: Data? = Data(hash.utf8)
+    func ccSha256(data: Data) -> Data {
+        var digest = Data(count: Int(CC_SHA256_DIGEST_LENGTH))
+
+        _ = digest.withUnsafeMutableBytes { (digestBytes) in
+            data.withUnsafeBytes { (stringBytes) in
+                CC_SHA256(stringBytes, CC_LONG(data.count), digestBytes)
+            }
+        }
+        return digest
+    }
+    
+    func binToHex(bin : String) -> String {
+        // binary to integer:
+        let num = bin.withCString { strtoul($0, nil, 2) }
+        // integer to hex:
+        let hex = String(num, radix: 16, uppercase: false)
+        return hex
+    }
+    
+    func sha256(str: String) -> String {
+     
+        if let strData = str.data(using: String.Encoding.utf8) {
+            /// #define CC_SHA256_DIGEST_LENGTH     32
+            /// Creates an array of unsigned 8 bit integers that contains 32 zeros
+            var digest = [UInt8](repeating: 0, count:Int(CC_SHA256_DIGEST_LENGTH))
+     
+            /// CC_SHA256 performs digest calculation and places the result in the caller-supplied buffer for digest (md)
+            /// Takes the strData referenced value (const unsigned char *d) and hashes it into a reference to the digest parameter.
+            strData.withUnsafeBytes {
+                // CommonCrypto
+                // extern unsigned char *CC_SHA256(const void *data, CC_LONG len, unsigned char *md)  -|
+                // OpenSSL                                                                             |
+                // unsigned char *SHA256(const unsigned char *d, size_t n, unsigned char *md)        <-|
+                CC_SHA256($0.baseAddress, UInt32(strData.count), &digest)
+            }
+     
+            var sha256String = ""
+            /// Unpack each byte in the digest array and add them to the sha256String
+            for byte in digest {
+                sha256String += String(format:"%02x", UInt8(byte))
+            }
+     
+            return sha256String
+        }
+        return ""
+    }
+    
+    func generateVerificationCode(hash: String) -> Int {
+        let binaryData: Data? = Data(hash.utf8)
         
-        let stringOf01: String = hash.reduce("") { (acc, byte) -> String in
+        let stringOf01: String = binaryData!.reduce("") { (acc, byte) -> String in
             acc + String(byte, radix: 2)
         }
         
@@ -354,3 +419,32 @@ extension SigningContainerViewController : IdCardSignViewControllerDelegate {
     }
 }
 
+extension BinaryInteger {
+    var binaryDescription: String {
+        var binaryString = ""
+        var internalNumber = self
+        var counter = 0
+
+        for _ in (1...self.bitWidth) {
+            binaryString.insert(contentsOf: "\(internalNumber & 1)", at: binaryString.startIndex)
+            internalNumber >>= 1
+            counter += 1
+            if counter % 4 == 0 {
+                binaryString.insert(contentsOf: " ", at: binaryString.startIndex)
+            }
+        }
+
+        return binaryString
+    }
+}
+
+extension String {
+    func leftPadding(toLength: Int, withPad character: Character) -> String {
+        let newLength = self.characters.count
+        if newLength < toLength {
+            return String(repeatElement(character, count: toLength - newLength)) + self
+        } else {
+            return self.substring(from: index(self.startIndex, offsetBy: newLength - toLength))
+        }
+    }
+}

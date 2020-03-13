@@ -53,7 +53,7 @@ typedef NS_ENUM(NSUInteger, EIDType) {
 - (SigningRequestData)signAndValidate:(NSString *)cert signatureValue:(NSString *)signatureValue containerPath:(NSString *)containerPath validate:(BOOL)validate;
 - (NSData *)getDataToSign;
 - (void)validateSignature:(NSString *)signatureValue signatureId:(NSString *)signatureId containerPath:(NSString *)containerPath cert:(NSString *)cert success:(VoidBlock)success andFailure:(FailureBlock)failure;
-- (void)getVerificationCode:(NSString *)calculatedSignature;
+//- (int)getVerificationCode:(std::vector<unsigned char>)hash;
 
 - (NSString *)moppLibVersion;
 - (NSString *)libdigidocppVersion;
