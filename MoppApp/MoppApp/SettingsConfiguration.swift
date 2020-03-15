@@ -309,7 +309,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         }, andFailure: { error in
             MSLog("Failed to reload DigiDocConf")
             fatalError("Failed to reload DigiDocConf")
-        }, usingTestDigiDocService: useTestDDS, andTSUrl: MoppConfiguration.getMoppLibConfiguration().tsaurl,
+        }, usingTestDigiDocService: useTestDDS, andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaurl,
            withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration())
     }
 }

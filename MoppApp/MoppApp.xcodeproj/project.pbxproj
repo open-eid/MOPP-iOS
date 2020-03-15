@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		063A655C7ECF195296250527 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		063A655C7ECF195296250527 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 		39158A1920C6C49100B71DD6 /* AddresseeActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39158A1820C6C49100B71DD6 /* AddresseeActions.swift */; };
 		3921CA9520B2D6D600BF3178 /* CryptoActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CA9420B2D6D600BF3178 /* CryptoActions.swift */; };
 		3921CA9720B2D8A600BF3178 /* SigningActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CA9620B2D8A600BF3178 /* SigningActions.swift */; };
@@ -28,7 +28,7 @@
 		39CDA7EA20ADBCEC006E2E9F /* Crypto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */; };
 		39CDA7EE20ADBE93006E2E9F /* CryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */; };
 		39F8EFE720D263B5001BCF73 /* TokenFlow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39F8EFE620D263B5001BCF73 /* TokenFlow.storyboard */; };
-		51EAB865AC99468B5AC77D6C /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		51EAB865AC99468B5AC77D6C /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 		540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.swift */; };
 		547BDF251E8BEFA30093931F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
 		54825EF51E1CFE9600253FF0 /* Date+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF41E1CFE9600253FF0 /* Date+Additions.swift */; };
@@ -339,9 +339,12 @@
 		DF0075C223324AC600BAB3DE /* MoppConfigurationDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */; };
 		DF3D29CF23F6B3CF007181B8 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; };
 		DF3D29D023F6B3CF007181B8 /* SkSigningLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF3D299D23F5ADB7007181B8 /* MimeTypeExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */; };
 		DF900C972386768F00887385 /* tslFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DF900C94238567CA00887385 /* tslFiles.bundle */; };
 		DFBF242E23DB0923008DD8D0 /* LOTLDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */; };
-		DFBF242F23DB0923008DD8D0 /* TSLDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF242D23DB0923008DD8D0 /* TSLDownloader.swift */; };
+		DFD176CB23F1B78000E2CC52 /* MimeTypeDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176CA23F1B78000E2CC52 /* MimeTypeDecoder.swift */; };
+		DFD176D423F427AD00E2CC52 /* TSLVersionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176D223F427AD00E2CC52 /* TSLVersionChecker.swift */; };
+		DFD176D523F427AD00E2CC52 /* TSLUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176D323F427AD00E2CC52 /* TSLUpdater.swift */; };
 		DFF3C3AE233231190079458A /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3AC233231180079458A /* Configuration.swift */; };
 		DFF3C3AF233231190079458A /* SettingsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3AD233231190079458A /* SettingsConfiguration.swift */; };
 		DFF3C3B22332314A0079458A /* RuntimeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3B02332314A0079458A /* RuntimeError.swift */; };
@@ -613,9 +616,12 @@
 		CD15B1228E3C241B478D570C /* Pods-MoppAppTestEnv.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppAppTestEnv.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppAppTestEnv/Pods-MoppAppTestEnv.debug.xcconfig"; sourceTree = "<group>"; };
 		DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoppConfigurationDecoder.swift; sourceTree = "<group>"; };
 		DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypeExtractor.swift; sourceTree = "<group>"; };
 		DF900C94238567CA00887385 /* tslFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = tslFiles.bundle; sourceTree = "<group>"; };
 		DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOTLDecoder.swift; sourceTree = "<group>"; };
-		DFBF242D23DB0923008DD8D0 /* TSLDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLDownloader.swift; sourceTree = "<group>"; };
+		DFD176CA23F1B78000E2CC52 /* MimeTypeDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypeDecoder.swift; sourceTree = "<group>"; };
+		DFD176D223F427AD00E2CC52 /* TSLVersionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLVersionChecker.swift; sourceTree = "<group>"; };
+		DFD176D323F427AD00E2CC52 /* TSLUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLUpdater.swift; sourceTree = "<group>"; };
 		DFF3C3AC233231180079458A /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		DFF3C3AD233231190079458A /* SettingsConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsConfiguration.swift; sourceTree = "<group>"; };
 		DFF3C3B02332314A0079458A /* RuntimeError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeError.swift; sourceTree = "<group>"; };
@@ -675,8 +681,8 @@
 				C55BB1CC2091BD2000618AC4 /* WebKit.framework in Frameworks */,
 				DF3D29CF23F6B3CF007181B8 /* SkSigningLib.framework in Frameworks */,
 				E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */,
-				51EAB865AC99468B5AC77D6C /* (null) in Frameworks */,
-				063A655C7ECF195296250527 /* (null) in Frameworks */,
+				51EAB865AC99468B5AC77D6C /* BuildFile in Frameworks */,
+				063A655C7ECF195296250527 /* BuildFile in Frameworks */,
 				393B66E820DB9C19001DC89B /* CryptoLib.framework in Frameworks */,
 				DFF3C3B72332335C0079458A /* Pods_MoppApp.framework in Frameworks */,
 			);
@@ -1113,8 +1119,11 @@
 		E42B08AB1E1EFC0500EA24A3 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */,
+				DFD176D323F427AD00E2CC52 /* TSLUpdater.swift */,
+				DFD176D223F427AD00E2CC52 /* TSLVersionChecker.swift */,
+				DFD176CA23F1B78000E2CC52 /* MimeTypeDecoder.swift */,
 				DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */,
-				DFBF242D23DB0923008DD8D0 /* TSLDownloader.swift */,
 				DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */,
 				E42B08AD1E1EFC1800EA24A3 /* DateFormatter.swift */,
 				E42B08B01E1F049B00EA24A3 /* FileManager.swift */,
@@ -1428,10 +1437,12 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MoppApp/Pods-MoppApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/SwiftyRSA/SwiftyRSA.framework",
+				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyRSA.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1745,6 +1756,7 @@
 				DFF3C3B32332314A0079458A /* SignatureVerifier.swift in Sources */,
 				C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */,
 				C58FCD5D206505D500FE3B57 /* MyeIDInfoViewController.swift in Sources */,
+				DF3D299D23F5ADB7007181B8 /* MimeTypeExtractor.swift in Sources */,
 				C50DCD0B1FC7128900D48E16 /* ContainerHeaderCell.swift in Sources */,
 				39158A1920C6C49100B71DD6 /* AddresseeActions.swift in Sources */,
 				C593D9F2208F269A000B3BF6 /* SettingsChoiceCell.swift in Sources */,
@@ -1769,6 +1781,7 @@
 				DFF3C3AF233231190079458A /* SettingsConfiguration.swift in Sources */,
 				393B66BA20D7EC9D001DC89B /* WrapperUIBarButtonItem.swift in Sources */,
 				39487CBE210B18F90082D910 /* CdocParserDelegate.swift in Sources */,
+				DFD176D423F427AD00E2CC52 /* TSLVersionChecker.swift in Sources */,
 				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
 				C55BB1CA2090C17F00618AC4 /* AboutViewController.swift in Sources */,
 				DFF3C3B22332314A0079458A /* RuntimeError.swift in Sources */,
@@ -1782,12 +1795,12 @@
 				C56C6208201A1B4C00CCC2A5 /* MenuSeparatorCell.swift in Sources */,
 				39CDA7EE20ADBE93006E2E9F /* CryptoViewController.swift in Sources */,
 				C52E82781FC1D3ED0074B280 /* MenuViewController.swift in Sources */,
-				DFBF242F23DB0923008DD8D0 /* TSLDownloader.swift in Sources */,
 				C50DCCC71FC32A2500D48E16 /* MyeIDViewController.swift in Sources */,
 				DFF3C3B5233231F20079458A /* Notification+Additions.swift in Sources */,
 				C50DCD071FC7126100D48E16 /* ContainerSignatureCell.swift in Sources */,
 				C50FC432224BA3B20041925C /* ScreenDisguiseViewController.swift in Sources */,
 				C54EA6E82045A9E30039AC78 /* IdCardViewController.swift in Sources */,
+				DFD176D523F427AD00E2CC52 /* TSLUpdater.swift in Sources */,
 				C56C620D201A256E00CCC2A5 /* RecentContainersViewController.swift in Sources */,
 				C5964CE820079AE0001FE732 /* TabButton.swift in Sources */,
 				3921CA9920B2F5B200BF3178 /* PreviewActions.swift in Sources */,
@@ -1817,6 +1830,7 @@
 				E42B08AE1E1EFC1800EA24A3 /* DateFormatter.swift in Sources */,
 				C55BB1C720908EF300618AC4 /* DiagnosticsViewController.swift in Sources */,
 				54825EF81E1D270F00253FF0 /* String+Additions.swift in Sources */,
+				DFD176CB23F1B78000E2CC52 /* MimeTypeDecoder.swift in Sources */,
 				E42B08B11E1F049B00EA24A3 /* FileManager.swift in Sources */,
 				DFF3C3AE233231190079458A /* Configuration.swift in Sources */,
 				C5A1D1CD2031D5B80024CD4C /* ContainerActions.swift in Sources */,

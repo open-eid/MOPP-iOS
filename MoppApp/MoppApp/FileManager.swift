@@ -116,8 +116,8 @@ class MoppFileManager {
     
     func libraryDirectoryPath() -> String {
         let paths = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)
-        let documentsDirectory: String = paths[0]
-        return documentsDirectory
+        let libraryDirectory: String = paths[0]
+        return libraryDirectory
     }
     
     func libraryFiles() -> [URL] {
@@ -216,6 +216,11 @@ class MoppFileManager {
             MSLog("copyFileWithPath error: %@", error)
         }
         return finalName
+    }
+    
+    func overwriteFile(from source: URL, to destination: URL) {
+        removeFile(withPath: destination.path)
+        _ = copyFile(withPath: source.path, toPath: destination.path)
     }
 
     func duplicateFilename(atPath path: String) -> String {
