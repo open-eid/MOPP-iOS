@@ -1134,6 +1134,7 @@
 				E42B08AD1E1EFC1800EA24A3 /* DateFormatter.swift */,
 				E42B08B01E1F049B00EA24A3 /* FileManager.swift */,
 				E4C53F4A1E30D03500F209BE /* DefaultsHelper.swift */,
+				DFDF02C3241ED0CA006CF443 /* MobileIDSignature.swift */,
 				DFDF02BD241EB5D3006CF443 /* SessionCertificate.swift */,
 				E4C53F4D1E30D13100F209BE /* Session.swift */,
 				DFDF02BF241EC72C006CF443 /* SessionStatus.swift */,
@@ -1142,7 +1143,6 @@
 				C51B7FB61FBC45DD0046D6E0 /* LocalizationKeys.swift */,
 				DFF3C3B12332314A0079458A /* SignatureVerifier.swift */,
 				DFF3C3B02332314A0079458A /* RuntimeError.swift */,
-				DFDF02C3241ED0CA006CF443 /* MobileIDSignature.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";

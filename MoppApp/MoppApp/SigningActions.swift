@@ -124,17 +124,9 @@ extension SigningContainerViewController : MobileIDEditViewControllerDelegate {
         let mobileIDChallengeview = UIStoryboard.tokenFlow.instantiateViewController(of: MobileIDChallengeViewController.self)
         mobileIDChallengeview.modalPresentationStyle = .overFullScreen
         present(mobileIDChallengeview, animated: false)
-        #if USE_TEST_DDS
-            let mIDBaseUrl: String = "https://dd-mid-demo.ria.ee/mid-api"
-        #else
-            let mIDBaseUrl: String = "https://dd-mid.ria.ee/mid-api"
-        #endif
         
-        
-        MobileIDSignature.shared.createMobileIDSignature(baseUrl: mIDBaseUrl, phoneNumber: phoneNumber, nationalIdentityNumber: idCode, containerPath: self.containerViewDelegate.getContainerPath(), hashType: kHashType, language: decideLanguageBasedOnPreferredLanguages())
+        MobileIDSignature.shared.createMobileIDSignature(baseUrl: Configuration.getConfiguration().MIDPROXYURL, phoneNumber: phoneNumber, nationalIdentityNumber: idCode, containerPath: self.containerViewDelegate.getContainerPath(), hashType: kHashType, language: decideLanguageBasedOnPreferredLanguages())
     }
-    
-    
     
     func generateVerificationCode(hash: String) -> Int {
         let binaryData: Data? = Data(hash.utf8)
