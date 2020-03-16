@@ -55,7 +55,10 @@ class MobileIDSignature {
                 return
             }
             
-            let hash: String = self.getHash(cert: cert, containerPath: containerPath)
+            guard let hash: String = self.getHash(cert: cert, containerPath: containerPath) else {
+                let error = NSError(domain: "SkSigningLib", code: 4, userInfo:[NSLocalizedDescriptionKey: MobileIDError.generalError])
+                return self.errorResult(error: error)
+            }
             
             NSLog("\nHash: \(hash)\n")
             
@@ -141,10 +144,10 @@ class MobileIDSignature {
     
     
     
-    private func getHash(cert: String, containerPath: String) -> String {
+    private func getHash(cert: String, containerPath: String) -> String? {
         guard let hash: String = MoppLibManager.sharedInstance()?.getContainerHash(cert, containerPath: containerPath) else {
             errorResult(error: NSError())
-            return ""
+            return nil
         }
         
         return hash
