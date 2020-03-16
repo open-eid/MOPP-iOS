@@ -23,7 +23,7 @@
 
 import Foundation
 
-public enum MobileIDError: Error {
+public enum MobileIDError: String, Error {
     
     // MARK: General Errors
     case invalidURL
@@ -52,6 +52,7 @@ public enum MobileIDError: Error {
     case phoneAbsent
     case deliveryError
     case simError
+    case tooManyRequests
 }
 
 // MARK: MobileIDError mobileIDErrorDescription Extension
@@ -59,15 +60,15 @@ extension MobileIDError: LocalizedError {
     public var mobileIDErrorDescription: String? {
         switch self {
         case .parameterNameNull:
-            return NSLocalizedString("Parameter names cannot be empty", comment: "")
+            return NSLocalizedString("digidoc-service-error-incorrect-parameters", comment: "")
         case .invalidURL:
             return NSLocalizedString("Invalid URL", comment: "")
         case .noResponseError:
-            return NSLocalizedString("No response", comment: "")
+            return NSLocalizedString("No response from server", comment: "")
         case .generalError:
-            return NSLocalizedString("Unknown error", comment: "")
+            return NSLocalizedString("digidoc-service-error-general", comment: "")
         case .notFound:
-            return NSLocalizedString("Not found.", comment: "")
+            return NSLocalizedString("digidoc-service-error-not-mobile-id-user", comment: "")
         case .notActive:
             return NSLocalizedString("Not active", comment: "")
         case .userAuthorizationFailed:
@@ -85,19 +86,21 @@ extension MobileIDError: LocalizedError {
         case .sessionIdNotFound:
             return NSLocalizedString("Session ID not found", comment: "")
         case .timeout:
-            return NSLocalizedString("Session timeout", comment: "")
+            return NSLocalizedString("digidoc-service-error-timeout", comment: "")
         case .notMidClient:
-            return NSLocalizedString("Not MID Client", comment: "")
+            return NSLocalizedString("digidoc-service-error-not-mobile-id-user", comment: "")
         case .userCancelled:
-            return NSLocalizedString("User cancelled", comment: "")
+            return NSLocalizedString("digidoc-service-error-user-cancelled", comment: "")
         case .signatureHashMismatch:
-            return NSLocalizedString("Signature hash mismatch", comment: "")
+            return NSLocalizedString("digidoc-service-error-signature-hash-mismatch", comment: "")
         case .phoneAbsent:
-            return NSLocalizedString("Phone absent", comment: "")
+            return NSLocalizedString("digidoc-service-error-phone-absent", comment: "")
         case .deliveryError:
-            return NSLocalizedString("Delivery error", comment: "")
+            return NSLocalizedString("digidoc-service-error-delivery-error", comment: "")
         case .simError:
-            return NSLocalizedString("SIM error", comment: "")
+            return NSLocalizedString("digidoc-service-error-sim-error", comment: "")
+        case .tooManyRequests:
+            return NSLocalizedString("digidoc-service-error-too-many-requests", comment: "")
         }
     }
 }

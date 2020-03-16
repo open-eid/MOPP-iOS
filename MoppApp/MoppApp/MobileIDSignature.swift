@@ -37,8 +37,16 @@ class MobileIDSignature {
             do {
                 certificateResponse = try sessionCertificate.getResult()
             } catch let certificateError {
-                let error = NSError(domain: "SkSigningLib", code: 1, userInfo:[NSLocalizedDescriptionKey:
-                    certificateError as? MobileIDError ?? certificateError])
+                let error = NSError(domain: "SkSigningLib", code: 1, userInfo:[NSLocalizedDescriptionKey: certificateError as? MobileIDError ?? certificateError])
+                
+                guard let mobileCertificateError = certificateError as? MobileIDError else {
+                    return self.errorResult(error: error)
+                }
+                
+                if self.isCountryCodeError(phoneNumber: phoneNumber, errorDesc: "\(mobileCertificateError)") {
+                    let parameterError = NSError(domain: "SkSigningLib", code: 4, userInfo:[NSLocalizedDescriptionKey: MobileIDError.parameterNameNull])
+                    return self.errorResult(error: parameterError)
+                }
                     
                 return self.errorResult(error: error)
             }
@@ -82,18 +90,24 @@ class MobileIDSignature {
                     
                     if sessionStatus.result != SessionResultCode.OK {
                         guard let sessionStatusResultString = sessionStatus.result else { return }
-                        let error = NSError(domain: "SkSigningLib", code: 1, userInfo:[NSLocalizedDescriptionKey: self.handleSessionStatusError(sessionResultCode: sessionStatusResultString).mobileIDErrorDescription ?? ""])
-                        self.errorResult(error: error)
+                        let error = NSError(domain: "SkSigningLib", code: 3, userInfo:[NSLocalizedDescriptionKey: self.handleSessionStatusError(sessionResultCode: sessionStatusResultString)])
+                        return self.errorResult(error: error)
                     }
                     
                     guard let signatureValue = sessionStatus.signature?.value else {
                         return
                     }
                     
-                    self.validateSignature(cert: cert, signatureValue: signatureValue)
+                    DispatchQueue.main.async {
+                        self.validateSignature(cert: cert, signatureValue: signatureValue)
+                    }
                 }
             }
         }
+    }
+    
+    private func isCountryCodeError(phoneNumber: String, errorDesc: String) -> Bool {
+        return phoneNumber.count <= 8 && MobileIDError.notFound == MobileIDError(rawValue: errorDesc) ? true : false
     }
     
     private func validateSignature(cert: String, signatureValue: String) -> Void {
@@ -156,7 +170,9 @@ class MobileIDSignature {
     }
     
     func errorResult(error: Error) -> Void {
-        NotificationCenter.default.post(name: .errorNotificationName, object: nil, userInfo: [kErrorKey: error])
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: .errorNotificationName, object: nil, userInfo: [kErrorKey: error])
+        }
     }
     
     func handleSessionStatusError(sessionResultCode: SessionResultCode) -> MobileIDError {

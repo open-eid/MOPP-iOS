@@ -16,6 +16,7 @@
 		DF3D29B223F6A92A007181B8 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29A823F6A929007181B8 /* SkSigningLib.framework */; };
 		DF3D29B723F6A92A007181B8 /* SkSigningLibTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3D29B623F6A92A007181B8 /* SkSigningLibTests.swift */; };
 		DF3D29B923F6A92A007181B8 /* SkSigningLib.h in Headers */ = {isa = PBXBuildFile; fileRef = DF3D29AB23F6A929007181B8 /* SkSigningLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DFC88C2E241F9B1100B0087B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC88C30241F9B1100B0087B /* Localizable.strings */; };
 		DFD204E0240D201600EB8150 /* RequestSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204DF240D201600EB8150 /* RequestSession.swift */; };
 		DFD204E4240D20B300EB8150 /* SessionRequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204E3240D20B300EB8150 /* SessionRequestParameters.swift */; };
 		DFD204E7240D274E00EB8150 /* SessionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204E6240D274E00EB8150 /* SessionResponse.swift */; };
@@ -50,6 +51,9 @@
 		DF3D29B123F6A929007181B8 /* SkSigningLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SkSigningLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF3D29B623F6A92A007181B8 /* SkSigningLibTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkSigningLibTests.swift; sourceTree = "<group>"; };
 		DF3D29B823F6A92A007181B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DFC88C2F241F9B1100B0087B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DFC88C31241F9B1B00B0087B /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = et.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DFC88C38241FDEE400B0087B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DFD204DF240D201600EB8150 /* RequestSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSession.swift; sourceTree = "<group>"; };
 		DFD204E3240D20B300EB8150 /* SessionRequestParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestParameters.swift; sourceTree = "<group>"; };
 		DFD204E6240D274E00EB8150 /* SessionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionResponse.swift; sourceTree = "<group>"; };
@@ -170,6 +174,7 @@
 				DF04A88B23FEA6740086C9F9 /* Requests */,
 				DF3D29AB23F6A929007181B8 /* SkSigningLib.h */,
 				DF3D29AC23F6A929007181B8 /* Info.plist */,
+				DFC88C2B241F9AA000B0087B /* Supporting Files */,
 			);
 			path = SkSigningLib;
 			sourceTree = "<group>";
@@ -181,6 +186,14 @@
 				DF3D29B823F6A92A007181B8 /* Info.plist */,
 			);
 			path = SkSigningLibTests;
+			sourceTree = "<group>";
+		};
+		DFC88C2B241F9AA000B0087B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DFC88C30241F9B1100B0087B /* Localizable.strings */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		DFD204E1240D209500EB8150 /* Session */ = {
@@ -296,6 +309,8 @@
 			knownRegions = (
 				en,
 				Base,
+				et,
+				ru,
 			);
 			mainGroup = DF3D299E23F6A929007181B8;
 			productRefGroup = DF3D29A923F6A929007181B8 /* Products */;
@@ -313,6 +328,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFC88C2E241F9B1100B0087B /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +404,19 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		DFC88C30241F9B1100B0087B /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DFC88C2F241F9B1100B0087B /* en */,
+				DFC88C31241F9B1B00B0087B /* et */,
+				DFC88C38241FDEE400B0087B /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		DF3D29BA23F6A92A007181B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -440,7 +469,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -497,7 +526,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

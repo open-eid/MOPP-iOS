@@ -92,6 +92,8 @@ public class RequestSignature: CertificateRequest {
             return .userAuthorizationFailed
         case 405:
             return .methodNotAllowed
+        case 429:
+            return .tooManyRequests
         case 500:
             return .internalError
         default:

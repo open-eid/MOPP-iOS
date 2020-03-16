@@ -117,9 +117,9 @@ class MobileIDChallengeViewController : UIViewController {
         guard let userInfo = notification.userInfo else { return }
         let error = userInfo[kErrorKey] as? NSError
         let mobileIDErrorMessage = error?.userInfo[NSLocalizedDescriptionKey] as? MobileIDError
-        let errorMessage = userInfo[kErrorMessage] as? String ?? "Error occurred when signing"
+        let errorMessage = userInfo[kErrorMessage] as? String ?? MobileIDError.generalError.mobileIDErrorDescription ?? L(.genericErrorMessage)
         
-        showErrorDialog(errorMessage: mobileIDErrorMessage?.mobileIDErrorDescription ?? errorMessage)
+        return showErrorDialog(errorMessage: SkSigningLib_LocalizedString(mobileIDErrorMessage?.mobileIDErrorDescription ?? errorMessage))
     }
     
     func showErrorDialog(errorMessage: String) -> Void {
@@ -130,7 +130,7 @@ class MobileIDChallengeViewController : UIViewController {
                         topViewController = currentViewController
                     }
                     
-                    let alert = UIAlertController(title: kErrorKey, message: errorMessage, preferredStyle: UIAlertControllerStyle.alert)
+                    let alert = UIAlertController(title: L(.errorAlertTitleGeneral), message: errorMessage, preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     topViewController.present(alert, animated: true, completion: nil)
                 }
