@@ -25,14 +25,14 @@ import Foundation
 
 
 protocol CertificateRequest {
-    func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, completionHandler: @escaping (Result<CertificateResponse, CertificateResponseError>) -> Void)
+    func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, completionHandler: @escaping (Result<CertificateResponse, MobileIDError>) -> Void)
 }
 
 public class RequestSignature: CertificateRequest {
     
     public static let shared = RequestSignature()
     
-    public func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, completionHandler: @escaping (Result<CertificateResponse, CertificateResponseError>) -> Void) {
+    public func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, completionHandler: @escaping (Result<CertificateResponse, MobileIDError>) -> Void) {
         guard let url = URL(string: "\(baseUrl)/certificate") else {
             completionHandler(.failure(.invalidURL))
             return
@@ -56,16 +56,47 @@ public class RequestSignature: CertificateRequest {
                 return
             }
             
+            if !(200...299).contains(httpResponse.statusCode) {
+                completionHandler(.failure(self.handleHTTPResponseError(httpResponse: httpResponse)))
+            }
+            
             if let data: Data = data {
                 EncoderDecoder().decode(data: data, completionHandler: { (response: CertificateResponse) in
                     if self.isResponseSuccess(certificateResponse: response) {
                         completionHandler(.success(response))
                     } else {
-                        completionHandler(.failure(httpResponse.errorCode ?? .generalError))
+                        completionHandler(.failure(self.handleCertificateError(certificateResponse: response)))
                     }
                 })
             }
         }.resume()
+    }
+    
+    private func handleCertificateError(certificateResponse: CertificateResponse) -> MobileIDError {
+        guard let certificateResponseResult = certificateResponse.result else { return .generalError }
+        switch certificateResponseResult {
+        case ResponseResult.NOT_FOUND:
+            return .notFound
+        case ResponseResult.NOT_ACTIVE:
+            return .notActive
+        default:
+            return .generalError
+        }
+    }
+    
+    private func handleHTTPResponseError(httpResponse: HTTPURLResponse) -> MobileIDError {
+        switch httpResponse.statusCode {
+        case 400:
+            return .parameterNameNull
+        case 401:
+            return .userAuthorizationFailed
+        case 405:
+            return .methodNotAllowed
+        case 500:
+            return .internalError
+        default:
+            return .generalError
+        }
     }
     
     private func isResponseSuccess(certificateResponse: CertificateResponse) -> Bool {
@@ -76,7 +107,7 @@ public class RequestSignature: CertificateRequest {
         }
     }
     
-    private func handleResponseResult(responseResult: ResponseResult, completionHandler: @escaping (CertificateResponseError) -> Void) -> Void {
+    private func handleResponseResult(responseResult: ResponseResult, completionHandler: @escaping (MobileIDError) -> Void) -> Void {
         switch responseResult {
         case ResponseResult.NOT_FOUND:
             completionHandler(.notFound)

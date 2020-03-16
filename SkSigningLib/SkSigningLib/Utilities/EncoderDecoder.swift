@@ -24,18 +24,6 @@ import Foundation
 
 class EncoderDecoder {
     
-//    func encode(requestParameters: RequestParameters) -> Data {
-//        let jsonEncoder = JSONEncoder()
-//        var encodedData: Data = Data()
-//        do {
-//            encodedData = try jsonEncoder.encode(requestParameters)
-//        } catch let error {
-//            NSLog("Error encoding request parameters: %@", error.localizedDescription)
-//        }
-//
-//        return encodedData
-//    }
-    
     func encode<T: Encodable>(data: T) -> Data {
         do {
             return try JSONEncoder().encode(data)
@@ -50,7 +38,7 @@ class EncoderDecoder {
         do {
             completionHandler(try JSONDecoder().decode(T.self, from: data))
         } catch let error {
-            print(error)
+            NSLog("Error decoding data: %@", error.localizedDescription)
         }
     }
     

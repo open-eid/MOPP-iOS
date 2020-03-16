@@ -43,3 +43,14 @@ public enum PollingProcess {
     case AUTHENTICATION
     case SIGNING
 }
+
+public enum SessionResultCode: String, Decodable {
+    case OK
+    case TIMEOUT
+    case NOT_MID_CLIENT
+    case USER_CANCELLED
+    case SIGNATURE_HASH_MISMATCH
+    case PHONE_ABSENT
+    case DELIVERY_ERROR
+    case SIM_ERROR
+}

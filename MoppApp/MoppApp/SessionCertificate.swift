@@ -1,9 +1,9 @@
 //
-//  Session.swift
+//  SessionCertificate.swift
 //  MoppApp
 //
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * Copyright 2020 Riigi Infosüsteemide Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,25 +24,26 @@
 import Foundation
 import SkSigningLib
 
-class Session {
-    static let shared = Session()
+class SessionCertificate {
     
-    func getSession(baseUrl: String, phoneNumber: String, nationalIdentityNumber: String, hash: String, hashType: String, language: String, completionHandler: @escaping (Result<SessionResponse, MobileIDError>) -> Void) -> Void {
+    static let shared: SessionCertificate = SessionCertificate()
+    
+    func getCertificate(baseUrl: String, phoneNumber: String, nationalIdentityNumber: String, completionHandler: @escaping (Result<CertificateResponse, MobileIDError>) -> Void) -> Void {
         do {
-            _ = try RequestSession.shared.getSession(baseUrl: baseUrl, requestParameters: SessionRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: kRelyingPartyUUID, phoneNumber: "+\(phoneNumber)", nationalIdentityNumber: nationalIdentityNumber, hash: hash, hashType: hashType, language: language, displayText: kDisplayText, displayTextFormat: kDisplayTextFormat)) { (sessionResult) in
+            _ = try RequestSignature.shared.getCertificate(baseUrl: baseUrl, requestParameters: CertificateRequestParameters(relyingPartyUUID: kRelyingPartyUUID, relyingPartyName: kRelyingPartyName, phoneNumber: "+\(phoneNumber)", nationalIdentityNumber: nationalIdentityNumber)) { (result) in
                 
-                switch sessionResult {
+                switch result {
                 case .success(let response):
                     completionHandler(.success(response))
                 case .failure(let error):
                     print(error)
                     print(error.localizedDescription)
-                    print(error.errorDescription ?? "")
+                    print(error.errorDescription)
                     completionHandler(.failure(error))
                 }
             }
         } catch let error {
-            print(error)
+            completionHandler(.failure(.generalError))
         }
-    }
+    }    
 }

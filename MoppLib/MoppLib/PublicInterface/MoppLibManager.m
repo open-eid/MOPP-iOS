@@ -47,21 +47,17 @@
     return [[MoppLibDigidocManager sharedInstance] dataFileCalculateHashWithDigestMethod:method container:moppContainer dataFileId:dataFileId];
 }
 
-- (SigningRequestData)signAndValidate:(NSString *)cert signatureValue:(NSString *)signatureValue containerPath:(NSString *)containerPath validate:(BOOL)validate {
-    return [[MoppLibDigidocManager sharedInstance] signAndValidate:cert signatureValue:signatureValue containerPath:containerPath validate:validate];
+- (NSString *)getContainerHash:(NSString *)cert containerPath:(NSString *)containerPath {
+    return [[MoppLibDigidocManager sharedInstance] getContainerHash:cert containerPath:containerPath];
 }
 
-- (NSData *)getDataToSign {
-    return [[MoppLibDigidocManager sharedInstance] getDataToSign];
+- (int)getVerificationCode {
+    return [[MoppLibDigidocManager sharedInstance] getVerificationCode];
 }
 
-- (void)validateSignature:(NSString *)signatureValue signatureId:(NSString *)signatureId containerPath:(NSString *)containerPath cert:(NSString *)cert success:(VoidBlock)success andFailure:(FailureBlock)failure {
-    return [[MoppLibDigidocManager sharedInstance] validateSignature:signatureValue signatureId:signatureId containerPath:containerPath cert:cert success:success andFailure:failure];
+- (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue {
+    return [[MoppLibDigidocManager sharedInstance] isSignatureValid:cert signatureValue:signatureValue];
 }
-
-//- (int)getVerificationCode:(std::vector<unsigned char>)hash {
-//    return [[MoppLibDigidocManager sharedInstance] getVerificationCode:calculatedSignature];
-//}
 
 - (NSString *)moppLibVersion {
   return [[MoppLibDigidocManager sharedInstance] getMoppLibVersion];

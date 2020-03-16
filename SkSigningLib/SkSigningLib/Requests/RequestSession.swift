@@ -24,15 +24,15 @@
 import Foundation
 
 protocol SessionRequest {
-    func getSession(baseUrl: String, requestParameters: SessionRequestParameters, completionHandler: @escaping (Result<SessionResponse, SessionResponseError>) -> Void)
-    func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, completionHandler: @escaping (Result<SessionStatusResponse, SessionResponseError>) -> Void)
+    func getSession(baseUrl: String, requestParameters: SessionRequestParameters, completionHandler: @escaping (Result<SessionResponse, MobileIDError>) -> Void)
+    func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, completionHandler: @escaping (Result<SessionStatusResponse, MobileIDError>) -> Void)
 }
 
 public class RequestSession: SessionRequest {
     
     public static let shared = RequestSession()
     
-    public func getSession(baseUrl: String, requestParameters: SessionRequestParameters, completionHandler: @escaping (Result<SessionResponse, SessionResponseError>) -> Void) {
+    public func getSession(baseUrl: String, requestParameters: SessionRequestParameters, completionHandler: @escaping (Result<SessionResponse, MobileIDError>) -> Void) {
         guard let url = URL(string: "\(baseUrl)/signature") else {
             completionHandler(.failure(.invalidURL))
             return
@@ -61,22 +61,20 @@ public class RequestSession: SessionRequest {
                     if (response.sessionID != nil) {
                         completionHandler(.success(response))
                     } else {
-                        print(response.error ?? "Error received")
-                        completionHandler(.failure(httpResponse.sessionErrorCode ?? .generalError))
+                        NSLog(response.error ?? "Unknown error received")
+                        completionHandler(.failure(self.handleHTTPSessionResponseError(httpResponse: httpResponse)))
                     }
                 })
             }
         }.resume()
     }
     
-    public func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, completionHandler: @escaping (Result<SessionStatusResponse, SessionResponseError>) -> Void) {
+    public func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, completionHandler: @escaping (Result<SessionStatusResponse, MobileIDError>) -> Void) {
         
         guard let url = URL(string: "\(baseUrl)/signature/session/\(requestParameters.sessionId)?timeoutMs=\(requestParameters.timeoutMs ?? 1000)") else {
             completionHandler(.failure(.invalidURL))
             return
         }
-        
-        print(url)
         
         var request = URLRequest(url: url)
         request.httpMethod = RequestMethod.GET.value
@@ -93,17 +91,46 @@ public class RequestSession: SessionRequest {
             
             if let data: Data = data {
                 EncoderDecoder().decode(data: data, completionHandler: { (response: SessionStatusResponse) in
-//                    print(response)
                     if (response.error == nil) {
                         completionHandler(.success(response))
                     } else {
-                        completionHandler(.failure(httpResponse.sessionErrorCode ?? .generalError))
+                        completionHandler(.failure(self.handleHTTPSessionStatusResponseError(httpResponse: httpResponse)))
                     }
                 })
             }
         }.resume()
-        
-        
+    }
+    
+    private func handleHTTPSessionResponseError(httpResponse: HTTPURLResponse) -> MobileIDError {
+        switch httpResponse.statusCode {
+        case 400:
+            return .parameterNameNull
+        case 401:
+            return .userAuthorizationFailed
+        case 405:
+            return .methodNotAllowed
+        case 500:
+            return .internalError
+        default:
+            return .generalError
+        }
+    }
+    
+    private func handleHTTPSessionStatusResponseError(httpResponse: HTTPURLResponse) -> MobileIDError {
+        switch httpResponse.statusCode {
+        case 400:
+            return .sessionIdMissing
+        case 401:
+            return .userAuthorizationFailed
+        case 404:
+            return .sessionIdNotFound
+        case 405:
+            return .methodNotAllowed
+        case 500:
+            return .internalError
+        default:
+            return .generalError
+        }
     }
     
 }

@@ -20,6 +20,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
+import SkSigningLib
+
 private var kRequestTimeout: Double = 60.0
 
 
@@ -110,10 +113,29 @@ class MobileIDChallengeViewController : UIViewController {
         sessionTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSessionProgress), userInfo: nil, repeats: true)
     }
     
-    @objc func receiveErrorNotification() {
-        sessionTimer?.invalidate()
-        MoppLibService.sharedInstance().cancelMobileSignatureStatusPolling()
-        dismiss(animated: false)
+    @objc func receiveErrorNotification(_ notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        let error = userInfo[kErrorKey] as? NSError
+        let mobileIDErrorMessage = error?.userInfo[NSLocalizedDescriptionKey] as? MobileIDError
+        let errorMessage = userInfo[kErrorMessage] as? String ?? "Error occurred when signing"
+        
+        showErrorDialog(errorMessage: mobileIDErrorMessage?.mobileIDErrorDescription ?? errorMessage)
+    }
+    
+    func showErrorDialog(errorMessage: String) -> Void {
+        DispatchQueue.main.async {
+            self.dismiss(animated: false) {
+                if var topViewController = UIApplication.shared.keyWindow?.rootViewController {
+                    while let currentViewController = topViewController.presentedViewController {
+                        topViewController = currentViewController
+                    }
+                    
+                    let alert = UIAlertController(title: kErrorKey, message: errorMessage, preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    topViewController.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {

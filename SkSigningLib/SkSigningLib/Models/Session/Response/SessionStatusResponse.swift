@@ -29,7 +29,7 @@ public enum SessionResponseState: String, Decodable {
 
 public struct SessionStatusResponse: Decodable {
     public let state: SessionResponseState
-    public let result: String?
+    public let result: SessionResultCode?
     public let signature: SessionResponseSignature?
     public let cert: String?
     public let time: String?
@@ -47,7 +47,7 @@ public struct SessionStatusResponse: Decodable {
     }
     
     public init(state: SessionResponseState,
-                result: String? = nil,
+                result: SessionResultCode? = nil,
                 signature: SessionResponseSignature? = nil,
                 cert: String? = nil,
                 time: String? = nil,
@@ -65,7 +65,7 @@ public struct SessionStatusResponse: Decodable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         state = try values.decode(SessionResponseState.self, forKey: .state)
-        result = try values.decodeIfPresent(String.self, forKey: .result)
+        result = try values.decodeIfPresent(SessionResultCode.self, forKey: .result)
         signature = try values.decodeIfPresent(SessionResponseSignature.self, forKey: .signature)
         cert = try values.decodeIfPresent(String.self, forKey: .cert)
         time = try values.decodeIfPresent(String.self, forKey: .time)

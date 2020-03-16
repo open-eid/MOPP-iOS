@@ -45,11 +45,9 @@ typedef enum {
 - (MoppLibContainer *)addDataFilesToContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths error:(NSError **)error;
 - (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex error:(NSError **)error;
 - (NSArray *)getContainers;
-- (SigningRequestData)signAndValidate:(NSString *)cert signatureValue:(NSString *)signatureValue containerPath:(NSString *)containerPath validate:(BOOL)validate;
-- (NSData *)getDataToSign;
-- (void)validateSignature:(NSString *)signatureValue signatureId:(NSString *)signatureId containerPath:(NSString *)containerPath cert:(NSString *)cert success:(VoidBlock)success andFailure:(FailureBlock)failure;
-//- (int)getVerificationCode:(std::vector<unsigned char>)hash;
-
+- (NSString *)getContainerHash:(NSString *)cert containerPath:(NSString *)containerPath;
+- (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue;
+- (int)getVerificationCode;
 - (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId;
 - (BOOL)container:(MoppLibContainer *)moppContainer containsSignatureWithCert:(NSData *)cert;
 - (void)addSignature:(NSString *)containerPath pin2:(NSString *)pin2 cert:(NSData *)cert success:(ContainerBlock)success andFailure:(FailureBlock)failure;

@@ -13,18 +13,16 @@
 		DF04A89523FEDC810086C9F9 /* CertificateRequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04A89423FEDC810086C9F9 /* CertificateRequestParameters.swift */; };
 		DF04A89723FEDD110086C9F9 /* RequestMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04A89623FEDD110086C9F9 /* RequestMethod.swift */; };
 		DF04A89923FEDE6D0086C9F9 /* CertificateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04A89823FEDE6D0086C9F9 /* CertificateResponse.swift */; };
-		DF04A89E23FEE0FD0086C9F9 /* CertificateResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04A89D23FEE0FD0086C9F9 /* CertificateResponseError.swift */; };
 		DF3D29B223F6A92A007181B8 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29A823F6A929007181B8 /* SkSigningLib.framework */; };
 		DF3D29B723F6A92A007181B8 /* SkSigningLibTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3D29B623F6A92A007181B8 /* SkSigningLibTests.swift */; };
 		DF3D29B923F6A92A007181B8 /* SkSigningLib.h in Headers */ = {isa = PBXBuildFile; fileRef = DF3D29AB23F6A929007181B8 /* SkSigningLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DFD204E0240D201600EB8150 /* RequestSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204DF240D201600EB8150 /* RequestSession.swift */; };
 		DFD204E4240D20B300EB8150 /* SessionRequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204E3240D20B300EB8150 /* SessionRequestParameters.swift */; };
 		DFD204E7240D274E00EB8150 /* SessionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204E6240D274E00EB8150 /* SessionResponse.swift */; };
-		DFD204E9240D275C00EB8150 /* SessionResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204E8240D275C00EB8150 /* SessionResponseError.swift */; };
-		DFD204EB240FD83D00EB8150 /* SessionPolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204EA240FD83D00EB8150 /* SessionPolling.swift */; };
 		DFD204ED240FD8D100EB8150 /* SessionStatusRequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204EC240FD8D100EB8150 /* SessionStatusRequestParameters.swift */; };
 		DFD204EF240FD9FD00EB8150 /* SessionStatusResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204EE240FD9FD00EB8150 /* SessionStatusResponse.swift */; };
 		DFD204F124100C5500EB8150 /* SessionResponseSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204F024100C5500EB8150 /* SessionResponseSignature.swift */; };
+		DFDF02C6241F0150006CF443 /* MobileIDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDF02C5241F0150006CF443 /* MobileIDError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +44,6 @@
 		DF04A89423FEDC810086C9F9 /* CertificateRequestParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateRequestParameters.swift; sourceTree = "<group>"; };
 		DF04A89623FEDD110086C9F9 /* RequestMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RequestMethod.swift; path = Certificate/RequestMethod.swift; sourceTree = "<group>"; };
 		DF04A89823FEDE6D0086C9F9 /* CertificateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateResponse.swift; sourceTree = "<group>"; };
-		DF04A89D23FEE0FD0086C9F9 /* CertificateResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateResponseError.swift; sourceTree = "<group>"; };
 		DF3D29A823F6A929007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF3D29AB23F6A929007181B8 /* SkSigningLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SkSigningLib.h; sourceTree = "<group>"; };
 		DF3D29AC23F6A929007181B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,11 +53,10 @@
 		DFD204DF240D201600EB8150 /* RequestSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSession.swift; sourceTree = "<group>"; };
 		DFD204E3240D20B300EB8150 /* SessionRequestParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestParameters.swift; sourceTree = "<group>"; };
 		DFD204E6240D274E00EB8150 /* SessionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionResponse.swift; sourceTree = "<group>"; };
-		DFD204E8240D275C00EB8150 /* SessionResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionResponseError.swift; sourceTree = "<group>"; };
-		DFD204EA240FD83D00EB8150 /* SessionPolling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPolling.swift; sourceTree = "<group>"; };
 		DFD204EC240FD8D100EB8150 /* SessionStatusRequestParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatusRequestParameters.swift; sourceTree = "<group>"; };
 		DFD204EE240FD9FD00EB8150 /* SessionStatusResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatusResponse.swift; sourceTree = "<group>"; };
 		DFD204F024100C5500EB8150 /* SessionResponseSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionResponseSignature.swift; sourceTree = "<group>"; };
+		DFDF02C5241F0150006CF443 /* MobileIDError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileIDError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +94,6 @@
 			children = (
 				DF04A88C23FEA6950086C9F9 /* RequestSignature.swift */,
 				DFD204DF240D201600EB8150 /* RequestSession.swift */,
-				DFD204EA240FD83D00EB8150 /* SessionPolling.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -117,6 +112,7 @@
 				DF04A89C23FEDFA40086C9F9 /* Certificate */,
 				DFD204E1240D209500EB8150 /* Session */,
 				DF04A89623FEDD110086C9F9 /* RequestMethod.swift */,
+				DFDF02C5241F0150006CF443 /* MobileIDError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -133,7 +129,6 @@
 			isa = PBXGroup;
 			children = (
 				DF04A89823FEDE6D0086C9F9 /* CertificateResponse.swift */,
-				DF04A89D23FEE0FD0086C9F9 /* CertificateResponseError.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -210,7 +205,6 @@
 			isa = PBXGroup;
 			children = (
 				DFD204E6240D274E00EB8150 /* SessionResponse.swift */,
-				DFD204E8240D275C00EB8150 /* SessionResponseError.swift */,
 				DFD204EE240FD9FD00EB8150 /* SessionStatusResponse.swift */,
 				DFD204F024100C5500EB8150 /* SessionResponseSignature.swift */,
 			);
@@ -361,19 +355,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFD204EB240FD83D00EB8150 /* SessionPolling.swift in Sources */,
 				DFD204E7240D274E00EB8150 /* SessionResponse.swift in Sources */,
 				DFD204EF240FD9FD00EB8150 /* SessionStatusResponse.swift in Sources */,
 				DF04A88D23FEA6950086C9F9 /* RequestSignature.swift in Sources */,
 				DF04A89023FEC7130086C9F9 /* EncoderDecoder.swift in Sources */,
 				DF04A89723FEDD110086C9F9 /* RequestMethod.swift in Sources */,
+				DFDF02C6241F0150006CF443 /* MobileIDError.swift in Sources */,
 				DFD204ED240FD8D100EB8150 /* SessionStatusRequestParameters.swift in Sources */,
 				DFD204E0240D201600EB8150 /* RequestSession.swift in Sources */,
 				DF04A89923FEDE6D0086C9F9 /* CertificateResponse.swift in Sources */,
 				DFD204E4240D20B300EB8150 /* SessionRequestParameters.swift in Sources */,
 				DF04A89523FEDC810086C9F9 /* CertificateRequestParameters.swift in Sources */,
-				DFD204E9240D275C00EB8150 /* SessionResponseError.swift in Sources */,
-				DF04A89E23FEE0FD0086C9F9 /* CertificateResponseError.swift in Sources */,
 				DFD204F124100C5500EB8150 /* SessionResponseSignature.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
