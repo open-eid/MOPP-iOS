@@ -201,12 +201,12 @@ private:
     - (MoppLibSignatureStatus)determineSignatureStatus:(int) status;
 @end
 
-@implementation MoppLibDigidocManager {
+@implementation MoppLibDigidocManager
     
-    @private digidoc::Signature *signature;
-    @private digidoc::Container *doc;
-    @private WebSigner *signer;
-}
+static digidoc::Signature *signature = nil;
+static digidoc::Container *doc = nil;
+static WebSigner *signer = nil;
+
 
 + (MoppLibDigidocManager *)sharedInstance {
   static dispatch_once_t pred;
@@ -322,7 +322,7 @@ private:
     }
 }
 
-- (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue {
++ (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue {
     std::string calculatedSignatureBase64 = std::string(base64_decode(signatureValue.UTF8String));
     
     std::vector<unsigned char> vec;
@@ -374,7 +374,7 @@ private:
     }
 }
 
-- (NSString *)getContainerHash:(NSString *)cert containerPath:(NSString *)containerPath {
++ (NSString *)getContainerHash:(NSString *)cert containerPath:(NSString *)containerPath {
     
     digidoc::X509Cert x509Cert = [MoppLibDigidocManager getDerCert:cert];
     signer = new WebSigner(x509Cert);

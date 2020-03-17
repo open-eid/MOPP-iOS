@@ -114,7 +114,7 @@ class MobileIDSignature {
     }
     
     private func validateSignature(cert: String, signatureValue: String) -> Void {
-        if MoppLibManager.sharedInstance()?.isSignatureValid(cert, signatureValue: signatureValue) ?? false {
+        if MoppLibManager.isSignatureValid(cert, signatureValue: signatureValue) {
             DispatchQueue.main.async {
                 NotificationCenter.default.post(
                     name: .signatureAddedToContainerNotificationName,
@@ -150,7 +150,7 @@ class MobileIDSignature {
     
     
     private func getHash(cert: String, containerPath: String) -> String? {
-        guard let hash: String = MoppLibManager.sharedInstance()?.getContainerHash(cert, containerPath: containerPath) else {
+        guard let hash: String = MoppLibManager.getContainerHash(cert, containerPath: containerPath) else {
             errorResult(error: NSError())
             return nil
         }
