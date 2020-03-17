@@ -35,14 +35,13 @@ class Session {
                 case .success(let response):
                     completionHandler(.success(response))
                 case .failure(let error):
-                    print(error)
-                    print(error.localizedDescription)
-                    print(error.errorDescription ?? "")
-                    completionHandler(.failure(error))
+                    NSLog("\(error)")
+                    return completionHandler(.failure(error))
                 }
             }
         } catch let error {
-            print(error)
+            NSLog(error.localizedDescription)
+            return completionHandler(.failure(.generalError))
         }
     }
 }

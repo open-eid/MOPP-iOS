@@ -201,11 +201,12 @@ private:
     - (MoppLibSignatureStatus)determineSignatureStatus:(int) status;
 @end
 
-@implementation MoppLibDigidocManager
-
-digidoc::Signature *signature = nullptr;
-digidoc::Container *doc = nullptr;
-WebSigner *signer = nullptr;
+@implementation MoppLibDigidocManager {
+    
+    @private digidoc::Signature *signature;
+    @private digidoc::Container *doc;
+    @private WebSigner *signer;
+}
 
 + (MoppLibDigidocManager *)sharedInstance {
   static dispatch_once_t pred;
@@ -323,8 +324,9 @@ WebSigner *signer = nullptr;
 
 - (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue {
     std::string calculatedSignatureBase64 = std::string(base64_decode(signatureValue.UTF8String));
-    NSString *calculatedSignatureString = [NSString stringWithCString:calculatedSignatureBase64.c_str() encoding:[NSString defaultCStringEncoding]];
-    NSData* calculatedSignature = [calculatedSignatureString dataUsingEncoding:[NSString defaultCStringEncoding]];
+    
+    std::vector<unsigned char> vec;
+    std::copy(calculatedSignatureBase64.begin(), calculatedSignatureBase64.end(), std::back_inserter(vec));
     
     digidoc::X509Cert x509Cert = [MoppLibDigidocManager getDerCert:cert];
     
@@ -351,10 +353,6 @@ WebSigner *signer = nullptr;
         signer->setSignerRoles(std::vector<std::string>());
         
         try {
-            unsigned char *buffer = (unsigned char *)[calculatedSignature bytes];
-            std::vector<unsigned char>::size_type size = calculatedSignature.length;
-            std::vector<unsigned char> vec(buffer, buffer + size);
-            
             signature->setSignatureValue(vec);
             signature->extendSignatureProfile(profile);
             signature->validate();

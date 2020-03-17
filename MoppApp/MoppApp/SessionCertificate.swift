@@ -34,16 +34,14 @@ class SessionCertificate {
                 
                 switch result {
                 case .success(let response):
-                    completionHandler(.success(response))
+                    return completionHandler(.success(response))
                 case .failure(let error):
-                    print(error)
-                    print(error.localizedDescription)
-                    print(error.errorDescription)
-                    completionHandler(.failure(error))
+                    NSLog("\(error)")
+                    return completionHandler(.failure(error))
                 }
             }
         } catch let error {
-            completionHandler(.failure(.generalError))
+            return completionHandler(.failure(.generalError))
         }
     }    
 }

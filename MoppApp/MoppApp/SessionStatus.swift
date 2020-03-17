@@ -38,16 +38,16 @@ class SessionStatus {
                             if sessionStatus.state == SessionResponseState.COMPLETE {
                                 timer.invalidate()
                                 NSLog("Requesting session status complete!")
-                                completionHandler(.success(sessionStatus))
+                                return completionHandler(.success(sessionStatus))
                             } else {
                                 NSLog("Requesting session status...")
                             }
                         case .failure(let sessionError):
-                            completionHandler(.failure(sessionError))
+                            return completionHandler(.failure(sessionError))
                         }
                     }
                 } catch {
-                    completionHandler(.failure(.generalError))
+                    return completionHandler(.failure(.generalError))
                 }
             }
         }

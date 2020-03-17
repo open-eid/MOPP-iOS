@@ -102,7 +102,7 @@ class MobileIDSignature {
                     }
                     
                     DispatchQueue.main.async {
-                        self.validateSignature(cert: cert, signatureValue: signatureValue)
+                        return self.validateSignature(cert: cert, signatureValue: signatureValue)
                     }
                 }
             }
@@ -128,9 +128,14 @@ class MobileIDSignature {
     }
     
     private func setupControlCode() {
+        guard let verificationCode = self.getVerificationCode() else {
+            let error = NSError(domain: "SkSigningLib", code: 3, userInfo:[NSLocalizedDescriptionKey: MobileIDError.generalError])
+            return self.errorResult(error: error)
+        }
+        
         DispatchQueue.main.async {
             let response: MoppLibMobileCreateSignatureResponse = MoppLibMobileCreateSignatureResponse()
-            response.challengeId = self.getVerificationCode()
+            response.challengeId = verificationCode
             DispatchQueue.main.async {
                 NotificationCenter.default.post(
                     name: .createSignatureNotificationName,
@@ -153,11 +158,11 @@ class MobileIDSignature {
         return hash
     }
     
-    func getVerificationCode() -> String {
+    func getVerificationCode() -> String? {
         guard let verificationCode: NSNumber = MoppLibManager.sharedInstance()?.getVerificationCode() as NSNumber? else {
             NSLog("Failed to get verification code")
             self.errorResult(error: NSError())
-            return ""
+            return nil
         }
         
         let numberFormatter = NumberFormatter()
@@ -166,7 +171,7 @@ class MobileIDSignature {
         
         guard let verificationCodeString = numberFormatter.string(from: verificationCode) else {
             self.errorResult(error: NSError())
-            return ""
+            return nil
         }
         
         return verificationCodeString

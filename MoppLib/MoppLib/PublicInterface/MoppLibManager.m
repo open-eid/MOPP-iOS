@@ -39,10 +39,6 @@
     [[MoppLibDigidocManager sharedInstance] setupWithSuccess:success andFailure:failure usingTestDigiDocService:useTestDDS andTSUrl:tsUrl withMoppConfiguration: moppConfiguration];
 }
 
-- (void)checkVersionUpdateAndMissingFiles:(NSURL *)directory completionHandler:(void (^)())completionHandler {
-    [[MoppLibDigidocManager sharedInstance] checkVersionUpdateAndMissingFiles:directory completionHandler:completionHandler];
-}
-
 - (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId {
     return [[MoppLibDigidocManager sharedInstance] dataFileCalculateHashWithDigestMethod:method container:moppContainer dataFileId:dataFileId];
 }
