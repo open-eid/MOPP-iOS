@@ -331,49 +331,41 @@ static WebSigner *signer = nil;
     digidoc::X509Cert x509Cert = [MoppLibDigidocManager getDerCert:cert];
     
     try {
-        #if USE_TEST_DDS
-            BOOL useOCSPUrl = true;
-        #else
-            BOOL useOCSPUrl = false;
-        #endif
-        
-        if (useOCSPUrl) {
-            OCSPUrl = [NSString stringWithCString:getOCSPUrl(x509Cert.handle()).c_str() encoding:[NSString defaultCStringEncoding]];
-            
-            NSMutableArray *profiles = [NSMutableArray new];
-            for (auto signature : doc->signatures()) {
-                [profiles addObject:[[NSString alloc] initWithBytes:signature->profile().c_str() length:signature->profile().size() encoding:NSUTF8StringEncoding]];
-            }
-        }
-        
         std::string profile = "time-stamp";
         
         if (signer == NULL || signature == NULL) {
+            NSLog(@"\nError: Received NULL value with 'signer' or 'signature'\n");
             return false;
         }
         
+        NSLog(@"\nSetting profile info...\n");
         signer->setProfile(profile);
         signer->setSignatureProductionPlace("", "", "", "");
         signer->setSignerRoles(std::vector<std::string>());
+        NSLog(@"\nProfile info set successfully\n");
         
         try {
+            NSLog(@"\nStarting signature validation...\n");
             signature->setSignatureValue(vec);
             signature->extendSignatureProfile(profile);
             signature->validate();
             doc->save();
             delete doc;
-            signature = nullptr;
-            signer = nullptr;
+            signature = nil;
+            signer = nil;
+            NSLog(@"\nSignature validated!\n");
             
             return true;
         } catch(const digidoc::Exception &e) {
             parseException(e);
             delete doc;
+            NSLog(@"\nError validating signature\n");
             return false;
         }
     } catch(const digidoc::Exception &e) {
         delete doc;
         parseException(e);
+        NSLog(@"\nError setting profile info\n");
         return false;
     }
 }

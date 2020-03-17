@@ -128,28 +128,6 @@ extension SigningContainerViewController : MobileIDEditViewControllerDelegate {
         MobileIDSignature.shared.createMobileIDSignature(baseUrl: Configuration.getConfiguration().MIDPROXYURL, phoneNumber: phoneNumber, nationalIdentityNumber: idCode, containerPath: self.containerViewDelegate.getContainerPath(), hashType: kHashType, language: decideLanguageBasedOnPreferredLanguages())
     }
     
-    func generateVerificationCode(hash: String) -> Int {
-        let binaryData: Data? = Data(hash.utf8)
-        
-        let stringOf01: String = binaryData!.reduce("") { (acc, byte) -> String in
-            acc + String(byte, radix: 2)
-        }
-        
-        let firstSixBytes: Substring = stringOf01.prefix(6)
-        let lastSevenBytes: Substring = stringOf01.suffix(7)
-        let codeBytes: String = String(firstSixBytes) + String(lastSevenBytes)
-        
-        if let numberCode = Int(codeBytes, radix: 2) {
-            print("\n")
-            print("PIN Verification Code: \(numberCode)")
-            print("\n")
-            
-            return numberCode
-        }
-        
-        return 0
-    }
-    
     func decideLanguageBasedOnPreferredLanguages() -> String {
         var language: String = String()
         let prefLanguages = NSLocale.preferredLanguages
