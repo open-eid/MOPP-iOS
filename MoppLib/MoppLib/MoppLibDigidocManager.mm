@@ -348,6 +348,10 @@ static WebSigner *signer = nil;
         
         std::string profile = "time-stamp";
         
+        if (signer == NULL || signature == NULL) {
+            return false;
+        }
+        
         signer->setProfile(profile);
         signer->setSignatureProductionPlace("", "", "", "");
         signer->setSignerRoles(std::vector<std::string>());

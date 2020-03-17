@@ -37,17 +37,17 @@ class MobileIDSignature {
             do {
                 certificateResponse = try sessionCertificate.getResult()
             } catch let certificateError {
-                let error = NSError(domain: "SkSigningLib", code: 1, userInfo:[NSLocalizedDescriptionKey: certificateError as? MobileIDError ?? certificateError])
+                let error = NSError(domain: "SkSigningLib", code: 1, userInfo: [NSLocalizedDescriptionKey: certificateError as? MobileIDError ?? certificateError])
                 
                 guard let mobileCertificateError = certificateError as? MobileIDError else {
                     return self.errorResult(error: error)
                 }
                 
                 if self.isCountryCodeError(phoneNumber: phoneNumber, errorDesc: "\(mobileCertificateError)") {
-                    let parameterError = NSError(domain: "SkSigningLib", code: 4, userInfo:[NSLocalizedDescriptionKey: MobileIDError.parameterNameNull])
+                    let parameterError = NSError(domain: "SkSigningLib", code: 4, userInfo: [NSLocalizedDescriptionKey: MobileIDError.parameterNameNull])
                     return self.errorResult(error: parameterError)
                 }
-                    
+                
                 return self.errorResult(error: error)
             }
             
@@ -56,7 +56,7 @@ class MobileIDSignature {
             }
             
             guard let hash: String = self.getHash(cert: cert, containerPath: containerPath) else {
-                let error = NSError(domain: "SkSigningLib", code: 4, userInfo:[NSLocalizedDescriptionKey: MobileIDError.generalError])
+                let error = NSError(domain: "SkSigningLib", code: 4, userInfo: [NSLocalizedDescriptionKey: MobileIDError.generalError])
                 return self.errorResult(error: error)
             }
             
@@ -71,8 +71,7 @@ class MobileIDSignature {
                 do {
                     sessionResponse = try sessionResult.getResult()
                 } catch let sessionError {
-                    let error = NSError(domain: "SkSigningLib", code: 2, userInfo:[NSLocalizedDescriptionKey:
-                    sessionError as? MobileIDError ?? sessionError])
+                    let error = NSError(domain: "SkSigningLib", code: 2, userInfo: [NSLocalizedDescriptionKey: sessionError as? MobileIDError ?? sessionError])
                     
                     return self.errorResult(error: error)
                 }
@@ -93,7 +92,7 @@ class MobileIDSignature {
                     
                     if sessionStatus.result != SessionResultCode.OK {
                         guard let sessionStatusResultString = sessionStatus.result else { return }
-                        let error = NSError(domain: "SkSigningLib", code: 3, userInfo:[NSLocalizedDescriptionKey: self.handleSessionStatusError(sessionResultCode: sessionStatusResultString)])
+                        let error = NSError(domain: "SkSigningLib", code: 3, userInfo: [NSLocalizedDescriptionKey: self.handleSessionStatusError(sessionResultCode: sessionStatusResultString)])
                         return self.errorResult(error: error)
                     }
                     
@@ -123,13 +122,14 @@ class MobileIDSignature {
             }
         }
         else {
-            errorResult(error: NSError())
+            let error = NSError(domain: "SkSigningLib", code: 5, userInfo: [NSLocalizedDescriptionKey: MobileIDError.generalError])
+            errorResult(error: error)
         }
     }
     
     private func setupControlCode() {
         guard let verificationCode = self.getVerificationCode() else {
-            let error = NSError(domain: "SkSigningLib", code: 3, userInfo:[NSLocalizedDescriptionKey: MobileIDError.generalError])
+            let error = NSError(domain: "SkSigningLib", code: 3, userInfo: [NSLocalizedDescriptionKey: MobileIDError.generalError])
             return self.errorResult(error: error)
         }
         
