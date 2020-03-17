@@ -206,6 +206,7 @@ private:
 static digidoc::Signature *signature = nil;
 static digidoc::Container *doc = nil;
 static WebSigner *signer = nil;
+static BOOL isSignatureValidated = false;
 
 
 + (MoppLibDigidocManager *)sharedInstance {
@@ -333,9 +334,15 @@ static WebSigner *signer = nil;
     try {
         std::string profile = "time-stamp";
         
-        if (signer == NULL || signature == NULL) {
-            NSLog(@"\nError: Received NULL value with 'signer' or 'signature'\n");
+        if ((!signer || !signature) && !isSignatureValidated) {
+            NSLog(@"\nError: Received empty value with 'signer' or 'signature'\n");
             return false;
+        }
+        
+        if ((!signer || !signature) && isSignatureValidated) {
+            NSLog(@"\nSeems signature is already validated\n");
+            isSignatureValidated = false;
+            return true;
         }
         
         NSLog(@"\nSetting profile info...\n");
@@ -354,6 +361,8 @@ static WebSigner *signer = nil;
             signature = nil;
             signer = nil;
             NSLog(@"\nSignature validated!\n");
+            
+            isSignatureValidated = true;
             
             return true;
         } catch(const digidoc::Exception &e) {
