@@ -34,13 +34,15 @@ class SessionCertificate {
                 
                 switch result {
                 case .success(let response):
+                    NSLog("Received certificate response: \(response.result?.rawValue ?? "-")")
                     return completionHandler(.success(response))
                 case .failure(let error):
-                    NSLog("\(error)")
+                    NSLog("Getting certificate error: \(error.mobileIDErrorDescription ?? error.rawValue)")
                     return completionHandler(.failure(error))
                 }
             }
         } catch let error {
+            NSLog("Error occurred while getting certificate: \(error.localizedDescription)")
             return completionHandler(.failure(.generalError))
         }
     }    

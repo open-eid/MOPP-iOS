@@ -30,7 +30,7 @@ protocol CertificateRequest {
 
 public class RequestSignature: CertificateRequest {
     
-    public static let shared = RequestSignature()
+    public static let shared: RequestSignature = RequestSignature()
     
     public func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, completionHandler: @escaping (Result<CertificateResponse, MobileIDError>) -> Void) {
         guard let url = URL(string: "\(baseUrl)/certificate") else {

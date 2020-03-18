@@ -16,6 +16,7 @@
 		DF3D29B223F6A92A007181B8 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29A823F6A929007181B8 /* SkSigningLib.framework */; };
 		DF3D29B723F6A92A007181B8 /* SkSigningLibTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3D29B623F6A92A007181B8 /* SkSigningLibTests.swift */; };
 		DF3D29B923F6A92A007181B8 /* SkSigningLib.h in Headers */ = {isa = PBXBuildFile; fileRef = DF3D29AB23F6A929007181B8 /* SkSigningLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DF90EDE024223D6A0040FFE7 /* ControlCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF90EDDF24223D6A0040FFE7 /* ControlCode.swift */; };
 		DFC88C2E241F9B1100B0087B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC88C30241F9B1100B0087B /* Localizable.strings */; };
 		DFD204E0240D201600EB8150 /* RequestSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204DF240D201600EB8150 /* RequestSession.swift */; };
 		DFD204E4240D20B300EB8150 /* SessionRequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204E3240D20B300EB8150 /* SessionRequestParameters.swift */; };
@@ -51,6 +52,7 @@
 		DF3D29B123F6A929007181B8 /* SkSigningLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SkSigningLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF3D29B623F6A92A007181B8 /* SkSigningLibTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkSigningLibTests.swift; sourceTree = "<group>"; };
 		DF3D29B823F6A92A007181B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF90EDDF24223D6A0040FFE7 /* ControlCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlCode.swift; sourceTree = "<group>"; };
 		DFC88C2F241F9B1100B0087B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DFC88C31241F9B1B00B0087B /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = et.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DFC88C38241FDEE400B0087B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				DF04A88F23FEC7130086C9F9 /* EncoderDecoder.swift */,
+				DF90EDDF24223D6A0040FFE7 /* ControlCode.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				DFD204E0240D201600EB8150 /* RequestSession.swift in Sources */,
 				DF04A89923FEDE6D0086C9F9 /* CertificateResponse.swift in Sources */,
 				DFD204E4240D20B300EB8150 /* SessionRequestParameters.swift in Sources */,
+				DF90EDE024223D6A0040FFE7 /* ControlCode.swift in Sources */,
 				DF04A89523FEDC810086C9F9 /* CertificateRequestParameters.swift in Sources */,
 				DFD204F124100C5500EB8150 /* SessionResponseSignature.swift in Sources */,
 			);

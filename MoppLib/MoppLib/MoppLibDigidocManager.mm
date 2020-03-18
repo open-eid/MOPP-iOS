@@ -311,16 +311,16 @@ static BOOL isSignatureValidated = false;
     return result;
 }
 
-- (int)getVerificationCode {
-    std::vector<unsigned char> hash = signature->dataToSign();
-    if (!hash.empty()) {
-        int verificationCode = ((0xFC & hash[0]) << 5) | (hash[hash.size() - 1] & 0x7F);
-        NSLog(@"\nMobile-ID verification code: %04d\n", verificationCode);
-        return verificationCode;
-    } else {
-        NSLog(@"Hash is empty");
-        return 0;
++ (NSArray *)getDataToSign {
+    std::vector<unsigned char> dataTosign = signature->dataToSign();
+    
+    NSMutableArray* dataToSignArray = [NSMutableArray arrayWithCapacity: dataTosign.size()];
+    
+    for (auto value : dataTosign) {
+        [dataToSignArray addObject:@(value)];
     }
+    
+    return dataToSignArray;
 }
 
 + (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue {

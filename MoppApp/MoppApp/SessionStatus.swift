@@ -32,26 +32,39 @@ class SessionStatus {
         DispatchQueue.main.async {
             Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
                 do {
-                    _ = try RequestSession.shared.getSessionStatus(baseUrl: baseUrl, process: process, requestParameters: SessionStatusRequestParameters(sessionId: sessionId, timeoutMs: timeoutMs)) { (sessionStatusResult) in
+                    _ = try RequestSession.shared.getSessionStatus(baseUrl: baseUrl, process: process, requestParameters: SessionStatusRequestParameters(sessionId: sessionId, timeoutMs: timeoutMs)) { (sessionStatusResult: Result<SessionStatusResponse, MobileIDError>) in
                         switch sessionStatusResult {
                         case .success(let sessionStatus):
-                            if sessionStatus.state == SessionResponseState.COMPLETE {
+                            if self.isSessionStateComplete(sessionState: self.getSessionState(sessionStatus: sessionStatus)) {
+                                NSLog("Received session status response: \(sessionStatus.result?.rawValue ?? "-")")
                                 timer.invalidate()
-                                NSLog("Requesting session status complete!")
                                 return completionHandler(.success(sessionStatus))
-                            } else {
-                                NSLog("Requesting session status...")
                             }
                         case .failure(let sessionError):
+                            NSLog("Getting Session Status error: \(sessionError.mobileIDErrorDescription ?? sessionError.rawValue)")
                             return completionHandler(.failure(sessionError))
                         }
                     }
-                } catch {
+                } catch let error {
+                    NSLog("Error occurred while getting session status: \(error.localizedDescription)")
                     return completionHandler(.failure(.generalError))
                 }
             }
         }
     }
     
-
+    private func getSessionState(sessionStatus: SessionStatusResponse) -> SessionResponseState {
+        let sessionState = sessionStatus.state
+        switch sessionState {
+        case .RUNNING:
+            NSLog("Requesting session status... (currently: \(sessionState))")
+        case .COMPLETE:
+            NSLog("Requesting session status complete: (\(sessionState))!")
+        }
+        return sessionState
+    }
+    
+    private func isSessionStateComplete(sessionState: SessionResponseState) -> Bool {
+        return sessionState == SessionResponseState.COMPLETE
+    }
 }

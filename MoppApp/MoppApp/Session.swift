@@ -25,7 +25,7 @@ import Foundation
 import SkSigningLib
 
 class Session {
-    static let shared = Session()
+    static let shared: Session = Session()
     
     func getSession(baseUrl: String, phoneNumber: String, nationalIdentityNumber: String, hash: String, hashType: String, language: String, completionHandler: @escaping (Result<SessionResponse, MobileIDError>) -> Void) -> Void {
         do {
@@ -33,14 +33,15 @@ class Session {
                 
                 switch sessionResult {
                 case .success(let response):
+                    NSLog("\nReceived Session (session ID redacted): \(response.sessionID?.prefix(13) ?? "-")\n")
                     completionHandler(.success(response))
-                case .failure(let error):
-                    NSLog("\(error)")
-                    return completionHandler(.failure(error))
+                case .failure(let sessionError):
+                    NSLog("Getting session error: \(sessionError.mobileIDErrorDescription ?? sessionError.rawValue)")
+                    return completionHandler(.failure(sessionError))
                 }
             }
         } catch let error {
-            NSLog(error.localizedDescription)
+            NSLog("Error occurred while getting session: \(error.localizedDescription)")
             return completionHandler(.failure(.generalError))
         }
     }

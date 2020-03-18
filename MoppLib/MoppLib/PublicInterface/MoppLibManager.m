@@ -47,8 +47,8 @@
     return [MoppLibDigidocManager getContainerHash:cert containerPath:containerPath];
 }
 
-- (int)getVerificationCode {
-    return [[MoppLibDigidocManager sharedInstance] getVerificationCode];
++ (NSArray *)getDataToSign {
+    return [MoppLibDigidocManager getDataToSign];
 }
 
 + (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue {
