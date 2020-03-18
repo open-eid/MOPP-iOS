@@ -62,6 +62,9 @@ class MobileIDSignature {
                     return self.generateError(mobileIDError: .parameterNameNull)
                 }
                 
+                if let errorObj = error as? MobileIDError {
+                    return self.generateError(mobileIDError: errorObj)
+                }
                 return self.errorResult(error: error)
             }
             
