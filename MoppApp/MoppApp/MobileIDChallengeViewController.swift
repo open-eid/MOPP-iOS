@@ -23,7 +23,7 @@
 
 import SkSigningLib
 
-private var kRequestTimeout: Double = 60.0
+private var kRequestTimeout: Double = 120.0
 
 
 class MobileIDChallengeViewController : UIViewController {
@@ -160,9 +160,7 @@ class MobileIDChallengeViewController : UIViewController {
         }
         else {
             timer.invalidate()
-            MoppLibService.sharedInstance().cancelMobileSignatureStatusPolling()
             dismiss(animated: false, completion: nil)
-            NotificationCenter.default.post(name: .errorNotificationName, object: nil, userInfo: [kErrorMessage: L(.mobileIdTimeoutMessage)])
         }
     }
 
