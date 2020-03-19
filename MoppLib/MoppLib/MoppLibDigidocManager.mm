@@ -314,7 +314,7 @@ static BOOL isSignatureValidated = false;
 + (NSArray *)getDataToSign {
     std::vector<unsigned char> dataTosign = signature->dataToSign();
     
-    NSMutableArray* dataToSignArray = [NSMutableArray arrayWithCapacity: dataTosign.size()];
+    NSMutableArray *dataToSignArray = [NSMutableArray arrayWithCapacity: dataTosign.size()];
     
     for (auto value : dataTosign) {
         [dataToSignArray addObject:@(value)];
@@ -340,7 +340,7 @@ static BOOL isSignatureValidated = false;
         }
         
         if ((!signer || !signature) && isSignatureValidated) {
-            NSLog(@"\nSeems signature is already validated\n");
+            NSLog(@"\nSignature is already validated\n");
             isSignatureValidated = false;
             return true;
         }

@@ -27,8 +27,12 @@ public class ControlCode {
     
     public static let shared: ControlCode = ControlCode()
     
-    public func getVerificationCode(hash: Array<Int>) -> String {
-        let verificationCode: Int = ((0xFC & Int(hash[0])) << 5) | (hash[hash.count - 1] & 0x7F)
+    public func getVerificationCode(hash: Array<Int>) -> String? {
+        guard !hash.isEmpty else {
+            return nil
+        }
+        
+        let verificationCode: Int = ((0xFC & hash.first!) << 5) | (hash.last! & 0x7F)
         
         let verificationCodeAsString: String = addLeadingZerosIfNeeded(verificationCode: String(verificationCode))
         

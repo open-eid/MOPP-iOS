@@ -118,16 +118,16 @@ class MobileIDSignature {
                         sessionStatus = try sessionStatusResult.getResult()
                         
                         NSLog("\nReceived session status: \(sessionStatus.result?.rawValue ?? "Unable to log session status result")\n")
+                        
+                        if sessionStatus.result != SessionResultCode.OK {
+                            guard let sessionStatusResultString = sessionStatus.result else { return }
+                            NSLog("\nError completing signing: \(self.handleSessionStatusError(sessionResultCode: sessionStatusResultString).mobileIDErrorDescription ?? "Unable to log session status description")\n")
+                            
+                            return self.generateError(mobileIDError: self.handleSessionStatusError(sessionResultCode: sessionStatusResultString))
+                        }
                     } catch let sessionStatusError {
                         NSLog("\nUnable to get session status: \(sessionStatusError)\n")
                         return self.errorResult(error: sessionStatusError)
-                    }
-                    
-                    if sessionStatus.result != SessionResultCode.OK {
-                        guard let sessionStatusResultString = sessionStatus.result else { return }
-                        NSLog("\nError completing signing: \(self.handleSessionStatusError(sessionResultCode: sessionStatusResultString).mobileIDErrorDescription ?? "Unable to log session status description")\n")
-                        
-                        return self.generateError(mobileIDError: self.handleSessionStatusError(sessionResultCode: sessionStatusResultString))
                     }
                     
                     guard let signatureValue = sessionStatus.signature?.value else {
@@ -206,7 +206,11 @@ class MobileIDSignature {
     
     // MARK: Get verification code
     private func getVerificationCode() -> String? {
-        return String(ControlCode.shared.getVerificationCode(hash: MoppLibManager.getDataToSign() as! Array<Int>))
+        guard let verificationCode: String = ControlCode.shared.getVerificationCode(hash: MoppLibManager.getDataToSign() as! Array<Int>) else {
+            self.generateError(mobileIDError: .generalError)
+            return nil
+        }
+        return verificationCode
     }
     
     // MARK: Submit error result
