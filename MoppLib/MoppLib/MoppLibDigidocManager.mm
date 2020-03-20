@@ -230,7 +230,8 @@ static BOOL isSignatureValidated = false;
         [tsUrl cStringUsingEncoding:NSUTF8StringEncoding];
       digidoc::Conf::init(new DigiDocConf(timestampUrl, moppConfiguration));
       NSString *appInfo = [NSString stringWithFormat:@"%s/%@ (iOS %@)", "qdigidocclient", [self moppAppVersion], [self iOSVersion]];
-      digidoc::initialize(std::string([appInfo UTF8String]));
+      std::string appInfoObjcString = std::string([appInfo UTF8String]);
+      digidoc::initialize(appInfoObjcString, appInfoObjcString);
 
       dispatch_async(dispatch_get_main_queue(), ^{
         success();
