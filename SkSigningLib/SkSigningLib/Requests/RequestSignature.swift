@@ -57,15 +57,15 @@ public class RequestSignature: CertificateRequest {
             }
             
             if !(200...299).contains(httpResponse.statusCode) {
-                completionHandler(.failure(self.handleHTTPResponseError(httpResponse: httpResponse)))
+                return completionHandler(.failure(self.handleHTTPResponseError(httpResponse: httpResponse)))
             }
             
             if let data: Data = data {
                 EncoderDecoder().decode(data: data, completionHandler: { (response: CertificateResponse) in
                     if self.isResponseSuccess(certificateResponse: response) {
-                        completionHandler(.success(response))
+                        return completionHandler(.success(response))
                     } else {
-                        completionHandler(.failure(self.handleCertificateError(certificateResponse: response)))
+                        return completionHandler(.failure(self.handleCertificateError(certificateResponse: response)))
                     }
                 })
             }

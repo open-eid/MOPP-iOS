@@ -72,8 +72,7 @@ public class RequestSession: SessionRequest {
     public func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, completionHandler: @escaping (Result<SessionStatusResponse, MobileIDError>) -> Void) {
         
         guard let url = URL(string: "\(baseUrl)/signature/session/\(requestParameters.sessionId)?timeoutMs=\(requestParameters.timeoutMs ?? 1000)") else {
-            completionHandler(.failure(.invalidURL))
-            return
+            return completionHandler(.failure(.invalidURL))
         }
         
         var request = URLRequest(url: url)
@@ -85,16 +84,15 @@ public class RequestSession: SessionRequest {
             }
             
             if error != nil {
-                completionHandler(.failure(.generalError))
-                return
+                return completionHandler(.failure(.generalError))
             }
             
             if let data: Data = data {
                 EncoderDecoder().decode(data: data, completionHandler: { (response: SessionStatusResponse) in
                     if (response.error == nil) {
-                        completionHandler(.success(response))
+                        return completionHandler(.success(response))
                     } else {
-                        completionHandler(.failure(self.handleHTTPSessionStatusResponseError(httpResponse: httpResponse)))
+                        return completionHandler(.failure(self.handleHTTPSessionStatusResponseError(httpResponse: httpResponse)))
                     }
                 })
             }
