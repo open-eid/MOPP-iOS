@@ -77,4 +77,5 @@
 "digidoc-service-error-user-certificate-suspended" = "Your mobile signing certificate is suspended";
 "digidoc-service-error-user-certificate-expired" = "Your mobile signing certificate is expired";
 "digidoc-service-error-message-exceeds-volume-limit" = "Too many datafiles in container";
+"digidoc-service-error-message-too-many-requests" = "The limit for digital signatures per month has been reached for this IP address. Additional information (https://www.id.ee/index.php?id=39023)";
 "digidoc-service-error-simlutaneous-requests-limit-exceeded" = "Simultaneous requests limit exceeded";

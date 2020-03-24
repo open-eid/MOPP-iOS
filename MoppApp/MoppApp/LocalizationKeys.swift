@@ -136,6 +136,7 @@ enum LocKey : String
     case pin1BlockedAlert = "pin1-blocked-alert"
     case genericErrorMessage = "generic-error-message"
     case decryptionErrorMessage = "decryption-error-message"
+    case signingErrorTooManyRequests = "signing-error-too-many-requests"
     case signingAbortedMessage = "signing-aborted-message"
     case myEidStatusReaderNotFound = "my-eid-status-reader-not-found"
     case myEidStatusCardNotFound = "my-eid-status-card-not-found"

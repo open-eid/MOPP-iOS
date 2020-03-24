@@ -644,7 +644,11 @@ void parseException(const digidoc::Exception &e) {
       } catch(const digidoc::Exception &e) {
         parseException(e);
         delete container;
-        failure([MoppLibError generalError]); // TODO try to find more specific error codes
+        if (e.code() == 18) {
+            failure([MoppLibError tooManyRequests]);
+        } else {
+            failure([MoppLibError generalError]); // TODO try to find more specific error codes
+        }
       }
     } failure:^(NSError *error) {
       delete container;

@@ -49,5 +49,6 @@ extern NSString *const MoppLibErrorDomain;
 + (NSError *)noInternetConnectionError;
 + (NSError *)restrictedAPIError;
 + (NSError *)duplicatedFilenameError;
++ (NSError *)tooManyRequests;
 
 @end

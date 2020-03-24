@@ -170,6 +170,7 @@
 "card-reader-state-ready-for-pin1" = "Ready to decrypt with ID-card.\n%@ (%@)";
 "signing-in-progress" = "Signing in progress.\nPlease wait.";
 "decryption-in-progress" = "Decryption in progress.\nPlease wait.";
+"signing-error-too-many-requests" = "The limit for digital signatures per month has been reached for this IP address. Additional information (https://www.id.ee/index.php?id=39023)";
 "wrong-pin2" = "Wrong PIN2. You have %d attempts left.";
 "wrong-pin1" = "Wrong PIN1. You have %1$d attempts left.";
 "wrong-pin2-single" = "Wrong PIN2. You have 1 attempt left until your PIN2 is blocked.";

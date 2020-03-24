@@ -70,7 +70,11 @@
     MLLog(@"Request : %@", request);
     if (!error) {
       NSInteger statusCode = [(NSHTTPURLResponse *) response statusCode];
-      if (statusCode != 401) {
+      if (statusCode == 429) {
+        NSError *ddsError = [MoppLibError DDSErrorWith:statusCode];
+        NSString *errorDescription = ddsError.localizedDescription;
+        failure([NSError errorWithDomain:@"MoppLib" code:statusCode userInfo:@{NSLocalizedDescriptionKey : errorDescription}]);
+      } else if (statusCode != 401) {
       //  NSError *resultError;
         [[MoppLibSOAPManager sharedInstance] processResultWithData:data method:method withSuccess:^(NSObject *responseObject) {
           success(responseObject);
