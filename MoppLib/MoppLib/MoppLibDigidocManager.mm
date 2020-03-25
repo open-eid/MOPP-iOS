@@ -313,7 +313,7 @@ static std::string profile = "time-stamp";
     return result;
 }
 
-- (NSArray *)getDataToSign {
++ (NSArray *)getDataToSign {
     
     digidoc::Container *currentContainer = digidoc::Container::open(docContainerPath.UTF8String);
     digidoc::Signature *currentSignature = [self getSignatureFromContainer:currentContainer signatureId:signatureId];
@@ -329,7 +329,7 @@ static std::string profile = "time-stamp";
     return dataToSignArray;
 }
 
-- (digidoc::Signature *)getSignatureFromContainer:(digidoc::Container *)container signatureId:(NSString *)signatureId {
++ (digidoc::Signature *)getSignatureFromContainer:(digidoc::Container *)container signatureId:(NSString *)signatureId {
     digidoc::Signature *currentSignature = NULL;
     
     NSLog(@"Getting signature with an ID of %s", signatureId.UTF8String);
@@ -343,7 +343,7 @@ static std::string profile = "time-stamp";
     return currentSignature;
 }
 
-- (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue {
++ (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue {
     std::string calculatedSignatureBase64 = std::string(base64_decode(signatureValue.UTF8String));
     
     std::vector<unsigned char> vec;
@@ -387,13 +387,32 @@ static std::string profile = "time-stamp";
     } catch(const digidoc::Exception &e) {
         parseException(e);
         NSError *error;
-        [self removeSignature:moppLibSignature fromContainerWithPath:docContainerPath error:&error];
+        [self removeSignature:docContainerPath signatureId:signatureId error:&error];
         NSLog(@"\nError validating signature: %s\n", e.msg().c_str());
         return false;
     }
 }
 
-- (NSString *)getContainerHash:(NSString *)cert containerPath:(NSString *)containerPath {
++ (void)removeSignature:(NSString *)containerPath signatureId:(NSString *)signatureId error:(NSError **)error {
+    digidoc::Container *doc = digidoc::Container::open(containerPath.UTF8String);
+    
+    for (int i = 0; i < doc->signatures().size(); i++) {
+        digidoc::Signature *signature = doc->signatures().at(i);
+        try {
+            if (signature->id() == signatureId.UTF8String) {
+                doc->removeSignature(i);
+                doc->save(containerPath.UTF8String);
+                break;
+            }
+        } catch(const digidoc::Exception &e) {
+            parseException(e);
+            *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
+            break;
+        }
+    }
+}
+
++ (NSString *)getContainerHash:(NSString *)cert containerPath:(NSString *)containerPath {
     
     digidoc::X509Cert x509Cert = [MoppLibDigidocManager getDerCert:cert];
     WebSigner *signer = new WebSigner(x509Cert);

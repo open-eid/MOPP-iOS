@@ -152,7 +152,7 @@ class MobileIDSignature {
     
     // MARK: Signature validation
     private func validateSignature(cert: String, signatureValue: String) -> Void {
-        if MoppLibManager.sharedInstance().isSignatureValid(cert, signatureValue: signatureValue) {
+        if MoppLibManager.isSignatureValid(cert, signatureValue: signatureValue) {
             NSLog("\nSuccessfully validated signature!\n")
             DispatchQueue.main.async {
                 NotificationCenter.default.post(
@@ -195,7 +195,7 @@ class MobileIDSignature {
     
     // MARK: Get hash
     private func getHash(cert: String, containerPath: String) -> String? {
-        guard let hash: String = MoppLibManager.sharedInstance().getContainerHash(cert, containerPath: containerPath) else {
+        guard let hash: String = MoppLibManager.getContainerHash(cert, containerPath: containerPath) else {
             NSLog("Failed to get hash")
             self.generateError(mobileIDError: .generalError)
             return nil
@@ -206,7 +206,7 @@ class MobileIDSignature {
     
     // MARK: Get verification code
     private func getVerificationCode() -> String? {
-        guard let verificationCode: String = ControlCode.shared.getVerificationCode(hash: MoppLibManager.sharedInstance().getDataToSign() as! Array<Int>) else {
+        guard let verificationCode: String = ControlCode.shared.getVerificationCode(hash: MoppLibManager.getDataToSign() as! Array<Int>) else {
             self.generateError(mobileIDError: .generalError)
             return nil
         }
