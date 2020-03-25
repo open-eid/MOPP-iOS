@@ -43,16 +43,16 @@
     return [[MoppLibDigidocManager sharedInstance] dataFileCalculateHashWithDigestMethod:method container:moppContainer dataFileId:dataFileId];
 }
 
-+ (NSString *)getContainerHash:(NSString *)cert containerPath:(NSString *)containerPath {
-    return [MoppLibDigidocManager getContainerHash:cert containerPath:containerPath];
+- (NSString *)getContainerHash:(NSString *)cert containerPath:(NSString *)containerPath {
+    return [[MoppLibDigidocManager sharedInstance] getContainerHash:cert containerPath:containerPath];
 }
 
-+ (NSArray *)getDataToSign {
-    return [MoppLibDigidocManager getDataToSign];
+- (NSArray *)getDataToSign {
+    return [[MoppLibDigidocManager sharedInstance] getDataToSign];
 }
 
-+ (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue {
-    return [MoppLibDigidocManager isSignatureValid:cert signatureValue:signatureValue];
+- (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue {
+    return [[MoppLibDigidocManager sharedInstance] isSignatureValid:cert signatureValue:signatureValue];
 }
 
 - (NSString *)moppLibVersion {

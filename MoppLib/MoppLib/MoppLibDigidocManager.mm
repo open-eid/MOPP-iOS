@@ -202,11 +202,12 @@ private:
 @end
 
 @implementation MoppLibDigidocManager
-    
-static digidoc::Signature *signature = nil;
-static digidoc::Container *doc = nil;
-static WebSigner *signer = nil;
-static BOOL isSignatureValidated = false;
+
+__strong static NSString *docContainerPath = nil;
+__strong static NSString *signatureId = nil;
+
+static std::string profile = "time-stamp";
+
 
 
 + (MoppLibDigidocManager *)sharedInstance {
@@ -312,8 +313,12 @@ static BOOL isSignatureValidated = false;
     return result;
 }
 
-+ (NSArray *)getDataToSign {
-    std::vector<unsigned char> dataTosign = signature->dataToSign();
+- (NSArray *)getDataToSign {
+    
+    digidoc::Container *currentContainer = digidoc::Container::open(docContainerPath.UTF8String);
+    digidoc::Signature *currentSignature = [self getSignatureFromContainer:currentContainer signatureId:signatureId];
+    
+    std::vector<unsigned char> dataTosign = currentSignature->dataToSign();
     
     NSMutableArray *dataToSignArray = [NSMutableArray arrayWithCapacity: dataTosign.size()];
     
@@ -324,7 +329,21 @@ static BOOL isSignatureValidated = false;
     return dataToSignArray;
 }
 
-+ (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue {
+- (digidoc::Signature *)getSignatureFromContainer:(digidoc::Container *)container signatureId:(NSString *)signatureId {
+    digidoc::Signature *currentSignature = NULL;
+    
+    NSLog(@"Getting signature with an ID of %s", signatureId.UTF8String);
+    for (auto signature : container->signatures()) {
+        if (signature->id() == signatureId.UTF8String) {
+            NSLog(@"Found signature with an ID of %s", signatureId.UTF8String);
+            currentSignature = signature;
+        }
+    }
+    
+    return currentSignature;
+}
+
+- (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue {
     std::string calculatedSignatureBase64 = std::string(base64_decode(signatureValue.UTF8String));
     
     std::vector<unsigned char> vec;
@@ -332,73 +351,74 @@ static BOOL isSignatureValidated = false;
     
     digidoc::X509Cert x509Cert = [MoppLibDigidocManager getDerCert:cert];
     
+    digidoc::Container *currentContainer = digidoc::Container::open(docContainerPath.UTF8String);
+    digidoc::Signature *currentSignature = [self getSignatureFromContainer:currentContainer signatureId:signatureId];
+    
+    if (!currentSignature) {
+        NSLog(@"\nError: Did not find signature with an ID of %s\n", signatureId.UTF8String);
+        return false;
+    }
+    
+    MoppLibSignature *moppLibSignature = [MoppLibSignature new];
+    std::string name  = x509Cert.subjectName("CN");
+    if (name.empty()) {
+        name = currentSignature->signedBy();
+    }
+    moppLibSignature.subjectName = [NSString stringWithUTF8String:name.c_str()];
+    std::string timestamp = currentSignature->OCSPProducedAt();
+    if (timestamp.length() <= 0) {
+      timestamp = currentSignature->trustedSigningTime();
+    }
+    moppLibSignature.timestamp = [[MLDateFormatter sharedInstance] YYYYMMddTHHmmssZToDate:[NSString stringWithUTF8String:timestamp.c_str()]];
+    
     try {
-        std::string profile = "time-stamp";
+        NSLog(@"\nStarting signature validation...\n");
+        NSLog(@"\nSetting signature value...\n");
+        currentSignature->setSignatureValue(vec);
+        NSLog(@"\nExtending signature profile...\n");
+        currentSignature->extendSignatureProfile(profile);
+        NSLog(@"\nValidating signature...\n");
+        currentSignature->validate();
+        NSLog(@"\nSaving container...\n");
+        currentContainer->save();
+        NSLog(@"\nSignature validated!\n");
         
-        if ((!signer || !signature) && !isSignatureValidated) {
-            NSLog(@"\nError: Received empty value with 'signer' or 'signature'\n");
-            return false;
-        }
-        
-        if ((!signer || !signature) && isSignatureValidated) {
-            NSLog(@"\nSignature is already validated\n");
-            isSignatureValidated = false;
-            return true;
-        }
-        
-        NSLog(@"\nSetting profile info...\n");
-        signer->setProfile(profile);
-        signer->setSignatureProductionPlace("", "", "", "");
-        signer->setSignerRoles(std::vector<std::string>());
-        NSLog(@"\nProfile info set successfully\n");
-        
-        try {
-            NSLog(@"\nStarting signature validation...\n");
-            signature->setSignatureValue(vec);
-            signature->extendSignatureProfile(profile);
-            signature->validate();
-            doc->save();
-            delete doc;
-            signature = nil;
-            signer = nil;
-            NSLog(@"\nSignature validated!\n");
-            
-            isSignatureValidated = true;
-            
-            return true;
-        } catch(const digidoc::Exception &e) {
-            parseException(e);
-            delete doc;
-            NSLog(@"\nError validating signature\n");
-            return false;
-        }
+        return true;
     } catch(const digidoc::Exception &e) {
-        delete doc;
         parseException(e);
-        NSLog(@"\nError setting profile info\n");
+        NSError *error;
+        [self removeSignature:moppLibSignature fromContainerWithPath:docContainerPath error:&error];
+        NSLog(@"\nError validating signature: %s\n", e.msg().c_str());
         return false;
     }
 }
 
-+ (NSString *)getContainerHash:(NSString *)cert containerPath:(NSString *)containerPath {
+- (NSString *)getContainerHash:(NSString *)cert containerPath:(NSString *)containerPath {
     
     digidoc::X509Cert x509Cert = [MoppLibDigidocManager getDerCert:cert];
-    signer = new WebSigner(x509Cert);
+    WebSigner *signer = new WebSigner(x509Cert);
     
-    doc = digidoc::Container::open(containerPath.UTF8String);
+    digidoc::Container *doc = digidoc::Container::open(containerPath.UTF8String);
     
-    std::string profile = "time-stamp";
+    docContainerPath = containerPath;
+    
     NSMutableArray *profiles = [NSMutableArray new];
     for (auto signature : doc->signatures()) {
         NSLog(@"Signature ID: %s", signature->id().c_str());
         [profiles addObject:[[NSString alloc] initWithBytes:signature->profile().c_str() length:signature->profile().size() encoding:NSUTF8StringEncoding]];
     }
     
+    NSLog(@"\nSetting profile info...\n");
     signer->setProfile(profile);
     signer->setSignatureProductionPlace("", "", "", "");
     signer->setSignerRoles(std::vector<std::string>());
+    NSLog(@"\nProfile info set successfully\n");
     
-    signature = doc->prepareSignature(signer);
+    digidoc::Signature *signature = doc->prepareSignature(signer);
+    
+    doc->save();
+    
+    signatureId = [NSString stringWithCString:signature->id().c_str() encoding:[NSString defaultCStringEncoding]];
     
     std::vector<unsigned char> dataToSign = signature->dataToSign();
     std::string dataToSignBase64 = base64_encode(dataToSign.data(), (uint32_t)dataToSign.size());

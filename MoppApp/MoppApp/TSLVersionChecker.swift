@@ -64,7 +64,7 @@ class TSLVersionChecker: NSObject, XMLParserDelegate {
                 completionHandler(tslVersion)
             }
         } catch {
-            NSLog("Error converting file to Data object")
+            NSLog("Error converting file (\(filePath)) to Data object")
         }
     }
 }

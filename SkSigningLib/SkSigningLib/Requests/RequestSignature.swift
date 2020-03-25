@@ -34,6 +34,7 @@ public class RequestSignature: CertificateRequest {
     
     public func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, completionHandler: @escaping (Result<CertificateResponse, MobileIDError>) -> Void) {
         guard let url = URL(string: "\(baseUrl)/certificate") else {
+            ErrorLog.errorLog(forMethod: "Certificate", httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(baseUrl)/certificate")
             completionHandler(.failure(.invalidURL))
             return
         }
@@ -45,18 +46,32 @@ public class RequestSignature: CertificateRequest {
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.httpBody = encodedRequestParameters
         
+        #if DEBUG
+        NSLog("RIA.MobileID (Certificate): \(url) \n" +
+            "Method: \(request.httpMethod ?? "Unable to get HTTP method") \n" +
+            "Parameters: \n" +
+            "\trelyingPartyName: \(requestParameters.relyingPartyName) \n" +
+            "\trelyingPartyUUID: \(requestParameters.relyingPartyUUID) \n" +
+            "\tphoneNumber: \(requestParameters.phoneNumber.prefix(8))xxxx\n" +
+            "\tnationalIdentityNumber: \(requestParameters.nationalIdentityNumber.prefix(6))xxxxx\n"
+        )
+        #endif
+        
         URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
             
             guard let httpResponse = response as? HTTPURLResponse else {
+                ErrorLog.errorLog(forMethod: "Certificate", httpResponse: response as? HTTPURLResponse ?? nil, error: .noResponseError, extraInfo: "")
                 return completionHandler(.failure(.noResponseError))
             }
             
             if error != nil {
+                ErrorLog.errorLog(forMethod: "Certificate", httpResponse: response as? HTTPURLResponse ?? nil, error: .generalError, extraInfo: error?.localizedDescription ?? "Error getting response")
                 completionHandler(.failure(.generalError))
                 return
             }
             
             if !(200...299).contains(httpResponse.statusCode) {
+                ErrorLog.errorLog(forMethod: "Certificate", httpResponse: httpResponse, error: self.handleHTTPResponseError(httpResponse: httpResponse), extraInfo: "")
                 return completionHandler(.failure(self.handleHTTPResponseError(httpResponse: httpResponse)))
             }
             
@@ -65,6 +80,7 @@ public class RequestSignature: CertificateRequest {
                     if self.isResponseSuccess(certificateResponse: response) {
                         return completionHandler(.success(response))
                     } else {
+                        ErrorLog.errorLog(forMethod: "Certificate", httpResponse: httpResponse, error: self.handleHTTPResponseError(httpResponse: httpResponse), extraInfo: response.error ?? "Unknown error received")
                         return completionHandler(.failure(self.handleCertificateError(certificateResponse: response)))
                     }
                 })
