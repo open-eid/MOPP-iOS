@@ -91,15 +91,19 @@ class TSLUpdater {
     
     private func assignBundleFileVersions(filesInBundle: [URL]) -> Void {
         for bundleFile in filesInBundle {
-            let fileName: String = bundleFile.deletingPathExtension().lastPathComponent
-            bundleTSLVersions[fileName] = getTSLVersion(fromFile: bundleFile)
+            if !bundleFile.hasDirectoryPath {
+                let fileName: String = bundleFile.deletingPathExtension().lastPathComponent
+                bundleTSLVersions[fileName] = getTSLVersion(fromFile: bundleFile)
+            }
         }
     }
     
     private func assignLibraryFileVersions(filesInLibrary: [URL]) -> Void {
         for libraryFile in filesInLibrary {
-            let fileName: String = libraryFile.deletingPathExtension().lastPathComponent
-            libraryTSLVersions[fileName] = getTSLVersion(fromFile: libraryFile)
+            if !libraryFile.hasDirectoryPath {
+                let fileName: String = libraryFile.deletingPathExtension().lastPathComponent
+                libraryTSLVersions[fileName] = getTSLVersion(fromFile: libraryFile)
+            }
         }
     }
     
@@ -192,7 +196,7 @@ class TSLUpdater {
         var countryFilesLocations: [URL] = []
         
         for file in getFilesFromBundle(inPath: tslFilesLocation) {
-            if !file.lastPathComponent.starts(with: ".") && file.deletingPathExtension().lastPathComponent.count == 2 {
+            if !file.lastPathComponent.starts(with: ".") {
                 countryFilesLocations.append(file)
             }
         }
@@ -204,7 +208,9 @@ class TSLUpdater {
         var otherBundleFilesLocations: [URL] = []
         
         for file in getFilesFromBundle(inPath: tslFilesLocation) {
-            if !file.lastPathComponent.starts(with: ".") && file.deletingPathExtension().lastPathComponent.count != 2 && file.deletingPathExtension().lastPathComponent != "eu-lotl" {
+            let fileName: String = file.deletingPathExtension().lastPathComponent
+            
+            if !file.lastPathComponent.starts(with: ".") && fileName.count != 2 && !fileName.contains("_T") && !fileName.contains("-test-") && file.deletingPathExtension().lastPathComponent != "eu-lotl" {
                 otherBundleFilesLocations.append(file)
             }
         }

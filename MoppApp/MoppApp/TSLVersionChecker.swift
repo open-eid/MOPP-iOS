@@ -32,7 +32,7 @@ class TSLVersionChecker: NSObject, XMLParserDelegate {
     private var tslVersion: String = ""
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-        if elementName == "TSLSequenceNumber" {
+        if elementName == "TSLSequenceNumber" || elementName == "tsl:TSLSequenceNumber" {
             tslVersionFound = true
         }
     }
