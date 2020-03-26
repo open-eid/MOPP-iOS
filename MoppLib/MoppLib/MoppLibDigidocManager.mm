@@ -126,10 +126,12 @@ public:
 
   virtual std::string ocsp(const std::string &issuer) const override {
     NSString *ocspIssuer = [NSString stringWithCString:issuer.c_str() encoding:[NSString defaultCStringEncoding]];
-      NSLog(@"%@", OCSPUrl);
+      NSLog(@"Received OCSP url: %@", OCSPUrl);
     if ([moppLibConfiguration.OCSPISSUERS objectForKey:ocspIssuer]) {
+        NSLog(@"Using issuer: '%@' with OCSP url from central configuration: %s", ocspIssuer, std::string([moppLibConfiguration.OCSPISSUERS[ocspIssuer] UTF8String]).c_str());
         return std::string([moppLibConfiguration.OCSPISSUERS[ocspIssuer] UTF8String]);
     } else {
+        NSLog(@"Did not find url for issuer: %@. Using received OCSP url: %@", ocspIssuer, OCSPUrl);
         return std::string([OCSPUrl UTF8String]);
     }
   }
@@ -350,6 +352,8 @@ static std::string profile = "time-stamp";
     std::copy(calculatedSignatureBase64.begin(), calculatedSignatureBase64.end(), std::back_inserter(vec));
     
     digidoc::X509Cert x509Cert = [MoppLibDigidocManager getDerCert:cert];
+    
+    OCSPUrl = [NSString stringWithCString:getOCSPUrl(x509Cert.handle()).c_str() encoding:[NSString defaultCStringEncoding]];
     
     digidoc::Container *currentContainer = digidoc::Container::open(docContainerPath.UTF8String);
     digidoc::Signature *currentSignature = [self getSignatureFromContainer:currentContainer signatureId:signatureId];
@@ -747,10 +751,12 @@ void parseException(const digidoc::Exception &e) {
 }
 
   std::string getOCSPUrl(X509 *x509)  {
-    std::string ocspUrl;
+    std::string ocspUrl = "";
     STACK_OF(OPENSSL_STRING) *ocsps = X509_get1_ocsp(x509);
-    ocspUrl = std::string(sk_OPENSSL_STRING_value(ocsps, 0));
-    X509_email_free(ocsps);
+    if (ocsps != NULL) {
+      ocspUrl = std::string(sk_OPENSSL_STRING_value(ocsps, 0));
+      X509_email_free(ocsps);
+    }
     return ocspUrl;
   }
 
