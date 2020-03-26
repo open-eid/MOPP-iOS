@@ -203,8 +203,8 @@ private:
 
 @implementation MoppLibDigidocManager
 
-__strong static NSString *docContainerPath = nil;
-__strong static NSString *signatureId = nil;
+static NSString *docContainerPath = nil;
+static NSString *signatureId = nil;
 
 static std::string profile = "time-stamp";
 
@@ -359,6 +359,12 @@ static std::string profile = "time-stamp";
         return false;
     }
     
+    NSString *timeStampTime = [NSString stringWithUTF8String:currentSignature->TimeStampTime().c_str()];
+    if ([timeStampTime length] != 0) {
+        NSLog(@"\nSignature already validated at %@\n", timeStampTime);
+        return true;
+    }
+    
     MoppLibSignature *moppLibSignature = [MoppLibSignature new];
     std::string name  = x509Cert.subjectName("CN");
     if (name.empty()) {
@@ -381,7 +387,7 @@ static std::string profile = "time-stamp";
         currentSignature->validate();
         NSLog(@"\nSaving container...\n");
         currentContainer->save();
-        NSLog(@"\nSignature validated!\n");
+        NSLog(@"\nSignature validated at %s!\n", currentSignature->TimeStampTime().c_str());
         
         return true;
     } catch(const digidoc::Exception &e) {
@@ -417,6 +423,9 @@ static std::string profile = "time-stamp";
     digidoc::X509Cert x509Cert = [MoppLibDigidocManager getDerCert:cert];
     WebSigner *signer = new WebSigner(x509Cert);
     
+    docContainerPath = NULL;
+    signatureId = NULL;
+    
     digidoc::Container *doc = digidoc::Container::open(containerPath.UTF8String);
     
     docContainerPath = containerPath;
@@ -437,7 +446,9 @@ static std::string profile = "time-stamp";
     
     doc->save();
     
+    NSLog(@"\nSetting signature id...\n");
     signatureId = [NSString stringWithCString:signature->id().c_str() encoding:[NSString defaultCStringEncoding]];
+    NSLog(@"\nSignature ID set to %@...\n", signatureId);
     
     std::vector<unsigned char> dataToSign = signature->dataToSign();
     std::string dataToSignBase64 = base64_encode(dataToSign.data(), (uint32_t)dataToSign.size());
