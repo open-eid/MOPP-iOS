@@ -165,7 +165,7 @@ public:
         if (isDebugMode()) {
             return 4;
         } else {
-            return 4;
+            return 0;
         }
     }
 

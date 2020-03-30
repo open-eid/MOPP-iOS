@@ -24,10 +24,30 @@
 import Foundation
 
 protocol SessionRequest {
+    /**
+    Gets session info for Mobile-ID. This method invokes SIM toolkit
+
+    - Parameters:
+       - baseUrl: The base URL for Mobile-ID. Path "/signature" will be added to the base URL
+       - requestParameters: Parameters that are sent to the service.
+       - completionHandler: On request success, callbacks Result<SessionResponse, MobileIDError>
+    */
     func getSession(baseUrl: String, requestParameters: SessionRequestParameters, completionHandler: @escaping (Result<SessionResponse, MobileIDError>) -> Void)
+    
+    /**
+    Gets session status info for Mobile-ID. This method invokes SIM toolkit
+
+    - Parameters:
+       - baseUrl: The base URL for Mobile-ID. Path "/signature/session/{sessionId}?timeoutMs={timeoutMs}" will be added to the base URL. Values are taken from requestParameters
+       - requestParameters: Parameters that are used in URL
+       - completionHandler: On request success, callbacks Result<SessionStatusResponse, MobileIDError>
+    */
     func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, completionHandler: @escaping (Result<SessionStatusResponse, MobileIDError>) -> Void)
 }
 
+/**
+ Handles session and session status requests for Mobile-ID
+*/
 public class RequestSession: SessionRequest {
     
     public static let shared = RequestSession()

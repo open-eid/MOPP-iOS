@@ -1,5 +1,5 @@
 //
-//  RequestParameters.swift
+//  CertificateRequestParameters.swift
 //  SkSigningLib
 /*
  * Copyright 2020 Riigi Infosüsteemide Amet
