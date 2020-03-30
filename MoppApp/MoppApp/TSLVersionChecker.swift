@@ -24,37 +24,37 @@
 import Foundation
 
 class TSLVersionChecker: NSObject, XMLParserDelegate {
-    
+
     private var fileTSLVersion: String = ""
     private var tslVersionFound: Bool = false
-    
+
     private var isTSLVersionSet = false
     private var tslVersion: String = ""
-    
+
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-        if elementName == "TSLSequenceNumber" {
+        if elementName == "TSLSequenceNumber" || elementName == "tsl:TSLSequenceNumber" {
             tslVersionFound = true
         }
     }
-    
+
     func parser(_ parser: XMLParser, foundCharacters foundValue: String) {
         if tslVersionFound == true {
             fileTSLVersion = foundValue
         }
-        
+
         if tslVersionFound == true && fileTSLVersion == foundValue {
             if isTSLVersionSet == false {
                 isTSLVersionSet = true
-                
+
                 tslVersion = fileTSLVersion
             }
         }
     }
-    
+
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         tslVersionFound = false
     }
-    
+
     internal func getTSLVersion(filePath: URL, completionHandler: @escaping (_ url: String) -> Void) {
         do {
             let fileData: Data = try Data(contentsOf: filePath)
@@ -64,7 +64,7 @@ class TSLVersionChecker: NSObject, XMLParserDelegate {
                 completionHandler(tslVersion)
             }
         } catch {
-            NSLog("Error converting file to Data object")
+            NSLog("Error converting file (\(filePath)) to Data object")
         }
     }
 }

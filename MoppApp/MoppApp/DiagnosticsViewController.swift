@@ -38,6 +38,7 @@ class DiagnosticsViewController: MoppViewController {
     @IBOutlet weak var midSignURL: UILabel!
     @IBOutlet weak var ldapPersonURL: UILabel!
     @IBOutlet weak var ldapCorpURL: UILabel!
+    @IBOutlet weak var mobileIdURL: UILabel!
     @IBOutlet weak var metaDate: UILabel!
     @IBOutlet weak var metaSerial: UILabel!
     @IBOutlet weak var metaUrl: UILabel!
@@ -113,13 +114,11 @@ class DiagnosticsViewController: MoppViewController {
         midSignURL.text = formatString(text: "MID-SIGN-URL:", additionalText: decodedConf.MIDSIGNURL)
         ldapPersonURL.text = formatString(text: "LDAP_PERSON_URL:", additionalText: decodedConf.LDAPPERSONURL)
         ldapCorpURL.text = formatString(text: "LDAP_CORP_URL:", additionalText: decodedConf.LDAPCORPURL)
+        mobileIdURL.text = formatString(text: "MOBILEID_URL: ", additionalText: decodedConf.MIDPROXYURL)
         
         metaDate.text = formatString(text: "DATE:", additionalText: decodedConf.METAINF.DATE)
-        
         metaSerial.text = formatString(text: "SERIAL:", additionalText: String(decodedConf.METAINF.SERIAL))
-        
         metaUrl.text = formatString(text: "URL:", additionalText: decodedConf.METAINF.URL)
-        
         metaVer.text = formatString(text: "VER:", additionalText: String(decodedConf.METAINF.VER))
         
         

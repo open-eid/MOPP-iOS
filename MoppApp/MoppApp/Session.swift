@@ -21,52 +21,28 @@
  *
  */
 
-class Session
-{
-    static let shared = Session()
+import Foundation
+import SkSigningLib
 
-    func createMobileSignature(withContainer containerPath: String, idCode: String, language: String, phoneNumber: String) {
-        MoppLibContainerActions.sharedInstance().openContainer(
-            withPath: containerPath,
-            success: { (_ initialContainer: MoppLibContainer!) -> Void in
-                MoppLibService.sharedInstance().mobileCreateSignature(
-                    withContainer: containerPath,
-                    idCode: idCode,
-                    language: language,
-                    phoneNumber: phoneNumber,
-                    withCompletion: { (_ response: MoppLibMobileCreateSignatureResponse!) -> Void in
-                        NotificationCenter.default.post(
-                            name: .createSignatureNotificationName,
-                            object: nil,
-                            userInfo: [kCreateSignatureResponseKey: response])
-                        
-                    },
-                    andStatus: { (_ container: MoppLibContainer?, _ error: Error?, _ status: String?) -> Void in
-                        if let status = status {
-                            if status == "OUTSTANDING_TRANSACTION" {
-                                NotificationCenter.default.post(name: .signatureMobileIDPendingRequestNotificationName, object: nil)
-                            }
-                        }
-                        
-                        if let error = error {
-                            NotificationCenter.default.post(
-                                name: .errorNotificationName,
-                                object: nil,
-                                userInfo: [kErrorKey: error])
-                        }
-                        else
-                        if let container = container {
-                            NotificationCenter.default.post(
-                                name: .signatureAddedToContainerNotificationName,
-                                object: nil,
-                                userInfo: [kNewContainerKey: container, kOldContainerKey: initialContainer])
-                        }
-                    }
-                    
-            )},
-            failure: { (_ error: Error?) -> Void in
-                NotificationCenter.default.post(name: .errorNotificationName, object: nil, userInfo: [kErrorKey: error!])
-                return
-            })
+class Session {
+    static let shared: Session = Session()
+    
+    func getSession(baseUrl: String, phoneNumber: String, nationalIdentityNumber: String, hash: String, hashType: String, language: String, completionHandler: @escaping (Result<SessionResponse, MobileIDError>) -> Void) -> Void {
+        do {
+            _ = try RequestSession.shared.getSession(baseUrl: baseUrl, requestParameters: SessionRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: kRelyingPartyUUID, phoneNumber: "+\(phoneNumber)", nationalIdentityNumber: nationalIdentityNumber, hash: hash, hashType: hashType, language: language, displayText: kDisplayText, displayTextFormat: kDisplayTextFormat)) { (sessionResult) in
+                
+                switch sessionResult {
+                case .success(let response):
+                    NSLog("\nReceived Session (session ID redacted): \(response.sessionID?.prefix(13) ?? "-")\n")
+                    completionHandler(.success(response))
+                case .failure(let sessionError):
+                    NSLog("Getting session error: \(sessionError.mobileIDErrorDescription ?? sessionError.rawValue)")
+                    return completionHandler(.failure(sessionError))
+                }
+            }
+        } catch let error {
+            NSLog("Error occurred while getting session: \(error.localizedDescription)")
+            return completionHandler(.failure(.generalError))
+        }
     }
 }
