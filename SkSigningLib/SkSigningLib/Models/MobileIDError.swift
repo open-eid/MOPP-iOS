@@ -64,13 +64,13 @@ extension MobileIDError: LocalizedError {
         case .invalidURL:
             return NSLocalizedString("Invalid URL", comment: "")
         case .noResponseError:
-            return NSLocalizedString("No response from server", comment: "")
+            return NSLocalizedString("digidoc-service-error-no-response", comment: "")
         case .generalError:
             return NSLocalizedString("digidoc-service-error-general", comment: "")
         case .notFound:
             return NSLocalizedString("digidoc-service-error-not-mobile-id-user", comment: "")
         case .notActive:
-            return NSLocalizedString("Not active", comment: "")
+            return NSLocalizedString("digidoc-service-error-not-mobile-id-user", comment: "")
         case .userAuthorizationFailed:
             return NSLocalizedString("Failed to authorize user", comment: "")
         case .methodNotAllowed:

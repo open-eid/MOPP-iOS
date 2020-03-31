@@ -28,4 +28,5 @@
 "digidoc-service-error-sim-error" = "SIM kaardi viga";
 "digidoc-service-error-phone-absent" = "Telefon ei ole levis";
 "digidoc-service-error-signature-hash-mismatch" = "Teie Mobiil-ID toiming ebaõnnestus. Palun võtke ühendust enda mobiilioperaatoriga";
+"digidoc-service-error-no-response" = "Palun kontrollige internetiühendust";
 "digidoc-service-error-too-many-requests" = "Sinu IP-aadressi tasuta allkirjade kuulimiit on ületatud. Loe täpsemalt siit (https://id.ee/index.php?id=39021)";
