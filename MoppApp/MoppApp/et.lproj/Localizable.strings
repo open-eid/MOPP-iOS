@@ -135,6 +135,7 @@
 // *** Errors ***
 "mobile-id-timeout-message" = "Mobiil-ID päring aegus";
 "error-alert-title-general" = "Viga";
+"error-alert-open-link" = "Loe täpsemalt siit";
 
 // *** Share Extension ***
 "share-extension-import-title" = "Faili import";
@@ -181,7 +182,7 @@
 "pin1-blocked-alert" = "PIN1 on lukus. Mine Minu eID, et avada.";
 "generic-error-message" = "Midagi läks valesti. Palun proovi uuesti";
 "decryption-error-message" = "Midagi läks dekrüpteerimisel valesti. Palun proovi uuesti";
-"signing-error-too-many-requests" = "Sinu IP-aadressi tasuta allkirjade kuulimiit on ületatud. Loe täpsemalt siit (https://id.ee/index.php?id=39021)";
+"signing-error-too-many-requests" = "Sinu IP-aadressi tasuta allkirjade kuulimiit on ületatud. https://id.ee/index.php?id=39021";
 "signing-aborted-message" = "Allkirjastamine katkestatud";
 "my-eid-status-reader-not-found" = "Ühenda kaardilugeja telefoniga ja sisesta ID-kaart lugejasse.";
 "my-eid-status-card-not-found" = "Kaardilugeja leitud.\nSisesta ID-kaart lugejasse.";

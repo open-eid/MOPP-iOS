@@ -75,5 +75,5 @@
 "digidoc-service-error-user-certificate-suspended" = "Ваш сертификат цифровой подписи временно приостановлен";
 "digidoc-service-error-user-certificate-expired" = "Срок действительности Вашего сертификата цифровой подписи истек";
 "digidoc-service-error-message-exceeds-volume-limit" = "Слишком много файлов в контейнере";
-"digidoc-service-error-message-too-many-requests" = "Предел для цифровых подписей в месяц был достигнут для этого IP-адреса. Дополнительная информация (https://www.id.ee/index.php?id=39025)";
+"digidoc-service-error-message-too-many-requests" = "Предел для цифровых подписей в месяц был достигнут для этого IP-адреса. https://www.id.ee/index.php?id=39025";
 "digidoc-service-error-simlutaneous-requests-limit-exceeded" = "Превышен лимит подобный запросов";
