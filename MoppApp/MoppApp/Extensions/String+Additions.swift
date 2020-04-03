@@ -152,23 +152,6 @@ extension String {
         }
         return true
     }
-    
-    func getFirstLinkInMessage() -> String? {
-        do {
-            let detector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-            let urls = detector.matches(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count))
-            
-            return urls.first?.url?.absoluteString
-        } catch {
-            NSLog("Unable to get URL from text")
-            return nil
-        }
-    }
-    
-    func removeFirstLinkFromMessage() -> String? {
-        guard let messageWithLink = self.getFirstLinkInMessage() else { return self }
-        return self.replacingOccurrences(of: messageWithLink, with: "")
-    }
 }
 
 extension Optional where Wrapped == String {

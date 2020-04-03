@@ -75,5 +75,5 @@
 "digidoc-service-error-user-certificate-suspended" = "Teie Mobiil-ID\'ga allkirjastamise sertifikaadi kehtivus on peatatud";
 "digidoc-service-error-user-certificate-expired" = "Teie Mobiil-ID allkirjastamise sertifikaat on aegunud";
 "digidoc-service-error-message-exceeds-volume-limit" = "Liiga palju faile ühes konteineris";
-"digidoc-service-error-message-too-many-requests" = "Sinu IP-aadressi tasuta allkirjade kuulimiit on ületatud. https://id.ee/index.php?id=39021";
+"digidoc-service-error-message-too-many-requests" = "Sinu IP-aadressi tasuta allkirjade kuulimiit on ületatud. Loe täpsemalt siit (https://id.ee/index.php?id=39021)";
 "digidoc-service-error-simlutaneous-requests-limit-exceeded" = "Samaaegsete pöördumiste limiit ületatud";

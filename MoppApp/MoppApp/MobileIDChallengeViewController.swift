@@ -68,7 +68,7 @@ class MobileIDChallengeViewController : UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @objc func receiveStatusPendingNotification(_ notification: Notification) {
+    @objc func receiveStatusPendingNotification(_ notification: Notification) {        
         if UIAccessibilityIsVoiceOverRunning() {
             if !isAnnouncementMade {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: { [weak self] in
@@ -129,17 +129,9 @@ class MobileIDChallengeViewController : UIViewController {
                     while let currentViewController = topViewController.presentedViewController {
                         topViewController = currentViewController
                     }
-
-                    let errorMessageNoLink: String? = errorMessage.removeFirstLinkFromMessage()
-
-                    let alert = UIAlertController(title: L(.errorAlertTitleGeneral), message: errorMessageNoLink, preferredStyle: UIAlertControllerStyle.alert)
+                    
+                    let alert = UIAlertController(title: L(.errorAlertTitleGeneral), message: errorMessage, preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    if let linkInUrl: String = errorMessage.getFirstLinkInMessage() {
-                        if let alertActionUrl: UIAlertAction = UIAlertAction().getLinkAlert(message: linkInUrl) {
-                            alert.addAction(alertActionUrl)
-                        }
-                    }
-
                     topViewController.present(alert, animated: true, completion: nil)
                 }
             }

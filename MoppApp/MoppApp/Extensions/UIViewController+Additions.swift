@@ -31,17 +31,8 @@ extension UIViewController {
     }
     
     func errorAlert(message: String?, title: String? = nil, dismissCallback: ((_ action: UIAlertAction) -> Swift.Void)? = nil) {
-        var errorMessageNoLink: String? = message
-        if let messageText = message {
-            errorMessageNoLink = messageText.removeFirstLinkFromMessage()
-        }
-        let errorAlert = UIAlertController(title: title, message: errorMessageNoLink, preferredStyle: .alert)
-        errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: dismissCallback))
-        if let linkInUrl: String = message?.getFirstLinkInMessage() {
-            if let alertActionUrl: UIAlertAction = UIAlertAction().getLinkAlert(message: linkInUrl) {
-                errorAlert.addAction(alertActionUrl)
-            }
-        }
+        let errorAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: dismissCallback))
         present(errorAlert, animated: true, completion: nil)
     }
     
