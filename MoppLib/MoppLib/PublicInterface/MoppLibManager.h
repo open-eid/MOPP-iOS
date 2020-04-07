@@ -48,7 +48,7 @@ typedef NS_ENUM(NSUInteger, EIDType) {
 
 - (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId;
 
-+ (NSString *)getContainerHash:(NSString *)cert containerPath:(NSString *)containerPath;
++ (NSString *)prepareSignature:(NSString *)cert containerPath:(NSString *)containerPath;
 + (NSArray *)getDataToSign;
 + (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue;
 

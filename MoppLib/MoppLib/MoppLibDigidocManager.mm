@@ -369,18 +369,6 @@ static std::string profile = "time-stamp";
         return true;
     }
     
-    MoppLibSignature *moppLibSignature = [MoppLibSignature new];
-    std::string name  = x509Cert.subjectName("CN");
-    if (name.empty()) {
-        name = currentSignature->signedBy();
-    }
-    moppLibSignature.subjectName = [NSString stringWithUTF8String:name.c_str()];
-    std::string timestamp = currentSignature->OCSPProducedAt();
-    if (timestamp.length() <= 0) {
-      timestamp = currentSignature->trustedSigningTime();
-    }
-    moppLibSignature.timestamp = [[MLDateFormatter sharedInstance] YYYYMMddTHHmmssZToDate:[NSString stringWithUTF8String:timestamp.c_str()]];
-    
     try {
         NSLog(@"\nStarting signature validation...\n");
         NSLog(@"\nSetting signature value...\n");
@@ -422,8 +410,7 @@ static std::string profile = "time-stamp";
     }
 }
 
-+ (NSString *)getContainerHash:(NSString *)cert containerPath:(NSString *)containerPath {
-    
++ (NSString *)prepareSignature:(NSString *)cert containerPath:(NSString *)containerPath {
     digidoc::X509Cert x509Cert = [MoppLibDigidocManager getDerCert:cert];
     WebSigner *signer = new WebSigner(x509Cert);
     
