@@ -27,9 +27,9 @@ import SkSigningLib
 class Session {
     static let shared: Session = Session()
     
-    func getSession(baseUrl: String, phoneNumber: String, nationalIdentityNumber: String, hash: String, hashType: String, language: String, completionHandler: @escaping (Result<SessionResponse, MobileIDError>) -> Void) -> Void {
+    func getSession(baseUrl: String, phoneNumber: String, nationalIdentityNumber: String, hash: String, hashType: String, language: String, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionResponse, MobileIDError>) -> Void) -> Void {
         do {
-            _ = try RequestSession.shared.getSession(baseUrl: baseUrl, requestParameters: SessionRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: kRelyingPartyUUID, phoneNumber: "+\(phoneNumber)", nationalIdentityNumber: nationalIdentityNumber, hash: hash, hashType: hashType, language: language, displayText: kDisplayText, displayTextFormat: kDisplayTextFormat)) { (sessionResult) in
+            _ = try RequestSession.shared.getSession(baseUrl: baseUrl, requestParameters: SessionRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: kRelyingPartyUUID, phoneNumber: "+\(phoneNumber)", nationalIdentityNumber: nationalIdentityNumber, hash: hash, hashType: hashType, language: language, displayText: kDisplayText, displayTextFormat: kDisplayTextFormat), trustedCertificates: trustedCertificates) { (sessionResult) in
                 
                 switch sessionResult {
                 case .success(let response):

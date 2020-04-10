@@ -26,6 +26,7 @@
 		DFD204EF240FD9FD00EB8150 /* SessionStatusResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204EE240FD9FD00EB8150 /* SessionStatusResponse.swift */; };
 		DFD204F124100C5500EB8150 /* SessionResponseSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204F024100C5500EB8150 /* SessionResponseSignature.swift */; };
 		DFDF02C6241F0150006CF443 /* MobileIDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDF02C5241F0150006CF443 /* MobileIDError.swift */; };
+		DFEB04E9243DF3F00080F43A /* CertificatePinning.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB04E8243DF3F00080F43A /* CertificatePinning.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		DFD204EE240FD9FD00EB8150 /* SessionStatusResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatusResponse.swift; sourceTree = "<group>"; };
 		DFD204F024100C5500EB8150 /* SessionResponseSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionResponseSignature.swift; sourceTree = "<group>"; };
 		DFDF02C5241F0150006CF443 /* MobileIDError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileIDError.swift; sourceTree = "<group>"; };
+		DFEB04E8243DF3F00080F43A /* CertificatePinning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePinning.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				DF04A88F23FEC7130086C9F9 /* EncoderDecoder.swift */,
 				DF90EDDF24223D6A0040FFE7 /* ControlCode.swift */,
 				DF3653B1242BA07400C48AC5 /* ErrorLog.swift */,
+				DFEB04E8243DF3F00080F43A /* CertificatePinning.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				DF04A89023FEC7130086C9F9 /* EncoderDecoder.swift in Sources */,
 				DF04A89723FEDD110086C9F9 /* RequestMethod.swift in Sources */,
 				DFDF02C6241F0150006CF443 /* MobileIDError.swift in Sources */,
+				DFEB04E9243DF3F00080F43A /* CertificatePinning.swift in Sources */,
 				DFD204ED240FD8D100EB8150 /* SessionStatusRequestParameters.swift in Sources */,
 				DFD204E0240D201600EB8150 /* RequestSession.swift in Sources */,
 				DF04A89923FEDE6D0086C9F9 /* CertificateResponse.swift in Sources */,

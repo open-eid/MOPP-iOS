@@ -30,3 +30,4 @@
 "digidoc-service-error-signature-hash-mismatch" = "Не удалось выполнить операцию Mobiil-ID. Пожалуйста, свяжитесь со своим мобильным оператором";
 "digidoc-service-error-no-response" = "Пожалуйста проверьте подключение к интернету";
 "digidoc-service-error-too-many-requests" = "Предел для цифровых подписей в месяц был достигнут для этого IP-адреса. Дополнительная информация (https://www.id.ee/index.php?id=39025)";
+"digidoc-service-error-invalid-ssl-cert" = "Не удалось создать SSL канал передачи данных. Проверьте настройки вашего приложения или обновления программного обеспечения";

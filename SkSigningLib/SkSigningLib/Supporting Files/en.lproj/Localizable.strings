@@ -30,3 +30,4 @@
 "digidoc-service-error-signature-hash-mismatch" = "Your Mobile-ID transaction has failed. Please contact your mobile network operator";
 "digidoc-service-error-no-response" = "Please check your internet connection";
 "digidoc-service-error-too-many-requests" = "The limit for digital signatures per month has been reached for this IP address. Additional information (https://www.id.ee/index.php?id=39023)";
+"digidoc-service-error-invalid-ssl-cert" = "SSL handshake failed. Check your application settings or software upgrades";

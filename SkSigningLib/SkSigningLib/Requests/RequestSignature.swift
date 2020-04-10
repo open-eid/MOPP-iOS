@@ -33,23 +33,26 @@ protocol CertificateRequest {
        - requestParameters: Parameters that are sent to the service. Uses CertificateRequestParameters struct
        - completionHandler: On request success, callbacks Result<CertificateResponse, MobileIDError>
     */
-    func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, completionHandler: @escaping (Result<CertificateResponse, MobileIDError>) -> Void)
+    func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<CertificateResponse, MobileIDError>) -> Void)
 }
 
 /**
  Handles certificate info request for Mobile-ID
 */
 
-public class RequestSignature: CertificateRequest {
+public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest {
     
     public static let shared: RequestSignature = RequestSignature()
+    private var trustedCerts: [String]?
     
-    public func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, completionHandler: @escaping (Result<CertificateResponse, MobileIDError>) -> Void) {
+    public func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<CertificateResponse, MobileIDError>) -> Void) {
         guard let url = URL(string: "\(baseUrl)/certificate") else {
             ErrorLog.errorLog(forMethod: "Certificate", httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(baseUrl)/certificate")
             completionHandler(.failure(.invalidURL))
             return
         }
+        
+        trustedCerts = trustedCertificates
         
         let encodedRequestParameters: Data = EncoderDecoder().encode(data: requestParameters)
         
@@ -69,9 +72,24 @@ public class RequestSignature: CertificateRequest {
         )
         #endif
         
-        URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+        let urlSessionConfiguration: URLSessionConfiguration
+        let urlSession: URLSession
+        
+        if trustedCertificates != nil {
+            urlSessionConfiguration = URLSessionConfiguration.default
+            urlSession = URLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
+        } else {
+            urlSession = URLSession.shared
+        }
+        
+        urlSession.dataTask(with: request as URLRequest) { data, response, error in
             
             guard let httpResponse = response as? HTTPURLResponse else {
+                let responseError = error as NSError?
+                if responseError?.code == -999 || responseError?.code == -1200 {
+                    ErrorLog.errorLog(forMethod: "Certificate", httpResponse: response as? HTTPURLResponse ?? nil, error: .invalidSSLCert, extraInfo: "Certificate pinning failed")
+                    return completionHandler(.failure(.invalidSSLCert))
+                }
                 ErrorLog.errorLog(forMethod: "Certificate", httpResponse: response as? HTTPURLResponse ?? nil, error: .noResponseError, extraInfo: "")
                 return completionHandler(.failure(.noResponseError))
             }
@@ -98,6 +116,10 @@ public class RequestSignature: CertificateRequest {
                 })
             }
         }.resume()
+    }
+    
+    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        CertificatePinning().certificatePinning(trustedCertificates: trustedCerts ?? [""], challenge: challenge, completionHandler: completionHandler)
     }
     
     private func handleCertificateError(certificateResponse: CertificateResponse) -> MobileIDError {

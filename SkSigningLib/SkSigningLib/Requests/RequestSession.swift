@@ -32,7 +32,7 @@ protocol SessionRequest {
        - requestParameters: Parameters that are sent to the service.
        - completionHandler: On request success, callbacks Result<SessionResponse, MobileIDError>
     */
-    func getSession(baseUrl: String, requestParameters: SessionRequestParameters, completionHandler: @escaping (Result<SessionResponse, MobileIDError>) -> Void)
+    func getSession(baseUrl: String, requestParameters: SessionRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionResponse, MobileIDError>) -> Void)
     
     /**
     Gets session status info for Mobile-ID. This method invokes SIM toolkit
@@ -42,21 +42,25 @@ protocol SessionRequest {
        - requestParameters: Parameters that are used in URL
        - completionHandler: On request success, callbacks Result<SessionStatusResponse, MobileIDError>
     */
-    func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, completionHandler: @escaping (Result<SessionStatusResponse, MobileIDError>) -> Void)
+    func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionStatusResponse, MobileIDError>) -> Void)
 }
 
 /**
  Handles session and session status requests for Mobile-ID
 */
-public class RequestSession: SessionRequest {
+public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
     
     public static let shared = RequestSession()
     
-    public func getSession(baseUrl: String, requestParameters: SessionRequestParameters, completionHandler: @escaping (Result<SessionResponse, MobileIDError>) -> Void) {
+    private var trustedCerts: [String]?
+    
+    public func getSession(baseUrl: String, requestParameters: SessionRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionResponse, MobileIDError>) -> Void) {
         guard let url = URL(string: "\(baseUrl)/signature") else {
             completionHandler(.failure(.invalidURL))
             return
         }
+        
+        trustedCerts = trustedCertificates
         
         let encodedRequestParameters: Data = EncoderDecoder().encode(data: requestParameters)
         
@@ -79,7 +83,17 @@ public class RequestSession: SessionRequest {
         )
         #endif
         
-        URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+        let urlSessionConfiguration: URLSessionConfiguration
+        let urlSession: URLSession
+        
+        if trustedCertificates != nil {
+            urlSessionConfiguration = URLSessionConfiguration.default
+            urlSession = URLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
+        } else {
+            urlSession = URLSession.shared
+        }
+        
+        urlSession.dataTask(with: request as URLRequest) { data, response, error in
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 ErrorLog.errorLog(forMethod: "Session", httpResponse: response as? HTTPURLResponse ?? nil, error: .noResponseError, extraInfo: "")
@@ -106,12 +120,18 @@ public class RequestSession: SessionRequest {
         }.resume()
     }
     
-    public func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, completionHandler: @escaping (Result<SessionStatusResponse, MobileIDError>) -> Void) {
+    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        CertificatePinning().certificatePinning(trustedCertificates: trustedCerts ?? [""], challenge: challenge, completionHandler: completionHandler)
+    }
+    
+    public func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionStatusResponse, MobileIDError>) -> Void) {
         
         guard let url = URL(string: "\(baseUrl)/signature/session/\(requestParameters.sessionId)?timeoutMs=\(requestParameters.timeoutMs ?? 1000)") else {
             ErrorLog.errorLog(forMethod: "Session status", httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(baseUrl)/signature/session/\(requestParameters.sessionId)?timeoutMs=\(requestParameters.timeoutMs ?? 1000)")
             return completionHandler(.failure(.invalidURL))
         }
+        
+        trustedCerts = trustedCertificates
         
         var request = URLRequest(url: url)
         request.httpMethod = RequestMethod.GET.value
@@ -125,7 +145,17 @@ public class RequestSession: SessionRequest {
             )
         #endif
         
-        URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+        let urlSessionConfiguration: URLSessionConfiguration
+        let urlSession: URLSession
+        
+        if trustedCertificates != nil {
+            urlSessionConfiguration = URLSessionConfiguration.default
+            urlSession = URLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
+        } else {
+            urlSession = URLSession.shared
+        }
+        
+        urlSession.dataTask(with: request as URLRequest) { data, response, error in
             guard let httpResponse = response as? HTTPURLResponse else {
                 ErrorLog.errorLog(forMethod: "Session status", httpResponse: response as? HTTPURLResponse ?? nil, error: .noResponseError, extraInfo: "")
                 return completionHandler(.failure(.noResponseError))

@@ -29,6 +29,7 @@ public enum MobileIDError: String, Error {
     case invalidURL
     case noResponseError
     case generalError
+    case invalidSSLCert
     
     // MARK: Response Errors
     case notFound
@@ -101,6 +102,8 @@ extension MobileIDError: LocalizedError {
             return NSLocalizedString("digidoc-service-error-sim-error", comment: "")
         case .tooManyRequests:
             return NSLocalizedString("digidoc-service-error-too-many-requests", comment: "")
+        case .invalidSSLCert:
+            return NSLocalizedString("digidoc-service-error-invalid-ssl-cert", comment: "")
         }
     }
 }

@@ -28,11 +28,11 @@ class SessionStatus {
     
     static let shared: SessionStatus = SessionStatus()
     
-    func getSessionStatus(baseUrl: String, process: PollingProcess, sessionId: String, timeoutMs: Int?, completionHandler: @escaping (Result<SessionStatusResponse, MobileIDError>) -> Void ) {
+    func getSessionStatus(baseUrl: String, process: PollingProcess, sessionId: String, timeoutMs: Int?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionStatusResponse, MobileIDError>) -> Void ) {
         DispatchQueue.main.async {
             Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
                 do {
-                    _ = try RequestSession.shared.getSessionStatus(baseUrl: baseUrl, process: process, requestParameters: SessionStatusRequestParameters(sessionId: sessionId, timeoutMs: timeoutMs)) { (sessionStatusResult: Result<SessionStatusResponse, MobileIDError>) in
+                    _ = try RequestSession.shared.getSessionStatus(baseUrl: baseUrl, process: process, requestParameters: SessionStatusRequestParameters(sessionId: sessionId, timeoutMs: timeoutMs), trustedCertificates: trustedCertificates) { (sessionStatusResult: Result<SessionStatusResponse, MobileIDError>) in
                         switch sessionStatusResult {
                         case .success(let sessionStatus):
                             if self.isSessionStateComplete(sessionState: self.getSessionState(sessionStatus: sessionStatus)) {
