@@ -18,16 +18,16 @@
 */
 
 // ** Mobile ID errors ***
-"digidoc-service-error-unknown" = "Unknown error occurred when signing with Mobile-ID";
-"digidoc-service-error-general" = "Something went wrong, try again";
-"digidoc-service-error-incorrect-parameters" = "Please include correct country code";
-"digidoc-service-error-not-mobile-id-user" = "User is not a Mobile-ID client";
-"digidoc-service-error-user-cancelled" = "User denied or cancelled";
-"digidoc-service-error-timeout" = "Your Mobile-ID transaction has expired. Please try again";
-"digidoc-service-error-delivery-error" = "Request sending error";
-"digidoc-service-error-sim-error" = "SIM error";
-"digidoc-service-error-phone-absent" = "Phone is not in coverage area";
-"digidoc-service-error-signature-hash-mismatch" = "Your Mobile-ID transaction has failed. Please contact your mobile network operator";
-"digidoc-service-error-no-response" = "Please check your internet connection";
-"digidoc-service-error-too-many-requests" = "The limit for digital signatures per month has been reached for this IP address. Additional information (https://www.id.ee/index.php?id=39023)";
-"digidoc-service-error-invalid-ssl-cert" = "SSL handshake failed. Check your application settings or software upgrades";
+"mid-rest-error-unknown" = "Unknown error occurred when signing with Mobile-ID";
+"mid-rest-error-general" = "Something went wrong, try again";
+"mid-rest-error-incorrect-parameters" = "Please include correct country code";
+"mid-rest-error-not-mobile-id-user" = "User is not a Mobile-ID client";
+"mid-rest-error-user-cancelled" = "User denied or cancelled";
+"mid-rest-error-timeout" = "Your Mobile-ID transaction has expired. Please try again";
+"mid-rest-error-delivery-error" = "Request sending error";
+"mid-rest-error-sim-error" = "SIM error";
+"mid-rest-error-phone-absent" = "Phone is not in coverage area";
+"mid-rest-error-signature-hash-mismatch" = "Your Mobile-ID transaction has failed. Please contact your mobile network operator";
+"mid-rest-error-no-response" = "Please check your internet connection";
+"mid-rest-error-too-many-requests" = "The limit for digital signatures per month has been reached for this IP address. Additional information (https://www.id.ee/index.php?id=39023)";
+"mid-rest-error-invalid-ssl-cert" = "SSL handshake failed. Check your application settings or software upgrades";

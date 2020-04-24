@@ -18,16 +18,16 @@
 */
 
 // ** Mobile ID errors ***
-"digidoc-service-error-unknown" = "Неизвестная ошибка при подписании с помощю Mobiil-ID";
-"digidoc-service-error-general" = "Что-то полшло не так, попробуйте снова";
-"digidoc-service-error-incorrect-parameters" = "Номер телефона должен содержать код страны";
-"digidoc-service-error-not-mobile-id-user" = "Пользователь не является клиентом Mobiil-ID";
-"digidoc-service-error-user-cancelled" = "Пользователю отказано";
-"digidoc-service-error-timeout" = "Срок действия вашей транзакции Mobiil-ID истек. Пожалуйста, попробуйте еще раз";
-"digidoc-service-error-delivery-error" = "Ошибка запроса";
-"digidoc-service-error-sim-error" = "Ошибка SIM карты";
-"digidoc-service-error-phone-absent" = "Отказ - телефон вне сети";
-"digidoc-service-error-signature-hash-mismatch" = "Не удалось выполнить операцию Mobiil-ID. Пожалуйста, свяжитесь со своим мобильным оператором";
-"digidoc-service-error-no-response" = "Пожалуйста проверьте подключение к интернету";
-"digidoc-service-error-too-many-requests" = "Предел для цифровых подписей в месяц был достигнут для этого IP-адреса. Дополнительная информация (https://www.id.ee/index.php?id=39025)";
-"digidoc-service-error-invalid-ssl-cert" = "Не удалось создать SSL канал передачи данных. Проверьте настройки вашего приложения или обновления программного обеспечения";
+"mid-rest-error-unknown" = "Неизвестная ошибка при подписании с помощю Mobiil-ID";
+"mid-rest-error-general" = "Что-то полшло не так, попробуйте снова";
+"mid-rest-error-incorrect-parameters" = "Номер телефона должен содержать код страны";
+"mid-rest-error-not-mobile-id-user" = "Пользователь не является клиентом Mobiil-ID";
+"mid-rest-error-user-cancelled" = "Пользователю отказано";
+"mid-rest-error-timeout" = "Срок действия вашей транзакции Mobiil-ID истек. Пожалуйста, попробуйте еще раз";
+"mid-rest-error-delivery-error" = "Ошибка запроса";
+"mid-rest-error-sim-error" = "Ошибка SIM карты";
+"mid-rest-error-phone-absent" = "Отказ - телефон вне сети";
+"mid-rest-error-signature-hash-mismatch" = "Не удалось выполнить операцию Mobiil-ID. Пожалуйста, свяжитесь со своим мобильным оператором";
+"mid-rest-error-no-response" = "Пожалуйста проверьте подключение к интернету";
+"mid-rest-error-too-many-requests" = "Предел для цифровых подписей в месяц был достигнут для этого IP-адреса. Дополнительная информация (https://www.id.ee/index.php?id=39025)";
+"mid-rest-error-invalid-ssl-cert" = "Не удалось создать SSL канал передачи данных. Проверьте настройки вашего приложения или обновления программного обеспечения";
