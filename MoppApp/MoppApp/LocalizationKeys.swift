@@ -95,6 +95,7 @@ enum LocKey : String
     case challengeCodeLabel = "challenge-code-label"
     case mobileIdTimeoutMessage = "mobile-id-timeout-message"
     case errorAlertTitleGeneral = "error-alert-title-general"
+    case errorAlertOpenLink = "error-alert-open-link"
     case signatureRemoveConfirmMessage = "signature-remove-confirm-message"
     case datafileRemoveConfirmMessage = "datafile-remove-confirm-message"
     case mobileIdTitle = "mobile-id-title"

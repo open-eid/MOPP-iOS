@@ -68,7 +68,7 @@ class MobileIDChallengeViewController : UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @objc func receiveStatusPendingNotification(_ notification: Notification) {        
+    @objc func receiveStatusPendingNotification(_ notification: Notification) {
         if UIAccessibilityIsVoiceOverRunning() {
             if !isAnnouncementMade {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: { [weak self] in
@@ -112,16 +112,15 @@ class MobileIDChallengeViewController : UIViewController {
         
         sessionTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSessionProgress), userInfo: nil, repeats: true)
     }
-    
+  
     @objc func receiveErrorNotification(_ notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         let error = userInfo[kErrorKey] as? NSError
         let mobileIDErrorMessage = error?.userInfo[NSLocalizedDescriptionKey] as? MobileIDError
         let errorMessage = userInfo[kErrorMessage] as? String ?? MobileIDError.generalError.mobileIDErrorDescription ?? L(.genericErrorMessage)
-        
         return showErrorDialog(errorMessage: SkSigningLib_LocalizedString(mobileIDErrorMessage?.mobileIDErrorDescription ?? errorMessage))
     }
-    
+  
     func showErrorDialog(errorMessage: String) -> Void {
         DispatchQueue.main.async {
             self.dismiss(animated: false) {
@@ -129,9 +128,17 @@ class MobileIDChallengeViewController : UIViewController {
                     while let currentViewController = topViewController.presentedViewController {
                         topViewController = currentViewController
                     }
-                    
-                    let alert = UIAlertController(title: L(.errorAlertTitleGeneral), message: errorMessage, preferredStyle: UIAlertControllerStyle.alert)
+
+                    let errorMessageNoLink: String? = errorMessage.removeFirstLinkFromMessage()
+
+                    let alert = UIAlertController(title: L(.errorAlertTitleGeneral), message: errorMessageNoLink, preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    if let linkInUrl: String = errorMessage.getFirstLinkInMessage() {
+                        if let alertActionUrl: UIAlertAction = UIAlertAction().getLinkAlert(message: linkInUrl) {
+                            alert.addAction(alertActionUrl)
+                        }
+                    }
+                  
                     topViewController.present(alert, animated: true, completion: nil)
                 }
             }
