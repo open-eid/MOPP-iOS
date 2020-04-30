@@ -1,0 +1,33 @@
+/*
+* Copyright 2020 Riigi Infosüsteemide Amet
+*
+* This library is free software; you can redistribute it and/or
+* modify it under the terms of the GNU Lesser General Public
+* License as published by the Free Software Foundation; either
+* version 2.1 of the License, or (at your option) any later version.
+*
+* This library is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public
+* License along with this library; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+*
+*/
+
+// ** Mobile ID errors ***
+"mid-rest-error-unknown" = "Tundmatu viga Mobiil-ID\'ga allkirjastamisel";
+"mid-rest-error-general" = "Midagi läks valesti, proovi uuesti";
+"mid-rest-error-incorrect-parameters" = "Telefoninumber peab sisaldama riigikoodi";
+"mid-rest-error-not-mobile-id-user" = "Kasutaja ei ole Mobiil-ID klient";
+"mid-rest-error-user-cancelled" = "Kasutaja keeldus või katkestas";
+"mid-rest-error-timeout" = "Teie Mobiil-ID toiming aegus. Palun proovige uuesti";
+"mid-rest-error-delivery-error" = "Päringu saatmise viga";
+"mid-rest-error-sim-error" = "SIM kaardi viga";
+"mid-rest-error-phone-absent" = "Telefon ei ole levis";
+"mid-rest-error-signature-hash-mismatch" = "Teie Mobiil-ID toiming ebaõnnestus. Palun võtke ühendust enda mobiilioperaatoriga";
+"mid-rest-error-no-response" = "Palun kontrollige internetiühendust";
+"mid-rest-error-too-many-requests" = "Sinu IP-aadressi tasuta allkirjade kuulimiit on ületatud. Loe täpsemalt siit (https://id.ee/index.php?id=39021)";
+"mid-rest-error-invalid-ssl-cert" = "SSL ühenduskanali loomine ebaõnnestus. Kontrolli rakenduse seadeid või tarkvara uuendusi";

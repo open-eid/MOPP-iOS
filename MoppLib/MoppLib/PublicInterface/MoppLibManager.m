@@ -39,8 +39,20 @@
     [[MoppLibDigidocManager sharedInstance] setupWithSuccess:success andFailure:failure usingTestDigiDocService:useTestDDS andTSUrl:tsUrl withMoppConfiguration: moppConfiguration];
 }
 
-- (void)checkVersionUpdateAndMissingFiles:(NSURL *)directory completionHandler:(void (^)())completionHandler {
-    [[MoppLibDigidocManager sharedInstance] checkVersionUpdateAndMissingFiles:directory completionHandler:completionHandler];
+- (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId {
+    return [[MoppLibDigidocManager sharedInstance] dataFileCalculateHashWithDigestMethod:method container:moppContainer dataFileId:dataFileId];
+}
+
++ (NSString *)prepareSignature:(NSString *)cert containerPath:(NSString *)containerPath {
+    return [MoppLibDigidocManager prepareSignature:cert containerPath:containerPath];
+}
+
++ (NSArray *)getDataToSign {
+    return [MoppLibDigidocManager getDataToSign];
+}
+
++ (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue {
+    return [MoppLibDigidocManager isSignatureValid:cert signatureValue:signatureValue];
 }
 
 - (NSString *)moppLibVersion {

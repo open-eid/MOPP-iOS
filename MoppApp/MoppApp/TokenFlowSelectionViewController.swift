@@ -48,7 +48,11 @@ class TokenFlowSelectionViewController : MoppViewController {
         super.viewDidLoad()
         localizeButtonTitles()
         
-        self.accessibilityElements = [mobileIDButton, containerView, idCardButton, containerView]
+        if #available(iOS 12, *) {
+            self.accessibilityElements = [mobileIDButton, containerView, idCardButton, containerView]
+        } else {
+            self.view.accessibilityElements = [mobileIDButton, containerView, idCardButton, containerView]
+        }
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -130,6 +134,8 @@ extension TokenFlowSelectionViewController {
         newViewController.didMove(toParentViewController: self)
     
         newViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.isAccessibilityElement = false
     
         oldViewController?.view.removeFromSuperview()
         containerView.addSubview(newViewController.view)
