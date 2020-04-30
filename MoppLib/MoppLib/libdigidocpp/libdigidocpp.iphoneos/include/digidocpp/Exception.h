@@ -34,10 +34,12 @@ namespace digidoc
            */
           enum ExceptionCode {
               General                  = 0,
+              NetworkError             = 20,
               //Verification errors
               CertificateIssuerMissing = 10,
               CertificateRevoked       = 5,
               CertificateUnknown       = 6,
+              OCSPBeforeTimeStamp      = 19,
               OCSPResponderMissing     = 8,
               OCSPCertMissing          = 9,
               OCSPTimeSlot             = 7,

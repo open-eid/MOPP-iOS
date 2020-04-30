@@ -22,6 +22,10 @@
  */
 
 import Foundation
+import SkSigningLib
+import CommonCrypto
+
+
 
 protocol SigningActions {
    func startSigningProcess()
@@ -121,11 +125,7 @@ extension SigningContainerViewController : MobileIDEditViewControllerDelegate {
         mobileIDChallengeview.modalPresentationStyle = .overFullScreen
         present(mobileIDChallengeview, animated: false)
         
-        Session.shared.createMobileSignature(
-            withContainer: containerViewDelegate.getContainerPath(),
-            idCode: idCode,
-            language: decideLanguageBasedOnPreferredLanguages(),
-            phoneNumber: phoneNumber)
+        MobileIDSignature.shared.createMobileIDSignature(baseUrl: Configuration.getConfiguration().MIDPROXYURL, phoneNumber: phoneNumber, nationalIdentityNumber: idCode, containerPath: self.containerViewDelegate.getContainerPath(), hashType: kHashType, language: decideLanguageBasedOnPreferredLanguages())
     }
     
     func decideLanguageBasedOnPreferredLanguages() -> String {
@@ -181,3 +181,32 @@ extension SigningContainerViewController : IdCardSignViewControllerDelegate {
     }
 }
 
+extension BinaryInteger {
+    var binaryDescription: String {
+        var binaryString = ""
+        var internalNumber = self
+        var counter = 0
+
+        for _ in (1...self.bitWidth) {
+            binaryString.insert(contentsOf: "\(internalNumber & 1)", at: binaryString.startIndex)
+            internalNumber >>= 1
+            counter += 1
+            if counter % 4 == 0 {
+                binaryString.insert(contentsOf: " ", at: binaryString.startIndex)
+            }
+        }
+
+        return binaryString
+    }
+}
+
+extension String {
+    func leftPadding(toLength: Int, withPad character: Character) -> String {
+        let newLength = self.characters.count
+        if newLength < toLength {
+            return String(repeatElement(character, count: toLength - newLength)) + self
+        } else {
+            return self.substring(from: index(self.startIndex, offsetBy: newLength - toLength))
+        }
+    }
+}

@@ -67,6 +67,16 @@ func MoppLib_LocalizedString(_ key: String,_ arguments: [CVarArg] = []) -> Strin
     return String(format: strongFormat, arguments: arguments)
 }
 
+func SkSigningLib_LocalizedString(_ key: String,_ arguments: [CVarArg] = []) -> String {
+    let languageId = DefaultsHelper.moppLanguageID
+    let moppLibBundlePath = Bundle(identifier: "ee.ria.digidoc.SkSigningLib")?.path(forResource: languageId, ofType: "lproj")
+    guard let strongMoppLibBundlePath = moppLibBundlePath else { return String()}
+    let bundle = Bundle(path: strongMoppLibBundlePath)
+    let format = bundle?.localizedString(forKey: key, value: String(), table: nil)
+    guard let strongFormat = format else { return String()}
+    return String(format: strongFormat, arguments: arguments)
+}
+
 func formatString(text: String, additionalText: String? = nil) -> String {
     if (additionalText != nil) {
         return "\(text) \(additionalText!)"

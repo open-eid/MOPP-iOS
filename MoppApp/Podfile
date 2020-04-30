@@ -52,3 +52,10 @@ target 'MoppLibTests' do
   pod 'OCMock'
   
 end
+
+target 'SkSigningLib' do
+    platform :ios, '9.0'
+    project '../SkSigningLib/SkSigningLib.xcodeproj'
+    #pod 'Fabric'
+    #pod 'Crashlytics'
+end

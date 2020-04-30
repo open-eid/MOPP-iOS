@@ -38,14 +38,15 @@ typedef enum {
 @property (readonly) BOOL useTestDigiDocService;
 + (MoppLibDigidocManager *)sharedInstance;
 - (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString*)tsUrl withMoppConfiguration:(MoppLibConfiguration*)moppConfiguration;
-- (void)checkVersionUpdateAndMissingFiles:(NSURL *)directory completionHandler:(void (^)())completionHandler;
 
 - (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath error:(NSError **)error;
 - (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths error:(NSError **)error;
 - (MoppLibContainer *)addDataFilesToContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths error:(NSError **)error;
 - (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex error:(NSError **)error;
 - (NSArray *)getContainers;
-
++ (NSString *)prepareSignature:(NSString *)cert containerPath:(NSString *)containerPath;
++ (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue;
++ (NSArray *)getDataToSign;
 - (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId;
 - (BOOL)container:(MoppLibContainer *)moppContainer containsSignatureWithCert:(NSData *)cert;
 - (void)addSignature:(NSString *)containerPath pin2:(NSString *)pin2 cert:(NSData *)cert success:(ContainerBlock)success andFailure:(FailureBlock)failure;

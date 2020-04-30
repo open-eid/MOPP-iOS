@@ -33,15 +33,15 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         var publicKey: String?
         var signature: String?
         
-        print("\nCommand line argument 'ConfigBaseUrl': \(CommandLine.arguments[1])")
-        print("Command line argument 'configUpdateInterval': \(CommandLine.arguments[2])")
-        print("Command line argument 'configTslUrl': \(CommandLine.arguments[3])")
+        NSLog("\nCommand line argument 'ConfigBaseUrl': \(CommandLine.arguments[1])")
+        NSLog("Command line argument 'configUpdateInterval': \(CommandLine.arguments[2])")
+        NSLog("Command line argument 'configTslUrl': \(CommandLine.arguments[3])")
         
-        print("\nConfig base url: \(configBaseUrl)")
-        print("Config update interval: \(configUpdateInterval)")
-        print("Config TSL url: \(configTslUrl)\n")
+        NSLog("\nConfig base url: \(configBaseUrl)")
+        NSLog("Config update interval: \(configUpdateInterval)")
+        NSLog("Config TSL url: \(configTslUrl)\n")
         
-        print("1 / 4 - Downloading configuration data...")
+        NSLog("1 / 4 - Downloading configuration data...")
         
         do {
             configData = try self.getFetchedData(fromUrl: "\(configBaseUrl)/config.json")
@@ -51,28 +51,28 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             fatalError("Unable to get data from central configuration \(error.localizedDescription)")
         }
         
-        print("2 / 4 - Verifing configuration data...")
+        NSLog("2 / 4 - Verifing configuration data...")
         
         verifySignature(configData: configData!, publicKey: publicKey!, signature: signature!)
         
-        print("3 / 4 - Creating default configuration file...")
+        NSLog("3 / 4 - Creating default configuration file...")
         
         let defaultConfiguration: String?
         
         do {
             let decodedData = try decodeMoppConfiguration(configData: configData!)
             defaultConfiguration = createConfigurationFile(versionSerial: decodedData.METAINF.SERIAL)
-            print("\nDefault configuration: ")
-            print("\(defaultConfiguration)\n")
+            NSLog("\nDefault configuration: ")
+            NSLog("\(defaultConfiguration)\n")
         } catch {
             fatalError("Unable to decode data: \(error.localizedDescription)")
         }
         
-        print("4 / 4 - Saving and moving files to project directory...")
+        NSLog("4 / 4 - Saving and moving files to project directory...")
         
         saveAndMoveConfigurationFiles(configData: configData!, publicKey: publicKey!, signature: signature!, defaultConfiguration: defaultConfiguration!)
         
-        print("Default configuration initialized successfully!")
+        NSLog("Default configuration initialized successfully!")
     }
     
     /* Get data from Central Configuration */
@@ -112,7 +112,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             guard let dataAsString = String(bytes: data, encoding: String.Encoding.utf8) else { return }
             
             if error != nil {
-                print(error!.localizedDescription)
+                NSLog(error!.localizedDescription)
             }
             
             completionHandler(dataAsString, error)
@@ -139,7 +139,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         do {
             let configDataData = trim(text: configData)!.data(using: .utf8)
             let publicKeyData = Data(base64Encoded: removeHeaderAndFooterFromRSACertificate(certificate: publicKey))
-            let signatureData = Data(base64Encoded: removeAllWhitespace(data: signature))
+            let signatureData = Data(base64Encoded: trim(text: removeAllWhitespace(data: signature))!)
             
             let isVerified = try? CC.RSA.verify(configDataData!, derKey: publicKeyData!, padding: .pkcs15, digest: .sha512, saltLen: 0, signedData: signatureData!)
             
@@ -147,7 +147,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                 fatalError("Signature verification unsuccessful")
             }
         } catch {
-            print(error.localizedDescription)
+            NSLog(error.localizedDescription)
         }
     }
     
@@ -161,7 +161,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     }
     
     private func removeAllWhitespace(data: String) -> String {
-        return data.filter { !" \n\t\r".contains($0) }
+        return data.filter { !$0.isNewline && !$0.isWhitespace }
     }
     
     private func trim(text: String?) -> String? {

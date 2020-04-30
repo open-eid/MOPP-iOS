@@ -18,15 +18,16 @@
 */
 
 // ** Mobile ID errors ***
-"digidoc-service-error-unknown" = "Tundmatu viga Mobiil-ID\'ga allkirjastamisel";
-"digidoc-service-error-general" = "Midagi läks valesti, proovi uuesti";
-"digidoc-service-error-incorrect-parameters" = "Telefoninumber peab sisaldama riigikoodi";
-"digidoc-service-error-not-mobile-id-user" = "Kasutaja ei ole Mobiil-ID klient";
-"digidoc-service-error-user-cancelled" = "Kasutaja keeldus või katkestas";
-"digidoc-service-error-timeout" = "Teie Mobiil-ID toiming aegus. Palun proovige uuesti";
-"digidoc-service-error-delivery-error" = "Päringu saatmise viga";
-"digidoc-service-error-sim-error" = "SIM kaardi viga";
-"digidoc-service-error-phone-absent" = "Telefon ei ole levis";
-"digidoc-service-error-signature-hash-mismatch" = "Teie Mobiil-ID toiming ebaõnnestus. Palun võtke ühendust enda mobiilioperaatoriga";
-"digidoc-service-error-no-response" = "Palun kontrollige internetiühendust";
-"digidoc-service-error-too-many-requests" = "Sinu IP-aadressi tasuta allkirjade kuulimiit on ületatud. https://id.ee/index.php?id=39021";
+"mid-rest-error-unknown" = "Tundmatu viga Mobiil-ID\'ga allkirjastamisel";
+"mid-rest-error-general" = "Midagi läks valesti, proovi uuesti";
+"mid-rest-error-incorrect-parameters" = "Telefoninumber peab sisaldama riigikoodi";
+"mid-rest-error-not-mobile-id-user" = "Kasutaja ei ole Mobiil-ID klient";
+"mid-rest-error-user-cancelled" = "Kasutaja keeldus või katkestas";
+"mid-rest-error-timeout" = "Teie Mobiil-ID toiming aegus. Palun proovige uuesti";
+"mid-rest-error-delivery-error" = "Päringu saatmise viga";
+"mid-rest-error-sim-error" = "SIM kaardi viga";
+"mid-rest-error-phone-absent" = "Telefon ei ole levis";
+"mid-rest-error-signature-hash-mismatch" = "Teie Mobiil-ID toiming ebaõnnestus. Palun võtke ühendust enda mobiilioperaatoriga";
+"mid-rest-error-no-response" = "Palun kontrollige internetiühendust";
+"mid-rest-error-too-many-requests" = "Sinu IP-aadressi tasuta allkirjade kuulimiit on ületatud. Loe täpsemalt siit (https://id.ee/index.php?id=39021)";
+"mid-rest-error-invalid-ssl-cert" = "SSL ühenduskanali loomine ebaõnnestus. Kontrolli rakenduse seadeid või tarkvara uuendusi";

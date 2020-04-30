@@ -34,6 +34,8 @@ internal struct MOPPConfiguration: Codable {
     let LDAPCORPURL: String
     let TSLCERTS: Array<String>
     let OCSPISSUERS: [String: String]
+    let MIDPROXYURL: String
+    let CERTBUNDLE: Array<String>
     
     private enum MOPPConfigurationType: String, CodingKey {
         case MIDSIGNURL = "MID-SIGN-URL"
@@ -45,6 +47,8 @@ internal struct MOPPConfiguration: Codable {
         case LDAPCORPURL = "LDAP-CORP-URL"
         case TSLCERTS = "TSL-CERTS"
         case OCSPISSUERS = "OCSP-URL-ISSUER"
+        case MIDPROXYURL = "MID-PROXY-URL"
+        case CERTBUNDLE = "CERT-BUNDLE"
     }
     
     init(from decoder: Decoder) throws {
@@ -58,6 +62,8 @@ internal struct MOPPConfiguration: Codable {
         LDAPCORPURL = try container.decode(String.self, forKey: .LDAPCORPURL)
         TSLCERTS = try container.decode([String].self, forKey: .TSLCERTS)
         OCSPISSUERS = try container.decode([String: String].self, forKey: .OCSPISSUERS)
+        MIDPROXYURL = try container.decode(String.self, forKey: .MIDPROXYURL)
+        CERTBUNDLE = try container.decode([String].self, forKey: .CERTBUNDLE)
     }
 }
 

@@ -48,6 +48,16 @@
 #import <Security/SecKey.h>
 #import "MoppLibGlobals.h"
 
+#include <CryptoLib/CryptoLib.h>
+
+#include <CommonCrypto/CommonDigest.h>
+#include <CommonCrypto/CommonHMAC.h>
+
+#include <string>
+#include <sstream>
+#include <iostream>
+#import <CommonCrypto/CommonDigest.h>
+
 class DigiDocConf: public digidoc::ConfCurrent {
 
 private:
@@ -116,10 +126,12 @@ public:
 
   virtual std::string ocsp(const std::string &issuer) const override {
     NSString *ocspIssuer = [NSString stringWithCString:issuer.c_str() encoding:[NSString defaultCStringEncoding]];
-      NSLog(@"%@", OCSPUrl);
+      NSLog(@"Received OCSP url: %@", OCSPUrl);
     if ([moppLibConfiguration.OCSPISSUERS objectForKey:ocspIssuer]) {
+        NSLog(@"Using issuer: '%@' with OCSP url from central configuration: %s", ocspIssuer, std::string([moppLibConfiguration.OCSPISSUERS[ocspIssuer] UTF8String]).c_str());
         return std::string([moppLibConfiguration.OCSPISSUERS[ocspIssuer] UTF8String]);
     } else {
+        NSLog(@"Did not find url for issuer: %@. Using received OCSP url: %@", ocspIssuer, OCSPUrl);
         return std::string([OCSPUrl UTF8String]);
     }
   }
@@ -193,6 +205,13 @@ private:
 
 @implementation MoppLibDigidocManager
 
+static NSString *docContainerPath = nil;
+static NSString *signatureId = nil;
+
+static std::string profile = "time-stamp";
+
+
+
 + (MoppLibDigidocManager *)sharedInstance {
   static dispatch_once_t pred;
   static MoppLibDigidocManager *sharedInstance = nil;
@@ -214,7 +233,8 @@ private:
         [tsUrl cStringUsingEncoding:NSUTF8StringEncoding];
       digidoc::Conf::init(new DigiDocConf(timestampUrl, moppConfiguration));
       NSString *appInfo = [NSString stringWithFormat:@"%s/%@ (iOS %@)", "qdigidocclient", [self moppAppVersion], [self iOSVersion]];
-      digidoc::initialize(std::string([appInfo UTF8String]));
+      std::string appInfoObjcString = std::string([appInfo UTF8String]);
+      digidoc::initialize(appInfoObjcString, appInfoObjcString);
 
       dispatch_async(dispatch_get_main_queue(), ^{
         success();
@@ -293,6 +313,139 @@ private:
         [result addObject:[NSString stringWithUTF8String:p.c_str()]];
     }
     return result;
+}
+
++ (NSArray *)getDataToSign {
+    
+    digidoc::Container *currentContainer = digidoc::Container::open(docContainerPath.UTF8String);
+    digidoc::Signature *currentSignature = [self getSignatureFromContainer:currentContainer signatureId:signatureId];
+    
+    std::vector<unsigned char> dataTosign = currentSignature->dataToSign();
+    
+    NSMutableArray *dataToSignArray = [NSMutableArray arrayWithCapacity: dataTosign.size()];
+    
+    for (auto value : dataTosign) {
+        [dataToSignArray addObject:@(value)];
+    }
+    
+    return dataToSignArray;
+}
+
++ (digidoc::Signature *)getSignatureFromContainer:(digidoc::Container *)container signatureId:(NSString *)signatureId {
+    digidoc::Signature *currentSignature = NULL;
+    
+    NSLog(@"Getting signature with an ID of %s", signatureId.UTF8String);
+    for (auto signature : container->signatures()) {
+        if (signature->id() == signatureId.UTF8String) {
+            NSLog(@"Found signature with an ID of %s", signatureId.UTF8String);
+            currentSignature = signature;
+        }
+    }
+    
+    return currentSignature;
+}
+
++ (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue {
+    std::string calculatedSignatureBase64 = std::string(base64_decode(signatureValue.UTF8String));
+    
+    std::vector<unsigned char> vec;
+    std::copy(calculatedSignatureBase64.begin(), calculatedSignatureBase64.end(), std::back_inserter(vec));
+    
+    digidoc::X509Cert x509Cert = [MoppLibDigidocManager getDerCert:cert];
+    
+    OCSPUrl = [NSString stringWithCString:getOCSPUrl(x509Cert.handle()).c_str() encoding:[NSString defaultCStringEncoding]];
+    
+    digidoc::Container *currentContainer = digidoc::Container::open(docContainerPath.UTF8String);
+    digidoc::Signature *currentSignature = [self getSignatureFromContainer:currentContainer signatureId:signatureId];
+    
+    if (!currentSignature) {
+        NSLog(@"\nError: Did not find signature with an ID of %s\n", signatureId.UTF8String);
+        return false;
+    }
+    
+    NSString *timeStampTime = [NSString stringWithUTF8String:currentSignature->TimeStampTime().c_str()];
+    if ([timeStampTime length] != 0) {
+        NSLog(@"\nSignature already validated at %@\n", timeStampTime);
+        return true;
+    }
+    
+    try {
+        NSLog(@"\nStarting signature validation...\n");
+        NSLog(@"\nSetting signature value...\n");
+        currentSignature->setSignatureValue(vec);
+        NSLog(@"\nExtending signature profile...\n");
+        currentSignature->extendSignatureProfile(profile);
+        NSLog(@"\nValidating signature...\n");
+        currentSignature->validate();
+        NSLog(@"\nSaving container...\n");
+        currentContainer->save();
+        NSLog(@"\nSignature validated at %s!\n", currentSignature->TimeStampTime().c_str());
+        
+        return true;
+    } catch(const digidoc::Exception &e) {
+        parseException(e);
+        NSError *error;
+        [self removeSignature:docContainerPath signatureId:signatureId error:&error];
+        NSLog(@"\nError validating signature: %s\n", e.msg().c_str());
+        return false;
+    }
+}
+
++ (void)removeSignature:(NSString *)containerPath signatureId:(NSString *)signatureId error:(NSError **)error {
+    digidoc::Container *doc = digidoc::Container::open(containerPath.UTF8String);
+    
+    for (int i = 0; i < doc->signatures().size(); i++) {
+        digidoc::Signature *signature = doc->signatures().at(i);
+        try {
+            if (signature->id() == signatureId.UTF8String) {
+                doc->removeSignature(i);
+                doc->save(containerPath.UTF8String);
+                break;
+            }
+        } catch(const digidoc::Exception &e) {
+            parseException(e);
+            *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
+            break;
+        }
+    }
+}
+
++ (NSString *)prepareSignature:(NSString *)cert containerPath:(NSString *)containerPath {
+    digidoc::X509Cert x509Cert = [MoppLibDigidocManager getDerCert:cert];
+    WebSigner *signer = new WebSigner(x509Cert);
+    
+    docContainerPath = NULL;
+    signatureId = NULL;
+    
+    digidoc::Container *doc = digidoc::Container::open(containerPath.UTF8String);
+    
+    docContainerPath = containerPath;
+    
+    NSMutableArray *profiles = [NSMutableArray new];
+    for (auto signature : doc->signatures()) {
+        NSLog(@"Signature ID: %s", signature->id().c_str());
+        [profiles addObject:[[NSString alloc] initWithBytes:signature->profile().c_str() length:signature->profile().size() encoding:NSUTF8StringEncoding]];
+    }
+    
+    NSLog(@"\nSetting profile info...\n");
+    signer->setProfile(profile);
+    signer->setSignatureProductionPlace("", "", "", "");
+    signer->setSignerRoles(std::vector<std::string>());
+    NSLog(@"\nProfile info set successfully\n");
+    
+    digidoc::Signature *signature = doc->prepareSignature(signer);
+    
+    doc->save();
+    
+    NSLog(@"\nSetting signature id...\n");
+    signatureId = [NSString stringWithCString:signature->id().c_str() encoding:[NSString defaultCStringEncoding]];
+    NSLog(@"\nSignature ID set to %@...\n", signatureId);
+    
+    std::vector<unsigned char> dataToSign = signature->dataToSign();
+    std::string dataToSignBase64 = base64_encode(dataToSign.data(), (uint32_t)dataToSign.size());
+    NSString *dataToSignEncoded = [NSString stringWithUTF8String:dataToSignBase64.c_str()];
+    
+    return dataToSignEncoded;
 }
 
 - (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath error:(NSError **)error {
@@ -585,10 +738,12 @@ void parseException(const digidoc::Exception &e) {
 }
 
   std::string getOCSPUrl(X509 *x509)  {
-    std::string ocspUrl;
+    std::string ocspUrl = "";
     STACK_OF(OPENSSL_STRING) *ocsps = X509_get1_ocsp(x509);
-    ocspUrl = std::string(sk_OPENSSL_STRING_value(ocsps, 0));
-    X509_email_free(ocsps);
+    if (ocsps != NULL) {
+      ocspUrl = std::string(sk_OPENSSL_STRING_value(ocsps, 0));
+      X509_email_free(ocsps);
+    }
     return ocspUrl;
   }
 
