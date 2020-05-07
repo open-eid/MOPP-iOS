@@ -29,7 +29,7 @@ class Session {
     
     func getSession(baseUrl: String, phoneNumber: String, nationalIdentityNumber: String, hash: String, hashType: String, language: String, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionResponse, MobileIDError>) -> Void) -> Void {
         do {
-            _ = try RequestSession.shared.getSession(baseUrl: baseUrl, requestParameters: SessionRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: kRelyingPartyUUID, phoneNumber: "+\(phoneNumber)", nationalIdentityNumber: nationalIdentityNumber, hash: hash, hashType: hashType, language: language, displayText: kDisplayText, displayTextFormat: kDisplayTextFormat), trustedCertificates: trustedCertificates) { (sessionResult) in
+            _ = try RequestSession.shared.getSession(baseUrl: baseUrl, requestParameters: SessionRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: kRelyingPartyUUID, phoneNumber: "+\(phoneNumber)", nationalIdentityNumber: nationalIdentityNumber, hash: hash, hashType: hashType, language: language, displayText: L(.simToolkitSignDocumentTitle), displayTextFormat: kDisplayTextFormat), trustedCertificates: trustedCertificates) { (sessionResult) in
                 
                 switch sessionResult {
                 case .success(let response):

@@ -131,6 +131,9 @@
 
 "challenge-code-label" = "Контрольный код: %@";
 
+// Currently must be in English
+"sim-toolkit-sign-document-title" = "Sign document";
+
 // *** Errors ***
 "mobile-id-timeout-message" = "Тайм-аут запроса Mobiil-ID";
 "error-alert-title-general" = "Отказ";

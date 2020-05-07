@@ -29,5 +29,5 @@
 "mid-rest-error-phone-absent" = "Phone is not in coverage area";
 "mid-rest-error-signature-hash-mismatch" = "Your Mobile-ID transaction has failed. Please contact your mobile network operator";
 "mid-rest-error-no-response" = "Please check your internet connection";
-"mid-rest-error-too-many-requests" = "The limit for digital signatures per month has been reached for this IP address. Additional information (https://www.id.ee/index.php?id=39023)";
+"mid-rest-error-too-many-requests" = "The limit for digital signatures per month has been reached for this IP address. https://www.id.ee/index.php?id=39023";
 "mid-rest-error-invalid-ssl-cert" = "SSL handshake failed. Check your application settings or software upgrades";

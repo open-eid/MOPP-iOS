@@ -29,5 +29,5 @@
 "mid-rest-error-phone-absent" = "Telefon ei ole levis";
 "mid-rest-error-signature-hash-mismatch" = "Teie Mobiil-ID toiming ebaõnnestus. Palun võtke ühendust enda mobiilioperaatoriga";
 "mid-rest-error-no-response" = "Palun kontrollige internetiühendust";
-"mid-rest-error-too-many-requests" = "Sinu IP-aadressi tasuta allkirjade kuulimiit on ületatud. Loe täpsemalt siit (https://id.ee/index.php?id=39021)";
+"mid-rest-error-too-many-requests" = "Sinu IP-aadressi tasuta allkirjade kuulimiit on ületatud. https://id.ee/index.php?id=39021";
 "mid-rest-error-invalid-ssl-cert" = "SSL ühenduskanali loomine ebaõnnestus. Kontrolli rakenduse seadeid või tarkvara uuendusi";

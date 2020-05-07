@@ -132,6 +132,8 @@
 
 "challenge-code-label" = "Kontrollkood: %@";
 
+"sim-toolkit-sign-document-title" = "Allkirjasta dokument";
+
 // *** Errors ***
 "mobile-id-timeout-message" = "Mobiil-ID päring aegus";
 "error-alert-title-general" = "Viga";

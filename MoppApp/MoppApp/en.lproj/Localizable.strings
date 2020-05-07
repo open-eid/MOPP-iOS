@@ -131,6 +131,8 @@
 
 "challenge-code-label" = "Control code: %@";
 
+"sim-toolkit-sign-document-title" = "Sign document";
+
 // *** Errors ***
 "mobile-id-timeout-message" = "Mobile-ID request timeout";
 "error-alert-title-general" = "Failure";
