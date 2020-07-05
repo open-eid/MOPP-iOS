@@ -29,19 +29,23 @@ class MobileIDSignature {
     static let shared: MobileIDSignature = MobileIDSignature()
     
     // MARK: Creating Mobile ID signature
-    func createMobileIDSignature(baseUrl: String, phoneNumber: String, nationalIdentityNumber: String, containerPath: String, hashType: String, language: String) -> Void {
+    func createMobileIDSignature(phoneNumber: String, nationalIdentityNumber: String, containerPath: String, hashType: String, language: String) -> Void {
         
         if isUsingTestMode() {
             NSLog("\nUsing phone number: \(phoneNumber.prefix(7))xxxx\n")
             NSLog("\nUsing national identity number: \(nationalIdentityNumber.prefix(6))xxxxx\n")
         }
 
+        let baseUrl = DefaultsHelper.rpUuid.isEmpty ? Configuration.getConfiguration().MIDPROXYURL : Configuration.getConfiguration().MIDSKURL
+        let uuid = DefaultsHelper.rpUuid.isEmpty ? kRelyingPartyUUID : DefaultsHelper.rpUuid
+        let certBundle = Configuration.getConfiguration().CERTBUNDLE
+
         // MARK: Request certificate
-        getCertificate(baseUrl: baseUrl, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, containerPath: containerPath, trustedCertificates: Configuration.getConfiguration().CERTBUNDLE, completionHandler: { (hash, cert) in
+        getCertificate(baseUrl: baseUrl, uuid: uuid, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, containerPath: containerPath, trustedCertificates: certBundle, completionHandler: { (hash, cert) in
             // MARK: Request session
-            self.getSession(baseUrl: baseUrl, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, hash: hash, hashType: hashType, language: language, trustedCertificates: Configuration.getConfiguration().CERTBUNDLE,  completionHandler: { (sessionId) in
+            self.getSession(baseUrl: baseUrl, uuid: uuid, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, hash: hash, hashType: hashType, language: language, trustedCertificates: Configuration.getConfiguration().CERTBUNDLE,  completionHandler: { (sessionId) in
                 // MARK: Request session status
-                self.getSessionStatus(baseUrl: baseUrl, sessionId: sessionId, cert: cert, trustedCertificates: Configuration.getConfiguration().CERTBUNDLE, completionHandler: { (signatureValue) in
+                self.getSessionStatus(baseUrl: baseUrl, sessionId: sessionId, cert: cert, trustedCertificates: certBundle, completionHandler: { (signatureValue) in
                     // MARK: Validate signature
                     DispatchQueue.main.async {
                         return self.validateSignature(cert: cert, signatureValue: signatureValue)
@@ -51,10 +55,10 @@ class MobileIDSignature {
         })
     }
 
-    private func getCertificate(baseUrl: String, phoneNumber: String, nationalIdentityNumber: String, containerPath: String, trustedCertificates: [String]?, completionHandler: @escaping (String, String) -> Void) {
+    private func getCertificate(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, containerPath: String, trustedCertificates: [String]?, completionHandler: @escaping (String, String) -> Void) {
         // MARK: Get certificate
         NSLog("\nGetting certificate...\n")
-        SessionCertificate.shared.getCertificate(baseUrl: baseUrl, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, trustedCertificates: trustedCertificates) { (sessionCertificate: Result<CertificateResponse, MobileIDError>) in
+        SessionCertificate.shared.getCertificate(baseUrl: baseUrl, uuid: uuid, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, trustedCertificates: trustedCertificates) { (sessionCertificate: Result<CertificateResponse, MobileIDError>) in
             
             let certificateResponse: CertificateResponse
             
@@ -103,10 +107,10 @@ class MobileIDSignature {
         }
     }
 
-    private func getSession(baseUrl: String, phoneNumber: String, nationalIdentityNumber: String, hash: String, hashType: String, language: String, trustedCertificates: [String]?, completionHandler: @escaping (String) -> Void) {
+    private func getSession(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, hash: String, hashType: String, language: String, trustedCertificates: [String]?, completionHandler: @escaping (String) -> Void) {
         // MARK: Get session
         NSLog("\nGetting session...\n")
-        Session.shared.getSession(baseUrl: baseUrl, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, hash: hash, hashType: hashType, language: language, trustedCertificates: trustedCertificates) { (sessionResult: Result<SessionResponse, MobileIDError>) in
+        Session.shared.getSession(baseUrl: baseUrl, uuid: uuid, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, hash: hash, hashType: hashType, language: language, trustedCertificates: trustedCertificates) { (sessionResult: Result<SessionResponse, MobileIDError>) in
 
             let sessionResponse: SessionResponse
 

@@ -39,8 +39,12 @@ let CrashlyticsAlwaysSend = "Always"
 let CrashlyticsNeverSend = "Never"
 let CrashlyticsDefault = "Default"
 // Keys
+fileprivate let kSignMethodKey = "kSignMethodKey"
 fileprivate let kPhoneNumberKey = "kPhoneNumberKey"
 fileprivate let kIDCodeKey = "kIDCodeKey"
+fileprivate let kRPUuidKey = "kRPUuidKey"
+fileprivate let kSIDIDCodeKey = "kSIDIDCodeKey"
+fileprivate let kSIDCountryKey = "kSIDCountryKey"
 fileprivate let kTimestampUrlKey = "kTimestampUrlKey"
 fileprivate let kCrashReportSettingKey = "kCrashReportSettingKey"
 fileprivate let kPreviousPreferredLanguage = "kPreviousPreferredLanguage"
@@ -48,6 +52,15 @@ fileprivate let kMoppLanguage = "kMoppLanguage"
 
 class DefaultsHelper
 {
+    class var signMethod: String {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kSignMethodKey)
+        }
+        get {
+            return UserDefaults.standard.value(forKey: kSignMethodKey) as? String ?? "mobileID"
+        }
+    }
+
     class var phoneNumber: String? {
         set {
             UserDefaults.standard.set(newValue, forKey: kPhoneNumberKey)
@@ -65,7 +78,34 @@ class DefaultsHelper
             return (UserDefaults.standard.value(forKey: kIDCodeKey) as? String) ?? String()
         }
     }
-    
+
+    class var rpUuid: String {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kRPUuidKey)
+        }
+        get {
+            return (UserDefaults.standard.value(forKey: kRPUuidKey) as? String) ?? String()
+        }
+    }
+
+    class var sidCountry: String {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kSIDCountryKey)
+        }
+        get {
+            return (UserDefaults.standard.value(forKey: kSIDCountryKey) as? String) ?? String()
+        }
+    }
+
+    class var sidIdCode: String {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kSIDIDCodeKey)
+        }
+        get {
+            return (UserDefaults.standard.value(forKey: kSIDIDCodeKey) as? String) ?? String()
+        }
+    }
+
     class var timestampUrl: String? {
         set {
             UserDefaults.standard.set(newValue, forKey: kTimestampUrlKey)

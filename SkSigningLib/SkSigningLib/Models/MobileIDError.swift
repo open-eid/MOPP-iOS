@@ -54,6 +54,16 @@ public enum MobileIDError: String, Error {
     case deliveryError
     case simError
     case tooManyRequests
+
+    // MARK: Smart-ID Session Status Errors
+    case wrongVC
+    case documentUnusable
+    case notQualified
+    case oldApi
+    case underMaintenance
+    case sidTimeout
+    case forbidden
+    case accountNotFound
 }
 
 // MARK: MobileIDError mobileIDErrorDescription Extension
@@ -104,6 +114,22 @@ extension MobileIDError: LocalizedError {
             return NSLocalizedString("mid-rest-error-too-many-requests", comment: "")
         case .invalidSSLCert:
             return NSLocalizedString("mid-rest-error-invalid-ssl-cert", comment: "")
+        case .wrongVC:
+            return NSLocalizedString("sid-rest-error-wrong-vc", comment: "")
+        case .documentUnusable:
+            return NSLocalizedString("sid-rest-error-document-unusable", comment: "")
+        case .notQualified:
+            return NSLocalizedString("sid-rest-error-not-qualified", comment: "")
+        case .oldApi:
+            return NSLocalizedString("sid-rest-error-old-api", comment: "")
+        case .underMaintenance:
+            return NSLocalizedString("sid-rest-error-under-maintenance", comment: "")
+        case .sidTimeout:
+            return NSLocalizedString("sid-rest-error-timeout", comment: "")
+        case .forbidden:
+            return NSLocalizedString("sid-rest-error-forbidden", comment: "")
+        case .accountNotFound:
+            return NSLocalizedString("sid-rest-error-account-not-found", comment: "")
         }
     }
 }

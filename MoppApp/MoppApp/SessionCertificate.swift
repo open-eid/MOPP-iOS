@@ -28,9 +28,9 @@ class SessionCertificate {
     
     static let shared: SessionCertificate = SessionCertificate()
     
-    func getCertificate(baseUrl: String, phoneNumber: String, nationalIdentityNumber: String, trustedCertificates: [String]?, completionHandler: @escaping (Result<CertificateResponse, MobileIDError>) -> Void) -> Void {
+    func getCertificate(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, trustedCertificates: [String]?, completionHandler: @escaping (Result<CertificateResponse, MobileIDError>) -> Void) -> Void {
         do {
-            _ = try RequestSignature.shared.getCertificate(baseUrl: baseUrl, requestParameters: CertificateRequestParameters(relyingPartyUUID: kRelyingPartyUUID, relyingPartyName: kRelyingPartyName, phoneNumber: "+\(phoneNumber)", nationalIdentityNumber: nationalIdentityNumber), trustedCertificates: trustedCertificates) { (result) in
+            _ = try RequestSignature.shared.getCertificate(baseUrl: baseUrl, requestParameters: CertificateRequestParameters(relyingPartyUUID: uuid, relyingPartyName: kRelyingPartyName, phoneNumber: "+\(phoneNumber)", nationalIdentityNumber: nationalIdentityNumber), trustedCertificates: trustedCertificates) { (result) in
                 
                 switch result {
                 case .success(let response):

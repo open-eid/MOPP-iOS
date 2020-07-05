@@ -44,6 +44,7 @@
 
 "digidoc-service-status-request-sent" = "Запрос на подпись отправлен";
 "digidoc-service-status-request-ok" = "Запрос принят";
+"digidoc-service-status-request-select-account" = "Для проставления подписи подтвердите устройство в приложении Smart-ID.";
 "digidoc-service-status-request-expired-transaction" = "Время запроса истекло";
 "digidoc-service-status-request-user-cancel" = "Пользователю отказано";
 "digidoc-service-status-request-signature" = "Подпись получена";

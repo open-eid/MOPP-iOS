@@ -28,6 +28,9 @@
 		39CDA7EA20ADBCEC006E2E9F /* Crypto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */; };
 		39CDA7EE20ADBE93006E2E9F /* CryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */; };
 		39F8EFE720D263B5001BCF73 /* TokenFlow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39F8EFE620D263B5001BCF73 /* TokenFlow.storyboard */; };
+		4E59080024B0F914001B23A6 /* SmartIDEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5907FF24B0F914001B23A6 /* SmartIDEditViewController.swift */; };
+		4E59080224B258C7001B23A6 /* SmartIDChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59080124B258C6001B23A6 /* SmartIDChallengeViewController.swift */; };
+		4E59080424B2E295001B23A6 /* SmartIDSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59080324B2E295001B23A6 /* SmartIDSignature.swift */; };
 		51EAB865AC99468B5AC77D6C /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.swift */; };
 		547BDF251E8BEFA30093931F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
@@ -469,6 +472,9 @@
 		39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoViewController.swift; sourceTree = "<group>"; };
 		39F8EFE620D263B5001BCF73 /* TokenFlow.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TokenFlow.storyboard; sourceTree = "<group>"; };
 		3F911EB9E3AB94D442FA9F9D /* Pods-MoppApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoppApp/Pods-MoppApp.release.xcconfig"; sourceTree = "<group>"; };
+		4E5907FF24B0F914001B23A6 /* SmartIDEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartIDEditViewController.swift; sourceTree = "<group>"; };
+		4E59080124B258C6001B23A6 /* SmartIDChallengeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartIDChallengeViewController.swift; sourceTree = "<group>"; };
+		4E59080324B2E295001B23A6 /* SmartIDSignature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartIDSignature.swift; sourceTree = "<group>"; };
 		540786E81E1A76640016ABA7 /* UITextView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Additions.swift"; sourceTree = "<group>"; };
 		54825EF41E1CFE9600253FF0 /* Date+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Additions.swift"; sourceTree = "<group>"; };
 		54825EF71E1D270F00253FF0 /* String+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Additions.swift"; sourceTree = "<group>"; };
@@ -726,6 +732,8 @@
 				C54EA6E72045A9E30039AC78 /* IdCardViewController.swift */,
 				C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */,
 				C537AE532004C29E009037E5 /* MobileIDEditViewController.swift */,
+				4E59080124B258C6001B23A6 /* SmartIDChallengeViewController.swift */,
+				4E5907FF24B0F914001B23A6 /* SmartIDEditViewController.swift */,
 				C50DCD1A1FD1576B00D48E16 /* SigningTableViewHeaderView.swift */,
 				C54EA6E420444EC90039AC78 /* TokenFlowSelectionViewController.swift */,
 			);
@@ -1138,6 +1146,7 @@
 				E42B08B01E1F049B00EA24A3 /* FileManager.swift */,
 				E4C53F4A1E30D03500F209BE /* DefaultsHelper.swift */,
 				DFDF02C3241ED0CA006CF443 /* MobileIDSignature.swift */,
+				4E59080324B2E295001B23A6 /* SmartIDSignature.swift */,
 				DFDF02BD241EB5D3006CF443 /* SessionCertificate.swift */,
 				E4C53F4D1E30D13100F209BE /* Session.swift */,
 				DFDF02BF241EC72C006CF443 /* SessionStatus.swift */,
@@ -1832,6 +1841,7 @@
 				3921CA9720B2D8A600BF3178 /* SigningActions.swift in Sources */,
 				C52E827A1FC1D7000074B280 /* main.swift in Sources */,
 				C5964CEA200F8607001FE732 /* ContainerImportFilesCell.swift in Sources */,
+				4E59080024B0F914001B23A6 /* SmartIDEditViewController.swift in Sources */,
 				C50DCD1B1FD1576B00D48E16 /* SigningTableViewHeaderView.swift in Sources */,
 				C54EA73A2057E58D0039AC78 /* MoppButton.swift in Sources */,
 				3921CAA720B5A39F00BF3178 /* ContainerAddresseeCell.swift in Sources */,
@@ -1842,6 +1852,7 @@
 				3921CAA520B5A24A00BF3178 /* CryptoContainerViewController.swift in Sources */,
 				C50DCCCB1FC32A3E00D48E16 /* SigningViewController.swift in Sources */,
 				C5FA0BE920A1930400A208E5 /* MoppApp+Jailbreak.swift in Sources */,
+				4E59080424B2E295001B23A6 /* SmartIDSignature.swift in Sources */,
 				E42B08AE1E1EFC1800EA24A3 /* DateFormatter.swift in Sources */,
 				DFDF02C4241ED0CA006CF443 /* MobileIDSignature.swift in Sources */,
 				C55BB1C720908EF300618AC4 /* DiagnosticsViewController.swift in Sources */,
@@ -1852,6 +1863,7 @@
 				C5A1D1CD2031D5B80024CD4C /* ContainerActions.swift in Sources */,
 				C56C6204201A0D9300CCC2A5 /* MenuCell.swift in Sources */,
 				C50DCD0D1FC7147100D48E16 /* ContainerTableViewHeaderView.swift in Sources */,
+				4E59080224B258C7001B23A6 /* SmartIDChallengeViewController.swift in Sources */,
 				C5310F4620C2F0F7004D3E78 /* MenuLanguageButtonView.swift in Sources */,
 				C5927FC92075144F003B7F41 /* MyeIDSegmentHeaderCell.swift in Sources */,
 			);

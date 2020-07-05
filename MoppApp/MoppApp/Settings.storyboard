@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Sh7-45-xtX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Sh7-45-xtX">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -286,14 +286,14 @@
             <objects>
                 <viewController storyboardIdentifier="DiagnosticsViewController" id="B8K-Cg-QcU" customClass="DiagnosticsViewController" customModule="MoppApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="urH-58-wqg">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="820"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="907"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ki8-k3-cmp">
-                                <rect key="frame" x="0.0" y="103" width="375" height="717"/>
+                                <rect key="frame" x="0.0" y="103" width="375" height="804"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P3E-QG-6de">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="820"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="907"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rakenduse versioon: " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1h-Wv-jK4">
                                                 <rect key="frame" x="15" y="8" width="345" height="20"/>
@@ -373,7 +373,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ljx-rt-qve">
-                                                <rect key="frame" x="15" y="647" width="343" height="30"/>
+                                                <rect key="frame" x="15" y="734" width="343" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                 <state key="normal" title="REFRESH CONFIGURATION"/>
@@ -389,49 +389,49 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Central Configuration:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="TtS-74-evo">
-                                                <rect key="frame" x="16" y="431" width="344" height="21"/>
+                                                <rect key="frame" x="16" y="518" width="344" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="l32-s5-RMt">
-                                                <rect key="frame" x="16" y="460" width="344" height="21"/>
+                                                <rect key="frame" x="16" y="547" width="344" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="v3j-1F-BkV">
-                                                <rect key="frame" x="17" y="488" width="343" height="21"/>
+                                                <rect key="frame" x="17" y="575" width="343" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="GoO-ax-djg">
-                                                <rect key="frame" x="17" y="518" width="343" height="21"/>
+                                                <rect key="frame" x="17" y="605" width="343" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lJS-SP-IrB">
-                                                <rect key="frame" x="17" y="547" width="343" height="21"/>
+                                                <rect key="frame" x="17" y="634" width="343" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ICY-hq-vOj">
-                                                <rect key="frame" x="17" y="577" width="344" height="20"/>
+                                                <rect key="frame" x="17" y="664" width="344" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8If-1L-pXu">
-                                                <rect key="frame" x="17" y="605" width="344" height="20"/>
+                                                <rect key="frame" x="17" y="692" width="344" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -444,10 +444,31 @@
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dyA-bc-5kH">
+                                                <rect key="frame" x="16" y="425" width="345" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="axW-Sz-ktm">
+                                                <rect key="frame" x="16" y="454" width="345" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ruH-oH-HXZ">
+                                                <rect key="frame" x="16" y="483" width="345" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="820" id="OUF-l6-IeI"/>
+                                            <constraint firstAttribute="height" constant="907" id="OUF-l6-IeI"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -496,7 +517,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ieV-Tc-v8g"/>
                     </view>
-                    <size key="freeformSize" width="375" height="820"/>
+                    <size key="freeformSize" width="375" height="907"/>
                     <connections>
                         <outlet property="appVersionLabel" destination="a1h-Wv-jK4" id="aKK-Tr-1hc"/>
                         <outlet property="centralConfigurationLabel" destination="TtS-74-evo" id="Ey1-hM-CGv"/>
@@ -511,10 +532,13 @@
                         <outlet property="metaUrl" destination="GoO-ax-djg" id="AV2-cv-9Cq"/>
                         <outlet property="metaVer" destination="lJS-SP-IrB" id="y4u-Ko-HtZ"/>
                         <outlet property="midSignURL" destination="9t3-M4-dAz" id="zEe-hv-9xe"/>
+                        <outlet property="mobileIdSKURL" destination="dyA-bc-5kH" id="6th-4i-5GX"/>
                         <outlet property="mobileIdURL" destination="nTe-hi-UFW" id="vDk-Yq-Mbg"/>
                         <outlet property="opSysVersionLabel" destination="0IR-hS-aJO" id="bMG-ZH-P2B"/>
                         <outlet property="refreshConfigurationLabel" destination="Ljx-rt-qve" id="kf7-hD-PVS"/>
                         <outlet property="sivaURL" destination="mys-OT-GnR" id="urG-d8-7zH"/>
+                        <outlet property="smartIdSKURL" destination="ruH-oH-HXZ" id="mkI-1f-AwI"/>
+                        <outlet property="smartIdURL" destination="axW-Sz-ktm" id="Uc2-Sx-eU7"/>
                         <outlet property="titleLabel" destination="Vsg-kH-FdR" id="Obs-HE-N76"/>
                         <outlet property="tsaURL" destination="yx1-Am-F1U" id="04n-KN-UK9"/>
                         <outlet property="tslURL" destination="pEs-3R-bW3" id="Btd-sB-SKU"/>

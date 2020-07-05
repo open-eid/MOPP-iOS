@@ -69,6 +69,7 @@ extension SigningActions where Self: SigningContainerViewController {
             signSelectionVC.modalPresentationStyle = .overFullScreen
             
             signSelectionVC.mobileIdEditViewControllerDelegate = self
+            signSelectionVC.smartIdEditViewControllerDelegate = self
             signSelectionVC.idCardSignViewControllerDelegate = self
             signSelectionVC.containerPath = containerPath
             
@@ -125,7 +126,7 @@ extension SigningContainerViewController : MobileIDEditViewControllerDelegate {
         mobileIDChallengeview.modalPresentationStyle = .overFullScreen
         present(mobileIDChallengeview, animated: false)
         
-        MobileIDSignature.shared.createMobileIDSignature(baseUrl: Configuration.getConfiguration().MIDPROXYURL, phoneNumber: phoneNumber, nationalIdentityNumber: idCode, containerPath: self.containerViewDelegate.getContainerPath(), hashType: kHashType, language: decideLanguageBasedOnPreferredLanguages())
+        MobileIDSignature.shared.createMobileIDSignature(phoneNumber: phoneNumber, nationalIdentityNumber: idCode, containerPath: self.containerViewDelegate.getContainerPath(), hashType: kHashType, language: decideLanguageBasedOnPreferredLanguages())
     }
     
     func decideLanguageBasedOnPreferredLanguages() -> String {
@@ -150,6 +151,21 @@ extension SigningContainerViewController : MobileIDEditViewControllerDelegate {
         }
         
         return language
+    }
+}
+
+extension SigningContainerViewController : SmartIDEditViewControllerDelegate {
+    func smartIDEditViewControllerDidDismiss(cancelled: Bool, country: String?, idCode: String?) {
+        if cancelled { return }
+
+        guard let country = country else { return }
+        guard let idCode = idCode else { return }
+
+        let smartIDChallengeview = UIStoryboard.tokenFlow.instantiateViewController(of: SmartIDChallengeViewController.self)
+        smartIDChallengeview.modalPresentationStyle = .overFullScreen
+        present(smartIDChallengeview, animated: false)
+
+        SmartIDSignature.shared.createSmartIDSignature(country: country, nationalIdentityNumber: idCode, containerPath: self.containerViewDelegate.getContainerPath(), hashType: kHashType)
     }
 }
 

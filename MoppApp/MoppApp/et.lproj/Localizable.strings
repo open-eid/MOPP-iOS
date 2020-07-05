@@ -152,6 +152,13 @@
 "mobile-id-remember-me" = "Pea mind meeles";
 "mobile-id-challenge-title" = "Allkirjasta Mobiil-ID äpiga";
 "mobile-id-challenge-waiting-response" = "Ootan vastust ...";
+"smart-id-title" = "Sisesta oma isikukood Smart-IDga allkirjastamiseks";
+"smart-id-country-title" = "Country code";
+"smart-id-country-estonia" = "Eesti";
+"smart-id-country-lithuania" = "Leedu";
+"smart-id-country-latvia" = "Läti";
+"smart-id-challenge-title" = "Allkirjasta Smart-ID äpiga";
+"smart-id-sign-help-title" = "Veendu kontrollkoodi õigsuses ja sisesta nutiseadmes Smart-ID PIN2-kood";
 "container-sign-title" = "Allkirjastamine";
 "container-encryption-title" = "Krüpteerimine";
 "container-decryption-title" = "Dekrüpteerimine";
@@ -165,6 +172,7 @@
 "recent-containers-empty-search-message" = "Dokumenti ei leitud";
 "search-container-file" = "Otsi ümbrikku";
 "sign-title-mobile-id" = "Mobiil-ID";
+"sign-title-smart-id" = "Smart-ID";
 "sign-title-id-card" = "ID-kaart";
 "card-reader-state-reader-not-found" = "Ühtegi kaardilugejat pole ühendatud";
 "card-reader-state-id-card-not-found" = "Kaardilugeja leitud.\nSisesta ID-kaart lugejasse.";
@@ -261,6 +269,8 @@
 "settings-phone-number-placeholder" = "372XXXXXXXX";
 "settings-id-code-title" = "Isikukood";
 "settings-id-code-placeholder" = "Isikukood";
+"settings-rpuuid-title" = "Ligipääs Mobiil-ID ja Smart-ID teenusele";
+"settings-rpuuid-placeholder" = "00000000-0000-0000-0000-000000000000";
 "settings-timestamp-url-title" = "Ajatempli teenuse URL";
 "settings-timestamp-url-placeholder" = "";
 "settings-timestamp-use-default-title" = "Kasuta vaikeväärtust";

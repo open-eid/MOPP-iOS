@@ -31,3 +31,11 @@
 "mid-rest-error-no-response" = "Palun kontrollige internetiühendust";
 "mid-rest-error-too-many-requests" = "Sinu IP-aadressi tasuta allkirjade kuulimiit on ületatud. https://id.ee/index.php?id=39021";
 "mid-rest-error-invalid-ssl-cert" = "SSL ühenduskanali loomine ebaõnnestus. Kontrolli rakenduse seadeid või tarkvara uuendusi";
+"sid-rest-error-wrong-vc" = "Viga: valiti vale kontrollkood";
+"sid-rest-error-document-unusable" = "Error: document unusable";
+"sid-rest-error-not-qualified" = "RIA DigiDoc mobiilirakenduses allkirjastamiseks peab teie Smart-ID vastama tasemele kõrge.";
+"sid-rest-error-old-api" = "RIA DigiDoc mobiilirakendus vajab uuendamist. Paigaldage uus versioon mobiilirakenduse poest. Lisainfo ID-abiliini telefonil (+372) 666 8888.";
+"sid-rest-error-under-maintenance" = "Smart-ID teenuses esinevad tehnilised tõrked. Palun proovige mõne aja pärast uuesti.";
+"sid-rest-error-timeout" = "Teie Smart-ID toiming aegus. Palun proovige uuesti.";
+"sid-rest-error-forbidden" = "Ümbriku allkirjastamine ebaõnnestus. Kontrolli Smart-ID teenuse ligipääsu seadeid. https://id.ee/index.php?id=39021";
+"sid-rest-error-account-not-found" = "Kontot ei leitud";
