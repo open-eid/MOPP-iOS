@@ -331,6 +331,19 @@ static std::string profile = "time-stamp";
     return dataToSignArray;
 }
 
++ (void)cancelSigning {
+
+    digidoc::Container *currentContainer = digidoc::Container::open(docContainerPath.UTF8String);
+    for (unsigned int i = 0; i < currentContainer->signatures().size(); ++i) {
+        digidoc::Signature *signature = currentContainer->signatures().at(i);
+        if (signature->id() == signatureId.UTF8String) {
+            NSLog(@"Remove signature with an ID of %s", signatureId.UTF8String);
+            currentContainer->removeSignature(i);
+        }
+    }
+    currentContainer->save();
+}
+
 + (digidoc::Signature *)getSignatureFromContainer:(digidoc::Container *)container signatureId:(NSString *)signatureId {
     digidoc::Signature *currentSignature = NULL;
     
