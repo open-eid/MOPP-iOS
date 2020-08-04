@@ -332,7 +332,9 @@ static std::string profile = "time-stamp";
 }
 
 + (void)cancelSigning {
-
+    if (docContainerPath == nil) {
+        return;
+    }
     digidoc::Container *currentContainer = digidoc::Container::open(docContainerPath.UTF8String);
     for (unsigned int i = 0; i < currentContainer->signatures().size(); ++i) {
         digidoc::Signature *signature = currentContainer->signatures().at(i);

@@ -153,7 +153,7 @@
 "mobile-id-challenge-title" = "Подписать с помощью приложения Mobile-ID";
 "mobile-id-challenge-waiting-response" = "Жду ответа ...";
 "smart-id-title" = "Введите свой личный код для подписи с Smart-ID";
-"smart-id-country-title" = "Country code";
+"smart-id-country-title" = "Страна";
 "smart-id-country-estonia" = "Эстония";
 "smart-id-country-lithuania" = "Литва";
 "smart-id-country-latvia" = "Латвия";

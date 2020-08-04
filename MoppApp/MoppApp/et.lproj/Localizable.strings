@@ -153,7 +153,7 @@
 "mobile-id-challenge-title" = "Allkirjasta Mobiil-ID äpiga";
 "mobile-id-challenge-waiting-response" = "Ootan vastust ...";
 "smart-id-title" = "Sisesta oma isikukood Smart-IDga allkirjastamiseks";
-"smart-id-country-title" = "Country code";
+"smart-id-country-title" = "Riik";
 "smart-id-country-estonia" = "Eesti";
 "smart-id-country-lithuania" = "Leedu";
 "smart-id-country-latvia" = "Läti";

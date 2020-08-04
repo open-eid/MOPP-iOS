@@ -1,9 +1,6 @@
-//
-//  SmartIDSignature.swift
-//  MoppApp
-//
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * MoppApp - SmartIDSignature.swift
+ * Copyright 2020 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -176,6 +173,7 @@ class SmartIDSignature {
     }
 
     private func generateError(error: MobileIDError) -> Void {
+        MoppLibManager.cancelSigning()
         let error = NSError(domain: "SkSigningLib", code: 10, userInfo: [NSLocalizedDescriptionKey: error])
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .errorNotificationName, object: nil, userInfo: [kErrorKey: error])

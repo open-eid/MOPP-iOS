@@ -1,9 +1,6 @@
-//
-//  SmartIDEditViewController.swift
-//  MoppApp
-//
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * MoppApp - SmartIDEditViewController.swift
+ * Copyright 2020 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,9 +23,33 @@ protocol SmartIDEditViewControllerDelegate : class {
     func smartIDEditViewControllerDidDismiss(cancelled: Bool, country: String?, idCode: String?)
 }
 
+class CountryTextField: MyTextField {
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+
+    override func caretRect(for position: UITextPosition) -> CGRect {
+        return CGRect.zero
+    }
+
+    override func selectionRects(for range: UITextRange) -> [Any] {
+        return []
+    }
+
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(UIResponderStandardEditActions.copy(_:)) ||
+            action == #selector(UIResponderStandardEditActions.selectAll(_:)) ||
+            action == #selector(UIResponderStandardEditActions.paste(_:)) {
+            return false
+        }
+        return super.canPerformAction(action, withSender: sender)
+    }
+}
+
 class SmartIDEditViewController : MoppViewController {
     @IBOutlet weak var idCodeTextField: UITextField!
-    @IBOutlet weak var countryViewPicker: UIPickerView!
+    @IBOutlet weak var countryTextField: UITextField!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var countryLabel: UILabel!
     @IBOutlet weak var idCodeLabel: UILabel!
@@ -39,6 +60,7 @@ class SmartIDEditViewController : MoppViewController {
 
     weak var delegate: SmartIDEditViewControllerDelegate? = nil
     var tapGR: UITapGestureRecognizer!
+    var countryViewPicker = UIPickerView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,18 +76,44 @@ class SmartIDEditViewController : MoppViewController {
         idCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         idCodeTextField.layer.borderWidth = 1.0
 
-        countryViewPicker.layer.borderColor = UIColor.moppContentLine.cgColor
-        countryViewPicker.layer.borderWidth = 1.0
+        countryViewPicker.dataSource = self
+        countryViewPicker.delegate = self
+        let pickerToolbar = UIToolbar()
+        pickerToolbar.barStyle = .default
+        pickerToolbar.isUserInteractionEnabled = true
+        pickerToolbar.items = [
+            UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target:self, action:nil),
+            UIBarButtonItem(barButtonSystemItem:.done, target: self, action: #selector(pickerDoneButtonTapped))
+        ]
+        pickerToolbar.sizeToFit()
+        countryTextField.inputAccessoryView = pickerToolbar
+        countryTextField.inputView = countryViewPicker
+        countryTextField.layer.borderColor = UIColor.moppContentLine.cgColor
+        countryTextField.layer.borderWidth = 1.0
 
         tapGR = UITapGestureRecognizer()
         tapGR.addTarget(self, action: #selector(cancelAction))
         view.addGestureRecognizer(tapGR)
 
-        view.accessibilityElements = [titleLabel, countryLabel, countryViewPicker, idCodeLabel, idCodeTextField, rememberLabel, rememberSwitch, cancelButton, signButton]
+        view.accessibilityElements = [titleLabel, countryLabel, countryTextField, idCodeLabel, idCodeTextField, rememberLabel, rememberSwitch, cancelButton, signButton]
     }
 
     @objc func dismissKeyboard(_ notification: NSNotification) {
         idCodeTextField.resignFirstResponder()
+        countryTextField.resignFirstResponder()
+    }
+
+    @objc func pickerDoneButtonTapped() {
+        self.countryTextField.endEditing(true)
+    }
+
+    @objc func codeDoneButtonTapped() {
+        self.idCodeTextField.endEditing(true)
+    }
+
+    @objc func codeDashButtonTapped() {
+        let text = self.idCodeTextField.text ?? ""
+        self.idCodeTextField.text = text + "-"
     }
 
     @IBAction func editingChanged(_ sender: UITextField) {
@@ -108,11 +156,16 @@ class SmartIDEditViewController : MoppViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        switch DefaultsHelper.sidCountry {
-        case "LT": countryViewPicker.selectRow(1, inComponent: 0, animated: true)
-        case "LV": countryViewPicker.selectRow(2, inComponent: 0, animated: true)
-        default: countryViewPicker.selectRow(0, inComponent: 0, animated: true)
-        }
+        let row: Int = {
+            switch DefaultsHelper.sidCountry {
+            case "LT": return 1
+            case "LV": return 2
+            default: return 0
+            }
+        }()
+        countryViewPicker.selectRow(row, inComponent: 0, animated: true)
+        countryTextField.text = self.pickerView(countryViewPicker, titleForRow: row, forComponent: 0)
+        idCodeTextField.attributedPlaceholder = NSAttributedString(string: L(.smartIdCountryTitle), attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.46, green: 0.46, blue: 0.46, alpha: 1.0)])
         idCodeTextField.text = DefaultsHelper.sidIdCode
         idCodeTextField.attributedPlaceholder = NSAttributedString(string: L(.settingsIdCodePlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.46, green: 0.46, blue: 0.46, alpha: 1.0)])
         rememberSwitch.setOn(DefaultsHelper.sidCountry != "EE" || DefaultsHelper.sidIdCode.count > 0, animated: true)
@@ -150,7 +203,22 @@ extension SmartIDEditViewController: UIPickerViewDataSource, UIPickerViewDelegat
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        idCodeTextField.keyboardType = row == 0 ? .numberPad : .default
+        countryTextField.text = self.pickerView(pickerView, titleForRow: row, forComponent: component)
+        var codeToolbar: UIToolbar? = nil
+        if row != 0 {
+            codeToolbar = UIToolbar()
+            codeToolbar?.barStyle = .default
+            codeToolbar?.isUserInteractionEnabled = true
+            codeToolbar?.items = [
+                UIBarButtonItem(title: "-", style:.plain, target: self, action: #selector(codeDashButtonTapped)),
+                UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target:self, action:nil),
+                UIBarButtonItem(barButtonSystemItem:.done, target: self, action: #selector(codeDoneButtonTapped))
+            ]
+            codeToolbar?.sizeToFit()
+        }
+        idCodeTextField.inputAccessoryView = codeToolbar
+        idCodeTextField.reloadInputViews()
+
         if row == 0 {
             idCodeTextField.text = idCodeTextField.text?.filter("0123456789.".contains).substr(offset: 0, count: 11)
         }

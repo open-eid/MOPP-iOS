@@ -1,9 +1,6 @@
-//
-//  SIDSessionResponse.swift
-//  SkSigningLib
-//
 /*
- * Copyright 2020 Riigi Infosüsteemide Amet
+ * SkSigningLib - SIDSessionResponse.swift
+ * Copyright 2020 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public

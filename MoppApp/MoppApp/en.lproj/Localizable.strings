@@ -152,7 +152,7 @@
 "mobile-id-challenge-title" = "Sign with Mobile-ID app";
 "mobile-id-challenge-waiting-response" = "Waiting for response ...";
 "smart-id-title" = "Enter your personal code to sign with Smart-ID";
-"smart-id-country-title" = "Country code";
+"smart-id-country-title" = "Country";
 "smart-id-country-estonia" = "Estonia";
 "smart-id-country-lithuania" = "Lithuania";
 "smart-id-country-latvia" = "Latvia";

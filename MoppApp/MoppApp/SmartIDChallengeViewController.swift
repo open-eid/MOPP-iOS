@@ -1,9 +1,6 @@
-//
-//  SmartIDChallengeViewController.swift
-//  MoppApp
-//
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * MoppApp - SmartIDChallengeViewController.swift
+ * Copyright 2020 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,7 +27,6 @@ class SmartIDChallengeViewController : UIViewController {
 
     @IBOutlet weak var codeLabel: UILabel!
     @IBOutlet weak var timeoutProgressView: UIProgressView!
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var helpLabel: UILabel!
 
     var currentProgress: Double = 0.0
@@ -39,8 +35,7 @@ class SmartIDChallengeViewController : UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.text = L(.smartIdChallengeTitle)
-        helpLabel.text = nil
+        helpLabel.text = L(.smartIdChallengeTitle)
 
         NotificationCenter.default.addObserver(self, selector: #selector(receiveSelectAccountNotification), name: .selectSmartIDAccountNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveCreateSignatureNotification), name: .createSignatureNotificationName, object: nil)
@@ -61,9 +56,8 @@ class SmartIDChallengeViewController : UIViewController {
             return
         }
 
-        titleLabel.text = MoppLib_LocalizedString("digidoc-service-status-request-ok")
         helpLabel.text = L(.smartIdSignHelpTitle)
-        codeLabel.text = L(.challengeCodeLabel, [challengeID])
+        codeLabel.text = challengeID
         codeLabel.isHidden = false
         let challengeIdNumbers = Array<Character>(challengeID)
         codeLabel.accessibilityLabel = L(.challengeCodeLabel, ["\(challengeIdNumbers[0]), \(challengeIdNumbers[1]), \(challengeIdNumbers[2]), \(challengeIdNumbers[3])"])
@@ -83,7 +77,6 @@ class SmartIDChallengeViewController : UIViewController {
     }
 
     @objc func receiveCreateSignatureStatus(_ notification: Notification) {
-        self.titleLabel.text = MoppLib_LocalizedString("digidoc-service-status-request-signature")
         sessionTimer?.invalidate()
         NotificationCenter.default.post(name: .signatureCreatedFinishedNotificationName, object: nil)
         dismiss(animated: false)
