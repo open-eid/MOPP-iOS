@@ -507,25 +507,28 @@ static std::string profile = "time-stamp";
 
       // Signatures
       NSMutableArray *signatures = [NSMutableArray array];
-      for (int i = 0; i < doc->signatures().size(); i++) {
-        digidoc::Signature *signature = doc->signatures().at(i);
+      for (digidoc::Signature *signature: doc->signatures()) {
         digidoc::X509Cert cert = signature->signingCertificate();
         //      NSLog(@"Signature: %@", [NSString stringWithUTF8String:cert.subjectName("CN").c_str()]);
 
         MoppLibSignature *moppLibSignature = [MoppLibSignature new];
 
-        std::string name  = cert.subjectName("CN");
+        std::string givename = cert.subjectName("GN");
+        std::string surname = cert.subjectName("SN");
+        std::string serialNR = cert.subjectName("serialNumber");
+        static const std::set<std::string> types {"PAS", "IDC", "PNO", "TAX", "TIN"};
+        if(serialNR.length() > 6 && (types.find(serialNR.substr(0, 3)) != types.cend() || serialNR[2] == ':') && serialNR[5] == '-')
+            serialNR = serialNR.substr(6);
+
+        std::string name = givename.empty() || surname.empty() ? cert.subjectName("CN") :
+            givename + "," + surname + "," + serialNR;
         if (name.empty()) {
             name = signature->signedBy();
         }
 
         moppLibSignature.subjectName = [NSString stringWithUTF8String:name.c_str()];
 
-        std::string timestamp = signature->OCSPProducedAt();
-        if (timestamp.length() <= 0) {
-          timestamp = signature->trustedSigningTime();
-        }
-
+        std::string timestamp = signature->trustedSigningTime();
         moppLibSignature.timestamp = [[MLDateFormatter sharedInstance] YYYYMMddTHHmmssZToDate:[NSString stringWithUTF8String:timestamp.c_str()]];
 
         try {
