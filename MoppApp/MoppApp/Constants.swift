@@ -26,6 +26,7 @@ let kKeyContainer = "container"
 let kKeyContainerNew = "containerNew"
 let kKeyContainerOld = "containerOld"
 let kCreateSignatureResponseKey = "MobileCreateSignatureResponse"
+let kKeySmartIDChallengeKey = "SmartIDChallenge"
 let kNewContainerKey = "MoppLibContainerNew"
 let kOldContainerKey = "MoppLibContainerOld"
 let kErrorKey = "Error"
@@ -44,6 +45,7 @@ extension Notification.Name {
     static let containerChangedNotificationName = Notification.Name("Notification - container changed")
     static let settingsChangedNotificationName = Notification.Name("Notification - settigns changed")
     static let createSignatureNotificationName = Notification.Name("MobileCreateSignatureNotification")
+    static let selectSmartIDAccountNotificationName = Notification.Name("SmartSelectAccountNotification")
     static let signatureAddedToContainerNotificationName = Notification.Name("SignatureAddedToContainer")
     static let errorNotificationName = Notification.Name("ErrorNotification")
     static let signatureCreatedFinishedNotificationName = Notification.Name("SignatureCreatedFinishedNotificationName")

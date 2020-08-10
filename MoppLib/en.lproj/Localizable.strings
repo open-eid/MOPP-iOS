@@ -46,6 +46,7 @@
 
 "digidoc-service-status-request-sent" = "Signing request sent";
 "digidoc-service-status-request-ok" = "Request accepted";
+"digidoc-service-status-request-select-account" = "Confirm device for signing in Smart-ID application.";
 "digidoc-service-status-request-expired-transaction" = "Request timeout";
 "digidoc-service-status-request-user-cancel" = "User denied or cancelled";
 "digidoc-service-status-request-signature" = "Got signature";

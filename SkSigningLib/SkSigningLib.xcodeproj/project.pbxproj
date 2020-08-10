@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E59081224B30B24001B23A6 /* SIDSessionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59080F24B30B23001B23A6 /* SIDSessionResponse.swift */; };
+		4E59081424B30B24001B23A6 /* SIDSessionStatusResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59081124B30B24001B23A6 /* SIDSessionStatusResponse.swift */; };
+		4E59081A24B30B2C001B23A6 /* SIDCertificateRequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59081724B30B2C001B23A6 /* SIDCertificateRequestParameters.swift */; };
+		4E59081C24B30C62001B23A6 /* SIDSignatureRequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59081B24B30C62001B23A6 /* SIDSignatureRequestParameters.swift */; };
+		4E59082424B32E9A001B23A6 /* SIDRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59082324B32E9A001B23A6 /* SIDRequest.swift */; };
 		C9E8EA80369295DCE18967C9 /* Pods_SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054E8BB11CEF2AD574F56A87 /* Pods_SkSigningLib.framework */; };
 		DF04A88D23FEA6950086C9F9 /* RequestSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04A88C23FEA6950086C9F9 /* RequestSignature.swift */; };
 		DF04A89023FEC7130086C9F9 /* EncoderDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04A88F23FEC7130086C9F9 /* EncoderDecoder.swift */; };
@@ -42,6 +47,11 @@
 /* Begin PBXFileReference section */
 		054E8BB11CEF2AD574F56A87 /* Pods_SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		06543ADB758D0DC0D669381E /* Pods-SkSigningLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkSigningLib.debug.xcconfig"; path = "Target Support Files/Pods-SkSigningLib/Pods-SkSigningLib.debug.xcconfig"; sourceTree = "<group>"; };
+		4E59080F24B30B23001B23A6 /* SIDSessionResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIDSessionResponse.swift; sourceTree = "<group>"; };
+		4E59081124B30B24001B23A6 /* SIDSessionStatusResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIDSessionStatusResponse.swift; sourceTree = "<group>"; };
+		4E59081724B30B2C001B23A6 /* SIDCertificateRequestParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIDCertificateRequestParameters.swift; sourceTree = "<group>"; };
+		4E59081B24B30C62001B23A6 /* SIDSignatureRequestParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIDSignatureRequestParameters.swift; sourceTree = "<group>"; };
+		4E59082324B32E9A001B23A6 /* SIDRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIDRequest.swift; sourceTree = "<group>"; };
 		B8B3B83F96F0CE5EDAF5BA49 /* Pods-SkSigningLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkSigningLib.release.xcconfig"; path = "Target Support Files/Pods-SkSigningLib/Pods-SkSigningLib.release.xcconfig"; sourceTree = "<group>"; };
 		DF04A88C23FEA6950086C9F9 /* RequestSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSignature.swift; sourceTree = "<group>"; };
 		DF04A88F23FEC7130086C9F9 /* EncoderDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncoderDecoder.swift; sourceTree = "<group>"; };
@@ -89,6 +99,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E59080C24B30AE3001B23A6 /* SmartID */ = {
+			isa = PBXGroup;
+			children = (
+				4E59080E24B30AF2001B23A6 /* Response */,
+				4E59080D24B30AEA001B23A6 /* Request */,
+			);
+			path = SmartID;
+			sourceTree = "<group>";
+		};
+		4E59080D24B30AEA001B23A6 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				4E59081B24B30C62001B23A6 /* SIDSignatureRequestParameters.swift */,
+				4E59081724B30B2C001B23A6 /* SIDCertificateRequestParameters.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		4E59080E24B30AF2001B23A6 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				4E59080F24B30B23001B23A6 /* SIDSessionResponse.swift */,
+				4E59081124B30B24001B23A6 /* SIDSessionStatusResponse.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
 		877E92BB2D72E2DA0FA44605 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +139,7 @@
 		DF04A88B23FEA6740086C9F9 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				4E59082324B32E9A001B23A6 /* SIDRequest.swift */,
 				DF04A88C23FEA6950086C9F9 /* RequestSignature.swift */,
 				DFD204DF240D201600EB8150 /* RequestSession.swift */,
 			);
@@ -122,6 +160,7 @@
 		DF04A89323FEDC650086C9F9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4E59080C24B30AE3001B23A6 /* SmartID */,
 				DF04A89C23FEDFA40086C9F9 /* Certificate */,
 				DFD204E1240D209500EB8150 /* Session */,
 				DF04A89623FEDD110086C9F9 /* RequestMethod.swift */,
@@ -380,6 +419,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E59081A24B30B2C001B23A6 /* SIDCertificateRequestParameters.swift in Sources */,
 				DFD204E7240D274E00EB8150 /* SessionResponse.swift in Sources */,
 				DFD204EF240FD9FD00EB8150 /* SessionStatusResponse.swift in Sources */,
 				DF04A88D23FEA6950086C9F9 /* RequestSignature.swift in Sources */,
@@ -389,12 +429,16 @@
 				DFDF02C6241F0150006CF443 /* MobileIDError.swift in Sources */,
 				DFEB04E9243DF3F00080F43A /* CertificatePinning.swift in Sources */,
 				DFD204ED240FD8D100EB8150 /* SessionStatusRequestParameters.swift in Sources */,
+				4E59082424B32E9A001B23A6 /* SIDRequest.swift in Sources */,
 				DFD204E0240D201600EB8150 /* RequestSession.swift in Sources */,
 				DF04A89923FEDE6D0086C9F9 /* CertificateResponse.swift in Sources */,
+				4E59081C24B30C62001B23A6 /* SIDSignatureRequestParameters.swift in Sources */,
 				DFD204E4240D20B300EB8150 /* SessionRequestParameters.swift in Sources */,
 				DF90EDE024223D6A0040FFE7 /* ControlCode.swift in Sources */,
 				DF04A89523FEDC810086C9F9 /* CertificateRequestParameters.swift in Sources */,
 				DFD204F124100C5500EB8150 /* SessionResponseSignature.swift in Sources */,
+				4E59081424B30B24001B23A6 /* SIDSessionStatusResponse.swift in Sources */,
+				4E59081224B30B24001B23A6 /* SIDSessionResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

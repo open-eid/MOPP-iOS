@@ -28,10 +28,12 @@ class TokenFlowSelectionViewController : MoppViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var tokenNavbar: UIView!
     @IBOutlet weak var mobileIDButton: UIButton!
+    @IBOutlet weak var smartIDButton: UIButton!
     @IBOutlet weak var idCardButton: UIButton!
     
     var isFlowForDecrypting = false
     weak var mobileIdEditViewControllerDelegate: MobileIDEditViewControllerDelegate!
+    weak var smartIdEditViewControllerDelegate: SmartIDEditViewControllerDelegate!
     weak var idCardSignViewControllerDelegate: IdCardSignViewControllerDelegate?
     weak var idCardDecryptViewControllerDelegate: IdCardDecryptViewControllerDelegate?
     
@@ -41,6 +43,7 @@ class TokenFlowSelectionViewController : MoppViewController {
     
     enum TokenFlowMethodButtonID: String {
         case mobileID
+        case smartID
         case idCard
     }
     
@@ -49,9 +52,9 @@ class TokenFlowSelectionViewController : MoppViewController {
         localizeButtonTitles()
         
         if #available(iOS 12, *) {
-            self.accessibilityElements = [mobileIDButton, containerView, idCardButton, containerView]
+            self.accessibilityElements = [mobileIDButton, containerView, smartIDButton, containerView, idCardButton, containerView]
         } else {
-            self.view.accessibilityElements = [mobileIDButton, containerView, idCardButton, containerView]
+            self.view.accessibilityElements = [mobileIDButton, containerView, smartIDButton, containerView, idCardButton, containerView]
         }
     }
 
@@ -61,13 +64,12 @@ class TokenFlowSelectionViewController : MoppViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        changeTokenFlowMethod(newSignMethod: .mobileID)
+        let signMethod = TokenFlowMethodButtonID(rawValue: DefaultsHelper.signMethod) ?? .mobileID
         if isFlowForDecrypting {
             tokenNavbar.isHidden = true
             changeTokenFlowMethod(newSignMethod: .idCard)
         } else {
-            changeTokenFlowMethod(newSignMethod: .mobileID)
+            changeTokenFlowMethod(newSignMethod: signMethod)
         }
         view.backgroundColor = UIColor.black.withAlphaComponent(0.0)
         
@@ -95,10 +97,13 @@ class TokenFlowSelectionViewController : MoppViewController {
             switch id {
             case .idCard:
                 $0.setTitle(L(.signTitleIdCard))
-                idCardButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleIdCard), positionInRow: "2", viewCount: "2")
+                idCardButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleIdCard), positionInRow: "3", viewCount: "3")
             case .mobileID:
                 $0.setTitle(L(.signTitleMobileId))
-                mobileIDButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleMobileId), positionInRow: "1", viewCount: "2")
+                mobileIDButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleMobileId), positionInRow: "1", viewCount: "3")
+            case .smartID:
+                $0.setTitle(L(.signTitleSmartId))
+                smartIDButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleSmartId), positionInRow: "2", viewCount: "3")
             }
         }
     }
@@ -108,7 +113,7 @@ extension TokenFlowSelectionViewController {
     func changeTokenFlowMethod(newSignMethod: TokenFlowMethodButtonID) {
         let oldViewController = childViewControllers.first
         let newViewController: MoppViewController!
-        
+        selectButton(buttonID: newSignMethod)
         switch newSignMethod {
         case .idCard:
             let idCardSignVC = UIStoryboard.tokenFlow.instantiateViewController(of: IdCardViewController.self)
@@ -125,6 +130,10 @@ extension TokenFlowSelectionViewController {
             let mobileIdEditVC = UIStoryboard.tokenFlow.instantiateViewController(of: MobileIDEditViewController.self)
                 mobileIdEditVC.delegate = mobileIdEditViewControllerDelegate
             newViewController = mobileIdEditVC
+        case .smartID:
+            let smartIdEditVC = UIStoryboard.tokenFlow.instantiateViewController(of: SmartIDEditViewController.self)
+                smartIdEditVC.delegate = smartIdEditViewControllerDelegate
+            newViewController = smartIdEditVC
         }
         
         oldViewController?.willMove(toParentViewController: nil)
@@ -156,6 +165,7 @@ extension TokenFlowSelectionViewController {
     
     @IBAction func didTapSignMethodButton(sender: UIButton) {
         let id = TokenFlowMethodButtonID(rawValue: sender.accessibilityIdentifier ?? String())!
+        DefaultsHelper.signMethod = id.rawValue
         if !sender.isSelected && !isSwitchingBlockedByTransition {
             selectButton(buttonID: id)
             changeTokenFlowMethod(newSignMethod: id)

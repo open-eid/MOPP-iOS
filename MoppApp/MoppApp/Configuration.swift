@@ -35,6 +35,9 @@ internal struct MOPPConfiguration: Codable {
     let TSLCERTS: Array<String>
     let OCSPISSUERS: [String: String]
     let MIDPROXYURL: String
+    let MIDSKURL: String
+    let SIDPROXYURL: String
+    let SIDSKURL: String
     let CERTBUNDLE: Array<String>
     
     private enum MOPPConfigurationType: String, CodingKey {
@@ -48,6 +51,9 @@ internal struct MOPPConfiguration: Codable {
         case TSLCERTS = "TSL-CERTS"
         case OCSPISSUERS = "OCSP-URL-ISSUER"
         case MIDPROXYURL = "MID-PROXY-URL"
+        case MIDSKURL = "MID-SK-URL"
+        case SIDPROXYURL = "SID-PROXY-URL"
+        case SIDSKURL = "SID-SK-URL"
         case CERTBUNDLE = "CERT-BUNDLE"
     }
     
@@ -63,6 +69,9 @@ internal struct MOPPConfiguration: Codable {
         TSLCERTS = try container.decode([String].self, forKey: .TSLCERTS)
         OCSPISSUERS = try container.decode([String: String].self, forKey: .OCSPISSUERS)
         MIDPROXYURL = try container.decode(String.self, forKey: .MIDPROXYURL)
+        MIDSKURL = try container.decode(String.self, forKey: .MIDSKURL)
+        SIDPROXYURL = try container.decode(String.self, forKey: .SIDPROXYURL)
+        SIDSKURL = try container.decode(String.self, forKey: .SIDSKURL)
         CERTBUNDLE = try container.decode([String].self, forKey: .CERTBUNDLE)
     }
 }

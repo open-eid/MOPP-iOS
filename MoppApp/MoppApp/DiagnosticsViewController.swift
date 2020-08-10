@@ -39,6 +39,9 @@ class DiagnosticsViewController: MoppViewController {
     @IBOutlet weak var ldapPersonURL: UILabel!
     @IBOutlet weak var ldapCorpURL: UILabel!
     @IBOutlet weak var mobileIdURL: UILabel!
+    @IBOutlet weak var mobileIdSKURL: UILabel!
+    @IBOutlet weak var smartIdURL: UILabel!
+    @IBOutlet weak var smartIdSKURL: UILabel!
     @IBOutlet weak var metaDate: UILabel!
     @IBOutlet weak var metaSerial: UILabel!
     @IBOutlet weak var metaUrl: UILabel!
@@ -115,7 +118,10 @@ class DiagnosticsViewController: MoppViewController {
         ldapPersonURL.text = formatString(text: "LDAP_PERSON_URL:", additionalText: decodedConf.LDAPPERSONURL)
         ldapCorpURL.text = formatString(text: "LDAP_CORP_URL:", additionalText: decodedConf.LDAPCORPURL)
         mobileIdURL.text = formatString(text: "MID-PROXY-URL: ", additionalText: decodedConf.MIDPROXYURL)
-        
+        mobileIdSKURL.text = formatString(text: "MID-SK-URL: ", additionalText: decodedConf.MIDSKURL)
+        smartIdURL.text = formatString(text: "SID-PROXY-URL: ", additionalText: decodedConf.SIDPROXYURL)
+        smartIdSKURL.text = formatString(text: "SID-SK-URL: ", additionalText: decodedConf.SIDSKURL)
+
         metaDate.text = formatString(text: "DATE:", additionalText: decodedConf.METAINF.DATE)
         metaSerial.text = formatString(text: "SERIAL:", additionalText: String(decodedConf.METAINF.SERIAL))
         metaUrl.text = formatString(text: "URL:", additionalText: decodedConf.METAINF.URL)

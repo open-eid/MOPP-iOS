@@ -54,6 +54,9 @@ extension SettingsFieldCell: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField.keyboardType == .default {
+            return true;
+        }
         if let text = textField.text as NSString? {
             let textAfterUpdate = text.replacingCharacters(in: range, with: string)
             return textAfterUpdate.isNumeric || textAfterUpdate.isEmpty

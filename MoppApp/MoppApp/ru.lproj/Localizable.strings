@@ -152,6 +152,13 @@
 "mobile-id-remember-me" = "Запомни меня";
 "mobile-id-challenge-title" = "Подписать с помощью приложения Mobile-ID";
 "mobile-id-challenge-waiting-response" = "Жду ответа ...";
+"smart-id-title" = "Введите свой личный код для подписи с Smart-ID";
+"smart-id-country-title" = "Страна";
+"smart-id-country-estonia" = "Эстония";
+"smart-id-country-lithuania" = "Литва";
+"smart-id-country-latvia" = "Латвия";
+"smart-id-challenge-title" = "Подписать с помощью приложения Smart-ID";
+"smart-id-sign-help-title" = "Убедитесь в правильности контрольного кодa и введите PIN2-код для Smart-ID";
 "container-sign-title" = "Подписание";
 "container-encryption-title" = "Шифрование";
 "container-decryption-title" = "Дешифрование";
@@ -165,6 +172,7 @@
 "recent-containers-empty-search-message" = "Документ не найден";
 "search-container-file" = "Искать контейнер";
 "sign-title-mobile-id" = "Mobiil-ID";
+"sign-title-smart-id" = "Smart-ID";
 "sign-title-id-card" = "ID-карта";
 "card-reader-state-initial" = "Подключите считыватель карты к телефону и вставьте в него Вашу ID-карту.";
 "card-reader-state-reader-not-found" = "Считыватель карты не обнаружен";
@@ -261,6 +269,8 @@
 "settings-phone-number-placeholder" = "372XXXXXXXX";
 "settings-id-code-title" = "Личный код";
 "settings-id-code-placeholder" = "Личный код";
+"settings-rpuuid-title" = "Доступ к услуге Mobiil-ID и Smart-ID";
+"settings-rpuuid-placeholder" = "00000000-0000-0000-0000-000000000000";
 "settings-timestamp-url-title" = "URL-адрес временного штампа";
 "settings-timestamp-url-placeholder" = "";
 "settings-timestamp-use-default-title" = "Использовать значение по умолчанию";

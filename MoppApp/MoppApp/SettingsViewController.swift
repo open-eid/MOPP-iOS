@@ -33,6 +33,7 @@ class SettingsViewController: MoppViewController {
         case missingId
         case phoneNumber
         case personalCode
+        case rpuuid
         case timestampUrl
     }
     
@@ -82,6 +83,13 @@ class SettingsViewController: MoppViewController {
             title: String(),
             placeholderText: NSAttributedString(string: String(), attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 0.46, green: 0.46, blue: 0.46, alpha: 1.0)]),
             value: String()
+        ),
+        Field(
+            id: .rpuuid,
+            kind: .inputField,
+            title: L(.settingsRpUuidTitle),
+            placeholderText: NSAttributedString(string: L(.settingsRpUuidPlaceholder), attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 0.46, green: 0.46, blue: 0.46, alpha: 1.0)]),
+            value: DefaultsHelper.rpUuid
         ),
         Field(
             id: .timestampUrl,
@@ -134,12 +142,18 @@ extension SettingsViewController: UITableViewDataSource {
                 let fieldCell = tableView.dequeueReusableCell(withType: SettingsFieldCell.self, for: indexPath)!
                     fieldCell.delegate = self
                     fieldCell.populate(with: field)
-                if (field.id == .personalCode) {
+                switch field.id {
+                case .personalCode:
                     fieldCell.textField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
-                }
-                
-                if (field.id == .phoneNumber) {
+                    break
+                case .phoneNumber:
                     countryCodePrefill(textField: fieldCell.textField, countryCode: "372")
+                    break;
+                case .rpuuid:
+                    fieldCell.textField.isSecureTextEntry = true
+                    fieldCell.textField.keyboardType = .default
+                    break
+                default: break
                 }
                 return fieldCell
             case .timestamp:
@@ -174,11 +188,18 @@ extension SettingsViewController: SettingsHeaderCellDelegate {
 
 extension SettingsViewController: SettingsFieldCellDelegate {
     func didEndEditingField(_ fieldId: SettingsViewController.FieldId, with value:String) {
-        if fieldId == .phoneNumber {
+        switch fieldId {
+        case .phoneNumber:
             DefaultsHelper.phoneNumber = value
-        }
-        else if fieldId == .personalCode {
+            break
+        case .personalCode:
             DefaultsHelper.idCode = value
+            break
+        case .rpuuid:
+            DefaultsHelper.rpUuid = value
+            break
+        default:
+            break
         }
     }
 }

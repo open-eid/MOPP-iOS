@@ -151,6 +151,13 @@
 "mobile-id-remember-me" = "Remember me";
 "mobile-id-challenge-title" = "Sign with Mobile-ID app";
 "mobile-id-challenge-waiting-response" = "Waiting for response ...";
+"smart-id-title" = "Enter your personal code to sign with Smart-ID";
+"smart-id-country-title" = "Country";
+"smart-id-country-estonia" = "Estonia";
+"smart-id-country-lithuania" = "Lithuania";
+"smart-id-country-latvia" = "Latvia";
+"smart-id-challenge-title" = "Sign with Smart-ID app";
+"smart-id-sign-help-title" = "Make sure control code matches with one in phone screen and enter Smart-ID PIN2-code";
 "container-sign-title" = "Sign";
 "container-encryption-title" = "Encryption";
 "container-decryption-title" = "Decryption";
@@ -164,6 +171,7 @@
 "recent-containers-empty-search-message" = "Document not found";
 "search-container-file" = "Search container file";
 "sign-title-mobile-id" = "Mobile-ID";
+"sign-title-smart-id" = "Smart-ID";
 "sign-title-id-card" = "ID-Card";
 "card-reader-state-initial" = "Connect the card reader and insert your ID-card into the reader.";
 "card-reader-state-reader-not-found" = "No card readers found";
@@ -260,6 +268,8 @@
 "settings-phone-number-placeholder" = "372XXXXXXXX";
 "settings-id-code-title" = "Personal code";
 "settings-id-code-placeholder" = "Personal code";
+"settings-rpuuid-title" = "Access to Mobile-ID and Smart-ID service";
+"settings-rpuuid-placeholder" = "00000000-0000-0000-0000-000000000000";
 "settings-timestamp-url-title" = "Time Stamp service URL";
 "settings-timestamp-url-placeholder" = "";
 "settings-timestamp-use-default-title" = "Use default";
