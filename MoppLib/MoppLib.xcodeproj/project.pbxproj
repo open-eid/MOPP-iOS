@@ -31,7 +31,6 @@
 		546E57611E2E07C7009A568D /* PinVerificationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 546E57601E2E07C7009A568D /* PinVerificationTests.m */; };
 		546E57631E2E07C7009A568D /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250CE71E09695100530370 /* MoppLib.framework */; };
 		546E576B1E2E1555009A568D /* MoppLibPinActions+Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 546E576A1E2E1555009A568D /* MoppLibPinActions+Tests.m */; };
-		5480396D1E38DA4D000271CF /* 878252.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 5480396C1E38DA4D000271CF /* 878252.p12 */; };
 		54D164701E923F920069C725 /* MoppLibPrivateConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 54D1646E1E923F920069C725 /* MoppLibPrivateConstants.h */; };
 		54D164711E923F920069C725 /* MoppLibPrivateConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D1646F1E923F920069C725 /* MoppLibPrivateConstants.m */; };
 		54D164771E9269C50069C725 /* MoppLibContainerActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54D164751E9269C50069C725 /* MoppLibContainerActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -66,7 +65,6 @@
 		AE1069461E4498A6002BAFDA /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1069411E4498A6002BAFDA /* Parser.swift */; };
 		AE12A8731E51956900B0B03E /* MLCertificateHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = AE12A8711E51956900B0B03E /* MLCertificateHelper.h */; };
 		AE12A8741E51956900B0B03E /* MLCertificateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AE12A8721E51956900B0B03E /* MLCertificateHelper.m */; };
-		AE12A8761E51984A00B0B03E /* sk878252.p12 in Resources */ = {isa = PBXBuildFile; fileRef = AE12A8751E51984A00B0B03E /* sk878252.p12 */; };
 		AE61985B1E489EDF0021B18B /* MoppLibService.h in Headers */ = {isa = PBXBuildFile; fileRef = AE6198591E489EDF0021B18B /* MoppLibService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE61985C1E489EDF0021B18B /* MoppLibService.m in Sources */ = {isa = PBXBuildFile; fileRef = AE61985A1E489EDF0021B18B /* MoppLibService.m */; };
 		AE6198601E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AE61985E1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.m */; };
@@ -164,12 +162,10 @@
 		C5DB9508217618AF00512CAA /* EE.xml in Resources */ = {isa = PBXBuildFile; fileRef = E43BD81A1E3F901D00F6C39D /* EE.xml */; };
 		C5DB9509217618AF00512CAA /* schema in Resources */ = {isa = PBXBuildFile; fileRef = E4250CF31E096A1D00530370 /* schema */; };
 		C5DB950A217618AF00512CAA /* FI.xml in Resources */ = {isa = PBXBuildFile; fileRef = E43BD81B1E3F901D00F6C39D /* FI.xml */; };
-		C5DB950B217618AF00512CAA /* sk878252.p12 in Resources */ = {isa = PBXBuildFile; fileRef = AE12A8751E51984A00B0B03E /* sk878252.p12 */; };
 		C5DB950C217618AF00512CAA /* digidocservice.sk.ee.cer in Resources */ = {isa = PBXBuildFile; fileRef = C517CF9221665F8F008D4962 /* digidocservice.sk.ee.cer */; };
 		C5DB950D217618AF00512CAA /* test.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E4250CFF1E096CAA00530370 /* test.bdoc */; };
 		C5DB950E217618AF00512CAA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 54D1FF751E4CB6AD006BF123 /* Localizable.strings */; };
 		C5DB950F217618AF00512CAA /* 798.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 39E5338D2122E38B00FBE148 /* 798.p12 */; };
-		C5DB9510217618AF00512CAA /* 878252.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 5480396C1E38DA4D000271CF /* 878252.p12 */; };
 		C5DB9511217618AF00512CAA /* tl-mp.xml in Resources */ = {isa = PBXBuildFile; fileRef = E43BD81C1E3F901D00F6C39D /* tl-mp.xml */; };
 		C5E41C5D2180602B00D79B54 /* Idemia.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E41C5B2180602B00D79B54 /* Idemia.h */; };
 		C5E41C5E2180602B00D79B54 /* Idemia.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E41C5C2180602B00D79B54 /* Idemia.m */; };
@@ -245,7 +241,6 @@
 		546E57621E2E07C7009A568D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		546E57691E2E1555009A568D /* MoppLibPinActions+Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MoppLibPinActions+Tests.h"; sourceTree = "<group>"; };
 		546E576A1E2E1555009A568D /* MoppLibPinActions+Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MoppLibPinActions+Tests.m"; sourceTree = "<group>"; };
-		5480396C1E38DA4D000271CF /* 878252.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; name = 878252.p12; path = "$(DIGIDOCPP_PATH)/etc/digidocpp/878252.p12"; sourceTree = "<group>"; };
 		54D1646E1E923F920069C725 /* MoppLibPrivateConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibPrivateConstants.h; sourceTree = "<group>"; };
 		54D1646F1E923F920069C725 /* MoppLibPrivateConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibPrivateConstants.m; sourceTree = "<group>"; };
 		54D164751E9269C50069C725 /* MoppLibContainerActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibContainerActions.h; sourceTree = "<group>"; };
@@ -286,7 +281,6 @@
 		AE1069411E4498A6002BAFDA /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Parser.swift; path = MoppLib/Parser.swift; sourceTree = "<group>"; };
 		AE12A8711E51956900B0B03E /* MLCertificateHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCertificateHelper.h; sourceTree = "<group>"; };
 		AE12A8721E51956900B0B03E /* MLCertificateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCertificateHelper.m; sourceTree = "<group>"; };
-		AE12A8751E51984A00B0B03E /* sk878252.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sk878252.p12; sourceTree = "<group>"; };
 		AE6198591E489EDF0021B18B /* MoppLibService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoppLibService.h; path = ../MoppLibService.h; sourceTree = "<group>"; };
 		AE61985A1E489EDF0021B18B /* MoppLibService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoppLibService.m; path = ../MoppLibService.m; sourceTree = "<group>"; };
 		AE61985D1E489EFE0021B18B /* MoppLibGetMobileCreateSignatureStatusResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibGetMobileCreateSignatureStatusResponse.h; sourceTree = "<group>"; };
@@ -612,7 +606,6 @@
 		E4250CE91E09695100530370 /* MoppLib */ = {
 			isa = PBXGroup;
 			children = (
-				AE12A8751E51984A00B0B03E /* sk878252.p12 */,
 				54DC0DF11E0BEEF900C62B3D /* Category */,
 				54DC0DC21E0BCBB400C62B3D /* CardReaders */,
 				54DC0DFA1E0D195200C62B3D /* CardActions */,
@@ -642,7 +635,6 @@
 		E4250CF21E096A0500530370 /* libdigidocpp */ = {
 			isa = PBXGroup;
 			children = (
-				5480396C1E38DA4D000271CF /* 878252.p12 */,
 				E43BD8191E3F901400F6C39D /* TSL cache */,
 				E4250CF31E096A1D00530370 /* schema */,
 			);
@@ -875,12 +867,10 @@
 				C5DB9508217618AF00512CAA /* EE.xml in Resources */,
 				C5DB9509217618AF00512CAA /* schema in Resources */,
 				C5DB950A217618AF00512CAA /* FI.xml in Resources */,
-				C5DB950B217618AF00512CAA /* sk878252.p12 in Resources */,
 				C5DB950C217618AF00512CAA /* digidocservice.sk.ee.cer in Resources */,
 				C5DB950D217618AF00512CAA /* test.bdoc in Resources */,
 				C5DB950E217618AF00512CAA /* Localizable.strings in Resources */,
 				C5DB950F217618AF00512CAA /* 798.p12 in Resources */,
-				C5DB9510217618AF00512CAA /* 878252.p12 in Resources */,
 				C5DB9511217618AF00512CAA /* tl-mp.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -894,12 +884,10 @@
 				E43BD81D1E3F901D00F6C39D /* EE.xml in Resources */,
 				E4250CF41E096A1D00530370 /* schema in Resources */,
 				E43BD81E1E3F901D00F6C39D /* FI.xml in Resources */,
-				AE12A8761E51984A00B0B03E /* sk878252.p12 in Resources */,
 				C517CF9321665F90008D4962 /* digidocservice.sk.ee.cer in Resources */,
 				E4250D001E096CAA00530370 /* test.bdoc in Resources */,
 				54D1FF731E4CB6AD006BF123 /* Localizable.strings in Resources */,
 				39E5338E2122E38B00FBE148 /* 798.p12 in Resources */,
-				5480396D1E38DA4D000271CF /* 878252.p12 in Resources */,
 				E43BD81F1E3F901D00F6C39D /* tl-mp.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
