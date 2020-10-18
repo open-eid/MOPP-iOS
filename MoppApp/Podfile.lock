@@ -16,21 +16,20 @@ DEPENDENCIES:
   - Zip
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - Crashlytics
     - Fabric
     - OCMock
     - SwiftyRSA
-  trunk:
     - Zip
 
 SPEC CHECKSUMS:
-  Crashlytics: 2dfd686bcb918dc10ee0e76f7f853fe42c7bd552
-  Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
+  Crashlytics: d3e5090419ddee1003192c98ac0e6dfdb1dba266
+  Fabric: ea977e3cd9c20425516d3dafd3bf8c941c51223f
   OCMock: 43565190abc78977ad44a61c0d20d7f0784d35ab
   SwiftyRSA: 6e528fb1b1a87d5111c48081083b141d6d65f1cf
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
 PODFILE CHECKSUM: 48beb68b714626010697ba45624840cc36c8313a
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.9.3

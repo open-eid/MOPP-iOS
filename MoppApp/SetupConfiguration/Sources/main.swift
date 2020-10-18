@@ -19,7 +19,7 @@
  */
 
 import Foundation
-import SwCrypt // ./SetupConfiguration/Sources/SwCrypt/
+import SwCrypt // ./SwCrypt/
 
 class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate {
     
