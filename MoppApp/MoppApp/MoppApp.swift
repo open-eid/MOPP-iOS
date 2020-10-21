@@ -304,6 +304,7 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
 
     func willTerminate() {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        removeSignatureOnAppClose()
     }
 
     func handleEventsForBackgroundURLSession(identifier: String, completionHandler: @escaping () -> Void) {
@@ -436,6 +437,18 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         let defaults = UserDefaults.standard
         defaults.set(value, forKey: "isDebugMode")
         defaults.synchronize()
+    }
+    
+    private func removeSignatureOnAppClose() {
+        if var topViewController = UIApplication.shared.keyWindow?.rootViewController {
+            while let currentViewController = topViewController.presentedViewController {
+                topViewController = currentViewController
+            }
+            
+            if topViewController is MobileIDChallengeViewController || topViewController is SmartIDChallengeViewController {
+                MoppLibManager.cancelSigning()
+            }
+        }
     }
     
 }
