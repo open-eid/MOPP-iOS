@@ -22,8 +22,6 @@
  */
 
 import Foundation
-import Crashlytics
-import Fabric
 
 
 final class AppDelegate: UIResponder, UIApplicationDelegate {

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0405692B25416E5500AF6E70 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0405692A25416E5500AF6E70 /* GoogleService-Info.plist */; };
+		0405692C25416E5500AF6E70 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0405692A25416E5500AF6E70 /* GoogleService-Info.plist */; };
 		063A655C7ECF195296250527 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		39158A1920C6C49100B71DD6 /* AddresseeActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39158A1820C6C49100B71DD6 /* AddresseeActions.swift */; };
 		3921CA9520B2D6D600BF3178 /* CryptoActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CA9420B2D6D600BF3178 /* CryptoActions.swift */; };
@@ -451,6 +453,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0405692A25416E5500AF6E70 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		390C016A20AC430300827230 /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = ../CryptoLib/CryptoLib/cdoc.framework; sourceTree = "<group>"; };
 		39158A1820C6C49100B71DD6 /* AddresseeActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddresseeActions.swift; sourceTree = "<group>"; };
 		3921CA9420B2D6D600BF3178 /* CryptoActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoActions.swift; sourceTree = "<group>"; };
@@ -1029,6 +1032,7 @@
 		E4250CBA1E0968D200530370 = {
 			isa = PBXGroup;
 			children = (
+				0405692A25416E5500AF6E70 /* GoogleService-Info.plist */,
 				DFF3C3B92332355C0079458A /* config.json */,
 				DFF3C3BB2332355D0079458A /* defaultConfiguration.json */,
 				DFF3C3B82332355C0079458A /* publicKey.pub */,
@@ -1351,6 +1355,7 @@
 				C5EA71612176057A00440F4A /* Roboto-BoldCondensedItalic.ttf in Resources */,
 				C5EA71622176057A00440F4A /* Settings.storyboard in Resources */,
 				C5EA71632176057A00440F4A /* main_about_fonds_en.png in Resources */,
+				0405692C25416E5500AF6E70 /* GoogleService-Info.plist in Resources */,
 				C5EA71642176057A00440F4A /* about_ru.html in Resources */,
 				C5EA71652176057A00440F4A /* about_en.html in Resources */,
 				C5EA71662176057A00440F4A /* RobotoCondensed-Regular.ttf in Resources */,
@@ -1402,6 +1407,7 @@
 				C50DCCEF1FC5741900D48E16 /* Roboto-MediumItalic.ttf in Resources */,
 				C50DCCF11FC5741900D48E16 /* RobotoCondensed-LightItalic.ttf in Resources */,
 				C50DCCEA1FC5741900D48E16 /* Roboto-Thin.ttf in Resources */,
+				0405692B25416E5500AF6E70 /* GoogleService-Info.plist in Resources */,
 				C55BB1E02091FECD00618AC4 /* licenses.html in Resources */,
 				E4C53F371E2FAE6C00F209BE /* image.jpg in Resources */,
 				E43BD8111E3A121A00F6C39D /* ddocTest.ddoc in Resources */,
@@ -1481,7 +1487,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 2d09fce02bca92bd26f18824f9cb302f5ad625e3 fb7f424a3ac43eccda42c76e7f15a400d7b3047945a66a98d0211ec996f584ef\n";
+			shellScript = "${PODS_ROOT}/FirebaseCrashlytics/run\n";
 		};
 		A61DA2EE951A985EAE19BDEB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
