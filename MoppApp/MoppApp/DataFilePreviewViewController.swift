@@ -25,7 +25,7 @@ import WebKit
 
 class DataFilePreviewViewController : MoppViewController {
     
-    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var webView: WKWebView!
     var previewFilePath: String!
     var isShareNeeded: Bool = false
     
@@ -37,7 +37,7 @@ class DataFilePreviewViewController : MoppViewController {
         } else {
             setupNavigationItemForPushedViewController(title: url.lastPathComponent)
         }
-        webView.loadRequest(URLRequest(url: url))
+        webView.load(URLRequest(url: url))
     }
     
     override func viewWillAppear(_ animated: Bool) {
