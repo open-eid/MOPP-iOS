@@ -22,17 +22,20 @@
  */
 import WebKit
 
-class AboutViewController: MoppViewController {
+class AboutViewController: MoppViewController, WKNavigationDelegate {
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var dismissButton: UIButton!
     
     @IBAction func dismissAction() {
         dismiss(animated: true, completion: nil)
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        webView.navigationDelegate = self
+        webView.configuration.preferences.javaScriptEnabled = false
 
         titleLabel.text = L(.aboutTitle)
         
@@ -50,6 +53,8 @@ class AboutViewController: MoppViewController {
             localizedAboutHtmlPath = Bundle.main.path(forResource: "about_en", ofType: "html")!
         }
         
+        let htmlHeaderString = "<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></header>"
+        
         let localizedAboutHtmlData = FileManager.default.contents(atPath: localizedAboutHtmlPath)
         var localizedAboutHtmlString = String(data: localizedAboutHtmlData!, encoding: String.Encoding.utf8)!
         let licensesHtmlPath = Bundle.main.path(forResource: "licenses", ofType: "html")!
@@ -60,19 +65,18 @@ class AboutViewController: MoppViewController {
         localizedAboutHtmlString = localizedAboutHtmlString.replacingOccurrences(of: "[LICENSES]", with: licensesHtmlString)
         
         let baseURL = URL(fileURLWithPath: Bundle.main.bundlePath)
-        webView.loadHTMLString(localizedAboutHtmlString, baseURL: baseURL)
+        webView.loadHTMLString(htmlHeaderString + localizedAboutHtmlString, baseURL: baseURL)
     }
-}
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if let url = navigationAction.request.url {
+            if url.scheme == "mailto" || url.scheme == "http" || url.scheme == "https" {
+                UIApplication.shared.open(url)
+                decisionHandler(.cancel)
+                return
 
-extension AboutViewController: UIWebViewDelegate {
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        guard let url = request.url else {
-            return true
+            }
         }
-        if url.scheme == "mailto" || url.scheme == "http" || url.scheme == "https" {
-            MoppApp.shared.open(url, options: [:], completionHandler: nil)
-            return false
-        }
-        return true
+        decisionHandler(.allow)
     }
 }
