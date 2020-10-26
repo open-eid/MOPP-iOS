@@ -23,17 +23,16 @@
 
 import Foundation
 import Foundation
-import Crashlytics
-import Fabric
+import FirebaseCrashlytics
+import Firebase
 
 
-class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessionDownloadDelegate {
+class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
 
     static let instance = UIApplication.shared as! MoppApp
 
     var landingViewController: LandingViewController?
     var tempUrl: URL?
-    var crashReportCompletion: ((_ submit: Bool) -> Void)? = nil
     var downloadCompletion: (() -> Void)? = nil
     var window: UIWindow?
     var currentElement:String = ""
@@ -85,7 +84,6 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
     }
 
     func didFinishLaunchingWithOptions(launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
-        
         // Log console logs to a file in Documents folder
         #if DEBUG
             setDebugMode(value: true)
@@ -103,8 +101,10 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         
         loadNibs()
         // Set navBar not translucent by default.
-        Crashlytics.sharedInstance().delegate = self
-        Fabric.with([Crashlytics.self])
+
+        FirebaseApp.configure()
+        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(false)
+
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
         
@@ -153,15 +153,6 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
         return true
     }
 
-    func crashlyticsDidDetectReport(forLastExecution report: CLSReport, completionHandler: @escaping (_ submit: Bool) -> Void) {
-        if DefaultsHelper.crashReportSetting == CrashlyticsAlwaysSend {
-            completionHandler(true)
-        }
-        else {
-            crashReportCompletion = completionHandler
-        }
-    }
-
     func setupTabController() {
         landingViewController = UIStoryboard.landing.instantiateInitialViewController(of: LandingViewController.self)
         window?.rootViewController = landingViewController
@@ -169,27 +160,38 @@ class MoppApp: UIApplication, CrashlyticsDelegate, URLSessionDelegate, URLSessio
             _ = openUrl(url: tempUrl, options: [:])
             self.tempUrl = nil
         }
-        if crashReportCompletion != nil {
-            displayCrashReportDialog()
+        if Crashlytics.crashlytics().didCrashDuringPreviousExecution() {
+            if (DefaultsHelper.crashReportSetting != CrashlyticsAlwaysSend) {
+                displayCrashReportDialog()
+            } else {
+                self.checkForUnsentReportsWithCompletion(send: true)
+            }
         }
     }
 
     func displayCrashReportDialog() {
         let alert = UIAlertController(title: L(.crashlyticsTitle), message: L(.crashlyticsMessage), preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: L(.crashlyticsActionSend), style: .default, handler: { (_ action: UIAlertAction) in
-            self.crashReportCompletion?(true)
-            self.crashReportCompletion = nil
+            self.checkForUnsentReportsWithCompletion(send: true)
         }))
         alert.addAction(UIAlertAction(title: L(.crashlyticsActionAlwaysSend), style: .default, handler: {(_ action: UIAlertAction) -> Void in
             DefaultsHelper.crashReportSetting = CrashlyticsAlwaysSend
-            self.crashReportCompletion?(true)
-            self.crashReportCompletion = nil
+            self.checkForUnsentReportsWithCompletion(send: true)
         }))
         alert.addAction(UIAlertAction(title: L(.crashlyticsActionDoNotSend), style: .cancel, handler: {(_ action: UIAlertAction) -> Void in
-            self.crashReportCompletion?(false)
-            self.crashReportCompletion = nil
+            self.checkForUnsentReportsWithCompletion(send: false)
         }))
         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true)
+    }
+    
+    func checkForUnsentReportsWithCompletion(send: Bool) {
+        Crashlytics.crashlytics().checkForUnsentReports { hasUnsentReport in
+            if ((send && hasUnsentReport)) {
+                Crashlytics.crashlytics().sendUnsentReports()
+            } else {
+                Crashlytics.crashlytics().deleteUnsentReports()
+            }
+        }
     }
 
     func openUrl(url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
