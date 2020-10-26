@@ -70,4 +70,16 @@ extension UIViewController {
             }
         }
     }
+    
+    func getTopViewController() -> UIViewController {
+        if var topViewController = UIApplication.shared.keyWindow?.rootViewController {
+            while let currentViewController = topViewController.presentedViewController {
+                topViewController = currentViewController
+            }
+            
+            return topViewController
+        }
+        
+        return UIViewController()
+    }
 }

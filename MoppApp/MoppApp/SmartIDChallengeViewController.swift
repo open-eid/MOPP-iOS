@@ -89,22 +89,18 @@ class SmartIDChallengeViewController : UIViewController {
         let errorMessage = userInfo[kErrorMessage] as? String ?? MobileIDError.generalError.mobileIDErrorDescription ?? L(.genericErrorMessage)
         let message = SkSigningLib_LocalizedString(mobileIDErrorMessage?.mobileIDErrorDescription ?? errorMessage)
         self.dismiss(animated: false) {
-            if var topViewController = UIApplication.shared.keyWindow?.rootViewController {
-                while let currentViewController = topViewController.presentedViewController {
-                    topViewController = currentViewController
+            let topViewController = self.getTopViewController()
+            
+            let errorMessageNoLink = message.removeFirstLinkFromMessage()
+            let alert = UIAlertController(title: L(.errorAlertTitleGeneral), message: errorMessageNoLink, preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            if let linkInUrl = message.getFirstLinkInMessage() {
+                if let alertActionUrl = UIAlertAction().getLinkAlert(message: linkInUrl) {
+                    alert.addAction(alertActionUrl)
                 }
-
-                let errorMessageNoLink = message.removeFirstLinkFromMessage()
-                let alert = UIAlertController(title: L(.errorAlertTitleGeneral), message: errorMessageNoLink, preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                if let linkInUrl = message.getFirstLinkInMessage() {
-                    if let alertActionUrl = UIAlertAction().getLinkAlert(message: linkInUrl) {
-                        alert.addAction(alertActionUrl)
-                    }
-                }
-
-                topViewController.present(alert, animated: true, completion: nil)
             }
+            
+            topViewController.present(alert, animated: true, completion: nil)
         }
     }
 
