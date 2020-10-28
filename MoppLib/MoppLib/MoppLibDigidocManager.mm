@@ -398,16 +398,21 @@ static std::string profile = "time-stamp";
         
         digidoc::Signature::Validator *validator = new digidoc::Signature::Validator(currentSignature);
         
-        if (validator->status() == digidoc::Signature::Validator::NonQSCD) {
-            NSLog(@"\nValidator status is NonQSCD\n");
-            NSLog(@"\nSaving NonQSCD container...\n");
-            currentContainer->save();
-        } else {
-            NSLog(@"\nValidating container which is not NonQSCD\n");
-            currentSignature->validate();
-            NSLog(@"\nSaving container...\n");
-            currentContainer->save();
-        }
+        NSLog(@"\nValidator status before save: %u \n", validator->status());
+        
+        NSLog(@"\nSaving container...\n");
+        currentContainer->save();
+        
+//        if (validator->status() == digidoc::Signature::Validator::NonQSCD) {
+//            NSLog(@"\nValidator status is NonQSCD\n");
+//            NSLog(@"\nSaving NonQSCD container...\n");
+//            currentContainer->save();
+//        } else {
+//            NSLog(@"\nValidating container which is not NonQSCD\n");
+//            currentSignature->validate();
+//            NSLog(@"\nSaving container...\n");
+//            currentContainer->save();
+//        }
         NSLog(@"\nSignature validated at %s!\n", currentSignature->TimeStampTime().c_str());
         NSLog(@"\nValidator status: %u \n", validator->status());
         
