@@ -384,10 +384,6 @@ static std::string profile = "time-stamp";
         return true;
     }
     
-    
-//    digidoc::Signature::Validator *validator = new digidoc::Signature::Validator(currentSignature);
-//    digidoc::Signature::Validator::Status status = validator->status();
-    
     try {
         NSLog(@"\nStarting signature validation...\n");
         NSLog(@"\nSetting signature value...\n");
@@ -395,46 +391,18 @@ static std::string profile = "time-stamp";
         NSLog(@"\nExtending signature profile...\n");
         currentSignature->extendSignatureProfile(profile);
         NSLog(@"\nValidating signature...\n");
-        
         digidoc::Signature::Validator *validator = new digidoc::Signature::Validator(currentSignature);
-        
-        NSLog(@"\nValidator status before save: %u \n", validator->status());
-        
+        NSLog(@"\nValidator status: %u\n", validator->status());
         NSLog(@"\nSaving container...\n");
         currentContainer->save();
-        
-//        if (validator->status() == digidoc::Signature::Validator::NonQSCD) {
-//            NSLog(@"\nValidator status is NonQSCD\n");
-//            NSLog(@"\nSaving NonQSCD container...\n");
-//            currentContainer->save();
-//        } else {
-//            NSLog(@"\nValidating container which is not NonQSCD\n");
-//            currentSignature->validate();
-//            NSLog(@"\nSaving container...\n");
-//            currentContainer->save();
-//        }
         NSLog(@"\nSignature validated at %s!\n", currentSignature->TimeStampTime().c_str());
-        NSLog(@"\nValidator status: %u \n", validator->status());
-        
         return true;
     } catch(const digidoc::Exception &e) {
-        if (e.code() == 10) {
-            NSLog(@"Error validating signature. NonQCSD");
-            NSLog(@"Error code %u", e.code());
-            NSLog(@"Error message %s", e.msg().c_str());
-            parseException(e);
-            NSError *error;
-            [self removeSignature:docContainerPath signatureId:signatureId error:&error];
-            NSLog(@"\nError validating signature: %s\n", e.msg().c_str());
-            return false;
-        } else {
-            NSLog(@"Other status error");
-            parseException(e);
-            NSError *error;
-            [self removeSignature:docContainerPath signatureId:signatureId error:&error];
-            NSLog(@"\nError validating signature: %s\n", e.msg().c_str());
-            return false;
-        }
+        parseException(e);
+        NSError *error;
+        [self removeSignature:docContainerPath signatureId:signatureId error:&error];
+        NSLog(@"\nError validating signature: %s\n", e.msg().c_str());
+        return false;
     }
 }
 
