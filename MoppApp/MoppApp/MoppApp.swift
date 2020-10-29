@@ -306,6 +306,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
 
     func willTerminate() {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        removeSignatureOnAppClose()
     }
 
     func handleEventsForBackgroundURLSession(identifier: String, completionHandler: @escaping () -> Void) {
@@ -380,15 +381,11 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     }
     
     private func restartIdCardDiscovering() {
-        if var topViewController = UIApplication.shared.keyWindow?.rootViewController {
-            while let currentViewController = topViewController.presentedViewController {
-                topViewController = currentViewController
-            }
-            
-            for childViewController in topViewController.childViewControllers {
-                if childViewController is IdCardViewController {
-                    MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
-                }
+        let topViewController = UIViewController().getTopViewController()
+        
+        for childViewController in topViewController.childViewControllers {
+            if childViewController is IdCardViewController {
+                MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
             }
         }
     }
@@ -438,6 +435,14 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         let defaults = UserDefaults.standard
         defaults.set(value, forKey: "isDebugMode")
         defaults.synchronize()
+    }
+    
+    private func removeSignatureOnAppClose() {
+        let topViewController = UIViewController().getTopViewController()
+        
+        if topViewController is MobileIDChallengeViewController || topViewController is SmartIDChallengeViewController {
+            MoppLibManager.cancelSigning()
+        }
     }
     
 }
