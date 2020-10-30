@@ -391,11 +391,11 @@ static std::string profile = "time-stamp";
         NSLog(@"\nExtending signature profile...\n");
         currentSignature->extendSignatureProfile(profile);
         NSLog(@"\nValidating signature...\n");
-        currentSignature->validate();
+        digidoc::Signature::Validator *validator = new digidoc::Signature::Validator(currentSignature);
+        NSLog(@"\nValidator status: %u\n", validator->status());
         NSLog(@"\nSaving container...\n");
         currentContainer->save();
         NSLog(@"\nSignature validated at %s!\n", currentSignature->TimeStampTime().c_str());
-        
         return true;
     } catch(const digidoc::Exception &e) {
         parseException(e);
