@@ -37,7 +37,7 @@ class DataFilePreviewViewController : MoppViewController {
         } else {
             setupNavigationItemForPushedViewController(title: url.lastPathComponent)
         }
-        webView.load(URLRequest(url: url))
+        webView.loadFileURL(url, allowingReadAccessTo: url);
     }
     
     override func viewWillAppear(_ animated: Bool) {
