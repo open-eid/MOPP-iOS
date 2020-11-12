@@ -213,11 +213,21 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             
             // Sharing from Google Drive may change file extension
             let fileExtension = determineFileExtension(mimeType: determineMimeType(url: newUrl))
-            let tempFileExtension = fileExtension == "" ? newUrl.pathExtension : fileExtension;
-            let tempFileName: String = newUrl.deletingPathExtension().lastPathComponent
-            let tempFileURL: URL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("temp", isDirectory: true).appendingPathComponent("\(tempFileName).\(tempFileExtension)")
-            let newFilePath = MoppFileManager.shared.copyFile(withPath: newUrl.absoluteString, toPath: tempFileURL.absoluteString)
-            newUrl = URL(string: newFilePath)!
+            if fileExtension != "" {
+                do {
+                    let newData: Data = try Data(contentsOf: newUrl)
+                    let fileName: String = newUrl.deletingPathExtension().lastPathComponent
+                    let fileURL: URL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("temp", isDirectory: true).appendingPathComponent("\(fileName).\(fileExtension)")
+                    do {
+                        try newData.write(to: fileURL, options: .atomic)
+                        newUrl = fileURL
+                    } catch {
+                        MSLog("Error writing to file: \(error)")
+                    }
+                } catch {
+                    MSLog("Error getting directory: \(error)")
+                }
+            }
 
             var isXmlExtensionFileCdoc = false
             if newUrl.pathExtension.isXmlFileExtension {
