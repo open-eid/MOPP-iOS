@@ -21,15 +21,15 @@
  *
  */
 protocol ContainerActions {
-    func openExistingContainer(with url: URL)
-    func importFiles(with urls: [URL])
+    func openExistingContainer(with url: URL, cleanup: Bool)
+    func importFiles(with urls: [URL], cleanup: Bool)
     func addDataFilesToContainer(dataFilePaths: [String])
     func createNewContainer(with url: URL, dataFilePaths: [String], startSigningWhenCreated: Bool, cleanUpDataFilesInDocumentsFolder: Bool)
     func createNewContainerForNonSignableContainerAndSign()
 }
 
 extension ContainerActions where Self: UIViewController {
-    func importFiles(with urls: [URL]) {
+    func importFiles(with urls: [URL], cleanup: Bool) {
         let landingViewController = LandingViewController.shared!
         let navController = landingViewController.viewController(for: .signTab) as! UINavigationController
         let topSigningViewController = navController.viewControllers.last!
@@ -63,7 +63,7 @@ extension ContainerActions where Self: UIViewController {
                     landingViewController.containerType == .asic
                 let isCdocContainer = ext.isCdocContainerExtension && landingViewController.containerType == .cdoc
                 if  (isAsicOrPadesContainer || isCdocContainer) && urls.count == 1 {
-                    self?.openExistingContainer(with: urls.first!)
+                    self?.openExistingContainer(with: urls.first!, cleanup: cleanup)
                 } else {
                     self?.createNewContainer(with: urls.first!, dataFilePaths: dataFilePaths)
                 }
@@ -71,7 +71,7 @@ extension ContainerActions where Self: UIViewController {
         }
     }
     
-    func openExistingContainer(with url: URL) {
+    func openExistingContainer(with url: URL, cleanup: Bool) {
     
         let landingViewController = LandingViewController.shared!
     
@@ -87,7 +87,9 @@ extension ContainerActions where Self: UIViewController {
         var newFilePath: String = MoppFileManager.shared.filePath(withFileName: fileName)
             newFilePath = MoppFileManager.shared.copyFile(withPath: filePath, toPath: newFilePath)
 
-        MoppFileManager.shared.removeFile(withPath: filePath)
+        if (cleanup) {
+            MoppFileManager.shared.removeFile(withPath: filePath)
+        }
 
         let failure: (() -> Void) = {
             

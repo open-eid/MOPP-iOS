@@ -232,7 +232,7 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
 
 extension LandingViewController : UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        importFiles(with: urls)
+        importFiles(with: urls, cleanup: true)
     }
 }
 

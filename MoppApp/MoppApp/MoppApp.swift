@@ -196,7 +196,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
 
     func openUrl(url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         if !url.absoluteString.isEmpty {
-            
+            var cleanup = false
             // Used to access folders on user device when opening container outside app (otherwise gives "Operation not permitted" error)
             url.startAccessingSecurityScopedResource()
         
@@ -221,6 +221,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                     do {
                         try newData.write(to: fileURL, options: .atomic)
                         newUrl = fileURL
+                        cleanup = true;
                     } catch {
                         MSLog("Error writing to file: \(error)")
                     }
@@ -252,7 +253,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                 landingViewController?.containerType = .asic
             }
             landingViewController?.fileImportIntent = .openOrCreate
-            landingViewController?.importFiles(with: [newUrl])
+            landingViewController?.importFiles(with: [newUrl], cleanup: cleanup)
         }
         url.stopAccessingSecurityScopedResource()
         return true
