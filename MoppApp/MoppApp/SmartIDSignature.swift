@@ -173,7 +173,6 @@ class SmartIDSignature {
     }
 
     private func generateError(error: MobileIDError) -> Void {
-        MoppLibManager.cancelSigning()
         let error = NSError(domain: "SkSigningLib", code: 10, userInfo: [NSLocalizedDescriptionKey: error])
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .errorNotificationName, object: nil, userInfo: [kErrorKey: error])

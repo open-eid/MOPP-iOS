@@ -47,7 +47,6 @@ typedef enum {
 + (NSString *)prepareSignature:(NSString *)cert containerPath:(NSString *)containerPath;
 + (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue;
 + (NSArray *)getDataToSign;
-+ (void)cancelSigning;
 - (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId;
 - (BOOL)container:(MoppLibContainer *)moppContainer containsSignatureWithCert:(NSData *)cert;
 - (void)addSignature:(NSString *)containerPath pin2:(NSString *)pin2 cert:(NSData *)cert success:(ContainerBlock)success andFailure:(FailureBlock)failure;
