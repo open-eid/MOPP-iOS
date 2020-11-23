@@ -213,7 +213,6 @@ class MobileIDSignature {
     
     // MARK: Error generating
     private func generateError(mobileIDError: MobileIDError) -> Void {
-        MoppLibManager.cancelSigning()
         let error = NSError(domain: "SkSigningLib", code: 10, userInfo: [NSLocalizedDescriptionKey: mobileIDError])
         return self.errorResult(error: error)
     }

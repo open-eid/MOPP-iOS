@@ -55,10 +55,6 @@
     return [MoppLibDigidocManager isSignatureValid:cert signatureValue:signatureValue];
 }
 
-+ (void)cancelSigning {
-    [MoppLibDigidocManager cancelSigning];
-}
-
 - (NSString *)moppLibVersion {
   return [[MoppLibDigidocManager sharedInstance] getMoppLibVersion];
 }
