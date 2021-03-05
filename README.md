@@ -7,7 +7,7 @@
 
 This repo contains source code for RIA DigiDoc application for iOS.
 This application contains following functionality:
-* Sign documents with ID card, Mobile-ID and Smart-ID.
+* Sign documents with ID-card, Mobile-ID and Smart-ID.
 * Encrypt and decrypt documents
 * Control ID-card certificates validity
 * Change or unlock PIN/PUK codes
@@ -24,6 +24,6 @@ Installation instructions are available in Wiki:
 In [releases](https://github.com/open-eid/MOPP-iOS/releases) you will find framework, that you can use in your own application to implement document signing feature. For more detailed instructions check out [wiki page](https://github.com/open-eid/MOPP-iOS/wiki).
 
 ## Support
-Official builds are provided through official distribution point [installer.id.ee](https://installer.id.ee). If you want support, you need to be using official builds. Contact our support via www.id.ee for assistance.
+Official builds are provided through official distribution point [https://www.id.ee/en/article/install-id-software/](https://www.id.ee/en/article/install-id-software/). If you want support, you need to be using official builds. Contact our support via www.id.ee for assistance.
 
 Source code is provided on "as is" terms with no warranty (see license for more information). Do not file Github issues with generic support requests.
