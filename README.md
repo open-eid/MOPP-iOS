@@ -7,7 +7,7 @@
 
 This repo contains source code for RIA DigiDoc application for iOS.
 This application contains following functionality:
-* Sign documents with ID-card, Mobile-ID and Smart-ID.
+* Sign documents with ID-card, mobile-ID and Smart-ID.
 * Encrypt and decrypt documents
 * Control ID-card certificates validity
 * Change or unlock PIN/PUK codes
