@@ -44,6 +44,7 @@ public enum MobileIDError: String, Error {
     case hashEncodingInvalid
     case sessionIdMissing
     case sessionIdNotFound
+    case exceededUnsuccessfulRequests
     
     // MARK: Session Status Errors
     case timeout
@@ -130,6 +131,8 @@ extension MobileIDError: LocalizedError {
             return NSLocalizedString("sid-rest-error-forbidden", comment: "")
         case .accountNotFound:
             return NSLocalizedString("sid-rest-error-account-not-found", comment: "")
+        case .exceededUnsuccessfulRequests:
+            return NSLocalizedString("mid-rest-error-exceeded-unsuccessful-requests", comment: "")
         }
     }
 }
