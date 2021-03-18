@@ -100,7 +100,7 @@ class SmartIDSignature {
 
     private func getSessionStatus(baseUrl: String, sessionId: String, trustedCertificates: [String]?, notification: @escaping () -> Void = {}, completionHandler: @escaping (Result<SIDSessionStatusResponse, MobileIDError>) -> Void) {
         NSLog("Requesting session status...")
-        SIDRequest.shared.getSessionStatus(baseUrl: baseUrl, sessionId: sessionId, timeoutMs: 5000, trustedCertificates: trustedCertificates) { result in
+        SIDRequest.shared.getSessionStatus(baseUrl: baseUrl, sessionId: sessionId, timeoutMs: kDefaultTimeoutMs, trustedCertificates: trustedCertificates) { result in
             switch result {
             case .success(let sessionStatus):
                 NSLog("Session status \(sessionStatus.state.rawValue)")

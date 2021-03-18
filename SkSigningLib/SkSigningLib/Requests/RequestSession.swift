@@ -126,8 +126,8 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
     
     public func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionStatusResponse, MobileIDError>) -> Void) {
         
-        guard let url = URL(string: "\(baseUrl)/signature/session/\(requestParameters.sessionId)?timeoutMs=\(requestParameters.timeoutMs ?? 1000)") else {
-            ErrorLog.errorLog(forMethod: "Session status", httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(baseUrl)/signature/session/\(requestParameters.sessionId)?timeoutMs=\(requestParameters.timeoutMs ?? 1000)")
+        guard let url = URL(string: "\(baseUrl)/signature/session/\(requestParameters.sessionId)?timeoutMs=\(requestParameters.timeoutMs ?? Constants.defaultTimeoutMs)") else {
+            ErrorLog.errorLog(forMethod: "Session status", httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(baseUrl)/signature/session/\(requestParameters.sessionId)?timeoutMs=\(requestParameters.timeoutMs ?? Constants.defaultTimeoutMs)")
             return completionHandler(.failure(.invalidURL))
         }
         
@@ -141,7 +141,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
                 "Method: \(request.httpMethod ?? "Unable to get HTTP method") \n" +
                 "Parameters: \n" +
                 "\tsessionId: \(requestParameters.sessionId.prefix(13))-xxxx-xxxx-xxxxxxxxxxxx \n" +
-                "\ttimeoutMs: \(String(requestParameters.timeoutMs ?? 1000)) \n"
+                "\ttimeoutMs: \(String(requestParameters.timeoutMs ?? Constants.defaultTimeoutMs)) \n"
             )
         #endif
         

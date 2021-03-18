@@ -139,7 +139,7 @@ class MobileIDSignature {
     private func getSessionStatus(baseUrl: String, sessionId: String, cert: String, trustedCertificates: [String]?, completionHandler: @escaping (String) -> Void) {
         // MARK: Get session status
         NSLog("\nGetting session status...\n")
-        SessionStatus.shared.getSessionStatus(baseUrl: baseUrl, process: .SIGNING, sessionId: sessionId, timeoutMs: 1000, trustedCertificates: trustedCertificates) { (sessionStatusResult: Result<SessionStatusResponse, MobileIDError>) in
+        SessionStatus.shared.getSessionStatus(baseUrl: baseUrl, process: .SIGNING, sessionId: sessionId, timeoutMs: kDefaultTimeoutMs, trustedCertificates: trustedCertificates) { (sessionStatusResult: Result<SessionStatusResponse, MobileIDError>) in
 
             let sessionStatus: SessionStatusResponse
 

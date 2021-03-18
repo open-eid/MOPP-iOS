@@ -41,6 +41,8 @@ let kDisplayTextFormat = "GSM-7"
 let kDigestMethodSHA256 = "http://www.w3.org/2001/04/xmlenc#sha256"
 let kHashType = "SHA256"
 
+let kDefaultTimeoutMs = 5000
+
 extension Notification.Name {
     static let containerChangedNotificationName = Notification.Name("Notification - container changed")
     static let settingsChangedNotificationName = Notification.Name("Notification - settigns changed")
