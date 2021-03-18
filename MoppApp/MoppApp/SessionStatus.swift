@@ -30,7 +30,7 @@ class SessionStatus {
     
     func getSessionStatus(baseUrl: String, process: PollingProcess, sessionId: String, timeoutMs: Int?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionStatusResponse, MobileIDError>) -> Void ) {
         DispatchQueue.main.async {
-            Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            Timer.scheduledTimer(withTimeInterval: TimeInterval(kDefaultTimeoutMs / 1000), repeats: true) { timer in
                 do {
                     _ = try RequestSession.shared.getSessionStatus(baseUrl: baseUrl, process: process, requestParameters: SessionStatusRequestParameters(sessionId: sessionId, timeoutMs: timeoutMs), trustedCertificates: trustedCertificates) { (sessionStatusResult: Result<SessionStatusResponse, MobileIDError>) in
                         switch sessionStatusResult {
