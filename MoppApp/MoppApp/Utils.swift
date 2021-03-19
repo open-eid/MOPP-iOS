@@ -51,8 +51,10 @@ let kDefaultLanguageID = "en"
 // Fixme: couldn't get around erroneous output using CVarArg... or Any... as 'arguments' type
 func L(_ key: LocKey, _ arguments: [CVarArg] = []) -> String {
     let languageId = DefaultsHelper.moppLanguageID
-    let path = Bundle.main.path(forResource: languageId, ofType: "lproj", inDirectory: String())
-    let bundle = Bundle(path: path!)
+    let path = Bundle.main.path(forResource: languageId, ofType: "lproj", inDirectory: String()) ??
+        Bundle.main.path(forResource: kDefaultLanguageID, ofType: "lproj", inDirectory: String())
+    guard let bundlePath = path else { return String() }
+    let bundle = Bundle(path: bundlePath)
     let format = bundle?.localizedString(forKey: key.rawValue, value: nil, table: nil)
     return String(format: format!, arguments: arguments)
 }
