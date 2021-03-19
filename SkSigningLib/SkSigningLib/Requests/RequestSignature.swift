@@ -142,6 +142,8 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
             return .userAuthorizationFailed
         case 405:
             return .methodNotAllowed
+        case 409:
+            return .exceededUnsuccessfulRequests
         case 429:
             return .tooManyRequests
         case 500:
