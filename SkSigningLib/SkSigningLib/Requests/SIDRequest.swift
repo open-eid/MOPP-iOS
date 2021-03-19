@@ -66,6 +66,7 @@ public class SIDRequest: NSObject, URLSessionDelegate, SIDRequestProtocol {
 
     public func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, MobileIDError>) -> Void) {
         let url = "\(baseUrl)/certificatechoice/pno/\(country)/\(nationalIdentityNumber)"
+        guard UUID(uuidString: requestParameters.relyingPartyUUID) != nil else { completionHandler(.failure(.invalidAccessRights)); return }
         exec(method: "Certificate", url: url, data: EncoderDecoder().encode(data: requestParameters), trustedCertificates: trustedCertificates, completionHandler: completionHandler)
     }
 
@@ -118,7 +119,8 @@ public class SIDRequest: NSObject, URLSessionDelegate, SIDRequestProtocol {
             if !(200...299).contains(httpResponse.statusCode) {
                 let statusCode: MobileIDError = {
                   switch httpResponse.statusCode {
-                  case 400, 401, 403: return .forbidden
+                  case 400: return .forbidden
+                  case 401, 403: return .invalidAccessRights
                   case 404: return method == "Session" ? .sessionIdNotFound : .accountNotFound
                   case 409: return .exceededUnsuccessfulRequests
                   case 429: return .tooManyRequests

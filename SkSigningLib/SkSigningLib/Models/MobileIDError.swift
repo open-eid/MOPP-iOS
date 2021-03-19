@@ -55,6 +55,7 @@ public enum MobileIDError: String, Error {
     case deliveryError
     case simError
     case tooManyRequests
+    case invalidAccessRights
 
     // MARK: Smart-ID Session Status Errors
     case wrongVC
@@ -133,6 +134,8 @@ extension MobileIDError: LocalizedError {
             return NSLocalizedString("sid-rest-error-account-not-found", comment: "")
         case .exceededUnsuccessfulRequests:
             return NSLocalizedString("mid-rest-error-exceeded-unsuccessful-requests", comment: "")
+        case .invalidAccessRights:
+            return NSLocalizedString("mid-rest-error-invalid-access-rights", comment: "")
         }
     }
 }

@@ -46,6 +46,7 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
     private var trustedCerts: [String]?
     
     public func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<CertificateResponse, MobileIDError>) -> Void) {
+        guard UUID(uuidString: requestParameters.relyingPartyUUID) != nil else { completionHandler(.failure(.invalidAccessRights)); return }
         guard let url = URL(string: "\(baseUrl)/certificate") else {
             ErrorLog.errorLog(forMethod: "Certificate", httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(baseUrl)/certificate")
             completionHandler(.failure(.invalidURL))
