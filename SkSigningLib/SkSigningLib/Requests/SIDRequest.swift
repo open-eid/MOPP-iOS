@@ -75,7 +75,7 @@ public class SIDRequest: NSObject, URLSessionDelegate, SIDRequestProtocol {
     }
 
     public func getSessionStatus(baseUrl: String, sessionId: String, timeoutMs: Int?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionStatusResponse, MobileIDError>) -> Void) {
-        let url = "\(baseUrl)/session/\(sessionId)?timeoutMs=\(timeoutMs ?? 1000)"
+        let url = "\(baseUrl)/session/\(sessionId)?timeoutMs=\(timeoutMs ?? Constants.defaultTimeoutMs)"
         exec(method: "Session", url: url, data: nil, trustedCertificates: trustedCertificates, completionHandler: completionHandler)
     }
 
