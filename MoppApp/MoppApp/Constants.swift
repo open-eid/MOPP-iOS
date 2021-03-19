@@ -41,7 +41,9 @@ let kDisplayTextFormat = "GSM-7"
 let kDigestMethodSHA256 = "http://www.w3.org/2001/04/xmlenc#sha256"
 let kHashType = "SHA256"
 
+// Mobile-ID and Smart-ID polling interval
 let kDefaultTimeoutMs = 5000
+let kDefaultTimeoutS = 5
 
 extension Notification.Name {
     static let containerChangedNotificationName = Notification.Name("Notification - container changed")
