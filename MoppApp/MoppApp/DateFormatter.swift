@@ -100,8 +100,16 @@ class MoppDateFormatter {
     }
     
     func stringToDate(dateString: String?) -> Date {
+        guard let dateString = dateString, !dateString.isEmpty else { return Date() }
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-        return dateFormatter.date(from: dateString!)!
+        let dateFormat = DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: Locale.autoupdatingCurrent)
+        if dateString.contains(dateFormatter.amSymbol) || dateString.contains(dateFormatter.pmSymbol) || dateFormat!.contains("a") {
+            // 12h time format
+            dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss Z"
+        } else {
+            // 24h time format
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+        }
+        return dateFormatter.date(from: dateString)!
     }
 }
