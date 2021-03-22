@@ -170,7 +170,7 @@ class MobileIDSignature {
     
     // MARK: Check country code
     private func isCountryCodeError(phoneNumber: String, errorDesc: String) -> Bool {
-        return phoneNumber.count <= 8 && (MobileIDError.notFound == MobileIDError(rawValue: errorDesc) || MobileIDError.internalError == MobileIDError(rawValue: errorDesc) ? true : false)
+        return phoneNumber.count <= 8 && (MobileIDError.notFound == MobileIDError(rawValue: errorDesc) || MobileIDError.internalError == MobileIDError(rawValue: errorDesc))
     }
     
     // MARK: Signature validation
