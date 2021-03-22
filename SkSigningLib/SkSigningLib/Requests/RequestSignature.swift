@@ -95,6 +95,20 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
             }
             
             if error != nil {
+                if let data: Data = data {
+                    EncoderDecoder().decode(data: data, completionHandler: { (serviceResponse: Dictionary<String,String>) in
+                        guard let responseError = serviceResponse["error"] else {
+                            ErrorLog.errorLog(forMethod: "Certificate", httpResponse: response as? HTTPURLResponse ?? nil, error: .generalError, extraInfo: error?.localizedDescription ?? "Error getting response")
+                            completionHandler(.failure(.generalError))
+                            return
+                        }
+                        
+                        ErrorLog.errorLog(forMethod: "Certificate", httpResponse: response as? HTTPURLResponse ?? nil, error: .parameterNameNull, extraInfo: responseError)
+                        completionHandler(.failure(.parameterNameNull))
+                        return
+                    })
+                }
+                
                 ErrorLog.errorLog(forMethod: "Certificate", httpResponse: response as? HTTPURLResponse ?? nil, error: .generalError, extraInfo: error?.localizedDescription ?? "Error getting response")
                 completionHandler(.failure(.generalError))
                 return
