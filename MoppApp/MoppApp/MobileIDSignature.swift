@@ -176,7 +176,7 @@ class MobileIDSignature {
     // MARK: Signature validation
     private func validateSignature(cert: String, signatureValue: String) -> Void {
         NSLog("\nValidating signature...\n")
-        if MoppLibManager.isSignatureValid(cert, signatureValue: signatureValue) {
+        MoppLibManager.isSignatureValid(cert, signatureValue: signatureValue, success: { (_) in
             NSLog("\nSuccessfully validated signature!\n")
             DispatchQueue.main.async {
                 NotificationCenter.default.post(
@@ -184,11 +184,23 @@ class MobileIDSignature {
                     object: nil,
                     userInfo: nil)
             }
-        }
-        else {
+        }, failure: { (error: Error?) in
             NSLog("\nError validating signature\n")
-            generateError(mobileIDError: .generalError)
-        }
+            guard let error = error, let err = error as NSError? else {
+                NSLog("\nError validating signature\n")
+                self.generateError(mobileIDError: .generalError)
+                return
+            }
+            
+            if err.code == 7 {
+                NSLog(err.domain)
+                self.generateError(mobileIDError: .ocspInvalidTimeSlot)
+                return
+            }
+            
+            self.generateError(mobileIDError: .generalError)
+            return
+        })
     }
     
     // MARK: Control / verification code setup

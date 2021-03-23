@@ -327,7 +327,7 @@ static std::string profile = "time-stamp";
     return dataToSignArray;
 }
 
-+ (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue {
++ (void)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure {
     std::string calculatedSignatureBase64 = std::string(base64_decode(signatureValue.UTF8String));
     
     std::vector<unsigned char> vec;
@@ -338,14 +338,17 @@ static std::string profile = "time-stamp";
     OCSPUrl = [NSString stringWithCString:getOCSPUrl(x509Cert.handle()).c_str() encoding:[NSString defaultCStringEncoding]];
     
     if (!signature) {
-        NSLog(@"\nError: Did not find signature with an ID of %s\n", signature->id().c_str());
-        return false;
+        std::string signatureId = signature->id();
+        NSLog(@"\nError: Did not find signature with an ID of %s\n", signatureId.c_str());
+        NSError *signatureError;
+        signatureError = [NSError errorWithDomain:[NSString stringWithFormat:@"Did not find signature with an ID of %s\n", signature->id().c_str()] code:-1 userInfo:nil];
+        failure(signatureError);
     }
     
     NSString *timeStampTime = [NSString stringWithUTF8String:signature->TimeStampTime().c_str()];
     if ([timeStampTime length] != 0) {
         NSLog(@"\nSignature already validated at %@\n", timeStampTime);
-        return true;
+        success(true);
     }
     
     try {
@@ -360,14 +363,16 @@ static std::string profile = "time-stamp";
         NSLog(@"\nSaving container...\n");
         docContainer->save();
         NSLog(@"\nSignature validated at %s!\n", signature->TimeStampTime().c_str());
-        return true;
+        success(true);
     } catch(const digidoc::Exception &e) {
         parseException(e);
         NSError *error;
         NSString *signatureId = [NSString stringWithCString:signature->id().c_str() encoding:[NSString defaultCStringEncoding]];
         [self removeSignature:docContainer signatureId:signatureId error:&error];
         NSLog(@"\nError validating signature: %s\n", e.msg().c_str());
-        return false;
+        NSError *validationError;
+        validationError = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
+        failure(validationError);
     }
 }
 

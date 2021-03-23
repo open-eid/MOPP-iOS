@@ -45,7 +45,7 @@ typedef enum {
 - (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex error:(NSError **)error;
 - (NSArray *)getContainers;
 + (NSString *)prepareSignature:(NSString *)cert containerPath:(NSString *)containerPath;
-+ (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue;
++ (void)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure;
 + (NSArray *)getDataToSign;
 - (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId;
 - (BOOL)container:(MoppLibContainer *)moppContainer containsSignatureWithCert:(NSData *)cert;
