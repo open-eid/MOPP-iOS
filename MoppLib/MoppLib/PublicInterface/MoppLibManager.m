@@ -51,8 +51,8 @@
     return [MoppLibDigidocManager getDataToSign];
 }
 
-+ (BOOL)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue {
-    return [MoppLibDigidocManager isSignatureValid:cert signatureValue:signatureValue];
++ (void)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure {
+    return [MoppLibDigidocManager isSignatureValid:cert signatureValue:signatureValue success:success failure:failure];
 }
 
 - (NSString *)moppLibVersion {

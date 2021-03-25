@@ -137,22 +137,32 @@ class SmartIDSignature {
             NotificationCenter.default.post(name: .selectSmartIDAccountNotificationName, object: nil, userInfo: nil)
         }
     }
-
+    
     private func validateSignature(cert: String, signatureValue: String) -> Void {
-        NSLog("Validating signature...")
-        if MoppLibManager.isSignatureValid(cert, signatureValue: signatureValue) {
-            NSLog("Successfully validated signature!")
+        NSLog("\nValidating signature...\n")
+        MoppLibManager.isSignatureValid(cert, signatureValue: signatureValue, success: { (_) in
+            NSLog("\nSuccessfully validated signature!\n")
             DispatchQueue.main.async {
                 NotificationCenter.default.post(
                     name: .signatureAddedToContainerNotificationName,
                     object: nil,
                     userInfo: nil)
             }
-        }
-        else {
-            NSLog("Error validating signature")
-            generateError(error: .generalError)
-        }
+        }, failure: { (error: Error?) in
+            NSLog("\nError validating signature. Error: \(error?.localizedDescription ?? "Unable to display error")\n")
+            guard let error = error, let err = error as NSError? else {
+                self.generateError(error: .generalError)
+                return
+            }
+            
+            if err.code == 7 {
+                NSLog(err.domain)
+                self.generateError(error: .ocspInvalidTimeSlot)
+                return
+            }
+            
+            return self.generateError(error: .generalError)
+        })
     }
 
     private func setupControlCode(certificateValue: String, containerPath: String) -> String? {
