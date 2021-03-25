@@ -149,19 +149,16 @@ class SmartIDSignature {
                     userInfo: nil)
             }
         }, failure: { (error: Error?) in
-            NSLog("\nError validating signature\n")
-            guard let error = error else {
-                NSLog("\nError validating signature\n")
+            NSLog("\nError validating signature. Error: \(error?.localizedDescription ?? "Unable to display error")\n")
+            guard let error = error, let err = error as NSError? else {
                 self.generateError(error: .generalError)
                 return
             }
             
-            if let err = error as NSError? {
-                if err.code == 7 {
-                    NSLog(err.domain)
-                    self.generateError(error: .ocspInvalidTimeSlot)
-                    return
-                }
+            if err.code == 7 {
+                NSLog(err.domain)
+                self.generateError(error: .ocspInvalidTimeSlot)
+                return
             }
             
             return self.generateError(error: .generalError)
