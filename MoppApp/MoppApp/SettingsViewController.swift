@@ -31,8 +31,6 @@ class SettingsViewController: MoppViewController {
     
     enum FieldId {
         case missingId
-        case phoneNumber
-        case personalCode
         case rpuuid
         case timestampUrl
     }
@@ -41,7 +39,6 @@ class SettingsViewController: MoppViewController {
         enum Kind {
             case inputField
             case choice
-            case groupSeparator
             case timestamp
         }
         
@@ -63,27 +60,6 @@ class SettingsViewController: MoppViewController {
     var sections:[Section] = [.header, .fields]
     
     var fields:[Field] = [
-        Field(
-            id: .phoneNumber,
-            kind: .inputField,
-            title: L(.settingsPhoneNumberTitle),
-            placeholderText: NSMutableAttributedString(string: L(.settingsPhoneNumberPlaceholder), attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 0.46, green: 0.46, blue: 0.46, alpha: 1.0)]),
-            value: DefaultsHelper.phoneNumber ?? String()
-        ),
-        Field(
-            id: .personalCode,
-            kind: .inputField,
-            title: L(.settingsIdCodeTitle),
-            placeholderText: NSAttributedString(string: L(.settingsIdCodePlaceholder), attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 0.46, green: 0.46, blue: 0.46, alpha: 1.0)]),
-            value: DefaultsHelper.idCode
-        ),
-        Field(
-            id: .missingId,
-            kind: .groupSeparator,
-            title: String(),
-            placeholderText: NSAttributedString(string: String(), attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 0.46, green: 0.46, blue: 0.46, alpha: 1.0)]),
-            value: String()
-        ),
         Field(
             id: .rpuuid,
             kind: .inputField,
@@ -143,12 +119,6 @@ extension SettingsViewController: UITableViewDataSource {
                     fieldCell.delegate = self
                     fieldCell.populate(with: field)
                 switch field.id {
-                case .personalCode:
-                    fieldCell.textField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
-                    break
-                case .phoneNumber:
-                    countryCodePrefill(textField: fieldCell.textField, countryCode: "372")
-                    break;
                 case .rpuuid:
                     fieldCell.textField.isSecureTextEntry = true
                     fieldCell.textField.keyboardType = .default
@@ -165,9 +135,6 @@ extension SettingsViewController: UITableViewDataSource {
                 let choiceCell = tableView.dequeueReusableCell(withType: SettingsChoiceCell.self, for: indexPath)!
                     choiceCell.populate(with: field)
                 return choiceCell
-            case .groupSeparator:
-                let groupSeparatorCell = tableView.dequeueReusableCell(withIdentifier: "SettingsGroupSeparator", for: indexPath)
-                return groupSeparatorCell
             }
         }
     }
@@ -189,12 +156,6 @@ extension SettingsViewController: SettingsHeaderCellDelegate {
 extension SettingsViewController: SettingsFieldCellDelegate {
     func didEndEditingField(_ fieldId: SettingsViewController.FieldId, with value:String) {
         switch fieldId {
-        case .phoneNumber:
-            DefaultsHelper.phoneNumber = value
-            break
-        case .personalCode:
-            DefaultsHelper.idCode = value
-            break
         case .rpuuid:
             DefaultsHelper.rpUuid = value
             break
