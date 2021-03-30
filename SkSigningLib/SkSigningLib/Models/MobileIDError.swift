@@ -57,6 +57,7 @@ public enum MobileIDError: String, Error {
     case tooManyRequests
     case invalidAccessRights
     case ocspInvalidTimeSlot
+    case certificateRevoked
 
     // MARK: Smart-ID Session Status Errors
     case wrongVC
@@ -139,6 +140,8 @@ extension MobileIDError: LocalizedError {
             return NSLocalizedString("mid-rest-error-invalid-access-rights", comment: "")
         case .ocspInvalidTimeSlot:
             return NSLocalizedString("mid-rest-error-ocsp-invalid-time-slot", comment: "")
+        case .certificateRevoked:
+            return NSLocalizedString("sid-rest-error-certificate-revoked", comment: "")
         }
     }
 }

@@ -42,3 +42,4 @@
 "sid-rest-error-timeout" = "Teie Smart-ID toiming aegus. Palun proovige uuesti.";
 "sid-rest-error-forbidden" = "Ümbriku allkirjastamine ebaõnnestus. Kontrolli Smart-ID teenuse ligipääsu seadeid. https://id.ee/index.php?id=39021";
 "sid-rest-error-account-not-found" = "Kontot ei leitud";
+"sid-rest-error-certificate-revoked" = "Sertifikaat on kehtetu";
