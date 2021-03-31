@@ -108,6 +108,9 @@ public class SIDRequest: NSObject, URLSessionDelegate, SIDRequestProtocol {
             case let nsError as NSError where nsError.code == NSURLErrorCancelled || nsError.code == NSURLErrorSecureConnectionFailed:
                 ErrorLog.errorLog(forMethod: method, httpResponse: nil, error: .invalidSSLCert, extraInfo: "Certificate pinning failed")
                 return completionHandler(.failure(.invalidSSLCert))
+            case let nsError as NSError where nsError.code == NSURLErrorNotConnectedToInternet:
+                ErrorLog.errorLog(forMethod: method, httpResponse: nil, error: .noResponseError, extraInfo: "Error getting response. No Internet connection")
+                return completionHandler(.failure(.noResponseError))
             default:
                 ErrorLog.errorLog(forMethod: method, httpResponse: nil, error: .generalError, extraInfo: error!.localizedDescription)
                 return completionHandler(.failure(.generalError))

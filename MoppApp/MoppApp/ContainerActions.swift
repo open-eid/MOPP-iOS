@@ -91,12 +91,21 @@ extension ContainerActions where Self: UIViewController {
             MoppFileManager.shared.removeFile(withPath: filePath)
         }
 
-        let failure: (() -> Void) = {
+        let failure: ((_ error: NSError?) -> Void) = { err in
             
             landingViewController.importProgressViewController.dismissRecursivelyIfPresented(animated: false, completion: nil)
             
-            let alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [fileName]), preferredStyle: .alert)
+            var alert: UIAlertController
+            guard err?.code == 10005 && url.lastPathComponent.hasSuffix(ContainerFormatDdoc) else {
+                alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [fileName]), preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
+                
+                navController?.viewControllers.last!.present(alert, animated: true)
+                return
+            }
+            
+            alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.noConnectionMessage), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
 
             navController?.viewControllers.last!.present(alert, animated: true)
         }
@@ -106,7 +115,7 @@ extension ContainerActions where Self: UIViewController {
                     if container == nil {
                         // Remove invalid container. Probably ddoc.
                         MoppFileManager.shared.removeFile(withName: fileName)
-                        failure()
+                        failure(nil)
                         return
                     }
                 
@@ -126,8 +135,9 @@ extension ContainerActions where Self: UIViewController {
                     })
 
                 },
-                failure: { _ in
-                    failure()
+                failure: { error in
+                    guard let nsError = error as NSError? else { return }
+                    failure(nsError)
                 }
             )
         } else {
@@ -150,7 +160,7 @@ extension ContainerActions where Self: UIViewController {
                 },
                 failure: { _ in
                     DispatchQueue.main.async {
-                         failure()
+                         failure(nil)
                     }
                 }
             )

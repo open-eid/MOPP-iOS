@@ -183,6 +183,8 @@ extension SigningContainerViewController : IdCardSignViewControllerDelegate {
                     errorAlert(message: L(.pin2BlockedAlert))
                 } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorTooManyRequests.rawValue) {
                     errorAlert(message: L(.signingErrorTooManyRequests))
+                } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
+                    errorAlert(message: L(.noConnectionMessage))
                 } else {
                     errorAlert(message: L(.genericErrorMessage))
                 }

@@ -85,10 +85,15 @@ extension AddresseeViewController : UISearchBarDelegate {
                 self.showLoading(show: false)
                 self.tableView.reloadData()
             },
-            failure: { _ in
+            failure: { error in
+                guard let nsError = error as NSError? else { return }
                 DispatchQueue.main.async {
-                     self.errorAlert(message: L(.cryptoEmptyLdapLabel))
-                     self.showLoading(show: false)
+                    if nsError.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
+                        self.errorAlert(message: L(.noConnectionMessage))
+                    } else {
+                        self.errorAlert(message: L(.cryptoEmptyLdapLabel))
+                    }
+                    self.showLoading(show: false)
                 }
         }, configuration: MoppLDAPConfiguration.getMoppLDAPConfiguration()
         )

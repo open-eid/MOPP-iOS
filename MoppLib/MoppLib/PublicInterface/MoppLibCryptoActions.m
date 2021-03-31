@@ -40,6 +40,7 @@
 #include "MoppLibDigidocMAnager.h"
 #import "MoppLibCertificateInfo.h"
 #import "MoppLibManager.h"
+#import "Reachability.h"
 
 @implementation MoppLibCryptoActions
     
@@ -176,6 +177,13 @@
 }
     
 - (void)searchLdapData:(NSString *)identifier success:(LdapBlock)success failure:(FailureBlock)failure configuration:(MoppLdapConfiguration *) moppLdapConfiguration {
+    
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+      failure([MoppLibError noInternetConnectionError]);
+      return;
+    }
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableArray *response = [[NSMutableArray alloc] init];
