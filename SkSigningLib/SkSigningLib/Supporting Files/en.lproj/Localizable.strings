@@ -42,3 +42,4 @@
 "sid-rest-error-timeout" = "Your Smart-ID transaction has expired. Please try again.";
 "sid-rest-error-forbidden" = "Failed to sign container. Check your Smart-ID service access settings. https://www.id.ee/index.php?id=39023";
 "sid-rest-error-account-not-found" = "Account not found";
+"sid-rest-error-certificate-revoked" = "Certificate status revoked";

@@ -155,7 +155,11 @@ class SmartIDSignature {
                 return
             }
             
-            if err.code == 7 {
+            if err.code == 5 || err.code == 6 {
+                NSLog(err.domain)
+                self.generateError(error: .certificateRevoked)
+                return
+            } else if err.code == 7 {
                 NSLog(err.domain)
                 self.generateError(error: .ocspInvalidTimeSlot)
                 return
