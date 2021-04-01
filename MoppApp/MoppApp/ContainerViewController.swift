@@ -181,12 +181,15 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
 
             case .opened:
                 var tabButtons: [LandingViewController.TabButtonId] = []
-                if !isForPreview && isAsicContainer {
+                if !isForPreview && isAsicContainer && isDdocOrAsicsContainer(containerPath: containerPath) {
+                    tabButtons = [.shareButton]
+                    setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
+                } else if !isForPreview && isAsicContainer {
                     tabButtons = [.shareButton, .signButton]
                     setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
                 } else if !isForPreview {
                     if isDecrypted {
-                         tabButtons = []
+                        tabButtons = []
                     } else {
                         tabButtons = [.decryptButton, .shareButton]
                     }
@@ -219,6 +222,23 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         updateState(.loading)
         containerViewDelegate.openContainer(afterSignatureCreated:false)
         reloadData()
+    }
+    
+    func isDdocOrAsicsContainer(containerPath: String) -> Bool {
+        let fileLocation: URL = URL(fileURLWithPath: containerPath)
+        let mimeType: String = MimeTypeExtractor().getMimeTypeFromContainer(filePath: fileLocation)
+        let ddocMimeType: String = "application/x-ddoc"
+        let asicsMimeType: String = "application/vnd.etsi.asic-s+zip"
+        let fileExtension: String = fileLocation.pathExtension
+        
+        let forbiddenMimetypes: [String] = [ddocMimeType, asicsMimeType]
+        let forbiddenExtensions: [String] = [ContainerFormatDdoc, ContainerFormatAscis, ContainerFormatAsicsShort]
+        
+        if forbiddenMimetypes.contains(mimeType) || forbiddenExtensions.contains(fileExtension) {
+            return true
+        }
+        
+        return false
     }
     
 }
