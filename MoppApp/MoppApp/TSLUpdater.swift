@@ -56,6 +56,29 @@ class TSLUpdater {
 
         copyOtherTSLBundleFilesToLibrary(inPath: getTSLFilesBundlePath())
     }
+    
+    public func getLOTLFileURL() -> URL? {
+        let tslFilesBundlePath: String = getTSLFilesBundlePath()
+        guard !tslFilesBundlePath.isEmpty else {
+            NSLog("Unable to get TSL files bundle path")
+            return nil
+        }
+        
+        for file in getFilesFromBundle(inPath: tslFilesBundlePath) {
+            if file.lastPathComponent == "eu-lotl.xml" {
+                do {
+                    if try file.checkResourceIsReachable() {
+                        return file
+                    }
+                } catch let error {
+                    NSLog("Unable to check if \(file.lastPathComponent) is reachable. Error: \(error)")
+                }
+            }
+        }
+        
+        return nil
+        
+    }
 
     private func getTSLFilesBundlePath() -> String {
         guard let tslFilesBundlePath: String = Bundle.main.path(forResource: "tslFiles", ofType: "bundle") else { return "" }
