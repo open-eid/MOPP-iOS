@@ -136,7 +136,7 @@ extension ContainerActions where Self: UIViewController {
 
                 },
                 failure: { error in
-                    guard let nsError = error as NSError? else { return }
+                    guard let nsError = error as NSError? else { failure(nil); return }
                     failure(nsError)
                 }
             )

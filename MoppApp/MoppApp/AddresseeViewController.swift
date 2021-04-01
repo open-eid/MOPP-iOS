@@ -86,7 +86,11 @@ extension AddresseeViewController : UISearchBarDelegate {
                 self.tableView.reloadData()
             },
             failure: { error in
-                guard let nsError = error as NSError? else { return }
+                guard let nsError = error as NSError? else {
+                    self.errorAlert(message: L(.genericErrorMessage))
+                    self.showLoading(show: false)
+                    return
+                }
                 DispatchQueue.main.async {
                     if nsError.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
                         self.errorAlert(message: L(.noConnectionMessage))
