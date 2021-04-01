@@ -24,7 +24,7 @@
 import Foundation
 
 
-class CryptoContainerViewController : ContainerViewController, CryptoActions {
+class CryptoContainerViewController : ContainerViewController, CryptoActions, UIDocumentPickerDelegate {
 
     var container: CryptoContainer!
     var delegate: AddresseeViewControllerDelegate?
@@ -112,6 +112,47 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
                 strongSelf.reloadData()
         })
 
+    }
+    
+    func saveDataFile(name: String?) {
+        guard let name = name, container != nil else {
+            NSLog("Failed to get filename or file does not exist in container");
+            return self.errorAlert(message: L(.fileImportFailedFileSave))
+        }
+        
+        MoppFileManager.shared.saveFile(containerPath: self.containerPath, fileName: name, completionHandler: { (isSaved: Bool, tempSavedFileLocation: String?) in
+            if isSaved {
+                guard let tempSavedFileLocation = tempSavedFileLocation, MoppFileManager.shared.fileExists(tempSavedFileLocation) else {
+                    NSLog("Failed to get saved temp file location or file does not exist")
+                    return self.errorAlert(message: L(.fileImportFailedFileSave))
+                }
+                
+                NSLog("Exporting to user chosen location")
+                
+                // Show file save location picker
+                let pickerController = UIDocumentPickerViewController(url: URL(fileURLWithPath: tempSavedFileLocation), in: .exportToService)
+                pickerController.delegate = self
+                self.present(pickerController, animated: true) {
+                    NSLog("Showing file saving location picker")
+                }
+            } else {
+                NSLog("Failed to save \(name) to 'Saved Files' directory")
+                return self.errorAlert(message: L(.fileImportFailedFileSave))
+            }
+        })
+    }
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        if !urls.isEmpty {
+            let savedFileLocation: URL? = urls.first
+            NSLog("File export done. Location: \(savedFileLocation?.path ?? "Not available")")
+            self.errorAlert(message: L(.fileImportFileSaved))
+        }
+        return
+    }
+    
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        NSLog("File saving cancelled")
     }
     
     func getDataFileDisplayName(index: Int) -> String? {

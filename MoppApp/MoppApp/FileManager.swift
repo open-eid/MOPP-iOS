@@ -161,6 +161,71 @@ class MoppFileManager {
             failure: { (_ error: Error?) -> Void in
             })
     }
+    
+    func saveFile(containerPath: String, fileName: String, completionHandler: @escaping (Bool, String?) -> Void) {
+        let savedFilesDirectory: URL? = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Saved Files", isDirectory: true)
+        let tempFilesDirectory: URL? = URL(string: MoppFileManager.shared.tempDocumentsDirectoryPath())
+        
+        guard let saveDir: URL = savedFilesDirectory else { NSLog("Failed to get \(savedFilesDirectory?.lastPathComponent ?? "requested") directory"); completionHandler(false, nil); return }
+        do {
+            _ = try saveDir.checkResourceIsReachable()
+        } catch {
+            // Create directory
+            NSLog("Directory '\(saveDir.lastPathComponent)' does not exist, creating...")
+            do {
+                _ = try fileManager.createDirectory(at: saveDir, withIntermediateDirectories: true, attributes: nil)
+            } catch let error {
+                NSLog("Failed to create '\(saveDir.lastPathComponent)' directory. Error: \(error.localizedDescription)")
+                completionHandler(false, nil)
+                return
+            }
+        }
+        
+        // Save file to temporary location
+        let saveTempFileToLocation: String = saveDir.appendingPathComponent(fileName).path
+        
+        guard let tempDir: URL = tempFilesDirectory else { NSLog("Failed to get \(tempFilesDirectory?.lastPathComponent ?? "requested") directory"); completionHandler(false, nil); return }
+        let saveFileForCdocLocation: String = tempDir.appendingPathComponent(fileName).path
+        
+        if URL(fileURLWithPath: containerPath).pathExtension.isAsicContainerExtension {
+            MoppLibContainerActions.sharedInstance()?.container(containerPath, saveDataFile: fileName, to: saveTempFileToLocation, success: {
+                NSLog("Successfully saved \(fileName) to 'Saved Files' directory")
+                completionHandler(true, saveTempFileToLocation)
+                return
+            }, failure: { (error) in
+                NSLog("Failed to save file. Error: \(error?.localizedDescription ?? "No error to display")")
+                completionHandler(false, nil)
+                return
+            })
+        } else {
+            let fileUrl: URL = URL(fileURLWithPath: tempDir.appendingPathComponent(fileName).path)
+            do {
+                let savedCdocFileData: Data? = try Data(contentsOf: URL(fileURLWithPath: saveFileForCdocLocation))
+                try savedCdocFileData?.write(to: fileUrl)
+                completionHandler(true, saveFileForCdocLocation)
+            } catch let error {
+                NSLog("Failed to save file. Error: \(error.localizedDescription)")
+                completionHandler(false, nil)
+                return
+            }
+        }
+    }
+    
+    func removeTempSavedFiles() {
+        do {
+            let savedFilesDirectory: URL? = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Saved Files", isDirectory: true)
+
+            guard let saveDir: URL = savedFilesDirectory else { NSLog("Failed to get \(savedFilesDirectory?.lastPathComponent ?? "requested") directory"); return }
+            if fileManager.fileExists(atPath: saveDir.path) {
+                try fileManager.removeItem(atPath: saveDir.path)
+                NSLog("Folder '\(saveDir.lastPathComponent)' removed!")
+            } else {
+                NSLog("Folder '\(saveDir.lastPathComponent)' does not exist")
+            }
+        } catch let error {
+            NSLog("Error removing folder. Error \(error.localizedDescription)")
+        }
+    }
 
     func removeFile(withName fileName: String) {
         do {

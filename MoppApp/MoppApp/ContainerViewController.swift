@@ -29,6 +29,7 @@ protocol ContainerViewControllerDelegate: class {
     func getDataFileDisplayName(index: Int) -> String?
     func isContainerEmpty() -> Bool
     func removeDataFile(index: Int)
+    func saveDataFile(name: String?)
 }
 
 protocol SigningContainerViewControllerDelegate: class {
@@ -298,20 +299,24 @@ extension ContainerViewController : UITableViewDataSource {
             cell.accessibilityTraits = UIAccessibilityTraitButton
             
             var isRemoveButtonShown = false
+            var isDownloadButtonShown = false
             if isAsicContainer {
                 isRemoveButtonShown = containerViewDelegate.getDataFileCount() > 1   &&
                     !isForPreview   &&
                     (signingContainerViewDelegate.getSignaturesCount() == 0)    &&
                     signingContainerViewDelegate.isContainerSignable()
+                
+                isDownloadButtonShown = !isForPreview && signingContainerViewDelegate.isContainerSignable()
             } else {
                 isRemoveButtonShown = containerViewDelegate.getDataFileCount() > 1   &&
                     !isForPreview   &&
                     (!(!isAsicContainer && state == .opened))
+                isDownloadButtonShown = !isForPreview && (isDecrypted || (!(!isAsicContainer && state == .opened)))
             }
                 cell.populate(
                     name: containerViewDelegate.getDataFileDisplayName(index: row) ?? String(),
                     showBottomBorder: row < containerViewDelegate.getDataFileCount() - 1,
-                    showRemoveButton: isRemoveButtonShown,
+                    showRemoveButton: isRemoveButtonShown, showDownloadButton: isDownloadButtonShown,
                     dataFileIndex: row)
             return cell
         case .importDataFiles:
@@ -348,6 +353,10 @@ extension ContainerViewController : UITableViewDataSource {
 extension ContainerViewController : ContainerFileDelegate {
     func removeDataFile(dataFileIndex: Int) {
         containerViewDelegate.removeDataFile(index: dataFileIndex)
+    }
+    
+    func saveDataFile(fileName: String?) {
+        containerViewDelegate.saveDataFile(name: fileName)
     }
 }
 
