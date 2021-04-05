@@ -348,6 +348,7 @@
 		DF900C972386768F00887385 /* tslFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DF900C94238567CA00887385 /* tslFiles.bundle */; };
 		DFBEF9452434DD0C007A6762 /* UIAlertAction+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEF9442434DD0C007A6762 /* UIAlertAction+Additions.swift */; };
 		DFBF242E23DB0923008DD8D0 /* LOTLDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */; };
+		DFC18365261B387C0094E455 /* SaveableContainerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC18364261B387C0094E455 /* SaveableContainerActions.swift */; };
 		DFD176CB23F1B78000E2CC52 /* MimeTypeDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176CA23F1B78000E2CC52 /* MimeTypeDecoder.swift */; };
 		DFD176D423F427AD00E2CC52 /* TSLVersionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176D223F427AD00E2CC52 /* TSLVersionChecker.swift */; };
 		DFD176D523F427AD00E2CC52 /* TSLUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176D323F427AD00E2CC52 /* TSLUpdater.swift */; };
@@ -633,6 +634,7 @@
 		DF900C94238567CA00887385 /* tslFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = tslFiles.bundle; sourceTree = "<group>"; };
 		DFBEF9442434DD0C007A6762 /* UIAlertAction+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Additions.swift"; sourceTree = "<group>"; };
 		DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOTLDecoder.swift; sourceTree = "<group>"; };
+		DFC18364261B387C0094E455 /* SaveableContainerActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveableContainerActions.swift; sourceTree = "<group>"; };
 		DFD176CA23F1B78000E2CC52 /* MimeTypeDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypeDecoder.swift; sourceTree = "<group>"; };
 		DFD176D223F427AD00E2CC52 /* TSLVersionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLVersionChecker.swift; sourceTree = "<group>"; };
 		DFD176D323F427AD00E2CC52 /* TSLUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLUpdater.swift; sourceTree = "<group>"; };
@@ -1013,6 +1015,7 @@
 		C5E7D08E2031BA920081416F /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				DFC18364261B387C0094E455 /* SaveableContainerActions.swift */,
 				C5E7D08C2031B1040081416F /* NativeShare.swift */,
 				C5A1D1CC2031D5B80024CD4C /* ContainerActions.swift */,
 				39487CBD210B18F90082D910 /* CdocParserDelegate.swift */,
@@ -1817,6 +1820,7 @@
 				C5927FEB2078FD40003B7F41 /* MyeIDInfoViewControllerUI.swift in Sources */,
 				3921CAA120B45DCF00BF3178 /* SigningContainerViewController.swift in Sources */,
 				3921CA9520B2D6D600BF3178 /* CryptoActions.swift in Sources */,
+				DFC18365261B387C0094E455 /* SaveableContainerActions.swift in Sources */,
 				540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */,
 				C54EA6EB2046C3BA0039AC78 /* UITextField+Additions.swift in Sources */,
 				C50DCCC31FC2D54200D48E16 /* UIFont+Additions.swift in Sources */,

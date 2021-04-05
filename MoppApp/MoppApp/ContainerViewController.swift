@@ -311,12 +311,13 @@ extension ContainerViewController : UITableViewDataSource {
                 isRemoveButtonShown = containerViewDelegate.getDataFileCount() > 1   &&
                     !isForPreview   &&
                     (!(!isAsicContainer && state == .opened))
-                isDownloadButtonShown = !isForPreview && (isDecrypted || (!(!isAsicContainer && state == .opened)))
+                isDownloadButtonShown = !isForPreview && (isDecrypted || (state != .opened))
             }
                 cell.populate(
                     name: containerViewDelegate.getDataFileDisplayName(index: row) ?? String(),
                     showBottomBorder: row < containerViewDelegate.getDataFileCount() - 1,
-                    showRemoveButton: isRemoveButtonShown, showDownloadButton: isDownloadButtonShown,
+                    showRemoveButton: isRemoveButtonShown,
+                    showDownloadButton: isDownloadButtonShown,
                     dataFileIndex: row)
             return cell
         case .importDataFiles:
