@@ -181,13 +181,17 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
 
             case .opened:
                 var tabButtons: [LandingViewController.TabButtonId] = []
-                if !isForPreview && isAsicContainer && isDdocOrAsicsContainer(containerPath: containerPath) {
-                    tabButtons = [.shareButton]
-                    setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
-                } else if !isForPreview && isAsicContainer {
-                    tabButtons = [.shareButton, .signButton]
-                    setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
-                } else if !isForPreview {
+                
+                if !isForPreview && isAsicContainer {
+                    if isDdocOrAsicsContainer(containerPath: containerPath) {
+                        tabButtons = [.shareButton]
+                        setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
+                    } else {
+                        tabButtons = [.shareButton, .signButton]
+                        setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
+                    }
+                }
+                else if !isForPreview {
                     if isDecrypted {
                         tabButtons = []
                     } else {
@@ -226,7 +230,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     
     func isDdocOrAsicsContainer(containerPath: String) -> Bool {
         let fileLocation: URL = URL(fileURLWithPath: containerPath)
-        let mimeType: String = MimeTypeExtractor().getMimeTypeFromContainer(filePath: fileLocation)
+        
         let ddocMimeType: String = "application/x-ddoc"
         let asicsMimeType: String = "application/vnd.etsi.asic-s+zip"
         let fileExtension: String = fileLocation.pathExtension
@@ -234,7 +238,13 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         let forbiddenMimetypes: [String] = [ddocMimeType, asicsMimeType]
         let forbiddenExtensions: [String] = [ContainerFormatDdoc, ContainerFormatAscis, ContainerFormatAsicsShort]
         
-        if forbiddenMimetypes.contains(mimeType) || forbiddenExtensions.contains(fileExtension) {
+        if forbiddenExtensions.contains(fileExtension) {
+            return true
+        }
+        
+        let mimeType: String = MimeTypeExtractor().getMimeTypeFromContainer(filePath: fileLocation)
+        
+        if forbiddenMimetypes.contains(mimeType) {
             return true
         }
         
