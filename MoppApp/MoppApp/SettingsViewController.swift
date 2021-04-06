@@ -30,7 +30,6 @@ class SettingsViewController: MoppViewController {
     }
     
     enum FieldId {
-        case missingId
         case rpuuid
         case timestampUrl
     }
