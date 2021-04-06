@@ -101,6 +101,9 @@
 "file-import-create-new-failed-alert-title" = "Ümbriku loomine ebaõnnestus";
 "file-import-create-new-failed-alert-message" = "%@ laadmine ebaõnnesus";
 "file-import-remove-file" = "Eemalda Fail";
+"file-import-save-file" = "Salvesta fail ümbrikust";
+"file-import-file-saved" = "Fail salvestatud";
+"file-import-failed-file-save" = "Faili salvestamine ebaõnnestus";
 
 // Details
 "container-details-signing-success" = "ALLKIRI LISATUD";

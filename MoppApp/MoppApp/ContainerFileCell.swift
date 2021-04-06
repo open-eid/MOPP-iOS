@@ -25,6 +25,7 @@ import Foundation
 
 protocol ContainerFileDelegate: class {
     func removeDataFile(dataFileIndex: Int)
+    func saveDataFile(fileName: String?)
 }
 
 class ContainerFileCell: UITableViewCell {
@@ -32,6 +33,7 @@ class ContainerFileCell: UITableViewCell {
     @IBOutlet weak var filenameLabel: UILabel!
     @IBOutlet weak var bottomBorderView: UIView!
     @IBOutlet weak var removeButton: UIView!
+    @IBOutlet weak var saveButton: UIButton!
     
     weak var delegate: ContainerFileDelegate? = nil
     var dataFileIndex: Int!
@@ -40,11 +42,17 @@ class ContainerFileCell: UITableViewCell {
         delegate?.removeDataFile(dataFileIndex: dataFileIndex)
     }
     
-    func populate(name: String, showBottomBorder: Bool, showRemoveButton: Bool, dataFileIndex: Int) {
+    @IBAction func saveAction(_ sender: Any) {
+        delegate?.saveDataFile(fileName: filenameLabel.text ?? "-")
+    }
+    
+    func populate(name: String, showBottomBorder: Bool, showRemoveButton: Bool, showDownloadButton: Bool, dataFileIndex: Int) {
         bottomBorderView.isHidden = !showBottomBorder
         filenameLabel.text = name
         removeButton.isHidden = !showRemoveButton
         removeButton.accessibilityLabel = formatString(text: L(.fileImportRemoveFile), additionalText: filenameLabel.text)
+        saveButton.isHidden = !showDownloadButton
+        saveButton.accessibilityLabel = formatString(text: L(.fileImportSaveFile), additionalText: filenameLabel.text)
         self.dataFileIndex = dataFileIndex
     }
 }

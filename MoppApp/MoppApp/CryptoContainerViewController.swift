@@ -24,7 +24,7 @@
 import Foundation
 
 
-class CryptoContainerViewController : ContainerViewController, CryptoActions {
+class CryptoContainerViewController : ContainerViewController, CryptoActions, UIDocumentPickerDelegate {
 
     var container: CryptoContainer!
     var delegate: AddresseeViewControllerDelegate?
@@ -112,6 +112,37 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
                 strongSelf.reloadData()
         })
 
+    }
+    
+    func saveDataFile(name: String?) {
+        SaveableContainer(signingContainerPath: self.containerPath, cryptoContainer: container).saveDataFile(name: name, completionHandler: { tempSavedFileLocation, isSuccess in
+            if isSuccess && !tempSavedFileLocation.isEmpty {
+                // Show file save location picker
+                let pickerController = UIDocumentPickerViewController(url: URL(fileURLWithPath: tempSavedFileLocation), in: .exportToService)
+                pickerController.delegate = self
+                self.present(pickerController, animated: true) {
+                    NSLog("Showing file saving location picker")
+                }
+            } else {
+                NSLog("Failed to save \(name ?? "file") to 'Saved Files' directory")
+                return self.errorAlert(message: L(.fileImportFailedFileSave))
+            }
+        })
+    }
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        if SaveableContainer.isFileSaved(urls: urls) {
+            let savedFileLocation: URL? = urls.first
+            NSLog("File export done. Location: \(savedFileLocation?.path ?? "Not available")")
+            self.errorAlert(message: L(.fileImportFileSaved))
+        } else {
+            NSLog("Failed to save file")
+            return self.errorAlert(message: L(.fileImportFailedFileSave))
+        }
+    }
+    
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        NSLog("File saving cancelled")
     }
     
     func getDataFileDisplayName(index: Int) -> String? {

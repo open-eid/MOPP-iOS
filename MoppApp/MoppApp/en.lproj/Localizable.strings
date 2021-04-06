@@ -100,6 +100,9 @@
 "file-import-create-new-failed-alert-title" = "Error creating container";
 "file-import-create-new-failed-alert-message" = "Failed to open container %@";
 "file-import-remove-file" = "Remove File";
+"file-import-save-file" = "Save file";
+"file-import-file-saved" = "File saved";
+"file-import-failed-file-save" = "Failed to save file";
 
 // Details
 "container-details-signing-success" = "SIGNATURE ADDED";
