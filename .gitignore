@@ -27,9 +27,6 @@ Pods/
 Packages
 xcuserdata
 
-# Xcode
-*.entitlements
-
 ### Xcode Patch ###
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
