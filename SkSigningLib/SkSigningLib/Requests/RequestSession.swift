@@ -30,9 +30,9 @@ protocol SessionRequest {
     - Parameters:
        - baseUrl: The base URL for Mobile-ID. Path "/signature" will be added to the base URL
        - requestParameters: Parameters that are sent to the service.
-       - completionHandler: On request success, callbacks Result<SessionResponse, MobileIDError>
+       - completionHandler: On request success, callbacks Result<SessionResponse, SigningError>
     */
-    func getSession(baseUrl: String, requestParameters: SessionRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionResponse, MobileIDError>) -> Void)
+    func getSession(baseUrl: String, requestParameters: SessionRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionResponse, SigningError>) -> Void)
     
     /**
     Gets session status info for Mobile-ID. This method invokes SIM toolkit
@@ -40,9 +40,9 @@ protocol SessionRequest {
     - Parameters:
        - baseUrl: The base URL for Mobile-ID. Path "/signature/session/{sessionId}?timeoutMs={timeoutMs}" will be added to the base URL. Values are taken from requestParameters
        - requestParameters: Parameters that are used in URL
-       - completionHandler: On request success, callbacks Result<SessionStatusResponse, MobileIDError>
+       - completionHandler: On request success, callbacks Result<SessionStatusResponse, SigningError>
     */
-    func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionStatusResponse, MobileIDError>) -> Void)
+    func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionStatusResponse, SigningError>) -> Void)
 }
 
 /**
@@ -54,7 +54,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
     
     private var trustedCerts: [String]?
     
-    public func getSession(baseUrl: String, requestParameters: SessionRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionResponse, MobileIDError>) -> Void) {
+    public func getSession(baseUrl: String, requestParameters: SessionRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionResponse, SigningError>) -> Void) {
         guard let url = URL(string: "\(baseUrl)/signature") else {
             completionHandler(.failure(.invalidURL))
             return
@@ -124,7 +124,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         CertificatePinning().certificatePinning(trustedCertificates: trustedCerts ?? [""], challenge: challenge, completionHandler: completionHandler)
     }
     
-    public func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionStatusResponse, MobileIDError>) -> Void) {
+    public func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionStatusResponse, SigningError>) -> Void) {
         
         guard let url = URL(string: "\(baseUrl)/signature/session/\(requestParameters.sessionId)?timeoutMs=\(requestParameters.timeoutMs ?? Constants.defaultTimeoutMs)") else {
             ErrorLog.errorLog(forMethod: "Session status", httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(baseUrl)/signature/session/\(requestParameters.sessionId)?timeoutMs=\(requestParameters.timeoutMs ?? Constants.defaultTimeoutMs)")
@@ -179,7 +179,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         }.resume()
     }
     
-    private func handleHTTPSessionResponseError(httpResponse: HTTPURLResponse) -> MobileIDError {
+    private func handleHTTPSessionResponseError(httpResponse: HTTPURLResponse) -> SigningError {
         switch httpResponse.statusCode {
         case 400:
             return .parameterNameNull
@@ -194,7 +194,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         }
     }
     
-    private func handleHTTPSessionStatusResponseError(httpResponse: HTTPURLResponse) -> MobileIDError {
+    private func handleHTTPSessionStatusResponseError(httpResponse: HTTPURLResponse) -> SigningError {
         switch httpResponse.statusCode {
         case 400:
             return .sessionIdMissing

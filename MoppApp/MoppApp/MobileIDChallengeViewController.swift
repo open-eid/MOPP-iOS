@@ -116,9 +116,9 @@ class MobileIDChallengeViewController : UIViewController {
     @objc func receiveErrorNotification(_ notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         let error = userInfo[kErrorKey] as? NSError
-        let mobileIDErrorMessage = error?.userInfo[NSLocalizedDescriptionKey] as? MobileIDError
-        let errorMessage = userInfo[kErrorMessage] as? String ?? MobileIDError.generalError.mobileIDErrorDescription ?? L(.genericErrorMessage)
-        return showErrorDialog(errorMessage: SkSigningLib_LocalizedString(mobileIDErrorMessage?.mobileIDErrorDescription ?? errorMessage))
+        let signingErrorMessage = error?.userInfo[NSLocalizedDescriptionKey] as? SigningError
+        let errorMessage = userInfo[kErrorMessage] as? String ?? SigningError.generalError.signingErrorDescription ?? L(.genericErrorMessage)
+        return showErrorDialog(errorMessage: SkSigningLib_LocalizedString(signingErrorMessage?.signingErrorDescription ?? errorMessage))
     }
   
     func showErrorDialog(errorMessage: String) -> Void {

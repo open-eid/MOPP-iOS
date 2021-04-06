@@ -28,7 +28,7 @@ class SessionCertificate {
     
     static let shared: SessionCertificate = SessionCertificate()
     
-    func getCertificate(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, trustedCertificates: [String]?, completionHandler: @escaping (Result<CertificateResponse, MobileIDError>) -> Void) -> Void {
+    func getCertificate(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, trustedCertificates: [String]?, completionHandler: @escaping (Result<CertificateResponse, SigningError>) -> Void) -> Void {
         do {
             _ = try RequestSignature.shared.getCertificate(baseUrl: baseUrl, requestParameters: CertificateRequestParameters(relyingPartyUUID: uuid, relyingPartyName: kRelyingPartyName, phoneNumber: "+\(phoneNumber)", nationalIdentityNumber: nationalIdentityNumber), trustedCertificates: trustedCertificates) { (result) in
                 
@@ -37,7 +37,7 @@ class SessionCertificate {
                     NSLog("Received certificate response: \(response.result?.rawValue ?? "-")")
                     return completionHandler(.success(response))
                 case .failure(let error):
-                    NSLog("Getting certificate error: \(error.mobileIDErrorDescription ?? error.rawValue)")
+                    NSLog("Getting certificate error: \(error.signingErrorDescription ?? error.rawValue)")
                     return completionHandler(.failure(error))
                 }
             }

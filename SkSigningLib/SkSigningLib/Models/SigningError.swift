@@ -1,5 +1,5 @@
 //
-//  MobileIDError.swift
+//  SigningError.swift
 //  SkSigningLib
 //
 /*
@@ -23,7 +23,7 @@
 
 import Foundation
 
-public enum MobileIDError: String, Error {
+public enum SigningError: String, Error {
     
     // MARK: General Errors
     case invalidURL
@@ -70,9 +70,9 @@ public enum MobileIDError: String, Error {
     case accountNotFound
 }
 
-// MARK: MobileIDError mobileIDErrorDescription Extension
-extension MobileIDError: LocalizedError {
-    public var mobileIDErrorDescription: String? {
+// MARK: SigningError signingErrorDescription Extension
+extension SigningError: LocalizedError {
+    public var signingErrorDescription: String? {
         switch self {
         case .parameterNameNull:
             return NSLocalizedString("mid-rest-error-incorrect-parameters", comment: "")

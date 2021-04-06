@@ -32,9 +32,9 @@ class SmartIDSignature {
         let certBundle = Configuration.getConfiguration().CERTBUNDLE
         let backgroundTask = UIApplication.shared.beginBackgroundTask(withName: "Smart-ID")
         let certparams = SIDCertificateRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid)
-        let errorHandler: (MobileIDError, String) -> Void = { error, log in
+        let errorHandler: (SigningError, String) -> Void = { error, log in
             UIApplication.shared.endBackgroundTask(backgroundTask)
-            NSLog("\(log): \(error.mobileIDErrorDescription ?? error.rawValue)")
+            NSLog("\(log): \(error.signingErrorDescription ?? error.rawValue)")
             self.generateError(error: error)
         }
         getCertificate(baseUrl: baseUrl, country: country, nationalIdentityNumber: nationalIdentityNumber, requestParameters: certparams, containerPath: containerPath, trustedCertificates: certBundle, errorHandler: errorHandler) { documentNumber, cert, hash in
@@ -46,7 +46,7 @@ class SmartIDSignature {
         }
     }
 
-    private func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, containerPath: String, trustedCertificates: [String]?, errorHandler: @escaping (MobileIDError, String) -> Void, completionHandler: @escaping (String, String, String) -> Void) {
+    private func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, containerPath: String, trustedCertificates: [String]?, errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String, String, String) -> Void) {
         NSLog("Getting certificate...")
         SIDRequest.shared.getCertificate(baseUrl: baseUrl, country: country, nationalIdentityNumber: nationalIdentityNumber, requestParameters: requestParameters, trustedCertificates: trustedCertificates) { result in
             switch result {
@@ -75,7 +75,7 @@ class SmartIDSignature {
         }
     }
 
-    private func getSignature(baseUrl: String, documentNumber: String, requestParameters: SIDSignatureRequestParameters, trustedCertificates: [String]?, errorHandler: @escaping (MobileIDError, String) -> Void, completionHandler: @escaping (String) -> Void) {
+    private func getSignature(baseUrl: String, documentNumber: String, requestParameters: SIDSignatureRequestParameters, trustedCertificates: [String]?, errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String) -> Void) {
         NSLog("Getting signature...")
         SIDRequest.shared.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, requestParameters: requestParameters, trustedCertificates: trustedCertificates) { result in
             switch result {
@@ -98,7 +98,7 @@ class SmartIDSignature {
         }
     }
 
-    private func getSessionStatus(baseUrl: String, sessionId: String, trustedCertificates: [String]?, notification: @escaping () -> Void = {}, completionHandler: @escaping (Result<SIDSessionStatusResponse, MobileIDError>) -> Void) {
+    private func getSessionStatus(baseUrl: String, sessionId: String, trustedCertificates: [String]?, notification: @escaping () -> Void = {}, completionHandler: @escaping (Result<SIDSessionStatusResponse, SigningError>) -> Void) {
         NSLog("Requesting session status...")
         SIDRequest.shared.getSessionStatus(baseUrl: baseUrl, sessionId: sessionId, timeoutMs: kDefaultTimeoutMs, trustedCertificates: trustedCertificates) { result in
             switch result {
@@ -186,7 +186,7 @@ class SmartIDSignature {
         return hash
     }
 
-    private func generateError(error: MobileIDError) -> Void {
+    private func generateError(error: SigningError) -> Void {
         let error = NSError(domain: "SkSigningLib", code: 10, userInfo: [NSLocalizedDescriptionKey: error])
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .errorNotificationName, object: nil, userInfo: [kErrorKey: error])

@@ -31,9 +31,9 @@ protocol CertificateRequest {
     - Parameters:
        - baseUrl: The base URL for Mobile-ID. Path "/certificate" will be added to the base URL
        - requestParameters: Parameters that are sent to the service. Uses CertificateRequestParameters struct
-       - completionHandler: On request success, callbacks Result<CertificateResponse, MobileIDError>
+       - completionHandler: On request success, callbacks Result<CertificateResponse, SigningError>
     */
-    func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<CertificateResponse, MobileIDError>) -> Void)
+    func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<CertificateResponse, SigningError>) -> Void)
 }
 
 /**
@@ -45,7 +45,7 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
     public static let shared: RequestSignature = RequestSignature()
     private var trustedCerts: [String]?
     
-    public func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<CertificateResponse, MobileIDError>) -> Void) {
+    public func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<CertificateResponse, SigningError>) -> Void) {
         guard UUID(uuidString: requestParameters.relyingPartyUUID) != nil else { completionHandler(.failure(.invalidAccessRights)); return }
         guard let url = URL(string: "\(baseUrl)/certificate") else {
             ErrorLog.errorLog(forMethod: "Certificate", httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(baseUrl)/certificate")
@@ -123,7 +123,7 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
         CertificatePinning().certificatePinning(trustedCertificates: trustedCerts ?? [""], challenge: challenge, completionHandler: completionHandler)
     }
     
-    private func handleCertificateError(certificateResponse: CertificateResponse) -> MobileIDError {
+    private func handleCertificateError(certificateResponse: CertificateResponse) -> SigningError {
         guard let certificateResponseResult = certificateResponse.result else { return .generalError }
         switch certificateResponseResult {
         case ResponseResult.NOT_FOUND:
@@ -135,7 +135,7 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
         }
     }
     
-    private func handleHTTPResponseError(httpResponse: HTTPURLResponse) -> MobileIDError {
+    private func handleHTTPResponseError(httpResponse: HTTPURLResponse) -> SigningError {
         switch httpResponse.statusCode {
         case 400:
             return .parameterNameNull
@@ -162,7 +162,7 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
         }
     }
     
-    private func handleResponseResult(responseResult: ResponseResult, completionHandler: @escaping (MobileIDError) -> Void) -> Void {
+    private func handleResponseResult(responseResult: ResponseResult, completionHandler: @escaping (SigningError) -> Void) -> Void {
         switch responseResult {
         case ResponseResult.NOT_FOUND:
             completionHandler(.notFound)

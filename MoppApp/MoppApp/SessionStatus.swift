@@ -28,11 +28,11 @@ class SessionStatus {
     
     static let shared: SessionStatus = SessionStatus()
     
-    func getSessionStatus(baseUrl: String, process: PollingProcess, sessionId: String, timeoutMs: Int?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionStatusResponse, MobileIDError>) -> Void ) {
+    func getSessionStatus(baseUrl: String, process: PollingProcess, sessionId: String, timeoutMs: Int?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionStatusResponse, SigningError>) -> Void ) {
         DispatchQueue.main.async {
             Timer.scheduledTimer(withTimeInterval: TimeInterval(kDefaultTimeoutS), repeats: true) { timer in
                 do {
-                    _ = try RequestSession.shared.getSessionStatus(baseUrl: baseUrl, process: process, requestParameters: SessionStatusRequestParameters(sessionId: sessionId, timeoutMs: timeoutMs), trustedCertificates: trustedCertificates) { (sessionStatusResult: Result<SessionStatusResponse, MobileIDError>) in
+                    _ = try RequestSession.shared.getSessionStatus(baseUrl: baseUrl, process: process, requestParameters: SessionStatusRequestParameters(sessionId: sessionId, timeoutMs: timeoutMs), trustedCertificates: trustedCertificates) { (sessionStatusResult: Result<SessionStatusResponse, SigningError>) in
                         switch sessionStatusResult {
                         case .success(let sessionStatus):
                             if self.isSessionStateComplete(sessionState: self.getSessionState(sessionStatus: sessionStatus)) {
@@ -41,7 +41,7 @@ class SessionStatus {
                                 return completionHandler(.success(sessionStatus))
                             }
                         case .failure(let sessionError):
-                            NSLog("Getting Session Status error: \(sessionError.mobileIDErrorDescription ?? sessionError.rawValue)")
+                            NSLog("Getting Session Status error: \(sessionError.signingErrorDescription ?? sessionError.rawValue)")
                             return completionHandler(.failure(sessionError))
                         }
                     }

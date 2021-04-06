@@ -31,7 +31,7 @@
 		DFD204ED240FD8D100EB8150 /* SessionStatusRequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204EC240FD8D100EB8150 /* SessionStatusRequestParameters.swift */; };
 		DFD204EF240FD9FD00EB8150 /* SessionStatusResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204EE240FD9FD00EB8150 /* SessionStatusResponse.swift */; };
 		DFD204F124100C5500EB8150 /* SessionResponseSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204F024100C5500EB8150 /* SessionResponseSignature.swift */; };
-		DFDF02C6241F0150006CF443 /* MobileIDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDF02C5241F0150006CF443 /* MobileIDError.swift */; };
+		DFDF02C6241F0150006CF443 /* SigningError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDF02C5241F0150006CF443 /* SigningError.swift */; };
 		DFEB04E9243DF3F00080F43A /* CertificatePinning.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEB04E8243DF3F00080F43A /* CertificatePinning.swift */; };
 /* End PBXBuildFile section */
 
@@ -77,7 +77,7 @@
 		DFD204EC240FD8D100EB8150 /* SessionStatusRequestParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatusRequestParameters.swift; sourceTree = "<group>"; };
 		DFD204EE240FD9FD00EB8150 /* SessionStatusResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatusResponse.swift; sourceTree = "<group>"; };
 		DFD204F024100C5500EB8150 /* SessionResponseSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionResponseSignature.swift; sourceTree = "<group>"; };
-		DFDF02C5241F0150006CF443 /* MobileIDError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileIDError.swift; sourceTree = "<group>"; };
+		DFDF02C5241F0150006CF443 /* SigningError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningError.swift; sourceTree = "<group>"; };
 		DFEB04E8243DF3F00080F43A /* CertificatePinning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePinning.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -167,7 +167,7 @@
 				DF04A89C23FEDFA40086C9F9 /* Certificate */,
 				DFD204E1240D209500EB8150 /* Session */,
 				DF04A89623FEDD110086C9F9 /* RequestMethod.swift */,
-				DFDF02C5241F0150006CF443 /* MobileIDError.swift */,
+				DFDF02C5241F0150006CF443 /* SigningError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -429,7 +429,7 @@
 				DF3653B2242BA07400C48AC5 /* ErrorLog.swift in Sources */,
 				DF04A89023FEC7130086C9F9 /* EncoderDecoder.swift in Sources */,
 				DF04A89723FEDD110086C9F9 /* RequestMethod.swift in Sources */,
-				DFDF02C6241F0150006CF443 /* MobileIDError.swift in Sources */,
+				DFDF02C6241F0150006CF443 /* SigningError.swift in Sources */,
 				DFEB04E9243DF3F00080F43A /* CertificatePinning.swift in Sources */,
 				DFD204ED240FD8D100EB8150 /* SessionStatusRequestParameters.swift in Sources */,
 				4E59082424B32E9A001B23A6 /* SIDRequest.swift in Sources */,

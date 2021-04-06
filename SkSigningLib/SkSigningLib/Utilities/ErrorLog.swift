@@ -24,16 +24,16 @@
 import Foundation
 
 class ErrorLog {
-    internal static func errorLog(forMethod: String, httpResponse: HTTPURLResponse?, error: MobileIDError, extraInfo: String) {
+    internal static func errorLog(forMethod: String, httpResponse: HTTPURLResponse?, error: SigningError, extraInfo: String) {
         guard let response = httpResponse else {
             return NSLog("\(forMethod) Error: \(error)\n" +
-                "Error description: \(error.mobileIDErrorDescription ?? "Unable to get error description")\n" +
+                "Error description: \(error.signingErrorDescription ?? "Unable to get error description")\n" +
                 extraInfo
             )
         }
         NSLog("\(forMethod) response code: \(response.statusCode)\n" +
             "Error: \(error)\n" +
-            "Error description: \(error.mobileIDErrorDescription ?? "Unable to get error description")\n" +
+            "Error description: \(error.signingErrorDescription ?? "Unable to get error description")\n" +
             "URL: \(response.url?.absoluteString ?? "Unable to get URL")\n" +
             extraInfo
         )

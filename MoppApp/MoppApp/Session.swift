@@ -27,7 +27,7 @@ import SkSigningLib
 class Session {
     static let shared: Session = Session()
     
-    func getSession(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, hash: String, hashType: String, language: String, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionResponse, MobileIDError>) -> Void) -> Void {
+    func getSession(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, hash: String, hashType: String, language: String, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionResponse, SigningError>) -> Void) -> Void {
         do {
             _ = try RequestSession.shared.getSession(baseUrl: baseUrl, requestParameters: SessionRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, phoneNumber: "+\(phoneNumber)", nationalIdentityNumber: nationalIdentityNumber, hash: hash, hashType: hashType, language: language, displayText: L(.simToolkitSignDocumentTitle), displayTextFormat: kDisplayTextFormat), trustedCertificates: trustedCertificates) { (sessionResult) in
                 
@@ -36,7 +36,7 @@ class Session {
                     NSLog("\nReceived Session (session ID redacted): \(response.sessionID?.prefix(13) ?? "-")\n")
                     completionHandler(.success(response))
                 case .failure(let sessionError):
-                    NSLog("Getting session error: \(sessionError.mobileIDErrorDescription ?? sessionError.rawValue)")
+                    NSLog("Getting session error: \(sessionError.signingErrorDescription ?? sessionError.rawValue)")
                     return completionHandler(.failure(sessionError))
                 }
             }

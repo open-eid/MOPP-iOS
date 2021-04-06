@@ -29,9 +29,9 @@ protocol SIDRequestProtocol {
        - country:
        - nationalIdentityNumber:
        - requestParameters: Parameters that are sent to the service. Uses CertificateRequestParameters struct
-       - completionHandler: On request success, callbacks Result<SIDSessionResponse, MobileIDError>
+       - completionHandler: On request success, callbacks Result<SIDSessionResponse, SigningError>
     */
-    func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, MobileIDError>) -> Void)
+    func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void)
 
     /**
     Gets signature info for Smart-ID.
@@ -40,9 +40,9 @@ protocol SIDRequestProtocol {
        - baseUrl: The base URL for Smart-ID. Path "/signature/document/{documentNumber}" will be added to the base URL
        - documentNumber:
        - requestParameters: Parameters that are sent to the service.
-       - completionHandler: On request success, callbacks Result<SIDSessionResponse, MobileIDError>
+       - completionHandler: On request success, callbacks Result<SIDSessionResponse, SigningError>
     */
-    func getSignature(baseUrl: String, documentNumber: String, requestParameters: SIDSignatureRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, MobileIDError>) -> Void)
+    func getSignature(baseUrl: String, documentNumber: String, requestParameters: SIDSignatureRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void)
 
     /**
     Gets session status info for Smart-ID.
@@ -51,9 +51,9 @@ protocol SIDRequestProtocol {
        - baseUrl: The base URL for Smart-ID. Path "/session/{sessionId}?timeoutMs={timeoutMs}" will be added to the base URL. Values are taken from requestParameters
        - sessionId: SessionID parameter that is used in URL
        - timeoutMs: TimeoutMs parameter that is used in URL
-       - completionHandler: On request success, callbacks Result<SIDSessionStatusResponse, MobileIDError>
+       - completionHandler: On request success, callbacks Result<SIDSessionStatusResponse, SigningError>
     */
-    func getSessionStatus(baseUrl: String, sessionId: String, timeoutMs: Int?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionStatusResponse, MobileIDError>) -> Void)
+    func getSessionStatus(baseUrl: String, sessionId: String, timeoutMs: Int?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionStatusResponse, SigningError>) -> Void)
 }
 
 /**
@@ -64,23 +64,23 @@ public class SIDRequest: NSObject, URLSessionDelegate, SIDRequestProtocol {
     public static let shared = SIDRequest()
     private var trustedCerts: [String]?
 
-    public func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, MobileIDError>) -> Void) {
+    public func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void) {
         let url = "\(baseUrl)/certificatechoice/pno/\(country)/\(nationalIdentityNumber)"
         guard UUID(uuidString: requestParameters.relyingPartyUUID) != nil else { completionHandler(.failure(.invalidAccessRights)); return }
         exec(method: "Certificate", url: url, data: EncoderDecoder().encode(data: requestParameters), trustedCertificates: trustedCertificates, completionHandler: completionHandler)
     }
 
-    public func getSignature(baseUrl: String, documentNumber: String, requestParameters: SIDSignatureRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, MobileIDError>) -> Void) {
+    public func getSignature(baseUrl: String, documentNumber: String, requestParameters: SIDSignatureRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void) {
         let url = "\(baseUrl)/signature/document/\(documentNumber)"
         exec(method: "Signature", url: url, data: EncoderDecoder().encode(data: requestParameters), trustedCertificates: trustedCertificates, completionHandler: completionHandler)
     }
 
-    public func getSessionStatus(baseUrl: String, sessionId: String, timeoutMs: Int?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionStatusResponse, MobileIDError>) -> Void) {
+    public func getSessionStatus(baseUrl: String, sessionId: String, timeoutMs: Int?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionStatusResponse, SigningError>) -> Void) {
         let url = "\(baseUrl)/session/\(sessionId)?timeoutMs=\(timeoutMs ?? Constants.defaultTimeoutMs)"
         exec(method: "Session", url: url, data: nil, trustedCertificates: trustedCertificates, completionHandler: completionHandler)
     }
 
-    private func exec<D: Decodable>(method: String, url: String, data: Data?, trustedCertificates: [String]?, completionHandler: @escaping (Result<D, MobileIDError>) -> Void) {
+    private func exec<D: Decodable>(method: String, url: String, data: Data?, trustedCertificates: [String]?, completionHandler: @escaping (Result<D, SigningError>) -> Void) {
         guard let _url = URL(string: url) else {
             ErrorLog.errorLog(forMethod: method, httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(url)")
             return completionHandler(.failure(.invalidURL))
@@ -120,7 +120,7 @@ public class SIDRequest: NSObject, URLSessionDelegate, SIDRequestProtocol {
                 return completionHandler(.failure(.noResponseError))
             }
             if !(200...299).contains(httpResponse.statusCode) {
-                let statusCode: MobileIDError = {
+                let statusCode: SigningError = {
                   switch httpResponse.statusCode {
                   case 400: return .forbidden
                   case 401, 403: return .invalidAccessRights
