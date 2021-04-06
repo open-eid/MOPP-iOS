@@ -4,4 +4,44 @@ POC/MOPP POC/MOPP POC.xcworkspace/xcuserdata
 POC/MOPP POC/Pods
 MoppApp/MoppApp/Localizations.h
 MoppApp/MoppApp/Localizations.m
+
+# CocoaPods
+Pods/
+
+# macOS
 .DS_Store
+
+# Swift
+build/
+DerivedData/
+timeline.xctimeline
+playground.xcworkspace
+
+Packages/
+.build/
+
+# CocoaPods
+Pods/
+
+# Swift Package Manager
+Packages
+xcuserdata
+
+# Xcode
+*.entitlements
+
+### Xcode Patch ###
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+**/xcshareddata/WorkspaceSettings.xcsettings
+
+# Ignore packaged files
+MoppApp/GoogleService-Info.plist
+MoppApp/MoppApp/config.json
+MoppApp/MoppApp/defaultConfiguration.json
+MoppApp/MoppApp/publicKey.pub
+MoppApp/MoppApp/signature.rsa
+
+MoppApp/MoppApp/tslFiles.bundle/*

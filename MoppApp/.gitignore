@@ -20,4 +20,7 @@ DerivedData
 # Pods
 /Pods
 
+# Xcode
+*.entitlements
+
 
