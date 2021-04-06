@@ -44,6 +44,10 @@ class MimeTypeExtractor {
         }
         fileHandle.closeFile()
         
+        if isDdoc(url: filePath) {
+            return "application/x-ddoc"
+        }
+        
         return mimetype
     }
     
@@ -80,5 +84,29 @@ class MimeTypeExtractor {
     
     private func removeUnzippedFolder(folderPath: URL) -> Void {
         MoppFileManager().removeFile(withPath: folderPath.path)
+    }
+    
+    private func isDdoc(url: URL) -> Bool {
+        do {
+            let fileData = try Data(contentsOf: url)
+            guard !fileData.isEmpty else {
+                return false
+            }
+            let fileDataAscii = String(data: fileData, encoding: .ascii)
+            
+            var isDdoc: Bool = false
+            
+            MimeTypeDecoder().getMimeType(fileString: fileDataAscii ?? "") { (containerExtension) in
+                if containerExtension == "ddoc" {
+                    isDdoc = true
+                }
+            }
+            
+            return isDdoc
+        } catch {
+            MSLog("Error getting url data \(error)")
+        }
+        
+        return false
     }
 }

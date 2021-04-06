@@ -212,7 +212,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             var newUrl = url
             
             // Sharing from Google Drive may change file extension
-            let fileExtension = determineFileExtension(mimeType: determineMimeType(url: newUrl))
+            let fileExtension = determineFileExtension(mimeType: MimeTypeExtractor().getMimeTypeFromContainer(filePath: newUrl))
             if fileExtension != "" {
                 do {
                     let newData: Data = try Data(contentsOf: newUrl)
@@ -391,32 +391,6 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                 MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
             }
         }
-    }
-    
-    private func determineMimeType(url: URL) -> String {
-        do {
-            let fileData = try Data(contentsOf: url)
-            let fileDataAscii = String(data: fileData, encoding: .ascii)
-            
-            var isDdoc: Bool = false
-            
-            MimeTypeDecoder().getMimeType(fileString: fileDataAscii ?? "") { (containerExtension) in
-                if containerExtension == "ddoc" {
-                    isDdoc = true
-                }
-            }
-            
-            if isDdoc {
-                return "application/x-ddoc"
-            }
-            
-            return MimeTypeExtractor().getMimeTypeFromContainer(filePath: url)
-            
-        } catch {
-            MSLog("Error getting url data \(error)")
-        }
-        
-        return "application/octet-stream"
     }
     
     private func determineFileExtension(mimeType: String) -> String {
