@@ -111,7 +111,7 @@ class DiagnosticsViewController: MoppViewController {
         let decodedConf = getMoppConfiguration()
         
         configURL.text = formatString(text: "CONFIG_URL:", additionalText: decodedConf.METAINF.URL)
-        tslURL.text = formatString(text: "TSL_URL:", additionalText: getMoppConfiguration().TSLURL)
+        tslURL.text = formatString(text: "TSL_URL:", additionalText: "\(getMoppConfiguration().TSLURL) \(formatLOTLVersion(version: getLOTLVersion()))")
         sivaURL.text = formatString(text: "SIVA_URL:", additionalText: decodedConf.SIVAURL)
         tsaURL.text = formatString(text: "TSA_URL:", additionalText: DefaultsHelper.timestampUrl ?? decodedConf.TSAURL)
         midSignURL.text = formatString(text: "MID-SIGN-URL:", additionalText: decodedConf.MIDSIGNURL)
@@ -157,5 +157,33 @@ class DiagnosticsViewController: MoppViewController {
             MSLog("Unable to decode data: ", error.localizedDescription)
             throw error
         }
+    }
+    
+    private func getLOTLVersion() -> String {
+        let lotlFileUrl: URL? = TSLUpdater().getLOTLFileURL()
+        guard lotlFileUrl != nil, let lotlFile = lotlFileUrl else {
+            NSLog("Unable to get LOTL file")
+            return ""
+        }
+        let fileLocation: URL? = URL(fileURLWithPath: lotlFile.path)
+        guard let fileURL: URL = fileLocation else { NSLog("Failed to get eu-lotl file location"); return "" }
+        do {
+            _ = try fileURL.checkResourceIsReachable()
+        } catch let error {
+            NSLog("Failed to check if eu-lotl.xml file is reachable. Error: \(error)")
+            return ""
+        }
+        var version: String = ""
+        TSLVersionChecker().getTSLVersion(filePath: fileURL) { (tslVersion) in
+            if !tslVersion.isEmpty {
+                version = tslVersion
+            }
+        }
+
+        return version
+    }
+    
+    private func formatLOTLVersion(version: String) -> String {
+        return version.isEmpty ? "" : "(\(version))"
     }
 }
