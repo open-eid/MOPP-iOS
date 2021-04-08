@@ -66,7 +66,7 @@ public class SIDRequest: NSObject, URLSessionDelegate, SIDRequestProtocol {
 
     public func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void) {
         let url = "\(baseUrl)/certificatechoice/pno/\(country)/\(nationalIdentityNumber)"
-        guard UUID(uuidString: requestParameters.relyingPartyUUID) != nil else { completionHandler(.failure(.invalidAccessRights)); return }
+        guard UUID(uuidString: requestParameters.relyingPartyUUID) != nil else { completionHandler(.failure(.forbidden)); return }
         exec(method: "Certificate", url: url, data: EncoderDecoder().encode(data: requestParameters), trustedCertificates: trustedCertificates, completionHandler: completionHandler)
     }
 
