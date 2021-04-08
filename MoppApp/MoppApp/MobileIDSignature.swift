@@ -118,6 +118,14 @@ class MobileIDSignature {
                 sessionResponse = try sessionResult.getResult()
 
                 NSLog("\nReceived session (session ID redacted): \(sessionResponse.sessionID?.prefix(13) ?? "Unable to log sessionID")\n")
+                
+                guard let sessionId = sessionResponse.sessionID else {
+                    NSLog("\nUnable to get sessionID\n")
+
+                    return self.generateError(signingError: .generalError)
+                }
+
+                completionHandler(sessionId)
             } catch let sessionError {
                 let error: Error = sessionError as? SigningError ?? sessionError
                 if let errorObj = error as? SigningError {
@@ -125,14 +133,6 @@ class MobileIDSignature {
                 }
                 return self.errorResult(error: error)
             }
-
-            guard let sessionId = sessionResponse.sessionID else {
-                NSLog("\nUnable to get sessionID\n")
-
-                return self.generateError(signingError: .generalError)
-            }
-
-            completionHandler(sessionId)
         }
     }
 
@@ -164,7 +164,9 @@ class MobileIDSignature {
                 return self.generateError(signingError: .generalError)
             }
 
-            completionHandler(signatureValue)
+            if sessionStatus.state == SessionResponseState.COMPLETE {
+                completionHandler(signatureValue)
+            }
         }
     }
     

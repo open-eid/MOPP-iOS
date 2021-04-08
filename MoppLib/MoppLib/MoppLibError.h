@@ -50,5 +50,6 @@ extern NSString *const MoppLibErrorDomain;
 + (NSError *)restrictedAPIError;
 + (NSError *)duplicatedFilenameError;
 + (NSError *)tooManyRequests;
++ (NSError *)ocspTimeSlotError;
 
 @end

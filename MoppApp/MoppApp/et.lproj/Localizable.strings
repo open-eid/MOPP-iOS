@@ -197,6 +197,7 @@
 "decryption-error-message" = "Midagi läks dekrüpteerimisel valesti. Palun proovi uuesti";
 "signing-error-too-many-requests" = "Sinu IP-aadressi tasuta allkirjade kuulimiit on ületatud. https://id.ee/index.php?id=39021";
 "no-response-error" = "Palun kontrollige internetiühendust";
+"ocsp-invalid-time-slot" = "Palun kontrollige oma nutiseadme kellaaega. https://www.id.ee/artikkel/ria-digidoc-viga-palun-kontrollige-oma-nutiseadme-kellaaega/";
 "signing-aborted-message" = "Allkirjastamine katkestatud";
 "my-eid-status-reader-not-found" = "Ühenda kaardilugeja telefoniga ja sisesta ID-kaart lugejasse.";
 "my-eid-status-card-not-found" = "Kaardilugeja leitud.\nSisesta ID-kaart lugejasse.";

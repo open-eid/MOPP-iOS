@@ -185,6 +185,8 @@ extension SigningContainerViewController : IdCardSignViewControllerDelegate {
                     errorAlert(message: L(.signingErrorTooManyRequests))
                 } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
                     errorAlert(message: L(.noConnectionMessage))
+                } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorOCSPTimeSlot.rawValue) {
+                    errorAlert(message: L(.ocspInvalidTimeSlot))
                 } else {
                     errorAlert(message: L(.genericErrorMessage))
                 }

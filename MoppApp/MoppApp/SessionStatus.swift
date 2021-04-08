@@ -36,17 +36,19 @@ class SessionStatus {
                         switch sessionStatusResult {
                         case .success(let sessionStatus):
                             if self.isSessionStateComplete(sessionState: self.getSessionState(sessionStatus: sessionStatus)) {
-                                NSLog("Received session status response: \(sessionStatus.result?.rawValue ?? "-")")
                                 timer.invalidate()
+                                NSLog("Received session status response: \(sessionStatus.result?.rawValue ?? "-")")
                                 return completionHandler(.success(sessionStatus))
                             }
                         case .failure(let sessionError):
                             NSLog("Getting Session Status error: \(sessionError.signingErrorDescription ?? sessionError.rawValue)")
+                            timer.invalidate()
                             return completionHandler(.failure(sessionError))
                         }
                     }
                 } catch let error {
                     NSLog("Error occurred while getting session status: \(error.localizedDescription)")
+                    timer.invalidate()
                     return completionHandler(.failure(.generalError))
                 }
             }

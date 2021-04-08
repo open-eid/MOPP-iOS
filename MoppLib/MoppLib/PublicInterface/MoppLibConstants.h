@@ -72,7 +72,8 @@ typedef NS_ENUM(NSUInteger, MoppLibErrorCode) {
   moppLibErrorRestrictedApi = 10021, // Restricted API. Some functionality is not available for third-party apps
   moppLibErrorLdapResponseNotFound = 10022, // Ldap response not found
   moppLibErrorDuplicatedFilename = 10023, // Filename already exists
-  moppLibErrorTooManyRequests = 10024 // Too many requests
+  moppLibErrorTooManyRequests = 10024, // Too many requests
+  moppLibErrorOCSPTimeSlot = 10025 // Invalid OCSP time slot
 
 };
 

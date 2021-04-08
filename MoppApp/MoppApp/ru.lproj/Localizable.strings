@@ -187,6 +187,7 @@
 "decryption-in-progress" = "Происходит дешифрование. Пожалуйста, подождите.";
 "signing-error-too-many-requests" = "Предел для цифровых подписей в месяц был достигнут для этого IP-адреса. https://www.id.ee/index.php?id=39025";
 "no-response-error" = "Пожалуйста проверьте подключение к интернету";
+"ocsp-invalid-time-slot" = "Пожалуйста, проверьте время на своем смарт-устройстве. https://www.id.ee/ru/artikkel/oshibka-ria-digidoc-pozhalujsta-proverte-vremya-na-svoem-smart-ustrojstve/";
 "wrong-pin2" = "Неверный PIN2. У Вас осталось %d попыток.";
 "wrong-pin1" = "Неверный PIN1. У Вас осталось %1$d попыток.";
 "wrong-pin2-single" = "Неверный PIN2. У Вас осталась 1 попытка до блокировки Вашего PIN2.";

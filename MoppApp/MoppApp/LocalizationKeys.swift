@@ -151,6 +151,7 @@ enum LocKey : String
     case decryptionErrorMessage = "decryption-error-message"
     case signingErrorTooManyRequests = "signing-error-too-many-requests"
     case noConnectionMessage = "no-response-error"
+    case ocspInvalidTimeSlot = "ocsp-invalid-time-slot"
     case signingAbortedMessage = "signing-aborted-message"
     case myEidStatusReaderNotFound = "my-eid-status-reader-not-found"
     case myEidStatusCardNotFound = "my-eid-status-card-not-found"

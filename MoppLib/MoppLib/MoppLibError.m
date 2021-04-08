@@ -136,6 +136,10 @@ typedef enum {
   return [self error:moppLibErrorTooManyRequests withMessage:@"digidoc-service-error-too-many-requests"];
 }
 
++ (NSError *)ocspTimeSlotError {
+  return [self error:moppLibErrorOCSPTimeSlot withMessage:@"Invalid OCSP time slot"];
+}
+
 + (NSError *)DDSErrorWith:(NSInteger)errorCode {
   NSString *errorMessage;
   switch (errorCode) {

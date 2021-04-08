@@ -52,7 +52,15 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
     
     public static let shared = RequestSession()
     
+    private weak var urlTask: URLSessionTask?
+    
+    private var sessionStatusCompleted: Bool = false
+    
     private var trustedCerts: [String]?
+    
+    deinit {
+        urlTask?.cancel()
+    }
     
     public func getSession(baseUrl: String, requestParameters: SessionRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionResponse, SigningError>) -> Void) {
         guard let url = URL(string: "\(baseUrl)/signature") else {
@@ -155,13 +163,15 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
             urlSession = URLSession.shared
         }
         
-        urlSession.dataTask(with: request as URLRequest) { data, response, error in
+        let sessionTask: URLSessionTask? = urlSession.dataTask(with: request as URLRequest) { data, response, error in
             guard let httpResponse = response as? HTTPURLResponse else {
+                self.urlTask?.cancel()
                 ErrorLog.errorLog(forMethod: "Session status", httpResponse: response as? HTTPURLResponse ?? nil, error: .noResponseError, extraInfo: "")
                 return completionHandler(.failure(.noResponseError))
             }
             
             if error != nil {
+                self.urlTask?.cancel()
                 ErrorLog.errorLog(forMethod: "Session status", httpResponse: response as? HTTPURLResponse ?? nil, error: .generalError, extraInfo: error?.localizedDescription ?? "Error getting response")
                 return completionHandler(.failure(.generalError))
             }
@@ -169,14 +179,24 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
             if let data: Data = data {
                 EncoderDecoder().decode(data: data, completionHandler: { (response: SessionStatusResponse) in
                     if (response.error == nil) {
-                        return completionHandler(.success(response))
+                        if response.state == SessionResponseState.COMPLETE && !self.sessionStatusCompleted {
+                            self.urlTask?.cancel()
+                            self.sessionStatusCompleted = true
+                            NSLog("Polling cancelled, sessionStatusCompleted: \(self.sessionStatusCompleted)")
+                            return completionHandler(.success(response))
+                        } else {
+                            self.sessionStatusCompleted = false
+                        }
                     } else {
+                        self.urlTask?.cancel()
                         ErrorLog.errorLog(forMethod: "Session status", httpResponse: httpResponse, error: self.handleHTTPSessionResponseError(httpResponse: httpResponse), extraInfo: response.error ?? "Unknown error received")
                         return completionHandler(.failure(self.handleHTTPSessionStatusResponseError(httpResponse: httpResponse)))
                     }
                 })
             }
-        }.resume()
+        }
+        sessionTask?.resume()
+        self.urlTask = sessionTask
     }
     
     private func handleHTTPSessionResponseError(httpResponse: HTTPURLResponse) -> SigningError {

@@ -783,6 +783,8 @@ void parseException(const digidoc::Exception &e) {
         delete container;
         if (e.code() == 18) {
             failure([MoppLibError tooManyRequests]);
+        } else if (e.code() == digidoc::Exception::ExceptionCode::OCSPTimeSlot) {
+            failure([MoppLibError ocspTimeSlotError]);
         } else {
             failure([MoppLibError generalError]); // TODO try to find more specific error codes
         }
