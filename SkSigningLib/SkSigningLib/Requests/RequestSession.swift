@@ -221,7 +221,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         case 401:
             return .userAuthorizationFailed
         case 403:
-            return .invalidAccessRights
+            return .midInvalidAccessRights
         case 404:
             return .sessionIdNotFound
         case 405:

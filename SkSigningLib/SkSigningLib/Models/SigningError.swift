@@ -55,7 +55,8 @@ public enum SigningError: String, Error {
     case deliveryError
     case simError
     case tooManyRequests
-    case invalidAccessRights
+    case midInvalidAccessRights
+    case sidInvalidAccessRights
     case ocspInvalidTimeSlot
     case certificateRevoked
 
@@ -136,8 +137,10 @@ extension SigningError: LocalizedError {
             return NSLocalizedString("sid-rest-error-account-not-found", comment: "")
         case .exceededUnsuccessfulRequests:
             return NSLocalizedString("mid-rest-error-exceeded-unsuccessful-requests", comment: "")
-        case .invalidAccessRights:
+        case .midInvalidAccessRights:
             return NSLocalizedString("mid-rest-error-invalid-access-rights", comment: "")
+        case .sidInvalidAccessRights:
+            return NSLocalizedString("sid-rest-error-invalid-access-rights", comment: "")
         case .ocspInvalidTimeSlot:
             return NSLocalizedString("mid-rest-error-ocsp-invalid-time-slot", comment: "")
         case .certificateRevoked:
