@@ -96,7 +96,7 @@ extension ContainerActions where Self: UIViewController {
             landingViewController.importProgressViewController.dismissRecursivelyIfPresented(animated: false, completion: nil)
             
             var alert: UIAlertController
-            guard err?.code == 10005 && url.lastPathComponent.hasSuffix(ContainerFormatDdoc) else {
+            guard err?.code == 10005 && (url.lastPathComponent.hasSuffix(ContainerFormatDdoc) || url.lastPathComponent.hasSuffix(ContainerFormatPDF)) else {
                 alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [fileName]), preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
                 
