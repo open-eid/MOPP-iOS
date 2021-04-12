@@ -328,6 +328,32 @@ extension ContainerViewController : UITableViewDataSource {
                 cell.delegate = self
             cell.accessibilityTraits = UIAccessibilityTraitButton
             
+            let isStatePreviewOrOpened = state == .opened || state == .preview
+            let isEncryptedDataFiles = !isAsicContainer && isStatePreviewOrOpened && isDecrypted == false
+            
+            if  !isEncryptedDataFiles {
+                guard let dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) else {
+                    NSLog("Data file not found")
+                    self.errorAlert(message: L(.datafilePreviewFailed))
+                    return cell
+                }
+                let tapGesture = getPreviewTapGesture(dataFile: dataFile, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted ? true : false)
+                
+                cell.openPreviewView.addGestureRecognizer(tapGesture)
+            } else {
+                guard let gestureRecognizers = cell.openPreviewView.gestureRecognizers else {
+                    NSLog("No gesture recognizers found")
+                    self.errorAlert(message: L(.datafilePreviewFailed))
+                    return cell
+                }
+                
+                for gesture in gestureRecognizers {
+                    gesture.isEnabled = false
+                }
+                
+                cell.openPreviewView.isHidden = true
+            }
+            
             var isRemoveButtonShown = false
             var isDownloadButtonShown = false
             if isAsicContainer {
@@ -379,6 +405,29 @@ extension ContainerViewController : UITableViewDataSource {
             return cell
         }
     }
+    
+    @objc private func openPreview(_ sender: PreviewFileTapGestureRecognizer) {
+        guard let dataFile: String = sender.dataFile, let containerFilePath: String = sender.containerFilePath, let isShareButtonNeeded: Bool = sender.isShareButtonNeeded else {
+            NSLog("Unable to get data file, container file or share button information")
+            self.errorAlert(message: L(.datafilePreviewFailed))
+            return
+        }
+        
+        openFilePreview(dataFileFilename: dataFile, containerFilePath: containerFilePath, isShareButtonNeeded: isShareButtonNeeded)
+    }
+    
+    private func getPreviewTapGesture(dataFile: String, containerPath: String, isShareButtonNeeded: Bool) -> PreviewFileTapGestureRecognizer {
+        let tapGesture: PreviewFileTapGestureRecognizer = PreviewFileTapGestureRecognizer(target: self, action: #selector(openPreview(_:)))
+        
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        
+        tapGesture.dataFile = dataFile
+        tapGesture.containerFilePath = containerViewDelegate.getContainerPath()
+        tapGesture.isShareButtonNeeded = isDecrypted ? true : false
+        
+        return tapGesture
+    }
 }
 
 extension ContainerViewController : ContainerFileDelegate {
@@ -403,21 +452,6 @@ extension ContainerViewController : UITableViewDelegate {
         case .timestamp:
             break;
         case .dataFiles:
-            let isStatePreviewOrOpened = state == .opened || state == .preview
-            let isEncryptedDataFiles =
-                !isAsicContainer &&
-                isStatePreviewOrOpened &&
-                isDecrypted == false
-            if  !isEncryptedDataFiles {
-                if isDecrypted {
-                    guard let dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) else { return }
-                    openFilePreview(dataFileFilename: dataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: true)
-                } else {
-                    let dataFile = containerViewDelegate.getDataFileRelativePath(index: indexPath.row)
-                    openFilePreview(dataFileFilename: dataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: false)
-                }
-                
-            }
             break
         case .header:
             break
