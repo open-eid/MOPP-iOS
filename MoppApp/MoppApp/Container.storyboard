@@ -581,8 +581,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="77"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.pdf" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="xW9-dC-vAP">
-                                                    <rect key="frame" x="16" y="27" width="616" height="33"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.pdf" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="xW9-dC-vAP">
+                                                    <rect key="frame" x="16" y="27" width="555" height="33"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
                                                     <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -597,8 +597,8 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1t1-CX-UWa">
                                                     <rect key="frame" x="579" y="21.5" width="32" height="44"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="32" id="2is-6j-ON4"/>
-                                                        <constraint firstAttribute="height" constant="44" id="yMa-19-pEs"/>
+                                                        <constraint firstAttribute="width" constant="32" id="JCy-QR-1Q2"/>
+                                                        <constraint firstAttribute="height" constant="44" id="gW1-Dr-QsM"/>
                                                     </constraints>
                                                     <state key="normal" image="icon_remove-1"/>
                                                     <connections>
@@ -618,20 +618,19 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="xW9-dC-vAP" firstAttribute="leading" secondItem="Sza-8J-Yjw" secondAttribute="leadingMargin" id="2Gw-eP-I3q"/>
-                                                <constraint firstItem="1t1-CX-UWa" firstAttribute="centerY" secondItem="xW9-dC-vAP" secondAttribute="centerY" id="8di-ld-RcS"/>
-                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="top" secondItem="xW9-dC-vAP" secondAttribute="bottom" constant="16" id="8na-wL-58Z"/>
+                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="top" secondItem="xW9-dC-vAP" secondAttribute="bottom" constant="16" id="E8s-lL-FhZ"/>
                                                 <constraint firstItem="lxM-0N-UCI" firstAttribute="top" secondItem="9eg-iF-HaU" secondAttribute="bottom" constant="11" id="Fkh-7S-nEa"/>
-                                                <constraint firstItem="9eg-iF-HaU" firstAttribute="leading" secondItem="1t1-CX-UWa" secondAttribute="trailing" constant="8" symbolic="YES" id="H63-mx-gps"/>
+                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="top" secondItem="1t1-CX-UWa" secondAttribute="bottom" constant="10.5" id="FsY-mQ-jPp"/>
                                                 <constraint firstItem="9eg-iF-HaU" firstAttribute="top" secondItem="Sza-8J-Yjw" secondAttribute="topMargin" constant="10" id="KxT-1r-6Nz"/>
-                                                <constraint firstAttribute="trailing" secondItem="xW9-dC-vAP" secondAttribute="trailing" priority="250" constant="59" id="LMP-BC-RSQ"/>
                                                 <constraint firstAttribute="trailing" secondItem="lxM-0N-UCI" secondAttribute="trailing" constant="16" id="Neo-HZ-cbz"/>
-                                                <constraint firstItem="xW9-dC-vAP" firstAttribute="top" secondItem="Sza-8J-Yjw" secondAttribute="topMargin" constant="16" id="Ocx-om-xDW"/>
-                                                <constraint firstAttribute="trailing" secondItem="1t1-CX-UWa" secondAttribute="trailing" constant="56" id="OgC-AK-vbg"/>
                                                 <constraint firstItem="lxM-0N-UCI" firstAttribute="leading" secondItem="Sza-8J-Yjw" secondAttribute="leading" constant="16" id="QoF-Qd-PjS"/>
                                                 <constraint firstItem="9eg-iF-HaU" firstAttribute="trailing" secondItem="Sza-8J-Yjw" secondAttribute="trailingMargin" id="RiI-Wu-LxB"/>
-                                                <constraint firstItem="1t1-CX-UWa" firstAttribute="leading" secondItem="xW9-dC-vAP" secondAttribute="trailing" priority="750" constant="-53" id="SvL-U2-d8S"/>
+                                                <constraint firstItem="1t1-CX-UWa" firstAttribute="leading" secondItem="xW9-dC-vAP" secondAttribute="trailing" constant="8" symbolic="YES" id="SWy-it-Uxe"/>
                                                 <constraint firstAttribute="bottom" secondItem="lxM-0N-UCI" secondAttribute="bottom" id="jDI-ZE-seP"/>
+                                                <constraint firstItem="9eg-iF-HaU" firstAttribute="leading" secondItem="1t1-CX-UWa" secondAttribute="trailing" constant="8" symbolic="YES" id="mUj-7F-flC"/>
+                                                <constraint firstItem="xW9-dC-vAP" firstAttribute="leading" secondItem="Sza-8J-Yjw" secondAttribute="leadingMargin" id="o8J-s3-8JX"/>
+                                                <constraint firstItem="xW9-dC-vAP" firstAttribute="top" secondItem="Sza-8J-Yjw" secondAttribute="topMargin" constant="16" id="oIu-qt-db9"/>
+                                                <constraint firstItem="1t1-CX-UWa" firstAttribute="top" secondItem="Sza-8J-Yjw" secondAttribute="topMargin" constant="10.5" id="pTi-lE-Fa4"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -838,7 +837,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J2g-nF-ccG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="28" y="811"/>
+            <point key="canvasLocation" x="27.436281859070466" y="810.39999999999998"/>
         </scene>
         <!--Addressee View Controller-->
         <scene sceneID="rzB-El-9Ug">
