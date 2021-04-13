@@ -328,6 +328,27 @@ extension ContainerViewController : UITableViewDataSource {
                 cell.delegate = self
             cell.accessibilityTraits = UIAccessibilityTraitButton
             
+            let isStatePreviewOrOpened = state == .opened || state == .preview
+            let isEncryptedDataFiles = !isAsicContainer && isStatePreviewOrOpened && !isDecrypted
+            
+            guard let dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) else {
+                NSLog("Data file not found")
+                self.errorAlert(message: L(.datafilePreviewFailed))
+                return cell
+            }
+            
+            let tapGesture = getPreviewTapGesture(dataFile: dataFile, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
+            
+            if  !isEncryptedDataFiles {
+                cell.openPreviewView.addGestureRecognizer(tapGesture)
+                cell.openPreviewView.isHidden = false
+            } else {
+                if cell.openPreviewView.gestureRecognizers != nil {
+                    cell.openPreviewView.removeGestureRecognizer(tapGesture)
+                    cell.openPreviewView.isHidden = true
+                }
+            }
+            
             var isRemoveButtonShown = false
             var isDownloadButtonShown = false
             if isAsicContainer {
@@ -379,6 +400,29 @@ extension ContainerViewController : UITableViewDataSource {
             return cell
         }
     }
+    
+    @objc private func openPreview(_ sender: PreviewFileTapGestureRecognizer) {
+        guard let dataFile: String = sender.dataFile, let containerFilePath: String = sender.containerFilePath, let isShareButtonNeeded: Bool = sender.isShareButtonNeeded else {
+            NSLog("Unable to get data file, container file or share button information")
+            self.errorAlert(message: L(.datafilePreviewFailed))
+            return
+        }
+        
+        openFilePreview(dataFileFilename: dataFile, containerFilePath: containerFilePath, isShareButtonNeeded: isShareButtonNeeded)
+    }
+    
+    private func getPreviewTapGesture(dataFile: String, containerPath: String, isShareButtonNeeded: Bool) -> PreviewFileTapGestureRecognizer {
+        let tapGesture: PreviewFileTapGestureRecognizer = PreviewFileTapGestureRecognizer(target: self, action: #selector(openPreview(_:)))
+        
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        
+        tapGesture.dataFile = dataFile
+        tapGesture.containerFilePath = containerViewDelegate.getContainerPath()
+        tapGesture.isShareButtonNeeded = isDecrypted
+        
+        return tapGesture
+    }
 }
 
 extension ContainerViewController : ContainerFileDelegate {
@@ -392,48 +436,6 @@ extension ContainerViewController : ContainerFileDelegate {
 }
 
 extension ContainerViewController : UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch sections[indexPath.section] {
-        case .notifications:
-            break
-        case .signatures:
-            break
-        case .missingSignatures:
-            break
-        case .timestamp:
-            break;
-        case .dataFiles:
-            let isStatePreviewOrOpened = state == .opened || state == .preview
-            let isEncryptedDataFiles =
-                !isAsicContainer &&
-                isStatePreviewOrOpened &&
-                isDecrypted == false
-            if  !isEncryptedDataFiles {
-                if isDecrypted {
-                    guard let dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) else { return }
-                    openFilePreview(dataFileFilename: dataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: true)
-                } else {
-                    let dataFile = containerViewDelegate.getDataFileRelativePath(index: indexPath.row)
-                    openFilePreview(dataFileFilename: dataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: false)
-                }
-                
-            }
-            break
-        case .header:
-            break
-        case .search:
-            break
-        case .importDataFiles:
-            break
-        case .addressees:
-            break
-        case .importAddressees:
-            break
-        case .missingAddressees:
-            break
-        }
-    }
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection _section: Int) -> UIView? {
         let section = sections[_section]
         var title: String!

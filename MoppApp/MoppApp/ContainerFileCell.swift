@@ -38,6 +38,8 @@ class ContainerFileCell: UITableViewCell {
     weak var delegate: ContainerFileDelegate? = nil
     var dataFileIndex: Int!
     
+    @IBOutlet weak var openPreviewView: UIView!
+    
     @IBAction func removeAction() {
         delegate?.removeDataFile(dataFileIndex: dataFileIndex)
     }
