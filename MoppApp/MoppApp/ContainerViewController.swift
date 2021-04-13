@@ -329,29 +329,24 @@ extension ContainerViewController : UITableViewDataSource {
             cell.accessibilityTraits = UIAccessibilityTraitButton
             
             let isStatePreviewOrOpened = state == .opened || state == .preview
-            let isEncryptedDataFiles = !isAsicContainer && isStatePreviewOrOpened && isDecrypted == false
+            let isEncryptedDataFiles = !isAsicContainer && isStatePreviewOrOpened && !isDecrypted
+            
+            guard let dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) else {
+                NSLog("Data file not found")
+                self.errorAlert(message: L(.datafilePreviewFailed))
+                return cell
+            }
+            
+            let tapGesture = getPreviewTapGesture(dataFile: dataFile, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
             
             if  !isEncryptedDataFiles {
-                guard let dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) else {
-                    NSLog("Data file not found")
-                    self.errorAlert(message: L(.datafilePreviewFailed))
-                    return cell
-                }
-                let tapGesture = getPreviewTapGesture(dataFile: dataFile, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted ? true : false)
-                
                 cell.openPreviewView.addGestureRecognizer(tapGesture)
+                cell.openPreviewView.isHidden = false
             } else {
-                guard let gestureRecognizers = cell.openPreviewView.gestureRecognizers else {
-                    NSLog("No gesture recognizers found")
-                    self.errorAlert(message: L(.datafilePreviewFailed))
-                    return cell
+                if cell.openPreviewView.gestureRecognizers != nil {
+                    cell.openPreviewView.removeGestureRecognizer(tapGesture)
+                    cell.openPreviewView.isHidden = true
                 }
-                
-                for gesture in gestureRecognizers {
-                    gesture.isEnabled = false
-                }
-                
-                cell.openPreviewView.isHidden = true
             }
             
             var isRemoveButtonShown = false
@@ -424,7 +419,7 @@ extension ContainerViewController : UITableViewDataSource {
         
         tapGesture.dataFile = dataFile
         tapGesture.containerFilePath = containerViewDelegate.getContainerPath()
-        tapGesture.isShareButtonNeeded = isDecrypted ? true : false
+        tapGesture.isShareButtonNeeded = isDecrypted
         
         return tapGesture
     }
@@ -441,33 +436,6 @@ extension ContainerViewController : ContainerFileDelegate {
 }
 
 extension ContainerViewController : UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch sections[indexPath.section] {
-        case .notifications:
-            break
-        case .signatures:
-            break
-        case .missingSignatures:
-            break
-        case .timestamp:
-            break;
-        case .dataFiles:
-            break
-        case .header:
-            break
-        case .search:
-            break
-        case .importDataFiles:
-            break
-        case .addressees:
-            break
-        case .importAddressees:
-            break
-        case .missingAddressees:
-            break
-        }
-    }
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection _section: Int) -> UIView? {
         let section = sections[_section]
         var title: String!
