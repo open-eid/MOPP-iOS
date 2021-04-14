@@ -44,6 +44,10 @@ extension CryptoActions where Self: CryptoContainerViewController {
                     self.notifications.append((true, L(.cryptoEncryptionSuccess)))
                     self.reloadCryptoData()
                     
+                    if !DefaultsHelper.hideShareContainerDialog {
+                        self.displayShareContainerDialog()
+                    }
+                    
             },
                 failure: { _ in
                     DispatchQueue.main.async {
