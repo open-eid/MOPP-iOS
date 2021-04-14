@@ -49,6 +49,7 @@ fileprivate let kTimestampUrlKey = "kTimestampUrlKey"
 fileprivate let kCrashReportSettingKey = "kCrashReportSettingKey"
 fileprivate let kPreviousPreferredLanguage = "kPreviousPreferredLanguage"
 fileprivate let kMoppLanguage = "kMoppLanguage"
+fileprivate let kHideShareContainerDialog = "kHideShareContainerDialog"
 
 class DefaultsHelper
 {
@@ -139,6 +140,15 @@ class DefaultsHelper
         set {
             UserDefaults.standard.set(newValue, forKey: kMoppLanguage)
             UserDefaults.standard.synchronize()
+        }
+    }
+    
+    class var hideShareContainerDialog: Bool {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kHideShareContainerDialog)
+        }
+        get {
+            return UserDefaults.standard.bool(forKey: kHideShareContainerDialog)
         }
     }
 

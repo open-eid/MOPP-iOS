@@ -240,6 +240,8 @@ enum LocKey : String
     case lastUpdateCheckDateLabel = "last-update-check"
     case updateDateLabel = "update-date"
     case refreshConfigurationLabel = "refresh-configuration"
+    case successNotificationDialogLabel = "success-notification-dialog-label"
+    case successNotificationDialogDontShowAgain = "success-notification-dialog-dont-show-again"
     case aboutTitle = "about-title"
     case jailbreakMessage = "jailbreak-message"
     case cryptoViewBeginLabel = "crypto-view-begin-label"

@@ -82,4 +82,20 @@ extension UIViewController {
         
         return UIViewController()
     }
+    
+    func displayShareContainerDialog() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            let uiAlertController: UIAlertController = UIAlertController(title: nil, message: L(.successNotificationDialogLabel), preferredStyle: .alert)
+            
+            uiAlertController.addAction(UIAlertAction(title: L(.successNotificationDialogDontShowAgain), style: .default, handler: {(_: UIAlertAction) in
+                DefaultsHelper.hideShareContainerDialog = true
+            }))
+            
+            uiAlertController.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: {(_: UIAlertAction) in
+                self.dismiss(animated: true, completion: nil)
+            }))
+            
+            self.present(uiAlertController, animated: true, completion: nil)
+        }
+    }
 }

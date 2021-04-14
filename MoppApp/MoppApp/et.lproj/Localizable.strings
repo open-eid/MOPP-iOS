@@ -290,3 +290,5 @@
 "last-update-check" = "VIIMATI KONTROLLITUD:";
 "update-date" = "UUENDAMISE KUUPÄEV:";
 "refresh-configuration" = "KONTROLLI VÄRSKENDUSI";
+"success-notification-dialog-label" = "Ümbriku jagamiseks klõpsa \"JAGA\" nupul ning vali soovitud rakendus. Kõik ümbrikud on leitavad ka rakenduse seadetes asuvas \"Hiljutised dokumendid\" kaustast.";
+"success-notification-dialog-dont-show-again" = "Ära rohkem näita";
