@@ -487,11 +487,12 @@ static std::string profile = "time-stamp";
             serialNR = serialNR.substr(6);
 
         std::string name = givename.empty() || surname.empty() ? cert.subjectName("CN") :
-            givename + "," + surname + "," + serialNR;
+            surname + "," + givename + "," + serialNR;
         if (name.empty()) {
             name = signature->signedBy();
         }
-
+          
+        moppLibSignature.trustedSigningTime = [NSString stringWithUTF8String:signature->trustedSigningTime().c_str()];
         moppLibSignature.subjectName = [NSString stringWithUTF8String:name.c_str()];
 
         std::string timestamp = signature->trustedSigningTime();
@@ -807,19 +808,19 @@ void parseException(const digidoc::Exception &e) {
   for (int i = 0; i < doc->signatures().size(); i++) {
     digidoc::Signature *signature = doc->signatures().at(i);
     digidoc::X509Cert cert = signature->signingCertificate();
+    
     NSString *name = [NSString stringWithUTF8String:cert.subjectName("CN").c_str()];
-    if ([name isEqualToString:[moppSignature subjectName]]) {
-      NSDate *timestamp = [[MLDateFormatter sharedInstance] YYYYMMddTHHmmssZToDate:[NSString stringWithUTF8String:signature->OCSPProducedAt().c_str()]];
-      if ([[moppSignature timestamp] compare:timestamp] == NSOrderedSame) {
-        try {
-          doc->removeSignature(i);
-          doc->save(containerPath.UTF8String);
-        } catch(const digidoc::Exception &e) {
-          parseException(e);
-          *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
-        }
-        break;
+    NSString *trustedTimeStamp = [NSString stringWithUTF8String:signature->trustedSigningTime().c_str()];
+      
+    if ([name isEqualToString:[moppSignature subjectName]] && [trustedTimeStamp isEqualToString:[moppSignature trustedSigningTime]]) {
+      try {
+        doc->removeSignature(i);
+        doc->save(containerPath.UTF8String);
+      } catch(const digidoc::Exception &e) {
+        parseException(e);
+        *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
       }
+      break;
     }
   }
   delete doc;

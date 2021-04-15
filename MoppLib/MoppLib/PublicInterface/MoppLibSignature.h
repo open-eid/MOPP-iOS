@@ -30,5 +30,6 @@
 @property (strong, nonatomic) NSDate *timestamp;
 @property (assign, nonatomic) MoppLibSignatureStatus status;
 @property (strong, nonatomic) NSString *issuerName;
+@property (strong, nonatomic) NSString *trustedSigningTime;
 
 @end
