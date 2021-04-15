@@ -487,11 +487,12 @@ static std::string profile = "time-stamp";
             serialNR = serialNR.substr(6);
 
         std::string name = givename.empty() || surname.empty() ? cert.subjectName("CN") :
-            givename + "," + surname + "," + serialNR;
+            surname + "," + givename + "," + serialNR;
         if (name.empty()) {
             name = signature->signedBy();
         }
-
+          
+        moppLibSignature.trustedSigningTime = [NSString stringWithUTF8String:signature->trustedSigningTime().c_str()];
         moppLibSignature.subjectName = [NSString stringWithUTF8String:name.c_str()];
 
         std::string timestamp = signature->trustedSigningTime();
@@ -807,29 +808,19 @@ void parseException(const digidoc::Exception &e) {
   for (int i = 0; i < doc->signatures().size(); i++) {
     digidoc::Signature *signature = doc->signatures().at(i);
     digidoc::X509Cert cert = signature->signingCertificate();
-    NSString *givenName = [NSString stringWithUTF8String:cert.subjectName("GN").c_str()];
-    NSString *surName = [NSString stringWithUTF8String:cert.subjectName("SN").c_str()];
-    NSString *serialNumber = [NSString stringWithUTF8String:cert.subjectName("serialNumber").c_str()];
-  
-    if ([givenName length] == 0 || [surName length] == 0 || [serialNumber length] == 0) {
-      NSError *error = [NSError errorWithDomain:@"Name or serial number not found" code:0 userInfo:nil];
-      MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error];
-      return moppLibContainer;
-    }
-
-    NSString *name = [NSString stringWithFormat:@"%@,%@,%@",givenName,surName,serialNumber];
-    if ([name isEqualToString:[moppSignature subjectName]]) {
-      NSDate *timestamp = [[MLDateFormatter sharedInstance] YYYYMMddTHHmmssZToDate:[NSString stringWithUTF8String:signature->OCSPProducedAt().c_str()]];
-      if ([[moppSignature timestamp] compare:timestamp] == NSOrderedSame) {
-        try {
-          doc->removeSignature(i);
-          doc->save(containerPath.UTF8String);
-        } catch(const digidoc::Exception &e) {
-          parseException(e);
-          *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
-        }
-        break;
+    
+    NSString *name = [NSString stringWithUTF8String:cert.subjectName("CN").c_str()];
+    NSString *trustedTimeStamp = [NSString stringWithUTF8String:signature->trustedSigningTime().c_str()];
+      
+    if ([name isEqualToString:[moppSignature subjectName]] && [trustedTimeStamp isEqualToString:[moppSignature trustedSigningTime]]) {
+      try {
+        doc->removeSignature(i);
+        doc->save(containerPath.UTF8String);
+      } catch(const digidoc::Exception &e) {
+        parseException(e);
+        *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
       }
+      break;
     }
   }
   delete doc;
