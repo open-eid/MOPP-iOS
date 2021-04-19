@@ -98,6 +98,7 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
                 cell.infoManager = infoManager
                 cell.bounds = CGRect(x: 0, y: 0, width: ui.tableView.bounds.width, height: 99999)
                 cell.populate(pinPukCellInfo: infoManager.pinPukCell.items[indexPath.row])
+            cell.accessibilityLabel = ""
             return cell
         case .margin:
             return ui.tableView.dequeueReusableCell(withIdentifier: "marginCell", for: indexPath)
