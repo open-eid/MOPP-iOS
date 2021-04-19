@@ -207,6 +207,7 @@ class MyeIDPinPukCell: UITableViewCell {
         } else {
             certInfoLabel.text = nil
             certInfoLabel.font = nil
+            certInfoLabel.accessibilityLabel = nil
             certInfoLabel.attributedText = infoManager.certInfoAttributedString(for: kind)
             certInfoLabel.setNeedsDisplay()
         }
