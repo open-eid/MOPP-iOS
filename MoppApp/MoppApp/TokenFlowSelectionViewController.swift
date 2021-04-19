@@ -41,6 +41,8 @@ class TokenFlowSelectionViewController : MoppViewController {
     
     var isSwitchingBlockedByTransition: Bool = false
     
+    var viewAccessibilityElements: [UIView] = []
+    
     enum TokenFlowMethodButtonID: String {
         case mobileID
         case smartID
@@ -50,12 +52,6 @@ class TokenFlowSelectionViewController : MoppViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         localizeButtonTitles()
-        
-        if #available(iOS 12, *) {
-            self.accessibilityElements = [mobileIDButton, containerView, smartIDButton, containerView, idCardButton, containerView]
-        } else {
-            self.view.accessibilityElements = [mobileIDButton, containerView, smartIDButton, containerView, idCardButton, containerView]
-        }
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -126,15 +122,21 @@ extension TokenFlowSelectionViewController {
             }
             idCardSignVC.keyboardDelegate = self
             newViewController = idCardSignVC
+            viewAccessibilityElements = [idCardButton, containerView, mobileIDButton,  smartIDButton, containerView]
         case .mobileID:
             let mobileIdEditVC = UIStoryboard.tokenFlow.instantiateViewController(of: MobileIDEditViewController.self)
                 mobileIdEditVC.delegate = mobileIdEditViewControllerDelegate
             newViewController = mobileIdEditVC
+            viewAccessibilityElements = [mobileIDButton, containerView, smartIDButton, idCardButton, containerView]
         case .smartID:
             let smartIdEditVC = UIStoryboard.tokenFlow.instantiateViewController(of: SmartIDEditViewController.self)
                 smartIdEditVC.delegate = smartIdEditViewControllerDelegate
             newViewController = smartIdEditVC
+            viewAccessibilityElements = [smartIDButton, containerView, idCardButton, mobileIDButton, smartIDButton, containerView]
         }
+        
+        self.view.accessibilityElements = viewAccessibilityElements
+        newViewController.accessibilityElements = viewAccessibilityElements
         
         oldViewController?.willMove(toParentViewController: nil)
         addChildViewController(newViewController)
