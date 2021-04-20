@@ -22,19 +22,39 @@
  */
 import Foundation
 
+protocol ContainerHeaderDelegate: class {
+    func editContainerName(completion: @escaping (_ fileName: String) -> Void)
+}
 
 class ContainerHeaderCell: UITableViewCell {
     static let height: CGFloat = 58
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var filenameLabel: UILabel!
-
+    @IBOutlet weak var editContainerNameButton: UIButton!
+    
+    weak var delegate: ContainerHeaderDelegate? = nil
+    
+    @IBAction func editContainerName(_ sender: Any) {
+        delegate?.editContainerName(completion: { (fileName: String) in
+            guard !fileName.isEmpty else {
+                NSLog("Filename is empty, container name not changed")
+                return
+            }
+            DispatchQueue.main.async {
+                self.filenameLabel.text = fileName
+            }
+        })
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         titleLabel.text = L(.containerHeaderTitle)
     }
     
-    func populate(name: String) {
+    func populate(name: String, isEditButtonEnabled: Bool) {
         filenameLabel.text = name
+        editContainerNameButton.isHidden = isEditButtonEnabled
+        editContainerNameButton.accessibilityLabel = L(.containerEditNameButton)
     }
 }

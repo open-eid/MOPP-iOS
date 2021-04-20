@@ -111,6 +111,8 @@
 "container-details-file-already-exists" = "Fail on juba ümbrikus olemas";
 "container-header-files-title" = "Ümbriku sisu";
 "container-header-create-files-title" = "Ümbriku sisu";
+"container-edit-name-button" = "Muuda ümbriku nime";
+"container-error-message-failed-container-name-change" = "Ümbriku nime muutmine ebaõnnestus";
 "container-header-create-addressee-title" = "Adressaadid";
 "container-header-timestamp-title" = "Ajatempel";
 "container-header-signatures-title" = "Ümbriku allkirjad";

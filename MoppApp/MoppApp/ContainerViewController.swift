@@ -23,6 +23,7 @@
 protocol ContainerViewControllerDelegate: class {
     func getDataFileCount() -> Int
     func getContainerPath() -> String
+    func getContainer() -> MoppLibContainer
     func openContainer(afterSignatureCreated: Bool)
     func getContainerFilename() -> String
     func getDataFileRelativePath(index: Int) -> String
@@ -45,6 +46,7 @@ protocol CryptoContainerViewControllerDelegate: class {
     func getAddressee(index: Int) -> Any
     func getAddresseeCount() -> Int
     func removeSelectedAddressee(index: Int)
+    func getContainer() -> CryptoContainer
     func startEncrypting()
     func startDecrypting()
 }
@@ -356,7 +358,9 @@ extension ContainerViewController : UITableViewDataSource {
             return cell
         case .header:
             let cell = tableView.dequeueReusableCell(withType: ContainerHeaderCell.self, for: indexPath)!
-                cell.populate(name: containerViewDelegate.getContainerFilename())
+            cell.delegate = self
+            let isEditingButtonShown: Bool = !isForPreview && (state == .opened)
+            cell.populate(name: containerViewDelegate.getContainerFilename(), isEditButtonEnabled: isEditingButtonShown)
             return cell
         case .search:
             let cell = tableView.dequeueReusableCell(withType: ContainerSearchCell.self, for: indexPath)!
@@ -388,6 +392,137 @@ extension ContainerViewController : ContainerFileDelegate {
     
     func saveDataFile(fileName: String?) {
         containerViewDelegate.saveDataFile(name: fileName)
+    }
+}
+
+extension ContainerViewController : ContainerHeaderDelegate {
+    
+    private func asicContainerExists(container: MoppLibContainer?) -> Bool {
+        guard let signingContainer: MoppLibContainer = container,
+              let signingContainerFilePath = signingContainer.filePath,
+              !(signingContainerFilePath as String).isEmpty,
+              URL(fileURLWithPath: signingContainerFilePath).pathExtension != ContainerFormatCdoc else {
+            return false
+        }
+        
+        return true
+    }
+    
+    private func cdocContainerExists(container: CryptoContainer?) -> Bool {
+        guard let cryptoContainer: CryptoContainer = container,
+              let cryptoContainerFilePath = cryptoContainer.filePath,
+              !(cryptoContainerFilePath as String).isEmpty,
+              URL(fileURLWithPath: cryptoContainerFilePath as String).pathExtension == ContainerFormatCdoc else {
+            return false
+        }
+        
+        return true
+    }
+    
+    private func getNewContainerUrlPath(isContainerCdoc: Bool, asicContainer: MoppLibContainer?, cdocContainer: CryptoContainer?, newContainerName: String, containerExtension: String) -> URL? {
+        var newContainerPath: URL? = URL(string: "")
+        if let signingContainer = asicContainer, !isContainerCdoc {
+            newContainerPath = URL(fileURLWithPath: signingContainer.filePath as String)
+        } else if let cryptoContainer = cdocContainer, isContainerCdoc {
+            newContainerPath = URL(fileURLWithPath: cryptoContainer.filePath as String)
+        }
+        
+        guard let containerPath = newContainerPath else { return nil }
+        
+        return containerPath.deletingLastPathComponent().appendingPathComponent(newContainerName).appendingPathExtension(containerExtension)
+    }
+    
+    func editContainerName(completion: @escaping (_ fileName: String) -> Void) {
+        
+        var currentFileName: String = ""
+        var containerExtension: String = ""
+        
+        let asicContainer: MoppLibContainer? = self.containerViewDelegate.getContainer()
+        let cdocContainer: CryptoContainer? = self.cryptoContainerViewDelegate?.getContainer()
+        
+        if asicContainerExists(container: asicContainer), let signingContainer = asicContainer {
+            currentFileName = URL(fileURLWithPath: signingContainer.filePath).deletingPathExtension().lastPathComponent
+            containerExtension = URL(fileURLWithPath: signingContainer.filePath).pathExtension
+        } else if cdocContainerExists(container: cdocContainer), let cryptoContainer = cdocContainer {
+            currentFileName = URL(fileURLWithPath: cryptoContainer.filePath as String).deletingPathExtension().lastPathComponent
+            containerExtension = URL(fileURLWithPath: (cryptoContainer.filePath as String)).pathExtension
+        }
+        
+        guard !containerExtension.isEmpty else {
+            NSLog("Failed to get container extension")
+            self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
+            return
+        }
+        
+        let changeContainerNameController = UIAlertController(title: L(.containerEditNameButton), message: nil, preferredStyle: UIAlertControllerStyle.alert)
+        let cancelButton = UIAlertAction(title: L(.actionCancel), style: UIAlertActionStyle.cancel, handler: nil)
+        changeContainerNameController.addAction(cancelButton)
+        
+        let okButton = UIAlertAction(title: L(.actionOk), style: UIAlertActionStyle.default) { (action: UIAlertAction) in
+            guard let textFields = changeContainerNameController.textFields, textFields.count != 0, let textFieldText = textFields[0].text else {
+                NSLog("Failed to find textfield")
+                self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
+                return
+            }
+            
+            let isContainerCdoc: Bool = containerExtension == ContainerFormatCdoc
+            
+            guard let newContainerPath: URL = self.getNewContainerUrlPath(isContainerCdoc: isContainerCdoc, asicContainer: asicContainer, cdocContainer: cdocContainer, newContainerName: textFieldText, containerExtension: containerExtension), newContainerPath.isFileURL else {
+                NSLog("Failed to get container path")
+                self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
+                return
+            }
+            
+            // Remove existing file
+            if MoppFileManager.shared.fileExists(newContainerPath.path) {
+                MoppFileManager.shared.removeFile(withPath: newContainerPath.path)
+            }
+            
+            // Rename / save file
+            if !isContainerCdoc {
+                guard let signingContainer = asicContainer, MoppFileManager.shared.moveFile(withPath: signingContainer.filePath, toPath: newContainerPath.path, overwrite: true) else {
+                    NSLog("Failed to change asic file properties")
+                    self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
+                    return
+                }
+                signingContainer.fileName = newContainerPath.lastPathComponent
+                signingContainer.filePath = newContainerPath.path
+            } else {
+                guard let cryptoContainer = cdocContainer else {
+                    NSLog("Failed to change cdoc file properties")
+                    self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
+                    return
+                }
+                cryptoContainer.filename = newContainerPath.lastPathComponent as NSString
+                cryptoContainer.filePath = newContainerPath.path as NSString
+            }
+            
+            NSLog("File renaming successful")
+            
+            self.containerPath = newContainerPath.path
+            
+            return completion(newContainerPath.lastPathComponent)
+        }
+        
+        changeContainerNameController.addAction(okButton)
+        
+        changeContainerNameController.addTextField { (textField: UITextField) in
+            textField.text = currentFileName
+            NotificationCenter.default.addObserver(forName: NSNotification.Name.UITextFieldTextDidChange, object: textField, queue: OperationQueue.main) { (notification) in
+                guard let inputText = textField.text else {
+                    NSLog("Failed to get textfield's text")
+                    self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
+                    return
+                }
+                if inputText.count == 0 || inputText.starts(with: ".") {
+                    okButton.isEnabled = false
+                } else {
+                    okButton.isEnabled = true
+                }
+            }
+        }
+        
+        self.present(changeContainerNameController, animated: true, completion: nil)
     }
 }
 

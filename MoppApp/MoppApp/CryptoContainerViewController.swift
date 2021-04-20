@@ -67,6 +67,10 @@ extension CryptoContainerViewController : CryptoContainerViewControllerDelegate 
         startEncryptingProcess()
     }
     
+    func getContainer() -> CryptoContainer {
+        return container
+    }
+    
     func removeSelectedAddressee(index: Int) {
         container.addressees.removeObject(at: index)
         reloadCryptoData()
@@ -153,6 +157,10 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
             return dataFile.filename
         }
         return (dataFile.filePath as NSString).lastPathComponent
+    }
+    
+    func getContainer() -> MoppLibContainer {
+        return MoppLibContainer()
     }
     
     func getContainerPath() -> String {

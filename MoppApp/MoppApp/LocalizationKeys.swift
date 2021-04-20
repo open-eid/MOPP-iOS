@@ -76,6 +76,8 @@ enum LocKey : String
     case containerDetailsFileAlreadyExists = "container-details-file-already-exists"
     case containerHeaderFilesTitle = "container-header-files-title"
     case containerHeaderCreateFilesTitle = "container-header-create-files-title"
+    case containerEditNameButton = "container-edit-name-button"
+    case containerErrorMessageFailedContainerNameChange = "container-error-message-failed-container-name-change"
     case containerHeaderCreateAddresseesTitle = "container-header-create-addressee-title"
     case containerHeaderTimestampTitle = "container-header-timestamp-title"
     case containerHeaderSignaturesTitle = "container-header-signatures-title"

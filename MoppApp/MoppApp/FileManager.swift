@@ -259,6 +259,20 @@ class MoppFileManager {
         }
         return true
     }
+    
+    func renameFile(withPath sourcePath: URL, toPath destinationPath: URL) -> Bool {
+        do {
+            guard let newUrl: URL = try fileManager.replaceItemAt(sourcePath, withItemAt: destinationPath), fileExists(newUrl.path) else {
+                NSLog("Failed to replace file or file not found")
+                return false
+            }
+        } catch let error {
+            NSLog("Error while renaming file: %@", error.localizedDescription)
+            return false
+        }
+        
+        return true
+    }
 
     func copyFile(withPath sourcePath: String, toPath destinationPath: String) -> String {
         return copyFile(withPath: sourcePath, toPath: destinationPath, duplicteCount: 0)
