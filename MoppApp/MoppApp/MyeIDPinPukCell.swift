@@ -100,6 +100,9 @@ class MyeIDPinPukCell: UITableViewCell {
         contentView.bounds = bounds
         layoutIfNeeded()
         
+        titleLabel.isAccessibilityElement = true
+        certInfoLabel.isAccessibilityElement = true
+        
         errorLabel.preferredMaxLayoutWidth = errorLabel.frame.width
         certInfoLabel.preferredMaxLayoutWidth = certInfoLabel.frame.width
         
@@ -200,9 +203,11 @@ class MyeIDPinPukCell: UITableViewCell {
     func populateForWillDisplayCell(pinPukCellInfo: MyeIDInfoManager.PinPukCell.Info) {
         if let certInfoText = pinPukCellInfo.certInfoText {
             certInfoLabel.text = certInfoText
+            certInfoLabel.accessibilityLabel = certInfoText
         } else {
             certInfoLabel.text = nil
             certInfoLabel.font = nil
+            certInfoLabel.accessibilityLabel = nil
             certInfoLabel.attributedText = infoManager.certInfoAttributedString(for: kind)
             certInfoLabel.setNeedsDisplay()
         }
