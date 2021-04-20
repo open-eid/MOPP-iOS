@@ -38,6 +38,6 @@ class SettingsHeaderCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.accessibilityElements = [titleLabel, dismissButton]
+        self.accessibilityElements = [dismissButton, titleLabel]
     }
 }
