@@ -437,7 +437,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
         var currentFileName: String = ""
         var containerExtension: String = ""
         
-        let asicContainer: MoppLibContainer? = self.containerViewDelegate.getContainer()
+        let asicContainer: MoppLibContainer? = self.containerViewDelegate?.getContainer()
         let cdocContainer: CryptoContainer? = self.cryptoContainerViewDelegate?.getContainer()
         
         if asicContainerExists(container: asicContainer), let signingContainer = asicContainer {
