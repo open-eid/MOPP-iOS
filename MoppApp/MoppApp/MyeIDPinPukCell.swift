@@ -102,6 +102,7 @@ class MyeIDPinPukCell: UITableViewCell {
         
         titleLabel.isAccessibilityElement = true
         certInfoLabel.isAccessibilityElement = true
+        errorLabel.isAccessibilityElement = true
         
         errorLabel.preferredMaxLayoutWidth = errorLabel.frame.width
         certInfoLabel.preferredMaxLayoutWidth = certInfoLabel.frame.width
@@ -232,6 +233,7 @@ class MyeIDPinPukCell: UITableViewCell {
     func showErrorLabel(_ show:Bool, with text:String? = nil) {
         errorLabel.attributedText = nil
         errorLabel.text = show ? text : nil
+        errorLabel.accessibilityLabel = show ? text : nil
         errorLabel.isHidden = !show
     }
     
