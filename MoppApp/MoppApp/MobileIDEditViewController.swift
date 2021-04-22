@@ -126,8 +126,8 @@ class MobileIDEditViewController : MoppViewController {
         idCodeTextField.text = DefaultsHelper.idCode
         phoneTextField.text = DefaultsHelper.phoneNumber
         
-        idCodeTextField.attributedPlaceholder = NSAttributedString(string: L(.settingsIdCodePlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.46, green: 0.46, blue: 0.46, alpha: 1.0)])
-        phoneTextField.attributedPlaceholder = NSAttributedString(string: L(.settingsPhoneNumberPlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.46, green: 0.46, blue: 0.46, alpha: 1.0)])
+        idCodeTextField.attributedPlaceholder = NSAttributedString(string: L(.settingsIdCodePlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker])
+        phoneTextField.attributedPlaceholder = NSAttributedString(string: L(.settingsPhoneNumberPlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker])
         
         idCodeTextField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
         phoneTextField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)

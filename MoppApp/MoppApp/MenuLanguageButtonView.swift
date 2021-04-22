@@ -25,7 +25,7 @@ class MenuLanguageButtonView : UIView {
     var isSelected: Bool = false {
         didSet {
             button.isSelected = isSelected
-            label.textColor = isSelected ? UIColor.moppBaseBackground : UIColor.moppMenuLanguageTextUnselected
+            label.textColor = isSelected ? UIColor.moppBaseBackground : UIColor.moppMenuLanguageTextUnselectedDarker
         }
     }
 
