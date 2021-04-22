@@ -109,6 +109,8 @@
 "container-details-file-already-exists" = "Файл уже существует в контейнере";
 "container-header-files-title" = "Файлы контейнера";
 "container-header-create-files-title" = "Файлы контейнера";
+"container-edit-name-button" = "Изменить название контейнера";
+"container-error-message-failed-container-name-change" = "Не удалось изменить название контейнера";
 "container-header-create-addressee-title" = "Получатели";
 "container-header-timestamp-title" = "Временной штамп контейнера";
 "container-header-signatures-title" = "Подписи контейнера";

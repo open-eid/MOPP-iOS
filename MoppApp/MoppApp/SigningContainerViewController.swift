@@ -145,6 +145,10 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
         return (dataFile.fileName as NSString).lastPathComponent
     }
     
+    func getContainer() -> MoppLibContainer {
+        return container
+    }
+    
     func getContainerPath() -> String {
         return container.filePath
     }
