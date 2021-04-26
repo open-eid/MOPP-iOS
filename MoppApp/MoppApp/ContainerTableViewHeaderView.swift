@@ -45,7 +45,7 @@ class ContainerTableViewHeaderView: UIView {
     
     func populate(withTitle title: String, showAddButton: Bool) {
         addButton.isHidden = !showAddButton
-        
+        addButton.accessibilityLabel = showAddButton ? L(.containerHeaderFilesAddFile) : ""
         titleLabel.text = title
     }
     
