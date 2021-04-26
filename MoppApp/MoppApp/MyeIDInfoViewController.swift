@@ -42,6 +42,7 @@ class MyeIDInfoViewController: MoppViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         ui.tableView.reloadData()
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, ui.tableView)
     }
 }
 
