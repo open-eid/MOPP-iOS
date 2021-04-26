@@ -73,7 +73,7 @@
 "crypto-type-unknown" = "TEADMATA";
 "crypto-add-addressee-button-title" = "LISA";
 "crypto-addressee-added-button-title" = "LISATUD";
-"crypto-remove-addressee-button" = "Eemalda Allkiri";
+"crypto-remove-addressee-button" = "Eemalda Adressaat";
 
 // Crashlytics
 "crashlytics-title" = "Kas saata vearaport?";
