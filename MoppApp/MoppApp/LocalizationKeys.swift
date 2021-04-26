@@ -98,6 +98,7 @@ enum LocKey : String
     case conatinerSignatureTestSignatureTitle = "container-signature-test-signature-title";
     case containerTimestampInvalid = "container-timestamp-invalid";
     case challengeCodeLabel = "challenge-code-label"
+    case challengeCodeLabelAccessibility = "challenge-code-label-accessibility"
     case simToolkitSignDocumentTitle = "sim-toolkit-sign-document-title"
     case mobileIdTimeoutMessage = "mobile-id-timeout-message"
     case errorAlertTitleGeneral = "error-alert-title-general"
