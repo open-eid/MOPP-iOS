@@ -122,7 +122,7 @@ class DiagnosticsViewController: MoppViewController {
         mobileIdSKURL.text = formatString(text: "MID-SK-URL: ", additionalText: decodedConf.MIDSKURL)
         smartIdURL.text = formatString(text: "SID-PROXY-URL: ", additionalText: decodedConf.SIDPROXYURL)
         smartIdSKURL.text = formatString(text: "SID-SK-URL: ", additionalText: decodedConf.SIDSKURL)
-        smartIdSKURL.text = formatString(text: "EE TSL: ", additionalText: getTSLVersion(for: "EE"))
+        eeTSLVersion.text = formatString(text: "EE TSL: ", additionalText: getTSLVersion(for: "EE"))
         metaDate.text = formatString(text: "DATE:", additionalText: decodedConf.METAINF.DATE)
         metaSerial.text = formatString(text: "SERIAL:", additionalText: String(decodedConf.METAINF.SERIAL))
         metaUrl.text = formatString(text: "URL:", additionalText: decodedConf.METAINF.URL)
