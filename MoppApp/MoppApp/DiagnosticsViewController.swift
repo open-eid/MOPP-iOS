@@ -42,6 +42,7 @@ class DiagnosticsViewController: MoppViewController {
     @IBOutlet weak var mobileIdSKURL: UILabel!
     @IBOutlet weak var smartIdURL: UILabel!
     @IBOutlet weak var smartIdSKURL: UILabel!
+    @IBOutlet weak var eeTSLVersion: UILabel!
     @IBOutlet weak var metaDate: UILabel!
     @IBOutlet weak var metaSerial: UILabel!
     @IBOutlet weak var metaUrl: UILabel!
@@ -121,7 +122,7 @@ class DiagnosticsViewController: MoppViewController {
         mobileIdSKURL.text = formatString(text: "MID-SK-URL: ", additionalText: decodedConf.MIDSKURL)
         smartIdURL.text = formatString(text: "SID-PROXY-URL: ", additionalText: decodedConf.SIDPROXYURL)
         smartIdSKURL.text = formatString(text: "SID-SK-URL: ", additionalText: decodedConf.SIDSKURL)
-
+        smartIdSKURL.text = formatString(text: "EE TSL: ", additionalText: getTSLVersion(for: "EE"))
         metaDate.text = formatString(text: "DATE:", additionalText: decodedConf.METAINF.DATE)
         metaSerial.text = formatString(text: "SERIAL:", additionalText: String(decodedConf.METAINF.SERIAL))
         metaUrl.text = formatString(text: "URL:", additionalText: decodedConf.METAINF.URL)
@@ -185,5 +186,22 @@ class DiagnosticsViewController: MoppViewController {
     
     private func formatLOTLVersion(version: String) -> String {
         return version.isEmpty ? "" : "(\(version))"
+    }
+    
+    private func getTSLVersion(for tslCountry: String) -> String {
+        let tslFilesBundlePath: String = TSLUpdater().getTSLFilesBundlePath()
+        let filesInBundle: [URL] = TSLUpdater().getCountryFileLocations(inPath: tslFilesBundlePath)
+        
+        for bundleFile in filesInBundle {
+            if !bundleFile.hasDirectoryPath {
+                let fileName: String = bundleFile.deletingPathExtension().lastPathComponent
+                if fileName == tslCountry {
+                    let tslVersion: Int = TSLUpdater().getTSLVersion(fromFile: bundleFile)
+                    return tslVersion == 0 ? "-" : String(tslVersion)
+                }
+            }
+        }
+        
+        return "-"
     }
 }

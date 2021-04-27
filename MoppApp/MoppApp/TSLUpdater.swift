@@ -80,10 +80,33 @@ class TSLUpdater {
         
     }
 
-    private func getTSLFilesBundlePath() -> String {
+    public func getTSLFilesBundlePath() -> String {
         guard let tslFilesBundlePath: String = Bundle.main.path(forResource: "tslFiles", ofType: "bundle") else { return "" }
 
         return tslFilesBundlePath
+    }
+    
+    public func getCountryFileLocations(inPath tslFilesLocation: String) -> [URL] {
+        var countryFilesLocations: [URL] = []
+
+        for file in getFilesFromBundle(inPath: tslFilesLocation) {
+            if !file.lastPathComponent.starts(with: ".") {
+                countryFilesLocations.append(file)
+            }
+        }
+
+        return countryFilesLocations
+    }
+    
+    public func getTSLVersion(fromFile fileLocation: URL) -> Int {
+        var version: Int = 0
+        TSLVersionChecker().getTSLVersion(filePath: fileLocation) { (tslVersion) in
+            if !tslVersion.isEmpty {
+                version = Int(tslVersion) ?? 0
+            }
+        }
+
+        return version
     }
 
     private func getLibraryDirectoryPath() -> String {
@@ -202,29 +225,6 @@ class TSLUpdater {
             NSLog("Removing \(destination.lastPathComponent) etag...")
             MoppFileManager().removeFile(withPath: etagFile.path)
         }
-    }
-
-    private func getTSLVersion(fromFile fileLocation: URL) -> Int {
-        var version: Int = 0
-        TSLVersionChecker().getTSLVersion(filePath: fileLocation) { (tslVersion) in
-            if !tslVersion.isEmpty {
-                version = Int(tslVersion) ?? 0
-            }
-        }
-
-        return version
-    }
-
-    private func getCountryFileLocations(inPath tslFilesLocation: String) -> [URL] {
-        var countryFilesLocations: [URL] = []
-
-        for file in getFilesFromBundle(inPath: tslFilesLocation) {
-            if !file.lastPathComponent.starts(with: ".") {
-                countryFilesLocations.append(file)
-            }
-        }
-
-        return countryFilesLocations
     }
 
     private func getOtherTSLBundleFiles(inPath tslFilesLocation: String) -> [URL] {
