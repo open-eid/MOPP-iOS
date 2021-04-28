@@ -112,6 +112,7 @@
 "container-header-create-files-title" = "Container files";
 "container-edit-name-button" = "Edit container name";
 "container-error-message-failed-container-name-change" = "Failed to rename container";
+"container-header-files-add-file" = "Add file";
 "container-header-create-addressee-title" = "Recipients";
 "container-header-timestamp-title" = "Container timestamps";
 "container-header-signatures-title" = "Container signatures";
