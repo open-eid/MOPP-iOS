@@ -136,6 +136,7 @@
 // *** Mobile ID Challenge View ***
 
 "challenge-code-label" = "Контрольный код: %@";
+"challenge-code-label-accessibility" = "Контрольный код: %@ %@ %@ %@";
 
 // Currently must be in English
 "sim-toolkit-sign-document-title" = "Sign document";
