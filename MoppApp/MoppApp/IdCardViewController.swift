@@ -109,6 +109,9 @@ class IdCardViewController : MoppViewController {
     @objc func editingChanged(sender: UITextField) {
         let count = (sender.text?.count ?? 0)
         actionButton.isEnabled = count >= 4 && count <= 6
+        if !actionButton.isEnabled {
+            actionButton.backgroundColor = UIColor.moppBackgroundDark
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -285,6 +288,8 @@ class IdCardViewController : MoppViewController {
             }
 
         }
+        
+        actionButton.backgroundColor = UIColor.moppBackgroundDark
 
         if state == .initial {
             initialStateExpirationTimer = Timer.scheduledTimer(withTimeInterval: 600, repeats: false, block: { [weak self]_ in
@@ -411,6 +416,7 @@ extension IdCardViewController : MoppLibCardReaderManagerDelegate {
 extension IdCardViewController : UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if string.count == 0 {
+            actionButton.backgroundColor = UIColor.moppBackgroundDark
             return true
         }
         let text = (textField.text ?? String()) + string

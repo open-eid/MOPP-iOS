@@ -40,7 +40,7 @@ class SearchTextField: UITextField {
         delegate = self
         font = UIFont.moppTextField
         textColor = UIColor.moppText
-        attributedPlaceholder = NSAttributedString(string: L(.searchContainerFile), attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 0.46, green: 0.46, blue: 0.46, alpha: 1.0)])
+        attributedPlaceholder = NSAttributedString(string: L(.searchContainerFile), attributes: [NSAttributedStringKey.foregroundColor: UIColor.moppPlaceholderDarker])
         
         addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
     }

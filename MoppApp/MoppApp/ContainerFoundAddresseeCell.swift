@@ -54,10 +54,12 @@ class ContainerFoundAddresseeCell: UITableViewCell, AddresseeActions {
         if isAddButtonDisabled {
             addButton.isEnabled = false
             addButton.setTitle(L(LocKey.cryptoAddresseeAddedButtonTitle))
+            addButton.setTitleColor(UIColor.moppLabelDarker, for: .disabled)
         } else {
             addButton.isEnabled = true
             addButton.setTitle(L(LocKey.cryptoAddAddresseeButtonTitle))
             addButton.accessibilityLabel = L(.cryptoAddAddresseeButtonTitle).lowercased()
+            addButton.tintColor = UIColor.moppBase
         }
         
     }

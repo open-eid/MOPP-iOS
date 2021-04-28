@@ -165,9 +165,9 @@ class SmartIDEditViewController : MoppViewController {
         }()
         countryViewPicker.selectRow(row, inComponent: 0, animated: true)
         countryTextField.text = self.pickerView(countryViewPicker, titleForRow: row, forComponent: 0)
-        idCodeTextField.attributedPlaceholder = NSAttributedString(string: L(.smartIdCountryTitle), attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.46, green: 0.46, blue: 0.46, alpha: 1.0)])
+        idCodeTextField.attributedPlaceholder = NSAttributedString(string: L(.smartIdCountryTitle), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker])
         idCodeTextField.text = DefaultsHelper.sidIdCode
-        idCodeTextField.attributedPlaceholder = NSAttributedString(string: L(.settingsIdCodePlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 0.46, green: 0.46, blue: 0.46, alpha: 1.0)])
+        idCodeTextField.attributedPlaceholder = NSAttributedString(string: L(.settingsIdCodePlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker])
         rememberSwitch.setOn(DefaultsHelper.sidCountry != "EE" || DefaultsHelper.sidIdCode.count > 0, animated: true)
 
         verifySigningCapability()
