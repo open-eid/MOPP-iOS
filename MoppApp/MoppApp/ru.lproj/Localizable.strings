@@ -150,6 +150,7 @@
 
 "signature-remove-confirm-message" = "Удалить подпись из контейнера?";
 "datafile-remove-confirm-message" = "Удалить файл из контейнера?";
+"last-datafile-remove-confirm-message" = "Вы собираетесь удалить последний файл в контейнере, он удаляется вместе с контейнером";
 
 "mobile-id-title" = "Введите свой телефонный номер и личный код для подписания с помощью Mobiil-ID";
 "mobile-id-phone-title" = "Код страны и телефонный номер";

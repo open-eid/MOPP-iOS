@@ -354,16 +354,12 @@ extension ContainerViewController : UITableViewDataSource {
             var isRemoveButtonShown = false
             var isDownloadButtonShown = false
             if isAsicContainer {
-                isRemoveButtonShown = containerViewDelegate.getDataFileCount() > 1   &&
-                    !isForPreview   &&
-                    (signingContainerViewDelegate.getSignaturesCount() == 0)    &&
+                isRemoveButtonShown = !isForPreview &&
+                    (signingContainerViewDelegate.getSignaturesCount() == 0) &&
                     signingContainerViewDelegate.isContainerSignable()
-                
                 isDownloadButtonShown = !isForPreview && signingContainerViewDelegate.isContainerSignable()
             } else {
-                isRemoveButtonShown = containerViewDelegate.getDataFileCount() > 1   &&
-                    !isForPreview   &&
-                    (!(!isAsicContainer && state == .opened))
+                isRemoveButtonShown = !isForPreview && (state != .opened)
                 isDownloadButtonShown = !isForPreview && (isDecrypted || (state != .opened))
             }
                 cell.populate(

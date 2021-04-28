@@ -85,6 +85,26 @@ extension SigningContainerViewController : SigningContainerViewControllerDelegat
 extension SigningContainerViewController : ContainerViewControllerDelegate {
     
     func removeDataFile(index: Int) {
+        let containerFileCount: Int = self.containerViewDelegate.getDataFileCount()
+        guard containerFileCount > 0 else {
+            NSLog("No files in container")
+            self.errorAlert(message: L(.genericErrorMessage))
+            return
+        }
+        
+        if containerFileCount == 1 {
+            confirmDeleteAlert(message: L(.lastDatafileRemoveConfirmMessage)) { [weak self] (alertAction) in
+                let containerPath: String? = self?.getContainerPath()
+                let isDeleted: Bool = ContainerRemovalActions.shared.removeAsicContainer(containerPath: containerPath)
+                if !isDeleted {
+                    self?.errorAlert(message: L(.genericErrorMessage))
+                    return
+                }
+                
+                self?.navigationController?.popToRootViewController(animated: true)
+            }
+        }
+        
         confirmDeleteAlert(
             message: L(.datafileRemoveConfirmMessage),
             confirmCallback: { [weak self] (alertAction) in
