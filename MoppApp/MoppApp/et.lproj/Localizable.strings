@@ -285,6 +285,8 @@
 "diagnostics-app-version" = "Rakenduse versioon";
 "diagnostics-ios-version" = "Operatsioonisüsteem";
 "diagnostics-libraries-label" = "Teegid";
+"diagnostics-rpuuid-default" = "vaikimisi määratud";
+"diagnostics-rpuuid-custom" = "käsitsi määratud";
 "about-title" = "Info";
 "jailbreak-message" = "Seda rakendust ei saa kasutada turvamata (ingl jailbroken) seadmes";
 "datafile-preview-failed" = "Faili avamine eelvaateks ebaõnnestus";

@@ -43,6 +43,7 @@ class DiagnosticsViewController: MoppViewController {
     @IBOutlet weak var smartIdURL: UILabel!
     @IBOutlet weak var smartIdSKURL: UILabel!
     @IBOutlet weak var eeTSLVersion: UILabel!
+    @IBOutlet weak var rpUUIDInfo: UILabel!
     @IBOutlet weak var metaDate: UILabel!
     @IBOutlet weak var metaSerial: UILabel!
     @IBOutlet weak var metaUrl: UILabel!
@@ -122,7 +123,8 @@ class DiagnosticsViewController: MoppViewController {
         mobileIdSKURL.text = formatString(text: "MID-SK-URL: ", additionalText: decodedConf.MIDSKURL)
         smartIdURL.text = formatString(text: "SID-PROXY-URL: ", additionalText: decodedConf.SIDPROXYURL)
         smartIdSKURL.text = formatString(text: "SID-SK-URL: ", additionalText: decodedConf.SIDSKURL)
-        smartIdSKURL.text = formatString(text: "EE TSL: ", additionalText: getTSLVersion(for: "EE"))
+        eeTSLVersion.text = formatString(text: "EE TSL: ", additionalText: getTSLVersion(for: "EE"))
+        rpUUIDInfo.text = formatString(text: "RPUUID: ", additionalText: getRPUUIDInfo())
         metaDate.text = formatString(text: "DATE:", additionalText: decodedConf.METAINF.DATE)
         metaSerial.text = formatString(text: "SERIAL:", additionalText: String(decodedConf.METAINF.SERIAL))
         metaUrl.text = formatString(text: "URL:", additionalText: decodedConf.METAINF.URL)
@@ -203,5 +205,10 @@ class DiagnosticsViewController: MoppViewController {
         }
         
         return "-"
+    }
+
+    private func getRPUUIDInfo() -> String {
+        return DefaultsHelper.rpUuid.isEmpty || DefaultsHelper.rpUuid == kRelyingPartyUUID ?
+            L(.diagnosticsRpUuidDefault) : L(.diagnosticsRpUuidCustom)
     }
 }

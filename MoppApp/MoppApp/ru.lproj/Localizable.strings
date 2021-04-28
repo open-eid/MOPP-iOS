@@ -285,6 +285,8 @@
 "diagnostics-app-version" = "Версия приложения";
 "diagnostics-ios-version" = "Операционная система";
 "diagnostics-libraries-label" = "Библиотеки";
+"diagnostics-rpuuid-default" = "назначено по умолчанию";
+"diagnostics-rpuuid-custom" = "назначено вручную";
 "about-title" = "Информация";
 "jailbreak-message" = "Данное приложение не может быть использовано на взломанном (джейлбрейк) устройстве";
 "datafile-preview-failed" = "Не удалось открыть документ для предварительного просмотра";
