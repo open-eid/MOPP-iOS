@@ -2,7 +2,7 @@
 //  AttributeSet.m
 //  CryptoLib
 /*
-  * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
