@@ -287,6 +287,8 @@
 "diagnostics-app-version" = "Application version";
 "diagnostics-ios-version" = "OS";
 "diagnostics-libraries-label" = "Libraries:";
+"diagnostics-rpuuid-default" = "is set by default";
+"diagnostics-rpuuid-custom" = "is set manually";
 "about-title" = "Info";
 "jailbreak-message" = "This app cannot be used in jailbroken device";
 "datafile-preview-failed" = "Error opening document for preview";

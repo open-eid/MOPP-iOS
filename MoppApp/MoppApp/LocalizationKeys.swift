@@ -241,6 +241,8 @@ enum LocKey : String
     case diagnosticsAppVersion = "diagnostics-app-version"
     case diagnosticsIosVersion = "diagnostics-ios-version"
     case diagnosticsLibrariesLabel = "diagnostics-libraries-label"
+    case diagnosticsRpUuidDefault = "diagnostics-rpuuid-default"
+    case diagnosticsRpUuidCustom = "diagnostics-rpuuid-custom"
     case centralConfigurationLabel = "central-configuration"
     case lastUpdateCheckDateLabel = "last-update-check"
     case updateDateLabel = "update-date"
