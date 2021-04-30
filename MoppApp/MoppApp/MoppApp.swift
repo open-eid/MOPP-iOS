@@ -133,9 +133,9 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
              .font:UIFont(name: "RobotoCondensed-Regular", size: 10)!],
             for: .normal)
         
-//        if isDeviceJailbroken {
-//            window?.rootViewController = UIStoryboard.jailbreak.instantiateInitialViewController()
-//        } else {
+        if isDeviceJailbroken {
+            window?.rootViewController = UIStoryboard.jailbreak.instantiateInitialViewController()
+        } else {
             
             // Get remote configuration
             SettingsConfiguration().getCentralConfiguration()
@@ -147,7 +147,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             
             let initializationViewController = InitializationViewController()
             window?.rootViewController = initializationViewController
-//        }
+        }
 
         window?.makeKeyAndVisible()
         return true
