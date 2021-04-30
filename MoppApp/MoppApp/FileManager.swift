@@ -106,12 +106,18 @@ class MoppFileManager {
 
     func sharedDocumentPaths() -> [String] {
         let cachePath: String = sharedDocumentsPath()
-        let files = try! fileManager.contentsOfDirectory(atPath: sharedDocumentsPath())
-        var array = [String]()
-        for file in files {
-            array.append("\(cachePath)/\(file)")
+        let files: [String]? = try? fileManager.contentsOfDirectory(atPath: cachePath)
+        var filePaths: [String] = []
+        guard let filesInDirectory: [String] = files else {
+            NSLog("Unable to get shared documents directory")
+            return filePaths
         }
-        return array
+        
+        for file in filesInDirectory {
+            filePaths.append("\(cachePath)/\(file)")
+        }
+        
+        return filePaths
     }
     
     func libraryDirectoryPath() -> String {
@@ -240,6 +246,14 @@ class MoppFileManager {
             try fileManager.removeItem(atPath: filePath)
         } catch {
             MSLog("removeFileWithPath error: %@", error)
+        }
+    }
+    
+    func removeFilesFromSharedFolder() {
+        let sharedFiles = sharedDocumentPaths().compactMap { URL(fileURLWithPath: $0) }
+        
+        for sharedFile: URL in sharedFiles {
+            removeFile(withPath: sharedFile.path)
         }
     }
 

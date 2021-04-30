@@ -254,6 +254,7 @@ extension ContainerActions where Self: UIViewController {
                     MoppFileManager.shared.removeFile(withPath: $0)
                 }
             }
+            MoppFileManager.shared.removeFilesFromSharedFolder()
         }
         if landingViewController.containerType == .asic {
             MoppLibContainerActions.sharedInstance().createContainer(

@@ -152,13 +152,25 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         window?.makeKeyAndVisible()
         return true
     }
+    
+    func handleSharedFiles(sharedFiles: [URL]) {
+        if !sharedFiles.isEmpty {
+            _ = openPath(urls: sharedFiles)
+        }
+    }
 
     func setupTabController() {
         landingViewController = UIStoryboard.landing.instantiateInitialViewController(of: LandingViewController.self)
         window?.rootViewController = landingViewController
-        if let tempUrl = self.tempUrl {
-            _ = openUrl(url: tempUrl, options: [:])
-            self.tempUrl = nil
+        
+        let sharedFiles: [URL] = MoppFileManager.shared.sharedDocumentPaths().compactMap { URL(fileURLWithPath: $0) }
+        if !sharedFiles.isEmpty {
+           handleSharedFiles(sharedFiles: sharedFiles)
+        } else {
+            if let tempUrl = self.tempUrl {
+                _ = openUrl(url: tempUrl, options: [:])
+                self.tempUrl = nil
+            }
         }
         if Crashlytics.crashlytics().didCrashDuringPreviousExecution() {
             if (DefaultsHelper.crashReportSetting != CrashlyticsAlwaysSend) {
@@ -195,67 +207,86 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     }
 
     func openUrl(url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        if !url.absoluteString.isEmpty {
-            var cleanup = false
-            // Used to access folders on user device when opening container outside app (otherwise gives "Operation not permitted" error)
-            url.startAccessingSecurityScopedResource()
-        
-            // Let all the modal view controllers know that they should dismiss themselves
-            NotificationCenter.default.post(name: .didOpenUrlNotificationName, object: nil)
-        
-            // When app has just been launched, it may not be ready to deal with containers yet. We need to wait until libdigidocpp setup is complete.
-            if landingViewController == nil {
-                tempUrl = url
-                return true
-            }
-            
-            var newUrl = url
-            
-            // Sharing from Google Drive may change file extension
-            let fileExtension = determineFileExtension(mimeType: MimeTypeExtractor().getMimeTypeFromContainer(filePath: newUrl))
-            if fileExtension != "" {
-                do {
-                    let newData: Data = try Data(contentsOf: newUrl)
-                    let fileName: String = newUrl.deletingPathExtension().lastPathComponent
-                    let fileURL: URL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("temp", isDirectory: true).appendingPathComponent("\(fileName).\(fileExtension)")
-                    do {
-                        try newData.write(to: fileURL, options: .atomic)
-                        newUrl = fileURL
-                        cleanup = true;
-                    } catch {
-                        MSLog("Error writing to file: \(error)")
-                    }
-                } catch {
-                    MSLog("Error getting directory: \(error)")
-                }
-            }
-
-            var isXmlExtensionFileCdoc = false
-            if newUrl.pathExtension.isXmlFileExtension {
-                //Google Drive will change file extension and puts it to Inbox folder
-                if newUrl.absoluteString.range(of: "/Inbox/") != nil {
-                    newUrl = URL (string: newUrl.absoluteString.replacingOccurrences(of: "/Inbox", with: "/temp"))!
-                    isXmlExtensionFileCdoc = self.isXmlExtensionFileCdoc(with: url)
-                    if isXmlExtensionFileCdoc {
-                        newUrl.deletePathExtension()
-                        newUrl.appendPathExtension("cdoc")
-                    }
-                    let isFileMoved = MoppFileManager.shared.moveFile(withPath: url.path, toPath: newUrl.path, overwrite: true)
-                    if !isFileMoved {
-                        newUrl = url
-                    }
-                }
-            }
-            
-            if newUrl.pathExtension.isCdocContainerExtension {
-                landingViewController?.containerType = .cdoc
-            } else {
-                landingViewController?.containerType = .asic
-            }
-            landingViewController?.fileImportIntent = .openOrCreate
-            landingViewController?.importFiles(with: [newUrl], cleanup: cleanup)
+        return openPath(urls: [url], options: options)
+    }
+    
+    func openPath(urls: [URL], options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        guard !urls.isEmpty else {
+            NSLog("No URLs found to open")
+            return false
         }
-        url.stopAccessingSecurityScopedResource()
+        var fileUrls: [URL] = []
+        var cleanup: Bool = false
+        for url in urls {
+            if !url.absoluteString.isEmpty {
+                // Used to access folders on user device when opening container outside app (otherwise gives "Operation not permitted" error)
+                url.startAccessingSecurityScopedResource()
+            
+                // Let all the modal view controllers know that they should dismiss themselves
+                NotificationCenter.default.post(name: .didOpenUrlNotificationName, object: nil)
+            
+                // When app has just been launched, it may not be ready to deal with containers yet. We need to wait until libdigidocpp setup is complete.
+                if landingViewController == nil {
+                    tempUrl = url
+                    return true
+                }
+                
+                var newUrl = url
+                
+                // Sharing from Google Drive may change file extension
+                let fileExtension = determineFileExtension(mimeType: MimeTypeExtractor().getMimeTypeFromContainer(filePath: newUrl))
+                if fileExtension != "" {
+                    do {
+                        let newData: Data = try Data(contentsOf: newUrl)
+                        let fileName: String = newUrl.deletingPathExtension().lastPathComponent
+                        let fileURL: URL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("temp", isDirectory: true).appendingPathComponent("\(fileName).\(fileExtension)")
+                        do {
+                            try newData.write(to: fileURL, options: .atomic)
+                            newUrl = fileURL
+                            fileUrls.append(newUrl)
+                            cleanup = true;
+                        } catch {
+                            MSLog("Error writing to file: \(error)")
+                        }
+                    } catch {
+                        MSLog("Error getting directory: \(error)")
+                    }
+                }
+
+                var isXmlExtensionFileCdoc = false
+                if newUrl.pathExtension.isXmlFileExtension {
+                    //Google Drive will change file extension and puts it to Inbox folder
+                    if newUrl.absoluteString.range(of: "/Inbox/") != nil {
+                        newUrl = URL (string: newUrl.absoluteString.replacingOccurrences(of: "/Inbox", with: "/temp"))!
+                        isXmlExtensionFileCdoc = self.isXmlExtensionFileCdoc(with: url)
+                        if isXmlExtensionFileCdoc {
+                            newUrl.deletePathExtension()
+                            newUrl.appendPathExtension("cdoc")
+                        }
+                        let isFileMoved = MoppFileManager.shared.moveFile(withPath: url.path, toPath: newUrl.path, overwrite: true)
+                        if !isFileMoved {
+                            newUrl = url
+                            fileUrls.append(newUrl)
+                        }
+                    }
+                }
+                
+                if newUrl.pathExtension.isCdocContainerExtension {
+                    landingViewController?.containerType = .cdoc
+                } else {
+                    landingViewController?.containerType = .asic
+                }
+            }
+            url.stopAccessingSecurityScopedResource()
+        }
+        
+        if fileUrls.isEmpty {
+            fileUrls = urls
+        }
+        
+        landingViewController?.fileImportIntent = .openOrCreate
+        landingViewController?.importFiles(with: fileUrls, cleanup: cleanup)
+        
         return true
     }
 
@@ -301,6 +332,13 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                 removeWindowBlur()
             }
         #endif
+        
+        if UIViewController().getTopViewController() is InitializationViewController || UIViewController().getTopViewController() is LandingViewController {
+            let sharedFiles: [URL] = MoppFileManager.shared.sharedDocumentPaths().compactMap { URL(fileURLWithPath: $0) }
+            if !sharedFiles.isEmpty {
+               handleSharedFiles(sharedFiles: sharedFiles)
+            }
+        }
         
         restartIdCardDiscovering()
     }
