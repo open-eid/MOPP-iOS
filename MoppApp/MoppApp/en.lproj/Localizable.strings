@@ -151,6 +151,7 @@
 
 "signature-remove-confirm-message" = "Remove signature from container?";
 "datafile-remove-confirm-message" = "Remove file from container?";
+"last-datafile-remove-confirm-message" = "You are about to remove the last file in the container, it is removed along with the container";
 
 "mobile-id-title" = "Enter your mobile number and personal code to sign with Mobile-ID";
 "mobile-id-phone-title" = "Country code and phone number";

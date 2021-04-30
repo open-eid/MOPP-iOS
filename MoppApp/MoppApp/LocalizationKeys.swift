@@ -106,6 +106,7 @@ enum LocKey : String
     case errorAlertOpenLink = "error-alert-open-link"
     case signatureRemoveConfirmMessage = "signature-remove-confirm-message"
     case datafileRemoveConfirmMessage = "datafile-remove-confirm-message"
+    case lastDatafileRemoveConfirmMessage = "last-datafile-remove-confirm-message"
     case mobileIdTitle = "mobile-id-title"
     case mobileIdPhoneTitle = "mobile-id-phone-title"
     case mobileIdIdcodeTitle = "mobile-id-idcode-title"
