@@ -176,6 +176,12 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
                 return completionHandler(.failure(.generalError))
             }
             
+            if !(200...299).contains(httpResponse.statusCode) {
+                self.urlTask?.cancel()
+                ErrorLog.errorLog(forMethod: "Session status", httpResponse: httpResponse, error: self.handleHTTPSessionResponseError(httpResponse: httpResponse), extraInfo: "Status code: \(httpResponse.statusCode)")
+                return completionHandler(.failure(self.handleHTTPSessionStatusResponseError(httpResponse: httpResponse)))
+            }
+            
             if let data: Data = data {
                 EncoderDecoder().decode(data: data, completionHandler: { (response: SessionStatusResponse) in
                     if (response.error == nil) {
@@ -226,6 +232,8 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
             return .sessionIdNotFound
         case 405:
             return .methodNotAllowed
+        case 429:
+            return .tooManyRequests
         case 500:
             return .internalError
         default:
