@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -105,6 +105,25 @@ extension CryptoContainerViewController : AddresseeViewControllerDelegate {
 extension CryptoContainerViewController : ContainerViewControllerDelegate {
     
     func removeDataFile(index: Int) {
+        let containerFileCount: Int = self.getContainer().dataFiles.count
+        guard containerFileCount > 0 else {
+            NSLog("No files in container")
+            self.errorAlert(message: L(.genericErrorMessage))
+            return
+        }
+        
+        if containerFileCount == 1 {
+            confirmDeleteAlert(message: L(.lastDatafileRemoveConfirmMessage)) { [weak self] (alertAction) in
+                let cryptoContainer: CryptoContainer? = self?.getContainer()
+                let isDeleted: Bool = ContainerRemovalActions.shared.removeCdocContainer(cryptoContainer: cryptoContainer)
+                if !isDeleted {
+                    self?.errorAlert(message: L(.genericErrorMessage))
+                    return
+                }
+                
+                self?.navigationController?.popToRootViewController(animated: true)
+            }
+        }
         confirmDeleteAlert(
             message: L(.datafileRemoveConfirmMessage),
             confirmCallback: { [weak self] (alertAction) in

@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -57,6 +57,32 @@ class MobileIDChallengeViewController : UIViewController {
             selector: #selector(receiveMobileCreateSignatureNotification),
             name: .createSignatureNotificationName,
             object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didFinishAnnouncement(_:)),
+            name: NSNotification.Name.UIAccessibilityAnnouncementDidFinish,
+            object: nil)
+        
+        // To let VoiceOver say challenge ID code first. Otherwise other elements will interrupt.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.titleLabel.isAccessibilityElement = true
+            self.timeoutProgressView.isAccessibilityElement = true
+        }
+    }
+    
+    @objc func didFinishAnnouncement(_ notification: Notification) {
+        let announcementValue: String? = notification.userInfo?[UIAccessibilityAnnouncementKeyStringValue] as? String
+        let isAnnouncementSuccessful: Bool? = notification.userInfo?[UIAccessibilityAnnouncementKeyWasSuccessful] as? Bool
+        
+        guard let isSuccessful = isAnnouncementSuccessful else {
+            return
+        }
+        
+        if !isSuccessful {
+            NSLog("Control code announcement was not successful, retrying...")
+            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, announcementValue)
+        }
     }
 
     deinit {
@@ -101,13 +127,17 @@ class MobileIDChallengeViewController : UIViewController {
     
         challengeID = response.challengeId!
         sessCode = "\(Int(response.sessCode))"
+        let challengeIdNumbers = Array<Character>(challengeID)
+        let challengeIdAccessibilityLabel: String = "\((L(LocKey.challengeCodeLabelAccessibility, [String(challengeIdNumbers[0]), String(challengeIdNumbers[1]), String(challengeIdNumbers[2]), String(challengeIdNumbers[3])]))). \(self.helpLabel.text!)"
+        codeLabel.accessibilityLabel = challengeIdAccessibilityLabel
+        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, challengeIdAccessibilityLabel)
     
         codeLabel.isHidden = false
         titleLabel.text = MoppLib_LocalizedString("digidoc-service-status-request-ok")
         codeLabel.text = L(LocKey.challengeCodeLabel, [challengeID])
+        titleLabel.isAccessibilityElement = false
+        timeoutProgressView.isAccessibilityElement = false
         
-        let challengeIdNumbers = Array<Character>(challengeID)
-        codeLabel.accessibilityLabel = L(LocKey.challengeCodeLabel, ["\(challengeIdNumbers[0]), \(challengeIdNumbers[1]), \(challengeIdNumbers[2]), \(challengeIdNumbers[3])"])
         currentProgress = 0.0
         
         sessionTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSessionProgress), userInfo: nil, repeats: true)

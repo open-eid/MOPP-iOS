@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -120,12 +120,12 @@ class ContainerSignatureCell: UITableViewCell {
         let signatureStatus = NSMutableAttributedString(string: signatureStatusText)
         let mainColor: UIColor
         if(valid){
-            mainColor = UIColor.moppSuccessText
+            mainColor = UIColor.moppSuccessTextDarker
         }else{
             mainColor = UIColor.moppError
         }
         signatureStatus.addAttribute(NSAttributedStringKey.foregroundColor, value: mainColor, range: NSRange(location:0,length:translationPrefix.count))
-        signatureStatus.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.moppWarningText, range: NSRange(location:translationPrefix.count+1,length:translationSufix.count))
+        signatureStatus.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.moppWarningTextDarker, range: NSRange(location:translationPrefix.count+1,length:translationSufix.count))
         return signatureStatus
     }
     

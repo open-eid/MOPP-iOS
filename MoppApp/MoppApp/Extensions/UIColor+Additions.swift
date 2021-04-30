@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -104,5 +104,36 @@ extension UIColor {
     
     class var moppMenuLanguageTextUnselected: UIColor {
         return UIColor(named: "MoppMenuLanguageTextUnselected")!
+    }
+    
+    class var moppLabelDarker: UIColor {
+        return UIColor(named: "MoppLabelDarker")!
+    }
+    
+    class var moppWarningTextDarker: UIColor {
+        return UIColor(named: "MoppWarningTextDarker")!
+    }
+    class var moppMenuLanguageTextUnselectedDarker: UIColor {
+        return UIColor(named: "MoppMenuLanguageTextUnselectedDarker")!
+    }
+    
+    class var moppPlaceholderDarker: UIColor {
+        return UIColor(named: "MoppPlaceholderDarker")!
+    }
+    
+    class var moppBackgroundDark: UIColor {
+        return UIColor(named: "MoppBackgroundDark")!
+    }
+    
+    class var moppLabelBackgroundDarker: UIColor {
+        return UIColor(named: "MoppLabelBackgroundDarker")!
+    }
+    
+    class var moppSuccessTextDarker: UIColor {
+        return UIColor(named: "MoppSuccessTextDarker")!
+    }
+    
+    class var moppSuccessDarker: UIColor {
+        return UIColor(named: "MoppSuccessDarker")!
     }
 }

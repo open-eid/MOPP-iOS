@@ -43,7 +43,7 @@ class SettingsTimeStampCell: UITableViewCell {
         let useDefault = DefaultsHelper.timestampUrl == nil
         useDefaultSwitch.isOn = useDefault
         textField.isEnabled = !useDefault
-        textField.textColor = useDefault ? UIColor.moppLabel : UIColor.moppText
+        textField.textColor = useDefault ? UIColor.moppLabelDarker : UIColor.moppText
         textField.text = DefaultsHelper.timestampUrl ?? MoppConfiguration.tsaUrl
         
         titleLabel.text = L(.settingsTimestampUrlTitle)

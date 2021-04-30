@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -73,7 +73,7 @@
 "crypto-type-unknown" = "TEADMATA";
 "crypto-add-addressee-button-title" = "LISA";
 "crypto-addressee-added-button-title" = "LISATUD";
-"crypto-remove-addressee-button" = "Eemalda Allkiri";
+"crypto-remove-addressee-button" = "Eemalda Adressaat";
 
 // Crashlytics
 "crashlytics-title" = "Kas saata vearaport?";
@@ -113,6 +113,7 @@
 "container-header-create-files-title" = "Ümbriku sisu";
 "container-edit-name-button" = "Muuda ümbriku nime";
 "container-error-message-failed-container-name-change" = "Ümbriku nime muutmine ebaõnnestus";
+"container-header-files-add-file" = "Lisa fail";
 "container-header-create-addressee-title" = "Adressaadid";
 "container-header-timestamp-title" = "Ajatempel";
 "container-header-signatures-title" = "Ümbriku allkirjad";
@@ -136,6 +137,7 @@
 // *** Mobile ID Challenge View ***
 
 "challenge-code-label" = "Kontrollkood: %@";
+"challenge-code-label-accessibility" = "Kontrollkood: %@ %@ %@ %@";
 
 "sim-toolkit-sign-document-title" = "Allkirjasta dokument";
 
@@ -150,6 +152,7 @@
 
 "signature-remove-confirm-message" = "Soovid eemaldada allkirja?";
 "datafile-remove-confirm-message" = "Soovid eemaldada faili ümbrikust?";
+"last-datafile-remove-confirm-message" = "Oled kustutamas viimast faili ümbrikus, koos sellega eemaldatakse ka ümbrik";
 
 "mobile-id-title" = "Sisesta oma telefoninumber ja isikukood Mobiil-IDga allkirjastamiseks";
 "mobile-id-phone-title" = "Riigi suunakood ja mobiiltelefoni number";

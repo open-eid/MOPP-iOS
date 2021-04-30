@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -63,14 +63,14 @@ class SettingsViewController: MoppViewController {
             id: .rpuuid,
             kind: .inputField,
             title: L(.settingsRpUuidTitle),
-            placeholderText: NSAttributedString(string: L(.settingsRpUuidPlaceholder), attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 0.46, green: 0.46, blue: 0.46, alpha: 1.0)]),
+            placeholderText: NSAttributedString(string: L(.settingsRpUuidPlaceholder), attributes: [NSAttributedStringKey.foregroundColor: UIColor.moppPlaceholderDarker]),
             value: DefaultsHelper.rpUuid
         ),
         Field(
             id: .timestampUrl,
             kind: .timestamp,
             title: L(.settingsTimestampUrlTitle),
-            placeholderText: NSAttributedString(string: L(.settingsTimestampUrlPlaceholder), attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 0.46, green: 0.46, blue: 0.46, alpha: 1.0)]),
+            placeholderText: NSAttributedString(string: L(.settingsTimestampUrlPlaceholder), attributes: [NSAttributedStringKey.foregroundColor: UIColor.moppPlaceholderDarker]),
             value: DefaultsHelper.timestampUrl ?? MoppConfiguration.tsaUrl!
         )
     ]

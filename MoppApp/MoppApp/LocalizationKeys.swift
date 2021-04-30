@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -78,6 +78,7 @@ enum LocKey : String
     case containerHeaderCreateFilesTitle = "container-header-create-files-title"
     case containerEditNameButton = "container-edit-name-button"
     case containerErrorMessageFailedContainerNameChange = "container-error-message-failed-container-name-change"
+    case containerHeaderFilesAddFile = "container-header-files-add-file"
     case containerHeaderCreateAddresseesTitle = "container-header-create-addressee-title"
     case containerHeaderTimestampTitle = "container-header-timestamp-title"
     case containerHeaderSignaturesTitle = "container-header-signatures-title"
@@ -98,12 +99,14 @@ enum LocKey : String
     case conatinerSignatureTestSignatureTitle = "container-signature-test-signature-title";
     case containerTimestampInvalid = "container-timestamp-invalid";
     case challengeCodeLabel = "challenge-code-label"
+    case challengeCodeLabelAccessibility = "challenge-code-label-accessibility"
     case simToolkitSignDocumentTitle = "sim-toolkit-sign-document-title"
     case mobileIdTimeoutMessage = "mobile-id-timeout-message"
     case errorAlertTitleGeneral = "error-alert-title-general"
     case errorAlertOpenLink = "error-alert-open-link"
     case signatureRemoveConfirmMessage = "signature-remove-confirm-message"
     case datafileRemoveConfirmMessage = "datafile-remove-confirm-message"
+    case lastDatafileRemoveConfirmMessage = "last-datafile-remove-confirm-message"
     case mobileIdTitle = "mobile-id-title"
     case mobileIdPhoneTitle = "mobile-id-phone-title"
     case mobileIdIdcodeTitle = "mobile-id-idcode-title"

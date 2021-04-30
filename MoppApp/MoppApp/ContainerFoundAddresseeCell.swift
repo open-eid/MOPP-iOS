@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -54,10 +54,12 @@ class ContainerFoundAddresseeCell: UITableViewCell, AddresseeActions {
         if isAddButtonDisabled {
             addButton.isEnabled = false
             addButton.setTitle(L(LocKey.cryptoAddresseeAddedButtonTitle))
+            addButton.setTitleColor(UIColor.moppLabelDarker, for: .disabled)
         } else {
             addButton.isEnabled = true
             addButton.setTitle(L(LocKey.cryptoAddAddresseeButtonTitle))
             addButton.accessibilityLabel = L(.cryptoAddAddresseeButtonTitle).lowercased()
+            addButton.tintColor = UIColor.moppBase
         }
         
     }

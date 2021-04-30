@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -254,7 +254,7 @@ class MyeIDInfoManager {
         if isValid {
             let certValidText = capitalized ? L(.myEidCertValid).capitalized : L(.myEidCertValid)
             let validText = NSAttributedString(string: certValidText, attributes:
-                [.foregroundColor : UIColor.moppSuccess,
+                [.foregroundColor : UIColor.moppSuccessTextDarker,
                  .font : font])
             attrText.append(validText)
         } else {
@@ -305,7 +305,7 @@ class MyeIDInfoManager {
         if isCertValid {
             certInfoString.append(NSAttributedString(
                 string: L(.myEidCertInfoValid),
-                attributes: [.font: font]
+                attributes: [.font: font, .foregroundColor: UIColor.moppLabelDarker]
                 ))
             certInfoString.replaceOccurrences(of: "[VALID_EXPIRY_STATUS]", with: statusAttributedString)
             if expiryDateAttributedString != nil {

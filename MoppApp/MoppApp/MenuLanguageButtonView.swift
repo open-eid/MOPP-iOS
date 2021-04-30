@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -25,7 +25,7 @@ class MenuLanguageButtonView : UIView {
     var isSelected: Bool = false {
         didSet {
             button.isSelected = isSelected
-            label.textColor = isSelected ? UIColor.moppBaseBackground : UIColor.moppMenuLanguageTextUnselected
+            label.textColor = isSelected ? UIColor.moppBaseBackground : UIColor.moppMenuLanguageTextUnselectedDarker
         }
     }
 

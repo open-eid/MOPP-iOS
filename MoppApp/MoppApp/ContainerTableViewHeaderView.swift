@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -45,7 +45,7 @@ class ContainerTableViewHeaderView: UIView {
     
     func populate(withTitle title: String, showAddButton: Bool) {
         addButton.isHidden = !showAddButton
-        
+        addButton.accessibilityLabel = showAddButton ? L(.containerHeaderFilesAddFile) : ""
         titleLabel.text = title
     }
     

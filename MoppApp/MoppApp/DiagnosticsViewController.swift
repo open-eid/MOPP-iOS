@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,7 +30,7 @@ class DiagnosticsViewController: MoppViewController {
     @IBOutlet weak var updateDateLabel: UILabel!
     @IBOutlet weak var lastCheckLabel: UILabel!
     @IBOutlet weak var refreshConfigurationLabel: UIButton!
-    
+
     @IBOutlet weak var configURL: UILabel!
     @IBOutlet weak var tslURL: UILabel!
     @IBOutlet weak var sivaURL: UILabel!
@@ -50,21 +50,21 @@ class DiagnosticsViewController: MoppViewController {
     @IBOutlet weak var metaVer: UILabel!
     @IBOutlet weak var updateDate: UILabel!
     @IBOutlet weak var lastCheckDate: UILabel!
-    
+
     @IBAction func refreshConfiguration(_ sender: Any) {
         DispatchQueue.global(qos: .userInitiated).async {
             SettingsConfiguration().loadCentralConfiguration()
-            
+
             NotificationCenter.default.addObserver(self, selector: #selector(self.onCentralConfigurationResponse(responseNotification:)), name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil)
         }
     }
-    
-    
-    
+
+
+
     @IBAction func dismissAction() {
         dismiss(animated: true, completion: nil)
     }
-    
+
     @objc func onCentralConfigurationResponse(responseNotification: Notification)
     {
         if responseNotification.userInfo?["isLoaded"] as! Bool == true {
@@ -73,10 +73,10 @@ class DiagnosticsViewController: MoppViewController {
             }
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         titleLabel.text = L(.diagnosticsTitle)
         appVersionLabel.attributedText = attributedTextForBoldRegularText(key: L(.diagnosticsAppVersion) + ": ", value: MoppApp.versionString)
         opSysVersionLabel.attributedText = attributedTextForBoldRegularText(key: L(.diagnosticsIosVersion) + ": ", value: "iOS " +  MoppApp.iosVersion)
@@ -85,33 +85,33 @@ class DiagnosticsViewController: MoppViewController {
         librariesLabel.attributedText = attributedTextForBoldRegularText(key: String(), value: "libdigidocpp \(libdigidocppVersion)")
         centralConfigurationLabel.text = L(.centralConfigurationLabel)
         refreshConfigurationLabel.setTitle(L(.refreshConfigurationLabel))
-        
+
         configurationToUI()
-        
+
         listenForConfigUpdates()
     }
-    
+
     func attributedTextForBoldRegularText(key:String, value:String) -> NSAttributedString {
         let regularFont = UIFont(name: MoppFontName.regular.rawValue, size: 16)!
         let boldFont = UIFont(name: MoppFontName.bold.rawValue, size: 16)!
         let textColor = UIColor.moppText
-        
+
         let result = NSMutableAttributedString(string: key, attributes: [NSAttributedStringKey.font : boldFont, NSAttributedStringKey.foregroundColor : textColor])
         result.append(NSAttributedString(string: value, attributes: [NSAttributedStringKey.font : regularFont, NSAttributedStringKey.foregroundColor : textColor]))
         return result
     }
-    
+
     func listenForConfigUpdates() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleConfigurationLoaded(notification:)), name: .configurationLoaded, object: nil)
     }
-    
+
     @objc func handleConfigurationLoaded(notification: Notification) {
         self.viewDidLoad()
     }
-    
+
     private func configurationToUI() {
         let decodedConf = getMoppConfiguration()
-        
+
         configURL.text = formatString(text: "CONFIG_URL:", additionalText: decodedConf.METAINF.URL)
         tslURL.text = formatString(text: "TSL_URL:", additionalText: "\(getMoppConfiguration().TSLURL) \(formatLOTLVersion(version: getLOTLVersion()))")
         sivaURL.text = formatString(text: "SIVA_URL:", additionalText: decodedConf.SIVAURL)
@@ -129,8 +129,8 @@ class DiagnosticsViewController: MoppViewController {
         metaSerial.text = formatString(text: "SERIAL:", additionalText: String(decodedConf.METAINF.SERIAL))
         metaUrl.text = formatString(text: "URL:", additionalText: decodedConf.METAINF.URL)
         metaVer.text = formatString(text: "VER:", additionalText: String(decodedConf.METAINF.VER))
-        
-        
+
+
         if let cachedUpdateDate = SettingsConfiguration().getConfigurationFromCache(forKey: "updateDate") as? Date {
             updateDate.text = formatString(text: L(.updateDateLabel), additionalText: MoppDateFormatter().dateToString(date: cachedUpdateDate))
         } else {
@@ -140,18 +140,18 @@ class DiagnosticsViewController: MoppViewController {
                 MSLog("Unable to decode data: ", error.localizedDescription)
             }
         }
-        
+
         if let cachedLastUpdateCheckDate = SettingsConfiguration().getConfigurationFromCache(forKey: "lastUpdateCheckDate") as? Date {
             lastCheckDate.text = formatString(text: L(.lastUpdateCheckDateLabel), additionalText: MoppDateFormatter().dateToString(date: cachedLastUpdateCheckDate))
         } else {
             lastCheckDate.text = formatString(text: L(.lastUpdateCheckDateLabel), additionalText: " ")
         }
     }
-    
+
     private func getMoppConfiguration() -> MOPPConfiguration {
         return Configuration.getConfiguration()
     }
-    
+
     private func getDecodedDefaultMoppConfiguration() throws -> DefaultMoppConfiguration {
         do {
             let defaultConfigData = try String(contentsOfFile: Bundle.main.path(forResource: "defaultConfiguration", ofType: "json")!)
@@ -161,7 +161,7 @@ class DiagnosticsViewController: MoppViewController {
             throw error
         }
     }
-    
+
     private func getLOTLVersion() -> String {
         let lotlFileUrl: URL? = TSLUpdater().getLOTLFileURL()
         guard lotlFileUrl != nil, let lotlFile = lotlFileUrl else {
@@ -185,15 +185,15 @@ class DiagnosticsViewController: MoppViewController {
 
         return version
     }
-    
+
     private func formatLOTLVersion(version: String) -> String {
         return version.isEmpty ? "" : "(\(version))"
     }
-    
+
     private func getTSLVersion(for tslCountry: String) -> String {
         let tslFilesBundlePath: String = TSLUpdater().getTSLFilesBundlePath()
         let filesInBundle: [URL] = TSLUpdater().getCountryFileLocations(inPath: tslFilesBundlePath)
-        
+
         for bundleFile in filesInBundle {
             if !bundleFile.hasDirectoryPath {
                 let fileName: String = bundleFile.deletingPathExtension().lastPathComponent
@@ -203,7 +203,7 @@ class DiagnosticsViewController: MoppViewController {
                 }
             }
         }
-        
+
         return "-"
     }
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qFP-og-5IC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qFP-og-5IC">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -38,6 +38,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                             </containerView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="gDH-iG-P6G"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="YJf-b7-e3W" firstAttribute="trailing" secondItem="gDH-iG-P6G" secondAttribute="trailing" id="DSY-US-Ayc"/>
@@ -45,7 +46,6 @@
                             <constraint firstItem="YJf-b7-e3W" firstAttribute="leading" secondItem="gDH-iG-P6G" secondAttribute="leading" id="lKw-Qz-gs4"/>
                             <constraint firstItem="YJf-b7-e3W" firstAttribute="bottom" secondItem="gDH-iG-P6G" secondAttribute="bottom" id="qRH-fU-mJ9"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="gDH-iG-P6G"/>
                     </view>
                     <navigationItem key="navigationItem" title="My eID" id="e1F-xa-Cc8">
                         <barButtonItem key="rightBarButtonItem" image="VerticalDotsMenu" id="0ZJ-7S-wMb">
@@ -79,13 +79,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="DqR-NQ-ADW"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="pwG-59-c68" firstAttribute="centerY" secondItem="DqR-NQ-ADW" secondAttribute="centerY" id="UMU-9v-dAB"/>
                             <constraint firstAttribute="trailing" secondItem="pwG-59-c68" secondAttribute="trailing" constant="16" id="Wbn-I9-A6C"/>
                             <constraint firstItem="pwG-59-c68" firstAttribute="leading" secondItem="9cX-nZ-t1m" secondAttribute="leading" constant="16" id="ukm-lB-ND2"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="DqR-NQ-ADW"/>
                     </view>
                     <connections>
                         <outlet property="titleLabel" destination="pwG-59-c68" id="AoB-TP-vWt"/>
@@ -115,13 +115,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w8A-R2-bu9">
-                                                    <rect key="frame" x="15" y="8" width="345" height="41"/>
+                                                    <rect key="frame" x="16" y="8" width="343" height="41"/>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
-                                                    <color key="textColor" red="0.69411764710000001" green="0.70196078429999997" blue="0.70196078429999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" red="0.41960784313725491" green="0.44313725490196076" blue="0.44313725490196076" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kHp-sg-HRn">
-                                                    <rect key="frame" x="15" y="49" width="345" height="20"/>
+                                                    <rect key="frame" x="16" y="49" width="343" height="20"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="17"/>
                                                     <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -182,7 +182,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PIN/PUK KOODID JA SERTIFIKAATIDE KONTROLL" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZe-Sb-oBY">
-                                                    <rect key="frame" x="36" y="15" width="324" height="25"/>
+                                                    <rect key="frame" x="36" y="15" width="323" height="25"/>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Bold" family="Roboto Condensed" pointSize="16"/>
                                                     <color key="textColor" name="MoppBase"/>
                                                     <nil key="highlightedColor"/>
@@ -212,19 +212,19 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PIN - Isikutuvastamise sertifikaat" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJu-2L-EAd">
-                                                    <rect key="frame" x="15" y="19" width="345" height="23.5"/>
+                                                    <rect key="frame" x="16" y="19" width="343" height="23.5"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="20"/>
                                                     <color key="textColor" name="MoppTitle"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Sertifikaat kehtib kuni 10. august 2019" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qQ-fi-sih">
-                                                    <rect key="frame" x="15" y="46.5" width="345" height="20"/>
+                                                    <rect key="frame" x="16" y="46.5" width="343" height="20"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
-                                                    <color key="textColor" name="MoppLabel"/>
+                                                    <color key="textColor" name="MoppLabelDarker"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ea3-dl-Wz3">
-                                                    <rect key="frame" x="15" y="98.5" width="345" height="50"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ea3-dl-Wz3">
+                                                    <rect key="frame" x="16" y="98.5" width="343" height="50"/>
                                                     <color key="backgroundColor" name="MoppBase"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="KZ9-h4-g4H"/>
@@ -255,7 +255,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" text="PIN1 on sisestatud 3 kord valesti.  PIN1 on blokeeritud" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ST5-E7-4MQ">
-                                                    <rect key="frame" x="15" y="164.5" width="345" height="37.5"/>
+                                                    <rect key="frame" x="16" y="164.5" width="343" height="37.5"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                     <color key="textColor" name="MoppError"/>
                                                     <nil key="highlightedColor"/>
@@ -267,9 +267,12 @@
                                                         <constraint firstAttribute="height" constant="1" id="mT7-d5-mZK"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRI-cY-Mwr">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRI-cY-Mwr">
                                                     <rect key="frame" x="11" y="205.5" width="353" height="44"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" link="YES"/>
+                                                    </accessibility>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="pUV-Mw-39o"/>
                                                     </constraints>
@@ -336,6 +339,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="SjF-s2-2nL"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="YRp-KX-D2F" firstAttribute="trailing" secondItem="SjF-s2-2nL" secondAttribute="trailing" id="BIf-3U-5qM"/>
@@ -343,7 +347,6 @@
                             <constraint firstItem="YRp-KX-D2F" firstAttribute="leading" secondItem="SjF-s2-2nL" secondAttribute="leading" id="KRD-gi-zoM"/>
                             <constraint firstItem="YRp-KX-D2F" firstAttribute="top" secondItem="BxE-RZ-mJ7" secondAttribute="top" id="oQS-96-yBf"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="SjF-s2-2nL"/>
                     </view>
                     <connections>
                         <outlet property="ui" destination="BwH-nR-tQl" id="z1S-FG-kGa"/>
@@ -382,7 +385,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" name="MoppSuccess"/>
+                                                <color key="backgroundColor" name="MoppSuccessDarker"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" priority="250" id="8gw-bZ-fzE"/>
                                                     <constraint firstItem="AdU-V9-PA4" firstAttribute="leading" secondItem="cGO-C3-0Va" secondAttribute="leading" constant="8" id="Byf-2C-Nq4"/>
@@ -512,7 +515,7 @@
                                     <constraint firstItem="UF1-Qa-mvf" firstAttribute="top" secondItem="UZI-z6-jr7" secondAttribute="top" id="K1S-gn-icX"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4L7-U7-0AX">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4L7-U7-0AX">
                                 <rect key="frame" x="0.0" y="717" width="187.5" height="50"/>
                                 <color key="backgroundColor" name="MoppError"/>
                                 <constraints>
@@ -526,7 +529,7 @@
                                     <action selector="discardButtonTapped" destination="Pbk-gd-VHp" eventType="touchUpInside" id="13f-lw-uEw"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AQm-Vo-Ytv">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AQm-Vo-Ytv">
                                 <rect key="frame" x="187.5" y="717" width="187.5" height="50"/>
                                 <color key="backgroundColor" name="MoppBase"/>
                                 <constraints>
@@ -541,6 +544,7 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="umS-fn-kJh"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="AQm-Vo-Ytv" firstAttribute="bottom" secondItem="umS-fn-kJh" secondAttribute="bottom" id="89y-z7-D3p"/>
@@ -556,7 +560,6 @@
                             <constraint firstItem="4L7-U7-0AX" firstAttribute="top" secondItem="UZI-z6-jr7" secondAttribute="bottom" id="dB5-OW-YFr"/>
                             <constraint firstItem="UF1-Qa-mvf" firstAttribute="width" secondItem="NIq-mo-ggz" secondAttribute="width" id="fdJ-JT-V4t"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="umS-fn-kJh"/>
                     </view>
                     <size key="freeformSize" width="375" height="767"/>
                     <connections>
@@ -619,12 +622,12 @@
                                 </connections>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="4Kf-Vp-9tq"/>
                         <color key="backgroundColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="oxf-GD-Tga" firstAttribute="centerX" secondItem="4Kf-Vp-9tq" secondAttribute="centerX" id="R6A-9h-Ze9"/>
                             <constraint firstItem="oxf-GD-Tga" firstAttribute="centerY" secondItem="4Kf-Vp-9tq" secondAttribute="centerY" id="xHy-lB-veC"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="4Kf-Vp-9tq"/>
                     </view>
                     <connections>
                         <outlet property="spinnerView" destination="oxf-GD-Tga" id="AYx-sL-9mm"/>
@@ -674,8 +677,11 @@
         <namedColor name="MoppLabel">
             <color red="0.45882352941176469" green="0.47058823529411764" blue="0.4823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="MoppSuccess">
-            <color red="0.5490196078431373" green="0.76470588235294112" blue="0.40784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="MoppLabelDarker">
+            <color red="0.45098039215686275" green="0.45098039215686275" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="MoppSuccessDarker">
+            <color red="0.29411764705882354" green="0.49019607843137253" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="MoppText">
             <color red="0.21176470588235294" green="0.21568627450980393" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

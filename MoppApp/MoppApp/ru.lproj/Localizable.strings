@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -111,6 +111,7 @@
 "container-header-create-files-title" = "Файлы контейнера";
 "container-edit-name-button" = "Изменить название контейнера";
 "container-error-message-failed-container-name-change" = "Не удалось изменить название контейнера";
+"container-header-files-add-file" = "Добавить файл";
 "container-header-create-addressee-title" = "Получатели";
 "container-header-timestamp-title" = "Временной штамп контейнера";
 "container-header-signatures-title" = "Подписи контейнера";
@@ -128,13 +129,14 @@
 "container-signature-status-non-qscd" = "(Ограничения)";
 "container-signature-status-invalid" = "Подпись недействительна";
 "container-signature-status-unknown" = "Подпись неизвестная";
-"crypto-remove-addressee-button" = "Удалить подпись";
+"crypto-remove-addressee-button" = "Удалить Получателя";
 "container-signature-test-signature-title" = "Тестовая подпись";
 "container-timestamp-invalid" = "Временной штамп недействителен";
 
 // *** Mobile ID Challenge View ***
 
 "challenge-code-label" = "Контрольный код: %@";
+"challenge-code-label-accessibility" = "Контрольный код: %@ %@ %@ %@";
 
 // Currently must be in English
 "sim-toolkit-sign-document-title" = "Sign document";
@@ -150,6 +152,7 @@
 
 "signature-remove-confirm-message" = "Удалить подпись из контейнера?";
 "datafile-remove-confirm-message" = "Удалить файл из контейнера?";
+"last-datafile-remove-confirm-message" = "Вы собираетесь удалить последний файл в контейнере, он удаляется вместе с контейнером";
 
 "mobile-id-title" = "Введите свой телефонный номер и личный код для подписания с помощью Mobiil-ID";
 "mobile-id-phone-title" = "Код страны и телефонный номер";

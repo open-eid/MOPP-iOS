@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aqa-at-L24">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aqa-at-L24">
     <device id="retina4_7" orientation="landscape" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -36,7 +36,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerNotificationCell" rowHeight="44" id="sim-nE-ZNX" customClass="ContainerNotificationCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="667" height="44"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="667" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sim-nE-ZNX" id="ooU-66-Lg7">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
@@ -79,7 +79,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerHeaderCell" rowHeight="58" id="8UE-UF-0gf" customClass="ContainerHeaderCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="667" height="58"/>
+                                        <rect key="frame" x="0.0" y="68.5" width="667" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8UE-UF-0gf" id="LSq-om-Kbe">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="58"/>
@@ -92,7 +92,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dokument 1.bdoc" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="LLq-ND-CCZ">
-                                                    <rect key="frame" x="16" y="31" width="635" height="19"/>
+                                                    <rect key="frame" x="16" y="31" width="595" height="19"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
                                                     <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -117,7 +117,7 @@
                                                 <constraint firstItem="LLq-ND-CCZ" firstAttribute="leading" secondItem="LSq-om-Kbe" secondAttribute="leadingMargin" id="Nk0-9J-KlJ"/>
                                                 <constraint firstItem="LLq-ND-CCZ" firstAttribute="top" secondItem="c0X-dZ-CUW" secondAttribute="bottom" constant="5" id="W9R-X5-EQ6"/>
                                                 <constraint firstItem="c0X-dZ-CUW" firstAttribute="leading" secondItem="LSq-om-Kbe" secondAttribute="leadingMargin" id="cOI-Mn-nbQ"/>
-                                                <constraint firstItem="LLq-ND-CCZ" firstAttribute="trailing" secondItem="LSq-om-Kbe" secondAttribute="trailingMargin" id="d31-nz-sUc"/>
+                                                <constraint firstItem="LLq-ND-CCZ" firstAttribute="trailing" secondItem="LSq-om-Kbe" secondAttribute="trailingMargin" constant="-40" id="d31-nz-sUc"/>
                                                 <constraint firstItem="RpZ-cI-EfY" firstAttribute="trailing" secondItem="LSq-om-Kbe" secondAttribute="trailingMargin" id="eps-oW-BGs"/>
                                                 <constraint firstAttribute="bottom" secondItem="LLq-ND-CCZ" secondAttribute="bottom" constant="8" id="sse-2b-HFB"/>
                                             </constraints>
@@ -130,7 +130,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerFileCell" rowHeight="77" id="6pq-Cm-b20" userLabel="ContainerFileCell" customClass="ContainerFileCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="130" width="667" height="77"/>
+                                        <rect key="frame" x="0.0" y="126.5" width="667" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6pq-Cm-b20" id="o5E-gs-VpH">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="77"/>
@@ -210,7 +210,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerSignatureCell" editingAccessoryType="disclosureIndicator" rowHeight="103" id="STu-Fe-0aP" customClass="ContainerSignatureCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="207" width="667" height="103"/>
+                                        <rect key="frame" x="0.0" y="203.5" width="667" height="103"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="STu-Fe-0aP" id="Fv4-kU-K5l">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="103"/>
@@ -260,7 +260,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signed 12.08.2017, 13:22" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpW-Rn-1bR">
                                                     <rect key="frame" x="46" y="68" width="195.5" height="19"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
-                                                    <color key="textColor" red="0.60860168147208116" green="0.60860168147208116" blue="0.60860168147208116" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" red="0.45882352941176469" green="0.45882352941176469" blue="0.45882352941176469" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Test signature" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vmJ-hw-p5N">
@@ -314,7 +314,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerSearchCell" rowHeight="44" id="M6t-R4-cVe" customClass="ContainerSearchCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="310" width="667" height="44"/>
+                                        <rect key="frame" x="0.0" y="306.5" width="667" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M6t-R4-cVe" id="Peo-st-QFt">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
@@ -322,7 +322,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerNoSignaturesCell" id="5lc-fV-mc6" customClass="ContainerNoSignaturesCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="354" width="667" height="42"/>
+                                        <rect key="frame" x="0.0" y="350.5" width="667" height="42"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5lc-fV-mc6" id="Ca6-4c-NYM">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="42"/>
@@ -347,7 +347,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerImportFilesCell" rowHeight="96" id="qwL-cE-udC" customClass="ContainerImportFilesCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="396" width="667" height="96"/>
+                                        <rect key="frame" x="0.0" y="392.5" width="667" height="96"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qwL-cE-udC" id="gdd-9U-o25">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="96"/>
@@ -457,7 +457,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SignatureDetailsCell" rowHeight="84" id="78W-Oi-k02" customClass="SignatureDetailsCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="667" height="84"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="667" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="78W-Oi-k02" id="AIb-r8-3wU">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="84"/>
@@ -525,7 +525,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerNotificationCell" rowHeight="44" id="Cqb-Xc-H0H" customClass="ContainerNotificationCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="667" height="44"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="667" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Cqb-Xc-H0H" id="Oki-GG-Nj4">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
@@ -568,7 +568,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerHeaderCell" rowHeight="58" id="80l-wY-1RX" customClass="ContainerHeaderCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="667" height="58"/>
+                                        <rect key="frame" x="0.0" y="68.5" width="667" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="80l-wY-1RX" id="uwJ-uK-g1I">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="58"/>
@@ -581,7 +581,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dokument 1.bdoc" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="Wqp-Q2-Ev2">
-                                                    <rect key="frame" x="16" y="31" width="635" height="19"/>
+                                                    <rect key="frame" x="16" y="31" width="595" height="19"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
                                                     <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -599,7 +599,7 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Wqp-Q2-Ev2" firstAttribute="trailing" secondItem="uwJ-uK-g1I" secondAttribute="trailingMargin" id="dbl-WH-SMk"/>
+                                                <constraint firstItem="Wqp-Q2-Ev2" firstAttribute="trailing" secondItem="uwJ-uK-g1I" secondAttribute="trailingMargin" constant="-40" id="dbl-WH-SMk"/>
                                                 <constraint firstAttribute="bottom" secondItem="Wqp-Q2-Ev2" secondAttribute="bottom" constant="8" id="flz-VQ-fYa"/>
                                                 <constraint firstItem="ACm-df-AwI" firstAttribute="top" secondItem="uwJ-uK-g1I" secondAttribute="topMargin" constant="4" id="hgq-g1-iSA"/>
                                                 <constraint firstItem="qZK-FE-KFD" firstAttribute="top" secondItem="uwJ-uK-g1I" secondAttribute="top" constant="8" id="kXg-ar-sqg"/>
@@ -619,7 +619,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerFileCell" rowHeight="77" id="brX-Gs-sMU" userLabel="ContainerFileCell" customClass="ContainerFileCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="130" width="667" height="77"/>
+                                        <rect key="frame" x="0.0" y="126.5" width="667" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="brX-Gs-sMU" id="Sza-8J-Yjw">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="77"/>
@@ -694,7 +694,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerImportFilesCell" rowHeight="96" id="0bX-Tf-rZY" customClass="ContainerImportFilesCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="207" width="667" height="96"/>
+                                        <rect key="frame" x="0.0" y="203.5" width="667" height="96"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0bX-Tf-rZY" id="lUl-JZ-1I8">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="96"/>
@@ -733,7 +733,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerNoAddresseesCell" id="ONh-aD-Vgv" customClass="ContainerNoAddresseesCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="303" width="667" height="42"/>
+                                        <rect key="frame" x="0.0" y="299.5" width="667" height="42"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ONh-aD-Vgv" id="lia-M5-tMj">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="42"/>
@@ -758,7 +758,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerAddresseeCell" editingAccessoryType="disclosureIndicator" rowHeight="61" id="Pug-Tn-67a" customClass="ContainerAddresseeCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="345" width="667" height="61"/>
+                                        <rect key="frame" x="0.0" y="341.5" width="667" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Pug-Tn-67a" id="1mC-Uj-fBy">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="61"/>
@@ -798,7 +798,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signed 12.08.2017, 13:22" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="e2G-rm-jEh">
                                                     <rect key="frame" x="48" y="32" width="499" height="13"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
-                                                    <color key="textColor" red="0.60860168150000005" green="0.60860168150000005" blue="0.60860168150000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" red="0.45882352941176469" green="0.45882352941176469" blue="0.45882352941176469" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -829,7 +829,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerImportAddresseesCell" rowHeight="96" id="BVI-T0-axz" customClass="ContainerImportAddresseesCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="406" width="667" height="96"/>
+                                        <rect key="frame" x="0.0" y="402.5" width="667" height="96"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BVI-T0-axz" id="mNB-gx-Ius">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="96"/>
@@ -905,7 +905,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerNotificationCell" rowHeight="44" id="7cS-SW-eSq" customClass="ContainerNotificationCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="667" height="44"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="667" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7cS-SW-eSq" id="YAj-CK-hJv">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
@@ -948,7 +948,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerSearchCell" rowHeight="44" id="ml6-0m-DV6" customClass="ContainerSearchCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="667" height="44"/>
+                                        <rect key="frame" x="0.0" y="68.5" width="667" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ml6-0m-DV6" id="MmW-IW-ds9">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
@@ -973,7 +973,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerFoundAddresseeCell" editingAccessoryType="disclosureIndicator" rowHeight="55" id="S7p-It-JWk" customClass="ContainerFoundAddresseeCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="116" width="667" height="55"/>
+                                        <rect key="frame" x="0.0" y="112.5" width="667" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S7p-It-JWk" id="Bbt-ik-4qu">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="55"/>
@@ -1002,7 +1002,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signed 12.08.2017, 13:22" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="rC8-67-9fN">
                                                     <rect key="frame" x="48" y="28" width="499" height="18"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
-                                                    <color key="textColor" red="0.60860168150000005" green="0.60860168150000005" blue="0.60860168150000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" name="MoppLabelDarker"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhU-k0-Tv1">
@@ -1044,7 +1044,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerAddresseeCell" editingAccessoryType="disclosureIndicator" rowHeight="61" id="Oy2-Qo-Kwl" customClass="ContainerAddresseeCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="171" width="667" height="61"/>
+                                        <rect key="frame" x="0.0" y="167.5" width="667" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Oy2-Qo-Kwl" id="hua-iu-fk8">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="61"/>
@@ -1084,7 +1084,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signed 12.08.2017, 13:22" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Dna-V9-HXN">
                                                     <rect key="frame" x="48" y="32" width="499" height="13"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
-                                                    <color key="textColor" red="0.60860168150000005" green="0.60860168150000005" blue="0.60860168150000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" red="0.45882352941176469" green="0.45882352941176469" blue="0.45882352941176469" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1148,6 +1148,9 @@
         <image name="Icon_ajatempel" width="17" height="17"/>
         <image name="iconDownload" width="25" height="25"/>
         <image name="icon_remove-1" width="25" height="25"/>
+        <namedColor name="MoppLabelDarker">
+            <color red="0.45098039215686275" green="0.45098039215686275" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="MoppWarning">
             <color red="1" green="0.9179999828338623" blue="0.74500000476837158" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

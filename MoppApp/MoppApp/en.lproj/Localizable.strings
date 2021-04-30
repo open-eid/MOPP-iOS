@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -69,7 +69,7 @@
 "crypto-type-unknown" = "UNKNOWN";
 "crypto-add-addressee-button-title" = "ADD";
 "crypto-addressee-added-button-title" = "ADDED";
-"crypto-remove-addressee-button" = "Remove Signature";
+"crypto-remove-addressee-button" = "Remove Recipient";
 
 // Signing view
 "signing-recent-containers" = "Recent documents";
@@ -112,6 +112,7 @@
 "container-header-create-files-title" = "Container files";
 "container-edit-name-button" = "Edit container name";
 "container-error-message-failed-container-name-change" = "Failed to rename container";
+"container-header-files-add-file" = "Add file";
 "container-header-create-addressee-title" = "Recipients";
 "container-header-timestamp-title" = "Container timestamps";
 "container-header-signatures-title" = "Container signatures";
@@ -135,6 +136,7 @@
 // *** Mobile ID Challenge View ***
 
 "challenge-code-label" = "Control code: %@";
+"challenge-code-label-accessibility" = "Control code: %@ %@ %@ %@";
 
 "sim-toolkit-sign-document-title" = "Sign document";
 
@@ -149,6 +151,7 @@
 
 "signature-remove-confirm-message" = "Remove signature from container?";
 "datafile-remove-confirm-message" = "Remove file from container?";
+"last-datafile-remove-confirm-message" = "You are about to remove the last file in the container, it is removed along with the container";
 
 "mobile-id-title" = "Enter your mobile number and personal code to sign with Mobile-ID";
 "mobile-id-phone-title" = "Country code and phone number";
