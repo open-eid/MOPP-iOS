@@ -69,7 +69,7 @@
 "crypto-type-unknown" = "UNKNOWN";
 "crypto-add-addressee-button-title" = "ADD";
 "crypto-addressee-added-button-title" = "ADDED";
-"crypto-remove-addressee-button" = "Remove Recipient";
+"crypto-remove-addressee-button" = "Remove Signature";
 
 // Signing view
 "signing-recent-containers" = "Recent documents";
