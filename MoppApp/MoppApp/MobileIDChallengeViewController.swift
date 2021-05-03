@@ -30,7 +30,6 @@ class MobileIDChallengeViewController : UIViewController {
     
     @IBOutlet weak var codeLabel: UILabel!
     @IBOutlet weak var timeoutProgressView: UIProgressView!
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var helpLabel: UILabel!
     
     var challengeID = String()
@@ -44,7 +43,6 @@ class MobileIDChallengeViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titleLabel.text = MoppLib_LocalizedString("digidoc-service-status-request-sent")
         helpLabel.text = L(.mobileIdSignHelpTitle)
         codeLabel.isHidden = true
         timeoutProgressView.progress = 0
@@ -63,12 +61,6 @@ class MobileIDChallengeViewController : UIViewController {
             selector: #selector(didFinishAnnouncement(_:)),
             name: NSNotification.Name.UIAccessibilityAnnouncementDidFinish,
             object: nil)
-        
-        // To let VoiceOver say challenge ID code first. Otherwise other elements will interrupt.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.titleLabel.isAccessibilityElement = true
-            self.timeoutProgressView.isAccessibilityElement = true
-        }
     }
     
     @objc func didFinishAnnouncement(_ notification: Notification) {
@@ -104,16 +96,9 @@ class MobileIDChallengeViewController : UIViewController {
                 })
             }
         }
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.titleLabel.text = MoppLib_LocalizedString("digidoc-service-status-request-outstanding-transaction")
-        }
     }
 
     @objc func receiveCreateSignatureStatus(_ notification: Notification) {
-        DispatchQueue.main.async { [weak self] in
-            self?.titleLabel.text = MoppLib_LocalizedString("digidoc-service-status-request-signature")
-        }
         sessionTimer?.invalidate()
         NotificationCenter.default.post(name: .signatureCreatedFinishedNotificationName, object: nil)
         dismiss(animated: false)
@@ -133,10 +118,7 @@ class MobileIDChallengeViewController : UIViewController {
         UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, challengeIdAccessibilityLabel)
     
         codeLabel.isHidden = false
-        titleLabel.text = MoppLib_LocalizedString("digidoc-service-status-request-ok")
         codeLabel.text = L(LocKey.challengeCodeLabel, [challengeID])
-        titleLabel.isAccessibilityElement = false
-        timeoutProgressView.isAccessibilityElement = false
         
         currentProgress = 0.0
         

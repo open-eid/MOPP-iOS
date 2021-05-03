@@ -44,13 +44,9 @@
 
 // *** Digidoc service status ***
 
-"digidoc-service-status-request-sent" = "Signing request sent";
-"digidoc-service-status-request-ok" = "Request accepted";
 "digidoc-service-status-request-select-account" = "Confirm device for signing in Smart-ID application.";
 "digidoc-service-status-request-expired-transaction" = "Request timeout";
 "digidoc-service-status-request-user-cancel" = "User denied or cancelled";
-"digidoc-service-status-request-signature" = "Got signature";
-"digidoc-service-status-request-outstanding-transaction" = "Request pending";
 "digidoc-service-status-request-mid-not-ready" = "Mobile-ID not ready, try again later";
 "digidoc-service-status-request-phone-absent" = "Phone is switched off or out of coverage";
 "digidoc-service-status-request-sending-error" = "Request sending error";

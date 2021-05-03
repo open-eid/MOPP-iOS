@@ -42,13 +42,9 @@
 
 // *** Digidoc service status ***
 
-"digidoc-service-status-request-sent" = "Allkirjastamispäring saadetud";
-"digidoc-service-status-request-ok" = "Päring vastuvõetud";
 "digidoc-service-status-request-select-account" = "Allkirjastamiseks kinnita seade Smart-ID rakenduses.";
 "digidoc-service-status-request-expired-transaction" = "Päringu ajalõpp";
 "digidoc-service-status-request-user-cancel" = "Kasutaja katkestas";
-"digidoc-service-status-request-signature" = "Allkiri saadud";
-"digidoc-service-status-request-outstanding-transaction" = "Päring käimas";
 "digidoc-service-status-request-mid-not-ready" = "Mobiil-ID pole saadaval, proovi hiljem uuesti";
 "digidoc-service-status-request-phone-absent" = "Telefon on välja lülitatud või asub väljaspool levi piirkonda";
 "digidoc-service-status-request-sending-error" = "Viga päringu saatmisel";
