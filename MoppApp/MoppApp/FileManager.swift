@@ -106,8 +106,13 @@ class MoppFileManager {
 
     func sharedDocumentPaths() -> [String] {
         let cachePath: String = sharedDocumentsPath()
-        let files: [String]? = try? fileManager.contentsOfDirectory(atPath: cachePath)
         var filePaths: [String] = []
+        guard !cachePath.isEmpty else {
+            NSLog("Unable to get shared documents folder path")
+            return filePaths
+        }
+        
+        let files: [String]? = try? fileManager.contentsOfDirectory(atPath: cachePath)
         guard let filesInDirectory: [String] = files else {
             NSLog("Unable to get shared documents directory")
             return filePaths
