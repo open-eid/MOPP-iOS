@@ -19,24 +19,23 @@
 				<string>application/vnd.etsi.asic-e+zip</string>
 				<string>application/x-zip</string>
 			</array>
-			<key>CFBundleTypeMIMETypes</key>
-			<array>
-				<string>application/vnd.etsi.asic-e+zip</string>
-			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
 			<key>CFBundleTypeIconFiles</key>
 			<array>
 				<string>digidoc_64.png</string>
 				<string>digidoc_320.png</string>
 			</array>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/vnd.etsi.asic-e+zip</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>Digidoc file</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>public.data</string>
 				<string>public.content</string>
 			</array>
 		</dict>
