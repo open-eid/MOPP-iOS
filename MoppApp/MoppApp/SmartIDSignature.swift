@@ -163,6 +163,10 @@ class SmartIDSignature {
                 NSLog(err.domain)
                 self.generateError(error: .ocspInvalidTimeSlot)
                 return
+            } else if err.code == 18 {
+                NSLog(err.domain)
+                self.generateError(error: .tooManyRequests)
+                return
             }
             
             return self.generateError(error: .generalError)

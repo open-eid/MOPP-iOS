@@ -197,6 +197,10 @@ class MobileIDSignature {
                 NSLog(err.domain)
                 self.generateError(signingError: .ocspInvalidTimeSlot)
                 return
+            } else if err.code == 18 {
+                NSLog(err.domain)
+                self.generateError(signingError: .tooManyRequests)
+                return
             }
             
             self.generateError(signingError: .generalError)
