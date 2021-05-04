@@ -29,7 +29,7 @@
 "mid-rest-error-phone-absent" = "Отказ - телефон вне сети";
 "mid-rest-error-signature-hash-mismatch" = "Не удалось выполнить операцию Mobiil-ID. Пожалуйста, свяжитесь со своим мобильным оператором";
 "mid-rest-error-no-response" = "Пожалуйста проверьте подключение к интернету";
-"mid-rest-error-too-many-requests" = "Предел для цифровых подписей в месяц был достигнут для этого IP-адреса. https://www.id.ee/index.php?id=39025";
+"mid-rest-error-too-many-requests" = "Предел для цифровых подписей в месяц был достигнут для этого IP-адреса. https://www.id.ee/ru/artikkel/dlya-uchrezhdenij-v-kotoryh-v-bolshom-obeme-podpisyvayutsya-dokumenty-s-pomoshhyu-digidoc4-klienta/";
 "mid-rest-error-exceeded-unsuccessful-requests" = "Не удалось отправить запрос. Превышено количество неудачных запросов с этого IP-адреса. Пожалуйста, попробуйте позже.";
 "mid-rest-error-ocsp-invalid-time-slot" = "Пожалуйста, проверьте время на своем смарт-устройстве. https://www.id.ee/ru/artikkel/oshibka-ria-digidoc-pozhalujsta-proverte-vremya-na-svoem-smart-ustrojstve/";
 "mid-rest-error-invalid-ssl-cert" = "Не удалось создать SSL канал передачи данных. Проверьте настройки вашего приложения или обновления программного обеспечения";
@@ -41,6 +41,6 @@
 "sid-rest-error-old-api" = "Мобильное приложение RIA DigiDoc нуждается в обновлении. Пожалуйста, установите новую версию из магазина мобильных приложений. Дополнительную информацию можно получить по телефону (+372) 666 8888.";
 "sid-rest-error-under-maintenance" = "Технический сбой услуги Smart-ID. Пожалуйста, попробуйте позже.";
 "sid-rest-error-timeout" = "Срок действия вашей транзакции Smart-ID истек. Пожалуйста, попробуйте еще раз.";
-"sid-rest-error-forbidden" = "Не удалось подписать контейнер. Проверьте настройки доступа услуги Smart-ID. https://www.id.ee/index.php?id=39025";
+"sid-rest-error-forbidden" = "Не удалось подписать контейнер. Проверьте настройки доступа услуги Smart-ID. https://www.id.ee/ru/artikkel/dlya-uchrezhdenij-v-kotoryh-v-bolshom-obeme-podpisyvayutsya-dokumenty-s-pomoshhyu-digidoc4-klienta/";
 "sid-rest-error-account-not-found" = "Счет не найден";
 "sid-rest-error-certificate-revoked" = "Сертификат недействителен";

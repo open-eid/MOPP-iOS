@@ -189,7 +189,7 @@
 "card-reader-state-ready-for-pin1" = "Ready to decrypt with ID-card.\n%@ (%@)";
 "signing-in-progress" = "Signing in progress.\nPlease wait.";
 "decryption-in-progress" = "Decryption in progress.\nPlease wait.";
-"signing-error-too-many-requests" = "The limit for digital signatures per month has been reached for this IP address. https://www.id.ee/index.php?id=39023";
+"signing-error-too-many-requests" = "The limit for digital signatures per month has been reached for this IP address. https://www.id.ee/en/article/for-organisations-that-sign-large-quantities-of-documents-using-digidoc4-client/";
 "no-response-error" = "Please check your internet connection";
 "ocsp-invalid-time-slot" = "Please check your smart device time. https://www.id.ee/en/article/ria-digidoc-error-please-check-your-smart-device-time/";
 "wrong-pin2" = "Wrong PIN2. You have %d attempts left.";

@@ -200,7 +200,7 @@
 "pin1-blocked-alert" = "PIN1 on lukus. Mine Minu eID, et avada.";
 "generic-error-message" = "Midagi läks valesti. Palun proovi uuesti";
 "decryption-error-message" = "Midagi läks dekrüpteerimisel valesti. Palun proovi uuesti";
-"signing-error-too-many-requests" = "Sinu IP-aadressi tasuta allkirjade kuulimiit on ületatud. https://id.ee/index.php?id=39021";
+"signing-error-too-many-requests" = "Sinu IP-aadressi tasuta allkirjade kuulimiit on ületatud. https://www.id.ee/artikkel/asutustele-kus-allkirjastatakse-digidoc4-kliendi-kaudu-suuremates-kogustes-dokumente/";
 "no-response-error" = "Palun kontrollige internetiühendust";
 "ocsp-invalid-time-slot" = "Palun kontrollige oma nutiseadme kellaaega. https://www.id.ee/artikkel/ria-digidoc-viga-palun-kontrollige-oma-nutiseadme-kellaaega/";
 "signing-aborted-message" = "Allkirjastamine katkestatud";
