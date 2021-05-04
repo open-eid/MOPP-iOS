@@ -70,6 +70,7 @@ class DiagnosticsViewController: MoppViewController {
         if responseNotification.userInfo?["isLoaded"] as! Bool == true {
             DispatchQueue.main.async { [weak self] in
                 self?.viewDidLoad()
+                self?.displayMessageDialog(message: L(.refreshConfigurationRestartMessage))
             }
         }
     }

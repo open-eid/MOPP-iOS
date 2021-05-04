@@ -98,4 +98,12 @@ extension UIViewController {
             self.present(uiAlertController, animated: true, completion: nil)
         }
     }
+    
+    func displayMessageDialog(message: String) {
+        let uiAlertController: UIAlertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        
+        uiAlertController.addAction(UIAlertAction(title: L(.actionOk), style: .default))
+        
+        self.present(uiAlertController, animated: true, completion: nil)
+    }
 }

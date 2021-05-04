@@ -247,6 +247,7 @@ enum LocKey : String
     case lastUpdateCheckDateLabel = "last-update-check"
     case updateDateLabel = "update-date"
     case refreshConfigurationLabel = "refresh-configuration"
+    case refreshConfigurationRestartMessage = "refresh-configuration-restart-message"
     case successNotificationDialogLabel = "success-notification-dialog-label"
     case successNotificationDialogDontShowAgain = "success-notification-dialog-dont-show-again"
     case aboutTitle = "about-title"

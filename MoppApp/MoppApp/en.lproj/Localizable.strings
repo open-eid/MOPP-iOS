@@ -296,5 +296,6 @@
 "last-update-check" = "LAST CHECK:";
 "update-date" = "UPDATE DATE:";
 "refresh-configuration" = "REFRESH CONFIGURATION";
+"refresh-configuration-restart-message" = "Configuration and TSL updated successfully. Restart the application to complete the update";
 "success-notification-dialog-label" = "To share the container click the \"SHARE\" button and choose your preferred application. All containers can also be found in the application settings \"Recent Documents\" folder.";
 "success-notification-dialog-dont-show-again" = "Don't show again";
