@@ -135,7 +135,7 @@
 
 // *** Mobile ID Challenge View ***
 
-"challenge-code-label" = "Control code: %@";
+"challenge-code-label" = "%@";
 "challenge-code-label-accessibility" = "Control code: %@ %@ %@ %@";
 
 "sim-toolkit-sign-document-title" = "Sign document";

@@ -136,7 +136,7 @@
 
 // *** Mobile ID Challenge View ***
 
-"challenge-code-label" = "Kontrollkood: %@";
+"challenge-code-label" = "%@";
 "challenge-code-label-accessibility" = "Kontrollkood: %@ %@ %@ %@";
 
 "sim-toolkit-sign-document-title" = "Allkirjasta dokument";
