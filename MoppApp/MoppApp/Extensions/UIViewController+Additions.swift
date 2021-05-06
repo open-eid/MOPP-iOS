@@ -85,7 +85,7 @@ extension UIViewController {
     
     func displayShareContainerDialog() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            let uiAlertController: UIAlertController = UIAlertController(title: nil, message: L(.successNotificationDialogLabel), preferredStyle: .alert)
+            let uiAlertController: UIAlertController = UIAlertController(title: "", message: L(.successNotificationDialogLabel), preferredStyle: .alert)
             
             uiAlertController.addAction(UIAlertAction(title: L(.successNotificationDialogDontShowAgain), style: .default, handler: {(_: UIAlertAction) in
                 DefaultsHelper.hideShareContainerDialog = true
