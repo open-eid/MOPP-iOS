@@ -23,9 +23,9 @@
 
 #import "MoppLibCertificate.h"
 #import "MoppLibManager.h"
-#include "MoppLibDigidocMAnager.h"
+#include "MoppLibDigidocManager.h"
 #include <digidocpp/crypto/X509Cert.h>
-#include <digidocpp/exception.h>
+#include <digidocpp/Exception.h>
 #import <openssl/x509.h>
 #import <openssl/x509v3.h>
 #include <iostream>
@@ -43,15 +43,10 @@
 }
 
 + (digidoc::X509Cert)certToDer:(NSString *)certString {
-    std::vector<unsigned char> bytes;
     NSString* cleanCert = [MoppLibDigidocManager removeBeginAndEndFromCertificate:certString];
-    std::string decodedCert = base64_decode(std::string([cleanCert UTF8String]));
+    std::vector<unsigned char> decodedCert = base64_decode(std::string([cleanCert UTF8String]));
     
-    for(int i = 0; i < decodedCert.length(); i++) {
-        bytes.push_back(decodedCert[i]);
-    }
-    
-    return digidoc::X509Cert(bytes, digidoc::X509Cert::Format::Der);
+    return digidoc::X509Cert(decodedCert, digidoc::X509Cert::Format::Der);
 }
 
 + (void)certData:(MoppLibCerificatetData *)certData updateWithPemEncodingData:(const unsigned char *)data length:(size_t)length certString:(NSString *)certString {
@@ -111,7 +106,7 @@
         if (certificateExpiryASN1 != NULL) {
             ASN1_GENERALIZEDTIME *certificateExpiryASN1Generalized = ASN1_TIME_to_generalizedtime(certificateExpiryASN1, NULL);
             if (certificateExpiryASN1Generalized != NULL) {
-                unsigned char *certificateExpiryData = ASN1_STRING_data(certificateExpiryASN1Generalized);
+                const unsigned char *certificateExpiryData = ASN1_STRING_get0_data(certificateExpiryASN1Generalized);
                 
                 NSString *expiryTimeStr = [NSString stringWithUTF8String:(char *)certificateExpiryData];
                 NSDateComponents *expiryDateComponents = [[NSDateComponents alloc] init];

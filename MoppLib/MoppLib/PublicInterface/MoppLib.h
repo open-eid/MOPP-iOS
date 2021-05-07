@@ -43,7 +43,8 @@ FOUNDATION_EXPORT const unsigned char MoppLibVersionString[];
 #import <MoppLibTestEnv/MoppLibDataFile.h>
 #import <MoppLibTestEnv/MoppLibSignature.h>
 #import <MoppLibTestEnv/MoppLibMobileCreateSignatureResponse.h>
-#import <MoppLibTestEnv/MoppLibService.h>
+#import <MoppLibTestEnv/MoppLibCardReaderManager.h>
+#import <MoppLibTestEnv/MoppLibCertificateInfo.h>
 #else
 #import <MoppLib/MoppLibManager.h>
 #import <MoppLib/MoppLibContainerActions.h>
@@ -57,5 +58,6 @@ FOUNDATION_EXPORT const unsigned char MoppLibVersionString[];
 #import <MoppLib/MoppLibDataFile.h>
 #import <MoppLib/MoppLibSignature.h>
 #import <MoppLib/MoppLibMobileCreateSignatureResponse.h>
-#import <MoppLib/MoppLibService.h>
+#import <MoppLib/MoppLibCardReaderManager.h>
+#import <MoppLib/MoppLibCertificateInfo.h>
 #endif

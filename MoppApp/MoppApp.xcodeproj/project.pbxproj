@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -129,12 +129,10 @@
 		C55BB1C720908EF300618AC4 /* DiagnosticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BB1C620908EF300618AC4 /* DiagnosticsViewController.swift */; };
 		C55BB1CA2090C17F00618AC4 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BB1C92090C17E00618AC4 /* AboutViewController.swift */; };
 		C55BB1CC2091BD2000618AC4 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C55BB1CB2091BD2000618AC4 /* WebKit.framework */; };
-		C55BB1CF2091BEBD00618AC4 /* about_et.html in Sources */ = {isa = PBXBuildFile; fileRef = C55BB1CE2091BEBD00618AC4 /* about_et.html */; };
 		C55BB1D12091C30500618AC4 /* about_et.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1CE2091BEBD00618AC4 /* about_et.html */; };
 		C55BB1D32091C68200618AC4 /* main_about_fonds_et.png in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D22091C68200618AC4 /* main_about_fonds_et.png */; };
 		C55BB1D72091F44000618AC4 /* about_en.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D52091F44000618AC4 /* about_en.html */; };
 		C55BB1D92091F44000618AC4 /* about_ru.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D62091F44000618AC4 /* about_ru.html */; };
-		C55BB1DC2091FBCF00618AC4 /* about.css in Sources */ = {isa = PBXBuildFile; fileRef = C55BB1DB2091FBCF00618AC4 /* about.css */; };
 		C55BB1DE2091FDFE00618AC4 /* about.css in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1DB2091FBCF00618AC4 /* about.css */; };
 		C55BB1E02091FECD00618AC4 /* licenses.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1DF2091FECD00618AC4 /* licenses.html */; };
 		C560CB0A1FFCEEF000C01FE4 /* SigningFileImportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */; };
@@ -1264,7 +1262,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0820;
-				ORGANIZATIONNAME = "Riigi Infosüsteemide Amet";
+				ORGANIZATIONNAME = "Riigi Infosüsteemi Amet";
 				TargetAttributes = {
 					54A418231E83FAD200559E2B = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1295,7 +1293,7 @@
 				};
 			};
 			buildConfigurationList = E4250CBE1E0968D200530370 /* Build configuration list for PBXProject "MoppApp" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1783,7 +1781,6 @@
 				C52E827C1FC1D7BC0074B280 /* MoppApp.swift in Sources */,
 				E4C53F4E1E30D13100F209BE /* Session.swift in Sources */,
 				C50DCCC51FC31EFC00D48E16 /* UIButton+Additions.swift in Sources */,
-				C55BB1DC2091FBCF00618AC4 /* about.css in Sources */,
 				C51B7FB71FBC45DD0046D6E0 /* LocalizationKeys.swift in Sources */,
 				E42B08951E15617200EA24A3 /* LandingViewController.swift in Sources */,
 				54825EFB1E1D28E900253FF0 /* UIColor+Additions.swift in Sources */,
@@ -1810,7 +1807,6 @@
 				C50FC431224BA3B20041925C /* ScreenDisguise.swift in Sources */,
 				C50787881FEA807500D9AAC0 /* UIViewController+Additions.swift in Sources */,
 				C506EC7C1FB9CBFD00E07226 /* Constants.swift in Sources */,
-				C55BB1CF2091BEBD00618AC4 /* about_et.html in Sources */,
 				C58FCD5B206505BE00FE3B57 /* MyeIDStatusViewController.swift in Sources */,
 				C5310F2620C1777B004D3E78 /* MenuLanguageCell.swift in Sources */,
 				C5A795D3208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift in Sources */,
@@ -1936,7 +1932,11 @@
 				DEVELOPMENT_TEAM = ET847QJV9F;
 				INFOPLIST_FILE = shareExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				MARKETING_VERSION = 2.4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.shareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1962,7 +1962,11 @@
 				DEVELOPMENT_TEAM = ET847QJV9F;
 				INFOPLIST_FILE = shareExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				MARKETING_VERSION = 2.4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.shareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2003,7 +2007,10 @@
 				);
 				INFOPLIST_FILE = TestEnvInfo.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2042,7 +2049,10 @@
 				);
 				INFOPLIST_FILE = TestEnvInfo.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2188,7 +2198,10 @@
 				);
 				INFOPLIST_FILE = MoppApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.4.2;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
@@ -2236,7 +2249,10 @@
 				);
 				INFOPLIST_FILE = MoppApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.4.2;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;

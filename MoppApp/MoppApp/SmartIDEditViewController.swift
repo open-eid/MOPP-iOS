@@ -70,7 +70,7 @@ class SmartIDEditViewController : MoppViewController {
         idCodeLabel.text = L(.mobileIdIdcodeTitle)
         cancelButton.setTitle(L(.actionCancel).uppercased())
         signButton.setTitle(L(.actionSign).uppercased())
-        rememberLabel.text = L(.mobileIdRememberMe)
+        rememberLabel.text = L(.signingRememberMe)
 
         idCodeTextField.moppPresentDismissButton()
         idCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor

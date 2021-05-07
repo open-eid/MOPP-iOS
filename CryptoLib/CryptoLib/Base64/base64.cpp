@@ -28,9 +28,17 @@
  René Nyffenegger rene.nyffenegger@adp-gmbh.ch
  
  */
+/*
+ * Changes:
+ *      Added #include<vector> import.
+ *      Replaced return type (std::string) of base64_decode method with std::vector<unsigned char>.
+ *      In method base64_decode, changed ret variable type to std::vector<unsigned char>.
+ *      Modified lines ret += char_array_3[i]; and ret += char_array_3[j]; to use push_back, instead of +=
+ */
 
 #include "base64.h"
 #include <iostream>
+#include <vector>
 
 static const std::string base64_chars =
 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -84,13 +92,13 @@ std::string base64_encode(unsigned char const* bytes_to_encode, unsigned int in_
     
 }
 
-std::string base64_decode(std::string const& encoded_string) {
+std::vector<unsigned char> base64_decode(std::string const& encoded_string) {
     int in_len = (uint32_t)encoded_string.size();
     int i = 0;
     int j = 0;
     int in_ = 0;
     unsigned char char_array_4[4], char_array_3[3];
-    std::string ret;
+    std::vector<unsigned char> ret;
     
     while (in_len-- && ( encoded_string[in_] != '=') && is_base64(encoded_string[in_])) {
         char_array_4[i++] = encoded_string[in_]; in_++;
@@ -103,7 +111,8 @@ std::string base64_decode(std::string const& encoded_string) {
             char_array_3[2] = ((char_array_4[2] & 0x3) << 6) +   char_array_4[3];
             
             for (i = 0; (i < 3); i++)
-                ret += char_array_3[i];
+                ret.push_back(char_array_3[i]);
+            
             i = 0;
         }
     }
@@ -115,7 +124,7 @@ std::string base64_decode(std::string const& encoded_string) {
         char_array_3[0] = (char_array_4[0] << 2) + ((char_array_4[1] & 0x30) >> 4);
         char_array_3[1] = ((char_array_4[1] & 0xf) << 4) + ((char_array_4[2] & 0x3c) >> 2);
         
-        for (j = 0; (j < i - 1); j++) ret += char_array_3[j];
+        for (j = 0; (j < i - 1); j++) ret.push_back(char_array_3[j]);
     }
     
     return ret;

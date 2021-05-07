@@ -1,14 +1,17 @@
 use_frameworks!
 
+# Ignore warnings from pods
+inhibit_all_warnings!
+
 workspace 'MoppApp.xcworkspace'
 project 'MoppApp.xcodeproj'
 project '../MoppLib/MoppLib.xcodeproj'
 project '../CryptoLib/CryptoLib'
 
-platform :ios, '9.0'
+platform :ios, '11.0'
 
 target 'MoppApp' do
-  platform :ios, '9.0'
+  platform :ios, '11.0'
   project 'MoppApp.xcodeproj'
   pod 'Firebase/Crashlytics'
   pod 'Firebase/Analytics'
@@ -17,7 +20,7 @@ target 'MoppApp' do
 end
 
 target 'MoppAppTestEnv' do
-  platform :ios, '9.0'
+  platform :ios, '11.0'
   project 'MoppApp.xcodeproj'
 
   pod 'Firebase/Crashlytics'
@@ -26,35 +29,35 @@ target 'MoppAppTestEnv' do
 end
 
 target 'MoppLib' do
-  platform :ios, '9.0'
+  platform :ios, '11.0'
   project '../MoppLib/MoppLib.xcodeproj'
   #pod 'Firebase/Crashlytics'
   #pod 'Firebase/Analytics'
 end
 
 target 'MoppLibTestEnv' do
-  platform :ios, '9.0'
+  platform :ios, '11.0'
   project '../MoppLib/MoppLib.xcodeproj'
   #pod 'Firebase/Crashlytics'
   #pod 'Firebase/Analytics'
 end
 
 target 'CryptoLib' do
-    platform :ios, '9.0'
+    platform :ios, '11.0'
     project '../CryptoLib/CryptoLib.xcodeproj'
     #pod 'Firebase/Crashlytics'
     #pod 'Firebase/Analytics'
 end
 
 target 'MoppLibTests' do
-  platform :ios, '9.0'
+  platform :ios, '11.0'
   project '../MoppLib/MoppLib.xcodeproj'
   pod 'OCMock'
   
 end
 
 target 'SkSigningLib' do
-    platform :ios, '9.0'
+    platform :ios, '11.0'
     project '../SkSigningLib/SkSigningLib.xcodeproj'
     #pod 'Firebase/Crashlytics'
     #pod 'Firebase/Analytics'

@@ -95,7 +95,7 @@
     [[CardActionsManager sharedInstance] resetCardActions];
     _status = ReaderNotConnected;
     
-    [NSNotificationCenter.defaultCenter removeObserver:nil];
+    [NSNotificationCenter.defaultCenter removeObserver:@{}];
 }
 
 - (void)startDiscoveringFeitianReader {
@@ -227,5 +227,20 @@
         });
     }
 }
+
+- (void)cardInterfaceDidDetach:(BOOL)attached {
+    
+}
+
+
+- (void)didGetBattery:(NSInteger)battery {
+    
+}
+
+
+- (void)findPeripheralReader:(NSString *)readerName {
+    
+}
+
 
 @end

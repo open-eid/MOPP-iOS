@@ -102,8 +102,8 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         loadNibs()
         // Set navBar not translucent by default.
 
-        FirebaseApp.configure()
-        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(false)
+//        FirebaseApp.configure()
+//        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(false)
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
@@ -133,9 +133,9 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
              .font:UIFont(name: "RobotoCondensed-Regular", size: 10)!],
             for: .normal)
         
-        if isDeviceJailbroken {
-            window?.rootViewController = UIStoryboard.jailbreak.instantiateInitialViewController()
-        } else {
+//        if isDeviceJailbroken {
+//            window?.rootViewController = UIStoryboard.jailbreak.instantiateInitialViewController()
+//        } else {
             
             // Get remote configuration
             SettingsConfiguration().getCentralConfiguration()
@@ -147,7 +147,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             
             let initializationViewController = InitializationViewController()
             window?.rootViewController = initializationViewController
-        }
+//        }
 
         window?.makeKeyAndVisible()
         return true
@@ -361,13 +361,19 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         let data = try? Data(contentsOf: location)
         if data != nil {
-            var groupFolderUrl = MoppFileManager.shared.fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.ee.ria.digidoc.ios")
-            groupFolderUrl = groupFolderUrl?.appendingPathComponent("Temp")
-            var err: Error?
-            try? MoppFileManager.shared.fileManager.createDirectory(at: groupFolderUrl!, withIntermediateDirectories: false, attributes: nil)
-            let filePath: URL? = groupFolderUrl?.appendingPathComponent(location.lastPathComponent)
-            var error: Error?
-            try? MoppFileManager.shared.fileManager.copyItem(at: location, to: filePath!)
+            let groupFolderUrl = MoppFileManager.shared.fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.ee.ria.digidoc.ios")
+            guard var tempGroupFolderUrl = groupFolderUrl else {
+                NSLog("Unable to get temp group folder url")
+                return
+            }
+            tempGroupFolderUrl = tempGroupFolderUrl.appendingPathComponent("Temp")
+            try? MoppFileManager.shared.fileManager.createDirectory(at: tempGroupFolderUrl, withIntermediateDirectories: false, attributes: nil)
+            let filePath: URL? = tempGroupFolderUrl.appendingPathComponent(location.lastPathComponent)
+            guard let tempFilePath = filePath else {
+                NSLog("Unable to get temp file path url")
+                return
+            }
+            try? MoppFileManager.shared.fileManager.copyItem(at: location, to: tempFilePath)
         }
     }
 

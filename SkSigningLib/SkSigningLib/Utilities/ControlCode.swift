@@ -29,6 +29,7 @@ public class ControlCode {
     
     public func getVerificationCode(hash: Array<Int>) -> String? {
         guard !hash.isEmpty else {
+            NSLog("Unable to get hash")
             return nil
         }
         

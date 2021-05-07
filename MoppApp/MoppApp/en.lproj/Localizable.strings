@@ -153,10 +153,10 @@
 "datafile-remove-confirm-message" = "Remove file from container?";
 "last-datafile-remove-confirm-message" = "You are about to remove the last file in the container, it is removed along with the container";
 
+"signing-remember-me" = "Remember me";
 "mobile-id-title" = "Enter your mobile number and personal code to sign with Mobile-ID";
 "mobile-id-phone-title" = "Country code and phone number";
 "mobile-id-idcode-title" = "Personal code";
-"mobile-id-remember-me" = "Remember me";
 "mobile-id-challenge-title" = "Sign with Mobile-ID app";
 "mobile-id-challenge-waiting-response" = "Waiting for response ...";
 "smart-id-title" = "Enter your personal code to sign with Smart-ID";
