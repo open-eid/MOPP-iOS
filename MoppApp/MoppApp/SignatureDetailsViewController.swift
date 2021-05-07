@@ -30,7 +30,7 @@ class SignatureDetailsViewController: MoppViewController {
         setupNavigationItemForPushedViewController(title: L(.signatureDetailsTitle))
         tableView.dataSource = self
         tableView.estimatedRowHeight = 84
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
     }
 }
 

@@ -40,8 +40,5 @@
 "Error" = "Viga";
 "Ok" = "Ok";
 
-// *** Digidoc service status ***
-
-"digidoc-service-status-request-select-account" = "Allkirjastamiseks kinnita seade Smart-ID rakenduses.";
-"digidoc-service-status-request-expired-transaction" = "Päringu ajalõpp";
-"digidoc-service-status-request-user-cancel" = "Kasutaja katkestas";
+// *** Smart-ID ***
+"smart-id-status-request-select-account" = "Allkirjastamiseks kinnita seade Smart-ID rakenduses.";

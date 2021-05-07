@@ -62,7 +62,7 @@ class RecentContainersViewController : MoppModalViewController {
         super.viewWillAppear(animated)
         
         tableView.estimatedRowHeight = ContainerSignatureCell.height
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -84,7 +84,7 @@ class RecentContainersViewController : MoppModalViewController {
     }
     
     func reloadContainerFilesSection() {
-        if let containerSectionIndex = sections.index(where: { $0 == .containerFiles }) {
+        if let containerSectionIndex = sections.firstIndex(where: { $0 == .containerFiles }) {
             tableView.reloadSections([containerSectionIndex], with: .none)
         }
     }
@@ -128,7 +128,7 @@ extension RecentContainersViewController : UITableViewDataSource {
             case .filesMissing:
                 let cell = tableView.dequeueReusableCell(withType: RecentContainersEmptyListCell.self, for: indexPath)!
                     cell.populate(emptySearch: !searchKeyword.isEmpty)
-                UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, L(.recentContainersEmptySearchMessage))
+                UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: L(.recentContainersEmptySearchMessage))
                 return cell
             case .containerFilesHeaderViewPlaceholder:
                 return UITableViewCell()

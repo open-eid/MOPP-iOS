@@ -83,7 +83,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         return "\(majorVersion).\(minorVersion).\(patchVersion)"
     }
 
-    func didFinishLaunchingWithOptions(launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+    func didFinishLaunchingWithOptions(launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // Log console logs to a file in Documents folder
         #if DEBUG
             setDebugMode(value: true)
@@ -102,8 +102,8 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         loadNibs()
         // Set navBar not translucent by default.
 
-//        FirebaseApp.configure()
-//        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(false)
+        FirebaseApp.configure()
+        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(false)
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
@@ -133,9 +133,9 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
              .font:UIFont(name: "RobotoCondensed-Regular", size: 10)!],
             for: .normal)
         
-//        if isDeviceJailbroken {
-//            window?.rootViewController = UIStoryboard.jailbreak.instantiateInitialViewController()
-//        } else {
+        if isDeviceJailbroken {
+            window?.rootViewController = UIStoryboard.jailbreak.instantiateInitialViewController()
+        } else {
             
             // Get remote configuration
             SettingsConfiguration().getCentralConfiguration()
@@ -147,7 +147,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             
             let initializationViewController = InitializationViewController()
             window?.rootViewController = initializationViewController
-//        }
+        }
 
         window?.makeKeyAndVisible()
         return true
@@ -206,11 +206,11 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         }
     }
 
-    func openUrl(url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func openUrl(url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return openPath(urls: [url], options: options)
     }
     
-    func openPath(urls: [URL], options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func openPath(urls: [URL], options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         guard !urls.isEmpty else {
             NSLog("No URLs found to open")
             return false
@@ -430,7 +430,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     private func restartIdCardDiscovering() {
         let topViewController = UIViewController().getTopViewController()
         
-        for childViewController in topViewController.childViewControllers {
+        for childViewController in topViewController.children {
             if childViewController is IdCardViewController {
                 MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
             }

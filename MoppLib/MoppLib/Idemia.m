@@ -54,16 +54,16 @@ NSString *kDecrypt = @"00 2A 80 86 %02X %@";
 
 - (void)readMinimalPublicDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure {
     [_reader transmitCommand:kAID success:^(NSData *responseData) {
-        [_reader transmitCommand:kSelectMasterFile success:^(NSData *responseData) {
-            [_reader transmitCommand:kSelectPersonalFile success:^(NSData *responseData) {
+        [self->_reader transmitCommand:kSelectMasterFile success:^(NSData *responseData) {
+            [self->_reader transmitCommand:kSelectPersonalFile success:^(NSData *responseData) {
                 MoppLibPersonalData *personalData = [MoppLibPersonalData new];
                 __block BOOL failureOccurred = NO;
                 for (int recordNr = 1; recordNr < 16 && !failureOccurred; recordNr++) {
                     NSString *cmd = [NSString stringWithFormat:kSelectRecord, recordNr];
-                    [_reader transmitCommand:cmd success:^(NSData *responseData) {
+                    [self->_reader transmitCommand:cmd success:^(NSData *responseData) {
                         NSString *readBinaryCmd = [NSString stringWithFormat:kReadBinary, 0, 0];
                         
-                        [_reader transmitCommand:readBinaryCmd success:^(NSData *responseData) {
+                        [self->_reader transmitCommand:readBinaryCmd success:^(NSData *responseData) {
                             NSString *record = [responseData utf8String];
                             switch (recordNr) {
                             case 1: personalData.surname = record; break;
@@ -143,9 +143,9 @@ NSString *kDecrypt = @"00 2A 80 86 %02X %@";
 
 - (void)readAuthenticationCertificateWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
     [_reader transmitCommand:kAID success:^(NSData *responseData) {
-        [_reader transmitCommand:kSelectMasterFile success:^(NSData *responseData) {
-            [_reader transmitCommand:kSelectAuthAdf success:^(NSData *responseData) {
-                [_reader transmitCommand:kSelectAuthCert success:^(NSData *responseData) {
+        [self->_reader transmitCommand:kSelectMasterFile success:^(NSData *responseData) {
+            [self->_reader transmitCommand:kSelectAuthAdf success:^(NSData *responseData) {
+                [self->_reader transmitCommand:kSelectAuthCert success:^(NSData *responseData) {
                     [self readBinaryRecursivelyWithSuccess:success failure:failure data:[NSData new]];
                 } failure:failure];
             } failure:failure];
@@ -155,9 +155,9 @@ NSString *kDecrypt = @"00 2A 80 86 %02X %@";
 
 - (void)readSignatureCertificateWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
     [_reader transmitCommand:kAID success:^(NSData *responseData) {
-        [_reader transmitCommand:kSelectMasterFile success:^(NSData *responseData) {
-            [_reader transmitCommand:kSelectSignAdf success:^(NSData *responseData) {
-                [_reader transmitCommand:kSelectSignCert success:^(NSData *responseData) {
+        [self->_reader transmitCommand:kSelectMasterFile success:^(NSData *responseData) {
+            [self->_reader transmitCommand:kSelectSignAdf success:^(NSData *responseData) {
+                [self->_reader transmitCommand:kSelectSignCert success:^(NSData *responseData) {
                     [self readBinaryRecursivelyWithSuccess:success failure:failure data:[NSData new]];
                 } failure:failure];
             } failure:failure];
@@ -188,7 +188,7 @@ NSString *kDecrypt = @"00 2A 80 86 %02X %@";
     }
     
     [_reader transmitCommand:aid success:^(NSData *responseData) {
-        [_reader transmitCommand:[NSString stringWithFormat:kReadCodeCounter, recordNr] success:^(NSData *responseData) {
+        [self->_reader transmitCommand:[NSString stringWithFormat:kReadCodeCounter, recordNr] success:^(NSData *responseData) {
             NSNumber *counter = [NSNumber numberWithUnsignedChar:((UInt8 *)responseData.bytes)[13]];
             success(counter);
         } failure:failure];
@@ -229,7 +229,7 @@ NSString *kDecrypt = @"00 2A 80 86 %02X %@";
         NSMutableData *fullCmd = [NSMutableData dataWithData:[cmd toHexData]];
         [fullCmd appendData:pin];
         [fullCmd appendData:newPin];
-        [_reader transmitCommand:[fullCmd hexString] success:^(NSData *responseData) {
+        [self->_reader transmitCommand:[fullCmd hexString] success:^(NSData *responseData) {
             NSError *error = [self errorForPinActionResponse:responseData];
             if (error) {
                 failure(error);
@@ -296,7 +296,7 @@ NSString *kDecrypt = @"00 2A 80 86 %02X %@";
             UInt8 byteZero[1] = { paddingByte };
             [fullCmd appendBytes:&byteZero[0] length:1];
         }
-        [_reader transmitCommand:[fullCmd hexString] success:^(NSData *responseData) {
+        [self->_reader transmitCommand:[fullCmd hexString] success:^(NSData *responseData) {
             NSError *error = [self errorForPinActionResponse:responseData];
             if (error) {
                 failure(error);
@@ -312,7 +312,7 @@ NSString *kDecrypt = @"00 2A 80 86 %02X %@";
         return;
     NSString *aid = type == CodeTypePin1 ? kAID : kAID_QSCD;
     [self verifyCode:puk ofType:CodeTypePuk withSuccess:^(NSData *responseData) {
-        [_reader transmitCommand:aid success:^(NSData *responseData) {
+        [self->_reader transmitCommand:aid success:^(NSData *responseData) {
             NSMutableData *paddedPin = [NSMutableData dataWithData:[newCode dataUsingEncoding:NSUTF8StringEncoding]];
             
             NSUInteger paddingSize = 12 - paddedPin.length;
@@ -322,7 +322,7 @@ NSString *kDecrypt = @"00 2A 80 86 %02X %@";
             }
             
             NSString *replaceCmd = [NSString stringWithFormat:kReplaceCode, type == CodeTypePin1 ? 1 : 0x85, [paddedPin length], [paddedPin hexString]];
-            [_reader transmitCommand:replaceCmd success:^(NSData *responseData) {
+            [self->_reader transmitCommand:replaceCmd success:^(NSData *responseData) {
                 NSError *error = [self errorForPinActionResponse:responseData];
                 if (error) {
                     failure(error);
@@ -368,8 +368,8 @@ NSString *kDecrypt = @"00 2A 80 86 %02X %@";
     }
     
     [self verifyCode:pin2 ofType:CodeTypePin2 withSuccess:^(NSData *responseData) {
-        [_reader transmitCommand:kAID_QSCD success:^(NSData *responseData) {
-            [_reader transmitCommand:kSetSecEnv success:^(NSData *responseData) {
+        [self->_reader transmitCommand:kAID_QSCD success:^(NSData *responseData) {
+            [self->_reader transmitCommand:kSetSecEnv success:^(NSData *responseData) {
                 NSUInteger paddedHashLength = MAX(48, hash.length);
                 NSString *cmdString = [NSString stringWithFormat:kSign, paddedHashLength];
                 NSMutableData *cmd = [NSMutableData dataWithData:[cmdString toHexData]];
@@ -384,7 +384,7 @@ NSString *kDecrypt = @"00 2A 80 86 %02X %@";
                 [cmd appendData:paddedHash];
                 [cmd appendData:[@"00" toHexData]];
             
-                [_reader transmitCommand:[cmd hexString] success:^(NSData *responseData) {
+                [self->_reader transmitCommand:[cmd hexString] success:^(NSData *responseData) {
                     NSData *dataWithoutResponseCode = [responseData subdataWithRange:NSMakeRange(0, responseData.length - 2)];
                     success(dataWithoutResponseCode);
                 } failure:failure];
@@ -398,8 +398,8 @@ NSString *kDecrypt = @"00 2A 80 86 %02X %@";
 
 - (void)decryptData:(NSData *)hash withPin1:(NSString *)pin1 useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure {
     [self verifyCode:pin1 ofType:CodeTypePin1 withSuccess:^(NSData *responseData) {
-        [_reader transmitCommand:kAID_Oberthur success:^(NSData *responseData) {
-            [_reader transmitCommand:kSetSecEnvCrypt success:^(NSData *responseData) {
+        [self->_reader transmitCommand:kAID_Oberthur success:^(NSData *responseData) {
+            [self->_reader transmitCommand:kSetSecEnvCrypt success:^(NSData *responseData) {
                 if (useECC) {
                     NSUInteger paddedHashLength = MAX(48, hash.length);
                     NSMutableData *paddedHash = [NSMutableData new];

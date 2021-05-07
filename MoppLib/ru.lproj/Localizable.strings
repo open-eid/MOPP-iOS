@@ -40,8 +40,5 @@
 "Error" = "Ошибка";
 "Ok" = "Ok";
 
-// *** Digidoc service status ***
-
-"digidoc-service-status-request-select-account" = "Для проставления подписи подтвердите устройство в приложении Smart-ID.";
-"digidoc-service-status-request-expired-transaction" = "Время запроса истекло";
-"digidoc-service-status-request-user-cancel" = "Пользователю отказано";
+// *** Smart-ID ***
+"smart-id-status-request-select-account" = "Для проставления подписи подтвердите устройство в приложении Smart-ID.";

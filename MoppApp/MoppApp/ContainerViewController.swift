@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-protocol ContainerViewControllerDelegate: class {
+protocol ContainerViewControllerDelegate: AnyObject {
     func getDataFileCount() -> Int
     func getContainerPath() -> String
     func getContainer() -> MoppLibContainer
@@ -33,7 +33,7 @@ protocol ContainerViewControllerDelegate: class {
     func saveDataFile(name: String?)
 }
 
-protocol SigningContainerViewControllerDelegate: class {
+protocol SigningContainerViewControllerDelegate: AnyObject {
     func startSigning()
     func getSignaturesCount() -> Int
     func getSignature(index: Int) -> Any
@@ -41,7 +41,7 @@ protocol SigningContainerViewControllerDelegate: class {
     func isContainerSignable() -> Bool
 }
 
-protocol CryptoContainerViewControllerDelegate: class {
+protocol CryptoContainerViewControllerDelegate: AnyObject {
     func addAddressees()
     func getAddressee(index: Int) -> Any
     func getAddresseeCount() -> Int
@@ -126,7 +126,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         
         NotificationCenter.default.addObserver(self, selector: #selector(signatureCreatedFinished), name: .signatureCreatedFinishedNotificationName, object: nil)
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: OperationQueue.main) { [weak self]_ in
+        NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: OperationQueue.main) { [weak self]_ in
             self?.refreshLoadingAnimation()
         }
     }
@@ -154,7 +154,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         updateState(state)
     
         tableView.estimatedRowHeight = ContainerSignatureCell.height
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         
         showLoading(show: state == .loading)
     }
@@ -328,7 +328,7 @@ extension ContainerViewController : UITableViewDataSource {
         case .dataFiles:
             let cell = tableView.dequeueReusableCell(withType: ContainerFileCell.self, for: indexPath)!
                 cell.delegate = self
-            cell.accessibilityTraits = UIAccessibilityTraitButton
+            cell.accessibilityTraits = UIAccessibilityTraits.button
             
             let isStatePreviewOrOpened = state == .opened || state == .preview
             let isEncryptedDataFiles = !isAsicContainer && isStatePreviewOrOpened && !isDecrypted
@@ -494,11 +494,11 @@ extension ContainerViewController : ContainerHeaderDelegate {
             return
         }
         
-        let changeContainerNameController = UIAlertController(title: L(.containerEditNameButton), message: nil, preferredStyle: UIAlertControllerStyle.alert)
-        let cancelButton = UIAlertAction(title: L(.actionCancel), style: UIAlertActionStyle.cancel, handler: nil)
+        let changeContainerNameController = UIAlertController(title: L(.containerEditNameButton), message: nil, preferredStyle: UIAlertController.Style.alert)
+        let cancelButton = UIAlertAction(title: L(.actionCancel), style: UIAlertAction.Style.cancel, handler: nil)
         changeContainerNameController.addAction(cancelButton)
         
-        let okButton = UIAlertAction(title: L(.actionOk), style: UIAlertActionStyle.default) { (action: UIAlertAction) in
+        let okButton = UIAlertAction(title: L(.actionOk), style: UIAlertAction.Style.default) { (action: UIAlertAction) in
             guard let textFields = changeContainerNameController.textFields, textFields.count != 0, let textFieldText = textFields[0].text else {
                 NSLog("Failed to find textfield")
                 self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
@@ -548,7 +548,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
         
         changeContainerNameController.addTextField { (textField: UITextField) in
             textField.text = currentFileName
-            NotificationCenter.default.addObserver(forName: NSNotification.Name.UITextFieldTextDidChange, object: textField, queue: OperationQueue.main) { (notification) in
+            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { (notification) in
                 guard let inputText = textField.text else {
                     NSLog("Failed to get textfield's text")
                     self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
@@ -629,7 +629,7 @@ extension ContainerViewController : UITableViewDelegate {
         if isAsicContainer {
             if isSignaturesEmpty {
                     sections = (isForPreview || !isCreated) ? ContainerViewController.sectionsDefault : ContainerViewController.sectionsNoSignatures
-                if let signaturesIndex = sections.index(where: { $0 == .signatures }) {
+                if let signaturesIndex = sections.firstIndex(where: { $0 == .signatures }) {
                     if !sections.contains(.missingSignatures) {
                         sections.insert(.missingSignatures, at: signaturesIndex + 1)
                     }
@@ -644,11 +644,11 @@ extension ContainerViewController : UITableViewDelegate {
         tableView.reloadData()
         
         // Animate away success message if there is any
-        if let notificationIndex = notifications.index(where: { $0.0 == true }), sections.contains(.notifications) {
+        if let notificationIndex = notifications.firstIndex(where: { $0.0 == true }), sections.contains(.notifications) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
                 if (self?.notifications.isEmpty)! { return }
                 self?.notifications.remove(at: notificationIndex)
-                if let notificationsSection = self?.sections.index(where: { $0 == .notifications }) {
+                if let notificationsSection = self?.sections.firstIndex(where: { $0 == .notifications }) {
                     self?.tableView.reloadSections([notificationsSection], with: .automatic)
                 }
             }
@@ -664,10 +664,14 @@ extension ContainerViewController : ContainerSignatureDelegate {
 
 extension ContainerViewController : ContainerTableViewHeaderDelegate {
     func didTapContainerHeaderButton() {
+        guard let landingViewControllerContainerType = LandingViewController.shared.containerType else {
+            NSLog("Unable to get LandingViewControlelr container type")
+            return
+        }
         NotificationCenter.default.post(
             name: .startImportingFilesWithDocumentPickerNotificationName,
             object: nil,
-            userInfo: [kKeyFileImportIntent: MoppApp.FileImportIntent.addToContainer, kKeyContainerType: LandingViewController.shared.containerType])
+            userInfo: [kKeyFileImportIntent: MoppApp.FileImportIntent.addToContainer, kKeyContainerType: landingViewControllerContainerType])
     }
 }
 
@@ -686,9 +690,13 @@ extension ContainerViewController : ContainerAddresseeCellDelegate {
 
 extension ContainerViewController : ContainerImportCellDelegate {
     func containerImportCellAddFiles() {
+        guard let landingViewControllerContainerType = LandingViewController.shared.containerType else {
+            NSLog("Unable to get LandingViewControlelr container type")
+            return
+        }
         NotificationCenter.default.post(
             name: .startImportingFilesWithDocumentPickerNotificationName,
             object: nil,
-            userInfo: [kKeyFileImportIntent: MoppApp.FileImportIntent.addToContainer, kKeyContainerType: LandingViewController.shared.containerType])
+            userInfo: [kKeyFileImportIntent: MoppApp.FileImportIntent.addToContainer, kKeyContainerType: landingViewControllerContainerType])
     }
 }

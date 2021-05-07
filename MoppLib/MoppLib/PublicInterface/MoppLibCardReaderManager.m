@@ -101,26 +101,26 @@
 - (void)startDiscoveringFeitianReader {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateStatus:ReaderNotConnected];
-        SCardEstablishContext(SCARD_SCOPE_SYSTEM, NULL, NULL, &_contextHandle);
+        SCardEstablishContext(SCARD_SCOPE_SYSTEM, NULL, NULL, &self->_contextHandle);
     });
 }
 
 - (void)stopDiscoveringFeitianReader {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (_status == CardConnected) {
+        if (self->_status == CardConnected) {
             [self disconnectCard];
         }
         
-        if (_cardStatusPollingTimer != nil) {
-            [_cardStatusPollingTimer invalidate];
-            _cardStatusPollingTimer = nil;
+        if (self->_cardStatusPollingTimer != nil) {
+            [self->_cardStatusPollingTimer invalidate];
+            self->_cardStatusPollingTimer = nil;
         }
         
         FtDidEnterBackground(1);
-        SCardCancel(_contextHandle);
-        SCardReleaseContext(_contextHandle);
+        SCardCancel(self->_contextHandle);
+        SCardReleaseContext(self->_contextHandle);
         
-        _feitianReader = nil;
+        self->_feitianReader = nil;
         if ([[[CardActionsManager sharedInstance] reader] isKindOfClass:[CardReaderiR301 class]]) {
             [[CardActionsManager sharedInstance] setReader:nil];
         }
@@ -205,8 +205,8 @@
     
     _status = status;
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (_delegate)
-            [_delegate moppLibCardReaderStatusDidChange:status];
+        if (self->_delegate)
+            [self->_delegate moppLibCardReaderStatusDidChange:status];
     });
 }
 
@@ -217,13 +217,13 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self updateStatus:ReaderConnected];
             [self startPollingCardStatus];
-            [_delegate moppLibCardReaderStatusDidChange:ReaderConnected];
+            [self->_delegate moppLibCardReaderStatusDidChange:ReaderConnected];
         });
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self updateStatus:ReaderNotConnected];
             [self stopPollingCardStatus];
-            [_delegate moppLibCardReaderStatusDidChange: ReaderNotConnected];
+            [self->_delegate moppLibCardReaderStatusDidChange: ReaderNotConnected];
         });
     }
 }

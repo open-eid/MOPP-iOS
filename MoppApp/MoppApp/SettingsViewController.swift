@@ -63,14 +63,14 @@ class SettingsViewController: MoppViewController {
             id: .rpuuid,
             kind: .inputField,
             title: L(.settingsRpUuidTitle),
-            placeholderText: NSAttributedString(string: L(.settingsRpUuidPlaceholder), attributes: [NSAttributedStringKey.foregroundColor: UIColor.moppPlaceholderDarker]),
+            placeholderText: NSAttributedString(string: L(.settingsRpUuidPlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker]),
             value: DefaultsHelper.rpUuid
         ),
         Field(
             id: .timestampUrl,
             kind: .timestamp,
             title: L(.settingsTimestampUrlTitle),
-            placeholderText: NSAttributedString(string: L(.settingsTimestampUrlPlaceholder), attributes: [NSAttributedStringKey.foregroundColor: UIColor.moppPlaceholderDarker]),
+            placeholderText: NSAttributedString(string: L(.settingsTimestampUrlPlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker]),
             value: DefaultsHelper.timestampUrl ?? MoppConfiguration.tsaUrl!
         )
     ]
@@ -81,7 +81,7 @@ class SettingsViewController: MoppViewController {
         timestampUrl = DefaultsHelper.timestampUrl
         
         tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
     }
         
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {

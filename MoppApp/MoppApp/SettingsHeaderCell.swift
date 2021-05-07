@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-protocol SettingsHeaderCellDelegate: class {
+protocol SettingsHeaderCellDelegate: AnyObject {
     func didDismissSettings()
 }
 class SettingsHeaderCell: UITableViewCell {
@@ -38,6 +38,10 @@ class SettingsHeaderCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.accessibilityElements = [dismissButton, titleLabel]
+        guard let dismissUIButton: UIButton = dismissButton, let titleUILabel: UILabel = titleLabel else {
+            NSLog("Unable to get dismissButton or titleLabel")
+            return
+        }
+        self.accessibilityElements = [dismissUIButton, titleUILabel]
     }
 }

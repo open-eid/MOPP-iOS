@@ -24,13 +24,13 @@ extension UITextField {
 
     func moppPresentDismissButton() {
     
-        let dismissButton = UIBarButtonItem(title: L(.doneButtonTitle), style: UIBarButtonItemStyle.plain, target: self, action: #selector(__dismissKeyboard))
+        let dismissButton = UIBarButtonItem(title: L(.doneButtonTitle), style: UIBarButtonItem.Style.plain, target: self, action: #selector(__dismissKeyboard))
             dismissButton.tintColor = UIColor.moppBase
         
         let toolbar = UIToolbar()
         
         toolbar.items = [
-            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil),
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil),
             dismissButton
         ]
         toolbar.sizeToFit()

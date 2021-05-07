@@ -55,7 +55,7 @@ extension String {
     }
 
     func lastOf(ch: Character) -> Int? {
-        guard let start = self.reversed().index(of: ch) else {
+        guard let start = self.reversed().firstIndex(of: ch) else {
             return nil
         }
         return distance(from: startIndex, to: start.base) - 1

@@ -62,7 +62,7 @@ class MenuViewController : MoppModalViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.estimatedRowHeight = 200
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         
         lightContentStatusBarStyle = true
     
@@ -112,9 +112,9 @@ extension MenuViewController : UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withType: MenuCell.self, for: indexPath)!
                     cell.populate(iconName: iconName, title: title)
                 if id == .help {
-                    cell.accessibilityTraits = UIAccessibilityTraitLink
+                    cell.accessibilityTraits = UIAccessibilityTraits.link
                 } else {
-                    cell.accessibilityTraits = UIAccessibilityTraitButton
+                    cell.accessibilityTraits = UIAccessibilityTraits.button
                 }
                 return cell
             }
@@ -141,7 +141,7 @@ extension MenuViewController : UITableViewDelegate {
                     helpUrl = URL(string: "https://www.id.ee/index.php?id=30466")
                 }
                 if helpUrl != nil {
-                    MoppApp.shared.open(helpUrl, options: [:], completionHandler: nil)
+                    MoppApp.shared.open(helpUrl, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
                 }
             case .containersHistory:
                 DispatchQueue.main.async(execute: {
@@ -200,4 +200,9 @@ extension MenuViewController : MenuLanguageCellDelegate {
         }
         
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

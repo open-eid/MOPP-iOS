@@ -24,16 +24,16 @@ enum IdCardActionError: Error {
     case actionCancelled
 }
 
-protocol IdCardSignViewKeyboardDelegate : class {
+protocol IdCardSignViewKeyboardDelegate : AnyObject {
     func idCardPINKeyboardWillAppear()
     func idCardPINKeyboardWillDisappear()
 }
 
-protocol IdCardSignViewControllerDelegate : class {
+protocol IdCardSignViewControllerDelegate : AnyObject {
     func idCardSignDidFinished(cancelled: Bool, success: Bool, error: Error?)
 }
 
-protocol IdCardDecryptViewControllerDelegate : class {
+protocol IdCardDecryptViewControllerDelegate : AnyObject {
     func idCardDecryptDidFinished(cancelled: Bool, success: Bool, dataFiles: NSMutableDictionary, error: Error?)
 }
 
@@ -95,7 +95,7 @@ class IdCardViewController : MoppViewController {
         pinTextField.moppPresentDismissButton()
 
         if #available(iOS 12, *) {
-            UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, titleLabel)
+            UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
         }
     }
 
@@ -123,8 +123,13 @@ class IdCardViewController : MoppViewController {
         super.viewDidAppear(animated)
 
         updateUI(for: state)
+        
+        guard let titleUILabel = titleLabel, let pinTextFieldUITitleLabel = pinTextFieldTitleLabel, let pinTextUIField = pinTextField, let cancelUIButton = cancelButton, let actionUIButton = actionButton else {
+            NSLog("Unable to get titleLabel, pinTextFieldTitleLabel, pinTextField, cancelButton or actionButton")
+            return
+        }
 
-        self.view.accessibilityElements = [titleLabel, pinTextFieldTitleLabel, pinTextField, cancelButton, actionButton]
+        self.view.accessibilityElements = [titleUILabel, pinTextFieldUITitleLabel, pinTextUIField, cancelUIButton, actionUIButton]
 
         accessibilityObjects = [titleLabel, pinTextFieldTitleLabel, pinTextField, cancelButton, actionButton]
 
@@ -133,7 +138,7 @@ class IdCardViewController : MoppViewController {
 
         // Application did become active
         NotificationCenter.default.addObserver(
-            forName: NSNotification.Name.UIApplicationDidBecomeActive,
+            forName: UIApplication.didBecomeActiveNotification,
             object: nil,
             queue: OperationQueue.main) { [weak self]_ in
             guard let sself = self else { return }
@@ -146,22 +151,22 @@ class IdCardViewController : MoppViewController {
             self?.pinTextField.resignFirstResponder()
         }
 
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: OperationQueue.main) { [weak self]_ in
+        NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: OperationQueue.main) { [weak self]_ in
             self?.loadingSpinner.show(true)
-            UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, self?.titleLabel)
+            UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: self?.titleLabel)
         }
 
         // Application will resign active
-        NotificationCenter.default.addObserver(forName: Notification.Name.UIApplicationWillResignActive, object: nil, queue: OperationQueue.main) {_ in
+        NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: OperationQueue.main) {_ in
             MoppLibCardReaderManager.sharedInstance().stopDiscoveringReaders()
-            UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, self.titleLabel)
+            UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: self.titleLabel)
         }
         // PIN2 keyboard will appear
-        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil, queue: OperationQueue.main) { [weak self]_ in
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: OperationQueue.main) { [weak self]_ in
             self?.keyboardDelegate?.idCardPINKeyboardWillAppear()
         }
         // PIN2 keyboard will disappear
-        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { [weak self]_ in
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: OperationQueue.main) { [weak self]_ in
             self?.keyboardDelegate?.idCardPINKeyboardWillDisappear()
         }
 
@@ -184,7 +189,7 @@ class IdCardViewController : MoppViewController {
     func updateUI(for state: State) {
         switch state {
         case .initial:
-            UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, L(.cardReaderStateInitial))
+            UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: L(.cardReaderStateInitial))
             actionButton.isEnabled = false
             pinTextField.isHidden = true
             pinTextField.text = nil
@@ -193,9 +198,13 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
             loadingSpinner.show(true)
             titleLabel.text = L(.cardReaderStateInitial)
-            self.view.accessibilityElements = [titleLabel, pinTextFieldTitleLabel, pinTextField, cancelButton, actionButton]
+            guard let titleUILabel = titleLabel, let pinTextFieldUITitleLabel = pinTextFieldTitleLabel, let pinTextUIField = pinTextField, let cancelUIButton = cancelButton, let actionUIButton = actionButton else {
+                NSLog("Unable to get titleLabel, pinTextFieldTitleLabel, pinTextField, cancelButton or actionButton")
+                return
+            }
+            self.view.accessibilityElements = [titleUILabel, pinTextFieldUITitleLabel, pinTextUIField, cancelUIButton, actionUIButton]
         case .readerNotFound:
-            UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification,  L(.cardReaderStateReaderNotFound))
+            UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged,  argument: L(.cardReaderStateReaderNotFound))
             actionButton.isEnabled = false
             pinTextField.isHidden = true
             pinTextField.text = nil
@@ -205,7 +214,7 @@ class IdCardViewController : MoppViewController {
             loadingSpinner.show(true)
             titleLabel.text = L(.cardReaderStateReaderNotFound)
         case .idCardNotFound:
-            UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, L(.cardReaderStateIdCardNotFound))
+            UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: L(.cardReaderStateIdCardNotFound))
             actionButton.isEnabled = false
             pinTextField.isHidden = true
             pinTextField.text = nil
@@ -215,7 +224,7 @@ class IdCardViewController : MoppViewController {
             loadingSpinner.show(true)
             titleLabel.text = L(.cardReaderStateIdCardNotFound)
         case .idCardConnected:
-            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, L(.cardReaderStateIdCardConnected))
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: L(.cardReaderStateIdCardConnected))
             actionButton.isEnabled = false
             pinTextField.isHidden = true
             pinTextField.text = nil
@@ -229,12 +238,12 @@ class IdCardViewController : MoppViewController {
             let personalCode = idCardPersonalData?.personalIdentificationCode ?? String()
             if isActionDecryption {
                 titleLabel.text = L(.cardReaderStateReadyForPin1, [fullname, personalCode])
-                UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, titleLabel)
+                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
             } else {
                 titleLabel.text = L(.cardReaderStateReadyForPin2, [fullname, personalCode])
-                UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, titleLabel)
+                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
             }
-            UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, titleLabel)
+            UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
             actionButton.isEnabled = false
             pinTextField.isHidden = false
             pinTextField.text = nil
@@ -246,7 +255,7 @@ class IdCardViewController : MoppViewController {
             }
             pinTextFieldTitleLabel.textColor = UIColor.moppText
             loadingSpinner.show(false)
-            UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, titleLabel)
+            UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
         case .tokenActionInProcess:
             actionButton.isEnabled = false
             pinTextField.isHidden = true
@@ -257,20 +266,20 @@ class IdCardViewController : MoppViewController {
             loadingSpinner.show(true)
             if isActionDecryption {
                 titleLabel.text = L(.decryptionInProgress)
-                UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, titleLabel)
+                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
             } else {
                 titleLabel.text = L(.signingInProgress)
-                UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, titleLabel)
+                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
             }
         case .wrongPin:
             let fullname = idCardPersonalData?.fullName() ?? String()
             let personalCode = idCardPersonalData?.personalIdentificationCode ?? String()
             if isActionDecryption {
                 titleLabel.text = L(.cardReaderStateReadyForPin1, [fullname, personalCode])
-                UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, titleLabel)
+                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
             } else {
                 titleLabel.text = L(.cardReaderStateReadyForPin2, [fullname, personalCode])
-                UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, titleLabel)
+                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
             }
             actionButton.isEnabled = false
             pinTextField.isHidden = false
@@ -281,15 +290,16 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.textColor = UIColor.moppError
             if isActionDecryption {
                 pinTextFieldTitleLabel.text = pinAttemptsLeft > 1 ? L(.wrongPin1, [pinAttemptsLeft]) : L(.wrongPin1Single)
-                UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, pinTextFieldTitleLabel)
+                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: pinTextFieldTitleLabel)
             } else {
                 pinTextFieldTitleLabel.text = pinAttemptsLeft > 1 ? L(.wrongPin2, [pinAttemptsLeft]) : L(.wrongPin2Single)
-                UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, pinTextFieldTitleLabel)
+                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: pinTextFieldTitleLabel)
             }
 
         }
         
-        actionButton.backgroundColor = UIColor.moppBackgroundDark
+        guard let actionUIButton = actionButton else { NSLog("Unable to get actionButton"); return }
+        actionUIButton.backgroundColor = UIColor.moppBackgroundDark
 
         if state == .initial {
             initialStateExpirationTimer = Timer.scheduledTimer(withTimeInterval: 600, repeats: false, block: { [weak self]_ in
@@ -307,8 +317,13 @@ class IdCardViewController : MoppViewController {
         for subview in self.view.subviews {
             if subview.isKind(of: UIView.self) {
                 self.view.isAccessibilityElement = false
-                subview.accessibilityElements = [titleLabel, pinTextFieldTitleLabel, pinTextField, cancelButton, actionButton]
-                UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, titleLabel)
+                
+                guard let titleUILabel = titleLabel, let pinTextFieldUITitleLabel = pinTextFieldTitleLabel, let pinTextUIField = pinTextField, let cancelUIButton = cancelButton, let actionUIButton = actionButton else {
+                    NSLog("Unable to get titleLabel, pinTextFieldTitleLabel, pinTextField, cancelButton or actionButton")
+                    return
+                }
+                subview.accessibilityElements = [titleUILabel, pinTextFieldUITitleLabel, pinTextUIField, cancelUIButton, actionUIButton]
+                UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: titleLabel)
             }
         }
 
@@ -409,6 +424,8 @@ extension IdCardViewController : MoppLibCardReaderManagerDelegate {
                 })
             })
 
+        @unknown default:
+            break
         }
     }
 }

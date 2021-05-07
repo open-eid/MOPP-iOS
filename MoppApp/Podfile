@@ -13,52 +13,62 @@ platform :ios, '11.0'
 target 'MoppApp' do
   platform :ios, '11.0'
   project 'MoppApp.xcodeproj'
-  pod 'Firebase/Crashlytics'
-  pod 'Firebase/Analytics'
-  pod 'SwiftyRSA'
-  pod 'Zip'
+  pod 'Firebase/Crashlytics', '~> 7.11.0'
+  pod 'Firebase/Analytics', '~> 7.11.0'
+  pod 'SwiftyRSA', '~> 1.6.0'
+  pod 'Zip', '~> 1.1'
 end
 
 target 'MoppAppTestEnv' do
   platform :ios, '11.0'
   project 'MoppApp.xcodeproj'
 
-  pod 'Firebase/Crashlytics'
-  pod 'Firebase/Analytics'
-  pod 'SwiftyRSA'
+  pod 'Firebase/Crashlytics', '~> 7.11.0'
+  pod 'Firebase/Analytics', '~> 7.11.0'
+  pod 'SwiftyRSA', '~> 1.6.0'
 end
 
 target 'MoppLib' do
   platform :ios, '11.0'
   project '../MoppLib/MoppLib.xcodeproj'
-  #pod 'Firebase/Crashlytics'
-  #pod 'Firebase/Analytics'
+  #pod 'Firebase/Crashlytics', '~> 7.11.0'
+  #pod 'Firebase/Analytics', '~> 7.11.0'
 end
 
 target 'MoppLibTestEnv' do
   platform :ios, '11.0'
   project '../MoppLib/MoppLib.xcodeproj'
-  #pod 'Firebase/Crashlytics'
-  #pod 'Firebase/Analytics'
+  #pod 'Firebase/Crashlytics', '~> 7.11.0'
+  #pod 'Firebase/Analytics', '~> 7.11.0'
 end
 
 target 'CryptoLib' do
     platform :ios, '11.0'
     project '../CryptoLib/CryptoLib.xcodeproj'
-    #pod 'Firebase/Crashlytics'
-    #pod 'Firebase/Analytics'
+    #pod 'Firebase/Crashlytics', '~> 7.11.0'
+    #pod 'Firebase/Analytics', '~> 7.11.0'
 end
 
 target 'MoppLibTests' do
   platform :ios, '11.0'
   project '../MoppLib/MoppLib.xcodeproj'
-  pod 'OCMock'
+  pod 'OCMock', '~> 3.8.1'
   
 end
 
 target 'SkSigningLib' do
     platform :ios, '11.0'
     project '../SkSigningLib/SkSigningLib.xcodeproj'
-    #pod 'Firebase/Crashlytics'
-    #pod 'Firebase/Analytics'
+    #pod 'Firebase/Crashlytics', '~> 7.11.0'
+    #pod 'Firebase/Analytics', '~> 7.11.0'
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      if Gem::Version.new('11.0') > Gem::Version.new(config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'])
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
+      end
+    end
+  end
 end

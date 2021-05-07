@@ -22,7 +22,7 @@
  */
 import Foundation
 
-protocol ContainerSignatureDelegate: class {
+protocol ContainerSignatureDelegate: AnyObject {
     func containerSignatureRemove(signatureIndex: Int)
 }
 
@@ -101,6 +101,8 @@ class ContainerSignatureCell: UITableViewCell {
             case MoppLibSignatureStatus.Invalid:
                 testSignatureLabel.isHidden = true
                 signatureStatus = getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusInvalid), translationSufix: "", valid: false)
+        @unknown default:
+            signatureStatus = NSMutableAttributedString(string: "")
         }
         
         signatureStatusLabel.attributedText = signatureStatus
@@ -124,8 +126,8 @@ class ContainerSignatureCell: UITableViewCell {
         }else{
             mainColor = UIColor.moppError
         }
-        signatureStatus.addAttribute(NSAttributedStringKey.foregroundColor, value: mainColor, range: NSRange(location:0,length:translationPrefix.count))
-        signatureStatus.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.moppWarningTextDarker, range: NSRange(location:translationPrefix.count+1,length:translationSufix.count))
+        signatureStatus.addAttribute(NSAttributedString.Key.foregroundColor, value: mainColor, range: NSRange(location:0,length:translationPrefix.count))
+        signatureStatus.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.moppWarningTextDarker, range: NSRange(location:translationPrefix.count+1,length:translationSufix.count))
         return signatureStatus
     }
     

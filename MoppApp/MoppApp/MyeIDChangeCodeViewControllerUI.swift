@@ -21,7 +21,7 @@
  *
  */
 @objc
-protocol MyeIDChangeCodesViewControllerUIDelegate: class {
+protocol MyeIDChangeCodesViewControllerUIDelegate: AnyObject {
     func didTapDiscardButton(_ ui: MyeIDChangeCodesViewControllerUI)
     func didTapConfirmButton(_ ui: MyeIDChangeCodesViewControllerUI)
 }
@@ -70,12 +70,12 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
         secondCodeTextField.delegate = self
         thirdCodeTextField.delegate = self
         
-        NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboard), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboard), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         let font = UIFont(name: MoppFontName.regular.rawValue, size: 16)!
         let color = UIColor.moppText
-        let attributes = [NSAttributedStringKey.font : font, NSAttributedStringKey.foregroundColor : color]
+        let attributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : color]
         
         let fullAttributedString = NSMutableAttributedString()
         
@@ -95,7 +95,7 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
             
             let paragraphStyle = createParagraphAttribute()
             attributedString.addAttributes(
-                attributes.merging([NSAttributedStringKey.paragraphStyle: paragraphStyle],
+                attributes.merging([NSAttributedString.Key.paragraphStyle: paragraphStyle],
                     uniquingKeysWith: {current,_  in return current }),
                 range: NSMakeRange(0, attributedString.length))
             
@@ -124,16 +124,16 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
     
     @objc func adjustForKeyboard(notification: NSNotification) {
         
-        if notification.name == NSNotification.Name.UIKeyboardWillHide {
+        if notification.name == UIResponder.keyboardWillHideNotification {
             scrollView.contentInset = UIEdgeInsets.zero
             isKeyboardVisible = false
         
-        } else if notification.name == NSNotification.Name.UIKeyboardWillShow {
+        } else if notification.name == UIResponder.keyboardWillShowNotification {
             if isKeyboardVisible { return }
             
             let userInfo = notification.userInfo!
             
-            let keyboardScreenEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+            let keyboardScreenEndFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
             let keyboardViewEndFrame = viewController.view.convert(keyboardScreenEndFrame, from: viewController.view.window)
             
             let scrollViewRectInWindow = scrollView.convert(scrollView.frame, from: viewController.view.window)
@@ -146,19 +146,19 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
                 bottomContentInset += scrollViewContentDelta
             }
         
-            scrollView.contentInset = UIEdgeInsetsMake(0, 0, bottomContentInset, 0)
+            scrollView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: bottomContentInset, right: 0)
             isKeyboardVisible = true
         }
     }
     
     func showStatusView(with title: String) {
         statusLabel.text = title
-        UIView.animate(withDuration: 0.35, delay: 0.0, options: UIViewAnimationOptions.curveLinear, animations: { [weak self] in
+        UIView.animate(withDuration: 0.35, delay: 0.0, options: UIView.AnimationOptions.curveLinear, animations: { [weak self] in
             self?.statusViewHiddenCSTR.priority = UILayoutPriority.defaultLow
             self?.statusViewVisibleCSTR.priority = UILayoutPriority.defaultHigh
             self?.viewController.view.layoutIfNeeded()
         }) { (finished) in
-            UIView.animate(withDuration: 0.35, delay: 3.0, options: UIViewAnimationOptions.curveLinear, animations: { [weak self] in
+            UIView.animate(withDuration: 0.35, delay: 3.0, options: UIView.AnimationOptions.curveLinear, animations: { [weak self] in
                 self?.statusViewHiddenCSTR.priority = UILayoutPriority.defaultHigh
                 self?.statusViewVisibleCSTR.priority = UILayoutPriority.defaultLow
                 self?.viewController.view.layoutIfNeeded()
@@ -182,11 +182,11 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
 extension MyeIDChangeCodesViewControllerUI: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, textField)
+        UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: textField)
         return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, textField)
+        UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: textField)
     }
 }

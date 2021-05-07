@@ -85,6 +85,6 @@ class MenuLanguageCell : UITableViewCell {
     }
 }
 
-protocol MenuLanguageCellDelegate : class {
+protocol MenuLanguageCellDelegate : AnyObject {
     func didSelectLanguage(languageId: String)
 }

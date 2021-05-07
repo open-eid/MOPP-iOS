@@ -42,8 +42,5 @@
 "Error" = "Error";
 "Ok" = "Ok";
 
-// *** Digidoc service status ***
-
-"digidoc-service-status-request-select-account" = "Confirm device for signing in Smart-ID application.";
-"digidoc-service-status-request-expired-transaction" = "Request timeout";
-"digidoc-service-status-request-user-cancel" = "User denied or cancelled";
+// *** Smart-ID ***
+"smart-id-status-request-select-account" = "Confirm device for signing in Smart-ID application.";

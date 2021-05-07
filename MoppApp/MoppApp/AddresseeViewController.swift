@@ -23,7 +23,7 @@
 
 import Foundation
 
-protocol AddresseeViewControllerDelegate: class {
+protocol AddresseeViewControllerDelegate: AnyObject {
     func addAddresseeToContainer(selectedAddressees: NSMutableArray)
 }
 
@@ -81,7 +81,7 @@ extension AddresseeViewController : UISearchBarDelegate {
             success: { (_ ldapResponse: NSMutableArray?) -> Void in
                 _ = ldapResponse?.sorted {($0 as! Addressee).identifier < ($1 as! Addressee).identifier }
                 
-                self.foundAddressees = (ldapResponse?.sorted {($0 as! Addressee).identifier < ($1 as! Addressee).identifier } as! NSArray)
+                self.foundAddressees = (ldapResponse?.sorted {($0 as! Addressee).identifier < ($1 as! Addressee).identifier } as NSArray? ?? [])
                 self.showLoading(show: false)
                 self.tableView.reloadData()
             },
@@ -217,10 +217,14 @@ extension AddresseeViewController : UITableViewDelegate {
 
 extension AddresseeViewController : ContainerTableViewHeaderDelegate {
     func didTapContainerHeaderButton() {
+        guard let landingViewControllerContainerType = LandingViewController.shared.containerType else {
+            NSLog("Unable to get LandingViewControlelr container type")
+            return
+        }
         NotificationCenter.default.post(
             name: .startImportingFilesWithDocumentPickerNotificationName,
             object: nil,
-            userInfo: [kKeyFileImportIntent: MoppApp.FileImportIntent.addToContainer, kKeyContainerType: LandingViewController.shared.containerType])
+            userInfo: [kKeyFileImportIntent: MoppApp.FileImportIntent.addToContainer, kKeyContainerType: landingViewControllerContainerType])
     }
 }
 

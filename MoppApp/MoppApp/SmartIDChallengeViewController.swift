@@ -48,7 +48,7 @@ class SmartIDChallengeViewController : UIViewController {
     }
 
     @objc func receiveSelectAccountNotification(_ notification: Notification) {
-        helpLabel.text = MoppLib_LocalizedString("digidoc-service-status-request-select-account")
+        helpLabel.text = MoppLib_LocalizedString("smart-id-status-request-select-account")
     }
 
     @objc func receiveCreateSignatureNotification(_ notification: Notification) {
@@ -92,7 +92,7 @@ class SmartIDChallengeViewController : UIViewController {
             let topViewController = self.getTopViewController()
             
             let errorMessageNoLink = message.removeFirstLinkFromMessage()
-            let alert = UIAlertController(title: L(.errorAlertTitleGeneral), message: errorMessageNoLink, preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: L(.errorAlertTitleGeneral), message: errorMessageNoLink, preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             if let linkInUrl = message.getFirstLinkInMessage() {
                 if let alertActionUrl = UIAlertAction().getLinkAlert(message: linkInUrl) {
@@ -134,7 +134,7 @@ class SmartIDChallengeViewController : UIViewController {
         let content = UNMutableNotificationContent()
         content.title = "Smart-ID challenge"
         content.subtitle = challengeID
-        content.sound = UNNotificationSound.default()
+        content.sound = UNNotificationSound.default
         pendingnotification = UUID().uuidString;
         UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: pendingnotification, content: content, trigger: nil))
     }

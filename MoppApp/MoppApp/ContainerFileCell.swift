@@ -23,7 +23,7 @@
 import Foundation
 
 
-protocol ContainerFileDelegate: class {
+protocol ContainerFileDelegate: AnyObject {
     func removeDataFile(dataFileIndex: Int)
     func saveDataFile(fileName: String?)
 }

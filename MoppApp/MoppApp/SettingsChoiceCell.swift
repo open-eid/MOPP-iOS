@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-protocol SettingsChoiceCellDelegate: class {
+protocol SettingsChoiceCellDelegate: AnyObject {
     func didChooseOption(_ fieldId:SettingsViewController.FieldId, _ optionId: SettingsChoiceCell.OptionId?)
 }
 

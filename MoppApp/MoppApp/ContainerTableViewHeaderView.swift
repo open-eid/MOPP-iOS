@@ -22,7 +22,7 @@
  */
 import Foundation
 
-protocol ContainerTableViewHeaderDelegate : class {
+protocol ContainerTableViewHeaderDelegate : AnyObject {
     func didTapContainerHeaderButton()
 }
 
@@ -40,7 +40,7 @@ class ContainerTableViewHeaderView: UIView {
         
         let topColor = UIColor.white.withAlphaComponent(1.0)
         let botColor = UIColor.white.withAlphaComponent(0.8)
-        _ = createGradientLayer(topColor: topColor, bottomColor: botColor)
+        createGradientLayer(topColor: topColor, bottomColor: botColor)
     }
     
     func populate(withTitle title: String, showAddButton: Bool) {

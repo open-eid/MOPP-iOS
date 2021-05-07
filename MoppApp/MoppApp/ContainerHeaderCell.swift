@@ -22,7 +22,7 @@
  */
 import Foundation
 
-protocol ContainerHeaderDelegate: class {
+protocol ContainerHeaderDelegate: AnyObject {
     func editContainerName(completion: @escaping (_ fileName: String) -> Void)
 }
 

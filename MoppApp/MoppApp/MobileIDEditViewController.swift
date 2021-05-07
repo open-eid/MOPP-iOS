@@ -39,7 +39,7 @@ class MyTextField : UITextField {
     }
 }
 
-protocol MobileIDEditViewControllerDelegate : class {
+protocol MobileIDEditViewControllerDelegate : AnyObject {
     func mobileIDEditViewControllerDidDismiss(cancelled: Bool, phoneNumber: String?, idCode: String?)
 }
 
@@ -82,7 +82,12 @@ class MobileIDEditViewController : MoppViewController {
         tapGR.addTarget(self, action: #selector(cancelAction))
         view.addGestureRecognizer(tapGR)
         
-        self.view.accessibilityElements = [titleLabel, phoneLabel, phoneTextField, idCodeLabel, idCodeTextField, rememberLabel, rememberSwitch, cancelButton, signButton]
+        guard let titleUILabel = titleLabel, let phoneUILabel = phoneLabel, let phoneUITextField = phoneTextField, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
+            NSLog("Unable to get titleLabel, phoneLabel, phoneTextField, idCodeLabel, idCodeTextField, rememberLabel, rememberSwitch, cancelButton or signButton")
+            return
+        }
+        
+        self.view.accessibilityElements = [titleUILabel, phoneUILabel, phoneUITextField, idCodeUILabel, idCodeUITextField, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
     }
     
     @objc func dismissKeyboard(_ notification: NSNotification) {

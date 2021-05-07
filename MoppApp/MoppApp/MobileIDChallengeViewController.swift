@@ -59,13 +59,13 @@ class MobileIDChallengeViewController : UIViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(didFinishAnnouncement(_:)),
-            name: NSNotification.Name.UIAccessibilityAnnouncementDidFinish,
+            name: UIAccessibility.announcementDidFinishNotification,
             object: nil)
     }
     
     @objc func didFinishAnnouncement(_ notification: Notification) {
-        let announcementValue: String? = notification.userInfo?[UIAccessibilityAnnouncementKeyStringValue] as? String
-        let isAnnouncementSuccessful: Bool? = notification.userInfo?[UIAccessibilityAnnouncementKeyWasSuccessful] as? Bool
+        let announcementValue: String? = notification.userInfo?[UIAccessibility.announcementStringValueUserInfoKey] as? String
+        let isAnnouncementSuccessful: Bool? = notification.userInfo?[UIAccessibility.announcementWasSuccessfulUserInfoKey] as? Bool
         
         guard let isSuccessful = isAnnouncementSuccessful else {
             return
@@ -73,7 +73,7 @@ class MobileIDChallengeViewController : UIViewController {
         
         if !isSuccessful {
             NSLog("Control code announcement was not successful, retrying...")
-            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, announcementValue)
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: announcementValue)
         }
     }
 
@@ -87,11 +87,11 @@ class MobileIDChallengeViewController : UIViewController {
     }
 
     @objc func receiveStatusPendingNotification(_ notification: Notification) {
-        if UIAccessibilityIsVoiceOverRunning() {
+        if UIAccessibility.isVoiceOverRunning {
             if !isAnnouncementMade {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: { [weak self] in
                     let challengeIdNumbers = Array<Character>(self!.challengeID)
-                    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, L(LocKey.challengeCodeLabel, ["\(challengeIdNumbers[0]), \(challengeIdNumbers[1]), \(challengeIdNumbers[2]), \(challengeIdNumbers[3]). \(self!.helpLabel.text!)"]))
+                    UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: L(LocKey.challengeCodeLabel, ["\(challengeIdNumbers[0]), \(challengeIdNumbers[1]), \(challengeIdNumbers[2]), \(challengeIdNumbers[3]). \(self!.helpLabel.text!)"]))
                     self?.isAnnouncementMade = true
                 })
             }
@@ -115,7 +115,7 @@ class MobileIDChallengeViewController : UIViewController {
         let challengeIdNumbers = Array<Character>(challengeID)
         let challengeIdAccessibilityLabel: String = "\((L(LocKey.challengeCodeLabelAccessibility, [String(challengeIdNumbers[0]), String(challengeIdNumbers[1]), String(challengeIdNumbers[2]), String(challengeIdNumbers[3])]))). \(self.helpLabel.text!)"
         codeLabel.accessibilityLabel = challengeIdAccessibilityLabel
-        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, challengeIdAccessibilityLabel)
+        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: challengeIdAccessibilityLabel)
     
         codeLabel.isHidden = false
         codeLabel.text = L(LocKey.challengeCodeLabel, [challengeID])
@@ -140,7 +140,7 @@ class MobileIDChallengeViewController : UIViewController {
                 
                 let errorMessageNoLink: String? = errorMessage.removeFirstLinkFromMessage()
                 
-                let alert = UIAlertController(title: L(.errorAlertTitleGeneral), message: errorMessageNoLink, preferredStyle: UIAlertControllerStyle.alert)
+                let alert = UIAlertController(title: L(.errorAlertTitleGeneral), message: errorMessageNoLink, preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 if let linkInUrl: String = errorMessage.getFirstLinkInMessage() {
                     if let alertActionUrl: UIAlertAction = UIAlertAction().getLinkAlert(message: linkInUrl) {
