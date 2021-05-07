@@ -32,6 +32,11 @@ class MyeIDInfoCell: UITableViewCell {
     
     func populate(titleText: String, contentText: String) {
         titleLabel.text = titleText
+        
+        if contentText == "EST" {
+            contentLabel.accessibilityLabel = "E S T"
+        }
+        
         contentLabel.text = contentText
         
         if titleLabel.text == L(.myEidInfoMyEid) {
