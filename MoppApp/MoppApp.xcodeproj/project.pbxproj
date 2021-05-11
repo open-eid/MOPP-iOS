@@ -39,8 +39,6 @@
 		54825EF51E1CFE9600253FF0 /* Date+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF41E1CFE9600253FF0 /* Date+Additions.swift */; };
 		54825EF81E1D270F00253FF0 /* String+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF71E1D270F00253FF0 /* String+Additions.swift */; };
 		54825EFB1E1D28E900253FF0 /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54825EFA1E1D28E900253FF0 /* UIColor+Additions.swift */; };
-		54A418041E83C10100559E2B /* digidoc_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 54A418031E83C10100559E2B /* digidoc_64.png */; };
-		54A418071E83C10B00559E2B /* digidoc_320.png in Resources */ = {isa = PBXBuildFile; fileRef = 54A418061E83C10B00559E2B /* digidoc_320.png */; };
 		54A4182B1E83FAD200559E2B /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54A418291E83FAD200559E2B /* MainInterface.storyboard */; };
 		54A4182F1E83FAD200559E2B /* shareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 54A418241E83FAD200559E2B /* shareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		54A5729F1E82AC760099BFAF /* AppStore.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54A5729E1E82AC760099BFAF /* AppStore.plist */; };
@@ -289,7 +287,6 @@
 		C5EA714E2176057A00440F4A /* datafile.txt in Resources */ = {isa = PBXBuildFile; fileRef = E4180C361E26822000FD7B8C /* datafile.txt */; };
 		C5EA714F2176057A00440F4A /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCE21FC5741900D48E16 /* Roboto-Regular.ttf */; };
 		C5EA71502176057A00440F4A /* Roboto-Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCDE1FC5741800D48E16 /* Roboto-Condensed.ttf */; };
-		C5EA71512176057A00440F4A /* digidoc_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 54A418031E83C10100559E2B /* digidoc_64.png */; };
 		C5EA71522176057A00440F4A /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCD51FC5741800D48E16 /* Roboto-Light.ttf */; };
 		C5EA71532176057A00440F4A /* Menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C52E82751FC1D3DD0074B280 /* Menu.storyboard */; };
 		C5EA71542176057A00440F4A /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCD91FC5741800D48E16 /* Roboto-MediumItalic.ttf */; };
@@ -298,7 +295,6 @@
 		C5EA71572176057A00440F4A /* licenses.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1DF2091FECD00618AC4 /* licenses.html */; };
 		C5EA71582176057A00440F4A /* image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E4C53F351E2FAE6C00F209BE /* image.jpg */; };
 		C5EA71592176057A00440F4A /* ddocTest.ddoc in Resources */ = {isa = PBXBuildFile; fileRef = E43BD8101E3A121A00F6C39D /* ddocTest.ddoc */; };
-		C5EA715A2176057A00440F4A /* digidoc_320.png in Resources */ = {isa = PBXBuildFile; fileRef = 54A418061E83C10B00559E2B /* digidoc_320.png */; };
 		C5EA715B2176057A00440F4A /* Signing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54BB10C1FBD8CE900A274F6 /* Signing.storyboard */; };
 		C5EA715C2176057A00440F4A /* Roboto-BoldCondensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCDF1FC5741800D48E16 /* Roboto-BoldCondensed.ttf */; };
 		C5EA715D2176057A00440F4A /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50DCCE51FC5741900D48E16 /* Roboto-BlackItalic.ttf */; };
@@ -347,6 +343,8 @@
 		DF3D29D023F6B3CF007181B8 /* SkSigningLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF7F611926399B5400747B7D /* ContainerRemovalActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */; };
 		DF900C972386768F00887385 /* tslFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DF900C94238567CA00887385 /* tslFiles.bundle */; };
+		DFA5821A264AAB6600564971 /* digidoc_76.png in Resources */ = {isa = PBXBuildFile; fileRef = DFA58218264AAB6500564971 /* digidoc_76.png */; };
+		DFA5821B264AAB6600564971 /* digidoc_1024.png in Resources */ = {isa = PBXBuildFile; fileRef = DFA58219264AAB6600564971 /* digidoc_1024.png */; };
 		DFB970A32626136400464791 /* PreviewFileTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB970A22626136300464791 /* PreviewFileTapGestureRecognizer.swift */; };
 		DFBEF9452434DD0C007A6762 /* UIAlertAction+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEF9442434DD0C007A6762 /* UIAlertAction+Additions.swift */; };
 		DFBF242E23DB0923008DD8D0 /* LOTLDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */; };
@@ -485,8 +483,6 @@
 		54825EF41E1CFE9600253FF0 /* Date+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Additions.swift"; sourceTree = "<group>"; };
 		54825EF71E1D270F00253FF0 /* String+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Additions.swift"; sourceTree = "<group>"; };
 		54825EFA1E1D28E900253FF0 /* UIColor+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Additions.swift"; sourceTree = "<group>"; };
-		54A418031E83C10100559E2B /* digidoc_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_64.png; sourceTree = "<group>"; };
-		54A418061E83C10B00559E2B /* digidoc_320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_320.png; sourceTree = "<group>"; };
 		54A418241E83FAD200559E2B /* shareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = shareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		54A4182A1E83FAD200559E2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		54A4182C1E83FAD200559E2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -635,6 +631,8 @@
 		DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerRemovalActions.swift; sourceTree = "<group>"; };
 		DF900C94238567CA00887385 /* tslFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = tslFiles.bundle; sourceTree = "<group>"; };
+		DFA58218264AAB6500564971 /* digidoc_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_76.png; sourceTree = "<group>"; };
+		DFA58219264AAB6600564971 /* digidoc_1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_1024.png; sourceTree = "<group>"; };
 		DFB970A22626136300464791 /* PreviewFileTapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewFileTapGestureRecognizer.swift; sourceTree = "<group>"; };
 		DFBEF9442434DD0C007A6762 /* UIAlertAction+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Additions.swift"; sourceTree = "<group>"; };
 		DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOTLDecoder.swift; sourceTree = "<group>"; };
@@ -1106,8 +1104,8 @@
 				E4C53F351E2FAE6C00F209BE /* image.jpg */,
 				E4C53F361E2FAE6C00F209BE /* presentation.pdf */,
 				E4180C361E26822000FD7B8C /* datafile.txt */,
-				54A418031E83C10100559E2B /* digidoc_64.png */,
-				54A418061E83C10B00559E2B /* digidoc_320.png */,
+				DFA58218264AAB6500564971 /* digidoc_76.png */,
+				DFA58219264AAB6600564971 /* digidoc_1024.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1345,7 +1343,6 @@
 				C5EA714E2176057A00440F4A /* datafile.txt in Resources */,
 				C5EA714F2176057A00440F4A /* Roboto-Regular.ttf in Resources */,
 				C5EA71502176057A00440F4A /* Roboto-Condensed.ttf in Resources */,
-				C5EA71512176057A00440F4A /* digidoc_64.png in Resources */,
 				C5EA71522176057A00440F4A /* Roboto-Light.ttf in Resources */,
 				C5EA71532176057A00440F4A /* Menu.storyboard in Resources */,
 				C5EA71542176057A00440F4A /* Roboto-MediumItalic.ttf in Resources */,
@@ -1354,7 +1351,6 @@
 				C5EA71572176057A00440F4A /* licenses.html in Resources */,
 				C5EA71582176057A00440F4A /* image.jpg in Resources */,
 				C5EA71592176057A00440F4A /* ddocTest.ddoc in Resources */,
-				C5EA715A2176057A00440F4A /* digidoc_320.png in Resources */,
 				C5EA715B2176057A00440F4A /* Signing.storyboard in Resources */,
 				C5EA715C2176057A00440F4A /* Roboto-BoldCondensed.ttf in Resources */,
 				C5EA715D2176057A00440F4A /* Roboto-BlackItalic.ttf in Resources */,
@@ -1410,7 +1406,6 @@
 				E4180C371E26822000FD7B8C /* datafile.txt in Resources */,
 				C50DCCF81FC5741900D48E16 /* Roboto-Regular.ttf in Resources */,
 				C50DCCF41FC5741900D48E16 /* Roboto-Condensed.ttf in Resources */,
-				54A418041E83C10100559E2B /* digidoc_64.png in Resources */,
 				C50DCCEB1FC5741900D48E16 /* Roboto-Light.ttf in Resources */,
 				C52E82761FC1D3DD0074B280 /* Menu.storyboard in Resources */,
 				C50DCCEF1FC5741900D48E16 /* Roboto-MediumItalic.ttf in Resources */,
@@ -1421,7 +1416,6 @@
 				E4C53F371E2FAE6C00F209BE /* image.jpg in Resources */,
 				E43BD8111E3A121A00F6C39D /* ddocTest.ddoc in Resources */,
 				DFF3C3BE2332355D0079458A /* signature.rsa in Resources */,
-				54A418071E83C10B00559E2B /* digidoc_320.png in Resources */,
 				C54BB10D1FBD8CE900A274F6 /* Signing.storyboard in Resources */,
 				C50DCCF51FC5741900D48E16 /* Roboto-BoldCondensed.ttf in Resources */,
 				C50DCCFB1FC5741900D48E16 /* Roboto-BlackItalic.ttf in Resources */,
@@ -1430,9 +1424,11 @@
 				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,
 				54A5729F1E82AC760099BFAF /* AppStore.plist in Resources */,
 				C50DCCF61FC5741900D48E16 /* Roboto-BoldCondensedItalic.ttf in Resources */,
+				DFA5821A264AAB6600564971 /* digidoc_76.png in Resources */,
 				C593D9EC208F19D7000B3BF6 /* Settings.storyboard in Resources */,
 				C5AAAF8020C93B920087D6DA /* main_about_fonds_en.png in Resources */,
 				C55BB1D92091F44000618AC4 /* about_ru.html in Resources */,
+				DFA5821B264AAB6600564971 /* digidoc_1024.png in Resources */,
 				C55BB1D72091F44000618AC4 /* about_en.html in Resources */,
 				C50DCCF21FC5741900D48E16 /* RobotoCondensed-Regular.ttf in Resources */,
 				C537AE7820063E48009037E5 /* LandingElements.xib in Resources */,
