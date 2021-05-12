@@ -76,7 +76,7 @@
 }
 
 + (BOOL)isCardReaderModelSupported:(NSString *)modelName {
-    return [modelName isEqualToString:@"iR301-UL"];
+    return [modelName isEqualToString:@"iR301"] || [modelName isEqualToString:@"iR301-UL"];
 }
 
 - (void)startDiscoveringReaders {
