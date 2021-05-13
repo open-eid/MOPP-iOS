@@ -208,6 +208,7 @@
     
     if (![MoppLibCardReaderManager isCardReaderModelSupported:modelName]) {
         [NSNotificationCenter.defaultCenter postNotificationName:kMoppLibNotificationRevokeUnsupportedReader object:nil];
+        NSLog(@"Unsupported reader: %s", modelName);
         return;
     }
     
