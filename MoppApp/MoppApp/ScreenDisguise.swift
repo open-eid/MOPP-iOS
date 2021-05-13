@@ -51,7 +51,7 @@ public class ScreenDisguise {
                 
                 if (topViewController is MobileIDChallengeViewController || topViewController is SmartIDChallengeViewController) {
                     keyWindow.rootViewController?.view.addSubview(uiVisualEffectView)
-                    uiVisualEffectView.contentView.bringSubview(toFront: topViewController.view)
+                    uiVisualEffectView.contentView.bringSubviewToFront(topViewController.view)
                 }
             }
         }
