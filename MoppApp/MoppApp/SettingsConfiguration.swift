@@ -248,7 +248,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     }
     
     internal func isInitialSetup() -> Bool {
-        return getConfigurationFromCache(forKey: "isCentralConfigurationLoaded") == nil || getConfigurationFromCache(forKey: "isCentralConfigurationLoaded") as! Bool
+        return getConfigurationFromCache(forKey: "isCentralConfigurationLoaded") == nil || getConfigurationFromCache(forKey: "isCentralConfigurationLoaded") as! Bool == false ? true : false
     }
 
     internal func getConfigurationFromCache(forKey: String) -> Any? {

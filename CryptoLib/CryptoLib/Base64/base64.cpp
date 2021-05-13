@@ -34,6 +34,8 @@
  *      Replaced return type (std::string) of base64_decode method with std::vector<unsigned char>.
  *      In method base64_decode, changed ret variable type to std::vector<unsigned char>.
  *      Modified lines ret += char_array_3[i]; and ret += char_array_3[j]; to use push_back, instead of +=
+ *      In method base64_decode, replaced type for variables in_len and in_ with size_t and removed casting to (uint32_t) for variable in_len
+ *      In method base64_decode, replaced type for variables i and j with uint_fast8_t
  */
 
 #include "base64.h"
@@ -93,10 +95,10 @@ std::string base64_encode(unsigned char const* bytes_to_encode, unsigned int in_
 }
 
 std::vector<unsigned char> base64_decode(std::string const& encoded_string) {
-    int in_len = (uint32_t)encoded_string.size();
-    int i = 0;
-    int j = 0;
-    int in_ = 0;
+    size_t in_len = encoded_string.size();
+    uint_fast8_t i = 0;
+    uint_fast8_t j = 0;
+    size_t in_ = 0;
     unsigned char char_array_4[4], char_array_3[3];
     std::vector<unsigned char> ret;
     

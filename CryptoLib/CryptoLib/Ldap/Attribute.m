@@ -33,7 +33,7 @@
     
     BerValue ** bvals = ldap_get_values_len(ldap, entry, tag);
     if (bvals != nil){
-        for (int i = 0; bvals[i] != (void *)0; i++) {
+        for (int i = 0; bvals[i] != NULL; i++) {
             _name = [NSString stringWithUTF8String:tag];
             char *value = bvals[i]->bv_val;
             if ([_name isEqualToString:(@"userCertificate;binary")]){
