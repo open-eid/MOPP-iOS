@@ -21,8 +21,8 @@
 			</array>
 			<key>CFBundleTypeIconFiles</key>
 			<array>
-				<string>digidoc_64.png</string>
-				<string>digidoc_320.png</string>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
 			</array>
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
@@ -148,8 +148,8 @@
 			<string>digidoc container</string>
 			<key>UTTypeIconFiles</key>
 			<array>
-				<string>digidoc_64.png</string>
-				<string>digidoc_320.png</string>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
 			</array>
 			<key>UTTypeIdentifier</key>
 			<string>public.bdoc</string>
@@ -198,8 +198,8 @@
 			<string>digidoc container</string>
 			<key>UTTypeIconFiles</key>
 			<array>
-				<string>digidoc_64.png</string>
-				<string>digidoc_320.png</string>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
 			</array>
 			<key>UTTypeIdentifier</key>
 			<string>public.bdoc</string>
