@@ -730,10 +730,11 @@ void parseException(const digidoc::Exception &e) {
     digidoc::Container * const unmanagedContainerPointer = managedContainer.release();
 
     [[CardActionsManager sharedInstance] calculateSignatureFor:[NSData dataWithBytes:dataToSign.data() length:dataToSign.size()] pin2:pin2 useECC: useECC success:^(NSData *calculatedSignature) {
-      try {
+        
         // Wrap the raw container pointer into a local unique_ptr as the first thing to do
         std::unique_ptr<digidoc::Container> successManagedContainer(unmanagedContainerPointer);
-          
+        
+      try {
         unsigned char *buffer = (unsigned char *)[calculatedSignature bytes];
         std::vector<unsigned char>::size_type size = calculatedSignature.length;
         std::vector<unsigned char> vec(buffer, buffer + size);
@@ -746,7 +747,6 @@ void parseException(const digidoc::Exception &e) {
         MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error];
         success(moppLibContainer);
       } catch(const digidoc::Exception &e) {
-          std::unique_ptr<digidoc::Container> failureManagedContainer(unmanagedContainerPointer);
         parseException(e);
         if (e.code() == 18) {
             failure([MoppLibError tooManyRequests]);
@@ -757,6 +757,7 @@ void parseException(const digidoc::Exception &e) {
         }
       }
     } failure:^(NSError *error) {
+      std::unique_ptr<digidoc::Container> failureManagedContainer(unmanagedContainerPointer);
       failure(error);
     }];
 
