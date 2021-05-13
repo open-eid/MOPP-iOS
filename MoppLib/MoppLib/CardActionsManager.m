@@ -285,23 +285,23 @@ static CardActionsManager *sharedInstance = nil;
 - (void)processAction:(CardActionObject *)actionObject apduLength:(unsigned char)apduLength {
     [_reader powerOnCard:^(NSData* powerData) {
     
-        switch (_reader.cardChipType) {
+        switch (self->_reader.cardChipType) {
         case ChipType_EstEID35: {
                 EstEIDv3_5 *handler = [EstEIDv3_5 new];
-                [handler setReader:_reader];
-                _cardCommandHandler = handler;
+            [handler setReader:self->_reader];
+            self->_cardCommandHandler = handler;
             }
             break;
         case ChipType_EstEID34: {
                 EstEIDv3_4 *handler = [EstEIDv3_4 new];
-                [handler setReader:_reader];
-                _cardCommandHandler = handler;
+            [handler setReader:self->_reader];
+            self->_cardCommandHandler = handler;
             }
             break;
         case ChipType_Idemia: {
                 Idemia *handler = [Idemia new];
-                [handler setReader:_reader];
-                _cardCommandHandler = handler;
+            [handler setReader:self->_reader];
+            self->_cardCommandHandler = handler;
             }
             break;
         default: {

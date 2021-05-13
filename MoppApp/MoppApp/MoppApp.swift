@@ -83,7 +83,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         return "\(majorVersion).\(minorVersion).\(patchVersion)"
     }
 
-    func didFinishLaunchingWithOptions(launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+    func didFinishLaunchingWithOptions(launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // Log console logs to a file in Documents folder
         #if DEBUG
             setDebugMode(value: true)
@@ -206,11 +206,11 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         }
     }
 
-    func openUrl(url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func openUrl(url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return openPath(urls: [url], options: options)
     }
     
-    func openPath(urls: [URL], options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func openPath(urls: [URL], options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         guard !urls.isEmpty else {
             NSLog("No URLs found to open")
             return false
@@ -361,13 +361,19 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         let data = try? Data(contentsOf: location)
         if data != nil {
-            var groupFolderUrl = MoppFileManager.shared.fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.ee.ria.digidoc.ios")
-            groupFolderUrl = groupFolderUrl?.appendingPathComponent("Temp")
-            var err: Error?
-            try? MoppFileManager.shared.fileManager.createDirectory(at: groupFolderUrl!, withIntermediateDirectories: false, attributes: nil)
-            let filePath: URL? = groupFolderUrl?.appendingPathComponent(location.lastPathComponent)
-            var error: Error?
-            try? MoppFileManager.shared.fileManager.copyItem(at: location, to: filePath!)
+            let groupFolderUrl = MoppFileManager.shared.fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.ee.ria.digidoc.ios")
+            guard var tempGroupFolderUrl = groupFolderUrl else {
+                NSLog("Unable to get temp group folder url")
+                return
+            }
+            tempGroupFolderUrl = tempGroupFolderUrl.appendingPathComponent("Temp")
+            try? MoppFileManager.shared.fileManager.createDirectory(at: tempGroupFolderUrl, withIntermediateDirectories: false, attributes: nil)
+            let filePath: URL? = tempGroupFolderUrl.appendingPathComponent(location.lastPathComponent)
+            guard let tempFilePath = filePath else {
+                NSLog("Unable to get temp file path url")
+                return
+            }
+            try? MoppFileManager.shared.fileManager.copyItem(at: location, to: tempFilePath)
         }
     }
 
@@ -424,7 +430,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     private func restartIdCardDiscovering() {
         let topViewController = UIViewController().getTopViewController()
         
-        for childViewController in topViewController.childViewControllers {
+        for childViewController in topViewController.children {
             if childViewController is IdCardViewController {
                 MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
             }

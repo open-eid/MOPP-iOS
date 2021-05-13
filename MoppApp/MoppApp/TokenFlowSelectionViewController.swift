@@ -107,7 +107,7 @@ class TokenFlowSelectionViewController : MoppViewController {
 
 extension TokenFlowSelectionViewController {
     func changeTokenFlowMethod(newSignMethod: TokenFlowMethodButtonID) {
-        let oldViewController = childViewControllers.first
+        let oldViewController = children.first
         let newViewController: MoppViewController!
         selectButton(buttonID: newSignMethod)
         switch newSignMethod {
@@ -138,11 +138,11 @@ extension TokenFlowSelectionViewController {
         self.view.accessibilityElements = viewAccessibilityElements
         newViewController.accessibilityElements = viewAccessibilityElements
         
-        oldViewController?.willMove(toParentViewController: nil)
-        addChildViewController(newViewController)
+        oldViewController?.willMove(toParent: nil)
+        addChild(newViewController)
         
-        oldViewController?.removeFromParentViewController()
-        newViewController.didMove(toParentViewController: self)
+        oldViewController?.removeFromParent()
+        newViewController.didMove(toParent: self)
     
         newViewController.view.translatesAutoresizingMaskIntoConstraints = false
         

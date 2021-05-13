@@ -23,7 +23,7 @@
 import Foundation
 
 
-protocol ContainerImportCellDelegate : class {
+protocol ContainerImportCellDelegate : AnyObject {
     func containerImportCellAddFiles()
 }
 

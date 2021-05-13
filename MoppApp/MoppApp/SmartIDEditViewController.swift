@@ -19,7 +19,7 @@
  */
 import Foundation
 
-protocol SmartIDEditViewControllerDelegate : class {
+protocol SmartIDEditViewControllerDelegate : AnyObject {
     func smartIDEditViewControllerDidDismiss(cancelled: Bool, country: String?, idCode: String?)
 }
 
@@ -33,7 +33,7 @@ class CountryTextField: MyTextField {
         return CGRect.zero
     }
 
-    override func selectionRects(for range: UITextRange) -> [Any] {
+    override func selectionRects(for range: UITextRange) -> [UITextSelectionRect] {
         return []
     }
 
@@ -70,7 +70,7 @@ class SmartIDEditViewController : MoppViewController {
         idCodeLabel.text = L(.mobileIdIdcodeTitle)
         cancelButton.setTitle(L(.actionCancel).uppercased())
         signButton.setTitle(L(.actionSign).uppercased())
-        rememberLabel.text = L(.mobileIdRememberMe)
+        rememberLabel.text = L(.signingRememberMe)
 
         idCodeTextField.moppPresentDismissButton()
         idCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor
@@ -94,8 +94,13 @@ class SmartIDEditViewController : MoppViewController {
         tapGR = UITapGestureRecognizer()
         tapGR.addTarget(self, action: #selector(cancelAction))
         view.addGestureRecognizer(tapGR)
+        
+        guard let titleUILabel = titleLabel, let countryUILabel = countryLabel, let countryUITextField = countryTextField, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
+            NSLog("Unable to get titleLabel, countryLabel, countryTextField, idCodeLabel, idCodeTextField, rememberLabel, rememberSwitch, cancelButton or signButton")
+            return
+        }
 
-        view.accessibilityElements = [titleLabel, countryLabel, countryTextField, idCodeLabel, idCodeTextField, rememberLabel, rememberSwitch, cancelButton, signButton]
+        view.accessibilityElements = [titleUILabel, countryUILabel, countryUITextField, idCodeUILabel, idCodeUITextField, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
     }
 
     @objc func dismissKeyboard(_ notification: NSNotification) {

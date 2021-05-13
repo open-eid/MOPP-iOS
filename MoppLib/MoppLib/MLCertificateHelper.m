@@ -37,7 +37,7 @@
   SecCertificateRef certificate = nil;
   OSStatus status = extractIdentityAndTrust(certDataRef, password, &identity, nil);
   if (status != errSecSuccess || identity == nil) {
-    NSLog(@"Failed to exrtact identity and trust: %ld", status);
+    NSLog(@"Failed to extract identity and trust: %d", (int)status);
   } else {
     SecIdentityCopyCertificate(identity, &certificate);
   }

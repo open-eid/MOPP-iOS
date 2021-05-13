@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-protocol MyeIDInfoManagerDelegate: class {
+protocol MyeIDInfoManagerDelegate: AnyObject {
     func didCompleteInformationRequest(success:Bool)
     func didTapChangePinPukCode(actionType: MyeIDChangeCodesModel.ActionType)
 }
@@ -227,7 +227,7 @@ class MyeIDInfoManager {
         personalInfo.items.append((type: .documentNumber, value: personalData.documentNumber))
         personalInfo.items.append((type: .expiryDate, value: personalData.expiryDate))
         
-        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, "")
+        UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: "")
     }
     
     func organizationDisplayString(_ certOrganization: MoppLibCertificateOrganization) -> String {
@@ -240,6 +240,8 @@ class MyeIDInfoManager {
             return L(.myEidInfoMyEidMobileId)
         case .Unknown:
             return L(.myEidInfoMyEidUnknown)
+        @unknown default:
+            return ""
         }
     }
     
@@ -317,7 +319,7 @@ class MyeIDInfoManager {
                 attributes: [.font: font]
                 ))
             certInfoString.replaceOccurrences(of: "[EXPIRED_EXPIRY_STATUS]", with: statusAttributedString)
-            certInfoString.replaceOccurrences(of: "[PIN]", with: NSAttributedString(string: kind.displayName, attributes: [NSAttributedStringKey.font : font]))
+            certInfoString.replaceOccurrences(of: "[PIN]", with: NSAttributedString(string: kind.displayName, attributes: [NSAttributedString.Key.font : font]))
         }
         
         if kind == .pin1 {

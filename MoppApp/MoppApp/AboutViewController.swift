@@ -39,7 +39,12 @@ class AboutViewController: MoppViewController, WKNavigationDelegate {
 
         titleLabel.text = L(.aboutTitle)
         
-        self.view.accessibilityElements = [titleLabel, dismissButton, webView]
+        guard let titleUILabel = titleLabel, let dismissUIButton = dismissButton, let webUIView = webView else {
+            NSLog("Unable to get titleLabel, dismissButton or webView")
+            return
+        }
+        
+        self.view.accessibilityElements = [titleUILabel, dismissUIButton, webUIView]
         
         var localizedAboutHtmlPath:String!
         let appLanguageID = DefaultsHelper.moppLanguageID

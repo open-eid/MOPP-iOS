@@ -32,5 +32,4 @@
 -(id)initWithInterface:(ReaderInterface*)interface andContextHandle:(SCARDHANDLE)contextHandle;
 -(void)setupWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
 -(void)updateContextHandle:(SCARDCONTEXT) contextHandle;
--(NSString *)atr;
 @end

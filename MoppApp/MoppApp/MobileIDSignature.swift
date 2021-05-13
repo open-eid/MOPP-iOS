@@ -247,7 +247,7 @@ class MobileIDSignature {
     
     // MARK: Get verification code
     private func getVerificationCode() -> String? {
-        guard let verificationCode: String = ControlCode.shared.getVerificationCode(hash: MoppLibManager.getDataToSign() as! Array<Int>) else {
+        guard let dataToSign = MoppLibManager.getDataToSign() as? Array<Int>, let verificationCode: String = ControlCode.shared.getVerificationCode(hash: dataToSign) else {
             self.generateError(signingError: .generalError)
             return nil
         }

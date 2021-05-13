@@ -27,7 +27,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-protocol MyeIDInfoViewControllerUIDelegate: class {
+protocol MyeIDInfoViewControllerUIDelegate: AnyObject {
     func numberOfContentCells(in segment: Int) -> Int
     func numberOfSegments() -> Int
     func contentCell(at indexPath: IndexPath) -> UITableViewCell
@@ -50,8 +50,8 @@ class MyeIDInfoViewControllerUI: NSObject {
     
     func setupOnce() {
         tableView.estimatedRowHeight = 260
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.contentInset = UIEdgeInsetsMake(7, 0, 0, 0)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.contentInset = UIEdgeInsets.init(top: 7, left: 0, bottom: 0, right: 0)
     }
     
     var expandedSegment: Int? = nil {

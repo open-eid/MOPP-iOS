@@ -8,7 +8,7 @@
 import Foundation
 
 
-protocol SettingsTimeStampCellDelegate: class {
+protocol SettingsTimeStampCellDelegate: AnyObject {
     func didChangeTimestamp(_ field: SettingsViewController.FieldId, with value: String?)
 }
 

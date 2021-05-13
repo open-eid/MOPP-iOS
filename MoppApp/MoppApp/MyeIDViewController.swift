@@ -50,7 +50,7 @@ class MyeIDViewController : MoppViewController {
         super.viewDidAppear(animated)
         
         if !changingCodesVCPresented {
-            let statusVC = childViewControllers.first as? MyeIDStatusViewController
+            let statusVC = children.first as? MyeIDStatusViewController
                 statusVC?.state = .readerNotFound
         
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
@@ -77,18 +77,18 @@ class MyeIDViewController : MoppViewController {
     }
     
     func showViewController(_ viewController: MoppViewController) -> UIViewController {
-        let oldViewController = childViewControllers.first
+        let oldViewController = children.first
         let newViewController = viewController
 
         if type(of: oldViewController) == type(of: newViewController) {
             return newViewController
         }
         
-        oldViewController?.willMove(toParentViewController: nil)
-        addChildViewController(newViewController)
+        oldViewController?.willMove(toParent: nil)
+        addChild(newViewController)
         
-        oldViewController?.removeFromParentViewController()
-        newViewController.didMove(toParentViewController: self)
+        oldViewController?.removeFromParent()
+        newViewController.didMove(toParent: self)
     
         newViewController.view.translatesAutoresizingMaskIntoConstraints = false
     
@@ -122,21 +122,21 @@ extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
         switch readerStatus {
         case .ReaderNotConnected:
             popChangeCodesViewControllerIfPushed()
-            var statusVC = childViewControllers.first as? MyeIDStatusViewController
+            var statusVC = children.first as? MyeIDStatusViewController
             if statusVC == nil {
                 statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
             }
             statusVC?.state = .readerNotFound
         case .ReaderConnected:
             popChangeCodesViewControllerIfPushed()
-            var statusVC = childViewControllers.first as? MyeIDStatusViewController
+            var statusVC = children.first as? MyeIDStatusViewController
             if statusVC == nil {
                 statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
             }
             statusVC?.state = .idCardNotFound
         case .CardConnected:
             popChangeCodesViewControllerIfPushed()
-            var statusVC = childViewControllers.first as? MyeIDStatusViewController
+            var statusVC = children.first as? MyeIDStatusViewController
             if statusVC == nil {
                 statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
             }
@@ -147,6 +147,8 @@ extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
                 guard let strongSelf = self else { return }
                 strongSelf.infoManager.requestInformation(with: strongSelf)
             })
+        @unknown default:
+            break
         }
     }
 }
@@ -160,7 +162,7 @@ extension MyeIDViewController: MyeIDInfoManagerDelegate {
                 _ = strongSelf.showViewController(infoViewController)
             }
         } else {
-            childViewControllers.first?.errorAlert(message: L(.genericErrorMessage))
+            children.first?.errorAlert(message: L(.genericErrorMessage))
         }
     }
     

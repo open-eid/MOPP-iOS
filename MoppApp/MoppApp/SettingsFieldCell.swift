@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-protocol SettingsFieldCellDelegate: class {
+protocol SettingsFieldCellDelegate: AnyObject {
     func didEndEditingField(_ field: SettingsViewController.FieldId, with value:String)
 }
 
@@ -50,7 +50,7 @@ class SettingsFieldCell: UITableViewCell {
 extension SettingsFieldCell: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         delegate.didEndEditingField(field.id, with: textField.text ?? String())
-        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, textField)
+        UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: textField)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

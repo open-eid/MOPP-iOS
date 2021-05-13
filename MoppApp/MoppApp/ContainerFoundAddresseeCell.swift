@@ -23,7 +23,7 @@
 
 import Foundation
 
-protocol ContainerFoundAddresseeCellDelegate : class {
+protocol ContainerFoundAddresseeCellDelegate : AnyObject {
     func addAddresseeToSelectedArea(index: Int)
 }
 

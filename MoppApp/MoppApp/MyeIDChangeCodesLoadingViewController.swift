@@ -30,7 +30,7 @@ class MyeIDChangeCodesLoadingViewController: UIViewController {
             imageView.tintColor = UIColor.moppText
         }
     
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: OperationQueue.main) { [weak self]_ in
+        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: OperationQueue.main) { [weak self]_ in
             self?.spinnerView.show(true)
         }
     }

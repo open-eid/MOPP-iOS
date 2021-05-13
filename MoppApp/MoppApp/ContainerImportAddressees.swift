@@ -24,7 +24,7 @@
 import Foundation
 
 
-protocol ContainerImportAddresseeCellDelegate : class {
+protocol ContainerImportAddresseeCellDelegate : AnyObject {
     func containerImportCellAddAddressee()
 }
 

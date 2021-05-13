@@ -207,7 +207,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
             
             if afterSignatureCreated && container.isSignable() && !strongSelf.isForPreview {
                 strongSelf.notifications.append((true, L(.containerDetailsSigningSuccess)))
-                UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification,  L(.containerDetailsSigningSuccess))
+                UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged,  argument: L(.containerDetailsSigningSuccess))
                 
                 if !DefaultsHelper.hideShareContainerDialog {
                     strongSelf.displayShareContainerDialog()

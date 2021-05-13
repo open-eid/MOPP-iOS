@@ -28,11 +28,11 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     private var appCoverWindow: UIWindow?
     private var appCoverVC: UIViewController?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         return (application as! MoppApp).didFinishLaunchingWithOptions(launchOptions: launchOptions)
     }
 
-    func application(_ application: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return (application as! MoppApp).openUrl(url: url, options: options)
     }
     

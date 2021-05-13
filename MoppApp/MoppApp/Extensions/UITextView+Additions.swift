@@ -27,14 +27,14 @@ extension UITextView {
     }
 
     func setLinkedText(_ text: String, withLinks linkStrings: [AnyHashable: Any], font: UIFont?) {
-        var attributedString = NSMutableAttributedString(string: text)
+        let attributedString = NSMutableAttributedString(string: text)
         let paths = linkStrings.keys
         for path in paths {
             let link = linkStrings[path] as? String
             attributedString.addAttribute(.link, value: path, range: (text as NSString).range(of: link!))
         }
         let defaultFont = UIFont.systemFont(ofSize: 14)
-        attributedString.addAttribute(.font, value: font ?? defaultFont, range: NSRange(location: 0, length: (text.characters.count ?? 0)))
+        attributedString.addAttribute(.font, value: font ?? defaultFont, range: NSRange(location: 0, length: (text.count)))
         attributedText = attributedString
         isSelectable = true
         isEditable = false

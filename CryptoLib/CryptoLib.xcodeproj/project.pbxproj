@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -254,9 +254,9 @@
 				39E2B4DF20AD7A3400CA74A8 /* Addressee.h in Headers */,
 				39E2B4DE20AD7A3400CA74A8 /* OpenLdap.h in Headers */,
 				3960E50620C044EE00D4D2FC /* CryptoDataFile.h in Headers */,
-				39266A5A20CFD956002E3F23 /* AbstractSmartToken.h in Headers */,
 				39266A6520CFE643002E3F23 /* CdocInfo.h in Headers */,
 				39852A4D20AB2418004CB100 /* base64.h in Headers */,
+				39266A5A20CFD956002E3F23 /* AbstractSmartToken.h in Headers */,
 				39266A6420CFE63D002E3F23 /* CdocParser.h in Headers */,
 				39231FAF20AB1C6C00E1E2B4 /* CryptoLib.h in Headers */,
 				39E2B4D720AD7A3400CA74A8 /* AttributeSet.h in Headers */,
@@ -303,7 +303,7 @@
 				};
 			};
 			buildConfigurationList = 39231FA420AB1C6C00E1E2B4 /* Build configuration list for PBXProject "CryptoLib" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -524,8 +524,12 @@
 				);
 				INFOPLIST_FILE = CryptoLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries",
@@ -575,8 +579,12 @@
 				);
 				INFOPLIST_FILE = CryptoLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"${inherited}",
 					"$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos/libraries",

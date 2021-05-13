@@ -26,26 +26,6 @@
 
 NSString *const MoppLibErrorDomain = @"MoppLibError";
 
-typedef enum {
-  kDDSErrorCodeGeneral = 100,
-  kDDSErrorCodeIncorrectParameters = 101,
-  kDDSErrorCodeMissingParameters = 102,
-  kDDSErrorCodeOCSPUnauthorized = 103,
-  kDDSErrorCodeGeneralService = 200,
-  kDDSErrorCodeMissingUserCertificate = 201,
-  kDDSErrorCodeCertificateValidityUnknown = 202,
-  kDDSErrorCodeSessionLocked = 203,
-  kDDSErrorCodeGeneralUser = 300,
-  kDDSErrorCodeNotMobileIdUser = 301,
-  kDDSErrorCodeUserCertificateRevoked = 302,
-  kDDSErrorCodeUserCertificateStatusUnknown = 303,
-  kDDSErrorCodeUserCertificateSuspended = 304,
-  kDDSErrorCodeUserCertificateExpired = 305,
-  kDDSErrorCodeMessageExceedsVolumeLimit = 413,
-  kDDSErrorCodeMessageTooManyRequests = 429,
-  kDDSErrorCodeSimultaneousRequestsLimitExceeded = 503
-} DDSErrorCode;
-
 @implementation MoppLibError
 
 + (NSError *)readerNotFoundError {
@@ -138,67 +118,6 @@ typedef enum {
 
 + (NSError *)ocspTimeSlotError {
   return [self error:moppLibErrorOCSPTimeSlot withMessage:@"Invalid OCSP time slot"];
-}
-
-+ (NSError *)DDSErrorWith:(NSInteger)errorCode {
-  NSString *errorMessage;
-  switch (errorCode) {
-    case kDDSErrorCodeGeneral:
-      errorMessage = @"digidoc-service-error-general";
-      break;
-    case kDDSErrorCodeIncorrectParameters:
-      errorMessage = @"digidoc-service-error-incorrect-parameters";
-      break;
-    case kDDSErrorCodeMissingParameters:
-      errorMessage = @"digidoc-service-error-missing-parameters";
-      break;
-    case kDDSErrorCodeOCSPUnauthorized:
-      errorMessage = @"digidoc-service-error-ocsp-unauthorized";
-      break;
-    case kDDSErrorCodeGeneralService:
-      errorMessage = @"digidoc-service-error-general-service";
-      break;
-    case kDDSErrorCodeMissingUserCertificate:
-      errorMessage = @"digidoc-service-error-missing-user-certificate";
-      break;
-    case kDDSErrorCodeCertificateValidityUnknown:
-      errorMessage = @"digidoc-service-error-certificate-validity-unknown";
-      break;
-    case kDDSErrorCodeSessionLocked:
-      errorMessage = @"digidoc-service-error-session-locked";
-      break;
-    case kDDSErrorCodeGeneralUser:
-      errorMessage = @"digidoc-service-error-general-user";
-      break;
-    case kDDSErrorCodeNotMobileIdUser:
-      errorMessage = @"digidoc-service-error-not-mobile-id-user";
-      break;
-    case kDDSErrorCodeUserCertificateRevoked:
-      errorMessage = @"digidoc-service-error-user-certificate-revoked";
-      break;
-    case kDDSErrorCodeUserCertificateStatusUnknown:
-      errorMessage = @"digidoc-service-error-user-certificate-status-unknown";
-      break;
-    case kDDSErrorCodeUserCertificateSuspended:
-      errorMessage = @"digidoc-service-error-user-certificate-suspended";
-      break;
-    case kDDSErrorCodeUserCertificateExpired:
-      errorMessage = @"digidoc-service-error-user-certificate-expired";
-      break;
-    case kDDSErrorCodeMessageExceedsVolumeLimit:
-      errorMessage = @"digidoc-service-error-message-exceeds-volume-limit";
-      break;
-    case kDDSErrorCodeSimultaneousRequestsLimitExceeded:
-      errorMessage = @"digidoc-service-error-simlutaneous-requests-limit-exceeded";
-      break;
-    case kDDSErrorCodeMessageTooManyRequests:
-      errorMessage = @"digidoc-service-error-message-too-many-requests";
-      break;
-    default:
-      errorMessage = @"digidoc-service-error-unknown";
-      break;
-  }
-  return [[NSError alloc] initWithDomain:MoppLibErrorDomain code:errorCode userInfo:@{NSLocalizedDescriptionKey : errorMessage}];
 }
 
 + (NSError *)error:(NSUInteger)errorCode withMessage:(NSString *)message {

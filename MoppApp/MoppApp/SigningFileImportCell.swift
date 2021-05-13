@@ -22,7 +22,7 @@
  */
 import Foundation
 
-protocol SigningFileImportCellDelegate : class {
+protocol SigningFileImportCellDelegate : AnyObject {
     func signingFileImportDidTapAddFiles()
 }
 

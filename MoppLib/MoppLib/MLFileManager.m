@@ -62,7 +62,6 @@
   return filePath;
 }
 
-#warning - support .ddoc in the future
 - (NSArray *)getContainers {
   NSArray *supportedExtensions = @[@"bdoc",
                                    @"asice"];

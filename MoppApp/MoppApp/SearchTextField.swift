@@ -22,7 +22,7 @@
  */
 import Foundation
 
-protocol SearchTextFieldDelegate: class {
+protocol SearchTextFieldDelegate: AnyObject {
     func searchTextFieldDidEndEditing()
     func searchTextFieldValueChanged(_ newValue: String)
 }
@@ -40,7 +40,7 @@ class SearchTextField: UITextField {
         delegate = self
         font = UIFont.moppTextField
         textColor = UIColor.moppText
-        attributedPlaceholder = NSAttributedString(string: L(.searchContainerFile), attributes: [NSAttributedStringKey.foregroundColor: UIColor.moppPlaceholderDarker])
+        attributedPlaceholder = NSAttributedString(string: L(.searchContainerFile), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker])
         
         addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
     }
@@ -69,7 +69,7 @@ class SearchTextField: UITextField {
     func showClearIndicator(_ show: Bool) {
         if show {
             if rightView == nil {
-                rightViewMode = UIAccessibilityIsVoiceOverRunning() ? .always : .whileEditing
+                rightViewMode = UIAccessibility.isVoiceOverRunning ? .always : .whileEditing
                 let clearButton = UIButton(frame: CGRect(x: 0, y: 0, width: 56, height: 44))
                     clearButton.addTarget(self, action: #selector(clearTapped), for: .touchUpInside)
                     clearButton.setImage(UIImage(named: "DismissPopup"), for: .normal)
@@ -83,15 +83,15 @@ class SearchTextField: UITextField {
     }
 
     override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return UIEdgeInsetsInsetRect(bounds, padding)
+        return bounds.inset(by: padding)
     }
     
     override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-        return UIEdgeInsetsInsetRect(bounds, padding)
+        return bounds.inset(by: padding)
     }
     
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return UIEdgeInsetsInsetRect(bounds, padding)
+        return bounds.inset(by: padding)
     }
     
     //override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
@@ -115,7 +115,7 @@ extension SearchTextField: UITextFieldDelegate {
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        UIAccessibilityIsVoiceOverRunning() ? showClearIndicator(true) : showClearIndicator(false)
+        UIAccessibility.isVoiceOverRunning ? showClearIndicator(true) : showClearIndicator(false)
         textField.resignFirstResponder()
         return true
     }

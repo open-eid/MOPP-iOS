@@ -28,7 +28,7 @@ _ = CommandLine.unsafeArgv.withMemoryRebound(
 to: UnsafeMutablePointer<Int8>.self, capacity: Int(CommandLine.argc)) {
     argv in
     UIApplicationMain(
-        CommandLine.argc, argv, NSStringFromClass(MoppApp.self), NSStringFromClass(AppDelegate.self)
+        CommandLine.argc, CommandLine.unsafeArgv, NSStringFromClass(MoppApp.self), NSStringFromClass(AppDelegate.self)
     )
 }
 

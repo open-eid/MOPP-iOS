@@ -97,8 +97,8 @@ class DiagnosticsViewController: MoppViewController {
         let boldFont = UIFont(name: MoppFontName.bold.rawValue, size: 16)!
         let textColor = UIColor.moppText
 
-        let result = NSMutableAttributedString(string: key, attributes: [NSAttributedStringKey.font : boldFont, NSAttributedStringKey.foregroundColor : textColor])
-        result.append(NSAttributedString(string: value, attributes: [NSAttributedStringKey.font : regularFont, NSAttributedStringKey.foregroundColor : textColor]))
+        let result = NSMutableAttributedString(string: key, attributes: [NSAttributedString.Key.font : boldFont, NSAttributedString.Key.foregroundColor : textColor])
+        result.append(NSAttributedString(string: value, attributes: [NSAttributedString.Key.font : regularFont, NSAttributedString.Key.foregroundColor : textColor]))
         return result
     }
 

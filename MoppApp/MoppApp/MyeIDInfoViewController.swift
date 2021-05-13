@@ -42,7 +42,7 @@ class MyeIDInfoViewController: MoppViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         ui.tableView.reloadData()
-        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, ui.tableView)
+        UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: ui.tableView)
     }
 }
 
@@ -112,7 +112,7 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
             return UITableViewCell()
         case .changePins:
             let cell = ui.tableView.dequeueReusableCell(withType: MyeIDSegmentHeaderCell.self, for: indexPath)!
-            cell.accessibilityTraits = UIAccessibilityTraitButton
+            cell.accessibilityTraits = UIAccessibilityTraits.button
             return cell
         }
     }

@@ -42,7 +42,6 @@ extern NSString *const MoppLibErrorDomain;
 + (NSError *)pinContainsInvalidCharactersError;
 + (NSError *)urlSessionCanceledError;
 + (NSError *)xmlParsingError;
-+ (NSError *)DDSErrorWith:(NSInteger)errorCode;
 + (NSError *)pinNotProvidedError;
 + (NSError *)pinBlockedError;
 + (NSError *)fileNameTooLongError;

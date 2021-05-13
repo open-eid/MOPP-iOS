@@ -56,7 +56,6 @@ typedef NS_ENUM(NSUInteger, EIDType) {
 - (NSString *)libdigidocppVersion;
 - (NSString *)appVersion;
 - (NSString *)iOSVersion;
-+ (NSString *)defaultTSUrl;
 + (EIDType)eidTypeFromCertificate:(NSData*)certData;
 + (EIDType)eidTypeFromCertificatePolicies:(NSArray<NSString*>*)certificatePolicies;
 + (NSArray *)certificatePolicyIdentifiers:(NSData *)certData;

@@ -23,7 +23,7 @@
 
 import Foundation
 
-protocol ContainerAddresseeCellDelegate : class {
+protocol ContainerAddresseeCellDelegate : AnyObject {
     func removeAddressee(index: Int)
 }
 

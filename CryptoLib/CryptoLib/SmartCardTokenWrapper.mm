@@ -51,13 +51,9 @@ std::vector<uchar> SmartCardTokenWrapper::cert() const{
 }
 
 std::vector<uchar> SmartCardTokenWrapper::decrypt(const std::vector<uchar> &data) const{
-
-    std::string encoded = base64_encode(reinterpret_cast<const unsigned char*>(&data[0]), data.size());
-    NSString* base64 = [NSString stringWithUTF8String:encoded.c_str()];
-    
-    NSData *nsdataFromBase64String = [[NSData alloc] initWithBase64EncodedString:base64 options:0];
+    NSMutableData *nsdata = [NSMutableData dataWithBytesNoCopy:(void *)data.data() length:data.size() freeWhenDone:0];
     NSString* pin1Encoded = [NSString stringWithUTF8String:token->pin1.c_str()];
-    NSData *dataBlock = [token->smartTokenClass decrypt:nsdataFromBase64String pin1:pin1Encoded];
+    NSData *dataBlock = [token->smartTokenClass decrypt:nsdata pin1:pin1Encoded];
    
     token->decryptResponse = this->encodeData(dataBlock);
 
@@ -65,13 +61,9 @@ std::vector<uchar> SmartCardTokenWrapper::decrypt(const std::vector<uchar> &data
 }
 
 std::vector<uchar> SmartCardTokenWrapper::derive(const std::vector<uchar> &publicKey) const{
-    std::vector<uchar> result;
-    std::string encoded = base64_encode(reinterpret_cast<const unsigned char*>(&publicKey[0]), publicKey.size());
-    NSString* base64 = [NSString stringWithUTF8String:encoded.c_str()];
-    
-    NSData *nsdataFromBase64String = [[NSData alloc] initWithBase64EncodedString:base64 options:0];
+    NSMutableData *nsdata = [NSMutableData dataWithBytesNoCopy:(void *)publicKey.data() length:publicKey.size() freeWhenDone:0];
     NSString* pin1Encoded = [NSString stringWithUTF8String:token->pin1.c_str()];
-    NSData *dataBlock = [token->smartTokenClass derive:nsdataFromBase64String pin1:pin1Encoded];
+    NSData *dataBlock = [token->smartTokenClass derive:nsdata pin1:pin1Encoded];
     
     token->decryptResponse = this->encodeData(dataBlock);
     return token->decryptResponse;

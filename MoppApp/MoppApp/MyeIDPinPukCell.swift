@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-protocol MyeIDPinPukCellDelegate: class {
+protocol MyeIDPinPukCellDelegate: AnyObject {
     func didTapChangeCodeButton()
 }
 
@@ -88,7 +88,7 @@ class MyeIDPinPukCell: UITableViewCell {
             else {
                 url = URL(string: "https://www.id.ee/?lang=en&id=31027")
             }
-            MoppApp.instance.open(url, options: [:], completionHandler: nil)
+            MoppApp.instance.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
         }
         
         if let actionType = actionType {
@@ -135,7 +135,7 @@ class MyeIDPinPukCell: UITableViewCell {
                 }
             } else {
                 showLink(authCertValid && !pukBlocked)
-                linkLabel.attributedText = NSAttributedString(string: pinPukCellInfo.linkText, attributes: [.underlineStyle : NSUnderlineStyle.styleSingle.rawValue])
+                linkLabel.attributedText = NSAttributedString(string: pinPukCellInfo.linkText, attributes: [.underlineStyle : NSUnderlineStyle.single.rawValue])
                 linkButton.accessibilityLabel = L(.myEidInfoPin1LinkText)
                 errorLabel.isHidden = true
                 errorLabel.text = nil
@@ -143,9 +143,9 @@ class MyeIDPinPukCell: UITableViewCell {
                 button.backgroundColor = UIColor.moppBase
                 
                 if savedLastFocusElement == .changePIN1 {
-                    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, button)
+                    UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: button)
                 } else if savedLastFocusElement == .unblockPIN1 {
-                    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, linkButton)
+                    UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: linkButton)
                 }
             }
         }
@@ -164,16 +164,16 @@ class MyeIDPinPukCell: UITableViewCell {
                 }
             } else {
                 showLink(signCertValid && !pukBlocked)
-                linkLabel.attributedText = NSAttributedString(string: pinPukCellInfo.linkText, attributes: [.underlineStyle : NSUnderlineStyle.styleSingle.rawValue])
+                linkLabel.attributedText = NSAttributedString(string: pinPukCellInfo.linkText, attributes: [.underlineStyle : NSUnderlineStyle.single.rawValue])
                 linkButton.accessibilityLabel = L(.myEidInfoPin2LinkText)
                 showErrorLabel(false)
                 showChangeButton(signCertValid, with: pinPukCellInfo.buttonText)
                 button.backgroundColor = UIColor.moppBase
                 
                 if savedLastFocusElement == .changePIN2 {
-                    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, button)
+                    UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: button)
                 } else if savedLastFocusElement == .unblockPIN2 {
-                    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, linkButton)
+                    UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: linkButton)
                 }
             }
         }
@@ -181,7 +181,7 @@ class MyeIDPinPukCell: UITableViewCell {
             titleLabel.text = pinPukCellInfo.title
             if pukBlocked {
                 showLink(true)
-                linkLabel.attributedText = NSAttributedString(string: L(.myEidHowToGetCodesMessage), attributes: [.underlineStyle : NSUnderlineStyle.styleSingle.rawValue])
+                linkLabel.attributedText = NSAttributedString(string: L(.myEidHowToGetCodesMessage), attributes: [.underlineStyle : NSUnderlineStyle.single.rawValue])
                 linkButton.accessibilityLabel = L(.myEidHowToGetCodesMessage)
                 showErrorLabel(true, with: L(.myEidInfoPukBlockedMessage))
                 showChangeButton(false)
@@ -193,7 +193,7 @@ class MyeIDPinPukCell: UITableViewCell {
                 button.backgroundColor = UIColor.moppBase
                 
                 if savedLastFocusElement == .changePUK {
-                    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, button)
+                    UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: button)
                 }
             }
         }
@@ -241,4 +241,9 @@ class MyeIDPinPukCell: UITableViewCell {
         showCertsExpiredCSTR.priority = show ? UILayoutPriority.defaultHigh : UILayoutPriority.defaultLow
         hideCertsExpiredCSTR.priority = show ? UILayoutPriority.defaultLow : UILayoutPriority.defaultHigh
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

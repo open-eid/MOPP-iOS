@@ -288,4 +288,14 @@
     
 }
 
+- (void)didGetBattery:(NSInteger)battery {
+    
+}
+
+
+- (void)findPeripheralReader:(NSString *)readerName {
+    
+}
+
+
 @end

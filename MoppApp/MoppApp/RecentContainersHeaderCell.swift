@@ -22,7 +22,7 @@
  */
 import Foundation
 
-protocol RecentContainersHeaderDelegate : class {
+protocol RecentContainersHeaderDelegate : AnyObject {
     func recentContainersHeaderDismiss()
 }
 

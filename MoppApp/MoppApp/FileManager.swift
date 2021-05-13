@@ -70,7 +70,6 @@ class MoppFileManager {
         let path: String = documentsDirectoryPath() + ("/temp")
         var isDir : ObjCBool = false
         if !(fileManager.fileExists(atPath: path, isDirectory: &isDir)) {
-            var error: Error?
             try? fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: [FileAttributeKey.protectionKey: FileProtectionType.complete])
         }
         return path

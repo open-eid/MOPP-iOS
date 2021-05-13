@@ -114,21 +114,21 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
                 switch strongSelf.model.actionType {
                 case .changePin1:
                     statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.PIN1.rawValue])
-                    UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, statusText)
+                    UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: statusText)
                 case .changePin2:
                     statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.PIN2.rawValue])
-                    UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, statusText)
+                    UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: statusText)
                 case .unblockPin1:
                     statusText = L(.myEidCodeUnblockedSuccessMessage, [IdCardCodeName.PIN1.rawValue])
                     strongSelf.infoManager.retryCounts.pin1 = IdCardCodeLengthLimits.maxRetryCount.rawValue
-                    UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, statusText)
+                    UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: statusText)
                 case .unblockPin2:
                     statusText = L(.myEidCodeUnblockedSuccessMessage, [IdCardCodeName.PIN2.rawValue])
                     strongSelf.infoManager.retryCounts.pin2 = IdCardCodeLengthLimits.maxRetryCount.rawValue
-                    UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, statusText)
+                    UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: statusText)
                 case .changePuk:
                     statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.PUK.rawValue])
-                    UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, statusText)
+                    UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: statusText)
                 }
                 ui.showStatusView(with: statusText)
             }
@@ -140,17 +140,17 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
             if invalidCodesError.textFieldIndex == 0 {
                 ui.firstInlineErrorLabel.isHidden = false
                 ui.firstInlineErrorLabel.text = invalidCodesError.message
-                UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, ui.firstInlineErrorLabel)
+                UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: ui.firstInlineErrorLabel)
             }
             else if invalidCodesError.textFieldIndex == 1 {
                 ui.secondInlineErrorLabel.isHidden = false
                 ui.secondInlineErrorLabel.text = invalidCodesError.message
-                UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, ui.secondInlineErrorLabel)
+                UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: ui.secondInlineErrorLabel)
             }
             else if invalidCodesError.textFieldIndex == 2 {
                 ui.thirdInlineErrorLabel.isHidden = false
                 ui.thirdInlineErrorLabel.text = invalidCodesError.message
-                UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, ui.thirdInlineErrorLabel)
+                UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: ui.thirdInlineErrorLabel)
             }
             return
         }

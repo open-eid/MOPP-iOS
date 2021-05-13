@@ -124,7 +124,7 @@
     
     NSString *hex = [hexString substringWithRange:NSMakeRange(i, 2)];
     NSInteger decimalValue = 0;
-    sscanf([hex cStringUsingEncoding:NSASCIIStringEncoding], "%x", &decimalValue);
+      sscanf([hex cStringUsingEncoding:NSASCIIStringEncoding], "%lx", &decimalValue);
     [string appendFormat:@"%c", (char)decimalValue];
   }
   
@@ -134,7 +134,7 @@
 - (NSString *)SHA256 {
   const char *cStr = [self UTF8String];
   unsigned char result[CC_SHA256_DIGEST_LENGTH];
-  CC_SHA256(cStr, strlen(cStr), result);
+  CC_SHA256(cStr, (CC_LONG)strlen(cStr), result);
   NSString *s = [NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
                  result[0], result[1], result[2], result[3], result[4],
                  result[5], result[6], result[7],

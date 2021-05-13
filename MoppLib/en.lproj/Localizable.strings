@@ -42,37 +42,5 @@
 "Error" = "Error";
 "Ok" = "Ok";
 
-// *** Digidoc service status ***
-
-"digidoc-service-status-request-select-account" = "Confirm device for signing in Smart-ID application.";
-"digidoc-service-status-request-expired-transaction" = "Request timeout";
-"digidoc-service-status-request-user-cancel" = "User denied or cancelled";
-"digidoc-service-status-request-mid-not-ready" = "Mobile-ID not ready, try again later";
-"digidoc-service-status-request-phone-absent" = "Phone is switched off or out of coverage";
-"digidoc-service-status-request-sending-error" = "Request sending error";
-"digidoc-service-status-request-sim-error" = "SIM application error";
-"digidoc-service-status-request-not-valid" = "Signature is not valid";
-"digidoc-service-status-request-revoked-certificate" = "Certificate revoked";
-"digidoc-service-status-request-internal-error" = "Technical error";
-
-
-
-// ** Mobile ID faults ***
-"digidoc-service-error-unknown" = "Unknown error occurred when signing with Mobile-ID";
-"digidoc-service-error-general" = "Something went wrong, try again";
-"digidoc-service-error-incorrect-parameters" = "Incorrect mobile number and/or personal code, non-Estonian mobile numbers must be prefixed with the country code";
-"digidoc-service-error-missing-parameters" = "Missing mobile number and/or personal code";
-"digidoc-service-error-ocsp-unauthorized" = "Unable to access mobile signing service";
-"digidoc-service-error-general-service" = "There was an error with Digidoc service, try again later";
-"digidoc-service-error-missing-user-certificate" = "Missing user certificate";
-"digidoc-service-error-certificate-validity-unknown" = "Unable to verify certificate validity";
-"digidoc-service-error-session-locked" = "Mobile signing session is locked, try again later";
-"digidoc-service-error-general-user" = "An error occurred with the signers mobile phone";
-"digidoc-service-error-not-mobile-id-user" = "Not a Mobile-ID user";
-"digidoc-service-error-user-certificate-revoked" = "Your mobile signing certificate is revoked";
-"digidoc-service-error-user-certificate-status-unknown" = "Your mobile signing certificate status is unkown";
-"digidoc-service-error-user-certificate-suspended" = "Your mobile signing certificate is suspended";
-"digidoc-service-error-user-certificate-expired" = "Your mobile signing certificate is expired";
-"digidoc-service-error-message-exceeds-volume-limit" = "Too many datafiles in container";
-"digidoc-service-error-message-too-many-requests" = "The limit for digital signatures per month has been reached for this IP address. https://www.id.ee/en/article/for-organisations-that-sign-large-quantities-of-documents-using-digidoc4-client/";
-"digidoc-service-error-simlutaneous-requests-limit-exceeded" = "Simultaneous requests limit exceeded";
+// *** Smart-ID ***
+"smart-id-status-request-select-account" = "Confirm device for signing in Smart-ID application.";

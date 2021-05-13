@@ -40,37 +40,5 @@
 "Error" = "Ошибка";
 "Ok" = "Ok";
 
-// *** Digidoc service status ***
-
-"digidoc-service-status-request-select-account" = "Для проставления подписи подтвердите устройство в приложении Smart-ID.";
-"digidoc-service-status-request-expired-transaction" = "Время запроса истекло";
-"digidoc-service-status-request-user-cancel" = "Пользователю отказано";
-"digidoc-service-status-request-mid-not-ready" = "Mobiil-ID не готов, попробуйте позже";
-"digidoc-service-status-request-phone-absent" = "Телефон выключен или находится вне зоны доступа";
-"digidoc-service-status-request-sending-error" = "Ошибка запроса";
-"digidoc-service-status-request-sim-error" = "Ошибка SIM-приложения";
-"digidoc-service-status-request-not-valid" = "Подпись недействительна";
-"digidoc-service-status-request-revoked-certificate" = "Сертификаты отозваны";
-"digidoc-service-status-request-internal-error" = "Техническая ошибка";
-
-
-
-// ** Mobile ID faults ***
-"digidoc-service-error-unknown" = "Неизвестная ошибка при подписании с помощю Mobiil-ID";
-"digidoc-service-error-general" = "Что-то полшло не так, попробуйте снова";
-"digidoc-service-error-incorrect-parameters" = "Неверный номер телефона или/и личный код, не Эстонские номера телефонов должны начинаться с кода страны";
-"digidoc-service-error-missing-parameters" = "Отсутствует номер телефона или/и личный код";
-"digidoc-service-error-ocsp-unauthorized" = "Сервис мобильной подписи недоступен";
-"digidoc-service-error-general-service" = "Ошибка сервиса DigiDoc, попробуйте позже";
-"digidoc-service-error-missing-user-certificate" = "Отсутствует сертификат пользователя";
-"digidoc-service-error-certificate-validity-unknown" = "Невозможно проверить действительность сертификата";
-"digidoc-service-error-session-locked" = "Сессия мобильной подписи заблокирована, попробуйте позже";
-"digidoc-service-error-general-user" = "Ошабка приложения Mobiil-ID в телефоне пользователя";
-"digidoc-service-error-not-mobile-id-user" = "Не пользователь Mobiil-ID";
-"digidoc-service-error-user-certificate-revoked" = "Ваш сертификат цифровой подписи отозван";
-"digidoc-service-error-user-certificate-status-unknown" = "Статус Вашего сертификата цифровой подписи неизвестен";
-"digidoc-service-error-user-certificate-suspended" = "Ваш сертификат цифровой подписи временно приостановлен";
-"digidoc-service-error-user-certificate-expired" = "Срок действительности Вашего сертификата цифровой подписи истек";
-"digidoc-service-error-message-exceeds-volume-limit" = "Слишком много файлов в контейнере";
-"digidoc-service-error-message-too-many-requests" = "Предел для цифровых подписей в месяц был достигнут для этого IP-адреса. https://www.id.ee/ru/artikkel/dlya-uchrezhdenij-v-kotoryh-v-bolshom-obeme-podpisyvayutsya-dokumenty-s-pomoshhyu-digidoc4-klienta/";
-"digidoc-service-error-simlutaneous-requests-limit-exceeded" = "Превышен лимит подобный запросов";
+// *** Smart-ID ***
+"smart-id-status-request-select-account" = "Для проставления подписи подтвердите устройство в приложении Smart-ID.";

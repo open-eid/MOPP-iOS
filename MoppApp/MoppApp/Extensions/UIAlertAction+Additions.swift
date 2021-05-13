@@ -26,7 +26,7 @@ extension UIAlertAction {
         if let linkInMessage = message?.getFirstLinkInMessage() {
             let openLinkAction: UIAlertAction = UIAlertAction(title: L(.errorAlertOpenLink), style: .default, handler: { (action) in
                 if let messageUrl = URL(string: linkInMessage) {
-                    UIApplication.shared.open(messageUrl, options: [:], completionHandler: nil)
+                    UIApplication.shared.open(messageUrl, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
                     NSLog("Opening link: \(messageUrl.absoluteString)")
                 }
             })
@@ -38,4 +38,9 @@ extension UIAlertAction {
         
         return nil
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }
