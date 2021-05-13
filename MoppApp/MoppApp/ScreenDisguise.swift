@@ -36,23 +36,33 @@ public class ScreenDisguise {
     
     public func show() {
         if #available(iOS 12, *) {
-            if !uiVisualEffectView.isDescendant(of: UIApplication.shared.keyWindow!) {
+            guard let keyWindow = UIApplication.shared.keyWindow, let topViewController = keyWindow.rootViewController?.getTopViewController() else {
+                return
+            }
+            
+            if !uiVisualEffectView.isDescendant(of: keyWindow) {
                 UIView.animate(withDuration: 0.05) {
                     self.uiVisualEffectView.effect = UIBlurEffect(style: .light)
                     self.uiVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-                    self.uiVisualEffectView.frame = (UIApplication.shared.keyWindow?.bounds)!
+                    self.uiVisualEffectView.frame = keyWindow.bounds
                 }
                 
-                UIApplication.shared.keyWindow?.addSubview(uiVisualEffectView)
+                topViewController.view.addSubview(uiVisualEffectView)
+                
+                if (topViewController is MobileIDChallengeViewController || topViewController is SmartIDChallengeViewController) {
+                    keyWindow.rootViewController?.view.addSubview(uiVisualEffectView)
+                    uiVisualEffectView.contentView.bringSubview(toFront: topViewController.view)
+                }
             }
         }
     }
     
     public func hide() {
         if #available(iOS 12, *) {
+            guard let keyWindow = UIApplication.shared.keyWindow else { return }
             UIView.animate(withDuration: 0.25, animations: {
                 self.uiVisualEffectView.alpha = 0.0
-                UIApplication.shared.keyWindow!.alpha = 1.0
+                keyWindow.alpha = 1.0
             }, completion: {(value: Bool) in
                 self.uiVisualEffectView.removeFromSuperview()
             })
