@@ -236,7 +236,7 @@
 "my-eid-info-pin1-button-title" = "ПОМЕНЯТЬ PIN1";
 "my-eid-info-pin2-button-title" = "ПОМЕНЯТЬ PIN2";
 "my-eid-info-puk-button-title" = "ПОМЕНЯТЬ PUK";
-"my-eid-info-puk-cert-info-text" = "PUK код в Вашем конверте кодов";
+"my-eid-info-puk-cert-info-text" = "PUK-код в Вашем конверте кодов";
 "my-eid-info-pin-puk-segment-title" = "PIN/PUK И СЕРТИФИКАТЫ";
 "my-eid-info-pin1-blocked-message" = "PIN1 заблокирован, потому что PIN1-код был введён неверно 3 раза. Разблокируйте, чтобы использовать PIN1.";
 "my-eid-info-pin2-blocked-message" = "PIN2 заблокирован, потому что PIN2-код был введён неверно 3 раза. Разблокируйте, чтобы использовать PIN2.";
