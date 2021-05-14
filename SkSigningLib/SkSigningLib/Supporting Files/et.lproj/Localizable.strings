@@ -18,29 +18,29 @@
 */
 
 // ** Mobile ID errors ***
-"mid-rest-error-unknown" = "Tundmatu viga Mobiil-ID\'ga allkirjastamisel";
-"mid-rest-error-general" = "Midagi läks valesti, proovi uuesti";
+"mid-rest-error-unknown" = "Tundmatu viga mobiil-ID\'ga allkirjastamisel";
+"mid-rest-error-general" = "Midagi läks valesti. Palun proovi uuesti";
 "mid-rest-error-incorrect-parameters" = "Telefoninumber peab sisaldama riigikoodi";
-"mid-rest-error-not-mobile-id-user" = "Kasutaja ei ole Mobiil-ID klient";
+"mid-rest-error-not-mobile-id-user" = "Kasutaja ei ole mobiil-ID klient";
 "mid-rest-error-user-cancelled" = "Kasutaja keeldus või katkestas";
-"mid-rest-error-timeout" = "Teie Mobiil-ID toiming aegus. Palun proovige uuesti";
+"mid-rest-error-timeout" = "Sinu mobiil-ID toiming aegus. Palun proovi uuesti";
 "mid-rest-error-delivery-error" = "Päringu saatmise viga";
-"mid-rest-error-sim-error" = "SIM kaardi viga";
+"mid-rest-error-sim-error" = "SIM-kaardi viga";
 "mid-rest-error-phone-absent" = "Telefon ei ole levis";
-"mid-rest-error-signature-hash-mismatch" = "Teie Mobiil-ID toiming ebaõnnestus. Palun võtke ühendust enda mobiilioperaatoriga";
-"mid-rest-error-no-response" = "Palun kontrollige internetiühendust";
+"mid-rest-error-signature-hash-mismatch" = "Sinu mobiil-ID toiming ebaõnnestus. Palun võta ühendust enda mobiilioperaatoriga";
+"mid-rest-error-no-response" = "Palun kontrolli internetiühendust";
 "mid-rest-error-too-many-requests" = "Sinu IP-aadressi tasuta allkirjade kuulimiit on ületatud. https://www.id.ee/artikkel/asutustele-kus-allkirjastatakse-digidoc4-kliendi-kaudu-suuremates-kogustes-dokumente/";
-"mid-rest-error-exceeded-unsuccessful-requests" = "Päringu saatmine ebaõnnestus. Sellelt IP-aadressilt on ebaõnnestunud päringute arv ületatud. Palun proovige mõne aja pärast uuesti.";
-"mid-rest-error-ocsp-invalid-time-slot" = "Palun kontrollige oma nutiseadme kellaaega. https://www.id.ee/artikkel/ria-digidoc-viga-palun-kontrollige-oma-nutiseadme-kellaaega/";
+"mid-rest-error-exceeded-unsuccessful-requests" = "Päringu saatmine ebaõnnestus. Sellelt IP-aadressilt on ebaõnnestunud päringute arv ületatud. Palun proovi mõne aja pärast uuesti.";
+"mid-rest-error-ocsp-invalid-time-slot" = "Palun kontrolli oma nutiseadme kellaaega. https://www.id.ee/artikkel/ria-digidoc-viga-palun-kontrollige-oma-nutiseadme-kellaaega/";
 "mid-rest-error-invalid-ssl-cert" = "SSL ühenduskanali loomine ebaõnnestus. Kontrolli rakenduse seadeid või tarkvara uuendusi";
-"mid-rest-error-invalid-access-rights" = "Ümbriku allkirjastamine ebaõnnestus. Kontrolli Mobiil-ID teenuse ligipääsu seadeid. https://www.id.ee/artikkel/asutustele-kus-allkirjastatakse-digidoc4-kliendi-kaudu-suuremates-kogustes-dokumente/";
+"mid-rest-error-invalid-access-rights" = "Ümbriku allkirjastamine ebaõnnestus. Kontrolli mobiil-ID teenuse ligipääsu seadeid. https://www.id.ee/artikkel/asutustele-kus-allkirjastatakse-digidoc4-kliendi-kaudu-suuremates-kogustes-dokumente/";
 "sid-rest-error-invalid-access-rights" = "Ümbriku allkirjastamine ebaõnnestus. Kontrolli Smart-ID teenuse ligipääsu seadeid. https://www.id.ee/artikkel/asutustele-kus-allkirjastatakse-digidoc4-kliendi-kaudu-suuremates-kogustes-dokumente/";
 "sid-rest-error-wrong-vc" = "Viga: valiti vale kontrollkood";
-"sid-rest-error-document-unusable" = "Teie Smart-ID toiming ebaõnnestus. Palun kontrollige Smart-ID rakendust või võtke ühendust Smart-ID klienditoega.";
-"sid-rest-error-not-qualified" = "RIA DigiDoc mobiilirakenduses allkirjastamiseks peab teie Smart-ID vastama tasemele kõrge.";
-"sid-rest-error-old-api" = "RIA DigiDoc mobiilirakendus vajab uuendamist. Paigaldage uus versioon mobiilirakenduse poest. Lisainfo ID-abiliini telefonil (+372) 666 8888.";
-"sid-rest-error-under-maintenance" = "Smart-ID teenuses esinevad tehnilised tõrked. Palun proovige mõne aja pärast uuesti.";
-"sid-rest-error-timeout" = "Teie Smart-ID toiming aegus. Palun proovige uuesti.";
+"sid-rest-error-document-unusable" = "Sinu Smart-ID toiming ebaõnnestus. Palun kontrolli Smart-ID rakendust või võta ühendust Smart-ID klienditoega.";
+"sid-rest-error-not-qualified" = "RIA DigiDoc mobiilirakenduses allkirjastamiseks peab sinu Smart-ID vastama tasemele kõrge.";
+"sid-rest-error-old-api" = "RIA DigiDoc mobiilirakendus vajab uuendamist. Paigalda uus versioon mobiilirakenduse poest. Lisainfo ID-abiliini telefonil (+372) 666 8888.";
+"sid-rest-error-under-maintenance" = "Smart-ID teenuses esinevad tehnilised tõrked. Palun proovi mõne aja pärast uuesti.";
+"sid-rest-error-timeout" = "Sinu Smart-ID toiming aegus. Palun proovi uuesti.";
 "sid-rest-error-forbidden" = "Ümbriku allkirjastamine ebaõnnestus. Kontrolli Smart-ID teenuse ligipääsu seadeid. https://www.id.ee/artikkel/asutustele-kus-allkirjastatakse-digidoc4-kliendi-kaudu-suuremates-kogustes-dokumente/";
 "sid-rest-error-account-not-found" = "Kontot ei leitud";
 "sid-rest-error-certificate-revoked" = "Sertifikaat on kehtetu";

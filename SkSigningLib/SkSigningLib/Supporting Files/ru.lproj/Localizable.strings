@@ -18,22 +18,22 @@
 */
 
 // ** Mobile ID errors ***
-"mid-rest-error-unknown" = "Неизвестная ошибка при подписании с помощю Mobiil-ID";
-"mid-rest-error-general" = "Что-то полшло не так, попробуйте снова";
+"mid-rest-error-unknown" = "Неизвестная ошибка при подписании с помощю mobiil-ID";
+"mid-rest-error-general" = "Что-то полшло не так. Пожалуйста, попробуйте еще раз";
 "mid-rest-error-incorrect-parameters" = "Номер телефона должен содержать код страны";
-"mid-rest-error-not-mobile-id-user" = "Пользователь не является клиентом Mobiil-ID";
+"mid-rest-error-not-mobile-id-user" = "Пользователь не является клиентом mobiil-ID";
 "mid-rest-error-user-cancelled" = "Пользователю отказано";
-"mid-rest-error-timeout" = "Срок действия вашей транзакции Mobiil-ID истек. Пожалуйста, попробуйте еще раз";
+"mid-rest-error-timeout" = "Срок действия вашей транзакции mobiil-ID истек. Пожалуйста, попробуйте еще раз";
 "mid-rest-error-delivery-error" = "Ошибка запроса";
-"mid-rest-error-sim-error" = "Ошибка SIM карты";
+"mid-rest-error-sim-error" = "Ошибка SIM-карты";
 "mid-rest-error-phone-absent" = "Отказ - телефон вне сети";
-"mid-rest-error-signature-hash-mismatch" = "Не удалось выполнить операцию Mobiil-ID. Пожалуйста, свяжитесь со своим мобильным оператором";
+"mid-rest-error-signature-hash-mismatch" = "Не удалось выполнить операцию mobiil-ID. Пожалуйста, свяжитесь со своим мобильным оператором";
 "mid-rest-error-no-response" = "Пожалуйста проверьте подключение к интернету";
 "mid-rest-error-too-many-requests" = "Предел для цифровых подписей в месяц был достигнут для этого IP-адреса. https://www.id.ee/ru/artikkel/dlya-uchrezhdenij-v-kotoryh-v-bolshom-obeme-podpisyvayutsya-dokumenty-s-pomoshhyu-digidoc4-klienta/";
 "mid-rest-error-exceeded-unsuccessful-requests" = "Не удалось отправить запрос. Превышено количество неудачных запросов с этого IP-адреса. Пожалуйста, попробуйте позже.";
 "mid-rest-error-ocsp-invalid-time-slot" = "Пожалуйста, проверьте время на своем смарт-устройстве. https://www.id.ee/ru/artikkel/oshibka-ria-digidoc-pozhalujsta-proverte-vremya-na-svoem-smart-ustrojstve/";
 "mid-rest-error-invalid-ssl-cert" = "Не удалось создать SSL канал передачи данных. Проверьте настройки вашего приложения или обновления программного обеспечения";
-"mid-rest-error-invalid-access-rights" = "Не удалось подписать контейнер. Проверьте настройки доступа услуги Mobiil-ID. https://www.id.ee/ru/artikkel/dlya-uchrezhdenij-v-kotoryh-v-bolshom-obeme-podpisyvayutsya-dokumenty-s-pomoshhyu-digidoc4-klienta/";
+"mid-rest-error-invalid-access-rights" = "Не удалось подписать контейнер. Проверьте настройки доступа услуги mobiil-ID. https://www.id.ee/ru/artikkel/dlya-uchrezhdenij-v-kotoryh-v-bolshom-obeme-podpisyvayutsya-dokumenty-s-pomoshhyu-digidoc4-klienta/";
 "sid-rest-error-invalid-access-rights" = "Не удалось подписать контейнер. Проверьте настройки доступа услуги Smart-ID. https://www.id.ee/ru/artikkel/dlya-uchrezhdenij-v-kotoryh-v-bolshom-obeme-podpisyvayutsya-dokumenty-s-pomoshhyu-digidoc4-klienta/";
 "sid-rest-error-wrong-vc" = "Ошибка: выбран неправильный контрольный код";
 "sid-rest-error-document-unusable" = "Не удалось выполнить операцию Smart-ID. Пожалуйста, проверьте приложение Smart-ID или свяжитесь со службой поддержки Smart-ID.";

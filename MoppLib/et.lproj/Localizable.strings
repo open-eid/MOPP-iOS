@@ -28,9 +28,9 @@
 "pin-actions-pin2" = "PIN2";
 "pin-actions-puk" = "PUK";
 
-"container-details-enter-pin1" = "Palun sisesta PIN1 kood.";
-"container-details-enter-pin2" = "Palun sisesta PIN2 kood.";
-"container-details-enter-puk" = "Palun sisesta PUK kood.";
+"container-details-enter-pin1" = "Palun sisesta PIN1-kood.";
+"container-details-enter-pin2" = "Palun sisesta PIN2-kood.";
+"container-details-enter-puk" = "Palun sisesta PUK-kood.";
 "pin-actions-wrong-pin-retry" = "Kehtiv %@ on vale. Saad proovida veel %i korda.";
 
 "Select reader" = "Vali kaardilugeja";
