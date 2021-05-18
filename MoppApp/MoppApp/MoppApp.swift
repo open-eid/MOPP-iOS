@@ -231,43 +231,54 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                     return true
                 }
                 
+                guard let keyWindow = UIApplication.shared.keyWindow, let topViewController = keyWindow.rootViewController?.getTopViewController() else {
+                    NSLog("Unable to get view controller")
+                    return false
+                }
+                
                 var newUrl: URL = url
                 
                 // Sharing from Google Drive may change file extension
-                let fileExtension: String = determineFileExtension(mimeType: MimeTypeExtractor().getMimeTypeFromContainer(filePath: newUrl))
-                if !fileExtension.isEmpty {
-                    do {
-                        let newData: Data? = try Data(contentsOf: newUrl)
-                        let fileName: String = newUrl.deletingPathExtension().lastPathComponent.sanitize(replaceCharacter: "_")
-                        let tempDirectoryPath: String? = MoppFileManager.shared.tempDocumentsDirectoryPath()
-                        guard let tempDirectory = tempDirectoryPath else {
-                            NSLog("Unable to get temporary file directory")
-                            showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, ["\(fileName).\(fileExtension)"]))
-                            return false
-                        }
-                        let fileURL: URL? = URL(fileURLWithPath: tempDirectory, isDirectory: true).appendingPathComponent(fileName, isDirectory: false).appendingPathExtension(fileExtension)
-                        
-                        guard let newUrlData: Data = newData, let filePath: URL = fileURL else {
-                            NSLog("Unable to get file data or file path")
-                            showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, ["\(fileName).\(fileExtension)"]))
-                            return false
-                        }
-                        do {
-                            try newUrlData.write(to: filePath, options: .atomic)
-                            newUrl = filePath
-                            fileUrls.append(newUrl)
-                            cleanup = true
-                        } catch let error {
-                            NSLog("Error writing to file: \(error.localizedDescription)")
-                            showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, ["\(fileName).\(fileExtension)"]))
-                            return false
-                        }
-                    } catch let error {
-                        NSLog("Error getting directory: \(error.localizedDescription)")
-                        showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [newUrl.lastPathComponent]))
+                let fileExtension: String? = determineFileExtension(mimeType: MimeTypeExtractor().getMimeTypeFromContainer(filePath: newUrl)) ?? newUrl.pathExtension
+                
+                guard let pathExtension = fileExtension else {
+                    NSLog("Unable to get file extension")
+                    topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportOpenExistingFailedAlertMessage))
+                    return false
+                }
+                
+                do {
+                    let newData: Data? = try Data(contentsOf: newUrl)
+                    let fileName: String = newUrl.deletingPathExtension().lastPathComponent.sanitize(replaceCharacter: "_")
+                    let tempDirectoryPath: String? = MoppFileManager.shared.tempDocumentsDirectoryPath()
+                    guard let tempDirectory = tempDirectoryPath else {
+                        NSLog("Unable to get temporary file directory")
+                        topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportOpenExistingFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
                         return false
                     }
+                    let fileURL: URL? = URL(fileURLWithPath: tempDirectory, isDirectory: true).appendingPathComponent(fileName, isDirectory: false).appendingPathExtension(pathExtension)
+                    
+                    guard let newUrlData: Data = newData, let filePath: URL = fileURL else {
+                        NSLog("Unable to get file data or file path")
+                        topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportOpenExistingFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
+                        return false
+                    }
+                    do {
+                        try newUrlData.write(to: filePath, options: .atomic)
+                        newUrl = filePath
+                        fileUrls.append(newUrl)
+                        cleanup = true
+                    } catch let error {
+                        NSLog("Error writing to file: \(error.localizedDescription)")
+                        topViewController.showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
+                        return false
+                    }
+                } catch let error {
+                    NSLog("Error getting directory: \(error.localizedDescription)")
+                    topViewController.showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [newUrl.lastPathComponent]))
+                    return false
                 }
+                
 
                 var isXmlExtensionFileCdoc = false
                 if newUrl.pathExtension.isXmlFileExtension {
@@ -453,7 +464,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         }
     }
     
-    private func determineFileExtension(mimeType: String) -> String {
+    private func determineFileExtension(mimeType: String) -> String? {
         switch mimeType {
         case "application/vnd.etsi.asic-e+zip":
             return "asice"
@@ -464,7 +475,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         case "application/x-cdoc":
             return "cdoc"
         default:
-            return ""
+            return nil
         }
     }
     
@@ -472,13 +483,6 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         let defaults = UserDefaults.standard
         defaults.set(value, forKey: "isDebugMode")
         defaults.synchronize()
-    }
-    
-    private func showErrorMessage(title: String, message: String) {
-        guard let keyWindow = UIApplication.shared.keyWindow, let topViewController = keyWindow.rootViewController?.getTopViewController() else {
-            return
-        }
-        topViewController.errorAlert(message: message, title: title, dismissCallback: nil)
     }
     
 }
