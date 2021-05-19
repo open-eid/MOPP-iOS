@@ -231,25 +231,41 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                     return true
                 }
                 
-                var newUrl = url
+                var newUrl: URL = url
                 
                 // Sharing from Google Drive may change file extension
-                let fileExtension = determineFileExtension(mimeType: MimeTypeExtractor().getMimeTypeFromContainer(filePath: newUrl))
-                if fileExtension != "" {
+                let fileExtension: String = determineFileExtension(mimeType: MimeTypeExtractor().getMimeTypeFromContainer(filePath: newUrl))
+                if !fileExtension.isEmpty {
                     do {
-                        let newData: Data = try Data(contentsOf: newUrl)
-                        let fileName: String = newUrl.deletingPathExtension().lastPathComponent
-                        let fileURL: URL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("temp", isDirectory: true).appendingPathComponent("\(fileName).\(fileExtension)")
-                        do {
-                            try newData.write(to: fileURL, options: .atomic)
-                            newUrl = fileURL
-                            fileUrls.append(newUrl)
-                            cleanup = true;
-                        } catch {
-                            MSLog("Error writing to file: \(error)")
+                        let newData: Data? = try Data(contentsOf: newUrl)
+                        let fileName: String = newUrl.deletingPathExtension().lastPathComponent.sanitize(replaceCharacter: "_")
+                        let tempDirectoryPath: String? = MoppFileManager.shared.tempDocumentsDirectoryPath()
+                        guard let tempDirectory = tempDirectoryPath else {
+                            NSLog("Unable to get temporary file directory")
+                            showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, ["\(fileName).\(fileExtension)"]))
+                            return false
                         }
-                    } catch {
-                        MSLog("Error getting directory: \(error)")
+                        let fileURL: URL? = URL(fileURLWithPath: tempDirectory, isDirectory: true).appendingPathComponent(fileName, isDirectory: false).appendingPathExtension(fileExtension)
+                        
+                        guard let newUrlData: Data = newData, let filePath: URL = fileURL else {
+                            NSLog("Unable to get file data or file path")
+                            showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, ["\(fileName).\(fileExtension)"]))
+                            return false
+                        }
+                        do {
+                            try newUrlData.write(to: filePath, options: .atomic)
+                            newUrl = filePath
+                            fileUrls.append(newUrl)
+                            cleanup = true
+                        } catch let error {
+                            NSLog("Error writing to file: \(error.localizedDescription)")
+                            showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, ["\(fileName).\(fileExtension)"]))
+                            return false
+                        }
+                    } catch let error {
+                        NSLog("Error getting directory: \(error.localizedDescription)")
+                        showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [newUrl.lastPathComponent]))
+                        return false
                     }
                 }
 
@@ -456,6 +472,13 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         let defaults = UserDefaults.standard
         defaults.set(value, forKey: "isDebugMode")
         defaults.synchronize()
+    }
+    
+    private func showErrorMessage(title: String, message: String) {
+        guard let keyWindow = UIApplication.shared.keyWindow, let topViewController = keyWindow.rootViewController?.getTopViewController() else {
+            return
+        }
+        topViewController.errorAlert(message: message, title: title, dismissCallback: nil)
     }
     
 }

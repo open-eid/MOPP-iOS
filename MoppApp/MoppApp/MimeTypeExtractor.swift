@@ -58,7 +58,7 @@ class MimeTypeExtractor {
             unzippedFilePath = try Zip.quickUnzipFile(filePath)
         }
         catch {
-            NSLog("Error unzipping file \(filePath.lastPathComponent): \(error)")
+            NSLog("Error unzipping file \(filePath.lastPathComponent): \(error.localizedDescription)")
         }
         
         return unzippedFilePath
@@ -75,7 +75,7 @@ class MimeTypeExtractor {
             do {
                 mimetype = try String(contentsOf: mimetypeFile, encoding: .utf8)
             } catch {
-                NSLog("Error getting contents of file \(filePath.lastPathComponent): \(error)")
+                NSLog("Error getting contents of file \(filePath.lastPathComponent): \(error.localizedDescription)")
             }
         }
         
@@ -104,7 +104,7 @@ class MimeTypeExtractor {
             
             return isDdoc
         } catch {
-            MSLog("Error getting url data \(error)")
+            NSLog("Error getting url data \(error.localizedDescription)")
         }
         
         return false

@@ -169,6 +169,13 @@ extension String {
         guard let messageWithLink = self.getFirstLinkInMessage() else { return self }
         return self.replacingOccurrences(of: messageWithLink, with: "")
     }
+    
+    func sanitize(replaceCharacter: String) -> String {
+        var characterSet: CharacterSet = CharacterSet()
+        characterSet.formUnion(.illegalCharacters)
+        characterSet.insert(charactersIn: "@%:^?[]{}#&`\\~«»/´")
+        return self.components(separatedBy: characterSet).joined(separator: replaceCharacter)
+    }
 }
 
 extension Optional where Wrapped == String {

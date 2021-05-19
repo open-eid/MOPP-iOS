@@ -174,7 +174,7 @@ class DiagnosticsViewController: MoppViewController {
         do {
             _ = try fileURL.checkResourceIsReachable()
         } catch let error {
-            NSLog("Failed to check if eu-lotl.xml file is reachable. Error: \(error)")
+            NSLog("Failed to check if eu-lotl.xml file is reachable. Error: \(error.localizedDescription)")
             return ""
         }
         var version: String = ""

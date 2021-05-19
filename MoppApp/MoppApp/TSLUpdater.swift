@@ -71,7 +71,7 @@ class TSLUpdater {
                         return file
                     }
                 } catch let error {
-                    NSLog("Unable to check if \(file.lastPathComponent) is reachable. Error: \(error)")
+                    NSLog("Unable to check if \(file.lastPathComponent) is reachable. Error: \(error.localizedDescription)")
                 }
             }
         }
