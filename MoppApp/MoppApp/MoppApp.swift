@@ -37,10 +37,10 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     var window: UIWindow?
     var currentElement:String = ""
     var documentFormat:String = ""
-    
+
     // iOS 11 blur window fix
     var blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-    
+
     var rootViewController: UIViewController? {
         return window?.rootViewController
     }
@@ -64,12 +64,12 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         case openOrCreate
         case addToContainer
     }
-    
+
     enum ContainerType {
         case asic
         case cdoc
     }
-    
+
     static var versionString:String {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? String()
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? String()
@@ -87,7 +87,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         // Log console logs to a file in Documents folder
         #if DEBUG
             setDebugMode(value: true)
-            
+
             let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
             let documentsDirectory: String = paths[0]
             let currentDate = MoppDateFormatter().ddMMYYYY(toString: Date())
@@ -97,8 +97,8 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         #else
             setDebugMode(value: false)
         #endif
-        
-        
+
+
         loadNibs()
         // Set navBar not translucent by default.
 
@@ -107,20 +107,20 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
-        
+
         // Check for min Xcode 11 and iOS 13
         #if compiler(>=5.1)
         if #available(iOS 13.0, *) {
             window?.overrideUserInterfaceStyle = .light
         }
         #endif
-        
+
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().tintColor = UIColor.moppText
         UINavigationBar.appearance().barTintColor = UIColor.moppBaseBackground
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor : UIColor.moppText]
         UINavigationBar.appearance().barStyle = .default
-        
+
         // Selected TabBar item text color
         UITabBarItem.appearance().setTitleTextAttributes(
             [.foregroundColor:UIColor.white,
@@ -132,19 +132,19 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             [.foregroundColor:UIColor.moppUnselectedTabBarItem,
              .font:UIFont(name: "RobotoCondensed-Regular", size: 10)!],
             for: .normal)
-        
+
         if isDeviceJailbroken {
             window?.rootViewController = UIStoryboard.jailbreak.instantiateInitialViewController()
         } else {
-            
+
             // Get remote configuration
             SettingsConfiguration().getCentralConfiguration()
-            
+
             TSLUpdater().checkForTSLUpdates()
-            
+
             let notification = Notification(name: .configurationLoaded)
             NotificationCenter.default.post(notification)
-            
+
             let initializationViewController = InitializationViewController()
             window?.rootViewController = initializationViewController
         }
@@ -152,7 +152,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         window?.makeKeyAndVisible()
         return true
     }
-    
+
     func handleSharedFiles(sharedFiles: [URL]) {
         if !sharedFiles.isEmpty {
             _ = openPath(urls: sharedFiles)
@@ -162,7 +162,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     func setupTabController() {
         landingViewController = UIStoryboard.landing.instantiateInitialViewController(of: LandingViewController.self)
         window?.rootViewController = landingViewController
-        
+
         let sharedFiles: [URL] = MoppFileManager.shared.sharedDocumentPaths().compactMap { URL(fileURLWithPath: $0) }
         if !sharedFiles.isEmpty {
            handleSharedFiles(sharedFiles: sharedFiles)
@@ -195,7 +195,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         }))
         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true)
     }
-    
+
     func checkForUnsentReportsWithCompletion(send: Bool) {
         Crashlytics.crashlytics().checkForUnsentReports { hasUnsentReport in
             if ((send && hasUnsentReport)) {
@@ -209,7 +209,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     func openUrl(url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return openPath(urls: [url], options: options)
     }
-    
+
     func openPath(urls: [URL], options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         guard !urls.isEmpty else {
             NSLog("No URLs found to open")
@@ -221,32 +221,32 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             if !url.absoluteString.isEmpty {
                 // Used to access folders on user device when opening container outside app (otherwise gives "Operation not permitted" error)
                 url.startAccessingSecurityScopedResource()
-            
+
                 // Let all the modal view controllers know that they should dismiss themselves
                 NotificationCenter.default.post(name: .didOpenUrlNotificationName, object: nil)
-            
+
                 // When app has just been launched, it may not be ready to deal with containers yet. We need to wait until libdigidocpp setup is complete.
                 if landingViewController == nil {
                     tempUrl = url
                     return true
                 }
-                
+
                 guard let keyWindow = UIApplication.shared.keyWindow, let topViewController = keyWindow.rootViewController?.getTopViewController() else {
                     NSLog("Unable to get view controller")
                     return false
                 }
-                
+
                 var newUrl: URL = url
-                
+
                 // Sharing from Google Drive may change file extension
                 let fileExtension: String? = determineFileExtension(mimeType: MimeTypeExtractor().getMimeTypeFromContainer(filePath: newUrl)) ?? newUrl.pathExtension
-                
+
                 guard let pathExtension = fileExtension else {
                     NSLog("Unable to get file extension")
                     topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportOpenExistingFailedAlertMessage))
                     return false
                 }
-                
+
                 do {
                     let newData: Data? = try Data(contentsOf: newUrl)
                     let fileName: String = newUrl.deletingPathExtension().lastPathComponent.sanitize(replaceCharacter: "_")
@@ -257,7 +257,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                         return false
                     }
                     let fileURL: URL? = URL(fileURLWithPath: tempDirectory, isDirectory: true).appendingPathComponent(fileName, isDirectory: false).appendingPathExtension(pathExtension)
-                    
+
                     guard let newUrlData: Data = newData, let filePath: URL = fileURL else {
                         NSLog("Unable to get file data or file path")
                         topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportOpenExistingFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
@@ -278,7 +278,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                     topViewController.showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [newUrl.lastPathComponent]))
                     return false
                 }
-                
+
 
                 var isXmlExtensionFileCdoc = false
                 if newUrl.pathExtension.isXmlFileExtension {
@@ -297,7 +297,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                         }
                     }
                 }
-                
+
                 if newUrl.pathExtension.isCdocContainerExtension {
                     landingViewController?.containerType = .cdoc
                 } else {
@@ -306,14 +306,14 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             }
             url.stopAccessingSecurityScopedResource()
         }
-        
+
         if fileUrls.isEmpty {
             fileUrls = urls
         }
-        
+
         landingViewController?.fileImportIntent = .openOrCreate
         landingViewController?.importFiles(with: fileUrls, cleanup: cleanup)
-        
+
         return true
     }
 
@@ -359,20 +359,20 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                 removeWindowBlur()
             }
         #endif
-        
+
         if UIViewController().getTopViewController() is InitializationViewController || UIViewController().getTopViewController() is LandingViewController {
             let sharedFiles: [URL] = MoppFileManager.shared.sharedDocumentPaths().compactMap { URL(fileURLWithPath: $0) }
             if !sharedFiles.isEmpty {
                handleSharedFiles(sharedFiles: sharedFiles)
             }
         }
-        
+
         restartIdCardDiscovering()
     }
 
     func willTerminate() {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        
+
         // Remove temporarily saved files folder
         MoppFileManager.shared.removeTempSavedFiles()
     }
@@ -415,7 +415,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         window?.rootViewController = landingViewController
         window?.makeKeyAndVisible()
     }
-    
+
     func isXmlExtensionFileCdoc(with url: URL) -> Bool {
         let parser = XMLParser(contentsOf: url)
         parser?.delegate = self;
@@ -426,9 +426,9 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         }
         return false
     }
-    
+
     func convertViewToImage(with view: UIView) -> UIImage? {
-        
+
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0.0)
         defer { UIGraphicsEndImageContext() }
         if let context = UIGraphicsGetCurrentContext() {
@@ -438,14 +438,14 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         }
         return nil
     }
-    
+
     private func blurWindow() -> Void {
         self.window?.backgroundColor = .white
         window?.alpha = 0.5
         blurEffectView.frame = self.window!.bounds
         self.window?.addSubview(blurEffectView)
     }
-    
+
     private func removeWindowBlur() -> Void {
         if blurEffectView.isDescendant(of: self.window!) {
             blurEffectView.backgroundColor = .clear
@@ -453,17 +453,17 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             blurEffectView.removeFromSuperview()
         }
     }
-    
+
     private func restartIdCardDiscovering() {
         let topViewController = UIViewController().getTopViewController()
-        
+
         for childViewController in topViewController.children {
             if childViewController is IdCardViewController {
                 MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
             }
         }
     }
-    
+
     private func determineFileExtension(mimeType: String) -> String? {
         switch mimeType {
         case "application/vnd.etsi.asic-e+zip":
@@ -478,13 +478,20 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             return nil
         }
     }
-    
+
     private func setDebugMode(value: Bool) -> Void {
         let defaults = UserDefaults.standard
         defaults.set(value, forKey: "isDebugMode")
         defaults.synchronize()
     }
-    
+
+    private func showErrorMessage(title: String, message: String) {
+        guard let keyWindow = UIApplication.shared.keyWindow, let topViewController = keyWindow.rootViewController?.getTopViewController() else {
+            return
+        }
+        topViewController.errorAlert(message: message, title: title, dismissCallback: nil)
+    }
+
 }
 
 extension MoppApp {
