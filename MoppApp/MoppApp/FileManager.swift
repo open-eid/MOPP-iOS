@@ -393,7 +393,6 @@ class MoppFileManager {
                 
                 self?.importFiles_recursive(with: mutableURLs, importedPaths: modifiedImportedPaths, completion: completion)
             } else {
-                url.stopAccessingSecurityScopedResource()
                 completion?(error, [])
             }
         }
