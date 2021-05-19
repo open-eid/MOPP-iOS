@@ -339,26 +339,44 @@ class MoppFileManager {
     }
     
     private func importFiles_recursive(with urls: [URL], importedPaths: [String], completion: ((_ error: Error?, _ paths: [String]) -> Void)?) {
-        var mutableURLs = urls
+        var mutableURLs: [URL] = urls
         
-        guard let url = mutableURLs.first else {
+        guard let url: URL = mutableURLs.first else {
             completion?(nil, importedPaths)
             return
         }
         
-        let isUrlSSR = url.startAccessingSecurityScopedResource()
-        let coordinator = NSFileCoordinator(filePresenter: nil)
-        let readingIntent = NSFileAccessIntent.readingIntent(with: url, options: .withoutChanges)
+        let coordinator: NSFileCoordinator = NSFileCoordinator(filePresenter: nil)
+        let readingIntent: NSFileAccessIntent = NSFileAccessIntent.readingIntent(with: url, options: .withoutChanges)
         
         coordinator.coordinate(with: [readingIntent], queue: OperationQueue.main) { [weak self] error in
-            var data: Data!
+            var data: Data
             if error == nil {
-                let safeURL = readingIntent.url
+                // Used to access folders on user device when opening container outside app (otherwise gives "Operation not permitted" error)
+                url.startAccessingSecurityScopedResource()
                 
-                data = try! Data(contentsOf: safeURL)
+                let safeURL: URL? = readingIntent.url
                 
-                guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: safeURL.lastPathComponent) else {
+                guard let fileURL: URL = safeURL else {
+                    NSLog("Error opening imported file")
+                    url.stopAccessingSecurityScopedResource()
+                    completion?(NSError(domain: "Unable to open imported file", code: 1, userInfo: nil), [])
+                    return
+                }
+                
+                do {
+                    data = try Data(contentsOf: fileURL)
+                } catch let error {
+                    NSLog("Error opening file: \(error.localizedDescription)")
+                    url.stopAccessingSecurityScopedResource()
+                    completion?(NSError(domain: error.localizedDescription, code: 2, userInfo: nil), [])
+                    return
+                }
+                
+                guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: fileURL.lastPathComponent) else {
+                    NSLog("Error opening file. Unable to get temp file path")
                     completion?(NSError(domain: String(), code: 0, userInfo: nil), [])
+                    url.stopAccessingSecurityScopedResource()
                     return
                 }
                 
@@ -366,20 +384,15 @@ class MoppFileManager {
                     MoppFileManager.shared.createFile(atPath: destinationPath, contents: data)
                 }
                 
-                if isUrlSSR {
-                    url.stopAccessingSecurityScopedResource()
-                }
-                
                 _ = mutableURLs.removeFirst()
                 
                 var modifiedImportedPaths = importedPaths
                     modifiedImportedPaths.append(destinationPath)
                 
+                url.stopAccessingSecurityScopedResource()
+                
                 self?.importFiles_recursive(with: mutableURLs, importedPaths: modifiedImportedPaths, completion: completion)
             } else {
-                if isUrlSSR {
-                    url.stopAccessingSecurityScopedResource()
-                }
                 completion?(error, [])
             }
         }

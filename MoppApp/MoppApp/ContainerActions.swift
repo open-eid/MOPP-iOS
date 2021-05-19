@@ -44,6 +44,16 @@ extension ContainerActions where Self: UIViewController {
         topSigningViewController.present(landingViewController.importProgressViewController, animated: false)
         
         MoppFileManager.shared.importFiles(with: urls) { [weak self] error, dataFilePaths in
+            
+            if error != nil {
+                NSLog(error?.localizedDescription ?? "No error description")
+                if topSigningViewController.presentedViewController is FileImportProgressViewController {
+                    self?.dismiss(animated: true, completion: {
+                        self?.showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [""]))
+                    })
+                }
+                return
+            }
 
             if landingViewController.fileImportIntent == .addToContainer {
                 landingViewController.addDataFilesToContainer(dataFilePaths: dataFilePaths)

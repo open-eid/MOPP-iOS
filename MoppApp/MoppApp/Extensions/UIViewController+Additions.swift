@@ -106,4 +106,12 @@ extension UIViewController {
         
         self.present(uiAlertController, animated: true, completion: nil)
     }
+    
+    func showErrorMessage(title: String, message: String) {
+        let topViewController: UIViewController = getTopViewController()
+        guard topViewController.isViewLoaded else {
+            return
+        }
+        topViewController.errorAlert(message: message, title: title, dismissCallback: nil)
+    }
 }
