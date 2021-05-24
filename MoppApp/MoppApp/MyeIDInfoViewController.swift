@@ -98,7 +98,9 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
             let cell = ui.tableView.dequeueReusableCell(withType: MyeIDPinPukCell.self, for: indexPath)!
                 cell.infoManager = infoManager
                 cell.bounds = CGRect(x: 0, y: 0, width: ui.tableView.bounds.width, height: 99999)
-                cell.populate(pinPukCellInfo: infoManager.pinPukCell.items[indexPath.row])
+            let pinPukCellInfo: MyeIDInfoManager.PinPukCell.Info = infoManager.pinPukCell.items[indexPath.row]
+                cell.populate(pinPukCellInfo: pinPukCellInfo)
+                cell.certInfoView.accessibilityLabel = "\(pinPukCellInfo.title ?? ""). \(infoManager.certInfoAttributedString(for: pinPukCellInfo.kind)?.string ?? pinPukCellInfo.certInfoText ?? "")"
             cell.accessibilityLabel = ""
             return cell
         case .margin:
