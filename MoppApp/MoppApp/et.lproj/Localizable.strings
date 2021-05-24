@@ -275,9 +275,7 @@
 "my-eid-error-code-is-date-of-birth" = "Uus %@-kood ei saa olla sinu sünnikuupäev";
 "my-eid-error-code-too-easy" = "Uus %@-kood ei saa olla nii lihtne";
 "settings-title" = "Seaded";
-"settings-phone-number-title" = "Riigikood ja telefoninumber";
 "settings-phone-number-placeholder" = "372XXXXXXXX";
-"settings-id-code-title" = "Isikukood";
 "settings-id-code-placeholder" = "Isikukood";
 "settings-rpuuid-title" = "Ligipääs mobiil-ID ja Smart-ID teenusele";
 "settings-rpuuid-placeholder" = "00000000-0000-0000-0000-000000000000";

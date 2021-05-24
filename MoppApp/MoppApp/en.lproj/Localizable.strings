@@ -274,9 +274,7 @@
 "my-eid-error-code-is-date-of-birth" = "New %@ code can't be your date of birth";
 "my-eid-error-code-too-easy" = "New %@ code can't be so easy";
 "settings-title" = "Settings";
-"settings-phone-number-title" = "Country code and phone number";
 "settings-phone-number-placeholder" = "372XXXXXXXX";
-"settings-id-code-title" = "Personal code";
 "settings-id-code-placeholder" = "Personal code";
 "settings-rpuuid-title" = "Access to mobile-ID and Smart-ID service";
 "settings-rpuuid-placeholder" = "00000000-0000-0000-0000-000000000000";

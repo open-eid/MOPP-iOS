@@ -33,12 +33,5 @@
 "container-details-enter-puk" = "Palun sisesta PUK-kood.";
 "pin-actions-wrong-pin-retry" = "Kehtiv %@ on vale. Saad proovida veel %i korda.";
 
-"Select reader" = "Vali kaardilugeja";
-"Cancel" = "Katkesta";
-"Connect reader message" = "Vali bluetooth kaardilugeja. Palun kontrolli, et lugeja oleks aktiivne ja bluetooth oleks sisse lülitatud.";
-"Problem connecting %@" = "Seadme ühendamisel tekkis probleem: %@";
-"Error" = "Viga";
-"Ok" = "Ok";
-
 // *** Smart-ID ***
 "smart-id-status-request-select-account" = "Allkirjastamiseks kinnita seade Smart-ID rakenduses.";

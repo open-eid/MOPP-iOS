@@ -275,9 +275,7 @@
 "my-eid-error-code-is-date-of-birth" = "Новый %@-код не может быть датой Вашего рождения";
 "my-eid-error-code-too-easy" = "Новый %@-код не может быть таким простым";
 "settings-title" = "Настройки";
-"settings-phone-number-title" = "Код страны и телефонный номер";
 "settings-phone-number-placeholder" = "372XXXXXXXX";
-"settings-id-code-title" = "Личный код";
 "settings-id-code-placeholder" = "Личный код";
 "settings-rpuuid-title" = "Доступ к услуге mobiil-ID и Smart-ID";
 "settings-rpuuid-placeholder" = "00000000-0000-0000-0000-000000000000";

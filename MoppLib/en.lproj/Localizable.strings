@@ -35,12 +35,5 @@
 "container-details-enter-puk" = "Please enter your PUK code.";
 "pin-actions-wrong-pin-retry" = "Current %@ was wrong. You have %i tries left.";
 
-"Select reader" = "Select reader";
-"Cancel" = "Cancel";
-"Connect reader message" = "Select bluetooth reader. Please make sure your reader is active and bluetooth is switched on.";
-"Problem connecting %@" = "There was a problem connecting your reader: %@";
-"Error" = "Error";
-"Ok" = "Ok";
-
 // *** Smart-ID ***
 "smart-id-status-request-select-account" = "Confirm device for signing in Smart-ID application.";

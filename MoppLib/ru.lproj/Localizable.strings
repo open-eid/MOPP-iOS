@@ -33,12 +33,5 @@
 "container-details-enter-puk" = "Введите PUK";
 "pin-actions-wrong-pin-retry" = "Текущий% @ был неправильным. Осталось попыток: %i";
 
-"Select reader" = "Выберите устройство для чтения ID-карт";
-"Cancel" = "Отменить";
-"Connect reader message" = "Выберите Bluetooth-считыватель. Убедитесь, что ваш считыватель активен и включен Bluetooth.";
-"Problem connecting %@" = "Не удалось подключиться к вашему устройству чтения ID-карт: %@";
-"Error" = "Ошибка";
-"Ok" = "Ok";
-
 // *** Smart-ID ***
 "smart-id-status-request-select-account" = "Для проставления подписи подтвердите устройство в приложении Smart-ID.";
