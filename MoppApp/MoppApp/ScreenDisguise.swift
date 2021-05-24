@@ -47,7 +47,7 @@ public class ScreenDisguise {
                     self.uiVisualEffectView.frame = keyWindow.bounds
                 }
                 
-                topViewController.view.addSubview(uiVisualEffectView)
+                keyWindow.addSubview(uiVisualEffectView)
                 
                 if (topViewController is MobileIDChallengeViewController || topViewController is SmartIDChallengeViewController) {
                     keyWindow.rootViewController?.view.addSubview(uiVisualEffectView)
