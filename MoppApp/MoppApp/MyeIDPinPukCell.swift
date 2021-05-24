@@ -80,13 +80,13 @@ class MyeIDPinPukCell: UITableViewCell {
             var url: URL!
             let appLanguageID = DefaultsHelper.moppLanguageID
             if appLanguageID  == "et" {
-                url = URL(string: "https://www.id.ee/index.php?id=30133")
+                url = URL(string: "https://www.politsei.ee/et/juhend/id-kaardi-taotlemine-taeiskasvanule/id-kaardi-kasutaja-meelespea")
             }
             else if appLanguageID == "ru" {
-                url = URL(string: "https://www.id.ee/?lang=ru&id=33922")
+                url = URL(string: "https://www.politsei.ee/ru/instruktsii/hodataystvo-o-vydache-id-karty-vzroslomu/pamyatka-dlya-polzovatelya-id-karti")
             }
             else {
-                url = URL(string: "https://www.id.ee/?lang=en&id=31027")
+                url = URL(string: "https://www.politsei.ee/en/instructions/applying-for-an-id-card-for-an-adult/reminders-for-id-card-holders")
             }
             MoppApp.instance.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
         }

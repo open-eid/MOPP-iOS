@@ -18,22 +18,22 @@
 */
 
 // ** Mobile ID errors ***
-"mid-rest-error-unknown" = "Unknown error occurred when signing with Mobile-ID";
-"mid-rest-error-general" = "Something went wrong, try again";
+"mid-rest-error-unknown" = "Unknown error occurred when signing with mobile-ID";
+"mid-rest-error-general" = "Something went wrong. Please try again";
 "mid-rest-error-incorrect-parameters" = "Please include correct country code";
-"mid-rest-error-not-mobile-id-user" = "User is not a Mobile-ID client";
+"mid-rest-error-not-mobile-id-user" = "User is not a mobile-ID client";
 "mid-rest-error-user-cancelled" = "User denied or cancelled";
-"mid-rest-error-timeout" = "Your Mobile-ID transaction has expired. Please try again";
+"mid-rest-error-timeout" = "Your mobile-ID transaction has expired. Please try again";
 "mid-rest-error-delivery-error" = "Request sending error";
 "mid-rest-error-sim-error" = "SIM error";
 "mid-rest-error-phone-absent" = "Phone is not in coverage area";
-"mid-rest-error-signature-hash-mismatch" = "Your Mobile-ID transaction has failed. Please contact your mobile network operator";
+"mid-rest-error-signature-hash-mismatch" = "Your mobile-ID transaction has failed. Please contact your mobile network operator";
 "mid-rest-error-no-response" = "Please check your internet connection";
 "mid-rest-error-too-many-requests" = "The limit for digital signatures per month has been reached for this IP address. https://www.id.ee/en/article/for-organisations-that-sign-large-quantities-of-documents-using-digidoc4-client/";
 "mid-rest-error-exceeded-unsuccessful-requests" = "Failed to send request. The number of unsuccessful request from this IP address has been exceeded. Please try again later.";
 "mid-rest-error-ocsp-invalid-time-slot" = "Please check your smart device time. https://www.id.ee/en/article/ria-digidoc-error-please-check-your-smart-device-time/";
 "mid-rest-error-invalid-ssl-cert" = "SSL handshake failed. Check your application settings or software upgrades";
-"mid-rest-error-invalid-access-rights" = "Failed to sign container. Check your Mobile-ID service access settings. https://www.id.ee/en/article/for-organisations-that-sign-large-quantities-of-documents-using-digidoc4-client/";
+"mid-rest-error-invalid-access-rights" = "Failed to sign container. Check your mobile-ID service access settings. https://www.id.ee/en/article/for-organisations-that-sign-large-quantities-of-documents-using-digidoc4-client/";
 "sid-rest-error-invalid-access-rights" = "Failed to sign container. Check your Smart-ID service access settings. https://www.id.ee/en/article/for-organisations-that-sign-large-quantities-of-documents-using-digidoc4-client/";
 "sid-rest-error-wrong-vc" = "Error: an incorrect control code was chosen";
 "sid-rest-error-document-unusable" = "Your Smart-ID transaction has failed. Please check your Smart-ID application or contact Smart-ID customer support.";

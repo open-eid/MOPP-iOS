@@ -132,13 +132,13 @@ extension MenuViewController : UITableViewDelegate {
                 let appLanguageID = DefaultsHelper.moppLanguageID
                 var helpUrl: URL!
                 if appLanguageID == "et" {
-                    helpUrl = URL(string: "https://www.id.ee/index.php?id=10583")
+                    helpUrl = URL(string: "https://www.id.ee/id-abikeskus/")
                 }
                 else if appLanguageID == "ru" {
-                    helpUrl = URL(string: "https://www.id.ee/index.php?id=30515")
+                    helpUrl = URL(string: "https://www.id.ee/ru/id-pomoshh/")
                 }
                 else {
-                    helpUrl = URL(string: "https://www.id.ee/index.php?id=30466")
+                    helpUrl = URL(string: "https://www.id.ee/en/id-help/")
                 }
                 if helpUrl != nil {
                     MoppApp.shared.open(helpUrl, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
