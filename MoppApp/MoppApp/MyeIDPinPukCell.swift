@@ -29,6 +29,7 @@ class MyeIDPinPukCell: UITableViewCell {
     weak var infoManager: MyeIDInfoManager!
     var kind: MyeIDInfoManager.PinPukCell.Kind!
     
+    @IBOutlet weak var certInfoView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var certInfoLabel: UILabel!
     @IBOutlet weak var button: UIButton!
@@ -100,8 +101,7 @@ class MyeIDPinPukCell: UITableViewCell {
         contentView.bounds = bounds
         layoutIfNeeded()
         
-        titleLabel.isAccessibilityElement = true
-        certInfoLabel.isAccessibilityElement = true
+        certInfoView.isAccessibilityElement = true
         errorLabel.isAccessibilityElement = true
         
         errorLabel.preferredMaxLayoutWidth = errorLabel.frame.width
