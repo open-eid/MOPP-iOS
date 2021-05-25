@@ -192,14 +192,14 @@ class DiagnosticsViewController: MoppViewController {
     }
 
     private func getTSLVersion(for tslCountry: String) -> String {
-        let tslFilesBundlePath: String = TSLUpdater().getTSLFilesBundlePath()
-        let filesInBundle: [URL] = TSLUpdater().getCountryFileLocations(inPath: tslFilesBundlePath)
+        let libraryPath: String = MoppFileManager.shared.libraryDirectoryPath()
+        let filesInLibrary: [URL] = TSLUpdater().getCountryFileLocations(inPath: libraryPath)
 
-        for bundleFile in filesInBundle {
-            if !bundleFile.hasDirectoryPath {
-                let fileName: String = bundleFile.deletingPathExtension().lastPathComponent
+        for libraryFile in filesInLibrary {
+            if !libraryFile.hasDirectoryPath {
+                let fileName: String = libraryFile.deletingPathExtension().lastPathComponent
                 if fileName == tslCountry {
-                    let tslVersion: Int = TSLUpdater().getTSLVersion(fromFile: bundleFile)
+                    let tslVersion: Int = TSLUpdater().getTSLVersion(fromFile: libraryFile)
                     return tslVersion == 0 ? "-" : String(tslVersion)
                 }
             }
