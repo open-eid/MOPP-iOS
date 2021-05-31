@@ -189,7 +189,7 @@ class MobileIDSignature {
         }, failure: { (error: Error?) in
             NSLog("\nError validating signature. Error: \(error?.localizedDescription ?? "Unable to display error")\n")
             guard let error = error, let err = error as NSError? else {
-                self.generateError(signingError: .generalError)
+                self.generateError(signingError: .generalSignatureAddingError)
                 return
             }
             
@@ -203,7 +203,7 @@ class MobileIDSignature {
                 return
             }
             
-            self.generateError(signingError: .generalError)
+            self.generateError(signingError: .generalSignatureAddingError)
             return
         })
     }

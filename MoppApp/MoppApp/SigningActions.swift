@@ -57,7 +57,7 @@ extension SigningActions where Self: SigningContainerViewController {
                     failure: { [weak self] error in
                         self?.updateState((self?.isCreated ?? false) ? .created : .opened)
                         self?.reloadData()
-                        self?.errorAlert(message: error?.localizedDescription)
+                        self?.errorAlert(message: L(.generalSignatureRemovalMessage))
                 })
         })
     }
@@ -188,7 +188,7 @@ extension SigningContainerViewController : IdCardSignViewControllerDelegate {
                 } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorOCSPTimeSlot.rawValue) {
                     errorAlert(message: L(.ocspInvalidTimeSlot))
                 } else {
-                    errorAlert(message: L(.genericErrorMessage))
+                    errorAlert(message: L(.generalSignatureAddingMessage))
                 }
             }
         } else {

@@ -151,7 +151,7 @@ class SmartIDSignature {
         }, failure: { (error: Error?) in
             NSLog("\nError validating signature. Error: \(error?.localizedDescription ?? "Unable to display error")\n")
             guard let error = error, let err = error as NSError? else {
-                self.generateError(error: .generalError)
+                self.generateError(error: .generalSignatureAddingError)
                 return
             }
             
@@ -169,7 +169,7 @@ class SmartIDSignature {
                 return
             }
             
-            return self.generateError(error: .generalError)
+            return self.generateError(error: .generalSignatureAddingError)
         })
     }
 
