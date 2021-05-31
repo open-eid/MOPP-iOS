@@ -98,6 +98,7 @@
 "file-import-open-existing-failed-alert-message" = "Не удалось открыть контейнер %@";
 "file-import-create-new-failed-alert-title" = "Ошибка при создании контейнера";
 "file-import-create-new-failed-alert-message" = "Не удалось открыть контейнер %@";
+"file-import-new-file-opening-failed-alert-message" = "Не удалось открыть файл %@";
 "file-import-remove-file" = "Удалить Файл";
 "file-import-save-file" = "Сохраните файл";
 "file-import-file-saved" = "Файл сохранен";

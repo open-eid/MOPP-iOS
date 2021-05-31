@@ -176,6 +176,13 @@ extension String {
         characterSet.insert(charactersIn: "@%:^?[]{}#&`\\~«»/´")
         return self.components(separatedBy: characterSet).joined(separator: replaceCharacter)
     }
+    
+    var isValidUrl: Bool {
+        if let url: URL = URL(string: self) {
+            return UIApplication.shared.canOpenURL(url)
+        }
+        return false
+    }
 }
 
 extension Optional where Wrapped == String {
