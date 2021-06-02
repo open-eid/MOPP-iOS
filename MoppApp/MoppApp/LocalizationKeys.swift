@@ -67,6 +67,7 @@ enum LocKey : String
     case fileImportOpenExistingFailedAlertMessage = "file-import-open-existing-failed-alert-message"
     case fileImportCreateNewFailedAlertTitle = "file-import-create-new-failed-alert-title"
     case fileImportCreateNewFailedAlertMessage = "file-import-create-new-failed-alert-message"
+    case fileImportNewFileOpeningFailedAlertMessage = "file-import-new-file-opening-failed-alert-message"
     case fileImportRemoveFile = "file-import-remove-file"
     case fileImportSaveFile = "file-import-save-file"
     case fileImportFileSaved = "file-import-file-saved"

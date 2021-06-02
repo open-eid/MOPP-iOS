@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0405692B25416E5500AF6E70 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0405692A25416E5500AF6E70 /* GoogleService-Info.plist */; };
 		0405692C25416E5500AF6E70 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0405692A25416E5500AF6E70 /* GoogleService-Info.plist */; };
-		063A655C7ECF195296250527 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		063A655C7ECF195296250527 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		39158A1920C6C49100B71DD6 /* AddresseeActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39158A1820C6C49100B71DD6 /* AddresseeActions.swift */; };
 		3921CA9520B2D6D600BF3178 /* CryptoActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CA9420B2D6D600BF3178 /* CryptoActions.swift */; };
 		3921CA9720B2D8A600BF3178 /* SigningActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CA9620B2D8A600BF3178 /* SigningActions.swift */; };
@@ -33,7 +33,7 @@
 		4E59080024B0F914001B23A6 /* SmartIDEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5907FF24B0F914001B23A6 /* SmartIDEditViewController.swift */; };
 		4E59080224B258C7001B23A6 /* SmartIDChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59080124B258C6001B23A6 /* SmartIDChallengeViewController.swift */; };
 		4E59080424B2E295001B23A6 /* SmartIDSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59080324B2E295001B23A6 /* SmartIDSignature.swift */; };
-		51EAB865AC99468B5AC77D6C /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		51EAB865AC99468B5AC77D6C /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.swift */; };
 		547BDF251E8BEFA30093931F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
 		54825EF51E1CFE9600253FF0 /* Date+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF41E1CFE9600253FF0 /* Date+Additions.swift */; };
@@ -339,6 +339,7 @@
 		DF3D299D23F5ADB7007181B8 /* MimeTypeExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */; };
 		DF3D29CF23F6B3CF007181B8 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; };
 		DF3D29D023F6B3CF007181B8 /* SkSigningLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF6299122664FEFE00E6C55E /* UrlSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */; };
 		DF7F611926399B5400747B7D /* ContainerRemovalActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */; };
 		DF900C972386768F00887385 /* tslFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DF900C94238567CA00887385 /* tslFiles.bundle */; };
 		DFA5821A264AAB6600564971 /* digidoc_76.png in Resources */ = {isa = PBXBuildFile; fileRef = DFA58218264AAB6500564971 /* digidoc_76.png */; };
@@ -627,6 +628,7 @@
 		DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoppConfigurationDecoder.swift; sourceTree = "<group>"; };
 		DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypeExtractor.swift; sourceTree = "<group>"; };
 		DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSchemeHandler.swift; sourceTree = "<group>"; };
 		DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerRemovalActions.swift; sourceTree = "<group>"; };
 		DF900C94238567CA00887385 /* tslFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = tslFiles.bundle; sourceTree = "<group>"; };
 		DFA58218264AAB6500564971 /* digidoc_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_76.png; sourceTree = "<group>"; };
@@ -700,8 +702,8 @@
 				C55BB1CC2091BD2000618AC4 /* WebKit.framework in Frameworks */,
 				DF3D29CF23F6B3CF007181B8 /* SkSigningLib.framework in Frameworks */,
 				E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */,
-				51EAB865AC99468B5AC77D6C /* BuildFile in Frameworks */,
-				063A655C7ECF195296250527 /* BuildFile in Frameworks */,
+				51EAB865AC99468B5AC77D6C /* (null) in Frameworks */,
+				063A655C7ECF195296250527 /* (null) in Frameworks */,
 				393B66E820DB9C19001DC89B /* CryptoLib.framework in Frameworks */,
 				DFF3C3B72332335C0079458A /* Pods_MoppApp.framework in Frameworks */,
 			);
@@ -1164,6 +1166,7 @@
 				C51B7FB61FBC45DD0046D6E0 /* LocalizationKeys.swift */,
 				DFF3C3B12332314A0079458A /* SignatureVerifier.swift */,
 				DFF3C3B02332314A0079458A /* RuntimeError.swift */,
+				DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1871,6 +1874,7 @@
 				C50DCD0D1FC7147100D48E16 /* ContainerTableViewHeaderView.swift in Sources */,
 				4E59080224B258C7001B23A6 /* SmartIDChallengeViewController.swift in Sources */,
 				C5310F4620C2F0F7004D3E78 /* MenuLanguageButtonView.swift in Sources */,
+				DF6299122664FEFE00E6C55E /* UrlSchemeHandler.swift in Sources */,
 				C5927FC92075144F003B7F41 /* MyeIDSegmentHeaderCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

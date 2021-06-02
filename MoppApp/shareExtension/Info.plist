@@ -39,7 +39,7 @@
 				<key>NSExtensionActivationSupportsText</key>
 				<true/>
 				<key>NSExtensionActivationSupportsWebURLWithMaxCount</key>
-				<integer>0</integer>
+				<integer>50</integer>
 			</dict>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>

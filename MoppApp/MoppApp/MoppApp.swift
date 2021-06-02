@@ -37,6 +37,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     var window: UIWindow?
     var currentElement:String = ""
     var documentFormat:String = ""
+    var downloadTask: URLSessionTask?
 
     // iOS 11 blur window fix
     var blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
@@ -219,31 +220,56 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         var cleanup: Bool = false
         for url in urls {
             if !url.absoluteString.isEmpty {
+                
+                guard let keyWindow = UIApplication.shared.keyWindow, let topViewController = keyWindow.rootViewController?.getTopViewController() else {
+                    NSLog("Unable to get view controller")
+                    return false
+                }
+                
+                var fileUrl: URL = url
+                
+                // Handle file from web with "digidoc" scheme
+                if url.scheme == "digidoc" && url.host == "http" {
+                    NSLog("Opening HTTP links is not supported")
+                    topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, [url.lastPathComponent]))
+                    return false
+                } else if url.scheme == "digidoc" {
+                    let dispatchGroup: DispatchGroup = DispatchGroup()
+                    dispatchGroup.enter()
+                    UrlSchemeHandler.shared.getFileLocationFromURL(url: url) { (fileLocation: URL?) in
+                        guard let filePath = fileLocation else {
+                            NSLog("Unable to get file location from URL")
+                            topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, [fileLocation?.lastPathComponent ?? ""]))
+                            dispatchGroup.leave()
+                            return
+                        }
+                        fileUrl = filePath
+                        dispatchGroup.leave()
+                    }
+                    // Wait until downloading file from web is done
+                    dispatchGroup.wait()
+                }
+                
                 // Used to access folders on user device when opening container outside app (otherwise gives "Operation not permitted" error)
-                url.startAccessingSecurityScopedResource()
+                fileUrl.startAccessingSecurityScopedResource()
 
                 // Let all the modal view controllers know that they should dismiss themselves
                 NotificationCenter.default.post(name: .didOpenUrlNotificationName, object: nil)
 
                 // When app has just been launched, it may not be ready to deal with containers yet. We need to wait until libdigidocpp setup is complete.
                 if landingViewController == nil {
-                    tempUrl = url
+                    tempUrl = fileUrl
                     return true
                 }
 
-                guard let keyWindow = UIApplication.shared.keyWindow, let topViewController = keyWindow.rootViewController?.getTopViewController() else {
-                    NSLog("Unable to get view controller")
-                    return false
-                }
-
-                var newUrl: URL = url
+                var newUrl: URL = fileUrl
 
                 // Sharing from Google Drive may change file extension
                 let fileExtension: String? = determineFileExtension(mimeType: MimeTypeExtractor().getMimeTypeFromContainer(filePath: newUrl)) ?? newUrl.pathExtension
 
                 guard let pathExtension = fileExtension else {
                     NSLog("Unable to get file extension")
-                    topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportOpenExistingFailedAlertMessage))
+                    topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, [newUrl.lastPathComponent]))
                     return false
                 }
 
@@ -253,14 +279,14 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                     let tempDirectoryPath: String? = MoppFileManager.shared.tempDocumentsDirectoryPath()
                     guard let tempDirectory = tempDirectoryPath else {
                         NSLog("Unable to get temporary file directory")
-                        topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportOpenExistingFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
+                        topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
                         return false
                     }
                     let fileURL: URL? = URL(fileURLWithPath: tempDirectory, isDirectory: true).appendingPathComponent(fileName, isDirectory: false).appendingPathExtension(pathExtension)
 
                     guard let newUrlData: Data = newData, let filePath: URL = fileURL else {
                         NSLog("Unable to get file data or file path")
-                        topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportOpenExistingFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
+                        topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
                         return false
                     }
                     do {
@@ -270,12 +296,12 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                         cleanup = true
                     } catch let error {
                         NSLog("Error writing to file: \(error.localizedDescription)")
-                        topViewController.showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
+                        topViewController.showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportNewFileOpeningFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
                         return false
                     }
                 } catch let error {
-                    NSLog("Error getting directory: \(error.localizedDescription)")
-                    topViewController.showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [newUrl.lastPathComponent]))
+                    NSLog("Error getting directory: \(error)")
+                    topViewController.showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportNewFileOpeningFailedAlertMessage, [newUrl.lastPathComponent]))
                     return false
                 }
 
@@ -491,7 +517,6 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         }
         topViewController.errorAlert(message: message, title: title, dismissCallback: nil)
     }
-
 }
 
 extension MoppApp {

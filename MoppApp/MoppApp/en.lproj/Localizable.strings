@@ -99,6 +99,7 @@
 "file-import-open-existing-failed-alert-message" = "Failed to open container %@";
 "file-import-create-new-failed-alert-title" = "Error creating container";
 "file-import-create-new-failed-alert-message" = "Failed to open container %@";
+"file-import-new-file-opening-failed-alert-message" = "Failed to open file %@";
 "file-import-remove-file" = "Remove file";
 "file-import-save-file" = "Save file";
 "file-import-file-saved" = "File saved";
