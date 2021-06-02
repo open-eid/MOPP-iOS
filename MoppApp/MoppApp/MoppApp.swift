@@ -231,7 +231,9 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                 // Handle file from web with "digidoc" scheme
                 if url.scheme == "digidoc" && url.host == "http" {
                     NSLog("Opening HTTP links is not supported")
-                    topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, [url.lastPathComponent]))
+                    DispatchQueue.main.async {
+                        return topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, [url.lastPathComponent]))
+                    }
                     return false
                 } else if url.scheme == "digidoc" {
                     let dispatchGroup: DispatchGroup = DispatchGroup()
@@ -239,7 +241,9 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                     UrlSchemeHandler.shared.getFileLocationFromURL(url: url) { (fileLocation: URL?) in
                         guard let filePath = fileLocation else {
                             NSLog("Unable to get file location from URL")
-                            topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, [fileLocation?.lastPathComponent ?? ""]))
+                            DispatchQueue.main.async {
+                                return topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, [url.lastPathComponent]))
+                            }
                             dispatchGroup.leave()
                             return
                         }
@@ -249,7 +253,13 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                     // Wait until downloading file from web is done
                     dispatchGroup.wait()
                 }
-                
+
+                // Check if url has changed after opening file with digidoc scheme to prevent multiple error messages
+                if fileUrl.scheme == "digidoc" && fileUrl == url {
+                    NSLog("Failed to open file with scheme")
+                    return false
+                }
+
                 // Used to access folders on user device when opening container outside app (otherwise gives "Operation not permitted" error)
                 fileUrl.startAccessingSecurityScopedResource()
 
@@ -400,7 +410,8 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 
         // Remove temporarily saved files folder
-        MoppFileManager.shared.removeTempSavedFiles()
+        MoppFileManager.shared.removeTempSavedFilesInDocuments(folderName: "Saved Files")
+        MoppFileManager.shared.removeTempSavedFilesInDocuments(folderName: "Downloads")
     }
 
     func handleEventsForBackgroundURLSession(identifier: String, completionHandler: @escaping () -> Void) {

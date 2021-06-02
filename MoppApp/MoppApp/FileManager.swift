@@ -221,9 +221,9 @@ class MoppFileManager {
         }
     }
     
-    func removeTempSavedFiles() {
+    func removeTempSavedFilesInDocuments(folderName: String) {
         do {
-            let savedFilesDirectory: URL? = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Saved Files", isDirectory: true)
+            let savedFilesDirectory: URL? = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(folderName, isDirectory: true)
 
             guard let saveDir: URL = savedFilesDirectory else { NSLog("Failed to get \(savedFilesDirectory?.lastPathComponent ?? "requested") directory"); return }
             if fileManager.fileExists(atPath: saveDir.path) {

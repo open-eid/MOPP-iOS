@@ -60,9 +60,9 @@ class UrlSchemeHandler: NSObject, URLSessionDelegate {
     
     private func downloadFile(url: URL, completion: @escaping (URL?) -> Void) {
         let downloadTask: URLSessionDownloadTask = URLSession(configuration: .default, delegate: self, delegateQueue: nil).downloadTask(with: url) { (fileTempUrl, response, error) in
+            if error != nil { NSLog("Unable to download file: \(error?.localizedDescription ?? "Unable to display error")"); return completion(nil) }
             if let fileTempUrl: URL = fileTempUrl {
                 do {
-                    if error != nil { NSLog("Unable to download file: \(error?.localizedDescription ?? "Unable to display error")"); return completion(nil) }
                     let documentsPathFileURL: URL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("Downloads", isDirectory: true).appendingPathComponent(url.lastPathComponent)
                     try FileManager.default.createDirectory(at: documentsPathFileURL, withIntermediateDirectories: true, attributes: nil)
                     let fileLocation: String = MoppFileManager.shared.copyFile(withPath: fileTempUrl.path, toPath: documentsPathFileURL.path)
@@ -71,15 +71,19 @@ class UrlSchemeHandler: NSObject, URLSessionDelegate {
                     NSLog("Failed to download file or create directory: \(error.localizedDescription)")
                     return completion(nil)
                 }
+            } else {
+                NSLog("Unable to get file temporary URL")
+                return completion(nil)
             }
         }
         downloadTask.resume()
     }
     
     private func constructURLWithoutScheme(url: URL?) -> URL? {
-        guard let url = url else { return URL(string: "") }
+        guard let url: URL = url else { return URL(string: "") }
         var urlComponents: URLComponents = URLComponents()
-        if let urlHost = url.host, (urlHost != "https") {
+        let supportedURISchemes: [String] = ["https"]
+        if let urlHost = url.host, !supportedURISchemes.contains(urlHost) {
             urlComponents.scheme = "https"
             urlComponents.host = url.host
             urlComponents.port = url.port
@@ -91,8 +95,6 @@ class UrlSchemeHandler: NSObject, URLSessionDelegate {
             urlComponents.port = url.port
             urlComponents.query = url.query
         }
-        
-        
         return urlComponents.url
     }
 }
