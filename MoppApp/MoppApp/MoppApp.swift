@@ -137,6 +137,9 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         if isDeviceJailbroken {
             window?.rootViewController = UIStoryboard.jailbreak.instantiateInitialViewController()
         } else {
+            
+            // Prevent screen recording
+            NotificationCenter.default.addObserver(self, selector: #selector(handleScreenRecording), name: UIScreen.capturedDidChangeNotification, object: nil)
 
             // Get remote configuration
             SettingsConfiguration().getCentralConfiguration()
@@ -489,6 +492,10 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             window?.alpha = 1.0
             blurEffectView.removeFromSuperview()
         }
+    }
+    
+    @objc private func handleScreenRecording() -> Void {
+        ScreenDisguise.shared.handleScreenRecordingPrevention()
     }
 
     private func restartIdCardDiscovering() {

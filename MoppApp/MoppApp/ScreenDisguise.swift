@@ -25,14 +25,20 @@ import Foundation
 import UIKit
 
 
-public class ScreenDisguise {
+public class ScreenDisguise: NSObject {
     public static let shared = ScreenDisguise()
     private var viewController: ScreenDisguiseViewController? = nil
     
     var uiVisualEffectView = UIVisualEffectView()
     var blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     
-    private init() {}
+    private func getTopViewController() -> UIViewController? {
+        guard let keyWindow = UIApplication.shared.keyWindow, let topViewController = keyWindow.rootViewController?.getTopViewController() else {
+            return nil
+        }
+        
+        return topViewController
+    }
     
     public func show() {
         if #available(iOS 12, *) {
@@ -66,6 +72,35 @@ public class ScreenDisguise {
             }, completion: {(value: Bool) in
                 self.uiVisualEffectView.removeFromSuperview()
             })
+        }
+    }
+    
+    public func handleScreenRecordingPrevention() {
+        let isScreenBeingCaptured: Bool = UIScreen.main.isCaptured
+        
+        guard let topViewController: UIViewController = getTopViewController() else { return }
+        
+        if isScreenBeingCaptured {
+            if let launchScreenView = Bundle.main.loadNibNamed("LaunchScreen", owner: self, options: nil)?.last as? UIView {
+                launchScreenView.tag = launchScreenTag
+                topViewController.view.addSubview(launchScreenView)
+                
+                // Pin to edges
+                let layoutGuide = topViewController.view.safeAreaLayoutGuide
+                launchScreenView.translatesAutoresizingMaskIntoConstraints = false
+                launchScreenView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor).isActive = true
+                launchScreenView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor).isActive = true
+                launchScreenView.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor).isActive = true
+                launchScreenView.topAnchor.constraint(equalTo: topViewController.view.topAnchor).isActive = true
+            }
+            
+            
+        } else {
+            if let launchScreenView = getTopViewController()?.view.viewWithTag(launchScreenTag) {
+                launchScreenView.removeFromSuperview()
+            } else {
+                print("Unable to find view with tag \(launchScreenTag)")
+            }
         }
     }
 }

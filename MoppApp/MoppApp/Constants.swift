@@ -45,6 +45,9 @@ let kHashType = "SHA256"
 let kDefaultTimeoutMs = 5000
 let kDefaultTimeoutS = 5
 
+// View tags
+let launchScreenTag: Int = 1
+
 extension Notification.Name {
     static let containerChangedNotificationName = Notification.Name("Notification - container changed")
     static let settingsChangedNotificationName = Notification.Name("Notification - settigns changed")
