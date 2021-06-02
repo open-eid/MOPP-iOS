@@ -29,6 +29,7 @@ public enum SigningError: String, Error {
     case invalidURL
     case noResponseError
     case generalError
+    case generalSignatureAddingError
     case invalidSSLCert
     
     // MARK: Response Errors
@@ -145,6 +146,8 @@ extension SigningError: LocalizedError {
             return NSLocalizedString("mid-rest-error-ocsp-invalid-time-slot", comment: "")
         case .certificateRevoked:
             return NSLocalizedString("sid-rest-error-certificate-revoked", comment: "")
+        case .generalSignatureAddingError:
+            return NSLocalizedString("general-signature-adding-error", comment: "")
         }
     }
 }

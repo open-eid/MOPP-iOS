@@ -154,6 +154,8 @@
 "signature-remove-confirm-message" = "Soovid eemaldada allkirja?";
 "datafile-remove-confirm-message" = "Soovid eemaldada faili ümbrikust?";
 "last-datafile-remove-confirm-message" = "Oled kustutamas viimast faili ümbrikus, koos sellega eemaldatakse ka ümbrik.";
+"general-signature-adding-message" = "Ümbriku allkirjastamine ebaõnnestus";
+"general-signature-removal-message" = "Allkirja eemaldamine ümbrikust ebaõnnestus";
 
 "signing-remember-me" = "Pea mind meeles";
 "mobile-id-title" = "Sisesta oma telefoninumber ja isikukood mobiil-IDga allkirjastamiseks";

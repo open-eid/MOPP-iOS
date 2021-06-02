@@ -108,6 +108,8 @@ enum LocKey : String
     case signatureRemoveConfirmMessage = "signature-remove-confirm-message"
     case datafileRemoveConfirmMessage = "datafile-remove-confirm-message"
     case lastDatafileRemoveConfirmMessage = "last-datafile-remove-confirm-message"
+    case generalSignatureAddingMessage = "general-signature-adding-message"
+    case generalSignatureRemovalMessage = "general-signature-removal-message"
     case mobileIdTitle = "mobile-id-title"
     case mobileIdPhoneTitle = "mobile-id-phone-title"
     case mobileIdIdcodeTitle = "mobile-id-idcode-title"

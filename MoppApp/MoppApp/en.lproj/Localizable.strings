@@ -153,6 +153,8 @@
 "signature-remove-confirm-message" = "Remove signature from container?";
 "datafile-remove-confirm-message" = "Remove file from container?";
 "last-datafile-remove-confirm-message" = "You are about to remove the last file in the container, it is removed along with the container.";
+"general-signature-adding-message" = "Failed to sign container";
+"general-signature-removal-message" = "Failed to remove signature from container";
 
 "signing-remember-me" = "Remember me";
 "mobile-id-title" = "Enter your mobile number and personal code to sign with mobile-ID";

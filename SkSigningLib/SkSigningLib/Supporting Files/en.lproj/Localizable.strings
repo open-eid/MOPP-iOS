@@ -17,7 +17,10 @@
 *
 */
 
-// ** Mobile ID errors ***
+// General errors
+"general-signature-adding-error" = "Failed to sign container";
+
+// ** Mobile / Smart ID errors ***
 "mid-rest-error-unknown" = "Unknown error occurred when signing with mobile-ID";
 "mid-rest-error-general" = "Something went wrong. Please try again";
 "mid-rest-error-incorrect-parameters" = "Please include correct country code";
