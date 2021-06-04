@@ -28,7 +28,7 @@ protocol SIDRequestProtocol {
        - baseUrl: The base URL for Smart-ID. Path "/certificate/pno/{country}/{nationalIdentityNumber}" will be added to the base URL
        - country:
        - nationalIdentityNumber:
-       - requestParameters: Parameters that are sent to the service. Uses CertificateRequestParameters struct
+       - requestParameters: Parameters that are sent to the service. Uses SIDCertificateRequestParameters struct
        - completionHandler: On request success, callbacks Result<SIDSessionResponse, SigningError>
     */
     func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void)

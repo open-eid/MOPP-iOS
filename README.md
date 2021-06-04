@@ -15,6 +15,16 @@ This application contains following functionality:
 ## libdigidocpp
 MOPP-iOS is using unofficial static version of libdigidoc. libdigidoc is used in app for managing container manipulations. More info: https://github.com/open-eid/libdigidocpp
 
+# Features
+* Creating ASiC-E containers
+* Signing containers with Mobile-ID, Smart-ID and ID-card
+* Validating ASiC-E, BDOC, ASIC-S and DDOC containers
+* Creating and validating detached XadES
+* Encrypting, decrypting and validating CDOC containers
+
+## Overview and how to use
+App requirements, container format overview, documentation links and how to use instructions
+[How to use](https://github.com/open-eid/MOPP-iOS/wiki/How-to-use)
 
 ## Building source code with Xcode
 Installation instructions are available in Wiki: 

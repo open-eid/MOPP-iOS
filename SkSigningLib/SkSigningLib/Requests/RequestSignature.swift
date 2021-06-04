@@ -31,7 +31,7 @@ protocol CertificateRequest {
     - Parameters:
        - baseUrl: The base URL for Mobile-ID. Path "/certificate" will be added to the base URL
        - requestParameters: Parameters that are sent to the service. Uses CertificateRequestParameters struct
-       - completionHandler: On request success, callbacks Result<CertificateResponse, SigningError>
+       - completionHandler: On request response, callbacks Result<CertificateResponse, SigningError>
     */
     func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<CertificateResponse, SigningError>) -> Void)
 }

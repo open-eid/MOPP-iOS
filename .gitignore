@@ -40,5 +40,3 @@ MoppApp/MoppApp/config.json
 MoppApp/MoppApp/defaultConfiguration.json
 MoppApp/MoppApp/publicKey.pub
 MoppApp/MoppApp/signature.rsa
-
-MoppApp/MoppApp/tslFiles.bundle/*

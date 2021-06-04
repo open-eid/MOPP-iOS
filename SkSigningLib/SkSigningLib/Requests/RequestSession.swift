@@ -39,6 +39,7 @@ protocol SessionRequest {
 
     - Parameters:
        - baseUrl: The base URL for Mobile-ID. Path "/signature/session/{sessionId}?timeoutMs={timeoutMs}" will be added to the base URL. Values are taken from requestParameters
+       - process: Determines if session is for authentication or signing
        - requestParameters: Parameters that are used in URL
        - completionHandler: On request success, callbacks Result<SessionStatusResponse, SigningError>
     */
