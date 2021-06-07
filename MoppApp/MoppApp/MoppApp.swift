@@ -141,6 +141,11 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             // Prevent screen recording
             NotificationCenter.default.addObserver(self, selector: #selector(handleScreenRecording), name: UIScreen.capturedDidChangeNotification, object: nil)
 
+            // Give time to load before handling screen recording
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.handleScreenRecording()
+            }
+
             // Get remote configuration
             SettingsConfiguration().getCentralConfiguration()
 
@@ -379,7 +384,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         #if !DEBUG
             if #available(iOS 12, *) {
-                    ScreenDisguise.shared.hide()
+                ScreenDisguise.shared.hide()
             } else {
                 // iOS 11 blur window fix
                 blurWindow()

@@ -81,9 +81,12 @@ public class ScreenDisguise: NSObject {
         guard let topViewController: UIViewController = getTopViewController() else { return }
         
         if isScreenBeingCaptured {
+            show()
             if let launchScreenView = Bundle.main.loadNibNamed("LaunchScreen", owner: self, options: nil)?.last as? UIView {
                 launchScreenView.tag = launchScreenTag
                 topViewController.view.addSubview(launchScreenView)
+                topViewController.view.bringSubviewToFront(launchScreenView)
+                hide()
                 
                 // Pin to edges
                 let layoutGuide = topViewController.view.safeAreaLayoutGuide
@@ -98,6 +101,7 @@ public class ScreenDisguise: NSObject {
         } else {
             if let launchScreenView = getTopViewController()?.view.viewWithTag(launchScreenTag) {
                 launchScreenView.removeFromSuperview()
+                hide()
             } else {
                 print("Unable to find view with tag \(launchScreenTag)")
             }
