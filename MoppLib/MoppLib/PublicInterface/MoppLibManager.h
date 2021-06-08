@@ -29,6 +29,7 @@
 typedef NS_ENUM(NSUInteger, EIDType) {
     EIDTypeUnknown,
     EIDTypeMobileID,
+    EIDTypeSmartID,
     EIDTypeDigiID,
     EIDTypeIDCard,
     EIDTypeESeal

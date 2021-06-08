@@ -23,7 +23,7 @@ MOPP-iOS is using unofficial static version of libdigidoc. libdigidoc is used in
 * Encrypting, decrypting and validating CDOC containers
 
 ## Overview and how to use
-App requirements, container format overview, documentation links and how to use instructions
+App requirements, container format overview, documentation links and how to use instructions are available in Wiki:
 [How to use](https://github.com/open-eid/MOPP-iOS/wiki/How-to-use)
 
 ## Building source code with Xcode

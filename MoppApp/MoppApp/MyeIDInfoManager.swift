@@ -238,6 +238,8 @@ class MyeIDInfoManager {
             return L(.myEidInfoMyEidDigiId)
         case .MobileID:
             return L(.myEidInfoMyEidMobileId)
+        case .SmartID:
+            return L(.myEidInfoMyEidSmartId)
         case .Unknown:
             return L(.myEidInfoMyEidUnknown)
         @unknown default:

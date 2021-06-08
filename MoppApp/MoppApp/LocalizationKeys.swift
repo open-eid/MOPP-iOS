@@ -176,6 +176,7 @@ enum LocKey : String
     case myEidInfoMyEidAccessibility = "my-eid-info-my-eid-accessibility"
     case myEidInfoMyEidIdCard = "my-eid-info-my-eid-id-card"
     case myEidInfoMyEidMobileId = "my-eid-info-my-eid-mobile-id"
+    case myEidInfoMyEidSmartId = "my-eid-info-my-eid-smart-id"
     case myEidInfoMyEidDigiId = "my-eid-info-my-eid-digi-id"
     case myEidInfoMyEidUnknown = "my-eid-info-my-eid-unknown"
     case myEidInfoMyEidEResident = "my-eid-info-my-eid-e-resident"

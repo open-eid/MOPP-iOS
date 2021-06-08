@@ -86,6 +86,8 @@
                 return Unknown;
             case EIDTypeMobileID:
                 return MobileID;
+            case EIDTypeSmartID:
+                return SmartID;
             case EIDTypeDigiID:
                 return DigiID;
             case EIDTypeIDCard:
