@@ -1,6 +1,6 @@
 #!/usr/bin/swift sh
 /*
- * Copyright 2017 Riigi Infosüsteemide Amet
+ * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,7 +24,7 @@ import SwCrypt // ./SwCrypt/
 class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate {
     
     let configBaseUrl: String = CommandLine.arguments[1] ?? "https://id.eesti.ee"
-    let configUpdateInterval: Int = Int(CommandLine.arguments[2]) ?? 7
+    let configUpdateInterval: Int = Int(CommandLine.arguments[2]) ?? 4
     let configTslUrl: String = CommandLine.arguments[3] ?? "https://ec.europa.eu/tools/lotl/eu-lotl.xml"
     
     internal func setupConfiguration() {
