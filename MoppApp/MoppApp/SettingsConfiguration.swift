@@ -36,7 +36,7 @@
  * which is updated each time downloaded central configuration is actually loaded for usage.
  *
  * During each application start-up, cached configuration update date (updateDate) is compared
- * to current date, and if the difference in days exceeds <updateInterval (defaults to 7)>, then
+ * to current date, and if the difference in days exceeds <updateInterval (defaults to 4)>, then
  * configuration is downloaded from central configuration service. If downloaded central configuration
  * differs from cached configuration, then central configuration is loaded for use and cached
  * configuration is updated, else cached version is used.
