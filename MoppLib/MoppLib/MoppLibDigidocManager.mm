@@ -122,6 +122,19 @@ public:
     std::string TSLUrl() const override {
       return moppLibConfiguration.TSLURL.UTF8String;
   }
+    
+    virtual std::vector<digidoc::X509Cert> verifyServiceCerts() const override {
+      std::vector<digidoc::X509Cert> x509Certs;
+      try {
+          std::vector<unsigned char> bytes = base64_decode(std::string([moppLibConfiguration.SIVACERT UTF8String]));
+          x509Certs.push_back(digidoc::X509Cert(bytes, digidoc::X509Cert::Format::Der));
+      } catch (const digidoc::Exception &e) {
+          NSLog(@"Error while creating x509 cert. %s", e.msg().c_str());
+          throw e;
+      }
+        
+      return x509Certs;
+    }
 
   virtual std::string ocsp(const std::string &issuer) const override {
     NSString *ocspIssuer = [NSString stringWithCString:issuer.c_str() encoding:[NSString defaultCStringEncoding]];

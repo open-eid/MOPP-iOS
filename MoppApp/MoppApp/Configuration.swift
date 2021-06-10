@@ -39,6 +39,7 @@ internal struct MOPPConfiguration: Codable {
     let SIDPROXYURL: String
     let SIDSKURL: String
     let CERTBUNDLE: Array<String>
+    let SIVACERT: String
     
     private enum MOPPConfigurationType: String, CodingKey {
         case MIDSIGNURL = "MID-SIGN-URL"
@@ -55,6 +56,7 @@ internal struct MOPPConfiguration: Codable {
         case SIDPROXYURL = "SID-PROXY-URL"
         case SIDSKURL = "SID-SK-URL"
         case CERTBUNDLE = "CERT-BUNDLE"
+        case SIVACERT = "SIVA-CERT"
     }
     
     init(from decoder: Decoder) throws {
@@ -73,6 +75,7 @@ internal struct MOPPConfiguration: Codable {
         SIDPROXYURL = try container.decode(String.self, forKey: .SIDPROXYURL)
         SIDSKURL = try container.decode(String.self, forKey: .SIDSKURL)
         CERTBUNDLE = try container.decode([String].self, forKey: .CERTBUNDLE)
+        SIVACERT = try container.decode(String.self, forKey: .SIVACERT)
     }
 }
 
@@ -125,9 +128,10 @@ public class MoppConfiguration {
     static var tslCerts: Array<String>?
     static var tsaUrl: String?
     static var ocspIssuers: [String: String]?
+    static var sivaCert: String?
     
     static func getMoppLibConfiguration() -> MoppLibConfiguration {
-        return MoppLibConfiguration(configuration: sivaUrl, tslurl: tslUrl, tslcerts: tslCerts, tsaurl: tsaUrl, ocspissuers: ocspIssuers)
+        return MoppLibConfiguration(configuration: sivaUrl, tslurl: tslUrl, tslcerts: tslCerts, tsaurl: tsaUrl, ocspissuers: ocspIssuers, sivacert: sivaCert)
     }
 }
 
