@@ -94,9 +94,7 @@ class IdCardViewController : MoppViewController {
         pinTextField.layer.borderWidth = 1.0
         pinTextField.moppPresentDismissButton()
 
-        if #available(iOS 12, *) {
-            UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
-        }
+        UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
     }
 
     deinit {
