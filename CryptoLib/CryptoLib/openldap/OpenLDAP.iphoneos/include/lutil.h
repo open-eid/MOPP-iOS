@@ -1,7 +1,7 @@
 /* $OpenLDAP$ */
 /* This work is part of OpenLDAP Software <http://www.openldap.org/>.
  *
- * Copyright 1998-2017 The OpenLDAP Foundation.
+ * Copyright 1998-2021 The OpenLDAP Foundation.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -18,6 +18,14 @@
 
 #include <ldap_cdefs.h>
 #include <lber_types.h>
+#include <ac/socket.h>
+
+#ifdef HAVE_TCPD
+# include <tcpd.h>
+# define LUTIL_STRING_UNKNOWN	STRING_UNKNOWN
+#else /* ! TCP Wrappers */
+# define LUTIL_STRING_UNKNOWN	"unknown"
+#endif /* ! TCP Wrappers */
 
 /*
  * Include file for LDAP utility routine
@@ -164,14 +172,15 @@ typedef struct lutil_tm {
 	int tm_mday;	/* day 1-31 */
 	int tm_mon;	/* month 0-11 */
 	int tm_year;	/* year - 1900 */
-	int tm_usec;	/* microseconds */
+	int tm_nsec;	/* nanoseconds */
 	int tm_usub;	/* submicro */
 } lutil_tm;
 
 typedef struct lutil_timet {
-	unsigned int tt_sec;	/* seconds since 1900 */
-	int tt_gsec;		/* seconds since 1900, high 7 bits */
-	unsigned int tt_usec;	/* microseconds */
+	unsigned int tt_sec;	/* seconds since epoch, 0000 or 1970 */
+	int tt_gsec;		/* seconds since epoch, high 7 bits, maybe sign-flipped */
+						/* sign flipped to sort properly as unsigned ints */
+	unsigned int tt_nsec;	/* nanoseconds */
 } lutil_timet;
 
 /* Parse a timestamp string into a structure */
@@ -179,9 +188,14 @@ LDAP_LUTIL_F( int )
 lutil_parsetime LDAP_P((
 	char *atm, struct lutil_tm * ));
 
-/* Convert structured time to time in seconds since 1900 */
+/* Convert structured time to time in seconds since 1970 (Unix epoch) */
 LDAP_LUTIL_F( int )
 lutil_tm2time LDAP_P((
+	struct lutil_tm *, struct lutil_timet * ));
+
+/* Convert structured time to time in seconds since 0000 (Proleptic Gregorian) */
+LDAP_LUTIL_F( int )
+lutil_tm2gtime LDAP_P((
 	struct lutil_tm *, struct lutil_timet * ));
 
 #ifdef _WIN32
