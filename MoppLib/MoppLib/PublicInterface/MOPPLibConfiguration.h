@@ -30,8 +30,8 @@
 @property (nonatomic, strong) NSArray<NSString*> *TSLCERTS;
 @property (nonatomic, strong) NSString *TSAURL;
 @property (nonatomic, strong) NSDictionary *OCSPISSUERS;
-@property (nonatomic, strong) NSString *SIVACERT;
+@property (nonatomic, strong) NSArray<NSString*> *CERTBUNDLE;
 
-- (id) initWithConfiguration:(NSString *)SIVAURL TSLURL:(NSString *)TSLURL TSLCERTS:(NSArray<NSString*> *)TSLCERTS TSAURL:(NSString *)TSAURL OCSPISSUERS:(NSDictionary *)OCSPISSUERS SIVACERT:(NSString*)SIVACERT;
+- (id) initWithConfiguration:(NSString *)SIVAURL TSLURL:(NSString *)TSLURL TSLCERTS:(NSArray<NSString*> *)TSLCERTS TSAURL:(NSString *)TSAURL OCSPISSUERS:(NSDictionary *)OCSPISSUERS CERTBUNDLE:(NSArray<NSString*> *)CERTBUNDLE;
 
 @end

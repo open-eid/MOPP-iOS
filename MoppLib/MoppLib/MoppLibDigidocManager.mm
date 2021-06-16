@@ -96,27 +96,7 @@ public:
   }
 
   std::vector<digidoc::X509Cert> TSLCerts() const override {
-    std::vector<digidoc::X509Cert> x509Certs;
-
-    __block std::vector<NSString*> certList;
-    [moppLibConfiguration.TSLCERTS enumerateObjectsUsingBlock:^(NSString* object, NSUInteger idx, BOOL *stop) {
-      certList.push_back(object);
-    }];
-
-    __block std::vector<unsigned char> bytes;
-
-    for (auto const& element : certList) {
-      std::string cString = std::string([element UTF8String]);
-      std::string fullCert = "-----BEGIN CERTIFICATE-----\n" + cString + "\n" + "-----END CERTIFICATE-----";
-
-      for(int i = 0; fullCert[i] != '\0'; i++) {
-        bytes.push_back(fullCert[i]);
-      }
-      x509Certs.push_back(generateX509Cert(bytes));
-      bytes.clear();
-    }
-
-    return x509Certs;
+      return stringsToX509Certs(moppLibConfiguration.TSLCERTS);
   }
 
     std::string TSLUrl() const override {
@@ -124,16 +104,7 @@ public:
   }
     
     virtual std::vector<digidoc::X509Cert> verifyServiceCerts() const override {
-      std::vector<digidoc::X509Cert> x509Certs;
-      try {
-          std::vector<unsigned char> bytes = base64_decode(std::string([moppLibConfiguration.SIVACERT UTF8String]));
-          x509Certs.push_back(digidoc::X509Cert(bytes, digidoc::X509Cert::Format::Der));
-      } catch (const digidoc::Exception &e) {
-          NSLog(@"Error while creating x509 cert. %s", e.msg().c_str());
-          throw e;
-      }
-        
-      return x509Certs;
+        return stringsToX509Certs(moppLibConfiguration.CERTBUNDLE);
     }
 
   virtual std::string ocsp(const std::string &issuer) const override {
@@ -147,6 +118,30 @@ public:
         return std::string([OCSPUrl UTF8String]);
     }
   }
+    
+    std::vector<digidoc::X509Cert> stringsToX509Certs(NSArray<NSString*> *certBundle) const {
+        std::vector<digidoc::X509Cert> x509Certs;
+
+        __block std::vector<NSString*> certList;
+        [certBundle enumerateObjectsUsingBlock:^(NSString* object, NSUInteger idx, BOOL *stop) {
+          certList.push_back(object);
+        }];
+
+        __block std::vector<unsigned char> bytes;
+
+        for (auto const& element : certList) {
+          std::string cString = std::string([element UTF8String]);
+          std::string fullCert = "-----BEGIN CERTIFICATE-----\n" + cString + "\n" + "-----END CERTIFICATE-----";
+
+          for(int i = 0; fullCert[i] != '\0'; i++) {
+            bytes.push_back(fullCert[i]);
+          }
+          x509Certs.push_back(generateX509Cert(bytes));
+          bytes.clear();
+        }
+
+        return x509Certs;
+    }
 
   digidoc::X509Cert generateX509Cert(std::vector<unsigned char> bytes) const {
     digidoc::X509Cert x509Cert;
