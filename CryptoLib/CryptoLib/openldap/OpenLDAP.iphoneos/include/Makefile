@@ -1,7 +1,7 @@
 # $OpenLDAP$
 ## This work is part of OpenLDAP Software <http://www.openldap.org/>.
 ##
-## Copyright 1998-2017 The OpenLDAP Foundation.
+## Copyright 1998-2021 The OpenLDAP Foundation.
 ## All rights reserved.
 ##
 ## Redistribution and use in source and binary forms, with or without
@@ -16,8 +16,8 @@
 #
 
 PACKAGE= OpenLDAP
-VERSION= 2.4.45
-RELEASEDATE= 2017/06/01
+VERSION= 2.X
+RELEASEDATE= 0000/00/00
 
 
 SHELL = /bin/sh
@@ -45,6 +45,7 @@ sbindir = ${exec_prefix}/sbin
 sharedstatedir = ${prefix}/com
 sysconfdir = ${prefix}/etc$(ldap_subdir)
 schemadir = $(sysconfdir)/schema
+systemdsystemunitdir = 
 
 PLAT = UNIX
 EXEEXT = 
@@ -59,7 +60,7 @@ INSTALL_PROGRAM = $(INSTALL)
 INSTALL_DATA = $(INSTALL) -m 644
 INSTALL_SCRIPT = $(INSTALL)
 
-STRIP = -s
+STRIP_OPTS = -s
 
 LINT = lint
 5LINT = 5lint
@@ -72,8 +73,8 @@ MKDEP_CFLAGS = -M
 MKVERSION = $(top_srcdir)/build/mkversion -v "$(VERSION)"
 
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
-LIBRELEASE = 2.4
-LIBVERSION = 12:8:10
+LIBRELEASE = 2.devel
+LIBVERSION = 0:0:0
 LTVERSION = -release $(LIBRELEASE) -version-info $(LIBVERSION)
 
 # libtool --only flag for libraries: platform specific
@@ -104,6 +105,9 @@ LTFLAGS_MOD = $(UNIX_LTFLAGS_MOD)
 # LINK_LIBS referenced in library and module link commands.
 LINK_LIBS = $(MOD_LIBS) $(UNIX_LINK_LIBS)
 
+# compiler options for versioned library symbol support
+OL_VERSIONED_SYMBOLS = 
+
 LTSTATIC = -static
 
 LTLINK   = $(LIBTOOL) --mode=link \
@@ -113,7 +117,7 @@ LTCOMPILE_LIB = $(LIBTOOL) $(LTONLY_LIB) --mode=compile \
 	$(CC) $(LT_CFLAGS) $(LT_CPPFLAGS) $(LIB_DEFS) -c
 
 LTLINK_LIB = $(LIBTOOL) $(LTONLY_LIB) --mode=link \
-	$(CC) $(LT_CFLAGS) $(LDFLAGS) $(LTFLAGS_LIB)
+	$(CC) $(LT_CFLAGS) $(LDFLAGS) $(LTFLAGS_LIB) $(SYMBOL_VERSION_FLAGS)
 
 LTCOMPILE_MOD = $(LIBTOOL) $(LTONLY_MOD) --mode=compile \
 	$(CC) $(LT_CFLAGS) $(LT_CPPFLAGS) $(MOD_DEFS) -c
@@ -135,7 +139,7 @@ HOSTNAME = $(SHTOOL) echo -e "%h%d"
 LN = $(SHTOOL) mkln
 LN_H = $(LN)
 LN_S = $(LN) -s
-MAKEINFO = ${SHELL} /Users/siimsuu/projects/openldap-2.4.45/build/missing --run makeinfo
+MAKEINFO = @MAKEINFO@
 MKDIR = $(SHTOOL) mkdir -p
 MV = $(SHTOOL) move
 PWD = pwd
@@ -156,15 +160,18 @@ INCLUDEDIR= $(top_srcdir)/include
 LDAP_INCPATH= -I$(LDAP_INCDIR) -I$(INCLUDEDIR)
 LDAP_LIBDIR= $(top_builddir)/libraries
 
+CLIENT_LIBS = 
+
 LUTIL_LIBS = 
 LTHREAD_LIBS =  
 
-BDB_LIBS = 
 SLAPD_NDB_LIBS = 
+WT_LIBS = 
+
+LEVENT_LIBS = 
 
 LDAP_LIBLBER_LA = $(LDAP_LIBDIR)/liblber/liblber.la
 LDAP_LIBLDAP_LA = $(LDAP_LIBDIR)/libldap/libldap.la
-LDAP_LIBLDAP_R_LA = $(LDAP_LIBDIR)/libldap_r/libldap_r.la
 
 LDAP_LIBREWRITE_A = $(LDAP_LIBDIR)/librewrite/librewrite.a
 LDAP_LIBLUNICODE_A = $(LDAP_LIBDIR)/liblunicode/liblunicode.a
@@ -173,24 +180,24 @@ LDAP_LIBLUTIL_A = $(LDAP_LIBDIR)/liblutil/liblutil.a
 LDAP_L = $(LDAP_LIBLUTIL_A) \
 	$(LDAP_LIBLDAP_LA) $(LDAP_LIBLBER_LA)
 SLAPD_L = $(LDAP_LIBLUNICODE_A) $(LDAP_LIBREWRITE_A) \
-	$(LDAP_LIBLUTIL_A) $(LDAP_LIBLDAP_R_LA) $(LDAP_LIBLBER_LA)
+	$(LDAP_LIBLUTIL_A) $(LDAP_LIBLDAP_LA) $(LDAP_LIBLBER_LA)
+LLOADD_L = $(LDAP_LIBLUTIL_A) $(LDAP_LIBLDAP_LA) \
+	$(LDAP_LIBLBER_LA)
 
 WRAP_LIBS = 
 # AutoConfig generated 
 AC_CC	= cc
-AC_CFLAGS = -g -O2
+AC_CFLAGS = -arch armv7 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.5.sdk
 AC_DEFS =  # -DHAVE_CONFIG_H
 AC_LDFLAGS = 
 AC_LIBS = -lresolv 
 
-KRB4_LIBS = 
-KRB5_LIBS = 
-KRB_LIBS =  
-SASL_LIBS = -lsasl2
+SASL_LIBS = 
 TLS_LIBS = 
 AUTH_LIBS = 
-SECURITY_LIBS = $(SASL_LIBS) $(KRB_LIBS) $(TLS_LIBS) $(AUTH_LIBS)
-ICU_LIBS = 
+ARGON2_LIBS = 
+SECURITY_LIBS = $(SASL_LIBS) $(TLS_LIBS) $(AUTH_LIBS)
+SYSTEMD_LIBS = 
 
 MODULES_CPPFLAGS = 
 MODULES_LDFLAGS = 
@@ -201,7 +208,8 @@ SLAPD_SQL_LDFLAGS =
 SLAPD_SQL_INCLUDES = 
 SLAPD_SQL_LIBS = 
 
-SLAPD_LIBS =  $(BDB_LIBS)      $(ICU_LIBS)
+SLAPD_LIBS =       $(SYSTEMD_LIBS)
+LLOADD_LIBS =  $(LEVENT_LIBS)
 
 # Our Defaults
 CC = $(AC_CC)
@@ -255,7 +263,7 @@ FORCE:
 # $OpenLDAP$
 ## This work is part of OpenLDAP Software <http://www.openldap.org/>.
 ##
-## Copyright 1998-2017 The OpenLDAP Foundation.
+## Copyright 1998-2021 The OpenLDAP Foundation.
 ## All rights reserved.
 ##
 ## Redistribution and use in source and binary forms, with or without
@@ -274,7 +282,7 @@ install-local: FORCE
 		$(srcdir)/ldap.h $(srcdir)/ldap_cdefs.h \
 		$(srcdir)/ldap_schema.h $(srcdir)/ldap_utf8.h \
 		$(srcdir)/slapi-plugin.h ldap_features.h \
-		$(srcdir)/ldif.h ; \
+		$(srcdir)/ldif.h $(srcdir)/openldap.h ; \
 	do \
 		$(INSTALL) $(INSTALLFLAGS) -m 644 $$header $(DESTDIR)$(includedir); \
 	done

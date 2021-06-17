@@ -1,8 +1,7 @@
-/* Generated from ./ldap_config.hin on Fri Mar  9 10:31:08 EET 2018 */
 /* $OpenLDAP$ */
 /* This work is part of OpenLDAP Software <http://www.openldap.org/>.
  *
- * Copyright 1998-2017 The OpenLDAP Foundation.
+ * Copyright 1998-2021 The OpenLDAP Foundation.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -15,7 +14,7 @@
  */
 
 /*
- * This file works in confunction with OpenLDAP configure system.
+ * This file works in conjunction with OpenLDAP configure system.
  * If you do no like the values below, adjust your configure options.
  */
 
@@ -46,28 +45,28 @@
 
 /* directories */
 #ifndef LDAP_BINDIR
-#define LDAP_BINDIR			"/usr/local/bin"
+#define LDAP_BINDIR			"%BINDIR%"
 #endif
 #ifndef LDAP_SBINDIR
-#define LDAP_SBINDIR		"/usr/local/sbin"
+#define LDAP_SBINDIR		"%SBINDIR%"
 #endif
 #ifndef LDAP_DATADIR
-#define LDAP_DATADIR		"/usr/local/share/openldap"
+#define LDAP_DATADIR		"%DATADIR%"
 #endif
 #ifndef LDAP_SYSCONFDIR
-#define LDAP_SYSCONFDIR		"/usr/local/etc/openldap"
+#define LDAP_SYSCONFDIR		"%SYSCONFDIR%"
 #endif
 #ifndef LDAP_LIBEXECDIR
-#define LDAP_LIBEXECDIR		"/usr/local/libexec"
+#define LDAP_LIBEXECDIR		"%LIBEXECDIR%"
 #endif
 #ifndef LDAP_MODULEDIR
-#define LDAP_MODULEDIR		"/usr/local/libexec/openldap"
+#define LDAP_MODULEDIR		"%MODULEDIR%"
 #endif
 #ifndef LDAP_RUNDIR
-#define LDAP_RUNDIR			"/usr/local/var"
+#define LDAP_RUNDIR			"%RUNDIR%"
 #endif
 #ifndef LDAP_LOCALEDIR
-#define LDAP_LOCALEDIR		""
+#define LDAP_LOCALEDIR		"%LOCALEDIR%"
 #endif
 
 

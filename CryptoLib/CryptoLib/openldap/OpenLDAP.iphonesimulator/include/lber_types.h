@@ -1,8 +1,7 @@
-/* include/lber_types.h.  Generated from lber_types.hin by configure.  */
 /* $OpenLDAP$ */
 /* This work is part of OpenLDAP Software <http://www.openldap.org/>.
  *
- * Copyright 1998-2017 The OpenLDAP Foundation.
+ * Copyright 1998-2021 The OpenLDAP Foundation.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,13 +28,13 @@ LDAP_BEGIN_DECL
 #define LBER_INT_T int
 
 /* LBER tags (32 bits or larger) */
-#define LBER_TAG_T long
+#define LBER_TAG_T int
 
 /* LBER socket descriptor */
 #define LBER_SOCKET_T int
 
 /* LBER lengths (32 bits or larger) */
-#define LBER_LEN_T long
+#define LBER_LEN_T int
 
 /* ------------------------------------------------------------ */
 
