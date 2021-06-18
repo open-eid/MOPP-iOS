@@ -124,7 +124,7 @@ public class SIDRequest: NSObject, URLSessionDelegate, SIDRequestProtocol {
                   switch httpResponse.statusCode {
                   case 400: return .forbidden
                   case 401, 403: return .sidInvalidAccessRights
-                  case 404: return method == "Session" ? .sessionIdNotFound : .accountNotFound
+                  case 404: return method == "Session" ? .sessionIdNotFound : .accountNotFoundOrTimeout
                   case 409: return .exceededUnsuccessfulRequests
                   case 429: return .tooManyRequests
                   case 471: return .notQualified
