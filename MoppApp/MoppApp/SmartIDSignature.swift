@@ -116,7 +116,7 @@ class SmartIDSignature {
                     if sessionStatusResult.endResult != .OK {
                         return completionHandler(.failure({
                             switch sessionStatusResult.endResult {
-                            case .TIMEOUT: return .sidTimeout
+                            case .TIMEOUT: return .accountNotFoundOrTimeout
                             case .USER_REFUSED: return .userCancelled
                             case .WRONG_VC: return .wrongVC
                             case .DOCUMENT_UNUSABLE: return .documentUnusable
