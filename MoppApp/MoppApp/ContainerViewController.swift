@@ -53,9 +53,9 @@ protocol CryptoContainerViewControllerDelegate: AnyObject {
 
 class ContainerViewController : MoppViewController, ContainerActions, PreviewActions {
     
-    var containerViewDelegate: ContainerViewControllerDelegate!
-    var cryptoContainerViewDelegate: CryptoContainerViewControllerDelegate!
-    var signingContainerViewDelegate: SigningContainerViewControllerDelegate! 
+    weak var containerViewDelegate: ContainerViewControllerDelegate!
+    weak var cryptoContainerViewDelegate: CryptoContainerViewControllerDelegate!
+    weak var signingContainerViewDelegate: SigningContainerViewControllerDelegate! 
     var containerModel: Any!
     
     var containerPath: String!
@@ -304,8 +304,11 @@ extension ContainerViewController : UITableViewDataSource {
         switch sections[indexPath.section] {
         case .notifications:
             let cell = tableView.dequeueReusableCell(withType: ContainerNotificationCell.self, for: indexPath)!
+            if notifications.indices.contains(indexPath.row) {
                 cell.populate(isSuccess: notifications[indexPath.row].isSuccess, text: notifications[indexPath.row].text)
-            return cell
+                return cell
+            }
+            return ContainerNotificationCell()
         case .signatures:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
                 cell.delegate = self

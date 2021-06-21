@@ -136,12 +136,15 @@ extension ContainerActions where Self: UIViewController {
                         return
                     }
                     
-                    let containerViewController = ContainerViewController.instantiate()
-                        containerViewController.containerPath = newFilePath
-                        containerViewController.forcePDFContentPreview = isPDF
+                    var containerViewController: ContainerViewController? = ContainerViewController.instantiate()
+                        containerViewController?.containerPath = newFilePath
+                        containerViewController?.forcePDFContentPreview = isPDF
                     
                     landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
-                        navController?.pushViewController(containerViewController, animated: true)
+                        if let containerVC = containerViewController {
+                            navController?.pushViewController(containerVC, animated: true)
+                            containerViewController = nil
+                        }
                     })
 
                 },
