@@ -524,9 +524,6 @@ static std::string profile = "time-stamp";
     else if(digidoc::Signature::Validator::Status::Unknown==status){
         return UnknownStatus;
     }
-    else if(digidoc::Signature::Validator::Status::Test==status){
-        return ValidTest;
-    }
     return Invalid;
 }
 
