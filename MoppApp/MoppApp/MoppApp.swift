@@ -283,12 +283,17 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                 var newUrl: URL = fileUrl
 
                 // Sharing from Google Drive may change file extension
-                let fileExtension: String? = determineFileExtension(mimeType: MimeTypeExtractor().getMimeTypeFromContainer(filePath: newUrl)) ?? newUrl.pathExtension
+                let fileExtension: String? = MimeTypeExtractor.determineFileExtension(mimeType: MimeTypeExtractor.getMimeTypeFromContainer(filePath: newUrl)) ?? newUrl.pathExtension
 
-                guard let pathExtension = fileExtension else {
+                guard var pathExtension = fileExtension else {
                     NSLog("Unable to get file extension")
                     topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, [newUrl.lastPathComponent]))
                     return false
+                }
+                
+                // Bdoc has asice mimetype
+                if MimeTypeExtractor.isBdoc(mimetype: MimeTypeExtractor.getMimeTypeFromContainer(filePath: newUrl), fileExtension: newUrl.pathExtension) {
+                    pathExtension = ContainerFormatBdoc
                 }
 
                 do {
@@ -332,7 +337,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                         isXmlExtensionFileCdoc = self.isXmlExtensionFileCdoc(with: url)
                         if isXmlExtensionFileCdoc {
                             newUrl.deletePathExtension()
-                            newUrl.appendPathExtension("cdoc")
+                            newUrl.appendPathExtension(ContainerFormatCdoc)
                         }
                         let isFileMoved = MoppFileManager.shared.moveFile(withPath: url.path, toPath: newUrl.path, overwrite: true)
                         if !isFileMoved {
@@ -510,21 +515,6 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             if childViewController is IdCardViewController {
                 MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
             }
-        }
-    }
-
-    private func determineFileExtension(mimeType: String) -> String? {
-        switch mimeType {
-        case "application/vnd.etsi.asic-e+zip":
-            return "asice"
-        case "application/vnd.etsi.asic-s+zip":
-            return "asics"
-        case "application/x-ddoc":
-            return "ddoc"
-        case "application/x-cdoc":
-            return "cdoc"
-        default:
-            return nil
         }
     }
 

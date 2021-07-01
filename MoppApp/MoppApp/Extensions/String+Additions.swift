@@ -69,7 +69,7 @@ extension String {
             ext == ContainerFormatDdoc    ||
             ext == ContainerFormatEdoc    ||
             ext == ContainerFormatAsice   ||
-            ext == ContainerFormatAscis   ||
+            ext == ContainerFormatAsics   ||
             ext == ContainerFormatAsiceShort    ||
             ext == ContainerFormatAsicsShort
     }

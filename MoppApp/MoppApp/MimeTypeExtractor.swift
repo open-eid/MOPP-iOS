@@ -26,7 +26,7 @@ import Zip
 
 
 class MimeTypeExtractor {
-    public func getMimeTypeFromContainer(filePath: URL) -> String {
+    public static func getMimeTypeFromContainer(filePath: URL) -> String {
         
         var mimetype: String = ""
         
@@ -45,13 +45,32 @@ class MimeTypeExtractor {
         fileHandle.closeFile()
         
         if isDdoc(url: filePath) {
-            return "application/x-ddoc"
+            return ContainerFormatDdocMimetype
         }
         
         return mimetype
     }
     
-    private func unZipFile(filePath: URL) -> URL {
+    public static func determineFileExtension(mimeType: String) -> String? {
+        switch mimeType {
+        case ContainerFormatAsiceMimetype:
+            return ContainerFormatAsice
+        case ContainerFormatAsicsMimetype:
+            return ContainerFormatAsics
+        case ContainerFormatDdocMimetype:
+            return ContainerFormatDdoc
+        case ContainerFormatCdocMimetype:
+            return ContainerFormatCdoc
+        default:
+            return nil
+        }
+    }
+    
+    public static func isBdoc(mimetype: String, fileExtension: String) -> Bool {
+        return mimetype == ContainerFormatAsiceMimetype && fileExtension == ContainerFormatBdoc
+    }
+    
+    private static func unZipFile(filePath: URL) -> URL {
         var unzippedFilePath: URL = URL(fileURLWithPath: "")
         do {
             Zip.addCustomFileExtension(filePath.pathExtension)
@@ -64,11 +83,11 @@ class MimeTypeExtractor {
         return unzippedFilePath
     }
     
-    private func isMimeTypeFilePresent(filePath: URL) -> Bool {
+    private static func isMimeTypeFilePresent(filePath: URL) -> Bool {
         return FileManager().fileExists(atPath: filePath.appendingPathComponent("mimetype").path)
     }
     
-    private func getMimetypeFromUnzippedContainer(filePath: URL) -> String {
+    private static func getMimetypeFromUnzippedContainer(filePath: URL) -> String {
         var mimetype: String = ""
         if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let mimetypeFile = documentsDirectory.appendingPathComponent(filePath.lastPathComponent, isDirectory: true).appendingPathComponent("mimetype")
@@ -82,11 +101,11 @@ class MimeTypeExtractor {
         return mimetype
     }
     
-    private func removeUnzippedFolder(folderPath: URL) -> Void {
+    private static func removeUnzippedFolder(folderPath: URL) -> Void {
         MoppFileManager().removeFile(withPath: folderPath.path)
     }
     
-    private func isDdoc(url: URL) -> Bool {
+    private static func isDdoc(url: URL) -> Bool {
         do {
             let fileData = try Data(contentsOf: url)
             guard !fileData.isEmpty else {
@@ -97,7 +116,7 @@ class MimeTypeExtractor {
             var isDdoc: Bool = false
             
             MimeTypeDecoder().getMimeType(fileString: fileDataAscii ?? "") { (containerExtension) in
-                if containerExtension == "ddoc" {
+                if containerExtension == ContainerFormatDdoc {
                     isDdoc = true
                 }
             }
