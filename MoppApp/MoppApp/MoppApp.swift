@@ -293,10 +293,8 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                     return false
                 }
                 
-                // Bdoc has asice mimetype
-                if MimeTypeExtractor.isBdoc(mimetype: MimeTypeExtractor.getMimeTypeFromContainer(filePath: newUrl), fileExtension: newUrl.pathExtension) {
-                    pathExtension = ContainerFormatBdoc
-                }
+                // Some containers have the same mimetype
+                pathExtension = MimeTypeExtractor.determineContainer(mimetype: MimeTypeExtractor.getMimeTypeFromContainer(filePath: newUrl), fileExtension: newUrl.pathExtension)
 
                 do {
                     let newData: Data? = try Data(contentsOf: newUrl)

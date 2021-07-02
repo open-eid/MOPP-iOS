@@ -30,6 +30,7 @@ class MimeTypeDecoder: NSObject, XMLParserDelegate {
     private var currentElementValue: String = ""
     
     private var ddocFound: Bool = false
+    private var cdocFound: Bool = false
     
     private var extensionName: String = ""
     
@@ -37,20 +38,29 @@ class MimeTypeDecoder: NSObject, XMLParserDelegate {
         if elementName == "SignedDoc" && attributeDict["format"] == "DIGIDOC-XML" {
             ddocFound = true
         }
+        
+        if elementName == "denc:EncryptionProperty" && attributeDict["Name"] == "DocumentFormat" {
+            cdocFound = true
+        }
     }
     
     func parser(_ parser: XMLParser, foundCharacters foundValue: String) {
         if ddocFound == true {
             currentElementName = foundValue
+        } else if cdocFound == true {
+            currentElementName = foundValue
         }
         
         if currentElementName == foundValue && ddocFound == true {
             extensionName = "ddoc"
+        } else if currentElementName == foundValue && cdocFound == true {
+            extensionName = "cdoc"
         }
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         ddocFound = false
+        cdocFound = false
     }
     
     

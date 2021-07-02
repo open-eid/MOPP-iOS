@@ -48,6 +48,10 @@ class MimeTypeExtractor {
             return ContainerFormatDdocMimetype
         }
         
+        if isCdoc(url: filePath) {
+            return ContainerFormatCdocMimetype
+        }
+        
         return mimetype
     }
     
@@ -61,13 +65,46 @@ class MimeTypeExtractor {
             return ContainerFormatDdoc
         case ContainerFormatCdocMimetype:
             return ContainerFormatCdoc
+        case ContainerFormatAdocMimetype:
+            return ContainerFormatAdoc
         default:
             return nil
         }
     }
     
-    public static func isBdoc(mimetype: String, fileExtension: String) -> Bool {
-        return mimetype == ContainerFormatAsiceMimetype && fileExtension == ContainerFormatBdoc
+    public static func determineContainer(mimetype: String, fileExtension: String) -> String {
+        if mimetype == ContainerFormatAsiceMimetype && fileExtension == ContainerFormatBdoc {
+            return ContainerFormatBdoc
+        }
+        
+        if mimetype == ContainerFormatAsiceMimetype && fileExtension == ContainerFormatEdoc {
+            return ContainerFormatEdoc
+        }
+        
+        if mimetype == ContainerFormatAsiceMimetype && fileExtension == ContainerFormatAsiceShort {
+            return ContainerFormatAsiceShort
+        }
+        
+        if mimetype == ContainerFormatAsiceMimetype && fileExtension == ContainerFormatP12d {
+            return ContainerFormatP12d
+        }
+        
+        if mimetype == ContainerFormatAsicsShort && fileExtension == ContainerFormatAsicsShort {
+            return ContainerFormatAsicsShort
+        }
+        
+        // Google Drive may export ddoc files as xml
+        if mimetype == ContainerFormatDdocMimetype && (fileExtension == ContainerFormatDdoc || fileExtension == FileFormatXml) {
+            return ContainerFormatDdoc
+        }
+        
+        // Google Drive may export cdoc files as xml
+        if mimetype == ContainerFormatCdocMimetype && (fileExtension == ContainerFormatCdoc || fileExtension == FileFormatXml) {
+            return ContainerFormatCdoc
+        }
+        
+        return fileExtension
+        
     }
     
     private static func unZipFile(filePath: URL) -> URL {
@@ -122,6 +159,30 @@ class MimeTypeExtractor {
             }
             
             return isDdoc
+        } catch {
+            NSLog("Error getting url data \(error.localizedDescription)")
+        }
+        
+        return false
+    }
+    
+    private static func isCdoc(url: URL) -> Bool {
+        do {
+            let fileData = try Data(contentsOf: url)
+            guard !fileData.isEmpty else {
+                return false
+            }
+            let fileDataAscii = String(data: fileData, encoding: .ascii)
+            
+            var isCdoc: Bool = false
+            
+            MimeTypeDecoder().getMimeType(fileString: fileDataAscii ?? "") { (containerExtension) in
+                if containerExtension == ContainerFormatCdoc {
+                    isCdoc = true
+                }
+            }
+            
+            return isCdoc
         } catch {
             NSLog("Error getting url data \(error.localizedDescription)")
         }
