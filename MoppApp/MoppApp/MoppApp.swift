@@ -138,13 +138,15 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             window?.rootViewController = UIStoryboard.jailbreak.instantiateInitialViewController()
         } else {
             
-            // Prevent screen recording
-            NotificationCenter.default.addObserver(self, selector: #selector(handleScreenRecording), name: UIScreen.capturedDidChangeNotification, object: nil)
+            #if !DEBUG
+                // Prevent screen recording
+                NotificationCenter.default.addObserver(self, selector: #selector(handleScreenRecording), name: UIScreen.capturedDidChangeNotification, object: nil)
 
-            // Give time to load before handling screen recording
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.handleScreenRecording()
-            }
+                // Give time to load before handling screen recording
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.handleScreenRecording()
+                }
+            #endif
 
             // Get remote configuration
             SettingsConfiguration().getCentralConfiguration()
