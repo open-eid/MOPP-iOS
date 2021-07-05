@@ -115,7 +115,10 @@ public:
         return std::string([moppLibConfiguration.OCSPISSUERS[ocspIssuer] UTF8String]);
     } else {
         NSLog(@"Did not find url for issuer: %@. Using received OCSP url: %@", ocspIssuer, OCSPUrl);
-        return std::string([OCSPUrl UTF8String]);
+        if (OCSPUrl) {
+            return std::string([OCSPUrl UTF8String]);
+        }
+        return std::string();
     }
   }
     
