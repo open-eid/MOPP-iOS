@@ -51,6 +51,10 @@ class SigningContainerViewController : ContainerViewController, SigningActions, 
         signingContainerViewDelegate = self
         
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
 extension SigningContainerViewController : SigningContainerViewControllerDelegate {
@@ -128,17 +132,19 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
     }
     
     func saveDataFile(name: String?) {
-        SaveableContainer(signingContainerPath: self.containerPath).saveDataFile(name: name, completionHandler: { tempSavedFileLocation, isSuccess in
+        SaveableContainer(signingContainerPath: self.containerPath).saveDataFile(name: name, completionHandler: { [weak self] tempSavedFileLocation, isSuccess in
             if isSuccess && !tempSavedFileLocation.isEmpty {
                 // Show file save location picker
                 let pickerController = UIDocumentPickerViewController(url: URL(fileURLWithPath: tempSavedFileLocation), in: .exportToService)
                 pickerController.delegate = self
-                self.present(pickerController, animated: true) {
+                self?.present(pickerController, animated: true) {
                     NSLog("Showing file saving location picker")
                 }
+                return
             } else {
                 NSLog("Failed to save \(name ?? "file") to 'Saved Files' directory")
-                return self.errorAlert(message: L(.fileImportFailedFileSave))
+                self?.errorAlert(message: L(.fileImportFailedFileSave))
+                return
             }
         })
     }

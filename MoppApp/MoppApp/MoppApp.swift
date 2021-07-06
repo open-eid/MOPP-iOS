@@ -135,13 +135,15 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             window?.rootViewController = UIStoryboard.jailbreak.instantiateInitialViewController()
         } else {
             
-            // Prevent screen recording
-            NotificationCenter.default.addObserver(self, selector: #selector(handleScreenRecording), name: UIScreen.capturedDidChangeNotification, object: nil)
+            #if !DEBUG
+                // Prevent screen recording
+                NotificationCenter.default.addObserver(self, selector: #selector(handleScreenRecording), name: UIScreen.capturedDidChangeNotification, object: nil)
 
-            // Give time to load before handling screen recording
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.handleScreenRecording()
-            }
+                // Give time to load before handling screen recording
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.handleScreenRecording()
+                }
+            #endif
 
             // Get remote configuration
             SettingsConfiguration().getCentralConfiguration()
@@ -280,13 +282,16 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                 var newUrl: URL = fileUrl
 
                 // Sharing from Google Drive may change file extension
-                let fileExtension: String? = determineFileExtension(mimeType: MimeTypeExtractor().getMimeTypeFromContainer(filePath: newUrl)) ?? newUrl.pathExtension
+                let fileExtension: String? = MimeTypeExtractor.determineFileExtension(mimeType: MimeTypeExtractor.getMimeTypeFromContainer(filePath: newUrl)) ?? newUrl.pathExtension
 
-                guard let pathExtension = fileExtension else {
+                guard var pathExtension = fileExtension else {
                     NSLog("Unable to get file extension")
                     topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, [newUrl.lastPathComponent]))
                     return false
                 }
+                
+                // Some containers have the same mimetype
+                pathExtension = MimeTypeExtractor.determineContainer(mimetype: MimeTypeExtractor.getMimeTypeFromContainer(filePath: newUrl), fileExtension: newUrl.pathExtension)
 
                 do {
                     let newData: Data? = try Data(contentsOf: newUrl)
@@ -329,7 +334,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                         isXmlExtensionFileCdoc = self.isXmlExtensionFileCdoc(with: url)
                         if isXmlExtensionFileCdoc {
                             newUrl.deletePathExtension()
-                            newUrl.appendPathExtension("cdoc")
+                            newUrl.appendPathExtension(ContainerFormatCdoc)
                         }
                         let isFileMoved = MoppFileManager.shared.moveFile(withPath: url.path, toPath: newUrl.path, overwrite: true)
                         if !isFileMoved {
@@ -476,21 +481,6 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             if childViewController is IdCardViewController {
                 MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
             }
-        }
-    }
-
-    private func determineFileExtension(mimeType: String) -> String? {
-        switch mimeType {
-        case "application/vnd.etsi.asic-e+zip":
-            return "asice"
-        case "application/vnd.etsi.asic-s+zip":
-            return "asics"
-        case "application/x-ddoc":
-            return "ddoc"
-        case "application/x-cdoc":
-            return "cdoc"
-        default:
-            return nil
         }
     }
 

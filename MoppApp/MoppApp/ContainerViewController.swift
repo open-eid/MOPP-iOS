@@ -53,9 +53,9 @@ protocol CryptoContainerViewControllerDelegate: AnyObject {
 
 class ContainerViewController : MoppViewController, ContainerActions, PreviewActions {
     
-    var containerViewDelegate: ContainerViewControllerDelegate!
-    var cryptoContainerViewDelegate: CryptoContainerViewControllerDelegate!
-    var signingContainerViewDelegate: SigningContainerViewControllerDelegate! 
+    weak var containerViewDelegate: ContainerViewControllerDelegate!
+    weak var cryptoContainerViewDelegate: CryptoContainerViewControllerDelegate!
+    weak var signingContainerViewDelegate: SigningContainerViewControllerDelegate! 
     var containerModel: Any!
     
     var containerPath: String!
@@ -234,19 +234,16 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     
     func isDdocOrAsicsContainer(containerPath: String) -> Bool {
         let fileLocation: URL = URL(fileURLWithPath: containerPath)
-        
-        let ddocMimeType: String = "application/x-ddoc"
-        let asicsMimeType: String = "application/vnd.etsi.asic-s+zip"
         let fileExtension: String = fileLocation.pathExtension
         
-        let forbiddenMimetypes: [String] = [ddocMimeType, asicsMimeType]
-        let forbiddenExtensions: [String] = [ContainerFormatDdoc, ContainerFormatAscis, ContainerFormatAsicsShort]
+        let forbiddenMimetypes: [String] = [ContainerFormatDdocMimetype, ContainerFormatAsicsMimetype]
+        let forbiddenExtensions: [String] = [ContainerFormatDdoc, ContainerFormatAsics, ContainerFormatAsicsShort]
         
         if forbiddenExtensions.contains(fileExtension) {
             return true
         }
         
-        let mimeType: String = MimeTypeExtractor().getMimeTypeFromContainer(filePath: fileLocation)
+        let mimeType: String = MimeTypeExtractor.getMimeTypeFromContainer(filePath: fileLocation)
         
         if forbiddenMimetypes.contains(mimeType) {
             return true
@@ -325,8 +322,11 @@ extension ContainerViewController : UITableViewDataSource {
         switch sections[indexPath.section] {
         case .notifications:
             let cell = tableView.dequeueReusableCell(withType: ContainerNotificationCell.self, for: indexPath)!
+            if notifications.indices.contains(indexPath.row) {
                 cell.populate(isSuccess: notifications[indexPath.row].isSuccess, text: notifications[indexPath.row].text)
-            return cell
+                return cell
+            }
+            return ContainerNotificationCell()
         case .signatures:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
                 cell.delegate = self

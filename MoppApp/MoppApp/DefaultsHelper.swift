@@ -27,11 +27,18 @@ let ContainerFormatEdoc = "edoc"
 let ContainerFormatDdoc = "ddoc"
 let ContainerFormatAsice = "asice"
 let ContainerFormatAsiceShort = "sce"
-let ContainerFormatAscis = "asics"
+let ContainerFormatAsics = "asics"
 let ContainerFormatAsicsShort = "scs"
 let ContainerFormatPDF  = "pdf"
 let ContainerFormatCdoc = "cdoc"
+let ContainerFormatP12d = "p12d"
 let FileFormatXml = "xml"
+
+let ContainerFormatAsiceMimetype = "application/vnd.etsi.asic-e+zip"
+let ContainerFormatAsicsMimetype = "application/vnd.etsi.asic-s+zip"
+let ContainerFormatDdocMimetype = "application/x-ddoc"
+let ContainerFormatCdocMimetype = "application/x-cdoc"
+let ContainerFormatAdocMimetype = "application/vnd.lt.archyvai.adoc-2008"
 
 let DefaultContainerFormat = ContainerFormatAsice
 

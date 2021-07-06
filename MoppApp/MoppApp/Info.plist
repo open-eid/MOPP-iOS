@@ -9,34 +9,173 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>application/x-cdoc</string>
-				<string>application/x-p12d</string>
-				<string>application/vnd.lt.archyvai.adoc-2008</string>
-				<string>application/x-ddoc</string>
-				<string>application/vnd.etsi.asic-s+zip</string>
-				<string>application/vnd.etsi.asic-e+zip</string>
-				<string>application/x-zip</string>
-			</array>
-			<key>CFBundleTypeIconFiles</key>
+			<key>CFBundleIconFiles</key>
 			<array>
 				<string>digidoc_76.png</string>
 				<string>digidoc_1024.png</string>
 			</array>
-			<key>CFBundleTypeMIMETypes</key>
-			<array>
-				<string>application/vnd.etsi.asic-e+zip</string>
-			</array>
 			<key>CFBundleTypeName</key>
-			<string>Digidoc file</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+			<string>DigiDoc file asice</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>public.content</string>
+				<string>ee.ria.digidoc-asice</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>DigiDoc file bdoc</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>ee.ria.digidoc-bdoc</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>DigiDoc file edoc</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>ee.ria.digidoc-edoc</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>DigiDoc file sce</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>ee.ria.digidoc-sce</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>DigiDoc file p12d</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>ee.ria.digidoc-p12d</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>DigiDoc file cdoc</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>ee.ria.digidoc-cdoc</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>DigiDoc file adoc</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>ee.ria.digidoc-adoc</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>DigiDoc file ddoc</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>ee.ria.digidoc-ddoc</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>DigiDoc file asics</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>ee.ria.digidoc-asics</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>DigiDoc file scs</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>ee.ria.digidoc-scs</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Zip file</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>ee.ria.digidoc-zip</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Xml file</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>ee.ria.digidoc-xml</string>
 			</array>
 		</dict>
 	</array>
@@ -148,61 +287,279 @@
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.data</string>
-				<string>public.content</string>
-				<string>public.bdoc</string>
-				<string>public.ddoc</string>
-				<string>public.edoc</string>
-				<string>public.adoc</string>
-				<string>public.asice</string>
-				<string>public.cdoc</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>digidoc container</string>
-			<key>UTTypeIconFiles</key>
+			<key>CFBundleIconFiles</key>
 			<array>
 				<string>digidoc_76.png</string>
 				<string>digidoc_1024.png</string>
 			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DigiDoc Container asice</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
 			<key>UTTypeIdentifier</key>
-			<string>public.bdoc</string>
+			<string>ee.ria.digidoc-asice</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
-				<key>com.apple.ostype</key>
+				<key>public.filename-extension</key>
 				<array>
-					<string></string>
+					<string>asice</string>
 				</array>
-				<key>ee.ria.bdoc</key>
-				<string>bdoc</string>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DigiDoc Container bdoc</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc-bdoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>bdoc</string>
+				</array>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DigiDoc Container edoc</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc-edoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>edoc</string>
+				</array>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DigiDoc Container sce</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc-sce</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>sce</string>
+				</array>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DigiDoc Container p12d</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc-p12d</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>p12d</string>
+				</array>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DigiDoc Container cdoc</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc-cdoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
 				<key>public.filename-extension</key>
 				<array>
 					<string>cdoc</string>
-					<string>adoc</string>
-					<string>bdoc</string>
-					<string>ddoc</string>
-					<string>edoc</string>
-					<string>asice</string>
-					<string>sce</string>
-					<string>asics</string>
-					<string>scs</string>
 				</array>
 				<key>public.mime-type</key>
 				<array>
 					<string>application/x-cdoc</string>
-					<string>application/x-p12d</string>
-					<string>application/vnd.lt.archyvai.adoc-2008</string>
-					<string>application/x-ddoc</string>
-					<string>application/vnd.etsi.asic-s+zip</string>
-					<string>application/vnd.etsi.asic-e+zip</string>
-					<string>application/x-zip</string>
 				</array>
 			</dict>
 		</dict>
-	</array>
-	<key>UTImportedTypeDeclarations</key>
-	<array>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DigiDoc Container adoc</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc-adoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>adoc</string>
+				</array>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DigiDoc Container ddoc</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc-ddoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>ddoc</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-ddoc</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DigiDoc Container asics</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc-asics</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>asics</string>
+				</array>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DigiDoc Container scs</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc-scs</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>scs</string>
+				</array>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
@@ -210,39 +567,372 @@
 				<string>public.content</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>digidoc container</string>
+			<string>Zip</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc-zip</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>zip</string>
+				</array>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Xml</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc-xml</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>xml</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+				<string>public.asice</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DigiDoc Container asice</string>
 			<key>UTTypeIconFiles</key>
 			<array>
 				<string>digidoc_76.png</string>
 				<string>digidoc_1024.png</string>
 			</array>
 			<key>UTTypeIdentifier</key>
-			<string>public.bdoc</string>
+			<string>ee.ria.digidoc</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
-				<key>ee.ria.bdoc</key>
-				<string>bdoc</string>
+				<key>public.filename-extension</key>
+				<array>
+					<string>asice</string>
+				</array>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+				<string>public.bdoc</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DigiDoc Container bdoc</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>bdoc</string>
+				</array>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+				<string>public.cdoc</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Digidoc Container cdoc</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
 				<key>public.filename-extension</key>
 				<array>
 					<string>cdoc</string>
-					<string>adoc</string>
-					<string>bdoc</string>
-					<string>ddoc</string>
-					<string>edoc</string>
-					<string>asice</string>
-					<string>sce</string>
-					<string>asics</string>
-					<string>scs</string>
 				</array>
 				<key>public.mime-type</key>
 				<array>
 					<string>application/x-cdoc</string>
-					<string>application/x-p12d</string>
-					<string>application/vnd.lt.archyvai.adoc-2008</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+				<string>public.adoc</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Digidoc Container adoc</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>adoc</string>
+				</array>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+				<string>public.ddoc</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Digidoc Container ddoc</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>ddoc</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
 					<string>application/x-ddoc</string>
-					<string>application/vnd.etsi.asic-s+zip</string>
-					<string>application/vnd.etsi.asic-e+zip</string>
-					<string>application/x-zip</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+				<string>public.edoc</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Digidoc Container edoc</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>edoc</string>
+				</array>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+				<string>public.sce</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Digidoc Container sce</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>sce</string>
+				</array>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+				<string>public.asics</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Digidoc Container asics</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>asics</string>
+				</array>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+				<string>public.scs</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Digidoc Container scs</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>scs</string>
+				</array>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+				<string>public.p12d</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Digidoc Container p12d</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>p12d</string>
+				</array>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+				<string>public.zip</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Zip</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>zip</string>
+				</array>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+				<string>public.xml</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Xml</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>xml</string>
 				</array>
 			</dict>
 		</dict>
