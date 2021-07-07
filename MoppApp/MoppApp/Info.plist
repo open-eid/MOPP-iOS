@@ -602,6 +602,58 @@
 				</array>
 			</dict>
 		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DigiDoc Container asics, scs</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc-asicsscs</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array/>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/vnd.etsi.asic-s+zip</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DigiDoc Container asic</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc-asic</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/vnd.etsi.asic-e+zip</string>
+				</array>
+			</dict>
+		</dict>
 	</array>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
@@ -633,7 +685,9 @@
 					<string>asice</string>
 				</array>
 				<key>public.mime-type</key>
-				<array/>
+				<array>
+					<string>application/vnd.etsi.asic-e+zip</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
@@ -661,7 +715,9 @@
 					<string>bdoc</string>
 				</array>
 				<key>public.mime-type</key>
-				<array/>
+				<array>
+					<string>application/vnd.etsi.asic-e+zip</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
@@ -719,7 +775,9 @@
 					<string>adoc</string>
 				</array>
 				<key>public.mime-type</key>
-				<array/>
+				<array>
+					<string>application/vnd.lt.archyvai.adoc-2008</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
@@ -777,7 +835,9 @@
 					<string>edoc</string>
 				</array>
 				<key>public.mime-type</key>
-				<array/>
+				<array>
+					<string>application/vnd.etsi.asic-e+zip</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
@@ -805,7 +865,9 @@
 					<string>sce</string>
 				</array>
 				<key>public.mime-type</key>
-				<array/>
+				<array>
+					<string>application/vnd.etsi.asic-e+zip</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
@@ -833,7 +895,9 @@
 					<string>asics</string>
 				</array>
 				<key>public.mime-type</key>
-				<array/>
+				<array>
+					<string>application/vnd.etsi.asic-s+zip</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
@@ -861,7 +925,9 @@
 					<string>scs</string>
 				</array>
 				<key>public.mime-type</key>
-				<array/>
+				<array>
+					<string>application/vnd.etsi.asic-s+zip</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
