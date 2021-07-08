@@ -75,21 +75,6 @@
 				<string>digidoc_1024.png</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>DigiDoc file p12d</string>
-			<key>LSHandlerRank</key>
-			<string>Owner</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>ee.ria.digidoc-p12d</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string>digidoc_76.png</string>
-				<string>digidoc_1024.png</string>
-			</array>
-			<key>CFBundleTypeName</key>
 			<string>DigiDoc file cdoc</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
@@ -399,33 +384,6 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>sce</string>
-				</array>
-				<key>public.mime-type</key>
-				<array/>
-			</dict>
-		</dict>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string>digidoc_76.png</string>
-				<string>digidoc_1024.png</string>
-			</array>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.data</string>
-				<string>public.content</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>DigiDoc Container p12d</string>
-			<key>UTTypeIconFiles</key>
-			<array/>
-			<key>UTTypeIdentifier</key>
-			<string>ee.ria.digidoc-p12d</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>p12d</string>
 				</array>
 				<key>public.mime-type</key>
 				<array/>
@@ -958,34 +916,6 @@
 				<array>
 					<string>application/vnd.etsi.asic-s+zip</string>
 				</array>
-			</dict>
-		</dict>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string>digidoc_76.png</string>
-				<string>digidoc_1024.png</string>
-			</array>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.data</string>
-				<string>public.content</string>
-				<string>public.p12d</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>Digidoc Container p12d</string>
-			<key>UTTypeIconFiles</key>
-			<array/>
-			<key>UTTypeIdentifier</key>
-			<string>ee.ria.digidoc</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>p12d</string>
-				</array>
-				<key>public.mime-type</key>
-				<array/>
 			</dict>
 		</dict>
 		<dict>
