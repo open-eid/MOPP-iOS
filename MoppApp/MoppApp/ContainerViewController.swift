@@ -187,6 +187,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                 
                 if !isForPreview && isAsicContainer {
                     if isDdocOrAsicsContainer(containerPath: containerPath) {
+                        checkIfDdocParentContainerIsTimestamped()
                         tabButtons = [.shareButton]
                         setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
                     } else {
@@ -296,6 +297,26 @@ extension ContainerViewController : UITableViewDataSource {
         }
     }
     
+    func checkIfDdocParentContainerIsTimestamped() -> Void {
+        let asicContainer: MoppLibContainer? = self.containerViewDelegate?.getContainer()
+        guard let signingContainer: MoppLibContainer = asicContainer else { NSLog("Container not found to check timestamped status"); DefaultsHelper.isTimestampedDdoc = false; return }
+        
+        let calendar = Calendar(identifier: .gregorian)
+        let dateComponents: DateComponents = DateComponents(year: 2018, month: 7, day: 1, hour: 00, minute: 00, second: 00)
+        guard let calendarDate = calendar.date(from: dateComponents) else { NSLog("Unable to get date from calendar components"); DefaultsHelper.isTimestampedDdoc = false; return }
+        
+        if signingContainer.isAsics(), signingContainer.dataFiles.count == 1, signingContainer.signatures.count == 1,
+           let singleFile: MoppLibDataFile = signingContainer.dataFiles[0] as? MoppLibDataFile,
+           singleFile.fileName.hasSuffix(ContainerFormatDdoc),
+           let singleSignature: MoppLibSignature = signingContainer.signatures[0] as? MoppLibSignature {
+           DefaultsHelper.isTimestampedDdoc = !singleSignature.timestamp.isAfter(anotherDate: calendarDate)
+            return
+        } else if signingContainer.isDdoc(), state != .preview {
+            DefaultsHelper.isTimestampedDdoc = false
+            return
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = indexPath.row
         switch sections[indexPath.section] {
@@ -309,9 +330,17 @@ extension ContainerViewController : UITableViewDataSource {
         case .signatures:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
                 cell.delegate = self
-            let signature =  signingContainerViewDelegate.getSignature(index: indexPath.row) as! MoppLibSignature
+            let signature = signingContainerViewDelegate.getSignature(index: indexPath.row) as? MoppLibSignature
+            let containerExtension: String = URL(fileURLWithPath: containerPath).pathExtension
+            
+            if DefaultsHelper.isTimestampedDdoc && containerExtension == ContainerFormatDdoc && state == .preview {
+                signature?.status = MoppLibSignatureStatus.Valid
+            } else if !DefaultsHelper.isTimestampedDdoc && containerExtension == ContainerFormatDdoc {
+                signature?.status = MoppLibSignatureStatus.Warning
+            }
+            
             cell.populate(
-                with: signature,
+                with: signature ?? MoppLibSignature(),
                 kind: .signature,
                 showBottomBorder: row < signingContainerViewDelegate.getSignaturesCount() - 1,
                 showRemoveButton: !isForPreview && signingContainerViewDelegate.isContainerSignable(),

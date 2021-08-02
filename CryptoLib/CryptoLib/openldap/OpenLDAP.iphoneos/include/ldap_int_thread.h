@@ -2,7 +2,7 @@
 /* $OpenLDAP$ */
 /* This work is part of OpenLDAP Software <http://www.openldap.org/>.
  * 
- * Copyright 1998-2017 The OpenLDAP Foundation.
+ * Copyright 1998-2021 The OpenLDAP Foundation.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -17,12 +17,11 @@
 
 LDAP_BEGIN_DECL
 
-/* Can be done twice in libldap_r.  See libldap_r/ldap_thr_debug.h. */
+/* Can be done twice.  See libldap/ldap_thr_debug.h. */
 LDAP_F(int) ldap_int_thread_initialize LDAP_P(( void ));
 LDAP_F(int) ldap_int_thread_destroy    LDAP_P(( void ));
 
 LDAP_END_DECL
-
 
 #ifndef _LDAP_INT_THREAD_H
 #define _LDAP_INT_THREAD_H
@@ -71,33 +70,6 @@ typedef pthread_rwlock_t ldap_int_thread_rdwr_t;
 
 #ifndef LDAP_INT_MUTEX_NULL
 #define LDAP_INT_MUTEX_NULL	PTHREAD_MUTEX_INITIALIZER
-#define LDAP_INT_MUTEX_FIRSTCREATE(m)	((void) 0)
-#endif
-
-LDAP_END_DECL
-
-#elif defined ( HAVE_MACH_CTHREADS )
-/**********************************
- *                                *
- * definitions for Mach CThreads  *
- *                                *
- **********************************/
-
-#if defined( HAVE_MACH_CTHREADS_H )
-#	include <mach/cthreads.h>
-#elif defined( HAVE_CTHREADS_H )
-#	include <cthreads.h>
-#endif
-
-LDAP_BEGIN_DECL
-
-typedef cthread_t		ldap_int_thread_t;
-typedef struct mutex		ldap_int_thread_mutex_t;
-typedef struct condition	ldap_int_thread_cond_t;
-typedef cthread_key_t		ldap_int_thread_key_t;
-
-#ifndef LDAP_INT_MUTEX_NULL
-#define LDAP_INT_MUTEX_NULL	MUTEX_INITIALIZER
 #define LDAP_INT_MUTEX_FIRSTCREATE(m)	((void) 0)
 #endif
 
@@ -180,10 +152,13 @@ typedef HANDLE	ldap_int_thread_mutex_t;
 typedef HANDLE	ldap_int_thread_cond_t;
 typedef DWORD	ldap_int_thread_key_t;
 
+LDAP_F( int )
+ldap_int_mutex_firstcreate LDAP_P(( ldap_int_thread_mutex_t *mutex ));
+
 #ifndef LDAP_INT_MUTEX_NULL
 #define LDAP_INT_MUTEX_NULL		((HANDLE)0)
 #define LDAP_INT_MUTEX_FIRSTCREATE(m) \
-		((void) ((m) || ldap_pvt_thread_mutex_init(&(m))))
+		ldap_int_mutex_firstcreate(&(m))
 #endif
 
 LDAP_END_DECL
@@ -236,8 +211,6 @@ LDAP_F(int) ldap_int_thread_pool_shutdown ( void );
 #ifndef LDAP_THREAD_HAVE_TPOOL
 typedef struct ldap_int_thread_pool_s * ldap_int_thread_pool_t;
 #endif
-
-typedef struct ldap_int_thread_rmutex_s * ldap_int_thread_rmutex_t;
 LDAP_END_DECL
 
 

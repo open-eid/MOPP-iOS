@@ -173,6 +173,12 @@ extension String {
     func sanitize(replaceCharacter: String) -> String {
         var characterSet: CharacterSet = CharacterSet()
         characterSet.formUnion(.illegalCharacters)
+        
+        // LEFT-TO-RIGHT MARK, RIGHT-TO-LEFT MARK, RIGHT-TO-LEFT OVERRIDE, LEFT-TO-RIGHT EMBEDDING, RIGHT-TO-LEFT EMBEDDING
+        let rtlCharacters: [Character] = ["\u{200E}", "\u{200F}", "\u{202E}", "\u{202A}", "\u{202B}"]
+        for rtlCharacter in rtlCharacters {
+            characterSet.insert(singleCharacterToUnicodeScalar(character: rtlCharacter))
+        }
         characterSet.insert(charactersIn: "@%:^?[]{}#&`\\~«»/´")
         return self.components(separatedBy: characterSet).joined(separator: replaceCharacter)
     }

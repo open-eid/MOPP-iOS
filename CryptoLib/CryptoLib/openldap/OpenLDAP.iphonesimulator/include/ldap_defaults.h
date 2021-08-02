@@ -1,7 +1,7 @@
 /* $OpenLDAP$ */
 /* This work is part of OpenLDAP Software <http://www.openldap.org/>.
  * 
- * Copyright 1998-2017 The OpenLDAP Foundation.
+ * Copyright 1998-2021 The OpenLDAP Foundation.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,5 +62,10 @@
 #define SLAPD_SCHEMA_DN			"cn=Subschema"
 	/* dn of the default "monitor" subentry */
 #define SLAPD_MONITOR_DN		"cn=Monitor"
+
+/*
+ * LLOADD DEFINITIONS
+ */
+#define LLOADD_DEFAULT_CONFIGFILE	LDAP_SYSCONFDIR LDAP_DIRSEP "lloadd.conf"
 
 #endif /* _LDAP_CONFIG_H */

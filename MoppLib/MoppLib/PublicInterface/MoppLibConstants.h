@@ -39,7 +39,6 @@ typedef NS_ENUM(NSUInteger, MoppLibCardChipType) {
 
 typedef NS_ENUM(int, MoppLibSignatureStatus) {
     Valid,
-    ValidTest,
     Warning,
     NonQSCD,
     Invalid,

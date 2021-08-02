@@ -22,4 +22,8 @@
  */
 
 extension Date {
+    
+    func isAfter(anotherDate: Date) -> Bool {
+        return self > anotherDate
+    }
 }

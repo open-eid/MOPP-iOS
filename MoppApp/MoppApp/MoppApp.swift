@@ -39,9 +39,6 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     var documentFormat:String = ""
     var downloadTask: URLSessionTask?
 
-    // iOS 11 blur window fix
-    var blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-
     var rootViewController: UIViewController? {
         return window?.rootViewController
     }
@@ -370,12 +367,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
         #if !DEBUG
-            if #available(iOS 12, *) {
-                ScreenDisguise.shared.show()
-            } else {
-                // iOS 11 blur window fix
-                blurWindow()
-            }
+            ScreenDisguise.shared.show()
         #endif
     }
 
@@ -388,25 +380,14 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     func willEnterForeground() {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         #if !DEBUG
-            if #available(iOS 12, *) {
-                ScreenDisguise.shared.hide()
-            } else {
-                // iOS 11 blur window fix
-                blurWindow()
-                removeWindowBlur()
-            }
+            ScreenDisguise.shared.hide()
         #endif
     }
 
     func didBecomeActive() {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         #if !DEBUG
-            if #available(iOS 12, *) {
-                ScreenDisguise.shared.hide()
-            } else {
-                // iOS 11 blur window fix
-                removeWindowBlur()
-            }
+            ScreenDisguise.shared.hide()
         #endif
 
         if UIViewController().getTopViewController() is InitializationViewController || UIViewController().getTopViewController() is LandingViewController {
@@ -487,21 +468,6 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             return image
         }
         return nil
-    }
-
-    private func blurWindow() -> Void {
-        self.window?.backgroundColor = .white
-        window?.alpha = 0.5
-        blurEffectView.frame = self.window!.bounds
-        self.window?.addSubview(blurEffectView)
-    }
-
-    private func removeWindowBlur() -> Void {
-        if blurEffectView.isDescendant(of: self.window!) {
-            blurEffectView.backgroundColor = .clear
-            window?.alpha = 1.0
-            blurEffectView.removeFromSuperview()
-        }
     }
     
     @objc private func handleScreenRecording() -> Void {

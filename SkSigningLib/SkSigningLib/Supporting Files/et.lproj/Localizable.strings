@@ -43,7 +43,6 @@
 "sid-rest-error-not-qualified" = "RIA DigiDoc mobiilirakenduses allkirjastamiseks peab sinu Smart-ID vastama tasemele kõrge.";
 "sid-rest-error-old-api" = "RIA DigiDoc mobiilirakendus vajab uuendamist. Paigalda uus versioon mobiilirakenduse poest. Lisainfo ID-abiliini telefonil (+372) 666 8888.";
 "sid-rest-error-under-maintenance" = "Smart-ID teenuses esinevad tehnilised tõrked. Palun proovi mõne aja pärast uuesti.";
-"sid-rest-error-timeout" = "Sinu Smart-ID toiming aegus. Palun proovi uuesti.";
 "sid-rest-error-forbidden" = "Ümbriku allkirjastamine ebaõnnestus. Kontrolli Smart-ID teenuse ligipääsu seadeid. https://www.id.ee/artikkel/asutustele-kus-allkirjastatakse-digidoc4-kliendi-kaudu-suuremates-kogustes-dokumente/";
-"sid-rest-error-account-not-found" = "Kontot ei leitud";
+"sid-rest-error-account-not-found-or-timeout" = "Ümbriku allkirjastamine ebaõnnestus. Sinu Smart-ID toiming aegus või kontot ei leitud.";
 "sid-rest-error-certificate-revoked" = "Sertifikaat on kehtetu";

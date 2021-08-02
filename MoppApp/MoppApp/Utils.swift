@@ -101,3 +101,12 @@ func countryCodePrefill(textField: UITextField, countryCode: String) -> Void {
     }
 }
 
+func singleCharacterToUnicodeScalar(character: Character) -> Unicode.Scalar {
+    let unicodeScalars: Character.UnicodeScalarView = character.unicodeScalars
+    guard unicodeScalars.count == 1, let firstUnicodeScalar = unicodeScalars.first else {
+        NSLog("Invalid character or not a single character")
+        return Unicode.Scalar(0)
+    }
+    return UnicodeScalar(firstUnicodeScalar)
+}
+

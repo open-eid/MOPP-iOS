@@ -125,9 +125,10 @@ public class MoppConfiguration {
     static var tslCerts: Array<String>?
     static var tsaUrl: String?
     static var ocspIssuers: [String: String]?
+    static var certBundle: Array<String>?
     
     static func getMoppLibConfiguration() -> MoppLibConfiguration {
-        return MoppLibConfiguration(configuration: sivaUrl, tslurl: tslUrl, tslcerts: tslCerts, tsaurl: tsaUrl, ocspissuers: ocspIssuers)
+        return MoppLibConfiguration(configuration: sivaUrl, tslurl: tslUrl, tslcerts: tslCerts, tsaurl: tsaUrl, ocspissuers: ocspIssuers, certbundle: certBundle)
     }
 }
 

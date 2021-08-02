@@ -43,7 +43,6 @@
 "sid-rest-error-not-qualified" = "Your Smart-ID certificate level must be qualified to sign documents in RIA DigiDoc mobile application.";
 "sid-rest-error-old-api" = "RIA DigiDoc mobile application needs an upgrade. Please install new version from the mobile app store. Additional info is available ID-helpline (+372) 666 8888.";
 "sid-rest-error-under-maintenance" = "Smart-ID service has encountered technical errors. Please try again later.";
-"sid-rest-error-timeout" = "Your Smart-ID transaction has expired. Please try again.";
 "sid-rest-error-forbidden" = "Failed to sign container. Check your Smart-ID service access settings. https://www.id.ee/en/article/for-organisations-that-sign-large-quantities-of-documents-using-digidoc4-client/";
-"sid-rest-error-account-not-found" = "Account not found";
+"sid-rest-error-account-not-found-or-timeout" = "Failed to sign container. Your Smart-ID transaction has expired or user account not found.";
 "sid-rest-error-certificate-revoked" = "Certificate status revoked";

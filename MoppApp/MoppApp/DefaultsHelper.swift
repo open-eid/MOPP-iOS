@@ -57,6 +57,7 @@ fileprivate let kCrashReportSettingKey = "kCrashReportSettingKey"
 fileprivate let kPreviousPreferredLanguage = "kPreviousPreferredLanguage"
 fileprivate let kMoppLanguage = "kMoppLanguage"
 fileprivate let kHideShareContainerDialog = "kHideShareContainerDialog"
+fileprivate let kIsTimestampedDdoc = "kIsTimestampedDdoc"
 
 class DefaultsHelper
 {
@@ -156,6 +157,15 @@ class DefaultsHelper
         }
         get {
             return UserDefaults.standard.bool(forKey: kHideShareContainerDialog)
+        }
+    }
+    
+    class var isTimestampedDdoc: Bool {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kIsTimestampedDdoc)
+        }
+        get {
+            return UserDefaults.standard.bool(forKey: kIsTimestampedDdoc)
         }
     }
 

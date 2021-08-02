@@ -41,38 +41,34 @@ public class ScreenDisguise: NSObject {
     }
     
     public func show() {
-        if #available(iOS 12, *) {
-            guard let keyWindow = UIApplication.shared.keyWindow, let topViewController = keyWindow.rootViewController?.getTopViewController() else {
-                return
+        guard let keyWindow = UIApplication.shared.keyWindow, let topViewController = keyWindow.rootViewController?.getTopViewController() else {
+            return
+        }
+        
+        if !uiVisualEffectView.isDescendant(of: keyWindow) {
+            UIView.animate(withDuration: 0.05) {
+                self.uiVisualEffectView.effect = UIBlurEffect(style: .light)
+                self.uiVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+                self.uiVisualEffectView.frame = keyWindow.bounds
             }
             
-            if !uiVisualEffectView.isDescendant(of: keyWindow) {
-                UIView.animate(withDuration: 0.05) {
-                    self.uiVisualEffectView.effect = UIBlurEffect(style: .light)
-                    self.uiVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-                    self.uiVisualEffectView.frame = keyWindow.bounds
-                }
-                
-                keyWindow.addSubview(uiVisualEffectView)
-                
-                if (topViewController is MobileIDChallengeViewController || topViewController is SmartIDChallengeViewController) {
-                    keyWindow.rootViewController?.view.addSubview(uiVisualEffectView)
-                    uiVisualEffectView.contentView.bringSubviewToFront(topViewController.view)
-                }
+            keyWindow.addSubview(uiVisualEffectView)
+            
+            if (topViewController is MobileIDChallengeViewController || topViewController is SmartIDChallengeViewController) {
+                keyWindow.rootViewController?.view.addSubview(uiVisualEffectView)
+                uiVisualEffectView.contentView.bringSubviewToFront(topViewController.view)
             }
         }
     }
     
     public func hide() {
-        if #available(iOS 12, *) {
-            guard let keyWindow = UIApplication.shared.keyWindow else { return }
-            UIView.animate(withDuration: 0.25, animations: {
-                self.uiVisualEffectView.alpha = 0.0
-                keyWindow.alpha = 1.0
-            }, completion: {(value: Bool) in
-                self.uiVisualEffectView.removeFromSuperview()
-            })
-        }
+        guard let keyWindow = UIApplication.shared.keyWindow else { return }
+        UIView.animate(withDuration: 0.25, animations: {
+            self.uiVisualEffectView.alpha = 0.0
+            keyWindow.alpha = 1.0
+        }, completion: {(value: Bool) in
+            self.uiVisualEffectView.removeFromSuperview()
+        })
     }
     
     public func handleScreenRecordingPrevention() {

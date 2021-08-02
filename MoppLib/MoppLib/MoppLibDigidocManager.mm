@@ -96,32 +96,16 @@ public:
   }
 
   std::vector<digidoc::X509Cert> TSLCerts() const override {
-    std::vector<digidoc::X509Cert> x509Certs;
-
-    __block std::vector<NSString*> certList;
-    [moppLibConfiguration.TSLCERTS enumerateObjectsUsingBlock:^(NSString* object, NSUInteger idx, BOOL *stop) {
-      certList.push_back(object);
-    }];
-
-    __block std::vector<unsigned char> bytes;
-
-    for (auto const& element : certList) {
-      std::string cString = std::string([element UTF8String]);
-      std::string fullCert = "-----BEGIN CERTIFICATE-----\n" + cString + "\n" + "-----END CERTIFICATE-----";
-
-      for(int i = 0; fullCert[i] != '\0'; i++) {
-        bytes.push_back(fullCert[i]);
-      }
-      x509Certs.push_back(generateX509Cert(bytes));
-      bytes.clear();
-    }
-
-    return x509Certs;
+      return stringsToX509Certs(moppLibConfiguration.TSLCERTS);
   }
 
     std::string TSLUrl() const override {
       return moppLibConfiguration.TSLURL.UTF8String;
   }
+    
+    virtual std::vector<digidoc::X509Cert> verifyServiceCerts() const override {
+        return stringsToX509Certs(moppLibConfiguration.CERTBUNDLE);
+    }
 
   virtual std::string ocsp(const std::string &issuer) const override {
     NSString *ocspIssuer = [NSString stringWithCString:issuer.c_str() encoding:[NSString defaultCStringEncoding]];
@@ -131,9 +115,36 @@ public:
         return std::string([moppLibConfiguration.OCSPISSUERS[ocspIssuer] UTF8String]);
     } else {
         NSLog(@"Did not find url for issuer: %@. Using received OCSP url: %@", ocspIssuer, OCSPUrl);
-        return std::string([OCSPUrl UTF8String]);
+        if (OCSPUrl) {
+            return std::string([OCSPUrl UTF8String]);
+        }
+        return std::string();
     }
   }
+    
+    std::vector<digidoc::X509Cert> stringsToX509Certs(NSArray<NSString*> *certBundle) const {
+        std::vector<digidoc::X509Cert> x509Certs;
+
+        __block std::vector<NSString*> certList;
+        [certBundle enumerateObjectsUsingBlock:^(NSString* object, NSUInteger idx, BOOL *stop) {
+          certList.push_back(object);
+        }];
+
+        __block std::vector<unsigned char> bytes;
+
+        for (auto const& element : certList) {
+          std::string cString = std::string([element UTF8String]);
+          std::string fullCert = "-----BEGIN CERTIFICATE-----\n" + cString + "\n" + "-----END CERTIFICATE-----";
+
+          for(int i = 0; fullCert[i] != '\0'; i++) {
+            bytes.push_back(fullCert[i]);
+          }
+          x509Certs.push_back(generateX509Cert(bytes));
+          bytes.clear();
+        }
+
+        return x509Certs;
+    }
 
   digidoc::X509Cert generateX509Cert(std::vector<unsigned char> bytes) const {
     digidoc::X509Cert x509Cert;
@@ -515,9 +526,6 @@ static std::string profile = "time-stamp";
     }
     else if(digidoc::Signature::Validator::Status::Unknown==status){
         return UnknownStatus;
-    }
-    else if(digidoc::Signature::Validator::Status::Test==status){
-        return ValidTest;
     }
     return Invalid;
 }

@@ -67,9 +67,8 @@ public enum SigningError: String, Error {
     case notQualified
     case oldApi
     case underMaintenance
-    case sidTimeout
     case forbidden
-    case accountNotFound
+    case accountNotFoundOrTimeout
 }
 
 // MARK: SigningError signingErrorDescription Extension
@@ -130,12 +129,10 @@ extension SigningError: LocalizedError {
             return NSLocalizedString("sid-rest-error-old-api", comment: "")
         case .underMaintenance:
             return NSLocalizedString("sid-rest-error-under-maintenance", comment: "")
-        case .sidTimeout:
-            return NSLocalizedString("sid-rest-error-timeout", comment: "")
         case .forbidden:
             return NSLocalizedString("sid-rest-error-forbidden", comment: "")
-        case .accountNotFound:
-            return NSLocalizedString("sid-rest-error-account-not-found", comment: "")
+        case .accountNotFoundOrTimeout:
+            return NSLocalizedString("sid-rest-error-account-not-found-or-timeout", comment: "")
         case .exceededUnsuccessfulRequests:
             return NSLocalizedString("mid-rest-error-exceeded-unsuccessful-requests", comment: "")
         case .midInvalidAccessRights:
