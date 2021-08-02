@@ -173,6 +173,16 @@
 				<string>ee.ria.digidoc-zipfile</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Digidoc file</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.data</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
@@ -303,6 +313,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>asice</string>
+					<string>ASICE</string>
 				</array>
 				<key>public.mime-type</key>
 				<array/>
@@ -330,6 +341,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>bdoc</string>
+					<string>BDOC</string>
 				</array>
 				<key>public.mime-type</key>
 				<array/>
@@ -357,6 +369,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>edoc</string>
+					<string>EDOC</string>
 				</array>
 				<key>public.mime-type</key>
 				<array/>
@@ -384,6 +397,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>sce</string>
+					<string>SCE</string>
 				</array>
 				<key>public.mime-type</key>
 				<array/>
@@ -411,6 +425,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>cdoc</string>
+					<string>CDOC</string>
 				</array>
 				<key>public.mime-type</key>
 				<array>
@@ -440,6 +455,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>adoc</string>
+					<string>ADOC</string>
 				</array>
 				<key>public.mime-type</key>
 				<array/>
@@ -467,6 +483,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>ddoc</string>
+					<string>DDOC</string>
 				</array>
 				<key>public.mime-type</key>
 				<array>
@@ -496,6 +513,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>asics</string>
+					<string>ASICS</string>
 				</array>
 				<key>public.mime-type</key>
 				<array/>
@@ -523,6 +541,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>scs</string>
+					<string>SCS</string>
 				</array>
 				<key>public.mime-type</key>
 				<array/>
@@ -545,6 +564,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>zip</string>
+					<string>ZIP</string>
 				</array>
 				<key>public.mime-type</key>
 				<array/>
@@ -567,6 +587,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>xml</string>
+					<string>XML</string>
 				</array>
 			</dict>
 		</dict>
@@ -671,6 +692,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>asice</string>
+					<string>ASICE</string>
 				</array>
 				<key>public.mime-type</key>
 				<array>
@@ -701,6 +723,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>bdoc</string>
+					<string>BDOC</string>
 				</array>
 				<key>public.mime-type</key>
 				<array>
@@ -731,6 +754,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>cdoc</string>
+					<string>CDOC</string>
 				</array>
 				<key>public.mime-type</key>
 				<array>
@@ -761,6 +785,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>adoc</string>
+					<string>ADOC</string>
 				</array>
 				<key>public.mime-type</key>
 				<array>
@@ -791,6 +816,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>ddoc</string>
+					<string>DDOC</string>
 				</array>
 				<key>public.mime-type</key>
 				<array>
@@ -821,6 +847,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>edoc</string>
+					<string>EDOC</string>
 				</array>
 				<key>public.mime-type</key>
 				<array>
@@ -851,6 +878,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>sce</string>
+					<string>SCE</string>
 				</array>
 				<key>public.mime-type</key>
 				<array>
@@ -881,6 +909,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>asics</string>
+					<string>ASICS</string>
 				</array>
 				<key>public.mime-type</key>
 				<array>
@@ -911,6 +940,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>scs</string>
+					<string>SCS</string>
 				</array>
 				<key>public.mime-type</key>
 				<array>
@@ -936,6 +966,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>zip</string>
+					<string>ZIP</string>
 				</array>
 				<key>public.mime-type</key>
 				<array/>
@@ -959,6 +990,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>xml</string>
+					<string>XML</string>
 				</array>
 			</dict>
 		</dict>
