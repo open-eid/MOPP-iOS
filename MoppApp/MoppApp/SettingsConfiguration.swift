@@ -35,7 +35,7 @@
  * which is updated each time central configuration is downloaded, and parameter <updateDate>
  * which is updated each time downloaded central configuration is actually loaded for usage.
  *
- * During each application start-up, cached configuration update date (updateDate) is compared
+ * During each application start-up, cached configuration last checked update date (lastUpdateCheckDate) is compared
  * to current date, and if the difference in days exceeds <updateInterval (defaults to 4)>, then
  * configuration is downloaded from central configuration service. If downloaded central configuration
  * differs from cached configuration, then central configuration is loaded for use and cached
@@ -61,7 +61,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
 
             if let decodedConfiguration = decodedData, decodedConfiguration.METAINF.SERIAL >= getDefaultMoppConfiguration().VERSIONSERIAL {
                 loadCachedConfiguration()
-                if self.isDateAfterInterval(updateDate: self.getConfigurationFromCache(forKey: "updateDate") as! Date, interval: getDefaultMoppConfiguration().UPDATEINTERVAL) {
+                if isCentralUpdateRequired() {
                     DispatchQueue.global(qos: .background).async {
                         self.loadCentralConfiguration()
                     }
@@ -71,7 +71,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                 }
             } else if let decodedConfiguration = decodedData, decodedConfiguration.METAINF.SERIAL < getDefaultMoppConfiguration().VERSIONSERIAL {
                 loadLocalConfiguration()
-                if self.isDateAfterInterval(updateDate: self.getConfigurationFromCache(forKey: "updateDate") as! Date, interval: getDefaultMoppConfiguration().UPDATEINTERVAL) {
+                if isCentralUpdateRequired() {
                     DispatchQueue.global(qos: .background).async {
                         self.loadCentralConfiguration()
                     }
@@ -86,12 +86,16 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
 
         else {
             loadLocalConfiguration()
-            if self.isDateAfterInterval(updateDate: self.getConfigurationFromCache(forKey: "updateDate") as! Date, interval: getDefaultMoppConfiguration().UPDATEINTERVAL) {
+            if isCentralUpdateRequired() {
                 DispatchQueue.global(qos: .background).async {
                     self.loadCentralConfiguration()
                 }
             }
         }
+    }
+    
+    func isCentralUpdateRequired() -> Bool {
+        return isDateAfterInterval(updateDate: SettingsConfiguration().getConfigurationFromCache(forKey: "lastUpdateCheckDate") as? Date ?? self.getConfigurationFromCache(forKey: "updateDate") as! Date, interval: getDefaultMoppConfiguration().UPDATEINTERVAL)
     }
 
 
