@@ -51,32 +51,11 @@ class UrlSchemeHandler: NSObject, URLSessionDelegate {
         let modifiedLinkString: String = unescapedLink.replacingOccurrences(of: "////", with: "//")
         if modifiedLinkString.isValidUrl {
             if let fileURL: URL = URL(string: modifiedLinkString) {
-                downloadFile(url: fileURL) { fileLocation in
+                FileDownloader.shared.downloadFile(url: fileURL) { fileLocation in
                     completion(fileLocation)
                 }
             }
         }
-    }
-    
-    private func downloadFile(url: URL, completion: @escaping (URL?) -> Void) {
-        let downloadTask: URLSessionDownloadTask = URLSession(configuration: .default, delegate: self, delegateQueue: nil).downloadTask(with: url) { (fileTempUrl, response, error) in
-            if error != nil { NSLog("Unable to download file: \(error?.localizedDescription ?? "Unable to display error")"); return completion(nil) }
-            if let fileTempUrl: URL = fileTempUrl {
-                do {
-                    let documentsPathFileURL: URL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("Downloads", isDirectory: true).appendingPathComponent(url.lastPathComponent)
-                    try FileManager.default.createDirectory(at: documentsPathFileURL, withIntermediateDirectories: true, attributes: nil)
-                    let fileLocation: String = MoppFileManager.shared.copyFile(withPath: fileTempUrl.path, toPath: documentsPathFileURL.path)
-                    return completion(URL(fileURLWithPath: fileLocation))
-                } catch let error {
-                    NSLog("Failed to download file or create directory: \(error.localizedDescription)")
-                    return completion(nil)
-                }
-            } else {
-                NSLog("Unable to get file temporary URL")
-                return completion(nil)
-            }
-        }
-        downloadTask.resume()
     }
     
     private func constructURLWithoutScheme(url: URL?) -> URL? {

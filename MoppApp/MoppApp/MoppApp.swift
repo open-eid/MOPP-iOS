@@ -281,6 +281,19 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                     tempUrl = fileUrl
                     return true
                 }
+                
+                let isResourceReachable = try? fileUrl.checkResourceIsReachable()
+                if fileUrl.isFileURL && (isResourceReachable == nil || isResourceReachable == false) {
+                    let dispatchGroup: DispatchGroup = DispatchGroup()
+                    dispatchGroup.enter()
+                    FileDownloader.shared.downloadExternalFile(url: fileUrl) { fileLocation in
+                        if let fileLocation = fileLocation {
+                            fileUrl = fileLocation
+                        }
+                        dispatchGroup.leave()
+                    }
+                    dispatchGroup.wait()
+                }
 
                 var newUrl: URL = fileUrl
 
