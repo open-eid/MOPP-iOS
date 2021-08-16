@@ -364,6 +364,15 @@ class MoppFileManager {
                     return
                 }
                 
+                let isFileEmpty = MoppFileManager.isFileEmpty(fileUrl: fileURL)
+                
+                if isFileEmpty {
+                    NSLog("Unable to open empty file")
+                    url.stopAccessingSecurityScopedResource()
+                    let error = NSError(domain: "Unable to open empty file", code: 3, userInfo: [NSLocalizedDescriptionKey: L(.fileImportFailedEmptyFile)])
+                    completion?(error, [])
+                }
+                
                 do {
                     data = try Data(contentsOf: fileURL)
                 } catch let error {
@@ -380,14 +389,18 @@ class MoppFileManager {
                     return
                 }
                 
-                if !FileManager.default.fileExists(atPath: destinationPath) {
-                    MoppFileManager.shared.createFile(atPath: destinationPath, contents: data)
+                if !isFileEmpty {
+                    if !FileManager.default.fileExists(atPath: destinationPath) {
+                        MoppFileManager.shared.createFile(atPath: destinationPath, contents: data)
+                    }
                 }
                 
                 _ = mutableURLs.removeFirst()
                 
                 var modifiedImportedPaths = importedPaths
+                if !isFileEmpty {
                     modifiedImportedPaths.append(destinationPath)
+                }
                 
                 url.stopAccessingSecurityScopedResource()
                 
@@ -396,5 +409,11 @@ class MoppFileManager {
                 completion?(error, [])
             }
         }
+    }
+    
+    static func isFileEmpty(fileUrl: URL) -> Bool {
+        let fileSize: Double? = try? fileUrl.resourceValues(forKeys: [.fileSizeKey]).allValues.first?.value as? Double
+        guard let fileSize = fileSize else { NSLog("Could not get file size"); return true }
+        return fileSize.isZero
     }
 }

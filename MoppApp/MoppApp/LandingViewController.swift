@@ -30,6 +30,7 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
     var fileImportIntent: MoppApp.FileImportIntent!
     var containerType: MoppApp.ContainerType!
     var isAlreadyInMainPage: Bool = false
+    var isEmptyFileImported: Bool = false
     var importProgressViewController: FileImportProgressViewController = {
         let importProgressViewController = UIStoryboard.landing.instantiateViewController(of: FileImportProgressViewController.self)
             importProgressViewController.modalPresentationStyle = .overFullScreen
@@ -225,7 +226,13 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
 
 extension LandingViewController : UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        importFiles(with: urls, cleanup: true)
+        for url in urls {
+            if MoppFileManager.isFileEmpty(fileUrl: url) {
+                isEmptyFileImported = true
+            }
+        }
+        importFiles(with: urls, cleanup: true, isEmptyFileImported: isEmptyFileImported)
+        isEmptyFileImported = false
     }
 }
 
