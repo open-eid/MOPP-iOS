@@ -413,7 +413,7 @@ class MoppFileManager {
     
     static func isFileEmpty(fileUrl: URL) -> Bool {
         let fileSize: Double? = try? fileUrl.resourceValues(forKeys: [.fileSizeKey]).allValues.first?.value as? Double
-        guard let fileSize = fileSize else { NSLog("Could not get file size"); return true }
-        return fileSize.isZero
+        guard let fileSizeBytes = fileSize else { NSLog("Could not get file size"); return true }
+        return fileSizeBytes.isZero
     }
 }
