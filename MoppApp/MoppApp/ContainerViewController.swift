@@ -263,6 +263,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                 guard let dataFile = dataFile as? MoppLibDataFile,
                       dataFile.fileSize == 0 else { continue }
                 isEmptyFileInContainer = true
+                break
             }
             if isEmptyFileInContainer {
                 self.notifications.append((false, L(.fileImportFailedEmptyFileImported)))
