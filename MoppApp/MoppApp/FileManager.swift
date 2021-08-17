@@ -373,7 +373,7 @@ class MoppFileManager {
                     return
                 }
                 
-                guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: fileURL.lastPathComponent) else {
+                guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: fileURL.lastPathComponent.sanitize()) else {
                     NSLog("Error opening file. Unable to get temp file path")
                     completion?(NSError(domain: String(), code: 0, userInfo: nil), [])
                     url.stopAccessingSecurityScopedResource()
