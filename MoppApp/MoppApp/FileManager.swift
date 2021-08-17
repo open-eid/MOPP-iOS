@@ -366,11 +366,12 @@ class MoppFileManager {
                 
                 let isFileEmpty = MoppFileManager.isFileEmpty(fileUrl: fileURL)
                 
-                if isFileEmpty {
+                if urls.count == 1 && importedPaths.isEmpty && isFileEmpty {
                     NSLog("Unable to open empty file")
                     url.stopAccessingSecurityScopedResource()
                     let error = NSError(domain: "Unable to open empty file", code: 3, userInfo: [NSLocalizedDescriptionKey: L(.fileImportFailedEmptyFile)])
                     completion?(error, [])
+                    return
                 }
                 
                 do {
