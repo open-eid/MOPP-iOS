@@ -170,7 +170,7 @@ extension String {
         return self.replacingOccurrences(of: messageWithLink, with: "")
     }
     
-    func sanitize(replaceCharacter: String) -> String {
+    func sanitize() -> String {
         var characterSet: CharacterSet = CharacterSet()
         characterSet.formUnion(.illegalCharacters)
         
@@ -180,7 +180,7 @@ extension String {
             characterSet.insert(singleCharacterToUnicodeScalar(character: rtlCharacter))
         }
         characterSet.insert(charactersIn: "@%:^?[]{}#&`\\~«»/´")
-        return self.components(separatedBy: characterSet).joined(separator: replaceCharacter)
+        return self.components(separatedBy: characterSet).joined(separator: "")
     }
     
     var isValidUrl: Bool {
