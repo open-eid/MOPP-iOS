@@ -782,10 +782,18 @@ void parseException(const digidoc::Exception &e) {
     digidoc::Signature *signature = doc->signatures().at(i);
     digidoc::X509Cert cert = signature->signingCertificate();
     
+    // Estonian signatures
     NSString *name = [NSString stringWithUTF8String:cert.subjectName("CN").c_str()];
     NSString *trustedTimeStamp = [NSString stringWithUTF8String:signature->trustedSigningTime().c_str()];
       
-    if ([name isEqualToString:[moppSignature subjectName]] && [trustedTimeStamp isEqualToString:[moppSignature trustedSigningTime]]) {
+    std::string givename = cert.subjectName("GN");
+    std::string surname = cert.subjectName("SN");
+    std::string serialNR = cert.subjectName("serialNumber");
+
+    // Foreign signatures
+    NSString *foreignName = [NSString stringWithFormat:@"%s,%s,%s", surname.c_str(), givename.c_str(), serialNR.c_str()];
+      
+    if (([name isEqualToString:[moppSignature subjectName]] || [foreignName isEqualToString:[moppSignature subjectName]]) && [trustedTimeStamp isEqualToString:[moppSignature trustedSigningTime]]) {
       try {
         doc->removeSignature(i);
         doc->save(containerPath.UTF8String);
