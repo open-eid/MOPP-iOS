@@ -82,8 +82,12 @@
 "crashlytics-action-always-send" = "Saada alati";
 "crashlytics-action-do-not-send" = "Ära saada";
 
+// SiVa consent
+"siva-send-message" = "PDF ja DDOC formaadis digitaalallkirjade kehtivuse kontrollimiseks edastatakse fail valideerimisteenusele SiVa. Digitaalallkirjade kehtivuse kontrollimisel edastatud andmete kohta loe lähemalt id.ee veebilehelt. Kas soovid jätkata? https://www.id.ee/artikkel/riigi-infosusteemi-ameti-id-tarkvara-andmekaitsetingimused/";
+
 // *** Actions ***
 "action-ok" = "OK";
+"action-yes" = "JAH";
 "action-cancel" = "Tühista";
 "action-delete" = "Eemalda";
 "action-sign" = "Allkirjasta";

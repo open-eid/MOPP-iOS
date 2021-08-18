@@ -36,6 +36,19 @@ extension ContainerActions where Self: UIViewController {
         
         landingViewController.documentPicker.dismiss(animated: false, completion: nil)
         
+        if urls.count == 1 && SiVaUtil.isDocumentSentToSiVa(fileUrl: urls.first) {
+            SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
+                if hasAgreed {
+                    self.importFiles(urls: urls, navController: navController, topSigningViewController: topSigningViewController, landingViewController: landingViewController, cleanup: cleanup)
+                }
+            }
+            return
+        } else {
+            importFiles(urls: urls, navController: navController, topSigningViewController: topSigningViewController, landingViewController: landingViewController, cleanup: cleanup)
+        }
+    }
+    
+    private func importFiles(urls: [URL], navController: UINavigationController, topSigningViewController: UIViewController, landingViewController: LandingViewController, cleanup: Bool) {
         if topSigningViewController.presentedViewController is FileImportProgressViewController {
             topSigningViewController.presentedViewController?.errorAlert(message: L(.fileImportAlreadyInProgressMessage))
             return
