@@ -107,7 +107,7 @@ class MoppDateFormatter {
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
             let date = dateFormatter.date(from: dateString)
             // 12h time format
-            dateFormatter.dateFormat = "yyyy-MM-dd h:mm a"
+            dateFormatter.dateFormat = "yyyy-MM-dd h:mm:ss a"
             let convertedDateString = dateFormatter.string(from: date ?? Date())
             return dateFormatter.date(from: convertedDateString) ?? Date()
         } else {
