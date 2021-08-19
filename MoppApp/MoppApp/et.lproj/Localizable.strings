@@ -27,8 +27,8 @@
 "tab-crypto" = "KRÜPTO";
 "tab-signature" = "ALLKIRI";
 "tab-sign-button" = "ALLKIRJASTA";
-"tab-share-button" = "JAGA";
-"tab-encrypt-button" = "KRÜPTEERI";
+"tab-share-button" = "JAGA ÜMBRIKUT";
+"tab-encrypt-button" = "KRÜPTEERI DOKUMENT";
 "tab-decrypt-button" = "DEKRÜPTEERI";
 "tab-confirm-button" = "KINNITA";
 
@@ -36,6 +36,7 @@
 "tab-unselected" = "%@, vahekaart %@ / %@";
 
 // Main menu
+"menu-close" = "SULGE MENÜÜ";
 "menu-help" = "ABI";
 "menu-recent-containers" = "HILJUTISED DOKUMENDID";
 "menu-settings" = "SEADED";
@@ -71,7 +72,7 @@
 "crypto-type-eseal" = "Krüpteerimissertifikaat";
 "crypto-type-mobile-id" = "Mobiil-ID";
 "crypto-type-unknown" = "Teadmata";
-"crypto-add-addressee-button-title" = "LISA";
+"crypto-add-addressee-button-title" = "LISA ADRESSAAT";
 "crypto-addressee-added-button-title" = "LISATUD";
 "crypto-remove-addressee-button" = "Eemalda adressaat";
 
@@ -267,9 +268,16 @@
 "my-eid-current-code-label" = "KEHTIV %@-KOOD";
 "my-eid-new-code-label" = "UUS %@-KOOD (vähemalt %i sümbolit)";
 "my-eid-new-code-again-label" = "UUS %@-KOOD UUESTI";
-"my-eid-discard-button-title" = "KATKESTA";
-"my-eid-confirm-change-button-title" = "MUUDA";
-"my-eid-confirm-unblock-button-title" = "BLOKEERI LAHTI";
+"my-eid-discard-pin1-button-title" = "KATKESTA PIN1 MUUTMINE";
+"my-eid-discard-pin2-button-title" = "KATKESTA PIN2 MUUTMINE";
+"my-eid-confirm-pin1-change-button-title" = "KINNITA PIN1 MUUTMINE";
+"my-eid-confirm-pin2-change-button-title" = "KINNITA PIN2 MUUTMINE";
+"my-eid-discard-pin1-unblock-button-title" = "KATKESTA PIN1 LAHTI BLOKEERIMINE";
+"my-eid-discard-pin2-unblock-button-title" = "KATKESTA PIN2 LAHTI BLOKEERIMINE";
+"my-eid-confirm-pin1-unblock-button-title" = "KINNITA PIN1 LAHTI BLOKEERIMINE";
+"my-eid-confirm-pin2-unblock-button-title" = "KINNITA PIN2 LAHTI BLOKEERIMINE";
+"my-eid-discard-puk-change-button-title" = "KATKESTA PUK MUUTMINE";
+"my-eid-confirm-puk-change-button-title" = "KINNITA PUK MUUTMINE";
 "my-eid-error-new-code-too-short" = "Uus %@-kood peab olema vähemalt %i-kohaline";
 "my-eid-error-current-code-too-short" = "Kehtiv %@-kood peab olema vähemalt %i-kohaline";
 "my-eid-error-codes-mismatch" = "Uued %@-koodid peavad olema samad";

@@ -27,11 +27,14 @@ protocol MenuHeaderDelegate: AnyObject {
 class MenuHeaderCell : UITableViewCell {
     weak var delegate: MenuHeaderDelegate!
     
+    @IBOutlet weak var menuCloseButton: UIButton!
+    
     @IBAction func dismissAction() {
         delegate.menuHeaderDismiss()
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        menuCloseButton.accessibilityLabel = L(.menuClose)
     }
 }

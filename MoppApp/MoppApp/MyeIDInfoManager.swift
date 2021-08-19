@@ -390,8 +390,8 @@ extension MyeIDInfoManager {
             model.secondTextFieldLabelText = L(.myEidNewCodeLabel, [IdCardCodeName.PIN1.rawValue, 4])
             model.thirdTextFieldLabelText = L(.myEidNewCodeAgainLabel, [IdCardCodeName.PIN1.rawValue])
             
-            model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
-            model.confirmButtonTitleText = L(.myEidConfirmChangeButtonTitle)
+            model.discardButtonTitleText = L(.myEidDiscardPin1ButtonTitle)
+            model.confirmButtonTitleText = L(.myEidConfirmPin1ChangeButtonTitle)
             
             savedLastFocusElement = .changePIN1
             
@@ -407,8 +407,8 @@ extension MyeIDInfoManager {
             model.secondTextFieldLabelText = L(.myEidNewCodeLabel, [IdCardCodeName.PIN1.rawValue, 4])
             model.thirdTextFieldLabelText = L(.myEidNewCodeAgainLabel, [IdCardCodeName.PIN1.rawValue])
             
-            model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
-            model.confirmButtonTitleText = L(.myEidConfirmUnblockButtonTitle)
+            model.discardButtonTitleText = L(.myEidDiscardPin1UnblockButtonTitle)
+            model.confirmButtonTitleText = L(.myEidConfirmPin1UnblockButtonTitle)
             
             savedLastFocusElement = .unblockPIN1
             
@@ -423,8 +423,8 @@ extension MyeIDInfoManager {
             model.secondTextFieldLabelText = L(.myEidNewCodeLabel, [IdCardCodeName.PIN2.rawValue, 5])
             model.thirdTextFieldLabelText = L(.myEidNewCodeAgainLabel, [IdCardCodeName.PIN2.rawValue])
             
-            model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
-            model.confirmButtonTitleText = L(.myEidConfirmChangeButtonTitle)
+            model.discardButtonTitleText = L(.myEidDiscardPin2ButtonTitle)
+            model.confirmButtonTitleText = L(.myEidConfirmPin2ChangeButtonTitle)
             
             savedLastFocusElement = .changePIN2
             
@@ -440,8 +440,8 @@ extension MyeIDInfoManager {
             model.secondTextFieldLabelText = L(.myEidNewCodeLabel, [IdCardCodeName.PIN2.rawValue, 5])
             model.thirdTextFieldLabelText = L(.myEidNewCodeAgainLabel, [IdCardCodeName.PIN2.rawValue])
             
-            model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
-            model.confirmButtonTitleText = L(.myEidConfirmUnblockButtonTitle)
+            model.discardButtonTitleText = L(.myEidDiscardPin2UnblockButtonTitle)
+            model.confirmButtonTitleText = L(.myEidConfirmPin2UnblockButtonTitle)
             
             savedLastFocusElement = .unblockPIN2
             
@@ -455,8 +455,8 @@ extension MyeIDInfoManager {
             model.secondTextFieldLabelText = L(.myEidNewCodeLabel, [IdCardCodeName.PUK.rawValue, 8])
             model.thirdTextFieldLabelText = L(.myEidNewCodeAgainLabel, [IdCardCodeName.PUK.rawValue])
             
-            model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
-            model.confirmButtonTitleText = L(.myEidConfirmChangeButtonTitle)
+            model.discardButtonTitleText = L(.myEidDiscardPukChangeButtonTitle)
+            model.confirmButtonTitleText = L(.myEidConfirmPukChangeButtonTitle)
             
             savedLastFocusElement = .changePUK
             
