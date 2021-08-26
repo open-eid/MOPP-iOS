@@ -104,12 +104,16 @@ class MoppDateFormatter {
         let dateFormatter = DateFormatter()
         let dateFormat = DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: Locale.autoupdatingCurrent)
         if dateString.contains(dateFormatter.amSymbol) || dateString.contains(dateFormatter.pmSymbol) || dateFormat!.contains("a") {
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+            let date = dateFormatter.date(from: dateString)
             // 12h time format
-            dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss Z"
+            dateFormatter.dateFormat = "yyyy-MM-dd h:mm:ss a"
+            let convertedDateString = dateFormatter.string(from: date ?? Date())
+            return dateFormatter.date(from: convertedDateString) ?? Date()
         } else {
             // 24h time format
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+            return dateFormatter.date(from: dateString) ?? Date()
         }
-        return dateFormatter.date(from: dateString)!
     }
 }
