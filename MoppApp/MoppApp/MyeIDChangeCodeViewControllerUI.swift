@@ -33,7 +33,9 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var scrollViewContentView: UIView!
-    @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var firstInfoLabel: UILabel!
+    @IBOutlet weak var secondInfoLabel: UILabel!
+    @IBOutlet weak var thirdInfoLabel: UILabel!
     @IBOutlet weak var discardButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var firstCodeTextField: UITextField!
@@ -77,10 +79,17 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
         let color = UIColor.moppText
         let attributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : color]
         
-        let fullAttributedString = NSMutableAttributedString()
+        var partAttributedStrings = [String]()
+        var fullAttributedStrings = [NSMutableAttributedString]()
         
         let textAttachment = NSTextAttachment()
-            textAttachment.image = UIImage(named: "bullet")!.withRenderingMode(.alwaysTemplate)
+        textAttachment.image = UIImage(named: "bullet")!.withRenderingMode(.alwaysTemplate)
+        textAttachment.image?.isAccessibilityElement = false
+        textAttachment.image?.accessibilityLabel = ""
+        textAttachment.accessibilityTraits = [.none]
+        textAttachment.image?.accessibilityTraits = [.none]
+        
+        textAttachment.isAccessibilityElement = false
         
         for index in 0..<model.infoBullets.count {
             let infoBullet = model.infoBullets[index]
@@ -99,10 +108,20 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
                     uniquingKeysWith: {current,_  in return current }),
                 range: NSMakeRange(0, attributedString.length))
             
-            fullAttributedString.append(attributedString)
+            fullAttributedStrings.append(attributedString)
+            partAttributedStrings.append(infoBullet)
         }
         
-        textView.attributedText = fullAttributedString
+        firstInfoLabel.isAccessibilityElement = true
+        secondInfoLabel.isAccessibilityElement = true
+        thirdInfoLabel.isAccessibilityElement = true
+        
+        firstInfoLabel.attributedText = fullAttributedStrings[0]
+        secondInfoLabel.attributedText = fullAttributedStrings[1]
+        thirdInfoLabel.attributedText = fullAttributedStrings[2]
+        firstInfoLabel.accessibilityLabel = partAttributedStrings[0]
+        secondInfoLabel.accessibilityLabel = partAttributedStrings[1]
+        thirdInfoLabel.accessibilityLabel = partAttributedStrings[2]
         
         statusViewHiddenCSTR.priority = UILayoutPriority.defaultHigh
         statusViewVisibleCSTR.priority = UILayoutPriority.defaultLow
