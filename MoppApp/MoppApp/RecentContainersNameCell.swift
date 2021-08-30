@@ -30,6 +30,11 @@ class RecentContainersNameCell : UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        guard let fileNameText = filenameLabel else {
+            return
+        }
+        self.accessibilityElements = [fileNameText]
     }
     
     func populate(filename: String, searchKeyword: String, showSeparator: Bool) {

@@ -31,6 +31,11 @@ class MenuLanguageButtonView : UIView {
 
     @IBOutlet weak var button: MenuLanguageButton!
     @IBOutlet weak var label: UILabel!
+    
+    override func awakeFromNib() {
+        guard let menuLanguageButton = button else { return }
+        self.accessibilityElements = [menuLanguageButton]
+    }
 }
 
 class MenuLanguageButton : UIButton {

@@ -35,6 +35,7 @@ class SigningTableViewHeaderView: UIView {
     @IBOutlet weak var searchTextField: SearchTextField!
     
     @IBAction func searchTapped() {
+        searchTextField.isAccessibilityElement = true
         showSearch(true, animated: true)
     }
     
@@ -47,7 +48,8 @@ class SigningTableViewHeaderView: UIView {
             NSLog("Unable to get titleLabel, searchButton or searchTextField")
             return
         }
-        self.accessibilityElements = [titleUILabel, searchUIButton, searchUITextField]
+        searchUITextField.isAccessibilityElement = false
+        self.accessibilityElements = [titleUILabel, searchUIButton]
     }
     
     override func layoutSubviews() {
