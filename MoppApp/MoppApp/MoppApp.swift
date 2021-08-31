@@ -320,7 +320,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
 
                 do {
                     let newData: Data? = try Data(contentsOf: newUrl)
-                    let fileName: String = newUrl.deletingPathExtension().lastPathComponent.sanitize(replaceCharacter: "_")
+                    let fileName: String = newUrl.deletingPathExtension().lastPathComponent.sanitize()
                     let tempDirectoryPath: String? = MoppFileManager.shared.tempDocumentsDirectoryPath()
                     guard let tempDirectory = tempDirectoryPath else {
                         NSLog("Unable to get temporary file directory")
