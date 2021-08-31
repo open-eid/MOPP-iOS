@@ -323,7 +323,11 @@ extension ContainerViewController : UITableViewDataSource {
         case .notifications:
             let cell = tableView.dequeueReusableCell(withType: ContainerNotificationCell.self, for: indexPath)!
             if notifications.indices.contains(indexPath.row) {
-                cell.populate(isSuccess: notifications[indexPath.row].isSuccess, text: notifications[indexPath.row].text)
+                let isSuccess = notifications[indexPath.row].isSuccess
+                cell.populate(isSuccess: isSuccess, text: notifications[indexPath.row].text)
+                if isSuccess {
+                    UIAccessibility.post(notification: .announcement,  argument: cell.infoLabel)
+                }
                 return cell
             }
             return ContainerNotificationCell()
@@ -345,7 +349,7 @@ extension ContainerViewController : UITableViewDataSource {
                 showBottomBorder: row < signingContainerViewDelegate.getSignaturesCount() - 1,
                 showRemoveButton: !isForPreview && signingContainerViewDelegate.isContainerSignable(),
                 signatureIndex: row)
-            cell.removeButton.accessibilityLabel = L(.cryptoRemoveAddresseeButton)
+            cell.removeButton.accessibilityLabel = L(.signatureRemoveButton)
             return cell
         case .missingSignatures:
             let cell = tableView.dequeueReusableCell(withType: ContainerNoSignaturesCell.self, for: indexPath)!

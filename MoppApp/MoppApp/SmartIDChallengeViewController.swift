@@ -41,6 +41,8 @@ class SmartIDChallengeViewController : UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveCreateSignatureNotification), name: .createSignatureNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveCreateSignatureStatus), name: .signatureAddedToContainerNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveErrorNotification), name: .errorNotificationName, object: nil)
+        
+        UIAccessibility.post(notification: .announcement, argument: timeoutProgressView.progress)
     }
 
     deinit {
@@ -60,7 +62,9 @@ class SmartIDChallengeViewController : UIViewController {
         codeLabel.text = challengeID
         codeLabel.isHidden = false
         let challengeIdNumbers = Array<Character>(challengeID)
-        codeLabel.accessibilityLabel = L(.challengeCodeLabel, ["\(challengeIdNumbers[0]), \(challengeIdNumbers[1]), \(challengeIdNumbers[2]), \(challengeIdNumbers[3])"])
+        let challengeIdAccessibilityLabel: String = "\((L(LocKey.challengeCodeLabelAccessibility, [String(challengeIdNumbers[0]), String(challengeIdNumbers[1]), String(challengeIdNumbers[2]), String(challengeIdNumbers[3])]))). \(self.helpLabel.text!)"
+        codeLabel.accessibilityLabel = challengeIdAccessibilityLabel
+        UIAccessibility.post(notification: .announcement, argument: challengeIdAccessibilityLabel)
         currentProgress = 0.0
         sessionTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSessionProgress), userInfo: nil, repeats: true)
 
@@ -74,6 +78,7 @@ class SmartIDChallengeViewController : UIViewController {
                 self.showNotification(challengeID: challengeID)
             }
         }
+        UIAccessibility.post(notification: .layoutChanged, argument: timeoutProgressView)
     }
 
     @objc func receiveCreateSignatureStatus(_ notification: Notification) {

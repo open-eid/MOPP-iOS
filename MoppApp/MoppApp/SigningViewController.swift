@@ -39,6 +39,11 @@ class SigningViewController : MoppViewController {
         titleLabel.text = L(LocKey.signatureViewBeginLabel)
         importButton.localizedTitle = LocKey.signatureViewBeginButton
         menuButton.accessibilityLabel = L(LocKey.menuButton)
+        
+        titleLabel.isAccessibilityElement = false
+        importButton.accessibilityLabel = L(.signatureViewBeginLabel)
+        
+        UIAccessibility.post(notification: .screenChanged, argument: importButton)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
