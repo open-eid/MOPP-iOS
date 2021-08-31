@@ -104,8 +104,8 @@
 "file-import-save-file" = "Save file";
 "file-import-file-saved" = "File saved";
 "file-import-failed-file-save" = "Failed to save file";
-"file-import-failed-empty-file" = "Cannot add empty file to the container";
-"file-import-failed-empty-file-imported" = "An empty file is attached to the envelope. Remove the empty file from the container to sign";
+"file-import-failed-empty-file" = "Cannot add empty file to the container.";
+"file-import-failed-empty-file-imported" = "An empty file is attached to the envelope. Remove the empty file from the container to sign.";
 
 // Details
 "container-details-signing-success" = "SIGNATURE ADDED";
