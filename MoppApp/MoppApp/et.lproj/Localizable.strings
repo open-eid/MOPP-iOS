@@ -105,6 +105,8 @@
 "file-import-save-file" = "Salvesta fail ümbrikust";
 "file-import-file-saved" = "Fail salvestatud";
 "file-import-failed-file-save" = "Faili salvestamine ebaõnnestus";
+"file-import-failed-empty-file" = "Tühja faili ei saa lisada ümbrikusse.";
+"file-import-failed-empty-file-imported" = "Ümbrikule on lisatud tühi fail. Allkirjastamiseks eemalda ümbrikust tühi fail.";
 
 // Details
 "container-details-signing-success" = "ALLKIRI LISATUD";
