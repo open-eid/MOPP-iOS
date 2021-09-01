@@ -224,6 +224,7 @@ extension RecentContainersViewController : UITableViewDelegate {
                 let filename = strongSelf.containerFiles[indexPath.row]
                 MoppFileManager.shared.removeDocumentsFile(with: filename)
                 strongSelf.containerFiles = MoppFileManager.shared.documentsFiles()
+                UIAccessibility.post(notification: .screenChanged, argument: L(.recentDocumentRemoved))
                 tableView.reloadData()
             }
             delete.backgroundColor = UIColor.moppError

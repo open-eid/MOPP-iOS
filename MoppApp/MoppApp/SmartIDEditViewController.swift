@@ -133,6 +133,7 @@ class SmartIDEditViewController : MoppViewController {
         dismiss(animated: false) { [weak self] in
             guard let sself = self else { return }
             sself.delegate?.smartIDEditViewControllerDidDismiss(cancelled: true, country: nil, idCode: nil)
+            UIAccessibility.post(notification: .screenChanged, argument: L(.signingCancelled))
         }
     }
 

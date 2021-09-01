@@ -46,6 +46,7 @@
 "language-estonian" = "Эстонский язык";
 "language-english" = "Английский язык";
 "language-russian" = "Русский язык";
+"language-changed" = "Язык изменён";
 
 // Signature view
 "signature-view-begin-label" = "Выберите файл для подписания или проверки";
@@ -60,6 +61,12 @@
 "crypto-ldap-search-placeholder" = "Введите личный код, код компании или регистра";
 "crypto-encryption-error-text" = "Что-то пошло не так с шифрованием";
 "crypto-encryption-success" = "ШИФРОВАНИЕ УДАЛОСЬ";
+"crypto-decryption-cancelled" = "Расшифровка файла прервана";
+"crypto-recipient-found" = "Получатель найден";
+"crypto-recipients-found" = "Получатели найдены";
+"crypto-recipient-added" = "Получатель добавлен";
+"crypto-recipient-removed" = "Получатель удален";
+"crypto-recipient-adding-cancelled" = "Добавление получателя отменено";
 "crypto-no-addressees-warning" = "Не добавлено ни одного получателя";
 "crypto-valid-to" = "действителен до";
 "crypto-type-id-card" = "ID-карта";
@@ -112,6 +119,8 @@
 "container-header-create-files-title" = "Файлы контейнера";
 "container-edit-name-button" = "Название контейнера";
 "container-error-message-failed-container-name-change" = "Не удалось изменить название контейнера";
+"container-name-changed" = "Название контейнера изменено";
+"container-name-change-cancelled" = "Изменение названия контейнера отменено";
 "container-header-files-add-file" = "Добавить файл";
 "container-header-create-addressee-title" = "Получатели";
 "container-header-timestamp-title" = "Временной штамп контейнера";
@@ -150,13 +159,20 @@
 "share-extension-import-title" = "Импорт файла";
 "share-extension-import-message" = "Файл кэширован. Перейти к приложению RIA DigiDoc для завершения импорта";
 
+"datafile-added" = "Файл добавлен";
+"datafiles-added" = "Файлы добавлены";
 "signature-remove-confirm-message" = "Удалить подпись из контейнера?";
 "datafile-remove-confirm-message" = "Удалить файл из контейнера?";
 "last-datafile-remove-confirm-message" = "Вы собираетесь удалить последний файл в контейнере, он удаляется вместе с контейнером.";
+"datafile-removed" = "Файл удален";
+"datafile-removal-cancelled" = "Удаление файла отменено";
 "general-signature-adding-message" = "Не удалось подписать контейнер";
 "general-signature-removal-message" = "Не удается удалить подпись из контейнера";
+"signature-removed" = "Подпись удалена";
+"signature-removal-cancelled" = "Удаление подписи отменено";
 
 "signing-remember-me" = "Запомни меня";
+"signing-cancelled" = "Подписание контейнера прервано";
 "mobile-id-title" = "Введите свой телефонный номер и личный код для подписания с помощью mobiil-ID";
 "mobile-id-phone-title" = "Код страны и телефонный номер";
 "mobile-id-idcode-title" = "Личный код";
@@ -180,6 +196,7 @@
 "done-button-title" = "Готово";
 "recent-containers-empty-list-title" = "Недавние документы отсутствуют";
 "recent-containers-empty-search-message" = "Документ не найден";
+"recent-document-removed" = "Документ удален";
 "search-container-file" = "Искать контейнер";
 "sign-title-mobile-id" = "Mobiil-ID";
 "sign-title-smart-id" = "Smart-ID";
@@ -239,6 +256,11 @@
 "my-eid-info-pin1-button-title" = "ПОМЕНЯТЬ PIN1";
 "my-eid-info-pin2-button-title" = "ПОМЕНЯТЬ PIN2";
 "my-eid-info-puk-button-title" = "ПОМЕНЯТЬ PUK";
+"my-eid-info-pin1-change-cancelled" = "Изменение Pin1 прервано";
+"my-eid-info-pin2-change-cancelled" = "Изменение Pin2 прервано";
+"my-eid-info-pin1-unblock-cancelled" = "Аннулирование блокировки Pin1 прервано";
+"my-eid-info-pin2-unblock-cancelled" = "Аннулирование блокировки Pin2 прервано";
+"my-eid-info-puk-change-cancelled" = "Изменение PUK-кода прервано";
 "my-eid-info-puk-cert-info-text" = "PUK-код в Вашем конверте кодов";
 "my-eid-info-pin-puk-segment-title" = "PIN/PUK И СЕРТИФИКАТЫ";
 "my-eid-info-pin1-blocked-message" = "PIN1 заблокирован, потому что PIN1-код был введён неверно 3 раза. Разблокируйте, чтобы использовать PIN1.";
@@ -285,6 +307,7 @@
 "settings-timestamp-url-title" = "Доступ к услугам отметки времени";
 "settings-timestamp-url-placeholder" = "";
 "settings-timestamp-use-default-title" = "Использовать значение по умолчанию";
+"settings-value-changed" = "Значение настройки изменено";
 "diagnostics-title" = "Диагностика";
 "diagnostics-app-version" = "Версия приложения";
 "diagnostics-ios-version" = "Операционная система";
@@ -299,5 +322,7 @@
 "update-date" = "ДАТА ОБНОВЛЕНИЯ:";
 "refresh-configuration" = "ПРОВЕРЬТЕ ОБНОВЛЕНИЯ";
 "refresh-configuration-restart-message" = "Обновление конфигурации и TSL прошло успешно. Перезапустите приложение для завершения обновления";
+"refresh-configuration-updated" = "Конфигурация удачно обновлена";
+"refresh-configuration-already-up-to-date" = "У вас последняя версия конфигурации";
 "success-notification-dialog-label" = "Чтобы поделиться контейнером, нажмите кнопку «ПОДЕЛИТЬСЯ» и выберите нужное приложение. Все контейнеры можно найти в папке «Недавние документы» в настройках приложения.";
 "success-notification-dialog-dont-show-again" = "Больше не показывать";

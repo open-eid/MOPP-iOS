@@ -149,7 +149,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     private func handleCacheConfiguration() -> Void {
         self.setConfigurationToCache(Date(), forKey: "lastUpdateCheckDate")
         self.loadCachedConfiguration()
-        NotificationCenter.default.post(name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil, userInfo: ["isLoaded": true])
+        NotificationCenter.default.post(name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil, userInfo: ["isLoaded": false])
     }
 
     internal func loadCentralConfiguration() {

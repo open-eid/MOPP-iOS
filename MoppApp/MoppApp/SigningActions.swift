@@ -43,23 +43,27 @@ extension SigningActions where Self: SigningContainerViewController {
         confirmDeleteAlert(
             message: L(.signatureRemoveConfirmMessage),
             confirmCallback: { [weak self] (alertAction) in
-                
-                self?.notifications = []
-                self?.updateState(.loading)
-                MoppLibContainerActions.sharedInstance().remove(
-                    signature,
-                    fromContainerWithPath: self?.container.filePath,
-                    success: { [weak self] container in
-                        self?.updateState((self?.isCreated ?? false) ? .created : .opened)
-                        self?.container.signatures.remove(at: signatureIndex)
-                        self?.reloadData()
-                    },
-                    failure: { [weak self] error in
-                        self?.updateState((self?.isCreated ?? false) ? .created : .opened)
-                        self?.reloadData()
-                        self?.errorAlert(message: L(.generalSignatureRemovalMessage))
-                })
-        })
+                if alertAction == .cancel {
+                    UIAccessibility.post(notification: .layoutChanged, argument: L(.signatureRemovalCancelled))
+                } else if alertAction == .confirm {
+                    self?.notifications = []
+                    self?.updateState(.loading)
+                    MoppLibContainerActions.sharedInstance().remove(
+                        signature,
+                        fromContainerWithPath: self?.container.filePath,
+                        success: { [weak self] container in
+                            self?.updateState((self?.isCreated ?? false) ? .created : .opened)
+                            self?.container.signatures.remove(at: signatureIndex)
+                            UIAccessibility.post(notification: .announcement, argument: L(.signatureRemoved))
+                            self?.reloadData()
+                        },
+                        failure: { [weak self] error in
+                            self?.updateState((self?.isCreated ?? false) ? .created : .opened)
+                            self?.reloadData()
+                            self?.errorAlert(message: L(.generalSignatureRemovalMessage))
+                        })
+                }
+            })
     }
     
     func startSigningProcess() {

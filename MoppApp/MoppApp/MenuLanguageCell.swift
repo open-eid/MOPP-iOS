@@ -70,6 +70,8 @@ class MenuLanguageCell : UITableViewCell {
         selectLanguage(langId)
         
         delegate?.didSelectLanguage(languageId: langId)
+        
+        UIAccessibility.post(notification: .pageScrolled, argument: L(.languageChanged))
     }
     
     override func layoutSubviews() {

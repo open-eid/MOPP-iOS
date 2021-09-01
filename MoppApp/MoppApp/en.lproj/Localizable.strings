@@ -46,6 +46,7 @@
 "language-estonian" = "Estonian language";
 "language-english" = "English language";
 "language-russian" = "Russian language";
+"language-changed" = "Language changed";
 
 // Signature view
 "signature-view-begin-label" = "Choose a file to sign or validate";
@@ -60,6 +61,12 @@
 "crypto-ldap-search-placeholder" = "Enter personal code, company or registry code";
 "crypto-encryption-error-text" = "Something went wrong with encryption";
 "crypto-encryption-success" = "ENCRYPTION SUCCEEDED";
+"crypto-decryption-cancelled" = "File decryption cancelled";
+"crypto-recipient-found" = "Recipient found";
+"crypto-recipients-found" = "%@ recipients found";
+"crypto-recipient-added" = "Recipient added";
+"crypto-recipient-removed" = "Recipient removed";
+"crypto-recipient-adding-cancelled" = "Recipient addition cancelled";
 "crypto-no-addressees-warning" = "No recipients specified";
 "crypto-valid-to" = "valid to";
 "crypto-type-id-card" = "ID-card";
@@ -113,6 +120,8 @@
 "container-header-create-files-title" = "Container files";
 "container-edit-name-button" = "Container name";
 "container-error-message-failed-container-name-change" = "Failed to rename container";
+"container-name-changed" = "Container name changed";
+"container-name-change-cancelled" = "Container name change cancelled";
 "container-header-files-add-file" = "Add file";
 "container-header-create-addressee-title" = "Recipients";
 "container-header-timestamp-title" = "Container timestamps";
@@ -149,13 +158,20 @@
 "share-extension-import-title" = "Importing file";
 "share-extension-import-message" = "File is now cached for you. Go to RIA DigiDoc application to finish import";
 
+"datafile-added" = "File added";
+"datafiles-added" = "Files added";
 "signature-remove-confirm-message" = "Remove signature from container?";
 "datafile-remove-confirm-message" = "Remove file from container?";
 "last-datafile-remove-confirm-message" = "You are about to remove the last file in the container, it is removed along with the container.";
+"datafile-removed" = "File removed";
+"datafile-removal-cancelled" = "File removal cancelled";
 "general-signature-adding-message" = "Failed to sign container";
 "general-signature-removal-message" = "Failed to remove signature from container";
+"signature-removed" = "Signature removed";
+"signature-removal-cancelled" = "Signature removal cancelled";
 
 "signing-remember-me" = "Remember me";
+"signing-cancelled" = "Container signing cancelled";
 "mobile-id-title" = "Enter your mobile number and personal code to sign with mobile-ID";
 "mobile-id-phone-title" = "Country code and phone number";
 "mobile-id-idcode-title" = "Personal code";
@@ -179,6 +195,7 @@
 "done-button-title" = "Done";
 "recent-containers-empty-list-title" = "No recent documents";
 "recent-containers-empty-search-message" = "Document not found";
+"recent-document-removed" = "Document removed";
 "search-container-file" = "Search container file";
 "sign-title-mobile-id" = "Mobile-ID";
 "sign-title-smart-id" = "Smart-ID";
@@ -238,6 +255,11 @@
 "my-eid-info-pin1-button-title" = "CHANGE PIN1";
 "my-eid-info-pin2-button-title" = "CHANGE PIN2";
 "my-eid-info-puk-button-title" = "CHANGE PUK";
+"my-eid-info-pin1-change-cancelled" = "Pin1 change cancelled";
+"my-eid-info-pin2-change-cancelled" = "Pin2 change cancelled";
+"my-eid-info-pin1-unblock-cancelled" = "Pin1 unblock cancelled";
+"my-eid-info-pin2-unblock-cancelled" = "Pin2 unblock cancelled";
+"my-eid-info-puk-change-cancelled" = "PUK code change cancelled";
 "my-eid-info-puk-cert-info-text" = "PUK code is in your code envelope";
 "my-eid-info-pin-puk-segment-title" = "PIN/PUK CODES AND CERTIFICATES";
 "my-eid-info-pin1-blocked-message" = "PIN1 has been blocked, because PIN1 code has been entered incorrectly 3 times. Unblock to reuse PIN1.";
@@ -284,6 +306,7 @@
 "settings-timestamp-url-title" = "Access to Time-Stamping service";
 "settings-timestamp-url-placeholder" = "";
 "settings-timestamp-use-default-title" = "Use default";
+"settings-value-changed" = "Setting value changed";
 "diagnostics-title" = "Diagnostics";
 "diagnostics-app-version" = "Application version";
 "diagnostics-ios-version" = "OS";
@@ -298,5 +321,7 @@
 "update-date" = "UPDATE DATE:";
 "refresh-configuration" = "REFRESH CONFIGURATION";
 "refresh-configuration-restart-message" = "Configuration and TSL updated successfully. Restart the application to complete the update";
+"refresh-configuration-updated" = "Configuration updated";
+"refresh-configuration-already-up-to-date" = "Configuration is already up-to-date";
 "success-notification-dialog-label" = "To share the container click the \"SHARE\" button and choose your preferred application. All containers can also be found in the application settings \"Recent Documents\" folder.";
 "success-notification-dialog-dont-show-again" = "Don't show again";

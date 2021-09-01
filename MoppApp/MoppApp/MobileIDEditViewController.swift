@@ -103,6 +103,7 @@ class MobileIDEditViewController : MoppViewController {
                 cancelled: true,
                 phoneNumber: nil,
                 idCode: nil)
+            UIAccessibility.post(notification: .screenChanged, argument: L(.signingCancelled))
         }
     }
     

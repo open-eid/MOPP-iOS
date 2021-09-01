@@ -43,6 +43,7 @@ class ContainerFoundAddresseeCell: UITableViewCell, AddresseeActions {
     
     @IBAction func addAddressee(_ sender: Any) {
         delegate.addAddresseeToSelectedArea(index: index)
+        UIAccessibility.post(notification: .screenChanged, argument: L(.cryptoRecipientAdded))
     }
     
     func populate(addressee: Addressee, index: Int, isAddButtonDisabled: Bool) {

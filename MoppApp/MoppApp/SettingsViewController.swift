@@ -161,6 +161,7 @@ extension SettingsViewController: SettingsFieldCellDelegate {
         default:
             break
         }
+        UIAccessibility.post(notification: .screenChanged, argument: L(.settingsValueChanged))
     }
 }
 

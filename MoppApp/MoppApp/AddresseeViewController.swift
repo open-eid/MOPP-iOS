@@ -64,6 +64,13 @@ class AddresseeViewController : MoppViewController {
         LandingViewController.shared.presentButtons([.confirmButton])
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if selectedAddressees.count == 0 {
+            UIAccessibility.post(notification: .screenChanged, argument: L(.cryptoRecipientAddingCancelled))
+        }
+    }
+    
     private func dismissKeyboard() {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
@@ -118,7 +125,13 @@ extension AddresseeViewController : UITableViewDataSource {
             case .search:
                 return 1
             case .searchResult:
-                return foundAddressees.count
+                let foundAddressees = foundAddressees.count
+                if foundAddressees == 1 {
+                    UIAccessibility.post(notification: .screenChanged, argument: L(.cryptoRecipientFound))
+                } else if foundAddressees > 1 {
+                    UIAccessibility.post(notification: .screenChanged, argument: L(.cryptoRecipientsFound, [String(foundAddressees)]))
+                }
+                return foundAddressees
             case .addressees:
                 return selectedAddressees.count
         }
