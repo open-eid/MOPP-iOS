@@ -103,6 +103,8 @@
 "file-import-save-file" = "Сохраните файл";
 "file-import-file-saved" = "Файл сохранен";
 "file-import-failed-file-save" = "Не удалось сохранить файл";
+"file-import-failed-empty-file" = "Пустой файл нельзя добавить в контейнер.";
+"file-import-failed-empty-file-imported" = "В контейнер добавлен пустой файл. Для подписания удалите из контейнера пустой файл.";
 
 // Details
 "container-details-signing-success" = "ПОДПИСЬ ДОБАВЛЕНА";

@@ -225,7 +225,14 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
 
 extension LandingViewController : UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        importFiles(with: urls, cleanup: true)
+        var isEmptyFileImported: Bool = false
+        for url in urls {
+            if MoppFileManager.isFileEmpty(fileUrl: url) {
+                isEmptyFileImported = true
+                break
+            }
+        }
+        importFiles(with: urls, cleanup: true, isEmptyFileImported: isEmptyFileImported)
     }
 }
 

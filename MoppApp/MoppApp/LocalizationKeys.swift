@@ -72,6 +72,8 @@ enum LocKey : String
     case fileImportSaveFile = "file-import-save-file"
     case fileImportFileSaved = "file-import-file-saved"
     case fileImportFailedFileSave = "file-import-failed-file-save"
+    case fileImportFailedEmptyFile = "file-import-failed-empty-file"
+    case fileImportFailedEmptyFileImported = "file-import-failed-empty-file-imported"
     case containerDetailsSigningSuccess = "container-details-signing-success"
     case containerDetailsDecryptionSuccess = "container-details-decryption-success"
     case containerDetailsFileAlreadyExists = "container-details-file-already-exists"
