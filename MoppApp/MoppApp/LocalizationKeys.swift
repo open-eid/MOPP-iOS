@@ -58,6 +58,7 @@ enum LocKey : String
     case actionOk = "action-ok"
     case actionYes = "action-yes"
     case actionCancel = "action-cancel"
+    case actionAbort = "action-abort"
     case actionDelete = "action-delete"
     case actionSign = "action-sign"
     case actionDecrypt = "action-decrypt"

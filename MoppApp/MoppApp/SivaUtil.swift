@@ -35,7 +35,7 @@ class SiVaUtil {
         alert.addAction(UIAlertAction(title: L(.actionYes).uppercased(), style: .default, handler: { (_ action: UIAlertAction) in
             completionHandler(true)
         }))
-        alert.addAction(UIAlertAction(title: L(.actionCancel).uppercased(), style: .default, handler: {(_ action: UIAlertAction) -> Void in
+        alert.addAction(UIAlertAction(title: L(.actionAbort), style: .default, handler: {(_ action: UIAlertAction) -> Void in
             completionHandler(false)
         }))
         if let linkInUrl: String = L(.sivaSendMessage).getFirstLinkInMessage() {
