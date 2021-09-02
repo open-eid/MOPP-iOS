@@ -81,9 +81,14 @@
 "crashlytics-action-always-send" = "Always send";
 "crashlytics-action-do-not-send" = "Don’t send";
 
+// SiVa consent
+"siva-send-message" = "Signed document in PDF and DDOC format will be transmitted to the Digital Signature Validation Service SiVa to verify the validity of the digital signature. Read more information about transmitted data to Digital Signature Validation service from id.ee website.\n Do you want to continue? https://www.id.ee/en/article/data-protection-conditions-for-the-id-software-of-the-national-information-system-authority/";
+
 // *** Actions ***
 "action-ok" = "OK";
+"action-yes" = "YES";
 "action-cancel" = "Cancel";
+"action-abort" = "CANCEL";
 "action-delete" = "Delete";
 "action-sign" = "Sign";
 "action-decrypt" = "Decrypt";
