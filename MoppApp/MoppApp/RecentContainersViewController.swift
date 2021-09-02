@@ -23,6 +23,8 @@
 class RecentContainersViewController : MoppModalViewController {
     var requestCloseSearch: (() -> Void) = {}
     @IBOutlet weak var tableView: UITableView!
+    
+    var accessibilityElementsList = [Any]()
 
     enum Section {
         case header
@@ -69,6 +71,16 @@ class RecentContainersViewController : MoppModalViewController {
         super.viewDidAppear(animated)
         
         closeSearch()
+        
+        for cell in tableView.visibleCells {
+            if cell is RecentContainersHeaderCell {
+                self.accessibilityElementsList.insert(cell, at: 0)
+            } else if cell is RecentContainersNameCell {
+                self.accessibilityElementsList.append(cell)
+            }
+            
+            self.accessibilityElements = accessibilityElementsList
+        }
     }
     
     func refresh(searchKey: String? = nil) {
@@ -143,6 +155,8 @@ extension RecentContainersViewController : UITableViewDelegate {
             let headerView = MoppApp.instance.nibs[.recentContainersElements]?.instantiate(withOwner: self, type: SigningTableViewHeaderView.self)
                 headerView?.delegate = self
                 headerView?.populate(title: L(.signingRecentContainers), &requestCloseSearch)
+            guard let tableHeaderView = headerView, let tableSearchField = tableHeaderView.searchTextField else { return UIView() }
+            self.accessibilityElementsList.append(contentsOf: [tableHeaderView, tableSearchField])
             return headerView
         }
         return nil
@@ -217,6 +231,9 @@ extension RecentContainersViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        if indexPath.isEmpty {
+            return []
+        }
         let section = sections[indexPath.section]
         if section == .containerFiles {
             let delete = UITableViewRowAction(style: .destructive, title: L(LocKey.containerRowEditRemove)) { [weak self] action, indexPath in
