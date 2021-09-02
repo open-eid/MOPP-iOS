@@ -45,7 +45,9 @@ extension CryptoActions where Self: CryptoContainerViewController {
                     self.reloadCryptoData()
                     
                     if !DefaultsHelper.hideShareContainerDialog {
-                        self.displayShareContainerDialog()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                            self.displayShareContainerDialog()
+                        }
                     }
                     
             },
