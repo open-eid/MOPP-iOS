@@ -130,27 +130,13 @@ extension SigningContainerViewController : MobileIDEditViewControllerDelegate {
     }
     
     func decideLanguageBasedOnPreferredLanguages() -> String {
-        var language: String = String()
-        let prefLanguages = NSLocale.preferredLanguages
-        for i in 0..<prefLanguages.count {
-            if prefLanguages[i].hasPrefix("et-") {
-                language = "EST"
-                break
-            }
-            else if prefLanguages[i].hasPrefix("lt-") {
-                language = "LIT"
-                break
-            }
-            else if prefLanguages[i].hasPrefix("ru-") {
-                language = "RUS"
-                break
-            }
+        let currentLanguage = DefaultsHelper.moppLanguageID
+        if currentLanguage == "et" {
+            return "EST"
+        } else if currentLanguage == "ru" {
+            return "RUS"
         }
-        if language.isEmpty {
-            language = "ENG"
-        }
-        
-        return language
+        return "ENG"
     }
 }
 

@@ -145,6 +145,9 @@ extension AddresseeViewController : UITableViewDataSource {
                 }
                 let isAddButtonDisabled = selectedIndexes.contains(row) || isSelected
                 cell.populate(addressee: foundAddressees[row] as! Addressee, index: row, isAddButtonDisabled: isAddButtonDisabled)
+                if indexPath.row == 0 {
+                    UIAccessibility.post(notification: .layoutChanged, argument: cell)
+                }
                 return cell
             case .addressees:
                 let cell = tableView.dequeueReusableCell(withType: ContainerAddresseeCell.self, for: indexPath)!

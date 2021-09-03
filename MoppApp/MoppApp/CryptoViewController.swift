@@ -42,6 +42,12 @@ class CryptoViewController : MoppViewController {
         titleLabel.text = L(LocKey.cryptoViewBeginLabel)
         importButton.localizedTitle = LocKey.cryptoViewBeginButton
         menuButton.accessibilityLabel = L(LocKey.menuButton)
+        
+        titleLabel.isAccessibilityElement = false
+        importButton.accessibilityLabel = titleLabel.text
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            UIAccessibility.post(notification: .layoutChanged, argument: self.importButton)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

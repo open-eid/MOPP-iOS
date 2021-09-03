@@ -21,21 +21,34 @@
  *
  */
 protocol ContainerActions {
-    func openExistingContainer(with url: URL, cleanup: Bool)
-    func importFiles(with urls: [URL], cleanup: Bool)
+    func openExistingContainer(with url: URL, cleanup: Bool, isEmptyFileImported: Bool)
+    func importFiles(with urls: [URL], cleanup: Bool, isEmptyFileImported: Bool)
     func addDataFilesToContainer(dataFilePaths: [String])
-    func createNewContainer(with url: URL, dataFilePaths: [String], startSigningWhenCreated: Bool, cleanUpDataFilesInDocumentsFolder: Bool)
+    func createNewContainer(with url: URL, dataFilePaths: [String], isEmptyFileImported: Bool, startSigningWhenCreated: Bool, cleanUpDataFilesInDocumentsFolder: Bool)
     func createNewContainerForNonSignableContainerAndSign()
 }
 
 extension ContainerActions where Self: UIViewController {
-    func importFiles(with urls: [URL], cleanup: Bool) {
+    func importFiles(with urls: [URL], cleanup: Bool, isEmptyFileImported: Bool) {
         let landingViewController = LandingViewController.shared!
         let navController = landingViewController.viewController(for: .signTab) as! UINavigationController
         let topSigningViewController = navController.viewControllers.last!
         
         landingViewController.documentPicker.dismiss(animated: false, completion: nil)
         
+        if urls.count == 1 && SiVaUtil.isDocumentSentToSiVa(fileUrl: urls.first) {
+            SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
+                if hasAgreed {
+                    self.importDataFiles(with: urls, navController: navController, topSigningViewController: topSigningViewController, landingViewController: landingViewController, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported)
+                }
+            }
+            return
+        } else {
+            self.importDataFiles(with: urls, navController: navController, topSigningViewController: topSigningViewController, landingViewController: landingViewController, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported)
+        }
+    }
+    
+    func importDataFiles(with urls: [URL], navController: UINavigationController, topSigningViewController: UIViewController, landingViewController: LandingViewController, cleanup: Bool, isEmptyFileImported: Bool) {
         if topSigningViewController.presentedViewController is FileImportProgressViewController {
             topSigningViewController.presentedViewController?.errorAlert(message: L(.fileImportAlreadyInProgressMessage))
             return
@@ -49,7 +62,11 @@ extension ContainerActions where Self: UIViewController {
                 NSLog(error?.localizedDescription ?? "No error description")
                 if topSigningViewController.presentedViewController is FileImportProgressViewController {
                     self?.dismiss(animated: true, completion: {
-                        self?.showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [""]))
+                        if let nsError = error as NSError?, !nsError.userInfo.isEmpty, nsError.userInfo[NSLocalizedDescriptionKey] != nil {
+                            self?.showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: nsError.userInfo[NSLocalizedDescriptionKey] as? String ?? L(.fileImportOpenExistingFailedAlertMessage, [""]))
+                        } else {
+                            self?.showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [""]))
+                        }
                     })
                 }
                 return
@@ -73,15 +90,15 @@ extension ContainerActions where Self: UIViewController {
                     landingViewController.containerType == .asic
                 let isCdocContainer = ext.isCdocContainerExtension && landingViewController.containerType == .cdoc
                 if  (isAsicOrPadesContainer || isCdocContainer) && urls.count == 1 {
-                    self?.openExistingContainer(with: urls.first!, cleanup: cleanup)
+                    self?.openExistingContainer(with: urls.first!, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported)
                 } else {
-                    self?.createNewContainer(with: urls.first!, dataFilePaths: dataFilePaths)
+                    self?.createNewContainer(with: urls.first!, dataFilePaths: dataFilePaths, isEmptyFileImported: isEmptyFileImported)
                 }
             }
         }
     }
     
-    func openExistingContainer(with url: URL, cleanup: Bool) {
+    func openExistingContainer(with url: URL, cleanup: Bool, isEmptyFileImported: Bool) {
     
         let landingViewController = LandingViewController.shared!
     
@@ -116,8 +133,12 @@ extension ContainerActions where Self: UIViewController {
             
             alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.noConnectionMessage), preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
-
-            navController?.viewControllers.last!.present(alert, animated: true)
+            
+            if isEmptyFileImported {
+                navController?.viewControllers.last!.present(alert, animated: true, completion: {
+                    navController?.viewControllers.last!.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))
+                })
+            }
         }
         if landingViewController.containerType == .asic {
             MoppLibContainerActions.sharedInstance().openContainer(withPath: newFilePath,
@@ -132,7 +153,7 @@ extension ContainerActions where Self: UIViewController {
                     // If file to open is PDF and there is no signatures then create new container
                     let isPDF = url.pathExtension.lowercased() == ContainerFormatPDF
                     if isPDF && container!.signatures.isEmpty {
-                        landingViewController.createNewContainer(with: url, dataFilePaths: [newFilePath])
+                        landingViewController.createNewContainer(with: url, dataFilePaths: [newFilePath], isEmptyFileImported: isEmptyFileImported)
                         return
                     }
                     
@@ -242,7 +263,7 @@ extension ContainerActions where Self: UIViewController {
         return false
     }
     
-    func createNewContainer(with url: URL, dataFilePaths: [String], startSigningWhenCreated: Bool = false, cleanUpDataFilesInDocumentsFolder: Bool = true) {
+    func createNewContainer(with url: URL, dataFilePaths: [String], isEmptyFileImported: Bool, startSigningWhenCreated: Bool = false, cleanUpDataFilesInDocumentsFolder: Bool = true) {
         let landingViewController = LandingViewController.shared!
     
         let filePath = url.relativePath
@@ -298,6 +319,9 @@ extension ContainerActions where Self: UIViewController {
                     
                     landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
                         navController?.pushViewController(containerViewController, animated: true)
+                        if isEmptyFileImported {
+                            containerViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))
+                        }
                     })
                     
             }, failure: { error in
@@ -335,7 +359,7 @@ extension ContainerActions where Self: UIViewController {
         if let containerViewController = self as? ContainerViewController {
             let containerPath = containerViewController.containerPath!
             let containerPathURL = URL(fileURLWithPath: containerPath)
-            createNewContainer(with: containerPathURL, dataFilePaths: [containerPath], startSigningWhenCreated: true, cleanUpDataFilesInDocumentsFolder: false)
+            createNewContainer(with: containerPathURL, dataFilePaths: [containerPath], isEmptyFileImported: MoppFileManager.isFileEmpty(fileUrl: containerPathURL), startSigningWhenCreated: true, cleanUpDataFilesInDocumentsFolder: false)
         }
     }
     

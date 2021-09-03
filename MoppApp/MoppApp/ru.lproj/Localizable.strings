@@ -80,9 +80,14 @@
 "crashlytics-action-always-send" = "Всегда отправлять";
 "crashlytics-action-do-not-send" = "Не отправлять";
 
+// SiVa consent
+"siva-send-message" = "Для проверки действительности электронно-цифровых подписей в форматах PDF и DDOC файл пересылается в службу проверки цифровых подписей SiVa. Подробнее о данных, переданных для проверки действительности электронно-цифровых подписей, можно прочитать на id.ee.\n Вы желаете продолжить? https://www.id.ee/ru/artikkel/usloviya-zashhity-dannyh-programmnogo-obespecheniya-id-karty-departamenta-gosudarstvennoj-infosistemy/";
+
 // *** Actions ***
 "action-ok" = "OK";
+"action-yes" = "ДА";
 "action-cancel" = "Отменить";
+"action-abort" = "ОТМЕНИТЬ";
 "action-delete" = "Удалить";
 "action-sign" = "Подписать";
 "action-decrypt" = "Дешифровать";
@@ -103,6 +108,8 @@
 "file-import-save-file" = "Сохраните файл";
 "file-import-file-saved" = "Файл сохранен";
 "file-import-failed-file-save" = "Не удалось сохранить файл";
+"file-import-failed-empty-file" = "Пустой файл нельзя добавить в контейнер.";
+"file-import-failed-empty-file-imported" = "В контейнер добавлен пустой файл. Для подписания удалите из контейнера пустой файл.";
 
 // Details
 "container-details-signing-success" = "ПОДПИСЬ ДОБАВЛЕНА";

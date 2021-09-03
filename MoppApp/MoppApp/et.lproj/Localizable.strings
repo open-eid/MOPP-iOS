@@ -82,9 +82,14 @@
 "crashlytics-action-always-send" = "Saada alati";
 "crashlytics-action-do-not-send" = "Ära saada";
 
+// SiVa consent
+"siva-send-message" = "PDF ja DDOC formaadis digitaalallkirjade kehtivuse kontrollimiseks edastatakse fail valideerimisteenusele SiVa. Digitaalallkirjade kehtivuse kontrollimisel edastatud andmete kohta loe lähemalt id.ee veebilehelt.\n Kas soovid jätkata? https://www.id.ee/artikkel/riigi-infosusteemi-ameti-id-tarkvara-andmekaitsetingimused/";
+
 // *** Actions ***
 "action-ok" = "OK";
+"action-yes" = "JAH";
 "action-cancel" = "Tühista";
+"action-abort" = "KATKESTA";
 "action-delete" = "Eemalda";
 "action-sign" = "Allkirjasta";
 "action-decrypt" = "Dekrüpteeri";
@@ -105,6 +110,8 @@
 "file-import-save-file" = "Salvesta fail ümbrikust";
 "file-import-file-saved" = "Fail salvestatud";
 "file-import-failed-file-save" = "Faili salvestamine ebaõnnestus";
+"file-import-failed-empty-file" = "Tühja faili ei saa lisada ümbrikusse.";
+"file-import-failed-empty-file-imported" = "Ümbrikule on lisatud tühi fail. Allkirjastamiseks eemalda ümbrikust tühi fail.";
 
 // Details
 "container-details-signing-success" = "ALLKIRI LISATUD";
