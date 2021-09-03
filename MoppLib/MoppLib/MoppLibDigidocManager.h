@@ -60,4 +60,5 @@ typedef enum {
 - (NSString *)pkcs12Cert;
 + (NSArray *)certificatePolicyIdentifiers:(NSData *)certData;
 + (NSString *)removeBeginAndEndFromCertificate:(NSString *)certString;
++ (NSString *)sanitize:(NSString *)text;
 @end
