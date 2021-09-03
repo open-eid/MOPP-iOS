@@ -24,15 +24,22 @@ extension UITextField {
 
     func moppPresentDismissButton() {
     
-        let dismissButton = UIBarButtonItem(title: L(.doneButtonTitle), style: UIBarButtonItem.Style.plain, target: self, action: #selector(__dismissKeyboard))
-            dismissButton.tintColor = UIColor.moppBase
-        
         let toolbar = UIToolbar()
+        toolbar.isAccessibilityElement = false
+        toolbar.accessibilityLabel = ""
+        toolbar.accessibilityValue = ""
+    
+        let doneButton = UIBarButtonItem(title: L(.doneButtonTitle), style: .done, target: self, action: nil)
+    
+        let tap = UITapGestureRecognizer(target: self, action: #selector(__dismissKeyboard))
+        doneButton.customView?.addGestureRecognizer(tap)
+        doneButton.isAccessibilityElement = true
+        doneButton.accessibilityTraits = .button
+        doneButton.accessibilityLabel = L(.doneButtonTitle)
         
-        toolbar.items = [
-            UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil),
-            dismissButton
-        ]
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        
+        toolbar.setItems([flexibleSpace, doneButton], animated: true)
         toolbar.sizeToFit()
         
         inputAccessoryView = toolbar

@@ -116,12 +116,13 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
         secondInfoLabel.isAccessibilityElement = true
         thirdInfoLabel.isAccessibilityElement = true
         
-        firstInfoLabel.attributedText = fullAttributedStrings[0]
-        secondInfoLabel.attributedText = fullAttributedStrings[1]
-        thirdInfoLabel.attributedText = fullAttributedStrings[2]
-        firstInfoLabel.accessibilityLabel = partAttributedStrings[0]
-        secondInfoLabel.accessibilityLabel = partAttributedStrings[1]
-        thirdInfoLabel.accessibilityLabel = partAttributedStrings[2]
+        firstInfoLabel.attributedText = fullAttributedStrings.indices.contains(0) ? fullAttributedStrings[0] : NSAttributedString()
+        secondInfoLabel.attributedText = fullAttributedStrings.indices.contains(1) ? fullAttributedStrings[1] : NSAttributedString()
+        thirdInfoLabel.attributedText = fullAttributedStrings.indices.contains(2) ? fullAttributedStrings[2] : NSAttributedString()
+    
+        firstInfoLabel.accessibilityLabel = partAttributedStrings.indices.contains(0) ? partAttributedStrings[0] : ""
+        secondInfoLabel.accessibilityLabel = partAttributedStrings.indices.contains(1) ? partAttributedStrings[1] : ""
+        thirdInfoLabel.accessibilityLabel = partAttributedStrings.indices.contains(2) ? partAttributedStrings[2] : ""
         
         statusViewHiddenCSTR.priority = UILayoutPriority.defaultHigh
         statusViewVisibleCSTR.priority = UILayoutPriority.defaultLow
