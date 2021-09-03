@@ -125,13 +125,13 @@ extension AddresseeViewController : UITableViewDataSource {
             case .search:
                 return 1
             case .searchResult:
-                let foundAddressees = foundAddressees.count
-                if foundAddressees == 1 {
+                let foundAddresseesCount = foundAddressees.count
+                if foundAddresseesCount == 1 {
                     UIAccessibility.post(notification: .screenChanged, argument: L(.cryptoRecipientFound))
-                } else if foundAddressees > 1 {
-                    UIAccessibility.post(notification: .screenChanged, argument: L(.cryptoRecipientsFound, [String(foundAddressees)]))
+                } else if foundAddresseesCount > 1 {
+                    UIAccessibility.post(notification: .screenChanged, argument: L(.cryptoRecipientsFound, [String(foundAddresseesCount)]))
                 }
-                return foundAddressees
+                return foundAddresseesCount
             case .addressees:
                 return selectedAddressees.count
         }
