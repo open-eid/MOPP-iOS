@@ -66,6 +66,9 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
         discardButton.setTitle(model.discardButtonTitleText)
         confirmButton.setTitle(model.confirmButtonTitleText)
         
+        discardButton.accessibilityLabel = setDiscardButtonAccessibilityLabel(actionType: model.actionType)
+        confirmButton.accessibilityLabel = setConfirmButtonAccessibilityLabel(actionType: model.actionType)
+        
         firstCodeTextField.delegate = self
         secondCodeTextField.delegate = self
         thirdCodeTextField.delegate = self
@@ -163,6 +166,36 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
                 self?.statusViewVisibleCSTR.priority = UILayoutPriority.defaultLow
                 self?.viewController.view.layoutIfNeeded()
             }) { (finished) in }
+        }
+    }
+    
+    func setDiscardButtonAccessibilityLabel(actionType: MyeIDChangeCodesModel.ActionType) -> String {
+        switch actionType {
+        case .changePin1:
+            return L(.myEidDiscardPin1ButtonTitleAccessibility)
+        case .changePin2:
+            return L(.myEidDiscardPin2ButtonTitleAccessibility)
+        case .changePuk:
+            return L(.myEidDiscardPukChangeButtonTitleAccessibility)
+        case .unblockPin1:
+            return L(.myEidDiscardPin1UnblockButtonTitleAccessibility)
+        case .unblockPin2:
+            return L(.myEidDiscardPin2UnblockButtonTitleAccessibility)
+        }
+    }
+    
+    func setConfirmButtonAccessibilityLabel(actionType: MyeIDChangeCodesModel.ActionType) -> String {
+        switch actionType {
+        case .changePin1:
+            return L(.myEidConfirmPin1ChangeButtonTitleAccessibility)
+        case .changePin2:
+            return L(.myEidConfirmPin2ChangeButtonTitleAccessibility)
+        case .changePuk:
+            return L(.myEidConfirmPukChangeButtonTitleAccessibility)
+        case .unblockPin1:
+            return L(.myEidConfirmPin1UnblockButtonTitleAccessibility)
+        case .unblockPin2:
+            return L(.myEidConfirmPin2UnblockButtonTitleAccessibility)
         }
     }
     
