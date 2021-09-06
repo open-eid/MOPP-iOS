@@ -29,9 +29,9 @@ extension UITextField {
         toolbar.accessibilityLabel = ""
         toolbar.accessibilityValue = ""
     
-        let doneButton = UIBarButtonItem(title: L(.doneButtonTitle), style: .done, target: self, action: nil)
+        let doneButton = UIBarButtonItem(title: L(.doneButtonTitle), style: .done, target: self, action: #selector(__dismissKeyboard))
     
-        let tap = UITapGestureRecognizer(target: self, action: #selector(__dismissKeyboard))
+        let tap = UITapGestureRecognizer(target: self, action: nil)
         doneButton.customView?.addGestureRecognizer(tap)
         doneButton.isAccessibilityElement = true
         doneButton.accessibilityTraits = .button
