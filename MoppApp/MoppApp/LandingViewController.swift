@@ -272,9 +272,9 @@ extension LandingViewController {
                 break
             case "shareButton":
                 if buttonIDs.contains(TabButtonId.decryptButton) && buttonIDs.contains(TabButtonId.shareButton) {
-                    view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabShareButton), positionInRow: "2", viewCount: String(visibleViews.count))
+                    view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabShareButtonAccessibility), positionInRow: "2", viewCount: String(visibleViews.count))
                 } else {
-                    view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabShareButton), positionInRow: "1", viewCount: String(visibleViews.count))
+                    view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabShareButtonAccessibility), positionInRow: "1", viewCount: String(visibleViews.count))
                 }
                 view.accessibilityTraits = UIAccessibilityTraits.button
                 break
@@ -287,7 +287,7 @@ extension LandingViewController {
                 view.accessibilityTraits = UIAccessibilityTraits.button
                 break
             case "encryptButton":
-                view.accessibilityLabel = L(.tabEncryptButton)
+                view.accessibilityLabel = L(.tabEncryptButtonAccessibility)
                 view.accessibilityTraits = UIAccessibilityTraits.button
                 break
             case "decryptButton":

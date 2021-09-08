@@ -25,6 +25,7 @@ enum LocKey : String
     typealias RawValue = String
 
     case backButton = "back-button"
+    case menuClose = "menu-close"
     case menuHelp = "menu-help"
     case menuRecentContainers = "menu-recent-containers"
     case menuSettings = "menu-settings"
@@ -39,7 +40,9 @@ enum LocKey : String
     case tabSignature = "tab-signature"
     case tabSignButton = "tab-sign-button"
     case tabShareButton = "tab-share-button"
+    case tabShareButtonAccessibility = "tab-share-button-accessibility"
     case tabEncryptButton = "tab-encrypt-button"
+    case tabEncryptButtonAccessibility = "tab-encrypt-button-accessibility"
     case tabDecryptButton = "tab-decrypt-button"
     case tabConfirmButton = "tab-confirm-button"
     case tabSelected = "tab-selected"
@@ -228,6 +231,16 @@ enum LocKey : String
     case myEidDiscardButtonTitle = "my-eid-discard-button-title"
     case myEidConfirmChangeButtonTitle = "my-eid-confirm-change-button-title"
     case myEidConfirmUnblockButtonTitle = "my-eid-confirm-unblock-button-title"
+    case myEidDiscardPin1ButtonTitleAccessibility = "my-eid-discard-pin1-button-title-accessibility"
+    case myEidDiscardPin2ButtonTitleAccessibility = "my-eid-discard-pin2-button-title-accessibility"
+    case myEidConfirmPin1ChangeButtonTitleAccessibility = "my-eid-confirm-pin1-change-button-title-accessibility"
+    case myEidConfirmPin2ChangeButtonTitleAccessibility = "my-eid-confirm-pin2-change-button-title-accessibility"
+    case myEidDiscardPin1UnblockButtonTitleAccessibility = "my-eid-discard-pin1-unblock-button-title-accessibility"
+    case myEidDiscardPin2UnblockButtonTitleAccessibility = "my-eid-discard-pin2-unblock-button-title-accessibility"
+    case myEidConfirmPin1UnblockButtonTitleAccessibility = "my-eid-confirm-pin1-unblock-button-title-accessibility"
+    case myEidConfirmPin2UnblockButtonTitleAccessibility = "my-eid-confirm-pin2-unblock-button-title-accessibility"
+    case myEidDiscardPukChangeButtonTitleAccessibility = "my-eid-discard-puk-change-button-title-accessibility"
+    case myEidConfirmPukChangeButtonTitleAccessibility = "my-eid-confirm-puk-change-button-title-accessibility"
     case myEidErrorNewCodeTooShort = "my-eid-error-new-code-too-short"
     case myEidErrorCurrentCodeTooShort = "my-eid-error-current-code-too-short"
     case myEidErrorCodesMismatch = "my-eid-error-codes-mismatch"
@@ -272,6 +285,7 @@ enum LocKey : String
     case cryptoTypeMobileId = "crypto-type-mobile-id";
     case cryptoTypeUnknown = "crypto-type-unknown";
     case cryptoAddAddresseeButtonTitle = "crypto-add-addressee-button-title";
+    case cryptoAddAddresseeButtonTitleAccessibility = "crypto-add-addressee-button-title-accessibility";
     case cryptoAddresseeAddedButtonTitle = "crypto-addressee-added-button-title";
     case cryptoRemoveAddresseeButton = "crypto-remove-addressee-button"
     case datafilePreviewFailed = "datafile-preview-failed";

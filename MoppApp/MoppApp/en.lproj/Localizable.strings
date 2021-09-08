@@ -28,7 +28,9 @@
 "tab-signature" = "SIGNATURE";
 "tab-sign-button" = "SIGN";
 "tab-share-button" = "SHARE";
+"tab-share-button-accessibility" = "SHARE CONTAINER";
 "tab-encrypt-button" = "ENCRYPT";
+"tab-encrypt-button-accessibility" = "ENCRYPT DOCUMENT";
 "tab-decrypt-button" = "DECRYPT";
 "tab-confirm-button" = "CONFIRM";
 
@@ -36,6 +38,7 @@
 "tab-unselected" = "%@, tab %@ of %@";
 
 // Main menu
+"menu-close" = "CLOSE MENU";
 "menu-help" = "HELP";
 "menu-recent-containers" = "RECENT DOCUMENTS";
 "menu-settings" = "SETTINGS";
@@ -68,6 +71,7 @@
 "crypto-type-mobile-id" = "Mobile-ID";
 "crypto-type-unknown" = "Unknown";
 "crypto-add-addressee-button-title" = "ADD";
+"crypto-add-addressee-button-title-accessibility" = "ADD RECIPIENT";
 "crypto-addressee-added-button-title" = "ADDED";
 "crypto-remove-addressee-button" = "Remove recipient";
 
@@ -276,6 +280,16 @@
 "my-eid-discard-button-title" = "CANCEL";
 "my-eid-confirm-change-button-title" = "CHANGE";
 "my-eid-confirm-unblock-button-title" = "UNBLOCK";
+"my-eid-discard-pin1-button-title-accessibility" = "CANCEL PIN1 CHANGING PROCESS";
+"my-eid-discard-pin2-button-title-accessibility" = "CANCEL PIN2 CHANGING PROCESS";
+"my-eid-confirm-pin1-change-button-title-accessibility" = "CONFIRM PIN1 CHANGE";
+"my-eid-confirm-pin2-change-button-title-accessibility" = "CONFIRM PIN2 CHANGE";
+"my-eid-discard-pin1-unblock-button-title-accessibility" = "CANCEL PIN1 UNBLOCKING PROCESS";
+"my-eid-discard-pin2-unblock-button-title-accessibility" = "CANCEL PIN2 UNBLOCKING PROCESS";
+"my-eid-confirm-pin1-unblock-button-title-accessibility" = "CONFIRM PIN1 UNBLOCK";
+"my-eid-confirm-pin2-unblock-button-title-accessibility" = "CONFIRM PIN2 UNBLOCK";
+"my-eid-discard-puk-change-button-title-accessibility" = "CANCEL PUK CHANGING PROCESS";
+"my-eid-confirm-puk-change-button-title-accessibility" = "CONFIRM PUK CHANGE";
 "my-eid-error-new-code-too-short" = "New %@ code must be at least %i digits long";
 "my-eid-error-current-code-too-short" = "Current %@ code must be at least %i digits long";
 "my-eid-error-codes-mismatch" = "New %@ codes must match";

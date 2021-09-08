@@ -543,7 +543,7 @@
                                     <constraint firstItem="UF1-Qa-mvf" firstAttribute="top" secondItem="UZI-z6-jr7" secondAttribute="top" id="K1S-gn-icX"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4L7-U7-0AX">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="4L7-U7-0AX">
                                 <rect key="frame" x="0.0" y="717" width="187.5" height="50"/>
                                 <color key="backgroundColor" name="MoppError"/>
                                 <constraints>
@@ -557,7 +557,7 @@
                                     <action selector="discardButtonTapped" destination="Pbk-gd-VHp" eventType="touchUpInside" id="13f-lw-uEw"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AQm-Vo-Ytv">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="AQm-Vo-Ytv">
                                 <rect key="frame" x="187.5" y="717" width="187.5" height="50"/>
                                 <color key="backgroundColor" name="MoppBase"/>
                                 <constraints>

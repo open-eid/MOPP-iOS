@@ -28,7 +28,9 @@
 "tab-signature" = "ПОДПИСЬ";
 "tab-sign-button" = "ПОДПИСАТЬ";
 "tab-share-button" = "ПОДЕЛИТЬСЯ";
+"tab-share-button-accessibility" = "ПОДЕЛИТЬСЯ КОНТЕЙНЕРОМ";
 "tab-encrypt-button" = "ЗАШИФРОВАТЬ";
+"tab-encrypt-button-accessibility" = "ЗАШИФРОВАТЬ ДОКУМЕНТ";
 "tab-decrypt-button" = "ДЕШИФРОВАТЬ";
 "tab-confirm-button" = "ПОДТВЕРДИТЬ";
 
@@ -36,6 +38,7 @@
 "tab-unselected" = "%@, вкладка %@ из %@";
 
 // Main menu
+"menu-close" = "ЗАКРЫТЬ МЕНЮ";
 "menu-help" = "ПОМОЩЬ";
 "menu-recent-containers" = "НЕДАВНИЕ ДОКУМЕНТЫ";
 "menu-settings" = "НАСТРОЙКИ";
@@ -68,6 +71,7 @@
 "crypto-type-mobile-id" = "Mobiil-ID";
 "crypto-type-unknown" = "Неизвестно";
 "crypto-add-addressee-button-title" = "ДОБАВИТЬ";
+"crypto-add-addressee-button-title-accessibility" = "ДОБАВИТЬ ПОЛУЧАТЕЛЯ";
 "crypto-addressee-added-button-title" = "ДОБАВЛЕН";
 
 // Signing view
@@ -277,6 +281,14 @@
 "my-eid-discard-button-title" = "ОТМЕНИТЬ";
 "my-eid-confirm-change-button-title" = "ИЗМЕНИТЬ";
 "my-eid-confirm-unblock-button-title" = "РАЗБЛОКИРОВАТЬ";
+"my-eid-discard-pin1-button-title-accessibility" = "ПРЕРВАТЬ ПРОЦЕСС ИЗМЕНЕНИЯ PIN1";
+"my-eid-discard-pin2-button-title-accessibility" = "ПРЕРВАТЬ ПРОЦЕСС ИЗМЕНЕНИЯ PIN2";
+"my-eid-discard-pin1-unblock-button-title-accessibility" = "ПРЕРВАТЬ ПРОЦЕСС АННУЛИРОВАНИЯ БЛОКИРОВКИ PIN1";
+"my-eid-discard-pin2-unblock-button-title-accessibility" = "ПРЕРВАТЬ ПРОЦЕСС АННУЛИРОВАНИЯ БЛОКИРОВКИ PIN2";
+"my-eid-confirm-pin1-unblock-button-title-accessibility" = "ПОДТВЕРДИТЬ АННУЛИРОВАНИЕ БЛОКИРОВКИ PIN1";
+"my-eid-confirm-pin2-unblock-button-title-accessibility" = "ПОДТВЕРДИТЬ АННУЛИРОВАНИЕ БЛОКИРОВКИ PIN2";
+"my-eid-discard-puk-change-button-title-accessibility" = "ПРЕРВАТЬ ПРОЦЕСС ИЗМЕНЕНИЯ PUK-КОДА";
+"my-eid-confirm-puk-change-button-title-accessibility" = "ПОДТВЕРДИТЬ ИЗМЕНЕНИЕ PUK-КОД";
 "my-eid-error-new-code-too-short" = "Новый %@-код должен быть не менее %i символов";
 "my-eid-error-current-code-too-short" = "Действующий %@-код должен быть не менее %i символов";
 "my-eid-error-codes-mismatch" = "Новые %@-коды должны совпадать";
