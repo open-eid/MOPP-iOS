@@ -84,7 +84,11 @@ extension UIViewController {
     }
     
     func displayShareContainerDialog() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        var dialogWaitTime: DispatchTime = DispatchTime.now() + 1
+        if UIAccessibility.isVoiceOverRunning {
+            dialogWaitTime = DispatchTime.now() + 2
+        }
+        DispatchQueue.main.asyncAfter(deadline: dialogWaitTime) {
             let uiAlertController: UIAlertController = UIAlertController(title: "", message: L(.successNotificationDialogLabel), preferredStyle: .alert)
             
             uiAlertController.addAction(UIAlertAction(title: L(.successNotificationDialogDontShowAgain), style: .default, handler: {(_: UIAlertAction) in

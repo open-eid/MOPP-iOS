@@ -161,6 +161,7 @@
 "share-extension-import-title" = "Faili import";
 "share-extension-import-message" = "Fail on ajutisse kausta salvestatud. Impordi lõpetamiseks mine RIA DigiDoc rakendusse.";
 
+"signature-remove-button" = "Eemalda allkiri";
 "signature-remove-confirm-message" = "Soovid eemaldada allkirja?";
 "datafile-remove-confirm-message" = "Soovid eemaldada faili ümbrikust?";
 "last-datafile-remove-confirm-message" = "Oled kustutamas viimast faili ümbrikus, koos sellega eemaldatakse ka ümbrik.";
