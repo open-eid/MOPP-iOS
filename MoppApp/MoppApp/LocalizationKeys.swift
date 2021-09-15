@@ -25,6 +25,7 @@ enum LocKey : String
     typealias RawValue = String
 
     case backButton = "back-button"
+    case menuClose = "menu-close"
     case menuHelp = "menu-help"
     case menuRecentContainers = "menu-recent-containers"
     case menuSettings = "menu-settings"
@@ -40,11 +41,14 @@ enum LocKey : String
     case tabSignature = "tab-signature"
     case tabSignButton = "tab-sign-button"
     case tabShareButton = "tab-share-button"
+    case tabShareButtonAccessibility = "tab-share-button-accessibility"
     case tabEncryptButton = "tab-encrypt-button"
+    case tabEncryptButtonAccessibility = "tab-encrypt-button-accessibility"
     case tabDecryptButton = "tab-decrypt-button"
     case tabConfirmButton = "tab-confirm-button"
     case tabSelected = "tab-selected"
     case tabUnselected = "tab-unselected"
+    case signatureRemoveButton = "signature-remove-button"
     case signatureViewBeginLabel = "signature-view-begin-label"
     case signatureViewBeginButton = "signature-view-begin-button"
     case signatureDetailsTitle = "signature-details-title"
@@ -55,8 +59,11 @@ enum LocKey : String
     case crashlyticsActionSend = "crashlytics-action-send"
     case crashlyticsActionAlwaysSend = "crashlytics-action-always-send"
     case crashlyticsActionDoNotSend = "crashlytics-action-do-not-send"
+    case sivaSendMessage = "siva-send-message"
     case actionOk = "action-ok"
+    case actionYes = "action-yes"
     case actionCancel = "action-cancel"
+    case actionAbort = "action-abort"
     case actionDelete = "action-delete"
     case actionSign = "action-sign"
     case actionDecrypt = "action-decrypt"
@@ -73,6 +80,8 @@ enum LocKey : String
     case fileImportSaveFile = "file-import-save-file"
     case fileImportFileSaved = "file-import-file-saved"
     case fileImportFailedFileSave = "file-import-failed-file-save"
+    case fileImportFailedEmptyFile = "file-import-failed-empty-file"
+    case fileImportFailedEmptyFileImported = "file-import-failed-empty-file-imported"
     case containerDetailsSigningSuccess = "container-details-signing-success"
     case containerDetailsDecryptionSuccess = "container-details-decryption-success"
     case containerDetailsFileAlreadyExists = "container-details-file-already-exists"
@@ -128,7 +137,7 @@ enum LocKey : String
     case signingCancelled = "signing-cancelled"
     case smartIdTitle = "smart-id-title"
     case smartIdCountryTitle = "smart-id-country-title"
-    case smartIdCountryEstiona = "smart-id-country-estonia"
+    case smartIdCountryEstonia = "smart-id-country-estonia"
     case smartIdCountryLithuania = "smart-id-country-lithuania"
     case smartIdCountryLatvia = "smart-id-country-latvia"
     case smartIdChallengeTitle = "smart-id-challenge-title"
@@ -239,6 +248,16 @@ enum LocKey : String
     case myEidDiscardButtonTitle = "my-eid-discard-button-title"
     case myEidConfirmChangeButtonTitle = "my-eid-confirm-change-button-title"
     case myEidConfirmUnblockButtonTitle = "my-eid-confirm-unblock-button-title"
+    case myEidDiscardPin1ButtonTitleAccessibility = "my-eid-discard-pin1-button-title-accessibility"
+    case myEidDiscardPin2ButtonTitleAccessibility = "my-eid-discard-pin2-button-title-accessibility"
+    case myEidConfirmPin1ChangeButtonTitleAccessibility = "my-eid-confirm-pin1-change-button-title-accessibility"
+    case myEidConfirmPin2ChangeButtonTitleAccessibility = "my-eid-confirm-pin2-change-button-title-accessibility"
+    case myEidDiscardPin1UnblockButtonTitleAccessibility = "my-eid-discard-pin1-unblock-button-title-accessibility"
+    case myEidDiscardPin2UnblockButtonTitleAccessibility = "my-eid-discard-pin2-unblock-button-title-accessibility"
+    case myEidConfirmPin1UnblockButtonTitleAccessibility = "my-eid-confirm-pin1-unblock-button-title-accessibility"
+    case myEidConfirmPin2UnblockButtonTitleAccessibility = "my-eid-confirm-pin2-unblock-button-title-accessibility"
+    case myEidDiscardPukChangeButtonTitleAccessibility = "my-eid-discard-puk-change-button-title-accessibility"
+    case myEidConfirmPukChangeButtonTitleAccessibility = "my-eid-confirm-puk-change-button-title-accessibility"
     case myEidErrorNewCodeTooShort = "my-eid-error-new-code-too-short"
     case myEidErrorCurrentCodeTooShort = "my-eid-error-current-code-too-short"
     case myEidErrorCodesMismatch = "my-eid-error-codes-mismatch"
@@ -292,6 +311,7 @@ enum LocKey : String
     case cryptoTypeMobileId = "crypto-type-mobile-id";
     case cryptoTypeUnknown = "crypto-type-unknown";
     case cryptoAddAddresseeButtonTitle = "crypto-add-addressee-button-title";
+    case cryptoAddAddresseeButtonTitleAccessibility = "crypto-add-addressee-button-title-accessibility";
     case cryptoAddresseeAddedButtonTitle = "crypto-addressee-added-button-title";
     case cryptoRemoveAddresseeButton = "crypto-remove-addressee-button"
     case datafilePreviewFailed = "datafile-preview-failed";

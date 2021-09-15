@@ -112,6 +112,7 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
                 if showErrorInline {
                     self?.ui.firstInlineErrorLabel.text = errorMessage
                     self?.ui.firstInlineErrorLabel.isHidden = false
+                    UIAccessibility.post(notification: .layoutChanged, argument: self?.ui.firstInlineErrorLabel)
                 } else {
                     self?.errorAlert(message: errorMessage, title: nil, dismissCallback: { _ in
                         self?.navigationController?.popViewController(animated: true)

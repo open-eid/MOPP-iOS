@@ -28,7 +28,9 @@
 "tab-signature" = "ПОДПИСЬ";
 "tab-sign-button" = "ПОДПИСАТЬ";
 "tab-share-button" = "ПОДЕЛИТЬСЯ";
+"tab-share-button-accessibility" = "ПОДЕЛИТЬСЯ КОНТЕЙНЕРОМ";
 "tab-encrypt-button" = "ЗАШИФРОВАТЬ";
+"tab-encrypt-button-accessibility" = "ЗАШИФРОВАТЬ ДОКУМЕНТ";
 "tab-decrypt-button" = "ДЕШИФРОВАТЬ";
 "tab-confirm-button" = "ПОДТВЕРДИТЬ";
 
@@ -36,6 +38,7 @@
 "tab-unselected" = "%@, вкладка %@ из %@";
 
 // Main menu
+"menu-close" = "ЗАКРЫТЬ МЕНЮ";
 "menu-help" = "ПОМОЩЬ";
 "menu-recent-containers" = "НЕДАВНИЕ ДОКУМЕНТЫ";
 "menu-settings" = "НАСТРОЙКИ";
@@ -75,6 +78,7 @@
 "crypto-type-mobile-id" = "Mobiil-ID";
 "crypto-type-unknown" = "Неизвестно";
 "crypto-add-addressee-button-title" = "ДОБАВИТЬ";
+"crypto-add-addressee-button-title-accessibility" = "ДОБАВИТЬ ПОЛУЧАТЕЛЯ";
 "crypto-addressee-added-button-title" = "ДОБАВЛЕН";
 
 // Signing view
@@ -87,9 +91,14 @@
 "crashlytics-action-always-send" = "Всегда отправлять";
 "crashlytics-action-do-not-send" = "Не отправлять";
 
+// SiVa consent
+"siva-send-message" = "Для проверки действительности электронно-цифровых подписей в форматах PDF и DDOC файл пересылается в службу проверки цифровых подписей SiVa. Подробнее о данных, переданных для проверки действительности электронно-цифровых подписей, можно прочитать на id.ee.\n Вы желаете продолжить? https://www.id.ee/ru/artikkel/usloviya-zashhity-dannyh-programmnogo-obespecheniya-id-karty-departamenta-gosudarstvennoj-infosistemy/";
+
 // *** Actions ***
 "action-ok" = "OK";
+"action-yes" = "ДА";
 "action-cancel" = "Отменить";
+"action-abort" = "ОТМЕНИТЬ";
 "action-delete" = "Удалить";
 "action-sign" = "Подписать";
 "action-decrypt" = "Дешифровать";
@@ -110,6 +119,8 @@
 "file-import-save-file" = "Сохраните файл";
 "file-import-file-saved" = "Файл сохранен";
 "file-import-failed-file-save" = "Не удалось сохранить файл";
+"file-import-failed-empty-file" = "Пустой файл нельзя добавить в контейнер.";
+"file-import-failed-empty-file-imported" = "В контейнер добавлен пустой файл. Для подписания удалите из контейнера пустой файл.";
 
 // Details
 "container-details-signing-success" = "ПОДПИСЬ ДОБАВЛЕНА";
@@ -161,6 +172,7 @@
 
 "datafile-added" = "Файл добавлен";
 "datafiles-added" = "Файлы добавлены";
+"signature-remove-button" = "Удалить подпись";
 "signature-remove-confirm-message" = "Удалить подпись из контейнера?";
 "datafile-remove-confirm-message" = "Удалить файл из контейнера?";
 "last-datafile-remove-confirm-message" = "Вы собираетесь удалить последний файл в контейнере, он удаляется вместе с контейнером.";
@@ -292,6 +304,16 @@
 "my-eid-discard-button-title" = "ОТМЕНИТЬ";
 "my-eid-confirm-change-button-title" = "ИЗМЕНИТЬ";
 "my-eid-confirm-unblock-button-title" = "РАЗБЛОКИРОВАТЬ";
+"my-eid-discard-pin1-button-title-accessibility" = "ПРЕРВАТЬ ПРОЦЕСС ИЗМЕНЕНИЯ PIN1";
+"my-eid-discard-pin2-button-title-accessibility" = "ПРЕРВАТЬ ПРОЦЕСС ИЗМЕНЕНИЯ PIN2";
+"my-eid-confirm-pin1-change-button-title-accessibility" = "ПОДТВЕРДИТЬ ИЗМЕНЕНИЕ PIN1";
+"my-eid-confirm-pin2-change-button-title-accessibility" = "ПОДТВЕРДИТЬ ИЗМЕНЕНИЕ PIN2";
+"my-eid-discard-pin1-unblock-button-title-accessibility" = "ПРЕРВАТЬ ПРОЦЕСС АННУЛИРОВАНИЯ БЛОКИРОВКИ PIN1";
+"my-eid-discard-pin2-unblock-button-title-accessibility" = "ПРЕРВАТЬ ПРОЦЕСС АННУЛИРОВАНИЯ БЛОКИРОВКИ PIN2";
+"my-eid-confirm-pin1-unblock-button-title-accessibility" = "ПОДТВЕРДИТЬ АННУЛИРОВАНИЕ БЛОКИРОВКИ PIN1";
+"my-eid-confirm-pin2-unblock-button-title-accessibility" = "ПОДТВЕРДИТЬ АННУЛИРОВАНИЕ БЛОКИРОВКИ PIN2";
+"my-eid-discard-puk-change-button-title-accessibility" = "ПРЕРВАТЬ ПРОЦЕСС ИЗМЕНЕНИЯ PUK-КОДА";
+"my-eid-confirm-puk-change-button-title-accessibility" = "ПОДТВЕРДИТЬ ИЗМЕНЕНИЕ PUK-КОД";
 "my-eid-error-new-code-too-short" = "Новый %@-код должен быть не менее %i символов";
 "my-eid-error-current-code-too-short" = "Действующий %@-код должен быть не менее %i символов";
 "my-eid-error-codes-mismatch" = "Новые %@-коды должны совпадать";

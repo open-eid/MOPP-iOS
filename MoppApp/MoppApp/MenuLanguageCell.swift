@@ -47,15 +47,22 @@ class MenuLanguageCell : UITableViewCell {
         stackViewContainerView.layer.borderWidth = 1
     
         for view in (stackView.arrangedSubviews as! [MenuLanguageButtonView]) {
+            let appLanguageID = DefaultsHelper.moppLanguageID
             switch view.label.text {
             case AvailableLanguages.estonian.rawValue:
+                DefaultsHelper.moppLanguageID = "et"
                 view.button.accessibilityLabel = L(.languageEstonian)
+                DefaultsHelper.moppLanguageID = appLanguageID
                 break
             case AvailableLanguages.english.rawValue:
+                DefaultsHelper.moppLanguageID = "en"
                 view.button.accessibilityLabel = L(.languageEnglish)
+                DefaultsHelper.moppLanguageID = appLanguageID
                 break
             case AvailableLanguages.russian.rawValue:
+                DefaultsHelper.moppLanguageID = "ru"
                 view.button.accessibilityLabel = L(.languageRussian)
+                DefaultsHelper.moppLanguageID = appLanguageID
                 break
             default:
                 break

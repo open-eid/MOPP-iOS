@@ -28,7 +28,9 @@
 "tab-signature" = "ALLKIRI";
 "tab-sign-button" = "ALLKIRJASTA";
 "tab-share-button" = "JAGA";
+"tab-share-button-accessibility" = "JAGA ÜMBRIKUT";
 "tab-encrypt-button" = "KRÜPTEERI";
+"tab-encrypt-button-accessibility" = "KRÜPTEERI DOKUMENT";
 "tab-decrypt-button" = "DEKRÜPTEERI";
 "tab-confirm-button" = "KINNITA";
 
@@ -36,6 +38,7 @@
 "tab-unselected" = "%@, vahekaart %@ / %@";
 
 // Main menu
+"menu-close" = "SULGE MENÜÜ";
 "menu-help" = "ABI";
 "menu-recent-containers" = "HILJUTISED DOKUMENDID";
 "menu-settings" = "SEADED";
@@ -79,6 +82,7 @@
 "crypto-type-mobile-id" = "Mobiil-ID";
 "crypto-type-unknown" = "Teadmata";
 "crypto-add-addressee-button-title" = "LISA";
+"crypto-add-addressee-button-title-accessibility" = "LISA ADRESSAAT";
 "crypto-addressee-added-button-title" = "LISATUD";
 "crypto-remove-addressee-button" = "Eemalda adressaat";
 
@@ -89,9 +93,14 @@
 "crashlytics-action-always-send" = "Saada alati";
 "crashlytics-action-do-not-send" = "Ära saada";
 
+// SiVa consent
+"siva-send-message" = "PDF ja DDOC formaadis digitaalallkirjade kehtivuse kontrollimiseks edastatakse fail valideerimisteenusele SiVa. Digitaalallkirjade kehtivuse kontrollimisel edastatud andmete kohta loe lähemalt id.ee veebilehelt.\n Kas soovid jätkata? https://www.id.ee/artikkel/riigi-infosusteemi-ameti-id-tarkvara-andmekaitsetingimused/";
+
 // *** Actions ***
 "action-ok" = "OK";
+"action-yes" = "JAH";
 "action-cancel" = "Tühista";
+"action-abort" = "KATKESTA";
 "action-delete" = "Eemalda";
 "action-sign" = "Allkirjasta";
 "action-decrypt" = "Dekrüpteeri";
@@ -112,6 +121,8 @@
 "file-import-save-file" = "Salvesta fail ümbrikust";
 "file-import-file-saved" = "Fail salvestatud";
 "file-import-failed-file-save" = "Faili salvestamine ebaõnnestus";
+"file-import-failed-empty-file" = "Tühja faili ei saa lisada ümbrikusse.";
+"file-import-failed-empty-file-imported" = "Ümbrikule on lisatud tühi fail. Allkirjastamiseks eemalda ümbrikust tühi fail.";
 
 // Details
 "container-details-signing-success" = "ALLKIRI LISATUD";
@@ -161,6 +172,7 @@
 
 "datafile-added" = "Fail lisatud";
 "datafiles-added" = "Failid lisatud";
+"signature-remove-button" = "Eemalda allkiri";
 "signature-remove-confirm-message" = "Soovid eemaldada allkirja?";
 "datafile-remove-confirm-message" = "Soovid eemaldada faili ümbrikust?";
 "last-datafile-remove-confirm-message" = "Oled kustutamas viimast faili ümbrikus, koos sellega eemaldatakse ka ümbrik.";
@@ -292,6 +304,16 @@
 "my-eid-discard-button-title" = "KATKESTA";
 "my-eid-confirm-change-button-title" = "MUUDA";
 "my-eid-confirm-unblock-button-title" = "BLOKEERI LAHTI";
+"my-eid-discard-pin1-button-title-accessibility" = "KATKESTA PIN1 MUUTMINE";
+"my-eid-discard-pin2-button-title-accessibility" = "KATKESTA PIN2 MUUTMINE";
+"my-eid-confirm-pin1-change-button-title-accessibility" = "KINNITA PIN1 MUUTMINE";
+"my-eid-confirm-pin2-change-button-title-accessibility" = "KINNITA PIN2 MUUTMINE";
+"my-eid-discard-pin1-unblock-button-title-accessibility" = "KATKESTA PIN1 LAHTI BLOKEERIMINE";
+"my-eid-discard-pin2-unblock-button-title-accessibility" = "KATKESTA PIN2 LAHTI BLOKEERIMINE";
+"my-eid-confirm-pin1-unblock-button-title-accessibility" = "KINNITA PIN1 LAHTI BLOKEERIMINE";
+"my-eid-confirm-pin2-unblock-button-title-accessibility" = "KINNITA PIN2 LAHTI BLOKEERIMINE";
+"my-eid-discard-puk-change-button-title-accessibility" = "KATKESTA PUK MUUTMINE";
+"my-eid-confirm-puk-change-button-title-accessibility" = "KINNITA PUK MUUTMINE";
 "my-eid-error-new-code-too-short" = "Uus %@-kood peab olema vähemalt %i-kohaline";
 "my-eid-error-current-code-too-short" = "Kehtiv %@-kood peab olema vähemalt %i-kohaline";
 "my-eid-error-codes-mismatch" = "Uued %@-koodid peavad olema samad";

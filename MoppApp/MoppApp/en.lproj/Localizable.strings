@@ -28,7 +28,9 @@
 "tab-signature" = "SIGNATURE";
 "tab-sign-button" = "SIGN";
 "tab-share-button" = "SHARE";
+"tab-share-button-accessibility" = "SHARE CONTAINER";
 "tab-encrypt-button" = "ENCRYPT";
+"tab-encrypt-button-accessibility" = "ENCRYPT DOCUMENT";
 "tab-decrypt-button" = "DECRYPT";
 "tab-confirm-button" = "CONFIRM";
 
@@ -36,6 +38,7 @@
 "tab-unselected" = "%@, tab %@ of %@";
 
 // Main menu
+"menu-close" = "CLOSE MENU";
 "menu-help" = "HELP";
 "menu-recent-containers" = "RECENT DOCUMENTS";
 "menu-settings" = "SETTINGS";
@@ -75,6 +78,7 @@
 "crypto-type-mobile-id" = "Mobile-ID";
 "crypto-type-unknown" = "Unknown";
 "crypto-add-addressee-button-title" = "ADD";
+"crypto-add-addressee-button-title-accessibility" = "ADD RECIPIENT";
 "crypto-addressee-added-button-title" = "ADDED";
 "crypto-remove-addressee-button" = "Remove recipient";
 
@@ -88,9 +92,14 @@
 "crashlytics-action-always-send" = "Always send";
 "crashlytics-action-do-not-send" = "Don’t send";
 
+// SiVa consent
+"siva-send-message" = "Signed document in PDF and DDOC format will be transmitted to the Digital Signature Validation Service SiVa to verify the validity of the digital signature. Read more information about transmitted data to Digital Signature Validation service from id.ee website.\n Do you want to continue? https://www.id.ee/en/article/data-protection-conditions-for-the-id-software-of-the-national-information-system-authority/";
+
 // *** Actions ***
 "action-ok" = "OK";
+"action-yes" = "YES";
 "action-cancel" = "Cancel";
+"action-abort" = "CANCEL";
 "action-delete" = "Delete";
 "action-sign" = "Sign";
 "action-decrypt" = "Decrypt";
@@ -111,6 +120,8 @@
 "file-import-save-file" = "Save file";
 "file-import-file-saved" = "File saved";
 "file-import-failed-file-save" = "Failed to save file";
+"file-import-failed-empty-file" = "Cannot add empty file to the container.";
+"file-import-failed-empty-file-imported" = "An empty file is attached to the envelope. Remove the empty file from the container to sign.";
 
 // Details
 "container-details-signing-success" = "SIGNATURE ADDED";
@@ -160,6 +171,7 @@
 
 "datafile-added" = "File added";
 "datafiles-added" = "Files added";
+"signature-remove-button" = "Remove signature";
 "signature-remove-confirm-message" = "Remove signature from container?";
 "datafile-remove-confirm-message" = "Remove file from container?";
 "last-datafile-remove-confirm-message" = "You are about to remove the last file in the container, it is removed along with the container.";
@@ -291,6 +303,16 @@
 "my-eid-discard-button-title" = "CANCEL";
 "my-eid-confirm-change-button-title" = "CHANGE";
 "my-eid-confirm-unblock-button-title" = "UNBLOCK";
+"my-eid-discard-pin1-button-title-accessibility" = "CANCEL PIN1 CHANGING PROCESS";
+"my-eid-discard-pin2-button-title-accessibility" = "CANCEL PIN2 CHANGING PROCESS";
+"my-eid-confirm-pin1-change-button-title-accessibility" = "CONFIRM PIN1 CHANGE";
+"my-eid-confirm-pin2-change-button-title-accessibility" = "CONFIRM PIN2 CHANGE";
+"my-eid-discard-pin1-unblock-button-title-accessibility" = "CANCEL PIN1 UNBLOCKING PROCESS";
+"my-eid-discard-pin2-unblock-button-title-accessibility" = "CANCEL PIN2 UNBLOCKING PROCESS";
+"my-eid-confirm-pin1-unblock-button-title-accessibility" = "CONFIRM PIN1 UNBLOCK";
+"my-eid-confirm-pin2-unblock-button-title-accessibility" = "CONFIRM PIN2 UNBLOCK";
+"my-eid-discard-puk-change-button-title-accessibility" = "CANCEL PUK CHANGING PROCESS";
+"my-eid-confirm-puk-change-button-title-accessibility" = "CONFIRM PUK CHANGE";
 "my-eid-error-new-code-too-short" = "New %@ code must be at least %i digits long";
 "my-eid-error-current-code-too-short" = "Current %@ code must be at least %i digits long";
 "my-eid-error-codes-mismatch" = "New %@ codes must match";

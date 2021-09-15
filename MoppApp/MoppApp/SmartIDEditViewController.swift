@@ -61,7 +61,11 @@ class SmartIDEditViewController : MoppViewController {
     weak var delegate: SmartIDEditViewControllerDelegate? = nil
     var tapGR: UITapGestureRecognizer!
     var countryViewPicker = UIPickerView()
-
+    
+    @IBAction func openCountryPicker(_ sender: Any) {
+        UIAccessibility.post(notification: .layoutChanged, argument: countryViewPicker)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -204,12 +208,14 @@ extension SmartIDEditViewController: UIPickerViewDataSource, UIPickerViewDelegat
         switch row {
         case 1: return L(.smartIdCountryLithuania)
         case 2: return L(.smartIdCountryLatvia)
-        default: return L(.smartIdCountryEstiona)
+        default: return L(.smartIdCountryEstonia)
         }
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         countryTextField.text = self.pickerView(pickerView, titleForRow: row, forComponent: component)
+        countryTextField.accessibilityLabel = ""
+        UIAccessibility.post(notification: .announcement, argument: countryTextField.text)
         var codeToolbar: UIToolbar? = nil
         if row != 0 {
             codeToolbar = UIToolbar()

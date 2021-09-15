@@ -510,6 +510,18 @@ static std::string profile = "time-stamp";
   }
 }
 
++ (NSString *)sanitize:(NSString *)text {
+    NSMutableCharacterSet *characterSet = [NSMutableCharacterSet illegalCharacterSet];
+    [characterSet addCharactersInString:@"@%:^?[]\'\"”’{}#&`\\~«»/´"];
+    NSArray* rtlChars = @[@"\u200E", @"\u200F", @"\u202E", @"\u202A", @"\u202B"];
+
+    for (int i = 0; i < [rtlChars count]; i++) {
+        [characterSet addCharactersInString:[rtlChars objectAtIndex:i]];
+    }
+    
+    return [[text componentsSeparatedByCharactersInSet:characterSet] componentsJoinedByString:@""];
+}
+
 - (std::string)getSerialNumber:(std::string)serialNumber {
     static const std::set<std::string> types {"PAS", "IDC", "PNO", "TAX", "TIN"};
     if (serialNumber.length() > 6 && (types.find(serialNumber.substr(0, 3)) != types.cend() || serialNumber[2] == ':') && serialNumber[5] == '-') {

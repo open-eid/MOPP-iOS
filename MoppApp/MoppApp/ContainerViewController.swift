@@ -66,6 +66,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var isDecrypted = false
     let landingViewController = LandingViewController.shared!
     var isAsicContainer = LandingViewController.shared.containerType == .asic
+    var isEmptyFileWarningSet = false
     @IBOutlet weak var tableView: UITableView!
 
     enum Section {
@@ -185,8 +186,11 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
             case .opened:
                 var tabButtons: [LandingViewController.TabButtonId] = []
                 
+                let asicContainer = self.containerViewDelegate?.getContainer()
+                checkEmptyFilesInContainer(asicContainer: asicContainer)
+                
                 if !isForPreview && isAsicContainer {
-                    if isDdocOrAsicsContainer(containerPath: containerPath) {
+                    if isDdocOrAsicsContainer(containerPath: containerPath) || isEmptyFileWarningSet {
                         checkIfDdocParentContainerIsTimestamped()
                         tabButtons = [.shareButton]
                         setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
@@ -250,6 +254,22 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         }
         
         return false
+    }
+    
+    private func checkEmptyFilesInContainer(asicContainer: MoppLibContainer?) {
+        if let dataFiles = asicContainer?.dataFiles, !isEmptyFileWarningSet {
+            var isEmptyFileInContainer = false
+            for dataFile in dataFiles {
+                guard let dataFile = dataFile as? MoppLibDataFile,
+                      dataFile.fileSize == 0 else { continue }
+                isEmptyFileInContainer = true
+                break
+            }
+            if isEmptyFileInContainer {
+                self.notifications.append((false, L(.fileImportFailedEmptyFileImported)))
+                isEmptyFileWarningSet = true
+            }
+        }
     }
     
 }
@@ -323,7 +343,11 @@ extension ContainerViewController : UITableViewDataSource {
         case .notifications:
             let cell = tableView.dequeueReusableCell(withType: ContainerNotificationCell.self, for: indexPath)!
             if notifications.indices.contains(indexPath.row) {
-                cell.populate(isSuccess: notifications[indexPath.row].isSuccess, text: notifications[indexPath.row].text)
+                let isSuccess = notifications[indexPath.row].isSuccess
+                cell.populate(isSuccess: isSuccess, text: notifications[indexPath.row].text)
+                if isSuccess {
+                    UIAccessibility.post(notification: .announcement,  argument: cell.infoLabel)
+                }
                 return cell
             }
             return ContainerNotificationCell()
@@ -345,7 +369,7 @@ extension ContainerViewController : UITableViewDataSource {
                 showBottomBorder: row < signingContainerViewDelegate.getSignaturesCount() - 1,
                 showRemoveButton: !isForPreview && signingContainerViewDelegate.isContainerSignable(),
                 signatureIndex: row)
-            cell.removeButton.accessibilityLabel = L(.cryptoRemoveAddresseeButton)
+            cell.removeButton.accessibilityLabel = L(.signatureRemoveButton)
             return cell
         case .missingSignatures:
             let cell = tableView.dequeueReusableCell(withType: ContainerNoSignaturesCell.self, for: indexPath)!

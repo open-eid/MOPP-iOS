@@ -38,6 +38,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     var currentElement:String = ""
     var documentFormat:String = ""
     var downloadTask: URLSessionTask?
+    var isInvalidFileInList: Bool = false
 
     var rootViewController: UIViewController? {
         return window?.rootViewController
@@ -293,6 +294,17 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                 }
 
                 var newUrl: URL = fileUrl
+                
+                let isFileEmpty = MoppFileManager.isFileEmpty(fileUrl: newUrl)
+                
+                if isFileEmpty {
+                    NSLog("Unable to import empty file")
+                    if urls.count == 1 {
+                        topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))
+                        return false
+                    }
+                    isInvalidFileInList = true
+                }
 
                 // Sharing from Google Drive may change file extension
                 let fileExtension: String? = MimeTypeExtractor.determineFileExtension(mimeType: MimeTypeExtractor.getMimeTypeFromContainer(filePath: newUrl)) ?? newUrl.pathExtension
@@ -308,7 +320,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
 
                 do {
                     let newData: Data? = try Data(contentsOf: newUrl)
-                    let fileName: String = newUrl.deletingPathExtension().lastPathComponent.sanitize()
+                    let fileName: String = MoppLibManager.sanitize(newUrl.deletingPathExtension().lastPathComponent)
                     let tempDirectoryPath: String? = MoppFileManager.shared.tempDocumentsDirectoryPath()
                     guard let tempDirectory = tempDirectoryPath else {
                         NSLog("Unable to get temporary file directory")
@@ -325,7 +337,9 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                     do {
                         try newUrlData.write(to: filePath, options: .atomic)
                         newUrl = filePath
-                        fileUrls.append(newUrl)
+                        if !isFileEmpty {
+                            fileUrls.append(newUrl)
+                        }
                         cleanup = true
                     } catch let error {
                         NSLog("Error writing to file: \(error.localizedDescription)")
@@ -367,11 +381,15 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         }
 
         if fileUrls.isEmpty {
+            if isInvalidFileInList {
+                landingViewController?.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))
+                return false
+            }
             fileUrls = urls
         }
 
         landingViewController?.fileImportIntent = .openOrCreate
-        landingViewController?.importFiles(with: fileUrls, cleanup: cleanup)
+        landingViewController?.importFiles(with: fileUrls, cleanup: cleanup, isEmptyFileImported: isInvalidFileInList)
 
         return true
     }
@@ -387,6 +405,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     func didEnterBackground() {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        MoppFileManager.shared.removeFilesFromSharedFolder()
     }
 
 
@@ -419,6 +438,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         // Remove temporarily saved files folder
         MoppFileManager.shared.removeTempSavedFilesInDocuments(folderName: "Saved Files")
         MoppFileManager.shared.removeTempSavedFilesInDocuments(folderName: "Downloads")
+        MoppFileManager.shared.removeFilesFromSharedFolder()
     }
 
     func handleEventsForBackgroundURLSession(identifier: String, completionHandler: @escaping () -> Void) {

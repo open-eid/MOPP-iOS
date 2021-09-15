@@ -109,4 +109,8 @@
     return [MoppLibDigidocManager certificatePolicyIdentifiers:certData];
 }
 
++ (NSString *)sanitize:(NSString *)text {
+    return [MoppLibDigidocManager sanitize:text];
+}
+
 @end

@@ -178,7 +178,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Enter your mobile number and ID code to sign with Mobile-ID" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tFN-sH-Xcw">
-                                        <rect key="frame" x="16" y="16" width="279" height="45"/>
+                                        <rect key="frame" x="16" y="16" width="279" height="44.5"/>
                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="19"/>
                                         <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -275,7 +275,7 @@
                                         <color key="onTintColor" red="0.54901960780000003" green="0.76470588240000004" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lF6-VQ-sny">
-                                        <rect key="frame" x="152" y="287" width="78" height="19"/>
+                                        <rect key="frame" x="151" y="287" width="79" height="19"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                         <color key="textColor" red="0.45882352939999999" green="0.47058823529999999" blue="0.4823529412" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -517,7 +517,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b4W-fO-5Jo">
-                                <rect key="frame" x="57.5" y="256.5" width="260" height="154.5"/>
+                                <rect key="frame" x="57.5" y="256.5" width="260" height="154"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1234" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4s-L6-tey">
                                         <rect key="frame" x="20" y="20" width="220" height="37.5"/>
@@ -530,7 +530,7 @@
                                         <color key="tintColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </progressView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure the control code above matches and enter Mobile-ID PIN2 code" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kCl-Er-ybP">
-                                        <rect key="frame" x="20" y="85" width="220" height="49.5"/>
+                                        <rect key="frame" x="20" y="85" width="220" height="49"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                         <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -594,7 +594,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Enter your country and ID code to sign with Smart-ID" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LBJ-L2-OkC">
-                                        <rect key="frame" x="16" y="16" width="279" height="45"/>
+                                        <rect key="frame" x="16" y="16" width="279" height="44.5"/>
                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="19"/>
                                         <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -602,6 +602,9 @@
                                     <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c1f-rs-lZr" customClass="CountryTextField" customModule="MoppApp" customModuleProvider="target">
                                         <rect key="frame" x="16" y="110" width="279" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" adjustable="YES"/>
+                                        </accessibility>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="j04-n5-6qu"/>
                                         </constraints>
@@ -613,6 +616,9 @@
                                                 <integer key="value" value="4"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="openCountryPicker:" destination="2nA-4i-QZn" eventType="editingDidBegin" id="NTm-YH-j4S"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rxc-7T-6sI" customClass="MyTextField" customModule="MoppApp" customModuleProvider="target">
                                         <rect key="frame" x="16" y="200" width="279" height="50"/>
@@ -688,7 +694,7 @@
                                         <color key="onTintColor" red="0.54901960780000003" green="0.76470588240000004" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Remember" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UZY-ex-JFh">
-                                        <rect key="frame" x="152" y="287" width="78" height="19"/>
+                                        <rect key="frame" x="151" y="287" width="79" height="19"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                         <color key="textColor" red="0.45882352939999999" green="0.47058823529999999" blue="0.4823529412" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -772,20 +778,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4xY-kR-c0X">
-                                <rect key="frame" x="57.5" y="260" width="260" height="147"/>
+                                <rect key="frame" x="63" y="260.5" width="249.5" height="146.5"/>
                                 <subviews>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1234" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TwQ-Lp-5DR">
-                                        <rect key="frame" x="20" y="20" width="220" height="37.5"/>
+                                        <rect key="frame" x="20" y="20" width="209.5" height="37.5"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="32"/>
                                         <color key="textColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jwL-26-Ucb" userLabel="SmartID Session Counter">
-                                        <rect key="frame" x="20" y="65.5" width="220" height="4"/>
+                                        <rect key="frame" x="20" y="65.5" width="209.5" height="4"/>
                                         <color key="tintColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </progressView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure control code matches with one in phone screen and enter Smart-ID PIN2-code" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Od-ud-LBT">
-                                        <rect key="frame" x="20" y="77.5" width="220" height="49.5"/>
+                                        <rect key="frame" x="20" y="77.5" width="209.5" height="49"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                         <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
