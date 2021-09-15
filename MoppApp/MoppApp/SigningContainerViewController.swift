@@ -98,37 +98,46 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
         
         if containerFileCount == 1 {
             confirmDeleteAlert(message: L(.lastDatafileRemoveConfirmMessage)) { [weak self] (alertAction) in
-                let containerPath: String? = self?.getContainerPath()
-                let isDeleted: Bool = ContainerRemovalActions.shared.removeAsicContainer(containerPath: containerPath)
-                if !isDeleted {
-                    self?.errorAlert(message: L(.genericErrorMessage))
-                    return
+                if alertAction == .cancel {
+                    UIAccessibility.post(notification: .layoutChanged, argument: L(.dataFileRemovalCancelled))
+                } else if alertAction == .confirm {
+                    let containerPath: String? = self?.getContainerPath()
+                    let isDeleted: Bool = ContainerRemovalActions.shared.removeAsicContainer(containerPath: containerPath)
+                    if !isDeleted {
+                        self?.errorAlert(message: L(.genericErrorMessage))
+                        return
+                    }
+                    
+                    UIAccessibility.post(notification: .announcement, argument: L(.dataFileRemoved))
+                    self?.navigationController?.popToRootViewController(animated: true)
                 }
-                
-                self?.navigationController?.popToRootViewController(animated: true)
             }
         }
         
         confirmDeleteAlert(
             message: L(.datafileRemoveConfirmMessage),
             confirmCallback: { [weak self] (alertAction) in
-                
-                self?.notifications = []
-                self?.updateState(.loading)
-                MoppLibContainerActions.sharedInstance().removeDataFileFromContainer(
-                    withPath: self?.containerPath,
-                    at: UInt(index),
-                    success: { [weak self] container in
-                        self?.updateState((self?.isCreated ?? false) ? .created : .opened)
-                        self?.container.dataFiles.remove(at: index)
-                        self?.reloadData()
-                    },
-                    failure: { [weak self] error in
-                        self?.updateState((self?.isCreated ?? false) ? .created : .opened)
-                        self?.reloadData()
-                        self?.errorAlert(message: error?.localizedDescription)
-                })
-        })
+                if alertAction == .cancel {
+                    UIAccessibility.post(notification: .layoutChanged, argument: L(.dataFileRemovalCancelled))
+                } else if alertAction == .confirm {
+                    self?.notifications = []
+                    self?.updateState(.loading)
+                    MoppLibContainerActions.sharedInstance().removeDataFileFromContainer(
+                        withPath: self?.containerPath,
+                        at: UInt(index),
+                        success: { [weak self] container in
+                            self?.updateState((self?.isCreated ?? false) ? .created : .opened)
+                            self?.container.dataFiles.remove(at: index)
+                            UIAccessibility.post(notification: .announcement, argument: L(.dataFileRemoved))
+                            self?.reloadData()
+                        },
+                        failure: { [weak self] error in
+                            self?.updateState((self?.isCreated ?? false) ? .created : .opened)
+                            self?.reloadData()
+                            self?.errorAlert(message: error?.localizedDescription)
+                        })
+                }
+            })
     }
     
     func saveDataFile(name: String?) {

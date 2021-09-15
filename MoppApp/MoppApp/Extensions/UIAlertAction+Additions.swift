@@ -38,6 +38,11 @@ extension UIAlertAction {
         
         return nil
     }
+    
+    enum DeleteAction {
+        case confirm
+        case cancel
+    }
 }
 
 // Helper function inserted by Swift 4.2 migrator.

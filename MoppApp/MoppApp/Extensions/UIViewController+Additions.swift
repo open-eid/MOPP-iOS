@@ -23,10 +23,14 @@
 import Foundation
 
 extension UIViewController {
-    func confirmDeleteAlert(message: String?, confirmCallback: @escaping (_ action: UIAlertAction) -> Void) {
+    func confirmDeleteAlert(message: String?, confirmCallback: @escaping (_ action: UIAlertAction.DeleteAction) -> Void) {
         let confirmDialog = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-            confirmDialog.addAction(UIAlertAction(title: L(.actionCancel), style: .default, handler: nil))
-            confirmDialog.addAction(UIAlertAction(title: L(.actionDelete), style: .destructive, handler: confirmCallback))
+        confirmDialog.addAction(UIAlertAction(title: L(.actionCancel), style: .cancel, handler: { _ in
+            confirmCallback(.cancel)
+        }))
+        confirmDialog.addAction(UIAlertAction(title: L(.actionDelete), style: .destructive, handler: { _ in
+            confirmCallback(.confirm)
+        }))
         present(confirmDialog, animated: true, completion: nil)
     }
     

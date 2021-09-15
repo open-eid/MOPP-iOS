@@ -49,6 +49,7 @@
 "language-estonian" = "Eesti keel";
 "language-english" = "Inglise keel";
 "language-russian" = "Vene keel";
+"language-changed" = "Keel muudetud";
 
 // Signature view
 "signature-view-begin-label" = "Allkirjastamiseks või kontrollimiseks vali fail";
@@ -67,6 +68,12 @@
 "crypto-encryption-error-text" = "Midagi läks krüpteerimisel valesti";
 
 "crypto-encryption-success" = "KRÜPTEERIMINE ÕNNESTUS";
+"crypto-decryption-cancelled" = "Faili dekrüpteerimine katkestatud";
+"crypto-recipient-found" = "Adressaat leitud";
+"crypto-recipients-found" = "Adressaati leitud";
+"crypto-recipient-added" = "Adressaat lisatud";
+"crypto-recipient-removed" = "Adressaat eemaldatud";
+"crypto-recipient-adding-cancelled" = "Adressaadi lisamine katkestatud";
 "crypto-no-addressees-warning" = "Ühtegi adressaati ei ole lisatud";
 "crypto-valid-to" = "kehtiv kuni";
 "crypto-type-id-card" = "ID-kaart";
@@ -125,6 +132,8 @@
 "container-header-create-files-title" = "Ümbriku sisu";
 "container-edit-name-button" = "Ümbriku nimi";
 "container-error-message-failed-container-name-change" = "Ümbriku nime muutmine ebaõnnestus";
+"container-name-changed" = "Ümbriku nimi muudetud";
+"container-name-change-cancelled" = "Ümbriku nime muutmine katkestatud";
 "container-header-files-add-file" = "Lisa fail";
 "container-header-create-addressee-title" = "Adressaadid";
 "container-header-timestamp-title" = "Ajatempel";
@@ -161,14 +170,21 @@
 "share-extension-import-title" = "Faili import";
 "share-extension-import-message" = "Fail on ajutisse kausta salvestatud. Impordi lõpetamiseks mine RIA DigiDoc rakendusse.";
 
+"datafile-added" = "Fail lisatud";
+"datafiles-added" = "Failid lisatud";
 "signature-remove-button" = "Eemalda allkiri";
 "signature-remove-confirm-message" = "Soovid eemaldada allkirja?";
 "datafile-remove-confirm-message" = "Soovid eemaldada faili ümbrikust?";
 "last-datafile-remove-confirm-message" = "Oled kustutamas viimast faili ümbrikus, koos sellega eemaldatakse ka ümbrik.";
+"datafile-removed" = "Fail eemaldatud";
+"datafile-removal-cancelled" = "Faili eemaldamine katkestatud";
 "general-signature-adding-message" = "Ümbriku allkirjastamine ebaõnnestus";
 "general-signature-removal-message" = "Allkirja eemaldamine ümbrikust ebaõnnestus";
+"signature-removed" = "Allkiri eemaldatud";
+"signature-removal-cancelled" = "Allkirja eemaldamine katkestatud";
 
 "signing-remember-me" = "Pea mind meeles";
+"signing-cancelled" = "Ümbriku allkirjastamine katkestatud";
 "mobile-id-title" = "Sisesta oma telefoninumber ja isikukood mobiil-IDga allkirjastamiseks";
 "mobile-id-phone-title" = "Riigikood ja telefoninumber";
 "mobile-id-idcode-title" = "Isikukood";
@@ -192,6 +208,7 @@
 "done-button-title" = "Valmis";
 "recent-containers-empty-list-title" = "Dokumendid puuduvad";
 "recent-containers-empty-search-message" = "Dokumenti ei leitud";
+"recent-document-removed" = "Dokument eemaldatud";
 "search-container-file" = "Otsi ümbrikku";
 "sign-title-mobile-id" = "Mobiil-ID";
 "sign-title-smart-id" = "Smart-ID";
@@ -251,6 +268,11 @@
 "my-eid-info-pin1-button-title" = "MUUDA PIN1";
 "my-eid-info-pin2-button-title" = "MUUDA PIN2";
 "my-eid-info-puk-button-title" = "MUUDA PUK";
+"my-eid-info-pin1-change-cancelled" = "Pin1 muutmine katkestatud";
+"my-eid-info-pin2-change-cancelled" = "Pin2 muutmine katkestatud";
+"my-eid-info-pin1-unblock-cancelled" = "Pin1 lahti blokeerimine katkestatud";
+"my-eid-info-pin2-unblock-cancelled" = "Pin2 lahti blokeerimine katkestatud";
+"my-eid-info-puk-change-cancelled" = "PUK-koodi muutmine katkestatud";
 "my-eid-info-puk-cert-info-text" = "PUK-koodi leiad enda koodiümbrikust";
 "my-eid-info-pin-puk-segment-title" = "PIN-/PUK-KOODID JA SERTIFIKAATIDE KONTROLL";
 "my-eid-info-pin1-blocked-message" = "PIN1 on blokeeritud, kuna PIN1-koodi on sisestatud 3 korda valesti. Tühista blokeering, et PIN1 taas kasutada.";
@@ -307,6 +329,7 @@
 "settings-timestamp-url-title" = "Ligipääs ajatempliteenusele";
 "settings-timestamp-url-placeholder" = "";
 "settings-timestamp-use-default-title" = "Kasuta vaikeväärtust";
+"settings-value-changed" = "Seade väärtus muudetud";
 "diagnostics-title" = "Diagnostika";
 "diagnostics-app-version" = "Rakenduse versioon";
 "diagnostics-ios-version" = "Operatsioonisüsteem";
@@ -321,5 +344,7 @@
 "update-date" = "UUENDAMISE KUUPÄEV:";
 "refresh-configuration" = "KONTROLLI VÄRSKENDUSI";
 "refresh-configuration-restart-message" = "Konfiguratsiooni ja TSL värskendamine õnnestus. Värskenduse lõpuleviimiseks taaskäivita rakendus";
+"refresh-configuration-updated" = "Konfiguratsioon uuendatud";
+"refresh-configuration-already-up-to-date" = "Konfiguratsioon on juba ajakohane";
 "success-notification-dialog-label" = "Ümbriku jagamiseks klõpsa \"JAGA\" nupul ning vali soovitud rakendus. Kõik ümbrikud on leitavad ka rakenduse seadetes asuvas \"Hiljutised dokumendid\" kaustast.";
 "success-notification-dialog-dont-show-again" = "Ära rohkem näita";

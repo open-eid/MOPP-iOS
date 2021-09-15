@@ -41,6 +41,7 @@ class ContainerAddresseeCell: UITableViewCell, AddresseeActions {
     
     @IBAction func removeAddressee(_ sender: Any) {
         delegate.removeAddressee(index: removeIndex)
+        UIAccessibility.post(notification: .screenChanged, argument: L(.cryptoRecipientRemoved))
     }
     
     func populate(addressee: Addressee, index: Int, showRemoveButton: Bool) {
