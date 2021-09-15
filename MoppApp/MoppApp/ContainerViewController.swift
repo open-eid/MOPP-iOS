@@ -359,7 +359,7 @@ extension ContainerViewController : UITableViewDataSource {
             
             if DefaultsHelper.isTimestampedDdoc && containerExtension == ContainerFormatDdoc && state == .preview {
                 signature?.status = MoppLibSignatureStatus.Valid
-            } else if !DefaultsHelper.isTimestampedDdoc && containerExtension == ContainerFormatDdoc {
+            } else if !DefaultsHelper.isTimestampedDdoc && containerExtension == ContainerFormatDdoc && signature?.status != MoppLibSignatureStatus.Invalid {
                 signature?.status = MoppLibSignatureStatus.Warning
             }
             
