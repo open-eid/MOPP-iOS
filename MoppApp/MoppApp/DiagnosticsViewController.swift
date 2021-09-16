@@ -67,6 +67,9 @@ class DiagnosticsViewController: MoppViewController {
 
     @objc func onCentralConfigurationResponse(responseNotification: Notification)
     {
+        DispatchQueue.main.async {
+            self.configurationToUI()
+        }
         if responseNotification.userInfo?["isLoaded"] as! Bool == true {
             DispatchQueue.main.async { [weak self] in
                 self?.viewDidLoad()
