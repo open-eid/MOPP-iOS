@@ -116,7 +116,7 @@
 /* #undef HAVE_CONIO_H */
 
 /* define if crypt(3) is available */
-#define HAVE_CRYPT 1
+/* #undef HAVE_CRYPT */
 
 /* Define to 1 if you have the <crypt.h> header file. */
 /* #undef HAVE_CRYPT_H */
@@ -128,7 +128,7 @@
 #define HAVE_CTIME_R 1
 
 /* define if you have Cyrus SASL */
-#define HAVE_CYRUS_SASL 1
+/* #undef HAVE_CYRUS_SASL */
 
 /* define if your system supports /dev/poll */
 /* #undef HAVE_DEVPOLL */
@@ -468,10 +468,10 @@
 /* #undef HAVE_SASL_H */
 
 /* Define to 1 if you have the <sasl/sasl.h> header file. */
-#define HAVE_SASL_SASL_H 1
+/* #undef HAVE_SASL_SASL_H */
 
 /* define if your SASL library has sasl_version() */
-#define HAVE_SASL_VERSION 1
+/* #undef HAVE_SASL_VERSION */
 
 /* Define to 1 if you have the <sched.h> header file. */
 #define HAVE_SCHED_H 1
@@ -845,16 +845,16 @@
 #define LDAP_SYSLOG 1
 
 /* Version */
-#define LDAP_VENDOR_VERSION 000000
+#define LDAP_VENDOR_VERSION 20507
 
 /* Major */
 #define LDAP_VENDOR_VERSION_MAJOR 2
 
 /* Minor */
-#define LDAP_VENDOR_VERSION_MINOR X
+#define LDAP_VENDOR_VERSION_MINOR 5
 
 /* Patch */
-#define LDAP_VENDOR_VERSION_PATCH X
+#define LDAP_VENDOR_VERSION_PATCH 7
 
 /* Define to the sub-directory where libtool stores uninstalled libraries. */
 #define LT_OBJDIR ".libs/"
@@ -872,7 +872,7 @@
 #define OPENLDAP_PACKAGE "OpenLDAP"
 
 /* Version */
-#define OPENLDAP_VERSION "2.X"
+#define OPENLDAP_VERSION "2.5.7"
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT ""
@@ -929,19 +929,19 @@
 /* #undef SLAPD_ASYNCMETA */
 
 /* define to support cleartext passwords */
-#define SLAPD_CLEARTEXT 1
+/* #undef SLAPD_CLEARTEXT */
 
 /* define to support crypt(3) passwords */
-#define SLAPD_CRYPT 1
+/* #undef SLAPD_CRYPT */
 
 /* define to support DNS SRV backend */
 /* #undef SLAPD_DNSSRV */
 
 /* define to support LDAP backend */
-#define SLAPD_LDAP SLAPD_MOD_STATIC
+/* #undef SLAPD_LDAP */
 
 /* define to support MDB backend */
-#define SLAPD_MDB SLAPD_MOD_STATIC
+/* #undef SLAPD_MDB */
 
 /* define to support LDAP Metadirectory backend */
 /* #undef SLAPD_META */
@@ -1022,7 +1022,7 @@
 /* #undef SLAPD_OVER_SSSVLV */
 
 /* define for Syncrepl Provider overlay */
-#define SLAPD_OVER_SYNCPROV SLAPD_MOD_STATIC
+/* #undef SLAPD_OVER_SYNCPROV */
 
 /* define for Translucent Proxy overlay */
 /* #undef SLAPD_OVER_TRANSLUCENT */
@@ -1043,13 +1043,10 @@
 /* #undef SLAPD_PWMOD_PW_ARGON2 */
 
 /* define to support relay backend */
-#define SLAPD_RELAY SLAPD_MOD_STATIC
+/* #undef SLAPD_RELAY */
 
 /* define to support reverse lookups */
 /* #undef SLAPD_RLOOKUPS */
-
-/* define to support SHELL backend */
-/* #undef SLAPD_SHELL */
 
 /* define to support SOCK backend */
 /* #undef SLAPD_SOCK */
