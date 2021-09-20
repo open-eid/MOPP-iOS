@@ -99,16 +99,16 @@ PODS:
   - nanopb/encode (2.30908.0)
   - OCMock (3.8.1)
   - PromisesObjC (1.2.12)
-  - SwiftyRSA (1.6.0):
-    - SwiftyRSA/ObjC (= 1.6.0)
-  - SwiftyRSA/ObjC (1.6.0)
+  - SwiftyRSA (1.7.0):
+    - SwiftyRSA/ObjC (= 1.7.0)
+  - SwiftyRSA/ObjC (1.7.0)
   - Zip (1.1.0)
 
 DEPENDENCIES:
   - Firebase/Analytics (~> 8.1.1)
   - Firebase/Crashlytics (~> 8.1.1)
   - OCMock (~> 3.8.1)
-  - SwiftyRSA (~> 1.6.0)
+  - SwiftyRSA (~> 1.7.0)
   - Zip (~> 1.1)
 
 SPEC REPOS:
@@ -141,9 +141,9 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OCMock: 29f6e52085b4e7d9b075cbf03ed7c3112f82f934
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
-  SwiftyRSA: 3b9c9179744217951facc6a3e9ae8d8c97061ffa
+  SwiftyRSA: 8c6dd1ea7db1b8dc4fb517a202f88bb1354bc2c6
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 796055d8fbc05376ca4956fde8319332fff41e06
+PODFILE CHECKSUM: 4c055c9ef144a88ab3458646870026fb6411121d
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2
