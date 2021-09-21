@@ -22,10 +22,8 @@
  */
 
 import Foundation
-import Foundation
 import FirebaseCrashlytics
 import Firebase
-
 
 class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
 

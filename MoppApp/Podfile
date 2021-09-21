@@ -13,8 +13,8 @@ platform :ios, '12.0'
 target 'MoppApp' do
   platform :ios, '12.0'
   project 'MoppApp.xcodeproj'
-  pod 'Firebase/Crashlytics', '~> 8.1.1'
-  pod 'Firebase/Analytics', '~> 8.1.1'
+  pod 'Firebase/Crashlytics', '~> 8.7.0'
+  pod 'Firebase/Analytics', '~> 8.7.0'
   pod 'SwiftyRSA', '~> 1.7.0'
   pod 'Zip', '~> 1.1'
 end
@@ -23,30 +23,30 @@ target 'MoppAppTestEnv' do
   platform :ios, '12.0'
   project 'MoppApp.xcodeproj'
 
-  pod 'Firebase/Crashlytics', '~> 8.1.1'
-  pod 'Firebase/Analytics', '~> 8.1.1'
+  pod 'Firebase/Crashlytics', '~> 8.7.0'
+  pod 'Firebase/Analytics', '~> 8.7.0'
   pod 'SwiftyRSA', '~> 1.7.0'
 end
 
 target 'MoppLib' do
   platform :ios, '12.0'
   project '../MoppLib/MoppLib.xcodeproj'
-  #pod 'Firebase/Crashlytics', '~> 8.1.1'
-  #pod 'Firebase/Analytics', '~> 8.1.1'
+  #pod 'Firebase/Crashlytics', '~> 8.7.0'
+  #pod 'Firebase/Analytics', '~> 8.7.0'
 end
 
 target 'MoppLibTestEnv' do
   platform :ios, '12.0'
   project '../MoppLib/MoppLib.xcodeproj'
-  #pod 'Firebase/Crashlytics', '~> 8.1.1'
-  #pod 'Firebase/Analytics', '~> 8.1.1'
+  #pod 'Firebase/Crashlytics', '~> 8.7.0'
+  #pod 'Firebase/Analytics', '~> 8.7.0'
 end
 
 target 'CryptoLib' do
     platform :ios, '12.0'
     project '../CryptoLib/CryptoLib.xcodeproj'
-    #pod 'Firebase/Crashlytics', '~> 8.1.1'
-    #pod 'Firebase/Analytics', '~> 8.1.1'
+    #pod 'Firebase/Crashlytics', '~> 8.7.0'
+    #pod 'Firebase/Analytics', '~> 8.7.0'
 end
 
 target 'MoppLibTests' do
@@ -59,8 +59,8 @@ end
 target 'SkSigningLib' do
     platform :ios, '12.0'
     project '../SkSigningLib/SkSigningLib.xcodeproj'
-    #pod 'Firebase/Crashlytics', '~> 8.1.1'
-    #pod 'Firebase/Analytics', '~> 8.1.1'
+    #pod 'Firebase/Crashlytics', '~> 8.7.0'
+    #pod 'Firebase/Analytics', '~> 8.7.0'
 end
 
 post_install do |installer|
