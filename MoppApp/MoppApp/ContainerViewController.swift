@@ -597,7 +597,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
             UIAccessibility.post(notification: .screenChanged, argument: L(.containerNameChanged))
             
             self.containerPath = newContainerPath.path
-            self.reloadContainer()
+            self.tableView.reloadData()
             
             return completion(newContainerPath.lastPathComponent)
         }
