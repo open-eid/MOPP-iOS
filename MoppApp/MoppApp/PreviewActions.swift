@@ -86,7 +86,13 @@ extension PreviewActions where Self: ContainerViewController {
                         self?.errorAlert(message: error?.localizedDescription)
                     })
         }
-
+        
+        guard MoppFileManager.shared.fileExists(containerFilePath) else {
+            NSLog("Container does not exist. Unable to open file for preview")
+            self.errorAlert(message: L(.datafilePreviewFailed))
+            return
+        }
+        
         // If current container is PDF opened as a container preview then open it as a content preview which
         // is same as opening it's data file (which is a reference to itself) as a content preview
         if forcePDFContentPreview {
