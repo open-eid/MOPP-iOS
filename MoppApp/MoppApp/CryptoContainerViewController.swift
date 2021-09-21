@@ -114,26 +114,36 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
         
         if containerFileCount == 1 {
             confirmDeleteAlert(message: L(.lastDatafileRemoveConfirmMessage)) { [weak self] (alertAction) in
-                let cryptoContainer: CryptoContainer? = self?.getContainer()
-                let isDeleted: Bool = ContainerRemovalActions.shared.removeCdocContainer(cryptoContainer: cryptoContainer)
-                if !isDeleted {
-                    self?.errorAlert(message: L(.genericErrorMessage))
-                    return
+                if alertAction == .cancel {
+                    UIAccessibility.post(notification: .layoutChanged, argument: L(.dataFileRemovalCancelled))
+                } else if alertAction == .confirm {
+                    let cryptoContainer: CryptoContainer? = self?.getContainer()
+                    let isDeleted: Bool = ContainerRemovalActions.shared.removeCdocContainer(cryptoContainer: cryptoContainer)
+                    if !isDeleted {
+                        self?.errorAlert(message: L(.genericErrorMessage))
+                        return
+                    }
+                    
+                    UIAccessibility.post(notification: .layoutChanged, argument: L(.dataFileRemoved))
+                    self?.navigationController?.popToRootViewController(animated: true)
                 }
-                
-                self?.navigationController?.popToRootViewController(animated: true)
             }
         }
         confirmDeleteAlert(
             message: L(.datafileRemoveConfirmMessage),
             confirmCallback: { [weak self] (alertAction) in
-                guard let strongSelf = self else { return }
-                strongSelf.notifications = []
-                strongSelf.updateState(.loading)
-                strongSelf.updateState((self?.isCreated)! ? .created : .opened)
-                strongSelf.container.dataFiles.removeObject(at:index)
-                strongSelf.reloadData()
-        })
+                if alertAction == .cancel {
+                    UIAccessibility.post(notification: .layoutChanged, argument: L(.dataFileRemovalCancelled))
+                } else if alertAction == .confirm {
+                    guard let strongSelf = self else { return }
+                    strongSelf.notifications = []
+                    strongSelf.updateState(.loading)
+                    strongSelf.updateState((self?.isCreated)! ? .created : .opened)
+                    strongSelf.container.dataFiles.removeObject(at:index)
+                    UIAccessibility.post(notification: .layoutChanged, argument: L(.dataFileRemoved))
+                    strongSelf.reloadData()
+                }
+            })
 
     }
     

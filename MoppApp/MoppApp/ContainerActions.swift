@@ -215,6 +215,11 @@ extension ContainerActions where Self: UIViewController {
                 withDataFilePaths: dataFilePaths,
                 success: { container in
                     landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                        if dataFilePaths.count == 1 {
+                            UIAccessibility.post(notification: .announcement, argument: L(.dataFileAdded))
+                        } else if dataFilePaths.count > 1 {
+                            UIAccessibility.post(notification: .announcement, argument: L(.dataFilesAdded))
+                        }
                         containerViewController?.reloadContainer()
                     })
                 },
@@ -318,6 +323,11 @@ extension ContainerActions where Self: UIViewController {
                     containerViewController.startSigningWhenOpened = startSigningWhenCreated
                     
                     landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                        if containerFilePaths.count == 1 {
+                            UIAccessibility.post(notification: .announcement, argument: L(.dataFileAdded))
+                        } else if containerFilePaths.count > 1 {
+                            UIAccessibility.post(notification: .announcement, argument: L(.dataFilesAdded))
+                        }
                         navController?.pushViewController(containerViewController, animated: true)
                         if isEmptyFileImported {
                             containerViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))

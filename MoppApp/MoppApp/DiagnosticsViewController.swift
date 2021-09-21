@@ -67,11 +67,23 @@ class DiagnosticsViewController: MoppViewController {
 
     @objc func onCentralConfigurationResponse(responseNotification: Notification)
     {
+        DispatchQueue.main.async {
+            self.configurationToUI()
+        }
         if responseNotification.userInfo?["isLoaded"] as! Bool == true {
             DispatchQueue.main.async { [weak self] in
                 self?.viewDidLoad()
-                self?.displayMessageDialog(message: L(.refreshConfigurationRestartMessage))
+                if UIAccessibility.isVoiceOverRunning {
+                    UIAccessibility.post(notification: .screenChanged, argument: L(.refreshConfigurationUpdated))
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                        self?.displayMessageDialog(message: L(.refreshConfigurationRestartMessage))
+                    }
+                } else {
+                    self?.displayMessageDialog(message: L(.refreshConfigurationRestartMessage))
+                }
             }
+        } else {
+            UIAccessibility.post(notification: .screenChanged, argument: L(.refreshConfigurationAlreadyUpToDate))
         }
     }
 

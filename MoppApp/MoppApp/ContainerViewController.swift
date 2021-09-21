@@ -359,7 +359,7 @@ extension ContainerViewController : UITableViewDataSource {
             
             if DefaultsHelper.isTimestampedDdoc && containerExtension == ContainerFormatDdoc && state == .preview {
                 signature?.status = MoppLibSignatureStatus.Valid
-            } else if !DefaultsHelper.isTimestampedDdoc && containerExtension == ContainerFormatDdoc {
+            } else if !DefaultsHelper.isTimestampedDdoc && containerExtension == ContainerFormatDdoc && signature?.status != MoppLibSignatureStatus.Invalid {
                 signature?.status = MoppLibSignatureStatus.Warning
             }
             
@@ -548,7 +548,9 @@ extension ContainerViewController : ContainerHeaderDelegate {
         }
         
         let changeContainerNameController = UIAlertController(title: L(.containerEditNameButton), message: nil, preferredStyle: UIAlertController.Style.alert)
-        let cancelButton = UIAlertAction(title: L(.actionCancel), style: UIAlertAction.Style.cancel, handler: nil)
+        let cancelButton = UIAlertAction(title: L(.actionCancel), style: UIAlertAction.Style.cancel) { _ in
+            UIAccessibility.post(notification: .screenChanged, argument: L(.containerNameChangeCancelled))
+        }
         changeContainerNameController.addAction(cancelButton)
         
         let okButton = UIAlertAction(title: L(.actionOk), style: UIAlertAction.Style.default) { (action: UIAlertAction) in
@@ -591,6 +593,8 @@ extension ContainerViewController : ContainerHeaderDelegate {
             }
             
             NSLog("File renaming successful")
+            
+            UIAccessibility.post(notification: .screenChanged, argument: L(.containerNameChanged))
             
             self.containerPath = newContainerPath.path
             
@@ -737,6 +741,7 @@ extension ContainerViewController : ContainerImportAddresseeCellDelegate {
 extension ContainerViewController : ContainerAddresseeCellDelegate {
     func removeAddressee(index: Int) {
         cryptoContainerViewDelegate.removeSelectedAddressee(index: index)
+        UIAccessibility.post(notification: .screenChanged, argument: L(.cryptoRecipientRemoved))
     }
     
 }

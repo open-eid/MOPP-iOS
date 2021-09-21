@@ -330,6 +330,11 @@ class IdCardViewController : MoppViewController {
                 error = .actionCancelled
             }
             sself.signDelegate?.idCardSignDidFinished(cancelled: true, success: false, error: error)
+            if sself.isActionDecryption {
+                UIAccessibility.post(notification: .screenChanged, argument: L(.cryptoDecryptionCancelled))
+            } else {
+                UIAccessibility.post(notification: .screenChanged, argument: L(.signingCancelled))
+            }
         }
     }
 
