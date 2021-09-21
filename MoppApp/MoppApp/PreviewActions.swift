@@ -60,6 +60,11 @@ extension PreviewActions where Self: ContainerViewController {
         }
         
         let openContentPreview: (_ filePath: String) -> Void = { [weak self] filePath in
+            guard MoppFileManager.shared.fileExists(filePath) else {
+                NSLog("File does not exist. Unable to open file for preview")
+                self?.errorAlert(message: L(.datafilePreviewFailed))
+                return
+            }
             let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(of: DataFilePreviewViewController.self)
             dataFilePreviewViewController.isShareNeeded = isShareButtonNeeded
             dataFilePreviewViewController.previewFilePath = filePath
@@ -87,10 +92,12 @@ extension PreviewActions where Self: ContainerViewController {
                     })
         }
         
-        guard MoppFileManager.shared.fileExists(containerFilePath) else {
-            NSLog("Container does not exist. Unable to open file for preview")
-            self.errorAlert(message: L(.datafilePreviewFailed))
-            return
+        if self.isAsicContainer {
+            guard MoppFileManager.shared.fileExists(containerFilePath) else {
+                NSLog("Container does not exist. Unable to open file for preview")
+                self.errorAlert(message: L(.datafilePreviewFailed))
+                return
+            }
         }
         
         // If current container is PDF opened as a container preview then open it as a content preview which
