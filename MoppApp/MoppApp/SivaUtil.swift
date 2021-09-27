@@ -22,12 +22,28 @@
  */
 
 import Foundation
+import PDFKit
 
 class SiVaUtil {
     static func isDocumentSentToSiVa(fileUrl: URL?) -> Bool {
         guard let fileLocation = fileUrl else { return false }
         let containerType = MimeTypeExtractor.determineContainer(mimetype: MimeTypeExtractor.getMimeTypeFromContainer(filePath: fileLocation), fileExtension: fileLocation.pathExtension)
-        return containerType == "pdf" || containerType == "ddoc" || containerType == "asics" || containerType == "scs"
+        
+        var isDSSPDFDocument = false
+        
+        if containerType == "pdf" {
+            let pdfDoc = PDFDocument(url: fileLocation) ?? PDFDocument()
+            guard let pdfDocCatalog = pdfDoc.documentRef?.catalog else { return false }
+            CGPDFDictionaryApplyBlock(pdfDocCatalog, { key, object, _ in
+                let catalogKey = String(cString: key, encoding: .utf8)
+                if catalogKey != nil && catalogKey == "DSS" {
+                    isDSSPDFDocument = true
+                }
+                return true
+            }, nil)
+        }
+        
+        return isDSSPDFDocument || containerType == "ddoc" || containerType == "asics" || containerType == "scs"
     }
     
     static func displaySendingToSiVaDialog(completionHandler: @escaping (Bool) -> Void) {
