@@ -36,7 +36,7 @@ extension ContainerActions where Self: UIViewController {
         
         landingViewController.documentPicker.dismiss(animated: false, completion: nil)
         
-        if urls.count == 1 && SiVaUtil.isDocumentSentToSiVa(fileUrl: urls.first) {
+        if landingViewController.fileImportIntent == .openOrCreate && landingViewController.containerType == .asic && urls.count == 1 && SiVaUtil.isDocumentSentToSiVa(fileUrl: urls.first) {
             SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
                 if hasAgreed {
                     self.importDataFiles(with: urls, navController: navController, topSigningViewController: topSigningViewController, landingViewController: landingViewController, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported)
