@@ -77,7 +77,7 @@ class MoppFileManager {
 
     func tempFilePath(withFileName fileName: String) -> String? {
         let tempPathURL = URL(fileURLWithPath: tempDocumentsDirectoryPath())
-        let filePathURL = URL(fileURLWithPath: fileName,
+        let filePathURL = URL(fileURLWithPath: MoppLibManager.sanitize(fileName),
             isDirectory: false, relativeTo: tempPathURL).absoluteURL
 
         // Create intermediate directories for possibility of creating temporary
