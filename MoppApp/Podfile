@@ -16,7 +16,7 @@ target 'MoppApp' do
   pod 'Firebase/Crashlytics', '~> 8.7.0'
   pod 'Firebase/Analytics', '~> 8.7.0'
   pod 'SwiftyRSA', '~> 1.7.0'
-  pod 'Zip', '~> 1.1'
+  pod 'ZIPFoundation', '~> 0.9'
 end
 
 target 'MoppAppTestEnv' do

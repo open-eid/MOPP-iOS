@@ -453,7 +453,7 @@ static std::string profile = "time-stamp";
         MoppLibDataFile *moppLibDataFile = [MoppLibDataFile new];
         moppLibDataFile.fileId = [NSString stringWithUTF8String:dataFile->id().c_str()];
         moppLibDataFile.mediaType = [NSString stringWithUTF8String:dataFile->mediaType().c_str()];
-        moppLibDataFile.fileName = [NSString stringWithUTF8String:dataFile->fileName().c_str()];
+        moppLibDataFile.fileName = [MoppLibDigidocManager sanitize:[NSString stringWithUTF8String:dataFile->fileName().c_str()]];
         moppLibDataFile.fileSize = dataFile->fileSize();
 
         [dataFiles addObject:moppLibDataFile];
@@ -517,6 +517,17 @@ static std::string profile = "time-stamp";
 
     for (int i = 0; i < [rtlChars count]; i++) {
         [characterSet addCharactersInString:[rtlChars objectAtIndex:i]];
+    }
+    
+    while ([text hasPrefix:@"."]) {
+        if ([text length] > 1) {
+            text = [text substringFromIndex:1];
+        } else {
+            NSRange replaceRange = [text rangeOfString:@"."];
+            if (replaceRange.location != NSNotFound) {
+                text = [text stringByReplacingCharactersInRange:replaceRange withString:@"_"];
+            }
+        }
     }
     
     return [[text componentsSeparatedByCharactersInSet:characterSet] componentsJoinedByString:@""];
@@ -864,7 +875,7 @@ void parseException(const digidoc::Exception &e) {
   for (int i = 0; i < doc->dataFiles().size(); i++) {
     digidoc::DataFile *dataFile = doc->dataFiles().at(i);
 
-    if([fileName isEqualToString:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]) {
+    if([fileName isEqualToString:[MoppLibDigidocManager sanitize:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]]) {
       dataFile->saveAs(path.UTF8String);
       break;
     }

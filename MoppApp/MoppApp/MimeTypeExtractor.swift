@@ -22,7 +22,7 @@
 */
 
 import Foundation
-import Zip
+import ZIPFoundation
 
 
 class MimeTypeExtractor {
@@ -34,13 +34,15 @@ class MimeTypeExtractor {
         let fileData = fileHandle.readData(ofLength: 4)
         // Check if file is zip format
         if fileData.starts(with: [0x50, 0x4b, 0x03, 0x04]) {
-            let unzippedFile: URL = unZipFile(filePath: filePath)
-            let isMimeTypeFileExistent = isMimeTypeFilePresent(filePath: unzippedFile)
-            if isMimeTypeFileExistent {
-                mimetype = getMimetypeFromUnzippedContainer(filePath: unzippedFile)
+            guard let unzippedFile = unZipFile(filePath: filePath, fileName: "mimetype") else {
+                return mimetype
             }
             
-            removeUnzippedFolder(folderPath: unzippedFile)
+            mimetype = getMimetypeFromUnzippedContainer(filePath: unzippedFile)
+            
+            let unzippedFolder = unzippedFile.deletingLastPathComponent()
+            
+            removeUnzippedFolder(folderPath: unzippedFolder)
         }
         fileHandle.closeFile()
         
@@ -107,17 +109,24 @@ class MimeTypeExtractor {
         
     }
     
-    private static func unZipFile(filePath: URL) -> URL {
-        var unzippedFilePath: URL = URL(fileURLWithPath: "")
+    private static func unZipFile(filePath: URL, fileName: String) -> URL? {
+        let outputPath = URL(fileURLWithPath: MoppFileManager.shared.tempDocumentsDirectoryPath(), isDirectory: true).appendingPathComponent(filePath.lastPathComponent).deletingPathExtension()
+        guard let archive = Archive(url: filePath, accessMode: .read) else  {
+            return nil
+        }
+        guard let fileInArchive = archive[fileName] else {
+            return nil
+        }
+        var destinationLocation = URL(fileURLWithPath: outputPath.path)
+        destinationLocation.appendPathComponent("mimetype")
         do {
-            Zip.addCustomFileExtension(filePath.pathExtension)
-            unzippedFilePath = try Zip.quickUnzipFile(filePath)
+            NSLog("Extracting file: \(fileName)")
+            _ = try archive.extract(fileInArchive, to: destinationLocation)
+            return destinationLocation
+        } catch {
+            NSLog("Unable to extract file \(fileInArchive). Error: \(error.localizedDescription)")
+            return nil
         }
-        catch {
-            NSLog("Error unzipping file \(filePath.lastPathComponent): \(error.localizedDescription)")
-        }
-        
-        return unzippedFilePath
     }
     
     private static func isMimeTypeFilePresent(filePath: URL) -> Bool {
@@ -125,17 +134,12 @@ class MimeTypeExtractor {
     }
     
     private static func getMimetypeFromUnzippedContainer(filePath: URL) -> String {
-        var mimetype: String = ""
-        if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let mimetypeFile = documentsDirectory.appendingPathComponent(filePath.lastPathComponent, isDirectory: true).appendingPathComponent("mimetype")
-            do {
-                mimetype = try String(contentsOf: mimetypeFile, encoding: .utf8)
-            } catch {
-                NSLog("Error getting contents of file \(filePath.lastPathComponent): \(error.localizedDescription)")
-            }
+        do {
+            return try String(contentsOf: filePath, encoding: .utf8)
+        } catch {
+            NSLog("Error getting contents of file \(filePath.lastPathComponent): \(error.localizedDescription)")
+            return ""
         }
-        
-        return mimetype
     }
     
     private static func removeUnzippedFolder(folderPath: URL) -> Void {

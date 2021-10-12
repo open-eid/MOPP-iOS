@@ -22,6 +22,7 @@
  */
 
 import Foundation
+import MoppLib
 
 class SigningContainerViewController : ContainerViewController, SigningActions, UIDocumentPickerDelegate {
     
@@ -177,7 +178,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
         guard let dataFile = container.dataFiles[index] as? MoppLibDataFile else {
             return nil
         }
-        return (dataFile.fileName as NSString).lastPathComponent
+        return MoppLibManager.sanitize((dataFile.fileName as String))
     }
     
     func getContainer() -> MoppLibContainer {
