@@ -22,28 +22,31 @@
  */
 
 import Foundation
-import PDFKit
+import ILPDFKit
 
 class SiVaUtil {
     static func isDocumentSentToSiVa(fileUrl: URL?) -> Bool {
         guard let fileLocation = fileUrl else { return false }
         let containerType = MimeTypeExtractor.determineContainer(mimetype: MimeTypeExtractor.getMimeTypeFromContainer(filePath: fileLocation), fileExtension: fileLocation.pathExtension)
         
-        var isDSSPDFDocument = false
-        
         if containerType == "pdf" {
-            let pdfDoc = PDFDocument(url: fileLocation) ?? PDFDocument()
-            guard let pdfDocCatalog = pdfDoc.documentRef?.catalog else { return false }
-            CGPDFDictionaryApplyBlock(pdfDocCatalog, { key, object, _ in
-                let catalogKey = String(cString: key, encoding: .utf8)
-                if catalogKey != nil && catalogKey == "DSS" {
-                    isDSSPDFDocument = true
+            let document = ILPDFDocument(path: fileLocation.path)
+            let forms = document.forms as ILPDFFormContainer
+            
+            let pdfSignatures = forms.forms(with: .signature)
+            if !pdfSignatures.isEmpty {
+                for pdfSignature in pdfSignatures {
+                    if let signatureDictionary: ILPDFDictionary = pdfSignature.dictionary,
+                       let vKey: ILPDFDictionary = signatureDictionary["V" as NSString] as? ILPDFDictionary,
+                       let filter = vKey["Filter" as NSString] as? NSString,
+                       let subFilter = vKey["SubFilter" as NSString] as? NSString {
+                        return filter == "Adobe.PPKLite" || (subFilter == "ETSI.CAdES.detached" || subFilter == "adbe.pkcs7.detached")
+                    }
                 }
-                return true
-            }, nil)
+            }
         }
         
-        return isDSSPDFDocument || containerType == "ddoc" || containerType == "asics" || containerType == "scs"
+        return containerType == "ddoc" || containerType == "asics" || containerType == "scs"
     }
     
     static func displaySendingToSiVaDialog(completionHandler: @escaping (Bool) -> Void) {
