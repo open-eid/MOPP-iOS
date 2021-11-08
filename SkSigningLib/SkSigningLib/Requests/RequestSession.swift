@@ -217,7 +217,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         case 500:
             return .internalError
         default:
-            return .generalError
+            return .technicalError
         }
     }
     
@@ -238,7 +238,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         case 500:
             return .internalError
         default:
-            return .generalError
+            return .technicalError
         }
     }
     

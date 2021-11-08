@@ -60,6 +60,7 @@ public enum SigningError: String, Error {
     case sidInvalidAccessRights
     case ocspInvalidTimeSlot
     case certificateRevoked
+    case technicalError
 
     // MARK: Smart-ID Session Status Errors
     case wrongVC
@@ -145,6 +146,8 @@ extension SigningError: LocalizedError {
             return NSLocalizedString("sid-rest-error-certificate-revoked", comment: "")
         case .generalSignatureAddingError:
             return NSLocalizedString("general-signature-adding-error", comment: "")
+        case .technicalError:
+            return NSLocalizedString("mid-rest-error-technical-error", comment: "")
         }
     }
 }
