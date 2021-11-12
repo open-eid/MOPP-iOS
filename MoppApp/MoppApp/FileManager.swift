@@ -342,7 +342,7 @@ class MoppFileManager {
         var mutableURLs: [URL] = urls
         
         guard let url: URL = mutableURLs.first else {
-            completion?(NSError(domain: "Unable to open imported file", code: 1, userInfo: nil), [])
+            completion?(nil, importedPaths)
             return
         }
         
