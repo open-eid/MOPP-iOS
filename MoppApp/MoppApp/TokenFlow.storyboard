@@ -134,16 +134,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="MTn-Np-IcR" firstAttribute="bottom" secondItem="jHz-uj-av0" secondAttribute="bottom" priority="250" constant="-10" id="5fb-m1-mhq"/>
-                            <constraint firstItem="jHz-uj-av0" firstAttribute="centerX" secondItem="AWR-IZ-uHO" secondAttribute="centerX" id="G9w-wf-9Re"/>
                             <constraint firstAttribute="trailing" secondItem="jHz-uj-av0" secondAttribute="trailing" constant="16" id="QAs-rn-xAH"/>
                             <constraint firstItem="jHz-uj-av0" firstAttribute="centerY" secondItem="DQv-G9-Xiy" secondAttribute="centerY" priority="750" id="XFX-vL-g8G"/>
                             <constraint firstItem="jHz-uj-av0" firstAttribute="centerY" secondItem="DQv-G9-Xiy" secondAttribute="centerY" priority="700" constant="-50" id="baj-V7-Ubo"/>
                             <constraint firstItem="jHz-uj-av0" firstAttribute="height" secondItem="DQv-G9-Xiy" secondAttribute="height" multiplier="0.683658" id="che-U1-Qyo"/>
                             <constraint firstItem="jHz-uj-av0" firstAttribute="leading" secondItem="DQv-G9-Xiy" secondAttribute="leading" constant="16" id="kUB-iE-Oqb"/>
-                            <constraint firstItem="jHz-uj-av0" firstAttribute="centerY" secondItem="AWR-IZ-uHO" secondAttribute="centerY" id="wpm-Yw-wkW"/>
                         </constraints>
                     </view>
+                    <size key="freeformSize" width="375" height="667"/>
                     <connections>
+                        <outlet property="centerLandscapeCSTR" destination="che-U1-Qyo" id="y73-2a-iGy"/>
                         <outlet property="centerViewCenterCSTR" destination="XFX-vL-g8G" id="rtG-PX-aZU"/>
                         <outlet property="centerViewKeyboardCSTR" destination="baj-V7-Ubo" id="yh2-he-LMY"/>
                         <outlet property="centerViewOutofscreenCSTR" destination="5fb-m1-mhq" id="R5R-dX-PiK"/>

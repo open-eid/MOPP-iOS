@@ -24,6 +24,7 @@ class TokenFlowSelectionViewController : MoppViewController {
     @IBOutlet weak var centerViewCenterCSTR: NSLayoutConstraint!
     @IBOutlet weak var centerViewOutofscreenCSTR: NSLayoutConstraint!
     @IBOutlet weak var centerViewKeyboardCSTR: NSLayoutConstraint!
+    @IBOutlet var centerLandscapeCSTR: NSLayoutConstraint!
     @IBOutlet var tokenFlowMethodButtons: [UIButton]!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var tokenNavbar: UIView!
@@ -110,6 +111,7 @@ extension TokenFlowSelectionViewController {
         case .idCard:
             let idCardSignVC = UIStoryboard.tokenFlow.instantiateViewController(of: IdCardViewController.self)
                 idCardSignVC.containerPath = containerPath
+            centerLandscapeCSTR.isActive = false
             if isFlowForDecrypting {
                 idCardSignVC.isActionDecryption = true
                 idCardSignVC.decryptDelegate = idCardDecryptViewControllerDelegate
@@ -121,11 +123,13 @@ extension TokenFlowSelectionViewController {
             viewAccessibilityElements = [idCardButton, containerView, mobileIDButton,  smartIDButton, containerView]
         case .mobileID:
             let mobileIdEditVC = UIStoryboard.tokenFlow.instantiateViewController(of: MobileIDEditViewController.self)
+            centerLandscapeCSTR.isActive = true
                 mobileIdEditVC.delegate = mobileIdEditViewControllerDelegate
             newViewController = mobileIdEditVC
             viewAccessibilityElements = [mobileIDButton, containerView, smartIDButton, idCardButton, containerView]
         case .smartID:
             let smartIdEditVC = UIStoryboard.tokenFlow.instantiateViewController(of: SmartIDEditViewController.self)
+            centerLandscapeCSTR.isActive = true
                 smartIdEditVC.delegate = smartIdEditViewControllerDelegate
             newViewController = smartIdEditVC
             viewAccessibilityElements = [smartIDButton, containerView, idCardButton, mobileIDButton, smartIDButton, containerView]
