@@ -73,6 +73,8 @@ class TokenFlowSelectionViewController : MoppViewController {
         centerViewCenterCSTR.priority = .defaultLow
         centerViewOutofscreenCSTR.priority = .defaultHigh
         
+        handleConstraintInLandscape()
+        
         view.layoutIfNeeded()
         
         UIView.animate(withDuration: 0.35, delay: 0.0, options: .curveEaseOut, animations: {
@@ -82,6 +84,10 @@ class TokenFlowSelectionViewController : MoppViewController {
         }) { _ in
             
         }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        handleConstraintInLandscape()
     }
     
     func localizeButtonTitles() {
@@ -123,13 +129,13 @@ extension TokenFlowSelectionViewController {
             viewAccessibilityElements = [idCardButton, containerView, mobileIDButton,  smartIDButton, containerView]
         case .mobileID:
             let mobileIdEditVC = UIStoryboard.tokenFlow.instantiateViewController(of: MobileIDEditViewController.self)
-            centerLandscapeCSTR.isActive = true
+            handleConstraintInLandscape()
                 mobileIdEditVC.delegate = mobileIdEditViewControllerDelegate
             newViewController = mobileIdEditVC
             viewAccessibilityElements = [mobileIDButton, containerView, smartIDButton, idCardButton, containerView]
         case .smartID:
             let smartIdEditVC = UIStoryboard.tokenFlow.instantiateViewController(of: SmartIDEditViewController.self)
-            centerLandscapeCSTR.isActive = true
+            handleConstraintInLandscape()
                 smartIdEditVC.delegate = smartIdEditViewControllerDelegate
             newViewController = smartIdEditVC
             viewAccessibilityElements = [smartIDButton, containerView, idCardButton, mobileIDButton, smartIDButton, containerView]
@@ -196,6 +202,14 @@ extension TokenFlowSelectionViewController {
                 $0.titleLabel?.font = UIFont(name: MoppFontName.allCapsRegular.rawValue, size: 17.0)
                 $0.isSelected = false
             }
+        }
+    }
+    
+    func handleConstraintInLandscape() {
+        if isDeviceOrientationLandscape() {
+            centerLandscapeCSTR.isActive = true
+        } else {
+            centerLandscapeCSTR.isActive = false
         }
     }
 }
