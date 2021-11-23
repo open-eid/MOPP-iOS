@@ -27,7 +27,7 @@ import ILPDFKit
 class SiVaUtil {
     static func isDocumentSentToSiVa(fileUrl: URL?) -> Bool {
         guard let fileLocation = fileUrl else { return false }
-        let containerType = MimeTypeExtractor.determineContainer(mimetype: MimeTypeExtractor.getMimeTypeFromContainer(filePath: fileLocation), fileExtension: fileLocation.pathExtension)
+        let containerType = MimeTypeExtractor.determineContainer(mimetype: MimeTypeExtractor.getMimeTypeFromContainer(filePath: fileLocation), fileExtension: fileLocation.pathExtension).lowercased()
         
         if containerType == "pdf" {
             let document = ILPDFDocument(path: fileLocation.path)

@@ -20,6 +20,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
+import UIKit
 class RecentContainersViewController : MoppModalViewController {
     var requestCloseSearch: (() -> Void) = {}
     @IBOutlet weak var tableView: UITableView!
@@ -171,7 +173,6 @@ extension RecentContainersViewController : UITableViewDelegate {
             self.closeSearch()
             dismiss(animated: true, completion: {
                 let ext = (filename as NSString).pathExtension
-                var containerViewController: ContainerViewController
                 var navController: UINavigationController = (LandingViewController.shared.viewController(for: .signTab) as? UINavigationController)!
                 
                 let failure: (() -> Void) = {
@@ -183,11 +184,18 @@ extension RecentContainersViewController : UITableViewDelegate {
                 }
                 
                 if ext.isAsicContainerExtension || ext.isPdfContainerExtension {
-                    LandingViewController.shared.containerType = .asic
-                    containerViewController = SigningContainerViewController.instantiate()
-                    containerViewController.containerPath = containerPath
-                    navController.pushViewController(containerViewController, animated: true)
+                    if ext.isPdfContainerExtension && SiVaUtil.isDocumentSentToSiVa(fileUrl: URL(fileURLWithPath: containerPath)) {
+                        SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
+                            if hasAgreed {
+                                self.openContainer(containerPath: containerPath, navController: navController)
+                            }
+                        }
+                    } else {
+                        self.openContainer(containerPath: containerPath, navController: navController)
+                    }
+                    
                 } else {
+                    var containerViewController: ContainerViewController
                     LandingViewController.shared.containerType = .cdoc
                     containerViewController = CryptoContainerViewController.instantiate()
                     containerViewController.containerPath = containerPath
@@ -218,6 +226,14 @@ extension RecentContainersViewController : UITableViewDelegate {
                 
             })
         }
+    }
+    
+    func openContainer(containerPath: String, navController: UINavigationController) {
+        var containerViewController: ContainerViewController
+        LandingViewController.shared.containerType = .asic
+        containerViewController = SigningContainerViewController.instantiate()
+        containerViewController.containerPath = containerPath
+        navController.pushViewController(containerViewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section_: Int) -> CGFloat {

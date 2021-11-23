@@ -36,16 +36,28 @@ extension PreviewActions where Self: ContainerViewController {
             }
             return
         }
-
-        let openAsicContainerPreview: (_ isPDF: Bool) -> Void = { [weak self] isPDF in
-            let containerViewController = SigningContainerViewController.instantiate()
-            
+        
+        let openAsicContainerPreviewDocument: (_ containerViewController: ContainerViewController, _ isPDF: Bool) -> Void = { [weak self] (containerViewController, isPDF) in
             containerViewController.sections = ContainerViewController.sectionsDefault
             containerViewController.isAsicContainer = true
             containerViewController.containerPath = destinationPath
             containerViewController.isForPreview = true
             containerViewController.forcePDFContentPreview = isPDF
             self?.navigationController?.pushViewController(containerViewController, animated: true)
+        }
+
+        let openAsicContainerPreview: (_ isPDF: Bool) -> Void = { isPDF in
+            let containerViewController = SigningContainerViewController.instantiate()
+            
+            if SiVaUtil.isDocumentSentToSiVa(fileUrl: URL(fileURLWithPath: destinationPath)) {
+                SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
+                    if hasAgreed {
+                        openAsicContainerPreviewDocument(containerViewController, isPDF)
+                    }
+                }
+            } else {
+                openAsicContainerPreviewDocument(containerViewController, isPDF)
+            }
         }
         
         let openCdocContainerPreview: () -> Void = { [weak self]  in
@@ -59,16 +71,29 @@ extension PreviewActions where Self: ContainerViewController {
             self?.navigationController?.pushViewController(containerViewController, animated: true)
         }
         
+        let openContentPreviewDocument: (_ filePath: String) -> Void = { [weak self] filePath in
+            let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(of: DataFilePreviewViewController.self)
+            dataFilePreviewViewController.isShareNeeded = isShareButtonNeeded
+            dataFilePreviewViewController.previewFilePath = filePath
+            self?.navigationController?.pushViewController(dataFilePreviewViewController, animated: true)
+        }
+        
         let openContentPreview: (_ filePath: String) -> Void = { [weak self] filePath in
             guard MoppFileManager.shared.fileExists(filePath) else {
                 NSLog("File does not exist. Unable to open file for preview")
                 self?.errorAlert(message: L(.datafilePreviewFailed))
                 return
             }
-            let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(of: DataFilePreviewViewController.self)
-            dataFilePreviewViewController.isShareNeeded = isShareButtonNeeded
-            dataFilePreviewViewController.previewFilePath = filePath
-            self?.navigationController?.pushViewController(dataFilePreviewViewController, animated: true)
+            if SiVaUtil.isDocumentSentToSiVa(fileUrl: URL(fileURLWithPath: filePath)) {
+                SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
+                    if hasAgreed {
+                        openContentPreviewDocument(filePath)
+                    }
+                }
+            } else {
+                openContentPreviewDocument(filePath)
+            }
+            
         }
 
         let openPDFPreview: () -> Void = { [weak self] in
