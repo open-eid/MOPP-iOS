@@ -438,6 +438,8 @@ static std::string profile = "time-stamp";
 
       if (e.code() == 63) {
         *error = [MoppLibError fileNameTooLongError];
+      } else if (e.code() == digidoc::Exception::NetworkError) {
+          *error = [MoppLibError noInternetConnectionError];
       } else {
         *error = [MoppLibError generalError];
       }

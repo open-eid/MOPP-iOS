@@ -123,21 +123,22 @@ extension ContainerActions where Self: UIViewController {
             landingViewController.importProgressViewController.dismissRecursivelyIfPresented(animated: false, completion: nil)
             
             var alert: UIAlertController
-            guard err?.code == 10005 && (url.lastPathComponent.hasSuffix(ContainerFormatDdoc) || url.lastPathComponent.hasSuffix(ContainerFormatPDF)) else {
-                alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [fileName]), preferredStyle: .alert)
+            if err?.code == 10018 && (url.lastPathComponent.hasSuffix(ContainerFormatDdoc) || url.lastPathComponent.hasSuffix(ContainerFormatPDF)) {
+                alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.noConnectionMessage), preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
                 
                 navController?.viewControllers.last!.present(alert, animated: true)
                 return
+            } else if err?.code == 10005 {
+                alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [fileName]), preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
+                navController?.viewControllers.last!.present(alert, animated: true)
+                return
             }
             
-            alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.noConnectionMessage), preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
-            
             if isEmptyFileImported {
-                navController?.viewControllers.last!.present(alert, animated: true, completion: {
-                    navController?.viewControllers.last!.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))
-                })
+                navController?.viewControllers.last!.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))
+                return
             }
         }
         if landingViewController.containerType == .asic {
