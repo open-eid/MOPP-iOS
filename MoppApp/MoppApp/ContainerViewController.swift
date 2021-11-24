@@ -410,7 +410,7 @@ extension ContainerViewController : UITableViewDataSource {
                 isRemoveButtonShown = !isForPreview &&
                     (signingContainerViewDelegate.getSignaturesCount() == 0) &&
                     signingContainerViewDelegate.isContainerSignable()
-                isDownloadButtonShown = !isForPreview && signingContainerViewDelegate.isContainerSignable()
+                isDownloadButtonShown = !isForPreview
             } else {
                 isRemoveButtonShown = !isForPreview && (state != .opened)
                 isDownloadButtonShown = !isForPreview && (isDecrypted || (state != .opened))
