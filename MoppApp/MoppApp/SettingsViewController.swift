@@ -83,10 +83,6 @@ class SettingsViewController: MoppViewController {
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
     }
-        
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portrait
-    }
 }
 
 extension SettingsViewController: UITableViewDataSource {
