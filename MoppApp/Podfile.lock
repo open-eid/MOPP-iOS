@@ -35,6 +35,7 @@ PODS:
     - GoogleUtilities/Environment
   - GoogleUtilities/UserDefaults (7.5.2):
     - GoogleUtilities/Logger
+  - ILPDFKit (2.0.1)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -49,11 +50,14 @@ PODS:
 
 DEPENDENCIES:
   - Firebase/Crashlytics (~> 8.7.0)
+  - ILPDFKit (~> 2.0.1)
   - OCMock (~> 3.8.1)
   - SwiftyRSA (~> 1.7.0)
   - ZIPFoundation (~> 0.9)
 
 SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - ILPDFKit
   trunk:
     - Firebase
     - FirebaseCore
@@ -76,6 +80,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 2563cb18a723ef9c6ef18318a49519b75dce613c
   GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
   GoogleUtilities: 8de2a97a17e15b6b98e38e8770e2d129a57c0040
+  ILPDFKit: 51762e66bce3c43fc8c3db3322223d3020c70137
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OCMock: 29f6e52085b4e7d9b075cbf03ed7c3112f82f934
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
