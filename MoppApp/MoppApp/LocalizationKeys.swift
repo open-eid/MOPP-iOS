@@ -122,6 +122,7 @@ enum LocKey : String
     case datafileRemoveConfirmMessage = "datafile-remove-confirm-message"
     case lastDatafileRemoveConfirmMessage = "last-datafile-remove-confirm-message"
     case dataFileRemoved = "datafile-removed"
+    case dataFileRemovalFailed = "datafile-removal-failed"
     case dataFileRemovalCancelled = "datafile-removal-cancelled"
     case generalSignatureAddingMessage = "general-signature-adding-message"
     case generalSignatureRemovalMessage = "general-signature-removal-message"

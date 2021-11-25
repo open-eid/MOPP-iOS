@@ -177,6 +177,7 @@
 "datafile-remove-confirm-message" = "Soovid eemaldada faili ümbrikust?";
 "last-datafile-remove-confirm-message" = "Oled kustutamas viimast faili ümbrikus, koos sellega eemaldatakse ka ümbrik.";
 "datafile-removed" = "Fail eemaldatud";
+"datafile-removal-failed" = "Faili eemaldamine ebaõnnestus";
 "datafile-removal-cancelled" = "Faili eemaldamine katkestatud";
 "general-signature-adding-message" = "Ümbriku allkirjastamine ebaõnnestus";
 "general-signature-removal-message" = "Allkirja eemaldamine ümbrikust ebaõnnestus";
