@@ -255,6 +255,8 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                 if nserror.code == Int(MoppLibErrorCode.moppLibErrorGeneral.rawValue) {
                     title = L(.fileImportOpenExistingFailedAlertTitle)
                     message = L(.fileImportOpenExistingFailedAlertMessage, [self?.containerPath.substr(fromLast: "/") ?? String()])
+                } else if nserror.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
+                    message = L(.noConnectionMessage)
                 }
                 self?.errorAlert(message: message, title: title, dismissCallback: { _ in
                     _ = self?.navigationController?.popViewController(animated: true)

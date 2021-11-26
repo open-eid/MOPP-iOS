@@ -120,61 +120,67 @@ extension ContainerActions where Self: UIViewController {
 
         let failure: ((_ error: NSError?) -> Void) = { err in
             
-            landingViewController.importProgressViewController.dismissRecursivelyIfPresented(animated: false, completion: nil)
-            
-            var alert: UIAlertController
-            if err?.code == 10018 && (url.lastPathComponent.hasSuffix(ContainerFormatDdoc) || url.lastPathComponent.hasSuffix(ContainerFormatPDF)) {
-                alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.noConnectionMessage), preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
-                
-                navController?.viewControllers.last!.present(alert, animated: true)
-                return
-            } else if err?.code == 10005 {
-                alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [fileName]), preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
-                navController?.viewControllers.last!.present(alert, animated: true)
-                return
-            }
-            
-            if isEmptyFileImported {
-                navController?.viewControllers.last!.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))
-                return
-            }
-        }
-        if landingViewController.containerType == .asic {
-            MoppLibContainerActions.sharedInstance().openContainer(withPath: newFilePath,
-                success: { (_ container: MoppLibContainer?) -> Void in
-                    if container == nil {
-                        // Remove invalid container. Probably ddoc.
-                        MoppFileManager.shared.removeFile(withName: fileName)
-                        failure(nil)
-                        return
-                    }
-                
-                    // If file to open is PDF and there is no signatures then create new container
-                    let isPDF = url.pathExtension.lowercased() == ContainerFormatPDF
-                    if isPDF && container!.signatures.isEmpty {
-                        landingViewController.createNewContainer(with: url, dataFilePaths: [newFilePath], isEmptyFileImported: isEmptyFileImported)
-                        return
-                    }
+            landingViewController.importProgressViewController.dismissRecursivelyIfPresented(animated: false, completion: {
+                var alert: UIAlertController
+                if err?.code == 10018 && (url.lastPathComponent.hasSuffix(ContainerFormatDdoc) || url.lastPathComponent.hasSuffix(ContainerFormatPDF) || url.lastPathComponent.hasSuffix(ContainerFormatAsics) || url.lastPathComponent.hasSuffix(ContainerFormatAsicsShort)) {
+                    alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.noConnectionMessage), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
                     
-                    var containerViewController: ContainerViewController? = ContainerViewController.instantiate()
-                        containerViewController?.containerPath = newFilePath
-                        containerViewController?.forcePDFContentPreview = isPDF
-                    
-                    landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
-                        if let containerVC = containerViewController {
-                            navController?.pushViewController(containerVC, animated: true)
-                            containerViewController = nil
-                        }
-                    })
-
-                },
-                failure: { error in
-                    guard let nsError = error as NSError? else { failure(nil); return }
-                    failure(nsError)
+                    navController?.viewControllers.last!.present(alert, animated: true)
+                    return
+                } else if err?.code == 10005 {
+                    alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [fileName]), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
+                    navController?.viewControllers.last!.present(alert, animated: true)
+                    return
                 }
-            )
+                
+                if isEmptyFileImported {
+                    navController?.viewControllers.last!.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))
+                    return
+                }
+            })
+        }
+        
+        if landingViewController.containerType == .asic {
+            MoppLibManager.handleContainersNoInternetConnection(newFilePath) {
+                MoppLibContainerActions.sharedInstance().openContainer(withPath: newFilePath,
+                    success: { (_ container: MoppLibContainer?) -> Void in
+                        if container == nil {
+                            // Remove invalid container. Probably ddoc.
+                            MoppFileManager.shared.removeFile(withName: fileName)
+                            failure(nil)
+                            return
+                        }
+                    
+                        // If file to open is PDF and there is no signatures then create new container
+                        let isPDF = url.pathExtension.lowercased() == ContainerFormatPDF
+                        if isPDF && container!.signatures.isEmpty {
+                            landingViewController.createNewContainer(with: url, dataFilePaths: [newFilePath], isEmptyFileImported: isEmptyFileImported)
+                            return
+                        }
+                        
+                        var containerViewController: ContainerViewController? = ContainerViewController.instantiate()
+                            containerViewController?.containerPath = newFilePath
+                            containerViewController?.forcePDFContentPreview = isPDF
+                        
+                        landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                            if let containerVC = containerViewController {
+                                navController?.pushViewController(containerVC, animated: true)
+                                containerViewController = nil
+                            }
+                        })
+
+                    },
+                    failure: { error in
+                        guard let nsError = error as NSError? else { failure(nil); return }
+                        failure(nsError)
+                    }
+                )
+            } failure: { noInternetError in
+                guard let nsError = noInternetError as NSError? else { failure(nil); return }
+                failure(nsError)
+            }
         } else {
             let containerViewController = CryptoContainerViewController.instantiate()
             let container = CryptoContainer(filename: fileName as NSString, filePath: newFilePath as NSString)

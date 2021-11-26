@@ -46,6 +46,7 @@
 #import <Security/SecCertificate.h>
 #import <Security/SecKey.h>
 #import "MoppLibGlobals.h"
+#import "Reachability.h"
 
 #include <CryptoLib/CryptoLib.h>
 
@@ -533,6 +534,20 @@ static std::string profile = "time-stamp";
     }
     
     return [[text componentsSeparatedByCharactersInSet:characterSet] componentsJoinedByString:@""];
+}
+
+
++ (void)handleContainersNoInternetConnection:(NSString *)filePath success:(VoidBlock)success failure:(FailureBlock)failure {
+    NSArray *forbiddenFileExtension = [NSArray arrayWithObjects: @"ddoc", @"pdf", @"asics", @"scs", nil];
+    
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    if (networkStatus == NotReachable && [forbiddenFileExtension containsObject:[filePath pathExtension]]) {
+      failure([MoppLibError noInternetConnectionError]);
+      return;
+    } else {
+        success();
+    }
 }
 
 - (std::string)getSerialNumber:(std::string)serialNumber {
