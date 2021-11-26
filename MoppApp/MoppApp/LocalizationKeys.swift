@@ -284,6 +284,7 @@ enum LocKey : String
     case lastUpdateCheckDateLabel = "last-update-check"
     case updateDateLabel = "update-date"
     case refreshConfigurationLabel = "refresh-configuration"
+    case saveDiagnosticsLabel = "save-diagnostics"
     case refreshConfigurationRestartMessage = "refresh-configuration-restart-message"
     case refreshConfigurationUpdated = "refresh-configuration-updated"
     case refreshConfigurationAlreadyUpToDate = "refresh-configuration-already-up-to-date"

@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-class DiagnosticsViewController: MoppViewController {
+class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var appVersionLabel: UILabel!
     @IBOutlet weak var opSysVersionLabel: UILabel!
@@ -30,6 +30,7 @@ class DiagnosticsViewController: MoppViewController {
     @IBOutlet weak var updateDateLabel: UILabel!
     @IBOutlet weak var lastCheckLabel: UILabel!
     @IBOutlet weak var refreshConfigurationLabel: UIButton!
+    @IBOutlet weak var saveDiagnosticsLabel: UIButton!
 
     @IBOutlet weak var configURL: UILabel!
     @IBOutlet weak var tslURL: UILabel!
@@ -58,8 +59,15 @@ class DiagnosticsViewController: MoppViewController {
             NotificationCenter.default.addObserver(self, selector: #selector(self.onCentralConfigurationResponse(responseNotification:)), name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil)
         }
     }
-
-
+    
+    @IBAction func saveDiagnostics(_ sender: Any) {
+        NSLog("Saving diagnostics")
+        NSLog("Formatting diagnostics data")
+        let diagnosticsText = formatDiagnosticsText()
+        let fileName = "ria_digidoc_\(MoppApp.versionString)_diagnostics.txt"
+        NSLog("Saving diagnostics to file '\(fileName)'")
+        saveDiagnosticsToFile(fileName: fileName, diagnosticsText: diagnosticsText)
+    }
 
     @IBAction func dismissAction() {
         dismiss(animated: true, completion: nil)
@@ -98,6 +106,7 @@ class DiagnosticsViewController: MoppViewController {
         librariesLabel.attributedText = attributedTextForBoldRegularText(key: String(), value: "libdigidocpp \(libdigidocppVersion)")
         centralConfigurationLabel.text = L(.centralConfigurationLabel)
         refreshConfigurationLabel.setTitle(L(.refreshConfigurationLabel))
+        saveDiagnosticsLabel.setTitle(L(.saveDiagnosticsLabel))
 
         configurationToUI()
 
@@ -223,5 +232,85 @@ class DiagnosticsViewController: MoppViewController {
     private func getRPUUIDInfo() -> String {
         return DefaultsHelper.rpUuid.isEmpty || DefaultsHelper.rpUuid == kRelyingPartyUUID ?
             L(.diagnosticsRpUuidDefault) : L(.diagnosticsRpUuidCustom)
+    }
+    
+    private func getAllTextLabels(view: UIView) -> [UILabel] {
+        var uiLabels = [UILabel]()
+        for subview in view.subviews {
+            if subview is UILabel && !(subview is UIButton) {
+                uiLabels.append(subview as! UILabel)
+            } else {
+                uiLabels.append(contentsOf: getAllTextLabels(view: subview))
+            }
+        }
+        
+        return uiLabels
+    }
+    
+    private func formatDiagnosticsText() -> String {
+        var diagnosticsText = ""
+        for label in getAllTextLabels(view: view) {
+            if let text = label.text, !isTitleOrButtonLabel(text: text) {
+                if isCategoryLabel(text: text) {
+                    diagnosticsText.append("\n\n\(text)\n")
+                } else {
+                    diagnosticsText.append("\(text)\n")
+                }
+            }
+        }
+        
+        return diagnosticsText
+    }
+    
+    private func isTitleOrButtonLabel(text: String) -> Bool {
+        return text == L(.diagnosticsTitle) || text == L(.refreshConfigurationLabel) || text == L(.saveDiagnosticsLabel)
+    }
+    
+    private func isCategoryLabel(text: String) -> Bool {
+        return text == L(.diagnosticsLibrariesLabel) || text == "URLs:" || text == L(.centralConfigurationLabel)
+    }
+    
+    private func saveDiagnosticsToFile(fileName: String, diagnosticsText: String) {
+        let fileLocation: URL? = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(fileName)
+        
+        if let fileUrl = fileLocation {
+            do {
+                if MoppFileManager.shared.fileExists(fileUrl.path) {
+                    NSLog("Removing old diagnostics file")
+                    MoppFileManager.shared.removeFile(withPath: fileUrl.path)
+                }
+                
+                NSLog("Writing diagnostics text to file")
+                try diagnosticsText.write(to: fileUrl, atomically: true, encoding: .utf8)
+                
+                if MoppFileManager.shared.fileExists(fileUrl.path) {
+                    let pickerController = UIDocumentPickerViewController(url: fileUrl, in: .exportToService)
+                    pickerController.delegate = self
+                    self.present(pickerController, animated: true) {
+                        NSLog("Showing file saving location picker")
+                    }
+                    return
+                }
+            } catch {
+                NSLog("Unable to write diagnostics to file. Error: \(error.localizedDescription)")
+                self.errorAlert(message: L(.fileImportFailedFileSave))
+                return
+            }
+        }
+    }
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        if !urls.isEmpty {
+            let savedFileLocation: URL? = urls.first
+            NSLog("File export done. Location: \(savedFileLocation?.path ?? "Not available")")
+            self.errorAlert(message: L(.fileImportFileSaved))
+        } else {
+            NSLog("Failed to save file")
+            return self.errorAlert(message: L(.fileImportFailedFileSave))
+        }
+    }
+    
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        NSLog("File saving cancelled")
     }
 }

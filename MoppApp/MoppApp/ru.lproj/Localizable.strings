@@ -346,5 +346,6 @@
 "refresh-configuration-restart-message" = "Обновление конфигурации и TSL прошло успешно. Перезапустите приложение для завершения обновления";
 "refresh-configuration-updated" = "Конфигурация удачно обновлена";
 "refresh-configuration-already-up-to-date" = "У вас последняя версия конфигурации";
+"save-diagnostics" = "СОХРАНИТЬ ДИАГНОСТИКУ";
 "success-notification-dialog-label" = "Чтобы поделиться контейнером, нажмите кнопку «ПОДЕЛИТЬСЯ» и выберите нужное приложение. Все контейнеры можно найти в папке «Недавние документы» в настройках приложения.";
 "success-notification-dialog-dont-show-again" = "Больше не показывать";
