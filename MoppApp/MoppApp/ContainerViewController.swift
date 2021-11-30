@@ -702,8 +702,9 @@ extension ContainerViewController : UITableViewDelegate {
         tableView.reloadData()
         
         // Animate away success message if there is any
+        let accessibilityNotificationTime = 4.0
         if let notificationIndex = notifications.firstIndex(where: { $0.0 == true }), sections.contains(.notifications) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + (UIAccessibility.isVoiceOverRunning ? accessibilityNotificationTime : 2.0)) { [weak self] in
                 if (self?.notifications.isEmpty)! { return }
                 self?.notifications.remove(at: notificationIndex)
                 if let notificationsSection = self?.sections.firstIndex(where: { $0 == .notifications }) {
