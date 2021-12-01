@@ -38,7 +38,7 @@ class InternetConnectionUtil: NSObject, URLSessionDelegate, URLSessionTaskDelega
             if data != nil {
                 completion(true)
             } else if let error = error {
-                NSLog("isInternetConnectionAvailable: Unable to connect to url \(error.localizedDescription)")
+                NSLog("isInternetConnectionAvailable: Unable to connect to url. \(error.localizedDescription)")
                 completion(false)
             }
         }
