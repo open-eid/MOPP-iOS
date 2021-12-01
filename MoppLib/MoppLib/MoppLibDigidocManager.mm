@@ -536,20 +536,6 @@ static std::string profile = "time-stamp";
     return [[text componentsSeparatedByCharactersInSet:characterSet] componentsJoinedByString:@""];
 }
 
-
-+ (void)handleContainersNoInternetConnection:(NSString *)filePath success:(VoidBlock)success failure:(FailureBlock)failure {
-    NSArray *forbiddenFileExtension = [NSArray arrayWithObjects: @"ddoc", @"pdf", @"asics", @"scs", nil];
-    
-    Reachability *reachability = [Reachability reachabilityForInternetConnection];
-    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
-    if (networkStatus == NotReachable && [forbiddenFileExtension containsObject:[filePath pathExtension]]) {
-      failure([MoppLibError noInternetConnectionError]);
-      return;
-    } else {
-        success();
-    }
-}
-
 - (std::string)getSerialNumber:(std::string)serialNumber {
     static const std::set<std::string> types {"PAS", "IDC", "PNO", "TAX", "TIN"};
     if (serialNumber.length() > 6 && (types.find(serialNumber.substr(0, 3)) != types.cend() || serialNumber[2] == ':') && serialNumber[5] == '-') {

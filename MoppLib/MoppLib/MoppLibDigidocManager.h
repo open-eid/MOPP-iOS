@@ -61,5 +61,4 @@ typedef enum {
 + (NSArray *)certificatePolicyIdentifiers:(NSData *)certData;
 + (NSString *)removeBeginAndEndFromCertificate:(NSString *)certString;
 + (NSString *)sanitize:(NSString *)text;
-+ (void)handleContainersNoInternetConnection:(NSString *)filePath success:(VoidBlock)success failure:(FailureBlock)failure;
 @end

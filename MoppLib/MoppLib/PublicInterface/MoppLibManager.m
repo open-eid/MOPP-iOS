@@ -113,8 +113,4 @@
     return [MoppLibDigidocManager sanitize:text];
 }
 
-+ (void)handleContainersNoInternetConnection:(NSString *)filePath success:(VoidBlock)success failure:(FailureBlock)failure {
-    return [MoppLibDigidocManager handleContainersNoInternetConnection:filePath success:success failure:failure];
-}
-
 @end
