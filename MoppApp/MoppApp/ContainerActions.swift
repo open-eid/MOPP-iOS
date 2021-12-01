@@ -143,9 +143,11 @@ extension ContainerActions where Self: UIViewController {
         }
         
         if landingViewController.containerType == .asic {
-            let forbiddenFileExtension = ["ddoc", "pdf", "asics", "scs"]
-            let fileExtension = URL(fileURLWithPath: newFilePath).pathExtension
-            if forbiddenFileExtension.contains(fileExtension) {
+            let forbiddenFileExtension = ["ddoc", "asics", "scs"]
+            let fileURL = URL(fileURLWithPath: newFilePath)
+            let fileExtension = fileURL.pathExtension
+            let isSignedPDF = SiVaUtil.isDocumentSentToSiVa(fileUrl: fileURL)
+            if forbiddenFileExtension.contains(fileExtension) || isSignedPDF {
                 InternetConnectionUtil.isInternetConnectionAvailable { isConnectionAvailable in
                     if isConnectionAvailable {
                         DispatchQueue.main.async {
