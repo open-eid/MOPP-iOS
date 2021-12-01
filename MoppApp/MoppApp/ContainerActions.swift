@@ -143,43 +143,27 @@ extension ContainerActions where Self: UIViewController {
         }
         
         if landingViewController.containerType == .asic {
-            MoppLibManager.handleContainersNoInternetConnection(newFilePath) {
-                MoppLibContainerActions.sharedInstance().openContainer(withPath: newFilePath,
-                    success: { (_ container: MoppLibContainer?) -> Void in
-                        if container == nil {
-                            // Remove invalid container. Probably ddoc.
-                            MoppFileManager.shared.removeFile(withName: fileName)
-                            failure(nil)
-                            return
-                        }
-                    
-                        // If file to open is PDF and there is no signatures then create new container
-                        let isPDF = url.pathExtension.lowercased() == ContainerFormatPDF
-                        if isPDF && container!.signatures.isEmpty {
-                            landingViewController.createNewContainer(with: url, dataFilePaths: [newFilePath], isEmptyFileImported: isEmptyFileImported)
-                            return
-                        }
-                        
-                        var containerViewController: ContainerViewController? = ContainerViewController.instantiate()
-                            containerViewController?.containerPath = newFilePath
-                            containerViewController?.forcePDFContentPreview = isPDF
-                        
-                        landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
-                            if let containerVC = containerViewController {
-                                navController?.pushViewController(containerVC, animated: true)
-                                containerViewController = nil
+            let forbiddenFileExtension = ["ddoc", "pdf", "asics", "scs"]
+            let fileExtension = URL(fileURLWithPath: newFilePath).pathExtension
+            if forbiddenFileExtension.contains(fileExtension) {
+                InternetConnectionUtil.isInternetConnectionAvailable { isConnectionAvailable in
+                    if isConnectionAvailable {
+                        DispatchQueue.main.async {
+                            self.openContainer(url: url, newFilePath: newFilePath, fileName: fileName, landingViewController: landingViewController, navController: navController, isEmptyFileImported: isEmptyFileImported) { error in
+                                failure(error)
                             }
-                        })
-
-                    },
-                    failure: { error in
-                        guard let nsError = error as NSError? else { failure(nil); return }
-                        failure(nsError)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            let error = NSError(domain: "MoppLib", code: Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue), userInfo: nil)
+                            failure(error)
+                        }
                     }
-                )
-            } failure: { noInternetError in
-                guard let nsError = noInternetError as NSError? else { failure(nil); return }
-                failure(nsError)
+                }
+            } else {
+                self.openContainer(url: url, newFilePath: newFilePath, fileName: fileName, landingViewController: landingViewController, navController: navController, isEmptyFileImported: isEmptyFileImported) { error in
+                    failure(error)
+                }
             }
         } else {
             let containerViewController = CryptoContainerViewController.instantiate()
@@ -207,6 +191,42 @@ extension ContainerActions where Self: UIViewController {
             )
         }
         url.stopAccessingSecurityScopedResource()
+    }
+    
+    func openContainer(url: URL, newFilePath: String, fileName: String, landingViewController: LandingViewController, navController: UINavigationController?, isEmptyFileImported: Bool, failure: @escaping ((_ error: NSError?) -> Void)) {
+        MoppLibContainerActions.sharedInstance().openContainer(withPath: newFilePath,
+            success: { (_ container: MoppLibContainer?) -> Void in
+                if container == nil {
+                    // Remove invalid container. Probably ddoc.
+                    MoppFileManager.shared.removeFile(withName: fileName)
+                    failure(nil)
+                    return
+                }
+            
+                // If file to open is PDF and there is no signatures then create new container
+                let isPDF = url.pathExtension.lowercased() == ContainerFormatPDF
+                if isPDF && container!.signatures.isEmpty {
+                    landingViewController.createNewContainer(with: url, dataFilePaths: [newFilePath], isEmptyFileImported: isEmptyFileImported)
+                    return
+                }
+                
+                var containerViewController: ContainerViewController? = ContainerViewController.instantiate()
+                    containerViewController?.containerPath = newFilePath
+                    containerViewController?.forcePDFContentPreview = isPDF
+                
+                landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                    if let containerVC = containerViewController {
+                        navController?.pushViewController(containerVC, animated: true)
+                        containerViewController = nil
+                    }
+                })
+
+            },
+            failure: { error in
+                guard let nsError = error as NSError? else { failure(nil); return }
+                failure(nsError)
+            }
+        )
     }
 
     func addDataFilesToContainer(dataFilePaths: [String]) {
