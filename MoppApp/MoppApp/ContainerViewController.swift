@@ -622,6 +622,11 @@ extension ContainerViewController : ContainerHeaderDelegate {
         
         self.present(changeContainerNameController, animated: true, completion: nil)
     }
+    
+    func scrollToTop() {
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
 }
 
 extension ContainerViewController : UITableViewDelegate {
@@ -703,6 +708,7 @@ extension ContainerViewController : UITableViewDelegate {
         
         // Animate away success message if there is any
         if let notificationIndex = notifications.firstIndex(where: { $0.0 == true }), sections.contains(.notifications) {
+            scrollToTop()
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
                 if (self?.notifications.isEmpty)! { return }
                 self?.notifications.remove(at: notificationIndex)
