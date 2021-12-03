@@ -120,7 +120,7 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
                     let cryptoContainer: CryptoContainer? = self?.getContainer()
                     let isDeleted: Bool = ContainerRemovalActions.shared.removeCdocContainer(cryptoContainer: cryptoContainer)
                     if !isDeleted {
-                        self?.errorAlert(message: L(.genericErrorMessage))
+                        self?.errorAlert(message: L(.dataFileRemovalFailed))
                         return
                     }
                     
@@ -139,7 +139,12 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
                     strongSelf.notifications = []
                     strongSelf.updateState(.loading)
                     strongSelf.updateState((self?.isCreated)! ? .created : .opened)
-                    strongSelf.container.dataFiles.removeObject(at:index)
+                    if strongSelf.container.dataFiles.count > index {
+                        strongSelf.container.dataFiles.removeObject(at: index)
+                    } else {
+                        self?.errorAlert(message: L(.dataFileRemovalFailed))
+                        return
+                    }
                     UIAccessibility.post(notification: .layoutChanged, argument: L(.dataFileRemoved))
                     strongSelf.reloadData()
                 }
