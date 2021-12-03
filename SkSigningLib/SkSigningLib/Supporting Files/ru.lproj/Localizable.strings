@@ -43,7 +43,7 @@
 "sid-rest-error-document-unusable" = "Не удалось выполнить операцию Smart-ID. Пожалуйста, проверьте приложение Smart-ID или свяжитесь со службой поддержки Smart-ID.";
 "sid-rest-error-not-qualified" = "Для проставления подписи в мобильном приложении RIA DigiDoc, ваш Smart-ID должен соответствовать уровню \"высокий\".";
 "sid-rest-error-old-api" = "Мобильное приложение RIA DigiDoc нуждается в обновлении. Пожалуйста, установите новую версию из магазина мобильных приложений. Дополнительную информацию можно получить по телефону (+372) 666 8888.";
-"sidrest-error-under-maintenance" = "Не удалось отправить запрос. Технический сбой услуги Smart-ID. Пожалуйста, попробуйте позже.";
+"sid-rest-error-under-maintenance" = "Не удалось отправить запрос. Технический сбой услуги Smart-ID. Пожалуйста, попробуйте позже.";
 "sid-rest-error-forbidden" = "Не удалось подписать контейнер. Проверьте настройки доступа услуги Smart-ID. https://www.id.ee/ru/artikkel/dlya-uchrezhdenij-v-kotoryh-v-bolshom-obeme-podpisyvayutsya-dokumenty-s-pomoshhyu-digidoc4-klienta/";
 "sid-rest-error-account-not-found-or-timeout" = "Не удалось подписать контейнер. Срок действия вашей операции Smart-ID истек или учетная запись не найдена.";
 "sid-rest-error-certificate-revoked" = "Сертификат недействителен";
