@@ -176,6 +176,7 @@
 "datafile-remove-confirm-message" = "Remove file from container?";
 "last-datafile-remove-confirm-message" = "You are about to remove the last file in the container, it is removed along with the container.";
 "datafile-removed" = "File removed";
+"datafile-removal-failed" = "Failed to remove file";
 "datafile-removal-cancelled" = "File removal cancelled";
 "general-signature-adding-message" = "Failed to sign container";
 "general-signature-removal-message" = "Failed to remove signature from container";
@@ -345,5 +346,6 @@
 "refresh-configuration-restart-message" = "Configuration and TSL updated successfully. Restart the application to complete the update";
 "refresh-configuration-updated" = "Configuration updated";
 "refresh-configuration-already-up-to-date" = "Configuration is already up-to-date";
+"save-diagnostics" = "SAVE DIAGNOSTICS";
 "success-notification-dialog-label" = "To share the container click the \"SHARE\" button and choose your preferred application. All containers can also be found in the application settings \"Recent Documents\" folder.";
 "success-notification-dialog-dont-show-again" = "Don't show again";

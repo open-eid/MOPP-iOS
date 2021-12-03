@@ -24,6 +24,7 @@ class TokenFlowSelectionViewController : MoppViewController {
     @IBOutlet weak var centerViewCenterCSTR: NSLayoutConstraint!
     @IBOutlet weak var centerViewOutofscreenCSTR: NSLayoutConstraint!
     @IBOutlet weak var centerViewKeyboardCSTR: NSLayoutConstraint!
+    @IBOutlet var centerLandscapeCSTR: NSLayoutConstraint!
     @IBOutlet var tokenFlowMethodButtons: [UIButton]!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var tokenNavbar: UIView!
@@ -54,10 +55,6 @@ class TokenFlowSelectionViewController : MoppViewController {
         localizeButtonTitles()
     }
 
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portrait
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let signMethod = TokenFlowMethodButtonID(rawValue: DefaultsHelper.signMethod) ?? .mobileID
@@ -76,6 +73,8 @@ class TokenFlowSelectionViewController : MoppViewController {
         centerViewCenterCSTR.priority = .defaultLow
         centerViewOutofscreenCSTR.priority = .defaultHigh
         
+        handleConstraintInLandscape()
+        
         view.layoutIfNeeded()
         
         UIView.animate(withDuration: 0.35, delay: 0.0, options: .curveEaseOut, animations: {
@@ -85,6 +84,10 @@ class TokenFlowSelectionViewController : MoppViewController {
         }) { _ in
             
         }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        handleConstraintInLandscape()
     }
     
     func localizeButtonTitles() {
@@ -114,6 +117,7 @@ extension TokenFlowSelectionViewController {
         case .idCard:
             let idCardSignVC = UIStoryboard.tokenFlow.instantiateViewController(of: IdCardViewController.self)
                 idCardSignVC.containerPath = containerPath
+            centerLandscapeCSTR.isActive = false
             if isFlowForDecrypting {
                 idCardSignVC.isActionDecryption = true
                 idCardSignVC.decryptDelegate = idCardDecryptViewControllerDelegate
@@ -125,11 +129,13 @@ extension TokenFlowSelectionViewController {
             viewAccessibilityElements = [idCardButton, containerView, mobileIDButton,  smartIDButton, containerView]
         case .mobileID:
             let mobileIdEditVC = UIStoryboard.tokenFlow.instantiateViewController(of: MobileIDEditViewController.self)
+            handleConstraintInLandscape()
                 mobileIdEditVC.delegate = mobileIdEditViewControllerDelegate
             newViewController = mobileIdEditVC
             viewAccessibilityElements = [mobileIDButton, containerView, smartIDButton, idCardButton, containerView]
         case .smartID:
             let smartIdEditVC = UIStoryboard.tokenFlow.instantiateViewController(of: SmartIDEditViewController.self)
+            handleConstraintInLandscape()
                 smartIdEditVC.delegate = smartIdEditViewControllerDelegate
             newViewController = smartIdEditVC
             viewAccessibilityElements = [smartIDButton, containerView, idCardButton, mobileIDButton, smartIDButton, containerView]
@@ -196,6 +202,14 @@ extension TokenFlowSelectionViewController {
                 $0.titleLabel?.font = UIFont(name: MoppFontName.allCapsRegular.rawValue, size: 17.0)
                 $0.isSelected = false
             }
+        }
+    }
+    
+    func handleConstraintInLandscape() {
+        if isDeviceOrientationLandscape() {
+            centerLandscapeCSTR.isActive = true
+        } else {
+            centerLandscapeCSTR.isActive = false
         }
     }
 }
