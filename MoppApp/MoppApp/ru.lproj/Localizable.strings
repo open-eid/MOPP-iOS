@@ -177,6 +177,7 @@
 "datafile-remove-confirm-message" = "Удалить файл из контейнера?";
 "last-datafile-remove-confirm-message" = "Вы собираетесь удалить последний файл в контейнере, он удаляется вместе с контейнером.";
 "datafile-removed" = "Файл удален";
+"datafile-removal-failed" = "Не удалось удалить файл";
 "datafile-removal-cancelled" = "Удаление файла отменено";
 "general-signature-adding-message" = "Не удалось подписать контейнер";
 "general-signature-removal-message" = "Не удается удалить подпись из контейнера";

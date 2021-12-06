@@ -46,6 +46,7 @@
 #import <Security/SecCertificate.h>
 #import <Security/SecKey.h>
 #import "MoppLibGlobals.h"
+#import "Reachability.h"
 
 #include <CryptoLib/CryptoLib.h>
 
