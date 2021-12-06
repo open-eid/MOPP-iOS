@@ -48,11 +48,12 @@ class SmartIDSignature {
 
     private func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, containerPath: String, trustedCertificates: [String]?, errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String, String, String) -> Void) {
         NSLog("Getting certificate...")
+        self.selectAccount()
         SIDRequest.shared.getCertificate(baseUrl: baseUrl, country: country, nationalIdentityNumber: nationalIdentityNumber, requestParameters: requestParameters, trustedCertificates: trustedCertificates) { result in
             switch result {
             case .success(let response):
                 NSLog("Received Certificate (session ID redacted): \(response.sessionID.prefix(13))")
-                self.getSessionStatus(baseUrl: baseUrl, sessionId: response.sessionID, trustedCertificates: trustedCertificates, notification: self.selectAccount) { result in
+                self.getSessionStatus(baseUrl: baseUrl, sessionId: response.sessionID, trustedCertificates: trustedCertificates) { result in
                     switch result {
                     case .success(let sessionStatus):
                         guard let documentNumber = sessionStatus.result?.documentNumber else {
@@ -98,7 +99,7 @@ class SmartIDSignature {
         }
     }
 
-    private func getSessionStatus(baseUrl: String, sessionId: String, trustedCertificates: [String]?, notification: @escaping () -> Void = {}, completionHandler: @escaping (Result<SIDSessionStatusResponse, SigningError>) -> Void) {
+    private func getSessionStatus(baseUrl: String, sessionId: String, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionStatusResponse, SigningError>) -> Void) {
         NSLog("Requesting session status...")
         SIDRequest.shared.getSessionStatus(baseUrl: baseUrl, sessionId: sessionId, timeoutMs: kDefaultTimeoutMs, trustedCertificates: trustedCertificates) { result in
             switch result {
@@ -106,7 +107,6 @@ class SmartIDSignature {
                 NSLog("Session status \(sessionStatus.state.rawValue)")
                 switch sessionStatus.state {
                 case .RUNNING:
-                    notification()
                     self.getSessionStatus(baseUrl: baseUrl, sessionId: sessionId, trustedCertificates: trustedCertificates, completionHandler: completionHandler);
                 case .COMPLETE:
                     guard let sessionStatusResult = sessionStatus.result else {

@@ -46,6 +46,7 @@
 #import <Security/SecCertificate.h>
 #import <Security/SecKey.h>
 #import "MoppLibGlobals.h"
+#import "Reachability.h"
 
 #include <CryptoLib/CryptoLib.h>
 
@@ -438,6 +439,8 @@ static std::string profile = "time-stamp";
 
       if (e.code() == 63) {
         *error = [MoppLibError fileNameTooLongError];
+      } else if (e.code() == digidoc::Exception::NetworkError) {
+          *error = [MoppLibError noInternetConnectionError];
       } else {
         *error = [MoppLibError generalError];
       }

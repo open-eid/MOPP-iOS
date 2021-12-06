@@ -177,6 +177,7 @@
 "datafile-remove-confirm-message" = "Soovid eemaldada faili ümbrikust?";
 "last-datafile-remove-confirm-message" = "Oled kustutamas viimast faili ümbrikus, koos sellega eemaldatakse ka ümbrik.";
 "datafile-removed" = "Fail eemaldatud";
+"datafile-removal-failed" = "Faili eemaldamine ebaõnnestus";
 "datafile-removal-cancelled" = "Faili eemaldamine katkestatud";
 "general-signature-adding-message" = "Ümbriku allkirjastamine ebaõnnestus";
 "general-signature-removal-message" = "Allkirja eemaldamine ümbrikust ebaõnnestus";
@@ -346,5 +347,6 @@
 "refresh-configuration-restart-message" = "Konfiguratsiooni ja TSL värskendamine õnnestus. Värskenduse lõpuleviimiseks taaskäivita rakendus";
 "refresh-configuration-updated" = "Konfiguratsioon uuendatud";
 "refresh-configuration-already-up-to-date" = "Konfiguratsioon on juba ajakohane";
+"save-diagnostics" = "SALVESTA DIAGNOSTIKA";
 "success-notification-dialog-label" = "Ümbriku jagamiseks klõpsa \"JAGA\" nupul ning vali soovitud rakendus. Kõik ümbrikud on leitavad ka rakenduse seadetes asuvas \"Hiljutised dokumendid\" kaustast.";
 "success-notification-dialog-dont-show-again" = "Ära rohkem näita";

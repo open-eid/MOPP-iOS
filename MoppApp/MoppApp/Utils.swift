@@ -42,6 +42,18 @@ struct DeviceType
     static let IS_IPAD_PRO          = UIDevice.current.userInterfaceIdiom == .pad && ScreenSize.SCREEN_MAX_LENGTH == 1366.0
 }
 
+func isDeviceOrientationLandscape() -> Bool {
+    if UIDevice.current.orientation.isFlat {
+        if #available(iOS 13.0, *) {
+            return UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.windowScene?.interfaceOrientation.isLandscape ?? false
+        } else {
+            return UIApplication.shared.statusBarOrientation.isLandscape
+        }
+    }
+    
+    return UIDevice.current.orientation.isLandscape
+}
+
 func MSLog(_ format: String, _ arguments: Any...) {
     NSLog(format, arguments)
 }

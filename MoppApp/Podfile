@@ -1,3 +1,4 @@
+source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
 # Ignore warnings from pods
@@ -14,9 +15,9 @@ target 'MoppApp' do
   platform :ios, '12.0'
   project 'MoppApp.xcodeproj'
   pod 'Firebase/Crashlytics', '~> 8.7.0'
-  pod 'Firebase/Analytics', '~> 8.7.0'
   pod 'SwiftyRSA', '~> 1.7.0'
   pod 'ZIPFoundation', '~> 0.9'
+  pod 'ILPDFKit', '~> 2.0.1'
 end
 
 target 'MoppAppTestEnv' do
@@ -24,7 +25,6 @@ target 'MoppAppTestEnv' do
   project 'MoppApp.xcodeproj'
 
   pod 'Firebase/Crashlytics', '~> 8.7.0'
-  pod 'Firebase/Analytics', '~> 8.7.0'
   pod 'SwiftyRSA', '~> 1.7.0'
 end
 
@@ -32,21 +32,18 @@ target 'MoppLib' do
   platform :ios, '12.0'
   project '../MoppLib/MoppLib.xcodeproj'
   #pod 'Firebase/Crashlytics', '~> 8.7.0'
-  #pod 'Firebase/Analytics', '~> 8.7.0'
 end
 
 target 'MoppLibTestEnv' do
   platform :ios, '12.0'
   project '../MoppLib/MoppLib.xcodeproj'
   #pod 'Firebase/Crashlytics', '~> 8.7.0'
-  #pod 'Firebase/Analytics', '~> 8.7.0'
 end
 
 target 'CryptoLib' do
     platform :ios, '12.0'
     project '../CryptoLib/CryptoLib.xcodeproj'
     #pod 'Firebase/Crashlytics', '~> 8.7.0'
-    #pod 'Firebase/Analytics', '~> 8.7.0'
 end
 
 target 'MoppLibTests' do
@@ -60,7 +57,6 @@ target 'SkSigningLib' do
     platform :ios, '12.0'
     project '../SkSigningLib/SkSigningLib.xcodeproj'
     #pod 'Firebase/Crashlytics', '~> 8.7.0'
-    #pod 'Firebase/Analytics', '~> 8.7.0'
 end
 
 post_install do |installer|
