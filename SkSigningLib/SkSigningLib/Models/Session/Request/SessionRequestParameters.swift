@@ -35,6 +35,12 @@ public struct SessionRequestParameters: Codable {
     let displayText: String?
     let displayTextFormat: String?
     
+    var asData: Data {
+            return #"""
+    { "nationalIdentityNumber":"\#(nationalIdentityNumber)","hash":"\#(hash)","relyingPartyName":"\#(relyingPartyName)","displayTextFormat":"\#(displayTextFormat ?? "GSM-7")","displayText":"\#(displayText ?? "")","hashType":"\#(hashType)","language":"\#(language)","relyingPartyUUID":"\#(relyingPartyUUID)","phoneNumber":"\#(phoneNumber)" }
+    """#.data(using: .utf8) ?? Data()
+    }
+    
     public enum CodingKeys: String, CodingKey {
         case relyingPartyName
         case relyingPartyUUID

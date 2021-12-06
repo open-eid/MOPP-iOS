@@ -45,6 +45,12 @@ public struct SIDSignatureRequestParameters: Codable {
     let hashType: String
     let displayText: String?
     let requestProperties: SIDSignatureRequestParametersProperties?
+    
+    var asData: Data {
+        return #"""
+{"requestProperties":{"vcChoice":\#(requestProperties?.vcChoice ?? true)},"hash":"\#(hash)","hashType":"\#(hashType)","displayText":"\#(displayText ?? "")","relyingPartyName":"\#(relyingPartyName)","relyingPartyUUID":"\#(relyingPartyUUID)"}
+"""#.data(using: .utf8) ?? Data()
+    }
 
     public enum CodingKeys: String, CodingKey {
         case relyingPartyName

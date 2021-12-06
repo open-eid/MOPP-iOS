@@ -72,7 +72,7 @@ public class SIDRequest: NSObject, URLSessionDelegate, SIDRequestProtocol {
 
     public func getSignature(baseUrl: String, documentNumber: String, requestParameters: SIDSignatureRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void) {
         let url = "\(baseUrl)/signature/document/\(documentNumber)"
-        exec(method: "Signature", url: url, data: EncoderDecoder().encode(data: requestParameters), trustedCertificates: trustedCertificates, completionHandler: completionHandler)
+        exec(method: "Signature", url: url, data: requestParameters.asData, trustedCertificates: trustedCertificates, completionHandler: completionHandler)
     }
 
     public func getSessionStatus(baseUrl: String, sessionId: String, timeoutMs: Int?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionStatusResponse, SigningError>) -> Void) {
@@ -85,6 +85,7 @@ public class SIDRequest: NSObject, URLSessionDelegate, SIDRequestProtocol {
             ErrorLog.errorLog(forMethod: method, httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(url)")
             return completionHandler(.failure(.invalidURL))
         }
+        
         var request = URLRequest(url: _url)
         request.httpMethod = data == nil ? RequestMethod.GET.value : RequestMethod.POST.value
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
@@ -93,7 +94,7 @@ public class SIDRequest: NSObject, URLSessionDelegate, SIDRequestProtocol {
 #if DEBUG
         NSLog("RIA.SmartID (\(method): \(url)\n" +
             "Method: \(request.httpMethod ?? "Unable to get HTTP method")\n" +
-            "Data: \n" + String(data: data ?? Data(), encoding: .utf8)!
+            "Data: \n" + String(decoding: data ?? Data(), as: UTF8.self)
         )
 #endif
 

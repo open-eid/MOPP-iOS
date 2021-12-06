@@ -71,12 +71,10 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         
         trustedCerts = trustedCertificates
         
-        let encodedRequestParameters: Data = EncoderDecoder().encode(data: requestParameters)
-        
         var request = URLRequest(url: url)
         request.httpMethod = RequestMethod.POST.value
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.httpBody = encodedRequestParameters
+        request.httpBody = requestParameters.asData
         
         #if DEBUG
         NSLog("RIA.MobileID (Session): \(url) \n" +
@@ -88,7 +86,8 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
             "\tnationalIdentityNumber: \(requestParameters.nationalIdentityNumber.prefix(6))xxxxx\n" +
             "\thash: \(requestParameters.hash)\n" +
             "\thashType: \(requestParameters.hashType)\n" +
-            "\tlanguage: \(requestParameters.language)\n"
+            "\tlanguage: \(requestParameters.language)\n" +
+            "\tdisplayText: \(requestParameters.displayText ?? "")\n"
         )
         #endif
         

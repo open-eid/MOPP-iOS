@@ -176,6 +176,12 @@ extension String {
         }
         return false
     }
+    
+    var asUnicode: String {
+        let textAsData = self.data(using: .nonLossyASCII)
+        let textAsUnicode = String(data: textAsData ?? Data(), encoding: .utf8) ?? ""
+        return #"\#(textAsUnicode)"#
+    }
 }
 
 extension Optional where Wrapped == String {
