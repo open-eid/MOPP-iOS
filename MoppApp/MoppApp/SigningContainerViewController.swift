@@ -105,7 +105,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                     let containerPath: String? = self?.getContainerPath()
                     let isDeleted: Bool = ContainerRemovalActions.shared.removeAsicContainer(containerPath: containerPath)
                     if !isDeleted {
-                        self?.errorAlert(message: L(.genericErrorMessage))
+                        self?.errorAlert(message: L(.dataFileRemovalFailed))
                         return
                     }
                     
@@ -135,7 +135,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                         failure: { [weak self] error in
                             self?.updateState((self?.isCreated ?? false) ? .created : .opened)
                             self?.reloadData()
-                            self?.errorAlert(message: error?.localizedDescription)
+                            self?.errorAlert(message: L(.dataFileRemovalFailed))
                         })
                 }
             })
@@ -255,6 +255,8 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                 if nserror.code == Int(MoppLibErrorCode.moppLibErrorGeneral.rawValue) {
                     title = L(.fileImportOpenExistingFailedAlertTitle)
                     message = L(.fileImportOpenExistingFailedAlertMessage, [self?.containerPath.substr(fromLast: "/") ?? String()])
+                } else if nserror.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
+                    message = L(.noConnectionMessage)
                 }
                 self?.errorAlert(message: message, title: title, dismissCallback: { _ in
                     _ = self?.navigationController?.popViewController(animated: true)
