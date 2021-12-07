@@ -84,7 +84,10 @@ extension PreviewActions where Self: ContainerViewController {
                 self?.errorAlert(message: L(.datafilePreviewFailed))
                 return
             }
-            if SiVaUtil.isDocumentSentToSiVa(fileUrl: URL(fileURLWithPath: filePath)) {
+            
+            let fileExtension = URL(fileURLWithPath: filePath).pathExtension.lowercased()
+            
+            if fileExtension != "pdf" && SiVaUtil.isDocumentSentToSiVa(fileUrl: URL(fileURLWithPath: filePath)) {
                 SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
                     if hasAgreed {
                         openContentPreviewDocument(filePath)
