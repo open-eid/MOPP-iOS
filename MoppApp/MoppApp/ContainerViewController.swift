@@ -338,6 +338,9 @@ extension ContainerViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if signingContainerViewDelegate.getSignaturesCount() == 0 && sections.contains(.signatures) {
+            reloadContainer()
+        }
         let row = indexPath.row
         switch sections[indexPath.section] {
         case .notifications:
