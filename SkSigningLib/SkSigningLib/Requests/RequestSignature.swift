@@ -150,7 +150,7 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
         case 500:
             return .internalError
         default:
-            return .generalError
+            return .technicalError
         }
     }
     
