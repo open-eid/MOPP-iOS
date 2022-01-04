@@ -97,7 +97,7 @@ extension CryptoContainerViewController : IdCardDecryptViewControllerDelegate {
                 self.isDecrypted = true
                 
                 self.notifications.append((true, L(.containerDetailsDecryptionSuccess)))
-                UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: L(.containerDetailsDecryptionSuccess))
+                UIAccessibility.post(notification: .screenChanged, argument: L(.containerDetailsDecryptionSuccess))
                 
                 self.reloadCryptoData()
             } else {
