@@ -33,7 +33,7 @@ extension AddresseeActions {
         if addressee.givenName == nil {
             return addressee.identifier
         } else {
-            return "\(addressee.surname.uppercased()), \(addressee.givenName.uppercased()) ,\(addressee.identifier.uppercased())"
+            return "\(addressee.surname.uppercased()), \(addressee.givenName.uppercased()), \(addressee.identifier.uppercased())"
         }
     }
     
