@@ -38,7 +38,7 @@ class SmartIDSignature {
             self.generateError(error: error)
         }
         getCertificate(baseUrl: baseUrl, country: country, nationalIdentityNumber: nationalIdentityNumber, requestParameters: certparams, containerPath: containerPath, trustedCertificates: certBundle, errorHandler: errorHandler) { documentNumber, cert, hash in
-            let signparams = SIDSignatureRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, hash: hash, hashType: hashType, displayText: L(.simToolkitSignDocumentTitle), vcChoice: true)
+            let signparams = SIDSignatureRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, hash: hash, hashType: hashType, displayText: L(.simToolkitSignDocumentTitle).asUnicode, vcChoice: true)
             self.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, requestParameters: signparams, trustedCertificates: certBundle, errorHandler: errorHandler) { signatureValue in
                 self.validateSignature(cert: cert, signatureValue: signatureValue)
                 UIApplication.shared.endBackgroundTask(backgroundTask)

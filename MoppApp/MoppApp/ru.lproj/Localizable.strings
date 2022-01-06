@@ -158,8 +158,7 @@
 "challenge-code-label" = "%@";
 "challenge-code-label-accessibility" = "Контрольный код: %@ %@ %@ %@";
 
-// Currently must be in English
-"sim-toolkit-sign-document-title" = "Sign document";
+"sim-toolkit-sign-document-title" = "Подписать документ";
 
 // *** Errors ***
 "mobile-id-timeout-message" = "Тайм-аут запроса Mobiil-ID";
