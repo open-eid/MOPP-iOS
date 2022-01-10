@@ -477,7 +477,7 @@ static std::string profile = "time-stamp";
         std::string serialNR = [self getSerialNumber:cert.subjectName("serialNumber")];
 
         std::string name = givename.empty() || surname.empty() ? cert.subjectName("CN") :
-            surname + "," + givename + "," + serialNR;
+            surname + ", " + givename + ", " + serialNR;
         if (name.empty()) {
             name = signature->signedBy();
         }
@@ -822,7 +822,7 @@ void parseException(const digidoc::Exception &e) {
     std::string serialNR = [self getSerialNumber:cert.subjectName("serialNumber")];
 
     // Foreign signatures
-    NSString *foreignName = [NSString stringWithFormat:@"%s,%s,%s", surname.c_str(), givename.c_str(), serialNR.c_str()];
+    NSString *foreignName = [NSString stringWithFormat:@"%s, %s, %s", surname.c_str(), givename.c_str(), serialNR.c_str()];
       
     if (([name isEqualToString:[moppSignature subjectName]] || [foreignName isEqualToString:[moppSignature subjectName]]) && [trustedTimeStamp isEqualToString:[moppSignature trustedSigningTime]]) {
       try {
