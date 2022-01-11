@@ -549,7 +549,11 @@ extension ContainerViewController : ContainerHeaderDelegate {
         
         let changeContainerNameController = UIAlertController(title: L(.containerEditNameButton), message: nil, preferredStyle: UIAlertController.Style.alert)
         let cancelButton = UIAlertAction(title: L(.actionCancel), style: UIAlertAction.Style.cancel) { _ in
-            UIAccessibility.post(notification: .screenChanged, argument: L(.containerNameChangeCancelled))
+            if UIAccessibility.isVoiceOverRunning {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    UIAccessibility.post(notification: .announcement, argument: L(.containerNameChangeCancelled))
+                }
+            }
         }
         changeContainerNameController.addAction(cancelButton)
         
@@ -594,7 +598,11 @@ extension ContainerViewController : ContainerHeaderDelegate {
             
             NSLog("File renaming successful")
             
-            UIAccessibility.post(notification: .screenChanged, argument: L(.containerNameChanged))
+            if UIAccessibility.isVoiceOverRunning {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    UIAccessibility.post(notification: .announcement, argument: L(.containerNameChanged))
+                }
+            }
             
             self.containerPath = newContainerPath.path
             self.tableView.reloadData()
