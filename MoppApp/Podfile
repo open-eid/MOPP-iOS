@@ -49,7 +49,7 @@ end
 target 'MoppLibTests' do
   platform :ios, '12.0'
   project '../MoppLib/MoppLib.xcodeproj'
-  pod 'OCMock', '~> 3.8.1'
+  pod 'OCMock', '~> 3.9.1'
 
 end
 
