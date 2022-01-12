@@ -176,6 +176,7 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
     
     func showStatusView(with title: String) {
         statusLabel.text = title
+        self.scrollView.contentOffset = CGPoint.zero
         UIView.animate(withDuration: 0.35, delay: 0.0, options: UIView.AnimationOptions.curveLinear, animations: { [weak self] in
             self?.statusViewHiddenCSTR.priority = UILayoutPriority.defaultLow
             self?.statusViewVisibleCSTR.priority = UILayoutPriority.defaultHigh
