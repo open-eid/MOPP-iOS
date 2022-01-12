@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -184,7 +184,7 @@ extension RecentContainersViewController : UITableViewDelegate {
                 }
                 
                 if ext.isAsicContainerExtension || ext.isPdfContainerExtension {
-                    if ext.isPdfContainerExtension && SiVaUtil.isDocumentSentToSiVa(fileUrl: URL(fileURLWithPath: containerPath)) {
+                    if SiVaUtil.isDocumentSentToSiVa(fileUrl: URL(fileURLWithPath: containerPath)) {
                         SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
                             if hasAgreed {
                                 self.openContainer(containerPath: containerPath, navController: navController)
@@ -193,7 +193,6 @@ extension RecentContainersViewController : UITableViewDelegate {
                     } else {
                         self.openContainer(containerPath: containerPath, navController: navController)
                     }
-                    
                 } else {
                     var containerViewController: ContainerViewController
                     LandingViewController.shared.containerType = .cdoc

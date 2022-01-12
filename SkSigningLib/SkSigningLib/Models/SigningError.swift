@@ -3,7 +3,7 @@
 //  SkSigningLib
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -60,6 +60,7 @@ public enum SigningError: String, Error {
     case sidInvalidAccessRights
     case ocspInvalidTimeSlot
     case certificateRevoked
+    case technicalError
 
     // MARK: Smart-ID Session Status Errors
     case wrongVC
@@ -145,6 +146,8 @@ extension SigningError: LocalizedError {
             return NSLocalizedString("sid-rest-error-certificate-revoked", comment: "")
         case .generalSignatureAddingError:
             return NSLocalizedString("general-signature-adding-error", comment: "")
+        case .technicalError:
+            return NSLocalizedString("mid-rest-error-technical-error", comment: "")
         }
     }
 }

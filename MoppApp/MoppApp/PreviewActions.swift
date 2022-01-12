@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -84,7 +84,10 @@ extension PreviewActions where Self: ContainerViewController {
                 self?.errorAlert(message: L(.datafilePreviewFailed))
                 return
             }
-            if SiVaUtil.isDocumentSentToSiVa(fileUrl: URL(fileURLWithPath: filePath)) {
+            
+            let fileExtension = URL(fileURLWithPath: filePath).pathExtension.lowercased()
+            
+            if fileExtension != "pdf" && SiVaUtil.isDocumentSentToSiVa(fileUrl: URL(fileURLWithPath: filePath)) {
                 SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
                     if hasAgreed {
                         openContentPreviewDocument(filePath)

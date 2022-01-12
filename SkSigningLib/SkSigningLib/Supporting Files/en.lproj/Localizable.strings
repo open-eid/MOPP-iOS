@@ -1,5 +1,5 @@
 /*
-* Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+* Copyright 2017 - 2022 Riigi Infosüsteemi Amet
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Lesser General Public
@@ -37,12 +37,13 @@
 "mid-rest-error-ocsp-invalid-time-slot" = "Please check your smart device time. https://www.id.ee/en/article/ria-digidoc-error-please-check-your-smart-device-time/";
 "mid-rest-error-invalid-ssl-cert" = "SSL handshake failed. Check your application settings or software upgrades";
 "mid-rest-error-invalid-access-rights" = "Failed to sign container. Check your mobile-ID service access settings. https://www.id.ee/en/article/for-organisations-that-sign-large-quantities-of-documents-using-digidoc4-client/";
+"mid-rest-error-technical-error" = "Failed to send request. Mobile-ID service has encountered technical errors. Please try again later.";
 "sid-rest-error-invalid-access-rights" = "Failed to sign container. Check your Smart-ID service access settings. https://www.id.ee/en/article/for-organisations-that-sign-large-quantities-of-documents-using-digidoc4-client/";
 "sid-rest-error-wrong-vc" = "Error: an incorrect control code was chosen";
 "sid-rest-error-document-unusable" = "Your Smart-ID transaction has failed. Please check your Smart-ID application or contact Smart-ID customer support.";
 "sid-rest-error-not-qualified" = "Your Smart-ID certificate level must be qualified to sign documents in RIA DigiDoc mobile application.";
 "sid-rest-error-old-api" = "RIA DigiDoc mobile application needs an upgrade. Please install new version from the mobile app store. Additional info is available ID-helpline (+372) 666 8888.";
-"sid-rest-error-under-maintenance" = "Smart-ID service has encountered technical errors. Please try again later.";
+"sid-rest-error-under-maintenance" = "Failed to send request. Smart-ID service has encountered technical errors. Please try again later.";
 "sid-rest-error-forbidden" = "Failed to sign container. Check your Smart-ID service access settings. https://www.id.ee/en/article/for-organisations-that-sign-large-quantities-of-documents-using-digidoc4-client/";
 "sid-rest-error-account-not-found-or-timeout" = "Failed to sign container. Your Smart-ID transaction has expired or user account not found.";
 "sid-rest-error-certificate-revoked" = "Certificate status revoked";

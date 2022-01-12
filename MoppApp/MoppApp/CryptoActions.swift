@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -97,7 +97,7 @@ extension CryptoContainerViewController : IdCardDecryptViewControllerDelegate {
                 self.isDecrypted = true
                 
                 self.notifications.append((true, L(.containerDetailsDecryptionSuccess)))
-                UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: L(.containerDetailsDecryptionSuccess))
+                UIAccessibility.post(notification: .screenChanged, argument: L(.containerDetailsDecryptionSuccess))
                 
                 self.reloadCryptoData()
             } else {

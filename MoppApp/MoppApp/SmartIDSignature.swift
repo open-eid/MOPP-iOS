@@ -1,6 +1,6 @@
 /*
  * MoppApp - SmartIDSignature.swift
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -38,7 +38,7 @@ class SmartIDSignature {
             self.generateError(error: error)
         }
         getCertificate(baseUrl: baseUrl, country: country, nationalIdentityNumber: nationalIdentityNumber, requestParameters: certparams, containerPath: containerPath, trustedCertificates: certBundle, errorHandler: errorHandler) { documentNumber, cert, hash in
-            let signparams = SIDSignatureRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, hash: hash, hashType: hashType, displayText: L(.simToolkitSignDocumentTitle), vcChoice: true)
+            let signparams = SIDSignatureRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, hash: hash, hashType: hashType, displayText: L(.simToolkitSignDocumentTitle).asUnicode, vcChoice: true)
             self.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, requestParameters: signparams, trustedCertificates: certBundle, errorHandler: errorHandler) { signatureValue in
                 self.validateSignature(cert: cert, signatureValue: signatureValue)
                 UIApplication.shared.endBackgroundTask(backgroundTask)

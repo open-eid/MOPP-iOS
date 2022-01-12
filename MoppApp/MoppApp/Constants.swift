@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -38,6 +38,7 @@ let kKeyContainerType = "containerType"
 let kRelyingPartyUUID = "00000000-0000-0000-0000-000000000000"
 let kRelyingPartyName = "RIA DigiDoc"
 let kDisplayTextFormat = "GSM-7"
+let kAlternativeDisplayTextFormat = "UCS-2"
 let kDigestMethodSHA256 = "http://www.w3.org/2001/04/xmlenc#sha256"
 let kHashType = "SHA256"
 

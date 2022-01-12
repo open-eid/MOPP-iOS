@@ -3,7 +3,7 @@
 //  SkSigningLib
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -71,12 +71,10 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         
         trustedCerts = trustedCertificates
         
-        let encodedRequestParameters: Data = EncoderDecoder().encode(data: requestParameters)
-        
         var request = URLRequest(url: url)
         request.httpMethod = RequestMethod.POST.value
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.httpBody = encodedRequestParameters
+        request.httpBody = requestParameters.asData
         
         #if DEBUG
         NSLog("RIA.MobileID (Session): \(url) \n" +
@@ -88,7 +86,8 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
             "\tnationalIdentityNumber: \(requestParameters.nationalIdentityNumber.prefix(6))xxxxx\n" +
             "\thash: \(requestParameters.hash)\n" +
             "\thashType: \(requestParameters.hashType)\n" +
-            "\tlanguage: \(requestParameters.language)\n"
+            "\tlanguage: \(requestParameters.language)\n" +
+            "\tdisplayText: \(requestParameters.displayText ?? "")\n"
         )
         #endif
         
@@ -217,7 +216,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         case 500:
             return .internalError
         default:
-            return .generalError
+            return .technicalError
         }
     }
     
@@ -238,7 +237,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         case 500:
             return .internalError
         default:
-            return .generalError
+            return .technicalError
         }
     }
     

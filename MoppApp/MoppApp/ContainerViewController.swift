@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -707,6 +707,7 @@ extension ContainerViewController : UITableViewDelegate {
         tableView.reloadData()
         
         // Animate away success message if there is any
+        let accessibilityNotificationTime = 4.0
         if let notificationIndex = notifications.firstIndex(where: { $0.0 == true }), sections.contains(.notifications) {
             scrollToTop()
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
