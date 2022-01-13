@@ -16,8 +16,8 @@
 #
 
 PACKAGE= OpenLDAP
-VERSION= 2.X
-RELEASEDATE= 0000/00/00
+VERSION= 2.6.0
+RELEASEDATE= 2021/10/25
 
 
 SHELL = /bin/sh
@@ -73,9 +73,8 @@ MKDEP_CFLAGS = -M
 MKVERSION = $(top_srcdir)/build/mkversion -v "$(VERSION)"
 
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
-LIBRELEASE = 2.devel
-LIBVERSION = 0:0:0
-LTVERSION = -release $(LIBRELEASE) -version-info $(LIBVERSION)
+LIBVERSION = 2:200:0
+LTVERSION = -version-info $(LIBVERSION)
 
 # libtool --only flag for libraries: platform specific
 NT_LTONLY_LIB = # --only-$(BUILD_LIBS_DYNAMIC)
@@ -187,12 +186,12 @@ LLOADD_L = $(LDAP_LIBLUTIL_A) $(LDAP_LIBLDAP_LA) \
 WRAP_LIBS = 
 # AutoConfig generated 
 AC_CC	= cc
-AC_CFLAGS = -arch armv7 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.5.sdk
+AC_CFLAGS = -g -O2
 AC_DEFS =  # -DHAVE_CONFIG_H
 AC_LDFLAGS = 
 AC_LIBS = -lresolv 
 
-SASL_LIBS = 
+SASL_LIBS = -lsasl2
 TLS_LIBS = 
 AUTH_LIBS = 
 ARGON2_LIBS = 

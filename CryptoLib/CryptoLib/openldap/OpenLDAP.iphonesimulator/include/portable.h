@@ -845,16 +845,16 @@
 #define LDAP_SYSLOG 1
 
 /* Version */
-#define LDAP_VENDOR_VERSION 20507
+#define LDAP_VENDOR_VERSION 20600
 
 /* Major */
 #define LDAP_VENDOR_VERSION_MAJOR 2
 
 /* Minor */
-#define LDAP_VENDOR_VERSION_MINOR 5
+#define LDAP_VENDOR_VERSION_MINOR 6
 
 /* Patch */
-#define LDAP_VENDOR_VERSION_PATCH 7
+#define LDAP_VENDOR_VERSION_PATCH 0
 
 /* Define to the sub-directory where libtool stores uninstalled libraries. */
 #define LT_OBJDIR ".libs/"
@@ -872,7 +872,7 @@
 #define OPENLDAP_PACKAGE "OpenLDAP"
 
 /* Version */
-#define OPENLDAP_VERSION "2.5.7"
+#define OPENLDAP_VERSION "2.6.0"
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT ""
@@ -894,9 +894,6 @@
 
 /* define if sched_yield yields the entire process */
 /* #undef REPLACE_BROKEN_YIELD */
-
-/* Define as the return type of signal handlers (`int' or `void'). */
-#define RETSIGTYPE void
 
 /* Define to the type of arg 1 for `select'. */
 #define SELECT_TYPE_ARG1 int
@@ -954,9 +951,6 @@
 
 /* statically linked module */
 #define SLAPD_MOD_STATIC 1
-
-/* define to support NDB backend */
-/* #undef SLAPD_NDB */
 
 /* define to support NULL backend */
 /* #undef SLAPD_NULL */
@@ -1066,9 +1060,6 @@
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 
-/* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
-#define TIME_WITH_SYS_TIME 1
-
 /* Define to 1 if your <sys/time.h> declares `struct tm'. */
 /* #undef TM_IN_SYS_TIME */
 
@@ -1146,6 +1137,8 @@
 
 
 /* begin of portable.h.post */
+
+#define RETSIGTYPE void
 
 #ifdef _WIN32
 	/* don't suck in all of the win32 api */
