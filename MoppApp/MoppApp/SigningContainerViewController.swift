@@ -68,6 +68,10 @@ extension SigningContainerViewController : SigningContainerViewControllerDelegat
         return container.signatures[index]
     }
     
+    func getTimestampToken(index: Int) -> Any {
+        return container.timestampTokens[index]
+    }
+    
     func startSigning() {
         startSigningProcess()
     }
@@ -77,6 +81,13 @@ extension SigningContainerViewController : SigningContainerViewControllerDelegat
             return 0
         }
         return container.signatures.count
+    }
+    
+    func getTimestampTokensCount() -> Int {
+        if isContainerEmpty() {
+            return 0
+        }
+        return container.timestampTokens.count
     }
     
     func isContainerSignable() -> Bool {

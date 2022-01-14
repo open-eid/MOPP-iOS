@@ -136,6 +136,7 @@
 "container-header-create-addressee-title" = "Получатели";
 "container-header-timestamp-title" = "Временной штамп контейнера";
 "container-header-signatures-title" = "Подписи контейнера";
+"container-header-timestamps-title" = "Временные штампы контейнерa";
 "container-row-edit-remove" = "Удалить";
 "container-header-title" = "КОНТЕЙНЕР:";
 "container-error-message-invalid-signature" = "1 НЕВЕРНАЯ ПОДПИСЬ";

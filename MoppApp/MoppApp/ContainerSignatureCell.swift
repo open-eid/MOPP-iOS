@@ -68,7 +68,7 @@ class ContainerSignatureCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func populate(with signature: MoppLibSignature, kind: Kind, showBottomBorder: Bool, showRemoveButton: Bool, signatureIndex: Int) {
+    func populate(with signature: MoppLibSignature, kind: Kind, isTimestamp: Bool, showBottomBorder: Bool, showRemoveButton: Bool, signatureIndex: Int) {
         self.kind = kind
         self.signatureIndex = signatureIndex
         var signatureStatus : NSMutableAttributedString
@@ -90,9 +90,14 @@ class ContainerSignatureCell: UITableViewCell {
         signatureStatusLabel.attributedText = signatureStatus
         checkSignatureValidity(signature: signature)
         
-        iconImageView.image = kind == .signature ?
-            UIImage(named: "Icon_Allkiri_small") :
-            UIImage(named: "Icon_ajatempel")
+        if kind == .signature && isTimestamp {
+            iconImageView.image = UIImage(named: "Icon_digitempel")
+        } else if kind == .signature && !isTimestamp {
+            iconImageView.image = UIImage(named: "Icon_Allkiri_small")
+        } else {
+            iconImageView.image = UIImage(named: "Icon_ajatempel")
+        }
+        
         bottomBorderView.isHidden = !showBottomBorder
         removeButton.isHidden = !showRemoveButton
 

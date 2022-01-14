@@ -138,6 +138,7 @@
 "container-header-create-addressee-title" = "Adressaadid";
 "container-header-timestamp-title" = "Ajatempel";
 "container-header-signatures-title" = "Ümbriku allkirjad";
+"container-header-timestamps-title" = "Ümbriku ajatemplid";
 "container-row-edit-remove" = "Eemalda";
 "container-header-title" = "ÜMBRIK:";
 "container-error-message-invalid-signature" = "1 ALLKIRI EI OLE KEHTIV";

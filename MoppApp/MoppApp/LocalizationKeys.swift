@@ -95,6 +95,7 @@ enum LocKey : String
     case containerHeaderCreateAddresseesTitle = "container-header-create-addressee-title"
     case containerHeaderTimestampTitle = "container-header-timestamp-title"
     case containerHeaderSignaturesTitle = "container-header-signatures-title"
+    case containerHeaderTimestampsTitle = "container-header-timestamps-title"
     case containerRowEditRemove = "container-row-edit-remove"
     case containerHeaderTitle = "container-header-title"
     case containerErrorMessageInvalidSignature = "container-error-message-invalid-signature"
