@@ -70,7 +70,7 @@ public:
 
   std::string TSLCache() const override {
     NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
-    //    NSLog(@"tslCachePath: %@", tslCachePath);
+    //    printLog(@"tslCachePath: %@", tslCachePath);
     return tslCachePath.UTF8String;
   }
 
@@ -110,12 +110,12 @@ public:
 
   virtual std::string ocsp(const std::string &issuer) const override {
     NSString *ocspIssuer = [NSString stringWithCString:issuer.c_str() encoding:[NSString defaultCStringEncoding]];
-      NSLog(@"Received OCSP url: %@", OCSPUrl);
+      printLog(@"Received OCSP url: %@", OCSPUrl);
     if ([moppLibConfiguration.OCSPISSUERS objectForKey:ocspIssuer]) {
-        NSLog(@"Using issuer: '%@' with OCSP url from central configuration: %s", ocspIssuer, std::string([moppLibConfiguration.OCSPISSUERS[ocspIssuer] UTF8String]).c_str());
+        printLog(@"Using issuer: '%@' with OCSP url from central configuration: %s", ocspIssuer, std::string([moppLibConfiguration.OCSPISSUERS[ocspIssuer] UTF8String]).c_str());
         return std::string([moppLibConfiguration.OCSPISSUERS[ocspIssuer] UTF8String]);
     } else {
-        NSLog(@"Did not find url for issuer: %@. Using received OCSP url: %@", ocspIssuer, OCSPUrl);
+        printLog(@"Did not find url for issuer: %@. Using received OCSP url: %@", ocspIssuer, OCSPUrl);
         if (OCSPUrl) {
             return std::string([OCSPUrl UTF8String]);
         }
@@ -332,7 +332,7 @@ static std::string profile = "time-stamp";
     
     if (!signature) {
         std::string signatureId = signature->id();
-        NSLog(@"\nError: Did not find signature with an ID of %s\n", signatureId.c_str());
+        printLog(@"\nError: Did not find signature with an ID of %s\n", signatureId.c_str());
         NSError *signatureError;
         signatureError = [NSError errorWithDomain:[NSString stringWithFormat:@"Did not find signature with an ID of %s\n", signature->id().c_str()] code:-1 userInfo:nil];
         failure(signatureError);
@@ -340,29 +340,29 @@ static std::string profile = "time-stamp";
     
     NSString *timeStampTime = [NSString stringWithUTF8String:signature->TimeStampTime().c_str()];
     if ([timeStampTime length] != 0) {
-        NSLog(@"\nSignature already validated at %@\n", timeStampTime);
+        printLog(@"\nSignature already validated at %@\n", timeStampTime);
         success(true);
     }
     
     try {
-        NSLog(@"\nStarting signature validation...\n");
-        NSLog(@"\nSetting signature value...\n");
+        printLog(@"\nStarting signature validation...\n");
+        printLog(@"\nSetting signature value...\n");
         signature->setSignatureValue(calculatedSignatureBase64);
-        NSLog(@"\nExtending signature profile...\n");
+        printLog(@"\nExtending signature profile...\n");
         signature->extendSignatureProfile(profile);
-        NSLog(@"\nValidating signature...\n");
+        printLog(@"\nValidating signature...\n");
         digidoc::Signature::Validator *validator = new digidoc::Signature::Validator(signature);
-        NSLog(@"\nValidator status: %u\n", validator->status());
-        NSLog(@"\nSaving container...\n");
+        printLog(@"\nValidator status: %u\n", validator->status());
+        printLog(@"\nSaving container...\n");
         docContainer->save();
-        NSLog(@"\nSignature validated at %s!\n", signature->TimeStampTime().c_str());
+        printLog(@"\nSignature validated at %s!\n", signature->TimeStampTime().c_str());
         success(true);
     } catch(const digidoc::Exception &e) {
         parseException(e);
         NSError *error;
         NSString *signatureId = [NSString stringWithCString:signature->id().c_str() encoding:[NSString defaultCStringEncoding]];
         [self removeSignature:docContainer.get() signatureId:signatureId error:&error];
-        NSLog(@"\nError validating signature: %s\n", e.msg().c_str());
+        printLog(@"\nError validating signature: %s\n", e.msg().c_str());
         NSError *validationError;
         validationError = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
         failure(validationError);
@@ -398,20 +398,20 @@ static std::string profile = "time-stamp";
     
     NSMutableArray *profiles = [NSMutableArray new];
     for (auto signature : docContainer->signatures()) {
-        NSLog(@"Signature ID: %@", [NSString stringWithUTF8String:signature->id().c_str()]);
+        printLog(@"Signature ID: %@", [NSString stringWithUTF8String:signature->id().c_str()]);
         [profiles addObject:[[NSString alloc] initWithBytes:signature->profile().c_str() length:signature->profile().size() encoding:NSUTF8StringEncoding]];
     }
     
-    NSLog(@"\nSetting profile info...\n");
+    printLog(@"\nSetting profile info...\n");
     signer->setProfile(profile);
     signer->setSignatureProductionPlace("", "", "", "");
     signer->setSignerRoles(std::vector<std::string>());
-    NSLog(@"\nProfile info set successfully\n");
+    printLog(@"\nProfile info set successfully\n");
     
-    NSLog(@"\nSetting signature...\n");
+    printLog(@"\nSetting signature...\n");
     signature = docContainer->prepareSignature(signer);
     NSString *signatureId = [NSString stringWithCString:signature->id().c_str() encoding:[NSString defaultCStringEncoding]];
-    NSLog(@"\nSignature ID set to %@...\n", signatureId);
+    printLog(@"\nSignature ID set to %@...\n", signatureId);
     
     std::vector<unsigned char> dataToSign = signature->dataToSign();
     NSData *data = [NSData dataWithBytesNoCopy:dataToSign.data() length:dataToSign.size() freeWhenDone:NO];
@@ -468,7 +468,7 @@ static std::string profile = "time-stamp";
       NSMutableArray *signatures = [NSMutableArray array];
       for (digidoc::Signature *signature: doc->signatures()) {
         digidoc::X509Cert cert = signature->signingCertificate();
-        //      NSLog(@"Signature: %@", [NSString stringWithUTF8String:cert.subjectName("CN").c_str()]);
+        //      printLog(@"Signature: %@", [NSString stringWithUTF8String:cert.subjectName("CN").c_str()]);
 
         MoppLibSignature *moppLibSignature = [MoppLibSignature new];
 
@@ -682,7 +682,7 @@ static std::string profile = "time-stamp";
 }
 
 void parseException(const digidoc::Exception &e) {
-  NSLog(@"%s", e.msg().c_str());
+  printLog(@"%s", e.msg().c_str());
   for (const digidoc::Exception &ex : e.causes()) {
     parseException(ex);
   }

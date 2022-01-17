@@ -40,7 +40,7 @@ class AboutViewController: MoppViewController, WKNavigationDelegate {
         titleLabel.text = L(.aboutTitle)
         
         guard let titleUILabel = titleLabel, let dismissUIButton = dismissButton, let webUIView = webView else {
-            NSLog("Unable to get titleLabel, dismissButton or webView")
+            printLog("Unable to get titleLabel, dismissButton or webView")
             return
         }
         

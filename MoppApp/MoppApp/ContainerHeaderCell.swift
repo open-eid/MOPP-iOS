@@ -37,7 +37,7 @@ class ContainerHeaderCell: UITableViewCell {
     @IBAction func editContainerName(_ sender: Any) {
         delegate?.editContainerName(completion: { (fileName: String) in
             guard !fileName.isEmpty else {
-                NSLog("Filename is empty, container name not changed")
+                printLog("Filename is empty, container name not changed")
                 return
             }
             DispatchQueue.main.async {

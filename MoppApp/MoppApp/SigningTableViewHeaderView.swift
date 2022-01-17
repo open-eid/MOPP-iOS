@@ -45,7 +45,7 @@ class SigningTableViewHeaderView: UIView {
         super.awakeFromNib()
         searchTextField._delegate = self
         guard let titleUILabel = titleLabel, let searchUIButton = searchButton, let searchUITextField = searchTextField else {
-            NSLog("Unable to get titleLabel, searchButton or searchTextField")
+            printLog("Unable to get titleLabel, searchButton or searchTextField")
             return
         }
         searchUITextField.isAccessibilityElement = false

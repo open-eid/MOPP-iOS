@@ -30,7 +30,7 @@
             titleLabel.text = L(.recentContainersEmptyListTitle)
         }
         guard let titleUILabel = titleLabel else {
-            NSLog("Unable to get titleLabel")
+            printLog("Unable to get titleLabel")
             return
         }
         self.accessibilityElements = [titleUILabel]

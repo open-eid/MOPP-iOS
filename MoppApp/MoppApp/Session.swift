@@ -33,15 +33,15 @@ class Session {
                 
                 switch sessionResult {
                 case .success(let response):
-                    NSLog("\nReceived Session (session ID redacted): \(response.sessionID?.prefix(13) ?? "-")\n")
+                    printLog("\nReceived Session (session ID): \(response.sessionID ?? "Unable to display session ID")\n")
                     completionHandler(.success(response))
                 case .failure(let sessionError):
-                    NSLog("Getting session error: \(sessionError.signingErrorDescription ?? sessionError.rawValue)")
+                    printLog("Getting session error: \(SkSigningLib_LocalizedString(sessionError.signingErrorDescription ?? sessionError.rawValue))")
                     return completionHandler(.failure(sessionError))
                 }
             }
         } catch let error {
-            NSLog("Error occurred while getting session: \(error.localizedDescription)")
+            printLog("Error occurred while getting session: \(error.localizedDescription)")
             return completionHandler(.failure(.generalError))
         }
     }

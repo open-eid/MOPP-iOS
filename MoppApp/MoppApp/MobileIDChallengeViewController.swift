@@ -72,7 +72,7 @@ class MobileIDChallengeViewController : UIViewController {
         }
         
         if !isSuccessful {
-            NSLog("Control code announcement was not successful, retrying...")
+            printLog("Control code announcement was not successful, retrying...")
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: announcementValue)
         }
     }

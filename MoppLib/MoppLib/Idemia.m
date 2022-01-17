@@ -339,27 +339,27 @@ NSString *kDecrypt = @"00 2A 80 86 %02X %@";
     NSString *algorithmIdentifyer;
     switch (hash.length) {
       case CC_SHA1_DIGEST_LENGTH:
-        NSLog(@"Algorithm SHA1");
+        printLog(@"Algorithm SHA1");
         algorithmIdentifyer = kAlgorythmIdentifyerSHA1;
         break;
         
       case CC_SHA224_DIGEST_LENGTH:
-        NSLog(@"Algorithm SHA224");
+        printLog(@"Algorithm SHA224");
         algorithmIdentifyer = kAlgorythmIdentifyerSHA224;
         break;
         
       case CC_SHA256_DIGEST_LENGTH:
-        NSLog(@"Algorithm SHA256");
+        printLog(@"Algorithm SHA256");
         algorithmIdentifyer = kAlgorythmIdentifyerSHA256;
         break;
         
       case CC_SHA384_DIGEST_LENGTH:
-        NSLog(@"Algorithm SHA384");
+        printLog(@"Algorithm SHA384");
         algorithmIdentifyer = kAlgorythmIdentifyerSHA384;
         break;
         
       case CC_SHA512_DIGEST_LENGTH:
-        NSLog(@"Algorithm SHA512");
+        printLog(@"Algorithm SHA512");
         algorithmIdentifyer = kAlgorythmIdentifyerSHA512;
         break;
         

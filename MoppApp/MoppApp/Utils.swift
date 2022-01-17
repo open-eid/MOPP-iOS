@@ -54,8 +54,17 @@ func isDeviceOrientationLandscape() -> Bool {
     return UIDevice.current.orientation.isLandscape
 }
 
-func MSLog(_ format: String, _ arguments: Any...) {
-    NSLog(format, arguments)
+func MSLog(_ format: String, _ arguments: Any..., fileName file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    #if DEBUG
+        NSLog(format, arguments)
+    #endif
+}
+
+func printLog(_ message: String, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    #if DEBUG
+        NSLog("\(message)\n" +
+        "\tFile: \(file), function: \(function), line: \(line)\n")
+    #endif
 }
 
 let kDefaultLanguageID = "en"
@@ -116,9 +125,19 @@ func countryCodePrefill(textField: UITextField, countryCode: String) -> Void {
 func singleCharacterToUnicodeScalar(character: Character) -> Unicode.Scalar {
     let unicodeScalars: Character.UnicodeScalarView = character.unicodeScalars
     guard unicodeScalars.count == 1, let firstUnicodeScalar = unicodeScalars.first else {
-        NSLog("Invalid character or not a single character")
+        printLog("Invalid character or not a single character")
         return Unicode.Scalar(0)
     }
     return UnicodeScalar(firstUnicodeScalar)
+}
+
+func isUsingTestMode() -> Bool {
+    #if DEBUG
+        let testMode: Bool = true
+    #else
+        let testMode: Bool = false
+    #endif
+    
+    return testMode
 }
 
