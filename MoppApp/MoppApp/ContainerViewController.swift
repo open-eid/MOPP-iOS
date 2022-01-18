@@ -499,44 +499,44 @@ extension ContainerViewController : UITableViewDataSource {
                     showBottomBorder: row < signingContainerViewDelegate.getTimestampTokensCount() - 1,
                     showRemoveButton: false,
                     signatureIndex: row)
-            
-            if (containerViewDelegate.getDataFileCount() == 1 && !isLoadingNestedAsicsDone) {
-                let dataFile = containerViewDelegate.getDataFileDisplayName(index: 0) ?? ""
-                let containerFilePath = containerViewDelegate.getContainerPath()
-                let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: dataFile)
                 
-                MoppLibContainerActions.sharedInstance().container(containerFilePath, saveDataFile: dataFile, to: destinationPath) {
-                    MoppLibContainerActions.sharedInstance().openContainer(withPath: destinationPath) { container in
-                        if let signatures = container?.signatures {
-                            for signature in signatures {
-                                self.asicsSignatures.append(signature as? MoppLibSignature ?? MoppLibSignature())
+                if (containerViewDelegate.getDataFileCount() == 1 && !isLoadingNestedAsicsDone) {
+                    let dataFile = containerViewDelegate.getDataFileDisplayName(index: 0) ?? ""
+                    let containerFilePath = containerViewDelegate.getContainerPath()
+                    let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: dataFile)
+                    
+                    MoppLibContainerActions.sharedInstance().container(containerFilePath, saveDataFile: dataFile, to: destinationPath) {
+                        MoppLibContainerActions.sharedInstance().openContainer(withPath: destinationPath) { container in
+                            if let signatures = container?.signatures {
+                                for signature in signatures {
+                                    self.asicsSignatures.append(signature as? MoppLibSignature ?? MoppLibSignature())
+                                }
                             }
+                            
+                            if let dataFiles = container?.dataFiles {
+                                for dataFile in dataFiles {
+                                    self.asicsDataFiles.append(dataFile as? MoppLibDataFile ?? MoppLibDataFile())
+                                }
+                            }
+                            
+                            self.asicsNestedContainerPath = destinationPath ?? ""
+                            
+                            self.isLoadingNestedAsicsDone = true
+                            
+                            self.reloadData()
+                        } failure: { error in
+                            NSLog("Unable to open container: \(error?.localizedDescription ?? "Unable to get error description")")
+                            self.errorAlert(message: L(.fileImportOpenExistingFailedAlertMessage, [dataFile]))
                         }
                         
-                        if let dataFiles = container?.dataFiles {
-                            for dataFile in dataFiles {
-                                self.asicsDataFiles.append(dataFile as? MoppLibDataFile ?? MoppLibDataFile())
-                            }
-                        }
-                        
-                        self.asicsNestedContainerPath = destinationPath ?? ""
-                        
-                        self.isLoadingNestedAsicsDone = true
-                        
-                        self.reloadData()
                     } failure: { error in
-                        NSLog("Unable to open container: \(error?.localizedDescription ?? "Unable to get error description")")
+                        NSLog("Unable to get file from container \(error?.localizedDescription ?? "Unable to get error description")")
                         self.errorAlert(message: L(.fileImportOpenExistingFailedAlertMessage, [dataFile]))
                     }
                     
-                } failure: { error in
-                    NSLog("Unable to get file from container \(error?.localizedDescription ?? "Unable to get error description")")
-                    self.errorAlert(message: L(.fileImportOpenExistingFailedAlertMessage, [dataFile]))
                 }
-                
-            }
             } else {
-              return UITableViewCell()
+                return UITableViewCell()
             }
             
             return cell

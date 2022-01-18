@@ -90,13 +90,9 @@ class ContainerSignatureCell: UITableViewCell {
         signatureStatusLabel.attributedText = signatureStatus
         checkSignatureValidity(signature: signature)
         
-        if kind == .signature && isTimestamp {
-            iconImageView.image = UIImage(named: "Icon_digitempel")
-        } else if kind == .signature && !isTimestamp {
-            iconImageView.image = UIImage(named: "Icon_Allkiri_small")
-        } else {
-            iconImageView.image = UIImage(named: "Icon_ajatempel")
-        }
+        iconImageView.image = UIImage(named: (kind == .signature)
+            ? (isTimestamp ? "Icon_digitempel" : "Icon_Allkiri_small")
+            : "Icon_ajatempel")
         
         bottomBorderView.isHidden = !showBottomBorder
         removeButton.isHidden = !showRemoveButton
