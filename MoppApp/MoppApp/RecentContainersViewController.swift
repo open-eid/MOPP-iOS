@@ -186,12 +186,10 @@ extension RecentContainersViewController : UITableViewDelegate {
                 if ext.isAsicContainerExtension || ext.isPdfContainerExtension {
                     if SiVaUtil.isDocumentSentToSiVa(fileUrl: URL(fileURLWithPath: containerPath)) {
                         SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
-                            if hasAgreed {
-                                self.openContainer(containerPath: containerPath, navController: navController)
-                            }
+                            self.openContainer(containerPath: containerPath, navController: navController, isSendingToSivaAgreed: hasAgreed)
                         }
                     } else {
-                        self.openContainer(containerPath: containerPath, navController: navController)
+                        self.openContainer(containerPath: containerPath, navController: navController, isSendingToSivaAgreed: true)
                     }
                 } else {
                     var containerViewController: ContainerViewController
@@ -227,11 +225,12 @@ extension RecentContainersViewController : UITableViewDelegate {
         }
     }
     
-    func openContainer(containerPath: String, navController: UINavigationController) {
+    func openContainer(containerPath: String, navController: UINavigationController, isSendingToSivaAgreed: Bool) {
         var containerViewController: ContainerViewController
         LandingViewController.shared.containerType = .asic
         containerViewController = SigningContainerViewController.instantiate()
         containerViewController.containerPath = containerPath
+        containerViewController.isSendingToSivaAgreed = isSendingToSivaAgreed
         navController.pushViewController(containerViewController, animated: true)
     }
     

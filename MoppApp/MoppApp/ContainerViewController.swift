@@ -74,6 +74,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var asicsDataFiles = [MoppLibDataFile]()
     var asicsNestedContainerPath = ""
     var isLoadingNestedAsicsDone = false
+    var isSendingToSivaAgreed = true
     
     @IBOutlet weak var tableView: UITableView!
 
@@ -489,18 +490,12 @@ extension ContainerViewController : UITableViewDataSource {
             return cell
         case .containerTimestamps:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
+            var timestampToken: MoppLibSignature = MoppLibSignature()
             if signingContainerViewDelegate.getTimestampTokensCount() >= indexPath.row {
-                let timestampToken = signingContainerViewDelegate.getTimestampToken(index: indexPath.row) as? MoppLibSignature ?? MoppLibSignature()
+                timestampToken = signingContainerViewDelegate.getTimestampToken(index: indexPath.row) as? MoppLibSignature ?? MoppLibSignature()
                 
-                cell.populate(
-                    with: timestampToken,
-                    kind: .signature,
-                    isTimestamp: true,
-                    showBottomBorder: row < signingContainerViewDelegate.getTimestampTokensCount() - 1,
-                    showRemoveButton: false,
-                    signatureIndex: row)
-                
-                if (containerViewDelegate.getDataFileCount() == 1 && !isLoadingNestedAsicsDone) {
+                if (containerViewDelegate.getDataFileCount() == 1 && isSendingToSivaAgreed && !isLoadingNestedAsicsDone) {
+                    updateState(.loading)
                     let dataFile = containerViewDelegate.getDataFileDisplayName(index: 0) ?? ""
                     let containerFilePath = containerViewDelegate.getContainerPath()
                     let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: dataFile)
@@ -533,11 +528,28 @@ extension ContainerViewController : UITableViewDataSource {
                         NSLog("Unable to get file from container \(error?.localizedDescription ?? "Unable to get error description")")
                         self.errorAlert(message: L(.fileImportOpenExistingFailedAlertMessage, [dataFile]))
                     }
-                    
+                } else if (!isLoadingNestedAsicsDone) {
+                    cell.populate(
+                        with: timestampToken,
+                        kind: .signature,
+                        isTimestamp: true,
+                        showBottomBorder: row < signingContainerViewDelegate.getTimestampTokensCount() - 1,
+                        showRemoveButton: false,
+                        signatureIndex: row)
+                } else {
+                    updateState(.opened)
                 }
             } else {
                 return UITableViewCell()
             }
+            
+            cell.populate(
+                with: timestampToken,
+                kind: .signature,
+                isTimestamp: true,
+                showBottomBorder: row < self.signingContainerViewDelegate.getTimestampTokensCount() - 1,
+                showRemoveButton: false,
+                signatureIndex: row)
             
             return cell
         }
@@ -792,7 +804,7 @@ extension ContainerViewController : UITableViewDelegate {
                 }
             }
             else {
-                if isAsicsContainer() {
+                if isAsicsContainer() && isSendingToSivaAgreed {
                     sections = ContainerViewController.sectionsWithTimestamp
                 } else {
                     sections = ContainerViewController.sectionsDefault
