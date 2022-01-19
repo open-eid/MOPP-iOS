@@ -30,7 +30,7 @@ protocol ContainerViewControllerDelegate: AnyObject {
     func getDataFileDisplayName(index: Int) -> String?
     func isContainerEmpty() -> Bool
     func removeDataFile(index: Int)
-    func saveDataFile(name: String?)
+    func saveDataFile(name: String?, containerPath: String?)
 }
 
 protocol SigningContainerViewControllerDelegate: AnyObject {
@@ -379,10 +379,11 @@ extension ContainerViewController : UITableViewDataSource {
             var signature = signingContainerViewDelegate.getSignature(index: indexPath.row) as? MoppLibSignature
             if isAsicsContainer() && !asicsSignatures.isEmpty && signingContainerViewDelegate.getTimestampTokensCount() > 0 && asicsSignatures.count >= indexPath.row {
                 signature = asicsSignatures[indexPath.row]
-            } else {
                 let containerExtension: String = URL(fileURLWithPath: containerPath).pathExtension
                 
-                if DefaultsHelper.isTimestampedDdoc && containerExtension == ContainerFormatDdoc && state == .preview {
+                if DefaultsHelper.isTimestampedDdoc && (containerExtension == ContainerFormatDdoc ||
+                                                        ((containerExtension == ContainerFormatAsics || containerExtension == ContainerFormatAsicsShort) &&
+                                                         signingContainerViewDelegate.getTimestampTokensCount() > 0)) {
                     signature?.status = MoppLibSignatureStatus.Valid
                 } else if !DefaultsHelper.isTimestampedDdoc && containerExtension == ContainerFormatDdoc && signature?.status != MoppLibSignatureStatus.Invalid {
                     signature?.status = MoppLibSignatureStatus.Warning
@@ -589,7 +590,7 @@ extension ContainerViewController : ContainerFileDelegate {
     }
     
     func saveDataFile(fileName: String?) {
-        containerViewDelegate.saveDataFile(name: fileName)
+        containerViewDelegate.saveDataFile(name: fileName, containerPath: asicsNestedContainerPath)
     }
 }
 
