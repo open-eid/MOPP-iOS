@@ -152,6 +152,8 @@
 "container-signature-status-invalid" = "Подпись недействительна";
 "container-signature-status-unknown" = "Подпись неизвестная";
 "crypto-remove-addressee-button" = "Удалить подпись";
+"container-timestamp-valid" = "Временной штамп действителен";
+"container-timestamp-unknown" = "Временной штамп неизвестный";
 "container-timestamp-invalid" = "Временной штамп недействителен";
 
 // *** Mobile ID Challenge View ***

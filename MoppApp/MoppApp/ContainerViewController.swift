@@ -532,7 +532,7 @@ extension ContainerViewController : UITableViewDataSource {
                 } else if (!isLoadingNestedAsicsDone) {
                     cell.populate(
                         with: timestampToken,
-                        kind: .signature,
+                        kind: .timestamp,
                         isTimestamp: true,
                         showBottomBorder: row < signingContainerViewDelegate.getTimestampTokensCount() - 1,
                         showRemoveButton: false,
@@ -546,7 +546,7 @@ extension ContainerViewController : UITableViewDataSource {
             
             cell.populate(
                 with: timestampToken,
-                kind: .signature,
+                kind: .timestamp,
                 isTimestamp: true,
                 showBottomBorder: row < self.signingContainerViewDelegate.getTimestampTokensCount() - 1,
                 showRemoveButton: false,
