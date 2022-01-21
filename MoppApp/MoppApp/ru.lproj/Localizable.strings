@@ -183,6 +183,7 @@
 "signature-removed" = "Подпись удалена";
 "signature-removal-cancelled" = "Удаление подписи отменено";
 
+"signing-progress" = "Прогресс";
 "signing-remember-me" = "Запомни меня";
 "signing-cancelled" = "Подписание контейнера прервано";
 "mobile-id-title" = "Введите свой телефонный номер и личный код для подписания с помощью mobiil-ID";

@@ -73,7 +73,7 @@ class MobileIDChallengeViewController : UIViewController {
         
         if !isSuccessful {
             NSLog("Control code announcement was not successful, retrying...")
-            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: announcementValue)
+            UIAccessibility.post(notification: .announcement, argument: announcementValue)
         }
     }
 
@@ -91,7 +91,7 @@ class MobileIDChallengeViewController : UIViewController {
             if !isAnnouncementMade {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: { [weak self] in
                     let challengeIdNumbers = Array<Character>(self!.challengeID)
-                    UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: L(LocKey.challengeCodeLabel, ["\(challengeIdNumbers[0]), \(challengeIdNumbers[1]), \(challengeIdNumbers[2]), \(challengeIdNumbers[3]). \(self!.helpLabel.text!)"]))
+                    UIAccessibility.post(notification: .screenChanged, argument: L(LocKey.challengeCodeLabel, ["\(challengeIdNumbers[0]), \(challengeIdNumbers[1]), \(challengeIdNumbers[2]), \(challengeIdNumbers[3]). \(self!.helpLabel.text!)"]))
                     self?.isAnnouncementMade = true
                 })
             }
@@ -113,9 +113,13 @@ class MobileIDChallengeViewController : UIViewController {
         challengeID = response.challengeId!
         sessCode = "\(Int(response.sessCode))"
         let challengeIdNumbers = Array<Character>(challengeID)
-        let challengeIdAccessibilityLabel: String = "\((L(LocKey.challengeCodeLabelAccessibility, [String(challengeIdNumbers[0]), String(challengeIdNumbers[1]), String(challengeIdNumbers[2]), String(challengeIdNumbers[3])]))). \(self.helpLabel.text!)"
+        let challengeIdAccessibilityLabel: String = "\(L(.signingProgress)) \(String(Int(self.timeoutProgressView.progress))) %. \((L(LocKey.challengeCodeLabelAccessibility, [String(challengeIdNumbers[0]), String(challengeIdNumbers[1]), String(challengeIdNumbers[2]), String(challengeIdNumbers[3])]))). \(self.helpLabel.text!)"
         codeLabel.accessibilityLabel = challengeIdAccessibilityLabel
-        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: challengeIdAccessibilityLabel)
+        if UIAccessibility.isVoiceOverRunning && !isAnnouncementMade {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: challengeIdAccessibilityLabel)
+            }
+        }
     
         codeLabel.isHidden = false
         codeLabel.text = L(LocKey.challengeCodeLabel, [challengeID])
@@ -172,6 +176,11 @@ class MobileIDChallengeViewController : UIViewController {
             let step: Double = 1.0 / kRequestTimeout
             currentProgress = currentProgress + step
             timeoutProgressView.progress = Float(currentProgress)
+            if UIAccessibility.isVoiceOverRunning {
+                Timer.scheduledTimer(withTimeInterval: 8.5, repeats: false) { timer in
+                    UIAccessibility.post(notification: .layoutChanged, argument: self.timeoutProgressView)
+                }
+            }
         }
         else {
             timer.invalidate()

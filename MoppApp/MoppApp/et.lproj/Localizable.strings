@@ -184,6 +184,7 @@
 "signature-removed" = "Allkiri eemaldatud";
 "signature-removal-cancelled" = "Allkirja eemaldamine katkestatud";
 
+"signing-progress" = "Progress";
 "signing-remember-me" = "Pea mind meeles";
 "signing-cancelled" = "Ümbriku allkirjastamine katkestatud";
 "mobile-id-title" = "Sisesta oma telefoninumber ja isikukood mobiil-IDga allkirjastamiseks";
