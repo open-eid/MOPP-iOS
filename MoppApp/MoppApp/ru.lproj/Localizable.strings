@@ -196,7 +196,7 @@
 "smart-id-country-lithuania" = "Литва";
 "smart-id-country-latvia" = "Латвия";
 "smart-id-challenge-title" = "Подписать с помощью приложения Smart-ID";
-"smart-id-sign-help-title" = "Убедитесь в правильности контрольного кодa и введите PIN2-код для Smart-ID";
+"smart-id-sign-help-title" = "Убедитесь в правильности контрольного кода и введите PIN2-код для Smart-ID";
 "container-sign-title" = "Подписание";
 "container-encryption-title" = "Шифрование";
 "container-decryption-title" = "Дешифрование";
@@ -204,7 +204,7 @@
 "container-validate-title" = "Проверка контейнера";
 "container-validating" = "Загрузка...";
 "importing-files-progress-message" = "Импорт файлов...";
-"mobile-id-sign-help-title" = "Убедитесь в правильности контрольного кодa и введите PIN2-код для mobiil-ID";
+"mobile-id-sign-help-title" = "Убедитесь в правильности контрольного кода и введите PIN2-код для mobiil-ID";
 "done-button-title" = "Готово";
 "recent-containers-empty-list-title" = "Недавние документы отсутствуют";
 "recent-containers-empty-search-message" = "Документ не найден";
