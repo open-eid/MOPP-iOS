@@ -26,6 +26,9 @@ class MyeIDSegmentHeaderCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.text = L(.myEidInfoPinPukSegmentTitle)
+        if isNonDefaultPreferredContentSizeCategory() {
+            titleLabel.font = UIFont.setCustomFont(font: .allCapsRegular, 12, .body)
+        }
     }
     
     func updateExpandedState(with expanded: Bool) {

@@ -23,10 +23,12 @@ class SettingsTimeStampCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        titleLabel.font = UIFont.moppSmallRegular
         textField.moppPresentDismissButton()
         textField.layer.borderColor = UIColor.moppContentLine.cgColor
         textField.layer.borderWidth = 1
         textField.delegate = self
+        textField.font = UIFont.moppSmallRegular
     }
     
     func populate(with field:SettingsViewController.Field) {
@@ -49,6 +51,7 @@ class SettingsTimeStampCell: UITableViewCell {
         titleLabel.text = L(.settingsTimestampUrlTitle)
         textField.placeholder = L(.settingsTimestampUrlPlaceholder)
         useDefaultTitleLabel.text = L(.settingsTimestampUseDefaultTitle)
+        useDefaultTitleLabel.font = UIFont.moppSmallRegular
         
         textField.layoutIfNeeded()
     }

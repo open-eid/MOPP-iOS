@@ -22,6 +22,7 @@
  */
 
 import Foundation
+import UIKit
 
 protocol ContainerAddresseeCellDelegate : AnyObject {
     func removeAddressee(index: Int)
@@ -50,5 +51,10 @@ class ContainerAddresseeCell: UITableViewCell, AddresseeActions {
         removeIndex = index
         nameLabel.text = determineName(addressee: addressee)
         infoLabel.text = determineInfo(addressee: addressee)
+        
+        if isNonDefaultPreferredContentSizeCategory() {
+            nameLabel.font = UIFont.setCustomFont(font: .medium, nil, .body)
+            infoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
     }
 }

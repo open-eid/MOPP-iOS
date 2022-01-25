@@ -50,10 +50,16 @@ class ContainerHeaderCell: UITableViewCell {
         super.awakeFromNib()
         
         titleLabel.text = L(.containerHeaderTitle)
+        if isNonDefaultPreferredContentSizeCategory() {
+            titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
     }
     
     func populate(name: String, isEditButtonEnabled: Bool) {
         filenameLabel.text = MoppLibManager.sanitize(name)
+        if isNonDefaultPreferredContentSizeCategory() {
+            filenameLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
         editContainerNameButton.isHidden = isEditButtonEnabled
         editContainerNameButton.accessibilityLabel = L(.containerEditNameButton)
     }

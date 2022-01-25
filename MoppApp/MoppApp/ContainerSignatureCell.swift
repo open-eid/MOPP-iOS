@@ -95,7 +95,10 @@ class ContainerSignatureCell: UITableViewCell {
             UIImage(named: "Icon_ajatempel")
         bottomBorderView.isHidden = !showBottomBorder
         removeButton.isHidden = !showRemoveButton
-
+        
+        if isNonDefaultPreferredContentSizeCategory() {
+            signatureStatusLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
     }
     
     func getSignatureStatusText(translationPrefix: String, translationSufix: String, valid: Bool) -> NSMutableAttributedString{
@@ -123,6 +126,11 @@ class ContainerSignatureCell: UITableViewCell {
             nameLabel.text = L(LocKey.containerTimestampInvalid)
         } else {
             nameLabel.text = signature.subjectName
+        }
+        
+        if isNonDefaultPreferredContentSizeCategory() {
+            signedInfoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+            nameLabel.font = UIFont.setCustomFont(font: .medium, nil, .body)
         }
     }
 }

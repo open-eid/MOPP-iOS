@@ -122,3 +122,14 @@ func singleCharacterToUnicodeScalar(character: Character) -> Unicode.Scalar {
     return UnicodeScalar(firstUnicodeScalar)
 }
 
+func isNonDefaultPreferredContentSizeCategory() -> Bool {
+    return UIApplication.shared.preferredContentSizeCategory != .large
+}
+
+func isNonDefaultPreferredContentSizeCategorySmaller() -> Bool {
+    return UIApplication.shared.preferredContentSizeCategory < .large
+}
+
+func isNonDefaultPreferredContentSizeCategoryBigger() -> Bool {
+    return UIApplication.shared.preferredContentSizeCategory > .large
+}

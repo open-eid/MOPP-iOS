@@ -22,6 +22,7 @@
  */
 
 import Foundation
+import UIKit
 
 
 class CryptoViewController : MoppViewController {
@@ -42,6 +43,11 @@ class CryptoViewController : MoppViewController {
         titleLabel.text = L(LocKey.cryptoViewBeginLabel)
         importButton.localizedTitle = LocKey.cryptoViewBeginButton
         menuButton.accessibilityLabel = L(LocKey.menuButton)
+        
+        if isNonDefaultPreferredContentSizeCategory() {
+            titleLabel.font = UIFont.setCustomFont(font: .medium, 20, .headline)
+            importButton.titleLabel?.font = UIFont.setCustomFont(font: .medium, 12, .body)
+        }
         
         titleLabel.isAccessibilityElement = false
         importButton.accessibilityLabel = titleLabel.text

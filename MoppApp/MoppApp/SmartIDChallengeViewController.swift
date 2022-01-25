@@ -43,10 +43,17 @@ class SmartIDChallengeViewController : UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveErrorNotification), name: .errorNotificationName, object: nil)
         
         UIAccessibility.post(notification: .announcement, argument: timeoutProgressView.progress)
+        
+        setCustomFont()
     }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    func setCustomFont() {
+        helpLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        codeLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
     }
 
     @objc func receiveSelectAccountNotification(_ notification: Notification) {

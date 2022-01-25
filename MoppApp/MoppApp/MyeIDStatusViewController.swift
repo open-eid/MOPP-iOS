@@ -42,6 +42,7 @@ class MyeIDStatusViewController : MoppViewController {
                 titleLabel.text = L(.myEidStatusRequestingData)
                 UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
             }
+            titleLabel.font = UIFont.moppUltraLargeMedium
             titleLabel.setNeedsDisplay()
         }
     }

@@ -62,6 +62,10 @@ class MobileIDEditViewController : MoppViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if isNonDefaultPreferredContentSizeCategory() {
+            setCustomFont()
+        }
+        
         idCodeTextField.moppPresentDismissButton()
         phoneTextField.moppPresentDismissButton()
         
@@ -173,6 +177,20 @@ class MobileIDEditViewController : MoppViewController {
             signButton.isEnabled = true
             signButton.backgroundColor = UIColor.moppBase
         }
+    }
+    
+    func setCustomFont() {
+        titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        phoneLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        idCodeLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        cancelButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 9 : nil, .body)
+        signButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 7 : nil, .body)
+        rememberLabel.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 9 : nil, .body)
+        idCodeTextField.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 7 : nil, .body)
+        phoneTextField.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 7 : nil, .body)
+        
+        signButton.sizeToFit()
+        
     }
     
     @objc func editingChanged(sender: UITextField) {

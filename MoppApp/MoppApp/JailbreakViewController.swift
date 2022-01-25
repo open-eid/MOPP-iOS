@@ -20,10 +20,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
+import UIKit
 class JailbreakViewController : MoppViewController {
     @IBOutlet weak var titleLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         titleLabel.text = L(.jailbreakMessage)
+        titleLabel.font = UIFont.moppLargeMedium
     }
 }

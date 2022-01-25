@@ -21,6 +21,7 @@
  *
  */
 import Foundation
+import UIKit
 
 protocol SigningTableViewHeaderViewDelegate: AnyObject {
     func signingTableViewHeaderViewSearchKeyChanged(_ searchKeyValue: String)
@@ -62,6 +63,9 @@ class SigningTableViewHeaderView: UIView {
     
     func populate(title: String, _ requestCloseSearch: inout () -> Void) {
         titleLabel.text = title
+        if isNonDefaultPreferredContentSizeCategory() {
+            titleLabel.font = UIFont.setCustomFont(font: .regular, 10, .body)
+        }
         requestCloseSearch = { [weak self] in
             self?.showSearch(false, animated: false)
         }
@@ -75,6 +79,7 @@ class SigningTableViewHeaderView: UIView {
         self.titleLabel.isHidden = false
         self.searchButton.isHidden = false
         self.searchTextField.isHidden = false
+        self.searchButton.titleLabel?.font = UIFont.moppLargerMedium
     
         let changeTo = {
             if !UIAccessibility.isVoiceOverRunning {

@@ -191,7 +191,7 @@ extension TokenFlowSelectionViewController {
                 $0.setTitleColor(lightColor, for: .normal)
                 $0.setTitleColor(lightColor, for: .selected)
                 $0.setTitleColor(lightColor, for: .highlighted)
-                $0.titleLabel?.font = UIFont(name: MoppFontName.allCapsBold.rawValue, size: 17.0)
+                $0.titleLabel?.font = UIFont.setCustomFont(font: .allCapsBold, isNonDefaultPreferredContentSizeCategoryBigger() ? 7 : nil, .body)
                 $0.isSelected = true
             } else {
                 // set unselected state
@@ -199,7 +199,7 @@ extension TokenFlowSelectionViewController {
                 $0.setTitleColor(darkColor, for: .normal)
                 $0.setTitleColor(darkColor, for: .selected)
                 $0.setTitleColor(darkColor, for: .highlighted)
-                $0.titleLabel?.font = UIFont(name: MoppFontName.allCapsRegular.rawValue, size: 17.0)
+                $0.titleLabel?.font = UIFont.setCustomFont(font: .allCapsRegular, isNonDefaultPreferredContentSizeCategoryBigger() ? 7 : nil, .body)
                 $0.isSelected = false
             }
         }

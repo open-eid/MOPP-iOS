@@ -118,6 +118,14 @@ extension AddresseeViewController : UITableViewDataSource {
         return sections.count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if isNonDefaultPreferredContentSizeCategoryBigger() {
+            return ContainerSearchCell.height * 3
+        }
+        
+        return tableView.rowHeight
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
             case .notifications:

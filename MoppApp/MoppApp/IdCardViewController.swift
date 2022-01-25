@@ -185,6 +185,9 @@ class IdCardViewController : MoppViewController {
     }
 
     func updateUI(for state: State) {
+        if isNonDefaultPreferredContentSizeCategory() {
+            titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
         switch state {
         case .initial:
             actionButton.isEnabled = false

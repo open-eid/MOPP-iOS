@@ -56,5 +56,11 @@ class ContainerFileCell: UITableViewCell {
         saveButton.isHidden = !showDownloadButton
         saveButton.accessibilityLabel = formatString(text: L(.fileImportSaveFile), additionalText: MoppLibManager.sanitize(filenameLabel.text))
         self.dataFileIndex = dataFileIndex
+        
+        if isNonDefaultPreferredContentSizeCategory() {
+            filenameLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+            filenameLabel.numberOfLines = 10
+            filenameLabel.lineBreakMode = .byCharWrapping
+        }
     }
 }

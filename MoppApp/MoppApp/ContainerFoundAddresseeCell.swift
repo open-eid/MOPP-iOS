@@ -63,5 +63,11 @@ class ContainerFoundAddresseeCell: UITableViewCell, AddresseeActions {
             addButton.tintColor = UIColor.moppBase
         }
         
+        if isNonDefaultPreferredContentSizeCategory() {
+            nameLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+            infoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+            addButton.titleLabel?.font = UIFont.setCustomFont(font: .medium, 12, .body)
+        }
+        
     }
 }

@@ -42,51 +42,58 @@ enum MoppFontName : String {
 }
 
 extension UIFont {
-    class var moppHeadline: UIFont {
-        return UIFont(name: MoppFontName.medium.rawValue, size: 16)!
+    class var moppLargeMedium: UIFont {
+        let mediumFont = UIFont(name: MoppFontName.medium.rawValue, size: 16)!
+        return UIFontMetrics(forTextStyle: .headline).scaledFont(for: mediumFont)
     }
     
-    class var moppText: UIFont {
-        return UIFont(name: MoppFontName.regular.rawValue, size: 13)!
+    class var moppMediumBold: UIFont {
+        let boldFont = UIFont(name: MoppFontName.bold.rawValue, size: 16)!
+        return UIFontMetrics(forTextStyle: .body).scaledFont(for: boldFont)
     }
     
-    class var moppDescriptiveText: UIFont {
-        return UIFont(name: MoppFontName.regular.rawValue, size: 10)!
+    class var moppMediumRegular: UIFont {
+        let regularFont = UIFont(name: MoppFontName.regular.rawValue, size: 15)!
+        return UIFontMetrics(forTextStyle: .body).scaledFont(for: regularFont)
     }
     
-    class var moppMainMenu: UIFont {
-        return UIFont(name: MoppFontName.allCapsRegular.rawValue, size: 10)!
+    class var moppSmallerRegular: UIFont {
+        let regularFont = UIFont(name: MoppFontName.regular.rawValue, size: 13)!
+        return UIFontMetrics(forTextStyle: .body).scaledFont(for: regularFont)
     }
     
-    class var moppButtonTitle: UIFont {
-        return UIFont(name: MoppFontName.allCapsRegular.rawValue, size: 14)!
+    class var moppSmallRegular: UIFont {
+        let descriptiveTextFont = UIFont(name: MoppFontName.regular.rawValue, size: 10)!
+        return UIFontMetrics(forTextStyle: .body).scaledFont(for: descriptiveTextFont)
     }
     
-    class var moppSmallButtonTitle: UIFont {
-        return UIFont(name: MoppFontName.allCapsRegular.rawValue, size: 10)!
+    class var moppSmallCapsRegular: UIFont {
+        let allCapsRegularFont = UIFont(name: MoppFontName.allCapsRegular.rawValue, size: 10)!
+        return UIFontMetrics(forTextStyle: .body).scaledFont(for: allCapsRegularFont)
     }
     
-    class var moppDatafieldLabel: UIFont {
-        return UIFont(name: MoppFontName.allCapsRegular.rawValue, size: 10)!
-    }
-    
-    class var moppAccordionLabel: UIFont {
-        return UIFont(name: MoppFontName.allCapsRegular.rawValue, size: 13)!
+    class var moppMediumCapsRegular: UIFont {
+        let allCapsRegularFont = UIFont(name: MoppFontName.allCapsRegular.rawValue, size: 14)!
+        return UIFontMetrics(forTextStyle: .body).scaledFont(for: allCapsRegularFont)
     }
 
-    class var moppTextField: UIFont {
-        return UIFont(name: MoppFontName.medium.rawValue, size: 17)!
+    class var moppLargerMedium: UIFont {
+        let mediumFont = UIFont(name: MoppFontName.medium.rawValue, size: 17)!
+        return UIFontMetrics(forTextStyle: .headline).scaledFont(for: mediumFont)
     }
 
-    class var moppNavigationItemTitle: UIFont {
-        return UIFont(name: MoppFontName.medium.rawValue, size: 20)!
+    class var moppUltraLargeMedium: UIFont {
+        let mediumFont = UIFont(name: MoppFontName.medium.rawValue, size: 20)!
+        return UIFontMetrics(forTextStyle: .headline).scaledFont(for: mediumFont)
     }
     
-    class var moppRecentContainers: UIFont {
-        return UIFont(name: MoppFontName.regular.rawValue, size: 16)!
+    class func setCustomFont(font: MoppFontName, _ size: Int?, _ forTextStyle: UIFont.TextStyle) -> UIFont {
+        let customFont = UIFont(name: font.rawValue, size: CGFloat(size ?? Int(self.systemFontSize)))!
+        return UIFontMetrics(forTextStyle: forTextStyle).scaledFont(for: customFont)
     }
     
-    class var moppRecentContainersSearchKeyword: UIFont {
-        return UIFont(name: MoppFontName.bold.rawValue, size: 16)!
+    class func setCustomFont(font: UIFont, _ size: Int?, _ forTextStyle: UIFont.TextStyle) -> UIFont {
+        let customFont = UIFont(name: font.fontName, size: CGFloat(size ?? Int(self.systemFontSize)))!
+        return UIFontMetrics(forTextStyle: forTextStyle).scaledFont(for: customFont)
     }
 }
