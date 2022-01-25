@@ -45,8 +45,8 @@ class CryptoViewController : MoppViewController {
         menuButton.accessibilityLabel = L(LocKey.menuButton)
         
         if isNonDefaultPreferredContentSizeCategory() {
-            titleLabel.font = UIFont.setCustomFont(font: .medium, 20, .headline)
-            importButton.titleLabel?.font = UIFont.setCustomFont(font: .medium, 12, .body)
+            titleLabel.font = UIFont.setCustomFont(font: .medium, isNonDefaultPreferredContentSizeCategoryBigger() ? 20 : nil, .headline)
+            importButton.titleLabel?.font = UIFont.setCustomFont(font: .medium, isNonDefaultPreferredContentSizeCategoryBigger() ? 12 : nil, .body)
         }
         
         titleLabel.isAccessibilityElement = false

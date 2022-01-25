@@ -27,7 +27,7 @@ class MyeIDSegmentHeaderCell: UITableViewCell {
         super.awakeFromNib()
         titleLabel.text = L(.myEidInfoPinPukSegmentTitle)
         if isNonDefaultPreferredContentSizeCategory() {
-            titleLabel.font = UIFont.setCustomFont(font: .allCapsRegular, 12, .body)
+            titleLabel.font = UIFont.setCustomFont(font: .allCapsRegular, isNonDefaultPreferredContentSizeCategoryBigger() ? 12 : nil, .body)
         }
     }
     

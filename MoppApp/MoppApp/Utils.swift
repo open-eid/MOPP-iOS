@@ -133,3 +133,7 @@ func isNonDefaultPreferredContentSizeCategorySmaller() -> Bool {
 func isNonDefaultPreferredContentSizeCategoryBigger() -> Bool {
     return UIApplication.shared.preferredContentSizeCategory > .large
 }
+
+func isNonDefaultPreferredContentSizeCategoryLargest() -> Bool {
+    return UIApplication.shared.preferredContentSizeCategory == .accessibilityExtraExtraExtraLarge
+}

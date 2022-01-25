@@ -253,8 +253,8 @@ class MyeIDPinPukCell: UITableViewCell {
         titleLabel.font = UIFont.setCustomFont(font: .medium, nil, .body)
         errorLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
         linkLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        linkButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, 11, .body)
-        button.titleLabel?.font = UIFont.setCustomFont(font: .allCapsRegular, 11, .body)
+        linkButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
+        button.titleLabel?.font = UIFont.setCustomFont(font: .allCapsRegular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
     }
 }
 

@@ -375,9 +375,6 @@ class MyeIDChangeCodesModel {
 
 
 extension MyeIDInfoManager {
-    
-    func setCustomFont() {
-    }
     class func createChangeCodesModel(actionType: MyeIDChangeCodesModel.ActionType) -> MyeIDChangeCodesModel {
         let model = MyeIDChangeCodesModel()
             model.actionType = actionType

@@ -365,7 +365,7 @@ extension ContainerViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // setSections()
+        setSections()
         let row = indexPath.row
         switch sections[indexPath.section] {
         case .notifications:
