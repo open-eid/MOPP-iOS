@@ -6,6 +6,7 @@
 //  Copyright © 2018 Riigi Infosüsteemide Amet. All rights reserved.
 //
 import Foundation
+import UIKit
 
 
 protocol SettingsTimeStampCellDelegate: AnyObject {
@@ -28,7 +29,15 @@ class SettingsTimeStampCell: UITableViewCell {
         textField.layer.borderColor = UIColor.moppContentLine.cgColor
         textField.layer.borderWidth = 1
         textField.delegate = self
-        textField.font = UIFont.moppSmallRegular
+        
+        if isNonDefaultPreferredContentSizeCategory() {
+            setCustomFont()
+        }
+    }
+    
+    func setCustomFont() {
+        titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        textField.font = UIFont.setCustomFont(font: .regular, nil, .body)
     }
     
     func populate(with field:SettingsViewController.Field) {
@@ -51,7 +60,7 @@ class SettingsTimeStampCell: UITableViewCell {
         titleLabel.text = L(.settingsTimestampUrlTitle)
         textField.placeholder = L(.settingsTimestampUrlPlaceholder)
         useDefaultTitleLabel.text = L(.settingsTimestampUseDefaultTitle)
-        useDefaultTitleLabel.font = UIFont.moppSmallRegular
+        useDefaultTitleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
         
         textField.layoutIfNeeded()
     }

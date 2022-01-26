@@ -695,7 +695,7 @@ extension ContainerViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
         let section = sections[_section]
         if sectionHeaderTitle[section] != nil {
-            if isNonDefaultPreferredContentSizeCategory() && isNonDefaultPreferredContentSizeCategoryBigger() {
+            if isNonDefaultPreferredContentSizeCategoryBigger() {
                 return ContainerTableViewHeaderView.height * 3
             }
             return ContainerTableViewHeaderView.height

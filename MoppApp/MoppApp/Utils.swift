@@ -137,3 +137,7 @@ func isNonDefaultPreferredContentSizeCategoryBigger() -> Bool {
 func isNonDefaultPreferredContentSizeCategoryLargest() -> Bool {
     return UIApplication.shared.preferredContentSizeCategory == .accessibilityExtraExtraExtraLarge
 }
+
+func isBoldTextEnabled() -> Bool {
+    return UIAccessibility.isBoldTextEnabled
+}

@@ -46,8 +46,17 @@ class SettingsFieldCell: UITableViewCell {
         titleLabel.font = UIFont.moppSmallRegular
         textField.attributedPlaceholder = field.placeholderText
         textField.text = field.value
-        textField.font = UIFont.moppSmallRegular
         self.field = field
+        
+        if isNonDefaultPreferredContentSizeCategory() {
+            setCustomFont()
+        }
+        
+    }
+    
+    func setCustomFont() {
+        titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        textField.font = UIFont.setCustomFont(font: .regular, nil, .body)
     }
 }
 

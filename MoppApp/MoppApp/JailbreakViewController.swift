@@ -27,6 +27,6 @@ class JailbreakViewController : MoppViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         titleLabel.text = L(.jailbreakMessage)
-        titleLabel.font = UIFont.moppLargeMedium
+        titleLabel.font = isBoldTextEnabled() ? UIFont.moppMediumBold : UIFont.moppLargeMedium
     }
 }
