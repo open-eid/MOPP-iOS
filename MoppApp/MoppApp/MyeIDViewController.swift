@@ -66,6 +66,10 @@ class MyeIDViewController : MoppViewController {
         }
     }
     
+    deinit {
+        MoppLibCardReaderManager.sharedInstance().resetReaderRestart()
+    }
+    
     func createStatusViewController() -> MyeIDStatusViewController {
         return UIStoryboard.myEID.instantiateViewController(of: MyeIDStatusViewController.self)
     }
@@ -115,6 +119,12 @@ class MyeIDViewController : MoppViewController {
             navigationController?.popViewController(animated: false)
         }
     }
+    
+    func popViewControllerIfPushed() {
+        if let _ = navigationController?.viewControllers.last as? MyeIDStatusViewController {
+            navigationController?.popViewController(animated: false)
+        }
+    }
 }
 
 extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
@@ -127,6 +137,13 @@ extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
                 statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
             }
             statusVC?.state = .readerNotFound
+        case .ReaderRestarted:
+            popChangeCodesViewControllerIfPushed()
+            var statusVC = children.first as? MyeIDStatusViewController
+            if statusVC == nil {
+                statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
+            }
+            statusVC?.state = .readerRestarted
         case .ReaderConnected:
             popChangeCodesViewControllerIfPushed()
             var statusVC = children.first as? MyeIDStatusViewController
@@ -147,6 +164,13 @@ extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
                 guard let strongSelf = self else { return }
                 strongSelf.infoManager.requestInformation(with: strongSelf)
             })
+        case .ReaderProcessFailed:
+            popChangeCodesViewControllerIfPushed()
+            var statusVC = children.first as? MyeIDStatusViewController
+            if statusVC == nil {
+                statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
+            }
+            statusVC?.state = .readerProcessFailed
         @unknown default:
             break
         }

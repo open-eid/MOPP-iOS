@@ -75,6 +75,8 @@
 - (void)transmitCommand:(const NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure {
     _successBlock = success;
     _failureBlock = failure;
+    
+    [[MoppLibCardReaderManager sharedInstance] resetReaderRestart];
 
     NSData *apduData = [commandHex toHexData];
     
@@ -100,6 +102,7 @@
         
         responseSize = sizeof( response );
         
+        NSLog(@"ID-CARD: Transmitting APDU data");
         if (SCARD_S_SUCCESS == SCardTransmit(
             _contextHandle,
             &pioSendPci,
@@ -144,12 +147,14 @@
                 // (Re)set the response size
                 responseSize = sizeof(response);
                 
+                NSLog(@"ID-CARD: Transmitting APDU data to get more data");
                 if (SCARD_S_SUCCESS == SCardTransmit(
                     _contextHandle,
                     &pioSendPci,
                     &getResponseApdu[0], sizeof(getResponseApdu),
                     NULL,
                     &response[0], &responseSize)) {
+                    NSLog(@"ID-CARD: APDU data with more data sent successfully");
                     
                     NSData *respData = [NSData dataWithBytes:&response[0] length:responseSize];
                     NSLog(@"IR301 Response: %@", [respData hexString]);
@@ -161,7 +166,7 @@
                     [responseData appendBytes:&response[0] length: ( needMoreData ? responseSize - 2 : responseSize )];
 
                 } else {
-                    NSLog(@"FAILED to send APDU");
+                    NSLog(@"ID-CARD: Failed to send APDU data to get more data");
                     failure(nil);
                     break;
                 }
@@ -171,7 +176,7 @@
             [self respondWithSuccess:responseData];
             break;
         } else {
-            NSLog(@"FAILED to send APDU");
+            NSLog(@"ID-CARD: Failed to send APDU data");
             [self respondWithError:nil];
             break;
         }

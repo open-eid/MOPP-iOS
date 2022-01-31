@@ -32,6 +32,7 @@
 #import "Idemia.h"
 #import "MoppLibCertificate.h"
 #import "MoppLibDigidocManager.h"
+#import "MoppLibCardReaderManager.h"
 #import <CommonCrypto/CommonDigest.h>
 
 typedef NS_ENUM(NSUInteger, CardAction) {
@@ -239,6 +240,8 @@ static CardActionsManager *sharedInstance = nil;
     NSLog(@"EXECUTE NEXT ACTION");
     @synchronized (self) {
         if (self.cardActions.count > 0 && !self.isActionExecuting) {
+            [[MoppLibCardReaderManager sharedInstance] resetReaderRestart];
+            NSLog(@"ID-CARD: Currently executing card action");
             self.isActionExecuting = YES;
             CardActionObject *action = self.cardActions.firstObject;
             [self executeAfterReaderCheck:action apduLength:0];
@@ -251,7 +254,10 @@ static CardActionsManager *sharedInstance = nil;
 - (void)executeAfterReaderCheck:(CardActionObject *)action apduLength:(unsigned char)apduLength {
     NSLog(@"EXECUTE AFTER READER CHECK");
     if (![self isReaderConnected]) {
+        NSLog(@"ID-CARD: READER IS NOT CONNECTED");
         if (action.completionBlock == nil) {
+            [[MoppLibCardReaderManager sharedInstance] resetReaderRestart];
+            [[MoppLibCardReaderManager sharedInstance] restartDiscoveringReaders:2.0f];
             return;
         }
         action.completionBlock(NO);
@@ -260,6 +266,7 @@ static CardActionsManager *sharedInstance = nil;
     }
 
     [self.reader isCardInserted:^(BOOL isInserted) {
+        NSLog(@"ID-CARD: Is card inserted: %d", isInserted);
         if (action.action == CardActionGetCardStatus) {
             action.completionBlock(isInserted);
             [self finishCurrentAction];
@@ -318,6 +325,7 @@ static CardActionsManager *sharedInstance = nil;
     } failure:^(NSError *error) {
         MLLog(@"Unable to power on card");
         actionObject.failureBlock([MoppLibError cardNotFoundError]);
+        [[MoppLibCardReaderManager sharedInstance] restartDiscoveringReaders:2.0f];
         [self finishCurrentAction];
     }];
 }

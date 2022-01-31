@@ -55,8 +55,10 @@ class IdCardViewController : MoppViewController {
     enum State {
         case initial
         case readerNotFound     // Reader not found/selected
+        case readerRestarted    // Reader discovery restarting
         case idCardNotFound     // ID card not found
         case idCardConnected    // ID card found and connected
+        case readerProcessFailed    // Failed to read data
         case readyForTokenAction    // Reader and ID card found
         case tokenActionInProcess            // Token action in-progress
         case wrongPin
@@ -102,6 +104,8 @@ class IdCardViewController : MoppViewController {
         if pinTextField != nil {
             pinTextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
         }
+        
+        MoppLibCardReaderManager.sharedInstance().resetReaderRestart()
     }
 
     @objc func editingChanged(sender: UITextField) {
@@ -205,6 +209,16 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
             loadingSpinner.show(true)
             titleLabel.text = L(.cardReaderStateReaderNotFound)
+        case .readerRestarted:
+            UIAccessibility.post(notification: .announcement,  argument: L(.cardReaderStateReaderRestarted))
+            actionButton.isEnabled = false
+            pinTextField.isHidden = true
+            pinTextField.text = nil
+            pinTextFieldTitleLabel.isHidden = true
+            pinTextFieldTitleLabel.text = nil
+            pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
+            loadingSpinner.show(true)
+            titleLabel.text = L(.cardReaderStateReaderRestarted)
         case .idCardNotFound:
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: L(.cardReaderStateIdCardNotFound))
             actionButton.isEnabled = false
@@ -225,6 +239,16 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
             loadingSpinner.show(true)
             titleLabel.text = L(.cardReaderStateIdCardConnected)
+        case .readerProcessFailed:
+            UIAccessibility.post(notification: .announcement, argument: L(.cardReaderStateReaderProcessFailed))
+            actionButton.isEnabled = false
+            pinTextField.isHidden = true
+            pinTextField.text = nil
+            pinTextFieldTitleLabel.isHidden = true
+            pinTextFieldTitleLabel.text = nil
+            pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
+            loadingSpinner.show(false)
+            titleLabel.text = L(.cardReaderStateReaderProcessFailed)
         case .readyForTokenAction:
             // Give VoiceOver time to announce "ID-card found"
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
@@ -401,6 +425,8 @@ extension IdCardViewController : MoppLibCardReaderManagerDelegate {
         switch readerStatus {
         case .ReaderNotConnected:
             state = .readerNotFound
+        case .ReaderRestarted:
+            state = .readerRestarted
         case .ReaderConnected:
             state = .idCardNotFound
         case .CardConnected:
@@ -419,6 +445,9 @@ extension IdCardViewController : MoppLibCardReaderManagerDelegate {
                 })
             })
 
+        
+        case .ReaderProcessFailed:
+            state = .readerProcessFailed
         @unknown default:
             break
         }

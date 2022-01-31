@@ -25,7 +25,9 @@ class MyeIDStatusViewController : MoppViewController {
     
     enum State {
         case readerNotFound
+        case readerRestarted
         case idCardNotFound
+        case readerProcessFailed
         case requestingData
     }
     
@@ -35,12 +37,18 @@ class MyeIDStatusViewController : MoppViewController {
             case .readerNotFound:
                 titleLabel.text = L(.myEidStatusReaderNotFound)
                 UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
+            case .readerRestarted:
+                titleLabel.text = L(.cardReaderStateReaderRestarted)
+                UIAccessibility.post(notification: .layoutChanged, argument: titleLabel)
             case .idCardNotFound:
                 titleLabel.text = L(.myEidStatusCardNotFound)
                 UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
             case .requestingData:
                 titleLabel.text = L(.myEidStatusRequestingData)
                 UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
+            case .readerProcessFailed:
+                titleLabel.text = L(.cardReaderStateReaderProcessFailed)
+                UIAccessibility.post(notification: .layoutChanged, argument: titleLabel)
             }
             titleLabel.setNeedsDisplay()
         }

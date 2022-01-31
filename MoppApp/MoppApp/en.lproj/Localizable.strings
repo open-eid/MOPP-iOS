@@ -215,6 +215,8 @@
 "sign-title-id-card" = "ID-Card";
 "card-reader-state-initial" = "Connect the card reader and insert your ID-card into the reader.";
 "card-reader-state-reader-not-found" = "No card readers found";
+"card-reader-state-reader-restarted" = "Restarting card reader.";
+"card-reader-state-reader-process-failed" = "Failed to read data. Please reconnect the card reader and try again.";
 "card-reader-state-id-card-not-found" = "Reader found.\nInsert your ID-card into the reader.";
 "card-reader-state-id-card-connected" = "ID-card found.\nRequesting information...";
 "card-reader-state-ready-for-pin2" = "Ready to sign with ID-card. \n%@ (%@)";

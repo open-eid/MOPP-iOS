@@ -25,8 +25,10 @@
 
 typedef NS_ENUM(NSUInteger, MoppLibCardReaderStatus) {
     ReaderNotConnected,     // Reader not found/selected
+    ReaderRestarted,        // Reader discovering restarted
     ReaderConnected,        // Reader connected but card not in the reader
-    CardConnected           // Card in the reader
+    CardConnected,          // Card in the reader
+    ReaderProcessFailed     // Failed to read data
 };
 
 @protocol MoppLibCardReaderManagerDelegate
@@ -40,5 +42,7 @@ typedef NS_ENUM(NSUInteger, MoppLibCardReaderStatus) {
 + (MoppLibCardChipType)atrToChipType:(NSData *)atr;
 - (void)startDiscoveringReaders;
 - (void)stopDiscoveringReaders;
+- (void)restartDiscoveringReaders:(float)delaySeconds;
 + (BOOL)isCardReaderModelSupported:(NSString *)modelName;
+- (void)resetReaderRestart;
 @end

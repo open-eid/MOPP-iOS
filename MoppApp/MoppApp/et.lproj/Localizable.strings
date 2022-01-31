@@ -215,6 +215,8 @@
 "sign-title-smart-id" = "Smart-ID";
 "sign-title-id-card" = "ID-kaart";
 "card-reader-state-reader-not-found" = "Ühtegi kaardilugejat pole ühendatud";
+"card-reader-state-reader-restarted" = "Restarting card reader.";
+"card-reader-state-reader-process-failed" = "Failed to read data. Please reconnect the card reader and try again.";
 "card-reader-state-id-card-not-found" = "Kaardilugeja leitud.\nSisesta ID-kaart lugejasse.";
 "card-reader-state-id-card-connected" = "ID-kaart leitud.\nPärin andmeid...";
 "card-reader-state-ready-for-pin2" = "ID-kaart on valmis allkirjastamiseks.\n%@ (%@)";

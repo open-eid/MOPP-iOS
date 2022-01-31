@@ -160,6 +160,8 @@ enum LocKey : String
     case signTitleSmartId = "sign-title-smart-id"
     case signTitleIdCard = "sign-title-id-card"
     case cardReaderStateReaderNotFound = "card-reader-state-reader-not-found"
+    case cardReaderStateReaderRestarted = "card-reader-state-reader-restarted"
+    case cardReaderStateReaderProcessFailed = "card-reader-state-reader-process-failed"
     case cardReaderStateIdCardNotFound = "card-reader-state-id-card-not-found"
     case cardReaderStateIdCardConnected = "card-reader-state-id-card-connected"
     case cardReaderStateInitial = "card-reader-state-initial"

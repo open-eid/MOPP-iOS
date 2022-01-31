@@ -36,6 +36,11 @@
 @property (nonatomic, strong) NSTimer *cardStatusPollingTimer;
 @property (nonatomic) MoppLibCardReaderStatus status;
 @property (nonatomic, strong) CardReaderiR301 *feitianReader;
+@property (nonatomic) int timerCounter;
+@property (nonatomic) BOOL isReaderDiscoveryRestarted;
+@property (nonatomic) BOOL wasReaderConnected;
+@property (nonatomic) BOOL wasCardConnected;
+@property (nonatomic) BOOL isReaderReset;
 @end
 
 @implementation MoppLibCardReaderManager
@@ -81,6 +86,7 @@
 
 - (void)startDiscoveringReaders {
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(revokeUnsupportedReader) name:kMoppLibNotificationRevokeUnsupportedReader object:nil];
+    self->_isReaderReset = FALSE;
     [self startDiscoveringFeitianReader];
 }
 
@@ -93,7 +99,11 @@
     
     [[CardActionsManager sharedInstance] setReader:nil];
     [[CardActionsManager sharedInstance] resetCardActions];
-    _status = ReaderNotConnected;
+    if (!_isReaderDiscoveryRestarted) {
+        _status = ReaderNotConnected;
+    } else {
+        _status = ReaderProcessFailed;
+    }
     
     [NSNotificationCenter.defaultCenter removeObserver:@{}];
 }
@@ -176,6 +186,13 @@
     }
 }
 
+- (void)resetReaderRestart {
+    NSLog(@"ID-CARD: Resetting reader restart");
+    self->_timerCounter = 0;
+    self->_isReaderDiscoveryRestarted = FALSE;
+    self->_isReaderReset = TRUE;
+}
+
 - (void)disconnectCard {
     SCardDisconnect(_contextHandle,SCARD_UNPOWER_CARD);
     [self updateStatus:ReaderConnected];
@@ -193,13 +210,57 @@
     }
 }
 
+- (void)discoverReaders:(NSTimer *)timer {
+    NSLog(@"ID-CARD: Restarting card reader discovery");
+    self->_timerCounter = 0;
+    self->_isReaderDiscoveryRestarted = TRUE;
+    [self startDiscoveringReaders];
+}
+
 - (void)cardStatusPollingTimerCallback:(NSTimer *)timer {
     [self handleCardStatus];
+    
+    _timerCounter++;
+    NSLog(@"ID-CARD: Timer counter: %d", _timerCounter);
+        
+    if (_timerCounter >= 20) {
+        if (_isReaderDiscoveryRestarted) {
+            if (self->_wasReaderConnected && self->_wasCardConnected) {
+                self->_isReaderDiscoveryRestarted = FALSE;
+                [self restartDiscoveringReaders:2.0f];
+            }
+            // [self stopDiscoveringReaders];
+            [self stopPollingCardStatus];
+            [self updateStatus:ReaderProcessFailed];
+            [self->_delegate moppLibCardReaderStatusDidChange:ReaderProcessFailed];
+            return;
+        } else {
+            [self updateStatus:ReaderRestarted];
+            [self->_delegate moppLibCardReaderStatusDidChange:ReaderRestarted];
+            [self restartDiscoveringReaders:2.0f];
+            return;
+        }
+    }
 }
+
+- (void)restartDiscoveringReaders:(float)delaySeconds {
+    if (!_isReaderDiscoveryRestarted) {
+        [self stopPollingCardStatus];
+        [self stopDiscoveringReaders];
+        [NSTimer scheduledTimerWithTimeInterval:delaySeconds
+                                         target:self
+                                       selector:@selector(discoverReaders:)
+                                       userInfo:nil
+                                        repeats:NO];
+    } else {
+        [self updateStatus:ReaderProcessFailed];
+        [self->_delegate moppLibCardReaderStatusDidChange: ReaderProcessFailed];
+    }
+}
+
 
 - (void)updateStatus:(MoppLibCardReaderStatus)status {
     if (_status == status) {
-        MLLog(@"WARNING: trying to set state that manager is already in: %lu", (unsigned long)_status);
         return;
     }
     
@@ -213,23 +274,55 @@
 #pragma mark - ReaderInterfaceDelegate
 
 - (void) readerInterfaceDidChange:(BOOL)attached bluetoothID:(NSString *)bluetoothID {
+    NSLog(@"ID-CARD attached: %d", attached);
     if (attached) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_sync(dispatch_get_main_queue(), ^{
             [self updateStatus:ReaderConnected];
             [self startPollingCardStatus];
             [self->_delegate moppLibCardReaderStatusDidChange:ReaderConnected];
+            self->_wasReaderConnected = TRUE;
         });
     } else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self updateStatus:ReaderNotConnected];
-            [self stopPollingCardStatus];
-            [self->_delegate moppLibCardReaderStatusDidChange: ReaderNotConnected];
-        });
+        if (self->_wasReaderConnected && self->_isReaderReset) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self updateStatus:ReaderNotConnected];
+                [self stopPollingCardStatus];
+                [self->_delegate moppLibCardReaderStatusDidChange: ReaderNotConnected];
+                self->_wasReaderConnected = FALSE;
+            });
+        } else if (!self->_isReaderDiscoveryRestarted && self->_wasReaderConnected) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self updateStatus:ReaderRestarted];
+                [self stopPollingCardStatus];
+                [self->_delegate moppLibCardReaderStatusDidChange: ReaderRestarted];
+            });
+        } else {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self updateStatus:ReaderProcessFailed];
+                [self stopPollingCardStatus];
+                [self->_delegate moppLibCardReaderStatusDidChange: ReaderProcessFailed];
+                self->_wasReaderConnected = FALSE;
+            });
+        }
     }
 }
 
 - (void)cardInterfaceDidDetach:(BOOL)attached {
-    
+    NSLog(@"ID-CARD: Card (interface) attached: %d", attached);
+    if (attached) {
+        [self startPollingCardStatus];
+        self->_wasCardConnected = TRUE;
+    } else {
+        if (self->_wasCardConnected) {
+            self->_wasCardConnected = FALSE;
+            [self resetReaderRestart];
+            [self stopPollingCardStatus];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateStatus:ReaderNotConnected];
+            [self->_delegate moppLibCardReaderStatusDidChange:ReaderNotConnected];
+        });
+    }
 }
 
 
@@ -239,7 +332,7 @@
 
 
 - (void)findPeripheralReader:(NSString *)readerName {
-    
+    NSLog(@"ID-CARD: Reader name: %@", readerName);
 }
 
 
