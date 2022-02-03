@@ -401,6 +401,11 @@ extension ContainerActions where Self: UIViewController {
             containerViewController.isCreated = true
             
             landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                if containerFilePaths.count == 1 {
+                    UIAccessibility.post(notification: .announcement, argument: L(.dataFileAdded))
+                } else if containerFilePaths.count > 1 {
+                    UIAccessibility.post(notification: .announcement, argument: L(.dataFilesAdded))
+                }
                 navController?.pushViewController(containerViewController, animated: true)
             })
         }

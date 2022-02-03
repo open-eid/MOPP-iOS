@@ -134,7 +134,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                             self?.container.dataFiles.remove(at: index)
                             if UIAccessibility.isVoiceOverRunning {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                    UIAccessibility.post(notification: .announcement, argument: L(.dataFileRemoved))
+                                    UIAccessibility.post(notification: .screenChanged, argument: L(.dataFileRemoved))
                                 }
                             }
                             self?.reloadData()
