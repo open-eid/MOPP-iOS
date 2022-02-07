@@ -500,35 +500,7 @@ extension ContainerViewController : UITableViewDataSource {
                     let dataFile = containerViewDelegate.getDataFileDisplayName(index: 0) ?? ""
                     let containerFilePath = containerViewDelegate.getContainerPath()
                     let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: dataFile)
-                    
-                    MoppLibContainerActions.sharedInstance().container(containerFilePath, saveDataFile: dataFile, to: destinationPath) {
-                        MoppLibContainerActions.sharedInstance().openContainer(withPath: destinationPath) { container in
-                            if let signatures = container?.signatures {
-                                for signature in signatures {
-                                    self.asicsSignatures.append(signature as? MoppLibSignature ?? MoppLibSignature())
-                                }
-                            }
-                            
-                            if let dataFiles = container?.dataFiles {
-                                for dataFile in dataFiles {
-                                    self.asicsDataFiles.append(dataFile as? MoppLibDataFile ?? MoppLibDataFile())
-                                }
-                            }
-                            
-                            self.asicsNestedContainerPath = destinationPath ?? ""
-                            
-                            self.isLoadingNestedAsicsDone = true
-                            
-                            self.reloadData()
-                        } failure: { error in
-                            NSLog("Unable to open container: \(error?.localizedDescription ?? "Unable to get error description")")
-                            self.errorAlert(message: L(.fileImportOpenExistingFailedAlertMessage, [dataFile]))
-                        }
-                        
-                    } failure: { error in
-                        NSLog("Unable to get file from container \(error?.localizedDescription ?? "Unable to get error description")")
-                        self.errorAlert(message: L(.fileImportOpenExistingFailedAlertMessage, [dataFile]))
-                    }
+                    self.openNestedContainer(containerFilePath: containerFilePath, dataFile: dataFile, destinationPath: destinationPath)
                 } else if (!isLoadingNestedAsicsDone) {
                     cell.populate(
                         with: timestampToken,
@@ -553,6 +525,52 @@ extension ContainerViewController : UITableViewDataSource {
                 signatureIndex: row)
             
             return cell
+        }
+    }
+    
+    private func openNestedContainer(containerFilePath: String, dataFile: String, destinationPath: String?) {
+        MoppLibContainerActions.sharedInstance().container(containerFilePath, saveDataFile: dataFile, to: destinationPath) {
+            MoppLibContainerActions.sharedInstance().openContainer(withPath: destinationPath) { container in
+                if let signatures = container?.signatures {
+                    for signature in signatures {
+                        self.asicsSignatures.append(signature as? MoppLibSignature ?? MoppLibSignature())
+                    }
+                }
+                
+                if let dataFiles = container?.dataFiles {
+                    for dataFile in dataFiles {
+                        self.asicsDataFiles.append(dataFile as? MoppLibDataFile ?? MoppLibDataFile())
+                    }
+                }
+                
+                self.asicsNestedContainerPath = destinationPath ?? ""
+                
+                self.isLoadingNestedAsicsDone = true
+                
+                self.reloadData()
+            } failure: { error in
+                self.isLoadingNestedAsicsDone = true
+                self.reloadContainer()
+            }
+            
+        } failure: { error in
+            NSLog("Unable to get file from container \(error?.localizedDescription ?? "Unable to get error description")")
+            let nserror = error as NSError?
+            if nserror != nil && nserror?.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
+                let pathExtension = URL(string: containerFilePath)?.pathExtension
+                if pathExtension == "asics" || pathExtension == "scs" {
+                    SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
+                        if hasAgreed {
+                            self.openNestedContainer(containerFilePath: containerFilePath, dataFile: dataFile, destinationPath: destinationPath)
+                            return
+                        } else {
+                            self.navigationController?.popViewController(animated: true)
+                            return
+                        }
+                    }
+                }
+            }
+            self.errorAlert(message: L(.fileImportOpenExistingFailedAlertMessage, [dataFile]))
         }
     }
     

@@ -50,8 +50,12 @@ extension PreviewActions where Self: ContainerViewController {
         let openAsicContainerPreview: (_ isPDF: Bool) -> Void = { isPDF in
             let containerViewController = SigningContainerViewController.instantiate()
             
-            if SiVaUtil.isDocumentSentToSiVa(fileUrl: URL(fileURLWithPath: destinationPath)) {
+            let destinationPathURL = URL(fileURLWithPath: destinationPath)
+            if SiVaUtil.isDocumentSentToSiVa(fileUrl: destinationPathURL) {
                 SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
+                    if (destinationPathURL.pathExtension == "ddoc" || destinationPathURL.pathExtension == "pdf") && !hasAgreed {
+                        return
+                    }
                     openAsicContainerPreviewDocument(containerViewController, isPDF, hasAgreed)
                 }
             } else {
@@ -115,7 +119,13 @@ extension PreviewActions where Self: ContainerViewController {
                         }
                     },
                     failure: { [weak self] error in
+                        self?.updateState((self?.isCreated ?? false) ? .created : .opened)
+                        if let nsError = error as NSError?, nsError.code == 10018 {
+                            self?.errorAlert(message: L(.noConnectionMessage))
+                            return
+                        }
                         self?.errorAlert(message: error?.localizedDescription)
+                        return
                     })
         }
         

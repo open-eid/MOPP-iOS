@@ -38,6 +38,9 @@ extension ContainerActions where Self: UIViewController {
         
         if landingViewController.fileImportIntent == .openOrCreate && landingViewController.containerType == .asic && urls.count == 1 && SiVaUtil.isDocumentSentToSiVa(fileUrl: urls.first) {
             SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
+                if (urls.first?.pathExtension == "ddoc" || urls.first?.pathExtension == "pdf") && !hasAgreed {
+                    return
+                }
                 self.importDataFiles(with: urls, navController: navController, topSigningViewController: topSigningViewController, landingViewController: landingViewController, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: hasAgreed)
             }
             return
@@ -88,7 +91,17 @@ extension ContainerActions where Self: UIViewController {
                     landingViewController.containerType == .asic
                 let isCdocContainer = ext.isCdocContainerExtension && landingViewController.containerType == .cdoc
                 if  (isAsicOrPadesContainer || isCdocContainer) && urls.count == 1 {
-                    self?.openExistingContainer(with: urls.first!, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: isSendingToSivaAgreed)
+                    if urls.first?.pathExtension == "asics" || urls.first?.pathExtension == "scs" {
+                        if self?.getTopViewController() is FileImportProgressViewController {
+                            self?.dismiss(animated: true, completion: {
+                                SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
+                                    self?.openExistingContainer(with: urls.first!, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: hasAgreed)
+                                }
+                            })
+                        }
+                    } else {
+                        self?.openExistingContainer(with: urls.first!, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: isSendingToSivaAgreed)
+                    }
                 } else {
                     self?.createNewContainer(with: urls.first!, dataFilePaths: dataFilePaths, isEmptyFileImported: isEmptyFileImported)
                 }
@@ -120,7 +133,7 @@ extension ContainerActions where Self: UIViewController {
             
             landingViewController.importProgressViewController.dismissRecursivelyIfPresented(animated: false, completion: {
                 var alert: UIAlertController
-                if err?.code == 10018 && (url.lastPathComponent.hasSuffix(ContainerFormatDdoc) || url.lastPathComponent.hasSuffix(ContainerFormatPDF) || url.lastPathComponent.hasSuffix(ContainerFormatAsics) || url.lastPathComponent.hasSuffix(ContainerFormatAsicsShort)) {
+                if err?.code == 10018 && (url.lastPathComponent.hasSuffix(ContainerFormatDdoc) || url.lastPathComponent.hasSuffix(ContainerFormatPDF)) {
                     alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.noConnectionMessage), preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
                     
@@ -141,24 +154,13 @@ extension ContainerActions where Self: UIViewController {
         }
         
         if landingViewController.containerType == .asic {
-            let forbiddenFileExtension = ["ddoc", "asics", "scs"]
+            let forbiddenFileExtensions = ["ddoc", "asics", "scs"]
             let fileURL = URL(fileURLWithPath: newFilePath)
             let fileExtension = fileURL.pathExtension
             let isSignedPDF = SiVaUtil.isDocumentSentToSiVa(fileUrl: fileURL)
-            if forbiddenFileExtension.contains(fileExtension) || isSignedPDF {
-                InternetConnectionUtil.isInternetConnectionAvailable { isConnectionAvailable in
-                    if isConnectionAvailable {
-                        DispatchQueue.main.async {
-                            self.openContainer(url: url, newFilePath: newFilePath, fileName: fileName, landingViewController: landingViewController, navController: navController, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: isSendingToSivaAgreed) { error in
-                                failure(error)
-                            }
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            let error = NSError(domain: "MoppLib", code: Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue), userInfo: nil)
-                            failure(error)
-                        }
-                    }
+            if (forbiddenFileExtensions.contains(fileExtension) || isSignedPDF) {
+                self.openContainer(url: url, newFilePath: newFilePath, fileName: fileName, landingViewController: landingViewController, navController: navController, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: isSendingToSivaAgreed) { error in
+                    failure(error)
                 }
             } else {
                 self.openContainer(url: url, newFilePath: newFilePath, fileName: fileName, landingViewController: landingViewController, navController: navController, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: true) { error in

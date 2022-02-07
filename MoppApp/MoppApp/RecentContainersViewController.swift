@@ -184,8 +184,12 @@ extension RecentContainersViewController : UITableViewDelegate {
                 }
                 
                 if ext.isAsicContainerExtension || ext.isPdfContainerExtension {
-                    if SiVaUtil.isDocumentSentToSiVa(fileUrl: URL(fileURLWithPath: containerPath)) {
+                    let containerPathURL = URL(fileURLWithPath: containerPath)
+                    if SiVaUtil.isDocumentSentToSiVa(fileUrl: containerPathURL) || (containerPathURL.pathExtension == "asics" || containerPathURL.pathExtension == "scs") {
                         SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
+                            if (containerPathURL.pathExtension == "ddoc" || containerPathURL.pathExtension == "pdf") && !hasAgreed {
+                                return
+                            }
                             self.openContainer(containerPath: containerPath, navController: navController, isSendingToSivaAgreed: hasAgreed)
                         }
                     } else {
