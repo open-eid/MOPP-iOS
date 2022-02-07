@@ -27,16 +27,16 @@ protocol PreviewActions {
 }
 
 extension PreviewActions where Self: ContainerViewController {
-    
+
     func openFilePreview(dataFileFilename: String, containerFilePath: String, isShareButtonNeeded: Bool) {
-        
+
         guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: dataFileFilename) else {
             DispatchQueue.main.async { [weak self] in
                 self?.errorAlert(message: L(.datafilePreviewFailed))
             }
             return
         }
-        
+
         let openAsicContainerPreviewDocument: (_ containerViewController: ContainerViewController, _ isPDF: Bool) -> Void = { [weak self] (containerViewController, isPDF) in
             containerViewController.sections = ContainerViewController.sectionsDefault
             containerViewController.isAsicContainer = true
@@ -48,21 +48,23 @@ extension PreviewActions where Self: ContainerViewController {
 
         let openAsicContainerPreview: (_ isPDF: Bool) -> Void = { isPDF in
             let containerViewController = SigningContainerViewController.instantiate()
-            
-            if SiVaUtil.isDocumentSentToSiVa(fileUrl: URL(fileURLWithPath: destinationPath)) {
+
+            let destinationPathURL = URL(fileURLWithPath: destinationPath)
+            if SiVaUtil.isDocumentSentToSiVa(fileUrl: destinationPathURL) {
                 SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
-                    if hasAgreed {
-                        openAsicContainerPreviewDocument(containerViewController, isPDF)
+                    if (destinationPathURL.pathExtension == "ddoc" || destinationPathURL.pathExtension == "pdf") && !hasAgreed {
+                        return
                     }
+                    openAsicContainerPreviewDocument(containerViewController, isPDF, hasAgreed)
                 }
             } else {
                 openAsicContainerPreviewDocument(containerViewController, isPDF)
             }
         }
-        
+
         let openCdocContainerPreview: () -> Void = { [weak self]  in
             let containerViewController = CryptoContainerViewController.instantiate()
-            
+
             containerViewController.sections = ContainerViewController.sectionsEncrypted
             containerViewController.isContainerEncrypted = true
             containerViewController.isAsicContainer = false
@@ -70,23 +72,23 @@ extension PreviewActions where Self: ContainerViewController {
             containerViewController.isDecrypted = false
             self?.navigationController?.pushViewController(containerViewController, animated: true)
         }
-        
+
         let openContentPreviewDocument: (_ filePath: String) -> Void = { [weak self] filePath in
             let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(of: DataFilePreviewViewController.self)
             dataFilePreviewViewController.isShareNeeded = isShareButtonNeeded
             dataFilePreviewViewController.previewFilePath = filePath
             self?.navigationController?.pushViewController(dataFilePreviewViewController, animated: true)
         }
-        
+
         let openContentPreview: (_ filePath: String) -> Void = { [weak self] filePath in
             guard MoppFileManager.shared.fileExists(filePath) else {
                 NSLog("File does not exist. Unable to open file for preview")
                 self?.errorAlert(message: L(.datafilePreviewFailed))
                 return
             }
-            
+
             let fileExtension = URL(fileURLWithPath: filePath).pathExtension.lowercased()
-            
+
             if fileExtension != "pdf" && SiVaUtil.isDocumentSentToSiVa(fileUrl: URL(fileURLWithPath: filePath)) {
                 SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
                     if hasAgreed {
@@ -96,7 +98,7 @@ extension PreviewActions where Self: ContainerViewController {
             } else {
                 openContentPreviewDocument(filePath)
             }
-            
+
         }
 
         let openPDFPreview: () -> Void = { [weak self] in
@@ -116,10 +118,16 @@ extension PreviewActions where Self: ContainerViewController {
                         }
                     },
                     failure: { [weak self] error in
+                        self?.updateState((self?.isCreated ?? false) ? .created : .opened)
+                        if let nsError = error as NSError?, nsError.code == 10018 {
+                            self?.errorAlert(message: L(.noConnectionMessage))
+                            return
+                        }
                         self?.errorAlert(message: error?.localizedDescription)
+                        return
                     })
         }
-        
+
         if self.isAsicContainer {
             guard MoppFileManager.shared.fileExists(containerFilePath) else {
                 NSLog("Container does not exist. Unable to open file for preview")
@@ -127,7 +135,7 @@ extension PreviewActions where Self: ContainerViewController {
                 return
             }
         }
-        
+
         // If current container is PDF opened as a container preview then open it as a content preview which
         // is same as opening it's data file (which is a reference to itself) as a content preview
         if forcePDFContentPreview {
@@ -167,9 +175,9 @@ extension PreviewActions where Self: ContainerViewController {
                 self.tableView.reloadData()
                 let (_, dataFileExt) = dataFileFilename.filenameComponents()
                 let isPDF = dataFileExt.lowercased() == ContainerFormatPDF
-                
+
                 if dataFileExt.isAsicContainerExtension || (isPDF && !self.forcePDFContentPreview ) {
-                    
+
                     // If container is PDF check signatures count with showing loading
                     if isPDF {
                         openPDFPreview()
