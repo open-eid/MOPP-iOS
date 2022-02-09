@@ -238,32 +238,30 @@ static std::string profile = "time-stamp";
         dispatch_semaphore_t sem = dispatch_semaphore_create(0);
         
         // Initialize libdigidocpp.
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            try {
-                std::string timestampUrl = tsUrl == nil ?
-                [moppConfiguration.TSAURL cStringUsingEncoding:NSUTF8StringEncoding] :
-                [tsUrl cStringUsingEncoding:NSUTF8StringEncoding];
-                digidoc::Conf::init(new DigiDocConf(timestampUrl, moppConfiguration));
-                NSString *appInfo = [NSString stringWithFormat:@"%s/%@ (iOS %@)", "qdigidocclient", [self moppAppVersion], [self iOSVersion]];
-                std::string appInfoObjcString = std::string([appInfo UTF8String]);
-                digidoc::initialize(appInfoObjcString, appInfoObjcString);
-                
-                dispatch_semaphore_signal(sem);
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    success();
-                });
-            } catch(const digidoc::Exception &e) {
-                dispatch_semaphore_signal(sem);
-                
-                parseException(e);
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSError *error = [NSError errorWithDomain:@"MoppLib" code:e.code() userInfo:@{@"message":[NSString stringWithUTF8String:e.msg().c_str()]}];
-                    failure(error);
-                });
-            }
-        });
+        try {
+            std::string timestampUrl = tsUrl == nil ?
+            [moppConfiguration.TSAURL cStringUsingEncoding:NSUTF8StringEncoding] :
+            [tsUrl cStringUsingEncoding:NSUTF8StringEncoding];
+            digidoc::Conf::init(new DigiDocConf(timestampUrl, moppConfiguration));
+            NSString *appInfo = [NSString stringWithFormat:@"%s/%@ (iOS %@)", "qdigidocclient", [self moppAppVersion], [self iOSVersion]];
+            std::string appInfoObjcString = std::string([appInfo UTF8String]);
+            digidoc::initialize(appInfoObjcString, appInfoObjcString);
+            
+            dispatch_semaphore_signal(sem);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                success();
+            });
+        } catch(const digidoc::Exception &e) {
+            dispatch_semaphore_signal(sem);
+            
+            parseException(e);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSError *error = [NSError errorWithDomain:@"MoppLib" code:e.code() userInfo:@{@"message":[NSString stringWithUTF8String:e.msg().c_str()]}];
+                failure(error);
+            });
+        }
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
     });
 }
