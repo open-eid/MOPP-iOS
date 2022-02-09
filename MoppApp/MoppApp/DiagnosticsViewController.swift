@@ -138,7 +138,6 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         tslURL.text = formatString(text: "TSL_URL:", additionalText: "\(getMoppConfiguration().TSLURL) \(formatLOTLVersion(version: getLOTLVersion()))")
         sivaURL.text = formatString(text: "SIVA_URL:", additionalText: decodedConf.SIVAURL)
         tsaURL.text = formatString(text: "TSA_URL:", additionalText: DefaultsHelper.timestampUrl ?? decodedConf.TSAURL)
-        midSignURL.text = formatString(text: "MID-SIGN-URL:", additionalText: decodedConf.MIDSIGNURL)
         ldapPersonURL.text = formatString(text: "LDAP_PERSON_URL:", additionalText: decodedConf.LDAPPERSONURL)
         ldapCorpURL.text = formatString(text: "LDAP_CORP_URL:", additionalText: decodedConf.LDAPCORPURL)
         mobileIdURL.text = formatString(text: "MID-PROXY-URL: ", additionalText: decodedConf.MIDPROXYURL)
