@@ -278,7 +278,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     }
     
     func setSections() {
-        if isSignaturesEmpty {
+        if isSignaturesEmpty && isAsicContainer {
             sections = (isForPreview || !isCreated) ? ContainerViewController.sectionsDefault : ContainerViewController.sectionsNoSignatures
             if let signaturesIndex = sections.firstIndex(where: { $0 == .signatures }) {
                 if !sections.contains(.missingSignatures) {
@@ -286,11 +286,8 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                 }
             }
         }
-        else {
-            sections = ContainerViewController.sectionsDefault
-        }
+        
     }
-    
 }
 
 extension ContainerViewController : LandingViewControllerTabButtonsDelegate {
