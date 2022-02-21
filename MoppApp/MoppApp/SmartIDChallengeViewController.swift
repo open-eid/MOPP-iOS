@@ -51,6 +51,8 @@ class SmartIDChallengeViewController : UIViewController {
 
     @objc func receiveSelectAccountNotification(_ notification: Notification) {
         helpLabel.text = MoppLib_LocalizedString("smart-id-status-request-select-account")
+        currentProgress = 0.0
+        sessionTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSessionProgress), userInfo: nil, repeats: true)
         if UIAccessibility.isVoiceOverRunning {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 let message: NSAttributedString = NSAttributedString(string: "\(L(.signingProgress)) \(String(Int(self.timeoutProgressView.progress))) %. \(self.helpLabel.text ?? "")", attributes: [.accessibilitySpeechQueueAnnouncement: false])
@@ -74,8 +76,6 @@ class SmartIDChallengeViewController : UIViewController {
             let message: NSAttributedString = NSAttributedString(string: challengeIdAccessibilityLabel, attributes: [.accessibilitySpeechQueueAnnouncement: true])
             UIAccessibility.post(notification: .announcement, argument: message)
         }
-        currentProgress = 0.0
-        sessionTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSessionProgress), userInfo: nil, repeats: true)
         
         timeoutProgressView.isAccessibilityElement = true
 
