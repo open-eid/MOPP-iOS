@@ -95,6 +95,7 @@ enum LocKey : String
     case containerHeaderCreateAddresseesTitle = "container-header-create-addressee-title"
     case containerHeaderTimestampTitle = "container-header-timestamp-title"
     case containerHeaderSignaturesTitle = "container-header-signatures-title"
+    case containerHeaderTimestampsTitle = "container-header-timestamps-title"
     case containerRowEditRemove = "container-row-edit-remove"
     case containerHeaderTitle = "container-header-title"
     case containerErrorMessageInvalidSignature = "container-error-message-invalid-signature"
@@ -109,6 +110,8 @@ enum LocKey : String
     case containerSignatureStatusNonQscd = "container-signature-status-non-qscd";
     case containerSignatureStatusInvalid = "container-signature-status-invalid";
     case containerSignatureStatusUnknown = "container-signature-status-unknown";
+    case containerTimestampValid = "container-timestamp-valid";
+    case containerTimestampUnknown = "container-timestamp-unknown";
     case containerTimestampInvalid = "container-timestamp-invalid";
     case challengeCodeLabel = "challenge-code-label"
     case challengeCodeLabelAccessibility = "challenge-code-label-accessibility"

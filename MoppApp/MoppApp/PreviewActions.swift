@@ -37,12 +37,13 @@ extension PreviewActions where Self: ContainerViewController {
             return
         }
 
-        let openAsicContainerPreviewDocument: (_ containerViewController: ContainerViewController, _ isPDF: Bool) -> Void = { [weak self] (containerViewController, isPDF) in
+        let openAsicContainerPreviewDocument: (_ containerViewController: ContainerViewController, _ isPDF: Bool, _ isSendingToSivaAgreed: Bool) -> Void = { [weak self] (containerViewController, isPDF, isSendingToSivaAgreed) in
             containerViewController.sections = ContainerViewController.sectionsDefault
             containerViewController.isAsicContainer = true
             containerViewController.containerPath = destinationPath
             containerViewController.isForPreview = true
             containerViewController.forcePDFContentPreview = isPDF
+            containerViewController.isSendingToSivaAgreed = isSendingToSivaAgreed
             self?.navigationController?.pushViewController(containerViewController, animated: true)
         }
 
@@ -58,7 +59,7 @@ extension PreviewActions where Self: ContainerViewController {
                     openAsicContainerPreviewDocument(containerViewController, isPDF, hasAgreed)
                 }
             } else {
-                openAsicContainerPreviewDocument(containerViewController, isPDF)
+                openAsicContainerPreviewDocument(containerViewController, isPDF, true)
             }
         }
 
