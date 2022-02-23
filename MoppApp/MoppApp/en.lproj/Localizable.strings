@@ -137,6 +137,7 @@
 "container-header-create-addressee-title" = "Recipients";
 "container-header-timestamp-title" = "Container timestamps";
 "container-header-signatures-title" = "Container signatures";
+"container-header-timestamps-title" = "Container timestamps";
 "container-row-edit-remove" = "Delete";
 "container-header-title" = "CONTAINER:";
 "container-error-message-invalid-signature" = "1 INVALID SIGNATURE";
@@ -151,6 +152,8 @@
 "container-signature-status-non-qscd" = "(Restrictions)";
 "container-signature-status-invalid" = "Signature is not valid";
 "container-signature-status-unknown" = "Signature is unknown";
+"container-timestamp-valid" = "Timestamp is valid";
+"container-timestamp-unknown" = "Timestamp is unknown";
 "container-timestamp-invalid" = "Timestamp is not valid";
 
 // *** Mobile ID Challenge View ***
