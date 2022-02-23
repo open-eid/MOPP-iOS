@@ -567,6 +567,7 @@ extension ContainerViewController : UITableViewDataSource {
                 self.reloadData()
             } failure: { error in
                 self.isLoadingNestedAsicsDone = true
+                self.isSendingToSivaAgreed = false
                 self.reloadContainer()
             }
 
