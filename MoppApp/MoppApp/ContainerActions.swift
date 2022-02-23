@@ -248,7 +248,9 @@ extension ContainerActions where Self: UIViewController {
                         } else if dataFilePaths.count > 1 {
                             UIAccessibility.post(notification: .announcement, argument: L(.dataFilesAdded))
                         }
-                        containerViewController?.reloadContainer()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            containerViewController?.reloadContainer()
+                        }
                     })
                 },
                 failure: { error in

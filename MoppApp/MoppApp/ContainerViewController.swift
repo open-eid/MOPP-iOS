@@ -77,6 +77,11 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var isSendingToSivaAgreed = true
     
     @IBOutlet weak var tableView: UITableView!
+    
+    var isSignaturesEmpty: Bool {
+        if !isAsicContainer { return true }
+        return signingContainerViewDelegate.getSignaturesCount() == 0
+    }
 
     enum Section {
         case notifications
@@ -292,6 +297,17 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         }
     }
     
+    func setSections() {
+        if isSignaturesEmpty && isAsicContainer {
+            sections = (isForPreview || !isCreated) ? ContainerViewController.sectionsDefault : ContainerViewController.sectionsNoSignatures
+            if let signaturesIndex = sections.firstIndex(where: { $0 == .signatures }) {
+                if !sections.contains(.missingSignatures) {
+                    sections.insert(.missingSignatures, at: signaturesIndex + 1)
+                }
+            }
+        }
+        
+    }
 }
 
 extension ContainerViewController : LandingViewControllerTabButtonsDelegate {
@@ -360,6 +376,7 @@ extension ContainerViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        setSections()
         let row = indexPath.row
         switch sections[indexPath.section] {
         case .notifications:
@@ -782,10 +799,6 @@ extension ContainerViewController : UITableViewDelegate {
         if containerViewDelegate.isContainerEmpty() {
             return
         }
-        var isSignaturesEmpty: Bool {
-            if !isAsicContainer { return true }
-            return signingContainerViewDelegate.getSignaturesCount() == 0
-        }
         if isForPreview {
             updateState(.preview)
         }
@@ -811,7 +824,6 @@ extension ContainerViewController : UITableViewDelegate {
                     sections = ContainerViewController.sectionsDefault
                 }
             }
-        
         }
         
         tableView.reloadData()
