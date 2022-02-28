@@ -42,7 +42,11 @@ class MyeIDInfoViewController: MoppViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         ui.tableView.reloadData()
-        UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: ui.tableView)
+        UIAccessibility.post(notification: .screenChanged, argument: ui.tableView)
+        // Prevent accessibility focus jumping after returning to main My eID view
+        if infoManager.hasMyEidPageChanged {
+            ui.tableView.accessibilityElementsHidden = true
+        }
     }
 }
 
@@ -93,6 +97,19 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
             } else {
                 cell.populate(titleText: infoManager.personalInfo.itemTitles[item.type]!, contentText: item.value)
             }
+            
+            if UIAccessibility.isVoiceOverRunning {
+                if item.type == .myeID {
+                    UIAccessibility.post(notification: .screenChanged, argument: cell)
+                }
+                
+                // Prevent accessibility focus jumping after returning to main My eID view
+                if infoManager.hasMyEidPageChanged {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        self.ui.tableView.accessibilityElementsHidden = false
+                    }
+                }
+            }
             return cell
         case .changePins:
             let cell = ui.tableView.dequeueReusableCell(withType: MyeIDPinPukCell.self, for: indexPath)!
@@ -102,6 +119,9 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
                 cell.populate(pinPukCellInfo: pinPukCellInfo)
                 cell.certInfoView.accessibilityLabel = "\(pinPukCellInfo.title ?? ""). \(infoManager.certInfoAttributedString(for: pinPukCellInfo.kind)?.string ?? pinPukCellInfo.certInfoText ?? "")"
             cell.accessibilityLabel = ""
+            if UIAccessibility.isVoiceOverRunning && infoManager.hasMyEidPageChanged {
+                cell.setAccessibilityFocusOnButton()
+            }
             return cell
         case .margin:
             return ui.tableView.dequeueReusableCell(withIdentifier: "marginCell", for: indexPath)

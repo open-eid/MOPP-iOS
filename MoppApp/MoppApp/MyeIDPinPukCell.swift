@@ -97,6 +97,10 @@ class MyeIDPinPukCell: UITableViewCell {
         }
     }
     
+    func setAccessibilityFocusOnButton() {
+        UIAccessibility.post(notification: .screenChanged, argument: button)
+    }
+    
     func populate(pinPukCellInfo: MyeIDInfoManager.PinPukCell.Info) {
         contentView.bounds = bounds
         layoutIfNeeded()
@@ -145,10 +149,12 @@ class MyeIDPinPukCell: UITableViewCell {
                 if UIAccessibility.isVoiceOverRunning {
                     if savedLastFocusElement == .changePIN1 {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            self.showAccessibilityElements()
                             UIAccessibility.post(notification: .screenChanged, argument: self.button)
                         }
                     } else if savedLastFocusElement == .unblockPIN1 {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            self.showAccessibilityElements()
                             UIAccessibility.post(notification: .screenChanged, argument: self.linkButton)
                         }
                     }
@@ -226,6 +232,10 @@ class MyeIDPinPukCell: UITableViewCell {
             certInfoLabel.attributedText = infoManager.certInfoAttributedString(for: kind)
             certInfoLabel.setNeedsDisplay()
         }
+    }
+    
+    func showAccessibilityElements() {
+        infoManager.hasMyEidPageChanged = false
     }
     
     func showChangeButton(_ show:Bool, with title:String? = nil) {

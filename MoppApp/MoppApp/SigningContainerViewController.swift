@@ -110,7 +110,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                     }
                     if UIAccessibility.isVoiceOverRunning {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            UIAccessibility.post(notification: .announcement, argument: L(.dataFileRemoved))
+                            UIAccessibility.post(notification: .screenChanged, argument: L(.dataFileRemoved))
                         }
                     }
                     self?.navigationController?.popToRootViewController(animated: true)
