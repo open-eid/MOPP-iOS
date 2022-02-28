@@ -36,12 +36,14 @@ class MyeIDInfoCell: UITableViewCell {
     
     func populate(titleText: String, contentText: String) {
         titleLabel.text = titleText
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
         
         if contentText == "EST" {
             contentLabel.accessibilityLabel = "E S T"
         }
         
         contentLabel.text = contentText
+        if isBoldTextEnabled() { contentLabel.font = UIFont.boldSystemFont(ofSize: contentLabel.font.pointSize) }
         
         if titleLabel.text == L(.myEidInfoMyEid) {
             titleLabel.accessibilityLabel = L(.myEidInfoMyEidAccessibility)
@@ -51,6 +53,7 @@ class MyeIDInfoCell: UITableViewCell {
     func populate(titleText: String, with expiryDateString: String) {
 
         titleLabel.text = titleText
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
         
         let font = UIFont.setCustomFont(font: .allCapsBold, nil, .body)
         let attrText = NSMutableAttributedString(string: expiryDateString, attributes: [.font: font])
@@ -61,6 +64,7 @@ class MyeIDInfoCell: UITableViewCell {
         }
         
         contentLabel.attributedText = attrText
+        if isBoldTextEnabled() { contentLabel.font = UIFont.boldSystemFont(ofSize: contentLabel.font.pointSize) }
     }
     
     func setCustomFont() {

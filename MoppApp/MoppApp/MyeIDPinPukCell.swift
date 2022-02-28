@@ -200,7 +200,7 @@ class MyeIDPinPukCell: UITableViewCell {
             }
         }
         
-        if isNonDefaultPreferredContentSizeCategory() {
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
             setCustomFont()
         }
         

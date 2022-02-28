@@ -63,8 +63,11 @@ class SigningTableViewHeaderView: UIView {
     
     func populate(title: String, _ requestCloseSearch: inout () -> Void) {
         titleLabel.text = title
-        if isNonDefaultPreferredContentSizeCategory() {
-            titleLabel.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 10 : nil, .body)
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
+        if isNonDefaultPreferredContentSizeCategoryMedium() {
+            titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        } else if isNonDefaultPreferredContentSizeCategoryBigger() {
+            titleLabel.font = UIFont.setCustomFont(font: .regular, 10, .body)
         }
         requestCloseSearch = { [weak self] in
             self?.showSearch(false, animated: false)

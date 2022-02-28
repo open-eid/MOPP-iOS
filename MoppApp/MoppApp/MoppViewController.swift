@@ -84,8 +84,9 @@ class MoppViewController : UIViewController {
     
     func setupNavigationItemForPushedViewController(title: String, filePath: String = "") {
         let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
         if isNonDefaultPreferredContentSizeCategoryBigger() {
-            titleLabel.font = UIFont.setCustomFont(font: .medium, 8, .body)
+            titleLabel.font = UIFont.setCustomFont(font: .medium, 14, .body)
             titleLabel.numberOfLines = 3
         }
         titleLabel.text = title

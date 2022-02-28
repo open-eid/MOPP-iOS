@@ -119,7 +119,7 @@ extension AddresseeViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if isNonDefaultPreferredContentSizeCategoryBigger() {
+        if !isNonDefaultPreferredContentSizeCategoryMedium() && isNonDefaultPreferredContentSizeCategoryBigger() {
             return ContainerSearchCell.height * 3
         }
         

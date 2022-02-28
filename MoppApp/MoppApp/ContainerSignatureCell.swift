@@ -96,7 +96,7 @@ class ContainerSignatureCell: UITableViewCell {
         bottomBorderView.isHidden = !showBottomBorder
         removeButton.isHidden = !showRemoveButton
         
-        if isNonDefaultPreferredContentSizeCategory() {
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
             signatureStatusLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
         }
     }
@@ -128,7 +128,7 @@ class ContainerSignatureCell: UITableViewCell {
             nameLabel.text = signature.subjectName
         }
         
-        if isNonDefaultPreferredContentSizeCategory() {
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
             signedInfoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
             nameLabel.font = UIFont.setCustomFont(font: .medium, nil, .body)
         }

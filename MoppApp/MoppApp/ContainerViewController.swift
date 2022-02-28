@@ -357,15 +357,18 @@ extension ContainerViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if (indexPath.section == 1 || indexPath.section == 2) && isNonDefaultPreferredContentSizeCategoryBigger() {
-            return 200
-        } else {
-            return UITableView.automaticDimension
+        if (indexPath.section == 1 || indexPath.section == 2) {
+            if isNonDefaultPreferredContentSizeCategoryMedium() {
+                return 100
+            } else if isNonDefaultPreferredContentSizeCategoryBigger() {
+                return 200
+            }
         }
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        setSections()
+        // ssetSections()
         let row = indexPath.row
         switch sections[indexPath.section] {
         case .notifications:
@@ -695,7 +698,7 @@ extension ContainerViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
         let section = sections[_section]
         if sectionHeaderTitle[section] != nil {
-            if isNonDefaultPreferredContentSizeCategoryBigger() {
+            if !isNonDefaultPreferredContentSizeCategoryMedium() && isNonDefaultPreferredContentSizeCategoryBigger() {
                 return ContainerTableViewHeaderView.height * 3
             }
             return ContainerTableViewHeaderView.height

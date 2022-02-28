@@ -50,6 +50,7 @@ class ContainerHeaderCell: UITableViewCell {
         super.awakeFromNib()
         
         titleLabel.text = L(.containerHeaderTitle)
+        titleLabel.font = isBoldTextEnabled() ? UIFont.moppMediumBold : UIFont.moppMediumRegular
         if isNonDefaultPreferredContentSizeCategory() {
             titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
         }
@@ -57,6 +58,7 @@ class ContainerHeaderCell: UITableViewCell {
     
     func populate(name: String, isEditButtonEnabled: Bool) {
         filenameLabel.text = MoppLibManager.sanitize(name)
+        filenameLabel.font = isBoldTextEnabled() ? UIFont.moppMediumBold : UIFont.moppMediumRegular
         if isNonDefaultPreferredContentSizeCategory() {
             filenameLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
         }

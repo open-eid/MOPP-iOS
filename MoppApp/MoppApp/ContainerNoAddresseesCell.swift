@@ -28,7 +28,7 @@ class ContainerNoAddresseesCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         label.text = L(LocKey.containerMissingAddressees)
-        
+        if isBoldTextEnabled() { label.font = UIFont.boldSystemFont(ofSize: label.font.pointSize) }
         if isNonDefaultPreferredContentSizeCategory() {
             label.font = UIFont.setCustomFont(font: .medium, 12, .body)
         }

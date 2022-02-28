@@ -52,7 +52,7 @@ class ContainerAddresseeCell: UITableViewCell, AddresseeActions {
         nameLabel.text = determineName(addressee: addressee)
         infoLabel.text = determineInfo(addressee: addressee)
         
-        if isNonDefaultPreferredContentSizeCategory() {
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
             nameLabel.font = UIFont.setCustomFont(font: .medium, nil, .body)
             infoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
         }

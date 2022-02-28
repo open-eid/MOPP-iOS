@@ -43,9 +43,10 @@ class SettingsFieldCell: UITableViewCell {
     
     func populate(with field:SettingsViewController.Field) {
         titleLabel.text = field.title
-        titleLabel.font = UIFont.moppSmallRegular
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
         textField.attributedPlaceholder = field.placeholderText
         textField.text = field.value
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: textField.font?.pointSize ?? UIFont.moppMediumBold.pointSize) }
         self.field = field
         
         if isNonDefaultPreferredContentSizeCategory() {

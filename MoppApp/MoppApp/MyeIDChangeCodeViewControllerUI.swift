@@ -130,7 +130,7 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
         statusViewHiddenCSTR.priority = UILayoutPriority.defaultHigh
         statusViewVisibleCSTR.priority = UILayoutPriority.defaultLow
         
-        if isNonDefaultPreferredContentSizeCategory() {
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
             setCustomFont()
         }
     }
@@ -241,7 +241,7 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
         secondInfoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
         thirdInfoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
         discardButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
-        confirmButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 7 : nil, .body)
+        confirmButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
         firstCodeTextFieldLabel.font = UIFont.setCustomFont(font: .allCapsRegular, nil, .body)
         secondCodeTextFieldLabel.font = UIFont.setCustomFont(font: .allCapsRegular, nil, .body)
         thirdCodeTextFieldLabel.font = UIFont.setCustomFont(font: .allCapsRegular, nil, .body)

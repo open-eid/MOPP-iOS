@@ -88,7 +88,7 @@ extension UIFont {
     }
     
     class func setCustomFont(font: MoppFontName, _ size: Int?, _ forTextStyle: UIFont.TextStyle) -> UIFont {
-        let customFont = UIFont(name: isBoldTextEnabled() ? MoppFontName.bold.rawValue : font.rawValue, size: CGFloat(size ?? Int(self.systemFontSize)))!
+        let customFont = UIFont(name: isBoldTextEnabled() ? MoppFontName.bold.rawValue : font.rawValue, size: CGFloat(size ?? Int(self.labelFontSize)))!
         return UIFontMetrics(forTextStyle: forTextStyle).scaledFont(for: customFont)
     }
 }

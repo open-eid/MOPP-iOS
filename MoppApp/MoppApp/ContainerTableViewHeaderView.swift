@@ -47,6 +47,7 @@ class ContainerTableViewHeaderView: UIView {
         addButton.isHidden = !showAddButton
         addButton.accessibilityLabel = showAddButton ? L(.containerHeaderFilesAddFile) : ""
         titleLabel.text = title
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
         if isNonDefaultPreferredContentSizeCategory() {
             titleLabel.font = UIFont.setCustomFont(font: .medium, nil, .body)
             titleLabel.numberOfLines = 3
