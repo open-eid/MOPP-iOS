@@ -23,6 +23,7 @@
 
 import Foundation
 import MoppLib
+import UIKit
 
 class SigningContainerViewController : ContainerViewController, SigningActions, UIDocumentPickerDelegate {
     
@@ -238,6 +239,10 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
             
             if afterSignatureCreated && container.isSignable() && !strongSelf.isForPreview {
                 strongSelf.notifications.append((true, L(.containerDetailsSigningSuccess)))
+                
+                if UIAccessibility.isVoiceOverRunning {
+                    UIAccessibility.post(notification: .screenChanged, argument: L(.containerDetailsSigningSuccess))
+                }
                 
                 if !DefaultsHelper.hideShareContainerDialog {
                     strongSelf.displayShareContainerDialog()

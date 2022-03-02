@@ -137,6 +137,7 @@ enum LocKey : String
     case mobileIdVerificationCodeTitle = "mobile-id-verification-code-title"
     case mobileIdChallengeTitle = "mobile-id-challenge-title"
     case mobileIdChallengeWaitingForResponse = "mobile-id-challenge-waiting-response"
+    case signingProgress = "signing-progress"
     case signingRememberMe = "signing-remember-me"
     case signingCancelled = "signing-cancelled"
     case smartIdTitle = "smart-id-title"

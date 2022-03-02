@@ -186,6 +186,7 @@
 "signature-removed" = "Signature removed";
 "signature-removal-cancelled" = "Signature removal cancelled";
 
+"signing-progress" = "Progress";
 "signing-remember-me" = "Remember me";
 "signing-cancelled" = "Container signing cancelled";
 "mobile-id-title" = "Enter your mobile number and personal code to sign with mobile-ID";
