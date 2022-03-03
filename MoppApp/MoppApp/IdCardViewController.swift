@@ -181,6 +181,7 @@ class IdCardViewController : MoppViewController {
 
         MoppLibCardReaderManager.sharedInstance().delegate = nil
         MoppLibCardReaderManager.sharedInstance().stopDiscoveringReaders()
+        MoppLibCardReaderManager.sharedInstance().resetReaderRestart()
         NotificationCenter.default.removeObserver(self)
     }
 
@@ -423,6 +424,8 @@ class IdCardViewController : MoppViewController {
 extension IdCardViewController : MoppLibCardReaderManagerDelegate {
     func moppLibCardReaderStatusDidChange(_ readerStatus: MoppLibCardReaderStatus) {
         switch readerStatus {
+        case .Initial:
+            state = .initial
         case .ReaderNotConnected:
             state = .readerNotFound
         case .ReaderRestarted:
@@ -440,7 +443,12 @@ extension IdCardViewController : MoppLibCardReaderManagerDelegate {
                         self?.idCardPersonalData = moppLibPersonalData
                         self?.state = .readyForTokenAction
                     }
-                }, failure: { [weak self]_ in
+                }, failure: { [weak self] error in
+                    guard let error = error as NSError? else { strongSelf.state = .readerProcessFailed; return }
+                    if error.code == 10026 {
+                        strongSelf.state = .readerProcessFailed
+                        return
+                    }
                     strongSelf.state = .readerNotFound
                 })
             })

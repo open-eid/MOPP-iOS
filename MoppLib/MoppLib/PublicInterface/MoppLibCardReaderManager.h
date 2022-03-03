@@ -24,6 +24,7 @@
 #import "MoppLibConstants.h"
 
 typedef NS_ENUM(NSUInteger, MoppLibCardReaderStatus) {
+    Initial,                // Initial state of reader
     ReaderNotConnected,     // Reader not found/selected
     ReaderRestarted,        // Reader discovering restarted
     ReaderConnected,        // Reader connected but card not in the reader

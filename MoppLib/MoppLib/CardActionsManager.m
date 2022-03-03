@@ -78,6 +78,7 @@ NSString *const kCardActionDataUseECC = @"Use ECC";
 @property (nonatomic, strong) NSMutableArray *cardActions;
 @property (nonatomic, assign) BOOL isActionExecuting;
 @property (nonatomic, strong) id<CardCommands> cardCommandHandler;
+@property (nonatomic, assign) BOOL didReaderRestart;
 @end
 
 @implementation CardActionsManager
@@ -240,6 +241,7 @@ static CardActionsManager *sharedInstance = nil;
     NSLog(@"EXECUTE NEXT ACTION");
     @synchronized (self) {
         if (self.cardActions.count > 0 && !self.isActionExecuting) {
+            NSLog(@"ID-CARD: No card actions. Resetting reader restart");
             [[MoppLibCardReaderManager sharedInstance] resetReaderRestart];
             NSLog(@"ID-CARD: Currently executing card action");
             self.isActionExecuting = YES;
@@ -252,10 +254,11 @@ static CardActionsManager *sharedInstance = nil;
 }
 
 - (void)executeAfterReaderCheck:(CardActionObject *)action apduLength:(unsigned char)apduLength {
-    NSLog(@"EXECUTE AFTER READER CHECK");
+    NSLog(@"ID-CARD: EXECUTE AFTER READER CHECK");
     if (![self isReaderConnected]) {
         NSLog(@"ID-CARD: READER IS NOT CONNECTED");
         if (action.completionBlock == nil) {
+            NSLog(@"ID-CARD: executeAfterReaderCheck. Resetting reader restart and restarting");
             [[MoppLibCardReaderManager sharedInstance] resetReaderRestart];
             [[MoppLibCardReaderManager sharedInstance] restartDiscoveringReaders:2.0f];
             return;
@@ -282,7 +285,7 @@ static CardActionsManager *sharedInstance = nil;
                 }
             }];
         } else {
-            MLLog(@"Card not inserted");
+            MLLog(@"ID-CARD: Card not inserted");
             action.failureBlock([MoppLibError cardNotFoundError]);
             [self finishCurrentAction];
         }
@@ -312,7 +315,7 @@ static CardActionsManager *sharedInstance = nil;
             }
             break;
         default: {
-                MLLog(@"Unable to determine card version");
+                MLLog(@"ID-CARD: Unable to determine card version");
                 actionObject.failureBlock([MoppLibError cardVersionUnknownError]);
                 [self finishCurrentAction];
                 return;
@@ -324,7 +327,12 @@ static CardActionsManager *sharedInstance = nil;
         
     } failure:^(NSError *error) {
         MLLog(@"Unable to power on card");
-        actionObject.failureBlock([MoppLibError cardNotFoundError]);
+        if (self->_didReaderRestart) {
+            [self finishCurrentAction];
+            actionObject.failureBlock([MoppLibError readerProcessFailedError]);
+            return;
+        }
+        self->_didReaderRestart = TRUE;
         [[MoppLibCardReaderManager sharedInstance] restartDiscoveringReaders:2.0f];
         [self finishCurrentAction];
     }];

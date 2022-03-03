@@ -76,6 +76,7 @@
     _successBlock = success;
     _failureBlock = failure;
     
+    NSLog(@"ID-CARD: CardReaderiR301. transmitCommand. Resetting reader restart");
     [[MoppLibCardReaderManager sharedInstance] resetReaderRestart];
 
     NSData *apduData = [commandHex toHexData];
@@ -213,7 +214,8 @@
     
     if (![MoppLibCardReaderManager isCardReaderModelSupported:modelName]) {
         [NSNotificationCenter.defaultCenter postNotificationName:kMoppLibNotificationRevokeUnsupportedReader object:nil];
-        NSLog(@"Unsupported reader: %s", modelName);
+        NSLog(@"ID-CARD: Unsupported reader: %@", modelName);
+        [self respondWithError:[MoppLibError readerNotFoundError]];
         return;
     }
     
@@ -229,7 +231,8 @@
     if (dwStatus == SCARD_PRESENT) {
         success(nil);
     } else {
-        [self respondWithError:[MoppLibError readerNotFoundError]];
+        NSLog(@"ID-CARD: Did not successfully power on card");
+        [self respondWithError:[MoppLibError readerProcessFailedError]];
     }
 }
 

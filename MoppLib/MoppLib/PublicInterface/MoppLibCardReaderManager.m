@@ -81,26 +81,30 @@
 }
 
 + (BOOL)isCardReaderModelSupported:(NSString *)modelName {
+    NSLog(@"ID-CARD: Checking if card reader is supported");
     return [modelName hasPrefix:@"iR301"];
 }
 
 - (void)startDiscoveringReaders {
+    NSLog(@"ID-CARD: Starting reader discovery");
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(revokeUnsupportedReader) name:kMoppLibNotificationRevokeUnsupportedReader object:nil];
     self->_isReaderReset = FALSE;
     [self startDiscoveringFeitianReader];
 }
 
 - (void)revokeUnsupportedReader {
+    NSLog(@"ID-CARD: Unsupported reader, stopping reader discovery");
     [self stopDiscoveringReaders];
 }
 
 - (void)stopDiscoveringReaders {
+    NSLog(@"ID-CARD: Stopping reader discovery");
     [self stopDiscoveringFeitianReader];
     
     [[CardActionsManager sharedInstance] setReader:nil];
     [[CardActionsManager sharedInstance] resetCardActions];
     if (!_isReaderDiscoveryRestarted) {
-        _status = ReaderNotConnected;
+        _status = Initial;
     } else {
         _status = ReaderProcessFailed;
     }
@@ -109,13 +113,14 @@
 }
 
 - (void)startDiscoveringFeitianReader {
+    NSLog(@"ID-CARD: Starting Feitian reader discovering");
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateStatus:ReaderNotConnected];
         SCardEstablishContext(SCARD_SCOPE_SYSTEM, NULL, NULL, &self->_contextHandle);
     });
 }
 
 - (void)stopDiscoveringFeitianReader {
+    NSLog(@"ID-CARD: Stopping Feitian reader discovering");
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->_status == CardConnected) {
             [self disconnectCard];
@@ -143,9 +148,12 @@
     
     ret = SCardStatus(_contextHandle, NULL, NULL, &dwState, NULL, NULL, NULL);
     if (ret != SCARD_S_SUCCESS) {
-        // No luck on getting card status. Reconnect the reader.
-        [self updateStatus:ReaderNotConnected];
-        return;
+        ret = SCardStatus(_contextHandle, NULL, NULL, &dwState, NULL, NULL, NULL);
+        if (ret != SCARD_S_SUCCESS) {
+            // No luck on getting card status. Reconnect the reader.
+            [self updateStatus:ReaderNotConnected];
+            return;
+        }
     }
     
     switch (dwState) {
@@ -194,16 +202,19 @@
 }
 
 - (void)disconnectCard {
+    NSLog(@"ID-CARD: Disconnecting card");
     SCardDisconnect(_contextHandle,SCARD_UNPOWER_CARD);
     [self updateStatus:ReaderConnected];
 }
 
 - (void)startPollingCardStatus {
+    NSLog(@"ID-CARD: Started polling ID-Card status");
     _cardStatusPollingTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(cardStatusPollingTimerCallback:) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:_cardStatusPollingTimer forMode:NSDefaultRunLoopMode];
 }
 
 - (void)stopPollingCardStatus {
+    NSLog(@"ID-CARD: Stopping card status polling");
     if (_cardStatusPollingTimer != nil) {
         [_cardStatusPollingTimer invalidate];
         _cardStatusPollingTimer = nil;
@@ -229,7 +240,6 @@
                 self->_isReaderDiscoveryRestarted = FALSE;
                 [self restartDiscoveringReaders:2.0f];
             }
-            // [self stopDiscoveringReaders];
             [self stopPollingCardStatus];
             [self updateStatus:ReaderProcessFailed];
             [self->_delegate moppLibCardReaderStatusDidChange:ReaderProcessFailed];
@@ -245,6 +255,10 @@
 
 - (void)restartDiscoveringReaders:(float)delaySeconds {
     if (!_isReaderDiscoveryRestarted) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateStatus:ReaderRestarted];
+            [self->_delegate moppLibCardReaderStatusDidChange: ReaderRestarted];
+        });
         [self stopPollingCardStatus];
         [self stopDiscoveringReaders];
         [NSTimer scheduledTimerWithTimeInterval:delaySeconds
@@ -285,9 +299,9 @@
     } else {
         if (self->_wasReaderConnected && self->_isReaderReset) {
             dispatch_sync(dispatch_get_main_queue(), ^{
-                [self updateStatus:ReaderNotConnected];
+                [self updateStatus:Initial];
                 [self stopPollingCardStatus];
-                [self->_delegate moppLibCardReaderStatusDidChange: ReaderNotConnected];
+                [self->_delegate moppLibCardReaderStatusDidChange: Initial];
                 self->_wasReaderConnected = FALSE;
             });
         } else if (!self->_isReaderDiscoveryRestarted && self->_wasReaderConnected) {
@@ -310,18 +324,15 @@
 - (void)cardInterfaceDidDetach:(BOOL)attached {
     NSLog(@"ID-CARD: Card (interface) attached: %d", attached);
     if (attached) {
-        [self startPollingCardStatus];
+        if (_cardStatusPollingTimer == nil) {
+            [self startPollingCardStatus];
+        }
         self->_wasCardConnected = TRUE;
     } else {
         if (self->_wasCardConnected) {
             self->_wasCardConnected = FALSE;
-            [self resetReaderRestart];
             [self stopPollingCardStatus];
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self updateStatus:ReaderNotConnected];
-            [self->_delegate moppLibCardReaderStatusDidChange:ReaderNotConnected];
-        });
     }
 }
 
