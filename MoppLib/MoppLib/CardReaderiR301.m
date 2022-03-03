@@ -158,7 +158,13 @@
                     NSLog(@"ID-CARD: APDU data with more data sent successfully");
                     
                     NSData *respData = [NSData dataWithBytes:&response[0] length:responseSize];
-                    NSLog(@"IR301 Response: %@", [respData hexString]);
+                    NSLog(@"ID-CARD: IR301 Response: %@", [respData hexString]);
+                        
+                    if (responseSize < 2) {
+                        NSLog(@"ID-CARD: Response size must be atleast 2. Response size: %u", responseSize);
+                        failure(nil);
+                        break;
+                    }
                     
                     trailing[0] = response[ responseSize - 2 ];
                     trailing[1] = response[ responseSize - 1 ];
