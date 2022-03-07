@@ -130,6 +130,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     internal static let sectionsNoAddresses : [Section] =  [.notifications, .header, .dataFiles, .importDataFiles, .missingAddressees, .importAddressees]
     internal static let sectionsWithAddresses : [Section] = [.notifications, .header, .dataFiles, .importDataFiles, .addressees, .importAddressees]
     internal static let sectionsEncrypted : [Section] = [.notifications, .header, .dataFiles, .addressees]
+    internal static let sectionsWithTimestampNoSignatures : [Section] = [.notifications, .header, .dataFiles, .containerTimestamps]
     internal static let sectionsWithTimestamp : [Section] = [.notifications, .header, .dataFiles, .containerTimestamps, .signatures]
     var sections: [Section] = ContainerViewController.sectionsDefault
     var notifications: [(isSuccess: Bool, text: String)] = []
@@ -837,13 +838,13 @@ extension ContainerViewController : UITableViewDelegate {
                 }
             }
             else {
-                if isAsicsContainer() && isSendingToSivaAgreed {
-                    sections = ContainerViewController.sectionsWithTimestamp
+                if isAsicsContainer() {
+                    sections = isSendingToSivaAgreed ? ContainerViewController.sectionsWithTimestamp :
+                    ContainerViewController.sectionsWithTimestampNoSignatures
                 } else {
                     sections = ContainerViewController.sectionsDefault
                 }
             }
-
         }
 
         tableView.reloadData()
