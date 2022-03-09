@@ -282,7 +282,7 @@ static std::string profile = "time-stamp";
         x509Certs = digidoc::X509Cert(bytes, digidoc::X509Cert::Format::Der);
     } catch (const digidoc::Exception &e) {
         parseException(e);
-        throw e;
+        x509Certs = digidoc::X509Cert();
     }
 
     return x509Certs;
@@ -414,10 +414,15 @@ static std::string profile = "time-stamp";
     signer->setSignerRoles(std::vector<std::string>());
     NSLog(@"\nProfile info set successfully\n");
     
-    NSLog(@"\nSetting signature...\n");
-    signature = docContainer->prepareSignature(signer);
-    NSString *signatureId = [NSString stringWithCString:signature->id().c_str() encoding:[NSString defaultCStringEncoding]];
-    NSLog(@"\nSignature ID set to %@...\n", signatureId);
+    try {
+        NSLog(@"\nSetting signature...\n");
+        signature = docContainer->prepareSignature(signer);
+        NSString *signatureId = [NSString stringWithCString:signature->id().c_str() encoding:[NSString defaultCStringEncoding]];
+        NSLog(@"\nSignature ID set to %@...\n", signatureId);
+    } catch(const digidoc::Exception &e) {
+        parseException(e);
+        return NULL;
+    }
     
     std::vector<unsigned char> dataToSign = signature->dataToSign();
     NSData *data = [NSData dataWithBytesNoCopy:dataToSign.data() length:dataToSign.size() freeWhenDone:NO];

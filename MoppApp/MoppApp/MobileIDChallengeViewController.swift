@@ -152,7 +152,9 @@ class MobileIDChallengeViewController : UIViewController {
                     }
                 }
                 
-                topViewController.present(alert, animated: true, completion: nil)
+                if !(topViewController is UIAlertController) {
+                    topViewController.present(alert, animated: true, completion: nil)
+                }
             }
         }
     }
