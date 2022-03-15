@@ -236,7 +236,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                 if url.scheme == "digidoc" && url.host == "http" {
                     printLog("Opening HTTP links is not supported")
                     DispatchQueue.main.async {
-                        return topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, [url.lastPathComponent]))
+                        return topViewController.showErrorMessage(message: L(.fileImportNewFileOpeningFailedAlertMessage, [url.lastPathComponent]))
                     }
                     return false
                 } else if url.scheme == "digidoc" {
@@ -246,7 +246,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                         guard let filePath = fileLocation else {
                             printLog("Unable to get file location from URL")
                             DispatchQueue.main.async {
-                                return topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, [url.lastPathComponent]))
+                                return topViewController.showErrorMessage(message: L(.fileImportNewFileOpeningFailedAlertMessage, [url.lastPathComponent]))
                             }
                             dispatchGroup.leave()
                             return
@@ -296,7 +296,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                 if isFileEmpty {
                     printLog("Unable to import empty file")
                     if urls.count == 1 {
-                        topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))
+                        topViewController.showErrorMessage(message: L(.fileImportFailedEmptyFile))
                         return false
                     }
                     isInvalidFileInList = true
@@ -307,7 +307,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
 
                 guard var pathExtension = fileExtension else {
                     printLog("Unable to get file extension")
-                    topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, [newUrl.lastPathComponent]))
+                    topViewController.showErrorMessage(message: L(.fileImportNewFileOpeningFailedAlertMessage, [newUrl.lastPathComponent]))
                     return false
                 }
                 
@@ -320,14 +320,14 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                     let tempDirectoryPath: String? = MoppFileManager.shared.tempDocumentsDirectoryPath()
                     guard let tempDirectory = tempDirectoryPath else {
                         printLog("Unable to get temporary file directory")
-                        topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
+                        topViewController.showErrorMessage(message: L(.fileImportNewFileOpeningFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
                         return false
                     }
                     let fileURL: URL? = URL(fileURLWithPath: tempDirectory, isDirectory: true).appendingPathComponent(fileName, isDirectory: false).appendingPathExtension(pathExtension)
 
                     guard let newUrlData: Data = newData, let filePath: URL = fileURL else {
                         printLog("Unable to get file data or file path")
-                        topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
+                        topViewController.showErrorMessage(message: L(.fileImportNewFileOpeningFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
                         return false
                     }
                     do {
@@ -339,12 +339,12 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                         cleanup = true
                     } catch let error {
                         printLog("Error writing to file: \(error.localizedDescription)")
-                        topViewController.showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportNewFileOpeningFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
+                        topViewController.showErrorMessage(message: L(.fileImportNewFileOpeningFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
                         return false
                     }
                 } catch let error {
                     printLog("Error getting directory: \(error)")
-                    topViewController.showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportNewFileOpeningFailedAlertMessage, [newUrl.lastPathComponent]))
+                    topViewController.showErrorMessage(message: L(.fileImportNewFileOpeningFailedAlertMessage, [newUrl.lastPathComponent]))
                     return false
                 }
 
@@ -378,7 +378,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
 
         if fileUrls.isEmpty {
             if isInvalidFileInList {
-                landingViewController?.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))
+                landingViewController?.showErrorMessage(message: L(.fileImportFailedEmptyFile))
                 return false
             }
             fileUrls = urls

@@ -1,5 +1,5 @@
 //
-//  NotificationMessage.swift
+//  IDCardParameters.swift
 //  MoppApp
 //
 /*
@@ -23,7 +23,13 @@
 
 import Foundation
 
-struct NotificationMessage: Equatable {
-    let isSuccess: Bool
-    let text: String
+internal struct IDCardParameters {
+    let containerPath: String
+    let pin2: String
+    let roleData: MoppLibRoleAddressData?
+}
+
+internal struct IDCardSuccess {
+    let container: MoppLibContainer?
+    let signatureAdded: Bool
 }

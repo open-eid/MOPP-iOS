@@ -36,6 +36,7 @@ class SettingsViewController: MoppViewController {
         case timestampUrl
         case useDefault
         case tsaCert
+        case roleAndAddress
     }
     
     struct Field {
@@ -45,6 +46,7 @@ class SettingsViewController: MoppViewController {
             case timestamp
             case defaultSwitch
             case tsaCert
+            case state
         }
         
         let id: FieldId
@@ -90,7 +92,8 @@ class SettingsViewController: MoppViewController {
             kind: .tsaCert,
             title: L(.settingsTimestampCertTitle),
             placeholderText: NSAttributedString(string: L(.settingsTimestampCertTitle)),
-            value: "")
+            value: ""),
+        Field(id: .roleAndAddress, kind: .state, title: L(.roleAndAddressRoleTitle), placeholderText: NSAttributedString(string: L(.roleAndAddressRoleTitle)), value: "")
     ]
     
     override func viewDidLoad() {
@@ -236,6 +239,10 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
                     tsaCertCell.topViewController = getTopViewController()
                     tsaCertCell.populate()
                 return tsaCertCell
+            case .state:
+                let stateCell = tableView.dequeueReusableCell(withType: SettingsStateCell.self, for: indexPath)!
+                    stateCell.populate(with: field)
+                return stateCell
             }
         }
         return UITableViewCell()

@@ -44,7 +44,7 @@ protocol MobileIDEditViewControllerDelegate : AnyObject {
     func mobileIDEditViewControllerDidDismiss(cancelled: Bool, phoneNumber: String?, idCode: String?)
 }
 
-class MobileIDEditViewController : MoppViewController {
+class MobileIDEditViewController : MoppViewController, TokenFlowSigning {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var idCodeTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
@@ -149,19 +149,21 @@ class MobileIDEditViewController : MoppViewController {
             DefaultsHelper.idCode = idCodeTextField.text ?? String()
             DefaultsHelper.phoneNumber = phoneTextField.text ?? String()
             rememberSwitch.accessibilityUserInputLabels = ["Disable remember me"]
-        }
-        else {
+        } else {
             DefaultsHelper.idCode = String()
             DefaultsHelper.phoneNumber = String()
             rememberSwitch.accessibilityUserInputLabels = ["Enable remember me"]
         }
-        dismiss(animated: false) {
-            [weak self] in
-            guard let sself = self else { return }
-            sself.delegate?.mobileIDEditViewControllerDidDismiss(
-                cancelled: false,
-                phoneNumber: sself.phoneTextField.text,
-                idCode: sself.idCodeTextField.text)
+        if DefaultsHelper.isRoleAndAddressEnabled {
+            let roleAndAddressView = UIStoryboard.tokenFlow.instantiateViewController(of: RoleAndAddressViewController.self)
+            roleAndAddressView.modalPresentationStyle = .overCurrentContext
+            roleAndAddressView.modalTransitionStyle = .crossDissolve
+            roleAndAddressView.viewController = self
+            present(roleAndAddressView, animated: true)
+        } else {
+            dismiss(animated: false) { [weak self] in
+                self?.sign(nil)
+            }
         }
     }
     
@@ -170,6 +172,17 @@ class MobileIDEditViewController : MoppViewController {
             rememberSwitch.accessibilityUserInputLabels = ["Disable remember me"]
         } else {
             rememberSwitch.accessibilityUserInputLabels = ["Enable remember me"]
+        }
+    }
+    
+    func sign(_ pin: String?) {
+        dismiss(animated: false) {
+            [weak self] in
+            guard let sself = self else { return }
+            sself.delegate?.mobileIDEditViewControllerDidDismiss(
+                cancelled: false,
+                phoneNumber: sself.phoneTextField.text,
+                idCode: sself.idCodeTextField.text)
         }
     }
 

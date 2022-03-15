@@ -153,6 +153,8 @@
 		DF1EE2BD234DD20500E37CA8 /* MoppLibCertificateInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = DF1EE2BB234DD20500E37CA8 /* MoppLibCertificateInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DF1EE2BE234DD20500E37CA8 /* MoppLibCertificateInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = DF1EE2BC234DD20500E37CA8 /* MoppLibCertificateInfo.mm */; };
 		DF87E9CE292CC79500C2E3F4 /* libdigidocpp_util.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF87E9CD292CC77C00C2E3F4 /* libdigidocpp_util.a */; };
+		DFBDF1F827DA44BD00A5CF3C /* MoppLibRoleAddressData.h in Headers */ = {isa = PBXBuildFile; fileRef = DFBDF1F727DA44BD00A5CF3C /* MoppLibRoleAddressData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DFBDF1FA27DA44FD00A5CF3C /* MoppLibRoleAddressData.m in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1F927DA44FD00A5CF3C /* MoppLibRoleAddressData.m */; };
 		DFF3C3A923322E0D0079458A /* MOPPLibConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = DFF3C3A723322E0C0079458A /* MOPPLibConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DFF3C3AA23322E0D0079458A /* MOPPLibConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3A823322E0C0079458A /* MOPPLibConfiguration.m */; };
 		DFFFCBCC238D470200059717 /* MoppLibGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = DFFFCBCB238D470200059717 /* MoppLibGlobals.h */; };
@@ -276,6 +278,8 @@
 		DF1EE2BB234DD20500E37CA8 /* MoppLibCertificateInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibCertificateInfo.h; sourceTree = "<group>"; };
 		DF1EE2BC234DD20500E37CA8 /* MoppLibCertificateInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoppLibCertificateInfo.mm; sourceTree = "<group>"; };
 		DF87E9CD292CC77C00C2E3F4 /* libdigidocpp_util.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdigidocpp_util.a; path = MoppLib/libdigidocpp/libdigidocpp.iphoneos/lib/libdigidocpp_util.a; sourceTree = "<group>"; };
+		DFBDF1F727DA44BD00A5CF3C /* MoppLibRoleAddressData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLibRoleAddressData.h; sourceTree = "<group>"; };
+		DFBDF1F927DA44FD00A5CF3C /* MoppLibRoleAddressData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoppLibRoleAddressData.m; sourceTree = "<group>"; };
 		DFF3C3A723322E0C0079458A /* MOPPLibConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOPPLibConfiguration.h; sourceTree = "<group>"; };
 		DFF3C3A823322E0C0079458A /* MOPPLibConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOPPLibConfiguration.m; sourceTree = "<group>"; };
 		DFFFCBCB238D470200059717 /* MoppLibGlobals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLibGlobals.h; sourceTree = "<group>"; };
@@ -404,6 +408,8 @@
 				DFF3C3A823322E0C0079458A /* MOPPLibConfiguration.m */,
 				DF1EE2BB234DD20500E37CA8 /* MoppLibCertificateInfo.h */,
 				DF1EE2BC234DD20500E37CA8 /* MoppLibCertificateInfo.mm */,
+				DFBDF1F727DA44BD00A5CF3C /* MoppLibRoleAddressData.h */,
+				DFBDF1F927DA44FD00A5CF3C /* MoppLibRoleAddressData.m */,
 			);
 			name = ResponseObjects;
 			sourceTree = "<group>";
@@ -643,6 +649,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFBDF1F827DA44BD00A5CF3C /* MoppLibRoleAddressData.h in Headers */,
 				C5AAAF8620CAA3F00087D6DA /* winscard.h in Headers */,
 				C5AAAF8820CAA4240087D6DA /* wintypes.h in Headers */,
 				540CB2201E1CDCED00FE18A3 /* MoppLibCertificate.h in Headers */,
@@ -957,6 +964,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFBDF1FA27DA44FD00A5CF3C /* MoppLibRoleAddressData.m in Sources */,
 				54E1DB5D1E44A9060060A250 /* MoppLibManager.m in Sources */,
 				E42B08CE1E1F136A00EA24A3 /* MoppLibDigidocManager.mm in Sources */,
 				E485A7841E2DF58200C53DBF /* MLFileManager.m in Sources */,

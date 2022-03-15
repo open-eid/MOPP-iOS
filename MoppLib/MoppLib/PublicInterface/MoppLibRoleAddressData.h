@@ -1,6 +1,6 @@
 //
-//  NotificationMessage.swift
-//  MoppApp
+//  MoppLibRoleAddressData.h
+//  MoppLib
 //
 /*
  * Copyright 2017 - 2023 Riigi Infosüsteemi Amet
@@ -21,9 +21,16 @@
  *
  */
 
-import Foundation
+#import <Foundation/Foundation.h>
 
-struct NotificationMessage: Equatable {
-    let isSuccess: Bool
-    let text: String
-}
+@interface MoppLibRoleAddressData : NSObject
+
+@property (nonatomic, strong) NSArray<NSString*> *ROLES;
+@property (nonatomic, strong) NSString *CITY;
+@property (nonatomic, strong) NSString *STATE;
+@property (nonatomic, strong) NSString *COUNTRY;
+@property (nonatomic, strong) NSString *ZIP;
+
+- (id) initWithRoles:(NSArray<NSString*> *)ROLES CITY:(NSString *)CITY STATE:(NSString *)STATE COUNTRY:(NSString *)COUNTRY ZIP:(NSString *)ZIP;
+
+@end

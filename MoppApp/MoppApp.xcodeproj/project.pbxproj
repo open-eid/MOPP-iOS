@@ -42,6 +42,7 @@
 		54A5729F1E82AC760099BFAF /* AppStore.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54A5729E1E82AC760099BFAF /* AppStore.plist */; };
 		54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */; };
 		A8396987106A0BBF27196838 /* Pods_MoppAppTestEnv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9243254AA71C9AE306830EF1 /* Pods_MoppAppTestEnv.framework */; };
+		BFE12450D69070A0ADF83D35 /* Pods_MoppAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 002030493DC39120645678B6 /* Pods_MoppAppTests.framework */; };
 		C506EC7C1FB9CBFD00E07226 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C506EC7B1FB9CBFD00E07226 /* Constants.swift */; };
 		C506EC7E1FB9D5A000E07226 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C506EC7D1FB9D5A000E07226 /* Assets.xcassets */; };
 		C506EC811FB9F4AF00E07226 /* UIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C506EC801FB9F4AF00E07226 /* UIImage+Additions.swift */; };
@@ -335,16 +336,21 @@
 		C5FA0BEE20A19E4200A208E5 /* JailbreakViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0BED20A19E4200A208E5 /* JailbreakViewController.swift */; };
 		DF0075C223324AC600BAB3DE /* MoppConfigurationDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */; };
 		DF0C2B3F29150EAB007E1745 /* ScaledLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0C2B3E29150EAB007E1745 /* ScaledLabel.swift */; };
+		DF0D748C27E16026006E7AB3 /* Container.storyboard in Sources */ = {isa = PBXBuildFile; fileRef = C50DCD001FC6E97400D48E16 /* Container.storyboard */; };
+		DF0D748D27E161FC006E7AB3 /* LocalizationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51B7FB61FBC45DD0046D6E0 /* LocalizationKeys.swift */; };
+		DF0D748E27E161FC006E7AB3 /* Localizable.strings in Sources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
 		DF13562E2902018A00F61823 /* MoppApp+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF13562D2902018A00F61823 /* MoppApp+Additions.swift */; };
 		DF135630290201A100F61823 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13562F290201A100F61823 /* ExternalAccessory.framework */; };
 		DF135631290201AD00F61823 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13562F290201A100F61823 /* ExternalAccessory.framework */; };
 		DF17ABCE29C0F86E009711DF /* BarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF17ABCD29C0F86E009711DF /* BarButton.swift */; };
+		DF24E9D62AD5ECFB00471FFA /* DiagnosticError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEEFCCD29AD062C0013E66B /* DiagnosticError.swift */; };
 		DF26DC8326CD45670073ABA7 /* SivaUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF26DC8226CD45670073ABA7 /* SivaUtil.swift */; };
 		DF32A67B29096B7100AE5F82 /* LogFileGenerating.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A67A29096B7100AE5F82 /* LogFileGenerating.swift */; };
 		DF32A67D2909B20C00AE5F82 /* AlertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A67C2909B20C00AE5F82 /* AlertUtil.swift */; };
 		DF32A6812909F0FA00AE5F82 /* FileLogUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A6802909F0FA00AE5F82 /* FileLogUtil.swift */; };
 		DF32A690290C983100AE5F82 /* MessageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A68E290C983100AE5F82 /* MessageUtil.swift */; };
 		DF32A691290C983100AE5F82 /* ErrorUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A68F290C983100AE5F82 /* ErrorUtil.swift */; };
+		DF3950602AD766DF005D96AC /* KeychainUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF39505F2AD766DF005D96AC /* KeychainUtil.swift */; };
 		DF3D299D23F5ADB7007181B8 /* MimeTypeExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */; };
 		DF3D29CF23F6B3CF007181B8 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; };
 		DF3D29D023F6B3CF007181B8 /* SkSigningLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -369,6 +375,14 @@
 		DFB1A492283FB9AF000B578D /* CertificateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB1A491283FB9AF000B578D /* CertificateDetailViewController.swift */; };
 		DFB970A32626136400464791 /* PreviewFileTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB970A22626136300464791 /* PreviewFileTapGestureRecognizer.swift */; };
 		DFBA32A629A5A64000788A87 /* CancelUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA32A529A5A64000788A87 /* CancelUtil.swift */; };
+		DFBDF1F227D79B8B00A5CF3C /* SettingsStateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1F127D79B8B00A5CF3C /* SettingsStateCell.swift */; };
+		DFBDF1F427D8DD4100A5CF3C /* RoleAndAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1F327D8DD4100A5CF3C /* RoleAndAddressViewController.swift */; };
+		DFBDF1FC27DF6BA800A5CF3C /* MobileIDParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1FB27DF6BA800A5CF3C /* MobileIDParameters.swift */; };
+		DFBDF1FE27DF6D3B00A5CF3C /* SmartIDParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1FD27DF6D3B00A5CF3C /* SmartIDParameters.swift */; };
+		DFBDF20027DF764400A5CF3C /* IDCardParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1FF27DF764400A5CF3C /* IDCardParameters.swift */; };
+		DFBDF20227DF7ED700A5CF3C /* IDCardSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF20127DF7ED700A5CF3C /* IDCardSignature.swift */; };
+		DFBDF20427DF89A100A5CF3C /* RoleAndAddressUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF20327DF89A100A5CF3C /* RoleAndAddressUtil.swift */; };
+		DFBDF20627E0AC7D00A5CF3C /* RoleDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF20527E0AC7D00A5CF3C /* RoleDetailsViewController.swift */; };
 		DFBEF9452434DD0C007A6762 /* UIAlertAction+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEF9442434DD0C007A6762 /* UIAlertAction+Additions.swift */; };
 		DFBF242E23DB0923008DD8D0 /* LOTLDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */; };
 		DFC18365261B387C0094E455 /* SaveableContainerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC18364261B387C0094E455 /* SaveableContainerActions.swift */; };
@@ -389,7 +403,7 @@
 		DFDF02C0241EC72D006CF443 /* SessionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDF02BF241EC72C006CF443 /* SessionStatus.swift */; };
 		DFDF02C4241ED0CA006CF443 /* MobileIDSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDF02C3241ED0CA006CF443 /* MobileIDSignature.swift */; };
 		DFEE73042A151423003428E4 /* ScaledTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEE73032A151423003428E4 /* ScaledTextView.swift */; };
-		DFEEFCCE29AD062C0013E66B /* DiagnosticError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEEFCCD29AD062C0013E66B /* DiagnosticError.swift */; };
+		DFEFF8DD2AD6DCE3003D452B /* TokenFlowSigning.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEFF8DC2AD6DCE3003D452B /* TokenFlowSigning.swift */; };
 		DFF3C3AE233231190079458A /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3AC233231180079458A /* Configuration.swift */; };
 		DFF3C3AF233231190079458A /* SettingsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3AD233231190079458A /* SettingsConfiguration.swift */; };
 		DFF3C3B22332314A0079458A /* RuntimeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3B02332314A0079458A /* RuntimeError.swift */; };
@@ -400,6 +414,9 @@
 		DFF3C3BD2332355D0079458A /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = DFF3C3B92332355C0079458A /* config.json */; };
 		DFF3C3BE2332355D0079458A /* signature.rsa in Resources */ = {isa = PBXBuildFile; fileRef = DFF3C3BA2332355C0079458A /* signature.rsa */; };
 		DFF3C3BF2332355D0079458A /* defaultConfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = DFF3C3BB2332355D0079458A /* defaultConfiguration.json */; };
+		DFF6A55727E14D3B0055F8D5 /* RoleDetailsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF6A55627E14D3B0055F8D5 /* RoleDetailsViewControllerTests.swift */; };
+		DFF6A86427E15BEE0055F8D5 /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; platformFilter = ios; };
+		DFF6A86627E15BF80055F8D5 /* FirebaseCrashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF6A86527E15BF80055F8D5 /* FirebaseCrashlytics.framework */; platformFilter = ios; };
 		E4180C371E26822000FD7B8C /* datafile.txt in Resources */ = {isa = PBXBuildFile; fileRef = E4180C361E26822000FD7B8C /* datafile.txt */; };
 		E4250CCB1E0968D200530370 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCA1E0968D200530370 /* AppDelegate.swift */; };
 		E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; };
@@ -433,6 +450,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 54A418231E83FAD200559E2B;
 			remoteInfo = shareExtension;
+		};
+		DFF6A55127E14C180055F8D5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4250CBB1E0968D200530370 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E4250CC21E0968D200530370;
+			remoteInfo = MoppApp;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -489,7 +513,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		002030493DC39120645678B6 /* Pods_MoppAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoppAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0405692A25416E5500AF6E70 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		06A1BDB0D3F3985EC0211533 /* Pods-MoppAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppAppTests/Pods-MoppAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		0BE2DE39F41BD2332B9C1ACA /* Pods-MoppAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoppAppTests/Pods-MoppAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		39158A1820C6C49100B71DD6 /* AddresseeActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddresseeActions.swift; sourceTree = "<group>"; };
 		3921CA9420B2D6D600BF3178 /* CryptoActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoActions.swift; sourceTree = "<group>"; };
 		3921CA9620B2D8A600BF3178 /* SigningActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningActions.swift; sourceTree = "<group>"; };
@@ -671,6 +698,7 @@
 		DF32A6802909F0FA00AE5F82 /* FileLogUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLogUtil.swift; sourceTree = "<group>"; };
 		DF32A68E290C983100AE5F82 /* MessageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageUtil.swift; sourceTree = "<group>"; };
 		DF32A68F290C983100AE5F82 /* ErrorUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorUtil.swift; sourceTree = "<group>"; };
+		DF39505F2AD766DF005D96AC /* KeychainUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainUtil.swift; sourceTree = "<group>"; };
 		DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypeExtractor.swift; sourceTree = "<group>"; };
 		DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF3F62AF26BD71180070F930 /* FileDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloader.swift; sourceTree = "<group>"; };
@@ -695,6 +723,14 @@
 		DFB5FF08289954F8006B3B8C /* TokenFlowUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenFlowUtil.swift; sourceTree = "<group>"; };
 		DFB970A22626136300464791 /* PreviewFileTapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewFileTapGestureRecognizer.swift; sourceTree = "<group>"; };
 		DFBA32A529A5A64000788A87 /* CancelUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelUtil.swift; sourceTree = "<group>"; };
+		DFBDF1F127D79B8B00A5CF3C /* SettingsStateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStateCell.swift; sourceTree = "<group>"; };
+		DFBDF1F327D8DD4100A5CF3C /* RoleAndAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleAndAddressViewController.swift; sourceTree = "<group>"; };
+		DFBDF1FB27DF6BA800A5CF3C /* MobileIDParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileIDParameters.swift; sourceTree = "<group>"; };
+		DFBDF1FD27DF6D3B00A5CF3C /* SmartIDParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartIDParameters.swift; sourceTree = "<group>"; };
+		DFBDF1FF27DF764400A5CF3C /* IDCardParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDCardParameters.swift; sourceTree = "<group>"; };
+		DFBDF20127DF7ED700A5CF3C /* IDCardSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDCardSignature.swift; sourceTree = "<group>"; };
+		DFBDF20327DF89A100A5CF3C /* RoleAndAddressUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleAndAddressUtil.swift; sourceTree = "<group>"; };
+		DFBDF20527E0AC7D00A5CF3C /* RoleDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleDetailsViewController.swift; sourceTree = "<group>"; };
 		DFBEF9442434DD0C007A6762 /* UIAlertAction+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Additions.swift"; sourceTree = "<group>"; };
 		DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOTLDecoder.swift; sourceTree = "<group>"; };
 		DFC18364261B387C0094E455 /* SaveableContainerActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveableContainerActions.swift; sourceTree = "<group>"; };
@@ -716,6 +752,7 @@
 		DFDF02C3241ED0CA006CF443 /* MobileIDSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileIDSignature.swift; sourceTree = "<group>"; };
 		DFEE73032A151423003428E4 /* ScaledTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledTextView.swift; sourceTree = "<group>"; };
 		DFEEFCCD29AD062C0013E66B /* DiagnosticError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticError.swift; sourceTree = "<group>"; };
+		DFEFF8DC2AD6DCE3003D452B /* TokenFlowSigning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenFlowSigning.swift; sourceTree = "<group>"; };
 		DFF3C3AC233231180079458A /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		DFF3C3AD233231190079458A /* SettingsConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsConfiguration.swift; sourceTree = "<group>"; };
 		DFF3C3B02332314A0079458A /* RuntimeError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeError.swift; sourceTree = "<group>"; };
@@ -726,6 +763,9 @@
 		DFF3C3B92332355C0079458A /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = MoppApp/config.json; sourceTree = "<group>"; };
 		DFF3C3BA2332355C0079458A /* signature.rsa */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = signature.rsa; path = MoppApp/signature.rsa; sourceTree = "<group>"; };
 		DFF3C3BB2332355D0079458A /* defaultConfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = defaultConfiguration.json; path = MoppApp/defaultConfiguration.json; sourceTree = "<group>"; };
+		DFF6A54D27E14C180055F8D5 /* MoppAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoppAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFF6A55627E14D3B0055F8D5 /* RoleDetailsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleDetailsViewControllerTests.swift; sourceTree = "<group>"; };
+		DFF6A86527E15BF80055F8D5 /* FirebaseCrashlytics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseCrashlytics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4180C361E26822000FD7B8C /* datafile.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = datafile.txt; sourceTree = "<group>"; };
 		E4250CC31E0968D200530370 /* MoppApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoppApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250CCA1E0968D200530370 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -766,6 +806,16 @@
 				C5EA713D2176057A00440F4A /* WebKit.framework in Frameworks */,
 				C5EA71412176057A00440F4A /* CryptoLib.framework in Frameworks */,
 				A8396987106A0BBF27196838 /* Pods_MoppAppTestEnv.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFF6A54A27E14C180055F8D5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFF6A86627E15BF80055F8D5 /* FirebaseCrashlytics.framework in Frameworks */,
+				DFF6A86427E15BEE0055F8D5 /* MoppLib.framework in Frameworks */,
+				BFE12450D69070A0ADF83D35 /* Pods_MoppAppTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -816,6 +866,11 @@
 				4E5907FF24B0F914001B23A6 /* SmartIDEditViewController.swift */,
 				C50DCD1A1FD1576B00D48E16 /* SigningTableViewHeaderView.swift */,
 				C54EA6E420444EC90039AC78 /* TokenFlowSelectionViewController.swift */,
+				DFBDF1F327D8DD4100A5CF3C /* RoleAndAddressViewController.swift */,
+				DFBDF1FB27DF6BA800A5CF3C /* MobileIDParameters.swift */,
+				DFBDF1FD27DF6D3B00A5CF3C /* SmartIDParameters.swift */,
+				DFBDF1FF27DF764400A5CF3C /* IDCardParameters.swift */,
+				DFEFF8DC2AD6DCE3003D452B /* TokenFlowSigning.swift */,
 			);
 			name = "Token flow";
 			sourceTree = "<group>";
@@ -866,6 +921,8 @@
 				3F911EB9E3AB94D442FA9F9D /* Pods-MoppApp.release.xcconfig */,
 				CD15B1228E3C241B478D570C /* Pods-MoppAppTestEnv.debug.xcconfig */,
 				8184F28EF072722FEA0124A2 /* Pods-MoppAppTestEnv.release.xcconfig */,
+				06A1BDB0D3F3985EC0211533 /* Pods-MoppAppTests.debug.xcconfig */,
+				0BE2DE39F41BD2332B9C1ACA /* Pods-MoppAppTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -918,6 +975,7 @@
 				3921CAAE20B826E700BF3178 /* AddresseeViewController.swift */,
 				C50DCD041FC7125300D48E16 /* ContainerNotificationCell.swift */,
 				C50DCD061FC7126100D48E16 /* ContainerSignatureCell.swift */,
+				DFBDF20527E0AC7D00A5CF3C /* RoleDetailsViewController.swift */,
 				C50DCD081FC7127400D48E16 /* ContainerFileCell.swift */,
 				C50DCD0A1FC7128900D48E16 /* ContainerHeaderCell.swift */,
 				3921CAA620B5A39F00BF3178 /* ContainerAddresseeCell.swift */,
@@ -1089,6 +1147,7 @@
 				C51E8A0E21A2F2AD0054662A /* SettingsTimeStampCell.swift */,
 				DF8EFB19287498B900A96DE3 /* SettingsDefaultValueCell.swift */,
 				DFD54CF429CDDB0600CD92C7 /* SettingsTSACertCell.swift */,
+				DFBDF1F127D79B8B00A5CF3C /* SettingsStateCell.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1171,6 +1230,14 @@
 			name = Errors;
 			sourceTree = "<group>";
 		};
+		DFF6A54E27E14C180055F8D5 /* MoppAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				DFF6A55627E14D3B0055F8D5 /* RoleDetailsViewControllerTests.swift */,
+			);
+			path = MoppAppTests;
+			sourceTree = "<group>";
+		};
 		E4250CBA1E0968D200530370 = {
 			isa = PBXGroup;
 			children = (
@@ -1181,6 +1248,7 @@
 				DFF3C3BA2332355C0079458A /* signature.rsa */,
 				E4250CC51E0968D200530370 /* MoppApp */,
 				54A418251E83FAD200559E2B /* shareExtension */,
+				DFF6A54E27E14C180055F8D5 /* MoppAppTests */,
 				E4250CC41E0968D200530370 /* Products */,
 				BC2D5E4C8EAB0299962763A0 /* Pods */,
 				F9074FEF4DC2DB83A60B75B9 /* Frameworks */,
@@ -1193,6 +1261,7 @@
 				E4250CC31E0968D200530370 /* MoppApp.app */,
 				54A418241E83FAD200559E2B /* shareExtension.appex */,
 				C5EA71892176057A00440F4A /* MoppAppTestEnv.app */,
+				DFF6A54D27E14C180055F8D5 /* MoppAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1293,6 +1362,7 @@
 				E4C53F4A1E30D03500F209BE /* DefaultsHelper.swift */,
 				DFDF02C3241ED0CA006CF443 /* MobileIDSignature.swift */,
 				4E59080324B2E295001B23A6 /* SmartIDSignature.swift */,
+				DFBDF20127DF7ED700A5CF3C /* IDCardSignature.swift */,
 				DFDF02BD241EB5D3006CF443 /* SessionCertificate.swift */,
 				E4C53F4D1E30D13100F209BE /* Session.swift */,
 				DFDF02BF241EC72C006CF443 /* SessionStatus.swift */,
@@ -1316,6 +1386,8 @@
 				DFBA32A529A5A64000788A87 /* CancelUtil.swift */,
 				DFDC0AB929FAD8F2002D1D1D /* ViewUtil.swift */,
 				DFD54CF629D1CBAF00CD92C7 /* TSACertUtil.swift */,
+				DFBDF20327DF89A100A5CF3C /* RoleAndAddressUtil.swift */,
+				DF39505F2AD766DF005D96AC /* KeychainUtil.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1325,6 +1397,7 @@
 			children = (
 				393B66E120DB94CD001DC89B /* cdoc.framework */,
 				DF13562F290201A100F61823 /* ExternalAccessory.framework */,
+				DFF6A86527E15BF80055F8D5 /* FirebaseCrashlytics.framework */,
 				DFF3C3B62332335C0079458A /* Pods_MoppApp.framework */,
 				C5F974D12176465400A167C7 /* MoppLibTestEnv.framework */,
 				39852A6120AB2949004CB100 /* CryptoLib.framework */,
@@ -1332,6 +1405,7 @@
 				E4250D051E0A911100530370 /* MoppLib.framework */,
 				9243254AA71C9AE306830EF1 /* Pods_MoppAppTestEnv.framework */,
 				DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */,
+				002030493DC39120645678B6 /* Pods_MoppAppTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1379,6 +1453,26 @@
 			productName = MoppApp;
 			productReference = C5EA71892176057A00440F4A /* MoppAppTestEnv.app */;
 			productType = "com.apple.product-type.application";
+		};
+		DFF6A54C27E14C180055F8D5 /* MoppAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFF6A55527E14C180055F8D5 /* Build configuration list for PBXNativeTarget "MoppAppTests" */;
+			buildPhases = (
+				468877053BD3406130A9CE16 /* [CP] Check Pods Manifest.lock */,
+				DFF6A54927E14C180055F8D5 /* Sources */,
+				DFF6A54A27E14C180055F8D5 /* Frameworks */,
+				DFF6A7C927E156EB0055F8D5 /* Resources */,
+				12B0F1C04FD89A795D0DB8DF /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DFF6A55227E14C180055F8D5 /* PBXTargetDependency */,
+			);
+			name = MoppAppTests;
+			productName = MoppAppTests;
+			productReference = DFF6A54D27E14C180055F8D5 /* MoppAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		E4250CC21E0968D200530370 /* MoppApp */ = {
 			isa = PBXNativeTarget;
@@ -1429,6 +1523,10 @@
 						DevelopmentTeam = ET847QJV9F;
 						ProvisioningStyle = Manual;
 					};
+					DFF6A54C27E14C180055F8D5 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = E4250CC21E0968D200530370;
+					};
 					E4250CC21E0968D200530370 = {
 						CreatedOnToolsVersion = 8.0;
 						LastSwiftMigration = 0900;
@@ -1459,6 +1557,7 @@
 				E4250CC21E0968D200530370 /* MoppApp */,
 				C5EA70CD2176057A00440F4A /* MoppAppTestEnv */,
 				54A418231E83FAD200559E2B /* shareExtension */,
+				DFF6A54C27E14C180055F8D5 /* MoppAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1536,6 +1635,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DFF6A7C927E156EB0055F8D5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E4250CC11E0968D200530370 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1610,6 +1716,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		12B0F1C04FD89A795D0DB8DF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MoppAppTests/Pods-MoppAppTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MoppAppTests/Pods-MoppAppTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MoppAppTests/Pods-MoppAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3587AFB7240E99D207629811 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1625,6 +1748,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MoppApp/Pods-MoppApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		468877053BD3406130A9CE16 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MoppAppTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		54415B641E52F23C00B66A89 /* ShellScript */ = {
@@ -1893,6 +2038,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DFF6A54927E14C180055F8D5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF0D748D27E161FC006E7AB3 /* LocalizationKeys.swift in Sources */,
+				DF0D748E27E161FC006E7AB3 /* Localizable.strings in Sources */,
+				DF0D748C27E16026006E7AB3 /* Container.storyboard in Sources */,
+				DFF6A55727E14D3B0055F8D5 /* RoleDetailsViewControllerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E4250CBF1E0968D200530370 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1900,7 +2056,6 @@
 				3921CAAD20B819B500BF3178 /* ContainerNoAddresseesCell.swift in Sources */,
 				54825EF51E1CFE9600253FF0 /* Date+Additions.swift in Sources */,
 				C50DCD1F1FD1831500D48E16 /* SearchTextField.swift in Sources */,
-				DFEEFCCE29AD062C0013E66B /* DiagnosticError.swift in Sources */,
 				3921CAAF20B826E700BF3178 /* AddresseeViewController.swift in Sources */,
 				C50DCD0F1FC7181400D48E16 /* UITableView+Additions.swift in Sources */,
 				E4C53F4B1E30D03500F209BE /* DefaultsHelper.swift in Sources */,
@@ -1913,11 +2068,13 @@
 				DF0C2B3F29150EAB007E1745 /* ScaledLabel.swift in Sources */,
 				C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */,
 				C593D9F6208F39DF000B3BF6 /* SettingsChoiceButton.swift in Sources */,
+				DFEFF8DD2AD6DCE3003D452B /* TokenFlowSigning.swift in Sources */,
 				C58FCD5F20650BBE00FE3B57 /* MyeIDInfoCell.swift in Sources */,
 				C51E8A0F21A2F2AD0054662A /* SettingsTimeStampCell.swift in Sources */,
 				C5F462AA209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift in Sources */,
 				C5D057022023016300875F44 /* RecentContainersEmptyListCell.swift in Sources */,
 				C50DCD171FCEF17100D48E16 /* UIStoryBoard+Additions.swift in Sources */,
+				DFBDF20627E0AC7D00A5CF3C /* RoleDetailsViewController.swift in Sources */,
 				C5AA42C7207F51EB0031F3AA /* MyeIDChangeCodesViewController.swift in Sources */,
 				C50DCD241FD69B0C00D48E16 /* SpinnerView.swift in Sources */,
 				DF0075C223324AC600BAB3DE /* MoppConfigurationDecoder.swift in Sources */,
@@ -1938,9 +2095,11 @@
 				C50DCD191FD1542A00D48E16 /* RecentContainersNameCell.swift in Sources */,
 				C593D9F0208F1C16000B3BF6 /* SettingsFieldCell.swift in Sources */,
 				C593D9E8208F1986000B3BF6 /* SettingsViewController.swift in Sources */,
+				DFBDF20227DF7ED700A5CF3C /* IDCardSignature.swift in Sources */,
 				C54EA6E520444EC90039AC78 /* TokenFlowSelectionViewController.swift in Sources */,
 				DFF3C3B32332314A0079458A /* SignatureVerifier.swift in Sources */,
 				DF17ABCE29C0F86E009711DF /* BarButton.swift in Sources */,
+				DFBDF1F227D79B8B00A5CF3C /* SettingsStateCell.swift in Sources */,
 				C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */,
 				C58FCD5D206505D500FE3B57 /* MyeIDInfoViewController.swift in Sources */,
 				DFDF02BE241EB5D3006CF443 /* SessionCertificate.swift in Sources */,
@@ -1956,6 +2115,8 @@
 				3921CAA920B5A54600BF3178 /* ContainerImportAddressees.swift in Sources */,
 				C56C6206201A189600CCC2A5 /* MenuHeaderCell.swift in Sources */,
 				DFBF242E23DB0923008DD8D0 /* LOTLDecoder.swift in Sources */,
+				DF24E9D62AD5ECFB00471FFA /* DiagnosticError.swift in Sources */,
+				DF3950602AD766DF005D96AC /* KeychainUtil.swift in Sources */,
 				C50DCD441FDD7E4A00D48E16 /* DataFilePreviewViewController.swift in Sources */,
 				C50FC431224BA3B20041925C /* ScreenDisguise.swift in Sources */,
 				DF32A690290C983100AE5F82 /* MessageUtil.swift in Sources */,
@@ -1980,6 +2141,8 @@
 				39487CBE210B18F90082D910 /* CdocParserDelegate.swift in Sources */,
 				DFD176D423F427AD00E2CC52 /* TSLVersionChecker.swift in Sources */,
 				DF4B8418284008CF005CB875 /* SignatureDetail.swift in Sources */,
+				DFBDF1F427D8DD4100A5CF3C /* RoleAndAddressViewController.swift in Sources */,
+				DFBDF1FE27DF6D3B00A5CF3C /* SmartIDParameters.swift in Sources */,
 				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
 				DF7F611926399B5400747B7D /* ContainerRemovalActions.swift in Sources */,
 				C55BB1CA2090C17F00618AC4 /* AboutViewController.swift in Sources */,
@@ -2009,6 +2172,7 @@
 				C5964CE820079AE0001FE732 /* TabButton.swift in Sources */,
 				3921CA9920B2F5B200BF3178 /* PreviewActions.swift in Sources */,
 				DFBA32A629A5A64000788A87 /* CancelUtil.swift in Sources */,
+				DFBDF1FC27DF6BA800A5CF3C /* MobileIDParameters.swift in Sources */,
 				C56C620F201A2B6500CCC2A5 /* RecentContainersHeaderCell.swift in Sources */,
 				C593D9F4208F3526000B3BF6 /* SettingsChoiceView.swift in Sources */,
 				C5CF5EEC2017E4CC008FBBD6 /* FileImportProgressViewController.swift in Sources */,
@@ -2036,10 +2200,12 @@
 				C50DCD131FCC4D3000D48E16 /* UIView+Additions.swift in Sources */,
 				DF53DCEA2A0A9D8A00F5DAF6 /* NotificationMessage.swift in Sources */,
 				C537AE542004C29E009037E5 /* MobileIDEditViewController.swift in Sources */,
+				DFBDF20027DF764400A5CF3C /* IDCardParameters.swift in Sources */,
 				3921CAA520B5A24A00BF3178 /* CryptoContainerViewController.swift in Sources */,
 				C50DCCCB1FC32A3E00D48E16 /* SigningViewController.swift in Sources */,
 				C5FA0BE920A1930400A208E5 /* MoppApp+Jailbreak.swift in Sources */,
 				4E59080424B2E295001B23A6 /* SmartIDSignature.swift in Sources */,
+				DFBDF20427DF89A100A5CF3C /* RoleAndAddressUtil.swift in Sources */,
 				E42B08AE1E1EFC1800EA24A3 /* DateFormatter.swift in Sources */,
 				DFC2ADBE294375FA008A1CD2 /* TokenFlowUtil.swift in Sources */,
 				DFDF02C4241ED0CA006CF443 /* MobileIDSignature.swift in Sources */,
@@ -2074,6 +2240,12 @@
 			isa = PBXTargetDependency;
 			target = 54A418231E83FAD200559E2B /* shareExtension */;
 			targetProxy = C5EA70CF2176057A00440F4A /* PBXContainerItemProxy */;
+		};
+		DFF6A55227E14C180055F8D5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = E4250CC21E0968D200530370 /* MoppApp */;
+			targetProxy = DFF6A55127E14C180055F8D5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2240,6 +2412,79 @@
 			};
 			name = Release;
 		};
+		DFF6A55327E14C180055F8D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06A1BDB0D3F3985EC0211533 /* Pods-MoppAppTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.MoppAppTests;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoppApp.app/MoppApp";
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+			};
+			name = Debug;
+		};
+		DFF6A55427E14C180055F8D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0BE2DE39F41BD2332B9C1ACA /* Pods-MoppAppTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.MoppAppTests;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoppApp.app/MoppApp";
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+			};
+			name = Release;
+		};
 		E4250CD81E0968D200530370 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2363,7 +2608,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MoppApp/MoppApp.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_ACTIVITY_MODE = "";
@@ -2473,6 +2717,15 @@
 			buildConfigurations = (
 				C5EA71872176057A00440F4A /* Debug */,
 				C5EA71882176057A00440F4A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFF6A55527E14C180055F8D5 /* Build configuration list for PBXNativeTarget "MoppAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFF6A55327E14C180055F8D5 /* Debug */,
+				DFF6A55427E14C180055F8D5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

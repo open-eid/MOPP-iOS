@@ -1,5 +1,5 @@
 //
-//  NotificationMessage.swift
+//  RoleAndAddressUtil.swift
 //  MoppApp
 //
 /*
@@ -23,7 +23,17 @@
 
 import Foundation
 
-struct NotificationMessage: Equatable {
-    let isSuccess: Bool
-    let text: String
+class RoleAndAddressUtil {
+    
+    static func saveRoleInfo(roleData: MoppLibRoleAddressData?) {
+        DefaultsHelper.roleNames = roleData?.roles ?? [String]()
+        DefaultsHelper.roleCity = roleData?.city ?? ""
+        DefaultsHelper.roleState = roleData?.state ?? ""
+        DefaultsHelper.roleCountry = roleData?.country ?? ""
+        DefaultsHelper.roleZip = roleData?.zip ?? ""
+    }
+    
+    static func getSavedRoleInfo() -> MoppLibRoleAddressData {
+        return MoppLibRoleAddressData(roles: DefaultsHelper.roleNames, city: DefaultsHelper.roleCity, state: DefaultsHelper.roleState, country: DefaultsHelper.roleCountry, zip: DefaultsHelper.roleZip)
+    }
 }

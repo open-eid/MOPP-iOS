@@ -172,6 +172,13 @@ enum LocKey : String
     case importingFilesProgressMessage = "importing-files-progress-message"
     case mobileIdSignHelpTitle = "mobile-id-sign-help-title"
     case smartIdSignHelpTitle = "smart-id-sign-help-title"
+    case roleAndAddress = "role-and-address"
+    case roleAndAddressTitle = "role-and-address-title"
+    case roleAndAddressRoleTitle = "role-and-address-role-title"
+    case roleAndAddressCityTitle = "role-and-address-city-title"
+    case roleAndAddressStateTitle = "role-and-address-state-title"
+    case roleAndAddressCountryTitle = "role-and-address-country-title"
+    case roleAndAddressZipTitle = "role-and-address-zip-title"
     case doneButtonTitle = "done-button-title"
     case recentContainersEmptyListTitle = "recent-containers-empty-list-title"
     case recentContainersEmptySearchMessage = "recent-containers-empty-search-message"
@@ -297,6 +304,7 @@ enum LocKey : String
     case settingsTimestampUrlPlaceholder = "settings-timestamp-url-placeholder"
     case settingsTimestampUseDefaultTitle = "settings-timestamp-use-default-title"
     case settingsIdCodePlaceholder = "settings-id-code-placeholder"
+    case settingsRoleAndAddressTitle = "settings-role-and-address-title"
     case settingsValueChanged = "settings-value-changed"
     case settingsTimestampCertTitle = "settings-timestamp-cert-title"
     case settingsTimestampCertIssuedToLabel = "settings-timestamp-cert-issued-to-label"
@@ -463,4 +471,9 @@ enum LocKey : String
     case voiceControlTabDecrypt = "voice-control-tab-decrypt";
     case voiceControlTabConfirm = "voice-control-tab-confirm";
     case voiceControlSearchRecipients = "voice-control-search-recipients";
+    case voiceControlRoleRole = "voice-control-role-role";
+    case voiceControlRoleCity = "voice-control-role-city";
+    case voiceControlRoleState = "voice-control-role-state";
+    case voiceControlRoleCountry = "voice-control-role-country";
+    case voiceControlRoleZip = "voice-control-role-zip";
 }

@@ -1,5 +1,5 @@
 //
-//  NotificationMessage.swift
+//  SmartIDParameters.swift
 //  MoppApp
 //
 /*
@@ -23,7 +23,10 @@
 
 import Foundation
 
-struct NotificationMessage: Equatable {
-    let isSuccess: Bool
-    let text: String
+internal struct SmartIDParameters {
+    let country: String
+    let idCode: String
+    let containerPath: String
+    let hashType: String
+    let roleData: MoppLibRoleAddressData?
 }

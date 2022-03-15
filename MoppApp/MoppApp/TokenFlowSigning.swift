@@ -1,5 +1,5 @@
 //
-//  NotificationMessage.swift
+//  TokenFlowSigning.swift
 //  MoppApp
 //
 /*
@@ -23,7 +23,6 @@
 
 import Foundation
 
-struct NotificationMessage: Equatable {
-    let isSuccess: Bool
-    let text: String
+protocol TokenFlowSigning {
+    func sign(_ pin: String?)
 }
