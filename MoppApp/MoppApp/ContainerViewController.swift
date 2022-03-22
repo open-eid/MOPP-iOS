@@ -80,7 +80,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
 
     var isSignaturesEmpty: Bool {
         if !isAsicContainer { return true }
-        return signingContainerViewDelegate.getSignaturesCount() == 0
+        return asicsSignatures.count == 0 && signingContainerViewDelegate.getSignaturesCount() == 0
     }
 
     enum Section {
@@ -344,7 +344,7 @@ extension ContainerViewController : UITableViewDataSource {
             if !isAsicContainer {
                 return 0
             }
-            return signingContainerViewDelegate.getSignaturesCount()
+            return asicsSignatures.isEmpty ? signingContainerViewDelegate.getSignaturesCount() : asicsSignatures.count
         case .dataFiles:
             return containerViewDelegate.getDataFileCount()
         case .addressees:
@@ -394,7 +394,7 @@ extension ContainerViewController : UITableViewDataSource {
         case .signatures:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
                 cell.delegate = self
-            var signature = signingContainerViewDelegate.getSignature(index: indexPath.row) as? MoppLibSignature
+            var signature = asicsSignatures.isEmpty ? (signingContainerViewDelegate.getSignature(index: indexPath.row) as? MoppLibSignature) : asicsSignatures[indexPath.row]
             if isAsicsContainer() && !asicsSignatures.isEmpty && signingContainerViewDelegate.getTimestampTokensCount() > 0 && asicsSignatures.count >= indexPath.row {
                 signature = asicsSignatures[indexPath.row]
                 let containerExtension: String = URL(fileURLWithPath: containerPath).pathExtension
@@ -412,7 +412,7 @@ extension ContainerViewController : UITableViewDataSource {
                 with: signature ?? MoppLibSignature(),
                 kind: .signature,
                 isTimestamp: false,
-                showBottomBorder: row < signingContainerViewDelegate.getSignaturesCount() - 1,
+                showBottomBorder: row < (asicsSignatures.isEmpty ? signingContainerViewDelegate.getSignaturesCount() : asicsSignatures.count) - 1,
                 showRemoveButton: !isForPreview && signingContainerViewDelegate.isContainerSignable(),
                 signatureIndex: row)
             cell.removeButton.accessibilityLabel = L(.signatureRemoveButton)
@@ -788,7 +788,7 @@ extension ContainerViewController : UITableViewDelegate {
             var signaturesCount = 0
             var isContainerSignable = false
             if isAsicContainer {
-                signaturesCount = signingContainerViewDelegate.getSignaturesCount()
+                signaturesCount = asicsSignatures.isEmpty ? signingContainerViewDelegate.getSignaturesCount() : asicsSignatures.count
                 isContainerSignable = signingContainerViewDelegate.isContainerSignable()
             }
 
