@@ -20,18 +20,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
+import UIKit
 class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var appVersionLabel: UILabel!
     @IBOutlet weak var opSysVersionLabel: UILabel!
     @IBOutlet weak var librariesTitleLabel: UILabel!
     @IBOutlet weak var librariesLabel: UILabel!
+    @IBOutlet weak var urlsLabel: UILabel!
     @IBOutlet weak var centralConfigurationLabel: UILabel!
     @IBOutlet weak var updateDateLabel: UILabel!
     @IBOutlet weak var lastCheckLabel: UILabel!
     @IBOutlet weak var refreshConfigurationLabel: UIButton!
     @IBOutlet weak var saveDiagnosticsLabel: UIButton!
-
+    
     @IBOutlet weak var configURL: UILabel!
     @IBOutlet weak var tslURL: UILabel!
     @IBOutlet weak var sivaURL: UILabel!
@@ -99,15 +102,43 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         super.viewDidLoad()
 
         titleLabel.text = L(.diagnosticsTitle)
-        appVersionLabel.attributedText = attributedTextForBoldRegularText(key: L(.diagnosticsAppVersion) + ": ", value: MoppApp.versionString)
-        opSysVersionLabel.attributedText = attributedTextForBoldRegularText(key: L(.diagnosticsIosVersion) + ": ", value: "iOS " +  MoppApp.iosVersion)
-        librariesTitleLabel.attributedText = attributedTextForBoldRegularText(key: L(.diagnosticsLibrariesLabel), value: String())
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
+        if isNonDefaultPreferredContentSizeCategory() {
+            titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
+        appVersionLabel.text = "\(L(.diagnosticsAppVersion)): \(MoppApp.versionString)"
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            appVersionLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
+        opSysVersionLabel.text = "\(L(.diagnosticsIosVersion)): iOS \(MoppApp.iosVersion)"
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            opSysVersionLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
+        librariesTitleLabel.text = "\(L(.diagnosticsLibrariesLabel))"
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            librariesTitleLabel.font = UIFont.setCustomFont(font: .medium, nil, .body)
+        }
         let libdigidocppVersion = MoppLibManager.sharedInstance().libdigidocppVersion() ?? String()
-        librariesLabel.attributedText = attributedTextForBoldRegularText(key: String(), value: "libdigidocpp \(libdigidocppVersion)")
+        librariesLabel.text = "libdigidocpp \(libdigidocppVersion)"
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            librariesLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            urlsLabel.font = UIFont.setCustomFont(font: .medium, nil, .body)
+        }
         centralConfigurationLabel.text = L(.centralConfigurationLabel)
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            centralConfigurationLabel.font = UIFont.setCustomFont(font: .medium, nil, .body)
+        }
         refreshConfigurationLabel.setTitle(L(.refreshConfigurationLabel))
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            refreshConfigurationLabel.titleLabel?.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
         saveDiagnosticsLabel.setTitle(L(.saveDiagnosticsLabel))
-
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            saveDiagnosticsLabel.titleLabel?.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
+        
         configurationToUI()
 
         listenForConfigUpdates()
@@ -130,7 +161,19 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     @objc func handleConfigurationLoaded(notification: Notification) {
         self.viewDidLoad()
     }
-
+    
+    private func setContentSizeFont() {
+        for label in getAllTextLabels(view: view) {
+            if let text = label.text {
+                if isCategoryLabel(text: text) {
+                    label.font = UIFont.setCustomFont(font: .medium, nil, .body)
+                } else if !isTitleLabel(text: text) {
+                    label.font = UIFont.setCustomFont(font: .regular, nil, .body)
+                }
+            }
+        }
+    }
+    
     private func configurationToUI() {
         let decodedConf = getMoppConfiguration()
 
@@ -166,6 +209,10 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
             lastCheckDate.text = formatString(text: L(.lastUpdateCheckDateLabel), additionalText: MoppDateFormatter().dateToString(date: cachedLastUpdateCheckDate))
         } else {
             lastCheckDate.text = formatString(text: L(.lastUpdateCheckDateLabel), additionalText: " ")
+        }
+        
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            setContentSizeFont()
         }
     }
 
@@ -262,7 +309,15 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     }
     
     private func isTitleOrButtonLabel(text: String) -> Bool {
-        return text == L(.diagnosticsTitle) || text == L(.refreshConfigurationLabel) || text == L(.saveDiagnosticsLabel)
+        return isTitleLabel(text: text) || isButtonLabel(text: text)
+    }
+    
+    private func isTitleLabel(text: String) -> Bool {
+        return text == L(.diagnosticsTitle)
+    }
+    
+    private func isButtonLabel(text: String) -> Bool {
+        return text == L(.refreshConfigurationLabel) || text == L(.saveDiagnosticsLabel)
     }
     
     private func isCategoryLabel(text: String) -> Bool {

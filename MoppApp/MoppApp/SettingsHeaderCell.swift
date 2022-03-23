@@ -34,6 +34,8 @@ class SettingsHeaderCell: UITableViewCell {
     
     func populate(with title:String) {
         titleLabel.text = title
+        titleLabel.font = UIFont.moppLargeMedium
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
     }
     
     override func awakeFromNib() {

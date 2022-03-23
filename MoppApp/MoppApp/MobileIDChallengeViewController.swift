@@ -22,6 +22,7 @@
  */
 
 import SkSigningLib
+import UIKit
 
 private var kRequestTimeout: Double = 120.0
 
@@ -39,6 +40,13 @@ class MobileIDChallengeViewController : UIViewController {
     var sessionTimer: Timer?
     
     var isAnnouncementMade: Bool = false
+    
+    func setCustomFont() {
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            helpLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+            codeLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +69,8 @@ class MobileIDChallengeViewController : UIViewController {
             selector: #selector(didFinishAnnouncement(_:)),
             name: UIAccessibility.announcementDidFinishNotification,
             object: nil)
+        
+        setCustomFont()
     }
     
     @objc func didFinishAnnouncement(_ notification: Notification) {

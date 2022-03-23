@@ -41,12 +41,21 @@ class SmartIDChallengeViewController : UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveCreateSignatureNotification), name: .createSignatureNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveCreateSignatureStatus), name: .signatureAddedToContainerNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveErrorNotification), name: .errorNotificationName, object: nil)
-        
+
         timeoutProgressView.isAccessibilityElement = false
+
+        UIAccessibility.post(notification: .announcement, argument: timeoutProgressView.progress)
+
+        setCustomFont()
     }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+
+    func setCustomFont() {
+        helpLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        codeLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
     }
 
     @objc func receiveSelectAccountNotification(_ notification: Notification) {
@@ -76,7 +85,7 @@ class SmartIDChallengeViewController : UIViewController {
             let message: NSAttributedString = NSAttributedString(string: challengeIdAccessibilityLabel, attributes: [.accessibilitySpeechQueueAnnouncement: true])
             UIAccessibility.post(notification: .announcement, argument: message)
         }
-        
+
         timeoutProgressView.isAccessibilityElement = true
 
         let notificationCenter = UNUserNotificationCenter.current()
@@ -105,7 +114,7 @@ class SmartIDChallengeViewController : UIViewController {
         let message = SkSigningLib_LocalizedString(signingErrorMessage?.signingErrorDescription ?? errorMessage)
         self.dismiss(animated: false) {
             let topViewController = self.getTopViewController()
-            
+
             let errorMessageNoLink = message.removeFirstLinkFromMessage()
             let alert = UIAlertController(title: L(.errorAlertTitleGeneral), message: errorMessageNoLink, preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -114,7 +123,7 @@ class SmartIDChallengeViewController : UIViewController {
                     alert.addAction(alertActionUrl)
                 }
             }
-            
+
             topViewController.present(alert, animated: true, completion: nil)
         }
     }
