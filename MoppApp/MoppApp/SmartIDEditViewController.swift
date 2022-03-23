@@ -82,15 +82,8 @@ class SmartIDEditViewController : MoppViewController {
 
         countryViewPicker.dataSource = self
         countryViewPicker.delegate = self
-        let pickerToolbar = UIToolbar()
-        pickerToolbar.barStyle = .default
-        pickerToolbar.isUserInteractionEnabled = true
-        pickerToolbar.items = [
-            UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target:self, action:nil),
-            UIBarButtonItem(barButtonSystemItem:.done, target: self, action: #selector(pickerDoneButtonTapped))
-        ]
-        pickerToolbar.sizeToFit()
-        countryTextField.inputAccessoryView = pickerToolbar
+        
+        countryTextField.moppPresentDismissButton()
         countryTextField.inputView = countryViewPicker
         countryTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         countryTextField.layer.borderWidth = 1.0
