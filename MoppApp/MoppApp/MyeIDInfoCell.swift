@@ -48,7 +48,7 @@ class MyeIDInfoCell: UITableViewCell {
     func populate(titleText: String, with expiryDateString: String) {
 
         titleLabel.text = titleText
-        titleLabel.accessibilityLabel = titleText
+        titleLabel.accessibilityLabel = titleText.lowercased()
         
         let font = UIFont(name: MoppFontName.allCapsBold.rawValue, size: 17)!
         let attrText = NSMutableAttributedString(string: expiryDateString, attributes: [.font: font])

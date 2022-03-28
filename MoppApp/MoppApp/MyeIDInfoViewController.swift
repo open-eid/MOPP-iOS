@@ -46,6 +46,15 @@ class MyeIDInfoViewController: MoppViewController {
         // Prevent accessibility focus jumping after returning to main My eID view
         if infoManager.hasMyEidPageChanged {
             ui.tableView.accessibilityElementsHidden = true
+            enableAccessibilityElements()
+        }
+    }
+    
+    func enableAccessibilityElements() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            self.ui.tableView.accessibilityElementsHidden = false
+            self.ui.tableView.reloadData()
+            self.infoManager.hasMyEidPageChanged = false
         }
     }
 }
@@ -105,9 +114,7 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
                 
                 // Prevent accessibility focus jumping after returning to main My eID view
                 if infoManager.hasMyEidPageChanged {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                        self.ui.tableView.accessibilityElementsHidden = false
-                    }
+                    enableAccessibilityElements()
                 }
             }
             return cell

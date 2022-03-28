@@ -150,14 +150,15 @@ class MyeIDPinPukCell: UITableViewCell {
                     if savedLastFocusElement == .changePIN1 {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             self.showAccessibilityElements()
-                            UIAccessibility.post(notification: .screenChanged, argument: self.button)
+                            UIAccessibility.post(notification: .layoutChanged, argument: self.button)
                         }
                     } else if savedLastFocusElement == .unblockPIN1 {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             self.showAccessibilityElements()
-                            UIAccessibility.post(notification: .screenChanged, argument: self.linkButton)
+                            UIAccessibility.post(notification: .layoutChanged, argument: self.linkButton)
                         }
                     }
+                    self.showAccessibilityElements()
                 }
             }
         }
@@ -185,11 +186,13 @@ class MyeIDPinPukCell: UITableViewCell {
                 if UIAccessibility.isVoiceOverRunning {
                     if savedLastFocusElement == .changePIN2 {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            UIAccessibility.post(notification: .screenChanged, argument: self.button)
+                            self.showAccessibilityElements()
+                            UIAccessibility.post(notification: .layoutChanged, argument: self.button)
                         }
                     } else if savedLastFocusElement == .unblockPIN2 {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            UIAccessibility.post(notification: .screenChanged, argument: self.linkButton)
+                            self.showAccessibilityElements()
+                            UIAccessibility.post(notification: .layoutChanged, argument: self.linkButton)
                         }
                     }
                 }
@@ -212,7 +215,8 @@ class MyeIDPinPukCell: UITableViewCell {
                 
                 if UIAccessibility.isVoiceOverRunning && savedLastFocusElement == .changePUK {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        UIAccessibility.post(notification: .screenChanged, argument: self.button)
+                        self.showAccessibilityElements()
+                        UIAccessibility.post(notification: .layoutChanged, argument: self.button)
                     }
                 }
             }
