@@ -60,7 +60,7 @@ extension ContainerActions where Self: UIViewController {
         MoppFileManager.shared.importFiles(with: urls) { [weak self] error, dataFilePaths in
 
             if error != nil {
-                NSLog(error?.localizedDescription ?? "No error description")
+                printLog(error?.localizedDescription ?? "No error description")
                 if topSigningViewController.presentedViewController is FileImportProgressViewController {
                     self?.dismiss(animated: true, completion: {
                         if let nsError = error as NSError?, !nsError.userInfo.isEmpty, nsError.userInfo[NSLocalizedDescriptionKey] != nil {

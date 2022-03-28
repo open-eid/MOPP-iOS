@@ -242,7 +242,7 @@ extension AddresseeViewController : UITableViewDelegate {
 extension AddresseeViewController : ContainerTableViewHeaderDelegate {
     func didTapContainerHeaderButton() {
         guard let landingViewControllerContainerType = LandingViewController.shared.containerType else {
-            NSLog("Unable to get LandingViewControlelr container type")
+            printLog("Unable to get LandingViewControlelr container type")
             return
         }
         NotificationCenter.default.post(

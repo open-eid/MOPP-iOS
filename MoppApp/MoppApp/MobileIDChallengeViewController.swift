@@ -28,19 +28,19 @@ private var kRequestTimeout: Double = 120.0
 
 
 class MobileIDChallengeViewController : UIViewController {
-    
+
     @IBOutlet weak var codeLabel: UILabel!
     @IBOutlet weak var timeoutProgressView: UIProgressView!
     @IBOutlet weak var helpLabel: UILabel!
-    
+
     var challengeID = String()
     var sessCode = String()
 
     var currentProgress: Double = 0.0
     var sessionTimer: Timer?
-    
+
     var isAnnouncementMade: Bool = false
-    
+
     func setCustomFont() {
         if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
             helpLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
@@ -50,7 +50,7 @@ class MobileIDChallengeViewController : UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         helpLabel.text = L(.mobileIdSignHelpTitle)
         codeLabel.isHidden = true
         timeoutProgressView.progress = 0
@@ -63,27 +63,27 @@ class MobileIDChallengeViewController : UIViewController {
             selector: #selector(receiveMobileCreateSignatureNotification),
             name: .createSignatureNotificationName,
             object: nil)
-        
+
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(didFinishAnnouncement(_:)),
             name: UIAccessibility.announcementDidFinishNotification,
             object: nil)
-        
+
         setCustomFont()
     }
-    
+
     @objc func didFinishAnnouncement(_ notification: Notification) {
         let announcementValue: String? = notification.userInfo?[UIAccessibility.announcementStringValueUserInfoKey] as? String
         let isAnnouncementSuccessful: Bool? = notification.userInfo?[UIAccessibility.announcementWasSuccessfulUserInfoKey] as? Bool
-        
+
         guard let isSuccessful = isAnnouncementSuccessful else {
             return
         }
-        
+
         if !isSuccessful {
-            NSLog("Control code announcement was not successful, retrying...")
-            UIAccessibility.post(notification: .announcement, argument: announcementValue)
+            printLog("Control code announcement was not successful, retrying...")
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: announcementValue)
         }
     }
 
@@ -113,13 +113,13 @@ class MobileIDChallengeViewController : UIViewController {
         NotificationCenter.default.post(name: .signatureCreatedFinishedNotificationName, object: nil)
         dismiss(animated: false)
     }
-    
+
     @objc func receiveMobileCreateSignatureNotification(_ notification: Notification) {
 
         guard let response = notification.userInfo?[kCreateSignatureResponseKey] as? MoppLibMobileCreateSignatureResponse else {
             return
         }
-    
+
         challengeID = response.challengeId!
         sessCode = "\(Int(response.sessCode))"
         let challengeIdNumbers = Array<Character>(challengeID)
@@ -130,15 +130,15 @@ class MobileIDChallengeViewController : UIViewController {
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: challengeIdAccessibilityLabel)
             }
         }
-    
+
         codeLabel.isHidden = false
         codeLabel.text = L(LocKey.challengeCodeLabel, [challengeID])
-        
+
         currentProgress = 0.0
-        
+
         sessionTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSessionProgress), userInfo: nil, repeats: true)
     }
-  
+
     @objc func receiveErrorNotification(_ notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         let error = userInfo[kErrorKey] as? NSError
@@ -146,14 +146,14 @@ class MobileIDChallengeViewController : UIViewController {
         let errorMessage = userInfo[kErrorMessage] as? String ?? SigningError.generalError.signingErrorDescription ?? L(.genericErrorMessage)
         return showErrorDialog(errorMessage: SkSigningLib_LocalizedString(signingErrorMessage?.signingErrorDescription ?? errorMessage))
     }
-  
+
     func showErrorDialog(errorMessage: String) -> Void {
         DispatchQueue.main.async {
             self.dismiss(animated: false) {
                 let topViewController = self.getTopViewController()
-                
+
                 let errorMessageNoLink: String? = errorMessage.removeFirstLinkFromMessage()
-                
+
                 let alert = UIAlertController(title: L(.errorAlertTitleGeneral), message: errorMessageNoLink, preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 if let linkInUrl: String = errorMessage.getFirstLinkInMessage() {
@@ -161,7 +161,7 @@ class MobileIDChallengeViewController : UIViewController {
                         alert.addAction(alertActionUrl)
                     }
                 }
-                
+
                 if !(topViewController is UIAlertController) {
                     topViewController.present(alert, animated: true, completion: nil)
                 }
@@ -171,7 +171,7 @@ class MobileIDChallengeViewController : UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         view.backgroundColor = UIColor.black.withAlphaComponent(0.0)
         UIView.animate(withDuration: 0.35) {
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)

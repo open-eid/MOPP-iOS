@@ -126,7 +126,7 @@ class IdCardViewController : MoppViewController {
         updateUI(for: state)
 
         guard let titleUILabel = titleLabel, let pinTextFieldUITitleLabel = pinTextFieldTitleLabel, let pinTextUIField = pinTextField, let cancelUIButton = cancelButton, let actionUIButton = actionButton else {
-            NSLog("Unable to get titleLabel, pinTextFieldTitleLabel, pinTextField, cancelButton or actionButton")
+            printLog("Unable to get titleLabel, pinTextFieldTitleLabel, pinTextField, cancelButton or actionButton")
             return
         }
 
@@ -300,7 +300,7 @@ class IdCardViewController : MoppViewController {
 
         }
 
-        guard let actionUIButton = actionButton else { NSLog("Unable to get actionButton"); return }
+        guard let actionUIButton = actionButton else { printLog("Unable to get actionButton"); return }
         actionUIButton.backgroundColor = UIColor.moppBackgroundDark
 
         if state == .initial {

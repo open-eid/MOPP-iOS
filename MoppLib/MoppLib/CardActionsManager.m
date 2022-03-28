@@ -217,7 +217,7 @@ static CardActionsManager *sharedInstance = nil;
  * @param failure   block to be called when executing card action fails
  */
 - (void)addCardAction:(NSUInteger)action data:(NSDictionary *)data success:(void (^)(id))success failure:(FailureBlock)failure {
-    NSLog(@"addCardAction");
+    printLog(@"addCardAction");
     @synchronized (self) {
         CardActionObject *cardAction = [CardActionObject new];
         cardAction.successBlock = success;
@@ -236,20 +236,20 @@ static CardActionsManager *sharedInstance = nil;
 
 
 - (void)executeNextAction {
-    NSLog(@"EXECUTE NEXT ACTION");
+    printLog(@"EXECUTE NEXT ACTION");
     @synchronized (self) {
         if (self.cardActions.count > 0 && !self.isActionExecuting) {
             self.isActionExecuting = YES;
             CardActionObject *action = self.cardActions.firstObject;
             [self executeAfterReaderCheck:action apduLength:0];
         } else {
-            NSLog(@"Error executing next action: cardActions.count=%lu isExecutingAction=%i", (unsigned long)self.cardActions.count, self.isActionExecuting);
+            printLog(@"Error executing next action: cardActions.count=%lu isExecutingAction=%i", (unsigned long)self.cardActions.count, self.isActionExecuting);
         }
     }
 }
 
 - (void)executeAfterReaderCheck:(CardActionObject *)action apduLength:(unsigned char)apduLength {
-    NSLog(@"EXECUTE AFTER READER CHECK");
+    printLog(@"EXECUTE AFTER READER CHECK");
     if (![self isReaderConnected]) {
         if (action.completionBlock == nil) {
             return;
@@ -268,7 +268,7 @@ static CardActionsManager *sharedInstance = nil;
         if (isInserted) {
             [self.reader isCardPoweredOn:^(BOOL isPoweredOn) {
                 if (isPoweredOn) {
-                    NSLog(@"---| EXECUTE ACTION |---");
+                    printLog(@"---| EXECUTE ACTION |---");
                     [self executeAction:action];
                 } else {
                     [self processAction:action apduLength:apduLength];

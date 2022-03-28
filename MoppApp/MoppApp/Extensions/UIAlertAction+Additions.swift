@@ -27,7 +27,7 @@ extension UIAlertAction {
             let openLinkAction: UIAlertAction = UIAlertAction(title: L(.errorAlertOpenLink), style: .default, handler: { (action) in
                 if let messageUrl = URL(string: linkInMessage) {
                     UIApplication.shared.open(messageUrl, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
-                    NSLog("Opening link: \(messageUrl.absoluteString)")
+                    printLog("Opening link: \(messageUrl.absoluteString)")
                 }
             })
             

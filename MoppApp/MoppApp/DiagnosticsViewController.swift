@@ -64,11 +64,11 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     }
     
     @IBAction func saveDiagnostics(_ sender: Any) {
-        NSLog("Saving diagnostics")
-        NSLog("Formatting diagnostics data")
+        printLog("Saving diagnostics")
+        printLog("Formatting diagnostics data")
         let diagnosticsText = formatDiagnosticsText()
         let fileName = "ria_digidoc_\(MoppApp.versionString)_diagnostics.txt"
-        NSLog("Saving diagnostics to file '\(fileName)'")
+        printLog("Saving diagnostics to file '\(fileName)'")
         saveDiagnosticsToFile(fileName: fileName, diagnosticsText: diagnosticsText)
     }
 
@@ -201,7 +201,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
             do {
                 updateDate.text = formatString(text: L(.updateDateLabel), additionalText: try getDecodedDefaultMoppConfiguration().UPDATEDATE)
             } catch {
-                MSLog("Unable to decode data: ", error.localizedDescription)
+                printLog("Unable to decode data: \(error.localizedDescription)")
             }
         }
 
@@ -225,7 +225,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
             let defaultConfigData = try String(contentsOfFile: Bundle.main.path(forResource: "defaultConfiguration", ofType: "json")!)
             return try MoppConfigurationDecoder().decodeDefaultMoppConfiguration(configData: defaultConfigData)
         } catch {
-            MSLog("Unable to decode data: ", error.localizedDescription)
+            printLog("Unable to decode data: \(error.localizedDescription)")
             throw error
         }
     }
@@ -233,15 +233,15 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     private func getLOTLVersion() -> String {
         let lotlFileUrl: URL? = TSLUpdater().getLOTLFileURL()
         guard lotlFileUrl != nil, let lotlFile = lotlFileUrl else {
-            NSLog("Unable to get LOTL file")
+            printLog("Unable to get LOTL file")
             return ""
         }
         let fileLocation: URL? = URL(fileURLWithPath: lotlFile.path)
-        guard let fileURL: URL = fileLocation else { NSLog("Failed to get eu-lotl file location"); return "" }
+        guard let fileURL: URL = fileLocation else { printLog("Failed to get eu-lotl file location"); return "" }
         do {
             _ = try fileURL.checkResourceIsReachable()
         } catch let error {
-            NSLog("Failed to check if eu-lotl.xml file is reachable. Error: \(error.localizedDescription)")
+            printLog("Failed to check if eu-lotl.xml file is reachable. Error: \(error.localizedDescription)")
             return ""
         }
         var version: String = ""
@@ -330,23 +330,23 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         if let fileUrl = fileLocation {
             do {
                 if MoppFileManager.shared.fileExists(fileUrl.path) {
-                    NSLog("Removing old diagnostics file")
+                    printLog("Removing old diagnostics file")
                     MoppFileManager.shared.removeFile(withPath: fileUrl.path)
                 }
                 
-                NSLog("Writing diagnostics text to file")
+                printLog("Writing diagnostics text to file")
                 try diagnosticsText.write(to: fileUrl, atomically: true, encoding: .utf8)
                 
                 if MoppFileManager.shared.fileExists(fileUrl.path) {
                     let pickerController = UIDocumentPickerViewController(url: fileUrl, in: .exportToService)
                     pickerController.delegate = self
                     self.present(pickerController, animated: true) {
-                        NSLog("Showing file saving location picker")
+                        printLog("Showing file saving location picker")
                     }
                     return
                 }
             } catch {
-                NSLog("Unable to write diagnostics to file. Error: \(error.localizedDescription)")
+                printLog("Unable to write diagnostics to file. Error: \(error.localizedDescription)")
                 self.errorAlert(message: L(.fileImportFailedFileSave))
                 return
             }
@@ -356,15 +356,15 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         if !urls.isEmpty {
             let savedFileLocation: URL? = urls.first
-            NSLog("File export done. Location: \(savedFileLocation?.path ?? "Not available")")
+            printLog("File export done. Location: \(savedFileLocation?.path ?? "Not available")")
             self.errorAlert(message: L(.fileImportFileSaved))
         } else {
-            NSLog("Failed to save file")
+            printLog("Failed to save file")
             return self.errorAlert(message: L(.fileImportFailedFileSave))
         }
     }
     
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
-        NSLog("File saving cancelled")
+        printLog("File saving cancelled")
     }
 }

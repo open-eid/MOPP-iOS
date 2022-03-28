@@ -83,7 +83,7 @@ extension PreviewActions where Self: ContainerViewController {
 
         let openContentPreview: (_ filePath: String) -> Void = { [weak self] filePath in
             guard MoppFileManager.shared.fileExists(filePath) else {
-                NSLog("File does not exist. Unable to open file for preview")
+                printLog("File does not exist. Unable to open file for preview")
                 self?.errorAlert(message: L(.datafilePreviewFailed))
                 return
             }
@@ -131,7 +131,7 @@ extension PreviewActions where Self: ContainerViewController {
 
         if self.isAsicContainer {
             guard MoppFileManager.shared.fileExists(containerFilePath) else {
-                NSLog("Container does not exist. Unable to open file for preview")
+                printLog("Container does not exist. Unable to open file for preview")
                 self.errorAlert(message: L(.datafilePreviewFailed))
                 return
             }

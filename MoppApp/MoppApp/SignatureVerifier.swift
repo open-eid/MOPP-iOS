@@ -34,7 +34,7 @@ class SignatureVerifier {
             let isVerificationSuccessful: Bool = try confData.verify(with: PublicKey(data: data), signature: signatureBase64, digestType: .sha512)
             
             if isVerificationSuccessful == false {
-                MSLog("Signature verification unsuccessful")
+                printLog("Signature verification unsuccessful")
                 throw Exception("Signature verification unsuccessful")
             }
             

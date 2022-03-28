@@ -358,11 +358,11 @@ extension ContainerViewController : UITableViewDataSource {
 
     func checkIfDdocParentContainerIsTimestamped() -> Void {
         let asicContainer: MoppLibContainer? = self.containerViewDelegate?.getContainer()
-        guard let signingContainer: MoppLibContainer = asicContainer else { NSLog("Container not found to check timestamped status"); DefaultsHelper.isTimestampedDdoc = false; return }
+        guard let signingContainer: MoppLibContainer = asicContainer else { printLog("Container not found to check timestamped status"); DefaultsHelper.isTimestampedDdoc = false; return }
 
         let calendar = Calendar(identifier: .gregorian)
         let dateComponents: DateComponents = DateComponents(year: 2018, month: 7, day: 1, hour: 00, minute: 00, second: 00)
-        guard let calendarDate = calendar.date(from: dateComponents) else { NSLog("Unable to get date from calendar components"); DefaultsHelper.isTimestampedDdoc = false; return }
+        guard let calendarDate = calendar.date(from: dateComponents) else { printLog("Unable to get date from calendar components"); DefaultsHelper.isTimestampedDdoc = false; return }
 
         if signingContainer.isAsics(), signingContainer.dataFiles.count == 1, signingContainer.signatures.count == 1,
            let singleFile: MoppLibDataFile = signingContainer.dataFiles[0] as? MoppLibDataFile,
@@ -443,23 +443,13 @@ extension ContainerViewController : UITableViewDataSource {
             let isStatePreviewOrOpened = state == .opened || state == .preview
             let isEncryptedDataFiles = !isAsicContainer && isStatePreviewOrOpened && !isDecrypted
 
-            var dataFile = ""
-            var tapGesture: UITapGestureRecognizer
-
-            if isAsicsContainer() && !asicsDataFiles.isEmpty && asicsDataFiles.count >= indexPath.row {
-                dataFile = asicsDataFiles[indexPath.row].fileName ?? ""
-                tapGesture = getPreviewTapGesture(dataFile: dataFile, containerPath: asicsNestedContainerPath, isShareButtonNeeded: isDecrypted)
-
-            } else {
-                dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) ?? ""
-                tapGesture = getPreviewTapGesture(dataFile: dataFile, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
-            }
-
-            if dataFile.isEmpty {
-                NSLog("Data file not found")
+            guard let dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) else {
+                printLog("Data file not found")
                 self.errorAlert(message: L(.datafilePreviewFailed))
                 return cell
             }
+
+            let tapGesture = getPreviewTapGesture(dataFile: dataFile, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
 
             if !isEncryptedDataFiles {
                 cell.openPreviewView.addGestureRecognizer(tapGesture)
@@ -606,7 +596,7 @@ extension ContainerViewController : UITableViewDataSource {
 
     @objc private func openPreview(_ sender: PreviewFileTapGestureRecognizer) {
         guard let dataFile: String = sender.dataFile, let containerFilePath: String = sender.containerFilePath, let isShareButtonNeeded: Bool = sender.isShareButtonNeeded else {
-            NSLog("Unable to get data file, container file or share button information")
+            printLog("Unable to get data file, container file or share button information")
             self.errorAlert(message: L(.datafilePreviewFailed))
             return
         }
@@ -696,7 +686,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
         }
 
         guard !containerExtension.isEmpty else {
-            NSLog("Failed to get container extension")
+            printLog("Failed to get container extension")
             self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
             return
         }
@@ -709,7 +699,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
 
         let okButton = UIAlertAction(title: L(.actionOk), style: UIAlertAction.Style.default) { (action: UIAlertAction) in
             guard let textFields = changeContainerNameController.textFields, textFields.count != 0, let textFieldText = textFields[0].text else {
-                NSLog("Failed to find textfield")
+                printLog("Failed to find textfield")
                 self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
                 return
             }
@@ -717,7 +707,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
             let isContainerCdoc: Bool = containerExtension == ContainerFormatCdoc
 
             guard let newContainerPath: URL = self.getNewContainerUrlPath(isContainerCdoc: isContainerCdoc, asicContainer: asicContainer, cdocContainer: cdocContainer, newContainerName: textFieldText, containerExtension: containerExtension), newContainerPath.isFileURL else {
-                NSLog("Failed to get container path")
+                printLog("Failed to get container path")
                 self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
                 return
             }
@@ -730,7 +720,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
             // Rename / save file
             if !isContainerCdoc {
                 guard let signingContainer = asicContainer, MoppFileManager.shared.moveFile(withPath: signingContainer.filePath, toPath: newContainerPath.path, overwrite: true) else {
-                    NSLog("Failed to change asic file properties")
+                    printLog("Failed to change asic file properties")
                     self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
                     return
                 }
@@ -738,7 +728,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
                 signingContainer.filePath = newContainerPath.path
             } else {
                 guard let cryptoContainer = cdocContainer else {
-                    NSLog("Failed to change cdoc file properties")
+                    printLog("Failed to change cdoc file properties")
                     self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
                     return
                 }
@@ -746,7 +736,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
                 cryptoContainer.filePath = newContainerPath.path as NSString
             }
 
-            NSLog("File renaming successful")
+            printLog("File renaming successful")
 
             UIAccessibility.post(notification: .screenChanged, argument: L(.containerNameChanged))
 
@@ -762,7 +752,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
             textField.text = currentFileName
             NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { (notification) in
                 guard let inputText = textField.text else {
-                    NSLog("Failed to get textfield's text")
+                    printLog("Failed to get textfield's text")
                     self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
                     return
                 }
@@ -887,7 +877,7 @@ extension ContainerViewController : ContainerSignatureDelegate {
 extension ContainerViewController : ContainerTableViewHeaderDelegate {
     func didTapContainerHeaderButton() {
         guard let landingViewControllerContainerType = LandingViewController.shared.containerType else {
-            NSLog("Unable to get LandingViewControlelr container type")
+            printLog("Unable to get LandingViewControlelr container type")
             return
         }
         NotificationCenter.default.post(
@@ -914,7 +904,7 @@ extension ContainerViewController : ContainerAddresseeCellDelegate {
 extension ContainerViewController : ContainerImportCellDelegate {
     func containerImportCellAddFiles() {
         guard let landingViewControllerContainerType = LandingViewController.shared.containerType else {
-            NSLog("Unable to get LandingViewControlelr container type")
+            printLog("Unable to get LandingViewControlelr container type")
             return
         }
         NotificationCenter.default.post(

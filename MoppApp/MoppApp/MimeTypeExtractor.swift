@@ -120,11 +120,11 @@ class MimeTypeExtractor {
         var destinationLocation = URL(fileURLWithPath: outputPath.path)
         destinationLocation.appendPathComponent("mimetype")
         do {
-            NSLog("Extracting file: \(fileName)")
+            printLog("Extracting file: \(fileName)")
             _ = try archive.extract(fileInArchive, to: destinationLocation)
             return destinationLocation
         } catch {
-            NSLog("Unable to extract file \(fileInArchive). Error: \(error.localizedDescription)")
+            printLog("Unable to extract file \(fileInArchive). Error: \(error.localizedDescription)")
             return nil
         }
     }
@@ -137,7 +137,7 @@ class MimeTypeExtractor {
         do {
             return try String(contentsOf: filePath, encoding: .utf8)
         } catch {
-            NSLog("Error getting contents of file \(filePath.lastPathComponent): \(error.localizedDescription)")
+            printLog("Error getting contents of file \(filePath.lastPathComponent): \(error.localizedDescription)")
             return ""
         }
     }
@@ -164,7 +164,7 @@ class MimeTypeExtractor {
             
             return isDdoc
         } catch {
-            NSLog("Error getting url data \(error.localizedDescription)")
+            printLog("Error getting url data \(error.localizedDescription)")
         }
         
         return false
@@ -188,7 +188,7 @@ class MimeTypeExtractor {
             
             return isCdoc
         } catch {
-            NSLog("Error getting url data \(error.localizedDescription)")
+            printLog("Error getting url data \(error.localizedDescription)")
         }
         
         return false

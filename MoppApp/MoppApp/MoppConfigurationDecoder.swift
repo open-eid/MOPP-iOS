@@ -27,7 +27,7 @@ class MoppConfigurationDecoder {
         do {
             return try JSONDecoder().decode(MOPPConfiguration.self, from: configData.data(using: .utf8)!)
         } catch {
-            MSLog("Error decoding data: %@", error.localizedDescription)
+            printLog("Error decoding data: \(error.localizedDescription)")
             throw error
         }
     }
@@ -36,7 +36,7 @@ class MoppConfigurationDecoder {
         do {
             return try JSONDecoder().decode(DefaultMoppConfiguration.self, from: configData.data(using: .utf8)!)
         } catch {
-            MSLog("Error decoding data: ", error.localizedDescription)
+            printLog("Error decoding data: \(error.localizedDescription)")
             throw error
         }
     }

@@ -30,7 +30,7 @@ class UrlSchemeHandler: NSObject, URLSessionDelegate {
     public func getFileLocationFromURL(url: URL?, completion: @escaping (URL?) -> Void) {
         self.handleURLScheme(url: url) { fileLocation in
             guard let fileURL: URL = fileLocation else {
-                NSLog("Unable to get downloaded file location")
+                printLog("Unable to get downloaded file location")
                 return completion(nil)
             }
             do {
@@ -38,7 +38,7 @@ class UrlSchemeHandler: NSObject, URLSessionDelegate {
                     return completion(fileURL)
                 }
             } catch let error {
-                NSLog("Unable to check if downloaded resource is reachable. Error: \(error.localizedDescription)")
+                printLog("Unable to check if downloaded resource is reachable. Error: \(error.localizedDescription)")
                 return completion(nil)
             }
         }

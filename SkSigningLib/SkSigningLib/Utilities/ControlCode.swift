@@ -29,7 +29,7 @@ public class ControlCode {
     
     public func getVerificationCode(hash: Array<Int>) -> String? {
         guard !hash.isEmpty else {
-            NSLog("Unable to get hash")
+            Logging.errorLog(forMethod: "RIA.MobileID - getVerificationCode", error: nil, extraInfo: "Unable to get hash")
             return nil
         }
         
@@ -37,7 +37,7 @@ public class ControlCode {
         
         let verificationCodeAsString: String = addLeadingZerosIfNeeded(verificationCode: String(verificationCode))
         
-        print("Mobile-ID verification code: \(verificationCodeAsString)")
+        Logging.log(forMethod: "RIA.MobileID - getVerificationCode", info: "Mobile-ID verification code: \(verificationCodeAsString)")
         
         return verificationCodeAsString
     }
