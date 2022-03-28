@@ -152,6 +152,7 @@ class SmartIDChallengeViewController : UIViewController {
         super.viewWillDisappear(animated)
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [pendingnotification])
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIAccessibility.announcementDidFinishNotification, object: nil)
         sessionTimer?.invalidate()
     }
 
