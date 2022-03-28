@@ -23,6 +23,7 @@
 
 import Foundation
 import MoppLib
+import UIKit
 
 class SigningContainerViewController : ContainerViewController, SigningActions, UIDocumentPickerDelegate {
     
@@ -68,6 +69,10 @@ extension SigningContainerViewController : SigningContainerViewControllerDelegat
         return container.signatures[index]
     }
     
+    func getTimestampToken(index: Int) -> Any {
+        return container.timestampTokens[index]
+    }
+    
     func startSigning() {
         startSigningProcess()
     }
@@ -77,6 +82,13 @@ extension SigningContainerViewController : SigningContainerViewControllerDelegat
             return 0
         }
         return container.signatures.count
+    }
+    
+    func getTimestampTokensCount() -> Int {
+        if isContainerEmpty() {
+            return 0
+        }
+        return container.timestampTokens.count
     }
     
     func isContainerSignable() -> Bool {
@@ -141,8 +153,12 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
             })
     }
     
-    func saveDataFile(name: String?) {
-        SaveableContainer(signingContainerPath: self.containerPath).saveDataFile(name: name, completionHandler: { [weak self] tempSavedFileLocation, isSuccess in
+    func saveDataFile(name: String?, containerPath: String?) {
+        var saveFileFromContainerPath = self.containerPath
+        if let dataFileContainerPath = containerPath, !dataFileContainerPath.isEmpty {
+            saveFileFromContainerPath = dataFileContainerPath
+        }
+        SaveableContainer(signingContainerPath: saveFileFromContainerPath ?? "").saveDataFile(name: name, completionHandler: { [weak self] tempSavedFileLocation, isSuccess in
             if isSuccess && !tempSavedFileLocation.isEmpty {
                 // Show file save location picker
                 let pickerController = UIDocumentPickerViewController(url: URL(fileURLWithPath: tempSavedFileLocation), in: .exportToService)
@@ -223,6 +239,10 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
             
             if afterSignatureCreated && container.isSignable() && !strongSelf.isForPreview {
                 strongSelf.notifications.append((true, L(.containerDetailsSigningSuccess)))
+                
+                if UIAccessibility.isVoiceOverRunning {
+                    UIAccessibility.post(notification: .screenChanged, argument: L(.containerDetailsSigningSuccess))
+                }
                 
                 if !DefaultsHelper.hideShareContainerDialog {
                     strongSelf.displayShareContainerDialog()

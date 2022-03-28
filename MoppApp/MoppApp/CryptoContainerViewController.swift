@@ -152,8 +152,12 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
 
     }
     
-    func saveDataFile(name: String?) {
-        SaveableContainer(signingContainerPath: self.containerPath, cryptoContainer: container).saveDataFile(name: name, completionHandler: { tempSavedFileLocation, isSuccess in
+    func saveDataFile(name: String?, containerPath: String?) {
+        var saveFileFromContainerPath = self.containerPath
+        if let dataFileContainerPath = containerPath, !dataFileContainerPath.isEmpty {
+            saveFileFromContainerPath = dataFileContainerPath
+        }
+        SaveableContainer(signingContainerPath: saveFileFromContainerPath ?? "", cryptoContainer: container).saveDataFile(name: name, completionHandler: { tempSavedFileLocation, isSuccess in
             if isSuccess && !tempSavedFileLocation.isEmpty {
                 // Show file save location picker
                 let pickerController = UIDocumentPickerViewController(url: URL(fileURLWithPath: tempSavedFileLocation), in: .exportToService)

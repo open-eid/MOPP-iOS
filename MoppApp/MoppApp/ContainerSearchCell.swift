@@ -31,6 +31,7 @@ class ContainerSearchCell: UITableViewCell {
 
         let searchField = searchBar.value(forKey: "searchField")
         (searchField as! UITextField).placeholder = L(LocKey.cryptoLdapSearchPlaceholder)
+        (searchField as! UITextField).font = UIFont.setCustomFont(font: .regular, nil, .body)
     }
     
 }

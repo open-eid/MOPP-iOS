@@ -136,6 +136,7 @@
 "container-header-create-addressee-title" = "Получатели";
 "container-header-timestamp-title" = "Временной штамп контейнера";
 "container-header-signatures-title" = "Подписи контейнера";
+"container-header-timestamps-title" = "Временные штампы контейнерa";
 "container-row-edit-remove" = "Удалить";
 "container-header-title" = "КОНТЕЙНЕР:";
 "container-error-message-invalid-signature" = "1 НЕВЕРНАЯ ПОДПИСЬ";
@@ -151,6 +152,8 @@
 "container-signature-status-invalid" = "Подпись недействительна";
 "container-signature-status-unknown" = "Подпись неизвестная";
 "crypto-remove-addressee-button" = "Удалить подпись";
+"container-timestamp-valid" = "Временной штамп действителен";
+"container-timestamp-unknown" = "Временной штамп неизвестный";
 "container-timestamp-invalid" = "Временной штамп недействителен";
 
 // *** Mobile ID Challenge View ***
@@ -183,6 +186,7 @@
 "signature-removed" = "Подпись удалена";
 "signature-removal-cancelled" = "Удаление подписи отменено";
 
+"signing-progress" = "Прогресс";
 "signing-remember-me" = "Запомни меня";
 "signing-cancelled" = "Подписание контейнера прервано";
 "mobile-id-title" = "Введите свой телефонный номер и личный код для подписания с помощью mobiil-ID";
@@ -196,7 +200,7 @@
 "smart-id-country-lithuania" = "Литва";
 "smart-id-country-latvia" = "Латвия";
 "smart-id-challenge-title" = "Подписать с помощью приложения Smart-ID";
-"smart-id-sign-help-title" = "Убедитесь в правильности контрольного кодa и введите PIN2-код для Smart-ID";
+"smart-id-sign-help-title" = "Убедитесь в правильности контрольного кода и введите PIN2-код для Smart-ID";
 "container-sign-title" = "Подписание";
 "container-encryption-title" = "Шифрование";
 "container-decryption-title" = "Дешифрование";
@@ -204,7 +208,7 @@
 "container-validate-title" = "Проверка контейнера";
 "container-validating" = "Загрузка...";
 "importing-files-progress-message" = "Импорт файлов...";
-"mobile-id-sign-help-title" = "Убедитесь в правильности контрольного кодa и введите PIN2-код для mobiil-ID";
+"mobile-id-sign-help-title" = "Убедитесь в правильности контрольного кода и введите PIN2-код для mobiil-ID";
 "done-button-title" = "Готово";
 "recent-containers-empty-list-title" = "Недавние документы отсутствуют";
 "recent-containers-empty-search-message" = "Документ не найден";

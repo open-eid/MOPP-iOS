@@ -28,16 +28,22 @@ class MyeIDInfoCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        if isNonDefaultPreferredContentSizeCategory() {
+            setCustomFont()
+        }
     }
     
     func populate(titleText: String, contentText: String) {
         titleLabel.text = titleText
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
         
         if contentText == "EST" {
             contentLabel.accessibilityLabel = "E S T"
         }
         
         contentLabel.text = contentText
+        if isBoldTextEnabled() { contentLabel.font = UIFont.boldSystemFont(ofSize: contentLabel.font.pointSize) }
         
         if titleLabel.text == L(.myEidInfoMyEid) {
             titleLabel.accessibilityLabel = L(.myEidInfoMyEidAccessibility)
@@ -47,8 +53,9 @@ class MyeIDInfoCell: UITableViewCell {
     func populate(titleText: String, with expiryDateString: String) {
 
         titleLabel.text = titleText
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
         
-        let font = UIFont(name: MoppFontName.allCapsBold.rawValue, size: 17)!
+        let font = UIFont.setCustomFont(font: .allCapsBold, nil, .body)
         let attrText = NSMutableAttributedString(string: expiryDateString, attributes: [.font: font])
         
         if let expiryDateDisplayString = infoManager.expiryDateAttributedString(dateString: expiryDateString, font: font, capitalized: true) {
@@ -57,5 +64,11 @@ class MyeIDInfoCell: UITableViewCell {
         }
         
         contentLabel.attributedText = attrText
+        if isBoldTextEnabled() { contentLabel.font = UIFont.boldSystemFont(ofSize: contentLabel.font.pointSize) }
+    }
+    
+    func setCustomFont() {
+        titleLabel.font = UIFont.setCustomFont(font: .allCapsRegular, nil, .body)
+        contentLabel.font = UIFont.setCustomFont(font: .allCapsBold, nil, .body)
     }
 }

@@ -46,7 +46,7 @@ class SiVaUtil {
             }
         }
         
-        return containerType == "ddoc" || containerType == "asics" || containerType == "scs"
+        return containerType == "ddoc"
     }
     
     static func displaySendingToSiVaDialog(completionHandler: @escaping (Bool) -> Void) {

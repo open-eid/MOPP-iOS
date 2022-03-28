@@ -50,7 +50,7 @@ func isDeviceOrientationLandscape() -> Bool {
             return UIApplication.shared.statusBarOrientation.isLandscape
         }
     }
-    
+
     return UIDevice.current.orientation.isLandscape
 }
 
@@ -137,7 +137,30 @@ func isUsingTestMode() -> Bool {
     #else
         let testMode: Bool = false
     #endif
-    
+
     return testMode
 }
 
+func isNonDefaultPreferredContentSizeCategory() -> Bool {
+    return UIApplication.shared.preferredContentSizeCategory != .large
+}
+
+func isNonDefaultPreferredContentSizeCategorySmaller() -> Bool {
+    return UIApplication.shared.preferredContentSizeCategory < .large
+}
+
+func isNonDefaultPreferredContentSizeCategoryMedium() -> Bool {
+    return UIApplication.shared.preferredContentSizeCategory >= .medium && UIApplication.shared.preferredContentSizeCategory < .accessibilityExtraLarge
+}
+
+func isNonDefaultPreferredContentSizeCategoryBigger() -> Bool {
+    return UIApplication.shared.preferredContentSizeCategory > .large
+}
+
+func isNonDefaultPreferredContentSizeCategoryLargest() -> Bool {
+    return UIApplication.shared.preferredContentSizeCategory == .accessibilityExtraExtraExtraLarge
+}
+
+func isBoldTextEnabled() -> Bool {
+    return UIAccessibility.isBoldTextEnabled
+}

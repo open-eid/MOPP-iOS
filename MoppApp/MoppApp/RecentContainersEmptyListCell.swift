@@ -24,6 +24,9 @@
     @IBOutlet weak var titleLabel: UILabel!
     
     func populate(emptySearch: Bool) {
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
         if emptySearch {
             titleLabel.text = L(.recentContainersEmptySearchMessage)
         } else {
