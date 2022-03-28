@@ -111,6 +111,9 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
     func selectTab(with tabButtonId: TabButtonId) {
         buttonsCollection.forEach {
             $0.setSelected(TabButtonId(rawValue: $0.accessibilityIdentifier!)! == tabButtonId)
+            if isBoldTextEnabled() {
+                $0.title.font = UIFont(name: MoppFontName.allCapsBold.rawValue, size: 11)
+            }
         }
     }
 

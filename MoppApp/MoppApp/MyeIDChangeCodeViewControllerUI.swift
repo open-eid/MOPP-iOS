@@ -78,7 +78,7 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
         NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
         
-        let font = UIFont(name: MoppFontName.regular.rawValue, size: 16)!
+        let font = UIFont.setCustomFont(font: .regular, nil, .body)
         let color = UIColor.moppText
         let attributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : color]
         
@@ -129,6 +129,10 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
         
         statusViewHiddenCSTR.priority = UILayoutPriority.defaultHigh
         statusViewVisibleCSTR.priority = UILayoutPriority.defaultLow
+        
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            setCustomFont()
+        }
     }
     
     func createParagraphAttribute() -> NSParagraphStyle
@@ -176,6 +180,7 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
     
     func showStatusView(with title: String) {
         statusLabel.text = title
+        self.scrollView.contentOffset = CGPoint.zero
         UIView.animate(withDuration: 0.35, delay: 0.0, options: UIView.AnimationOptions.curveLinear, animations: { [weak self] in
             self?.statusViewHiddenCSTR.priority = UILayoutPriority.defaultLow
             self?.statusViewVisibleCSTR.priority = UILayoutPriority.defaultHigh
@@ -229,6 +234,21 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
         firstInlineErrorLabel.text = nil
         secondInlineErrorLabel.text = nil
         thirdInlineErrorLabel.text = nil
+    }
+    
+    func setCustomFont() {
+        firstInfoLabel.font = UIFont.setCustomFont(font: .medium, nil, .body)
+        secondInfoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        thirdInfoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        discardButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
+        confirmButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
+        firstCodeTextFieldLabel.font = UIFont.setCustomFont(font: .allCapsRegular, nil, .body)
+        secondCodeTextFieldLabel.font = UIFont.setCustomFont(font: .allCapsRegular, nil, .body)
+        thirdCodeTextFieldLabel.font = UIFont.setCustomFont(font: .allCapsRegular, nil, .body)
+        firstInlineErrorLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        secondInlineErrorLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        thirdInlineErrorLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        statusLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
     }
 }
 

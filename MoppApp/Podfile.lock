@@ -8,10 +8,10 @@ PODS:
     - FirebaseCoreDiagnostics (~> 8.0)
     - GoogleUtilities/Environment (~> 7.4)
     - GoogleUtilities/Logger (~> 7.4)
-  - FirebaseCoreDiagnostics (8.8.0):
-    - GoogleDataTransport (~> 9.0)
-    - GoogleUtilities/Environment (~> 7.4)
-    - GoogleUtilities/Logger (~> 7.4)
+  - FirebaseCoreDiagnostics (8.12.0):
+    - GoogleDataTransport (~> 9.1)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/Logger (~> 7.7)
     - nanopb (~> 2.30908.0)
   - FirebaseCrashlytics (8.7.0):
     - FirebaseCore (~> 8.0)
@@ -20,20 +20,20 @@ PODS:
     - GoogleUtilities/Environment (~> 7.4)
     - nanopb (~> 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - FirebaseInstallations (8.8.0):
+  - FirebaseInstallations (8.12.0):
     - FirebaseCore (~> 8.0)
-    - GoogleUtilities/Environment (~> 7.4)
-    - GoogleUtilities/UserDefaults (~> 7.4)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/UserDefaults (~> 7.7)
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleDataTransport (9.1.0):
+  - GoogleDataTransport (9.1.2):
     - GoogleUtilities/Environment (~> 7.2)
     - nanopb (~> 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/Environment (7.5.2):
+  - GoogleUtilities/Environment (7.7.0):
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/Logger (7.5.2):
+  - GoogleUtilities/Logger (7.7.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/UserDefaults (7.5.2):
+  - GoogleUtilities/UserDefaults (7.7.0):
     - GoogleUtilities/Logger
   - ILPDFKit (2.0.1)
   - nanopb (2.30908.0):
@@ -41,7 +41,7 @@ PODS:
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
-  - OCMock (3.8.1)
+  - OCMock (3.9.1)
   - PromisesObjC (2.0.0)
   - SwiftyRSA (1.7.0):
     - SwiftyRSA/ObjC (= 1.7.0)
@@ -51,15 +51,12 @@ PODS:
 DEPENDENCIES:
   - Firebase/Crashlytics (~> 8.7.0)
   - ILPDFKit (~> 2.0.1)
-  - OCMock (~> 3.8.1)
+  - OCMock (~> 3.9.1)
   - SwiftyRSA (~> 1.7.0)
   - ZIPFoundation (~> 0.9.13)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - ILPDFKit
-    - ZIPFoundation
-  trunk:
     - Firebase
     - FirebaseCore
     - FirebaseCoreDiagnostics
@@ -67,26 +64,28 @@ SPEC REPOS:
     - FirebaseInstallations
     - GoogleDataTransport
     - GoogleUtilities
+    - ILPDFKit
     - nanopb
     - OCMock
     - PromisesObjC
     - SwiftyRSA
+    - ZIPFoundation
 
 SPEC CHECKSUMS:
   Firebase: bc9325d5ee2041524bac78a5213d0e530c651309
   FirebaseCore: f4804c1d3f4bbbefc88904d15653038f2c99ddf7
-  FirebaseCoreDiagnostics: fe77f42da6329d6d83d21fd9d621a6b704413bfc
+  FirebaseCoreDiagnostics: 3b40dfadef5b90433a60ae01f01e90fe87aa76aa
   FirebaseCrashlytics: 6fac03d1eef054833b71c929c93ab95c12989728
-  FirebaseInstallations: 2563cb18a723ef9c6ef18318a49519b75dce613c
-  GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
-  GoogleUtilities: 8de2a97a17e15b6b98e38e8770e2d129a57c0040
+  FirebaseInstallations: 25764cf322e77f99449395870a65b2bef88e1545
+  GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
+  GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   ILPDFKit: 51762e66bce3c43fc8c3db3322223d3020c70137
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
-  OCMock: 29f6e52085b4e7d9b075cbf03ed7c3112f82f934
+  OCMock: 9491e4bec59e0b267d52a9184ff5605995e74be8
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   SwiftyRSA: 8c6dd1ea7db1b8dc4fb517a202f88bb1354bc2c6
   ZIPFoundation: ae5b4b813d216d3bf0a148773267fff14bd51d37
 
-PODFILE CHECKSUM: f59b905b4d0e99e427952b0c999eba260f66e621
+PODFILE CHECKSUM: 5939af9a42067df8f46a8c5801c46816425ac2cb
 
 COCOAPODS: 1.11.2
