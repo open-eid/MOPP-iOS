@@ -38,6 +38,10 @@ class SigningViewController : MoppViewController {
 
         titleLabel.text = L(LocKey.signatureViewBeginLabel)
         importButton.localizedTitle = LocKey.signatureViewBeginButton
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            titleLabel.font = UIFont.setCustomFont(font: .medium, isNonDefaultPreferredContentSizeCategoryBigger() ? 20 : nil, .headline)
+            importButton.titleLabel?.font = UIFont.setCustomFont(font: .medium, isNonDefaultPreferredContentSizeCategoryBigger() ? 12 : nil, .body)
+        }
         menuButton.accessibilityLabel = L(LocKey.menuButton)
         
         titleLabel.isAccessibilityElement = false

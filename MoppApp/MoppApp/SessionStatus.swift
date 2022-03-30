@@ -37,17 +37,17 @@ class SessionStatus {
                         case .success(let sessionStatus):
                             if self.isSessionStateComplete(sessionState: self.getSessionState(sessionStatus: sessionStatus)) {
                                 timer.invalidate()
-                                NSLog("Received session status response: \(sessionStatus.result?.rawValue ?? "-")")
+                                printLog("Received session status response: \(sessionStatus.result?.rawValue ?? "-")")
                                 return completionHandler(.success(sessionStatus))
                             }
                         case .failure(let sessionError):
-                            NSLog("Getting Session Status error: \(sessionError.signingErrorDescription ?? sessionError.rawValue)")
+                            printLog("Getting Session Status error: \(SkSigningLib_LocalizedString(sessionError.signingErrorDescription ?? sessionError.rawValue))")
                             timer.invalidate()
                             return completionHandler(.failure(sessionError))
                         }
                     }
                 } catch let error {
-                    NSLog("Error occurred while getting session status: \(error.localizedDescription)")
+                    printLog("Error occurred while getting session status: \(error.localizedDescription)")
                     timer.invalidate()
                     return completionHandler(.failure(.generalError))
                 }
@@ -59,9 +59,9 @@ class SessionStatus {
         let sessionState = sessionStatus.state
         switch sessionState {
         case .RUNNING:
-            NSLog("Requesting session status... (currently: \(sessionState))")
+            printLog("Requesting session status... (currently: \(sessionState))")
         case .COMPLETE:
-            NSLog("Requesting session status complete: (\(sessionState))!")
+            printLog("Requesting session status complete: (\(sessionState))!")
         }
         return sessionState
     }

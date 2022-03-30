@@ -16,7 +16,7 @@ target 'MoppApp' do
   project 'MoppApp.xcodeproj'
   pod 'Firebase/Crashlytics', '~> 8.10.0'
   pod 'SwiftyRSA', '~> 1.7.0'
-  pod 'ZIPFoundation', '~> 0.9'
+  pod 'ZIPFoundation', '~> 0.9.13'
   pod 'ILPDFKit', '~> 2.0.1'
 end
 
@@ -46,7 +46,7 @@ end
 target 'MoppLibTests' do
   platform :ios, '12.0'
   project '../MoppLib/MoppLib.xcodeproj'
-  pod 'OCMock', '~> 3.8.1'
+  pod 'OCMock', '~> 3.9.1'
 
 end
 

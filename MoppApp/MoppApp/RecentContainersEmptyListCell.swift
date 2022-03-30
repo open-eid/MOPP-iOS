@@ -24,13 +24,16 @@
     @IBOutlet weak var titleLabel: UILabel!
     
     func populate(emptySearch: Bool) {
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
         if emptySearch {
             titleLabel.text = L(.recentContainersEmptySearchMessage)
         } else {
             titleLabel.text = L(.recentContainersEmptyListTitle)
         }
         guard let titleUILabel = titleLabel else {
-            NSLog("Unable to get titleLabel")
+            printLog("Unable to get titleLabel")
             return
         }
         self.accessibilityElements = [titleUILabel]
