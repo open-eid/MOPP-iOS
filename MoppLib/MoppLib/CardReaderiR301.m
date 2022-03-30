@@ -31,6 +31,7 @@
 #import "NSData+Additions.h"
 #import "MoppLibCardReaderManager.h"
 #import "MoppLibError.h"
+#import "MoppLibPrivateConstants.h"
 
 @interface CardReaderiR301() <ReaderInterfaceDelegate>
 @property (nonatomic, strong) DataSuccessBlock successBlock;
@@ -235,10 +236,16 @@
     _chipType = [MoppLibCardReaderManager atrToChipType:atr];
     
     if (dwStatus == SCARD_PRESENT) {
+        [PrivateConstants setIDCardRestartedValue:FALSE];
         success(nil);
     } else {
         NSLog(@"ID-CARD: Did not successfully power on card");
-        [self respondWithError:[MoppLibError readerProcessFailedError]];
+        if (![PrivateConstants getIDCardRestartedValue]) {
+            [[MoppLibCardReaderManager sharedInstance] restartDiscoveringReaders:2.0f];
+        } else {
+            [self respondWithError:[MoppLibError readerProcessFailedError]];
+            [PrivateConstants setIDCardRestartedValue:FALSE];
+        }
     }
 }
 

@@ -28,6 +28,7 @@
 #import "winscard.h"
 #import "wintypes.h"
 #import "ft301u.h"
+#import "MoppLibPrivateConstants.h"
 
 @interface MoppLibCardReaderManager()<ReaderInterfaceDelegate>
 
@@ -37,7 +38,7 @@
 @property (nonatomic) MoppLibCardReaderStatus status;
 @property (nonatomic, strong) CardReaderiR301 *feitianReader;
 @property (nonatomic) int timerCounter;
-@property (nonatomic) BOOL isReaderDiscoveryRestarted;
+
 @property (nonatomic) BOOL wasReaderConnected;
 @property (nonatomic) BOOL wasCardConnected;
 @property (nonatomic) BOOL isReaderReset;
@@ -103,7 +104,7 @@
     
     [[CardActionsManager sharedInstance] setReader:nil];
     [[CardActionsManager sharedInstance] resetCardActions];
-    if (!_isReaderDiscoveryRestarted) {
+    if (![PrivateConstants getIDCardRestartedValue]) {
         _status = Initial;
     } else {
         _status = ReaderProcessFailed;
@@ -197,7 +198,7 @@
 - (void)resetReaderRestart {
     NSLog(@"ID-CARD: Resetting reader restart");
     self->_timerCounter = 0;
-    self->_isReaderDiscoveryRestarted = FALSE;
+    [PrivateConstants setIDCardRestartedValue:FALSE];
     self->_isReaderReset = TRUE;
 }
 
@@ -224,7 +225,7 @@
 - (void)discoverReaders:(NSTimer *)timer {
     NSLog(@"ID-CARD: Restarting card reader discovery");
     self->_timerCounter = 0;
-    self->_isReaderDiscoveryRestarted = TRUE;
+    [PrivateConstants setIDCardRestartedValue:TRUE];
     [self startDiscoveringReaders];
 }
 
@@ -235,9 +236,9 @@
     NSLog(@"ID-CARD: Timer counter: %d", _timerCounter);
         
     if (_timerCounter >= 20) {
-        if (_isReaderDiscoveryRestarted) {
+        if ([PrivateConstants getIDCardRestartedValue]) {
             if (self->_wasReaderConnected && self->_wasCardConnected) {
-                self->_isReaderDiscoveryRestarted = FALSE;
+                [PrivateConstants setIDCardRestartedValue:FALSE];
                 [self restartDiscoveringReaders:2.0f];
             }
             [self stopPollingCardStatus];
@@ -254,7 +255,10 @@
 }
 
 - (void)restartDiscoveringReaders:(float)delaySeconds {
-    if (!_isReaderDiscoveryRestarted) {
+    if (![PrivateConstants getIDCardRestartedValue]) {
+        NSLog(@"Restarting reader discovery");
+        self->_timerCounter = 0;
+        [PrivateConstants setIDCardRestartedValue:TRUE];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self updateStatus:ReaderRestarted];
             [self->_delegate moppLibCardReaderStatusDidChange: ReaderRestarted];
@@ -269,6 +273,7 @@
     } else {
         [self updateStatus:ReaderProcessFailed];
         [self->_delegate moppLibCardReaderStatusDidChange: ReaderProcessFailed];
+        [PrivateConstants setIDCardRestartedValue:FALSE];
     }
 }
 
@@ -304,7 +309,7 @@
                 [self->_delegate moppLibCardReaderStatusDidChange: Initial];
                 self->_wasReaderConnected = FALSE;
             });
-        } else if (!self->_isReaderDiscoveryRestarted && self->_wasReaderConnected) {
+        } else if (![PrivateConstants getIDCardRestartedValue] && self->_wasReaderConnected) {
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [self updateStatus:ReaderRestarted];
                 [self stopPollingCardStatus];
@@ -312,9 +317,7 @@
             });
         } else {
             dispatch_sync(dispatch_get_main_queue(), ^{
-                [self updateStatus:ReaderProcessFailed];
                 [self stopPollingCardStatus];
-                [self->_delegate moppLibCardReaderStatusDidChange: ReaderProcessFailed];
                 self->_wasReaderConnected = FALSE;
             });
         }
@@ -331,7 +334,13 @@
     } else {
         if (self->_wasCardConnected) {
             self->_wasCardConnected = FALSE;
-            [self stopPollingCardStatus];
+            if ([PrivateConstants getIDCardRestartedValue]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self updateStatus:ReaderProcessFailed];
+                    [self stopPollingCardStatus];
+                    [self->_delegate moppLibCardReaderStatusDidChange: ReaderProcessFailed];
+                });
+            }
         }
     }
 }

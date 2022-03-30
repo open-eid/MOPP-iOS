@@ -241,8 +241,7 @@ static CardActionsManager *sharedInstance = nil;
     NSLog(@"EXECUTE NEXT ACTION");
     @synchronized (self) {
         if (self.cardActions.count > 0 && !self.isActionExecuting) {
-            NSLog(@"ID-CARD: No card actions. Resetting reader restart");
-            [[MoppLibCardReaderManager sharedInstance] resetReaderRestart];
+            NSLog(@"ID-CARD: No card actions.");
             NSLog(@"ID-CARD: Currently executing card action");
             self.isActionExecuting = YES;
             CardActionObject *action = self.cardActions.firstObject;

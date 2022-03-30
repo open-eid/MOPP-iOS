@@ -36,5 +36,18 @@ NSString *const kMessagingModes = @"asynchClientServer";
     return [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error: &error];
 }
 
++ (void)setIDCardRestartedValue:(BOOL)isIDCardRestarted {
+    [[NSUserDefaults standardUserDefaults] setBool:isIDCardRestarted forKey:@"isIdCardRestarted"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (BOOL)getIDCardRestartedValue {
+    if ([[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:@"isIdCardRestarted"]) {
+        return [[NSUserDefaults standardUserDefaults] boolForKey:@"isIdCardRestarted"];
+    } else {
+        return FALSE;
+    }
+}
+
 @end
 
