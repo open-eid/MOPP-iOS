@@ -14,7 +14,7 @@ platform :ios, '12.0'
 target 'MoppApp' do
   platform :ios, '12.0'
   project 'MoppApp.xcodeproj'
-  pod 'Firebase/Crashlytics', '~> 8.10.0'
+  pod 'Firebase/Crashlytics', '~> 8.14.0'
   pod 'SwiftyRSA', '~> 1.7.0'
   pod 'ZIPFoundation', '~> 0.9.13'
   pod 'ILPDFKit', '~> 2.0.1'
@@ -24,7 +24,7 @@ target 'MoppAppTestEnv' do
   platform :ios, '12.0'
   project 'MoppApp.xcodeproj'
 
-  pod 'Firebase/Crashlytics', '~> 8.10.0'
+  pod 'Firebase/Crashlytics', '~> 8.14.0'
   pod 'SwiftyRSA', '~> 1.7.0'
 end
 
