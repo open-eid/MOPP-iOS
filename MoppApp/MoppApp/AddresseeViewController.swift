@@ -118,6 +118,14 @@ extension AddresseeViewController : UITableViewDataSource {
         return sections.count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if !isNonDefaultPreferredContentSizeCategoryMedium() && isNonDefaultPreferredContentSizeCategoryBigger() {
+            return ContainerSearchCell.height * 3
+        }
+        
+        return tableView.rowHeight
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
             case .notifications:
@@ -234,7 +242,7 @@ extension AddresseeViewController : UITableViewDelegate {
 extension AddresseeViewController : ContainerTableViewHeaderDelegate {
     func didTapContainerHeaderButton() {
         guard let landingViewControllerContainerType = LandingViewController.shared.containerType else {
-            NSLog("Unable to get LandingViewControlelr container type")
+            printLog("Unable to get LandingViewControlelr container type")
             return
         }
         NotificationCenter.default.post(

@@ -48,7 +48,7 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
     public func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<CertificateResponse, SigningError>) -> Void) {
         guard UUID(uuidString: requestParameters.relyingPartyUUID) != nil else { completionHandler(.failure(.midInvalidAccessRights)); return }
         guard let url = URL(string: "\(baseUrl)/certificate") else {
-            ErrorLog.errorLog(forMethod: "Certificate", httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(baseUrl)/certificate")
+            Logging.errorLog(forMethod: "RIA.MobileID - Certificate", httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(baseUrl)/certificate")
             completionHandler(.failure(.invalidURL))
             return
         }
@@ -62,16 +62,14 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.httpBody = encodedRequestParameters
         
-        #if DEBUG
-        NSLog("RIA.MobileID (Certificate): \(url) \n" +
+        Logging.log(forMethod: "RIA.MobileID - getCertificate", info: "RIA.MobileID (Certificate): \(url) \n" +
             "Method: \(request.httpMethod ?? "Unable to get HTTP method") \n" +
             "Parameters: \n" +
             "\trelyingPartyName: \(requestParameters.relyingPartyName) \n" +
             "\trelyingPartyUUID: \(requestParameters.relyingPartyUUID) \n" +
-            "\tphoneNumber: \(requestParameters.phoneNumber.prefix(8))xxxx\n" +
-            "\tnationalIdentityNumber: \(requestParameters.nationalIdentityNumber.prefix(6))xxxxx\n"
+            "\tphoneNumber: \(requestParameters.phoneNumber)\n" +
+            "\tnationalIdentityNumber: \(requestParameters.nationalIdentityNumber)\n"
         )
-        #endif
         
         let urlSessionConfiguration: URLSessionConfiguration
         let urlSession: URLSession
@@ -88,30 +86,31 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
             guard let httpResponse = response as? HTTPURLResponse else {
                 let responseError = error as NSError?
                 if responseError?.code == -999 || responseError?.code == -1200 {
-                    ErrorLog.errorLog(forMethod: "Certificate", httpResponse: response as? HTTPURLResponse ?? nil, error: .invalidSSLCert, extraInfo: "Certificate pinning failed")
+                    Logging.errorLog(forMethod: "RIA.MobileID - Certificate", httpResponse: response as? HTTPURLResponse ?? nil, error: .invalidSSLCert, extraInfo: "Certificate pinning failed")
                     return completionHandler(.failure(.invalidSSLCert))
                 }
-                ErrorLog.errorLog(forMethod: "Certificate", httpResponse: response as? HTTPURLResponse ?? nil, error: .noResponseError, extraInfo: "")
+                Logging.errorLog(forMethod: "RIA.MobileID - Certificate", httpResponse: response as? HTTPURLResponse ?? nil, error: .noResponseError, extraInfo: "")
                 return completionHandler(.failure(.noResponseError))
             }
             
             if error != nil {
-                ErrorLog.errorLog(forMethod: "Certificate", httpResponse: response as? HTTPURLResponse ?? nil, error: .generalError, extraInfo: error?.localizedDescription ?? "Error getting response")
+                Logging.errorLog(forMethod: "RIA.MobileID - Certificate", httpResponse: response as? HTTPURLResponse ?? nil, error: .generalError, extraInfo: error?.localizedDescription ?? "Error getting response")
                 completionHandler(.failure(.generalError))
                 return
             }
             
             if !(200...299).contains(httpResponse.statusCode) {
-                ErrorLog.errorLog(forMethod: "Certificate", httpResponse: httpResponse, error: self.handleHTTPResponseError(httpResponse: httpResponse), extraInfo: "")
+                Logging.errorLog(forMethod: "RIA.MobileID - Certificate", httpResponse: httpResponse, error: self.handleHTTPResponseError(httpResponse: httpResponse), extraInfo: "")
                 return completionHandler(.failure(self.handleHTTPResponseError(httpResponse: httpResponse)))
             }
             
             if let data: Data = data {
                 EncoderDecoder().decode(data: data, completionHandler: { (response: CertificateResponse) in
+                    Logging.log(forMethod: "RIA.MobileID - getCertificate", info: "Response: \n \(String(data: data, encoding: .utf8) ?? "Unable to get response info")")
                     if self.isResponseSuccess(certificateResponse: response) {
                         return completionHandler(.success(response))
                     } else {
-                        ErrorLog.errorLog(forMethod: "Certificate", httpResponse: httpResponse, error: self.handleHTTPResponseError(httpResponse: httpResponse), extraInfo: response.error ?? "Unknown error received")
+                        Logging.errorLog(forMethod: "RIA.MobileID - Certificate", httpResponse: httpResponse, error: self.handleHTTPResponseError(httpResponse: httpResponse), extraInfo: response.error ?? "Unknown error received")
                         return completionHandler(.failure(self.handleCertificateError(certificateResponse: response)))
                     }
                 })

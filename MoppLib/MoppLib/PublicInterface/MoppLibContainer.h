@@ -30,6 +30,7 @@
 @property (strong, nonatomic) NSDictionary *fileAttributes;
 @property (strong, nonatomic) NSArray *dataFiles;
 @property (strong, nonatomic) NSArray *signatures;
+@property (strong, nonatomic) NSArray *timestampTokens;
 
 - (BOOL)isSigned;
 - (BOOL)isEmpty;

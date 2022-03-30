@@ -91,6 +91,8 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             let fileName = "\(currentDate).log"
             let logFilePath = URL(string: documentsDirectory)?.appendingPathComponent(fileName)
             freopen(logFilePath!.absoluteString, "a+", stderr)
+        
+        print("DEBUG mode: Logging to file. File location: \(logFilePath?.path ?? "Unable to log file path")")
         #else
             setDebugMode(value: false)
         #endif
@@ -219,7 +221,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
 
     func openPath(urls: [URL], options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         guard !urls.isEmpty else {
-            NSLog("No URLs found to open")
+            printLog("No URLs found to open")
             return false
         }
         var fileUrls: [URL] = []
@@ -228,7 +230,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             if !url.absoluteString.isEmpty {
                 
                 guard let keyWindow = UIApplication.shared.keyWindow, let topViewController = keyWindow.rootViewController?.getTopViewController() else {
-                    NSLog("Unable to get view controller")
+                    printLog("Unable to get view controller")
                     return false
                 }
                 
@@ -236,7 +238,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                 
                 // Handle file from web with "digidoc" scheme
                 if url.scheme == "digidoc" && url.host == "http" {
-                    NSLog("Opening HTTP links is not supported")
+                    printLog("Opening HTTP links is not supported")
                     DispatchQueue.main.async {
                         return topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, [url.lastPathComponent]))
                     }
@@ -246,7 +248,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                     dispatchGroup.enter()
                     UrlSchemeHandler.shared.getFileLocationFromURL(url: url) { (fileLocation: URL?) in
                         guard let filePath = fileLocation else {
-                            NSLog("Unable to get file location from URL")
+                            printLog("Unable to get file location from URL")
                             DispatchQueue.main.async {
                                 return topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, [url.lastPathComponent]))
                             }
@@ -262,7 +264,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
 
                 // Check if url has changed after opening file with digidoc scheme to prevent multiple error messages
                 if fileUrl.scheme == "digidoc" && fileUrl == url {
-                    NSLog("Failed to open file with scheme")
+                    printLog("Failed to open file with scheme")
                     return false
                 }
 
@@ -296,7 +298,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                 let isFileEmpty = MoppFileManager.isFileEmpty(fileUrl: newUrl)
                 
                 if isFileEmpty {
-                    NSLog("Unable to import empty file")
+                    printLog("Unable to import empty file")
                     if urls.count == 1 {
                         topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))
                         return false
@@ -308,7 +310,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                 let fileExtension: String? = MimeTypeExtractor.determineFileExtension(mimeType: MimeTypeExtractor.getMimeTypeFromContainer(filePath: newUrl)) ?? newUrl.pathExtension
 
                 guard var pathExtension = fileExtension else {
-                    NSLog("Unable to get file extension")
+                    printLog("Unable to get file extension")
                     topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, [newUrl.lastPathComponent]))
                     return false
                 }
@@ -321,14 +323,14 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                     let fileName: String = MoppLibManager.sanitize(newUrl.deletingPathExtension().lastPathComponent)
                     let tempDirectoryPath: String? = MoppFileManager.shared.tempDocumentsDirectoryPath()
                     guard let tempDirectory = tempDirectoryPath else {
-                        NSLog("Unable to get temporary file directory")
+                        printLog("Unable to get temporary file directory")
                         topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
                         return false
                     }
                     let fileURL: URL? = URL(fileURLWithPath: tempDirectory, isDirectory: true).appendingPathComponent(fileName, isDirectory: false).appendingPathExtension(pathExtension)
 
                     guard let newUrlData: Data = newData, let filePath: URL = fileURL else {
-                        NSLog("Unable to get file data or file path")
+                        printLog("Unable to get file data or file path")
                         topViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportNewFileOpeningFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
                         return false
                     }
@@ -340,12 +342,12 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                         }
                         cleanup = true
                     } catch let error {
-                        NSLog("Error writing to file: \(error.localizedDescription)")
+                        printLog("Error writing to file: \(error.localizedDescription)")
                         topViewController.showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportNewFileOpeningFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
                         return false
                     }
                 } catch let error {
-                    NSLog("Error getting directory: \(error)")
+                    printLog("Error getting directory: \(error)")
                     topViewController.showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportNewFileOpeningFailedAlertMessage, [newUrl.lastPathComponent]))
                     return false
                 }
@@ -452,14 +454,14 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         if data != nil {
             let groupFolderUrl = MoppFileManager.shared.fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.ee.ria.digidoc.ios")
             guard var tempGroupFolderUrl = groupFolderUrl else {
-                NSLog("Unable to get temp group folder url")
+                printLog("Unable to get temp group folder url")
                 return
             }
             tempGroupFolderUrl = tempGroupFolderUrl.appendingPathComponent("Temp")
             try? MoppFileManager.shared.fileManager.createDirectory(at: tempGroupFolderUrl, withIntermediateDirectories: false, attributes: nil)
             let filePath: URL? = tempGroupFolderUrl.appendingPathComponent(location.lastPathComponent)
             guard let tempFilePath = filePath else {
-                NSLog("Unable to get temp file path url")
+                printLog("Unable to get temp file path url")
                 return
             }
             try? MoppFileManager.shared.fileManager.copyItem(at: location, to: tempFilePath)

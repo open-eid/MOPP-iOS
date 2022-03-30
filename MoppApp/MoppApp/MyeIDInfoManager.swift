@@ -373,6 +373,7 @@ class MyeIDChangeCodesModel {
     var confirmButtonTitleText = String()
 }
 
+
 extension MyeIDInfoManager {
     class func createChangeCodesModel(actionType: MyeIDChangeCodesModel.ActionType) -> MyeIDChangeCodesModel {
         let model = MyeIDChangeCodesModel()

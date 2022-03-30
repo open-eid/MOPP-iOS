@@ -20,18 +20,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
+import UIKit
 class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var appVersionLabel: UILabel!
     @IBOutlet weak var opSysVersionLabel: UILabel!
     @IBOutlet weak var librariesTitleLabel: UILabel!
     @IBOutlet weak var librariesLabel: UILabel!
+    @IBOutlet weak var urlsLabel: UILabel!
     @IBOutlet weak var centralConfigurationLabel: UILabel!
     @IBOutlet weak var updateDateLabel: UILabel!
     @IBOutlet weak var lastCheckLabel: UILabel!
     @IBOutlet weak var refreshConfigurationLabel: UIButton!
     @IBOutlet weak var saveDiagnosticsLabel: UIButton!
-
+    
     @IBOutlet weak var configURL: UILabel!
     @IBOutlet weak var tslURL: UILabel!
     @IBOutlet weak var sivaURL: UILabel!
@@ -61,11 +64,11 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     }
     
     @IBAction func saveDiagnostics(_ sender: Any) {
-        NSLog("Saving diagnostics")
-        NSLog("Formatting diagnostics data")
+        printLog("Saving diagnostics")
+        printLog("Formatting diagnostics data")
         let diagnosticsText = formatDiagnosticsText()
         let fileName = "ria_digidoc_\(MoppApp.versionString)_diagnostics.txt"
-        NSLog("Saving diagnostics to file '\(fileName)'")
+        printLog("Saving diagnostics to file '\(fileName)'")
         saveDiagnosticsToFile(fileName: fileName, diagnosticsText: diagnosticsText)
     }
 
@@ -99,15 +102,43 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         super.viewDidLoad()
 
         titleLabel.text = L(.diagnosticsTitle)
-        appVersionLabel.attributedText = attributedTextForBoldRegularText(key: L(.diagnosticsAppVersion) + ": ", value: MoppApp.versionString)
-        opSysVersionLabel.attributedText = attributedTextForBoldRegularText(key: L(.diagnosticsIosVersion) + ": ", value: "iOS " +  MoppApp.iosVersion)
-        librariesTitleLabel.attributedText = attributedTextForBoldRegularText(key: L(.diagnosticsLibrariesLabel), value: String())
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
+        if isNonDefaultPreferredContentSizeCategory() {
+            titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
+        appVersionLabel.text = "\(L(.diagnosticsAppVersion)): \(MoppApp.versionString)"
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            appVersionLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
+        opSysVersionLabel.text = "\(L(.diagnosticsIosVersion)): iOS \(MoppApp.iosVersion)"
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            opSysVersionLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
+        librariesTitleLabel.text = "\(L(.diagnosticsLibrariesLabel))"
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            librariesTitleLabel.font = UIFont.setCustomFont(font: .medium, nil, .body)
+        }
         let libdigidocppVersion = MoppLibManager.sharedInstance().libdigidocppVersion() ?? String()
-        librariesLabel.attributedText = attributedTextForBoldRegularText(key: String(), value: "libdigidocpp \(libdigidocppVersion)")
+        librariesLabel.text = "libdigidocpp \(libdigidocppVersion)"
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            librariesLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            urlsLabel.font = UIFont.setCustomFont(font: .medium, nil, .body)
+        }
         centralConfigurationLabel.text = L(.centralConfigurationLabel)
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            centralConfigurationLabel.font = UIFont.setCustomFont(font: .medium, nil, .body)
+        }
         refreshConfigurationLabel.setTitle(L(.refreshConfigurationLabel))
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            refreshConfigurationLabel.titleLabel?.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
         saveDiagnosticsLabel.setTitle(L(.saveDiagnosticsLabel))
-
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            saveDiagnosticsLabel.titleLabel?.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
+        
         configurationToUI()
 
         listenForConfigUpdates()
@@ -130,7 +161,19 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     @objc func handleConfigurationLoaded(notification: Notification) {
         self.viewDidLoad()
     }
-
+    
+    private func setContentSizeFont() {
+        for label in getAllTextLabels(view: view) {
+            if let text = label.text {
+                if isCategoryLabel(text: text) {
+                    label.font = UIFont.setCustomFont(font: .medium, nil, .body)
+                } else if !isTitleLabel(text: text) {
+                    label.font = UIFont.setCustomFont(font: .regular, nil, .body)
+                }
+            }
+        }
+    }
+    
     private func configurationToUI() {
         let decodedConf = getMoppConfiguration()
 
@@ -138,7 +181,6 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         tslURL.text = formatString(text: "TSL_URL:", additionalText: "\(getMoppConfiguration().TSLURL) \(formatLOTLVersion(version: getLOTLVersion()))")
         sivaURL.text = formatString(text: "SIVA_URL:", additionalText: decodedConf.SIVAURL)
         tsaURL.text = formatString(text: "TSA_URL:", additionalText: DefaultsHelper.timestampUrl ?? decodedConf.TSAURL)
-        midSignURL.text = formatString(text: "MID-SIGN-URL:", additionalText: decodedConf.MIDSIGNURL)
         ldapPersonURL.text = formatString(text: "LDAP_PERSON_URL:", additionalText: decodedConf.LDAPPERSONURL)
         ldapCorpURL.text = formatString(text: "LDAP_CORP_URL:", additionalText: decodedConf.LDAPCORPURL)
         mobileIdURL.text = formatString(text: "MID-PROXY-URL: ", additionalText: decodedConf.MIDPROXYURL)
@@ -159,7 +201,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
             do {
                 updateDate.text = formatString(text: L(.updateDateLabel), additionalText: try getDecodedDefaultMoppConfiguration().UPDATEDATE)
             } catch {
-                MSLog("Unable to decode data: ", error.localizedDescription)
+                printLog("Unable to decode data: \(error.localizedDescription)")
             }
         }
 
@@ -167,6 +209,10 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
             lastCheckDate.text = formatString(text: L(.lastUpdateCheckDateLabel), additionalText: MoppDateFormatter().dateToString(date: cachedLastUpdateCheckDate))
         } else {
             lastCheckDate.text = formatString(text: L(.lastUpdateCheckDateLabel), additionalText: " ")
+        }
+        
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            setContentSizeFont()
         }
     }
 
@@ -179,7 +225,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
             let defaultConfigData = try String(contentsOfFile: Bundle.main.path(forResource: "defaultConfiguration", ofType: "json")!)
             return try MoppConfigurationDecoder().decodeDefaultMoppConfiguration(configData: defaultConfigData)
         } catch {
-            MSLog("Unable to decode data: ", error.localizedDescription)
+            printLog("Unable to decode data: \(error.localizedDescription)")
             throw error
         }
     }
@@ -187,15 +233,15 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     private func getLOTLVersion() -> String {
         let lotlFileUrl: URL? = TSLUpdater().getLOTLFileURL()
         guard lotlFileUrl != nil, let lotlFile = lotlFileUrl else {
-            NSLog("Unable to get LOTL file")
+            printLog("Unable to get LOTL file")
             return ""
         }
         let fileLocation: URL? = URL(fileURLWithPath: lotlFile.path)
-        guard let fileURL: URL = fileLocation else { NSLog("Failed to get eu-lotl file location"); return "" }
+        guard let fileURL: URL = fileLocation else { printLog("Failed to get eu-lotl file location"); return "" }
         do {
             _ = try fileURL.checkResourceIsReachable()
         } catch let error {
-            NSLog("Failed to check if eu-lotl.xml file is reachable. Error: \(error.localizedDescription)")
+            printLog("Failed to check if eu-lotl.xml file is reachable. Error: \(error.localizedDescription)")
             return ""
         }
         var version: String = ""
@@ -263,7 +309,15 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     }
     
     private func isTitleOrButtonLabel(text: String) -> Bool {
-        return text == L(.diagnosticsTitle) || text == L(.refreshConfigurationLabel) || text == L(.saveDiagnosticsLabel)
+        return isTitleLabel(text: text) || isButtonLabel(text: text)
+    }
+    
+    private func isTitleLabel(text: String) -> Bool {
+        return text == L(.diagnosticsTitle)
+    }
+    
+    private func isButtonLabel(text: String) -> Bool {
+        return text == L(.refreshConfigurationLabel) || text == L(.saveDiagnosticsLabel)
     }
     
     private func isCategoryLabel(text: String) -> Bool {
@@ -276,23 +330,23 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         if let fileUrl = fileLocation {
             do {
                 if MoppFileManager.shared.fileExists(fileUrl.path) {
-                    NSLog("Removing old diagnostics file")
+                    printLog("Removing old diagnostics file")
                     MoppFileManager.shared.removeFile(withPath: fileUrl.path)
                 }
                 
-                NSLog("Writing diagnostics text to file")
+                printLog("Writing diagnostics text to file")
                 try diagnosticsText.write(to: fileUrl, atomically: true, encoding: .utf8)
                 
                 if MoppFileManager.shared.fileExists(fileUrl.path) {
                     let pickerController = UIDocumentPickerViewController(url: fileUrl, in: .exportToService)
                     pickerController.delegate = self
                     self.present(pickerController, animated: true) {
-                        NSLog("Showing file saving location picker")
+                        printLog("Showing file saving location picker")
                     }
                     return
                 }
             } catch {
-                NSLog("Unable to write diagnostics to file. Error: \(error.localizedDescription)")
+                printLog("Unable to write diagnostics to file. Error: \(error.localizedDescription)")
                 self.errorAlert(message: L(.fileImportFailedFileSave))
                 return
             }
@@ -302,15 +356,15 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         if !urls.isEmpty {
             let savedFileLocation: URL? = urls.first
-            NSLog("File export done. Location: \(savedFileLocation?.path ?? "Not available")")
+            printLog("File export done. Location: \(savedFileLocation?.path ?? "Not available")")
             self.errorAlert(message: L(.fileImportFileSaved))
         } else {
-            NSLog("Failed to save file")
+            printLog("Failed to save file")
             return self.errorAlert(message: L(.fileImportFailedFileSave))
         }
     }
     
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
-        NSLog("File saving cancelled")
+        printLog("File saving cancelled")
     }
 }

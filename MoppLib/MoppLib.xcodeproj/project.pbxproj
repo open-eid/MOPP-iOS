@@ -765,9 +765,7 @@
 					};
 					E4250CE61E09695100530370 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 4YJSF2LF24;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1354,9 +1352,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 4YJSF2LF24;
+				DEVELOPMENT_TEAM = "";
 				"DIGIDOCPP_PATH[sdk=iphoneos*]" = "$(SRCROOT)/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
 				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1402,6 +1401,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.lab.MoppLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -1420,9 +1420,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 4YJSF2LF24;
+				DEVELOPMENT_TEAM = "";
 				"DIGIDOCPP_PATH[sdk=iphoneos*]" = "$(SRCROOT)/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
 				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1468,6 +1470,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.lab.MoppLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";

@@ -19,7 +19,7 @@
 		DF04A89723FEDD110086C9F9 /* RequestMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04A89623FEDD110086C9F9 /* RequestMethod.swift */; };
 		DF04A89923FEDE6D0086C9F9 /* CertificateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04A89823FEDE6D0086C9F9 /* CertificateResponse.swift */; };
 		DF2AB81726038EBD00892A2D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2AB81626038EBD00892A2D /* Constants.swift */; };
-		DF3653B2242BA07400C48AC5 /* ErrorLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3653B1242BA07400C48AC5 /* ErrorLog.swift */; };
+		DF3653B2242BA07400C48AC5 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3653B1242BA07400C48AC5 /* Logging.swift */; };
 		DF3D29B223F6A92A007181B8 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29A823F6A929007181B8 /* SkSigningLib.framework */; };
 		DF3D29B723F6A92A007181B8 /* SkSigningLibTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3D29B623F6A92A007181B8 /* SkSigningLibTests.swift */; };
 		DF3D29B923F6A92A007181B8 /* SkSigningLib.h in Headers */ = {isa = PBXBuildFile; fileRef = DF3D29AB23F6A929007181B8 /* SkSigningLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -60,7 +60,7 @@
 		DF04A89623FEDD110086C9F9 /* RequestMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RequestMethod.swift; path = Certificate/RequestMethod.swift; sourceTree = "<group>"; };
 		DF04A89823FEDE6D0086C9F9 /* CertificateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateResponse.swift; sourceTree = "<group>"; };
 		DF2AB81626038EBD00892A2D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		DF3653B1242BA07400C48AC5 /* ErrorLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLog.swift; sourceTree = "<group>"; };
+		DF3653B1242BA07400C48AC5 /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
 		DF3D29A823F6A929007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF3D29AB23F6A929007181B8 /* SkSigningLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SkSigningLib.h; sourceTree = "<group>"; };
 		DF3D29AC23F6A929007181B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -153,7 +153,7 @@
 			children = (
 				DF04A88F23FEC7130086C9F9 /* EncoderDecoder.swift */,
 				DF90EDDF24223D6A0040FFE7 /* ControlCode.swift */,
-				DF3653B1242BA07400C48AC5 /* ErrorLog.swift */,
+				DF3653B1242BA07400C48AC5 /* Logging.swift */,
 				DFEB04E8243DF3F00080F43A /* CertificatePinning.swift */,
 				DF2AB81626038EBD00892A2D /* Constants.swift */,
 			);
@@ -426,7 +426,7 @@
 				DFD204E7240D274E00EB8150 /* SessionResponse.swift in Sources */,
 				DFD204EF240FD9FD00EB8150 /* SessionStatusResponse.swift in Sources */,
 				DF04A88D23FEA6950086C9F9 /* RequestSignature.swift in Sources */,
-				DF3653B2242BA07400C48AC5 /* ErrorLog.swift in Sources */,
+				DF3653B2242BA07400C48AC5 /* Logging.swift in Sources */,
 				DF04A89023FEC7130086C9F9 /* EncoderDecoder.swift in Sources */,
 				DF04A89723FEDD110086C9F9 /* RequestMethod.swift in Sources */,
 				DFDF02C6241F0150006CF443 /* SigningError.swift in Sources */,
@@ -607,9 +607,9 @@
 			baseConfigurationReference = 06543ADB758D0DC0D669381E /* Pods-SkSigningLib.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = ET847QJV9F;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -623,6 +623,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.SkSigningLib;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -636,9 +637,9 @@
 			baseConfigurationReference = B8B3B83F96F0CE5EDAF5BA49 /* Pods-SkSigningLib.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = ET847QJV9F;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -652,6 +653,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.SkSigningLib;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;

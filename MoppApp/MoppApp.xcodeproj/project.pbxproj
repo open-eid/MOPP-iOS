@@ -344,7 +344,6 @@
 		DF6299122664FEFE00E6C55E /* UrlSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */; };
 		DF7F611926399B5400747B7D /* ContainerRemovalActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */; };
 		DF900C972386768F00887385 /* tslFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DF900C94238567CA00887385 /* tslFiles.bundle */; };
-		DF9361362757BD0E0022FAD9 /* InternetConnectionUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9361352757BD0E0022FAD9 /* InternetConnectionUtil.swift */; };
 		DFA5821A264AAB6600564971 /* digidoc_76.png in Resources */ = {isa = PBXBuildFile; fileRef = DFA58218264AAB6500564971 /* digidoc_76.png */; };
 		DFA5821B264AAB6600564971 /* digidoc_1024.png in Resources */ = {isa = PBXBuildFile; fileRef = DFA58219264AAB6600564971 /* digidoc_1024.png */; };
 		DFB970A32626136400464791 /* PreviewFileTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB970A22626136300464791 /* PreviewFileTapGestureRecognizer.swift */; };
@@ -636,7 +635,6 @@
 		DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSchemeHandler.swift; sourceTree = "<group>"; };
 		DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerRemovalActions.swift; sourceTree = "<group>"; };
 		DF900C94238567CA00887385 /* tslFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = tslFiles.bundle; sourceTree = "<group>"; };
-		DF9361352757BD0E0022FAD9 /* InternetConnectionUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetConnectionUtil.swift; sourceTree = "<group>"; };
 		DFA58218264AAB6500564971 /* digidoc_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_76.png; sourceTree = "<group>"; };
 		DFA58219264AAB6600564971 /* digidoc_1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_1024.png; sourceTree = "<group>"; };
 		DFB970A22626136300464791 /* PreviewFileTapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewFileTapGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -1175,7 +1173,6 @@
 				DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */,
 				DF3F62AF26BD71180070F930 /* FileDownloader.swift */,
 				DF26DC8226CD45670073ABA7 /* SivaUtil.swift */,
-				DF9361352757BD0E0022FAD9 /* InternetConnectionUtil.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1804,7 +1801,6 @@
 				C54BB10F1FBD93A100A274F6 /* MobileIDChallengeViewController.swift in Sources */,
 				399C01EA20BD98730056D7AC /* ContainerFoundAddresseeCell.swift in Sources */,
 				C593D9EE208F1C09000B3BF6 /* SettingsHeaderCell.swift in Sources */,
-				DF9361362757BD0E0022FAD9 /* InternetConnectionUtil.swift in Sources */,
 				3921CAA920B5A54600BF3178 /* ContainerImportAddressees.swift in Sources */,
 				C56C6206201A189600CCC2A5 /* MenuHeaderCell.swift in Sources */,
 				DFBF242E23DB0923008DD8D0 /* LOTLDecoder.swift in Sources */,
@@ -1948,8 +1944,8 @@
 				MARKETING_VERSION = 2.4.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.shareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "68de1df4-96a9-4da7-91d1-5f2462e16f2d";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = $SHARE_EXTENSION_PROVISIONING_PROFILE;
+				PROVISIONING_PROFILE_SPECIFIER = $SHARE_EXTENSION_PROVISIONING_PROFILE;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "shareExtension/shareExtension-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1978,8 +1974,8 @@
 				MARKETING_VERSION = 2.4.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.shareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e83cc59f-2e66-4b4e-a6b4-616e54ad4a81";
-				PROVISIONING_PROFILE_SPECIFIER = "iOS share extension App Store";
+				PROVISIONING_PROFILE = $SHARE_EXTENSION_PROVISIONING_PROFILE;
+				PROVISIONING_PROFILE_SPECIFIER = $SHARE_EXTENSION_PROVISIONING_PROFILE;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "shareExtension/shareExtension-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
@@ -2233,8 +2229,8 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b913e4d7-5a06-41ef-819b-bff86d89eb1d";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = $APP_PROVISIONING_PROFILE;
+				PROVISIONING_PROFILE_SPECIFIER = $APP_PROVISIONING_PROFILE;
 				SWIFT_OBJC_BRIDGING_HEADER = "MoppApp/MoppApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -2284,8 +2280,8 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8802afdf-ea26-49a0-ac6a-fa619cee3bef";
-				PROVISIONING_PROFILE_SPECIFIER = "MOPP iOS App Store";
+				PROVISIONING_PROFILE = $APP_PROVISIONING_PROFILE;
+				PROVISIONING_PROFILE_SPECIFIER = $APP_PROVISIONING_PROFILE;
 				SWIFT_OBJC_BRIDGING_HEADER = "MoppApp/MoppApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
