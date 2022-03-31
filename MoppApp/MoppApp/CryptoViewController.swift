@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,6 +22,7 @@
  */
 
 import Foundation
+import UIKit
 
 
 class CryptoViewController : MoppViewController {
@@ -42,6 +43,11 @@ class CryptoViewController : MoppViewController {
         titleLabel.text = L(LocKey.cryptoViewBeginLabel)
         importButton.localizedTitle = LocKey.cryptoViewBeginButton
         menuButton.accessibilityLabel = L(LocKey.menuButton)
+        
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            titleLabel.font = UIFont.setCustomFont(font: .medium, isNonDefaultPreferredContentSizeCategoryBigger() ? 20 : nil, .headline)
+            importButton.titleLabel?.font = UIFont.setCustomFont(font: .medium, isNonDefaultPreferredContentSizeCategoryBigger() ? 12 : nil, .body)
+        }
         
         titleLabel.isAccessibilityElement = false
         importButton.accessibilityLabel = titleLabel.text

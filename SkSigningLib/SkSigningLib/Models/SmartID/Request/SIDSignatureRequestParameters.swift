@@ -1,6 +1,6 @@
 /*
  * SkSigningLib - SIDSignatureRequestParameters.swift
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -45,6 +45,12 @@ public struct SIDSignatureRequestParameters: Codable {
     let hashType: String
     let displayText: String?
     let requestProperties: SIDSignatureRequestParametersProperties?
+    
+    var asData: Data {
+        return #"""
+{"requestProperties":{"vcChoice":\#(requestProperties?.vcChoice ?? true)},"hash":"\#(hash)","hashType":"\#(hashType)","displayText":"\#(displayText ?? "")","relyingPartyName":"\#(relyingPartyName)","relyingPartyUUID":"\#(relyingPartyUUID)"}
+"""#.data(using: .utf8) ?? Data()
+    }
 
     public enum CodingKeys: String, CodingKey {
         case relyingPartyName

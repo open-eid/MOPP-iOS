@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,13 +24,16 @@
     @IBOutlet weak var titleLabel: UILabel!
     
     func populate(emptySearch: Bool) {
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
         if emptySearch {
             titleLabel.text = L(.recentContainersEmptySearchMessage)
         } else {
             titleLabel.text = L(.recentContainersEmptyListTitle)
         }
         guard let titleUILabel = titleLabel else {
-            NSLog("Unable to get titleLabel")
+            printLog("Unable to get titleLabel")
             return
         }
         self.accessibilityElements = [titleUILabel]

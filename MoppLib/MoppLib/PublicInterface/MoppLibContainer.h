@@ -3,7 +3,7 @@
 //  MoppLib
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,6 +30,7 @@
 @property (strong, nonatomic) NSDictionary *fileAttributes;
 @property (strong, nonatomic) NSArray *dataFiles;
 @property (strong, nonatomic) NSArray *signatures;
+@property (strong, nonatomic) NSArray *timestampTokens;
 
 - (BOOL)isSigned;
 - (BOOL)isEmpty;

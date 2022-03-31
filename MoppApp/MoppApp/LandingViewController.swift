@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -111,6 +111,9 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
     func selectTab(with tabButtonId: TabButtonId) {
         buttonsCollection.forEach {
             $0.setSelected(TabButtonId(rawValue: $0.accessibilityIdentifier!)! == tabButtonId)
+            if isBoldTextEnabled() {
+                $0.title.font = UIFont(name: MoppFontName.allCapsBold.rawValue, size: 11)
+            }
         }
     }
 

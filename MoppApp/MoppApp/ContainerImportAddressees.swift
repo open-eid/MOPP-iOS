@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -40,5 +40,9 @@ class ContainerImportAddresseesCell : UITableViewCell {
         super.awakeFromNib()
         button.localizedTitle = LocKey.addresseeImportTitle
         button.accessibilityLabel = L(.addresseeImportTitleAccessibility)
+        button.titleLabel?.font = isBoldTextEnabled() ? UIFont.moppMediumBold : UIFont.moppMediumRegular
+        if isNonDefaultPreferredContentSizeCategory() {
+            button.titleLabel?.font = UIFont.setCustomFont(font: .allCapsRegular, 12, .body)
+        }
     }
 }

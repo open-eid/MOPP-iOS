@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,6 +21,7 @@
  *
  */
 import Foundation
+import UIKit
 
 protocol SigningTableViewHeaderViewDelegate: AnyObject {
     func signingTableViewHeaderViewSearchKeyChanged(_ searchKeyValue: String)
@@ -45,7 +46,7 @@ class SigningTableViewHeaderView: UIView {
         super.awakeFromNib()
         searchTextField._delegate = self
         guard let titleUILabel = titleLabel, let searchUIButton = searchButton, let searchUITextField = searchTextField else {
-            NSLog("Unable to get titleLabel, searchButton or searchTextField")
+            printLog("Unable to get titleLabel, searchButton or searchTextField")
             return
         }
         searchUITextField.isAccessibilityElement = false
@@ -62,6 +63,12 @@ class SigningTableViewHeaderView: UIView {
     
     func populate(title: String, _ requestCloseSearch: inout () -> Void) {
         titleLabel.text = title
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
+        if isNonDefaultPreferredContentSizeCategoryMedium() {
+            titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        } else if isNonDefaultPreferredContentSizeCategoryBigger() {
+            titleLabel.font = UIFont.setCustomFont(font: .regular, 10, .body)
+        }
         requestCloseSearch = { [weak self] in
             self?.showSearch(false, animated: false)
         }
@@ -75,6 +82,7 @@ class SigningTableViewHeaderView: UIView {
         self.titleLabel.isHidden = false
         self.searchButton.isHidden = false
         self.searchTextField.isHidden = false
+        self.searchButton.titleLabel?.font = UIFont.moppLargerMedium
     
         let changeTo = {
             if !UIAccessibility.isVoiceOverRunning {

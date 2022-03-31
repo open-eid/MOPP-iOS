@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -160,7 +160,7 @@ extension String {
             
             return urls.first?.url?.absoluteString
         } catch {
-            NSLog("Unable to get URL from text")
+            printLog("Unable to get URL from text")
             return nil
         }
     }
@@ -175,6 +175,12 @@ extension String {
             return UIApplication.shared.canOpenURL(url)
         }
         return false
+    }
+    
+    var asUnicode: String {
+        let textAsData = self.data(using: .nonLossyASCII)
+        let textAsUnicode = String(data: textAsData ?? Data(), encoding: .utf8) ?? ""
+        return #"\#(textAsUnicode)"#
     }
 }
 

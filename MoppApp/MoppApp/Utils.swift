@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -43,19 +43,28 @@ struct DeviceType
 }
 
 func isDeviceOrientationLandscape() -> Bool {
-    if UIDevice.current.orientation.isFlat {
+    if UIDevice.current.orientation.isFlat || !UIDevice.current.orientation.isValidInterfaceOrientation {
         if #available(iOS 13.0, *) {
             return UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.windowScene?.interfaceOrientation.isLandscape ?? false
         } else {
             return UIApplication.shared.statusBarOrientation.isLandscape
         }
     }
-    
+
     return UIDevice.current.orientation.isLandscape
 }
 
-func MSLog(_ format: String, _ arguments: Any...) {
-    NSLog(format, arguments)
+func MSLog(_ format: String, _ arguments: Any..., fileName file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    #if DEBUG
+        NSLog(format, arguments)
+    #endif
+}
+
+func printLog(_ message: String, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    #if DEBUG
+        NSLog("\(message)\n" +
+        "\tFile: \(file), function: \(function), line: \(line)\n")
+    #endif
 }
 
 let kDefaultLanguageID = "en"
@@ -116,9 +125,42 @@ func countryCodePrefill(textField: UITextField, countryCode: String) -> Void {
 func singleCharacterToUnicodeScalar(character: Character) -> Unicode.Scalar {
     let unicodeScalars: Character.UnicodeScalarView = character.unicodeScalars
     guard unicodeScalars.count == 1, let firstUnicodeScalar = unicodeScalars.first else {
-        NSLog("Invalid character or not a single character")
+        printLog("Invalid character or not a single character")
         return Unicode.Scalar(0)
     }
     return UnicodeScalar(firstUnicodeScalar)
 }
 
+func isUsingTestMode() -> Bool {
+    #if DEBUG
+        let testMode: Bool = true
+    #else
+        let testMode: Bool = false
+    #endif
+
+    return testMode
+}
+
+func isNonDefaultPreferredContentSizeCategory() -> Bool {
+    return UIApplication.shared.preferredContentSizeCategory != .large
+}
+
+func isNonDefaultPreferredContentSizeCategorySmaller() -> Bool {
+    return UIApplication.shared.preferredContentSizeCategory < .large
+}
+
+func isNonDefaultPreferredContentSizeCategoryMedium() -> Bool {
+    return UIApplication.shared.preferredContentSizeCategory >= .medium && UIApplication.shared.preferredContentSizeCategory < .accessibilityExtraLarge
+}
+
+func isNonDefaultPreferredContentSizeCategoryBigger() -> Bool {
+    return UIApplication.shared.preferredContentSizeCategory > .large
+}
+
+func isNonDefaultPreferredContentSizeCategoryLargest() -> Bool {
+    return UIApplication.shared.preferredContentSizeCategory == .accessibilityExtraExtraExtraLarge
+}
+
+func isBoldTextEnabled() -> Bool {
+    return UIAccessibility.isBoldTextEnabled
+}

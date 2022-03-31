@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qFP-og-5IC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qFP-og-5IC">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -108,7 +108,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MyeIDInfoCell" rowHeight="69" id="sUs-Hf-JPf" customClass="MyeIDInfoCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="375" height="69"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="375" height="69"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sUs-Hf-JPf" id="648-ae-GIY">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
@@ -144,7 +144,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="marginCell" rowHeight="15" id="A6s-au-iZz">
-                                        <rect key="frame" x="0.0" y="93.5" width="375" height="15"/>
+                                        <rect key="frame" x="0.0" y="113.5" width="375" height="15"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A6s-au-iZz" id="E0S-re-LFz">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="15"/>
@@ -168,7 +168,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MyeIDSegmentHeaderCell" rowHeight="55" id="A8A-0d-Gn2" customClass="MyeIDSegmentHeaderCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="108.5" width="375" height="55"/>
+                                        <rect key="frame" x="0.0" y="128.5" width="375" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A8A-0d-Gn2" id="V7o-I5-DV0">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
@@ -181,7 +181,7 @@
                                                         <constraint firstAttribute="width" constant="30" id="Txe-l3-srT"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PIN/PUK KOODID JA SERTIFIKAATIDE KONTROLL" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZe-Sb-oBY">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PIN/PUK KOODID JA SERTIFIKAATIDE KONTROLL" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZe-Sb-oBY">
                                                     <rect key="frame" x="36" y="15" width="323" height="25"/>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Bold" family="Roboto Condensed" pointSize="16"/>
                                                     <color key="textColor" name="MoppBase"/>
@@ -205,7 +205,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MyeIDPinPukCell" rowHeight="264" id="4lc-dq-tbf" customClass="MyeIDPinPukCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="163.5" width="375" height="264"/>
+                                        <rect key="frame" x="0.0" y="183.5" width="375" height="264"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4lc-dq-tbf" id="TpW-2W-W0x">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="264"/>
@@ -242,7 +242,7 @@
                                                         <constraint firstItem="7qQ-fi-sih" firstAttribute="leading" secondItem="0xZ-T4-fMD" secondAttribute="leading" id="miu-oe-Bbr"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ea3-dl-Wz3">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Ea3-dl-Wz3">
                                                     <rect key="frame" x="16" y="98.5" width="343" height="50"/>
                                                     <color key="backgroundColor" name="MoppBase"/>
                                                     <constraints>
@@ -273,7 +273,7 @@
                                                     <color key="textColor" name="MoppLabel"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" text="PIN1 on sisestatud 3 kord valesti.  PIN1 on blokeeritud" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ST5-E7-4MQ">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" text="PIN1 on sisestatud 3 kord valesti.  PIN1 on blokeeritud" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ST5-E7-4MQ">
                                                     <rect key="frame" x="16" y="164.5" width="343" height="37.5"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                     <color key="textColor" name="MoppError"/>
@@ -286,7 +286,7 @@
                                                         <constraint firstAttribute="height" constant="1" id="mT7-d5-mZK"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRI-cY-Mwr">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="bRI-cY-Mwr">
                                                     <rect key="frame" x="11" y="205.5" width="353" height="44"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <accessibility key="accessibilityConfiguration">
@@ -391,7 +391,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="717"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UF1-Qa-mvf">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="717"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="440"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cGO-C3-0Va">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -531,6 +531,7 @@
                                             <constraint firstAttribute="trailing" secondItem="cGO-C3-0Va" secondAttribute="trailing" id="lQq-IR-Ood"/>
                                             <constraint firstItem="c8a-YI-eYb" firstAttribute="top" secondItem="9qa-rd-DJj" secondAttribute="bottom" constant="32" id="mgC-Gv-fu6"/>
                                             <constraint firstItem="9qa-rd-DJj" firstAttribute="top" secondItem="Yyo-r1-QMO" secondAttribute="bottom" constant="8" id="pz1-Xa-lRL"/>
+                                            <constraint firstAttribute="bottom" secondItem="Xxo-4z-lx2" secondAttribute="bottom" constant="24" id="tEf-Ot-Ckv"/>
                                             <constraint firstItem="cGO-C3-0Va" firstAttribute="top" secondItem="UF1-Qa-mvf" secondAttribute="top" id="wGd-uJ-aLh"/>
                                             <constraint firstItem="c9B-De-cxW" firstAttribute="leading" secondItem="UF1-Qa-mvf" secondAttribute="leading" constant="8" id="z9a-FF-4yc"/>
                                         </constraints>

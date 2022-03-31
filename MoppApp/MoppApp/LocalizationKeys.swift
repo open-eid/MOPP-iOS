@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -95,6 +95,7 @@ enum LocKey : String
     case containerHeaderCreateAddresseesTitle = "container-header-create-addressee-title"
     case containerHeaderTimestampTitle = "container-header-timestamp-title"
     case containerHeaderSignaturesTitle = "container-header-signatures-title"
+    case containerHeaderTimestampsTitle = "container-header-timestamps-title"
     case containerRowEditRemove = "container-row-edit-remove"
     case containerHeaderTitle = "container-header-title"
     case containerErrorMessageInvalidSignature = "container-error-message-invalid-signature"
@@ -109,6 +110,8 @@ enum LocKey : String
     case containerSignatureStatusNonQscd = "container-signature-status-non-qscd";
     case containerSignatureStatusInvalid = "container-signature-status-invalid";
     case containerSignatureStatusUnknown = "container-signature-status-unknown";
+    case containerTimestampValid = "container-timestamp-valid";
+    case containerTimestampUnknown = "container-timestamp-unknown";
     case containerTimestampInvalid = "container-timestamp-invalid";
     case challengeCodeLabel = "challenge-code-label"
     case challengeCodeLabelAccessibility = "challenge-code-label-accessibility"
@@ -134,6 +137,7 @@ enum LocKey : String
     case mobileIdVerificationCodeTitle = "mobile-id-verification-code-title"
     case mobileIdChallengeTitle = "mobile-id-challenge-title"
     case mobileIdChallengeWaitingForResponse = "mobile-id-challenge-waiting-response"
+    case signingProgress = "signing-progress"
     case signingRememberMe = "signing-remember-me"
     case signingCancelled = "signing-cancelled"
     case smartIdTitle = "smart-id-title"

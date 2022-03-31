@@ -3,7 +3,7 @@
 //  SkSigningLib
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -34,6 +34,12 @@ public struct SessionRequestParameters: Codable {
     let language: String
     let displayText: String?
     let displayTextFormat: String?
+    
+    var asData: Data {
+            return #"""
+    { "nationalIdentityNumber":"\#(nationalIdentityNumber)","hash":"\#(hash)","relyingPartyName":"\#(relyingPartyName)","displayTextFormat":"\#(displayTextFormat ?? "GSM-7")","displayText":"\#(displayText ?? "")","hashType":"\#(hashType)","language":"\#(language)","relyingPartyUUID":"\#(relyingPartyUUID)","phoneNumber":"\#(phoneNumber)" }
+    """#.data(using: .utf8) ?? Data()
+    }
     
     public enum CodingKeys: String, CodingKey {
         case relyingPartyName

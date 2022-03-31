@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -191,7 +191,7 @@ extension TokenFlowSelectionViewController {
                 $0.setTitleColor(lightColor, for: .normal)
                 $0.setTitleColor(lightColor, for: .selected)
                 $0.setTitleColor(lightColor, for: .highlighted)
-                $0.titleLabel?.font = UIFont(name: MoppFontName.allCapsBold.rawValue, size: 17.0)
+                $0.titleLabel?.font = UIFont.setCustomFont(font: .allCapsBold, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
                 $0.isSelected = true
             } else {
                 // set unselected state
@@ -199,7 +199,7 @@ extension TokenFlowSelectionViewController {
                 $0.setTitleColor(darkColor, for: .normal)
                 $0.setTitleColor(darkColor, for: .selected)
                 $0.setTitleColor(darkColor, for: .highlighted)
-                $0.titleLabel?.font = UIFont(name: MoppFontName.allCapsRegular.rawValue, size: 17.0)
+                $0.titleLabel?.font = UIFont.setCustomFont(font: .allCapsRegular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
                 $0.isSelected = false
             }
         }

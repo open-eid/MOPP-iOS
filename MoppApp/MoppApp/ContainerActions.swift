@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,7 +21,7 @@
  *
  */
 protocol ContainerActions {
-    func openExistingContainer(with url: URL, cleanup: Bool, isEmptyFileImported: Bool)
+    func openExistingContainer(with url: URL, cleanup: Bool, isEmptyFileImported: Bool, isSendingToSivaAgreed: Bool)
     func importFiles(with urls: [URL], cleanup: Bool, isEmptyFileImported: Bool)
     func addDataFilesToContainer(dataFilePaths: [String])
     func createNewContainer(with url: URL, dataFilePaths: [String], isEmptyFileImported: Bool, startSigningWhenCreated: Bool, cleanUpDataFilesInDocumentsFolder: Bool)
@@ -33,33 +33,34 @@ extension ContainerActions where Self: UIViewController {
         let landingViewController = LandingViewController.shared!
         let navController = landingViewController.viewController(for: .signTab) as! UINavigationController
         let topSigningViewController = navController.viewControllers.last!
-        
+
         landingViewController.documentPicker.dismiss(animated: false, completion: nil)
-        
+
         if landingViewController.fileImportIntent == .openOrCreate && landingViewController.containerType == .asic && urls.count == 1 && SiVaUtil.isDocumentSentToSiVa(fileUrl: urls.first) {
             SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
-                if hasAgreed {
-                    self.importDataFiles(with: urls, navController: navController, topSigningViewController: topSigningViewController, landingViewController: landingViewController, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported)
+                if (urls.first?.pathExtension == "ddoc" || urls.first?.pathExtension == "pdf") && !hasAgreed {
+                    return
                 }
+                self.importDataFiles(with: urls, navController: navController, topSigningViewController: topSigningViewController, landingViewController: landingViewController, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: hasAgreed)
             }
             return
         } else {
-            self.importDataFiles(with: urls, navController: navController, topSigningViewController: topSigningViewController, landingViewController: landingViewController, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported)
+            self.importDataFiles(with: urls, navController: navController, topSigningViewController: topSigningViewController, landingViewController: landingViewController, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: true)
         }
     }
-    
-    func importDataFiles(with urls: [URL], navController: UINavigationController, topSigningViewController: UIViewController, landingViewController: LandingViewController, cleanup: Bool, isEmptyFileImported: Bool) {
+
+    func importDataFiles(with urls: [URL], navController: UINavigationController, topSigningViewController: UIViewController, landingViewController: LandingViewController, cleanup: Bool, isEmptyFileImported: Bool, isSendingToSivaAgreed: Bool) {
         if topSigningViewController.presentedViewController is FileImportProgressViewController {
             topSigningViewController.presentedViewController?.errorAlert(message: L(.fileImportAlreadyInProgressMessage))
             return
         }
-        
+
         topSigningViewController.present(landingViewController.importProgressViewController, animated: false)
-        
+
         MoppFileManager.shared.importFiles(with: urls) { [weak self] error, dataFilePaths in
-            
+
             if error != nil {
-                NSLog(error?.localizedDescription ?? "No error description")
+                printLog(error?.localizedDescription ?? "No error description")
                 if topSigningViewController.presentedViewController is FileImportProgressViewController {
                     self?.dismiss(animated: true, completion: {
                         if let nsError = error as NSError?, !nsError.userInfo.isEmpty, nsError.userInfo[NSLocalizedDescriptionKey] != nil {
@@ -77,7 +78,7 @@ extension ContainerActions where Self: UIViewController {
             }
             else if landingViewController.fileImportIntent == .openOrCreate {
                 navController.setViewControllers([navController.viewControllers.first!], animated: false)
-             
+
                 let ext = urls.first!.pathExtension
                 if landingViewController.containerType == nil {
                     if ext.isCdocContainerExtension {
@@ -90,22 +91,32 @@ extension ContainerActions where Self: UIViewController {
                     landingViewController.containerType == .asic
                 let isCdocContainer = ext.isCdocContainerExtension && landingViewController.containerType == .cdoc
                 if  (isAsicOrPadesContainer || isCdocContainer) && urls.count == 1 {
-                    self?.openExistingContainer(with: urls.first!, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported)
+                    if urls.first?.pathExtension == "asics" || urls.first?.pathExtension == "scs" {
+                        if self?.getTopViewController() is FileImportProgressViewController {
+                            self?.dismiss(animated: true, completion: {
+                                SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
+                                    self?.openExistingContainer(with: urls.first!, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: hasAgreed)
+                                }
+                            })
+                        }
+                    } else {
+                        self?.openExistingContainer(with: urls.first!, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: isSendingToSivaAgreed)
+                    }
                 } else {
                     self?.createNewContainer(with: urls.first!, dataFilePaths: dataFilePaths, isEmptyFileImported: isEmptyFileImported)
                 }
             }
         }
     }
-    
-    func openExistingContainer(with url: URL, cleanup: Bool, isEmptyFileImported: Bool) {
-    
+
+    func openExistingContainer(with url: URL, cleanup: Bool, isEmptyFileImported: Bool, isSendingToSivaAgreed: Bool) {
+
         let landingViewController = LandingViewController.shared!
-    
+
         // Move container from inbox folder to documents folder and cleanup.
         let filePath = url.relativePath
         let fileName = url.lastPathComponent
-        
+
         // Used to access folders on user device when opening container outside app (otherwise gives "Operation not permitted" error)
         url.startAccessingSecurityScopedResource()
 
@@ -119,13 +130,13 @@ extension ContainerActions where Self: UIViewController {
         }
 
         let failure: ((_ error: NSError?) -> Void) = { err in
-            
+
             landingViewController.importProgressViewController.dismissRecursivelyIfPresented(animated: false, completion: {
                 var alert: UIAlertController
-                if err?.code == 10018 && (url.lastPathComponent.hasSuffix(ContainerFormatDdoc) || url.lastPathComponent.hasSuffix(ContainerFormatPDF) || url.lastPathComponent.hasSuffix(ContainerFormatAsics) || url.lastPathComponent.hasSuffix(ContainerFormatAsicsShort)) {
+                if err?.code == 10018 && (url.lastPathComponent.hasSuffix(ContainerFormatDdoc) || url.lastPathComponent.hasSuffix(ContainerFormatPDF)) {
                     alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.noConnectionMessage), preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
-                    
+
                     navController?.viewControllers.last!.present(alert, animated: true)
                     return
                 } else if err?.code == 10005 {
@@ -134,43 +145,32 @@ extension ContainerActions where Self: UIViewController {
                     navController?.viewControllers.last!.present(alert, animated: true)
                     return
                 }
-                
+
                 if isEmptyFileImported {
                     navController?.viewControllers.last!.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))
                     return
                 }
             })
         }
-        
+
         if landingViewController.containerType == .asic {
-            let forbiddenFileExtension = ["ddoc", "asics", "scs"]
+            let forbiddenFileExtensions = ["ddoc", "asics", "scs"]
             let fileURL = URL(fileURLWithPath: newFilePath)
             let fileExtension = fileURL.pathExtension
             let isSignedPDF = SiVaUtil.isDocumentSentToSiVa(fileUrl: fileURL)
-            if forbiddenFileExtension.contains(fileExtension) || isSignedPDF {
-                InternetConnectionUtil.isInternetConnectionAvailable { isConnectionAvailable in
-                    if isConnectionAvailable {
-                        DispatchQueue.main.async {
-                            self.openContainer(url: url, newFilePath: newFilePath, fileName: fileName, landingViewController: landingViewController, navController: navController, isEmptyFileImported: isEmptyFileImported) { error in
-                                failure(error)
-                            }
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            let error = NSError(domain: "MoppLib", code: Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue), userInfo: nil)
-                            failure(error)
-                        }
-                    }
+            if (forbiddenFileExtensions.contains(fileExtension) || isSignedPDF) {
+                self.openContainer(url: url, newFilePath: newFilePath, fileName: fileName, landingViewController: landingViewController, navController: navController, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: isSendingToSivaAgreed) { error in
+                    failure(error)
                 }
             } else {
-                self.openContainer(url: url, newFilePath: newFilePath, fileName: fileName, landingViewController: landingViewController, navController: navController, isEmptyFileImported: isEmptyFileImported) { error in
+                self.openContainer(url: url, newFilePath: newFilePath, fileName: fileName, landingViewController: landingViewController, navController: navController, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: true) { error in
                     failure(error)
                 }
             }
         } else {
             let containerViewController = CryptoContainerViewController.instantiate()
             let container = CryptoContainer(filename: fileName as NSString, filePath: newFilePath as NSString)
-            
+
             MoppLibCryptoActions.sharedInstance().parseCdocInfo(
                 newFilePath as String?,
                 success: {(_ cdocInfo: CdocInfo?) -> Void in
@@ -194,8 +194,8 @@ extension ContainerActions where Self: UIViewController {
         }
         url.stopAccessingSecurityScopedResource()
     }
-    
-    func openContainer(url: URL, newFilePath: String, fileName: String, landingViewController: LandingViewController, navController: UINavigationController?, isEmptyFileImported: Bool, failure: @escaping ((_ error: NSError?) -> Void)) {
+
+    func openContainer(url: URL, newFilePath: String, fileName: String, landingViewController: LandingViewController, navController: UINavigationController?, isEmptyFileImported: Bool, isSendingToSivaAgreed: Bool, failure: @escaping ((_ error: NSError?) -> Void)) {
         MoppLibContainerActions.sharedInstance().openContainer(withPath: newFilePath,
             success: { (_ container: MoppLibContainer?) -> Void in
                 if container == nil {
@@ -204,18 +204,19 @@ extension ContainerActions where Self: UIViewController {
                     failure(nil)
                     return
                 }
-            
+
                 // If file to open is PDF and there is no signatures then create new container
                 let isPDF = url.pathExtension.lowercased() == ContainerFormatPDF
                 if isPDF && container!.signatures.isEmpty {
                     landingViewController.createNewContainer(with: url, dataFilePaths: [newFilePath], isEmptyFileImported: isEmptyFileImported)
                     return
                 }
-                
+
                 var containerViewController: ContainerViewController? = ContainerViewController.instantiate()
                     containerViewController?.containerPath = newFilePath
                     containerViewController?.forcePDFContentPreview = isPDF
-                
+                    containerViewController?.isSendingToSivaAgreed = isSendingToSivaAgreed
+
                 landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
                     if let containerVC = containerViewController {
                         navController?.pushViewController(containerVC, animated: true)
@@ -253,7 +254,9 @@ extension ContainerActions where Self: UIViewController {
                                 UIAccessibility.post(notification: .announcement, argument: L(.dataFilesAdded))
                             }
                         }
-                        containerViewController?.reloadContainer()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            containerViewController?.reloadContainer()
+                        }
                     })
                 },
                 failure: { error in
@@ -280,10 +283,10 @@ extension ContainerActions where Self: UIViewController {
                 let dataFile = CryptoDataFile.init()
                 dataFile.filename = filename as String?
                 dataFile.filePath = $0
-                
+
                 containerViewController?.container.dataFiles.add(dataFile)
             }
-            
+
             landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
                 if UIAccessibility.isVoiceOverRunning && dataFilePaths.count == 1 {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -298,7 +301,7 @@ extension ContainerActions where Self: UIViewController {
             })
         }
     }
-    
+
     private func isDuplicatedFilename(container: CryptoContainer, filename: NSString) -> Bool {
         for dataFile in container.dataFiles {
             if let strongDataFile = dataFile as? CryptoDataFile {
@@ -309,15 +312,15 @@ extension ContainerActions where Self: UIViewController {
         }
         return false
     }
-    
+
     func createNewContainer(with url: URL, dataFilePaths: [String], isEmptyFileImported: Bool, startSigningWhenCreated: Bool = false, cleanUpDataFilesInDocumentsFolder: Bool = true) {
         let landingViewController = LandingViewController.shared!
-    
+
         let filePath = url.relativePath
         let fileName: String = MoppLibManager.sanitize(url.lastPathComponent)
-        
+
         let containerFilePaths = sanitizeDataFilePaths(dataFilePaths: dataFilePaths)
-        
+
         let (filename, _) = fileName.filenameComponents()
         let containerFilename: String
         if landingViewController.containerType == .asic {
@@ -325,7 +328,7 @@ extension ContainerActions where Self: UIViewController {
         }else{
             containerFilename = filename + "." + ContainerFormatCdoc
         }
-        
+
         var containerPath = MoppFileManager.shared.filePath(withFileName: containerFilename)
             containerPath = MoppFileManager.shared.duplicateFilename(atPath: containerPath)
 
@@ -348,22 +351,22 @@ extension ContainerActions where Self: UIViewController {
                         cleanUpDataFilesInDocumentsFolderCode()
                     }
                     if container == nil {
-                        
+
                         landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: nil)
-                        
+
                         let alert = UIAlertController(title: L(.fileImportCreateNewFailedAlertTitle), message: L(.fileImportCreateNewFailedAlertMessage, [fileName]), preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
-                        
+
                         landingViewController.present(alert, animated: true)
                         return
                     }
-                    
+
                     let containerViewController = SigningContainerViewController.instantiate()
                     containerViewController.containerPath = containerPath
-                    
+
                     containerViewController.isCreated = true
                     containerViewController.startSigningWhenOpened = startSigningWhenCreated
-                    
+
                     landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
                         if containerFilePaths.count == 1 {
                             UIAccessibility.post(notification: .announcement, argument: L(.dataFileAdded))
@@ -375,7 +378,7 @@ extension ContainerActions where Self: UIViewController {
                             containerViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))
                         }
                     })
-                    
+
             }, failure: { error in
                 if cleanUpDataFilesInDocumentsFolder {
                     cleanUpDataFilesInDocumentsFolderCode()
@@ -389,17 +392,17 @@ extension ContainerActions where Self: UIViewController {
             let containerViewController = CryptoContainerViewController.instantiate()
             let container = CryptoContainer(filename: containerFilename as NSString, filePath: containerPath as NSString)
             containerViewController.containerPath = containerPath
-            
+
             for dataFilePath in containerFilePaths {
                 let dataFile = CryptoDataFile.init()
                 dataFile.filename = (dataFilePath as NSString).lastPathComponent
                 dataFile.filePath = dataFilePath
                 container.dataFiles.add(dataFile)
             }
-            
+
             containerViewController.container = container
             containerViewController.isCreated = true
-            
+
             landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
                 if containerFilePaths.count == 1 {
                     UIAccessibility.post(notification: .announcement, argument: L(.dataFileAdded))
@@ -411,7 +414,7 @@ extension ContainerActions where Self: UIViewController {
         }
 
     }
-    
+
     func createNewContainerForNonSignableContainerAndSign() {
         if let containerViewController = self as? ContainerViewController {
             let containerPath = containerViewController.containerPath!
@@ -419,7 +422,7 @@ extension ContainerActions where Self: UIViewController {
             createNewContainer(with: containerPathURL, dataFilePaths: [containerPath], isEmptyFileImported: MoppFileManager.isFileEmpty(fileUrl: containerPathURL), startSigningWhenCreated: true, cleanUpDataFilesInDocumentsFolder: false)
         }
     }
-    
+
     func sanitizeDataFilePaths(dataFilePaths: [String]) -> [String] {
         var containerFilePaths: [String] = []
         for dataFile in dataFilePaths {

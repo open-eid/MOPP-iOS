@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -62,6 +62,10 @@ class MobileIDEditViewController : MoppViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            setCustomFont()
+        }
+        
         idCodeTextField.moppPresentDismissButton()
         phoneTextField.moppPresentDismissButton()
         
@@ -83,7 +87,7 @@ class MobileIDEditViewController : MoppViewController {
         view.addGestureRecognizer(tapGR)
         
         guard let titleUILabel = titleLabel, let phoneUILabel = phoneLabel, let phoneUITextField = phoneTextField, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
-            NSLog("Unable to get titleLabel, phoneLabel, phoneTextField, idCodeLabel, idCodeTextField, rememberLabel, rememberSwitch, cancelButton or signButton")
+            printLog("Unable to get titleLabel, phoneLabel, phoneTextField, idCodeLabel, idCodeTextField, rememberLabel, rememberSwitch, cancelButton or signButton")
             return
         }
         
@@ -173,6 +177,20 @@ class MobileIDEditViewController : MoppViewController {
             signButton.isEnabled = true
             signButton.backgroundColor = UIColor.moppBase
         }
+    }
+    
+    func setCustomFont() {
+        titleLabel.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? nil : 19, .body)
+        phoneLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        idCodeLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        cancelButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
+        signButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
+        rememberLabel.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
+        idCodeTextField.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
+        phoneTextField.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
+        
+        signButton.sizeToFit()
+        
     }
     
     @objc func editingChanged(sender: UITextField) {

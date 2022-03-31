@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -32,8 +32,12 @@ class MobileIDSignature {
     func createMobileIDSignature(phoneNumber: String, nationalIdentityNumber: String, containerPath: String, hashType: String, language: String) -> Void {
         
         if isUsingTestMode() {
-            NSLog("\nUsing phone number: \(phoneNumber.prefix(7))xxxx\n")
-            NSLog("\nUsing national identity number: \(nationalIdentityNumber.prefix(6))xxxxx\n")
+            printLog("RIA.MobileID parameters:\n" +
+                "\tPhone number: \(phoneNumber)\n" +
+                "\tNational Identity number: \(nationalIdentityNumber)\n" +
+                "\tHash type: \(hashType)\n" +
+                "\tLanguage: \(language)\n"
+            )
         }
 
         let baseUrl = DefaultsHelper.rpUuid.isEmpty ? Configuration.getConfiguration().MIDPROXYURL : Configuration.getConfiguration().MIDSKURL
@@ -57,7 +61,14 @@ class MobileIDSignature {
 
     private func getCertificate(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, containerPath: String, trustedCertificates: [String]?, completionHandler: @escaping (String, String) -> Void) {
         // MARK: Get certificate
-        NSLog("\nGetting certificate...\n")
+        if isUsingTestMode() {
+            printLog("RIA.MobileID - Getting certificate...:\n" +
+                "\tBase URL: \(baseUrl)\n" +
+                "\tUUID: \(uuid)\n" +
+                "\tPhone number: \(phoneNumber)\n" +
+                "\tNational Identity number: \(nationalIdentityNumber)\n"
+            )
+        }
         SessionCertificate.shared.getCertificate(baseUrl: baseUrl, uuid: uuid, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, trustedCertificates: trustedCertificates) { (sessionCertificate: Result<CertificateResponse, SigningError>) in
             
             let certificateResponse: CertificateResponse
@@ -65,19 +76,19 @@ class MobileIDSignature {
             do {
                 certificateResponse = try sessionCertificate.getResult()
                 
-                NSLog("\nReceived certificate (result): \((certificateResponse.result?.rawValue ?? "Unable to log certificate response result"))\n")
+                printLog("\nRIA.MobileID - Received certificate (result): \((certificateResponse.result?.rawValue ?? "Unable to log certificate response result"))\n")
             } catch let certificateError {
                 
                 let error: Error = certificateError as? SigningError ?? certificateError
                 
-                NSLog("\nCertificate error: \((SigningError(rawValue: "\(certificateError)")?.signingErrorDescription ?? "\(certificateError)"))\n")
+                printLog("\nRIA.MobileID - Certificate error: \(SkSigningLib_LocalizedString(SigningError(rawValue: "\(certificateError)")?.signingErrorDescription ?? "\(certificateError)"))\n")
                 
                 guard let mobileCertificateError = certificateError as? SigningError else {
                     return self.generateError(signingError: certificateError as? SigningError ?? SigningError(rawValue: "\(certificateError)") ?? .generalError)
                 }
                 
                 if self.isCountryCodeError(phoneNumber: phoneNumber, errorDesc: "\(mobileCertificateError)") {
-                    NSLog("\nError checking country code\n")
+                    printLog("\nRIA.MobileID - Error checking country code\n")
                     return self.generateError(signingError: .parameterNameNull)
                 }
                 
@@ -93,14 +104,14 @@ class MobileIDSignature {
             
             // MARK: Get hash
             guard let hash: String = self.getHash(cert: cert, containerPath: containerPath) else {
-                NSLog("\nError getting hash. Is 'cert' empty: \(cert.isEmpty). ContainerPath: \(containerPath)\n")
+                printLog("\nRIA.MobileID - Error getting hash. Is 'cert' empty: \(cert.isEmpty). ContainerPath: \(containerPath)\n")
                 return self.generateError(signingError: .generalError)
             }
             
-            NSLog("\nHash: \(hash)\n")
+            printLog("\nRIA.MobileID - Hash: \(hash)\n")
             
             // MARK: Get control / verification code
-            NSLog("\nGetting control code\n")
+            printLog("\nRIA.MobileID - Getting control code\n")
             self.setupControlCode()
 
             completionHandler(hash, cert)
@@ -109,7 +120,16 @@ class MobileIDSignature {
 
     private func getSession(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, hash: String, hashType: String, language: String, trustedCertificates: [String]?, completionHandler: @escaping (String) -> Void) {
         // MARK: Get session
-        NSLog("\nGetting session...\n")
+        if isUsingTestMode() {
+            printLog("RIA.MobileID - Getting session...:\n" +
+                "\tBase URL: \(baseUrl)\n" +
+                "\tUUID: \(uuid)\n" +
+                "\tPhone number: \(phoneNumber)\n" +
+                "\tNational Identity number: \(nationalIdentityNumber)\n" +
+                "\tHash type: \(hashType)\n" +
+                "\tLanguage: \(language)\n"
+            )
+        }
         Session.shared.getSession(baseUrl: baseUrl, uuid: uuid, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, hash: hash, hashType: hashType, language: language, trustedCertificates: trustedCertificates) { (sessionResult: Result<SessionResponse, SigningError>) in
 
             let sessionResponse: SessionResponse
@@ -117,10 +137,10 @@ class MobileIDSignature {
             do {
                 sessionResponse = try sessionResult.getResult()
 
-                NSLog("\nReceived session (session ID redacted): \(sessionResponse.sessionID?.prefix(13) ?? "Unable to log sessionID")\n")
+                printLog("\nRIA.MobileID - Received session (session ID): \(sessionResponse.sessionID ?? "Unable to log sessionID")\n")
                 
                 guard let sessionId = sessionResponse.sessionID else {
-                    NSLog("\nUnable to get sessionID\n")
+                    printLog("\nRIA.MobileID - Unable to get sessionID\n")
 
                     return self.generateError(signingError: .generalError)
                 }
@@ -138,7 +158,12 @@ class MobileIDSignature {
 
     private func getSessionStatus(baseUrl: String, sessionId: String, cert: String, trustedCertificates: [String]?, completionHandler: @escaping (String) -> Void) {
         // MARK: Get session status
-        NSLog("\nGetting session status...\n")
+        if isUsingTestMode() {
+            printLog("RIA.MobileID - Getting session status...:\n" +
+                "\tBase URL: \(baseUrl)\n" +
+                "\tSession ID: \(sessionId)\n"
+            )
+        }
         SessionStatus.shared.getSessionStatus(baseUrl: baseUrl, process: .SIGNING, sessionId: sessionId, timeoutMs: kDefaultTimeoutMs, trustedCertificates: trustedCertificates) { (sessionStatusResult: Result<SessionStatusResponse, SigningError>) in
 
             let sessionStatus: SessionStatusResponse
@@ -146,21 +171,21 @@ class MobileIDSignature {
             do {
                 sessionStatus = try sessionStatusResult.getResult()
 
-                NSLog("\nReceived session status: \(sessionStatus.result?.rawValue ?? "Unable to log session status result")\n")
+                printLog("\nRIA.MobileID - Received session status: \(sessionStatus.result?.rawValue ?? "Unable to log session status result")\n")
 
                 if sessionStatus.result != SessionResultCode.OK {
                     guard let sessionStatusResultString = sessionStatus.result else { return }
-                    NSLog("\nError completing signing: \(self.handleSessionStatusError(sessionResultCode: sessionStatusResultString).signingErrorDescription ?? "Unable to log session status description")\n")
+                    printLog("\nRIA.MobileID - Error completing signing: \(SkSigningLib_LocalizedString(self.handleSessionStatusError(sessionResultCode: sessionStatusResultString).signingErrorDescription ?? "Unable to log session status description"))\n")
 
                     return self.generateError(signingError: self.handleSessionStatusError(sessionResultCode: sessionStatusResultString))
                 }
             } catch let sessionStatusError {
-                NSLog("\nUnable to get session status: \(sessionStatusError)\n")
+                printLog("\nRIA.MobileID - Unable to get session status: \(sessionStatusError.localizedDescription)\n")
                 return self.errorResult(error: sessionStatusError)
             }
 
             guard let signatureValue = sessionStatus.signature?.value else {
-                NSLog("\nUnable to get signature value\n")
+                printLog("\nRIA.MobileID - Unable to get signature value\n")
                 return self.generateError(signingError: .generalError)
             }
 
@@ -177,9 +202,14 @@ class MobileIDSignature {
     
     // MARK: Signature validation
     private func validateSignature(cert: String, signatureValue: String) -> Void {
-        NSLog("\nValidating signature...\n")
+        if isUsingTestMode() {
+            printLog("RIA.MobileID - Validating signature...:\n" +
+                "\tCert: \(cert)\n" +
+                "\tSignature value: \(signatureValue)\n"
+            )
+        }
         MoppLibManager.isSignatureValid(cert, signatureValue: signatureValue, success: { (_) in
-            NSLog("\nSuccessfully validated signature!\n")
+            printLog("\nRIA.MobileID - Successfully validated signature!\n")
             DispatchQueue.main.async {
                 NotificationCenter.default.post(
                     name: .signatureAddedToContainerNotificationName,
@@ -187,22 +217,23 @@ class MobileIDSignature {
                     userInfo: nil)
             }
         }, failure: { (error: Error?) in
-            NSLog("\nError validating signature. Error: \(error?.localizedDescription ?? "Unable to display error")\n")
+            printLog("\nRIA.MobileID - Error validating signature. Error: \(error?.localizedDescription ?? "Unable to display error")\n")
             guard let error = error, let err = error as NSError? else {
                 self.generateError(signingError: .generalSignatureAddingError)
                 return
             }
             
             if err.code == 7 {
-                NSLog(err.domain)
+                printLog("\nRIA.MobileID - Invalid OCSP time slot. \(err.domain)")
                 self.generateError(signingError: .ocspInvalidTimeSlot)
                 return
             } else if err.code == 18 {
-                NSLog(err.domain)
+                printLog("\nRIA.MobileID - Too many requests. \(err.domain)")
                 self.generateError(signingError: .tooManyRequests)
                 return
             }
             
+            printLog("\nRIA.MobileID - General signature adding error. \(err.domain)")
             self.generateError(signingError: .generalSignatureAddingError)
             return
         })
@@ -211,7 +242,7 @@ class MobileIDSignature {
     // MARK: Control / verification code setup
     private func setupControlCode() {
         guard let verificationCode = self.getVerificationCode() else {
-            NSLog("\nFailed to get verification code\n")
+            printLog("\nRIA.MobileID - Failed to get verification code\n")
             return self.generateError(signingError: .generalError)
         }
         
@@ -237,7 +268,13 @@ class MobileIDSignature {
     // MARK: Get hash
     private func getHash(cert: String, containerPath: String) -> String? {
         guard let hash: String = MoppLibManager.prepareSignature(cert, containerPath: containerPath) else {
-            NSLog("Failed to get hash")
+            printLog("RIA.MobileID - Failed to get hash")
+            if isUsingTestMode() {
+                printLog("RIA.MobileID - Failed to get hash:\n" +
+                    "\tCert: \(cert)\n" +
+                    "\tContainer path: \(containerPath)\n"
+                )
+            }
             self.generateError(signingError: .generalError)
             return nil
         }
@@ -281,17 +318,6 @@ class MobileIDSignature {
         default:
             return .generalError
         }
-    }
-    
-    // MARK: Test mode check
-    private func isUsingTestMode() -> Bool {
-        #if USE_TEST_DDS
-            let testMode: Bool = true
-        #else
-            let testMode: Bool = false
-        #endif
-        
-        return testMode
     }
 }
 

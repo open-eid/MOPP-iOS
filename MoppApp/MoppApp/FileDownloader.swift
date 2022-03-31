@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,7 +29,7 @@ class FileDownloader: NSObject, URLSessionDelegate {
     
     func downloadFile(url: URL, completion: @escaping (URL?) -> Void) {
         let downloadTask: URLSessionDownloadTask = URLSession(configuration: .default, delegate: self, delegateQueue: nil).downloadTask(with: url) { (fileTempUrl, response, error) in
-            if error != nil { NSLog("Unable to download file: \(error?.localizedDescription ?? "Unable to display error")"); return completion(nil) }
+            if error != nil { printLog("Unable to download file: \(error?.localizedDescription ?? "Unable to display error")"); return completion(nil) }
             if let fileTempUrl: URL = fileTempUrl {
                 do {
                     let documentsPathFileURL: URL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("Downloads", isDirectory: true).appendingPathComponent(url.lastPathComponent)
@@ -37,11 +37,11 @@ class FileDownloader: NSObject, URLSessionDelegate {
                     let fileLocation: String = MoppFileManager.shared.copyFile(withPath: fileTempUrl.path, toPath: documentsPathFileURL.path)
                     return completion(URL(fileURLWithPath: fileLocation))
                 } catch let error {
-                    NSLog("Failed to download file or create directory: \(error.localizedDescription)")
+                    printLog("Failed to download file or create directory: \(error.localizedDescription)")
                     return completion(nil)
                 }
             } else {
-                NSLog("Unable to get file temporary URL")
+                printLog("Unable to get file temporary URL")
                 return completion(nil)
             }
         }
@@ -57,11 +57,11 @@ class FileDownloader: NSObject, URLSessionDelegate {
                 readingItemAt: url, options: .forUploading, error: &error) { _ in }
             
             if error != nil {
-                NSLog("Error getting file: \(error?.localizedDescription ?? "Unknown error")")
+                printLog("Error getting file: \(error?.localizedDescription ?? "Unknown error")")
                 return completion(nil)
             }
             
-            NSLog("External file downloaded")
+            printLog("External file downloaded")
             completion(url)
             
             url.stopAccessingSecurityScopedResource()

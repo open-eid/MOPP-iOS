@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -34,15 +34,15 @@ class SessionCertificate {
                 
                 switch result {
                 case .success(let response):
-                    NSLog("Received certificate response: \(response.result?.rawValue ?? "-")")
+                    printLog("Received certificate response: \(response.result?.rawValue ?? "-")")
                     return completionHandler(.success(response))
                 case .failure(let error):
-                    NSLog("Getting certificate error: \(error.signingErrorDescription ?? error.rawValue)")
+                    printLog("Getting certificate error: \(SkSigningLib_LocalizedString(error.signingErrorDescription ?? error.rawValue))")
                     return completionHandler(.failure(error))
                 }
             }
         } catch let error {
-            NSLog("Error occurred while getting certificate: \(error.localizedDescription)")
+            printLog("Error occurred while getting certificate: \(error.localizedDescription)")
             return completionHandler(.failure(.generalError))
         }
     }    

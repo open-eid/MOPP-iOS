@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -44,15 +44,15 @@ class SaveableContainer {
         MoppFileManager.shared.saveFile(containerPath: self.signingContainerPath, fileName: name, completionHandler: { (isSaved: Bool, tempSavedFileLocation: String?) in
             if isSaved {
                 guard let tempSavedFileLocation = tempSavedFileLocation, MoppFileManager.shared.fileExists(tempSavedFileLocation) else {
-                    NSLog("Failed to get saved temp file location or file does not exist")
+                    printLog("Failed to get saved temp file location or file does not exist")
                     return completionHandler("", false)
                 }
                 
-                NSLog("Exporting to user chosen location")
+                printLog("Exporting to user chosen location")
                 
                 completionHandler(tempSavedFileLocation, true)
             } else {
-                NSLog("Failed to save \(name) to 'Saved Files' directory")
+                printLog("Failed to save \(name) to 'Saved Files' directory")
                 completionHandler("", false)
             }
         })
@@ -68,7 +68,7 @@ class SaveableContainer {
     
     private func signingContainerFileExists(name: String?) -> Bool {
         guard name != nil, !signingContainerPath.isEmpty, MoppFileManager.shared.fileExists(signingContainerPath) else {
-            NSLog("Failed to get filename or file does not exist in container");
+            printLog("Failed to get filename or file does not exist in container");
             return false
         }
         
@@ -77,7 +77,7 @@ class SaveableContainer {
     
     private func cryptoContainerExists(name: String?) -> Bool {
         guard name != nil, cryptoContainer != nil else {
-            NSLog("Failed to get filename or file does not exist in container");
+            printLog("Failed to get filename or file does not exist in container");
             return false
         }
         

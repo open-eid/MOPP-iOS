@@ -3,7 +3,7 @@
 //  MoppLib
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -51,7 +51,7 @@
 }
 
 - (void)setContextHandle:(SCARDHANDLE)contextHandle {
-    NSLog(@"%d", contextHandle);
+    printLog(@"%d", contextHandle);
     _contextHandle = contextHandle;
 }
 
@@ -96,7 +96,7 @@
         pioSendPci.cbPciLength = sizeof(pioSendPci);
         pioSendPci.dwProtocol = SCARD_PROTOCOL_T1;
     
-        NSLog(@"Sending APDU: %@", [apduData hexString]);
+        printLog(@"Sending APDU: %@", [apduData hexString]);
         
         responseSize = sizeof( response );
         
@@ -108,7 +108,7 @@
             &response[0], &responseSize)) {
             
             NSData *respData = [NSData dataWithBytes:&response[0] length:responseSize];
-            NSLog(@"IR301 Response: %@", [respData hexString]);
+            printLog(@"IR301 Response: %@", [respData hexString]);
             
             if ( [respData length] < 2 ) {
                 failure (nil);
@@ -152,7 +152,7 @@
                     &response[0], &responseSize)) {
                     
                     NSData *respData = [NSData dataWithBytes:&response[0] length:responseSize];
-                    NSLog(@"IR301 Response: %@", [respData hexString]);
+                    printLog(@"IR301 Response: %@", [respData hexString]);
                     
                     trailing[0] = response[ responseSize - 2 ];
                     trailing[1] = response[ responseSize - 1 ];
@@ -161,17 +161,17 @@
                     [responseData appendBytes:&response[0] length: ( needMoreData ? responseSize - 2 : responseSize )];
 
                 } else {
-                    NSLog(@"FAILED to send APDU");
+                    printLog(@"FAILED to send APDU");
                     failure(nil);
                     break;
                 }
             }
             
-            NSLog(@"------------ %@", [responseData hexString]);
+            printLog(@"------------ %@", [responseData hexString]);
             [self respondWithSuccess:responseData];
             break;
         } else {
-            NSLog(@"FAILED to send APDU");
+            printLog(@"FAILED to send APDU");
             [self respondWithError:nil];
             break;
         }
@@ -189,7 +189,7 @@
   
     iRet = SCardListReaders(_contextHandle, NULL, mszReaders, &dwReaders);
     if(iRet != SCARD_S_SUCCESS) {
-        NSLog(@"SCardListReaders error %08x",iRet);
+        printLog(@"SCardListReaders error %08x",iRet);
         failure(nil);
         return;
     }
@@ -208,7 +208,7 @@
     
     if (![MoppLibCardReaderManager isCardReaderModelSupported:modelName]) {
         [NSNotificationCenter.defaultCenter postNotificationName:kMoppLibNotificationRevokeUnsupportedReader object:nil];
-        NSLog(@"Unsupported reader: %s", modelName);
+        printLog(@"Unsupported reader: %s", modelName);
         return;
     }
     
@@ -216,7 +216,7 @@
     BYTE atrBuf[32];
     DWORD dwStatus;
     iRet = SCardStatus(_contextHandle, NULL, NULL, &dwStatus, NULL, (LPBYTE)&atrBuf, &atrBufSize);
-    NSLog(@"%d", dwStatus);
+    printLog(@"%d", dwStatus);
     
     NSData *atr = [[NSData alloc] initWithBytes:atrBuf length:atrBufSize];
     _chipType = [MoppLibCardReaderManager atrToChipType:atr];

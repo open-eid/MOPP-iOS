@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,6 +31,7 @@ class ContainerSearchCell: UITableViewCell {
 
         let searchField = searchBar.value(forKey: "searchField")
         (searchField as! UITextField).placeholder = L(LocKey.cryptoLdapSearchPlaceholder)
+        (searchField as! UITextField).font = UIFont.setCustomFont(font: .regular, nil, .body)
     }
     
 }

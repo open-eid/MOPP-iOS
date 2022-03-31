@@ -2,7 +2,7 @@
 //  Encoder.swift
 //  SkSigningLib
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -28,7 +28,7 @@ class EncoderDecoder {
         do {
             return try JSONEncoder().encode(data)
         } catch let error {
-            NSLog("Error encoding data: %@", error.localizedDescription)
+            Logging.errorLog(forMethod: "encode", error: error, extraInfo: "Unable to encode data")
         }
         
         return Data()
@@ -38,7 +38,7 @@ class EncoderDecoder {
         do {
             completionHandler(try JSONDecoder().decode(T.self, from: data))
         } catch let error {
-            NSLog("Error decoding data: %@", error.localizedDescription)
+            Logging.errorLog(forMethod: "decode", error: error, extraInfo: "Unable to decode data")
         }
     }
     

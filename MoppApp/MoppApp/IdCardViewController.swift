@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -86,7 +86,10 @@ class IdCardViewController : MoppViewController {
         } else {
             actionButton.setTitle(L(.actionSign).uppercased())
         }
-
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            actionButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
+            cancelButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
+        }
 
         pinTextField.delegate = self
         pinTextField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
@@ -123,7 +126,7 @@ class IdCardViewController : MoppViewController {
         updateUI(for: state)
 
         guard let titleUILabel = titleLabel, let pinTextFieldUITitleLabel = pinTextFieldTitleLabel, let pinTextUIField = pinTextField, let cancelUIButton = cancelButton, let actionUIButton = actionButton else {
-            NSLog("Unable to get titleLabel, pinTextFieldTitleLabel, pinTextField, cancelButton or actionButton")
+            printLog("Unable to get titleLabel, pinTextFieldTitleLabel, pinTextField, cancelButton or actionButton")
             return
         }
 
@@ -185,6 +188,10 @@ class IdCardViewController : MoppViewController {
     }
 
     func updateUI(for state: State) {
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            titleLabel.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? nil : 19, .body)
+            pinTextField.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
         switch state {
         case .initial:
             actionButton.isEnabled = false
@@ -246,6 +253,7 @@ class IdCardViewController : MoppViewController {
                 } else {
                     self.pinTextFieldTitleLabel.text = L(.pin2TextfieldLabel)
                 }
+                self.pinTextFieldTitleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
                 self.pinTextFieldTitleLabel.textColor = UIColor.moppText
                 self.loadingSpinner.show(false)
             }
@@ -256,6 +264,7 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.isHidden = true
             pinTextFieldTitleLabel.text = nil
             pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
+            pinTextFieldTitleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
             loadingSpinner.show(true)
             if isActionDecryption {
                 titleLabel.text = L(.decryptionInProgress)
@@ -291,7 +300,7 @@ class IdCardViewController : MoppViewController {
 
         }
 
-        guard let actionUIButton = actionButton else { NSLog("Unable to get actionButton"); return }
+        guard let actionUIButton = actionButton else { printLog("Unable to get actionButton"); return }
         actionUIButton.backgroundColor = UIColor.moppBackgroundDark
 
         if state == .initial {

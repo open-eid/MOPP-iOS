@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -35,5 +35,8 @@ class ContainerNotificationCell: UITableViewCell {
     func populate(isSuccess: Bool, text: String) {
         contentView.backgroundColor = isSuccess ? UIColor.moppSuccess : UIColor.moppWarning
         infoLabel.text = text
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            infoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
     }
 }

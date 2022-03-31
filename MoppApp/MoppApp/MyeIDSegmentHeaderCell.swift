@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,6 +26,10 @@ class MyeIDSegmentHeaderCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.text = L(.myEidInfoPinPukSegmentTitle)
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
+        if isNonDefaultPreferredContentSizeCategory() {
+            titleLabel.font = UIFont.setCustomFont(font: isBoldTextEnabled() ? .allCapsBold : .allCapsRegular, isNonDefaultPreferredContentSizeCategoryBigger() ? 14 : nil, .body)
+        }
     }
     
     func updateExpandedState(with expanded: Bool) {

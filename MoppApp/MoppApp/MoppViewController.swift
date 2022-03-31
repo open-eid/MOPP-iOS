@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -84,11 +84,17 @@ class MoppViewController : UIViewController {
     
     func setupNavigationItemForPushedViewController(title: String, filePath: String = "") {
         let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
-            titleLabel.text = title
-            titleLabel.textColor = UIColor.black
-            titleLabel.textAlignment = .center
-            titleLabel.lineBreakMode = .byTruncatingMiddle
-            titleLabel.font = UIFont.moppNavigationItemTitle
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
+        if isNonDefaultPreferredContentSizeCategoryBigger() {
+            titleLabel.font = UIFont.setCustomFont(font: .medium, 14, .body)
+            titleLabel.numberOfLines = 3
+        }
+        titleLabel.text = title
+        titleLabel.textColor = UIColor.black
+        titleLabel.textAlignment = .center
+        titleLabel.lineBreakMode = .byTruncatingMiddle
+        
+        
         navigationItem.titleView = titleLabel
         
         let backBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarBack"), style: .plain, target: self, action: #selector(backAction))

@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -116,6 +116,14 @@ extension AddresseeViewController : UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if !isNonDefaultPreferredContentSizeCategoryMedium() && isNonDefaultPreferredContentSizeCategoryBigger() {
+            return ContainerSearchCell.height * 3
+        }
+        
+        return tableView.rowHeight
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -234,7 +242,7 @@ extension AddresseeViewController : UITableViewDelegate {
 extension AddresseeViewController : ContainerTableViewHeaderDelegate {
     func didTapContainerHeaderButton() {
         guard let landingViewControllerContainerType = LandingViewController.shared.containerType else {
-            NSLog("Unable to get LandingViewControlelr container type")
+            printLog("Unable to get LandingViewControlelr container type")
             return
         }
         NotificationCenter.default.post(

@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
+import UIKit
 protocol SettingsFieldCellDelegate: AnyObject {
     func didEndEditingField(_ field: SettingsViewController.FieldId, with value:String)
 }
@@ -41,9 +43,21 @@ class SettingsFieldCell: UITableViewCell {
     
     func populate(with field:SettingsViewController.Field) {
         titleLabel.text = field.title
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
         textField.attributedPlaceholder = field.placeholderText
         textField.text = field.value
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: textField.font?.pointSize ?? UIFont.moppMediumBold.pointSize) }
         self.field = field
+        
+        if isNonDefaultPreferredContentSizeCategory() {
+            setCustomFont()
+        }
+        
+    }
+    
+    func setCustomFont() {
+        titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        textField.font = UIFont.setCustomFont(font: .regular, nil, .body)
     }
 }
 

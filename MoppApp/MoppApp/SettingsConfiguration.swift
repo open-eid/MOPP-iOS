@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -55,7 +55,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             do {
                 decodedData = try MoppConfigurationDecoder().decodeMoppConfiguration(configData: cachedData)
             } catch {
-                MSLog("Unable to decode data: ", error.localizedDescription)
+                printLog("Unable to decode data: \(error.localizedDescription)")
                 loadLocalConfiguration()
             }
 
@@ -112,7 +112,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             
             setupMoppLDAPConfiguration(ldapPersonUrl: decodedData.LDAPPERSONURL, ldapCorpUrl: decodedData.LDAPCORPURL)
         } catch {
-            MSLog("Unable to read file: ", error.localizedDescription)
+            printLog("Unable to read file: \(error.localizedDescription)")
             fatalError("Unable to read default file(s)")
         }
     }
@@ -132,7 +132,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             setupMoppLDAPConfiguration(ldapPersonUrl: decodedData.LDAPPERSONURL, ldapCorpUrl: decodedData.LDAPCORPURL)
 
         } catch {
-            MSLog("Unable to read file: ", error.localizedDescription)
+            printLog("Unable to read file: \(error.localizedDescription)")
             loadLocalConfiguration()
         }
     }
@@ -164,7 +164,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             
             getFetchedData(fromUrl: "\(getDefaultMoppConfiguration().CENTRALCONFIGURATIONSERVICEURL)/config.rsa") { (centralSignature, signatureError) in
                 if (signatureError != nil) {
-                    NSLog(signatureError!.localizedDescription)
+                    printLog(signatureError!.localizedDescription)
                 }
                 guard let centralSignature = centralSignature else {
                     self.handleCacheConfiguration()
@@ -173,7 +173,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                 if SignatureVerifier().hasSignatureChanged(oldSignature: cachedSignature!, newSignature: centralSignature) {
                     self.getFetchedData(fromUrl: "\(self.getDefaultMoppConfiguration().CENTRALCONFIGURATIONSERVICEURL)/config.json") { (centralConfig, configError) in
                         if (configError != nil) {
-                            NSLog(configError!.localizedDescription)
+                            printLog(configError!.localizedDescription)
                         }
                         guard let centralConfig = centralConfig else {
                             self.handleCacheConfiguration()
@@ -193,7 +193,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                 }
             }
         } catch {
-            MSLog("Unable to load data: ", error.localizedDescription)
+            printLog("Unable to load data: \(error.localizedDescription)")
             loadCachedConfiguration()
         }
     }
@@ -203,7 +203,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             let defaultConfigData = try String(contentsOfFile: Bundle.main.path(forResource: "defaultConfiguration", ofType: "json")!)
             return try MoppConfigurationDecoder().decodeDefaultMoppConfiguration(configData: defaultConfigData)
         } catch {
-            MSLog("Unable to decode data: ", error.localizedDescription)
+            printLog("Unable to decode data: \(error.localizedDescription)")
             fatalError("Unable to decode default MOPP configuration!")
         }
     }
@@ -222,7 +222,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             guard let dataAsString = String(bytes: data, encoding: String.Encoding.utf8) else { return }
 
             if error != nil {
-                MSLog(error!.localizedDescription)
+                printLog(error!.localizedDescription)
             }
 
             completionHandler(dataAsString, error)
@@ -235,7 +235,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     private func getFetchedData(fromUrl url: String, completionHandler: @escaping (String?, Error?) -> Void) {
         fetchDataFromCentralConfiguration(fromUrl: url) { (data, error) in
             if (error != nil) {
-                MSLog(error!.localizedDescription)
+                printLog(error!.localizedDescription)
             }
             guard let data = data else { return }
             
@@ -312,9 +312,9 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         #endif
 
         MoppLibManager.sharedInstance()?.setup(success: {
-            MSLog("Successfully reloaded DigiDocConf")
+            printLog("Successfully reloaded DigiDocConf")
         }, andFailure: { error in
-            MSLog("Failed to reload DigiDocConf")
+            printLog("Failed to reload DigiDocConf")
             fatalError("Failed to reload DigiDocConf")
         }, usingTestDigiDocService: useTestDDS, andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaurl,
            withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration())

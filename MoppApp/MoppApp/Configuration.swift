@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -25,7 +25,6 @@
 import Foundation
 
 internal struct MOPPConfiguration: Codable {
-    let MIDSIGNURL: String
     var TSLURL: String
     let SIVAURL: String
     let METAINF: MOPPMetaInf
@@ -41,7 +40,6 @@ internal struct MOPPConfiguration: Codable {
     let CERTBUNDLE: Array<String>
     
     private enum MOPPConfigurationType: String, CodingKey {
-        case MIDSIGNURL = "MID-SIGN-URL"
         case TSLURL = "TSL-URL"
         case SIVAURL = "SIVA-URL"
         case METAINF = "META-INF"
@@ -59,7 +57,6 @@ internal struct MOPPConfiguration: Codable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: MOPPConfigurationType.self)
-        MIDSIGNURL = try container.decode(String.self, forKey: .MIDSIGNURL)
         TSLURL = try container.decode(String.self, forKey: .TSLURL)
         SIVAURL = try container.decode(String.self, forKey: .SIVAURL)
         METAINF = try container.decode(MOPPMetaInf.self, forKey: .METAINF)
