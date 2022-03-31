@@ -245,10 +245,14 @@ extension ContainerActions where Self: UIViewController {
                 withDataFilePaths: dataFilePaths,
                 success: { container in
                     landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
-                        if dataFilePaths.count == 1 {
-                            UIAccessibility.post(notification: .announcement, argument: L(.dataFileAdded))
-                        } else if dataFilePaths.count > 1 {
-                            UIAccessibility.post(notification: .announcement, argument: L(.dataFilesAdded))
+                        if UIAccessibility.isVoiceOverRunning && dataFilePaths.count == 1 {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                UIAccessibility.post(notification: .announcement, argument: L(.dataFileAdded))
+                            }
+                        } else if UIAccessibility.isVoiceOverRunning && dataFilePaths.count > 1 {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                UIAccessibility.post(notification: .announcement, argument: L(.dataFilesAdded))
+                            }
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             containerViewController?.reloadContainer()
@@ -284,6 +288,15 @@ extension ContainerActions where Self: UIViewController {
             }
 
             landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                if UIAccessibility.isVoiceOverRunning && dataFilePaths.count == 1 {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        UIAccessibility.post(notification: .announcement, argument: L(.dataFileAdded))
+                    }
+                } else if UIAccessibility.isVoiceOverRunning && dataFilePaths.count > 1 {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        UIAccessibility.post(notification: .announcement, argument: L(.dataFilesAdded))
+                    }
+                }
                 containerViewController?.reloadContainer()
             })
         }
@@ -391,6 +404,11 @@ extension ContainerActions where Self: UIViewController {
             containerViewController.isCreated = true
 
             landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                if containerFilePaths.count == 1 {
+                    UIAccessibility.post(notification: .announcement, argument: L(.dataFileAdded))
+                } else if containerFilePaths.count > 1 {
+                    UIAccessibility.post(notification: .announcement, argument: L(.dataFilesAdded))
+                }
                 navController?.pushViewController(containerViewController, animated: true)
             })
         }

@@ -70,7 +70,7 @@
 "crypto-encryption-success" = "KRÜPTEERIMINE ÕNNESTUS";
 "crypto-decryption-cancelled" = "Faili dekrüpteerimine katkestatud";
 "crypto-recipient-found" = "Adressaat leitud";
-"crypto-recipients-found" = "Adressaati leitud";
+"crypto-recipients-found" = "%@ adressaati leitud";
 "crypto-recipient-added" = "Adressaat lisatud";
 "crypto-recipient-removed" = "Adressaat eemaldatud";
 "crypto-recipient-adding-cancelled" = "Adressaadi lisamine katkestatud";

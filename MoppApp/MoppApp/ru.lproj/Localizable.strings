@@ -66,7 +66,7 @@
 "crypto-encryption-success" = "ШИФРОВАНИЕ УДАЛОСЬ";
 "crypto-decryption-cancelled" = "Расшифровка файла прервана";
 "crypto-recipient-found" = "Получатель найден";
-"crypto-recipients-found" = "Получатели найдены";
+"crypto-recipients-found" = "%@ получатели найдены";
 "crypto-recipient-added" = "Получатель добавлен";
 "crypto-recipient-removed" = "Получатель удален";
 "crypto-recipient-adding-cancelled" = "Добавление получателя отменено";

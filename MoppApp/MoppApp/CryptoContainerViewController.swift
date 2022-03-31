@@ -123,8 +123,11 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
                         self?.errorAlert(message: L(.dataFileRemovalFailed))
                         return
                     }
-                    
-                    UIAccessibility.post(notification: .layoutChanged, argument: L(.dataFileRemoved))
+                    if UIAccessibility.isVoiceOverRunning {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            UIAccessibility.post(notification: .layoutChanged, argument: L(.dataFileRemoved))
+                        }
+                    }
                     self?.navigationController?.popToRootViewController(animated: true)
                 }
             }
@@ -145,7 +148,11 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
                         self?.errorAlert(message: L(.dataFileRemovalFailed))
                         return
                     }
-                    UIAccessibility.post(notification: .layoutChanged, argument: L(.dataFileRemoved))
+                    if UIAccessibility.isVoiceOverRunning {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            UIAccessibility.post(notification: .layoutChanged, argument: L(.dataFileRemoved))
+                        }
+                    }
                     strongSelf.reloadData()
                 }
             })

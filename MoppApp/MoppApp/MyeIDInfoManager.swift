@@ -50,6 +50,8 @@ var savedLastFocusElement: LastFocusElement?;
 
 class MyeIDInfoManager {
     weak var delegate: MyeIDInfoManagerDelegate? = nil
+    
+    var hasMyEidPageChanged = false
 
     var personalData: MoppLibPersonalData? = nil
     var authCertData: MoppLibCerificatetData? = nil

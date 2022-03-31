@@ -120,8 +120,11 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                         self?.errorAlert(message: L(.dataFileRemovalFailed))
                         return
                     }
-                    
-                    UIAccessibility.post(notification: .announcement, argument: L(.dataFileRemoved))
+                    if UIAccessibility.isVoiceOverRunning {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            UIAccessibility.post(notification: .screenChanged, argument: L(.dataFileRemoved))
+                        }
+                    }
                     self?.navigationController?.popToRootViewController(animated: true)
                 }
             }
@@ -141,7 +144,11 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                         success: { [weak self] container in
                             self?.updateState((self?.isCreated ?? false) ? .created : .opened)
                             self?.container.dataFiles.remove(at: index)
-                            UIAccessibility.post(notification: .announcement, argument: L(.dataFileRemoved))
+                            if UIAccessibility.isVoiceOverRunning {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    UIAccessibility.post(notification: .screenChanged, argument: L(.dataFileRemoved))
+                                }
+                            }
                             self?.reloadData()
                         },
                         failure: { [weak self] error in
