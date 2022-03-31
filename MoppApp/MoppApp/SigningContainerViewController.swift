@@ -52,6 +52,19 @@ class SigningContainerViewController : ContainerViewController, SigningActions, 
         containerViewDelegate = self
         signingContainerViewDelegate = self
         
+        if UIAccessibility.isVoiceOverRunning {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(didFinishAnnouncement(_:)),
+                name: UIAccessibility.announcementDidFinishNotification,
+                object: nil)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self, name: UIAccessibility.announcementDidFinishNotification, object: nil)
     }
     
     deinit {
@@ -248,7 +261,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                 strongSelf.notifications.append((true, L(.containerDetailsSigningSuccess)))
                 
                 if UIAccessibility.isVoiceOverRunning {
-                    UIAccessibility.post(notification: .screenChanged, argument: L(.containerDetailsSigningSuccess))
+                    UIAccessibility.post(notification: .announcement, argument: L(.containerDetailsSigningSuccess))
                 }
                 
                 if !DefaultsHelper.hideShareContainerDialog {
@@ -291,5 +304,19 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
         })
     }
     
-
+    @objc func didFinishAnnouncement(_ notification: Notification) {
+        let announcementValue: String? = notification.userInfo?[UIAccessibility.announcementStringValueUserInfoKey] as? String
+        let isAnnouncementSuccessful: Bool? = notification.userInfo?[UIAccessibility.announcementWasSuccessfulUserInfoKey] as? Bool
+        
+        guard let isSuccessful = isAnnouncementSuccessful else {
+            return
+        }
+        
+        if !isSuccessful && announcementValue == L(.containerDetailsSigningSuccess) {
+            NSLog("Signature added announcement was not successful, retrying...")
+            UIAccessibility.post(notification: .announcement, argument: announcementValue)
+        } else if isSuccessful && announcementValue == L(.containerDetailsSigningSuccess) {
+            NotificationCenter.default.removeObserver(self, name: UIAccessibility.announcementDidFinishNotification, object: nil)
+        }
+    }
 }
