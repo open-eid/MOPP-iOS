@@ -257,9 +257,9 @@ static CardActionsManager *sharedInstance = nil;
     if (![self isReaderConnected]) {
         NSLog(@"ID-CARD: READER IS NOT CONNECTED");
         if (action.completionBlock == nil) {
-            NSLog(@"ID-CARD: executeAfterReaderCheck. Resetting reader restart and restarting");
+            NSLog(@"ID-CARD: executeAfterReaderCheck. Resetting reader restart and stopping discovering readers");
             [[MoppLibCardReaderManager sharedInstance] resetReaderRestart];
-            [[MoppLibCardReaderManager sharedInstance] restartDiscoveringReaders:2.0f];
+            [[MoppLibCardReaderManager sharedInstance] stopDiscoveringReadersWithStatus:ReaderProcessFailed];
             return;
         }
         action.completionBlock(NO);

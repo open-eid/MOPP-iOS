@@ -32,6 +32,7 @@
 #import "MoppLibCardReaderManager.h"
 #import "MoppLibError.h"
 #import "MoppLibPrivateConstants.h"
+#import "CardActionsManager.h"
 
 @interface CardReaderiR301() <ReaderInterfaceDelegate>
 @property (nonatomic, strong) DataSuccessBlock successBlock;
@@ -77,8 +78,9 @@
     _successBlock = success;
     _failureBlock = failure;
     
-    NSLog(@"ID-CARD: CardReaderiR301. transmitCommand. Resetting reader restart");
+    NSLog(@"ID-CARD: CardReaderiR301. transmitCommand. Resetting reader restart and stopping card status polling");
     [[MoppLibCardReaderManager sharedInstance] resetReaderRestart];
+    [[MoppLibCardReaderManager sharedInstance] stopPollingCardStatus];
 
     NSData *apduData = [commandHex toHexData];
     
@@ -241,12 +243,77 @@
     } else {
         NSLog(@"ID-CARD: Did not successfully power on card");
         if (![PrivateConstants getIDCardRestartedValue]) {
-            [[MoppLibCardReaderManager sharedInstance] restartDiscoveringReaders:2.0f];
+            if (@available(iOS 14, *)) {
+                [[MoppLibCardReaderManager sharedInstance] restartDiscoveringReaders:2.0f];
+            } else {
+                [self powerOnIdCard:^(NSData *responseData) {
+                    [PrivateConstants setIDCardRestartedValue:FALSE];
+                    success(nil);
+                } failure:^(NSError *error) {
+                    [[MoppLibCardReaderManager sharedInstance] restartDiscoveringReaders:2.0f];
+                }];
+            }
         } else {
             [self respondWithError:[MoppLibError readerProcessFailedError]];
             [PrivateConstants setIDCardRestartedValue:FALSE];
         }
     }
+}
+
+- (void)powerOnIdCard:(DataSuccessBlock)success failure:(FailureBlock)failure  {
+    self.successBlock = success;
+    self.failureBlock = failure;
+    
+    unsigned int length = 0;
+    char buffer[20] = {0};
+    LONG ret = FtGetReaderName(_contextHandle, &length, buffer);
+    if (ret != SCARD_S_SUCCESS || length == 0) {
+        NSLog(@"ID-CARD: Unable to power on card");
+        failure(false);
+        return;
+    }
+    
+    NSString* _name = [NSString stringWithUTF8String:buffer];
+    
+    DWORD atrBufSize = 32;
+    BYTE atrBuf[32];
+    DWORD dwStatus;
+    LONG iRet = SCardStatus(self->_contextHandle, NULL, NULL, &dwStatus, NULL, (LPBYTE)&atrBuf, &atrBufSize);
+    NSLog(@"dwStatus %d", dwStatus);
+    NSLog(@"iRet %d", iRet);
+    
+    NSData *atr = [[NSData alloc] initWithBytes:atrBuf length:atrBufSize];
+    _chipType = [MoppLibCardReaderManager atrToChipType:atr];
+    
+    if (dwStatus == SCARD_PRESENT) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"ID-CARD: Card name: %@", _name);
+            success(nil);
+        });
+    } else {
+        [[MoppLibCardReaderManager sharedInstance] restartDiscoveringReaders:2.0f];
+    }
+}
+
+- (NSString *)getReaderList {
+    DWORD readerLength = 0;
+    LONG ret = SCardListReaders(_contextHandle, nil, nil, &readerLength);
+    if(ret != 0) {
+        NSLog(@"ID-CARD: Unable to get reader list");
+        return nil;
+    }
+    
+    LPSTR readers = (LPSTR)malloc(readerLength * sizeof(LPSTR));
+    ret = SCardListReaders(_contextHandle, nil, readers, &readerLength);
+    if (ret != 0) {
+        NSLog(@"ID-CARD: Unable to get list of readers");
+        free(readers);
+        return nil;
+    }
+    
+    NSString * strreaders = [NSString stringWithUTF8String:readers];
+    free(readers);
+    return strreaders;
 }
 
 - (void)respondWithError:(NSError *)error {

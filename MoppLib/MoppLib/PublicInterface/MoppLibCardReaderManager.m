@@ -113,6 +113,17 @@
     [NSNotificationCenter.defaultCenter removeObserver:@{}];
 }
 
+- (void)stopDiscoveringReadersWithStatus:(MoppLibCardReaderStatus)status {
+    NSLog(@"ID-CARD: Stopping reader discovery with status %lu", (unsigned long)status);
+    [self stopDiscoveringFeitianReader];
+    
+    [[CardActionsManager sharedInstance] setReader:nil];
+    [[CardActionsManager sharedInstance] resetCardActions];
+    _status = status;
+    
+    [NSNotificationCenter.defaultCenter removeObserver:@{}];
+}
+
 - (void)startDiscoveringFeitianReader {
     NSLog(@"ID-CARD: Starting Feitian reader discovering");
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -175,8 +186,8 @@
               
                     [[CardActionsManager sharedInstance] setReader:cardReader];
                     [self updateStatus:CardConnected];
-                    
                     [self stopPollingCardStatus];
+                    [[MoppLibCardReaderManager sharedInstance] resetReaderRestart];
                 }
             }
             break;
