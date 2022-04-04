@@ -378,10 +378,10 @@ extension ContainerViewController : UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (indexPath.section == 1 || indexPath.section == 2) {
-            if isNonDefaultPreferredContentSizeCategoryMedium() {
-                return 100
-            } else if isNonDefaultPreferredContentSizeCategoryBigger() {
-                return 200
+            if isNonDefaultPreferredContentSizeCategoryBigger() {
+                return ContainerHeaderCell.height * 1.5
+            } else {
+                return ContainerHeaderCell.height
             }
         }
         return UITableView.automaticDimension
@@ -803,7 +803,7 @@ extension ContainerViewController : UITableViewDelegate {
 
             header.delegate = self
             header.populate(
-                withTitle: title,
+                withTitle: title ?? "",
                 showAddButton:
                     section == .dataFiles   &&
                     !isCreated              &&

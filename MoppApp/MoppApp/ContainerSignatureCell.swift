@@ -131,7 +131,7 @@ class ContainerSignatureCell: UITableViewCell {
         
         if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
             signedInfoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-            nameLabel.font = UIFont.setCustomFont(font: .medium, nil, .body)
+            nameLabel.font = UIFont.setCustomFont(font: .allCapsBold, nil, .body)
         }
     }
 }
