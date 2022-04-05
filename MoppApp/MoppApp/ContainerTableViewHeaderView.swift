@@ -49,7 +49,7 @@ class ContainerTableViewHeaderView: UIView {
         titleLabel.text = title
         if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
         if isNonDefaultPreferredContentSizeCategory() {
-            titleLabel.font = UIFont.setCustomFont(font: .medium, nil, .body)
+            titleLabel.font = isNonDefaultPreferredContentSizeCategoryBigger() ? UIFont.setCustomFont(font: .medium, 20, .body) : UIFont.setCustomFont(font: .medium, nil, .body)
             titleLabel.numberOfLines = 3
             titleLabel.lineBreakMode = .byWordWrapping
         }
