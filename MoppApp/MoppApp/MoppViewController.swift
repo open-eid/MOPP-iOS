@@ -86,10 +86,10 @@ class MoppViewController : UIViewController {
         let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
         if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
         if isNonDefaultPreferredContentSizeCategoryBigger() {
-            titleLabel.font = UIFont.setCustomFont(font: .medium, 20, .body)
+            titleLabel.font = UIFont.setCustomFont(font: .medium, 22, .body)
             titleLabel.numberOfLines = 3
         } else if !isNonDefaultPreferredContentSizeCategory() {
-            titleLabel.font = UIFont.setCustomFont(font: .medium, 18, .body)
+            titleLabel.font = UIFont.setCustomFont(font: .medium, 20, .body)
         }
         titleLabel.text = title
         titleLabel.textColor = UIColor.black
