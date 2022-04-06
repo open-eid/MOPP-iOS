@@ -219,6 +219,8 @@
 "sign-title-id-card" = "ID-карта";
 "card-reader-state-initial" = "Подключите считыватель карты и вставьте в него Вашу ID-карту.";
 "card-reader-state-reader-not-found" = "Считыватель карты не обнаружен";
+"card-reader-state-reader-restarted" = "Перезапуск устройства чтения карт.";
+"card-reader-state-reader-process-failed" = "Не удалось считать данные. Пожалуйста, снова подключите устройство чтения карт и повторите попытку.";
 "card-reader-state-id-card-not-found" = "Обнаружен считыватель карты.\nВставьте в него Вашу ID-карту.";
 "card-reader-state-id-card-connected" = "Обнаружена ID-карта.\nЗапрашивается информация...";
 "card-reader-state-ready-for-pin2" = "Готово к подписанию с использованием ID-карты.\n%@ (%@)";

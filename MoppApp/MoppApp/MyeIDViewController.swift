@@ -24,6 +24,7 @@ class MyeIDViewController : MoppViewController {
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var containerView: UIView!
     var changingCodesVCPresented: Bool = false
+    var didRestartReader = false
     
     var infoManager: MyeIDInfoManager!
  
@@ -63,7 +64,12 @@ class MyeIDViewController : MoppViewController {
         super.viewWillDisappear(animated)
         if !changingCodesVCPresented {
             MoppLibCardReaderManager.sharedInstance().stopDiscoveringReaders()
+            MoppLibCardReaderManager.sharedInstance().resetReaderRestart()
         }
+    }
+    
+    deinit {
+        MoppLibCardReaderManager.sharedInstance().resetReaderRestart()
     }
     
     func createStatusViewController() -> MyeIDStatusViewController {
@@ -115,11 +121,24 @@ class MyeIDViewController : MoppViewController {
             navigationController?.popViewController(animated: false)
         }
     }
+    
+    func popViewControllerIfPushed() {
+        if let _ = navigationController?.viewControllers.last as? MyeIDStatusViewController {
+            navigationController?.popViewController(animated: false)
+        }
+    }
 }
 
 extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
     func moppLibCardReaderStatusDidChange(_ readerStatus: MoppLibCardReaderStatus) {
         switch readerStatus {
+        case .Initial:
+            popChangeCodesViewControllerIfPushed()
+            var statusVC = children.first as? MyeIDStatusViewController
+            if statusVC == nil {
+                statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
+            }
+            statusVC?.state = .initial
         case .ReaderNotConnected:
             popChangeCodesViewControllerIfPushed()
             var statusVC = children.first as? MyeIDStatusViewController
@@ -127,6 +146,13 @@ extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
                 statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
             }
             statusVC?.state = .readerNotFound
+        case .ReaderRestarted:
+            popChangeCodesViewControllerIfPushed()
+            var statusVC = children.first as? MyeIDStatusViewController
+            if statusVC == nil {
+                statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
+            }
+            statusVC?.state = .readerRestarted
         case .ReaderConnected:
             popChangeCodesViewControllerIfPushed()
             var statusVC = children.first as? MyeIDStatusViewController
@@ -147,6 +173,13 @@ extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
                 guard let strongSelf = self else { return }
                 strongSelf.infoManager.requestInformation(with: strongSelf)
             })
+        case .ReaderProcessFailed:
+            popChangeCodesViewControllerIfPushed()
+            var statusVC = children.first as? MyeIDStatusViewController
+            if statusVC == nil {
+                statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
+            }
+            statusVC?.state = .readerProcessFailed
         @unknown default:
             break
         }
@@ -162,7 +195,13 @@ extension MyeIDViewController: MyeIDInfoManagerDelegate {
                 _ = strongSelf.showViewController(infoViewController)
             }
         } else {
-            children.first?.errorAlert(message: L(.genericErrorMessage))
+            if didRestartReader {
+                NSLog("ID-CARD: My eID. Reader already restarted")
+                return
+            }
+            NSLog("ID-CARD: My eID. Restarting reader")
+            didRestartReader = true
+            MoppLibCardReaderManager.sharedInstance().restartDiscoveringReaders(2)
         }
     }
     
