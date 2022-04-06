@@ -23,39 +23,54 @@
 class MyeIDInfoCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
-    
+
     weak var infoManager: MyeIDInfoManager!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
+
+        if isNonDefaultPreferredContentSizeCategory() {
+            setCustomFont()
+        }
     }
-    
+
     func populate(titleText: String, contentText: String) {
         titleLabel.text = titleText
-        
+        titleLabel.accessibilityLabel = titleText
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
+
         if contentText == "EST" {
             contentLabel.accessibilityLabel = "E S T"
         }
-        
+
         contentLabel.text = contentText
-        
+        if isBoldTextEnabled() { contentLabel.font = UIFont.boldSystemFont(ofSize: contentLabel.font.pointSize) }
+
         if titleLabel.text == L(.myEidInfoMyEid) {
             titleLabel.accessibilityLabel = L(.myEidInfoMyEidAccessibility)
         }
     }
-    
+
     func populate(titleText: String, with expiryDateString: String) {
 
         titleLabel.text = titleText
-        
-        let font = UIFont(name: MoppFontName.allCapsBold.rawValue, size: 17)!
+        titleLabel.accessibilityLabel = titleText.lowercased()
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
+
+        let font = UIFont.setCustomFont(font: .allCapsBold, nil, .body)
         let attrText = NSMutableAttributedString(string: expiryDateString, attributes: [.font: font])
-        
+
         if let expiryDateDisplayString = infoManager.expiryDateAttributedString(dateString: expiryDateString, font: font, capitalized: true) {
             attrText.append(NSAttributedString(string: " | "))
             attrText.append(expiryDateDisplayString)
         }
-        
+
         contentLabel.attributedText = attrText
+        if isBoldTextEnabled() { contentLabel.font = UIFont.boldSystemFont(ofSize: contentLabel.font.pointSize) }
+    }
+
+    func setCustomFont() {
+        titleLabel.font = UIFont.setCustomFont(font: .allCapsRegular, nil, .body)
+        contentLabel.font = UIFont.setCustomFont(font: .allCapsBold, nil, .body)
     }
 }

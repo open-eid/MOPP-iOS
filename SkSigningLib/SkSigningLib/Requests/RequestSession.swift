@@ -76,20 +76,18 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.httpBody = requestParameters.asData
         
-        #if DEBUG
-        NSLog("RIA.MobileID (Session): \(url) \n" +
+        Logging.log(forMethod: "RIA.MobileID - getSession", info: "RIA.MobileID (Session): \(url) \n" +
             "Method: \(request.httpMethod ?? "Unable to get HTTP method") \n" +
             "Parameters: \n" +
             "\trelyingPartyName: \(requestParameters.relyingPartyName) \n" +
             "\trelyingPartyUUID: \(requestParameters.relyingPartyUUID) \n" +
-            "\tphoneNumber: \(requestParameters.phoneNumber.prefix(8))xxxx\n" +
-            "\tnationalIdentityNumber: \(requestParameters.nationalIdentityNumber.prefix(6))xxxxx\n" +
+            "\tphoneNumber: \(requestParameters.phoneNumber)\n" +
+            "\tnationalIdentityNumber: \(requestParameters.nationalIdentityNumber)\n" +
             "\thash: \(requestParameters.hash)\n" +
             "\thashType: \(requestParameters.hashType)\n" +
             "\tlanguage: \(requestParameters.language)\n" +
             "\tdisplayText: \(requestParameters.displayText ?? "")\n"
         )
-        #endif
         
         let urlSessionConfiguration: URLSessionConfiguration
         let urlSession: URLSession
@@ -104,23 +102,23 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         urlSession.dataTask(with: request as URLRequest) { data, response, error in
             
             guard let httpResponse = response as? HTTPURLResponse else {
-                ErrorLog.errorLog(forMethod: "Session", httpResponse: response as? HTTPURLResponse ?? nil, error: .noResponseError, extraInfo: "")
+                Logging.errorLog(forMethod: "RIA.MobileID - Session", httpResponse: response as? HTTPURLResponse ?? nil, error: .noResponseError, extraInfo: "")
                 return completionHandler(.failure(.noResponseError))
             }
             
             if error != nil {
-                ErrorLog.errorLog(forMethod: "Session", httpResponse: response as? HTTPURLResponse ?? nil, error: .generalError, extraInfo: error?.localizedDescription ?? "Error getting response")
+                Logging.errorLog(forMethod: "RIA.MobileID - Session", httpResponse: response as? HTTPURLResponse ?? nil, error: .generalError, extraInfo: error?.localizedDescription ?? "Error getting response")
                 completionHandler(.failure(.generalError))
                 return
             }
             
             if let data: Data = data {
                 EncoderDecoder().decode(data: data, completionHandler: { (response: SessionResponse) in
+                    Logging.log(forMethod: "RIA.MobileID - getSession", info: "Response: \n \(String(data: data, encoding: .utf8) ?? "Unable to get response info")")
                     if (response.sessionID != nil) {
                         completionHandler(.success(response))
                     } else {
-                        NSLog(response.error ?? "Unknown error received")
-                        ErrorLog.errorLog(forMethod: "Session", httpResponse: httpResponse, error: self.handleHTTPSessionResponseError(httpResponse: httpResponse), extraInfo: response.error ?? "Unknown error received")
+                        Logging.errorLog(forMethod: "RIA.MobileID - Session", httpResponse: httpResponse, error: self.handleHTTPSessionResponseError(httpResponse: httpResponse), extraInfo: response.error ?? "Unknown error received")
                         completionHandler(.failure(self.handleHTTPSessionResponseError(httpResponse: httpResponse)))
                     }
                 })
@@ -135,7 +133,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
     public func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionStatusResponse, SigningError>) -> Void) {
         
         guard let url = URL(string: "\(baseUrl)/signature/session/\(requestParameters.sessionId)?timeoutMs=\(requestParameters.timeoutMs ?? Constants.defaultTimeoutMs)") else {
-            ErrorLog.errorLog(forMethod: "Session status", httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(baseUrl)/signature/session/\(requestParameters.sessionId)?timeoutMs=\(requestParameters.timeoutMs ?? Constants.defaultTimeoutMs)")
+            Logging.errorLog(forMethod: "RIA.MobileID - Session status", httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(baseUrl)/signature/session/\(requestParameters.sessionId)?timeoutMs=\(requestParameters.timeoutMs ?? Constants.defaultTimeoutMs)")
             return completionHandler(.failure(.invalidURL))
         }
         
@@ -144,14 +142,12 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         var request = URLRequest(url: url)
         request.httpMethod = RequestMethod.GET.value
         
-        #if DEBUG
-            NSLog("RIA.MobileID (Session status): \(url) \n" +
-                "Method: \(request.httpMethod ?? "Unable to get HTTP method") \n" +
-                "Parameters: \n" +
-                "\tsessionId: \(requestParameters.sessionId.prefix(13))-xxxx-xxxx-xxxxxxxxxxxx \n" +
-                "\ttimeoutMs: \(String(requestParameters.timeoutMs ?? Constants.defaultTimeoutMs)) \n"
-            )
-        #endif
+        Logging.log(forMethod: "RIA.MobileID - getSessionStatus", info: "RIA.MobileID (Session status): \(url) \n" +
+            "Method: \(request.httpMethod ?? "Unable to get HTTP method") \n" +
+            "Parameters: \n" +
+            "\tsessionId: \(requestParameters.sessionId)\n" +
+            "\ttimeoutMs: \(String(requestParameters.timeoutMs ?? Constants.defaultTimeoutMs)) \n"
+        )
         
         let urlSessionConfiguration: URLSessionConfiguration
         let urlSession: URLSession
@@ -166,36 +162,37 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         let sessionTask: URLSessionTask? = urlSession.dataTask(with: request as URLRequest) { data, response, error in
             guard let httpResponse = response as? HTTPURLResponse else {
                 self.urlTask?.cancel()
-                ErrorLog.errorLog(forMethod: "Session status", httpResponse: response as? HTTPURLResponse ?? nil, error: .noResponseError, extraInfo: "")
+                Logging.errorLog(forMethod: "RIA.MobileID - Session status", httpResponse: response as? HTTPURLResponse ?? nil, error: .noResponseError, extraInfo: "")
                 return completionHandler(.failure(.noResponseError))
             }
             
             if error != nil {
                 self.urlTask?.cancel()
-                ErrorLog.errorLog(forMethod: "Session status", httpResponse: response as? HTTPURLResponse ?? nil, error: .generalError, extraInfo: error?.localizedDescription ?? "Error getting response")
+                Logging.errorLog(forMethod: "RIA.MobileID - Session status", httpResponse: response as? HTTPURLResponse ?? nil, error: .generalError, extraInfo: error?.localizedDescription ?? "Error getting response")
                 return completionHandler(.failure(.generalError))
             }
             
             if !(200...299).contains(httpResponse.statusCode) {
                 self.urlTask?.cancel()
-                ErrorLog.errorLog(forMethod: "Session status", httpResponse: httpResponse, error: self.handleHTTPSessionResponseError(httpResponse: httpResponse), extraInfo: "Status code: \(httpResponse.statusCode)")
+                Logging.errorLog(forMethod: "RIA.MobileID - Session status", httpResponse: httpResponse, error: self.handleHTTPSessionResponseError(httpResponse: httpResponse), extraInfo: "Status code: \(httpResponse.statusCode)")
                 return completionHandler(.failure(self.handleHTTPSessionStatusResponseError(httpResponse: httpResponse)))
             }
             
             if let data: Data = data {
                 EncoderDecoder().decode(data: data, completionHandler: { (response: SessionStatusResponse) in
+                    Logging.log(forMethod: "RIA.MobileID - getSessionStatus", info: "Response: \n \(String(data: data, encoding: .utf8) ?? "Unable to get response info")")
                     if (response.error == nil) {
                         if response.state == SessionResponseState.COMPLETE && !self.sessionStatusCompleted {
                             self.urlTask?.cancel()
                             self.sessionStatusCompleted = true
-                            NSLog("Polling cancelled, sessionStatusCompleted: \(self.sessionStatusCompleted)")
+                            Logging.log(forMethod: "RIA.MobileID - getSessionStatus", info: "Polling cancelled, sessionStatusCompleted: \(self.sessionStatusCompleted)")
                             return completionHandler(.success(response))
                         } else {
                             self.sessionStatusCompleted = false
                         }
                     } else {
                         self.urlTask?.cancel()
-                        ErrorLog.errorLog(forMethod: "Session status", httpResponse: httpResponse, error: self.handleHTTPSessionResponseError(httpResponse: httpResponse), extraInfo: response.error ?? "Unknown error received")
+                        Logging.errorLog(forMethod: "RIA.MobileID - Session status", httpResponse: httpResponse, error: self.handleHTTPSessionResponseError(httpResponse: httpResponse), extraInfo: response.error ?? "Unknown error received")
                         return completionHandler(.failure(self.handleHTTPSessionStatusResponseError(httpResponse: httpResponse)))
                     }
                 })

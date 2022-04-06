@@ -34,12 +34,14 @@ class SettingsHeaderCell: UITableViewCell {
     
     func populate(with title:String) {
         titleLabel.text = title
+        titleLabel.font = UIFont.moppLargeMedium
+        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         guard let dismissUIButton: UIButton = dismissButton, let titleUILabel: UILabel = titleLabel else {
-            NSLog("Unable to get dismissButton or titleLabel")
+            printLog("Unable to get dismissButton or titleLabel")
             return
         }
         self.accessibilityElements = [dismissUIButton, titleUILabel]

@@ -97,6 +97,10 @@ class MyeIDPinPukCell: UITableViewCell {
         }
     }
     
+    func setAccessibilityFocusOnButton() {
+        UIAccessibility.post(notification: .screenChanged, argument: button)
+    }
+    
     func populate(pinPukCellInfo: MyeIDInfoManager.PinPukCell.Info) {
         contentView.bounds = bounds
         layoutIfNeeded()
@@ -105,7 +109,9 @@ class MyeIDPinPukCell: UITableViewCell {
         errorLabel.isAccessibilityElement = true
         
         errorLabel.preferredMaxLayoutWidth = errorLabel.frame.width
-        certInfoLabel.preferredMaxLayoutWidth = certInfoLabel.frame.width
+        if !isNonDefaultPreferredContentSizeCategory() {
+            certInfoLabel.preferredMaxLayoutWidth = certInfoLabel.frame.width
+        }
         
         kind = pinPukCellInfo.kind
         bottomLine.isHidden = kind == .puk
@@ -142,10 +148,19 @@ class MyeIDPinPukCell: UITableViewCell {
                 showChangeButton(authCertValid, with: pinPukCellInfo.buttonText)
                 button.backgroundColor = UIColor.moppBase
                 
-                if savedLastFocusElement == .changePIN1 {
-                    UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: button)
-                } else if savedLastFocusElement == .unblockPIN1 {
-                    UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: linkButton)
+                if UIAccessibility.isVoiceOverRunning {
+                    if savedLastFocusElement == .changePIN1 {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            self.showAccessibilityElements()
+                            UIAccessibility.post(notification: .layoutChanged, argument: self.button)
+                        }
+                    } else if savedLastFocusElement == .unblockPIN1 {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            self.showAccessibilityElements()
+                            UIAccessibility.post(notification: .layoutChanged, argument: self.linkButton)
+                        }
+                    }
+                    self.showAccessibilityElements()
                 }
             }
         }
@@ -170,10 +185,18 @@ class MyeIDPinPukCell: UITableViewCell {
                 showChangeButton(signCertValid, with: pinPukCellInfo.buttonText)
                 button.backgroundColor = UIColor.moppBase
                 
-                if savedLastFocusElement == .changePIN2 {
-                    UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: button)
-                } else if savedLastFocusElement == .unblockPIN2 {
-                    UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: linkButton)
+                if UIAccessibility.isVoiceOverRunning {
+                    if savedLastFocusElement == .changePIN2 {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            self.showAccessibilityElements()
+                            UIAccessibility.post(notification: .layoutChanged, argument: self.button)
+                        }
+                    } else if savedLastFocusElement == .unblockPIN2 {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            self.showAccessibilityElements()
+                            UIAccessibility.post(notification: .layoutChanged, argument: self.linkButton)
+                        }
+                    }
                 }
             }
         }
@@ -192,10 +215,17 @@ class MyeIDPinPukCell: UITableViewCell {
                 showChangeButton(authCertValid || signCertValid, with: pinPukCellInfo.buttonText)
                 button.backgroundColor = UIColor.moppBase
                 
-                if savedLastFocusElement == .changePUK {
-                    UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: button)
+                if UIAccessibility.isVoiceOverRunning && savedLastFocusElement == .changePUK {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.showAccessibilityElements()
+                        UIAccessibility.post(notification: .layoutChanged, argument: self.button)
+                    }
                 }
             }
+        }
+        
+        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
+            setCustomFont()
         }
         
         layoutIfNeeded()
@@ -205,13 +235,18 @@ class MyeIDPinPukCell: UITableViewCell {
         if let certInfoText = pinPukCellInfo.certInfoText {
             certInfoLabel.text = certInfoText
             certInfoLabel.accessibilityLabel = certInfoText
+            certInfoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
         } else {
             certInfoLabel.text = nil
-            certInfoLabel.font = nil
             certInfoLabel.accessibilityLabel = nil
             certInfoLabel.attributedText = infoManager.certInfoAttributedString(for: kind)
+            certInfoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
             certInfoLabel.setNeedsDisplay()
         }
+    }
+    
+    func showAccessibilityElements() {
+        infoManager.hasMyEidPageChanged = false
     }
     
     func showChangeButton(_ show:Bool, with title:String? = nil) {
@@ -240,6 +275,14 @@ class MyeIDPinPukCell: UITableViewCell {
     func showCertsExpired(_ show:Bool) {
         showCertsExpiredCSTR.priority = show ? UILayoutPriority.defaultHigh : UILayoutPriority.defaultLow
         hideCertsExpiredCSTR.priority = show ? UILayoutPriority.defaultLow : UILayoutPriority.defaultHigh
+    }
+    
+    func setCustomFont() {
+        titleLabel.font = UIFont.setCustomFont(font: .medium, nil, .body)
+        errorLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        linkLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        linkButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
+        button.titleLabel?.font = UIFont.setCustomFont(font: .allCapsRegular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
     }
 }
 

@@ -37,7 +37,7 @@ class ContainerHeaderCell: UITableViewCell {
     @IBAction func editContainerName(_ sender: Any) {
         delegate?.editContainerName(completion: { (fileName: String) in
             guard !fileName.isEmpty else {
-                NSLog("Filename is empty, container name not changed")
+                printLog("Filename is empty, container name not changed")
                 return
             }
             DispatchQueue.main.async {
@@ -50,10 +50,18 @@ class ContainerHeaderCell: UITableViewCell {
         super.awakeFromNib()
         
         titleLabel.text = L(.containerHeaderTitle)
+        titleLabel.font = isBoldTextEnabled() ? UIFont.moppMediumBold : UIFont.moppMediumRegular
+        if isNonDefaultPreferredContentSizeCategory() {
+            titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
     }
     
     func populate(name: String, isEditButtonEnabled: Bool) {
         filenameLabel.text = MoppLibManager.sanitize(name)
+        filenameLabel.font = isBoldTextEnabled() ? UIFont.moppMediumBold : UIFont.moppMediumRegular
+        if isNonDefaultPreferredContentSizeCategory() {
+            filenameLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        }
         editContainerNameButton.isHidden = isEditButtonEnabled
         editContainerNameButton.accessibilityLabel = L(.containerEditNameButton)
     }

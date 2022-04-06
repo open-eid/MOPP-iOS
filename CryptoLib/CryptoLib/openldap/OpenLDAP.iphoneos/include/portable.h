@@ -5,7 +5,7 @@
 /* begin of portable.h.pre */
 /* This work is part of OpenLDAP Software <http://www.openldap.org/>.
  *
- * Copyright 1998-2021 The OpenLDAP Foundation
+ * Copyright 1998-2022 The OpenLDAP Foundation
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -116,7 +116,7 @@
 /* #undef HAVE_CONIO_H */
 
 /* define if crypt(3) is available */
-#define HAVE_CRYPT 1
+/* #undef HAVE_CRYPT */
 
 /* Define to 1 if you have the <crypt.h> header file. */
 /* #undef HAVE_CRYPT_H */
@@ -128,7 +128,7 @@
 #define HAVE_CTIME_R 1
 
 /* define if you have Cyrus SASL */
-#define HAVE_CYRUS_SASL 1
+/* #undef HAVE_CYRUS_SASL */
 
 /* define if your system supports /dev/poll */
 /* #undef HAVE_DEVPOLL */
@@ -468,10 +468,10 @@
 /* #undef HAVE_SASL_H */
 
 /* Define to 1 if you have the <sasl/sasl.h> header file. */
-#define HAVE_SASL_SASL_H 1
+/* #undef HAVE_SASL_SASL_H */
 
 /* define if your SASL library has sasl_version() */
-#define HAVE_SASL_VERSION 1
+/* #undef HAVE_SASL_VERSION */
 
 /* Define to 1 if you have the <sched.h> header file. */
 #define HAVE_SCHED_H 1
@@ -845,16 +845,16 @@
 #define LDAP_SYSLOG 1
 
 /* Version */
-#define LDAP_VENDOR_VERSION 000000
+#define LDAP_VENDOR_VERSION 20601
 
 /* Major */
 #define LDAP_VENDOR_VERSION_MAJOR 2
 
 /* Minor */
-#define LDAP_VENDOR_VERSION_MINOR X
+#define LDAP_VENDOR_VERSION_MINOR 6
 
 /* Patch */
-#define LDAP_VENDOR_VERSION_PATCH X
+#define LDAP_VENDOR_VERSION_PATCH 1
 
 /* Define to the sub-directory where libtool stores uninstalled libraries. */
 #define LT_OBJDIR ".libs/"
@@ -872,7 +872,7 @@
 #define OPENLDAP_PACKAGE "OpenLDAP"
 
 /* Version */
-#define OPENLDAP_VERSION "2.X"
+#define OPENLDAP_VERSION "2.6.1"
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT ""
@@ -894,9 +894,6 @@
 
 /* define if sched_yield yields the entire process */
 /* #undef REPLACE_BROKEN_YIELD */
-
-/* Define as the return type of signal handlers (`int' or `void'). */
-#define RETSIGTYPE void
 
 /* Define to the type of arg 1 for `select'. */
 #define SELECT_TYPE_ARG1 int
@@ -929,19 +926,19 @@
 /* #undef SLAPD_ASYNCMETA */
 
 /* define to support cleartext passwords */
-#define SLAPD_CLEARTEXT 1
+/* #undef SLAPD_CLEARTEXT */
 
 /* define to support crypt(3) passwords */
-#define SLAPD_CRYPT 1
+/* #undef SLAPD_CRYPT */
 
 /* define to support DNS SRV backend */
 /* #undef SLAPD_DNSSRV */
 
 /* define to support LDAP backend */
-#define SLAPD_LDAP SLAPD_MOD_STATIC
+/* #undef SLAPD_LDAP */
 
 /* define to support MDB backend */
-#define SLAPD_MDB SLAPD_MOD_STATIC
+/* #undef SLAPD_MDB */
 
 /* define to support LDAP Metadirectory backend */
 /* #undef SLAPD_META */
@@ -954,9 +951,6 @@
 
 /* statically linked module */
 #define SLAPD_MOD_STATIC 1
-
-/* define to support NDB backend */
-/* #undef SLAPD_NDB */
 
 /* define to support NULL backend */
 /* #undef SLAPD_NULL */
@@ -1022,7 +1016,7 @@
 /* #undef SLAPD_OVER_SSSVLV */
 
 /* define for Syncrepl Provider overlay */
-#define SLAPD_OVER_SYNCPROV SLAPD_MOD_STATIC
+/* #undef SLAPD_OVER_SYNCPROV */
 
 /* define for Translucent Proxy overlay */
 /* #undef SLAPD_OVER_TRANSLUCENT */
@@ -1043,13 +1037,10 @@
 /* #undef SLAPD_PWMOD_PW_ARGON2 */
 
 /* define to support relay backend */
-#define SLAPD_RELAY SLAPD_MOD_STATIC
+/* #undef SLAPD_RELAY */
 
 /* define to support reverse lookups */
 /* #undef SLAPD_RLOOKUPS */
-
-/* define to support SHELL backend */
-/* #undef SLAPD_SHELL */
 
 /* define to support SOCK backend */
 /* #undef SLAPD_SOCK */
@@ -1068,9 +1059,6 @@
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
-
-/* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
-#define TIME_WITH_SYS_TIME 1
 
 /* Define to 1 if your <sys/time.h> declares `struct tm'. */
 /* #undef TM_IN_SYS_TIME */
@@ -1149,6 +1137,8 @@
 
 
 /* begin of portable.h.post */
+
+#define RETSIGTYPE void
 
 #ifdef _WIN32
 	/* don't suck in all of the win32 api */

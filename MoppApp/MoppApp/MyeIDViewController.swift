@@ -206,6 +206,7 @@ extension MyeIDViewController: MyeIDInfoManagerDelegate {
     }
     
     func didTapChangePinPukCode(actionType: MyeIDChangeCodesModel.ActionType) {
+        infoManager.hasMyEidPageChanged = true
         let changeCodesViewController = UIStoryboard.myEID.instantiateViewController(of: MyeIDChangeCodesViewController.self)
             changeCodesViewController.model = MyeIDInfoManager.createChangeCodesModel(actionType: actionType)
             changeCodesViewController.infoManager = infoManager

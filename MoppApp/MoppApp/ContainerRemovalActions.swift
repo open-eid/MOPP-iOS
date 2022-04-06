@@ -27,7 +27,7 @@ class ContainerRemovalActions {
     
     func removeAsicContainer(containerPath: String?) -> Bool {
         guard let containerPath = containerPath else {
-            NSLog("Container not found")
+            printLog("Container not found")
             return false
         }
         
@@ -37,12 +37,12 @@ class ContainerRemovalActions {
     
     func removeCdocContainer(cryptoContainer: CryptoContainer?) -> Bool {
         guard let cryptoContainer: CryptoContainer = cryptoContainer else {
-            NSLog("Container not found")
+            printLog("Container not found")
             return false
         }
         
         guard cryptoContainer.dataFiles.count > 0 else {
-            NSLog("No crypto container datafiles found")
+            printLog("No crypto container datafiles found")
             return false
         }
         

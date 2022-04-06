@@ -22,7 +22,6 @@ import SkSigningLib
 
 private var kRequestTimeout: Double = 120.0
 
-
 class SmartIDChallengeViewController : UIViewController {
 
     @IBOutlet weak var codeLabel: UILabel!
@@ -32,6 +31,8 @@ class SmartIDChallengeViewController : UIViewController {
     var currentProgress: Double = 0.0
     var sessionTimer: Timer?
     var pendingnotification = ""
+    var challengeCodeAccessibilityLabel = ""
+    var isTimeoutProgressRead = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,15 +43,42 @@ class SmartIDChallengeViewController : UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveCreateSignatureStatus), name: .signatureAddedToContainerNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveErrorNotification), name: .errorNotificationName, object: nil)
         
+        if UIAccessibility.isVoiceOverRunning {
+            NotificationCenter.default.addObserver(self, selector: #selector(handleAccessibility), name: UIApplication.didBecomeActiveNotification, object: nil)
+            
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(didFinishAnnouncement(_:)),
+                name: UIAccessibility.announcementDidFinishNotification,
+                object: nil)
+        }
+
+        timeoutProgressView.isAccessibilityElement = false
+
         UIAccessibility.post(notification: .announcement, argument: timeoutProgressView.progress)
+
+        setCustomFont()
     }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
 
+    func setCustomFont() {
+        helpLabel.font = UIFont.setCustomFont(font: .regular, 14, .body)
+        codeLabel.font = UIFont.setCustomFont(font: .regular, 32, .body)
+    }
+
     @objc func receiveSelectAccountNotification(_ notification: Notification) {
         helpLabel.text = MoppLib_LocalizedString("smart-id-status-request-select-account")
+        currentProgress = 0.0
+        sessionTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSessionProgress), userInfo: nil, repeats: true)
+        if UIAccessibility.isVoiceOverRunning {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                let message: NSAttributedString = NSAttributedString(string: "\(L(.signingProgress)) \(String(Int(self.timeoutProgressView.progress))) %. \(self.helpLabel.text ?? "")", attributes: [.accessibilitySpeechQueueAnnouncement: false])
+                UIAccessibility.post(notification: .announcement, argument: message)
+            }
+        }
     }
 
     @objc func receiveCreateSignatureNotification(_ notification: Notification) {
@@ -64,9 +92,13 @@ class SmartIDChallengeViewController : UIViewController {
         let challengeIdNumbers = Array<Character>(challengeID)
         let challengeIdAccessibilityLabel: String = "\((L(LocKey.challengeCodeLabelAccessibility, [String(challengeIdNumbers[0]), String(challengeIdNumbers[1]), String(challengeIdNumbers[2]), String(challengeIdNumbers[3])]))). \(self.helpLabel.text!)"
         codeLabel.accessibilityLabel = challengeIdAccessibilityLabel
-        UIAccessibility.post(notification: .announcement, argument: challengeIdAccessibilityLabel)
-        currentProgress = 0.0
-        sessionTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSessionProgress), userInfo: nil, repeats: true)
+        challengeCodeAccessibilityLabel = challengeIdAccessibilityLabel
+        if UIAccessibility.isVoiceOverRunning {
+            let message: NSAttributedString = NSAttributedString(string: challengeIdAccessibilityLabel, attributes: [.accessibilitySpeechQueueAnnouncement: true])
+            UIAccessibility.post(notification: .announcement, argument: message)
+        }
+
+        timeoutProgressView.isAccessibilityElement = true
 
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.getNotificationSettings { settings in
@@ -78,7 +110,6 @@ class SmartIDChallengeViewController : UIViewController {
                 self.showNotification(challengeID: challengeID)
             }
         }
-        UIAccessibility.post(notification: .layoutChanged, argument: timeoutProgressView)
     }
 
     @objc func receiveCreateSignatureStatus(_ notification: Notification) {
@@ -95,7 +126,7 @@ class SmartIDChallengeViewController : UIViewController {
         let message = SkSigningLib_LocalizedString(signingErrorMessage?.signingErrorDescription ?? errorMessage)
         self.dismiss(animated: false) {
             let topViewController = self.getTopViewController()
-            
+
             let errorMessageNoLink = message.removeFirstLinkFromMessage()
             let alert = UIAlertController(title: L(.errorAlertTitleGeneral), message: errorMessageNoLink, preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -104,7 +135,7 @@ class SmartIDChallengeViewController : UIViewController {
                     alert.addAction(alertActionUrl)
                 }
             }
-            
+
             topViewController.present(alert, animated: true, completion: nil)
         }
     }
@@ -120,6 +151,8 @@ class SmartIDChallengeViewController : UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [pendingnotification])
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIAccessibility.announcementDidFinishNotification, object: nil)
         sessionTimer?.invalidate()
     }
 
@@ -128,6 +161,11 @@ class SmartIDChallengeViewController : UIViewController {
             let step: Double = 1.0 / kRequestTimeout
             currentProgress = currentProgress + step
             timeoutProgressView.progress = Float(currentProgress)
+            if UIAccessibility.isVoiceOverRunning && timeoutProgressView.isAccessibilityElement {
+                Timer.scheduledTimer(withTimeInterval: 7, repeats: false) { timer in
+                    UIAccessibility.post(notification: .layoutChanged, argument: self.timeoutProgressView)
+                }
+            }
         }
         else {
             timer.invalidate()
@@ -142,5 +180,23 @@ class SmartIDChallengeViewController : UIViewController {
         content.sound = UNNotificationSound.default
         pendingnotification = UUID().uuidString;
         UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: pendingnotification, content: content, trigger: nil))
+    }
+    
+    @objc private func handleAccessibility() {
+        UIAccessibility.post(notification: .announcement, argument: challengeCodeAccessibilityLabel)
+    }
+    
+    @objc func didFinishAnnouncement(_ notification: Notification) {
+        let announcementValue: String? = notification.userInfo?[UIAccessibility.announcementStringValueUserInfoKey] as? String
+        let isAnnouncementSuccessful: Bool? = notification.userInfo?[UIAccessibility.announcementWasSuccessfulUserInfoKey] as? Bool
+        
+        guard let isSuccessful = isAnnouncementSuccessful else {
+            return
+        }
+        
+        if !isSuccessful && announcementValue == challengeCodeAccessibilityLabel {
+            NSLog("Control code announcement was not successful, retrying...")
+            UIAccessibility.post(notification: .announcement, argument: announcementValue)
+        }
     }
 }

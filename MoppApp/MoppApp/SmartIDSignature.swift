@@ -34,9 +34,17 @@ class SmartIDSignature {
         let certparams = SIDCertificateRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid)
         let errorHandler: (SigningError, String) -> Void = { error, log in
             UIApplication.shared.endBackgroundTask(backgroundTask)
-            NSLog("\(log): \(error.signingErrorDescription ?? error.rawValue)")
+            printLog("\(log): \(SkSigningLib_LocalizedString(error.signingErrorDescription ?? error.rawValue))")
             self.generateError(error: error)
         }
+        
+        if isUsingTestMode() {
+            printLog("RIA.SmartID - parameters:\n" +
+                "\tBase URL: \(baseUrl)\n" +
+                "\tUUID: \(uuid)\n"
+            )
+        }
+        
         getCertificate(baseUrl: baseUrl, country: country, nationalIdentityNumber: nationalIdentityNumber, requestParameters: certparams, containerPath: containerPath, trustedCertificates: certBundle, errorHandler: errorHandler) { documentNumber, cert, hash in
             let signparams = SIDSignatureRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, hash: hash, hashType: hashType, displayText: L(.simToolkitSignDocumentTitle).asUnicode, vcChoice: true)
             self.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, requestParameters: signparams, trustedCertificates: certBundle, errorHandler: errorHandler) { signatureValue in
@@ -47,12 +55,12 @@ class SmartIDSignature {
     }
 
     private func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, containerPath: String, trustedCertificates: [String]?, errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String, String, String) -> Void) {
-        NSLog("Getting certificate...")
+        printLog("Getting certificate...")
         self.selectAccount()
         SIDRequest.shared.getCertificate(baseUrl: baseUrl, country: country, nationalIdentityNumber: nationalIdentityNumber, requestParameters: requestParameters, trustedCertificates: trustedCertificates) { result in
             switch result {
             case .success(let response):
-                NSLog("Received Certificate (session ID redacted): \(response.sessionID.prefix(13))")
+                printLog("Received Certificate (session ID): \(response.sessionID)")
                 self.getSessionStatus(baseUrl: baseUrl, sessionId: response.sessionID, trustedCertificates: trustedCertificates) { result in
                     switch result {
                     case .success(let sessionStatus):
@@ -77,11 +85,11 @@ class SmartIDSignature {
     }
 
     private func getSignature(baseUrl: String, documentNumber: String, requestParameters: SIDSignatureRequestParameters, trustedCertificates: [String]?, errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String) -> Void) {
-        NSLog("Getting signature...")
+        printLog("Getting signature...")
         SIDRequest.shared.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, requestParameters: requestParameters, trustedCertificates: trustedCertificates) { result in
             switch result {
             case .success(let response):
-                NSLog("Received Signature (session ID redacted): \(response.sessionID.prefix(13))")
+                printLog("Received Signature (session ID): \(response.sessionID)")
                 self.getSessionStatus(baseUrl: baseUrl, sessionId: response.sessionID, trustedCertificates: trustedCertificates) { result in
                     switch result {
                     case .success(let sessionStatus):
@@ -100,11 +108,11 @@ class SmartIDSignature {
     }
 
     private func getSessionStatus(baseUrl: String, sessionId: String, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionStatusResponse, SigningError>) -> Void) {
-        NSLog("Requesting session status...")
+        printLog("RIA.SmartID - Requesting session status...")
         SIDRequest.shared.getSessionStatus(baseUrl: baseUrl, sessionId: sessionId, timeoutMs: kDefaultTimeoutMs, trustedCertificates: trustedCertificates) { result in
             switch result {
             case .success(let sessionStatus):
-                NSLog("Session status \(sessionStatus.state.rawValue)")
+                printLog("RIA.SmartID - Session status \(sessionStatus.state.rawValue)")
                 switch sessionStatus.state {
                 case .RUNNING:
                     self.getSessionStatus(baseUrl: baseUrl, sessionId: sessionId, trustedCertificates: trustedCertificates, completionHandler: completionHandler);
@@ -112,7 +120,7 @@ class SmartIDSignature {
                     guard let sessionStatusResult = sessionStatus.result else {
                         return completionHandler(.failure(.generalError))
                     }
-                    NSLog("EndResult: \(sessionStatusResult.endResult.rawValue)")
+                    printLog("RIA.SmartID - EndResult: \(sessionStatusResult.endResult.rawValue)")
                     if sessionStatusResult.endResult != .OK {
                         return completionHandler(.failure({
                             switch sessionStatusResult.endResult {
@@ -139,9 +147,9 @@ class SmartIDSignature {
     }
     
     private func validateSignature(cert: String, signatureValue: String) -> Void {
-        NSLog("\nValidating signature...\n")
+        printLog("\nRIA.SmartID - Validating signature...\n")
         MoppLibManager.isSignatureValid(cert, signatureValue: signatureValue, success: { (_) in
-            NSLog("\nSuccessfully validated signature!\n")
+            printLog("\nRIA.SmartID - Successfully validated signature!\n")
             DispatchQueue.main.async {
                 NotificationCenter.default.post(
                     name: .signatureAddedToContainerNotificationName,
@@ -149,26 +157,27 @@ class SmartIDSignature {
                     userInfo: nil)
             }
         }, failure: { (error: Error?) in
-            NSLog("\nError validating signature. Error: \(error?.localizedDescription ?? "Unable to display error")\n")
+            printLog("\nRIA.SmartID - Error validating signature. Error: \(error?.localizedDescription ?? "Unable to display error")\n")
             guard let error = error, let err = error as NSError? else {
                 self.generateError(error: .generalSignatureAddingError)
                 return
             }
             
             if err.code == 5 || err.code == 6 {
-                NSLog(err.domain)
+                printLog("\nRIA.SmartID - Certificate revoked. \(err.domain)")
                 self.generateError(error: .certificateRevoked)
                 return
             } else if err.code == 7 {
-                NSLog(err.domain)
+                printLog("\nRIA.SmartID - Invalid OCSP time slot. \(err.domain)")
                 self.generateError(error: .ocspInvalidTimeSlot)
                 return
             } else if err.code == 18 {
-                NSLog(err.domain)
+                printLog("\nRIA.SmartID - Too many requests. \(err.domain)")
                 self.generateError(error: .tooManyRequests)
                 return
             }
             
+            printLog("\nRIA.SmartID - General signature adding error. \(err.domain)")
             return self.generateError(error: .generalSignatureAddingError)
         })
     }

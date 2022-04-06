@@ -29,8 +29,10 @@
 
 #if DEBUG
 #define MLLog(s, ...) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+#define printLog(...) NSLog(__VA_ARGS__)
 #else
 #define MLLog(s, ...) //
+#define printLog(...)
 #endif
 
 #define MLLocalizedErrors(key, comment) NSLocalizedStringFromTableInBundle(key, nil, [NSBundle bundleForClass:[MoppLibError class]], comment)

@@ -70,7 +70,7 @@
 "crypto-encryption-success" = "KRÜPTEERIMINE ÕNNESTUS";
 "crypto-decryption-cancelled" = "Faili dekrüpteerimine katkestatud";
 "crypto-recipient-found" = "Adressaat leitud";
-"crypto-recipients-found" = "Adressaati leitud";
+"crypto-recipients-found" = "%@ adressaati leitud";
 "crypto-recipient-added" = "Adressaat lisatud";
 "crypto-recipient-removed" = "Adressaat eemaldatud";
 "crypto-recipient-adding-cancelled" = "Adressaadi lisamine katkestatud";
@@ -138,6 +138,7 @@
 "container-header-create-addressee-title" = "Adressaadid";
 "container-header-timestamp-title" = "Ajatempel";
 "container-header-signatures-title" = "Ümbriku allkirjad";
+"container-header-timestamps-title" = "Ümbriku ajatemplid";
 "container-row-edit-remove" = "Eemalda";
 "container-header-title" = "ÜMBRIK:";
 "container-error-message-invalid-signature" = "1 ALLKIRI EI OLE KEHTIV";
@@ -152,6 +153,8 @@
 "container-signature-status-non-qscd" = "(Piirangud)";
 "container-signature-status-invalid" = "Allkiri ei ole kehtiv";
 "container-signature-status-unknown" = "Allkiri on teadmata";
+"container-timestamp-valid" = "Ajatempel on kehtiv";
+"container-timestamp-unknown" = "Ajatempel on teadmata";
 "container-timestamp-invalid" = "Ajatempel ei ole kehtiv";
 
 // *** Mobile ID Challenge View ***
@@ -184,6 +187,7 @@
 "signature-removed" = "Allkiri eemaldatud";
 "signature-removal-cancelled" = "Allkirja eemaldamine katkestatud";
 
+"signing-progress" = "Progress";
 "signing-remember-me" = "Pea mind meeles";
 "signing-cancelled" = "Ümbriku allkirjastamine katkestatud";
 "mobile-id-title" = "Sisesta oma telefoninumber ja isikukood mobiil-IDga allkirjastamiseks";

@@ -23,6 +23,7 @@
 
 import Foundation
 import MoppLib
+import UIKit
 
 class SigningContainerViewController : ContainerViewController, SigningActions, UIDocumentPickerDelegate {
     
@@ -51,6 +52,19 @@ class SigningContainerViewController : ContainerViewController, SigningActions, 
         containerViewDelegate = self
         signingContainerViewDelegate = self
         
+        if UIAccessibility.isVoiceOverRunning {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(didFinishAnnouncement(_:)),
+                name: UIAccessibility.announcementDidFinishNotification,
+                object: nil)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self, name: UIAccessibility.announcementDidFinishNotification, object: nil)
     }
     
     deinit {
@@ -68,6 +82,10 @@ extension SigningContainerViewController : SigningContainerViewControllerDelegat
         return container.signatures[index]
     }
     
+    func getTimestampToken(index: Int) -> Any {
+        return container.timestampTokens[index]
+    }
+    
     func startSigning() {
         startSigningProcess()
     }
@@ -77,6 +95,13 @@ extension SigningContainerViewController : SigningContainerViewControllerDelegat
             return 0
         }
         return container.signatures.count
+    }
+    
+    func getTimestampTokensCount() -> Int {
+        if isContainerEmpty() {
+            return 0
+        }
+        return container.timestampTokens.count
     }
     
     func isContainerSignable() -> Bool {
@@ -92,7 +117,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
     func removeDataFile(index: Int) {
         let containerFileCount: Int = self.containerViewDelegate.getDataFileCount()
         guard containerFileCount > 0 else {
-            NSLog("No files in container")
+            printLog("No files in container")
             self.errorAlert(message: L(.genericErrorMessage))
             return
         }
@@ -108,8 +133,11 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                         self?.errorAlert(message: L(.dataFileRemovalFailed))
                         return
                     }
-                    
-                    UIAccessibility.post(notification: .announcement, argument: L(.dataFileRemoved))
+                    if UIAccessibility.isVoiceOverRunning {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            UIAccessibility.post(notification: .screenChanged, argument: L(.dataFileRemoved))
+                        }
+                    }
                     self?.navigationController?.popToRootViewController(animated: true)
                 }
             }
@@ -129,7 +157,11 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                         success: { [weak self] container in
                             self?.updateState((self?.isCreated ?? false) ? .created : .opened)
                             self?.container.dataFiles.remove(at: index)
-                            UIAccessibility.post(notification: .announcement, argument: L(.dataFileRemoved))
+                            if UIAccessibility.isVoiceOverRunning {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    UIAccessibility.post(notification: .screenChanged, argument: L(.dataFileRemoved))
+                                }
+                            }
                             self?.reloadData()
                         },
                         failure: { [weak self] error in
@@ -141,18 +173,22 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
             })
     }
     
-    func saveDataFile(name: String?) {
-        SaveableContainer(signingContainerPath: self.containerPath).saveDataFile(name: name, completionHandler: { [weak self] tempSavedFileLocation, isSuccess in
+    func saveDataFile(name: String?, containerPath: String?) {
+        var saveFileFromContainerPath = self.containerPath
+        if let dataFileContainerPath = containerPath, !dataFileContainerPath.isEmpty {
+            saveFileFromContainerPath = dataFileContainerPath
+        }
+        SaveableContainer(signingContainerPath: saveFileFromContainerPath ?? "").saveDataFile(name: name, completionHandler: { [weak self] tempSavedFileLocation, isSuccess in
             if isSuccess && !tempSavedFileLocation.isEmpty {
                 // Show file save location picker
                 let pickerController = UIDocumentPickerViewController(url: URL(fileURLWithPath: tempSavedFileLocation), in: .exportToService)
                 pickerController.delegate = self
                 self?.present(pickerController, animated: true) {
-                    NSLog("Showing file saving location picker")
+                    printLog("Showing file saving location picker")
                 }
                 return
             } else {
-                NSLog("Failed to save \(name ?? "file") to 'Saved Files' directory")
+                printLog("Failed to save \(name ?? "file") to 'Saved Files' directory")
                 self?.errorAlert(message: L(.fileImportFailedFileSave))
                 return
             }
@@ -162,16 +198,16 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         if SaveableContainer.isFileSaved(urls: urls) {
             let savedFileLocation: URL? = urls.first
-            NSLog("File export done. Location: \(savedFileLocation?.path ?? "Not available")")
+            printLog("File export done. Location: \(savedFileLocation?.path ?? "Not available")")
             self.errorAlert(message: L(.fileImportFileSaved))
         } else {
-            NSLog("Failed to save file")
+            printLog("Failed to save file")
             return self.errorAlert(message: L(.fileImportFailedFileSave))
         }
     }
     
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
-        NSLog("File saving cancelled")
+        printLog("File saving cancelled")
     }
     
     func getDataFileDisplayName(index: Int) -> String? {
@@ -224,6 +260,10 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
             if afterSignatureCreated && container.isSignable() && !strongSelf.isForPreview {
                 strongSelf.notifications.append((true, L(.containerDetailsSigningSuccess)))
                 
+                if UIAccessibility.isVoiceOverRunning {
+                    UIAccessibility.post(notification: .announcement, argument: L(.containerDetailsSigningSuccess))
+                }
+                
                 if !DefaultsHelper.hideShareContainerDialog {
                     strongSelf.displayShareContainerDialog()
                 }
@@ -264,5 +304,19 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
         })
     }
     
-
+    @objc func didFinishAnnouncement(_ notification: Notification) {
+        let announcementValue: String? = notification.userInfo?[UIAccessibility.announcementStringValueUserInfoKey] as? String
+        let isAnnouncementSuccessful: Bool? = notification.userInfo?[UIAccessibility.announcementWasSuccessfulUserInfoKey] as? Bool
+        
+        guard let isSuccessful = isAnnouncementSuccessful else {
+            return
+        }
+        
+        if !isSuccessful && announcementValue == L(.containerDetailsSigningSuccess) {
+            NSLog("Signature added announcement was not successful, retrying...")
+            UIAccessibility.post(notification: .announcement, argument: announcementValue)
+        } else if isSuccessful && announcementValue == L(.containerDetailsSigningSuccess) {
+            NotificationCenter.default.removeObserver(self, name: UIAccessibility.announcementDidFinishNotification, object: nil)
+        }
+    }
 }

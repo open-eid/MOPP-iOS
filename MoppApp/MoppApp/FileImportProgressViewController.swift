@@ -30,6 +30,7 @@ class FileImportProgressViewController : MoppViewController {
         super.viewWillAppear(animated)
 
         titleLabel.text = L(.importingFilesProgressMessage)
+        titleLabel.font = UIFont.moppMediumBold
         
         view.backgroundColor = UIColor.black.withAlphaComponent(0.0)
         UIView.animate(withDuration: 0.35) {

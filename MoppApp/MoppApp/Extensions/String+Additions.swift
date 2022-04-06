@@ -160,7 +160,7 @@ extension String {
             
             return urls.first?.url?.absoluteString
         } catch {
-            NSLog("Unable to get URL from text")
+            printLog("Unable to get URL from text")
             return nil
         }
     }
