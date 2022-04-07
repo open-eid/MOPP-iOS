@@ -288,6 +288,31 @@ static std::string profile = "time-stamp";
     return x509Certs;
 }
 
++ (digidoc::X509Cert)getPemCert:(NSString *)certString {
+    digidoc::X509Cert x509Certs;
+    try {
+        std::vector<unsigned char> bytes = base64_decode(std::string([certString UTF8String]));
+        x509Certs = digidoc::X509Cert(bytes, digidoc::X509Cert::Format::Pem);
+    } catch (const digidoc::Exception &e) {
+        parseException(e);
+        x509Certs = digidoc::X509Cert();
+    }
+
+    return x509Certs;
+}
+
++ (digidoc::X509Cert)getCertFromBytes:(const unsigned char *)bytes certData:(NSData *)certData {
+    digidoc::X509Cert x509Cert;
+    
+    x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Der);
+    
+    if (x509Cert == digidoc::X509Cert()) {
+        x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Pem);
+    }
+    
+    return x509Cert;
+}
+
 + (NSArray *)certificatePolicyIdentifiers:(NSData *)certData {
     digidoc::X509Cert x509Cert;
 
@@ -296,9 +321,14 @@ static std::string profile = "time-stamp";
     const unsigned char *bytes = (const unsigned char *)[certData bytes];
     try {
         if ([certString length] != 0) {
-            [self getDerCert:certString];
+            digidoc::X509Cert derCert = [self getDerCert:certString];
+            digidoc::X509Cert pemCert = [self getPemCert:certString];
+            x509Cert = (derCert != digidoc::X509Cert()) ? derCert : [self getPemCert:certString];
+            if (x509Cert == digidoc::X509Cert()) {
+                x509Cert = [self getCertFromBytes:bytes certData:certData];
+            }
         } else {
-            x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Der);
+            x509Cert = [self getCertFromBytes:bytes certData:certData];
         }
     } catch(...) {
         try {
