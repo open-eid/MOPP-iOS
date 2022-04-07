@@ -58,7 +58,7 @@ class ContainerFileCell: UITableViewCell {
         self.dataFileIndex = dataFileIndex
         
         if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
-            filenameLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+            filenameLabel.font = isNonDefaultPreferredContentSizeCategoryBigger() ? UIFont.setCustomFont(font: .regular, nil, .body) : UIFont.setCustomFont(font: .regular, 14, .body)
             filenameLabel.numberOfLines = 10
             filenameLabel.lineBreakMode = .byCharWrapping
         }

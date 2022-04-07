@@ -30,7 +30,7 @@ class ContainerNoAddresseesCell: UITableViewCell {
         label.text = L(LocKey.containerMissingAddressees)
         if isBoldTextEnabled() { label.font = UIFont.boldSystemFont(ofSize: label.font.pointSize) }
         if isNonDefaultPreferredContentSizeCategory() {
-            label.font = UIFont.setCustomFont(font: .medium, 12, .body)
+            label.font = isNonDefaultPreferredContentSizeCategoryBigger() ? UIFont.setCustomFont(font: .medium, nil, .body) : UIFont.setCustomFont(font: .medium, 14, .body)
         }
     }
 }

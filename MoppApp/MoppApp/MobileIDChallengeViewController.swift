@@ -42,9 +42,9 @@ class MobileIDChallengeViewController : UIViewController {
     var isAnnouncementMade: Bool = false
 
     func setCustomFont() {
-        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
-            helpLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-            codeLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        if (isNonDefaultPreferredContentSizeCategory() && isNonDefaultPreferredContentSizeCategoryBigger()) || isBoldTextEnabled() {
+            helpLabel.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 14 : Int(UIFont.labelFontSize), .body)
+            codeLabel.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 32 : Int(UIFont.labelFontSize), .body)
         }
     }
 
