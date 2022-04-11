@@ -322,7 +322,6 @@ static std::string profile = "time-stamp";
     try {
         if ([certString length] != 0) {
             digidoc::X509Cert derCert = [self getDerCert:certString];
-            digidoc::X509Cert pemCert = [self getPemCert:certString];
             x509Cert = (derCert != digidoc::X509Cert()) ? derCert : [self getPemCert:certString];
             if (x509Cert == digidoc::X509Cert()) {
                 x509Cert = [self getCertFromBytes:bytes certData:certData];
