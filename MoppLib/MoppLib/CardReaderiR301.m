@@ -78,7 +78,7 @@
     _successBlock = success;
     _failureBlock = failure;
 
-    NSLog(@"ID-CARD: CardReaderiR301. transmitCommand. Resetting reader restart and stopping card status polling");
+    printLog(@"ID-CARD: CardReaderiR301. transmitCommand. Resetting reader restart and stopping card status polling");
     [[MoppLibCardReaderManager sharedInstance] resetReaderRestart];
     [[MoppLibCardReaderManager sharedInstance] stopPollingCardStatus];
 
@@ -106,7 +106,7 @@
 
         responseSize = sizeof( response );
 
-        NSLog(@"ID-CARD: Transmitting APDU data");
+        printLog(@"ID-CARD: Transmitting APDU data");
         if (SCARD_S_SUCCESS == SCardTransmit(
             _contextHandle,
             &pioSendPci,
@@ -151,20 +151,20 @@
                 // (Re)set the response size
                 responseSize = sizeof(response);
 
-                NSLog(@"ID-CARD: Transmitting APDU data to get more data");
+                printLog(@"ID-CARD: Transmitting APDU data to get more data");
                 if (SCARD_S_SUCCESS == SCardTransmit(
                     _contextHandle,
                     &pioSendPci,
                     &getResponseApdu[0], sizeof(getResponseApdu),
                     NULL,
                     &response[0], &responseSize)) {
-                    NSLog(@"ID-CARD: APDU data with more data sent successfully");
+                        printLog(@"ID-CARD: APDU data with more data sent successfully");
 
                     NSData *respData = [NSData dataWithBytes:&response[0] length:responseSize];
-                    NSLog(@"ID-CARD: IR301 Response: %@", [respData hexString]);
+                        printLog(@"ID-CARD: IR301 Response: %@", [respData hexString]);
 
                     if (responseSize < 2) {
-                        NSLog(@"ID-CARD: Response size must be atleast 2. Response size: %u", responseSize);
+                        printLog(@"ID-CARD: Response size must be atleast 2. Response size: %u", responseSize);
                         failure(nil);
                         break;
                     }
@@ -176,7 +176,7 @@
                     [responseData appendBytes:&response[0] length: ( needMoreData ? responseSize - 2 : responseSize )];
 
                 } else {
-                    NSLog(@"ID-CARD: Failed to send APDU data to get more data");
+                    printLog(@"ID-CARD: Failed to send APDU data to get more data");
                     failure(nil);
                     break;
                 }
@@ -186,7 +186,7 @@
             [self respondWithSuccess:responseData];
             break;
         } else {
-            NSLog(@"ID-CARD: Failed to send APDU data");
+            printLog(@"ID-CARD: Failed to send APDU data");
             [self respondWithError:nil];
             break;
         }
@@ -223,7 +223,7 @@
 
     if (![MoppLibCardReaderManager isCardReaderModelSupported:modelName]) {
         [NSNotificationCenter.defaultCenter postNotificationName:kMoppLibNotificationRevokeUnsupportedReader object:nil];
-        NSLog(@"ID-CARD: Unsupported reader: %@", modelName);
+        printLog(@"ID-CARD: Unsupported reader: %@", modelName);
         [self respondWithError:[MoppLibError readerNotFoundError]];
         return;
     }
@@ -241,7 +241,7 @@
         [PrivateConstants setIDCardRestartedValue:FALSE];
         success(nil);
     } else {
-        NSLog(@"ID-CARD: Did not successfully power on card");
+        printLog(@"ID-CARD: Did not successfully power on card");
         if (![PrivateConstants getIDCardRestartedValue]) {
             if (@available(iOS 14, *)) {
                 [[MoppLibCardReaderManager sharedInstance] restartDiscoveringReaders:2.0f];
@@ -268,7 +268,7 @@
     char buffer[20] = {0};
     LONG ret = FtGetReaderName(_contextHandle, &length, buffer);
     if (ret != SCARD_S_SUCCESS || length == 0) {
-        NSLog(@"ID-CARD: Unable to power on card");
+        printLog(@"ID-CARD: Unable to power on card");
         failure(false);
         return;
     }
@@ -279,15 +279,15 @@
     BYTE atrBuf[32];
     DWORD dwStatus;
     LONG iRet = SCardStatus(self->_contextHandle, NULL, NULL, &dwStatus, NULL, (LPBYTE)&atrBuf, &atrBufSize);
-    NSLog(@"dwStatus %d", dwStatus);
-    NSLog(@"iRet %d", iRet);
+    printLog(@"dwStatus %d", dwStatus);
+    printLog(@"iRet %d", iRet);
 
     NSData *atr = [[NSData alloc] initWithBytes:atrBuf length:atrBufSize];
     _chipType = [MoppLibCardReaderManager atrToChipType:atr];
 
     if (dwStatus == SCARD_PRESENT) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"ID-CARD: Card name: %@", _name);
+            printLog(@"ID-CARD: Card name: %@", _name);
             success(nil);
         });
     } else {
@@ -299,14 +299,14 @@
     DWORD readerLength = 0;
     LONG ret = SCardListReaders(_contextHandle, nil, nil, &readerLength);
     if(ret != 0) {
-        NSLog(@"ID-CARD: Unable to get reader list");
+        printLog(@"ID-CARD: Unable to get reader list");
         return nil;
     }
 
     LPSTR readers = (LPSTR)malloc(readerLength * sizeof(LPSTR));
     ret = SCardListReaders(_contextHandle, nil, readers, &readerLength);
     if (ret != 0) {
-        NSLog(@"ID-CARD: Unable to get list of readers");
+        printLog(@"ID-CARD: Unable to get list of readers");
         free(readers);
         return nil;
     }

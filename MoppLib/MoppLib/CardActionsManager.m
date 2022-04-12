@@ -241,8 +241,8 @@ static CardActionsManager *sharedInstance = nil;
     printLog(@"EXECUTE NEXT ACTION");
     @synchronized (self) {
         if (self.cardActions.count > 0 && !self.isActionExecuting) {
-            NSLog(@"ID-CARD: No card actions.");
-            NSLog(@"ID-CARD: Currently executing card action");
+            printLog(@"ID-CARD: No card actions.");
+            printLog(@"ID-CARD: Currently executing card action");
             self.isActionExecuting = YES;
             CardActionObject *action = self.cardActions.firstObject;
             [self executeAfterReaderCheck:action apduLength:0];
@@ -253,11 +253,11 @@ static CardActionsManager *sharedInstance = nil;
 }
 
 - (void)executeAfterReaderCheck:(CardActionObject *)action apduLength:(unsigned char)apduLength {
-    NSLog(@"ID-CARD: EXECUTE AFTER READER CHECK");
+    printLog(@"ID-CARD: EXECUTE AFTER READER CHECK");
     if (![self isReaderConnected]) {
-        NSLog(@"ID-CARD: READER IS NOT CONNECTED");
+        printLog(@"ID-CARD: READER IS NOT CONNECTED");
         if (action.completionBlock == nil) {
-            NSLog(@"ID-CARD: executeAfterReaderCheck. Resetting reader restart and stopping discovering readers");
+            printLog(@"ID-CARD: executeAfterReaderCheck. Resetting reader restart and stopping discovering readers");
             [[MoppLibCardReaderManager sharedInstance] resetReaderRestart];
             [[MoppLibCardReaderManager sharedInstance] stopDiscoveringReadersWithStatus:ReaderProcessFailed];
             return;
@@ -268,7 +268,7 @@ static CardActionsManager *sharedInstance = nil;
     }
 
     [self.reader isCardInserted:^(BOOL isInserted) {
-        NSLog(@"ID-CARD: Is card inserted: %d", isInserted);
+        printLog(@"ID-CARD: Is card inserted: %d", isInserted);
         if (action.action == CardActionGetCardStatus) {
             action.completionBlock(isInserted);
             [self finishCurrentAction];

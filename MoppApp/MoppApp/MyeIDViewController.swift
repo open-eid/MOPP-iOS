@@ -196,10 +196,10 @@ extension MyeIDViewController: MyeIDInfoManagerDelegate {
             }
         } else {
             if didRestartReader {
-                NSLog("ID-CARD: My eID. Reader already restarted")
+                printLog("ID-CARD: My eID. Reader already restarted")
                 return
             }
-            NSLog("ID-CARD: My eID. Restarting reader")
+            printLog("ID-CARD: My eID. Restarting reader")
             didRestartReader = true
             MoppLibCardReaderManager.sharedInstance().restartDiscoveringReaders(2)
         }

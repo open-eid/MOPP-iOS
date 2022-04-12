@@ -195,7 +195,7 @@ class SmartIDChallengeViewController : UIViewController {
         }
         
         if !isSuccessful && announcementValue == challengeCodeAccessibilityLabel {
-            NSLog("Control code announcement was not successful, retrying...")
+            printLog("Control code announcement was not successful, retrying...")
             UIAccessibility.post(notification: .announcement, argument: announcementValue)
         }
     }
