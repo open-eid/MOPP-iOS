@@ -304,9 +304,9 @@ static std::string profile = "time-stamp";
 + (digidoc::X509Cert)getCertFromBytes:(const unsigned char *)bytes certData:(NSData *)certData {
     digidoc::X509Cert x509Cert;
     
-    x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Der);
-    
-    if (x509Cert == digidoc::X509Cert()) {
+    try {
+        x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Der);
+    } catch(...) {
         x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Pem);
     }
     
