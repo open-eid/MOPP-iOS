@@ -443,13 +443,22 @@ extension ContainerViewController : UITableViewDataSource {
             let isStatePreviewOrOpened = state == .opened || state == .preview
             let isEncryptedDataFiles = !isAsicContainer && isStatePreviewOrOpened && !isDecrypted
 
-            guard let dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) else {
+            var dataFile = ""
+            var tapGesture: UITapGestureRecognizer
+
+            if isAsicsContainer() && !asicsDataFiles.isEmpty && asicsDataFiles.count >= indexPath.row {
+                dataFile = asicsDataFiles[indexPath.row].fileName ?? ""
+                tapGesture = getPreviewTapGesture(dataFile: dataFile, containerPath: asicsNestedContainerPath, isShareButtonNeeded: isDecrypted)
+            } else {
+                dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) ?? ""
+                tapGesture = getPreviewTapGesture(dataFile: dataFile, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
+            }
+
+            if dataFile.isEmpty {
                 printLog("Data file not found")
                 self.errorAlert(message: L(.datafilePreviewFailed))
                 return cell
             }
-
-            let tapGesture = getPreviewTapGesture(dataFile: dataFile, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
 
             if !isEncryptedDataFiles {
                 cell.openPreviewView.addGestureRecognizer(tapGesture)
