@@ -44,11 +44,7 @@ struct DeviceType
 
 func isDeviceOrientationLandscape() -> Bool {
     if UIDevice.current.orientation.isFlat || !UIDevice.current.orientation.isValidInterfaceOrientation {
-        if #available(iOS 13.0, *) {
-            return UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.windowScene?.interfaceOrientation.isLandscape ?? false
-        } else {
-            return UIApplication.shared.statusBarOrientation.isLandscape
-        }
+        return UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.windowScene?.interfaceOrientation.isLandscape ?? false
     }
 
     return UIDevice.current.orientation.isLandscape

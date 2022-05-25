@@ -107,11 +107,9 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
 
-        // Check for min Xcode 11 and iOS 13
+        // Check for min Xcode 11
         #if compiler(>=5.1)
-        if #available(iOS 13.0, *) {
             window?.overrideUserInterfaceStyle = .light
-        }
         #endif
 
         UINavigationBar.appearance().isTranslucent = false
