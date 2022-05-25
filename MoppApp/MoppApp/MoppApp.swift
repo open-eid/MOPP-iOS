@@ -130,9 +130,9 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
              .font:UIFont(name: "RobotoCondensed-Regular", size: 10)!],
             for: .normal)
 
-        if isDeviceJailbroken {
-            window?.rootViewController = UIStoryboard.jailbreak.instantiateInitialViewController()
-        } else {
+//        if isDeviceJailbroken {
+//            window?.rootViewController = UIStoryboard.jailbreak.instantiateInitialViewController()
+//        } else {
             
             #if !DEBUG
                 // Prevent screen recording
@@ -154,7 +154,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
 
             let initializationViewController = InitializationViewController()
             window?.rootViewController = initializationViewController
-        }
+//        }
 
         window?.makeKeyAndVisible()
         return true
@@ -200,7 +200,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         alert.addAction(UIAlertAction(title: L(.crashlyticsActionDoNotSend), style: .cancel, handler: {(_ action: UIAlertAction) -> Void in
             self.checkForUnsentReportsWithCompletion(send: false)
         }))
-        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true)
+        UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController?.present(alert, animated: true)
     }
 
     func checkForUnsentReportsWithCompletion(send: Bool) {
@@ -227,7 +227,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         for url in urls {
             if !url.absoluteString.isEmpty {
                 
-                guard let keyWindow = UIApplication.shared.keyWindow, let topViewController = keyWindow.rootViewController?.getTopViewController() else {
+                guard let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow }), let topViewController = keyWindow.rootViewController?.getTopViewController() else {
                     printLog("Unable to get view controller")
                     return false
                 }
@@ -522,7 +522,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     }
 
     private func showErrorMessage(title: String, message: String) {
-        guard let keyWindow = UIApplication.shared.keyWindow, let topViewController = keyWindow.rootViewController?.getTopViewController() else {
+        guard let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow }), let topViewController = keyWindow.rootViewController?.getTopViewController() else {
             return
         }
         topViewController.errorAlert(message: message, title: title, dismissCallback: nil)

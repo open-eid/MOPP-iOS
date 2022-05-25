@@ -786,7 +786,7 @@ void parseException(const digidoc::Exception &e) {
     // Check if key type in certificate supports ECC algorithm
     CFDataRef cfData = CFDataCreateWithBytesNoCopy(nil, (const UInt8 *)certBytes, cert.length, kCFAllocatorNull);
     SecCertificateRef certRef = SecCertificateCreateWithData(kCFAllocatorDefault, cfData);
-    SecKeyRef publicKey = SecCertificateCopyPublicKey(certRef);
+    SecKeyRef publicKey = SecCertificateCopyKey(certRef);
     CFStringRef descrRef = CFCopyDescription(publicKey);
     NSString *publicKeyInfo = (NSString *)CFBridgingRelease(descrRef);
     BOOL useECC = [publicKeyInfo containsString:@"ECPublicKey"];
