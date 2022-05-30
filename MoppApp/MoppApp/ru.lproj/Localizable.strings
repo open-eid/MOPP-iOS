@@ -55,6 +55,7 @@
 "signature-view-begin-label" = "Выберите файл для подписания или проверки";
 "signature-view-begin-button" = "ВЫБРАТЬ ФАЙЛ";
 "signature-details-title" = "Детали подписи";
+"certificate-details-title" = "Детали сертификата";
 "menu-button" = "Меню";
 
 // Crypto
@@ -355,3 +356,23 @@
 "save-diagnostics" = "СОХРАНИТЬ ДИАГНОСТИКУ";
 "success-notification-dialog-label" = "Чтобы поделиться контейнером, нажмите кнопку «ПОДЕЛИТЬСЯ» и выберите нужное приложение. Все контейнеры можно найти в папке «Недавние документы» в настройках приложения.";
 "success-notification-dialog-dont-show-again" = "Больше не показывать";
+
+
+// *** Signature details ***
+
+"signer-certificate-issuer-label" = "Организация, выдавшая сертификат подписавшего";
+"signers-certificate-label" = "Сертификат пользователя";
+"signature-method-label" = "Метод подписи";
+"container-format-label" = "Формат контейнера";
+"signature-format-label" = "Формат подписи";
+"signed-file-count-label" = "Количество подписанных файлов";
+"signature-timestamp-label" = "Временной штамп подписи";
+"signature-timestamp-utc-label" = "Временной штамп подписи (UTC)";
+"hash-value-of-signature-label" = "Хэш значение подтверждения подлинности подписи";
+"ts-certificate-issuer-label" = "Издатель сертификата временного штампа";
+"ts-certificate-label" = "Сертификат временного штампа";
+"ocsp-certificate-issuer-label" = "Организация, выдавшая сертификат OCSP";
+"ocsp-certificate-label" = "Сертификат OCSP";
+"ocsp-time-label" = "Время подтверждения подлинности подписи";
+"ocsp-time-utc-label" = "Время подтверждения подлинности подписи (UTC)";
+"signers-mobile-time-label" = "Время на мобильном телефоне подписывающего (UTC)";

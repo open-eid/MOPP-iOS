@@ -52,6 +52,7 @@ enum LocKey : String
     case signatureViewBeginLabel = "signature-view-begin-label"
     case signatureViewBeginButton = "signature-view-begin-button"
     case signatureDetailsTitle = "signature-details-title"
+    case certificateDetailsTitle = "certificate-details-title"
     case signingRecentContainers = "signing-recent-containers"
     case menuButton = "menu-button"
     case crashlyticsTitle = "crashlytics-title"
@@ -323,4 +324,55 @@ enum LocKey : String
     case cryptoAddresseeAddedButtonTitle = "crypto-addressee-added-button-title";
     case cryptoRemoveAddresseeButton = "crypto-remove-addressee-button"
     case datafilePreviewFailed = "datafile-preview-failed";
+    
+    case signerCertificateIssuerLabel = "signer-certificate-issuer-label";
+    case signersCertificateLabel = "signers-certificate-label";
+    case signatureMethodLabel = "signature-method-label";
+    case containerFormatLabel = "container-format-label";
+    case signatureFormatLabel = "signature-format-label";
+    case signedFileCountLabel = "signed-file-count-label";
+    case signatureTimestampLabel = "signature-timestamp-label";
+    case signatureTimestampUtcLabel = "signature-timestamp-utc-label";
+    case hashValueOfSignatureLabel = "hash-value-of-signature-label";
+    case tsCertificateIssuerLabel = "ts-certificate-issuer-label";
+    case tsCertificateLabel = "ts-certificate-label";
+    case ocspCertificateIssuerLabel = "ocsp-certificate-issuer-label";
+    case ocspCertificateLabel = "ocsp-certificate-label";
+    case ocspTimeLabel = "ocsp-time-label";
+    case ocspTimeUtcLabel = "ocsp-time-utc-label";
+    case signersMobileTimeLabel = "signers-mobile-time-label";
+    
+    
+    
+    case subjectName = "Subject Name";
+    case countryOrRegion = "Country or Region";
+    case organisation = "Organisation";
+    case organisationalUnit = "Organisational Unit";
+    case commonName = "Common Name";
+    case surname = "Surname";
+    case givenName = "Given Name";
+    case serialNumber = "Serial Number";
+    case emailAddress = "Email Address";
+    case issuerName = "Issuer Name";
+    case otherName = "Other Name";
+    case version = "Version";
+    case signatureAlgorithm = "Signature Algorithm";
+    case parameters = "Parameters";
+    case notValidBefore = "Not Valid Before";
+    case notValidAfter = "Not Valid After";
+    case publicKeyInfo = "Public Key Info";
+    case algorithm = "Algorithm";
+    case publicKey = "Public-Key";
+    case keyUsage = "Key Usage";
+    case signature = "Signature";
+    case certificateExtension = "Extension";
+    case certificateExtensions = "Extensions";
+    case critical = "Critical";
+    case usage = "Usage";
+    case keyId = "Key ID";
+    case uri = "URI";
+    case method = "Method";
+    case fingerprints = "Fingerprints";
+    case sha256 = "SHA-256";
+    case sha1 = "SHA-1";
 }

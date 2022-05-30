@@ -55,6 +55,7 @@
 "signature-view-begin-label" = "Choose a file to sign or validate";
 "signature-view-begin-button" = "CHOOSE FILE";
 "signature-details-title" = "Signature details";
+"certificate-details-title" = "Certificate details";
 "menu-button" = "Menu";
 
 // Crypto
@@ -355,3 +356,58 @@
 "save-diagnostics" = "SAVE DIAGNOSTICS";
 "success-notification-dialog-label" = "To share the container click the \"SHARE\" button and choose your preferred application. All containers can also be found in the application settings \"Recent Documents\" folder.";
 "success-notification-dialog-dont-show-again" = "Don't show again";
+
+// *** Signature details ***
+
+"signer-certificate-issuer-label" = "Signer's Certificate issuer";
+"signers-certificate-label" = "Signer's Certificate";
+"signature-method-label" = "Signature method";
+"container-format-label" = "Container format";
+"signature-format-label" = "Signature format";
+"signed-file-count-label" = "Signed file count";
+"signature-timestamp-label" = "Signature timestamp";
+"signature-timestamp-utc-label" = "Signature timestamp (UTC)";
+"hash-value-of-signature-label" = "Hash value of signature";
+"ts-certificate-issuer-label" = "TS Certificate issuer";
+"ts-certificate-label" = "TS Certificate";
+"ocsp-certificate-issuer-label" = "OCSP Certificate issuer";
+"ocsp-certificate-label" = "OCSP Certificate";
+"ocsp-time-label" = "OCSP time";
+"ocsp-time-utc-label" = "OCSP time (UTC)";
+"signers-mobile-time-label" = "Signer's mobile time";
+
+
+// *** Certificate details ***
+
+"subject-name" = "Subject Name";
+"country-or-region" = "Country or Region";
+"organisation" = "Organisation";
+"organisational-unit" = "Organisational Unit";
+"common-name" = "Common Name";
+"surname" = "Surname";
+"given-name" = "Given Name";
+"serial-number" = "Serial Number";
+"email-address" = "Email Address";
+"issuer-name" = "Issuer Name";
+"other-name" = "Other Name";
+"version" = "Version";
+"signature-algorithm" = "Signature Algorithm";
+"parameters" = "Parameters";
+"not-valid-before" = "Not Valid Before";
+"not-valid-after" = "Not Valid After";
+"public-key-info" = "Public Key Info";
+"algorithm" = "Algorithm";
+"public-key" = "Public-Key";
+"key-usage" = "Key Usage";
+"signature" = "Signature";
+"extension" = "Extension";
+"extensions" = "Extensions";
+"critical" = "Critical";
+"usage" = "Usage";
+"key-id" = "Key ID";
+"uri" = "URI";
+"method" = "Method";
+"fingerprints" = "Fingerprints";
+"sha256" = "SHA-256";
+"sha1" = "SHA-1";
+

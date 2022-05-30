@@ -504,8 +504,8 @@ static std::string profile = "time-stamp";
       // Timestamp tokens
       NSMutableArray *timeStampTokens = [NSMutableArray array];
       for (digidoc::Signature *signature: doc->signatures()) {
-        [signatures addObject:[self getSignatureData:signature->signingCertificate() signature:signature]];
-        [timeStampTokens addObject:[self getSignatureData:signature->TimeStampCertificate() signature:signature]];
+        [signatures addObject:[self getSignatureData:signature->signingCertificate() signature:signature mediaType:doc->mediaType() dataFileCount:doc->dataFiles().size()]];
+          [timeStampTokens addObject:[self getSignatureData:signature->TimeStampCertificate() signature:signature mediaType:doc->mediaType() dataFileCount:doc->dataFiles().size()]];
       }
 
       moppLibContainer.signatures = [signatures copy];
@@ -513,17 +513,20 @@ static std::string profile = "time-stamp";
       return moppLibContainer;
 
     } catch(const digidoc::Exception &e) {
-      parseException(e);
-      *error = [MoppLibError generalError];
-      return nil;
+        parseException(e);
+        *error = [MoppLibError generalError];
+        return nil;
     }
-
   }
 }
 
-- (MoppLibSignature *)getSignatureData:(digidoc::X509Cert)cert signature:(digidoc::Signature *)signature {
+- (MoppLibSignature *)getSignatureData:(digidoc::X509Cert)cert signature:(digidoc::Signature *)signature mediaType:(std::string)mediaType dataFileCount:(NSInteger)dataFileCount {
 
     MoppLibSignature *moppLibSignature = [MoppLibSignature new];
+    
+    digidoc::X509Cert signingCert = signature->signingCertificate();
+    digidoc::X509Cert ocspCert = signature->OCSPCertificate();
+    digidoc::X509Cert timestampCert = signature->TimeStampCertificate();
 
     std::string givename = cert.subjectName("GN");
     std::string surname = cert.subjectName("SN");
@@ -537,6 +540,23 @@ static std::string profile = "time-stamp";
 
     moppLibSignature.trustedSigningTime = [NSString stringWithUTF8String:signature->trustedSigningTime().c_str()];
     moppLibSignature.subjectName = [NSString stringWithUTF8String:name.c_str()];
+    
+    moppLibSignature.signersCertificateIssuer = [NSString stringWithUTF8String:signingCert.issuerName("CN").c_str()];
+    moppLibSignature.signingCertificate = [self pemToDer:signingCert];
+    moppLibSignature.signatureMethod = [NSString stringWithUTF8String:signature->signatureMethod().c_str()];
+    moppLibSignature.containerFormat = [NSString stringWithUTF8String:mediaType.c_str()];
+    moppLibSignature.signatureFormat = [NSString stringWithUTF8String:signature->profile().c_str()];
+    moppLibSignature.signedFileCount = dataFileCount;
+    moppLibSignature.signatureTimestamp = [self getDateTimeInCurrentTimeZoneFromDateString:[NSString stringWithUTF8String:signature->TimeStampTime().c_str()]];
+    moppLibSignature.signatureTimestampUTC = [NSString stringWithUTF8String:signature->TimeStampTime().c_str()];
+    moppLibSignature.hashValueOfSignature = [self getHexStringFromVectorData:signature->messageImprint()];
+    moppLibSignature.tsCertificateIssuer = [NSString stringWithUTF8String:timestampCert.issuerName("CN").c_str()];
+    moppLibSignature.tsCertificate = [self pemToDer:timestampCert];
+    moppLibSignature.ocspCertificateIssuer = [NSString stringWithUTF8String:ocspCert.issuerName("CN").c_str()];
+    moppLibSignature.ocspCertificate = [self pemToDer:ocspCert];
+    moppLibSignature.ocspTime = [self getDateTimeInCurrentTimeZoneFromDateString:[NSString stringWithUTF8String:signature->OCSPProducedAt().c_str()]];
+    moppLibSignature.ocspTimeUTC = [NSString stringWithUTF8String:signature->OCSPProducedAt().c_str()];
+    moppLibSignature.signersMobileTimeUTC = [NSString stringWithUTF8String:signature->claimedSigningTime().c_str()];
 
     std::string timestamp = signature->trustedSigningTime();
     moppLibSignature.timestamp = [[MLDateFormatter sharedInstance] YYYYMMddTHHmmssZToDate:[NSString stringWithUTF8String:timestamp.c_str()]];
@@ -584,6 +604,44 @@ static std::string profile = "time-stamp";
         return serialNumber.substr(6);
     }
     return serialNumber;
+}
+
+- (NSData *)getCertDataFromX509:(digidoc::X509Cert)cert {
+    BIO *bio = BIO_new(BIO_s_mem());
+    PEM_write_bio_X509(bio, cert.handle());
+    BUF_MEM *bufMem;
+    BIO_get_mem_ptr(bio, &bufMem);
+    NSData *data = [NSData dataWithBytes:bufMem->data length:bufMem->length];
+    BIO_free(bio);
+
+    return data;
+}
+
+- (NSString *)getDateTimeInCurrentTimeZoneFromDateString:(NSString *)dateString {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSTimeZone *systemTimeZone = [NSTimeZone systemTimeZone];
+    [dateFormatter setTimeZone:systemTimeZone];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
+    NSDate *date = [dateFormatter dateFromString:dateString];
+    NSString *dateStringSystemTimeZone = [dateFormatter stringFromDate:date];
+
+    return dateStringSystemTimeZone;
+}
+
+- (NSString *)getHexStringFromVectorData:(std::vector<unsigned char>)vectorData {
+    NSData *data = [NSData dataWithBytes:vectorData.data() length:vectorData.size()];
+    return data.hexString;
+}
+
+- (NSData *)pemToDer:(digidoc::X509Cert)cert {
+    NSData *dataCert = [self getCertDataFromX509:cert];
+    NSString *dataCertAsString = [[NSString alloc] initWithData:dataCert encoding:NSASCIIStringEncoding];
+    NSString *removeCertHeader = [dataCertAsString stringByReplacingOccurrencesOfString:@"-----BEGIN CERTIFICATE-----\n" withString:@""];
+    NSString *removeCertFooter = [removeCertHeader stringByReplacingOccurrencesOfString:@"\n-----END CERTIFICATE-----\n" withString:@""];
+
+    NSData* derCertString = [removeCertFooter dataUsingEncoding:NSUTF8StringEncoding];
+
+    return [[NSData alloc]initWithBase64EncodedString:[[NSString alloc] initWithData:derCertString encoding:NSASCIIStringEncoding] options:NSDataBase64DecodingIgnoreUnknownCharacters];
 }
 
 - (MoppLibSignatureStatus)determineSignatureStatus:(int) status{

@@ -190,7 +190,27 @@ class MimeTypeExtractor {
         } catch {
             printLog("Error getting url data \(error.localizedDescription)")
         }
-        
+        return false
+    }
+
+    private func isDdoc(url: URL) -> Bool {
+        do {
+            let fileData = try Data(contentsOf: url)
+            let fileDataAscii = String(data: fileData, encoding: .ascii)
+
+            var isDdoc: Bool = false
+
+            MimeTypeDecoder().getMimeType(fileString: fileDataAscii ?? "") { (containerExtension) in
+                if containerExtension == "ddoc" {
+                    isDdoc = true
+                }
+            }
+
+            return isDdoc
+        } catch {
+            MSLog("Error getting url data \(error)")
+        }
+
         return false
     }
 }
