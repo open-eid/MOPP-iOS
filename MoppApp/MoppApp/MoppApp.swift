@@ -130,9 +130,9 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
              .font:UIFont(name: "RobotoCondensed-Regular", size: 10)!],
             for: .normal)
 
-//        if isDeviceJailbroken {
-//            window?.rootViewController = UIStoryboard.jailbreak.instantiateInitialViewController()
-//        } else {
+        if isDeviceJailbroken {
+            window?.rootViewController = UIStoryboard.jailbreak.instantiateInitialViewController()
+        } else {
             
             #if !DEBUG
                 // Prevent screen recording
@@ -154,7 +154,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
 
             let initializationViewController = InitializationViewController()
             window?.rootViewController = initializationViewController
-//        }
+        }
 
         window?.makeKeyAndVisible()
         return true
