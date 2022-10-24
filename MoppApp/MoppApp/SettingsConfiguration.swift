@@ -213,6 +213,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
 
         let urlSessionConfiguration: URLSessionConfiguration = URLSessionConfiguration.default
         urlSessionConfiguration.timeoutIntervalForResource = 5.0
+        urlSessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         let urlSession = URLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
 
         let task = urlSession.dataTask(with: url, completionHandler: { data, response, error in
