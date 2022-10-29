@@ -71,10 +71,16 @@ class SmartIDEditViewController : MoppViewController {
 
         titleLabel.text = L(.smartIdTitle)
         countryLabel.text = L(.smartIdCountryTitle)
-        idCodeLabel.text = L(.mobileIdIdcodeTitle)
+        idCodeLabel.text = L(.signingIdcodeTitle)
         cancelButton.setTitle(L(.actionCancel).uppercased())
         signButton.setTitle(L(.actionSign).uppercased())
         rememberLabel.text = L(.signingRememberMe)
+        
+        countryLabel.isAccessibilityElement = false
+        idCodeLabel.isAccessibilityElement = false
+        
+        countryTextField.accessibilityLabel = L(.smartIdCountryTitle)
+        idCodeTextField.accessibilityLabel = L(.signingIdcodeTitle)
 
         idCodeTextField.moppPresentDismissButton()
         idCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor
