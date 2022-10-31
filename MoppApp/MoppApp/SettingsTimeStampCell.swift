@@ -33,6 +33,16 @@ class SettingsTimeStampCell: UITableViewCell {
         if isNonDefaultPreferredContentSizeCategory() {
             setCustomFont()
         }
+        
+        guard let fieldUITextfield: UITextField = textField, let useDefaultUISwitch: UISwitch = useDefaultSwitch else {
+            printLog("Unable to get textField or useDefaultSwitch")
+            return
+        }
+        
+        titleLabel.isAccessibilityElement = false
+        textField.accessibilityLabel = L(.settingsTimestampUrlTitle)
+        useDefaultSwitch.accessibilityLabel = L(.settingsTimestampUseDefaultTitle)
+        self.accessibilityElements = [fieldUITextfield, useDefaultUISwitch]
     }
     
     func setCustomFont() {
