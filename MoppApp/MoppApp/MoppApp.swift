@@ -107,11 +107,9 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
 
-        // Check for min Xcode 11 and iOS 13
+        // Check for min Xcode 11
         #if compiler(>=5.1)
-        if #available(iOS 13.0, *) {
             window?.overrideUserInterfaceStyle = .light
-        }
         #endif
 
         UINavigationBar.appearance().isTranslucent = false
@@ -202,7 +200,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         alert.addAction(UIAlertAction(title: L(.crashlyticsActionDoNotSend), style: .cancel, handler: {(_ action: UIAlertAction) -> Void in
             self.checkForUnsentReportsWithCompletion(send: false)
         }))
-        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true)
+        UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController?.present(alert, animated: true)
     }
 
     func checkForUnsentReportsWithCompletion(send: Bool) {
@@ -229,7 +227,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         for url in urls {
             if !url.absoluteString.isEmpty {
                 
-                guard let keyWindow = UIApplication.shared.keyWindow, let topViewController = keyWindow.rootViewController?.getTopViewController() else {
+                guard let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow }), let topViewController = keyWindow.rootViewController?.getTopViewController() else {
                     printLog("Unable to get view controller")
                     return false
                 }
@@ -524,7 +522,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     }
 
     private func showErrorMessage(title: String, message: String) {
-        guard let keyWindow = UIApplication.shared.keyWindow, let topViewController = keyWindow.rootViewController?.getTopViewController() else {
+        guard let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow }), let topViewController = keyWindow.rootViewController?.getTopViewController() else {
             return
         }
         topViewController.errorAlert(message: message, title: title, dismissCallback: nil)
