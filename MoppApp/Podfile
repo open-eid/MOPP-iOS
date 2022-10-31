@@ -9,10 +9,10 @@ project 'MoppApp.xcodeproj'
 project '../MoppLib/MoppLib.xcodeproj'
 project '../CryptoLib/CryptoLib'
 
-platform :ios, '12.0'
+platform :ios, '13.0'
 
 target 'MoppApp' do
-  platform :ios, '12.0'
+  platform :ios, '13.0'
   project 'MoppApp.xcodeproj'
   pod 'Firebase/Crashlytics', '~> 8.14.0'
   pod 'SwiftyRSA', '~> 1.7.0'
@@ -22,7 +22,7 @@ target 'MoppApp' do
 end
 
 target 'MoppAppTestEnv' do
-  platform :ios, '12.0'
+  platform :ios, '13.0'
   project 'MoppApp.xcodeproj'
 
   pod 'Firebase/Crashlytics', '~> 8.14.0'
@@ -30,37 +30,37 @@ target 'MoppAppTestEnv' do
 end
 
 target 'MoppLib' do
-  platform :ios, '12.0'
+  platform :ios, '13.0'
   project '../MoppLib/MoppLib.xcodeproj'
 end
 
 target 'MoppLibTestEnv' do
-  platform :ios, '12.0'
+  platform :ios, '13.0'
   project '../MoppLib/MoppLib.xcodeproj'
 end
 
 target 'CryptoLib' do
-    platform :ios, '12.0'
+    platform :ios, '13.0'
     project '../CryptoLib/CryptoLib.xcodeproj'
 end
 
 target 'MoppLibTests' do
-  platform :ios, '12.0'
+  platform :ios, '13.0'
   project '../MoppLib/MoppLib.xcodeproj'
   pod 'OCMock', '~> 3.9.1'
 
 end
 
 target 'SkSigningLib' do
-    platform :ios, '12.0'
+    platform :ios, '13.0'
     project '../SkSigningLib/SkSigningLib.xcodeproj'
 end
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      if Gem::Version.new('12.0') > Gem::Version.new(config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'])
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+      if Gem::Version.new('13.0') > Gem::Version.new(config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'])
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
       end
     end
   end
