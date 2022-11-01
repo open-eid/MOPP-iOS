@@ -103,10 +103,16 @@
 
 - (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    [[MoppLibDigidocManager sharedInstance] container:containerPath saveDataFile:fileName to:path];
-    dispatch_async(dispatch_get_main_queue(), ^{
-      success();
-    });
+      [[MoppLibDigidocManager sharedInstance] container:containerPath saveDataFile:fileName to:path success:^{
+          dispatch_async(dispatch_get_main_queue(), ^{
+            success();
+          });
+      } failure:^(NSError *error) {
+          dispatch_async(dispatch_get_main_queue(), ^{
+            failure(error);
+          });
+      }];
+    
   });
 }
 
