@@ -56,6 +56,7 @@
 #include <sstream>
 #include <iostream>
 #import <CommonCrypto/CommonDigest.h>
+#import <ExternalAccessory/ExternalAccessory.h>
 
 class DigiDocConf: public digidoc::ConfCurrent {
 
@@ -242,7 +243,7 @@ static std::string profile = "time-stamp";
             [moppConfiguration.TSAURL cStringUsingEncoding:NSUTF8StringEncoding] :
             [tsUrl cStringUsingEncoding:NSUTF8StringEncoding];
             digidoc::Conf::init(new DigiDocConf(timestampUrl, moppConfiguration));
-            NSString *appInfo = [NSString stringWithFormat:@"%s/%@ (iOS %@)", "qdigidocclient", [self moppAppVersion], [self iOSVersion]];
+            NSString *appInfo = [self userAgent];
             std::string appInfoObjcString = std::string([appInfo UTF8String]);
             digidoc::initialize(appInfoObjcString, appInfoObjcString);
 
@@ -941,6 +942,34 @@ void parseException(const digidoc::Exception &e) {
 
 - (NSString *)iOSVersion {
     return [[UIDevice currentDevice] systemVersion];
+}
+
+- (NSArray *)connectedDevices {
+    EAAccessoryManager* accessoryManager = [EAAccessoryManager sharedAccessoryManager];
+    NSMutableArray *devices = [NSMutableArray new];
+    if (accessoryManager) {
+        NSArray<EAAccessory *> *connectedAccessories = [accessoryManager connectedAccessories];
+        for (int i = 0; i < connectedAccessories.count; i++) {
+            EAAccessory *device = connectedAccessories[i];
+            NSString *manufacturer = device.manufacturer;
+            NSString *name = device.name;
+            NSString *modelNumber = device.modelNumber;
+            NSString *deviceName = [NSString stringWithFormat:@"%@ %@ (%@)", manufacturer, name, modelNumber];
+            [devices addObject:deviceName];
+        }
+        return [devices copy];
+    }
+    
+    return [devices copy];
+}
+
+- (NSString *)userAgent {
+    NSString *appInfo = [NSString stringWithFormat:@"%s/%@ (iOS %@)", "riadigidoc", [self moppAppVersion], [self iOSVersion]];
+    NSArray *connectedDevices = [self connectedDevices];
+    if (connectedDevices.count > 0) {
+        appInfo = [NSString stringWithFormat:@"%@ Devices: %@", appInfo, [connectedDevices componentsJoinedByString:@", "]];
+    }
+    return appInfo;
 }
 
 - (NSString *)pkcs12Cert {

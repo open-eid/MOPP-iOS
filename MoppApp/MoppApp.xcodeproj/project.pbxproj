@@ -336,6 +336,9 @@
 		C5FA0BEC20A19AE100A208E5 /* Jailbreak.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5FA0BEB20A19AE100A208E5 /* Jailbreak.storyboard */; };
 		C5FA0BEE20A19E4200A208E5 /* JailbreakViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0BED20A19E4200A208E5 /* JailbreakViewController.swift */; };
 		DF0075C223324AC600BAB3DE /* MoppConfigurationDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */; };
+		DF13562E2902018A00F61823 /* MoppApp+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF13562D2902018A00F61823 /* MoppApp+Additions.swift */; };
+		DF135630290201A100F61823 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13562F290201A100F61823 /* ExternalAccessory.framework */; };
+		DF135631290201AD00F61823 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13562F290201A100F61823 /* ExternalAccessory.framework */; };
 		DF26DC8326CD45670073ABA7 /* SivaUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF26DC8226CD45670073ABA7 /* SivaUtil.swift */; };
 		DF3D299D23F5ADB7007181B8 /* MimeTypeExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */; };
 		DF3D29CF23F6B3CF007181B8 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; };
@@ -628,6 +631,8 @@
 		C5FA0BED20A19E4200A208E5 /* JailbreakViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JailbreakViewController.swift; sourceTree = "<group>"; };
 		CD15B1228E3C241B478D570C /* Pods-MoppAppTestEnv.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppAppTestEnv.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppAppTestEnv/Pods-MoppAppTestEnv.debug.xcconfig"; sourceTree = "<group>"; };
 		DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoppConfigurationDecoder.swift; sourceTree = "<group>"; };
+		DF13562D2902018A00F61823 /* MoppApp+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoppApp+Additions.swift"; sourceTree = "<group>"; };
+		DF13562F290201A100F61823 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		DF26DC8226CD45670073ABA7 /* SivaUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SivaUtil.swift; sourceTree = "<group>"; };
 		DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypeExtractor.swift; sourceTree = "<group>"; };
 		DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -693,6 +698,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5F974D22176465400A167C7 /* MoppLibTestEnv.framework in Frameworks */,
+				DF135631290201AD00F61823 /* ExternalAccessory.framework in Frameworks */,
 				C5EA713D2176057A00440F4A /* WebKit.framework in Frameworks */,
 				C5EA71412176057A00440F4A /* CryptoLib.framework in Frameworks */,
 				A8396987106A0BBF27196838 /* Pods_MoppAppTestEnv.framework in Frameworks */,
@@ -709,6 +715,7 @@
 				51EAB865AC99468B5AC77D6C /* (null) in Frameworks */,
 				063A655C7ECF195296250527 /* (null) in Frameworks */,
 				393B66E820DB9C19001DC89B /* CryptoLib.framework in Frameworks */,
+				DF135630290201A100F61823 /* ExternalAccessory.framework in Frameworks */,
 				DFF3C3B72332335C0079458A /* Pods_MoppApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -771,6 +778,7 @@
 				C5F462A9209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift */,
 				C541E13C21B17CE000685535 /* UISwitch+Utils.swift */,
 				DFF3C3B4233231F20079458A /* Notification+Additions.swift */,
+				DF13562D2902018A00F61823 /* MoppApp+Additions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1180,6 +1188,7 @@
 		F9074FEF4DC2DB83A60B75B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DF13562F290201A100F61823 /* ExternalAccessory.framework */,
 				DFF3C3B62332335C0079458A /* Pods_MoppApp.framework */,
 				C5F974D12176465400A167C7 /* MoppLibTestEnv.framework */,
 				390C016A20AC430300827230 /* cdoc.framework */,
@@ -1878,6 +1887,7 @@
 				DFF3C3AE233231190079458A /* Configuration.swift in Sources */,
 				C5A1D1CD2031D5B80024CD4C /* ContainerActions.swift in Sources */,
 				C56C6204201A0D9300CCC2A5 /* MenuCell.swift in Sources */,
+				DF13562E2902018A00F61823 /* MoppApp+Additions.swift in Sources */,
 				C50DCD0D1FC7147100D48E16 /* ContainerTableViewHeaderView.swift in Sources */,
 				4E59080224B258C7001B23A6 /* SmartIDChallengeViewController.swift in Sources */,
 				C5310F4620C2F0F7004D3E78 /* MenuLanguageButtonView.swift in Sources */,
