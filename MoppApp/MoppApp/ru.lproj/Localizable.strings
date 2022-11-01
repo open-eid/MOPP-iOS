@@ -57,6 +57,10 @@
 "signature-details-title" = "Детали подписи";
 "menu-button" = "Меню";
 
+"signing-error-incorrect-country-code" = "Неверный код страны.";
+"signing-error-incorrect-phone-number" = "Телефонный номер не действителен.";
+"signing-error-incorrect-personal-code" = "Личный код недействителен.";
+
 // Crypto
 "crypto-view-begin-label" = "Выберите файл для шифрования или расшифровки";
 "crypto-view-begin-button" = "ВЫБРАТЬ ФАЙЛ";

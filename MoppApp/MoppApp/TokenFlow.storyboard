@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -177,7 +178,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="410"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nKU-2c-pC3">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="438"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="410"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Enter your mobile number and ID code to sign with Mobile-ID" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tFN-sH-Xcw">
                                                 <rect key="frame" x="16" y="14" width="342" height="44.5"/>
@@ -186,9 +187,16 @@
                                                 <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Country code and phone number" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XKc-V5-sgL">
+                                                <rect key="frame" x="25" y="77" width="325" height="15.5"/>
+                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
+                                                <color key="textColor" red="0.45882352939999999" green="0.47058823529999999" blue="0.4823529412" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZxA-C9-eha" customClass="MyTextField" customModule="MoppApp" customModuleProvider="target">
-                                                <rect key="frame" x="25" y="79.5" width="325" height="46"/>
+                                                <rect key="frame" x="25" y="101" width="325" height="46"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="mobileIdPhoneNumberField"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="46" id="45G-5g-Yme"/>
                                                     <constraint firstAttribute="height" constant="46" id="F4p-pS-XLK"/>
@@ -205,24 +213,25 @@
                                                     <outlet property="delegate" destination="oty-Y3-l6f" id="tBK-kj-pXq"/>
                                                 </connections>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Country code and phone number" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XKc-V5-sgL">
-                                                <rect key="frame" x="25" y="134" width="325" height="15.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Invalid phone number" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d36-rR-XNQ">
+                                                <rect key="frame" x="25" y="155" width="325" height="15.5"/>
+                                                <color key="tintColor" name="MoppError"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
-                                                <color key="textColor" red="0.45882352939999999" green="0.47058823529999999" blue="0.4823529412" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" name="MoppError"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID code" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W3G-Hw-MUO">
-                                                <rect key="frame" x="25" y="211.5" width="325" height="15.5"/>
+                                                <rect key="frame" x="25" y="178" width="325" height="15.5"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
                                                 <color key="textColor" red="0.45882352939999999" green="0.47058823529999999" blue="0.4823529412" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BDG-gM-UKf" customClass="MyTextField" customModule="MoppApp" customModuleProvider="target">
-                                                <rect key="frame" x="25" y="157.5" width="325" height="46"/>
+                                                <rect key="frame" x="25" y="202" width="325" height="46"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="mobileIDCodeField"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="46" id="PQ6-bf-arw"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="46" id="894-F9-I9p"/>
                                                 </constraints>
                                                 <color key="textColor" red="0.21176470589999999" green="0.2156862745" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
@@ -237,7 +246,7 @@
                                                 </connections>
                                             </textField>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="xVw-NT-fd0">
-                                                <rect key="frame" x="25" y="302" width="325" height="40"/>
+                                                <rect key="frame" x="25" y="335" width="325" height="40"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YH8-us-1Zw">
                                                         <rect key="frame" x="0.0" y="0.0" width="160" height="40"/>
@@ -278,42 +287,53 @@
                                                 </constraints>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember me" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lF6-VQ-sny">
-                                                <rect key="frame" x="25" y="241" width="268" height="36"/>
+                                                <rect key="frame" x="187" y="291" width="106" height="19"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                 <color key="textColor" red="0.45882352939999999" green="0.47058823529999999" blue="0.4823529412" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="right" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MHH-mX-gAV">
-                                                <rect key="frame" x="301" y="246" width="51" height="31"/>
+                                                <rect key="frame" x="301" y="279" width="51" height="31"/>
                                                 <color key="onTintColor" red="0.54901960780000003" green="0.76470588240000004" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </switch>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invalid personal code" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cBh-fZ-d1b">
+                                                <rect key="frame" x="25" y="256" width="325" height="15.5"/>
+                                                <color key="tintColor" name="MoppError"/>
+                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
+                                                <color key="textColor" name="MoppError"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <gestureRecognizers/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="xVw-NT-fd0" secondAttribute="bottom" constant="96" id="26Y-1D-5rm"/>
-                                            <constraint firstItem="lF6-VQ-sny" firstAttribute="leading" secondItem="W3G-Hw-MUO" secondAttribute="leading" id="2j2-N9-Fdk"/>
-                                            <constraint firstItem="BDG-gM-UKf" firstAttribute="leading" secondItem="nKU-2c-pC3" secondAttribute="leading" constant="25" id="9ki-Ez-de9"/>
-                                            <constraint firstAttribute="trailing" secondItem="BDG-gM-UKf" secondAttribute="trailing" constant="25" id="DeB-zT-h3p"/>
+                                            <constraint firstItem="W3G-Hw-MUO" firstAttribute="top" secondItem="d36-rR-XNQ" secondAttribute="bottom" constant="7.5" id="1KS-eF-YNy"/>
+                                            <constraint firstAttribute="bottom" secondItem="xVw-NT-fd0" secondAttribute="bottom" constant="35" id="26Y-1D-5rm"/>
+                                            <constraint firstAttribute="trailing" secondItem="cBh-fZ-d1b" secondAttribute="trailing" constant="25" id="AB6-7x-lwq"/>
+                                            <constraint firstAttribute="trailing" secondItem="d36-rR-XNQ" secondAttribute="trailing" constant="25" id="Aho-AP-Ygr"/>
+                                            <constraint firstItem="MHH-mX-gAV" firstAttribute="top" secondItem="BDG-gM-UKf" secondAttribute="bottom" constant="31" id="FAh-zN-iYY"/>
+                                            <constraint firstAttribute="trailing" secondItem="BDG-gM-UKf" secondAttribute="trailing" constant="25" id="HUp-E8-bt1"/>
                                             <constraint firstItem="MHH-mX-gAV" firstAttribute="leading" secondItem="lF6-VQ-sny" secondAttribute="trailing" constant="8" symbolic="YES" id="IA3-iR-Fqe"/>
-                                            <constraint firstItem="XKc-V5-sgL" firstAttribute="top" secondItem="ZxA-C9-eha" secondAttribute="bottom" constant="8.5" id="IT7-a1-2Rp"/>
-                                            <constraint firstItem="XKc-V5-sgL" firstAttribute="leading" secondItem="nKU-2c-pC3" secondAttribute="leading" constant="25" id="KIh-aR-Q3d"/>
-                                            <constraint firstAttribute="trailing" secondItem="XKc-V5-sgL" secondAttribute="trailing" constant="25" id="Nde-xK-hPY"/>
+                                            <constraint firstItem="BDG-gM-UKf" firstAttribute="top" secondItem="W3G-Hw-MUO" secondAttribute="bottom" constant="8.5" id="OWo-xC-p6R"/>
                                             <constraint firstAttribute="trailing" secondItem="ZxA-C9-eha" secondAttribute="trailing" constant="25" id="QT9-6c-HHv"/>
                                             <constraint firstItem="tFN-sH-Xcw" firstAttribute="leading" secondItem="nKU-2c-pC3" secondAttribute="leading" constant="16" id="QVO-PP-VWA"/>
+                                            <constraint firstItem="d36-rR-XNQ" firstAttribute="leading" secondItem="nKU-2c-pC3" secondAttribute="leading" constant="25" id="Qxa-c7-vtT"/>
                                             <constraint firstAttribute="trailing" secondItem="MHH-mX-gAV" secondAttribute="trailing" constant="25" id="R5e-Zi-wCy"/>
-                                            <constraint firstItem="ZxA-C9-eha" firstAttribute="top" secondItem="tFN-sH-Xcw" secondAttribute="bottom" constant="21" id="RLa-bz-GNL"/>
-                                            <constraint firstItem="lF6-VQ-sny" firstAttribute="top" secondItem="W3G-Hw-MUO" secondAttribute="bottom" constant="14" id="WhU-8J-VAq"/>
+                                            <constraint firstItem="ZxA-C9-eha" firstAttribute="top" secondItem="XKc-V5-sgL" secondAttribute="bottom" constant="8.5" id="RLa-bz-GNL"/>
+                                            <constraint firstItem="XKc-V5-sgL" firstAttribute="top" secondItem="tFN-sH-Xcw" secondAttribute="bottom" constant="18.5" id="Uw5-b0-xbF"/>
                                             <constraint firstItem="xVw-NT-fd0" firstAttribute="top" secondItem="MHH-mX-gAV" secondAttribute="bottom" constant="25" id="X9d-Zr-eRc"/>
+                                            <constraint firstItem="cBh-fZ-d1b" firstAttribute="top" secondItem="BDG-gM-UKf" secondAttribute="bottom" constant="8" id="YO7-Fr-c2r"/>
+                                            <constraint firstItem="d36-rR-XNQ" firstAttribute="top" secondItem="ZxA-C9-eha" secondAttribute="bottom" constant="8" symbolic="YES" id="Zh8-cM-0ll"/>
                                             <constraint firstItem="lF6-VQ-sny" firstAttribute="bottom" secondItem="MHH-mX-gAV" secondAttribute="bottom" id="c7u-S1-pre"/>
-                                            <constraint firstItem="BDG-gM-UKf" firstAttribute="top" secondItem="XKc-V5-sgL" secondAttribute="bottom" constant="8" id="c8h-X9-qiN"/>
-                                            <constraint firstItem="MHH-mX-gAV" firstAttribute="top" secondItem="W3G-Hw-MUO" secondAttribute="bottom" constant="19" id="cJS-01-BYY"/>
+                                            <constraint firstItem="BDG-gM-UKf" firstAttribute="leading" secondItem="nKU-2c-pC3" secondAttribute="leading" constant="25" id="cdb-3W-nxm"/>
                                             <constraint firstAttribute="trailing" secondItem="xVw-NT-fd0" secondAttribute="trailing" constant="25" id="dM2-Ii-Ox2"/>
                                             <constraint firstItem="xVw-NT-fd0" firstAttribute="leading" secondItem="nKU-2c-pC3" secondAttribute="leading" constant="25" id="fTp-5Q-t5y"/>
-                                            <constraint firstItem="W3G-Hw-MUO" firstAttribute="leading" secondItem="nKU-2c-pC3" secondAttribute="leading" constant="25" id="o8z-3t-2Mn"/>
+                                            <constraint firstItem="W3G-Hw-MUO" firstAttribute="leading" secondItem="nKU-2c-pC3" secondAttribute="leading" constant="25" id="gHP-dK-kwf"/>
+                                            <constraint firstAttribute="trailing" secondItem="W3G-Hw-MUO" secondAttribute="trailing" constant="25" id="i0m-LD-rBq"/>
+                                            <constraint firstItem="XKc-V5-sgL" firstAttribute="leading" secondItem="nKU-2c-pC3" secondAttribute="leading" constant="25" id="lkZ-52-7rI"/>
                                             <constraint firstItem="ZxA-C9-eha" firstAttribute="leading" secondItem="nKU-2c-pC3" secondAttribute="leading" constant="25" id="p2w-hM-pgL"/>
-                                            <constraint firstAttribute="trailing" secondItem="W3G-Hw-MUO" secondAttribute="trailing" constant="25" id="q9a-cd-AW6"/>
                                             <constraint firstAttribute="trailing" secondItem="tFN-sH-Xcw" secondAttribute="trailing" constant="17" id="rt2-cB-qYP"/>
-                                            <constraint firstItem="W3G-Hw-MUO" firstAttribute="top" secondItem="BDG-gM-UKf" secondAttribute="bottom" constant="8" id="xx0-MK-1IY"/>
+                                            <constraint firstItem="cBh-fZ-d1b" firstAttribute="leading" secondItem="nKU-2c-pC3" secondAttribute="leading" constant="25" id="smI-7w-i9m"/>
+                                            <constraint firstAttribute="trailing" secondItem="XKc-V5-sgL" secondAttribute="trailing" constant="25" id="wUg-BK-J1k"/>
                                             <constraint firstItem="tFN-sH-Xcw" firstAttribute="top" secondItem="nKU-2c-pC3" secondAttribute="top" constant="14" id="z2l-jB-HWU"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
@@ -352,7 +372,9 @@
                         <outlet property="cancelButton" destination="YH8-us-1Zw" id="dUX-7z-aug"/>
                         <outlet property="idCodeLabel" destination="W3G-Hw-MUO" id="vpe-l3-h5s"/>
                         <outlet property="idCodeTextField" destination="BDG-gM-UKf" id="Pov-KZ-2eY"/>
+                        <outlet property="personalCodeErrorLabel" destination="cBh-fZ-d1b" id="Ph4-gW-MtT"/>
                         <outlet property="phoneLabel" destination="XKc-V5-sgL" id="i2b-pF-Rhf"/>
+                        <outlet property="phoneNumberErrorLabel" destination="d36-rR-XNQ" id="Xp0-L0-oc4"/>
                         <outlet property="phoneTextField" destination="ZxA-C9-eha" id="dF2-LI-ZVy"/>
                         <outlet property="rememberLabel" destination="lF6-VQ-sny" id="22U-rp-HEh"/>
                         <outlet property="rememberSwitch" destination="MHH-mX-gAV" id="TwB-5O-8Nb"/>
@@ -890,5 +912,8 @@
     </scenes>
     <resources>
         <image name="Spinner" width="50" height="50"/>
+        <namedColor name="MoppError">
+            <color red="0.59607843137254901" green="0.11764705882352941" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
