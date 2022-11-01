@@ -32,6 +32,15 @@ class MoppFileManager {
         let documentsDirectory: String = paths[0]
         return documentsDirectory
     }
+    
+    func logsDirectoryPath() -> URL? {
+        return URL(string: documentsDirectoryPath())?.appendingPathComponent("logs")
+    }
+    
+    func logsDirectory() -> URL {
+        let documentsURL = URL(fileURLWithPath: documentsDirectoryPath())
+        return documentsURL.appendingPathComponent("logs")
+    }
 
     func documentsFiles() -> [String] {
     
@@ -263,6 +272,12 @@ class MoppFileManager {
 
     func fileExists(_ sourcePath: String) -> Bool {
         return fileManager.fileExists(atPath: sourcePath)
+    }
+    
+    func directoryExists(_ sourcePath: String) -> Bool {
+        var isDir: ObjCBool = false
+        let directoryExists = fileManager.fileExists(atPath: sourcePath, isDirectory: &isDir)
+        return isDir.boolValue && directoryExists
     }
     
     func moveFile(withPath sourcePath: String, toPath destinationPath: String, overwrite: Bool) -> Bool {

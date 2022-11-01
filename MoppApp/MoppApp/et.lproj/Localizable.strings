@@ -338,6 +338,10 @@
 "settings-timestamp-use-default-title" = "Kasuta vaikeväärtust";
 "settings-value-changed" = "Seade väärtus muudetud";
 "diagnostics-title" = "Diagnostika";
+"diagnostics-activate-one-time-logging" = "Aktiveeri ühekordne logifaili genereerimine";
+"diagnostics-save-log" = "SALVESTA LOGIFAIL";
+"diagnostics-restart-to-active-logging" = "Logimise aktiveerimiseks taaskäivita RIA DigiDoc. https://www.id.ee/artikkel/logifaili-genereerimine-digidoc4-kliendis/";
+"diagnostics-one-time-logging-read-more" = "Loe täpsemalt siit";
 "diagnostics-app-version" = "Rakenduse versioon";
 "diagnostics-ios-version" = "Operatsioonisüsteem";
 "diagnostics-libraries-label" = "Teegid";

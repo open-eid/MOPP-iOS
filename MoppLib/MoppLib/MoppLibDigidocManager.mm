@@ -167,12 +167,16 @@ public:
     bool isDebugMode() const {
         return [[NSUserDefaults standardUserDefaults] boolForKey:@"isDebugMode"];
     }
+    
+    bool isLoggingEnabled() const {
+        return [[NSUserDefaults standardUserDefaults] boolForKey:@"kIsFileLoggingEnabled"];
+    }
 
     // Comment in / out to see / hide libdigidocpp logs
     // Currently enabled on DEBUG mode
 
     virtual int logLevel() const override {
-        if (isDebugMode()) {
+        if (isDebugMode() || isLoggingEnabled()) {
             return 4;
         } else {
             return 0;
@@ -180,7 +184,7 @@ public:
     }
 
     std::string logFile() const override {
-        if (isDebugMode()) {
+        if (isDebugMode() || isLoggingEnabled()) {
             MLFileManager *mlFM = [[MLFileManager alloc] init];
             NSURL *url = [[NSURL alloc] initWithString:[mlFM documentsDirectoryPath]];
             return std::string([[[url URLByAppendingPathComponent: @"libdigidocpp.log"] path] UTF8String]);
