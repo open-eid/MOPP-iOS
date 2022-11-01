@@ -46,7 +46,6 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
     @IBOutlet weak var thirdCodeTextFieldLabel: UILabel!
     @IBOutlet weak var firstInlineErrorLabel: UILabel!
     @IBOutlet weak var secondInlineErrorLabel: UILabel!
-    @IBOutlet weak var thirdInlineErrorLabel: UILabel!
     @IBOutlet weak var statusViewVisibleCSTR: NSLayoutConstraint!
     @IBOutlet weak var statusViewHiddenCSTR: NSLayoutConstraint!
     @IBOutlet weak var statusLabel: UILabel!
@@ -233,7 +232,9 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
     func clearInlineErrors() {
         firstInlineErrorLabel.text = nil
         secondInlineErrorLabel.text = nil
-        thirdInlineErrorLabel.text = nil
+        removeViewBorder(view: firstCodeTextField)
+        removeViewBorder(view: secondCodeTextField)
+        removeViewBorder(view: thirdCodeTextField)
     }
     
     func setCustomFont() {
@@ -247,8 +248,17 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
         thirdCodeTextFieldLabel.font = UIFont.setCustomFont(font: .allCapsRegular, nil, .body)
         firstInlineErrorLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
         secondInlineErrorLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        thirdInlineErrorLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
         statusLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+    }
+    
+    func setViewBorder(view: UIView) {
+        view.layer.borderColor = UIColor.moppError.cgColor
+        view.layer.borderWidth = 1.0
+    }
+    
+    func removeViewBorder(view: UIView) {
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 0.5
     }
 }
 
