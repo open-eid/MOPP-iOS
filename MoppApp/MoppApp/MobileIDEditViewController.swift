@@ -51,6 +51,8 @@ class MobileIDEditViewController : MoppViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var idCodeLabel: UILabel!
+    @IBOutlet weak var phoneNumberErrorLabel: UILabel!
+    @IBOutlet weak var personalCodeErrorLabel: UILabel!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var signButton: UIButton!
     @IBOutlet weak var rememberLabel: UILabel!
@@ -76,6 +78,11 @@ class MobileIDEditViewController : MoppViewController {
         signButton.setTitle(L(.actionSign).uppercased())
         rememberLabel.text = L(.signingRememberMe)
         
+        phoneNumberErrorLabel.text = ""
+        phoneNumberErrorLabel.isHidden = true
+        personalCodeErrorLabel.text = ""
+        personalCodeErrorLabel.isHidden = true
+        
         idCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         idCodeTextField.layer.borderWidth = 1.0
         
@@ -86,12 +93,12 @@ class MobileIDEditViewController : MoppViewController {
         tapGR.addTarget(self, action: #selector(cancelAction))
         view.addGestureRecognizer(tapGR)
         
-        guard let titleUILabel = titleLabel, let phoneUILabel = phoneLabel, let phoneUITextField = phoneTextField, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
-            printLog("Unable to get titleLabel, phoneLabel, phoneTextField, idCodeLabel, idCodeTextField, rememberLabel, rememberSwitch, cancelButton or signButton")
+        guard let titleUILabel = titleLabel, let phoneUILabel = phoneLabel, let phoneUITextField = phoneTextField, let phoneNumberErrorUILabel = phoneNumberErrorLabel, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let personalCodeUIErrorLabel = personalCodeErrorLabel, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
+            printLog("Unable to get titleLabel, phoneLabel, phoneTextField, phoneNumberErrorLabel, idCodeLabel, idCodeTextField, personalCodeErrorLabel, rememberLabel, rememberSwitch, cancelButton or signButton")
             return
         }
         
-        self.view.accessibilityElements = [titleUILabel, phoneUILabel, phoneUITextField, idCodeUILabel, idCodeUITextField, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
+        self.view.accessibilityElements = [titleUILabel, phoneUILabel, phoneUITextField, phoneNumberErrorUILabel, idCodeUILabel, idCodeUITextField, personalCodeUIErrorLabel, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
     }
     
     @objc func dismissKeyboard(_ notification: NSNotification) {
@@ -170,7 +177,7 @@ class MobileIDEditViewController : MoppViewController {
     func verifySigningCapability() {
         let phoneField = phoneTextField.text ?? String()
         let codeTextField = idCodeTextField.text ?? String()
-        if (phoneTextField.text.isNilOrEmpty || phoneField.count <= 3 || idCodeTextField.text.isNilOrEmpty || codeTextField.count < 11) {
+        if phoneField.isEmpty || codeTextField.isEmpty || !TokenFlowUtil.isCountryCodeValid(text: phoneField) || TokenFlowUtil.isPhoneNumberInvalid(text: phoneField) || TokenFlowUtil.isPersonalCodeInvalid(text: codeTextField) {
             signButton.isEnabled = false
             signButton.backgroundColor = UIColor.moppLabel
         } else {
@@ -191,6 +198,16 @@ class MobileIDEditViewController : MoppViewController {
         
         signButton.sizeToFit()
         
+    }
+    
+    func setViewBorder(view: UIView) {
+        view.layer.borderColor = UIColor.moppError.cgColor
+        view.layer.borderWidth = 1.0
+    }
+    
+    func removeViewBorder(view: UIView) {
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 0.2
     }
     
     @objc func editingChanged(sender: UITextField) {
@@ -216,5 +233,42 @@ extension MobileIDEditViewController : UITextFieldDelegate {
             return textAfterUpdate.isNumeric || textAfterUpdate.isEmpty
         }
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.accessibilityIdentifier == "mobileIdPhoneNumberField" {
+            if let text = textField.text as String? {
+                if !TokenFlowUtil.isCountryCodeValid(text: text) {
+                    phoneNumberErrorLabel.text = L(.signingErrorIncorrectCountryCode)
+                    phoneNumberErrorLabel.isHidden = false
+                    setViewBorder(view: textField)
+                    UIAccessibility.post(notification: .screenChanged, argument: self.phoneNumberErrorLabel)
+                } else if TokenFlowUtil.isPhoneNumberInvalid(text: text) {
+                    phoneNumberErrorLabel.text = L(.signingErrorIncorrectPhoneNumber)
+                    phoneNumberErrorLabel.isHidden = false
+                    setViewBorder(view: textField)
+                    UIAccessibility.post(notification: .screenChanged, argument: self.phoneNumberErrorLabel)
+                } else {
+                    phoneNumberErrorLabel.text = ""
+                    phoneNumberErrorLabel.isHidden = true
+                    removeViewBorder(view: textField)
+                    UIAccessibility.post(notification: .screenChanged, argument: phoneTextField)
+                }
+            }
+        } else if textField.accessibilityIdentifier == "mobileIDCodeField" {
+            if let text = textField.text as String? {
+                if TokenFlowUtil.isPersonalCodeInvalid(text: text) {
+                    personalCodeErrorLabel.text = L(.signingErrorIncorrectPersonalCode)
+                    personalCodeErrorLabel.isHidden = false
+                    setViewBorder(view: textField)
+                    UIAccessibility.post(notification: .screenChanged, argument: self.personalCodeErrorLabel)
+                } else {
+                    personalCodeErrorLabel.text = ""
+                    personalCodeErrorLabel.isHidden = true
+                    removeViewBorder(view: textField)
+                    UIAccessibility.post(notification: .screenChanged, argument: idCodeTextField)
+                }
+            }
+        }
     }
 }

@@ -57,6 +57,10 @@
 "signature-details-title" = "Signature details";
 "menu-button" = "Menu";
 
+"signing-error-incorrect-country-code" = "Invalid country code.";
+"signing-error-incorrect-phone-number" = "Phone number is not valid.";
+"signing-error-incorrect-personal-code" = "Personal code is not valid.";
+
 // Crypto
 "crypto-view-begin-label" = "Choose a file to encrypt or decrypt";
 "crypto-view-begin-button" = "CHOOSE FILE";

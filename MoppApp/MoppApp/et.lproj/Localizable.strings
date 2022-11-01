@@ -57,6 +57,10 @@
 "signature-details-title" = "Allkirja detailid";
 "menu-button" = "Menüü";
 
+"signing-error-incorrect-country-code" = "Vigane riigikood.";
+"signing-error-incorrect-phone-number" = "Telefoninumber pole korrektne.";
+"signing-error-incorrect-personal-code" = "Isikukood pole korrektne.";
+
 // Signing view
 "signing-recent-containers" = "Hiljutised dokumendid";
 

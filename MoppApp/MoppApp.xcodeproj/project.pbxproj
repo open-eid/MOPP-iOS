@@ -346,6 +346,7 @@
 		DF900C972386768F00887385 /* tslFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DF900C94238567CA00887385 /* tslFiles.bundle */; };
 		DFA5821A264AAB6600564971 /* digidoc_76.png in Resources */ = {isa = PBXBuildFile; fileRef = DFA58218264AAB6500564971 /* digidoc_76.png */; };
 		DFA5821B264AAB6600564971 /* digidoc_1024.png in Resources */ = {isa = PBXBuildFile; fileRef = DFA58219264AAB6600564971 /* digidoc_1024.png */; };
+		DFB5FF09289954F8006B3B8C /* TokenFlowUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB5FF08289954F8006B3B8C /* TokenFlowUtil.swift */; };
 		DFB970A32626136400464791 /* PreviewFileTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB970A22626136300464791 /* PreviewFileTapGestureRecognizer.swift */; };
 		DFBEF9452434DD0C007A6762 /* UIAlertAction+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEF9442434DD0C007A6762 /* UIAlertAction+Additions.swift */; };
 		DFBF242E23DB0923008DD8D0 /* LOTLDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */; };
@@ -637,6 +638,7 @@
 		DF900C94238567CA00887385 /* tslFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = tslFiles.bundle; sourceTree = "<group>"; };
 		DFA58218264AAB6500564971 /* digidoc_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_76.png; sourceTree = "<group>"; };
 		DFA58219264AAB6600564971 /* digidoc_1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_1024.png; sourceTree = "<group>"; };
+		DFB5FF08289954F8006B3B8C /* TokenFlowUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenFlowUtil.swift; sourceTree = "<group>"; };
 		DFB970A22626136300464791 /* PreviewFileTapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewFileTapGestureRecognizer.swift; sourceTree = "<group>"; };
 		DFBEF9442434DD0C007A6762 /* UIAlertAction+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Additions.swift"; sourceTree = "<group>"; };
 		DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOTLDecoder.swift; sourceTree = "<group>"; };
@@ -1173,6 +1175,7 @@
 				DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */,
 				DF3F62AF26BD71180070F930 /* FileDownloader.swift */,
 				DF26DC8226CD45670073ABA7 /* SivaUtil.swift */,
+				DFB5FF08289954F8006B3B8C /* TokenFlowUtil.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1874,6 +1877,7 @@
 				C55BB1C720908EF300618AC4 /* DiagnosticsViewController.swift in Sources */,
 				54825EF81E1D270F00253FF0 /* String+Additions.swift in Sources */,
 				DFD176CB23F1B78000E2CC52 /* MimeTypeDecoder.swift in Sources */,
+				DFB5FF09289954F8006B3B8C /* TokenFlowUtil.swift in Sources */,
 				E42B08B11E1F049B00EA24A3 /* FileManager.swift in Sources */,
 				DFF3C3AE233231190079458A /* Configuration.swift in Sources */,
 				C5A1D1CD2031D5B80024CD4C /* ContainerActions.swift in Sources */,
