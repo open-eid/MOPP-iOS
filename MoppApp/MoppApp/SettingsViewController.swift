@@ -32,6 +32,7 @@ class SettingsViewController: MoppViewController {
     enum FieldId {
         case rpuuid
         case timestampUrl
+        case useDefault
     }
     
     struct Field {
@@ -39,6 +40,7 @@ class SettingsViewController: MoppViewController {
             case inputField
             case choice
             case timestamp
+            case defaultSwitch
         }
         
         let id: FieldId
@@ -72,7 +74,8 @@ class SettingsViewController: MoppViewController {
             title: L(.settingsTimestampUrlTitle),
             placeholderText: NSAttributedString(string: L(.settingsTimestampUrlPlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker]),
             value: DefaultsHelper.timestampUrl ?? MoppConfiguration.tsaUrl!
-        )
+        ),
+        Field(id: .useDefault, kind: .defaultSwitch, title: L(.settingsTimestampUseDefaultTitle), placeholderText: NSAttributedString(string: L(.settingsTimestampUseDefaultTitle)), value: "")
     ]
     
     override func viewDidLoad() {
@@ -80,7 +83,9 @@ class SettingsViewController: MoppViewController {
         
         timestampUrl = DefaultsHelper.timestampUrl
         
-        tableView.estimatedRowHeight = 100
+        DefaultsHelper.setDefaultSettingsSwitch()
+        
+        tableView.estimatedRowHeight = 150
         tableView.rowHeight = UITableView.automaticDimension
     }
 }
@@ -130,6 +135,11 @@ extension SettingsViewController: UITableViewDataSource {
                 let choiceCell = tableView.dequeueReusableCell(withType: SettingsChoiceCell.self, for: indexPath)!
                     choiceCell.populate(with: field)
                 return choiceCell
+            case .defaultSwitch:
+                let useDefaultCell = tableView.dequeueReusableCell(withType: SettingsDefaultValueCell.self, for: indexPath)!
+                    useDefaultCell.delegate = self
+                    useDefaultCell.populate()
+                return useDefaultCell
             }
         }
     }
@@ -163,6 +173,7 @@ extension SettingsViewController: SettingsFieldCellDelegate {
 
 extension SettingsViewController: SettingsTimeStampCellDelegate {
     func didChangeTimestamp(_ fieldId: SettingsViewController.FieldId, with value: String?) {
+        DefaultsHelper.timestampUrl = value
 
 #if USE_TEST_DDS
         let useTestDDS = true
@@ -177,4 +188,15 @@ extension SettingsViewController: SettingsTimeStampCellDelegate {
             }, usingTestDigiDocService: useTestDDS, andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaurl,
                withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration())
     }
+}
+
+extension SettingsViewController: SettingsDefaultValueCellDelegate {
+    func didChangeDefaultSwitch(_ field: FieldId, with switchValue: Bool?) {
+        if let switchValue = switchValue {
+            DefaultsHelper.defaultSettingsSwitch = switchValue
+        }
+        tableView.reloadData()
+    }
+    
+    
 }

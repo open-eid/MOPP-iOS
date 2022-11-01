@@ -2,12 +2,27 @@
 //  SettingsTimeStampCell.swift
 //  MoppApp
 //
-//  Created by Sander Hunt on 19/11/2018.
-//  Copyright © 2018 Riigi Infosüsteemide Amet. All rights reserved.
-//
+/*
+ * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ */
+
 import Foundation
 import UIKit
-
 
 protocol SettingsTimeStampCellDelegate: AnyObject {
     func didChangeTimestamp(_ field: SettingsViewController.FieldId, with value: String?)
@@ -16,8 +31,6 @@ protocol SettingsTimeStampCellDelegate: AnyObject {
 class SettingsTimeStampCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var useDefaultSwitch: UISwitch!
-    @IBOutlet weak var useDefaultTitleLabel: UILabel!
     
     var field: SettingsViewController.Field!
     weak var delegate: SettingsTimeStampCellDelegate!
@@ -51,10 +64,18 @@ class SettingsTimeStampCell: UITableViewCell {
     }
     
     func updateUI() {
-        let useDefault = DefaultsHelper.timestampUrl == nil
-        useDefaultSwitch.isOn = useDefault
-        textField.isEnabled = !useDefault
-        textField.textColor = useDefault ? UIColor.moppLabelDarker : UIColor.moppText
+        let defaultSwitch = DefaultsHelper.defaultSettingsSwitch
+        
+        if defaultSwitch {
+            textField.text = MoppConfiguration.tsaUrl
+            delegate.didChangeTimestamp(field.id, with: nil)
+        
+        } else {
+            textField.text = DefaultsHelper.timestampUrl ?? MoppConfiguration.tsaUrl
+            delegate.didChangeTimestamp(field.id, with: DefaultsHelper.timestampUrl ?? MoppConfiguration.tsaUrl)
+        }
+        textField.isEnabled = !defaultSwitch
+        textField.textColor = defaultSwitch ? UIColor.moppLabelDarker : UIColor.moppText
         textField.text = DefaultsHelper.timestampUrl ?? MoppConfiguration.tsaUrl
         if isBoldTextEnabled() { textField.font = UIFont.boldSystemFont(ofSize: textField.font?.pointSize ?? UIFont.moppMediumBold.pointSize) }
         
@@ -62,27 +83,12 @@ class SettingsTimeStampCell: UITableViewCell {
         titleLabel.font = UIFont.moppMediumRegular
         if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
         textField.placeholder = L(.settingsTimestampUrlPlaceholder)
-        useDefaultTitleLabel.text = L(.settingsTimestampUseDefaultTitle)
-        useDefaultTitleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        
         textField.layoutIfNeeded()
-    }
-    
-    @IBAction func useDefaultToggled(_ sender: UISwitch) {
-        if sender.isOff {
-            DefaultsHelper.timestampUrl = textField.text
-        } else {
-            textField.text = MoppConfiguration.tsaUrl
-            DefaultsHelper.timestampUrl = nil
-            delegate.didChangeTimestamp(field.id, with: DefaultsHelper.timestampUrl)
-        }
-        updateUI()
     }
 }
 
 extension SettingsTimeStampCell: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        DefaultsHelper.timestampUrl = useDefaultSwitch.isOff ? textField.text : nil
         delegate.didChangeTimestamp(field.id, with: textField.text)
     }
 }
