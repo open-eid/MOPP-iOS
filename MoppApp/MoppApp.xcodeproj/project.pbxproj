@@ -339,7 +339,10 @@
 		DF13562E2902018A00F61823 /* MoppApp+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF13562D2902018A00F61823 /* MoppApp+Additions.swift */; };
 		DF135630290201A100F61823 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13562F290201A100F61823 /* ExternalAccessory.framework */; };
 		DF135631290201AD00F61823 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13562F290201A100F61823 /* ExternalAccessory.framework */; };
+		DF1AC96E287764B300C059FE /* AccessibilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1AC96C287764B300C059FE /* AccessibilityViewController.swift */; };
+		DF1AC96F287764B300C059FE /* Accessibility.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF1AC96D287764B300C059FE /* Accessibility.storyboard */; };
 		DF26DC8326CD45670073ABA7 /* SivaUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF26DC8226CD45670073ABA7 /* SivaUtil.swift */; };
+		DF32A687290C17ED00AE5F82 /* AccessibilityViewTextType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A686290C17ED00AE5F82 /* AccessibilityViewTextType.swift */; };
 		DF3D299D23F5ADB7007181B8 /* MimeTypeExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */; };
 		DF3D29CF23F6B3CF007181B8 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; };
 		DF3D29D023F6B3CF007181B8 /* SkSigningLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -635,7 +638,10 @@
 		DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoppConfigurationDecoder.swift; sourceTree = "<group>"; };
 		DF13562D2902018A00F61823 /* MoppApp+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoppApp+Additions.swift"; sourceTree = "<group>"; };
 		DF13562F290201A100F61823 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		DF1AC96C287764B300C059FE /* AccessibilityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityViewController.swift; sourceTree = "<group>"; };
+		DF1AC96D287764B300C059FE /* Accessibility.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Accessibility.storyboard; sourceTree = "<group>"; };
 		DF26DC8226CD45670073ABA7 /* SivaUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SivaUtil.swift; sourceTree = "<group>"; };
+		DF32A686290C17ED00AE5F82 /* AccessibilityViewTextType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityViewTextType.swift; sourceTree = "<group>"; };
 		DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypeExtractor.swift; sourceTree = "<group>"; };
 		DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF3F62AF26BD71180070F930 /* FileDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloader.swift; sourceTree = "<group>"; };
@@ -1007,6 +1013,7 @@
 			isa = PBXGroup;
 			children = (
 				C55BB1C82090BF4A00618AC4 /* About */,
+				DF1AC96B287764A100C059FE /* Accessibility */,
 				C55BB1C520908EE300618AC4 /* Diagnostics */,
 				C593D9EB208F19D7000B3BF6 /* Settings.storyboard */,
 				C593D9E7208F1986000B3BF6 /* SettingsViewController.swift */,
@@ -1051,6 +1058,24 @@
 				C5FA0BED20A19E4200A208E5 /* JailbreakViewController.swift */,
 			);
 			name = JailBroken;
+			sourceTree = "<group>";
+		};
+		DF1AC96B287764A100C059FE /* Accessibility */ = {
+			isa = PBXGroup;
+			children = (
+				DF32A685290C17DC00AE5F82 /* Models */,
+				DF1AC96D287764B300C059FE /* Accessibility.storyboard */,
+				DF1AC96C287764B300C059FE /* AccessibilityViewController.swift */,
+			);
+			name = Accessibility;
+			sourceTree = "<group>";
+		};
+		DF32A685290C17DC00AE5F82 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DF32A686290C17ED00AE5F82 /* AccessibilityViewTextType.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		E4250CBA1E0968D200530370 = {
@@ -1437,6 +1462,7 @@
 				C55BB1E02091FECD00618AC4 /* licenses.html in Resources */,
 				E4C53F371E2FAE6C00F209BE /* image.jpg in Resources */,
 				E43BD8111E3A121A00F6C39D /* ddocTest.ddoc in Resources */,
+				DF1AC96F287764B300C059FE /* Accessibility.storyboard in Resources */,
 				DFF3C3BE2332355D0079458A /* signature.rsa in Resources */,
 				C54BB10D1FBD8CE900A274F6 /* Signing.storyboard in Resources */,
 				C50DCCF51FC5741900D48E16 /* Roboto-BoldCondensed.ttf in Resources */,
@@ -1783,6 +1809,7 @@
 				C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */,
 				C593D9F6208F39DF000B3BF6 /* SettingsChoiceButton.swift in Sources */,
 				C58FCD5F20650BBE00FE3B57 /* MyeIDInfoCell.swift in Sources */,
+				DF32A687290C17ED00AE5F82 /* AccessibilityViewTextType.swift in Sources */,
 				C51E8A0F21A2F2AD0054662A /* SettingsTimeStampCell.swift in Sources */,
 				C5F462AA209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift in Sources */,
 				C5D057022023016300875F44 /* RecentContainersEmptyListCell.swift in Sources */,
@@ -1823,6 +1850,7 @@
 				C50FC431224BA3B20041925C /* ScreenDisguise.swift in Sources */,
 				C50787881FEA807500D9AAC0 /* UIViewController+Additions.swift in Sources */,
 				C506EC7C1FB9CBFD00E07226 /* Constants.swift in Sources */,
+				DF1AC96E287764B300C059FE /* AccessibilityViewController.swift in Sources */,
 				C58FCD5B206505BE00FE3B57 /* MyeIDStatusViewController.swift in Sources */,
 				C5310F2620C1777B004D3E78 /* MenuLanguageCell.swift in Sources */,
 				C5A795D3208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift in Sources */,

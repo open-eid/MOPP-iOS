@@ -37,6 +37,7 @@ class MenuViewController : MoppModalViewController {
 
     enum MenuItemID {
         case help
+        case accessibility
         case containersHistory
         case settings
         case about
@@ -47,6 +48,7 @@ class MenuViewController : MoppModalViewController {
 
     let menuItems: [(title: String, imageName: String, id: MenuItemID)] = [
         (L(.menuHelp), "icon_help white", .help),
+        (L(.menuAccessibility), "icon_accessibility white", .accessibility),
         (L(.menuRecentContainers), "icon_files white", .containersHistory),
         (L(.menuSettings), "icon_settings white", .settings),
         (L(.menuAbout), "icon_info white", .about),
@@ -143,6 +145,15 @@ extension MenuViewController : UITableViewDelegate {
                 if helpUrl != nil {
                     MoppApp.shared.open(helpUrl, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
                 }
+            case .accessibility:
+                DispatchQueue.main.async(execute: {
+                    self.dismiss(animated: true) {
+                        let accessibilityViewController = UIStoryboard.accessibility.instantiateInitialViewController(of: AccessibilityViewController.self)
+                        accessibilityViewController.modalPresentationStyle = .overFullScreen
+                        MoppApp.instance.rootViewController?.present(accessibilityViewController, animated: true, completion: nil)
+                    }
+                })
+                break
             case .containersHistory:
                 DispatchQueue.main.async(execute: {
                     self.dismiss(animated: true, completion: {

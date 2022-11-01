@@ -40,6 +40,7 @@
 // Main menu
 "menu-close" = "SULGE MENÜÜ";
 "menu-help" = "ABI";
+"menu-accessibility" = "JUURDEPÄÄSETAVUS";
 "menu-recent-containers" = "HILJUTISED DOKUMENDID";
 "menu-settings" = "SEADED";
 "menu-about" = "INFO";
@@ -360,3 +361,21 @@
 "save-diagnostics" = "SALVESTA DIAGNOSTIKA";
 "success-notification-dialog-label" = "Ümbriku jagamiseks klõpsa \"JAGA\" nupul ning vali soovitud rakendus. Kõik ümbrikud on leitavad ka rakenduse seadetes asuvas \"Hiljutised dokumendid\" kaustast.";
 "success-notification-dialog-dont-show-again" = "Ära rohkem näita";
+// ** Accessibility introduction **
+"accessibility-introduction-title" = "Juurdepääsetavus";
+"accessibility-introduction" = "RIA DigiDoc on ehitatud nii, et see vastaks WCAG 2.1 AA juurdepääsetavuse suunistele. See tähendab, et RIA DigiDoc rakenduse arendamisel on kasutatud põhimõtteid, et see oleks kasutatav ilma nägemisvõimeta, piiratud nägemisvõimega, piiratud liikumisvõime või jõuga jms.";
+"accessibility-introduction-2" = "Juurdepääsetavust on võimalik parandada oma nutiseadmesse sisseehitatud abivahendeid kasutades. Alljärgnevalt ülevaade põhilistest abivahenditest.";
+"accessibility-introduction-screen-reader-header" = "Ekraanilugeja";
+"accessibility-introduction-screen-reader-introduction" = "Ekraanilugeja on programm, mille ülesandeks on muuta nutiseadme ekraanil kujutatavat informatsioon kasutajale sobivaks väljundiks – näteks kõneks. Eelkõige on see abivahend vaegnägijate jaoks.";
+"accessibility-introduction-screen-reader-introduction-2" = "RIA DigiDoc ehitamisel on arvestatud, et igat tüüpi visuaalset sisu oleks võimalik muuta kasutajale sobivaks väljundiks. Näiteks on piltidel küljes tekstilised kirjeldused, struktuursete elementide paigutus ja järjekord arvestab ekraanilugeja liikumist ekraanil ja võimaldab infot tarbida loogilises järjekorras.";
+"accessibility-introduction-screen-reader-introduction-apps" = "Levinumad nutiseadme ekraanilugejaid:";
+"accessibility-introduction-screen-reader-introduction-ios" = "VoiceOver (iOS, sisseehitatud) https://support.apple.com/et-ee/guide/iphone/iph3e2e415f/ios";
+"accessibility-introduction-screen-reader-introduction-android" = "Talkback (Android, sisseehitatud) https://support.google.com/accessibility/android/answer/6007100";
+"accessibility-introduction-screen-magnification-introduction-header" = "Ekraani suurendus ja värvide muutmine";
+"accessibility-introduction-screen-magnification-introduction" = "Kui nägemisjääk teksti lugemiseks on piisav on võimalik mugavamaks ekraani vaatamiseks võimalik kasutada nutiseadmesse sisseehitatud abivahendeid. Abivahendeid kasutades on võimalik muuta tekstide suurusi, peamist kirjatüüpi, kasutajaliidese värvilahendusi ning ekraani suurendada kasutades ekraaniluupi.";
+"accessibility-introduction-screen-magnification-screen-tools" = "Ekraani värvi ja teksti suuruse reguleerimise abivahendid:";
+"accessibility-introduction-screen-magnification-screen-tools-ios" = "iOS https://support.apple.com/et-ee/guide/iphone/iph3e2e1fb0/ios";
+"accessibility-introduction-screen-magnification-screen-tools-android" = "Android https://support.google.com/accessibility/android/answer/11183305?hl=en&ref_topic=9079043";
+"accessibility-introduction-screen-magnification-tools" = "Ekraani suurendamise abivahendid:";
+"accessibility-introduction-screen-magnification-tools-ios" = "Zoom (iOS, sisseehitatud) https://support.apple.com/et-ee/guide/iphone/iph3e2e367e/ios";
+"accessibility-introduction-screen-magnification-tools-android" = "Magnification (Android, sisseehitatud) https://support.google.com/accessibility/android/answer/6006949";
