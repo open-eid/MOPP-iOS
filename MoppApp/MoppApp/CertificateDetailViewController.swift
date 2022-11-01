@@ -207,7 +207,7 @@ class CertificateDetailViewController: MoppViewController {
         var dataInHex: String = ""
         for byte in hashBytes {
             if byte != 00 {
-                dataInHex = dataInHex.appendingFormat(" %02X", UInt8(byte))
+                dataInHex = dataInHex.appendingFormat(dataInHex.isEmpty ? "%02X" : " %02X", UInt8(byte))
             }
         }
         
@@ -215,7 +215,10 @@ class CertificateDetailViewController: MoppViewController {
     }
     
     func getBytesCount(bytes: [UInt8]?) -> Int {
-        return [UInt8](bytes ?? [UInt8]()).count
+        guard let bytesArray = bytes else {
+            return 0
+        }
+        return [UInt8](bytesArray).count
     }
     
     func getKeyUsages(keyUsages: [Bool]) -> [String]? {

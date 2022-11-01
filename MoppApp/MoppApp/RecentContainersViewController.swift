@@ -248,13 +248,13 @@ extension RecentContainersViewController : UITableViewDelegate {
         return section == .containerFiles
     }
 
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         if indexPath.isEmpty {
-            return []
+            return UISwipeActionsConfiguration()
         }
         let section = sections[indexPath.section]
         if section == .containerFiles {
-            let delete = UITableViewRowAction(style: .destructive, title: L(LocKey.containerRowEditRemove)) { [weak self] action, indexPath in
+            let delete = UIContextualAction(style: .destructive, title: L(LocKey.containerRowEditRemove)) { [weak self] action, view, boolValue in
                 guard let strongSelf = self else { return }
                 let filename = strongSelf.containerFiles[indexPath.row]
                 MoppFileManager.shared.removeDocumentsFile(with: filename)
@@ -263,9 +263,9 @@ extension RecentContainersViewController : UITableViewDelegate {
                 tableView.reloadData()
             }
             delete.backgroundColor = UIColor.moppError
-            return [delete]
+            return UISwipeActionsConfiguration(actions: [delete])
         }
-        return []
+        return UISwipeActionsConfiguration()
     }
 }
 
