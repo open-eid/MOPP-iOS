@@ -116,5 +116,14 @@ class MoppViewController : UIViewController {
         LandingViewController.shared.shareFile(using: URL(fileURLWithPath: sender.filePath!), sender: self.view, completion: { bool in })
     }
     
+    func setViewBorder(view: UIView, color: UIColor) {
+        view.layer.borderColor = color.cgColor
+        view.layer.borderWidth = 1.0
+    }
+    
+    func removeViewBorder(view: UIView) {
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 0.2
+    }
     
 }
