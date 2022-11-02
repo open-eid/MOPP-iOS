@@ -61,6 +61,7 @@
 "signing-error-incorrect-country-code" = "Invalid country code.";
 "signing-error-incorrect-phone-number" = "Phone number is not valid.";
 "signing-error-incorrect-personal-code" = "Personal code is not valid.";
+"signing-error-incorrect-pin-length" = "%@ code must be at least %i digits long";
 
 // Crypto
 "crypto-view-begin-label" = "Choose a file to encrypt or decrypt";

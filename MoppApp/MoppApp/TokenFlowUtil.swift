@@ -39,4 +39,11 @@ class TokenFlowUtil {
     static func isPersonalCodeInvalid(text: String) -> Bool {
         return text.count < 11
     }
+
+    static func isPinCodeValid(text: String, pinType: IdCardCodeName) -> Bool {
+        if pinType.rawValue == "PIN1" {
+            return text.count >= IdCardCodeLengthLimits.pin1Minimum.rawValue
+        }
+        return text.count >= IdCardCodeLengthLimits.pin2Minimum.rawValue
+    }
 }

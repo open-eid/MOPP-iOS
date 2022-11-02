@@ -414,6 +414,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vzq-EQ-mlu" customClass="MyTextField" customModule="MoppApp" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="76.5" width="295" height="50"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="idCardPinCodeField"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="owe-5z-zG9"/>
                                                 </constraints>

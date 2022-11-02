@@ -58,6 +58,7 @@ enum LocKey : String
     case signingErrorIncorrectCountryCode = "signing-error-incorrect-country-code"
     case signingErrorIncorrectPhoneNumber = "signing-error-incorrect-phone-number"
     case signingErrorIncorrectPersonalCode = "signing-error-incorrect-personal-code"
+    case signingErrorIncorrectPinLength = "signing-error-incorrect-pin-length"
     case crashlyticsTitle = "crashlytics-title"
     case crashlyticsMessage = "crashlytics-message"
     case crashlyticsActionSend = "crashlytics-action-send"
@@ -336,7 +337,7 @@ enum LocKey : String
     case accessibilityIntroductionScreenReaderIntroductionApps = "accessibility-introduction-screen-reader-introduction-apps"
     case accessibilityIntroductionScreenReaderIntroductioniOS = "accessibility-introduction-screen-reader-introduction-ios"
     case accessibilityIntroductionScreenReaderIntroductionAndroid = "accessibility-introduction-screen-reader-introduction-android"
-    
+
     case accessibilityIntroductionScreenMagnificationIntroductionHeader = "accessibility-introduction-screen-magnification-introduction-header"
     case accessibilityIntroductionScreenMagnificationIntroduction = "accessibility-introduction-screen-magnification-introduction"
     case accessibilityIntroductionScreenMagnificationScreenTools = "accessibility-introduction-screen-magnification-screen-tools"
