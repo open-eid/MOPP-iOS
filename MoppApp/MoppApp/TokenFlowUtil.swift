@@ -23,19 +23,19 @@
 import Foundation
 
 class TokenFlowUtil {
-    
+
     static let countryCodes = ["372", "370"]
-    
+
     static func isPhoneNumberInvalid(text: String) -> Bool {
         let numberNoCountryCode = text.dropFirst(3)
         return numberNoCountryCode.count < 7
     }
-    
+
     static func isCountryCodeValid(text: String) -> Bool {
         let countryCodeExists = countryCodes.filter({ text.starts(with: $0) }).first
         return countryCodeExists != nil
     }
-    
+
     static func isPersonalCodeInvalid(text: String) -> Bool {
         return text.count < 11
     }

@@ -21,6 +21,7 @@
  *
  */
 import Foundation
+import UIKit
 
 
 class MyTextField : UITextField {
@@ -30,7 +31,7 @@ class MyTextField : UITextField {
             rect.size.width -= 20
         return rect
     }
-    
+
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
         var rect = bounds
             rect.origin.x = 10
@@ -57,55 +58,55 @@ class MobileIDEditViewController : MoppViewController {
     @IBOutlet weak var signButton: UIButton!
     @IBOutlet weak var rememberLabel: UILabel!
     @IBOutlet weak var rememberSwitch: UISwitch!
-    
+
     weak var delegate: MobileIDEditViewControllerDelegate? = nil
     var tapGR: UITapGestureRecognizer!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
             setCustomFont()
         }
-        
+
         idCodeTextField.moppPresentDismissButton()
         phoneTextField.moppPresentDismissButton()
-        
+
         titleLabel.text = L(.mobileIdTitle)
         phoneLabel.text = L(.mobileIdPhoneTitle)
         idCodeLabel.text = L(.mobileIdIdcodeTitle)
         cancelButton.setTitle(L(.actionCancel).uppercased())
         signButton.setTitle(L(.actionSign).uppercased())
         rememberLabel.text = L(.signingRememberMe)
-        
+
         phoneNumberErrorLabel.text = ""
         phoneNumberErrorLabel.isHidden = true
         personalCodeErrorLabel.text = ""
         personalCodeErrorLabel.isHidden = true
-        
+
         idCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         idCodeTextField.layer.borderWidth = 1.0
-        
+
         phoneTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         phoneTextField.layer.borderWidth = 1.0
-        
+
         tapGR = UITapGestureRecognizer()
         tapGR.addTarget(self, action: #selector(cancelAction))
         view.addGestureRecognizer(tapGR)
-        
+
         guard let titleUILabel = titleLabel, let phoneUILabel = phoneLabel, let phoneUITextField = phoneTextField, let phoneNumberErrorUILabel = phoneNumberErrorLabel, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let personalCodeUIErrorLabel = personalCodeErrorLabel, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
             printLog("Unable to get titleLabel, phoneLabel, phoneTextField, phoneNumberErrorLabel, idCodeLabel, idCodeTextField, personalCodeErrorLabel, rememberLabel, rememberSwitch, cancelButton or signButton")
             return
         }
-        
+
         self.view.accessibilityElements = [titleUILabel, phoneUILabel, phoneUITextField, phoneNumberErrorUILabel, idCodeUILabel, idCodeUITextField, personalCodeUIErrorLabel, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
     }
-    
+
     @objc func dismissKeyboard(_ notification: NSNotification) {
         idCodeTextField.resignFirstResponder()
         phoneTextField.resignFirstResponder()
     }
-    
+
     @IBAction func cancelAction() {
         dismiss(animated: false) {
             [weak self] in
@@ -117,7 +118,7 @@ class MobileIDEditViewController : MoppViewController {
             UIAccessibility.post(notification: .screenChanged, argument: L(.signingCancelled))
         }
     }
-    
+
     @IBAction func signAction() {
         if rememberSwitch.isOn {
             DefaultsHelper.idCode = idCodeTextField.text ?? String()
@@ -136,36 +137,36 @@ class MobileIDEditViewController : MoppViewController {
                 idCode: sself.idCodeTextField.text)
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         idCodeTextField.text = DefaultsHelper.idCode
         phoneTextField.text = DefaultsHelper.phoneNumber
-        
+
         idCodeTextField.attributedPlaceholder = NSAttributedString(string: L(.settingsIdCodePlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker])
         phoneTextField.attributedPlaceholder = NSAttributedString(string: L(.settingsPhoneNumberPlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker])
-        
+
         idCodeTextField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
         phoneTextField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
-        
+
         countryCodePrefill(textField: phoneTextField, countryCode: "372")
-        
+
         defaultRememberMeToggle()
-        
+
         verifySigningCapability()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.0)
     }
-    
+
     deinit {
         idCodeTextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
         phoneTextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
     }
-    
+
     func defaultRememberMeToggle() {
         if (DefaultsHelper.phoneNumber?.count ?? 0 > 0 && DefaultsHelper.idCode.count > 0) {
             rememberSwitch.setOn(true, animated: true)
@@ -173,7 +174,7 @@ class MobileIDEditViewController : MoppViewController {
             rememberSwitch.setOn(false, animated: true)
         }
     }
-    
+
     func verifySigningCapability() {
         let phoneField = phoneTextField.text ?? String()
         let codeTextField = idCodeTextField.text ?? String()
@@ -185,7 +186,7 @@ class MobileIDEditViewController : MoppViewController {
             signButton.backgroundColor = UIColor.moppBase
         }
     }
-    
+
     func setCustomFont() {
         titleLabel.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? nil : 19, .body)
         phoneLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
@@ -195,21 +196,11 @@ class MobileIDEditViewController : MoppViewController {
         rememberLabel.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 12 : nil, .body)
         idCodeTextField.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 14 : nil, .body)
         phoneTextField.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 14 : nil, .body)
-        
+
         signButton.sizeToFit()
-        
+
     }
-    
-    func setViewBorder(view: UIView) {
-        view.layer.borderColor = UIColor.moppError.cgColor
-        view.layer.borderWidth = 1.0
-    }
-    
-    func removeViewBorder(view: UIView) {
-        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.layer.borderWidth = 0.2
-    }
-    
+
     @objc func editingChanged(sender: UITextField) {
         verifySigningCapability()
         if sender.accessibilityIdentifier == "mobileIDCodeField" {
@@ -226,7 +217,7 @@ extension MobileIDEditViewController : UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if let text = textField.text as NSString? {
             let textAfterUpdate = text.replacingCharacters(in: range, with: string)
@@ -234,19 +225,19 @@ extension MobileIDEditViewController : UITextFieldDelegate {
         }
         return true
     }
-    
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.accessibilityIdentifier == "mobileIdPhoneNumberField" {
             if let text = textField.text as String? {
                 if !TokenFlowUtil.isCountryCodeValid(text: text) {
                     phoneNumberErrorLabel.text = L(.signingErrorIncorrectCountryCode)
                     phoneNumberErrorLabel.isHidden = false
-                    setViewBorder(view: textField)
+                    setViewBorder(view: textField, color: .moppError)
                     UIAccessibility.post(notification: .screenChanged, argument: self.phoneNumberErrorLabel)
                 } else if TokenFlowUtil.isPhoneNumberInvalid(text: text) {
                     phoneNumberErrorLabel.text = L(.signingErrorIncorrectPhoneNumber)
                     phoneNumberErrorLabel.isHidden = false
-                    setViewBorder(view: textField)
+                    setViewBorder(view: textField, color: .moppError)
                     UIAccessibility.post(notification: .screenChanged, argument: self.phoneNumberErrorLabel)
                 } else {
                     phoneNumberErrorLabel.text = ""
@@ -260,7 +251,7 @@ extension MobileIDEditViewController : UITextFieldDelegate {
                 if TokenFlowUtil.isPersonalCodeInvalid(text: text) {
                     personalCodeErrorLabel.text = L(.signingErrorIncorrectPersonalCode)
                     personalCodeErrorLabel.isHidden = false
-                    setViewBorder(view: textField)
+                    setViewBorder(view: textField, color: .moppError)
                     UIAccessibility.post(notification: .screenChanged, argument: self.personalCodeErrorLabel)
                 } else {
                     personalCodeErrorLabel.text = ""
