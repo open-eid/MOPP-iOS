@@ -376,3 +376,37 @@
 "ocsp-time-label" = "Время подтверждения подлинности подписи";
 "ocsp-time-utc-label" = "Время подтверждения подлинности подписи (UTC)";
 "signers-mobile-time-label" = "Время на мобильном телефоне подписывающего (UTC)";
+
+// *** Certificate details ***
+
+"subject-name" = "Субъект";
+"country-or-region" = "Страна";
+"organisation" = "Организация";
+"organisational-unit" = "Подразделение";
+"common-name" = "Общее имя";
+"surname" = "Фамилия";
+"given-name" = "Имена";
+"serial-number" = "Серийный номер";
+"email-address" = "Адрес электронной почты";
+"issuer-name" = "Выдавший";
+"other-name" = "Идентификатор организации";
+"version" = "Версия";
+"signature-algorithm" = "Алгоритм подписи";
+"parameters" = "Параметры";
+"not-valid-before" = "Действительно с";
+"not-valid-after" = "Действительно до";
+"public-key-info" = "Информация об открытом ключе";
+"algorithm" = "Алгоритм";
+"public-key" = "Открытый ключ";
+"key-usage" = "Использование ключа";
+"signature" = "Подпись";
+"extension" = "Расширение";
+"extensions" = "Расширения";
+"critical" = "Критический";
+"usage" = "Использование";
+"key-id" = "Идентификатор \tключа";
+"uri" = "URL";
+"method" = "Метод";
+"fingerprints" = "Отпечатки";
+"sha256" = "SHA-256";
+"sha1" = "SHA-1";

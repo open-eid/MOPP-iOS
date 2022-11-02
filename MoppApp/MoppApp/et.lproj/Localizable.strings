@@ -376,3 +376,37 @@
 "ocsp-time-label" = "Kehtivuskinnituse aeg";
 "ocsp-time-utc-label" = "Kehtivuskinnituse aeg (UTC)";
 "signers-mobile-time-label" = "Allkirjastaja telefoni kellaaeg (UTC)";
+
+// *** Certificate details ***
+
+"subject-name" = "Subjekt";
+"country-or-region" = "Riik";
+"organisation" = "Organisatsioon";
+"organisational-unit" = "Allüksus";
+"common-name" = "Üldnimi";
+"surname" = "Perekonnanimi";
+"given-name" = "Eesnimi";
+"serial-number" = "Seerianumber";
+"email-address" = "E-posti aadress";
+"issuer-name" = "Väljaandja";
+"other-name" = "Organisatsiooni identifikaator";
+"version" = "Versioon";
+"signature-algorithm" = "Allkirja algoritm";
+"parameters" = "Parameetrid";
+"not-valid-before" = "Kehtib alates";
+"not-valid-after" = "Kehtib kuni";
+"public-key-info" = "Avaliku võtme info";
+"algorithm" = "Algoritm";
+"public-key" = "Avalik võti";
+"key-usage" = "Võtme kasutusala";
+"signature" = "Allkiri";
+"extension" = "Laiendus";
+"extensions" = "Laiendused";
+"critical" = "Kriitiline";
+"usage" = "Kasutusala";
+"key-id" = "Võtme ID";
+"uri" = "URL";
+"method" = "Meetod";
+"fingerprints" = "Sõrmejäljed";
+"sha256" = "SHA-256";
+"sha1" = "SHA-1";
