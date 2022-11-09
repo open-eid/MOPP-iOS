@@ -261,6 +261,10 @@
 		<string>RobotoCondensed-LightItalic.ttf</string>
 		<string>RobotoCondensed-Regular.ttf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>external-accessory</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

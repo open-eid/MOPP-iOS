@@ -56,6 +56,10 @@ extension UIStoryboard {
         return UIStoryboard(name: "RecentContainers", bundle: Bundle.main)
     }
     
+    static var accessibility: UIStoryboard {
+        return UIStoryboard(name: "Accessibility", bundle: Bundle.main)
+    }
+    
     static var settings: UIStoryboard {
         return UIStoryboard(name: "Settings", bundle: Bundle.main)
     }

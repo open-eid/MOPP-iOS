@@ -56,6 +56,7 @@
 #include <sstream>
 #include <iostream>
 #import <CommonCrypto/CommonDigest.h>
+#import <ExternalAccessory/ExternalAccessory.h>
 
 class DigiDocConf: public digidoc::ConfCurrent {
 
@@ -242,7 +243,7 @@ static std::string profile = "time-stamp";
             [moppConfiguration.TSAURL cStringUsingEncoding:NSUTF8StringEncoding] :
             [tsUrl cStringUsingEncoding:NSUTF8StringEncoding];
             digidoc::Conf::init(new DigiDocConf(timestampUrl, moppConfiguration));
-            NSString *appInfo = [NSString stringWithFormat:@"%s/%@ (iOS %@)", "qdigidocclient", [self moppAppVersion], [self iOSVersion]];
+            NSString *appInfo = [self userAgent];
             std::string appInfoObjcString = std::string([appInfo UTF8String]);
             digidoc::initialize(appInfoObjcString, appInfoObjcString);
 
@@ -288,6 +289,31 @@ static std::string profile = "time-stamp";
     return x509Certs;
 }
 
++ (digidoc::X509Cert)getPemCert:(NSString *)certString {
+    digidoc::X509Cert x509Certs;
+    try {
+        std::vector<unsigned char> bytes = base64_decode(std::string([certString UTF8String]));
+        x509Certs = digidoc::X509Cert(bytes, digidoc::X509Cert::Format::Pem);
+    } catch (const digidoc::Exception &e) {
+        parseException(e);
+        x509Certs = digidoc::X509Cert();
+    }
+
+    return x509Certs;
+}
+
++ (digidoc::X509Cert)getCertFromBytes:(const unsigned char *)bytes certData:(NSData *)certData {
+    digidoc::X509Cert x509Cert;
+    
+    try {
+        x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Der);
+    } catch(...) {
+        x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Pem);
+    }
+    
+    return x509Cert;
+}
+
 + (NSArray *)certificatePolicyIdentifiers:(NSData *)certData {
     digidoc::X509Cert x509Cert;
 
@@ -296,9 +322,13 @@ static std::string profile = "time-stamp";
     const unsigned char *bytes = (const unsigned char *)[certData bytes];
     try {
         if ([certString length] != 0) {
-            [self getDerCert:certString];
+            digidoc::X509Cert derCert = [self getDerCert:certString];
+            x509Cert = (derCert != digidoc::X509Cert()) ? derCert : [self getPemCert:certString];
+            if (x509Cert == digidoc::X509Cert()) {
+                x509Cert = [self getCertFromBytes:bytes certData:certData];
+            }
         } else {
-            x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Der);
+            x509Cert = [self getCertFromBytes:bytes certData:certData];
         }
     } catch(...) {
         try {
@@ -757,7 +787,7 @@ void parseException(const digidoc::Exception &e) {
     // Check if key type in certificate supports ECC algorithm
     CFDataRef cfData = CFDataCreateWithBytesNoCopy(nil, (const UInt8 *)certBytes, cert.length, kCFAllocatorNull);
     SecCertificateRef certRef = SecCertificateCreateWithData(kCFAllocatorDefault, cfData);
-    SecKeyRef publicKey = SecCertificateCopyPublicKey(certRef);
+    SecKeyRef publicKey = SecCertificateCopyKey(certRef);
     CFStringRef descrRef = CFCopyDescription(publicKey);
     NSString *publicKeyInfo = (NSString *)CFBridgingRelease(descrRef);
     BOOL useECC = [publicKeyInfo containsString:@"ECPublicKey"];
@@ -912,6 +942,34 @@ void parseException(const digidoc::Exception &e) {
 
 - (NSString *)iOSVersion {
     return [[UIDevice currentDevice] systemVersion];
+}
+
+- (NSArray *)connectedDevices {
+    EAAccessoryManager* accessoryManager = [EAAccessoryManager sharedAccessoryManager];
+    NSMutableArray *devices = [NSMutableArray new];
+    if (accessoryManager) {
+        NSArray<EAAccessory *> *connectedAccessories = [accessoryManager connectedAccessories];
+        for (int i = 0; i < connectedAccessories.count; i++) {
+            EAAccessory *device = connectedAccessories[i];
+            NSString *manufacturer = device.manufacturer;
+            NSString *name = device.name;
+            NSString *modelNumber = device.modelNumber;
+            NSString *deviceName = [NSString stringWithFormat:@"%@ %@ (%@)", manufacturer, name, modelNumber];
+            [devices addObject:deviceName];
+        }
+        return [devices copy];
+    }
+    
+    return [devices copy];
+}
+
+- (NSString *)userAgent {
+    NSString *appInfo = [NSString stringWithFormat:@"%s/%@ (iOS %@)", "riadigidoc", [self moppAppVersion], [self iOSVersion]];
+    NSArray *connectedDevices = [self connectedDevices];
+    if (connectedDevices.count > 0) {
+        appInfo = [NSString stringWithFormat:@"%@ Devices: %@", appInfo, [connectedDevices componentsJoinedByString:@", "]];
+    }
+    return appInfo;
 }
 
 - (NSString *)pkcs12Cert {

@@ -31,5 +31,7 @@ extern NSString *const kMessagingModes;
 @interface PrivateConstants : NSObject
 
 + (NSDictionary *)getCentralConfigurationFromCache;
++ (void)setIDCardRestartedValue:(BOOL)isIDCardRestarted;
++ (BOOL)getIDCardRestartedValue;
 
 @end

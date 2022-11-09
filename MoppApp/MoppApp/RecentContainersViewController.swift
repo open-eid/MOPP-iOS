@@ -93,6 +93,7 @@ class RecentContainersViewController : MoppModalViewController {
                 return range != nil
             }
         }
+        filesFound = filterContainerFiles(containerFiles: filesFound)
         containerFiles = filesFound
         reloadContainerFilesSection()
     }
@@ -106,8 +107,24 @@ class RecentContainersViewController : MoppModalViewController {
     func closeSearch() {
         searchKeyword = String()
         requestCloseSearch()
-        containerFiles = MoppFileManager.shared.documentsFiles()
+        containerFiles = filterContainerFiles(containerFiles: MoppFileManager.shared.documentsFiles())
         tableView.reloadData()
+    }
+    
+    func filterContainerFiles(containerFiles: [String]?) -> [String] {
+        var filteredContainerFiles = [String]()
+        if let files = containerFiles, files.count > 0 {
+            filteredContainerFiles = files.filter { fileName in
+                let pathExtention = URL(string: fileName)?.pathExtension
+                if let pathExt = pathExtention {
+                    return pathExt.isAsicContainerExtension || pathExt.isCdocContainerExtension || pathExt.isPdfContainerExtension
+                }
+                
+                return false
+            }
+        }
+        
+        return filteredContainerFiles
     }
 }
 
@@ -258,7 +275,7 @@ extension RecentContainersViewController : UITableViewDelegate {
                 guard let strongSelf = self else { return }
                 let filename = strongSelf.containerFiles[indexPath.row]
                 MoppFileManager.shared.removeDocumentsFile(with: filename)
-                strongSelf.containerFiles = MoppFileManager.shared.documentsFiles()
+                strongSelf.containerFiles = strongSelf.filterContainerFiles(containerFiles: MoppFileManager.shared.documentsFiles())
                 UIAccessibility.post(notification: .screenChanged, argument: L(.recentDocumentRemoved))
                 tableView.reloadData()
             }
@@ -277,7 +294,7 @@ extension RecentContainersViewController: SigningTableViewHeaderViewDelegate {
 
     func signingTableViewHeaderViewDidEndSearch() {
         self.searchKeyword = String()
-        containerFiles = MoppFileManager.shared.documentsFiles()
+        containerFiles = filterContainerFiles(containerFiles: MoppFileManager.shared.documentsFiles())
         tableView.reloadData()
     }
 }

@@ -32,6 +32,10 @@ NSString *const MoppLibErrorDomain = @"MoppLibError";
   return [self error:moppLibErrorReaderNotFound withMessage:@"Reader is not commected to device."];
 }
 
++ (NSError *)readerProcessFailedError {
+  return [self error:moppLibErrorReaderProcessFailed withMessage:@"Reader process failed."];
+}
+
 + (NSError *)readerSelectionCanceledError {
   return [self error:moppLibErrorReaderSelectionCanceled withMessage:@"User canceled reader selection."];
 }

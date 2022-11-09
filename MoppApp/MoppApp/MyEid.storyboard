@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qFP-og-5IC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qFP-og-5IC">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -391,7 +391,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="717"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UF1-Qa-mvf">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="440"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="479.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cGO-C3-0Va">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -430,10 +430,10 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9B-De-cxW">
-                                                <rect key="frame" x="8" y="127" width="359" height="18"/>
-                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
-                                                <color key="textColor" name="MoppError"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current PIN1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dd-OJ-edb">
+                                                <rect key="frame" x="8" y="153" width="345" height="19"/>
+                                                <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
+                                                <color key="textColor" name="MoppText"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SHz-rd-6Iu" customClass="MyeIDChangeCodesTextField" customModule="MoppApp" customModuleProvider="target">
@@ -444,48 +444,42 @@
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
                                             </textField>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current PIN error" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9B-De-cxW">
+                                                <rect key="frame" x="8" y="231.5" width="359" height="16.5"/>
+                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
+                                                <color key="textColor" name="MoppError"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New PIN1 (at least 4 digits)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yyo-r1-QMO">
+                                                <rect key="frame" x="8" y="264" width="345" height="19"/>
+                                                <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
+                                                <color key="textColor" name="MoppText"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9qa-rd-DJj" customClass="MyeIDChangeCodesTextField" customModule="MoppApp" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="261" width="345" height="44"/>
+                                                <rect key="frame" x="8" y="291" width="345" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="QZh-Wd-VjA"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
                                             </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New PIN1 again" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2i4-Ht-LG3">
+                                                <rect key="frame" x="8" y="359" width="359" height="19"/>
+                                                <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
+                                                <color key="textColor" name="MoppText"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xxo-4z-lx2" customClass="MyeIDChangeCodesTextField" customModule="MoppApp" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="372" width="345" height="44"/>
+                                                <rect key="frame" x="8" y="386" width="345" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="Eqz-iB-C5h"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current PIN1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dd-OJ-edb">
-                                                <rect key="frame" x="8" y="153" width="345" height="19"/>
-                                                <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
-                                                <color key="textColor" name="MoppText"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New PIN1 (at least 4 digits)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yyo-r1-QMO">
-                                                <rect key="frame" x="8" y="234" width="345" height="19"/>
-                                                <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
-                                                <color key="textColor" name="MoppText"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8a-YI-eYb">
-                                                <rect key="frame" x="8" y="337" width="359" height="0.0"/>
-                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
-                                                <color key="textColor" name="MoppError"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New PIN1 again" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2i4-Ht-LG3">
-                                                <rect key="frame" x="8" y="345" width="359" height="19"/>
-                                                <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
-                                                <color key="textColor" name="MoppText"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ry1-t3-GdH">
-                                                <rect key="frame" x="8" y="226" width="359" height="0.0"/>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New PIN error" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ry1-t3-GdH">
+                                                <rect key="frame" x="8" y="438" width="359" height="16.5"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                                 <color key="textColor" name="MoppError"/>
                                                 <nil key="highlightedColor"/>
@@ -493,12 +487,15 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="c9B-De-cxW" firstAttribute="leading" secondItem="UF1-Qa-mvf" secondAttribute="leading" constant="8" id="0S0-MS-1xd"/>
                                             <constraint firstItem="p6a-NN-ltc" firstAttribute="leading" secondItem="UF1-Qa-mvf" secondAttribute="leading" constant="8" id="1nb-nP-kBs"/>
                                             <constraint firstItem="2i4-Ht-LG3" firstAttribute="leading" secondItem="UF1-Qa-mvf" secondAttribute="leading" constant="8" id="5iD-Jc-Fhd"/>
                                             <constraint firstItem="4dd-OJ-edb" firstAttribute="leading" secondItem="UF1-Qa-mvf" secondAttribute="leading" constant="8" id="6OU-XY-OB9"/>
                                             <constraint firstAttribute="trailing" secondItem="9qa-rd-DJj" secondAttribute="trailing" constant="22" id="8C9-OK-hcb"/>
-                                            <constraint firstItem="c8a-YI-eYb" firstAttribute="leading" secondItem="UF1-Qa-mvf" secondAttribute="leading" constant="8" id="ASa-i7-v88"/>
+                                            <constraint firstItem="Ry1-t3-GdH" firstAttribute="top" secondItem="Xxo-4z-lx2" secondAttribute="bottom" constant="8" symbolic="YES" id="AJo-OO-5wo"/>
                                             <constraint firstItem="nkG-0H-vOS" firstAttribute="top" secondItem="p6a-NN-ltc" secondAttribute="bottom" constant="3" id="BW7-kt-0gn"/>
+                                            <constraint firstItem="2i4-Ht-LG3" firstAttribute="top" secondItem="9qa-rd-DJj" secondAttribute="bottom" constant="24" id="DEN-NL-tnW"/>
+                                            <constraint firstItem="c9B-De-cxW" firstAttribute="top" secondItem="SHz-rd-6Iu" secondAttribute="bottom" constant="7.5" id="Dn3-cx-PPz"/>
                                             <constraint firstItem="cbt-WH-Oxq" firstAttribute="leading" secondItem="UF1-Qa-mvf" secondAttribute="leading" constant="8" id="FjQ-aY-sqm"/>
                                             <constraint firstAttribute="trailing" secondItem="SHz-rd-6Iu" secondAttribute="trailing" constant="22" id="Gdd-9J-qdq"/>
                                             <constraint firstItem="nkG-0H-vOS" firstAttribute="leading" secondItem="UF1-Qa-mvf" secondAttribute="leading" constant="8" id="HV3-yc-emH"/>
@@ -507,39 +504,32 @@
                                             <constraint firstItem="4dd-OJ-edb" firstAttribute="top" secondItem="nkG-0H-vOS" secondAttribute="bottom" constant="33.5" id="JKW-A9-mwH"/>
                                             <constraint firstItem="Xxo-4z-lx2" firstAttribute="leading" secondItem="UF1-Qa-mvf" secondAttribute="leading" constant="8" id="Mdz-Z6-ITS"/>
                                             <constraint firstAttribute="trailing" secondItem="4dd-OJ-edb" secondAttribute="trailing" constant="22" id="MnM-pB-gAb"/>
+                                            <constraint firstItem="Yyo-r1-QMO" firstAttribute="top" secondItem="c9B-De-cxW" secondAttribute="bottom" constant="16" id="N0N-8g-z68"/>
                                             <constraint firstItem="cGO-C3-0Va" firstAttribute="leading" secondItem="UF1-Qa-mvf" secondAttribute="leading" id="NuD-2m-v0J"/>
-                                            <constraint firstAttribute="trailing" secondItem="c8a-YI-eYb" secondAttribute="trailing" constant="8" id="QQ4-vW-9Cp"/>
                                             <constraint firstItem="p6a-NN-ltc" firstAttribute="top" secondItem="cbt-WH-Oxq" secondAttribute="bottom" constant="3" id="QSG-PE-p14"/>
                                             <constraint firstItem="cbt-WH-Oxq" firstAttribute="top" secondItem="cGO-C3-0Va" secondAttribute="bottom" constant="8" symbolic="YES" id="Srs-X0-xU2"/>
                                             <constraint firstAttribute="trailing" secondItem="Yyo-r1-QMO" secondAttribute="trailing" constant="22" id="UaO-EI-C26"/>
-                                            <constraint firstAttribute="trailing" secondItem="c9B-De-cxW" secondAttribute="trailing" constant="8" id="Ufo-rb-wgX"/>
-                                            <constraint firstAttribute="trailing" secondItem="Ry1-t3-GdH" secondAttribute="trailing" constant="8" id="X4O-7X-mc8"/>
                                             <constraint firstItem="Yyo-r1-QMO" firstAttribute="leading" secondItem="UF1-Qa-mvf" secondAttribute="leading" constant="8" id="ZN0-Dg-rCY"/>
-                                            <constraint firstItem="c9B-De-cxW" firstAttribute="top" secondItem="nkG-0H-vOS" secondAttribute="bottom" constant="7.5" id="cGN-dq-qEf"/>
-                                            <constraint firstItem="2i4-Ht-LG3" firstAttribute="top" secondItem="c8a-YI-eYb" secondAttribute="bottom" constant="8" symbolic="YES" id="dH2-YE-H8N"/>
                                             <constraint firstItem="SHz-rd-6Iu" firstAttribute="leading" secondItem="UF1-Qa-mvf" secondAttribute="leading" constant="8" id="dJW-iN-QkF"/>
                                             <constraint firstAttribute="trailing" secondItem="p6a-NN-ltc" secondAttribute="trailing" constant="8" id="dmG-36-FGT"/>
-                                            <constraint firstItem="Ry1-t3-GdH" firstAttribute="top" secondItem="SHz-rd-6Iu" secondAttribute="bottom" constant="2" id="f3o-sW-iki"/>
+                                            <constraint firstAttribute="trailing" secondItem="Ry1-t3-GdH" secondAttribute="trailing" constant="8" id="eF4-gU-K5A"/>
+                                            <constraint firstAttribute="bottom" secondItem="Ry1-t3-GdH" secondAttribute="bottom" constant="25" id="esp-4l-8OR"/>
                                             <constraint firstItem="SHz-rd-6Iu" firstAttribute="top" secondItem="4dd-OJ-edb" secondAttribute="bottom" constant="8" id="fXo-pS-K1y"/>
                                             <constraint firstItem="9qa-rd-DJj" firstAttribute="leading" secondItem="UF1-Qa-mvf" secondAttribute="leading" constant="8" id="fac-lX-kMH"/>
+                                            <constraint firstAttribute="trailing" secondItem="c9B-De-cxW" secondAttribute="trailing" constant="8" id="feu-a8-ebf"/>
                                             <constraint firstItem="Xxo-4z-lx2" firstAttribute="top" secondItem="2i4-Ht-LG3" secondAttribute="bottom" constant="8" id="g9W-Un-CAD"/>
-                                            <constraint firstItem="Ry1-t3-GdH" firstAttribute="leading" secondItem="UF1-Qa-mvf" secondAttribute="leading" constant="8" id="h3o-mw-G05"/>
                                             <constraint firstAttribute="trailing" secondItem="2i4-Ht-LG3" secondAttribute="trailing" constant="8" id="hjc-gr-nKJ"/>
-                                            <constraint firstItem="Yyo-r1-QMO" firstAttribute="top" secondItem="Ry1-t3-GdH" secondAttribute="bottom" constant="8" symbolic="YES" id="i25-9m-eDE"/>
-                                            <constraint firstItem="4dd-OJ-edb" firstAttribute="top" secondItem="c9B-De-cxW" secondAttribute="bottom" constant="8" symbolic="YES" id="jAw-yj-qcJ"/>
                                             <constraint firstAttribute="trailing" secondItem="Xxo-4z-lx2" secondAttribute="trailing" constant="22" id="kGH-tT-Tyb"/>
                                             <constraint firstAttribute="trailing" secondItem="cGO-C3-0Va" secondAttribute="trailing" id="lQq-IR-Ood"/>
-                                            <constraint firstItem="c8a-YI-eYb" firstAttribute="top" secondItem="9qa-rd-DJj" secondAttribute="bottom" constant="32" id="mgC-Gv-fu6"/>
                                             <constraint firstItem="9qa-rd-DJj" firstAttribute="top" secondItem="Yyo-r1-QMO" secondAttribute="bottom" constant="8" id="pz1-Xa-lRL"/>
-                                            <constraint firstAttribute="bottom" secondItem="Xxo-4z-lx2" secondAttribute="bottom" constant="24" id="tEf-Ot-Ckv"/>
                                             <constraint firstItem="cGO-C3-0Va" firstAttribute="top" secondItem="UF1-Qa-mvf" secondAttribute="top" id="wGd-uJ-aLh"/>
-                                            <constraint firstItem="c9B-De-cxW" firstAttribute="leading" secondItem="UF1-Qa-mvf" secondAttribute="leading" constant="8" id="z9a-FF-4yc"/>
+                                            <constraint firstItem="Ry1-t3-GdH" firstAttribute="leading" secondItem="UF1-Qa-mvf" secondAttribute="leading" constant="8" id="xM0-AC-NVW"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="UF1-Qa-mvf" secondAttribute="trailing" id="04p-GA-fpE"/>
-                                    <constraint firstAttribute="bottom" secondItem="UF1-Qa-mvf" secondAttribute="bottom" id="2Wx-zN-glf"/>
+                                    <constraint firstAttribute="bottom" secondItem="UF1-Qa-mvf" secondAttribute="bottom" constant="210" id="2Wx-zN-glf"/>
                                     <constraint firstItem="UF1-Qa-mvf" firstAttribute="leading" secondItem="UZI-z6-jr7" secondAttribute="leading" id="3Qd-Rb-0hJ"/>
                                     <constraint firstItem="UF1-Qa-mvf" firstAttribute="top" secondItem="UZI-z6-jr7" secondAttribute="top" id="K1S-gn-icX"/>
                                 </constraints>
@@ -578,7 +568,7 @@
                         <constraints>
                             <constraint firstItem="AQm-Vo-Ytv" firstAttribute="bottom" secondItem="umS-fn-kJh" secondAttribute="bottom" id="89y-z7-D3p"/>
                             <constraint firstItem="AQm-Vo-Ytv" firstAttribute="trailing" secondItem="umS-fn-kJh" secondAttribute="trailing" id="CFp-vy-6PY"/>
-                            <constraint firstItem="UF1-Qa-mvf" firstAttribute="height" secondItem="NIq-mo-ggz" secondAttribute="height" priority="250" constant="-50" id="FFz-cA-Ckc"/>
+                            <constraint firstItem="UF1-Qa-mvf" firstAttribute="height" secondItem="NIq-mo-ggz" secondAttribute="height" priority="250" constant="-260" id="FFz-cA-Ckc"/>
                             <constraint firstItem="UZI-z6-jr7" firstAttribute="top" secondItem="umS-fn-kJh" secondAttribute="top" id="IQY-zp-oay"/>
                             <constraint firstItem="4L7-U7-0AX" firstAttribute="leading" secondItem="umS-fn-kJh" secondAttribute="leading" id="PEz-Jr-wbI"/>
                             <constraint firstItem="4L7-U7-0AX" firstAttribute="bottom" secondItem="umS-fn-kJh" secondAttribute="bottom" id="STy-eQ-03Q"/>
@@ -616,7 +606,6 @@
                         <outlet property="thirdCodeTextField" destination="Xxo-4z-lx2" id="jtX-TB-W2o"/>
                         <outlet property="thirdCodeTextFieldLabel" destination="2i4-Ht-LG3" id="aA7-ct-mW4"/>
                         <outlet property="thirdInfoLabel" destination="nkG-0H-vOS" id="3OH-Ih-vNw"/>
-                        <outlet property="thirdInlineErrorLabel" destination="c8a-YI-eYb" id="fSf-w9-AlG"/>
                     </connections>
                 </customObject>
             </objects>

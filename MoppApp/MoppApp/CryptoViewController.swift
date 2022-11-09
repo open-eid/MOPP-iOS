@@ -46,7 +46,7 @@ class CryptoViewController : MoppViewController {
         
         if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
             titleLabel.font = UIFont.setCustomFont(font: .medium, isNonDefaultPreferredContentSizeCategoryBigger() ? 20 : nil, .headline)
-            importButton.titleLabel?.font = UIFont.setCustomFont(font: .medium, isNonDefaultPreferredContentSizeCategoryBigger() ? 12 : nil, .body)
+            importButton.titleLabel?.font = UIFont.setCustomFont(font: .medium, isNonDefaultPreferredContentSizeCategoryBigger() ? 15 : 14, .body)
         }
         
         titleLabel.isAccessibilityElement = false

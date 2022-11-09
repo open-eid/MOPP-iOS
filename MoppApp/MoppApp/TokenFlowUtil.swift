@@ -1,7 +1,6 @@
 //
-//  ContainerNoAddressees.swift
+//  TokenFlowUtil.swift
 //  MoppApp
-//
 /*
  * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
@@ -23,14 +22,28 @@
 
 import Foundation
 
-class ContainerNoAddresseesCell: UITableViewCell {
-    @IBOutlet weak var label: UILabel!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        label.text = L(LocKey.containerMissingAddressees)
-        if isBoldTextEnabled() { label.font = UIFont.boldSystemFont(ofSize: label.font.pointSize) }
-        if isNonDefaultPreferredContentSizeCategory() {
-            label.font = isNonDefaultPreferredContentSizeCategoryBigger() ? UIFont.setCustomFont(font: .medium, nil, .body) : UIFont.setCustomFont(font: .medium, 14, .body)
+class TokenFlowUtil {
+
+    static let countryCodes = ["372", "370"]
+
+    static func isPhoneNumberInvalid(text: String) -> Bool {
+        let numberNoCountryCode = text.dropFirst(3)
+        return numberNoCountryCode.count < 7
+    }
+
+    static func isCountryCodeValid(text: String) -> Bool {
+        let countryCodeExists = countryCodes.filter({ text.starts(with: $0) }).first
+        return countryCodeExists != nil
+    }
+
+    static func isPersonalCodeInvalid(text: String) -> Bool {
+        return text.count < 11
+    }
+
+    static func isPinCodeValid(text: String, pinType: IdCardCodeName) -> Bool {
+        if pinType.rawValue == "PIN1" {
+            return text.count >= IdCardCodeLengthLimits.pin1Minimum.rawValue
         }
+        return text.count >= IdCardCodeLengthLimits.pin2Minimum.rawValue
     }
 }

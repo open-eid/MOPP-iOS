@@ -72,7 +72,8 @@ typedef NS_ENUM(NSUInteger, MoppLibErrorCode) {
   moppLibErrorLdapResponseNotFound = 10022, // Ldap response not found
   moppLibErrorDuplicatedFilename = 10023, // Filename already exists
   moppLibErrorTooManyRequests = 10024, // Too many requests
-  moppLibErrorOCSPTimeSlot = 10025 // Invalid OCSP time slot
+  moppLibErrorOCSPTimeSlot = 10025, // Invalid OCSP time slot
+  moppLibErrorReaderProcessFailed = 10026 // Reader process failed
 
 };
 

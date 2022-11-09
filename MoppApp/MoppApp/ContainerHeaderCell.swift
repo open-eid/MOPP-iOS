@@ -52,7 +52,7 @@ class ContainerHeaderCell: UITableViewCell {
         titleLabel.text = L(.containerHeaderTitle)
         titleLabel.font = isBoldTextEnabled() ? UIFont.moppMediumBold : UIFont.moppMediumRegular
         if isNonDefaultPreferredContentSizeCategory() {
-            titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+            titleLabel.font = isNonDefaultPreferredContentSizeCategoryBigger() ? UIFont.setCustomFont(font: .regular, nil, .body) : UIFont.setCustomFont(font: .regular, 14, .body)
         }
     }
     
@@ -60,7 +60,7 @@ class ContainerHeaderCell: UITableViewCell {
         filenameLabel.text = MoppLibManager.sanitize(name)
         filenameLabel.font = isBoldTextEnabled() ? UIFont.moppMediumBold : UIFont.moppMediumRegular
         if isNonDefaultPreferredContentSizeCategory() {
-            filenameLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+            filenameLabel.font = isNonDefaultPreferredContentSizeCategoryBigger() ? UIFont.setCustomFont(font: .regular, nil, .body) : UIFont.setCustomFont(font: .regular, 14, .body)
         }
         editContainerNameButton.isHidden = isEditButtonEnabled
         editContainerNameButton.accessibilityLabel = L(.containerEditNameButton)

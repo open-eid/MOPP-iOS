@@ -378,10 +378,10 @@ extension ContainerViewController : UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (indexPath.section == 1 || indexPath.section == 2) {
-            if isNonDefaultPreferredContentSizeCategoryMedium() {
-                return 100
-            } else if isNonDefaultPreferredContentSizeCategoryBigger() {
-                return 200
+            if isNonDefaultPreferredContentSizeCategoryBigger() {
+                return ContainerHeaderCell.height * 1.5
+            } else {
+                return ContainerHeaderCell.height
             }
         }
         return UITableView.automaticDimension
@@ -443,13 +443,22 @@ extension ContainerViewController : UITableViewDataSource {
             let isStatePreviewOrOpened = state == .opened || state == .preview
             let isEncryptedDataFiles = !isAsicContainer && isStatePreviewOrOpened && !isDecrypted
 
-            guard let dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) else {
+            var dataFile = ""
+            var tapGesture: UITapGestureRecognizer
+
+            if isAsicsContainer() && !asicsDataFiles.isEmpty && asicsDataFiles.count >= indexPath.row {
+                dataFile = asicsDataFiles[indexPath.row].fileName ?? ""
+                tapGesture = getPreviewTapGesture(dataFile: dataFile, containerPath: asicsNestedContainerPath, isShareButtonNeeded: isDecrypted)
+            } else {
+                dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) ?? ""
+                tapGesture = getPreviewTapGesture(dataFile: dataFile, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
+            }
+
+            if dataFile.isEmpty {
                 printLog("Data file not found")
                 self.errorAlert(message: L(.datafilePreviewFailed))
                 return cell
             }
-
-            let tapGesture = getPreviewTapGesture(dataFile: dataFile, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
 
             if !isEncryptedDataFiles {
                 cell.openPreviewView.addGestureRecognizer(tapGesture)
@@ -574,7 +583,7 @@ extension ContainerViewController : UITableViewDataSource {
             }
 
         } failure: { error in
-            NSLog("Unable to get file from container \(error?.localizedDescription ?? "Unable to get error description")")
+            printLog("Unable to get file from container \(error?.localizedDescription ?? "Unable to get error description")")
             let nserror = error as NSError?
             if nserror != nil && nserror?.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
                 let pathExtension = URL(string: containerFilePath)?.pathExtension
@@ -803,7 +812,7 @@ extension ContainerViewController : UITableViewDelegate {
 
             header.delegate = self
             header.populate(
-                withTitle: title,
+                withTitle: title ?? "",
                 showAddButton:
                     section == .dataFiles   &&
                     !isCreated              &&

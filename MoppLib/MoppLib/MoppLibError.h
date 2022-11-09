@@ -28,6 +28,7 @@ extern NSString *const MoppLibErrorDomain;
 @interface MoppLibError : NSObject
 
 + (NSError *)readerNotFoundError;
++ (NSError *)readerProcessFailedError;
 + (NSError *)readerSelectionCanceledError;
 + (NSError *)cardNotFoundError;
 + (NSError *)ldapResponseNotFoundError;

@@ -20,6 +20,12 @@
  *
  */
 
+#if DEBUG
+#define printLog(...) NSLog(__VA_ARGS__)
+#else
+#define printLog(...)
+#endif
+
 #import "DdocParserDelegate.h"
 @interface DdocParserDelegate ()  <NSXMLParserDelegate>
 @end
@@ -29,11 +35,11 @@
 }
 
 - (void) parserDidStartDocument:(NSXMLParser *)parser {
-    NSLog(@"parserDidStartDocument");
+    printLog(@"parserDidStartDocument");
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
-    NSLog(@"didStartElement --> %@", elementName);
+    printLog(@"didStartElement --> %@", elementName);
     
     if ([elementName isEqualToString:@"DataFile"]) {
         if (_dictionary == nil){
@@ -42,7 +48,7 @@
         NSString *attribute = attributeDict[@"Filename"];
         [_dictionary setObject:@"" forKey:attribute];
         _lastKey = attribute;
-        NSLog(@"didStartElement --> %@", attributeDict[@"Filename"]);
+        printLog(@"didStartElement --> %@", attributeDict[@"Filename"]);
     }
 }
 
@@ -56,7 +62,7 @@
         }
         _currentElement = [NSString stringWithFormat:@"%@%@", _currentElement, string];
     }
-    NSLog(@"foundCharacters --> %@", string);
+    printLog(@"foundCharacters --> %@", string);
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
@@ -64,10 +70,10 @@
         [_dictionary setValue:_currentElement forKey:_lastKey];
         _currentElement = @"";
     }
-    NSLog(@"didEndElement   --> %@", elementName);
+    printLog(@"didEndElement   --> %@", elementName);
 }
 
 - (void) parserDidEndDocument:(NSXMLParser *)parser {
-    NSLog(@"parserDidEndDocument");
+    printLog(@"parserDidEndDocument");
 }
 @end

@@ -105,6 +105,7 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
                         errorMessage = L(.myEidWrongCodeMessage, [actionType.codeDisplayNameForWrongOrBlocked])
                         showErrorInline = true
                     }
+                    ui.setViewBorder(view: ui.firstCodeTextField)
                 }
                 else if errorCode == MoppLibErrorCode.moppLibErrorPinBlocked.rawValue {
                     strongSelf.infoManager.retryCounts.setRetryCount(for: actionType, with: 0)
@@ -165,17 +166,15 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
             if invalidCodesError.textFieldIndex == 0 {
                 ui.firstInlineErrorLabel.isHidden = false
                 ui.firstInlineErrorLabel.text = invalidCodesError.message
+                ui.setViewBorder(view: ui.firstCodeTextField)
                 UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: ui.firstInlineErrorLabel)
             }
-            else if invalidCodesError.textFieldIndex == 1 {
+            else if invalidCodesError.textFieldIndex == 1 || invalidCodesError.textFieldIndex == 2 {
                 ui.secondInlineErrorLabel.isHidden = false
                 ui.secondInlineErrorLabel.text = invalidCodesError.message
+                ui.setViewBorder(view: ui.secondCodeTextField)
+                ui.setViewBorder(view: ui.thirdCodeTextField)
                 UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: ui.secondInlineErrorLabel)
-            }
-            else if invalidCodesError.textFieldIndex == 2 {
-                ui.thirdInlineErrorLabel.isHidden = false
-                ui.thirdInlineErrorLabel.text = invalidCodesError.message
-                UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: ui.thirdInlineErrorLabel)
             }
             return
         }

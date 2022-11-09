@@ -213,9 +213,15 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
 
         let urlSessionConfiguration: URLSessionConfiguration = URLSessionConfiguration.default
         urlSessionConfiguration.timeoutIntervalForResource = 5.0
+        urlSessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         let urlSession = URLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
+        
+        let userAgent = MoppLibManager.sharedInstance().userAgent()
+        
+        var request = URLRequest(url: url)
+        request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
 
-        let task = urlSession.dataTask(with: url, completionHandler: { data, response, error in
+        let task = urlSession.dataTask(with: request, completionHandler: { data, response, error in
 
             guard let data = data else { return }
 

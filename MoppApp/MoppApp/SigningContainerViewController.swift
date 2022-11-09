@@ -313,7 +313,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
         }
         
         if !isSuccessful && announcementValue == L(.containerDetailsSigningSuccess) {
-            NSLog("Signature added announcement was not successful, retrying...")
+            printLog("Signature added announcement was not successful, retrying...")
             UIAccessibility.post(notification: .announcement, argument: announcementValue)
         } else if isSuccessful && announcementValue == L(.containerDetailsSigningSuccess) {
             NotificationCenter.default.removeObserver(self, name: UIAccessibility.announcementDidFinishNotification, object: nil)

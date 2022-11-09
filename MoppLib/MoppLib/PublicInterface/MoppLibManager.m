@@ -71,6 +71,14 @@
     return [[MoppLibDigidocManager sharedInstance] iOSVersion];
 }
 
+- (NSArray *)connectedDevices {
+    return [[MoppLibDigidocManager sharedInstance] connectedDevices];
+}
+
+- (NSString *)userAgent {
+    return [[MoppLibDigidocManager sharedInstance] userAgent];
+}
+
 + (EIDType)eidTypeFromCertificate:(NSData*)certData {
     NSArray<NSString*> *policyIdentifiers = [MoppLibDigidocManager certificatePolicyIdentifiers:certData];
     if ([policyIdentifiers count] == 0) {

@@ -57,6 +57,8 @@ typedef enum {
 - (NSString *)digidocVersion;
 - (NSString *)moppAppVersion;
 - (NSString *)iOSVersion;
+- (NSArray *)connectedDevices;
+- (NSString *)userAgent;
 - (NSString *)pkcs12Cert;
 + (NSArray *)certificatePolicyIdentifiers:(NSData *)certData;
 + (NSString *)removeBeginAndEndFromCertificate:(NSString *)certString;

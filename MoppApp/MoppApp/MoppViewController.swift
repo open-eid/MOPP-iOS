@@ -86,8 +86,10 @@ class MoppViewController : UIViewController {
         let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
         if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
         if isNonDefaultPreferredContentSizeCategoryBigger() {
-            titleLabel.font = UIFont.setCustomFont(font: .medium, 14, .body)
+            titleLabel.font = UIFont.setCustomFont(font: .medium, 22, .body)
             titleLabel.numberOfLines = 3
+        } else if !isNonDefaultPreferredContentSizeCategory() {
+            titleLabel.font = UIFont.setCustomFont(font: .medium, 20, .body)
         }
         titleLabel.text = title
         titleLabel.textColor = UIColor.black
@@ -114,5 +116,14 @@ class MoppViewController : UIViewController {
         LandingViewController.shared.shareFile(using: URL(fileURLWithPath: sender.filePath!), sender: self.view, completion: { bool in })
     }
     
+    func setViewBorder(view: UIView, color: UIColor) {
+        view.layer.borderColor = color.cgColor
+        view.layer.borderWidth = 1.0
+    }
+    
+    func removeViewBorder(view: UIView) {
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 0.2
+    }
     
 }

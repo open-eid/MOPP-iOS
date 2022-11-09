@@ -1,6 +1,6 @@
 //
-//  CardReaderiR301.h
-//  MoppLib
+//  AccessibilityViewTextType.swift
+//  MoppApp
 //
 /*
  * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
@@ -20,18 +20,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-#import <Foundation/Foundation.h>
-#import "CardReaderWrapper.h"
-#import "MoppLibConstants.h"
-#import "ReaderInterface.h"
-#import "winscard.h"
 
-@interface CardReaderiR301 : NSObject <CardReaderWrapper>
+import Foundation
 
-@property (nonatomic, strong) id<CardReaderWrapperDelegate> delegate;
--(id)initWithInterface:(ReaderInterface*)interface andContextHandle:(SCARDHANDLE)contextHandle;
--(void)setupWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
--(void)updateContextHandle:(SCARDCONTEXT) contextHandle;
--(NSString *)getReaderList;
--(void)powerOnIdCard:(DataSuccessBlock)success failure:(FailureBlock)failure;
-@end
+enum AccessibilityViewTextType {
+    case header
+    case paragraph
+    case boldText
+}

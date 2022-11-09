@@ -1,6 +1,6 @@
 //
-//  CardReaderiR301.h
-//  MoppLib
+//  MoppApp+Additions.swift
+//  MoppApp
 //
 /*
  * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
@@ -20,18 +20,29 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-#import <Foundation/Foundation.h>
-#import "CardReaderWrapper.h"
-#import "MoppLibConstants.h"
-#import "ReaderInterface.h"
-#import "winscard.h"
 
-@interface CardReaderiR301 : NSObject <CardReaderWrapper>
+import Foundation
+import ExternalAccessory
 
-@property (nonatomic, strong) id<CardReaderWrapperDelegate> delegate;
--(id)initWithInterface:(ReaderInterface*)interface andContextHandle:(SCARDHANDLE)contextHandle;
--(void)setupWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
--(void)updateContextHandle:(SCARDCONTEXT) contextHandle;
--(NSString *)getReaderList;
--(void)powerOnIdCard:(DataSuccessBlock)success failure:(FailureBlock)failure;
-@end
+extension MoppApp {
+    
+    func registerAccessoriesObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleConnectedAccessory),
+            name: NSNotification.Name.EAAccessoryDidConnect,
+            object: nil)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleDisconnectedAccessory),
+            name: NSNotification.Name.EAAccessoryDidDisconnect,
+            object: nil)
+
+        EAAccessoryManager.shared().registerForLocalNotifications()
+    }
+    
+    @objc func handleConnectedAccessory(accessory: EAAccessory) {}
+    
+    @objc func handleDisconnectedAccessory(accessory: EAAccessory) {}
+}

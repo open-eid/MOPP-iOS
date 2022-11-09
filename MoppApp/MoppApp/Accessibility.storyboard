@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Bold.ttf">
+            <string>Roboto-Bold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Accessibility View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="AccessibilityViewController" id="Y6W-OH-hqX" customClass="AccessibilityViewController" customModule="MoppApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n97-rK-R9x">
+                                <rect key="frame" x="0.0" y="117" width="414" height="780"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wyB-vq-rWY" userLabel="Content View">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="745"/>
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jMg-Qh-WOG">
+                                                <rect key="frame" x="8" y="10" width="398" height="693"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <string key="text">RIA DigiDoc is designed to comply with the WCAG 2.1 AA accessibility guidelines. This means that the RIA DigiDoc application has been developed using the principles that the application should be usable by the blind and people with visual, mobility, and strength impairments.
+Accessibility can be improved by using built-in assistive tools on your smart device. You can find an overview of the main assistive tools below.
+Screen reader
+A screen reader is a program that converts the information on the screen of a smart device into a user-friendly output, for instance, into speech. In particular, it is a tool for the visually impaired.
+RIA DigiDoc has been built based on the principle that all types of visual content can be converted into user-friendly output. For example, the images are accompanied by textual descriptions. Furthermore, the arrangement and order of the structural elements consider the screen reader’s movement on the screen and allow the information to be consumed in a logical sequence.
+The most common smart device screen readers:
+VoiceOver (iOS, built in) https://support.apple.com/et-ee/guide/iphone/iph3e2e415f/ios
+Talkback (Android, built in) https://support.google.com/accessibility/android/answer/6007100
+
+Screen magnification and colour change
+If you have enough vision to read the text, you can use the built-in assistive tools to view the screen more comfortably. Assistive tools make it possible to change the size of text, the main font, and the colours of the user interface and enlarge the screen by using the screen magnifier.
+Tools to adjust screen colour and text size:
+iOS https://support.apple.com/et-ee/guide/iphone/iph3e2e1fb0/ios
+Android https://support.google.com/accessibility/android/answer/11183305?hl=en&amp;ref_topic=9079043
+
+Screen magnification tools:
+Zoom (iOS, built in) https://support.apple.com/et-ee/guide/iphone/iph3e2e367e/ios
+Magnification (Android, built in) https://support.google.com/accessibility/android/answer/6006949
+
+</string>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="jMg-Qh-WOG" firstAttribute="height" secondItem="wyB-vq-rWY" secondAttribute="height" multiplier="1.38449" priority="250" constant="-338.44505000000004" id="IG2-oI-BZG"/>
+                                            <constraint firstItem="jMg-Qh-WOG" firstAttribute="top" secondItem="wyB-vq-rWY" secondAttribute="top" constant="10" id="Nup-Pi-5R9"/>
+                                            <constraint firstAttribute="bottom" secondItem="jMg-Qh-WOG" secondAttribute="bottom" constant="42" id="SSb-j2-2dW"/>
+                                            <constraint firstItem="jMg-Qh-WOG" firstAttribute="leading" secondItem="wyB-vq-rWY" secondAttribute="leading" constant="8" id="k2W-9L-C4q"/>
+                                            <constraint firstAttribute="trailing" secondItem="jMg-Qh-WOG" secondAttribute="trailing" constant="8" id="pD4-rJ-kr0"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="wyB-vq-rWY" firstAttribute="width" secondItem="n97-rK-R9x" secondAttribute="width" id="3Tw-NK-574"/>
+                                    <constraint firstItem="wyB-vq-rWY" firstAttribute="top" secondItem="n97-rK-R9x" secondAttribute="top" id="Jm6-Km-9HJ"/>
+                                    <constraint firstItem="wyB-vq-rWY" firstAttribute="leading" secondItem="n97-rK-R9x" secondAttribute="leading" id="dKF-P0-LgV"/>
+                                    <constraint firstAttribute="bottom" secondItem="wyB-vq-rWY" secondAttribute="bottom" constant="35" id="mQG-Eg-FHo"/>
+                                    <constraint firstItem="wyB-vq-rWY" firstAttribute="height" secondItem="n97-rK-R9x" secondAttribute="height" priority="250" constant="-35" id="v1b-Ng-9UN"/>
+                                    <constraint firstAttribute="trailing" secondItem="wyB-vq-rWY" secondAttribute="trailing" id="xwh-sm-T1r"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="vX7-gT-dQI"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="UPd-Wk-ykd"/>
+                            </scrollView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Accessibility" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBp-20-pae">
+                                <rect key="frame" x="78" y="68" width="260" height="34"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" staticText="YES" header="YES"/>
+                                </accessibility>
+                                <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="21"/>
+                                <color key="textColor" name="MoppTitle"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ivr-aG-jmF">
+                                <rect key="frame" x="346" y="61" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="G8b-31-NYm"/>
+                                    <constraint firstAttribute="height" constant="48" id="e8X-vO-XOv"/>
+                                </constraints>
+                                <color key="tintColor" name="MoppTitle"/>
+                                <state key="normal" image="DismissPopup"/>
+                                <connections>
+                                    <action selector="dismissAction:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="pdT-62-t9q"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="bBp-20-pae" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="1yY-zb-dKK"/>
+                            <constraint firstItem="n97-rK-R9x" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="2zk-Ud-fAc"/>
+                            <constraint firstItem="ivr-aG-jmF" firstAttribute="leading" secondItem="bBp-20-pae" secondAttribute="trailing" constant="8" id="AXv-gc-b4s"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="ivr-aG-jmF" secondAttribute="trailing" constant="20" id="FT1-iW-Nzb"/>
+                            <constraint firstItem="n97-rK-R9x" firstAttribute="top" secondItem="ivr-aG-jmF" secondAttribute="bottom" constant="8" id="HHk-us-eAU"/>
+                            <constraint firstItem="n97-rK-R9x" firstAttribute="top" secondItem="bBp-20-pae" secondAttribute="bottom" constant="15" id="TxK-GL-zdB"/>
+                            <constraint firstItem="ivr-aG-jmF" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="13" id="aat-YV-Pfg"/>
+                            <constraint firstItem="bBp-20-pae" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="78" id="dRw-Ah-fkH"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="n97-rK-R9x" secondAttribute="trailing" id="hIc-s9-JiM"/>
+                            <constraint firstItem="n97-rK-R9x" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" constant="35" id="xB0-HP-TEu"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="jMg-Qh-WOG" id="oMR-wg-2vh"/>
+                        <outlet property="titleLabel" destination="bBp-20-pae" id="eep-xd-Zen"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="128.98550724637681" y="98.4375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="DismissPopup" width="25" height="25"/>
+        <namedColor name="MoppTitle">
+            <color red="0.015686274509803921" green="0.11764705882352941" blue="0.25882352941176473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
