@@ -44,6 +44,6 @@ class SettingsHeaderCell: UITableViewCell {
             printLog("Unable to get dismissButton or titleLabel")
             return
         }
-        self.accessibilityElements = [dismissUIButton, titleUILabel]
+        self.accessibilityElements = [titleUILabel, dismissUIButton]
     }
 }
