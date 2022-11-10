@@ -33,5 +33,8 @@
 - (void)copyFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath;
 - (BOOL)fileExistsAtPath:(NSString *)filePath;
 - (NSString *)documentsDirectoryPath;
+- (NSString *)logsDirectoryPath;
+- (BOOL)createFolder:(NSString *)folderName;
+- (BOOL)folderExists:(NSString *)folderPath;
 
 @end

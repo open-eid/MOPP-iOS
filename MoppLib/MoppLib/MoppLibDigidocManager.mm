@@ -186,11 +186,26 @@ public:
     std::string logFile() const override {
         if (isDebugMode() || isLoggingEnabled()) {
             MLFileManager *mlFM = [[MLFileManager alloc] init];
-            NSURL *url = [[NSURL alloc] initWithString:[mlFM documentsDirectoryPath]];
-            return std::string([[[url URLByAppendingPathComponent: @"libdigidocpp.log"] path] UTF8String]);
-        } else {
-            return std::string();
+            NSURL *logsUrl = [[NSURL alloc] initFileURLWithPath:[mlFM logsDirectoryPath]];
+            if (![mlFM folderExists:logsUrl.path]) {
+                // Create folder 'logs' in Documents directory
+                BOOL isFolderCreated = [mlFM createFolder:@"logs"];
+                if (isFolderCreated) {
+                    return logFileLocation(logsUrl);
+                } else {
+                    // Save log files to 'Documents' directory if creating 'logs' folder was unsuccessful
+                    NSURL *url = [[NSURL alloc] initWithString:[mlFM documentsDirectoryPath]];
+                    return logFileLocation(url);
+                }
+            } else {
+                return logFileLocation(logsUrl);
+            }
         }
+        return std::string();
+    }
+    
+    std::string logFileLocation(NSURL *logsFolderUrl) const {
+        return std::string([[[logsFolderUrl URLByAppendingPathComponent: @"libdigidocpp.log"] path] UTF8String]);
     }
 
 };

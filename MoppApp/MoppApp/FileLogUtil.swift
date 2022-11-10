@@ -86,26 +86,13 @@ class FileLogUtil: LogFileGenerating {
     }
     
     static func getLogFiles(logsDirURL: URL) throws -> [URL] {
-        var logFiles = try FileManager.default.contentsOfDirectory(at: logsDirURL, includingPropertiesForKeys: nil)
-        logFiles.append(try getLibdigidocppLogs())
-        return logFiles
+        return try FileManager.default.contentsOfDirectory(at: logsDirURL, includingPropertiesForKeys: nil)
     }
     
     static func getFileContents(logFile: URL) throws -> String {
         let header = "\n\n" + "===== File: " + logFile.lastPathComponent + " =====" + "\n\n";
         let fileContents = try String(contentsOf: logFile, encoding: .utf8)
         return header + fileContents
-    }
-    
-    static func getLibdigidocppLogs() throws -> URL {
-        let documentsURL = MoppFileManager.shared.documentsDirectoryPath()
-        if MoppFileManager.shared.directoryExists(documentsURL) {
-            let libdigidocppLogPath = URL(fileURLWithPath: documentsURL).appendingPathComponent("libdigidocpp.log")
-            if MoppFileManager.shared.fileExists(libdigidocppLogPath.path) {
-                return libdigidocppLogPath
-            }
-        }
-        throw Exception("Unable to get libdigidocpp log file")
     }
     
     static func logsExist(logsDirURL: URL) -> Bool {
@@ -124,18 +111,25 @@ class FileLogUtil: LogFileGenerating {
     
     static func combineLogFiles() throws -> URL {
         let logsDirURL = MoppFileManager.shared.logsDirectory()
+        let documentsDirURL = URL(fileURLWithPath: MoppFileManager.shared.documentsDirectoryPath())
         if logsExist(logsDirURL: logsDirURL) {
             let combinedLogFile = logsDirURL.appendingPathComponent(DIAGNOSTICS_LOGS_FILE_NAME)
             if MoppFileManager.shared.fileExists(combinedLogFile.path) {
                 MoppFileManager.shared.removeFile(withPath: combinedLogFile.path)
             }
             
-            let logFiles = try getLogFiles(logsDirURL: logsDirURL)
+            var logFiles: [URL] = []
+            do {
+                logFiles = try getLogFiles(logsDirURL: logsDirURL)
+            } catch {
+                printLog("Unable to get files from 'logs' directory")
+                logFiles = try getLogFiles(logsDirURL: documentsDirURL)
+            }
             
             // Create empty file
             try String().write(to: combinedLogFile, atomically: true, encoding: .utf8)
             
-            for logFile in logFiles {
+            for logFile in logFiles where logFile.pathExtension == "log" {
                 let fileContents = try getFileContents(logFile: logFile)
                 let fileHandle = try FileHandle(forWritingTo: combinedLogFile)
                 fileHandle.seekToEndOfFile()
