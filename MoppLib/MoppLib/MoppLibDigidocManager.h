@@ -53,7 +53,7 @@ typedef enum {
 - (void)addMobileIDSignatureToContainer:(MoppLibContainer *)moppContainer signature:(NSString *)signature success:(ContainerBlock)success andFailure:(FailureBlock)failure;
 - (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath error:(NSError **)error;
 - (NSString *)getMoppLibVersion;
-- (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path;
+- (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure;
 - (NSString *)digidocVersion;
 - (NSString *)moppAppVersion;
 - (NSString *)iOSVersion;

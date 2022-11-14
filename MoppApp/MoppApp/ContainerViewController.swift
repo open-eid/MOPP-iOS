@@ -724,6 +724,8 @@ extension ContainerViewController : ContainerHeaderDelegate {
                 self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
                 return
             }
+            
+            if asicContainer?.filePath != newContainerPath.path {
 
             // Remove existing file
             if MoppFileManager.shared.fileExists(newContainerPath.path) {
@@ -761,6 +763,9 @@ extension ContainerViewController : ContainerHeaderDelegate {
             self.tableView.reloadData()
 
             return completion(newContainerPath.lastPathComponent)
+            } else {
+                return completion(URL(string: asicContainer?.filePath ?? "")?.lastPathComponent ?? "")
+            }
         }
 
         changeContainerNameController.addAction(okButton)
