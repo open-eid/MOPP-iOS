@@ -83,12 +83,11 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.8.0):
     - GoogleUtilities/Logger
-  - ILPDFKit (2.0.1)
-  - nanopb (2.30909.0):
-    - nanopb/decode (= 2.30909.0)
-    - nanopb/encode (= 2.30909.0)
-  - nanopb/decode (2.30909.0)
-  - nanopb/encode (2.30909.0)
+  - nanopb (2.30908.0):
+    - nanopb/decode (= 2.30908.0)
+    - nanopb/encode (= 2.30908.0)
+  - nanopb/decode (2.30908.0)
+  - nanopb/encode (2.30908.0)
   - OCMock (3.9.1)
   - PromisesObjC (2.1.1)
   - SwiftyRSA (1.7.0):
@@ -99,7 +98,6 @@ PODS:
 DEPENDENCIES:
   - Firebase/Core (~> 10.0.0)
   - FirebaseCrashlytics (~> 10.0.0)
-  - ILPDFKit (~> 2.0.1)
   - OCMock (~> 3.9.1)
   - SwiftyRSA (~> 1.7.0)
   - ZIPFoundation (~> 0.9.13)
@@ -115,7 +113,6 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
-    - ILPDFKit
     - nanopb
     - OCMock
     - PromisesObjC
@@ -132,13 +129,12 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 7e48a3249792ac35d6f18f107f63f199a7e9d0ce
   GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
   GoogleUtilities: 1d20a6ad97ef46f67bbdec158ce00563a671ebb7
-  ILPDFKit: 51762e66bce3c43fc8c3db3322223d3020c70137
-  nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
+  nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OCMock: 9491e4bec59e0b267d52a9184ff5605995e74be8
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   SwiftyRSA: 8c6dd1ea7db1b8dc4fb517a202f88bb1354bc2c6
   ZIPFoundation: ae5b4b813d216d3bf0a148773267fff14bd51d37
 
-PODFILE CHECKSUM: deaba0eff82e0f9064743f6b2ed39397b9b5cfa7
+PODFILE CHECKSUM: 2da6b1666d0edac492749cd937aec7f771f46e95
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

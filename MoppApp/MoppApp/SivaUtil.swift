@@ -22,7 +22,7 @@
  */
 
 import Foundation
-import ILPDFKit
+import PDFKit
 
 class SiVaUtil {
     static func isDocumentSentToSiVa(fileUrl: URL?) -> Bool {
@@ -30,20 +30,7 @@ class SiVaUtil {
         let containerType = MimeTypeExtractor.determineContainer(mimetype: MimeTypeExtractor.getMimeTypeFromContainer(filePath: fileLocation), fileExtension: fileLocation.pathExtension).lowercased()
         
         if containerType == "pdf" {
-            let document = ILPDFDocument(path: fileLocation.path)
-            let forms = document.forms as ILPDFFormContainer
-            
-            let pdfSignatures = forms.forms(with: .signature)
-            if !pdfSignatures.isEmpty {
-                for pdfSignature in pdfSignatures {
-                    if let signatureDictionary: ILPDFDictionary = pdfSignature.dictionary,
-                       let vKey: ILPDFDictionary = signatureDictionary["V" as NSString] as? ILPDFDictionary,
-                       let filter = vKey["Filter" as NSString] as? NSString,
-                       let subFilter = vKey["SubFilter" as NSString] as? NSString {
-                        return filter == "Adobe.PPKLite" || (subFilter == "ETSI.CAdES.detached" || subFilter == "adbe.pkcs7.detached")
-                    }
-                }
-            }
+            return isSignedPDF(url: fileLocation as CFURL)
         }
         
         return containerType == "ddoc"
@@ -63,5 +50,66 @@ class SiVaUtil {
             }
         }
         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true)
+    }
+    
+    static func isSignedPDF(url: CFURL) -> Bool {
+        
+        let pdfPage: CGPDFPage? = CGPDFDocument(url)?.page(at: 1)
+        
+        guard let page = pdfPage else { return false }
+        
+        let pageDictionary: CGPDFDictionaryRef? = page.dictionary
+        
+        guard let dictionary = pageDictionary else { return false }
+        
+        var pdfArray: CGPDFArrayRef? = nil
+        let hasAnnotations = CGPDFDictionaryGetArray(dictionary, "Annots", &pdfArray)
+        
+        if hasAnnotations {
+            
+            guard let pdfAnnots: CGPDFArrayRef = pdfArray else { return false }
+            
+            let annotationsCount = CGPDFArrayGetCount(pdfAnnots)
+            
+            var pdfDictionary: CGPDFDictionaryRef?
+            for (index, _) in [annotationsCount].enumerated() {
+                
+                let hasDictionary = CGPDFArrayGetDictionary(pdfAnnots, index, &pdfDictionary)
+                
+                guard let annotDictionary: CGPDFArrayRef = pdfDictionary else { return false }
+                
+                if hasDictionary {
+                    var type: UnsafePointer<CChar>?
+                    let hasType = CGPDFDictionaryGetName(annotDictionary, "Type", &type)
+                    
+                    if hasType && strcmp(type, "Annot") == 0 {
+                        var vArray: CGPDFDictionaryRef?
+                        CGPDFDictionaryGetDictionary(annotDictionary, "V", &vArray);
+                        
+                        guard let vInfo: CGPDFArrayRef = vArray else { return false }
+                        
+                        var filterChar: UnsafePointer<CChar>?
+                        CGPDFDictionaryGetName(vInfo, "Filter", &filterChar)
+                        
+                        var subFilterChar: UnsafePointer<CChar>?
+                        CGPDFDictionaryGetName(vInfo, "SubFilter", &subFilterChar)
+                        
+                        var filter = ""
+                        if let filterName = filterChar {
+                            filter = String(cString: filterName)
+                        }
+                        
+                        var subFilter = ""
+                        if let subFilterName = subFilterChar {
+                            subFilter = String(cString: subFilterName)
+                        }
+                        
+                        return filter == "Adobe.PPKLite" || (subFilter == "ETSI.CAdES.detached" || subFilter == "adbe.pkcs7.detached")
+                    }
+                }
+            }
+        }
+        
+        return false
     }
 }
