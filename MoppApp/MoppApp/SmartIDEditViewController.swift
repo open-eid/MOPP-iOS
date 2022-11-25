@@ -128,7 +128,9 @@ class SmartIDEditViewController : MoppViewController {
     @IBAction func editingChanged(_ sender: UITextField) {
         verifySigningCapability()
         let text = sender.text ?? String()
-        if countryViewPicker.selectedRow(inComponent: 0) == 0 && text.count > 11 {
+        if countryViewPicker.selectedRow(inComponent: 0) == 0 &&
+            text.count >= 11 &&
+            !PersonalCodeValidator.isPersonalCodeValid(personalCode: text) {
             sender.deleteBackward()
         }
     }
