@@ -115,9 +115,10 @@ class RecentContainersViewController : MoppModalViewController {
         var filteredContainerFiles = [String]()
         if let files = containerFiles, files.count > 0 {
             filteredContainerFiles = files.filter { fileName in
-                let pathExtention = URL(string: fileName)?.pathExtension
-                if let pathExt = pathExtention {
-                    return pathExt.isAsicContainerExtension || pathExt.isCdocContainerExtension || pathExt.isPdfContainerExtension
+                let fileURL = URL(fileURLWithPath: fileName)
+                let pathExtension = fileURL.pathExtension
+                if !pathExtension.isEmpty {
+                    return pathExtension.isAsicContainerExtension || pathExtension.isCdocContainerExtension || pathExtension.isPdfContainerExtension
                 }
                 
                 return false
