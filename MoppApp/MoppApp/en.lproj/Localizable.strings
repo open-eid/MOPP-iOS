@@ -397,7 +397,7 @@
 "not-valid-after" = "Valid to";
 "public-key-info" = "Public Key";
 "algorithm" = "Algorithm";
-"public-key" = "Public-Key";
+"public-key" = "Public Key";
 "key-usage" = "Key Usage";
 "signature" = "Signature";
 "extension" = "Extension";
