@@ -441,17 +441,17 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="2nF-ky-2K3">
                                                 <rect key="frame" x="16" y="394" width="327" height="89"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="vra-Lf-d6I">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="vra-Lf-d6I">
                                                         <rect key="frame" x="0.0" y="0.0" width="327" height="31"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Enable one-time log generation" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bH-3u-clw">
-                                                                <rect key="frame" x="0.0" y="5.5" width="251" height="20.5"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Enable one-time log generation" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bH-3u-clw">
+                                                                <rect key="frame" x="0.0" y="5.5" width="280.5" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vjc-8d-DZD">
-                                                                <rect key="frame" x="301" y="0.0" width="28" height="31"/>
+                                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vjc-8d-DZD">
+                                                                <rect key="frame" x="285.5" y="0.0" width="43.5" height="31"/>
                                                                 <connections>
                                                                     <action selector="fileLoggingSwitchChanged:" destination="B8K-Cg-QcU" eventType="valueChanged" id="843-Jb-vWY"/>
                                                                 </connections>
