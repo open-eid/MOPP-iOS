@@ -28,7 +28,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AAa-T3-Ggw">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAa-T3-Ggw">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -180,57 +180,80 @@
                                         <rect key="frame" x="0.0" y="429" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oWS-ur-juU" id="TQD-FB-ySn">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="91"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Stamp teenuse URL" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pbc-P0-5nz">
-                                                    <rect key="frame" x="24" y="11" width="335" height="17.5"/>
+                                                    <rect key="frame" x="24" y="13" width="343" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="GYI-Dv-Kzg"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="15"/>
                                                     <color key="textColor" name="MoppLabel"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="URL" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BWD-C2-Ms4" customClass="SettingsTextField" customModule="MoppApp" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="32.5" width="343" height="50"/>
+                                                    <rect key="frame" x="16" y="39" width="343" height="44"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="xn0-4h-tGC"/>
+                                                        <constraint firstAttribute="height" constant="44" id="zwD-fy-14u"/>
                                                     </constraints>
                                                     <color key="textColor" name="MoppText"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
                                                 </textField>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use default" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l3i-7N-WRf">
-                                                    <rect key="frame" x="24" y="93.5" width="278" height="17.5"/>
-                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="15"/>
-                                                    <color key="textColor" name="MoppLabel"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ZR-f6-fYn">
-                                                    <rect key="frame" x="310" y="86.5" width="51" height="31"/>
-                                                    <connections>
-                                                        <action selector="useDefaultToggled:" destination="oWS-ur-juU" eventType="touchUpInside" id="dc7-Jn-HdF"/>
-                                                    </connections>
-                                                </switch>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="pbc-P0-5nz" firstAttribute="top" secondItem="TQD-FB-ySn" secondAttribute="topMargin" id="59b-Tg-vAf"/>
-                                                <constraint firstItem="pbc-P0-5nz" firstAttribute="trailing" secondItem="TQD-FB-ySn" secondAttribute="trailingMargin" id="BcR-vH-qjY"/>
-                                                <constraint firstItem="BWD-C2-Ms4" firstAttribute="trailing" secondItem="TQD-FB-ySn" secondAttribute="trailingMargin" id="JFp-SI-LtS"/>
-                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="5ZR-f6-fYn" secondAttribute="bottom" constant="8" id="SvO-a2-WMl"/>
-                                                <constraint firstItem="BWD-C2-Ms4" firstAttribute="top" secondItem="pbc-P0-5nz" secondAttribute="bottom" constant="4" id="UzR-cC-mCO"/>
-                                                <constraint firstItem="pbc-P0-5nz" firstAttribute="leading" secondItem="TQD-FB-ySn" secondAttribute="leadingMargin" constant="8" id="XlI-lT-q9E"/>
-                                                <constraint firstItem="BWD-C2-Ms4" firstAttribute="leading" secondItem="TQD-FB-ySn" secondAttribute="leadingMargin" id="glD-DE-v4e"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="5ZR-f6-fYn" secondAttribute="trailing" id="i8m-Vg-mB6"/>
-                                                <constraint firstItem="l3i-7N-WRf" firstAttribute="leading" secondItem="TQD-FB-ySn" secondAttribute="leadingMargin" constant="8" id="iOo-Nw-mWd"/>
-                                                <constraint firstItem="5ZR-f6-fYn" firstAttribute="top" secondItem="BWD-C2-Ms4" secondAttribute="bottom" constant="4" id="pFf-L6-0b2"/>
-                                                <constraint firstItem="5ZR-f6-fYn" firstAttribute="leading" secondItem="l3i-7N-WRf" secondAttribute="trailing" constant="8" id="qe9-CC-DTU"/>
-                                                <constraint firstItem="l3i-7N-WRf" firstAttribute="centerY" secondItem="5ZR-f6-fYn" secondAttribute="centerY" id="tXf-Du-jXr"/>
+                                                <constraint firstItem="pbc-P0-5nz" firstAttribute="top" secondItem="TQD-FB-ySn" secondAttribute="topMargin" constant="2" id="9m2-jM-KTa"/>
+                                                <constraint firstItem="pbc-P0-5nz" firstAttribute="trailing" secondItem="TQD-FB-ySn" secondAttribute="trailingMargin" constant="8" id="AH9-a4-Pv8"/>
+                                                <constraint firstItem="BWD-C2-Ms4" firstAttribute="top" secondItem="pbc-P0-5nz" secondAttribute="bottom" constant="8" id="JXD-vM-Tq4"/>
+                                                <constraint firstAttribute="trailing" secondItem="BWD-C2-Ms4" secondAttribute="trailing" constant="16" id="Ncs-HI-EtD"/>
+                                                <constraint firstItem="BWD-C2-Ms4" firstAttribute="leading" secondItem="TQD-FB-ySn" secondAttribute="leading" constant="16" id="SJz-qo-zNL"/>
+                                                <constraint firstAttribute="bottom" secondItem="BWD-C2-Ms4" secondAttribute="bottom" constant="8" id="XWb-Wc-sdC"/>
+                                                <constraint firstItem="BWD-C2-Ms4" firstAttribute="top" secondItem="pbc-P0-5nz" secondAttribute="bottom" constant="8" symbolic="YES" id="vpd-Ps-5bm"/>
+                                                <constraint firstItem="pbc-P0-5nz" firstAttribute="leading" secondItem="TQD-FB-ySn" secondAttribute="leadingMargin" constant="8" id="zLN-7d-cGc"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="textField" destination="BWD-C2-Ms4" id="Fkm-LB-TqV"/>
                                             <outlet property="titleLabel" destination="pbc-P0-5nz" id="qnc-c5-euj"/>
-                                            <outlet property="useDefaultSwitch" destination="5ZR-f6-fYn" id="BZt-Xx-9lv"/>
-                                            <outlet property="useDefaultTitleLabel" destination="l3i-7N-WRf" id="BBf-oU-Tgq"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsDefaultValueCell" rowHeight="44" id="S9f-IU-Vln" customClass="SettingsDefaultValueCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="514.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S9f-IU-Vln" id="Uro-tU-5ZM">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use default" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l3i-7N-WRf">
+                                                    <rect key="frame" x="24" y="13" width="270" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="cQZ-tV-x0a"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="15"/>
+                                                    <color key="textColor" name="MoppLabel"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ZR-f6-fYn">
+                                                    <rect key="frame" x="310" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="useDefaultToggled:" destination="S9f-IU-Vln" eventType="touchUpInside" id="gpv-K4-w5q"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="5ZR-f6-fYn" firstAttribute="leading" secondItem="l3i-7N-WRf" secondAttribute="trailing" constant="16" id="0at-Dr-oeh"/>
+                                                <constraint firstItem="5ZR-f6-fYn" firstAttribute="top" secondItem="Uro-tU-5ZM" secondAttribute="top" constant="6" id="3VY-qt-Xxx"/>
+                                                <constraint firstAttribute="bottom" secondItem="5ZR-f6-fYn" secondAttribute="bottom" constant="7" id="8os-fc-pH5"/>
+                                                <constraint firstItem="l3i-7N-WRf" firstAttribute="top" secondItem="Uro-tU-5ZM" secondAttribute="topMargin" constant="2" id="Ga1-jH-p5l"/>
+                                                <constraint firstItem="l3i-7N-WRf" firstAttribute="leading" secondItem="Uro-tU-5ZM" secondAttribute="leadingMargin" constant="8" id="Ps9-is-52L"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="l3i-7N-WRf" secondAttribute="bottom" constant="2" id="Slx-yh-AJK"/>
+                                                <constraint firstAttribute="trailing" secondItem="5ZR-f6-fYn" secondAttribute="trailing" constant="16" id="uKa-he-czF"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="useDefaultSwitch" destination="5ZR-f6-fYn" id="s14-aM-QKr"/>
+                                            <outlet property="useDefaultTitleLabel" destination="l3i-7N-WRf" id="Z0r-5R-YKk"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -243,9 +266,13 @@
                         <viewLayoutGuide key="safeArea" id="fCG-eI-IFp"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="AAa-T3-Ggw" firstAttribute="bottom" secondItem="fCG-eI-IFp" secondAttribute="bottom" id="7cZ-bU-KKI"/>
                             <constraint firstItem="AAa-T3-Ggw" firstAttribute="trailing" secondItem="fCG-eI-IFp" secondAttribute="trailing" id="9cz-RZ-31P"/>
+                            <constraint firstItem="AAa-T3-Ggw" firstAttribute="leading" secondItem="fCG-eI-IFp" secondAttribute="leading" id="Aq9-0u-3bf"/>
                             <constraint firstItem="AAa-T3-Ggw" firstAttribute="top" secondItem="fCG-eI-IFp" secondAttribute="top" id="Crg-Cp-sBc"/>
+                            <constraint firstItem="AAa-T3-Ggw" firstAttribute="top" secondItem="fCG-eI-IFp" secondAttribute="top" id="jLE-tY-62i"/>
                             <constraint firstItem="AAa-T3-Ggw" firstAttribute="leading" secondItem="fCG-eI-IFp" secondAttribute="leading" id="ovE-yy-uFi"/>
+                            <constraint firstItem="AAa-T3-Ggw" firstAttribute="trailing" secondItem="fCG-eI-IFp" secondAttribute="trailing" id="qcu-85-qLx"/>
                             <constraint firstItem="AAa-T3-Ggw" firstAttribute="bottom" secondItem="fCG-eI-IFp" secondAttribute="bottom" id="w0w-Xs-w2L"/>
                         </constraints>
                     </view>

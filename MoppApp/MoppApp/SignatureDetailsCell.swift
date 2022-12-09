@@ -20,15 +20,32 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-import Foundation
 
+import Foundation
 
 class SignatureDetailsCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     
-    func populate(title: String, content: String) {
-        titleLabel.text = title
-        contentLabel.text = content
+    func populate(signatureDetail: SignatureDetail) {
+        titleLabel.text = signatureDetail.title
+        contentLabel.text = signatureDetail.value
+        
+        titleLabel.accessibilityLabel = signatureDetail.title
+        contentLabel.accessibilityLabel = signatureDetail.value
+        
+        titleLabel.textColor = UIColor.moppDetailText
+        contentLabel.textColor = UIColor.moppDetailValue
+        
+        titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        contentLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
+        
+        if signatureDetail.x509Certificate != nil && signatureDetail.secCertificate != nil {
+            contentLabel.textColor = UIColor.link
+            contentLabel.accessibilityTraits = .button
+        } else {
+            titleLabel.textColor = UIColor.moppDetailText
+            contentLabel.textColor = UIColor.moppDetailValue
+        }
     }
 }

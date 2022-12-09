@@ -56,6 +56,7 @@
 #include <sstream>
 #include <iostream>
 #import <CommonCrypto/CommonDigest.h>
+#import <ExternalAccessory/ExternalAccessory.h>
 
 class DigiDocConf: public digidoc::ConfCurrent {
 
@@ -156,8 +157,11 @@ public:
         try {
           x509Cert = digidoc::X509Cert(bytes, digidoc::X509Cert::Format::Der);
           return x509Cert;
+        } catch (const digidoc::Exception &e) {
+            printLog(@"Unable to generate a X509 certificate object. Code: %u, message: %@", e.code(), [NSString stringWithCString:e.msg().c_str() encoding:[NSString defaultCStringEncoding]]);
+            return digidoc::X509Cert();
         } catch(...) {
-            printf("\nCreating a X509 certificate object raised an exception!\n");
+            printLog(@"\Generating a X509 certificate object raised an exception!\n");
             return digidoc::X509Cert();
           }
       }
@@ -261,7 +265,7 @@ static std::string profile = "time-stamp";
             [moppConfiguration.TSAURL cStringUsingEncoding:NSUTF8StringEncoding] :
             [tsUrl cStringUsingEncoding:NSUTF8StringEncoding];
             digidoc::Conf::init(new DigiDocConf(timestampUrl, moppConfiguration));
-            NSString *appInfo = [NSString stringWithFormat:@"%s/%@ (iOS %@)", "qdigidocclient", [self moppAppVersion], [self iOSVersion]];
+            NSString *appInfo = [self userAgent];
             std::string appInfoObjcString = std::string([appInfo UTF8String]);
             digidoc::initialize(appInfoObjcString, appInfoObjcString);
 
@@ -351,8 +355,12 @@ static std::string profile = "time-stamp";
     } catch(...) {
         try {
             x509Cert = digidoc::X509Cert(bytes, certData.length, digidoc::X509Cert::Format::Pem);
+        } catch(const digidoc::Exception &e) {
+            parseException(e);
+            printLog(@"Unable to create a X509 certificate object for Certificate Policy Identifiers. Code: %u, message: %@", e.code(), [NSString stringWithCString:e.msg().c_str() encoding:[NSString defaultCStringEncoding]]);
+            return @[];
         } catch(...) {
-            printf("create X509 certificate object raised exception\n");
+            printLog(@"Creating a X509 certificate object raised exception\n");
             return @[];
         }
     }
@@ -380,7 +388,15 @@ static std::string profile = "time-stamp";
 + (void)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure {
     std::vector<unsigned char> calculatedSignatureBase64 = base64_decode(signatureValue.UTF8String);
 
-    digidoc::X509Cert x509Cert = [MoppLibDigidocManager getDerCert:cert];
+    digidoc::X509Cert x509Cert;
+    try {
+        x509Cert = [MoppLibDigidocManager getDerCert:cert];
+    } catch (const digidoc::Exception &e) {
+        parseException(e);
+        NSError *certError;
+        certError = [NSError errorWithDomain:[NSString stringWithFormat:@"Did not get a DER cert\n"] code:-1 userInfo:nil];
+        failure(certError);
+    }
 
     OCSPUrl = [NSString stringWithCString:getOCSPUrl(x509Cert.handle()).c_str() encoding:[NSString defaultCStringEncoding]];
 
@@ -442,13 +458,25 @@ static std::string profile = "time-stamp";
 }
 
 + (NSString *)prepareSignature:(NSString *)cert containerPath:(NSString *)containerPath {
-    digidoc::X509Cert x509Cert = [MoppLibDigidocManager getDerCert:cert];
+    digidoc::X509Cert x509Cert;
+    
+    try {
+        x509Cert = [MoppLibDigidocManager getDerCert:cert];
+    } catch (const digidoc::Exception &e) {
+        parseException(e);
+        return nil;
+    }
     WebSigner *signer = new WebSigner(x509Cert);
 
     docContainer = NULL;
     signature = NULL;
 
-    docContainer = digidoc::Container::openPtr(containerPath.UTF8String);
+    try {
+        docContainer = digidoc::Container::openPtr(containerPath.UTF8String);
+    } catch(const digidoc::Exception &e) {
+        parseException(e);
+        return nil;
+    }
 
     NSMutableArray *profiles = [NSMutableArray new];
     for (auto signature : docContainer->signatures()) {
@@ -485,9 +513,7 @@ static std::string profile = "time-stamp";
 
     std::unique_ptr<digidoc::Container> doc;
     try {
-
       doc = digidoc::Container::openPtr(containerPath.UTF8String);
-
     } catch(const digidoc::Exception &e) {
       parseException(e);
 
@@ -523,8 +549,8 @@ static std::string profile = "time-stamp";
       // Timestamp tokens
       NSMutableArray *timeStampTokens = [NSMutableArray array];
       for (digidoc::Signature *signature: doc->signatures()) {
-        [signatures addObject:[self getSignatureData:signature->signingCertificate() signature:signature]];
-        [timeStampTokens addObject:[self getSignatureData:signature->TimeStampCertificate() signature:signature]];
+        [signatures addObject:[self getSignatureData:signature->signingCertificate() signature:signature mediaType:doc->mediaType() dataFileCount:doc->dataFiles().size()]];
+          [timeStampTokens addObject:[self getSignatureData:signature->TimeStampCertificate() signature:signature mediaType:doc->mediaType() dataFileCount:doc->dataFiles().size()]];
       }
 
       moppLibContainer.signatures = [signatures copy];
@@ -532,17 +558,20 @@ static std::string profile = "time-stamp";
       return moppLibContainer;
 
     } catch(const digidoc::Exception &e) {
-      parseException(e);
-      *error = [MoppLibError generalError];
-      return nil;
+        parseException(e);
+        *error = [MoppLibError generalError];
+        return nil;
     }
-
   }
 }
 
-- (MoppLibSignature *)getSignatureData:(digidoc::X509Cert)cert signature:(digidoc::Signature *)signature {
+- (MoppLibSignature *)getSignatureData:(digidoc::X509Cert)cert signature:(digidoc::Signature *)signature mediaType:(std::string)mediaType dataFileCount:(NSInteger)dataFileCount {
 
     MoppLibSignature *moppLibSignature = [MoppLibSignature new];
+    
+    digidoc::X509Cert signingCert = signature->signingCertificate();
+    digidoc::X509Cert ocspCert = signature->OCSPCertificate();
+    digidoc::X509Cert timestampCert = signature->TimeStampCertificate();
 
     std::string givename = cert.subjectName("GN");
     std::string surname = cert.subjectName("SN");
@@ -556,6 +585,23 @@ static std::string profile = "time-stamp";
 
     moppLibSignature.trustedSigningTime = [NSString stringWithUTF8String:signature->trustedSigningTime().c_str()];
     moppLibSignature.subjectName = [NSString stringWithUTF8String:name.c_str()];
+    
+    moppLibSignature.signersCertificateIssuer = [NSString stringWithUTF8String:signingCert.issuerName("CN").c_str()];
+    moppLibSignature.signingCertificate = [self pemToDer:signingCert];
+    moppLibSignature.signatureMethod = [NSString stringWithUTF8String:signature->signatureMethod().c_str()];
+    moppLibSignature.containerFormat = [NSString stringWithUTF8String:mediaType.c_str()];
+    moppLibSignature.signatureFormat = [NSString stringWithUTF8String:signature->profile().c_str()];
+    moppLibSignature.signedFileCount = dataFileCount;
+    moppLibSignature.signatureTimestamp = [self getDateTimeInCurrentTimeZoneFromDateString:[NSString stringWithUTF8String:signature->TimeStampTime().c_str()]];
+    moppLibSignature.signatureTimestampUTC = [NSString stringWithUTF8String:signature->TimeStampTime().c_str()];
+    moppLibSignature.hashValueOfSignature = [self getHexStringFromVectorData:signature->messageImprint()];
+    moppLibSignature.tsCertificateIssuer = [NSString stringWithUTF8String:timestampCert.issuerName("CN").c_str()];
+    moppLibSignature.tsCertificate = [self pemToDer:timestampCert];
+    moppLibSignature.ocspCertificateIssuer = [NSString stringWithUTF8String:ocspCert.issuerName("CN").c_str()];
+    moppLibSignature.ocspCertificate = [self pemToDer:ocspCert];
+    moppLibSignature.ocspTime = [self getDateTimeInCurrentTimeZoneFromDateString:[NSString stringWithUTF8String:signature->OCSPProducedAt().c_str()]];
+    moppLibSignature.ocspTimeUTC = [NSString stringWithUTF8String:signature->OCSPProducedAt().c_str()];
+    moppLibSignature.signersMobileTimeUTC = [NSString stringWithUTF8String:signature->claimedSigningTime().c_str()];
 
     std::string timestamp = signature->trustedSigningTime();
     moppLibSignature.timestamp = [[MLDateFormatter sharedInstance] YYYYMMddTHHmmssZToDate:[NSString stringWithUTF8String:timestamp.c_str()]];
@@ -564,7 +610,6 @@ static std::string profile = "time-stamp";
       digidoc::Signature::Validator *validator =  new digidoc::Signature::Validator(signature);
       digidoc::Signature::Validator::Status status = validator->status();
       moppLibSignature.status = [self determineSignatureStatus:status];
-
     } catch(const digidoc::Exception &e) {
       moppLibSignature.status = Invalid;
     }
@@ -603,6 +648,44 @@ static std::string profile = "time-stamp";
         return serialNumber.substr(6);
     }
     return serialNumber;
+}
+
+- (NSData *)getCertDataFromX509:(digidoc::X509Cert)cert {
+    BIO *bio = BIO_new(BIO_s_mem());
+    PEM_write_bio_X509(bio, cert.handle());
+    BUF_MEM *bufMem;
+    BIO_get_mem_ptr(bio, &bufMem);
+    NSData *data = [NSData dataWithBytes:bufMem->data length:bufMem->length];
+    BIO_free(bio);
+
+    return data;
+}
+
+- (NSString *)getDateTimeInCurrentTimeZoneFromDateString:(NSString *)dateString {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSTimeZone *systemTimeZone = [NSTimeZone systemTimeZone];
+    [dateFormatter setTimeZone:systemTimeZone];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
+    NSDate *date = [dateFormatter dateFromString:dateString];
+    NSString *dateStringSystemTimeZone = [dateFormatter stringFromDate:date];
+
+    return dateStringSystemTimeZone;
+}
+
+- (NSString *)getHexStringFromVectorData:(std::vector<unsigned char>)vectorData {
+    NSData *data = [NSData dataWithBytes:vectorData.data() length:vectorData.size()];
+    return data.hexString;
+}
+
+- (NSData *)pemToDer:(digidoc::X509Cert)cert {
+    NSData *dataCert = [self getCertDataFromX509:cert];
+    NSString *dataCertAsString = [[NSString alloc] initWithData:dataCert encoding:NSASCIIStringEncoding];
+    NSString *removeCertHeader = [dataCertAsString stringByReplacingOccurrencesOfString:@"-----BEGIN CERTIFICATE-----\n" withString:@""];
+    NSString *removeCertFooter = [removeCertHeader stringByReplacingOccurrencesOfString:@"\n-----END CERTIFICATE-----\n" withString:@""];
+
+    NSData* derCertString = [removeCertFooter dataUsingEncoding:NSUTF8StringEncoding];
+
+    return [[NSData alloc]initWithBase64EncodedString:[[NSString alloc] initWithData:derCertString encoding:NSASCIIStringEncoding] options:NSDataBase64DecodingIgnoreUnknownCharacters];
 }
 
 - (MoppLibSignatureStatus)determineSignatureStatus:(int) status{
@@ -709,7 +792,6 @@ static std::string profile = "time-stamp";
 - (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex error:(NSError **)error {
     std::unique_ptr<digidoc::Container> container;
   try {
-
     container = digidoc::Container::openPtr(containerPath.UTF8String);
     container->removeDataFile((int)dataFileIndex);
 
@@ -743,7 +825,7 @@ static std::string profile = "time-stamp";
 }
 
 void parseException(const digidoc::Exception &e) {
-  printLog(@"%s", e.msg().c_str());
+  printLog(@"%u, %s", e.code(), e.msg().c_str());
   for (const digidoc::Exception &ex : e.causes()) {
     parseException(ex);
   }
@@ -805,7 +887,7 @@ void parseException(const digidoc::Exception &e) {
     // Check if key type in certificate supports ECC algorithm
     CFDataRef cfData = CFDataCreateWithBytesNoCopy(nil, (const UInt8 *)certBytes, cert.length, kCFAllocatorNull);
     SecCertificateRef certRef = SecCertificateCreateWithData(kCFAllocatorDefault, cfData);
-    SecKeyRef publicKey = SecCertificateCopyPublicKey(certRef);
+    SecKeyRef publicKey = SecCertificateCopyKey(certRef);
     CFStringRef descrRef = CFCopyDescription(publicKey);
     NSString *publicKeyInfo = (NSString *)CFBridgingRelease(descrRef);
     BOOL useECC = [publicKeyInfo containsString:@"ECPublicKey"];
@@ -823,7 +905,14 @@ void parseException(const digidoc::Exception &e) {
     signer->setSignatureProductionPlace("", "", "", "");
     signer->setSignerRoles(std::vector<std::string>());
 
-    digidoc::Signature *signature = managedContainer->prepareSignature(signer);
+    digidoc::Signature *signature;
+    try {
+        signature = managedContainer->prepareSignature(signer);
+    } catch (const digidoc::Exception &e) {
+        parseException(e);
+        failure([MoppLibError generalError]);
+    }
+
     std::vector<unsigned char> dataToSign = signature->dataToSign();
 
     // Release the container from the unique_ptr and obtain the raw pointer for the callback
@@ -869,37 +958,51 @@ void parseException(const digidoc::Exception &e) {
 }
 
 - (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath error:(NSError **)error {
-  std::unique_ptr<digidoc::Container> doc = digidoc::Container::openPtr(containerPath.UTF8String);
-  for (int i = 0; i < doc->signatures().size(); i++) {
-    digidoc::Signature *signature = doc->signatures().at(i);
-    digidoc::X509Cert cert = signature->signingCertificate();
-
-    // Estonian signatures
-    NSString *name = [NSString stringWithUTF8String:cert.subjectName("CN").c_str()];
-    NSString *trustedTimeStamp = [NSString stringWithUTF8String:signature->trustedSigningTime().c_str()];
-
-    std::string givename = cert.subjectName("GN");
-    std::string surname = cert.subjectName("SN");
-    std::string serialNR = [self getSerialNumber:cert.subjectName("serialNumber")];
-
-    // Foreign signatures
-    NSString *foreignName = [NSString stringWithFormat:@"%s, %s, %s", surname.c_str(), givename.c_str(), serialNR.c_str()];
-
-    if (([name isEqualToString:[moppSignature subjectName]] || [foreignName isEqualToString:[moppSignature subjectName]]) && [trustedTimeStamp isEqualToString:[moppSignature trustedSigningTime]]) {
-      try {
-        doc->removeSignature(i);
-        doc->save(containerPath.UTF8String);
-      } catch(const digidoc::Exception &e) {
+    std::unique_ptr<digidoc::Container> doc;
+    try {
+        doc = digidoc::Container::openPtr(containerPath.UTF8String);
+    } catch(const digidoc::Exception &e) {
         parseException(e);
-        *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
-      }
-      break;
     }
-  }
-
-  NSError *err;
-  MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&err];
-  return moppLibContainer;
+    if (doc != nil) {
+        for (int i = 0; i < doc->signatures().size(); i++) {
+            digidoc::Signature *signature;
+            digidoc::X509Cert cert;
+            try {
+                signature = doc->signatures().at(i);
+                cert = signature->signingCertificate();
+            } catch (const digidoc::Exception &e) {
+                parseException(e);
+                break;
+            }
+            
+            // Estonian signatures
+            NSString *name = [NSString stringWithUTF8String:cert.subjectName("CN").c_str()];
+            NSString *trustedTimeStamp = [NSString stringWithUTF8String:signature->trustedSigningTime().c_str()];
+            
+            std::string givename = cert.subjectName("GN");
+            std::string surname = cert.subjectName("SN");
+            std::string serialNR = [self getSerialNumber:cert.subjectName("serialNumber")];
+            
+            // Foreign signatures
+            NSString *foreignName = [NSString stringWithFormat:@"%s, %s, %s", surname.c_str(), givename.c_str(), serialNR.c_str()];
+            
+            if (([name isEqualToString:[moppSignature subjectName]] || [foreignName isEqualToString:[moppSignature subjectName]]) && [trustedTimeStamp isEqualToString:[moppSignature trustedSigningTime]]) {
+                try {
+                    doc->removeSignature(i);
+                    doc->save(containerPath.UTF8String);
+                } catch(const digidoc::Exception &e) {
+                    parseException(e);
+                    *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
+                }
+                break;
+            }
+        }
+    }
+    
+    NSError *err;
+    MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&err];
+    return moppLibContainer;
 }
 
 - (NSString *)getMoppLibVersion {
@@ -933,18 +1036,34 @@ void parseException(const digidoc::Exception &e) {
   }
 }
 
-- (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path {
-    std::unique_ptr<digidoc::Container> doc = digidoc::Container::openPtr(containerPath.UTF8String);
-
-  for (int i = 0; i < doc->dataFiles().size(); i++) {
-    digidoc::DataFile *dataFile = doc->dataFiles().at(i);
-
-    if([fileName isEqualToString:[MoppLibDigidocManager sanitize:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]]) {
-      dataFile->saveAs(path.UTF8String);
-      break;
+- (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure {
+    std::unique_ptr<digidoc::Container> doc;
+    try {
+        doc = digidoc::Container::openPtr(containerPath.UTF8String);
+    } catch(const digidoc::Exception &e) {
+        parseException(e);
     }
-  }
-
+    
+    if (doc != nil) {
+        for (int i = 0; i < doc->dataFiles().size(); i++) {
+            digidoc::DataFile *dataFile;
+            try {
+                dataFile = doc->dataFiles().at(i);
+            } catch (const digidoc::Exception &e) {
+                parseException(e);
+                break;
+            }
+            
+            if([fileName isEqualToString:[MoppLibDigidocManager sanitize:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]]) {
+                dataFile->saveAs(path.UTF8String);
+                success();
+                break;
+            }
+        }
+    } else {
+        failure([MoppLibError generalError]);
+    }
+    
 }
 
 - (NSString *)digidocVersion {
@@ -960,6 +1079,34 @@ void parseException(const digidoc::Exception &e) {
 
 - (NSString *)iOSVersion {
     return [[UIDevice currentDevice] systemVersion];
+}
+
+- (NSArray *)connectedDevices {
+    EAAccessoryManager* accessoryManager = [EAAccessoryManager sharedAccessoryManager];
+    NSMutableArray *devices = [NSMutableArray new];
+    if (accessoryManager) {
+        NSArray<EAAccessory *> *connectedAccessories = [accessoryManager connectedAccessories];
+        for (int i = 0; i < connectedAccessories.count; i++) {
+            EAAccessory *device = connectedAccessories[i];
+            NSString *manufacturer = device.manufacturer;
+            NSString *name = device.name;
+            NSString *modelNumber = device.modelNumber;
+            NSString *deviceName = [NSString stringWithFormat:@"%@ %@ (%@)", manufacturer, name, modelNumber];
+            [devices addObject:deviceName];
+        }
+        return [devices copy];
+    }
+    
+    return [devices copy];
+}
+
+- (NSString *)userAgent {
+    NSString *appInfo = [NSString stringWithFormat:@"%s/%@ (iOS %@)", "riadigidoc", [self moppAppVersion], [self iOSVersion]];
+    NSArray *connectedDevices = [self connectedDevices];
+    if (connectedDevices.count > 0) {
+        appInfo = [NSString stringWithFormat:@"%@ Devices: %@", appInfo, [connectedDevices componentsJoinedByString:@", "]];
+    }
+    return appInfo;
 }
 
 - (NSString *)pkcs12Cert {

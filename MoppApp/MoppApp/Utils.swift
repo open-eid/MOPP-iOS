@@ -44,11 +44,7 @@ struct DeviceType
 
 func isDeviceOrientationLandscape() -> Bool {
     if UIDevice.current.orientation.isFlat || !UIDevice.current.orientation.isValidInterfaceOrientation {
-        if #available(iOS 13.0, *) {
-            return UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.windowScene?.interfaceOrientation.isLandscape ?? false
-        } else {
-            return UIApplication.shared.statusBarOrientation.isLandscape
-        }
+        return UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.windowScene?.interfaceOrientation.isLandscape ?? false
     }
 
     return UIDevice.current.orientation.isLandscape
@@ -106,6 +102,23 @@ func formatString(text: String, additionalText: String? = nil) -> String {
     } else {
         return text
     }
+}
+
+func formatAttributedString(attributedText: NSAttributedString, additionalAttributedText: NSAttributedString) -> NSMutableAttributedString {
+    
+    let mutableAttributedString = NSMutableAttributedString()
+    
+    mutableAttributedString.append(attributedText)
+    mutableAttributedString.append(additionalAttributedText)
+    
+    return mutableAttributedString
+}
+
+func bold(text: String, _ fontSize: CGFloat?) -> NSMutableAttributedString {
+    let attributes = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: fontSize ?? 17), NSAttributedString.Key.foregroundColor : UIColor.black]
+    let attributedString = NSMutableAttributedString(string: text, attributes: attributes)
+    
+    return attributedString
 }
 
 func setTabAccessibilityLabel(isTabSelected: Bool, tabName: String, positionInRow: String, viewCount: String) -> String {

@@ -32,4 +32,21 @@
 @property (strong, nonatomic) NSString *issuerName;
 @property (strong, nonatomic) NSString *trustedSigningTime;
 
+@property (strong, nonatomic) NSString *signersCertificateIssuer;
+@property (strong, nonatomic) NSData *signingCertificate;
+@property (strong, nonatomic) NSString *signatureMethod;
+@property (strong, nonatomic) NSString *containerFormat;
+@property (strong, nonatomic) NSString *signatureFormat;
+@property (assign, nonatomic) NSInteger signedFileCount;
+@property (strong, nonatomic) NSString *signatureTimestamp;
+@property (strong, nonatomic) NSString *signatureTimestampUTC;
+@property (strong, nonatomic) NSString *hashValueOfSignature;
+@property (strong, nonatomic) NSString *tsCertificateIssuer;
+@property (strong, nonatomic) NSData *tsCertificate;
+@property (strong, nonatomic) NSString *ocspCertificateIssuer;
+@property (strong, nonatomic) NSData *ocspCertificate;
+@property (strong, nonatomic) NSString *ocspTime;
+@property (strong, nonatomic) NSString *ocspTimeUTC;
+@property (strong, nonatomic) NSString *signersMobileTimeUTC;
+
 @end

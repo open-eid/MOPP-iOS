@@ -32,6 +32,7 @@ class SettingsViewController: MoppViewController {
     enum FieldId {
         case rpuuid
         case timestampUrl
+        case useDefault
     }
     
     struct Field {
@@ -39,6 +40,7 @@ class SettingsViewController: MoppViewController {
             case inputField
             case choice
             case timestamp
+            case defaultSwitch
         }
         
         let id: FieldId
@@ -72,7 +74,8 @@ class SettingsViewController: MoppViewController {
             title: L(.settingsTimestampUrlTitle),
             placeholderText: NSAttributedString(string: L(.settingsTimestampUrlPlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker]),
             value: DefaultsHelper.timestampUrl ?? MoppConfiguration.tsaUrl!
-        )
+        ),
+        Field(id: .useDefault, kind: .defaultSwitch, title: L(.settingsTimestampUseDefaultTitle), placeholderText: NSAttributedString(string: L(.settingsTimestampUseDefaultTitle)), value: "")
     ]
     
     override func viewDidLoad() {
@@ -80,8 +83,59 @@ class SettingsViewController: MoppViewController {
         
         timestampUrl = DefaultsHelper.timestampUrl
         
-        tableView.estimatedRowHeight = 100
+        DefaultsHelper.setDefaultSettingsSwitch()
+        
+        tableView.estimatedRowHeight = 150
         tableView.rowHeight = UITableView.automaticDimension
+    }
+
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.view.accessibilityElements = getAccessibilityElementsOrder()
+    }
+    
+    func getAccessibilityElementsOrder() -> [Any] {
+        var headerCellIndex: Int = 0
+        var fieldCellIndex: Int = 0
+        var timestampCellIndex: Int = 0
+        var defaultValueCellIndex: Int = 0
+        for (index, cell) in tableView.visibleCells.enumerated() {
+            if cell is SettingsHeaderCell {
+                headerCellIndex = index
+            } else if cell is SettingsFieldCell {
+                fieldCellIndex = index
+            } else if cell is SettingsTimeStampCell {
+                timestampCellIndex = index
+            } else if cell is SettingsDefaultValueCell {
+                defaultValueCellIndex = index
+            }
+        }
+        
+        guard let timestampCell = tableView.visibleCells[timestampCellIndex] as? SettingsTimeStampCell,
+              let timestampTextfield = timestampCell.textField else {
+            return []
+        }
+        
+        guard let defaultValueCell = tableView.visibleCells[defaultValueCellIndex] as? SettingsDefaultValueCell,
+              let timestampDefaultSwitch = defaultValueCell.useDefaultSwitch else {
+            return []
+        }
+        
+        guard let fieldCellAccessibilityElements = tableView.visibleCells[fieldCellIndex].accessibilityElements else {
+            return []
+        }
+        
+        guard let headerCellAccessibilityElements = tableView.visibleCells[headerCellIndex].accessibilityElements else {
+            return []
+        }
+        
+        return [
+            timestampDefaultSwitch,
+            fieldCellAccessibilityElements,
+            timestampTextfield,
+            headerCellAccessibilityElements,
+            timestampDefaultSwitch,
+        ]
     }
 }
 
@@ -130,6 +184,11 @@ extension SettingsViewController: UITableViewDataSource {
                 let choiceCell = tableView.dequeueReusableCell(withType: SettingsChoiceCell.self, for: indexPath)!
                     choiceCell.populate(with: field)
                 return choiceCell
+            case .defaultSwitch:
+                let useDefaultCell = tableView.dequeueReusableCell(withType: SettingsDefaultValueCell.self, for: indexPath)!
+                    useDefaultCell.delegate = self
+                    useDefaultCell.populate()
+                return useDefaultCell
             }
         }
     }
@@ -163,6 +222,7 @@ extension SettingsViewController: SettingsFieldCellDelegate {
 
 extension SettingsViewController: SettingsTimeStampCellDelegate {
     func didChangeTimestamp(_ fieldId: SettingsViewController.FieldId, with value: String?) {
+        DefaultsHelper.timestampUrl = value
 
 #if USE_TEST_DDS
         let useTestDDS = true
@@ -177,4 +237,15 @@ extension SettingsViewController: SettingsTimeStampCellDelegate {
             }, usingTestDigiDocService: useTestDDS, andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaurl,
                withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration())
     }
+}
+
+extension SettingsViewController: SettingsDefaultValueCellDelegate {
+    func didChangeDefaultSwitch(_ field: FieldId, with switchValue: Bool?) {
+        if let switchValue = switchValue {
+            DefaultsHelper.defaultSettingsSwitch = switchValue
+        }
+        tableView.reloadData()
+    }
+    
+    
 }
