@@ -74,10 +74,17 @@ class MobileIDEditViewController : MoppViewController {
 
         titleLabel.text = L(.mobileIdTitle)
         phoneLabel.text = L(.mobileIdPhoneTitle)
-        idCodeLabel.text = L(.mobileIdIdcodeTitle)
+        idCodeLabel.text = L(.signingIdcodeTitle)
         cancelButton.setTitle(L(.actionCancel).uppercased())
         signButton.setTitle(L(.actionSign).uppercased())
         rememberLabel.text = L(.signingRememberMe)
+
+        phoneLabel.isAccessibilityElement = false
+        idCodeLabel.isAccessibilityElement = false
+
+        phoneTextField.accessibilityLabel = L(.mobileIdPhoneTitle)
+        idCodeTextField.accessibilityLabel = L(.signingIdcodeTitle)
+
 
         phoneNumberErrorLabel.text = ""
         phoneNumberErrorLabel.isHidden = true

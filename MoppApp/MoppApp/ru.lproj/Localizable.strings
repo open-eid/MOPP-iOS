@@ -196,9 +196,9 @@
 "signing-progress" = "Прогресс";
 "signing-remember-me" = "Запомни меня";
 "signing-cancelled" = "Подписание контейнера прервано";
+"signing-idcode-title" = "Личный код";
 "mobile-id-title" = "Введите свой телефонный номер и личный код для подписания с помощью mobiil-ID";
 "mobile-id-phone-title" = "Код страны и телефонный номер";
-"mobile-id-idcode-title" = "Личный код";
 "mobile-id-challenge-title" = "Подписать с помощью приложения Mobile-ID";
 "mobile-id-challenge-waiting-response" = "Жду ответа ...";
 "smart-id-title" = "Введите свой личный код для подписи с Smart-ID";

@@ -197,9 +197,9 @@
 "signing-progress" = "Progress";
 "signing-remember-me" = "Pea mind meeles";
 "signing-cancelled" = "Ümbriku allkirjastamine katkestatud";
+"signing-idcode-title" = "Isikukood";
 "mobile-id-title" = "Sisesta oma telefoninumber ja isikukood mobiil-IDga allkirjastamiseks";
 "mobile-id-phone-title" = "Riigikood ja telefoninumber";
-"mobile-id-idcode-title" = "Isikukood";
 "mobile-id-challenge-title" = "Allkirjasta mobiil-IDga";
 "mobile-id-challenge-waiting-response" = "Ootan vastust ...";
 "smart-id-title" = "Sisesta oma isikukood Smart-IDga allkirjastamiseks";

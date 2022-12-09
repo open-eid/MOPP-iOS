@@ -196,9 +196,9 @@
 "signing-progress" = "Progress";
 "signing-remember-me" = "Remember me";
 "signing-cancelled" = "Container signing cancelled";
+"signing-idcode-title" = "Personal code";
 "mobile-id-title" = "Enter your mobile number and personal code to sign with mobile-ID";
 "mobile-id-phone-title" = "Country code and phone number";
-"mobile-id-idcode-title" = "Personal code";
 "mobile-id-challenge-title" = "Sign with mobile-ID";
 "mobile-id-challenge-waiting-response" = "Waiting for response ...";
 "smart-id-title" = "Enter your personal code to sign with Smart-ID";
