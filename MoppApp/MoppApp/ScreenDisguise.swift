@@ -32,8 +32,14 @@ public class ScreenDisguise: NSObject {
     var uiVisualEffectView = UIVisualEffectView()
     var blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     
+    private func getKeyWindow() -> UIWindow? {
+        return UIApplication.shared.windows
+            .filter {$0.isKeyWindow}
+            .first
+    }
+    
     private func getTopViewController() -> UIViewController? {
-        guard let keyWindow = UIApplication.shared.keyWindow, let topViewController = keyWindow.rootViewController?.getTopViewController() else {
+        guard let keyWindow = getKeyWindow(), let topViewController = keyWindow.rootViewController?.getTopViewController() else {
             return nil
         }
         
@@ -41,7 +47,7 @@ public class ScreenDisguise: NSObject {
     }
     
     public func show() {
-        guard let keyWindow = UIApplication.shared.keyWindow, let topViewController = keyWindow.rootViewController?.getTopViewController() else {
+        guard let keyWindow = getKeyWindow(), let topViewController = keyWindow.rootViewController?.getTopViewController() else {
             return
         }
         
@@ -62,7 +68,7 @@ public class ScreenDisguise: NSObject {
     }
     
     public func hide() {
-        guard let keyWindow = UIApplication.shared.keyWindow else { return }
+        guard let keyWindow = getKeyWindow() else { return }
         UIView.animate(withDuration: 0.25, animations: {
             self.uiVisualEffectView.alpha = 0.0
             keyWindow.alpha = 1.0

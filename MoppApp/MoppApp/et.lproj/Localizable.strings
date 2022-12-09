@@ -56,6 +56,7 @@
 "signature-view-begin-label" = "Allkirjastamiseks või kontrollimiseks vali fail";
 "signature-view-begin-button" = "VALI FAIL";
 "signature-details-title" = "Allkirja detailid";
+"certificate-details-title" = "Sertifikaadi detailid";
 "menu-button" = "Menüü";
 
 "signing-error-incorrect-country-code" = "Vigane riigikood.";
@@ -362,6 +363,60 @@
 "save-diagnostics" = "SALVESTA DIAGNOSTIKA";
 "success-notification-dialog-label" = "Ümbriku jagamiseks klõpsa \"JAGA\" nupul ning vali soovitud rakendus. Kõik ümbrikud on leitavad ka rakenduse seadetes asuvas \"Hiljutised dokumendid\" kaustast.";
 "success-notification-dialog-dont-show-again" = "Ära rohkem näita";
+
+// *** Signature details ***
+
+"signer-certificate-issuer-label" = "Allkirjastaja sertifikaadi väljaandja";
+"signers-certificate-label" = "Allkirjastaja sertifikaat";
+"signature-method-label" = "Allkirja meetod";
+"container-format-label" = "Ümbriku formaat";
+"signature-format-label" = "Allkirja formaat";
+"signed-file-count-label" = "Allkirjastatud failide arv";
+"signature-timestamp-label" = "Allkirja ajatempel";
+"signature-timestamp-utc-label" = "Allkirja ajatempel (UTC)";
+"hash-value-of-signature-label" = "Allkirja sõnumilühend";
+"ts-certificate-issuer-label" = "Ajatempliteenuse sertifikaadi väljaandja";
+"ts-certificate-label" = "Ajatempliteenuse sertifikaat";
+"ocsp-certificate-issuer-label" = "Kehtivuskinnituse sertifikaadi väljaandja";
+"ocsp-certificate-label" = "Kehtivuskinnituse sertifikaat";
+"ocsp-time-label" = "Kehtivuskinnituse aeg";
+"ocsp-time-utc-label" = "Kehtivuskinnituse aeg (UTC)";
+"signers-mobile-time-label" = "Allkirjastaja telefoni kellaaeg (UTC)";
+
+// *** Certificate details ***
+
+"subject-name" = "Subjekt";
+"country-or-region" = "Riik";
+"organisation" = "Organisatsioon";
+"organisational-unit" = "Allüksus";
+"common-name" = "Üldnimi";
+"surname" = "Perekonnanimi";
+"given-name" = "Eesnimi";
+"serial-number" = "Seerianumber";
+"email-address" = "E-posti aadress";
+"issuer-name" = "Väljaandja";
+"other-name" = "Organisatsiooni identifikaator";
+"version" = "Versioon";
+"signature-algorithm" = "Allkirja algoritm";
+"parameters" = "Parameetrid";
+"not-valid-before" = "Kehtib alates";
+"not-valid-after" = "Kehtib kuni";
+"public-key-info" = "Avaliku võtme info";
+"algorithm" = "Algoritm";
+"public-key" = "Avalik võti";
+"key-usage" = "Võtme kasutusala";
+"signature" = "Allkiri";
+"extension" = "Laiendus";
+"extensions" = "Laiendused";
+"critical" = "Kriitiline";
+"usage" = "Kasutusala";
+"key-id" = "Võtme ID";
+"uri" = "URL";
+"method" = "Meetod";
+"fingerprints" = "Sõrmejäljed";
+"sha256" = "SHA-256";
+"sha1" = "SHA-1";
+
 // ** Accessibility introduction **
 "accessibility-introduction-title" = "Juurdepääsetavus";
 "accessibility-introduction" = "RIA DigiDoc on ehitatud nii, et see vastaks WCAG 2.1 AA juurdepääsetavuse suunistele. See tähendab, et RIA DigiDoc rakenduse arendamisel on kasutatud põhimõtteid, et see oleks kasutatav ilma nägemisvõimeta, piiratud nägemisvõimega, piiratud liikumisvõime või jõuga jms.";

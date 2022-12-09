@@ -1,4 +1,5 @@
 PODS:
+  - ASN1Decoder (1.8.0)
   - Firebase/Core (10.0.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (~> 10.0.0)
@@ -97,6 +98,7 @@ PODS:
   - ZIPFoundation (0.9.13)
 
 DEPENDENCIES:
+  - ASN1Decoder (~> 1.8.0)
   - Firebase/Core (~> 10.0.0)
   - FirebaseCrashlytics (~> 10.0.0)
   - ILPDFKit (~> 2.0.1)
@@ -106,6 +108,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - ASN1Decoder
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -123,6 +126,7 @@ SPEC REPOS:
     - ZIPFoundation
 
 SPEC CHECKSUMS:
+  ASN1Decoder: 6110fdeacfdb41559b1481457a1645be716610aa
   Firebase: 1b810f3d0c0532e27a48f1961f8c0400a668a2cf
   FirebaseAnalytics: 9921a52739f4ab66099da31b6e0243db78a3ac0a
   FirebaseCore: 97f48a3a567a72b8d4daa0f03c3aadb78df4e995
@@ -139,6 +143,6 @@ SPEC CHECKSUMS:
   SwiftyRSA: 8c6dd1ea7db1b8dc4fb517a202f88bb1354bc2c6
   ZIPFoundation: ae5b4b813d216d3bf0a148773267fff14bd51d37
 
-PODFILE CHECKSUM: deaba0eff82e0f9064743f6b2ed39397b9b5cfa7
+PODFILE CHECKSUM: e26b83b42f5f7e93e1a54761993d13d4d787ae62
 
 COCOAPODS: 1.11.3

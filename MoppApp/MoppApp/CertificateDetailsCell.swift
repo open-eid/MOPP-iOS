@@ -1,5 +1,5 @@
 //
-//  SignatureDetailsCell.swift
+//  CertificateDetailsCell.swift
 //  MoppApp
 //
 /*
@@ -22,17 +22,20 @@
  */
 
 import Foundation
+import ASN1Decoder
 
-class SignatureDetailsCell: UITableViewCell {
+class CertificateDetailsCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     
-    func populate(signatureDetail: SignatureDetail) {
-        titleLabel.text = signatureDetail.title
-        contentLabel.text = signatureDetail.value
+    @IBOutlet weak var separatorLine: UIView!
+    
+    func populate(certificateDetail: CertificateDetail) {
+        titleLabel.text = certificateDetail.title
+        contentLabel.text = certificateDetail.value
         
-        titleLabel.accessibilityLabel = signatureDetail.title
-        contentLabel.accessibilityLabel = signatureDetail.value
+        titleLabel.accessibilityLabel = certificateDetail.title
+        contentLabel.accessibilityLabel = certificateDetail.value
         
         titleLabel.textColor = UIColor.moppDetailText
         contentLabel.textColor = UIColor.moppDetailValue
@@ -40,12 +43,13 @@ class SignatureDetailsCell: UITableViewCell {
         titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
         contentLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
         
-        if signatureDetail.x509Certificate != nil && signatureDetail.secCertificate != nil {
-            contentLabel.textColor = UIColor.link
-            contentLabel.accessibilityTraits = .button
+        separatorLine.frame = CGRect(x: 0, y: 0, width: separatorLine.frame.width, height: separatorLine.frame.height / 2)
+        separatorLine.alpha = 0.5
+        
+        if certificateDetail.isSubValue {
+            separatorLine.isHidden = true
         } else {
-            titleLabel.textColor = UIColor.moppDetailText
-            contentLabel.textColor = UIColor.moppDetailValue
+            separatorLine.isHidden = false
         }
     }
 }

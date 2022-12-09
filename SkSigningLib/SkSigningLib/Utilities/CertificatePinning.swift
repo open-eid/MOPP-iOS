@@ -30,9 +30,9 @@ class CertificatePinning {
             return completionHandler(.cancelAuthenticationChallenge, nil)
         }
         if let serverTrust = challenge.protectionSpace.serverTrust {
-            var trustResult = SecTrustResultType.invalid
-            SecTrustEvaluate(serverTrust, &trustResult)
-            if trustResult != .proceed && trustResult != .unspecified {
+            var trustResultError: CFError?
+            let isTrusted = SecTrustEvaluateWithError(serverTrust, &trustResultError)
+            if !isTrusted || trustResultError != nil {
                 return completionHandler(.cancelAuthenticationChallenge, nil)
             }
             
