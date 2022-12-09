@@ -48,6 +48,7 @@ class SettingsDefaultValueCell: UITableViewCell {
         let useDefault = DefaultsHelper.rpUuid.isEmpty && DefaultsHelper.timestampUrl == nil
         useDefaultSwitch.isOn = useDefault
         useDefaultTitleLabel.text = L(.settingsTimestampUseDefaultTitle)
+        useDefaultSwitch.accessibilityLabel = useDefaultTitleLabel.text
         useDefaultTitleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
     }
 }

@@ -98,6 +98,7 @@ class SettingsViewController: MoppViewController {
         var headerCellIndex: Int = 0
         var fieldCellIndex: Int = 0
         var timestampCellIndex: Int = 0
+        var defaultValueCellIndex: Int = 0
         for (index, cell) in tableView.visibleCells.enumerated() {
             if cell is SettingsHeaderCell {
                 headerCellIndex = index
@@ -105,12 +106,18 @@ class SettingsViewController: MoppViewController {
                 fieldCellIndex = index
             } else if cell is SettingsTimeStampCell {
                 timestampCellIndex = index
+            } else if cell is SettingsDefaultValueCell {
+                defaultValueCellIndex = index
             }
         }
         
         guard let timestampCell = tableView.visibleCells[timestampCellIndex] as? SettingsTimeStampCell,
-              let timestampDefaultSwitch = timestampCell.useDefaultSwitch,
               let timestampTextfield = timestampCell.textField else {
+            return []
+        }
+        
+        guard let defaultValueCell = tableView.visibleCells[defaultValueCellIndex] as? SettingsDefaultValueCell,
+              let timestampDefaultSwitch = defaultValueCell.useDefaultSwitch else {
             return []
         }
         
