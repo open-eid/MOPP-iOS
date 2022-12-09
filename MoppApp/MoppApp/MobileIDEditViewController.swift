@@ -205,7 +205,7 @@ class MobileIDEditViewController : MoppViewController {
         verifySigningCapability()
         if sender.accessibilityIdentifier == "mobileIDCodeField" {
             let text = sender.text ?? String()
-            if (text.count > 11) {
+            if (text.count >= 11 && !PersonalCodeValidator.isPersonalCodeValid(personalCode: text)) {
                 sender.deleteBackward()
             }
         }
