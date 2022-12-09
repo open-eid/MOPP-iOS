@@ -47,8 +47,10 @@
     NSString *pnoeePrefix = secureLdap ? @"PNOEE-" : @"";
     NSString *wildcard = secureLdap ? @"" : @"*";
     
-    if ([identityCode rangeOfCharacterFromSet:notDigits].location == NSNotFound) {
+    if ([identityCode rangeOfCharacterFromSet:notDigits].location == NSNotFound && [identityCode length] == 11) {
         filter = [NSString stringWithFormat:@"(serialNumber=%@%@%@)", pnoeePrefix, identityCode, wildcard];
+    } else if ([identityCode rangeOfCharacterFromSet:notDigits].location == NSNotFound) {
+        filter = [NSString stringWithFormat:@"(serialNumber=%@)", identityCode];
     } else {
         filter = [NSString stringWithFormat:@"(cn=*%@*)", identityCode];
     }

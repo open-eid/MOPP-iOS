@@ -53,6 +53,7 @@ class SmartIDEditViewController : MoppViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var countryLabel: UILabel!
     @IBOutlet weak var idCodeLabel: UILabel!
+    @IBOutlet weak var personalCodeErrorLabel: UILabel!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var signButton: UIButton!
     @IBOutlet weak var rememberLabel: UILabel!
@@ -85,6 +86,9 @@ class SmartIDEditViewController : MoppViewController {
         idCodeTextField.moppPresentDismissButton()
         idCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         idCodeTextField.layer.borderWidth = 1.0
+        
+        personalCodeErrorLabel.text = ""
+        personalCodeErrorLabel.isHidden = true
 
         countryViewPicker.dataSource = self
         countryViewPicker.delegate = self
@@ -130,7 +134,9 @@ class SmartIDEditViewController : MoppViewController {
     @IBAction func editingChanged(_ sender: UITextField) {
         verifySigningCapability()
         let text = sender.text ?? String()
-        if countryViewPicker.selectedRow(inComponent: 0) == 0 && text.count > 11 {
+        if countryViewPicker.selectedRow(inComponent: 0) == 0 &&
+            text.count >= 11 &&
+            !PersonalCodeValidator.isPersonalCodeValid(personalCode: text) {
             sender.deleteBackward()
         }
     }
@@ -192,7 +198,7 @@ class SmartIDEditViewController : MoppViewController {
 
     func verifySigningCapability() {
         let codeTextField = idCodeTextField.text ?? String()
-        signButton.isEnabled = countryViewPicker.selectedRow(inComponent: 0) != 0 || codeTextField.count == 11
+        signButton.isEnabled = countryViewPicker.selectedRow(inComponent: 0) != 0 || !TokenFlowUtil.isPersonalCodeInvalid(text: codeTextField)
         signButton.backgroundColor = signButton.isEnabled ? UIColor.moppBase : UIColor.moppLabel
     }
     
@@ -266,5 +272,23 @@ extension SmartIDEditViewController : UITextFieldDelegate {
             return textAfterUpdate.isNumeric || textAfterUpdate.isEmpty
         }
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.accessibilityIdentifier == "smartIDCodeField" {
+            if let text = textField.text as String? {
+                if TokenFlowUtil.isPersonalCodeInvalid(text: text) {
+                    personalCodeErrorLabel.text = L(.signingErrorIncorrectPersonalCode)
+                    personalCodeErrorLabel.isHidden = false
+                    setViewBorder(view: textField, color: .moppError)
+                    UIAccessibility.post(notification: .screenChanged, argument: self.personalCodeErrorLabel)
+                } else {
+                    personalCodeErrorLabel.text = ""
+                    personalCodeErrorLabel.isHidden = true
+                    removeViewBorder(view: textField)
+                    UIAccessibility.post(notification: .screenChanged, argument: idCodeTextField)
+                }
+            }
+        }
     }
 }

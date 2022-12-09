@@ -53,6 +53,7 @@ fileprivate let kRPUuidKey = "kRPUuidKey"
 fileprivate let kSIDIDCodeKey = "kSIDIDCodeKey"
 fileprivate let kSIDCountryKey = "kSIDCountryKey"
 fileprivate let kTimestampUrlKey = "kTimestampUrlKey"
+fileprivate let kSettingsDefaultSwitchKey = "kSettingsDefaultSwitchKey"
 fileprivate let kCrashReportSettingKey = "kCrashReportSettingKey"
 fileprivate let kPreviousPreferredLanguage = "kPreviousPreferredLanguage"
 fileprivate let kMoppLanguage = "kMoppLanguage"
@@ -61,6 +62,14 @@ fileprivate let kIsTimestampedDdoc = "kIsTimestampedDdoc"
 
 class DefaultsHelper
 {
+    static func setDefaultSettingsSwitch() {
+        UserDefaults.standard.register(
+            defaults: [
+                kSettingsDefaultSwitchKey: true
+            ]
+        )
+    }
+    
     class var signMethod: String {
         set {
             UserDefaults.standard.set(newValue, forKey: kSignMethodKey)
@@ -121,6 +130,15 @@ class DefaultsHelper
         }
         get {
             return UserDefaults.standard.value(forKey: kTimestampUrlKey) as? String
+        }
+    }
+    
+    class var defaultSettingsSwitch: Bool {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kSettingsDefaultSwitchKey)
+        }
+        get {
+            return UserDefaults.standard.bool(forKey: kSettingsDefaultSwitchKey) as Bool
         }
     }
 

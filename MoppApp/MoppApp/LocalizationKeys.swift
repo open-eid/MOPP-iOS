@@ -27,6 +27,7 @@ enum LocKey : String
     case backButton = "back-button"
     case menuClose = "menu-close"
     case menuHelp = "menu-help"
+    case menuAccessibility = "menu-accessibility"
     case menuRecentContainers = "menu-recent-containers"
     case menuSettings = "menu-settings"
     case menuAbout = "menu-about"
@@ -54,6 +55,10 @@ enum LocKey : String
     case signatureDetailsTitle = "signature-details-title"
     case signingRecentContainers = "signing-recent-containers"
     case menuButton = "menu-button"
+    case signingErrorIncorrectCountryCode = "signing-error-incorrect-country-code"
+    case signingErrorIncorrectPhoneNumber = "signing-error-incorrect-phone-number"
+    case signingErrorIncorrectPersonalCode = "signing-error-incorrect-personal-code"
+    case signingErrorIncorrectPinLength = "signing-error-incorrect-pin-length"
     case crashlyticsTitle = "crashlytics-title"
     case crashlyticsMessage = "crashlytics-message"
     case crashlyticsActionSend = "crashlytics-action-send"
@@ -323,4 +328,22 @@ enum LocKey : String
     case cryptoAddresseeAddedButtonTitle = "crypto-addressee-added-button-title";
     case cryptoRemoveAddresseeButton = "crypto-remove-addressee-button"
     case datafilePreviewFailed = "datafile-preview-failed";
+    case accessibilityIntroductionTitle = "accessibility-introduction-title";
+    case accessibilityIntroduction = "accessibility-introduction";
+    case accessibilityIntroduction2 = "accessibility-introduction-2";
+    case accessibilityIntroductionScreenReaderHeader = "accessibility-introduction-screen-reader-header";
+    case accessibilityIntroductionScreenReaderIntroduction = "accessibility-introduction-screen-reader-introduction"
+    case accessibilityIntroductionScreenReaderIntroduction2 = "accessibility-introduction-screen-reader-introduction-2"
+    case accessibilityIntroductionScreenReaderIntroductionApps = "accessibility-introduction-screen-reader-introduction-apps"
+    case accessibilityIntroductionScreenReaderIntroductioniOS = "accessibility-introduction-screen-reader-introduction-ios"
+    case accessibilityIntroductionScreenReaderIntroductionAndroid = "accessibility-introduction-screen-reader-introduction-android"
+
+    case accessibilityIntroductionScreenMagnificationIntroductionHeader = "accessibility-introduction-screen-magnification-introduction-header"
+    case accessibilityIntroductionScreenMagnificationIntroduction = "accessibility-introduction-screen-magnification-introduction"
+    case accessibilityIntroductionScreenMagnificationScreenTools = "accessibility-introduction-screen-magnification-screen-tools"
+    case accessibilityIntroductionScreenMagnificationScreenToolsiOS = "accessibility-introduction-screen-magnification-screen-tools-ios"
+    case accessibilityIntroductionScreenMagnificationScreenToolsAndroid = "accessibility-introduction-screen-magnification-screen-tools-android"
+    case accessibilityIntroductionScreenMagnificationTools = "accessibility-introduction-screen-magnification-tools"
+    case accessibilityIntroductionScreenMagnificationToolsiOS = "accessibility-introduction-screen-magnification-tools-ios"
+    case accessibilityIntroductionScreenMagnificationToolsAndroid = "accessibility-introduction-screen-magnification-tools-android"
 }

@@ -37,16 +37,20 @@
     try {
         digidoc::X509Cert digiDocCert = digidoc::X509Cert(data, length, digidoc::X509Cert::Format::Der);
         [self setCertData:certData digiDocCert:digiDocCert];
-    } catch (digidoc::Exception e) {
-        printf("%s\n", e.msg().c_str());
+    } catch(const digidoc::Exception &e) {
+        printLog(@"Code: %u, message: %@", e.code(), [NSString stringWithCString:e.msg().c_str() encoding:[NSString defaultCStringEncoding]]);
     }
 }
 
 + (digidoc::X509Cert)certToDer:(NSString *)certString {
     NSString* cleanCert = [MoppLibDigidocManager removeBeginAndEndFromCertificate:certString];
     std::vector<unsigned char> decodedCert = base64_decode(std::string([cleanCert UTF8String]));
-    
-    return digidoc::X509Cert(decodedCert, digidoc::X509Cert::Format::Der);
+    try {
+        return digidoc::X509Cert(decodedCert, digidoc::X509Cert::Format::Der);
+    } catch(const digidoc::Exception &e) {
+        printLog(@"Code: %u, message: %@", e.code(), [NSString stringWithCString:e.msg().c_str() encoding:[NSString defaultCStringEncoding]]);
+        return digidoc::X509Cert();
+    }
 }
 
 + (void)certData:(MoppLibCerificatetData *)certData updateWithPemEncodingData:(const unsigned char *)data length:(size_t)length certString:(NSString *)certString {
@@ -57,7 +61,7 @@
         try {
             [self setCertData:certData digiDocCert:[self certToDer:certString]];
         } catch (digidoc::Exception e) {
-            printf("%s\n", e.msg().c_str());
+            printLog(@"Code: %u, message: %@", e.code(), [NSString stringWithCString:e.msg().c_str() encoding:[NSString defaultCStringEncoding]]);
         }
     }
 }
