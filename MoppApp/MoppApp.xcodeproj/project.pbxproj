@@ -343,6 +343,8 @@
 		DF32A67B29096B7100AE5F82 /* LogFileGenerating.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A67A29096B7100AE5F82 /* LogFileGenerating.swift */; };
 		DF32A67D2909B20C00AE5F82 /* AlertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A67C2909B20C00AE5F82 /* AlertUtil.swift */; };
 		DF32A6812909F0FA00AE5F82 /* FileLogUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A6802909F0FA00AE5F82 /* FileLogUtil.swift */; };
+		DF32A690290C983100AE5F82 /* MessageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A68E290C983100AE5F82 /* MessageUtil.swift */; };
+		DF32A691290C983100AE5F82 /* ErrorUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A68F290C983100AE5F82 /* ErrorUtil.swift */; };
 		DF3D299D23F5ADB7007181B8 /* MimeTypeExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */; };
 		DF3D29CF23F6B3CF007181B8 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; };
 		DF3D29D023F6B3CF007181B8 /* SkSigningLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -653,6 +655,8 @@
 		DF32A67A29096B7100AE5F82 /* LogFileGenerating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFileGenerating.swift; sourceTree = "<group>"; };
 		DF32A67C2909B20C00AE5F82 /* AlertUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertUtil.swift; sourceTree = "<group>"; };
 		DF32A6802909F0FA00AE5F82 /* FileLogUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLogUtil.swift; sourceTree = "<group>"; };
+		DF32A68E290C983100AE5F82 /* MessageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageUtil.swift; sourceTree = "<group>"; };
+		DF32A68F290C983100AE5F82 /* ErrorUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorUtil.swift; sourceTree = "<group>"; };
 		DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypeExtractor.swift; sourceTree = "<group>"; };
 		DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF3F62AF26BD71180070F930 /* FileDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloader.swift; sourceTree = "<group>"; };
@@ -1256,6 +1260,8 @@
 				DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */,
 				DF3F62AF26BD71180070F930 /* FileDownloader.swift */,
 				DF26DC8226CD45670073ABA7 /* SivaUtil.swift */,
+				DF32A68E290C983100AE5F82 /* MessageUtil.swift */,
+				DF32A68F290C983100AE5F82 /* ErrorUtil.swift */,
 				DF32A67C2909B20C00AE5F82 /* AlertUtil.swift */,
 				DF32A6802909F0FA00AE5F82 /* FileLogUtil.swift */,
 				DFC2ADBD294375FA008A1CD2 /* TokenFlowUtil.swift */,
@@ -1896,6 +1902,7 @@
 				DFBF242E23DB0923008DD8D0 /* LOTLDecoder.swift in Sources */,
 				C50DCD441FDD7E4A00D48E16 /* DataFilePreviewViewController.swift in Sources */,
 				C50FC431224BA3B20041925C /* ScreenDisguise.swift in Sources */,
+				DF32A690290C983100AE5F82 /* MessageUtil.swift in Sources */,
 				C50787881FEA807500D9AAC0 /* UIViewController+Additions.swift in Sources */,
 				C506EC7C1FB9CBFD00E07226 /* Constants.swift in Sources */,
 				C58FCD5B206505BE00FE3B57 /* MyeIDStatusViewController.swift in Sources */,
@@ -1955,6 +1962,7 @@
 				4E59080024B0F914001B23A6 /* SmartIDEditViewController.swift in Sources */,
 				C50DCD1B1FD1576B00D48E16 /* SigningTableViewHeaderView.swift in Sources */,
 				C54EA73A2057E58D0039AC78 /* MoppButton.swift in Sources */,
+				DF32A691290C983100AE5F82 /* ErrorUtil.swift in Sources */,
 				3921CAA720B5A39F00BF3178 /* ContainerAddresseeCell.swift in Sources */,
 				C55A6E402086351C000F3386 /* MyeIDChangeCodesTextField.swift in Sources */,
 				C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */,

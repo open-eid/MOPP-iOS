@@ -118,7 +118,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
         let containerFileCount: Int = self.containerViewDelegate.getDataFileCount()
         guard containerFileCount > 0 else {
             printLog("No files in container")
-            self.errorAlert(message: L(.genericErrorMessage))
+            self.errorAlert(message: "File not found in container")
             return
         }
         

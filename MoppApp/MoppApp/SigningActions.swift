@@ -178,7 +178,7 @@ extension SigningContainerViewController : IdCardSignViewControllerDelegate {
                 } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorOCSPTimeSlot.rawValue) {
                     errorAlert(message: L(.ocspInvalidTimeSlot))
                 } else {
-                    errorAlert(message: L(.generalSignatureAddingMessage))
+                    errorAlert(message: MessageUtil.errorMessageWithDetails(details: nsError.localizedDescription))
                 }
             }
         } else {
