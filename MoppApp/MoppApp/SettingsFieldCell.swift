@@ -39,13 +39,27 @@ class SettingsFieldCell: UITableViewCell {
         textField.layer.borderColor = UIColor.moppContentLine.cgColor
         textField.layer.borderWidth = 1
         textField.delegate = self
+        
+        guard let fieldUITextfield: UITextField = textField else {
+            printLog("Unable to get textField")
+            return
+        }
+        titleLabel.isAccessibilityElement = false
+        textField.accessibilityLabel = L(.settingsRpUuidTitle)
+        self.accessibilityElements = [fieldUITextfield]
     }
     
     func populate(with field:SettingsViewController.Field) {
+        let defaultSwitch = DefaultsHelper.defaultSettingsSwitch
+        if defaultSwitch {
+            textField.text = nil
+            DefaultsHelper.rpUuid = ""
+        }
         titleLabel.text = field.title
         if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
+        textField.isEnabled = !defaultSwitch
         textField.attributedPlaceholder = field.placeholderText
-        textField.text = field.value
+        textField.text = !defaultSwitch ? DefaultsHelper.rpUuid : nil
         if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: textField.font?.pointSize ?? UIFont.moppMediumBold.pointSize) }
         self.field = field
         

@@ -40,6 +40,7 @@
 // Main menu
 "menu-close" = "CLOSE MENU";
 "menu-help" = "HELP";
+"menu-accessibility" = "ACCESSIBILITY";
 "menu-recent-containers" = "RECENT DOCUMENTS";
 "menu-settings" = "SETTINGS";
 "menu-about" = "INFO";
@@ -57,6 +58,11 @@
 "signature-details-title" = "Signature details";
 "certificate-details-title" = "Certificate details";
 "menu-button" = "Menu";
+
+"signing-error-incorrect-country-code" = "Invalid country code.";
+"signing-error-incorrect-phone-number" = "Phone number is not valid.";
+"signing-error-incorrect-personal-code" = "Personal code is not valid.";
+"signing-error-incorrect-pin-length" = "%@ code must be at least %i digits long";
 
 // Crypto
 "crypto-view-begin-label" = "Choose a file to encrypt or decrypt";
@@ -410,3 +416,22 @@
 "fingerprints" = "Fingerprints";
 "sha256" = "SHA-256";
 "sha1" = "SHA-1";
+
+// ** Accessibility introduction **
+"accessibility-introduction-title" = "Accessibility";
+"accessibility-introduction" = "RIA DigiDoc is designed to comply with the WCAG 2.1 AA accessibility guidelines. This means that the RIA DigiDoc application has been developed using the principles that the application should be usable by the blind and people with visual, mobility, and strength impairments.";
+"accessibility-introduction-2" = "Accessibility can be improved by using built-in assistive tools on your smart device. You can find an overview of the main assistive tools below.";
+"accessibility-introduction-screen-reader-header" = "Screen reader";
+"accessibility-introduction-screen-reader-introduction" = "A screen reader is a program that converts the information on the screen of a smart device into a user-friendly output, for instance, into speech. In particular, it is a tool for the visually impaired.";
+"accessibility-introduction-screen-reader-introduction-2" = "RIA DigiDoc has been built based on the principle that all types of visual content can be converted into user-friendly output. For example, the images are accompanied by textual descriptions. Furthermore, the arrangement and order of the structural elements consider the screen reader’s movement on the screen and allow the information to be consumed in a logical sequence.";
+"accessibility-introduction-screen-reader-introduction-apps" = "The most common smart device screen readers:";
+"accessibility-introduction-screen-reader-introduction-ios" = "VoiceOver (iOS, built in) https://support.apple.com/et-ee/guide/iphone/iph3e2e415f/ios";
+"accessibility-introduction-screen-reader-introduction-android" = "Talkback (Android, built in) https://support.google.com/accessibility/android/answer/6007100";
+"accessibility-introduction-screen-magnification-introduction-header" = "Screen magnification and colour change";
+"accessibility-introduction-screen-magnification-introduction" = "If you have enough vision to read the text, you can use the built-in assistive tools to view the screen more comfortably. Assistive tools make it possible to change the size of text, the main font, and the colours of the user interface and enlarge the screen by using the screen magnifier.";
+"accessibility-introduction-screen-magnification-screen-tools" = "Tools to adjust screen colour and text size:";
+"accessibility-introduction-screen-magnification-screen-tools-ios" = "iOS https://support.apple.com/et-ee/guide/iphone/iph3e2e1fb0/ios";
+"accessibility-introduction-screen-magnification-screen-tools-android" = "Android https://support.google.com/accessibility/android/answer/11183305?hl=en&ref_topic=9079043";
+"accessibility-introduction-screen-magnification-tools" = "Screen magnification tools:";
+"accessibility-introduction-screen-magnification-tools-ios" = "Zoom (iOS, built in) https://support.apple.com/et-ee/guide/iphone/iph3e2e367e/ios";
+"accessibility-introduction-screen-magnification-tools-android" = "Magnification (Android, built in) https://support.google.com/accessibility/android/answer/6006949";

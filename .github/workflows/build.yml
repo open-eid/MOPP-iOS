@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         xcode:
-          - 12
+          - 14.1
         platform:
           - iOS
     env:
@@ -21,7 +21,7 @@ jobs:
         TEMP_KEYCHAIN_PATH: "$RUNNER_TEMP/ios-github-actions.keychain-db"
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         submodules: recursive
     - name: Install the Apple certificate and provisioning profiles

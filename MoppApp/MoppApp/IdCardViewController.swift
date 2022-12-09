@@ -470,6 +470,12 @@ extension IdCardViewController : MoppLibCardReaderManagerDelegate {
             break
         }
     }
+    
+    func verifySigningCapability() {
+        let pinTextField = pinTextField.text ?? String()
+        actionButton.isEnabled = !TokenFlowUtil.isPinCodeValid(text: pinTextField, pinType: .PIN2)
+        actionButton.backgroundColor = actionButton.isEnabled ? UIColor.moppBase : UIColor.moppLabel
+    }
 }
 
 extension IdCardViewController : UITextFieldDelegate {
@@ -480,5 +486,39 @@ extension IdCardViewController : UITextFieldDelegate {
         }
         let text = (textField.text ?? String()) + string
         return text.isNumeric && text.count <= 12
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.accessibilityIdentifier == "idCardPinCodeField" {
+            if let text = textField.text as String? {
+                if self.isActionDecryption {
+                    verifyPinCodeValidity(textField: textField, textFieldTitle: pinTextFieldTitleLabel, text: text, defaultLabelText: L(.pin1TextfieldLabel), errorText: L(.signingErrorIncorrectPinLength, [IdCardCodeName.PIN1.rawValue, IdCardCodeLengthLimits.pin1Minimum.rawValue]), pinType: .PIN1)
+                } else {
+                    verifyPinCodeValidity(textField: textField, textFieldTitle: pinTextFieldTitleLabel, text: text, defaultLabelText: L(.pin2TextfieldLabel), errorText: L(.signingErrorIncorrectPinLength, [IdCardCodeName.PIN2.rawValue, IdCardCodeLengthLimits.pin2Minimum.rawValue]), pinType: .PIN2)
+                }
+            }
+        }
+    }
+    
+    func verifyPinCodeValidity(textField: UITextField, textFieldTitle: UILabel, text: String, defaultLabelText: String, errorText: String, pinType: IdCardCodeName) {
+        if !TokenFlowUtil.isPinCodeValid(text: text, pinType: pinType) {
+            setTextFieldError(textField: textField, textFieldTitle: textFieldTitle, text: errorText)
+            setViewBorder(view: textField, color: .moppError)
+            UIAccessibility.post(notification: .screenChanged, argument: textFieldTitle)
+        } else {
+            removeViewBorder(view: textField)
+            resetTextField(textField: pinTextField, textFieldTitle: textFieldTitle, text: defaultLabelText)
+            UIAccessibility.post(notification: .screenChanged, argument: textField)
+        }
+    }
+    
+    func setTextFieldError(textField: UITextField, textFieldTitle: UILabel, text: String) {
+        textFieldTitle.text = text
+        textFieldTitle.textColor = .moppError
+    }
+    
+    func resetTextField(textField: UITextField, textFieldTitle: UILabel, text: String) {
+        textFieldTitle.text = text
+        textFieldTitle.textColor = .black
     }
 }
