@@ -1,6 +1,6 @@
 //
-//  MLFileManager.h
-//  MoppLib
+//  LogFileGenerating.swift
+//  MoppApp
 //
 /*
  * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
@@ -21,20 +21,14 @@
  *
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-@interface MLFileManager : NSObject
-
-+ (MLFileManager *)sharedInstance;
-
-- (NSString *)tslCachePath;
-- (NSArray *)getContainers;
-- (NSDictionary *)fileAttributes:(NSString *)filePath;
-- (void)copyFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath;
-- (BOOL)fileExistsAtPath:(NSString *)filePath;
-- (NSString *)documentsDirectoryPath;
-- (NSString *)logsDirectoryPath;
-- (BOOL)createFolder:(NSString *)folderName;
-- (BOOL)folderExists:(NSString *)folderPath;
-
-@end
+protocol LogFileGenerating {
+    static func isLoggingEnabled() -> Bool
+    static func enableLogging()
+    static func disableLogging()
+    
+    static func isLoggingRunning() -> Bool
+    static func enableLoggingRunning()
+    static func disableLoggingRunning()
+}

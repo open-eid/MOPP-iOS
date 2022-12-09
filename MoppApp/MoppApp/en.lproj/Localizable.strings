@@ -344,6 +344,10 @@
 "settings-timestamp-use-default-title" = "Use default";
 "settings-value-changed" = "Setting value changed";
 "diagnostics-title" = "Diagnostics";
+"diagnostics-activate-one-time-logging" = "Enable one-time log generation";
+"diagnostics-save-log" = "SAVE LOG";
+"diagnostics-restart-to-active-logging" = "Restart RIA DigiDoc to activate logging. https://www.id.ee/en/article/log-file-generation-in-digidoc4-client/";
+"diagnostics-one-time-logging-read-more" = "Read more here";
 "diagnostics-app-version" = "Application version";
 "diagnostics-ios-version" = "OS";
 "diagnostics-libraries-label" = "Libraries:";
