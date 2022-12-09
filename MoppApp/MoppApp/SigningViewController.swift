@@ -45,7 +45,7 @@ class SigningViewController : MoppViewController {
         menuButton.accessibilityLabel = L(LocKey.menuButton)
         
         titleLabel.isAccessibilityElement = false
-        importButton.accessibilityLabel = L(.signatureViewBeginLabel)
+        importButton.accessibilityLabel = L(.signatureViewBeginLabelAccessibility)
         
         UIAccessibility.post(notification: .screenChanged, argument: importButton)
     }

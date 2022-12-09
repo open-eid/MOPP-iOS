@@ -50,7 +50,7 @@ class CryptoViewController : MoppViewController {
         }
         
         titleLabel.isAccessibilityElement = false
-        importButton.accessibilityLabel = titleLabel.text
+        importButton.accessibilityLabel = L(LocKey.cryptoViewBeginLabelAccessibility)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             UIAccessibility.post(notification: .layoutChanged, argument: self.importButton)
         }

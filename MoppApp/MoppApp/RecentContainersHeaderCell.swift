@@ -29,11 +29,14 @@ protocol RecentContainersHeaderDelegate : AnyObject {
 
 class RecentContainersHeaderCell : UITableViewCell {
     weak var delegate: RecentContainersHeaderDelegate!
+    @IBOutlet weak var dismissButton: UIButton!
     @IBAction func dismissAction() {
         delegate.recentContainersHeaderDismiss()
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        dismissButton.setTitle(L(.closeButton))
     }
 }

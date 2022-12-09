@@ -21,6 +21,7 @@
 
 // Navigation
 "back-button" = "Назад";
+"close-button" = "Закрыть";
 
 // TabBar
 "tab-my-eid" = "МОЙ eID";
@@ -54,6 +55,7 @@
 
 // Signature view
 "signature-view-begin-label" = "Выберите файл для подписания или проверки";
+"signature-view-begin-label-accessibility" = "Выберите файл для подписания или проверки";
 "signature-view-begin-button" = "ВЫБРАТЬ ФАЙЛ";
 "signature-details-title" = "Детали подписи";
 "certificate-details-title" = "Детали сертификата";
@@ -66,6 +68,7 @@
 
 // Crypto
 "crypto-view-begin-label" = "Выберите файл для шифрования или расшифровки";
+"crypto-view-begin-label-accessibility" = "Выберите файл для шифрования или расшифровки";
 "crypto-view-begin-button" = "ВЫБРАТЬ ФАЙЛ";
 "crypto-empty-ldap-label" = "У человека или компании нет действующего сертификата.\nДля шифрования необходимо иметь действующий сертификат.\nЕсли у вас возникнут вопросы, пожалуйста, обратитесь на id.ee.";
 "crypto-ldap-search-placeholder" = "Введите личный код, код компании или регистра";
