@@ -232,8 +232,9 @@ extension SettingsViewController: SettingsTimeStampCellDelegate {
         MoppLibManager.sharedInstance()?.setup(success: {
             printLog("success")
         }, andFailure: { [weak self] error in
-            let nsError = error! as NSError
-            self?.errorAlert(message: L(.genericErrorMessage), title: nsError.userInfo["message"] as? String)
+            let nsError = error as? NSError
+            
+            self?.errorAlert(message: MessageUtil.generateDetailedErrorMessage(error: nsError) ?? L(.genericErrorMessage), title: nsError?.userInfo["message"] as? String)
             }, usingTestDigiDocService: useTestDDS, andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaurl,
                withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration())
     }

@@ -264,6 +264,8 @@ extension ContainerActions where Self: UIViewController {
                             DispatchQueue.main.async {
                                 self?.errorAlert(message: L(.containerDetailsFileAlreadyExists))
                             }
+                        } else {
+                            self?.errorAlert(message: MessageUtil.generateDetailedErrorMessage(error: nsError))
                         }
                         self?.refreshContainer(containerViewController: containerViewController)
                     })

@@ -177,6 +177,7 @@
 "mobile-id-timeout-message" = "Mobile-ID request timeout";
 "error-alert-title-general" = "Failure";
 "error-alert-open-link" = "Additional information";
+"error-details-title" = "Details";
 
 // *** Share Extension ***
 "share-extension-import-title" = "Importing file";

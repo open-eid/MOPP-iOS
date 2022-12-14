@@ -25,6 +25,9 @@ import Foundation
 
 public enum SigningError: String, Error {
     
+    // MARK: General
+    case empty
+    
     // MARK: General Errors
     case invalidURL
     case noResponseError
@@ -76,6 +79,8 @@ public enum SigningError: String, Error {
 extension SigningError: LocalizedError {
     public var signingErrorDescription: String? {
         switch self {
+        case .empty:
+            return NSLocalizedString("", comment: "")
         case .parameterNameNull:
             return NSLocalizedString("mid-rest-error-incorrect-parameters", comment: "")
         case .invalidURL:

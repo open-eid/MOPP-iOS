@@ -177,6 +177,7 @@
 "mobile-id-timeout-message" = "Тайм-аут запроса Mobiil-ID";
 "error-alert-title-general" = "Отказ";
 "error-alert-open-link" = "Дополнительная информация";
+"error-details-title" = "Детали";
 
 // *** Share Extension ***
 "share-extension-import-title" = "Импорт файла";

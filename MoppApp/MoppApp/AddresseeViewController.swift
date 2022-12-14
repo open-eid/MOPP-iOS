@@ -109,7 +109,7 @@ extension AddresseeViewController : UISearchBarDelegate {
                     if nsError.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
                         self.errorAlert(message: L(.noConnectionMessage))
                     } else {
-                        self.errorAlert(message: L(.cryptoEmptyLdapLabel))
+                        self.errorAlert(message: "\(L(.cryptoEmptyLdapLabel)) \(MessageUtil.generateDetailedErrorMessage(error: nsError) ?? "")")
                     }
                     self.showLoading(show: false)
                 }

@@ -178,6 +178,7 @@
 "mobile-id-timeout-message" = "Mobiil-ID päring aegus";
 "error-alert-title-general" = "Viga";
 "error-alert-open-link" = "Loe täpsemalt siit";
+"error-details-title" = "Detailid";
 
 // *** Share Extension ***
 "share-extension-import-title" = "Faili import";

@@ -121,16 +121,20 @@ class SmartIDChallengeViewController : UIViewController {
     @objc func receiveErrorNotification(_ notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         let error = userInfo[kErrorKey] as? NSError
-        let signingErrorMessage = error?.userInfo[NSLocalizedDescriptionKey] as? SigningError
-        let errorMessage = userInfo[kErrorMessage] as? String ?? SigningError.generalError.signingErrorDescription ?? L(.genericErrorMessage)
-        let message = SkSigningLib_LocalizedString(signingErrorMessage?.signingErrorDescription ?? errorMessage)
+        let signingErrorMessage = (error as? SigningError)?.signingErrorDescription
+        let signingError = error?.userInfo[NSLocalizedDescriptionKey] as? SigningError
+        let detailedErrorMessage = error?.userInfo[NSLocalizedFailureReasonErrorKey] as? String
+        var errorMessage = userInfo[kErrorMessage] as? String ?? SkSigningLib_LocalizedString(signingError?.signingErrorDescription ?? signingErrorMessage ?? "")
+        if !detailedErrorMessage.isNilOrEmpty {
+            errorMessage = "\(userInfo[kErrorMessage] as? String ?? SkSigningLib_LocalizedString(signingError?.signingErrorDescription ?? signingErrorMessage ?? "")) \n\(detailedErrorMessage ?? "")"
+        }
         self.dismiss(animated: false) {
             let topViewController = self.getTopViewController()
 
-            let errorMessageNoLink = message.removeFirstLinkFromMessage()
-            let alert = UIAlertController(title: L(.errorAlertTitleGeneral), message: errorMessageNoLink, preferredStyle: UIAlertController.Style.alert)
+            let errorMessageNoLink = errorMessage.removeFirstLinkFromMessage()?.trimWhitespacesAndNewlines()
+            let alert = UIAlertController(title: L(.generalSignatureAddingMessage), message: errorMessageNoLink, preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            if let linkInUrl = message.getFirstLinkInMessage() {
+            if let linkInUrl = errorMessage.getFirstLinkInMessage() {
                 if let alertActionUrl = UIAlertAction().getLinkAlert(message: linkInUrl) {
                     alert.addAction(alertActionUrl)
                 }

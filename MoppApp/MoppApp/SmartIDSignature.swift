@@ -35,7 +35,7 @@ class SmartIDSignature {
         let errorHandler: (SigningError, String) -> Void = { error, log in
             UIApplication.shared.endBackgroundTask(backgroundTask)
             printLog("\(log): \(SkSigningLib_LocalizedString(error.signingErrorDescription ?? error.rawValue))")
-            self.generateError(error: error)
+            ErrorUtil.generateError(signingError: error, details: MessageUtil.errorMessageWithDetails(details: log))
         }
         
         if isUsingTestMode() {
@@ -159,26 +159,28 @@ class SmartIDSignature {
         }, failure: { (error: Error?) in
             printLog("\nRIA.SmartID - Error validating signature. Error: \(error?.localizedDescription ?? "Unable to display error")\n")
             guard let error = error, let err = error as NSError? else {
-                self.generateError(error: .generalSignatureAddingError)
+                ErrorUtil.generateError(signingError: .generalSignatureAddingError, details: MessageUtil.errorMessageWithDetails(details: "Unknown error"))
                 return
             }
             
             if err.code == 5 || err.code == 6 {
                 printLog("\nRIA.SmartID - Certificate revoked. \(err.domain)")
-                self.generateError(error: .certificateRevoked)
+                ErrorUtil.generateError(signingError: .certificateRevoked, details: MessageUtil.generateDetailedErrorMessage(error: error as NSError) ?? err.domain)
                 return
             } else if err.code == 7 {
                 printLog("\nRIA.SmartID - Invalid OCSP time slot. \(err.domain)")
-                self.generateError(error: .ocspInvalidTimeSlot)
+                ErrorUtil.generateError(signingError: .ocspInvalidTimeSlot, details: MessageUtil.generateDetailedErrorMessage(error: error as NSError) ?? err.domain)
                 return
             } else if err.code == 18 {
                 printLog("\nRIA.SmartID - Too many requests. \(err.domain)")
-                self.generateError(error: .tooManyRequests)
+                ErrorUtil.generateError(signingError: .tooManyRequests, details:
+                    MessageUtil.generateDetailedErrorMessage(error: error as NSError) ?? err.domain)
                 return
             }
             
             printLog("\nRIA.SmartID - General signature adding error. \(err.domain)")
-            return self.generateError(error: .generalSignatureAddingError)
+            return ErrorUtil.generateError(signingError: .empty, details:
+                    MessageUtil.generateDetailedErrorMessage(error: error as NSError) ?? err.domain)
         })
     }
 
@@ -197,12 +199,5 @@ class SmartIDSignature {
             )
         }
         return hash
-    }
-
-    private func generateError(error: SigningError) -> Void {
-        let error = NSError(domain: "SkSigningLib", code: 10, userInfo: [NSLocalizedDescriptionKey: error])
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: .errorNotificationName, object: nil, userInfo: [kErrorKey: error])
-        }
     }
 }

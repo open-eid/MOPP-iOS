@@ -112,9 +112,9 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
                     let codeDisplayName = actionType.codeDisplayNameForWrongOrBlocked
                     errorMessage = L(.myEidCodeBlockedMessage, [codeDisplayName, codeDisplayName])
                 }
-                else if let localizedDescription = nsError.userInfo[NSLocalizedDescriptionKey.self] as? String {
+                else if let localizedReason = nsError.userInfo[NSLocalizedFailureReasonErrorKey.self] as? String {
                     self?.loadingViewController.dismiss(animated: false, completion: {
-                        self?.errorAlert(message: localizedDescription)
+                        self?.errorAlert(message: localizedReason)
                     })
                 }
             }
