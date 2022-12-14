@@ -81,6 +81,10 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
         let color = UIColor.moppText
         let attributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : color]
         
+        firstCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor
+        secondCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor
+        thirdCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor
+        
         var partAttributedStrings = [String]()
         var fullAttributedStrings = [NSMutableAttributedString]()
         
@@ -257,8 +261,8 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
     }
     
     func removeViewBorder(view: UIView) {
-        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.layer.borderWidth = 0.5
+        view.layer.borderColor = UIColor.moppContentLine.cgColor
+        view.layer.borderWidth = 1.0
     }
 }
 

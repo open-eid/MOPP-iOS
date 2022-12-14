@@ -123,8 +123,8 @@ class MoppViewController : UIViewController {
     }
     
     func removeViewBorder(view: UIView) {
-        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.layer.borderWidth = 0.2
+        view.layer.borderColor = UIColor.moppContentLine.cgColor
+        view.layer.borderWidth = 1.0
     }
     
 }
