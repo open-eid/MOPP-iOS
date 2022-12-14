@@ -21,6 +21,7 @@
 
 // Navigation
 "back-button" = "Back";
+"close-button" = "Close";
 
 // TabBar
 "tab-my-eid" = "MY eID";
@@ -54,6 +55,7 @@
 
 // Signature view
 "signature-view-begin-label" = "Choose a file to sign or validate";
+"signature-view-begin-label-accessibility" = "Choose a file to sign or validate";
 "signature-view-begin-button" = "CHOOSE FILE";
 "signature-details-title" = "Signature details";
 "certificate-details-title" = "Certificate details";
@@ -66,6 +68,7 @@
 
 // Crypto
 "crypto-view-begin-label" = "Choose a file to encrypt or decrypt";
+"crypto-view-begin-label-accessibility" = "Choose a file to encrypt or decrypt";
 "crypto-view-begin-button" = "CHOOSE FILE";
 "crypto-empty-ldap-label" = "Person or company does not own a valid certificate.\nIt is necessary to have a valid certificate for encryption.\nIn case of questions please contact our support via id.ee.";
 "crypto-ldap-search-placeholder" = "Enter personal code, company or registry code";

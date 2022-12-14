@@ -25,6 +25,7 @@ enum LocKey : String
     typealias RawValue = String
 
     case backButton = "back-button"
+    case closeButton = "close-button"
     case menuClose = "menu-close"
     case menuHelp = "menu-help"
     case menuAccessibility = "menu-accessibility"
@@ -51,6 +52,7 @@ enum LocKey : String
     case tabUnselected = "tab-unselected"
     case signatureRemoveButton = "signature-remove-button"
     case signatureViewBeginLabel = "signature-view-begin-label"
+    case signatureViewBeginLabelAccessibility = "signature-view-begin-label-accessibility"
     case signatureViewBeginButton = "signature-view-begin-button"
     case signatureDetailsTitle = "signature-details-title"
     case certificateDetailsTitle = "certificate-details-title"
@@ -310,6 +312,7 @@ enum LocKey : String
     case aboutTitle = "about-title"
     case jailbreakMessage = "jailbreak-message"
     case cryptoViewBeginLabel = "crypto-view-begin-label"
+    case cryptoViewBeginLabelAccessibility = "crypto-view-begin-label-accessibility"
     case cryptoViewBeginButton = "crypto-view-begin-button"
     case cryptoEmptyLdapLabel = "crypto-empty-ldap-label"
     case cryptoEncryptionErrorText = "crypto-encryption-error-text"

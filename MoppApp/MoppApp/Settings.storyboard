@@ -636,6 +636,7 @@
                         <outlet property="appVersionLabel" destination="a1h-Wv-jK4" id="aKK-Tr-1hc"/>
                         <outlet property="centralConfigurationLabel" destination="TtS-74-evo" id="Ey1-hM-CGv"/>
                         <outlet property="configURL" destination="i5p-YP-xGx" id="c1x-0y-Wso"/>
+                        <outlet property="dismissButton" destination="BfW-sn-d7r" id="E9N-06-t13"/>
                         <outlet property="eeTSLVersion" destination="OTz-zP-CO1" id="OXz-fS-U4B"/>
                         <outlet property="enableOneTimeLoggingLabel" destination="7bH-3u-clw" id="bCG-8s-Ro9"/>
                         <outlet property="lastCheckDate" destination="8If-1L-pXu" id="8s8-0P-Yov"/>

@@ -21,6 +21,7 @@
 
 // Navigation
 "back-button" = "Tagasi";
+"close-button" = "Sulge";
 
 // TabBar
 "tab-my-eid" = "MINU eID";
@@ -54,6 +55,7 @@
 
 // Signature view
 "signature-view-begin-label" = "Allkirjastamiseks või kontrollimiseks vali fail";
+"signature-view-begin-label-accessibility" = "Vali fail allkirjastamiseks või kontrollimiseks";
 "signature-view-begin-button" = "VALI FAIL";
 "signature-details-title" = "Allkirja detailid";
 "certificate-details-title" = "Sertifikaadi detailid";
@@ -69,6 +71,7 @@
 
 // Crypto
 "crypto-view-begin-label" = "Krüpteerimiseks või dekrüpteerimiseks vali fail";
+"crypto-view-begin-label-accessibility" = "Vali fail krüpteerimiseks või dekrüpteerimiseks";
 "crypto-view-begin-button" = "VALI FAIL";
 "crypto-empty-ldap-label" = "Isikul või asutusel puudub kehtiv sertifikaat. \nKrüpteerimiseks on vaja kehtivat sertikaati.\nKüsimuste korral pöördu id.ee";
 "crypto-ldap-search-placeholder" = "Sisesta isikukood, asutus või registrikood";
