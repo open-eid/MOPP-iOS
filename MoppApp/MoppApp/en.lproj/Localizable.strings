@@ -371,6 +371,9 @@
 "success-notification-dialog-label" = "To share the container click the \"SHARE\" button and choose your preferred application. All containers can also be found in the application settings \"Recent Documents\" folder.";
 "success-notification-dialog-dont-show-again" = "Don't show again";
 
+// ** Images **
+"digidoc-image-accessibility" = "DigiDoc";
+
 // *** Signature details ***
 
 "signer-certificate-issuer-label" = "Signer's Certificate issuer";

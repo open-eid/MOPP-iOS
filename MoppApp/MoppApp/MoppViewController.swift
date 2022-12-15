@@ -27,9 +27,10 @@ class MoppViewController : UIViewController {
         super.viewDidLoad()
         
         let titleImageView = UIImageView(image: UIImage(named: "Logo_Vaike"))
+        titleImageView.isAccessibilityElement = true
+        titleImageView.accessibilityLabel = L(.digidocImageAccessibility)
+        titleImageView.accessibilityTraits = [.image]
         navigationItem.titleView = titleImageView
-        titleImageView.accessibilityElementsHidden = true
-        
     }
     
     deinit {
