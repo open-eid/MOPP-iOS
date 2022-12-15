@@ -371,6 +371,9 @@
 "success-notification-dialog-label" = "Чтобы поделиться контейнером, нажмите кнопку «ПОДЕЛИТЬСЯ» и выберите нужное приложение. Все контейнеры можно найти в папке «Недавние документы» в настройках приложения.";
 "success-notification-dialog-dont-show-again" = "Больше не показывать";
 
+// ** Images **
+"digidoc-image-accessibility" = "DigiDoc";
+
 
 // *** Signature details ***
 

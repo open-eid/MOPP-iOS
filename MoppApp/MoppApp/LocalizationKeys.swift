@@ -338,6 +338,8 @@ enum LocKey : String
     case cryptoRemoveAddresseeButton = "crypto-remove-addressee-button"
     case datafilePreviewFailed = "datafile-preview-failed";
 
+    case digidocImageAccessibility = "digidoc-image-accessibility";
+
     case signerCertificateIssuerLabel = "signer-certificate-issuer-label";
     case signersCertificateLabel = "signers-certificate-label";
     case signatureMethodLabel = "signature-method-label";
@@ -390,18 +392,18 @@ enum LocKey : String
     case accessibilityIntroduction = "accessibility-introduction";
     case accessibilityIntroduction2 = "accessibility-introduction-2";
     case accessibilityIntroductionScreenReaderHeader = "accessibility-introduction-screen-reader-header";
-    case accessibilityIntroductionScreenReaderIntroduction = "accessibility-introduction-screen-reader-introduction"
-    case accessibilityIntroductionScreenReaderIntroduction2 = "accessibility-introduction-screen-reader-introduction-2"
-    case accessibilityIntroductionScreenReaderIntroductionApps = "accessibility-introduction-screen-reader-introduction-apps"
-    case accessibilityIntroductionScreenReaderIntroductioniOS = "accessibility-introduction-screen-reader-introduction-ios"
-    case accessibilityIntroductionScreenReaderIntroductionAndroid = "accessibility-introduction-screen-reader-introduction-android"
+    case accessibilityIntroductionScreenReaderIntroduction = "accessibility-introduction-screen-reader-introduction";
+    case accessibilityIntroductionScreenReaderIntroduction2 = "accessibility-introduction-screen-reader-introduction-2";
+    case accessibilityIntroductionScreenReaderIntroductionApps = "accessibility-introduction-screen-reader-introduction-apps";
+    case accessibilityIntroductionScreenReaderIntroductioniOS = "accessibility-introduction-screen-reader-introduction-ios";
+    case accessibilityIntroductionScreenReaderIntroductionAndroid = "accessibility-introduction-screen-reader-introduction-android";
 
-    case accessibilityIntroductionScreenMagnificationIntroductionHeader = "accessibility-introduction-screen-magnification-introduction-header"
-    case accessibilityIntroductionScreenMagnificationIntroduction = "accessibility-introduction-screen-magnification-introduction"
-    case accessibilityIntroductionScreenMagnificationScreenTools = "accessibility-introduction-screen-magnification-screen-tools"
-    case accessibilityIntroductionScreenMagnificationScreenToolsiOS = "accessibility-introduction-screen-magnification-screen-tools-ios"
-    case accessibilityIntroductionScreenMagnificationScreenToolsAndroid = "accessibility-introduction-screen-magnification-screen-tools-android"
-    case accessibilityIntroductionScreenMagnificationTools = "accessibility-introduction-screen-magnification-tools"
-    case accessibilityIntroductionScreenMagnificationToolsiOS = "accessibility-introduction-screen-magnification-tools-ios"
-    case accessibilityIntroductionScreenMagnificationToolsAndroid = "accessibility-introduction-screen-magnification-tools-android"
+    case accessibilityIntroductionScreenMagnificationIntroductionHeader = "accessibility-introduction-screen-magnification-introduction-header";
+    case accessibilityIntroductionScreenMagnificationIntroduction = "accessibility-introduction-screen-magnification-introduction";
+    case accessibilityIntroductionScreenMagnificationScreenTools = "accessibility-introduction-screen-magnification-screen-tools";
+    case accessibilityIntroductionScreenMagnificationScreenToolsiOS = "accessibility-introduction-screen-magnification-screen-tools-ios";
+    case accessibilityIntroductionScreenMagnificationScreenToolsAndroid = "accessibility-introduction-screen-magnification-screen-tools-android";
+    case accessibilityIntroductionScreenMagnificationTools = "accessibility-introduction-screen-magnification-tools";
+    case accessibilityIntroductionScreenMagnificationToolsiOS = "accessibility-introduction-screen-magnification-tools-ios";
+    case accessibilityIntroductionScreenMagnificationToolsAndroid = "accessibility-introduction-screen-magnification-tools-android";
 }
