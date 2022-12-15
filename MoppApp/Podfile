@@ -18,7 +18,6 @@ target 'MoppApp' do
   pod 'FirebaseCrashlytics', '~> 10.0.0'
   pod 'SwiftyRSA', '~> 1.7.0'
   pod 'ZIPFoundation', '~> 0.9.13'
-  pod 'ILPDFKit', '~> 2.0.1'
   pod 'ASN1Decoder', '~> 1.8.0'
 end
 
