@@ -51,6 +51,13 @@
   return documentsDirectory;
 }
 
+- (NSString *)logsDirectoryPath {
+  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+  NSString *documentsDirectory = [paths objectAtIndex:0];
+  NSString *logsDirectory = [documentsDirectory stringByAppendingPathComponent:@"logs"];
+  return logsDirectory;
+}
+
 - (NSString *)tslCachePath {
   NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
   NSString *libraryDirectory = [paths objectAtIndex:0];
@@ -100,6 +107,24 @@
 - (BOOL)fileExistsAtPath:(NSString *)filePath {
   BOOL exists = [self.fileManager fileExistsAtPath:filePath];
   return exists;
+}
+
+- (BOOL)createFolder:(NSString *)folderName {
+    NSError* error;
+    NSURL* documentsDirectory = [[NSURL alloc] initFileURLWithPath:[self documentsDirectoryPath]];
+    
+    NSURL* newFolder = [documentsDirectory URLByAppendingPathComponent:folderName];
+    BOOL isFolderCreated = [[NSFileManager defaultManager] createDirectoryAtURL:newFolder withIntermediateDirectories:YES attributes:nil error:&error];
+    if (!isFolderCreated) {
+        MLLog(@"createFolder error: %@", error);
+    }
+    
+    return isFolderCreated;
+}
+
+- (BOOL)folderExists:(NSString *)folderPath {
+    BOOL isDirectory = NO;
+    return [[NSFileManager defaultManager] fileExistsAtPath:folderPath isDirectory:&isDirectory];
 }
 
 @end

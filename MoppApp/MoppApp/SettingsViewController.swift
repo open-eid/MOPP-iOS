@@ -88,6 +88,55 @@ class SettingsViewController: MoppViewController {
         tableView.estimatedRowHeight = 150
         tableView.rowHeight = UITableView.automaticDimension
     }
+
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.view.accessibilityElements = getAccessibilityElementsOrder()
+    }
+    
+    func getAccessibilityElementsOrder() -> [Any] {
+        var headerCellIndex: Int = 0
+        var fieldCellIndex: Int = 0
+        var timestampCellIndex: Int = 0
+        var defaultValueCellIndex: Int = 0
+        for (index, cell) in tableView.visibleCells.enumerated() {
+            if cell is SettingsHeaderCell {
+                headerCellIndex = index
+            } else if cell is SettingsFieldCell {
+                fieldCellIndex = index
+            } else if cell is SettingsTimeStampCell {
+                timestampCellIndex = index
+            } else if cell is SettingsDefaultValueCell {
+                defaultValueCellIndex = index
+            }
+        }
+        
+        guard let timestampCell = tableView.visibleCells[timestampCellIndex] as? SettingsTimeStampCell,
+              let timestampTextfield = timestampCell.textField else {
+            return []
+        }
+        
+        guard let defaultValueCell = tableView.visibleCells[defaultValueCellIndex] as? SettingsDefaultValueCell,
+              let timestampDefaultSwitch = defaultValueCell.useDefaultSwitch else {
+            return []
+        }
+        
+        guard let fieldCellAccessibilityElements = tableView.visibleCells[fieldCellIndex].accessibilityElements else {
+            return []
+        }
+        
+        guard let headerCellAccessibilityElements = tableView.visibleCells[headerCellIndex].accessibilityElements else {
+            return []
+        }
+        
+        return [
+            timestampDefaultSwitch,
+            fieldCellAccessibilityElements,
+            timestampTextfield,
+            headerCellAccessibilityElements,
+            timestampDefaultSwitch,
+        ]
+    }
 }
 
 extension SettingsViewController: UITableViewDataSource {
@@ -183,8 +232,9 @@ extension SettingsViewController: SettingsTimeStampCellDelegate {
         MoppLibManager.sharedInstance()?.setup(success: {
             printLog("success")
         }, andFailure: { [weak self] error in
-            let nsError = error! as NSError
-            self?.errorAlert(message: L(.genericErrorMessage), title: nsError.userInfo["message"] as? String)
+            let nsError = error as? NSError
+            
+            self?.errorAlert(message: MessageUtil.generateDetailedErrorMessage(error: nsError) ?? L(.genericErrorMessage), title: nsError?.userInfo["message"] as? String)
             }, usingTestDigiDocService: useTestDDS, andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaurl,
                withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration())
     }

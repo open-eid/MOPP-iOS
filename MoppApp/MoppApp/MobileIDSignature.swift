@@ -84,28 +84,28 @@ class MobileIDSignature {
                 printLog("\nRIA.MobileID - Certificate error: \(SkSigningLib_LocalizedString(SigningError(rawValue: "\(certificateError)")?.signingErrorDescription ?? "\(certificateError)"))\n")
                 
                 guard let mobileCertificateError = certificateError as? SigningError else {
-                    return self.generateError(signingError: certificateError as? SigningError ?? SigningError(rawValue: "\(certificateError)") ?? .generalError)
+                    return ErrorUtil.generateError(signingError: certificateError as? SigningError ?? SigningError(rawValue: "\(certificateError)") ?? .generalError, details: MessageUtil.errorMessageWithDetails(details: "Unknown error"))
                 }
                 
                 if self.isCountryCodeError(phoneNumber: phoneNumber, errorDesc: "\(mobileCertificateError)") {
                     printLog("\nRIA.MobileID - Error checking country code\n")
-                    return self.generateError(signingError: .parameterNameNull)
+                    return ErrorUtil.generateError(signingError: .parameterNameNull, details: MessageUtil.errorMessageWithDetails(details: "Error checking country code"))
                 }
                 
                 if let errorObj = error as? SigningError {
-                    return self.generateError(signingError: errorObj)
+                    return ErrorUtil.generateError(signingError: errorObj, details: MessageUtil.errorMessageWithDetails(details: "Invalid access rights"))
                 }
-                return self.errorResult(error: error)
+                return ErrorUtil.errorResult(error: error)
             }
             
             guard let cert = certificateResponse.cert else {
-                return self.generateError(signingError: .generalError)
+                return ErrorUtil.generateError(signingError: .generalError, details: MessageUtil.errorMessageWithDetails(details: "Certificate missing"))
             }
             
             // MARK: Get hash
             guard let hash: String = self.getHash(cert: cert, containerPath: containerPath) else {
                 printLog("\nRIA.MobileID - Error getting hash. Is 'cert' empty: \(cert.isEmpty). ContainerPath: \(containerPath)\n")
-                return self.generateError(signingError: .generalError)
+                return ErrorUtil.generateError(signingError: .generalError, details: MessageUtil.errorMessageWithDetails(details: "Unable to get hash"))
             }
             
             printLog("\nRIA.MobileID - Hash: \(hash)\n")
@@ -142,16 +142,16 @@ class MobileIDSignature {
                 guard let sessionId = sessionResponse.sessionID else {
                     printLog("\nRIA.MobileID - Unable to get sessionID\n")
 
-                    return self.generateError(signingError: .generalError)
+                    return ErrorUtil.generateError(signingError: .generalError, details: MessageUtil.errorMessageWithDetails(details: "Unable to get sessionID"))
                 }
 
                 completionHandler(sessionId)
             } catch let sessionError {
                 let error: Error = sessionError as? SigningError ?? sessionError
                 if let errorObj = error as? SigningError {
-                    return self.generateError(signingError: errorObj)
+                    return ErrorUtil.generateError(signingError: errorObj)
                 }
-                return self.errorResult(error: error)
+                return ErrorUtil.errorResult(error: error)
             }
         }
     }
@@ -177,16 +177,16 @@ class MobileIDSignature {
                     guard let sessionStatusResultString = sessionStatus.result else { return }
                     printLog("\nRIA.MobileID - Error completing signing: \(SkSigningLib_LocalizedString(self.handleSessionStatusError(sessionResultCode: sessionStatusResultString).signingErrorDescription ?? "Unable to log session status description"))\n")
 
-                    return self.generateError(signingError: self.handleSessionStatusError(sessionResultCode: sessionStatusResultString))
+                    return ErrorUtil.generateError(signingError: self.handleSessionStatusError(sessionResultCode: sessionStatusResultString))
                 }
             } catch let sessionStatusError {
                 printLog("\nRIA.MobileID - Unable to get session status: \(sessionStatusError.localizedDescription)\n")
-                return self.errorResult(error: sessionStatusError)
+                return ErrorUtil.errorResult(error: sessionStatusError)
             }
 
             guard let signatureValue = sessionStatus.signature?.value else {
                 printLog("\nRIA.MobileID - Unable to get signature value\n")
-                return self.generateError(signingError: .generalError)
+                return ErrorUtil.generateError(signingError: .generalError, details: MessageUtil.errorMessageWithDetails(details: "Unable to get signature value"))
             }
 
             if sessionStatus.state == SessionResponseState.COMPLETE {
@@ -219,22 +219,24 @@ class MobileIDSignature {
         }, failure: { (error: Error?) in
             printLog("\nRIA.MobileID - Error validating signature. Error: \(error?.localizedDescription ?? "Unable to display error")\n")
             guard let error = error, let err = error as NSError? else {
-                self.generateError(signingError: .generalSignatureAddingError)
+                ErrorUtil.generateError(signingError: .generalSignatureAddingError, details: MessageUtil.errorMessageWithDetails(details: "Unknown error"))
                 return
             }
             
             if err.code == 7 {
                 printLog("\nRIA.MobileID - Invalid OCSP time slot. \(err.domain)")
-                self.generateError(signingError: .ocspInvalidTimeSlot)
+                ErrorUtil.generateError(signingError: .ocspInvalidTimeSlot, details: MessageUtil.generateDetailedErrorMessage(error: err) ?? "")
                 return
             } else if err.code == 18 {
                 printLog("\nRIA.MobileID - Too many requests. \(err.domain)")
-                self.generateError(signingError: .tooManyRequests)
+                ErrorUtil.generateError(signingError: .tooManyRequests, details:
+                    MessageUtil.generateDetailedErrorMessage(error: err) ?? "")
                 return
             }
             
             printLog("\nRIA.MobileID - General signature adding error. \(err.domain)")
-            self.generateError(signingError: .generalSignatureAddingError)
+            ErrorUtil.generateError(signingError: .empty, details:
+                    MessageUtil.generateDetailedErrorMessage(error: err) ?? "")
             return
         })
     }
@@ -243,7 +245,7 @@ class MobileIDSignature {
     private func setupControlCode() {
         guard let verificationCode = self.getVerificationCode() else {
             printLog("\nRIA.MobileID - Failed to get verification code\n")
-            return self.generateError(signingError: .generalError)
+            return ErrorUtil.generateError(signingError: .generalError, details: MessageUtil.errorMessageWithDetails(details: "Failed to get verification code"))
         }
         
         DispatchQueue.main.async {
@@ -259,12 +261,6 @@ class MobileIDSignature {
         }
     }
     
-    // MARK: Error generating
-    private func generateError(signingError: SigningError) -> Void {
-        let error = NSError(domain: "SkSigningLib", code: 10, userInfo: [NSLocalizedDescriptionKey: signingError])
-        return self.errorResult(error: error)
-    }
-    
     // MARK: Get hash
     private func getHash(cert: String, containerPath: String) -> String? {
         guard let hash: String = MoppLibManager.prepareSignature(cert, containerPath: containerPath) else {
@@ -275,7 +271,7 @@ class MobileIDSignature {
                     "\tContainer path: \(containerPath)\n"
                 )
             }
-            self.generateError(signingError: .generalError)
+            ErrorUtil.generateError(signingError: .generalError, details: MessageUtil.errorMessageWithDetails(details: "Failed to get hash"))
             return nil
         }
         
@@ -285,17 +281,10 @@ class MobileIDSignature {
     // MARK: Get verification code
     private func getVerificationCode() -> String? {
         guard let dataToSign = MoppLibManager.getDataToSign() as? Array<Int>, let verificationCode: String = ControlCode.shared.getVerificationCode(hash: dataToSign) else {
-            self.generateError(signingError: .generalError)
+            ErrorUtil.generateError(signingError: .generalError, details: MessageUtil.errorMessageWithDetails(details: "Failed to get verification code"))
             return nil
         }
         return verificationCode
-    }
-    
-    // MARK: Submit error result
-    private func errorResult(error: Error) -> Void {
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: .errorNotificationName, object: nil, userInfo: [kErrorKey: error])
-        }
     }
     
     // MARK: Handle session status error

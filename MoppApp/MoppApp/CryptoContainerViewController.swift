@@ -108,7 +108,7 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
         let containerFileCount: Int = self.getContainer().dataFiles.count
         guard containerFileCount > 0 else {
             printLog("No files in container")
-            self.errorAlert(message: L(.genericErrorMessage))
+            self.errorAlert(message: "File not found in container")
             return
         }
         

@@ -21,6 +21,7 @@
 
 // Navigation
 "back-button" = "Назад";
+"close-button" = "Закрыть";
 
 // TabBar
 "tab-my-eid" = "МОЙ eID";
@@ -54,8 +55,10 @@
 
 // Signature view
 "signature-view-begin-label" = "Выберите файл для подписания или проверки";
+"signature-view-begin-label-accessibility" = "Выберите файл для подписания или проверки";
 "signature-view-begin-button" = "ВЫБРАТЬ ФАЙЛ";
 "signature-details-title" = "Детали подписи";
+"certificate-details-title" = "Детали сертификата";
 "menu-button" = "Меню";
 
 "signing-error-incorrect-country-code" = "Неверный код страны.";
@@ -65,6 +68,7 @@
 
 // Crypto
 "crypto-view-begin-label" = "Выберите файл для шифрования или расшифровки";
+"crypto-view-begin-label-accessibility" = "Выберите файл для шифрования или расшифровки";
 "crypto-view-begin-button" = "ВЫБРАТЬ ФАЙЛ";
 "crypto-empty-ldap-label" = "У человека или компании нет действующего сертификата.\nДля шифрования необходимо иметь действующий сертификат.\nЕсли у вас возникнут вопросы, пожалуйста, обратитесь на id.ee.";
 "crypto-ldap-search-placeholder" = "Введите личный код, код компании или регистра";
@@ -173,6 +177,7 @@
 "mobile-id-timeout-message" = "Тайм-аут запроса Mobiil-ID";
 "error-alert-title-general" = "Отказ";
 "error-alert-open-link" = "Дополнительная информация";
+"error-details-title" = "Детали";
 
 // *** Share Extension ***
 "share-extension-import-title" = "Импорт файла";
@@ -195,9 +200,9 @@
 "signing-progress" = "Прогресс";
 "signing-remember-me" = "Запомни меня";
 "signing-cancelled" = "Подписание контейнера прервано";
+"signing-idcode-title" = "Личный код";
 "mobile-id-title" = "Введите свой телефонный номер и личный код для подписания с помощью mobiil-ID";
 "mobile-id-phone-title" = "Код страны и телефонный номер";
-"mobile-id-idcode-title" = "Личный код";
 "mobile-id-challenge-title" = "Подписать с помощью приложения Mobile-ID";
 "mobile-id-challenge-waiting-response" = "Жду ответа ...";
 "smart-id-title" = "Введите свой личный код для подписи с Smart-ID";
@@ -343,6 +348,10 @@
 "settings-timestamp-use-default-title" = "Использовать значение по умолчанию";
 "settings-value-changed" = "Значение настройки изменено";
 "diagnostics-title" = "Диагностика";
+"diagnostics-activate-one-time-logging" = "Активировать одноразовое создание лог-файла";
+"diagnostics-save-log" = "СОХРАНИТЬ ЛОГ-ФАЙЛ";
+"diagnostics-restart-to-active-logging" = "Перезапустите RIA DigiDoc, чтобы активировать ведение журнала. https://www.id.ee/ru/artikkel/generirovanie-log-fajla-v-kliente-digidoc4/";
+"diagnostics-one-time-logging-read-more" = "Подробнее читайте здесь";
 "diagnostics-app-version" = "Версия приложения";
 "diagnostics-ios-version" = "Операционная система";
 "diagnostics-libraries-label" = "Библиотеки";
@@ -361,6 +370,64 @@
 "save-diagnostics" = "СОХРАНИТЬ ДИАГНОСТИКУ";
 "success-notification-dialog-label" = "Чтобы поделиться контейнером, нажмите кнопку «ПОДЕЛИТЬСЯ» и выберите нужное приложение. Все контейнеры можно найти в папке «Недавние документы» в настройках приложения.";
 "success-notification-dialog-dont-show-again" = "Больше не показывать";
+
+// ** Images **
+"digidoc-image-accessibility" = "DigiDoc";
+
+
+// *** Signature details ***
+
+"signer-certificate-issuer-label" = "Организация, выдавшая сертификат подписавшего";
+"signers-certificate-label" = "Сертификат пользователя";
+"signature-method-label" = "Метод подписи";
+"container-format-label" = "Формат контейнера";
+"signature-format-label" = "Формат подписи";
+"signed-file-count-label" = "Количество подписанных файлов";
+"signature-timestamp-label" = "Временной штамп подписи";
+"signature-timestamp-utc-label" = "Временной штамп подписи (UTC)";
+"hash-value-of-signature-label" = "Хэш значение подтверждения подлинности подписи";
+"ts-certificate-issuer-label" = "Издатель сертификата временного штампа";
+"ts-certificate-label" = "Сертификат временного штампа";
+"ocsp-certificate-issuer-label" = "Организация, выдавшая сертификат OCSP";
+"ocsp-certificate-label" = "Сертификат OCSP";
+"ocsp-time-label" = "Время подтверждения подлинности подписи";
+"ocsp-time-utc-label" = "Время подтверждения подлинности подписи (UTC)";
+"signers-mobile-time-label" = "Время на мобильном телефоне подписывающего (UTC)";
+
+// *** Certificate details ***
+
+"subject-name" = "Субъект";
+"country-or-region" = "Страна";
+"organisation" = "Организация";
+"organisational-unit" = "Подразделение";
+"common-name" = "Общее имя";
+"surname" = "Фамилия";
+"given-name" = "Имена";
+"serial-number" = "Серийный номер";
+"email-address" = "Адрес электронной почты";
+"issuer-name" = "Выдавший";
+"other-name" = "Идентификатор организации";
+"version" = "Версия";
+"signature-algorithm" = "Алгоритм подписи";
+"parameters" = "Параметры";
+"not-valid-before" = "Действительно с";
+"not-valid-after" = "Действительно до";
+"public-key-info" = "Информация об открытом ключе";
+"algorithm" = "Алгоритм";
+"public-key" = "Открытый ключ";
+"key-usage" = "Использование ключа";
+"signature" = "Подпись";
+"extension" = "Расширение";
+"extensions" = "Расширения";
+"critical" = "Критический";
+"usage" = "Использование";
+"key-id" = "Идентификатор \tключа";
+"uri" = "URL";
+"method" = "Метод";
+"fingerprints" = "Отпечатки";
+"sha256" = "SHA-256";
+"sha1" = "SHA-1";
+
 // ** Accessibility introduction **
 "accessibility-introduction-title" = "Доступность";
 "accessibility-introduction" = "Приложение RIA DigiDoc построено таким образом, чтобы оно соответствовало протоколам доступа WCAG 2.1 AA. Это означает, что при разработке RIA DigiDoc соблюдались принципы, позволяющие использовать приложение неспособным видеть и слабовидящим пользователям, лицам с ограничением двигательной функции или силы и т. п.";
@@ -369,13 +436,13 @@
 "accessibility-introduction-screen-reader-introduction" = "Экранное считывающее устройство (также программа экранного чтения, или скрин-ридер) – это программа, задачей которой является преобразование изображаемой на экране смарт-устройства информации в подходящий для пользователя вид – например, речь. В первую очередь это вспомогательное средство предназначено для слабовидящих пользователей.";
 "accessibility-introduction-screen-reader-introduction-2" = "При построении приложения RIA DigiDoc учитывалась возможность преобразования визуального содержания любого типа в подходящий для пользователя вид. Например, картинки снабжены текстовыми описаниями, расположение и последовательность структурных элементов учитывает перемещение экранного считывающего устройства по экрану и позволят потреблять информацию в логической последовательности.";
 "accessibility-introduction-screen-reader-introduction-apps" = "Наиболее распространённые скрин-ридеры для смарт-устройств:";
-"accessibility-introduction-screen-reader-introduction-ios" = "VoiceOver (iOS, встроенный) https://support.apple.com/et-ee/guide/iphone/iph3e2e415f/ios";
-"accessibility-introduction-screen-reader-introduction-android" = "Talkback (Android, встроенный) https://support.google.com/accessibility/android/answer/6007100";
+"accessibility-introduction-screen-reader-introduction-ios" = "VoiceOver (iOS, встроенный) https://support.apple.com/ru-ru/guide/iphone/iph3e2e415f/ios";
+"accessibility-introduction-screen-reader-introduction-android" = "Talkback (Android, встроенный) https://support.google.com/accessibility/android/answer/6007100?hl=ru";
 "accessibility-introduction-screen-magnification-introduction-header" = "Увеличение экрана и изменение цветов";
 "accessibility-introduction-screen-magnification-introduction" = "Если слабовидящий пользователь видит достаточно для чтения текста, для более удобного просмотра экрана можно использовать встроенные в смарт-устройство вспомогательные средства. При помощи вспомогательных средств можно изменять размеры текстов, основной тип шрифта, цветовые решения интерфейса пользователя, а также можно увеличивать экран при помощи экранной лупы.";
 "accessibility-introduction-screen-magnification-screen-tools" = "Вспомогательные средства для регулировки цвета экрана и размера текста:";
-"accessibility-introduction-screen-magnification-screen-tools-ios" = "iOS https://support.apple.com/et-ee/guide/iphone/iph3e2e1fb0/ios";
-"accessibility-introduction-screen-magnification-screen-tools-android" = "Android https://support.google.com/accessibility/android/answer/11183305?hl=en&ref_topic=9079043";
+"accessibility-introduction-screen-magnification-screen-tools-ios" = "iOS https://support.apple.com/ru-ru/guide/iphone/iph3e2e1fb0/ios";
+"accessibility-introduction-screen-magnification-screen-tools-android" = "Android https://support.google.com/accessibility/android/answer/11183305?hl=ru&ref_topic=9079043";
 "accessibility-introduction-screen-magnification-tools" = "Вспомогательные средства для увеличения экрана:";
-"accessibility-introduction-screen-magnification-tools-ios" = "Zoom (iOS, встроенный) https://support.apple.com/et-ee/guide/iphone/iph3e2e367e/ios";
-"accessibility-introduction-screen-magnification-tools-android" = "Magnification (Android, встроенный) https://support.google.com/accessibility/android/answer/6006949";
+"accessibility-introduction-screen-magnification-tools-ios" = "Zoom (iOS, встроенный) https://support.apple.com/ru-ru/guide/iphone/iph3e2e367e/ios";
+"accessibility-introduction-screen-magnification-tools-android" = "Magnification (Android, встроенный) https://support.google.com/accessibility/android/answer/6006949?hl=ru";

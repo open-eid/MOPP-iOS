@@ -72,10 +72,16 @@ class SmartIDEditViewController : MoppViewController {
 
         titleLabel.text = L(.smartIdTitle)
         countryLabel.text = L(.smartIdCountryTitle)
-        idCodeLabel.text = L(.mobileIdIdcodeTitle)
+        idCodeLabel.text = L(.signingIdcodeTitle)
         cancelButton.setTitle(L(.actionCancel).uppercased())
         signButton.setTitle(L(.actionSign).uppercased())
         rememberLabel.text = L(.signingRememberMe)
+        
+        countryLabel.isAccessibilityElement = false
+        idCodeLabel.isAccessibilityElement = false
+        
+        countryTextField.accessibilityLabel = L(.smartIdCountryTitle)
+        idCodeTextField.accessibilityLabel = L(.signingIdcodeTitle)
 
         idCodeTextField.moppPresentDismissButton()
         idCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor
@@ -128,7 +134,9 @@ class SmartIDEditViewController : MoppViewController {
     @IBAction func editingChanged(_ sender: UITextField) {
         verifySigningCapability()
         let text = sender.text ?? String()
-        if countryViewPicker.selectedRow(inComponent: 0) == 0 && text.count > 11 {
+        if countryViewPicker.selectedRow(inComponent: 0) == 0 &&
+            text.count >= 11 &&
+            !PersonalCodeValidator.isPersonalCodeValid(personalCode: text) {
             sender.deleteBackward()
         }
     }

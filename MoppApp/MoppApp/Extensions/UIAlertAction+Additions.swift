@@ -22,9 +22,9 @@
  */
 
 extension UIAlertAction {
-    func getLinkAlert(message: String?) -> UIAlertAction? {
+    func getLinkAlert(title: String? = L(.errorAlertOpenLink), message: String?) -> UIAlertAction? {
         if let linkInMessage = message?.getFirstLinkInMessage() {
-            let openLinkAction: UIAlertAction = UIAlertAction(title: L(.errorAlertOpenLink), style: .default, handler: { (action) in
+            let openLinkAction: UIAlertAction = UIAlertAction(title: title, style: .default, handler: { (action) in
                 if let messageUrl = URL(string: linkInMessage) {
                     UIApplication.shared.open(messageUrl, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
                     printLog("Opening link: \(messageUrl.absoluteString)")

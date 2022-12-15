@@ -59,6 +59,8 @@ fileprivate let kPreviousPreferredLanguage = "kPreviousPreferredLanguage"
 fileprivate let kMoppLanguage = "kMoppLanguage"
 fileprivate let kHideShareContainerDialog = "kHideShareContainerDialog"
 fileprivate let kIsTimestampedDdoc = "kIsTimestampedDdoc"
+fileprivate let kIsFileLoggingEnabled = "kIsFileLoggingEnabled"
+fileprivate let kIsFileLoggingRunning = "kIsFileLoggingRunning"
 
 class DefaultsHelper
 {
@@ -184,6 +186,28 @@ class DefaultsHelper
         }
         get {
             return UserDefaults.standard.bool(forKey: kIsTimestampedDdoc)
+        }
+    }
+    
+    class var isFileLoggingEnabled: Bool {
+        set {
+            DispatchQueue.main.async {
+                UserDefaults.standard.set(newValue, forKey: kIsFileLoggingEnabled)
+            }
+        }
+        get {
+            return UserDefaults.standard.bool(forKey: kIsFileLoggingEnabled)
+        }
+    }
+    
+    class var isFileLoggingRunning: Bool {
+        set {
+            DispatchQueue.main.async {
+                UserDefaults.standard.set(newValue, forKey: kIsFileLoggingRunning)
+            }
+        }
+        get {
+            return UserDefaults.standard.bool(forKey: kIsFileLoggingRunning)
         }
     }
 

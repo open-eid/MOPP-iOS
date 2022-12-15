@@ -309,6 +309,12 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         }
 
     }
+
+    func instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: MoppLibSignature) -> Void {
+        let signatureDetailsViewController = UIStoryboard.container.instantiateViewController(of: SignatureDetailsViewController.self)
+        signatureDetailsViewController.moppLibSignature = moppLibSignatureDetails
+        self.navigationController?.pushViewController(signatureDetailsViewController, animated: true)
+    }
 }
 
 extension ContainerViewController : LandingViewControllerTabButtonsDelegate {
@@ -779,23 +785,73 @@ extension ContainerViewController : ContainerHeaderDelegate {
                     return
                 }
                 if inputText.count == 0 || inputText.starts(with: ".") {
-                    okButton.isEnabled = false
-                } else {
-                    okButton.isEnabled = true
-                }
-            }
-        }
+                     okButton.isEnabled = false
+                 } else {
+                     okButton.isEnabled = true
+                 }
+             }
+         }
 
-        self.present(changeContainerNameController, animated: true, completion: nil)
-    }
+         self.present(changeContainerNameController, animated: true, completion: nil)
+     }
 
-    func scrollToTop() {
-        let indexPath = IndexPath(row: 0, section: 0)
-        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-    }
-}
+     func scrollToTop() {
+         let indexPath = IndexPath(row: 0, section: 0)
+         self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+     }
+ }
 
 extension ContainerViewController : UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch sections[indexPath.section] {
+        case .notifications:
+            break
+        case .signatures:
+            if let signature = getSignature(indexPathRow: indexPath.row) {
+                instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: signature)
+            }
+            break
+        case .missingSignatures:
+            break
+        case .timestamp:
+            break;
+        case .dataFiles:
+            let isStatePreviewOrOpened = state == .opened || state == .preview
+            let isEncryptedDataFiles =
+                !isAsicContainer &&
+                isStatePreviewOrOpened &&
+                isDecrypted == false
+            if  !isEncryptedDataFiles {
+                if isDecrypted {
+                    guard let dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) else { return }
+                    openFilePreview(dataFileFilename: dataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: true)
+                } else {
+                    let dataFile = containerViewDelegate.getDataFileRelativePath(index: indexPath.row)
+                    openFilePreview(dataFileFilename: dataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: false)
+                }
+                
+            }
+            break
+        case .header:
+            break
+        case .search:
+            break
+        case .importDataFiles:
+            break
+        case .addressees:
+            break
+        case .importAddressees:
+            break
+        case .missingAddressees:
+            break
+        case .containerTimestamps:
+            if let signature = getSignature(indexPathRow: indexPath.row) {
+                instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: signature)
+            }
+            break
+        }
+    }
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection _section: Int) -> UIView? {
         let section = sections[_section]
         var title: String!
@@ -887,6 +943,19 @@ extension ContainerViewController : UITableViewDelegate {
                 }
             }
         }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let _ = segue.destination as? SignatureDetailsViewController {
+            let mopplibSignatureDetails = sender as? MoppLibSignature
+            let signatureDetailsViewController = UIStoryboard.container.instantiateViewController(of: SignatureDetailsViewController.self)
+            signatureDetailsViewController.moppLibSignature = mopplibSignatureDetails
+            self.navigationController?.pushViewController(signatureDetailsViewController, animated: true)
+        }
+    }
+    
+    private func getSignature(indexPathRow: Int) -> MoppLibSignature? {
+        return signingContainerViewDelegate.getSignature(index: indexPathRow) as? MoppLibSignature
     }
 }
 

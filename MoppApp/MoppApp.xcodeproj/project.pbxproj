@@ -339,25 +339,35 @@
 		DF13562E2902018A00F61823 /* MoppApp+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF13562D2902018A00F61823 /* MoppApp+Additions.swift */; };
 		DF135630290201A100F61823 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13562F290201A100F61823 /* ExternalAccessory.framework */; };
 		DF135631290201AD00F61823 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13562F290201A100F61823 /* ExternalAccessory.framework */; };
-		DF1AC96E287764B300C059FE /* AccessibilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1AC96C287764B300C059FE /* AccessibilityViewController.swift */; };
-		DF1AC96F287764B300C059FE /* Accessibility.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF1AC96D287764B300C059FE /* Accessibility.storyboard */; };
 		DF26DC8326CD45670073ABA7 /* SivaUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF26DC8226CD45670073ABA7 /* SivaUtil.swift */; };
-		DF32A687290C17ED00AE5F82 /* AccessibilityViewTextType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A686290C17ED00AE5F82 /* AccessibilityViewTextType.swift */; };
+		DF32A67B29096B7100AE5F82 /* LogFileGenerating.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A67A29096B7100AE5F82 /* LogFileGenerating.swift */; };
+		DF32A67D2909B20C00AE5F82 /* AlertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A67C2909B20C00AE5F82 /* AlertUtil.swift */; };
+		DF32A6812909F0FA00AE5F82 /* FileLogUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A6802909F0FA00AE5F82 /* FileLogUtil.swift */; };
+		DF32A690290C983100AE5F82 /* MessageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A68E290C983100AE5F82 /* MessageUtil.swift */; };
+		DF32A691290C983100AE5F82 /* ErrorUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A68F290C983100AE5F82 /* ErrorUtil.swift */; };
 		DF3D299D23F5ADB7007181B8 /* MimeTypeExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */; };
 		DF3D29CF23F6B3CF007181B8 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; };
 		DF3D29D023F6B3CF007181B8 /* SkSigningLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF3F62B026BD71180070F930 /* FileDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3F62AF26BD71180070F930 /* FileDownloader.swift */; };
+		DF4B8418284008CF005CB875 /* SignatureDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4B8417284008CF005CB875 /* SignatureDetail.swift */; };
+		DF4B841A2840F8FC005CB875 /* CertificateDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4B84192840F8FC005CB875 /* CertificateDetailsCell.swift */; };
+		DF4B841E284417CD005CB875 /* CertificateDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4B841D284417CD005CB875 /* CertificateDetail.swift */; };
 		DF6299122664FEFE00E6C55E /* UrlSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */; };
 		DF7F611926399B5400747B7D /* ContainerRemovalActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */; };
 		DF8EFB1A287498B900A96DE3 /* SettingsDefaultValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8EFB19287498B900A96DE3 /* SettingsDefaultValueCell.swift */; };
 		DF900C972386768F00887385 /* tslFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DF900C94238567CA00887385 /* tslFiles.bundle */; };
 		DFA5821A264AAB6600564971 /* digidoc_76.png in Resources */ = {isa = PBXBuildFile; fileRef = DFA58218264AAB6500564971 /* digidoc_76.png */; };
 		DFA5821B264AAB6600564971 /* digidoc_1024.png in Resources */ = {isa = PBXBuildFile; fileRef = DFA58219264AAB6600564971 /* digidoc_1024.png */; };
-		DFB5FF09289954F8006B3B8C /* TokenFlowUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB5FF08289954F8006B3B8C /* TokenFlowUtil.swift */; };
+		DFB1A492283FB9AF000B578D /* CertificateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB1A491283FB9AF000B578D /* CertificateDetailViewController.swift */; };
 		DFB970A32626136400464791 /* PreviewFileTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB970A22626136300464791 /* PreviewFileTapGestureRecognizer.swift */; };
 		DFBEF9452434DD0C007A6762 /* UIAlertAction+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEF9442434DD0C007A6762 /* UIAlertAction+Additions.swift */; };
 		DFBF242E23DB0923008DD8D0 /* LOTLDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */; };
 		DFC18365261B387C0094E455 /* SaveableContainerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC18364261B387C0094E455 /* SaveableContainerActions.swift */; };
+		DFC2ADBE294375FA008A1CD2 /* TokenFlowUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC2ADBD294375FA008A1CD2 /* TokenFlowUtil.swift */; };
+		DFC2ADC229437790008A1CD2 /* AccessibilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC2ADC029437790008A1CD2 /* AccessibilityViewController.swift */; };
+		DFC2ADC329437790008A1CD2 /* Accessibility.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFC2ADC129437790008A1CD2 /* Accessibility.storyboard */; };
+		DFC2ADC6294377AC008A1CD2 /* AccessibilityViewTextType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC2ADC5294377AC008A1CD2 /* AccessibilityViewTextType.swift */; };
+		DFC2ADC8294377BF008A1CD2 /* PersonalCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC2ADC7294377BF008A1CD2 /* PersonalCodeValidator.swift */; };
 		DFD176CB23F1B78000E2CC52 /* MimeTypeDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176CA23F1B78000E2CC52 /* MimeTypeDecoder.swift */; };
 		DFD176D423F427AD00E2CC52 /* TSLVersionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176D223F427AD00E2CC52 /* TSLVersionChecker.swift */; };
 		DFD176D523F427AD00E2CC52 /* TSLUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176D323F427AD00E2CC52 /* TSLUpdater.swift */; };
@@ -636,26 +646,40 @@
 		C5FA0BED20A19E4200A208E5 /* JailbreakViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JailbreakViewController.swift; sourceTree = "<group>"; };
 		CD15B1228E3C241B478D570C /* Pods-MoppAppTestEnv.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoppAppTestEnv.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoppAppTestEnv/Pods-MoppAppTestEnv.debug.xcconfig"; sourceTree = "<group>"; };
 		DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoppConfigurationDecoder.swift; sourceTree = "<group>"; };
+		DF0C2B3B29145D3B007E1745 /* PersonalCodeValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalCodeValidator.swift; sourceTree = "<group>"; };
 		DF13562D2902018A00F61823 /* MoppApp+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoppApp+Additions.swift"; sourceTree = "<group>"; };
 		DF13562F290201A100F61823 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		DF1AC96C287764B300C059FE /* AccessibilityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityViewController.swift; sourceTree = "<group>"; };
 		DF1AC96D287764B300C059FE /* Accessibility.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Accessibility.storyboard; sourceTree = "<group>"; };
 		DF26DC8226CD45670073ABA7 /* SivaUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SivaUtil.swift; sourceTree = "<group>"; };
-		DF32A686290C17ED00AE5F82 /* AccessibilityViewTextType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityViewTextType.swift; sourceTree = "<group>"; };
+		DF32A67A29096B7100AE5F82 /* LogFileGenerating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFileGenerating.swift; sourceTree = "<group>"; };
+		DF32A67C2909B20C00AE5F82 /* AlertUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertUtil.swift; sourceTree = "<group>"; };
+		DF32A6802909F0FA00AE5F82 /* FileLogUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLogUtil.swift; sourceTree = "<group>"; };
+		DF32A68E290C983100AE5F82 /* MessageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageUtil.swift; sourceTree = "<group>"; };
+		DF32A68F290C983100AE5F82 /* ErrorUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorUtil.swift; sourceTree = "<group>"; };
 		DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypeExtractor.swift; sourceTree = "<group>"; };
 		DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF3F62AF26BD71180070F930 /* FileDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloader.swift; sourceTree = "<group>"; };
+		DF4B8417284008CF005CB875 /* SignatureDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureDetail.swift; sourceTree = "<group>"; };
+		DF4B84192840F8FC005CB875 /* CertificateDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateDetailsCell.swift; sourceTree = "<group>"; };
+		DF4B841D284417CD005CB875 /* CertificateDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateDetail.swift; sourceTree = "<group>"; };
 		DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSchemeHandler.swift; sourceTree = "<group>"; };
 		DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerRemovalActions.swift; sourceTree = "<group>"; };
 		DF8EFB19287498B900A96DE3 /* SettingsDefaultValueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsDefaultValueCell.swift; sourceTree = "<group>"; };
 		DF900C94238567CA00887385 /* tslFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = tslFiles.bundle; sourceTree = "<group>"; };
 		DFA58218264AAB6500564971 /* digidoc_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_76.png; sourceTree = "<group>"; };
 		DFA58219264AAB6600564971 /* digidoc_1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_1024.png; sourceTree = "<group>"; };
+		DFB1A491283FB9AF000B578D /* CertificateDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateDetailViewController.swift; sourceTree = "<group>"; };
 		DFB5FF08289954F8006B3B8C /* TokenFlowUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenFlowUtil.swift; sourceTree = "<group>"; };
 		DFB970A22626136300464791 /* PreviewFileTapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewFileTapGestureRecognizer.swift; sourceTree = "<group>"; };
 		DFBEF9442434DD0C007A6762 /* UIAlertAction+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Additions.swift"; sourceTree = "<group>"; };
 		DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LOTLDecoder.swift; sourceTree = "<group>"; };
 		DFC18364261B387C0094E455 /* SaveableContainerActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveableContainerActions.swift; sourceTree = "<group>"; };
+		DFC2ADBD294375FA008A1CD2 /* TokenFlowUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenFlowUtil.swift; sourceTree = "<group>"; };
+		DFC2ADC029437790008A1CD2 /* AccessibilityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityViewController.swift; sourceTree = "<group>"; };
+		DFC2ADC129437790008A1CD2 /* Accessibility.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Accessibility.storyboard; sourceTree = "<group>"; };
+		DFC2ADC5294377AC008A1CD2 /* AccessibilityViewTextType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityViewTextType.swift; sourceTree = "<group>"; };
+		DFC2ADC7294377BF008A1CD2 /* PersonalCodeValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalCodeValidator.swift; sourceTree = "<group>"; };
 		DFD176CA23F1B78000E2CC52 /* MimeTypeDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypeDecoder.swift; sourceTree = "<group>"; };
 		DFD176D223F427AD00E2CC52 /* TSLVersionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLVersionChecker.swift; sourceTree = "<group>"; };
 		DFD176D323F427AD00E2CC52 /* TSLUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLUpdater.swift; sourceTree = "<group>"; };
@@ -876,12 +900,16 @@
 				C50DCD431FDD7E4A00D48E16 /* DataFilePreviewViewController.swift */,
 				C50DCD451FDECE2B00D48E16 /* SignatureDetailsViewController.swift */,
 				C50DCD471FDED76400D48E16 /* SignatureDetailsCell.swift */,
+				DFB1A491283FB9AF000B578D /* CertificateDetailViewController.swift */,
 				C5964CE9200F8607001FE732 /* ContainerImportFilesCell.swift */,
 				3921CAA820B5A54600BF3178 /* ContainerImportAddressees.swift */,
 				3921CAA020B45DCF00BF3178 /* SigningContainerViewController.swift */,
 				3921CAA420B5A24A00BF3178 /* CryptoContainerViewController.swift */,
 				3921CAAA20B5B92100BF3178 /* CryptoContainer.swift */,
 				393B66B920D7EC9D001DC89B /* WrapperUIBarButtonItem.swift */,
+				DF4B8417284008CF005CB875 /* SignatureDetail.swift */,
+				DF4B84192840F8FC005CB875 /* CertificateDetailsCell.swift */,
+				DF4B841D284417CD005CB875 /* CertificateDetail.swift */,
 			);
 			name = Container;
 			sourceTree = "<group>";
@@ -946,6 +974,7 @@
 		C55BB1C520908EE300618AC4 /* Diagnostics */ = {
 			isa = PBXGroup;
 			children = (
+				DF32A6792909693300AE5F82 /* Protocols */,
 				DFF3C3AC233231180079458A /* Configuration.swift */,
 				DFF3C3AD233231190079458A /* SettingsConfiguration.swift */,
 				C55BB1C620908EF300618AC4 /* DiagnosticsViewController.swift */,
@@ -1013,7 +1042,7 @@
 			isa = PBXGroup;
 			children = (
 				C55BB1C82090BF4A00618AC4 /* About */,
-				DF1AC96B287764A100C059FE /* Accessibility */,
+				DFC2ADBF29437778008A1CD2 /* Accessibility */,
 				C55BB1C520908EE300618AC4 /* Diagnostics */,
 				C593D9EB208F19D7000B3BF6 /* Settings.storyboard */,
 				C593D9E7208F1986000B3BF6 /* SettingsViewController.swift */,
@@ -1060,20 +1089,39 @@
 			name = JailBroken;
 			sourceTree = "<group>";
 		};
-		DF1AC96B287764A100C059FE /* Accessibility */ = {
+		DF32A6792909693300AE5F82 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				DF32A685290C17DC00AE5F82 /* Models */,
-				DF1AC96D287764B300C059FE /* Accessibility.storyboard */,
+				DF32A67A29096B7100AE5F82 /* LogFileGenerating.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		DFC2ADBC2943757C008A1CD2 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
 				DF1AC96C287764B300C059FE /* AccessibilityViewController.swift */,
+				DF0C2B3B29145D3B007E1745 /* PersonalCodeValidator.swift */,
+				DFB5FF08289954F8006B3B8C /* TokenFlowUtil.swift */,
+				DF1AC96D287764B300C059FE /* Accessibility.storyboard */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		DFC2ADBF29437778008A1CD2 /* Accessibility */ = {
+			isa = PBXGroup;
+			children = (
+				DFC2ADC429437799008A1CD2 /* Models */,
+				DFC2ADC129437790008A1CD2 /* Accessibility.storyboard */,
+				DFC2ADC029437790008A1CD2 /* AccessibilityViewController.swift */,
 			);
 			name = Accessibility;
 			sourceTree = "<group>";
 		};
-		DF32A685290C17DC00AE5F82 /* Models */ = {
+		DFC2ADC429437799008A1CD2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				DF32A686290C17ED00AE5F82 /* AccessibilityViewTextType.swift */,
+				DFC2ADC5294377AC008A1CD2 /* AccessibilityViewTextType.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1093,6 +1141,7 @@
 				E4250CC41E0968D200530370 /* Products */,
 				BC2D5E4C8EAB0299962763A0 /* Pods */,
 				F9074FEF4DC2DB83A60B75B9 /* Frameworks */,
+				DFC2ADBC2943757C008A1CD2 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1211,7 +1260,12 @@
 				DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */,
 				DF3F62AF26BD71180070F930 /* FileDownloader.swift */,
 				DF26DC8226CD45670073ABA7 /* SivaUtil.swift */,
-				DFB5FF08289954F8006B3B8C /* TokenFlowUtil.swift */,
+				DF32A68E290C983100AE5F82 /* MessageUtil.swift */,
+				DF32A68F290C983100AE5F82 /* ErrorUtil.swift */,
+				DF32A67C2909B20C00AE5F82 /* AlertUtil.swift */,
+				DF32A6802909F0FA00AE5F82 /* FileLogUtil.swift */,
+				DFC2ADBD294375FA008A1CD2 /* TokenFlowUtil.swift */,
+				DFC2ADC7294377BF008A1CD2 /* PersonalCodeValidator.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1308,14 +1362,13 @@
 		E4250CBB1E0968D200530370 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Riigi Infosüsteemi Amet";
 				TargetAttributes = {
 					54A418231E83FAD200559E2B = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = ET847QJV9F;
 						LastSwiftMigration = 0900;
-						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1328,9 +1381,7 @@
 					};
 					E4250CC21E0968D200530370 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = ET847QJV9F;
 						LastSwiftMigration = 0900;
-						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1462,7 +1513,6 @@
 				C55BB1E02091FECD00618AC4 /* licenses.html in Resources */,
 				E4C53F371E2FAE6C00F209BE /* image.jpg in Resources */,
 				E43BD8111E3A121A00F6C39D /* ddocTest.ddoc in Resources */,
-				DF1AC96F287764B300C059FE /* Accessibility.storyboard in Resources */,
 				DFF3C3BE2332355D0079458A /* signature.rsa in Resources */,
 				C54BB10D1FBD8CE900A274F6 /* Signing.storyboard in Resources */,
 				C50DCCF51FC5741900D48E16 /* Roboto-BoldCondensed.ttf in Resources */,
@@ -1487,6 +1537,7 @@
 				C50DCD011FC6E97400D48E16 /* Container.storyboard in Resources */,
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
 				54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */,
+				DFC2ADC329437790008A1CD2 /* Accessibility.storyboard in Resources */,
 				C55BB1D32091C68200618AC4 /* main_about_fonds_et.png in Resources */,
 				C50DCCFC1FC5741900D48E16 /* RobotoCondensed-BoldItalic.ttf in Resources */,
 				C50DCCEE1FC5741900D48E16 /* RobotoCondensed-Light.ttf in Resources */,
@@ -1804,12 +1855,12 @@
 				E4C53F4B1E30D03500F209BE /* DefaultsHelper.swift in Sources */,
 				3921CAAB20B5B92100BF3178 /* CryptoContainer.swift in Sources */,
 				C50DCD461FDECE2B00D48E16 /* SignatureDetailsViewController.swift in Sources */,
+				DF32A6812909F0FA00AE5F82 /* FileLogUtil.swift in Sources */,
 				C50DCCFF1FC6E95A00D48E16 /* ContainerViewController.swift in Sources */,
 				C50DCD481FDED76400D48E16 /* SignatureDetailsCell.swift in Sources */,
 				C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */,
 				C593D9F6208F39DF000B3BF6 /* SettingsChoiceButton.swift in Sources */,
 				C58FCD5F20650BBE00FE3B57 /* MyeIDInfoCell.swift in Sources */,
-				DF32A687290C17ED00AE5F82 /* AccessibilityViewTextType.swift in Sources */,
 				C51E8A0F21A2F2AD0054662A /* SettingsTimeStampCell.swift in Sources */,
 				C5F462AA209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift in Sources */,
 				C5D057022023016300875F44 /* RecentContainersEmptyListCell.swift in Sources */,
@@ -1820,6 +1871,8 @@
 				C52E827E1FC1DBFE0074B280 /* MoppViewController.swift in Sources */,
 				C5E7D08D2031B1040081416F /* NativeShare.swift in Sources */,
 				DFB970A32626136400464791 /* PreviewFileTapGestureRecognizer.swift in Sources */,
+				DFC2ADC8294377BF008A1CD2 /* PersonalCodeValidator.swift in Sources */,
+				DFB1A492283FB9AF000B578D /* CertificateDetailViewController.swift in Sources */,
 				DFDF02C0241EC72D006CF443 /* SessionStatus.swift in Sources */,
 				C52E827C1FC1D7BC0074B280 /* MoppApp.swift in Sources */,
 				E4C53F4E1E30D13100F209BE /* Session.swift in Sources */,
@@ -1839,6 +1892,7 @@
 				C50DCD0B1FC7128900D48E16 /* ContainerHeaderCell.swift in Sources */,
 				39158A1920C6C49100B71DD6 /* AddresseeActions.swift in Sources */,
 				C593D9F2208F269A000B3BF6 /* SettingsChoiceCell.swift in Sources */,
+				DF32A67B29096B7100AE5F82 /* LogFileGenerating.swift in Sources */,
 				C541E13D21B17CE000685535 /* UISwitch+Utils.swift in Sources */,
 				C54BB10F1FBD93A100A274F6 /* MobileIDChallengeViewController.swift in Sources */,
 				399C01EA20BD98730056D7AC /* ContainerFoundAddresseeCell.swift in Sources */,
@@ -1848,19 +1902,24 @@
 				DFBF242E23DB0923008DD8D0 /* LOTLDecoder.swift in Sources */,
 				C50DCD441FDD7E4A00D48E16 /* DataFilePreviewViewController.swift in Sources */,
 				C50FC431224BA3B20041925C /* ScreenDisguise.swift in Sources */,
+				DF32A690290C983100AE5F82 /* MessageUtil.swift in Sources */,
 				C50787881FEA807500D9AAC0 /* UIViewController+Additions.swift in Sources */,
 				C506EC7C1FB9CBFD00E07226 /* Constants.swift in Sources */,
-				DF1AC96E287764B300C059FE /* AccessibilityViewController.swift in Sources */,
 				C58FCD5B206505BE00FE3B57 /* MyeIDStatusViewController.swift in Sources */,
+				DF32A67D2909B20C00AE5F82 /* AlertUtil.swift in Sources */,
 				C5310F2620C1777B004D3E78 /* MenuLanguageCell.swift in Sources */,
+				DF4B841A2840F8FC005CB875 /* CertificateDetailsCell.swift in Sources */,
 				C5A795D3208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift in Sources */,
 				C506EC811FB9F4AF00E07226 /* UIImage+Additions.swift in Sources */,
 				C55A6E42208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift in Sources */,
 				C5927FC720751402003B7F41 /* MyeIDPinPukCell.swift in Sources */,
 				DFF3C3AF233231190079458A /* SettingsConfiguration.swift in Sources */,
+				DFC2ADC229437790008A1CD2 /* AccessibilityViewController.swift in Sources */,
 				393B66BA20D7EC9D001DC89B /* WrapperUIBarButtonItem.swift in Sources */,
+				DFC2ADC6294377AC008A1CD2 /* AccessibilityViewTextType.swift in Sources */,
 				39487CBE210B18F90082D910 /* CdocParserDelegate.swift in Sources */,
 				DFD176D423F427AD00E2CC52 /* TSLVersionChecker.swift in Sources */,
+				DF4B8418284008CF005CB875 /* SignatureDetail.swift in Sources */,
 				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
 				DF7F611926399B5400747B7D /* ContainerRemovalActions.swift in Sources */,
 				C55BB1CA2090C17F00618AC4 /* AboutViewController.swift in Sources */,
@@ -1903,6 +1962,7 @@
 				4E59080024B0F914001B23A6 /* SmartIDEditViewController.swift in Sources */,
 				C50DCD1B1FD1576B00D48E16 /* SigningTableViewHeaderView.swift in Sources */,
 				C54EA73A2057E58D0039AC78 /* MoppButton.swift in Sources */,
+				DF32A691290C983100AE5F82 /* ErrorUtil.swift in Sources */,
 				3921CAA720B5A39F00BF3178 /* ContainerAddresseeCell.swift in Sources */,
 				C55A6E402086351C000F3386 /* MyeIDChangeCodesTextField.swift in Sources */,
 				C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */,
@@ -1913,11 +1973,11 @@
 				C5FA0BE920A1930400A208E5 /* MoppApp+Jailbreak.swift in Sources */,
 				4E59080424B2E295001B23A6 /* SmartIDSignature.swift in Sources */,
 				E42B08AE1E1EFC1800EA24A3 /* DateFormatter.swift in Sources */,
+				DFC2ADBE294375FA008A1CD2 /* TokenFlowUtil.swift in Sources */,
 				DFDF02C4241ED0CA006CF443 /* MobileIDSignature.swift in Sources */,
 				C55BB1C720908EF300618AC4 /* DiagnosticsViewController.swift in Sources */,
 				54825EF81E1D270F00253FF0 /* String+Additions.swift in Sources */,
 				DFD176CB23F1B78000E2CC52 /* MimeTypeDecoder.swift in Sources */,
-				DFB5FF09289954F8006B3B8C /* TokenFlowUtil.swift in Sources */,
 				E42B08B11E1F049B00EA24A3 /* FileManager.swift in Sources */,
 				DFF3C3AE233231190079458A /* Configuration.swift in Sources */,
 				C5A1D1CD2031D5B80024CD4C /* ContainerActions.swift in Sources */,
@@ -1929,6 +1989,7 @@
 				C5310F4620C2F0F7004D3E78 /* MenuLanguageButtonView.swift in Sources */,
 				DF6299122664FEFE00E6C55E /* UrlSchemeHandler.swift in Sources */,
 				DF3F62B026BD71180070F930 /* FileDownloader.swift in Sources */,
+				DF4B841E284417CD005CB875 /* CertificateDetail.swift in Sources */,
 				C5927FC92075144F003B7F41 /* MyeIDSegmentHeaderCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -41,6 +41,8 @@ class AboutViewController: MoppViewController, WKNavigationDelegate {
         titleLabel.font = UIFont.moppMediumBold
         if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
         
+        dismissButton.setTitle(L(.closeButton))
+        
         guard let titleUILabel = titleLabel, let dismissUIButton = dismissButton, let webUIView = webView else {
             printLog("Unable to get titleLabel, dismissButton or webView")
             return

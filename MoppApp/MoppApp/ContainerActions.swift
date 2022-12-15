@@ -244,7 +244,7 @@ extension ContainerActions where Self: UIViewController {
                 withPath: containerPath,
                 withDataFilePaths: dataFilePaths,
                 success: { container in
-                    landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                    landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: { [weak self] in
                         if UIAccessibility.isVoiceOverRunning && dataFilePaths.count == 1 {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                 UIAccessibility.post(notification: .announcement, argument: L(.dataFileAdded))
@@ -254,19 +254,20 @@ extension ContainerActions where Self: UIViewController {
                                 UIAccessibility.post(notification: .announcement, argument: L(.dataFilesAdded))
                             }
                         }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            containerViewController?.reloadContainer()
-                        }
+                        self?.refreshContainer(containerViewController: containerViewController)
                     })
                 },
                 failure: { error in
-                    landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                    landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: { [weak self] in
                         guard let nsError = error as NSError? else { return }
                         if nsError.code == Int(MoppLibErrorCode.moppLibErrorDuplicatedFilename.rawValue) {
                             DispatchQueue.main.async {
-                                self.errorAlert(message: L(.containerDetailsFileAlreadyExists))
+                                self?.errorAlert(message: L(.containerDetailsFileAlreadyExists))
                             }
+                        } else {
+                            self?.errorAlert(message: MessageUtil.generateDetailedErrorMessage(error: nsError))
                         }
+                        self?.refreshContainer(containerViewController: containerViewController)
                     })
                 }
             )
@@ -299,6 +300,12 @@ extension ContainerActions where Self: UIViewController {
                 }
                 containerViewController?.reloadContainer()
             })
+        }
+    }
+    
+    private func refreshContainer(containerViewController: ContainerViewController?) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            containerViewController?.reloadContainer()
         }
     }
 

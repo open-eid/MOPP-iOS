@@ -170,6 +170,10 @@ extension String {
         return self.replacingOccurrences(of: messageWithLink, with: "")
     }
     
+    func trimWhitespacesAndNewlines() -> String? {
+        return self.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
     var isValidUrl: Bool {
         if let url: URL = URL(string: self) {
             return UIApplication.shared.canOpenURL(url)

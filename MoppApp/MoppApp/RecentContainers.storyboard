@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nHM-IS-xuZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nHM-IS-xuZ">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,7 +26,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecentContainersHeaderCell" rowHeight="58" id="5dZ-y1-JFk" customClass="RecentContainersHeaderCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="375" height="58"/>
+                                        <rect key="frame" x="0.0" y="50" width="375" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5dZ-y1-JFk" id="tfF-e9-GNd">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="58"/>
@@ -51,9 +51,12 @@
                                                 <constraint firstItem="ixj-S8-tJQ" firstAttribute="top" secondItem="tfF-e9-GNd" secondAttribute="topMargin" id="mTa-UM-nLS"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dismissButton" destination="ixj-S8-tJQ" id="jXk-kg-ZTb"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="RecentContainersNameCell" rowHeight="79" id="8VZ-we-F6P" customClass="RecentContainersNameCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="102.5" width="375" height="79"/>
+                                        <rect key="frame" x="0.0" y="108" width="375" height="79"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8VZ-we-F6P" id="9Go-IS-pHB">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="79"/>
@@ -89,7 +92,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecentContainersEmptyListCell" rowHeight="64" id="22T-9D-jTO" customClass="RecentContainersEmptyListCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="181.5" width="375" height="64"/>
+                                        <rect key="frame" x="0.0" y="187" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="22T-9D-jTO" id="VlM-ar-yGl">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>

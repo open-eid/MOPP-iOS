@@ -80,6 +80,13 @@ class AddresseeViewController : MoppViewController {
 }
 
 extension AddresseeViewController : UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if (searchText.count >= 11 &&
+            PersonalCodeValidator.isPersonalCodeNumeric(personalCode: searchText) &&
+            !PersonalCodeValidator.isPersonalCodeValid(personalCode: searchText)) {
+            searchBar.text?.removeLast()
+        }
+    }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         selectedIndexes = []
         showLoading(show: true)
@@ -102,7 +109,7 @@ extension AddresseeViewController : UISearchBarDelegate {
                     if nsError.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
                         self.errorAlert(message: L(.noConnectionMessage))
                     } else {
-                        self.errorAlert(message: L(.cryptoEmptyLdapLabel))
+                        self.errorAlert(message: "\(L(.cryptoEmptyLdapLabel)) \(MessageUtil.generateDetailedErrorMessage(error: nsError) ?? "")")
                     }
                     self.showLoading(show: false)
                 }
@@ -154,6 +161,7 @@ extension AddresseeViewController : UITableViewDataSource {
                 return cell
             case .search:
                 let cell = tableView.dequeueReusableCell(withType: ContainerSearchCell.self, for: indexPath)!
+                cell.searchBar.delegate = self
                 return cell
             case .searchResult:
                 let cell = tableView.dequeueReusableCell(withType: ContainerFoundAddresseeCell.self, for: indexPath)!

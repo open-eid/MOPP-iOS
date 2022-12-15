@@ -39,6 +39,14 @@ class SettingsFieldCell: UITableViewCell {
         textField.layer.borderColor = UIColor.moppContentLine.cgColor
         textField.layer.borderWidth = 1
         textField.delegate = self
+        
+        guard let fieldUITextfield: UITextField = textField else {
+            printLog("Unable to get textField")
+            return
+        }
+        titleLabel.isAccessibilityElement = false
+        textField.accessibilityLabel = L(.settingsRpUuidTitle)
+        self.accessibilityElements = [fieldUITextfield]
     }
     
     func populate(with field:SettingsViewController.Field) {

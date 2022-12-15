@@ -136,4 +136,11 @@ extension UIColor {
     class var moppSuccessDarker: UIColor {
         return UIColor(named: "MoppSuccessDarker")!
     }
+    
+    class var moppDetailText: UIColor {
+        return UIColor(named: "MoppDetailText")!
+    }
+    class var moppDetailValue: UIColor {
+        return UIColor(named: "MoppDetailValue")!
+    }
 }

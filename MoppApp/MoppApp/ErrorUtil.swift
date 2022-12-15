@@ -1,6 +1,6 @@
 //
-//  MLFileManager.h
-//  MoppLib
+//  ErrorUtil.swift
+//  SkSigningLib
 //
 /*
  * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
@@ -21,20 +21,19 @@
  *
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
+import SkSigningLib
 
-@interface MLFileManager : NSObject
-
-+ (MLFileManager *)sharedInstance;
-
-- (NSString *)tslCachePath;
-- (NSArray *)getContainers;
-- (NSDictionary *)fileAttributes:(NSString *)filePath;
-- (void)copyFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath;
-- (BOOL)fileExistsAtPath:(NSString *)filePath;
-- (NSString *)documentsDirectoryPath;
-- (NSString *)logsDirectoryPath;
-- (BOOL)createFolder:(NSString *)folderName;
-- (BOOL)folderExists:(NSString *)folderPath;
-
-@end
+class ErrorUtil {
+    
+    static func generateError(signingError: SigningError, details: String = "") -> Void {
+        let error = NSError(domain: "SkSigningLib", code: 10, userInfo: [NSLocalizedDescriptionKey: signingError, NSLocalizedFailureReasonErrorKey: details])
+        return self.errorResult(error: error)
+    }
+    
+    static func errorResult(error: Error) -> Void {
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: .errorNotificationName, object: nil, userInfo: [kErrorKey: error])
+        }
+    }
+}

@@ -142,9 +142,14 @@ class MobileIDChallengeViewController : UIViewController {
     @objc func receiveErrorNotification(_ notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         let error = userInfo[kErrorKey] as? NSError
-        let signingErrorMessage = error?.userInfo[NSLocalizedDescriptionKey] as? SigningError
-        let errorMessage = userInfo[kErrorMessage] as? String ?? SigningError.generalError.signingErrorDescription ?? L(.genericErrorMessage)
-        return showErrorDialog(errorMessage: SkSigningLib_LocalizedString(signingErrorMessage?.signingErrorDescription ?? errorMessage))
+        let signingErrorMessage = (error as? SigningError)?.signingErrorDescription
+        let signingError = error?.userInfo[NSLocalizedDescriptionKey] as? SigningError
+        let detailedErrorMessage = error?.userInfo[NSLocalizedFailureReasonErrorKey] as? String
+        var errorMessage = userInfo[kErrorMessage] as? String ?? SkSigningLib_LocalizedString(signingError?.signingErrorDescription ?? signingErrorMessage ?? "")
+        if !detailedErrorMessage.isNilOrEmpty {
+            errorMessage = "\(userInfo[kErrorMessage] as? String ?? SkSigningLib_LocalizedString(signingError?.signingErrorDescription ?? signingErrorMessage ?? "")) \n\(detailedErrorMessage ?? "")"
+        }
+        return showErrorDialog(errorMessage: SkSigningLib_LocalizedString(errorMessage))
     }
 
     func showErrorDialog(errorMessage: String) -> Void {
@@ -152,9 +157,9 @@ class MobileIDChallengeViewController : UIViewController {
             self.dismiss(animated: false) {
                 let topViewController = self.getTopViewController()
 
-                let errorMessageNoLink: String? = errorMessage.removeFirstLinkFromMessage()
+                let errorMessageNoLink: String? = errorMessage.removeFirstLinkFromMessage()?.trimWhitespacesAndNewlines()
 
-                let alert = UIAlertController(title: L(.errorAlertTitleGeneral), message: errorMessageNoLink, preferredStyle: UIAlertController.Style.alert)
+                let alert = UIAlertController(title: L(.generalSignatureAddingMessage), message: errorMessageNoLink, preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 if let linkInUrl: String = errorMessage.getFirstLinkInMessage() {
                     if let alertActionUrl: UIAlertAction = UIAlertAction().getLinkAlert(message: linkInUrl) {

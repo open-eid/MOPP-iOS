@@ -81,22 +81,13 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     }
 
     func didFinishLaunchingWithOptions(launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        // Log console logs to a file in Documents folder
+        // Log console logs to a file in Documents/logs folder
         #if DEBUG
             setDebugMode(value: true)
-
-            let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-            let documentsDirectory: String = paths[0]
-            let currentDate = MoppDateFormatter().ddMMYYYY(toString: Date())
-            let fileName = "\(currentDate).log"
-            let logFilePath = URL(string: documentsDirectory)?.appendingPathComponent(fileName)
-            freopen(logFilePath!.absoluteString, "a+", stderr)
-        
-        print("DEBUG mode: Logging to file. File location: \(logFilePath?.path ?? "Unable to log file path")")
+            FileLogUtil.logToFile()
         #else
             setDebugMode(value: false)
         #endif
-
 
         loadNibs()
         // Set navBar not translucent by default.
@@ -143,6 +134,8 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                     self.handleScreenRecording()
                 }
             #endif
+        
+            FileLogUtil.setupAppLogging()
 
             // Get remote configuration
             SettingsConfiguration().getCentralConfiguration()

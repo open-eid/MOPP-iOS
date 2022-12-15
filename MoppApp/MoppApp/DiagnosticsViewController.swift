@@ -34,7 +34,17 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     @IBOutlet weak var lastCheckLabel: UILabel!
     @IBOutlet weak var refreshConfigurationLabel: UIButton!
     @IBOutlet weak var saveDiagnosticsLabel: UIButton!
-    
+    @IBOutlet weak var enableOneTimeLoggingLabel: UILabel!
+    @IBOutlet weak var oneTimeLoggingSwitch: UISwitch!
+    @IBAction func fileLoggingSwitchChanged(_ sender: Any) {
+        handleFileLoggingSwitchChanged()
+    }
+    @IBOutlet weak var saveLogButtonLabel: UIButton!
+    @IBAction func saveLogButton(_ sender: Any) {
+        handleSaveOneTimeLog()
+    }
+
+
     @IBOutlet weak var configURL: UILabel!
     @IBOutlet weak var tslURL: UILabel!
     @IBOutlet weak var sivaURL: UILabel!
@@ -62,7 +72,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
             NotificationCenter.default.addObserver(self, selector: #selector(self.onCentralConfigurationResponse(responseNotification:)), name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil)
         }
     }
-    
+
     @IBAction func saveDiagnostics(_ sender: Any) {
         printLog("Saving diagnostics")
         printLog("Formatting diagnostics data")
@@ -71,6 +81,8 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         printLog("Saving diagnostics to file '\(fileName)'")
         saveDiagnosticsToFile(fileName: fileName, diagnosticsText: diagnosticsText)
     }
+
+    @IBOutlet weak var dismissButton: UIButton!
 
     @IBAction func dismissAction() {
         dismiss(animated: true, completion: nil)
@@ -138,10 +150,31 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
             saveDiagnosticsLabel.titleLabel?.font = UIFont.setCustomFont(font: .regular, nil, .body)
         }
-        
+
+        dismissButton.setTitle(L(.closeButton))
+
+        enableOneTimeLoggingLabel.text = L(.diagnosticsActivateOneTimeLogging)
+
+        if FileLogUtil.isLoggingEnabled() {
+            saveLogButtonLabel.isHidden = false
+            saveLogButtonLabel.localizedTitle = .diagnosticsSaveLog
+        } else {
+            oneTimeLoggingSwitch.setOn(false, animated: true)
+            saveLogButtonLabel.isHidden = true
+        }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(handleOneTimeLogging), name: UIApplication.didEnterBackgroundNotification, object: nil)
+
         configurationToUI()
 
         listenForConfigUpdates()
+    }
+
+    // If user clicks on "Additional information", set the switch back to "Off" state
+    @objc func handleOneTimeLogging() {
+        if !FileLogUtil.isLoggingEnabled() {
+            oneTimeLoggingSwitch.setOn(false, animated: true)
+        }
     }
 
     func attributedTextForBoldRegularText(key:String, value:String) -> NSAttributedString {
@@ -161,7 +194,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     @objc func handleConfigurationLoaded(notification: Notification) {
         self.viewDidLoad()
     }
-    
+
     private func setContentSizeFont() {
         for label in getAllTextLabels(view: view) {
             if let text = label.text {
@@ -173,7 +206,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
             }
         }
     }
-    
+
     private func configurationToUI() {
         let decodedConf = getMoppConfiguration()
 
@@ -210,7 +243,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         } else {
             lastCheckDate.text = formatString(text: L(.lastUpdateCheckDateLabel), additionalText: " ")
         }
-        
+
         if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
             setContentSizeFont()
         }
@@ -279,7 +312,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         return DefaultsHelper.rpUuid.isEmpty || DefaultsHelper.rpUuid == kRelyingPartyUUID ?
             L(.diagnosticsRpUuidDefault) : L(.diagnosticsRpUuidCustom)
     }
-    
+
     private func getAllTextLabels(view: UIView) -> [UILabel] {
         var uiLabels = [UILabel]()
         for subview in view.subviews {
@@ -289,10 +322,10 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
                 uiLabels.append(contentsOf: getAllTextLabels(view: subview))
             }
         }
-        
+
         return uiLabels
     }
-    
+
     private func formatDiagnosticsText() -> String {
         var diagnosticsText = ""
         for label in getAllTextLabels(view: view) {
@@ -304,45 +337,41 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
                 }
             }
         }
-        
+
         return diagnosticsText
     }
-    
+
     private func isTitleOrButtonLabel(text: String) -> Bool {
         return isTitleLabel(text: text) || isButtonLabel(text: text)
     }
-    
+
     private func isTitleLabel(text: String) -> Bool {
         return text == L(.diagnosticsTitle)
     }
-    
+
     private func isButtonLabel(text: String) -> Bool {
         return text == L(.refreshConfigurationLabel) || text == L(.saveDiagnosticsLabel)
     }
-    
+
     private func isCategoryLabel(text: String) -> Bool {
         return text == L(.diagnosticsLibrariesLabel) || text == "URLs:" || text == L(.centralConfigurationLabel)
     }
-    
+
     private func saveDiagnosticsToFile(fileName: String, diagnosticsText: String) {
         let fileLocation: URL? = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(fileName)
-        
+
         if let fileUrl = fileLocation {
             do {
                 if MoppFileManager.shared.fileExists(fileUrl.path) {
                     printLog("Removing old diagnostics file")
                     MoppFileManager.shared.removeFile(withPath: fileUrl.path)
                 }
-                
+
                 printLog("Writing diagnostics text to file")
                 try diagnosticsText.write(to: fileUrl, atomically: true, encoding: .utf8)
-                
+
                 if MoppFileManager.shared.fileExists(fileUrl.path) {
-                    let pickerController = UIDocumentPickerViewController(url: fileUrl, in: .exportToService)
-                    pickerController.delegate = self
-                    self.present(pickerController, animated: true) {
-                        printLog("Showing file saving location picker")
-                    }
+                    saveToDisk(fileUrl: fileUrl)
                     return
                 }
             } catch {
@@ -352,19 +381,60 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
             }
         }
     }
-    
+
+    func saveToDisk(fileUrl: URL) {
+        let pickerController = UIDocumentPickerViewController(url: fileUrl, in: .exportToService)
+        pickerController.delegate = self
+        self.present(pickerController, animated: true) {
+            printLog("Showing file saving location picker")
+        }
+    }
+
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         if !urls.isEmpty {
             let savedFileLocation: URL? = urls.first
             printLog("File export done. Location: \(savedFileLocation?.path ?? "Not available")")
             self.errorAlert(message: L(.fileImportFileSaved))
+            disableLogging()
         } else {
             printLog("Failed to save file")
             return self.errorAlert(message: L(.fileImportFailedFileSave))
         }
     }
-    
+
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
         printLog("File saving cancelled")
+    }
+
+    private func handleFileLoggingSwitchChanged() {
+        if oneTimeLoggingSwitch.isOn {
+            let messageAlert = AlertUtil.messageAlertWithLink(title: nil, message: L(.diagnosticsRestartToActivateLogging), additionalInfoButtonTitle: L(.diagnosticsOneTimeLoggingReadMore)) { _ in
+                FileLogUtil.enableLogging()
+            }
+            present(messageAlert, animated: true)
+        } else {
+            disableLogging()
+        }
+    }
+
+    private func handleSaveOneTimeLog() {
+        do {
+            let logFile = try FileLogUtil.combineLogFiles()
+            saveToDisk(fileUrl: logFile)
+        } catch {
+            printLog("Unable to write logs to file. Error: \(error.localizedDescription)")
+            self.errorAlert(message: L(.fileImportFailedFileSave))
+            return
+        }
+    }
+
+    private func disableLogging() {
+        FileLogUtil.disableLoggingAndRemoveFiles()
+        oneTimeLoggingSwitch.setOn(false, animated: true)
+        saveLogButtonLabel.isHidden = true
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
 }
