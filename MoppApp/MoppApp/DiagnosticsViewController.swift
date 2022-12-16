@@ -67,6 +67,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
 
     @IBAction func refreshConfiguration(_ sender: Any) {
         DispatchQueue.global(qos: .userInitiated).async {
+            printLog("Refreshing central configuration")
             SettingsConfiguration().loadCentralConfiguration()
 
             NotificationCenter.default.addObserver(self, selector: #selector(self.onCentralConfigurationResponse(responseNotification:)), name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil)
@@ -85,11 +86,12 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     @IBOutlet weak var dismissButton: UIButton!
 
     @IBAction func dismissAction() {
+        printLog("Closing diagnostics view")
         dismiss(animated: true, completion: nil)
     }
 
-    @objc func onCentralConfigurationResponse(responseNotification: Notification)
-    {
+    @objc func onCentralConfigurationResponse(responseNotification: Notification) {
+        printLog("Central configuration response received")
         DispatchQueue.main.async {
             self.configurationToUI()
         }
@@ -99,19 +101,30 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
                 if UIAccessibility.isVoiceOverRunning {
                     UIAccessibility.post(notification: .screenChanged, argument: L(.refreshConfigurationUpdated))
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                        printLog("Showing configuration refresh message")
                         self?.displayMessageDialog(message: L(.refreshConfigurationRestartMessage))
                     }
                 } else {
+                    printLog("Showing configuration refresh message")
                     self?.displayMessageDialog(message: L(.refreshConfigurationRestartMessage))
                 }
             }
         } else {
+            printLog("Configuration is already up to date")
             UIAccessibility.post(notification: .screenChanged, argument: L(.refreshConfigurationAlreadyUpToDate))
         }
     }
 
+    override func loadView() {
+        super.loadView()
+
+        printLog("Initialized Diagnostics view")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        printLog("Setting up diagnostics data")
 
         titleLabel.text = L(.diagnosticsTitle)
         if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
@@ -227,20 +240,27 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         metaUrl.text = formatString(text: "URL:", additionalText: decodedConf.METAINF.URL)
         metaVer.text = formatString(text: "VER:", additionalText: String(decodedConf.METAINF.VER))
 
-
+        printLog("Getting cached update date")
         if let cachedUpdateDate = SettingsConfiguration().getConfigurationFromCache(forKey: "updateDate") as? Date {
             updateDate.text = formatString(text: L(.updateDateLabel), additionalText: MoppDateFormatter().dateToString(date: cachedUpdateDate))
+            printLog("Cached update date: \(MoppDateFormatter().dateToString(date: cachedUpdateDate))")
         } else {
             do {
-                updateDate.text = formatString(text: L(.updateDateLabel), additionalText: try getDecodedDefaultMoppConfiguration().UPDATEDATE)
+                printLog("Cached update date not available. Getting default configuration update date")
+                let defaultUpdateDate = try getDecodedDefaultMoppConfiguration().UPDATEDATE
+                updateDate.text = formatString(text: L(.updateDateLabel), additionalText: defaultUpdateDate)
+                printLog("Default update date: \(defaultUpdateDate)")
             } catch {
                 printLog("Unable to decode data: \(error.localizedDescription)")
             }
         }
 
+        printLog("Getting cached last update date")
         if let cachedLastUpdateCheckDate = SettingsConfiguration().getConfigurationFromCache(forKey: "lastUpdateCheckDate") as? Date {
             lastCheckDate.text = formatString(text: L(.lastUpdateCheckDateLabel), additionalText: MoppDateFormatter().dateToString(date: cachedLastUpdateCheckDate))
+            printLog("Cached last update date: \(MoppDateFormatter().dateToString(date: cachedLastUpdateCheckDate))")
         } else {
+            printLog("Last update check date not available")
             lastCheckDate.text = formatString(text: L(.lastUpdateCheckDateLabel), additionalText: " ")
         }
 
@@ -254,6 +274,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     }
 
     private func getDecodedDefaultMoppConfiguration() throws -> DefaultMoppConfiguration {
+        printLog("Decoding default configuration")
         do {
             let defaultConfigData = try String(contentsOfFile: Bundle.main.path(forResource: "defaultConfiguration", ofType: "json")!)
             return try MoppConfigurationDecoder().decodeDefaultMoppConfiguration(configData: defaultConfigData)
@@ -264,6 +285,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     }
 
     private func getLOTLVersion() -> String {
+        printLog("Getting LOTL version")
         let lotlFileUrl: URL? = TSLUpdater().getLOTLFileURL()
         guard lotlFileUrl != nil, let lotlFile = lotlFileUrl else {
             printLog("Unable to get LOTL file")
@@ -272,6 +294,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         let fileLocation: URL? = URL(fileURLWithPath: lotlFile.path)
         guard let fileURL: URL = fileLocation else { printLog("Failed to get eu-lotl file location"); return "" }
         do {
+            printLog("Checking if LOTL file (\(lotlFile.lastPathComponent) is reachable at \(fileURL)")
             _ = try fileURL.checkResourceIsReachable()
         } catch let error {
             printLog("Failed to check if eu-lotl.xml file is reachable. Error: \(error.localizedDescription)")
@@ -279,8 +302,11 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         }
         var version: String = ""
         TSLVersionChecker().getTSLVersion(filePath: fileURL) { (tslVersion) in
+            printLog("Received TSL version: \(tslVersion)")
             if !tslVersion.isEmpty {
                 version = tslVersion
+            } else {
+                printLog("TSL version is empty")
             }
         }
 
@@ -292,6 +318,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     }
 
     private func getTSLVersion(for tslCountry: String) -> String {
+        printLog("Getting TSL version")
         let libraryPath: String = MoppFileManager.shared.libraryDirectoryPath()
         let filesInLibrary: [URL] = TSLUpdater().getCountryFileLocations(inPath: libraryPath)
 
@@ -309,6 +336,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     }
 
     private func getRPUUIDInfo() -> String {
+        printLog("Getting RP UUID info")
         return DefaultsHelper.rpUuid.isEmpty || DefaultsHelper.rpUuid == kRelyingPartyUUID ?
             L(.diagnosticsRpUuidDefault) : L(.diagnosticsRpUuidCustom)
     }
@@ -361,9 +389,10 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         let fileLocation: URL? = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(fileName)
 
         if let fileUrl = fileLocation {
+            printLog("Diagnostics file location: \(fileUrl)")
             do {
                 if MoppFileManager.shared.fileExists(fileUrl.path) {
-                    printLog("Removing old diagnostics file")
+                    printLog("Diagnostics file already exists. Removing old diagnostics file")
                     MoppFileManager.shared.removeFile(withPath: fileUrl.path)
                 }
 
@@ -371,6 +400,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
                 try diagnosticsText.write(to: fileUrl, atomically: true, encoding: .utf8)
 
                 if MoppFileManager.shared.fileExists(fileUrl.path) {
+                    printLog("Diagnostics file exists at \(fileUrl)")
                     saveToDisk(fileUrl: fileUrl)
                     return
                 }
@@ -393,7 +423,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         if !urls.isEmpty {
             let savedFileLocation: URL? = urls.first
-            printLog("File export done. Location: \(savedFileLocation?.path ?? "Not available")")
+            printLog("File (\(savedFileLocation?.lastPathComponent ?? "Not available") export done. Location: \(savedFileLocation?.path ?? "Not available")")
             self.errorAlert(message: L(.fileImportFileSaved))
             disableLogging()
         } else {
@@ -436,5 +466,6 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
 
     deinit {
         NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+        printLog("Deinit Diagnostics view")
     }
 }
