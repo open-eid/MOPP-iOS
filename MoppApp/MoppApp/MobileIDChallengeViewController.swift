@@ -111,6 +111,7 @@ class MobileIDChallengeViewController : UIViewController {
     @objc func receiveCreateSignatureStatus(_ notification: Notification) {
         sessionTimer?.invalidate()
         NotificationCenter.default.post(name: .signatureCreatedFinishedNotificationName, object: nil)
+        NotificationCenter.default.removeObserver(self)
         dismiss(animated: false)
     }
 

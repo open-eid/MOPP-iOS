@@ -261,7 +261,9 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                 strongSelf.notifications.append((true, L(.containerDetailsSigningSuccess)))
                 
                 if UIAccessibility.isVoiceOverRunning {
-                    UIAccessibility.post(notification: .announcement, argument: L(.containerDetailsSigningSuccess))
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        UIAccessibility.post(notification: .announcement, argument: L(.containerDetailsSigningSuccess))
+                    }
                 }
                 
                 if !DefaultsHelper.hideShareContainerDialog {
