@@ -39,7 +39,6 @@ class AboutViewController: MoppViewController, WKNavigationDelegate {
 
         titleLabel.text = L(.aboutTitle)
         titleLabel.font = UIFont.moppMediumBold
-        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
         
         dismissButton.setTitle(L(.closeButton))
         

@@ -53,13 +53,21 @@ class AccessibilityViewController : MoppViewController {
         var attributes: [NSAttributedString.Key : AnyObject]
         switch textType {
         case .header:
-            attributes = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 20, weight: .medium), NSAttributedString.Key.foregroundColor : UIColor.moppTitle]
+            if let fontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title1).withSymbolicTraits(.traitBold) {
+                attributes = [NSAttributedString.Key.font : UIFont(descriptor: fontDescriptor, size: fontDescriptor.pointSize), NSAttributedString.Key.foregroundColor : UIColor.moppTitle]
+            } else {
+                attributes = [NSAttributedString.Key.font : UIFont.preferredFont(forTextStyle: .headline), NSAttributedString.Key.foregroundColor : UIColor.moppTitle]
+            }
             return NSMutableAttributedString(string: "\n\n\(text)\n", attributes:attributes)
         case .paragraph:
-            attributes = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor : UIColor.moppTitle]
+            attributes = [NSAttributedString.Key.font : UIFont.preferredFont(forTextStyle: .body), NSAttributedString.Key.foregroundColor : UIColor.moppTitle]
             break
         case .boldText:
-            attributes = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14, weight: .semibold), NSAttributedString.Key.foregroundColor : UIColor.moppTitle]
+            if let fontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body).withSymbolicTraits(.traitBold) {
+                attributes = [NSAttributedString.Key.font : UIFont(descriptor: fontDescriptor, size: fontDescriptor.pointSize), NSAttributedString.Key.foregroundColor : UIColor.moppTitle]
+            } else {
+                attributes = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14, weight: .semibold), NSAttributedString.Key.foregroundColor : UIColor.moppTitle]
+            }
             break
         }
         

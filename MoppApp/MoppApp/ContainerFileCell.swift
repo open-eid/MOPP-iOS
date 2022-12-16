@@ -30,7 +30,7 @@ protocol ContainerFileDelegate: AnyObject {
 
 class ContainerFileCell: UITableViewCell {
     static let height: CGFloat = 44
-    @IBOutlet weak var filenameLabel: UILabel!
+    @IBOutlet weak var filenameLabel: ScaledLabel!
     @IBOutlet weak var bottomBorderView: UIView!
     @IBOutlet weak var removeButton: UIView!
     @IBOutlet weak var saveButton: UIButton!
@@ -51,16 +51,11 @@ class ContainerFileCell: UITableViewCell {
     func populate(name: String, showBottomBorder: Bool, showRemoveButton: Bool, showDownloadButton: Bool, dataFileIndex: Int) {
         bottomBorderView.isHidden = !showBottomBorder
         filenameLabel.text = MoppLibManager.sanitize(name)
+        filenameLabel.resetLabelProperties()
         removeButton.isHidden = !showRemoveButton
         removeButton.accessibilityLabel = formatString(text: L(.fileImportRemoveFile), additionalText: MoppLibManager.sanitize(filenameLabel.text))
         saveButton.isHidden = !showDownloadButton
         saveButton.accessibilityLabel = formatString(text: L(.fileImportSaveFile), additionalText: MoppLibManager.sanitize(filenameLabel.text))
         self.dataFileIndex = dataFileIndex
-        
-        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
-            filenameLabel.font = isNonDefaultPreferredContentSizeCategoryBigger() ? UIFont.setCustomFont(font: .regular, nil, .body) : UIFont.setCustomFont(font: .regular, 14, .body)
-            filenameLabel.numberOfLines = 10
-            filenameLabel.lineBreakMode = .byCharWrapping
-        }
     }
 }

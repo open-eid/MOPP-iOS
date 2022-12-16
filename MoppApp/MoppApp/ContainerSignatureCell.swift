@@ -96,10 +96,6 @@ class ContainerSignatureCell: UITableViewCell {
         
         bottomBorderView.isHidden = !showBottomBorder
         removeButton.isHidden = !showRemoveButton
-        
-        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
-            signatureStatusLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        }
     }
     
     func getSignatureStatusText(translationPrefix: String, translationSufix: String, valid: Bool) -> NSMutableAttributedString{
@@ -127,11 +123,6 @@ class ContainerSignatureCell: UITableViewCell {
             nameLabel.text = L(LocKey.containerTimestampInvalid)
         } else {
             nameLabel.text = signature.subjectName
-        }
-        
-        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
-            signedInfoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-            nameLabel.font = UIFont.setCustomFont(font: .allCapsBold, nil, .body)
         }
     }
 }

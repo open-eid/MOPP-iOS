@@ -35,8 +35,5 @@ class ContainerNotificationCell: UITableViewCell {
     func populate(isSuccess: Bool, text: String) {
         contentView.backgroundColor = isSuccess ? UIColor.moppSuccess : UIColor.moppWarning
         infoLabel.text = text
-        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
-            infoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        }
     }
 }

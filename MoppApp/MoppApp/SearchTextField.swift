@@ -38,7 +38,6 @@ class SearchTextField: UITextField {
     override func awakeFromNib() {
         super.awakeFromNib()
         delegate = self
-        font = isBoldTextEnabled() ? UIFont.moppMediumBold : UIFont.moppLargerMedium
         textColor = UIColor.moppText
         attributedPlaceholder = NSAttributedString(string: L(.searchContainerFile), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker])
         

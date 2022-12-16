@@ -29,26 +29,25 @@ protocol SettingsDefaultValueCellDelegate: AnyObject {
 }
 
 class SettingsDefaultValueCell: UITableViewCell {
-    
+
     @IBOutlet weak var useDefaultTitleLabel: UILabel!
     @IBOutlet weak var useDefaultSwitch: UISwitch!
-    
+
     @IBAction func useDefaultToggled(_ sender: UISwitch) {
         delegate.didChangeDefaultSwitch(.useDefault, with: sender.isOn)
         updateUI()
     }
-    
+
     weak var delegate: SettingsDefaultValueCellDelegate!
-    
+
     func populate() {
         updateUI()
     }
-    
+
     func updateUI() {
         let useDefault = DefaultsHelper.rpUuid.isEmpty && DefaultsHelper.timestampUrl == nil
         useDefaultSwitch.isOn = useDefault
         useDefaultTitleLabel.text = L(.settingsTimestampUseDefaultTitle)
         useDefaultSwitch.accessibilityLabel = useDefaultTitleLabel.text
-        useDefaultTitleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
     }
 }

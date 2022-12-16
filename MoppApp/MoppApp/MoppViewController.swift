@@ -22,42 +22,42 @@
  */
 class MoppViewController : UIViewController {
     var lightContentStatusBarStyle : Bool = false
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let titleImageView = UIImageView(image: UIImage(named: "Logo_Vaike"))
         titleImageView.isAccessibilityElement = true
         titleImageView.accessibilityLabel = L(.digidocImageAccessibility)
         titleImageView.accessibilityTraits = [.image]
         navigationItem.titleView = titleImageView
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         setNeedsStatusBarAppearanceUpdate()
     }
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         spinnerView?.updateFrame()
     }
-    
+
     var spinnerView: SpinnerView? {
         get {
             return view.subviews.first(where: { $0 is SpinnerView }) as? SpinnerView
         }
     }
-    
+
     func showLoading(show: Bool, forFrame: CGRect? = nil) {
         if show {
             if let spinnerView = spinnerView {
@@ -76,31 +76,24 @@ class MoppViewController : UIViewController {
             }
         }
     }
-    
+
     func refreshLoadingAnimation() {
         if let spinnerView = view.subviews.first(where: { $0 is SpinnerView }) as? SpinnerView {
             spinnerView.show(true)
         }
     }
-    
+
     func setupNavigationItemForPushedViewController(title: String, filePath: String = "") {
-        let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: navigationItem.titleView?.intrinsicContentSize.width ?? 100, height: 44))
-        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
-        if isNonDefaultPreferredContentSizeCategoryBigger() {
-            titleLabel.font = UIFont.setCustomFont(font: .medium, Int(titleLabel.font.pointSize), .body)
-            titleLabel.numberOfLines = 3
-        } else if !isNonDefaultPreferredContentSizeCategory() {
-            titleLabel.font = UIFont.setCustomFont(font: .medium, Int(titleLabel.font.pointSize), .body)
-        }
+        let titleLabel = ScaledLabel()
         titleLabel.text = title
         titleLabel.textColor = UIColor.black
         titleLabel.textAlignment = .center
         titleLabel.lineBreakMode = .byTruncatingMiddle
         titleLabel.adjustsFontSizeToFitWidth = true
-        titleLabel.minimumScaleFactor = 0.01        
-        
+        titleLabel.minimumScaleFactor = 0.01
+
         navigationItem.titleView = titleLabel
-        
+
         let backBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarBack"), style: .plain, target: self, action: #selector(backAction))
         backBarButtonItem.accessibilityLabel = L(.backButton)
         navigationItem.setLeftBarButton(backBarButtonItem, animated: true)
@@ -117,15 +110,15 @@ class MoppViewController : UIViewController {
     @objc func shareAction(sender: WrapperUIBarButtonItem) {
         LandingViewController.shared.shareFile(using: URL(fileURLWithPath: sender.filePath!), sender: self.view, completion: { bool in })
     }
-    
+
     func setViewBorder(view: UIView, color: UIColor) {
         view.layer.borderColor = color.cgColor
         view.layer.borderWidth = 1.0
     }
-    
+
     func removeViewBorder(view: UIView) {
         view.layer.borderColor = UIColor.moppContentLine.cgColor
         view.layer.borderWidth = 1.0
     }
-    
+
 }

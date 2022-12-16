@@ -1,7 +1,6 @@
 //
-//  ContainerNoAddressees.swift
+//  FontUtil.swift
 //  MoppApp
-//
 /*
  * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
  *
@@ -23,10 +22,17 @@
 
 import Foundation
 
-class ContainerNoAddresseesCell: UITableViewCell {
-    @IBOutlet weak var label: UILabel!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        label.text = L(LocKey.containerMissingAddressees)
+struct FontUtil {
+    
+    static func scaleFont(font: UIFont) -> UIFont {
+        return UIFontMetrics.default.scaledFont(for: font)
+    }
+    
+    static func boldFont(font: UIFont) -> UIFont {
+        if let boldFont = UIFont(name: "Roboto-Bold", size: font.pointSize) {
+            return UIFontMetrics.default.scaledFont(for: boldFont)
+        }
+        
+        return font
     }
 }

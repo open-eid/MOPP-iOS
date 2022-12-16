@@ -126,11 +126,8 @@ extension AddresseeViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if !isNonDefaultPreferredContentSizeCategoryMedium() && isNonDefaultPreferredContentSizeCategoryBigger() {
-            return ContainerSearchCell.height * 3
-        }
-        
-        return tableView.rowHeight
+        tableView.rowHeight = UITableView.automaticDimension
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -235,7 +232,7 @@ extension AddresseeViewController : UITableViewDelegate {
         switch section {
             case .addressees:
                 if selectedAddressees.count > 0 {
-                    return ContainerTableViewHeaderView.height
+                    return UITableView.automaticDimension
                 } else {
                     return 0
             }

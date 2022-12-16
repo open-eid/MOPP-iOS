@@ -365,32 +365,21 @@ extension ContainerViewController : UITableViewDataSource {
     func checkIfDdocParentContainerIsTimestamped() -> Void {
         let asicContainer: MoppLibContainer? = self.containerViewDelegate?.getContainer()
         guard let signingContainer: MoppLibContainer = asicContainer else { printLog("Container not found to check timestamped status"); DefaultsHelper.isTimestampedDdoc = false; return }
-
+        
         let calendar = Calendar(identifier: .gregorian)
         let dateComponents: DateComponents = DateComponents(year: 2018, month: 7, day: 1, hour: 00, minute: 00, second: 00)
         guard let calendarDate = calendar.date(from: dateComponents) else { printLog("Unable to get date from calendar components"); DefaultsHelper.isTimestampedDdoc = false; return }
-
+        
         if signingContainer.isAsics(), signingContainer.dataFiles.count == 1, signingContainer.signatures.count == 1,
            let singleFile: MoppLibDataFile = signingContainer.dataFiles[0] as? MoppLibDataFile,
            singleFile.fileName.hasSuffix(ContainerFormatDdoc),
            let singleSignature: MoppLibSignature = signingContainer.signatures[0] as? MoppLibSignature {
-           DefaultsHelper.isTimestampedDdoc = !singleSignature.timestamp.isAfter(anotherDate: calendarDate)
+            DefaultsHelper.isTimestampedDdoc = !singleSignature.timestamp.isAfter(anotherDate: calendarDate)
             return
         } else if signingContainer.isDdoc(), state != .preview {
             DefaultsHelper.isTimestampedDdoc = false
             return
         }
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if (indexPath.section == 1 || indexPath.section == 2) {
-            if isNonDefaultPreferredContentSizeCategoryBigger() {
-                return ContainerHeaderCell.height * 1.5
-            } else {
-                return ContainerHeaderCell.height
-            }
-        }
-        return UITableView.automaticDimension
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -889,9 +878,6 @@ extension ContainerViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
         let section = sections[_section]
         if sectionHeaderTitle[section] != nil {
-            if !isNonDefaultPreferredContentSizeCategoryMedium() && isNonDefaultPreferredContentSizeCategoryBigger() {
-                return ContainerTableViewHeaderView.height * 3
-            }
             return ContainerTableViewHeaderView.height
         }
         return 0

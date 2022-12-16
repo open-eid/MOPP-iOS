@@ -27,9 +27,8 @@ protocol ContainerHeaderDelegate: AnyObject {
 }
 
 class ContainerHeaderCell: UITableViewCell {
-    static let height: CGFloat = 58
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var filenameLabel: UILabel!
+    @IBOutlet weak var titleLabel: ScaledLabel!
+    @IBOutlet weak var filenameLabel: ScaledLabel!
     @IBOutlet weak var editContainerNameButton: UIButton!
     
     weak var delegate: ContainerHeaderDelegate? = nil
@@ -50,18 +49,12 @@ class ContainerHeaderCell: UITableViewCell {
         super.awakeFromNib()
         
         titleLabel.text = L(.containerHeaderTitle)
-        titleLabel.font = isBoldTextEnabled() ? UIFont.moppMediumBold : UIFont.moppMediumRegular
-        if isNonDefaultPreferredContentSizeCategory() {
-            titleLabel.font = isNonDefaultPreferredContentSizeCategoryBigger() ? UIFont.setCustomFont(font: .regular, nil, .body) : UIFont.setCustomFont(font: .regular, 14, .body)
-        }
+        titleLabel.resetLabelProperties()
     }
     
     func populate(name: String, isEditButtonEnabled: Bool) {
         filenameLabel.text = MoppLibManager.sanitize(name)
-        filenameLabel.font = isBoldTextEnabled() ? UIFont.moppMediumBold : UIFont.moppMediumRegular
-        if isNonDefaultPreferredContentSizeCategory() {
-            filenameLabel.font = isNonDefaultPreferredContentSizeCategoryBigger() ? UIFont.setCustomFont(font: .regular, nil, .body) : UIFont.setCustomFont(font: .regular, 14, .body)
-        }
+        filenameLabel.resetLabelProperties()
         editContainerNameButton.isHidden = isEditButtonEnabled
         editContainerNameButton.accessibilityLabel = L(.containerEditNameButton)
     }

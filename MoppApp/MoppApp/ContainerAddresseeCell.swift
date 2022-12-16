@@ -51,11 +51,5 @@ class ContainerAddresseeCell: UITableViewCell, AddresseeActions {
         removeIndex = index
         nameLabel.text = determineName(addressee: addressee)
         infoLabel.text = determineInfo(addressee: addressee)
-        
-        nameLabel.font = UIFont.setCustomFont(font: .bold, nil, .body)
-        
-        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
-            infoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        }
     }
 }

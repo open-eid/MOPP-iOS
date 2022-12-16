@@ -37,9 +37,6 @@ class SignatureDetailsCell: UITableViewCell {
         titleLabel.textColor = UIColor.moppDetailText
         contentLabel.textColor = UIColor.moppDetailValue
         
-        titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        contentLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        
         if signatureDetail.x509Certificate != nil && signatureDetail.secCertificate != nil {
             contentLabel.textColor = UIColor.link
             contentLabel.accessibilityTraits = .button

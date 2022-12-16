@@ -1,5 +1,5 @@
 //
-//  ContainerNoAddressees.swift
+//  ScaledLabel.swift
 //  MoppApp
 //
 /*
@@ -23,10 +23,33 @@
 
 import Foundation
 
-class ContainerNoAddresseesCell: UITableViewCell {
-    @IBOutlet weak var label: UILabel!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        label.text = L(LocKey.containerMissingAddressees)
+class ScaledLabel: UILabel {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        scaleFont()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        scaleFont()
+    }
+    
+    func scaleFont() {
+        if UIAccessibility.isBoldTextEnabled {
+            self.font = FontUtil.boldFont(font: self.font)
+        } else {
+            self.font = FontUtil.scaleFont(font: self.font)
+        }
+        
+        self.adjustsFontForContentSizeCategory = true
+        self.adjustsFontSizeToFitWidth = true
+        self.minimumScaleFactor = 0.1
+    }
+    
+    func resetLabelProperties() {
+        self.adjustsFontForContentSizeCategory = false
+        self.adjustsFontSizeToFitWidth = false
+        self.minimumScaleFactor = 1
     }
 }

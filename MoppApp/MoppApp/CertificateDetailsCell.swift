@@ -40,9 +40,6 @@ class CertificateDetailsCell: UITableViewCell {
         titleLabel.textColor = UIColor.moppDetailText
         contentLabel.textColor = UIColor.moppDetailValue
         
-        titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        contentLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        
         separatorLine.frame = CGRect(x: 0, y: 0, width: separatorLine.frame.width, height: separatorLine.frame.height / 2)
         separatorLine.alpha = 0.5
         

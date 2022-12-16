@@ -29,7 +29,6 @@ protocol SigningTableViewHeaderViewDelegate: AnyObject {
 }
 
 class SigningTableViewHeaderView: UIView {
-    static let height: CGFloat = 44
     weak var delegate: SigningTableViewHeaderViewDelegate?
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var searchButton: UIButton!
@@ -63,12 +62,6 @@ class SigningTableViewHeaderView: UIView {
     
     func populate(title: String, _ requestCloseSearch: inout () -> Void) {
         titleLabel.text = title
-        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
-        if isNonDefaultPreferredContentSizeCategoryMedium() {
-            titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        } else if isNonDefaultPreferredContentSizeCategoryBigger() {
-            titleLabel.font = UIFont.setCustomFont(font: .regular, 10, .body)
-        }
         requestCloseSearch = { [weak self] in
             self?.showSearch(false, animated: false)
         }
