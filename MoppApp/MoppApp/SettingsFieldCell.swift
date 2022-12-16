@@ -56,22 +56,11 @@ class SettingsFieldCell: UITableViewCell {
             DefaultsHelper.rpUuid = ""
         }
         titleLabel.text = field.title
-        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
         textField.isEnabled = !defaultSwitch
         textField.attributedPlaceholder = field.placeholderText
         textField.text = !defaultSwitch ? DefaultsHelper.rpUuid : nil
-        if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: textField.font?.pointSize ?? UIFont.moppMediumBold.pointSize) }
         self.field = field
         
-        if isNonDefaultPreferredContentSizeCategory() {
-            setCustomFont()
-        }
-        
-    }
-    
-    func setCustomFont() {
-        titleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        textField.font = UIFont.setCustomFont(font: .regular, nil, .body)
     }
 }
 

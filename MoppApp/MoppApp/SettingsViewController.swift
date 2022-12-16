@@ -84,9 +84,6 @@ class SettingsViewController: MoppViewController {
         timestampUrl = DefaultsHelper.timestampUrl
         
         DefaultsHelper.setDefaultSettingsSwitch()
-        
-        tableView.estimatedRowHeight = 150
-        tableView.rowHeight = UITableView.automaticDimension
     }
 
     
@@ -139,7 +136,7 @@ class SettingsViewController: MoppViewController {
     }
 }
 
-extension SettingsViewController: UITableViewDataSource {
+extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
@@ -151,6 +148,15 @@ extension SettingsViewController: UITableViewDataSource {
         case .fields:
             return fields.count
         }
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        tableView.estimatedRowHeight = 44
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

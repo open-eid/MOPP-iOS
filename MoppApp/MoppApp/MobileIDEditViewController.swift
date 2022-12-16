@@ -54,8 +54,8 @@ class MobileIDEditViewController : MoppViewController {
     @IBOutlet weak var idCodeLabel: UILabel!
     @IBOutlet weak var phoneNumberErrorLabel: UILabel!
     @IBOutlet weak var personalCodeErrorLabel: UILabel!
-    @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var signButton: UIButton!
+    @IBOutlet weak var cancelButton: MoppButton!
+    @IBOutlet weak var signButton: MoppButton!
     @IBOutlet weak var rememberLabel: UILabel!
     @IBOutlet weak var rememberSwitch: UISwitch!
 
@@ -64,10 +64,6 @@ class MobileIDEditViewController : MoppViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
-            setCustomFont()
-        }
 
         idCodeTextField.moppPresentDismissButton()
         phoneTextField.moppPresentDismissButton()
@@ -192,20 +188,6 @@ class MobileIDEditViewController : MoppViewController {
             signButton.isEnabled = true
             signButton.backgroundColor = UIColor.moppBase
         }
-    }
-
-    func setCustomFont() {
-        titleLabel.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? nil : 19, .body)
-        phoneLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        idCodeLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        cancelButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 12 : nil, .body)
-        signButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 12 : nil, .body)
-        rememberLabel.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 12 : nil, .body)
-        idCodeTextField.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 14 : nil, .body)
-        phoneTextField.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 14 : nil, .body)
-
-        signButton.sizeToFit()
-
     }
 
     @objc func editingChanged(sender: UITextField) {

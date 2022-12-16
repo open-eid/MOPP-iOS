@@ -30,10 +30,6 @@ class MenuCell: UITableViewCell {
     
     func populate(iconName: String, title: String) {
         titleLabel.text = title
-        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
-            titleLabel.font = UIFont.setCustomFont(font: .allCapsRegular, isNonDefaultPreferredContentSizeCategoryLargest() ? 10 : nil, .body)
-            titleLabel.numberOfLines = 1
-        }
         iconImageView.image = UIImage(named: iconName)
     }
 }

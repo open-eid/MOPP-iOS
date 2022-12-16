@@ -286,10 +286,9 @@ extension CertificateDetailViewController: UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let tableViewFrame = tableView.frame
         
-        let headerLabel = UILabel()
+        let headerLabel = ScaledLabel()
         headerLabel.frame = CGRect(x: 15, y: 0, width: tableViewFrame.size.width - 20, height: 80)
         headerLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
-        headerLabel.font = UIFont.setCustomFont(font: .bold, nil, .body)
         headerLabel.textColor = UIColor.moppTitle
         
         let headerUiView = UIView(frame: CGRect(x: 0, y: 0, width: tableViewFrame.size.width, height: tableViewFrame.size.height))

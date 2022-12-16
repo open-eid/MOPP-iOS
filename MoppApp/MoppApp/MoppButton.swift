@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
- class MoppButton: UIButton {
+ class MoppButton: ScaledButton {
     override var isEnabled: Bool {
         willSet {
             let enabling = newValue

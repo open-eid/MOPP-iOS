@@ -41,13 +41,6 @@ class MobileIDChallengeViewController : UIViewController {
 
     var isAnnouncementMade: Bool = false
 
-    func setCustomFont() {
-        if (isNonDefaultPreferredContentSizeCategory() && isNonDefaultPreferredContentSizeCategoryBigger()) || isBoldTextEnabled() {
-            helpLabel.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 14 : Int(UIFont.labelFontSize), .body)
-            codeLabel.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 32 : Int(UIFont.labelFontSize), .body)
-        }
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -69,8 +62,6 @@ class MobileIDChallengeViewController : UIViewController {
             selector: #selector(didFinishAnnouncement(_:)),
             name: UIAccessibility.announcementDidFinishNotification,
             object: nil)
-
-        setCustomFont()
     }
 
     @objc func didFinishAnnouncement(_ notification: Notification) {

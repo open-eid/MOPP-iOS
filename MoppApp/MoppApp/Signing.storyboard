@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bky-k6-9RW">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bky-k6-9RW">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -24,20 +22,20 @@
                         <viewControllerLayoutGuide type="bottom" id="xyl-Tx-lc2"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="iWd-FS-UZS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="2L6-Gw-P9K">
-                                <rect key="frame" x="16" y="278" width="343" height="111"/>
+                                <rect key="frame" x="16" y="256.33333333333331" width="568" height="87.333333333333314"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allkirjastamiseks või dekrüpteerimiseks vali fail" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xC0-jh-5MV">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="47"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allkirjastamiseks või dekrüpteerimiseks vali fail" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xC0-jh-5MV" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="568" height="23.333333333333332"/>
                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="20"/>
                                         <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="CaL-ug-7D1">
-                                        <rect key="frame" x="0.0" y="63" width="343" height="48"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="CaL-ug-7D1" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="39.333333333333371" width="568" height="48"/>
                                         <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="yiE-dw-S90"/>

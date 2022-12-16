@@ -55,7 +55,6 @@ class MyeIDStatusViewController : MoppViewController {
                 UIAccessibility.post(notification: .layoutChanged, argument: titleLabel)
             }
             titleLabel.font = UIFont.moppUltraLargeMedium
-            if isBoldTextEnabled() { titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize) }
             titleLabel.setNeedsDisplay()
         }
     }

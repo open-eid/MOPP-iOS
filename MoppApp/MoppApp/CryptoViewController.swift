@@ -42,13 +42,7 @@ class CryptoViewController : MoppViewController {
         
         titleLabel.text = L(LocKey.cryptoViewBeginLabel)
         importButton.localizedTitle = LocKey.cryptoViewBeginButton
-        menuButton.accessibilityLabel = L(LocKey.menuButton)
-        
-        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
-            titleLabel.font = UIFont.setCustomFont(font: .medium, isNonDefaultPreferredContentSizeCategoryBigger() ? 20 : nil, .headline)
-            importButton.titleLabel?.font = UIFont.setCustomFont(font: .medium, isNonDefaultPreferredContentSizeCategoryBigger() ? 15 : 14, .body)
-        }
-        
+        menuButton.accessibilityLabel = L(LocKey.menuButton)        
         titleLabel.isAccessibilityElement = false
         importButton.accessibilityLabel = L(LocKey.cryptoViewBeginLabelAccessibility)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {

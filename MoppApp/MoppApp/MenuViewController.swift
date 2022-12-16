@@ -91,6 +91,15 @@ extension MenuViewController : UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        // Set custom height for header section
+        if indexPath.section == 0 {
+            return 100
+        }
+        
+        return UITableView.automaticDimension
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = sections[indexPath.section]
         switch section {

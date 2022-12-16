@@ -35,7 +35,6 @@ class MenuLanguageButtonView : UIView {
     override func awakeFromNib() {
         guard let menuLanguageButton = button else { return }
         self.accessibilityElements = [menuLanguageButton]
-        label.font = isBoldTextEnabled() ? UIFont.moppMediumBold : UIFont.moppMediumRegular
     }
 }
 

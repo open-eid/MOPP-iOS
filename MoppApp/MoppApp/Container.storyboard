@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aqa-at-L24">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aqa-at-L24">
     <device id="retina4_7" orientation="landscape" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -37,19 +37,19 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerNotificationCell" rowHeight="44" id="sim-nE-ZNX" customClass="ContainerNotificationCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="667" height="44"/>
+                                        <rect key="frame" x="0.0" y="50" width="667" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sim-nE-ZNX" id="ooU-66-Lg7">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INVALID SIGNATURE" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8N8-Yg-ffA">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INVALID SIGNATURE" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8N8-Yg-ffA" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="0.0" width="635" height="44"/>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G1c-6p-7Qw">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G1c-6p-7Qw" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="8" width="667" height="28"/>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SRq-vE-b6Z" userLabel="---">
@@ -79,31 +79,32 @@
                                             <outlet property="infoLabel" destination="8N8-Yg-ffA" id="xQX-y7-bfS"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerHeaderCell" rowHeight="58" id="8UE-UF-0gf" customClass="ContainerHeaderCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="88.5" width="667" height="58"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerHeaderCell" id="8UE-UF-0gf" customClass="ContainerHeaderCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="94" width="667" height="59"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8UE-UF-0gf" id="LSq-om-Kbe">
-                                            <rect key="frame" x="0.0" y="0.0" width="667" height="58"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="667" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONTAINER:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c0X-dZ-CUW">
-                                                    <rect key="frame" x="16" y="8" width="635" height="18"/>
-                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="15"/>
-                                                    <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dokument 1.bdoc" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="LLq-ND-CCZ">
-                                                    <rect key="frame" x="16" y="31" width="595" height="19"/>
-                                                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
-                                                    <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Itl-UO-W71">
+                                                    <rect key="frame" x="16" y="8" width="602" height="43"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONTAINER:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c0X-dZ-CUW" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="88.5" height="19"/>
+                                                            <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="15"/>
+                                                            <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dokument 1.bdoc" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LLq-ND-CCZ" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="24" width="128.5" height="19"/>
+                                                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
+                                                            <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RpZ-cI-EfY">
-                                                    <rect key="frame" x="619" y="15" width="32" height="29"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="29" id="0S7-Sc-u4t"/>
-                                                        <constraint firstAttribute="width" constant="32" id="tYg-Io-NIK"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="634" y="0.0" width="17" height="59"/>
                                                     <state key="normal" image="Icon_Edit"/>
                                                     <connections>
                                                         <action selector="editContainerName:" destination="8UE-UF-0gf" eventType="touchUpInside" id="oJM-iR-vkL"/>
@@ -111,16 +112,13 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="c0X-dZ-CUW" firstAttribute="trailing" secondItem="LSq-om-Kbe" secondAttribute="trailingMargin" id="6jK-St-9rL"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="RpZ-cI-EfY" secondAttribute="bottom" constant="3" id="BP7-WG-ecj"/>
-                                                <constraint firstItem="RpZ-cI-EfY" firstAttribute="top" secondItem="LSq-om-Kbe" secondAttribute="topMargin" constant="4" id="D6p-zC-iuU"/>
-                                                <constraint firstItem="c0X-dZ-CUW" firstAttribute="top" secondItem="LSq-om-Kbe" secondAttribute="top" constant="8" id="MNZ-Cb-DAd"/>
-                                                <constraint firstItem="LLq-ND-CCZ" firstAttribute="leading" secondItem="LSq-om-Kbe" secondAttribute="leadingMargin" id="Nk0-9J-KlJ"/>
-                                                <constraint firstItem="LLq-ND-CCZ" firstAttribute="top" secondItem="c0X-dZ-CUW" secondAttribute="bottom" constant="5" id="W9R-X5-EQ6"/>
-                                                <constraint firstItem="c0X-dZ-CUW" firstAttribute="leading" secondItem="LSq-om-Kbe" secondAttribute="leadingMargin" id="cOI-Mn-nbQ"/>
-                                                <constraint firstItem="LLq-ND-CCZ" firstAttribute="trailing" secondItem="LSq-om-Kbe" secondAttribute="trailingMargin" constant="-40" id="d31-nz-sUc"/>
-                                                <constraint firstItem="RpZ-cI-EfY" firstAttribute="trailing" secondItem="LSq-om-Kbe" secondAttribute="trailingMargin" id="eps-oW-BGs"/>
-                                                <constraint firstAttribute="bottom" secondItem="LLq-ND-CCZ" secondAttribute="bottom" constant="8" id="sse-2b-HFB"/>
+                                                <constraint firstItem="Itl-UO-W71" firstAttribute="leading" secondItem="LSq-om-Kbe" secondAttribute="leading" constant="16" id="4ps-K5-b41"/>
+                                                <constraint firstAttribute="trailing" secondItem="RpZ-cI-EfY" secondAttribute="trailing" constant="16" id="7wd-91-kVo"/>
+                                                <constraint firstItem="RpZ-cI-EfY" firstAttribute="leading" secondItem="Itl-UO-W71" secondAttribute="trailing" constant="16" id="By6-cm-aN2"/>
+                                                <constraint firstAttribute="bottom" secondItem="Itl-UO-W71" secondAttribute="bottom" constant="8" id="JWb-31-rNr"/>
+                                                <constraint firstAttribute="bottom" secondItem="RpZ-cI-EfY" secondAttribute="bottom" id="SKK-vE-QVv"/>
+                                                <constraint firstItem="RpZ-cI-EfY" firstAttribute="top" secondItem="LSq-om-Kbe" secondAttribute="top" id="VdW-u0-qtZ"/>
+                                                <constraint firstItem="Itl-UO-W71" firstAttribute="top" secondItem="LSq-om-Kbe" secondAttribute="top" constant="8" id="tSc-0m-LPD"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -131,14 +129,17 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerFileCell" rowHeight="77" id="6pq-Cm-b20" userLabel="ContainerFileCell" customClass="ContainerFileCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="146.5" width="667" height="77"/>
+                                        <rect key="frame" x="0.0" y="153" width="667" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6pq-Cm-b20" id="o5E-gs-VpH">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="77"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <userGuides>
+                                                <userLayoutGuide location="649" affinity="minX"/>
+                                            </userGuides>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.pdf" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="dlt-jI-SME">
-                                                    <rect key="frame" x="16" y="11" width="559" height="54"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.pdf" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dlt-jI-SME" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="8" width="535" height="60"/>
                                                     <gestureRecognizers/>
                                                     <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
                                                     <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -151,54 +152,53 @@
                                                         <constraint firstAttribute="height" constant="1" id="pYQ-aO-5JY"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zV0-PM-P6i">
-                                                    <rect key="frame" x="583" y="21.5" width="32" height="44"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pYd-Yj-8Ay">
+                                                    <rect key="frame" x="16" y="8" width="535" height="60"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <gestureRecognizers/>
+                                                </view>
+                                                <button opaque="NO" contentMode="center" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKh-UH-oRj">
+                                                    <rect key="frame" x="617" y="22" width="32" height="32"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="44" id="8W3-3N-fGH"/>
-                                                        <constraint firstAttribute="width" constant="32" id="ROj-3N-38j"/>
+                                                        <constraint firstAttribute="width" constant="32" id="aRk-GJ-Uwu"/>
+                                                    </constraints>
+                                                    <state key="normal" image="iconDownload"/>
+                                                    <connections>
+                                                        <action selector="saveAction:" destination="6pq-Cm-b20" eventType="touchUpInside" id="L9N-73-HTL"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zV0-PM-P6i">
+                                                    <rect key="frame" x="577" y="22" width="32" height="32"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="32" id="4pq-QS-Ecc"/>
                                                     </constraints>
                                                     <state key="normal" image="icon_remove-1"/>
                                                     <connections>
                                                         <action selector="removeAction" destination="6pq-Cm-b20" eventType="touchUpInside" id="dz7-pi-paM"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKh-UH-oRj">
-                                                    <rect key="frame" x="619" y="0.0" width="45" height="76"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="45" id="P4H-Lq-zDe"/>
-                                                        <constraint firstAttribute="height" constant="76" id="VbW-oc-v2v"/>
-                                                    </constraints>
-                                                    <inset key="contentEdgeInsets" minX="0.0" minY="9" maxX="0.0" maxY="0.0"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="1" maxX="0.0" maxY="0.0"/>
-                                                    <state key="normal" image="iconDownload"/>
-                                                    <connections>
-                                                        <action selector="saveAction:" destination="6pq-Cm-b20" eventType="touchUpInside" id="L9N-73-HTL"/>
-                                                    </connections>
-                                                </button>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pYd-Yj-8Ay">
-                                                    <rect key="frame" x="16" y="11" width="559" height="55"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <gestureRecognizers/>
-                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="zV0-PM-P6i" firstAttribute="leading" secondItem="dlt-jI-SME" secondAttribute="trailing" constant="8" symbolic="YES" id="02Y-iB-PUC"/>
-                                                <constraint firstItem="dlt-jI-SME" firstAttribute="leading" secondItem="o5E-gs-VpH" secondAttribute="leadingMargin" id="521-Qd-oK5"/>
+                                                <constraint firstItem="pYd-Yj-8Ay" firstAttribute="top" secondItem="o5E-gs-VpH" secondAttribute="top" constant="8" id="0pM-aS-GkG"/>
+                                                <constraint firstItem="zV0-PM-P6i" firstAttribute="leading" secondItem="pYd-Yj-8Ay" secondAttribute="trailing" constant="26" id="4dg-qi-8Ex"/>
+                                                <constraint firstItem="pYd-Yj-8Ay" firstAttribute="leading" secondItem="o5E-gs-VpH" secondAttribute="leading" constant="16" id="7DU-gK-vc0"/>
                                                 <constraint firstAttribute="trailing" secondItem="Tgu-rh-2tI" secondAttribute="trailing" constant="16" id="8XZ-T2-tL2"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="pYd-Yj-8Ay" secondAttribute="bottom" id="GK1-Id-KzX"/>
-                                                <constraint firstItem="pYd-Yj-8Ay" firstAttribute="top" secondItem="o5E-gs-VpH" secondAttribute="topMargin" id="HgC-Vb-paE"/>
-                                                <constraint firstItem="IKh-UH-oRj" firstAttribute="trailing" secondItem="o5E-gs-VpH" secondAttribute="trailingMargin" constant="13" id="Lkb-5f-2XO"/>
-                                                <constraint firstItem="pYd-Yj-8Ay" firstAttribute="leading" secondItem="o5E-gs-VpH" secondAttribute="leadingMargin" id="M9r-H4-fCV"/>
-                                                <constraint firstItem="Tgu-rh-2tI" firstAttribute="top" secondItem="dlt-jI-SME" secondAttribute="bottom" constant="11" id="Nfe-AN-Okj"/>
-                                                <constraint firstItem="zV0-PM-P6i" firstAttribute="leading" secondItem="pYd-Yj-8Ay" secondAttribute="trailing" constant="8" symbolic="YES" id="PaB-ey-54Z"/>
+                                                <constraint firstItem="zV0-PM-P6i" firstAttribute="leading" secondItem="dlt-jI-SME" secondAttribute="trailing" constant="26" id="Bts-2Y-6kP"/>
+                                                <constraint firstItem="dlt-jI-SME" firstAttribute="top" secondItem="o5E-gs-VpH" secondAttribute="top" constant="8" id="DUU-GT-r5S"/>
+                                                <constraint firstAttribute="trailing" secondItem="IKh-UH-oRj" secondAttribute="trailing" constant="18" id="IxB-mI-nSX"/>
+                                                <constraint firstItem="Tgu-rh-2tI" firstAttribute="top" secondItem="dlt-jI-SME" secondAttribute="bottom" constant="8" id="KVS-uu-7MV"/>
+                                                <constraint firstItem="Tgu-rh-2tI" firstAttribute="top" secondItem="IKh-UH-oRj" secondAttribute="bottom" constant="22" id="L54-jJ-pJT"/>
                                                 <constraint firstItem="Tgu-rh-2tI" firstAttribute="leading" secondItem="o5E-gs-VpH" secondAttribute="leading" constant="16" id="QVO-jK-dQM"/>
-                                                <constraint firstItem="zV0-PM-P6i" firstAttribute="top" secondItem="o5E-gs-VpH" secondAttribute="topMargin" constant="10.5" id="cel-CW-ICI"/>
-                                                <constraint firstItem="IKh-UH-oRj" firstAttribute="leading" secondItem="zV0-PM-P6i" secondAttribute="trailing" constant="4" id="dVS-TO-WeG"/>
-                                                <constraint firstItem="IKh-UH-oRj" firstAttribute="top" secondItem="o5E-gs-VpH" secondAttribute="topMargin" constant="-11" id="iTV-eB-gpe"/>
-                                                <constraint firstItem="dlt-jI-SME" firstAttribute="top" secondItem="o5E-gs-VpH" secondAttribute="topMargin" id="igk-9X-M66"/>
+                                                <constraint firstItem="dlt-jI-SME" firstAttribute="leading" secondItem="o5E-gs-VpH" secondAttribute="leading" constant="16" id="S8k-2i-LlK"/>
+                                                <constraint firstItem="pYd-Yj-8Ay" firstAttribute="top" secondItem="o5E-gs-VpH" secondAttribute="top" constant="8" id="c91-Ah-xaG"/>
+                                                <constraint firstItem="Tgu-rh-2tI" firstAttribute="top" secondItem="zV0-PM-P6i" secondAttribute="bottom" constant="22" id="dfW-3q-X11"/>
+                                                <constraint firstItem="IKh-UH-oRj" firstAttribute="leading" secondItem="zV0-PM-P6i" secondAttribute="trailing" constant="8" id="ggf-8b-5Bd"/>
+                                                <constraint firstItem="IKh-UH-oRj" firstAttribute="leading" secondItem="zV0-PM-P6i" secondAttribute="trailing" constant="8" id="hMB-On-FuY"/>
+                                                <constraint firstItem="IKh-UH-oRj" firstAttribute="top" secondItem="o5E-gs-VpH" secondAttribute="top" constant="22" id="iP3-e3-i5p"/>
                                                 <constraint firstAttribute="bottom" secondItem="Tgu-rh-2tI" secondAttribute="bottom" id="izr-ax-UrV"/>
-                                                <constraint firstItem="Tgu-rh-2tI" firstAttribute="top" secondItem="IKh-UH-oRj" secondAttribute="bottom" id="lzD-Ai-UOd"/>
-                                                <constraint firstItem="Tgu-rh-2tI" firstAttribute="top" secondItem="zV0-PM-P6i" secondAttribute="bottom" constant="10.5" id="t8i-VW-nOx"/>
+                                                <constraint firstItem="Tgu-rh-2tI" firstAttribute="top" secondItem="pYd-Yj-8Ay" secondAttribute="bottom" constant="8" id="luY-5c-3Q5"/>
+                                                <constraint firstItem="zV0-PM-P6i" firstAttribute="top" secondItem="o5E-gs-VpH" secondAttribute="top" constant="22" id="rFq-1C-v3O"/>
+                                                <constraint firstItem="Tgu-rh-2tI" firstAttribute="top" secondItem="pYd-Yj-8Ay" secondAttribute="bottom" constant="8" id="vTW-7i-LlN"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
@@ -211,7 +211,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerSignatureCell" editingAccessoryType="disclosureIndicator" rowHeight="103" id="STu-Fe-0aP" customClass="ContainerSignatureCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="223.5" width="667" height="103"/>
+                                        <rect key="frame" x="0.0" y="230" width="667" height="103"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="STu-Fe-0aP" id="Fv4-kU-K5l">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="103"/>
@@ -224,7 +224,7 @@
                                                         <constraint firstAttribute="width" secondItem="vOz-nq-F7B" secondAttribute="height" multiplier="1:1" constant="-59" id="iWl-4l-heO"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" text="MARI MAASIKAS,9800984323" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VhO-fS-PmX">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" text="MARI MAASIKAS,9800984323" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VhO-fS-PmX" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="46" y="11" width="562" height="20"/>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Bold" family="Roboto Condensed" pointSize="17"/>
                                                     <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -248,13 +248,13 @@
                                                         <action selector="removeAction" destination="STu-Fe-0aP" eventType="touchUpInside" id="YIz-n2-UtC"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Allkiri on kehtiv" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yfh-N8-Cag">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Allkiri on kehtiv" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yfh-N8-Cag" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="46" y="37.5" width="562" height="19"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signed 12.08.2017, 13:22" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpW-Rn-1bR">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signed 12.08.2017, 13:22" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpW-Rn-1bR" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="46" y="63.5" width="562" height="19"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                     <color key="textColor" red="0.45882352941176469" green="0.45882352941176469" blue="0.45882352941176469" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -292,7 +292,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerSearchCell" rowHeight="44" id="M6t-R4-cVe" customClass="ContainerSearchCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="326.5" width="667" height="44"/>
+                                        <rect key="frame" x="0.0" y="333" width="667" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M6t-R4-cVe" id="Peo-st-QFt">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
@@ -300,24 +300,24 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerNoSignaturesCell" id="5lc-fV-mc6" customClass="ContainerNoSignaturesCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="370.5" width="667" height="44"/>
+                                        <rect key="frame" x="0.0" y="377" width="667" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5lc-fV-mc6" id="Ca6-4c-NYM">
-                                            <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="667" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Missing signatures" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQF-XJ-qkZ">
-                                                    <rect key="frame" x="16" y="11" width="635" height="22"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Missing signatures" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQF-XJ-qkZ" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                    <rect key="frame" x="40" y="20" width="587" height="20"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="KQF-XJ-qkZ" firstAttribute="leading" secondItem="Ca6-4c-NYM" secondAttribute="leadingMargin" id="8FE-Ht-OLh"/>
-                                                <constraint firstItem="KQF-XJ-qkZ" firstAttribute="trailing" secondItem="Ca6-4c-NYM" secondAttribute="trailingMargin" id="CxX-hn-U5U"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="KQF-XJ-qkZ" secondAttribute="bottom" id="cPP-HV-bQ7"/>
-                                                <constraint firstItem="KQF-XJ-qkZ" firstAttribute="top" secondItem="Ca6-4c-NYM" secondAttribute="topMargin" id="nwB-VO-pCZ"/>
+                                                <constraint firstItem="KQF-XJ-qkZ" firstAttribute="leading" secondItem="Ca6-4c-NYM" secondAttribute="leadingMargin" constant="24" id="8FE-Ht-OLh"/>
+                                                <constraint firstItem="KQF-XJ-qkZ" firstAttribute="trailing" secondItem="Ca6-4c-NYM" secondAttribute="trailingMargin" constant="-24" id="CxX-hn-U5U"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="KQF-XJ-qkZ" secondAttribute="bottom" constant="9" id="cPP-HV-bQ7"/>
+                                                <constraint firstItem="KQF-XJ-qkZ" firstAttribute="top" secondItem="Ca6-4c-NYM" secondAttribute="topMargin" constant="9" id="nwB-VO-pCZ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -325,17 +325,17 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerImportFilesCell" rowHeight="96" id="qwL-cE-udC" customClass="ContainerImportFilesCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="414.5" width="667" height="96"/>
+                                        <rect key="frame" x="0.0" y="437" width="667" height="96"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qwL-cE-udC" id="gdd-9U-o25">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="96"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9nm-lT-W8h">
-                                                    <rect key="frame" x="16" y="19" width="635" height="58"/>
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9nm-lT-W8h" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
+                                                    <rect key="frame" x="24" y="22" width="619" height="52"/>
                                                     <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="Nlm-EK-LPN"/>
+                                                        <constraint firstAttribute="height" constant="52" id="Nlm-EK-LPN"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
                                                     <state key="normal" title="CHOOSE FILE">
@@ -352,10 +352,10 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="9nm-lT-W8h" secondAttribute="bottom" constant="8" id="CYb-jz-GRl"/>
-                                                <constraint firstItem="9nm-lT-W8h" firstAttribute="trailing" secondItem="gdd-9U-o25" secondAttribute="trailingMargin" id="FaN-PF-ncV"/>
-                                                <constraint firstItem="9nm-lT-W8h" firstAttribute="top" secondItem="gdd-9U-o25" secondAttribute="topMargin" constant="8" id="Hs0-CI-LFB"/>
-                                                <constraint firstItem="9nm-lT-W8h" firstAttribute="leading" secondItem="gdd-9U-o25" secondAttribute="leadingMargin" id="d7C-p8-c7l"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="9nm-lT-W8h" secondAttribute="bottom" constant="14" id="CYb-jz-GRl"/>
+                                                <constraint firstItem="9nm-lT-W8h" firstAttribute="trailing" secondItem="gdd-9U-o25" secondAttribute="trailingMargin" constant="-16" id="FaN-PF-ncV"/>
+                                                <constraint firstItem="9nm-lT-W8h" firstAttribute="top" secondItem="gdd-9U-o25" secondAttribute="topMargin" constant="14" id="Hs0-CI-LFB"/>
+                                                <constraint firstItem="9nm-lT-W8h" firstAttribute="leading" secondItem="gdd-9U-o25" secondAttribute="leadingMargin" constant="16" id="d7C-p8-c7l"/>
                                                 <constraint firstItem="9nm-lT-W8h" firstAttribute="centerY" secondItem="gdd-9U-o25" secondAttribute="centerY" id="lri-lU-RvN"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -435,7 +435,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SignatureDetailsCell" id="2zs-PN-2mh" customClass="SignatureDetailsCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49.5" width="320" height="22.5"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="320" height="22.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2zs-PN-2mh" id="rwt-HO-RNZ">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="22.5"/>
@@ -444,13 +444,13 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="rEs-j9-oN1">
                                                     <rect key="frame" x="16" y="11" width="288" height="0.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vtr-Ms-A3w">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vtr-Ms-A3w" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="139" height="0.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLj-KQ-V6m">
+                                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLj-KQ-V6m" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                             <rect key="frame" x="149" y="0.0" width="139" height="0.5"/>
                                                             <gestureRecognizers/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -515,7 +515,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CertificateDetailsCell" id="lTe-jo-smY" customClass="CertificateDetailsCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49.5" width="320" height="22"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="320" height="22"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lTe-jo-smY" id="gmi-Ec-SB9">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="22"/>
@@ -524,13 +524,13 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ifd-AX-UIC">
                                                     <rect key="frame" x="16" y="11" width="288" height="0.0"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gf8-E4-PU4">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gf8-E4-PU4" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="139" height="0.0"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4O-XV-24V">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4O-XV-24V" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                             <rect key="frame" x="149" y="0.0" width="139" height="0.0"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                             <nil key="textColor"/>
@@ -599,19 +599,19 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerNotificationCell" rowHeight="44" id="Cqb-Xc-H0H" customClass="ContainerNotificationCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="667" height="44"/>
+                                        <rect key="frame" x="0.0" y="50" width="667" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Cqb-Xc-H0H" id="Oki-GG-Nj4">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INVALID ACTION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VZT-lT-Vmg">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INVALID ACTION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VZT-lT-Vmg" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="0.0" width="635" height="44"/>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0aS-fr-CWx">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0aS-fr-CWx" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="8" width="667" height="28"/>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ohk-XQ-hyb" userLabel="---">
@@ -642,30 +642,31 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerHeaderCell" rowHeight="58" id="80l-wY-1RX" customClass="ContainerHeaderCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="88.5" width="667" height="58"/>
+                                        <rect key="frame" x="0.0" y="94" width="667" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="80l-wY-1RX" id="uwJ-uK-g1I">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="58"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONTAINER:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZK-FE-KFD">
-                                                    <rect key="frame" x="16" y="8" width="635" height="18"/>
-                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="15"/>
-                                                    <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dokument 1.bdoc" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="Wqp-Q2-Ev2">
-                                                    <rect key="frame" x="16" y="31" width="595" height="19"/>
-                                                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
-                                                    <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="g35-2z-QcV">
+                                                    <rect key="frame" x="16" y="8" width="602" height="42"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONTAINER:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZK-FE-KFD" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="88.5" height="18"/>
+                                                            <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="15"/>
+                                                            <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dokument 1.bdoc" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wqp-Q2-Ev2" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="23" width="128.5" height="19"/>
+                                                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
+                                                            <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACm-df-AwI">
-                                                    <rect key="frame" x="619" y="15" width="32" height="29"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="32" id="Ibn-M3-L77"/>
-                                                        <constraint firstAttribute="height" constant="29" id="Wo8-6a-KWj"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="634" y="0.0" width="17" height="58"/>
                                                     <state key="normal" image="Icon_Edit"/>
                                                     <connections>
                                                         <action selector="editContainerName:" destination="80l-wY-1RX" eventType="touchUpInside" id="aaB-ju-jTk"/>
@@ -673,16 +674,13 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Wqp-Q2-Ev2" firstAttribute="trailing" secondItem="uwJ-uK-g1I" secondAttribute="trailingMargin" constant="-40" id="dbl-WH-SMk"/>
-                                                <constraint firstAttribute="bottom" secondItem="Wqp-Q2-Ev2" secondAttribute="bottom" constant="8" id="flz-VQ-fYa"/>
-                                                <constraint firstItem="ACm-df-AwI" firstAttribute="top" secondItem="uwJ-uK-g1I" secondAttribute="topMargin" constant="4" id="hgq-g1-iSA"/>
-                                                <constraint firstItem="qZK-FE-KFD" firstAttribute="top" secondItem="uwJ-uK-g1I" secondAttribute="top" constant="8" id="kXg-ar-sqg"/>
-                                                <constraint firstItem="qZK-FE-KFD" firstAttribute="leading" secondItem="uwJ-uK-g1I" secondAttribute="leadingMargin" id="oXF-Rd-ogK"/>
-                                                <constraint firstItem="qZK-FE-KFD" firstAttribute="trailing" secondItem="uwJ-uK-g1I" secondAttribute="trailingMargin" id="ogl-qP-gYf"/>
-                                                <constraint firstItem="ACm-df-AwI" firstAttribute="trailing" secondItem="uwJ-uK-g1I" secondAttribute="trailingMargin" id="qOc-ug-ihY"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="ACm-df-AwI" secondAttribute="bottom" constant="3" id="uZV-eN-TYx"/>
-                                                <constraint firstItem="Wqp-Q2-Ev2" firstAttribute="top" secondItem="qZK-FE-KFD" secondAttribute="bottom" constant="5" id="ugh-gS-ShF"/>
-                                                <constraint firstItem="Wqp-Q2-Ev2" firstAttribute="leading" secondItem="uwJ-uK-g1I" secondAttribute="leadingMargin" id="zQw-Rr-tDE"/>
+                                                <constraint firstAttribute="bottom" secondItem="ACm-df-AwI" secondAttribute="bottom" id="2qq-ZG-teF"/>
+                                                <constraint firstItem="g35-2z-QcV" firstAttribute="top" secondItem="uwJ-uK-g1I" secondAttribute="top" constant="8" id="40H-tn-X7t"/>
+                                                <constraint firstAttribute="bottom" secondItem="g35-2z-QcV" secondAttribute="bottom" constant="8" id="5Cl-B9-Pdh"/>
+                                                <constraint firstItem="ACm-df-AwI" firstAttribute="leading" secondItem="g35-2z-QcV" secondAttribute="trailing" constant="16" id="dUZ-nC-Uaz"/>
+                                                <constraint firstItem="g35-2z-QcV" firstAttribute="leading" secondItem="uwJ-uK-g1I" secondAttribute="leading" constant="16" id="gvI-ge-3sm"/>
+                                                <constraint firstAttribute="trailing" secondItem="ACm-df-AwI" secondAttribute="trailing" constant="16" id="xlt-9R-fHI"/>
+                                                <constraint firstItem="ACm-df-AwI" firstAttribute="top" secondItem="uwJ-uK-g1I" secondAttribute="top" id="yay-V2-7qH"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -693,18 +691,32 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerFileCell" rowHeight="77" id="brX-Gs-sMU" userLabel="ContainerFileCell" customClass="ContainerFileCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="146.5" width="667" height="77"/>
+                                        <rect key="frame" x="0.0" y="152" width="667" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="brX-Gs-sMU" id="Sza-8J-Yjw">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="77"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.pdf" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="10" baselineAdjustment="alignBaselines" minimumFontSize="14" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xW9-dC-vAP">
-                                                    <rect key="frame" x="16" y="11" width="562" height="57"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.pdf" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xW9-dC-vAP" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="8" width="547" height="60"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
                                                     <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ZG-2U-aUl">
+                                                    <rect key="frame" x="16" y="8" width="547" height="60"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1t1-CX-UWa">
+                                                    <rect key="frame" x="579" y="0.0" width="32" height="76"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="32" id="0h5-nt-l82"/>
+                                                    </constraints>
+                                                    <state key="normal" image="icon_remove-1"/>
+                                                    <connections>
+                                                        <action selector="removeAction" destination="brX-Gs-sMU" eventType="touchUpInside" id="5Xm-bi-oaD"/>
+                                                    </connections>
+                                                </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lxM-0N-UCI">
                                                     <rect key="frame" x="16" y="76" width="635" height="1"/>
                                                     <color key="backgroundColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="0.20732555650000001" colorSpace="custom" customColorSpace="sRGB"/>
@@ -713,51 +725,34 @@
                                                     </constraints>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9eg-iF-HaU">
-                                                    <rect key="frame" x="619" y="4" width="42" height="73"/>
+                                                    <rect key="frame" x="619" y="0.0" width="32" height="76"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="42" id="8Xr-Zc-tSk"/>
-                                                        <constraint firstAttribute="height" constant="73" id="mZc-O1-MRq"/>
+                                                        <constraint firstAttribute="width" constant="32" id="PVR-uk-UGA"/>
                                                     </constraints>
-                                                    <inset key="contentEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="0.0"/>
                                                     <state key="normal" image="iconDownload"/>
                                                     <connections>
                                                         <action selector="saveAction:" destination="brX-Gs-sMU" eventType="touchUpInside" id="64d-0t-yPh"/>
                                                     </connections>
                                                 </button>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ZG-2U-aUl">
-                                                    <rect key="frame" x="16" y="11" width="562" height="55"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1t1-CX-UWa">
-                                                    <rect key="frame" x="586" y="21" width="25" height="44"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="25" id="8cq-cm-okG"/>
-                                                        <constraint firstAttribute="height" constant="44" id="d1b-ko-nPY"/>
-                                                    </constraints>
-                                                    <state key="normal" image="icon_remove-1"/>
-                                                    <connections>
-                                                        <action selector="removeAction" destination="brX-Gs-sMU" eventType="touchUpInside" id="5Xm-bi-oaD"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="xW9-dC-vAP" firstAttribute="leading" secondItem="Sza-8J-Yjw" secondAttribute="leadingMargin" id="2tW-Ve-tsQ"/>
-                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="top" secondItem="9eg-iF-HaU" secondAttribute="bottom" constant="-1" id="Fkh-7S-nEa"/>
-                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="top" secondItem="xW9-dC-vAP" secondAttribute="bottom" constant="8" id="Fxf-vT-Xpm"/>
-                                                <constraint firstItem="9ZG-2U-aUl" firstAttribute="leading" secondItem="Sza-8J-Yjw" secondAttribute="leadingMargin" id="H4U-vY-6sQ"/>
-                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="top" secondItem="1t1-CX-UWa" secondAttribute="bottom" constant="11" id="Hv6-nj-S1b"/>
-                                                <constraint firstItem="9eg-iF-HaU" firstAttribute="top" secondItem="Sza-8J-Yjw" secondAttribute="topMargin" constant="-7" id="KxT-1r-6Nz"/>
+                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="top" secondItem="1t1-CX-UWa" secondAttribute="bottom" id="0UG-J5-9VL"/>
+                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="top" secondItem="xW9-dC-vAP" secondAttribute="bottom" constant="8" id="DbW-g1-Yb6"/>
+                                                <constraint firstItem="1t1-CX-UWa" firstAttribute="leading" secondItem="xW9-dC-vAP" secondAttribute="trailing" constant="16" id="Eoy-wD-u9z"/>
+                                                <constraint firstAttribute="trailing" secondItem="9eg-iF-HaU" secondAttribute="trailing" constant="16" id="Kdk-SL-84l"/>
+                                                <constraint firstItem="1t1-CX-UWa" firstAttribute="top" secondItem="Sza-8J-Yjw" secondAttribute="top" id="KnG-ed-uov"/>
                                                 <constraint firstAttribute="trailing" secondItem="lxM-0N-UCI" secondAttribute="trailing" constant="16" id="Neo-HZ-cbz"/>
+                                                <constraint firstItem="9ZG-2U-aUl" firstAttribute="top" secondItem="Sza-8J-Yjw" secondAttribute="top" constant="8" id="Qby-L1-eOP"/>
                                                 <constraint firstItem="lxM-0N-UCI" firstAttribute="leading" secondItem="Sza-8J-Yjw" secondAttribute="leading" constant="16" id="QoF-Qd-PjS"/>
-                                                <constraint firstItem="9eg-iF-HaU" firstAttribute="trailing" secondItem="Sza-8J-Yjw" secondAttribute="trailingMargin" constant="10" id="RiI-Wu-LxB"/>
-                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="top" secondItem="9ZG-2U-aUl" secondAttribute="bottom" constant="10" id="TrC-Uk-Jj1"/>
-                                                <constraint firstItem="1t1-CX-UWa" firstAttribute="leading" secondItem="xW9-dC-vAP" secondAttribute="trailing" constant="8" symbolic="YES" id="VSH-9N-Ys8"/>
-                                                <constraint firstItem="9eg-iF-HaU" firstAttribute="leading" secondItem="1t1-CX-UWa" secondAttribute="trailing" constant="8" symbolic="YES" id="cYJ-xl-436"/>
-                                                <constraint firstItem="1t1-CX-UWa" firstAttribute="top" secondItem="Sza-8J-Yjw" secondAttribute="topMargin" constant="10" id="dom-jd-ZrV"/>
-                                                <constraint firstItem="xW9-dC-vAP" firstAttribute="top" secondItem="Sza-8J-Yjw" secondAttribute="topMargin" id="eLL-0P-Pql"/>
-                                                <constraint firstItem="9ZG-2U-aUl" firstAttribute="top" secondItem="Sza-8J-Yjw" secondAttribute="topMargin" id="hj9-6J-kl6"/>
+                                                <constraint firstItem="xW9-dC-vAP" firstAttribute="leading" secondItem="Sza-8J-Yjw" secondAttribute="leading" constant="16" id="Wrg-Fu-EyP"/>
+                                                <constraint firstItem="9eg-iF-HaU" firstAttribute="top" secondItem="Sza-8J-Yjw" secondAttribute="top" id="dlo-bo-KNB"/>
+                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="top" secondItem="9ZG-2U-aUl" secondAttribute="bottom" constant="8" id="gxe-rh-sMb"/>
+                                                <constraint firstItem="9ZG-2U-aUl" firstAttribute="leading" secondItem="Sza-8J-Yjw" secondAttribute="leading" constant="16" id="ham-b7-fJ3"/>
+                                                <constraint firstItem="1t1-CX-UWa" firstAttribute="leading" secondItem="9ZG-2U-aUl" secondAttribute="trailing" constant="16" id="hyX-YS-LzD"/>
                                                 <constraint firstAttribute="bottom" secondItem="lxM-0N-UCI" secondAttribute="bottom" id="jDI-ZE-seP"/>
-                                                <constraint firstItem="1t1-CX-UWa" firstAttribute="leading" secondItem="9ZG-2U-aUl" secondAttribute="trailing" constant="8" symbolic="YES" id="ph3-MS-1rN"/>
+                                                <constraint firstItem="xW9-dC-vAP" firstAttribute="top" secondItem="Sza-8J-Yjw" secondAttribute="top" constant="8" id="k3V-h1-Gm8"/>
+                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="top" secondItem="9eg-iF-HaU" secondAttribute="bottom" id="l8D-ue-wby"/>
+                                                <constraint firstItem="9eg-iF-HaU" firstAttribute="leading" secondItem="1t1-CX-UWa" secondAttribute="trailing" constant="8" id="uK6-kw-0gV"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -769,13 +764,13 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerImportFilesCell" rowHeight="96" id="0bX-Tf-rZY" customClass="ContainerImportFilesCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="223.5" width="667" height="96"/>
+                                        <rect key="frame" x="0.0" y="229" width="667" height="96"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0bX-Tf-rZY" id="lUl-JZ-1I8">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="96"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3W-nY-Fc4">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3W-nY-Fc4" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="19" width="635" height="58"/>
                                                     <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
@@ -808,14 +803,14 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerNoAddresseesCell" id="ONh-aD-Vgv" customClass="ContainerNoAddresseesCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="319.5" width="667" height="44"/>
+                                        <rect key="frame" x="0.0" y="325" width="667" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ONh-aD-Vgv" id="lia-M5-tMj">
-                                            <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="667" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Addressees are missing" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sh3-u9-HaY">
-                                                    <rect key="frame" x="48" y="23" width="571" height="0.0"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Addressees are missing" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sh3-u9-HaY" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                    <rect key="frame" x="48" y="23" width="571" height="20"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -833,7 +828,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerAddresseeCell" editingAccessoryType="disclosureIndicator" rowHeight="61" id="Pug-Tn-67a" customClass="ContainerAddresseeCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="363.5" width="667" height="61"/>
+                                        <rect key="frame" x="0.0" y="391" width="667" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Pug-Tn-67a" id="1mC-Uj-fBy">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="61"/>
@@ -846,7 +841,7 @@
                                                         <constraint firstAttribute="width" constant="22" id="qJz-9X-aiz"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" ambiguous="YES" text="MARI MAASIKAS,9800984323" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jap-nW-m3U">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" ambiguous="YES" text="MARI MAASIKAS,9800984323" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="jap-nW-m3U" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="54" y="14" width="573" height="20"/>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Bold" family="Roboto Condensed" pointSize="17"/>
                                                     <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -870,7 +865,7 @@
                                                         <action selector="removeAddressee:" destination="Pug-Tn-67a" eventType="touchUpInside" id="Xa3-Py-kij"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Signed 12.08.2017, 13:22" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e2G-rm-jEh">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Signed 12.08.2017, 13:22" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="e2G-rm-jEh" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="48" y="35" width="499" height="10"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                     <color key="textColor" red="0.45882352941176469" green="0.45882352941176469" blue="0.45882352941176469" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -904,14 +899,14 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerImportAddresseesCell" rowHeight="96" id="BVI-T0-axz" customClass="ContainerImportAddresseesCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="424.5" width="667" height="96"/>
+                                        <rect key="frame" x="0.0" y="452" width="667" height="96"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BVI-T0-axz" id="mNB-gx-Ius">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="96"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="myZ-5t-UM6">
-                                                    <rect key="frame" x="16" y="19" width="635" height="58"/>
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="myZ-5t-UM6" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
+                                                    <rect key="frame" x="24" y="22" width="619" height="52"/>
                                                     <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="58" id="LZu-pD-Hks"/>
@@ -980,19 +975,19 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerNotificationCell" rowHeight="44" id="7cS-SW-eSq" customClass="ContainerNotificationCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="667" height="44"/>
+                                        <rect key="frame" x="0.0" y="50" width="667" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7cS-SW-eSq" id="YAj-CK-hJv">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INVALID ACTION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AkU-Mf-18h">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INVALID ACTION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AkU-Mf-18h" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="0.0" width="635" height="44"/>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tsg-jV-4eR">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tsg-jV-4eR" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="8" width="667" height="28"/>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XoX-ww-VMr" userLabel="---">
@@ -1022,33 +1017,50 @@
                                             <outlet property="infoLabel" destination="AkU-Mf-18h" id="0yX-n5-UZk"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerSearchCell" rowHeight="44" id="ml6-0m-DV6" customClass="ContainerSearchCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="88.5" width="667" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerSearchCell" id="ml6-0m-DV6" customClass="ContainerSearchCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="94" width="667" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ml6-0m-DV6" id="MmW-IW-ds9">
-                                            <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ml6-0m-DV6" id="MmW-IW-ds9">
+                                            <rect key="frame" x="0.0" y="0.0" width="667" height="56"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Enter personal code, company or registry code" translatesAutoresizingMaskIntoConstraints="NO" id="XrE-IF-xbn">
-                                                    <rect key="frame" x="0.0" y="-6" width="667" height="56"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <scopeButtonTitles>
-                                                        <string>Title</string>
-                                                        <string>Title</string>
-                                                    </scopeButtonTitles>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="YsC-OK-FXD" id="3Sf-Ij-s1e"/>
-                                                    </connections>
-                                                </searchBar>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rmc-le-D5F">
+                                                    <rect key="frame" x="0.0" y="0.0" width="667" height="56"/>
+                                                    <subviews>
+                                                        <searchBar clipsSubviews="YES" contentMode="scaleToFill" placeholder="Enter personal code, company or registry code" translatesAutoresizingMaskIntoConstraints="NO" id="XrE-IF-xbn">
+                                                            <rect key="frame" x="0.0" y="0.0" width="667" height="56"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                            <scopeButtonTitles>
+                                                                <string>Title</string>
+                                                                <string>Title</string>
+                                                            </scopeButtonTitles>
+                                                            <connections>
+                                                                <outlet property="delegate" destination="YsC-OK-FXD" id="3Sf-Ij-s1e"/>
+                                                            </connections>
+                                                        </searchBar>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstItem="XrE-IF-xbn" firstAttribute="leading" secondItem="Rmc-le-D5F" secondAttribute="leading" id="0Kl-g0-DVK"/>
+                                                        <constraint firstAttribute="bottom" secondItem="XrE-IF-xbn" secondAttribute="bottom" id="EAp-PZ-qP0"/>
+                                                        <constraint firstItem="XrE-IF-xbn" firstAttribute="top" secondItem="Rmc-le-D5F" secondAttribute="top" id="dHS-4Q-u5k"/>
+                                                        <constraint firstAttribute="trailing" secondItem="XrE-IF-xbn" secondAttribute="trailing" id="f6A-VO-yH4"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Rmc-le-D5F" firstAttribute="leading" secondItem="MmW-IW-ds9" secondAttribute="leading" id="2qL-hE-xTS"/>
+                                                <constraint firstAttribute="trailing" secondItem="Rmc-le-D5F" secondAttribute="trailing" id="ScM-az-kxD"/>
+                                                <constraint firstItem="Rmc-le-D5F" firstAttribute="top" secondItem="MmW-IW-ds9" secondAttribute="top" id="o5U-X4-sTR"/>
+                                                <constraint firstAttribute="bottom" secondItem="Rmc-le-D5F" secondAttribute="bottom" id="xyK-eh-9jY"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="searchBar" destination="XrE-IF-xbn" id="WKx-Mk-dP0"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerFoundAddresseeCell" editingAccessoryType="disclosureIndicator" rowHeight="55" id="S7p-It-JWk" customClass="ContainerFoundAddresseeCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="132.5" width="667" height="55"/>
+                                        <rect key="frame" x="0.0" y="150" width="667" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S7p-It-JWk" id="Bbt-ik-4qu">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="55"/>
@@ -1057,12 +1069,42 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconCryptoSelected" translatesAutoresizingMaskIntoConstraints="NO" id="kGJ-Wd-I4U">
                                                     <rect key="frame" x="16" y="0.0" width="22" height="55"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" text="MARI MAASIKAS,9800984323" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OwN-Y6-Aj6">
-                                                    <rect key="frame" x="48" y="8" width="535" height="20"/>
-                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Bold" family="Roboto Condensed" pointSize="17"/>
-                                                    <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="vfZ-eu-bMz">
+                                                    <rect key="frame" x="54" y="8" width="597" height="38"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="5Wl-Lw-S0l">
+                                                            <rect key="frame" x="0.0" y="0.0" width="298.5" height="38"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" text="MARI MAASIKAS,9800984323" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OwN-Y6-Aj6" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="231.5" height="20"/>
+                                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Bold" family="Roboto Condensed" pointSize="17"/>
+                                                                    <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signed 12.08.2017, 13:22" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rC8-67-9fN" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="25" width="184" height="13"/>
+                                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
+                                                                    <color key="textColor" name="MoppLabelDarker"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="b0v-KZ-tro">
+                                                            <rect key="frame" x="298.5" y="0.0" width="298.5" height="38"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhU-k0-Tv1" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="255.5" y="0.0" width="43" height="38"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <state key="normal" title="Added"/>
+                                                                    <connections>
+                                                                        <action selector="addAddressee:" destination="S7p-It-JWk" eventType="touchUpInside" id="Dbb-px-taW"/>
+                                                                        <action selector="addAddressee:" destination="TIp-JL-Ney" eventType="touchUpInside" id="vKi-qP-5nZ"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eSy-xJ-zZ8">
                                                     <rect key="frame" x="16" y="54" width="635" height="1"/>
                                                     <color key="backgroundColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="0.20732555650000001" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1070,42 +1112,15 @@
                                                         <constraint firstAttribute="height" constant="1" id="RlM-cH-MoU"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhU-k0-Tv1">
-                                                    <rect key="frame" x="591" y="0.0" width="60" height="55"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="60" id="rjJ-uv-bMx"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <state key="normal" title="Added"/>
-                                                    <connections>
-                                                        <action selector="addAddressee:" destination="S7p-It-JWk" eventType="touchUpInside" id="Dbb-px-taW"/>
-                                                        <action selector="addAddressee:" destination="TIp-JL-Ney" eventType="touchUpInside" id="vKi-qP-5nZ"/>
-                                                    </connections>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signed 12.08.2017, 13:22" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rC8-67-9fN">
-                                                    <rect key="frame" x="48" y="33" width="535" height="13"/>
-                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
-                                                    <color key="textColor" name="MoppLabelDarker"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="NhU-k0-Tv1" firstAttribute="leading" secondItem="OwN-Y6-Aj6" secondAttribute="trailing" constant="8" id="10g-bc-3Gg"/>
+                                                <constraint firstItem="eSy-xJ-zZ8" firstAttribute="top" secondItem="vfZ-eu-bMz" secondAttribute="bottom" constant="8" id="3At-d8-weE"/>
                                                 <constraint firstItem="eSy-xJ-zZ8" firstAttribute="leading" secondItem="Bbt-ik-4qu" secondAttribute="leading" constant="16" id="7Z3-1F-AS8"/>
                                                 <constraint firstAttribute="bottom" secondItem="eSy-xJ-zZ8" secondAttribute="bottom" id="8EK-8b-v8a"/>
-                                                <constraint firstItem="OwN-Y6-Aj6" firstAttribute="top" secondItem="Bbt-ik-4qu" secondAttribute="top" constant="8" id="BgB-c5-xdr"/>
-                                                <constraint firstAttribute="trailing" secondItem="NhU-k0-Tv1" secondAttribute="trailing" constant="16" id="Bzw-zq-rDL"/>
-                                                <constraint firstItem="rC8-67-9fN" firstAttribute="top" secondItem="OwN-Y6-Aj6" secondAttribute="bottom" constant="5" id="JbP-Cb-wqt"/>
-                                                <constraint firstItem="NhU-k0-Tv1" firstAttribute="leading" secondItem="OwN-Y6-Aj6" secondAttribute="trailing" constant="8" id="OLH-gb-3Xa"/>
-                                                <constraint firstItem="rC8-67-9fN" firstAttribute="leading" secondItem="Bbt-ik-4qu" secondAttribute="leading" constant="48" id="S9R-Bn-KPw"/>
-                                                <constraint firstItem="eSy-xJ-zZ8" firstAttribute="top" secondItem="rC8-67-9fN" secondAttribute="bottom" constant="8" id="SmP-Ic-W05"/>
-                                                <constraint firstAttribute="trailing" secondItem="rC8-67-9fN" secondAttribute="trailing" constant="84" id="VCW-Ft-SZJ"/>
-                                                <constraint firstAttribute="bottom" secondItem="NhU-k0-Tv1" secondAttribute="bottom" id="bG8-Qp-SZd"/>
-                                                <constraint firstItem="OwN-Y6-Aj6" firstAttribute="top" secondItem="Bbt-ik-4qu" secondAttribute="top" constant="8" id="cgA-IS-2qk"/>
+                                                <constraint firstItem="vfZ-eu-bMz" firstAttribute="top" secondItem="Bbt-ik-4qu" secondAttribute="top" constant="8" id="Fg4-sm-fEN"/>
+                                                <constraint firstAttribute="trailing" secondItem="vfZ-eu-bMz" secondAttribute="trailing" constant="16" id="cms-VU-ZMM"/>
                                                 <constraint firstItem="kGJ-Wd-I4U" firstAttribute="leading" secondItem="Bbt-ik-4qu" secondAttribute="leading" constant="16" id="dEW-rf-5N9"/>
-                                                <constraint firstItem="rC8-67-9fN" firstAttribute="leading" secondItem="kGJ-Wd-I4U" secondAttribute="trailing" constant="10" id="fSd-qf-icq"/>
-                                                <constraint firstItem="NhU-k0-Tv1" firstAttribute="top" secondItem="Bbt-ik-4qu" secondAttribute="top" id="nFD-26-nIH"/>
-                                                <constraint firstItem="OwN-Y6-Aj6" firstAttribute="leading" secondItem="kGJ-Wd-I4U" secondAttribute="trailing" constant="10" id="sHM-UX-cVK"/>
+                                                <constraint firstItem="vfZ-eu-bMz" firstAttribute="leading" secondItem="kGJ-Wd-I4U" secondAttribute="trailing" constant="16" id="omN-Wt-Kkh"/>
                                                 <constraint firstAttribute="trailing" secondItem="eSy-xJ-zZ8" secondAttribute="trailing" constant="16" id="snb-YD-GmP"/>
                                                 <constraint firstAttribute="bottom" secondItem="kGJ-Wd-I4U" secondAttribute="bottom" id="wDi-0m-8Gu"/>
                                                 <constraint firstItem="kGJ-Wd-I4U" firstAttribute="top" secondItem="Bbt-ik-4qu" secondAttribute="top" id="y1n-1u-Jue"/>
@@ -1121,7 +1136,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerAddresseeCell" editingAccessoryType="disclosureIndicator" rowHeight="61" id="Oy2-Qo-Kwl" customClass="ContainerAddresseeCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="187.5" width="667" height="61"/>
+                                        <rect key="frame" x="0.0" y="205" width="667" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Oy2-Qo-Kwl" id="hua-iu-fk8">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="61"/>
@@ -1134,12 +1149,33 @@
                                                         <constraint firstAttribute="width" secondItem="dDJ-k2-19D" secondAttribute="height" multiplier="1:1" id="y4d-Lq-aMz"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" text="MARI MAASIKAS,9800984323" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3zq-4L-1K7">
-                                                    <rect key="frame" x="46" y="11" width="573" height="20"/>
-                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Bold" family="Roboto Condensed" pointSize="17"/>
-                                                    <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="8Yw-ed-jXH">
+                                                    <rect key="frame" x="54" y="8" width="537" height="44"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" text="MARI MAASIKAS,9800984323" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3zq-4L-1K7" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="537" height="20"/>
+                                                            <fontDescription key="fontDescription" name="RobotoCondensed-Bold" family="Roboto Condensed" pointSize="17"/>
+                                                            <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signed 12.08.2017, 13:22" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dna-V9-HXN" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="25" width="537" height="19"/>
+                                                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
+                                                            <color key="textColor" red="0.45882352941176469" green="0.45882352941176469" blue="0.45882352941176469" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xNB-Fp-5xD">
+                                                    <rect key="frame" x="607" y="0.0" width="44" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="44" id="jJi-oT-LuO"/>
+                                                    </constraints>
+                                                    <state key="normal" image="icon_remove-1"/>
+                                                    <connections>
+                                                        <action selector="removeAddressee:" destination="Oy2-Qo-Kwl" eventType="touchUpInside" id="hML-TW-F1c"/>
+                                                    </connections>
+                                                </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zh4-up-bW7">
                                                     <rect key="frame" x="16" y="60" width="635" height="1"/>
                                                     <color key="backgroundColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="0.20732555650000001" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1147,39 +1183,20 @@
                                                         <constraint firstAttribute="height" constant="1" id="hs4-BS-Kvg"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xNB-Fp-5xD">
-                                                    <rect key="frame" x="616" y="4.5" width="44" height="44"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="44" id="CoP-qI-JUD"/>
-                                                        <constraint firstAttribute="height" constant="44" id="FOK-R7-A3d"/>
-                                                    </constraints>
-                                                    <state key="normal" image="icon_remove-1"/>
-                                                    <connections>
-                                                        <action selector="removeAddressee:" destination="Oy2-Qo-Kwl" eventType="touchUpInside" id="hML-TW-F1c"/>
-                                                    </connections>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signed 12.08.2017, 13:22" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dna-V9-HXN">
-                                                    <rect key="frame" x="46" y="36" width="562" height="19"/>
-                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
-                                                    <color key="textColor" red="0.45882352941176469" green="0.45882352941176469" blue="0.45882352941176469" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="dDJ-k2-19D" firstAttribute="top" secondItem="hua-iu-fk8" secondAttribute="topMargin" id="8MT-bu-TRr"/>
-                                                <constraint firstItem="Dna-V9-HXN" firstAttribute="top" secondItem="3zq-4L-1K7" secondAttribute="bottom" constant="5" id="AgE-a8-65j"/>
-                                                <constraint firstItem="Dna-V9-HXN" firstAttribute="leading" secondItem="hua-iu-fk8" secondAttribute="leading" constant="46" id="K7T-IG-zu4"/>
                                                 <constraint firstAttribute="trailing" secondItem="Zh4-up-bW7" secondAttribute="trailing" constant="16" id="Nbw-1T-z7f"/>
-                                                <constraint firstItem="3zq-4L-1K7" firstAttribute="top" secondItem="hua-iu-fk8" secondAttribute="topMargin" id="Qcu-ag-tHF"/>
+                                                <constraint firstItem="xNB-Fp-5xD" firstAttribute="leading" secondItem="8Yw-ed-jXH" secondAttribute="trailing" constant="16" id="OYW-zE-z49"/>
                                                 <constraint firstItem="Zh4-up-bW7" firstAttribute="leading" secondItem="hua-iu-fk8" secondAttribute="leading" constant="16" id="Rfd-YU-ac3"/>
                                                 <constraint firstAttribute="bottom" secondItem="Zh4-up-bW7" secondAttribute="bottom" id="Rga-cB-gEu"/>
-                                                <constraint firstItem="3zq-4L-1K7" firstAttribute="leading" secondItem="dDJ-k2-19D" secondAttribute="trailing" constant="8" id="ZKg-Sl-mqb"/>
-                                                <constraint firstAttribute="trailing" secondItem="Dna-V9-HXN" secondAttribute="trailing" constant="59" id="aZf-GJ-Ite"/>
-                                                <constraint firstAttribute="trailing" secondItem="3zq-4L-1K7" secondAttribute="trailing" constant="48" id="dRV-hZ-Ujp"/>
-                                                <constraint firstItem="xNB-Fp-5xD" firstAttribute="centerY" secondItem="hua-iu-fk8" secondAttribute="centerY" constant="-4" id="dRc-rb-ePx"/>
-                                                <constraint firstItem="Zh4-up-bW7" firstAttribute="top" secondItem="Dna-V9-HXN" secondAttribute="bottom" constant="5" id="nh8-og-9nS"/>
+                                                <constraint firstItem="8Yw-ed-jXH" firstAttribute="top" secondItem="hua-iu-fk8" secondAttribute="top" constant="8" id="Rkg-7k-WtD"/>
+                                                <constraint firstItem="Zh4-up-bW7" firstAttribute="top" secondItem="8Yw-ed-jXH" secondAttribute="bottom" constant="8" id="VeH-ip-wTg"/>
+                                                <constraint firstItem="Zh4-up-bW7" firstAttribute="top" secondItem="xNB-Fp-5xD" secondAttribute="bottom" id="fEw-D5-Zxg"/>
+                                                <constraint firstItem="xNB-Fp-5xD" firstAttribute="top" secondItem="hua-iu-fk8" secondAttribute="top" id="kCt-M0-p1q"/>
+                                                <constraint firstItem="8Yw-ed-jXH" firstAttribute="leading" secondItem="dDJ-k2-19D" secondAttribute="trailing" constant="16" id="pCb-fx-sRF"/>
                                                 <constraint firstItem="dDJ-k2-19D" firstAttribute="leading" secondItem="hua-iu-fk8" secondAttribute="leadingMargin" id="x0c-Q4-aOX"/>
-                                                <constraint firstAttribute="trailing" secondItem="xNB-Fp-5xD" secondAttribute="trailing" constant="7" id="zxS-WL-I8T"/>
+                                                <constraint firstAttribute="trailing" secondItem="xNB-Fp-5xD" secondAttribute="trailing" constant="16" id="xox-zs-e55"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

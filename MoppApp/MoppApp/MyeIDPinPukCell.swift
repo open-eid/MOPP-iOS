@@ -109,9 +109,6 @@ class MyeIDPinPukCell: UITableViewCell {
         errorLabel.isAccessibilityElement = true
         
         errorLabel.preferredMaxLayoutWidth = errorLabel.frame.width
-        if !isNonDefaultPreferredContentSizeCategory() {
-            certInfoLabel.preferredMaxLayoutWidth = certInfoLabel.frame.width
-        }
         
         kind = pinPukCellInfo.kind
         bottomLine.isHidden = kind == .puk
@@ -224,10 +221,6 @@ class MyeIDPinPukCell: UITableViewCell {
             }
         }
         
-        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
-            setCustomFont()
-        }
-        
         layoutIfNeeded()
     }
     
@@ -235,12 +228,10 @@ class MyeIDPinPukCell: UITableViewCell {
         if let certInfoText = pinPukCellInfo.certInfoText {
             certInfoLabel.text = certInfoText
             certInfoLabel.accessibilityLabel = certInfoText
-            certInfoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
         } else {
             certInfoLabel.text = nil
             certInfoLabel.accessibilityLabel = nil
             certInfoLabel.attributedText = infoManager.certInfoAttributedString(for: kind)
-            certInfoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
             certInfoLabel.setNeedsDisplay()
         }
     }
@@ -275,14 +266,6 @@ class MyeIDPinPukCell: UITableViewCell {
     func showCertsExpired(_ show:Bool) {
         showCertsExpiredCSTR.priority = show ? UILayoutPriority.defaultHigh : UILayoutPriority.defaultLow
         hideCertsExpiredCSTR.priority = show ? UILayoutPriority.defaultLow : UILayoutPriority.defaultHigh
-    }
-    
-    func setCustomFont() {
-        titleLabel.font = UIFont.setCustomFont(font: .medium, nil, .body)
-        errorLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        linkLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        linkButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
-        button.titleLabel?.font = UIFont.setCustomFont(font: .allCapsRegular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
     }
 }
 

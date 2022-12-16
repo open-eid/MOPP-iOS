@@ -38,6 +38,7 @@ protocol IdCardDecryptViewControllerDelegate : AnyObject {
 }
 
 class IdCardViewController : MoppViewController {
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var pinTextField: UITextField!
     @IBOutlet weak var cancelButton: UIButton!
@@ -87,10 +88,6 @@ class IdCardViewController : MoppViewController {
             actionButton.setTitle(L(.actionDecrypt).uppercased())
         } else {
             actionButton.setTitle(L(.actionSign).uppercased())
-        }
-        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
-            actionButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
-            cancelButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
         }
 
         pinTextField.delegate = self
@@ -193,10 +190,7 @@ class IdCardViewController : MoppViewController {
     }
 
     func updateUI(for state: State) {
-        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
-            titleLabel.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? nil : 19, .body)
-            pinTextField.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        }
+        scrollView.setContentOffset(.zero, animated: true)
         switch state {
         case .initial:
             actionButton.isEnabled = false
@@ -278,7 +272,6 @@ class IdCardViewController : MoppViewController {
                 } else {
                     self.pinTextFieldTitleLabel.text = L(.pin2TextfieldLabel)
                 }
-                self.pinTextFieldTitleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
                 self.pinTextFieldTitleLabel.textColor = UIColor.moppText
                 self.loadingSpinner.show(false)
             }
@@ -289,7 +282,6 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.isHidden = true
             pinTextFieldTitleLabel.text = nil
             pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
-            pinTextFieldTitleLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
             loadingSpinner.show(true)
             if isActionDecryption {
                 titleLabel.text = L(.decryptionInProgress)

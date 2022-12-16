@@ -40,9 +40,5 @@ class ContainerImportAddresseesCell : UITableViewCell {
         super.awakeFromNib()
         button.localizedTitle = LocKey.addresseeImportTitle
         button.accessibilityLabel = L(.addresseeImportTitleAccessibility)
-        button.titleLabel?.font = isBoldTextEnabled() ? UIFont.moppMediumBold : UIFont.moppMediumRegular
-        if isNonDefaultPreferredContentSizeCategory() && isNonDefaultPreferredContentSizeCategoryBigger() {
-            button.titleLabel?.font = UIFont.setCustomFont(font: .medium, Int(UIFont.buttonFontSize), .body)
-        }
     }
 }

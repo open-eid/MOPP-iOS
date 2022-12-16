@@ -52,10 +52,6 @@ class ContainerFoundAddresseeCell: UITableViewCell, AddresseeActions {
         nameLabel.text = determineName(addressee: addressee)
         infoLabel.text = determineInfo(addressee: addressee)
         
-        nameLabel.font = UIFont.setCustomFont(font: .medium, nil, .body)
-        
-        addButton.titleLabel?.font = UIFont.setCustomFont(font: .bold, 12, .body)
-        
         if isAddButtonDisabled {
             addButton.isEnabled = false
             addButton.setTitle(L(LocKey.cryptoAddresseeAddedButtonTitle))
@@ -65,13 +61,6 @@ class ContainerFoundAddresseeCell: UITableViewCell, AddresseeActions {
             addButton.setTitle(L(LocKey.cryptoAddAddresseeButtonTitle))
             addButton.accessibilityLabel = L(.cryptoAddAddresseeButtonTitleAccessibility).lowercased()
             addButton.tintColor = UIColor.moppBase
-        }
-        
-        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
-            nameLabel.font = UIFont.setCustomFont(font: .bold, nil, .body)
-            infoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-            addButton.titleLabel?.font = UIFont.setCustomFont(font: .medium, 12, .body)
-        }
-        
+        }        
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qFP-og-5IC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qFP-og-5IC">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -108,19 +108,19 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MyeIDInfoCell" rowHeight="69" id="sUs-Hf-JPf" customClass="MyeIDInfoCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="375" height="69"/>
+                                        <rect key="frame" x="0.0" y="50" width="375" height="69"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sUs-Hf-JPf" id="648-ae-GIY">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w8A-R2-bu9">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w8A-R2-bu9" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="8" width="343" height="41"/>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
                                                     <color key="textColor" red="0.41960784313725491" green="0.44313725490196076" blue="0.44313725490196076" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kHp-sg-HRn">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kHp-sg-HRn" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="49" width="343" height="20"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="17"/>
                                                     <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -144,7 +144,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="marginCell" rowHeight="15" id="A6s-au-iZz">
-                                        <rect key="frame" x="0.0" y="113.5" width="375" height="15"/>
+                                        <rect key="frame" x="0.0" y="119" width="375" height="15"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A6s-au-iZz" id="E0S-re-LFz">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="15"/>
@@ -168,7 +168,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MyeIDSegmentHeaderCell" rowHeight="55" id="A8A-0d-Gn2" customClass="MyeIDSegmentHeaderCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="128.5" width="375" height="55"/>
+                                        <rect key="frame" x="0.0" y="134" width="375" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A8A-0d-Gn2" id="V7o-I5-DV0">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
@@ -181,7 +181,7 @@
                                                         <constraint firstAttribute="width" constant="30" id="Txe-l3-srT"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PIN/PUK KOODID JA SERTIFIKAATIDE KONTROLL" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZe-Sb-oBY">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PIN/PUK KOODID JA SERTIFIKAATIDE KONTROLL" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZe-Sb-oBY" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="36" y="15" width="323" height="25"/>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Bold" family="Roboto Condensed" pointSize="16"/>
                                                     <color key="textColor" name="MoppBase"/>
@@ -205,7 +205,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MyeIDPinPukCell" rowHeight="264" id="4lc-dq-tbf" customClass="MyeIDPinPukCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="183.5" width="375" height="264"/>
+                                        <rect key="frame" x="0.0" y="189" width="375" height="264"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4lc-dq-tbf" id="TpW-2W-W0x">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="264"/>
@@ -214,13 +214,13 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0xZ-T4-fMD">
                                                     <rect key="frame" x="16" y="12.5" width="343" height="63.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PIN - Isikutuvastamise sertifikaat" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJu-2L-EAd">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PIN - Isikutuvastamise sertifikaat" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJu-2L-EAd" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="8" width="343" height="24"/>
                                                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="20"/>
                                                             <color key="textColor" name="MoppTitle"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Sertifikaat kehtib kuni 10. august 2019" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qQ-fi-sih">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Sertifikaat kehtib kuni 10. august 2019" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qQ-fi-sih" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="34.5" width="343" height="20"/>
                                                             <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                                             <color key="textColor" name="MoppLabelDarker"/>
@@ -242,7 +242,7 @@
                                                         <constraint firstItem="7qQ-fi-sih" firstAttribute="leading" secondItem="0xZ-T4-fMD" secondAttribute="leading" id="miu-oe-Bbr"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Ea3-dl-Wz3">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Ea3-dl-Wz3" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="98.5" width="343" height="50"/>
                                                     <color key="backgroundColor" name="MoppBase"/>
                                                     <constraints>
@@ -261,7 +261,7 @@
                                                         <action selector="changeCodeAction" destination="4lc-dq-tbf" eventType="touchUpInside" id="Seh-Po-G57"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" text="Unustasid PIN1 koodi?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9vn-PN-mob">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" text="Unustasid PIN1 koodi?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9vn-PN-mob" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="11" y="218" width="353" height="19"/>
                                                     <accessibility key="accessibilityConfiguration">
                                                         <accessibilityTraits key="traits" link="YES" staticText="YES"/>
@@ -273,7 +273,7 @@
                                                     <color key="textColor" name="MoppLabel"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" text="PIN1 on sisestatud 3 kord valesti.  PIN1 on blokeeritud" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ST5-E7-4MQ">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" text="PIN1 on sisestatud 3 kord valesti.  PIN1 on blokeeritud" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ST5-E7-4MQ" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="164.5" width="343" height="37.5"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                     <color key="textColor" name="MoppError"/>
@@ -286,7 +286,7 @@
                                                         <constraint firstAttribute="height" constant="1" id="mT7-d5-mZK"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="bRI-cY-Mwr">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="bRI-cY-Mwr" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="11" y="205.5" width="353" height="44"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <accessibility key="accessibilityConfiguration">
@@ -412,25 +412,25 @@
                                                     <constraint firstItem="AdU-V9-PA4" firstAttribute="centerY" secondItem="cGO-C3-0Va" secondAttribute="centerY" id="mAK-7d-e9Y"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbt-WH-Oxq">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbt-WH-Oxq" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                 <rect key="frame" x="8" y="52" width="359" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p6a-NN-ltc">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p6a-NN-ltc" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                 <rect key="frame" x="8" y="75.5" width="359" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nkG-0H-vOS">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nkG-0H-vOS" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                 <rect key="frame" x="8" y="99" width="359" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current PIN1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dd-OJ-edb">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current PIN1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dd-OJ-edb" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                 <rect key="frame" x="8" y="153" width="345" height="19"/>
                                                 <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
                                                 <color key="textColor" name="MoppText"/>
@@ -444,13 +444,13 @@
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
                                             </textField>
-                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current PIN error" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9B-De-cxW">
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current PIN error" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9B-De-cxW" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                 <rect key="frame" x="8" y="231.5" width="359" height="16.5"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                                 <color key="textColor" name="MoppError"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New PIN1 (at least 4 digits)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yyo-r1-QMO">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New PIN1 (at least 4 digits)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yyo-r1-QMO" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                 <rect key="frame" x="8" y="264" width="345" height="19"/>
                                                 <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
                                                 <color key="textColor" name="MoppText"/>
@@ -464,7 +464,7 @@
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New PIN1 again" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2i4-Ht-LG3">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New PIN1 again" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2i4-Ht-LG3" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                 <rect key="frame" x="8" y="359" width="359" height="19"/>
                                                 <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
                                                 <color key="textColor" name="MoppText"/>
@@ -478,7 +478,7 @@
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
                                             </textField>
-                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New PIN error" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ry1-t3-GdH">
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New PIN error" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ry1-t3-GdH" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                 <rect key="frame" x="8" y="438" width="359" height="16.5"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                                 <color key="textColor" name="MoppError"/>
@@ -534,7 +534,7 @@
                                     <constraint firstItem="UF1-Qa-mvf" firstAttribute="top" secondItem="UZI-z6-jr7" secondAttribute="top" id="K1S-gn-icX"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="4L7-U7-0AX">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="4L7-U7-0AX" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="717" width="187.5" height="50"/>
                                 <color key="backgroundColor" name="MoppError"/>
                                 <constraints>
@@ -548,7 +548,7 @@
                                     <action selector="discardButtonTapped" destination="Pbk-gd-VHp" eventType="touchUpInside" id="13f-lw-uEw"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="AQm-Vo-Ytv">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="AQm-Vo-Ytv" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
                                 <rect key="frame" x="187.5" y="717" width="187.5" height="50"/>
                                 <color key="backgroundColor" name="MoppBase"/>
                                 <constraints>

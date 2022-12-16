@@ -31,6 +31,8 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
     private weak var viewController: MyeIDChangeCodesViewController!
     private var isKeyboardVisible = false
     
+    private var scrollViewContentOffset: CGPoint = CGPoint()
+    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var scrollViewContentView: UIView!
     @IBOutlet weak var firstInfoLabel: UILabel!
@@ -74,12 +76,13 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
         secondCodeTextField.delegate = self
         thirdCodeTextField.delegate = self
         
-        NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+        scrollViewContentOffset = scrollView.contentOffset
         
-        let font = UIFont.setCustomFont(font: .regular, nil, .body)
+        NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+
         let color = UIColor.moppText
-        let attributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : color]
+        let attributes = [NSAttributedString.Key.font : firstInfoLabel.font ?? secondInfoLabel.font ?? thirdInfoLabel.font ?? UIFont(), NSAttributedString.Key.foregroundColor : color]
         
         firstCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         secondCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor
@@ -105,7 +108,7 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
                 attributedString.append(NSAttributedString(attachment: textAttachment))
                 attributedString.append(NSAttributedString(string: "\t\(infoBullet)", attributes: attributes))
             if index < (model.infoBullets.count - 1) {
-                attributedString.append(NSAttributedString(string: "\n", attributes: attributes))
+                attributedString.append(NSAttributedString(string: "", attributes: attributes))
             }
             
             let paragraphStyle = createParagraphAttribute()
@@ -132,10 +135,6 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
         
         statusViewHiddenCSTR.priority = UILayoutPriority.defaultHigh
         statusViewVisibleCSTR.priority = UILayoutPriority.defaultLow
-        
-        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
-            setCustomFont()
-        }
     }
     
     func createParagraphAttribute() -> NSParagraphStyle
@@ -152,32 +151,24 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
         return paragraphStyle
     }
     
-    @objc func adjustForKeyboard(notification: NSNotification) {
+    @objc func adjustForKeyboardHide(notification: NSNotification) {
+        scrollView.setContentOffset(scrollViewContentOffset, animated: true)
+    }
+    
+    @objc func adjustForKeyboardShow(notification: NSNotification) {
+            
+        scrollViewContentOffset = scrollView.contentOffset
         
-        if notification.name == UIResponder.keyboardWillHideNotification {
-            scrollView.contentInset = UIEdgeInsets.zero
-            isKeyboardVisible = false
+        if firstCodeTextField.isFirstResponder {
+            scrollView.setContentOffset(CGPoint(x: 0, y: firstCodeTextFieldLabel.frame.origin.y), animated: true)
+        }
         
-        } else if notification.name == UIResponder.keyboardWillShowNotification {
-            if isKeyboardVisible { return }
-            
-            let userInfo = notification.userInfo!
-            
-            let keyboardScreenEndFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-            let keyboardViewEndFrame = viewController.view.convert(keyboardScreenEndFrame, from: viewController.view.window)
-            
-            let scrollViewRectInWindow = scrollView.convert(scrollView.frame, from: viewController.view.window)
-            let bottomMargin = (viewController.view.window?.frame.height ?? 0) - (scrollViewRectInWindow.height - scrollViewRectInWindow.origin.y)
-            
-            var bottomContentInset = keyboardViewEndFrame.height - bottomMargin + 8
-            
-            let scrollViewContentDelta = scrollView.contentSize.height - scrollView.frame.height
-            if scrollViewContentDelta > 0 {
-                bottomContentInset += scrollViewContentDelta
-            }
+        if secondCodeTextField.isFirstResponder {
+            scrollView.setContentOffset(CGPoint(x: 0, y: secondCodeTextFieldLabel.frame.origin.y), animated: true)
+        }
         
-            scrollView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: bottomContentInset, right: 0)
-            isKeyboardVisible = true
+        if thirdCodeTextField.isFirstResponder {
+            scrollView.setContentOffset(CGPoint(x: 0, y: thirdCodeTextFieldLabel.frame.origin.y), animated: true)
         }
     }
     
@@ -239,20 +230,6 @@ class MyeIDChangeCodesViewControllerUI: NSObject {
         removeViewBorder(view: firstCodeTextField)
         removeViewBorder(view: secondCodeTextField)
         removeViewBorder(view: thirdCodeTextField)
-    }
-    
-    func setCustomFont() {
-        firstInfoLabel.font = UIFont.setCustomFont(font: .medium, nil, .body)
-        secondInfoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        thirdInfoLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        discardButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
-        confirmButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 11 : nil, .body)
-        firstCodeTextFieldLabel.font = UIFont.setCustomFont(font: .allCapsRegular, nil, .body)
-        secondCodeTextFieldLabel.font = UIFont.setCustomFont(font: .allCapsRegular, nil, .body)
-        thirdCodeTextFieldLabel.font = UIFont.setCustomFont(font: .allCapsRegular, nil, .body)
-        firstInlineErrorLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        secondInlineErrorLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        statusLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
     }
     
     func setViewBorder(view: UIView) {

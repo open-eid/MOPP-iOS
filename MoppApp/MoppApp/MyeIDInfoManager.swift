@@ -249,25 +249,23 @@ class MyeIDInfoManager {
         }
     }
     
-    func expiryDateAttributedString(dateString: String, font: UIFont, capitalized: Bool) -> NSAttributedString? {
+    func expiryDateAttributedString(dateString: String, capitalized: Bool) -> NSAttributedString? {
         let isValid = Date() < estonianDateFormatter.date(from: dateString) ?? Date()
-        return expiryDateAttributedString(isValid: isValid, font: font, capitalized: capitalized)
+        return expiryDateAttributedString(isValid: isValid, capitalized: capitalized)
     }
     
-    func expiryDateAttributedString(isValid:Bool, font: UIFont, capitalized: Bool) -> NSAttributedString {
+    func expiryDateAttributedString(isValid: Bool, capitalized: Bool) -> NSAttributedString {
         let attrText = NSMutableAttributedString()
     
         if isValid {
             let certValidText = capitalized ? L(.myEidCertValid).capitalized : L(.myEidCertValid)
             let validText = NSAttributedString(string: certValidText, attributes:
-                [.foregroundColor : UIColor.moppSuccessTextDarker,
-                 .font : font])
+                [.foregroundColor : UIColor.moppSuccessTextDarker])
             attrText.append(validText)
         } else {
             let certExpiredText = capitalized ? L(.myEidCertExpired).capitalized : L(.myEidCertExpired)
             let expiredText = NSAttributedString(string: certExpiredText, attributes:
-                [.foregroundColor : UIColor.moppError,
-                 .font : font])
+                [.foregroundColor : UIColor.moppError])
             attrText.append(expiredText)
         }
         
@@ -297,21 +295,19 @@ class MyeIDInfoManager {
             isCertValid = isSignCertValid
         }
     
-        let font = UIFont(name: MoppFontName.regular.rawValue, size: 16)!
-    
-        let statusAttributedString = self.expiryDateAttributedString(isValid:isCertValid, font: font, capitalized: false)
+        let statusAttributedString = self.expiryDateAttributedString(isValid: isCertValid, capitalized: false)
         
         var expiryDateAttributedString: NSAttributedString!
         if let expiryDate = certExpiryDate {
             let expiryDateString = estonianDateFormatter.string(from: expiryDate)
-            expiryDateAttributedString = NSAttributedString(string: expiryDateString, attributes:[.font: font])
+            expiryDateAttributedString = NSAttributedString(string: expiryDateString, attributes: [:])
         }
         
         let certInfoString = NSMutableAttributedString()
         if isCertValid {
             certInfoString.append(NSAttributedString(
                 string: L(.myEidCertInfoValid),
-                attributes: [.font: font, .foregroundColor: UIColor.moppLabelDarker]
+                attributes: [.foregroundColor: UIColor.moppLabelDarker]
                 ))
             certInfoString.replaceOccurrences(of: "[VALID_EXPIRY_STATUS]", with: statusAttributedString)
             if expiryDateAttributedString != nil {
@@ -320,10 +316,10 @@ class MyeIDInfoManager {
         } else {
             certInfoString.append(NSAttributedString(
                 string: L(.myEidCertInfoExpired),
-                attributes: [.font: font]
+                attributes: [:]
                 ))
             certInfoString.replaceOccurrences(of: "[EXPIRED_EXPIRY_STATUS]", with: statusAttributedString)
-            certInfoString.replaceOccurrences(of: "[PIN]", with: NSAttributedString(string: kind.displayName, attributes: [NSAttributedString.Key.font : font]))
+            certInfoString.replaceOccurrences(of: "[PIN]", with: NSAttributedString(string: kind.displayName, attributes: [:]))
         }
         
         if kind == .pin1 {

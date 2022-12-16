@@ -108,9 +108,6 @@ class SmartIDEditViewController : MoppViewController {
         }
 
         view.accessibilityElements = [titleUILabel, countryUILabel, countryUITextField, idCodeUILabel, idCodeUITextField, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
-        if isNonDefaultPreferredContentSizeCategory() || isBoldTextEnabled() {
-            setCustomFont()
-        }
     }
 
     @objc func dismissKeyboard(_ notification: NSNotification) {
@@ -200,17 +197,6 @@ class SmartIDEditViewController : MoppViewController {
         let codeTextField = idCodeTextField.text ?? String()
         signButton.isEnabled = countryViewPicker.selectedRow(inComponent: 0) != 0 || !TokenFlowUtil.isPersonalCodeInvalid(text: codeTextField)
         signButton.backgroundColor = signButton.isEnabled ? UIColor.moppBase : UIColor.moppLabel
-    }
-    
-    func setCustomFont() {
-        titleLabel.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? nil : 19, .body)
-        countryLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        idCodeLabel.font = UIFont.setCustomFont(font: .regular, nil, .body)
-        cancelButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 12 : nil, .body)
-        signButton.titleLabel?.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 12 : nil, .body)
-        rememberLabel.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 12 : nil, .body)
-        idCodeTextField.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 14 : nil, .body)
-        countryTextField.font = UIFont.setCustomFont(font: .regular, isNonDefaultPreferredContentSizeCategoryBigger() ? 14 : nil, .body)
     }
 }
 

@@ -39,9 +39,5 @@ class ContainerImportFilesCell : UITableViewCell {
         super.awakeFromNib()
         button.localizedTitle = LocKey.fileImportTitle
         button.accessibilityLabel = L(.fileImportTitleAccessibility)
-        button.titleLabel?.font = isBoldTextEnabled() ? UIFont.moppMediumBold : UIFont.moppMediumRegular
-        if isNonDefaultPreferredContentSizeCategory() && isNonDefaultPreferredContentSizeCategoryBigger() {
-            button.titleLabel?.font = UIFont.setCustomFont(font: .medium, Int(UIFont.buttonFontSize), .body)
-        }
     }
 }
