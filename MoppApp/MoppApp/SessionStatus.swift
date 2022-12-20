@@ -30,27 +30,24 @@ class SessionStatus {
     
     func getSessionStatus(baseUrl: String, process: PollingProcess, sessionId: String, timeoutMs: Int?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionStatusResponse, SigningError>) -> Void ) {
         DispatchQueue.main.async {
-            Timer.scheduledTimer(withTimeInterval: TimeInterval(kDefaultTimeoutS), repeats: true) { timer in
-                do {
-                    _ = try RequestSession.shared.getSessionStatus(baseUrl: baseUrl, process: process, requestParameters: SessionStatusRequestParameters(sessionId: sessionId, timeoutMs: timeoutMs), trustedCertificates: trustedCertificates) { (sessionStatusResult: Result<SessionStatusResponse, SigningError>) in
-                        switch sessionStatusResult {
-                        case .success(let sessionStatus):
-                            if self.isSessionStateComplete(sessionState: self.getSessionState(sessionStatus: sessionStatus)) {
-                                timer.invalidate()
-                                printLog("Received session status response: \(sessionStatus.result?.rawValue ?? "-")")
-                                return completionHandler(.success(sessionStatus))
-                            }
-                        case .failure(let sessionError):
-                            printLog("Getting Session Status error: \(SkSigningLib_LocalizedString(sessionError.signingErrorDescription ?? sessionError.rawValue))")
-                            timer.invalidate()
-                            return completionHandler(.failure(sessionError))
+            do {
+                _ = try RequestSession.shared.getSessionStatus(baseUrl: baseUrl, process: process, requestParameters: SessionStatusRequestParameters(sessionId: sessionId, timeoutMs: timeoutMs), trustedCertificates: trustedCertificates) { (sessionStatusResult: Result<SessionStatusResponse, SigningError>) in
+                    switch sessionStatusResult {
+                    case .success(let sessionStatus):
+                        if self.isSessionStateComplete(sessionState: self.getSessionState(sessionStatus: sessionStatus)) {
+                            print("Received session status response: \(sessionStatus.result?.rawValue ?? "-")")
+                            return completionHandler(.success(sessionStatus))
+                        } else {
+                            print("Received session status response: \(sessionStatus.result?.rawValue ?? "-")")
                         }
+                    case .failure(let sessionError):
+                        print("Getting Session Status error: \(SkSigningLib_LocalizedString(sessionError.signingErrorDescription ?? sessionError.rawValue))")
+                        return completionHandler(.failure(sessionError))
                     }
-                } catch let error {
-                    printLog("Error occurred while getting session status: \(error.localizedDescription)")
-                    timer.invalidate()
-                    return completionHandler(.failure(.generalError))
                 }
+            } catch let error {
+                print("Error occurred while getting session status: \(error.localizedDescription)")
+                return completionHandler(.failure(.generalError))
             }
         }
     }

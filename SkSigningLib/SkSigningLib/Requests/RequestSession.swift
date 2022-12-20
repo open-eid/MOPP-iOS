@@ -55,8 +55,6 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
     
     private weak var urlTask: URLSessionTask?
     
-    private var sessionStatusCompleted: Bool = false
-    
     private var trustedCerts: [String]?
     
     deinit {
@@ -131,7 +129,6 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
     }
     
     public func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionStatusResponse, SigningError>) -> Void) {
-        
         guard let url = URL(string: "\(baseUrl)/signature/session/\(requestParameters.sessionId)?timeoutMs=\(requestParameters.timeoutMs ?? Constants.defaultTimeoutMs)") else {
             Logging.errorLog(forMethod: "RIA.MobileID - Session status", httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(baseUrl)/signature/session/\(requestParameters.sessionId)?timeoutMs=\(requestParameters.timeoutMs ?? Constants.defaultTimeoutMs)")
             return completionHandler(.failure(.invalidURL))
@@ -141,12 +138,13 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         
         var request = URLRequest(url: url)
         request.httpMethod = RequestMethod.GET.value
+        request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         
         Logging.log(forMethod: "RIA.MobileID - getSessionStatus", info: "RIA.MobileID (Session status): \(url) \n" +
-            "Method: \(request.httpMethod ?? "Unable to get HTTP method") \n" +
-            "Parameters: \n" +
-            "\tsessionId: \(requestParameters.sessionId)\n" +
-            "\ttimeoutMs: \(String(requestParameters.timeoutMs ?? Constants.defaultTimeoutMs)) \n"
+                    "Method: \(request.httpMethod ?? "Unable to get HTTP method") \n" +
+                    "Parameters: \n" +
+                    "\tsessionId: \(requestParameters.sessionId)\n" +
+                    "\ttimeoutMs: \(String(requestParameters.timeoutMs ?? Constants.defaultTimeoutMs)) \n"
         )
         
         let urlSessionConfiguration: URLSessionConfiguration
@@ -154,11 +152,11 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         
         if trustedCertificates != nil {
             urlSessionConfiguration = URLSessionConfiguration.default
+            urlSessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
             urlSession = URLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
         } else {
             urlSession = URLSession.shared
         }
-        
         let sessionTask: URLSessionTask? = urlSession.dataTask(with: request as URLRequest) { data, response, error in
             guard let httpResponse = response as? HTTPURLResponse else {
                 self.urlTask?.cancel()
@@ -174,26 +172,27 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
             
             if !(200...299).contains(httpResponse.statusCode) {
                 self.urlTask?.cancel()
-                Logging.errorLog(forMethod: "RIA.MobileID - Session status", httpResponse: httpResponse, error: self.handleHTTPSessionResponseError(httpResponse: httpResponse), extraInfo: "Status code: \(httpResponse.statusCode)")
-                return completionHandler(.failure(self.handleHTTPSessionStatusResponseError(httpResponse: httpResponse)))
+                Logging.errorLog(forMethod: "RIA.MobileID - Session status", httpResponse: httpResponse, error: self.handleHTTPSessionResponseError(httpResponse: httpResponse) , extraInfo: "Status code: \(httpResponse.statusCode)")
+                return completionHandler(.failure(self.handleHTTPSessionStatusResponseError(httpResponse: httpResponse) ))
             }
             
             if let data: Data = data {
+                self.urlTask?.cancel()
                 EncoderDecoder().decode(data: data, completionHandler: { (response: SessionStatusResponse) in
                     Logging.log(forMethod: "RIA.MobileID - getSessionStatus", info: "Response: \n \(String(data: data, encoding: .utf8) ?? "Unable to get response info")")
                     if (response.error == nil) {
-                        if response.state == SessionResponseState.COMPLETE && !self.sessionStatusCompleted {
-                            self.urlTask?.cancel()
-                            self.sessionStatusCompleted = true
-                            Logging.log(forMethod: "RIA.MobileID - getSessionStatus", info: "Polling cancelled, sessionStatusCompleted: \(self.sessionStatusCompleted)")
+                        if response.state == SessionResponseState.COMPLETE {
+                            Logging.log(forMethod: "RIA.MobileID - getSessionStatus", info: "Polling cancelled")
                             return completionHandler(.success(response))
                         } else {
-                            self.sessionStatusCompleted = false
+                            // Poll again as SessionResponseState is not COMPLETE
+                            DispatchQueue.main.asyncAfter(deadline: .now() + Constants.defaultTimeoutS) {
+                                self.getSessionStatus(baseUrl: baseUrl, process: process, requestParameters: requestParameters, trustedCertificates: trustedCertificates, completionHandler: completionHandler)
+                            }
                         }
                     } else {
-                        self.urlTask?.cancel()
-                        Logging.errorLog(forMethod: "RIA.MobileID - Session status", httpResponse: httpResponse, error: self.handleHTTPSessionResponseError(httpResponse: httpResponse), extraInfo: response.error ?? "Unknown error received")
-                        return completionHandler(.failure(self.handleHTTPSessionStatusResponseError(httpResponse: httpResponse)))
+                        Logging.errorLog(forMethod: "RIA.MobileID - Session status", httpResponse: httpResponse, error: self.handleHTTPSessionResponseError(httpResponse: httpResponse) , extraInfo: response.error ?? "Unknown error received")
+                        return completionHandler(.failure(self.handleHTTPSessionStatusResponseError(httpResponse: httpResponse) ))
                     }
                 })
             }

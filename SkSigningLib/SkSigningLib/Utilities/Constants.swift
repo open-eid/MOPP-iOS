@@ -25,4 +25,5 @@ import Foundation
 
 struct Constants {
     public static let defaultTimeoutMs: Int = 5000
+    public static let defaultTimeoutS: Double = 5.0
 }
