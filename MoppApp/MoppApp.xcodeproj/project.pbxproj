@@ -350,6 +350,7 @@
 		DF3D29CF23F6B3CF007181B8 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; };
 		DF3D29D023F6B3CF007181B8 /* SkSigningLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF3F62B026BD71180070F930 /* FileDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3F62AF26BD71180070F930 /* FileDownloader.swift */; };
+		DF46181F2962E464003A1B56 /* FileUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF46181E2962E464003A1B56 /* FileUtil.swift */; };
 		DF4B8418284008CF005CB875 /* SignatureDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4B8417284008CF005CB875 /* SignatureDetail.swift */; };
 		DF4B841A2840F8FC005CB875 /* CertificateDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4B84192840F8FC005CB875 /* CertificateDetailsCell.swift */; };
 		DF4B841E284417CD005CB875 /* CertificateDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4B841D284417CD005CB875 /* CertificateDetail.swift */; };
@@ -661,6 +662,7 @@
 		DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypeExtractor.swift; sourceTree = "<group>"; };
 		DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF3F62AF26BD71180070F930 /* FileDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloader.swift; sourceTree = "<group>"; };
+		DF46181E2962E464003A1B56 /* FileUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUtil.swift; sourceTree = "<group>"; };
 		DF4B8417284008CF005CB875 /* SignatureDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureDetail.swift; sourceTree = "<group>"; };
 		DF4B84192840F8FC005CB875 /* CertificateDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateDetailsCell.swift; sourceTree = "<group>"; };
 		DF4B841D284417CD005CB875 /* CertificateDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateDetail.swift; sourceTree = "<group>"; };
@@ -1269,6 +1271,7 @@
 				DF32A6802909F0FA00AE5F82 /* FileLogUtil.swift */,
 				DFC2ADBD294375FA008A1CD2 /* TokenFlowUtil.swift */,
 				DFC2ADC7294377BF008A1CD2 /* PersonalCodeValidator.swift */,
+				DF46181E2962E464003A1B56 /* FileUtil.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1945,6 +1948,7 @@
 				DF26DC8326CD45670073ABA7 /* SivaUtil.swift in Sources */,
 				DFF3C3B5233231F20079458A /* Notification+Additions.swift in Sources */,
 				C50DCD071FC7126100D48E16 /* ContainerSignatureCell.swift in Sources */,
+				DF46181F2962E464003A1B56 /* FileUtil.swift in Sources */,
 				C50FC432224BA3B20041925C /* ScreenDisguiseViewController.swift in Sources */,
 				C54EA6E82045A9E30039AC78 /* IdCardViewController.swift in Sources */,
 				DFD176D523F427AD00E2CC52 /* TSLUpdater.swift in Sources */,

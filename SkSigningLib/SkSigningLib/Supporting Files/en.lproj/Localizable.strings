@@ -47,3 +47,4 @@
 "sid-rest-error-forbidden" = "Check your Smart-ID service access settings. https://www.id.ee/en/article/for-organisations-that-sign-large-quantities-of-documents-using-digidoc4-client/";
 "sid-rest-error-account-not-found-or-timeout" = "Your Smart-ID transaction has expired or user account not found.";
 "sid-rest-error-certificate-revoked" = "Certificate status revoked";
+"sid-interaction-not-supported-error" = "Failed to sign container. You need to update your Smart-ID application to sign documents in DigiDoc4 Client.";
