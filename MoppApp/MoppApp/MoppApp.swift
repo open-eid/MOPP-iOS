@@ -93,6 +93,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         // Set navBar not translucent by default.
 
         FirebaseApp.configure()
+        Analytics.setAnalyticsCollectionEnabled(false)
         Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(false)
 
         window = UIWindow(frame: UIScreen.main.bounds)
