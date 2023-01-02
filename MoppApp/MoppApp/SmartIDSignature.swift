@@ -53,7 +53,7 @@ class SmartIDSignature {
             if baseUrl.contains("v1") {
                 signparams = SIDSignatureRequestParametersV1(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, hash: hash, hashType: hashType, displayText: L(.simToolkitSignDocumentTitle).asUnicode, vcChoice: true)
             } else {
-                signparams = SIDSignatureRequestParametersV2(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, hash: hash, hashType: hashType, allowedInteractionsOrder: SIDSignatureRequestAllowedInteractionsOrder(type: "confirmationMessageAndVerificationCodeChoice", displayText: "\(L(.simToolkitSignDocumentTitle).asUnicode) \(FileUtil.getSignDocumentFileName(containerPath: containerPath))"))
+                signparams = SIDSignatureRequestParametersV2(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, hash: hash, hashType: hashType, allowedInteractionsOrder: SIDSignatureRequestAllowedInteractionsOrder(type: "confirmationMessageAndVerificationCodeChoice", displayText: "\(L(.simToolkitSignDocumentTitle).asUnicode) \(FileUtil.getSignDocumentFileName(containerPath: containerPath).asUnicode)"))
             }
             self.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, requestParameters: signparams as? SIDSignatureRequestParametersV1 ?? SIDSignatureRequestParametersV1(), allowedInteractionsOrder: signparams as? SIDSignatureRequestParametersV2 ?? SIDSignatureRequestParametersV2(), trustedCertificates: certBundle, errorHandler: errorHandler) { signatureValue in
                 self.validateSignature(cert: cert, signatureValue: signatureValue)
