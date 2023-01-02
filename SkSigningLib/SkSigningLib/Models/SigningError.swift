@@ -54,6 +54,7 @@ public enum SigningError: String, Error {
     case timeout
     case notMidClient
     case userCancelled
+    case interactionNotSupported
     case signatureHashMismatch
     case phoneAbsent
     case deliveryError
@@ -153,6 +154,8 @@ extension SigningError: LocalizedError {
             return NSLocalizedString("general-signature-adding-error", comment: "")
         case .technicalError:
             return NSLocalizedString("mid-rest-error-technical-error", comment: "")
+        case .interactionNotSupported:
+            return NSLocalizedString("sid-interaction-not-supported-error", comment: "")
         }
     }
 }

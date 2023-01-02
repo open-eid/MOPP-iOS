@@ -56,6 +56,8 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     @IBOutlet weak var mobileIdSKURL: UILabel!
     @IBOutlet weak var smartIdURL: UILabel!
     @IBOutlet weak var smartIdSKURL: UILabel!
+    @IBOutlet weak var smartIdV2URL: UILabel!
+    @IBOutlet weak var smartIdV2SKUrl: UILabel!
     @IBOutlet weak var eeTSLVersion: UILabel!
     @IBOutlet weak var rpUUIDInfo: UILabel!
     @IBOutlet weak var metaDate: UILabel!
@@ -193,6 +195,8 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         mobileIdSKURL.text = formatString(text: "MID-SK-URL: ", additionalText: decodedConf.MIDSKURL)
         smartIdURL.text = formatString(text: "SID-PROXY-URL: ", additionalText: decodedConf.SIDPROXYURL)
         smartIdSKURL.text = formatString(text: "SID-SK-URL: ", additionalText: decodedConf.SIDSKURL)
+        smartIdV2URL.text = formatString(text: "SIDV2-PROXY-URL: ", additionalText: decodedConf.SIDV2PROXYURL)
+        smartIdV2SKUrl.text = formatString(text: "SIDV2-SK-URL: ", additionalText: decodedConf.SIDV2SKURL)
         eeTSLVersion.text = formatString(text: "EE TSL: ", additionalText: getTSLVersion(for: "EE"))
         rpUUIDInfo.text = formatString(text: "RPUUID: ", additionalText: getRPUUIDInfo())
         metaDate.text = formatString(text: "DATE:", additionalText: decodedConf.METAINF.DATE)

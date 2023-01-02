@@ -27,7 +27,10 @@ class SmartIDSignature {
     static let shared: SmartIDSignature = SmartIDSignature()
 
     func createSmartIDSignature(country: String, nationalIdentityNumber: String, containerPath: String, hashType: String) -> Void {
-        let baseUrl = DefaultsHelper.rpUuid.isEmpty ? Configuration.getConfiguration().SIDPROXYURL : Configuration.getConfiguration().SIDSKURL
+        var baseUrl = DefaultsHelper.rpUuid.isEmpty ? Configuration.getConfiguration().SIDV2PROXYURL : Configuration.getConfiguration().SIDV2SKURL
+        if baseUrl.isEmpty {
+            baseUrl = DefaultsHelper.rpUuid.isEmpty ? Configuration.getConfiguration().SIDPROXYURL : Configuration.getConfiguration().SIDSKURL
+        }
         let uuid = DefaultsHelper.rpUuid.isEmpty ? kRelyingPartyUUID : DefaultsHelper.rpUuid
         let certBundle = Configuration.getConfiguration().CERTBUNDLE
         let backgroundTask = UIApplication.shared.beginBackgroundTask(withName: "Smart-ID")
@@ -46,8 +49,13 @@ class SmartIDSignature {
         }
         
         getCertificate(baseUrl: baseUrl, country: country, nationalIdentityNumber: nationalIdentityNumber, requestParameters: certparams, containerPath: containerPath, trustedCertificates: certBundle, errorHandler: errorHandler) { documentNumber, cert, hash in
-            let signparams = SIDSignatureRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, hash: hash, hashType: hashType, displayText: L(.simToolkitSignDocumentTitle).asUnicode, vcChoice: true)
-            self.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, requestParameters: signparams, trustedCertificates: certBundle, errorHandler: errorHandler) { signatureValue in
+            var signparams: SIDSignatureRequestParameters = SIDSignatureRequestParameters()
+            if baseUrl.contains("v1") {
+                signparams = SIDSignatureRequestParametersV1(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, hash: hash, hashType: hashType, displayText: L(.simToolkitSignDocumentTitle).asUnicode, vcChoice: true)
+            } else {
+                signparams = SIDSignatureRequestParametersV2(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, hash: hash, hashType: hashType, allowedInteractionsOrder: SIDSignatureRequestAllowedInteractionsOrder(type: "confirmationMessageAndVerificationCodeChoice", displayText: "\(L(.simToolkitSignDocumentTitle).asUnicode) \(FileUtil.getSignDocumentFileName(containerPath: containerPath))"))
+            }
+            self.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, requestParameters: signparams as? SIDSignatureRequestParametersV1 ?? SIDSignatureRequestParametersV1(), allowedInteractionsOrder: signparams as? SIDSignatureRequestParametersV2 ?? SIDSignatureRequestParametersV2(), trustedCertificates: certBundle, errorHandler: errorHandler) { signatureValue in
                 self.validateSignature(cert: cert, signatureValue: signatureValue)
                 UIApplication.shared.endBackgroundTask(backgroundTask)
             }
@@ -84,9 +92,9 @@ class SmartIDSignature {
         }
     }
 
-    private func getSignature(baseUrl: String, documentNumber: String, requestParameters: SIDSignatureRequestParameters, trustedCertificates: [String]?, errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String) -> Void) {
+    private func getSignature(baseUrl: String, documentNumber: String, requestParameters: SIDSignatureRequestParametersV1, allowedInteractionsOrder: SIDSignatureRequestParametersV2, trustedCertificates: [String]?, errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String) -> Void) {
         printLog("Getting signature...")
-        SIDRequest.shared.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, requestParameters: requestParameters, trustedCertificates: trustedCertificates) { result in
+        SIDRequest.shared.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, requestParameters: requestParameters, allowedInteractionsOrder: allowedInteractionsOrder, trustedCertificates: trustedCertificates) { result in
             switch result {
             case .success(let response):
                 printLog("Received Signature (session ID): \(response.sessionID)")
@@ -125,9 +133,10 @@ class SmartIDSignature {
                         return completionHandler(.failure({
                             switch sessionStatusResult.endResult {
                             case .TIMEOUT: return .accountNotFoundOrTimeout
-                            case .USER_REFUSED: return .userCancelled
+                            case .USER_REFUSED, .USER_REFUSED_DISPLAYTEXTANDPIN, .USER_REFUSED_VC_CHOICE, .USER_REFUSED_CONFIRMATIONMESSAGE, .USER_REFUSED_CONFIRMATIONMESSAGE_WITH_VC_CHOICE, .USER_REFUSED_CERT_CHOICE: return .userCancelled
                             case .WRONG_VC: return .wrongVC
                             case .DOCUMENT_UNUSABLE: return .documentUnusable
+                            case .REQUIRED_INTERACTION_NOT_SUPPORTED_BY_APP: return .interactionNotSupported
                             default: return .generalError
                             }
                         }()))

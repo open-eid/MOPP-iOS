@@ -47,3 +47,4 @@
 "sid-rest-error-forbidden" = "Kontrolli Smart-ID teenuse ligipääsu seadeid. https://www.id.ee/artikkel/asutustele-kus-allkirjastatakse-digidoc4-kliendi-kaudu-suuremates-kogustes-dokumente/";
 "sid-rest-error-account-not-found-or-timeout" = "Sinu Smart-ID toiming aegus või kontot ei leitud.";
 "sid-rest-error-certificate-revoked" = "Sertifikaat on kehtetu";
+"sid-interaction-not-supported-error" = "Ümbriku allkirjastamine ebaõnnestus. DigiDoc4 kliendis allkirjastamiseks pead Smart-ID rakendust uuendama.";

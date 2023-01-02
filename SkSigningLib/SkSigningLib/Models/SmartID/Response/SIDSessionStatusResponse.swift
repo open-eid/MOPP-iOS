@@ -28,6 +28,12 @@ public enum SIDSessionStatusResponseState: String, Decodable {
 public enum SIDSessionStatusResponseCode: String, Decodable {
     case OK
     case USER_REFUSED
+    case USER_REFUSED_DISPLAYTEXTANDPIN
+    case USER_REFUSED_VC_CHOICE
+    case USER_REFUSED_CONFIRMATIONMESSAGE
+    case USER_REFUSED_CONFIRMATIONMESSAGE_WITH_VC_CHOICE
+    case USER_REFUSED_CERT_CHOICE
+    case REQUIRED_INTERACTION_NOT_SUPPORTED_BY_APP
     case TIMEOUT
     case DOCUMENT_UNUSABLE
     case WRONG_VC

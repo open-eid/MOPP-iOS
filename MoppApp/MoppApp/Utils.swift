@@ -105,19 +105,19 @@ func formatString(text: String, additionalText: String? = nil) -> String {
 }
 
 func formatAttributedString(attributedText: NSAttributedString, additionalAttributedText: NSAttributedString) -> NSMutableAttributedString {
-    
+
     let mutableAttributedString = NSMutableAttributedString()
-    
+
     mutableAttributedString.append(attributedText)
     mutableAttributedString.append(additionalAttributedText)
-    
+
     return mutableAttributedString
 }
 
 func bold(text: String, _ fontSize: CGFloat?) -> NSMutableAttributedString {
     let attributes = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: fontSize ?? 17), NSAttributedString.Key.foregroundColor : UIColor.black]
     let attributedString = NSMutableAttributedString(string: text, attributes: attributes)
-    
+
     return attributedString
 }
 

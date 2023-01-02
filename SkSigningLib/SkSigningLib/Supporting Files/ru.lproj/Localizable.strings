@@ -47,3 +47,4 @@
 "sid-rest-error-forbidden" = "Проверьте настройки доступа услуги Smart-ID. https://www.id.ee/ru/artikkel/dlya-uchrezhdenij-v-kotoryh-v-bolshom-obeme-podpisyvayutsya-dokumenty-s-pomoshhyu-digidoc4-klienta/";
 "sid-rest-error-account-not-found-or-timeout" = "Срок действия вашей операции Smart-ID истек или учетная запись не найдена.";
 "sid-rest-error-certificate-revoked" = "Сертификат недействителен";
+"sid-interaction-not-supported-error" = "Не удалось подписать контейнер. Для подписания с помощью Smart-ID в программе DigiDoc4 клиент нужно обновить приложение Smart-ID.";
