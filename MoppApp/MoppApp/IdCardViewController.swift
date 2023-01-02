@@ -47,6 +47,7 @@ class IdCardViewController : MoppViewController {
     @IBOutlet weak var loadingSpinner: SpinnerView!
     @IBOutlet weak var titleLabelBottomToCancelButtonCSTR: NSLayoutConstraint!
     @IBOutlet weak var titleLabelBottomToPin2TextFieldCSTR: NSLayoutConstraint!
+    
     var isActionDecryption = false
     var containerPath: String!
     weak var signDelegate: IdCardSignViewControllerDelegate?
@@ -419,7 +420,16 @@ class IdCardViewController : MoppViewController {
             })
 
         }
-
+    }
+    
+    override func keyboardWillShow(notification: NSNotification) {
+        if pinTextField.isFirstResponder {
+            showKeyboard(textFieldLabel: pinTextFieldTitleLabel, scrollView: scrollView)
+        }
+    }
+    
+    override func keyboardWillHide(notification: NSNotification) {
+        hideKeyboard(scrollView: scrollView)
     }
 }
 

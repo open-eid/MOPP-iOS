@@ -48,6 +48,7 @@ class CountryTextField: MyTextField {
 }
 
 class SmartIDEditViewController : MoppViewController {
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var idCodeTextField: UITextField!
     @IBOutlet weak var countryTextField: UITextField!
     @IBOutlet weak var titleLabel: UILabel!
@@ -62,11 +63,11 @@ class SmartIDEditViewController : MoppViewController {
     weak var delegate: SmartIDEditViewControllerDelegate? = nil
     var tapGR: UITapGestureRecognizer!
     var countryViewPicker = UIPickerView()
-    
+
     @IBAction func openCountryPicker(_ sender: Any) {
         UIAccessibility.post(notification: .layoutChanged, argument: countryViewPicker)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -76,23 +77,23 @@ class SmartIDEditViewController : MoppViewController {
         cancelButton.setTitle(L(.actionCancel).uppercased())
         signButton.setTitle(L(.actionSign).uppercased())
         rememberLabel.text = L(.signingRememberMe)
-        
+
         countryLabel.isAccessibilityElement = false
         idCodeLabel.isAccessibilityElement = false
-        
+
         countryTextField.accessibilityLabel = L(.smartIdCountryTitle)
         idCodeTextField.accessibilityLabel = L(.signingIdcodeTitle)
 
         idCodeTextField.moppPresentDismissButton()
         idCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         idCodeTextField.layer.borderWidth = 1.0
-        
+
         personalCodeErrorLabel.text = ""
         personalCodeErrorLabel.isHidden = true
 
         countryViewPicker.dataSource = self
         countryViewPicker.delegate = self
-        
+
         countryTextField.moppPresentDismissButton()
         countryTextField.inputView = countryViewPicker
         countryTextField.layer.borderColor = UIColor.moppContentLine.cgColor
@@ -101,7 +102,7 @@ class SmartIDEditViewController : MoppViewController {
         tapGR = UITapGestureRecognizer()
         tapGR.addTarget(self, action: #selector(cancelAction))
         view.addGestureRecognizer(tapGR)
-        
+
         guard let titleUILabel = titleLabel, let countryUILabel = countryLabel, let countryUITextField = countryTextField, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
             printLog("Unable to get titleLabel, countryLabel, countryTextField, idCodeLabel, idCodeTextField, rememberLabel, rememberSwitch, cancelButton or signButton")
             return
@@ -198,6 +199,20 @@ class SmartIDEditViewController : MoppViewController {
         signButton.isEnabled = countryViewPicker.selectedRow(inComponent: 0) != 0 || !TokenFlowUtil.isPersonalCodeInvalid(text: codeTextField)
         signButton.backgroundColor = signButton.isEnabled ? UIColor.moppBase : UIColor.moppLabel
     }
+
+    override func keyboardWillShow(notification: NSNotification) {
+        if countryTextField.isFirstResponder {
+            showKeyboard(textFieldLabel: countryLabel, scrollView: scrollView)
+        }
+
+        if idCodeTextField.isFirstResponder {
+            showKeyboard(textFieldLabel: idCodeLabel, scrollView: scrollView)
+        }
+    }
+
+    override func keyboardWillHide(notification: NSNotification) {
+        hideKeyboard(scrollView: scrollView)
+    }
 }
 
 extension SmartIDEditViewController: UIPickerViewDataSource, UIPickerViewDelegate {
@@ -259,7 +274,7 @@ extension SmartIDEditViewController : UITextFieldDelegate {
         }
         return true
     }
-    
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.accessibilityIdentifier == "smartIDCodeField" {
             if let text = textField.text as String? {

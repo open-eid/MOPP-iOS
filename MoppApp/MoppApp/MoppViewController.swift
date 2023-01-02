@@ -23,6 +23,8 @@
 class MoppViewController : UIViewController {
     var lightContentStatusBarStyle : Bool = false
 
+    private var scrollViewContentOffset: CGPoint = CGPoint()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,6 +33,9 @@ class MoppViewController : UIViewController {
         titleImageView.accessibilityLabel = L(.digidocImageAccessibility)
         titleImageView.accessibilityTraits = [.image]
         navigationItem.titleView = titleImageView
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     deinit {
@@ -121,4 +126,16 @@ class MoppViewController : UIViewController {
         view.layer.borderWidth = 1.0
     }
 
+    @objc func keyboardWillHide(notification: NSNotification) {}
+
+    @objc func keyboardWillShow(notification: NSNotification) {}
+
+    func showKeyboard(textFieldLabel: UILabel, scrollView: UIScrollView) {
+        scrollViewContentOffset = scrollView.contentOffset
+        scrollView.setContentOffset(CGPoint(x: 0, y: textFieldLabel.frame.origin.y), animated: true)
+    }
+
+    func hideKeyboard(scrollView: UIScrollView) {
+        scrollView.setContentOffset(scrollViewContentOffset, animated: true)
+    }
 }

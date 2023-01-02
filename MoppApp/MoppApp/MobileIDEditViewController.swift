@@ -45,6 +45,7 @@ protocol MobileIDEditViewControllerDelegate : AnyObject {
 }
 
 class MobileIDEditViewController : MoppViewController {
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var idCodeTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var centerViewCenterCSTR: NSLayoutConstraint!
@@ -198,6 +199,20 @@ class MobileIDEditViewController : MoppViewController {
                 sender.deleteBackward()
             }
         }
+    }
+    
+    override func keyboardWillShow(notification: NSNotification) {
+        if phoneTextField.isFirstResponder {
+            showKeyboard(textFieldLabel: phoneLabel, scrollView: scrollView)
+        }
+        
+        if idCodeTextField.isFirstResponder {
+            showKeyboard(textFieldLabel: idCodeLabel, scrollView: scrollView)
+        }
+    }
+    
+    override func keyboardWillHide(notification: NSNotification) {
+        hideKeyboard(scrollView: scrollView)
     }
 }
 
