@@ -184,7 +184,7 @@ class SmartIDEditViewController : MoppViewController {
         idCodeTextField.attributedPlaceholder = NSAttributedString(string: L(.smartIdCountryTitle), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker])
         idCodeTextField.text = DefaultsHelper.sidIdCode
         idCodeTextField.attributedPlaceholder = NSAttributedString(string: L(.settingsIdCodePlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker])
-        rememberSwitch.setOn(DefaultsHelper.sidCountry != "EE" || DefaultsHelper.sidIdCode.count > 0, animated: true)
+        rememberSwitch.setOn(!DefaultsHelper.sidIdCode.isEmpty, animated: true)
 
         verifySigningCapability()
     }
