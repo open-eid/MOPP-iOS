@@ -23,6 +23,9 @@
 
 import UIKit
 class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
+
+    private var isSavingOneTimeLog = false
+
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var appVersionLabel: UILabel!
     @IBOutlet weak var opSysVersionLabel: UILabel!
@@ -41,6 +44,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     }
     @IBOutlet weak var saveLogButtonLabel: UIButton!
     @IBAction func saveLogButton(_ sender: Any) {
+        isSavingOneTimeLog = true
         handleSaveOneTimeLog()
     }
 
@@ -338,7 +342,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     }
 
     private func isButtonLabel(text: String) -> Bool {
-        return text == L(.refreshConfigurationLabel) || text == L(.saveDiagnosticsLabel)
+        return text == L(.refreshConfigurationLabel) || text == L(.saveDiagnosticsLabel) || text == L(.diagnosticsActivateOneTimeLogging) || text == L(.diagnosticsSaveLog) || text == L(.closeButton)
     }
 
     private func isCategoryLabel(text: String) -> Bool {
@@ -385,7 +389,9 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
             let savedFileLocation: URL? = urls.first
             printLog("File (\(savedFileLocation?.lastPathComponent ?? "Not available") export done. Location: \(savedFileLocation?.path ?? "Not available")")
             self.errorAlert(message: L(.fileImportFileSaved))
-            disableLogging()
+            if isSavingOneTimeLog {
+                disableLogging()
+            }
         } else {
             printLog("Failed to save file")
             return self.errorAlert(message: L(.fileImportFailedFileSave))
