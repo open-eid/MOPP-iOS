@@ -131,11 +131,10 @@ class MoppViewController : UIViewController {
     @objc func keyboardWillShow(notification: NSNotification) {}
 
     func showKeyboard(textFieldLabel: UILabel, scrollView: UIScrollView) {
-        scrollViewContentOffset = scrollView.contentOffset
         scrollView.setContentOffset(CGPoint(x: 0, y: textFieldLabel.frame.origin.y), animated: true)
     }
 
     func hideKeyboard(scrollView: UIScrollView) {
-        scrollView.setContentOffset(scrollViewContentOffset, animated: true)
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
 }
