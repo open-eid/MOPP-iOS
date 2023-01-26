@@ -22,10 +22,7 @@
  */
 
 import Foundation
-import SkSigningLib
 import CommonCrypto
-
-
 
 protocol SigningActions {
    func startSigningProcess()
@@ -170,21 +167,21 @@ extension SigningContainerViewController : IdCardSignViewControllerDelegate {
             } else {
                 guard let nsError = error as NSError? else { return }
                 if nsError.code == Int(MoppLibErrorCode.moppLibErrorPinBlocked.rawValue) {
-                    errorAlert(message: L(.pin2BlockedAlert))
+                    ErrorUtil.generateError(signingError: L(.pin2BlockedAlert))
                 } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorTooManyRequests.rawValue) {
-                    errorAlert(message: L(.signingErrorTooManyRequests))
+                    ErrorUtil.generateError(signingError: .tooManyRequests)
                 } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
-                    errorAlert(message: L(.noConnectionMessage))
+                    ErrorUtil.generateError(signingError: .noResponseError)
                 } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorOCSPTimeSlot.rawValue) {
-                    errorAlert(message: L(.ocspInvalidTimeSlot))
+                    ErrorUtil.generateError(signingError: .ocspInvalidTimeSlot)
                 } else {
-                    errorAlert(message: MessageUtil.errorMessageWithDetails(details: nsError.localizedDescription))
+                    ErrorUtil.generateError(signingError: .empty, details: MessageUtil.errorMessageWithDetails(details: nsError.localizedDescription))
                 }
             }
         } else {
             if let error = error as? IdCardActionError {
                 if error == .actionCancelled {
-                    errorAlert(message: L(.signingAbortedMessage))
+                    ErrorUtil.generateError(signingError: L(.signingAbortedMessage))
                 }
             }
         }

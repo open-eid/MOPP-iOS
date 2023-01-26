@@ -31,6 +31,11 @@ class ErrorUtil {
         return self.errorResult(error: error)
     }
     
+    static func generateError(signingError: String, details: String = "") -> Void {
+        let error = NSError(domain: "SkSigningLib", code: 10, userInfo: [NSLocalizedDescriptionKey: signingError, NSLocalizedFailureReasonErrorKey: details])
+        return self.errorResult(error: error)
+    }
+    
     static func errorResult(error: Error) -> Void {
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .errorNotificationName, object: nil, userInfo: [kErrorKey: error])
