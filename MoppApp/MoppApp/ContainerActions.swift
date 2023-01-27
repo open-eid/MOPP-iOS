@@ -133,21 +133,21 @@ extension ContainerActions where Self: UIViewController {
 
             landingViewController.importProgressViewController.dismissRecursivelyIfPresented(animated: false, completion: {
                 var alert: UIAlertController
+                if isEmptyFileImported {
+                    navController?.viewControllers.last!.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))
+                    return
+                }
+                
                 if err?.code == 10018 && (url.lastPathComponent.hasSuffix(ContainerFormatDdoc) || url.lastPathComponent.hasSuffix(ContainerFormatPDF)) {
                     alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.noConnectionMessage), preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
 
                     navController?.viewControllers.last!.present(alert, animated: true)
                     return
-                } else if err?.code == 10005 {
+                } else {
                     alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [fileName]), preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
                     navController?.viewControllers.last!.present(alert, animated: true)
-                    return
-                }
-
-                if isEmptyFileImported {
-                    navController?.viewControllers.last!.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))
                     return
                 }
             })
