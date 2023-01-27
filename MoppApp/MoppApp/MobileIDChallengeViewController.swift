@@ -21,11 +21,9 @@
  *
  */
 
-import SkSigningLib
 import UIKit
 
 private var kRequestTimeout: Double = 120.0
-
 
 class MobileIDChallengeViewController : UIViewController {
 
@@ -132,16 +130,12 @@ class MobileIDChallengeViewController : UIViewController {
     }
 
     @objc func receiveErrorNotification(_ notification: Notification) {
-        guard let userInfo = notification.userInfo else { return }
-        let error = userInfo[kErrorKey] as? NSError
-        let signingErrorMessage = (error as? SigningError)?.signingErrorDescription
-        let signingError = error?.userInfo[NSLocalizedDescriptionKey] as? SigningError
-        let detailedErrorMessage = error?.userInfo[NSLocalizedFailureReasonErrorKey] as? String
-        var errorMessage = userInfo[kErrorMessage] as? String ?? SkSigningLib_LocalizedString(signingError?.signingErrorDescription ?? signingErrorMessage ?? "")
-        if !detailedErrorMessage.isNilOrEmpty {
-            errorMessage = "\(userInfo[kErrorMessage] as? String ?? SkSigningLib_LocalizedString(signingError?.signingErrorDescription ?? signingErrorMessage ?? "")) \n\(detailedErrorMessage ?? "")"
+        DispatchQueue.main.async {
+            self.dismiss(animated: false) {
+                let topViewController = self.getTopViewController()
+                AlertUtil.errorMessageDialog(notification, topViewController: topViewController)
+            }
         }
-        return showErrorDialog(errorMessage: SkSigningLib_LocalizedString(errorMessage))
     }
 
     func showErrorDialog(errorMessage: String) -> Void {

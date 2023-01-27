@@ -52,6 +52,8 @@ class SigningContainerViewController : ContainerViewController, SigningActions, 
         containerViewDelegate = self
         signingContainerViewDelegate = self
         
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveErrorNotification), name: .errorNotificationName, object: nil)
+        
         if UIAccessibility.isVoiceOverRunning {
             NotificationCenter.default.addObserver(
                 self,
@@ -319,6 +321,15 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
             UIAccessibility.post(notification: .announcement, argument: announcementValue)
         } else if isSuccessful && announcementValue == L(.containerDetailsSigningSuccess) {
             NotificationCenter.default.removeObserver(self, name: UIAccessibility.announcementDidFinishNotification, object: nil)
+        }
+    }
+    
+    @objc func receiveErrorNotification(_ notification: Notification) {
+        DispatchQueue.main.async {
+            self.dismiss(animated: false) {
+                let topViewController = self.getTopViewController()
+                AlertUtil.errorMessageDialog(notification, topViewController: topViewController)
+            }
         }
     }
 }
