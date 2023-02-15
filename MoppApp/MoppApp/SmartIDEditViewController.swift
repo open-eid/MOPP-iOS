@@ -282,12 +282,12 @@ extension SmartIDEditViewController : UITextFieldDelegate {
                     personalCodeErrorLabel.text = L(.signingErrorIncorrectPersonalCode)
                     personalCodeErrorLabel.isHidden = false
                     setViewBorder(view: textField, color: .moppError)
-                    UIAccessibility.post(notification: .screenChanged, argument: self.personalCodeErrorLabel)
+                    UIAccessibility.post(notification: .layoutChanged, argument: self.personalCodeErrorLabel)
                 } else {
                     personalCodeErrorLabel.text = ""
                     personalCodeErrorLabel.isHidden = true
                     removeViewBorder(view: textField)
-                    UIAccessibility.post(notification: .screenChanged, argument: idCodeTextField)
+                    UIAccessibility.post(notification: .layoutChanged, argument: idCodeTextField)
                 }
             }
         }

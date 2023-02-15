@@ -237,17 +237,17 @@ extension MobileIDEditViewController : UITextFieldDelegate {
                     phoneNumberErrorLabel.text = L(.signingErrorIncorrectCountryCode)
                     phoneNumberErrorLabel.isHidden = false
                     setViewBorder(view: textField, color: .moppError)
-                    UIAccessibility.post(notification: .screenChanged, argument: self.phoneNumberErrorLabel)
+                    UIAccessibility.post(notification: .layoutChanged, argument: self.phoneNumberErrorLabel)
                 } else if TokenFlowUtil.isPhoneNumberInvalid(text: text) {
                     phoneNumberErrorLabel.text = L(.signingErrorIncorrectPhoneNumber)
                     phoneNumberErrorLabel.isHidden = false
                     setViewBorder(view: textField, color: .moppError)
-                    UIAccessibility.post(notification: .screenChanged, argument: self.phoneNumberErrorLabel)
+                    UIAccessibility.post(notification: .layoutChanged, argument: self.phoneNumberErrorLabel)
                 } else {
                     phoneNumberErrorLabel.text = ""
                     phoneNumberErrorLabel.isHidden = true
                     removeViewBorder(view: textField)
-                    UIAccessibility.post(notification: .screenChanged, argument: phoneTextField)
+                    UIAccessibility.post(notification: .layoutChanged, argument: phoneTextField)
                 }
             }
         } else if textField.accessibilityIdentifier == "mobileIDCodeField" {
