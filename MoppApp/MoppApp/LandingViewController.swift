@@ -271,11 +271,7 @@ extension LandingViewController {
                 view.accessibilityLabel = selectedTab == .myeIDTab ? setTabAccessibilityLabel(isTabSelected: true, tabName: L(.myEidInfoMyEidAccessibility), positionInRow: "3", viewCount: String(visibleViews.count)) : setTabAccessibilityLabel(isTabSelected: false, tabName: L(.myEidInfoMyEidAccessibility), positionInRow: "3", viewCount: String(visibleViews.count))
                 break
             case "shareButton":
-                if buttonIDs.contains(TabButtonId.decryptButton) && buttonIDs.contains(TabButtonId.shareButton) {
-                    view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabShareButtonAccessibility), positionInRow: "2", viewCount: String(visibleViews.count))
-                } else {
-                    view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabShareButtonAccessibility), positionInRow: "1", viewCount: String(visibleViews.count))
-                }
+                view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabShareButtonAccessibility), positionInRow: "1", viewCount: String(visibleViews.count))
                 view.accessibilityTraits = UIAccessibilityTraits.button
                 break
             case "signButton":
@@ -292,7 +288,7 @@ extension LandingViewController {
                 break
             case "decryptButton":
                 if buttonIDs.contains(TabButtonId.decryptButton) && buttonIDs.contains(TabButtonId.shareButton) {
-                    view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabDecryptButton), positionInRow: "1", viewCount: String(visibleViews.count))
+                    view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabDecryptButton), positionInRow: "2", viewCount: String(visibleViews.count))
                 } else {
                     view.accessibilityLabel = L(.tabDecryptButton)
                 }
