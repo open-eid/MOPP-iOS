@@ -152,7 +152,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         NotificationCenter.default.post(name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil, userInfo: ["isLoaded": false])
     }
 
-    internal func loadCentralConfiguration() {
+    internal func loadCentralConfiguration(completionHandler: @escaping (Error) -> () = { _ in }) {
         do {
             let cachedSignature = getConfigurationFromCache(forKey: "signature") as? String
             let localPublicKey = try String(contentsOfFile: Bundle.main.path(forResource: "publicKey", ofType: "pub")!)
@@ -163,8 +163,9 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             }
             
             getFetchedData(fromUrl: "\(getDefaultMoppConfiguration().CENTRALCONFIGURATIONSERVICEURL)/config.rsa") { (centralSignature, signatureError) in
-                if (signatureError != nil) {
-                    printLog(signatureError!.localizedDescription)
+                if let error = signatureError {
+                    printLog(error.localizedDescription)
+                    completionHandler(error)
                 }
                 guard let centralSignature = centralSignature else {
                     self.handleCacheConfiguration()
@@ -172,8 +173,9 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                 }
                 if SignatureVerifier().hasSignatureChanged(oldSignature: cachedSignature!, newSignature: centralSignature) {
                     self.getFetchedData(fromUrl: "\(self.getDefaultMoppConfiguration().CENTRALCONFIGURATIONSERVICEURL)/config.json") { (centralConfig, configError) in
-                        if (configError != nil) {
-                            printLog(configError!.localizedDescription)
+                        if let confError = configError {
+                            printLog(confError.localizedDescription)
+                            self.handleCacheConfiguration()
                         }
                         guard let centralConfig = centralConfig else {
                             self.handleCacheConfiguration()
@@ -222,14 +224,18 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
 
         let task = urlSession.dataTask(with: request, completionHandler: { data, response, error in
+            
+            if let err = error as? NSError {
+                if err.code == -1009 {
+                    completionHandler(nil, DiagnosticError.noInternetConnection)
+                } else {
+                    completionHandler(nil, err)
+                }
+            }
 
             guard let data = data else { return }
 
             guard let dataAsString = String(bytes: data, encoding: String.Encoding.utf8) else { return }
-
-            if error != nil {
-                printLog(error!.localizedDescription)
-            }
 
             completionHandler(dataAsString, error)
 
@@ -242,6 +248,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         fetchDataFromCentralConfiguration(fromUrl: url) { (data, error) in
             if (error != nil) {
                 printLog(error!.localizedDescription)
+                completionHandler(nil, error)
             }
             guard let data = data else { return }
             
