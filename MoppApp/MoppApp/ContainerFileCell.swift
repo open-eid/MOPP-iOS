@@ -45,17 +45,17 @@ class ContainerFileCell: UITableViewCell {
     }
     
     @IBAction func saveAction(_ sender: Any) {
-        delegate?.saveDataFile(fileName: MoppLibManager.sanitize(filenameLabel.text) ?? "-")
+        delegate?.saveDataFile(fileName: filenameLabel.text?.sanitize() ?? "-")
     }
     
     func populate(name: String, showBottomBorder: Bool, showRemoveButton: Bool, showDownloadButton: Bool, dataFileIndex: Int) {
         bottomBorderView.isHidden = !showBottomBorder
-        filenameLabel.text = MoppLibManager.sanitize(name)
+        filenameLabel.text = name.sanitize()
         filenameLabel.resetLabelProperties()
         removeButton.isHidden = !showRemoveButton
-        removeButton.accessibilityLabel = formatString(text: L(.fileImportRemoveFile), additionalText: MoppLibManager.sanitize(filenameLabel.text))
+        removeButton.accessibilityLabel = formatString(text: L(.fileImportRemoveFile), additionalText: filenameLabel.text?.sanitize())
         saveButton.isHidden = !showDownloadButton
-        saveButton.accessibilityLabel = formatString(text: L(.fileImportSaveFile), additionalText: MoppLibManager.sanitize(filenameLabel.text))
+        saveButton.accessibilityLabel = formatString(text: L(.fileImportSaveFile), additionalText: filenameLabel.text?.sanitize())
         self.dataFileIndex = dataFileIndex
     }
 }
