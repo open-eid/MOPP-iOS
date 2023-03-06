@@ -1,5 +1,5 @@
 //
-//  FileUtil.swift
+//  CancelUtil.swift
 //  MoppApp
 //
 /*
@@ -22,21 +22,12 @@
  */
 
 import Foundation
+import SkSigningLib
 
-struct FileUtil {
-    static func getSignDocumentFileName(containerPath: String) -> String {
-        guard !containerPath.isEmpty else { return "" }
-        let fileURL: URL? = URL(fileURLWithPath: containerPath)
-        if let fileURL = fileURL {
-            let fileName = fileURL.deletingPathExtension().lastPathComponent
-            let fileExtension = fileURL.pathExtension
-            
-            if fileName.count <= 6 {
-                return "\(fileName).\(fileExtension)"
-            }
-            
-            return "\(fileName.prefix(3))...\(fileName.suffix(3)).\(fileExtension)"
-        }
-        return ""
+class CancelUtil {
+    
+    static func handleCancelledRequest(errorMessageDetails: String) {
+        CancelRequestUtil.handleRequestCancellation()
+        ErrorUtil.generateError(signingError: .cancelled, details: MessageUtil.errorMessageWithDetails(details: errorMessageDetails))
     }
 }
