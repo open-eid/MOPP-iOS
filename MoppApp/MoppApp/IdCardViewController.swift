@@ -332,15 +332,17 @@ class IdCardViewController : MoppViewController {
             initialStateExpirationTimer = nil
         }
 
-        view.layoutIfNeeded()
+        DispatchQueue.main.async {
+            self.view.layoutIfNeeded()
 
-        for subview in self.view.subviews {
-            if subview.isKind(of: UIView.self) {
-                self.view.isAccessibilityElement = false
-                guard let titleUILabel = titleLabel, let pinUITextFieldTitleLabel = pinTextFieldTitleLabel, let pinUITextField = pinTextField, let cancelUIButton = cancelButton, let actionUIButton = actionButton else {
-                    return
+            for subview in self.view.subviews {
+                if subview.isKind(of: UIView.self) {
+                    self.view.isAccessibilityElement = false
+                    guard let titleUILabel = self.titleLabel, let pinUITextFieldTitleLabel = self.pinTextFieldTitleLabel, let pinUITextField = self.pinTextField, let cancelUIButton = self.cancelButton, let actionUIButton = self.actionButton else {
+                        return
+                    }
+                    subview.accessibilityElements = [titleUILabel, pinUITextFieldTitleLabel, pinUITextField, cancelUIButton, actionUIButton]
                 }
-                subview.accessibilityElements = [titleUILabel, pinUITextFieldTitleLabel, pinUITextField, cancelUIButton, actionUIButton]
             }
         }
 
