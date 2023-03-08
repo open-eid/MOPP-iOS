@@ -97,7 +97,13 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
             urlSession = URLSession.shared
         }
         
-        urlSession.dataTask(with: request as URLRequest) { data, response, error in
+        let sessionTask: URLSessionTask? = urlSession.dataTask(with: request as URLRequest) { data, response, error in
+            
+            let isRequestCancelled = CancelRequestUtil.isRequestCancellationHandled(urlSession: urlSession, urlSessionTask: self.urlTask, methodDescription: "RIA.MobileID - Session")
+            
+            if isRequestCancelled {
+                completionHandler(.failure(.cancelled))
+            }
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 Logging.errorLog(forMethod: "RIA.MobileID - Session", httpResponse: response as? HTTPURLResponse ?? nil, error: .noResponseError, extraInfo: "")
@@ -121,7 +127,9 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
                     }
                 })
             }
-        }.resume()
+        }
+        sessionTask?.resume()
+        self.urlTask = sessionTask
     }
     
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
@@ -158,6 +166,13 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
             urlSession = URLSession.shared
         }
         let sessionTask: URLSessionTask? = urlSession.dataTask(with: request as URLRequest) { data, response, error in
+            
+            let isRequestCancelled = CancelRequestUtil.isRequestCancellationHandled(urlSession: urlSession, urlSessionTask: self.urlTask, methodDescription: "RIA.MobileID - Session status")
+            
+            if isRequestCancelled {
+                return completionHandler(.failure(.cancelled))
+            }
+            
             guard let httpResponse = response as? HTTPURLResponse else {
                 self.urlTask?.cancel()
                 Logging.errorLog(forMethod: "RIA.MobileID - Session status", httpResponse: response as? HTTPURLResponse ?? nil, error: .noResponseError, extraInfo: "")
@@ -236,6 +251,5 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
             return .technicalError
         }
     }
-    
 }
 

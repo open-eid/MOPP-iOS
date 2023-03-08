@@ -63,6 +63,7 @@ public class SIDRequest: NSObject, URLSessionDelegate, SIDRequestProtocol {
 
     public static let shared = SIDRequest()
     private var trustedCerts: [String]?
+    private weak var urlTask: URLSessionTask?
 
     public func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void) {
         var url = ""
@@ -105,8 +106,21 @@ public class SIDRequest: NSObject, URLSessionDelegate, SIDRequestProtocol {
         let config = URLSessionConfiguration.default
         config.requestCachePolicy = .reloadIgnoringLocalCacheData
         config.urlCache = nil
-        URLSession(configuration: config, delegate: trustedCertificates != nil ? self : nil, delegateQueue: nil)
-            .dataTask(with: request) { data, response, error in
+
+        let urlSession: URLSession
+        if trustedCertificates != nil {
+            urlSession = URLSession(configuration: config, delegate: self, delegateQueue: nil)
+        } else {
+            urlSession = URLSession.shared
+        }
+        let sessionTask: URLSessionTask? = urlSession.dataTask(with: request) { data, response, error in
+                
+            let isRequestCancelled = CancelRequestUtil.isRequestCancellationHandled(urlSession: urlSession, urlSessionTask: self.urlTask, methodDescription: "RIA.SmartID - exec - \(method)")
+            
+            if isRequestCancelled {
+                completionHandler(.failure(.cancelled))
+            }
+                
             switch error {
             case nil: break
             case let nsError as NSError where nsError.code == NSURLErrorCancelled || nsError.code == NSURLErrorSecureConnectionFailed:
@@ -150,7 +164,9 @@ public class SIDRequest: NSObject, URLSessionDelegate, SIDRequestProtocol {
                         "Response: \n \(String(data: data ?? Data(), encoding: .utf8) ?? "Unable to get response info")")
 
             EncoderDecoder().decode(data: data!, completionHandler: { response in completionHandler(.success(response)) })
-        }.resume()
+        }
+        sessionTask?.resume()
+        self.urlTask = sessionTask
     }
 
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {

@@ -88,10 +88,11 @@ extension AddresseeViewController : UISearchBarDelegate {
         }
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = searchBar.text?.trimWhitespacesAndNewlines()
         selectedIndexes = []
         showLoading(show: true)
         MoppLibCryptoActions.sharedInstance().searchLdapData(
-            searchBar.text,
+            searchBar.text?.trimWhitespacesAndNewlines(),
             success: { (_ ldapResponse: NSMutableArray?) -> Void in
                 _ = ldapResponse?.sorted {($0 as! Addressee).identifier < ($1 as! Addressee).identifier }
                 
