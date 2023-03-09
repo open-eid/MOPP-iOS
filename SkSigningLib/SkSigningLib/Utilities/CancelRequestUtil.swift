@@ -1,6 +1,6 @@
 //
-//  FileUtil.swift
-//  MoppApp
+//  CancelRequestUtil.swift
+//  SkSigningLib
 //
 /*
  * Copyright 2017 - 2023 Riigi Infosüsteemi Amet
@@ -23,20 +23,13 @@
 
 import Foundation
 
-struct FileUtil {
-    static func getSignDocumentFileName(containerPath: String) -> String {
-        guard !containerPath.isEmpty else { return "" }
-        let fileURL: URL? = URL(fileURLWithPath: containerPath)
-        if let fileURL = fileURL {
-            let fileName = fileURL.deletingPathExtension().lastPathComponent.sanitize()
-            let fileExtension = fileURL.pathExtension
-            
-            if fileName.count <= 6 {
-                return "\(fileName).\(fileExtension)"
-            }
-            
-            return "\(fileName.prefix(3))...\(fileName.suffix(3)).\(fileExtension)"
-        }
-        return ""
+public class CancelRequestUtil {
+    
+    public static func handleRequestCancellation() {
+        RequestCancel.shared.resetCancelRequest()
+    }
+    
+    public static func isRequestCancellationHandled(urlSession: URLSession?, urlSessionTask: URLSessionTask?, methodDescription: String) -> Bool {
+        return RequestCancel.shared.isRequestCancellationHandled(urlSession: urlSession, urlSessionTask: urlSessionTask, methodDescription: methodDescription)
     }
 }

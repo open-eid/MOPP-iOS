@@ -50,9 +50,13 @@ class MobileIDSignature {
             self.getSession(baseUrl: baseUrl, uuid: uuid, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, hash: hash, hashType: hashType, language: language, trustedCertificates: Configuration.getConfiguration().CERTBUNDLE,  completionHandler: { (sessionId) in
                 // MARK: Request session status
                 self.getSessionStatus(baseUrl: baseUrl, sessionId: sessionId, cert: cert, trustedCertificates: certBundle, completionHandler: { (signatureValue) in
-                    // MARK: Validate signature
-                    DispatchQueue.main.async {
-                        return self.validateSignature(cert: cert, signatureValue: signatureValue)
+                    if !RequestCancel.shared.isRequestCancelled() {
+                        // MARK: Validate signature
+                        DispatchQueue.main.async {
+                            return self.validateSignature(cert: cert, signatureValue: signatureValue)
+                        }
+                    } else {
+                        return CancelUtil.handleCancelledRequest(errorMessageDetails: "User cancelled Mobile-ID signing")
                     }
                 })
             })
@@ -60,6 +64,11 @@ class MobileIDSignature {
     }
 
     private func getCertificate(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, containerPath: String, trustedCertificates: [String]?, completionHandler: @escaping (String, String) -> Void) {
+
+        if RequestCancel.shared.isRequestCancelled() {
+            return CancelUtil.handleCancelledRequest(errorMessageDetails: "User cancelled Mobile-ID signing")
+        }
+
         // MARK: Get certificate
         if isUsingTestMode() {
             printLog("RIA.MobileID - Getting certificate...:\n" +
@@ -119,6 +128,11 @@ class MobileIDSignature {
     }
 
     private func getSession(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, hash: String, hashType: String, language: String, trustedCertificates: [String]?, completionHandler: @escaping (String) -> Void) {
+
+        if RequestCancel.shared.isRequestCancelled() {
+            return CancelUtil.handleCancelledRequest(errorMessageDetails: "User cancelled Mobile-ID signing")
+        }
+
         // MARK: Get session
         if isUsingTestMode() {
             printLog("RIA.MobileID - Getting session...:\n" +
@@ -157,6 +171,11 @@ class MobileIDSignature {
     }
 
     private func getSessionStatus(baseUrl: String, sessionId: String, cert: String, trustedCertificates: [String]?, completionHandler: @escaping (String) -> Void) {
+
+        if RequestCancel.shared.isRequestCancelled() {
+            return CancelUtil.handleCancelledRequest(errorMessageDetails: "User cancelled Mobile-ID signing")
+        }
+
         // MARK: Get session status
         if isUsingTestMode() {
             printLog("RIA.MobileID - Getting session status...:\n" +

@@ -27,6 +27,7 @@ public enum SigningError: String, Error {
     
     // MARK: General
     case empty
+    case cancelled
     
     // MARK: General Errors
     case invalidURL
@@ -82,6 +83,8 @@ extension SigningError: LocalizedError {
         switch self {
         case .empty:
             return NSLocalizedString("", comment: "")
+        case .cancelled:
+            return NSLocalizedString("Signing cancelled", comment: "")
         case .parameterNameNull:
             return NSLocalizedString("mid-rest-error-incorrect-parameters", comment: "")
         case .invalidURL:
