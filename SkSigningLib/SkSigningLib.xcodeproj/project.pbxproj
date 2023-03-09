@@ -24,6 +24,8 @@
 		DF3D29B723F6A92A007181B8 /* SkSigningLibTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3D29B623F6A92A007181B8 /* SkSigningLibTests.swift */; };
 		DF3D29B923F6A92A007181B8 /* SkSigningLib.h in Headers */ = {isa = PBXBuildFile; fileRef = DF3D29AB23F6A929007181B8 /* SkSigningLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DF90EDE024223D6A0040FFE7 /* ControlCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF90EDDF24223D6A0040FFE7 /* ControlCode.swift */; };
+		DFBA32A2299EA5D400788A87 /* CancelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA32A1299EA5D400788A87 /* CancelRequest.swift */; };
+		DFBA32A429A59B2500788A87 /* CancelRequestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA32A329A59B2500788A87 /* CancelRequestUtil.swift */; };
 		DFC88C2E241F9B1100B0087B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC88C30241F9B1100B0087B /* Localizable.strings */; };
 		DFD204E0240D201600EB8150 /* RequestSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204DF240D201600EB8150 /* RequestSession.swift */; };
 		DFD204E4240D20B300EB8150 /* SessionRequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204E3240D20B300EB8150 /* SessionRequestParameters.swift */; };
@@ -68,6 +70,8 @@
 		DF3D29B623F6A92A007181B8 /* SkSigningLibTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkSigningLibTests.swift; sourceTree = "<group>"; };
 		DF3D29B823F6A92A007181B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF90EDDF24223D6A0040FFE7 /* ControlCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlCode.swift; sourceTree = "<group>"; };
+		DFBA32A1299EA5D400788A87 /* CancelRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelRequest.swift; sourceTree = "<group>"; };
+		DFBA32A329A59B2500788A87 /* CancelRequestUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelRequestUtil.swift; sourceTree = "<group>"; };
 		DFC88C2F241F9B1100B0087B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DFC88C31241F9B1B00B0087B /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = et.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DFC88C38241FDEE400B0087B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -141,9 +145,8 @@
 		DF04A88B23FEA6740086C9F9 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
-				4E59082324B32E9A001B23A6 /* SIDRequest.swift */,
-				DF04A88C23FEA6950086C9F9 /* RequestSignature.swift */,
-				DFD204DF240D201600EB8150 /* RequestSession.swift */,
+				DFBA32A729A5AEC200788A87 /* Mobile-ID */,
+				DFBA32A829A5AECF00788A87 /* Smart-ID */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 				DF3653B1242BA07400C48AC5 /* Logging.swift */,
 				DFEB04E8243DF3F00080F43A /* CertificatePinning.swift */,
 				DF2AB81626038EBD00892A2D /* Constants.swift */,
+				DFBA32A329A59B2500788A87 /* CancelRequestUtil.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -237,6 +241,24 @@
 				DF3D29B823F6A92A007181B8 /* Info.plist */,
 			);
 			path = SkSigningLibTests;
+			sourceTree = "<group>";
+		};
+		DFBA32A729A5AEC200788A87 /* Mobile-ID */ = {
+			isa = PBXGroup;
+			children = (
+				DF04A88C23FEA6950086C9F9 /* RequestSignature.swift */,
+				DFD204DF240D201600EB8150 /* RequestSession.swift */,
+				DFBA32A1299EA5D400788A87 /* CancelRequest.swift */,
+			);
+			path = "Mobile-ID";
+			sourceTree = "<group>";
+		};
+		DFBA32A829A5AECF00788A87 /* Smart-ID */ = {
+			isa = PBXGroup;
+			children = (
+				4E59082324B32E9A001B23A6 /* SIDRequest.swift */,
+			);
+			path = "Smart-ID";
 			sourceTree = "<group>";
 		};
 		DFC88C2B241F9AA000B0087B /* Supporting Files */ = {
@@ -428,6 +450,7 @@
 				DF04A88D23FEA6950086C9F9 /* RequestSignature.swift in Sources */,
 				DF3653B2242BA07400C48AC5 /* Logging.swift in Sources */,
 				DF04A89023FEC7130086C9F9 /* EncoderDecoder.swift in Sources */,
+				DFBA32A429A59B2500788A87 /* CancelRequestUtil.swift in Sources */,
 				DF04A89723FEDD110086C9F9 /* RequestMethod.swift in Sources */,
 				DFDF02C6241F0150006CF443 /* SigningError.swift in Sources */,
 				DFEB04E9243DF3F00080F43A /* CertificatePinning.swift in Sources */,
@@ -441,6 +464,7 @@
 				DF90EDE024223D6A0040FFE7 /* ControlCode.swift in Sources */,
 				DF04A89523FEDC810086C9F9 /* CertificateRequestParameters.swift in Sources */,
 				DFD204F124100C5500EB8150 /* SessionResponseSignature.swift in Sources */,
+				DFBA32A2299EA5D400788A87 /* CancelRequest.swift in Sources */,
 				4E59081424B30B24001B23A6 /* SIDSessionStatusResponse.swift in Sources */,
 				4E59081224B30B24001B23A6 /* SIDSessionResponse.swift in Sources */,
 			);
