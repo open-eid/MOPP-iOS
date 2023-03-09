@@ -47,6 +47,11 @@ class AlertUtil {
         let error = userInfo[kErrorKey] as? NSError
         let signingErrorMessage = (error as? SigningError)?.signingErrorDescription
         let signingError = error?.userInfo[NSLocalizedDescriptionKey] as? SigningError
+        // Don't show an error when request is cancelled
+        if let err = error, ((err as? SigningError) == SigningError.cancelled) || signingError == .cancelled {
+            topViewController.dismiss(animated: true)
+            return
+        }
         let signingStringError = error?.userInfo[NSLocalizedDescriptionKey] as? String
         let detailedErrorMessage = error?.userInfo[NSLocalizedFailureReasonErrorKey] as? String
         var errorMessage = userInfo[kErrorMessage] as? String ?? SkSigningLib_LocalizedString(signingError?.signingErrorDescription ?? signingErrorMessage ?? signingStringError ?? "")
