@@ -22,6 +22,7 @@
  */
 
 import UIKit
+import SkSigningLib
 
 private var kRequestTimeout: Double = 120.0
 
@@ -38,13 +39,30 @@ class MobileIDChallengeViewController : UIViewController {
     var sessionTimer: Timer?
 
     var isAnnouncementMade: Bool = false
+    
+    @IBOutlet weak var cancelButton: ScaledButton!
+    
+    @IBAction func cancelSigningButton(_ sender: Any) {
+        printLog("Cancelling Mobile-ID signing")
+        sessionTimer?.invalidate()
+        NotificationCenter.default.post(name: .signatureSigningCancelledNotificationName, object: nil)
+        NotificationCenter.default.removeObserver(self)
+        cancelButton.isEnabled = false
+        cancelButton.backgroundColor = .gray
+        cancelButton.tintColor = .white
+        RequestCancel.shared.cancelRequest()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         helpLabel.text = L(.mobileIdSignHelpTitle)
+        cancelButton.setTitle(L(.actionAbort))
+        cancelButton.accessibilityLabel = L(.actionAbort).lowercased()
         codeLabel.isHidden = true
+        currentProgress = 0
         timeoutProgressView.progress = 0
+        RequestCancel.shared.resetCancelRequest()
 
         NotificationCenter.default.addObserver(self, selector: #selector(receiveCreateSignatureStatus), name: .signatureAddedToContainerNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveErrorNotification), name: .errorNotificationName, object: nil)
@@ -167,6 +185,8 @@ class MobileIDChallengeViewController : UIViewController {
         UIView.animate(withDuration: 0.35) {
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         }
+        
+        cancelButton.isEnabled = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
