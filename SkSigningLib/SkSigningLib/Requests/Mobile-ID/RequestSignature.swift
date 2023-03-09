@@ -44,6 +44,7 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
     
     public static let shared: RequestSignature = RequestSignature()
     private var trustedCerts: [String]?
+    private weak var urlTask: URLSessionTask?
     
     public func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<CertificateResponse, SigningError>) -> Void) {
         guard UUID(uuidString: requestParameters.relyingPartyUUID) != nil else { completionHandler(.failure(.midInvalidAccessRights)); return }
@@ -81,7 +82,12 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
             urlSession = URLSession.shared
         }
         
-        urlSession.dataTask(with: request as URLRequest) { data, response, error in
+        let certificateTask: URLSessionTask? = urlSession.dataTask(with: request as URLRequest) { data, response, error in
+            let isRequestCancelled = CancelRequestUtil.isRequestCancellationHandled(urlSession: urlSession, urlSessionTask: self.urlTask, methodDescription: "RIA.MobileID - Certificate")
+            
+            if isRequestCancelled {
+                completionHandler(.failure(.cancelled))
+            }
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 let responseError = error as NSError?
@@ -115,7 +121,9 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
                     }
                 })
             }
-        }.resume()
+        }
+        certificateTask?.resume()
+        self.urlTask = certificateTask
     }
     
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {

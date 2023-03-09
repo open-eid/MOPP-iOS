@@ -57,6 +57,7 @@ extension Notification.Name {
     static let signatureAddedToContainerNotificationName = Notification.Name("SignatureAddedToContainer")
     static let errorNotificationName = Notification.Name("ErrorNotification")
     static let signatureCreatedFinishedNotificationName = Notification.Name("SignatureCreatedFinishedNotificationName")
+    static let signatureSigningCancelledNotificationName = Notification.Name("signatureSigningCancelledNotificationName")
     static let filesImportedNotificationName = Notification.Name("FilesImportedNotificationName")
     static let startImportingFilesWithDocumentPickerNotificationName = Notification.Name("StartImportingFilesNotificationName")
     static let signatureMobileIDPendingRequestNotificationName = Notification.Name("SignatureMobileIDPendingRequestNotificationName")
