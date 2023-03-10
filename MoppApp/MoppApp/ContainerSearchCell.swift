@@ -25,11 +25,20 @@ import Foundation
 
 class ContainerSearchCell: UITableViewCell {
     @IBOutlet weak var searchBar: UISearchBar!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        let searchField = searchBar.value(forKey: "searchField")
-        (searchField as! UITextField).placeholder = L(LocKey.cryptoLdapSearchPlaceholder)
+        
+        if let searchField = searchBar.value(forKey: "searchField") as? UITextField {
+            let scaledFont = UIFontMetrics(forTextStyle: .body).scaledFont(for: searchField.font ?? UIFont())
+            searchField.placeholder = L(LocKey.cryptoLdapSearchPlaceholder)
+            searchField.heightAnchor.constraint(equalToConstant: 55).isActive = true
+            searchField.leadingAnchor.constraint(equalTo: searchBar.leadingAnchor).isActive = true
+            searchField.trailingAnchor.constraint(equalTo: searchBar.trailingAnchor).isActive = true
+            searchField.font = UIFont(name: "Roboto-Regular", size: scaledFont.pointSize)
+            searchField.translatesAutoresizingMaskIntoConstraints = false
+            searchField.adjustsFontForContentSizeCategory = true
+            searchField.adjustsFontSizeToFitWidth = true
+        }
     }
-    
 }

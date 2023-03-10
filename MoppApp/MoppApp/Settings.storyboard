@@ -89,9 +89,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Riigikood ja telefoninumber" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CvN-fs-oAD" customClass="SettingsTextField" customModule="MoppApp" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="32.5" width="343" height="50"/>
+                                                    <rect key="frame" x="16" y="32.5" width="343" height="55"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="RBM-jG-5sa"/>
+                                                        <constraint firstAttribute="height" constant="55" id="RBM-jG-5sa"/>
                                                     </constraints>
                                                     <color key="textColor" name="MoppText"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
@@ -184,15 +184,15 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Stamp teenuse URL" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pbc-P0-5nz" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                    <rect key="frame" x="24" y="13" width="343" height="18"/>
+                                                    <rect key="frame" x="24" y="13" width="343" height="7"/>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="15"/>
                                                     <color key="textColor" name="MoppLabel"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="URL" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BWD-C2-Ms4" customClass="SettingsTextField" customModule="MoppApp" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="39" width="343" height="44"/>
+                                                    <rect key="frame" x="16" y="28" width="343" height="55"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="44" id="zwD-fy-14u"/>
+                                                        <constraint firstAttribute="height" constant="55" id="zwD-fy-14u"/>
                                                     </constraints>
                                                     <color key="textColor" name="MoppText"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
@@ -233,17 +233,12 @@
                                                             <color key="textColor" name="MoppLabel"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Kfe-6C-VVa">
-                                                            <rect key="frame" x="294" y="6.5" width="49" height="31"/>
-                                                            <subviews>
-                                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ZR-f6-fYn">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
-                                                                    <connections>
-                                                                        <action selector="useDefaultToggled:" destination="S9f-IU-Vln" eventType="touchUpInside" id="gpv-K4-w5q"/>
-                                                                    </connections>
-                                                                </switch>
-                                                            </subviews>
-                                                        </stackView>
+                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ZR-f6-fYn">
+                                                            <rect key="frame" x="294" y="6.5" width="51" height="31"/>
+                                                            <connections>
+                                                                <action selector="useDefaultToggled:" destination="S9f-IU-Vln" eventType="touchUpInside" id="gpv-K4-w5q"/>
+                                                            </connections>
+                                                        </switch>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="T7c-wm-JfE"/>

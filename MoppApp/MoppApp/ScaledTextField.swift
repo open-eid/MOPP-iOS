@@ -1,5 +1,5 @@
 //
-//  ScaledLabel.swift
+//  ScaledTextField.swift
 //  MoppApp
 //
 /*
@@ -23,15 +23,15 @@
 
 import Foundation
 
-class ScaledLabel: UILabel {
+class ScaledTextField: UITextField {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         scaleFont()
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
         scaleFont()
     }
     
@@ -44,12 +44,5 @@ class ScaledLabel: UILabel {
         
         self.adjustsFontForContentSizeCategory = true
         self.adjustsFontSizeToFitWidth = true
-        self.minimumScaleFactor = 0.1
-    }
-    
-    func resetLabelProperties() {
-        self.adjustsFontForContentSizeCategory = false
-        self.adjustsFontSizeToFitWidth = false
-        self.minimumScaleFactor = 1
     }
 }
