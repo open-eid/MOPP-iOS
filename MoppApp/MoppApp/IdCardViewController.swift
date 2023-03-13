@@ -172,6 +172,8 @@ class IdCardViewController : MoppViewController {
         NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: OperationQueue.main) { [weak self]_ in
             self?.keyboardDelegate?.idCardPINKeyboardWillDisappear()
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboardAccessibility), name: .hideKeyboardAccessibility, object: nil)
 
         MoppLibCardReaderManager.sharedInstance().delegate = self
         MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
@@ -419,6 +421,15 @@ class IdCardViewController : MoppViewController {
                 }
             })
 
+        }
+    }
+    
+    @objc func hideKeyboardAccessibility(notification: Notification) {
+        if let view = notification.userInfo?["view"] as? UIView {
+            if view.accessibilityIdentifier == "IdCardCancelButton" || view.accessibilityIdentifier == "IdCardActionButton" {
+                self.view.endEditing(true)
+                hideKeyboard(scrollView: scrollView)
+            }
         }
     }
     
