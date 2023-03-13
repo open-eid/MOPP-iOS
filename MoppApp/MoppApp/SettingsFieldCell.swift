@@ -59,7 +59,7 @@ class SettingsFieldCell: UITableViewCell {
         textField.isEnabled = !defaultSwitch
         let attributes = [
             NSAttributedString.Key.foregroundColor: UIColor.placeholderText,
-            NSAttributedString.Key.font : UIFont(name: "Roboto-Regular", size: 16) ?? UIFont.systemFont(ofSize: 16)
+            NSAttributedString.Key.font : UIFont(name: "Roboto-Regular", size: 14) ?? UIFont.systemFont(ofSize: 14)
         ]
         textField.attributedPlaceholder = NSAttributedString(string: field.placeholderText.string, attributes: attributes)
         textField.text = !defaultSwitch ? DefaultsHelper.rpUuid : nil
