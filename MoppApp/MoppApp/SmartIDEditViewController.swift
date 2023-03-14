@@ -184,7 +184,8 @@ class SmartIDEditViewController : MoppViewController {
         idCodeTextField.attributedPlaceholder = NSAttributedString(string: L(.smartIdCountryTitle), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker])
         idCodeTextField.text = DefaultsHelper.sidIdCode
         idCodeTextField.attributedPlaceholder = NSAttributedString(string: L(.settingsIdCodePlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker])
-        rememberSwitch.setOn(!DefaultsHelper.sidIdCode.isEmpty, animated: true)
+        
+        defaultRememberMeToggle()
 
         verifySigningCapability()
     }
@@ -192,6 +193,10 @@ class SmartIDEditViewController : MoppViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         view.backgroundColor = UIColor.black.withAlphaComponent(0.0)
+    }
+    
+    func defaultRememberMeToggle() {
+        rememberSwitch.setOn(DefaultsHelper.smartIdRememberMe, animated: true)
     }
 
     func verifySigningCapability() {

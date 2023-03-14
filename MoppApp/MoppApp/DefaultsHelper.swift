@@ -49,9 +49,11 @@ let CrashlyticsDefault = "Default"
 fileprivate let kSignMethodKey = "kSignMethodKey"
 fileprivate let kPhoneNumberKey = "kPhoneNumberKey"
 fileprivate let kIDCodeKey = "kIDCodeKey"
+fileprivate let kMobileIdRememberMeKey = "kMobileIdRememberMeKey"
 fileprivate let kRPUuidKey = "kRPUuidKey"
 fileprivate let kSIDIDCodeKey = "kSIDIDCodeKey"
 fileprivate let kSIDCountryKey = "kSIDCountryKey"
+fileprivate let kSmartIdRememberMeKey = "kSmartIdRememberMeKey"
 fileprivate let kTimestampUrlKey = "kTimestampUrlKey"
 fileprivate let kSettingsDefaultSwitchKey = "kSettingsDefaultSwitchKey"
 fileprivate let kCrashReportSettingKey = "kCrashReportSettingKey"
@@ -64,10 +66,12 @@ fileprivate let kIsFileLoggingRunning = "kIsFileLoggingRunning"
 
 class DefaultsHelper
 {
-    static func setDefaultSettingsSwitch() {
+    static func setDefaultKeys() {
         UserDefaults.standard.register(
             defaults: [
-                kSettingsDefaultSwitchKey: true
+                kSettingsDefaultSwitchKey: true,
+                kMobileIdRememberMeKey: true,
+                kSmartIdRememberMeKey: true
             ]
         )
     }
@@ -98,6 +102,15 @@ class DefaultsHelper
             return (UserDefaults.standard.value(forKey: kIDCodeKey) as? String) ?? String()
         }
     }
+    
+    class var mobileIdRememberMe: Bool {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kMobileIdRememberMeKey)
+        }
+        get {
+            return (UserDefaults.standard.bool(forKey: kMobileIdRememberMeKey))
+        }
+    }
 
     class var rpUuid: String {
         set {
@@ -125,6 +138,16 @@ class DefaultsHelper
             return (UserDefaults.standard.value(forKey: kSIDIDCodeKey) as? String) ?? String()
         }
     }
+    
+    class var smartIdRememberMe: Bool {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kSmartIdRememberMeKey)
+        }
+        get {
+            return (UserDefaults.standard.bool(forKey: kSmartIdRememberMeKey))
+        }
+    }
+
 
     class var timestampUrl: String? {
         set {
