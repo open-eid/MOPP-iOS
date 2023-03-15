@@ -76,6 +76,10 @@ class AddresseeViewController : MoppViewController {
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
     }
+    
+    deinit {
+        printLog("Deinit AddreseeViewController")
+    }
    
 }
 
