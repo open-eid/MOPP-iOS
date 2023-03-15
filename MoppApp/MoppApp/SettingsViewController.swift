@@ -145,7 +145,7 @@ class SettingsViewController: MoppViewController {
     }
 }
 
-extension SettingsViewController: UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
@@ -206,10 +206,6 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource, UI
                 return useDefaultCell
             }
         }
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("")
     }
     
     @objc func editingChanged(sender: UITextField) {
