@@ -340,6 +340,7 @@
 		DF13562E2902018A00F61823 /* MoppApp+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF13562D2902018A00F61823 /* MoppApp+Additions.swift */; };
 		DF135630290201A100F61823 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13562F290201A100F61823 /* ExternalAccessory.framework */; };
 		DF135631290201AD00F61823 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13562F290201A100F61823 /* ExternalAccessory.framework */; };
+		DF17ABCE29C0F86E009711DF /* BarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF17ABCD29C0F86E009711DF /* BarButton.swift */; };
 		DF26DC8326CD45670073ABA7 /* SivaUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF26DC8226CD45670073ABA7 /* SivaUtil.swift */; };
 		DF32A67B29096B7100AE5F82 /* LogFileGenerating.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A67A29096B7100AE5F82 /* LogFileGenerating.swift */; };
 		DF32A67D2909B20C00AE5F82 /* AlertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A67C2909B20C00AE5F82 /* AlertUtil.swift */; };
@@ -654,6 +655,7 @@
 		DF0C2B3E29150EAB007E1745 /* ScaledLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledLabel.swift; sourceTree = "<group>"; };
 		DF13562D2902018A00F61823 /* MoppApp+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoppApp+Additions.swift"; sourceTree = "<group>"; };
 		DF13562F290201A100F61823 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		DF17ABCD29C0F86E009711DF /* BarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButton.swift; sourceTree = "<group>"; };
 		DF26DC8226CD45670073ABA7 /* SivaUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SivaUtil.swift; sourceTree = "<group>"; };
 		DF32A67A29096B7100AE5F82 /* LogFileGenerating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFileGenerating.swift; sourceTree = "<group>"; };
 		DF32A67C2909B20C00AE5F82 /* AlertUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertUtil.swift; sourceTree = "<group>"; };
@@ -1101,6 +1103,7 @@
 			children = (
 				DF0C2B3E29150EAB007E1745 /* ScaledLabel.swift */,
 				DFD8BEF4291C432400FE8F07 /* ScaledButton.swift */,
+				DF17ABCD29C0F86E009711DF /* BarButton.swift */,
 			);
 			name = "Custom classes";
 			sourceTree = "<group>";
@@ -1895,6 +1898,7 @@
 				C593D9E8208F1986000B3BF6 /* SettingsViewController.swift in Sources */,
 				C54EA6E520444EC90039AC78 /* TokenFlowSelectionViewController.swift in Sources */,
 				DFF3C3B32332314A0079458A /* SignatureVerifier.swift in Sources */,
+				DF17ABCE29C0F86E009711DF /* BarButton.swift in Sources */,
 				C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */,
 				C58FCD5D206505D500FE3B57 /* MyeIDInfoViewController.swift in Sources */,
 				DFDF02BE241EB5D3006CF443 /* SessionCertificate.swift in Sources */,

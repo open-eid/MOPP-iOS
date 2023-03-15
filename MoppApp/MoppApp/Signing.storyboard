@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bky-k6-9RW">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,20 +24,20 @@
                         <viewControllerLayoutGuide type="bottom" id="xyl-Tx-lc2"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="iWd-FS-UZS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="2L6-Gw-P9K">
-                                <rect key="frame" x="16" y="256.33333333333331" width="568" height="87.333333333333314"/>
+                                <rect key="frame" x="16" y="370.66666666666669" width="361" height="110.66666666666669"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allkirjastamiseks või dekrüpteerimiseks vali fail" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xC0-jh-5MV" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="568" height="23.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="46.666666666666664"/>
                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="20"/>
                                         <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="CaL-ug-7D1" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="39.333333333333371" width="568" height="48"/>
+                                        <rect key="frame" x="0.0" y="62.666666666666629" width="361" height="48"/>
                                         <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="yiE-dw-S90"/>
@@ -65,7 +67,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Signing" id="2c3-o9-tC3">
-                        <barButtonItem key="rightBarButtonItem" image="VerticalDotsMenu" style="plain" id="5Sn-xe-ssA">
+                        <barButtonItem key="rightBarButtonItem" image="VerticalDotsMenu" style="plain" id="5Sn-xe-ssA" customClass="BarButton" customModule="MoppApp" customModuleProvider="target">
                             <color key="tintColor" red="0.21176470589999999" green="0.2156862745" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="menuActivationSelector" destination="vA0-9v-0On" id="jGF-ZC-wEP"/>
@@ -89,7 +91,7 @@
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="kbu-8k-TYE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
