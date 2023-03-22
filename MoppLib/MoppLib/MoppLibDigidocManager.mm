@@ -607,8 +607,9 @@ static std::string profile = "time-stamp";
     moppLibSignature.timestamp = [[MLDateFormatter sharedInstance] YYYYMMddTHHmmssZToDate:[NSString stringWithUTF8String:timestamp.c_str()]];
 
     try {
-      digidoc::Signature::Validator *validator =  new digidoc::Signature::Validator(signature);
+      digidoc::Signature::Validator *validator = new digidoc::Signature::Validator(signature);
       digidoc::Signature::Validator::Status status = validator->status();
+      moppLibSignature.diagnosticsInfo = [NSString stringWithUTF8String:validator->diagnostics().c_str()];
       moppLibSignature.status = [self determineSignatureStatus:status];
     } catch(const digidoc::Exception &e) {
       moppLibSignature.status = Invalid;

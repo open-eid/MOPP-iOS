@@ -167,6 +167,11 @@
 "container-timestamp-unknown" = "Ajatempel on teadmata";
 "container-timestamp-invalid" = "Ajatempel ei ole kehtiv";
 
+"container-signature-status-reason-title" = "Hoiatused";
+"container-signature-status-invalid-reason" = "See allkiri või allkirjastatud fail on vigane. Allkiri ei ole kehtiv.";
+"container-signature-status-warning-reason" = "See e-allkiri ei ole käsitsi kirjutatud allkirjadega samaväärne ja seetõttu saab seda kasutada ainult tehingute puhul, kus kvalifitseeritud e-allkiri pole kohustuslik.";
+"container-signature-status-unknown-reason" = "Allkirja staatust kuvatakse \"teadmata\", kui Sinu arvutisse pole lisatud kõiki kehtivuskinnituse teenuse sertifikaate ja/või nende kontrolliks vajalikke sertifikaate https://www.id.ee/artikkel/digidoc4-klient-viga-ocsp-responder-is-not-trusted-no-certificate-for-this-responder-in-local-certstore.";
+
 // *** Mobile ID Challenge View ***
 
 "challenge-code-label" = "%@";

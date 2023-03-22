@@ -33,6 +33,8 @@ class SignatureDetailsViewController: MoppViewController {
     var moppLibSignature: MoppLibSignature?
     
     var signatureDetails = [SignatureDetail]()
+    
+    var warningDetail = WarningDetail()
 
     func getDownloadsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -55,7 +57,28 @@ class SignatureDetailsViewController: MoppViewController {
             landingViewController.presentButtons([])
         }
         
+        setWarningsInfo()
         setSignerInfo()
+    }
+    
+    private func setWarningsInfo() {
+        let signatureStatus = moppLibSignature?.status
+
+        if let status = signatureStatus, status != .Valid {
+            var warningDescription = ""
+            if status == .Warning || status == .NonQSCD {
+                warningDescription = L(.containerSignatureStatusWarningReason)
+            } else if status == .UnknownStatus {
+                warningDescription = L(.containerSignatureStatusUnknownReason)
+            } else if status == .Invalid {
+                warningDescription = L(.containerSignatureStatusInvalidReason)
+            }
+            warningDetail = WarningDetail(warningHeader: L(.containerSignatureStatusReasonTitle), warningDescription: warningDescription)
+            let diagnosticsInfo = moppLibSignature?.diagnosticsInfo
+            if let diagnostics = diagnosticsInfo {
+                warningDetail.warningDetails = diagnostics
+            }
+        }
     }
     
     private func setSignerInfo() -> Void {
@@ -124,33 +147,57 @@ class SignatureDetailsViewController: MoppViewController {
 
 extension SignatureDetailsViewController: UITableViewDelegate, UITableViewDataSource {
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return signatureDetails.count
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
     }
-    
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            if warningDetail.warningDescription.isNilOrEmpty {
+                return 0
+            }
+            return 1
+        } else {
+            return signatureDetails.count
+        }
+    }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let signatureDetail = signatureDetails[indexPath.row]
-        if signatureDetail.value.isEmpty {
-            return 0
+        if indexPath.section == 0 {
+            if warningDetail.warningDescription.isNilOrEmpty {
+                return 0
+            }
+        }
+        if indexPath.section == 1 {
+            let signatureDetail = signatureDetails[indexPath.row]
+            if signatureDetail.value.isEmpty {
+                return 0
+            }
         }
         
         return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withType: SignatureDetailsCell.self, for: indexPath)!
-        cell.selectionStyle = .none
-        let signatureDetail = signatureDetails[indexPath.row]
-        if !signatureDetail.value.isEmpty {
-            cell.populate(signatureDetail: signatureDetail)
-            if signatureDetail.x509Certificate != nil && signatureDetail.secCertificate != nil {
-                cell.contentLabel.isUserInteractionEnabled = true
-                let tapRecognizer = SignatureDetailTapGesture(target: self, action: #selector(tapCertificateView(_:)))
-                tapRecognizer.signatureDetail = signatureDetail
-                cell.contentLabel.addGestureRecognizer(tapRecognizer)
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withType: SignatureWarningsCell.self, for: indexPath)!
+            cell.populate(signatureStatus: moppLibSignature?.status, warningDetail: warningDetail)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withType: SignatureDetailsCell.self, for: indexPath)!
+            cell.selectionStyle = .none
+            let signatureDetail = signatureDetails[indexPath.row]
+            if !signatureDetail.value.isEmpty {
+                cell.populate(signatureDetail: signatureDetail)
+                if signatureDetail.x509Certificate != nil && signatureDetail.secCertificate != nil {
+                    cell.contentLabel.isUserInteractionEnabled = true
+                    let tapRecognizer = SignatureDetailTapGesture(target: self, action: #selector(tapCertificateView(_:)))
+                    tapRecognizer.signatureDetail = signatureDetail
+                    cell.contentLabel.addGestureRecognizer(tapRecognizer)
+                }
             }
+            return cell
         }
-        return cell
     }
     
     @objc func tapCertificateView(_ tap: SignatureDetailTapGesture) {

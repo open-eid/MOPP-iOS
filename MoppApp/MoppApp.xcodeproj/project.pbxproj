@@ -354,6 +354,8 @@
 		DF4B8418284008CF005CB875 /* SignatureDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4B8417284008CF005CB875 /* SignatureDetail.swift */; };
 		DF4B841A2840F8FC005CB875 /* CertificateDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4B84192840F8FC005CB875 /* CertificateDetailsCell.swift */; };
 		DF4B841E284417CD005CB875 /* CertificateDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4B841D284417CD005CB875 /* CertificateDetail.swift */; };
+		DF5BE6D229C8AE5200331609 /* SignatureWarningsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5BE6D129C8AE5200331609 /* SignatureWarningsCell.swift */; };
+		DF5BE6D429C8BD5600331609 /* WarningDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5BE6D329C8BD5600331609 /* WarningDetail.swift */; };
 		DF6299122664FEFE00E6C55E /* UrlSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */; };
 		DF7F611926399B5400747B7D /* ContainerRemovalActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */; };
 		DF8EFB1A287498B900A96DE3 /* SettingsDefaultValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8EFB19287498B900A96DE3 /* SettingsDefaultValueCell.swift */; };
@@ -667,6 +669,8 @@
 		DF4B8417284008CF005CB875 /* SignatureDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureDetail.swift; sourceTree = "<group>"; };
 		DF4B84192840F8FC005CB875 /* CertificateDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateDetailsCell.swift; sourceTree = "<group>"; };
 		DF4B841D284417CD005CB875 /* CertificateDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateDetail.swift; sourceTree = "<group>"; };
+		DF5BE6D129C8AE5200331609 /* SignatureWarningsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureWarningsCell.swift; sourceTree = "<group>"; };
+		DF5BE6D329C8BD5600331609 /* WarningDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningDetail.swift; sourceTree = "<group>"; };
 		DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSchemeHandler.swift; sourceTree = "<group>"; };
 		DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerRemovalActions.swift; sourceTree = "<group>"; };
 		DF8EFB19287498B900A96DE3 /* SettingsDefaultValueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsDefaultValueCell.swift; sourceTree = "<group>"; };
@@ -917,6 +921,8 @@
 				DF4B8417284008CF005CB875 /* SignatureDetail.swift */,
 				DF4B84192840F8FC005CB875 /* CertificateDetailsCell.swift */,
 				DF4B841D284417CD005CB875 /* CertificateDetail.swift */,
+				DF5BE6D129C8AE5200331609 /* SignatureWarningsCell.swift */,
+				DF5BE6D329C8BD5600331609 /* WarningDetail.swift */,
 			);
 			name = Container;
 			sourceTree = "<group>";
@@ -1864,6 +1870,7 @@
 				E4C53F4B1E30D03500F209BE /* DefaultsHelper.swift in Sources */,
 				3921CAAB20B5B92100BF3178 /* CryptoContainer.swift in Sources */,
 				C50DCD461FDECE2B00D48E16 /* SignatureDetailsViewController.swift in Sources */,
+				DF5BE6D429C8BD5600331609 /* WarningDetail.swift in Sources */,
 				DF32A6812909F0FA00AE5F82 /* FileLogUtil.swift in Sources */,
 				C50DCCFF1FC6E95A00D48E16 /* ContainerViewController.swift in Sources */,
 				C50DCD481FDED76400D48E16 /* SignatureDetailsCell.swift in Sources */,
@@ -1979,6 +1986,7 @@
 				DF32A691290C983100AE5F82 /* ErrorUtil.swift in Sources */,
 				3921CAA720B5A39F00BF3178 /* ContainerAddresseeCell.swift in Sources */,
 				C55A6E402086351C000F3386 /* MyeIDChangeCodesTextField.swift in Sources */,
+				DF5BE6D229C8AE5200331609 /* SignatureWarningsCell.swift in Sources */,
 				C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */,
 				C50DCD131FCC4D3000D48E16 /* UIView+Additions.swift in Sources */,
 				C537AE542004C29E009037E5 /* MobileIDEditViewController.swift in Sources */,

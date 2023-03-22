@@ -166,6 +166,11 @@
 "container-timestamp-unknown" = "Timestamp is unknown";
 "container-timestamp-invalid" = "Timestamp is not valid";
 
+"container-signature-status-reason-title" = "Warnings";
+"container-signature-status-invalid-reason" = "This is an invalid signature or malformed digitally signed file. The signature is not valid.";
+"container-signature-status-warning-reason" = "This e-Signature is not equivalent with handwritten signature and therefore can be used only in transactions where Qualified e-Signature is not required.";
+"container-signature-status-unknown-reason" = "Signature status is displayed \"unknown\" if you don't have all validity confirmation service certificates and/or certificate authority certificates installed into your computer https://www.id.ee/en/article/digidoc4-client-error-ocsp-responder-is-not-trusted-no-certificate-for-this-responder-in-local-certstore.";
+
 // *** Mobile ID Challenge View ***
 
 "challenge-code-label" = "%@";

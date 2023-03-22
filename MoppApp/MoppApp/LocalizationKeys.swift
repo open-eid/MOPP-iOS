@@ -121,6 +121,10 @@ enum LocKey : String
     case containerTimestampValid = "container-timestamp-valid";
     case containerTimestampUnknown = "container-timestamp-unknown";
     case containerTimestampInvalid = "container-timestamp-invalid";
+    case containerSignatureStatusReasonTitle = "container-signature-status-reason-title"
+    case containerSignatureStatusInvalidReason = "container-signature-status-invalid-reason"
+    case containerSignatureStatusWarningReason = "container-signature-status-warning-reason"
+    case containerSignatureStatusUnknownReason = "container-signature-status-unknown-reason"
     case challengeCodeLabel = "challenge-code-label"
     case challengeCodeLabelAccessibility = "challenge-code-label-accessibility"
     case simToolkitSignDocumentTitle = "sim-toolkit-sign-document-title"
