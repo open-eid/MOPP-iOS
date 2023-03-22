@@ -24,7 +24,7 @@ import Foundation
 import UIKit
 
 
-class MyTextField : UITextField {
+class MyTextField : ScaledTextField {
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         var rect = bounds
             rect.origin.x = 10

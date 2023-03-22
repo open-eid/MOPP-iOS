@@ -82,7 +82,7 @@ extension SettingsFieldCell: UITextFieldDelegate {
     }
 }
 
-class SettingsTextField: UITextField {
+class SettingsTextField: ScaledTextField {
     override func awakeFromNib() {
         super.awakeFromNib()
         layer.cornerRadius = 2
