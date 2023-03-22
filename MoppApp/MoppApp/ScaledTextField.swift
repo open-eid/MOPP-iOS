@@ -45,4 +45,16 @@ class ScaledTextField: UITextField {
         self.adjustsFontForContentSizeCategory = true
         self.adjustsFontSizeToFitWidth = true
     }
+    
+    override var keyCommands: [UIKeyCommand]? {
+        let tabKeyCommand = UIKeyCommand(input: "\t", modifierFlags: [], action: #selector(closeKeyboard))
+        if #available(iOS 15, *) {
+            tabKeyCommand.wantsPriorityOverSystemBehavior = true
+        }
+        return [tabKeyCommand]
+    }
+    
+    @objc func closeKeyboard() {
+        self.resignFirstResponder()
+    }
 }

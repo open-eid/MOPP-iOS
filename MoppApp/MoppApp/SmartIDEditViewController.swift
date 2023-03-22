@@ -17,7 +17,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
 import Foundation
+import GameController
 
 protocol SmartIDEditViewControllerDelegate : AnyObject {
     func smartIDEditViewControllerDidDismiss(cancelled: Bool, country: String?, idCode: String?)
@@ -276,6 +278,18 @@ extension SmartIDEditViewController : UITextFieldDelegate {
             return textAfterUpdate.isNumeric || textAfterUpdate.isEmpty
         }
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if #available(iOS 14.0, *) {
+            if GCKeyboard.coalesced != nil {
+                self.idCodeTextField.keyboardType = .numbersAndPunctuation
+            } else {
+                self.idCodeTextField.keyboardType = .numberPad
+            }
+        } else {
+            self.idCodeTextField.keyboardType = .numberPad
+        }
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {

@@ -22,6 +22,7 @@
  */
 import Foundation
 import UIKit
+import GameController
 
 
 class MyTextField : ScaledTextField {
@@ -97,6 +98,9 @@ class MobileIDEditViewController : MoppViewController {
         phoneTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         phoneTextField.layer.borderWidth = 1.0
 
+        self.phoneTextField.delegate = self
+        self.idCodeTextField.delegate = self
+        
         tapGR = UITapGestureRecognizer()
         tapGR.addTarget(self, action: #selector(cancelAction))
         view.addGestureRecognizer(tapGR)
@@ -221,7 +225,14 @@ class MobileIDEditViewController : MoppViewController {
 
 extension MobileIDEditViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        if textField.accessibilityIdentifier == "mobileIdPhoneNumberField" {
+            textField.resignFirstResponder()
+            if let personalCodeTextField = getViewByAccessibilityIdentifier(view: view, identifier: "mobileIDCodeField") {
+                personalCodeTextField.becomeFirstResponder()
+            }
+        } else {
+            textField.resignFirstResponder()
+        }
         return true
     }
 
@@ -231,6 +242,21 @@ extension MobileIDEditViewController : UITextFieldDelegate {
             return textAfterUpdate.isNumeric || textAfterUpdate.isEmpty
         }
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if #available(iOS 14.0, *) {
+            if GCKeyboard.coalesced != nil {
+                self.phoneTextField.keyboardType = .numbersAndPunctuation
+                self.idCodeTextField.keyboardType = .numbersAndPunctuation
+            } else {
+                self.phoneTextField.keyboardType = .numberPad
+                self.idCodeTextField.keyboardType = .numberPad
+            }
+        } else {
+            self.phoneTextField.keyboardType = .numberPad
+            self.idCodeTextField.keyboardType = .numberPad
+        }
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {

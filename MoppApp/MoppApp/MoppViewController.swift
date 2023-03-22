@@ -134,4 +134,22 @@ class MoppViewController : UIViewController {
     func hideKeyboard(scrollView: UIScrollView) {
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
+    
+    func getViewByAccessibilityIdentifier(view: UIView, identifier: String) -> UITextField? {
+        for subView in view.subviews {
+            if let scrollView = subView as? UIScrollView {
+                for subSubView in scrollView.subviews {
+                    if subSubView.isKind(of: UIView.self) {
+                        for subTextField in subSubView.subviews {
+                            if let textField = subTextField as? UITextField, textField.accessibilityIdentifier == identifier {
+                                return textField
+                            }
+                        }
+                    }
+                }
+                
+            }
+        }
+        return nil
+    }
 }
