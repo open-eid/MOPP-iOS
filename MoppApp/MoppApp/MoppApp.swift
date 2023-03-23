@@ -502,11 +502,13 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     }
 
     private func restartIdCardDiscovering() {
-        let topViewController = UIViewController().getTopViewController()
+        DispatchQueue.main.async {
+            let topViewController = UIViewController().getTopViewController()
 
-        for childViewController in topViewController.children {
-            if childViewController is IdCardViewController {
-                MoppLibCardReaderManager.sharedInstance().restartDiscoveringReaders(Float(2.0))
+            for childViewController in topViewController.children {
+                if childViewController is IdCardViewController {
+                    MoppLibCardReaderManager.sharedInstance().restartDiscoveringReaders(Float(2.0))
+                }
             }
         }
     }
