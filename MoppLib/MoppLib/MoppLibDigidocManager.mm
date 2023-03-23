@@ -66,7 +66,7 @@ private:
 
 public:
 
-    DigiDocConf(const std::string& tsUrl, MoppLibConfiguration* moppConfiguration) : m_tsUrl( tsUrl ), moppLibConfiguration( moppConfiguration ) {}
+  DigiDocConf(const std::string& tsUrl, MoppLibConfiguration* moppConfiguration) : m_tsUrl( tsUrl ), moppLibConfiguration( moppConfiguration ) {}
 
   std::string TSLCache() const override {
     NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
@@ -100,13 +100,17 @@ public:
       return stringsToX509Certs(moppLibConfiguration.TSLCERTS);
   }
 
-    std::string TSLUrl() const override {
+  std::string TSLUrl() const override {
       return moppLibConfiguration.TSLURL.UTF8String;
   }
+    
+  virtual std::vector<digidoc::X509Cert> TSCerts() const override {
+      return stringsToX509Certs(moppLibConfiguration.CERTBUNDLE);
+  }
 
-    virtual std::vector<digidoc::X509Cert> verifyServiceCerts() const override {
-        return stringsToX509Certs(moppLibConfiguration.CERTBUNDLE);
-    }
+  virtual std::vector<digidoc::X509Cert> verifyServiceCerts() const override {
+      return stringsToX509Certs(moppLibConfiguration.CERTBUNDLE);
+  }
 
   virtual std::string ocsp(const std::string &issuer) const override {
     NSString *ocspIssuer = [NSString stringWithCString:issuer.c_str() encoding:[NSString defaultCStringEncoding]];
