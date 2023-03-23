@@ -74,8 +74,14 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     @IBAction func refreshConfiguration(_ sender: Any) {
         DispatchQueue.global(qos: .userInitiated).async {
             printLog("Refreshing central configuration")
-            SettingsConfiguration().loadCentralConfiguration()
-
+            SettingsConfiguration().loadCentralConfiguration() { error in
+                DispatchQueue.main.async {
+                    if case DiagnosticError.noInternetConnection = error {
+                        self.errorAlert(message: L(.noConnectionMessage))
+                    }
+                }
+            }
+            
             NotificationCenter.default.addObserver(self, selector: #selector(self.onCentralConfigurationResponse(responseNotification:)), name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil)
         }
     }
