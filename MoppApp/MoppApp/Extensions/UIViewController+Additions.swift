@@ -68,7 +68,7 @@ extension UIViewController {
     }
     
     func getTopViewController() -> UIViewController {
-        if var topViewController = UIApplication.shared.keyWindow?.rootViewController {
+        if var topViewController = UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController {
             while let currentViewController = topViewController.presentedViewController {
                 topViewController = currentViewController
             }
@@ -108,10 +108,12 @@ extension UIViewController {
     }
     
     func showErrorMessage(title: String, message: String) {
-        let topViewController: UIViewController = getTopViewController()
-        guard topViewController.isViewLoaded else {
-            return
+        DispatchQueue.main.async {
+            let topViewController: UIViewController = self.getTopViewController()
+            guard topViewController.isViewLoaded else {
+                return
+            }
+            topViewController.errorAlert(message: message, title: title, dismissCallback: nil)
         }
-        topViewController.errorAlert(message: message, title: title, dismissCallback: nil)
     }
 }
