@@ -95,6 +95,8 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         FirebaseApp.configure()
         Analytics.setAnalyticsCollectionEnabled(false)
         Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(false)
+        
+        DefaultsHelper.setDefaultKeys()
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white

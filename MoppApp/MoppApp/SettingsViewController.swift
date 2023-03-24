@@ -82,8 +82,6 @@ class SettingsViewController: MoppViewController {
         super.viewDidLoad()
         
         timestampUrl = DefaultsHelper.timestampUrl
-        
-        DefaultsHelper.setDefaultSettingsSwitch()
     }
 
     
