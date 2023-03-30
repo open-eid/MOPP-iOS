@@ -221,7 +221,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                     if isDecrypted {
                         tabButtons = []
                     } else {
-                        tabButtons = [.decryptButton, .shareButton]
+                        tabButtons = [.shareButton, .decryptButton]
                     }
                     setupNavigationItemForPushedViewController(title: L(.containerDecryptionTitle))
                 } else {
@@ -834,8 +834,8 @@ extension ContainerViewController : UITableViewDelegate {
         case .missingAddressees:
             break
         case .containerTimestamps:
-            if let signature = getSignature(indexPathRow: indexPath.row) {
-                instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: signature)
+            if let token = getTimestampToken(indexPathRow: indexPath.row) {
+                instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: token)
             }
             break
         }
@@ -941,7 +941,14 @@ extension ContainerViewController : UITableViewDelegate {
     }
     
     private func getSignature(indexPathRow: Int) -> MoppLibSignature? {
+        if !asicsSignatures.isEmpty && asicsSignatures.indices.contains(indexPathRow) {
+            return asicsSignatures[indexPathRow]
+        }
         return signingContainerViewDelegate.getSignature(index: indexPathRow) as? MoppLibSignature
+    }
+    
+    private func getTimestampToken(indexPathRow: Int) -> MoppLibSignature? {
+        return signingContainerViewDelegate.getTimestampToken(index: indexPathRow) as? MoppLibSignature
     }
 }
 

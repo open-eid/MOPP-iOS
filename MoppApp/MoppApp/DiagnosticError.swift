@@ -1,5 +1,5 @@
 //
-//  FileUtil.swift
+//  DiagnosticError.swift
 //  MoppApp
 //
 /*
@@ -23,20 +23,6 @@
 
 import Foundation
 
-struct FileUtil {
-    static func getSignDocumentFileName(containerPath: String) -> String {
-        guard !containerPath.isEmpty else { return "" }
-        let fileURL: URL? = URL(fileURLWithPath: containerPath)
-        if let fileURL = fileURL {
-            let fileName = fileURL.deletingPathExtension().lastPathComponent.sanitize()
-            let fileExtension = fileURL.pathExtension
-            
-            if fileName.count <= 6 {
-                return "\(fileName).\(fileExtension)"
-            }
-            
-            return "\(fileName.prefix(3))...\(fileName.suffix(3)).\(fileExtension)"
-        }
-        return ""
-    }
+enum DiagnosticError: Error {
+    case noInternetConnection
 }
