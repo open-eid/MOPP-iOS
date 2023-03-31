@@ -33,6 +33,7 @@ class SettingsViewController: MoppViewController {
         case rpuuid
         case timestampUrl
         case useDefault
+        case tsaCert
     }
     
     struct Field {
@@ -41,6 +42,7 @@ class SettingsViewController: MoppViewController {
             case choice
             case timestamp
             case defaultSwitch
+            case tsaCert
         }
         
         let id: FieldId
@@ -75,7 +77,18 @@ class SettingsViewController: MoppViewController {
             placeholderText: NSAttributedString(string: L(.settingsTimestampUrlPlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker]),
             value: DefaultsHelper.timestampUrl ?? MoppConfiguration.tsaUrl!
         ),
-        Field(id: .useDefault, kind: .defaultSwitch, title: L(.settingsTimestampUseDefaultTitle), placeholderText: NSAttributedString(string: L(.settingsTimestampUseDefaultTitle)), value: "")
+        Field(
+            id: .useDefault,
+            kind: .defaultSwitch,
+            title: L(.settingsTimestampUseDefaultTitle),
+            placeholderText: NSAttributedString(string: L(.settingsTimestampUseDefaultTitle)),
+            value: ""),
+        Field(
+            id: .tsaCert,
+            kind: .tsaCert,
+            title: L(.settingsTimestampCertTitle),
+            placeholderText: NSAttributedString(string: L(.settingsTimestampCertTitle)),
+            value: "")
     ]
     
     override func viewDidLoad() {
@@ -96,6 +109,7 @@ class SettingsViewController: MoppViewController {
         var fieldCellIndex: Int = 0
         var timestampCellIndex: Int = 0
         var defaultValueCellIndex: Int = 0
+        var tsaCertCell: Int = 0
         for (index, cell) in tableView.visibleCells.enumerated() {
             if cell is SettingsHeaderCell {
                 headerCellIndex = index
@@ -105,6 +119,8 @@ class SettingsViewController: MoppViewController {
                 timestampCellIndex = index
             } else if cell is SettingsDefaultValueCell {
                 defaultValueCellIndex = index
+            } else if cell is SettingsTSACertCell {
+                tsaCertCell = index
             }
         }
         
@@ -126,12 +142,17 @@ class SettingsViewController: MoppViewController {
             return []
         }
         
+        guard let tsaCertCellAccessibilityElements = tableView.visibleCells[tsaCertCell].accessibilityElements else {
+            return []
+        }
+        
         return [
             timestampDefaultSwitch,
             fieldCellAccessibilityElements,
             timestampTextfield,
             headerCellAccessibilityElements,
             timestampDefaultSwitch,
+            tsaCertCellAccessibilityElements
         ]
     }
 }
@@ -195,6 +216,11 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
                     useDefaultCell.delegate = self
                     useDefaultCell.populate()
                 return useDefaultCell
+            case .tsaCert:
+                let tsaCertCell = tableView.dequeueReusableCell(withType: SettingsTSACertCell.self, for: indexPath)!
+                    tsaCertCell.topViewController = getTopViewController()
+                    tsaCertCell.populate()
+                return tsaCertCell
             }
         }
     }

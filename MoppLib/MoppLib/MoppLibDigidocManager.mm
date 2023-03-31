@@ -105,7 +105,11 @@ public:
   }
     
   virtual std::vector<digidoc::X509Cert> TSCerts() const override {
-      return stringsToX509Certs(moppLibConfiguration.CERTBUNDLE);
+      NSMutableArray<NSString *> *certBundle = [NSMutableArray arrayWithArray:moppLibConfiguration.CERTBUNDLE];
+      if (moppLibConfiguration.TSACERT != NULL) {
+          [certBundle addObject:moppLibConfiguration.TSACERT];
+      }
+      return stringsToX509Certs(certBundle);
   }
 
   virtual std::vector<digidoc::X509Cert> verifyServiceCerts() const override {
