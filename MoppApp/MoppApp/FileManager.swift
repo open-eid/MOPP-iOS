@@ -86,7 +86,7 @@ class MoppFileManager {
 
     func tempFilePath(withFileName fileName: String) -> String? {
         let tempPathURL = URL(fileURLWithPath: tempDocumentsDirectoryPath())
-        let filePathURL = URL(fileURLWithPath: MoppLibManager.sanitize(fileName),
+        let filePathURL = URL(fileURLWithPath: fileName.sanitize(),
             isDirectory: false, relativeTo: tempPathURL).absoluteURL
 
         // Create intermediate directories for possibility of creating temporary
@@ -430,7 +430,7 @@ class MoppFileManager {
                     return
                 }
                 
-                guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: MoppLibManager.sanitize(fileURL.lastPathComponent)) else {
+                guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: fileURL.lastPathComponent.sanitize()) else {
                     printLog("Error opening file. Unable to get temp file path")
                     completion?(NSError(domain: String(), code: 0, userInfo: nil), [])
                     url.stopAccessingSecurityScopedResource()

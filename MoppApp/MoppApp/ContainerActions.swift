@@ -324,7 +324,7 @@ extension ContainerActions where Self: UIViewController {
         let landingViewController = LandingViewController.shared!
 
         let filePath = url.relativePath
-        let fileName: String = MoppLibManager.sanitize(url.lastPathComponent)
+        let fileName: String = url.lastPathComponent.sanitize()
 
         let containerFilePaths = sanitizeDataFilePaths(dataFilePaths: dataFilePaths)
 
@@ -436,7 +436,7 @@ extension ContainerActions where Self: UIViewController {
             let dataFileUrl = URL(fileURLWithPath: dataFile)
             let dataFileName = dataFileUrl.lastPathComponent
             let sanitizedUrlFolder = dataFileUrl.deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("temp", isDirectory: true)
-            let sanitizedUrl = sanitizedUrlFolder.appendingPathComponent(MoppLibManager.sanitize(dataFileName), isDirectory: false)
+            let sanitizedUrl = sanitizedUrlFolder.appendingPathComponent(dataFileName.sanitize(), isDirectory: false)
             if dataFileName != sanitizedUrl.lastPathComponent && MoppFileManager.shared.fileExists(dataFileUrl.path) {
                 try? MoppFileManager.shared.fileManager.createDirectory(at: sanitizedUrlFolder, withIntermediateDirectories: true, attributes: nil)
                 let newUrl = MoppFileManager.shared.copyFile(withPath: dataFileUrl.path, toPath: sanitizedUrl.path)

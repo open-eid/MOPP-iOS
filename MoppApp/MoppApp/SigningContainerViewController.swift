@@ -216,7 +216,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
         guard let dataFile = container.dataFiles[index] as? MoppLibDataFile else {
             return nil
         }
-        return MoppLibManager.sanitize((dataFile.fileName as String))
+        return (dataFile.fileName as String).sanitize()
     }
     
     func getContainer() -> MoppLibContainer {
