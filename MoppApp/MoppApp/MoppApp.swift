@@ -95,6 +95,8 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         FirebaseApp.configure()
         Analytics.setAnalyticsCollectionEnabled(false)
         Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(false)
+        
+        DefaultsHelper.setDefaultKeys()
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
@@ -314,7 +316,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
 
                 do {
                     let newData: Data? = try Data(contentsOf: newUrl)
-                    let fileName: String = MoppLibManager.sanitize(newUrl.deletingPathExtension().lastPathComponent)
+                    let fileName: String = newUrl.deletingPathExtension().lastPathComponent.sanitize()
                     let tempDirectoryPath: String? = MoppFileManager.shared.tempDocumentsDirectoryPath()
                     guard let tempDirectory = tempDirectoryPath else {
                         printLog("Unable to get temporary file directory")

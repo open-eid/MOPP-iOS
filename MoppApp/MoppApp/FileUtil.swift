@@ -28,7 +28,7 @@ struct FileUtil {
         guard !containerPath.isEmpty else { return "" }
         let fileURL: URL? = URL(fileURLWithPath: containerPath)
         if let fileURL = fileURL {
-            let fileName = fileURL.deletingPathExtension().lastPathComponent
+            let fileName = fileURL.deletingPathExtension().lastPathComponent.sanitize()
             let fileExtension = fileURL.pathExtension
             
             if fileName.count <= 6 {
