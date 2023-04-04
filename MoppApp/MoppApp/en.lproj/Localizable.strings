@@ -110,7 +110,7 @@
 "action-yes" = "YES";
 "action-cancel" = "Cancel";
 "action-abort" = "CANCEL";
-"action-delete" = "Delete";
+"action-delete" = "Remove";
 "action-sign" = "Sign";
 "action-decrypt" = "Decrypt";
 
