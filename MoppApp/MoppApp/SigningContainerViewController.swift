@@ -263,8 +263,9 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                 strongSelf.notifications.append((true, L(.containerDetailsSigningSuccess)))
                 
                 if UIAccessibility.isVoiceOverRunning {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        UIAccessibility.post(notification: .announcement, argument: L(.containerDetailsSigningSuccess))
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        let message: NSAttributedString = NSAttributedString(string: L(.containerDetailsSigningSuccess), attributes: [.accessibilitySpeechQueueAnnouncement: true])
+                        UIAccessibility.post(notification: .announcement, argument: message)
                     }
                 }
                 
