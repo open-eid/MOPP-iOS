@@ -78,6 +78,7 @@
 "crypto-recipient-found" = "Recipient found";
 "crypto-recipients-found" = "%@ recipients found";
 "crypto-recipient-added" = "Recipient added";
+"crypto-recipients-added" = "Recipients added";
 "crypto-recipient-removed" = "Recipient removed";
 "crypto-recipient-adding-cancelled" = "Recipient addition cancelled";
 "crypto-no-addressees-warning" = "No recipients specified";
@@ -90,6 +91,7 @@
 "crypto-add-addressee-button-title" = "ADD";
 "crypto-add-addressee-button-title-accessibility" = "ADD RECIPIENT";
 "crypto-addressee-added-button-title" = "ADDED";
+"crypto-addressee-add-all-button" = "ADD ALL";
 "crypto-remove-addressee-button" = "Remove recipient";
 
 // Signing view
