@@ -39,6 +39,8 @@ class CryptoContainerViewController : ContainerViewController, CryptoActions, UI
     
     func reloadCryptoData() {
         
+        self.isEncrypted = isContainerEncrypted
+        
         if container != nil && container.addressees.count > 0 && (state == .opened || isContainerEncrypted) {
             self.sections = ContainerViewController.sectionsEncrypted
         } else if container != nil && container.addressees.count > 0 {

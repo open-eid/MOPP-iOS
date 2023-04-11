@@ -91,6 +91,7 @@
 "crypto-add-addressee-button-title-accessibility" = "ADD RECIPIENT";
 "crypto-addressee-added-button-title" = "ADDED";
 "crypto-remove-addressee-button" = "Remove recipient";
+"crypto-encrypted-files-title" = "Encrypted files";
 
 // Signing view
 "signing-recent-containers" = "Recent documents";

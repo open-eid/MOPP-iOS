@@ -95,6 +95,7 @@
 "crypto-add-addressee-button-title-accessibility" = "LISA ADRESSAAT";
 "crypto-addressee-added-button-title" = "LISATUD";
 "crypto-remove-addressee-button" = "Eemalda adressaat";
+"crypto-encrypted-files-title" = "Krüpteeritud failid";
 
 // Crashlytics
 "crashlytics-title" = "Kas saata vearaport?";
