@@ -58,6 +58,10 @@ class SettingsTSACertCell: UITableViewCell {
     weak var topViewController: UIViewController?
     
     private var certificate: X509Certificate?
+
+    override func awakeFromNib() {
+        updateUI()
+    }
     
     func populate() {
         self.certificate = TSACertUtil.getCertificate()

@@ -350,8 +350,8 @@
 "settings-timestamp-cert-title" = "Time-Stamping service SSL certificate";
 "settings-timestamp-cert-issued-to-label" = "Issued to:";
 "settings-timestamp-cert-valid-to-label" = "Valid to:";
-"settings-timestamp-cert-add-certificate-button" = "Add certificate";
-"settings-timestamp-cert-show-certificate-button" = "Show certificate";
+"settings-timestamp-cert-add-certificate-button" = "ADD CERTIFICATE";
+"settings-timestamp-cert-show-certificate-button" = "SHOW CERTIFICATE";
 "diagnostics-title" = "Diagnostics";
 "diagnostics-activate-one-time-logging" = "Enable one-time log generation";
 "diagnostics-save-log" = "SAVE LOG";
