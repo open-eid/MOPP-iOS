@@ -23,9 +23,13 @@
 
 import Foundation
 import ZIPFoundation
-
+import MobileCoreServices
+import UniformTypeIdentifiers
 
 class MimeTypeExtractor {
+    
+    private static let DEFAULT_MIMETYPE = "application/octet-stream"
+    
     public static func getMimeTypeFromContainer(filePath: URL) -> String {
         
         var mimetype: String = ""
@@ -107,6 +111,26 @@ class MimeTypeExtractor {
         
         return fileExtension
         
+    }
+    
+    static func detectMimeType(forFileExtension fileExtension: String) -> String {
+        if #available(iOS 14.0, *) {
+            let utType = UTType(filenameExtension: fileExtension)
+
+            guard let uti = utType else { return DEFAULT_MIMETYPE }
+
+            return uti.preferredMIMEType ?? DEFAULT_MIMETYPE
+        } else {
+            let utTypeTag = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, fileExtension as CFString, nil)
+
+            guard let uti = utTypeTag else { return DEFAULT_MIMETYPE }
+
+            let utTypeClass = UTTypeCopyPreferredTagWithClass(uti.takeRetainedValue(), kUTTagClassMIMEType)
+
+            guard let utType = utTypeClass else { return DEFAULT_MIMETYPE }
+
+            return utType.takeRetainedValue() as String
+        }
     }
     
     private static func unZipFile(filePath: URL, fileName: String) -> URL? {
