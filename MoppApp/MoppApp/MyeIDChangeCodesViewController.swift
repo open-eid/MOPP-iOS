@@ -55,26 +55,23 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
         if UIAccessibility.isVoiceOverRunning {
             switch self.model.actionType {
             case .changePin1:
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    UIAccessibility.post(notification: .screenChanged, argument: L(.myEidInfoPin1ChangeCancelled))
-                }
+                break
             case .unblockPin1:
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    UIAccessibility.post(notification: .screenChanged, argument: L(.myEidInfoPin1UnblockCancelled))
+                    UIAccessibility.post(notification: .announcement, argument: L(.myEidInfoPin1UnblockCancelled))
                 }
             case .changePin2:
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    UIAccessibility.post(notification: .screenChanged, argument: L(.myEidInfoPin2ChangeCancelled))
-                }
+                break
             case .unblockPin2:
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    UIAccessibility.post(notification: .screenChanged, argument: L(.myEidInfoPin2UnblockCancelled))
+                    UIAccessibility.post(notification: .announcement, argument: L(.myEidInfoPin2UnblockCancelled))
                 }
             case .changePuk:
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    UIAccessibility.post(notification: .screenChanged, argument: L(.myEidInfoPukChangeCancelled))
-                }
+                break
             }
+        }
+        if UIAccessibility.isVoiceOverRunning {
+            infoManager.actionKind = self.model.actionType
         }
         _ = navigationController?.popViewController(animated: true)
     }

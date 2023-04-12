@@ -46,12 +46,10 @@ enum IdCardCodeLengthLimits:Int {
     case maxRetryCount = 3
 }
 
-var savedLastFocusElement: LastFocusElement?;
-
 class MyeIDInfoManager {
     weak var delegate: MyeIDInfoManagerDelegate? = nil
-    
-    var hasMyEidPageChanged = false
+
+    var actionKind: MyeIDChangeCodesModel.ActionType?
 
     var personalData: MoppLibPersonalData? = nil
     var authCertData: MoppLibCerificatetData? = nil
@@ -392,8 +390,6 @@ extension MyeIDInfoManager {
             model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
             model.confirmButtonTitleText = L(.myEidConfirmChangeButtonTitle)
             
-            savedLastFocusElement = .changePIN1
-            
         case .unblockPin1:
         
             model.titleText = L(.myEidUnblockCodeTitle, [IdCardCodeName.PIN1.rawValue])
@@ -409,8 +405,6 @@ extension MyeIDInfoManager {
             model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
             model.confirmButtonTitleText = L(.myEidConfirmUnblockButtonTitle)
             
-            savedLastFocusElement = .unblockPIN1
-            
         case .changePin2:
         
             model.titleText = L(.myEidChangeCodeTitle, [IdCardCodeName.PIN2.rawValue])
@@ -424,8 +418,6 @@ extension MyeIDInfoManager {
             
             model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
             model.confirmButtonTitleText = L(.myEidConfirmChangeButtonTitle)
-            
-            savedLastFocusElement = .changePIN2
             
         case .unblockPin2:
         
@@ -442,8 +434,6 @@ extension MyeIDInfoManager {
             model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
             model.confirmButtonTitleText = L(.myEidConfirmUnblockButtonTitle)
             
-            savedLastFocusElement = .unblockPIN2
-            
         case .changePuk:
         
             model.titleText = L(.myEidChangeCodeTitle, [IdCardCodeName.PUK.rawValue])
@@ -456,8 +446,6 @@ extension MyeIDInfoManager {
             
             model.discardButtonTitleText = L(.myEidDiscardButtonTitle)
             model.confirmButtonTitleText = L(.myEidConfirmChangeButtonTitle)
-            
-            savedLastFocusElement = .changePUK
             
         }
         return model
