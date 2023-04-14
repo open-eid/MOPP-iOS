@@ -70,6 +70,7 @@
 "signing-recent-containers" = "Hiljutised dokumendid";
 
 // Crypto
+"crypto-header-files-title" = "Ümbriku failid";
 "crypto-view-begin-label" = "Krüpteerimiseks või dekrüpteerimiseks vali fail";
 "crypto-view-begin-label-accessibility" = "Vali fail krüpteerimiseks või dekrüpteerimiseks";
 "crypto-view-begin-button" = "VALI FAIL";

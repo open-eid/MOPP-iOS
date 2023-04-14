@@ -67,6 +67,7 @@
 "signing-error-incorrect-pin-length" = "%@-код должен быть не менее %i символов.";
 
 // Crypto
+"crypto-header-files-title" = "Файлы контейнера";
 "crypto-view-begin-label" = "Выберите файл для шифрования или расшифровки";
 "crypto-view-begin-label-accessibility" = "Выберите файл для шифрования или расшифровки";
 "crypto-view-begin-button" = "ВЫБРАТЬ ФАЙЛ";

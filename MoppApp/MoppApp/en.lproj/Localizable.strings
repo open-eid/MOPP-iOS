@@ -67,6 +67,7 @@
 "signing-error-incorrect-pin-length" = "%@ code must be at least %i digits long";
 
 // Crypto
+"crypto-header-files-title" = "Container files";
 "crypto-view-begin-label" = "Choose a file to encrypt or decrypt";
 "crypto-view-begin-label-accessibility" = "Choose a file to encrypt or decrypt";
 "crypto-view-begin-button" = "CHOOSE FILE";

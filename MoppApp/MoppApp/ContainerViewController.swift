@@ -847,12 +847,12 @@ extension ContainerViewController : UITableViewDelegate {
         var title: String!
         switch section {
         case .dataFiles:
-            if isCreated {
-                title = L(LocKey.containerHeaderCreateFilesTitle)
+            if isCreated && !isAsicContainer {
+                title = L(.cryptoHeaderFilesTitle)
             } else if isEncrypted {
                 title = L(.cryptoEncryptedFilesTitle)
             } else {
-                title = L(LocKey.containerHeaderFilesTitle)
+                title = L(.containerHeaderFilesTitle)
             }
         default:
             title = sectionHeaderTitle[section]
