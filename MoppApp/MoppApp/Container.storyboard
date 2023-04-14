@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aqa-at-L24">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aqa-at-L24">
     <device id="retina4_7" orientation="landscape" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1206,6 +1206,31 @@
                                             <outlet property="infoLabel" destination="Dna-V9-HXN" id="TJK-3R-hip"/>
                                             <outlet property="nameLabel" destination="3zq-4L-1K7" id="0eb-CO-Vfi"/>
                                             <outlet property="removeButton" destination="xNB-Fp-5xD" id="qs2-Vj-bE7"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerAddAllButtonCell" id="nlh-ij-xq6" customClass="ContainerAddAllButtonCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="266" width="667" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nlh-ij-xq6" id="Izh-zE-ZeK">
+                                            <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gK4-Li-RvO" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
+                                                    <rect key="frame" x="287" y="5" width="93" height="34.5"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="ADD ALL"/>
+                                                    <connections>
+                                                        <action selector="addAllRecipients:" destination="nlh-ij-xq6" eventType="touchUpInside" id="xU8-Zo-0gM"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gK4-Li-RvO" firstAttribute="centerX" secondItem="Izh-zE-ZeK" secondAttribute="centerX" id="feJ-DF-T6E"/>
+                                                <constraint firstItem="gK4-Li-RvO" firstAttribute="centerY" secondItem="Izh-zE-ZeK" secondAttribute="centerY" id="kz7-EE-xQv"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="addAllButton" destination="gK4-Li-RvO" id="1A4-h2-MX1"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

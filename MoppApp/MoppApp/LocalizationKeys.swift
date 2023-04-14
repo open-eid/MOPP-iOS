@@ -321,6 +321,7 @@ enum LocKey : String
     case cryptoRecipientFound = "crypto-recipient-found"
     case cryptoRecipientsFound = "crypto-recipients-found"
     case cryptoRecipientAdded = "crypto-recipient-added"
+    case cryptoRecipientsAdded = "crypto-recipients-added"
     case cryptoRecipientRemoved = "crypto-recipient-removed"
     case cryptoRecipientAddingCancelled = "crypto-recipient-adding-cancelled"
     case cryptoEncryptionSuccess = "crypto-encryption-success"
@@ -335,6 +336,7 @@ enum LocKey : String
     case cryptoAddAddresseeButtonTitle = "crypto-add-addressee-button-title";
     case cryptoAddAddresseeButtonTitleAccessibility = "crypto-add-addressee-button-title-accessibility";
     case cryptoAddresseeAddedButtonTitle = "crypto-addressee-added-button-title";
+    case cryptoAddresseeAddAllButton = "crypto-addressee-add-all-button";
     case cryptoRemoveAddresseeButton = "crypto-remove-addressee-button";
     case cryptoInvalidPersonalCodeTitle = "crypto-invalid-personal-code-title";
     case datafilePreviewFailed = "datafile-preview-failed";
