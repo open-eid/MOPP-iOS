@@ -39,4 +39,12 @@ struct FileUtil {
         }
         return ""
     }
+    
+    static func getFileName(currentFileName: String) -> String {
+        if currentFileName.isEmpty || currentFileName.starts(with: ".") {
+            return "newFile"
+        }
+        
+        return currentFileName
+    }
 }
