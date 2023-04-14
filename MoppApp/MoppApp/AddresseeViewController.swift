@@ -82,15 +82,15 @@ class AddresseeViewController : MoppViewController {
 }
 
 extension AddresseeViewController : UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if (searchText.count >= 11 &&
-            PersonalCodeValidator.isPersonalCodeNumeric(personalCode: searchText) &&
-            !PersonalCodeValidator.isPersonalCodeValid(personalCode: searchText)) {
-            searchBar.text?.removeLast()
-        }
-    }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = searchBar.text?.trimWhitespacesAndNewlines()
+        if let searchText = searchBar.text,
+           searchText.count >= 11 &&
+            !PersonalCodeValidator.isPersonalCodeValid(personalCode: searchText) {
+            let invalidPersonalCodeError = AlertUtil.errorDialog(title: L(.errorAlertTitleGeneral), errorMessage: L(.cryptoInvalidPersonalCodeTitle), topViewController: getTopViewController())
+            self.present(invalidPersonalCodeError, animated: true)
+            return
+        }
         selectedIndexes = []
         showLoading(show: true)
         MoppLibCryptoActions.sharedInstance().searchLdapData(

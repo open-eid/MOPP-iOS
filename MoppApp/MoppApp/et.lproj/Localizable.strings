@@ -97,6 +97,7 @@
 "crypto-addressee-added-button-title" = "LISATUD";
 "crypto-addressee-add-all-button" = "LISA KÕIK";
 "crypto-remove-addressee-button" = "Eemalda adressaat";
+"crypto-invalid-personal-code-title" = "Isikukood pole korrektne!";
 
 // Crashlytics
 "crashlytics-title" = "Kas saata vearaport?";

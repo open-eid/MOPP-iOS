@@ -93,6 +93,7 @@
 "crypto-addressee-added-button-title" = "ADDED";
 "crypto-addressee-add-all-button" = "ADD ALL";
 "crypto-remove-addressee-button" = "Remove recipient";
+"crypto-invalid-personal-code-title" = "Personal code is not valid!";
 
 // Signing view
 "signing-recent-containers" = "Recent documents";
