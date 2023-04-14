@@ -30,7 +30,8 @@ protocol AddresseeViewControllerDelegate: AnyObject {
 class AddresseeViewController : MoppViewController {
     weak var addresseeViewControllerDelegate: AddresseeViewControllerDelegate? = nil
     @IBOutlet weak var tableView: UITableView!
-
+    
+    var submittedQuery = ""
     
     enum Section {
         case notifications
@@ -77,25 +78,15 @@ class AddresseeViewController : MoppViewController {
         self.view.addGestureRecognizer(tap)
     }
     
-    deinit {
-        printLog("Deinit AddreseeViewController")
-    }
-   
-}
-
-extension AddresseeViewController : UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if (searchText.count >= 11 &&
-            PersonalCodeValidator.isPersonalCodeNumeric(personalCode: searchText) &&
-            !PersonalCodeValidator.isPersonalCodeValid(personalCode: searchText)) {
-            searchBar.text?.removeLast()
-        }
-    }
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    private func searchLdap(textField: UITextField) {
+        guard let text = textField.text else { return }
+        guard let trimmedText = text.trimWhitespacesAndNewlines() else { return }
+        textField.text = trimmedText
+        submittedQuery = trimmedText
         selectedIndexes = []
         showLoading(show: true)
         MoppLibCryptoActions.sharedInstance().searchLdapData(
-            searchBar.text,
+            trimmedText,
             success: { (_ ldapResponse: NSMutableArray?) -> Void in
                 _ = ldapResponse?.sorted {($0 as! Addressee).identifier < ($1 as! Addressee).identifier }
                 
@@ -119,6 +110,58 @@ extension AddresseeViewController : UISearchBarDelegate {
                 }
         }, configuration: MoppLDAPConfiguration.getMoppLDAPConfiguration()
         )
+    }
+}
+
+extension AddresseeViewController : UITextFieldDelegate {
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        textField.addTarget(self, action: #selector(textFieldTextChanged(_:)), for: .editingChanged)
+        let searchField = textField as? SearchField
+        searchField?.onSearchIconTapped = {
+            guard let searchTextField = searchField else { return }
+            guard let text = searchTextField.text else { return }
+            if !text.isEmpty && !self.isSameQuery(text: text, submittedQuery: self.submittedQuery) {
+                self.searchLdap(textField: searchTextField)
+            }
+        }
+        
+        return true
+    }
+    
+    @objc func textFieldTextChanged(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        if (text.count >= 11 &&
+            PersonalCodeValidator.isPersonalCodeNumeric(personalCode: text) &&
+            !PersonalCodeValidator.isPersonalCodeValid(personalCode: text)) {
+            textField.text?.removeLast()
+        }
+    }
+    
+    func removeEditingTarget(_ textField: UITextField) {
+        textField.removeTarget(self, action: nil, for: .editingChanged)
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        removeEditingTarget(textField)
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        removeEditingTarget(textField)
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let text = textField.text else { return false }
+        if !text.isEmpty && !isSameQuery(text: text, submittedQuery: submittedQuery) {
+            searchLdap(textField: textField)
+        }
+        return true
+    }
+    
+    func isSameQuery(text: String, submittedQuery: String) -> Bool {
+        return text.trimWhitespacesAndNewlines() == self.submittedQuery
     }
 }
 

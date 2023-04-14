@@ -36,13 +36,16 @@ class ScaledTextField: UITextField {
     }
     
     func scaleFont() {
+        let currentFont = self.font ?? UIFont(name: "Roboto-Bold", size: 16) ?? UIFont()
         if UIAccessibility.isBoldTextEnabled {
-            self.font = FontUtil.boldFont(font: self.font ?? UIFont(name: "Roboto-Bold", size: 16) ?? UIFont())
+            self.font = FontUtil.boldFont(font: currentFont)
         } else {
-            self.font = FontUtil.scaleFont(font: self.font ?? UIFont(name: "Roboto-Bold", size: 16) ?? UIFont())
+            self.font = FontUtil.scaleFont(font: currentFont)
+            self.attributedPlaceholder = NSAttributedString(string: self.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
         }
         
         self.adjustsFontForContentSizeCategory = true
         self.adjustsFontSizeToFitWidth = true
+        self.sizeToFit()
     }
 }

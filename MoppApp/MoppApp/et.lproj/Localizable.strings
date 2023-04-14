@@ -79,6 +79,7 @@
 
 "crypto-encryption-success" = "KRÜPTEERIMINE ÕNNESTUS";
 "crypto-decryption-cancelled" = "Faili dekrüpteerimine katkestatud";
+"crypto-recipient-search" = "Otsi";
 "crypto-recipient-found" = "Adressaat leitud";
 "crypto-recipients-found" = "%@ adressaati leitud";
 "crypto-recipient-added" = "Adressaat lisatud";

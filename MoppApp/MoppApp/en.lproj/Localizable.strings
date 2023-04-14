@@ -75,6 +75,7 @@
 "crypto-encryption-error-text" = "Something went wrong with encryption";
 "crypto-encryption-success" = "ENCRYPTION SUCCEEDED";
 "crypto-decryption-cancelled" = "File decryption cancelled";
+"crypto-recipient-search" = "Search";
 "crypto-recipient-found" = "Recipient found";
 "crypto-recipients-found" = "%@ recipients found";
 "crypto-recipient-added" = "Recipient added";
