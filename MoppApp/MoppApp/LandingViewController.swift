@@ -118,6 +118,8 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
         super.viewDidLoad()
         
         LandingViewController.shared = self
+        
+        buttonsStackView.isAccessibilityElement = false
 
         selectedTab = .signTab
         
@@ -132,6 +134,26 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
 
         NotificationCenter.default.addObserver(self, selector: #selector(receiveErrorNotification), name: .errorNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveStartImportingFilesWithDocumentPickerNotification), name: .startImportingFilesWithDocumentPickerNotificationName, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didFinishAnnouncement(_:)),
+            name: UIAccessibility.announcementDidFinishNotification,
+            object: nil)
+    }
+
+    @objc func didFinishAnnouncement(_ notification: Notification) {
+        let announcementValue: String? = notification.userInfo?[UIAccessibility.announcementStringValueUserInfoKey] as? String
+        let isAnnouncementSuccessful: Bool? = notification.userInfo?[UIAccessibility.announcementWasSuccessfulUserInfoKey] as? Bool
+
+        guard let isSuccessful = isAnnouncementSuccessful else {
+            return
+        }
+
+        if !isSuccessful {
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: announcementValue)
+        } else if announcementValue == L(.dataFileAdded) || announcementValue == L(.dataFilesAdded) {
+            UIAccessibility.post(notification: .layoutChanged, argument: navigationItem.leftBarButtonItem)
+        }
     }
 
     deinit {

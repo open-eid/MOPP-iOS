@@ -25,6 +25,8 @@ import Foundation
 
 class ScaledTextField: UITextField {
     
+    override var canBecomeFocused: Bool { true }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         scaleFont()
@@ -36,6 +38,8 @@ class ScaledTextField: UITextField {
     }
     
     func scaleFont() {
+        self.isAccessibilityElement = true
+
         if UIAccessibility.isBoldTextEnabled {
             self.font = FontUtil.boldFont(font: self.font ?? UIFont(name: "Roboto-Bold", size: 16) ?? UIFont())
         } else {
