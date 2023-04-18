@@ -26,6 +26,7 @@ import WebKit
 class DataFilePreviewViewController : MoppViewController {
     
     @IBOutlet weak var webView: WKWebView!
+    static let DEFAULT_ENCODING = "UTF-8"
     var previewFilePath: String!
     var isShareNeeded: Bool = false
     
@@ -37,7 +38,15 @@ class DataFilePreviewViewController : MoppViewController {
         } else {
             setupNavigationItemForPushedViewController(title: url.lastPathComponent)
         }
-        webView.loadFileURL(url, allowingReadAccessTo: url);
+        
+        do {
+            let urlData = try Data(contentsOf: url)
+            let fileExtension = url.pathExtension
+            let mimeType = MimeTypeExtractor.detectMimeType(forFileExtension: fileExtension)
+            webView.load(urlData, mimeType: mimeType, characterEncodingName: DataFilePreviewViewController.DEFAULT_ENCODING, baseURL: url)
+        } catch {
+            printLog("Unable to load URL data. Error: \(error.localizedDescription)")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
