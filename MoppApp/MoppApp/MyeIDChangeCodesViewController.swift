@@ -53,24 +53,6 @@ class MyeIDChangeCodesViewController: MoppViewController {
 extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelegate {
     func didTapDiscardButton(_ ui: MyeIDChangeCodesViewControllerUI) {
         if UIAccessibility.isVoiceOverRunning {
-            switch self.model.actionType {
-            case .changePin1:
-                break
-            case .unblockPin1:
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    UIAccessibility.post(notification: .announcement, argument: L(.myEidInfoPin1UnblockCancelled))
-                }
-            case .changePin2:
-                break
-            case .unblockPin2:
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    UIAccessibility.post(notification: .announcement, argument: L(.myEidInfoPin2UnblockCancelled))
-                }
-            case .changePuk:
-                break
-            }
-        }
-        if UIAccessibility.isVoiceOverRunning {
             infoManager.actionKind = self.model.actionType
         }
         _ = navigationController?.popViewController(animated: true)
