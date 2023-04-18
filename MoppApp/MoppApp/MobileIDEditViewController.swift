@@ -179,11 +179,7 @@ class MobileIDEditViewController : MoppViewController {
     }
 
     func defaultRememberMeToggle() {
-        if (DefaultsHelper.phoneNumber?.count ?? 0 > 0 && DefaultsHelper.idCode.count > 0) {
-            rememberSwitch.setOn(true, animated: true)
-        } else {
-            rememberSwitch.setOn(false, animated: true)
-        }
+        rememberSwitch.setOn(DefaultsHelper.mobileIdRememberMe, animated: true)
     }
 
     func verifySigningCapability() {

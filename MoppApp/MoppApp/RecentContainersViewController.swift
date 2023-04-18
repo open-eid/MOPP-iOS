@@ -226,7 +226,7 @@ extension RecentContainersViewController : UITableViewDelegate {
                         success: {(_ cdocInfo: CdocInfo?) -> Void in
                             guard let strongCdocInfo = cdocInfo else { return }
                             let cryptoContainer = (containerViewController as! CryptoContainerViewController)
-                            container.addressees = strongCdocInfo.addressees
+                            container.addressees = strongCdocInfo.addressees as? [Addressee] ?? []
                             container.dataFiles = strongCdocInfo.dataFiles
                             cryptoContainer.containerPath = filePath as String?
                             cryptoContainer.state = .opened

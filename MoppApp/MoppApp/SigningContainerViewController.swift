@@ -28,6 +28,7 @@ import UIKit
 class SigningContainerViewController : ContainerViewController, SigningActions, UIDocumentPickerDelegate {
     
     var container: MoppLibContainer!
+    var notificationMessages: [(isSuccess: Bool, text: String)] = []
     var invalidSignaturesCount: Int {
         if container == nil { return 0 }
         return (container.signatures as! [MoppLibSignature]).filter { (MoppLibSignatureStatus.Invalid == $0.status) }.count
@@ -42,8 +43,15 @@ class SigningContainerViewController : ContainerViewController, SigningActions, 
        return UIStoryboard.container.instantiateInitialViewController(of: SigningContainerViewController.self)
    }
     
+    func reloadNotifications() {
+        self.notifications.append(contentsOf: notificationMessages)
+        self.reloadData()
+    }
+    
    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+       
+       reloadNotifications()
     }
     
     override func viewDidLoad() {
@@ -151,7 +159,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                 if alertAction == .cancel {
                     UIAccessibility.post(notification: .layoutChanged, argument: L(.dataFileRemovalCancelled))
                 } else if alertAction == .confirm {
-                    self?.notifications = []
+                    self?.notificationMessages = []
                     self?.updateState(.loading)
                     MoppLibContainerActions.sharedInstance().removeDataFileFromContainer(
                         withPath: self?.containerPath,
@@ -216,7 +224,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
         guard let dataFile = container.dataFiles[index] as? MoppLibDataFile else {
             return nil
         }
-        return MoppLibManager.sanitize((dataFile.fileName as String))
+        return (dataFile.fileName as String).sanitize()
     }
     
     func getContainer() -> MoppLibContainer {
@@ -257,10 +265,10 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
             
             guard let strongSelf = self else { return }
             
-            strongSelf.notifications = []
+            strongSelf.notificationMessages = []
             
             if afterSignatureCreated && container.isSignable() && !strongSelf.isForPreview {
-                strongSelf.notifications.append((true, L(.containerDetailsSigningSuccess)))
+                strongSelf.notificationMessages.append((true, L(.containerDetailsSigningSuccess)))
                 
                 if UIAccessibility.isVoiceOverRunning {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -277,6 +285,9 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
             
             strongSelf.container = container
             strongSelf.appendSignatureWarnings()
+            if !strongSelf.notificationMessages.isEmpty {
+                strongSelf.reloadNotifications()
+            }
             strongSelf.sortSignatures()
             // State cannot change if back button is pressed
             if(strongSelf.landingViewController.isAlreadyInMainPage == false){

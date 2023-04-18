@@ -60,4 +60,11 @@ class ScaledButton: UIButton {
         
         self.sizeToFit()
     }
+    
+    override func accessibilityElementDidBecomeFocused() {
+        let accessibilityIdentifier = self.accessibilityIdentifier
+        if accessibilityIdentifier == "IdCardCancelButton" || accessibilityIdentifier == "IdCardActionButton" {
+            NotificationCenter.default.post(name: .hideKeyboardAccessibility, object: nil, userInfo: ["view": self])
+        }
+    }
 }

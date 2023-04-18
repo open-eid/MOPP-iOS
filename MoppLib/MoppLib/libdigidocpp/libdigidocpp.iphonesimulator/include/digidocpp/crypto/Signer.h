@@ -21,6 +21,8 @@
 
 #include "../Exception.h"
 
+#include <memory>
+
 namespace digidoc
 {
     class X509Cert;
@@ -32,7 +34,7 @@ namespace digidoc
 
           virtual X509Cert cert() const = 0;
           virtual std::vector<unsigned char> sign(const std::string &method, const std::vector<unsigned char> &digest) const = 0;
-          std::string method() const;
+          virtual std::string method() const;
           std::string profile() const;
           bool usingENProfile() const;
 
@@ -57,7 +59,6 @@ namespace digidoc
       private:
           DISABLE_COPY(Signer);
           class Private;
-          Private *d;
-
+          std::unique_ptr<Private> d;
     };
 }

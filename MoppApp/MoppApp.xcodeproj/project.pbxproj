@@ -358,8 +358,10 @@
 		DF6299122664FEFE00E6C55E /* UrlSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */; };
 		DF7F611926399B5400747B7D /* ContainerRemovalActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */; };
 		DF8A948C29B8D04A004F6E4B /* ScaledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8A948B29B8D04A004F6E4B /* ScaledTextField.swift */; };
+		DF8A948A29AFD11A004F6E4B /* CharacterSet+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8A948929AFD11A004F6E4B /* CharacterSet+Additions.swift */; };
 		DF8EFB1A287498B900A96DE3 /* SettingsDefaultValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8EFB19287498B900A96DE3 /* SettingsDefaultValueCell.swift */; };
 		DF900C972386768F00887385 /* tslFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DF900C94238567CA00887385 /* tslFiles.bundle */; };
+		DF97A51129DC8CAB006FB917 /* ContainerAddAllButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF97A51029DC8CAB006FB917 /* ContainerAddAllButtonCell.swift */; };
 		DFA5821A264AAB6600564971 /* digidoc_76.png in Resources */ = {isa = PBXBuildFile; fileRef = DFA58218264AAB6500564971 /* digidoc_76.png */; };
 		DFA5821B264AAB6600564971 /* digidoc_1024.png in Resources */ = {isa = PBXBuildFile; fileRef = DFA58219264AAB6600564971 /* digidoc_1024.png */; };
 		DFB1A492283FB9AF000B578D /* CertificateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB1A491283FB9AF000B578D /* CertificateDetailViewController.swift */; };
@@ -674,8 +676,10 @@
 		DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSchemeHandler.swift; sourceTree = "<group>"; };
 		DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerRemovalActions.swift; sourceTree = "<group>"; };
 		DF8A948B29B8D04A004F6E4B /* ScaledTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledTextField.swift; sourceTree = "<group>"; };
+		DF8A948929AFD11A004F6E4B /* CharacterSet+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Additions.swift"; sourceTree = "<group>"; };
 		DF8EFB19287498B900A96DE3 /* SettingsDefaultValueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsDefaultValueCell.swift; sourceTree = "<group>"; };
 		DF900C94238567CA00887385 /* tslFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = tslFiles.bundle; sourceTree = "<group>"; };
+		DF97A51029DC8CAB006FB917 /* ContainerAddAllButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerAddAllButtonCell.swift; sourceTree = "<group>"; };
 		DFA58218264AAB6500564971 /* digidoc_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_76.png; sourceTree = "<group>"; };
 		DFA58219264AAB6600564971 /* digidoc_1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_1024.png; sourceTree = "<group>"; };
 		DFB1A491283FB9AF000B578D /* CertificateDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateDetailViewController.swift; sourceTree = "<group>"; };
@@ -826,6 +830,7 @@
 				C541E13C21B17CE000685535 /* UISwitch+Utils.swift */,
 				DFF3C3B4233231F20079458A /* Notification+Additions.swift */,
 				DF13562D2902018A00F61823 /* MoppApp+Additions.swift */,
+				DF8A948929AFD11A004F6E4B /* CharacterSet+Additions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -923,6 +928,7 @@
 				DF4B8417284008CF005CB875 /* SignatureDetail.swift */,
 				DF4B84192840F8FC005CB875 /* CertificateDetailsCell.swift */,
 				DF4B841D284417CD005CB875 /* CertificateDetail.swift */,
+				DF97A51029DC8CAB006FB917 /* ContainerAddAllButtonCell.swift */,
 			);
 			name = Container;
 			sourceTree = "<group>";
@@ -1903,6 +1909,7 @@
 				DFB1A492283FB9AF000B578D /* CertificateDetailViewController.swift in Sources */,
 				DFDF02C0241EC72D006CF443 /* SessionStatus.swift in Sources */,
 				C52E827C1FC1D7BC0074B280 /* MoppApp.swift in Sources */,
+				DF8A948A29AFD11A004F6E4B /* CharacterSet+Additions.swift in Sources */,
 				E4C53F4E1E30D13100F209BE /* Session.swift in Sources */,
 				C50DCCC51FC31EFC00D48E16 /* UIButton+Additions.swift in Sources */,
 				C51B7FB71FBC45DD0046D6E0 /* LocalizationKeys.swift in Sources */,
@@ -1945,6 +1952,7 @@
 				C5927FC720751402003B7F41 /* MyeIDPinPukCell.swift in Sources */,
 				DF8A948C29B8D04A004F6E4B /* ScaledTextField.swift in Sources */,
 				DFF3C3AF233231190079458A /* SettingsConfiguration.swift in Sources */,
+				DF97A51129DC8CAB006FB917 /* ContainerAddAllButtonCell.swift in Sources */,
 				DFC2ADC229437790008A1CD2 /* AccessibilityViewController.swift in Sources */,
 				393B66BA20D7EC9D001DC89B /* WrapperUIBarButtonItem.swift in Sources */,
 				DFC2ADC6294377AC008A1CD2 /* AccessibilityViewTextType.swift in Sources */,

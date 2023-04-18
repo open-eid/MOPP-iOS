@@ -43,7 +43,7 @@ extension SigningActions where Self: SigningContainerViewController {
                 if alertAction == .cancel {
                     UIAccessibility.post(notification: .layoutChanged, argument: L(.signatureRemovalCancelled))
                 } else if alertAction == .confirm {
-                    self?.notifications = []
+                    self?.notificationMessages = []
                     self?.updateState(.loading)
                     MoppLibContainerActions.sharedInstance().remove(
                         signature,
@@ -89,7 +89,7 @@ extension SigningActions where Self: SigningContainerViewController {
             } else if self.invalidSignaturesCount > 1 {
                 signatureWarningText = L(.containerErrorMessageInvalidSignatures, [self.invalidSignaturesCount])
             }
-            self.notifications.append((false, signatureWarningText))
+            self.notificationMessages.append((false, signatureWarningText))
         }
         
         if self.unknownSignaturesCount > 0 {
@@ -99,7 +99,7 @@ extension SigningActions where Self: SigningContainerViewController {
             } else if self.unknownSignaturesCount > 1 {
                 signatureWarningText = L(.containerErrorMessageUnknownSignatures, [self.unknownSignaturesCount])
             }
-            self.notifications.append((false, signatureWarningText))
+            self.notificationMessages.append((false, signatureWarningText))
         }
     }
     
