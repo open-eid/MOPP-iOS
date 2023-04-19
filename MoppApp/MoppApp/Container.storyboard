@@ -1203,6 +1203,31 @@
                                             <outlet property="removeButton" destination="xNB-Fp-5xD" id="qs2-Vj-bE7"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerAddAllButtonCell" id="nlh-ij-xq6" customClass="ContainerAddAllButtonCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="266" width="667" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nlh-ij-xq6" id="Izh-zE-ZeK">
+                                            <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gK4-Li-RvO" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
+                                                    <rect key="frame" x="287" y="5" width="93" height="34.5"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="ADD ALL"/>
+                                                    <connections>
+                                                        <action selector="addAllRecipients:" destination="nlh-ij-xq6" eventType="touchUpInside" id="xU8-Zo-0gM"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gK4-Li-RvO" firstAttribute="centerX" secondItem="Izh-zE-ZeK" secondAttribute="centerX" id="feJ-DF-T6E"/>
+                                                <constraint firstItem="gK4-Li-RvO" firstAttribute="centerY" secondItem="Izh-zE-ZeK" secondAttribute="centerY" id="kz7-EE-xQv"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="addAllButton" destination="gK4-Li-RvO" id="1A4-h2-MX1"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="YsC-OK-FXD" id="t6Z-Cb-xwD"/>

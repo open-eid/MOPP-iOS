@@ -24,7 +24,7 @@
 import Foundation
 
 protocol ContainerFoundAddresseeCellDelegate : AnyObject {
-    func addAddresseeToSelectedArea(index: Int)
+    func addAddresseeToSelectedArea(index: Int, completionHandler: @escaping () -> Void)
 }
 
 
@@ -42,8 +42,9 @@ class ContainerFoundAddresseeCell: UITableViewCell, AddresseeActions {
     var index: Int = 0
     
     @IBAction func addAddressee(_ sender: Any) {
-        delegate.addAddresseeToSelectedArea(index: index)
-        UIAccessibility.post(notification: .screenChanged, argument: L(.cryptoRecipientAdded))
+        delegate.addAddresseeToSelectedArea(index: index) {
+            UIAccessibility.post(notification: .screenChanged, argument: L(.cryptoRecipientAdded))
+        }
     }
     
     func populate(addressee: Addressee, index: Int, isAddButtonDisabled: Bool) {

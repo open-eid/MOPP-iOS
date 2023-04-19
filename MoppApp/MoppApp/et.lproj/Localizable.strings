@@ -83,6 +83,7 @@
 "crypto-recipient-found" = "Adressaat leitud";
 "crypto-recipients-found" = "%@ adressaati leitud";
 "crypto-recipient-added" = "Adressaat lisatud";
+"crypto-recipients-added" = "Adressaadid lisatud";
 "crypto-recipient-removed" = "Adressaat eemaldatud";
 "crypto-recipient-adding-cancelled" = "Adressaadi lisamine katkestatud";
 "crypto-no-addressees-warning" = "Ühtegi adressaati ei ole lisatud";
@@ -95,7 +96,9 @@
 "crypto-add-addressee-button-title" = "LISA";
 "crypto-add-addressee-button-title-accessibility" = "LISA ADRESSAAT";
 "crypto-addressee-added-button-title" = "LISATUD";
+"crypto-addressee-add-all-button" = "LISA KÕIK";
 "crypto-remove-addressee-button" = "Eemalda adressaat";
+"crypto-invalid-personal-code-title" = "Isikukood pole korrektne!";
 
 // Crashlytics
 "crashlytics-title" = "Kas saata vearaport?";
@@ -126,7 +129,7 @@
 "file-import-open-existing-failed-alert-title" = "Ümbriku laadimine ebaõnnestus";
 "file-import-open-existing-failed-alert-message" = "Dokumendi %@ avamine ebaõnnestus";
 "file-import-create-new-failed-alert-title" = "Ümbriku loomine ebaõnnestus";
-"file-import-create-new-failed-alert-message" = "%@ laadimine ebaõnnesus";
+"file-import-create-new-failed-alert-message" = "%@ laadimine ebaõnnestus";
 "file-import-new-file-opening-failed-alert-message" = "Faili %@ avamine ebaõnnestus";
 "file-import-remove-file" = "Eemalda fail";
 "file-import-save-file" = "Salvesta fail ümbrikust";

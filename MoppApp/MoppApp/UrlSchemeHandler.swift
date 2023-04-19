@@ -60,20 +60,21 @@ class UrlSchemeHandler: NSObject, URLSessionDelegate {
     
     private func constructURLWithoutScheme(url: URL?) -> URL? {
         guard let url: URL = url else { return URL(string: "") }
-        var urlComponents: URLComponents = URLComponents()
+        
         let supportedURISchemes: [String] = ["https"]
-        if let urlHost = url.host, !supportedURISchemes.contains(urlHost) {
-            urlComponents.scheme = "https"
-            urlComponents.host = url.host
-            urlComponents.port = url.port
-            urlComponents.path = url.path
-            urlComponents.query = url.query
-        } else {
-            urlComponents.scheme = url.host
-            urlComponents.host = url.path
-            urlComponents.port = url.port
-            urlComponents.query = url.query
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        
+        if urlComponents?.scheme == "digidoc" {
+            var urlString = url.absoluteString
+            var cleanUrlString = ""
+            if let urlHost = urlComponents?.host, supportedURISchemes.contains(urlHost) {
+                cleanUrlString = urlString.replacingOccurrences(of: "digidoc://" + urlHost + "//", with: urlHost + "://")
+            } else {
+                cleanUrlString = urlString.replacingOccurrences(of: "digidoc://", with: "https://")
+            }
+            return URL(string: cleanUrlString)
         }
-        return urlComponents.url
+        return URL(string: "")
     }
 }

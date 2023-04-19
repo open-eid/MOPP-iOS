@@ -3,7 +3,7 @@
 //  MoppApp
 //
 /*
- * Copyright 2017 - 2022 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2023 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -28,7 +28,7 @@ struct FileUtil {
         guard !containerPath.isEmpty else { return "" }
         let fileURL: URL? = URL(fileURLWithPath: containerPath)
         if let fileURL = fileURL {
-            let fileName = fileURL.deletingPathExtension().lastPathComponent
+            let fileName = fileURL.deletingPathExtension().lastPathComponent.sanitize()
             let fileExtension = fileURL.pathExtension
             
             if fileName.count <= 6 {

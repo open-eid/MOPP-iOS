@@ -40,7 +40,7 @@ class ContainerHeaderCell: UITableViewCell {
                 return
             }
             DispatchQueue.main.async {
-                self.filenameLabel.text = MoppLibManager.sanitize(fileName)
+                self.filenameLabel.text = fileName.sanitize()
             }
         })
     }
@@ -53,7 +53,7 @@ class ContainerHeaderCell: UITableViewCell {
     }
     
     func populate(name: String, isEditButtonEnabled: Bool) {
-        filenameLabel.text = MoppLibManager.sanitize(name)
+        filenameLabel.text = name.sanitize()
         filenameLabel.resetLabelProperties()
         editContainerNameButton.isHidden = isEditButtonEnabled
         editContainerNameButton.accessibilityLabel = L(.containerEditNameButton)
