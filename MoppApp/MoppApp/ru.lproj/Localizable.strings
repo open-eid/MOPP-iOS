@@ -67,6 +67,7 @@
 "signing-error-incorrect-pin-length" = "%@-код должен быть не менее %i символов.";
 
 // Crypto
+"crypto-header-files-title" = "Файлы контейнера";
 "crypto-view-begin-label" = "Выберите файл для шифрования или расшифровки";
 "crypto-view-begin-label-accessibility" = "Выберите файл для шифрования или расшифровки";
 "crypto-view-begin-button" = "ВЫБРАТЬ ФАЙЛ";
@@ -164,6 +165,8 @@
 "container-signature-status-invalid" = "Подпись недействительна";
 "container-signature-status-unknown" = "Подпись неизвестная";
 "crypto-remove-addressee-button" = "Удалить подпись";
+"crypto-encrypted-files-title" = "Зашифрованные файлы";
+
 "crypto-invalid-personal-code-title" = "Личный код недействителен!";
 "container-timestamp-valid" = "Временной штамп действителен";
 "container-timestamp-unknown" = "Временной штамп неизвестный";

@@ -312,6 +312,7 @@ enum LocKey : String
     case successNotificationDialogDontShowAgain = "success-notification-dialog-dont-show-again"
     case aboutTitle = "about-title"
     case jailbreakMessage = "jailbreak-message"
+    case cryptoHeaderFilesTitle = "crypto-header-files-title"
     case cryptoViewBeginLabel = "crypto-view-begin-label"
     case cryptoViewBeginLabelAccessibility = "crypto-view-begin-label-accessibility"
     case cryptoViewBeginButton = "crypto-view-begin-button"
@@ -336,6 +337,7 @@ enum LocKey : String
     case cryptoAddAddresseeButtonTitle = "crypto-add-addressee-button-title";
     case cryptoAddAddresseeButtonTitleAccessibility = "crypto-add-addressee-button-title-accessibility";
     case cryptoAddresseeAddedButtonTitle = "crypto-addressee-added-button-title";
+    case cryptoEncryptedFilesTitle = "crypto-encrypted-files-title"
     case cryptoAddresseeAddAllButton = "crypto-addressee-add-all-button";
     case cryptoRemoveAddresseeButton = "crypto-remove-addressee-button";
     case cryptoInvalidPersonalCodeTitle = "crypto-invalid-personal-code-title";

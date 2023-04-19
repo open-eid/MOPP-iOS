@@ -67,6 +67,7 @@
 "signing-error-incorrect-pin-length" = "%@ code must be at least %i digits long";
 
 // Crypto
+"crypto-header-files-title" = "Container files";
 "crypto-view-begin-label" = "Choose a file to encrypt or decrypt";
 "crypto-view-begin-label-accessibility" = "Choose a file to encrypt or decrypt";
 "crypto-view-begin-button" = "CHOOSE FILE";
@@ -93,6 +94,7 @@
 "crypto-addressee-added-button-title" = "ADDED";
 "crypto-addressee-add-all-button" = "ADD ALL";
 "crypto-remove-addressee-button" = "Remove recipient";
+"crypto-encrypted-files-title" = "Encrypted files";
 "crypto-invalid-personal-code-title" = "Personal code is not valid!";
 
 // Signing view

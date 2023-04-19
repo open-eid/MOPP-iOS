@@ -65,6 +65,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var isCreated: Bool = false
     var forcePDFContentPreview: Bool = false
     var startSigningWhenOpened = false
+    var isEncrypted = false
     var isDecrypted = false
     let landingViewController = LandingViewController.shared!
     var isAsicContainer = LandingViewController.shared.containerType == .asic
@@ -851,11 +852,16 @@ extension ContainerViewController : UITableViewDelegate {
         let section = sections[_section]
         var title: String!
         switch section {
-            case .dataFiles:
-                let createFileTitle = L(LocKey.containerHeaderCreateFilesTitle)
-                title = isCreated ? createFileTitle : L(LocKey.containerHeaderFilesTitle)
-            default:
-                title = sectionHeaderTitle[section]
+        case .dataFiles:
+            if isCreated && !isAsicContainer {
+                title = L(.cryptoHeaderFilesTitle)
+            } else if isEncrypted {
+                title = L(.cryptoEncryptedFilesTitle)
+            } else {
+                title = L(.containerHeaderFilesTitle)
+            }
+        default:
+            title = sectionHeaderTitle[section]
         }
 
         if let header = MoppApp.instance.nibs[.containerElements]?.instantiate(withOwner: self, type: ContainerTableViewHeaderView.self) {
