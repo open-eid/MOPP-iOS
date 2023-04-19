@@ -319,6 +319,7 @@ enum LocKey : String
     case cryptoEmptyLdapLabel = "crypto-empty-ldap-label"
     case cryptoEncryptionErrorText = "crypto-encryption-error-text"
     case cryptoLdapSearchPlaceholder = "crypto-ldap-search-placeholder"
+    case cryptoRecipientSearch = "crypto-recipient-search"
     case cryptoRecipientFound = "crypto-recipient-found"
     case cryptoRecipientsFound = "crypto-recipients-found"
     case cryptoRecipientAdded = "crypto-recipient-added"

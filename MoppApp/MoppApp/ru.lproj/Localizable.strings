@@ -76,6 +76,7 @@
 "crypto-encryption-error-text" = "Что-то пошло не так с шифрованием";
 "crypto-encryption-success" = "ШИФРОВАНИЕ УДАЛОСЬ";
 "crypto-decryption-cancelled" = "Расшифровка файла прервана";
+"crypto-recipient-search" = "Искать";
 "crypto-recipient-found" = "Получатель найден";
 "crypto-recipients-found" = "%@ получатели найдены";
 "crypto-recipient-added" = "Получатель добавлен";

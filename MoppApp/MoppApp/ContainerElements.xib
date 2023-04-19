@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-  <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Container files" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Th8-Lk-whe" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                    <rect key="frame" x="16" y="0.0" width="343" height="104"/>
+                    <rect key="frame" x="66" y="0.0" width="243" height="104"/>
                     <accessibility key="accessibilityConfiguration">
                         <accessibilityTraits key="traits" staticText="YES" header="YES"/>
                     </accessibility>
@@ -46,17 +46,17 @@
             <constraints>
                 <constraint firstItem="Th8-Lk-whe" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="4oF-Fn-MTV"/>
                 <constraint firstItem="Th8-Lk-whe" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="GU1-0C-Mil"/>
-                <constraint firstItem="Th8-Lk-whe" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="I2X-kQ-2bZ"/>
+                <constraint firstItem="Th8-Lk-whe" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" constant="-50" id="I2X-kQ-2bZ"/>
                 <constraint firstItem="Th8-Lk-whe" firstAttribute="centerY" secondItem="BTM-MC-Uo5" secondAttribute="centerY" id="bM5-eS-7QS"/>
                 <constraint firstItem="BTM-MC-Uo5" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="g1D-40-unL"/>
-                <constraint firstItem="Th8-Lk-whe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="vT1-2g-RCs"/>
+                <constraint firstItem="Th8-Lk-whe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" constant="50" id="vT1-2g-RCs"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="addButton" destination="BTM-MC-Uo5" id="5Lm-g1-2mM"/>
                 <outlet property="titleLabel" destination="Th8-Lk-whe" id="JKO-vN-rZf"/>
             </connections>
-            <point key="canvasLocation" x="-22.5" y="-250"/>
+            <point key="canvasLocation" x="-23.199999999999999" y="-250.07496251874065"/>
         </view>
     </objects>
     <resources>
