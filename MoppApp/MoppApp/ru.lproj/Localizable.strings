@@ -79,6 +79,7 @@
 "crypto-recipient-found" = "Получатель найден";
 "crypto-recipients-found" = "%@ получатели найдены";
 "crypto-recipient-added" = "Получатель добавлен";
+"crypto-recipients-added" = "Получатели добавлены";
 "crypto-recipient-removed" = "Получатель удален";
 "crypto-recipient-adding-cancelled" = "Добавление получателя отменено";
 "crypto-no-addressees-warning" = "Не добавлено ни одного получателя";
@@ -91,6 +92,7 @@
 "crypto-add-addressee-button-title" = "ДОБАВИТЬ";
 "crypto-add-addressee-button-title-accessibility" = "ДОБАВИТЬ ПОЛУЧАТЕЛЯ";
 "crypto-addressee-added-button-title" = "ДОБАВЛЕН";
+"crypto-addressee-add-all-button" = "ДОБАВИТЬ ВСЕ";
 
 // Signing view
 "signing-recent-containers" = "Недавние документы";
@@ -165,6 +167,7 @@
 "crypto-remove-addressee-button" = "Удалить подпись";
 "crypto-encrypted-files-title" = "Зашифрованные файлы";
 
+"crypto-invalid-personal-code-title" = "Личный код недействителен!";
 "container-timestamp-valid" = "Временной штамп действителен";
 "container-timestamp-unknown" = "Временной штамп неизвестный";
 "container-timestamp-invalid" = "Временной штамп недействителен";

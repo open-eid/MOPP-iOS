@@ -175,7 +175,7 @@ extension ContainerActions where Self: UIViewController {
                 newFilePath as String?,
                 success: {(_ cdocInfo: CdocInfo?) -> Void in
                     guard let strongCdocInfo = cdocInfo else { return }
-                    container.addressees = strongCdocInfo.addressees
+                    container.addressees = strongCdocInfo.addressees as? [Addressee] ?? []
                     container.dataFiles = strongCdocInfo.dataFiles
                     containerViewController.containerPath = newFilePath
                     containerViewController.state = .opened

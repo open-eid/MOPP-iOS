@@ -183,6 +183,12 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         super.viewDidAppear(animated)
         containerViewDelegate.openContainer(afterSignatureCreated:false)
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        isEmptyFileWarningSet = false
+    }
 
     func updateState(_ newState: ContainerState) {
         showLoading(show: newState == .loading)
