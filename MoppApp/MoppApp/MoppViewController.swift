@@ -21,6 +21,9 @@
  *
  */
 class MoppViewController : UIViewController {
+    
+    @IBOutlet weak var myLabel: UILabel!
+    
     var lightContentStatusBarStyle : Bool = false
 
     private var scrollViewContentOffset: CGPoint = CGPoint()
@@ -37,6 +40,8 @@ class MoppViewController : UIViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+
+        addInvisibleBottomLabelTo(nil)
     }
 
     deinit {

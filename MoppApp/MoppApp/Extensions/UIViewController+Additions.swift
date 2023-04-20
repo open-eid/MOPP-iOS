@@ -21,6 +21,7 @@
  *
  */
 import Foundation
+import WebKit
 
 extension UIViewController {
     func confirmDeleteAlert(message: String?, confirmCallback: @escaping (_ action: UIAlertAction.DeleteAction) -> Void) {
@@ -100,5 +101,56 @@ extension UIViewController {
             }
             topViewController.infoAlert(message: message, dismissCallback: nil)
         }
+    }
+    
+    // Adds an invisible label element to the bottom of the view.
+    // Used for autotests by testers
+    func addInvisibleBottomLabelTo(_ customView: UIView?) {
+        let label = UILabel()
+        label.text = "Invisible label"
+        label.textAlignment = .center
+        label.backgroundColor = .lightGray
+        label.tag = invisibleElementTag
+        label.accessibilityIdentifier = invisibleElementAccessibilityIdentifier
+
+        label.isHidden = true
+        label.isAccessibilityElement = false
+        
+        let usedView = customView ?? view
+        
+        guard let mainView = usedView else { return }
+        
+        for subview in mainView.subviews {
+            if let scrollView = subview as? UIScrollView,
+               let lastSubview = scrollView.subviews.last(where: { type(of: $0) == UIView.self }) {
+                addLabelToBottom(label: label, lastSubview: lastSubview)
+                return
+            } else if let lastSubview = view.subviews.last(where: { type(of: $0) == UIView.self }) {
+                addLabelToBottom(label: label, lastSubview: lastSubview)
+                return
+            } else if let _ = view.subviews.last(where: { type(of: $0) == UITableView.self || type(of: $0) == WKWebView.self }) {
+                addLabelToBottom(label: label, lastSubview: view)
+                return
+            } else if let cView = customView {
+                addLabelToBottom(label: label, lastSubview: cView)
+                return
+            }
+        }
+    }
+    
+    func addLabelToBottom(label: UILabel, lastSubview: UIView) {
+        let lastElement = lastSubview.subviews.last ?? lastSubview
+        
+        lastSubview.addSubview(label)
+        
+        let height = lastElement.frame.height != 0 ? lastElement.frame.height : lastSubview.frame.height
+        
+        let width = lastElement.frame.width != 0 ? lastElement.frame.width : lastSubview.frame.width
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.widthAnchor.constraint(equalToConstant: width).isActive = true
+        label.heightAnchor.constraint(equalToConstant: height).isActive = true
+        label.topAnchor.constraint(equalTo: lastElement.bottomAnchor, constant: 16).isActive = true
+        label.centerXAnchor.constraint(equalTo: lastElement.centerXAnchor).isActive = true
     }
 }

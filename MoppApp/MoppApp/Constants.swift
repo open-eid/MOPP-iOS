@@ -48,7 +48,11 @@ let kDefaultTimeoutMs = 5000
 let kDefaultTimeoutS = 5
 
 // View tags
-let launchScreenTag: Int = 1
+let launchScreenTag = 1
+let invisibleElementTag = 99999
+
+// View accessibilityIdentifiers
+let invisibleElementAccessibilityIdentifier = "lastInvisibleElement"
 
 extension Notification.Name {
     static let containerChangedNotificationName = Notification.Name("Notification - container changed")

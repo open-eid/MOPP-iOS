@@ -24,6 +24,9 @@
 import Foundation
 
 class SigningViewController : MoppViewController {
+    
+    @IBOutlet var containerView: UIView!
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var importButton: UIButton!
     @IBOutlet weak var recentDocumentsButton: ScaledButton!
@@ -43,6 +46,8 @@ class SigningViewController : MoppViewController {
         recentDocumentsButton.localizedTitle = LocKey.recentContainersButton
         menuButton.isAccessibilityElement = true
         menuButton.accessibilityLabel = L(LocKey.menuButton)
+        
+        addInvisibleBottomLabelTo(containerView)
         
         titleLabel.isAccessibilityElement = false
         importButton.accessibilityLabel = L(.signatureViewBeginLabelAccessibility)

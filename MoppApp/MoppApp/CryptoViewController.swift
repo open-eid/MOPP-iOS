@@ -24,7 +24,9 @@
 import UIKit
 
 class CryptoViewController : MoppViewController {
-    
+
+    @IBOutlet var containerView: UIView!
+
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var importButton: UIButton!
     @IBOutlet weak var recentDocumentsButton: ScaledButton!
@@ -54,6 +56,7 @@ class CryptoViewController : MoppViewController {
         
         recentDocumentsButton.layer.borderWidth = 2
         recentDocumentsButton.layer.borderColor = UIColor.moppBase.cgColor
+        addInvisibleBottomLabelTo(containerView)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -127,6 +127,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="containerView" destination="iWd-FS-UZS" id="4jW-cy-sN5"/>
                         <outlet property="importButton" destination="CaL-ug-7D1" id="5fU-XL-mtr"/>
                         <outlet property="menuButton" destination="5Sn-xe-ssA" id="AFX-lG-Hhq"/>
                         <outlet property="recentDocumentsButton" destination="pDC-7U-9aN" id="5fC-lC-0hg"/>
