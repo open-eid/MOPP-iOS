@@ -254,8 +254,8 @@
 "wrong-pin1-single" = "Неверный PIN1. У Вас осталась 1 попытка до блокировки Вашего PIN1.";
 "pin2-textfield-label" = "Введите PIN2";
 "pin1-textfield-label" = "Введите PIN1";
-"pin2-blocked-alert" = "PIN2 заблокирован. Зайдите в Мой eID, чтобы разблокировать его.";
-"pin1-blocked-alert" = "PIN1 заблокирован. Зайдите в Мой eID, чтобы разблокировать его.";
+"pin2-blocked-alert" = "PIN2 заблокирован. PIN-код можно разблокировать на странице Mой eID.";
+"pin1-blocked-alert" = "PIN1 заблокирован. PIN-код можно разблокировать на странице Mой eID.";
 "generic-error-message" = "Что-то пошло не так. Пожалуйста, попробуйте снова.";
 "decryption-error-message" = "Что-то пошло не так с дешифрованием. Пожалуйста, попробуйте снова.";
 "signing-aborted-message" = "Процесс подписания прерван";
