@@ -113,26 +113,6 @@ class MimeTypeExtractor {
         
     }
     
-    static func detectMimeType(forFileExtension fileExtension: String) -> String {
-        if #available(iOS 14.0, *) {
-            let utType = UTType(filenameExtension: fileExtension)
-
-            guard let uti = utType else { return DEFAULT_MIMETYPE }
-
-            return uti.preferredMIMEType ?? DEFAULT_MIMETYPE
-        } else {
-            let utTypeTag = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, fileExtension as CFString, nil)
-
-            guard let uti = utTypeTag else { return DEFAULT_MIMETYPE }
-
-            let utTypeClass = UTTypeCopyPreferredTagWithClass(uti.takeRetainedValue(), kUTTagClassMIMEType)
-
-            guard let utType = utTypeClass else { return DEFAULT_MIMETYPE }
-
-            return utType.takeRetainedValue() as String
-        }
-    }
-    
     private static func unZipFile(filePath: URL, fileName: String) -> URL? {
         let outputPath = URL(fileURLWithPath: MoppFileManager.shared.tempDocumentsDirectoryPath(), isDirectory: true).appendingPathComponent(filePath.lastPathComponent).deletingPathExtension()
         guard let archive = Archive(url: filePath, accessMode: .read) else  {
