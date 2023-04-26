@@ -1,5 +1,5 @@
 //
-//  ScaledLabel.swift
+//  ScaledTextField.swift
 //  MoppApp
 //
 /*
@@ -23,33 +23,29 @@
 
 import Foundation
 
-class ScaledLabel: UILabel {
+class ScaledTextField: UITextField {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         scaleFont()
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
         scaleFont()
     }
     
     func scaleFont() {
+        let currentFont = self.font ?? UIFont(name: "Roboto-Bold", size: 16) ?? UIFont()
         if UIAccessibility.isBoldTextEnabled {
-            self.font = FontUtil.boldFont(font: self.font ?? UIFont(name: "Roboto-Bold", size: 16) ?? UIFont())
+            self.font = FontUtil.boldFont(font: currentFont)
         } else {
-            self.font = FontUtil.scaleFont(font: self.font ?? UIFont(name: "Roboto-Bold", size: 16) ?? UIFont())
+            self.font = FontUtil.scaleFont(font: currentFont)
+            self.attributedPlaceholder = NSAttributedString(string: self.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
         }
         
         self.adjustsFontForContentSizeCategory = true
         self.adjustsFontSizeToFitWidth = true
-        self.minimumScaleFactor = 0.1
-    }
-    
-    func resetLabelProperties() {
-        self.adjustsFontForContentSizeCategory = false
-        self.adjustsFontSizeToFitWidth = false
-        self.minimumScaleFactor = 1
+        self.sizeToFit()
     }
 }

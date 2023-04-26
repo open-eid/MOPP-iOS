@@ -312,15 +312,18 @@ enum LocKey : String
     case successNotificationDialogDontShowAgain = "success-notification-dialog-dont-show-again"
     case aboutTitle = "about-title"
     case jailbreakMessage = "jailbreak-message"
+    case cryptoHeaderFilesTitle = "crypto-header-files-title"
     case cryptoViewBeginLabel = "crypto-view-begin-label"
     case cryptoViewBeginLabelAccessibility = "crypto-view-begin-label-accessibility"
     case cryptoViewBeginButton = "crypto-view-begin-button"
     case cryptoEmptyLdapLabel = "crypto-empty-ldap-label"
     case cryptoEncryptionErrorText = "crypto-encryption-error-text"
     case cryptoLdapSearchPlaceholder = "crypto-ldap-search-placeholder"
+    case cryptoRecipientSearch = "crypto-recipient-search"
     case cryptoRecipientFound = "crypto-recipient-found"
     case cryptoRecipientsFound = "crypto-recipients-found"
     case cryptoRecipientAdded = "crypto-recipient-added"
+    case cryptoRecipientsAdded = "crypto-recipients-added"
     case cryptoRecipientRemoved = "crypto-recipient-removed"
     case cryptoRecipientAddingCancelled = "crypto-recipient-adding-cancelled"
     case cryptoEncryptionSuccess = "crypto-encryption-success"
@@ -335,6 +338,8 @@ enum LocKey : String
     case cryptoAddAddresseeButtonTitle = "crypto-add-addressee-button-title";
     case cryptoAddAddresseeButtonTitleAccessibility = "crypto-add-addressee-button-title-accessibility";
     case cryptoAddresseeAddedButtonTitle = "crypto-addressee-added-button-title";
+    case cryptoEncryptedFilesTitle = "crypto-encrypted-files-title"
+    case cryptoAddresseeAddAllButton = "crypto-addressee-add-all-button";
     case cryptoRemoveAddresseeButton = "crypto-remove-addressee-button";
     case cryptoInvalidPersonalCodeTitle = "crypto-invalid-personal-code-title";
     case datafilePreviewFailed = "datafile-preview-failed";

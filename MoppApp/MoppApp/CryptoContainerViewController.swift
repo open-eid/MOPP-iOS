@@ -39,6 +39,8 @@ class CryptoContainerViewController : ContainerViewController, CryptoActions, UI
     
     func reloadCryptoData() {
         
+        self.isEncrypted = isContainerEncrypted
+        
         if container != nil && container.addressees.count > 0 && (state == .opened || isContainerEncrypted) {
             self.sections = ContainerViewController.sectionsEncrypted
         } else if container != nil && container.addressees.count > 0 {
@@ -72,7 +74,7 @@ extension CryptoContainerViewController : CryptoContainerViewControllerDelegate 
     }
     
     func removeSelectedAddressee(index: Int) {
-        container.addressees.removeObject(at: index)
+        container.addressees.remove(at: index)
         reloadCryptoData()
     }
     
@@ -95,7 +97,7 @@ extension CryptoContainerViewController : CryptoContainerViewControllerDelegate 
 }
 
 extension CryptoContainerViewController : AddresseeViewControllerDelegate {
-    func addAddresseeToContainer(selectedAddressees: NSMutableArray) {
+    func addAddresseeToContainer(selectedAddressees: [Addressee]) {
         container.addressees = selectedAddressees
         self.navigationController?.popViewController(animated: true)
         reloadCryptoData()
@@ -227,7 +229,7 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
                 success: {(_ cdocInfo: CdocInfo?) -> Void in
                     guard let strongCdocInfo = cdocInfo else { return }
                     
-                    container.addressees = strongCdocInfo.addressees
+                    container.addressees = strongCdocInfo.addressees as? [Addressee] ?? []
                     container.dataFiles = strongCdocInfo.dataFiles
                     self.containerPath = filePath as String?
                     self.state = .opened

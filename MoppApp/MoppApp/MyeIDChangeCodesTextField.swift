@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-class MyeIDChangeCodesTextField: UITextField {
+class MyeIDChangeCodesTextField: ScaledTextField {
     override func awakeFromNib() {
         super.awakeFromNib()
         
