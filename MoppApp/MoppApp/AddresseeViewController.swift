@@ -24,23 +24,26 @@
 import Foundation
 
 protocol AddresseeViewControllerDelegate: AnyObject {
-    func addAddresseeToContainer(selectedAddressees: NSMutableArray)
+    func addAddresseeToContainer(selectedAddressees: [Addressee])
 }
 
 class AddresseeViewController : MoppViewController {
     weak var addresseeViewControllerDelegate: AddresseeViewControllerDelegate? = nil
     @IBOutlet weak var tableView: UITableView!
-
+    
+    var submittedQuery = ""
+    let defaultSectionFooterHeight = CGFloat(56)
     
     enum Section {
         case notifications
         case search
         case searchResult
         case addressees
+        case addAll
     }
     
-    var foundAddressees: NSArray = []
-    var selectedAddressees: NSMutableArray = []
+    var foundAddressees = [Addressee]()
+    var selectedAddressees = [Addressee]()
     var notifications: [(isSuccess: Bool, text: String)] = []
     var selectedIndexes: NSMutableArray = []
     
@@ -48,7 +51,7 @@ class AddresseeViewController : MoppViewController {
         .addressees  : L(LocKey.containerHeaderCreateAddresseesTitle),
     ]
     
-    internal static let sectionsDefault  : [Section] = [.notifications, .search, .searchResult, .addressees]
+    internal static let sectionsDefault  : [Section] = [.notifications, .search, .searchResult, .addressees, .addAll]
     
     var sections: [Section] = AddresseeViewController.sectionsDefault
     
@@ -76,26 +79,20 @@ class AddresseeViewController : MoppViewController {
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
     }
-   
-}
-
-extension AddresseeViewController : UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if (searchText.count >= 11 &&
-            PersonalCodeValidator.isPersonalCodeNumeric(personalCode: searchText) &&
-            !PersonalCodeValidator.isPersonalCodeValid(personalCode: searchText)) {
-            searchBar.text?.removeLast()
-        }
-    }
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    
+    private func searchLdap(textField: UITextField) {
+        guard let text = textField.text else { return }
+        let trimmedText = text.trimWhitespacesAndNewlines()
+        textField.text = trimmedText
+        submittedQuery = trimmedText
         selectedIndexes = []
         showLoading(show: true)
         MoppLibCryptoActions.sharedInstance().searchLdapData(
-            searchBar.text,
+            trimmedText,
             success: { (_ ldapResponse: NSMutableArray?) -> Void in
-                _ = ldapResponse?.sorted {($0 as! Addressee).identifier < ($1 as! Addressee).identifier }
+                _ = ldapResponse?.sorted {($0 as? Addressee)?.identifier ?? "" < ($1 as? Addressee)?.identifier ?? "" }
                 
-                self.foundAddressees = (ldapResponse?.sorted {($0 as! Addressee).identifier < ($1 as! Addressee).identifier } as NSArray? ?? [])
+                self.foundAddressees = ((ldapResponse?.sorted {($0 as? Addressee)?.identifier ?? "" < ($1 as? Addressee)?.identifier ?? "" } as? [Addressee]? ?? []) ?? [])
                 self.showLoading(show: false)
                 self.tableView.reloadData()
             },
@@ -115,6 +112,58 @@ extension AddresseeViewController : UISearchBarDelegate {
                 }
         }, configuration: MoppLDAPConfiguration.getMoppLDAPConfiguration()
         )
+    }
+}
+
+extension AddresseeViewController : UITextFieldDelegate {
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        textField.addTarget(self, action: #selector(textFieldTextChanged(_:)), for: .editingChanged)
+        let searchField = textField as? SearchField
+        searchField?.onSearchIconTapped = {
+            guard let searchTextField = searchField else { return }
+            guard let text = searchTextField.text else { return }
+            if !text.isEmpty && !self.isSameQuery(text: text, submittedQuery: self.submittedQuery) {
+                self.searchLdap(textField: searchTextField)
+            }
+        }
+        
+        return true
+    }
+    
+    @objc func textFieldTextChanged(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        if (text.count >= 11 &&
+            PersonalCodeValidator.isPersonalCodeNumeric(personalCode: text) &&
+            !PersonalCodeValidator.isPersonalCodeValid(personalCode: text)) {
+            textField.text?.removeLast()
+        }
+    }
+    
+    func removeEditingTarget(_ textField: UITextField) {
+        textField.removeTarget(self, action: nil, for: .editingChanged)
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        removeEditingTarget(textField)
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        removeEditingTarget(textField)
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let text = textField.text else { return false }
+        if !text.isEmpty && !isSameQuery(text: text, submittedQuery: submittedQuery) {
+            searchLdap(textField: textField)
+        }
+        return true
+    }
+    
+    func isSameQuery(text: String, submittedQuery: String) -> Bool {
+        return text.trimWhitespacesAndNewlines() == self.submittedQuery
     }
 }
 
@@ -146,6 +195,8 @@ extension AddresseeViewController : UITableViewDataSource {
                 return foundAddresseesCount
             case .addressees:
                 return selectedAddressees.count
+        case .addAll:
+            return 1
         }
     }
 
@@ -164,13 +215,13 @@ extension AddresseeViewController : UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withType: ContainerFoundAddresseeCell.self, for: indexPath)!
                 cell.delegate = self
                 let isSelected = selectedAddressees.contains { element in
-                    if ((element as! Addressee).cert == (foundAddressees[row] as! Addressee).cert) {
+                    if ((element as Addressee).cert == (foundAddressees[row] as Addressee).cert) {
                         return true
                     }
                     return false
                 }
                 let isAddButtonDisabled = selectedIndexes.contains(row) || isSelected
-                cell.populate(addressee: foundAddressees[row] as! Addressee, index: row, isAddButtonDisabled: isAddButtonDisabled)
+                cell.populate(addressee: foundAddressees[row] as Addressee, index: row, isAddButtonDisabled: isAddButtonDisabled)
                 if indexPath.row == 0 {
                     UIAccessibility.post(notification: .layoutChanged, argument: cell)
                 }
@@ -179,13 +230,17 @@ extension AddresseeViewController : UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withType: ContainerAddresseeCell.self, for: indexPath)!
                 cell.delegate = self
                 cell.populate(
-                    addressee: selectedAddressees[row] as! Addressee,
+                    addressee: selectedAddressees[row] as Addressee,
                     index: row,
                     showRemoveButton: true)
                 return cell
+            case .addAll:
+                let cell = tableView.dequeueReusableCell(withType: ContainerAddAllButtonCell.self, for: indexPath)!
+                cell.delegate = self
+                cell.populate(foundAddressees: self.foundAddressees, selectedAddresses: self.selectedAddressees)
+                return cell
         }
     }
-    
 }
 extension AddresseeViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -197,6 +252,8 @@ extension AddresseeViewController : UITableViewDelegate {
         case .searchResult:
             break
         case .addressees:
+            break
+        case .addAll:
             break
         }
     }
@@ -272,7 +329,7 @@ extension AddresseeViewController : ContainerAddresseeCellDelegate {
             selectedIndexes.removeObject(at: indexCount)
         }
         
-        selectedAddressees.removeObject(at: index)
+        selectedAddressees.remove(at: index)
         self.tableView.reloadData()
     }
     
@@ -286,12 +343,10 @@ extension AddresseeViewController : LandingViewControllerTabButtonsDelegate {
 }
 
 extension AddresseeViewController : ContainerFoundAddresseeCellDelegate {
-    func addAddresseeToSelectedArea(index: Int) {
+    func addAddresseeToSelectedArea(index: Int, completionHandler: @escaping () -> Void) {
         selectedIndexes.add(index)
         selectedAddressees.insert(foundAddressees[index], at: 0)
         self.tableView.reloadData()
+        completionHandler()
     }
-    
-    
-
 }

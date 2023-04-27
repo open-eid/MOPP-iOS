@@ -24,7 +24,7 @@ import Foundation
 import UIKit
 
 
-class MyTextField : UITextField {
+class MyTextField : ScaledTextField {
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         var rect = bounds
             rect.origin.x = 10
@@ -172,11 +172,7 @@ class MobileIDEditViewController : MoppViewController {
     }
 
     func defaultRememberMeToggle() {
-        if (DefaultsHelper.phoneNumber?.count ?? 0 > 0 && DefaultsHelper.idCode.count > 0) {
-            rememberSwitch.setOn(true, animated: true)
-        } else {
-            rememberSwitch.setOn(false, animated: true)
-        }
+        rememberSwitch.setOn(DefaultsHelper.mobileIdRememberMe, animated: true)
     }
 
     func verifySigningCapability() {

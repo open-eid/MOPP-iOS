@@ -65,6 +65,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var isCreated: Bool = false
     var forcePDFContentPreview: Bool = false
     var startSigningWhenOpened = false
+    var isEncrypted = false
     var isDecrypted = false
     let landingViewController = LandingViewController.shared!
     var isAsicContainer = LandingViewController.shared.containerType == .asic
@@ -182,6 +183,12 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         super.viewDidAppear(animated)
         containerViewDelegate.openContainer(afterSignatureCreated:false)
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        isEmptyFileWarningSet = false
+    }
 
     func updateState(_ newState: ContainerState) {
         showLoading(show: newState == .loading)
@@ -221,7 +228,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                     if isDecrypted {
                         tabButtons = []
                     } else {
-                        tabButtons = [.decryptButton, .shareButton]
+                        tabButtons = [.shareButton, .decryptButton]
                     }
                     setupNavigationItemForPushedViewController(title: L(.containerDecryptionTitle))
                 } else {
@@ -834,8 +841,8 @@ extension ContainerViewController : UITableViewDelegate {
         case .missingAddressees:
             break
         case .containerTimestamps:
-            if let signature = getSignature(indexPathRow: indexPath.row) {
-                instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: signature)
+            if let token = getTimestampToken(indexPathRow: indexPath.row) {
+                instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: token)
             }
             break
         }
@@ -845,11 +852,16 @@ extension ContainerViewController : UITableViewDelegate {
         let section = sections[_section]
         var title: String!
         switch section {
-            case .dataFiles:
-                let createFileTitle = L(LocKey.containerHeaderCreateFilesTitle)
-                title = isCreated ? createFileTitle : L(LocKey.containerHeaderFilesTitle)
-            default:
-                title = sectionHeaderTitle[section]
+        case .dataFiles:
+            if isCreated && !isAsicContainer {
+                title = L(.cryptoHeaderFilesTitle)
+            } else if isEncrypted {
+                title = L(.cryptoEncryptedFilesTitle)
+            } else {
+                title = L(.containerHeaderFilesTitle)
+            }
+        default:
+            title = sectionHeaderTitle[section]
         }
 
         if let header = MoppApp.instance.nibs[.containerElements]?.instantiate(withOwner: self, type: ContainerTableViewHeaderView.self) {
@@ -941,7 +953,14 @@ extension ContainerViewController : UITableViewDelegate {
     }
     
     private func getSignature(indexPathRow: Int) -> MoppLibSignature? {
+        if !asicsSignatures.isEmpty && asicsSignatures.indices.contains(indexPathRow) {
+            return asicsSignatures[indexPathRow]
+        }
         return signingContainerViewDelegate.getSignature(index: indexPathRow) as? MoppLibSignature
+    }
+    
+    private func getTimestampToken(indexPathRow: Int) -> MoppLibSignature? {
+        return signingContainerViewDelegate.getTimestampToken(index: indexPathRow) as? MoppLibSignature
     }
 }
 

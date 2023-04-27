@@ -37,9 +37,9 @@ class ScaledLabel: UILabel {
     
     func scaleFont() {
         if UIAccessibility.isBoldTextEnabled {
-            self.font = FontUtil.boldFont(font: self.font)
+            self.font = FontUtil.boldFont(font: self.font ?? UIFont(name: "Roboto-Bold", size: 16) ?? UIFont())
         } else {
-            self.font = FontUtil.scaleFont(font: self.font)
+            self.font = FontUtil.scaleFont(font: self.font ?? UIFont(name: "Roboto-Bold", size: 16) ?? UIFont())
         }
         
         self.adjustsFontForContentSizeCategory = true

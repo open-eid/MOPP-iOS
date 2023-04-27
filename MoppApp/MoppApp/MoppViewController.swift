@@ -89,13 +89,10 @@ class MoppViewController : UIViewController {
     }
 
     func setupNavigationItemForPushedViewController(title: String, filePath: String = "") {
-        let titleLabel = ScaledLabel()
+        let titleLabel = UILabel()
         titleLabel.text = title
         titleLabel.textColor = UIColor.black
         titleLabel.textAlignment = .center
-        titleLabel.lineBreakMode = .byTruncatingMiddle
-        titleLabel.adjustsFontSizeToFitWidth = true
-        titleLabel.minimumScaleFactor = 0.01
 
         navigationItem.titleView = titleLabel
 

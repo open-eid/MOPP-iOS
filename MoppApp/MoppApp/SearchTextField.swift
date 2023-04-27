@@ -28,7 +28,7 @@ protocol SearchTextFieldDelegate: AnyObject {
 }
 
 
-class SearchTextField: UITextField {
+class SearchTextField: ScaledTextField {
 
     weak var _delegate: SearchTextFieldDelegate?
 
