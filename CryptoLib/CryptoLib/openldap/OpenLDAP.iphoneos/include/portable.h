@@ -279,7 +279,7 @@
 /* #undef HAVE_IO_H */
 
 /* define if your system supports kqueue */
-/* #undef HAVE_KQUEUE */
+#define HAVE_KQUEUE 1
 
 /* define if you have libargon2 */
 /* #undef HAVE_LIBARGON2 */
@@ -845,7 +845,7 @@
 #define LDAP_SYSLOG 1
 
 /* Version */
-#define LDAP_VENDOR_VERSION 20601
+#define LDAP_VENDOR_VERSION 20604
 
 /* Major */
 #define LDAP_VENDOR_VERSION_MAJOR 2
@@ -854,7 +854,7 @@
 #define LDAP_VENDOR_VERSION_MINOR 6
 
 /* Patch */
-#define LDAP_VENDOR_VERSION_PATCH 1
+#define LDAP_VENDOR_VERSION_PATCH 4
 
 /* Define to the sub-directory where libtool stores uninstalled libraries. */
 #define LT_OBJDIR ".libs/"
@@ -872,7 +872,7 @@
 #define OPENLDAP_PACKAGE "OpenLDAP"
 
 /* Version */
-#define OPENLDAP_VERSION "2.6.1"
+#define OPENLDAP_VERSION "2.6.4"
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT ""
