@@ -48,4 +48,8 @@ extension UITextField {
     @objc func __dismissKeyboard() {
         resignFirstResponder()
     }
+    
+    func moveCursorToEnd() {
+        self.selectedTextRange = self.textRange(from: self.endOfDocument, to: self.endOfDocument)
+    }
 }

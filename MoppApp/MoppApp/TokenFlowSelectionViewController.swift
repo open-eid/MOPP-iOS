@@ -125,7 +125,7 @@ class TokenFlowSelectionViewController : MoppViewController {
     
     // Hide token flow methods so that small screens can enter text to textfields when in landscape orientation
     override func keyboardWillShow(notification: NSNotification) {
-        if UIAccessibility.isVoiceOverRunning && (deviceOrientation == .landscapeLeft || deviceOrientation == .landscapeRight) {
+        if deviceOrientation == .landscapeLeft || deviceOrientation == .landscapeRight || deviceOrientation == .faceUp {
             handleLandscapeKeyboard(hideTokenNavbar: true, topConstraintConstant: CGFloat(topConstraintKeyboardShown))
         }
     }

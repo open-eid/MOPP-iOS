@@ -59,6 +59,8 @@ class SmartIDEditViewController : MoppViewController {
     @IBOutlet weak var signButton: UIButton!
     @IBOutlet weak var rememberLabel: UILabel!
     @IBOutlet weak var rememberSwitch: UISwitch!
+    @IBOutlet weak var rememberStackView: UIStackView!
+    @IBOutlet weak var actionButtonsStackView: UIStackView!
 
     weak var delegate: SmartIDEditViewControllerDelegate? = nil
     var tapGR: UITapGestureRecognizer!
@@ -102,12 +104,14 @@ class SmartIDEditViewController : MoppViewController {
         tapGR.addTarget(self, action: #selector(cancelAction))
         view.addGestureRecognizer(tapGR)
 
-        guard let titleUILabel = titleLabel, let countryUILabel = countryLabel, let countryUITextField = countryTextField, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
-            printLog("Unable to get titleLabel, countryLabel, countryTextField, idCodeLabel, idCodeTextField, rememberLabel, rememberSwitch, cancelButton or signButton")
+        guard let titleUILabel = titleLabel, let countryUILabel = countryLabel, let countryUITextField = countryTextField, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let personalCodeUIErrorLabel = personalCodeErrorLabel, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
+            printLog("Unable to get titleLabel, countryLabel, countryTextField, idCodeLabel, idCodeTextField, personalCodeErrorLabel, rememberLabel, rememberSwitch, cancelButton or signButton")
             return
         }
 
-        view.accessibilityElements = [titleUILabel, countryUILabel, countryUITextField, idCodeUILabel, idCodeUITextField, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
+        view.accessibilityElements = [titleUILabel, countryUILabel, countryUITextField, idCodeUILabel, idCodeUITextField, personalCodeUIErrorLabel, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAccessibilityKeyboard), name: .hideKeyboardAccessibility, object: nil)
     }
 
     @objc func dismissKeyboard(_ notification: NSNotification) {
@@ -199,8 +203,19 @@ class SmartIDEditViewController : MoppViewController {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.0)
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     func defaultRememberMeToggle() {
         rememberSwitch.setOn(DefaultsHelper.smartIdRememberMe, animated: true)
+    }
+    
+    @objc func handleAccessibilityKeyboard(_ notification: NSNotification) {
+        if UIAccessibility.isVoiceOverRunning {
+            dismissKeyboard(notification)
+            ViewUtil.focusOnView(notification, mainView: self.view, scrollView: scrollView)
+        }
     }
 
     func verifySigningCapability() {
@@ -274,12 +289,19 @@ extension SmartIDEditViewController : UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.moveCursorToEnd()
+    }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if countryViewPicker.selectedRow(inComponent: 0) != 0 {
             return true
         }
         if let text = textField.text as NSString? {
+            if string.isEmpty && range.location < text.length {
+                textField.moveCursorToEnd()
+            }
             let textAfterUpdate = text.replacingCharacters(in: range, with: string)
             return textAfterUpdate.isNumeric || textAfterUpdate.isEmpty
         }

@@ -59,7 +59,9 @@ class MobileIDEditViewController : MoppViewController {
     @IBOutlet weak var signButton: MoppButton!
     @IBOutlet weak var rememberLabel: UILabel!
     @IBOutlet weak var rememberSwitch: UISwitch!
-
+    @IBOutlet weak var rememberStackView: UIStackView!
+    @IBOutlet weak var actionButtonsStackView: UIStackView!
+    
     weak var delegate: MobileIDEditViewControllerDelegate? = nil
     var tapGR: UITapGestureRecognizer!
 
@@ -104,6 +106,8 @@ class MobileIDEditViewController : MoppViewController {
         }
 
         self.view.accessibilityElements = [titleUILabel, phoneUILabel, phoneUITextField, phoneNumberErrorUILabel, idCodeUILabel, idCodeUITextField, personalCodeUIErrorLabel, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAccessibilityKeyboard), name: .hideKeyboardAccessibility, object: nil)
     }
 
     @objc func dismissKeyboard(_ notification: NSNotification) {
@@ -170,6 +174,11 @@ class MobileIDEditViewController : MoppViewController {
         idCodeTextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
         phoneTextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
     }
+    
+    @objc func handleAccessibilityKeyboard(_ notification: NSNotification) {
+        dismissKeyboard(notification)
+        ViewUtil.focusOnView(notification, mainView: self.view, scrollView: scrollView)
+    }
 
     func defaultRememberMeToggle() {
         rememberSwitch.setOn(DefaultsHelper.mobileIdRememberMe, animated: true)
@@ -220,10 +229,18 @@ extension MobileIDEditViewController : UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if let text = textField.text as NSString? {
+            // Move cursor to the end of textfield
+            if string.isEmpty && range.location < text.length {
+                textField.moveCursorToEnd()
+            }
             let textAfterUpdate = text.replacingCharacters(in: range, with: string)
             return textAfterUpdate.isNumeric || textAfterUpdate.isEmpty
         }
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.moveCursorToEnd()
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
