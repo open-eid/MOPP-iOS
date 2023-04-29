@@ -76,6 +76,8 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var asicsNestedContainerPath = ""
     var isLoadingNestedAsicsDone = false
     var isSendingToSivaAgreed = true
+    
+    private static let unnamedDataFile = "datafile"
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -445,21 +447,20 @@ extension ContainerViewController : UITableViewDataSource {
             let isStatePreviewOrOpened = state == .opened || state == .preview
             let isEncryptedDataFiles = !isAsicContainer && isStatePreviewOrOpened && !isDecrypted
 
-            var dataFile = ""
+            var dataFileName = ""
             var tapGesture: UITapGestureRecognizer
 
             if isAsicsContainer() && !asicsDataFiles.isEmpty && asicsDataFiles.count >= indexPath.row {
-                dataFile = asicsDataFiles[indexPath.row].fileName ?? ""
-                tapGesture = getPreviewTapGesture(dataFile: dataFile, containerPath: asicsNestedContainerPath, isShareButtonNeeded: isDecrypted)
+                dataFileName = asicsDataFiles[indexPath.row].fileName ?? ContainerViewController.unnamedDataFile
+                tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: asicsNestedContainerPath, isShareButtonNeeded: isDecrypted)
             } else {
-                dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) ?? ""
-                tapGesture = getPreviewTapGesture(dataFile: dataFile, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
+                dataFileName = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) ?? ContainerViewController.unnamedDataFile
+                tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
             }
 
-            if dataFile.isEmpty {
-                printLog("Data file not found")
-                self.errorAlert(message: L(.datafilePreviewFailed))
-                return cell
+            if dataFileName.isEmpty {
+                printLog("Datafile name empty")
+                dataFileName = ContainerViewController.unnamedDataFile
             }
 
             if !isEncryptedDataFiles {
@@ -484,7 +485,7 @@ extension ContainerViewController : UITableViewDataSource {
                 isDownloadButtonShown = !isForPreview && (isDecrypted || (state != .opened))
             }
                 cell.populate(
-                    name: dataFile,
+                    name: dataFileName,
                     showBottomBorder: row < containerViewDelegate.getDataFileCount() - 1,
                     showRemoveButton: isRemoveButtonShown,
                     showDownloadButton: isDownloadButtonShown,
