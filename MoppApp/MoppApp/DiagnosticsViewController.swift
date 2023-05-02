@@ -32,6 +32,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     @IBOutlet weak var librariesTitleLabel: UILabel!
     @IBOutlet weak var librariesLabel: UILabel!
     @IBOutlet weak var urlsLabel: UILabel!
+    @IBOutlet weak var tslCacheLabel: UILabel!
     @IBOutlet weak var centralConfigurationLabel: UILabel!
     @IBOutlet weak var updateDateLabel: UILabel!
     @IBOutlet weak var lastCheckLabel: UILabel!
@@ -62,8 +63,8 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     @IBOutlet weak var smartIdSKURL: UILabel!
     @IBOutlet weak var smartIdV2URL: UILabel!
     @IBOutlet weak var smartIdV2SKUrl: UILabel!
-    @IBOutlet weak var eeTSLVersion: UILabel!
     @IBOutlet weak var rpUUIDInfo: UILabel!
+    @IBOutlet weak var tsls: UIStackView!
     @IBOutlet weak var metaDate: UILabel!
     @IBOutlet weak var metaSerial: UILabel!
     @IBOutlet weak var metaUrl: UILabel!
@@ -141,12 +142,15 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         titleLabel.text = L(.diagnosticsTitle)
         appVersionLabel.text = "\(L(.diagnosticsAppVersion)): \(MoppApp.versionString)"
         opSysVersionLabel.text = "\(L(.diagnosticsIosVersion)): iOS \(MoppApp.iosVersion)"
-        librariesTitleLabel.text = "\(L(.diagnosticsLibrariesLabel))"
+        librariesTitleLabel.text = L(.diagnosticsLibrariesLabel)
         let libdigidocppVersion = MoppLibManager.sharedInstance().libdigidocppVersion() ?? String()
         librariesLabel.text = "libdigidocpp \(libdigidocppVersion)"
+        tslCacheLabel.text = L(.diagnosticsTslCacheLabel)
         centralConfigurationLabel.text = L(.centralConfigurationLabel)
         refreshConfigurationLabel.setTitle(L(.refreshConfigurationLabel))
         saveDiagnosticsLabel.setTitle(L(.saveDiagnosticsLabel))
+        
+        tsls.isAccessibilityElement = false
 
         dismissButton.setTitle(L(.closeButton))
 
@@ -207,13 +211,25 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         smartIdSKURL.text = formatString(text: "SID-SK-URL: ", additionalText: decodedConf.SIDSKURL)
         smartIdV2URL.text = formatString(text: "SIDV2-PROXY-URL: ", additionalText: decodedConf.SIDV2PROXYURL)
         smartIdV2SKUrl.text = formatString(text: "SIDV2-SK-URL: ", additionalText: decodedConf.SIDV2SKURL)
-        eeTSLVersion.text = formatString(text: "EE TSL: ", additionalText: getTSLVersion(for: "EE"))
         rpUUIDInfo.text = formatString(text: "RPUUID: ", additionalText: getRPUUIDInfo())
         metaDate.text = formatString(text: "DATE:", additionalText: decodedConf.METAINF.DATE)
         metaSerial.text = formatString(text: "SERIAL:", additionalText: String(decodedConf.METAINF.SERIAL))
         metaUrl.text = formatString(text: "URL:", additionalText: decodedConf.METAINF.URL)
         metaVer.text = formatString(text: "VER:", additionalText: String(decodedConf.METAINF.VER))
 
+        // Remove TSL cache labels
+        for tslLabel in tsls.subviews {
+            tslLabel.removeFromSuperview()
+        }
+        // Set TSL cache files with versions
+        let filesInBundle: [URL] = TSLUpdater.getCountryFileLocations(inPath: TSLUpdater.getTSLFilesBundlePath())
+        for fileInBundle in filesInBundle {
+            let tslLabel = ScaledLabel()
+            let tslVersion = TSLUpdater.getTSLVersion(fromFile: fileInBundle)
+            tslLabel.text = formatString(text: fileInBundle.lastPathComponent, additionalText: "(\(tslVersion))")
+            tsls.addArrangedSubview(tslLabel)
+        }
+        
         printLog("Getting cached update date")
         if let cachedUpdateDate = SettingsConfiguration().getConfigurationFromCache(forKey: "updateDate") as? Date {
             updateDate.text = formatString(text: L(.updateDateLabel), additionalText: MoppDateFormatter().dateToString(date: cachedUpdateDate))
@@ -256,7 +272,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
 
     private func getLOTLVersion() -> String {
         printLog("Getting LOTL version")
-        let lotlFileUrl: URL? = TSLUpdater().getLOTLFileURL()
+        let lotlFileUrl: URL? = TSLUpdater.getLOTLFileURL()
         guard lotlFileUrl != nil, let lotlFile = lotlFileUrl else {
             printLog("Unable to get LOTL file")
             return ""
@@ -290,13 +306,13 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     private func getTSLVersion(for tslCountry: String) -> String {
         printLog("Getting TSL version")
         let libraryPath: String = MoppFileManager.shared.libraryDirectoryPath()
-        let filesInLibrary: [URL] = TSLUpdater().getCountryFileLocations(inPath: libraryPath)
+        let filesInLibrary: [URL] = TSLUpdater.getCountryFileLocations(inPath: libraryPath)
 
         for libraryFile in filesInLibrary {
             if !libraryFile.hasDirectoryPath {
                 let fileName: String = libraryFile.deletingPathExtension().lastPathComponent
                 if fileName == tslCountry {
-                    let tslVersion: Int = TSLUpdater().getTSLVersion(fromFile: libraryFile)
+                    let tslVersion: Int = TSLUpdater.getTSLVersion(fromFile: libraryFile)
                     return tslVersion == 0 ? "-" : String(tslVersion)
                 }
             }
@@ -352,7 +368,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     }
 
     private func isCategoryLabel(text: String) -> Bool {
-        return text == L(.diagnosticsLibrariesLabel) || text == "URLs:" || text == L(.centralConfigurationLabel)
+        return text == L(.diagnosticsLibrariesLabel) || text == "URLs:" || text == L(.diagnosticsTslCacheLabel) || text == L(.centralConfigurationLabel)
     }
 
     private func saveDiagnosticsToFile(fileName: String, diagnosticsText: String) {
