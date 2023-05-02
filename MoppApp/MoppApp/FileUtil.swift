@@ -24,6 +24,9 @@
 import Foundation
 
 struct FileUtil {
+    
+    static let fileNamePrefix = "newFile"
+    
     static func getSignDocumentFileName(containerPath: String) -> String {
         guard !containerPath.isEmpty else { return "" }
         let fileURL: URL? = URL(fileURLWithPath: containerPath)
@@ -38,5 +41,17 @@ struct FileUtil {
             return "\(fileName.prefix(3))...\(fileName.suffix(3)).\(fileExtension)"
         }
         return ""
+    }
+    
+    static func getFileName(currentFileName: String) -> String {
+        if currentFileName.isEmpty {
+            return fileNamePrefix
+        } else if currentFileName.starts(with: ".") {
+            let url = URL(string: currentFileName)
+            guard let fileExtension = url?.pathExtension else { return fileNamePrefix }
+            return fileNamePrefix + fileExtension
+        }
+        
+        return currentFileName
     }
 }
