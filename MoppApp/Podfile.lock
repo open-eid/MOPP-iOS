@@ -107,7 +107,7 @@ PODS:
   - SwiftyRSA (1.7.0):
     - SwiftyRSA/ObjC (= 1.7.0)
   - SwiftyRSA/ObjC (1.7.0)
-  - ZIPFoundation (0.9.15)
+  - ZIPFoundation (0.9.16)
 
 DEPENDENCIES:
   - ASN1Decoder (~> 1.8.0)
@@ -115,7 +115,7 @@ DEPENDENCIES:
   - FirebaseCrashlytics (~> 10.8.0)
   - OCMock (~> 3.9.1)
   - SwiftyRSA (~> 1.7.0)
-  - ZIPFoundation (~> 0.9.15)
+  - ZIPFoundation (~> 0.9.16)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -156,8 +156,8 @@ SPEC CHECKSUMS:
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   PromisesSwift: cf9eb58666a43bbe007302226e510b16c1e10959
   SwiftyRSA: 8c6dd1ea7db1b8dc4fb517a202f88bb1354bc2c6
-  ZIPFoundation: 063163dc828bf699c5be160eb4f58f676322d94f
+  ZIPFoundation: d170fa8e270b2a32bef9dcdcabff5b8f1a5deced
 
-PODFILE CHECKSUM: 38f4d1cd7bcf42fb4884daa7c602c572c16be052
+PODFILE CHECKSUM: 7a64d4e35511b8ff688586d64f60c1ef174cd80c
 
 COCOAPODS: 1.11.3
