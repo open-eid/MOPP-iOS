@@ -29,6 +29,7 @@ protocol SettingsTimeStampCellDelegate: AnyObject {
 }
 
 class SettingsTimeStampCell: UITableViewCell {
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textField: UITextField!
 

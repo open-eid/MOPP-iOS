@@ -67,6 +67,7 @@
 "signing-error-incorrect-pin-length" = "%@ code must be at least %i digits long";
 
 // Crypto
+"crypto-header-files-title" = "Container files";
 "crypto-view-begin-label" = "Choose a file to encrypt or decrypt";
 "crypto-view-begin-label-accessibility" = "Choose a file to encrypt or decrypt";
 "crypto-view-begin-button" = "CHOOSE FILE";
@@ -75,9 +76,11 @@
 "crypto-encryption-error-text" = "Something went wrong with encryption";
 "crypto-encryption-success" = "ENCRYPTION SUCCEEDED";
 "crypto-decryption-cancelled" = "File decryption cancelled";
+"crypto-recipient-search" = "Search";
 "crypto-recipient-found" = "Recipient found";
 "crypto-recipients-found" = "%@ recipients found";
 "crypto-recipient-added" = "Recipient added";
+"crypto-recipients-added" = "Recipients added";
 "crypto-recipient-removed" = "Recipient removed";
 "crypto-recipient-adding-cancelled" = "Recipient addition cancelled";
 "crypto-no-addressees-warning" = "No recipients specified";
@@ -90,7 +93,10 @@
 "crypto-add-addressee-button-title" = "ADD";
 "crypto-add-addressee-button-title-accessibility" = "ADD RECIPIENT";
 "crypto-addressee-added-button-title" = "ADDED";
+"crypto-addressee-add-all-button" = "ADD ALL";
 "crypto-remove-addressee-button" = "Remove recipient";
+"crypto-encrypted-files-title" = "Encrypted files";
+"crypto-invalid-personal-code-title" = "Personal code is not valid!";
 
 // Signing view
 "signing-recent-containers" = "Recent documents";
@@ -110,7 +116,7 @@
 "action-yes" = "YES";
 "action-cancel" = "Cancel";
 "action-abort" = "CANCEL";
-"action-delete" = "Delete";
+"action-delete" = "Remove";
 "action-sign" = "Sign";
 "action-decrypt" = "Decrypt";
 
@@ -247,8 +253,8 @@
 "wrong-pin1-single" = "Wrong PIN1. You have 1 attempt left until your PIN1 is blocked.";
 "pin2-textfield-label" = "Enter PIN2";
 "pin1-textfield-label" = "Enter PIN1";
-"pin2-blocked-alert" = "PIN2 blocked. Go to My eID to unblock it.";
-"pin1-blocked-alert" = "PIN1 blocked. Go to My eID to unblock it.";
+"pin2-blocked-alert" = "PIN2 blocked. The PIN code can be unlocked on the My eID page.";
+"pin1-blocked-alert" = "PIN1 blocked. The PIN code can be unlocked on the My eID page.";
 "generic-error-message" = "Something went wrong. Please try again.";
 "decryption-error-message" = "Something went wrong with decryption. Please try again.";
 "signing-aborted-message" = "Signing process aborted";
@@ -305,7 +311,7 @@
 "my-eid-code-blocked-message" = "%1$@ has been blocked because %1$@ code has been entered incorrectly 3 times. Unblock to reuse %1$@.";
 // *** My eID info bullets ***
 "my-eid-info-bullet-same-codes-warning" = "New %1$@ must be different from current %1$@.";
-"my-eid-info-bullet-auth-cert-info" = "PIN1 code is used for authentication";
+"my-eid-info-bullet-auth-cert-info" = "PIN1 code is used for authentication.";
 "my-eid-info-bullet-pin1-blocked-warning" = "If PIN1 is inserted incorrectly 3 times, the identification certificate will be blocked and it will be impossible to use ID-card to verify identification, until it is unblocked via the PUK code.";
 "my-eid-info-bullet-forgot-code-note" = "If you have forgotten %1$@ code, but you know your PUK code, then here you can change your %1$@ with PUK code.";
 "my-eid-info-bullet-puk-envelope-info" = "PUK code is written in the envelope that is given with the ID-card.";

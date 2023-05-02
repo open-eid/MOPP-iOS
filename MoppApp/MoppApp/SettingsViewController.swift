@@ -102,6 +102,15 @@ class SettingsViewController: MoppViewController {
         self.view.accessibilityElements = getAccessibilityElementsOrder()
     }
     
+    override func keyboardWillShow(notification: NSNotification) {
+        let firstCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1))
+        tableView.setContentOffset(CGPoint(x: 0, y: (firstCell?.frame.origin.y ?? 0) - 100), animated: false)
+    }
+    
+    override func keyboardWillHide(notification: NSNotification) {
+        tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    }
+    
     func getAccessibilityElementsOrder() -> [Any] {
         var headerCellIndex: Int = 0
         var fieldCellIndex: Int = 0

@@ -70,6 +70,7 @@
 "signing-recent-containers" = "Hiljutised dokumendid";
 
 // Crypto
+"crypto-header-files-title" = "Ümbriku failid";
 "crypto-view-begin-label" = "Krüpteerimiseks või dekrüpteerimiseks vali fail";
 "crypto-view-begin-label-accessibility" = "Vali fail krüpteerimiseks või dekrüpteerimiseks";
 "crypto-view-begin-button" = "VALI FAIL";
@@ -79,9 +80,11 @@
 
 "crypto-encryption-success" = "KRÜPTEERIMINE ÕNNESTUS";
 "crypto-decryption-cancelled" = "Faili dekrüpteerimine katkestatud";
+"crypto-recipient-search" = "Otsi";
 "crypto-recipient-found" = "Adressaat leitud";
 "crypto-recipients-found" = "%@ adressaati leitud";
 "crypto-recipient-added" = "Adressaat lisatud";
+"crypto-recipients-added" = "Adressaadid lisatud";
 "crypto-recipient-removed" = "Adressaat eemaldatud";
 "crypto-recipient-adding-cancelled" = "Adressaadi lisamine katkestatud";
 "crypto-no-addressees-warning" = "Ühtegi adressaati ei ole lisatud";
@@ -94,7 +97,10 @@
 "crypto-add-addressee-button-title" = "LISA";
 "crypto-add-addressee-button-title-accessibility" = "LISA ADRESSAAT";
 "crypto-addressee-added-button-title" = "LISATUD";
+"crypto-addressee-add-all-button" = "LISA KÕIK";
 "crypto-remove-addressee-button" = "Eemalda adressaat";
+"crypto-encrypted-files-title" = "Krüpteeritud failid";
+"crypto-invalid-personal-code-title" = "Isikukood pole korrektne!";
 
 // Crashlytics
 "crashlytics-title" = "Kas saata vearaport?";
@@ -219,8 +225,8 @@
 "container-addressee-title" = "Adressaatide lisamine";
 "container-validate-title" = "Ümbriku valideerimine";
 "container-validating" = "Laen...";
-"importing-files-progress-message" = "Laen faile...";
-"mobile-id-sign-help-title" = "Veendu kontrollkoodi õiguses ja sisesta telefonil mobiil-ID PIN2-kood.";
+"importing-files-progress-message" = "Laadin faile...";
+"mobile-id-sign-help-title" = "Veendu kontrollkoodi õigsuses ja sisesta telefonil mobiil-ID PIN2-kood.";
 "done-button-title" = "Valmis";
 "recent-containers-empty-list-title" = "Dokumendid puuduvad";
 "recent-containers-empty-search-message" = "Dokumenti ei leitud";
@@ -245,8 +251,8 @@
 "card-reader-state-initial" = "Ühenda kaardilugeja nutiseadmega ja sisesta ID-kaart lugejasse.";
 "pin2-textfield-label" = "Sisesta PIN2";
 "pin1-textfield-label" = "Sisesta PIN1";
-"pin2-blocked-alert" = "PIN2 on lukus. Mine Minu eID, et avada.";
-"pin1-blocked-alert" = "PIN1 on lukus. Mine Minu eID, et avada.";
+"pin2-blocked-alert" = "PIN2 on lukus. PIN-koodi saab lukust avada Minu eID lehel.";
+"pin1-blocked-alert" = "PIN1 on lukus. PIN-koodi saab lukust avada Minu eID lehel.";
 "generic-error-message" = "Midagi läks valesti. Palun proovi uuesti.";
 "decryption-error-message" = "Midagi läks dekrüpteerimisel valesti. Palun proovi uuesti.";
 "signing-error-too-many-requests" = "Sinu IP-aadressi tasuta allkirjade kuulimiit on ületatud. https://www.id.ee/artikkel/asutustele-kus-allkirjastatakse-digidoc4-kliendi-kaudu-suuremates-kogustes-dokumente/";
@@ -306,7 +312,7 @@
 "my-eid-code-blocked-message" = "%1$@ on blokeeritud, kuna %1$@-koodi on sisestatud 3 korda valesti. Tühista blokeering, et %1$@ taas kasutada.";
 // *** My eID info bullets ***
 "my-eid-info-bullet-same-codes-warning" = "Uus %@ peab olema erinev eelmisest.";
-"my-eid-info-bullet-auth-cert-info" = "PIN1-koodi kasutatakse isikutuvastamiseks";
+"my-eid-info-bullet-auth-cert-info" = "PIN1-koodi kasutatakse isikutuvastamiseks.";
 "my-eid-info-bullet-pin1-blocked-warning" = "Kui sisestad PIN1-koodi kolm korda valesti, siis isikutuvastamise sertifikaat blokeeritakse ning ID-kaarti pole võimalik isikutuvastamiseks kasutada enne blokeeringu tühistamist PUK-koodi abil.";
 "my-eid-info-bullet-forgot-code-note" = "Kui oled unustanud %1$@-koodi, kuid tead PUK-koodi, siis siin saad määrata uue %1$@-koodi.";
 "my-eid-info-bullet-puk-envelope-info" = "PUK-koodi leiad ID-kaardi koodiümbrikust, kui sa pole seda vahepeal muutnud.";
