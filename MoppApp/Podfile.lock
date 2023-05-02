@@ -104,9 +104,9 @@ PODS:
   - PromisesObjC (2.2.0)
   - PromisesSwift (2.2.0):
     - PromisesObjC (= 2.2.0)
-  - SwiftyRSA (1.7.0):
-    - SwiftyRSA/ObjC (= 1.7.0)
-  - SwiftyRSA/ObjC (1.7.0)
+  - SwiftyRSA (1.8.0):
+    - SwiftyRSA/ObjC (= 1.8.0)
+  - SwiftyRSA/ObjC (1.8.0)
   - ZIPFoundation (0.9.16)
 
 DEPENDENCIES:
@@ -114,7 +114,7 @@ DEPENDENCIES:
   - Firebase/Core (~> 10.8.0)
   - FirebaseCrashlytics (~> 10.8.0)
   - OCMock (~> 3.9.1)
-  - SwiftyRSA (~> 1.7.0)
+  - SwiftyRSA (from `https://github.com/TakeScoop/SwiftyRSA`, tag `1.8.0`)
   - ZIPFoundation (~> 0.9.16)
 
 SPEC REPOS:
@@ -135,8 +135,17 @@ SPEC REPOS:
     - OCMock
     - PromisesObjC
     - PromisesSwift
-    - SwiftyRSA
     - ZIPFoundation
+
+EXTERNAL SOURCES:
+  SwiftyRSA:
+    :git: https://github.com/TakeScoop/SwiftyRSA
+    :tag: 1.8.0
+
+CHECKOUT OPTIONS:
+  SwiftyRSA:
+    :git: https://github.com/TakeScoop/SwiftyRSA
+    :tag: 1.8.0
 
 SPEC CHECKSUMS:
   ASN1Decoder: 6110fdeacfdb41559b1481457a1645be716610aa
@@ -155,9 +164,9 @@ SPEC CHECKSUMS:
   OCMock: 9491e4bec59e0b267d52a9184ff5605995e74be8
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   PromisesSwift: cf9eb58666a43bbe007302226e510b16c1e10959
-  SwiftyRSA: 8c6dd1ea7db1b8dc4fb517a202f88bb1354bc2c6
+  SwiftyRSA: 735e48d1162b95af42f140c47ea968e8b6b0a54b
   ZIPFoundation: d170fa8e270b2a32bef9dcdcabff5b8f1a5deced
 
-PODFILE CHECKSUM: 753d9f6001550b7131a01a1b1e0c9668e2b29654
+PODFILE CHECKSUM: c719d40f566a7cef45c865eb8db093328c20688b
 
 COCOAPODS: 1.12.1

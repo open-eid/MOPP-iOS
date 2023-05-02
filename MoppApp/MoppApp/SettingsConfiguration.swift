@@ -42,7 +42,7 @@
  * configuration is updated, else cached version is used.
  */
 
-import SwiftyRSA
+
 
 class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate {
 
