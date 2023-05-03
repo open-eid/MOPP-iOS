@@ -23,6 +23,7 @@
 
 
 import Foundation
+import ASN1Decoder
 
 internal struct MOPPConfiguration: Codable {
     var TSLURL: String
@@ -129,9 +130,10 @@ public class MoppConfiguration {
     static var tsaUrl: String?
     static var ocspIssuers: [String: String]?
     static var certBundle: Array<String>?
+    static var tsaCert: String?
     
     static func getMoppLibConfiguration() -> MoppLibConfiguration {
-        return MoppLibConfiguration(configuration: sivaUrl, tslurl: tslUrl, tslcerts: tslCerts, tsaurl: tsaUrl, ocspissuers: ocspIssuers, certbundle: certBundle)
+        return MoppLibConfiguration(configuration: sivaUrl, tslurl: tslUrl, tslcerts: tslCerts, tsaurl: tsaUrl, ocspissuers: ocspIssuers, certbundle: certBundle, tsacert: tsaCert)
     }
 }
 

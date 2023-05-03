@@ -25,7 +25,7 @@
 
 @implementation MoppLibConfiguration
 
-- (id) initWithConfiguration:(NSString *)SIVAURL TSLURL:(NSString *)TSLURL TSLCERTS:(NSArray<NSString*> *)TSLCERTS TSAURL:(NSString *)TSAURL OCSPISSUERS:(NSDictionary *)OCSPISSUERS CERTBUNDLE:(NSArray<NSString*> *)CERTBUNDLE {
+- (id) initWithConfiguration:(NSString *)SIVAURL TSLURL:(NSString *)TSLURL TSLCERTS:(NSArray<NSString*> *)TSLCERTS TSAURL:(NSString *)TSAURL OCSPISSUERS:(NSDictionary *)OCSPISSUERS CERTBUNDLE:(NSArray<NSString*> *)CERTBUNDLE TSACERT:(NSString *)TSACERT {
     self = [super init];
     if (self) {
         self.SIVAURL = SIVAURL;
@@ -34,6 +34,7 @@
         self.TSAURL = TSAURL;
         self.OCSPISSUERS = OCSPISSUERS;
         self.CERTBUNDLE = CERTBUNDLE;
+        self.TSACERT = TSACERT;
     }
     
     return self;

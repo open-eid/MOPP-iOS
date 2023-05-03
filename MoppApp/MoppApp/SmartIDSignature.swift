@@ -20,7 +20,7 @@
 
 import Foundation
 import SkSigningLib
-import SwiftyRSA.NSData_SHA
+import CryptoKit
 
 class SmartIDSignature {
 
@@ -217,7 +217,10 @@ class SmartIDSignature {
         guard let hash = MoppLibManager.prepareSignature(certificateValue, containerPath: containerPath) else {
             return nil
         }
-        let digest = (Data(base64Encoded: hash)! as NSData).swiftyRSASHA256()
+        
+        guard let hashData = Data(base64Encoded: hash) else { return nil }
+        
+        let digest = sha256(data: hashData)
         let code = UInt16(digest[digest.count - 2]) << 8 | UInt16(digest[digest.count - 1])
         let challengeId = String(format: "%04d", (code % 10000))
         DispatchQueue.main.async {
@@ -228,5 +231,10 @@ class SmartIDSignature {
             )
         }
         return hash
+    }
+    
+    private func sha256(data: Data) -> Data {
+        let hashed = SHA256.hash(data: data)
+        return Data(hashed)
     }
 }
