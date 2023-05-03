@@ -89,19 +89,19 @@ class MoppViewController : UIViewController {
     }
 
     func setupNavigationItemForPushedViewController(title: String, filePath: String = "") {
-        let titleLabel = ScaledLabel()
+        let titleLabel = UILabel()
         titleLabel.text = title
         titleLabel.textColor = UIColor.black
         titleLabel.textAlignment = .center
-        titleLabel.lineBreakMode = .byTruncatingMiddle
-        titleLabel.adjustsFontSizeToFitWidth = true
-        titleLabel.minimumScaleFactor = 0.01
 
         navigationItem.titleView = titleLabel
 
         let backBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarBack"), style: .plain, target: self, action: #selector(backAction))
         backBarButtonItem.accessibilityLabel = L(.backButton)
         navigationItem.setLeftBarButton(backBarButtonItem, animated: true)
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: .layoutChanged, argument: navigationItem.leftBarButtonItem)
+        }
         if !filePath.isEmpty {
             let shareBarButtonItem = WrapperUIBarButtonItem(image: UIImage(named: "navBarShare"), style: .plain, target: self, action: #selector(shareAction(sender:)))
             shareBarButtonItem.filePath = filePath

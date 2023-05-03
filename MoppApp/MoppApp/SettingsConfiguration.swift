@@ -42,7 +42,7 @@
  * configuration is updated, else cached version is used.
  */
 
-import SwiftyRSA
+
 
 class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate {
 
@@ -302,6 +302,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         MoppConfiguration.tsaUrl = tsaUrl
         MoppConfiguration.ocspIssuers = ocspIssuers
         MoppConfiguration.certBundle = certBundle
+        MoppConfiguration.tsaCert = TSACertUtil.certificateString()
     }
 
     private func setupMoppLDAPConfiguration(ldapPersonUrl: String, ldapCorpUrl: String) {

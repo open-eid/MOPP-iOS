@@ -84,7 +84,6 @@ class SmartIDEditViewController : MoppViewController {
         countryTextField.accessibilityLabel = L(.smartIdCountryTitle)
         idCodeTextField.accessibilityLabel = L(.signingIdcodeTitle)
 
-        idCodeTextField.moppPresentDismissButton()
         idCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         idCodeTextField.layer.borderWidth = 1.0
 
@@ -185,6 +184,11 @@ class SmartIDEditViewController : MoppViewController {
         idCodeTextField.text = DefaultsHelper.sidIdCode
         idCodeTextField.attributedPlaceholder = NSAttributedString(string: L(.settingsIdCodePlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker])
         
+        idCodeTextField.moppPresentDismissButton()
+        if row != 0 && idCodeTextField.inputAccessoryView is UIToolbar {
+            setExtraToolbarButtons(idCodeTextField: idCodeTextField)
+        }
+        
         defaultRememberMeToggle()
 
         verifySigningCapability()
@@ -241,25 +245,27 @@ extension SmartIDEditViewController: UIPickerViewDataSource, UIPickerViewDelegat
         countryTextField.text = self.pickerView(pickerView, titleForRow: row, forComponent: component)
         countryTextField.accessibilityLabel = ""
         UIAccessibility.post(notification: .announcement, argument: countryTextField.text)
-        var codeToolbar: UIToolbar? = nil
-        if row != 0 {
-            codeToolbar = UIToolbar()
-            codeToolbar?.barStyle = .default
-            codeToolbar?.isUserInteractionEnabled = true
-            codeToolbar?.items = [
-                UIBarButtonItem(title: "-", style:.plain, target: self, action: #selector(codeDashButtonTapped)),
-                UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target:self, action:nil),
-                UIBarButtonItem(barButtonSystemItem:.done, target: self, action: #selector(codeDoneButtonTapped))
-            ]
-            codeToolbar?.sizeToFit()
+        idCodeTextField.moppPresentDismissButton()
+        if row != 0 && idCodeTextField.inputAccessoryView is UIToolbar {
+            setExtraToolbarButtons(idCodeTextField: idCodeTextField)
         }
-        idCodeTextField.inputAccessoryView = codeToolbar
+
         idCodeTextField.reloadInputViews()
 
         if row == 0 {
             idCodeTextField.text = idCodeTextField.text?.filter("0123456789.".contains).substr(offset: 0, count: 11)
         }
         verifySigningCapability()
+    }
+
+    private func setExtraToolbarButtons(idCodeTextField: UITextField) {
+        let toolbar: UIToolbar = idCodeTextField.inputAccessoryView as? UIToolbar ?? UIToolbar()
+        toolbar.items?.insert(
+            UIBarButtonItem(title: "-", style: .plain, target: self, action: #selector(codeDashButtonTapped)), at: 0)
+        toolbar.items?.insert(
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil), at: 1)
+        toolbar.sizeToFit()
+        idCodeTextField.inputAccessoryView = toolbar
     }
 }
 
