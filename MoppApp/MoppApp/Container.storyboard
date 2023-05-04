@@ -193,6 +193,8 @@
                                             <outlet property="filenameLabel" destination="dlt-jI-SME" id="ld3-fd-Ypy"/>
                                             <outlet property="removeButton" destination="zV0-PM-P6i" id="dkJ-5c-GmP"/>
                                             <outlet property="saveButton" destination="IKh-UH-oRj" id="zPc-Tb-Jd8"/>
+                                            <outlet property="signingActionsStackView" destination="JNa-b0-DK7" id="3sl-7U-8qf"/>
+                                            <outlet property="signingFileNameActionsStackView" destination="99c-XZ-Fbm" id="clA-KL-9kV"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerSignatureCell" editingAccessoryType="disclosureIndicator" rowHeight="103" id="STu-Fe-0aP" customClass="ContainerSignatureCell" customModule="MoppApp" customModuleProvider="target">
@@ -712,9 +714,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="actionButtonsStackView" destination="kFh-DD-3Sw" id="lI5-3G-toN"/>
                                             <outlet property="bottomBorderView" destination="lxM-0N-UCI" id="iJj-pY-PxS"/>
-                                            <outlet property="fileNameActionsStackView" destination="70L-PA-mBc" id="mfV-13-kfS"/>
+                                            <outlet property="cryptoActionsStackView" destination="kFh-DD-3Sw" id="zkL-oc-rOR"/>
+                                            <outlet property="cryptoFileNameActionsStackView" destination="70L-PA-mBc" id="bxC-gB-ZBd"/>
                                             <outlet property="filenameLabel" destination="xW9-dC-vAP" id="NBR-Hw-ghg"/>
                                             <outlet property="removeButton" destination="1t1-CX-UWa" id="ffB-1K-6OJ"/>
                                             <outlet property="saveButton" destination="9eg-iF-HaU" id="a38-Hd-bPF"/>

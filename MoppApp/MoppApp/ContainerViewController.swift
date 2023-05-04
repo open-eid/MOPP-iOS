@@ -497,7 +497,8 @@ extension ContainerViewController : UITableViewDataSource {
                 name: dataFileName,
                 showBottomBorder: row < containerViewDelegate.getDataFileCount() - 1,
                     showRemoveButton: isRemoveButtonShown,
-                    showDownloadButton: isSaveable && isDownloadButtonShown,
+                    showDownloadButton: isDownloadButtonShown,
+                    enableDownloadButton: isSaveable,
                     dataFileIndex: row)
             return cell
         case .importDataFiles:
