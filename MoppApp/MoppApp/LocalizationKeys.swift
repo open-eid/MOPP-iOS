@@ -417,4 +417,8 @@ enum LocKey : String
     case accessibilityIntroductionScreenMagnificationTools = "accessibility-introduction-screen-magnification-tools";
     case accessibilityIntroductionScreenMagnificationToolsiOS = "accessibility-introduction-screen-magnification-tools-ios";
     case accessibilityIntroductionScreenMagnificationToolsAndroid = "accessibility-introduction-screen-magnification-tools-android";
+    case voiceControlChooseFile = "voice-control-choose-file";
+    case voiceControlTabMyEid = "voice-control-tab-my-eid";
+    case voiceControlTabCrypto = "voice-control-tab-crypto";
+    case voiceControlTabSignature = "voice-control-tab-signature";
 }

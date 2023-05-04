@@ -457,3 +457,9 @@
 "accessibility-introduction-screen-magnification-tools" = "Screen magnification tools:";
 "accessibility-introduction-screen-magnification-tools-ios" = "Zoom (iOS, built in) https://support.apple.com/en-gb/guide/iphone/iph3e2e367e/ios";
 "accessibility-introduction-screen-magnification-tools-android" = "Magnification (Android, built in) https://support.google.com/accessibility/android/answer/6006949?hl=en";
+
+// Voice Commands (English only)
+"voice-control-choose-file" = "Choose file";
+"voice-control-tab-my-eid" = "My EID";
+"voice-control-tab-crypto" = "Crypto";
+"voice-control-tab-signature" = "Signature";
