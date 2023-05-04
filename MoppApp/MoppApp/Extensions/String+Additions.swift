@@ -211,7 +211,8 @@ extension String {
     }
     
     func sanitize() -> String {
-        return MoppLibManager.sanitize(self)
+        let normalizedName = FileUtil.getFileName(currentFileName: self)
+        return MoppLibManager.sanitize(normalizedName)
             .removeForbiddenCharacters().trimWhitespacesAndNewlines()
     }
 }
