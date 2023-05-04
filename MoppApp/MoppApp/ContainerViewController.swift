@@ -20,6 +20,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
+import Foundation
+import MoppLib
+
 protocol ContainerViewControllerDelegate: AnyObject {
     func getDataFileCount() -> Int
     func getContainerPath() -> String
@@ -464,12 +468,12 @@ extension ContainerViewController : UITableViewDataSource {
             }
 
             if !isEncryptedDataFiles {
-                cell.openPreviewView.addGestureRecognizer(tapGesture)
-                cell.openPreviewView.isHidden = false
+                cell.filenameLabel.addGestureRecognizer(tapGesture)
+                tapGesture.isEnabled = true
             } else {
-                if cell.openPreviewView.gestureRecognizers != nil {
-                    cell.openPreviewView.removeGestureRecognizer(tapGesture)
-                    cell.openPreviewView.isHidden = true
+                if cell.filenameLabel.gestureRecognizers != nil {
+                    cell.filenameLabel.removeGestureRecognizer(tapGesture)
+                    tapGesture.isEnabled = false
                 }
             }
 
@@ -477,18 +481,23 @@ extension ContainerViewController : UITableViewDataSource {
             var isDownloadButtonShown = false
             if isAsicContainer {
                 isRemoveButtonShown = !isForPreview &&
-                    (signingContainerViewDelegate.getSignaturesCount() == 0) &&
-                    signingContainerViewDelegate.isContainerSignable()
+                    (signingContainerViewDelegate.getSignaturesCount() == 0) ||
+                (signingContainerViewDelegate.isContainerSignable())
                 isDownloadButtonShown = !isForPreview
             } else {
                 isRemoveButtonShown = !isForPreview && (state != .opened)
                 isDownloadButtonShown = !isForPreview && (isDecrypted || (state != .opened))
             }
-                cell.populate(
-                    name: dataFileName,
-                    showBottomBorder: row < containerViewDelegate.getDataFileCount() - 1,
+            
+            var isFileInContainer = false
+            
+            let isSaveable = MoppLibContainerActions.sharedInstance().isContainerFileSaveable(containerViewDelegate.getContainerPath(), saveDataFile: dataFileName)
+
+            cell.populate(
+                name: dataFileName,
+                showBottomBorder: row < containerViewDelegate.getDataFileCount() - 1,
                     showRemoveButton: isRemoveButtonShown,
-                    showDownloadButton: isDownloadButtonShown,
+                    showDownloadButton: isSaveable && isDownloadButtonShown,
                     dataFileIndex: row)
             return cell
         case .importDataFiles:

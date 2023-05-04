@@ -30,15 +30,15 @@ protocol ContainerFileDelegate: AnyObject {
 
 class ContainerFileCell: UITableViewCell {
     static let height: CGFloat = 44
+    @IBOutlet weak var fileNameActionsStackView: UIStackView!
     @IBOutlet weak var filenameLabel: ScaledLabel!
     @IBOutlet weak var bottomBorderView: UIView!
+    @IBOutlet weak var actionButtonsStackView: UIStackView!
     @IBOutlet weak var removeButton: UIView!
     @IBOutlet weak var saveButton: UIButton!
     
     weak var delegate: ContainerFileDelegate? = nil
     var dataFileIndex: Int!
-    
-    @IBOutlet weak var openPreviewView: UIView!
     
     @IBAction func removeAction() {
         delegate?.removeDataFile(dataFileIndex: dataFileIndex)
@@ -50,8 +50,10 @@ class ContainerFileCell: UITableViewCell {
     
     func populate(name: String, showBottomBorder: Bool, showRemoveButton: Bool, showDownloadButton: Bool, dataFileIndex: Int) {
         bottomBorderView.isHidden = !showBottomBorder
+        fileNameActionsStackView.isAccessibilityElement = false
         filenameLabel.text = name.sanitize()
         filenameLabel.resetLabelProperties()
+        actionButtonsStackView.isAccessibilityElement = false
         removeButton.isHidden = !showRemoveButton
         removeButton.accessibilityLabel = formatString(text: L(.fileImportRemoveFile), additionalText: filenameLabel.text?.sanitize())
         saveButton.isHidden = !showDownloadButton

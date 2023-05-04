@@ -116,6 +116,10 @@
   });
 }
 
+- (BOOL)isContainerFileSaveable:(NSString *)containerPath saveDataFile:(NSString *)fileName {
+    return [[MoppLibDigidocManager sharedInstance] isContainerFileSaveable:containerPath saveDataFile:fileName];
+}
+
 - (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure {
   
   Reachability *reachability = [Reachability reachabilityForInternetConnection];
