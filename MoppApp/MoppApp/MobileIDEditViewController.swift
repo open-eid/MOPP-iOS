@@ -229,10 +229,6 @@ extension MobileIDEditViewController : UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if let text = textField.text as NSString? {
-            // Move cursor to the end of textfield
-            if string.isEmpty && range.location < text.length {
-                textField.moveCursorToEnd()
-            }
             let textAfterUpdate = text.replacingCharacters(in: range, with: string)
             return textAfterUpdate.isNumeric || textAfterUpdate.isEmpty
         }

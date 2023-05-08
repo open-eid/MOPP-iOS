@@ -50,6 +50,8 @@ extension UITextField {
     }
     
     func moveCursorToEnd() {
-        self.selectedTextRange = self.textRange(from: self.endOfDocument, to: self.endOfDocument)
+        if let cursorPosition = self.position(from: self.endOfDocument, offset: 0) {
+            self.selectedTextRange = self.textRange(from: cursorPosition, to: cursorPosition)
+        }
     }
 }
