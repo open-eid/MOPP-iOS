@@ -152,8 +152,8 @@ class MyeIDPinPukCell: UITableViewCell {
                 showChangeButton(authCertValid, with: pinPukCellInfo.buttonText)
                 button.backgroundColor = UIColor.moppBase
                 
-                if UIAccessibility.isVoiceOverRunning && infoManager.actionKind == .unblockPin1 {
-                    setAccessibilityFocusOnButton(actionButton: self.linkButton, cellKind: .unblockPin1)
+                if UIAccessibility.isVoiceOverRunning && (infoManager.actionKind == .unblockPin1 || infoManager.actionKind == .changePin1) {
+                    setAccessibilityFocusOnButton(actionButton: self.linkButton, cellKind: infoManager.actionKind)
                 }
             }
         }
@@ -178,8 +178,8 @@ class MyeIDPinPukCell: UITableViewCell {
                 showChangeButton(signCertValid, with: pinPukCellInfo.buttonText)
                 button.backgroundColor = UIColor.moppBase
                 
-                if UIAccessibility.isVoiceOverRunning && infoManager.actionKind == .unblockPin2 {
-                    setAccessibilityFocusOnButton(actionButton: self.linkButton, cellKind: .unblockPin2)
+                if UIAccessibility.isVoiceOverRunning && (infoManager.actionKind == .unblockPin2 || infoManager.actionKind == .changePin2) {
+                    setAccessibilityFocusOnButton(actionButton: self.linkButton, cellKind: infoManager.actionKind)
                 }
             }
         }

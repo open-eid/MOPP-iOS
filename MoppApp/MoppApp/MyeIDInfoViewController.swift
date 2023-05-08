@@ -29,6 +29,7 @@ class MyeIDInfoViewController: MoppViewController {
     weak var infoManager: MyeIDInfoManager!
     var initialLoadingComplete = false
     var isCancelMessageAnnounced = false
+    var isInitializedWithBackButton = false
     
     var changePinCell: MyeIDPinPukCell?
     
@@ -50,6 +51,8 @@ class MyeIDInfoViewController: MoppViewController {
             selector: #selector(didFinishAnnouncement(_:)),
             name: UIAccessibility.announcementDidFinishNotification,
             object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(handleBackButtonPressed), name: .isBackButtonPressed, object: nil)
     }
     
     @objc func didFinishAnnouncement(_ notification: Notification) {
@@ -112,7 +115,7 @@ class MyeIDInfoViewController: MoppViewController {
         ui.tableView.reloadData()
         if UIAccessibility.isVoiceOverRunning && !initialLoadingComplete {
             UIAccessibility.post(notification: .screenChanged, argument: ui.tableView)
-        } else if UIAccessibility.isVoiceOverRunning {
+        } else if UIAccessibility.isVoiceOverRunning && !isInitializedWithBackButton {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 self.ui.tableView.accessibilityElementsHidden = true
                 LandingViewController.shared.navigationController?.accessibilityElementsHidden = true
@@ -122,6 +125,16 @@ class MyeIDInfoViewController: MoppViewController {
                 LandingViewController.shared.buttonBarView.isAccessibilityElement = true
             }
         }
+        
+        self.isInitializedWithBackButton = false
+    }
+    
+    @objc func handleBackButtonPressed() {
+        self.isInitializedWithBackButton = true
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
