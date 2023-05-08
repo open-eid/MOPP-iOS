@@ -299,9 +299,6 @@ extension SmartIDEditViewController : UITextFieldDelegate {
             return true
         }
         if let text = textField.text as NSString? {
-            if string.isEmpty && range.location < text.length {
-                textField.moveCursorToEnd()
-            }
             let textAfterUpdate = text.replacingCharacters(in: range, with: string)
             return textAfterUpdate.isNumeric || textAfterUpdate.isEmpty
         }
