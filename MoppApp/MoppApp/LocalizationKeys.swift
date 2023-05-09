@@ -421,4 +421,15 @@ enum LocKey : String
     case voiceControlTabMyEid = "voice-control-tab-my-eid";
     case voiceControlTabCrypto = "voice-control-tab-crypto";
     case voiceControlTabSignature = "voice-control-tab-signature";
+    case voiceControlClose = "voice-control-close";
+    case voiceControlSearch = "voice-control-search";
+    case voiceControlRow = "voice-control-row";
+    case voiceControlSigningService = "voice-control-signing-service";
+    case voiceControlTimestampingService = "voice-control-timestamping-service";
+    case voiceControlEnableLogGeneration = "voice-control-enable-log-generation";
+    case voiceControlDisableLogGeneration = "voice-control-disable-log-generation";
+    case voiceControlEstonianLanguage = "voice-control-estonian-language";
+    case voiceControlEnglishLanguage = "voice-control-english-language";
+    case voiceControlRussianLanguage = "voice-control-russian-language";
+    case voiceControlClearText = "voice-control-clear-text";
 }

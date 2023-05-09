@@ -50,7 +50,10 @@ class SettingsTimeStampCell: UITableViewCell {
 
         titleLabel.isAccessibilityElement = false
         textField.accessibilityLabel = L(.settingsTimestampUrlTitle)
-        self.accessibilityElements = [fieldUITextfield]
+        textField.accessibilityUserInputLabels = [L(.voiceControlTimestampingService)]
+        if UIAccessibility.isVoiceOverRunning {
+            self.accessibilityElements = [fieldUITextfield]
+        }
     }
 
     func populate(with field:SettingsViewController.Field) {

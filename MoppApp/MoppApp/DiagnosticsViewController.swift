@@ -151,13 +151,19 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         dismissButton.setTitle(L(.closeButton))
 
         enableOneTimeLoggingLabel.text = L(.diagnosticsActivateOneTimeLogging)
+        enableOneTimeLoggingLabel.isAccessibilityElement = false
+        
+        oneTimeLoggingSwitch.accessibilityLabel = enableOneTimeLoggingLabel.text
+        oneTimeLoggingSwitch.accessibilityUserInputLabels = [L(.voiceControlEnableLogGeneration)]
 
         if FileLogUtil.isLoggingEnabled() {
             saveLogButtonLabel.isHidden = false
             saveLogButtonLabel.localizedTitle = .diagnosticsSaveLog
+            oneTimeLoggingSwitch.accessibilityUserInputLabels = [L(.voiceControlDisableLogGeneration)]
         } else {
             oneTimeLoggingSwitch.setOn(false, animated: true)
             saveLogButtonLabel.isHidden = true
+            oneTimeLoggingSwitch.accessibilityUserInputLabels = [L(.voiceControlEnableLogGeneration)]
         }
 
         NotificationCenter.default.addObserver(self, selector: #selector(handleOneTimeLogging), name: UIApplication.didEnterBackgroundNotification, object: nil)
@@ -171,6 +177,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     @objc func handleOneTimeLogging() {
         if !FileLogUtil.isLoggingEnabled() {
             oneTimeLoggingSwitch.setOn(false, animated: true)
+            oneTimeLoggingSwitch.accessibilityUserInputLabels = [L(.voiceControlEnableLogGeneration)]
         }
     }
 
@@ -410,6 +417,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
 
     private func handleFileLoggingSwitchChanged() {
         if oneTimeLoggingSwitch.isOn {
+            oneTimeLoggingSwitch.accessibilityUserInputLabels = [L(.voiceControlDisableLogGeneration)]
             let messageAlert = AlertUtil.messageAlertWithLink(title: nil, message: L(.diagnosticsRestartToActivateLogging), additionalInfoButtonTitle: L(.diagnosticsOneTimeLoggingReadMore)) { _ in
                 FileLogUtil.enableLogging()
             }
@@ -433,6 +441,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     private func disableLogging() {
         FileLogUtil.disableLoggingAndRemoveFiles()
         oneTimeLoggingSwitch.setOn(false, animated: true)
+        oneTimeLoggingSwitch.accessibilityUserInputLabels = [L(.voiceControlEnableLogGeneration)]
         saveLogButtonLabel.isHidden = true
     }
 

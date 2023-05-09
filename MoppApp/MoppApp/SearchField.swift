@@ -57,6 +57,7 @@ class SearchField: ScaledTextField {
         clearButton.addTarget(self, action: #selector(clearText), for: .touchUpInside)
         clearButton.frame = CGRect(x: -iconMargin, y: 0, width: iconSize.height, height: iconSize.height)
         clearButton.tintColor = .lightGray
+        clearButton.isAccessibilityElement = true
         rightView = clearButton
         rightViewMode = .whileEditing
     }
