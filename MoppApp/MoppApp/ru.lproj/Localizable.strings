@@ -466,7 +466,7 @@
 "voice-control-tab-signature" = "Signature";
 "voice-control-close" = "Close";
 "voice-control-search" = "Search";
-"voice-control-row" = "Row";
+"voice-control-file-row" = "File";
 "voice-control-signing-service" = "Signing service";
 "voice-control-timestamping-service" = "TimeStamping service";
 "voice-control-enable-log-generation" = "Enable log generation";

@@ -47,6 +47,6 @@ class RecentContainersNameCell : UITableViewCell {
             locale: nil)
         
         filenameLabel.text = filename
-        filenameLabel.accessibilityUserInputLabels = ["\(L(.voiceControlRow)) \(row + 1)"]
+        filenameLabel.accessibilityUserInputLabels = ["\(L(.voiceControlFileRow)) \(row + 1)"]
     }
 }
