@@ -423,7 +423,7 @@ enum LocKey : String
     case voiceControlTabSignature = "voice-control-tab-signature";
     case voiceControlClose = "voice-control-close";
     case voiceControlSearch = "voice-control-search";
-    case voiceControlRow = "voice-control-row";
+    case voiceControlFileRow = "voice-control-file-row";
     case voiceControlSigningService = "voice-control-signing-service";
     case voiceControlTimestampingService = "voice-control-timestamping-service";
     case voiceControlEnableLogGeneration = "voice-control-enable-log-generation";
