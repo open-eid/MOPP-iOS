@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -153,6 +153,7 @@
                         <outlet property="mobileIDButton" destination="wT5-SD-vv8" id="rjg-xa-AvI"/>
                         <outlet property="smartIDButton" destination="POy-sV-1Yt" id="Kht-HS-XUe"/>
                         <outlet property="tokenNavbar" destination="mIm-AT-ZoS" id="bu7-aK-X4k"/>
+                        <outlet property="tokenViewContainerTopConstraint" destination="lQF-Sm-Vg4" id="FCt-1u-3Wd"/>
                         <outletCollection property="tokenFlowMethodButtons" destination="wT5-SD-vv8" collectionClass="NSMutableArray" id="jhC-8w-F5L"/>
                         <outletCollection property="tokenFlowMethodButtons" destination="F3T-ze-EzN" collectionClass="NSMutableArray" id="UOu-8I-uqi"/>
                         <outletCollection property="tokenFlowMethodButtons" destination="POy-sV-1Yt" collectionClass="NSMutableArray" id="6wN-jC-1Xw"/>
@@ -175,7 +176,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="63E-uG-Wsv">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="410"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="390"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nKU-2c-pC3">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="418"/>
@@ -375,6 +376,7 @@
                     </view>
                     <size key="freeformSize" width="375" height="410"/>
                     <connections>
+                        <outlet property="actionButtonsStackView" destination="95R-Su-8D4" id="qc0-8E-d9o"/>
                         <outlet property="cancelButton" destination="YH8-us-1Zw" id="dUX-7z-aug"/>
                         <outlet property="idCodeLabel" destination="W3G-Hw-MUO" id="vpe-l3-h5s"/>
                         <outlet property="idCodeTextField" destination="BDG-gM-UKf" id="Pov-KZ-2eY"/>
@@ -383,6 +385,7 @@
                         <outlet property="phoneNumberErrorLabel" destination="d36-rR-XNQ" id="Xp0-L0-oc4"/>
                         <outlet property="phoneTextField" destination="ZxA-C9-eha" id="dF2-LI-ZVy"/>
                         <outlet property="rememberLabel" destination="lF6-VQ-sny" id="22U-rp-HEh"/>
+                        <outlet property="rememberStackView" destination="2SI-uc-qHu" id="tSP-kf-t6h"/>
                         <outlet property="rememberSwitch" destination="MHH-mX-gAV" id="TwB-5O-8Nb"/>
                         <outlet property="scrollView" destination="63E-uG-Wsv" id="3Y6-Mj-kw2"/>
                         <outlet property="signButton" destination="VCU-Z4-5rv" id="fyU-nP-BJ2"/>
@@ -407,7 +410,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fnm-Fd-GqW">
-                                <rect key="frame" x="0.0" y="0.0" width="343" height="320"/>
+                                <rect key="frame" x="0.0" y="20" width="343" height="300"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BEB-cP-qL5">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="314"/>
@@ -685,7 +688,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fkS-Sg-9NE">
-                                <rect key="frame" x="0.0" y="0.0" width="343" height="410"/>
+                                <rect key="frame" x="0.0" y="20" width="343" height="390"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1Q-YB-hgR">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="422"/>
@@ -874,6 +877,7 @@
                     </view>
                     <size key="freeformSize" width="343" height="410"/>
                     <connections>
+                        <outlet property="actionButtonsStackView" destination="7Gf-b9-BOl" id="oMe-FL-eyW"/>
                         <outlet property="cancelButton" destination="zrW-Cm-87h" id="PtG-dO-Ibq"/>
                         <outlet property="countryLabel" destination="ijX-Ze-I9g" id="QVE-lF-Ewv"/>
                         <outlet property="countryTextField" destination="c1f-rs-lZr" id="hge-5a-GxC"/>
@@ -881,6 +885,7 @@
                         <outlet property="idCodeTextField" destination="Rxc-7T-6sI" id="oOF-ms-Y4Q"/>
                         <outlet property="personalCodeErrorLabel" destination="box-bm-6ia" id="k0E-IG-8XI"/>
                         <outlet property="rememberLabel" destination="UZY-ex-JFh" id="KGs-Zg-JMT"/>
+                        <outlet property="rememberStackView" destination="fCo-6o-vIX" id="ZCX-Q7-ks9"/>
                         <outlet property="rememberSwitch" destination="7QK-Af-BRR" id="3yA-o9-U6q"/>
                         <outlet property="scrollView" destination="fkS-Sg-9NE" id="UvS-CC-gKR"/>
                         <outlet property="signButton" destination="ceO-Kb-wTg" id="haV-R7-Dig"/>

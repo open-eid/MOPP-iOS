@@ -48,4 +48,15 @@ class ScaledTextField: UITextField {
         self.adjustsFontSizeToFitWidth = true
         self.sizeToFit()
     }
+    
+    override func accessibilityElementDidBecomeFocused() {
+        NotificationCenter.default.post(name: .hideKeyboardAccessibility, object: nil, userInfo: ["view": self])
+    }
+    
+    override func deleteBackward() {
+        guard var currentText = self.text, !currentText.isEmpty else { return }
+        currentText.removeLast()
+        self.text = currentText
+        self.moveCursorToEnd()
+    }
 }

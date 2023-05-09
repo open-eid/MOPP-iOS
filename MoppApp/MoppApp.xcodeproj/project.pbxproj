@@ -382,6 +382,7 @@
 		DFD54CF729D1CBAF00CD92C7 /* TSACertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD54CF629D1CBAF00CD92C7 /* TSACertUtil.swift */; };
 		DFD8BEF5291C432400FE8F07 /* ScaledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD8BEF4291C432400FE8F07 /* ScaledButton.swift */; };
 		DFD8BEF7291C434500FE8F07 /* FontUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD8BEF6291C434500FE8F07 /* FontUtil.swift */; };
+		DFDC0ABA29FAD8F2002D1D1D /* ViewUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDC0AB929FAD8F2002D1D1D /* ViewUtil.swift */; };
 		DFDF02BE241EB5D3006CF443 /* SessionCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDF02BD241EB5D3006CF443 /* SessionCertificate.swift */; };
 		DFDF02C0241EC72D006CF443 /* SessionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDF02BF241EC72C006CF443 /* SessionStatus.swift */; };
 		DFDF02C4241ED0CA006CF443 /* MobileIDSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDF02C3241ED0CA006CF443 /* MobileIDSignature.swift */; };
@@ -703,6 +704,7 @@
 		DFD54CF629D1CBAF00CD92C7 /* TSACertUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSACertUtil.swift; sourceTree = "<group>"; };
 		DFD8BEF4291C432400FE8F07 /* ScaledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledButton.swift; sourceTree = "<group>"; };
 		DFD8BEF6291C434500FE8F07 /* FontUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontUtil.swift; sourceTree = "<group>"; };
+		DFDC0AB929FAD8F2002D1D1D /* ViewUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewUtil.swift; sourceTree = "<group>"; };
 		DFDF02BD241EB5D3006CF443 /* SessionCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCertificate.swift; sourceTree = "<group>"; };
 		DFDF02BF241EC72C006CF443 /* SessionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatus.swift; sourceTree = "<group>"; };
 		DFDF02C3241ED0CA006CF443 /* MobileIDSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileIDSignature.swift; sourceTree = "<group>"; };
@@ -1303,6 +1305,7 @@
 				DFC2ADC7294377BF008A1CD2 /* PersonalCodeValidator.swift */,
 				DF46181E2962E464003A1B56 /* FileUtil.swift */,
 				DFBA32A529A5A64000788A87 /* CancelUtil.swift */,
+				DFDC0AB929FAD8F2002D1D1D /* ViewUtil.swift */,
 				DFD54CF629D1CBAF00CD92C7 /* TSACertUtil.swift */,
 			);
 			name = Utility;
@@ -1955,6 +1958,7 @@
 				C5A795D3208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift in Sources */,
 				C506EC811FB9F4AF00E07226 /* UIImage+Additions.swift in Sources */,
 				C55A6E42208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift in Sources */,
+				DFDC0ABA29FAD8F2002D1D1D /* ViewUtil.swift in Sources */,
 				DFD8BEF5291C432400FE8F07 /* ScaledButton.swift in Sources */,
 				C5927FC720751402003B7F41 /* MyeIDPinPukCell.swift in Sources */,
 				DFF3C3AF233231190079458A /* SettingsConfiguration.swift in Sources */,
