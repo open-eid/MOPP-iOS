@@ -135,16 +135,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="77"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <userGuides>
-                                                <userLayoutGuide location="649" affinity="minX"/>
+                                                <userLayoutGuide location="651" affinity="minX"/>
                                             </userGuides>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.pdf" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dlt-jI-SME" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="8" width="535" height="60"/>
-                                                    <gestureRecognizers/>
-                                                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
-                                                    <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tgu-rh-2tI">
                                                     <rect key="frame" x="16" y="76" width="635" height="1"/>
                                                     <color key="backgroundColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="0.20732555650000001" colorSpace="custom" customColorSpace="sRGB"/>
@@ -152,62 +145,56 @@
                                                         <constraint firstAttribute="height" constant="1" id="pYQ-aO-5JY"/>
                                                     </constraints>
                                                 </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pYd-Yj-8Ay">
-                                                    <rect key="frame" x="16" y="8" width="535" height="60"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <gestureRecognizers/>
-                                                </view>
-                                                <button opaque="NO" contentMode="center" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKh-UH-oRj">
-                                                    <rect key="frame" x="617" y="22" width="32" height="32"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="32" id="aRk-GJ-Uwu"/>
-                                                    </constraints>
-                                                    <state key="normal" image="iconDownload"/>
-                                                    <connections>
-                                                        <action selector="saveAction:" destination="6pq-Cm-b20" eventType="touchUpInside" id="L9N-73-HTL"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zV0-PM-P6i">
-                                                    <rect key="frame" x="577" y="22" width="32" height="32"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="32" id="4pq-QS-Ecc"/>
-                                                    </constraints>
-                                                    <state key="normal" image="icon_remove-1"/>
-                                                    <connections>
-                                                        <action selector="removeAction" destination="6pq-Cm-b20" eventType="touchUpInside" id="dz7-pi-paM"/>
-                                                    </connections>
-                                                </button>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="99c-XZ-Fbm">
+                                                    <rect key="frame" x="16" y="26" width="635" height="25"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.pdf" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dlt-jI-SME" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="116" height="25"/>
+                                                            <gestureRecognizers/>
+                                                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
+                                                            <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="JNa-b0-DK7">
+                                                            <rect key="frame" x="577" y="0.0" width="58" height="25"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zV0-PM-P6i">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                                    <state key="normal" image="icon_remove-1"/>
+                                                                    <connections>
+                                                                        <action selector="removeAction" destination="6pq-Cm-b20" eventType="touchUpInside" id="dz7-pi-paM"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="center" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKh-UH-oRj">
+                                                                    <rect key="frame" x="33" y="0.0" width="25" height="25"/>
+                                                                    <state key="normal" image="iconDownload"/>
+                                                                    <connections>
+                                                                        <action selector="saveAction:" destination="6pq-Cm-b20" eventType="touchUpInside" id="L9N-73-HTL"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="pYd-Yj-8Ay" firstAttribute="top" secondItem="o5E-gs-VpH" secondAttribute="top" constant="8" id="0pM-aS-GkG"/>
-                                                <constraint firstItem="zV0-PM-P6i" firstAttribute="leading" secondItem="pYd-Yj-8Ay" secondAttribute="trailing" constant="26" id="4dg-qi-8Ex"/>
-                                                <constraint firstItem="pYd-Yj-8Ay" firstAttribute="leading" secondItem="o5E-gs-VpH" secondAttribute="leading" constant="16" id="7DU-gK-vc0"/>
                                                 <constraint firstAttribute="trailing" secondItem="Tgu-rh-2tI" secondAttribute="trailing" constant="16" id="8XZ-T2-tL2"/>
-                                                <constraint firstItem="zV0-PM-P6i" firstAttribute="leading" secondItem="dlt-jI-SME" secondAttribute="trailing" constant="26" id="Bts-2Y-6kP"/>
-                                                <constraint firstItem="dlt-jI-SME" firstAttribute="top" secondItem="o5E-gs-VpH" secondAttribute="top" constant="8" id="DUU-GT-r5S"/>
-                                                <constraint firstAttribute="trailing" secondItem="IKh-UH-oRj" secondAttribute="trailing" constant="18" id="IxB-mI-nSX"/>
-                                                <constraint firstItem="Tgu-rh-2tI" firstAttribute="top" secondItem="dlt-jI-SME" secondAttribute="bottom" constant="8" id="KVS-uu-7MV"/>
-                                                <constraint firstItem="Tgu-rh-2tI" firstAttribute="top" secondItem="IKh-UH-oRj" secondAttribute="bottom" constant="22" id="L54-jJ-pJT"/>
                                                 <constraint firstItem="Tgu-rh-2tI" firstAttribute="leading" secondItem="o5E-gs-VpH" secondAttribute="leading" constant="16" id="QVO-jK-dQM"/>
-                                                <constraint firstItem="dlt-jI-SME" firstAttribute="leading" secondItem="o5E-gs-VpH" secondAttribute="leading" constant="16" id="S8k-2i-LlK"/>
-                                                <constraint firstItem="pYd-Yj-8Ay" firstAttribute="top" secondItem="o5E-gs-VpH" secondAttribute="top" constant="8" id="c91-Ah-xaG"/>
-                                                <constraint firstItem="Tgu-rh-2tI" firstAttribute="top" secondItem="zV0-PM-P6i" secondAttribute="bottom" constant="22" id="dfW-3q-X11"/>
-                                                <constraint firstItem="IKh-UH-oRj" firstAttribute="leading" secondItem="zV0-PM-P6i" secondAttribute="trailing" constant="8" id="ggf-8b-5Bd"/>
-                                                <constraint firstItem="IKh-UH-oRj" firstAttribute="leading" secondItem="zV0-PM-P6i" secondAttribute="trailing" constant="8" id="hMB-On-FuY"/>
-                                                <constraint firstItem="IKh-UH-oRj" firstAttribute="top" secondItem="o5E-gs-VpH" secondAttribute="top" constant="22" id="iP3-e3-i5p"/>
+                                                <constraint firstItem="99c-XZ-Fbm" firstAttribute="leading" secondItem="o5E-gs-VpH" secondAttribute="leadingMargin" id="dIa-1J-wdE"/>
                                                 <constraint firstAttribute="bottom" secondItem="Tgu-rh-2tI" secondAttribute="bottom" id="izr-ax-UrV"/>
-                                                <constraint firstItem="Tgu-rh-2tI" firstAttribute="top" secondItem="pYd-Yj-8Ay" secondAttribute="bottom" constant="8" id="luY-5c-3Q5"/>
-                                                <constraint firstItem="zV0-PM-P6i" firstAttribute="top" secondItem="o5E-gs-VpH" secondAttribute="top" constant="22" id="rFq-1C-v3O"/>
-                                                <constraint firstItem="Tgu-rh-2tI" firstAttribute="top" secondItem="pYd-Yj-8Ay" secondAttribute="bottom" constant="8" id="vTW-7i-LlN"/>
+                                                <constraint firstItem="Tgu-rh-2tI" firstAttribute="top" secondItem="99c-XZ-Fbm" secondAttribute="bottom" constant="25" id="mj8-Cs-3ek"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="99c-XZ-Fbm" secondAttribute="trailing" id="qNf-61-Yi4"/>
+                                                <constraint firstItem="99c-XZ-Fbm" firstAttribute="top" secondItem="o5E-gs-VpH" secondAttribute="topMargin" constant="15" id="tmR-o4-lZR"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
                                         <connections>
                                             <outlet property="bottomBorderView" destination="Tgu-rh-2tI" id="zTR-rZ-x4y"/>
                                             <outlet property="filenameLabel" destination="dlt-jI-SME" id="ld3-fd-Ypy"/>
-                                            <outlet property="openPreviewView" destination="pYd-Yj-8Ay" id="587-gD-pM5"/>
                                             <outlet property="removeButton" destination="zV0-PM-P6i" id="dkJ-5c-GmP"/>
                                             <outlet property="saveButton" destination="IKh-UH-oRj" id="zPc-Tb-Jd8"/>
+                                            <outlet property="signingActionsStackView" destination="JNa-b0-DK7" id="3sl-7U-8qf"/>
+                                            <outlet property="signingFileNameActionsStackView" destination="99c-XZ-Fbm" id="clA-KL-9kV"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerSignatureCell" editingAccessoryType="disclosureIndicator" rowHeight="103" id="STu-Fe-0aP" customClass="ContainerSignatureCell" customModule="MoppApp" customModuleProvider="target">
@@ -678,26 +665,36 @@
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="77"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.pdf" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xW9-dC-vAP" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="8" width="547" height="60"/>
-                                                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
-                                                    <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ZG-2U-aUl">
-                                                    <rect key="frame" x="16" y="8" width="547" height="60"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1t1-CX-UWa">
-                                                    <rect key="frame" x="579" y="0.0" width="32" height="76"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="32" id="0h5-nt-l82"/>
-                                                    </constraints>
-                                                    <state key="normal" image="icon_remove-1"/>
-                                                    <connections>
-                                                        <action selector="removeAction" destination="brX-Gs-sMU" eventType="touchUpInside" id="5Xm-bi-oaD"/>
-                                                    </connections>
-                                                </button>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="70L-PA-mBc">
+                                                    <rect key="frame" x="15" y="15" width="637" height="46"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.pdf" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xW9-dC-vAP" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="116" height="46"/>
+                                                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
+                                                            <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kFh-DD-3Sw">
+                                                            <rect key="frame" x="579" y="0.0" width="58" height="46"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1t1-CX-UWa">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="25" height="46"/>
+                                                                    <state key="normal" image="icon_remove-1"/>
+                                                                    <connections>
+                                                                        <action selector="removeAction" destination="brX-Gs-sMU" eventType="touchUpInside" id="5Xm-bi-oaD"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9eg-iF-HaU">
+                                                                    <rect key="frame" x="33" y="0.0" width="25" height="46"/>
+                                                                    <state key="normal" image="iconDownload"/>
+                                                                    <connections>
+                                                                        <action selector="saveAction:" destination="brX-Gs-sMU" eventType="touchUpInside" id="64d-0t-yPh"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lxM-0N-UCI">
                                                     <rect key="frame" x="16" y="76" width="635" height="1"/>
                                                     <color key="backgroundColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="0.20732555650000001" colorSpace="custom" customColorSpace="sRGB"/>
@@ -705,41 +702,22 @@
                                                         <constraint firstAttribute="height" constant="1" id="ksY-Mz-Tlf"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9eg-iF-HaU">
-                                                    <rect key="frame" x="619" y="0.0" width="32" height="76"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="32" id="PVR-uk-UGA"/>
-                                                    </constraints>
-                                                    <state key="normal" image="iconDownload"/>
-                                                    <connections>
-                                                        <action selector="saveAction:" destination="brX-Gs-sMU" eventType="touchUpInside" id="64d-0t-yPh"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="top" secondItem="1t1-CX-UWa" secondAttribute="bottom" id="0UG-J5-9VL"/>
-                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="top" secondItem="xW9-dC-vAP" secondAttribute="bottom" constant="8" id="DbW-g1-Yb6"/>
-                                                <constraint firstItem="1t1-CX-UWa" firstAttribute="leading" secondItem="xW9-dC-vAP" secondAttribute="trailing" constant="16" id="Eoy-wD-u9z"/>
-                                                <constraint firstAttribute="trailing" secondItem="9eg-iF-HaU" secondAttribute="trailing" constant="16" id="Kdk-SL-84l"/>
-                                                <constraint firstItem="1t1-CX-UWa" firstAttribute="top" secondItem="Sza-8J-Yjw" secondAttribute="top" id="KnG-ed-uov"/>
+                                                <constraint firstItem="70L-PA-mBc" firstAttribute="leading" secondItem="Sza-8J-Yjw" secondAttribute="leading" constant="15" id="8w1-eZ-p7r"/>
+                                                <constraint firstAttribute="trailing" secondItem="70L-PA-mBc" secondAttribute="trailing" constant="15" id="IcO-qs-QXV"/>
                                                 <constraint firstAttribute="trailing" secondItem="lxM-0N-UCI" secondAttribute="trailing" constant="16" id="Neo-HZ-cbz"/>
-                                                <constraint firstItem="9ZG-2U-aUl" firstAttribute="top" secondItem="Sza-8J-Yjw" secondAttribute="top" constant="8" id="Qby-L1-eOP"/>
                                                 <constraint firstItem="lxM-0N-UCI" firstAttribute="leading" secondItem="Sza-8J-Yjw" secondAttribute="leading" constant="16" id="QoF-Qd-PjS"/>
-                                                <constraint firstItem="xW9-dC-vAP" firstAttribute="leading" secondItem="Sza-8J-Yjw" secondAttribute="leading" constant="16" id="Wrg-Fu-EyP"/>
-                                                <constraint firstItem="9eg-iF-HaU" firstAttribute="top" secondItem="Sza-8J-Yjw" secondAttribute="top" id="dlo-bo-KNB"/>
-                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="top" secondItem="9ZG-2U-aUl" secondAttribute="bottom" constant="8" id="gxe-rh-sMb"/>
-                                                <constraint firstItem="9ZG-2U-aUl" firstAttribute="leading" secondItem="Sza-8J-Yjw" secondAttribute="leading" constant="16" id="ham-b7-fJ3"/>
-                                                <constraint firstItem="1t1-CX-UWa" firstAttribute="leading" secondItem="9ZG-2U-aUl" secondAttribute="trailing" constant="16" id="hyX-YS-LzD"/>
+                                                <constraint firstItem="70L-PA-mBc" firstAttribute="top" secondItem="Sza-8J-Yjw" secondAttribute="top" constant="15" id="W2U-U0-xKP"/>
                                                 <constraint firstAttribute="bottom" secondItem="lxM-0N-UCI" secondAttribute="bottom" id="jDI-ZE-seP"/>
-                                                <constraint firstItem="xW9-dC-vAP" firstAttribute="top" secondItem="Sza-8J-Yjw" secondAttribute="top" constant="8" id="k3V-h1-Gm8"/>
-                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="top" secondItem="9eg-iF-HaU" secondAttribute="bottom" id="l8D-ue-wby"/>
-                                                <constraint firstItem="9eg-iF-HaU" firstAttribute="leading" secondItem="1t1-CX-UWa" secondAttribute="trailing" constant="8" id="uK6-kw-0gV"/>
+                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="top" secondItem="70L-PA-mBc" secondAttribute="bottom" constant="15" id="sMI-I0-ffU"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="bottomBorderView" destination="lxM-0N-UCI" id="iJj-pY-PxS"/>
+                                            <outlet property="cryptoActionsStackView" destination="kFh-DD-3Sw" id="zkL-oc-rOR"/>
+                                            <outlet property="cryptoFileNameActionsStackView" destination="70L-PA-mBc" id="bxC-gB-ZBd"/>
                                             <outlet property="filenameLabel" destination="xW9-dC-vAP" id="NBR-Hw-ghg"/>
-                                            <outlet property="openPreviewView" destination="9ZG-2U-aUl" id="pIx-cP-z1S"/>
                                             <outlet property="removeButton" destination="1t1-CX-UWa" id="ffB-1K-6OJ"/>
                                             <outlet property="saveButton" destination="9eg-iF-HaU" id="a38-Hd-bPF"/>
                                         </connections>
@@ -790,7 +768,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Addressees are missing" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sh3-u9-HaY" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Addressees are missing" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sh3-u9-HaY" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="48" y="23" width="571" height="20"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -1185,7 +1163,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerAddAllButtonCell" id="nlh-ij-xq6" customClass="ContainerAddAllButtonCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="266" width="667" height="44"/>
+                                        <rect key="frame" x="0.0" y="289" width="667" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nlh-ij-xq6" id="Izh-zE-ZeK">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>

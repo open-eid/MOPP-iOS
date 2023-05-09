@@ -20,6 +20,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
+import Foundation
+import MoppLib
+
 protocol ContainerViewControllerDelegate: AnyObject {
     func getDataFileCount() -> Int
     func getContainerPath() -> String
@@ -76,6 +80,8 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var asicsNestedContainerPath = ""
     var isLoadingNestedAsicsDone = false
     var isSendingToSivaAgreed = true
+    
+    private static let unnamedDataFile = "datafile"
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -445,30 +451,29 @@ extension ContainerViewController : UITableViewDataSource {
             let isStatePreviewOrOpened = state == .opened || state == .preview
             let isEncryptedDataFiles = !isAsicContainer && isStatePreviewOrOpened && !isDecrypted
 
-            var dataFile = ""
+            var dataFileName = ""
             var tapGesture: UITapGestureRecognizer
 
             if isAsicsContainer() && !asicsDataFiles.isEmpty && asicsDataFiles.count >= indexPath.row {
-                dataFile = asicsDataFiles[indexPath.row].fileName ?? ""
-                tapGesture = getPreviewTapGesture(dataFile: dataFile, containerPath: asicsNestedContainerPath, isShareButtonNeeded: isDecrypted)
+                dataFileName = asicsDataFiles[indexPath.row].fileName ?? ContainerViewController.unnamedDataFile
+                tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: asicsNestedContainerPath, isShareButtonNeeded: isDecrypted)
             } else {
-                dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) ?? ""
-                tapGesture = getPreviewTapGesture(dataFile: dataFile, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
+                dataFileName = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) ?? ContainerViewController.unnamedDataFile
+                tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
             }
 
-            if dataFile.isEmpty {
-                printLog("Data file not found")
-                self.errorAlert(message: L(.datafilePreviewFailed))
-                return cell
+            if dataFileName.isEmpty {
+                printLog("Datafile name empty")
+                dataFileName = ContainerViewController.unnamedDataFile
             }
 
             if !isEncryptedDataFiles {
-                cell.openPreviewView.addGestureRecognizer(tapGesture)
-                cell.openPreviewView.isHidden = false
+                cell.filenameLabel.addGestureRecognizer(tapGesture)
+                tapGesture.isEnabled = true
             } else {
-                if cell.openPreviewView.gestureRecognizers != nil {
-                    cell.openPreviewView.removeGestureRecognizer(tapGesture)
-                    cell.openPreviewView.isHidden = true
+                if cell.filenameLabel.gestureRecognizers != nil {
+                    cell.filenameLabel.removeGestureRecognizer(tapGesture)
+                    tapGesture.isEnabled = false
                 }
             }
 
@@ -476,18 +481,24 @@ extension ContainerViewController : UITableViewDataSource {
             var isDownloadButtonShown = false
             if isAsicContainer {
                 isRemoveButtonShown = !isForPreview &&
-                    (signingContainerViewDelegate.getSignaturesCount() == 0) &&
-                    signingContainerViewDelegate.isContainerSignable()
+                    (signingContainerViewDelegate.getSignaturesCount() == 0) ||
+                (signingContainerViewDelegate.isContainerSignable())
                 isDownloadButtonShown = !isForPreview
             } else {
                 isRemoveButtonShown = !isForPreview && (state != .opened)
                 isDownloadButtonShown = !isForPreview && (isDecrypted || (state != .opened))
             }
-                cell.populate(
-                    name: dataFile,
-                    showBottomBorder: row < containerViewDelegate.getDataFileCount() - 1,
+            
+            var isFileInContainer = false
+            
+            let isSaveable = MoppLibContainerActions.sharedInstance().isContainerFileSaveable(containerViewDelegate.getContainerPath(), saveDataFile: dataFileName)
+
+            cell.populate(
+                name: dataFileName,
+                showBottomBorder: row < containerViewDelegate.getDataFileCount() - 1,
                     showRemoveButton: isRemoveButtonShown,
                     showDownloadButton: isDownloadButtonShown,
+                    enableDownloadButton: isSaveable,
                     dataFileIndex: row)
             return cell
         case .importDataFiles:

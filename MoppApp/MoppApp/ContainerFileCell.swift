@@ -30,15 +30,17 @@ protocol ContainerFileDelegate: AnyObject {
 
 class ContainerFileCell: UITableViewCell {
     static let height: CGFloat = 44
+    @IBOutlet weak var signingFileNameActionsStackView: UIStackView!
+    @IBOutlet weak var cryptoFileNameActionsStackView: UIStackView!
     @IBOutlet weak var filenameLabel: ScaledLabel!
     @IBOutlet weak var bottomBorderView: UIView!
+    @IBOutlet weak var signingActionsStackView: UIStackView!
+    @IBOutlet weak var cryptoActionsStackView: UIStackView!
     @IBOutlet weak var removeButton: UIView!
     @IBOutlet weak var saveButton: UIButton!
     
     weak var delegate: ContainerFileDelegate? = nil
     var dataFileIndex: Int!
-    
-    @IBOutlet weak var openPreviewView: UIView!
     
     @IBAction func removeAction() {
         delegate?.removeDataFile(dataFileIndex: dataFileIndex)
@@ -48,14 +50,27 @@ class ContainerFileCell: UITableViewCell {
         delegate?.saveDataFile(fileName: filenameLabel.text?.sanitize() ?? "-")
     }
     
-    func populate(name: String, showBottomBorder: Bool, showRemoveButton: Bool, showDownloadButton: Bool, dataFileIndex: Int) {
+    func populate(name: String, showBottomBorder: Bool, showRemoveButton: Bool, showDownloadButton: Bool, enableDownloadButton: Bool, dataFileIndex: Int) {
         bottomBorderView.isHidden = !showBottomBorder
+        if signingFileNameActionsStackView != nil {
+            signingFileNameActionsStackView.isAccessibilityElement = false
+        }
+        if cryptoFileNameActionsStackView != nil {
+            cryptoFileNameActionsStackView.isAccessibilityElement = false
+        }
         filenameLabel.text = name.sanitize()
         filenameLabel.resetLabelProperties()
+        if signingActionsStackView != nil {
+            signingActionsStackView.isAccessibilityElement = false
+        }
+        if cryptoActionsStackView != nil {
+            cryptoActionsStackView.isAccessibilityElement = false
+        }
         removeButton.isHidden = !showRemoveButton
         removeButton.accessibilityLabel = formatString(text: L(.fileImportRemoveFile), additionalText: filenameLabel.text?.sanitize())
         saveButton.isHidden = !showDownloadButton
         saveButton.accessibilityLabel = formatString(text: L(.fileImportSaveFile), additionalText: filenameLabel.text?.sanitize())
+        saveButton.isEnabled = enableDownloadButton
         self.dataFileIndex = dataFileIndex
     }
 }
