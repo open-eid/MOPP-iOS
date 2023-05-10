@@ -257,6 +257,84 @@
                                             <outlet property="useDefaultTitleLabel" destination="D3b-4p-t6H" id="gBJ-hw-Nn3"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsTSACertCell" id="vb7-26-1De" customClass="SettingsTSACertCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="516" width="375" height="165.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vb7-26-1De" id="G8q-Qy-eK5">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="165.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="k8v-bm-Uxj">
+                                                    <rect key="frame" x="16" y="10" width="343" height="155.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time-Stamping service header" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IeT-9d-QIf" userLabel="Use Default Title Label" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="25"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="EvI-Vb-Ffl"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="18"/>
+                                                            <color key="textColor" name="MoppLabel"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bwN-Ve-e8h">
+                                                            <rect key="frame" x="0.0" y="40" width="343" height="46"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Issued to:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGE-2Q-xcJ" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="74" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" name="MoppLabel"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Valid until:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySu-70-Z3E" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="25.5" width="78.5" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" name="MoppLabel"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="5MD-En-ZUq">
+                                                            <rect key="frame" x="0.0" y="101" width="343" height="54.5"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HMf-Yz-GBX" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="169" height="54.5"/>
+                                                                    <state key="normal" title="Button"/>
+                                                                    <buttonConfiguration key="configuration" style="plain" title="ADD CERTIFICATE"/>
+                                                                    <connections>
+                                                                        <action selector="addCertificate:" destination="vb7-26-1De" eventType="touchUpInside" id="Fyl-Yr-2CO"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XIl-Lc-tan" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="174" y="0.0" width="169" height="54.5"/>
+                                                                    <state key="normal" title="Button"/>
+                                                                    <buttonConfiguration key="configuration" style="plain" title="SHOW CERTIFICATE"/>
+                                                                    <connections>
+                                                                        <action selector="showCertificate:" destination="vb7-26-1De" eventType="touchUpInside" id="ZPj-nz-Ig9"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="58" id="7Fs-C2-2Mr"/>
+                                                    </constraints>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="k8v-bm-Uxj" secondAttribute="bottom" id="9IA-OB-Ff3"/>
+                                                <constraint firstAttribute="trailing" secondItem="k8v-bm-Uxj" secondAttribute="trailing" constant="16" id="GLb-R9-pmq"/>
+                                                <constraint firstItem="k8v-bm-Uxj" firstAttribute="leading" secondItem="G8q-Qy-eK5" secondAttribute="leading" constant="16" id="QyM-DA-OUY"/>
+                                                <constraint firstItem="k8v-bm-Uxj" firstAttribute="top" secondItem="G8q-Qy-eK5" secondAttribute="top" constant="10" id="wsC-6s-haC"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="addCertificateButton" destination="HMf-Yz-GBX" id="b2v-9H-ttk"/>
+                                            <outlet property="issuedToLabel" destination="GGE-2Q-xcJ" id="clq-Lh-XA5"/>
+                                            <outlet property="showCertificateButton" destination="XIl-Lc-tan" id="t8f-ks-yFz"/>
+                                            <outlet property="titleLabel" destination="IeT-9d-QIf" id="XBP-uX-JYx"/>
+                                            <outlet property="validUntilLabel" destination="ySu-70-Z3E" id="gxW-oQ-Kcp"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="Sh7-45-xtX" id="fHf-VL-4F7"/>

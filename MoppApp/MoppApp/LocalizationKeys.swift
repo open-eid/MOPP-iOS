@@ -290,6 +290,11 @@ enum LocKey : String
     case settingsTimestampUseDefaultTitle = "settings-timestamp-use-default-title"
     case settingsIdCodePlaceholder = "settings-id-code-placeholder"
     case settingsValueChanged = "settings-value-changed"
+    case settingsTimestampCertTitle = "settings-timestamp-cert-title"
+    case settingsTimestampCertIssuedToLabel = "settings-timestamp-cert-issued-to-label"
+    case settingsTimestampCertValidToLabel = "settings-timestamp-cert-valid-to-label"
+    case settingsTimestampCertAddCertificateButton = "settings-timestamp-cert-add-certificate-button"
+    case settingsTimestampCertShowCertificateButton = "settings-timestamp-cert-show-certificate-button"
     case diagnosticsTitle = "diagnostics-title"
     case diagnosticsActivateOneTimeLogging = "diagnostics-activate-one-time-logging"
     case diagnosticsSaveLog = "diagnostics-save-log"
@@ -413,4 +418,8 @@ enum LocKey : String
     case accessibilityIntroductionScreenMagnificationTools = "accessibility-introduction-screen-magnification-tools";
     case accessibilityIntroductionScreenMagnificationToolsiOS = "accessibility-introduction-screen-magnification-tools-ios";
     case accessibilityIntroductionScreenMagnificationToolsAndroid = "accessibility-introduction-screen-magnification-tools-android";
+    case voiceControlChooseFile = "voice-control-choose-file";
+    case voiceControlTabMyEid = "voice-control-tab-my-eid";
+    case voiceControlTabCrypto = "voice-control-tab-crypto";
+    case voiceControlTabSignature = "voice-control-tab-signature";
 }

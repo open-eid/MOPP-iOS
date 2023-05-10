@@ -66,7 +66,7 @@ class AlertUtil {
         }
     }
 
-    static func errorDialog(title: String = L(.generalSignatureAddingMessage), errorMessage: String, topViewController: UIViewController) -> UIAlertController {
+    static func errorDialog(title: String? = L(.generalSignatureAddingMessage), errorMessage: String, topViewController: UIViewController) -> UIAlertController {
         let errorMessageNoLink = errorMessage.removeFirstLinkFromMessage()?.trimWhitespacesAndNewlines()
         let alert = UIAlertController(title: title, message: errorMessageNoLink, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

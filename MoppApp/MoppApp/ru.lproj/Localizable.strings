@@ -354,6 +354,11 @@
 "settings-timestamp-url-placeholder" = "";
 "settings-timestamp-use-default-title" = "Использовать значение по умолчанию";
 "settings-value-changed" = "Значение настройки изменено";
+"settings-timestamp-cert-title" = "SSL сертификат службы отметок времени";
+"settings-timestamp-cert-issued-to-label" = "Выдан:";
+"settings-timestamp-cert-valid-to-label" = "Действительно до:";
+"settings-timestamp-cert-add-certificate-button" = "ДОБАВИТЬ СЕРТИФИКАТ";
+"settings-timestamp-cert-show-certificate-button" = "ПОКАЗАТЬ СЕРТИФИКАТ";
 "diagnostics-title" = "Диагностика";
 "diagnostics-activate-one-time-logging" = "Активировать одноразовое создание лог-файла";
 "diagnostics-save-log" = "СОХРАНИТЬ ЛОГ-ФАЙЛ";
@@ -454,3 +459,9 @@
 "accessibility-introduction-screen-magnification-tools" = "Вспомогательные средства для увеличения экрана:";
 "accessibility-introduction-screen-magnification-tools-ios" = "Zoom (iOS, встроенный) https://support.apple.com/ru-ru/guide/iphone/iph3e2e367e/ios";
 "accessibility-introduction-screen-magnification-tools-android" = "Magnification (Android, встроенный) https://support.google.com/accessibility/android/answer/6006949?hl=ru";
+
+// Voice Commands (English only)
+"voice-control-choose-file" = "Choose file";
+"voice-control-tab-my-eid" = "My EID";
+"voice-control-tab-crypto" = "Crypto";
+"voice-control-tab-signature" = "Signature";

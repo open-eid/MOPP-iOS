@@ -354,6 +354,11 @@
 "settings-timestamp-url-placeholder" = "";
 "settings-timestamp-use-default-title" = "Kasuta vaikeväärtust";
 "settings-value-changed" = "Seade väärtus muudetud";
+"settings-timestamp-cert-title" = "Ajatempliteenuse SSL sertifikaat";
+"settings-timestamp-cert-issued-to-label" = "Kellele väljastatud:";
+"settings-timestamp-cert-valid-to-label" = "Kehtib kuni:";
+"settings-timestamp-cert-add-certificate-button" = "LISA SERTIFIKAAT";
+"settings-timestamp-cert-show-certificate-button" = "NÄITA SERTIFIKAATI";
 "diagnostics-title" = "Diagnostika";
 "diagnostics-activate-one-time-logging" = "Aktiveeri ühekordne logifaili genereerimine";
 "diagnostics-save-log" = "SALVESTA LOGIFAIL";
@@ -453,3 +458,9 @@
 "accessibility-introduction-screen-magnification-tools" = "Ekraani suurendamise abivahendid:";
 "accessibility-introduction-screen-magnification-tools-ios" = "Zoom (iOS, sisseehitatud) https://support.apple.com/et-ee/guide/iphone/iph3e2e367e/ios";
 "accessibility-introduction-screen-magnification-tools-android" = "Magnification (Android, sisseehitatud) https://support.google.com/accessibility/android/answer/6006949?hl=en";
+
+// Voice Commands (English only)
+"voice-control-choose-file" = "Choose file";
+"voice-control-tab-my-eid" = "My EID";
+"voice-control-tab-crypto" = "Crypto";
+"voice-control-tab-signature" = "Signature";

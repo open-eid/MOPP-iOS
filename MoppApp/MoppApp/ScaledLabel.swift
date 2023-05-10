@@ -52,4 +52,9 @@ class ScaledLabel: UILabel {
         self.adjustsFontSizeToFitWidth = false
         self.minimumScaleFactor = 1
     }
+    
+    override func accessibilityElementDidBecomeFocused() {
+        NotificationCenter.default.post(name: .hideKeyboardAccessibility, object: nil, userInfo: ["view": self])
+        self.becomeFirstResponder()
+    }
 }
