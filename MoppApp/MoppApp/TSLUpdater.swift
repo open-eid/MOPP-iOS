@@ -25,13 +25,13 @@ import Foundation
 
 class TSLUpdater {
 
-    private var bundleFiles: [URL] = []
-    private var bundleTSLVersions: [String : Int] = [:]
-    private var libraryTSLVersions: [String : Int] = [:]
+    private static var bundleFiles: [URL] = []
+    private static var bundleTSLVersions: [String : Int] = [:]
+    private static var libraryTSLVersions: [String : Int] = [:]
 
-    var isMasterTSLUpdated: Bool = false
+    static var isMasterTSLUpdated: Bool = false
 
-    func checkForTSLUpdates() -> Void {
+    static func checkForTSLUpdates() -> Void {
         printLog("Checking for TSL updates")
         let filesInBundle: [URL] = getCountryFileLocations(inPath: getTSLFilesBundlePath())
         let filesInLibrary: [URL] = getCountryFileLocations(inPath: getLibraryDirectoryPath())
@@ -58,7 +58,7 @@ class TSLUpdater {
         copyOtherTSLBundleFilesToLibrary(inPath: getTSLFilesBundlePath())
     }
     
-    public func getLOTLFileURL() -> URL? {
+    public static func getLOTLFileURL() -> URL? {
         printLog("Getting TSL files bundle path")
         let tslFilesBundlePath: String = getTSLFilesBundlePath()
         guard !tslFilesBundlePath.isEmpty else {
@@ -85,17 +85,17 @@ class TSLUpdater {
         
     }
 
-    public func getTSLFilesBundlePath() -> String {
+    public static func getTSLFilesBundlePath() -> String {
         guard let tslFilesBundlePath: String = Bundle.main.path(forResource: "tslFiles", ofType: "bundle") else { return "" }
 
         return tslFilesBundlePath
     }
     
-    public func getCountryFileLocations(inPath tslFilesLocation: String) -> [URL] {
+    public static func getCountryFileLocations(inPath tslFilesLocation: String) -> [URL] {
         var countryFilesLocations: [URL] = []
 
         for file in getFilesFromBundle(inPath: tslFilesLocation) {
-            if !file.lastPathComponent.starts(with: ".") {
+            if !file.lastPathComponent.starts(with: ".") && file.pathExtension == "xml" {
                 countryFilesLocations.append(file)
             }
         }
@@ -103,7 +103,7 @@ class TSLUpdater {
         return countryFilesLocations
     }
     
-    public func getTSLVersion(fromFile fileLocation: URL) -> Int {
+    public static func getTSLVersion(fromFile fileLocation: URL) -> Int {
         printLog("Getting TSL version for file: \(fileLocation.lastPathComponent)")
         var version: Int = 0
         TSLVersionChecker().getTSLVersion(filePath: fileLocation) { (tslVersion) in
@@ -118,15 +118,15 @@ class TSLUpdater {
         return version
     }
 
-    private func getLibraryDirectoryPath() -> String {
+    private static func getLibraryDirectoryPath() -> String {
         return MoppFileManager.shared.libraryDirectoryPath()
     }
 
-    private func getBundleFilesCount() -> Int {
+    private static func getBundleFilesCount() -> Int {
         return bundleFiles.count
     }
 
-    private func updateTSLFromBundleIfNeeded(libraryCountry: String, libraryVersion: Int, bundleCountry: String, bundleVersion: Int) -> Void {
+    private static func updateTSLFromBundleIfNeeded(libraryCountry: String, libraryVersion: Int, bundleCountry: String, bundleVersion: Int) -> Void {
         if isTSLExistent(forCountry: libraryCountry) && bundleCountry == libraryCountry && bundleVersion > libraryVersion {
             printLog("\(libraryCountry) needs updating, updating version \(libraryVersion) to \(bundleVersion) from Bundle...")
             updateCountryTSL(country: bundleCountry)
@@ -136,7 +136,7 @@ class TSLUpdater {
         }
     }
 
-    private func addTSLFromBundleIfNotExistent(bundleCountry: String, bundleVersion: Int) -> Void {
+    private static func addTSLFromBundleIfNotExistent(bundleCountry: String, bundleVersion: Int) -> Void {
         if !isTSLExistent(forCountry: bundleCountry) {
             printLog("\(bundleCountry) (version \(bundleVersion)) does not exist")
             updateCountryTSL(country: bundleCountry)
@@ -144,7 +144,7 @@ class TSLUpdater {
         }
     }
 
-    private func assignBundleFileVersions(filesInBundle: [URL]) -> Void {
+    public static func assignBundleFileVersions(filesInBundle: [URL]) -> Void {
         for bundleFile in filesInBundle {
             if !bundleFile.hasDirectoryPath {
                 let fileName: String = bundleFile.deletingPathExtension().lastPathComponent
@@ -153,7 +153,7 @@ class TSLUpdater {
         }
     }
 
-    private func assignLibraryFileVersions(filesInLibrary: [URL]) -> Void {
+    private static func assignLibraryFileVersions(filesInLibrary: [URL]) -> Void {
         for libraryFile in filesInLibrary {
             if !libraryFile.hasDirectoryPath {
                 let fileName: String = libraryFile.deletingPathExtension().lastPathComponent
@@ -162,17 +162,17 @@ class TSLUpdater {
         }
     }
 
-    private func isLibraryTSLVersionsEmpty() -> Bool {
+    private static func isLibraryTSLVersionsEmpty() -> Bool {
         return libraryTSLVersions.isEmpty
     }
 
-    private func logTSLVersions(bundleCountry: String, bundleVersion: Int, libraryCountry: String, libraryVersion: Int) -> Void {
+    private static func logTSLVersions(bundleCountry: String, bundleVersion: Int, libraryCountry: String, libraryVersion: Int) -> Void {
         if bundleCountry == libraryCountry {
             printLog("\(libraryCountry) does not need updating, Library version: \(libraryVersion), Bundle version: \(bundleVersion)")
         }
     }
 
-    private func updateMasterTSL() -> Void {
+    private static func updateMasterTSL() -> Void {
         printLog("Updating master TSL")
         let tslFilesBundlePath = Bundle.main.path(forResource: "tslFiles", ofType: "bundle") ?? ""
         let libraryFilePath: URL = URL(fileURLWithPath: MoppFileManager.shared.libraryDirectoryPath(), isDirectory: true)
@@ -189,11 +189,11 @@ class TSLUpdater {
         isMasterTSLUpdated = true
     }
 
-    private func isTSLExistent(forCountry country: String) -> Bool {
+    private static func isTSLExistent(forCountry country: String) -> Bool {
         return FileManager.default.fileExists(atPath: URL(fileURLWithPath: MoppFileManager.shared.libraryDirectoryPath(), isDirectory: true).appendingPathComponent("\(country).xml").path)
     }
 
-    private func updateCountryTSL(country: String) -> Void {
+    private static func updateCountryTSL(country: String) -> Void {
         printLog("Updating country \(country) TSL")
         for countryFilePath in bundleFiles {
             let libraryFilePath: URL = URL(fileURLWithPath: MoppFileManager.shared.libraryDirectoryPath(), isDirectory: true).appendingPathComponent(countryFilePath.lastPathComponent)
@@ -207,18 +207,18 @@ class TSLUpdater {
         }
     }
 
-    private func copyBundleFileToLibrary(sourceFilePath: URL, destinationFilePath: URL) -> Void {
+    private static func copyBundleFileToLibrary(sourceFilePath: URL, destinationFilePath: URL) -> Void {
         printLog("Updating \(sourceFilePath.lastPathComponent) from Bundle...")
         _ = MoppFileManager().copyFile(withPath: sourceFilePath.path, toPath: destinationFilePath.path)
     }
 
-    private func overWriteFile(sourceFilePath: URL, destinationFilePath: URL) -> Void {
+    private static func overWriteFile(sourceFilePath: URL, destinationFilePath: URL) -> Void {
         printLog("Overwriting \(sourceFilePath.lastPathComponent)...")
         removeEtag(destination: destinationFilePath)
         MoppFileManager().overwriteFile(from: sourceFilePath, to: destinationFilePath)
     }
 
-    private func assignFilesInBundle() -> Void {
+    private static func assignFilesInBundle() -> Void {
         guard let tslFilesBundlePath = Bundle.main.path(forResource: "tslFiles", ofType: "bundle") else { return }
         let tslBundleFiles = getCountryFileLocations(inPath: tslFilesBundlePath)
 
@@ -230,7 +230,7 @@ class TSLUpdater {
         }
     }
 
-    private func removeEtag(destination: URL) -> Void {
+    private static func removeEtag(destination: URL) -> Void {
         let etagFile = destination.appendingPathExtension("etag")
         if FileManager.default.fileExists(atPath: etagFile.path) {
             printLog("Removing \(destination.lastPathComponent) etag...")
@@ -238,7 +238,7 @@ class TSLUpdater {
         }
     }
 
-    private func getOtherTSLBundleFiles(inPath tslFilesLocation: String) -> [URL] {
+    private static func getOtherTSLBundleFiles(inPath tslFilesLocation: String) -> [URL] {
         var otherBundleFilesLocations: [URL] = []
 
         for file in getFilesFromBundle(inPath: tslFilesLocation) {
@@ -252,14 +252,14 @@ class TSLUpdater {
         return otherBundleFilesLocations
     }
 
-    private func copyOtherTSLBundleFilesToLibrary(inPath tslFilesLocation: String) {
+    private static func copyOtherTSLBundleFilesToLibrary(inPath tslFilesLocation: String) {
         for file in getOtherTSLBundleFiles(inPath: tslFilesLocation) {
             let libraryFilePath: URL = URL(fileURLWithPath: MoppFileManager.shared.libraryDirectoryPath(), isDirectory: true).appendingPathComponent(file.lastPathComponent)
             copyBundleFileToLibrary(sourceFilePath: file, destinationFilePath: libraryFilePath)
         }
     }
 
-    private func getFilesFromBundle(inPath tslFilesLocation: String) -> [URL] {
+    private static func getFilesFromBundle(inPath tslFilesLocation: String) -> [URL] {
         printLog("Getting files from Bundle")
         var listOfFilesInBundle: [URL] = []
 

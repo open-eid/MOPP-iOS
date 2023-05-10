@@ -59,7 +59,9 @@ class MobileIDEditViewController : MoppViewController {
     @IBOutlet weak var signButton: MoppButton!
     @IBOutlet weak var rememberLabel: UILabel!
     @IBOutlet weak var rememberSwitch: UISwitch!
-
+    @IBOutlet weak var rememberStackView: UIStackView!
+    @IBOutlet weak var actionButtonsStackView: UIStackView!
+    
     weak var delegate: MobileIDEditViewControllerDelegate? = nil
     var tapGR: UITapGestureRecognizer!
 
@@ -114,6 +116,8 @@ class MobileIDEditViewController : MoppViewController {
             
             self.view.accessibilityElements = [titleUILabel, phoneUILabel, phoneUITextField, phoneNumberErrorUILabel, idCodeUILabel, idCodeUITextField, personalCodeUIErrorLabel, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAccessibilityKeyboard), name: .hideKeyboardAccessibility, object: nil)
     }
 
     @objc func dismissKeyboard(_ notification: NSNotification) {
@@ -190,6 +194,11 @@ class MobileIDEditViewController : MoppViewController {
         idCodeTextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
         phoneTextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
     }
+    
+    @objc func handleAccessibilityKeyboard(_ notification: NSNotification) {
+        dismissKeyboard(notification)
+        ViewUtil.focusOnView(notification, mainView: self.view, scrollView: scrollView)
+    }
 
     func defaultRememberMeToggle() {
         rememberSwitch.setOn(DefaultsHelper.mobileIdRememberMe, animated: true)
@@ -246,6 +255,10 @@ extension MobileIDEditViewController : UITextFieldDelegate {
         }
         return true
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.moveCursorToEnd()
+    }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.accessibilityIdentifier == "mobileIdPhoneNumberField" {
@@ -254,17 +267,17 @@ extension MobileIDEditViewController : UITextFieldDelegate {
                     phoneNumberErrorLabel.text = L(.signingErrorIncorrectCountryCode)
                     phoneNumberErrorLabel.isHidden = false
                     setViewBorder(view: textField, color: .moppError)
-                    UIAccessibility.post(notification: .screenChanged, argument: self.phoneNumberErrorLabel)
+                    UIAccessibility.post(notification: .layoutChanged, argument: self.phoneNumberErrorLabel)
                 } else if TokenFlowUtil.isPhoneNumberInvalid(text: text) {
                     phoneNumberErrorLabel.text = L(.signingErrorIncorrectPhoneNumber)
                     phoneNumberErrorLabel.isHidden = false
                     setViewBorder(view: textField, color: .moppError)
-                    UIAccessibility.post(notification: .screenChanged, argument: self.phoneNumberErrorLabel)
+                    UIAccessibility.post(notification: .layoutChanged, argument: self.phoneNumberErrorLabel)
                 } else {
                     phoneNumberErrorLabel.text = ""
                     phoneNumberErrorLabel.isHidden = true
                     removeViewBorder(view: textField)
-                    UIAccessibility.post(notification: .screenChanged, argument: phoneTextField)
+                    UIAccessibility.post(notification: .layoutChanged, argument: phoneTextField)
                 }
             }
         } else if textField.accessibilityIdentifier == "mobileIDCodeField" {

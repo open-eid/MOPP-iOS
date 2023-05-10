@@ -59,6 +59,8 @@ class SmartIDEditViewController : MoppViewController {
     @IBOutlet weak var signButton: UIButton!
     @IBOutlet weak var rememberLabel: UILabel!
     @IBOutlet weak var rememberSwitch: UISwitch!
+    @IBOutlet weak var rememberStackView: UIStackView!
+    @IBOutlet weak var actionButtonsStackView: UIStackView!
 
     weak var delegate: SmartIDEditViewControllerDelegate? = nil
     var tapGR: UITapGestureRecognizer!
@@ -113,6 +115,8 @@ class SmartIDEditViewController : MoppViewController {
             
             view.accessibilityElements = [titleUILabel, countryUILabel, countryUITextField, idCodeUILabel, idCodeUITextField, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
         }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAccessibilityKeyboard), name: .hideKeyboardAccessibility, object: nil)
     }
 
     @objc func dismissKeyboard(_ notification: NSNotification) {
@@ -214,9 +218,20 @@ class SmartIDEditViewController : MoppViewController {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.0)
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     func defaultRememberMeToggle() {
         rememberSwitch.setOn(DefaultsHelper.smartIdRememberMe, animated: true)
         rememberSwitch.accessibilityUserInputLabels = [DefaultsHelper.mobileIdRememberMe ? "Disable remember me" : "Enable remember me"]
+    }
+    
+    @objc func handleAccessibilityKeyboard(_ notification: NSNotification) {
+        if UIAccessibility.isVoiceOverRunning {
+            dismissKeyboard(notification)
+            ViewUtil.focusOnView(notification, mainView: self.view, scrollView: scrollView)
+        }
     }
 
     func verifySigningCapability() {
@@ -290,6 +305,10 @@ extension SmartIDEditViewController : UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.moveCursorToEnd()
+    }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if countryViewPicker.selectedRow(inComponent: 0) != 0 {
@@ -309,12 +328,12 @@ extension SmartIDEditViewController : UITextFieldDelegate {
                     personalCodeErrorLabel.text = L(.signingErrorIncorrectPersonalCode)
                     personalCodeErrorLabel.isHidden = false
                     setViewBorder(view: textField, color: .moppError)
-                    UIAccessibility.post(notification: .screenChanged, argument: self.personalCodeErrorLabel)
+                    UIAccessibility.post(notification: .layoutChanged, argument: self.personalCodeErrorLabel)
                 } else {
                     personalCodeErrorLabel.text = ""
                     personalCodeErrorLabel.isHidden = true
                     removeViewBorder(view: textField)
-                    UIAccessibility.post(notification: .screenChanged, argument: idCodeTextField)
+                    UIAccessibility.post(notification: .layoutChanged, argument: idCodeTextField)
                 }
             }
         }
