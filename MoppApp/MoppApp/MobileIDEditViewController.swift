@@ -78,8 +78,13 @@ class MobileIDEditViewController : MoppViewController {
 
         phoneLabel.isAccessibilityElement = false
         idCodeLabel.isAccessibilityElement = false
+        
+        phoneTextField.isAccessibilityElement = true
 
         phoneTextField.accessibilityLabel = L(.mobileIdPhoneTitle)
+
+        phoneTextField.accessibilityUserInputLabels = [L(.voiceControlPhoneNumber)]
+        
         idCodeTextField.accessibilityLabel = L(.signingIdcodeTitle)
 
 
@@ -93,17 +98,22 @@ class MobileIDEditViewController : MoppViewController {
 
         phoneTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         phoneTextField.layer.borderWidth = 1.0
+        
+        rememberSwitch.addTarget(self, action: #selector(toggleRememberMe), for: .valueChanged)
 
         tapGR = UITapGestureRecognizer()
         tapGR.addTarget(self, action: #selector(cancelAction))
         view.addGestureRecognizer(tapGR)
-
-        guard let titleUILabel = titleLabel, let phoneUILabel = phoneLabel, let phoneUITextField = phoneTextField, let phoneNumberErrorUILabel = phoneNumberErrorLabel, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let personalCodeUIErrorLabel = personalCodeErrorLabel, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
-            printLog("Unable to get titleLabel, phoneLabel, phoneTextField, phoneNumberErrorLabel, idCodeLabel, idCodeTextField, personalCodeErrorLabel, rememberLabel, rememberSwitch, cancelButton or signButton")
-            return
+        
+        if UIAccessibility.isVoiceOverRunning {
+            guard let titleUILabel = titleLabel, let phoneUILabel = phoneLabel, let phoneUITextField = phoneTextField, let phoneNumberErrorUILabel = phoneNumberErrorLabel, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let personalCodeUIErrorLabel = personalCodeErrorLabel, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
+                printLog("Unable to get titleLabel, phoneLabel, phoneTextField, phoneNumberErrorLabel, idCodeLabel, idCodeTextField, personalCodeErrorLabel, rememberLabel, rememberSwitch, cancelButton or signButton")
+                return
+            }
+            
+            
+            self.view.accessibilityElements = [titleUILabel, phoneUILabel, phoneUITextField, phoneNumberErrorUILabel, idCodeUILabel, idCodeUITextField, personalCodeUIErrorLabel, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
         }
-
-        self.view.accessibilityElements = [titleUILabel, phoneUILabel, phoneUITextField, phoneNumberErrorUILabel, idCodeUILabel, idCodeUITextField, personalCodeUIErrorLabel, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
     }
 
     @objc func dismissKeyboard(_ notification: NSNotification) {
@@ -127,10 +137,12 @@ class MobileIDEditViewController : MoppViewController {
         if rememberSwitch.isOn {
             DefaultsHelper.idCode = idCodeTextField.text ?? String()
             DefaultsHelper.phoneNumber = phoneTextField.text ?? String()
+            rememberSwitch.accessibilityUserInputLabels = ["Disable remember me"]
         }
         else {
             DefaultsHelper.idCode = String()
             DefaultsHelper.phoneNumber = String()
+            rememberSwitch.accessibilityUserInputLabels = ["Enable remember me"]
         }
         dismiss(animated: false) {
             [weak self] in
@@ -139,6 +151,14 @@ class MobileIDEditViewController : MoppViewController {
                 cancelled: false,
                 phoneNumber: sself.phoneTextField.text,
                 idCode: sself.idCodeTextField.text)
+        }
+    }
+    
+    @objc func toggleRememberMe(_ sender: UISwitch) {
+        if sender.isOn {
+            rememberSwitch.accessibilityUserInputLabels = ["Disable remember me"]
+        } else {
+            rememberSwitch.accessibilityUserInputLabels = ["Enable remember me"]
         }
     }
 
@@ -173,6 +193,7 @@ class MobileIDEditViewController : MoppViewController {
 
     func defaultRememberMeToggle() {
         rememberSwitch.setOn(DefaultsHelper.mobileIdRememberMe, animated: true)
+        rememberSwitch.accessibilityUserInputLabels = [DefaultsHelper.mobileIdRememberMe ? "Disable remember me" : "Enable remember me"]
     }
 
     func verifySigningCapability() {

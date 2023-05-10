@@ -89,7 +89,7 @@ extension SigningActions where Self: SigningContainerViewController {
             } else if self.invalidSignaturesCount > 1 {
                 signatureWarningText = L(.containerErrorMessageInvalidSignatures, [self.invalidSignaturesCount])
             }
-            self.notificationMessages.append((false, signatureWarningText))
+            self.notificationMessages.append(NotificationMessage(isSuccess: false, text: signatureWarningText))
         }
         
         if self.unknownSignaturesCount > 0 {
@@ -99,7 +99,7 @@ extension SigningActions where Self: SigningContainerViewController {
             } else if self.unknownSignaturesCount > 1 {
                 signatureWarningText = L(.containerErrorMessageUnknownSignatures, [self.unknownSignaturesCount])
             }
-            self.notificationMessages.append((false, signatureWarningText))
+            self.notificationMessages.append(NotificationMessage(isSuccess: false, text: signatureWarningText))
         }
     }
     

@@ -355,6 +355,7 @@
 		DF4B841A2840F8FC005CB875 /* CertificateDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4B84192840F8FC005CB875 /* CertificateDetailsCell.swift */; };
 		DF4B841E284417CD005CB875 /* CertificateDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4B841D284417CD005CB875 /* CertificateDetail.swift */; };
 		DF51499E29E98127008AB161 /* ScaledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF51499D29E98127008AB161 /* ScaledTextField.swift */; };
+		DF53DCEA2A0A9D8A00F5DAF6 /* NotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF53DCE92A0A9D8A00F5DAF6 /* NotificationMessage.swift */; };
 		DF6299122664FEFE00E6C55E /* UrlSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */; };
 		DF7F611926399B5400747B7D /* ContainerRemovalActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */; };
 		DF8A948A29AFD11A004F6E4B /* CharacterSet+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8A948929AFD11A004F6E4B /* CharacterSet+Additions.swift */; };
@@ -675,6 +676,7 @@
 		DF4B84192840F8FC005CB875 /* CertificateDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateDetailsCell.swift; sourceTree = "<group>"; };
 		DF4B841D284417CD005CB875 /* CertificateDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateDetail.swift; sourceTree = "<group>"; };
 		DF51499D29E98127008AB161 /* ScaledTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaledTextField.swift; sourceTree = "<group>"; };
+		DF53DCE92A0A9D8A00F5DAF6 /* NotificationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationMessage.swift; sourceTree = "<group>"; };
 		DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSchemeHandler.swift; sourceTree = "<group>"; };
 		DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerRemovalActions.swift; sourceTree = "<group>"; };
 		DF8A948929AFD11A004F6E4B /* CharacterSet+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Additions.swift"; sourceTree = "<group>"; };
@@ -934,6 +936,7 @@
 				DF4B841D284417CD005CB875 /* CertificateDetail.swift */,
 				DFAFD38529E8794200377EF5 /* SearchField.swift */,
 				DF97A51029DC8CAB006FB917 /* ContainerAddAllButtonCell.swift */,
+				DF53DCE92A0A9D8A00F5DAF6 /* NotificationMessage.swift */,
 			);
 			name = Container;
 			sourceTree = "<group>";
@@ -2017,6 +2020,7 @@
 				DFAFD38629E8794200377EF5 /* SearchField.swift in Sources */,
 				C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */,
 				C50DCD131FCC4D3000D48E16 /* UIView+Additions.swift in Sources */,
+				DF53DCEA2A0A9D8A00F5DAF6 /* NotificationMessage.swift in Sources */,
 				C537AE542004C29E009037E5 /* MobileIDEditViewController.swift in Sources */,
 				3921CAA520B5A24A00BF3178 /* CryptoContainerViewController.swift in Sources */,
 				C50DCCCB1FC32A3E00D48E16 /* SigningViewController.swift in Sources */,

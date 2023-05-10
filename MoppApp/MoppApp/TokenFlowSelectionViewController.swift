@@ -97,12 +97,15 @@ class TokenFlowSelectionViewController : MoppViewController {
             case .idCard:
                 $0.setTitle(L(.signTitleIdCard))
                 idCardButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleIdCard), positionInRow: "3", viewCount: "3")
+                idCardButton.accessibilityUserInputLabels = [L(.voiceControlIdCard)]
             case .mobileID:
                 $0.setTitle(L(.signTitleMobileId))
                 mobileIDButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleMobileId), positionInRow: "1", viewCount: "3")
+                mobileIDButton.accessibilityUserInputLabels = [L(.voiceControlMobileId)]
             case .smartID:
                 $0.setTitle(L(.signTitleSmartId))
                 smartIDButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleSmartId), positionInRow: "2", viewCount: "3")
+                smartIDButton.accessibilityUserInputLabels = [L(.voiceControlSmartId)]
             }
         }
     }
@@ -141,8 +144,10 @@ extension TokenFlowSelectionViewController {
             viewAccessibilityElements = [smartIDButton, containerView, idCardButton, mobileIDButton, smartIDButton, containerView]
         }
         
-        self.view.accessibilityElements = viewAccessibilityElements
-        newViewController.accessibilityElements = viewAccessibilityElements
+        if UIAccessibility.isVoiceOverRunning {
+            self.view.accessibilityElements = viewAccessibilityElements
+            newViewController.accessibilityElements = viewAccessibilityElements
+        }
         
         oldViewController?.willMove(toParent: nil)
         addChild(newViewController)

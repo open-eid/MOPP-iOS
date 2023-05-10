@@ -66,10 +66,14 @@ class ContainerFileCell: UITableViewCell {
         if cryptoActionsStackView != nil {
             cryptoActionsStackView.isAccessibilityElement = false
         }
+        removeButton.isAccessibilityElement = true
         removeButton.isHidden = !showRemoveButton
         removeButton.accessibilityLabel = formatString(text: L(.fileImportRemoveFile), additionalText: filenameLabel.text?.sanitize())
+        removeButton.accessibilityUserInputLabels = ["\(L(.voiceControlRemoveFile)) \(dataFileIndex + 1)"]
+        saveButton.isAccessibilityElement = true
         saveButton.isHidden = !showDownloadButton
         saveButton.accessibilityLabel = formatString(text: L(.fileImportSaveFile), additionalText: filenameLabel.text?.sanitize())
+        saveButton.accessibilityUserInputLabels = ["\(L(.voiceControlSaveFile)) \(dataFileIndex + 1)"]
         saveButton.isEnabled = enableDownloadButton
         self.dataFileIndex = dataFileIndex
     }

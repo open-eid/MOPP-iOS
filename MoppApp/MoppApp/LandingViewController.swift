@@ -276,6 +276,7 @@ extension LandingViewController {
             case "shareButton":
                 view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabShareButtonAccessibility), positionInRow: "1", viewCount: String(visibleViews.count))
                 view.accessibilityTraits = UIAccessibilityTraits.button
+                view.accessibilityUserInputLabels = [L(.voiceControlTabShare)]
                 break
             case "signButton":
                 if buttonIDs.contains(TabButtonId.signButton) && buttonIDs.count == 1 {
@@ -284,6 +285,7 @@ extension LandingViewController {
                     view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabSignButton), positionInRow: "2", viewCount: String(visibleViews.count))
                 }
                 view.accessibilityTraits = UIAccessibilityTraits.button
+                view.accessibilityUserInputLabels = [L(.voiceControlTabSign)]
                 break
             case "encryptButton":
                 view.accessibilityLabel = L(.tabEncryptButtonAccessibility)

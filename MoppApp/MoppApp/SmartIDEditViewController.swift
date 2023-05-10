@@ -82,6 +82,7 @@ class SmartIDEditViewController : MoppViewController {
         idCodeLabel.isAccessibilityElement = false
 
         countryTextField.accessibilityLabel = L(.smartIdCountryTitle)
+        countryTextField.accessibilityUserInputLabels = [L(.voiceControlCountry)]
         idCodeTextField.accessibilityLabel = L(.signingIdcodeTitle)
 
         idCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor
@@ -97,17 +98,21 @@ class SmartIDEditViewController : MoppViewController {
         countryTextField.inputView = countryViewPicker
         countryTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         countryTextField.layer.borderWidth = 1.0
+        
+        rememberSwitch.addTarget(self, action: #selector(toggleRememberMe), for: .valueChanged)
 
         tapGR = UITapGestureRecognizer()
         tapGR.addTarget(self, action: #selector(cancelAction))
         view.addGestureRecognizer(tapGR)
 
-        guard let titleUILabel = titleLabel, let countryUILabel = countryLabel, let countryUITextField = countryTextField, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
-            printLog("Unable to get titleLabel, countryLabel, countryTextField, idCodeLabel, idCodeTextField, rememberLabel, rememberSwitch, cancelButton or signButton")
-            return
+        if UIAccessibility.isVoiceOverRunning {
+            guard let titleUILabel = titleLabel, let countryUILabel = countryLabel, let countryUITextField = countryTextField, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
+                printLog("Unable to get titleLabel, countryLabel, countryTextField, idCodeLabel, idCodeTextField, rememberLabel, rememberSwitch, cancelButton or signButton")
+                return
+            }
+            
+            view.accessibilityElements = [titleUILabel, countryUILabel, countryUITextField, idCodeUILabel, idCodeUITextField, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
         }
-
-        view.accessibilityElements = [titleUILabel, countryUILabel, countryUITextField, idCodeUILabel, idCodeUITextField, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
     }
 
     @objc func dismissKeyboard(_ notification: NSNotification) {
@@ -157,14 +162,24 @@ class SmartIDEditViewController : MoppViewController {
         if rememberSwitch.isOn {
             DefaultsHelper.sidIdCode = idCodeTextField.text ?? String()
             DefaultsHelper.sidCountry = country
+            rememberSwitch.accessibilityUserInputLabels = ["Disable remember me"]
         }
         else {
             DefaultsHelper.sidIdCode = String()
             DefaultsHelper.sidCountry = String()
+            rememberSwitch.accessibilityUserInputLabels = ["Enable remember me"]
         }
         dismiss(animated: false) { [weak self] in
             guard let sself = self else { return }
             sself.delegate?.smartIDEditViewControllerDidDismiss(cancelled: false, country: country, idCode: sself.idCodeTextField.text)
+        }
+    }
+    
+    @objc func toggleRememberMe(_ sender: UISwitch) {
+        if sender.isOn {
+            rememberSwitch.accessibilityUserInputLabels = ["Disable remember me"]
+        } else {
+            rememberSwitch.accessibilityUserInputLabels = ["Enable remember me"]
         }
     }
 
@@ -201,6 +216,7 @@ class SmartIDEditViewController : MoppViewController {
     
     func defaultRememberMeToggle() {
         rememberSwitch.setOn(DefaultsHelper.smartIdRememberMe, animated: true)
+        rememberSwitch.accessibilityUserInputLabels = [DefaultsHelper.mobileIdRememberMe ? "Disable remember me" : "Enable remember me"]
     }
 
     func verifySigningCapability() {

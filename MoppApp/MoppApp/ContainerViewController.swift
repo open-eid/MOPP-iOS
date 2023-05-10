@@ -140,7 +140,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     internal static let sectionsWithTimestampNoSignatures : [Section] = [.notifications, .header, .dataFiles, .containerTimestamps]
     internal static let sectionsWithTimestamp : [Section] = [.notifications, .header, .dataFiles, .containerTimestamps, .signatures]
     var sections: [Section] = ContainerViewController.sectionsDefault
-    var notifications: [(isSuccess: Bool, text: String)] = []
+    var notifications: [NotificationMessage] = []
     var state: ContainerState!
 
 
@@ -305,7 +305,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                 break
             }
             if isEmptyFileInContainer {
-                self.notifications.append((false, L(.fileImportFailedEmptyFileImported)))
+                self.notifications.append(NotificationMessage(isSuccess: false, text: L(.fileImportFailedEmptyFileImported)))
                 isEmptyFileWarningSet = true
             }
         }
@@ -401,18 +401,22 @@ extension ContainerViewController : UITableViewDataSource {
         switch sections[indexPath.section] {
         case .notifications:
             let cell = tableView.dequeueReusableCell(withType: ContainerNotificationCell.self, for: indexPath)!
+            cell.accessibilityUserInputLabels = [""]
+
             if notifications.indices.contains(indexPath.row) {
                 let isSuccess = notifications[indexPath.row].isSuccess
                 cell.populate(isSuccess: isSuccess, text: notifications[indexPath.row].text)
                 if isSuccess {
                     UIAccessibility.post(notification: .announcement,  argument: cell.infoLabel)
                 }
+                cell.isAccessibilityElement = false
                 return cell
             }
             return ContainerNotificationCell()
         case .signatures:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
                 cell.delegate = self
+            cell.accessibilityUserInputLabels = ["\(L(.voiceControlSignature)) \(row + 1)"]
             var signature = asicsSignatures.isEmpty ? (signingContainerViewDelegate.getSignature(index: indexPath.row) as? MoppLibSignature) : asicsSignatures[indexPath.row]
             if isAsicsContainer() && !asicsSignatures.isEmpty && signingContainerViewDelegate.getTimestampTokensCount() > 0 && asicsSignatures.count >= indexPath.row {
                 signature = asicsSignatures[indexPath.row]
@@ -442,11 +446,13 @@ extension ContainerViewController : UITableViewDataSource {
         case .timestamp:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
                 //cell.populate(name: mockTimestamp[row], kind: .timestamp, colorTheme: .neutral, showBottomBorder: row < mockTimestamp.count - 1)
+            cell.accessibilityUserInputLabels = ["\(L(.voiceControlTimestamp)) \(row + 1)"]
             return cell
         case .dataFiles:
             let cell = tableView.dequeueReusableCell(withType: ContainerFileCell.self, for: indexPath)!
                 cell.delegate = self
             cell.accessibilityTraits = UIAccessibilityTraits.button
+            cell.accessibilityUserInputLabels = ["\(L(.voiceControlFileRow)) \(row + 1)"]
 
             let isStatePreviewOrOpened = state == .opened || state == .preview
             let isEncryptedDataFiles = !isAsicContainer && isStatePreviewOrOpened && !isDecrypted
@@ -532,6 +538,7 @@ extension ContainerViewController : UITableViewDataSource {
             return cell
         case .containerTimestamps:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
+            cell.accessibilityUserInputLabels = ["\(L(.voiceControlContainerTimestamp)) \(row + 1)"]
             var timestampToken: MoppLibSignature = MoppLibSignature()
             if signingContainerViewDelegate.getTimestampTokensCount() >= indexPath.row {
                 timestampToken = signingContainerViewDelegate.getTimestampToken(index: indexPath.row) as? MoppLibSignature ?? MoppLibSignature()
@@ -941,8 +948,7 @@ extension ContainerViewController : UITableViewDelegate {
         tableView.reloadData()
 
         // Animate away success message if there is any
-        let accessibilityNotificationTime = 4.0
-        if let notificationIndex = notifications.firstIndex(where: { $0.0 == true }), sections.contains(.notifications) {
+        if let notificationIndex = notifications.firstIndex(where: { $0.isSuccess == true }), sections.contains(.notifications) {
             scrollToTop()
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
                 if (self?.notifications.isEmpty)! { return }

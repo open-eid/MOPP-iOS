@@ -463,6 +463,8 @@
 "voice-control-tab-my-eid" = "My EID";
 "voice-control-tab-crypto" = "Crypto";
 "voice-control-tab-signature" = "Signature";
+"voice-control-tab-share" = "Share";
+"voice-control-tab-sign" = "Sign";
 "voice-control-close" = "Close";
 "voice-control-search" = "Search";
 "voice-control-file-row" = "File";
@@ -474,3 +476,16 @@
 "voice-control-english-language" = "English language";
 "voice-control-russian-language" = "Russian language";
 "voice-control-clear-text" = "Clear text";
+"voice-control-change-container-name" = "Change container name";
+"voice-control-add-files" = "Add files";
+"voice-control-save-file" = "Save file";
+"voice-control-remove-file" = "Remove file";
+"voice-control-mobile-id" = "Mobile-ID";
+"voice-control-smart-id" = "Smart-ID";
+"voice-control-id-card" = "ID-Card";
+"voice-control-phone-number" = "Phone number";
+"voice-control-country" = "Country";
+"voice-control-signature" = "Signature";
+"voice-control-container-timestamp" = "Container timestamp";
+"voice-control-timestamp" = "Timestamp";
+"voice-control-remove-signature" = "Remove signature";

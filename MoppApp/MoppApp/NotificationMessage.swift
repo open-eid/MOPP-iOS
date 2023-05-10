@@ -1,5 +1,5 @@
 //
-//  ContainerImportFilesCell.swift
+//  NotificationMessage.swift
 //  MoppApp
 //
 /*
@@ -20,25 +20,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
 import Foundation
 
-
-protocol ContainerImportCellDelegate : AnyObject {
-    func containerImportCellAddFiles()
-}
-
-class ContainerImportFilesCell : UITableViewCell {
-    @IBOutlet weak var button: UIButton!
-    weak var delegate: ContainerImportCellDelegate!
-    
-    @IBAction func importAction() {
-        delegate.containerImportCellAddFiles()
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        button.localizedTitle = LocKey.fileImportTitle
-        button.accessibilityLabel = L(.fileImportTitleAccessibility)
-        button.accessibilityUserInputLabels = [L(.voiceControlAddFiles)]
-    }
+struct NotificationMessage {
+    let isSuccess: Bool
+    let text: String
 }
