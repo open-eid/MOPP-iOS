@@ -305,6 +305,7 @@ enum LocKey : String
     case diagnosticsLibrariesLabel = "diagnostics-libraries-label"
     case diagnosticsRpUuidDefault = "diagnostics-rpuuid-default"
     case diagnosticsRpUuidCustom = "diagnostics-rpuuid-custom"
+    case diagnosticsTslCacheLabel = "diagnostics-tsl-cache-label"
     case centralConfigurationLabel = "central-configuration"
     case lastUpdateCheckDateLabel = "last-update-check"
     case updateDateLabel = "update-date"
