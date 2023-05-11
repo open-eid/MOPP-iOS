@@ -46,6 +46,7 @@ class ScaledButton: UIButton {
         self.titleLabel?.lineBreakMode = .byClipping
         self.titleLabel?.minimumScaleFactor = 0.1
         self.titleLabel?.numberOfLines = 1
+        self.titleLabel?.textColor = UIColor.moppBase
         
         self.titleLabel?.sizeToFit()
         self.sizeToFit()
@@ -64,5 +65,11 @@ class ScaledButton: UIButton {
     override func accessibilityElementDidBecomeFocused() {
         NotificationCenter.default.post(name: .hideKeyboardAccessibility, object: nil, userInfo: ["view": self])
         self.becomeFirstResponder()
+    }
+    
+    func setBorder(width: Double = 2.0, color: UIColor = UIColor.moppBase, radius: Double = 8.0) {
+        self.layer.borderWidth = width
+        self.layer.borderColor = color.cgColor
+        self.layer.cornerRadius = radius
     }
 }

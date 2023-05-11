@@ -98,6 +98,8 @@ class SettingsTSACertCell: UITableViewCell {
             self.addCertificateButton.accessibilityLabel = self.addCertificateButton.titleLabel?.text?.lowercased()
             self.showCertificateButton.setTitle(L(.settingsTimestampCertShowCertificateButton))
             self.showCertificateButton.accessibilityLabel = self.showCertificateButton.titleLabel?.text?.lowercased()
+            self.showCertificateButton.setBorder()
+            self.addCertificateButton.setBorder()
             
             guard let cert = self.certificate else { return }
             

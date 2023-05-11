@@ -258,14 +258,14 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsTSACertCell" id="vb7-26-1De" customClass="SettingsTSACertCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="516" width="375" height="161.5"/>
+                                        <rect key="frame" x="0.0" y="516" width="375" height="182"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vb7-26-1De" id="G8q-Qy-eK5">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="161.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="182"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="k8v-bm-Uxj">
-                                                    <rect key="frame" x="16" y="10" width="343" height="151.5"/>
+                                                    <rect key="frame" x="16" y="10" width="343" height="172"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zJd-sR-fMw">
                                                             <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
@@ -296,10 +296,13 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="5MD-En-ZUq">
-                                                            <rect key="frame" x="0.0" y="97" width="343" height="54.5"/>
+                                                            <rect key="frame" x="0.0" y="97" width="343" height="75"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HMf-Yz-GBX" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="169" height="54.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="169" height="75"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="75" id="1ds-N1-725"/>
+                                                                    </constraints>
                                                                     <state key="normal" title="Button"/>
                                                                     <buttonConfiguration key="configuration" style="plain" title="ADD CERTIFICATE"/>
                                                                     <connections>
@@ -307,7 +310,10 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XIl-Lc-tan" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="174" y="0.0" width="169" height="54.5"/>
+                                                                    <rect key="frame" x="174" y="0.0" width="169" height="75"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="75" id="yiq-cK-HSB"/>
+                                                                    </constraints>
                                                                     <state key="normal" title="Button"/>
                                                                     <buttonConfiguration key="configuration" style="plain" title="SHOW CERTIFICATE"/>
                                                                     <connections>
