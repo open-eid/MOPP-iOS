@@ -1092,10 +1092,8 @@ void parseException(const digidoc::Exception &e) {
                 return TRUE;
             }
         }
-        return FALSE;
-    } else {
-        return FALSE;
     }
+    return FALSE;
 }
 
 - (NSString *)digidocVersion {
