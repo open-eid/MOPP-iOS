@@ -48,7 +48,9 @@ class ContainerHeaderCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        headerStackView.isAccessibilityElement = false
+        if headerStackView != nil {
+            headerStackView.isAccessibilityElement = false
+        }
         titleLabel.isAccessibilityElement = true
         titleLabel.text = L(.containerHeaderTitle)
         titleLabel.resetLabelProperties()
