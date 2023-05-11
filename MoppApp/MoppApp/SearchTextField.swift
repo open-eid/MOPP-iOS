@@ -69,11 +69,18 @@ class SearchTextField: ScaledTextField {
         if show {
             if rightView == nil {
                 rightViewMode = UIAccessibility.isVoiceOverRunning ? .always : .whileEditing
-                let clearButton = UIButton(frame: CGRect(x: 0, y: 0, width: 56, height: 44))
-                    clearButton.addTarget(self, action: #selector(clearTapped), for: .touchUpInside)
-                    clearButton.setImage(UIImage(named: "DismissPopup"), for: .normal)
-                    clearButton.backgroundColor = UIColor.clear
-                    clearButton.tintColor = textColor
+                let clearButton = UIButton(type: .custom)
+                clearButton.addTarget(self, action: #selector(clearTapped), for: .touchUpInside)
+                clearButton.setImage(UIImage(named: "DismissPopup"), for: .normal)
+                clearButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -70, bottom: 0, right: 0)
+                clearButton.frame = CGRect(x: 0, y: 0, width: 56, height: 44)
+                clearButton.backgroundColor = UIColor.clear
+                clearButton.tintColor = textColor
+                clearButton.isAccessibilityElement = !UIAccessibility.isVoiceOverRunning
+                clearButton.imageView?.isAccessibilityElement = true
+                clearButton.accessibilityUserInputLabels = [L(.voiceControlClearText)]
+                clearButton.imageView?.accessibilityLabel = "Clear"
+                clearButton.imageView?.accessibilityUserInputLabels = [L(.voiceControlClearText)]
                 rightView = clearButton
             }
         } else {

@@ -258,26 +258,28 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsTSACertCell" id="vb7-26-1De" customClass="SettingsTSACertCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="516" width="375" height="165.5"/>
+                                        <rect key="frame" x="0.0" y="516" width="375" height="161.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vb7-26-1De" id="G8q-Qy-eK5">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="165.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="161.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="k8v-bm-Uxj">
-                                                    <rect key="frame" x="16" y="10" width="343" height="155.5"/>
+                                                    <rect key="frame" x="16" y="10" width="343" height="151.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time-Stamping service header" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IeT-9d-QIf" userLabel="Use Default Title Label" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="25"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="EvI-Vb-Ffl"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="18"/>
-                                                            <color key="textColor" name="MoppLabel"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zJd-sR-fMw">
+                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time-Stamping service header" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IeT-9d-QIf" userLabel="TimeStampingServiceHeader" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
+                                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="18"/>
+                                                                    <color key="textColor" name="MoppLabel"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bwN-Ve-e8h">
-                                                            <rect key="frame" x="0.0" y="40" width="343" height="46"/>
+                                                            <rect key="frame" x="0.0" y="36" width="343" height="46"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Issued to:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGE-2Q-xcJ" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="74" height="20.5"/>
@@ -294,7 +296,7 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="5MD-En-ZUq">
-                                                            <rect key="frame" x="0.0" y="101" width="343" height="54.5"/>
+                                                            <rect key="frame" x="0.0" y="97" width="343" height="54.5"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HMf-Yz-GBX" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="169" height="54.5"/>
@@ -317,6 +319,9 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="58" id="7Fs-C2-2Mr"/>
+                                                        <constraint firstItem="zJd-sR-fMw" firstAttribute="leading" secondItem="k8v-bm-Uxj" secondAttribute="leading" id="Alu-Hq-c2w"/>
+                                                        <constraint firstAttribute="trailing" secondItem="zJd-sR-fMw" secondAttribute="trailing" id="DQL-gj-4jX"/>
+                                                        <constraint firstItem="zJd-sR-fMw" firstAttribute="top" secondItem="k8v-bm-Uxj" secondAttribute="top" id="dqS-oD-Rzc"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
@@ -331,7 +336,10 @@
                                             <outlet property="addCertificateButton" destination="HMf-Yz-GBX" id="b2v-9H-ttk"/>
                                             <outlet property="issuedToLabel" destination="GGE-2Q-xcJ" id="clq-Lh-XA5"/>
                                             <outlet property="showCertificateButton" destination="XIl-Lc-tan" id="t8f-ks-yFz"/>
-                                            <outlet property="titleLabel" destination="IeT-9d-QIf" id="XBP-uX-JYx"/>
+                                            <outlet property="titleLabel" destination="IeT-9d-QIf" id="xnZ-mT-1q0"/>
+                                            <outlet property="tsaCertLabelStackView" destination="zJd-sR-fMw" id="iw7-hZ-idv"/>
+                                            <outlet property="tsaCertStackView" destination="k8v-bm-Uxj" id="xXi-rG-u03"/>
+                                            <outlet property="tsaDataStackView" destination="bwN-Ve-e8h" id="pU1-Ls-1W4"/>
                                             <outlet property="validUntilLabel" destination="ySu-70-Z3E" id="gxW-oQ-Kcp"/>
                                         </connections>
                                     </tableViewCell>

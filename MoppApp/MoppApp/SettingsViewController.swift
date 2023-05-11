@@ -99,7 +99,9 @@ class SettingsViewController: MoppViewController {
 
     
     override func viewDidAppear(_ animated: Bool) {
-        self.view.accessibilityElements = getAccessibilityElementsOrder()
+        if UIAccessibility.isVoiceOverRunning {
+            self.view.accessibilityElements = getAccessibilityElementsOrder()
+        }
     }
     
     override func keyboardWillShow(notification: NSNotification) {
