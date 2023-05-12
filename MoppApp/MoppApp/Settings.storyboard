@@ -304,7 +304,9 @@
                                                                         <constraint firstAttribute="height" constant="75" id="1ds-N1-725"/>
                                                                     </constraints>
                                                                     <state key="normal" title="Button"/>
-                                                                    <buttonConfiguration key="configuration" style="plain" title="ADD CERTIFICATE"/>
+                                                                    <buttonConfiguration key="configuration" style="plain" title="ADD CERTIFICATE">
+                                                                        <directionalEdgeInsets key="contentInsets" top="0.0" leading="15" bottom="0.0" trailing="15"/>
+                                                                    </buttonConfiguration>
                                                                     <connections>
                                                                         <action selector="addCertificate:" destination="vb7-26-1De" eventType="touchUpInside" id="Fyl-Yr-2CO"/>
                                                                     </connections>
@@ -315,7 +317,9 @@
                                                                         <constraint firstAttribute="height" constant="75" id="yiq-cK-HSB"/>
                                                                     </constraints>
                                                                     <state key="normal" title="Button"/>
-                                                                    <buttonConfiguration key="configuration" style="plain" title="SHOW CERTIFICATE"/>
+                                                                    <buttonConfiguration key="configuration" style="plain" title="SHOW CERTIFICATE">
+                                                                        <directionalEdgeInsets key="contentInsets" top="0.0" leading="15" bottom="0.0" trailing="15"/>
+                                                                    </buttonConfiguration>
                                                                     <connections>
                                                                         <action selector="showCertificate:" destination="vb7-26-1De" eventType="touchUpInside" id="ZPj-nz-Ig9"/>
                                                                     </connections>
