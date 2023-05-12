@@ -448,4 +448,6 @@ enum LocKey : String
     case voiceControlContainerTimestamp = "voice-control-container-timestamp";
     case voiceControlTimestamp = "voice-control-timestamp";
     case voiceControlRemoveSignature = "voice-control-remove-signature";
+    case voiceControlPin1Field = "voice-control-pin1-field";
+    case voiceControlPin2Field = "voice-control-pin2-field";
 }

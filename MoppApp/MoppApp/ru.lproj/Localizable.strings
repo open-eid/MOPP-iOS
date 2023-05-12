@@ -491,3 +491,5 @@
 "voice-control-container-timestamp" = "Container timestamp";
 "voice-control-timestamp" = "Timestamp";
 "voice-control-remove-signature" = "Remove signature";
+"voice-control-pin1-field" = "PIN1 code";
+"voice-control-pin2-field" = "PIN2 code";
