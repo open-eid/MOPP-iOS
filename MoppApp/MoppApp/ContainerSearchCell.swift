@@ -28,5 +28,6 @@ class ContainerSearchCell: UITableViewCell {
     
     override func awakeFromNib() {
         searchBar.placeholder = L(.cryptoLdapSearchPlaceholder)
+        searchBar.accessibilityUserInputLabels = [L(.voiceControlSearchRecipients)]
     }
 }

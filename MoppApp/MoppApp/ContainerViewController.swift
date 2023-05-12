@@ -451,11 +451,16 @@ extension ContainerViewController : UITableViewDataSource {
         case .dataFiles:
             let cell = tableView.dequeueReusableCell(withType: ContainerFileCell.self, for: indexPath)!
                 cell.delegate = self
-            cell.accessibilityTraits = UIAccessibilityTraits.button
-            cell.accessibilityUserInputLabels = ["\(L(.voiceControlFileRow)) \(row + 1)"]
 
             let isStatePreviewOrOpened = state == .opened || state == .preview
             let isEncryptedDataFiles = !isAsicContainer && isStatePreviewOrOpened && !isDecrypted
+            
+            cell.accessibilityTraits = UIAccessibilityTraits.button
+            if !isEncryptedDataFiles {
+                cell.accessibilityUserInputLabels = ["\(L(.voiceControlFileRow)) \(row + 1)"]
+            } else {
+                cell.accessibilityUserInputLabels = [""]
+            }
 
             var dataFileName = ""
             var tapGesture: UITapGestureRecognizer
@@ -528,6 +533,7 @@ extension ContainerViewController : UITableViewDataSource {
             cell.populate(addressee: cryptoContainerViewDelegate.getAddressee(index: indexPath.row) as! Addressee,
                           index: row,
                           showRemoveButton: !isRemoveButtonHidden)
+            cell.accessibilityUserInputLabels = [""]
             return cell
         case .importAddressees:
             let cell = tableView.dequeueReusableCell(withType: ContainerImportAddresseesCell.self, for: indexPath)!
@@ -535,6 +541,7 @@ extension ContainerViewController : UITableViewDataSource {
             return cell
         case .missingAddressees:
             let cell = tableView.dequeueReusableCell(withType: ContainerNoAddresseesCell.self, for: indexPath)!
+            cell.accessibilityUserInputLabels = [""]
             return cell
         case .containerTimestamps:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!

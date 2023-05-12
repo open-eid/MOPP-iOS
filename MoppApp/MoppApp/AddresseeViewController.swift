@@ -210,10 +210,15 @@ extension AddresseeViewController : UITableViewDataSource {
             case .search:
                 let cell = tableView.dequeueReusableCell(withType: ContainerSearchCell.self, for: indexPath)!
                 cell.searchBar.delegate = self
+                cell.accessibilityUserInputLabels = [""]
                 return cell
             case .searchResult:
                 let cell = tableView.dequeueReusableCell(withType: ContainerFoundAddresseeCell.self, for: indexPath)!
                 cell.delegate = self
+                if !UIAccessibility.isVoiceOverRunning {
+                    cell.accessibilityLabel = ""
+                    cell.accessibilityUserInputLabels = [""]
+                }
                 let isSelected = selectedAddressees.contains { element in
                     if ((element as Addressee).cert == (foundAddressees[row] as Addressee).cert) {
                         return true
@@ -233,11 +238,13 @@ extension AddresseeViewController : UITableViewDataSource {
                     addressee: selectedAddressees[row] as Addressee,
                     index: row,
                     showRemoveButton: true)
+                cell.accessibilityUserInputLabels = [""]
                 return cell
             case .addAll:
                 let cell = tableView.dequeueReusableCell(withType: ContainerAddAllButtonCell.self, for: indexPath)!
                 cell.delegate = self
                 cell.populate(foundAddressees: self.foundAddressees, selectedAddresses: self.selectedAddressees)
+                cell.accessibilityUserInputLabels = [""]
                 return cell
         }
     }
