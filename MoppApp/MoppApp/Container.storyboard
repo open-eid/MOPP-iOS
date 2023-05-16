@@ -160,6 +160,9 @@
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zV0-PM-P6i">
                                                                     <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="25" id="CSy-D7-Pfc"/>
+                                                                    </constraints>
                                                                     <state key="normal" image="icon_remove-1"/>
                                                                     <connections>
                                                                         <action selector="removeAction" destination="6pq-Cm-b20" eventType="touchUpInside" id="dz7-pi-paM"/>
@@ -167,6 +170,9 @@
                                                                 </button>
                                                                 <button opaque="NO" contentMode="center" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKh-UH-oRj">
                                                                     <rect key="frame" x="33" y="0.0" width="25" height="25"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="25" id="rhC-V3-RTh"/>
+                                                                    </constraints>
                                                                     <state key="normal" image="iconDownload"/>
                                                                     <connections>
                                                                         <action selector="saveAction:" destination="6pq-Cm-b20" eventType="touchUpInside" id="L9N-73-HTL"/>
@@ -679,6 +685,10 @@
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1t1-CX-UWa">
                                                                     <rect key="frame" x="0.0" y="0.0" width="25" height="46"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="46" id="Uh5-3O-ql3"/>
+                                                                        <constraint firstAttribute="width" constant="25" id="add-f7-27o"/>
+                                                                    </constraints>
                                                                     <state key="normal" image="icon_remove-1"/>
                                                                     <connections>
                                                                         <action selector="removeAction" destination="brX-Gs-sMU" eventType="touchUpInside" id="5Xm-bi-oaD"/>
@@ -686,6 +696,10 @@
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9eg-iF-HaU">
                                                                     <rect key="frame" x="33" y="0.0" width="25" height="46"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="46" id="Ar5-Cf-TYX"/>
+                                                                        <constraint firstAttribute="width" constant="25" id="pw0-7O-B0K"/>
+                                                                    </constraints>
                                                                     <state key="normal" image="iconDownload"/>
                                                                     <connections>
                                                                         <action selector="saveAction:" destination="brX-Gs-sMU" eventType="touchUpInside" id="64d-0t-yPh"/>
@@ -768,7 +782,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Addressees are missing" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sh3-u9-HaY" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Addressees are missing" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sh3-u9-HaY" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="48" y="23" width="571" height="20"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                                     <nil key="textColor"/>
