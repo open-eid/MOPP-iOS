@@ -128,6 +128,12 @@ extension AddresseeViewController : UITextFieldDelegate {
             }
         }
         
+        searchField?.onClearButtonTapped = {
+            guard let searchTextField = searchField else { return }
+            searchTextField.text = ""
+            self.removeSearchResults()
+        }
+        
         return true
     }
     
@@ -144,8 +150,20 @@ extension AddresseeViewController : UITextFieldDelegate {
         textField.removeTarget(self, action: nil, for: .editingChanged)
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return true }
+        
+        if string.isEmpty && (text.count <= 1) {
+            textField.text = ""
+            removeSearchResults()
+        }
+        
+        return true
+    }
+    
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         removeEditingTarget(textField)
+        removeSearchResults()
         return true
     }
     
@@ -164,6 +182,12 @@ extension AddresseeViewController : UITextFieldDelegate {
     
     func isSameQuery(text: String, submittedQuery: String) -> Bool {
         return text.trimWhitespacesAndNewlines() == self.submittedQuery
+    }
+    
+    func removeSearchResults() {
+        foundAddressees = []
+        self.submittedQuery = ""
+        self.tableView.reloadData()
     }
 }
 
