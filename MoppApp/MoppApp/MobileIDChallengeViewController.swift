@@ -65,6 +65,7 @@ class MobileIDChallengeViewController : UIViewController {
         codeLabel.isHidden = true
         currentProgress = 0
         timeoutProgressView.progress = 0
+        timeoutProgressView.accessibilityUserInputLabels = [""]
         RequestCancel.shared.resetCancelRequest()
 
         NotificationCenter.default.addObserver(self, selector: #selector(receiveCreateSignatureStatus), name: .signatureAddedToContainerNotificationName, object: nil)

@@ -96,6 +96,7 @@ class ContainerSignatureCell: UITableViewCell {
         
         bottomBorderView.isHidden = !showBottomBorder
         removeButton.isHidden = !showRemoveButton
+        removeButton.accessibilityUserInputLabels = ["\(L(.voiceControlRemoveSignature)) \(signatureIndex + 1)"]
     }
     
     func getSignatureStatusText(translationPrefix: String, translationSufix: String, valid: Bool) -> NSMutableAttributedString{

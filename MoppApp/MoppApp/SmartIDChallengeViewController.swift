@@ -58,6 +58,7 @@ class SmartIDChallengeViewController : UIViewController {
         cancelButton.accessibilityLabel = L(.actionAbort).lowercased()
         currentProgress = 0
         timeoutProgressView.progress = 0
+        timeoutProgressView.accessibilityUserInputLabels = [""]
         RequestCancel.shared.resetCancelRequest()
 
         NotificationCenter.default.addObserver(self, selector: #selector(receiveSelectAccountNotification), name: .selectSmartIDAccountNotificationName, object: nil)

@@ -575,7 +575,9 @@
                     <connections>
                         <outlet property="actionButton" destination="XvF-qd-UBK" id="71H-EQ-I7w"/>
                         <outlet property="cancelButton" destination="3Oa-qq-zja" id="wAr-KU-7pZ"/>
+                        <outlet property="idCardView" destination="BEB-cP-qL5" id="YK3-87-Nxg"/>
                         <outlet property="loadingSpinner" destination="KdQ-eB-bTe" id="ZOH-Z1-gah"/>
+                        <outlet property="pinCodeStackView" destination="vze-BD-NeE" id="juT-u6-SUE"/>
                         <outlet property="pinTextField" destination="Vzq-EQ-mlu" id="KiH-6d-Jgu"/>
                         <outlet property="pinTextFieldTitleLabel" destination="EWR-C4-SQ4" id="SCt-wI-gow"/>
                         <outlet property="scrollView" destination="Fnm-Fd-GqW" id="juM-8n-YOJ"/>
