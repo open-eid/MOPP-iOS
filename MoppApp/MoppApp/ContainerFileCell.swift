@@ -74,6 +74,10 @@ class ContainerFileCell: UITableViewCell {
         saveButton.isHidden = !showDownloadButton
         saveButton.accessibilityLabel = formatString(text: L(.fileImportSaveFile), additionalText: filenameLabel.text?.sanitize())
         saveButton.accessibilityUserInputLabels = ["\(L(.voiceControlSaveFile)) \(dataFileIndex + 1)"]
+        let downloadImage = UIImage(named: "iconDownload")
+        saveButton.setImage(downloadImage , for: .normal)
+        let downloadDisabledImage = UIImage(named: "iconDownloadDisabled")
+        saveButton.setImage(downloadDisabledImage, for: .disabled)
         saveButton.isEnabled = enableDownloadButton
         self.dataFileIndex = dataFileIndex
     }

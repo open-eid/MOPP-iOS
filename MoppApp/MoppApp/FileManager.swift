@@ -43,17 +43,16 @@ class MoppFileManager {
     }
 
     func documentsFiles() -> [String] {
-    
         let directory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        if let urlArr = try? fileManager.contentsOfDirectory(at: directory, includingPropertiesForKeys: [.contentModificationDateKey], options: .skipsHiddenFiles) {
-            return urlArr.map { url -> (String, Date) in
-                (url.lastPathComponent, (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? Date.distantPast)
+        if let urlArr = try? fileManager.contentsOfDirectory(at: directory, includingPropertiesForKeys: [.contentAccessDateKey], options: .skipsHiddenFiles) {
+            return urlArr.sorted { (currentFile, nextFile) -> Bool in
+                guard let currentFileDate = try? currentFile.resourceValues(forKeys: [.contentAccessDateKey]).contentAccessDate,
+                      let nextFileDate = try? nextFile.resourceValues(forKeys: [.contentAccessDateKey]).contentAccessDate else {
+                    return false
+                }
+                return currentFileDate > nextFileDate
             }
-            .sorted { $0.1 > $1.1 }
-            .map { $0.0 }
-            .filter { file in
-                return !file.filenameComponents().ext.isEmpty
-            }
+            .map { $0.lastPathComponent }
         }
         
         return []
