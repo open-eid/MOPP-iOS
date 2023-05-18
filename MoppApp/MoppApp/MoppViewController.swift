@@ -32,6 +32,7 @@ class MoppViewController : UIViewController {
         titleImageView.isAccessibilityElement = true
         titleImageView.accessibilityLabel = L(.digidocImageAccessibility)
         titleImageView.accessibilityTraits = [.image]
+        titleImageView.accessibilityUserInputLabels = [""]
         navigationItem.titleView = titleImageView
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
