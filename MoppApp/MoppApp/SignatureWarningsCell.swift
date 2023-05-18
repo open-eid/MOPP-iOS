@@ -32,8 +32,10 @@ class SignatureWarningsCell: UITableViewCell {
     @IBOutlet weak var iconView: UIImageView!
     @IBOutlet weak var detailsStackView: UIStackView!
     
+    var isDetailsHidden = true
+    
     @IBAction func toggleTechnicalInformationInfo(_ sender: ScaledButton) {
-        setInformation()
+        setTechnicalInformation()
     }
     
     var technicalInformation: WarningDetail?
@@ -50,12 +52,18 @@ class SignatureWarningsCell: UITableViewCell {
         warningsDescription.accessibilityLabel = warningDetail.warningDescription
         
         if let _ = warningDetail.warningDetails {
-            setTechnicalInformation()
+            setWarningDetails()
             detailsStackView.isHidden = false
-            warningsDetails.isHidden = true
+            technicalInformationButton.setTitle(L(.containerSignatureTechnicalInformationButton))
+            if isDetailsHidden {
+                setTechnicalInformation()
+                detailsStackView.isHidden = false
+                warningsDetails.isHidden = true
+                iconView.image = UIImage(named: "Accordion_arrow_right")
+            }
             
             let tapGR = UITapGestureRecognizer()
-            tapGR.addTarget(self, action: #selector(setInformation))
+            tapGR.addTarget(self, action: #selector(setTechnicalInformation))
             detailsStackView.addGestureRecognizer(tapGR)
         } else {
             detailsStackView.isHidden = true
@@ -77,19 +85,17 @@ class SignatureWarningsCell: UITableViewCell {
         }
     }
     
-    func setTechnicalInformation() {
+    @objc func setTechnicalInformation() {
         setWarningDetails()
         technicalInformationButton.setTitle(L(.containerSignatureTechnicalInformationButton))
         if warningsDetails.isHidden {
             iconView.image = UIImage(named: "Accordion_arrow_down")
             warningsDetails.isHidden = false
+            isDetailsHidden = false
         } else {
             iconView.image = UIImage(named: "Accordion_arrow_right")
             warningsDetails.isHidden = true
+            isDetailsHidden = true
         }
-    }
-    
-    @objc func setInformation() {
-        setTechnicalInformation()
     }
 }
