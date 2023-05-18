@@ -67,6 +67,7 @@
 "signing-error-incorrect-pin-length" = "%@ code must be at least %i digits long";
 
 // Crypto
+"crypto-header-files-title" = "Container files";
 "crypto-view-begin-label" = "Choose a file to encrypt or decrypt";
 "crypto-view-begin-label-accessibility" = "Choose a file to encrypt or decrypt";
 "crypto-view-begin-button" = "CHOOSE FILE";
@@ -75,6 +76,7 @@
 "crypto-encryption-error-text" = "Something went wrong with encryption";
 "crypto-encryption-success" = "ENCRYPTION SUCCEEDED";
 "crypto-decryption-cancelled" = "File decryption cancelled";
+"crypto-recipient-search" = "Search";
 "crypto-recipient-found" = "Recipient found";
 "crypto-recipients-found" = "%@ recipients found";
 "crypto-recipient-added" = "Recipient added";
@@ -93,6 +95,7 @@
 "crypto-addressee-added-button-title" = "ADDED";
 "crypto-addressee-add-all-button" = "ADD ALL";
 "crypto-remove-addressee-button" = "Remove recipient";
+"crypto-encrypted-files-title" = "Encrypted files";
 "crypto-invalid-personal-code-title" = "Personal code is not valid!";
 
 // Signing view
@@ -113,7 +116,7 @@
 "action-yes" = "YES";
 "action-cancel" = "Cancel";
 "action-abort" = "CANCEL";
-"action-delete" = "Delete";
+"action-delete" = "Remove";
 "action-sign" = "Sign";
 "action-decrypt" = "Decrypt";
 
@@ -250,8 +253,8 @@
 "wrong-pin1-single" = "Wrong PIN1. You have 1 attempt left until your PIN1 is blocked.";
 "pin2-textfield-label" = "Enter PIN2";
 "pin1-textfield-label" = "Enter PIN1";
-"pin2-blocked-alert" = "PIN2 blocked. Go to My eID to unblock it.";
-"pin1-blocked-alert" = "PIN1 blocked. Go to My eID to unblock it.";
+"pin2-blocked-alert" = "PIN2 blocked. The PIN code can be unlocked on the My eID page.";
+"pin1-blocked-alert" = "PIN1 blocked. The PIN code can be unlocked on the My eID page.";
 "generic-error-message" = "Something went wrong. Please try again.";
 "decryption-error-message" = "Something went wrong with decryption. Please try again.";
 "signing-aborted-message" = "Signing process aborted";
@@ -308,7 +311,7 @@
 "my-eid-code-blocked-message" = "%1$@ has been blocked because %1$@ code has been entered incorrectly 3 times. Unblock to reuse %1$@.";
 // *** My eID info bullets ***
 "my-eid-info-bullet-same-codes-warning" = "New %1$@ must be different from current %1$@.";
-"my-eid-info-bullet-auth-cert-info" = "PIN1 code is used for authentication";
+"my-eid-info-bullet-auth-cert-info" = "PIN1 code is used for authentication.";
 "my-eid-info-bullet-pin1-blocked-warning" = "If PIN1 is inserted incorrectly 3 times, the identification certificate will be blocked and it will be impossible to use ID-card to verify identification, until it is unblocked via the PUK code.";
 "my-eid-info-bullet-forgot-code-note" = "If you have forgotten %1$@ code, but you know your PUK code, then here you can change your %1$@ with PUK code.";
 "my-eid-info-bullet-puk-envelope-info" = "PUK code is written in the envelope that is given with the ID-card.";
@@ -350,6 +353,11 @@
 "settings-timestamp-url-placeholder" = "";
 "settings-timestamp-use-default-title" = "Use default";
 "settings-value-changed" = "Setting value changed";
+"settings-timestamp-cert-title" = "Time-Stamping service SSL certificate";
+"settings-timestamp-cert-issued-to-label" = "Issued to:";
+"settings-timestamp-cert-valid-to-label" = "Valid to:";
+"settings-timestamp-cert-add-certificate-button" = "ADD CERTIFICATE";
+"settings-timestamp-cert-show-certificate-button" = "SHOW CERTIFICATE";
 "diagnostics-title" = "Diagnostics";
 "diagnostics-activate-one-time-logging" = "Enable one-time log generation";
 "diagnostics-save-log" = "SAVE LOG";
@@ -360,6 +368,7 @@
 "diagnostics-libraries-label" = "Libraries:";
 "diagnostics-rpuuid-default" = "is set by default";
 "diagnostics-rpuuid-custom" = "is set manually";
+"diagnostics-tsl-cache-label" = "TSL cache:";
 "about-title" = "Info";
 "jailbreak-message" = "This app cannot be used in jailbroken device";
 "datafile-preview-failed" = "Error opening document for preview";
@@ -449,3 +458,37 @@
 "accessibility-introduction-screen-magnification-tools" = "Screen magnification tools:";
 "accessibility-introduction-screen-magnification-tools-ios" = "Zoom (iOS, built in) https://support.apple.com/en-gb/guide/iphone/iph3e2e367e/ios";
 "accessibility-introduction-screen-magnification-tools-android" = "Magnification (Android, built in) https://support.google.com/accessibility/android/answer/6006949?hl=en";
+
+// Voice Commands (English only)
+"voice-control-choose-file" = "Choose file";
+"voice-control-tab-my-eid" = "My EID";
+"voice-control-tab-crypto" = "Crypto";
+"voice-control-tab-signature" = "Signature";
+"voice-control-tab-share" = "Share";
+"voice-control-tab-sign" = "Sign";
+"voice-control-close" = "Close";
+"voice-control-search" = "Search";
+"voice-control-file-row" = "File";
+"voice-control-signing-service" = "Signing service";
+"voice-control-timestamping-service" = "TimeStamping service";
+"voice-control-enable-log-generation" = "Enable log generation";
+"voice-control-disable-log-generation" = "Disable log generation";
+"voice-control-estonian-language" = "Estonian language";
+"voice-control-english-language" = "English language";
+"voice-control-russian-language" = "Russian language";
+"voice-control-clear-text" = "Clear text";
+"voice-control-change-container-name" = "Change container name";
+"voice-control-add-files" = "Add files";
+"voice-control-save-file" = "Save file";
+"voice-control-remove-file" = "Remove file";
+"voice-control-mobile-id" = "Mobile-ID";
+"voice-control-smart-id" = "Smart-ID";
+"voice-control-id-card" = "ID-Card";
+"voice-control-phone-number" = "Phone number";
+"voice-control-country" = "Country";
+"voice-control-signature" = "Signature";
+"voice-control-container-timestamp" = "Container timestamp";
+"voice-control-timestamp" = "Timestamp";
+"voice-control-remove-signature" = "Remove signature";
+"voice-control-pin1-field" = "PIN1 code";
+"voice-control-pin2-field" = "PIN2 code";

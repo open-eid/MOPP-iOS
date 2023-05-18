@@ -60,7 +60,9 @@ class MobileIDEditViewController : MoppViewController {
     @IBOutlet weak var signButton: MoppButton!
     @IBOutlet weak var rememberLabel: UILabel!
     @IBOutlet weak var rememberSwitch: UISwitch!
-
+    @IBOutlet weak var rememberStackView: UIStackView!
+    @IBOutlet weak var actionButtonsStackView: UIStackView!
+    
     weak var delegate: MobileIDEditViewControllerDelegate? = nil
     var tapGR: UITapGestureRecognizer!
 
@@ -82,8 +84,13 @@ class MobileIDEditViewController : MoppViewController {
 
         phoneLabel.isAccessibilityElement = false
         idCodeLabel.isAccessibilityElement = false
+        
+        phoneTextField.isAccessibilityElement = true
 
         phoneTextField.accessibilityLabel = L(.mobileIdPhoneTitle)
+
+        phoneTextField.accessibilityUserInputLabels = [L(.voiceControlPhoneNumber)]
+        
         idCodeTextField.accessibilityLabel = L(.signingIdcodeTitle)
 
 
@@ -97,6 +104,8 @@ class MobileIDEditViewController : MoppViewController {
 
         phoneTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         phoneTextField.layer.borderWidth = 1.0
+        
+        rememberSwitch.addTarget(self, action: #selector(toggleRememberMe), for: .valueChanged)
 
         self.phoneTextField.delegate = self
         self.idCodeTextField.delegate = self
@@ -104,13 +113,18 @@ class MobileIDEditViewController : MoppViewController {
         tapGR = UITapGestureRecognizer()
         tapGR.addTarget(self, action: #selector(cancelAction))
         view.addGestureRecognizer(tapGR)
-
-        guard let titleUILabel = titleLabel, let phoneUILabel = phoneLabel, let phoneUITextField = phoneTextField, let phoneNumberErrorUILabel = phoneNumberErrorLabel, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let personalCodeUIErrorLabel = personalCodeErrorLabel, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
-            printLog("Unable to get titleLabel, phoneLabel, phoneTextField, phoneNumberErrorLabel, idCodeLabel, idCodeTextField, personalCodeErrorLabel, rememberLabel, rememberSwitch, cancelButton or signButton")
-            return
+        
+        if UIAccessibility.isVoiceOverRunning {
+            guard let titleUILabel = titleLabel, let phoneUILabel = phoneLabel, let phoneUITextField = phoneTextField, let phoneNumberErrorUILabel = phoneNumberErrorLabel, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let personalCodeUIErrorLabel = personalCodeErrorLabel, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
+                printLog("Unable to get titleLabel, phoneLabel, phoneTextField, phoneNumberErrorLabel, idCodeLabel, idCodeTextField, personalCodeErrorLabel, rememberLabel, rememberSwitch, cancelButton or signButton")
+                return
+            }
+            
+            
+            self.view.accessibilityElements = [titleUILabel, phoneUILabel, phoneUITextField, phoneNumberErrorUILabel, idCodeUILabel, idCodeUITextField, personalCodeUIErrorLabel, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
         }
-
-        self.view.accessibilityElements = [titleUILabel, phoneUILabel, phoneUITextField, phoneNumberErrorUILabel, idCodeUILabel, idCodeUITextField, personalCodeUIErrorLabel, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAccessibilityKeyboard), name: .hideKeyboardAccessibility, object: nil)
     }
 
     @objc func dismissKeyboard(_ notification: NSNotification) {
@@ -134,10 +148,12 @@ class MobileIDEditViewController : MoppViewController {
         if rememberSwitch.isOn {
             DefaultsHelper.idCode = idCodeTextField.text ?? String()
             DefaultsHelper.phoneNumber = phoneTextField.text ?? String()
+            rememberSwitch.accessibilityUserInputLabels = ["Disable remember me"]
         }
         else {
             DefaultsHelper.idCode = String()
             DefaultsHelper.phoneNumber = String()
+            rememberSwitch.accessibilityUserInputLabels = ["Enable remember me"]
         }
         dismiss(animated: false) {
             [weak self] in
@@ -146,6 +162,14 @@ class MobileIDEditViewController : MoppViewController {
                 cancelled: false,
                 phoneNumber: sself.phoneTextField.text,
                 idCode: sself.idCodeTextField.text)
+        }
+    }
+    
+    @objc func toggleRememberMe(_ sender: UISwitch) {
+        if sender.isOn {
+            rememberSwitch.accessibilityUserInputLabels = ["Disable remember me"]
+        } else {
+            rememberSwitch.accessibilityUserInputLabels = ["Enable remember me"]
         }
     }
 
@@ -177,9 +201,15 @@ class MobileIDEditViewController : MoppViewController {
         idCodeTextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
         phoneTextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
     }
+    
+    @objc func handleAccessibilityKeyboard(_ notification: NSNotification) {
+        dismissKeyboard(notification)
+        ViewUtil.focusOnView(notification, mainView: self.view, scrollView: scrollView)
+    }
 
     func defaultRememberMeToggle() {
         rememberSwitch.setOn(DefaultsHelper.mobileIdRememberMe, animated: true)
+        rememberSwitch.accessibilityUserInputLabels = [DefaultsHelper.mobileIdRememberMe ? "Disable remember me" : "Enable remember me"]
     }
 
     func verifySigningCapability() {
@@ -241,18 +271,7 @@ extension MobileIDEditViewController : UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if #available(iOS 14.0, *) {
-            if GCKeyboard.coalesced != nil {
-                self.phoneTextField.keyboardType = .numbersAndPunctuation
-                self.idCodeTextField.keyboardType = .numbersAndPunctuation
-            } else {
-                self.phoneTextField.keyboardType = .numberPad
-                self.idCodeTextField.keyboardType = .numberPad
-            }
-        } else {
-            self.phoneTextField.keyboardType = .numberPad
-            self.idCodeTextField.keyboardType = .numberPad
-        }
+        textField.moveCursorToEnd()
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -262,17 +281,17 @@ extension MobileIDEditViewController : UITextFieldDelegate {
                     phoneNumberErrorLabel.text = L(.signingErrorIncorrectCountryCode)
                     phoneNumberErrorLabel.isHidden = false
                     setViewBorder(view: textField, color: .moppError)
-                    UIAccessibility.post(notification: .screenChanged, argument: self.phoneNumberErrorLabel)
+                    UIAccessibility.post(notification: .layoutChanged, argument: self.phoneNumberErrorLabel)
                 } else if TokenFlowUtil.isPhoneNumberInvalid(text: text) {
                     phoneNumberErrorLabel.text = L(.signingErrorIncorrectPhoneNumber)
                     phoneNumberErrorLabel.isHidden = false
                     setViewBorder(view: textField, color: .moppError)
-                    UIAccessibility.post(notification: .screenChanged, argument: self.phoneNumberErrorLabel)
+                    UIAccessibility.post(notification: .layoutChanged, argument: self.phoneNumberErrorLabel)
                 } else {
                     phoneNumberErrorLabel.text = ""
                     phoneNumberErrorLabel.isHidden = true
                     removeViewBorder(view: textField)
-                    UIAccessibility.post(notification: .screenChanged, argument: phoneTextField)
+                    UIAccessibility.post(notification: .layoutChanged, argument: phoneTextField)
                 }
             }
         } else if textField.accessibilityIdentifier == "mobileIDCodeField" {

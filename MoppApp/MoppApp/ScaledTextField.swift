@@ -39,26 +39,31 @@ class ScaledTextField: UITextField {
     
     func scaleFont() {
         self.isAccessibilityElement = true
-
+        let currentFont = self.font ?? UIFont(name: "Roboto-Bold", size: 16) ?? UIFont()
         if UIAccessibility.isBoldTextEnabled {
-            self.font = FontUtil.boldFont(font: self.font ?? UIFont(name: "Roboto-Bold", size: 16) ?? UIFont())
+            self.font = FontUtil.boldFont(font: currentFont)
         } else {
-            self.font = FontUtil.scaleFont(font: self.font ?? UIFont(name: "Roboto-Bold", size: 16) ?? UIFont())
+            self.font = FontUtil.scaleFont(font: currentFont)
+            self.attributedPlaceholder = NSAttributedString(string: self.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
         }
         
         self.adjustsFontForContentSizeCategory = true
         self.adjustsFontSizeToFitWidth = true
     }
     
-    override var keyCommands: [UIKeyCommand]? {
-        let tabKeyCommand = UIKeyCommand(input: "\t", modifierFlags: [], action: #selector(closeKeyboard))
-        if #available(iOS 15, *) {
-            tabKeyCommand.wantsPriorityOverSystemBehavior = true
-        }
-        return [tabKeyCommand]
-    }
-    
     @objc func closeKeyboard() {
         self.resignFirstResponder()
+        self.sizeToFit()
+    }
+    
+    override func accessibilityElementDidBecomeFocused() {
+        NotificationCenter.default.post(name: .hideKeyboardAccessibility, object: nil, userInfo: ["view": self])
+    }
+    
+    override func deleteBackward() {
+        guard var currentText = self.text, !currentText.isEmpty else { return }
+        currentText.removeLast()
+        self.text = currentText
+        self.moveCursorToEnd()
     }
 }

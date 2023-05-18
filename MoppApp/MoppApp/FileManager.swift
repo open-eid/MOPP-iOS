@@ -181,6 +181,38 @@ class MoppFileManager {
             })
     }
     
+    func saveFile(fileURL: URL, _ folderName: String?, completionHandler: @escaping (Bool, URL?) -> Void) {
+        let tsaCertDirectory: URL? = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(folderName ?? "tsa-cert", isDirectory: true)
+        
+        guard let saveDir: URL = tsaCertDirectory else { printLog("Failed to get \(tsaCertDirectory?.lastPathComponent ?? "requested") directory"); completionHandler(false, nil); return }
+        do {
+            _ = try saveDir.checkResourceIsReachable()
+        } catch {
+            // Create directory
+            printLog("Directory '\(saveDir.lastPathComponent)' does not exist, creating...")
+            do {
+                _ = try fileManager.createDirectory(at: saveDir, withIntermediateDirectories: true, attributes: nil)
+            } catch let saveDirerror {
+                printLog("Failed to create '\(saveDir.lastPathComponent)' directory. Error: \(saveDirerror.localizedDescription)")
+                completionHandler(false, nil)
+                return
+            }
+        }
+        
+        do {
+            let savedFileURL = saveDir.appendingPathComponent(fileURL.lastPathComponent)
+            if fileManager.fileExists(atPath: savedFileURL.path) {
+                try fileManager.removeItem(at: savedFileURL)
+            }
+            try fileManager.copyItem(at: fileURL, to: saveDir.appendingPathComponent( fileURL.lastPathComponent))
+            completionHandler(true, savedFileURL)
+        } catch let copyItemError {
+            printLog("Failed to save '\(fileURL.lastPathComponent)'. Error: \(copyItemError.localizedDescription)")
+            completionHandler(false, nil)
+            return
+        }
+    }
+    
     func saveFile(containerPath: String, fileName: String, completionHandler: @escaping (Bool, String?) -> Void) {
         let savedFilesDirectory: URL? = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Saved Files", isDirectory: true)
         let tempFilesDirectory: URL? = URL(string: MoppFileManager.shared.tempDocumentsDirectoryPath())
@@ -206,7 +238,9 @@ class MoppFileManager {
         guard let tempDir: URL = tempFilesDirectory else { printLog("Failed to get \(tempFilesDirectory?.lastPathComponent ?? "requested") directory"); completionHandler(false, nil); return }
         let saveFileForCdocLocation: String = tempDir.appendingPathComponent(fileName).path
         
-        if URL(fileURLWithPath: containerPath).pathExtension.isAsicContainerExtension {
+        let fileExtension = URL(fileURLWithPath: containerPath).pathExtension
+        
+        if fileExtension.isAsicContainerExtension {
             MoppLibContainerActions.sharedInstance()?.container(containerPath, saveDataFile: fileName, to: saveTempFileToLocation, success: {
                 printLog("Successfully saved \(fileName) to 'Saved Files' directory")
                 completionHandler(true, saveTempFileToLocation)

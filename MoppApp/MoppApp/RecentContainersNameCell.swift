@@ -37,7 +37,7 @@ class RecentContainersNameCell : UITableViewCell {
         self.accessibilityElements = [fileNameText]
     }
     
-    func populate(filename: String, searchKeyword: String, showSeparator: Bool) {
+    func populate(filename: String, searchKeyword: String, showSeparator: Bool, row: Int) {
         separatorView.isHidden = !showSeparator
         
         let searchKeywordRange = (filename as NSString).range(
@@ -47,5 +47,6 @@ class RecentContainersNameCell : UITableViewCell {
             locale: nil)
         
         filenameLabel.text = filename
+        filenameLabel.accessibilityUserInputLabels = ["\(L(.voiceControlFileRow)) \(row + 1)"]
     }
 }

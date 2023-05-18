@@ -63,6 +63,7 @@ fileprivate let kHideShareContainerDialog = "kHideShareContainerDialog"
 fileprivate let kIsTimestampedDdoc = "kIsTimestampedDdoc"
 fileprivate let kIsFileLoggingEnabled = "kIsFileLoggingEnabled"
 fileprivate let kIsFileLoggingRunning = "kIsFileLoggingRunning"
+fileprivate let kTSAFileCertName = "kTSAFileCertName"
 
 class DefaultsHelper
 {
@@ -231,6 +232,15 @@ class DefaultsHelper
         }
         get {
             return UserDefaults.standard.bool(forKey: kIsFileLoggingRunning)
+        }
+    }
+    
+    class var tsaCertFileName: String? {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kTSAFileCertName)
+        }
+        get {
+            return UserDefaults.standard.value(forKey: kTSAFileCertName) as? String
         }
     }
 

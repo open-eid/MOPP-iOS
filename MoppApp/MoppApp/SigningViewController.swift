@@ -43,6 +43,7 @@ class SigningViewController : MoppViewController {
         
         titleLabel.isAccessibilityElement = false
         importButton.accessibilityLabel = L(.signatureViewBeginLabelAccessibility)
+        importButton.accessibilityUserInputLabels = [L(.voiceControlChooseFile)]
         
         UIAccessibility.post(notification: .screenChanged, argument: importButton)
         

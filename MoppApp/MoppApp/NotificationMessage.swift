@@ -1,5 +1,5 @@
 //
-//  ContainerSearchCell.swift
+//  NotificationMessage.swift
 //  MoppApp
 //
 /*
@@ -20,13 +20,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
 import Foundation
 
-
-class ContainerSearchCell: UITableViewCell {
-    @IBOutlet weak var searchBar: SearchField!
-    
-    override func awakeFromNib() {
-        searchBar.placeholder = L(.cryptoLdapSearchPlaceholder)
-    }
+struct NotificationMessage {
+    let isSuccess: Bool
+    let text: String
 }

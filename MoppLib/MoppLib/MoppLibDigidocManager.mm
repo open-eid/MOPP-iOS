@@ -66,7 +66,7 @@ private:
 
 public:
 
-    DigiDocConf(const std::string& tsUrl, MoppLibConfiguration* moppConfiguration) : m_tsUrl( tsUrl ), moppLibConfiguration( moppConfiguration ) {}
+  DigiDocConf(const std::string& tsUrl, MoppLibConfiguration* moppConfiguration) : m_tsUrl( tsUrl ), moppLibConfiguration( moppConfiguration ) {}
 
   std::string TSLCache() const override {
     NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
@@ -100,13 +100,21 @@ public:
       return stringsToX509Certs(moppLibConfiguration.TSLCERTS);
   }
 
-    std::string TSLUrl() const override {
+  std::string TSLUrl() const override {
       return moppLibConfiguration.TSLURL.UTF8String;
   }
+    
+  virtual std::vector<digidoc::X509Cert> TSCerts() const override {
+      NSMutableArray<NSString *> *certBundle = [NSMutableArray arrayWithArray:moppLibConfiguration.CERTBUNDLE];
+      if (moppLibConfiguration.TSACERT != NULL) {
+          [certBundle addObject:moppLibConfiguration.TSACERT];
+      }
+      return stringsToX509Certs(certBundle);
+  }
 
-    virtual std::vector<digidoc::X509Cert> verifyServiceCerts() const override {
-        return stringsToX509Certs(moppLibConfiguration.CERTBUNDLE);
-    }
+  virtual std::vector<digidoc::X509Cert> verifyServiceCerts() const override {
+      return stringsToX509Certs(moppLibConfiguration.CERTBUNDLE);
+  }
 
   virtual std::string ocsp(const std::string &issuer) const override {
     NSString *ocspIssuer = [NSString stringWithCString:issuer.c_str() encoding:[NSString defaultCStringEncoding]];
@@ -1051,8 +1059,7 @@ void parseException(const digidoc::Exception &e) {
                 parseException(e);
                 break;
             }
-
-            if([fileName isEqualToString:[MoppLibDigidocManager sanitize:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]]) {
+            if ([self isContainerFileSaveable:containerPath saveDataFile:fileName]) {
                 dataFile->saveAs(path.UTF8String);
                 success();
                 break;
@@ -1061,7 +1068,32 @@ void parseException(const digidoc::Exception &e) {
     } else {
         failure([MoppLibError generalError]);
     }
+}
 
+- (BOOL)isContainerFileSaveable:(NSString *)containerPath saveDataFile:(NSString *)fileName {
+    std::unique_ptr<digidoc::Container> doc;
+    try {
+        doc = digidoc::Container::openPtr(containerPath.UTF8String);
+    } catch(const digidoc::Exception &e) {
+        parseException(e);
+    }
+
+    if (doc != nil) {
+        for (int i = 0; i < doc->dataFiles().size(); i++) {
+            digidoc::DataFile *dataFile;
+            try {
+                dataFile = doc->dataFiles().at(i);
+            } catch (const digidoc::Exception &e) {
+                parseException(e);
+                break;
+            }
+
+            if ([fileName isEqualToString:[MoppLibDigidocManager sanitize:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]]) {
+                return TRUE;
+            }
+        }
+    }
+    return FALSE;
 }
 
 - (NSString *)digidocVersion {

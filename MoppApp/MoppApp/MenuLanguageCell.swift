@@ -52,16 +52,19 @@ class MenuLanguageCell : UITableViewCell {
             case AvailableLanguages.estonian.rawValue:
                 DefaultsHelper.moppLanguageID = "et"
                 view.button.accessibilityLabel = L(.languageEstonian)
+                view.button.accessibilityUserInputLabels = [L(.voiceControlEstonianLanguage)]
                 DefaultsHelper.moppLanguageID = appLanguageID
                 break
             case AvailableLanguages.english.rawValue:
                 DefaultsHelper.moppLanguageID = "en"
                 view.button.accessibilityLabel = L(.languageEnglish)
+                view.button.accessibilityUserInputLabels = [L(.voiceControlEnglishLanguage)]
                 DefaultsHelper.moppLanguageID = appLanguageID
                 break
             case AvailableLanguages.russian.rawValue:
                 DefaultsHelper.moppLanguageID = "ru"
                 view.button.accessibilityLabel = L(.languageRussian)
+                view.button.accessibilityUserInputLabels = [L(.voiceControlRussianLanguage)]
                 DefaultsHelper.moppLanguageID = appLanguageID
                 break
             default:
