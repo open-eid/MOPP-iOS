@@ -67,9 +67,7 @@ class ScaledButton: UIButton {
         self.becomeFirstResponder()
     }
     
-    func setBorder(width: Double = 2.0, color: UIColor = UIColor.moppBase, radius: Double = 8.0) {
-        self.layer.borderWidth = width
-        self.layer.borderColor = color.cgColor
-        self.layer.cornerRadius = radius
+    func mediumFont() {
+        self.titleLabel?.font = FontUtil.mediumFont(font: self.titleLabel?.font ?? UIFont(name: "Roboto-Medium", size: 16) ?? UIFont())
     }
 }

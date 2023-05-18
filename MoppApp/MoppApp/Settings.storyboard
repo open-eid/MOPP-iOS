@@ -303,10 +303,8 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="75" id="1ds-N1-725"/>
                                                                     </constraints>
-                                                                    <state key="normal" title="Button"/>
-                                                                    <buttonConfiguration key="configuration" style="plain" title="ADD CERTIFICATE">
-                                                                        <directionalEdgeInsets key="contentInsets" top="0.0" leading="15" bottom="0.0" trailing="15"/>
-                                                                    </buttonConfiguration>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="ADD CERTIFICATE"/>
                                                                     <connections>
                                                                         <action selector="addCertificate:" destination="vb7-26-1De" eventType="touchUpInside" id="Fyl-Yr-2CO"/>
                                                                     </connections>
@@ -316,10 +314,8 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="75" id="yiq-cK-HSB"/>
                                                                     </constraints>
-                                                                    <state key="normal" title="Button"/>
-                                                                    <buttonConfiguration key="configuration" style="plain" title="SHOW CERTIFICATE">
-                                                                        <directionalEdgeInsets key="contentInsets" top="0.0" leading="15" bottom="0.0" trailing="15"/>
-                                                                    </buttonConfiguration>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="SHOW CERTIFICATE"/>
                                                                     <connections>
                                                                         <action selector="showCertificate:" destination="vb7-26-1De" eventType="touchUpInside" id="ZPj-nz-Ig9"/>
                                                                     </connections>
