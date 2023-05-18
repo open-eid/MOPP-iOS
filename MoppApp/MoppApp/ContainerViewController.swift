@@ -155,6 +155,15 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: OperationQueue.main) { [weak self]_ in
             self?.refreshLoadingAnimation()
         }
+        
+        guard let leftBarUIButton = self.navigationItem.leftBarButtonItem, let bottomUIButtons = LandingViewController.shared.buttonsStackView, let tableUIView = tableView else {
+            printLog("Unable to get leftBarButtonItem, LandingViewController buttonsStackView or tableView")
+            return
+        }
+        
+        UIAccessibility.post(notification: .screenChanged, argument: tableUIView)
+        
+        self.accessibilityElements = [leftBarUIButton, tableUIView, bottomUIButtons, leftBarUIButton]
     }
 
     deinit {

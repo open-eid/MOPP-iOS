@@ -17,7 +17,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
 import Foundation
+import GameController
 
 protocol SmartIDEditViewControllerDelegate : AnyObject {
     func smartIDEditViewControllerDidDismiss(cancelled: Bool, country: String?, idCode: String?)
@@ -79,6 +81,9 @@ class SmartIDEditViewController : MoppViewController {
         cancelButton.setTitle(L(.actionCancel).uppercased())
         signButton.setTitle(L(.actionSign).uppercased())
         rememberLabel.text = L(.signingRememberMe)
+        
+        rememberLabel.isAccessibilityElement = false
+        rememberSwitch.accessibilityLabel = L(.signingRememberMe)
 
         countryLabel.isAccessibilityElement = false
         idCodeLabel.isAccessibilityElement = false

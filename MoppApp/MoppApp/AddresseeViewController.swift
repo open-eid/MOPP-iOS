@@ -79,6 +79,10 @@ class AddresseeViewController : MoppViewController {
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
     }
+
+    deinit {
+        printLog("Deinit AddreseeViewController")
+    }
     
     private func searchLdap(textField: UITextField) {
         guard let text = textField.text else { return }
