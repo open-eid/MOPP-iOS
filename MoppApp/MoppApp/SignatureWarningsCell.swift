@@ -25,6 +25,8 @@ import Foundation
 
 class SignatureWarningsCell: UITableViewCell {
     
+    var onTechnicalInformationButtonTapped: (() -> Void)?
+    
     @IBOutlet weak var warningsHeader: ScaledLabel!
     @IBOutlet weak var warningsDescription: ScaledTextView!
     @IBOutlet weak var technicalInformationButton: ScaledButton!
@@ -36,6 +38,8 @@ class SignatureWarningsCell: UITableViewCell {
     
     @IBAction func toggleTechnicalInformationInfo(_ sender: ScaledButton) {
         setTechnicalInformation()
+        self.contentView.layoutIfNeeded()
+        onTechnicalInformationButtonTapped?()
     }
     
     var technicalInformation: WarningDetail?
@@ -82,6 +86,9 @@ class SignatureWarningsCell: UITableViewCell {
     func setWarningDetails() {
         if let warnDetails = technicalInformation?.warningDetails {
             warningsDetails.text = warnDetails
+            warningsDetails.accessibilityLabel = warnDetails
+            warningsDetails.isAccessibilityElement = true
+            warningsDetails.accessibilityUserInputLabels = [""]
         }
     }
     
@@ -92,6 +99,10 @@ class SignatureWarningsCell: UITableViewCell {
             iconView.image = UIImage(named: "Accordion_arrow_down")
             warningsDetails.isHidden = false
             isDetailsHidden = false
+            warningsDetails.isAccessibilityElement = true
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: .screenChanged, argument: warningsDetails)
+            }
         } else {
             iconView.image = UIImage(named: "Accordion_arrow_right")
             warningsDetails.isHidden = true

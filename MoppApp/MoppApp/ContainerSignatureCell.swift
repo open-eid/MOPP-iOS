@@ -91,6 +91,7 @@ class ContainerSignatureCell: UITableViewCell {
             signatureStatusDescription = NSMutableAttributedString(string: "")
         }
         
+        signatureStatusLabel.accessibilityUserInputLabels = [""]
         signatureStatusLabel.attributedText = signatureStatusDescription
         checkSignatureValidity(signature: signature)
         

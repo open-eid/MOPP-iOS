@@ -414,7 +414,7 @@
                                                     <rect key="frame" x="16" y="0.0" width="288" height="274"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="NSh-Jv-atj">
-                                                            <rect key="frame" x="16" y="16" width="256" height="172"/>
+                                                            <rect key="frame" x="16" y="16" width="256" height="157"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XrU-4d-kMC" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="256" height="21.5"/>
@@ -423,7 +423,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <textView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Lorem ipsum" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5jE-3V-jmc" customClass="ScaledTextView" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="136.5" width="256" height="35.5"/>
+                                                                    <rect key="frame" x="0.0" y="121.5" width="256" height="35.5"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                     <color key="textColor" systemColor="labelColor"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -432,41 +432,43 @@
                                                                 </textView>
                                                             </subviews>
                                                         </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zd3-Ui-XiX">
-                                                            <rect key="frame" x="8" y="204" width="256" height="34.5"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="8dQ-vb-CDm">
+                                                            <rect key="frame" x="16" y="188" width="256" height="70"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Accordion_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="V7S-gk-gam">
-                                                                    <rect key="frame" x="0.0" y="10.5" width="9" height="14"/>
-                                                                </imageView>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Lq-YO-gzC" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="19" y="0.0" width="237" height="34.5"/>
-                                                                    <state key="normal" title="Button"/>
-                                                                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                                                    <connections>
-                                                                        <action selector="toggleTechnicalInformationInfo:" destination="tPi-Iq-NRy" eventType="touchUpInside" id="tj0-UO-ffP"/>
-                                                                    </connections>
-                                                                </button>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zd3-Ui-XiX">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="256" height="34.5"/>
+                                                                    <subviews>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Accordion_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="V7S-gk-gam">
+                                                                            <rect key="frame" x="0.0" y="10.5" width="9" height="14"/>
+                                                                        </imageView>
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Lq-YO-gzC" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
+                                                                            <rect key="frame" x="19" y="0.0" width="237" height="34.5"/>
+                                                                            <state key="normal" title="Button"/>
+                                                                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                                            <connections>
+                                                                                <action selector="toggleTechnicalInformationInfo:" destination="tPi-Iq-NRy" eventType="touchUpInside" id="tj0-UO-ffP"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                    </subviews>
+                                                                </stackView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KZ3-Yc-Cn6" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="50.5" width="256" height="19.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KZ3-Yc-Cn6" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                            <rect key="frame" x="16" y="254.5" width="256" height="19.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="KZ3-Yc-Cn6" secondAttribute="bottom" id="2CB-PO-jLA"/>
                                                         <constraint firstItem="NSh-Jv-atj" firstAttribute="top" secondItem="gA3-F5-dFu" secondAttribute="top" constant="16" id="FxG-Tn-V0y"/>
-                                                        <constraint firstAttribute="trailing" secondItem="KZ3-Yc-Cn6" secondAttribute="trailing" constant="16" id="Nct-au-Nib"/>
+                                                        <constraint firstItem="8dQ-vb-CDm" firstAttribute="leading" secondItem="gA3-F5-dFu" secondAttribute="leading" constant="16" id="J9K-gw-C4E"/>
                                                         <constraint firstItem="NSh-Jv-atj" firstAttribute="leading" secondItem="gA3-F5-dFu" secondAttribute="leading" constant="16" id="NoP-Rq-PtH"/>
-                                                        <constraint firstAttribute="trailing" secondItem="zd3-Ui-XiX" secondAttribute="trailing" constant="24" id="Xck-Ja-jxI"/>
-                                                        <constraint firstItem="KZ3-Yc-Cn6" firstAttribute="top" secondItem="zd3-Ui-XiX" secondAttribute="bottom" constant="16" id="bQO-xk-4Dk"/>
+                                                        <constraint firstItem="8dQ-vb-CDm" firstAttribute="top" secondItem="NSh-Jv-atj" secondAttribute="bottom" constant="15" id="U1q-vO-gIB"/>
+                                                        <constraint firstAttribute="bottom" secondItem="8dQ-vb-CDm" secondAttribute="bottom" constant="16" id="fjV-3s-ERA"/>
                                                         <constraint firstAttribute="trailing" secondItem="NSh-Jv-atj" secondAttribute="trailing" constant="16" id="k0b-bW-fhE"/>
-                                                        <constraint firstItem="KZ3-Yc-Cn6" firstAttribute="leading" secondItem="gA3-F5-dFu" secondAttribute="leading" constant="16" id="l4x-u7-xhX"/>
-                                                        <constraint firstItem="zd3-Ui-XiX" firstAttribute="top" secondItem="NSh-Jv-atj" secondAttribute="bottom" constant="16" id="pnr-wU-3si"/>
-                                                        <constraint firstItem="zd3-Ui-XiX" firstAttribute="leading" secondItem="gA3-F5-dFu" secondAttribute="leading" constant="8" id="tVb-6H-Jcr"/>
+                                                        <constraint firstAttribute="trailing" secondItem="8dQ-vb-CDm" secondAttribute="trailing" constant="16" id="qdC-2I-BH8"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>

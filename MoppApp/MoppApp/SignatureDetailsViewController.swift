@@ -188,6 +188,10 @@ extension SignatureDetailsViewController: UITableViewDelegate, UITableViewDataSo
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withType: SignatureWarningsCell.self, for: indexPath)!
             cell.populate(signatureStatus: moppLibSignature?.status, warningDetail: warningDetail)
+            cell.accessibilityUserInputLabels = [""]
+            cell.onTechnicalInformationButtonTapped = {
+                tableView.reloadData()
+            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withType: SignatureDetailsCell.self, for: indexPath)!
@@ -206,10 +210,9 @@ extension SignatureDetailsViewController: UITableViewDelegate, UITableViewDataSo
                     cell.contentLabel.addGestureRecognizer(tapRecognizer)
                 }
             }
+            cell.accessibilityUserInputLabels = [""]
             return cell
         }
-        cell.accessibilityUserInputLabels = [""]
-        return cell
     }
     
     @objc func tapCertificateView(_ tap: SignatureDetailTapGesture) {
