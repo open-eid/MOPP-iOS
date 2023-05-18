@@ -381,6 +381,7 @@
 		DFDF02BE241EB5D3006CF443 /* SessionCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDF02BD241EB5D3006CF443 /* SessionCertificate.swift */; };
 		DFDF02C0241EC72D006CF443 /* SessionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDF02BF241EC72C006CF443 /* SessionStatus.swift */; };
 		DFDF02C4241ED0CA006CF443 /* MobileIDSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDF02C3241ED0CA006CF443 /* MobileIDSignature.swift */; };
+		DFEE73042A151423003428E4 /* ScaledTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEE73032A151423003428E4 /* ScaledTextView.swift */; };
 		DFEEFCCE29AD062C0013E66B /* DiagnosticError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEEFCCD29AD062C0013E66B /* DiagnosticError.swift */; };
 		DFF3C3AE233231190079458A /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3AC233231180079458A /* Configuration.swift */; };
 		DFF3C3AF233231190079458A /* SettingsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3AD233231190079458A /* SettingsConfiguration.swift */; };
@@ -698,6 +699,7 @@
 		DFDF02BD241EB5D3006CF443 /* SessionCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCertificate.swift; sourceTree = "<group>"; };
 		DFDF02BF241EC72C006CF443 /* SessionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatus.swift; sourceTree = "<group>"; };
 		DFDF02C3241ED0CA006CF443 /* MobileIDSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileIDSignature.swift; sourceTree = "<group>"; };
+		DFEE73032A151423003428E4 /* ScaledTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledTextView.swift; sourceTree = "<group>"; };
 		DFEEFCCD29AD062C0013E66B /* DiagnosticError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticError.swift; sourceTree = "<group>"; };
 		DFF3C3AC233231180079458A /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		DFF3C3AD233231190079458A /* SettingsConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsConfiguration.swift; sourceTree = "<group>"; };
@@ -1110,6 +1112,7 @@
 			children = (
 				DF0C2B3E29150EAB007E1745 /* ScaledLabel.swift */,
 				DFD8BEF4291C432400FE8F07 /* ScaledButton.swift */,
+				DFEE73032A151423003428E4 /* ScaledTextView.swift */,
 			);
 			name = "Custom classes";
 			sourceTree = "<group>";
@@ -1963,6 +1966,7 @@
 				C50DCCC31FC2D54200D48E16 /* UIFont+Additions.swift in Sources */,
 				C50DCD051FC7125300D48E16 /* ContainerNotificationCell.swift in Sources */,
 				DFBEF9452434DD0C007A6762 /* UIAlertAction+Additions.swift in Sources */,
+				DFEE73042A151423003428E4 /* ScaledTextView.swift in Sources */,
 				C56C6208201A1B4C00CCC2A5 /* MenuSeparatorCell.swift in Sources */,
 				39CDA7EE20ADBE93006E2E9F /* CryptoViewController.swift in Sources */,
 				C52E82781FC1D3ED0074B280 /* MenuViewController.swift in Sources */,

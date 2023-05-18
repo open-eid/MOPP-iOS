@@ -26,19 +26,40 @@ import Foundation
 class SignatureWarningsCell: UITableViewCell {
     
     @IBOutlet weak var warningsHeader: ScaledLabel!
-    @IBOutlet weak var warningsDescription: ScaledLabel!
+    @IBOutlet weak var warningsDescription: ScaledTextView!
+    @IBOutlet weak var technicalInformationButton: ScaledButton!
     @IBOutlet weak var warningsDetails: ScaledLabel!
+    @IBOutlet weak var iconView: UIImageView!
+    @IBOutlet weak var detailsStackView: UIStackView!
+    
+    @IBAction func toggleTechnicalInformationInfo(_ sender: ScaledButton) {
+        setInformation()
+    }
+    
+    var technicalInformation: WarningDetail?
     
     func populate(signatureStatus: MoppLibSignatureStatus?, warningDetail: WarningDetail) {
+        technicalInformation = warningDetail
         warningsHeader.text = warningDetail.warningHeader
         warningsDescription.text = warningDetail.warningDescription
+        
+        warningsDescription.textContainerInset = .zero
+        warningsDescription.textContainer.lineFragmentPadding = 0
         
         warningsHeader.accessibilityLabel = warningDetail.warningHeader
         warningsDescription.accessibilityLabel = warningDetail.warningDescription
         
-        if let warnDetails = warningDetail.warningDetails {
-            warningsDetails.text = warnDetails
-            warningsDetails.accessibilityLabel = warnDetails
+        if let _ = warningDetail.warningDetails {
+            setTechnicalInformation()
+            detailsStackView.isHidden = false
+            warningsDetails.isHidden = true
+            
+            let tapGR = UITapGestureRecognizer()
+            tapGR.addTarget(self, action: #selector(setInformation))
+            detailsStackView.addGestureRecognizer(tapGR)
+        } else {
+            detailsStackView.isHidden = true
+            warningsDetails.isHidden = true
         }
         
         if let status = signatureStatus {
@@ -48,5 +69,27 @@ class SignatureWarningsCell: UITableViewCell {
                 warningsHeader.textColor = UIColor.moppError
             }
         }
+    }
+    
+    func setWarningDetails() {
+        if let warnDetails = technicalInformation?.warningDetails {
+            warningsDetails.text = warnDetails
+        }
+    }
+    
+    func setTechnicalInformation() {
+        setWarningDetails()
+        technicalInformationButton.setTitle(L(.containerSignatureTechnicalInformationButton))
+        if warningsDetails.isHidden {
+            iconView.image = UIImage(named: "Accordion_arrow_down")
+            warningsDetails.isHidden = false
+        } else {
+            iconView.image = UIImage(named: "Accordion_arrow_right")
+            warningsDetails.isHidden = true
+        }
+    }
+    
+    @objc func setInformation() {
+        setTechnicalInformation()
     }
 }

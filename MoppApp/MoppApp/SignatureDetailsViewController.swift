@@ -65,16 +65,22 @@ class SignatureDetailsViewController: MoppViewController {
         let signatureStatus = moppLibSignature?.status
 
         if let status = signatureStatus, status != .Valid {
+            let diagnosticsInfo = moppLibSignature?.diagnosticsInfo
             var warningDescription = ""
-            if status == .Warning || status == .NonQSCD {
-                warningDescription = L(.containerSignatureStatusWarningReason)
+            if status == .Warning {
+                if let signatureDetails = diagnosticsInfo, signatureDetails.contains("Signature digest weak") {
+                    warningDescription = L(.containerSignatureStatusWarningReasonWeak)
+                } else {
+                    warningDescription = L(.containerSignatureStatusWarningReason)
+                }
+            } else if status == .NonQSCD {
+                warningDescription = L(.containerSignatureStatusNonQscdReason)
             } else if status == .UnknownStatus {
                 warningDescription = L(.containerSignatureStatusUnknownReason)
             } else if status == .Invalid {
                 warningDescription = L(.containerSignatureStatusInvalidReason)
             }
             warningDetail = WarningDetail(warningHeader: L(.containerSignatureStatusReasonTitle), warningDescription: warningDescription)
-            let diagnosticsInfo = moppLibSignature?.diagnosticsInfo
             if let diagnostics = diagnosticsInfo {
                 warningDetail.warningDetails = diagnostics
             }
