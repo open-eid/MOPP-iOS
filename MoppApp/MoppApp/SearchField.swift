@@ -26,6 +26,7 @@ import Foundation
 class SearchField: ScaledTextField {
     
     var onSearchIconTapped: (() -> Void)?
+    var onClearButtonTapped: (() -> Void)?
     
     let clearButton = UIButton(type: .custom)
     
@@ -77,6 +78,6 @@ class SearchField: ScaledTextField {
     }
     
     @objc func clearText() {
-        text = ""
+        onClearButtonTapped?()
     }
 }

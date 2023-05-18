@@ -64,7 +64,7 @@ class AddresseeViewController : MoppViewController {
         super.viewDidLoad()
         dismissKeyboard()
         LandingViewController.shared.tabButtonsDelegate = self
-        LandingViewController.shared.presentButtons([.confirmButton])
+        LandingViewController.shared.presentButtons([])
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -128,6 +128,12 @@ extension AddresseeViewController : UITextFieldDelegate {
             }
         }
         
+        searchField?.onClearButtonTapped = {
+            guard let searchTextField = searchField else { return }
+            searchTextField.text = ""
+            self.removeSearchResults()
+        }
+        
         return true
     }
     
@@ -144,8 +150,20 @@ extension AddresseeViewController : UITextFieldDelegate {
         textField.removeTarget(self, action: nil, for: .editingChanged)
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return true }
+        
+        if string.isEmpty && (text.count <= 1) {
+            textField.text = ""
+            removeSearchResults()
+        }
+        
+        return true
+    }
+    
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         removeEditingTarget(textField)
+        removeSearchResults()
         return true
     }
     
@@ -164,6 +182,12 @@ extension AddresseeViewController : UITextFieldDelegate {
     
     func isSameQuery(text: String, submittedQuery: String) -> Bool {
         return text.trimWhitespacesAndNewlines() == self.submittedQuery
+    }
+    
+    func removeSearchResults() {
+        foundAddressees = []
+        self.submittedQuery = ""
+        self.tableView.reloadData()
     }
 }
 
@@ -239,6 +263,12 @@ extension AddresseeViewController : UITableViewDataSource {
                     index: row,
                     showRemoveButton: true)
                 cell.accessibilityUserInputLabels = [""]
+            
+                if !selectedAddressees.isEmpty {
+                    LandingViewController.shared.presentButtons([.confirmButton])
+                } else {
+                    LandingViewController.shared.presentButtons([])
+                }
                 return cell
             case .addAll:
                 let cell = tableView.dequeueReusableCell(withType: ContainerAddAllButtonCell.self, for: indexPath)!
@@ -337,6 +367,11 @@ extension AddresseeViewController : ContainerAddresseeCellDelegate {
         }
         
         selectedAddressees.remove(at: index)
+
+        if selectedAddressees.isEmpty {
+            LandingViewController.shared.presentButtons([])
+        }
+
         self.tableView.reloadData()
     }
     
@@ -351,9 +386,32 @@ extension AddresseeViewController : LandingViewControllerTabButtonsDelegate {
 
 extension AddresseeViewController : ContainerFoundAddresseeCellDelegate {
     func addAddresseeToSelectedArea(index: Int, completionHandler: @escaping () -> Void) {
+
         selectedIndexes.add(index)
-        selectedAddressees.insert(foundAddressees[index], at: 0)
+        
+        let foundAddress = foundAddressees[index]
+        if !selectedAddressees.contains(foundAddress) {
+            selectedAddressees.insert(foundAddress, at: 0)
+        }
         self.tableView.reloadData()
         completionHandler()
+    }
+    
+    func addAddresseeToSelectedArea(addressee: Addressee) {
+        if !selectedAddressees.contains(where: {(
+            ($0.givenName != nil && $0.givenName == addressee.givenName &&
+              $0.surname != nil && $0.surname == addressee.surname) ||
+             $0.identifier == addressee.identifier) && $0.type == addressee.type && $0.validTo == addressee.validTo
+        }) {
+            selectedAddressees.insert(addressee, at: 0)
+        }
+        
+        self.tableView.reloadData()
+    }
+    
+    func addAllAddresseesToSelectedArea(addressees: [Addressee]) {
+        for addressee in addressees {
+            addAddresseeToSelectedArea(addressee: addressee)
+        }
     }
 }

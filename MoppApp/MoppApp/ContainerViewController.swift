@@ -451,6 +451,8 @@ extension ContainerViewController : UITableViewDataSource {
         case .dataFiles:
             let cell = tableView.dequeueReusableCell(withType: ContainerFileCell.self, for: indexPath)!
                 cell.delegate = self
+            cell.accessibilityTraits = UIAccessibilityTraits.button
+            cell.accessibilityUserInputLabels = ["\(L(.voiceControlFileRow)) \(row + 1)"]
 
             let isStatePreviewOrOpened = state == .opened || state == .preview
             let isEncryptedDataFiles = !isAsicContainer && isStatePreviewOrOpened && !isDecrypted
