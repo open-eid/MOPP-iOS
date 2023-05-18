@@ -30,11 +30,7 @@ class ContainerAddAllButtonCell: UITableViewCell {
     @IBOutlet weak var addAllButton: ScaledButton!
     
     @IBAction func addAllRecipients(_ sender: ScaledButton) {
-        for (index, _) in addressees.enumerated().reversed() {
-            delegate.addAddresseeToSelectedArea(index: index) {
-                self.addressees.remove(at: index)
-            }
-        }
+        delegate.addAllAddresseesToSelectedArea(addressees: addressees)
         
         UIAccessibility.post(notification: .screenChanged, argument: L(.cryptoRecipientsAdded))
     }
