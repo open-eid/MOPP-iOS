@@ -36,5 +36,6 @@ class MenuHeaderCell : UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         menuCloseButton.accessibilityLabel = L(.menuClose)
+        menuCloseButton.accessibilityUserInputLabels = [L(.voiceControlClose)]
     }
 }

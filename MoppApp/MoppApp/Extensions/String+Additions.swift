@@ -170,7 +170,7 @@ extension String {
         return self.replacingOccurrences(of: messageWithLink, with: "")
     }
     
-    func trimWhitespacesAndNewlines() -> String? {
+    func trimWhitespacesAndNewlines() -> String {
         return self.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
@@ -182,9 +182,38 @@ extension String {
     }
     
     var asUnicode: String {
-        let textAsData = self.data(using: .nonLossyASCII)
-        let textAsUnicode = String(data: textAsData ?? Data(), encoding: .utf8) ?? ""
-        return #"\#(textAsUnicode)"#
+        var unicodeString = #""#
+
+        self.unicodeScalars.forEach { scalar in
+            if scalar.properties.isEmojiPresentation {
+                var stringScalar = ""
+                stringScalar.unicodeScalars.append(scalar)
+                unicodeString.append(stringScalar.asUnicode)
+            } else {
+                unicodeString.append(#"\#((scalar.escaped(asASCII: true)).replacingOccurrences(of: "{", with: "").replacingOccurrences(of: "}", with: ""))"#)
+            }
+        }
+        return unicodeString
+    }
+    
+    func removeForbiddenCharacters(characterSets: [CharacterSet]) -> String {
+        var allowedCharacters: String.UnicodeScalarView = self.unicodeScalars
+        for characterSet in characterSets {
+            allowedCharacters = allowedCharacters.filter {
+                (!characterSet.contains($0) || $0.properties.isEmojiPresentation)
+            }
+        }
+        return #"\#(allowedCharacters)"#
+    }
+    
+    func removeForbiddenCharacters() -> String {
+        return removeForbiddenCharacters(characterSets: [.illegalCharacters, .symbols, .extraSymbols, .newlines])
+    }
+    
+    func sanitize() -> String {
+        let normalizedName = FileUtil.getFileName(currentFileName: self)
+        return MoppLibManager.sanitize(normalizedName)
+            .removeForbiddenCharacters().trimWhitespacesAndNewlines()
     }
 }
 

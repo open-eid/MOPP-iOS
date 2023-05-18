@@ -39,5 +39,6 @@ class ContainerImportFilesCell : UITableViewCell {
         super.awakeFromNib()
         button.localizedTitle = LocKey.fileImportTitle
         button.accessibilityLabel = L(.fileImportTitleAccessibility)
+        button.accessibilityUserInputLabels = [L(.voiceControlAddFiles)]
     }
 }

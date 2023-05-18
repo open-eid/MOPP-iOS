@@ -38,10 +38,11 @@ extension CryptoActions where Self: CryptoContainerViewController {
                 success: {
                     self.isCreated = false
                     self.isForPreview = false
+                    self.isContainerEncrypted = true
                     self.state = .loading
                     self.containerViewDelegate.openContainer(afterSignatureCreated: true)
                     UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: L(.cryptoEncryptionSuccess))
-                    self.notifications.append((true, L(.cryptoEncryptionSuccess)))
+                    self.notifications.append(NotificationMessage(isSuccess: true, text: L(.cryptoEncryptionSuccess)))
                     self.reloadCryptoData()
                     
                     if !DefaultsHelper.hideShareContainerDialog {
@@ -95,8 +96,9 @@ extension CryptoContainerViewController : IdCardDecryptViewControllerDelegate {
                 self.isForPreview = false
                 self.dismiss(animated: false)
                 self.isDecrypted = true
+                self.isContainerEncrypted = false
                 
-                self.notifications.append((true, L(.containerDetailsDecryptionSuccess)))
+                self.notifications.append(NotificationMessage(isSuccess: true, text: L(.containerDetailsDecryptionSuccess)))
                 UIAccessibility.post(notification: .screenChanged, argument: L(.containerDetailsDecryptionSuccess))
                 
                 self.reloadCryptoData()

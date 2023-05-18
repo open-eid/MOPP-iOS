@@ -60,6 +60,6 @@ extension Notification.Name {
     static let signatureSigningCancelledNotificationName = Notification.Name("signatureSigningCancelledNotificationName")
     static let filesImportedNotificationName = Notification.Name("FilesImportedNotificationName")
     static let startImportingFilesWithDocumentPickerNotificationName = Notification.Name("StartImportingFilesNotificationName")
-    static let signatureMobileIDPendingRequestNotificationName = Notification.Name("SignatureMobileIDPendingRequestNotificationName")
     static let didOpenUrlNotificationName = Notification.Name("DidOpenUrlNotificationName")
+    static let hideKeyboardAccessibility = NSNotification.Name("HideKeyboardAccessibility")
 }

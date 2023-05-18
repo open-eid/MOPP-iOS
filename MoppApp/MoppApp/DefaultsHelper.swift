@@ -49,9 +49,11 @@ let CrashlyticsDefault = "Default"
 fileprivate let kSignMethodKey = "kSignMethodKey"
 fileprivate let kPhoneNumberKey = "kPhoneNumberKey"
 fileprivate let kIDCodeKey = "kIDCodeKey"
+fileprivate let kMobileIdRememberMeKey = "kMobileIdRememberMeKey"
 fileprivate let kRPUuidKey = "kRPUuidKey"
 fileprivate let kSIDIDCodeKey = "kSIDIDCodeKey"
 fileprivate let kSIDCountryKey = "kSIDCountryKey"
+fileprivate let kSmartIdRememberMeKey = "kSmartIdRememberMeKey"
 fileprivate let kTimestampUrlKey = "kTimestampUrlKey"
 fileprivate let kSettingsDefaultSwitchKey = "kSettingsDefaultSwitchKey"
 fileprivate let kCrashReportSettingKey = "kCrashReportSettingKey"
@@ -61,13 +63,16 @@ fileprivate let kHideShareContainerDialog = "kHideShareContainerDialog"
 fileprivate let kIsTimestampedDdoc = "kIsTimestampedDdoc"
 fileprivate let kIsFileLoggingEnabled = "kIsFileLoggingEnabled"
 fileprivate let kIsFileLoggingRunning = "kIsFileLoggingRunning"
+fileprivate let kTSAFileCertName = "kTSAFileCertName"
 
 class DefaultsHelper
 {
-    static func setDefaultSettingsSwitch() {
+    static func setDefaultKeys() {
         UserDefaults.standard.register(
             defaults: [
-                kSettingsDefaultSwitchKey: true
+                kSettingsDefaultSwitchKey: true,
+                kMobileIdRememberMeKey: true,
+                kSmartIdRememberMeKey: true
             ]
         )
     }
@@ -98,6 +103,15 @@ class DefaultsHelper
             return (UserDefaults.standard.value(forKey: kIDCodeKey) as? String) ?? String()
         }
     }
+    
+    class var mobileIdRememberMe: Bool {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kMobileIdRememberMeKey)
+        }
+        get {
+            return (UserDefaults.standard.bool(forKey: kMobileIdRememberMeKey))
+        }
+    }
 
     class var rpUuid: String {
         set {
@@ -125,6 +139,16 @@ class DefaultsHelper
             return (UserDefaults.standard.value(forKey: kSIDIDCodeKey) as? String) ?? String()
         }
     }
+    
+    class var smartIdRememberMe: Bool {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kSmartIdRememberMeKey)
+        }
+        get {
+            return (UserDefaults.standard.bool(forKey: kSmartIdRememberMeKey))
+        }
+    }
+
 
     class var timestampUrl: String? {
         set {
@@ -208,6 +232,15 @@ class DefaultsHelper
         }
         get {
             return UserDefaults.standard.bool(forKey: kIsFileLoggingRunning)
+        }
+    }
+    
+    class var tsaCertFileName: String? {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kTSAFileCertName)
+        }
+        get {
+            return UserDefaults.standard.value(forKey: kTSAFileCertName) as? String
         }
     }
 

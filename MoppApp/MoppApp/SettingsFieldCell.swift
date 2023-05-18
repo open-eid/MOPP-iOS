@@ -46,7 +46,10 @@ class SettingsFieldCell: UITableViewCell {
         }
         titleLabel.isAccessibilityElement = false
         textField.accessibilityLabel = L(.settingsRpUuidTitle)
-        self.accessibilityElements = [fieldUITextfield]
+        textField.accessibilityUserInputLabels = [L(.voiceControlSigningService)]
+        if UIAccessibility.isVoiceOverRunning {
+            self.accessibilityElements = [fieldUITextfield]
+        }
     }
     
     func populate(with field:SettingsViewController.Field) {
@@ -57,7 +60,11 @@ class SettingsFieldCell: UITableViewCell {
         }
         titleLabel.text = field.title
         textField.isEnabled = !defaultSwitch
-        textField.attributedPlaceholder = field.placeholderText
+        let attributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.placeholderText,
+            NSAttributedString.Key.font : UIFont(name: "Roboto-Regular", size: 14) ?? UIFont.systemFont(ofSize: 14)
+        ]
+        textField.attributedPlaceholder = NSAttributedString(string: field.placeholderText.string, attributes: attributes)
         textField.text = !defaultSwitch ? DefaultsHelper.rpUuid : nil
         self.field = field
         
@@ -82,7 +89,7 @@ extension SettingsFieldCell: UITextFieldDelegate {
     }
 }
 
-class SettingsTextField: UITextField {
+class SettingsTextField: ScaledTextField {
     override func awakeFromNib() {
         super.awakeFromNib()
         layer.cornerRadius = 2

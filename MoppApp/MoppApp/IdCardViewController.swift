@@ -39,7 +39,9 @@ protocol IdCardDecryptViewControllerDelegate : AnyObject {
 
 class IdCardViewController : MoppViewController {
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var idCardView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var pinCodeStackView: UIStackView!
     @IBOutlet weak var pinTextField: UITextField!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var actionButton: UIButton!
@@ -127,17 +129,19 @@ class IdCardViewController : MoppViewController {
 
         updateUI(for: state)
 
-        guard let titleUILabel = titleLabel, let pinTextFieldUITitleLabel = pinTextFieldTitleLabel, let pinTextUIField = pinTextField, let cancelUIButton = cancelButton, let actionUIButton = actionButton else {
-            printLog("Unable to get titleLabel, pinTextFieldTitleLabel, pinTextField, cancelButton or actionButton")
-            return
+        if UIAccessibility.isVoiceOverRunning {
+            guard let titleUILabel = titleLabel, let pinTextFieldUITitleLabel = pinTextFieldTitleLabel, let pinTextUIField = pinTextField, let cancelUIButton = cancelButton, let actionUIButton = actionButton else {
+                printLog("Unable to get titleLabel, pinTextFieldTitleLabel, pinTextField, cancelButton or actionButton")
+                return
+            }
+            
+            self.view.accessibilityElements = [titleUILabel, pinTextFieldUITitleLabel, pinTextUIField, cancelUIButton, actionUIButton]
+            
+            accessibilityObjects = [titleLabel, pinTextFieldTitleLabel, pinTextField, cancelButton, actionButton]
+            
+            self.view.accessibilityElements = accessibilityObjects
+            accessibilityElements = accessibilityObjects
         }
-
-        self.view.accessibilityElements = [titleUILabel, pinTextFieldUITitleLabel, pinTextUIField, cancelUIButton, actionUIButton]
-
-        accessibilityObjects = [titleLabel, pinTextFieldTitleLabel, pinTextField, cancelButton, actionButton]
-
-        self.view.accessibilityElements = accessibilityObjects
-        accessibilityElements = accessibilityObjects
 
         // Application did become active
         NotificationCenter.default.addObserver(
@@ -172,6 +176,8 @@ class IdCardViewController : MoppViewController {
         NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: OperationQueue.main) { [weak self]_ in
             self?.keyboardDelegate?.idCardPINKeyboardWillDisappear()
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboardAccessibility), name: .hideKeyboardAccessibility, object: nil)
 
         MoppLibCardReaderManager.sharedInstance().delegate = self
         MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
@@ -273,6 +279,13 @@ class IdCardViewController : MoppViewController {
                 } else {
                     self.pinTextFieldTitleLabel.text = L(.pin2TextfieldLabel)
                 }
+                // Voice Control label might not show, showing and hiding the textfield helps
+                if !UIAccessibility.isVoiceOverRunning {
+                    self.pinTextField.becomeFirstResponder()
+                    self.pinTextField.resignFirstResponder()
+                    self.pinTextField.layer.borderColor = UIColor.black.cgColor
+                }
+                self.setPinFieldVoiceControlLabel(isDecryption: self.isActionDecryption)
                 self.pinTextFieldTitleLabel.textColor = UIColor.moppText
                 self.loadingSpinner.show(false)
             }
@@ -344,9 +357,21 @@ class IdCardViewController : MoppViewController {
                     subview.accessibilityElements = [titleUILabel, pinUITextFieldTitleLabel, pinUITextField, cancelUIButton, actionUIButton]
                 }
             }
+            self.setPinFieldVoiceControlLabel(isDecryption: self.isActionDecryption)
         }
-
-
+        self.setPinFieldVoiceControlLabel(isDecryption: self.isActionDecryption)
+    }
+    
+    private func setPinFieldVoiceControlLabel(isDecryption: Bool) {
+        if !UIAccessibility.isVoiceOverRunning {
+            if isDecryption {
+                self.pinTextField.accessibilityLabel = "\(L(.voiceControlPin1Field))"
+                self.pinTextField.accessibilityUserInputLabels = [L(.voiceControlPin1Field)]
+            } else {
+                self.pinTextField.accessibilityLabel = "\(L(.voiceControlPin2Field))"
+                self.pinTextField.accessibilityUserInputLabels = [L(.voiceControlPin2Field)]
+            }
+        }
     }
 
     @IBAction func cancelAction() {
@@ -424,6 +449,15 @@ class IdCardViewController : MoppViewController {
         }
     }
     
+    @objc func hideKeyboardAccessibility(notification: Notification) {
+        if let view = notification.userInfo?["view"] as? UIView {
+            if view.accessibilityIdentifier == "IdCardCancelButton" || view.accessibilityIdentifier == "IdCardActionButton" {
+                self.view.endEditing(true)
+                hideKeyboard(scrollView: scrollView)
+            }
+        }
+    }
+    
     override func keyboardWillShow(notification: NSNotification) {
         if pinTextField.isFirstResponder {
             showKeyboard(textFieldLabel: pinTextFieldTitleLabel, scrollView: scrollView)
@@ -493,7 +527,7 @@ extension IdCardViewController : UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.accessibilityIdentifier == "idCardPinCodeField" {
+        if textField.accessibilityIdentifier == "idCardPinCodeField" && textField.hasText {
             if let text = textField.text as String? {
                 if self.isActionDecryption {
                     verifyPinCodeValidity(textField: textField, textFieldTitle: pinTextFieldTitleLabel, text: text, defaultLabelText: L(.pin1TextfieldLabel), errorText: L(.signingErrorIncorrectPinLength, [IdCardCodeName.PIN1.rawValue, IdCardCodeLengthLimits.pin1Minimum.rawValue]), pinType: .PIN1)

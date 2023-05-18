@@ -192,10 +192,14 @@ extension SignatureDetailsViewController: UITableViewDelegate, UITableViewDataSo
         } else {
             let cell = tableView.dequeueReusableCell(withType: SignatureDetailsCell.self, for: indexPath)!
             cell.selectionStyle = .none
+            cell.accessibilityTraits = [.staticText]
+            cell.contentLabel.accessibilityTraits = [.staticText]
             let signatureDetail = signatureDetails[indexPath.row]
             if !signatureDetail.value.isEmpty {
                 cell.populate(signatureDetail: signatureDetail)
                 if signatureDetail.x509Certificate != nil && signatureDetail.secCertificate != nil {
+                    cell.accessibilityTraits = [.button]
+                    cell.contentLabel.accessibilityTraits = [.button]
                     cell.contentLabel.isUserInteractionEnabled = true
                     let tapRecognizer = SignatureDetailTapGesture(target: self, action: #selector(tapCertificateView(_:)))
                     tapRecognizer.signatureDetail = signatureDetail
@@ -204,6 +208,8 @@ extension SignatureDetailsViewController: UITableViewDelegate, UITableViewDataSo
             }
             return cell
         }
+        cell.accessibilityUserInputLabels = [""]
+        return cell
     }
     
     @objc func tapCertificateView(_ tap: SignatureDetailTapGesture) {

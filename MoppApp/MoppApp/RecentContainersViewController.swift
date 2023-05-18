@@ -74,14 +74,16 @@ class RecentContainersViewController : MoppModalViewController {
 
         closeSearch()
 
-        for cell in tableView.visibleCells {
-            if cell is RecentContainersHeaderCell {
-                self.accessibilityElementsList.insert(cell, at: 0)
-            } else if cell is RecentContainersNameCell {
-                self.accessibilityElementsList.append(cell)
+        if UIAccessibility.isVoiceOverRunning {
+            for cell in tableView.visibleCells {
+                if cell is RecentContainersHeaderCell {
+                    self.accessibilityElementsList.insert(cell, at: 0)
+                } else if cell is RecentContainersNameCell {
+                    self.accessibilityElementsList.append(cell)
+                }
+                
+                self.accessibilityElements = accessibilityElementsList
             }
-
-            self.accessibilityElements = accessibilityElementsList
         }
     }
 
@@ -155,7 +157,7 @@ extension RecentContainersViewController : UITableViewDataSource {
                 return cell
             case .containerFiles:
                 let cell = tableView.dequeueReusableCell(withType: RecentContainersNameCell.self, for: indexPath)!
-                    cell.populate(filename: containerFiles[indexPath.row], searchKeyword: searchKeyword, showSeparator: indexPath.row < containerFiles.count - 1)
+            cell.populate(filename: containerFiles[indexPath.row], searchKeyword: searchKeyword, showSeparator: indexPath.row < containerFiles.count - 1, row: indexPath.row)
                 return cell
             case .filesMissing:
                 let cell = tableView.dequeueReusableCell(withType: RecentContainersEmptyListCell.self, for: indexPath)!
@@ -226,7 +228,7 @@ extension RecentContainersViewController : UITableViewDelegate {
                         success: {(_ cdocInfo: CdocInfo?) -> Void in
                             guard let strongCdocInfo = cdocInfo else { return }
                             let cryptoContainer = (containerViewController as! CryptoContainerViewController)
-                            container.addressees = strongCdocInfo.addressees
+                            container.addressees = strongCdocInfo.addressees as? [Addressee] ?? []
                             container.dataFiles = strongCdocInfo.dataFiles
                             cryptoContainer.containerPath = filePath as String?
                             cryptoContainer.state = .opened

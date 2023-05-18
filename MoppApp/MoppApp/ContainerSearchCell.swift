@@ -24,12 +24,9 @@ import Foundation
 
 
 class ContainerSearchCell: UITableViewCell {
-    @IBOutlet weak var searchBar: UISearchBar!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-        let searchField = searchBar.value(forKey: "searchField")
-        (searchField as! UITextField).placeholder = L(LocKey.cryptoLdapSearchPlaceholder)
-    }
+    @IBOutlet weak var searchBar: SearchField!
     
+    override func awakeFromNib() {
+        searchBar.placeholder = L(.cryptoLdapSearchPlaceholder)
+    }
 }

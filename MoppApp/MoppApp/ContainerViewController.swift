@@ -20,6 +20,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
+import Foundation
+import MoppLib
+
 protocol ContainerViewControllerDelegate: AnyObject {
     func getDataFileCount() -> Int
     func getContainerPath() -> String
@@ -65,6 +69,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var isCreated: Bool = false
     var forcePDFContentPreview: Bool = false
     var startSigningWhenOpened = false
+    var isEncrypted = false
     var isDecrypted = false
     let landingViewController = LandingViewController.shared!
     var isAsicContainer = LandingViewController.shared.containerType == .asic
@@ -75,6 +80,8 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var asicsNestedContainerPath = ""
     var isLoadingNestedAsicsDone = false
     var isSendingToSivaAgreed = true
+    
+    private static let unnamedDataFile = "datafile"
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -133,7 +140,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     internal static let sectionsWithTimestampNoSignatures : [Section] = [.notifications, .header, .dataFiles, .containerTimestamps]
     internal static let sectionsWithTimestamp : [Section] = [.notifications, .header, .dataFiles, .containerTimestamps, .signatures]
     var sections: [Section] = ContainerViewController.sectionsDefault
-    var notifications: [(isSuccess: Bool, text: String)] = []
+    var notifications: [NotificationMessage] = []
     var state: ContainerState!
 
 
@@ -181,6 +188,12 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         containerViewDelegate.openContainer(afterSignatureCreated:false)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        isEmptyFileWarningSet = false
     }
 
     func updateState(_ newState: ContainerState) {
@@ -292,7 +305,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                 break
             }
             if isEmptyFileInContainer {
-                self.notifications.append((false, L(.fileImportFailedEmptyFileImported)))
+                self.notifications.append(NotificationMessage(isSuccess: false, text: L(.fileImportFailedEmptyFileImported)))
                 isEmptyFileWarningSet = true
             }
         }
@@ -388,18 +401,22 @@ extension ContainerViewController : UITableViewDataSource {
         switch sections[indexPath.section] {
         case .notifications:
             let cell = tableView.dequeueReusableCell(withType: ContainerNotificationCell.self, for: indexPath)!
+            cell.accessibilityUserInputLabels = [""]
+
             if notifications.indices.contains(indexPath.row) {
                 let isSuccess = notifications[indexPath.row].isSuccess
                 cell.populate(isSuccess: isSuccess, text: notifications[indexPath.row].text)
                 if isSuccess {
                     UIAccessibility.post(notification: .announcement,  argument: cell.infoLabel)
                 }
+                cell.isAccessibilityElement = false
                 return cell
             }
             return ContainerNotificationCell()
         case .signatures:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
                 cell.delegate = self
+            cell.accessibilityUserInputLabels = ["\(L(.voiceControlSignature)) \(row + 1)"]
             var signature = asicsSignatures.isEmpty ? (signingContainerViewDelegate.getSignature(index: indexPath.row) as? MoppLibSignature) : asicsSignatures[indexPath.row]
             if isAsicsContainer() && !asicsSignatures.isEmpty && signingContainerViewDelegate.getTimestampTokensCount() > 0 && asicsSignatures.count >= indexPath.row {
                 signature = asicsSignatures[indexPath.row]
@@ -429,39 +446,40 @@ extension ContainerViewController : UITableViewDataSource {
         case .timestamp:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
                 //cell.populate(name: mockTimestamp[row], kind: .timestamp, colorTheme: .neutral, showBottomBorder: row < mockTimestamp.count - 1)
+            cell.accessibilityUserInputLabels = ["\(L(.voiceControlTimestamp)) \(row + 1)"]
             return cell
         case .dataFiles:
             let cell = tableView.dequeueReusableCell(withType: ContainerFileCell.self, for: indexPath)!
                 cell.delegate = self
             cell.accessibilityTraits = UIAccessibilityTraits.button
+            cell.accessibilityUserInputLabels = ["\(L(.voiceControlFileRow)) \(row + 1)"]
 
             let isStatePreviewOrOpened = state == .opened || state == .preview
             let isEncryptedDataFiles = !isAsicContainer && isStatePreviewOrOpened && !isDecrypted
 
-            var dataFile = ""
+            var dataFileName = ""
             var tapGesture: UITapGestureRecognizer
 
             if isAsicsContainer() && !asicsDataFiles.isEmpty && asicsDataFiles.count >= indexPath.row {
-                dataFile = asicsDataFiles[indexPath.row].fileName ?? ""
-                tapGesture = getPreviewTapGesture(dataFile: dataFile, containerPath: asicsNestedContainerPath, isShareButtonNeeded: isDecrypted)
+                dataFileName = asicsDataFiles[indexPath.row].fileName ?? ContainerViewController.unnamedDataFile
+                tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: asicsNestedContainerPath, isShareButtonNeeded: isDecrypted)
             } else {
-                dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) ?? ""
-                tapGesture = getPreviewTapGesture(dataFile: dataFile, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
+                dataFileName = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) ?? ContainerViewController.unnamedDataFile
+                tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
             }
 
-            if dataFile.isEmpty {
-                printLog("Data file not found")
-                self.errorAlert(message: L(.datafilePreviewFailed))
-                return cell
+            if dataFileName.isEmpty {
+                printLog("Datafile name empty")
+                dataFileName = ContainerViewController.unnamedDataFile
             }
 
             if !isEncryptedDataFiles {
-                cell.openPreviewView.addGestureRecognizer(tapGesture)
-                cell.openPreviewView.isHidden = false
+                cell.filenameLabel.addGestureRecognizer(tapGesture)
+                tapGesture.isEnabled = true
             } else {
-                if cell.openPreviewView.gestureRecognizers != nil {
-                    cell.openPreviewView.removeGestureRecognizer(tapGesture)
-                    cell.openPreviewView.isHidden = true
+                if cell.filenameLabel.gestureRecognizers != nil {
+                    cell.filenameLabel.removeGestureRecognizer(tapGesture)
+                    tapGesture.isEnabled = false
                 }
             }
 
@@ -469,18 +487,24 @@ extension ContainerViewController : UITableViewDataSource {
             var isDownloadButtonShown = false
             if isAsicContainer {
                 isRemoveButtonShown = !isForPreview &&
-                    (signingContainerViewDelegate.getSignaturesCount() == 0) &&
-                    signingContainerViewDelegate.isContainerSignable()
+                    (signingContainerViewDelegate.getSignaturesCount() == 0) ||
+                (signingContainerViewDelegate.getSignaturesCount() == 0 && signingContainerViewDelegate.isContainerSignable())
                 isDownloadButtonShown = !isForPreview
             } else {
                 isRemoveButtonShown = !isForPreview && (state != .opened)
                 isDownloadButtonShown = !isForPreview && (isDecrypted || (state != .opened))
             }
-                cell.populate(
-                    name: dataFile,
-                    showBottomBorder: row < containerViewDelegate.getDataFileCount() - 1,
+            
+            var isFileInContainer = false
+            
+            let isSaveable = MoppLibContainerActions.sharedInstance().isContainerFileSaveable(containerViewDelegate.getContainerPath(), saveDataFile: dataFileName)
+
+            cell.populate(
+                name: dataFileName,
+                showBottomBorder: row < containerViewDelegate.getDataFileCount() - 1,
                     showRemoveButton: isRemoveButtonShown,
                     showDownloadButton: isDownloadButtonShown,
+                    enableDownloadButton: isSaveable,
                     dataFileIndex: row)
             return cell
         case .importDataFiles:
@@ -514,6 +538,7 @@ extension ContainerViewController : UITableViewDataSource {
             return cell
         case .containerTimestamps:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
+            cell.accessibilityUserInputLabels = ["\(L(.voiceControlContainerTimestamp)) \(row + 1)"]
             var timestampToken: MoppLibSignature = MoppLibSignature()
             if signingContainerViewDelegate.getTimestampTokensCount() >= indexPath.row {
                 timestampToken = signingContainerViewDelegate.getTimestampToken(index: indexPath.row) as? MoppLibSignature ?? MoppLibSignature()
@@ -845,11 +870,16 @@ extension ContainerViewController : UITableViewDelegate {
         let section = sections[_section]
         var title: String!
         switch section {
-            case .dataFiles:
-                let createFileTitle = L(LocKey.containerHeaderCreateFilesTitle)
-                title = isCreated ? createFileTitle : L(LocKey.containerHeaderFilesTitle)
-            default:
-                title = sectionHeaderTitle[section]
+        case .dataFiles:
+            if isCreated && !isAsicContainer {
+                title = L(.cryptoHeaderFilesTitle)
+            } else if isEncrypted {
+                title = L(.cryptoEncryptedFilesTitle)
+            } else {
+                title = L(.containerHeaderFilesTitle)
+            }
+        default:
+            title = sectionHeaderTitle[section]
         }
 
         if let header = MoppApp.instance.nibs[.containerElements]?.instantiate(withOwner: self, type: ContainerTableViewHeaderView.self) {
@@ -918,8 +948,7 @@ extension ContainerViewController : UITableViewDelegate {
         tableView.reloadData()
 
         // Animate away success message if there is any
-        let accessibilityNotificationTime = 4.0
-        if let notificationIndex = notifications.firstIndex(where: { $0.0 == true }), sections.contains(.notifications) {
+        if let notificationIndex = notifications.firstIndex(where: { $0.isSuccess == true }), sections.contains(.notifications) {
             scrollToTop()
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
                 if (self?.notifications.isEmpty)! { return }

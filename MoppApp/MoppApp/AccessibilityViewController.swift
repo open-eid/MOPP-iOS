@@ -25,6 +25,8 @@ import Foundation
 
 class AccessibilityViewController : MoppViewController {
     
+    @IBOutlet weak var closeButton: UIButton!
+
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var textView: UITextView!
@@ -39,6 +41,9 @@ class AccessibilityViewController : MoppViewController {
         titleLabel.text = L(.accessibilityIntroductionTitle)
         
         textView.attributedText = accessibilityIntroductionText()
+        
+        closeButton.accessibilityLabel = L(.closeButton)
+        closeButton.accessibilityUserInputLabels = [L(.voiceControlClose)]
     }
     
     override func viewWillDisappear(_ animated: Bool) {

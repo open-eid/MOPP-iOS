@@ -175,7 +175,7 @@ extension ContainerActions where Self: UIViewController {
                 newFilePath as String?,
                 success: {(_ cdocInfo: CdocInfo?) -> Void in
                     guard let strongCdocInfo = cdocInfo else { return }
-                    container.addressees = strongCdocInfo.addressees
+                    container.addressees = strongCdocInfo.addressees as? [Addressee] ?? []
                     container.dataFiles = strongCdocInfo.dataFiles
                     containerViewController.containerPath = newFilePath
                     containerViewController.state = .opened
@@ -324,16 +324,16 @@ extension ContainerActions where Self: UIViewController {
         let landingViewController = LandingViewController.shared!
 
         let filePath = url.relativePath
-        let fileName: String = MoppLibManager.sanitize(url.lastPathComponent)
+        let fileName: String = url.lastPathComponent.sanitize()
 
         let containerFilePaths = sanitizeDataFilePaths(dataFilePaths: dataFilePaths)
 
         let (filename, _) = fileName.filenameComponents()
         let containerFilename: String
         if landingViewController.containerType == .asic {
-            containerFilename = filename + "." + DefaultContainerFormat
-        }else{
-            containerFilename = filename + "." + ContainerFormatCdoc
+            containerFilename = FileUtil.getFileName(currentFileName: filename) + "." + DefaultContainerFormat
+        } else {
+            containerFilename = FileUtil.getFileName(currentFileName: filename) + "." + ContainerFormatCdoc
         }
 
         var containerPath = MoppFileManager.shared.filePath(withFileName: containerFilename)
@@ -402,7 +402,7 @@ extension ContainerActions where Self: UIViewController {
 
             for dataFilePath in containerFilePaths {
                 let dataFile = CryptoDataFile.init()
-                dataFile.filename = (dataFilePath as NSString).lastPathComponent
+                dataFile.filename = FileUtil.getFileName(currentFileName: (dataFilePath as NSString).lastPathComponent)
                 dataFile.filePath = dataFilePath
                 container.dataFiles.add(dataFile)
             }
@@ -434,9 +434,9 @@ extension ContainerActions where Self: UIViewController {
         var containerFilePaths: [String] = []
         for dataFile in dataFilePaths {
             let dataFileUrl = URL(fileURLWithPath: dataFile)
-            let dataFileName = dataFileUrl.lastPathComponent
+            let dataFileName = FileUtil.getFileName(currentFileName: dataFileUrl.lastPathComponent)
             let sanitizedUrlFolder = dataFileUrl.deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("temp", isDirectory: true)
-            let sanitizedUrl = sanitizedUrlFolder.appendingPathComponent(MoppLibManager.sanitize(dataFileName), isDirectory: false)
+            let sanitizedUrl = sanitizedUrlFolder.appendingPathComponent(dataFileName.sanitize(), isDirectory: false)
             if dataFileName != sanitizedUrl.lastPathComponent && MoppFileManager.shared.fileExists(dataFileUrl.path) {
                 try? MoppFileManager.shared.fileManager.createDirectory(at: sanitizedUrlFolder, withIntermediateDirectories: true, attributes: nil)
                 let newUrl = MoppFileManager.shared.copyFile(withPath: dataFileUrl.path, toPath: sanitizedUrl.path)
