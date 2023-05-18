@@ -27,7 +27,7 @@ import QuickLook
 class DataFilePreviewViewController : MoppViewController, QLPreviewControllerDataSource, QLPreviewControllerDelegate {
 
     var previewFilePath: String!
-    var isShareNeeded: Bool = false
+    var isShareNeeded = false
     
     let quickLookController = QLPreviewController()
     
@@ -39,7 +39,7 @@ class DataFilePreviewViewController : MoppViewController, QLPreviewControllerDat
         
         quickLookController.modalPresentationStyle = .overFullScreen
         
-        printLog("Showing preview for file: \(getFileUrl(filePath: previewFilePath).lastPathComponent)")
+        printLog("Showing preview for file: \(FileUtil.addDefaultExtension(url: getFileUrl(filePath: previewFilePath)).lastPathComponent)")
         present(quickLookController, animated: true)
     }
     
@@ -61,6 +61,11 @@ class DataFilePreviewViewController : MoppViewController, QLPreviewControllerDat
     
     func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
         let url = getFileUrl(filePath: previewFilePath)
+        if url.pathExtension.isEmpty {
+            let urlWithDefaultExtension = FileUtil.addDefaultExtension(url: getFileUrl(filePath: previewFilePath))
+            let urlPath = MoppFileManager.shared.copyFile(withPath: url.path, toPath: urlWithDefaultExtension.path)
+            return URL(fileURLWithPath: urlPath) as QLPreviewItem
+        }
         return url as QLPreviewItem
     }
     

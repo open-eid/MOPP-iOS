@@ -45,6 +45,7 @@ class CryptoViewController : MoppViewController {
         menuButton.accessibilityLabel = L(LocKey.menuButton)        
         titleLabel.isAccessibilityElement = false
         importButton.accessibilityLabel = L(LocKey.cryptoViewBeginLabelAccessibility)
+        importButton.accessibilityUserInputLabels = [L(.voiceControlChooseFile)]
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             UIAccessibility.post(notification: .layoutChanged, argument: self.importButton)
         }

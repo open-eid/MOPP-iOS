@@ -24,6 +24,8 @@ import Foundation
 
 class ScaledButton: UIButton {
     
+    override var canBecomeFocused: Bool { true }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         scaleButton()
@@ -35,6 +37,8 @@ class ScaledButton: UIButton {
     }
     
     func scaleButton() {
+        self.isAccessibilityElement = true
+
         if UIAccessibility.isBoldTextEnabled {
             self.titleLabel?.font = FontUtil.boldFont(font: self.titleLabel?.font ?? UIFont(name: "Roboto-Bold", size: 16) ?? UIFont())
         } else {

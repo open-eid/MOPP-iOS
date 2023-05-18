@@ -33,12 +33,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jHz-uj-av0">
-                                <rect key="frame" x="16" y="73" width="343" height="520"/>
+                                <rect key="frame" x="16" y="52" width="343" height="545"/>
                                 <subviews>
                                     <containerView autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="pUF-he-w2e">
-                                        <rect key="frame" x="0.0" y="56" width="343" height="470"/>
+                                        <rect key="frame" x="0.0" y="56" width="343" height="469"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="lessThanOrEqual" priority="250" constant="470" id="r73-vf-B3d"/>
+                                            <constraint firstAttribute="height" relation="lessThanOrEqual" priority="250" constant="497" id="r73-vf-B3d"/>
                                         </constraints>
                                     </containerView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mGO-3a-ojn" userLabel="Separator">
@@ -113,7 +113,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="pUF-he-w2e" secondAttribute="bottom" constant="-6" id="5Xh-oM-9YN"/>
+                                    <constraint firstAttribute="bottom" secondItem="pUF-he-w2e" secondAttribute="bottom" constant="20" id="5Xh-oM-9YN"/>
                                     <constraint firstItem="mIm-AT-ZoS" firstAttribute="leading" secondItem="jHz-uj-av0" secondAttribute="leading" constant="16" id="HdI-t6-EVp"/>
                                     <constraint firstItem="mGO-3a-ojn" firstAttribute="leading" secondItem="jHz-uj-av0" secondAttribute="leading" id="ICs-HG-rEO"/>
                                     <constraint firstAttribute="trailing" secondItem="mIm-AT-ZoS" secondAttribute="trailing" constant="16" id="IhF-aF-DxC"/>
@@ -134,11 +134,12 @@
                         <viewLayoutGuide key="safeArea" id="AWR-IZ-uHO"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="MTn-Np-IcR" firstAttribute="bottom" secondItem="jHz-uj-av0" secondAttribute="bottom" priority="250" constant="-593" id="5fb-m1-mhq"/>
+                            <constraint firstItem="MTn-Np-IcR" firstAttribute="bottom" secondItem="jHz-uj-av0" secondAttribute="bottom" priority="250" constant="-577" id="5fb-m1-mhq"/>
+                            <constraint firstItem="jHz-uj-av0" firstAttribute="top" secondItem="AWR-IZ-uHO" secondAttribute="top" constant="32" id="BLB-6R-Y4f"/>
                             <constraint firstAttribute="trailing" secondItem="jHz-uj-av0" secondAttribute="trailing" constant="16" id="QAs-rn-xAH"/>
-                            <constraint firstItem="jHz-uj-av0" firstAttribute="centerY" secondItem="DQv-G9-Xiy" secondAttribute="centerY" priority="750" constant="-0.5" id="XFX-vL-g8G"/>
-                            <constraint firstItem="jHz-uj-av0" firstAttribute="centerY" secondItem="DQv-G9-Xiy" secondAttribute="centerY" priority="700" constant="-0.5" id="baj-V7-Ubo"/>
-                            <constraint firstItem="jHz-uj-av0" firstAttribute="height" secondItem="DQv-G9-Xiy" secondAttribute="height" multiplier="0.683658" constant="64.000113999999996" id="che-U1-Qyo"/>
+                            <constraint firstItem="jHz-uj-av0" firstAttribute="centerY" secondItem="DQv-G9-Xiy" secondAttribute="centerY" priority="750" constant="-9" id="XFX-vL-g8G"/>
+                            <constraint firstItem="jHz-uj-av0" firstAttribute="centerY" secondItem="DQv-G9-Xiy" secondAttribute="centerY" priority="700" constant="-9" id="baj-V7-Ubo"/>
+                            <constraint firstItem="jHz-uj-av0" firstAttribute="height" secondItem="DQv-G9-Xiy" secondAttribute="height" multiplier="0.683658" constant="89.000113999999996" id="che-U1-Qyo"/>
                             <constraint firstItem="jHz-uj-av0" firstAttribute="leading" secondItem="DQv-G9-Xiy" secondAttribute="leading" constant="16" id="kUB-iE-Oqb"/>
                         </constraints>
                     </view>
@@ -574,7 +575,9 @@
                     <connections>
                         <outlet property="actionButton" destination="XvF-qd-UBK" id="71H-EQ-I7w"/>
                         <outlet property="cancelButton" destination="3Oa-qq-zja" id="wAr-KU-7pZ"/>
+                        <outlet property="idCardView" destination="BEB-cP-qL5" id="YK3-87-Nxg"/>
                         <outlet property="loadingSpinner" destination="KdQ-eB-bTe" id="ZOH-Z1-gah"/>
+                        <outlet property="pinCodeStackView" destination="vze-BD-NeE" id="juT-u6-SUE"/>
                         <outlet property="pinTextField" destination="Vzq-EQ-mlu" id="KiH-6d-Jgu"/>
                         <outlet property="pinTextFieldTitleLabel" destination="EWR-C4-SQ4" id="SCt-wI-gow"/>
                         <outlet property="scrollView" destination="Fnm-Fd-GqW" id="juM-8n-YOJ"/>
@@ -761,17 +764,17 @@
                                                 <color key="textColor" name="MoppError"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fCo-6o-vIX">
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fCo-6o-vIX">
                                                 <rect key="frame" x="25" y="269" width="293" height="31"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Remember me" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UZY-ex-JFh" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="6" width="236" height="19"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Remember me" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UZY-ex-JFh" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="6" width="245.5" height="19"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                         <color key="textColor" red="0.45882352939999999" green="0.47058823529999999" blue="0.4823529412" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7QK-Af-BRR">
-                                                        <rect key="frame" x="244" y="0.0" width="51" height="31"/>
+                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="right" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7QK-Af-BRR">
+                                                        <rect key="frame" x="253.5" y="0.0" width="41.5" height="31"/>
                                                     </switch>
                                                 </subviews>
                                             </stackView>

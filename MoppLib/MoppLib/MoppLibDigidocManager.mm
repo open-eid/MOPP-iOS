@@ -1059,8 +1059,7 @@ void parseException(const digidoc::Exception &e) {
                 parseException(e);
                 break;
             }
-
-            if([fileName isEqualToString:[MoppLibDigidocManager sanitize:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]]) {
+            if ([self isContainerFileSaveable:containerPath saveDataFile:fileName]) {
                 dataFile->saveAs(path.UTF8String);
                 success();
                 break;
@@ -1069,7 +1068,32 @@ void parseException(const digidoc::Exception &e) {
     } else {
         failure([MoppLibError generalError]);
     }
+}
 
+- (BOOL)isContainerFileSaveable:(NSString *)containerPath saveDataFile:(NSString *)fileName {
+    std::unique_ptr<digidoc::Container> doc;
+    try {
+        doc = digidoc::Container::openPtr(containerPath.UTF8String);
+    } catch(const digidoc::Exception &e) {
+        parseException(e);
+    }
+
+    if (doc != nil) {
+        for (int i = 0; i < doc->dataFiles().size(); i++) {
+            digidoc::DataFile *dataFile;
+            try {
+                dataFile = doc->dataFiles().at(i);
+            } catch (const digidoc::Exception &e) {
+                parseException(e);
+                break;
+            }
+
+            if ([fileName isEqualToString:[MoppLibDigidocManager sanitize:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]]) {
+                return TRUE;
+            }
+        }
+    }
+    return FALSE;
 }
 
 - (NSString *)digidocVersion {

@@ -25,6 +25,7 @@ import Foundation
 
 protocol ContainerFoundAddresseeCellDelegate : AnyObject {
     func addAddresseeToSelectedArea(index: Int, completionHandler: @escaping () -> Void)
+    func addAllAddresseesToSelectedArea(addressees: [Addressee])
 }
 
 

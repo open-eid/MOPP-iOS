@@ -46,6 +46,7 @@ class SettingsDefaultValueCell: UITableViewCell {
 
     func updateUI() {
         let useDefault = DefaultsHelper.rpUuid.isEmpty && DefaultsHelper.timestampUrl == nil
+        useDefaultTitleLabel.isAccessibilityElement = false
         useDefaultSwitch.isOn = useDefault
         useDefaultTitleLabel.text = L(.settingsTimestampUseDefaultTitle)
         useDefaultSwitch.accessibilityLabel = useDefaultTitleLabel.text

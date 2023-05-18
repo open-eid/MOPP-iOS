@@ -368,6 +368,7 @@
 "diagnostics-libraries-label" = "Libraries:";
 "diagnostics-rpuuid-default" = "is set by default";
 "diagnostics-rpuuid-custom" = "is set manually";
+"diagnostics-tsl-cache-label" = "TSL cache:";
 "about-title" = "Info";
 "jailbreak-message" = "This app cannot be used in jailbroken device";
 "datafile-preview-failed" = "Error opening document for preview";
@@ -457,3 +458,37 @@
 "accessibility-introduction-screen-magnification-tools" = "Screen magnification tools:";
 "accessibility-introduction-screen-magnification-tools-ios" = "Zoom (iOS, built in) https://support.apple.com/en-gb/guide/iphone/iph3e2e367e/ios";
 "accessibility-introduction-screen-magnification-tools-android" = "Magnification (Android, built in) https://support.google.com/accessibility/android/answer/6006949?hl=en";
+
+// Voice Commands (English only)
+"voice-control-choose-file" = "Choose file";
+"voice-control-tab-my-eid" = "My EID";
+"voice-control-tab-crypto" = "Crypto";
+"voice-control-tab-signature" = "Signature";
+"voice-control-tab-share" = "Share";
+"voice-control-tab-sign" = "Sign";
+"voice-control-close" = "Close";
+"voice-control-search" = "Search";
+"voice-control-file-row" = "File";
+"voice-control-signing-service" = "Signing service";
+"voice-control-timestamping-service" = "TimeStamping service";
+"voice-control-enable-log-generation" = "Enable log generation";
+"voice-control-disable-log-generation" = "Disable log generation";
+"voice-control-estonian-language" = "Estonian language";
+"voice-control-english-language" = "English language";
+"voice-control-russian-language" = "Russian language";
+"voice-control-clear-text" = "Clear text";
+"voice-control-change-container-name" = "Change container name";
+"voice-control-add-files" = "Add files";
+"voice-control-save-file" = "Save file";
+"voice-control-remove-file" = "Remove file";
+"voice-control-mobile-id" = "Mobile-ID";
+"voice-control-smart-id" = "Smart-ID";
+"voice-control-id-card" = "ID-Card";
+"voice-control-phone-number" = "Phone number";
+"voice-control-country" = "Country";
+"voice-control-signature" = "Signature";
+"voice-control-container-timestamp" = "Container timestamp";
+"voice-control-timestamp" = "Timestamp";
+"voice-control-remove-signature" = "Remove signature";
+"voice-control-pin1-field" = "PIN1 code";
+"voice-control-pin2-field" = "PIN2 code";

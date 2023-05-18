@@ -26,6 +26,7 @@ import Foundation
 class SearchField: ScaledTextField {
     
     var onSearchIconTapped: (() -> Void)?
+    var onClearButtonTapped: (() -> Void)?
     
     let clearButton = UIButton(type: .custom)
     
@@ -57,6 +58,7 @@ class SearchField: ScaledTextField {
         clearButton.addTarget(self, action: #selector(clearText), for: .touchUpInside)
         clearButton.frame = CGRect(x: -iconMargin, y: 0, width: iconSize.height, height: iconSize.height)
         clearButton.tintColor = .lightGray
+        clearButton.isAccessibilityElement = true
         rightView = clearButton
         rightViewMode = .whileEditing
     }
@@ -76,6 +78,6 @@ class SearchField: ScaledTextField {
     }
     
     @objc func clearText() {
-        text = ""
+        onClearButtonTapped?()
     }
 }

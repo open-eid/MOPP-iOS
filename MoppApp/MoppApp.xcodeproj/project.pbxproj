@@ -340,6 +340,7 @@
 		DF13562E2902018A00F61823 /* MoppApp+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF13562D2902018A00F61823 /* MoppApp+Additions.swift */; };
 		DF135630290201A100F61823 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13562F290201A100F61823 /* ExternalAccessory.framework */; };
 		DF135631290201AD00F61823 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13562F290201A100F61823 /* ExternalAccessory.framework */; };
+		DF17ABCE29C0F86E009711DF /* BarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF17ABCD29C0F86E009711DF /* BarButton.swift */; };
 		DF26DC8326CD45670073ABA7 /* SivaUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF26DC8226CD45670073ABA7 /* SivaUtil.swift */; };
 		DF32A67B29096B7100AE5F82 /* LogFileGenerating.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A67A29096B7100AE5F82 /* LogFileGenerating.swift */; };
 		DF32A67D2909B20C00AE5F82 /* AlertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A67C2909B20C00AE5F82 /* AlertUtil.swift */; };
@@ -355,6 +356,7 @@
 		DF4B841A2840F8FC005CB875 /* CertificateDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4B84192840F8FC005CB875 /* CertificateDetailsCell.swift */; };
 		DF4B841E284417CD005CB875 /* CertificateDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4B841D284417CD005CB875 /* CertificateDetail.swift */; };
 		DF51499E29E98127008AB161 /* ScaledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF51499D29E98127008AB161 /* ScaledTextField.swift */; };
+		DF53DCEA2A0A9D8A00F5DAF6 /* NotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF53DCE92A0A9D8A00F5DAF6 /* NotificationMessage.swift */; };
 		DF6299122664FEFE00E6C55E /* UrlSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */; };
 		DF7F611926399B5400747B7D /* ContainerRemovalActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */; };
 		DF8A948A29AFD11A004F6E4B /* CharacterSet+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8A948929AFD11A004F6E4B /* CharacterSet+Additions.swift */; };
@@ -662,6 +664,7 @@
 		DF0C2B3E29150EAB007E1745 /* ScaledLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledLabel.swift; sourceTree = "<group>"; };
 		DF13562D2902018A00F61823 /* MoppApp+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoppApp+Additions.swift"; sourceTree = "<group>"; };
 		DF13562F290201A100F61823 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		DF17ABCD29C0F86E009711DF /* BarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButton.swift; sourceTree = "<group>"; };
 		DF26DC8226CD45670073ABA7 /* SivaUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SivaUtil.swift; sourceTree = "<group>"; };
 		DF32A67A29096B7100AE5F82 /* LogFileGenerating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFileGenerating.swift; sourceTree = "<group>"; };
 		DF32A67C2909B20C00AE5F82 /* AlertUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertUtil.swift; sourceTree = "<group>"; };
@@ -676,9 +679,11 @@
 		DF4B84192840F8FC005CB875 /* CertificateDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateDetailsCell.swift; sourceTree = "<group>"; };
 		DF4B841D284417CD005CB875 /* CertificateDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateDetail.swift; sourceTree = "<group>"; };
 		DF51499D29E98127008AB161 /* ScaledTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaledTextField.swift; sourceTree = "<group>"; };
+		DF53DCE92A0A9D8A00F5DAF6 /* NotificationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationMessage.swift; sourceTree = "<group>"; };
 		DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSchemeHandler.swift; sourceTree = "<group>"; };
 		DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerRemovalActions.swift; sourceTree = "<group>"; };
 		DF8A948929AFD11A004F6E4B /* CharacterSet+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Additions.swift"; sourceTree = "<group>"; };
+		DF8A948B29B8D04A004F6E4B /* ScaledTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledTextField.swift; sourceTree = "<group>"; };
 		DF8EFB19287498B900A96DE3 /* SettingsDefaultValueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsDefaultValueCell.swift; sourceTree = "<group>"; };
 		DF900C94238567CA00887385 /* tslFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = tslFiles.bundle; sourceTree = "<group>"; };
 		DF97A51029DC8CAB006FB917 /* ContainerAddAllButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerAddAllButtonCell.swift; sourceTree = "<group>"; };
@@ -936,6 +941,7 @@
 				DF4B841D284417CD005CB875 /* CertificateDetail.swift */,
 				DFAFD38529E8794200377EF5 /* SearchField.swift */,
 				DF97A51029DC8CAB006FB917 /* ContainerAddAllButtonCell.swift */,
+				DF53DCE92A0A9D8A00F5DAF6 /* NotificationMessage.swift */,
 			);
 			name = Container;
 			sourceTree = "<group>";
@@ -1122,6 +1128,7 @@
 			children = (
 				DF0C2B3E29150EAB007E1745 /* ScaledLabel.swift */,
 				DFD8BEF4291C432400FE8F07 /* ScaledButton.swift */,
+				DF17ABCD29C0F86E009711DF /* BarButton.swift */,
 				DF51499D29E98127008AB161 /* ScaledTextField.swift */,
 			);
 			name = "Custom classes";
@@ -1930,6 +1937,7 @@
 				C593D9E8208F1986000B3BF6 /* SettingsViewController.swift in Sources */,
 				C54EA6E520444EC90039AC78 /* TokenFlowSelectionViewController.swift in Sources */,
 				DFF3C3B32332314A0079458A /* SignatureVerifier.swift in Sources */,
+				DF17ABCE29C0F86E009711DF /* BarButton.swift in Sources */,
 				C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */,
 				C58FCD5D206505D500FE3B57 /* MyeIDInfoViewController.swift in Sources */,
 				DFDF02BE241EB5D3006CF443 /* SessionCertificate.swift in Sources */,
@@ -2021,6 +2029,7 @@
 				DFAFD38629E8794200377EF5 /* SearchField.swift in Sources */,
 				C51B7FB51FBB2AB10046D6E0 /* Utils.swift in Sources */,
 				C50DCD131FCC4D3000D48E16 /* UIView+Additions.swift in Sources */,
+				DF53DCEA2A0A9D8A00F5DAF6 /* NotificationMessage.swift in Sources */,
 				C537AE542004C29E009037E5 /* MobileIDEditViewController.swift in Sources */,
 				3921CAA520B5A24A00BF3178 /* CryptoContainerViewController.swift in Sources */,
 				C50DCCCB1FC32A3E00D48E16 /* SigningViewController.swift in Sources */,

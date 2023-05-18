@@ -1,5 +1,5 @@
 //
-//  MenuHeaderCell.swift
+//  BarButton.swift
 //  MoppApp
 //
 /*
@@ -20,22 +20,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-protocol MenuHeaderDelegate: AnyObject {
-    func menuHeaderDismiss()
-}
 
-class MenuHeaderCell : UITableViewCell {
-    weak var delegate: MenuHeaderDelegate!
-    
-    @IBOutlet weak var menuCloseButton: UIButton!
-    
-    @IBAction func dismissAction() {
-        delegate.menuHeaderDismiss()
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        menuCloseButton.accessibilityLabel = L(.menuClose)
-        menuCloseButton.accessibilityUserInputLabels = [L(.voiceControlClose)]
+import Foundation
+
+class BarButton: UIBarButtonItem {
+    override func accessibilityElementDidBecomeFocused() {
+        UIAccessibility.post(notification: .screenChanged, argument: self)
     }
 }

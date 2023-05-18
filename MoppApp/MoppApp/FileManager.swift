@@ -238,7 +238,9 @@ class MoppFileManager {
         guard let tempDir: URL = tempFilesDirectory else { printLog("Failed to get \(tempFilesDirectory?.lastPathComponent ?? "requested") directory"); completionHandler(false, nil); return }
         let saveFileForCdocLocation: String = tempDir.appendingPathComponent(fileName).path
         
-        if URL(fileURLWithPath: containerPath).pathExtension.isAsicContainerExtension {
+        let fileExtension = URL(fileURLWithPath: containerPath).pathExtension
+        
+        if fileExtension.isAsicContainerExtension {
             MoppLibContainerActions.sharedInstance()?.container(containerPath, saveDataFile: fileName, to: saveTempFileToLocation, success: {
                 printLog("Successfully saved \(fileName) to 'Saved Files' directory")
                 completionHandler(true, saveTempFileToLocation)

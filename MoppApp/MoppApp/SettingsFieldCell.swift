@@ -46,7 +46,10 @@ class SettingsFieldCell: UITableViewCell {
         }
         titleLabel.isAccessibilityElement = false
         textField.accessibilityLabel = L(.settingsRpUuidTitle)
-        self.accessibilityElements = [fieldUITextfield]
+        textField.accessibilityUserInputLabels = [L(.voiceControlSigningService)]
+        if UIAccessibility.isVoiceOverRunning {
+            self.accessibilityElements = [fieldUITextfield]
+        }
     }
     
     func populate(with field:SettingsViewController.Field) {
