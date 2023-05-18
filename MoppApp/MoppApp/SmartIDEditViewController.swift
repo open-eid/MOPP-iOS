@@ -82,9 +82,11 @@ class SmartIDEditViewController : MoppViewController {
 
         countryLabel.isAccessibilityElement = false
         idCodeLabel.isAccessibilityElement = false
+        rememberLabel.isAccessibilityElement = false
 
         countryTextField.accessibilityLabel = L(.smartIdCountryTitle)
         idCodeTextField.accessibilityLabel = L(.signingIdcodeTitle)
+        rememberSwitch.accessibilityLabel = rememberLabel.text
 
         idCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         idCodeTextField.layer.borderWidth = 1.0

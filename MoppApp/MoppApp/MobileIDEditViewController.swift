@@ -80,10 +80,11 @@ class MobileIDEditViewController : MoppViewController {
 
         phoneLabel.isAccessibilityElement = false
         idCodeLabel.isAccessibilityElement = false
+        rememberLabel.isAccessibilityElement = false
 
         phoneTextField.accessibilityLabel = L(.mobileIdPhoneTitle)
         idCodeTextField.accessibilityLabel = L(.signingIdcodeTitle)
-
+        rememberSwitch.accessibilityLabel = rememberLabel.text
 
         phoneNumberErrorLabel.text = ""
         phoneNumberErrorLabel.isHidden = true
