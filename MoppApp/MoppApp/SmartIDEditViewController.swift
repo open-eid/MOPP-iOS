@@ -325,18 +325,6 @@ extension SmartIDEditViewController : UITextFieldDelegate {
         }
         return true
     }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if #available(iOS 14.0, *) {
-            if GCKeyboard.coalesced != nil {
-                self.idCodeTextField.keyboardType = .numbersAndPunctuation
-            } else {
-                self.idCodeTextField.keyboardType = .numberPad
-            }
-        } else {
-            self.idCodeTextField.keyboardType = .numberPad
-        }
-    }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.accessibilityIdentifier == "smartIDCodeField" {
