@@ -113,8 +113,19 @@ extension UIViewController {
         label.tag = invisibleElementTag
         label.accessibilityIdentifier = invisibleElementAccessibilityIdentifier
 
-        label.isHidden = true
-        label.isAccessibilityElement = false
+        if DefaultsHelper.isDebugMode {
+            label.isHidden = false
+            label.isAccessibilityElement = false
+            label.alpha = 0.001
+            label.isUserInteractionEnabled = true
+            label.isEnabled = true
+        } else {
+            label.isHidden = true
+            label.isAccessibilityElement = false
+            label.alpha = 0.0
+            label.isUserInteractionEnabled = false
+            label.isEnabled = false
+        }
         
         let usedView = customView ?? view
         

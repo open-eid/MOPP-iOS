@@ -515,12 +515,6 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         }
     }
 
-    private func setDebugMode(value: Bool) -> Void {
-        let defaults = UserDefaults.standard
-        defaults.set(value, forKey: "isDebugMode")
-        defaults.synchronize()
-    }
-
     private func showErrorMessage(title: String, message: String) {
         guard let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow }), let topViewController = keyWindow.rootViewController?.getTopViewController() else {
             return
