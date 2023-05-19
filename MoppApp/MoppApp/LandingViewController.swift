@@ -312,6 +312,7 @@ extension LandingViewController {
             case "encryptButton":
                 view.accessibilityLabel = L(.tabEncryptButtonAccessibility)
                 view.accessibilityTraits = UIAccessibilityTraits.button
+                view.accessibilityUserInputLabels = [L(.voiceControlTabEncrypt)]
                 break
             case "decryptButton":
                 if buttonIDs.contains(TabButtonId.decryptButton) && buttonIDs.contains(TabButtonId.shareButton) {
@@ -320,10 +321,12 @@ extension LandingViewController {
                     view.accessibilityLabel = L(.tabDecryptButton)
                 }
                 view.accessibilityTraits = UIAccessibilityTraits.button
+                view.accessibilityUserInputLabels = [L(.voiceControlTabDecrypt)]
                 break
             case "confirmButton":
                 view.accessibilityLabel = L(.tabConfirmButton)
                 view.accessibilityTraits = UIAccessibilityTraits.button
+                view.accessibilityUserInputLabels = [L(.voiceControlTabConfirm)]
                 break
             default:
                 break
