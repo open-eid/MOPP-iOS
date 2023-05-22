@@ -37,9 +37,7 @@ class SignatureWarningsCell: UITableViewCell {
     var isDetailsHidden = true
     
     @IBAction func toggleTechnicalInformationInfo(_ sender: ScaledButton) {
-        setTechnicalInformation()
-        self.contentView.layoutIfNeeded()
-        onTechnicalInformationButtonTapped?()
+        updateTechnicalInformationView()
     }
     
     var technicalInformation: WarningDetail?
@@ -67,7 +65,7 @@ class SignatureWarningsCell: UITableViewCell {
             }
             
             let tapGR = UITapGestureRecognizer()
-            tapGR.addTarget(self, action: #selector(setTechnicalInformation))
+            tapGR.addTarget(self, action: #selector(updateTechnicalInformationView))
             detailsStackView.addGestureRecognizer(tapGR)
         } else {
             detailsStackView.isHidden = true
@@ -92,7 +90,13 @@ class SignatureWarningsCell: UITableViewCell {
         }
     }
     
-    @objc func setTechnicalInformation() {
+    @objc func updateTechnicalInformationView() {
+        setTechnicalInformation()
+        self.contentView.layoutIfNeeded()
+        onTechnicalInformationButtonTapped?()
+    }
+    
+    func setTechnicalInformation() {
         setWarningDetails()
         technicalInformationButton.setTitle(L(.containerSignatureTechnicalInformationButton))
         if warningsDetails.isHidden {
