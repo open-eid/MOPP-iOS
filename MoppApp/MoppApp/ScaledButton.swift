@@ -24,6 +24,8 @@ import Foundation
 
 class ScaledButton: UIButton {
     
+    override var canBecomeFocused: Bool { true }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         scaleButton()
@@ -35,6 +37,8 @@ class ScaledButton: UIButton {
     }
     
     func scaleButton() {
+        self.isAccessibilityElement = true
+
         if UIAccessibility.isBoldTextEnabled {
             self.titleLabel?.font = FontUtil.boldFont(font: self.titleLabel?.font ?? UIFont(name: "Roboto-Bold", size: 16) ?? UIFont())
         } else {
@@ -62,9 +66,7 @@ class ScaledButton: UIButton {
     }
     
     override func accessibilityElementDidBecomeFocused() {
-        let accessibilityIdentifier = self.accessibilityIdentifier
-        if accessibilityIdentifier == "IdCardCancelButton" || accessibilityIdentifier == "IdCardActionButton" {
-            NotificationCenter.default.post(name: .hideKeyboardAccessibility, object: nil, userInfo: ["view": self])
-        }
+        NotificationCenter.default.post(name: .hideKeyboardAccessibility, object: nil, userInfo: ["view": self])
+        self.becomeFirstResponder()
     }
 }

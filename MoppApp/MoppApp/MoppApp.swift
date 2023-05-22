@@ -143,7 +143,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             // Get remote configuration
             SettingsConfiguration().getCentralConfiguration()
 
-            TSLUpdater().checkForTSLUpdates()
+            TSLUpdater.checkForTSLUpdates()
 
             let notification = Notification(name: .configurationLoaded)
             NotificationCenter.default.post(notification)

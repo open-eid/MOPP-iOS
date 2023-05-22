@@ -25,6 +25,9 @@ import Foundation
 
 
 extension UITableView {
+
+    open override var canBecomeFocused: Bool { true }
+    
     func dequeueReusableCell<T: UITableViewCell>(withType: T.Type, for indexPath: IndexPath) -> T? {
         return dequeueReusableCell(withIdentifier: String(describing: T.self), for: indexPath) as? T
     }

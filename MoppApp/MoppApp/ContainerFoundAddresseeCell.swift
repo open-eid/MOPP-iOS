@@ -25,6 +25,7 @@ import Foundation
 
 protocol ContainerFoundAddresseeCellDelegate : AnyObject {
     func addAddresseeToSelectedArea(index: Int, completionHandler: @escaping () -> Void)
+    func addAllAddresseesToSelectedArea(addressees: [Addressee])
 }
 
 
@@ -32,6 +33,8 @@ class ContainerFoundAddresseeCell: UITableViewCell, AddresseeActions {
     
     static let height: CGFloat = 58
     
+    @IBOutlet weak var addresseeMainStackView: UIStackView!
+    @IBOutlet weak var addresseeSubStackView: UIStackView!
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var bottomBorderView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -49,6 +52,9 @@ class ContainerFoundAddresseeCell: UITableViewCell, AddresseeActions {
     
     func populate(addressee: Addressee, index: Int, isAddButtonDisabled: Bool) {
         self.index = index
+        
+        addresseeMainStackView.isAccessibilityElement = false
+        addresseeSubStackView.isAccessibilityElement = false
 
         nameLabel.text = determineName(addressee: addressee)
         infoLabel.text = determineInfo(addressee: addressee)
@@ -61,6 +67,7 @@ class ContainerFoundAddresseeCell: UITableViewCell, AddresseeActions {
             addButton.isEnabled = true
             addButton.setTitle(L(LocKey.cryptoAddAddresseeButtonTitle))
             addButton.accessibilityLabel = L(.cryptoAddAddresseeButtonTitleAccessibility).lowercased()
+            addButton.accessibilityUserInputLabels = ["\(L(.cryptoAddAddresseeButtonTitleAccessibility).lowercased()) \(index + 1)"]
             addButton.tintColor = UIColor.moppBase
         }        
     }

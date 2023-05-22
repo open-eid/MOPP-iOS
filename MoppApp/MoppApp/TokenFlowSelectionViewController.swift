@@ -20,6 +20,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
+import UIKit
+
 class TokenFlowSelectionViewController : MoppViewController {
     @IBOutlet weak var centerViewCenterCSTR: NSLayoutConstraint!
     @IBOutlet weak var centerViewOutofscreenCSTR: NSLayoutConstraint!
@@ -32,6 +35,8 @@ class TokenFlowSelectionViewController : MoppViewController {
     @IBOutlet weak var smartIDButton: UIButton!
     @IBOutlet weak var idCardButton: UIButton!
     
+    @IBOutlet weak var tokenViewContainerTopConstraint: NSLayoutConstraint!
+    
     var isFlowForDecrypting = false
     weak var mobileIdEditViewControllerDelegate: MobileIDEditViewControllerDelegate!
     weak var smartIdEditViewControllerDelegate: SmartIDEditViewControllerDelegate!
@@ -43,6 +48,9 @@ class TokenFlowSelectionViewController : MoppViewController {
     var isSwitchingBlockedByTransition: Bool = false
     
     var viewAccessibilityElements: [UIView] = []
+    
+    var deviceOrientation: UIDeviceOrientation = .portrait
+    var topConstraintKeyboardShown = -56
     
     enum TokenFlowMethodButtonID: String {
         case mobileID
@@ -75,6 +83,8 @@ class TokenFlowSelectionViewController : MoppViewController {
         
         handleConstraintInLandscape()
         
+        deviceOrientation = UIDevice.current.orientation
+        
         view.layoutIfNeeded()
         
         UIView.animate(withDuration: 0.35, delay: 0.0, options: .curveEaseOut, animations: {
@@ -97,14 +107,41 @@ class TokenFlowSelectionViewController : MoppViewController {
             case .idCard:
                 $0.setTitle(L(.signTitleIdCard))
                 idCardButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleIdCard), positionInRow: "3", viewCount: "3")
+                idCardButton.accessibilityUserInputLabels = [L(.voiceControlIdCard)]
             case .mobileID:
                 $0.setTitle(L(.signTitleMobileId))
                 mobileIDButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleMobileId), positionInRow: "1", viewCount: "3")
+                mobileIDButton.accessibilityUserInputLabels = [L(.voiceControlMobileId)]
             case .smartID:
                 $0.setTitle(L(.signTitleSmartId))
                 smartIDButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleSmartId), positionInRow: "2", viewCount: "3")
+                smartIDButton.accessibilityUserInputLabels = [L(.voiceControlSmartId)]
             }
         }
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        
+        deviceOrientation = UIDevice.current.orientation
+    }
+    
+    // Hide token flow methods so that small screens can enter text to textfields when in landscape orientation
+    override func keyboardWillShow(notification: NSNotification) {
+        if deviceOrientation == .landscapeLeft || deviceOrientation == .landscapeRight || deviceOrientation == .faceUp {
+            handleLandscapeKeyboard(hideTokenNavbar: true, topConstraintConstant: CGFloat(topConstraintKeyboardShown))
+        }
+    }
+    
+    override func keyboardWillHide(notification: NSNotification) {
+        handleLandscapeKeyboard(hideTokenNavbar: false, topConstraintConstant: 0)
+    }
+    
+    private func handleLandscapeKeyboard(hideTokenNavbar: Bool, topConstraintConstant: CGFloat) {
+        tokenNavbar.isHidden = hideTokenNavbar
+        tokenViewContainerTopConstraint.constant = topConstraintConstant
+        self.view.setNeedsUpdateConstraints()
+        self.view.layoutIfNeeded()
     }
 }
 
@@ -116,7 +153,7 @@ extension TokenFlowSelectionViewController {
         switch newSignMethod {
         case .idCard:
             let idCardSignVC = UIStoryboard.tokenFlow.instantiateViewController(of: IdCardViewController.self)
-                idCardSignVC.containerPath = containerPath
+            idCardSignVC.containerPath = containerPath
             centerLandscapeCSTR.isActive = false
             if isFlowForDecrypting {
                 idCardSignVC.isActionDecryption = true
@@ -130,19 +167,21 @@ extension TokenFlowSelectionViewController {
         case .mobileID:
             let mobileIdEditVC = UIStoryboard.tokenFlow.instantiateViewController(of: MobileIDEditViewController.self)
             handleConstraintInLandscape()
-                mobileIdEditVC.delegate = mobileIdEditViewControllerDelegate
+            mobileIdEditVC.delegate = mobileIdEditViewControllerDelegate
             newViewController = mobileIdEditVC
             viewAccessibilityElements = [mobileIDButton, containerView, smartIDButton, idCardButton, containerView]
         case .smartID:
             let smartIdEditVC = UIStoryboard.tokenFlow.instantiateViewController(of: SmartIDEditViewController.self)
             handleConstraintInLandscape()
-                smartIdEditVC.delegate = smartIdEditViewControllerDelegate
+            smartIdEditVC.delegate = smartIdEditViewControllerDelegate
             newViewController = smartIdEditVC
             viewAccessibilityElements = [smartIDButton, containerView, idCardButton, mobileIDButton, smartIDButton, containerView]
         }
         
-        self.view.accessibilityElements = viewAccessibilityElements
-        newViewController.accessibilityElements = viewAccessibilityElements
+        if UIAccessibility.isVoiceOverRunning {
+            self.view.accessibilityElements = viewAccessibilityElements
+            newViewController.accessibilityElements = viewAccessibilityElements
+        }
         
         oldViewController?.willMove(toParent: nil)
         addChild(newViewController)

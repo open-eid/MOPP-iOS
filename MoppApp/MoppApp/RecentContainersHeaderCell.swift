@@ -37,6 +37,7 @@ class RecentContainersHeaderCell : UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        dismissButton.isAccessibilityElement = true
         dismissButton.setTitle(L(.closeButton))
     }
 }

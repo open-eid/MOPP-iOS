@@ -26,6 +26,7 @@ import Foundation
 struct FileUtil {
     
     static let fileNamePrefix = "newFile"
+    static let defaultFileExtension = "txt"
     
     static func getSignDocumentFileName(containerPath: String) -> String {
         guard !containerPath.isEmpty else { return "" }
@@ -53,5 +54,12 @@ struct FileUtil {
         }
         
         return currentFileName
+    }
+    
+    static func addDefaultExtension(url: URL) -> URL {
+        if !url.pathExtension.isEmpty {
+            return url
+        }
+        return url.appendingPathExtension(defaultFileExtension)
     }
 }

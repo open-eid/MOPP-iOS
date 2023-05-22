@@ -26,6 +26,10 @@ import ASN1Decoder
 
 class SettingsTSACertCell: UITableViewCell {
     
+    @IBOutlet weak var tsaCertStackView: UIStackView!
+    @IBOutlet weak var tsaDataStackView: UIStackView!
+    @IBOutlet weak var tsaCertLabelStackView: UIStackView!
+
     @IBOutlet weak var titleLabel: ScaledLabel!
     
     @IBOutlet weak var issuedToLabel: ScaledLabel!
@@ -70,9 +74,22 @@ class SettingsTSACertCell: UITableViewCell {
         }
     }
     
+    func setAccessibilityElementsInStackView(stackView: UIStackView, isAccessibilityElement: Bool) {
+        for subview in stackView.arrangedSubviews {
+            subview.isAccessibilityElement = isAccessibilityElement
+        }
+    }
+    
     func updateUI() {
         DispatchQueue.main.async {
             self.titleLabel.text = L(.settingsTimestampCertTitle)
+            self.tsaCertStackView.isAccessibilityElement = false
+            self.tsaDataStackView.isAccessibilityElement = false
+            self.tsaCertLabelStackView.isAccessibilityElement = false
+            
+            self.setAccessibilityElementsInStackView(stackView: self.tsaDataStackView, isAccessibilityElement: true)
+            
+            self.setAccessibilityElementsInStackView(stackView: self.tsaCertLabelStackView, isAccessibilityElement: true)
             
             self.issuedToLabel.text = L(.settingsTimestampCertIssuedToLabel)
             self.validUntilLabel.text = L(.settingsTimestampCertValidToLabel)

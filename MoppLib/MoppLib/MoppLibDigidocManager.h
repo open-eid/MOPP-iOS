@@ -54,6 +54,7 @@ typedef enum {
 - (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath error:(NSError **)error;
 - (NSString *)getMoppLibVersion;
 - (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure;
+- (BOOL)isContainerFileSaveable:(NSString *)containerPath saveDataFile:(NSString *)fileName;
 - (NSString *)digidocVersion;
 - (NSString *)moppAppVersion;
 - (NSString *)iOSVersion;

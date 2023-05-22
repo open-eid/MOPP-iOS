@@ -25,6 +25,8 @@ import Foundation
 
 class ScaledTextField: UITextField {
     
+    override var canBecomeFocused: Bool { true }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         scaleFont()
@@ -36,6 +38,7 @@ class ScaledTextField: UITextField {
     }
     
     func scaleFont() {
+        self.isAccessibilityElement = true
         let currentFont = self.font ?? UIFont(name: "Roboto-Bold", size: 16) ?? UIFont()
         if UIAccessibility.isBoldTextEnabled {
             self.font = FontUtil.boldFont(font: currentFont)
@@ -46,6 +49,21 @@ class ScaledTextField: UITextField {
         
         self.adjustsFontForContentSizeCategory = true
         self.adjustsFontSizeToFitWidth = true
+    }
+    
+    @objc func closeKeyboard() {
+        self.resignFirstResponder()
         self.sizeToFit()
+    }
+    
+    override func accessibilityElementDidBecomeFocused() {
+        NotificationCenter.default.post(name: .hideKeyboardAccessibility, object: nil, userInfo: ["view": self])
+    }
+    
+    override func deleteBackward() {
+        guard var currentText = self.text, !currentText.isEmpty else { return }
+        currentText.removeLast()
+        self.text = currentText
+        self.moveCursorToEnd()
     }
 }

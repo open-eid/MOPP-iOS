@@ -32,6 +32,7 @@ class MoppViewController : UIViewController {
         titleImageView.isAccessibilityElement = true
         titleImageView.accessibilityLabel = L(.digidocImageAccessibility)
         titleImageView.accessibilityTraits = [.image]
+        titleImageView.accessibilityUserInputLabels = [""]
         navigationItem.titleView = titleImageView
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -96,7 +97,7 @@ class MoppViewController : UIViewController {
 
         navigationItem.titleView = titleLabel
 
-        let backBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarBack"), style: .plain, target: self, action: #selector(backAction))
+        let backBarButtonItem = BarButton(image: UIImage(named: "navBarBack"), style: .plain, target: self, action: #selector(backAction))
         backBarButtonItem.accessibilityLabel = L(.backButton)
         navigationItem.setLeftBarButton(backBarButtonItem, animated: true)
         if UIAccessibility.isVoiceOverRunning {
@@ -137,5 +138,23 @@ class MoppViewController : UIViewController {
 
     func hideKeyboard(scrollView: UIScrollView) {
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    }
+    
+    func getViewByAccessibilityIdentifier(view: UIView, identifier: String) -> UITextField? {
+        for subView in view.subviews {
+            if let scrollView = subView as? UIScrollView {
+                for subSubView in scrollView.subviews {
+                    if subSubView.isKind(of: UIView.self) {
+                        for subTextField in subSubView.subviews {
+                            if let textField = subTextField as? UITextField, textField.accessibilityIdentifier == identifier {
+                                return textField
+                            }
+                        }
+                    }
+                }
+                
+            }
+        }
+        return nil
     }
 }
