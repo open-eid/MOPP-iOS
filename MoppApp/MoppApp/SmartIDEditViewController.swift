@@ -19,7 +19,6 @@
  */
 
 import Foundation
-import GameController
 
 protocol SmartIDEditViewControllerDelegate : AnyObject {
     func smartIDEditViewControllerDidDismiss(cancelled: Bool, country: String?, idCode: String?)

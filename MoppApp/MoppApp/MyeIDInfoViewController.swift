@@ -88,31 +88,9 @@ class MyeIDInfoViewController: MoppViewController {
                 cell.setAccessibilityFocusOnButton(actionButton: nil, cellKind: self.infoManager.actionKind)
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                    self.view.accessibilityElements = nil
                     self.isCancelMessageAnnounced = false
                     self.setAccessibility(isElement: true)
                     self.ui.tableView.accessibilityElementsHidden = false
-//                    LandingViewController.shared.navigationController?.accessibilityElementsHidden = false
-//                    self.navigationController?.accessibilityElementsHidden = false
-//                    LandingViewController.shared.buttonBarView.accessibilityElementsHidden = false
-//                    LandingViewController.shared.buttonBarView.isAccessibilityElement = false
-                    
-//                    var allCells: [UITableViewCell] = []
-//
-//                    for section in 0..<self.ui.tableView.numberOfSections {
-//                        for row in 0..<self.ui.tableView.numberOfRows(inSection: section) {
-//                            if let cell = self.ui.tableView.cellForRow(at: IndexPath(row: row, section: section)) {
-//                                for subview in cell.subviews {
-////                                    if !subview.isKind(of: UIView.self) {
-//                                        subview.isAccessibilityElement = true
-////                                    }
-//                                }
-//                                cell.isAccessibilityElement = false
-//                                allCells.append(cell)
-//                            }
-//                        }
-//                    }
-//                    self.view.accessibilityElements = [allCells]
                 }
             }
         }
@@ -167,31 +145,16 @@ class MyeIDInfoViewController: MoppViewController {
         if UIAccessibility.isVoiceOverRunning && !initialLoadingComplete {
             UIAccessibility.post(notification: .screenChanged, argument: ui.tableView)
         } else if UIAccessibility.isVoiceOverRunning && !isInitializedWithBackButton {
-//            DispatchQueue.main.async {
-//                self.view.isAccessibilityElement = false
-//                self.ui.tableView.isAccessibilityElement = false
-                self.setAccessibility(isElement: false)
-                let label = UILabel()
-//                self.view.accessibilityElements = [
-//                    label
-//                ]
-                self.ui.tableView.accessibilityElementsHidden = true
+            self.setAccessibility(isElement: false)
+            self.ui.tableView.accessibilityElementsHidden = true
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                 self.setAccessibility(isElement: true)
             }
-//                LandingViewController.shared.navigationController?.accessibilityElementsHidden = true
-//                self.navigationController?.accessibilityElementsHidden = true
-//
-//                LandingViewController.shared.buttonBarView.accessibilityElementsHidden = true
-//                LandingViewController.shared.buttonBarView.isAccessibilityElement = true
-//            }
         }
         
         self.isInitializedWithBackButton = false
         ui.tableView.reloadData()
-//        self.view.isAccessibilityElement = true
-//        self.ui.tableView.isAccessibilityElement = true
     }
     
     @objc func handleBackButtonPressed() {
@@ -264,22 +227,10 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
             if UIAccessibility.isVoiceOverRunning && infoManager.actionKind != nil && !isCancelMessageAnnounced {
                 let label = UILabel()
                 if (infoManager.actionKind == .changePin1 || infoManager.actionKind == .unblockPin1) && cell.kind == .pin1 {
-//                    self.view.accessibilityElements = [
-//                        label,
-//                        cell.button!
-//                    ]
                     cancelMessage(cell: cell)
                 } else if (infoManager.actionKind == .changePin2 || infoManager.actionKind == .unblockPin2) && cell.kind == .pin2 {
-//                    self.view.accessibilityElements = [
-//                        label,
-//                        cell.button!
-//                    ]
                     cancelMessage(cell: cell)
                 } else if infoManager.actionKind == .changePuk && cell.kind == .puk {
-//                    self.view.accessibilityElements = [
-//                        label,
-//                        cell.button!
-//                    ]
                     cancelMessage(cell: cell)
                 }
             }

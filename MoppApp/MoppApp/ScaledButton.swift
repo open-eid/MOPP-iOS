@@ -24,8 +24,6 @@ import Foundation
 
 class ScaledButton: UIButton {
     
-    override var canBecomeFocused: Bool { true }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         scaleButton()

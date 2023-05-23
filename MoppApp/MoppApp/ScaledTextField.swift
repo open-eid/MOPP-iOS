@@ -25,8 +25,6 @@ import Foundation
 
 class ScaledTextField: UITextField {
     
-    override var canBecomeFocused: Bool { true }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         scaleFont()
