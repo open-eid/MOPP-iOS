@@ -68,6 +68,6 @@ class ScaledButton: UIButton {
     }
     
     func mediumFont() {
-        self.titleLabel?.font = FontUtil.mediumFont(font: self.titleLabel?.font ?? UIFont(name: "Roboto-Medium", size: 16) ?? UIFont())
+        self.titleLabel?.font = FontUtil.mediumFont(font: UIFont(name: "Roboto-Medium", size: 17) ?? UIFont())
     }
 }
