@@ -268,11 +268,7 @@ extension AddresseeViewController : UITableViewDataSource {
                     showRemoveButton: true)
                 cell.accessibilityUserInputLabels = [""]
             
-                if !selectedAddressees.isEmpty {
-                    LandingViewController.shared.presentButtons([.confirmButton])
-                } else {
-                    LandingViewController.shared.presentButtons([])
-                }
+                setConfirmButton(addresses: selectedAddressees)
                 return cell
             case .addAll:
                 let cell = tableView.dequeueReusableCell(withType: ContainerAddAllButtonCell.self, for: indexPath)!
@@ -372,9 +368,7 @@ extension AddresseeViewController : ContainerAddresseeCellDelegate {
         
         selectedAddressees.remove(at: index)
 
-        if selectedAddressees.isEmpty {
-            LandingViewController.shared.presentButtons([])
-        }
+        setConfirmButton(addresses: selectedAddressees)
 
         self.tableView.reloadData()
     }
@@ -398,6 +392,8 @@ extension AddresseeViewController : ContainerFoundAddresseeCellDelegate {
             selectedAddressees.insert(foundAddress, at: 0)
         }
         self.tableView.reloadData()
+        
+        setConfirmButton(addresses: selectedAddressees)
         completionHandler()
     }
     
@@ -416,6 +412,14 @@ extension AddresseeViewController : ContainerFoundAddresseeCellDelegate {
     func addAllAddresseesToSelectedArea(addressees: [Addressee]) {
         for addressee in addressees {
             addAddresseeToSelectedArea(addressee: addressee)
+        }
+    }
+    
+    func setConfirmButton(addresses: [Addressee]) {
+        if !addresses.isEmpty {
+            LandingViewController.shared.presentButtons([.confirmButton])
+        } else {
+            LandingViewController.shared.presentButtons([])
         }
     }
 }
