@@ -99,6 +99,7 @@ class SmartIDEditViewController : MoppViewController {
 
         personalCodeErrorLabel.text = ""
         personalCodeErrorLabel.isHidden = true
+        personalCodeErrorLabel.isAccessibilityElement = false
 
         countryViewPicker.dataSource = self
         countryViewPicker.delegate = self
@@ -115,12 +116,12 @@ class SmartIDEditViewController : MoppViewController {
         view.addGestureRecognizer(tapGR)
 
         if UIAccessibility.isVoiceOverRunning {
-            guard let titleUILabel = titleLabel, let countryUILabel = countryLabel, let countryUITextField = countryTextField, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
-                printLog("Unable to get titleLabel, countryLabel, countryTextField, idCodeLabel, idCodeTextField, rememberLabel, rememberSwitch, cancelButton or signButton")
+            guard let titleUILabel = titleLabel, let countryUILabel = countryLabel, let countryUITextField = countryTextField, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let personalCodeErrorUILabel = personalCodeErrorLabel, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
+                printLog("Unable to get titleLabel, countryLabel, countryTextField, idCodeLabel, idCodeTextField, personalCodeErrorLabel, rememberLabel, rememberSwitch, cancelButton or signButton")
                 return
             }
             
-            view.accessibilityElements = [titleUILabel, countryUILabel, countryUITextField, idCodeUILabel, idCodeUITextField, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
+            self.view.accessibilityElements = [titleUILabel, countryUILabel, countryUITextField, idCodeUILabel, idCodeUITextField, personalCodeErrorUILabel, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
         }
 
         NotificationCenter.default.addObserver(self, selector: #selector(handleAccessibilityKeyboard), name: .hideKeyboardAccessibility, object: nil)
@@ -334,11 +335,13 @@ extension SmartIDEditViewController : UITextFieldDelegate {
                 if TokenFlowUtil.isPersonalCodeInvalid(text: text) {
                     personalCodeErrorLabel.text = L(.signingErrorIncorrectPersonalCode)
                     personalCodeErrorLabel.isHidden = false
+                    personalCodeErrorLabel.isAccessibilityElement = true
                     setViewBorder(view: textField, color: .moppError)
                     UIAccessibility.post(notification: .layoutChanged, argument: self.personalCodeErrorLabel)
                 } else {
                     personalCodeErrorLabel.text = ""
                     personalCodeErrorLabel.isHidden = true
+                    personalCodeErrorLabel.isAccessibilityElement = false
                     removeViewBorder(view: textField)
                     UIAccessibility.post(notification: .layoutChanged, argument: idCodeTextField)
                 }
