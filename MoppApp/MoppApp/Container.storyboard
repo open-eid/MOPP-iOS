@@ -240,6 +240,10 @@
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Allkiri on kehtiv" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yfh-N8-Cag" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="46" y="37.5" width="562" height="19"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" button="YES" staticText="YES"/>
+                                                    </accessibility>
+                                                    <gestureRecognizers/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -401,12 +405,98 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="K2X-qE-QuN">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="100" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="K2X-qE-QuN">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="800"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SignatureWarningsCell" rowHeight="274" id="tPi-Iq-NRy" customClass="SignatureWarningsCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="320" height="274"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tPi-Iq-NRy" id="Czu-HM-PlI">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="274"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gA3-F5-dFu">
+                                                    <rect key="frame" x="16" y="0.0" width="288" height="274"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="NSh-Jv-atj">
+                                                            <rect key="frame" x="16" y="16" width="256" height="157"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XrU-4d-kMC" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="256" height="21.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <textView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Lorem ipsum" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5jE-3V-jmc" customClass="ScaledTextView" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="121.5" width="256" height="35.5"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                    <color key="textColor" systemColor="labelColor"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                                                </textView>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="8dQ-vb-CDm">
+                                                            <rect key="frame" x="16" y="188" width="256" height="70"/>
+                                                            <subviews>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zd3-Ui-XiX">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="256" height="34.5"/>
+                                                                    <subviews>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Accordion_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="V7S-gk-gam">
+                                                                            <rect key="frame" x="0.0" y="10.5" width="9" height="14"/>
+                                                                        </imageView>
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Lq-YO-gzC" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
+                                                                            <rect key="frame" x="19" y="0.0" width="237" height="34.5"/>
+                                                                            <state key="normal" title="Button"/>
+                                                                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                                            <connections>
+                                                                                <action selector="toggleTechnicalInformationInfo:" destination="tPi-Iq-NRy" eventType="touchUpInside" id="tj0-UO-ffP"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                    </subviews>
+                                                                </stackView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KZ3-Yc-Cn6" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="50.5" width="256" height="19.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstItem="NSh-Jv-atj" firstAttribute="top" secondItem="gA3-F5-dFu" secondAttribute="top" constant="16" id="FxG-Tn-V0y"/>
+                                                        <constraint firstItem="8dQ-vb-CDm" firstAttribute="leading" secondItem="gA3-F5-dFu" secondAttribute="leading" constant="16" id="J9K-gw-C4E"/>
+                                                        <constraint firstItem="NSh-Jv-atj" firstAttribute="leading" secondItem="gA3-F5-dFu" secondAttribute="leading" constant="16" id="NoP-Rq-PtH"/>
+                                                        <constraint firstItem="8dQ-vb-CDm" firstAttribute="top" secondItem="NSh-Jv-atj" secondAttribute="bottom" constant="15" id="U1q-vO-gIB"/>
+                                                        <constraint firstAttribute="bottom" secondItem="8dQ-vb-CDm" secondAttribute="bottom" constant="16" id="fjV-3s-ERA"/>
+                                                        <constraint firstAttribute="trailing" secondItem="NSh-Jv-atj" secondAttribute="trailing" constant="16" id="k0b-bW-fhE"/>
+                                                        <constraint firstAttribute="trailing" secondItem="8dQ-vb-CDm" secondAttribute="trailing" constant="16" id="qdC-2I-BH8"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <gestureRecognizers/>
+                                            <constraints>
+                                                <constraint firstItem="gA3-F5-dFu" firstAttribute="top" secondItem="Czu-HM-PlI" secondAttribute="top" id="NdE-OX-3y8"/>
+                                                <constraint firstAttribute="trailing" secondItem="gA3-F5-dFu" secondAttribute="trailing" constant="16" id="V4x-ah-WlZ"/>
+                                                <constraint firstItem="gA3-F5-dFu" firstAttribute="leading" secondItem="Czu-HM-PlI" secondAttribute="leading" constant="16" id="cJn-2a-wLo"/>
+                                                <constraint firstAttribute="bottom" secondItem="gA3-F5-dFu" secondAttribute="bottom" id="jtV-HQ-XnL"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="detailsStackView" destination="zd3-Ui-XiX" id="Rvs-Vd-sXZ"/>
+                                            <outlet property="iconView" destination="V7S-gk-gam" id="Ogu-zv-QXQ"/>
+                                            <outlet property="technicalInformationButton" destination="4Lq-YO-gzC" id="lIB-WY-ZQ2"/>
+                                            <outlet property="warningsDescription" destination="5jE-3V-jmc" id="cMd-GY-UBn"/>
+                                            <outlet property="warningsDetails" destination="KZ3-Yc-Cn6" id="Aaz-gw-xCr"/>
+                                            <outlet property="warningsHeader" destination="XrU-4d-kMC" id="3VS-HQ-5Ib"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SignatureDetailsCell" id="2zs-PN-2mh" customClass="SignatureDetailsCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="320" height="22.5"/>
+                                        <rect key="frame" x="0.0" y="329.5" width="320" height="22.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2zs-PN-2mh" id="rwt-HO-RNZ">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="22.5"/>
@@ -454,10 +544,10 @@
                         <viewLayoutGuide key="safeArea" id="g5c-G2-qft"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="K2X-qE-QuN" firstAttribute="leading" secondItem="g5c-G2-qft" secondAttribute="leading" id="T9D-eR-0AG"/>
-                            <constraint firstItem="K2X-qE-QuN" firstAttribute="top" secondItem="noA-ex-SBD" secondAttribute="top" id="kui-PP-e09"/>
-                            <constraint firstAttribute="bottom" secondItem="K2X-qE-QuN" secondAttribute="bottom" id="ufE-2R-bgd"/>
-                            <constraint firstItem="K2X-qE-QuN" firstAttribute="trailing" secondItem="g5c-G2-qft" secondAttribute="trailing" id="yzh-JJ-eSV"/>
+                            <constraint firstItem="K2X-qE-QuN" firstAttribute="trailing" secondItem="g5c-G2-qft" secondAttribute="trailing" id="ZwZ-rV-irF"/>
+                            <constraint firstItem="K2X-qE-QuN" firstAttribute="top" secondItem="g5c-G2-qft" secondAttribute="top" id="ebC-X3-bzo"/>
+                            <constraint firstItem="K2X-qE-QuN" firstAttribute="bottom" secondItem="g5c-G2-qft" secondAttribute="bottom" id="hFy-5G-5xG"/>
+                            <constraint firstItem="K2X-qE-QuN" firstAttribute="leading" secondItem="g5c-G2-qft" secondAttribute="leading" id="ues-sT-mCh"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title=" " id="VRo-ta-ydq">
@@ -1221,6 +1311,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Accordion_arrow" width="9" height="14"/>
         <image name="IconCryptoSelected" width="22" height="25"/>
         <image name="Icon_Edit" width="17" height="19"/>
         <image name="Icon_ajatempel" width="17" height="17"/>
@@ -1229,6 +1320,9 @@
         <namedColor name="MoppLabelDarker">
             <color red="0.45098039215686275" green="0.45098039215686275" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="separatorColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

@@ -173,6 +173,14 @@
 "container-timestamp-unknown" = "Временной штамп неизвестный";
 "container-timestamp-invalid" = "Временной штамп недействителен";
 
+"container-signature-status-reason-title" = "Предупреждения";
+"container-signature-status-invalid-reason" = "Повреждена подпись или подписанный файл. Данная подпись недействительна.";
+"container-signature-status-warning-reason-weak" = "Подпись технически верна, но так как она основана на слабом на данный момент алгоритме хеширования SHA-1, то не защищена от подделки или изменения.";
+"container-signature-status-warning-reason" = "Подпись действительна, но у контейнера имеется какая-то особенность. Чаще всего, такая особенность возникает при изготовлении контейнеров случайно. Однако поскольку контейнер невозможно изменить без потери действительности подписи, то отображается предупреждение.\nДополнительная информация: https://www.id.ee/ru/artikkel/czifrovoe-podpisanie-i-elektronnye-podpisi/";
+"container-signature-status-nonqscd-reason" = "Эта электронная подпись не эквивалентна рукописной подписи и поэтому может использоваться только в тех случаях, когда не требуется квалифицированная электронная подпись.";
+"container-signature-status-unknown-reason" = "Статус подписи отображается как \"неизвестный\", если на компьютере не установлены необходимые для проверки подписи сертификаты сертифицирующей организации и/или услуги подтверждения действительности.\nДополнительная информация: https://www.id.ee/ru/artikkel/digidoc4-klient-oshibka-ocsp-responder-is-not-trusted-no-certificate-for-this-responder-in-local-certstore";
+"container-signature-technical-information-button" = "ТЕХНИЧЕСКАЯ ИНФОРМАЦИЯ";
+
 // *** Mobile ID Challenge View ***
 
 "challenge-code-label" = "%@";
