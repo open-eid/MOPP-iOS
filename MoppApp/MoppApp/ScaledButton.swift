@@ -50,6 +50,7 @@ class ScaledButton: UIButton {
         self.titleLabel?.lineBreakMode = .byClipping
         self.titleLabel?.minimumScaleFactor = 0.1
         self.titleLabel?.numberOfLines = 1
+        self.titleLabel?.textColor = UIColor.moppBase
         
         self.titleLabel?.sizeToFit()
         self.sizeToFit()
@@ -68,5 +69,9 @@ class ScaledButton: UIButton {
     override func accessibilityElementDidBecomeFocused() {
         NotificationCenter.default.post(name: .hideKeyboardAccessibility, object: nil, userInfo: ["view": self])
         self.becomeFirstResponder()
+    }
+    
+    func mediumFont() {
+        self.titleLabel?.font = FontUtil.mediumFont(font: UIFont(name: "Roboto-Medium", size: 17) ?? UIFont())
     }
 }

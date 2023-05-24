@@ -258,14 +258,14 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsTSACertCell" id="vb7-26-1De" customClass="SettingsTSACertCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="516" width="375" height="161.5"/>
+                                        <rect key="frame" x="0.0" y="516" width="375" height="192"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vb7-26-1De" id="G8q-Qy-eK5">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="161.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="192"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="k8v-bm-Uxj">
-                                                    <rect key="frame" x="16" y="10" width="343" height="151.5"/>
+                                                    <rect key="frame" x="16" y="10" width="343" height="182"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zJd-sR-fMw">
                                                             <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
@@ -295,21 +295,21 @@
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="5MD-En-ZUq">
-                                                            <rect key="frame" x="0.0" y="97" width="343" height="54.5"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="5MD-En-ZUq">
+                                                            <rect key="frame" x="0.0" y="97" width="343" height="85"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HMf-Yz-GBX" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="169" height="54.5"/>
-                                                                    <state key="normal" title="Button"/>
-                                                                    <buttonConfiguration key="configuration" style="plain" title="ADD CERTIFICATE"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="ADD CERTIFICATE"/>
                                                                     <connections>
                                                                         <action selector="addCertificate:" destination="vb7-26-1De" eventType="touchUpInside" id="Fyl-Yr-2CO"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XIl-Lc-tan" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="174" y="0.0" width="169" height="54.5"/>
-                                                                    <state key="normal" title="Button"/>
-                                                                    <buttonConfiguration key="configuration" style="plain" title="SHOW CERTIFICATE"/>
+                                                                    <rect key="frame" x="0.0" y="55" width="343" height="30"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="SHOW CERTIFICATE"/>
                                                                     <connections>
                                                                         <action selector="showCertificate:" destination="vb7-26-1De" eventType="touchUpInside" id="ZPj-nz-Ig9"/>
                                                                     </connections>

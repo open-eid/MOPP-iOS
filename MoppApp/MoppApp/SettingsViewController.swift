@@ -24,6 +24,8 @@ class SettingsViewController: MoppViewController {
     private(set) var timestampUrl: String!
     @IBOutlet weak var tableView: UITableView!
     
+    var isDefaultTimestampValue = true
+    
     enum Section {
         case header
         case fields
@@ -95,6 +97,7 @@ class SettingsViewController: MoppViewController {
         super.viewDidLoad()
         
         timestampUrl = DefaultsHelper.timestampUrl
+        isDefaultTimestampValue = DefaultsHelper.defaultSettingsSwitch
     }
 
     
@@ -198,6 +201,9 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             return headerCell
         case .fields:
             let field = fields[indexPath.row]
+            if isDefaultTimestampValue && field.kind == .tsaCert {
+                break
+            }
             switch field.kind {
             case .inputField:
                 let fieldCell = tableView.dequeueReusableCell(withType: SettingsFieldCell.self, for: indexPath)!
@@ -232,6 +238,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
                 return tsaCertCell
             }
         }
+        return UITableViewCell()
     }
     
     @objc func editingChanged(sender: UITextField) {
@@ -285,6 +292,7 @@ extension SettingsViewController: SettingsDefaultValueCellDelegate {
     func didChangeDefaultSwitch(_ field: FieldId, with switchValue: Bool?) {
         if let switchValue = switchValue {
             DefaultsHelper.defaultSettingsSwitch = switchValue
+            isDefaultTimestampValue = switchValue
         }
         tableView.reloadData()
     }
