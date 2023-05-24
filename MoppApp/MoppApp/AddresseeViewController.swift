@@ -79,6 +79,10 @@ class AddresseeViewController : MoppViewController {
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
     }
+
+    deinit {
+        printLog("Deinit AddreseeViewController")
+    }
     
     private func searchLdap(textField: UITextField) {
         guard let text = textField.text else { return }
@@ -234,10 +238,15 @@ extension AddresseeViewController : UITableViewDataSource {
             case .search:
                 let cell = tableView.dequeueReusableCell(withType: ContainerSearchCell.self, for: indexPath)!
                 cell.searchBar.delegate = self
+                cell.accessibilityUserInputLabels = [""]
                 return cell
             case .searchResult:
                 let cell = tableView.dequeueReusableCell(withType: ContainerFoundAddresseeCell.self, for: indexPath)!
                 cell.delegate = self
+                if !UIAccessibility.isVoiceOverRunning {
+                    cell.accessibilityLabel = ""
+                    cell.accessibilityUserInputLabels = [""]
+                }
                 let isSelected = selectedAddressees.contains { element in
                     if ((element as Addressee).cert == (foundAddressees[row] as Addressee).cert) {
                         return true
@@ -257,17 +266,15 @@ extension AddresseeViewController : UITableViewDataSource {
                     addressee: selectedAddressees[row] as Addressee,
                     index: row,
                     showRemoveButton: true)
+                cell.accessibilityUserInputLabels = [""]
             
-                if !selectedAddressees.isEmpty {
-                    LandingViewController.shared.presentButtons([.confirmButton])
-                } else {
-                    LandingViewController.shared.presentButtons([])
-                }
+                setConfirmButton(addresses: selectedAddressees)
                 return cell
             case .addAll:
                 let cell = tableView.dequeueReusableCell(withType: ContainerAddAllButtonCell.self, for: indexPath)!
                 cell.delegate = self
                 cell.populate(foundAddressees: self.foundAddressees, selectedAddresses: self.selectedAddressees)
+                cell.accessibilityUserInputLabels = [""]
                 return cell
         }
     }
@@ -361,9 +368,7 @@ extension AddresseeViewController : ContainerAddresseeCellDelegate {
         
         selectedAddressees.remove(at: index)
 
-        if selectedAddressees.isEmpty {
-            LandingViewController.shared.presentButtons([])
-        }
+        setConfirmButton(addresses: selectedAddressees)
 
         self.tableView.reloadData()
     }
@@ -387,6 +392,8 @@ extension AddresseeViewController : ContainerFoundAddresseeCellDelegate {
             selectedAddressees.insert(foundAddress, at: 0)
         }
         self.tableView.reloadData()
+        
+        setConfirmButton(addresses: selectedAddressees)
         completionHandler()
     }
     
@@ -405,6 +412,14 @@ extension AddresseeViewController : ContainerFoundAddresseeCellDelegate {
     func addAllAddresseesToSelectedArea(addressees: [Addressee]) {
         for addressee in addressees {
             addAddresseeToSelectedArea(addressee: addressee)
+        }
+    }
+    
+    func setConfirmButton(addresses: [Addressee]) {
+        if !addresses.isEmpty {
+            LandingViewController.shared.presentButtons([.confirmButton])
+        } else {
+            LandingViewController.shared.presentButtons([])
         }
     }
 }

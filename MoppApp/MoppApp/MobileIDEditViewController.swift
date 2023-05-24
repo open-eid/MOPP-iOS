@@ -22,6 +22,7 @@
  */
 import Foundation
 import UIKit
+import GameController
 
 
 class MyTextField : ScaledTextField {
@@ -77,9 +78,13 @@ class MobileIDEditViewController : MoppViewController {
         cancelButton.setTitle(L(.actionCancel).uppercased())
         signButton.setTitle(L(.actionSign).uppercased())
         rememberLabel.text = L(.signingRememberMe)
+        
+        rememberLabel.isAccessibilityElement = false
+        rememberSwitch.accessibilityLabel = L(.signingRememberMe)
 
         phoneLabel.isAccessibilityElement = false
         idCodeLabel.isAccessibilityElement = false
+        rememberLabel.isAccessibilityElement = false
         
         phoneTextField.isAccessibilityElement = true
 
@@ -88,7 +93,7 @@ class MobileIDEditViewController : MoppViewController {
         phoneTextField.accessibilityUserInputLabels = [L(.voiceControlPhoneNumber)]
         
         idCodeTextField.accessibilityLabel = L(.signingIdcodeTitle)
-
+        rememberSwitch.accessibilityLabel = rememberLabel.text
 
         phoneNumberErrorLabel.text = ""
         phoneNumberErrorLabel.isHidden = true
@@ -103,6 +108,9 @@ class MobileIDEditViewController : MoppViewController {
         
         rememberSwitch.addTarget(self, action: #selector(toggleRememberMe), for: .valueChanged)
 
+        self.phoneTextField.delegate = self
+        self.idCodeTextField.delegate = self
+        
         tapGR = UITapGestureRecognizer()
         tapGR.addTarget(self, action: #selector(cancelAction))
         view.addGestureRecognizer(tapGR)
@@ -244,7 +252,14 @@ class MobileIDEditViewController : MoppViewController {
 
 extension MobileIDEditViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        if textField.accessibilityIdentifier == "mobileIdPhoneNumberField" {
+            textField.resignFirstResponder()
+            if let personalCodeTextField = getViewByAccessibilityIdentifier(view: view, identifier: "mobileIDCodeField") {
+                personalCodeTextField.becomeFirstResponder()
+            }
+        } else {
+            textField.resignFirstResponder()
+        }
         return true
     }
 

@@ -457,4 +457,8 @@ enum LocKey : String
     case voiceControlRemoveSignature = "voice-control-remove-signature";
     case voiceControlPin1Field = "voice-control-pin1-field";
     case voiceControlPin2Field = "voice-control-pin2-field";
+    case voiceControlTabEncrypt = "voice-control-tab-encrypt";
+    case voiceControlTabDecrypt = "voice-control-tab-decrypt";
+    case voiceControlTabConfirm = "voice-control-tab-confirm";
+    case voiceControlSearchRecipients = "voice-control-search-recipients";
 }

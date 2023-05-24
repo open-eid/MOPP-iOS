@@ -35,4 +35,12 @@ struct FontUtil {
         
         return font
     }
+    
+    static func mediumFont(font: UIFont) -> UIFont {
+        if let mediumFont = UIFont(name: "Roboto-Medium", size: font.pointSize) {
+            return UIFontMetrics.default.scaledFont(for: mediumFont)
+        }
+        
+        return font
+    }
 }

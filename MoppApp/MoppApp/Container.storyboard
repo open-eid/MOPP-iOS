@@ -157,6 +157,9 @@
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zV0-PM-P6i">
                                                                     <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="25" id="CSy-D7-Pfc"/>
+                                                                    </constraints>
                                                                     <state key="normal" image="icon_remove-1"/>
                                                                     <connections>
                                                                         <action selector="removeAction" destination="6pq-Cm-b20" eventType="touchUpInside" id="dz7-pi-paM"/>
@@ -164,6 +167,9 @@
                                                                 </button>
                                                                 <button opaque="NO" contentMode="center" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKh-UH-oRj">
                                                                     <rect key="frame" x="33" y="0.0" width="25" height="25"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="25" id="rhC-V3-RTh"/>
+                                                                    </constraints>
                                                                     <state key="normal" image="iconDownload"/>
                                                                     <connections>
                                                                         <action selector="saveAction:" destination="6pq-Cm-b20" eventType="touchUpInside" id="L9N-73-HTL"/>
@@ -662,13 +668,13 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INVALID ACTION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VZT-lT-Vmg" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="0.0" width="635" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="LOH-6j-0xQ"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0aS-fr-CWx" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="8" width="667" height="28"/>
-                                                </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ohk-XQ-hyb" userLabel="---">
                                                     <rect key="frame" x="0.0" y="43" width="667" height="1"/>
                                                     <color key="backgroundColor" red="0.55339863580000004" green="0.55339863580000004" blue="0.55339863580000004" alpha="0.34999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
@@ -680,15 +686,11 @@
                                             <constraints>
                                                 <constraint firstItem="VZT-lT-Vmg" firstAttribute="top" secondItem="Oki-GG-Nj4" secondAttribute="top" id="0i3-YO-9yZ"/>
                                                 <constraint firstItem="Ohk-XQ-hyb" firstAttribute="leading" secondItem="Oki-GG-Nj4" secondAttribute="leading" id="31x-2h-qKG"/>
-                                                <constraint firstAttribute="trailing" secondItem="0aS-fr-CWx" secondAttribute="trailing" id="9gE-49-oGZ"/>
                                                 <constraint firstAttribute="bottom" secondItem="VZT-lT-Vmg" secondAttribute="bottom" id="Nit-lm-lf9"/>
                                                 <constraint firstAttribute="bottom" secondItem="Ohk-XQ-hyb" secondAttribute="bottom" id="VXb-8f-yCp"/>
                                                 <constraint firstAttribute="trailing" secondItem="VZT-lT-Vmg" secondAttribute="trailing" constant="16" id="WgL-2g-a46"/>
-                                                <constraint firstItem="0aS-fr-CWx" firstAttribute="top" secondItem="Oki-GG-Nj4" secondAttribute="top" constant="8" id="YJh-7r-on2"/>
                                                 <constraint firstItem="VZT-lT-Vmg" firstAttribute="leading" secondItem="Oki-GG-Nj4" secondAttribute="leading" constant="16" id="cbN-iW-Q8s"/>
                                                 <constraint firstAttribute="trailing" secondItem="Ohk-XQ-hyb" secondAttribute="trailing" id="mpU-FH-Yc4"/>
-                                                <constraint firstItem="0aS-fr-CWx" firstAttribute="leading" secondItem="Oki-GG-Nj4" secondAttribute="leading" id="ukg-IJ-abO"/>
-                                                <constraint firstItem="Ohk-XQ-hyb" firstAttribute="top" secondItem="0aS-fr-CWx" secondAttribute="bottom" constant="7" id="yFq-bc-13f"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="0.91764705879999997" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -766,6 +768,10 @@
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1t1-CX-UWa">
                                                                     <rect key="frame" x="0.0" y="0.0" width="25" height="46"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="46" id="Uh5-3O-ql3"/>
+                                                                        <constraint firstAttribute="width" constant="25" id="add-f7-27o"/>
+                                                                    </constraints>
                                                                     <state key="normal" image="icon_remove-1"/>
                                                                     <connections>
                                                                         <action selector="removeAction" destination="brX-Gs-sMU" eventType="touchUpInside" id="5Xm-bi-oaD"/>
@@ -773,6 +779,10 @@
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9eg-iF-HaU">
                                                                     <rect key="frame" x="33" y="0.0" width="25" height="46"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="46" id="Ar5-Cf-TYX"/>
+                                                                        <constraint firstAttribute="width" constant="25" id="pw0-7O-B0K"/>
+                                                                    </constraints>
                                                                     <state key="normal" image="iconDownload"/>
                                                                     <connections>
                                                                         <action selector="saveAction:" destination="brX-Gs-sMU" eventType="touchUpInside" id="64d-0t-yPh"/>
@@ -855,7 +865,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Addressees are missing" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sh3-u9-HaY" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Addressees are missing" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sh3-u9-HaY" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="48" y="23" width="571" height="20"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -1029,13 +1039,13 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INVALID ACTION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AkU-Mf-18h" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="0.0" width="635" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="D4G-bU-ojB"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tsg-jV-4eR" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="8" width="667" height="28"/>
-                                                </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XoX-ww-VMr" userLabel="---">
                                                     <rect key="frame" x="0.0" y="43" width="667" height="1"/>
                                                     <color key="backgroundColor" red="0.55339863580000004" green="0.55339863580000004" blue="0.55339863580000004" alpha="0.34999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1047,13 +1057,9 @@
                                             <constraints>
                                                 <constraint firstItem="AkU-Mf-18h" firstAttribute="leading" secondItem="YAj-CK-hJv" secondAttribute="leading" constant="16" id="ECs-RF-dmp"/>
                                                 <constraint firstAttribute="bottom" secondItem="AkU-Mf-18h" secondAttribute="bottom" id="Tt3-zj-Fgh"/>
-                                                <constraint firstAttribute="trailing" secondItem="Tsg-jV-4eR" secondAttribute="trailing" id="baI-3U-LFc"/>
                                                 <constraint firstAttribute="trailing" secondItem="AkU-Mf-18h" secondAttribute="trailing" constant="16" id="cKR-Fu-TBV"/>
-                                                <constraint firstItem="XoX-ww-VMr" firstAttribute="top" secondItem="Tsg-jV-4eR" secondAttribute="bottom" constant="7" id="gZ6-Ew-ojF"/>
                                                 <constraint firstAttribute="trailing" secondItem="XoX-ww-VMr" secondAttribute="trailing" id="hfs-sF-ScU"/>
                                                 <constraint firstAttribute="bottom" secondItem="XoX-ww-VMr" secondAttribute="bottom" id="kDn-g1-fhm"/>
-                                                <constraint firstItem="Tsg-jV-4eR" firstAttribute="top" secondItem="YAj-CK-hJv" secondAttribute="top" constant="8" id="mQe-Za-m1b"/>
-                                                <constraint firstItem="Tsg-jV-4eR" firstAttribute="leading" secondItem="YAj-CK-hJv" secondAttribute="leading" id="vjh-jb-3fK"/>
                                                 <constraint firstItem="AkU-Mf-18h" firstAttribute="top" secondItem="YAj-CK-hJv" secondAttribute="top" id="z1h-ut-0hX"/>
                                                 <constraint firstItem="XoX-ww-VMr" firstAttribute="leading" secondItem="YAj-CK-hJv" secondAttribute="leading" id="zvS-fU-23k"/>
                                             </constraints>
@@ -1170,6 +1176,8 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="addButton" destination="NhU-k0-Tv1" id="mQa-DO-HxF"/>
+                                            <outlet property="addresseeMainStackView" destination="vfZ-eu-bMz" id="E2y-NZ-GK5"/>
+                                            <outlet property="addresseeSubStackView" destination="5Wl-Lw-S0l" id="OTG-yw-Us7"/>
                                             <outlet property="bottomBorderView" destination="eSy-xJ-zZ8" id="ZLx-NU-4Cz"/>
                                             <outlet property="iconImage" destination="kGJ-Wd-I4U" id="rAQ-9f-wRP"/>
                                             <outlet property="infoLabel" destination="rC8-67-9fN" id="6h5-Hq-t83"/>

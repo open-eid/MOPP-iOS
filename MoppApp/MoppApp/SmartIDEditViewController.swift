@@ -17,7 +17,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
 import Foundation
+import GameController
 
 protocol SmartIDEditViewControllerDelegate : AnyObject {
     func smartIDEditViewControllerDidDismiss(cancelled: Bool, country: String?, idCode: String?)
@@ -79,19 +81,25 @@ class SmartIDEditViewController : MoppViewController {
         cancelButton.setTitle(L(.actionCancel).uppercased())
         signButton.setTitle(L(.actionSign).uppercased())
         rememberLabel.text = L(.signingRememberMe)
+        
+        rememberLabel.isAccessibilityElement = false
+        rememberSwitch.accessibilityLabel = L(.signingRememberMe)
 
         countryLabel.isAccessibilityElement = false
         idCodeLabel.isAccessibilityElement = false
+        rememberLabel.isAccessibilityElement = false
 
         countryTextField.accessibilityLabel = L(.smartIdCountryTitle)
         countryTextField.accessibilityUserInputLabels = [L(.voiceControlCountry)]
         idCodeTextField.accessibilityLabel = L(.signingIdcodeTitle)
+        rememberSwitch.accessibilityLabel = rememberLabel.text
 
         idCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         idCodeTextField.layer.borderWidth = 1.0
 
         personalCodeErrorLabel.text = ""
         personalCodeErrorLabel.isHidden = true
+        personalCodeErrorLabel.isAccessibilityElement = false
 
         countryViewPicker.dataSource = self
         countryViewPicker.delegate = self
@@ -108,12 +116,12 @@ class SmartIDEditViewController : MoppViewController {
         view.addGestureRecognizer(tapGR)
 
         if UIAccessibility.isVoiceOverRunning {
-            guard let titleUILabel = titleLabel, let countryUILabel = countryLabel, let countryUITextField = countryTextField, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
-                printLog("Unable to get titleLabel, countryLabel, countryTextField, idCodeLabel, idCodeTextField, rememberLabel, rememberSwitch, cancelButton or signButton")
+            guard let titleUILabel = titleLabel, let countryUILabel = countryLabel, let countryUITextField = countryTextField, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let personalCodeErrorUILabel = personalCodeErrorLabel, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
+                printLog("Unable to get titleLabel, countryLabel, countryTextField, idCodeLabel, idCodeTextField, personalCodeErrorLabel, rememberLabel, rememberSwitch, cancelButton or signButton")
                 return
             }
             
-            view.accessibilityElements = [titleUILabel, countryUILabel, countryUITextField, idCodeUILabel, idCodeUITextField, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
+            self.view.accessibilityElements = [titleUILabel, countryUILabel, countryUITextField, idCodeUILabel, idCodeUITextField, personalCodeErrorUILabel, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
         }
 
         NotificationCenter.default.addObserver(self, selector: #selector(handleAccessibilityKeyboard), name: .hideKeyboardAccessibility, object: nil)
@@ -327,11 +335,13 @@ extension SmartIDEditViewController : UITextFieldDelegate {
                 if TokenFlowUtil.isPersonalCodeInvalid(text: text) {
                     personalCodeErrorLabel.text = L(.signingErrorIncorrectPersonalCode)
                     personalCodeErrorLabel.isHidden = false
+                    personalCodeErrorLabel.isAccessibilityElement = true
                     setViewBorder(view: textField, color: .moppError)
                     UIAccessibility.post(notification: .layoutChanged, argument: self.personalCodeErrorLabel)
                 } else {
                     personalCodeErrorLabel.text = ""
                     personalCodeErrorLabel.isHidden = true
+                    personalCodeErrorLabel.isAccessibilityElement = false
                     removeViewBorder(view: textField)
                     UIAccessibility.post(notification: .layoutChanged, argument: idCodeTextField)
                 }

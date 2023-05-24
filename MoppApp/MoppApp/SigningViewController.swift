@@ -25,7 +25,7 @@ import Foundation
 class SigningViewController : MoppViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var importButton: UIButton!
-    @IBOutlet weak var menuButton: UIBarButtonItem!
+    @IBOutlet weak var menuButton: BarButton!
     
     enum Section {
         case fileImport
@@ -38,6 +38,7 @@ class SigningViewController : MoppViewController {
 
         titleLabel.text = L(LocKey.signatureViewBeginLabel)
         importButton.localizedTitle = LocKey.signatureViewBeginButton
+        menuButton.isAccessibilityElement = true
         menuButton.accessibilityLabel = L(LocKey.menuButton)
         
         titleLabel.isAccessibilityElement = false
@@ -45,6 +46,13 @@ class SigningViewController : MoppViewController {
         importButton.accessibilityUserInputLabels = [L(.voiceControlChooseFile)]
         
         UIAccessibility.post(notification: .screenChanged, argument: importButton)
+        
+        guard let importUIButton = importButton, let bottomUIButtons = LandingViewController.shared.buttonsStackView, let menuUIButton = menuButton else {
+            printLog("Unable to get importButton, LandingViewController buttonsStackView or menuButton")
+            return
+        }
+        
+        self.accessibilityElements = [importUIButton, bottomUIButtons, menuUIButton, importUIButton]
     }
     
     override func viewWillDisappear(_ animated: Bool) {
