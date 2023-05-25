@@ -67,31 +67,20 @@ class MyeIDInfoViewController: MoppViewController {
     }
     
     @objc func didFinishAnnouncement(_ notification: Notification) {
-        let announcementValue: String? = notification.userInfo?[UIAccessibility.announcementStringValueUserInfoKey] as? String
-        let isAnnouncementSuccessful: Bool? = notification.userInfo?[UIAccessibility.announcementWasSuccessfulUserInfoKey] as? Bool
-        
-        guard let isSuccessful = isAnnouncementSuccessful else {
-            return
-        }
-        
-        if !isSuccessful {
-            UIAccessibility.post(notification: .announcement, argument: announcementValue)
-        } else {
-            DispatchQueue.main.async {
-                print("Cancel message announced")
-                guard let cell = self.changePinCell else { return }
-                
-                for subview in cell.subviews {
-                    subview.isAccessibilityElement = true
-                }
-                
-                cell.setAccessibilityFocusOnButton(actionButton: nil, cellKind: self.infoManager.actionKind)
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self.isCancelMessageAnnounced = false
-                    self.setAccessibility(isElement: true)
-                    self.ui.tableView.accessibilityElementsHidden = false
-                }
+        DispatchQueue.main.async {
+            print("Cancel message announced")
+            guard let cell = self.changePinCell else { return }
+            
+            for subview in cell.subviews {
+                subview.isAccessibilityElement = true
+            }
+            
+            cell.setAccessibilityFocusOnButton(actionButton: nil, cellKind: self.infoManager.actionKind)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.isCancelMessageAnnounced = false
+                self.setAccessibility(isElement: true)
+                self.ui.tableView.accessibilityElementsHidden = false
             }
         }
     }
@@ -225,7 +214,6 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
             let cell = ui.tableView.dequeueReusableCell(withType: MyeIDPinPukCell.self, for: indexPath)!
             cell.infoManager = infoManager
             if UIAccessibility.isVoiceOverRunning && infoManager.actionKind != nil && !isCancelMessageAnnounced {
-                let label = UILabel()
                 if (infoManager.actionKind == .changePin1 || infoManager.actionKind == .unblockPin1) && cell.kind == .pin1 {
                     cancelMessage(cell: cell)
                 } else if (infoManager.actionKind == .changePin2 || infoManager.actionKind == .unblockPin2) && cell.kind == .pin2 {
@@ -256,8 +244,9 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
     
     func cancelMessage(cell: MyeIDPinPukCell) {
         if UIAccessibility.isVoiceOverRunning {
-            UIAccessibility.post(notification: .layoutChanged, argument: cell)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            let label = UILabel()
+            UIAccessibility.post(notification: .screenChanged, argument: label)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.announceCancelMessage()
             }
         }

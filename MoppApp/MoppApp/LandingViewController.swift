@@ -160,10 +160,6 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
             NotificationCenter.default.removeObserver(self, name: UIAccessibility.announcementDidFinishNotification, object: nil)
         }
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        printLog("Here")
-    }
 
     deinit {
         NotificationCenter.default.removeObserver(self)

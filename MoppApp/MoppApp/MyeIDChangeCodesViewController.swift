@@ -47,6 +47,18 @@ class MyeIDChangeCodesViewController: MoppViewController {
         super.viewWillDisappear(animated)
         
         NotificationCenter.default.removeObserver(self)
+        
+        setAccessibility(isElement: false)
+    }
+    
+    func setAccessibility(isElement: Bool) {
+        for subview in view.subviews {
+            if subview.isKind(of: UIView.self) {
+                subview.isAccessibilityElement = false
+            } else {
+                subview.isAccessibilityElement = isElement
+            }
+        }
     }
 }
 
