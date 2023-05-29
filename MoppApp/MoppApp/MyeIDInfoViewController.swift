@@ -111,10 +111,14 @@ class MyeIDInfoViewController: MoppViewController {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     let actionKind = self.infoManager.actionKind
                     if let actionType = actionKind {
-                        if actionType == .changePin1 || actionType == .unblockPin1 {
+                        if actionType == .changePin1 {
                             self.postAccessibilityMessage(message: L(.myEidInfoPin1ChangeCancelled))
-                        } else if actionType == .changePin2 || actionType == .unblockPin2 {
+                        } else if actionType == .unblockPin1 {
+                            self.postAccessibilityMessage(message: L(.myEidInfoPin1UnblockCancelled))
+                        } else if actionType == .changePin2 {
                             self.postAccessibilityMessage(message: L(.myEidInfoPin2ChangeCancelled))
+                        } else if actionType == .unblockPin2 {
+                            self.postAccessibilityMessage(message: L(.myEidInfoPin2UnblockCancelled))
                         } else if actionType == .changePuk {
                             self.postAccessibilityMessage(message: L(.myEidInfoPukChangeCancelled))
                         }
