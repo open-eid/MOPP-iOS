@@ -20,10 +20,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
+import Foundation
+
 class MyeIDInfoViewController: MoppViewController {
     @IBOutlet weak var ui: MyeIDInfoViewControllerUI!
     
     weak var infoManager: MyeIDInfoManager!
+    var initialLoadingComplete = false
+    var isCancelMessageAnnounced = false
+    var isInitializedWithBackButton = false
+    
+    var changePinCell: MyeIDPinPukCell?
     
     enum Segment {
         case info
@@ -33,29 +41,121 @@ class MyeIDInfoViewController: MoppViewController {
     
     var segments: [Segment] = [.info, .margin, .changePins]
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if UIAccessibility.isVoiceOverRunning && !initialLoadingComplete {
+            setAccessibility(isElement: false)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        if UIAccessibility.isVoiceOverRunning && !initialLoadingComplete {
+            setAccessibility(isElement: false)
+        }
         ui.setupOnce()
         ui.delegate = self
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didFinishAnnouncement(_:)),
+            name: UIAccessibility.announcementDidFinishNotification,
+            object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(handleBackButtonPressed), name: .isBackButtonPressed, object: nil)
+    }
+    
+    @objc func didFinishAnnouncement(_ notification: Notification) {
+        DispatchQueue.main.async {
+            print("Cancel message announced")
+            guard let cell = self.changePinCell else { return }
+            
+            for subview in cell.subviews {
+                subview.isAccessibilityElement = true
+            }
+            
+            cell.setAccessibilityFocusOnButton(actionButton: nil, cellKind: self.infoManager.actionKind)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.isCancelMessageAnnounced = false
+                self.setAccessibility(isElement: true)
+                self.ui.tableView.accessibilityElementsHidden = false
+            }
+        }
+    }
+    
+    func setAccessibility(isElement: Bool) {
+        for section in 0..<self.ui.tableView.numberOfSections {
+            for row in 0..<self.ui.tableView.numberOfRows(inSection: section) {
+                if let cell = self.ui.tableView.cellForRow(at: IndexPath(row: row, section: section)) {
+                    for subview in cell.subviews {
+                        if subview.isKind(of: UIView.self) {
+                            subview.isAccessibilityElement = false
+                        } else {
+                            subview.isAccessibilityElement = isElement
+                        }
+                    }
+                    cell.isAccessibilityElement = false
+                }
+            }
+        }
+    }
+
+    private func announceCancelMessage() {
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: .screenChanged, argument: changePinCell)
+            if !isCancelMessageAnnounced {
+                print("Announcing cancel message")
+                self.isCancelMessageAnnounced = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    let actionKind = self.infoManager.actionKind
+                    if let actionType = actionKind {
+                        if actionType == .changePin1 {
+                            self.postAccessibilityMessage(message: L(.myEidInfoPin1ChangeCancelled))
+                        } else if actionType == .unblockPin1 {
+                            self.postAccessibilityMessage(message: L(.myEidInfoPin1UnblockCancelled))
+                        } else if actionType == .changePin2 {
+                            self.postAccessibilityMessage(message: L(.myEidInfoPin2ChangeCancelled))
+                        } else if actionType == .unblockPin2 {
+                            self.postAccessibilityMessage(message: L(.myEidInfoPin2UnblockCancelled))
+                        } else if actionType == .changePuk {
+                            self.postAccessibilityMessage(message: L(.myEidInfoPukChangeCancelled))
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func postAccessibilityMessage(message: String) {
+        UIAccessibility.post(notification: .announcement, argument: NSAttributedString(string: message, attributes: [.accessibilitySpeechQueueAnnouncement: false]))
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        ui.tableView.reloadData()
-        UIAccessibility.post(notification: .screenChanged, argument: ui.tableView)
-        // Prevent accessibility focus jumping after returning to main My eID view
-        if infoManager.hasMyEidPageChanged {
-            ui.tableView.accessibilityElementsHidden = true
-            enableAccessibilityElements()
+        
+        if UIAccessibility.isVoiceOverRunning && !initialLoadingComplete {
+            UIAccessibility.post(notification: .screenChanged, argument: ui.tableView)
+        } else if UIAccessibility.isVoiceOverRunning && !isInitializedWithBackButton {
+            self.setAccessibility(isElement: false)
+            self.ui.tableView.accessibilityElementsHidden = true
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                self.setAccessibility(isElement: true)
+            }
         }
+        
+        self.isInitializedWithBackButton = false
+        ui.tableView.reloadData()
     }
     
-    func enableAccessibilityElements() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.ui.tableView.accessibilityElementsHidden = false
-            self.ui.tableView.reloadData()
-            self.infoManager.hasMyEidPageChanged = false
-        }
+    @objc func handleBackButtonPressed() {
+        self.isInitializedWithBackButton = true
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -107,31 +207,52 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
                 cell.populate(titleText: infoManager.personalInfo.itemTitles[item.type]!, contentText: item.value)
             }
             
-            if UIAccessibility.isVoiceOverRunning {
+            if UIAccessibility.isVoiceOverRunning && !initialLoadingComplete {
                 if item.type == .myeID {
+                    initialLoadingComplete = true
                     UIAccessibility.post(notification: .screenChanged, argument: cell)
-                }
-                
-                // Prevent accessibility focus jumping after returning to main My eID view
-                if infoManager.hasMyEidPageChanged {
-                    enableAccessibilityElements()
                 }
             }
             return cell
         case .changePins:
             let cell = ui.tableView.dequeueReusableCell(withType: MyeIDPinPukCell.self, for: indexPath)!
-                cell.infoManager = infoManager
-                cell.bounds = CGRect(x: 0, y: 0, width: ui.tableView.bounds.width, height: 99999)
+            cell.infoManager = infoManager
+            if UIAccessibility.isVoiceOverRunning && infoManager.actionKind != nil && !isCancelMessageAnnounced {
+                if (infoManager.actionKind == .changePin1 || infoManager.actionKind == .unblockPin1) && cell.kind == .pin1 {
+                    cancelMessage(cell: cell)
+                } else if (infoManager.actionKind == .changePin2 || infoManager.actionKind == .unblockPin2) && cell.kind == .pin2 {
+                    cancelMessage(cell: cell)
+                } else if infoManager.actionKind == .changePuk && cell.kind == .puk {
+                    cancelMessage(cell: cell)
+                }
+            }
+            cell.bounds = CGRect(x: 0, y: 0, width: ui.tableView.bounds.width, height: 99999)
             let pinPukCellInfo: MyeIDInfoManager.PinPukCell.Info = infoManager.pinPukCell.items[indexPath.row]
-                cell.populate(pinPukCellInfo: pinPukCellInfo)
-                cell.certInfoView.accessibilityLabel = "\(pinPukCellInfo.title ?? ""). \(infoManager.certInfoAttributedString(for: pinPukCellInfo.kind)?.string ?? pinPukCellInfo.certInfoText ?? "")"
+            cell.populate(pinPukCellInfo: pinPukCellInfo, shouldFocusOnElement: false)
+            cell.certInfoView.accessibilityLabel = "\(pinPukCellInfo.title ?? ""). \(infoManager.certInfoAttributedString(for: pinPukCellInfo.kind)?.string ?? pinPukCellInfo.certInfoText ?? "")"
             cell.accessibilityLabel = ""
-            if UIAccessibility.isVoiceOverRunning && infoManager.hasMyEidPageChanged {
-                cell.setAccessibilityFocusOnButton()
+            if UIAccessibility.isVoiceOverRunning {
+                if (infoManager.actionKind == .changePin1 || infoManager.actionKind == .unblockPin1) && cell.kind == .pin1 {
+                    changePinCell = cell
+                } else if (infoManager.actionKind == .changePin2 || infoManager.actionKind == .unblockPin2) && cell.kind == .pin2 {
+                    changePinCell = cell
+                } else if infoManager.actionKind == .changePuk && cell.kind == .puk {
+                    changePinCell = cell
+                }
             }
             return cell
         case .margin:
             return ui.tableView.dequeueReusableCell(withIdentifier: "marginCell", for: indexPath)
+        }
+    }
+    
+    func cancelMessage(cell: MyeIDPinPukCell) {
+        if UIAccessibility.isVoiceOverRunning {
+            let label = UILabel()
+            UIAccessibility.post(notification: .screenChanged, argument: label)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.announceCancelMessage()
+            }
         }
     }
     

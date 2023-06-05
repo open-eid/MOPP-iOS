@@ -43,6 +43,8 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
             documentPicker.allowsMultipleSelection = true
         return documentPicker
     }()
+    
+    static var onDataFileAddedAccessibility: (() -> Void)?
 
     @IBOutlet weak var containerViewBottomCSTR: NSLayoutConstraint!
     @IBOutlet weak var containerViewButtonBarCSTR: NSLayoutConstraint!
@@ -134,11 +136,13 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
 
         NotificationCenter.default.addObserver(self, selector: #selector(receiveErrorNotification), name: .errorNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveStartImportingFilesWithDocumentPickerNotification), name: .startImportingFilesWithDocumentPickerNotificationName, object: nil)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(didFinishAnnouncement(_:)),
-            name: UIAccessibility.announcementDidFinishNotification,
-            object: nil)
+        LandingViewController.onDataFileAddedAccessibility = {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(self.didFinishAnnouncement(_:)),
+                name: UIAccessibility.announcementDidFinishNotification,
+                object: nil)
+        }
     }
 
     @objc func didFinishAnnouncement(_ notification: Notification) {
@@ -150,9 +154,10 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
         }
 
         if !isSuccessful {
-            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: announcementValue)
+            UIAccessibility.post(notification: .announcement, argument: announcementValue)
         } else if announcementValue == L(.dataFileAdded) || announcementValue == L(.dataFilesAdded) {
             UIAccessibility.post(notification: .layoutChanged, argument: navigationItem.leftBarButtonItem)
+            NotificationCenter.default.removeObserver(self, name: UIAccessibility.announcementDidFinishNotification, object: nil)
         }
     }
 

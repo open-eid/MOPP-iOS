@@ -22,7 +22,6 @@
  */
 import Foundation
 import UIKit
-import GameController
 
 
 class MyTextField : ScaledTextField {

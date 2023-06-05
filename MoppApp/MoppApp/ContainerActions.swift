@@ -376,8 +376,10 @@ extension ContainerActions where Self: UIViewController {
 
                     landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
                         if containerFilePaths.count == 1 {
+                            self.handleFileAddedAccessibility(viewController: self.getTopViewController())
                             UIAccessibility.post(notification: .announcement, argument: L(.dataFileAdded))
                         } else if containerFilePaths.count > 1 {
+                            self.handleFileAddedAccessibility(viewController: self.getTopViewController())
                             UIAccessibility.post(notification: .announcement, argument: L(.dataFilesAdded))
                         }
                         navController?.pushViewController(containerViewController, animated: true)
@@ -412,8 +414,10 @@ extension ContainerActions where Self: UIViewController {
 
             landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
                 if containerFilePaths.count == 1 {
+                    self.handleFileAddedAccessibility(viewController: self.getTopViewController())
                     UIAccessibility.post(notification: .announcement, argument: L(.dataFileAdded))
                 } else if containerFilePaths.count > 1 {
+                    self.handleFileAddedAccessibility(viewController: self.getTopViewController())
                     UIAccessibility.post(notification: .announcement, argument: L(.dataFilesAdded))
                 }
                 navController?.pushViewController(containerViewController, animated: true)
@@ -446,5 +450,11 @@ extension ContainerActions where Self: UIViewController {
             }
         }
         return containerFilePaths
+    }
+    
+    func handleFileAddedAccessibility(viewController: UIViewController) {
+        if viewController is LandingViewController {
+            LandingViewController.onDataFileAddedAccessibility?()
+        }
     }
 }

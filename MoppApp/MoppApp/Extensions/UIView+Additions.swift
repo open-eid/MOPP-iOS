@@ -34,9 +34,25 @@ extension UIView {
         }
     
         let result = CAGradientLayer()
-            result.name = "__backgroundGradient"
-            result.colors = [topColor.cgColor, bottomColor.cgColor]
-            result.frame = bounds
-            layer.insertSublayer(result, at: 0)
+        result.name = "__backgroundGradient"
+        result.colors = [topColor.cgColor, bottomColor.cgColor]
+        result.frame = bounds
+        layer.insertSublayer(result, at: 0)
+    }
+    
+    func isVisibleOnScreen() -> Bool {
+        if isHidden {
+            return false
+        }
+        
+        if window == nil {
+            return false
+        }
+        
+        let viewRect = convert(bounds, to: nil)
+        let screenBounds = UIScreen.main.bounds
+        let intersectionRect = viewRect.intersection(screenBounds)
+        
+        return !intersectionRect.isNull && intersectionRect.size.width > 0 && intersectionRect.size.height > 0
     }
 }

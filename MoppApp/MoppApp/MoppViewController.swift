@@ -111,6 +111,7 @@ class MoppViewController : UIViewController {
     }
 
     @objc func backAction() {
+        NotificationCenter.default.post(name: .isBackButtonPressed, object: nil, userInfo: nil)
         _ = navigationController?.popViewController(animated: true)
     }
     @objc func shareAction(sender: WrapperUIBarButtonItem) {
