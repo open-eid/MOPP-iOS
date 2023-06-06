@@ -188,7 +188,7 @@ extension String {
             if scalar.properties.isEmojiPresentation {
                 var stringScalar = ""
                 stringScalar.unicodeScalars.append(scalar)
-                unicodeString.append(stringScalar.asUnicode)
+                unicodeString.append(stringScalar)
             } else {
                 unicodeString.append(#"\#((scalar.escaped(asASCII: true)).replacingOccurrences(of: "{", with: "").replacingOccurrences(of: "}", with: ""))"#)
             }
