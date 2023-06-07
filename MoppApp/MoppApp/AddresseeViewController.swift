@@ -122,7 +122,6 @@ class AddresseeViewController : MoppViewController {
 extension AddresseeViewController : UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        textField.addTarget(self, action: #selector(textFieldTextChanged(_:)), for: .editingChanged)
         let searchField = textField as? SearchField
         searchField?.onSearchIconTapped = {
             guard let searchTextField = searchField else { return }
@@ -139,15 +138,6 @@ extension AddresseeViewController : UITextFieldDelegate {
         }
         
         return true
-    }
-    
-    @objc func textFieldTextChanged(_ textField: UITextField) {
-        guard let text = textField.text else { return }
-        if (text.count >= 11 &&
-            PersonalCodeValidator.isPersonalCodeNumeric(personalCode: text) &&
-            !PersonalCodeValidator.isPersonalCodeValid(personalCode: text)) {
-            textField.text?.removeLast()
-        }
     }
     
     func removeEditingTarget(_ textField: UITextField) {
@@ -178,7 +168,11 @@ extension AddresseeViewController : UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let text = textField.text else { return false }
-        if !text.isEmpty && !isSameQuery(text: text, submittedQuery: submittedQuery) {
+        if !text.isEmpty && text.count >= 11 &&
+            !PersonalCodeValidator.isPersonalCodeValid(personalCode: text) {
+            let invalidPersonalCodeError = AlertUtil.errorDialog(title: L(.errorAlertTitleGeneral), errorMessage: L(.cryptoInvalidPersonalCodeTitle), topViewController: getTopViewController())
+            self.present(invalidPersonalCodeError, animated: true)
+        } else if !text.isEmpty && !isSameQuery(text: text, submittedQuery: submittedQuery) {
             searchLdap(textField: textField)
         }
         return true
