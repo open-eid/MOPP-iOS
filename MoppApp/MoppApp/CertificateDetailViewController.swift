@@ -304,6 +304,7 @@ extension CertificateDetailViewController: UITableViewDelegate, UITableViewDataS
         if !certificateDetail.value.isEmpty {
             cell.populate(certificateDetail: certificateDetail)
         }
+        cell.accessibilityUserInputLabels = [""]
         return cell
     }
 }

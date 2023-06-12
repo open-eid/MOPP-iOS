@@ -20,6 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
 import Foundation
 import UIKit
 
@@ -49,7 +50,9 @@ class SigningTableViewHeaderView: UIView {
             return
         }
         searchUITextField.isAccessibilityElement = false
-        self.accessibilityElements = [titleUILabel, searchUIButton]
+        if UIAccessibility.isVoiceOverRunning {
+            self.accessibilityElements = [titleUILabel, searchUIButton]
+        }
     }
     
     override func layoutSubviews() {
@@ -65,9 +68,13 @@ class SigningTableViewHeaderView: UIView {
         requestCloseSearch = { [weak self] in
             self?.showSearch(false, animated: false)
         }
+        
+        self.searchButton.accessibilityUserInputLabels = [L(.voiceControlSearch)]
     }
     
     func showSearch(_ show: Bool, animated: Bool) {
+        
+        self.searchButton.accessibilityLabel = L(.searchContainerFile)
         
         self.titleLabel.alpha = show ? 1.0 : 0.0
         self.searchButton.alpha = show ? 1.0 : 0.0

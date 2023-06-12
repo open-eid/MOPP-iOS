@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
 import Foundation
 
 protocol SmartIDEditViewControllerDelegate : AnyObject {
@@ -59,6 +60,8 @@ class SmartIDEditViewController : MoppViewController {
     @IBOutlet weak var signButton: UIButton!
     @IBOutlet weak var rememberLabel: UILabel!
     @IBOutlet weak var rememberSwitch: UISwitch!
+    @IBOutlet weak var rememberStackView: UIStackView!
+    @IBOutlet weak var actionButtonsStackView: UIStackView!
 
     weak var delegate: SmartIDEditViewControllerDelegate? = nil
     var tapGR: UITapGestureRecognizer!
@@ -77,19 +80,25 @@ class SmartIDEditViewController : MoppViewController {
         cancelButton.setTitle(L(.actionCancel).uppercased())
         signButton.setTitle(L(.actionSign).uppercased())
         rememberLabel.text = L(.signingRememberMe)
+        
+        rememberLabel.isAccessibilityElement = false
+        rememberSwitch.accessibilityLabel = L(.signingRememberMe)
 
         countryLabel.isAccessibilityElement = false
         idCodeLabel.isAccessibilityElement = false
+        rememberLabel.isAccessibilityElement = false
 
         countryTextField.accessibilityLabel = L(.smartIdCountryTitle)
+        countryTextField.accessibilityUserInputLabels = [L(.voiceControlCountry)]
         idCodeTextField.accessibilityLabel = L(.signingIdcodeTitle)
+        rememberSwitch.accessibilityLabel = rememberLabel.text
 
-        idCodeTextField.moppPresentDismissButton()
         idCodeTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         idCodeTextField.layer.borderWidth = 1.0
 
         personalCodeErrorLabel.text = ""
         personalCodeErrorLabel.isHidden = true
+        personalCodeErrorLabel.isAccessibilityElement = false
 
         countryViewPicker.dataSource = self
         countryViewPicker.delegate = self
@@ -98,17 +107,23 @@ class SmartIDEditViewController : MoppViewController {
         countryTextField.inputView = countryViewPicker
         countryTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         countryTextField.layer.borderWidth = 1.0
+        
+        rememberSwitch.addTarget(self, action: #selector(toggleRememberMe), for: .valueChanged)
 
         tapGR = UITapGestureRecognizer()
         tapGR.addTarget(self, action: #selector(cancelAction))
         view.addGestureRecognizer(tapGR)
 
-        guard let titleUILabel = titleLabel, let countryUILabel = countryLabel, let countryUITextField = countryTextField, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
-            printLog("Unable to get titleLabel, countryLabel, countryTextField, idCodeLabel, idCodeTextField, rememberLabel, rememberSwitch, cancelButton or signButton")
-            return
+        if UIAccessibility.isVoiceOverRunning {
+            guard let titleUILabel = titleLabel, let countryUILabel = countryLabel, let countryUITextField = countryTextField, let idCodeUILabel = idCodeLabel, let idCodeUITextField = idCodeTextField, let personalCodeErrorUILabel = personalCodeErrorLabel, let rememberUILabel = rememberLabel, let rememberUISwitch = rememberSwitch, let cancelUIButton = cancelButton, let signUIButton = signButton else {
+                printLog("Unable to get titleLabel, countryLabel, countryTextField, idCodeLabel, idCodeTextField, personalCodeErrorLabel, rememberLabel, rememberSwitch, cancelButton or signButton")
+                return
+            }
+            
+            self.view.accessibilityElements = [titleUILabel, countryUILabel, countryUITextField, idCodeUILabel, idCodeUITextField, personalCodeErrorUILabel, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
         }
 
-        view.accessibilityElements = [titleUILabel, countryUILabel, countryUITextField, idCodeUILabel, idCodeUITextField, rememberUILabel, rememberUISwitch, cancelUIButton, signUIButton]
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAccessibilityKeyboard), name: .hideKeyboardAccessibility, object: nil)
     }
 
     @objc func dismissKeyboard(_ notification: NSNotification) {
@@ -158,14 +173,24 @@ class SmartIDEditViewController : MoppViewController {
         if rememberSwitch.isOn {
             DefaultsHelper.sidIdCode = idCodeTextField.text ?? String()
             DefaultsHelper.sidCountry = country
+            rememberSwitch.accessibilityUserInputLabels = ["Disable remember me"]
         }
         else {
             DefaultsHelper.sidIdCode = String()
             DefaultsHelper.sidCountry = String()
+            rememberSwitch.accessibilityUserInputLabels = ["Enable remember me"]
         }
         dismiss(animated: false) { [weak self] in
             guard let sself = self else { return }
             sself.delegate?.smartIDEditViewControllerDidDismiss(cancelled: false, country: country, idCode: sself.idCodeTextField.text)
+        }
+    }
+    
+    @objc func toggleRememberMe(_ sender: UISwitch) {
+        if sender.isOn {
+            rememberSwitch.accessibilityUserInputLabels = ["Disable remember me"]
+        } else {
+            rememberSwitch.accessibilityUserInputLabels = ["Enable remember me"]
         }
     }
 
@@ -185,6 +210,11 @@ class SmartIDEditViewController : MoppViewController {
         idCodeTextField.text = DefaultsHelper.sidIdCode
         idCodeTextField.attributedPlaceholder = NSAttributedString(string: L(.settingsIdCodePlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker])
         
+        idCodeTextField.moppPresentDismissButton()
+        if row != 0 && idCodeTextField.inputAccessoryView is UIToolbar {
+            setExtraToolbarButtons(idCodeTextField: idCodeTextField)
+        }
+        
         defaultRememberMeToggle()
 
         verifySigningCapability()
@@ -195,8 +225,20 @@ class SmartIDEditViewController : MoppViewController {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.0)
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     func defaultRememberMeToggle() {
         rememberSwitch.setOn(DefaultsHelper.smartIdRememberMe, animated: true)
+        rememberSwitch.accessibilityUserInputLabels = [DefaultsHelper.mobileIdRememberMe ? "Disable remember me" : "Enable remember me"]
+    }
+    
+    @objc func handleAccessibilityKeyboard(_ notification: NSNotification) {
+        if UIAccessibility.isVoiceOverRunning {
+            dismissKeyboard(notification)
+            ViewUtil.focusOnView(notification, mainView: self.view, scrollView: scrollView)
+        }
     }
 
     func verifySigningCapability() {
@@ -241,19 +283,11 @@ extension SmartIDEditViewController: UIPickerViewDataSource, UIPickerViewDelegat
         countryTextField.text = self.pickerView(pickerView, titleForRow: row, forComponent: component)
         countryTextField.accessibilityLabel = ""
         UIAccessibility.post(notification: .announcement, argument: countryTextField.text)
-        var codeToolbar: UIToolbar? = nil
-        if row != 0 {
-            codeToolbar = UIToolbar()
-            codeToolbar?.barStyle = .default
-            codeToolbar?.isUserInteractionEnabled = true
-            codeToolbar?.items = [
-                UIBarButtonItem(title: "-", style:.plain, target: self, action: #selector(codeDashButtonTapped)),
-                UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target:self, action:nil),
-                UIBarButtonItem(barButtonSystemItem:.done, target: self, action: #selector(codeDoneButtonTapped))
-            ]
-            codeToolbar?.sizeToFit()
+        idCodeTextField.moppPresentDismissButton()
+        if row != 0 && idCodeTextField.inputAccessoryView is UIToolbar {
+            setExtraToolbarButtons(idCodeTextField: idCodeTextField)
         }
-        idCodeTextField.inputAccessoryView = codeToolbar
+
         idCodeTextField.reloadInputViews()
 
         if row == 0 {
@@ -261,12 +295,26 @@ extension SmartIDEditViewController: UIPickerViewDataSource, UIPickerViewDelegat
         }
         verifySigningCapability()
     }
+
+    private func setExtraToolbarButtons(idCodeTextField: UITextField) {
+        let toolbar: UIToolbar = idCodeTextField.inputAccessoryView as? UIToolbar ?? UIToolbar()
+        toolbar.items?.insert(
+            UIBarButtonItem(title: "-", style: .plain, target: self, action: #selector(codeDashButtonTapped)), at: 0)
+        toolbar.items?.insert(
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil), at: 1)
+        toolbar.sizeToFit()
+        idCodeTextField.inputAccessoryView = toolbar
+    }
 }
 
 extension SmartIDEditViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.moveCursorToEnd()
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -286,13 +334,15 @@ extension SmartIDEditViewController : UITextFieldDelegate {
                 if TokenFlowUtil.isPersonalCodeInvalid(text: text) {
                     personalCodeErrorLabel.text = L(.signingErrorIncorrectPersonalCode)
                     personalCodeErrorLabel.isHidden = false
+                    personalCodeErrorLabel.isAccessibilityElement = true
                     setViewBorder(view: textField, color: .moppError)
-                    UIAccessibility.post(notification: .screenChanged, argument: self.personalCodeErrorLabel)
+                    UIAccessibility.post(notification: .layoutChanged, argument: self.personalCodeErrorLabel)
                 } else {
                     personalCodeErrorLabel.text = ""
                     personalCodeErrorLabel.isHidden = true
+                    personalCodeErrorLabel.isAccessibilityElement = false
                     removeViewBorder(view: textField)
-                    UIAccessibility.post(notification: .screenChanged, argument: idCodeTextField)
+                    UIAccessibility.post(notification: .layoutChanged, argument: idCodeTextField)
                 }
             }
         }

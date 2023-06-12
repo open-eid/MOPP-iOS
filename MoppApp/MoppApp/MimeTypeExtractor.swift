@@ -23,9 +23,13 @@
 
 import Foundation
 import ZIPFoundation
-
+import MobileCoreServices
+import UniformTypeIdentifiers
 
 class MimeTypeExtractor {
+    
+    private static let DEFAULT_MIMETYPE = "application/octet-stream"
+    
     public static func getMimeTypeFromContainer(filePath: URL) -> String {
         
         var mimetype: String = ""

@@ -70,6 +70,7 @@
 "signing-recent-containers" = "Hiljutised dokumendid";
 
 // Crypto
+"crypto-header-files-title" = "Ümbriku failid";
 "crypto-view-begin-label" = "Krüpteerimiseks või dekrüpteerimiseks vali fail";
 "crypto-view-begin-label-accessibility" = "Vali fail krüpteerimiseks või dekrüpteerimiseks";
 "crypto-view-begin-button" = "VALI FAIL";
@@ -79,9 +80,11 @@
 
 "crypto-encryption-success" = "KRÜPTEERIMINE ÕNNESTUS";
 "crypto-decryption-cancelled" = "Faili dekrüpteerimine katkestatud";
+"crypto-recipient-search" = "Otsi";
 "crypto-recipient-found" = "Adressaat leitud";
 "crypto-recipients-found" = "%@ adressaati leitud";
 "crypto-recipient-added" = "Adressaat lisatud";
+"crypto-recipients-added" = "Adressaadid lisatud";
 "crypto-recipient-removed" = "Adressaat eemaldatud";
 "crypto-recipient-adding-cancelled" = "Adressaadi lisamine katkestatud";
 "crypto-no-addressees-warning" = "Ühtegi adressaati ei ole lisatud";
@@ -94,7 +97,10 @@
 "crypto-add-addressee-button-title" = "LISA";
 "crypto-add-addressee-button-title-accessibility" = "LISA ADRESSAAT";
 "crypto-addressee-added-button-title" = "LISATUD";
+"crypto-addressee-add-all-button" = "LISA KÕIK";
 "crypto-remove-addressee-button" = "Eemalda adressaat";
+"crypto-encrypted-files-title" = "Krüpteeritud failid";
+"crypto-invalid-personal-code-title" = "Isikukood pole korrektne!";
 
 // Crashlytics
 "crashlytics-title" = "Kas saata vearaport?";
@@ -167,6 +173,14 @@
 "container-timestamp-unknown" = "Ajatempel on teadmata";
 "container-timestamp-invalid" = "Ajatempel ei ole kehtiv";
 
+"container-signature-status-reason-title" = "Hoiatused";
+"container-signature-status-invalid-reason" = "See allkiri või allkirjastatud fail on vigane. Allkiri ei ole kehtiv.";
+"container-signature-status-warning-reason-weak" = "Allkiri on tehniliselt korrektne, kuid põhineb praeguseks nõrgaks hinnatud räsialgorütmil SHA-1, mistõttu ei ole see kaitstud võltsimise või muutmise eest.";
+"container-signature-status-warning-reason" = "Allkiri on kehtiv, aga ümbrikul on mingi eripära. Tavaliselt on selline eripära tekkinud ümbriku loomisel. Kuna ümbrikku ei ole võimalik muuta ilma, et allkiri kehtetuks muutuks, näidatakse selliste ümbrike puhul hoiatust.\nLisainfo: https://www.id.ee/artikkel/digitaalne-allkirjastamine-ja-elektroonilised-allkirjad";
+"container-signature-status-nonqscd-reason" = "See e-allkiri ei ole käsitsi kirjutatud allkirjadega samaväärne ja seetõttu saab seda kasutada ainult tehingute puhul, kus kvalifitseeritud e-allkiri pole kohustuslik.";
+"container-signature-status-unknown-reason" = "Allkirja staatust kuvatakse \"teadmata\", kui Sinu arvutisse pole lisatud kõiki kehtivuskinnituse teenuse sertifikaate ja/või nende kontrolliks vajalikke sertifikaate.\nLisainfo: https://www.id.ee/artikkel/digidoc4-klient-viga-ocsp-responder-is-not-trusted-no-certificate-for-this-responder-in-local-certstore";
+"container-signature-technical-information-button" = "TEHNILINE INFORMATSIOON";
+
 // *** Mobile ID Challenge View ***
 
 "challenge-code-label" = "%@";
@@ -219,8 +233,8 @@
 "container-addressee-title" = "Adressaatide lisamine";
 "container-validate-title" = "Ümbriku valideerimine";
 "container-validating" = "Laen...";
-"importing-files-progress-message" = "Laen faile...";
-"mobile-id-sign-help-title" = "Veendu kontrollkoodi õiguses ja sisesta telefonil mobiil-ID PIN2-kood.";
+"importing-files-progress-message" = "Laadin faile...";
+"mobile-id-sign-help-title" = "Veendu kontrollkoodi õigsuses ja sisesta telefonil mobiil-ID PIN2-kood.";
 "done-button-title" = "Valmis";
 "recent-containers-empty-list-title" = "Dokumendid puuduvad";
 "recent-containers-empty-search-message" = "Dokumenti ei leitud";
@@ -245,8 +259,8 @@
 "card-reader-state-initial" = "Ühenda kaardilugeja nutiseadmega ja sisesta ID-kaart lugejasse.";
 "pin2-textfield-label" = "Sisesta PIN2";
 "pin1-textfield-label" = "Sisesta PIN1";
-"pin2-blocked-alert" = "PIN2 on lukus. Mine Minu eID, et avada.";
-"pin1-blocked-alert" = "PIN1 on lukus. Mine Minu eID, et avada.";
+"pin2-blocked-alert" = "PIN2 on lukus. PIN-koodi saab lukust avada Minu eID lehel.";
+"pin1-blocked-alert" = "PIN1 on lukus. PIN-koodi saab lukust avada Minu eID lehel.";
 "generic-error-message" = "Midagi läks valesti. Palun proovi uuesti.";
 "decryption-error-message" = "Midagi läks dekrüpteerimisel valesti. Palun proovi uuesti.";
 "signing-error-too-many-requests" = "Sinu IP-aadressi tasuta allkirjade kuulimiit on ületatud. https://www.id.ee/artikkel/asutustele-kus-allkirjastatakse-digidoc4-kliendi-kaudu-suuremates-kogustes-dokumente/";
@@ -306,7 +320,7 @@
 "my-eid-code-blocked-message" = "%1$@ on blokeeritud, kuna %1$@-koodi on sisestatud 3 korda valesti. Tühista blokeering, et %1$@ taas kasutada.";
 // *** My eID info bullets ***
 "my-eid-info-bullet-same-codes-warning" = "Uus %@ peab olema erinev eelmisest.";
-"my-eid-info-bullet-auth-cert-info" = "PIN1-koodi kasutatakse isikutuvastamiseks";
+"my-eid-info-bullet-auth-cert-info" = "PIN1-koodi kasutatakse isikutuvastamiseks.";
 "my-eid-info-bullet-pin1-blocked-warning" = "Kui sisestad PIN1-koodi kolm korda valesti, siis isikutuvastamise sertifikaat blokeeritakse ning ID-kaarti pole võimalik isikutuvastamiseks kasutada enne blokeeringu tühistamist PUK-koodi abil.";
 "my-eid-info-bullet-forgot-code-note" = "Kui oled unustanud %1$@-koodi, kuid tead PUK-koodi, siis siin saad määrata uue %1$@-koodi.";
 "my-eid-info-bullet-puk-envelope-info" = "PUK-koodi leiad ID-kaardi koodiümbrikust, kui sa pole seda vahepeal muutnud.";
@@ -348,6 +362,11 @@
 "settings-timestamp-url-placeholder" = "";
 "settings-timestamp-use-default-title" = "Kasuta vaikeväärtust";
 "settings-value-changed" = "Seade väärtus muudetud";
+"settings-timestamp-cert-title" = "Ajatempliteenuse SSL sertifikaat";
+"settings-timestamp-cert-issued-to-label" = "Kellele väljastatud:";
+"settings-timestamp-cert-valid-to-label" = "Kehtib kuni:";
+"settings-timestamp-cert-add-certificate-button" = "LISA SERTIFIKAAT";
+"settings-timestamp-cert-show-certificate-button" = "NÄITA SERTIFIKAATI";
 "diagnostics-title" = "Diagnostika";
 "diagnostics-activate-one-time-logging" = "Aktiveeri ühekordne logifaili genereerimine";
 "diagnostics-save-log" = "SALVESTA LOGIFAIL";
@@ -355,9 +374,10 @@
 "diagnostics-one-time-logging-read-more" = "Loe täpsemalt siit";
 "diagnostics-app-version" = "Rakenduse versioon";
 "diagnostics-ios-version" = "Operatsioonisüsteem";
-"diagnostics-libraries-label" = "Teegid";
+"diagnostics-libraries-label" = "Teegid:";
 "diagnostics-rpuuid-default" = "vaikimisi määratud";
 "diagnostics-rpuuid-custom" = "käsitsi määratud";
+"diagnostics-tsl-cache-label" = "TSL puhver:";
 "about-title" = "Info";
 "jailbreak-message" = "Seda rakendust ei saa kasutada turvamata (ingl jailbroken) seadmes";
 "datafile-preview-failed" = "Faili avamine eelvaateks ebaõnnestus";
@@ -446,3 +466,41 @@
 "accessibility-introduction-screen-magnification-tools" = "Ekraani suurendamise abivahendid:";
 "accessibility-introduction-screen-magnification-tools-ios" = "Zoom (iOS, sisseehitatud) https://support.apple.com/et-ee/guide/iphone/iph3e2e367e/ios";
 "accessibility-introduction-screen-magnification-tools-android" = "Magnification (Android, sisseehitatud) https://support.google.com/accessibility/android/answer/6006949?hl=en";
+
+// Voice Commands (English only)
+"voice-control-choose-file" = "Choose file";
+"voice-control-tab-my-eid" = "My EID";
+"voice-control-tab-crypto" = "Crypto";
+"voice-control-tab-signature" = "Signature";
+"voice-control-tab-share" = "Share";
+"voice-control-tab-sign" = "Sign";
+"voice-control-close" = "Close";
+"voice-control-search" = "Search";
+"voice-control-file-row" = "File";
+"voice-control-signing-service" = "Signing service";
+"voice-control-timestamping-service" = "TimeStamping service";
+"voice-control-enable-log-generation" = "Enable log generation";
+"voice-control-disable-log-generation" = "Disable log generation";
+"voice-control-estonian-language" = "Estonian language";
+"voice-control-english-language" = "English language";
+"voice-control-russian-language" = "Russian language";
+"voice-control-clear-text" = "Clear text";
+"voice-control-change-container-name" = "Change container name";
+"voice-control-add-files" = "Add files";
+"voice-control-save-file" = "Save file";
+"voice-control-remove-file" = "Remove file";
+"voice-control-mobile-id" = "Mobile-ID";
+"voice-control-smart-id" = "Smart-ID";
+"voice-control-id-card" = "ID-Card";
+"voice-control-phone-number" = "Phone number";
+"voice-control-country" = "Country";
+"voice-control-signature" = "Signature";
+"voice-control-container-timestamp" = "Container timestamp";
+"voice-control-timestamp" = "Timestamp";
+"voice-control-remove-signature" = "Remove signature";
+"voice-control-pin1-field" = "PIN1 code";
+"voice-control-pin2-field" = "PIN2 code";
+"voice-control-tab-encrypt" = "Encrypt";
+"voice-control-tab-decrypt" = "Decrypt";
+"voice-control-tab-confirm" = "Confirm";
+"voice-control-search-recipients" = "Search recipients";

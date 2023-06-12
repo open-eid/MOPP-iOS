@@ -38,7 +38,10 @@ class MobileIDChallengeViewController : UIViewController {
     var currentProgress: Double = 0.0
     var sessionTimer: Timer?
 
-    var isAnnouncementMade: Bool = false
+    var isAnnouncementMade = false
+    var isProgressBarFocused = false
+    var challengeIdAccessibilityLabel = ""
+    var challengeIdNumbers = Array<Character>()
     
     @IBOutlet weak var cancelButton: ScaledButton!
     
@@ -62,15 +65,21 @@ class MobileIDChallengeViewController : UIViewController {
         codeLabel.isHidden = true
         currentProgress = 0
         timeoutProgressView.progress = 0
+        timeoutProgressView.accessibilityUserInputLabels = [""]
         RequestCancel.shared.resetCancelRequest()
 
         NotificationCenter.default.addObserver(self, selector: #selector(receiveCreateSignatureStatus), name: .signatureAddedToContainerNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveErrorNotification), name: .errorNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveStatusPendingNotification), name: .signatureMobileIDPendingRequestNotificationName, object: nil)
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(receiveMobileCreateSignatureNotification),
             name: .createSignatureNotificationName,
+            object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(appWillEnterForegroundNotification),
+            name: UIApplication.willEnterForegroundNotification,
             object: nil)
 
         NotificationCenter.default.addObserver(
@@ -90,7 +99,11 @@ class MobileIDChallengeViewController : UIViewController {
 
         if !isSuccessful {
             printLog("Control code announcement was not successful, retrying...")
-            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: announcementValue)
+            UIAccessibility.post(notification: .announcement, argument: announcementValue)
+        } else {
+            self.isAnnouncementMade = true
+            
+            codeLabel.accessibilityLabel = "\(L(.signingProgress)) \(Int(currentProgress * 100))%. \((L(LocKey.challengeCodeLabelAccessibility, [String(challengeIdNumbers[0]), String(challengeIdNumbers[1]), String(challengeIdNumbers[2]), String(challengeIdNumbers[3])]))). \(self.helpLabel.text!)"
         }
     }
 
@@ -101,18 +114,6 @@ class MobileIDChallengeViewController : UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    @objc func receiveStatusPendingNotification(_ notification: Notification) {
-        if UIAccessibility.isVoiceOverRunning {
-            if !isAnnouncementMade {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: { [weak self] in
-                    let challengeIdNumbers = Array<Character>(self!.challengeID)
-                    UIAccessibility.post(notification: .screenChanged, argument: L(LocKey.challengeCodeLabel, ["\(challengeIdNumbers[0]), \(challengeIdNumbers[1]), \(challengeIdNumbers[2]), \(challengeIdNumbers[3]). \(self!.helpLabel.text!)"]))
-                    self?.isAnnouncementMade = true
-                })
-            }
-        }
     }
 
     @objc func receiveCreateSignatureStatus(_ notification: Notification) {
@@ -130,17 +131,21 @@ class MobileIDChallengeViewController : UIViewController {
 
         challengeID = response.challengeId!
         sessCode = "\(Int(response.sessCode))"
-        let challengeIdNumbers = Array<Character>(challengeID)
-        let challengeIdAccessibilityLabel: String = "\(L(.signingProgress)) \(String(Int(self.timeoutProgressView.progress))) %. \((L(LocKey.challengeCodeLabelAccessibility, [String(challengeIdNumbers[0]), String(challengeIdNumbers[1]), String(challengeIdNumbers[2]), String(challengeIdNumbers[3])]))). \(self.helpLabel.text!)"
-        codeLabel.accessibilityLabel = challengeIdAccessibilityLabel
+        challengeIdNumbers = Array<Character>(challengeID)
+        
+        let challengeIdAccessibilityLabel: NSAttributedString = NSAttributedString(string: "\(L(.signingProgress)) \(Int(0))%. \((L(LocKey.challengeCodeLabelAccessibility, [String(challengeIdNumbers[0]), String(challengeIdNumbers[1]), String(challengeIdNumbers[2]), String(challengeIdNumbers[3])]))). \(self.helpLabel.text!)", attributes: [.accessibilitySpeechQueueAnnouncement: true])
+
+        codeLabel.text = L(LocKey.challengeCodeLabel, [challengeID])
+        codeLabel.accessibilityLabel = L(.signTitleMobileId)
+        
         if UIAccessibility.isVoiceOverRunning && !isAnnouncementMade {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: challengeIdAccessibilityLabel)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                DispatchQueue(label: "challengeLabel", qos: .userInitiated).sync {
+                    UIAccessibility.post(notification: .announcement, argument: challengeIdAccessibilityLabel)
+                }
             }
         }
-
         codeLabel.isHidden = false
-        codeLabel.text = L(LocKey.challengeCodeLabel, [challengeID])
 
         currentProgress = 0.0
 
@@ -199,16 +204,26 @@ class MobileIDChallengeViewController : UIViewController {
             let step: Double = 1.0 / kRequestTimeout
             currentProgress = currentProgress + step
             timeoutProgressView.progress = Float(currentProgress)
-            if UIAccessibility.isVoiceOverRunning {
-                Timer.scheduledTimer(withTimeInterval: 8.5, repeats: false) { timer in
-                    UIAccessibility.post(notification: .layoutChanged, argument: self.timeoutProgressView)
-                }
+            if UIAccessibility.isVoiceOverRunning && isAnnouncementMade && !isProgressBarFocused {
+                UIAccessibility.post(notification: .layoutChanged, argument: self.timeoutProgressView)
+                isProgressBarFocused = true
+            } else if UIAccessibility.isVoiceOverRunning && isAnnouncementMade && isProgressBarFocused {
+                setCodeLabelAccessibilityLabel()
+                UIAccessibility.post(notification: .announcement, argument: currentProgress)
             }
         }
         else {
             timer.invalidate()
             dismiss(animated: false, completion: nil)
         }
+    }
+    
+    func setCodeLabelAccessibilityLabel() {
+        codeLabel.accessibilityLabel = "\(L(.signingProgress)) \(Int(currentProgress * 100))%. \((L(LocKey.challengeCodeLabelAccessibility, [String(challengeIdNumbers[0]), String(challengeIdNumbers[1]), String(challengeIdNumbers[2]), String(challengeIdNumbers[3])]))). \(self.helpLabel.text!)"
+    }
+    
+    @objc func appWillEnterForegroundNotification() {
+        setCodeLabelAccessibilityLabel()
     }
 
 }

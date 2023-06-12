@@ -35,6 +35,8 @@ class ScaledButton: UIButton {
     }
     
     func scaleButton() {
+        self.isAccessibilityElement = true
+
         if UIAccessibility.isBoldTextEnabled {
             self.titleLabel?.font = FontUtil.boldFont(font: self.titleLabel?.font ?? UIFont(name: "Roboto-Bold", size: 16) ?? UIFont())
         } else {
@@ -46,6 +48,7 @@ class ScaledButton: UIButton {
         self.titleLabel?.lineBreakMode = .byClipping
         self.titleLabel?.minimumScaleFactor = 0.1
         self.titleLabel?.numberOfLines = 1
+        self.titleLabel?.textColor = UIColor.moppBase
         
         self.titleLabel?.sizeToFit()
         self.sizeToFit()
@@ -62,9 +65,11 @@ class ScaledButton: UIButton {
     }
     
     override func accessibilityElementDidBecomeFocused() {
-        let accessibilityIdentifier = self.accessibilityIdentifier
-        if accessibilityIdentifier == "IdCardCancelButton" || accessibilityIdentifier == "IdCardActionButton" {
-            NotificationCenter.default.post(name: .hideKeyboardAccessibility, object: nil, userInfo: ["view": self])
-        }
+        NotificationCenter.default.post(name: .hideKeyboardAccessibility, object: nil, userInfo: ["view": self])
+        self.becomeFirstResponder()
+    }
+    
+    func mediumFont() {
+        self.titleLabel?.font = FontUtil.mediumFont(font: UIFont(name: "Roboto-Medium", size: 17) ?? UIFont())
     }
 }

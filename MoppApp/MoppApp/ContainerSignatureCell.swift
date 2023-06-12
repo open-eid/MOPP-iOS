@@ -39,6 +39,8 @@ class ContainerSignatureCell: UITableViewCell {
     
     weak var delegate: ContainerSignatureDelegate? = nil
     
+    var signatureStatus: MoppLibSignatureStatus?
+    
     #if USE_TEST_DDS
         let useTestDDS = true
     #else
@@ -71,23 +73,26 @@ class ContainerSignatureCell: UITableViewCell {
     func populate(with signature: MoppLibSignature, kind: Kind, isTimestamp: Bool, showBottomBorder: Bool, showRemoveButton: Bool, signatureIndex: Int) {
         self.kind = kind
         self.signatureIndex = signatureIndex
-        var signatureStatus : NSMutableAttributedString
+        var signatureStatusDescription : NSMutableAttributedString
+        self.signatureStatus = signature.status
+        
         switch (signature.status) {
             case MoppLibSignatureStatus.Valid:
-            signatureStatus = kind == .timestamp ? getSignatureStatusText(translationPrefix: L(LocKey.containerTimestampValid), translationSufix: "", valid: true) : getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: "", valid: true)
+            signatureStatusDescription = kind == .timestamp ? getSignatureStatusText(translationPrefix: L(LocKey.containerTimestampValid), translationSufix: "", valid: true) : getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: "", valid: true)
             case MoppLibSignatureStatus.Warning:
-            signatureStatus = kind == .timestamp ? getSignatureStatusText(translationPrefix: L(LocKey.containerTimestampValid), translationSufix: L(LocKey.containerSignatureStatusWarning), valid: true) : getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: L(LocKey.containerSignatureStatusWarning), valid: true)
+            signatureStatusDescription = kind == .timestamp ? getSignatureStatusText(translationPrefix: L(LocKey.containerTimestampValid), translationSufix: L(LocKey.containerSignatureStatusWarning), valid: true) : getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: L(LocKey.containerSignatureStatusWarning), valid: true)
             case MoppLibSignatureStatus.NonQSCD:
-            signatureStatus = kind == .timestamp ? getSignatureStatusText(translationPrefix: L(LocKey.containerTimestampValid), translationSufix: L(LocKey.containerSignatureStatusNonQscd), valid: true) : getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: L(LocKey.containerSignatureStatusNonQscd), valid: true)
+            signatureStatusDescription = kind == .timestamp ? getSignatureStatusText(translationPrefix: L(LocKey.containerTimestampValid), translationSufix: L(LocKey.containerSignatureStatusNonQscd), valid: true) : getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusValid), translationSufix: L(LocKey.containerSignatureStatusNonQscd), valid: true)
             case MoppLibSignatureStatus.UnknownStatus:
-            signatureStatus = kind == .timestamp ? getSignatureStatusText(translationPrefix: L(LocKey.containerTimestampUnknown), translationSufix: "", valid: false) : getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusUnknown), translationSufix: "", valid: false)
+            signatureStatusDescription = kind == .timestamp ? getSignatureStatusText(translationPrefix: L(LocKey.containerTimestampUnknown), translationSufix: "", valid: false) : getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusUnknown), translationSufix: "", valid: false)
             case MoppLibSignatureStatus.Invalid:
-            signatureStatus = kind == .timestamp ? getSignatureStatusText(translationPrefix: L(LocKey.containerTimestampInvalid), translationSufix: "", valid: false) : getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusInvalid), translationSufix: "", valid: false)
+            signatureStatusDescription = kind == .timestamp ? getSignatureStatusText(translationPrefix: L(LocKey.containerTimestampInvalid), translationSufix: "", valid: false) : getSignatureStatusText(translationPrefix: L(LocKey.containerSignatureStatusInvalid), translationSufix: "", valid: false)
         @unknown default:
-            signatureStatus = NSMutableAttributedString(string: "")
+            signatureStatusDescription = NSMutableAttributedString(string: "")
         }
         
-        signatureStatusLabel.attributedText = signatureStatus
+        signatureStatusLabel.accessibilityUserInputLabels = [""]
+        signatureStatusLabel.attributedText = signatureStatusDescription
         checkSignatureValidity(signature: signature)
         
         iconImageView.image = UIImage(named: (kind == .signature)
@@ -96,6 +101,7 @@ class ContainerSignatureCell: UITableViewCell {
         
         bottomBorderView.isHidden = !showBottomBorder
         removeButton.isHidden = !showRemoveButton
+        removeButton.accessibilityUserInputLabels = ["\(L(.voiceControlRemoveSignature)) \(signatureIndex + 1)"]
     }
     
     func getSignatureStatusText(translationPrefix: String, translationSufix: String, valid: Bool) -> NSMutableAttributedString{

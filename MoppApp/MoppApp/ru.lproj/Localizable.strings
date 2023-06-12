@@ -67,6 +67,7 @@
 "signing-error-incorrect-pin-length" = "%@-код должен быть не менее %i символов.";
 
 // Crypto
+"crypto-header-files-title" = "Файлы контейнера";
 "crypto-view-begin-label" = "Выберите файл для шифрования или расшифровки";
 "crypto-view-begin-label-accessibility" = "Выберите файл для шифрования или расшифровки";
 "crypto-view-begin-button" = "ВЫБРАТЬ ФАЙЛ";
@@ -75,9 +76,11 @@
 "crypto-encryption-error-text" = "Что-то пошло не так с шифрованием";
 "crypto-encryption-success" = "ШИФРОВАНИЕ УДАЛОСЬ";
 "crypto-decryption-cancelled" = "Расшифровка файла прервана";
+"crypto-recipient-search" = "Искать";
 "crypto-recipient-found" = "Получатель найден";
 "crypto-recipients-found" = "%@ получатели найдены";
 "crypto-recipient-added" = "Получатель добавлен";
+"crypto-recipients-added" = "Получатели добавлены";
 "crypto-recipient-removed" = "Получатель удален";
 "crypto-recipient-adding-cancelled" = "Добавление получателя отменено";
 "crypto-no-addressees-warning" = "Не добавлено ни одного получателя";
@@ -90,6 +93,7 @@
 "crypto-add-addressee-button-title" = "ДОБАВИТЬ";
 "crypto-add-addressee-button-title-accessibility" = "ДОБАВИТЬ ПОЛУЧАТЕЛЯ";
 "crypto-addressee-added-button-title" = "ДОБАВЛЕН";
+"crypto-addressee-add-all-button" = "ДОБАВИТЬ ВСЕ";
 
 // Signing view
 "signing-recent-containers" = "Недавние документы";
@@ -162,9 +166,20 @@
 "container-signature-status-invalid" = "Подпись недействительна";
 "container-signature-status-unknown" = "Подпись неизвестная";
 "crypto-remove-addressee-button" = "Удалить подпись";
+"crypto-encrypted-files-title" = "Зашифрованные файлы";
+
+"crypto-invalid-personal-code-title" = "Личный код недействителен!";
 "container-timestamp-valid" = "Временной штамп действителен";
 "container-timestamp-unknown" = "Временной штамп неизвестный";
 "container-timestamp-invalid" = "Временной штамп недействителен";
+
+"container-signature-status-reason-title" = "Предупреждения";
+"container-signature-status-invalid-reason" = "Повреждена подпись или подписанный файл. Данная подпись недействительна.";
+"container-signature-status-warning-reason-weak" = "Подпись технически верна, но так как она основана на слабом на данный момент алгоритме хеширования SHA-1, то не защищена от подделки или изменения.";
+"container-signature-status-warning-reason" = "Подпись действительна, но у контейнера имеется какая-то особенность. Чаще всего, такая особенность возникает при изготовлении контейнеров случайно. Однако поскольку контейнер невозможно изменить без потери действительности подписи, то отображается предупреждение.\nДополнительная информация: https://www.id.ee/ru/artikkel/czifrovoe-podpisanie-i-elektronnye-podpisi/";
+"container-signature-status-nonqscd-reason" = "Эта электронная подпись не эквивалентна рукописной подписи и поэтому может использоваться только в тех случаях, когда не требуется квалифицированная электронная подпись.";
+"container-signature-status-unknown-reason" = "Статус подписи отображается как \"неизвестный\", если на компьютере не установлены необходимые для проверки подписи сертификаты сертифицирующей организации и/или услуги подтверждения действительности.\nДополнительная информация: https://www.id.ee/ru/artikkel/digidoc4-klient-oshibka-ocsp-responder-is-not-trusted-no-certificate-for-this-responder-in-local-certstore";
+"container-signature-technical-information-button" = "ТЕХНИЧЕСКАЯ ИНФОРМАЦИЯ";
 
 // *** Mobile ID Challenge View ***
 
@@ -247,8 +262,8 @@
 "wrong-pin1-single" = "Неверный PIN1. У Вас осталась 1 попытка до блокировки Вашего PIN1.";
 "pin2-textfield-label" = "Введите PIN2";
 "pin1-textfield-label" = "Введите PIN1";
-"pin2-blocked-alert" = "PIN2 заблокирован. Зайдите в Мой eID, чтобы разблокировать его.";
-"pin1-blocked-alert" = "PIN1 заблокирован. Зайдите в Мой eID, чтобы разблокировать его.";
+"pin2-blocked-alert" = "PIN2 заблокирован. PIN-код можно разблокировать на странице Mой eID.";
+"pin1-blocked-alert" = "PIN1 заблокирован. PIN-код можно разблокировать на странице Mой eID.";
 "generic-error-message" = "Что-то пошло не так. Пожалуйста, попробуйте снова.";
 "decryption-error-message" = "Что-то пошло не так с дешифрованием. Пожалуйста, попробуйте снова.";
 "signing-aborted-message" = "Процесс подписания прерван";
@@ -347,6 +362,11 @@
 "settings-timestamp-url-placeholder" = "";
 "settings-timestamp-use-default-title" = "Использовать значение по умолчанию";
 "settings-value-changed" = "Значение настройки изменено";
+"settings-timestamp-cert-title" = "SSL сертификат службы отметок времени";
+"settings-timestamp-cert-issued-to-label" = "Выдан:";
+"settings-timestamp-cert-valid-to-label" = "Действительно до:";
+"settings-timestamp-cert-add-certificate-button" = "ДОБАВИТЬ СЕРТИФИКАТ";
+"settings-timestamp-cert-show-certificate-button" = "ПОКАЗАТЬ СЕРТИФИКАТ";
 "diagnostics-title" = "Диагностика";
 "diagnostics-activate-one-time-logging" = "Активировать одноразовое создание лог-файла";
 "diagnostics-save-log" = "СОХРАНИТЬ ЛОГ-ФАЙЛ";
@@ -354,9 +374,10 @@
 "diagnostics-one-time-logging-read-more" = "Подробнее читайте здесь";
 "diagnostics-app-version" = "Версия приложения";
 "diagnostics-ios-version" = "Операционная система";
-"diagnostics-libraries-label" = "Библиотеки";
+"diagnostics-libraries-label" = "Библиотеки:";
 "diagnostics-rpuuid-default" = "назначено по умолчанию";
 "diagnostics-rpuuid-custom" = "назначено вручную";
+"diagnostics-tsl-cache-label" = "TSL кеш:";
 "about-title" = "Информация";
 "jailbreak-message" = "Данное приложение не может быть использовано на взломанном (джейлбрейк) устройстве";
 "datafile-preview-failed" = "Не удалось открыть документ для предварительного просмотра";
@@ -446,3 +467,41 @@
 "accessibility-introduction-screen-magnification-tools" = "Вспомогательные средства для увеличения экрана:";
 "accessibility-introduction-screen-magnification-tools-ios" = "Zoom (iOS, встроенный) https://support.apple.com/ru-ru/guide/iphone/iph3e2e367e/ios";
 "accessibility-introduction-screen-magnification-tools-android" = "Magnification (Android, встроенный) https://support.google.com/accessibility/android/answer/6006949?hl=ru";
+
+// Voice Commands (English only)
+"voice-control-choose-file" = "Choose file";
+"voice-control-tab-my-eid" = "My EID";
+"voice-control-tab-crypto" = "Crypto";
+"voice-control-tab-signature" = "Signature";
+"voice-control-tab-share" = "Share";
+"voice-control-tab-sign" = "Sign";
+"voice-control-close" = "Close";
+"voice-control-search" = "Search";
+"voice-control-file-row" = "File";
+"voice-control-signing-service" = "Signing service";
+"voice-control-timestamping-service" = "TimeStamping service";
+"voice-control-enable-log-generation" = "Enable log generation";
+"voice-control-disable-log-generation" = "Disable log generation";
+"voice-control-estonian-language" = "Estonian language";
+"voice-control-english-language" = "English language";
+"voice-control-russian-language" = "Russian language";
+"voice-control-clear-text" = "Clear text";
+"voice-control-change-container-name" = "Change container name";
+"voice-control-add-files" = "Add files";
+"voice-control-save-file" = "Save file";
+"voice-control-remove-file" = "Remove file";
+"voice-control-mobile-id" = "Mobile-ID";
+"voice-control-smart-id" = "Smart-ID";
+"voice-control-id-card" = "ID-Card";
+"voice-control-phone-number" = "Phone number";
+"voice-control-country" = "Country";
+"voice-control-signature" = "Signature";
+"voice-control-container-timestamp" = "Container timestamp";
+"voice-control-timestamp" = "Timestamp";
+"voice-control-remove-signature" = "Remove signature";
+"voice-control-pin1-field" = "PIN1 code";
+"voice-control-pin2-field" = "PIN2 code";
+"voice-control-tab-encrypt" = "Encrypt";
+"voice-control-tab-decrypt" = "Decrypt";
+"voice-control-tab-confirm" = "Confirm";
+"voice-control-search-recipients" = "Search recipients";

@@ -105,7 +105,11 @@ public:
   }
     
   virtual std::vector<digidoc::X509Cert> TSCerts() const override {
-      return stringsToX509Certs(moppLibConfiguration.CERTBUNDLE);
+      NSMutableArray<NSString *> *certBundle = [NSMutableArray arrayWithArray:moppLibConfiguration.CERTBUNDLE];
+      if (moppLibConfiguration.TSACERT != NULL) {
+          [certBundle addObject:moppLibConfiguration.TSACERT];
+      }
+      return stringsToX509Certs(certBundle);
   }
 
   virtual std::vector<digidoc::X509Cert> verifyServiceCerts() const override {
@@ -611,8 +615,9 @@ static std::string profile = "time-stamp";
     moppLibSignature.timestamp = [[MLDateFormatter sharedInstance] YYYYMMddTHHmmssZToDate:[NSString stringWithUTF8String:timestamp.c_str()]];
 
     try {
-      digidoc::Signature::Validator *validator =  new digidoc::Signature::Validator(signature);
+      digidoc::Signature::Validator *validator = new digidoc::Signature::Validator(signature);
       digidoc::Signature::Validator::Status status = validator->status();
+      moppLibSignature.diagnosticsInfo = [NSString stringWithUTF8String:validator->diagnostics().c_str()];
       moppLibSignature.status = [self determineSignatureStatus:status];
     } catch(const digidoc::Exception &e) {
       moppLibSignature.status = Invalid;
@@ -1055,8 +1060,7 @@ void parseException(const digidoc::Exception &e) {
                 parseException(e);
                 break;
             }
-
-            if([fileName isEqualToString:[MoppLibDigidocManager sanitize:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]]) {
+            if ([self isContainerFileSaveable:containerPath saveDataFile:fileName]) {
                 dataFile->saveAs(path.UTF8String);
                 success();
                 break;
@@ -1065,7 +1069,32 @@ void parseException(const digidoc::Exception &e) {
     } else {
         failure([MoppLibError generalError]);
     }
+}
 
+- (BOOL)isContainerFileSaveable:(NSString *)containerPath saveDataFile:(NSString *)fileName {
+    std::unique_ptr<digidoc::Container> doc;
+    try {
+        doc = digidoc::Container::openPtr(containerPath.UTF8String);
+    } catch(const digidoc::Exception &e) {
+        parseException(e);
+    }
+
+    if (doc != nil) {
+        for (int i = 0; i < doc->dataFiles().size(); i++) {
+            digidoc::DataFile *dataFile;
+            try {
+                dataFile = doc->dataFiles().at(i);
+            } catch (const digidoc::Exception &e) {
+                parseException(e);
+                break;
+            }
+
+            if ([fileName isEqualToString:[MoppLibDigidocManager sanitize:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]]) {
+                return TRUE;
+            }
+        }
+    }
+    return FALSE;
 }
 
 - (NSString *)digidocVersion {

@@ -24,6 +24,8 @@ class SettingsViewController: MoppViewController {
     private(set) var timestampUrl: String!
     @IBOutlet weak var tableView: UITableView!
     
+    var isDefaultTimestampValue = true
+    
     enum Section {
         case header
         case fields
@@ -33,6 +35,7 @@ class SettingsViewController: MoppViewController {
         case rpuuid
         case timestampUrl
         case useDefault
+        case tsaCert
     }
     
     struct Field {
@@ -41,6 +44,7 @@ class SettingsViewController: MoppViewController {
             case choice
             case timestamp
             case defaultSwitch
+            case tsaCert
         }
         
         let id: FieldId
@@ -75,18 +79,41 @@ class SettingsViewController: MoppViewController {
             placeholderText: NSAttributedString(string: L(.settingsTimestampUrlPlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker]),
             value: DefaultsHelper.timestampUrl ?? MoppConfiguration.tsaUrl!
         ),
-        Field(id: .useDefault, kind: .defaultSwitch, title: L(.settingsTimestampUseDefaultTitle), placeholderText: NSAttributedString(string: L(.settingsTimestampUseDefaultTitle)), value: "")
+        Field(
+            id: .useDefault,
+            kind: .defaultSwitch,
+            title: L(.settingsTimestampUseDefaultTitle),
+            placeholderText: NSAttributedString(string: L(.settingsTimestampUseDefaultTitle)),
+            value: ""),
+        Field(
+            id: .tsaCert,
+            kind: .tsaCert,
+            title: L(.settingsTimestampCertTitle),
+            placeholderText: NSAttributedString(string: L(.settingsTimestampCertTitle)),
+            value: "")
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         timestampUrl = DefaultsHelper.timestampUrl
+        isDefaultTimestampValue = DefaultsHelper.defaultSettingsSwitch
     }
 
     
     override func viewDidAppear(_ animated: Bool) {
-        self.view.accessibilityElements = getAccessibilityElementsOrder()
+        if UIAccessibility.isVoiceOverRunning {
+            self.view.accessibilityElements = getAccessibilityElementsOrder()
+        }
+    }
+    
+    override func keyboardWillShow(notification: NSNotification) {
+        let firstCell = tableView.cellForRow(at: IndexPath(row: 1, section: 1))
+        tableView.setContentOffset(CGPoint(x: 0, y: (firstCell?.frame.origin.y ?? 0) - 100), animated: false)
+    }
+    
+    override func keyboardWillHide(notification: NSNotification) {
+        tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     
     func getAccessibilityElementsOrder() -> [Any] {
@@ -94,6 +121,7 @@ class SettingsViewController: MoppViewController {
         var fieldCellIndex: Int = 0
         var timestampCellIndex: Int = 0
         var defaultValueCellIndex: Int = 0
+        var tsaCertCell: Int = 0
         for (index, cell) in tableView.visibleCells.enumerated() {
             if cell is SettingsHeaderCell {
                 headerCellIndex = index
@@ -103,6 +131,8 @@ class SettingsViewController: MoppViewController {
                 timestampCellIndex = index
             } else if cell is SettingsDefaultValueCell {
                 defaultValueCellIndex = index
+            } else if cell is SettingsTSACertCell {
+                tsaCertCell = index
             }
         }
         
@@ -124,12 +154,17 @@ class SettingsViewController: MoppViewController {
             return []
         }
         
+        guard let tsaCertCellAccessibilityElements = tableView.visibleCells[tsaCertCell].accessibilityElements else {
+            return []
+        }
+        
         return [
             timestampDefaultSwitch,
             fieldCellAccessibilityElements,
             timestampTextfield,
             headerCellAccessibilityElements,
             timestampDefaultSwitch,
+            tsaCertCellAccessibilityElements
         ]
     }
 }
@@ -166,6 +201,9 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             return headerCell
         case .fields:
             let field = fields[indexPath.row]
+            if isDefaultTimestampValue && field.kind == .tsaCert {
+                break
+            }
             switch field.kind {
             case .inputField:
                 let fieldCell = tableView.dequeueReusableCell(withType: SettingsFieldCell.self, for: indexPath)!
@@ -193,8 +231,14 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
                     useDefaultCell.delegate = self
                     useDefaultCell.populate()
                 return useDefaultCell
+            case .tsaCert:
+                let tsaCertCell = tableView.dequeueReusableCell(withType: SettingsTSACertCell.self, for: indexPath)!
+                    tsaCertCell.topViewController = getTopViewController()
+                    tsaCertCell.populate()
+                return tsaCertCell
             }
         }
+        return UITableViewCell()
     }
     
     @objc func editingChanged(sender: UITextField) {
@@ -248,6 +292,7 @@ extension SettingsViewController: SettingsDefaultValueCellDelegate {
     func didChangeDefaultSwitch(_ field: FieldId, with switchValue: Bool?) {
         if let switchValue = switchValue {
             DefaultsHelper.defaultSettingsSwitch = switchValue
+            isDefaultTimestampValue = switchValue
         }
         tableView.reloadData()
     }

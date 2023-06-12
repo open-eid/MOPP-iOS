@@ -188,7 +188,7 @@ extension String {
             if scalar.properties.isEmojiPresentation {
                 var stringScalar = ""
                 stringScalar.unicodeScalars.append(scalar)
-                unicodeString.append(stringScalar.asUnicode)
+                unicodeString.append(stringScalar)
             } else {
                 unicodeString.append(#"\#((scalar.escaped(asASCII: true)).replacingOccurrences(of: "{", with: "").replacingOccurrences(of: "}", with: ""))"#)
             }
@@ -211,7 +211,8 @@ extension String {
     }
     
     func sanitize() -> String {
-        return MoppLibManager.sanitize(self)
+        let normalizedName = FileUtil.getFileName(currentFileName: self)
+        return MoppLibManager.sanitize(normalizedName)
             .removeForbiddenCharacters().trimWhitespacesAndNewlines()
     }
 }

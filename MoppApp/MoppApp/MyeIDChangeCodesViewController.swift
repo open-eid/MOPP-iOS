@@ -47,34 +47,25 @@ class MyeIDChangeCodesViewController: MoppViewController {
         super.viewWillDisappear(animated)
         
         NotificationCenter.default.removeObserver(self)
+        
+        setAccessibility(isElement: false)
+    }
+    
+    func setAccessibility(isElement: Bool) {
+        for subview in view.subviews {
+            if subview.isKind(of: UIView.self) {
+                subview.isAccessibilityElement = false
+            } else {
+                subview.isAccessibilityElement = isElement
+            }
+        }
     }
 }
 
 extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelegate {
     func didTapDiscardButton(_ ui: MyeIDChangeCodesViewControllerUI) {
         if UIAccessibility.isVoiceOverRunning {
-            switch self.model.actionType {
-            case .changePin1:
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    UIAccessibility.post(notification: .screenChanged, argument: L(.myEidInfoPin1ChangeCancelled))
-                }
-            case .unblockPin1:
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    UIAccessibility.post(notification: .screenChanged, argument: L(.myEidInfoPin1UnblockCancelled))
-                }
-            case .changePin2:
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    UIAccessibility.post(notification: .screenChanged, argument: L(.myEidInfoPin2ChangeCancelled))
-                }
-            case .unblockPin2:
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    UIAccessibility.post(notification: .screenChanged, argument: L(.myEidInfoPin2UnblockCancelled))
-                }
-            case .changePuk:
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    UIAccessibility.post(notification: .screenChanged, argument: L(.myEidInfoPukChangeCancelled))
-                }
-            }
+            infoManager.actionKind = self.model.actionType
         }
         _ = navigationController?.popViewController(animated: true)
     }

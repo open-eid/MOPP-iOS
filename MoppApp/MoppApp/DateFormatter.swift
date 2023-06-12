@@ -105,14 +105,22 @@ class MoppDateFormatter {
         return handleTimeFormats(date: date, dateFormat: dateFormatter.dateFormat)
     }
     
-    func dateToString(date: Date?) -> String {
+    func dateToString(date: Date?, _ withTime: Bool = true) -> String {
         guard let date = date else { return "" }
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        if withTime {
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        } else {
+            formatter.dateFormat = "yyyy-MM-dd"
+        }
         
         let formattedDateTime = formatter.date(from: formatter.string(from: date))
-        formatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        if withTime {
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        } else {
+            formatter.dateFormat = "yyyy-MM-dd"
+        }
         return handleTimeFormats(date: formattedDateTime!, dateFormat: formatter.dateFormat)
     }
     
