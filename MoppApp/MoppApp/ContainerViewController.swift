@@ -969,10 +969,12 @@ extension ContainerViewController : UITableViewDelegate {
         if let notificationIndex = notifications.firstIndex(where: { $0.isSuccess == true }), sections.contains(.notifications) {
             scrollToTop()
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-                if (self?.notifications.isEmpty)! { return }
-                self?.notifications.remove(at: notificationIndex)
-                if let notificationsSection = self?.sections.firstIndex(where: { $0 == .notifications }) {
-                    self?.tableView.reloadSections([notificationsSection], with: .automatic)
+                guard let notificationMessages = self?.notifications, !notificationMessages.isEmpty else { return }
+                if notificationMessages.indices.contains(notificationIndex) {
+                    self?.notifications.remove(at: notificationIndex)
+                    if let notificationsSection = self?.sections.firstIndex(where: { $0 == .notifications }) {
+                        self?.tableView.reloadSections([notificationsSection], with: .automatic)
+                    }
                 }
             }
         }
