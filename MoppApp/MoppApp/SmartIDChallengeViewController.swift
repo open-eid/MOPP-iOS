@@ -232,13 +232,16 @@ class SmartIDChallengeViewController : UIViewController {
     
     func getCodeLabelAccessibilityLabel(withProgress: Bool) -> String {
         let signingProgess = "\(L(.signingProgress)) \(Int(currentProgress * 100))%. "
-        let codeLabelText = "\((L(LocKey.challengeCodeLabelAccessibility, [String(challengeIdNumbers[0]), String(challengeIdNumbers[1]), String(challengeIdNumbers[2]), String(challengeIdNumbers[3])]))). \(self.helpLabel.text!)"
-        let codeLabelMessage = withProgress ? signingProgess + codeLabelText : codeLabelText
-        return codeLabelMessage
+        if !challengeIdNumbers.isEmpty {
+            let codeLabelText = "\((L(LocKey.challengeCodeLabelAccessibility, [String(challengeIdNumbers[0]), String(challengeIdNumbers[1]), String(challengeIdNumbers[2]), String(challengeIdNumbers[3])]))). \(self.helpLabel.text!)"
+            let codeLabelMessage = withProgress ? signingProgess + codeLabelText : codeLabelText
+            return codeLabelMessage
+        }
+        return ""
     }
     
     func announceCodeLabelAccessibilityLabel() {
-        let codeLabelMessage =  getCodeLabelAccessibilityLabel(withProgress: true)
+        let codeLabelMessage = getCodeLabelAccessibilityLabel(withProgress: true)
         UIAccessibility.post(notification: .announcement, argument: codeLabelMessage)
     }
     
