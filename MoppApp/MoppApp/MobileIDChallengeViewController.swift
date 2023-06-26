@@ -103,7 +103,11 @@ class MobileIDChallengeViewController : UIViewController {
         } else {
             self.isAnnouncementMade = true
             
-            codeLabel.accessibilityLabel = "\(L(.signingProgress)) \(Int(currentProgress * 100))%. \((L(LocKey.challengeCodeLabelAccessibility, [String(challengeIdNumbers[0]), String(challengeIdNumbers[1]), String(challengeIdNumbers[2]), String(challengeIdNumbers[3])]))). \(self.helpLabel.text!)"
+            if !challengeIdNumbers.isEmpty {
+                codeLabel.accessibilityLabel = "\(L(.signingProgress)) \(Int(currentProgress * 100))%. \((L(LocKey.challengeCodeLabelAccessibility, [String(challengeIdNumbers[0]), String(challengeIdNumbers[1]), String(challengeIdNumbers[2]), String(challengeIdNumbers[3])]))). \(self.helpLabel.text ?? "")"
+            } else {
+                codeLabel.accessibilityLabel = self.helpLabel.text ?? ""
+            }
         }
     }
 
