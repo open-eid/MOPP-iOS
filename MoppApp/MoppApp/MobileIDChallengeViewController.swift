@@ -158,6 +158,7 @@ class MobileIDChallengeViewController : UIViewController {
 
     @objc func receiveErrorNotification(_ notification: Notification) {
         DispatchQueue.main.async {
+            self.sessionTimer?.invalidate()
             self.dismiss(animated: false) {
                 let topViewController = self.getTopViewController()
                 AlertUtil.errorMessageDialog(notification, topViewController: topViewController)
@@ -215,8 +216,7 @@ class MobileIDChallengeViewController : UIViewController {
                 setCodeLabelAccessibilityLabel()
                 UIAccessibility.post(notification: .announcement, argument: currentProgress)
             }
-        }
-        else {
+        } else {
             timer.invalidate()
             dismiss(animated: false, completion: nil)
         }
