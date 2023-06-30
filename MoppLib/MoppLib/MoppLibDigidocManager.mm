@@ -1072,7 +1072,7 @@ void parseException(const digidoc::Exception &e) {
 }
 
 -(BOOL)isFileInContainer:(NSString *)fileName dataFile:(NSString *)dataFileName {
-    return [fileName isEqualToString:[MoppLibDigidocManager sanitize:dataFileName]];
+    return [fileName isEqualToString:dataFileName];
 }
 
 - (BOOL)isContainerFileSaveable:(NSString *)containerPath saveDataFile:(NSString *)fileName {

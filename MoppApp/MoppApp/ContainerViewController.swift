@@ -489,12 +489,12 @@ extension ContainerViewController : UITableViewDataSource {
                 dataFileName = ContainerViewController.unnamedDataFile
             }
 
-            if !isEncryptedDataFiles {
-                cell.filenameLabel.addGestureRecognizer(tapGesture)
+            if isAsicsContainer() {
+                cell.fileLabelView.addGestureRecognizer(tapGesture)
                 tapGesture.isEnabled = true
             } else {
-                if cell.filenameLabel.gestureRecognizers != nil {
-                    cell.filenameLabel.removeGestureRecognizer(tapGesture)
+                if cell.fileLabelView.gestureRecognizers != nil {
+                    cell.fileLabelView.removeGestureRecognizer(tapGesture)
                     tapGesture.isEnabled = false
                 }
             }
@@ -510,10 +510,8 @@ extension ContainerViewController : UITableViewDataSource {
                 isRemoveButtonShown = !isForPreview && (state != .opened)
                 isDownloadButtonShown = !isForPreview && (isDecrypted || (state != .opened))
             }
-            
-            var isFileInContainer = false
-            
-            let isSaveable = MoppLibContainerActions.sharedInstance().isContainerFileSaveable(containerViewDelegate.getContainerPath(), saveDataFile: dataFileName)
+
+            var isSaveable = MoppLibContainerActions.sharedInstance().isContainerFileSaveable(isAsicsContainer() ? asicsNestedContainerPath : containerViewDelegate.getContainerPath(), saveDataFile: dataFileName)
 
             cell.populate(
                 name: dataFileName,
@@ -857,11 +855,10 @@ extension ContainerViewController : UITableViewDelegate {
                 if isDecrypted {
                     guard let dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) else { return }
                     openFilePreview(dataFileFilename: dataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: true)
-                } else {
+                } else if !isAsicsContainer() {
                     let dataFile = containerViewDelegate.getDataFileRelativePath(index: indexPath.row)
                     openFilePreview(dataFileFilename: dataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: false)
                 }
-                
             }
             break
         case .header:
