@@ -54,17 +54,22 @@ class ContainerFileCell: UITableViewCell {
         bottomBorderView.isHidden = !showBottomBorder
         if signingFileNameActionsStackView != nil {
             signingFileNameActionsStackView.isAccessibilityElement = false
+            signingFileNameActionsStackView.isHidden = false
         }
         if cryptoFileNameActionsStackView != nil {
             cryptoFileNameActionsStackView.isAccessibilityElement = false
+            cryptoFileNameActionsStackView.isHidden = false
         }
+        filenameLabel.isHidden = false
         filenameLabel.text = name.sanitize()
         filenameLabel.resetLabelProperties()
         if signingActionsStackView != nil {
             signingActionsStackView.isAccessibilityElement = false
+            signingActionsStackView.isHidden = false
         }
         if cryptoActionsStackView != nil {
             cryptoActionsStackView.isAccessibilityElement = false
+            cryptoActionsStackView.isHidden = false
         }
         removeButton.isAccessibilityElement = true
         removeButton.isHidden = !showRemoveButton

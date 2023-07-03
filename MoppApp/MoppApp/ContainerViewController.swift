@@ -82,6 +82,9 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var isSendingToSivaAgreed = true
     
     private static let unnamedDataFile = "datafile"
+    
+    private var isFileSaveableCache: [IndexPath: Bool] = [:]
+    private var isDatafileReloaded = false
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -143,8 +146,6 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var notifications: [NotificationMessage] = []
     var state: ContainerState!
 
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInsetAdjustmentBehavior = .never
@@ -167,6 +168,8 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     }
 
     deinit {
+        isDatafileReloaded = false
+        clearIsSaveableCache()
         NotificationCenter.default.removeObserver(self)
     }
 
@@ -202,6 +205,8 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        isDatafileReloaded = false
+        clearIsSaveableCache()
         isEmptyFileWarningSet = false
     }
 
@@ -510,18 +515,41 @@ extension ContainerViewController : UITableViewDataSource {
                 isRemoveButtonShown = !isForPreview && (state != .opened)
                 isDownloadButtonShown = !isForPreview && (isDecrypted || (state != .opened))
             }
-            
-            var isFileInContainer = false
-            
-            let isSaveable = MoppLibContainerActions.sharedInstance().isContainerFileSaveable(containerViewDelegate.getContainerPath(), saveDataFile: dataFileName)
 
-            cell.populate(
-                name: dataFileName,
-                showBottomBorder: row < containerViewDelegate.getDataFileCount() - 1,
+            func populateCell(isSaveable: Bool) {
+                cell.populate(
+                    name: dataFileName,
+                    showBottomBorder: row < self.containerViewDelegate.getDataFileCount() - 1,
                     showRemoveButton: isRemoveButtonShown,
                     showDownloadButton: isDownloadButtonShown,
-                    enableDownloadButton: isSaveable || !isAsicContainer,
+                    enableDownloadButton: isSaveable || !self.isAsicContainer,
                     dataFileIndex: row)
+            }
+
+            if let isSaveable = getCachedIsSaveable(for: indexPath) {
+                populateCell(isSaveable: isSaveable)
+            } else {
+                DispatchQueue.global(qos: .userInitiated).async {
+                    let isSaveable = MoppLibContainerActions.sharedInstance().isContainerFileSaveable(self.containerViewDelegate.getContainerPath(), saveDataFile: dataFileName)
+
+                    DispatchQueue.main.async {
+                        guard let visibleIndexPaths = tableView.indexPathsForVisibleRows,
+                              visibleIndexPaths.contains(indexPath) else {
+                            return
+                        }
+
+                        self.setCachedIsSaveable(isSaveable, for: indexPath)
+
+                        populateCell(isSaveable: isSaveable)
+
+                        if !self.isDatafileReloaded && row == self.containerViewDelegate.getDataFileCount() - 1 {
+                            self.isDatafileReloaded = true
+                            tableView.reloadData()
+                        }
+                    }
+                }
+            }
+
             return cell
         case .importDataFiles:
             let cell = tableView.dequeueReusableCell(withType: ContainerImportFilesCell.self, for: indexPath)!
@@ -1044,5 +1072,19 @@ extension ContainerViewController : ContainerImportCellDelegate {
             name: .startImportingFilesWithDocumentPickerNotificationName,
             object: nil,
             userInfo: [kKeyFileImportIntent: MoppApp.FileImportIntent.addToContainer, kKeyContainerType: landingViewControllerContainerType])
+    }
+}
+
+extension ContainerViewController {
+    func getCachedIsSaveable(for indexPath: IndexPath) -> Bool? {
+        return isFileSaveableCache[indexPath]
+    }
+    
+    func setCachedIsSaveable(_ result: Bool, for indexPath: IndexPath) {
+        isFileSaveableCache[indexPath] = result
+    }
+    
+    func clearIsSaveableCache() {
+        isFileSaveableCache.removeAll()
     }
 }
