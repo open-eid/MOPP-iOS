@@ -136,27 +136,39 @@
                                             </userGuides>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tgu-rh-2tI">
-                                                    <rect key="frame" x="16" y="76" width="635" height="1"/>
+                                                    <rect key="frame" x="16" y="61" width="635" height="1"/>
                                                     <color key="backgroundColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="0.20732555650000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="pYQ-aO-5JY"/>
                                                     </constraints>
                                                 </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="99c-XZ-Fbm">
-                                                    <rect key="frame" x="16" y="26" width="635" height="25"/>
+                                                    <rect key="frame" x="16" y="26" width="635" height="35"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.pdf" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dlt-jI-SME" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="116" height="25"/>
-                                                            <gestureRecognizers/>
-                                                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
-                                                            <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HwH-pd-pJK">
+                                                            <rect key="frame" x="0.0" y="0.0" width="527" height="35"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.pdf" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dlt-jI-SME" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="527" height="35"/>
+                                                                    <gestureRecognizers/>
+                                                                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
+                                                                    <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="bottom" secondItem="dlt-jI-SME" secondAttribute="bottom" id="9pw-Gn-3Uc"/>
+                                                                <constraint firstItem="dlt-jI-SME" firstAttribute="leading" secondItem="HwH-pd-pJK" secondAttribute="leading" id="K2x-Xe-32h"/>
+                                                                <constraint firstAttribute="trailing" secondItem="dlt-jI-SME" secondAttribute="trailing" id="U04-ja-Yg5"/>
+                                                                <constraint firstItem="dlt-jI-SME" firstAttribute="top" secondItem="HwH-pd-pJK" secondAttribute="top" id="Yfh-tO-Hgl"/>
+                                                            </constraints>
+                                                        </view>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="JNa-b0-DK7">
-                                                            <rect key="frame" x="577" y="0.0" width="58" height="25"/>
+                                                            <rect key="frame" x="577" y="0.0" width="58" height="35"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zV0-PM-P6i">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="25" height="35"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="25" id="CSy-D7-Pfc"/>
                                                                     </constraints>
@@ -166,7 +178,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="center" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKh-UH-oRj">
-                                                                    <rect key="frame" x="33" y="0.0" width="25" height="25"/>
+                                                                    <rect key="frame" x="33" y="0.0" width="25" height="35"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="25" id="rhC-V3-RTh"/>
                                                                     </constraints>
@@ -178,14 +190,19 @@
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="HwH-pd-pJK" firstAttribute="leading" secondItem="99c-XZ-Fbm" secondAttribute="leading" id="1lW-X6-S3f"/>
+                                                        <constraint firstAttribute="bottom" secondItem="HwH-pd-pJK" secondAttribute="bottom" id="f5a-K6-6yI"/>
+                                                        <constraint firstItem="HwH-pd-pJK" firstAttribute="top" secondItem="99c-XZ-Fbm" secondAttribute="top" id="kbE-TC-Mfr"/>
+                                                    </constraints>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="Tgu-rh-2tI" secondAttribute="trailing" constant="16" id="8XZ-T2-tL2"/>
                                                 <constraint firstItem="Tgu-rh-2tI" firstAttribute="leading" secondItem="o5E-gs-VpH" secondAttribute="leading" constant="16" id="QVO-jK-dQM"/>
                                                 <constraint firstItem="99c-XZ-Fbm" firstAttribute="leading" secondItem="o5E-gs-VpH" secondAttribute="leadingMargin" id="dIa-1J-wdE"/>
-                                                <constraint firstAttribute="bottom" secondItem="Tgu-rh-2tI" secondAttribute="bottom" id="izr-ax-UrV"/>
-                                                <constraint firstItem="Tgu-rh-2tI" firstAttribute="top" secondItem="99c-XZ-Fbm" secondAttribute="bottom" constant="25" id="mj8-Cs-3ek"/>
+                                                <constraint firstAttribute="bottom" secondItem="Tgu-rh-2tI" secondAttribute="bottom" constant="15" id="izr-ax-UrV"/>
+                                                <constraint firstItem="Tgu-rh-2tI" firstAttribute="top" secondItem="99c-XZ-Fbm" secondAttribute="bottom" id="mj8-Cs-3ek"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="99c-XZ-Fbm" secondAttribute="trailing" id="qNf-61-Yi4"/>
                                                 <constraint firstItem="99c-XZ-Fbm" firstAttribute="top" secondItem="o5E-gs-VpH" secondAttribute="topMargin" constant="15" id="tmR-o4-lZR"/>
                                             </constraints>
@@ -193,6 +210,7 @@
                                         <gestureRecognizers/>
                                         <connections>
                                             <outlet property="bottomBorderView" destination="Tgu-rh-2tI" id="zTR-rZ-x4y"/>
+                                            <outlet property="fileLabelView" destination="HwH-pd-pJK" id="TlB-rb-Vuq"/>
                                             <outlet property="filenameLabel" destination="dlt-jI-SME" id="ld3-fd-Ypy"/>
                                             <outlet property="removeButton" destination="zV0-PM-P6i" id="dkJ-5c-GmP"/>
                                             <outlet property="saveButton" destination="IKh-UH-oRj" id="zPc-Tb-Jd8"/>
@@ -300,7 +318,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Missing signatures" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQF-XJ-qkZ" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Missing signatures" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQF-XJ-qkZ" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="40" y="20" width="587" height="20"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -757,12 +775,24 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="70L-PA-mBc">
                                                     <rect key="frame" x="15" y="15" width="637" height="46"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.pdf" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xW9-dC-vAP" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="116" height="46"/>
-                                                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
-                                                            <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hnc-QI-wPM">
+                                                            <rect key="frame" x="0.0" y="0.0" width="240" height="46"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.pdf" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xW9-dC-vAP" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="46"/>
+                                                                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
+                                                                    <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="trailing" secondItem="xW9-dC-vAP" secondAttribute="trailing" id="1oO-gc-A1A"/>
+                                                                <constraint firstItem="xW9-dC-vAP" firstAttribute="top" secondItem="hnc-QI-wPM" secondAttribute="top" id="5PU-Fi-Oab"/>
+                                                                <constraint firstItem="xW9-dC-vAP" firstAttribute="leading" secondItem="hnc-QI-wPM" secondAttribute="leading" id="QEY-dP-Pma"/>
+                                                                <constraint firstAttribute="bottom" secondItem="xW9-dC-vAP" secondAttribute="bottom" id="zv3-0i-m2v"/>
+                                                            </constraints>
+                                                        </view>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kFh-DD-3Sw">
                                                             <rect key="frame" x="579" y="0.0" width="58" height="46"/>
                                                             <subviews>
@@ -814,6 +844,7 @@
                                             <outlet property="bottomBorderView" destination="lxM-0N-UCI" id="iJj-pY-PxS"/>
                                             <outlet property="cryptoActionsStackView" destination="kFh-DD-3Sw" id="zkL-oc-rOR"/>
                                             <outlet property="cryptoFileNameActionsStackView" destination="70L-PA-mBc" id="bxC-gB-ZBd"/>
+                                            <outlet property="fileLabelView" destination="hnc-QI-wPM" id="14e-Ef-Jtw"/>
                                             <outlet property="filenameLabel" destination="xW9-dC-vAP" id="NBR-Hw-ghg"/>
                                             <outlet property="removeButton" destination="1t1-CX-UWa" id="ffB-1K-6OJ"/>
                                             <outlet property="saveButton" destination="9eg-iF-HaU" id="a38-Hd-bPF"/>
@@ -865,7 +896,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Addressees are missing" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sh3-u9-HaY" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Addressees are missing" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sh3-u9-HaY" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="48" y="23" width="571" height="20"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                                     <nil key="textColor"/>

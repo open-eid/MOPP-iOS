@@ -78,6 +78,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var asicsSignatures = [MoppLibSignature]()
     var asicsDataFiles = [MoppLibDataFile]()
     var asicsNestedContainerPath = ""
+    var isAsicsInitialLoadingDone = false
     var isLoadingNestedAsicsDone = false
     var isSendingToSivaAgreed = true
     
@@ -489,12 +490,12 @@ extension ContainerViewController : UITableViewDataSource {
                 dataFileName = ContainerViewController.unnamedDataFile
             }
 
-            if !isEncryptedDataFiles {
-                cell.filenameLabel.addGestureRecognizer(tapGesture)
+            if isAsicsContainer() {
+                cell.fileLabelView.addGestureRecognizer(tapGesture)
                 tapGesture.isEnabled = true
             } else {
-                if cell.filenameLabel.gestureRecognizers != nil {
-                    cell.filenameLabel.removeGestureRecognizer(tapGesture)
+                if cell.fileLabelView.gestureRecognizers != nil {
+                    cell.fileLabelView.removeGestureRecognizer(tapGesture)
                     tapGesture.isEnabled = false
                 }
             }
@@ -510,10 +511,8 @@ extension ContainerViewController : UITableViewDataSource {
                 isRemoveButtonShown = !isForPreview && (state != .opened)
                 isDownloadButtonShown = !isForPreview && (isDecrypted || (state != .opened))
             }
-            
-            var isFileInContainer = false
-            
-            let isSaveable = MoppLibContainerActions.sharedInstance().isContainerFileSaveable(containerViewDelegate.getContainerPath(), saveDataFile: dataFileName)
+
+            let isSaveable = MoppLibContainerActions.sharedInstance().isContainerFileSaveable(isAsicsContainer() ? asicsNestedContainerPath : containerViewDelegate.getContainerPath(), saveDataFile: dataFileName)
 
             cell.populate(
                 name: dataFileName,
@@ -592,6 +591,24 @@ extension ContainerViewController : UITableViewDataSource {
 
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if !isAsicsInitialLoadingDone && isAsicsContainer() && isDeviceOrientationLandscape() {
+            scrollTableView(indexPath)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if !isAsicsInitialLoadingDone && isAsicsContainer() && isDeviceOrientationLandscape() {
+            isAsicsInitialLoadingDone = true
+        }
+    }
+    
+    // On landscape, ASICS may not load correctly as all cells are not loaded when container is opened
+    // Using scroll to load more cells, so that nested container will be loaded
+    private func scrollTableView(_ indexPath: IndexPath) {
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 
     private func openNestedContainer(containerFilePath: String, dataFile: String, destinationPath: String?) {
@@ -857,11 +874,10 @@ extension ContainerViewController : UITableViewDelegate {
                 if isDecrypted {
                     guard let dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) else { return }
                     openFilePreview(dataFileFilename: dataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: true)
-                } else {
+                } else if !isAsicsContainer() {
                     let dataFile = containerViewDelegate.getDataFileRelativePath(index: indexPath.row)
                     openFilePreview(dataFileFilename: dataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: false)
                 }
-                
             }
             break
         case .header:
