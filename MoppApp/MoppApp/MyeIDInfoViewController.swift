@@ -24,6 +24,7 @@
 import Foundation
 
 class MyeIDInfoViewController: MoppViewController {
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var ui: MyeIDInfoViewControllerUI!
     
     weak var infoManager: MyeIDInfoManager!
@@ -56,6 +57,8 @@ class MyeIDInfoViewController: MoppViewController {
         }
         ui.setupOnce()
         ui.delegate = self
+
+        tableView.delegate = self
         
         NotificationCenter.default.addObserver(
             self,

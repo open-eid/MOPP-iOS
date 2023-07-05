@@ -150,6 +150,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
         tableView.contentInsetAdjustmentBehavior = .never
         updateState(.loading)
 

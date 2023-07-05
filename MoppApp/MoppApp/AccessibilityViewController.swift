@@ -28,7 +28,7 @@ class AccessibilityViewController : MoppViewController, UITextViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
 
     @IBOutlet weak var closeButton: UIButton!
-
+    
     @IBOutlet weak var titleLabel: UILabel!
 
     @IBOutlet weak var contentView: UIView!
@@ -39,6 +39,8 @@ class AccessibilityViewController : MoppViewController, UITextViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        scrollView.delegate = self
         
         titleLabel.text = L(.accessibilityIntroductionTitle)
         

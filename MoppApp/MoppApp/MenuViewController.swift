@@ -219,6 +219,8 @@ extension MenuViewController : UITableViewDelegate {
 
 extension MenuViewController : MenuHeaderDelegate {
     func menuHeaderDismiss() {
+        let invisibleLabel = getInvisibleLabelInView(MoppApp.instance.rootViewController?.view, accessibilityIdentifier: invisibleElementAccessibilityIdentifier)
+        invisibleLabel?.isHidden = false
         dismiss(animated: true, completion: nil)
     }
 }

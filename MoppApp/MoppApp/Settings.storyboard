@@ -1608,6 +1608,7 @@
                         <outlet property="rpUUIDInfo" destination="9M0-ZI-Vph" id="hFZ-Ln-SfA"/>
                         <outlet property="saveDiagnosticsLabel" destination="rPU-tI-Tha" id="dMh-sf-CGb"/>
                         <outlet property="saveLogButtonLabel" destination="YuQ-2C-isn" id="3ga-jj-Iq7"/>
+                        <outlet property="scrollView" destination="Ki8-k3-cmp" id="b7L-RB-fck"/>
                         <outlet property="sivaURL" destination="mys-OT-GnR" id="urG-d8-7zH"/>
                         <outlet property="smartIdSKURL" destination="ruH-oH-HXZ" id="mkI-1f-AwI"/>
                         <outlet property="smartIdURL" destination="axW-Sz-ktm" id="Uc2-Sx-eU7"/>

@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-class MoppViewController : UIViewController {
+class MoppViewController : UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var myLabel: UILabel!
     
@@ -172,5 +172,15 @@ class MoppViewController : UIViewController {
             }
         }
         return nil
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if DefaultsHelper.isDebugMode {
+            guard let label = getInvisibleLabelInView(view, accessibilityIdentifier: invisibleElementAccessibilityIdentifier) else {
+                return
+            }
+            
+            changeInvisibleLabelVisibility(label, scrollView)
+        }
     }
 }

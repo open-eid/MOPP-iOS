@@ -70,6 +70,8 @@ class CryptoViewController : MoppViewController {
     }
     
     @IBAction func menuActivationSelector() {
+        let invisibleLabel = getInvisibleLabelInView(MoppApp.instance.rootViewController?.view, accessibilityIdentifier: invisibleElementAccessibilityIdentifier)
+        invisibleLabel?.isHidden = true
         let menuViewController = UIStoryboard.menu.instantiateInitialViewController()!
         menuViewController.modalPresentationStyle = .overFullScreen
         MoppApp.instance.rootViewController?.present(menuViewController, animated: true, completion: nil)

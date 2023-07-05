@@ -125,6 +125,7 @@ extension UIViewController {
             label.alpha = 0.0
             label.isUserInteractionEnabled = false
             label.isEnabled = false
+            return
         }
         
         let usedView = customView ?? view
@@ -135,6 +136,7 @@ extension UIViewController {
             if let scrollView = subview as? UIScrollView,
                let lastSubview = scrollView.subviews.last(where: { type(of: $0) == UIView.self }) {
                 addLabelToBottom(label: label, lastSubview: lastSubview)
+                changeInvisibleLabelVisibility(label, scrollView, false)
                 return
             } else if let lastSubview = view.subviews.last(where: { type(of: $0) == UIView.self }) {
                 addLabelToBottom(label: label, lastSubview: lastSubview)
@@ -163,5 +165,37 @@ extension UIViewController {
         label.heightAnchor.constraint(equalToConstant: height).isActive = true
         label.topAnchor.constraint(equalTo: lastElement.bottomAnchor, constant: 16).isActive = true
         label.centerXAnchor.constraint(equalTo: lastElement.centerXAnchor).isActive = true
+    }
+    
+    func changeInvisibleLabelVisibility(_ invisibleLabel: UILabel, _ scrollView: UIScrollView?, _ isVisible: Bool? = nil) {
+        if let isVisible = isVisible {
+            invisibleLabel.isHidden = !isVisible
+        } else {
+            guard let scrollView = scrollView else {
+                invisibleLabel.isHidden = false
+                return
+            }
+            
+            let visibleRect = CGRect(origin: scrollView.contentOffset, size: scrollView.bounds.size)
+            invisibleLabel.isHidden = !visibleRect.intersects(invisibleLabel.frame)
+        }
+    }
+    
+    func getInvisibleLabelInView(_ view: UIView?, accessibilityIdentifier identifier: String) -> UILabel? {
+        guard let view = view else {
+            return nil
+        }
+        
+        if let invisibleLabel = view.subviews.compactMap({ $0 as? UILabel }).first(where: { $0.accessibilityIdentifier == identifier }) {
+            return invisibleLabel
+        }
+        
+        for subview in view.subviews {
+            if let invisibleLabel = getInvisibleLabelInView(subview, accessibilityIdentifier: identifier) {
+                return invisibleLabel
+            }
+        }
+        
+        return nil
     }
 }

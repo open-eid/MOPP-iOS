@@ -83,6 +83,8 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        scrollView.delegate = self
 
         MoppLibCardReaderManager.sharedInstance().delegate = self
 

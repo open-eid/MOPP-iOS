@@ -21,6 +21,7 @@
  *
  */
 class MyeIDChangeCodesViewController: MoppViewController {
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var ui: MyeIDChangeCodesViewControllerUI!
     var model = MyeIDChangeCodesModel()
     
@@ -35,6 +36,7 @@ class MyeIDChangeCodesViewController: MoppViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         LandingViewController.shared.presentButtons([])
+        scrollView.delegate = self
         ui.delegate = self
     }
     
