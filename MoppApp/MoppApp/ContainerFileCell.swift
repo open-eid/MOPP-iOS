@@ -41,16 +41,18 @@ class ContainerFileCell: UITableViewCell {
     
     weak var delegate: ContainerFileDelegate? = nil
     var dataFileIndex: Int!
+    var originalFileName: String?
     
     @IBAction func removeAction() {
         delegate?.removeDataFile(dataFileIndex: dataFileIndex)
     }
     
     @IBAction func saveAction(_ sender: Any) {
-        delegate?.saveDataFile(fileName: filenameLabel.text?.sanitize() ?? "-")
+        delegate?.saveDataFile(fileName: originalFileName ?? "-")
     }
     
     func populate(name: String, showBottomBorder: Bool, showRemoveButton: Bool, showDownloadButton: Bool, enableDownloadButton: Bool, dataFileIndex: Int) {
+        originalFileName = name
         bottomBorderView.isHidden = !showBottomBorder
         if signingFileNameActionsStackView != nil {
             signingFileNameActionsStackView.isAccessibilityElement = false
@@ -62,6 +64,7 @@ class ContainerFileCell: UITableViewCell {
         }
         filenameLabel.isHidden = false
         filenameLabel.text = name.sanitize()
+        filenameLabel.isUserInteractionEnabled = true
         filenameLabel.resetLabelProperties()
         if signingActionsStackView != nil {
             signingActionsStackView.isAccessibilityElement = false

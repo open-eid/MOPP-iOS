@@ -230,7 +230,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
         guard let dataFile = container.dataFiles[index] as? MoppLibDataFile else {
             return nil
         }
-        return (dataFile.fileName as String).sanitize()
+        return (dataFile.fileName as String)
     }
     
     func getContainer() -> MoppLibContainer {

@@ -1060,12 +1060,13 @@ void parseException(const digidoc::Exception &e) {
                 parseException(e);
                 break;
             }
-            if([self isFileInContainer:fileName dataFile:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]) {
+            if ([self isFileInContainer:fileName dataFile:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]) {
                 dataFile->saveAs(path.UTF8String);
                 success();
-                break;
+                return;
             }
         }
+        failure([MoppLibError generalError]);
     } else {
         failure([MoppLibError generalError]);
     }

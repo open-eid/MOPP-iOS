@@ -40,7 +40,7 @@ class DataFilePreviewViewController : MoppViewController, QLPreviewControllerDat
         quickLookController.modalPresentationStyle = .overFullScreen
         
         printLog("Showing preview for file: \(FileUtil.addDefaultExtension(url: getFileUrl(filePath: previewFilePath)).lastPathComponent)")
-        present(quickLookController, animated: true)
+        MoppApp.instance.rootViewController?.present(quickLookController, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {

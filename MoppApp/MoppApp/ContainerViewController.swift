@@ -479,12 +479,12 @@ extension ContainerViewController : UITableViewDataSource {
             }
 
             var dataFileName = ""
-            var tapGesture: UITapGestureRecognizer
+            var tapGesture: UITapGestureRecognizer?
 
             if isAsicsContainer() && !asicsDataFiles.isEmpty && asicsDataFiles.count >= indexPath.row {
                 dataFileName = asicsDataFiles[indexPath.row].fileName ?? ContainerViewController.unnamedDataFile
                 tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: asicsNestedContainerPath, isShareButtonNeeded: isDecrypted)
-            } else {
+            } else if !isEncryptedDataFiles {
                 dataFileName = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) ?? ContainerViewController.unnamedDataFile
                 tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
             }
@@ -494,13 +494,25 @@ extension ContainerViewController : UITableViewDataSource {
                 dataFileName = ContainerViewController.unnamedDataFile
             }
 
-            if !isEncryptedDataFiles {
-                cell.filenameLabel.addGestureRecognizer(tapGesture)
-                tapGesture.isEnabled = true
-            } else {
-                if cell.filenameLabel.gestureRecognizers != nil {
-                    cell.filenameLabel.removeGestureRecognizer(tapGesture)
-                    tapGesture.isEnabled = false
+            if let tg = tapGesture {
+                if !isEncryptedDataFiles {
+                    cell.filenameLabel.addGestureRecognizer(tg)
+                    tg.isEnabled = true
+                } else {
+                    if cell.filenameLabel.gestureRecognizers != nil {
+                        cell.filenameLabel.removeGestureRecognizer(tg)
+                        tg.isEnabled = false
+                    }
+                }
+            }
+            
+            if isEncryptedDataFiles {
+                if let gestureRecognizers = cell.filenameLabel.gestureRecognizers {
+                    for gestureRecognizer in gestureRecognizers {
+                        if gestureRecognizer is UITapGestureRecognizer {
+                            cell.filenameLabel.removeGestureRecognizer(gestureRecognizer)
+                        }
+                    }
                 }
             }
 
@@ -876,21 +888,6 @@ extension ContainerViewController : UITableViewDelegate {
         case .timestamp:
             break;
         case .dataFiles:
-            let isStatePreviewOrOpened = state == .opened || state == .preview
-            let isEncryptedDataFiles =
-                !isAsicContainer &&
-                isStatePreviewOrOpened &&
-                isDecrypted == false
-            if  !isEncryptedDataFiles {
-                if isDecrypted {
-                    guard let dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) else { return }
-                    openFilePreview(dataFileFilename: dataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: true)
-                } else {
-                    let dataFile = containerViewDelegate.getDataFileRelativePath(index: indexPath.row)
-                    openFilePreview(dataFileFilename: dataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: false)
-                }
-                
-            }
             break
         case .header:
             break
