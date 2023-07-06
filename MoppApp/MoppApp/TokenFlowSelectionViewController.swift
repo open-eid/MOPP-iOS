@@ -134,7 +134,7 @@ class TokenFlowSelectionViewController : MoppViewController {
     }
     
     override func keyboardWillHide(notification: NSNotification) {
-        handleLandscapeKeyboard(hideTokenNavbar: false, topConstraintConstant: 0)
+        handleLandscapeKeyboard(hideTokenNavbar: isFlowForDecrypting, topConstraintConstant: 0)
     }
     
     private func handleLandscapeKeyboard(hideTokenNavbar: Bool, topConstraintConstant: CGFloat) {
