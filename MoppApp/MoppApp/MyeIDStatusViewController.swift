@@ -22,6 +22,9 @@
  */
 class MyeIDStatusViewController : MoppViewController {
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var statusStackView: UIStackView!
+    
+    var loadingView: SpinnerView?
     
     enum State {
         case initial
@@ -32,30 +35,54 @@ class MyeIDStatusViewController : MoppViewController {
         case requestingData
     }
     
+    override func viewDidLoad() {
+        if let spinnerView = MoppApp.instance.nibs[.customElements]?.instantiate(withOwner: self, type: SpinnerView.self) {
+            spinnerView.show(true)
+            spinnerView.translatesAutoresizingMaskIntoConstraints = false
+            statusStackView.addArrangedSubview(spinnerView)
+            NSLayoutConstraint.activate([
+                spinnerView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16)
+            ])
+            loadingView = spinnerView
+        }
+    }
+    
     var state: State = .readerNotFound {
         didSet {
             switch (state) {
             case .initial:
                 titleLabel.text = L(.myEidStatusReaderNotFound)
                 UIAccessibility.post(notification: .layoutChanged, argument: titleLabel)
+                setSpinnerView(loadingView, true)
             case .readerNotFound:
                 titleLabel.text = L(.myEidStatusReaderNotFound)
                 UIAccessibility.post(notification: .layoutChanged, argument: titleLabel)
+                setSpinnerView(loadingView, true)
             case .readerRestarted:
                 titleLabel.text = L(.cardReaderStateReaderRestarted)
                 UIAccessibility.post(notification: .layoutChanged, argument: titleLabel)
+                setSpinnerView(loadingView, true)
             case .idCardNotFound:
                 titleLabel.text = L(.myEidStatusCardNotFound)
                 UIAccessibility.post(notification: .layoutChanged, argument: titleLabel)
+                setSpinnerView(loadingView, true)
             case .requestingData:
                 titleLabel.text = L(.myEidStatusRequestingData)
                 UIAccessibility.post(notification: .layoutChanged, argument: titleLabel)
+                setSpinnerView(loadingView, true)
             case .readerProcessFailed:
                 titleLabel.text = L(.cardReaderStateReaderProcessFailed)
                 UIAccessibility.post(notification: .layoutChanged, argument: titleLabel)
+                setSpinnerView(loadingView, false)
             }
             titleLabel.font = UIFont.moppUltraLargeMedium
             titleLabel.setNeedsDisplay()
+        }
+    }
+    
+    func setSpinnerView(_ loadingView: SpinnerView?, _ show: Bool) {
+        if let spinnerView = loadingView {
+            spinnerView.show(show)
         }
     }
 }
