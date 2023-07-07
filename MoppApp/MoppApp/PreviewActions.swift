@@ -74,12 +74,12 @@ extension PreviewActions where Self: ContainerViewController {
             self?.navigationController?.pushViewController(containerViewController, animated: true)
         }
 
-        let openContentPreviewDocument: (_ filePath: String) -> Void = { filePath in
+        let openContentPreviewDocument: (_ filePath: String) -> Void = { [weak self] filePath in
             let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(of: DataFilePreviewViewController.self)
             dataFilePreviewViewController.modalPresentationStyle = .overFullScreen
             dataFilePreviewViewController.isShareNeeded = isShareButtonNeeded
             dataFilePreviewViewController.previewFilePath = filePath
-            MoppApp.instance.rootViewController?.present(dataFilePreviewViewController, animated: false, completion: nil)
+            self?.navigationController?.pushViewController(dataFilePreviewViewController, animated: false)
         }
 
         let openContentPreview: (_ filePath: String) -> Void = { [weak self] filePath in

@@ -57,7 +57,7 @@ protocol CryptoContainerViewControllerDelegate: AnyObject {
     func startDecrypting()
 }
 
-class ContainerViewController : MoppViewController, ContainerActions, PreviewActions {
+class ContainerViewController : MoppViewController, ContainerActions, PreviewActions, ContainerFileUpdatedDelegate {
 
     weak var containerViewDelegate: ContainerViewControllerDelegate!
     weak var cryptoContainerViewDelegate: CryptoContainerViewControllerDelegate!
@@ -280,6 +280,10 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         containerViewDelegate.openContainer(afterSignatureCreated:false)
         reloadData()
     }
+    
+    func didUpdateDownloadButton() {
+        tableView.reloadData()
+    }
 
     func isDdocOrAsicsContainer(containerPath: String) -> Bool {
         let fileLocation: URL = URL(fileURLWithPath: containerPath)
@@ -465,6 +469,7 @@ extension ContainerViewController : UITableViewDataSource {
         case .dataFiles:
             let cell = tableView.dequeueReusableCell(withType: ContainerFileCell.self, for: indexPath)!
                 cell.delegate = self
+                cell.containerFileUpdatedDelegate = self
             cell.accessibilityTraits = UIAccessibilityTraits.button
             cell.accessibilityUserInputLabels = ["\(L(.voiceControlFileRow)) \(row + 1)"]
 
@@ -528,40 +533,14 @@ extension ContainerViewController : UITableViewDataSource {
                 isDownloadButtonShown = !isForPreview && (isDecrypted || (state != .opened))
             }
 
-            func populateCell(isSaveable: Bool) {
-                cell.populate(
-                    name: dataFileName,
-                    showBottomBorder: row < self.containerViewDelegate.getDataFileCount() - 1,
-                    showRemoveButton: isRemoveButtonShown,
-                    showDownloadButton: isDownloadButtonShown,
-                    enableDownloadButton: isSaveable || !self.isAsicContainer,
-                    dataFileIndex: row)
-            }
-
-            if let isSaveable = getCachedIsSaveable(for: indexPath) {
-                populateCell(isSaveable: isSaveable)
-            } else {
-                DispatchQueue.global(qos: .userInitiated).async {
-                    let isSaveable = MoppLibContainerActions.sharedInstance().isContainerFileSaveable(self.containerViewDelegate.getContainerPath(), saveDataFile: dataFileName)
-
-                    DispatchQueue.main.async {
-                        guard let visibleIndexPaths = tableView.indexPathsForVisibleRows,
-                              visibleIndexPaths.contains(indexPath) else {
-                            return
-                        }
-
-                        self.setCachedIsSaveable(isSaveable, for: indexPath)
-
-                        populateCell(isSaveable: isSaveable)
-
-                        if !self.isDatafileReloaded && row == self.containerViewDelegate.getDataFileCount() - 1 {
-                            self.isDatafileReloaded = true
-                            tableView.reloadData()
-                        }
-                    }
-                }
-            }
-
+            cell.populate(
+                name: dataFileName,
+                containerPath: self.containerViewDelegate.getContainerPath(),
+                showBottomBorder: row < self.containerViewDelegate.getDataFileCount() - 1,
+                showRemoveButton: isRemoveButtonShown,
+                showDownloadButton: isDownloadButtonShown,
+                enableDownloadButton: !self.isAsicContainer,
+                dataFileIndex: row)
             return cell
         case .importDataFiles:
             let cell = tableView.dequeueReusableCell(withType: ContainerImportFilesCell.self, for: indexPath)!
