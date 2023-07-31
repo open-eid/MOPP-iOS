@@ -53,11 +53,11 @@ class MyeIDStatusViewController : MoppViewController {
             case .initial:
                 titleLabel.text = L(.myEidStatusReaderNotFound)
                 UIAccessibility.post(notification: .layoutChanged, argument: titleLabel)
-                setSpinnerView(loadingView, true)
+                setSpinnerView(loadingView, false)
             case .readerNotFound:
                 titleLabel.text = L(.myEidStatusReaderNotFound)
                 UIAccessibility.post(notification: .layoutChanged, argument: titleLabel)
-                setSpinnerView(loadingView, true)
+                setSpinnerView(loadingView, false)
             case .readerRestarted:
                 titleLabel.text = L(.cardReaderStateReaderRestarted)
                 UIAccessibility.post(notification: .layoutChanged, argument: titleLabel)
