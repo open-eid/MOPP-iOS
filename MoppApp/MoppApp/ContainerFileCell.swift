@@ -28,6 +28,10 @@ protocol ContainerFileDelegate: AnyObject {
     func saveDataFile(fileName: String?)
 }
 
+protocol ContainerFileUpdatedDelegate: AnyObject {
+    func didUpdateDownloadButton()
+}
+
 class ContainerFileCell: UITableViewCell {
     static let height: CGFloat = 44
     @IBOutlet weak var signingFileNameActionsStackView: UIStackView!
@@ -41,45 +45,70 @@ class ContainerFileCell: UITableViewCell {
     @IBOutlet weak var saveButton: UIButton!
     
     weak var delegate: ContainerFileDelegate? = nil
+    weak var containerFileUpdatedDelegate: ContainerFileUpdatedDelegate?
     var dataFileIndex: Int!
+    var originalFileName: String?
+    var isDownloadButtonRefreshed = false
     
     @IBAction func removeAction() {
         delegate?.removeDataFile(dataFileIndex: dataFileIndex)
     }
     
     @IBAction func saveAction(_ sender: Any) {
-        delegate?.saveDataFile(fileName: filenameLabel.text?.sanitize() ?? "-")
+        delegate?.saveDataFile(fileName: originalFileName ?? "-")
     }
     
-    func populate(name: String, showBottomBorder: Bool, showRemoveButton: Bool, showDownloadButton: Bool, enableDownloadButton: Bool, dataFileIndex: Int) {
+    func populate(name: String, containerPath: String, showBottomBorder: Bool, showRemoveButton: Bool, showDownloadButton: Bool, enableDownloadButton: Bool, dataFileIndex: Int) {
+        originalFileName = name
         bottomBorderView.isHidden = !showBottomBorder
         if signingFileNameActionsStackView != nil {
             signingFileNameActionsStackView.isAccessibilityElement = false
+            signingFileNameActionsStackView.isHidden = false
         }
         if cryptoFileNameActionsStackView != nil {
             cryptoFileNameActionsStackView.isAccessibilityElement = false
+            cryptoFileNameActionsStackView.isHidden = false
         }
+        filenameLabel.isHidden = false
         filenameLabel.text = name.sanitize()
+        filenameLabel.isUserInteractionEnabled = true
         filenameLabel.resetLabelProperties()
         if signingActionsStackView != nil {
             signingActionsStackView.isAccessibilityElement = false
+            signingActionsStackView.isHidden = false
         }
         if cryptoActionsStackView != nil {
             cryptoActionsStackView.isAccessibilityElement = false
+            cryptoActionsStackView.isHidden = false
         }
         removeButton.isAccessibilityElement = true
         removeButton.isHidden = !showRemoveButton
         removeButton.accessibilityLabel = formatString(text: L(.fileImportRemoveFile), additionalText: filenameLabel.text?.sanitize())
         removeButton.accessibilityUserInputLabels = ["\(L(.voiceControlRemoveFile)) \(dataFileIndex + 1)"]
-        saveButton.isAccessibilityElement = true
-        saveButton.isHidden = !showDownloadButton
-        saveButton.accessibilityLabel = formatString(text: L(.fileImportSaveFile), additionalText: filenameLabel.text?.sanitize())
-        saveButton.accessibilityUserInputLabels = ["\(L(.voiceControlSaveFile)) \(dataFileIndex + 1)"]
-        let downloadImage = UIImage(named: "iconDownload")
-        saveButton.setImage(downloadImage , for: .normal)
-        let downloadDisabledImage = UIImage(named: "iconDownloadDisabled")
-        saveButton.setImage(downloadDisabledImage, for: .disabled)
-        saveButton.isEnabled = enableDownloadButton
+        
+        if !isDownloadButtonRefreshed {
+            DispatchQueue.global(qos: .userInitiated).async {
+                let isSaveable = MoppLibContainerActions.sharedInstance().isContainerFileSaveable(containerPath, saveDataFile: name)
+                
+                DispatchQueue.main.async {
+                    self.saveButton.isAccessibilityElement = true
+                    self.saveButton.isHidden = !showDownloadButton
+                    self.saveButton.accessibilityLabel = formatString(text: L(.fileImportSaveFile), additionalText: self.filenameLabel.text?.sanitize())
+                    self.saveButton.accessibilityUserInputLabels = ["\(L(.voiceControlSaveFile)) \(dataFileIndex + 1)"]
+                    let downloadImage = UIImage(named: "iconDownload")
+                    self.saveButton.setImage(downloadImage , for: .normal)
+                    let downloadDisabledImage = UIImage(named: "iconDownloadDisabled")
+                    self.saveButton.setImage(downloadDisabledImage, for: .disabled)
+                    self.saveButton.isEnabled = enableDownloadButton || isSaveable
+                    self.isDownloadButtonRefreshed = true
+                    self.containerFileUpdatedDelegate?.didUpdateDownloadButton()
+                }
+            }
+        }
         self.dataFileIndex = dataFileIndex
+    }
+    
+    deinit {
+        printLog("Deinit ContainerFileCell")
     }
 }

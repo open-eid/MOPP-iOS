@@ -57,7 +57,7 @@ protocol CryptoContainerViewControllerDelegate: AnyObject {
     func startDecrypting()
 }
 
-class ContainerViewController : MoppViewController, ContainerActions, PreviewActions {
+class ContainerViewController : MoppViewController, ContainerActions, PreviewActions, ContainerFileUpdatedDelegate {
 
     weak var containerViewDelegate: ContainerViewControllerDelegate!
     weak var cryptoContainerViewDelegate: CryptoContainerViewControllerDelegate!
@@ -83,6 +83,9 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var isSendingToSivaAgreed = true
     
     private static let unnamedDataFile = "datafile"
+    
+    private var isFileSaveableCache: [IndexPath: Bool] = [:]
+    private var isDatafileReloaded = false
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -144,8 +147,6 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var notifications: [NotificationMessage] = []
     var state: ContainerState!
 
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInsetAdjustmentBehavior = .never
@@ -168,6 +169,8 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     }
 
     deinit {
+        isDatafileReloaded = false
+        clearIsSaveableCache()
         NotificationCenter.default.removeObserver(self)
     }
 
@@ -203,6 +206,8 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        isDatafileReloaded = false
+        clearIsSaveableCache()
         isEmptyFileWarningSet = false
     }
 
@@ -275,6 +280,10 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         updateState(.loading)
         containerViewDelegate.openContainer(afterSignatureCreated:false)
         reloadData()
+    }
+    
+    func didUpdateDownloadButton() {
+        tableView.reloadData()
     }
 
     func isDdocOrAsicsContainer(containerPath: String) -> Bool {
@@ -461,6 +470,7 @@ extension ContainerViewController : UITableViewDataSource {
         case .dataFiles:
             let cell = tableView.dequeueReusableCell(withType: ContainerFileCell.self, for: indexPath)!
                 cell.delegate = self
+                cell.containerFileUpdatedDelegate = self
             cell.accessibilityTraits = UIAccessibilityTraits.button
             cell.accessibilityUserInputLabels = ["\(L(.voiceControlFileRow)) \(row + 1)"]
 
@@ -475,12 +485,12 @@ extension ContainerViewController : UITableViewDataSource {
             }
 
             var dataFileName = ""
-            var tapGesture: UITapGestureRecognizer
+            var tapGesture: UITapGestureRecognizer?
 
             if isAsicsContainer() && !asicsDataFiles.isEmpty && asicsDataFiles.count >= indexPath.row {
                 dataFileName = asicsDataFiles[indexPath.row].fileName ?? ContainerViewController.unnamedDataFile
                 tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: asicsNestedContainerPath, isShareButtonNeeded: isDecrypted)
-            } else {
+            } else if !isEncryptedDataFiles {
                 dataFileName = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) ?? ContainerViewController.unnamedDataFile
                 tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
             }
@@ -490,13 +500,25 @@ extension ContainerViewController : UITableViewDataSource {
                 dataFileName = ContainerViewController.unnamedDataFile
             }
 
-            if isAsicsContainer() {
-                cell.fileLabelView.addGestureRecognizer(tapGesture)
-                tapGesture.isEnabled = true
-            } else {
-                if cell.fileLabelView.gestureRecognizers != nil {
-                    cell.fileLabelView.removeGestureRecognizer(tapGesture)
-                    tapGesture.isEnabled = false
+            if let tg = tapGesture {
+                if !isEncryptedDataFiles {
+                    cell.filenameLabel.addGestureRecognizer(tg)
+                    tg.isEnabled = true
+                } else {
+                    if cell.filenameLabel.gestureRecognizers != nil {
+                        cell.filenameLabel.removeGestureRecognizer(tg)
+                        tg.isEnabled = false
+                    }
+                }
+            }
+            
+            if isEncryptedDataFiles {
+                if let gestureRecognizers = cell.filenameLabel.gestureRecognizers {
+                    for gestureRecognizer in gestureRecognizers {
+                        if gestureRecognizer is UITapGestureRecognizer {
+                            cell.filenameLabel.removeGestureRecognizer(gestureRecognizer)
+                        }
+                    }
                 }
             }
 
@@ -512,15 +534,14 @@ extension ContainerViewController : UITableViewDataSource {
                 isDownloadButtonShown = !isForPreview && (isDecrypted || (state != .opened))
             }
 
-            let isSaveable = MoppLibContainerActions.sharedInstance().isContainerFileSaveable(isAsicsContainer() ? asicsNestedContainerPath : containerViewDelegate.getContainerPath(), saveDataFile: dataFileName)
-
             cell.populate(
                 name: dataFileName,
-                showBottomBorder: row < containerViewDelegate.getDataFileCount() - 1,
-                    showRemoveButton: isRemoveButtonShown,
-                    showDownloadButton: isDownloadButtonShown,
-                    enableDownloadButton: isSaveable || !isAsicContainer,
-                    dataFileIndex: row)
+                containerPath: self.containerViewDelegate.getContainerPath(),
+                showBottomBorder: row < self.containerViewDelegate.getDataFileCount() - 1,
+                showRemoveButton: isRemoveButtonShown,
+                showDownloadButton: isDownloadButtonShown,
+                enableDownloadButton: !self.isAsicContainer,
+                dataFileIndex: row)
             return cell
         case .importDataFiles:
             let cell = tableView.dequeueReusableCell(withType: ContainerImportFilesCell.self, for: indexPath)!
@@ -865,20 +886,6 @@ extension ContainerViewController : UITableViewDelegate {
         case .timestamp:
             break;
         case .dataFiles:
-            let isStatePreviewOrOpened = state == .opened || state == .preview
-            let isEncryptedDataFiles =
-                !isAsicContainer &&
-                isStatePreviewOrOpened &&
-                isDecrypted == false
-            if  !isEncryptedDataFiles {
-                if isDecrypted {
-                    guard let dataFile = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) else { return }
-                    openFilePreview(dataFileFilename: dataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: true)
-                } else if !isAsicsContainer() {
-                    let dataFile = containerViewDelegate.getDataFileRelativePath(index: indexPath.row)
-                    openFilePreview(dataFileFilename: dataFile, containerFilePath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: false)
-                }
-            }
             break
         case .header:
             break
@@ -1060,5 +1067,19 @@ extension ContainerViewController : ContainerImportCellDelegate {
             name: .startImportingFilesWithDocumentPickerNotificationName,
             object: nil,
             userInfo: [kKeyFileImportIntent: MoppApp.FileImportIntent.addToContainer, kKeyContainerType: landingViewControllerContainerType])
+    }
+}
+
+extension ContainerViewController {
+    func getCachedIsSaveable(for indexPath: IndexPath) -> Bool? {
+        return isFileSaveableCache[indexPath]
+    }
+    
+    func setCachedIsSaveable(_ result: Bool, for indexPath: IndexPath) {
+        isFileSaveableCache[indexPath] = result
+    }
+    
+    func clearIsSaveableCache() {
+        isFileSaveableCache.removeAll()
     }
 }
