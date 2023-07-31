@@ -78,6 +78,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var asicsSignatures = [MoppLibSignature]()
     var asicsDataFiles = [MoppLibDataFile]()
     var asicsNestedContainerPath = ""
+    var isAsicsInitialLoadingDone = false
     var isLoadingNestedAsicsDone = false
     var isSendingToSivaAgreed = true
     
@@ -611,6 +612,24 @@ extension ContainerViewController : UITableViewDataSource {
 
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if !isAsicsInitialLoadingDone && isAsicsContainer() && isDeviceOrientationLandscape() {
+            scrollTableView(indexPath)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if !isAsicsInitialLoadingDone && isAsicsContainer() && isDeviceOrientationLandscape() {
+            isAsicsInitialLoadingDone = true
+        }
+    }
+    
+    // On landscape, ASICS may not load correctly as all cells are not loaded when container is opened
+    // Using scroll to load more cells, so that nested container will be loaded
+    private func scrollTableView(_ indexPath: IndexPath) {
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 
     private func openNestedContainer(containerFilePath: String, dataFile: String, destinationPath: String?) {

@@ -36,6 +36,7 @@ class ContainerFileCell: UITableViewCell {
     static let height: CGFloat = 44
     @IBOutlet weak var signingFileNameActionsStackView: UIStackView!
     @IBOutlet weak var cryptoFileNameActionsStackView: UIStackView!
+    @IBOutlet weak var fileLabelView: UIView!
     @IBOutlet weak var filenameLabel: ScaledLabel!
     @IBOutlet weak var bottomBorderView: UIView!
     @IBOutlet weak var signingActionsStackView: UIStackView!
