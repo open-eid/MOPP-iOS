@@ -247,7 +247,7 @@
 "card-reader-state-reader-restarted" = "Taaskäivitan kaardilugeja.";
 "card-reader-state-reader-process-failed" = "Andmete lugemine ebaõnnestus. Palun taasühenda kaardilugeja ja proovi uuesti.";
 "card-reader-state-id-card-not-found" = "Kaardilugeja leitud.\nSisesta ID-kaart lugejasse.";
-"card-reader-state-id-card-connected" = "ID-kaart leitud.\nPärin andmeid...";
+"card-reader-state-id-card-connected" = "Laadin ID-kaardilt andmeid.\nSee võib kesta kuni 1 minut...";
 "card-reader-state-ready-for-pin2" = "ID-kaart on valmis allkirjastamiseks.\n%@ (%@)";
 "card-reader-state-ready-for-pin1" = "ID-kaart on valmis dekrüpteerimiseks.\n%@ (%@)";
 "signing-in-progress" = "Toimub allkirjastamine.\nPalun oota.";
@@ -269,7 +269,7 @@
 "signing-aborted-message" = "Allkirjastamine katkestatud";
 "my-eid-status-reader-not-found" = "Ühenda kaardilugeja nutiseadmega ja sisesta ID-kaart lugejasse.";
 "my-eid-status-card-not-found" = "Kaardilugeja leitud.\nSisesta ID-kaart lugejasse.";
-"my-eid-status-requesting-data" = "ID-kaart leitud.\nPärin andmeid...";
+"my-eid-status-requesting-data" = "Laadin ID-kaardilt andmeid.\nSee võib kesta kuni 1 minut...";
 "my-eid-cert-expired" = "aegunud";
 "my-eid-cert-valid" = "kehtib";
 "my-eid-info-item-given-names" = "EESNIMI";
