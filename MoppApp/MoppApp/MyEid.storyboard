@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qFP-og-5IC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qFP-og-5IC">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -35,7 +35,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YJf-b7-e3W">
-                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gDH-iG-P6G"/>
@@ -72,26 +72,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwG-59-c68" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                <rect key="frame" x="16" y="20" width="343" height="627"/>
-                                <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="Qrp-ZX-mtd">
+                                <rect key="frame" x="32" y="333.5" width="311" height="0.0"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwG-59-c68" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="155.5" y="0.0" width="0.0" height="0.0"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="DqR-NQ-ADW"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="pwG-59-c68" firstAttribute="centerY" secondItem="DqR-NQ-ADW" secondAttribute="centerY" id="UMU-9v-dAB"/>
-                            <constraint firstItem="pwG-59-c68" firstAttribute="top" secondItem="DqR-NQ-ADW" secondAttribute="top" constant="20" id="Vh3-5N-gvu"/>
-                            <constraint firstItem="pwG-59-c68" firstAttribute="centerY" secondItem="9cX-nZ-t1m" secondAttribute="centerY" id="WJz-5R-qEr"/>
-                            <constraint firstAttribute="trailing" secondItem="pwG-59-c68" secondAttribute="trailing" constant="16" id="Wbn-I9-A6C"/>
-                            <constraint firstItem="pwG-59-c68" firstAttribute="centerX" secondItem="9cX-nZ-t1m" secondAttribute="centerX" id="nSz-t7-tlJ"/>
-                            <constraint firstItem="DqR-NQ-ADW" firstAttribute="bottom" secondItem="pwG-59-c68" secondAttribute="bottom" constant="20" id="tl4-DW-e5K"/>
-                            <constraint firstItem="pwG-59-c68" firstAttribute="leading" secondItem="9cX-nZ-t1m" secondAttribute="leading" constant="16" id="ukm-lB-ND2"/>
+                            <constraint firstItem="Qrp-ZX-mtd" firstAttribute="leading" secondItem="9cX-nZ-t1m" secondAttribute="leading" constant="32" id="XcQ-aq-d1l"/>
+                            <constraint firstItem="Qrp-ZX-mtd" firstAttribute="centerY" secondItem="9cX-nZ-t1m" secondAttribute="centerY" id="mDR-8o-2yO"/>
+                            <constraint firstItem="Qrp-ZX-mtd" firstAttribute="centerX" secondItem="9cX-nZ-t1m" secondAttribute="centerX" id="pxD-hr-FW1"/>
+                            <constraint firstAttribute="trailing" secondItem="Qrp-ZX-mtd" secondAttribute="trailing" constant="32" id="zNC-MK-Uxj"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="statusStackView" destination="Qrp-ZX-mtd" id="Fac-K4-sWV"/>
                         <outlet property="titleLabel" destination="pwG-59-c68" id="AoB-TP-vWt"/>
                     </connections>
                 </viewController>
@@ -392,7 +395,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UZI-z6-jr7">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="717"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="697"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UF1-Qa-mvf">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="479.5"/>
@@ -624,7 +627,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oxf-GD-Tga" customClass="SpinnerView" customModule="MoppApp" customModuleProvider="target">
-                                <rect key="frame" x="155.5" y="301.5" width="64" height="64"/>
+                                <rect key="frame" x="155.5" y="311.5" width="64" height="64"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Spinner" translatesAutoresizingMaskIntoConstraints="NO" id="bOO-l7-TXE">
                                         <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
@@ -675,7 +678,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qFP-og-5IC" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rqF-cI-kXa">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
