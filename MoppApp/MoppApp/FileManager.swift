@@ -232,7 +232,7 @@ class MoppFileManager {
         }
         
         // Save file to temporary location
-        let saveTempFileToLocation: String = saveDir.appendingPathComponent(fileName).path
+        let saveTempFileToLocation: String = saveDir.appendingPathComponent(fileName.sanitize()).path
         
         guard let tempDir: URL = tempFilesDirectory else { printLog("Failed to get \(tempFilesDirectory?.lastPathComponent ?? "requested") directory"); completionHandler(false, nil); return }
         let saveFileForCdocLocation: String = tempDir.appendingPathComponent(fileName).path

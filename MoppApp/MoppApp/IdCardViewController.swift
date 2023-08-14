@@ -206,7 +206,7 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.isHidden = true
             pinTextFieldTitleLabel.text = nil
             pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
-            loadingSpinner.show(true)
+            loadingSpinner.show(false)
             titleLabel.text = L(.cardReaderStateInitial)
         case .readerNotFound:
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement,  argument: L(.cardReaderStateReaderNotFound))
@@ -216,7 +216,7 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.isHidden = true
             pinTextFieldTitleLabel.text = nil
             pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
-            loadingSpinner.show(true)
+            loadingSpinner.show(false)
             titleLabel.text = L(.cardReaderStateReaderNotFound)
         case .readerRestarted:
             UIAccessibility.post(notification: .announcement,  argument: L(.cardReaderStateReaderRestarted))
