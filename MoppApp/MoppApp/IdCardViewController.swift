@@ -154,12 +154,18 @@ class IdCardViewController : MoppViewController {
                 sself.state == .readerNotFound ||
                 sself.state == .idCardNotFound ||
                 sself.state == .tokenActionInProcess
-            self?.loadingSpinner.show(showLoading)
-            self?.pinTextField.resignFirstResponder()
+                if self?.loadingSpinner != nil {
+                    self?.loadingSpinner.show(showLoading)
+                }
+                if self?.pinTextField != nil {
+                    self?.pinTextField.resignFirstResponder()
+                }
         }
 
         NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: OperationQueue.main) { [weak self]_ in
-            self?.loadingSpinner.show(true)
+            if self?.loadingSpinner != nil {
+                self?.loadingSpinner.show(true)
+            }
             UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: self?.titleLabel)
         }
 
@@ -207,6 +213,7 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.text = nil
             pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
             loadingSpinner.show(false)
+            pinCodeStackView.isHidden = true
             titleLabel.text = L(.cardReaderStateInitial)
         case .readerNotFound:
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement,  argument: L(.cardReaderStateReaderNotFound))
@@ -216,7 +223,8 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.isHidden = true
             pinTextFieldTitleLabel.text = nil
             pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
-            loadingSpinner.show(false)
+            loadingSpinner.show(true)
+            pinCodeStackView.isHidden = true
             titleLabel.text = L(.cardReaderStateReaderNotFound)
         case .readerRestarted:
             UIAccessibility.post(notification: .announcement,  argument: L(.cardReaderStateReaderRestarted))
@@ -227,6 +235,7 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.text = nil
             pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
             loadingSpinner.show(true)
+            pinCodeStackView.isHidden = false
             titleLabel.text = L(.cardReaderStateReaderRestarted)
         case .idCardNotFound:
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: L(.cardReaderStateIdCardNotFound))
@@ -237,6 +246,7 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.text = nil
             pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
             loadingSpinner.show(true)
+            pinCodeStackView.isHidden = false
             titleLabel.text = L(.cardReaderStateIdCardNotFound)
         case .idCardConnected:
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: L(.cardReaderStateIdCardConnected))
@@ -247,6 +257,7 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.text = nil
             pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
             loadingSpinner.show(true)
+            pinCodeStackView.isHidden = false
             titleLabel.text = L(.cardReaderStateIdCardConnected)
         case .readerProcessFailed:
             UIAccessibility.post(notification: .announcement, argument: L(.cardReaderStateReaderProcessFailed))

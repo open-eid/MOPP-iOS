@@ -233,6 +233,13 @@ extension AddresseeViewController : UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withType: ContainerSearchCell.self, for: indexPath)!
                 cell.searchBar.delegate = self
                 cell.accessibilityUserInputLabels = [""]
+                
+                if foundAddressees.isEmpty {
+                    cell.placeholder.isHidden = false
+                } else {
+                    cell.placeholder.isHidden = true
+                }
+            
                 return cell
             case .searchResult:
                 let cell = tableView.dequeueReusableCell(withType: ContainerFoundAddresseeCell.self, for: indexPath)!
