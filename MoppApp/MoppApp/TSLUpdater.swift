@@ -118,7 +118,7 @@ class TSLUpdater {
         return version
     }
 
-    private static func getLibraryDirectoryPath() -> String {
+    public static func getLibraryDirectoryPath() -> String {
         return MoppFileManager.shared.libraryDirectoryPath()
     }
 
