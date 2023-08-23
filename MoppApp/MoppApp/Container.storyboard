@@ -1139,6 +1139,7 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="Rmc-le-D5F" firstAttribute="leading" secondItem="MmW-IW-ds9" secondAttribute="leading" constant="15" id="3KW-dP-bte"/>
                                                 <constraint firstAttribute="bottom" secondItem="Rmc-le-D5F" secondAttribute="bottom" id="JKG-FH-rUp"/>
@@ -1146,6 +1147,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="Rmc-le-D5F" secondAttribute="trailing" constant="15" id="gJD-HZ-ze1"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="placeholder" destination="Bva-JE-ate" id="bw0-zh-v09"/>
                                             <outlet property="searchBar" destination="e9Q-kh-dWn" id="AoH-VJ-nYj"/>
