@@ -50,9 +50,19 @@ class DataFilePreviewViewController : MoppViewController, QLPreviewControllerDat
         if isShareNeeded {
             setupNavigationItemForPushedViewController(title: url.lastPathComponent, filePath: previewFilePath)
         } else {
-            setupNavigationItemForPushedViewController(title: url.lastPathComponent)
+            setupNavigationItemForPushedViewController(title: "")
+            navigationItem.leftBarButtonItem = nil
+            navigationController?.setNavigationBarHidden(true, animated: false)
         }
         LandingViewController.shared.presentButtons([])
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
+    deinit {
+        printLog("Closing data file preview")
     }
     
     func numberOfPreviewItems(in controller: QLPreviewController) -> Int {

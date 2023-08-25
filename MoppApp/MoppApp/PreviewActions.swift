@@ -76,9 +76,10 @@ extension PreviewActions where Self: ContainerViewController {
 
         let openContentPreviewDocument: (_ filePath: String) -> Void = { [weak self] filePath in
             let dataFilePreviewViewController = UIStoryboard.container.instantiateViewController(of: DataFilePreviewViewController.self)
+            dataFilePreviewViewController.modalPresentationStyle = .overFullScreen
             dataFilePreviewViewController.isShareNeeded = isShareButtonNeeded
             dataFilePreviewViewController.previewFilePath = filePath
-            self?.navigationController?.pushViewController(dataFilePreviewViewController, animated: true)
+            self?.navigationController?.pushViewController(dataFilePreviewViewController, animated: false)
         }
 
         let openContentPreview: (_ filePath: String) -> Void = { [weak self] filePath in
