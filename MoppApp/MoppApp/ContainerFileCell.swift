@@ -58,7 +58,7 @@ class ContainerFileCell: UITableViewCell {
         delegate?.saveDataFile(fileName: originalFileName ?? "-")
     }
     
-    func populate(name: String, containerPath: String, showBottomBorder: Bool, showRemoveButton: Bool, showDownloadButton: Bool, enableDownloadButton: Bool, dataFileIndex: Int) {
+    func populate(name: String, containerPath: String, showBottomBorder: Bool, showRemoveButton: Bool, showDownloadButton: Bool, enableDownloadButton: Bool, dataFileIndex: Int, isCryptoDocument: Bool) {
         originalFileName = name
         bottomBorderView.isHidden = !showBottomBorder
         if signingFileNameActionsStackView != nil {
@@ -86,26 +86,38 @@ class ContainerFileCell: UITableViewCell {
         removeButton.accessibilityLabel = formatString(text: L(.fileImportRemoveFile), additionalText: filenameLabel.text?.sanitize())
         removeButton.accessibilityUserInputLabels = ["\(L(.voiceControlRemoveFile)) \(dataFileIndex + 1)"]
         
-        if !isDownloadButtonRefreshed {
+        if isCryptoDocument {
+            self.setButtons(showDownloadButton: showDownloadButton, isSaveable: false, enableDownloadButton: enableDownloadButton, dataFileIndex: dataFileIndex, isCryptoDocument: isCryptoDocument)
+        }
+        
+        if !isCryptoDocument && !isDownloadButtonRefreshed {
             DispatchQueue.global(qos: .userInitiated).async {
                 let isSaveable = MoppLibContainerActions.sharedInstance().isContainerFileSaveable(containerPath, saveDataFile: name)
                 
                 DispatchQueue.main.async {
-                    self.saveButton.isAccessibilityElement = true
-                    self.saveButton.isHidden = !showDownloadButton || !isSaveable
-                    self.saveButton.accessibilityLabel = formatString(text: L(.fileImportSaveFile), additionalText: self.filenameLabel.text?.sanitize())
-                    self.saveButton.accessibilityUserInputLabels = ["\(L(.voiceControlSaveFile)) \(dataFileIndex + 1)"]
-                    let downloadImage = UIImage(named: "iconDownload")
-                    self.saveButton.setImage(downloadImage , for: .normal)
-                    let downloadDisabledImage = UIImage(named: "iconDownloadDisabled")
-                    self.saveButton.setImage(downloadDisabledImage, for: .disabled)
-                    self.saveButton.isEnabled = enableDownloadButton || isSaveable
-                    self.isDownloadButtonRefreshed = true
+                    self.setButtons(showDownloadButton: showDownloadButton, isSaveable: isSaveable, enableDownloadButton: enableDownloadButton, dataFileIndex: dataFileIndex, isCryptoDocument: isCryptoDocument)
                     self.containerFileUpdatedDelegate?.didUpdateDownloadButton()
                 }
             }
         }
         self.dataFileIndex = dataFileIndex
+    }
+    
+    func setButtons(showDownloadButton: Bool, isSaveable: Bool, enableDownloadButton: Bool, dataFileIndex: Int, isCryptoDocument: Bool) {
+        self.saveButton.isAccessibilityElement = true
+        if isCryptoDocument {
+            self.saveButton.isHidden = !showDownloadButton
+        } else {
+            self.saveButton.isHidden = !showDownloadButton || !isSaveable
+        }
+        self.saveButton.accessibilityLabel = formatString(text: L(.fileImportSaveFile), additionalText: self.filenameLabel.text?.sanitize())
+        self.saveButton.accessibilityUserInputLabels = ["\(L(.voiceControlSaveFile)) \(dataFileIndex + 1)"]
+        let downloadImage = UIImage(named: "iconDownload")
+        self.saveButton.setImage(downloadImage , for: .normal)
+        let downloadDisabledImage = UIImage(named: "iconDownloadDisabled")
+        self.saveButton.setImage(downloadDisabledImage, for: .disabled)
+        self.saveButton.isEnabled = enableDownloadButton || isSaveable
+        self.isDownloadButtonRefreshed = true
     }
     
     deinit {
