@@ -92,7 +92,7 @@ class ContainerFileCell: UITableViewCell {
                 
                 DispatchQueue.main.async {
                     self.saveButton.isAccessibilityElement = true
-                    self.saveButton.isHidden = !showDownloadButton
+                    self.saveButton.isHidden = !showDownloadButton || !isSaveable
                     self.saveButton.accessibilityLabel = formatString(text: L(.fileImportSaveFile), additionalText: self.filenameLabel.text?.sanitize())
                     self.saveButton.accessibilityUserInputLabels = ["\(L(.voiceControlSaveFile)) \(dataFileIndex + 1)"]
                     let downloadImage = UIImage(named: "iconDownload")
