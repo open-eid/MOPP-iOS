@@ -229,7 +229,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
             tslLabel.removeFromSuperview()
         }
         // Set TSL cache files with versions
-        let filesInBundle: [URL] = TSLUpdater.getCountryFileLocations(inPath: TSLUpdater.getTSLFilesBundlePath())
+        let filesInBundle: [URL] = TSLUpdater.getCountryFileLocations(inPath: TSLUpdater.getLibraryDirectoryPath())
         for fileInBundle in filesInBundle {
             let tslLabel = ScaledLabel()
             let tslVersion = TSLUpdater.getTSLVersion(fromFile: fileInBundle)
