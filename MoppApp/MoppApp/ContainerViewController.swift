@@ -284,7 +284,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     
     func didUpdateDownloadButton(index: Int) {
         if let sectionIndex = sections.firstIndex(where: { $0 == .dataFiles }) {
-            tableView.reloadRows(at: [IndexPath(row: index, section: sectionIndex)], with: .automatic)
+            tableView.reloadRows(at: [IndexPath(row: index, section: sectionIndex)], with: .none)
         } else {
             tableView.reloadData()
         }
