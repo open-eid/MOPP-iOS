@@ -282,8 +282,12 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         reloadData()
     }
     
-    func didUpdateDownloadButton() {
-        tableView.reloadData()
+    func didUpdateDownloadButton(index: Int) {
+        if let sectionIndex = sections.firstIndex(where: { $0 == .dataFiles }) {
+            tableView.reloadRows(at: [IndexPath(row: index, section: sectionIndex)], with: .automatic)
+        } else {
+            tableView.reloadData()
+        }
     }
 
     func isDdocOrAsicsContainer(containerPath: String) -> Bool {

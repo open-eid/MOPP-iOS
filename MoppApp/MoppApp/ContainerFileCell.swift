@@ -29,7 +29,7 @@ protocol ContainerFileDelegate: AnyObject {
 }
 
 protocol ContainerFileUpdatedDelegate: AnyObject {
-    func didUpdateDownloadButton()
+    func didUpdateDownloadButton(index: Int)
 }
 
 class ContainerFileCell: UITableViewCell {
@@ -101,7 +101,7 @@ class ContainerFileCell: UITableViewCell {
                     self.saveButton.setImage(downloadDisabledImage, for: .disabled)
                     self.saveButton.isEnabled = enableDownloadButton || isSaveable
                     self.isDownloadButtonRefreshed = true
-                    self.containerFileUpdatedDelegate?.didUpdateDownloadButton()
+                    self.containerFileUpdatedDelegate?.didUpdateDownloadButton(index: dataFileIndex)
                 }
             }
         }
