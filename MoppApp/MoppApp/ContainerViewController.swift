@@ -533,7 +533,7 @@ extension ContainerViewController : UITableViewDataSource {
                 (signingContainerViewDelegate.getSignaturesCount() == 0 && signingContainerViewDelegate.isContainerSignable())
                 isDownloadButtonShown = true
             } else {
-                isRemoveButtonShown = isDecrypted
+                isRemoveButtonShown = !isEncrypted || isDecrypted
                 isDownloadButtonShown = !isForPreview && (isDecrypted || (state != .opened))
                 cell.isDownloadButtonRefreshed = false
                 isCryptoDocument = true
