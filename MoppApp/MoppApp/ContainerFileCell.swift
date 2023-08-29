@@ -29,7 +29,7 @@ protocol ContainerFileDelegate: AnyObject {
 }
 
 protocol ContainerFileUpdatedDelegate: AnyObject {
-    func didUpdateDownloadButton()
+    func didUpdateDownloadButton(index: Int)
 }
 
 class ContainerFileCell: UITableViewCell {
@@ -96,7 +96,7 @@ class ContainerFileCell: UITableViewCell {
                 
                 DispatchQueue.main.async {
                     self.setButtons(showDownloadButton: showDownloadButton, isSaveable: isSaveable, enableDownloadButton: enableDownloadButton, dataFileIndex: dataFileIndex, isCryptoDocument: isCryptoDocument)
-                    self.containerFileUpdatedDelegate?.didUpdateDownloadButton()
+                    self.containerFileUpdatedDelegate?.didUpdateDownloadButton(index: dataFileIndex)
                 }
             }
         }
