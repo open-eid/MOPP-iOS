@@ -88,9 +88,7 @@ class ContainerFileCell: UITableViewCell {
         
         if isCryptoDocument {
             self.setButtons(showDownloadButton: showDownloadButton, isSaveable: false, enableDownloadButton: enableDownloadButton, dataFileIndex: dataFileIndex, isCryptoDocument: isCryptoDocument)
-        }
-        
-        if !isCryptoDocument && !isDownloadButtonRefreshed {
+        } else if !isDownloadButtonRefreshed {
             DispatchQueue.global(qos: .userInitiated).async {
                 let isSaveable = MoppLibContainerActions.sharedInstance().isContainerFileSaveable(containerPath, saveDataFile: name)
                 
