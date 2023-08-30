@@ -30,6 +30,7 @@ class TokenFlowSelectionViewController : MoppViewController {
     @IBOutlet var centerLandscapeCSTR: NSLayoutConstraint!
     @IBOutlet var tokenFlowMethodButtons: [UIButton]!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var tokenNavbarView: UIView!
     @IBOutlet weak var tokenNavbar: UIView!
     @IBOutlet weak var mobileIDButton: UIButton!
     @IBOutlet weak var smartIDButton: UIButton!
@@ -67,7 +68,7 @@ class TokenFlowSelectionViewController : MoppViewController {
         super.viewWillAppear(animated)
         let signMethod = TokenFlowMethodButtonID(rawValue: DefaultsHelper.signMethod) ?? .mobileID
         if isFlowForDecrypting {
-            tokenNavbar.isHidden = true
+            tokenNavbarView.isHidden = true
             changeTokenFlowMethod(newSignMethod: .idCard)
         } else {
             changeTokenFlowMethod(newSignMethod: signMethod)
@@ -138,7 +139,7 @@ class TokenFlowSelectionViewController : MoppViewController {
     }
     
     private func handleLandscapeKeyboard(hideTokenNavbar: Bool, topConstraintConstant: CGFloat) {
-        tokenNavbar.isHidden = hideTokenNavbar
+        tokenNavbarView.isHidden = hideTokenNavbar
         tokenViewContainerTopConstraint.constant = topConstraintConstant
         self.view.setNeedsUpdateConstraints()
         self.view.layoutIfNeeded()

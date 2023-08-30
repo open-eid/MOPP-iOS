@@ -25,9 +25,12 @@ import Foundation
 
 class ContainerSearchCell: UITableViewCell {
     @IBOutlet weak var searchBar: SearchField!
+    @IBOutlet weak var placeholder: UILabel!
     
     override func awakeFromNib() {
-        searchBar.placeholder = L(.cryptoLdapSearchPlaceholder)
+        searchBar.placeholder = ""
         searchBar.accessibilityUserInputLabels = [L(.voiceControlSearchRecipients)]
+        placeholder.text = L(.cryptoLdapSearchPlaceholder)
+        placeholder.textColor = .gray
     }
 }
