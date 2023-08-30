@@ -28,8 +28,6 @@ class SearchField: ScaledTextField {
     var onSearchIconTapped: (() -> Void)?
     var onClearButtonTapped: (() -> Void)?
     
-    let clearButton = UIButton(type: .custom)
-    
     override func awakeFromNib() {
         self.backgroundColor = .white
         self.borderStyle = .none
@@ -37,10 +35,12 @@ class SearchField: ScaledTextField {
         self.layer.borderWidth = 1.0
         self.layer.borderColor = UIColor.lightGray.cgColor
         self.layer.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1).cgColor
-
+        
+        delegate = self
+        
         let searchIcon = UIImageView(image: UIImage(systemName: "magnifyingglass"))
         searchIcon.tintColor = .lightGray
-
+        
         let iconSize = CGSize(width: self.font?.lineHeight ?? 16, height: self.font?.lineHeight ?? 16)
         let iconMargin: CGFloat = 8
         searchIcon.frame = CGRect(x: iconMargin, y: 0, width: iconSize.width, height: iconSize.height)
@@ -53,13 +53,6 @@ class SearchField: ScaledTextField {
         iconContainerView.accessibilityTraits = [.button]
         self.leftView = iconContainerView
         self.leftViewMode = .always
-
-        clearButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
-        clearButton.addTarget(self, action: #selector(clearText), for: .touchUpInside)
-        clearButton.frame = CGRect(x: -iconMargin, y: 0, width: iconSize.height, height: iconSize.height)
-        clearButton.tintColor = .lightGray
-        clearButton.isAccessibilityElement = true
-        rightView = clearButton
         rightViewMode = .whileEditing
     }
     
@@ -79,5 +72,12 @@ class SearchField: ScaledTextField {
     
     @objc func clearText() {
         onClearButtonTapped?()
+    }
+}
+
+extension SearchField: UITextFieldDelegate {
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        clearText()
+        return true
     }
 }

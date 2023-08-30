@@ -165,7 +165,7 @@
                                                             </constraints>
                                                         </view>
                                                         <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="JNa-b0-DK7">
-                                                            <rect key="frame" x="0.0" y="0.0" width="25" height="26"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="58" height="26"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zV0-PM-P6i">
                                                                     <rect key="frame" x="0.0" y="0.0" width="25" height="26"/>
@@ -1105,44 +1105,60 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerSearchCell" id="ml6-0m-DV6" customClass="ContainerSearchCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="94" width="667" height="79"/>
+                                        <rect key="frame" x="0.0" y="94" width="667" height="94"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ml6-0m-DV6" id="MmW-IW-ds9">
-                                            <rect key="frame" x="0.0" y="0.0" width="667" height="79"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="667" height="94"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rmc-le-D5F">
-                                                    <rect key="frame" x="15" y="20" width="637" height="44"/>
+                                                    <rect key="frame" x="15" y="20" width="637" height="74"/>
                                                     <subviews>
-                                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Placeholder" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="e9Q-kh-dWn" customClass="SearchField" customModule="MoppApp" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="637" height="44"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
-                                                        </textField>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="xLS-0k-Os5">
+                                                            <rect key="frame" x="0.0" y="0.0" width="637" height="74"/>
+                                                            <subviews>
+                                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Placeholder" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="e9Q-kh-dWn" customClass="SearchField" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="637" height="40"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="uSo-8Z-qb0"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <textInputTraits key="textInputTraits"/>
+                                                                </textField>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placeholder" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bva-JE-ate">
+                                                                    <rect key="frame" x="0.0" y="56" width="637" height="18"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="e9Q-kh-dWn" secondAttribute="trailing" id="JH6-Ps-Yco"/>
-                                                        <constraint firstItem="e9Q-kh-dWn" firstAttribute="top" secondItem="Rmc-le-D5F" secondAttribute="top" id="Lgq-d5-hVI"/>
-                                                        <constraint firstAttribute="bottom" secondItem="e9Q-kh-dWn" secondAttribute="bottom" id="VX1-xA-BEb"/>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="Vy1-Yq-Dv8"/>
-                                                        <constraint firstItem="e9Q-kh-dWn" firstAttribute="leading" secondItem="Rmc-le-D5F" secondAttribute="leading" id="ojp-Nj-pjU"/>
+                                                        <constraint firstAttribute="trailing" secondItem="xLS-0k-Os5" secondAttribute="trailing" id="LT2-yg-crl"/>
+                                                        <constraint firstItem="xLS-0k-Os5" firstAttribute="top" secondItem="Rmc-le-D5F" secondAttribute="top" id="Yh0-vf-qtQ"/>
+                                                        <constraint firstItem="xLS-0k-Os5" firstAttribute="leading" secondItem="Rmc-le-D5F" secondAttribute="leading" id="hlu-wQ-MRv"/>
+                                                        <constraint firstAttribute="bottom" secondItem="xLS-0k-Os5" secondAttribute="bottom" id="l7H-qX-DSb"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="Rmc-le-D5F" firstAttribute="leading" secondItem="MmW-IW-ds9" secondAttribute="leading" constant="15" id="3KW-dP-bte"/>
-                                                <constraint firstAttribute="bottom" secondItem="Rmc-le-D5F" secondAttribute="bottom" constant="15" id="JKG-FH-rUp"/>
+                                                <constraint firstAttribute="bottom" secondItem="Rmc-le-D5F" secondAttribute="bottom" id="JKG-FH-rUp"/>
                                                 <constraint firstItem="Rmc-le-D5F" firstAttribute="top" secondItem="MmW-IW-ds9" secondAttribute="top" constant="20" id="fI0-9a-a3J"/>
                                                 <constraint firstAttribute="trailing" secondItem="Rmc-le-D5F" secondAttribute="trailing" constant="15" id="gJD-HZ-ze1"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
+                                            <outlet property="placeholder" destination="Bva-JE-ate" id="bw0-zh-v09"/>
                                             <outlet property="searchBar" destination="e9Q-kh-dWn" id="AoH-VJ-nYj"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerFoundAddresseeCell" editingAccessoryType="disclosureIndicator" rowHeight="55" id="S7p-It-JWk" customClass="ContainerFoundAddresseeCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="173" width="667" height="55"/>
+                                        <rect key="frame" x="0.0" y="188" width="667" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S7p-It-JWk" id="Bbt-ik-4qu">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="55"/>
@@ -1220,7 +1236,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContainerAddresseeCell" editingAccessoryType="disclosureIndicator" rowHeight="61" id="Oy2-Qo-Kwl" customClass="ContainerAddresseeCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="228" width="667" height="61"/>
+                                        <rect key="frame" x="0.0" y="243" width="667" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Oy2-Qo-Kwl" id="hua-iu-fk8">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="61"/>
@@ -1293,7 +1309,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerAddAllButtonCell" id="nlh-ij-xq6" customClass="ContainerAddAllButtonCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="289" width="667" height="44"/>
+                                        <rect key="frame" x="0.0" y="304" width="667" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nlh-ij-xq6" id="Izh-zE-ZeK">
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>

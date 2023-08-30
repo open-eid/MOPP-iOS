@@ -247,7 +247,7 @@
 "card-reader-state-reader-restarted" = "Restarting card reader.";
 "card-reader-state-reader-process-failed" = "Failed to read data. Please reconnect the card reader and try again.";
 "card-reader-state-id-card-not-found" = "Reader found.\nInsert your ID-card into the reader.";
-"card-reader-state-id-card-connected" = "ID-card found.\nRequesting information...";
+"card-reader-state-id-card-connected" = "Loading data from ID-card.\nIt may take up to 1 minute...";
 "card-reader-state-ready-for-pin2" = "Ready to sign with ID-card. \n%@ (%@)";
 "card-reader-state-ready-for-pin1" = "Ready to decrypt with ID-card.\n%@ (%@)";
 "signing-in-progress" = "Signing in progress.\nPlease wait.";
@@ -268,7 +268,7 @@
 "signing-aborted-message" = "Signing process aborted";
 "my-eid-status-reader-not-found" = "Connect your card reader to your smart device and insert ID-card into the reader.";
 "my-eid-status-card-not-found" = "Reader found.\nInsert your ID-card into the reader.";
-"my-eid-status-requesting-data" = "ID-card found.\nRequesting information...";
+"my-eid-status-requesting-data" = "Loading data from ID-card.\nIt may take up to 1 minute...";
 "my-eid-cert-expired" = "expired";
 "my-eid-cert-valid" = "valid";
 "my-eid-info-item-given-names" = "GIVEN NAMES";

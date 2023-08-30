@@ -248,7 +248,7 @@
 "card-reader-state-reader-restarted" = "Перезапуск устройства чтения карт.";
 "card-reader-state-reader-process-failed" = "Не удалось считать данные. Пожалуйста, снова подключите устройство чтения карт и повторите попытку.";
 "card-reader-state-id-card-not-found" = "Обнаружен считыватель карты.\nВставьте в него Вашу ID-карту.";
-"card-reader-state-id-card-connected" = "Обнаружена ID-карта.\nЗапрашивается информация...";
+"card-reader-state-id-card-connected" = "Загрузка данных с ID карты.\nЭто может занять до 1 минуты...";
 "card-reader-state-ready-for-pin2" = "Готово к подписанию с использованием ID-карты.\n%@ (%@)";
 "card-reader-state-ready-for-pin1" = "Готово к дешифрованию с помощью ID-карты.\n%@ (%@)";
 "signing-in-progress" = "Происходит подписание.\nПожалуйста, подождите.";
@@ -269,7 +269,7 @@
 "signing-aborted-message" = "Процесс подписания прерван";
 "my-eid-status-reader-not-found" = "Подключите считыватель карты и вставьте в него Вашу ID-карту.";
 "my-eid-status-card-not-found" = "Обнаружен считыватель карты.\nВставьте в него Вашу ID-карту.";
-"my-eid-status-requesting-data" = "Обнаружена ID-карта.\nЗапрашивается информация...";
+"my-eid-status-requesting-data" = "Загрузка данных с ID карты.\nЭто может занять до 1 минуты...";
 "my-eid-cert-expired" = "недействителен";
 "my-eid-cert-valid" = "действителен";
 "my-eid-info-item-given-names" = "ИМЯ";
