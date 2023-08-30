@@ -60,7 +60,7 @@ class ContainerHeaderCell: UITableViewCell {
         filenameLabel.isAccessibilityElement = true
         filenameLabel.text = name.sanitize()
         filenameLabel.resetLabelProperties()
-        editContainerNameButton.isHidden = isEditButtonEnabled
+        editContainerNameButton.isHidden = !isEditButtonEnabled
         editContainerNameButton.accessibilityLabel = L(.containerEditNameButton)
         editContainerNameButton.accessibilityUserInputLabels = [L(.voiceControlChangeContainerName)]
     }

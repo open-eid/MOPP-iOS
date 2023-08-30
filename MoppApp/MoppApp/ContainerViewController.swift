@@ -282,8 +282,12 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         reloadData()
     }
     
-    func didUpdateDownloadButton() {
-        tableView.reloadData()
+    func didUpdateDownloadButton(index: Int) {
+        if let sectionIndex = sections.firstIndex(where: { $0 == .dataFiles }) {
+            tableView.reloadRows(at: [IndexPath(row: index, section: sectionIndex)], with: .none)
+        } else {
+            tableView.reloadData()
+        }
     }
 
     func isDdocOrAsicsContainer(containerPath: String) -> Bool {
@@ -490,9 +494,11 @@ extension ContainerViewController : UITableViewDataSource {
             if isAsicsContainer() && !asicsDataFiles.isEmpty && asicsDataFiles.count >= indexPath.row {
                 dataFileName = asicsDataFiles[indexPath.row].fileName ?? ContainerViewController.unnamedDataFile
                 tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: asicsNestedContainerPath, isShareButtonNeeded: isDecrypted)
-            } else if !isEncryptedDataFiles {
+            } else {
                 dataFileName = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) ?? ContainerViewController.unnamedDataFile
-                tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
+                if !isEncryptedDataFiles {
+                    tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
+                }
             }
 
             if dataFileName.isEmpty {
@@ -524,14 +530,17 @@ extension ContainerViewController : UITableViewDataSource {
 
             var isRemoveButtonShown = false
             var isDownloadButtonShown = false
+            var isCryptoDocument = false
             if isAsicContainer {
                 isRemoveButtonShown = !isForPreview &&
                     (signingContainerViewDelegate.getSignaturesCount() == 0) ||
                 (signingContainerViewDelegate.getSignaturesCount() == 0 && signingContainerViewDelegate.isContainerSignable())
-                isDownloadButtonShown = !isForPreview
+                isDownloadButtonShown = true
             } else {
-                isRemoveButtonShown = !isForPreview && (state != .opened)
+                isRemoveButtonShown = !isEncrypted || isDecrypted
                 isDownloadButtonShown = !isForPreview && (isDecrypted || (state != .opened))
+                cell.isDownloadButtonRefreshed = false
+                isCryptoDocument = true
             }
 
             cell.populate(
@@ -541,7 +550,8 @@ extension ContainerViewController : UITableViewDataSource {
                 showRemoveButton: isRemoveButtonShown,
                 showDownloadButton: isDownloadButtonShown,
                 enableDownloadButton: !self.isAsicContainer,
-                dataFileIndex: row)
+                dataFileIndex: row,
+                isCryptoDocument: isCryptoDocument)
             return cell
         case .importDataFiles:
             let cell = tableView.dequeueReusableCell(withType: ContainerImportFilesCell.self, for: indexPath)!

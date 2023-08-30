@@ -177,8 +177,8 @@
                                                                         <action selector="removeAction" destination="6pq-Cm-b20" eventType="touchUpInside" id="dz7-pi-paM"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="center" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKh-UH-oRj">
-                                                                    <rect key="frame" x="33" y="0.0" width="25" height="26"/>
+                                                                <button hidden="YES" opaque="NO" contentMode="center" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKh-UH-oRj">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="25" height="26"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="25" id="rhC-V3-RTh"/>
                                                                     </constraints>
