@@ -773,33 +773,38 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="70L-PA-mBc">
-                                                    <rect key="frame" x="15" y="15" width="637" height="46"/>
+                                                    <rect key="frame" x="16" y="8" width="635" height="60"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hnc-QI-wPM">
-                                                            <rect key="frame" x="0.0" y="0.0" width="564" height="46"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KP1-3K-bhf">
+                                                            <rect key="frame" x="0.0" y="0.0" width="562" height="60"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.pdf" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xW9-dC-vAP" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="564" height="46"/>
-                                                                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
-                                                                    <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dhd-5G-QVG">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="562" height="60"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document 1.pdf" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xW9-dC-vAP" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="562" height="60"/>
+                                                                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
+                                                                            <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                    <constraints>
+                                                                        <constraint firstItem="xW9-dC-vAP" firstAttribute="top" secondItem="Dhd-5G-QVG" secondAttribute="top" id="DXe-GK-l5L"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="xW9-dC-vAP" secondAttribute="trailing" id="OfJ-P2-cs3"/>
+                                                                        <constraint firstItem="xW9-dC-vAP" firstAttribute="leading" secondItem="Dhd-5G-QVG" secondAttribute="leading" id="YmY-7T-zSF"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="xW9-dC-vAP" secondAttribute="bottom" id="qcI-jI-7uJ"/>
+                                                                    </constraints>
+                                                                </view>
                                                             </subviews>
-                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="trailing" secondItem="xW9-dC-vAP" secondAttribute="trailing" id="1oO-gc-A1A"/>
-                                                                <constraint firstItem="xW9-dC-vAP" firstAttribute="top" secondItem="hnc-QI-wPM" secondAttribute="top" id="5PU-Fi-Oab"/>
-                                                                <constraint firstItem="xW9-dC-vAP" firstAttribute="leading" secondItem="hnc-QI-wPM" secondAttribute="leading" id="QEY-dP-Pma"/>
-                                                                <constraint firstAttribute="bottom" secondItem="xW9-dC-vAP" secondAttribute="bottom" id="zv3-0i-m2v"/>
-                                                            </constraints>
-                                                        </view>
+                                                        </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kFh-DD-3Sw">
-                                                            <rect key="frame" x="579" y="0.0" width="58" height="46"/>
+                                                            <rect key="frame" x="577" y="0.0" width="58" height="60"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1t1-CX-UWa">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="25" height="46"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="25" height="60"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="46" id="Uh5-3O-ql3"/>
+                                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="46" id="Uh5-3O-ql3"/>
                                                                         <constraint firstAttribute="width" constant="25" id="add-f7-27o"/>
                                                                     </constraints>
                                                                     <state key="normal" image="icon_remove-1"/>
@@ -808,9 +813,9 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9eg-iF-HaU">
-                                                                    <rect key="frame" x="33" y="0.0" width="25" height="46"/>
+                                                                    <rect key="frame" x="33" y="0.0" width="25" height="60"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="46" id="Ar5-Cf-TYX"/>
+                                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="46" id="Ar5-Cf-TYX"/>
                                                                         <constraint firstAttribute="width" constant="25" id="pw0-7O-B0K"/>
                                                                     </constraints>
                                                                     <state key="normal" image="iconDownload"/>
@@ -826,25 +831,24 @@
                                                     <rect key="frame" x="16" y="76" width="635" height="1"/>
                                                     <color key="backgroundColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="0.20732555650000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="ksY-Mz-Tlf"/>
+                                                        <constraint firstAttribute="height" constant="1" id="3TN-FD-Pbf"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="70L-PA-mBc" firstAttribute="leading" secondItem="Sza-8J-Yjw" secondAttribute="leading" constant="15" id="8w1-eZ-p7r"/>
-                                                <constraint firstAttribute="trailing" secondItem="70L-PA-mBc" secondAttribute="trailing" constant="15" id="IcO-qs-QXV"/>
-                                                <constraint firstAttribute="trailing" secondItem="lxM-0N-UCI" secondAttribute="trailing" constant="16" id="Neo-HZ-cbz"/>
-                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="leading" secondItem="Sza-8J-Yjw" secondAttribute="leading" constant="16" id="QoF-Qd-PjS"/>
-                                                <constraint firstItem="70L-PA-mBc" firstAttribute="top" secondItem="Sza-8J-Yjw" secondAttribute="top" constant="15" id="W2U-U0-xKP"/>
-                                                <constraint firstAttribute="bottom" secondItem="lxM-0N-UCI" secondAttribute="bottom" id="jDI-ZE-seP"/>
-                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="top" secondItem="70L-PA-mBc" secondAttribute="bottom" constant="15" id="sMI-I0-ffU"/>
+                                                <constraint firstItem="70L-PA-mBc" firstAttribute="leading" secondItem="Sza-8J-Yjw" secondAttribute="leading" constant="16" id="3t5-Bv-CmL"/>
+                                                <constraint firstAttribute="bottom" secondItem="lxM-0N-UCI" secondAttribute="bottom" id="3vh-Qu-28G"/>
+                                                <constraint firstItem="70L-PA-mBc" firstAttribute="top" secondItem="Sza-8J-Yjw" secondAttribute="top" constant="8" id="CUQ-n9-a4C"/>
+                                                <constraint firstAttribute="trailing" secondItem="lxM-0N-UCI" secondAttribute="trailing" constant="16" id="Tjh-Lw-736"/>
+                                                <constraint firstAttribute="trailing" secondItem="70L-PA-mBc" secondAttribute="trailing" constant="16" id="bfB-BH-FHJ"/>
+                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="leading" secondItem="Sza-8J-Yjw" secondAttribute="leading" constant="16" id="oHq-0y-Iup"/>
+                                                <constraint firstItem="lxM-0N-UCI" firstAttribute="top" secondItem="70L-PA-mBc" secondAttribute="bottom" constant="8" id="ogH-OJ-Kqo"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="bottomBorderView" destination="lxM-0N-UCI" id="iJj-pY-PxS"/>
                                             <outlet property="cryptoActionsStackView" destination="kFh-DD-3Sw" id="zkL-oc-rOR"/>
                                             <outlet property="cryptoFileNameActionsStackView" destination="70L-PA-mBc" id="bxC-gB-ZBd"/>
-                                            <outlet property="fileLabelView" destination="hnc-QI-wPM" id="14e-Ef-Jtw"/>
                                             <outlet property="filenameLabel" destination="xW9-dC-vAP" id="NBR-Hw-ghg"/>
                                             <outlet property="removeButton" destination="1t1-CX-UWa" id="ffB-1K-6OJ"/>
                                             <outlet property="saveButton" destination="9eg-iF-HaU" id="a38-Hd-bPF"/>
@@ -1147,11 +1151,11 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconCryptoSelected" translatesAutoresizingMaskIntoConstraints="NO" id="kGJ-Wd-I4U">
                                                     <rect key="frame" x="16" y="0.0" width="22" height="55"/>
                                                 </imageView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="-40" translatesAutoresizingMaskIntoConstraints="NO" id="vfZ-eu-bMz">
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="-150" translatesAutoresizingMaskIntoConstraints="NO" id="vfZ-eu-bMz">
                                                     <rect key="frame" x="54" y="8" width="597" height="38"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="5Wl-Lw-S0l">
-                                                            <rect key="frame" x="0.0" y="0.0" width="318.5" height="38"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="373.5" height="38"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" text="MARI MAASIKAS,9800984323" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OwN-Y6-Aj6" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="231.5" height="20"/>
@@ -1168,10 +1172,10 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="b0v-KZ-tro">
-                                                            <rect key="frame" x="278.5" y="0.0" width="318.5" height="38"/>
+                                                            <rect key="frame" x="223.5" y="0.0" width="373.5" height="38"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhU-k0-Tv1" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="275.5" y="0.0" width="43" height="38"/>
+                                                                    <rect key="frame" x="330.5" y="0.0" width="43" height="38"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <state key="normal" title="Added"/>
                                                                     <connections>
