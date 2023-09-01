@@ -260,7 +260,7 @@ extension RecentContainersViewController : UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section_: Int) -> CGFloat {
         let section = sections[section_]
-        return section == .containerFilesHeaderViewPlaceholder ? 50.0 : 0
+        return section == .containerFilesHeaderViewPlaceholder ? 50.0 : UITableView.automaticDimension
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

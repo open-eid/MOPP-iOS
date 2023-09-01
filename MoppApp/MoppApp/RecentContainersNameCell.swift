@@ -25,7 +25,7 @@ import Foundation
 
 class RecentContainersNameCell : UITableViewCell {
     static let height: CGFloat = 50.0
-    @IBOutlet weak var filenameLabel: UILabel!
+    @IBOutlet weak var filenameLabel: ScaledLabel!
     @IBOutlet weak var separatorView: UIView!
     
     override func awakeFromNib() {
@@ -48,5 +48,6 @@ class RecentContainersNameCell : UITableViewCell {
         
         filenameLabel.text = filename
         filenameLabel.accessibilityUserInputLabels = ["\(L(.voiceControlFileRow)) \(row + 1)"]
+        filenameLabel.resetLabelProperties()
     }
 }
