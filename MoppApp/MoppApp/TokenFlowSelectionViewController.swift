@@ -29,6 +29,7 @@ class TokenFlowSelectionViewController : MoppViewController {
     @IBOutlet weak var centerViewKeyboardCSTR: NSLayoutConstraint!
     @IBOutlet var centerLandscapeCSTR: NSLayoutConstraint!
     @IBOutlet var tokenFlowMethodButtons: [UIButton]!
+    @IBOutlet weak var tokenFlowView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var tokenNavbarView: UIView!
     @IBOutlet weak var tokenNavbar: UIView!
@@ -37,6 +38,13 @@ class TokenFlowSelectionViewController : MoppViewController {
     @IBOutlet weak var idCardButton: UIButton!
     
     @IBOutlet weak var tokenViewContainerTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tokenFlowViewLeadingCSTR: NSLayoutConstraint!
+    @IBOutlet weak var tokenFlowViewTrailingCSTR: NSLayoutConstraint!
+    @IBOutlet weak var tokenFlowViewHeightCSTR: NSLayoutConstraint!
+    @IBOutlet weak var containerViewHeightCSTR: NSLayoutConstraint!
+    @IBOutlet weak var tokenFlowViewCenterXCSTR: NSLayoutConstraint!
+    @IBOutlet weak var tokenFlowViewCenterYCSTR: NSLayoutConstraint!
+    
     
     var isFlowForDecrypting = false
     weak var mobileIdEditViewControllerDelegate: MobileIDEditViewControllerDelegate!
@@ -52,6 +60,12 @@ class TokenFlowSelectionViewController : MoppViewController {
     
     var deviceOrientation: UIDeviceOrientation = .portrait
     var topConstraintKeyboardShown = -56
+    var mainViewHeight = CGFloat(0)
+    
+    var tokenFlowViewCenterXAnchor: NSLayoutConstraint? = nil
+    var tokenFlowViewCenterYAnchor: NSLayoutConstraint? = nil
+    var tokenFlowViewTopAnchor: NSLayoutConstraint? = nil
+    var tokenFlowViewBottomAnchor: NSLayoutConstraint? = nil
     
     enum TokenFlowMethodButtonID: String {
         case mobileID
@@ -95,6 +109,12 @@ class TokenFlowSelectionViewController : MoppViewController {
         }) { _ in
             
         }
+
+        tokenFlowViewCenterXAnchor = tokenFlowView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        tokenFlowViewCenterYAnchor = tokenFlowView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        
+        tokenFlowViewTopAnchor = tokenFlowView.topAnchor.constraint(equalTo: view.topAnchor, constant: 25)
+        tokenFlowViewBottomAnchor = tokenFlowView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 25)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -125,6 +145,10 @@ class TokenFlowSelectionViewController : MoppViewController {
         super.willTransition(to: newCollection, with: coordinator)
         
         deviceOrientation = UIDevice.current.orientation
+        
+        let signMethod = DefaultsHelper.signMethod
+        guard let newSignMethod = TokenFlowMethodButtonID(rawValue: signMethod) else { return }
+        setConstraints(newViewController: self, containerView: containerView, newSignMethod: newSignMethod)
     }
     
     // Hide token flow methods so that small screens can enter text to textfields when in landscape orientation
@@ -209,6 +233,55 @@ extension TokenFlowSelectionViewController {
         bottom.isActive = true
 
         newViewController.view.updateConstraintsIfNeeded()
+        
+        setConstraints(newViewController: newViewController, containerView: containerView, newSignMethod: newSignMethod)
+        
+        if newSignMethod == .idCard {
+            containerView.backgroundColor = .clear
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if let parentView = tokenFlowView.superview {
+            mainViewHeight = parentView.bounds.height
+        }
+
+        let signMethod = DefaultsHelper.signMethod
+        guard let newSignMethod = TokenFlowMethodButtonID(rawValue: signMethod) else { return }
+        setConstraints(newViewController: self, containerView: containerView, newSignMethod: newSignMethod)
+    }
+    
+    private func setConstraints(newViewController: UIViewController?, containerView: UIView, newSignMethod: TokenFlowMethodButtonID?) {
+        let currentOrientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation ?? .portrait
+
+        if currentOrientation.isLandscape {
+            tokenFlowViewLeadingCSTR.constant = 48
+            tokenFlowViewTrailingCSTR.constant = 48
+
+            tokenFlowViewTopAnchor?.isActive = true
+            tokenFlowViewBottomAnchor?.isActive = true
+
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                tokenFlowViewHeightCSTR.constant = 500
+            } else {
+                tokenFlowViewHeightCSTR.constant = mainViewHeight - 50
+            }
+            containerViewHeightCSTR.constant = tokenFlowViewHeightCSTR.constant - tokenNavbarView.frame.height
+            centerLandscapeCSTR.constant = tokenFlowViewHeightCSTR.constant * centerLandscapeCSTR.multiplier
+        } else if currentOrientation.isPortrait {
+            tokenFlowViewLeadingCSTR.constant = 16
+            tokenFlowViewTrailingCSTR.constant = 16
+
+            tokenFlowViewTopAnchor?.isActive = false
+            tokenFlowViewBottomAnchor?.isActive = false
+
+            tokenFlowViewCenterXCSTR.isActive = true
+            tokenFlowViewCenterYCSTR.isActive = true
+
+            tokenFlowViewHeightCSTR.constant = 475
+            containerViewHeightCSTR.constant = tokenFlowViewHeightCSTR.constant - tokenNavbarView.frame.height
+            centerLandscapeCSTR.constant = tokenFlowViewHeightCSTR.constant * centerLandscapeCSTR.multiplier
+        }
     }
     
     @IBAction func didTapSignMethodButton(sender: UIButton) {
