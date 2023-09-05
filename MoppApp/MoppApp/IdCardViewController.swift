@@ -40,6 +40,7 @@ protocol IdCardDecryptViewControllerDelegate : AnyObject {
 class IdCardViewController : MoppViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var idCardView: UIView!
+    @IBOutlet weak var containerStackView: UIStackView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var pinCodeStackView: UIStackView!
     @IBOutlet weak var pinTextField: UITextField!
@@ -47,8 +48,6 @@ class IdCardViewController : MoppViewController {
     @IBOutlet weak var actionButton: UIButton!
     @IBOutlet weak var pinTextFieldTitleLabel: UILabel!
     @IBOutlet weak var loadingSpinner: SpinnerView!
-    @IBOutlet weak var titleLabelBottomToCancelButtonCSTR: NSLayoutConstraint!
-    @IBOutlet weak var titleLabelBottomToPin2TextFieldCSTR: NSLayoutConstraint!
     
     var isActionDecryption = false
     var containerPath: String!
@@ -212,8 +211,12 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.isHidden = true
             pinTextFieldTitleLabel.text = nil
             pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
-            loadingSpinner.show(false)
-            pinCodeStackView.isHidden = true
+            if loadingSpinner != nil {
+                loadingSpinner.show(false)
+            }
+            if pinCodeStackView != nil {
+                pinCodeStackView.isHidden = true
+            }
             titleLabel.text = L(.cardReaderStateInitial)
         case .readerNotFound:
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement,  argument: L(.cardReaderStateReaderNotFound))
@@ -223,8 +226,12 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.isHidden = true
             pinTextFieldTitleLabel.text = nil
             pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
-            loadingSpinner.show(true)
-            pinCodeStackView.isHidden = true
+            if loadingSpinner != nil {
+                loadingSpinner.show(true)
+            }
+            if pinCodeStackView != nil {
+                pinCodeStackView.isHidden = true
+            }
             titleLabel.text = L(.cardReaderStateReaderNotFound)
         case .readerRestarted:
             UIAccessibility.post(notification: .announcement,  argument: L(.cardReaderStateReaderRestarted))
@@ -234,8 +241,12 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.isHidden = true
             pinTextFieldTitleLabel.text = nil
             pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
-            loadingSpinner.show(true)
-            pinCodeStackView.isHidden = false
+            if loadingSpinner != nil {
+                loadingSpinner.show(true)
+            }
+            if pinCodeStackView != nil {
+                pinCodeStackView.isHidden = false
+            }
             titleLabel.text = L(.cardReaderStateReaderRestarted)
         case .idCardNotFound:
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: L(.cardReaderStateIdCardNotFound))
@@ -245,8 +256,12 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.isHidden = true
             pinTextFieldTitleLabel.text = nil
             pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
-            loadingSpinner.show(true)
-            pinCodeStackView.isHidden = false
+            if loadingSpinner != nil {
+                loadingSpinner.show(true)
+            }
+            if pinCodeStackView != nil {
+                pinCodeStackView.isHidden = false
+            }
             titleLabel.text = L(.cardReaderStateIdCardNotFound)
         case .idCardConnected:
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: L(.cardReaderStateIdCardConnected))
@@ -256,8 +271,12 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.isHidden = true
             pinTextFieldTitleLabel.text = nil
             pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
-            loadingSpinner.show(true)
-            pinCodeStackView.isHidden = false
+            if loadingSpinner != nil {
+                loadingSpinner.show(true)
+            }
+            if pinCodeStackView != nil {
+                pinCodeStackView.isHidden = false
+            }
             titleLabel.text = L(.cardReaderStateIdCardConnected)
         case .readerProcessFailed:
             UIAccessibility.post(notification: .announcement, argument: L(.cardReaderStateReaderProcessFailed))
@@ -297,7 +316,9 @@ class IdCardViewController : MoppViewController {
                 }
                 self.setPinFieldVoiceControlLabel(isDecryption: self.isActionDecryption)
                 self.pinTextFieldTitleLabel.textColor = UIColor.moppText
-                self.loadingSpinner.show(false)
+                if self.loadingSpinner != nil {
+                    self.loadingSpinner.show(false)
+                }
             }
         case .tokenActionInProcess:
             actionButton.isEnabled = false
@@ -306,7 +327,9 @@ class IdCardViewController : MoppViewController {
             pinTextFieldTitleLabel.isHidden = true
             pinTextFieldTitleLabel.text = nil
             pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
-            loadingSpinner.show(true)
+            if loadingSpinner != nil {
+                loadingSpinner.show(true)
+            }
             if isActionDecryption {
                 titleLabel.text = L(.decryptionInProgress)
                 UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
@@ -329,7 +352,9 @@ class IdCardViewController : MoppViewController {
             pinTextField.text = nil
             pinTextFieldTitleLabel.isHidden = false
             pinTextField.text = nil
-            loadingSpinner.show(false)
+            if loadingSpinner != nil {
+                loadingSpinner.show(false)
+            }
             pinTextFieldTitleLabel.textColor = UIColor.moppError
             if isActionDecryption {
                 pinTextFieldTitleLabel.text = pinAttemptsLeft > 1 ? L(.wrongPin1, [pinAttemptsLeft]) : L(.wrongPin1Single)
