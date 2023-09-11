@@ -231,8 +231,14 @@ class MoppFileManager {
             }
         }
         
+        var sanitizedFilename = fileName.sanitize()
+        
+        if sanitizedFilename.isEmpty {
+            sanitizedFilename = unnamedDataFile
+        }
+        
         // Save file to temporary location
-        let saveTempFileToLocation: String = saveDir.appendingPathComponent(fileName.sanitize()).path
+        let saveTempFileToLocation: String = saveDir.appendingPathComponent(sanitizedFilename).path
         
         guard let tempDir: URL = tempFilesDirectory else { printLog("Failed to get \(tempFilesDirectory?.lastPathComponent ?? "requested") directory"); completionHandler(false, nil); return }
         let saveFileForCdocLocation: String = tempDir.appendingPathComponent(fileName).path

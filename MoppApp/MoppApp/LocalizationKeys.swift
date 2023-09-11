@@ -356,6 +356,7 @@ enum LocKey : String
     case cryptoRemoveAddresseeButton = "crypto-remove-addressee-button";
     case cryptoInvalidPersonalCodeTitle = "crypto-invalid-personal-code-title";
     case datafilePreviewFailed = "datafile-preview-failed";
+    case datafilePreviewNotAvailable = "datafile-preview-not-available";
 
     case digidocImageAccessibility = "digidoc-image-accessibility";
 
