@@ -281,11 +281,7 @@ class IdCardViewController : MoppViewController {
         case .readerProcessFailed:
             UIAccessibility.post(notification: .announcement, argument: L(.cardReaderStateReaderProcessFailed))
             actionButton.isEnabled = false
-            if pinTextField != nil && pinTextFieldTitleLabel != nil && pinCodeStackView != nil {
-                pinTextField.removeFromSuperview()
-                pinTextFieldTitleLabel.removeFromSuperview()
-                pinCodeStackView.removeFromSuperview()
-            }
+            pinCodeStackView.isHidden = true
             titleLabel.text = L(.cardReaderStateReaderProcessFailed)
         case .readyForTokenAction:
             // Give VoiceOver time to announce "ID-card found"
