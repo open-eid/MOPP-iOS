@@ -257,6 +257,11 @@
                 }
                 
             }
+            
+            if (filteredResponse.count == 0) {
+                failure([MoppLibError ldapResponseNotFoundError]);
+                return;
+            }
         }
         @catch (...) {
             error = [MoppLibError generalError];

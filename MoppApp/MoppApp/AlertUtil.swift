@@ -31,7 +31,8 @@ class AlertUtil {
         if let messageText = message {
             messageNoLink = messageText.removeFirstLinkFromMessage()
         }
-        let alert = UIAlertController(title: title, message: messageNoLink, preferredStyle: .alert)
+        let alertTitle = title ?? L(.errorAlertTitleGeneral)
+        let alert = UIAlertController(title: alertTitle, message: messageNoLink, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: okButtonTitle, style: .default, handler: alertAction))
         if let linkInUrl: String = message?.getFirstLinkInMessage() {
             if let alertActionUrl: UIAlertAction = UIAlertAction().getLinkAlert(title: additionalInfoButtonTitle, message: linkInUrl) {
@@ -66,9 +67,10 @@ class AlertUtil {
         }
     }
 
-    static func errorDialog(title: String? = L(.generalSignatureAddingMessage), errorMessage: String, topViewController: UIViewController) -> UIAlertController {
+    static func errorDialog(title: String? = nil, errorMessage: String, topViewController: UIViewController) -> UIAlertController {
         let errorMessageNoLink = errorMessage.removeFirstLinkFromMessage()?.trimWhitespacesAndNewlines()
-        let alert = UIAlertController(title: title, message: errorMessageNoLink, preferredStyle: UIAlertController.Style.alert)
+        let alertTitle = title ?? L(.generalSignatureAddingMessage)
+        let alert = UIAlertController(title: alertTitle, message: errorMessageNoLink, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         if let linkInUrl = errorMessage.getFirstLinkInMessage() {
             if let alertActionUrl = UIAlertAction().getLinkAlert(message: linkInUrl) {
