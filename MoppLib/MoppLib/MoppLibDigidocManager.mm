@@ -169,7 +169,7 @@ public:
             printLog(@"Unable to generate a X509 certificate object. Code: %u, message: %@", e.code(), [NSString stringWithCString:e.msg().c_str() encoding:[NSString defaultCStringEncoding]]);
             return digidoc::X509Cert();
         } catch(...) {
-            printLog(@"\Generating a X509 certificate object raised an exception!\n");
+            printLog(@"Generating a X509 certificate object raised an exception!\n");
             return digidoc::X509Cert();
           }
       }
@@ -307,29 +307,25 @@ static std::string profile = "time-stamp";
 }
 
 + (digidoc::X509Cert)getDerCert:(NSString *)certString {
-    digidoc::X509Cert x509Certs;
     try {
-        std::vector<unsigned char> bytes = base64_decode(std::string([certString UTF8String]));
-        x509Certs = digidoc::X509Cert(bytes, digidoc::X509Cert::Format::Der);
+        NSData *data = [[NSData alloc] initWithBase64EncodedString:certString options:NSDataBase64DecodingIgnoreUnknownCharacters];
+        auto *bytes = reinterpret_cast<const unsigned char*>(data.bytes);
+        return digidoc::X509Cert(bytes, data.length, digidoc::X509Cert::Format::Der);
     } catch (const digidoc::Exception &e) {
         parseException(e);
-        x509Certs = digidoc::X509Cert();
+        return digidoc::X509Cert();
     }
-
-    return x509Certs;
 }
 
 + (digidoc::X509Cert)getPemCert:(NSString *)certString {
-    digidoc::X509Cert x509Certs;
     try {
-        std::vector<unsigned char> bytes = base64_decode(std::string([certString UTF8String]));
-        x509Certs = digidoc::X509Cert(bytes, digidoc::X509Cert::Format::Pem);
+        NSData *data = [[NSData alloc] initWithBase64EncodedString:certString options:NSDataBase64DecodingIgnoreUnknownCharacters];
+        auto *bytes = reinterpret_cast<const unsigned char*>(data.bytes);
+        return digidoc::X509Cert(bytes, data.length, digidoc::X509Cert::Format::Pem);
     } catch (const digidoc::Exception &e) {
         parseException(e);
-        x509Certs = digidoc::X509Cert();
+        return digidoc::X509Cert();
     }
-
-    return x509Certs;
 }
 
 + (digidoc::X509Cert)getCertFromBytes:(const unsigned char *)bytes certData:(NSData *)certData {
@@ -394,7 +390,9 @@ static std::string profile = "time-stamp";
 }
 
 + (void)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure {
-    std::vector<unsigned char> calculatedSignatureBase64 = base64_decode(signatureValue.UTF8String);
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:signatureValue options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    auto *bytes = reinterpret_cast<const unsigned char*>(data.bytes);
+    std::vector<unsigned char> calculatedSignatureBase64(bytes, bytes + data.length);
 
     digidoc::X509Cert x509Cert;
     try {

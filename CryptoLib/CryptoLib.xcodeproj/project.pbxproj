@@ -22,8 +22,6 @@
 		3960E50620C044EE00D4D2FC /* CryptoDataFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 3960E50320C02DA400D4D2FC /* CryptoDataFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39852A4B20AB2418004CB100 /* Decrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4120AB2418004CB100 /* Decrypt.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39852A4C20AB2418004CB100 /* Encrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4220AB2418004CB100 /* Encrypt.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		39852A4D20AB2418004CB100 /* base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4320AB2418004CB100 /* base64.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		39852A4E20AB2418004CB100 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39852A4420AB2418004CB100 /* base64.cpp */; };
 		39852A5020AB2418004CB100 /* DdocParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 39852A4620AB2418004CB100 /* DdocParserDelegate.m */; };
 		39852A5120AB2418004CB100 /* SmartCardTokenWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4720AB2418004CB100 /* SmartCardTokenWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39852A5220AB2418004CB100 /* Decrypt.mm in Sources */ = {isa = PBXBuildFile; fileRef = 39852A4820AB2418004CB100 /* Decrypt.mm */; };
@@ -70,8 +68,6 @@
 		3960E50420C02E5900D4D2FC /* CryptoDataFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CryptoDataFile.m; sourceTree = "<group>"; };
 		39852A4120AB2418004CB100 /* Decrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decrypt.h; sourceTree = "<group>"; };
 		39852A4220AB2418004CB100 /* Encrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Encrypt.h; sourceTree = "<group>"; };
-		39852A4320AB2418004CB100 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
-		39852A4420AB2418004CB100 /* base64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base64.cpp; sourceTree = "<group>"; };
 		39852A4620AB2418004CB100 /* DdocParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DdocParserDelegate.m; sourceTree = "<group>"; };
 		39852A4720AB2418004CB100 /* SmartCardTokenWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmartCardTokenWrapper.h; sourceTree = "<group>"; };
 		39852A4820AB2418004CB100 /* Decrypt.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Decrypt.mm; sourceTree = "<group>"; };
@@ -152,7 +148,6 @@
 			children = (
 				39E2B4CB20AD7A3400CA74A8 /* Ldap */,
 				39E414E020AC5C9300141574 /* XmlParser */,
-				39E414DF20AC5C6D00141574 /* Base64 */,
 				39852A4120AB2418004CB100 /* Decrypt.h */,
 				39852A4820AB2418004CB100 /* Decrypt.mm */,
 				39852A4220AB2418004CB100 /* Encrypt.h */,
@@ -192,15 +187,6 @@
 			name = Ldap;
 			path = CryptoLib/Ldap;
 			sourceTree = SOURCE_ROOT;
-		};
-		39E414DF20AC5C6D00141574 /* Base64 */ = {
-			isa = PBXGroup;
-			children = (
-				39852A4320AB2418004CB100 /* base64.h */,
-				39852A4420AB2418004CB100 /* base64.cpp */,
-			);
-			path = Base64;
-			sourceTree = "<group>";
 		};
 		39E414E020AC5C9300141574 /* XmlParser */ = {
 			isa = PBXGroup;
@@ -255,7 +241,6 @@
 				39E2B4DE20AD7A3400CA74A8 /* OpenLdap.h in Headers */,
 				3960E50620C044EE00D4D2FC /* CryptoDataFile.h in Headers */,
 				39266A6520CFE643002E3F23 /* CdocInfo.h in Headers */,
-				39852A4D20AB2418004CB100 /* base64.h in Headers */,
 				39266A5A20CFD956002E3F23 /* AbstractSmartToken.h in Headers */,
 				39266A6420CFE63D002E3F23 /* CdocParser.h in Headers */,
 				39231FAF20AB1C6C00E1E2B4 /* CryptoLib.h in Headers */,
@@ -370,7 +355,6 @@
 				39E2B4DC20AD7A3400CA74A8 /* ResultSet.m in Sources */,
 				39E2B4D820AD7A3400CA74A8 /* Attribute.m in Sources */,
 				39852A5320AB2418004CB100 /* Encrypt.mm in Sources */,
-				39852A4E20AB2418004CB100 /* base64.cpp in Sources */,
 				39266A5120CFBDF8002E3F23 /* SmartCardTokenWrapper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

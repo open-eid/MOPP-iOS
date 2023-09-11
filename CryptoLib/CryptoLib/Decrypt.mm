@@ -25,7 +25,6 @@
 #import "cdoc/Token.h"
 #import "SmartCardTokenWrapper.h"
 #import "DdocParserDelegate.h"
-#import "base64.h"
 #import <UIKit/UIKit.h>
 
 @implementation Decrypt
@@ -44,16 +43,13 @@
     if (decryptedData.empty()){
         return response;
     }
-    std::string encoded = base64_encode(reinterpret_cast<const unsigned char*>(&decryptedData[0]), (uint32_t)decryptedData.size());
+    NSData *decrypted = [NSData dataWithBytes:decryptedData.data() length:decryptedData.size()];
     std::string filename = cdocReader.fileName();
     std::string mimetype = cdocReader.mimeType();
-    NSString* result = [NSString stringWithUTF8String:encoded.c_str()];
-    
-    NSData *nsdataFromBase64String = [[NSData alloc] initWithBase64EncodedString:result options:0];
 
     NSString *nsFilename = [NSString stringWithCString:filename.c_str() encoding: NSUTF8StringEncoding];
     if ([[nsFilename pathExtension] isEqualToString: @"ddoc"]){
-        NSXMLParser *parser = [[NSXMLParser alloc] initWithData:nsdataFromBase64String];
+        NSXMLParser *parser = [[NSXMLParser alloc] initWithData:decrypted];
         DdocParserDelegate *parserDelegate = [[DdocParserDelegate alloc] init];
         [parser setDelegate:(id)parserDelegate];
         [parser parse];
@@ -66,7 +62,7 @@
             
         }
     } else {
-        [response setObject:nsdataFromBase64String forKey:nsFilename];
+        [response setObject:decrypted forKey:nsFilename];
     }
     return response;
 }
