@@ -544,7 +544,7 @@ static std::string profile = "time-stamp";
         MoppLibDataFile *moppLibDataFile = [MoppLibDataFile new];
         moppLibDataFile.fileId = [NSString stringWithUTF8String:dataFile->id().c_str()];
         moppLibDataFile.mediaType = [NSString stringWithUTF8String:dataFile->mediaType().c_str()];
-        moppLibDataFile.fileName = [MoppLibDigidocManager sanitize:[NSString stringWithUTF8String:dataFile->fileName().c_str()]];
+        moppLibDataFile.fileName = [NSString stringWithUTF8String:dataFile->fileName().c_str()];
         moppLibDataFile.fileSize = dataFile->fileSize();
 
         [dataFiles addObject:moppLibDataFile];

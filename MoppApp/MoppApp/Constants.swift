@@ -21,6 +21,7 @@
  *
  */
 
+let unnamedDataFile = "datafile"
 
 let kKeyContainer = "container"
 let kKeyContainerNew = "containerNew"

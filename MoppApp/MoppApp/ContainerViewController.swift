@@ -82,8 +82,6 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var isLoadingNestedAsicsDone = false
     var isSendingToSivaAgreed = true
     
-    private static let unnamedDataFile = "datafile"
-    
     private var isFileSaveableCache: [IndexPath: Bool] = [:]
     private var isDatafileReloaded = false
 
@@ -492,10 +490,10 @@ extension ContainerViewController : UITableViewDataSource {
             var tapGesture: UITapGestureRecognizer?
 
             if isAsicsContainer() && !asicsDataFiles.isEmpty && asicsDataFiles.count >= indexPath.row {
-                dataFileName = asicsDataFiles[indexPath.row].fileName ?? ContainerViewController.unnamedDataFile
+                dataFileName = asicsDataFiles[indexPath.row].fileName ?? unnamedDataFile
                 tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: asicsNestedContainerPath, isShareButtonNeeded: isDecrypted)
             } else {
-                dataFileName = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) ?? ContainerViewController.unnamedDataFile
+                dataFileName = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) ?? unnamedDataFile
                 if !isEncryptedDataFiles {
                     tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
                 }
@@ -503,7 +501,7 @@ extension ContainerViewController : UITableViewDataSource {
 
             if dataFileName.isEmpty {
                 printLog("Datafile name empty")
-                dataFileName = ContainerViewController.unnamedDataFile
+                dataFileName = unnamedDataFile
             }
 
             if let tg = tapGesture {

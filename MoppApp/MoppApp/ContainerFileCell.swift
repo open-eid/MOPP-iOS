@@ -70,7 +70,7 @@ class ContainerFileCell: UITableViewCell {
             cryptoFileNameActionsStackView.isHidden = false
         }
         filenameLabel.isHidden = false
-        filenameLabel.text = name.sanitize()
+        filenameLabel.text = name
         filenameLabel.isUserInteractionEnabled = true
         filenameLabel.resetLabelProperties()
         if signingActionsStackView != nil {

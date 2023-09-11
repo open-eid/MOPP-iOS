@@ -381,6 +381,7 @@
 "about-title" = "Info";
 "jailbreak-message" = "Seda rakendust ei saa kasutada turvamata (ingl jailbroken) seadmes";
 "datafile-preview-failed" = "Faili avamine eelvaateks ebaõnnestus";
+"datafile-preview-not-available" = "Sellise laiendiga faili ei ole võimalik avada RIA DigiDoc rakenduses. Faili vaatamiseks laadi see alla.";
 "central-configuration" = "Konfiguratsiooni andmed:";
 "last-update-check" = "VIIMATI KONTROLLITUD:";
 "update-date" = "UUENDAMISE KUUPÄEV:";

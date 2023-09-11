@@ -88,6 +88,14 @@ extension PreviewActions where Self: ContainerViewController {
                 self?.errorAlert(message: L(.datafilePreviewFailed))
                 return
             }
+            
+            let url = URL(fileURLWithPath: filePath)
+
+            let urlResourceValues = try? url.resourceValues(forKeys: [.isDirectoryKey])
+            if let isDirectory = urlResourceValues?.isDirectory, isDirectory {
+                self?.errorAlert(message: L(.datafilePreviewNotAvailable))
+                return
+            }
 
             let fileExtension = URL(fileURLWithPath: filePath).pathExtension.lowercased()
 
