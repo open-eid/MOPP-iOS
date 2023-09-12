@@ -32,10 +32,11 @@ class AlertUtil {
             messageNoLink = messageText.removeFirstLinkFromMessage()
         }
         let alertTitle = title ?? L(.errorAlertTitleGeneral)
+        let okButton = okButtonTitle ?? L(.actionOk)
         let alert = UIAlertController(title: alertTitle, message: messageNoLink, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: okButtonTitle, style: .default, handler: alertAction))
+        alert.addAction(UIAlertAction(title: okButton, style: .default, handler: alertAction))
         if let linkInUrl: String = message?.getFirstLinkInMessage() {
-            if let alertActionUrl: UIAlertAction = UIAlertAction().getLinkAlert(title: additionalInfoButtonTitle, message: linkInUrl) {
+            if let alertActionUrl: UIAlertAction = UIAlertAction().getLinkAlert(title: additionalInfoButtonTitle, message: linkInUrl), !alertActionUrl.title.isNilOrEmpty {
                 alert.addAction(alertActionUrl)
             }
         }
@@ -73,7 +74,7 @@ class AlertUtil {
         let alert = UIAlertController(title: alertTitle, message: errorMessageNoLink, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         if let linkInUrl = errorMessage.getFirstLinkInMessage() {
-            if let alertActionUrl = UIAlertAction().getLinkAlert(message: linkInUrl) {
+            if let alertActionUrl = UIAlertAction().getLinkAlert(message: linkInUrl), !alertActionUrl.title.isNilOrEmpty {
                 alert.addAction(alertActionUrl)
             }
         }

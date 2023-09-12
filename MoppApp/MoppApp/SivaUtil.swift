@@ -45,7 +45,7 @@ class SiVaUtil {
             completionHandler(false)
         }))
         if let linkInUrl: String = L(.sivaSendMessage).getFirstLinkInMessage() {
-            if let alertActionUrl: UIAlertAction = UIAlertAction().getLinkAlert(message: linkInUrl) {
+            if let alertActionUrl: UIAlertAction = UIAlertAction().getLinkAlert(message: linkInUrl), !alertActionUrl.title.isNilOrEmpty {
                 alert.addAction(alertActionUrl)
             }
         }
