@@ -26,6 +26,15 @@ import SkSigningLib
 
 class AlertUtil {
     
+    static func messageAlert(title: String? = nil, message: String?, okButtonTitle: String? = "OK", additionalInfoButtonTitle: String? = nil, alertAction: ((UIAlertAction) -> Void)?) -> UIAlertController {
+        let alertTitle = title ?? L(.aboutTitle)
+        let okButton = okButtonTitle ?? L(.actionOk)
+        let alert = UIAlertController(title: alertTitle, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: okButton, style: .default, handler: alertAction))
+        
+        return alert
+    }
+    
     static func messageAlertWithLink(title: String? = nil, message: String?, okButtonTitle: String? = "OK", additionalInfoButtonTitle: String? = nil, alertAction: ((UIAlertAction) -> Void)?) -> UIAlertController {
         var messageNoLink: String? = message
         if let messageText = message {

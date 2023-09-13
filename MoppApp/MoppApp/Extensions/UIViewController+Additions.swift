@@ -34,7 +34,14 @@ extension UIViewController {
         present(confirmDialog, animated: true, completion: nil)
     }
     
-    func errorAlert(message: String?, title: String? = nil, dismissCallback: ((_ action: UIAlertAction) -> Swift.Void)? = nil) {
+    func infoAlert(message: String?, title: String? = nil, dismissCallback: ((_ action: UIAlertAction) -> Swift.Void)? = nil) {
+        let alertTitle = title ?? L(.aboutTitle)
+        let messageAlert = AlertUtil.messageAlert(title: alertTitle, message: message, alertAction: dismissCallback)
+        
+        present(messageAlert, animated: true, completion: nil)
+    }
+    
+    func errorAlertWithLink(message: String?, title: String? = nil, dismissCallback: ((_ action: UIAlertAction) -> Swift.Void)? = nil) {
         
         let alertTitle = title ?? L(.errorAlertTitleGeneral)
         let errorAlert = AlertUtil.messageAlertWithLink(title: alertTitle, message: message, alertAction: dismissCallback)
@@ -114,7 +121,7 @@ extension UIViewController {
             guard topViewController.isViewLoaded else {
                 return
             }
-            topViewController.errorAlert(message: message, title: title, dismissCallback: nil)
+            topViewController.infoAlert(message: message, title: title, dismissCallback: nil)
         }
     }
 }

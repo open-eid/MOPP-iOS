@@ -54,12 +54,12 @@ extension CryptoActions where Self: CryptoContainerViewController {
             },
                 failure: { _ in
                     DispatchQueue.main.async {
-                        self.errorAlert(message: L(.cryptoEncryptionErrorText))
+                        self.infoAlert(message: L(.cryptoEncryptionErrorText), title: L(.errorAlertTitleGeneral))
                     }
                 }
             )
         } else {
-            self.errorAlert(message: L(.cryptoNoAddresseesWarning))
+            self.infoAlert(message: L(.cryptoNoAddresseesWarning), title: L(.errorAlertTitleGeneral))
         }
     }
     func startDecryptingProcess() {
@@ -84,7 +84,7 @@ extension CryptoContainerViewController : IdCardDecryptViewControllerDelegate {
                     cryptoDataFile.filename = dataFile.key as? String
                     guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: cryptoDataFile.filename) else {
                         dismiss(animated: false)
-                        errorAlert(message: L(.decryptionErrorMessage))
+                        infoAlert(message: L(.decryptionErrorMessage), title: L(.errorAlertTitleGeneral))
                         return
                     }
                     cryptoDataFile.filePath = destinationPath
@@ -106,9 +106,9 @@ extension CryptoContainerViewController : IdCardDecryptViewControllerDelegate {
                 self.dismiss(animated: false)
                 guard let nsError = error as NSError? else { return }
                 if nsError.code == Int(MoppLibErrorCode.moppLibErrorPinBlocked.rawValue) {
-                    errorAlert(message: L(.pin1BlockedAlert))
+                    errorAlertWithLink(message: L(.pin1BlockedAlert))
                 } else {
-                    errorAlert(message: L(.decryptionErrorMessage))
+                    infoAlert(message: L(.decryptionErrorMessage), title: L(.errorAlertTitleGeneral))
                 }
             }
         }

@@ -102,15 +102,15 @@ class AddresseeViewController : MoppViewController {
             },
             failure: { error in
                 guard let nsError = error as NSError? else {
-                    self.errorAlert(message: L(.genericErrorMessage))
+                    self.infoAlert(message: L(.genericErrorMessage), title: L(.errorAlertTitleGeneral))
                     self.showLoading(show: false)
                     return
                 }
                 DispatchQueue.main.async {
                     if nsError.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
-                        self.errorAlert(message: L(.noConnectionMessage))
+                        self.infoAlert(message: L(.noConnectionMessage), title: L(.errorAlertTitleGeneral))
                     } else {
-                        self.errorAlert(message: "\(L(.cryptoEmptyLdapLabel)) \(MessageUtil.generateDetailedErrorMessage(error: nsError) ?? "")")
+                        self.infoAlert(message: "\(L(.cryptoEmptyLdapLabel)) \(MessageUtil.generateDetailedErrorMessage(error: nsError) ?? "")", title: L(.errorAlertTitleGeneral))
                     }
                     self.showLoading(show: false)
                 }

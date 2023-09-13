@@ -51,7 +51,7 @@ extension ContainerActions where Self: UIViewController {
 
     func importDataFiles(with urls: [URL], navController: UINavigationController, topSigningViewController: UIViewController, landingViewController: LandingViewController, cleanup: Bool, isEmptyFileImported: Bool, isSendingToSivaAgreed: Bool) {
         if topSigningViewController.presentedViewController is FileImportProgressViewController {
-            topSigningViewController.presentedViewController?.errorAlert(message: L(.fileImportAlreadyInProgressMessage))
+            topSigningViewController.presentedViewController?.infoAlert(message: L(.fileImportAlreadyInProgressMessage))
             return
         }
 
@@ -262,10 +262,10 @@ extension ContainerActions where Self: UIViewController {
                         guard let nsError = error as NSError? else { return }
                         if nsError.code == Int(MoppLibErrorCode.moppLibErrorDuplicatedFilename.rawValue) {
                             DispatchQueue.main.async {
-                                self?.errorAlert(message: L(.containerDetailsFileAlreadyExists))
+                                self?.infoAlert(message: L(.containerDetailsFileAlreadyExists), title: L(.errorAlertTitleGeneral))
                             }
                         } else {
-                            self?.errorAlert(message: MessageUtil.generateDetailedErrorMessage(error: nsError))
+                            self?.errorAlertWithLink(message: MessageUtil.generateDetailedErrorMessage(error: nsError))
                         }
                         self?.refreshContainer(containerViewController: containerViewController)
                     })
@@ -277,7 +277,7 @@ extension ContainerActions where Self: UIViewController {
                 let filename = ($0 as NSString).lastPathComponent as NSString
                 if isDuplicatedFilename(container: (containerViewController?.container)!, filename: filename) {
                     DispatchQueue.main.async {
-                        self.errorAlert(message: L(.containerDetailsFileAlreadyExists))
+                        self.infoAlert(message: L(.containerDetailsFileAlreadyExists), title: L(.errorAlertTitleGeneral))
                     }
                     return
                 }

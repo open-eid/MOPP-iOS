@@ -78,7 +78,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
             SettingsConfiguration().loadCentralConfiguration() { error in
                 DispatchQueue.main.async {
                     if case DiagnosticError.noInternetConnection = error {
-                        self.errorAlert(message: L(.noConnectionMessage))
+                        self.infoAlert(message: L(.noConnectionMessage), title: L(.errorAlertTitleGeneral))
                     }
                 }
             }
@@ -399,7 +399,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
                 }
             } catch {
                 printLog("Unable to write diagnostics to file. Error: \(error.localizedDescription)")
-                self.errorAlert(message: L(.fileImportFailedFileSave))
+                self.infoAlert(message: L(.fileImportFailedFileSave), title: L(.errorAlertTitleGeneral))
                 return
             }
         }
@@ -417,13 +417,13 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         if !urls.isEmpty {
             let savedFileLocation: URL? = urls.first
             printLog("File (\(savedFileLocation?.lastPathComponent ?? "Not available") export done. Location: \(savedFileLocation?.path ?? "Not available")")
-            self.errorAlert(message: L(.fileImportFileSaved))
+            self.infoAlert(message: L(.fileImportFileSaved))
             if isSavingOneTimeLog {
                 disableLogging()
             }
         } else {
             printLog("Failed to save file")
-            return self.errorAlert(message: L(.fileImportFailedFileSave))
+            return self.infoAlert(message: L(.fileImportFailedFileSave), title: L(.errorAlertTitleGeneral))
         }
     }
 
@@ -449,7 +449,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
             saveToDisk(fileUrl: logFile)
         } catch {
             printLog("Unable to write logs to file. Error: \(error.localizedDescription)")
-            self.errorAlert(message: L(.fileImportFailedFileSave))
+            self.infoAlert(message: L(.fileImportFailedFileSave), title: L(.errorAlertTitleGeneral))
             return
         }
     }
