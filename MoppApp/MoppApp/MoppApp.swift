@@ -525,7 +525,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         guard let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow }), let topViewController = keyWindow.rootViewController?.getTopViewController() else {
             return
         }
-        topViewController.errorAlert(message: message, title: title, dismissCallback: nil)
+        topViewController.infoAlert(message: message, title: title, dismissCallback: nil)
     }
 }
 
