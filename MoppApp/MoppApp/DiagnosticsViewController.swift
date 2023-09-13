@@ -434,7 +434,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     private func handleFileLoggingSwitchChanged() {
         if oneTimeLoggingSwitch.isOn {
             oneTimeLoggingSwitch.accessibilityUserInputLabels = [L(.voiceControlDisableLogGeneration)]
-            let messageAlert = AlertUtil.messageAlertWithLink(title: nil, message: L(.diagnosticsRestartToActivateLogging), additionalInfoButtonTitle: L(.diagnosticsOneTimeLoggingReadMore)) { _ in
+            let messageAlert = AlertUtil.messageAlertWithLink(title: L(.aboutTitle), message: L(.diagnosticsRestartToActivateLogging), additionalInfoButtonTitle: L(.diagnosticsOneTimeLoggingReadMore)) { _ in
                 FileLogUtil.enableLogging()
             }
             present(messageAlert, animated: true)
