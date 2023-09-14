@@ -37,7 +37,7 @@ class SiVaUtil {
     }
     
     static func displaySendingToSiVaDialog(completionHandler: @escaping (Bool) -> Void) {
-        let alert = UIAlertController(title: L(.aboutTitle), message: L(.sivaSendMessage).removeFirstLinkFromMessage(), preferredStyle: .alert)
+        let alert = UIAlertController(title: L(.emptySpace), message: L(.sivaSendMessage).removeFirstLinkFromMessage(), preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: L(.actionYes).uppercased(), style: .default, handler: { (_ action: UIAlertAction) in
             completionHandler(true)
         }))

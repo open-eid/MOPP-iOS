@@ -27,7 +27,7 @@ import SkSigningLib
 class AlertUtil {
     
     static func messageAlert(title: String? = nil, message: String?, okButtonTitle: String? = "OK", additionalInfoButtonTitle: String? = nil, alertAction: ((UIAlertAction) -> Void)?) -> UIAlertController {
-        let alertTitle = title ?? L(.aboutTitle)
+        let alertTitle = L(.emptySpace)
         let okButton = okButtonTitle ?? L(.actionOk)
         let alert = UIAlertController(title: alertTitle, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: okButton, style: .default, handler: alertAction))
@@ -40,7 +40,7 @@ class AlertUtil {
         if let messageText = message {
             messageNoLink = messageText.removeFirstLinkFromMessage()
         }
-        let alertTitle = title ?? L(.errorAlertTitleGeneral)
+        let alertTitle = L(.emptySpace)
         let okButton = okButtonTitle ?? L(.actionOk)
         let alert = UIAlertController(title: alertTitle, message: messageNoLink, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: okButton, style: .default, handler: alertAction))
@@ -79,7 +79,7 @@ class AlertUtil {
 
     static func errorDialog(title: String? = nil, errorMessage: String, topViewController: UIViewController) -> UIAlertController {
         let errorMessageNoLink = errorMessage.removeFirstLinkFromMessage()?.trimWhitespacesAndNewlines()
-        let alertTitle = title ?? L(.generalSignatureAddingMessage)
+        let alertTitle = L(.emptySpace)
         let alert = UIAlertController(title: alertTitle, message: errorMessageNoLink, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         if let linkInUrl = errorMessage.getFirstLinkInMessage() {

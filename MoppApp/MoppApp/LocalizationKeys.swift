@@ -24,6 +24,7 @@ enum LocKey : String
 {
     typealias RawValue = String
 
+    case emptySpace = "empty-space"
     case backButton = "back-button"
     case closeButton = "close-button"
     case menuClose = "menu-close"

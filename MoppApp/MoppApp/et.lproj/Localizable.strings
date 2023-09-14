@@ -18,6 +18,7 @@
  */
 
 // *** General ***
+"empty-space" = " ";
 
 // Navigation
 "back-button" = "Tagasi";

@@ -24,7 +24,7 @@ import Foundation
 
 extension UIViewController {
     func confirmDeleteAlert(message: String?, confirmCallback: @escaping (_ action: UIAlertAction.DeleteAction) -> Void) {
-        let confirmDialog = UIAlertController(title: L(.aboutTitle), message: message, preferredStyle: .alert)
+        let confirmDialog = UIAlertController(title: L(.emptySpace), message: message, preferredStyle: .alert)
         confirmDialog.addAction(UIAlertAction(title: L(.actionCancel), style: .cancel, handler: { _ in
             confirmCallback(.cancel)
         }))
@@ -35,7 +35,7 @@ extension UIViewController {
     }
     
     func infoAlert(message: String?, title: String? = nil, dismissCallback: ((_ action: UIAlertAction) -> Swift.Void)? = nil) {
-        let alertTitle = title ?? L(.aboutTitle)
+        let alertTitle = L(.emptySpace)
         let messageAlert = AlertUtil.messageAlert(title: alertTitle, message: message, alertAction: dismissCallback)
         
         present(messageAlert, animated: true, completion: nil)
@@ -43,7 +43,7 @@ extension UIViewController {
     
     func errorAlertWithLink(message: String?, title: String? = nil, dismissCallback: ((_ action: UIAlertAction) -> Swift.Void)? = nil) {
         
-        let alertTitle = title ?? L(.errorAlertTitleGeneral)
+        let alertTitle = L(.emptySpace)
         let errorAlert = AlertUtil.messageAlertWithLink(title: alertTitle, message: message, alertAction: dismissCallback)
         
         present(errorAlert, animated: true, completion: nil)
@@ -93,7 +93,7 @@ extension UIViewController {
             dialogWaitTime = DispatchTime.now() + 4
         }
         DispatchQueue.main.asyncAfter(deadline: dialogWaitTime) {
-            let uiAlertController: UIAlertController = UIAlertController(title: L(.aboutTitle), message: L(.successNotificationDialogLabel), preferredStyle: .alert)
+            let uiAlertController: UIAlertController = UIAlertController(title: L(.emptySpace), message: L(.successNotificationDialogLabel), preferredStyle: .alert)
             
             uiAlertController.addAction(UIAlertAction(title: L(.successNotificationDialogDontShowAgain), style: .default, handler: {(_: UIAlertAction) in
                 DefaultsHelper.hideShareContainerDialog = true
@@ -108,7 +108,7 @@ extension UIViewController {
     }
     
     func displayMessageDialog(message: String) {
-        let uiAlertController: UIAlertController = UIAlertController(title: L(.aboutTitle), message: message, preferredStyle: .alert)
+        let uiAlertController: UIAlertController = UIAlertController(title: L(.emptySpace), message: message, preferredStyle: .alert)
         
         uiAlertController.addAction(UIAlertAction(title: L(.actionOk), style: .default))
         
