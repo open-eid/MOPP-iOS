@@ -27,4 +27,5 @@ public enum SigningType: String {
     case mobileId
     case smartId
     case idCard
+    case nfc
 }

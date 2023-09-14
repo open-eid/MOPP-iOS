@@ -231,6 +231,8 @@
 "smart-id-country-latvia" = "Läti";
 "smart-id-challenge-title" = "Allkirjasta Smart-IDga";
 "smart-id-sign-help-title" = "Veendu kontrollkoodi õigsuses ja sisesta nutiseadmes Smart-ID PIN2-kood";
+"nfc-title" = "Sisesta oma kaardi ligipääsu number ja PIN 2 kood ID-kaardiga allkirjastamiseks";
+"nfc-can-title" = "Kaardi ligipääsu number";
 "role-and-address" = "Roll ja aadress";
 "role-and-address-title" = "Sisesta oma roll ja aadress";
 "role-and-address-role-title" = "Roll / resolutsioon";
@@ -254,6 +256,7 @@
 "sign-title-mobile-id" = "Mobiil-ID";
 "sign-title-smart-id" = "Smart-ID";
 "sign-title-id-card" = "ID-kaart";
+"sign-title-nfc" = "NFC";
 "card-reader-state-reader-not-found" = "Ühtegi kaardilugejat pole ühendatud";
 "card-reader-state-reader-restarted" = "Taaskäivitan kaardilugeja.";
 "card-reader-state-reader-process-failed" = "Andmete lugemine ebaõnnestus. Palun taasühenda kaardilugeja ja proovi uuesti.";

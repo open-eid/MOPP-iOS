@@ -231,6 +231,8 @@
 "smart-id-country-latvia" = "Латвия";
 "smart-id-challenge-title" = "Подписать с помощью приложения Smart-ID";
 "smart-id-sign-help-title" = "Убедитесь в правильности контрольного кода и введите PIN2-код для Smart-ID";
+"nfc-title" = "Enter your card access number and PIN 2 to sign with ID-card";
+"nfc-can-title" = "Card access number";
 "role-and-address" = "Роль и адрес";
 "role-and-address-title" = "Введите свою роль и адрес";
 "role-and-address-role-title" = "Роль / pезолюция";
@@ -254,6 +256,7 @@
 "sign-title-mobile-id" = "Mobiil-ID";
 "sign-title-smart-id" = "Smart-ID";
 "sign-title-id-card" = "ID-карта";
+"sign-title-nfc" = "NFC";
 "card-reader-state-initial" = "Подключите считыватель карты и вставьте в него Вашу ID-карту.";
 "card-reader-state-reader-not-found" = "Считыватель карты не обнаружен";
 "card-reader-state-reader-restarted" = "Перезапуск устройства чтения карт.";
