@@ -80,6 +80,7 @@ extension SigningActions where Self: SigningContainerViewController {
         signSelectionVC.mobileIdEditViewControllerDelegate = self
         signSelectionVC.smartIdEditViewControllerDelegate = self
         signSelectionVC.idCardSignViewControllerDelegate = self
+        signSelectionVC.nfcEditViewControllerDelegate = self
         signSelectionVC.containerPath = containerPath
         
         return signSelectionVC
@@ -178,6 +179,14 @@ extension SigningContainerViewController : SmartIDEditViewControllerDelegate {
             hashType: smartIDParameters.hashType,
             roleData: smartIDParameters.roleData
         )
+    }
+}
+
+extension SigningContainerViewController : NFCEditViewControllerDelegate {
+    func nfcEditViewControllerDidDismiss(cancelled: Bool, can: String?, pin: String?) {
+        if !cancelled, let can = can, let pin = pin {
+            NFCSignature.shared.createNFCSignature(can: can, pin: pin, containerPath: self.containerViewDelegate.getContainerPath(), hashType: kHashType, roleData: DefaultsHelper.isRoleAndAddressEnabled ? RoleAndAddressUtil.getSavedRoleInfo() : nil)
+        }
     }
 }
 

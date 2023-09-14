@@ -30,6 +30,9 @@
 		4E59080024B0F914001B23A6 /* SmartIDEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5907FF24B0F914001B23A6 /* SmartIDEditViewController.swift */; };
 		4E59080224B258C7001B23A6 /* SmartIDChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59080124B258C6001B23A6 /* SmartIDChallengeViewController.swift */; };
 		4E59080424B2E295001B23A6 /* SmartIDSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59080324B2E295001B23A6 /* SmartIDSignature.swift */; };
+		4E6E1D9B2AAB493A008B3E74 /* NFCEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E1D9A2AAB493A008B3E74 /* NFCEditViewController.swift */; };
+		4EE56D232AB0561C002648EE /* NFCSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE56D222AB0561C002648EE /* NFCSignature.swift */; };
+		4EE56D272AB058A6002648EE /* SwiftECC in Frameworks */ = {isa = PBXBuildFile; productRef = 4EE56D262AB058A6002648EE /* SwiftECC */; };
 		540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.swift */; };
 		547BDF251E8BEFA30093931F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
 		54825EF51E1CFE9600253FF0 /* Date+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF41E1CFE9600253FF0 /* Date+Additions.swift */; };
@@ -370,6 +373,8 @@
 		4E5907FF24B0F914001B23A6 /* SmartIDEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartIDEditViewController.swift; sourceTree = "<group>"; };
 		4E59080124B258C6001B23A6 /* SmartIDChallengeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartIDChallengeViewController.swift; sourceTree = "<group>"; };
 		4E59080324B2E295001B23A6 /* SmartIDSignature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartIDSignature.swift; sourceTree = "<group>"; };
+		4E6E1D9A2AAB493A008B3E74 /* NFCEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFCEditViewController.swift; sourceTree = "<group>"; };
+		4EE56D222AB0561C002648EE /* NFCSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCSignature.swift; sourceTree = "<group>"; };
 		540786E81E1A76640016ABA7 /* UITextView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Additions.swift"; sourceTree = "<group>"; };
 		54825EF41E1CFE9600253FF0 /* Date+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Additions.swift"; sourceTree = "<group>"; };
 		54825EF71E1D270F00253FF0 /* String+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Additions.swift"; sourceTree = "<group>"; };
@@ -644,6 +649,7 @@
 				393B66E820DB9C19001DC89B /* CryptoLib.framework in Frameworks */,
 				DF135630290201A100F61823 /* ExternalAccessory.framework in Frameworks */,
 				DF1503AB2AC5D1E5007222B2 /* ZIPFoundation in Frameworks */,
+				4EE56D272AB058A6002648EE /* SwiftECC in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -677,6 +683,7 @@
 				C54EA6E72045A9E30039AC78 /* IdCardViewController.swift */,
 				C54BB10E1FBD93A100A274F6 /* MobileIDChallengeViewController.swift */,
 				C537AE532004C29E009037E5 /* MobileIDEditViewController.swift */,
+				4E6E1D9A2AAB493A008B3E74 /* NFCEditViewController.swift */,
 				4E59080124B258C6001B23A6 /* SmartIDChallengeViewController.swift */,
 				4E5907FF24B0F914001B23A6 /* SmartIDEditViewController.swift */,
 				C50DCD1A1FD1576B00D48E16 /* SigningTableViewHeaderView.swift */,
@@ -734,8 +741,7 @@
 			children = (
 				C50DCCD01FC573FB00D48E16 /* Roboto */,
 			);
-			name = Fonts;
-			path = "New Group";
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		C50DCCD01FC573FB00D48E16 /* Roboto */ = {
@@ -1202,6 +1208,7 @@
 				DFDF02C3241ED0CA006CF443 /* MobileIDSignature.swift */,
 				4E59080324B2E295001B23A6 /* SmartIDSignature.swift */,
 				DFBDF20127DF7ED700A5CF3C /* IDCardSignature.swift */,
+				4EE56D222AB0561C002648EE /* NFCSignature.swift */,
 				DFDF02BD241EB5D3006CF443 /* SessionCertificate.swift */,
 				E4C53F4D1E30D13100F209BE /* Session.swift */,
 				DFDF02BF241EC72C006CF443 /* SessionStatus.swift */,
@@ -1296,6 +1303,7 @@
 				DF1503A52AC5D1B9007222B2 /* FirebaseCrashlytics */,
 				DF1503A72AC5D1DB007222B2 /* SwiftyRSA */,
 				DF1503AA2AC5D1E5007222B2 /* ZIPFoundation */,
+				4EE56D262AB058A6002648EE /* SwiftECC */,
 			);
 			productName = MoppApp;
 			productReference = E4250CC31E0968D200530370 /* MoppApp.app */;
@@ -1348,6 +1356,7 @@
 				DF15037C2AC5CD32007222B2 /* XCRemoteSwiftPackageReference "SwiftyRSA" */,
 				DF15037F2AC5CD8D007222B2 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				DF1503822AC5CDBC007222B2 /* XCRemoteSwiftPackageReference "ASN1Decoder" */,
+				4EE56D252AB058A6002648EE /* XCRemoteSwiftPackageReference "SwiftECC" */,
 			);
 			productRefGroup = E4250CC41E0968D200530370 /* Products */;
 			projectDirPath = "";
@@ -1607,6 +1616,7 @@
 				C50DCD461FDECE2B00D48E16 /* SignatureDetailsViewController.swift in Sources */,
 				DF5BE6D429C8BD5600331609 /* WarningDetail.swift in Sources */,
 				DF32A6812909F0FA00AE5F82 /* FileLogUtil.swift in Sources */,
+				4EE56D232AB0561C002648EE /* NFCSignature.swift in Sources */,
 				C50DCCFF1FC6E95A00D48E16 /* ContainerViewController.swift in Sources */,
 				C50DCD481FDED76400D48E16 /* SignatureDetailsCell.swift in Sources */,
 				DF0C2B3F29150EAB007E1745 /* ScaledLabel.swift in Sources */,
@@ -1680,6 +1690,7 @@
 				C506EC811FB9F4AF00E07226 /* UIImage+Additions.swift in Sources */,
 				C55A6E42208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift in Sources */,
 				DFDC0ABA29FAD8F2002D1D1D /* ViewUtil.swift in Sources */,
+				4E6E1D9B2AAB493A008B3E74 /* NFCEditViewController.swift in Sources */,
 				DFD8BEF5291C432400FE8F07 /* ScaledButton.swift in Sources */,
 				C5927FC720751402003B7F41 /* MyeIDPinPukCell.swift in Sources */,
 				DFF3C3AF233231190079458A /* SettingsConfiguration.swift in Sources */,
@@ -2125,6 +2136,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4EE56D252AB058A6002648EE /* XCRemoteSwiftPackageReference "SwiftECC" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/leif-ibsen/SwiftECC";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		DF1503792AC5CCE7007222B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -2160,6 +2179,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4EE56D262AB058A6002648EE /* SwiftECC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EE56D252AB058A6002648EE /* XCRemoteSwiftPackageReference "SwiftECC" */;
+			productName = SwiftECC;
+		};
 		DF1503A32AC5D163007222B2 /* ASN1Decoder */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DF1503822AC5CDBC007222B2 /* XCRemoteSwiftPackageReference "ASN1Decoder" */;
