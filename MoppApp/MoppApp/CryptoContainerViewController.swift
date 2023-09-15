@@ -110,7 +110,7 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
         let containerFileCount: Int = self.getContainer().dataFiles.count
         guard containerFileCount > 0 else {
             printLog("No files in container")
-            self.infoAlert(message: "File not found in container", title: L(.errorAlertTitleGeneral))
+            self.infoAlert(message: "File not found in container")
             return
         }
         
@@ -122,7 +122,7 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
                     let cryptoContainer: CryptoContainer? = self?.getContainer()
                     let isDeleted: Bool = ContainerRemovalActions.shared.removeCdocContainer(cryptoContainer: cryptoContainer)
                     if !isDeleted {
-                        self?.infoAlert(message: L(.dataFileRemovalFailed), title: L(.errorAlertTitleGeneral))
+                        self?.infoAlert(message: L(.dataFileRemovalFailed))
                         return
                     }
                     if UIAccessibility.isVoiceOverRunning {
@@ -147,7 +147,7 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
                     if strongSelf.container.dataFiles.count > index {
                         strongSelf.container.dataFiles.removeObject(at: index)
                     } else {
-                        self?.infoAlert(message: L(.dataFileRemovalFailed), title: L(.errorAlertTitleGeneral))
+                        self?.infoAlert(message: L(.dataFileRemovalFailed))
                         return
                     }
                     if UIAccessibility.isVoiceOverRunning {
@@ -176,7 +176,7 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
                 }
             } else {
                 printLog("Failed to save \(name ?? "file") to 'Saved Files' directory")
-                return self.infoAlert(message: L(.fileImportFailedFileSave), title: L(.errorAlertTitleGeneral))
+                return self.infoAlert(message: L(.fileImportFailedFileSave))
             }
         })
     }
@@ -188,7 +188,7 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
             self.infoAlert(message: L(.fileImportFileSaved))
         } else {
             printLog("Failed to save file")
-            return self.infoAlert(message: L(.fileImportFailedFileSave), title: L(.errorAlertTitleGeneral))
+            return self.infoAlert(message: L(.fileImportFailedFileSave))
         }
     }
     
@@ -240,7 +240,7 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
             },
                 failure: { _ in
                     DispatchQueue.main.async {
-                        self.infoAlert(message: L(.fileImportOpenExistingFailedAlertMessage, [filePath.lastPathComponent]), title: L(.errorAlertTitleGeneral))
+                        self.infoAlert(message: L(.fileImportOpenExistingFailedAlertMessage, [filePath.lastPathComponent]))
                     }
                 }
             )

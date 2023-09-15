@@ -282,7 +282,7 @@ extension SettingsViewController: SettingsTimeStampCellDelegate {
         }, andFailure: { [weak self] error in
             let nsError = error as? NSError
             
-            self?.errorAlertWithLink(message: MessageUtil.generateDetailedErrorMessage(error: nsError) ?? L(.genericErrorMessage), title: nsError?.userInfo["message"] as? String)
+            self?.errorAlertWithLink(message: MessageUtil.generateDetailedErrorMessage(error: nsError) ?? L(.genericErrorMessage))
             }, usingTestDigiDocService: useTestDDS, andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaurl,
                withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration())
     }

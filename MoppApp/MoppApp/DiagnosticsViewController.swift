@@ -78,7 +78,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
             SettingsConfiguration().loadCentralConfiguration() { error in
                 DispatchQueue.main.async {
                     if case DiagnosticError.noInternetConnection = error {
-                        self.infoAlert(message: L(.noConnectionMessage), title: L(.errorAlertTitleGeneral))
+                        self.infoAlert(message: L(.noConnectionMessage))
                     }
                 }
             }
@@ -399,7 +399,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
                 }
             } catch {
                 printLog("Unable to write diagnostics to file. Error: \(error.localizedDescription)")
-                self.infoAlert(message: L(.fileImportFailedFileSave), title: L(.errorAlertTitleGeneral))
+                self.infoAlert(message: L(.fileImportFailedFileSave))
                 return
             }
         }
@@ -423,7 +423,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
             }
         } else {
             printLog("Failed to save file")
-            return self.infoAlert(message: L(.fileImportFailedFileSave), title: L(.errorAlertTitleGeneral))
+            return self.infoAlert(message: L(.fileImportFailedFileSave))
         }
     }
 
@@ -434,7 +434,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     private func handleFileLoggingSwitchChanged() {
         if oneTimeLoggingSwitch.isOn {
             oneTimeLoggingSwitch.accessibilityUserInputLabels = [L(.voiceControlDisableLogGeneration)]
-            let messageAlert = AlertUtil.messageAlertWithLink(title: L(.aboutTitle), message: L(.diagnosticsRestartToActivateLogging), additionalInfoButtonTitle: L(.diagnosticsOneTimeLoggingReadMore)) { _ in
+            let messageAlert = AlertUtil.messageAlertWithLink(message: L(.diagnosticsRestartToActivateLogging), additionalInfoButtonTitle: L(.diagnosticsOneTimeLoggingReadMore)) { _ in
                 FileLogUtil.enableLogging()
             }
             present(messageAlert, animated: true)
@@ -449,7 +449,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
             saveToDisk(fileUrl: logFile)
         } catch {
             printLog("Unable to write logs to file. Error: \(error.localizedDescription)")
-            self.infoAlert(message: L(.fileImportFailedFileSave), title: L(.errorAlertTitleGeneral))
+            self.infoAlert(message: L(.fileImportFailedFileSave))
             return
         }
     }

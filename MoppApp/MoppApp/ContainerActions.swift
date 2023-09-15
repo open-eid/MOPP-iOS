@@ -262,7 +262,7 @@ extension ContainerActions where Self: UIViewController {
                         guard let nsError = error as NSError? else { return }
                         if nsError.code == Int(MoppLibErrorCode.moppLibErrorDuplicatedFilename.rawValue) {
                             DispatchQueue.main.async {
-                                self?.infoAlert(message: L(.containerDetailsFileAlreadyExists), title: L(.errorAlertTitleGeneral))
+                                self?.infoAlert(message: L(.containerDetailsFileAlreadyExists))
                             }
                         } else {
                             self?.errorAlertWithLink(message: MessageUtil.generateDetailedErrorMessage(error: nsError))
@@ -277,7 +277,7 @@ extension ContainerActions where Self: UIViewController {
                 let filename = ($0 as NSString).lastPathComponent as NSString
                 if isDuplicatedFilename(container: (containerViewController?.container)!, filename: filename) {
                     DispatchQueue.main.async {
-                        self.infoAlert(message: L(.containerDetailsFileAlreadyExists), title: L(.errorAlertTitleGeneral))
+                        self.infoAlert(message: L(.containerDetailsFileAlreadyExists))
                     }
                     return
                 }
