@@ -44,9 +44,10 @@
 
 + (digidoc::X509Cert)certToDer:(NSString *)certString {
     NSString* cleanCert = [MoppLibDigidocManager removeBeginAndEndFromCertificate:certString];
-    std::vector<unsigned char> decodedCert = base64_decode(std::string([cleanCert UTF8String]));
+    NSData *decodedCert = [[NSData alloc] initWithBase64EncodedString:cleanCert options:NSDataBase64DecodingIgnoreUnknownCharacters];
     try {
-        return digidoc::X509Cert(decodedCert, digidoc::X509Cert::Format::Der);
+        auto *bytes = reinterpret_cast<const unsigned char*>(decodedCert.bytes);
+        return digidoc::X509Cert(bytes, decodedCert.length, digidoc::X509Cert::Format::Der);
     } catch(const digidoc::Exception &e) {
         printLog(@"Code: %u, message: %@", e.code(), [NSString stringWithCString:e.msg().c_str() encoding:[NSString defaultCStringEncoding]]);
         return digidoc::X509Cert();

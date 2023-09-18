@@ -27,7 +27,6 @@
 #import <UIKit/UIKit.h>
 #import "AbstractSmartToken.h"
 #include <iostream>
-#include "base64.h"
 
 class SmartCardTokenWrapper::Private{
 public:
