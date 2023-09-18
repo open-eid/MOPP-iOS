@@ -47,7 +47,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		390C015C20AC3D7200827230 /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = CryptoLib/cdoc.framework; sourceTree = "<group>"; };
 		390C015E20AC3DC700827230 /* libldap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libldap.a; path = "$(LDAP_PATH)/libraries/libldap.a"; sourceTree = "<absolute>"; };
 		390C016020AC3DE000827230 /* liblber.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblber.a; path = "$(LDAP_PATH)/libraries/liblber.a"; sourceTree = "<absolute>"; };
 		39231FAA20AB1C6C00E1E2B4 /* CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,7 +61,6 @@
 		39266A6120CFE36A002E3F23 /* CdocParserDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CdocParserDelegate.h; sourceTree = "<group>"; };
 		39266A6220CFE3D4002E3F23 /* CdocParserDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CdocParserDelegate.m; sourceTree = "<group>"; };
 		393B66BB20D8F361001DC89B /* AbstractSmartToken.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AbstractSmartToken.mm; sourceTree = "<group>"; };
-		393B66C420DA6964001DC89B /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = CryptoLib/cdocFramework/cdoc.iphonesimulator/cdoc.framework; sourceTree = "<group>"; };
 		393B66DF20DB94B4001DC89B /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = CryptoLib/cdocFramework/cdoc.framework; sourceTree = "<group>"; };
 		3960E50320C02DA400D4D2FC /* CryptoDataFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptoDataFile.h; sourceTree = "<group>"; };
 		3960E50420C02E5900D4D2FC /* CryptoDataFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CryptoDataFile.m; sourceTree = "<group>"; };
@@ -86,12 +84,8 @@
 		8B92C4AD1DA967C9A6803AA8 /* Pods-CryptoLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoLib.release.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-CryptoLib/Pods-CryptoLib.release.xcconfig"; sourceTree = "<group>"; };
 		96E123961B6332200D700AC2 /* Pods-CryptoLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoLib.debug.xcconfig"; path = "../MoppApp/Pods/Target Support Files/Pods-CryptoLib/Pods-CryptoLib.debug.xcconfig"; sourceTree = "<group>"; };
 		B2337FC39B457D26F7140179 /* Pods_CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C5AE7FEE21BAA14600C25453 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos/lib/libssl.a; sourceTree = "<group>"; };
-		C5AE7FEF21BAA14600C25453 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos/lib/libcrypto.a; sourceTree = "<group>"; };
-		C5B7957221BABB3300DC2C59 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = CryptoLib/libcrypto.a; sourceTree = "<group>"; };
-		C5B7957321BABB3300DC2C59 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = CryptoLib/libssl.a; sourceTree = "<group>"; };
-		C5B7957621BABCA800DC2C59 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = CryptoLib/openldap/OpenLDAP.iphoneos/libraries/libcrypto.a; sourceTree = "<group>"; };
-		C5B7957721BABCA800DC2C59 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = CryptoLib/openldap/OpenLDAP.iphoneos/libraries/libssl.a; sourceTree = "<group>"; };
+		C5B7957621BABCA800DC2C59 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "$(LDAP_PATH)/libraries/libcrypto.a"; sourceTree = "<absolute>"; };
+		C5B7957721BABCA800DC2C59 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "$(LDAP_PATH)/libraries/libssl.a"; sourceTree = "<absolute>"; };
 		C5B7957A21BABD8300DC2C59 /* ldapca.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ldapca.pem; sourceTree = "<group>"; };
 		DF8FEAC7233239690020DED4 /* MoppLdapConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLdapConfiguration.h; sourceTree = "<group>"; };
 		DF8FEAC8233239690020DED4 /* MoppLdapConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLdapConfiguration.m; sourceTree = "<group>"; };
@@ -131,7 +125,6 @@
 				39231FAB20AB1C6C00E1E2B4 /* Products */,
 				2F17A286E2A2AF6B019B41A6 /* Pods */,
 				D5B2B96758D5CBE2A4F80170 /* Frameworks */,
-				C5AE7FED21B94FAE00C25453 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -199,27 +192,14 @@
 			path = XmlParser;
 			sourceTree = "<group>";
 		};
-		C5AE7FED21B94FAE00C25453 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				393B66DF20DB94B4001DC89B /* cdoc.framework */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		D5B2B96758D5CBE2A4F80170 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C5AE7FEF21BAA14600C25453 /* libcrypto.a */,
-				C5AE7FEE21BAA14600C25453 /* libssl.a */,
-				C5B7957221BABB3300DC2C59 /* libcrypto.a */,
-				C5B7957321BABB3300DC2C59 /* libssl.a */,
+				393B66DF20DB94B4001DC89B /* cdoc.framework */,
 				C5B7957621BABCA800DC2C59 /* libcrypto.a */,
 				C5B7957721BABCA800DC2C59 /* libssl.a */,
-				393B66C420DA6964001DC89B /* cdoc.framework */,
 				390C016020AC3DE000827230 /* liblber.a */,
 				390C015E20AC3DC700827230 /* libldap.a */,
-				390C015C20AC3D7200827230 /* cdoc.framework */,
 				B2337FC39B457D26F7140179 /* Pods_CryptoLib.framework */,
 			);
 			name = Frameworks;

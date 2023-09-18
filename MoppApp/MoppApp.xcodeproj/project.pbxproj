@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0405692B25416E5500AF6E70 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0405692A25416E5500AF6E70 /* GoogleService-Info.plist */; };
 		0405692C25416E5500AF6E70 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0405692A25416E5500AF6E70 /* GoogleService-Info.plist */; };
-		063A655C7ECF195296250527 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		39158A1920C6C49100B71DD6 /* AddresseeActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39158A1820C6C49100B71DD6 /* AddresseeActions.swift */; };
 		3921CA9520B2D6D600BF3178 /* CryptoActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CA9420B2D6D600BF3178 /* CryptoActions.swift */; };
 		3921CA9720B2D8A600BF3178 /* SigningActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CA9620B2D8A600BF3178 /* SigningActions.swift */; };
@@ -33,7 +32,6 @@
 		4E59080024B0F914001B23A6 /* SmartIDEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5907FF24B0F914001B23A6 /* SmartIDEditViewController.swift */; };
 		4E59080224B258C7001B23A6 /* SmartIDChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59080124B258C6001B23A6 /* SmartIDChallengeViewController.swift */; };
 		4E59080424B2E295001B23A6 /* SmartIDSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59080324B2E295001B23A6 /* SmartIDSignature.swift */; };
-		51EAB865AC99468B5AC77D6C /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.swift */; };
 		547BDF251E8BEFA30093931F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
 		54825EF51E1CFE9600253FF0 /* Date+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF41E1CFE9600253FF0 /* Date+Additions.swift */; };
@@ -492,7 +490,6 @@
 
 /* Begin PBXFileReference section */
 		0405692A25416E5500AF6E70 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		390C016A20AC430300827230 /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = ../CryptoLib/CryptoLib/cdoc.framework; sourceTree = "<group>"; };
 		39158A1820C6C49100B71DD6 /* AddresseeActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddresseeActions.swift; sourceTree = "<group>"; };
 		3921CA9420B2D6D600BF3178 /* CryptoActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoActions.swift; sourceTree = "<group>"; };
 		3921CA9620B2D8A600BF3178 /* SigningActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningActions.swift; sourceTree = "<group>"; };
@@ -655,7 +652,7 @@
 		C5D057812028835100875F44 /* MoppAppTestDDS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MoppAppTestDDS-Info.plist"; path = "/Users/sander/MOPP-iOS/MoppApp/MoppAppTestDDS-Info.plist"; sourceTree = "<absolute>"; };
 		C5E7D08C2031B1040081416F /* NativeShare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeShare.swift; sourceTree = "<group>"; };
 		C5EA71892176057A00440F4A /* MoppAppTestEnv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoppAppTestEnv.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C5EA718A2176057A00440F4A /* TestEnvInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = TestEnvInfo.plist; path = "/Users/sander/MOPP-iOS/MoppApp/TestEnvInfo.plist"; sourceTree = "<absolute>"; };
+		C5EA718A2176057A00440F4A /* TestEnvInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = TestEnvInfo.plist; sourceTree = "<group>"; };
 		C5F462A9209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Additions.swift"; sourceTree = "<group>"; };
 		C5F974D12176465400A167C7 /* MoppLibTestEnv.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MoppLibTestEnv.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5F974E4217733CB00A167C7 /* MoppAppTestEnv.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MoppAppTestEnv.entitlements; sourceTree = "<group>"; };
@@ -779,8 +776,6 @@
 				C55BB1CC2091BD2000618AC4 /* WebKit.framework in Frameworks */,
 				DF3D29CF23F6B3CF007181B8 /* SkSigningLib.framework in Frameworks */,
 				E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */,
-				51EAB865AC99468B5AC77D6C /* (null) in Frameworks */,
-				063A655C7ECF195296250527 /* (null) in Frameworks */,
 				393B66E820DB9C19001DC89B /* CryptoLib.framework in Frameworks */,
 				DF135630290201A100F61823 /* ExternalAccessory.framework in Frameworks */,
 				DFF3C3B72332335C0079458A /* Pods_MoppApp.framework in Frameworks */,
@@ -1184,8 +1179,6 @@
 				DFF3C3BB2332355D0079458A /* defaultConfiguration.json */,
 				DFF3C3B82332355C0079458A /* publicKey.pub */,
 				DFF3C3BA2332355C0079458A /* signature.rsa */,
-				C5F974E4217733CB00A167C7 /* MoppAppTestEnv.entitlements */,
-				393B66E120DB94CD001DC89B /* cdoc.framework */,
 				E4250CC51E0968D200530370 /* MoppApp */,
 				54A418251E83FAD200559E2B /* shareExtension */,
 				E4250CC41E0968D200530370 /* Products */,
@@ -1208,6 +1201,7 @@
 			isa = PBXGroup;
 			children = (
 				54A418351E83FB2800559E2B /* MoppApp.entitlements */,
+				C5F974E4217733CB00A167C7 /* MoppAppTestEnv.entitlements */,
 				54A5729E1E82AC760099BFAF /* AppStore.plist */,
 				C52E82791FC1D7000074B280 /* main.swift */,
 				C52E827B1FC1D7BC0074B280 /* MoppApp.swift */,
@@ -1329,10 +1323,10 @@
 		F9074FEF4DC2DB83A60B75B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				393B66E120DB94CD001DC89B /* cdoc.framework */,
 				DF13562F290201A100F61823 /* ExternalAccessory.framework */,
 				DFF3C3B62332335C0079458A /* Pods_MoppApp.framework */,
 				C5F974D12176465400A167C7 /* MoppLibTestEnv.framework */,
-				390C016A20AC430300827230 /* cdoc.framework */,
 				39852A6120AB2949004CB100 /* CryptoLib.framework */,
 				C55BB1CB2091BD2000618AC4 /* WebKit.framework */,
 				E4250D051E0A911100530370 /* MoppLib.framework */,
@@ -2116,7 +2110,6 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = ET847QJV9F;
 				INFOPLIST_FILE = shareExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2146,7 +2139,6 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = ET847QJV9F;
 				INFOPLIST_FILE = shareExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2171,7 +2163,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = MoppAppTestEnv.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MoppApp/MoppAppTestEnv.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -2190,8 +2182,7 @@
 					"\"$(PODS_ROOT)/Headers/Public/PureLayout\"",
 					"\"$(PODS_ROOT)/Headers/Public/MBProgressHUD\"",
 				);
-				INFOPLIST_FILE = TestEnvInfo.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				INFOPLIST_FILE = MoppApp/TestEnvInfo.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2215,7 +2206,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = MoppAppTestEnv.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MoppApp/MoppAppTestEnv.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -2232,8 +2223,7 @@
 					"\"$(PODS_ROOT)/Headers/Public/PureLayout\"",
 					"\"$(PODS_ROOT)/Headers/Public/MBProgressHUD\"",
 				);
-				INFOPLIST_FILE = TestEnvInfo.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				INFOPLIST_FILE = MoppApp/TestEnvInfo.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2388,7 +2378,6 @@
 				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"COCOAPODS=1",
 					"DEFAULT_CENTRAL_CONFIGURATION_URL=$(DEFAULT_CENTRAL_CONFIGURATION_URL)",
 					"DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL=$(DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL)",
 				);
@@ -2401,7 +2390,6 @@
 					"\"$(PODS_ROOT)/Headers/Public/MBProgressHUD\"",
 				);
 				INFOPLIST_FILE = MoppApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2439,7 +2427,6 @@
 				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"COCOAPODS=1",
 					"DEFAULT_CENTRAL_CONFIGURATION_URL=$(DEFAULT_CENTRAL_CONFIGURATION_URL)",
 					"DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL=$(DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL)",
 				);
@@ -2452,7 +2439,6 @@
 					"\"$(PODS_ROOT)/Headers/Public/MBProgressHUD\"",
 				);
 				INFOPLIST_FILE = MoppApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
