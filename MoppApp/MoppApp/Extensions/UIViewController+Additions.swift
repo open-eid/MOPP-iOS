@@ -24,7 +24,7 @@ import Foundation
 
 extension UIViewController {
     func confirmDeleteAlert(message: String?, confirmCallback: @escaping (_ action: UIAlertAction.DeleteAction) -> Void) {
-        let confirmDialog = UIAlertController(title: message, message: L(.emptySpace), preferredStyle: .alert)
+        let confirmDialog = UIAlertController(title: message, message: nil, preferredStyle: .alert)
         confirmDialog.addAction(UIAlertAction(title: L(.actionCancel), style: .cancel, handler: { _ in
             confirmCallback(.cancel)
         }))
@@ -90,7 +90,7 @@ extension UIViewController {
             dialogWaitTime = DispatchTime.now() + 4
         }
         DispatchQueue.main.asyncAfter(deadline: dialogWaitTime) {
-            let uiAlertController: UIAlertController = UIAlertController(title: L(.successNotificationDialogLabel), message: L(.emptySpace), preferredStyle: .alert)
+            let uiAlertController: UIAlertController = UIAlertController(title: L(.successNotificationDialogLabel), message: nil, preferredStyle: .alert)
             
             uiAlertController.addAction(UIAlertAction(title: L(.successNotificationDialogDontShowAgain), style: .default, handler: {(_: UIAlertAction) in
                 DefaultsHelper.hideShareContainerDialog = true
@@ -105,7 +105,7 @@ extension UIViewController {
     }
     
     func displayMessageDialog(message: String) {
-        let uiAlertController: UIAlertController = UIAlertController(title: message, message: L(.emptySpace), preferredStyle: .alert)
+        let uiAlertController: UIAlertController = UIAlertController(title: message, message: nil, preferredStyle: .alert)
         
         uiAlertController.addAction(UIAlertAction(title: L(.actionOk), style: .default))
         

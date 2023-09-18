@@ -786,7 +786,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
             return
         }
 
-        let changeContainerNameController = UIAlertController(title: L(.containerEditNameButton), message: nil, preferredStyle: UIAlertController.Style.alert)
+        let changeContainerNameController = UIAlertController(title: L(.containerEditNameButton), message: nil, preferredStyle: .alert)
         let cancelButton = UIAlertAction(title: L(.actionCancel), style: UIAlertAction.Style.cancel) { _ in
             if UIAccessibility.isVoiceOverRunning {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {

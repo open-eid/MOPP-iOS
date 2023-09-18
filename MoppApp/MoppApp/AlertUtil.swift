@@ -28,7 +28,7 @@ class AlertUtil {
     
     static func messageAlert(message: String?, okButtonTitle: String? = "OK", additionalInfoButtonTitle: String? = nil, alertAction: ((UIAlertAction) -> Void)?) -> UIAlertController {
         let okButton = okButtonTitle ?? L(.actionOk)
-        let alert = UIAlertController(title: message, message: L(.emptySpace), preferredStyle: .alert)
+        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: okButton, style: .default, handler: alertAction))
         
         return alert
@@ -40,7 +40,7 @@ class AlertUtil {
             messageNoLink = messageText.removeFirstLinkFromMessage()
         }
         let okButton = okButtonTitle ?? L(.actionOk)
-        let alert = UIAlertController(title: messageNoLink, message: L(.emptySpace), preferredStyle: .alert)
+        let alert = UIAlertController(title: messageNoLink, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: okButton, style: .default, handler: alertAction))
         if let linkInUrl: String = message?.getFirstLinkInMessage() {
             if let alertActionUrl: UIAlertAction = UIAlertAction().getLinkAlert(title: additionalInfoButtonTitle, message: linkInUrl), !alertActionUrl.title.isNilOrEmpty {
@@ -77,7 +77,7 @@ class AlertUtil {
 
     static func errorDialog(errorMessage: String, topViewController: UIViewController) -> UIAlertController {
         let errorMessageNoLink = errorMessage.removeFirstLinkFromMessage()?.trimWhitespacesAndNewlines()
-        let alert = UIAlertController(title: errorMessageNoLink, message: L(.emptySpace), preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: errorMessageNoLink, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         if let linkInUrl = errorMessage.getFirstLinkInMessage() {
             if let alertActionUrl = UIAlertAction().getLinkAlert(message: linkInUrl), !alertActionUrl.title.isNilOrEmpty {
