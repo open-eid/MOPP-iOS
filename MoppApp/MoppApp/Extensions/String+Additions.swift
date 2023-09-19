@@ -158,7 +158,15 @@ extension String {
             let detector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
             let urls = detector.matches(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count))
             
-            return urls.first?.url?.absoluteString
+            var urlLink = ""
+            
+            for url in urls {
+                guard let urlRange = Range(url.range, in: self) else { continue }
+                let matchedUrl = self[urlRange]
+                urlLink = String(matchedUrl)
+            }
+            
+            return urlLink
         } catch {
             printLog("Unable to get URL from text")
             return nil
