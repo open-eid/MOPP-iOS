@@ -132,21 +132,18 @@ extension ContainerActions where Self: UIViewController {
         let failure: ((_ error: NSError?) -> Void) = { err in
 
             landingViewController.importProgressViewController.dismissRecursivelyIfPresented(animated: false, completion: {
-                var alert: UIAlertController
                 if isEmptyFileImported {
                     navController?.viewControllers.last!.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))
                     return
                 }
                 
                 if err?.code == 10018 && (url.lastPathComponent.hasSuffix(ContainerFormatDdoc) || url.lastPathComponent.hasSuffix(ContainerFormatPDF)) {
-                    alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.noConnectionMessage), preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
+                    let alert = AlertUtil.messageAlert(message: L(.noConnectionMessage), alertAction: nil)
 
                     navController?.viewControllers.last!.present(alert, animated: true)
                     return
                 } else {
-                    alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [fileName]), preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
+                    let alert = AlertUtil.messageAlert(message: L(.fileImportOpenExistingFailedAlertMessage, [fileName]), alertAction: nil)
                     navController?.viewControllers.last!.present(alert, animated: true)
                     return
                 }
