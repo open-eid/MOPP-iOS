@@ -51,7 +51,7 @@ extension ContainerActions where Self: UIViewController {
 
     func importDataFiles(with urls: [URL], navController: UINavigationController, topSigningViewController: UIViewController, landingViewController: LandingViewController, cleanup: Bool, isEmptyFileImported: Bool, isSendingToSivaAgreed: Bool) {
         if topSigningViewController.presentedViewController is FileImportProgressViewController {
-            topSigningViewController.presentedViewController?.errorAlert(message: L(.fileImportAlreadyInProgressMessage))
+            topSigningViewController.presentedViewController?.infoAlert(message: L(.fileImportAlreadyInProgressMessage))
             return
         }
 
@@ -132,21 +132,18 @@ extension ContainerActions where Self: UIViewController {
         let failure: ((_ error: NSError?) -> Void) = { err in
 
             landingViewController.importProgressViewController.dismissRecursivelyIfPresented(animated: false, completion: {
-                var alert: UIAlertController
                 if isEmptyFileImported {
                     navController?.viewControllers.last!.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))
                     return
                 }
                 
                 if err?.code == 10018 && (url.lastPathComponent.hasSuffix(ContainerFormatDdoc) || url.lastPathComponent.hasSuffix(ContainerFormatPDF)) {
-                    alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.noConnectionMessage), preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
+                    let alert = AlertUtil.messageAlert(message: L(.noConnectionMessage), alertAction: nil)
 
                     navController?.viewControllers.last!.present(alert, animated: true)
                     return
                 } else {
-                    alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [fileName]), preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
+                    let alert = AlertUtil.messageAlert(message: L(.fileImportOpenExistingFailedAlertMessage, [fileName]), alertAction: nil)
                     navController?.viewControllers.last!.present(alert, animated: true)
                     return
                 }
@@ -262,10 +259,10 @@ extension ContainerActions where Self: UIViewController {
                         guard let nsError = error as NSError? else { return }
                         if nsError.code == Int(MoppLibErrorCode.moppLibErrorDuplicatedFilename.rawValue) {
                             DispatchQueue.main.async {
-                                self?.errorAlert(message: L(.containerDetailsFileAlreadyExists))
+                                self?.infoAlert(message: L(.containerDetailsFileAlreadyExists))
                             }
                         } else {
-                            self?.errorAlert(message: MessageUtil.generateDetailedErrorMessage(error: nsError))
+                            self?.errorAlertWithLink(message: MessageUtil.generateDetailedErrorMessage(error: nsError))
                         }
                         self?.refreshContainer(containerViewController: containerViewController)
                     })
@@ -277,7 +274,7 @@ extension ContainerActions where Self: UIViewController {
                 let filename = ($0 as NSString).lastPathComponent as NSString
                 if isDuplicatedFilename(container: (containerViewController?.container)!, filename: filename) {
                     DispatchQueue.main.async {
-                        self.errorAlert(message: L(.containerDetailsFileAlreadyExists))
+                        self.infoAlert(message: L(.containerDetailsFileAlreadyExists))
                     }
                     return
                 }

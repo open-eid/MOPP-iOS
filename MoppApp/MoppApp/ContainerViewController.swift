@@ -683,14 +683,14 @@ extension ContainerViewController : UITableViewDataSource {
                     }
                 }
             }
-            self.errorAlert(message: L(.fileImportOpenExistingFailedAlertMessage, [dataFile]))
+            self.infoAlert(message: L(.fileImportOpenExistingFailedAlertMessage, [dataFile]))
         }
     }
 
     @objc private func openPreview(_ sender: PreviewFileTapGestureRecognizer) {
         guard let dataFile: String = sender.dataFile, let containerFilePath: String = sender.containerFilePath, let isShareButtonNeeded: Bool = sender.isShareButtonNeeded else {
             printLog("Unable to get data file, container file or share button information")
-            self.errorAlert(message: L(.datafilePreviewFailed))
+            self.infoAlert(message: L(.datafilePreviewFailed))
             return
         }
 
@@ -780,11 +780,11 @@ extension ContainerViewController : ContainerHeaderDelegate {
 
         guard !containerExtension.isEmpty else {
             printLog("Failed to get container extension")
-            self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
+            self.infoAlert(message: L(.containerErrorMessageFailedContainerNameChange))
             return
         }
 
-        let changeContainerNameController = UIAlertController(title: L(.containerEditNameButton), message: nil, preferredStyle: UIAlertController.Style.alert)
+        let changeContainerNameController = UIAlertController(title: L(.containerEditNameButton), message: nil, preferredStyle: .alert)
         let cancelButton = UIAlertAction(title: L(.actionCancel), style: UIAlertAction.Style.cancel) { _ in
             if UIAccessibility.isVoiceOverRunning {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -797,7 +797,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
         let okButton = UIAlertAction(title: L(.actionOk), style: UIAlertAction.Style.default) { (action: UIAlertAction) in
             guard let textFields = changeContainerNameController.textFields, textFields.count != 0, let textFieldText = textFields[0].text else {
                 printLog("Failed to find textfield")
-                self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
+                self.infoAlert(message: L(.containerErrorMessageFailedContainerNameChange))
                 return
             }
 
@@ -805,7 +805,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
 
             guard let newContainerPath: URL = self.getNewContainerUrlPath(isContainerCdoc: isContainerCdoc, asicContainer: asicContainer, cdocContainer: cdocContainer, newContainerName: textFieldText, containerExtension: containerExtension), newContainerPath.isFileURL else {
                 printLog("Failed to get container path")
-                self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
+                self.infoAlert(message: L(.containerErrorMessageFailedContainerNameChange))
                 return
             }
             
@@ -820,7 +820,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
             if !isContainerCdoc {
                 guard let signingContainer = asicContainer, MoppFileManager.shared.moveFile(withPath: signingContainer.filePath, toPath: newContainerPath.path, overwrite: true) else {
                     printLog("Failed to change asic file properties")
-                    self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
+                    self.infoAlert(message: L(.containerErrorMessageFailedContainerNameChange))
                     return
                 }
                 signingContainer.fileName = newContainerPath.lastPathComponent
@@ -828,7 +828,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
             } else {
                 guard let cryptoContainer = cdocContainer else {
                     printLog("Failed to change cdoc file properties")
-                    self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
+                    self.infoAlert(message: L(.containerErrorMessageFailedContainerNameChange))
                     return
                 }
                 cryptoContainer.filename = newContainerPath.lastPathComponent as NSString
@@ -859,7 +859,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
             NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { (notification) in
                 guard let inputText = textField.text else {
                     printLog("Failed to get textfield's text")
-                    self.errorAlert(message: L(.containerErrorMessageFailedContainerNameChange))
+                    self.infoAlert(message: L(.containerErrorMessageFailedContainerNameChange))
                     return
                 }
                 if inputText.count == 0 || inputText.starts(with: ".") {

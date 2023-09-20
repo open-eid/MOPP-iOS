@@ -32,7 +32,7 @@ extension PreviewActions where Self: ContainerViewController {
 
         guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: dataFileFilename) else {
             DispatchQueue.main.async { [weak self] in
-                self?.errorAlert(message: L(.datafilePreviewFailed))
+                self?.infoAlert(message: L(.datafilePreviewFailed))
             }
             return
         }
@@ -85,7 +85,7 @@ extension PreviewActions where Self: ContainerViewController {
         let openContentPreview: (_ filePath: String) -> Void = { [weak self] filePath in
             guard MoppFileManager.shared.fileExists(filePath) else {
                 printLog("File does not exist. Unable to open file for preview")
-                self?.errorAlert(message: L(.datafilePreviewFailed))
+                self?.infoAlert(message: L(.datafilePreviewFailed))
                 return
             }
             
@@ -130,10 +130,10 @@ extension PreviewActions where Self: ContainerViewController {
                     failure: { [weak self] error in
                         self?.updateState((self?.isCreated ?? false) ? .created : .opened)
                         if let nsError = error as NSError?, nsError.code == 10018 {
-                            self?.errorAlert(message: L(.noConnectionMessage))
+                            self?.infoAlert(message: L(.noConnectionMessage))
                             return
                         }
-                        self?.errorAlert(message: error?.localizedDescription)
+                        self?.infoAlert(message: error?.localizedDescription)
                         return
                     })
         }
@@ -141,7 +141,7 @@ extension PreviewActions where Self: ContainerViewController {
         if self.isAsicContainer {
             guard MoppFileManager.shared.fileExists(containerFilePath) else {
                 printLog("Container does not exist. Unable to open file for preview")
-                self.errorAlert(message: L(.datafilePreviewFailed))
+                self.infoAlert(message: L(.datafilePreviewFailed))
                 return
             }
         }
@@ -178,7 +178,7 @@ extension PreviewActions where Self: ContainerViewController {
                         }
 
                     }, failure: { [weak self] error in
-                        self?.errorAlert(message: error?.localizedDescription)
+                        self?.infoAlert(message: error?.localizedDescription)
                 })
             } else {
                 self.notifications = []

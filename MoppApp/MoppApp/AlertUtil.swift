@@ -26,15 +26,24 @@ import SkSigningLib
 
 class AlertUtil {
     
-    static func messageAlertWithLink(title: String? = nil, message: String?, okButtonTitle: String? = "OK", additionalInfoButtonTitle: String? = nil, alertAction: ((UIAlertAction) -> Void)?) -> UIAlertController {
+    static func messageAlert(message: String?, okButtonTitle: String? = "OK", additionalInfoButtonTitle: String? = nil, alertAction: ((UIAlertAction) -> Void)?) -> UIAlertController {
+        let okButton = okButtonTitle ?? L(.actionOk)
+        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: okButton, style: .default, handler: alertAction))
+        
+        return alert
+    }
+    
+    static func messageAlertWithLink(message: String?, okButtonTitle: String? = "OK", additionalInfoButtonTitle: String? = nil, alertAction: ((UIAlertAction) -> Void)?) -> UIAlertController {
         var messageNoLink: String? = message
         if let messageText = message {
             messageNoLink = messageText.removeFirstLinkFromMessage()
         }
-        let alert = UIAlertController(title: title, message: messageNoLink, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: okButtonTitle, style: .default, handler: alertAction))
+        let okButton = okButtonTitle ?? L(.actionOk)
+        let alert = UIAlertController(title: messageNoLink, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: okButton, style: .default, handler: alertAction))
         if let linkInUrl: String = message?.getFirstLinkInMessage() {
-            if let alertActionUrl: UIAlertAction = UIAlertAction().getLinkAlert(title: additionalInfoButtonTitle, message: linkInUrl) {
+            if let alertActionUrl: UIAlertAction = UIAlertAction().getLinkAlert(title: additionalInfoButtonTitle, message: linkInUrl), !alertActionUrl.title.isNilOrEmpty {
                 alert.addAction(alertActionUrl)
             }
         }
@@ -66,12 +75,12 @@ class AlertUtil {
         }
     }
 
-    static func errorDialog(title: String? = L(.generalSignatureAddingMessage), errorMessage: String, topViewController: UIViewController) -> UIAlertController {
+    static func errorDialog(errorMessage: String, topViewController: UIViewController) -> UIAlertController {
         let errorMessageNoLink = errorMessage.removeFirstLinkFromMessage()?.trimWhitespacesAndNewlines()
-        let alert = UIAlertController(title: title, message: errorMessageNoLink, preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: errorMessageNoLink, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         if let linkInUrl = errorMessage.getFirstLinkInMessage() {
-            if let alertActionUrl = UIAlertAction().getLinkAlert(message: linkInUrl) {
+            if let alertActionUrl = UIAlertAction().getLinkAlert(message: linkInUrl), !alertActionUrl.title.isNilOrEmpty {
                 alert.addAction(alertActionUrl)
             }
         }

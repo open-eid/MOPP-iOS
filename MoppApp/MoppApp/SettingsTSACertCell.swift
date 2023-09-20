@@ -109,7 +109,7 @@ class SettingsTSACertCell: UITableViewCell {
     }
     
     private func showErrorMessage(errorMessage: String, topViewController: UIViewController) {
-        let errorDialog = AlertUtil.errorDialog(title: L(.errorAlertTitleGeneral), errorMessage: errorMessage, topViewController: topViewController)
+        let errorDialog = AlertUtil.errorDialog(errorMessage: errorMessage, topViewController: topViewController)
         topViewController.present(errorDialog, animated: true)
     }
     

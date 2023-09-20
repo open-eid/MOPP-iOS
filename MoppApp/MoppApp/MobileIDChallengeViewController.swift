@@ -173,10 +173,10 @@ class MobileIDChallengeViewController : UIViewController {
 
                 let errorMessageNoLink: String? = errorMessage.removeFirstLinkFromMessage()?.trimWhitespacesAndNewlines()
 
-                let alert = UIAlertController(title: L(.generalSignatureAddingMessage), message: errorMessageNoLink, preferredStyle: UIAlertController.Style.alert)
+                let alert = UIAlertController(title: L(.generalSignatureAddingMessage), message: errorMessageNoLink, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 if let linkInUrl: String = errorMessage.getFirstLinkInMessage() {
-                    if let alertActionUrl: UIAlertAction = UIAlertAction().getLinkAlert(message: linkInUrl) {
+                    if let alertActionUrl: UIAlertAction = UIAlertAction().getLinkAlert(message: linkInUrl), !alertActionUrl.title.isNilOrEmpty {
                         alert.addAction(alertActionUrl)
                     }
                 }

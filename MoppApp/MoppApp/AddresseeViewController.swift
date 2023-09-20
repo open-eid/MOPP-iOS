@@ -102,15 +102,15 @@ class AddresseeViewController : MoppViewController {
             },
             failure: { error in
                 guard let nsError = error as NSError? else {
-                    self.errorAlert(message: L(.genericErrorMessage))
+                    self.infoAlert(message: L(.genericErrorMessage))
                     self.showLoading(show: false)
                     return
                 }
                 DispatchQueue.main.async {
                     if nsError.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
-                        self.errorAlert(message: L(.noConnectionMessage))
+                        self.infoAlert(message: L(.noConnectionMessage))
                     } else {
-                        self.errorAlert(message: "\(L(.cryptoEmptyLdapLabel)) \(MessageUtil.generateDetailedErrorMessage(error: nsError) ?? "")")
+                        self.infoAlert(message: "\(L(.cryptoEmptyLdapLabel)) \(MessageUtil.generateDetailedErrorMessage(error: nsError) ?? "")")
                     }
                     self.showLoading(show: false)
                 }
@@ -170,7 +170,7 @@ extension AddresseeViewController : UITextFieldDelegate {
         guard let text = textField.text else { return false }
         if !text.isEmpty && text.count >= 11 &&
             !PersonalCodeValidator.isPersonalCodeValid(personalCode: text) {
-            let invalidPersonalCodeError = AlertUtil.errorDialog(title: L(.errorAlertTitleGeneral), errorMessage: L(.cryptoInvalidPersonalCodeTitle), topViewController: getTopViewController())
+            let invalidPersonalCodeError = AlertUtil.errorDialog(errorMessage: L(.cryptoInvalidPersonalCodeTitle), topViewController: getTopViewController())
             self.present(invalidPersonalCodeError, animated: true)
         } else if !text.isEmpty && !isSameQuery(text: text, submittedQuery: submittedQuery) {
             searchLdap(textField: textField)

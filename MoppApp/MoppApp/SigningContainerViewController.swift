@@ -134,7 +134,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
         let containerFileCount: Int = self.containerViewDelegate.getDataFileCount()
         guard containerFileCount > 0 else {
             printLog("No files in container")
-            self.errorAlert(message: "File not found in container")
+            self.infoAlert(message: "File not found in container")
             return
         }
         
@@ -146,7 +146,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                     let containerPath: String? = self?.getContainerPath()
                     let isDeleted: Bool = ContainerRemovalActions.shared.removeAsicContainer(containerPath: containerPath)
                     if !isDeleted {
-                        self?.errorAlert(message: L(.dataFileRemovalFailed))
+                        self?.infoAlert(message: L(.dataFileRemovalFailed))
                         return
                     }
                     if UIAccessibility.isVoiceOverRunning {
@@ -183,7 +183,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                         failure: { [weak self] error in
                             self?.updateState((self?.isCreated ?? false) ? .created : .opened)
                             self?.reloadData()
-                            self?.errorAlert(message: L(.dataFileRemovalFailed))
+                            self?.infoAlert(message: L(.dataFileRemovalFailed))
                         })
                 }
             })
@@ -205,7 +205,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                 return
             } else {
                 printLog("Failed to save \(name ?? "file") to 'Saved Files' directory")
-                self?.errorAlert(message: L(.fileImportFailedFileSave))
+                self?.infoAlert(message: L(.fileImportFailedFileSave))
                 return
             }
         })
@@ -215,10 +215,10 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
         if SaveableContainer.isFileSaved(urls: urls) {
             let savedFileLocation: URL? = urls.first
             printLog("File export done. Location: \(savedFileLocation?.path ?? "Not available")")
-            self.errorAlert(message: L(.fileImportFileSaved))
+            self.infoAlert(message: L(.fileImportFileSaved))
         } else {
             printLog("Failed to save file")
-            return self.errorAlert(message: L(.fileImportFailedFileSave))
+            return self.infoAlert(message: L(.fileImportFailedFileSave))
         }
     }
     
@@ -313,14 +313,12 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                 
                 let nserror = error! as NSError
                 var message = nserror.domain
-                var title: String? = nil
                 if nserror.code == Int(MoppLibErrorCode.moppLibErrorGeneral.rawValue) {
-                    title = L(.fileImportOpenExistingFailedAlertTitle)
                     message = L(.fileImportOpenExistingFailedAlertMessage, [self?.containerPath.substr(fromLast: "/") ?? String()])
                 } else if nserror.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
                     message = L(.noConnectionMessage)
                 }
-                self?.errorAlert(message: message, title: title, dismissCallback: { _ in
+                self?.infoAlert(message: message, dismissCallback: { _ in
                     _ = self?.navigationController?.popViewController(animated: true)
                 });
         })

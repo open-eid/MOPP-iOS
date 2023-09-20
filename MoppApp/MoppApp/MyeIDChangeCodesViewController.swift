@@ -105,7 +105,7 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
                 }
                 else if let localizedReason = nsError.userInfo[NSLocalizedFailureReasonErrorKey.self] as? String {
                     self?.loadingViewController.dismiss(animated: false, completion: {
-                        self?.errorAlert(message: localizedReason)
+                        self?.errorAlertWithLink(message: localizedReason)
                     })
                 }
             }
@@ -116,7 +116,7 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
                     self?.ui.firstInlineErrorLabel.isHidden = false
                     UIAccessibility.post(notification: .layoutChanged, argument: self?.ui.firstInlineErrorLabel)
                 } else {
-                    self?.errorAlert(message: errorMessage, title: nil, dismissCallback: { _ in
+                    self?.infoAlert(message: errorMessage, dismissCallback: { _ in
                         self?.navigationController?.popViewController(animated: true)
                     })
                 }

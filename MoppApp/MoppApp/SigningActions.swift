@@ -57,7 +57,7 @@ extension SigningActions where Self: SigningContainerViewController {
                         failure: { [weak self] error in
                             self?.updateState((self?.isCreated ?? false) ? .created : .opened)
                             self?.reloadData()
-                            self?.errorAlert(message: L(.generalSignatureRemovalMessage))
+                            self?.infoAlert(message: L(.generalSignatureRemovalMessage))
                         })
                 }
             })
