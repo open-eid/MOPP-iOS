@@ -93,7 +93,7 @@ extension PreviewActions where Self: ContainerViewController {
 
             let urlResourceValues = try? url.resourceValues(forKeys: [.isDirectoryKey])
             if let isDirectory = urlResourceValues?.isDirectory, isDirectory {
-                self?.errorAlert(message: L(.datafilePreviewNotAvailable))
+                self?.infoAlert(message: L(.datafilePreviewNotAvailable))
                 return
             }
 
