@@ -785,7 +785,7 @@ static std::string profile = "time-stamp";
   try {
     container->addDataFile(dataFilePath.UTF8String, @"application/octet-stream".UTF8String);
   } catch(const digidoc::Exception &e) {
-    NSString *message = [NSString stringWithCString:e.msg().c_str() encoding:NSNonLossyASCIIStringEncoding];
+    NSString *message = [NSString stringWithCString:e.msg().c_str() encoding:NSUTF8StringEncoding];
 
     // libdigidoc doesn't send specific error code when file with same name already exists.
     if (e.code() == 0 && [message hasPrefix:@"Document with same file name"]) {
