@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,7 +12,6 @@
 		4E59081A24B30B2C001B23A6 /* SIDCertificateRequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59081724B30B2C001B23A6 /* SIDCertificateRequestParameters.swift */; };
 		4E59081C24B30C62001B23A6 /* SIDSignatureRequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59081B24B30C62001B23A6 /* SIDSignatureRequestParameters.swift */; };
 		4E59082424B32E9A001B23A6 /* SIDRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59082324B32E9A001B23A6 /* SIDRequest.swift */; };
-		C9E8EA80369295DCE18967C9 /* Pods_SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054E8BB11CEF2AD574F56A87 /* Pods_SkSigningLib.framework */; };
 		DF04A88D23FEA6950086C9F9 /* RequestSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04A88C23FEA6950086C9F9 /* RequestSignature.swift */; };
 		DF04A89023FEC7130086C9F9 /* EncoderDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04A88F23FEC7130086C9F9 /* EncoderDecoder.swift */; };
 		DF04A89523FEDC810086C9F9 /* CertificateRequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04A89423FEDC810086C9F9 /* CertificateRequestParameters.swift */; };
@@ -48,14 +47,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		054E8BB11CEF2AD574F56A87 /* Pods_SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		06543ADB758D0DC0D669381E /* Pods-SkSigningLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkSigningLib.debug.xcconfig"; path = "Target Support Files/Pods-SkSigningLib/Pods-SkSigningLib.debug.xcconfig"; sourceTree = "<group>"; };
 		4E59080F24B30B23001B23A6 /* SIDSessionResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIDSessionResponse.swift; sourceTree = "<group>"; };
 		4E59081124B30B24001B23A6 /* SIDSessionStatusResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIDSessionStatusResponse.swift; sourceTree = "<group>"; };
 		4E59081724B30B2C001B23A6 /* SIDCertificateRequestParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIDCertificateRequestParameters.swift; sourceTree = "<group>"; };
 		4E59081B24B30C62001B23A6 /* SIDSignatureRequestParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIDSignatureRequestParameters.swift; sourceTree = "<group>"; };
 		4E59082324B32E9A001B23A6 /* SIDRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIDRequest.swift; sourceTree = "<group>"; };
-		B8B3B83F96F0CE5EDAF5BA49 /* Pods-SkSigningLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkSigningLib.release.xcconfig"; path = "Target Support Files/Pods-SkSigningLib/Pods-SkSigningLib.release.xcconfig"; sourceTree = "<group>"; };
 		DF04A88C23FEA6950086C9F9 /* RequestSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSignature.swift; sourceTree = "<group>"; };
 		DF04A88F23FEC7130086C9F9 /* EncoderDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncoderDecoder.swift; sourceTree = "<group>"; };
 		DF04A89423FEDC810086C9F9 /* CertificateRequestParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateRequestParameters.swift; sourceTree = "<group>"; };
@@ -90,7 +86,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9E8EA80369295DCE18967C9 /* Pods_SkSigningLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,16 +125,6 @@
 				4E59081124B30B24001B23A6 /* SIDSessionStatusResponse.swift */,
 			);
 			path = Response;
-			sourceTree = "<group>";
-		};
-		877E92BB2D72E2DA0FA44605 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				06543ADB758D0DC0D669381E /* Pods-SkSigningLib.debug.xcconfig */,
-				B8B3B83F96F0CE5EDAF5BA49 /* Pods-SkSigningLib.release.xcconfig */,
-			);
-			name = Pods;
-			path = ../MoppApp/Pods;
 			sourceTree = "<group>";
 		};
 		DF04A88B23FEA6740086C9F9 /* Requests */ = {
@@ -207,8 +192,6 @@
 				DF3D29AA23F6A929007181B8 /* SkSigningLib */,
 				DF3D29B523F6A92A007181B8 /* SkSigningLibTests */,
 				DF3D29A923F6A929007181B8 /* Products */,
-				877E92BB2D72E2DA0FA44605 /* Pods */,
-				ECE71A8C6AB28ABF77281654 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -297,14 +280,6 @@
 			path = Response;
 			sourceTree = "<group>";
 		};
-		ECE71A8C6AB28ABF77281654 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				054E8BB11CEF2AD574F56A87 /* Pods_SkSigningLib.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -323,7 +298,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DF3D29BC23F6A92A007181B8 /* Build configuration list for PBXNativeTarget "SkSigningLib" */;
 			buildPhases = (
-				E7ECD6D4E64C63FDA35D23E4 /* [CP] Check Pods Manifest.lock */,
 				DF3D29A323F6A929007181B8 /* Headers */,
 				DF3D29A423F6A929007181B8 /* Sources */,
 				DF3D29A523F6A929007181B8 /* Frameworks */,
@@ -376,7 +350,7 @@
 				};
 			};
 			buildConfigurationList = DF3D29A223F6A929007181B8 /* Build configuration list for PBXProject "SkSigningLib" */;
-			compatibilityVersion = "Xcode 12.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -413,31 +387,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		E7ECD6D4E64C63FDA35D23E4 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SkSigningLib-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DF3D29A423F6A929007181B8 /* Sources */ = {
@@ -628,7 +577,6 @@
 		};
 		DF3D29BD23F6A92A007181B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 06543ADB758D0DC0D669381E /* Pods-SkSigningLib.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
@@ -645,6 +593,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.SkSigningLib;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -658,7 +607,6 @@
 		};
 		DF3D29BE23F6A92A007181B8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B8B3B83F96F0CE5EDAF5BA49 /* Pods-SkSigningLib.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
@@ -675,6 +623,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.SkSigningLib;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -697,6 +646,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.SkSigningLibTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -716,6 +666,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.SkSigningLibTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
