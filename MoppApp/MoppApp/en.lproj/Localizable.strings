@@ -19,6 +19,7 @@
 
 // *** General ***
 "empty-space" = " ";
+"recent-containers-button" = "RECENT DOCUMENTS";
 
 // Navigation
 "back-button" = "Back";
@@ -43,7 +44,6 @@
 "menu-close" = "CLOSE MENU";
 "menu-help" = "HELP";
 "menu-accessibility" = "ACCESSIBILITY";
-"menu-recent-containers" = "RECENT DOCUMENTS";
 "menu-settings" = "SETTINGS";
 "menu-about" = "INFO";
 "menu-diagnostics" = "DIAGNOSTICS";

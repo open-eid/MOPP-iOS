@@ -25,6 +25,7 @@ import Foundation
 class SigningViewController : MoppViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var importButton: UIButton!
+    @IBOutlet weak var recentDocumentsButton: ScaledButton!
     @IBOutlet weak var menuButton: BarButton!
     
     enum Section {
@@ -38,21 +39,27 @@ class SigningViewController : MoppViewController {
 
         titleLabel.text = L(LocKey.signatureViewBeginLabel)
         importButton.localizedTitle = LocKey.signatureViewBeginButton
+        recentDocumentsButton.localizedTitle = LocKey.recentContainersButton
         menuButton.isAccessibilityElement = true
         menuButton.accessibilityLabel = L(LocKey.menuButton)
         
         titleLabel.isAccessibilityElement = false
         importButton.accessibilityLabel = L(.signatureViewBeginLabelAccessibility)
         importButton.accessibilityUserInputLabels = [L(.voiceControlChooseFile)]
+        recentDocumentsButton.accessibilityLabel = L(.recentContainersButton).lowercased()
+        recentDocumentsButton.accessibilityUserInputLabels = [L(.recentContainersButton)]
+        
+        recentDocumentsButton.layer.borderWidth = 2
+        recentDocumentsButton.layer.borderColor = UIColor.moppBase.cgColor
         
         UIAccessibility.post(notification: .screenChanged, argument: importButton)
         
-        guard let importUIButton = importButton, let bottomUIButtons = LandingViewController.shared.buttonsStackView, let menuUIButton = menuButton else {
-            printLog("Unable to get importButton, LandingViewController buttonsStackView or menuButton")
+        guard let importUIButton = importButton, let recentDocumentsUIButton = recentDocumentsButton, let bottomUIButtons = LandingViewController.shared.buttonsStackView, let menuUIButton = menuButton else {
+            printLog("Unable to get importButton, recentDocumentsButton, LandingViewController buttonsStackView or menuButton")
             return
         }
         
-        self.accessibilityElements = [importUIButton, bottomUIButtons, menuUIButton, importUIButton]
+        self.accessibilityElements = [importUIButton, recentDocumentsUIButton, bottomUIButtons, menuUIButton, importUIButton]
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -76,5 +83,13 @@ class SigningViewController : MoppViewController {
             name: .startImportingFilesWithDocumentPickerNotificationName,
             object: nil,
             userInfo: [kKeyFileImportIntent: MoppApp.FileImportIntent.openOrCreate, kKeyContainerType: MoppApp.ContainerType.asic])
+    }
+    
+    @IBAction func openRecentDocuments(_ sender: ScaledButton) {
+        DispatchQueue.main.async(execute: {
+            guard let recentContainersViewController = UIStoryboard.recentContainers.instantiateInitialViewController() else { return }
+            recentContainersViewController.modalPresentationStyle = .overFullScreen
+            MoppApp.instance.rootViewController?.present(recentContainersViewController, animated: true, completion: nil)
+        })
     }
 }

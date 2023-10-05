@@ -38,7 +38,6 @@ class MenuViewController : MoppModalViewController {
     enum MenuItemID {
         case help
         case accessibility
-        case containersHistory
         case settings
         case about
         case diagnostics
@@ -49,7 +48,6 @@ class MenuViewController : MoppModalViewController {
     let menuItems: [(title: String, imageName: String, id: MenuItemID)] = [
         (L(.menuHelp), "icon_help white", .help),
         (L(.menuAccessibility), "icon_accessibility white", .accessibility),
-        (L(.menuRecentContainers), "icon_files white", .containersHistory),
         (L(.menuSettings), "icon_settings white", .settings),
         (L(.menuAbout), "icon_info white", .about),
         (L(.menuDiagnostics), "icon_graph white", .diagnostics),
@@ -161,15 +159,6 @@ extension MenuViewController : UITableViewDelegate {
                         accessibilityViewController.modalPresentationStyle = .overFullScreen
                         MoppApp.instance.rootViewController?.present(accessibilityViewController, animated: true, completion: nil)
                     }
-                })
-                break
-            case .containersHistory:
-                DispatchQueue.main.async(execute: {
-                    self.dismiss(animated: true, completion: {
-                        let recentContainersViewController = UIStoryboard.recentContainers.instantiateInitialViewController()!
-                            recentContainersViewController.modalPresentationStyle = .overFullScreen
-                        MoppApp.instance.rootViewController?.present(recentContainersViewController, animated: true, completion: nil)
-                    })
                 })
                 break
             case .settings:
