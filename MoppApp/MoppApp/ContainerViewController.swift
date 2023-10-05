@@ -251,7 +251,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                     if isDecrypted {
                         tabButtons = []
                     } else {
-                        tabButtons = [.shareButton, .decryptButton]
+                        tabButtons = [.shareButton, .signButton, .decryptButton]
                     }
                     setupNavigationItemForPushedViewController(title: L(.containerDecryptionTitle))
                 } else {
@@ -384,8 +384,14 @@ extension ContainerViewController : LandingViewControllerTabButtonsDelegate {
             }
         }
     }
+
+    private func createNewContainer(ofType type: MoppApp.ContainerType, containerPath: String) throws {
+        let tempFileURL = try saveContainerToTempFolder(containerPath: containerPath)
+        LandingViewController.shared.containerType = type
+        createNewContainer(with: URL(fileURLWithPath: tempFileURL.path), dataFilePaths: [tempFileURL.path], isEmptyFileImported: false)
+    }
     
-    private func saveContainerToTempFolder() throws -> URL {
+    private func saveContainerToTempFolder(containerPath: String) throws -> URL {
         var containerFileData: Data? = nil
         do {
             containerFileData = try Data(contentsOf: URL(fileURLWithPath: containerPath))
