@@ -394,7 +394,6 @@ extension ContainerActions where Self: UIViewController {
             }
             )
         } else {
-
             let containerViewController = CryptoContainerViewController.instantiate()
             let container = CryptoContainer(filename: containerFilename as NSString, filePath: containerPath as NSString)
             containerViewController.containerPath = containerPath
