@@ -258,10 +258,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsTSACertCell" id="vb7-26-1De" customClass="SettingsTSACertCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="516" width="375" height="192"/>
+                                        <rect key="frame" x="0.0" y="516" width="375" height="217"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vb7-26-1De" id="G8q-Qy-eK5">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="192"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="217"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="k8v-bm-Uxj">
@@ -326,7 +326,7 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="k8v-bm-Uxj" secondAttribute="bottom" id="9IA-OB-Ff3"/>
+                                                <constraint firstAttribute="bottom" secondItem="k8v-bm-Uxj" secondAttribute="bottom" constant="25" id="9IA-OB-Ff3"/>
                                                 <constraint firstAttribute="trailing" secondItem="k8v-bm-Uxj" secondAttribute="trailing" constant="16" id="GLb-R9-pmq"/>
                                                 <constraint firstItem="k8v-bm-Uxj" firstAttribute="leading" secondItem="G8q-Qy-eK5" secondAttribute="leading" constant="16" id="QyM-DA-OUY"/>
                                                 <constraint firstItem="k8v-bm-Uxj" firstAttribute="top" secondItem="G8q-Qy-eK5" secondAttribute="top" constant="10" id="wsC-6s-haC"/>
