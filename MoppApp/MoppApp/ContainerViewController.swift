@@ -291,7 +291,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     func isDdocOrAsicsContainer(containerPath: String) -> Bool {
         let fileLocation: URL = URL(fileURLWithPath: containerPath)
 
-        let forbiddenMimetypes: [String] = [ContainerFormatDdocMimetype, ContainerFormatAsicsMimetype]
+        let forbiddenMimetypes: [String] = [ContainerFormatDdocMimetype, ContainerFormatAsicsMimetype, ContainerFormatAdocMimetype]
 
         if isAsicsContainer() || isDdocContainer() {
             return true
