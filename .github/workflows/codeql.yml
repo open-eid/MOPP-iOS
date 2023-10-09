@@ -1,0 +1,75 @@
+name: CodeQL iOS
+on: [push, pull_request]
+env:
+  BUILD_NUMBER: ${{ github.run_number }}
+jobs:
+  analyze:
+    name: CodeQL Analyze
+    runs-on: macos-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        xcode:
+          - 15.0
+        platform:
+          - iOS
+        language: [ 'swift' ]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        
+    # Creating sample files needed to build, but not needed for CodeQL.
+    # .plist files need a sample structure to avoid error: "unable to read input file as a property list"
+    - name: Create sample files
+      run: |
+        cd ${{ github.workspace }}/MoppApp
+        touch GoogleService-Info.plist
+        cat <<EOF > GoogleService-Info.plist
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+            <key>Sample key</key>
+            <string>Sample value</string>
+        </dict>
+        </plist>
+        EOF
+        cd ${{ github.workspace }}/MoppApp/MoppApp
+        touch config.json
+        touch publicKey.pub
+        touch signature.rsa
+        touch defaultConfiguration.json
+
+    - name: Setup CocoaPods
+      uses: maxim-lobanov/setup-cocoapods@v1
+      with:
+        podfile-path: ${{ github.workspace }}/MoppApp/Podfile.lock
+
+    - name: Install dependencies
+      run: |
+        cd ${{ github.workspace }}/MoppApp
+        pod install
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: ${{ matrix.language }}
+        queries: +security-and-quality
+
+    - name: Build
+      run: |
+        cd ${{ github.workspace }}/MoppApp
+        xcodebuild -workspace MoppApp.xcworkspace -scheme MoppApp -configuration Release GOOGLE_CONF_REQUIRED=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+        category: "/language:${{ matrix.language }}"

@@ -3,14 +3,14 @@ on: [push, pull_request]
 env:
   BUILD_NUMBER: ${{ github.run_number }}
 jobs:
-  macos:
-    name: Build on macOS
+  build:
+    name: Build RIA DigiDoc on macOS
     if: contains(github.repository, 'open-eid/MOPP-iOS') && contains(github.ref, 'master')
     runs-on: macos-latest
     strategy:
       matrix:
         xcode:
-          - 14.3
+          - 15.0
         platform:
           - iOS
     env:
@@ -21,7 +21,7 @@ jobs:
         TEMP_KEYCHAIN_PATH: "$RUNNER_TEMP/ios-github-actions.keychain-db"
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         submodules: recursive
     - name: Download Libdigidocpp iOS artifact
