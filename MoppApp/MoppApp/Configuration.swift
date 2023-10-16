@@ -33,6 +33,7 @@ internal struct MOPPConfiguration: Codable {
     let LDAPPERSONURL: String
     let LDAPCORPURL: String
     let TSLCERTS: Array<String>
+    let LDAPCERTS: Array<String>
     let OCSPISSUERS: [String: String]
     let MIDPROXYURL: String
     let MIDSKURL: String
@@ -50,6 +51,7 @@ internal struct MOPPConfiguration: Codable {
         case LDAPPERSONURL = "LDAP-PERSON-URL"
         case LDAPCORPURL = "LDAP-CORP-URL"
         case TSLCERTS = "TSL-CERTS"
+        case LDAPCERTS = "LDAP-CERTS"
         case OCSPISSUERS = "OCSP-URL-ISSUER"
         case MIDPROXYURL = "MID-PROXY-URL"
         case MIDSKURL = "MID-SK-URL"
@@ -69,6 +71,7 @@ internal struct MOPPConfiguration: Codable {
         LDAPPERSONURL = try container.decode(String.self, forKey: .LDAPPERSONURL)
         LDAPCORPURL = try container.decode(String.self, forKey: .LDAPCORPURL)
         TSLCERTS = try container.decode([String].self, forKey: .TSLCERTS)
+        LDAPCERTS = try container.decodeIfPresent([String].self, forKey: .LDAPCERTS) ?? []
         OCSPISSUERS = try container.decode([String: String].self, forKey: .OCSPISSUERS)
         MIDPROXYURL = try container.decode(String.self, forKey: .MIDPROXYURL)
         MIDSKURL = try container.decode(String.self, forKey: .MIDSKURL)
@@ -127,21 +130,23 @@ public class MoppConfiguration {
     static var sivaUrl: String?
     static var tslUrl: String?
     static var tslCerts: Array<String>?
+    static var ldapCerts: Array<String>?
     static var tsaUrl: String?
     static var ocspIssuers: [String: String]?
     static var certBundle: Array<String>?
     static var tsaCert: String?
     
     static func getMoppLibConfiguration() -> MoppLibConfiguration {
-        return MoppLibConfiguration(configuration: sivaUrl, tslurl: tslUrl, tslcerts: tslCerts, tsaurl: tsaUrl, ocspissuers: ocspIssuers, certbundle: certBundle, tsacert: tsaCert)
+        return MoppLibConfiguration(configuration: sivaUrl, tslurl: tslUrl, tslcerts: tslCerts, ldapcerts: ldapCerts, tsaurl: tsaUrl, ocspissuers: ocspIssuers, certbundle: certBundle, tsacert: tsaCert)
     }
 }
 
 public class MoppLDAPConfiguration {
+    static var ldapCerts: Array<String>?
     static var ldapPersonUrl: String?
     static var ldapCorpUrl: String?
     
     static func getMoppLDAPConfiguration() -> MoppLdapConfiguration {
-        return MoppLdapConfiguration(ldapConfiguration: ldapPersonUrl, ldapcorpurl: ldapCorpUrl)
+        return MoppLdapConfiguration(ldapConfiguration: ldapCerts, ldappersonurl: ldapPersonUrl, ldapcorpurl: ldapCorpUrl)
     }
 }

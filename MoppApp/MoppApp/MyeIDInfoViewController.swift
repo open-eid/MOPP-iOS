@@ -68,7 +68,7 @@ class MyeIDInfoViewController: MoppViewController {
     
     @objc func didFinishAnnouncement(_ notification: Notification) {
         DispatchQueue.main.async {
-            print("Cancel message announced")
+            printLog("Cancel message announced")
             guard let cell = self.changePinCell else { return }
             
             for subview in cell.subviews {
@@ -106,7 +106,7 @@ class MyeIDInfoViewController: MoppViewController {
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: .screenChanged, argument: changePinCell)
             if !isCancelMessageAnnounced {
-                print("Announcing cancel message")
+                printLog("Announcing cancel message")
                 self.isCancelMessageAnnounced = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     let actionKind = self.infoManager.actionKind

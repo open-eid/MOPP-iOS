@@ -37,13 +37,14 @@
 		39E2B4DD20AD7A3400CA74A8 /* Attribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4D320AD7A3400CA74A8 /* Attribute.h */; };
 		39E2B4DE20AD7A3400CA74A8 /* OpenLdap.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4D420AD7A3400CA74A8 /* OpenLdap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39E2B4DF20AD7A3400CA74A8 /* Addressee.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4D520AD7A3400CA74A8 /* Addressee.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C5B7957B21BABD8300DC2C59 /* ldapca.pem in Resources */ = {isa = PBXBuildFile; fileRef = C5B7957A21BABD8300DC2C59 /* ldapca.pem */; };
 		C5B7958221BEA74800DC2C59 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B7957721BABCA800DC2C59 /* libssl.a */; };
 		C5B7958321BEA76300DC2C59 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B7957621BABCA800DC2C59 /* libcrypto.a */; };
 		C5B7958421BEA78200DC2C59 /* liblber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 390C016020AC3DE000827230 /* liblber.a */; };
 		D1E62632CCCD9195F3D8E2EE /* Pods_CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2337FC39B457D26F7140179 /* Pods_CryptoLib.framework */; };
 		DF8FEAC9233239690020DED4 /* MoppLdapConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = DF8FEAC7233239690020DED4 /* MoppLdapConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DF8FEACA233239690020DED4 /* MoppLdapConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = DF8FEAC8233239690020DED4 /* MoppLdapConfiguration.m */; };
+		DFA40D2F2ADF635F003EF945 /* 3513523f.0 in Resources */ = {isa = PBXBuildFile; fileRef = DFA40D2E2ADF635F003EF945 /* 3513523f.0 */; };
+		DFC7CA452AE010C9009D85FF /* 9f4c149e.0 in Resources */ = {isa = PBXBuildFile; fileRef = DFC7CA442AE010C9009D85FF /* 9f4c149e.0 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,9 +87,10 @@
 		B2337FC39B457D26F7140179 /* Pods_CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5B7957621BABCA800DC2C59 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "$(LDAP_PATH)/libraries/libcrypto.a"; sourceTree = "<absolute>"; };
 		C5B7957721BABCA800DC2C59 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "$(LDAP_PATH)/libraries/libssl.a"; sourceTree = "<absolute>"; };
-		C5B7957A21BABD8300DC2C59 /* ldapca.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ldapca.pem; sourceTree = "<group>"; };
 		DF8FEAC7233239690020DED4 /* MoppLdapConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLdapConfiguration.h; sourceTree = "<group>"; };
 		DF8FEAC8233239690020DED4 /* MoppLdapConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLdapConfiguration.m; sourceTree = "<group>"; };
+		DFA40D2E2ADF635F003EF945 /* 3513523f.0 */ = {isa = PBXFileReference; lastKnownFileType = text; path = 3513523f.0; sourceTree = "<group>"; };
+		DFC7CA442AE010C9009D85FF /* 9f4c149e.0 */ = {isa = PBXFileReference; lastKnownFileType = text; path = 9f4c149e.0; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +122,8 @@
 		39231FA020AB1C6C00E1E2B4 = {
 			isa = PBXGroup;
 			children = (
-				C5B7957A21BABD8300DC2C59 /* ldapca.pem */,
+				DFC7CA442AE010C9009D85FF /* 9f4c149e.0 */,
+				DFA40D2E2ADF635F003EF945 /* 3513523f.0 */,
 				39231FAC20AB1C6C00E1E2B4 /* CryptoLib */,
 				39231FAB20AB1C6C00E1E2B4 /* Products */,
 				2F17A286E2A2AF6B019B41A6 /* Pods */,
@@ -289,7 +292,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5B7957B21BABD8300DC2C59 /* ldapca.pem in Resources */,
+				DFC7CA452AE010C9009D85FF /* 9f4c149e.0 in Resources */,
+				DFA40D2F2ADF635F003EF945 /* 3513523f.0 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
