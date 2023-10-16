@@ -35,18 +35,18 @@ class SessionStatus {
                     switch sessionStatusResult {
                     case .success(let sessionStatus):
                         if self.isSessionStateComplete(sessionState: self.getSessionState(sessionStatus: sessionStatus)) {
-                            print("Received session status response: \(sessionStatus.result?.rawValue ?? "-")")
+                            printLog("Received session status response: \(sessionStatus.result?.rawValue ?? "-")")
                             return completionHandler(.success(sessionStatus))
                         } else {
-                            print("Received session status response: \(sessionStatus.result?.rawValue ?? "-")")
+                            printLog("Received session status response: \(sessionStatus.result?.rawValue ?? "-")")
                         }
                     case .failure(let sessionError):
-                        print("Getting Session Status error: \(SkSigningLib_LocalizedString(sessionError.signingErrorDescription ?? sessionError.rawValue))")
+                        printLog("Getting Session Status error: \(SkSigningLib_LocalizedString(sessionError.signingErrorDescription ?? sessionError.rawValue))")
                         return completionHandler(.failure(sessionError))
                     }
                 }
             } catch let error {
-                print("Error occurred while getting session status: \(error.localizedDescription)")
+                printLog("Error occurred while getting session status: \(error.localizedDescription)")
                 return completionHandler(.failure(.generalError))
             }
         }

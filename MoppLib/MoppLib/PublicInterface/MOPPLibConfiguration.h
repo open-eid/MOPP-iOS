@@ -28,11 +28,12 @@
 @property (nonatomic, strong) NSString *SIVAURL;
 @property (nonatomic, strong) NSString *TSLURL;
 @property (nonatomic, strong) NSArray<NSString*> *TSLCERTS;
+@property (nonatomic, strong) NSArray<NSString*> *LDAPCERTS;
 @property (nonatomic, strong) NSString *TSAURL;
 @property (nonatomic, strong) NSDictionary *OCSPISSUERS;
 @property (nonatomic, strong) NSArray<NSString*> *CERTBUNDLE;
 @property (nonatomic, strong) NSString *TSACERT;
 
-- (id) initWithConfiguration:(NSString *)SIVAURL TSLURL:(NSString *)TSLURL TSLCERTS:(NSArray<NSString*> *)TSLCERTS TSAURL:(NSString *)TSAURL OCSPISSUERS:(NSDictionary *)OCSPISSUERS CERTBUNDLE:(NSArray<NSString*> *)CERTBUNDLE TSACERT:(NSString *)TSACERT;
+- (id) initWithConfiguration:(NSString *)SIVAURL TSLURL:(NSString *)TSLURL TSLCERTS:(NSArray<NSString*> *)TSLCERTS LDAPCERTS:(NSArray<NSString*> *)LDAPCERTS TSAURL:(NSString *)TSAURL OCSPISSUERS:(NSDictionary *)OCSPISSUERS CERTBUNDLE:(NSArray<NSString*> *)CERTBUNDLE TSACERT:(NSString *)TSACERT;
 
 @end
