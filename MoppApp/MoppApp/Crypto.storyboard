@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Qw4-LB-K7D">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Qw4-LB-K7D">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,20 +22,20 @@
             <objects>
                 <viewController id="J3s-km-sWX" customClass="CryptoViewController" customModule="MoppApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WzN-Kf-XwL">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="uDB-FM-1cx">
-                                <rect key="frame" x="16" y="256.33333333333331" width="568" height="87.333333333333314"/>
+                                <rect key="frame" x="16" y="350.33333333333331" width="361" height="151.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose file to crypt to decrypt" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="6" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="248-ll-0AR" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="568" height="23.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="23.333333333333332"/>
                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="TYv-AQ-7tk" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="39.333333333333371" width="568" height="48"/>
+                                        <rect key="frame" x="0.0" y="39.333333333333371" width="361" height="48"/>
                                         <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="Du1-Ls-jbq"/>
@@ -48,6 +51,24 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="importFilesAction" destination="J3s-km-sWX" eventType="touchUpInside" id="ftB-Oq-ago"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="xLG-q7-cRp" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="103.33333333333337" width="361" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="M0z-wZ-GeC"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
+                                        <state key="normal">
+                                            <color key="titleColor" name="MoppBase"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="openRecentDocuments:" destination="J3s-km-sWX" eventType="touchUpInside" id="ze8-qj-D2C"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -78,6 +99,7 @@
                     <connections>
                         <outlet property="importButton" destination="TYv-AQ-7tk" id="li8-vM-Ml1"/>
                         <outlet property="menuButton" destination="tpl-LF-OAz" id="tUt-JL-8w7"/>
+                        <outlet property="recentDocumentsButton" destination="xLG-q7-cRp" id="6xm-3h-6tL"/>
                         <outlet property="titleLabel" destination="248-ll-0AR" id="xmp-Ew-abB"/>
                     </connections>
                 </viewController>
@@ -91,7 +113,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qw4-LB-K7D" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PIH-GR-wpu">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -106,5 +128,8 @@
     </scenes>
     <resources>
         <image name="VerticalDotsMenu" width="25" height="25"/>
+        <namedColor name="MoppBase">
+            <color red="0.0" green="0.43137254901960786" blue="0.70980392156862748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

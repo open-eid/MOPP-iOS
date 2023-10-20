@@ -19,6 +19,7 @@
 
 // *** General ***
 "empty-space" = " ";
+"recent-containers-button" = "НЕДАВНИЕ ДОКУМЕНТЫ";
 
 // Navigation
 "back-button" = "Назад";
@@ -43,7 +44,6 @@
 "menu-close" = "ЗАКРЫТЬ МЕНЮ";
 "menu-help" = "ПОМОЩЬ";
 "menu-accessibility" = "ДОСТУПНОСТЬ";
-"menu-recent-containers" = "НЕДАВНИЕ ДОКУМЕНТЫ";
 "menu-settings" = "НАСТРОЙКИ";
 "menu-about" = "ИНФОРМАЦИЯ";
 "menu-diagnostics" = "ДИАГНОСТИКА";

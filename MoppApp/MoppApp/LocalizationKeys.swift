@@ -25,12 +25,12 @@ enum LocKey : String
     typealias RawValue = String
 
     case emptySpace = "empty-space"
+    case recentContainersButton = "recent-containers-button"
     case backButton = "back-button"
     case closeButton = "close-button"
     case menuClose = "menu-close"
     case menuHelp = "menu-help"
     case menuAccessibility = "menu-accessibility"
-    case menuRecentContainers = "menu-recent-containers"
     case menuSettings = "menu-settings"
     case menuAbout = "menu-about"
     case menuDiagnostics = "menu-diagnostics"
