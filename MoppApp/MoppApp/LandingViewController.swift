@@ -213,7 +213,7 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
     @objc func tabButtonTapAction(sender: UIButton) {
         let tabButton = buttonsCollection.first { $0.button == sender }!
         let buttonId = TabButtonId(rawValue: tabButton.accessibilityIdentifier!)!
-        if buttonId == .encryptButton && containerType == .asic {
+        if (buttonId == .encryptButton && containerType == .asic) || (buttonId == .signButton && containerType == .cdoc) {
             tabButtonsDelegate?.changeContainer(tabButtonId: buttonId, containerType: containerType)
         } else {
             tabButtonsDelegate?.landingViewControllerTabButtonTapped(tabButtonId: buttonId, sender: sender, containerType: containerType)

@@ -373,15 +373,18 @@ extension ContainerViewController : LandingViewControllerTabButtonsDelegate {
     
     func changeContainer(tabButtonId: LandingViewController.TabButtonId, containerType: MoppApp.ContainerType) {
         if tabButtonId == .encryptButton && containerType == .asic {
-            do {
-                printLog("Creating a new crypto container from ASIC container")
-                let tempFileURL = try saveContainerToTempFolder()
-                LandingViewController.shared.containerType = .cdoc
-                createNewContainer(with: URL(fileURLWithPath: tempFileURL.path), dataFilePaths: [tempFileURL.path], isEmptyFileImported: false)
-            } catch {
-                printLog("Unable to create a new crypto container from ASIC container")
-                return
-            }
+            LandingViewController.shared.containerType = .cdoc
+        } else if tabButtonId == .signButton && containerType == .cdoc {
+            LandingViewController.shared.containerType = .asic
+        }
+        
+        do {
+            printLog("Creating a new \(containerType == .asic ? "crypto" : "ASIC") container from \(containerType == .asic ? "ASIC" : "crypto") container")
+            let switchedContainerType: MoppApp.ContainerType = containerType == .asic ? .cdoc : .asic
+            try createNewContainer(ofType: switchedContainerType, containerPath: containerPath)
+        } catch {
+            printLog("Unable to create \(containerType == .asic ? "a crypto" : "an ASIC") container from \(containerType == .asic ? "ASIC" : "crypto") container. Error: \(error.localizedDescription)")
+            return
         }
     }
 
@@ -401,7 +404,7 @@ extension ContainerViewController : LandingViewControllerTabButtonsDelegate {
         }
 
         guard let fileData = containerFileData else {
-            printLog("File data is empty. Cannot open add a file to encrypt")
+            printLog("File data is empty. Cannot open the file")
             throw NSError(domain: "ContainerFileDataEmptyError", code: 1)
         }
 
