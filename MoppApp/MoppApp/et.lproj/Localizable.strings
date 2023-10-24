@@ -19,6 +19,7 @@
 
 // *** General ***
 "empty-space" = " ";
+"recent-containers-button" = "HILJUTISED DOKUMENDID";
 
 // Navigation
 "back-button" = "Tagasi";
@@ -43,7 +44,6 @@
 "menu-close" = "SULGE MENÜÜ";
 "menu-help" = "ABI";
 "menu-accessibility" = "JUURDEPÄÄSETAVUS";
-"menu-recent-containers" = "HILJUTISED DOKUMENDID";
 "menu-settings" = "SEADED";
 "menu-about" = "INFO";
 "menu-diagnostics" = "DIAGNOSTIKA";

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bky-k6-9RW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bky-k6-9RW">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -28,7 +29,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="2L6-Gw-P9K">
-                                <rect key="frame" x="16" y="370.66666666666669" width="361" height="110.66666666666669"/>
+                                <rect key="frame" x="16" y="338.66666666666669" width="361" height="174.66666666666669"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allkirjastamiseks või dekrüpteerimiseks vali fail" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xC0-jh-5MV" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="361" height="46.666666666666664"/>
@@ -43,7 +44,7 @@
                                             <constraint firstAttribute="height" constant="48" id="yiE-dw-S90"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
-                                        <state key="normal" title="VALI FAIL">
+                                        <state key="normal">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -55,7 +56,31 @@
                                             <action selector="importFilesAction" destination="vA0-9v-0On" eventType="touchUpInside" id="TGx-hJ-gZx"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="pDC-7U-9aN" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="126.66666666666663" width="361" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="HoE-GR-ELn"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal">
+                                            <color key="titleColor" name="MoppBase"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="3"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="openRecentDocuments:" destination="vA0-9v-0On" eventType="touchUpInside" id="4lw-mq-fWl"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="pDC-7U-9aN" firstAttribute="leading" secondItem="2L6-Gw-P9K" secondAttribute="leading" id="54f-rc-uhz"/>
+                                    <constraint firstAttribute="trailing" secondItem="pDC-7U-9aN" secondAttribute="trailing" id="csU-v7-noM"/>
+                                    <constraint firstItem="pDC-7U-9aN" firstAttribute="top" secondItem="CaL-ug-7D1" secondAttribute="bottom" constant="16" id="iX9-Y1-ODA"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -77,6 +102,7 @@
                     <connections>
                         <outlet property="importButton" destination="CaL-ug-7D1" id="5fU-XL-mtr"/>
                         <outlet property="menuButton" destination="5Sn-xe-ssA" id="AFX-lG-Hhq"/>
+                        <outlet property="recentDocumentsButton" destination="pDC-7U-9aN" id="5fC-lC-0hg"/>
                         <outlet property="titleLabel" destination="xC0-jh-5MV" id="ffg-Gu-siT"/>
                     </connections>
                 </viewController>
@@ -106,5 +132,8 @@
     </scenes>
     <resources>
         <image name="VerticalDotsMenu" width="25" height="25"/>
+        <namedColor name="MoppBase">
+            <color red="0.0" green="0.43137254901960786" blue="0.70980392156862748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
