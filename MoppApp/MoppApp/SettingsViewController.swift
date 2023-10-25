@@ -124,7 +124,8 @@ class SettingsViewController: MoppViewController {
         var fieldCellIndex: Int = 0
         var timestampCellIndex: Int = 0
         var defaultValueCellIndex: Int = 0
-        var tsaCertCell: Int = 0
+        var tsaCertCellIndex: Int = 0
+        var stateCellIndex: Int = 0
         for (index, cell) in tableView.visibleCells.enumerated() {
             if cell is SettingsHeaderCell {
                 headerCellIndex = index
@@ -135,7 +136,9 @@ class SettingsViewController: MoppViewController {
             } else if cell is SettingsDefaultValueCell {
                 defaultValueCellIndex = index
             } else if cell is SettingsTSACertCell {
-                tsaCertCell = index
+                tsaCertCellIndex = index
+            } else if cell is SettingsStateCell {
+                stateCellIndex = index
             }
         }
         
@@ -157,17 +160,36 @@ class SettingsViewController: MoppViewController {
             return []
         }
         
-        guard let tsaCertCellAccessibilityElements = tableView.visibleCells[tsaCertCell].accessibilityElements else {
+        guard let tsaCertCellAccessibilityElements = tableView.visibleCells[tsaCertCellIndex].accessibilityElements else {
             return []
+        }
+        
+        guard let stateCellAccessibilityElements = tableView.visibleCells[stateCellIndex]
+         as? SettingsStateCell,
+              let roleSwitch = stateCellAccessibilityElements.stateSwitch
+        else {
+            return []
+        }
+        
+        if timestampDefaultSwitch.isOff {
+            return [
+                timestampDefaultSwitch,
+                fieldCellAccessibilityElements,
+                timestampTextfield,
+                tsaCertCellAccessibilityElements,
+                roleSwitch,
+                headerCellAccessibilityElements,
+                timestampDefaultSwitch
+            ]
         }
         
         return [
             timestampDefaultSwitch,
             fieldCellAccessibilityElements,
             timestampTextfield,
+            roleSwitch,
             headerCellAccessibilityElements,
-            timestampDefaultSwitch,
-            tsaCertCellAccessibilityElements
+            timestampDefaultSwitch
         ]
     }
 }
@@ -302,6 +324,12 @@ extension SettingsViewController: SettingsDefaultValueCellDelegate {
             isDefaultTimestampValue = switchValue
         }
         tableView.reloadData()
+        
+        DispatchQueue.main.async {
+            if UIAccessibility.isVoiceOverRunning {
+                self.view.accessibilityElements = self.getAccessibilityElementsOrder()
+            }
+        }
     }
     
     

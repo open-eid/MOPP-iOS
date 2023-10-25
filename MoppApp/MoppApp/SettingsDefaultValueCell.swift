@@ -49,6 +49,6 @@ class SettingsDefaultValueCell: UITableViewCell {
         useDefaultTitleLabel.isAccessibilityElement = false
         useDefaultSwitch.isOn = useDefault
         useDefaultTitleLabel.text = L(.settingsTimestampUseDefaultTitle)
-        useDefaultSwitch.accessibilityLabel = useDefaultTitleLabel.text
+        useDefaultSwitch.accessibilityLabel = "\(useDefaultTitleLabel.text ?? L(.settingsTimestampUseDefaultTitle)) \(L(.settingsTimestampUrlTitle))"
     }
 }

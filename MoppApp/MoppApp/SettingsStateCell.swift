@@ -24,6 +24,8 @@
 import Foundation
 
 class SettingsStateCell: UITableViewCell {
+    @IBOutlet weak var roleSwitchStackView: UIStackView!
+
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var stateSwitch: UISwitch!
     
@@ -40,6 +42,12 @@ class SettingsStateCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        updateUI()
+        
+        guard let stateUISwitch = stateSwitch else { return }
+        
+        self.accessibilityElements = [stateUISwitch]
     }
     
     func populate(with field: SettingsViewController.Field) {
@@ -53,8 +61,15 @@ class SettingsStateCell: UITableViewCell {
     }
     
     func updateUI() {
-        stateSwitch.isOn = DefaultsHelper.isRoleAndAddressEnabled
+        roleSwitchStackView.isAccessibilityElement = false
         
+        AccessibilityUtil.setAccessibilityElementsInStackView(stackView: roleSwitchStackView, isAccessibilityElement: true)
+
         titleLabel.text = L(.settingsRoleAndAddressTitle)
+        titleLabel.isAccessibilityElement = false
+
+        stateSwitch.isOn = DefaultsHelper.isRoleAndAddressEnabled
+        stateSwitch.isAccessibilityElement = true
+        stateSwitch.accessibilityLabel = titleLabel.text
     }
 }
