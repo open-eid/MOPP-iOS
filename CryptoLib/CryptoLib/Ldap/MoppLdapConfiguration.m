@@ -25,9 +25,10 @@
 
 @implementation MoppLdapConfiguration
 
-- (id) initWithLdapConfiguration:(NSString *)LDAPPERSONURL LDAPCORPURL:(NSString *)LDAPCORPURL; {
+- (id)initWithLdapConfiguration:(NSArray<NSString *>*)LDAPCERTS LDAPPERSONURL:(NSString *)LDAPPERSONURL LDAPCORPURL:(NSString *)LDAPCORPURL {
     self = [super init];
     if (self) {
+        self.LDAPCERTS = LDAPCERTS;
         self.LDAPPERSONURL = LDAPPERSONURL;
         self.LDAPCORPURL = LDAPCORPURL;
     }
