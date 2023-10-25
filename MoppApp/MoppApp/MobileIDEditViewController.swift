@@ -229,7 +229,7 @@ class MobileIDEditViewController : MoppViewController {
         if sender.accessibilityIdentifier == "mobileIDCodeField" {
             let text = sender.text ?? String()
             if (text.count >= 11 && !PersonalCodeValidator.isPersonalCodeValid(personalCode: text)) {
-                sender.deleteBackward()
+                TextUtil.deleteBackward(textField: sender)
             }
         }
     }

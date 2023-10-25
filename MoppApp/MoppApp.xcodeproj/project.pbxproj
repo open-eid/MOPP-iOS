@@ -367,6 +367,7 @@
 		DFA5821B264AAB6600564971 /* digidoc_1024.png in Resources */ = {isa = PBXBuildFile; fileRef = DFA58219264AAB6600564971 /* digidoc_1024.png */; };
 		DFAFD38629E8794200377EF5 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAFD38529E8794200377EF5 /* SearchField.swift */; };
 		DFB1A492283FB9AF000B578D /* CertificateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB1A491283FB9AF000B578D /* CertificateDetailViewController.swift */; };
+		DFB66BC32AE9BD4D00731B47 /* TextUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB66BC22AE9BD4D00731B47 /* TextUtil.swift */; };
 		DFB970A32626136400464791 /* PreviewFileTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB970A22626136300464791 /* PreviewFileTapGestureRecognizer.swift */; };
 		DFBA32A629A5A64000788A87 /* CancelUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA32A529A5A64000788A87 /* CancelUtil.swift */; };
 		DFBEF9452434DD0C007A6762 /* UIAlertAction+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEF9442434DD0C007A6762 /* UIAlertAction+Additions.swift */; };
@@ -693,6 +694,7 @@
 		DFAFD38529E8794200377EF5 /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
 		DFB1A491283FB9AF000B578D /* CertificateDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateDetailViewController.swift; sourceTree = "<group>"; };
 		DFB5FF08289954F8006B3B8C /* TokenFlowUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenFlowUtil.swift; sourceTree = "<group>"; };
+		DFB66BC22AE9BD4D00731B47 /* TextUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUtil.swift; sourceTree = "<group>"; };
 		DFB970A22626136300464791 /* PreviewFileTapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewFileTapGestureRecognizer.swift; sourceTree = "<group>"; };
 		DFBA32A529A5A64000788A87 /* CancelUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelUtil.swift; sourceTree = "<group>"; };
 		DFBEF9442434DD0C007A6762 /* UIAlertAction+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Additions.swift"; sourceTree = "<group>"; };
@@ -1316,6 +1318,7 @@
 				DFBA32A529A5A64000788A87 /* CancelUtil.swift */,
 				DFDC0AB929FAD8F2002D1D1D /* ViewUtil.swift */,
 				DFD54CF629D1CBAF00CD92C7 /* TSACertUtil.swift */,
+				DFB66BC22AE9BD4D00731B47 /* TextUtil.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1897,6 +1900,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFB66BC32AE9BD4D00731B47 /* TextUtil.swift in Sources */,
 				3921CAAD20B819B500BF3178 /* ContainerNoAddresseesCell.swift in Sources */,
 				54825EF51E1CFE9600253FF0 /* Date+Additions.swift in Sources */,
 				C50DCD1F1FD1831500D48E16 /* SearchTextField.swift in Sources */,

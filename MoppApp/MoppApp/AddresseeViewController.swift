@@ -134,7 +134,7 @@ extension AddresseeViewController : UITextFieldDelegate {
         searchField?.onClearButtonTapped = {
             guard let searchTextField = searchField else { return }
             searchTextField.text = ""
-            self.removeSearchResults()
+            self.removeSearchResults(textField: searchTextField)
         }
         
         return true
@@ -149,7 +149,7 @@ extension AddresseeViewController : UITextFieldDelegate {
         
         if string.isEmpty && (text.count <= 1) {
             textField.text = ""
-            removeSearchResults()
+            removeSearchResults(textField: textField)
         }
         
         return true
@@ -157,7 +157,7 @@ extension AddresseeViewController : UITextFieldDelegate {
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         removeEditingTarget(textField)
-        removeSearchResults()
+        removeSearchResults(textField: textField)
         return true
     }
     
@@ -182,10 +182,20 @@ extension AddresseeViewController : UITextFieldDelegate {
         return text.trimWhitespacesAndNewlines() == self.submittedQuery
     }
     
-    func removeSearchResults() {
+    func removeSearchResults(textField: UITextField) {
         foundAddressees = []
         self.submittedQuery = ""
-        self.tableView.reloadData()
+        tableView.beginUpdates()
+        for (index, section) in sections.enumerated() {
+            if section != .search {
+                tableView.reloadSections(IndexSet(integer: index), with: .automatic)
+            }
+        }
+        tableView.endUpdates()
+        
+        DispatchQueue.main.async {
+            textField.becomeFirstResponder()
+        }
     }
 }
 
