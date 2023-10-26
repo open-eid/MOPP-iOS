@@ -46,7 +46,7 @@ protocol MobileIDEditViewControllerDelegate : AnyObject {
 
 class MobileIDEditViewController : MoppViewController, TokenFlowSigning {
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var idCodeTextField: UITextField!
+    @IBOutlet weak var idCodeTextField: PersonalCodeField!
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var centerViewCenterCSTR: NSLayoutConstraint!
     @IBOutlet weak var centerViewOutofscreenCSTR: NSLayoutConstraint!
@@ -238,13 +238,13 @@ class MobileIDEditViewController : MoppViewController, TokenFlowSigning {
     }
 
     @objc func editingChanged(sender: UITextField) {
-        verifySigningCapability()
         if sender.accessibilityIdentifier == "mobileIDCodeField" {
             let text = sender.text ?? String()
             if (text.count >= 11 && !PersonalCodeValidator.isPersonalCodeValid(personalCode: text)) {
                 sender.deleteBackward()
             }
         }
+        verifySigningCapability()
     }
     
     override func keyboardWillShow(notification: NSNotification) {
@@ -280,11 +280,23 @@ extension MobileIDEditViewController : UITextFieldDelegate {
             let textAfterUpdate = text.replacingCharacters(in: range, with: string)
             return textAfterUpdate.isNumeric || textAfterUpdate.isEmpty
         }
+        verifySigningCapability()
         return true
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.moveCursorToEnd()
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        // Verify signing capability after user has deleted a number
+        if let idCodeField = textField as? PersonalCodeField {
+            idCodeField.onDeleteButtonClicked = {
+                self.verifySigningCapability()
+            }
+        }
+        
+        return true
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
