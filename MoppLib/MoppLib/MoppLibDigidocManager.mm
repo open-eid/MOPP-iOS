@@ -73,12 +73,6 @@ public:
     return tslCachePath.UTF8String;
   }
 
-  std::string xsdPath() const override {
-    NSBundle *bundle = [NSBundle bundleForClass:[MoppLibDigidocManager class]];
-    NSString *path = [bundle pathForResource:@"schema" ofType:@""];
-    return path.UTF8String;
-  }
-
   std::string TSUrl() const override {
       NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
       NSString *tsaUrl = [defaults stringForKey:@"kTimestampUrlKey"];

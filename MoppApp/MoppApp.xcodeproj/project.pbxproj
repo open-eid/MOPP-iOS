@@ -27,6 +27,8 @@
 		39CDA7EA20ADBCEC006E2E9F /* Crypto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */; };
 		39CDA7EE20ADBE93006E2E9F /* CryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */; };
 		39F8EFE720D263B5001BCF73 /* TokenFlow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39F8EFE620D263B5001BCF73 /* TokenFlow.storyboard */; };
+		4E167D872B6D346F001B74A1 /* digidocpp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E167D862B6D346F001B74A1 /* digidocpp.framework */; };
+		4E167D882B6D346F001B74A1 /* digidocpp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E167D862B6D346F001B74A1 /* digidocpp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E59080024B0F914001B23A6 /* SmartIDEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5907FF24B0F914001B23A6 /* SmartIDEditViewController.swift */; };
 		4E59080224B258C7001B23A6 /* SmartIDChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59080124B258C6001B23A6 /* SmartIDChallengeViewController.swift */; };
 		4E59080424B2E295001B23A6 /* SmartIDSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59080324B2E295001B23A6 /* SmartIDSignature.swift */; };
@@ -346,6 +348,7 @@
 			files = (
 				E4250D071E0A911100530370 /* MoppLib.framework in Embed Frameworks */,
 				393B66E920DB9C19001DC89B /* CryptoLib.framework in Embed Frameworks */,
+				4E167D882B6D346F001B74A1 /* digidocpp.framework in Embed Frameworks */,
 				DF3D29D023F6B3CF007181B8 /* SkSigningLib.framework in Embed Frameworks */,
 				DF1503A92AC5D1DB007222B2 /* SwiftyRSA in Embed Frameworks */,
 				393B66E320DB94CD001DC89B /* cdoc.framework in Embed Frameworks */,
@@ -375,6 +378,7 @@
 		39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Crypto.storyboard; sourceTree = "<group>"; };
 		39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoViewController.swift; sourceTree = "<group>"; };
 		39F8EFE620D263B5001BCF73 /* TokenFlow.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TokenFlow.storyboard; sourceTree = "<group>"; };
+		4E167D862B6D346F001B74A1 /* digidocpp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = digidocpp.framework; path = "${DIGIDOCPP_PATH}/lib/digidocpp.framework"; sourceTree = "<absolute>"; };
 		4E5907FF24B0F914001B23A6 /* SmartIDEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartIDEditViewController.swift; sourceTree = "<group>"; };
 		4E59080124B258C6001B23A6 /* SmartIDChallengeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartIDChallengeViewController.swift; sourceTree = "<group>"; };
 		4E59080324B2E295001B23A6 /* SmartIDSignature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartIDSignature.swift; sourceTree = "<group>"; };
@@ -445,7 +449,6 @@
 		C50DCD471FDED76400D48E16 /* SignatureDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureDetailsCell.swift; sourceTree = "<group>"; };
 		C50FC42F224BA3B20041925C /* ScreenDisguise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenDisguise.swift; sourceTree = "<group>"; };
 		C50FC430224BA3B20041925C /* ScreenDisguiseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenDisguiseViewController.swift; sourceTree = "<group>"; };
-		C51B7FB01FBB12E70046D6E0 /* shareExtension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shareExtension-Bridging-Header.h"; sourceTree = "<group>"; };
 		C51B7FB11FBB12E80046D6E0 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		C51B7FB31FBB12FC0046D6E0 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
 		C51B7FB41FBB2AB10046D6E0 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -565,7 +568,6 @@
 		DFA56CF32AF009E5007D7F7E /* RadioButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RadioButton.xib; sourceTree = "<group>"; };
 		DFA58218264AAB6500564971 /* digidoc_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_76.png; sourceTree = "<group>"; };
 		DFA58219264AAB6600564971 /* digidoc_1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_1024.png; sourceTree = "<group>"; };
-		DFA636552B6D06DE00C23747 /* MoppIcon-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MoppIcon-1024.png"; sourceTree = "<group>"; };
 		DFAFD38529E8794200377EF5 /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
 		DFB1A491283FB9AF000B578D /* CertificateDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateDetailViewController.swift; sourceTree = "<group>"; };
 		DFB1D5EA2ACAFE1B00FDC7B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -652,6 +654,7 @@
 			files = (
 				C55BB1CC2091BD2000618AC4 /* WebKit.framework in Frameworks */,
 				DF3D29CF23F6B3CF007181B8 /* SkSigningLib.framework in Frameworks */,
+				4E167D872B6D346F001B74A1 /* digidocpp.framework in Frameworks */,
 				DF1503A42AC5D163007222B2 /* ASN1Decoder in Frameworks */,
 				DF1503A62AC5D1B9007222B2 /* FirebaseCrashlytics in Frameworks */,
 				E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */,
@@ -741,7 +744,6 @@
 				54A418341E83FB1100559E2B /* shareExtension.entitlements */,
 				54A418291E83FAD200559E2B /* MainInterface.storyboard */,
 				54A4182C1E83FAD200559E2B /* Info.plist */,
-				C51B7FB01FBB12E70046D6E0 /* shareExtension-Bridging-Header.h */,
 			);
 			path = shareExtension;
 			sourceTree = "<group>";
@@ -1116,7 +1118,6 @@
 				DFB1D5EA2ACAFE1B00FDC7B8 /* GoogleService-Info.plist */,
 				DF61BAB72B6D078F00D919CE /* App_logo.png */,
 				DF61BAB92B6D080D00D919CE /* App_logo.png */,
-				DFA636552B6D06DE00C23747 /* MoppIcon-1024.png */,
 				DFF3C3B92332355C0079458A /* config.json */,
 				DFF3C3BB2332355D0079458A /* defaultConfiguration.json */,
 				DFF3C3B82332355C0079458A /* publicKey.pub */,
@@ -1272,6 +1273,7 @@
 				DF1503942AC5D011007222B2 /* CryptoLib.xcodeproj */,
 				DF1503882AC5CFFA007222B2 /* MoppLib.xcodeproj */,
 				393B66E120DB94CD001DC89B /* cdoc.framework */,
+				4E167D862B6D346F001B74A1 /* digidocpp.framework */,
 				DF13562F290201A100F61823 /* ExternalAccessory.framework */,
 				39852A6120AB2949004CB100 /* CryptoLib.framework */,
 				C55BB1CB2091BD2000618AC4 /* WebKit.framework */,
@@ -1883,11 +1885,7 @@
 				PROVISIONING_PROFILE = $SHARE_EXTENSION_PROVISIONING_PROFILE;
 				PROVISIONING_PROFILE_SPECIFIER = $SHARE_EXTENSION_PROVISIONING_PROFILE;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "shareExtension/shareExtension-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_WORKSPACE = YES;
 			};
 			name = Debug;
 		};
@@ -1916,10 +1914,7 @@
 				PROVISIONING_PROFILE = $SHARE_EXTENSION_PROVISIONING_PROFILE;
 				PROVISIONING_PROFILE_SPECIFIER = $SHARE_EXTENSION_PROVISIONING_PROFILE;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "shareExtension/shareExtension-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_WORKSPACE = YES;
 			};
 			name = Release;
 		};
@@ -1980,7 +1975,6 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -2035,7 +2029,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -2055,7 +2048,12 @@
 				DEFAULT_CENTRAL_CONFIGURATION_URL = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ET847QJV9F;
-				ENABLE_BITCODE = NO;
+				DIGIDOCPP_PATH = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
+				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DIGIDOCPP_PATH)/lib",
+				);
 				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -2083,7 +2081,6 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_WORKSPACE = YES;
 			};
 			name = Debug;
 		};
@@ -2101,7 +2098,12 @@
 				DEFAULT_CENTRAL_CONFIGURATION_URL = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ET847QJV9F;
-				ENABLE_BITCODE = NO;
+				DIGIDOCPP_PATH = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
+				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DIGIDOCPP_PATH)/lib",
+				);
 				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -2128,7 +2130,6 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "MoppApp/MoppApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_WORKSPACE = YES;
 			};
 			name = Release;
 		};
