@@ -59,6 +59,7 @@
 "signature-view-begin-label-accessibility" = "Выберите файл для подписания или проверки";
 "signature-view-begin-button" = "ВЫБРАТЬ ФАЙЛ";
 "signature-details-title" = "Детали подписи";
+"timestamp-details-title" = "Детали временого штампа";
 "certificate-details-title" = "Детали сертификата";
 "menu-button" = "Меню";
 
