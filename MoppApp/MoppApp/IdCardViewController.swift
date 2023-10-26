@@ -87,10 +87,13 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
         MoppLibCardReaderManager.sharedInstance().delegate = self
 
         cancelButton.setTitle(L(.actionCancel).uppercased())
+        cancelButton.accessibilityLabel = L(.actionCancel).lowercased()
         if isActionDecryption {
             actionButton.setTitle(L(.actionDecrypt).uppercased())
+            actionButton.accessibilityLabel = L(.actionDecrypt).lowercased()
         } else {
             actionButton.setTitle(L(.actionSign).uppercased())
+            actionButton.accessibilityLabel = L(.actionSign).lowercased()
         }
 
         pinTextField.delegate = self
