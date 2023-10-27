@@ -184,12 +184,12 @@ static CardActionsManager *sharedInstance = nil;
      [self addCardAction:CardActionDecryptData data:data success:success failure:failure];
 }
 
-- (void)addSignature:(NSString *)containerPath withPin2:(NSString *)pin2 success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure {
+- (void)addSignature:(NSString *)containerPath withPin2:(NSString *)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure {
 
     [self code:CodeTypePin2 retryCountWithSuccess:^(NSNumber *count) {
         if (count.intValue > 0) {
             __weak typeof(self) weakSelf = self;
-            [weakSelf addSignatureTo:containerPath pin2:pin2 success:success andFailure:failure];
+            [weakSelf addSignatureTo:containerPath pin2:pin2 roleData:roleData success:success andFailure:failure];
 
         } else {
             failure([MoppLibError pinBlockedError]);
@@ -197,9 +197,9 @@ static CardActionsManager *sharedInstance = nil;
     } failure:failure];
 }
 
-- (void)addSignatureTo:(NSString *)containerPath pin2:(NSString *)pin2 success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success andFailure:(FailureBlock)failure {
+- (void)addSignatureTo:(NSString *)containerPath pin2:(NSString *)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success andFailure:(FailureBlock)failure {
     [self signingCertDataWithPin2:pin2 success:^(NSData *certData) {
-        [[MoppLibDigidocManager sharedInstance] addSignature:containerPath pin2:pin2 cert:certData success:^(MoppLibContainer *container) {
+        [[MoppLibDigidocManager sharedInstance] addSignature:containerPath pin2:pin2 cert:certData roleData:roleData success:^(MoppLibContainer *container) {
             success(container, YES);
         } andFailure:failure];
     } failure:failure];

@@ -54,7 +54,6 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     @IBOutlet weak var tslURL: UILabel!
     @IBOutlet weak var sivaURL: UILabel!
     @IBOutlet weak var tsaURL: UILabel!
-    @IBOutlet weak var midSignURL: UILabel!
     @IBOutlet weak var ldapPersonURL: UILabel!
     @IBOutlet weak var ldapCorpURL: UILabel!
     @IBOutlet weak var mobileIdURL: UILabel!

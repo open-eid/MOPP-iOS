@@ -1,5 +1,5 @@
 //
-//  NotificationMessage.swift
+//  IDCardSignature.swift
 //  MoppApp
 //
 /*
@@ -23,7 +23,17 @@
 
 import Foundation
 
-struct NotificationMessage: Equatable {
-    let isSuccess: Bool
-    let text: String
+class IDCardSignature {
+    
+    static let shared: IDCardSignature = IDCardSignature()
+    
+    func createIDCardSignature(idCardParameters: IDCardParameters?, completionHandler: @escaping (Result<IDCardSuccess, NSError>) -> Void) {
+        MoppLibContainerActions.sharedInstance().addSignature(idCardParameters?.containerPath, withPin2:idCardParameters?.pin2, roleData: idCardParameters?.roleData, success: { container, signatureAdded in
+            let idCardSuccess = IDCardSuccess(container: container, signatureAdded: signatureAdded)
+            completionHandler(.success(idCardSuccess))
+        }, failure: { error in
+            guard let nsError = error as NSError? else { return }
+            completionHandler(.failure(nsError))
+        })
+    }
 }

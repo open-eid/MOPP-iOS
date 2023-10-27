@@ -25,6 +25,7 @@
 #import "MoppLibCardActions.h"
 #import "MoppLibConstants.h"
 #import "MOPPLibConfiguration.h"
+#import "MoppLibRoleAddressData.h"
 
 typedef NS_ENUM(NSUInteger, EIDType) {
     EIDTypeUnknown,
@@ -49,7 +50,7 @@ typedef NS_ENUM(NSUInteger, EIDType) {
 
 - (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId;
 
-+ (NSString *)prepareSignature:(NSString *)cert containerPath:(NSString *)containerPath;
++ (NSString *)prepareSignature:(NSString *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData;
 + (NSArray *)getDataToSign;
 + (void)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure;
 

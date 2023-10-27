@@ -326,7 +326,10 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                 break
             }
             if isEmptyFileInContainer {
-                self.notifications.append(NotificationMessage(isSuccess: false, text: L(.fileImportFailedEmptyFileImported)))
+                let emptyFileNotification = NotificationMessage(isSuccess: false, text: L(.fileImportFailedEmptyFileImported))
+                if !self.notifications.contains(where: { $0 == emptyFileNotification }) {
+                    self.notifications.append(emptyFileNotification)
+                }
                 isEmptyFileWarningSet = true
             }
         }
@@ -457,7 +460,7 @@ extension ContainerViewController : UITableViewDataSource {
                 kind: .signature,
                 isTimestamp: false,
                 showBottomBorder: row < (asicsSignatures.isEmpty ? signingContainerViewDelegate.getSignaturesCount() : asicsSignatures.count) - 1,
-                showRemoveButton: !isForPreview && signingContainerViewDelegate.isContainerSignable(),
+                showRemoveButton: !isForPreview && signingContainerViewDelegate.isContainerSignable(), showRoleDetailsButton: !isRoleDetailsEmpty(signatureIndex: row),
                 signatureIndex: row)
             cell.removeButton.accessibilityLabel = L(.signatureRemoveButton)
             return cell
@@ -601,7 +604,7 @@ extension ContainerViewController : UITableViewDataSource {
                         kind: .timestamp,
                         isTimestamp: true,
                         showBottomBorder: row < signingContainerViewDelegate.getTimestampTokensCount() - 1,
-                        showRemoveButton: false,
+                        showRemoveButton: false, showRoleDetailsButton: !isRoleDetailsEmpty(signatureIndex: row),
                         signatureIndex: row)
                 } else {
                     updateState(.opened)
@@ -615,7 +618,7 @@ extension ContainerViewController : UITableViewDataSource {
                 kind: .timestamp,
                 isTimestamp: true,
                 showBottomBorder: row < self.signingContainerViewDelegate.getTimestampTokensCount() - 1,
-                showRemoveButton: false,
+                showRemoveButton: false, showRoleDetailsButton: !isRoleDetailsEmpty(signatureIndex: row),
                 signatureIndex: row)
 
             return cell
@@ -687,6 +690,15 @@ extension ContainerViewController : UITableViewDataSource {
         }
     }
 
+    func getRoleDetails(signatureIndex: Int) -> MoppLibRoleAddressData? {
+        return (signingContainerViewDelegate.getSignature(index: signatureIndex) as? MoppLibSignature)?.roleAndAddressData
+    }
+    
+    func isRoleDetailsEmpty(signatureIndex: Int) -> Bool {
+        let roleDetails = getRoleDetails(signatureIndex: signatureIndex)
+        return roleDetails?.roles.isEmpty ?? true && roleDetails?.city.isNilOrEmpty ?? true && roleDetails?.state.isNilOrEmpty ?? true && roleDetails?.country.isNilOrEmpty ?? true && roleDetails?.zip.isNilOrEmpty ?? true
+    }
+    
     @objc private func openPreview(_ sender: PreviewFileTapGestureRecognizer) {
         guard let dataFile: String = sender.dataFile, let containerFilePath: String = sender.containerFilePath, let isShareButtonNeeded: Bool = sender.isShareButtonNeeded else {
             printLog("Unable to get data file, container file or share button information")
@@ -1033,6 +1045,14 @@ extension ContainerViewController : UITableViewDelegate {
 }
 
 extension ContainerViewController : ContainerSignatureDelegate {
+    func showRoleDetails(signatureIndex: Int) {
+        let roleDetailsViewController = UIStoryboard.container.instantiateViewController(of: RoleDetailsViewController.self)
+        
+        roleDetailsViewController.roleDetails = getRoleDetails(signatureIndex: signatureIndex)
+        
+        self.navigationController?.pushViewController(roleDetailsViewController, animated: true)
+    }
+    
     func containerSignatureRemove(signatureIndex: Int) {
         signingContainerViewDelegate.removeSignature(index: signatureIndex)
     }

@@ -26,6 +26,7 @@
 #import "MoppLibSignature.h"
 #import "MoppLibConstants.h"
 #import "MoppLibConfiguration.h"
+#import "MoppLibRoleAddressData.h"
 
 typedef enum {
     Unspecified,
@@ -44,12 +45,12 @@ typedef enum {
 - (MoppLibContainer *)addDataFilesToContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths error:(NSError **)error;
 - (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex error:(NSError **)error;
 - (NSArray *)getContainers;
-+ (NSString *)prepareSignature:(NSString *)cert containerPath:(NSString *)containerPath;
++ (NSString *)prepareSignature:(NSString *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData;
 + (void)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure;
 + (NSArray *)getDataToSign;
 - (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId;
 - (BOOL)container:(MoppLibContainer *)moppContainer containsSignatureWithCert:(NSData *)cert;
-- (void)addSignature:(NSString *)containerPath pin2:(NSString *)pin2 cert:(NSData *)cert success:(ContainerBlock)success andFailure:(FailureBlock)failure;
+- (void)addSignature:(NSString *)containerPath pin2:(NSString *)pin2 cert:(NSData *)cert roleData:(MoppLibRoleAddressData *)roleData success:(ContainerBlock)success andFailure:(FailureBlock)failure;
 - (void)addMobileIDSignatureToContainer:(MoppLibContainer *)moppContainer signature:(NSString *)signature success:(ContainerBlock)success andFailure:(FailureBlock)failure;
 - (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath error:(NSError **)error;
 - (NSString *)getMoppLibVersion;

@@ -1,5 +1,5 @@
 //
-//  NotificationMessage.swift
+//  AccessibilityUtil.swift
 //  MoppApp
 //
 /*
@@ -23,7 +23,10 @@
 
 import Foundation
 
-struct NotificationMessage: Equatable {
-    let isSuccess: Bool
-    let text: String
+class AccessibilityUtil {
+    static func setAccessibilityElementsInStackView(stackView: UIStackView, isAccessibilityElement: Bool) {
+        for subview in stackView.arrangedSubviews {
+            subview.isAccessibilityElement = isAccessibilityElement
+        }
+    }
 }

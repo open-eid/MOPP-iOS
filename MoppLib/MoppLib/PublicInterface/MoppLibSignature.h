@@ -23,6 +23,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MoppLibConstants.h"
+#import "MoppLibRoleAddressData.h"
 
 @interface MoppLibSignature : NSObject
 
@@ -32,6 +33,7 @@
 @property (strong, nonatomic) NSString *diagnosticsInfo;
 @property (strong, nonatomic) NSString *issuerName;
 @property (strong, nonatomic) NSString *trustedSigningTime;
+@property (strong, nonatomic) MoppLibRoleAddressData *roleAndAddressData;
 
 @property (strong, nonatomic) NSString *signersCertificateIssuer;
 @property (strong, nonatomic) NSData *signingCertificate;

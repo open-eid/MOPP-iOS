@@ -228,6 +228,13 @@
 "smart-id-country-latvia" = "Läti";
 "smart-id-challenge-title" = "Allkirjasta Smart-IDga";
 "smart-id-sign-help-title" = "Veendu kontrollkoodi õigsuses ja sisesta nutiseadmes Smart-ID PIN2-kood";
+"role-and-address" = "Roll ja aadress";
+"role-and-address-title" = "Sisesta oma roll ja aadress";
+"role-and-address-role-title" = "Roll / resolutsioon";
+"role-and-address-city-title" = "Linn";
+"role-and-address-state-title" = "Maakond";
+"role-and-address-country-title" = "Riik";
+"role-and-address-zip-title" = "Postikood";
 "container-sign-title" = "Allkirjastamine";
 "container-encryption-title" = "Krüpteerimine";
 "container-decryption-title" = "Dekrüpteerimine";
@@ -362,6 +369,7 @@
 "settings-timestamp-url-title" = "Ligipääs ajatempliteenusele";
 "settings-timestamp-url-placeholder" = "";
 "settings-timestamp-use-default-title" = "Kasuta vaikeväärtust";
+"settings-role-and-address-title" = "Küsi rolli ja aadressi igal allkirjastamisel";
 "settings-value-changed" = "Seade väärtus muudetud";
 "settings-timestamp-cert-title" = "Ajatempliteenuse SSL sertifikaat";
 "settings-timestamp-cert-issued-to-label" = "Kellele väljastatud:";
@@ -506,3 +514,8 @@
 "voice-control-tab-decrypt" = "Decrypt";
 "voice-control-tab-confirm" = "Confirm";
 "voice-control-search-recipients" = "Search recipients";
+"voice-control-role-role" = "Role";
+"voice-control-role-city" = "City";
+"voice-control-role-state" = "State";
+"voice-control-role-country" = "Country";
+"voice-control-role-zip" = "Zip";

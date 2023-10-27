@@ -43,8 +43,8 @@
     return [[MoppLibDigidocManager sharedInstance] dataFileCalculateHashWithDigestMethod:method container:moppContainer dataFileId:dataFileId];
 }
 
-+ (NSString *)prepareSignature:(NSString *)cert containerPath:(NSString *)containerPath {
-    return [MoppLibDigidocManager prepareSignature:cert containerPath:containerPath];
++ (NSString *)prepareSignature:(NSString *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData {
+    return [MoppLibDigidocManager prepareSignature:cert containerPath:containerPath roleData:roleData];
 }
 
 + (NSArray *)getDataToSign {

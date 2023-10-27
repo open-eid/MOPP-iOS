@@ -112,7 +112,7 @@ extension UIViewController {
         self.present(uiAlertController, animated: true, completion: nil)
     }
     
-    func showErrorMessage(title: String, message: String) {
+    func showErrorMessage(message: String) {
         DispatchQueue.main.async {
             let topViewController: UIViewController = self.getTopViewController()
             guard topViewController.isViewLoaded else {
