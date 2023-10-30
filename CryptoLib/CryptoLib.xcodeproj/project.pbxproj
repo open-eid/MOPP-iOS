@@ -46,6 +46,16 @@
 		DFC7CA452AE010C9009D85FF /* 9f4c149e.0 in Resources */ = {isa = PBXBuildFile; fileRef = DFC7CA442AE010C9009D85FF /* 9f4c149e.0 */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4E01B4A42AEFDD0B00941723 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 39231FA120AB1C6C00E1E2B4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4E01B4A02AEFDC4500941723;
+			remoteInfo = cdoc;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		390C015E20AC3DC700827230 /* libldap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libldap.a; path = "$(LDAP_PATH)/libraries/libldap.a"; sourceTree = "<absolute>"; };
 		390C016020AC3DE000827230 /* liblber.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblber.a; path = "$(LDAP_PATH)/libraries/liblber.a"; sourceTree = "<absolute>"; };
@@ -61,7 +71,7 @@
 		39266A6120CFE36A002E3F23 /* CdocParserDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CdocParserDelegate.h; sourceTree = "<group>"; };
 		39266A6220CFE3D4002E3F23 /* CdocParserDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CdocParserDelegate.m; sourceTree = "<group>"; };
 		393B66BB20D8F361001DC89B /* AbstractSmartToken.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AbstractSmartToken.mm; sourceTree = "<group>"; };
-		393B66DF20DB94B4001DC89B /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = CryptoLib/cdocFramework/cdoc.framework; sourceTree = "<group>"; };
+		393B66DF20DB94B4001DC89B /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = cdoc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3960E50320C02DA400D4D2FC /* CryptoDataFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptoDataFile.h; sourceTree = "<group>"; };
 		3960E50420C02E5900D4D2FC /* CryptoDataFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CryptoDataFile.m; sourceTree = "<group>"; };
 		39852A4120AB2418004CB100 /* Decrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decrypt.h; sourceTree = "<group>"; };
@@ -81,6 +91,7 @@
 		39E2B4D320AD7A3400CA74A8 /* Attribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attribute.h; sourceTree = "<group>"; };
 		39E2B4D420AD7A3400CA74A8 /* OpenLdap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenLdap.h; sourceTree = "<group>"; };
 		39E2B4D520AD7A3400CA74A8 /* Addressee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Addressee.h; sourceTree = "<group>"; };
+		4E01B4A62AEFDD3B00941723 /* build-cdoc.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "build-cdoc.sh"; sourceTree = "<group>"; };
 		C5B7957621BABCA800DC2C59 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "$(LDAP_PATH)/libraries/libcrypto.a"; sourceTree = "<absolute>"; };
 		C5B7957721BABCA800DC2C59 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "$(LDAP_PATH)/libraries/libssl.a"; sourceTree = "<absolute>"; };
 		DF8FEAC7233239690020DED4 /* MoppLdapConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLdapConfiguration.h; sourceTree = "<group>"; };
@@ -143,6 +154,7 @@
 				393B66BB20D8F361001DC89B /* AbstractSmartToken.mm */,
 				39266A5E20CFDCB9002E3F23 /* CdocInfo.m */,
 				39266A6020CFDCDF002E3F23 /* CdocInfo.h */,
+				4E01B4A62AEFDD3B00941723 /* build-cdoc.sh */,
 			);
 			path = CryptoLib;
 			sourceTree = "<group>";
@@ -219,6 +231,23 @@
 		};
 /* End PBXHeadersBuildPhase section */
 
+/* Begin PBXLegacyTarget section */
+		4E01B4A02AEFDC4500941723 /* cdoc */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "CryptoLib/build-cdoc.sh $(ACTION)";
+			buildConfigurationList = 4E01B4A32AEFDC4600941723 /* Build configuration list for PBXLegacyTarget "cdoc" */;
+			buildPhases = (
+			);
+			buildToolPath = /bin/sh;
+			buildWorkingDirectory = "$(SRCROOT)";
+			dependencies = (
+			);
+			name = cdoc;
+			passBuildSettingsInEnvironment = 1;
+			productName = cdoc;
+		};
+/* End PBXLegacyTarget section */
+
 /* Begin PBXNativeTarget section */
 		39231FA920AB1C6C00E1E2B4 /* CryptoLib */ = {
 			isa = PBXNativeTarget;
@@ -232,6 +261,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4E01B4A52AEFDD0B00941723 /* PBXTargetDependency */,
 			);
 			name = CryptoLib;
 			productName = CryptoLib;
@@ -251,6 +281,9 @@
 						CreatedOnToolsVersion = 9.3.1;
 						ProvisioningStyle = Manual;
 					};
+					4E01B4A02AEFDC4500941723 = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
 				};
 			};
 			buildConfigurationList = 39231FA420AB1C6C00E1E2B4 /* Build configuration list for PBXProject "CryptoLib" */;
@@ -266,6 +299,7 @@
 			projectRoot = "";
 			targets = (
 				39231FA920AB1C6C00E1E2B4 /* CryptoLib */,
+				4E01B4A02AEFDC4500941723 /* cdoc */,
 			);
 		};
 /* End PBXProject section */
@@ -306,6 +340,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4E01B4A52AEFDD0B00941723 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4E01B4A02AEFDC4500941723 /* cdoc */;
+			targetProxy = 4E01B4A42AEFDD0B00941723 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		39231FB020AB1C6C00E1E2B4 /* Debug */ = {
@@ -430,10 +472,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/CryptoLib",
-					"$(PROJECT_DIR)/CryptoLib/cdocFramework",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(TARGET_BUILD_DIR)";
 				HEADER_SEARCH_PATHS = (
 					"${inherited}",
 					"$(LDAP_PATH)/include",
@@ -470,10 +509,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/CryptoLib",
-					"$(PROJECT_DIR)/CryptoLib/cdocFramework",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(TARGET_BUILD_DIR)";
 				HEADER_SEARCH_PATHS = (
 					"${inherited}",
 					"$(LDAP_PATH)/include",
@@ -499,6 +535,50 @@
 			};
 			name = Release;
 		};
+		4E01B4A12AEFDC4600941723 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 4F425HHPH8;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4E01B4A22AEFDC4600941723 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4F425HHPH8;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -516,6 +596,15 @@
 			buildConfigurations = (
 				39231FB320AB1C6C00E1E2B4 /* Debug */,
 				39231FB420AB1C6C00E1E2B4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4E01B4A32AEFDC4600941723 /* Build configuration list for PBXLegacyTarget "cdoc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E01B4A12AEFDC4600941723 /* Debug */,
+				4E01B4A22AEFDC4600941723 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

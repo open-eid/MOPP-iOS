@@ -352,7 +352,7 @@
 		3921CAAC20B819B500BF3178 /* ContainerNoAddresseesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerNoAddresseesCell.swift; sourceTree = "<group>"; };
 		3921CAAE20B826E700BF3178 /* AddresseeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddresseeViewController.swift; sourceTree = "<group>"; };
 		393B66B920D7EC9D001DC89B /* WrapperUIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapperUIBarButtonItem.swift; sourceTree = "<group>"; };
-		393B66E120DB94CD001DC89B /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = ../CryptoLib/CryptoLib/cdocFramework/cdoc.framework; sourceTree = "<group>"; };
+		393B66E120DB94CD001DC89B /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cdoc.framework; path = "cdoc.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		39487CBD210B18F90082D910 /* CdocParserDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdocParserDelegate.swift; sourceTree = "<group>"; };
 		39852A6120AB2949004CB100 /* CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		399C01E920BD98730056D7AC /* ContainerFoundAddresseeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerFoundAddresseeCell.swift; sourceTree = "<group>"; };
