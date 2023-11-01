@@ -477,4 +477,5 @@ enum LocKey : String
     case voiceControlRoleState = "voice-control-role-state";
     case voiceControlRoleCountry = "voice-control-role-country";
     case voiceControlRoleZip = "voice-control-role-zip";
+    case voiceControlRoleAndAddress = "voice-control-role-and-address";
 }
