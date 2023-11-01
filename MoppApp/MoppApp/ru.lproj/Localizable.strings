@@ -521,3 +521,4 @@
 "voice-control-role-state" = "State";
 "voice-control-role-country" = "Country";
 "voice-control-role-zip" = "Zip";
+"voice-control-role-and-address" = "Role and address";

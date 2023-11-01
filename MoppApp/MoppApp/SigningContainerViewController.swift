@@ -21,9 +21,8 @@
  *
  */
 
-import Foundation
-import MoppLib
 import UIKit
+import MoppLib
 
 class SigningContainerViewController : ContainerViewController, SigningActions, UIDocumentPickerDelegate {
     

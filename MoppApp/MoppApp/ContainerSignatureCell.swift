@@ -20,7 +20,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-import Foundation
+
+import UIKit
 
 protocol ContainerSignatureDelegate: AnyObject {
     func showRoleDetails(signatureIndex: Int)
@@ -30,15 +31,15 @@ protocol ContainerSignatureDelegate: AnyObject {
 
 class ContainerSignatureCell: UITableViewCell {
     static let height: CGFloat = 60
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var personalCodeLabel: UILabel!
-    @IBOutlet weak var roleInfo: UILabel!
-    @IBOutlet weak var signedInfoLabel: UILabel!
+    @IBOutlet weak var nameLabel: ScaledLabel!
+    @IBOutlet weak var personalCodeLabel: ScaledLabel!
+    @IBOutlet weak var roleInfo: ScaledLabel!
+    @IBOutlet weak var signedInfoLabel: ScaledLabel!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var bottomBorderView: UIView!
-    @IBOutlet weak var signatureStatusLabel: UILabel!
+    @IBOutlet weak var signatureStatusLabel: ScaledLabel!
     @IBOutlet weak var signatureInfoView: UIView!
-    @IBOutlet weak var removeButton: UIButton!
+    @IBOutlet weak var removeButton: ScaledButton!
     
     weak var delegate: ContainerSignatureDelegate? = nil
     
@@ -116,6 +117,8 @@ class ContainerSignatureCell: UITableViewCell {
         removeButton.isHidden = !showRemoveButton
         removeButton.accessibilityUserInputLabels = ["\(L(.voiceControlRemoveSignature)) \(signatureIndex + 1)"]
         signatureInfoView.isHidden = isTimestamp || !showRoleDetailsButton
+        signatureInfoView.accessibilityLabel = L(.roleAndAddress)
+        signatureInfoView.accessibilityUserInputLabels = ["\(L(.voiceControlRoleAndAddress)) \(signatureIndex + 1)"]
     }
     
     func getSignatureStatusText(translationPrefix: String, translationSufix: String, valid: Bool) -> NSMutableAttributedString{
@@ -144,6 +147,7 @@ class ContainerSignatureCell: UITableViewCell {
             roleInfo.isHidden = true
             setNeedsUpdateConstraints()
         }
+        roleInfo.resetLabelProperties()
     }
     
     private func checkSignatureValidity(signature: MoppLibSignature) -> Void {
