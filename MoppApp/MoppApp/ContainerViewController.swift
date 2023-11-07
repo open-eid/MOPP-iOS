@@ -184,7 +184,11 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
+        let containerExtension = URL(fileURLWithPath: containerPath).pathExtension
+        
+        LandingViewController.shared.containerType = containerExtension.isCdocContainerExtension ? .cdoc : .asic
+        
         landingViewController.tabButtonsDelegate = self
 
         reloadData()
@@ -239,7 +243,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                         tabButtons = [.shareButton]
                         setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
                     } else {
-                        tabButtons = [.shareButton, .signButton]
+                        tabButtons = [.shareButton, .encryptButton, .signButton]
                         setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
                     }
                 }
@@ -355,19 +359,57 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
 }
 
 extension ContainerViewController : LandingViewControllerTabButtonsDelegate {
-    func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId, sender: UIView) {
-        if tabButtonId == .signButton {
+    func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId, sender: UIView, containerType: MoppApp.ContainerType) {
+        if tabButtonId == .signButton && containerType == .asic {
             signingContainerViewDelegate.startSigning()
-        }
-        else if tabButtonId == .shareButton {
+        } else if tabButtonId == .shareButton {
             LandingViewController.shared.shareFile(using: URL(fileURLWithPath: containerPath), sender: sender, completion: { bool in })
-        }
-        else if tabButtonId == .encryptButton {
+        } else if tabButtonId == .encryptButton && containerType == .cdoc {
             cryptoContainerViewDelegate.startEncrypting()
-        }
-        else if tabButtonId == .decryptButton {
+        } else if tabButtonId == .decryptButton && containerType == .cdoc {
             cryptoContainerViewDelegate.startDecrypting()
         }
+    }
+    
+    func changeContainer(tabButtonId: LandingViewController.TabButtonId, containerType: MoppApp.ContainerType) {
+        if tabButtonId == .encryptButton && containerType == .asic {
+            do {
+                printLog("Creating a new crypto container from ASIC container")
+                let tempFileURL = try saveContainerToTempFolder()
+                LandingViewController.shared.containerType = .cdoc
+                createNewContainer(with: URL(fileURLWithPath: tempFileURL.path), dataFilePaths: [tempFileURL.path], isEmptyFileImported: false)
+            } catch {
+                printLog("Unable to create a new crypto container from ASIC container")
+                return
+            }
+        }
+    }
+    
+    private func saveContainerToTempFolder() throws -> URL {
+        var containerFileData: Data? = nil
+        do {
+            containerFileData = try Data(contentsOf: URL(fileURLWithPath: containerPath))
+        } catch {
+            printLog("Unable to get container file data")
+            throw NSError(domain: "ContainerFileDataError", code: 1)
+        }
+
+        guard let fileData = containerFileData else {
+            printLog("File data is empty. Cannot open add a file to encrypt")
+            throw NSError(domain: "ContainerFileDataEmptyError", code: 1)
+        }
+
+        let destinationPath = URL(fileURLWithPath: MoppFileManager.shared.tempDocumentsDirectoryPath(), isDirectory: true).appendingPathComponent(URL(fileURLWithPath: containerPath).lastPathComponent)
+        
+        if !FileManager.default.fileExists(atPath: destinationPath.path) {
+            MoppFileManager.shared.createFile(atPath: destinationPath.path, contents: fileData)
+        }
+        
+        if FileManager.default.fileExists(atPath: destinationPath.path) {
+            return destinationPath
+        }
+        
+        throw NSError(domain: "FileDoesNotExistError", code: 1)
     }
 }
 

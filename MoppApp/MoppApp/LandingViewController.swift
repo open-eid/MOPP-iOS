@@ -21,7 +21,8 @@
  *
  */
 protocol LandingViewControllerTabButtonsDelegate: AnyObject {
-    func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId, sender: UIView)
+    func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId, sender: UIView, containerType: MoppApp.ContainerType)
+    func changeContainer(tabButtonId: LandingViewController.TabButtonId, containerType: MoppApp.ContainerType)
 }
 
 class LandingViewController : UIViewController, NativeShare, ContainerActions
@@ -212,7 +213,11 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
     @objc func tabButtonTapAction(sender: UIButton) {
         let tabButton = buttonsCollection.first { $0.button == sender }!
         let buttonId = TabButtonId(rawValue: tabButton.accessibilityIdentifier!)!
-        tabButtonsDelegate?.landingViewControllerTabButtonTapped(tabButtonId: buttonId, sender: sender)
+        if buttonId == .encryptButton && containerType == .asic {
+            tabButtonsDelegate?.changeContainer(tabButtonId: buttonId, containerType: containerType)
+        } else {
+            tabButtonsDelegate?.landingViewControllerTabButtonTapped(tabButtonId: buttonId, sender: sender, containerType: containerType)
+        }
     }
 
     func setupTab(for controller: UIViewController, title: String, image imageName: String, selectedImage selectedImageName: String) {
