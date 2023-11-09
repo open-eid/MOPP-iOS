@@ -1997,14 +1997,7 @@
 					"DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL=$(DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL)",
 				);
 				GOOGLE_CONF_REQUIRED = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/Crashlytics\"",
-					"\"${PODS_ROOT}/Headers/Public/Fabric\"",
-					"\"$(PODS_ROOT)/Headers/Public/PureLayout\"",
-					"\"$(PODS_ROOT)/Headers/Public/MBProgressHUD\"",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MoppApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2053,14 +2046,7 @@
 					"DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL=$(DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL)",
 				);
 				GOOGLE_CONF_REQUIRED = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/Crashlytics\"",
-					"\"${PODS_ROOT}/Headers/Public/Fabric\"",
-					"\"$(PODS_ROOT)/Headers/Public/PureLayout\"",
-					"\"$(PODS_ROOT)/Headers/Public/MBProgressHUD\"",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MoppApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
