@@ -29,6 +29,7 @@ protocol RecentContainersHeaderDelegate : AnyObject {
 
 class RecentContainersHeaderCell : UITableViewCell {
     weak var delegate: RecentContainersHeaderDelegate!
+    @IBOutlet weak var recentDocumentsTitle: UILabel!
     @IBOutlet weak var dismissButton: UIButton!
     @IBAction func dismissAction() {
         delegate.recentContainersHeaderDismiss()
@@ -37,6 +38,8 @@ class RecentContainersHeaderCell : UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        recentDocumentsTitle.isAccessibilityElement = true
+        recentDocumentsTitle.text = L(.signingRecentContainers)
         dismissButton.isAccessibilityElement = true
         dismissButton.setTitle(L(.closeButton))
     }

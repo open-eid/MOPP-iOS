@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nHM-IS-xuZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nHM-IS-xuZ">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -33,27 +33,40 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="58"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixj-S8-tJQ">
-                                                    <rect key="frame" x="311" y="11" width="48" height="48"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="48" id="EBI-jS-Kc4"/>
-                                                        <constraint firstAttribute="width" constant="48" id="k6m-R6-kBf"/>
-                                                    </constraints>
-                                                    <color key="tintColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <state key="normal" image="DismissPopup"/>
-                                                    <connections>
-                                                        <action selector="dismissAction" destination="5dZ-y1-JFk" eventType="touchUpInside" id="F4F-1d-Vmn"/>
-                                                    </connections>
-                                                </button>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PLa-sL-lqm">
+                                                    <rect key="frame" x="40" y="25" width="335" height="33"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Recent documents" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7IJ-u4-974">
+                                                            <rect key="frame" x="0.0" y="6.5" width="287" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixj-S8-tJQ">
+                                                            <rect key="frame" x="287" y="0.0" width="48" height="33"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="48" id="EBI-jS-Kc4"/>
+                                                                <constraint firstAttribute="width" constant="48" id="k6m-R6-kBf"/>
+                                                            </constraints>
+                                                            <color key="tintColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <state key="normal" image="DismissPopup"/>
+                                                            <connections>
+                                                                <action selector="dismissAction" destination="5dZ-y1-JFk" eventType="touchUpInside" id="F4F-1d-Vmn"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="ixj-S8-tJQ" secondAttribute="bottom" constant="-1" id="Cms-Hj-QPi"/>
-                                                <constraint firstItem="ixj-S8-tJQ" firstAttribute="trailing" secondItem="tfF-e9-GNd" secondAttribute="trailingMargin" id="hy9-8D-jO1"/>
-                                                <constraint firstItem="ixj-S8-tJQ" firstAttribute="top" secondItem="tfF-e9-GNd" secondAttribute="topMargin" id="mTa-UM-nLS"/>
+                                                <constraint firstItem="PLa-sL-lqm" firstAttribute="top" secondItem="tfF-e9-GNd" secondAttribute="top" constant="25" id="D2V-xM-sj8"/>
+                                                <constraint firstAttribute="bottom" secondItem="PLa-sL-lqm" secondAttribute="bottom" id="OcK-ha-dk4"/>
+                                                <constraint firstItem="PLa-sL-lqm" firstAttribute="leading" secondItem="tfF-e9-GNd" secondAttribute="leading" constant="40" id="QKL-p8-6oV"/>
+                                                <constraint firstAttribute="trailing" secondItem="PLa-sL-lqm" secondAttribute="trailing" id="sLe-qm-Mox"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dismissButton" destination="ixj-S8-tJQ" id="jXk-kg-ZTb"/>
+                                            <outlet property="recentDocumentsTitle" destination="7IJ-u4-974" id="Vo4-fn-eMi"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="RecentContainersNameCell" id="8VZ-we-F6P" customClass="RecentContainersNameCell" customModule="MoppApp" customModuleProvider="target">
