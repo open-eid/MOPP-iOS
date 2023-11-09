@@ -733,7 +733,7 @@ extension ContainerViewController : UITableViewDataSource {
     }
 
     func getRoleDetails(signatureIndex: Int) -> MoppLibRoleAddressData? {
-        return (signingContainerViewDelegate.getSignature(index: signatureIndex) as? MoppLibSignature)?.roleAndAddressData
+        return getSignature(indexPathRow: signatureIndex)?.roleAndAddressData
     }
     
     func isRoleDetailsEmpty(signatureIndex: Int) -> Bool {
