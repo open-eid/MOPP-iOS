@@ -82,12 +82,18 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
 
     func didFinishLaunchingWithOptions(launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // Log console logs to a file in Documents/logs folder
-        #if DEBUG
+        if isUsingTestMode() {
             setDebugMode(value: true)
             FileLogUtil.logToFile()
-        #else
-            setDebugMode(value: false)
-        #endif
+            
+        } else {
+            if FileLogUtil.isLoggingEnabled() && FileLogUtil.isLoggingRunning() {
+                setDebugMode(value: true)
+                FileLogUtil.logToFile()
+            } else {
+                setDebugMode(value: false)
+            }
+        }
 
         loadNibs()
         // Set navBar not translucent by default.
