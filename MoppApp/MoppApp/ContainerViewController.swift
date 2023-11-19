@@ -351,9 +351,10 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
 
     }
 
-    func instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: MoppLibSignature) -> Void {
+    func instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: MoppLibSignature, kind: ContainerSignatureCell.Kind) -> Void {
         let signatureDetailsViewController = UIStoryboard.container.instantiateViewController(of: SignatureDetailsViewController.self)
         signatureDetailsViewController.moppLibSignature = moppLibSignatureDetails
+        signatureDetailsViewController.signatureKind = kind
         self.navigationController?.pushViewController(signatureDetailsViewController, animated: true)
     }
 }
@@ -940,7 +941,7 @@ extension ContainerViewController : UITableViewDelegate {
             break
         case .signatures:
             if let signature = getSignature(indexPathRow: indexPath.row) {
-                instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: signature)
+                instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: signature, kind: .signature)
             }
             break
         case .missingSignatures:
@@ -963,7 +964,7 @@ extension ContainerViewController : UITableViewDelegate {
             break
         case .containerTimestamps:
             if let token = getTimestampToken(indexPathRow: indexPath.row) {
-                instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: token)
+                instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: token, kind: .timestamp)
             }
             break
         }

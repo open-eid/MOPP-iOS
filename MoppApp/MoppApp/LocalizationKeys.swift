@@ -56,6 +56,7 @@ enum LocKey : String
     case signatureViewBeginLabelAccessibility = "signature-view-begin-label-accessibility"
     case signatureViewBeginButton = "signature-view-begin-button"
     case signatureDetailsTitle = "signature-details-title"
+    case timestampDetailsTitle = "timestamp-details-title"
     case certificateDetailsTitle = "certificate-details-title"
     case signingRecentContainers = "signing-recent-containers"
     case menuButton = "menu-button"
