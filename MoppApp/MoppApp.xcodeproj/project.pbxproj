@@ -181,6 +181,7 @@
 		DF32A6812909F0FA00AE5F82 /* FileLogUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A6802909F0FA00AE5F82 /* FileLogUtil.swift */; };
 		DF32A690290C983100AE5F82 /* MessageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A68E290C983100AE5F82 /* MessageUtil.swift */; };
 		DF32A691290C983100AE5F82 /* ErrorUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A68F290C983100AE5F82 /* ErrorUtil.swift */; };
+		DF35B1922AEAE32A0018AC7E /* PersonalCodeField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF35B1912AEAE32A0018AC7E /* PersonalCodeField.swift */; };
 		DF3950602AD766DF005D96AC /* KeychainUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF39505F2AD766DF005D96AC /* KeychainUtil.swift */; };
 		DF3D299D23F5ADB7007181B8 /* MimeTypeExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */; };
 		DF3D29CF23F6B3CF007181B8 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; };
@@ -517,6 +518,7 @@
 		DF32A6802909F0FA00AE5F82 /* FileLogUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLogUtil.swift; sourceTree = "<group>"; };
 		DF32A68E290C983100AE5F82 /* MessageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageUtil.swift; sourceTree = "<group>"; };
 		DF32A68F290C983100AE5F82 /* ErrorUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorUtil.swift; sourceTree = "<group>"; };
+		DF35B1912AEAE32A0018AC7E /* PersonalCodeField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalCodeField.swift; sourceTree = "<group>"; };
 		DF39505F2AD766DF005D96AC /* KeychainUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainUtil.swift; sourceTree = "<group>"; };
 		DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypeExtractor.swift; sourceTree = "<group>"; };
 		DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -977,6 +979,7 @@
 				DFEE73032A151423003428E4 /* ScaledTextView.swift */,
 				DF17ABCD29C0F86E009711DF /* BarButton.swift */,
 				DF51499D29E98127008AB161 /* ScaledTextField.swift */,
+				DF35B1912AEAE32A0018AC7E /* PersonalCodeField.swift */,
 			);
 			name = "Custom classes";
 			sourceTree = "<group>";
@@ -1658,6 +1661,7 @@
 				C52E82781FC1D3ED0074B280 /* MenuViewController.swift in Sources */,
 				C50DCCC71FC32A2500D48E16 /* MyeIDViewController.swift in Sources */,
 				DF26DC8326CD45670073ABA7 /* SivaUtil.swift in Sources */,
+				DF35B1922AEAE32A0018AC7E /* PersonalCodeField.swift in Sources */,
 				DFF3C3B5233231F20079458A /* Notification+Additions.swift in Sources */,
 				C50DCD071FC7126100D48E16 /* ContainerSignatureCell.swift in Sources */,
 				DF46181F2962E464003A1B56 /* FileUtil.swift in Sources */,
