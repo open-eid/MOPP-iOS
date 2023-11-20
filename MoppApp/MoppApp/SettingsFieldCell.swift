@@ -47,6 +47,7 @@ class SettingsFieldCell: UITableViewCell {
             return
         }
         titleLabel.isAccessibilityElement = false
+        titleLabel.textColor = UIColor.moppText
         textField.accessibilityLabel = L(.settingsRpUuidTitle)
         textField.accessibilityUserInputLabels = [L(.voiceControlSigningService)]
         if UIAccessibility.isVoiceOverRunning {

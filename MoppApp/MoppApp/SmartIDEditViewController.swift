@@ -76,7 +76,9 @@ class SmartIDEditViewController : MoppViewController, TokenFlowSigning {
 
         titleLabel.text = L(.smartIdTitle)
         countryLabel.text = L(.smartIdCountryTitle)
+        countryLabel.textColor = UIColor.moppText
         idCodeLabel.text = L(.signingIdcodeTitle)
+        idCodeLabel.textColor = UIColor.moppText
         cancelButton.setTitle(L(.actionCancel).uppercased())
         signButton.setTitle(L(.actionSign).uppercased())
         rememberLabel.text = L(.signingRememberMe)
