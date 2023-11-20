@@ -15,7 +15,7 @@ div {
     color: #363739; // MOPP text
 }
 a:link {
-    text-decoration: none;
+    text-decoration: underline;
 }
 img {
     max-width: 70%;
