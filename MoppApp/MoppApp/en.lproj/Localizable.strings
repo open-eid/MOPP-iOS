@@ -461,6 +461,7 @@
 
 // ** Accessibility introduction **
 "accessibility-introduction-title" = "Accessibility";
+"accessibility-link" = "More information can be found on here: https://www.id.ee/ligipaasetavuse-teatis/";
 "accessibility-introduction" = "RIA DigiDoc is designed to comply with the WCAG 2.1 AA accessibility guidelines. This means that the RIA DigiDoc application has been developed using the principles that the application should be usable by the blind and people with visual, mobility, and strength impairments.";
 "accessibility-introduction-2" = "Accessibility can be improved by using built-in assistive tools on your smart device. You can find an overview of the main assistive tools below.";
 "accessibility-introduction-screen-reader-header" = "Screen reader";

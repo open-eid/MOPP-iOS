@@ -83,6 +83,7 @@ class AccessibilityViewController : MoppViewController {
         
         let introText: NSMutableAttributedString = NSMutableAttributedString()
         introText.append(textStyle(text: L(.accessibilityIntroduction), textType: .paragraph))
+        introText.append(textStyle(text: L(.accessibilityLink), textType: .paragraph))
         introText.append(textStyle(text: L(.accessibilityIntroduction2), textType: .paragraph))
         introText.append(textStyle(text: L(.accessibilityIntroductionScreenReaderHeader), textType: .header))
         introText.append(textStyle(text: L(.accessibilityIntroductionScreenReaderIntroduction), textType: .paragraph))
