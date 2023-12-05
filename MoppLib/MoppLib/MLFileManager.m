@@ -96,14 +96,6 @@
   return nil;
 }
 
-- (void)copyFileWithPath:(NSString *)sourcePath toPath:(NSString *)destinationPath {
-  NSError *error;
-  [self.fileManager copyItemAtPath:sourcePath toPath:destinationPath error:&error];
-  if (error) {
-    MLLog(@"copyFileWithPath error: %@", error);
-  }
-}
-
 - (BOOL)fileExistsAtPath:(NSString *)filePath {
   BOOL exists = [self.fileManager fileExistsAtPath:filePath];
   return exists;

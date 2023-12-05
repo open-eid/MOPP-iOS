@@ -76,16 +76,10 @@ public:
     return path.UTF8String;
   }
 
-  virtual std::string TSUrl() const override {
+  std::string TSUrl() const override {
       NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
       NSString *tsaUrl = [defaults stringForKey:@"kTimestampUrlKey"];
       return [tsaUrl length] != 0 ? tsaUrl.UTF8String : moppLibConfiguration.TSAURL.UTF8String;
-  }
-
-  virtual std::string PKCS12Cert() const override {
-    NSBundle *bundle = [NSBundle bundleForClass:[MoppLibDigidocManager class]];
-    NSString *path = [bundle pathForResource:@"798.p12" ofType:@""];
-    return path.UTF8String;
   }
 
   std::string verifyServiceUri() const override {
@@ -100,7 +94,7 @@ public:
       return moppLibConfiguration.TSLURL.UTF8String;
   }
     
-  virtual std::vector<digidoc::X509Cert> TSCerts() const override {
+  std::vector<digidoc::X509Cert> TSCerts() const override {
       NSMutableArray<NSString *> *certBundle = [NSMutableArray arrayWithArray:moppLibConfiguration.CERTBUNDLE];
       if (moppLibConfiguration.TSACERT != NULL) {
           [certBundle addObject:moppLibConfiguration.TSACERT];
@@ -108,11 +102,11 @@ public:
       return stringsToX509Certs(certBundle);
   }
 
-  virtual std::vector<digidoc::X509Cert> verifyServiceCerts() const override {
+  std::vector<digidoc::X509Cert> verifyServiceCerts() const override {
       return stringsToX509Certs(moppLibConfiguration.CERTBUNDLE);
   }
 
-  virtual std::string ocsp(const std::string &issuer) const override {
+  std::string ocsp(const std::string &issuer) const override {
     NSString *ocspIssuer = [NSString stringWithCString:issuer.c_str() encoding:[NSString defaultCStringEncoding]];
       printLog(@"Received OCSP url: %@", OCSPUrl);
     if ([moppLibConfiguration.OCSPISSUERS objectForKey:ocspIssuer]) {
@@ -156,7 +150,7 @@ public:
     // Comment in / out to see / hide libdigidocpp logs
     // Currently enabled on DEBUG mode
 
-    virtual int logLevel() const override {
+    int logLevel() const override {
         if (isDebugMode() || isLoggingEnabled()) {
             return 4;
         } else {
@@ -202,7 +196,7 @@ private:
   std::vector<unsigned char> sign(const std::string &, const std::vector<unsigned char> &) const override
   {
     // THROW("Not implemented");
-    return std::vector<unsigned char>();
+    return {};
   }
 
   digidoc::X509Cert _cert;
@@ -217,8 +211,6 @@ private:
 
 static std::unique_ptr<digidoc::Container> docContainer = nil;
 static digidoc::Signature *signature = nil;
-
-static std::string profile = "time-stamp";
 
 
 
@@ -335,7 +327,7 @@ static std::string profile = "time-stamp";
         printLog(@"\nSetting signature value...\n");
         signature->setSignatureValue(calculatedSignatureBase64);
         printLog(@"\nExtending signature profile...\n");
-        signature->extendSignatureProfile(profile);
+        signature->extendSignatureProfile("time-stamp");
         printLog(@"\nValidating signature...\n");
         digidoc::Signature::Validator *validator = new digidoc::Signature::Validator(signature);
         printLog(@"\nValidator status: %u\n", validator->status());
@@ -402,7 +394,7 @@ static std::string profile = "time-stamp";
     
     NSLog(@"\nSetting profile info...\n");
     NSLog(@"Role data - roles: %@, city: %@, state: %@, zip: %@, country: %@", roleData.ROLES, roleData.CITY, roleData.STATE, roleData.ZIP, roleData.COUNTRY);
-    signer->setProfile(profile);
+    signer->setProfile("time-stamp");
     signer->setSignatureProductionPlace(std::string([roleData.CITY UTF8String] ?: ""), std::string([roleData.STATE UTF8String] ?: ""), std::string([roleData.ZIP UTF8String] ?: ""), std::string([roleData.COUNTRY UTF8String] ?: ""));
     
     std::vector<std::string> roles;
@@ -824,11 +816,9 @@ NSString* getOCSPUrl(const digidoc::X509Cert &cert)  {
         [profiles addObject:[[NSString alloc] initWithBytes:signature->profile().c_str() length:signature->profile().size() encoding:NSUTF8StringEncoding]];
     }
 
-    std::string profile = "time-stamp";
-
     NSLog(@"\nSetting profile info...\n");
     NSLog(@"Role data - roles: %@, city: %@, state: %@, zip: %@, country: %@", roleData.ROLES, roleData.CITY, roleData.STATE, roleData.ZIP, roleData.COUNTRY);
-    signer->setProfile(profile);
+    signer->setProfile("time-stamp");
     signer->setSignatureProductionPlace(std::string([roleData.CITY UTF8String] ?: ""), std::string([roleData.STATE UTF8String] ?: ""), std::string([roleData.ZIP UTF8String] ?: ""), std::string([roleData.COUNTRY UTF8String] ?: ""));
   
     std::vector<std::string> roles;
@@ -863,7 +853,7 @@ NSString* getOCSPUrl(const digidoc::X509Cert &cert)  {
         std::vector<unsigned char> vec(buffer, buffer + size);
 
         signature->setSignatureValue(vec);
-        signature->extendSignatureProfile(profile);
+        signature->extendSignatureProfile("time-stamp");
         signature->validate();
           successManagedContainer->save();
         NSError *error;
@@ -1067,12 +1057,6 @@ NSString* getOCSPUrl(const digidoc::X509Cert &cert)  {
         appInfo = [NSString stringWithFormat:@"%@ Devices: %@", appInfo, [connectedDevices componentsJoinedByString:@", "]];
     }
     return appInfo;
-}
-
-- (NSString *)pkcs12Cert {
-    DigiDocConf *conf = new DigiDocConf(std::string(), nil);
-    std::string certPath = conf->PKCS12Cert();
-    return [NSString stringWithUTF8String:certPath.c_str()];
 }
 
 @end
