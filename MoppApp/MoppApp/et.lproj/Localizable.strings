@@ -59,6 +59,7 @@
 "signature-view-begin-label-accessibility" = "Vali fail allkirjastamiseks või kontrollimiseks";
 "signature-view-begin-button" = "VALI FAIL";
 "signature-details-title" = "Allkirja detailid";
+"timestamp-details-title" = "Ajatempli detailid";
 "certificate-details-title" = "Sertifikaadi detailid";
 "menu-button" = "Menüü";
 
@@ -519,3 +520,4 @@
 "voice-control-role-state" = "State";
 "voice-control-role-country" = "Country";
 "voice-control-role-zip" = "Zip";
+"voice-control-role-and-address" = "Role and address";

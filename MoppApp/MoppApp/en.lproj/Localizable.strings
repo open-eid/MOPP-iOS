@@ -59,6 +59,7 @@
 "signature-view-begin-label-accessibility" = "Choose a file to sign or validate";
 "signature-view-begin-button" = "CHOOSE FILE";
 "signature-details-title" = "Signature details";
+"timestamp-details-title" = "Timestamp details";
 "certificate-details-title" = "Certificate details";
 "menu-button" = "Menu";
 
@@ -519,3 +520,4 @@
 "voice-control-role-state" = "State";
 "voice-control-role-country" = "Country";
 "voice-control-role-zip" = "Zip";
+"voice-control-role-and-address" = "Role and address";

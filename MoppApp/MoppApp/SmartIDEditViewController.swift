@@ -50,7 +50,7 @@ class CountryTextField: MyTextField {
 
 class SmartIDEditViewController : MoppViewController, TokenFlowSigning {
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var idCodeTextField: UITextField!
+    @IBOutlet weak var idCodeTextField: PersonalCodeField!
     @IBOutlet weak var countryTextField: UITextField!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var countryLabel: UILabel!
@@ -151,6 +151,7 @@ class SmartIDEditViewController : MoppViewController, TokenFlowSigning {
             text.count >= 11 &&
             !PersonalCodeValidator.isPersonalCodeValid(personalCode: text) {
             sender.deleteBackward()
+            verifySigningCapability()
         }
     }
 
@@ -339,6 +340,17 @@ extension SmartIDEditViewController : UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.moveCursorToEnd()
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        // Verify signing capability after user has deleted a number
+        if let idCodeField = textField as? PersonalCodeField {
+            idCodeField.onDeleteButtonClicked = {
+                self.verifySigningCapability()
+            }
+        }
+        
+        return true
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

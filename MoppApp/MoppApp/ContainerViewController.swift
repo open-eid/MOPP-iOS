@@ -351,9 +351,10 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
 
     }
 
-    func instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: MoppLibSignature) -> Void {
+    func instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: MoppLibSignature, kind: ContainerSignatureCell.Kind) -> Void {
         let signatureDetailsViewController = UIStoryboard.container.instantiateViewController(of: SignatureDetailsViewController.self)
         signatureDetailsViewController.moppLibSignature = moppLibSignatureDetails
+        signatureDetailsViewController.signatureKind = kind
         self.navigationController?.pushViewController(signatureDetailsViewController, animated: true)
     }
 }
@@ -603,7 +604,8 @@ extension ContainerViewController : UITableViewDataSource {
         case .header:
             let cell = tableView.dequeueReusableCell(withType: ContainerHeaderCell.self, for: indexPath)!
             cell.delegate = self
-            let isEditingButtonShown: Bool = !isForPreview && (state == .opened)
+            let isEditingButtonShown: Bool = !isForPreview && (state == .opened || state == .created) &&
+                (isSignaturesEmpty && !isEncrypted && !isDecrypted)
             cell.populate(name: containerViewDelegate.getContainerFilename(), isEditButtonEnabled: isEditingButtonShown)
             return cell
         case .search:
@@ -733,7 +735,7 @@ extension ContainerViewController : UITableViewDataSource {
     }
 
     func getRoleDetails(signatureIndex: Int) -> MoppLibRoleAddressData? {
-        return (signingContainerViewDelegate.getSignature(index: signatureIndex) as? MoppLibSignature)?.roleAndAddressData
+        return getSignature(indexPathRow: signatureIndex)?.roleAndAddressData
     }
     
     func isRoleDetailsEmpty(signatureIndex: Int) -> Bool {
@@ -940,7 +942,7 @@ extension ContainerViewController : UITableViewDelegate {
             break
         case .signatures:
             if let signature = getSignature(indexPathRow: indexPath.row) {
-                instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: signature)
+                instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: signature, kind: .signature)
             }
             break
         case .missingSignatures:
@@ -963,7 +965,7 @@ extension ContainerViewController : UITableViewDelegate {
             break
         case .containerTimestamps:
             if let token = getTimestampToken(indexPathRow: indexPath.row) {
-                instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: token)
+                instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: token, kind: .timestamp)
             }
             break
         }

@@ -1,6 +1,6 @@
 //
-//  MoppLibCertificate.h
-//  MoppLib
+//  PersonalCodeField.swift
+//  MoppApp
 //
 /*
  * Copyright 2017 - 2023 Riigi Infosüsteemi Amet
@@ -21,9 +21,16 @@
  *
  */
 
-#include <Foundation/Foundation.h>
-#import "MoppLibCerificatetData.h"
+import Foundation
 
-@interface MoppLibCertificate : NSObject
-+ (void)certData:(MoppLibCerificatetData *)certData updateWithDerEncoding:(NSData*)data;
-@end
+class PersonalCodeField: MyTextField {
+    var onDeleteButtonClicked: (() -> Void)?
+
+    override func deleteBackward() {
+        super.deleteBackward()
+
+        self.moveCursorToEnd()
+        
+        onDeleteButtonClicked?()
+    }
+}

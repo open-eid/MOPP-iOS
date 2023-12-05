@@ -56,6 +56,7 @@ enum LocKey : String
     case signatureViewBeginLabelAccessibility = "signature-view-begin-label-accessibility"
     case signatureViewBeginButton = "signature-view-begin-button"
     case signatureDetailsTitle = "signature-details-title"
+    case timestampDetailsTitle = "timestamp-details-title"
     case certificateDetailsTitle = "certificate-details-title"
     case signingRecentContainers = "signing-recent-containers"
     case menuButton = "menu-button"
@@ -476,4 +477,5 @@ enum LocKey : String
     case voiceControlRoleState = "voice-control-role-state";
     case voiceControlRoleCountry = "voice-control-role-country";
     case voiceControlRoleZip = "voice-control-role-zip";
+    case voiceControlRoleAndAddress = "voice-control-role-and-address";
 }
