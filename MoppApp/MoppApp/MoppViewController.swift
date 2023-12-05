@@ -90,24 +90,34 @@ class MoppViewController : UIViewController {
     }
 
     func setupNavigationItemForPushedViewController(title: String, filePath: String = "") {
-        let titleLabel = UILabel()
-        titleLabel.text = title
-        titleLabel.textColor = UIColor.black
-        titleLabel.textAlignment = .center
 
-        navigationItem.titleView = titleLabel
+        navigationItem.titleView = getTitleLabel(forTitle: title)
+        navigationItem.setLeftBarButton(getBackBarButtomItem(), animated: true)
 
-        let backBarButtonItem = BarButton(image: UIImage(named: "navBarBack"), style: .plain, target: self, action: #selector(backAction))
-        backBarButtonItem.accessibilityLabel = L(.backButton)
-        navigationItem.setLeftBarButton(backBarButtonItem, animated: true)
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: .layoutChanged, argument: navigationItem.leftBarButtonItem)
         }
+        
         if !filePath.isEmpty {
             let shareBarButtonItem = WrapperUIBarButtonItem(image: UIImage(named: "navBarShare"), style: .plain, target: self, action: #selector(shareAction(sender:)))
             shareBarButtonItem.filePath = filePath
             navigationItem.setRightBarButton(shareBarButtonItem, animated: true)
         }
+    }
+    
+    func getTitleLabel(forTitle title: String) -> UILabel {
+        let titleLabel = UILabel()
+        titleLabel.text = title
+        titleLabel.textColor = .black
+        titleLabel.textAlignment = .center
+
+        return titleLabel
+    }
+    
+    func getBackBarButtomItem() -> BarButton {
+        let backBarButtonItem = BarButton(image: UIImage(named: "navBarBack"), style: .plain, target: self, action: #selector(backAction))
+        backBarButtonItem.accessibilityLabel = L(.backButton)
+        return backBarButtonItem
     }
 
     @objc func backAction() {

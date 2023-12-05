@@ -33,37 +33,13 @@
 
 @implementation MoppLibCertificate
 
-+ (void)certData:(MoppLibCerificatetData *)certData updateWithDerEncodingData:(const unsigned char *)data length:(size_t)length {
++ (void)certData:(MoppLibCerificatetData *)certData updateWithDerEncoding:(NSData*)data {
     try {
-        digidoc::X509Cert digiDocCert = digidoc::X509Cert(data, length, digidoc::X509Cert::Format::Der);
+        auto bytes = reinterpret_cast<const unsigned char*>(data.bytes);
+        digidoc::X509Cert digiDocCert(bytes, data.length);
         [self setCertData:certData digiDocCert:digiDocCert];
     } catch(const digidoc::Exception &e) {
         printLog(@"Code: %u, message: %@", e.code(), [NSString stringWithCString:e.msg().c_str() encoding:[NSString defaultCStringEncoding]]);
-    }
-}
-
-+ (digidoc::X509Cert)certToDer:(NSString *)certString {
-    NSString* cleanCert = [MoppLibDigidocManager removeBeginAndEndFromCertificate:certString];
-    NSData *decodedCert = [[NSData alloc] initWithBase64EncodedString:cleanCert options:NSDataBase64DecodingIgnoreUnknownCharacters];
-    try {
-        auto *bytes = reinterpret_cast<const unsigned char*>(decodedCert.bytes);
-        return digidoc::X509Cert(bytes, decodedCert.length, digidoc::X509Cert::Format::Der);
-    } catch(const digidoc::Exception &e) {
-        printLog(@"Code: %u, message: %@", e.code(), [NSString stringWithCString:e.msg().c_str() encoding:[NSString defaultCStringEncoding]]);
-        return digidoc::X509Cert();
-    }
-}
-
-+ (void)certData:(MoppLibCerificatetData *)certData updateWithPemEncodingData:(const unsigned char *)data length:(size_t)length certString:(NSString *)certString {
-    try {
-        digidoc::X509Cert digiDocCert = digidoc::X509Cert(data, length, digidoc::X509Cert::Format::Pem);
-        [self setCertData:certData digiDocCert:digiDocCert];
-    } catch(...) {
-        try {
-            [self setCertData:certData digiDocCert:[self certToDer:certString]];
-        } catch (digidoc::Exception e) {
-            printLog(@"Code: %u, message: %@", e.code(), [NSString stringWithCString:e.msg().c_str() encoding:[NSString defaultCStringEncoding]]);
-        }
     }
 }
 

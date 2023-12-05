@@ -604,7 +604,8 @@ extension ContainerViewController : UITableViewDataSource {
         case .header:
             let cell = tableView.dequeueReusableCell(withType: ContainerHeaderCell.self, for: indexPath)!
             cell.delegate = self
-            let isEditingButtonShown: Bool = !isForPreview && (state == .opened)
+            let isEditingButtonShown: Bool = !isForPreview && (state == .opened || state == .created) &&
+                (isSignaturesEmpty && !isEncrypted && !isDecrypted)
             cell.populate(name: containerViewDelegate.getContainerFilename(), isEditButtonEnabled: isEditingButtonShown)
             return cell
         case .search:
