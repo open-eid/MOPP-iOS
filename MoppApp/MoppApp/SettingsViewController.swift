@@ -102,9 +102,9 @@ class SettingsViewController: MoppViewController {
         timestampUrl = DefaultsHelper.timestampUrl
         isDefaultTimestampValue = DefaultsHelper.defaultSettingsSwitch
     }
-
     
     override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
         if UIAccessibility.isVoiceOverRunning {
             self.view.accessibilityElements = getAccessibilityElementsOrder()
         }

@@ -34,8 +34,6 @@
 #import "SmartToken.h"
 #include <stdio.h>
 #include <openssl/x509.h>
-#include <openssl/pem.h>
-#include <openssl/err.h>
 #import "NSData+Additions.h"
 #include "MoppLibDigidocMAnager.h"
 #import "MoppLibCertificateInfo.h"
@@ -65,16 +63,8 @@
             }
             for (Addressee* addressee in response.addressees) {
                 MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
-                NSData *certificate = addressee.cert;
-                
-                addressee.policyIdentifiers = [MoppLibDigidocManager certificatePolicyIdentifiers:certificate];
-                
-                NSString* certificateWithUTF8 = [NSString stringWithUTF8String:[certificate bytes]];
-                //Sometimes there may be a redundant line change
-                NSString *formattedCertificate = [certificateWithUTF8 stringByReplacingOccurrencesOfString:@"\n\n" withString:@"\n"];
-                NSData* decodedCertificate = [formattedCertificate dataUsingEncoding:NSUTF8StringEncoding];
-                
-                [MoppLibCertificate certData:certData updateWithPemEncodingData:[decodedCertificate bytes] length:decodedCertificate.length certString:(formattedCertificate)];
+                addressee.policyIdentifiers = [MoppLibDigidocManager certificatePolicyIdentifiers:addressee.cert];
+                [MoppLibCertificate certData:certData updateWithDerEncoding:addressee.cert];
                 addressee.type = [self formatTypeToString :certData.organization];
                 addressee.validTo = certData.expiryDate;
             }
