@@ -25,6 +25,5 @@
 #import "MoppLibCerificatetData.h"
 
 @interface MoppLibCertificate : NSObject
-+ (void)certData:(MoppLibCerificatetData *)certData updateWithDerEncodingData:(const unsigned char *)data length:(size_t)length;
-+ (void)certData:(MoppLibCerificatetData *)certData updateWithPemEncodingData:(const unsigned char *)data length:(size_t)length certString:(NSString *)certString;
++ (void)certData:(MoppLibCerificatetData *)certData updateWithDerEncoding:(NSData*)data;
 @end

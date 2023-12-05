@@ -44,7 +44,8 @@
 }
 
 + (NSString *)prepareSignature:(NSString *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData {
-    return [MoppLibDigidocManager prepareSignature:cert containerPath:containerPath roleData:roleData];
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:cert options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    return [MoppLibDigidocManager prepareSignature:data containerPath:containerPath roleData:roleData];
 }
 
 + (NSArray *)getDataToSign {
@@ -52,7 +53,8 @@
 }
 
 + (void)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure {
-    return [MoppLibDigidocManager isSignatureValid:cert signatureValue:signatureValue success:success failure:failure];
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:cert options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    return [MoppLibDigidocManager isSignatureValid:data signatureValue:signatureValue success:success failure:failure];
 }
 
 - (NSString *)moppLibVersion {
