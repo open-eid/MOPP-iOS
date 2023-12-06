@@ -90,9 +90,13 @@ class AccessibilityViewController : MoppViewController, UITextViewDelegate {
             }
             return NSMutableAttributedString(string: "\n\(text)", attributes: attributes)
         case .paragraph:
-            attributes = [NSAttributedString.Key.font : UIFont.preferredFont(forTextStyle: .body), NSAttributedString.Key.foregroundColor : UIColor.moppTitle]
+            attributes = [
+                NSAttributedString.Key.font : UIFont.preferredFont(forTextStyle: .body),
+                NSAttributedString.Key.foregroundColor : UIColor.moppTitle
+            ]
             let linkAttributes: [NSAttributedString.Key : Any] = [
-                NSAttributedString.Key.foregroundColor: UIColor.link
+                NSAttributedString.Key.foregroundColor: UIColor.link,
+                NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue
             ]
             
             do {
@@ -113,7 +117,9 @@ class AccessibilityViewController : MoppViewController, UITextViewDelegate {
             break
         case .boldText:
             if let fontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body).withSymbolicTraits(.traitBold) {
-                attributes = [NSAttributedString.Key.font : UIFont(descriptor: fontDescriptor, size: fontDescriptor.pointSize), NSAttributedString.Key.foregroundColor : UIColor.moppTitle]
+                attributes = [
+                    NSAttributedString.Key.font : UIFont(descriptor: fontDescriptor, size: fontDescriptor.pointSize),
+                    NSAttributedString.Key.foregroundColor : UIColor.moppTitle]
             } else {
                 attributes = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14, weight: .semibold), NSAttributedString.Key.foregroundColor : UIColor.moppTitle]
             }

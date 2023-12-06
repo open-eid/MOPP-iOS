@@ -20,6 +20,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
+import UIKit
 import WebKit
 
 class AboutViewController: MoppViewController, WKNavigationDelegate {
@@ -31,11 +33,10 @@ class AboutViewController: MoppViewController, WKNavigationDelegate {
         dismiss(animated: true, completion: nil)
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         webView.navigationDelegate = self
-        webView.configuration.preferences.javaScriptEnabled = false
+        webView.configuration.defaultWebpagePreferences.allowsContentJavaScript = false
 
         titleLabel.text = L(.aboutTitle)
         titleLabel.font = UIFont.moppMediumBold
