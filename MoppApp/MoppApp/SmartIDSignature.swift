@@ -27,10 +27,7 @@ class SmartIDSignature {
     static let shared: SmartIDSignature = SmartIDSignature()
 
     func createSmartIDSignature(country: String, nationalIdentityNumber: String, containerPath: String, hashType: String, roleData: MoppLibRoleAddressData?) -> Void {
-        var baseUrl = DefaultsHelper.rpUuid.isEmpty ? Configuration.getConfiguration().SIDV2PROXYURL : Configuration.getConfiguration().SIDV2SKURL
-        if baseUrl.isEmpty {
-            baseUrl = DefaultsHelper.rpUuid.isEmpty ? Configuration.getConfiguration().SIDPROXYURL : Configuration.getConfiguration().SIDSKURL
-        }
+        let baseUrl = DefaultsHelper.rpUuid.isEmpty ? Configuration.getConfiguration().SIDV2PROXYURL : Configuration.getConfiguration().SIDV2SKURL
         let uuid = DefaultsHelper.rpUuid.isEmpty ? kRelyingPartyUUID : DefaultsHelper.rpUuid
         let certBundle = Configuration.getConfiguration().CERTBUNDLE
         let backgroundTask = UIApplication.shared.beginBackgroundTask(withName: "Smart-ID")
@@ -109,7 +106,7 @@ class SmartIDSignature {
             return CancelUtil.handleCancelledRequest(errorMessageDetails: "User cancelled Smart-ID signing")
         }
 
-        SIDRequest.shared.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, requestParameters: requestParameters, allowedInteractionsOrder: allowedInteractionsOrder, trustedCertificates: trustedCertificates) { result in
+        SIDRequest.shared.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, allowedInteractionsOrder: allowedInteractionsOrder, trustedCertificates: trustedCertificates) { result in
             switch result {
             case .success(let response):
                 printLog("Received Signature (session ID): \(response.sessionID)")

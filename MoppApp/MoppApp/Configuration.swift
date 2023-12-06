@@ -37,8 +37,6 @@ internal struct MOPPConfiguration: Codable {
     let OCSPISSUERS: [String: String]
     let MIDPROXYURL: String
     let MIDSKURL: String
-    let SIDPROXYURL: String
-    let SIDSKURL: String
     let SIDV2PROXYURL: String
     let SIDV2SKURL: String
     let CERTBUNDLE: Array<String>
@@ -55,8 +53,6 @@ internal struct MOPPConfiguration: Codable {
         case OCSPISSUERS = "OCSP-URL-ISSUER"
         case MIDPROXYURL = "MID-PROXY-URL"
         case MIDSKURL = "MID-SK-URL"
-        case SIDPROXYURL = "SID-PROXY-URL"
-        case SIDSKURL = "SID-SK-URL"
         case SIDV2PROXYURL = "SIDV2-PROXY-URL"
         case SIDV2SKURL = "SIDV2-SK-URL"
         case CERTBUNDLE = "CERT-BUNDLE"
@@ -75,8 +71,6 @@ internal struct MOPPConfiguration: Codable {
         OCSPISSUERS = try container.decode([String: String].self, forKey: .OCSPISSUERS)
         MIDPROXYURL = try container.decode(String.self, forKey: .MIDPROXYURL)
         MIDSKURL = try container.decode(String.self, forKey: .MIDSKURL)
-        SIDPROXYURL = try container.decode(String.self, forKey: .SIDPROXYURL)
-        SIDSKURL = try container.decode(String.self, forKey: .SIDSKURL)
         SIDV2PROXYURL = try container.decodeIfPresent(String.self, forKey: .SIDV2PROXYURL) ?? ""
         SIDV2SKURL = try container.decodeIfPresent(String.self, forKey: .SIDV2SKURL) ?? ""
         CERTBUNDLE = try container.decode([String].self, forKey: .CERTBUNDLE)

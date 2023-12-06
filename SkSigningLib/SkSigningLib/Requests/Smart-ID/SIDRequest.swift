@@ -39,10 +39,10 @@ protocol SIDRequestProtocol {
     - Parameters:
        - baseUrl: The base URL for Smart-ID. Path "/signature/document/{documentNumber}" will be added to the base URL
        - documentNumber:
-       - requestParameters: Parameters that are sent to the service.
+       - allowedInteractionsOrder: Interaction order.
        - completionHandler: On request success, callbacks Result<SIDSessionResponse, SigningError>
     */
-    func getSignature(baseUrl: String, documentNumber: String, requestParameters: SIDSignatureRequestParametersV1?, allowedInteractionsOrder: SIDSignatureRequestParametersV2?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void)
+    func getSignature(baseUrl: String, documentNumber: String, allowedInteractionsOrder: SIDSignatureRequestParametersV2?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void)
 
     /**
     Gets session status info for Smart-ID.
@@ -66,19 +66,14 @@ public class SIDRequest: NSObject, URLSessionDelegate, SIDRequestProtocol {
     private weak var urlTask: URLSessionTask?
 
     public func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void) {
-        var url = ""
-        if baseUrl.contains("v1") {
-            url = "\(baseUrl)/certificatechoice/pno/\(country)/\(nationalIdentityNumber)"
-        } else {
-            url = "\(baseUrl)/certificatechoice/etsi/PNO\(country)-\(nationalIdentityNumber)"
-        }
+        let url = "\(baseUrl)/certificatechoice/etsi/PNO\(country)-\(nationalIdentityNumber)"
         guard UUID(uuidString: requestParameters.relyingPartyUUID) != nil else { completionHandler(.failure(.sidInvalidAccessRights)); return }
         exec(method: "Certificate", url: url, data: EncoderDecoder().encode(data: requestParameters), trustedCertificates: trustedCertificates, completionHandler: completionHandler)
     }
     
-    public func getSignature(baseUrl: String, documentNumber: String, requestParameters: SIDSignatureRequestParametersV1?, allowedInteractionsOrder: SIDSignatureRequestParametersV2?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void) {
+    public func getSignature(baseUrl: String, documentNumber: String, allowedInteractionsOrder: SIDSignatureRequestParametersV2?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void) {
         let url = "\(baseUrl)/signature/document/\(documentNumber)"
-        exec(method: !(allowedInteractionsOrder?.relyingPartyName.isEmpty ?? false) ? "RIA.SmartID v2 - Signature" : "RIA.SmartID v1 - Signature", url: url, data: allowedInteractionsOrder?.asData ?? requestParameters?.asData, trustedCertificates: trustedCertificates, completionHandler: completionHandler)
+        exec(method: allowedInteractionsOrder?.relyingPartyName ?? "RIA.SmartID v2 - Signature", url: url, data: allowedInteractionsOrder?.asData, trustedCertificates: trustedCertificates, completionHandler: completionHandler)
     }
 
     public func getSessionStatus(baseUrl: String, sessionId: String, timeoutMs: Int?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionStatusResponse, SigningError>) -> Void) {
