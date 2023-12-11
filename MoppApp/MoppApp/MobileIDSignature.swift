@@ -71,8 +71,8 @@ class MobileIDSignature {
         printLog("RIA.MobileID - Getting certificate...:\n" +
             "\tBase URL: \(baseUrl)\n" +
             "\tUUID: \(uuid)\n" +
-            "\tPhone number: \(isUsingTestMode() ? phoneNumber "xxxx")\n" +
-                 "\tNational Identity number: \(isUsingTestMode() ? nationalIdentityNumber: "xxxx")\n"
+            "\tPhone number: \(isUsingTestMode() ? phoneNumber: "xxxx")\n" +
+            "\tNational Identity number: \(isUsingTestMode() ? nationalIdentityNumber: "xxxx")\n"
         )
 
         SessionCertificate.shared.getCertificate(baseUrl: baseUrl, uuid: uuid, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, trustedCertificates: trustedCertificates) { (sessionCertificate: Result<CertificateResponse, SigningError>) in
