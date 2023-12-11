@@ -54,7 +54,6 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     @IBOutlet weak var tslURL: UILabel!
     @IBOutlet weak var sivaURL: UILabel!
     @IBOutlet weak var tsaURL: UILabel!
-    @IBOutlet weak var midSignURL: UILabel!
     @IBOutlet weak var ldapPersonURL: UILabel!
     @IBOutlet weak var ldapCorpURL: UILabel!
     @IBOutlet weak var mobileIdURL: UILabel!
@@ -214,8 +213,6 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         ldapCorpURL.text = formatString(text: "LDAP_CORP_URL:", additionalText: decodedConf.LDAPCORPURL)
         mobileIdURL.text = formatString(text: "MID-PROXY-URL: ", additionalText: decodedConf.MIDPROXYURL)
         mobileIdSKURL.text = formatString(text: "MID-SK-URL: ", additionalText: decodedConf.MIDSKURL)
-        smartIdURL.text = formatString(text: "SID-PROXY-URL: ", additionalText: decodedConf.SIDPROXYURL)
-        smartIdSKURL.text = formatString(text: "SID-SK-URL: ", additionalText: decodedConf.SIDSKURL)
         smartIdV2URL.text = formatString(text: "SIDV2-PROXY-URL: ", additionalText: decodedConf.SIDV2PROXYURL)
         smartIdV2SKUrl.text = formatString(text: "SIDV2-SK-URL: ", additionalText: decodedConf.SIDV2SKURL)
         rpUUIDInfo.text = formatString(text: "RPUUID: ", additionalText: getRPUUIDInfo())

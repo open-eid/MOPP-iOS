@@ -24,7 +24,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "CardCommands.h"
-
+#import "MoppLibRoleAddressData.h"
 
 @interface CardActionsManager : NSObject
 + (CardActionsManager *)sharedInstance;
@@ -51,7 +51,7 @@
 
 - (void)code:(CodeType)type retryCountWithSuccess:(NumberBlock)success failure:(FailureBlock)failure;
 
-- (void)addSignature:(NSString *)containerPath withPin2:(NSString *)pin2 success:(void (^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure;
+- (void)addSignature:(NSString *)containerPath withPin2:(NSString *)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(void (^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure;
 
 - (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 

@@ -48,9 +48,9 @@ class CountryTextField: MyTextField {
     }
 }
 
-class SmartIDEditViewController : MoppViewController {
+class SmartIDEditViewController : MoppViewController, TokenFlowSigning {
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var idCodeTextField: UITextField!
+    @IBOutlet weak var idCodeTextField: PersonalCodeField!
     @IBOutlet weak var countryTextField: UITextField!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var countryLabel: UILabel!
@@ -151,28 +151,26 @@ class SmartIDEditViewController : MoppViewController {
             text.count >= 11 &&
             !PersonalCodeValidator.isPersonalCodeValid(personalCode: text) {
             TextUtil.deleteBackward(textField: sender)
+            verifySigningCapability()
         }
     }
 
     @IBAction func cancelAction() {
         dismiss(animated: false) { [weak self] in
             guard let sself = self else { return }
-            sself.delegate?.smartIDEditViewControllerDidDismiss(cancelled: true, country: nil, idCode: nil)
+            sself.delegate?.smartIDEditViewControllerDidDismiss(
+                cancelled: true,
+                country: nil,
+                idCode: nil)
             UIAccessibility.post(notification: .screenChanged, argument: L(.signingCancelled))
         }
     }
 
     @IBAction func signAction() {
-        let country: String = {
-            switch countryViewPicker.selectedRow(inComponent: 0) {
-            case 1: return "LT"
-            case 2: return "LV"
-            default: return "EE"
-            }
-        }()
+       
         if rememberSwitch.isOn {
             DefaultsHelper.sidIdCode = idCodeTextField.text ?? String()
-            DefaultsHelper.sidCountry = country
+            DefaultsHelper.sidCountry = getCountry()
             rememberSwitch.accessibilityUserInputLabels = ["Disable remember me"]
         }
         else {
@@ -180,9 +178,16 @@ class SmartIDEditViewController : MoppViewController {
             DefaultsHelper.sidCountry = String()
             rememberSwitch.accessibilityUserInputLabels = ["Enable remember me"]
         }
-        dismiss(animated: false) { [weak self] in
-            guard let sself = self else { return }
-            sself.delegate?.smartIDEditViewControllerDidDismiss(cancelled: false, country: country, idCode: sself.idCodeTextField.text)
+        if DefaultsHelper.isRoleAndAddressEnabled {
+            let roleAndAddressView = UIStoryboard.tokenFlow.instantiateViewController(of: RoleAndAddressViewController.self)
+            roleAndAddressView.modalPresentationStyle = .overCurrentContext
+            roleAndAddressView.modalTransitionStyle = .crossDissolve
+            roleAndAddressView.viewController = self
+            present(roleAndAddressView, animated: true)
+        } else {
+            dismiss(animated: false) { [weak self] in
+                self?.sign(nil)
+            }
         }
     }
     
@@ -191,6 +196,26 @@ class SmartIDEditViewController : MoppViewController {
             rememberSwitch.accessibilityUserInputLabels = ["Disable remember me"]
         } else {
             rememberSwitch.accessibilityUserInputLabels = ["Enable remember me"]
+        }
+    }
+    
+    func getCountry() -> String {
+        return {
+            switch countryViewPicker.selectedRow(inComponent: 0) {
+            case 1: return "LT"
+            case 2: return "LV"
+            default: return "EE"
+            }
+        }()
+    }
+    
+    func sign(_ pin: String?) {
+        dismiss(animated: false) { [weak self] in
+            guard let sself = self else { return }
+            sself.delegate?.smartIDEditViewControllerDidDismiss(
+                cancelled: false,
+                country: sself.getCountry(),
+                idCode: sself.idCodeTextField.text)
         }
     }
 
@@ -315,6 +340,17 @@ extension SmartIDEditViewController : UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.moveCursorToEnd()
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        // Verify signing capability after user has deleted a number
+        if let idCodeField = textField as? PersonalCodeField {
+            idCodeField.onDeleteButtonClicked = {
+                self.verifySigningCapability()
+            }
+        }
+        
+        return true
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

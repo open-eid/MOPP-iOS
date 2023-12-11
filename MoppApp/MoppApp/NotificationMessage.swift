@@ -23,7 +23,7 @@
 
 import Foundation
 
-struct NotificationMessage {
+struct NotificationMessage: Equatable {
     let isSuccess: Bool
     let text: String
 }

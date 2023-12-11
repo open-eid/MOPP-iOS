@@ -388,9 +388,11 @@ extension AddresseeViewController : ContainerAddresseeCellDelegate {
 }
 
 extension AddresseeViewController : LandingViewControllerTabButtonsDelegate {
-    func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId, sender: UIView) {
+    func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId, sender: UIView, containerType: MoppApp.ContainerType) {
         addresseeViewControllerDelegate?.addAddresseeToContainer(selectedAddressees: selectedAddressees)
     }
+    
+    func changeContainer(tabButtonId: LandingViewController.TabButtonId, containerType: MoppApp.ContainerType) {}
 }
 
 extension AddresseeViewController : ContainerFoundAddresseeCellDelegate {

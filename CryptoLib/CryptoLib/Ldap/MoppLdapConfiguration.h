@@ -25,9 +25,10 @@
 
 @interface MoppLdapConfiguration : NSObject
 
+@property (nonatomic, strong) NSArray<NSString *>* LDAPCERTS;
 @property (nonatomic, strong) NSString *LDAPPERSONURL;
 @property (nonatomic, strong) NSString *LDAPCORPURL;
 
-- (id) initWithLdapConfiguration:(NSString *)LDAPPERSONURL LDAPCORPURL:(NSString *)LDAPCORPURL;
+- (id) initWithLdapConfiguration:(NSArray<NSString *>*)LDAPCERTS LDAPPERSONURL:(NSString *)LDAPPERSONURL LDAPCORPURL:(NSString *)LDAPCORPURL;
 
 @end

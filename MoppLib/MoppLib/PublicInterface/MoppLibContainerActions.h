@@ -25,6 +25,7 @@
 #import "MoppLibContainer.h"
 #import "MoppLibSignature.h"
 #import "MoppLibConstants.h"
+#import "MoppLibRoleAddressData.h"
 
 @interface MoppLibContainerActions : NSObject
 
@@ -115,7 +116,7 @@
  * @param success       Block to be called on successful completion of action. Includes container data as MoppLibContainer and BOOL to indicate if signature was added.
  * @param failure       Block to be called when action fails. Includes error.
  */
-- (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure;
+- (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure;
 
 
 

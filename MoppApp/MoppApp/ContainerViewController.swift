@@ -184,7 +184,11 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
+        let containerExtension = URL(fileURLWithPath: containerPath).pathExtension
+        
+        LandingViewController.shared.containerType = containerExtension.isCdocContainerExtension ? .cdoc : .asic
+        
         landingViewController.tabButtonsDelegate = self
 
         reloadData()
@@ -239,7 +243,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                         tabButtons = [.shareButton]
                         setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
                     } else {
-                        tabButtons = [.shareButton, .signButton]
+                        tabButtons = [.shareButton, .encryptButton, .signButton]
                         setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
                     }
                 }
@@ -247,7 +251,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                     if isDecrypted {
                         tabButtons = []
                     } else {
-                        tabButtons = [.shareButton, .decryptButton]
+                        tabButtons = [.shareButton, .signButton, .decryptButton]
                     }
                     setupNavigationItemForPushedViewController(title: L(.containerDecryptionTitle))
                 } else {
@@ -291,7 +295,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     func isDdocOrAsicsContainer(containerPath: String) -> Bool {
         let fileLocation: URL = URL(fileURLWithPath: containerPath)
 
-        let forbiddenMimetypes: [String] = [ContainerFormatDdocMimetype, ContainerFormatAsicsMimetype]
+        let forbiddenMimetypes: [String] = [ContainerFormatDdocMimetype, ContainerFormatAsicsMimetype, ContainerFormatAdocMimetype]
 
         if isAsicsContainer() || isDdocContainer() {
             return true
@@ -326,7 +330,10 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                 break
             }
             if isEmptyFileInContainer {
-                self.notifications.append(NotificationMessage(isSuccess: false, text: L(.fileImportFailedEmptyFileImported)))
+                let emptyFileNotification = NotificationMessage(isSuccess: false, text: L(.fileImportFailedEmptyFileImported))
+                if !self.notifications.contains(where: { $0 == emptyFileNotification }) {
+                    self.notifications.append(emptyFileNotification)
+                }
                 isEmptyFileWarningSet = true
             }
         }
@@ -344,27 +351,75 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
 
     }
 
-    func instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: MoppLibSignature) -> Void {
+    func instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: MoppLibSignature, kind: ContainerSignatureCell.Kind) -> Void {
         let signatureDetailsViewController = UIStoryboard.container.instantiateViewController(of: SignatureDetailsViewController.self)
         signatureDetailsViewController.moppLibSignature = moppLibSignatureDetails
+        signatureDetailsViewController.signatureKind = kind
         self.navigationController?.pushViewController(signatureDetailsViewController, animated: true)
     }
 }
 
 extension ContainerViewController : LandingViewControllerTabButtonsDelegate {
-    func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId, sender: UIView) {
-        if tabButtonId == .signButton {
+    func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId, sender: UIView, containerType: MoppApp.ContainerType) {
+        if tabButtonId == .signButton && containerType == .asic {
             signingContainerViewDelegate.startSigning()
-        }
-        else if tabButtonId == .shareButton {
+        } else if tabButtonId == .shareButton {
             LandingViewController.shared.shareFile(using: URL(fileURLWithPath: containerPath), sender: sender, completion: { bool in })
-        }
-        else if tabButtonId == .encryptButton {
+        } else if tabButtonId == .encryptButton && containerType == .cdoc {
             cryptoContainerViewDelegate.startEncrypting()
-        }
-        else if tabButtonId == .decryptButton {
+        } else if tabButtonId == .decryptButton && containerType == .cdoc {
             cryptoContainerViewDelegate.startDecrypting()
         }
+    }
+    
+    func changeContainer(tabButtonId: LandingViewController.TabButtonId, containerType: MoppApp.ContainerType) {
+        if tabButtonId == .encryptButton && containerType == .asic {
+            LandingViewController.shared.containerType = .cdoc
+        } else if tabButtonId == .signButton && containerType == .cdoc {
+            LandingViewController.shared.containerType = .asic
+        }
+        
+        do {
+            printLog("Creating a new \(containerType == .asic ? "crypto" : "ASIC") container from \(containerType == .asic ? "ASIC" : "crypto") container")
+            let switchedContainerType: MoppApp.ContainerType = containerType == .asic ? .cdoc : .asic
+            try createNewContainer(ofType: switchedContainerType, containerPath: containerPath)
+        } catch {
+            printLog("Unable to create \(containerType == .asic ? "a crypto" : "an ASIC") container from \(containerType == .asic ? "ASIC" : "crypto") container. Error: \(error.localizedDescription)")
+            return
+        }
+    }
+
+    private func createNewContainer(ofType type: MoppApp.ContainerType, containerPath: String) throws {
+        let tempFileURL = try saveContainerToTempFolder(containerPath: containerPath)
+        LandingViewController.shared.containerType = type
+        createNewContainer(with: URL(fileURLWithPath: tempFileURL.path), dataFilePaths: [tempFileURL.path], isEmptyFileImported: false)
+    }
+    
+    private func saveContainerToTempFolder(containerPath: String) throws -> URL {
+        var containerFileData: Data? = nil
+        do {
+            containerFileData = try Data(contentsOf: URL(fileURLWithPath: containerPath))
+        } catch {
+            printLog("Unable to get container file data")
+            throw NSError(domain: "ContainerFileDataError", code: 1)
+        }
+
+        guard let fileData = containerFileData else {
+            printLog("File data is empty. Cannot open the file")
+            throw NSError(domain: "ContainerFileDataEmptyError", code: 1)
+        }
+
+        let destinationPath = URL(fileURLWithPath: MoppFileManager.shared.tempDocumentsDirectoryPath(), isDirectory: true).appendingPathComponent(URL(fileURLWithPath: containerPath).lastPathComponent)
+        
+        if !FileManager.default.fileExists(atPath: destinationPath.path) {
+            MoppFileManager.shared.createFile(atPath: destinationPath.path, contents: fileData)
+        }
+        
+        if FileManager.default.fileExists(atPath: destinationPath.path) {
+            return destinationPath
+        }
+        
+        throw NSError(domain: "FileDoesNotExistError", code: 1)
     }
 }
 
@@ -457,7 +512,7 @@ extension ContainerViewController : UITableViewDataSource {
                 kind: .signature,
                 isTimestamp: false,
                 showBottomBorder: row < (asicsSignatures.isEmpty ? signingContainerViewDelegate.getSignaturesCount() : asicsSignatures.count) - 1,
-                showRemoveButton: !isForPreview && signingContainerViewDelegate.isContainerSignable(),
+                showRemoveButton: !isForPreview && signingContainerViewDelegate.isContainerSignable(), showRoleDetailsButton: !isRoleDetailsEmpty(signatureIndex: row),
                 signatureIndex: row)
             cell.removeButton.accessibilityLabel = L(.signatureRemoveButton)
             return cell
@@ -558,7 +613,8 @@ extension ContainerViewController : UITableViewDataSource {
         case .header:
             let cell = tableView.dequeueReusableCell(withType: ContainerHeaderCell.self, for: indexPath)!
             cell.delegate = self
-            let isEditingButtonShown: Bool = !isForPreview && (state == .opened)
+            let isEditingButtonShown: Bool = !isForPreview && (state == .opened || state == .created) &&
+                (isSignaturesEmpty && !isEncrypted && !isDecrypted)
             cell.populate(name: containerViewDelegate.getContainerFilename(), isEditButtonEnabled: isEditingButtonShown)
             return cell
         case .search:
@@ -601,7 +657,7 @@ extension ContainerViewController : UITableViewDataSource {
                         kind: .timestamp,
                         isTimestamp: true,
                         showBottomBorder: row < signingContainerViewDelegate.getTimestampTokensCount() - 1,
-                        showRemoveButton: false,
+                        showRemoveButton: false, showRoleDetailsButton: !isRoleDetailsEmpty(signatureIndex: row),
                         signatureIndex: row)
                 } else {
                     updateState(.opened)
@@ -615,7 +671,7 @@ extension ContainerViewController : UITableViewDataSource {
                 kind: .timestamp,
                 isTimestamp: true,
                 showBottomBorder: row < self.signingContainerViewDelegate.getTimestampTokensCount() - 1,
-                showRemoveButton: false,
+                showRemoveButton: false, showRoleDetailsButton: !isRoleDetailsEmpty(signatureIndex: row),
                 signatureIndex: row)
 
             return cell
@@ -687,6 +743,15 @@ extension ContainerViewController : UITableViewDataSource {
         }
     }
 
+    func getRoleDetails(signatureIndex: Int) -> MoppLibRoleAddressData? {
+        return getSignature(indexPathRow: signatureIndex)?.roleAndAddressData
+    }
+    
+    func isRoleDetailsEmpty(signatureIndex: Int) -> Bool {
+        let roleDetails = getRoleDetails(signatureIndex: signatureIndex)
+        return roleDetails?.roles.isEmpty ?? true && roleDetails?.city.isNilOrEmpty ?? true && roleDetails?.state.isNilOrEmpty ?? true && roleDetails?.country.isNilOrEmpty ?? true && roleDetails?.zip.isNilOrEmpty ?? true
+    }
+    
     @objc private func openPreview(_ sender: PreviewFileTapGestureRecognizer) {
         guard let dataFile: String = sender.dataFile, let containerFilePath: String = sender.containerFilePath, let isShareButtonNeeded: Bool = sender.isShareButtonNeeded else {
             printLog("Unable to get data file, container file or share button information")
@@ -886,7 +951,7 @@ extension ContainerViewController : UITableViewDelegate {
             break
         case .signatures:
             if let signature = getSignature(indexPathRow: indexPath.row) {
-                instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: signature)
+                instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: signature, kind: .signature)
             }
             break
         case .missingSignatures:
@@ -909,7 +974,7 @@ extension ContainerViewController : UITableViewDelegate {
             break
         case .containerTimestamps:
             if let token = getTimestampToken(indexPathRow: indexPath.row) {
-                instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: token)
+                instantiateSignatureDetailsViewControllerWithData(moppLibSignatureDetails: token, kind: .timestamp)
             }
             break
         }
@@ -1033,6 +1098,14 @@ extension ContainerViewController : UITableViewDelegate {
 }
 
 extension ContainerViewController : ContainerSignatureDelegate {
+    func showRoleDetails(signatureIndex: Int) {
+        let roleDetailsViewController = UIStoryboard.container.instantiateViewController(of: RoleDetailsViewController.self)
+        
+        roleDetailsViewController.roleDetails = getRoleDetails(signatureIndex: signatureIndex)
+        
+        self.navigationController?.pushViewController(roleDetailsViewController, animated: true)
+    }
+    
     func containerSignatureRemove(signatureIndex: Int) {
         signingContainerViewDelegate.removeSignature(index: signatureIndex)
     }

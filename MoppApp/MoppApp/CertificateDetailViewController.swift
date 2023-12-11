@@ -31,6 +31,7 @@ class CertificateDetailViewController: MoppViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var certificateDetail: SignatureCertificateDetail?
+    var useDefaultNavigationItems = true
     
     var certificateSections = [CertificateSection]()
     
@@ -55,8 +56,12 @@ class CertificateDetailViewController: MoppViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .white
+        
         // Top bar title and back button
-        setupNavigationItemForPushedViewController(title: L(.certificateDetailsTitle))
+        if useDefaultNavigationItems {
+            setupNavigationItemForPushedViewController(title: L(.certificateDetailsTitle))
+        }
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -72,6 +77,16 @@ class CertificateDetailViewController: MoppViewController {
         if let landingViewController = LandingViewController.shared {
             landingViewController.presentButtons([])
         }
+
+        navigationItem.titleView = getTitleLabel(forTitle: L(.certificateDetailsTitle))
+        navigationItem.setLeftBarButton(getBackBarButtomItem(), animated: true)
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: .layoutChanged, argument: navigationItem.leftBarButtonItem)
+        }
+    }
+    
+    @objc internal override func backAction() {
+        dismiss(animated: true)
     }
     
     func setCertificateDetails() -> Void {

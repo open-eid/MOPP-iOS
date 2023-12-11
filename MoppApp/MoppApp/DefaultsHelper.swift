@@ -54,6 +54,13 @@ fileprivate let kRPUuidKey = "kRPUuidKey"
 fileprivate let kSIDIDCodeKey = "kSIDIDCodeKey"
 fileprivate let kSIDCountryKey = "kSIDCountryKey"
 fileprivate let kSmartIdRememberMeKey = "kSmartIdRememberMeKey"
+
+fileprivate let kRoleNamesKey = "kRoleNamesKey"
+fileprivate let kRoleCityKey = "kRoleCityKey"
+fileprivate let kRoleStateKey = "kRoleStateKey"
+fileprivate let kRoleCountryKey = "kRoleCountryKey"
+fileprivate let kRoleZipKey = "kRoleZipKey"
+
 fileprivate let kTimestampUrlKey = "kTimestampUrlKey"
 fileprivate let kSettingsDefaultSwitchKey = "kSettingsDefaultSwitchKey"
 fileprivate let kCrashReportSettingKey = "kCrashReportSettingKey"
@@ -64,6 +71,7 @@ fileprivate let kIsTimestampedDdoc = "kIsTimestampedDdoc"
 fileprivate let kIsFileLoggingEnabled = "kIsFileLoggingEnabled"
 fileprivate let kIsFileLoggingRunning = "kIsFileLoggingRunning"
 fileprivate let kTSAFileCertName = "kTSAFileCertName"
+fileprivate let kIsRoleAndAddressEnabled = "kIsRoleAndAddressEnabled"
 
 class DefaultsHelper
 {
@@ -244,4 +252,57 @@ class DefaultsHelper
         }
     }
 
+    class var isRoleAndAddressEnabled: Bool {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kIsRoleAndAddressEnabled)
+        }
+        get {
+            return UserDefaults.standard.bool(forKey: kIsRoleAndAddressEnabled)
+        }
+    }
+    
+    class var roleNames: [String] {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kRoleNamesKey)
+        }
+        get {
+            return (UserDefaults.standard.value(forKey: kRoleNamesKey) as? [String]) ?? [String]()
+        }
+    }
+    
+    class var roleCity: String {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kRoleCityKey)
+        }
+        get {
+            return (UserDefaults.standard.value(forKey: kRoleCityKey) as? String) ?? String()
+        }
+    }
+    
+    class var roleState: String {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kRoleStateKey)
+        }
+        get {
+            return (UserDefaults.standard.value(forKey: kRoleStateKey) as? String) ?? String()
+        }
+    }
+    
+    class var roleCountry: String {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kRoleCountryKey)
+        }
+        get {
+            return (UserDefaults.standard.value(forKey: kRoleCountryKey) as? String) ?? String()
+        }
+    }
+    
+    class var roleZip: String {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kRoleZipKey)
+        }
+        get {
+            return (UserDefaults.standard.value(forKey: kRoleZipKey) as? String) ?? String()
+        }
+    }
 }

@@ -20,22 +20,26 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-import Foundation
+
+import UIKit
 
 protocol ContainerSignatureDelegate: AnyObject {
+    func showRoleDetails(signatureIndex: Int)
     func containerSignatureRemove(signatureIndex: Int)
 }
 
 
 class ContainerSignatureCell: UITableViewCell {
     static let height: CGFloat = 60
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var personalCodeLabel: UILabel!
-    @IBOutlet weak var signedInfoLabel: UILabel!
+    @IBOutlet weak var nameLabel: ScaledLabel!
+    @IBOutlet weak var personalCodeLabel: ScaledLabel!
+    @IBOutlet weak var roleInfo: ScaledLabel!
+    @IBOutlet weak var signedInfoLabel: ScaledLabel!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var bottomBorderView: UIView!
-    @IBOutlet weak var signatureStatusLabel: UILabel!
-    @IBOutlet weak var removeButton: UIButton!
+    @IBOutlet weak var signatureStatusLabel: ScaledLabel!
+    @IBOutlet weak var signatureInfoView: UIView!
+    @IBOutlet weak var removeButton: ScaledButton!
     
     weak var delegate: ContainerSignatureDelegate? = nil
     
@@ -61,6 +65,9 @@ class ContainerSignatureCell: UITableViewCell {
     var kind: Kind = .signature
     var signatureIndex: Int!
     
+    @objc func showRoleDetails(sender: UITapGestureRecognizer) {
+        delegate?.showRoleDetails(signatureIndex: signatureIndex)
+    }
 
     @IBAction func removeAction() {
         delegate?.containerSignatureRemove(signatureIndex: signatureIndex)
@@ -70,7 +77,12 @@ class ContainerSignatureCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func populate(with signature: MoppLibSignature, kind: Kind, isTimestamp: Bool, showBottomBorder: Bool, showRemoveButton: Bool, signatureIndex: Int) {
+    func populate(with signature: MoppLibSignature, kind: Kind, isTimestamp: Bool, showBottomBorder: Bool, showRemoveButton: Bool, showRoleDetailsButton: Bool, signatureIndex: Int) {
+        
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(showRoleDetails(sender:)))
+        signatureInfoView.isUserInteractionEnabled = true
+        signatureInfoView.addGestureRecognizer(tapRecognizer)
+        
         self.kind = kind
         self.signatureIndex = signatureIndex
         var signatureStatusDescription : NSMutableAttributedString
@@ -99,9 +111,14 @@ class ContainerSignatureCell: UITableViewCell {
             ? (isTimestamp ? "Icon_digitempel" : "Icon_Allkiri_small")
             : "Icon_ajatempel")
         
+        setRoleText(signature: signature)
+        
         bottomBorderView.isHidden = !showBottomBorder
         removeButton.isHidden = !showRemoveButton
         removeButton.accessibilityUserInputLabels = ["\(L(.voiceControlRemoveSignature)) \(signatureIndex + 1)"]
+        signatureInfoView.isHidden = isTimestamp || !showRoleDetailsButton
+        signatureInfoView.accessibilityLabel = L(.roleAndAddress)
+        signatureInfoView.accessibilityUserInputLabels = ["\(L(.voiceControlRoleAndAddress)) \(signatureIndex + 1)"]
     }
     
     func getSignatureStatusText(translationPrefix: String, translationSufix: String, valid: Bool) -> NSMutableAttributedString{
@@ -119,6 +136,20 @@ class ContainerSignatureCell: UITableViewCell {
         return signatureStatus
     }
     
+    func setRoleText(signature: MoppLibSignature) {
+        let rolesData = signature.roleAndAddressData.roles
+        if let roles = rolesData, !roles.isEmpty {
+            roleInfo.text = roles.joined(separator: " / ")
+            roleInfo.isHidden = false
+            setNeedsUpdateConstraints()
+        } else {
+            roleInfo.text = ""
+            roleInfo.isHidden = true
+            setNeedsUpdateConstraints()
+        }
+        roleInfo.resetLabelProperties()
+    }
+    
     private func checkSignatureValidity(signature: MoppLibSignature) -> Void {
         if (signature.timestamp == nil) {
             signedInfoLabel.text = ""
@@ -130,5 +161,9 @@ class ContainerSignatureCell: UITableViewCell {
         } else {
             nameLabel.text = signature.subjectName
         }
+    }
+    
+    deinit {
+        printLog("Deinit ContainerSignatureCell")
     }
 }

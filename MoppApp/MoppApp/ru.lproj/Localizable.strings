@@ -59,6 +59,7 @@
 "signature-view-begin-label-accessibility" = "Выберите файл для подписания или проверки";
 "signature-view-begin-button" = "ВЫБРАТЬ ФАЙЛ";
 "signature-details-title" = "Детали подписи";
+"timestamp-details-title" = "Детали временого штампа";
 "certificate-details-title" = "Детали сертификата";
 "menu-button" = "Меню";
 
@@ -228,6 +229,13 @@
 "smart-id-country-latvia" = "Латвия";
 "smart-id-challenge-title" = "Подписать с помощью приложения Smart-ID";
 "smart-id-sign-help-title" = "Убедитесь в правильности контрольного кода и введите PIN2-код для Smart-ID";
+"role-and-address" = "Роль и адрес";
+"role-and-address-title" = "Введите свою роль и адрес";
+"role-and-address-role-title" = "Роль / pезолюция";
+"role-and-address-city-title" = "Город";
+"role-and-address-state-title" = "Уезд";
+"role-and-address-country-title" = "Страна";
+"role-and-address-zip-title" = "Индекс";
 "container-sign-title" = "Подписание";
 "container-encryption-title" = "Шифрование";
 "container-decryption-title" = "Дешифрование";
@@ -362,6 +370,7 @@
 "settings-timestamp-url-title" = "Доступ к услугам отметки времени";
 "settings-timestamp-url-placeholder" = "";
 "settings-timestamp-use-default-title" = "Использовать значение по умолчанию";
+"settings-role-and-address-title" = "Спросить роль и адрес при каждом подписании";
 "settings-value-changed" = "Значение настройки изменено";
 "settings-timestamp-cert-title" = "SSL сертификат службы отметок времени";
 "settings-timestamp-cert-issued-to-label" = "Выдан:";
@@ -507,3 +516,9 @@
 "voice-control-tab-decrypt" = "Decrypt";
 "voice-control-tab-confirm" = "Confirm";
 "voice-control-search-recipients" = "Search recipients";
+"voice-control-role-role" = "Role";
+"voice-control-role-city" = "City";
+"voice-control-role-state" = "State";
+"voice-control-role-country" = "Country";
+"voice-control-role-zip" = "Zip";
+"voice-control-role-and-address" = "Role and address";

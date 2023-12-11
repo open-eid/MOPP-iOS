@@ -21,7 +21,8 @@
  *
  */
 protocol LandingViewControllerTabButtonsDelegate: AnyObject {
-    func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId, sender: UIView)
+    func landingViewControllerTabButtonTapped(tabButtonId: LandingViewController.TabButtonId, sender: UIView, containerType: MoppApp.ContainerType)
+    func changeContainer(tabButtonId: LandingViewController.TabButtonId, containerType: MoppApp.ContainerType)
 }
 
 class LandingViewController : UIViewController, NativeShare, ContainerActions
@@ -212,7 +213,11 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
     @objc func tabButtonTapAction(sender: UIButton) {
         let tabButton = buttonsCollection.first { $0.button == sender }!
         let buttonId = TabButtonId(rawValue: tabButton.accessibilityIdentifier!)!
-        tabButtonsDelegate?.landingViewControllerTabButtonTapped(tabButtonId: buttonId, sender: sender)
+        if (buttonId == .encryptButton && containerType == .asic) || (buttonId == .signButton && containerType == .cdoc) {
+            tabButtonsDelegate?.changeContainer(tabButtonId: buttonId, containerType: containerType)
+        } else {
+            tabButtonsDelegate?.landingViewControllerTabButtonTapped(tabButtonId: buttonId, sender: sender, containerType: containerType)
+        }
     }
 
     func setupTab(for controller: UIViewController, title: String, image imageName: String, selectedImage selectedImageName: String) {
@@ -297,39 +302,39 @@ extension LandingViewController {
                 view.accessibilityUserInputLabels = [L(.voiceControlTabCrypto)]
                 break
             case "myeIDTab":
-                view.accessibilityLabel = selectedTab == .myeIDTab ? setTabAccessibilityLabel(isTabSelected: true, tabName: L(.myEidInfoMyEidAccessibility), positionInRow: "3", viewCount: String(visibleViews.count)) : setTabAccessibilityLabel(isTabSelected: false, tabName: L(.myEidInfoMyEidAccessibility), positionInRow: "3", viewCount: String(visibleViews.count))
+                view.accessibilityLabel = selectedTab == .myeIDTab ? setTabAccessibilityLabel(isTabSelected: true, tabName: L(.myEidInfoMyEidAccessibility), positionInRow: "3", viewCount: String(visibleViews.count)).lowercased() : setTabAccessibilityLabel(isTabSelected: false, tabName: L(.myEidInfoMyEidAccessibility), positionInRow: "3", viewCount: String(visibleViews.count)).lowercased()
                 view.accessibilityUserInputLabels = [L(.voiceControlTabMyEid)]
                 break
             case "shareButton":
-                view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabShareButtonAccessibility), positionInRow: "1", viewCount: String(visibleViews.count))
+                view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabShareButtonAccessibility), positionInRow: "1", viewCount: String(visibleViews.count)).lowercased()
                 view.accessibilityTraits = UIAccessibilityTraits.button
                 view.accessibilityUserInputLabels = [L(.voiceControlTabShare)]
                 break
             case "signButton":
                 if buttonIDs.contains(TabButtonId.signButton) && buttonIDs.count == 1 {
-                    view.accessibilityLabel = L(.tabSignButton)
+                    view.accessibilityLabel = L(.tabSignButton).lowercased()
                 } else {
-                    view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabSignButton), positionInRow: "2", viewCount: String(visibleViews.count))
+                    view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabSignButton), positionInRow: "2", viewCount: String(visibleViews.count)).lowercased()
                 }
                 view.accessibilityTraits = UIAccessibilityTraits.button
                 view.accessibilityUserInputLabels = [L(.voiceControlTabSign)]
                 break
             case "encryptButton":
-                view.accessibilityLabel = L(.tabEncryptButtonAccessibility)
+                view.accessibilityLabel = L(.tabEncryptButtonAccessibility).lowercased()
                 view.accessibilityTraits = UIAccessibilityTraits.button
                 view.accessibilityUserInputLabels = [L(.voiceControlTabEncrypt)]
                 break
             case "decryptButton":
                 if buttonIDs.contains(TabButtonId.decryptButton) && buttonIDs.contains(TabButtonId.shareButton) {
-                    view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabDecryptButton), positionInRow: "2", viewCount: String(visibleViews.count))
+                    view.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.tabDecryptButton), positionInRow: "2", viewCount: String(visibleViews.count)).lowercased()
                 } else {
-                    view.accessibilityLabel = L(.tabDecryptButton)
+                    view.accessibilityLabel = L(.tabDecryptButton).lowercased()
                 }
                 view.accessibilityTraits = UIAccessibilityTraits.button
                 view.accessibilityUserInputLabels = [L(.voiceControlTabDecrypt)]
                 break
             case "confirmButton":
-                view.accessibilityLabel = L(.tabConfirmButton)
+                view.accessibilityLabel = L(.tabConfirmButton).lowercased()
                 view.accessibilityTraits = UIAccessibilityTraits.button
                 view.accessibilityUserInputLabels = [L(.voiceControlTabConfirm)]
                 break

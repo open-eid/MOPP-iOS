@@ -34,8 +34,6 @@
 #import "SmartToken.h"
 #include <stdio.h>
 #include <openssl/x509.h>
-#include <openssl/pem.h>
-#include <openssl/err.h>
 #import "NSData+Additions.h"
 #include "MoppLibDigidocMAnager.h"
 #import "MoppLibCertificateInfo.h"
@@ -43,7 +41,7 @@
 #import "Reachability.h"
 
 @implementation MoppLibCryptoActions
-    
+
 + (MoppLibCryptoActions *)sharedInstance {
     static dispatch_once_t pred;
     static MoppLibCryptoActions *sharedInstance = nil;
@@ -57,28 +55,20 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSError *error;
         CdocInfo *response;
-         @try {
+        @try {
             CdocParser *cdocParser = [CdocParser new];
             response = [cdocParser parseCdocInfo:fullPath];
             if (response.addressees == nil || response.dataFiles == nil) {
-                 error = [MoppLibError generalError];
+                error = [MoppLibError generalError];
             }
             for (Addressee* addressee in response.addressees) {
                 MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
-                NSData *certificate = addressee.cert;
-                
-                addressee.policyIdentifiers = [MoppLibDigidocManager certificatePolicyIdentifiers:certificate];
-                
-                NSString* certificateWithUTF8 = [NSString stringWithUTF8String:[certificate bytes]];
-                //Sometimes there may be a redundant line change
-                NSString *formattedCertificate = [certificateWithUTF8 stringByReplacingOccurrencesOfString:@"\n\n" withString:@"\n"];
-                NSData* decodedCertificate = [formattedCertificate dataUsingEncoding:NSUTF8StringEncoding];
-
-                [MoppLibCertificate certData:certData updateWithPemEncodingData:[decodedCertificate bytes] length:decodedCertificate.length certString:(formattedCertificate)];
+                addressee.policyIdentifiers = [MoppLibDigidocManager certificatePolicyIdentifiers:addressee.cert];
+                [MoppLibCertificate certData:certData updateWithDerEncoding:addressee.cert];
                 addressee.type = [self formatTypeToString :certData.organization];
                 addressee.validTo = certData.expiryDate;
             }
-         }
+        }
         @catch (...) {
             error = [MoppLibError generalError];
         }
@@ -177,23 +167,26 @@
     }
     return Unknown;
 }
-    
+
 - (void)searchLdapData:(NSString *)identifier success:(LdapBlock)success failure:(FailureBlock)failure configuration:(MoppLdapConfiguration *) moppLdapConfiguration {
     
     Reachability *reachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [reachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-      failure([MoppLibError noInternetConnectionError]);
-      return;
+        failure([MoppLibError noInternetConnectionError]);
+        return;
     }
     
+    NSString *certsPath = [self getLibraryCertsFolderPath];
+    NSString *ldapCertsPath = [self getCertFolderPath:certsPath fileName:@"ldapCerts.pem"];
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSMutableArray *response = [[NSMutableArray alloc] init];
+        NSArray *response = [[NSMutableArray alloc] init];
         NSMutableArray *filteredResponse = [[NSMutableArray alloc] init];
         NSError *error;
         OpenLdap *ldap = [[OpenLdap alloc] init];
         @try {
-            response = [ldap search:identifier configuration:moppLdapConfiguration];
+            response = [ldap search:identifier configuration:moppLdapConfiguration withCertificate:ldapCertsPath];
             
             if (response.count == 0) {
                 failure([MoppLibError ldapResponseNotFoundError]);
@@ -270,6 +263,28 @@
             error == nil ? success(filteredResponse) : failure(error);
         });
     });
+}
+
+- (NSString*) getLibraryCertsFolderPath {
+    NSArray *libraryPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    if ([libraryPaths count] > 0) {
+        NSString *libraryPath = libraryPaths[0];
+        NSString *certsPath = [libraryPath stringByAppendingPathComponent:@"LDAPCerts"];
+        return certsPath;
+    }
+    return nil;
+}
+
+- (NSString*) getCertFolderPath:(NSString *)directoryPath fileName:(NSString *)fileName {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *filePath = [directoryPath stringByAppendingPathComponent:fileName];
+    if ([fileManager fileExistsAtPath:filePath]) {
+        return filePath;
+    } else {
+        NSLog(@"File %@ does not exist at directory path: %@", fileName, filePath);
+    }
+    
+    return @"";
 }
 
 @end

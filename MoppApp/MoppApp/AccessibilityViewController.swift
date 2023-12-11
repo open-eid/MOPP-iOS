@@ -21,26 +21,51 @@
  *
  */
 
-import Foundation
+import UIKit
 
-class AccessibilityViewController : MoppViewController {
-    
+class AccessibilityViewController : MoppViewController, UITextViewDelegate {
+
+    @IBOutlet weak var scrollView: UIScrollView!
+
     @IBOutlet weak var closeButton: UIButton!
 
     @IBOutlet weak var titleLabel: UILabel!
-    
-    @IBOutlet weak var textView: UITextView!
-    
+
+    @IBOutlet weak var contentView: UIView!
+
     @IBAction func dismissAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         titleLabel.text = L(.accessibilityIntroductionTitle)
         
-        textView.attributedText = accessibilityIntroductionText()
+        var previousLabel: UILabel?
+        
+        let accessibilityLabels = accessibilityIntroductionText()
+        for label in accessibilityLabels {
+            label.numberOfLines = 0
+            label.textAlignment = .left
+            label.translatesAutoresizingMaskIntoConstraints = false
+            
+            contentView.addSubview(label)
+            
+            NSLayoutConstraint.activate([
+                label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+                label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+                label.topAnchor.constraint(equalTo: previousLabel?.bottomAnchor ?? contentView.topAnchor, constant: 20)
+            ])
+            
+            previousLabel = label
+        }
+
+        if let lastLabel = accessibilityLabels.last {
+            NSLayoutConstraint.activate([
+                lastLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+            ])
+        }
         
         closeButton.accessibilityLabel = L(.closeButton)
         closeButton.accessibilityUserInputLabels = [L(.voiceControlClose)]
@@ -63,42 +88,103 @@ class AccessibilityViewController : MoppViewController {
             } else {
                 attributes = [NSAttributedString.Key.font : UIFont.preferredFont(forTextStyle: .headline), NSAttributedString.Key.foregroundColor : UIColor.moppTitle]
             }
-            return NSMutableAttributedString(string: "\n\n\(text)\n", attributes:attributes)
+            return NSMutableAttributedString(string: "\n\(text)", attributes: attributes)
         case .paragraph:
-            attributes = [NSAttributedString.Key.font : UIFont.preferredFont(forTextStyle: .body), NSAttributedString.Key.foregroundColor : UIColor.moppTitle]
+            attributes = [
+                NSAttributedString.Key.font : UIFont.preferredFont(forTextStyle: .body),
+                NSAttributedString.Key.foregroundColor : UIColor.moppTitle
+            ]
+            let linkAttributes: [NSAttributedString.Key : Any] = [
+                NSAttributedString.Key.foregroundColor: UIColor.link,
+                NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue
+            ]
+            
+            do {
+                let detector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+                let matches = detector.matches(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count))
+                
+                for match in matches {
+                    if let range = Range(match.range, in: text) {
+                        let mutableAttributedString = NSMutableAttributedString(string: text, attributes: attributes)
+                        mutableAttributedString.addAttributes(linkAttributes, range: NSRange(range, in: text))
+                        
+                        return NSAttributedString(attributedString: mutableAttributedString)
+                    }
+                }
+            } catch let error {
+                print("Error creating link attributes: \(error.localizedDescription)")
+            }
             break
         case .boldText:
             if let fontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body).withSymbolicTraits(.traitBold) {
-                attributes = [NSAttributedString.Key.font : UIFont(descriptor: fontDescriptor, size: fontDescriptor.pointSize), NSAttributedString.Key.foregroundColor : UIColor.moppTitle]
+                attributes = [
+                    NSAttributedString.Key.font : UIFont(descriptor: fontDescriptor, size: fontDescriptor.pointSize),
+                    NSAttributedString.Key.foregroundColor : UIColor.moppTitle]
             } else {
                 attributes = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14, weight: .semibold), NSAttributedString.Key.foregroundColor : UIColor.moppTitle]
             }
-            break
         }
         
-        return NSMutableAttributedString(string: "\n\(text)\n", attributes:attributes)
+        return NSMutableAttributedString(string: "\(text)", attributes: attributes)
     }
     
-    private func accessibilityIntroductionText() -> NSAttributedString {
+    private func setupLabelWithAccessibilityTraits(attributedString: NSAttributedString, traits: UIAccessibilityTraits) -> UILabel {
+        let label = ScaledLabel()
+        label.numberOfLines = 0
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLinkTap(_:))))
+        label.attributedText = attributedString
+        label.accessibilityTraits = traits
+        label.accessibilityLabel = attributedString.string
+        return label
+    }
+    
+    private func accessibilityIntroductionText() -> [UILabel] {
+        var labels: [UILabel] = []
         
-        let introText: NSMutableAttributedString = NSMutableAttributedString()
-        introText.append(textStyle(text: L(.accessibilityIntroduction), textType: .paragraph))
-        introText.append(textStyle(text: L(.accessibilityIntroduction2), textType: .paragraph))
-        introText.append(textStyle(text: L(.accessibilityIntroductionScreenReaderHeader), textType: .header))
-        introText.append(textStyle(text: L(.accessibilityIntroductionScreenReaderIntroduction), textType: .paragraph))
-        introText.append(textStyle(text: L(.accessibilityIntroductionScreenReaderIntroduction2), textType: .paragraph))
-        introText.append(textStyle(text: L(.accessibilityIntroductionScreenReaderIntroductionApps), textType: .boldText))
-        introText.append(textStyle(text: L(.accessibilityIntroductionScreenReaderIntroductioniOS), textType: .paragraph))
-        introText.append(textStyle(text: L(.accessibilityIntroductionScreenReaderIntroductionAndroid), textType: .paragraph))
-        introText.append(textStyle(text: L(.accessibilityIntroductionScreenMagnificationIntroductionHeader), textType: .header))
-        introText.append(textStyle(text: L(.accessibilityIntroductionScreenMagnificationIntroduction), textType: .paragraph))
-        introText.append(textStyle(text: L(.accessibilityIntroductionScreenMagnificationScreenTools), textType: .boldText))
-        introText.append(textStyle(text: L(.accessibilityIntroductionScreenMagnificationScreenToolsiOS), textType: .paragraph))
-        introText.append(textStyle(text: L(.accessibilityIntroductionScreenMagnificationScreenToolsAndroid), textType: .paragraph))
-        introText.append(textStyle(text: L(.accessibilityIntroductionScreenMagnificationTools), textType: .boldText))
-        introText.append(textStyle(text: L(.accessibilityIntroductionScreenMagnificationToolsiOS), textType: .paragraph))
-        introText.append(textStyle(text: L(.accessibilityIntroductionScreenMagnificationToolsAndroid), textType: .paragraph))
+        let texts: [(String, AccessibilityViewTextType)] = [
+            (L(.accessibilityIntroduction), .paragraph),
+            (L(.accessibilityIntroduction2), .paragraph),
+            (L(.accessibilityIntroductionScreenReaderHeader), .header),
+            (L(.accessibilityIntroductionScreenReaderIntroduction), .paragraph),
+            (L(.accessibilityIntroductionScreenReaderIntroduction2), .paragraph),
+            (L(.accessibilityIntroductionScreenReaderIntroductionApps), .boldText),
+            (L(.accessibilityIntroductionScreenReaderIntroductioniOS), .paragraph),
+            (L(.accessibilityIntroductionScreenReaderIntroductionAndroid), .paragraph),
+            (L(.accessibilityIntroductionScreenMagnificationIntroductionHeader), .header),
+            (L(.accessibilityIntroductionScreenMagnificationIntroduction), .paragraph),
+            (L(.accessibilityIntroductionScreenMagnificationScreenTools), .boldText),
+            (L(.accessibilityIntroductionScreenMagnificationScreenToolsiOS), .paragraph),
+            (L(.accessibilityIntroductionScreenMagnificationScreenToolsAndroid), .paragraph),
+            (L(.accessibilityIntroductionScreenMagnificationTools), .boldText),
+            (L(.accessibilityIntroductionScreenMagnificationToolsiOS), .paragraph),
+            (L(.accessibilityIntroductionScreenMagnificationToolsAndroid), .paragraph)
+        ]
         
-        return introText
+        for (text, textType) in texts {
+            let attributedString = textStyle(text: text, textType: textType)
+            var traits: UIAccessibilityTraits = []
+            
+            if textType == .header {
+                traits.insert(UIAccessibilityTraits.header)
+            }
+            
+            let label = setupLabelWithAccessibilityTraits(attributedString: attributedString, traits: traits)
+            labels.append(label)
+        }
+        
+        return labels
+    }
+    
+    @objc func handleLinkTap(_ sender: UITapGestureRecognizer) {
+        if let label = sender.view as? UILabel, let text = label.text {
+            let attributedString = NSMutableAttributedString(string: text)
+
+            let firstLink = attributedString.string.getFirstLinkInMessage()
+
+            if let link = firstLink, !link.isEmpty, let url = URL(string: link) {
+                UIApplication.shared.open(url)
+            }
+        }
     }
 }

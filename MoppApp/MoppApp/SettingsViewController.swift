@@ -36,6 +36,7 @@ class SettingsViewController: MoppViewController {
         case timestampUrl
         case useDefault
         case tsaCert
+        case roleAndAddress
     }
     
     struct Field {
@@ -45,6 +46,7 @@ class SettingsViewController: MoppViewController {
             case timestamp
             case defaultSwitch
             case tsaCert
+            case state
         }
         
         let id: FieldId
@@ -90,7 +92,8 @@ class SettingsViewController: MoppViewController {
             kind: .tsaCert,
             title: L(.settingsTimestampCertTitle),
             placeholderText: NSAttributedString(string: L(.settingsTimestampCertTitle)),
-            value: "")
+            value: ""),
+        Field(id: .roleAndAddress, kind: .state, title: L(.roleAndAddressRoleTitle), placeholderText: NSAttributedString(string: L(.roleAndAddressRoleTitle)), value: "")
     ]
     
     override func viewDidLoad() {
@@ -99,9 +102,9 @@ class SettingsViewController: MoppViewController {
         timestampUrl = DefaultsHelper.timestampUrl
         isDefaultTimestampValue = DefaultsHelper.defaultSettingsSwitch
     }
-
     
     override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
         if UIAccessibility.isVoiceOverRunning {
             self.view.accessibilityElements = getAccessibilityElementsOrder()
         }
@@ -121,7 +124,8 @@ class SettingsViewController: MoppViewController {
         var fieldCellIndex: Int = 0
         var timestampCellIndex: Int = 0
         var defaultValueCellIndex: Int = 0
-        var tsaCertCell: Int = 0
+        var tsaCertCellIndex: Int = 0
+        var stateCellIndex: Int = 0
         for (index, cell) in tableView.visibleCells.enumerated() {
             if cell is SettingsHeaderCell {
                 headerCellIndex = index
@@ -132,7 +136,9 @@ class SettingsViewController: MoppViewController {
             } else if cell is SettingsDefaultValueCell {
                 defaultValueCellIndex = index
             } else if cell is SettingsTSACertCell {
-                tsaCertCell = index
+                tsaCertCellIndex = index
+            } else if cell is SettingsStateCell {
+                stateCellIndex = index
             }
         }
         
@@ -154,17 +160,36 @@ class SettingsViewController: MoppViewController {
             return []
         }
         
-        guard let tsaCertCellAccessibilityElements = tableView.visibleCells[tsaCertCell].accessibilityElements else {
+        guard let tsaCertCellAccessibilityElements = tableView.visibleCells[tsaCertCellIndex].accessibilityElements else {
             return []
+        }
+        
+        guard let stateCellAccessibilityElements = tableView.visibleCells[stateCellIndex]
+         as? SettingsStateCell,
+              let roleSwitch = stateCellAccessibilityElements.stateSwitch
+        else {
+            return []
+        }
+        
+        if timestampDefaultSwitch.isOff {
+            return [
+                timestampDefaultSwitch,
+                fieldCellAccessibilityElements,
+                timestampTextfield,
+                tsaCertCellAccessibilityElements,
+                roleSwitch,
+                headerCellAccessibilityElements,
+                timestampDefaultSwitch
+            ]
         }
         
         return [
             timestampDefaultSwitch,
             fieldCellAccessibilityElements,
             timestampTextfield,
+            roleSwitch,
             headerCellAccessibilityElements,
-            timestampDefaultSwitch,
-            tsaCertCellAccessibilityElements
+            timestampDefaultSwitch
         ]
     }
 }
@@ -236,6 +261,10 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
                     tsaCertCell.topViewController = getTopViewController()
                     tsaCertCell.populate()
                 return tsaCertCell
+            case .state:
+                let stateCell = tableView.dequeueReusableCell(withType: SettingsStateCell.self, for: indexPath)!
+                    stateCell.populate(with: field)
+                return stateCell
             }
         }
         return UITableViewCell()
@@ -295,6 +324,12 @@ extension SettingsViewController: SettingsDefaultValueCellDelegate {
             isDefaultTimestampValue = switchValue
         }
         tableView.reloadData()
+        
+        DispatchQueue.main.async {
+            if UIAccessibility.isVoiceOverRunning {
+                self.view.accessibilityElements = self.getAccessibilityElementsOrder()
+            }
+        }
     }
     
     

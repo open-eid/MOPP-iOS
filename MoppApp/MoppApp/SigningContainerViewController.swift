@@ -21,9 +21,8 @@
  *
  */
 
-import Foundation
-import MoppLib
 import UIKit
+import MoppLib
 
 class SigningContainerViewController : ContainerViewController, SigningActions, UIDocumentPickerDelegate {
     
@@ -45,9 +44,12 @@ class SigningContainerViewController : ContainerViewController, SigningActions, 
     
     func reloadNotifications() {
         // Don't add duplicate notification messages
-        for notificationMessage in notificationMessages {
+        for (index, notificationMessage) in notificationMessages.enumerated() {
             if !self.notifications.contains(where: { $0.isSuccess == notificationMessage.isSuccess && $0.text == notificationMessage.text }) {
                 self.notifications.append(notificationMessage)
+                if notificationMessage.isSuccess {
+                    notificationMessages.remove(at: index)
+                }
             }
         }
         
@@ -274,7 +276,10 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
             strongSelf.notificationMessages = []
             
             if afterSignatureCreated && container.isSignable() && !strongSelf.isForPreview {
-                strongSelf.notificationMessages.append(NotificationMessage(isSuccess: true, text: L(.containerDetailsSigningSuccess)))
+                let signingSuccessNotification = NotificationMessage(isSuccess: true, text: L(.containerDetailsSigningSuccess))
+                if !strongSelf.notificationMessages.contains(where: { $0 == signingSuccessNotification }) {
+                    strongSelf.notificationMessages.append(signingSuccessNotification)
+                }
                 
                 if UIAccessibility.isVoiceOverRunning {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {

@@ -26,11 +26,8 @@ class SmartIDSignature {
 
     static let shared: SmartIDSignature = SmartIDSignature()
 
-    func createSmartIDSignature(country: String, nationalIdentityNumber: String, containerPath: String, hashType: String) -> Void {
-        var baseUrl = DefaultsHelper.rpUuid.isEmpty ? Configuration.getConfiguration().SIDV2PROXYURL : Configuration.getConfiguration().SIDV2SKURL
-        if baseUrl.isEmpty {
-            baseUrl = DefaultsHelper.rpUuid.isEmpty ? Configuration.getConfiguration().SIDPROXYURL : Configuration.getConfiguration().SIDSKURL
-        }
+    func createSmartIDSignature(country: String, nationalIdentityNumber: String, containerPath: String, hashType: String, roleData: MoppLibRoleAddressData?) -> Void {
+        let baseUrl = DefaultsHelper.rpUuid.isEmpty ? Configuration.getConfiguration().SIDV2PROXYURL : Configuration.getConfiguration().SIDV2SKURL
         let uuid = DefaultsHelper.rpUuid.isEmpty ? kRelyingPartyUUID : DefaultsHelper.rpUuid
         let certBundle = Configuration.getConfiguration().CERTBUNDLE
         let backgroundTask = UIApplication.shared.beginBackgroundTask(withName: "Smart-ID")
@@ -48,7 +45,7 @@ class SmartIDSignature {
             )
         }
         
-        getCertificate(baseUrl: baseUrl, country: country, nationalIdentityNumber: nationalIdentityNumber, requestParameters: certparams, containerPath: containerPath, trustedCertificates: certBundle, errorHandler: errorHandler) { documentNumber, cert, hash in
+        getCertificate(baseUrl: baseUrl, country: country, nationalIdentityNumber: nationalIdentityNumber, requestParameters: certparams, containerPath: containerPath, roleData: roleData, trustedCertificates: certBundle, errorHandler: errorHandler) { documentNumber, cert, hash in
             var signparams: SIDSignatureRequestParameters = SIDSignatureRequestParameters()
             if baseUrl.contains("v1") {
                 signparams = SIDSignatureRequestParametersV1(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, hash: hash, hashType: hashType, displayText: L(.simToolkitSignDocumentTitle).asUnicode, vcChoice: true)
@@ -67,7 +64,7 @@ class SmartIDSignature {
         }
     }
 
-    private func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, containerPath: String, trustedCertificates: [String]?, errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String, String, String) -> Void) {
+    private func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, containerPath: String, roleData: MoppLibRoleAddressData?, trustedCertificates: [String]?, errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String, String, String) -> Void) {
         printLog("Getting certificate...")
 
         if RequestCancel.shared.isRequestCancelled() {
@@ -88,7 +85,7 @@ class SmartIDSignature {
                         guard let certificateValue = sessionStatus.cert?.value else {
                             return errorHandler(.generalError, "Unable to get certificate value")
                         }
-                        guard let hash = self.setupControlCode(certificateValue: certificateValue, containerPath: containerPath) else {
+                        guard let hash = self.setupControlCode(certificateValue: certificateValue, containerPath: containerPath, roleData: roleData) else {
                             return errorHandler(.generalError, "Error getting hash. Is 'cert' empty: \(certificateValue.isEmpty). ContainerPath: \(containerPath)")
                         }
                         completionHandler(documentNumber, certificateValue, hash)
@@ -109,7 +106,7 @@ class SmartIDSignature {
             return CancelUtil.handleCancelledRequest(errorMessageDetails: "User cancelled Smart-ID signing")
         }
 
-        SIDRequest.shared.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, requestParameters: requestParameters, allowedInteractionsOrder: allowedInteractionsOrder, trustedCertificates: trustedCertificates) { result in
+        SIDRequest.shared.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, allowedInteractionsOrder: allowedInteractionsOrder, trustedCertificates: trustedCertificates) { result in
             switch result {
             case .success(let response):
                 printLog("Received Signature (session ID): \(response.sessionID)")
@@ -213,8 +210,8 @@ class SmartIDSignature {
         })
     }
 
-    private func setupControlCode(certificateValue: String, containerPath: String) -> String? {
-        guard let hash = MoppLibManager.prepareSignature(certificateValue, containerPath: containerPath) else {
+    private func setupControlCode(certificateValue: String, containerPath: String, roleData: MoppLibRoleAddressData?) -> String? {
+        guard let hash = MoppLibManager.prepareSignature(certificateValue, containerPath: containerPath, roleData: roleData) else {
             return nil
         }
         

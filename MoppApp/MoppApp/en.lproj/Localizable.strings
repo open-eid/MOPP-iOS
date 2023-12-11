@@ -59,6 +59,7 @@
 "signature-view-begin-label-accessibility" = "Choose a file to sign or validate";
 "signature-view-begin-button" = "CHOOSE FILE";
 "signature-details-title" = "Signature details";
+"timestamp-details-title" = "Timestamp details";
 "certificate-details-title" = "Certificate details";
 "menu-button" = "Menu";
 
@@ -227,6 +228,13 @@
 "smart-id-country-latvia" = "Latvia";
 "smart-id-challenge-title" = "Sign with Smart-ID";
 "smart-id-sign-help-title" = "Make sure control code matches with one in phone screen and enter Smart-ID PIN2 code";
+"role-and-address" = "Role and address";
+"role-and-address-title" = "Enter your role and address info";
+"role-and-address-role-title" = "Role / resolution";
+"role-and-address-city-title" = "City";
+"role-and-address-state-title" = "State";
+"role-and-address-country-title" = "Country";
+"role-and-address-zip-title" = "Zip";
 "container-sign-title" = "Sign";
 "container-encryption-title" = "Encryption";
 "container-decryption-title" = "Decryption";
@@ -361,6 +369,7 @@
 "settings-timestamp-url-title" = "Access to Time-Stamping service";
 "settings-timestamp-url-placeholder" = "";
 "settings-timestamp-use-default-title" = "Use default";
+"settings-role-and-address-title" = "Ask role and address info on signing";
 "settings-value-changed" = "Setting value changed";
 "settings-timestamp-cert-title" = "Time-Stamping service SSL certificate";
 "settings-timestamp-cert-issued-to-label" = "Issued to:";
@@ -506,3 +515,9 @@
 "voice-control-tab-decrypt" = "Decrypt";
 "voice-control-tab-confirm" = "Confirm";
 "voice-control-search-recipients" = "Search recipients";
+"voice-control-role-role" = "Role";
+"voice-control-role-city" = "City";
+"voice-control-role-state" = "State";
+"voice-control-role-country" = "Country";
+"voice-control-role-zip" = "Zip";
+"voice-control-role-and-address" = "Role and address";

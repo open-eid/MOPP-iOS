@@ -56,7 +56,19 @@ class SettingsTSACertCell: UITableViewCell {
         let certificateDetailsViewController = UIStoryboard.container.instantiateViewController(of: CertificateDetailViewController.self)
         let certificateDetail = SignatureCertificateDetail(x509Certificate: cert, secCertificate: nil)
         certificateDetailsViewController.certificateDetail = certificateDetail
-        topViewController?.show(certificateDetailsViewController, sender: nil)
+        certificateDetailsViewController.useDefaultNavigationItems = false
+        
+        let certificateNC = UINavigationController(rootViewController: certificateDetailsViewController)
+        certificateNC.modalPresentationStyle = .pageSheet
+        
+        if let certificatePC = certificateNC.presentationController as? UISheetPresentationController {
+            certificatePC.detents = [
+                .large()
+            ]
+            certificatePC.prefersGrabberVisible = true
+        }
+        certificateNC.view.backgroundColor = .white
+        topViewController?.present(certificateNC, animated: true)
     }
     
     weak var topViewController: UIViewController?
@@ -65,18 +77,16 @@ class SettingsTSACertCell: UITableViewCell {
 
     override func awakeFromNib() {
         updateUI()
+        
+        guard let titleUILabel = titleLabel, let issuedToUILabel = issuedToLabel, let validUntilUILabel = validUntilLabel, let addCertificateUIButton = addCertificateButton, let showCertificateUIButton = showCertificateButton else { return }
+        
+        self.accessibilityElements = [titleUILabel, issuedToUILabel, validUntilUILabel, addCertificateUIButton, showCertificateUIButton]
     }
     
     func populate() {
         self.certificate = TSACertUtil.getCertificate()
         if let _ = certificate {
             updateUI()
-        }
-    }
-    
-    func setAccessibilityElementsInStackView(stackView: UIStackView, isAccessibilityElement: Bool) {
-        for subview in stackView.arrangedSubviews {
-            subview.isAccessibilityElement = isAccessibilityElement
         }
     }
     
@@ -87,9 +97,11 @@ class SettingsTSACertCell: UITableViewCell {
             self.tsaDataStackView.isAccessibilityElement = false
             self.tsaCertLabelStackView.isAccessibilityElement = false
             
-            self.setAccessibilityElementsInStackView(stackView: self.tsaDataStackView, isAccessibilityElement: true)
+            AccessibilityUtil.setAccessibilityElementsInStackView(stackView: self.tsaCertStackView, isAccessibilityElement: true)
             
-            self.setAccessibilityElementsInStackView(stackView: self.tsaCertLabelStackView, isAccessibilityElement: true)
+            AccessibilityUtil.setAccessibilityElementsInStackView(stackView: self.tsaDataStackView, isAccessibilityElement: true)
+            
+            AccessibilityUtil.setAccessibilityElementsInStackView(stackView: self.tsaCertLabelStackView, isAccessibilityElement: true)
             
             self.issuedToLabel.text = L(.settingsTimestampCertIssuedToLabel)
             self.validUntilLabel.text = L(.settingsTimestampCertValidToLabel)

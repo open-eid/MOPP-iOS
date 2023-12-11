@@ -25,7 +25,7 @@
 #import "MoppLdapConfiguration.h"
 
 @interface OpenLdap : NSObject
-- (NSMutableArray*)search:(NSString*)identityCode configuration:(MoppLdapConfiguration *) moppLdapConfiguration;
+- (NSArray *)search:(NSString*)identityCode configuration:(MoppLdapConfiguration *)moppLdapConfiguration withCertificate:(NSString *)cert;
 @end
 
 

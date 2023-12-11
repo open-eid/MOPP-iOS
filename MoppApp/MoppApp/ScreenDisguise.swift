@@ -105,7 +105,7 @@ public class ScreenDisguise: NSObject {
                 launchScreenView.removeFromSuperview()
                 hide()
             } else {
-                print("Unable to find view with tag \(launchScreenTag)")
+                printLog("Unable to find view with tag \(launchScreenTag)")
             }
         }
     }

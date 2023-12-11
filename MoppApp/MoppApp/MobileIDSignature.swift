@@ -29,7 +29,7 @@ class MobileIDSignature {
     static let shared: MobileIDSignature = MobileIDSignature()
     
     // MARK: Creating Mobile ID signature
-    func createMobileIDSignature(phoneNumber: String, nationalIdentityNumber: String, containerPath: String, hashType: String, language: String) -> Void {
+    func createMobileIDSignature(phoneNumber: String, nationalIdentityNumber: String, containerPath: String, hashType: String, language: String, roleData: MoppLibRoleAddressData?) -> Void {
         
         if isUsingTestMode() {
             printLog("RIA.MobileID parameters:\n" +
@@ -45,7 +45,7 @@ class MobileIDSignature {
         let certBundle = Configuration.getConfiguration().CERTBUNDLE
 
         // MARK: Request certificate
-        getCertificate(baseUrl: baseUrl, uuid: uuid, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, containerPath: containerPath, trustedCertificates: certBundle, completionHandler: { (hash, cert) in
+        getCertificate(baseUrl: baseUrl, uuid: uuid, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, containerPath: containerPath, roleData: roleData, trustedCertificates: certBundle, completionHandler: { (hash, cert) in
             // MARK: Request session
             self.getSession(baseUrl: baseUrl, uuid: uuid, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, hash: hash, hashType: hashType, language: language, trustedCertificates: Configuration.getConfiguration().CERTBUNDLE,  completionHandler: { (sessionId) in
                 // MARK: Request session status
@@ -63,7 +63,7 @@ class MobileIDSignature {
         })
     }
 
-    private func getCertificate(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, containerPath: String, trustedCertificates: [String]?, completionHandler: @escaping (String, String) -> Void) {
+    private func getCertificate(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, containerPath: String, roleData: MoppLibRoleAddressData?, trustedCertificates: [String]?, completionHandler: @escaping (String, String) -> Void) {
 
         if RequestCancel.shared.isRequestCancelled() {
             return CancelUtil.handleCancelledRequest(errorMessageDetails: "User cancelled Mobile-ID signing")
@@ -112,7 +112,7 @@ class MobileIDSignature {
             }
             
             // MARK: Get hash
-            guard let hash: String = self.getHash(cert: cert, containerPath: containerPath) else {
+            guard let hash: String = self.getHash(cert: cert, containerPath: containerPath, roleData: roleData) else {
                 printLog("\nRIA.MobileID - Error getting hash. Is 'cert' empty: \(cert.isEmpty). ContainerPath: \(containerPath)\n")
                 return ErrorUtil.generateError(signingError: .generalError, details: MessageUtil.errorMessageWithDetails(details: "Unable to get hash"))
             }
@@ -281,8 +281,8 @@ class MobileIDSignature {
     }
     
     // MARK: Get hash
-    private func getHash(cert: String, containerPath: String) -> String? {
-        guard let hash: String = MoppLibManager.prepareSignature(cert, containerPath: containerPath) else {
+    private func getHash(cert: String, containerPath: String, roleData: MoppLibRoleAddressData?) -> String? {
+        guard let hash: String = MoppLibManager.prepareSignature(cert, containerPath: containerPath, roleData: roleData) else {
             printLog("RIA.MobileID - Failed to get hash")
             if isUsingTestMode() {
                 printLog("RIA.MobileID - Failed to get hash:\n" +

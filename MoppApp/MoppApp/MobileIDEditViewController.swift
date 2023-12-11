@@ -44,9 +44,9 @@ protocol MobileIDEditViewControllerDelegate : AnyObject {
     func mobileIDEditViewControllerDidDismiss(cancelled: Bool, phoneNumber: String?, idCode: String?)
 }
 
-class MobileIDEditViewController : MoppViewController {
+class MobileIDEditViewController : MoppViewController, TokenFlowSigning {
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var idCodeTextField: UITextField!
+    @IBOutlet weak var idCodeTextField: PersonalCodeField!
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var centerViewCenterCSTR: NSLayoutConstraint!
     @IBOutlet weak var centerViewOutofscreenCSTR: NSLayoutConstraint!
@@ -149,19 +149,21 @@ class MobileIDEditViewController : MoppViewController {
             DefaultsHelper.idCode = idCodeTextField.text ?? String()
             DefaultsHelper.phoneNumber = phoneTextField.text ?? String()
             rememberSwitch.accessibilityUserInputLabels = ["Disable remember me"]
-        }
-        else {
+        } else {
             DefaultsHelper.idCode = String()
             DefaultsHelper.phoneNumber = String()
             rememberSwitch.accessibilityUserInputLabels = ["Enable remember me"]
         }
-        dismiss(animated: false) {
-            [weak self] in
-            guard let sself = self else { return }
-            sself.delegate?.mobileIDEditViewControllerDidDismiss(
-                cancelled: false,
-                phoneNumber: sself.phoneTextField.text,
-                idCode: sself.idCodeTextField.text)
+        if DefaultsHelper.isRoleAndAddressEnabled {
+            let roleAndAddressView = UIStoryboard.tokenFlow.instantiateViewController(of: RoleAndAddressViewController.self)
+            roleAndAddressView.modalPresentationStyle = .overCurrentContext
+            roleAndAddressView.modalTransitionStyle = .crossDissolve
+            roleAndAddressView.viewController = self
+            present(roleAndAddressView, animated: true)
+        } else {
+            dismiss(animated: false) { [weak self] in
+                self?.sign(nil)
+            }
         }
     }
     
@@ -170,6 +172,17 @@ class MobileIDEditViewController : MoppViewController {
             rememberSwitch.accessibilityUserInputLabels = ["Disable remember me"]
         } else {
             rememberSwitch.accessibilityUserInputLabels = ["Enable remember me"]
+        }
+    }
+    
+    func sign(_ pin: String?) {
+        dismiss(animated: false) {
+            [weak self] in
+            guard let sself = self else { return }
+            sself.delegate?.mobileIDEditViewControllerDidDismiss(
+                cancelled: false,
+                phoneNumber: sself.phoneTextField.text,
+                idCode: sself.idCodeTextField.text)
         }
     }
 
@@ -225,13 +238,13 @@ class MobileIDEditViewController : MoppViewController {
     }
 
     @objc func editingChanged(sender: UITextField) {
-        verifySigningCapability()
         if sender.accessibilityIdentifier == "mobileIDCodeField" {
             let text = sender.text ?? String()
             if (text.count >= 11 && !PersonalCodeValidator.isPersonalCodeValid(personalCode: text)) {
                 TextUtil.deleteBackward(textField: sender)
             }
         }
+        verifySigningCapability()
     }
     
     override func keyboardWillShow(notification: NSNotification) {
@@ -267,11 +280,23 @@ extension MobileIDEditViewController : UITextFieldDelegate {
             let textAfterUpdate = text.replacingCharacters(in: range, with: string)
             return textAfterUpdate.isNumeric || textAfterUpdate.isEmpty
         }
+        verifySigningCapability()
         return true
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.moveCursorToEnd()
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        // Verify signing capability after user has deleted a number
+        if let idCodeField = textField as? PersonalCodeField {
+            idCodeField.onDeleteButtonClicked = {
+                self.verifySigningCapability()
+            }
+        }
+        
+        return true
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {

@@ -64,20 +64,24 @@ extension SigningActions where Self: SigningContainerViewController {
     }
     
     func startSigningProcess() {
-        
         if signingContainerViewDelegate.isContainerSignable() {
-            let signSelectionVC = UIStoryboard.tokenFlow.instantiateViewController(of: TokenFlowSelectionViewController.self)
+            let signSelectionVC = getTokenFlowSelectionViewController()
             signSelectionVC.modalPresentationStyle = .overFullScreen
-            
-            signSelectionVC.mobileIdEditViewControllerDelegate = self
-            signSelectionVC.smartIdEditViewControllerDelegate = self
-            signSelectionVC.idCardSignViewControllerDelegate = self
-            signSelectionVC.containerPath = containerPath
-            
             LandingViewController.shared.present(signSelectionVC, animated: false, completion: nil)
         } else {
             createNewContainerForNonSignableContainerAndSign()
         }
+    }
+    
+    func getTokenFlowSelectionViewController() -> TokenFlowSelectionViewController {
+        let signSelectionVC = UIStoryboard.tokenFlow.instantiateViewController(of: TokenFlowSelectionViewController.self)
+       
+        signSelectionVC.mobileIdEditViewControllerDelegate = self
+        signSelectionVC.smartIdEditViewControllerDelegate = self
+        signSelectionVC.idCardSignViewControllerDelegate = self
+        signSelectionVC.containerPath = containerPath
+        
+        return signSelectionVC
     }
     
     func appendSignatureWarnings() {
@@ -89,7 +93,10 @@ extension SigningActions where Self: SigningContainerViewController {
             } else if self.invalidSignaturesCount > 1 {
                 signatureWarningText = L(.containerErrorMessageInvalidSignatures, [self.invalidSignaturesCount])
             }
-            self.notificationMessages.append(NotificationMessage(isSuccess: false, text: signatureWarningText))
+            let signatureWarningTextNotification = NotificationMessage(isSuccess: false, text: signatureWarningText)
+            if !self.notificationMessages.contains(where: { $0 == signatureWarningTextNotification }) {
+                self.notificationMessages.append(signatureWarningTextNotification)
+            }
         }
         
         if self.unknownSignaturesCount > 0 {
@@ -99,7 +106,10 @@ extension SigningActions where Self: SigningContainerViewController {
             } else if self.unknownSignaturesCount > 1 {
                 signatureWarningText = L(.containerErrorMessageUnknownSignatures, [self.unknownSignaturesCount])
             }
-            self.notificationMessages.append(NotificationMessage(isSuccess: false, text: signatureWarningText))
+            let signatureWarningTextNotification = NotificationMessage(isSuccess: false, text: signatureWarningText)
+            if !self.notificationMessages.contains(where: { $0 == signatureWarningTextNotification }) {
+                self.notificationMessages.append(signatureWarningTextNotification)
+            }
         }
     }
     
@@ -119,15 +129,18 @@ extension SigningActions where Self: SigningContainerViewController {
 extension SigningContainerViewController : MobileIDEditViewControllerDelegate {
     func mobileIDEditViewControllerDidDismiss(cancelled: Bool, phoneNumber: String?, idCode: String?) {
         if cancelled { return }
-        
         guard let phoneNumber = phoneNumber else { return }
         guard let idCode = idCode else { return }
         
+        let mobileIDParameters = MobileIDParameters(phoneNumber: phoneNumber, idCode: idCode, containerPath: self.containerViewDelegate.getContainerPath(), hashType: kHashType, language: decideLanguageBasedOnPreferredLanguages(), roleData: DefaultsHelper.isRoleAndAddressEnabled ? RoleAndAddressUtil.getSavedRoleInfo() : nil)
+        createMobileIDSignature(mobileIDParameters: mobileIDParameters)
+    }
+    
+    func createMobileIDSignature(mobileIDParameters: MobileIDParameters) {
         let mobileIDChallengeview = UIStoryboard.tokenFlow.instantiateViewController(of: MobileIDChallengeViewController.self)
         mobileIDChallengeview.modalPresentationStyle = .overFullScreen
         present(mobileIDChallengeview, animated: false)
-        
-        MobileIDSignature.shared.createMobileIDSignature(phoneNumber: phoneNumber, nationalIdentityNumber: idCode, containerPath: self.containerViewDelegate.getContainerPath(), hashType: kHashType, language: decideLanguageBasedOnPreferredLanguages())
+        MobileIDSignature.shared.createMobileIDSignature(phoneNumber: mobileIDParameters.phoneNumber, nationalIdentityNumber: mobileIDParameters.idCode, containerPath: mobileIDParameters.containerPath, hashType: mobileIDParameters.hashType, language: mobileIDParameters.language, roleData: mobileIDParameters.roleData)
     }
     
     func decideLanguageBasedOnPreferredLanguages() -> String {
@@ -147,12 +160,23 @@ extension SigningContainerViewController : SmartIDEditViewControllerDelegate {
 
         guard let country = country else { return }
         guard let idCode = idCode else { return }
-
+        
+        let smartIDParameters = SmartIDParameters(country: country, idCode: idCode, containerPath: self.containerViewDelegate.getContainerPath(), hashType: kHashType, roleData: DefaultsHelper.isRoleAndAddressEnabled ? RoleAndAddressUtil.getSavedRoleInfo() : nil)
+        createSmartIDSignature(smartIDParameters: smartIDParameters)
+    }
+    
+    func createSmartIDSignature(smartIDParameters: SmartIDParameters) {
         let smartIDChallengeview = UIStoryboard.tokenFlow.instantiateViewController(of: SmartIDChallengeViewController.self)
         smartIDChallengeview.modalPresentationStyle = .overFullScreen
         present(smartIDChallengeview, animated: false)
 
-        SmartIDSignature.shared.createSmartIDSignature(country: country, nationalIdentityNumber: idCode, containerPath: self.containerViewDelegate.getContainerPath(), hashType: kHashType)
+        SmartIDSignature.shared.createSmartIDSignature(
+            country: smartIDParameters.country,
+            nationalIdentityNumber: smartIDParameters.idCode,
+            containerPath: smartIDParameters.containerPath,
+            hashType: smartIDParameters.hashType,
+            roleData: smartIDParameters.roleData
+        )
     }
 }
 

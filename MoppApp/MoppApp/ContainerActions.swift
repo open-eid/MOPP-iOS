@@ -64,9 +64,9 @@ extension ContainerActions where Self: UIViewController {
                 if topSigningViewController.presentedViewController is FileImportProgressViewController {
                     self?.dismiss(animated: true, completion: {
                         if let nsError = error as NSError?, !nsError.userInfo.isEmpty, nsError.userInfo[NSLocalizedDescriptionKey] != nil {
-                            self?.showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: nsError.userInfo[NSLocalizedDescriptionKey] as? String ?? L(.fileImportOpenExistingFailedAlertMessage, [""]))
+                            self?.showErrorMessage(message: nsError.userInfo[NSLocalizedDescriptionKey] as? String ?? L(.fileImportOpenExistingFailedAlertMessage, [""]))
                         } else {
-                            self?.showErrorMessage(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [""]))
+                            self?.showErrorMessage(message: L(.fileImportOpenExistingFailedAlertMessage, [""]))
                         }
                     })
                 }
@@ -133,7 +133,7 @@ extension ContainerActions where Self: UIViewController {
 
             landingViewController.importProgressViewController.dismissRecursivelyIfPresented(animated: false, completion: {
                 if isEmptyFileImported {
-                    navController?.viewControllers.last!.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))
+                    navController?.viewControllers.last!.showErrorMessage(message: L(.fileImportFailedEmptyFile))
                     return
                 }
                 
@@ -381,7 +381,7 @@ extension ContainerActions where Self: UIViewController {
                         }
                         navController?.pushViewController(containerViewController, animated: true)
                         if isEmptyFileImported {
-                            containerViewController.showErrorMessage(title: L(.errorAlertTitleGeneral), message: L(.fileImportFailedEmptyFile))
+                            containerViewController.showErrorMessage(message: L(.fileImportFailedEmptyFile))
                         }
                     })
 
@@ -394,7 +394,6 @@ extension ContainerActions where Self: UIViewController {
             }
             )
         } else {
-
             let containerViewController = CryptoContainerViewController.instantiate()
             let container = CryptoContainer(filename: containerFilename as NSString, filePath: containerPath as NSString)
             containerViewController.containerPath = containerPath
