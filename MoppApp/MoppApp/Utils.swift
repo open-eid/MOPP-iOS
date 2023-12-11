@@ -51,16 +51,27 @@ func isDeviceOrientationLandscape() -> Bool {
 }
 
 func MSLog(_ format: String, _ arguments: Any..., fileName file: String = #file, _ function: String = #function, _ line: Int = #line) {
-    #if DEBUG
+    if isUsingTestMode() {
         NSLog(format, arguments)
-    #endif
+    } else {
+        if FileLogUtil.isLoggingEnabled() && FileLogUtil.isLoggingRunning() {
+            NSLog(format, arguments)
+        }
+    }
 }
 
 func printLog(_ message: String, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
-    #if DEBUG
-        NSLog("\(message)\n" +
-        "\tFile: \(file), function: \(function), line: \(line)\n")
-    #endif
+    let fileUrl = URL(fileURLWithPath: file)
+    let logMessage = "\(message)\n" +
+    "\tFile: \(fileUrl.lastPathComponent), function: \(function), line: \(line)\n"
+    
+    if isUsingTestMode() {
+        NSLog(logMessage)
+    } else {
+        if FileLogUtil.isLoggingEnabled() && FileLogUtil.isLoggingRunning() {
+            NSLog(logMessage)
+        }
+    }
 }
 
 let kDefaultLanguageID = "en"

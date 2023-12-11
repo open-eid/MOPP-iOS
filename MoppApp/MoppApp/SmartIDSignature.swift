@@ -37,14 +37,12 @@ class SmartIDSignature {
             printLog("\(log): \(SkSigningLib_LocalizedString(error.signingErrorDescription ?? error.rawValue))")
             ErrorUtil.generateError(signingError: error, details: MessageUtil.errorMessageWithDetails(details: log))
         }
-        
-        if isUsingTestMode() {
-            printLog("RIA.SmartID - parameters:\n" +
-                "\tBase URL: \(baseUrl)\n" +
-                "\tUUID: \(uuid)\n"
-            )
-        }
-        
+
+        printLog("RIA.SmartID - parameters:\n" +
+            "\tBase URL: \(baseUrl)\n" +
+            "\tUUID: \(uuid)\n"
+        )
+
         getCertificate(baseUrl: baseUrl, country: country, nationalIdentityNumber: nationalIdentityNumber, requestParameters: certparams, containerPath: containerPath, roleData: roleData, trustedCertificates: certBundle, errorHandler: errorHandler) { documentNumber, cert, hash in
             var signparams: SIDSignatureRequestParameters = SIDSignatureRequestParameters()
             if baseUrl.contains("v1") {
