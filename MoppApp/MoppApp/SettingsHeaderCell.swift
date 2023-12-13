@@ -20,6 +20,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
+import UIKit
+
 protocol SettingsHeaderCellDelegate: AnyObject {
     func didDismissSettings()
 }
@@ -34,7 +37,6 @@ class SettingsHeaderCell: UITableViewCell {
     
     func populate(with title:String) {
         titleLabel.text = title
-        titleLabel.font = UIFont.moppLargeMedium
     }
     
     override func awakeFromNib() {
