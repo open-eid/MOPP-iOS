@@ -39,7 +39,6 @@ class AboutViewController: MoppViewController, WKNavigationDelegate {
         webView.configuration.defaultWebpagePreferences.allowsContentJavaScript = false
 
         titleLabel.text = L(.aboutTitle)
-        titleLabel.font = UIFont.moppMediumBold
         
         dismissButton.setTitle(L(.closeButton))
         
