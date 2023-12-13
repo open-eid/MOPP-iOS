@@ -20,6 +20,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
+import UIKit
+
 class MenuViewController : MoppModalViewController {
     @IBOutlet weak var tableView        : UITableView!
     @IBOutlet weak var helpButton       : UIButton!
@@ -45,14 +48,14 @@ class MenuViewController : MoppModalViewController {
         case separator
     }
 
-    let menuItems: [(title: String, imageName: String, id: MenuItemID)] = [
-        (L(.menuHelp), "icon_help white", .help),
-        (L(.menuAccessibility), "icon_accessibility white", .accessibility),
-        (L(.menuSettings), "icon_settings white", .settings),
-        (L(.menuAbout), "icon_info white", .about),
-        (L(.menuDiagnostics), "icon_graph white", .diagnostics),
-        (String(), String(), .separator),
-        (String(), String(), .language)
+    let menuItems: [(title: String, imageName: String, id: MenuItemID, voiceControlLabel: String)] = [
+        (L(.menuHelp), "icon_help white", .help, L(.menuHelp, "en")),
+        (L(.menuAccessibility), "icon_accessibility white", .accessibility, L(.menuAccessibility, "en")),
+        (L(.menuSettings), "icon_settings white", .settings, L(.menuSettings, "en")),
+        (L(.menuAbout), "icon_info white", .about, L(.menuAbout, "en")),
+        (L(.menuDiagnostics), "icon_graph white", .diagnostics, L(.menuDiagnostics, "en")),
+        (String(), String(), .separator, String()),
+        (String(), String(), .language, String())
         ]
 
     @IBAction func dismissAction() {
@@ -109,6 +112,7 @@ extension MenuViewController : UITableViewDataSource {
             let title = menuItems[indexPath.row].title
             let iconName = menuItems[indexPath.row].imageName
             let id = menuItems[indexPath.row].id
+            let voiceControlLabel = menuItems[indexPath.row].voiceControlLabel
             if id == .language {
                 let cell = tableView.dequeueReusableCell(withType: MenuLanguageCell.self, for: indexPath)!
                     cell.delegate = self
@@ -119,7 +123,7 @@ extension MenuViewController : UITableViewDataSource {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withType: MenuCell.self, for: indexPath)!
-                    cell.populate(iconName: iconName, title: title)
+                    cell.populate(iconName: iconName, title: title, voiceControlLabel: voiceControlLabel)
                 if id == .help {
                     cell.accessibilityTraits = UIAccessibilityTraits.link
                 } else {
