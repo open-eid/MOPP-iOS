@@ -23,6 +23,9 @@
 import Foundation
 
 class SigningViewController : MoppViewController {
+    
+    @IBOutlet var containerView: UIView!
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var importButton: UIButton!
     @IBOutlet weak var recentDocumentsButton: ScaledButton!
@@ -42,6 +45,8 @@ class SigningViewController : MoppViewController {
         recentDocumentsButton.localizedTitle = LocKey.recentContainersButton
         menuButton.isAccessibilityElement = true
         menuButton.accessibilityLabel = L(LocKey.menuButton)
+        
+        addInvisibleBottomLabelTo(containerView)
         
         titleLabel.isAccessibilityElement = false
         importButton.accessibilityLabel = L(.signatureViewBeginLabelAccessibility)
@@ -73,6 +78,8 @@ class SigningViewController : MoppViewController {
     }
     
     @IBAction func menuActivationSelector() {
+        let invisibleLabel = getInvisibleLabelInView(MoppApp.instance.rootViewController?.view, accessibilityIdentifier: invisibleElementAccessibilityIdentifier)
+        invisibleLabel?.isHidden = true
         let menuViewController = UIStoryboard.menu.instantiateInitialViewController()!
             menuViewController.modalPresentationStyle = .overFullScreen
         MoppApp.instance.rootViewController?.present(menuViewController, animated: true, completion: nil)
@@ -88,7 +95,7 @@ class SigningViewController : MoppViewController {
     @IBAction func openRecentDocuments(_ sender: ScaledButton) {
         DispatchQueue.main.async(execute: {
             guard let recentContainersViewController = UIStoryboard.recentContainers.instantiateInitialViewController() else { return }
-            recentContainersViewController.modalPresentationStyle = .overFullScreen
+            recentContainersViewController.modalPresentationStyle = .fullScreen
             MoppApp.instance.rootViewController?.present(recentContainersViewController, animated: true, completion: nil)
         })
     }

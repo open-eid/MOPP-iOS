@@ -97,6 +97,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="containerView" destination="WzN-Kf-XwL" id="lfx-Zs-SvZ"/>
                         <outlet property="importButton" destination="TYv-AQ-7tk" id="li8-vM-Ml1"/>
                         <outlet property="menuButton" destination="tpl-LF-OAz" id="tUt-JL-8w7"/>
                         <outlet property="recentDocumentsButton" destination="xLG-q7-cRp" id="6xm-3h-6tL"/>

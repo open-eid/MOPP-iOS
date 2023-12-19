@@ -72,6 +72,7 @@ fileprivate let kIsFileLoggingEnabled = "kIsFileLoggingEnabled"
 fileprivate let kIsFileLoggingRunning = "kIsFileLoggingRunning"
 fileprivate let kTSAFileCertName = "kTSAFileCertName"
 fileprivate let kIsRoleAndAddressEnabled = "kIsRoleAndAddressEnabled"
+fileprivate let kIsDebugMode = "kIsDebugMode"
 
 class DefaultsHelper
 {
@@ -249,6 +250,17 @@ class DefaultsHelper
         }
         get {
             return UserDefaults.standard.value(forKey: kTSAFileCertName) as? String
+        }
+    }
+
+    class var isDebugMode: Bool {
+        set {
+            DispatchQueue.main.async {
+                UserDefaults.standard.set(newValue, forKey: kIsDebugMode)
+            }
+        }
+        get {
+            return UserDefaults.standard.bool(forKey: kIsDebugMode)
         }
     }
 

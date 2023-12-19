@@ -62,6 +62,7 @@ class AddresseeViewController : MoppViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
         dismissKeyboard()
         LandingViewController.shared.tabButtonsDelegate = self
         LandingViewController.shared.presentButtons([])

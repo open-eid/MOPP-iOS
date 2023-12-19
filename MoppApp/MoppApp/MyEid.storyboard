@@ -374,6 +374,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="tableView" destination="YRp-KX-D2F" id="jIh-pb-Wn3"/>
                         <outlet property="ui" destination="BwH-nR-tQl" id="z1S-FG-kGa"/>
                     </connections>
                 </viewController>
@@ -589,6 +590,7 @@
                     </view>
                     <size key="freeformSize" width="375" height="767"/>
                     <connections>
+                        <outlet property="scrollView" destination="UZI-z6-jr7" id="iCh-XK-l2J"/>
                         <outlet property="ui" destination="Pbk-gd-VHp" id="ywA-Rp-vxk"/>
                     </connections>
                 </viewController>

@@ -73,6 +73,8 @@ class SmartIDEditViewController : MoppViewController, TokenFlowSigning {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        scrollView.delegate = self
 
         titleLabel.text = L(.smartIdTitle)
         countryLabel.text = L(.smartIdCountryTitle)

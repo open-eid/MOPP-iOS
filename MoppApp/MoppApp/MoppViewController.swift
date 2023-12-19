@@ -20,7 +20,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-class MoppViewController : UIViewController {
+class MoppViewController : UIViewController, UIScrollViewDelegate {
+    
+    @IBOutlet weak var myLabel: UILabel!
+    
     var lightContentStatusBarStyle : Bool = false
 
     private var scrollViewContentOffset: CGPoint = CGPoint()
@@ -37,6 +40,8 @@ class MoppViewController : UIViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+
+        addInvisibleBottomLabelTo(nil)
     }
 
     deinit {
@@ -166,5 +171,15 @@ class MoppViewController : UIViewController {
             }
         }
         return nil
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if DefaultsHelper.isDebugMode {
+            guard let label = getInvisibleLabelInView(view, accessibilityIdentifier: invisibleElementAccessibilityIdentifier) else {
+                return
+            }
+            
+            changeInvisibleLabelVisibility(label, scrollView)
+        }
     }
 }

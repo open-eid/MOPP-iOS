@@ -67,6 +67,8 @@ class MobileIDEditViewController : MoppViewController, TokenFlowSigning {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        scrollView.delegate = self
 
         idCodeTextField.moppPresentDismissButton()
         phoneTextField.moppPresentDismissButton()

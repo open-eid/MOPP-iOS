@@ -83,10 +83,10 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     func didFinishLaunchingWithOptions(launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // Log console logs to a file in Documents/logs folder
         #if DEBUG
-            setDebugMode(value: true)
+            DefaultsHelper.isDebugMode = true
             FileLogUtil.logToFile()
         #else
-            setDebugMode(value: false)
+            DefaultsHelper.isDebugMode = false
         #endif
 
         loadNibs()
@@ -512,12 +512,6 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                 }
             }
         }
-    }
-
-    private func setDebugMode(value: Bool) -> Void {
-        let defaults = UserDefaults.standard
-        defaults.set(value, forKey: "isDebugMode")
-        defaults.synchronize()
     }
 
     private func showErrorMessage(title: String, message: String) {

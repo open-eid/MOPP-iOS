@@ -26,6 +26,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
 
     private var isSavingOneTimeLog = false
 
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var appVersionLabel: UILabel!
     @IBOutlet weak var opSysVersionLabel: UILabel!
@@ -135,6 +136,8 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        scrollView.delegate = self
 
         printLog("Setting up diagnostics data")
 

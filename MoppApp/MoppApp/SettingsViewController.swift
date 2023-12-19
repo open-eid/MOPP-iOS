@@ -21,6 +21,7 @@
  *
  */
 class SettingsViewController: MoppViewController {
+    
     private(set) var timestampUrl: String!
     @IBOutlet weak var tableView: UITableView!
     
@@ -98,6 +99,8 @@ class SettingsViewController: MoppViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.delegate = self
         
         timestampUrl = DefaultsHelper.timestampUrl
         isDefaultTimestampValue = DefaultsHelper.defaultSettingsSwitch
