@@ -96,7 +96,7 @@ class SigningViewController : MoppViewController {
     @IBAction func openRecentDocuments(_ sender: ScaledButton) {
         DispatchQueue.main.async(execute: {
             guard let recentContainersViewController = UIStoryboard.recentContainers.instantiateInitialViewController() else { return }
-            recentContainersViewController.modalPresentationStyle = .overFullScreen
+            recentContainersViewController.modalPresentationStyle = .fullScreen
             MoppApp.instance.rootViewController?.present(recentContainersViewController, animated: true, completion: nil)
         })
     }

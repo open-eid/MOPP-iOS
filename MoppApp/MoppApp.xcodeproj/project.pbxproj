@@ -232,6 +232,7 @@
 		DFC2ADC6294377AC008A1CD2 /* AccessibilityViewTextType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC2ADC5294377AC008A1CD2 /* AccessibilityViewTextType.swift */; };
 		DFC2ADC8294377BF008A1CD2 /* PersonalCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC2ADC7294377BF008A1CD2 /* PersonalCodeValidator.swift */; };
 		DFCFADD62B682193007F556A /* SignatureUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCFADD52B682193007F556A /* SignatureUtil.swift */; };
+		DFCCC5AB2B31CF7A0057B343 /* InvisibleElementTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCCC5AA2B31CF7A0057B343 /* InvisibleElementTableView.swift */; };
 		DFD176CB23F1B78000E2CC52 /* MimeTypeDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176CA23F1B78000E2CC52 /* MimeTypeDecoder.swift */; };
 		DFD176D423F427AD00E2CC52 /* TSLVersionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176D223F427AD00E2CC52 /* TSLVersionChecker.swift */; };
 		DFD176D523F427AD00E2CC52 /* TSLUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176D323F427AD00E2CC52 /* TSLUpdater.swift */; };
@@ -576,6 +577,7 @@
 		DFC2ADC5294377AC008A1CD2 /* AccessibilityViewTextType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityViewTextType.swift; sourceTree = "<group>"; };
 		DFC2ADC7294377BF008A1CD2 /* PersonalCodeValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalCodeValidator.swift; sourceTree = "<group>"; };
 		DFCFADD52B682193007F556A /* SignatureUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureUtil.swift; sourceTree = "<group>"; };
+		DFCCC5AA2B31CF7A0057B343 /* InvisibleElementTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvisibleElementTableView.swift; sourceTree = "<group>"; };
 		DFD176CA23F1B78000E2CC52 /* MimeTypeDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypeDecoder.swift; sourceTree = "<group>"; };
 		DFD176D223F427AD00E2CC52 /* TSLVersionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLVersionChecker.swift; sourceTree = "<group>"; };
 		DFD176D323F427AD00E2CC52 /* TSLUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLUpdater.swift; sourceTree = "<group>"; };
@@ -967,6 +969,7 @@
 				C5A1D1CC2031D5B80024CD4C /* ContainerActions.swift */,
 				39487CBD210B18F90082D910 /* CdocParserDelegate.swift */,
 				DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */,
+				DFCCC5AA2B31CF7A0057B343 /* InvisibleElementTableView.swift */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -1698,6 +1701,7 @@
 				C55BB1CA2090C17F00618AC4 /* AboutViewController.swift in Sources */,
 				DF716E952B45CFE90004DCB6 /* SigningCategoryViewController.swift in Sources */,
 				DFF3C3B22332314A0079458A /* RuntimeError.swift in Sources */,
+				DFCCC5AB2B31CF7A0057B343 /* InvisibleElementTableView.swift in Sources */,
 				C5927FEB2078FD40003B7F41 /* MyeIDInfoViewControllerUI.swift in Sources */,
 				3921CAA120B45DCF00BF3178 /* SigningContainerViewController.swift in Sources */,
 				3921CA9520B2D6D600BF3178 /* CryptoActions.swift in Sources */,

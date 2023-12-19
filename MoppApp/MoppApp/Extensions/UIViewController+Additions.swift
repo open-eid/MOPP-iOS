@@ -103,10 +103,20 @@ extension UIViewController {
         }
     }
     
+    static func getInvisibleLabel() -> UILabel {
+        let label = UILabel()
+        label.text = "Invisible label"
+        label.textAlignment = .center
+        label.backgroundColor = .lightGray
+        label.tag = invisibleElementTag
+        label.accessibilityIdentifier = invisibleElementAccessibilityIdentifier
+        return label
+    }
+    
     // Adds an invisible label element to the bottom of the view.
     // Used for autotests by testers
     func addInvisibleBottomLabelTo(_ customView: UIView?) {
-        let label = UILabel()
+        let label = UIViewController.getInvisibleLabel()
         label.text = "Invisible label"
         label.textAlignment = .center
         label.backgroundColor = .lightGray
@@ -152,19 +162,46 @@ extension UIViewController {
     }
     
     func addLabelToBottom(label: UILabel, lastSubview: UIView) {
-        let lastElement = lastSubview.subviews.last ?? lastSubview
-        
-        lastSubview.addSubview(label)
-        
-        let height = lastElement.frame.height != 0 ? lastElement.frame.height : lastSubview.frame.height
-        
-        let width = lastElement.frame.width != 0 ? lastElement.frame.width : lastSubview.frame.width
-        
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.widthAnchor.constraint(equalToConstant: width).isActive = true
-        label.heightAnchor.constraint(equalToConstant: height).isActive = true
-        label.topAnchor.constraint(equalTo: lastElement.bottomAnchor, constant: 16).isActive = true
-        label.centerXAnchor.constraint(equalTo: lastElement.centerXAnchor).isActive = true
+        if DefaultsHelper.isDebugMode {
+            let lastElement = lastSubview.subviews.last ?? lastSubview
+            
+            if lastSubview is UITableView {
+                let lastTableView = lastSubview as? UITableView
+                guard let tableView = lastTableView else { return }
+                let lastSection = tableView.numberOfSections - 1
+                if lastSection >= 0 {
+                    let lastRow = tableView.numberOfRows(inSection: lastSection) - 1
+                    if lastRow >= 0 {
+                        let lastIndexPath = IndexPath(row: lastRow, section: lastSection)
+                        let lastTableViewCell = tableView.cellForRow(at: lastIndexPath)
+                        if let lastCell = lastTableViewCell {
+                            for subview in lastCell.contentView.subviews {
+                                if subview === lastCell.contentView.subviews.last {
+                                    subview.addSubview(label)
+                                    
+                                    label.translatesAutoresizingMaskIntoConstraints = false
+                                    label.widthAnchor.constraint(equalToConstant: subview.frame.width).isActive = true
+                                    label.heightAnchor.constraint(equalToConstant: subview.frame.height).isActive = true
+                                    label.topAnchor.constraint(equalTo: subview.bottomAnchor, constant: 16).isActive = true
+                                    label.centerXAnchor.constraint(equalTo: subview.centerXAnchor).isActive = true
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                lastSubview.insertSubview(label, aboveSubview: lastElement)
+
+                let height = lastElement.frame.height != 0 ? lastElement.frame.height : lastSubview.frame.height
+                let width = lastElement.frame.width != 0 ? lastElement.frame.width : lastSubview.frame.width
+                
+                label.translatesAutoresizingMaskIntoConstraints = false
+                label.widthAnchor.constraint(equalToConstant: width).isActive = true
+                label.heightAnchor.constraint(equalToConstant: height).isActive = true
+                label.topAnchor.constraint(equalTo: lastElement.bottomAnchor, constant: 16).isActive = true
+                label.centerXAnchor.constraint(equalTo: lastElement.centerXAnchor).isActive = true
+            }
+        }
     }
     
     func changeInvisibleLabelVisibility(_ invisibleLabel: UILabel, _ scrollView: UIScrollView?, _ isVisible: Bool? = nil) {

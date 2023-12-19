@@ -22,11 +22,13 @@
  */
 
 import UIKit
-class RecentContainersViewController : MoppModalViewController {
+class RecentContainersViewController : MoppModalViewController, InvisibleElementTableView {
     var requestCloseSearch: (() -> Void) = {}
     @IBOutlet weak var tableView: UITableView!
 
     var accessibilityElementsList = [Any]()
+    
+    var isInvisibleElementAdded = false
 
     enum Section {
         case header
@@ -128,6 +130,10 @@ class RecentContainersViewController : MoppModalViewController {
         }
         
         return filteredContainerFiles
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollViewScrolled(scrollView)
     }
 }
 
@@ -294,6 +300,12 @@ extension RecentContainersViewController : UITableViewDelegate {
             return UISwipeActionsConfiguration(actions: [delete])
         }
         return UISwipeActionsConfiguration()
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if isScrollingNecessary(tableView: tableView) && !isInvisibleElementAdded {
+            removeDefaultElement()
+        }
     }
 }
 

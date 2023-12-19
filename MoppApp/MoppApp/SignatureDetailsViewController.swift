@@ -26,7 +26,7 @@ import Security
 import ASN1Decoder
 import CommonCrypto
 
-class SignatureDetailsViewController: MoppViewController {
+class SignatureDetailsViewController: MoppViewController, InvisibleElementTableView {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -37,6 +37,8 @@ class SignatureDetailsViewController: MoppViewController {
     var warningDetail = WarningDetail()
     
     var signatureKind: ContainerSignatureCell.Kind = .signature
+    
+    var isInvisibleElementAdded = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -146,6 +148,10 @@ class SignatureDetailsViewController: MoppViewController {
 
         return certificate
     }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollViewScrolled(scrollView)
+    }
 }
 
 extension SignatureDetailsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -209,6 +215,12 @@ extension SignatureDetailsViewController: UITableViewDelegate, UITableViewDataSo
             }
             cell.accessibilityUserInputLabels = [""]
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if isScrollingNecessary(tableView: tableView) && !isInvisibleElementAdded {
+            removeDefaultElement()
         }
     }
     

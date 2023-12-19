@@ -26,7 +26,7 @@ import Security
 import ASN1Decoder
 import CommonCrypto
 
-class CertificateDetailViewController: MoppViewController {
+class CertificateDetailViewController: MoppViewController, InvisibleElementTableView {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -34,6 +34,8 @@ class CertificateDetailViewController: MoppViewController {
     var useDefaultNavigationItems = true
     
     var certificateSections = [CertificateSection]()
+    
+    var isInvisibleElementAdded = false
     
     enum HashType {
         case SHA1
@@ -269,6 +271,10 @@ class CertificateDetailViewController: MoppViewController {
             return ""
         }
     }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollViewScrolled(scrollView)
+    }
 }
 
 extension CertificateDetailViewController: UITableViewDelegate, UITableViewDataSource {
@@ -316,5 +322,11 @@ extension CertificateDetailViewController: UITableViewDelegate, UITableViewDataS
         }
         cell.accessibilityUserInputLabels = [""]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if isScrollingNecessary(tableView: tableView) && !isInvisibleElementAdded {
+            removeDefaultElement()
+        }
     }
 }
