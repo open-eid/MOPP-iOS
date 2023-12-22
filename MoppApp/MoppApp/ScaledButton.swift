@@ -24,6 +24,8 @@ import Foundation
 
 class ScaledButton: UIButton {
     
+    private static let defaultMaxFontSize = CGFloat(20)
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         scaleButton()
@@ -71,5 +73,18 @@ class ScaledButton: UIButton {
     
     func mediumFont() {
         self.titleLabel?.font = FontUtil.mediumFont(font: UIFont(name: "Roboto-Medium", size: 17) ?? UIFont())
+    }
+    
+    func adjustedFont(_ maxFontSize: CGFloat = CGFloat(defaultMaxFontSize)) {
+        if let buttonLabel = self.titleLabel {
+            let originalFont = buttonLabel.font
+            let scaledPointSize = UIFontMetrics.default.scaledValue(for: originalFont?.pointSize ?? CGFloat(maxFontSize))
+            let maxPointSize = min(maxFontSize, scaledPointSize)
+            let adjustedFont = originalFont?.withSize(maxPointSize)
+            buttonLabel.font = adjustedFont
+            
+            self.titleLabel?.sizeToFit()
+            self.sizeToFit()
+        }
     }
 }
