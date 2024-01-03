@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bky-k6-9RW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bky-k6-9RW">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -28,67 +29,93 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="2L6-Gw-P9K">
-                                <rect key="frame" x="16" y="338.66666666666669" width="361" height="174.66666666666669"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JhE-Ml-E2Q">
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allkirjastamiseks või dekrüpteerimiseks vali fail" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xC0-jh-5MV" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="361" height="46.666666666666664"/>
-                                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="20"/>
-                                        <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="CaL-ug-7D1" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="62.666666666666629" width="361" height="48"/>
-                                        <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QS6-dV-Lzh" userLabel="ContentView">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="715"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="2L6-Gw-P9K">
+                                                <rect key="frame" x="16" y="270.33333333333331" width="361" height="174.66666666666669"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allkirjastamiseks või dekrüpteerimiseks vali fail" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xC0-jh-5MV" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="361" height="46.666666666666664"/>
+                                                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="20"/>
+                                                        <color key="textColor" red="0.015686274510000001" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="CaL-ug-7D1" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="62.666666666666686" width="361" height="48"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="48" id="W9i-KU-Mgr"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
+                                                        <state key="normal">
+                                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="3"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="importFilesAction" destination="vA0-9v-0On" eventType="touchUpInside" id="TGx-hJ-gZx"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="pDC-7U-9aN" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="126.66666666666669" width="361" height="48"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="48" id="gQ7-9n-I9X"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal">
+                                                            <color key="titleColor" name="MoppBase"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="3"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="openRecentDocuments:" destination="vA0-9v-0On" eventType="touchUpInside" id="4lw-mq-fWl"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="yiE-dw-S90"/>
+                                            <constraint firstItem="2L6-Gw-P9K" firstAttribute="top" relation="greaterThanOrEqual" secondItem="QS6-dV-Lzh" secondAttribute="top" constant="25" id="0we-yV-lIj"/>
+                                            <constraint firstItem="2L6-Gw-P9K" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="QS6-dV-Lzh" secondAttribute="leading" constant="16" id="4jz-or-gCp"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="2L6-Gw-P9K" secondAttribute="bottom" constant="25" id="50A-Wg-wgh"/>
+                                            <constraint firstAttribute="trailing" secondItem="2L6-Gw-P9K" secondAttribute="trailing" constant="16" id="6w3-l8-EBw"/>
+                                            <constraint firstItem="2L6-Gw-P9K" firstAttribute="centerX" secondItem="QS6-dV-Lzh" secondAttribute="centerX" id="JbD-hr-W86"/>
+                                            <constraint firstItem="2L6-Gw-P9K" firstAttribute="centerY" secondItem="QS6-dV-Lzh" secondAttribute="centerY" id="M9p-ID-oEN"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2L6-Gw-P9K" secondAttribute="trailing" constant="16" id="RdB-kB-0KT"/>
+                                            <constraint firstItem="2L6-Gw-P9K" firstAttribute="leading" secondItem="QS6-dV-Lzh" secondAttribute="leading" constant="16" id="qii-4a-MHh"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
-                                        <state key="normal">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="3"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="importFilesAction" destination="vA0-9v-0On" eventType="touchUpInside" id="TGx-hJ-gZx"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="pDC-7U-9aN" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="126.66666666666663" width="361" height="48"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="HoE-GR-ELn"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal">
-                                            <color key="titleColor" name="MoppBase"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="3"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="openRecentDocuments:" destination="vA0-9v-0On" eventType="touchUpInside" id="4lw-mq-fWl"/>
-                                        </connections>
-                                    </button>
+                                    </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="pDC-7U-9aN" firstAttribute="leading" secondItem="2L6-Gw-P9K" secondAttribute="leading" id="54f-rc-uhz"/>
-                                    <constraint firstAttribute="trailing" secondItem="pDC-7U-9aN" secondAttribute="trailing" id="csU-v7-noM"/>
-                                    <constraint firstItem="pDC-7U-9aN" firstAttribute="top" secondItem="CaL-ug-7D1" secondAttribute="bottom" constant="16" id="iX9-Y1-ODA"/>
+                                    <constraint firstAttribute="trailing" secondItem="QS6-dV-Lzh" secondAttribute="trailing" id="6QD-zj-RU8"/>
+                                    <constraint firstItem="QS6-dV-Lzh" firstAttribute="top" secondItem="JhE-Ml-E2Q" secondAttribute="top" id="BAf-3u-HqN"/>
+                                    <constraint firstItem="QS6-dV-Lzh" firstAttribute="leading" secondItem="JhE-Ml-E2Q" secondAttribute="leading" id="C46-fg-Vfg"/>
+                                    <constraint firstItem="QS6-dV-Lzh" firstAttribute="height" secondItem="JhE-Ml-E2Q" secondAttribute="height" multiplier="0.988555" priority="250" constant="8.1831187410585926" id="Gw9-px-8Pv"/>
+                                    <constraint firstAttribute="bottom" secondItem="QS6-dV-Lzh" secondAttribute="bottom" id="doC-VH-QJG"/>
+                                    <constraint firstItem="QS6-dV-Lzh" firstAttribute="width" secondItem="JhE-Ml-E2Q" secondAttribute="width" id="e9m-wz-zQK"/>
                                 </constraints>
-                            </stackView>
+                                <viewLayoutGuide key="contentLayoutGuide" id="sSo-v3-pvw"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="Nxh-w5-6Fj"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="2L6-Gw-P9K" secondAttribute="trailing" constant="16" id="0cy-U0-dwD"/>
-                            <constraint firstItem="2L6-Gw-P9K" firstAttribute="centerX" secondItem="iWd-FS-UZS" secondAttribute="centerX" id="VE5-Wp-2Wp"/>
-                            <constraint firstItem="2L6-Gw-P9K" firstAttribute="centerY" secondItem="iWd-FS-UZS" secondAttribute="centerY" id="hfm-W9-5Vb"/>
-                            <constraint firstItem="2L6-Gw-P9K" firstAttribute="leading" secondItem="iWd-FS-UZS" secondAttribute="leading" constant="16" id="vPb-Yq-TpB"/>
+                            <constraint firstAttribute="trailing" secondItem="JhE-Ml-E2Q" secondAttribute="trailing" id="82x-Hp-hpb"/>
+                            <constraint firstItem="JhE-Ml-E2Q" firstAttribute="leading" secondItem="iWd-FS-UZS" secondAttribute="leading" id="LB3-mt-I7P"/>
+                            <constraint firstItem="JhE-Ml-E2Q" firstAttribute="top" secondItem="T97-EC-IOE" secondAttribute="bottom" id="PEz-YL-hAj"/>
+                            <constraint firstItem="xyl-Tx-lc2" firstAttribute="top" secondItem="JhE-Ml-E2Q" secondAttribute="bottom" id="lvi-0l-nQ8"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Signing" id="2c3-o9-tC3">
@@ -108,7 +135,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l8I-Bf-tlZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="754.39999999999998" y="149.32533733133434"/>
+            <point key="canvasLocation" x="753.43511450381675" y="149.29577464788733"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YBV-PF-rmm">
@@ -135,5 +162,8 @@
         <namedColor name="MoppBase">
             <color red="0.0" green="0.43137254901960786" blue="0.70980392156862748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

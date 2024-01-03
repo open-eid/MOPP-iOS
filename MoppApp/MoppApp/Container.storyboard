@@ -1372,11 +1372,11 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconCryptoSelected" translatesAutoresizingMaskIntoConstraints="NO" id="kGJ-Wd-I4U">
                                                     <rect key="frame" x="16" y="0.0" width="22" height="55"/>
                                                 </imageView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="-150" translatesAutoresizingMaskIntoConstraints="NO" id="vfZ-eu-bMz">
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="vfZ-eu-bMz">
                                                     <rect key="frame" x="54" y="8" width="597" height="38"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="5Wl-Lw-S0l">
-                                                            <rect key="frame" x="0.0" y="0.0" width="373.5" height="38"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="298.5" height="38"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" text="MARI MAASIKAS,9800984323" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OwN-Y6-Aj6" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="231.5" height="20"/>
@@ -1393,10 +1393,10 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="b0v-KZ-tro">
-                                                            <rect key="frame" x="223.5" y="0.0" width="373.5" height="38"/>
+                                                            <rect key="frame" x="298.5" y="0.0" width="298.5" height="38"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhU-k0-Tv1" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="330.5" y="0.0" width="43" height="38"/>
+                                                                    <rect key="frame" x="255.5" y="0.0" width="43" height="38"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <state key="normal" title="Added"/>
                                                                     <connections>

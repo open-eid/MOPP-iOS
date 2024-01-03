@@ -21,9 +21,7 @@
  *
  */
 
-import Foundation
 import UIKit
-
 
 class CryptoViewController : MoppViewController {
     
