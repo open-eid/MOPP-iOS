@@ -1,6 +1,0 @@
-framework module MoppLibTestEnv {
-  umbrella header "MoppLib.h"
-
-  export *
-  module * { export * }
-}

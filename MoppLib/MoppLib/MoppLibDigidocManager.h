@@ -61,7 +61,6 @@ typedef enum {
 - (NSString *)iOSVersion;
 - (NSArray *)connectedDevices;
 - (NSString *)userAgent;
-- (NSString *)pkcs12Cert;
 + (NSArray *)certificatePolicyIdentifiers:(NSData *)certData;
 + (NSString *)sanitize:(NSString *)text;
 @end
