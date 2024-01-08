@@ -24,16 +24,13 @@
 
 #import "MoppLibCertificateInfo.h"
 #import <Foundation/Foundation.h>
-#import <openssl/x509.h>
 #import <openssl/x509v3.h>
 
 
 @implementation MoppLibCertificateInfo
 - (NSArray<NSString *> *)certificatePolicies:(NSData *)certificateData {
-    const unsigned char *certificateDataBytes = (const unsigned char *)[certificateData bytes];
-    X509 *certificateX509 = d2i_X509(NULL, &certificateDataBytes, [certificateData length]);
-    digidoc::X509Cert x509 = digidoc::X509Cert(certificateX509);
-    
+    const unsigned char *bytes = (const unsigned char *)[certificateData bytes];
+    digidoc::X509Cert x509(bytes, certificateData.length);
     std::vector<std::string> x509Policies = x509.certificatePolicies();
     NSMutableArray<NSString *> *policies = [[NSMutableArray alloc] init];
     
@@ -45,9 +42,8 @@
 }
 
 - (NSArray<NSNumber *> *)keyUsages:(NSData *)certificateData {
-    const unsigned char *certificateDataBytes = (const unsigned char *)[certificateData bytes];
-    X509 *certificateX509 = d2i_X509(NULL, &certificateDataBytes, [certificateData length]);
-    digidoc::X509Cert x509 = digidoc::X509Cert(certificateX509);
+    const unsigned char *bytes = (const unsigned char *)[certificateData bytes];
+    digidoc::X509Cert x509(bytes, certificateData.length);
     
     NSMutableArray<NSNumber *> *keyUsagesList = [[NSMutableArray alloc] init];
     
@@ -59,44 +55,30 @@
 }
 
 - (BOOL) hasKeyEnciphermentUsage:(NSArray<NSNumber *> *)keyUsages {
-    if ([keyUsages containsObject:@2]) {
-        return true;
-    }
-    
-    return false;
+    return [keyUsages containsObject:@2];
 }
+
 - (BOOL) hasKeyAgreementUsage:(NSArray<NSNumber *> *)keyUsages {
-    if ([keyUsages containsObject:@4]) {
-        return true;
-    }
-    
-    return false;
+    return [keyUsages containsObject:@4];
 }
 
 - (BOOL) isServerAuthKeyPurpose:(NSData *)certificateData {
-    const unsigned char *certificateDataBytes = (const unsigned char *)[certificateData bytes];
-    X509 *certificateX509 = d2i_X509(NULL, &certificateDataBytes, [certificateData length]);
-    
-    const char *subjectChar = X509_NAME_oneline(X509_get_subject_name(certificateX509), NULL, 0);
-    std::string subjectString(subjectChar);
-    
-    if (subjectString.find("SN") != std::string::npos) {
-        return (X509_get_extended_key_usage(certificateX509) & XKU_SSL_SERVER) == XKU_SSL_SERVER;
+    const unsigned char *bytes = (const unsigned char *)[certificateData bytes];
+    digidoc::X509Cert x509(bytes, certificateData.length);
+
+    if (!x509.subjectName("SN").empty()) {
+        return (X509_get_extended_key_usage(x509.handle()) & XKU_SSL_SERVER) == XKU_SSL_SERVER;
     } else {
-        return ((X509_get_extended_key_usage(certificateX509) != UINT32_MAX) & XKU_SSL_SERVER) == XKU_SSL_SERVER;
+        return ((X509_get_extended_key_usage(x509.handle()) != UINT32_MAX) & XKU_SSL_SERVER) == XKU_SSL_SERVER;
     }
 }
 
 - (BOOL) isTlsClientAuthKeyPurpose:(NSData *)certificateData {
-    const unsigned char *certificateDataBytes = (const unsigned char *)[certificateData bytes];
-    X509 *certificateX509 = d2i_X509(NULL, &certificateDataBytes, [certificateData length]);
-    
-    X509_check_purpose(certificateX509, -1, -1);
-    if (X509_get_extended_key_usage(certificateX509) != UINT32_MAX) {
-        return true;
-    }
-    
-    return false;
+    const unsigned char *bytes = (const unsigned char *)[certificateData bytes];
+    digidoc::X509Cert x509(bytes, certificateData.length);
+
+    X509_check_purpose(x509.handle(), -1, -1);
+    return X509_get_extended_key_usage(x509.handle()) != UINT32_MAX;
 }
 
 - (BOOL) isESealType:(NSArray<NSString *> *)certificatePolicies {
@@ -144,11 +126,9 @@
 
 - (BOOL) isUnknownType:(NSArray<NSString *> *)certificatePolicies {
     MoppLibCertificateInfo *certInfo = [MoppLibCertificateInfo alloc];
-    if (![certInfo isIdCardType:(certificatePolicies)] && ![certInfo isDigiIdType:(certificatePolicies)] && ![certInfo isMobileIdType:(certificatePolicies)] && ![certInfo isESealType:(certificatePolicies)]) {
-        return true;
-    }
-    
-    return false;
+    return ![certInfo isIdCardType:certificatePolicies] &&
+        ![certInfo isDigiIdType:certificatePolicies] &&
+        ![certInfo isMobileIdType:certificatePolicies] &&
+        ![certInfo isESealType:certificatePolicies];
 }
-
 @end

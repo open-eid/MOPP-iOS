@@ -369,12 +369,12 @@ static digidoc::Signature *signature = nil;
     digidoc::X509Cert x509Cert;
 
     try {
-        x509Cert = [MoppLibDigidocManager getCertFromData:cert];
+        x509Cert = [self getCertFromData:cert];
     } catch (const digidoc::Exception &e) {
         parseException(e);
         return nil;
     }
-    WebSigner *signer = new WebSigner(x509Cert);
+    std::unique_ptr<WebSigner> signer = std::make_unique<WebSigner>(x509Cert);
 
     docContainer = NULL;
     signature = NULL;
@@ -408,7 +408,7 @@ static digidoc::Signature *signature = nil;
     NSLog(@"\nProfile info set successfully\n");
     
     NSLog(@"\nSetting signature...\n");
-    signature = docContainer->prepareSignature(signer);
+    signature = docContainer->prepareSignature(signer.get());
     NSString *signatureId = [NSString stringWithCString:signature->id().c_str() encoding:[NSString defaultCStringEncoding]];
     printLog(@"\nSignature ID set to %@...\n", signatureId);
 
@@ -543,9 +543,9 @@ static digidoc::Signature *signature = nil;
     moppLibSignature.roleAndAddressData = moppLibRoleAddressData;
 
     try {
-      digidoc::Signature::Validator *validator = new digidoc::Signature::Validator(signature);
-      digidoc::Signature::Validator::Status status = validator->status();
-      moppLibSignature.diagnosticsInfo = [NSString stringWithUTF8String:validator->diagnostics().c_str()];
+      digidoc::Signature::Validator validator(signature);
+      digidoc::Signature::Validator::Status status = validator.status();
+      moppLibSignature.diagnosticsInfo = [NSString stringWithUTF8String:validator.diagnostics().c_str()];
       moppLibSignature.status = [self determineSignatureStatus:status];
     } catch(const digidoc::Exception &e) {
       moppLibSignature.status = Invalid;
@@ -625,24 +625,6 @@ static digidoc::Signature *signature = nil;
     return Invalid;
 }
 
-- (NSString *)dataFileCalculateHashWithDigestMethod:(NSString *)method container:(MoppLibContainer *)moppContainer dataFileId:(NSString *)dataFileId {
-  MLLog(@"dataFileCalculateHashWithDigestMehtod %@", method);
-  std::unique_ptr<digidoc::Container> container;
-  try {
-    container = digidoc::Container::openPtr(moppContainer.filePath.UTF8String);
-    for (int i = 0; i < container->dataFiles().size(); i ++) {
-      digidoc::DataFile *dataFile = container->dataFiles().at(i);
-      NSString *currentId = [NSString stringWithUTF8String:dataFile->id().c_str()];
-      if ([currentId isEqualToString:dataFileId]) {
-        NSData * data = [NSData dataWithBytes:dataFile->calcDigest([method UTF8String]).data() length:dataFile->calcDigest([method UTF8String]).size()];
-        return [data base64EncodedStringWithOptions:0];
-      }
-    }
-  } catch (const digidoc::Exception &e) {
-    parseException(e);
-  }
-  return nil;
-}
 - (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths error:(NSError **)error {
   MLLog(@"createContainerWithPath: %@, dataFilePaths: %@", containerPath, dataFilePaths);
 
@@ -752,33 +734,6 @@ void parseException(const digidoc::Exception &e) {
   }
 }
 
-- (BOOL)container:(NSString *)containerPath containsSignatureWithCert:(NSData *)cert {
-  std::unique_ptr<digidoc::Container> doc;
-
-  try {
-    digidoc::X509Cert x509Cert = [MoppLibDigidocManager getCertFromData:cert];
-
-    doc = digidoc::Container::openPtr(containerPath.UTF8String);
-
-    // Checking if signature with same certificate already exists
-    for (int i = 0; i < doc->signatures().size(); i++) {
-      digidoc::Signature *signature = doc->signatures().at(i);
-
-      digidoc::X509Cert signatureCert = signature->signingCertificate();
-
-      if (x509Cert == signatureCert) {
-        return YES;
-      }
-    }
-
-  } catch(const digidoc::Exception &e) {
-    parseException(e);
-  }
-
-  return NO;
-
-}
-
 NSString* getOCSPUrl(const digidoc::X509Cert &cert)  {
     NSString *ocspUrl = nil;
     STACK_OF(OPENSSL_STRING) *ocsps = X509_get1_ocsp(cert.handle());
@@ -806,15 +761,12 @@ NSString* getOCSPUrl(const digidoc::X509Cert &cert)  {
     // Check if key type in certificate supports ECC algorithm
     SecCertificateRef certRef = SecCertificateCreateWithData(kCFAllocatorDefault, (__bridge CFDataRef)cert);
     SecKeyRef publicKey = SecCertificateCopyKey(certRef);
+    CFRelease(certRef);
     NSString *publicKeyInfo = CFBridgingRelease(CFCopyDescription(publicKey));
+    CFRelease(publicKey);
     BOOL useECC = [publicKeyInfo containsString:@"ECPublicKey"];
 
-    WebSigner *signer = new WebSigner(x509Cert);
-
-    NSMutableArray *profiles = [NSMutableArray new];
-    for (auto signature : managedContainer->signatures()) {
-        [profiles addObject:[[NSString alloc] initWithBytes:signature->profile().c_str() length:signature->profile().size() encoding:NSUTF8StringEncoding]];
-    }
+    std::unique_ptr<WebSigner> signer = std::make_unique<WebSigner>(x509Cert);
 
     NSLog(@"\nSetting profile info...\n");
     NSLog(@"Role data - roles: %@, city: %@, state: %@, zip: %@, country: %@", roleData.ROLES, roleData.CITY, roleData.STATE, roleData.ZIP, roleData.COUNTRY);
@@ -831,7 +783,7 @@ NSString* getOCSPUrl(const digidoc::X509Cert &cert)  {
 
     digidoc::Signature *signature;
     try {
-        signature = managedContainer->prepareSignature(signer);
+        signature = managedContainer->prepareSignature(signer.get());
     } catch (const digidoc::Exception &e) {
         parseException(e);
         failure([MoppLibError generalError]);
@@ -930,31 +882,6 @@ NSString* getOCSPUrl(const digidoc::X509Cert &cert)  {
   NSMutableString *resultString = [[NSMutableString alloc] initWithString:[[bundle infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
   [resultString appendString:[NSString stringWithFormat:@".%@", [[bundle infoDictionary] objectForKey:@"CFBundleVersion"]]];
   return resultString;
-}
-
-
-- (void)addMobileIDSignatureToContainer:(MoppLibContainer *)moppContainer
-                              signature:(NSString *)signature
-                                success:(ContainerBlock)success
-                             andFailure:(FailureBlock)failure {
-    std::unique_ptr<digidoc::Container> container;
-  try {
-    container = digidoc::Container::openPtr(moppContainer.filePath.UTF8String);
-    NSData *data = [signature dataUsingEncoding:NSUTF8StringEncoding];
-    unsigned char bytes[[data length]];
-    [data getBytes:bytes length:data.length];
-    std::vector<unsigned char> signatureVector(bytes, bytes + data.length);
-    container->addAdESSignature(signatureVector);
-    container->save();
-    MLLog(@"Mobile ID signature added");
-    NSError *error;
-    MoppLibContainer *moppLibContainer = [self getContainerWithPath:moppContainer.filePath error:&error];
-    success(moppLibContainer);
-  } catch(const digidoc::Exception &e) {
-    parseException(e);
-    NSError *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:@{}];
-    failure(error);
-  }
 }
 
 - (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure {

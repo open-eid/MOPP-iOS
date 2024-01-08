@@ -23,95 +23,68 @@
 
 #import "MoppLibCertificate.h"
 #import "MoppLibManager.h"
-#include "MoppLibDigidocManager.h"
 #include <digidocpp/crypto/X509Cert.h>
 #include <digidocpp/Exception.h>
 #import <openssl/x509.h>
-#import <openssl/x509v3.h>
-#include <iostream>
-#import <CryptoLib/CryptoLib.h>
 
 @implementation MoppLibCertificate
 
 + (void)certData:(MoppLibCerificatetData *)certData updateWithDerEncoding:(NSData*)data {
     try {
         auto bytes = reinterpret_cast<const unsigned char*>(data.bytes);
-        digidoc::X509Cert digiDocCert(bytes, data.length);
-        [self setCertData:certData digiDocCert:digiDocCert];
+        digidoc::X509Cert cert(bytes, data.length);
+        if (!cert) {
+            return;
+        }
+        certData.isValid = cert.isValid();
+        certData.expiryDate = [self certificateExpiryDate:cert];
+        certData.organization = [self certificateOrganization:cert];
     } catch(const digidoc::Exception &e) {
         printLog(@"Code: %u, message: %@", e.code(), [NSString stringWithCString:e.msg().c_str() encoding:[NSString defaultCStringEncoding]]);
     }
 }
 
-+ (void)setCertData:(MoppLibCerificatetData *)certData digiDocCert:(digidoc::X509Cert)digiDocCert {
-    certData.isValid = [self certificateIsValid:digiDocCert];
-    certData.expiryDate = [self certificateExpiryDate:digiDocCert];
-    certData.organization = [self certificateOrganization:digiDocCert];
-}
++ (MoppLibCertificateOrganization)certificateOrganization:(const digidoc::X509Cert&)cert {
+    NSMutableArray *policies = [NSMutableArray new];
+    for (const std::string &policy: cert.certificatePolicies()) {
+        [policies addObject:[NSString stringWithUTF8String:policy.c_str()]];
+    }
+    EIDType eidType = [MoppLibManager eidTypeFromCertificatePolicies:policies];
 
-+ (MoppLibCertificateOrganization)certificateOrganization:(digidoc::X509Cert)cert {
-    X509 *certificateX509 = cert.handle();
-    
-    if (certificateX509 != NULL) {
-        std::string name(cert.subjectName());
-        
-        NSMutableArray *policies = [NSMutableArray new];
-        for (int i=0; i<cert.certificatePolicies().size(); i++) {
-            [policies addObject:[NSString stringWithUTF8String:cert.certificatePolicies()[i].c_str()]];
-        }
-        EIDType eidType = [MoppLibManager eidTypeFromCertificatePolicies:policies];
-        
-        switch (eidType) {
-            case EIDTypeUnknown:
-            case EIDTypeESeal:
-                return Unknown;
-            case EIDTypeMobileID:
-                return MobileID;
-            case EIDTypeSmartID:
-                return SmartID;
-            case EIDTypeDigiID:
-                return DigiID;
-            case EIDTypeIDCard:
-                return IDCard;
-        }
+    switch (eidType) {
+        case EIDTypeUnknown:
+        case EIDTypeESeal:
+            return Unknown;
+        case EIDTypeMobileID:
+            return MobileID;
+        case EIDTypeSmartID:
+            return SmartID;
+        case EIDTypeDigiID:
+            return DigiID;
+        case EIDTypeIDCard:
+            return IDCard;
     }
     return Unknown;
 }
 
-+ (NSDate *)certificateExpiryDate:(digidoc::X509Cert)cert {
-    
-    X509 *certificateX509 = cert.handle();
-    
-    NSDate *expiryDate = nil;
-    
-    if (certificateX509 != NULL) {
-        ASN1_TIME *certificateExpiryASN1 = X509_get_notAfter(certificateX509);
-        if (certificateExpiryASN1 != NULL) {
-            ASN1_GENERALIZEDTIME *certificateExpiryASN1Generalized = ASN1_TIME_to_generalizedtime(certificateExpiryASN1, NULL);
-            if (certificateExpiryASN1Generalized != NULL) {
-                const unsigned char *certificateExpiryData = ASN1_STRING_get0_data(certificateExpiryASN1Generalized);
-                
-                NSString *expiryTimeStr = [NSString stringWithUTF8String:(char *)certificateExpiryData];
-                NSDateComponents *expiryDateComponents = [[NSDateComponents alloc] init];
-                
-                expiryDateComponents.year   = [[expiryTimeStr substringWithRange:NSMakeRange(0, 4)] intValue];
-                expiryDateComponents.month  = [[expiryTimeStr substringWithRange:NSMakeRange(4, 2)] intValue];
-                expiryDateComponents.day    = [[expiryTimeStr substringWithRange:NSMakeRange(6, 2)] intValue];
-                expiryDateComponents.hour   = [[expiryTimeStr substringWithRange:NSMakeRange(8, 2)] intValue];
-                expiryDateComponents.minute = [[expiryTimeStr substringWithRange:NSMakeRange(10, 2)] intValue];
-                expiryDateComponents.second = [[expiryTimeStr substringWithRange:NSMakeRange(12, 2)] intValue];
-                
-                NSCalendar *calendar = [NSCalendar currentCalendar];
-                expiryDate = [calendar dateFromComponents:expiryDateComponents];
-            }
-        }
-    }
-    
-    return expiryDate;
-}
++ (NSDate *)certificateExpiryDate:(const digidoc::X509Cert&)cert {
+    if (auto *certificateExpiryASN1Generalized = ASN1_TIME_to_generalizedtime(X509_get0_notAfter(cert.handle()), nil)) {
+        const unsigned char *certificateExpiryData = ASN1_STRING_get0_data(certificateExpiryASN1Generalized);
+        NSString *expiryTimeStr = [NSString stringWithUTF8String:(char *)certificateExpiryData];
+        ASN1_GENERALIZEDTIME_free(certificateExpiryASN1Generalized);
 
-+ (BOOL)certificateIsValid:(digidoc::X509Cert)cert {
-    return cert.isValid();
+        NSDateComponents *expiryDateComponents = [[NSDateComponents alloc] init];
+        expiryDateComponents.year   = [[expiryTimeStr substringWithRange:NSMakeRange(0, 4)] intValue];
+        expiryDateComponents.month  = [[expiryTimeStr substringWithRange:NSMakeRange(4, 2)] intValue];
+        expiryDateComponents.day    = [[expiryTimeStr substringWithRange:NSMakeRange(6, 2)] intValue];
+        expiryDateComponents.hour   = [[expiryTimeStr substringWithRange:NSMakeRange(8, 2)] intValue];
+        expiryDateComponents.minute = [[expiryTimeStr substringWithRange:NSMakeRange(10, 2)] intValue];
+        expiryDateComponents.second = [[expiryTimeStr substringWithRange:NSMakeRange(12, 2)] intValue];
+
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        return [calendar dateFromComponents:expiryDateComponents];
+    }
+    return nil;
 }
 
 @end
