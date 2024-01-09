@@ -27,7 +27,6 @@ protocol SearchTextFieldDelegate: AnyObject {
     func searchTextFieldValueChanged(_ newValue: String)
 }
 
-
 class SearchTextField: ScaledTextField {
 
     weak var _delegate: SearchTextFieldDelegate?
@@ -51,6 +50,7 @@ class SearchTextField: ScaledTextField {
     override var text: String? {
         didSet {
             showClearIndicator(text == nil)
+            _delegate?.searchTextFieldValueChanged(text ?? String())
         }
     }
 
@@ -68,14 +68,9 @@ class SearchTextField: ScaledTextField {
     func showClearIndicator(_ show: Bool) {
         if show {
             if rightView == nil {
-                rightViewMode = UIAccessibility.isVoiceOverRunning ? .always : .whileEditing
+                rightViewMode = .always
                 let clearButton = UIButton(type: .custom)
                 clearButton.addTarget(self, action: #selector(clearTapped), for: .touchUpInside)
-                clearButton.setImage(UIImage(named: "DismissPopup"), for: .normal)
-                clearButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -70, bottom: 0, right: 0)
-                clearButton.frame = CGRect(x: 0, y: 0, width: 56, height: 44)
-                clearButton.backgroundColor = UIColor.clear
-                clearButton.tintColor = textColor
                 clearButton.isAccessibilityElement = !UIAccessibility.isVoiceOverRunning
                 clearButton.imageView?.isAccessibilityElement = true
                 clearButton.accessibilityUserInputLabels = [L(.voiceControlClearText)]
@@ -100,15 +95,10 @@ class SearchTextField: ScaledTextField {
         return bounds.inset(by: padding)
     }
     
-    //override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
-    //    return UIEdgeInsetsInsetRect(CGRect(x: 0, y: 0, width: 25, height: 25), rightViewPadding)
-    //}
-    
     override func shouldChangeText(in range: UITextRange, replacementText text: String) -> Bool {
 
         return true
     }
-
 }
 
 extension SearchTextField: UITextFieldDelegate {

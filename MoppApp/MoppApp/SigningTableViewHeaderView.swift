@@ -21,7 +21,6 @@
  *
  */
 
-import Foundation
 import UIKit
 
 protocol SigningTableViewHeaderViewDelegate: AnyObject {
@@ -31,7 +30,6 @@ protocol SigningTableViewHeaderViewDelegate: AnyObject {
 
 class SigningTableViewHeaderView: UIView {
     weak var delegate: SigningTableViewHeaderViewDelegate?
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var searchTextField: SearchTextField!
     
@@ -40,94 +38,27 @@ class SigningTableViewHeaderView: UIView {
         showSearch(true, animated: true)
     }
     
-    var requestForClosingKeyboard: (() -> Void)?
-    
     override func awakeFromNib() {
         super.awakeFromNib()
+
         searchTextField._delegate = self
-        guard let titleUILabel = titleLabel, let searchUIButton = searchButton, let searchUITextField = searchTextField else {
-            printLog("Unable to get titleLabel, searchButton or searchTextField")
+        guard let searchUIButton = searchButton, let searchUITextField = searchTextField else {
+            printLog("Unable to get searchButton or searchTextField")
             return
         }
         searchUITextField.isAccessibilityElement = false
         if UIAccessibility.isVoiceOverRunning {
-            self.accessibilityElements = [titleUILabel, searchUIButton]
+            self.accessibilityElements = [searchUIButton]
         }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        let topColor = UIColor.white.withAlphaComponent(1.0)
-        let botColor = UIColor.white.withAlphaComponent(0.8)
-        createGradientLayer(topColor: topColor, bottomColor: botColor)
     }
     
     func populate(title: String, _ requestCloseSearch: inout () -> Void) {
-        titleLabel.text = title
-        requestCloseSearch = { [weak self] in
-            self?.showSearch(false, animated: false)
-        }
-        
         self.searchButton.accessibilityUserInputLabels = [L(.voiceControlSearch)]
     }
     
     func showSearch(_ show: Bool, animated: Bool) {
-        
         self.searchButton.accessibilityLabel = L(.searchContainerFile)
-        
-        self.titleLabel.alpha = show ? 1.0 : 0.0
-        self.searchButton.alpha = show ? 1.0 : 0.0
-        self.searchTextField.alpha = show ? 0.0 : 1.0
-        self.titleLabel.isHidden = false
-        self.searchButton.isHidden = false
-        self.searchTextField.isHidden = false
         self.searchButton.titleLabel?.font = UIFont.moppLargerMedium
-    
-        let changeTo = {
-            if !UIAccessibility.isVoiceOverRunning {
-                self.titleLabel.alpha = show ? 0.0 : 1.0
-                self.searchButton.alpha = show ? 0.0 : 1.0
-                self.searchTextField.alpha = show ? 1.0 : 0.0
-            } else {
-                self.titleLabel.alpha = 0.0
-                self.searchButton.alpha = 0.0
-                self.searchTextField.alpha = 1.0
-            }
-        }
-        
-        let changeFinished = {
-            if !UIAccessibility.isVoiceOverRunning {
-                self.titleLabel.isHidden = show
-                self.searchButton.isHidden = show
-                self.searchTextField.isHidden = !show
-            }
-            if show {
-                self.searchTextField.becomeFirstResponder()
-            } else {
-                if !UIAccessibility.isVoiceOverRunning {
-                    self.searchTextField.resignFirstResponder()
-                    self.searchTextField.text = nil
-                    self.delegate?.signingTableViewHeaderViewDidEndSearch()
-                } else {
-                    self.titleLabel.isHidden = false
-                    self.searchButton.isHidden = false
-                    self.searchTextField.isHidden = false
-                }
-            }
-        }
-    
-        if animated {
-            UIView.animate(withDuration: 0.35, animations: {
-                changeTo()
-            }) { _ in
-                changeFinished()
-            }
-        } else {
-            changeTo()
-            changeFinished()
-        }
-
     }
 }
 
