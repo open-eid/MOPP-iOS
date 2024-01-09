@@ -78,6 +78,9 @@ class MobileIDEditViewController : MoppViewController, TokenFlowSigning {
         signButton.setTitle(L(.actionSign).uppercased())
         rememberLabel.text = L(.signingRememberMe)
         
+        cancelButton.adjustedFont()
+        signButton.adjustedFont()
+        
         rememberLabel.isAccessibilityElement = false
         rememberSwitch.accessibilityLabel = L(.signingRememberMe)
 

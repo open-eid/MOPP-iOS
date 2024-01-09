@@ -33,9 +33,9 @@ class TokenFlowSelectionViewController : MoppViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var tokenNavbarView: UIView!
     @IBOutlet weak var tokenNavbar: UIView!
-    @IBOutlet weak var mobileIDButton: UIButton!
-    @IBOutlet weak var smartIDButton: UIButton!
-    @IBOutlet weak var idCardButton: UIButton!
+    @IBOutlet weak var mobileIDButton: ScaledButton!
+    @IBOutlet weak var smartIDButton: ScaledButton!
+    @IBOutlet weak var idCardButton: ScaledButton!
     
     @IBOutlet weak var tokenViewContainerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var tokenFlowViewLeadingCSTR: NSLayoutConstraint!
@@ -129,14 +129,17 @@ class TokenFlowSelectionViewController : MoppViewController {
                 $0.setTitle(L(.signTitleIdCard))
                 idCardButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleIdCard), positionInRow: "3", viewCount: "3")
                 idCardButton.accessibilityUserInputLabels = [L(.voiceControlIdCard)]
+                idCardButton.adjustedFont()
             case .mobileID:
                 $0.setTitle(L(.signTitleMobileId))
                 mobileIDButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleMobileId), positionInRow: "1", viewCount: "3")
                 mobileIDButton.accessibilityUserInputLabels = [L(.voiceControlMobileId)]
+                mobileIDButton.adjustedFont()
             case .smartID:
                 $0.setTitle(L(.signTitleSmartId))
                 smartIDButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleSmartId), positionInRow: "2", viewCount: "3")
                 smartIDButton.accessibilityUserInputLabels = [L(.voiceControlSmartId)]
+                smartIDButton.adjustedFont()
             }
         }
     }

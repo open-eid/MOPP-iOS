@@ -44,8 +44,8 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var pinCodeStackView: UIStackView!
     @IBOutlet weak var pinTextField: UITextField!
-    @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var actionButton: UIButton!
+    @IBOutlet weak var cancelButton: ScaledButton!
+    @IBOutlet weak var actionButton: ScaledButton!
     @IBOutlet weak var pinTextFieldTitleLabel: UILabel!
     @IBOutlet weak var loadingSpinner: SpinnerView!
     
@@ -95,6 +95,9 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
             actionButton.setTitle(L(.actionSign).uppercased())
             actionButton.accessibilityLabel = L(.actionSign).lowercased()
         }
+        
+        cancelButton.adjustedFont()
+        actionButton.adjustedFont()
 
         pinTextField.delegate = self
         pinTextField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)

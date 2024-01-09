@@ -56,8 +56,8 @@ class SmartIDEditViewController : MoppViewController, TokenFlowSigning {
     @IBOutlet weak var countryLabel: UILabel!
     @IBOutlet weak var idCodeLabel: UILabel!
     @IBOutlet weak var personalCodeErrorLabel: UILabel!
-    @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var signButton: UIButton!
+    @IBOutlet weak var cancelButton: ScaledButton!
+    @IBOutlet weak var signButton: ScaledButton!
     @IBOutlet weak var rememberLabel: UILabel!
     @IBOutlet weak var rememberSwitch: UISwitch!
     @IBOutlet weak var rememberStackView: UIStackView!
@@ -80,6 +80,9 @@ class SmartIDEditViewController : MoppViewController, TokenFlowSigning {
         cancelButton.setTitle(L(.actionCancel).uppercased())
         signButton.setTitle(L(.actionSign).uppercased())
         rememberLabel.text = L(.signingRememberMe)
+
+        cancelButton.adjustedFont()
+        signButton.adjustedFont()
         
         rememberLabel.isAccessibilityElement = false
         rememberSwitch.accessibilityLabel = L(.signingRememberMe)
