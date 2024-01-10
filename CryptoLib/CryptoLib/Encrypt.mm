@@ -45,7 +45,7 @@
         unsigned char *buffer = reinterpret_cast<unsigned char*>(const_cast<void*>(cert.bytes));
         std::vector<unsigned char> result = std::vector<unsigned char>(buffer, buffer + cert.length);
         
-        cdocWriter.addRecipient(result);
+        cdocWriter.addRecipient(std::move(result));
     }
     
     cdocWriter.encrypt();
