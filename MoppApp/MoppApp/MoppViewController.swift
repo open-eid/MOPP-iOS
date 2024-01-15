@@ -124,6 +124,7 @@ class MoppViewController : UIViewController {
         NotificationCenter.default.post(name: .isBackButtonPressed, object: nil, userInfo: nil)
         _ = navigationController?.popViewController(animated: true)
     }
+
     @objc func shareAction(sender: WrapperUIBarButtonItem) {
         LandingViewController.shared.shareFile(using: URL(fileURLWithPath: sender.filePath!), sender: self.view, completion: { bool in })
     }
