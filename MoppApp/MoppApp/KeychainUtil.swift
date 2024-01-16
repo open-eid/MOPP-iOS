@@ -32,7 +32,8 @@ class KeychainUtil {
                 kSecClass as String: kSecClassGenericPassword,
                 kSecAttrService as String: bundleIdentifier,
                 kSecAttrAccount as String: "\(bundleIdentifier).\(key)",
-                kSecValueData as String: data
+                kSecValueData as String: data,
+                kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlockedThisDeviceOnly
             ]
             SecItemDelete(query as CFDictionary)
             let status = SecItemAdd(query as CFDictionary, nil)
@@ -49,7 +50,8 @@ class KeychainUtil {
             kSecAttrService as String: bundleIdentifier,
             kSecAttrAccount as String: "\(bundleIdentifier).\(key)",
             kSecReturnData as String: true,
-            kSecMatchLimit as String: kSecMatchLimitOne
+            kSecMatchLimit as String: kSecMatchLimitOne,
+            kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlockedThisDeviceOnly
         ]
         
         var infoData: AnyObject?
