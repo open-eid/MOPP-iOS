@@ -30,15 +30,13 @@ class MobileIDSignature {
     
     // MARK: Creating Mobile ID signature
     func createMobileIDSignature(phoneNumber: String, nationalIdentityNumber: String, containerPath: String, hashType: String, language: String, roleData: MoppLibRoleAddressData?) -> Void {
-        
-        if isUsingTestMode() {
-            printLog("RIA.MobileID parameters:\n" +
-                "\tPhone number: \(phoneNumber)\n" +
-                "\tNational Identity number: \(nationalIdentityNumber)\n" +
-                "\tHash type: \(hashType)\n" +
-                "\tLanguage: \(language)\n"
-            )
-        }
+
+        printLog("RIA.MobileID parameters:\n" +
+                 "\tPhone number: \(isUsingTestMode() ? phoneNumber : "xxxx")\n" +
+                 "\tNational Identity number: \(isUsingTestMode() ? nationalIdentityNumber : "xxxx")\n" +
+            "\tHash type: \(hashType)\n" +
+            "\tLanguage: \(language)\n"
+        )
 
         let baseUrl = DefaultsHelper.rpUuid.isEmpty ? Configuration.getConfiguration().MIDPROXYURL : Configuration.getConfiguration().MIDSKURL
         let uuid = DefaultsHelper.rpUuid.isEmpty ? kRelyingPartyUUID : DefaultsHelper.rpUuid
@@ -70,14 +68,13 @@ class MobileIDSignature {
         }
 
         // MARK: Get certificate
-        if isUsingTestMode() {
-            printLog("RIA.MobileID - Getting certificate...:\n" +
-                "\tBase URL: \(baseUrl)\n" +
-                "\tUUID: \(uuid)\n" +
-                "\tPhone number: \(phoneNumber)\n" +
-                "\tNational Identity number: \(nationalIdentityNumber)\n"
-            )
-        }
+        printLog("RIA.MobileID - Getting certificate...:\n" +
+            "\tBase URL: \(baseUrl)\n" +
+            "\tUUID: \(uuid)\n" +
+            "\tPhone number: \(isUsingTestMode() ? phoneNumber "xxxx")\n" +
+                 "\tNational Identity number: \(isUsingTestMode() ? nationalIdentityNumber: "xxxx")\n"
+        )
+
         SessionCertificate.shared.getCertificate(baseUrl: baseUrl, uuid: uuid, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, trustedCertificates: trustedCertificates) { (sessionCertificate: Result<CertificateResponse, SigningError>) in
             
             let certificateResponse: CertificateResponse
@@ -134,16 +131,15 @@ class MobileIDSignature {
         }
 
         // MARK: Get session
-        if isUsingTestMode() {
-            printLog("RIA.MobileID - Getting session...:\n" +
-                "\tBase URL: \(baseUrl)\n" +
-                "\tUUID: \(uuid)\n" +
-                "\tPhone number: \(phoneNumber)\n" +
-                "\tNational Identity number: \(nationalIdentityNumber)\n" +
-                "\tHash type: \(hashType)\n" +
-                "\tLanguage: \(language)\n"
-            )
-        }
+        printLog("RIA.MobileID - Getting session...:\n" +
+            "\tBase URL: \(baseUrl)\n" +
+            "\tUUID: \(uuid)\n" +
+             "\tPhone number: \(isUsingTestMode() ? phoneNumber : "xxxx")\n" +
+             "\tNational Identity number: \(isUsingTestMode() ? nationalIdentityNumber : "xxxx")\n" +
+            "\tHash type: \(hashType)\n" +
+            "\tLanguage: \(language)\n"
+        )
+
         Session.shared.getSession(baseUrl: baseUrl, uuid: uuid, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, hash: hash, hashType: hashType, language: language, trustedCertificates: trustedCertificates) { (sessionResult: Result<SessionResponse, SigningError>) in
 
             let sessionResponse: SessionResponse
@@ -177,12 +173,11 @@ class MobileIDSignature {
         }
 
         // MARK: Get session status
-        if isUsingTestMode() {
-            printLog("RIA.MobileID - Getting session status...:\n" +
-                "\tBase URL: \(baseUrl)\n" +
-                "\tSession ID: \(sessionId)\n"
-            )
-        }
+        printLog("RIA.MobileID - Getting session status...:\n" +
+            "\tBase URL: \(baseUrl)\n" +
+            "\tSession ID: \(sessionId)\n"
+        )
+
         SessionStatus.shared.getSessionStatus(baseUrl: baseUrl, process: .SIGNING, sessionId: sessionId, timeoutMs: kDefaultTimeoutMs, trustedCertificates: trustedCertificates) { (sessionStatusResult: Result<SessionStatusResponse, SigningError>) in
 
             let sessionStatus: SessionStatusResponse
@@ -221,12 +216,10 @@ class MobileIDSignature {
     
     // MARK: Signature validation
     private func validateSignature(cert: String, signatureValue: String) -> Void {
-        if isUsingTestMode() {
-            printLog("RIA.MobileID - Validating signature...:\n" +
-                "\tCert: \(cert)\n" +
-                "\tSignature value: \(signatureValue)\n"
-            )
-        }
+        printLog("RIA.MobileID - Validating signature...:\n" +
+            "\tCert: \(cert)\n" +
+            "\tSignature value: \(signatureValue)\n"
+        )
         MoppLibManager.isSignatureValid(cert, signatureValue: signatureValue, success: { (_) in
             printLog("\nRIA.MobileID - Successfully validated signature!\n")
             DispatchQueue.main.async {
@@ -283,13 +276,11 @@ class MobileIDSignature {
     // MARK: Get hash
     private func getHash(cert: String, containerPath: String, roleData: MoppLibRoleAddressData?) -> String? {
         guard let hash: String = MoppLibManager.prepareSignature(cert, containerPath: containerPath, roleData: roleData) else {
-            printLog("RIA.MobileID - Failed to get hash")
-            if isUsingTestMode() {
-                printLog("RIA.MobileID - Failed to get hash:\n" +
-                    "\tCert: \(cert)\n" +
-                    "\tContainer path: \(containerPath)\n"
-                )
-            }
+            printLog("RIA.MobileID - Failed to get hash:\n" +
+                "\tCert: \(cert)\n" +
+                "\tContainer path: \(containerPath)\n"
+            )
+
             ErrorUtil.generateError(signingError: .generalError, details: MessageUtil.errorMessageWithDetails(details: "Failed to get hash"))
             return nil
         }

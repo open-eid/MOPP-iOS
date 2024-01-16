@@ -27,50 +27,94 @@ class Logging {
     
     private static let frameworkBundleID = "ee.ria.digidoc.SkSigningLib"
     
-    internal static func log(forMethod: String, info: String, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    internal static func isUsingTestMode() -> Bool {
         #if DEBUG
-            NSLog("\(forMethod):\n" +
-                  "\tLog info: \(info)\n" +
-                  "\tFile: \(file), function: \(function), line: \(line)\n"
-            )
+            let testMode: Bool = true
+        #else
+            let testMode: Bool = false
         #endif
+
+        return testMode
+    }
+    
+    internal static func isLoggingEnabled() -> Bool {
+        let defaults = UserDefaults.standard
+        return defaults.bool(forKey: "kIsFileLoggingEnabled") && defaults.bool(forKey: "kIsFileLoggingRunning")
+    }
+    
+    internal static func log(forMethod: String, info: String, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
+        let message = "\(forMethod):\n" +
+        "\tLog info: \(info)\n" +
+        "\tFile: \(file), function: \(function), line: \(line)\n"
+        
+        if isUsingTestMode() {
+            NSLog(message)
+        } else {
+            if isLoggingEnabled() {
+                NSLog(message)
+            }
+        }
     }
     
     internal static func errorLog(forMethod: String, httpResponse: HTTPURLResponse?, error: SigningError, extraInfo: String, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
-        #if DEBUG
-            guard let response = httpResponse else {
-                return NSLog("\(forMethod): " +
-                    "\tError: \(error.localizedDescription)\n" +
-                    "\tError description: \(localizedError(error.signingErrorDescription ?? "")) (\(error.signingErrorDescription ?? "Unable to get error description"))\n" +
-                    "\tExtra info: \(extraInfo)\n" +
-                    "\tFile: \(file), function: \(function), line: \(line)\n"
-                )
-            }
-            NSLog("\(forMethod) response code: \(response.statusCode)\n" +
+        var logMessage: String
+
+        guard let response = httpResponse else {
+            logMessage = "\(forMethod): " +
                 "\tError: \(error.localizedDescription)\n" +
                 "\tError description: \(localizedError(error.signingErrorDescription ?? "")) (\(error.signingErrorDescription ?? "Unable to get error description"))\n" +
-                "\tURL: \(response.url?.absoluteString ?? "Unable to get URL")\n" +
                 "\tExtra info: \(extraInfo)\n" +
                 "\tFile: \(file), function: \(function), line: \(line)\n"
-            )
-        #endif
+            
+            if isUsingTestMode() {
+                NSLog(logMessage)
+            } else {
+                if isLoggingEnabled() {
+                    NSLog(logMessage)
+                }
+            }
+            return
+        }
+
+        logMessage = "\(forMethod) response code: \(response.statusCode)\n" +
+            "\tError: \(error.localizedDescription)\n" +
+            "\tError description: \(localizedError(error.signingErrorDescription ?? "")) (\(error.signingErrorDescription ?? "Unable to get error description"))\n" +
+            "\tURL: \(response.url?.absoluteString ?? "Unable to get URL")\n" +
+            "\tExtra info: \(extraInfo)\n" +
+            "\tFile: \(file), function: \(function), line: \(line)\n"
+        
+        if isUsingTestMode() {
+            NSLog(logMessage)
+        } else {
+            if isLoggingEnabled() {
+                NSLog(logMessage)
+            }
+        }
     }
     
     internal static func errorLog(forMethod: String, error: Error?, extraInfo: String, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
-        #if DEBUG
-            if let err = error {
-                NSLog("\(forMethod):\n" +
-                      "\tError: \(err.localizedDescription)\n" +
-                      "\tExtra info: \(extraInfo)\n" +
-                      "\tFile: \(file), function: \(function), line: \(line)\n"
-                )
-            } else {
-                NSLog("\(forMethod):\n" +
-                      "\tError info: \(extraInfo)\n" +
-                      "\tFile: \(file), function: \(function), line: \(line)\n"
-                )
+        var logMessage: String
+
+        if let err = error {
+            logMessage = "\(forMethod):\n" +
+                "\tError: \(err.localizedDescription)\n" +
+                "\tExtra info: \(extraInfo)\n" +
+                "\tFile: \(file), function: \(function), line: \(line)\n"
+            NSLog(logMessage)
+        } else {
+            logMessage = "\(forMethod):\n" +
+                "\tError info: \(extraInfo)\n" +
+                "\tFile: \(file), function: \(function), line: \(line)\n"
+            NSLog(logMessage)
+        }
+        
+        if isUsingTestMode() {
+            NSLog(logMessage)
+        } else {
+            if isLoggingEnabled() {
+                NSLog(logMessage)
             }
-        #endif
+        }
     }
     
     static func localizedError(_ errorDescription: String) -> String {
