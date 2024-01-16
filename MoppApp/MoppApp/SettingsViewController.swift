@@ -273,7 +273,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     @objc func editingChanged(sender: UITextField) {
         let text = sender.text ?? String()
         if (text.count > 11) {
-            sender.deleteBackward()
+            TextUtil.deleteBackward(textField: sender)
         }
     }
 }

@@ -153,7 +153,7 @@ class SmartIDEditViewController : MoppViewController, TokenFlowSigning {
         if countryViewPicker.selectedRow(inComponent: 0) == 0 &&
             text.count >= 11 &&
             !PersonalCodeValidator.isPersonalCodeValid(personalCode: text) {
-            sender.deleteBackward()
+            TextUtil.deleteBackward(textField: sender)
             verifySigningCapability()
         }
     }

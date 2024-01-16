@@ -244,7 +244,7 @@ class MobileIDEditViewController : MoppViewController, TokenFlowSigning {
         if sender.accessibilityIdentifier == "mobileIDCodeField" {
             let text = sender.text ?? String()
             if (text.count >= 11 && !PersonalCodeValidator.isPersonalCodeValid(personalCode: text)) {
-                sender.deleteBackward()
+                TextUtil.deleteBackward(textField: sender)
             }
         }
         verifySigningCapability()
