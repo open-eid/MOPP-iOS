@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aqa-at-L24">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aqa-at-L24">
     <device id="retina4_7" orientation="landscape" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -280,8 +281,9 @@
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Up8-AV-wRz">
                                                                     <rect key="frame" x="0.0" y="0.0" width="25" height="72"/>
                                                                     <subviews>
-                                                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_info" translatesAutoresizingMaskIntoConstraints="NO" id="mrb-la-pfF">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="25" height="72"/>
+                                                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconInfo" translatesAutoresizingMaskIntoConstraints="NO" id="mrb-la-pfF">
+                                                                            <rect key="frame" x="-2" y="0.0" width="29" height="72"/>
+                                                                            <color key="tintColor" systemColor="linkColor"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="25" id="3m6-po-qTk"/>
                                                                             </constraints>
@@ -295,8 +297,8 @@
                                                                     <gestureRecognizers/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="bottom" secondItem="mrb-la-pfF" secondAttribute="bottom" id="7MG-CM-4ms"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="mrb-la-pfF" secondAttribute="trailing" id="8Xq-I1-otr"/>
-                                                                        <constraint firstItem="mrb-la-pfF" firstAttribute="leading" secondItem="Up8-AV-wRz" secondAttribute="leading" id="S2R-zx-y21"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="mrb-la-pfF" secondAttribute="trailing" constant="-2" id="8Xq-I1-otr"/>
+                                                                        <constraint firstItem="mrb-la-pfF" firstAttribute="leading" secondItem="Up8-AV-wRz" secondAttribute="leading" constant="-2" id="S2R-zx-y21"/>
                                                                         <constraint firstAttribute="width" constant="25" id="cZl-Ew-Moq"/>
                                                                         <constraint firstItem="mrb-la-pfF" firstAttribute="top" secondItem="Up8-AV-wRz" secondAttribute="top" id="ecE-Im-tRc"/>
                                                                         <constraint firstAttribute="height" constant="72" id="tEW-4h-Csx"/>
@@ -356,7 +358,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Missing signatures" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQF-XJ-qkZ" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Missing signatures" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQF-XJ-qkZ" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                     <rect key="frame" x="40" y="20" width="587" height="20"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -1561,7 +1563,7 @@
         <image name="Icon_Edit" width="17" height="19"/>
         <image name="Icon_ajatempel" width="17" height="17"/>
         <image name="iconDownload" width="25" height="25"/>
-        <image name="icon_info" width="15" height="15"/>
+        <image name="iconInfo" width="94" height="94"/>
         <image name="icon_remove-1" width="25" height="25"/>
         <namedColor name="MoppLabelDarker">
             <color red="0.45098039215686275" green="0.45098039215686275" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1569,8 +1571,11 @@
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="separatorColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
