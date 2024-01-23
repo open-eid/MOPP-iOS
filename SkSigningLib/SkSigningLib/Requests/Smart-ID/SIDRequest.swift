@@ -139,7 +139,7 @@ public class SIDRequest: NSObject, URLSessionDelegate, SIDRequestProtocol {
                   case 401, 403: return .sidInvalidAccessRights
                   case 404: return method == "Session" ? .sessionIdNotFound : .accountNotFoundOrTimeout
                   case 409: return .exceededUnsuccessfulRequests
-                  case 429: return .tooManyRequests
+                  case 429: return .tooManyRequests(signingMethod: SigningType.smartId.rawValue)
                   case 471: return .notQualified
                   case 480: return .oldApi
                   case 500: return .internalError

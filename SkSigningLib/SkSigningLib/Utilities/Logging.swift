@@ -62,7 +62,7 @@ class Logging {
         guard let response = httpResponse else {
             logMessage = "\(forMethod): " +
                 "\tError: \(error.localizedDescription)\n" +
-                "\tError description: \(localizedError(error.signingErrorDescription ?? "")) (\(error.signingErrorDescription ?? "Unable to get error description"))\n" +
+                "\tError description: \(localizedError(error.errorDescription ?? "")) (\(error.errorDescription ?? "Unable to get error description"))\n" +
                 "\tExtra info: \(extraInfo)\n" +
                 "\tFile: \(file), function: \(function), line: \(line)\n"
             
@@ -78,7 +78,7 @@ class Logging {
 
         logMessage = "\(forMethod) response code: \(response.statusCode)\n" +
             "\tError: \(error.localizedDescription)\n" +
-            "\tError description: \(localizedError(error.signingErrorDescription ?? "")) (\(error.signingErrorDescription ?? "Unable to get error description"))\n" +
+            "\tError description: \(localizedError(error.errorDescription ?? "")) (\(error.errorDescription ?? "Unable to get error description"))\n" +
             "\tURL: \(response.url?.absoluteString ?? "Unable to get URL")\n" +
             "\tExtra info: \(extraInfo)\n" +
             "\tFile: \(file), function: \(function), line: \(line)\n"

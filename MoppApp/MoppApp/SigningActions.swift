@@ -23,6 +23,7 @@
 
 import Foundation
 import CommonCrypto
+import SkSigningLib
 
 protocol SigningActions {
    func startSigningProcess()
@@ -193,7 +194,7 @@ extension SigningContainerViewController : IdCardSignViewControllerDelegate {
                 if nsError.code == Int(MoppLibErrorCode.moppLibErrorPinBlocked.rawValue) {
                     ErrorUtil.generateError(signingError: L(.pin2BlockedAlert))
                 } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorTooManyRequests.rawValue) {
-                    ErrorUtil.generateError(signingError: .tooManyRequests)
+                    ErrorUtil.generateError(signingError: .tooManyRequests(signingMethod: SigningType.idCard.rawValue))
                 } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
                     ErrorUtil.generateError(signingError: .noResponseError)
                 } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorOCSPTimeSlot.rawValue) {

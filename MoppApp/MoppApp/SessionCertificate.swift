@@ -37,7 +37,7 @@ class SessionCertificate {
                     printLog("Received certificate response: \(response.result?.rawValue ?? "-")")
                     return completionHandler(.success(response))
                 case .failure(let error):
-                    printLog("Getting certificate error: \(SkSigningLib_LocalizedString(error.signingErrorDescription ?? error.rawValue))")
+                    printLog("Getting certificate error: \(SkSigningLib_LocalizedString(error.errorDescription ?? "Not available"))")
                     return completionHandler(.failure(error))
                 }
             }

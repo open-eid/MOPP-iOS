@@ -41,7 +41,7 @@ class SessionStatus {
                             printLog("Received session status response: \(sessionStatus.result?.rawValue ?? "-")")
                         }
                     case .failure(let sessionError):
-                        printLog("Getting Session Status error: \(SkSigningLib_LocalizedString(sessionError.signingErrorDescription ?? sessionError.rawValue))")
+                        printLog("Getting Session Status error: \(SkSigningLib_LocalizedString(sessionError.errorDescription ?? "Not available"))")
                         return completionHandler(.failure(sessionError))
                     }
                 }

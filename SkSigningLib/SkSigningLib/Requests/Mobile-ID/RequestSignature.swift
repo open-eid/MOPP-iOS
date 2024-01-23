@@ -153,7 +153,7 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
         case 409:
             return .exceededUnsuccessfulRequests
         case 429:
-            return .tooManyRequests
+            return .tooManyRequests(signingMethod: SigningType.mobileId.rawValue)
         case 500:
             return .internalError
         default:

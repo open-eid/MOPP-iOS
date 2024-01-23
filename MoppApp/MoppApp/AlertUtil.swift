@@ -54,21 +54,53 @@ class AlertUtil {
     static func errorMessageDialog(_ notification: Notification, topViewController: UIViewController) {
         guard let userInfo = notification.userInfo else { return }
         let error = userInfo[kErrorKey] as? NSError
-        let signingErrorMessage = (error as? SigningError)?.signingErrorDescription
+        let signingErrorMessage = (error as? SigningError)?.errorDescription
         let signingError = error?.userInfo[NSLocalizedDescriptionKey] as? SigningError
+        
         // Don't show an error when request is cancelled
-        if let err = error, ((err as? SigningError) == SigningError.cancelled) || signingError == .cancelled {
+        if let signErr = signingError {
+            switch signErr {
+            case .cancelled:
+                topViewController.dismiss(animated: true)
+                return
+            default:
+                break
+            }
+        } else if let err = error as? SigningError {
+            switch err {
+            case .cancelled:
+                topViewController.dismiss(animated: true)
+                return
+            default:
+                break
+            }
+        }
+
+        if let signErr = signingError, signErr == .cancelled {
+            topViewController.dismiss(animated: true)
+            return
+        } else if let err = error as? SigningError, err == .cancelled {
             topViewController.dismiss(animated: true)
             return
         }
+
         let signingStringError = error?.userInfo[NSLocalizedDescriptionKey] as? String
         let detailedErrorMessage = error?.userInfo[NSLocalizedFailureReasonErrorKey] as? String
-        var errorMessage = userInfo[kErrorMessage] as? String ?? SkSigningLib_LocalizedString(signingError?.signingErrorDescription ?? signingErrorMessage ?? signingStringError ?? "")
+        var errorMessage = userInfo[kErrorMessage] as? String
+        if errorMessage.isNilOrEmpty && signingError == .tooManyRequests(signingMethod: SigningType.mobileId.rawValue) {
+            errorMessage = L(.signingErrorTooManyRequests, [L(.signTitleMobileId).lowercasedStart()])
+        } else if errorMessage.isNilOrEmpty && signingError == .tooManyRequests(signingMethod: SigningType.smartId.rawValue) {
+            errorMessage = L(.signingErrorTooManyRequests, [L(.signTitleSmartId)])
+        } else if errorMessage.isNilOrEmpty && signingError == .tooManyRequests(signingMethod: SigningType.idCard.rawValue) {
+            errorMessage = L(.signingErrorTooManyRequests, [L(.signTitleIdCard)])
+        } else {
+            errorMessage = SkSigningLib_LocalizedString(signingError?.errorDescription ?? signingErrorMessage ?? signingStringError ?? "")
+        }
         if !detailedErrorMessage.isNilOrEmpty {
-            errorMessage = "\(userInfo[kErrorMessage] as? String ?? SkSigningLib_LocalizedString(signingError?.signingErrorDescription ?? signingErrorMessage ?? "")) \n\(detailedErrorMessage ?? "")"
+            errorMessage = "\(errorMessage ?? L(.genericErrorMessage)) \n\(detailedErrorMessage ?? "")"
         }
         
-        let errorDialog = errorDialog(errorMessage: errorMessage, topViewController: topViewController)
+        let errorDialog = errorDialog(errorMessage: errorMessage ?? L(.genericErrorMessage), topViewController: topViewController)
         
         if !(topViewController is UIAlertController) {
             topViewController.present(errorDialog, animated: true, completion: nil)

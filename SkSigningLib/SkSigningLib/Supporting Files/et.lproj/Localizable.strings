@@ -32,7 +32,6 @@
 "mid-rest-error-phone-absent" = "Telefon ei ole levis";
 "mid-rest-error-signature-hash-mismatch" = "Sinu mobiil-ID toiming ebaõnnestus. Palun võta ühendust enda mobiilioperaatoriga";
 "mid-rest-error-no-response" = "Palun kontrolli internetiühendust";
-"mid-rest-error-too-many-requests" = "Sinu IP-aadressi tasuta allkirjade kuulimiit on ületatud. https://www.id.ee/artikkel/asutustele-kus-allkirjastatakse-digidoc4-kliendi-kaudu-suuremates-kogustes-dokumente/";
 "mid-rest-error-exceeded-unsuccessful-requests" = "Päringu saatmine ebaõnnestus. Sellelt IP-aadressilt on ebaõnnestunud päringute arv ületatud. Palun proovi mõne aja pärast uuesti.";
 "mid-rest-error-ocsp-invalid-time-slot" = "Palun kontrolli oma nutiseadme kellaaega. https://www.id.ee/artikkel/ria-digidoc-viga-palun-kontrollige-oma-nutiseadme-kellaaega/";
 "mid-rest-error-invalid-ssl-cert" = "SSL ühenduskanali loomine ebaõnnestus. Kontrolli rakenduse seadeid või tarkvara uuendusi";

@@ -244,7 +244,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         case 405:
             return .methodNotAllowed
         case 429:
-            return .tooManyRequests
+            return .tooManyRequests(signingMethod: SigningType.mobileId.rawValue)
         case 500:
             return .internalError
         default:

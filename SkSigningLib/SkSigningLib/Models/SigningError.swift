@@ -23,63 +23,56 @@
 
 import Foundation
 
-public enum SigningError: String, Error {
-    
+public enum SigningError: Error, Equatable {
+
     // MARK: General
-    case empty
-    case cancelled
+    case empty, cancelled
     
     // MARK: General Errors
-    case invalidURL
-    case noResponseError
-    case generalError
-    case generalSignatureAddingError
-    case invalidSSLCert
+    case invalidURL, noResponseError, generalError, generalSignatureAddingError, invalidSSLCert
     
     // MARK: Response Errors
-    case notFound
-    case notActive
+    case notFound, notActive
     
     // MARK: Service Errors
-    case parameterNameNull
-    case userAuthorizationFailed
-    case methodNotAllowed
-    case internalError
-    case hashLengthInvalid
-    case hashEncodingInvalid
-    case sessionIdMissing
-    case sessionIdNotFound
+    case parameterNameNull, userAuthorizationFailed, methodNotAllowed, internalError
+    case hashLengthInvalid, hashEncodingInvalid, sessionIdMissing, sessionIdNotFound
     case exceededUnsuccessfulRequests
     
     // MARK: Session Status Errors
-    case timeout
-    case notMidClient
-    case userCancelled
-    case interactionNotSupported
-    case signatureHashMismatch
-    case phoneAbsent
-    case deliveryError
-    case simError
-    case tooManyRequests
-    case midInvalidAccessRights
-    case sidInvalidAccessRights
-    case ocspInvalidTimeSlot
-    case certificateRevoked
+    case timeout, notMidClient, userCancelled, interactionNotSupported, signatureHashMismatch
+    case phoneAbsent, deliveryError, simError, tooManyRequests(signingMethod: String)
+    case midInvalidAccessRights, sidInvalidAccessRights, ocspInvalidTimeSlot, certificateRevoked
     case technicalError
 
     // MARK: Smart-ID Session Status Errors
-    case wrongVC
-    case documentUnusable
-    case notQualified
-    case oldApi
-    case underMaintenance
-    case forbidden
+    case wrongVC, documentUnusable, notQualified, oldApi, underMaintenance, forbidden
     case accountNotFoundOrTimeout
+
+    // Custom initializer
+    public init(rawValue: String, _ signingMethod: SigningType? = .mobileId) {
+        switch rawValue {
+        case "empty", "cancelled", "invalidURL", "noResponseError", "generalError",
+             "generalSignatureAddingError", "invalidSSLCert", "notFound", "notActive",
+             "parameterNameNull", "userAuthorizationFailed", "methodNotAllowed", "internalError",
+             "hashLengthInvalid", "hashEncodingInvalid", "sessionIdMissing", "sessionIdNotFound",
+             "exceededUnsuccessfulRequests", "timeout", "notMidClient", "userCancelled",
+             "interactionNotSupported", "signatureHashMismatch", "phoneAbsent", "deliveryError",
+             "simError", "midInvalidAccessRights", "sidInvalidAccessRights", "ocspInvalidTimeSlot",
+             "certificateRevoked", "technicalError", "wrongVC", "documentUnusable", "notQualified",
+             "oldApi", "underMaintenance", "forbidden", "accountNotFoundOrTimeout":
+            self = SigningError(rawValue: rawValue)
+        case "tooManyRequests":
+            self = .tooManyRequests(signingMethod: signingMethod?.rawValue ?? "")
+        default:
+            self = .generalError
+        }
+    }
 }
 
 // MARK: SigningError signingErrorDescription Extension
 extension SigningError: LocalizedError {
-    public var signingErrorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .empty:
             return NSLocalizedString("", comment: "")
@@ -93,9 +86,7 @@ extension SigningError: LocalizedError {
             return NSLocalizedString("mid-rest-error-no-response", comment: "")
         case .generalError:
             return NSLocalizedString("mid-rest-error-general", comment: "")
-        case .notFound:
-            return NSLocalizedString("mid-rest-error-not-mobile-id-user", comment: "")
-        case .notActive:
+        case .notFound, .notActive:
             return NSLocalizedString("mid-rest-error-not-mobile-id-user", comment: "")
         case .userAuthorizationFailed:
             return NSLocalizedString("Failed to authorize user", comment: "")
@@ -125,8 +116,8 @@ extension SigningError: LocalizedError {
             return NSLocalizedString("mid-rest-error-delivery-error", comment: "")
         case .simError:
             return NSLocalizedString("mid-rest-error-sim-error", comment: "")
-        case .tooManyRequests:
-            return NSLocalizedString("mid-rest-error-too-many-requests", comment: "")
+        case .tooManyRequests(let signingMethod):
+            return signingMethod
         case .invalidSSLCert:
             return NSLocalizedString("mid-rest-error-invalid-ssl-cert", comment: "")
         case .wrongVC:
@@ -162,3 +153,4 @@ extension SigningError: LocalizedError {
         }
     }
 }
+

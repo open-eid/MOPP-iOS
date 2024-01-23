@@ -87,10 +87,10 @@ class MobileIDSignature {
                 
                 let error: Error = certificateError as? SigningError ?? certificateError
                 
-                printLog("\nRIA.MobileID - Certificate error: \(SkSigningLib_LocalizedString(SigningError(rawValue: "\(certificateError)")?.signingErrorDescription ?? "\(certificateError)"))\n")
+                printLog("\nRIA.MobileID - Certificate error: \(SkSigningLib_LocalizedString(SigningError(rawValue: "\(certificateError)").errorDescription ?? "\(certificateError)"))\n")
                 
                 guard let mobileCertificateError = certificateError as? SigningError else {
-                    return ErrorUtil.generateError(signingError: certificateError as? SigningError ?? SigningError(rawValue: "\(certificateError)") ?? .generalError, details: MessageUtil.errorMessageWithDetails(details: "Unknown error"))
+                    return ErrorUtil.generateError(signingError: certificateError as? SigningError ?? SigningError(rawValue: "\(certificateError)") , details: MessageUtil.errorMessageWithDetails(details: "Unknown error"))
                 }
                 
                 if self.isCountryCodeError(phoneNumber: phoneNumber, errorDesc: "\(mobileCertificateError)") {
@@ -189,7 +189,7 @@ class MobileIDSignature {
 
                 if sessionStatus.result != SessionResultCode.OK {
                     guard let sessionStatusResultString = sessionStatus.result else { return }
-                    printLog("\nRIA.MobileID - Error completing signing: \(SkSigningLib_LocalizedString(self.handleSessionStatusError(sessionResultCode: sessionStatusResultString).signingErrorDescription ?? "Unable to log session status description"))\n")
+                    printLog("\nRIA.MobileID - Error completing signing: \(SkSigningLib_LocalizedString(self.handleSessionStatusError(sessionResultCode: sessionStatusResultString).errorDescription ?? "Unable to log session status description"))\n")
 
                     return ErrorUtil.generateError(signingError: self.handleSessionStatusError(sessionResultCode: sessionStatusResultString))
                 }
@@ -209,9 +209,12 @@ class MobileIDSignature {
         }
     }
     
-    // MARK: Check country code
+    // MARK: Check country code    
     private func isCountryCodeError(phoneNumber: String, errorDesc: String) -> Bool {
-        return phoneNumber.count <= 8 && (SigningError.notFound == SigningError(rawValue: errorDesc) || SigningError.internalError == SigningError(rawValue: errorDesc))
+        let signingError = SigningError(rawValue: errorDesc)
+
+        return phoneNumber.count <= 8 &&
+            (signingError == .notFound || signingError == .internalError)
     }
     
     // MARK: Signature validation
@@ -241,7 +244,7 @@ class MobileIDSignature {
                 return
             } else if err.code == 18 {
                 printLog("\nRIA.MobileID - Too many requests. \(err.domain)")
-                ErrorUtil.generateError(signingError: .tooManyRequests, details:
+                ErrorUtil.generateError(signingError: .tooManyRequests(signingMethod: SigningType.mobileId.rawValue), details:
                     MessageUtil.generateDetailedErrorMessage(error: err) ?? "")
                 return
             }

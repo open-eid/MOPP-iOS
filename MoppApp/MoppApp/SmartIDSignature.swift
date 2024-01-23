@@ -34,7 +34,7 @@ class SmartIDSignature {
         let certparams = SIDCertificateRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid)
         let errorHandler: (SigningError, String) -> Void = { error, log in
             UIApplication.shared.endBackgroundTask(backgroundTask)
-            printLog("\(log): \(SkSigningLib_LocalizedString(error.signingErrorDescription ?? error.rawValue))")
+            printLog("\(log): \(SkSigningLib_LocalizedString(error.errorDescription ?? "Not available"))")
             ErrorUtil.generateError(signingError: error, details: MessageUtil.errorMessageWithDetails(details: log))
         }
 
@@ -197,7 +197,7 @@ class SmartIDSignature {
                 return
             } else if err.code == 18 {
                 printLog("\nRIA.SmartID - Too many requests. \(err.domain)")
-                ErrorUtil.generateError(signingError: .tooManyRequests, details:
+                ErrorUtil.generateError(signingError: .tooManyRequests(signingMethod: SigningType.smartId.rawValue), details:
                     MessageUtil.generateDetailedErrorMessage(error: error as NSError) ?? err.domain)
                 return
             }

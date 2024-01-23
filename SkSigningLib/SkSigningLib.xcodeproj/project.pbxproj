@@ -25,6 +25,7 @@
 		DF90EDE024223D6A0040FFE7 /* ControlCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF90EDDF24223D6A0040FFE7 /* ControlCode.swift */; };
 		DFBA32A2299EA5D400788A87 /* CancelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA32A1299EA5D400788A87 /* CancelRequest.swift */; };
 		DFBA32A429A59B2500788A87 /* CancelRequestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA32A329A59B2500788A87 /* CancelRequestUtil.swift */; };
+		DFC0E4382B5FEB0A005BE9F3 /* SigningType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC0E4372B5FEB0A005BE9F3 /* SigningType.swift */; };
 		DFC88C2E241F9B1100B0087B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFC88C30241F9B1100B0087B /* Localizable.strings */; };
 		DFD204E0240D201600EB8150 /* RequestSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204DF240D201600EB8150 /* RequestSession.swift */; };
 		DFD204E4240D20B300EB8150 /* SessionRequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD204E3240D20B300EB8150 /* SessionRequestParameters.swift */; };
@@ -68,6 +69,7 @@
 		DF90EDDF24223D6A0040FFE7 /* ControlCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlCode.swift; sourceTree = "<group>"; };
 		DFBA32A1299EA5D400788A87 /* CancelRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelRequest.swift; sourceTree = "<group>"; };
 		DFBA32A329A59B2500788A87 /* CancelRequestUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelRequestUtil.swift; sourceTree = "<group>"; };
+		DFC0E4372B5FEB0A005BE9F3 /* SigningType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningType.swift; sourceTree = "<group>"; };
 		DFC88C2F241F9B1100B0087B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DFC88C31241F9B1B00B0087B /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = et.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DFC88C38241FDEE400B0087B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				DFD204E1240D209500EB8150 /* Session */,
 				DF04A89623FEDD110086C9F9 /* RequestMethod.swift */,
 				DFDF02C5241F0150006CF443 /* SigningError.swift */,
+				DFC0E4372B5FEB0A005BE9F3 /* SigningType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				DFD204EF240FD9FD00EB8150 /* SessionStatusResponse.swift in Sources */,
 				DF04A88D23FEA6950086C9F9 /* RequestSignature.swift in Sources */,
 				DF3653B2242BA07400C48AC5 /* Logging.swift in Sources */,
+				DFC0E4382B5FEB0A005BE9F3 /* SigningType.swift in Sources */,
 				DF04A89023FEC7130086C9F9 /* EncoderDecoder.swift in Sources */,
 				DFBA32A429A59B2500788A87 /* CancelRequestUtil.swift in Sources */,
 				DF04A89723FEDD110086C9F9 /* RequestMethod.swift in Sources */,
