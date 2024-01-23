@@ -419,6 +419,7 @@ enum LocKey : String
     case sha256 = "sha256";
     case sha1 = "sha1";
     case accessibilityIntroductionTitle = "accessibility-introduction-title";
+    case accessibilityLink = "accessibility-link";
     case accessibilityIntroduction = "accessibility-introduction";
     case accessibilityIntroduction2 = "accessibility-introduction-2";
     case accessibilityIntroductionScreenReaderHeader = "accessibility-introduction-screen-reader-header";

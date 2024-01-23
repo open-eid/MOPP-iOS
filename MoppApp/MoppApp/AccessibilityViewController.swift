@@ -141,9 +141,9 @@ class AccessibilityViewController : MoppViewController, UITextViewDelegate {
     
     private func accessibilityIntroductionText() -> [UILabel] {
         var labels: [UILabel] = []
-        
         let texts: [(String, AccessibilityViewTextType)] = [
             (L(.accessibilityIntroduction), .paragraph),
+            (L(.accessibilityLink), .paragraph),
             (L(.accessibilityIntroduction2), .paragraph),
             (L(.accessibilityIntroductionScreenReaderHeader), .header),
             (L(.accessibilityIntroductionScreenReaderIntroduction), .paragraph),

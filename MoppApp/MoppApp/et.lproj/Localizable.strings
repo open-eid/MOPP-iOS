@@ -461,6 +461,7 @@
 
 // ** Accessibility introduction **
 "accessibility-introduction-title" = "Juurdepääsetavus";
+"accessibility-link" = "Rohkem infot leiab ligipääsetavuse teatisest: https://www.id.ee/ligipaasetavuse-teatis/.";
 "accessibility-introduction" = "RIA DigiDoc on ehitatud nii, et see vastaks WCAG 2.1 AA juurdepääsetavuse suunistele. See tähendab, et RIA DigiDoc rakenduse arendamisel on kasutatud põhimõtteid, et see oleks kasutatav ilma nägemisvõimeta, piiratud nägemisvõimega, piiratud liikumisvõime või jõuga jms.";
 "accessibility-introduction-2" = "Juurdepääsetavust on võimalik parandada oma nutiseadmesse sisseehitatud abivahendeid kasutades. Alljärgnevalt ülevaade põhilistest abivahenditest.";
 "accessibility-introduction-screen-reader-header" = "Ekraanilugeja";
