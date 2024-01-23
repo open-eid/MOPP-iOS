@@ -1,5 +1,5 @@
 //
-//  TSACertUtil.swift
+//  CertUtil.swift
 //  MoppApp
 //
 /*
@@ -24,43 +24,40 @@
 import Foundation
 import ASN1Decoder
 
-class TSACertUtil {
+class CertUtil {
     
-    static let tsaFileFolder = "tsa-cert"
-    
-    static func getTsaCertFile() -> URL? {
-        if !DefaultsHelper.tsaCertFileName.isNilOrEmpty {
-            do {
-                let documentsUrl = URL(fileURLWithPath: MoppFileManager.shared.documentsDirectoryPath())
-                let tsaCertLocation = documentsUrl.appendingPathComponent(tsaFileFolder, isDirectory: true).appendingPathComponent(DefaultsHelper.tsaCertFileName ?? "-", isDirectory: false)
-                if try tsaCertLocation.checkResourceIsReachable() {
-                    return tsaCertLocation
-                }
-            } catch let openFileError {
-                printLog("Failed to get '\(DefaultsHelper.tsaCertFileName ?? "TSA certificate")'. Error: \(openFileError.localizedDescription)")
-                return nil
+    static func getCertFile(folder: String, fileName: String) -> URL? {
+        do {
+            let documentsUrl = URL(fileURLWithPath: MoppFileManager.shared.documentsDirectoryPath())
+            let certLocation = documentsUrl.appendingPathComponent(folder, isDirectory: true).appendingPathComponent(fileName, isDirectory: false)
+            if try certLocation.checkResourceIsReachable() {
+                return certLocation
             }
+        } catch let openFileError {
+            printLog("Failed to get '\(fileName)' certificate. Error: \(openFileError.localizedDescription)")
+            return nil
         }
+        
         return nil
     }
     
-    static func getCertificate() -> X509Certificate? {
-        let tsaCertLocation = getTsaCertFile()
+    static func getCertificate(folder: String, fileName: String) -> X509Certificate? {
+        let certLocation = getCertFile(folder: folder, fileName: fileName)
         do {
-            return try openCertificate(tsaCertLocation)
+            return try openCertificate(certLocation)
         } catch let openFileError {
-            printLog("Failed to open '\(tsaCertLocation?.lastPathComponent ?? "TSA certificate")'. Error: \(openFileError.localizedDescription)")
+            printLog("Failed to open '\(certLocation?.lastPathComponent ?? "certificate")'. Error: \(openFileError.localizedDescription)")
             return nil
         }
     }
     
-    static func openCertificate(_ certificateLocation: URL? = getTsaCertFile()) throws -> X509Certificate? {
+    static func openCertificate(_ certificateLocation: URL?) throws -> X509Certificate? {
         guard let certLocation = certificateLocation else { return nil }
         let fileData = try Data(contentsOf: certLocation)
         return try X509Certificate(data: fileData)
     }
     
-    static func certificateString(_ certificateLocation: URL? = getTsaCertFile()) -> String? {
+    static func certificateString(_ certificateLocation: URL?) -> String? {
         guard let certLocation = certificateLocation else { return nil }
         do {
             return try String(contentsOf: certLocation)
@@ -70,6 +67,13 @@ class TSACertUtil {
         } catch let openFileError {
             printLog("Failed to open '\(certLocation.lastPathComponent)'. Error: \(openFileError.localizedDescription)")
             return nil
+        }
+    }
+    
+    static func removeCertificate(folder: String, fileName: String) {
+        let certLocation = getCertFile(folder: folder, fileName: fileName)
+        if let certPath = certLocation?.path {
+            MoppFileManager.shared.removeFile(withPath: certPath)
         }
     }
 }

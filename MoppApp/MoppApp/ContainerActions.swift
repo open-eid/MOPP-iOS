@@ -142,6 +142,10 @@ extension ContainerActions where Self: UIViewController {
 
                     navController?.viewControllers.last!.present(alert, animated: true)
                     return
+                } else if err?.code == 10027 {
+                    let alert = AlertUtil.messageAlert(message: L(.sslHandshakeMessage), alertAction: nil)
+
+                    navController?.viewControllers.last!.present(alert, animated: true)
                 } else {
                     let alert = AlertUtil.messageAlert(message: L(.fileImportOpenExistingFailedAlertMessage, [fileName]), alertAction: nil)
                     navController?.viewControllers.last!.present(alert, animated: true)

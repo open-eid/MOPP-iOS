@@ -72,6 +72,9 @@ fileprivate let kIsFileLoggingEnabled = "kIsFileLoggingEnabled"
 fileprivate let kIsFileLoggingRunning = "kIsFileLoggingRunning"
 fileprivate let kTSAFileCertName = "kTSAFileCertName"
 fileprivate let kIsRoleAndAddressEnabled = "kIsRoleAndAddressEnabled"
+fileprivate let kSivaAccessState = "kSivaAccessState"
+fileprivate let kSivaUrl = "kSivaUrl"
+fileprivate let kSivaFileCertName = "kSivaFileCertName"
 
 class DefaultsHelper
 {
@@ -156,7 +159,6 @@ class DefaultsHelper
             return (UserDefaults.standard.bool(forKey: kSmartIdRememberMeKey))
         }
     }
-
 
     class var timestampUrl: String? {
         set {
@@ -303,6 +305,33 @@ class DefaultsHelper
         }
         get {
             return (UserDefaults.standard.value(forKey: kRoleZipKey) as? String) ?? String()
+        }
+    }
+
+    class var sivaAccessState: SivaAccess {
+        set {
+            UserDefaults.standard.set(newValue.rawValue, forKey: kSivaAccessState)
+        }
+        get {
+            return SivaAccess(rawValue: UserDefaults.standard.value(forKey: kSivaAccessState) as? String ?? "") ?? .defaultAccess
+        }
+    }
+
+    class var sivaUrl: String? {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kSivaUrl)
+        }
+        get {
+            return UserDefaults.standard.value(forKey: kSivaUrl) as? String
+        }
+    }
+
+    class var sivaCertFileName: String? {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kSivaFileCertName)
+        }
+        get {
+            return UserDefaults.standard.value(forKey: kSivaFileCertName) as? String
         }
     }
 }

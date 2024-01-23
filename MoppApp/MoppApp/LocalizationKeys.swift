@@ -210,6 +210,7 @@ enum LocKey : String
     case decryptionErrorMessage = "decryption-error-message"
     case signingErrorTooManyRequests = "signing-error-too-many-requests"
     case noConnectionMessage = "no-response-error"
+    case sslHandshakeMessage = "ssl-handshake-error"
     case ocspInvalidTimeSlot = "ocsp-invalid-time-slot"
     case signingAbortedMessage = "signing-aborted-message"
     case myEidStatusReaderNotFound = "my-eid-status-reader-not-found"
@@ -312,6 +313,10 @@ enum LocKey : String
     case settingsTimestampCertValidToLabel = "settings-timestamp-cert-valid-to-label"
     case settingsTimestampCertAddCertificateButton = "settings-timestamp-cert-add-certificate-button"
     case settingsTimestampCertShowCertificateButton = "settings-timestamp-cert-show-certificate-button"
+    case settingsSivaServiceTitle = "settings-siva-service-title"
+    case settingsSivaDefaultAccessTitle = "settings-siva-default-access-title"
+    case settingsSivaDefaultManualAccessTitle = "settings-siva-default-manual-access-title"
+    case settingsSivaDefaultCertificateTitle = "settings-siva-default-certificate-title"
     case diagnosticsTitle = "diagnostics-title"
     case diagnosticsActivateOneTimeLogging = "diagnostics-activate-one-time-logging"
     case diagnosticsSaveLog = "diagnostics-save-log"
@@ -479,4 +484,7 @@ enum LocKey : String
     case voiceControlRoleCountry = "voice-control-role-country";
     case voiceControlRoleZip = "voice-control-role-zip";
     case voiceControlRoleAndAddress = "voice-control-role-and-address";
+    case voiceControlSivaService = "voice-control-siva-service";
+    case voiceControlSivaDefaultAccess = "voice-control-siva-default-access";
+    case voiceControlSivaManualAccess = "voice-control-siva-manual-access";
 }

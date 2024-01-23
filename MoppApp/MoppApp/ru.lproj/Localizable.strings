@@ -264,6 +264,7 @@
 "decryption-in-progress" = "Происходит дешифрование. Пожалуйста, подождите.";
 "signing-error-too-many-requests" = "Предел для цифровых подписей в месяц был достигнут для этого IP-адреса. https://www.id.ee/ru/artikkel/dlya-uchrezhdenij-v-kotoryh-v-bolshom-obeme-podpisyvayutsya-dokumenty-s-pomoshhyu-digidoc4-klienta/";
 "no-response-error" = "Пожалуйста проверьте подключение к интернету";
+"ssl-handshake-error" = "Не удалось создать SSL канал передачи данных. Проверьте настройки вашего приложения или обновления программного обеспечения";
 "ocsp-invalid-time-slot" = "Пожалуйста, проверьте время на своем смарт-устройстве. https://www.id.ee/ru/artikkel/oshibka-ria-digidoc-pozhalujsta-proverte-vremya-na-svoem-smart-ustrojstve/";
 "wrong-pin2" = "Неверный PIN2. У Вас осталось %d попыток.";
 "wrong-pin1" = "Неверный PIN1. У Вас осталось %1$d попыток.";
@@ -377,6 +378,10 @@
 "settings-timestamp-cert-valid-to-label" = "Действительно до:";
 "settings-timestamp-cert-add-certificate-button" = "ДОБАВИТЬ СЕРТИФИКАТ";
 "settings-timestamp-cert-show-certificate-button" = "ПОКАЗАТЬ СЕРТИФИКАТ";
+"settings-siva-service-title" = "Доступ к услуге валидации SiVa";
+"settings-siva-default-access-title" = "Использовать доступ, назначенный по умолчанию";
+"settings-siva-default-manual-access-title" = "Использовать доступ, назначенный вручную";
+"settings-siva-default-certificate-title" = "Сертификат услуги валидации SiVa SSL";
 "diagnostics-title" = "Диагностика";
 "diagnostics-activate-one-time-logging" = "Активировать одноразовое создание лог-файла";
 "diagnostics-save-log" = "СОХРАНИТЬ ЛОГ-ФАЙЛ";
@@ -523,3 +528,6 @@
 "voice-control-role-country" = "Country";
 "voice-control-role-zip" = "Zip";
 "voice-control-role-and-address" = "Role and address";
+"voice-control-siva-service" = "Validation service";
+"voice-control-siva-default-access" = "Default validation access";
+"voice-control-siva-manual-access" = "Manual validation access";

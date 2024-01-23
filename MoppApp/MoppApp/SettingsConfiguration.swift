@@ -308,7 +308,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         MoppConfiguration.tsaUrl = tsaUrl
         MoppConfiguration.ocspIssuers = ocspIssuers
         MoppConfiguration.certBundle = certBundle
-        MoppConfiguration.tsaCert = TSACertUtil.certificateString()
+        MoppConfiguration.tsaCert = CertUtil.certificateString(CertUtil.getCertFile(folder: "tsa-cert", fileName: DefaultsHelper.tsaCertFileName ?? ""))
     }
 
     private func setupMoppLDAPConfiguration(ldapCerts: Array<String>, ldapPersonUrl: String, ldapCorpUrl: String) {

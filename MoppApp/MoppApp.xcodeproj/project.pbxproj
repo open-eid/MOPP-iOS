@@ -191,6 +191,7 @@
 		DF4B8418284008CF005CB875 /* SignatureDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4B8417284008CF005CB875 /* SignatureDetail.swift */; };
 		DF4B841A2840F8FC005CB875 /* CertificateDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4B84192840F8FC005CB875 /* CertificateDetailsCell.swift */; };
 		DF4B841E284417CD005CB875 /* CertificateDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4B841D284417CD005CB875 /* CertificateDetail.swift */; };
+		DF50BBCF2AF06A0800C1A7D0 /* SivaChoiceTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF50BBCE2AF06A0800C1A7D0 /* SivaChoiceTapGestureRecognizer.swift */; };
 		DF51499E29E98127008AB161 /* ScaledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF51499D29E98127008AB161 /* ScaledTextField.swift */; };
 		DF53DCEA2A0A9D8A00F5DAF6 /* NotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF53DCE92A0A9D8A00F5DAF6 /* NotificationMessage.swift */; };
 		DF5BE6D229C8AE5200331609 /* SignatureWarningsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5BE6D129C8AE5200331609 /* SignatureWarningsCell.swift */; };
@@ -202,6 +203,9 @@
 		DF8EFB1A287498B900A96DE3 /* SettingsDefaultValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8EFB19287498B900A96DE3 /* SettingsDefaultValueCell.swift */; };
 		DF900C972386768F00887385 /* tslFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DF900C94238567CA00887385 /* tslFiles.bundle */; };
 		DF97A51129DC8CAB006FB917 /* ContainerAddAllButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF97A51029DC8CAB006FB917 /* ContainerAddAllButtonCell.swift */; };
+		DFA56CEE2AEFEE45007D7F7E /* SettingsSivaCertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA56CED2AEFEE45007D7F7E /* SettingsSivaCertCell.swift */; };
+		DFA56CF22AF003F8007D7F7E /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA56CF12AF003F8007D7F7E /* RadioButton.swift */; };
+		DFA56CF42AF009E5007D7F7E /* RadioButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = DFA56CF32AF009E5007D7F7E /* RadioButton.xib */; };
 		DFA5821A264AAB6600564971 /* digidoc_76.png in Resources */ = {isa = PBXBuildFile; fileRef = DFA58218264AAB6500564971 /* digidoc_76.png */; };
 		DFA5821B264AAB6600564971 /* digidoc_1024.png in Resources */ = {isa = PBXBuildFile; fileRef = DFA58219264AAB6600564971 /* digidoc_1024.png */; };
 		DFAFD38629E8794200377EF5 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAFD38529E8794200377EF5 /* SearchField.swift */; };
@@ -229,7 +233,7 @@
 		DFD176D423F427AD00E2CC52 /* TSLVersionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176D223F427AD00E2CC52 /* TSLVersionChecker.swift */; };
 		DFD176D523F427AD00E2CC52 /* TSLUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176D323F427AD00E2CC52 /* TSLUpdater.swift */; };
 		DFD54CF529CDDB0600CD92C7 /* SettingsTSACertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD54CF429CDDB0600CD92C7 /* SettingsTSACertCell.swift */; };
-		DFD54CF729D1CBAF00CD92C7 /* TSACertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD54CF629D1CBAF00CD92C7 /* TSACertUtil.swift */; };
+		DFD54CF729D1CBAF00CD92C7 /* CertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD54CF629D1CBAF00CD92C7 /* CertUtil.swift */; };
 		DFD8BEF5291C432400FE8F07 /* ScaledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD8BEF4291C432400FE8F07 /* ScaledButton.swift */; };
 		DFD8BEF7291C434500FE8F07 /* FontUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD8BEF6291C434500FE8F07 /* FontUtil.swift */; };
 		DFDC0ABA29FAD8F2002D1D1D /* ViewUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDC0AB929FAD8F2002D1D1D /* ViewUtil.swift */; };
@@ -525,6 +529,7 @@
 		DF4B8417284008CF005CB875 /* SignatureDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureDetail.swift; sourceTree = "<group>"; };
 		DF4B84192840F8FC005CB875 /* CertificateDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateDetailsCell.swift; sourceTree = "<group>"; };
 		DF4B841D284417CD005CB875 /* CertificateDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateDetail.swift; sourceTree = "<group>"; };
+		DF50BBCE2AF06A0800C1A7D0 /* SivaChoiceTapGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SivaChoiceTapGestureRecognizer.swift; sourceTree = "<group>"; };
 		DF51499D29E98127008AB161 /* ScaledTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaledTextField.swift; sourceTree = "<group>"; };
 		DF53DCE92A0A9D8A00F5DAF6 /* NotificationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationMessage.swift; sourceTree = "<group>"; };
 		DF5BE6D129C8AE5200331609 /* SignatureWarningsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureWarningsCell.swift; sourceTree = "<group>"; };
@@ -536,6 +541,9 @@
 		DF8EFB19287498B900A96DE3 /* SettingsDefaultValueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsDefaultValueCell.swift; sourceTree = "<group>"; };
 		DF900C94238567CA00887385 /* tslFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = tslFiles.bundle; sourceTree = "<group>"; };
 		DF97A51029DC8CAB006FB917 /* ContainerAddAllButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerAddAllButtonCell.swift; sourceTree = "<group>"; };
+		DFA56CED2AEFEE45007D7F7E /* SettingsSivaCertCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSivaCertCell.swift; sourceTree = "<group>"; };
+		DFA56CF12AF003F8007D7F7E /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		DFA56CF32AF009E5007D7F7E /* RadioButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RadioButton.xib; sourceTree = "<group>"; };
 		DFA58218264AAB6500564971 /* digidoc_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_76.png; sourceTree = "<group>"; };
 		DFA58219264AAB6600564971 /* digidoc_1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_1024.png; sourceTree = "<group>"; };
 		DFAFD38529E8794200377EF5 /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
@@ -564,7 +572,7 @@
 		DFD176D223F427AD00E2CC52 /* TSLVersionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLVersionChecker.swift; sourceTree = "<group>"; };
 		DFD176D323F427AD00E2CC52 /* TSLUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLUpdater.swift; sourceTree = "<group>"; };
 		DFD54CF429CDDB0600CD92C7 /* SettingsTSACertCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTSACertCell.swift; sourceTree = "<group>"; };
-		DFD54CF629D1CBAF00CD92C7 /* TSACertUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSACertUtil.swift; sourceTree = "<group>"; };
+		DFD54CF629D1CBAF00CD92C7 /* CertUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertUtil.swift; sourceTree = "<group>"; };
 		DFD8BEF4291C432400FE8F07 /* ScaledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledButton.swift; sourceTree = "<group>"; };
 		DFD8BEF6291C434500FE8F07 /* FontUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontUtil.swift; sourceTree = "<group>"; };
 		DFDC0AB929FAD8F2002D1D1D /* ViewUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewUtil.swift; sourceTree = "<group>"; };
@@ -799,6 +807,9 @@
 				C50DCD231FD69B0C00D48E16 /* SpinnerView.swift */,
 				C54EA7392057E58D0039AC78 /* MoppButton.swift */,
 				DFB970A22626136300464791 /* PreviewFileTapGestureRecognizer.swift */,
+				DFA56CF12AF003F8007D7F7E /* RadioButton.swift */,
+				DFA56CF32AF009E5007D7F7E /* RadioButton.xib */,
+				DF50BBCE2AF06A0800C1A7D0 /* SivaChoiceTapGestureRecognizer.swift */,
 			);
 			name = "Custom views";
 			sourceTree = "<group>";
@@ -934,6 +945,7 @@
 				DF8EFB19287498B900A96DE3 /* SettingsDefaultValueCell.swift */,
 				DFD54CF429CDDB0600CD92C7 /* SettingsTSACertCell.swift */,
 				DFBDF1F127D79B8B00A5CF3C /* SettingsStateCell.swift */,
+				DFA56CED2AEFEE45007D7F7E /* SettingsSivaCertCell.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1192,11 +1204,11 @@
 				DF46181E2962E464003A1B56 /* FileUtil.swift */,
 				DFBA32A529A5A64000788A87 /* CancelUtil.swift */,
 				DFDC0AB929FAD8F2002D1D1D /* ViewUtil.swift */,
-				DFD54CF629D1CBAF00CD92C7 /* TSACertUtil.swift */,
-        DFB66BC22AE9BD4D00731B47 /* TextUtil.swift */,
-        DFBDF20327DF89A100A5CF3C /* RoleAndAddressUtil.swift */,
+				DFB66BC22AE9BD4D00731B47 /* TextUtil.swift */,
+				DFBDF20327DF89A100A5CF3C /* RoleAndAddressUtil.swift */,
 				DF39505F2AD766DF005D96AC /* KeychainUtil.swift */,
 				DF7936332AE98AAD00441B41 /* AccessibilityUtil.swift */,
+				DFD54CF629D1CBAF00CD92C7 /* CertUtil.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1423,6 +1435,7 @@
 				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,
 				54A5729F1E82AC760099BFAF /* AppStore.plist in Resources */,
 				C50DCCF61FC5741900D48E16 /* Roboto-BoldCondensedItalic.ttf in Resources */,
+				DFA56CF42AF009E5007D7F7E /* RadioButton.xib in Resources */,
 				DFA5821A264AAB6600564971 /* digidoc_76.png in Resources */,
 				C593D9EC208F19D7000B3BF6 /* Settings.storyboard in Resources */,
 				C5AAAF8020C93B920087D6DA /* main_about_fonds_en.png in Resources */,
@@ -1564,6 +1577,7 @@
 				C50DCD481FDED76400D48E16 /* SignatureDetailsCell.swift in Sources */,
 				DF0C2B3F29150EAB007E1745 /* ScaledLabel.swift in Sources */,
 				C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */,
+				DFA56CF22AF003F8007D7F7E /* RadioButton.swift in Sources */,
 				C593D9F6208F39DF000B3BF6 /* SettingsChoiceButton.swift in Sources */,
 				DFEFF8DD2AD6DCE3003D452B /* TokenFlowSigning.swift in Sources */,
 				C58FCD5F20650BBE00FE3B57 /* MyeIDInfoCell.swift in Sources */,
@@ -1576,6 +1590,7 @@
 				C50DCD241FD69B0C00D48E16 /* SpinnerView.swift in Sources */,
 				DF0075C223324AC600BAB3DE /* MoppConfigurationDecoder.swift in Sources */,
 				C52E827E1FC1DBFE0074B280 /* MoppViewController.swift in Sources */,
+				DF50BBCF2AF06A0800C1A7D0 /* SivaChoiceTapGestureRecognizer.swift in Sources */,
 				C5E7D08D2031B1040081416F /* NativeShare.swift in Sources */,
 				DFB970A32626136400464791 /* PreviewFileTapGestureRecognizer.swift in Sources */,
 				DFC2ADC8294377BF008A1CD2 /* PersonalCodeValidator.swift in Sources */,
@@ -1618,6 +1633,7 @@
 				C50FC431224BA3B20041925C /* ScreenDisguise.swift in Sources */,
 				DF32A690290C983100AE5F82 /* MessageUtil.swift in Sources */,
 				C50787881FEA807500D9AAC0 /* UIViewController+Additions.swift in Sources */,
+				DFA56CEE2AEFEE45007D7F7E /* SettingsSivaCertCell.swift in Sources */,
 				C506EC7C1FB9CBFD00E07226 /* Constants.swift in Sources */,
 				DFD54CF529CDDB0600CD92C7 /* SettingsTSACertCell.swift in Sources */,
 				C58FCD5B206505BE00FE3B57 /* MyeIDStatusViewController.swift in Sources */,
@@ -1685,7 +1701,7 @@
 				3921CA9720B2D8A600BF3178 /* SigningActions.swift in Sources */,
 				C52E827A1FC1D7000074B280 /* main.swift in Sources */,
 				C5964CEA200F8607001FE732 /* ContainerImportFilesCell.swift in Sources */,
-				DFD54CF729D1CBAF00CD92C7 /* TSACertUtil.swift in Sources */,
+				DFD54CF729D1CBAF00CD92C7 /* CertUtil.swift in Sources */,
 				4E59080024B0F914001B23A6 /* SmartIDEditViewController.swift in Sources */,
 				DFD8BEF7291C434500FE8F07 /* FontUtil.swift in Sources */,
 				C50DCD1B1FD1576B00D48E16 /* SigningTableViewHeaderView.swift in Sources */,

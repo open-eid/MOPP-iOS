@@ -717,9 +717,22 @@ extension ContainerViewController : UITableViewDataSource {
 
                 self.reloadData()
             } failure: { error in
-                self.isLoadingNestedAsicsDone = true
-                self.isSendingToSivaAgreed = false
-                self.reloadContainer()
+                guard let nsError = error as NSError? else {
+                    self.infoAlert(message: L(.genericErrorMessage))
+                    return
+                }
+
+                if nsError.code == 10027 {
+                    let alert = AlertUtil.messageAlert(message: L(.sslHandshakeMessage), alertAction: nil)
+                    self.navigationController?.popViewController(animated: true)
+                    self.navigationController?.viewControllers.last!.present(alert, animated: true)
+                    return
+                } else {
+                    self.isLoadingNestedAsicsDone = true
+                    self.isSendingToSivaAgreed = false
+                    self.reloadContainer()
+                }
+                
             }
 
         } failure: { error in

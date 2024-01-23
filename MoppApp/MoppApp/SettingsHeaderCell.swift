@@ -41,11 +41,15 @@ class SettingsHeaderCell: UITableViewCell {
         super.awakeFromNib()
         
         dismissButton.setTitle(L(.closeButton))
+        dismissButton.accessibilityTraits = .button
+        dismissButton.accessibilityLabel = L(.closeButton)
+        dismissButton.isUserInteractionEnabled = true
+        dismissButton.isAccessibilityElement = true
         
         guard let dismissUIButton: UIButton = dismissButton, let titleUILabel: UILabel = titleLabel else {
             printLog("Unable to get dismissButton or titleLabel")
             return
         }
-        self.accessibilityElements = [titleUILabel, dismissUIButton]
+        accessibilityElements = [dismissUIButton, titleUILabel]
     }
 }
