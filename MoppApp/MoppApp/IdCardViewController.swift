@@ -189,7 +189,7 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
             self?.keyboardDelegate?.idCardPINKeyboardWillDisappear()
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboardAccessibility), name: .hideKeyboardAccessibility, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboardAccessibility), name: .focusedAccessibilityElement, object: nil)
 
         MoppLibCardReaderManager.sharedInstance().delegate = self
         MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()

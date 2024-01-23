@@ -22,8 +22,10 @@
  */
 
 import UIKit
-protocol SettingsFieldCellDelegate: AnyObject {
-    func didEndEditingField(_ field: SettingsViewController.FieldId, with value:String)
+
+protocol SettingsCellDelegate: AnyObject {
+    func didStartEditingField(_ field: SettingsViewController.FieldId, _ indexPath: IndexPath)
+    func didEndEditingField(_ field: SettingsViewController.FieldId, with value: String)
 }
 
 class SettingsFieldCell: UITableViewCell {
@@ -31,7 +33,7 @@ class SettingsFieldCell: UITableViewCell {
     @IBOutlet weak var textField: UITextField!
     
     var field: SettingsViewController.Field!
-    weak var delegate: SettingsFieldCellDelegate!
+    weak var delegate: SettingsCellDelegate!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -72,6 +74,16 @@ class SettingsFieldCell: UITableViewCell {
 }
 
 extension SettingsFieldCell: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        var currentIndexPath = IndexPath(item: 1, section: 1)
+        if let tableView = superview as? UITableView {
+            if let indexPath = tableView.indexPath(for: self) {
+                currentIndexPath = indexPath
+            }
+        }
+        delegate.didStartEditingField(field.id, currentIndexPath)
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         delegate.didEndEditingField(field.id, with: textField.text ?? String())
         UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: textField)

@@ -39,6 +39,17 @@ class SettingsDefaultValueCell: UITableViewCell {
     }
 
     weak var delegate: SettingsDefaultValueCellDelegate!
+    
+    override func awakeFromNib() {
+        updateUI()
+
+        useDefaultSwitch.accessibilityLabel = "\(useDefaultTitleLabel.text ?? L(.settingsTimestampUseDefaultTitle)) \(L(.settingsTimestampUrlTitle))"
+        useDefaultSwitch.isUserInteractionEnabled = true
+        useDefaultSwitch.isAccessibilityElement = true
+
+        guard let useDefaultUISwitch = useDefaultSwitch else { return }
+        accessibilityElements = [useDefaultUISwitch]
+    }
 
     func populate() {
         updateUI()

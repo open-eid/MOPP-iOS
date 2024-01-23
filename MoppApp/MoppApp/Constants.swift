@@ -62,6 +62,6 @@ extension Notification.Name {
     static let filesImportedNotificationName = Notification.Name("FilesImportedNotificationName")
     static let startImportingFilesWithDocumentPickerNotificationName = Notification.Name("StartImportingFilesNotificationName")
     static let didOpenUrlNotificationName = Notification.Name("DidOpenUrlNotificationName")
-    static let hideKeyboardAccessibility = NSNotification.Name("HideKeyboardAccessibility")
+    static let focusedAccessibilityElement = NSNotification.Name("FocusedAccessibilityElement")
     static let isBackButtonPressed = NSNotification.Name("IsBackButtonPressed")
 }

@@ -112,6 +112,10 @@ NSString *const MoppLibErrorDomain = @"MoppLibError";
   return [self error:moppLibErrorNoInternetConnection withMessage:@"Internet connection not detected."];
 }
 
++ (NSError *)sslHandshakeError {
+  return [self error:moppLibErrorSslHandshakeFailed withMessage:@"Failed to create ssl connection with host."];
+}
+
 + (NSError *)restrictedAPIError {
   return [self error:moppLibErrorRestrictedApi withMessage:@"This API method is not supported on third-party applications."];
 }

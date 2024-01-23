@@ -263,6 +263,7 @@
 "decryption-in-progress" = "Decryption in progress.\nPlease wait.";
 "signing-error-too-many-requests" = "The limit for digital signatures per month has been reached for this IP address. https://www.id.ee/en/article/for-organisations-that-sign-large-quantities-of-documents-using-digidoc4-client/";
 "no-response-error" = "Please check your internet connection";
+"ssl-handshake-error" = "SSL handshake failed. Check your application settings or software upgrades";
 "ocsp-invalid-time-slot" = "Please check your smart device time. https://www.id.ee/en/article/ria-digidoc-error-please-check-your-smart-device-time/";
 "wrong-pin2" = "Wrong PIN2. You have %d attempts left.";
 "wrong-pin1" = "Wrong PIN1. You have %1$d attempts left.";
@@ -376,6 +377,10 @@
 "settings-timestamp-cert-valid-to-label" = "Valid to:";
 "settings-timestamp-cert-add-certificate-button" = "ADD CERTIFICATE";
 "settings-timestamp-cert-show-certificate-button" = "SHOW CERTIFICATE";
+"settings-siva-service-title" = "Access to Digital Signature Validation Service SiVa";
+"settings-siva-default-access-title" = "Use default access";
+"settings-siva-default-manual-access-title" = "Use manually configured access";
+"settings-siva-default-certificate-title" = "Digital Signature Validation Service SiVa SSL certificate";
 "diagnostics-title" = "Diagnostics";
 "diagnostics-activate-one-time-logging" = "Enable one-time log generation";
 "diagnostics-save-log" = "SAVE LOG";
@@ -522,3 +527,6 @@
 "voice-control-role-country" = "Country";
 "voice-control-role-zip" = "Zip";
 "voice-control-role-and-address" = "Role and address";
+"voice-control-siva-service" = "Validation service";
+"voice-control-siva-default-access" = "Default validation access";
+"voice-control-siva-manual-access" = "Manual validation access";

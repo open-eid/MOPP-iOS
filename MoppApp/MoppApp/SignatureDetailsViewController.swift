@@ -222,6 +222,10 @@ extension SignatureDetailsViewController: UITableViewDelegate, UITableViewDataSo
             let certificateDetailsViewController = UIStoryboard.container.instantiateViewController(of: CertificateDetailViewController.self)
             let certificateDetail = SignatureCertificateDetail(x509Certificate: tap.signatureDetail?.x509Certificate, secCertificate: tap.signatureDetail?.secCertificate)
             certificateDetailsViewController.certificateDetail = certificateDetail
+            // Remove buttons from tab bar
+            if let landingViewController = LandingViewController.shared {
+                landingViewController.presentButtons([])
+            }
             self.navigationController?.pushViewController(certificateDetailsViewController, animated: true)
         }
     }

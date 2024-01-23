@@ -274,6 +274,7 @@
 "decryption-error-message" = "Midagi läks dekrüpteerimisel valesti. Palun proovi uuesti.";
 "signing-error-too-many-requests" = "Sinu IP-aadressi tasuta allkirjade kuulimiit on ületatud. https://www.id.ee/artikkel/asutustele-kus-allkirjastatakse-digidoc4-kliendi-kaudu-suuremates-kogustes-dokumente/";
 "no-response-error" = "Palun kontrolli internetiühendust";
+"ssl-handshake-error" = "SSL ühenduskanali loomine ebaõnnestus. Kontrolli rakenduse seadeid või tarkvara uuendusi";
 "ocsp-invalid-time-slot" = "Palun kontrolli oma nutiseadme kellaaega. https://www.id.ee/artikkel/ria-digidoc-viga-palun-kontrollige-oma-nutiseadme-kellaaega/";
 "signing-aborted-message" = "Allkirjastamine katkestatud";
 "my-eid-status-reader-not-found" = "Ühenda kaardilugeja nutiseadmega ja sisesta ID-kaart lugejasse.";
@@ -377,6 +378,10 @@
 "settings-timestamp-cert-valid-to-label" = "Kehtib kuni:";
 "settings-timestamp-cert-add-certificate-button" = "LISA SERTIFIKAAT";
 "settings-timestamp-cert-show-certificate-button" = "NÄITA SERTIFIKAATI";
+"settings-siva-service-title" = "Ligipääs valideerimisteenusele SiVa";
+"settings-siva-default-access-title" = "Kasutan vaikimisi määratud ligipääsu";
+"settings-siva-default-manual-access-title" = "Kasutan käsitsi määratud ligipääsu";
+"settings-siva-default-certificate-title" = "Valideerimisteenuse SiVa SSL sertifikaat";
 "diagnostics-title" = "Diagnostika";
 "diagnostics-activate-one-time-logging" = "Aktiveeri ühekordne logifaili genereerimine";
 "diagnostics-save-log" = "SALVESTA LOGIFAIL";
@@ -522,3 +527,6 @@
 "voice-control-role-country" = "Country";
 "voice-control-role-zip" = "Zip";
 "voice-control-role-and-address" = "Role and address";
+"voice-control-siva-service" = "Validation service";
+"voice-control-siva-default-access" = "Default validation access";
+"voice-control-siva-manual-access" = "Manual validation access";

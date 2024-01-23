@@ -72,11 +72,6 @@ class CertificateDetailViewController: MoppViewController {
         tableView.backgroundColor = UIColor.white
         
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        
-        // Remove buttons from tab bar
-        if let landingViewController = LandingViewController.shared {
-            landingViewController.presentButtons([])
-        }
 
         navigationItem.titleView = getTitleLabel(forTitle: L(.certificateDetailsTitle))
         navigationItem.setLeftBarButton(getBackBarButtomItem(), animated: true)

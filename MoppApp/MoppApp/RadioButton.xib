@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RadioButton" customModule="MoppApp" customModuleProvider="target">
+            <connections>
+                <outlet property="innerLayer" destination="D8j-e8-jg5" id="gED-ux-1qj"/>
+                <outlet property="middleLayer" destination="Lax-9z-YAH" id="axy-JC-tRU"/>
+                <outlet property="outerLayer" destination="veA-Yg-dcp" id="2Nb-8q-25j"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="veA-Yg-dcp">
+                    <rect key="frame" x="184.66666666666666" y="414" width="24" height="24"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lax-9z-YAH">
+                            <rect key="frame" x="4" y="4" width="16" height="16"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D8j-e8-jg5">
+                                    <rect key="frame" x="2" y="2" width="12" height="12"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="12" id="MrY-dY-wFw"/>
+                                        <constraint firstAttribute="width" constant="12" id="Pw4-hw-WzO"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="16" id="8Vv-uq-TRF"/>
+                                <constraint firstItem="D8j-e8-jg5" firstAttribute="centerY" secondItem="Lax-9z-YAH" secondAttribute="centerY" id="Bbc-jt-9j4"/>
+                                <constraint firstItem="D8j-e8-jg5" firstAttribute="centerX" secondItem="Lax-9z-YAH" secondAttribute="centerX" id="KPH-wV-6if"/>
+                                <constraint firstAttribute="width" constant="16" id="RX1-ki-f4R"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Lax-9z-YAH" firstAttribute="centerY" secondItem="veA-Yg-dcp" secondAttribute="centerY" id="Cvm-qm-0xN"/>
+                        <constraint firstItem="Lax-9z-YAH" firstAttribute="centerX" secondItem="veA-Yg-dcp" secondAttribute="centerX" id="cEn-jn-GPz"/>
+                        <constraint firstAttribute="width" constant="24" id="vb9-UN-hNT"/>
+                        <constraint firstAttribute="height" constant="24" id="vk0-Bb-wBK"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="veA-Yg-dcp" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="5x0-xa-dc8"/>
+                <constraint firstItem="veA-Yg-dcp" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="dhV-yF-aeT"/>
+            </constraints>
+            <point key="canvasLocation" x="3.8167938931297707" y="-8.4507042253521139"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
