@@ -317,6 +317,7 @@ enum LocKey : String
     case settingsSivaDefaultAccessTitle = "settings-siva-default-access-title"
     case settingsSivaDefaultManualAccessTitle = "settings-siva-default-manual-access-title"
     case settingsSivaDefaultCertificateTitle = "settings-siva-default-certificate-title"
+    case settingsResetButton = "settings-reset-button"
     case diagnosticsTitle = "diagnostics-title"
     case diagnosticsActivateOneTimeLogging = "diagnostics-activate-one-time-logging"
     case diagnosticsSaveLog = "diagnostics-save-log"
@@ -487,4 +488,5 @@ enum LocKey : String
     case voiceControlSivaService = "voice-control-siva-service";
     case voiceControlSivaDefaultAccess = "voice-control-siva-default-access";
     case voiceControlSivaManualAccess = "voice-control-siva-manual-access";
+    case voiceControlResetButton = "voice-control-reset-button";
 }

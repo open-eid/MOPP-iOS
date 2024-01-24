@@ -23,6 +23,7 @@
 
 import UIKit
 import ASN1Decoder
+import UniformTypeIdentifiers
 
 enum SivaAccess: String, Codable {
     case defaultAccess
@@ -73,8 +74,8 @@ class SettingsSivaCertCell: UITableViewCell {
     
     @IBAction func addCertificate(_ sender: ScaledButton) {
         let documentPicker: UIDocumentPickerViewController = {
-            let allowedDocumentTypes = ["public.x509-certificate"]
-            let documentPickerViewController = UIDocumentPickerViewController(documentTypes: allowedDocumentTypes, in: .import)
+            let allowedDocumentTypes = [UTType.x509Certificate]
+            let documentPickerViewController = UIDocumentPickerViewController(forOpeningContentTypes: allowedDocumentTypes)
             documentPickerViewController.delegate = self
             documentPickerViewController.modalPresentationStyle = .overCurrentContext
             documentPickerViewController.allowsMultipleSelection = false
@@ -133,9 +134,7 @@ class SettingsSivaCertCell: UITableViewCell {
         sivaUrlTextField.attributedPlaceholder = getSivaPlaceholder()
         self.field = field
 
-        if let _ = certificate {
-            updateUI()
-        }
+        updateUI()
     }
     
     func getSivaPlaceholder() -> NSAttributedString {
@@ -253,6 +252,12 @@ class SettingsSivaCertCell: UITableViewCell {
         }
     }
     
+    func removeCertificate() {
+        CertUtil.removeCertificate(folder: SettingsSivaCertCell.sivaFileFolder, fileName: DefaultsHelper.sivaCertFileName ?? "")
+        certificate = nil
+        updateUI()
+    }
+
     private func showErrorMessage(errorMessage: String, topViewController: UIViewController) {
         let errorDialog = AlertUtil.errorDialog(errorMessage: errorMessage, topViewController: topViewController)
         topViewController.present(errorDialog, animated: true)
@@ -325,10 +330,8 @@ extension SettingsSivaCertCell: UITextFieldDelegate {
 
         if textField.keyboardType == .default {
             if string.isEmpty && (text.count <= 1) {
-                CertUtil.removeCertificate(folder: SettingsSivaCertCell.sivaFileFolder, fileName: DefaultsHelper.sivaCertFileName ?? "")
-                certificate = nil
                 DefaultsHelper.sivaUrl = string
-                updateUI()
+                removeCertificate()
             }
             return true
         }

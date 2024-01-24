@@ -381,6 +381,7 @@
 "settings-siva-default-access-title" = "Use default access";
 "settings-siva-default-manual-access-title" = "Use manually configured access";
 "settings-siva-default-certificate-title" = "Digital Signature Validation Service SiVa SSL certificate";
+"settings-reset-button" = "USE DEFAULT SETTINGS";
 "diagnostics-title" = "Diagnostics";
 "diagnostics-activate-one-time-logging" = "Enable one-time log generation";
 "diagnostics-save-log" = "SAVE LOG";
@@ -530,3 +531,4 @@
 "voice-control-siva-service" = "Validation service";
 "voice-control-siva-default-access" = "Default validation access";
 "voice-control-siva-manual-access" = "Manual validation access";
+"voice-control-reset-button" = "Reset settings";
