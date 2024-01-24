@@ -23,6 +23,7 @@
 
 import Foundation
 import ASN1Decoder
+import UniformTypeIdentifiers
 
 class SettingsTSACertCell: UITableViewCell {
     
@@ -31,19 +32,21 @@ class SettingsTSACertCell: UITableViewCell {
     @IBOutlet weak var tsaCertStackView: UIStackView!
     @IBOutlet weak var tsaDataStackView: UIStackView!
     @IBOutlet weak var tsaCertLabelStackView: UIStackView!
-
+    @IBOutlet weak var tsaCertButtonsStackView: UIStackView!
+    
     @IBOutlet weak var titleLabel: ScaledLabel!
     
     @IBOutlet weak var issuedToLabel: ScaledLabel!
     @IBOutlet weak var validUntilLabel: ScaledLabel!
     
-    @IBOutlet weak var addCertificateButton: ScaledButton!
-    @IBOutlet weak var showCertificateButton: ScaledButton!
+    // Using UILabel, as UIButton does not scale well with bigger fonts
+    @IBOutlet weak var addCertificateButton: ScaledLabel!
+    @IBOutlet weak var showCertificateButton: ScaledLabel!
     
-    @IBAction func addCertificate(_ sender: Any) {
+    @objc func addCertificateButtonTapped() {
         let documentPicker: UIDocumentPickerViewController = {
-            let allowedDocumentTypes = ["public.x509-certificate"]
-            let documentPickerViewController = UIDocumentPickerViewController(documentTypes: allowedDocumentTypes, in: .import)
+            let allowedDocumentTypes = [UTType.x509Certificate]
+            let documentPickerViewController = UIDocumentPickerViewController(forOpeningContentTypes: allowedDocumentTypes)
             documentPickerViewController.delegate = self
             documentPickerViewController.modalPresentationStyle = .overCurrentContext
             documentPickerViewController.allowsMultipleSelection = false
@@ -53,7 +56,7 @@ class SettingsTSACertCell: UITableViewCell {
         topViewController?.present(documentPicker, animated: true)
     }
     
-    @IBAction func showCertificate(_ sender: Any) {
+    @objc func showCertificateButtonTapped() {
         guard let cert = self.certificate else { printLog("Unable to show certificate"); return }
         let certificateDetailsViewController = UIStoryboard.container.instantiateViewController(of: CertificateDetailViewController.self)
         let certificateDetail = SignatureCertificateDetail(x509Certificate: cert, secCertificate: nil)
@@ -91,9 +94,7 @@ class SettingsTSACertCell: UITableViewCell {
     
     func populate() {
         self.certificate = CertUtil.getCertificate(folder: SettingsTSACertCell.tsaFileFolder, fileName: DefaultsHelper.tsaCertFileName ?? "")
-        if let _ = certificate {
-            updateUI()
-        }
+        updateUI()
     }
     
     func updateUI() {
@@ -103,27 +104,52 @@ class SettingsTSACertCell: UITableViewCell {
             self.tsaDataStackView.isAccessibilityElement = false
             self.tsaCertLabelStackView.isAccessibilityElement = false
             
-            AccessibilityUtil.setAccessibilityElementsInStackView(stackView: self.tsaCertStackView, isAccessibilityElement: true)
+            AccessibilityUtil.setAccessibilityElementsInStackView(stackView: self.tsaCertStackView, isAccessibilityElement: !DefaultsHelper.defaultSettingsSwitch)
             
-            AccessibilityUtil.setAccessibilityElementsInStackView(stackView: self.tsaDataStackView, isAccessibilityElement: true)
+            AccessibilityUtil.setAccessibilityElementsInStackView(stackView: self.tsaDataStackView, isAccessibilityElement: !DefaultsHelper.defaultSettingsSwitch)
             
-            AccessibilityUtil.setAccessibilityElementsInStackView(stackView: self.tsaCertLabelStackView, isAccessibilityElement: true)
+            AccessibilityUtil.setAccessibilityElementsInStackView(stackView: self.tsaCertLabelStackView, isAccessibilityElement: !DefaultsHelper.defaultSettingsSwitch)
+            
+            AccessibilityUtil.setAccessibilityElementsInStackView(stackView: self.tsaCertButtonsStackView, isAccessibilityElement: !DefaultsHelper.defaultSettingsSwitch)
             
             self.issuedToLabel.text = L(.settingsTimestampCertIssuedToLabel)
             self.validUntilLabel.text = L(.settingsTimestampCertValidToLabel)
             
-            self.addCertificateButton.setTitle(L(.settingsTimestampCertAddCertificateButton))
-            self.addCertificateButton.accessibilityLabel = self.addCertificateButton.titleLabel?.text?.lowercased()
-            self.showCertificateButton.setTitle(L(.settingsTimestampCertShowCertificateButton))
-            self.showCertificateButton.accessibilityLabel = self.showCertificateButton.titleLabel?.text?.lowercased()
-            self.showCertificateButton.mediumFont()
-            self.addCertificateButton.mediumFont()
+            self.addCertificateButton.text = L(.settingsTimestampCertAddCertificateButton)
+            self.addCertificateButton.accessibilityLabel = self.addCertificateButton.text?.lowercased()
+            self.addCertificateButton.font = .moppMedium
+            self.addCertificateButton.textColor = .systemBlue
+            self.addCertificateButton.isUserInteractionEnabled = true
+            self.addCertificateButton.resetLabelProperties()
+            
+            self.showCertificateButton.text = L(.settingsTimestampCertShowCertificateButton)
+            self.showCertificateButton.accessibilityLabel = self.showCertificateButton.text?.lowercased()
+            self.showCertificateButton.font = .moppMedium
+            self.showCertificateButton.textColor = .systemBlue
+            self.showCertificateButton.isUserInteractionEnabled = true
+            self.showCertificateButton.resetLabelProperties()
+            
+            if self.addCertificateButton.gestureRecognizers == nil || self.addCertificateButton.gestureRecognizers?.isEmpty == true {
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.addCertificateButtonTapped))
+                self.addCertificateButton.addGestureRecognizer(tapGesture)
+            }
+            
+            if self.showCertificateButton.gestureRecognizers == nil || self.showCertificateButton.gestureRecognizers?.isEmpty == true {
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.showCertificateButtonTapped))
+                self.showCertificateButton.addGestureRecognizer(tapGesture)
+            }
             
             guard let cert = self.certificate else { return }
             
             self.issuedToLabel.text = "\(self.issuedToLabel.text ?? L(.settingsTimestampCertIssuedToLabel)) \(cert.issuer(oid: .organizationName) ?? cert.issuer(oid: .subjectAltName) ?? cert.issuer(oid: .issuerAltName) ?? "-")"
             self.validUntilLabel.text = "\(self.validUntilLabel.text ?? L(.settingsTimestampCertValidToLabel)) \(MoppDateFormatter().dateToString(date: cert.notAfter, false))"
         }
+    }
+    
+    func removeCertificate() {
+        CertUtil.removeCertificate(folder: SettingsTSACertCell.tsaFileFolder, fileName: DefaultsHelper.tsaCertFileName ?? "")
+        certificate = nil
+        updateUI()
     }
     
     private func showErrorMessage(errorMessage: String, topViewController: UIViewController) {
@@ -155,6 +181,7 @@ extension SettingsTSACertCell: UIDocumentPickerDelegate {
                         self.certificate = try CertUtil.openCertificate(savedFile)
                         DefaultsHelper.tsaCertFileName = savedFile.lastPathComponent
                         self.updateUI()
+                        UIAccessibility.post(notification: .layoutChanged, argument: self.showCertificateButton)
                     }
                 } catch let openFileError {
                     printLog("Failed to open '\(savedFile.lastPathComponent)'. Error: \(openFileError.localizedDescription)")
@@ -163,6 +190,10 @@ extension SettingsTSACertCell: UIDocumentPickerDelegate {
                 }
             }
         }
+    }
+    
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        UIAccessibility.post(notification: .layoutChanged, argument: self.addCertificateButton)
     }
     
     private func getViewController() -> UIViewController? {

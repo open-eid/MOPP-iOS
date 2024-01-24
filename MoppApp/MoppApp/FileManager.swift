@@ -198,15 +198,24 @@ class MoppFileManager {
             }
         }
         
+        // Used to access folders on user device when opening file outside app (otherwise gives "Operation not permitted" error)
+        guard fileURL.startAccessingSecurityScopedResource() else {
+            printLog("Unable to access file: \(fileURL)")
+            completionHandler(false, nil)
+            return
+        }
+        
         do {
             let savedFileURL = saveDir.appendingPathComponent(fileURL.lastPathComponent)
             if fileManager.fileExists(atPath: savedFileURL.path) {
                 try fileManager.removeItem(at: savedFileURL)
             }
-            try fileManager.copyItem(at: fileURL, to: saveDir.appendingPathComponent( fileURL.lastPathComponent))
+            try fileManager.copyItem(at: fileURL, to: saveDir.appendingPathComponent(fileURL.lastPathComponent))
+            fileURL.stopAccessingSecurityScopedResource()
             completionHandler(true, savedFileURL)
         } catch let copyItemError {
             printLog("Failed to save '\(fileURL.lastPathComponent)'. Error: \(copyItemError.localizedDescription)")
+            fileURL.stopAccessingSecurityScopedResource()
             completionHandler(false, nil)
             return
         }

@@ -182,6 +182,7 @@
 		DF32A690290C983100AE5F82 /* MessageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A68E290C983100AE5F82 /* MessageUtil.swift */; };
 		DF32A691290C983100AE5F82 /* ErrorUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A68F290C983100AE5F82 /* ErrorUtil.swift */; };
 		DF35B1922AEAE32A0018AC7E /* PersonalCodeField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF35B1912AEAE32A0018AC7E /* PersonalCodeField.swift */; };
+		DF3756182AFABEB7006960C5 /* SettingsResetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3756172AFABEB7006960C5 /* SettingsResetCell.swift */; };
 		DF3950602AD766DF005D96AC /* KeychainUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF39505F2AD766DF005D96AC /* KeychainUtil.swift */; };
 		DF3D299D23F5ADB7007181B8 /* MimeTypeExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */; };
 		DF3D29CF23F6B3CF007181B8 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; };
@@ -521,6 +522,7 @@
 		DF32A68E290C983100AE5F82 /* MessageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageUtil.swift; sourceTree = "<group>"; };
 		DF32A68F290C983100AE5F82 /* ErrorUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorUtil.swift; sourceTree = "<group>"; };
 		DF35B1912AEAE32A0018AC7E /* PersonalCodeField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalCodeField.swift; sourceTree = "<group>"; };
+		DF3756172AFABEB7006960C5 /* SettingsResetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsResetCell.swift; sourceTree = "<group>"; };
 		DF39505F2AD766DF005D96AC /* KeychainUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainUtil.swift; sourceTree = "<group>"; };
 		DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypeExtractor.swift; sourceTree = "<group>"; };
 		DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -946,6 +948,7 @@
 				DFD54CF429CDDB0600CD92C7 /* SettingsTSACertCell.swift */,
 				DFBDF1F127D79B8B00A5CF3C /* SettingsStateCell.swift */,
 				DFA56CED2AEFEE45007D7F7E /* SettingsSivaCertCell.swift */,
+				DF3756172AFABEB7006960C5 /* SettingsResetCell.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1668,6 +1671,7 @@
 				C54EA6EB2046C3BA0039AC78 /* UITextField+Additions.swift in Sources */,
 				C50DCCC31FC2D54200D48E16 /* UIFont+Additions.swift in Sources */,
 				C50DCD051FC7125300D48E16 /* ContainerNotificationCell.swift in Sources */,
+				DF3756182AFABEB7006960C5 /* SettingsResetCell.swift in Sources */,
 				DFBEF9452434DD0C007A6762 /* UIAlertAction+Additions.swift in Sources */,
 				DFEE73042A151423003428E4 /* ScaledTextView.swift in Sources */,
 				C56C6208201A1B4C00CCC2A5 /* MenuSeparatorCell.swift in Sources */,

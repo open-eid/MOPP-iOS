@@ -52,6 +52,11 @@ extension UIFont {
         return UIFontMetrics(forTextStyle: .body).scaledFont(for: boldFont)
     }
     
+    class var moppMedium: UIFont {
+        let boldFont = UIFont(name: MoppFontName.medium.rawValue, size: 16)!
+        return UIFontMetrics(forTextStyle: .body).scaledFont(for: boldFont)
+    }
+    
     class var moppMediumRegular: UIFont {
         let regularFont = UIFont(name: MoppFontName.regular.rawValue, size: 15)!
         return UIFontMetrics(forTextStyle: .body).scaledFont(for: regularFont)

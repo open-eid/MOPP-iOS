@@ -260,14 +260,14 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsTSACertCell" id="vb7-26-1De" customClass="SettingsTSACertCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="516.5" width="375" height="217"/>
+                                        <rect key="frame" x="0.0" y="516.5" width="375" height="198"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vb7-26-1De" id="G8q-Qy-eK5">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="217"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="198"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="k8v-bm-Uxj">
-                                                    <rect key="frame" x="16" y="10" width="343" height="182"/>
+                                                    <rect key="frame" x="16" y="10" width="343" height="163"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zJd-sR-fMw">
                                                             <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
@@ -301,24 +301,20 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="5MD-En-ZUq">
-                                                            <rect key="frame" x="0.0" y="97" width="343" height="85"/>
+                                                            <rect key="frame" x="0.0" y="97" width="343" height="66"/>
                                                             <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HMf-Yz-GBX" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
-                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                    <state key="normal" title="ADD CERTIFICATE"/>
-                                                                    <connections>
-                                                                        <action selector="addCertificate:" destination="vb7-26-1De" eventType="touchUpInside" id="Fyl-Yr-2CO"/>
-                                                                    </connections>
-                                                                </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XIl-Lc-tan" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="55" width="343" height="30"/>
-                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                    <state key="normal" title="SHOW CERTIFICATE"/>
-                                                                    <connections>
-                                                                        <action selector="showCertificate:" destination="vb7-26-1De" eventType="touchUpInside" id="ZPj-nz-Ig9"/>
-                                                                    </connections>
-                                                                </button>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jr6-VX-OQ9" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MBF-YL-QYw" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="45.5" width="343" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
@@ -335,10 +331,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="addCertificateButton" destination="HMf-Yz-GBX" id="b2v-9H-ttk"/>
+                                            <outlet property="addCertificateButton" destination="jr6-VX-OQ9" id="BNq-Fo-ihw"/>
                                             <outlet property="issuedToLabel" destination="GGE-2Q-xcJ" id="clq-Lh-XA5"/>
-                                            <outlet property="showCertificateButton" destination="XIl-Lc-tan" id="t8f-ks-yFz"/>
+                                            <outlet property="showCertificateButton" destination="MBF-YL-QYw" id="sq8-x2-0La"/>
                                             <outlet property="titleLabel" destination="IeT-9d-QIf" id="xnZ-mT-1q0"/>
+                                            <outlet property="tsaCertButtonsStackView" destination="5MD-En-ZUq" id="SqQ-ED-GKD"/>
                                             <outlet property="tsaCertLabelStackView" destination="zJd-sR-fMw" id="iw7-hZ-idv"/>
                                             <outlet property="tsaCertStackView" destination="k8v-bm-Uxj" id="xXi-rG-u03"/>
                                             <outlet property="tsaDataStackView" destination="bwN-Ve-e8h" id="pU1-Ls-1W4"/>
@@ -346,7 +343,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsStateCell" rowHeight="200" id="Jvo-qw-kMQ" customClass="SettingsStateCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="733.5" width="375" height="200"/>
+                                        <rect key="frame" x="0.0" y="714.5" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Jvo-qw-kMQ" id="V2q-bf-zDW">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
@@ -387,7 +384,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingsSivaCertCell" rowHeight="541" id="GzG-qn-75X" customClass="SettingsSivaCertCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="933.5" width="375" height="541"/>
+                                        <rect key="frame" x="0.0" y="914.5" width="375" height="541"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GzG-qn-75X" id="EYN-ra-XUh">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="541"/>
@@ -635,6 +632,31 @@
                                             <outlet property="validationAccessChoiceStackView" destination="TAN-8G-AdX" id="uDZ-cK-btP"/>
                                             <outlet property="validationAccessStackView" destination="Qsj-4B-Jru" id="bWO-lG-l6x"/>
                                             <outlet property="validationServiceCertificateTitle" destination="WI4-6R-3U7" id="Lz2-Bl-hsu"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingsResetCell" rowHeight="541" id="7s8-Wf-qhG" customClass="SettingsResetCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="1455.5" width="375" height="541"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7s8-Wf-qhG" id="18h-MB-j7e">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="541"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="80s-Eu-9Lu" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="541"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="80s-Eu-9Lu" firstAttribute="leading" secondItem="18h-MB-j7e" secondAttribute="leading" id="7OQ-sp-EQD"/>
+                                                <constraint firstAttribute="bottom" secondItem="80s-Eu-9Lu" secondAttribute="bottom" id="Jx7-TP-esn"/>
+                                                <constraint firstItem="80s-Eu-9Lu" firstAttribute="top" secondItem="18h-MB-j7e" secondAttribute="top" id="cjT-bv-J0f"/>
+                                                <constraint firstAttribute="trailing" secondItem="80s-Eu-9Lu" secondAttribute="trailing" id="db6-jE-d7A"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="resetSettingsButton" destination="80s-Eu-9Lu" id="KxT-Dr-Pge"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

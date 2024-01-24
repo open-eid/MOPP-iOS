@@ -382,6 +382,7 @@
 "settings-siva-default-access-title" = "Использовать доступ, назначенный по умолчанию";
 "settings-siva-default-manual-access-title" = "Использовать доступ, назначенный вручную";
 "settings-siva-default-certificate-title" = "Сертификат услуги валидации SiVa SSL";
+"settings-reset-button" = "ИСПОЛЬЗОВАТЬ НАСТРОЙКИ ПО УМОЛЧАНИЮ";
 "diagnostics-title" = "Диагностика";
 "diagnostics-activate-one-time-logging" = "Активировать одноразовое создание лог-файла";
 "diagnostics-save-log" = "СОХРАНИТЬ ЛОГ-ФАЙЛ";
@@ -531,3 +532,4 @@
 "voice-control-siva-service" = "Validation service";
 "voice-control-siva-default-access" = "Default validation access";
 "voice-control-siva-manual-access" = "Manual validation access";
+"voice-control-reset-button" = "Reset settings";

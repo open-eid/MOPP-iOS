@@ -382,6 +382,7 @@
 "settings-siva-default-access-title" = "Kasutan vaikimisi määratud ligipääsu";
 "settings-siva-default-manual-access-title" = "Kasutan käsitsi määratud ligipääsu";
 "settings-siva-default-certificate-title" = "Valideerimisteenuse SiVa SSL sertifikaat";
+"settings-reset-button" = "TAASTA ALGSEADED";
 "diagnostics-title" = "Diagnostika";
 "diagnostics-activate-one-time-logging" = "Aktiveeri ühekordne logifaili genereerimine";
 "diagnostics-save-log" = "SALVESTA LOGIFAIL";
@@ -530,3 +531,4 @@
 "voice-control-siva-service" = "Validation service";
 "voice-control-siva-default-access" = "Default validation access";
 "voice-control-siva-manual-access" = "Manual validation access";
+"voice-control-reset-button" = "Reset settings";
