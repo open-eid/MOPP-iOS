@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         xcode:
-          - 15.0
+          - 15.2
         platform:
           - iOS
         language: [ 'swift' ]
@@ -48,18 +48,8 @@ jobs:
         touch signature.rsa
         touch defaultConfiguration.json
 
-    - name: Setup CocoaPods
-      uses: maxim-lobanov/setup-cocoapods@v1
-      with:
-        podfile-path: ${{ github.workspace }}/MoppApp/Podfile.lock
-
-    - name: Install dependencies
-      run: |
-        cd ${{ github.workspace }}/MoppApp
-        pod install
-
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
+      uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
         queries: +security-and-quality
@@ -67,9 +57,9 @@ jobs:
     - name: Build
       run: |
         cd ${{ github.workspace }}/MoppApp
-        xcodebuild -workspace MoppApp.xcworkspace -scheme MoppApp -configuration Release GOOGLE_CONF_REQUIRED=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+        xcodebuild -scheme MoppApp -configuration Release GOOGLE_CONF_REQUIRED=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      uses: github/codeql-action/analyze@v3
       with:
         category: "/language:${{ matrix.language }}"
