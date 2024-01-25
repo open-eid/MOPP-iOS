@@ -210,8 +210,8 @@
 		DFA5821B264AAB6600564971 /* digidoc_1024.png in Resources */ = {isa = PBXBuildFile; fileRef = DFA58219264AAB6600564971 /* digidoc_1024.png */; };
 		DFAFD38629E8794200377EF5 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAFD38529E8794200377EF5 /* SearchField.swift */; };
 		DFB1A492283FB9AF000B578D /* CertificateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB1A491283FB9AF000B578D /* CertificateDetailViewController.swift */; };
-		DFB66BC32AE9BD4D00731B47 /* TextUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB66BC22AE9BD4D00731B47 /* TextUtil.swift */; };
 		DFB1D5EB2ACAFE1B00FDC7B8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFB1D5EA2ACAFE1B00FDC7B8 /* GoogleService-Info.plist */; };
+		DFB66BC32AE9BD4D00731B47 /* TextUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB66BC22AE9BD4D00731B47 /* TextUtil.swift */; };
 		DFB970A32626136400464791 /* PreviewFileTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB970A22626136300464791 /* PreviewFileTapGestureRecognizer.swift */; };
 		DFBA32A629A5A64000788A87 /* CancelUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA32A529A5A64000788A87 /* CancelUtil.swift */; };
 		DFBDF1F227D79B8B00A5CF3C /* SettingsStateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1F127D79B8B00A5CF3C /* SettingsStateCell.swift */; };
