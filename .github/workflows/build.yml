@@ -3,14 +3,14 @@ on: [push, pull_request]
 env:
   BUILD_NUMBER: ${{ github.run_number }}
 jobs:
-  macos:
-    name: Build on macOS
+  build:
+    name: Build RIA DigiDoc on macOS
     if: contains(github.repository, 'open-eid/MOPP-iOS') && contains(github.ref, 'master')
     runs-on: macos-latest
     strategy:
       matrix:
         xcode:
-          - 14.3
+          - 15.2
         platform:
           - iOS
     env:
@@ -21,7 +21,7 @@ jobs:
         TEMP_KEYCHAIN_PATH: "$RUNNER_TEMP/ios-github-actions.keychain-db"
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         submodules: recursive
     - name: Download Libdigidocpp iOS artifact
@@ -91,28 +91,19 @@ jobs:
         GOOGLE_SERVICES_PLIST: ${{ secrets.GOOGLE_SERVICES_PLIST }}
       run: |
         export LANG=en_US.UTF-8
-        cd ${{ github.workspace }}/CryptoLib/CryptoLib/cdocFramework/cdoc.framework/
-        lipo -info cdoc | grep -q 'x86_64' && lipo -remove x86_64 cdoc -o cdoc
         
         cd ${{ github.workspace }}/MoppApp
         echo -n "$GOOGLE_SERVICES_PLIST" | base64 --decode --output "GoogleService-Info.plist"
         
         echo "APP_VERSION=$('/usr/bin/xcodebuild' -showBuildSettings | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION =')" >> $GITHUB_ENV
-    - name: Setup CocoaPods
-      uses: maxim-lobanov/setup-cocoapods@v1
-      with:
-        podfile-path: ${{ github.workspace }}/MoppApp/Podfile.lock
-    - name: Install dependencies
-      run: |
-        cd ${{ github.workspace }}/MoppApp
-        pod install
     - name: Build and Archive
       env:
         APP_PROVISIONING_PROFILE_UUID: ${{ secrets.APP_PROVISIONING_PROFILE_UUID }}
         SHARE_EXTENSION_PROVISIONING_PROFILE_UUID: ${{ secrets.SHARE_EXTENSION_PROVISIONING_PROFILE_UUID }}
       run: |
         cd ${{ github.workspace }}/MoppApp
-        xcodebuild archive -workspace MoppApp.xcworkspace -scheme MoppApp -configuration Release -archivePath "${{ github.workspace }}/MoppApp/build/DigiDoc.xcarchive" -allowProvisioningUpdates APP_PROVISIONING_PROFILE="$APP_PROVISIONING_PROFILE_UUID" SHARE_EXTENSION_PROVISIONING_PROFILE="$SHARE_EXTENSION_PROVISIONING_PROFILE_UUID" CODE_SIGN_IDENTITY="Apple Distribution"
+
+        xcodebuild archive -scheme MoppApp -configuration Release -archivePath "${{ github.workspace }}/MoppApp/build/DigiDoc.xcarchive" -allowProvisioningUpdates APP_PROVISIONING_PROFILE="$APP_PROVISIONING_PROFILE_UUID" SHARE_EXTENSION_PROVISIONING_PROFILE="$SHARE_EXTENSION_PROVISIONING_PROFILE_UUID"
     - name: Export
       env:
         EXPORT_OPTIONS_PLIST: ${{ secrets.EXPORT_OPTIONS_PLIST }}
