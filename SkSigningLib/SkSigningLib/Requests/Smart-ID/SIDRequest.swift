@@ -103,7 +103,7 @@ public class SIDRequest: NSObject, URLSessionDelegate, SIDRequestProtocol {
         config.urlCache = nil
 
         let urlSession: URLSession
-        if trustedCertificates != nil {
+        if let trustedCerts = trustedCertificates, !trustedCerts.isEmpty {
             urlSession = URLSession(configuration: config, delegate: self, delegateQueue: nil)
         } else {
             urlSession = URLSession.shared

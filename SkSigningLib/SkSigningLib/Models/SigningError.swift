@@ -49,23 +49,91 @@ public enum SigningError: Error, Equatable {
     case wrongVC, documentUnusable, notQualified, oldApi, underMaintenance, forbidden
     case accountNotFoundOrTimeout
 
-    // Custom initializer
-    public init(rawValue: String, _ signingMethod: SigningType? = .mobileId) {
+    public init?(rawValue: String) {
         switch rawValue {
-        case "empty", "cancelled", "invalidURL", "noResponseError", "generalError",
-             "generalSignatureAddingError", "invalidSSLCert", "notFound", "notActive",
-             "parameterNameNull", "userAuthorizationFailed", "methodNotAllowed", "internalError",
-             "hashLengthInvalid", "hashEncodingInvalid", "sessionIdMissing", "sessionIdNotFound",
-             "exceededUnsuccessfulRequests", "timeout", "notMidClient", "userCancelled",
-             "interactionNotSupported", "signatureHashMismatch", "phoneAbsent", "deliveryError",
-             "simError", "midInvalidAccessRights", "sidInvalidAccessRights", "ocspInvalidTimeSlot",
-             "certificateRevoked", "technicalError", "wrongVC", "documentUnusable", "notQualified",
-             "oldApi", "underMaintenance", "forbidden", "accountNotFoundOrTimeout":
-            self = SigningError(rawValue: rawValue)
-        case "tooManyRequests":
-            self = .tooManyRequests(signingMethod: signingMethod?.rawValue ?? "")
-        default:
+        case "empty":
+            self = .empty
+        case "cancelled":
+            self = .cancelled
+        case "invalidURL":
+            self = .invalidURL
+        case "noResponseError":
+            self = .noResponseError
+        case "generalError":
             self = .generalError
+        case "generalSignatureAddingError":
+            self = .generalSignatureAddingError
+        case "invalidSSLCert":
+            self = .invalidSSLCert
+        case "notFound":
+            self = .notFound
+        case "notActive":
+            self = .notActive
+        case "parameterNameNull":
+            self = .parameterNameNull
+        case "userAuthorizationFailed":
+            self = .userAuthorizationFailed
+        case "methodNotAllowed":
+            self = .methodNotAllowed
+        case "internalError":
+            self = .internalError
+        case "hashLengthInvalid":
+            self = .hashLengthInvalid
+        case "hashEncodingInvalid":
+            self = .hashEncodingInvalid
+        case "sessionIdMissing":
+            self = .sessionIdMissing
+        case "sessionIdNotFound":
+            self = .sessionIdNotFound
+        case "exceededUnsuccessfulRequests":
+            self = .exceededUnsuccessfulRequests
+        case "timeout":
+            self = .timeout
+        case "notMidClient":
+            self = .notMidClient
+        case "userCancelled":
+            self = .userCancelled
+        case "interactionNotSupported":
+            self = .interactionNotSupported
+        case "signatureHashMismatch":
+            self = .signatureHashMismatch
+        case "phoneAbsent":
+            self = .phoneAbsent
+        case "deliveryError":
+            self = .deliveryError
+        case "simError":
+            self = .simError
+        case let stringValue where stringValue.hasPrefix("tooManyRequests(") && stringValue.hasSuffix(")"):
+            let signingMethod = stringValue
+                .dropFirst("tooManyRequests(".count)
+                .dropLast(")".count)
+            self = .tooManyRequests(signingMethod: String(signingMethod))
+        case "midInvalidAccessRights":
+            self = .midInvalidAccessRights
+        case "sidInvalidAccessRights":
+            self = .sidInvalidAccessRights
+        case "ocspInvalidTimeSlot":
+            self = .ocspInvalidTimeSlot
+        case "certificateRevoked":
+            self = .certificateRevoked
+        case "technicalError":
+            self = .technicalError
+        case "wrongVC":
+            self = .wrongVC
+        case "documentUnusable":
+            self = .documentUnusable
+        case "notQualified":
+            self = .notQualified
+        case "oldApi":
+            self = .oldApi
+        case "underMaintenance":
+            self = .underMaintenance
+        case "forbidden":
+            self = .forbidden
+        case "accountNotFoundOrTimeout":
+            self = .accountNotFoundOrTimeout
+        default:
+            return nil // Return nil for unknown cases
         }
     }
 }

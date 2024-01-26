@@ -273,6 +273,7 @@
 "generic-error-message" = "Midagi läks valesti. Palun proovi uuesti.";
 "decryption-error-message" = "Midagi läks dekrüpteerimisel valesti. Palun proovi uuesti.";
 "signing-error-too-many-requests" = "Sinu %@ tasuta allkirjade kuulimiit on ületatud. https://www.id.ee/artikkel/asutustele-kus-allkirjastatakse-digidoc4-kliendi-kaudu-suuremates-kogustes-dokumente/";
+"id-card-conditional-speech" = "ID-kaardi";
 "no-response-error" = "Palun kontrolli internetiühendust";
 "ssl-handshake-error" = "SSL ühenduskanali loomine ebaõnnestus. Kontrolli rakenduse seadeid või tarkvara uuendusi";
 "ocsp-invalid-time-slot" = "Palun kontrolli oma nutiseadme kellaaega. https://www.id.ee/artikkel/ria-digidoc-viga-palun-kontrollige-oma-nutiseadme-kellaaega/";

@@ -92,7 +92,7 @@ class AlertUtil {
         } else if errorMessage.isNilOrEmpty && signingError == .tooManyRequests(signingMethod: SigningType.smartId.rawValue) {
             errorMessage = L(.signingErrorTooManyRequests, [L(.signTitleSmartId)])
         } else if errorMessage.isNilOrEmpty && signingError == .tooManyRequests(signingMethod: SigningType.idCard.rawValue) {
-            errorMessage = L(.signingErrorTooManyRequests, [L(.signTitleIdCard)])
+            errorMessage = L(.signingErrorTooManyRequests, [L(.idCardConditionalSpeech)])
         } else {
             errorMessage = SkSigningLib_LocalizedString(signingError?.errorDescription ?? signingErrorMessage ?? signingStringError ?? "")
         }

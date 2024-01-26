@@ -262,7 +262,8 @@
 "card-reader-state-ready-for-pin1" = "Готово к дешифрованию с помощью ID-карты.\n%@ (%@)";
 "signing-in-progress" = "Происходит подписание.\nПожалуйста, подождите.";
 "decryption-in-progress" = "Происходит дешифрование. Пожалуйста, подождите.";
-"signing-error-too-many-requests" = "Ваш месячный лимит бесплатных подписей для %@ превышен. Дополнительная информация. https://www.id.ee/ru/artikkel/dlya-uchrezhdenij-v-kotoryh-v-bolshom-obeme-podpisyvayutsya-dokumenty-s-pomoshhyu-digidoc4-klienta/";
+"signing-error-too-many-requests" = "Ваш месячный лимит бесплатных подписей для %@ превышен. https://www.id.ee/ru/artikkel/dlya-uchrezhdenij-v-kotoryh-v-bolshom-obeme-podpisyvayutsya-dokumenty-s-pomoshhyu-digidoc4-klienta/";
+"id-card-conditional-speech" = "ID-карты";
 "no-response-error" = "Пожалуйста проверьте подключение к интернету";
 "ssl-handshake-error" = "Не удалось создать SSL канал передачи данных. Проверьте настройки вашего приложения или обновления программного обеспечения";
 "ocsp-invalid-time-slot" = "Пожалуйста, проверьте время на своем смарт-устройстве. https://www.id.ee/ru/artikkel/oshibka-ria-digidoc-pozhalujsta-proverte-vremya-na-svoem-smart-ustrojstve/";

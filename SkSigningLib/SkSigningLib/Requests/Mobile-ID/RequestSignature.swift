@@ -75,7 +75,7 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
         let urlSessionConfiguration: URLSessionConfiguration
         let urlSession: URLSession
         
-        if trustedCertificates != nil {
+        if let trustedCerts = trustedCertificates, !trustedCerts.isEmpty {
             urlSessionConfiguration = URLSessionConfiguration.default
             urlSession = URLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
         } else {

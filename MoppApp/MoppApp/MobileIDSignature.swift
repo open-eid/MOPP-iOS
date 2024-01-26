@@ -87,10 +87,10 @@ class MobileIDSignature {
                 
                 let error: Error = certificateError as? SigningError ?? certificateError
                 
-                printLog("\nRIA.MobileID - Certificate error: \(SkSigningLib_LocalizedString(SigningError(rawValue: "\(certificateError)").errorDescription ?? "\(certificateError)"))\n")
+                printLog("\nRIA.MobileID - Certificate error: \(SkSigningLib_LocalizedString(SigningError(rawValue: "\(certificateError)")?.errorDescription ?? "\(certificateError)"))\n")
                 
                 guard let mobileCertificateError = certificateError as? SigningError else {
-                    return ErrorUtil.generateError(signingError: certificateError as? SigningError ?? SigningError(rawValue: "\(certificateError)") , details: MessageUtil.errorMessageWithDetails(details: "Unknown error"))
+                    return ErrorUtil.generateError(signingError: (certificateError as? SigningError ?? SigningError(rawValue: "\(certificateError)")) ?? SigningError.generalError , details: MessageUtil.errorMessageWithDetails(details: "Unknown error"))
                 }
                 
                 if self.isCountryCodeError(phoneNumber: phoneNumber, errorDesc: "\(mobileCertificateError)") {
