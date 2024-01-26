@@ -123,6 +123,7 @@ enum LocKey : String
     case containerTimestampValid = "container-timestamp-valid";
     case containerTimestampUnknown = "container-timestamp-unknown";
     case containerTimestampInvalid = "container-timestamp-invalid";
+    case containerAsicsWarning = "container-asics-warning";
     case containerSignatureStatusReasonTitle = "container-signature-status-reason-title"
     case containerSignatureStatusInvalidReason = "container-signature-status-invalid-reason"
     case containerSignatureStatusWarningReasonWeak = "container-signature-status-warning-reason-weak"

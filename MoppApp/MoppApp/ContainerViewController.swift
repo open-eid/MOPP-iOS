@@ -74,6 +74,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     let landingViewController = LandingViewController.shared!
     var isAsicContainer = LandingViewController.shared.containerType == .asic
     var isEmptyFileWarningSet = false
+    var isAsicsFileWarningSet = false
 
     var asicsSignatures = [MoppLibSignature]()
     var asicsDataFiles = [MoppLibDataFile]()
@@ -236,6 +237,10 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
 
                 let asicContainer = self.containerViewDelegate?.getContainer()
                 checkEmptyFilesInContainer(asicContainer: asicContainer)
+                
+                if isAsicsContainer() && !isAsicsFileWarningSet {
+                    handleAsicsContainerMessage()
+                }
 
                 if !isForPreview && isAsicContainer {
                     if isDdocOrAsicsContainer(containerPath: containerPath) || isEmptyFileWarningSet {
@@ -337,6 +342,14 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                 isEmptyFileWarningSet = true
             }
         }
+    }
+    
+    private func handleAsicsContainerMessage() {
+        let asicsFileNotification = NotificationMessage(isSuccess: false, text: L(.containerAsicsWarning))
+        if !self.notifications.contains(where: { $0 == asicsFileNotification }) {
+            self.notifications.append(asicsFileNotification)
+        }
+        isAsicsFileWarningSet = true
     }
 
     func setSections() {
