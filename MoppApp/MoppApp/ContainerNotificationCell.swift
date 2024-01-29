@@ -25,7 +25,7 @@ import Foundation
 
 class ContainerNotificationCell: UITableViewCell {
     static let height: CGFloat = 44
-    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var infoLabel: ScaledLabel!
     @IBOutlet weak var linkLabel: UILabel!
     
     override func awakeFromNib() {
