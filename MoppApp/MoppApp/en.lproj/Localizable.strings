@@ -262,7 +262,7 @@
 "signing-in-progress" = "Signing in progress.\nPlease wait.";
 "decryption-in-progress" = "Decryption in progress.\nPlease wait.";
 "signing-error-too-many-requests" = "The limit for %@ digital signatures per month has been reached. https://www.id.ee/en/article/for-organisations-that-sign-large-quantities-of-documents-using-digidoc4-client/";
-"id-card-conditional-speech" = "ID-card";
+"id-card-conditional-speech" = "ID-card's";
 "no-response-error" = "Please check your internet connection";
 "ssl-handshake-error" = "SSL handshake failed. Check your application settings or software upgrades";
 "ocsp-invalid-time-slot" = "Please check your smart device time. https://www.id.ee/en/article/ria-digidoc-error-please-check-your-smart-device-time/";
