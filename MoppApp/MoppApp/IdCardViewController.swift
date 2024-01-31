@@ -311,6 +311,7 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
                 } else {
                     self.pinTextFieldTitleLabel.text = L(.pin2TextfieldLabel)
                 }
+                self.pinTextFieldTitleLabel.textColor = UIColor.moppText
                 // Voice Control label might not show, showing and hiding the textfield helps
                 if !UIAccessibility.isVoiceOverRunning {
                     self.pinTextField.becomeFirstResponder()

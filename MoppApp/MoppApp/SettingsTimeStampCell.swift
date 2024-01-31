@@ -49,6 +49,7 @@ class SettingsTimeStampCell: UITableViewCell {
         }
 
         titleLabel.isAccessibilityElement = false
+        titleLabel.textColor = UIColor.moppText
         textField.accessibilityLabel = L(.settingsTimestampUrlTitle)
         textField.accessibilityUserInputLabels = [L(.voiceControlTimestampingService)]
         if UIAccessibility.isVoiceOverRunning {

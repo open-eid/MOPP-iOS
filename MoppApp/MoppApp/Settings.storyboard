@@ -231,7 +231,7 @@
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="151.5" id="LVf-el-QvN"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="15"/>
-                                                            <color key="textColor" name="MoppLabel"/>
+                                                            <color key="textColor" name="MoppText"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ZR-f6-fYn">
@@ -355,7 +355,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ask role and address on every signing" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iu4-8i-4zf" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="91.5" width="255" height="17.5"/>
                                                             <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="15"/>
-                                                            <color key="textColor" name="MoppLabel"/>
+                                                            <color key="textColor" name="MoppText"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="nSd-0O-0nE">
