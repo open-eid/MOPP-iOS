@@ -173,6 +173,7 @@
 "container-timestamp-valid" = "Timestamp is valid";
 "container-timestamp-unknown" = "Timestamp is unknown";
 "container-timestamp-invalid" = "Timestamp is not valid";
+"container-asics-warning" = "This ASICS container contains XADES signature. You are not allowed to add or remove signatures to this container.";
 
 "container-signature-status-reason-title" = "Warnings";
 "container-signature-status-invalid-reason" = "This is an invalid signature or malformed digitally signed file. The signature is not valid.";
