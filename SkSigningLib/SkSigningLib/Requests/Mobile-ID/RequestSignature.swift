@@ -75,7 +75,7 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
         let urlSessionConfiguration: URLSessionConfiguration
         let urlSession: URLSession
         
-        if trustedCertificates != nil {
+        if let trustedCerts = trustedCertificates, !trustedCerts.isEmpty {
             urlSessionConfiguration = URLSessionConfiguration.default
             urlSession = URLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
         } else {
@@ -153,7 +153,7 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
         case 409:
             return .exceededUnsuccessfulRequests
         case 429:
-            return .tooManyRequests
+            return .tooManyRequests(signingMethod: SigningType.mobileId.rawValue)
         case 500:
             return .internalError
         default:

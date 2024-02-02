@@ -223,6 +223,13 @@ extension String {
         return MoppLibManager.sanitize(normalizedName)
             .removeForbiddenCharacters().trimWhitespacesAndNewlines()
     }
+
+    func lowercasedStart() -> String {
+        guard let firstLetter = first else {
+            return self
+        }
+        return String(firstLetter.lowercased()) + dropFirst()
+    }
 }
 
 extension Optional where Wrapped == String {

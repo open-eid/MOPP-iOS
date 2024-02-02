@@ -90,7 +90,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         let urlSessionConfiguration: URLSessionConfiguration
         let urlSession: URLSession
         
-        if trustedCertificates != nil {
+        if let trustedCerts = trustedCertificates, !trustedCerts.isEmpty {
             urlSessionConfiguration = URLSessionConfiguration.default
             urlSession = URLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
         } else {
@@ -158,7 +158,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         let urlSessionConfiguration: URLSessionConfiguration
         let urlSession: URLSession
         
-        if trustedCertificates != nil {
+        if let trustedCerts = trustedCertificates, !trustedCerts.isEmpty {
             urlSessionConfiguration = URLSessionConfiguration.default
             urlSessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
             urlSession = URLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
@@ -244,7 +244,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         case 405:
             return .methodNotAllowed
         case 429:
-            return .tooManyRequests
+            return .tooManyRequests(signingMethod: SigningType.mobileId.rawValue)
         case 500:
             return .internalError
         default:

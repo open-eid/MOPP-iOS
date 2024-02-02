@@ -210,6 +210,7 @@ enum LocKey : String
     case genericErrorMessage = "generic-error-message"
     case decryptionErrorMessage = "decryption-error-message"
     case signingErrorTooManyRequests = "signing-error-too-many-requests"
+    case idCardConditionalSpeech = "id-card-conditional-speech"
     case noConnectionMessage = "no-response-error"
     case sslHandshakeMessage = "ssl-handshake-error"
     case ocspInvalidTimeSlot = "ocsp-invalid-time-slot"

@@ -36,7 +36,7 @@ class Session {
                     printLog("\nReceived Session (session ID): \(response.sessionID ?? "Unable to display session ID")\n")
                     completionHandler(.success(response))
                 case .failure(let sessionError):
-                    printLog("Getting session error: \(SkSigningLib_LocalizedString(sessionError.signingErrorDescription ?? sessionError.rawValue))")
+                    printLog("Getting session error: \(SkSigningLib_LocalizedString((sessionError.errorDescription ?? sessionError.errorDescription) ?? "Error not available"))")
                     return completionHandler(.failure(sessionError))
                 }
             }
