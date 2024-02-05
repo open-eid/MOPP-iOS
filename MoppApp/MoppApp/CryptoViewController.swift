@@ -75,8 +75,8 @@ class CryptoViewController : MoppViewController {
     }
     
     @IBAction func importFilesAction() {
-        let tempPath = MoppFileManager.shared.tempDocumentsDirectoryPath()
-        MoppFileManager.shared.removeFile(withPath: tempPath)
+        let tempPath = MoppFileManager.shared.tempCacheDirectoryPath()
+        MoppFileManager.shared.removeFile(withPath: tempPath.path)
         
         NotificationCenter.default.post(
             name: .startImportingFilesWithDocumentPickerNotificationName,

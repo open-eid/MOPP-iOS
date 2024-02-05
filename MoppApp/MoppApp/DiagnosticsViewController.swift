@@ -376,7 +376,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     }
 
     private func saveDiagnosticsToFile(fileName: String, diagnosticsText: String) {
-        let fileLocation: URL? = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(fileName)
+        let fileLocation: URL? = MoppFileManager.cacheDirectory.appendingPathComponent(fileName)
 
         if let fileUrl = fileLocation {
             printLog("Diagnostics file location: \(fileUrl)")

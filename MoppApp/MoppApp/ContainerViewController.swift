@@ -171,6 +171,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         isDatafileReloaded = false
         clearIsSaveableCache()
         NotificationCenter.default.removeObserver(self)
+        MoppFileManager.removeFiles()
     }
 
     @objc func signatureCreatedFinished() {
@@ -422,7 +423,7 @@ extension ContainerViewController : LandingViewControllerTabButtonsDelegate {
             throw NSError(domain: "ContainerFileDataEmptyError", code: 1)
         }
 
-        let destinationPath = URL(fileURLWithPath: MoppFileManager.shared.tempDocumentsDirectoryPath(), isDirectory: true).appendingPathComponent(URL(fileURLWithPath: containerPath).lastPathComponent)
+        let destinationPath = MoppFileManager.shared.tempCacheDirectoryPath().appendingPathComponent(URL(fileURLWithPath: containerPath).lastPathComponent)
         
         if !FileManager.default.fileExists(atPath: destinationPath.path) {
             MoppFileManager.shared.createFile(atPath: destinationPath.path, contents: fileData)

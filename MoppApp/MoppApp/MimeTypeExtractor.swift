@@ -114,7 +114,7 @@ class MimeTypeExtractor {
     }
     
     private static func unZipFile(filePath: URL, fileName: String) -> URL? {
-        let outputPath = URL(fileURLWithPath: MoppFileManager.shared.tempDocumentsDirectoryPath(), isDirectory: true).appendingPathComponent(filePath.lastPathComponent).deletingPathExtension()
+        let outputPath =  MoppFileManager.shared.tempCacheDirectoryPath().appendingPathComponent(filePath.lastPathComponent).deletingPathExtension()
         guard let archive = Archive(url: filePath, accessMode: .read) else  {
             return nil
         }

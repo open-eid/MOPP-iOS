@@ -66,7 +66,7 @@ class UrlSchemeHandler: NSObject, URLSessionDelegate {
         let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
         
         if urlComponents?.scheme == "digidoc" {
-            var urlString = url.absoluteString
+            let urlString = url.absoluteString
             var cleanUrlString = ""
             if let urlHost = urlComponents?.host, supportedURISchemes.contains(urlHost) {
                 cleanUrlString = urlString.replacingOccurrences(of: "digidoc://" + urlHost + "//", with: urlHost + "://")

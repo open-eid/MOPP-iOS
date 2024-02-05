@@ -344,7 +344,7 @@ extension ContainerActions where Self: UIViewController {
 
         let cleanUpDataFilesInDocumentsFolderCode: () -> Void = {
             containerFilePaths.forEach {
-                if $0.hasPrefix(MoppFileManager.shared.documentsDirectoryPath()) {
+                if $0.hasPrefix(MoppFileManager.cacheDirectory.path) {
                     MoppFileManager.shared.removeFile(withPath: $0)
                 }
             }

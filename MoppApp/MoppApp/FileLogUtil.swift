@@ -66,23 +66,22 @@ class FileLogUtil: LogFileGenerating {
     
     static func logToFile() {
         UserDefaults.standard.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
-        let documentsURL = MoppFileManager.shared.documentsDirectoryPath()
-        var logsDirectory = MoppFileManager.shared.logsDirectoryPath()
-        let logsDirURL = MoppFileManager.shared.logsDirectory()
-        if !MoppFileManager.shared.directoryExists(logsDirURL.path) {
+        let cacheURL = MoppFileManager.cacheDirectory
+        var logsDirectory = MoppFileManager.shared.logsDirectory()
+        if !MoppFileManager.shared.directoryExists(logsDirectory.path) {
             do {
-                try FileManager.default.createDirectory(at: logsDirURL, withIntermediateDirectories: true)
+                try FileManager.default.createDirectory(at: logsDirectory, withIntermediateDirectories: true)
             } catch {
                 printLog("Unable to create 'logs' directory")
-                logsDirectory = URL(string: documentsURL)
+                logsDirectory = cacheURL
             }
         }
         let currentDate = MoppDateFormatter().ddMMYYYY(toString: Date())
         let fileName = "\(currentDate).log"
-        let logFilePath = logsDirectory?.appendingPathComponent(fileName)
-        freopen(logFilePath?.absoluteString, "a+", stderr)
+        let logFilePath = logsDirectory.appendingPathComponent(fileName)
+        freopen(logFilePath.path, "a+", stderr)
         
-        printLog("DEBUG mode: Logging to file. File location: \(logFilePath?.path ?? "Unable to log file path")")
+        printLog("DEBUG mode: Logging to file. File location: \(logFilePath.path )")
     }
     
     static func getLogFiles(logsDirURL: URL) throws -> [URL] {
@@ -111,7 +110,7 @@ class FileLogUtil: LogFileGenerating {
     
     static func combineLogFiles() throws -> URL {
         let logsDirURL = MoppFileManager.shared.logsDirectory()
-        let documentsDirURL = URL(fileURLWithPath: MoppFileManager.shared.documentsDirectoryPath())
+        let cacheDirURL = MoppFileManager.cacheDirectory
         if logsExist(logsDirURL: logsDirURL) {
             let combinedLogFile = logsDirURL.appendingPathComponent(DIAGNOSTICS_LOGS_FILE_NAME)
             if MoppFileManager.shared.fileExists(combinedLogFile.path) {
@@ -123,7 +122,7 @@ class FileLogUtil: LogFileGenerating {
                 logFiles = try getLogFiles(logsDirURL: logsDirURL)
             } catch {
                 printLog("Unable to get files from 'logs' directory")
-                logFiles = try getLogFiles(logsDirURL: documentsDirURL)
+                logFiles = try getLogFiles(logsDirURL: cacheDirURL)
             }
             
             // Create empty file

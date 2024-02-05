@@ -31,7 +31,7 @@
 - (NSArray *)getContainers;
 - (NSDictionary *)fileAttributes:(NSString *)filePath;
 - (BOOL)fileExistsAtPath:(NSString *)filePath;
-- (NSString *)documentsDirectoryPath;
+- (NSString *)cacheDirectoryPath;
 - (NSString *)logsDirectoryPath;
 - (BOOL)createFolder:(NSString *)folderName;
 - (BOOL)folderExists:(NSString *)folderPath;

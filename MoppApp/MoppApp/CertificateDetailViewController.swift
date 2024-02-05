@@ -80,6 +80,10 @@ class CertificateDetailViewController: MoppViewController {
         }
     }
     
+    @objc internal override func backAction() {
+        dismiss(animated: true)
+    }
+    
     func setCertificateDetails() -> Void {
         certificateSections.append(CertificateSection(header: L(.subjectName), certificateDetail: [
             CertificateDetail(title: L(.countryOrRegion), value: certificateDetail?.x509Certificate?.subject(oid: .countryName)?[0] ?? ""),

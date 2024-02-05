@@ -81,7 +81,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     }
 
     func didFinishLaunchingWithOptions(launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        // Log console logs to a file in Documents/logs folder
+        // Log console logs to a file in Library/Cache/logs folder
         if isUsingTestMode() {
             setDebugMode(value: true)
             FileLogUtil.logToFile()
@@ -94,6 +94,8 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                 setDebugMode(value: false)
             }
         }
+        
+        MoppFileManager.removeFiles()
 
         loadNibs()
         // Set navBar not translucent by default.
@@ -322,13 +324,13 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                 do {
                     let newData: Data? = try Data(contentsOf: newUrl)
                     let fileName: String = newUrl.deletingPathExtension().lastPathComponent.sanitize()
-                    let tempDirectoryPath: String? = MoppFileManager.shared.tempDocumentsDirectoryPath()
+                    let tempDirectoryPath: URL? = MoppFileManager.shared.tempCacheDirectoryPath()
                     guard let tempDirectory = tempDirectoryPath else {
                         printLog("Unable to get temporary file directory")
                         topViewController.showErrorMessage(message: L(.fileImportNewFileOpeningFailedAlertMessage, ["\(fileName).\(pathExtension)"]))
                         return false
                     }
-                    let fileURL: URL? = URL(fileURLWithPath: tempDirectory, isDirectory: true).appendingPathComponent(fileName, isDirectory: false).appendingPathExtension(pathExtension)
+                    let fileURL: URL? = URL(fileURLWithPath: tempDirectory.path, isDirectory: true).appendingPathComponent(fileName, isDirectory: false).appendingPathExtension(pathExtension)
 
                     guard let newUrlData: Data = newData, let filePath: URL = fileURL else {
                         printLog("Unable to get file data or file path")
@@ -437,9 +439,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 
         // Remove temporarily saved files folder
-        MoppFileManager.shared.removeTempSavedFilesInDocuments(folderName: "Saved Files")
-        MoppFileManager.shared.removeTempSavedFilesInDocuments(folderName: "Downloads")
-        MoppFileManager.shared.removeFilesFromSharedFolder()
+        MoppFileManager.removeFiles()
     }
 
     func handleEventsForBackgroundURLSession(identifier: String, completionHandler: @escaping () -> Void) {
