@@ -45,16 +45,16 @@
   self.fileManager = [NSFileManager defaultManager];
 }
 
-- (NSString *)documentsDirectoryPath {
-  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString *documentsDirectory = [paths objectAtIndex:0];
-  return documentsDirectory;
+- (NSString *)cacheDirectoryPath {
+  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+  NSString *cacheDirectory = [paths objectAtIndex:0];
+  return cacheDirectory;
 }
 
 - (NSString *)logsDirectoryPath {
-  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString *documentsDirectory = [paths objectAtIndex:0];
-  NSString *logsDirectory = [documentsDirectory stringByAppendingPathComponent:@"logs"];
+  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+  NSString *cacheDirectory = [paths objectAtIndex:0];
+  NSString *logsDirectory = [cacheDirectory stringByAppendingPathComponent:@"logs"];
   return logsDirectory;
 }
 
@@ -65,14 +65,14 @@
 }
 
 - (NSString *)filePathWithFileName:(NSString *)fileName {
-  NSString *filePath = [[self documentsDirectoryPath] stringByAppendingPathComponent:fileName];
+  NSString *filePath = [[self cacheDirectoryPath] stringByAppendingPathComponent:fileName];
   return filePath;
 }
 
 - (NSArray *)getContainers {
   NSArray *supportedExtensions = @[@"bdoc",
                                    @"asice"];
-  NSArray *allFiles = [self.fileManager contentsOfDirectoryAtPath:[self documentsDirectoryPath] error:nil];
+  NSArray *allFiles = [self.fileManager contentsOfDirectoryAtPath:[self cacheDirectoryPath] error:nil];
   NSArray *containers = [allFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%@ CONTAINS SELF.pathExtension.lowercaseString", supportedExtensions]];
   
   NSArray *sortedContainers = [containers sortedArrayUsingComparator:^NSComparisonResult(id firstFile, id secondFile) {
@@ -103,9 +103,9 @@
 
 - (BOOL)createFolder:(NSString *)folderName {
     NSError* error;
-    NSURL* documentsDirectory = [[NSURL alloc] initFileURLWithPath:[self documentsDirectoryPath]];
+    NSURL* cacheDirectory = [[NSURL alloc] initFileURLWithPath:[self cacheDirectoryPath]];
     
-    NSURL* newFolder = [documentsDirectory URLByAppendingPathComponent:folderName];
+    NSURL* newFolder = [cacheDirectory URLByAppendingPathComponent:folderName];
     BOOL isFolderCreated = [[NSFileManager defaultManager] createDirectoryAtURL:newFolder withIntermediateDirectories:YES attributes:nil error:&error];
     if (!isFolderCreated) {
         MLLog(@"createFolder error: %@", error);

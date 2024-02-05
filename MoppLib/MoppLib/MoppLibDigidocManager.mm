@@ -183,13 +183,13 @@ public:
             MLFileManager *mlFM = [[MLFileManager alloc] init];
             NSURL *logsUrl = [[NSURL alloc] initFileURLWithPath:[mlFM logsDirectoryPath]];
             if (![mlFM folderExists:logsUrl.path]) {
-                // Create folder 'logs' in Documents directory
+                // Create folder 'logs' in Library/Cache directory
                 BOOL isFolderCreated = [mlFM createFolder:@"logs"];
                 if (isFolderCreated) {
                     return logFileLocation(logsUrl);
                 } else {
-                    // Save log files to 'Documents' directory if creating 'logs' folder was unsuccessful
-                    NSURL *url = [[NSURL alloc] initWithString:[mlFM documentsDirectoryPath]];
+                    // Save log files to 'Library/Cache' directory if creating 'logs' folder was unsuccessful
+                    NSURL *url = [[NSURL alloc] initWithString:[mlFM cacheDirectoryPath]];
                     return logFileLocation(url);
                 }
             } else {
@@ -204,11 +204,11 @@ public:
     }
     
     NSString* getSivaCert(NSString *fileName) const {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+        NSString *libraryDirectory = [paths objectAtIndex:0];
         NSString *subfolderName = @"siva-cert";
         
-        NSString *subfolderPath = [documentsDirectory stringByAppendingPathComponent:subfolderName];
+        NSString *subfolderPath = [libraryDirectory stringByAppendingPathComponent:subfolderName];
         
         NSString *filePath = [subfolderPath stringByAppendingPathComponent:fileName];
         

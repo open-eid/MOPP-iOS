@@ -32,9 +32,9 @@ class FileDownloader: NSObject, URLSessionDelegate {
             if error != nil { printLog("Unable to download file: \(error?.localizedDescription ?? "Unable to display error")"); return completion(nil) }
             if let fileTempUrl: URL = fileTempUrl {
                 do {
-                    let documentsPathFileURL: URL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("Downloads", isDirectory: true).appendingPathComponent(url.lastPathComponent)
-                    try FileManager.default.createDirectory(at: documentsPathFileURL, withIntermediateDirectories: true, attributes: nil)
-                    let fileLocation: String = MoppFileManager.shared.copyFile(withPath: fileTempUrl.path, toPath: documentsPathFileURL.path)
+                    let cachePathFileURL: URL = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("Downloads", isDirectory: true).appendingPathComponent(url.lastPathComponent)
+                    try FileManager.default.createDirectory(at: cachePathFileURL, withIntermediateDirectories: true, attributes: nil)
+                    let fileLocation: String = MoppFileManager.shared.copyFile(withPath: fileTempUrl.path, toPath: cachePathFileURL.path)
                     return completion(URL(fileURLWithPath: fileLocation))
                 } catch let error {
                     printLog("Failed to download file or create directory: \(error.localizedDescription)")

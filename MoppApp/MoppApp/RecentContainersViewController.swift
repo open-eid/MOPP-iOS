@@ -88,7 +88,7 @@ class RecentContainersViewController : MoppModalViewController {
     }
 
     func refresh(searchKey: String? = nil) {
-        var filesFound = MoppFileManager.shared.documentsFiles()
+        var filesFound = MoppFileManager.shared.cacheFiles()
         if let searchKey = searchKey {
             filesFound = filesFound.filter {
                 let range = $0.range(of: searchKey, options: String.CompareOptions.caseInsensitive, range: nil, locale: nil)
@@ -109,7 +109,7 @@ class RecentContainersViewController : MoppModalViewController {
     func closeSearch() {
         searchKeyword = String()
         requestCloseSearch()
-        containerFiles = filterContainerFiles(containerFiles: MoppFileManager.shared.documentsFiles())
+        containerFiles = filterContainerFiles(containerFiles: MoppFileManager.shared.cacheFiles())
         tableView.reloadData()
     }
     
@@ -188,8 +188,13 @@ extension RecentContainersViewController : UITableViewDelegate {
         let section = sections[indexPath.section]
         if section == .containerFiles {
             let filename = containerFiles[indexPath.row]
-            let containerPath = MoppFileManager.shared.documentsDirectoryPath() + "/" + filename
-
+            var containerPath: URL?
+            if #available(iOS 16.0, *) {
+                containerPath = MoppFileManager.cacheDirectory.appending(path: filename)
+            } else {
+                containerPath = MoppFileManager.cacheDirectory.appendingPathComponent(filename)
+            }
+            guard let path = containerPath else { return }
             self.closeSearch()
             dismiss(animated: true, completion: {
                 let ext = (filename as NSString).pathExtension
@@ -204,33 +209,33 @@ extension RecentContainersViewController : UITableViewDelegate {
                 }
 
                 if ext.isAsicContainerExtension || ext.isPdfContainerExtension {
-                    let containerPathURL = URL(fileURLWithPath: containerPath)
+                    let containerPathURL = path
                     if SiVaUtil.isDocumentSentToSiVa(fileUrl: containerPathURL) || (containerPathURL.pathExtension == "asics" || containerPathURL.pathExtension == "scs") {
                         SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
                             if (containerPathURL.pathExtension == "ddoc" || containerPathURL.pathExtension == "pdf") && !hasAgreed {
                                 return
                             }
-                            self.openContainer(containerPath: containerPath, navController: navController, isSendingToSivaAgreed: hasAgreed)
+                            self.openContainer(containerPath: path.path, navController: navController, isSendingToSivaAgreed: hasAgreed)
                         }
                     } else {
-                        self.openContainer(containerPath: containerPath, navController: navController, isSendingToSivaAgreed: true)
+                        self.openContainer(containerPath: path.path, navController: navController, isSendingToSivaAgreed: true)
                     }
                 } else {
                     var containerViewController: ContainerViewController
                     LandingViewController.shared.containerType = .cdoc
                     containerViewController = CryptoContainerViewController.instantiate()
-                    containerViewController.containerPath = containerPath
-                    let filePath = containerPath as NSString
-                    let container = CryptoContainer(filename: filePath.lastPathComponent as NSString, filePath: filePath)
+                    containerViewController.containerPath = path.path
+
+                    let container = CryptoContainer(filename: path.lastPathComponent as NSString, filePath: path.path as NSString)
 
                     MoppLibCryptoActions.sharedInstance().parseCdocInfo(
-                        filePath as String?,
+                        path.path as String?,
                         success: {(_ cdocInfo: CdocInfo?) -> Void in
                             guard let strongCdocInfo = cdocInfo else { return }
                             let cryptoContainer = (containerViewController as! CryptoContainerViewController)
                             container.addressees = strongCdocInfo.addressees as? [Addressee] ?? []
                             container.dataFiles = strongCdocInfo.dataFiles
-                            cryptoContainer.containerPath = filePath as String?
+                            cryptoContainer.containerPath = path.path as String?
                             cryptoContainer.state = .opened
 
                             cryptoContainer.container = container
@@ -278,7 +283,7 @@ extension RecentContainersViewController : UITableViewDelegate {
                 guard let strongSelf = self else { return }
                 let filename = strongSelf.containerFiles[indexPath.row]
                 MoppFileManager.shared.removeDocumentsFile(with: filename)
-                strongSelf.containerFiles = strongSelf.filterContainerFiles(containerFiles: MoppFileManager.shared.documentsFiles())
+                strongSelf.containerFiles = strongSelf.filterContainerFiles(containerFiles: MoppFileManager.shared.cacheFiles())
                 UIAccessibility.post(notification: .screenChanged, argument: L(.recentDocumentRemoved))
                 tableView.reloadData()
             }
@@ -297,7 +302,7 @@ extension RecentContainersViewController: SigningTableViewHeaderViewDelegate {
 
     func signingTableViewHeaderViewDidEndSearch() {
         self.searchKeyword = String()
-        containerFiles = filterContainerFiles(containerFiles: MoppFileManager.shared.documentsFiles())
+        containerFiles = filterContainerFiles(containerFiles: MoppFileManager.shared.cacheFiles())
         tableView.reloadData()
     }
 }

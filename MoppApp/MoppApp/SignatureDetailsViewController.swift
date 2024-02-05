@@ -38,11 +38,6 @@ class SignatureDetailsViewController: MoppViewController {
     
     var signatureKind: ContainerSignatureCell.Kind = .signature
 
-    func getDownloadsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationItemForPushedViewController(title: signatureKind == .timestamp ? L(.timestampDetailsTitle) : L(.signatureDetailsTitle))

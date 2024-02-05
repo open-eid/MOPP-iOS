@@ -27,24 +27,21 @@ class MoppFileManager {
     static let shared = MoppFileManager()
     var fileManager: FileManager = FileManager()
 
-    func documentsDirectoryPath() -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let documentsDirectory: String = paths[0]
-        return documentsDirectory
-    }
-    
-    func logsDirectoryPath() -> URL? {
-        return URL(string: documentsDirectoryPath())?.appendingPathComponent("logs")
+    static var cacheDirectory: URL {
+        let paths = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
+        if #available(iOS 16.0, *) {
+            return URL(filePath: paths.first ?? "")
+        } else {
+            return URL(fileURLWithPath: paths.first ?? "", isDirectory: true)
+        }
     }
     
     func logsDirectory() -> URL {
-        let documentsURL = URL(fileURLWithPath: documentsDirectoryPath())
-        return documentsURL.appendingPathComponent("logs")
+        return MoppFileManager.cacheDirectory.appendingPathComponent("logs")
     }
 
-    func documentsFiles() -> [String] {
-        let directory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        if let urlArr = try? fileManager.contentsOfDirectory(at: directory, includingPropertiesForKeys: [.contentAccessDateKey], options: .skipsHiddenFiles) {
+    func cacheFiles() -> [String] {
+        if let urlArr = try? fileManager.contentsOfDirectory(at: MoppFileManager.cacheDirectory, includingPropertiesForKeys: [.contentAccessDateKey], options: .skipsHiddenFiles) {
             return urlArr.sorted { (currentFile, nextFile) -> Bool in
                 guard let currentFileDate = try? currentFile.resourceValues(forKeys: [.contentAccessDateKey]).contentAccessDate,
                       let nextFileDate = try? nextFile.resourceValues(forKeys: [.contentAccessDateKey]).contentAccessDate else {
@@ -59,7 +56,7 @@ class MoppFileManager {
     }
 
     func removeDocumentsFile(with name: String) {
-        var directory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        var directory = MoppFileManager.cacheDirectory
         directory.appendPathComponent(name)
         try! fileManager.removeItem(at: directory)
         if let inboxDirectoryPath = inboxDirectoryPath() {
@@ -68,25 +65,33 @@ class MoppFileManager {
     }
     
     func inboxDirectoryPath() -> String? {
-        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
-            return nil
-        }
-        return documentsDirectory.appendingPathComponent("Inbox", isDirectory: true).path
+        return MoppFileManager.cacheDirectory.appendingPathComponent("Inbox", isDirectory: true).path
     }
 
-    func tempDocumentsDirectoryPath() -> String {
-        let path: String = documentsDirectoryPath() + ("/temp")
-        var isDir : ObjCBool = false
-        if !(fileManager.fileExists(atPath: path, isDirectory: &isDir)) {
-            try? fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: [FileAttributeKey.protectionKey: FileProtectionType.complete])
+    func tempCacheDirectoryPath() -> URL {
+        var path: URL?
+        if #available(iOS 16.0, *) {
+            path = MoppFileManager.cacheDirectory.appending(path: "temp")
+        } else {
+            path = MoppFileManager.cacheDirectory.appendingPathComponent("temp")
         }
-        return path
+        
+        guard let filePath = path else { return URL(fileURLWithPath: "") }
+        var isDir : ObjCBool = false
+        if !(fileManager.fileExists(atPath: filePath.path, isDirectory: &isDir)) {
+            try? fileManager.createDirectory(atPath: filePath.path, withIntermediateDirectories: true, attributes: [FileAttributeKey.protectionKey: FileProtectionType.complete])
+        }
+        return filePath
     }
 
     func tempFilePath(withFileName fileName: String) -> String? {
-        let tempPathURL = URL(fileURLWithPath: tempDocumentsDirectoryPath())
-        let filePathURL = URL(fileURLWithPath: fileName.sanitize(),
-            isDirectory: false, relativeTo: tempPathURL).absoluteURL
+        let tempPathURL = tempCacheDirectoryPath()
+        var filePathURL = URL(fileURLWithPath: "")
+        if #available(iOS 16.0, *) {
+            filePathURL = tempPathURL.appending(path: fileName.sanitize())
+        } else {
+            filePathURL = tempPathURL.appendingPathComponent(fileName.sanitize(), isDirectory: false)
+        }
 
         // Create intermediate directories for possibility of creating temporary
         // file if filename contains relative path
@@ -100,7 +105,7 @@ class MoppFileManager {
     }
 
     func filePath(withFileName fileName: String) -> String {
-        let filePath: String = URL(fileURLWithPath: documentsDirectoryPath()).appendingPathComponent(fileName).path
+        let filePath: String = MoppFileManager.cacheDirectory.appendingPathComponent(fileName).path
         return filePath
     }
     
@@ -181,7 +186,7 @@ class MoppFileManager {
     }
     
     func saveFile(fileURL: URL, _ folderName: String?, completionHandler: @escaping (Bool, URL?) -> Void) {
-        let tsaCertDirectory: URL? = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(folderName ?? "tsa-cert", isDirectory: true)
+        let tsaCertDirectory: URL? = MoppFileManager.cacheDirectory.appendingPathComponent(folderName ?? "tsa-cert", isDirectory: true)
         
         guard let saveDir: URL = tsaCertDirectory else { printLog("Failed to get \(tsaCertDirectory?.lastPathComponent ?? "requested") directory"); completionHandler(false, nil); return }
         do {
@@ -222,8 +227,8 @@ class MoppFileManager {
     }
     
     func saveFile(containerPath: String, fileName: String, completionHandler: @escaping (Bool, String?) -> Void) {
-        let savedFilesDirectory: URL? = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Saved Files", isDirectory: true)
-        let tempFilesDirectory: URL? = URL(string: MoppFileManager.shared.tempDocumentsDirectoryPath())
+        let savedFilesDirectory: URL? = MoppFileManager.cacheDirectory.appendingPathComponent("Saved Files", isDirectory: true)
+        let tempFilesDirectory: URL? = MoppFileManager.shared.tempCacheDirectoryPath()
         
         guard let saveDir: URL = savedFilesDirectory else { printLog("Failed to get \(savedFilesDirectory?.lastPathComponent ?? "requested") directory"); completionHandler(false, nil); return }
         do {
@@ -278,9 +283,9 @@ class MoppFileManager {
         }
     }
     
-    func removeTempSavedFilesInDocuments(folderName: String) {
+    func removeTempSavedFilesInCache(folderName: String) {
         do {
-            let savedFilesDirectory: URL? = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(folderName, isDirectory: true)
+            let savedFilesDirectory: URL? = MoppFileManager.cacheDirectory.appendingPathComponent(folderName, isDirectory: true)
 
             guard let saveDir: URL = savedFilesDirectory else { printLog("Failed to get \(savedFilesDirectory?.lastPathComponent ?? "requested") directory"); return }
             if fileManager.fileExists(atPath: saveDir.path) {
@@ -479,5 +484,11 @@ class MoppFileManager {
         let fileSize: Double? = try? fileUrl.resourceValues(forKeys: [.fileSizeKey]).allValues.first?.value as? Double
         guard let fileSizeBytes = fileSize else { printLog("Could not get file size"); return true }
         return fileSizeBytes.isZero
+    }
+    
+    static func removeFiles() {
+        MoppFileManager.shared.removeTempSavedFilesInCache(folderName: "Saved Files")
+        MoppFileManager.shared.removeTempSavedFilesInCache(folderName: "Downloads")
+        MoppFileManager.shared.removeFilesFromSharedFolder()
     }
 }

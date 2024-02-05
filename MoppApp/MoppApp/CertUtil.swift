@@ -28,8 +28,7 @@ class CertUtil {
     
     static func getCertFile(folder: String, fileName: String) -> URL? {
         do {
-            let documentsUrl = URL(fileURLWithPath: MoppFileManager.shared.documentsDirectoryPath())
-            let certLocation = documentsUrl.appendingPathComponent(folder, isDirectory: true).appendingPathComponent(fileName, isDirectory: false)
+            let certLocation = MoppFileManager.cacheDirectory.appendingPathComponent(folder, isDirectory: true).appendingPathComponent(fileName, isDirectory: false)
             if try certLocation.checkResourceIsReachable() {
                 return certLocation
             }
