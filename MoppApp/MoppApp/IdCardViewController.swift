@@ -468,18 +468,17 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
                 roleAndAddressView.modalPresentationStyle = .overCurrentContext
                 roleAndAddressView.modalTransitionStyle = .crossDissolve
                 roleAndAddressView.viewController = self
-                let isPinSaved = KeychainUtil.save(key: pinCodeKey, info: pin)
-                if !isPinSaved {
-                    DispatchQueue.main.async {
-                        self.dismiss(animated: false, completion: { [weak self] in
-                            guard let sself = self else { return }
-                            return sself.getTopViewController().showErrorMessage(message: "Unable to secure PIN")
-                        })
-                    }
-                } else {
-                    present(roleAndAddressView, animated: true)
+                if !savePin(pin: pin) {
+                    showPinSaveError()
+                    return
                 }
+                present(roleAndAddressView, animated: true)
             } else {
+                if !savePin(pin: pin) {
+                    showPinSaveError()
+                    return
+                }
+                
                 self.sign(pin)
             }
         }
@@ -543,6 +542,19 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
     
     override func keyboardWillHide(notification: NSNotification) {
         hideKeyboard(scrollView: scrollView)
+    }
+        
+    func savePin(pin: String) -> Bool {
+        return KeychainUtil.save(key: pinCodeKey, info: pin)
+    }
+    
+    func showPinSaveError() {
+        DispatchQueue.main.async {
+            self.dismiss(animated: false, completion: { [weak self] in
+                guard let sself = self else { return }
+                return sself.getTopViewController().showErrorMessage(message: "Unable to secure PIN")
+            })
+        }
     }
 }
 
