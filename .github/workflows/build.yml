@@ -47,11 +47,8 @@ jobs:
     - name: Update libdigidocpp in project
       run: |
           export LIBDIGIDOCPP_PATH=${{ github.workspace }}/MoppLib/MoppLib/libdigidocpp
-          export LIBDIGIDOCPP_TESTENV_PATH=${{ github.workspace }}/MoppLib/MoppLib/libdigidocpp_testenv
           rm -rf $LIBDIGIDOCPP_PATH/libdigidocpp.iphoneos && mkdir $LIBDIGIDOCPP_PATH/libdigidocpp.iphoneos && cp -r ${{ github.workspace }}/libdigidocpp.ios/libdigidocpp.iphoneos/ $LIBDIGIDOCPP_PATH/libdigidocpp.iphoneos/
           rm -rf $LIBDIGIDOCPP_PATH/libdigidocpp.iphonesimulator && mkdir $LIBDIGIDOCPP_PATH/libdigidocpp.iphonesimulator && cp -r ${{ github.workspace }}/libdigidocpp.iphonesimulator/libdigidocpp.iphonesimulator/* $LIBDIGIDOCPP_PATH/libdigidocpp.iphonesimulator/
-          rm -rf $LIBDIGIDOCPP_TESTENV_PATH/libdigidocpp.iphoneos && mkdir $LIBDIGIDOCPP_TESTENV_PATH/libdigidocpp.iphoneos && cp -r ${{ github.workspace }}/libdigidocpp.ios/libdigidocpp.iphoneos/* $LIBDIGIDOCPP_TESTENV_PATH/libdigidocpp.iphoneos/
-          rm -rf $LIBDIGIDOCPP_TESTENV_PATH/libdigidocpp.iphonesimulator && mkdir $LIBDIGIDOCPP_TESTENV_PATH/libdigidocpp.iphonesimulator && cp -r ${{ github.workspace }}/libdigidocpp.iphonesimulator/libdigidocpp.iphonesimulator/* $LIBDIGIDOCPP_TESTENV_PATH/libdigidocpp.iphonesimulator/
     - name: Install the Apple certificate and provisioning profiles
       env:
         BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
