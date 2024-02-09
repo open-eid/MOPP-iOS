@@ -283,7 +283,8 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="right" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MHH-mX-gAV" customClass="SwitchButton" customModule="MoppApp" customModuleProvider="target">
-                                                        <rect key="frame" x="276" y="0.0" width="51" height="31"/>
+                                                        <rect key="frame" x="284.5" y="0.0" width="42.5" height="31"/>
+                                                        <color key="onTintColor" red="0.54901960780000003" green="0.76470588240000004" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </switch>
                                                 </subviews>
                                             </stackView>
@@ -292,7 +293,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YH8-us-1Zw" customClass="MoppButton" customModule="MoppApp" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="160" height="32"/>
-                                                        <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" name="MoppError"/>
                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
                                                         <state key="normal">
                                                             <color key="titleColor" red="0.9630651563" green="0.9630651563" blue="0.9630651563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -513,7 +514,7 @@
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Oa-qq-zja" customClass="MoppButton" customModule="MoppApp" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="166.5" height="32"/>
-                                                                        <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="backgroundColor" name="MoppError"/>
                                                                         <accessibility key="accessibilityConfiguration" identifier="IdCardCancelButton"/>
                                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
                                                                         <state key="normal">
@@ -801,7 +802,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="right" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7QK-Af-BRR" customClass="SwitchButton" customModule="MoppApp" customModuleProvider="target">
-                                                        <rect key="frame" x="244" y="0.0" width="51" height="31"/>
+                                                        <rect key="frame" x="253.5" y="0.0" width="41.5" height="31"/>
                                                     </switch>
                                                 </subviews>
                                             </stackView>
@@ -810,7 +811,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zrW-Cm-87h" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="144" height="32"/>
-                                                        <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" name="MoppError"/>
                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
                                                         <state key="normal">
                                                             <color key="titleColor" red="0.9630651563" green="0.9630651563" blue="0.9630651563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1190,7 +1191,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x1X-cW-HvC" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="160" height="40"/>
-                                                        <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" name="MoppError"/>
                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
                                                         <state key="normal" title="CANCEL">
                                                             <color key="titleColor" red="0.9630651563" green="0.9630651563" blue="0.9630651563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

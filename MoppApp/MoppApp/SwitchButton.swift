@@ -27,12 +27,18 @@ class SwitchButton: UISwitch {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setDefaultOnColor()
         setDefaultOffColor()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        setDefaultOnColor()
         setDefaultOffColor()
+    }
+    
+    private func setDefaultOnColor() {
+        self.onTintColor = UIColor.moppGreenValid
     }
     
     private func setDefaultOffColor() {
