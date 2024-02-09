@@ -234,8 +234,8 @@
                                                             <color key="textColor" name="MoppText"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ZR-f6-fYn">
-                                                            <rect key="frame" x="294" y="7" width="51" height="31"/>
+                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ZR-f6-fYn" customClass="SwitchButton" customModule="MoppApp" customModuleProvider="target">
+                                                            <rect key="frame" x="294" y="6.5" width="51" height="31"/>
                                                             <connections>
                                                                 <action selector="useDefaultToggled:" destination="S9f-IU-Vln" eventType="touchUpInside" id="gpv-K4-w5q"/>
                                                             </connections>
@@ -358,7 +358,7 @@
                                                             <color key="textColor" name="MoppText"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="nSd-0O-0nE">
+                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="nSd-0O-0nE" customClass="SwitchButton" customModule="MoppApp" customModuleProvider="target">
                                                             <rect key="frame" x="294" y="84.5" width="51" height="31"/>
                                                             <connections>
                                                                 <action selector="stateToggled:" destination="Jvo-qw-kMQ" eventType="valueChanged" id="VeS-PD-EfD"/>
@@ -879,17 +879,17 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="2nF-ky-2K3">
                                                 <rect key="frame" x="16" y="643" width="327" height="89"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="vra-Lf-d6I">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="vra-Lf-d6I">
                                                         <rect key="frame" x="0.0" y="0.0" width="327" height="31"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Enable one-time log generation" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="7bH-3u-clw" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="6" width="280.5" height="19.5"/>
+                                                                <rect key="frame" x="0.0" y="6" width="273" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vjc-8d-DZD">
-                                                                <rect key="frame" x="285.5" y="0.0" width="43.5" height="31"/>
+                                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="vjc-8d-DZD" customClass="SwitchButton" customModule="MoppApp" customModuleProvider="target">
+                                                                <rect key="frame" x="278" y="0.0" width="51" height="31"/>
                                                                 <connections>
                                                                     <action selector="fileLoggingSwitchChanged:" destination="B8K-Cg-QcU" eventType="valueChanged" id="843-Jb-vWY"/>
                                                                 </connections>
