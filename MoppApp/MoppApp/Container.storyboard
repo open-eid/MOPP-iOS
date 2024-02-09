@@ -83,7 +83,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Itl-UO-W71">
-                                                    <rect key="frame" x="16" y="8" width="602" height="43"/>
+                                                    <rect key="frame" x="16" y="8" width="128.5" height="43"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONTAINER:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c0X-dZ-CUW" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="88.5" height="19"/>
@@ -99,22 +99,31 @@
                                                         </label>
                                                     </subviews>
                                                 </stackView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RpZ-cI-EfY">
+                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nlf-u7-RCj">
                                                     <rect key="frame" x="634" y="0.0" width="17" height="59"/>
-                                                    <state key="normal" image="Icon_Edit"/>
-                                                    <connections>
-                                                        <action selector="editContainerName:" destination="8UE-UF-0gf" eventType="touchUpInside" id="oJM-iR-vkL"/>
-                                                    </connections>
-                                                </button>
+                                                    <subviews>
+                                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2lV-8Y-4f8">
+                                                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="59"/>
+                                                            <state key="normal" title="Button"/>
+                                                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RpZ-cI-EfY">
+                                                            <rect key="frame" x="0.0" y="0.0" width="17" height="59"/>
+                                                            <state key="normal" image="Icon_Edit"/>
+                                                            <connections>
+                                                                <action selector="editContainerName:" destination="8UE-UF-0gf" eventType="touchUpInside" id="oJM-iR-vkL"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Itl-UO-W71" firstAttribute="leading" secondItem="LSq-om-Kbe" secondAttribute="leading" constant="16" id="4ps-K5-b41"/>
-                                                <constraint firstAttribute="trailing" secondItem="RpZ-cI-EfY" secondAttribute="trailing" constant="16" id="7wd-91-kVo"/>
-                                                <constraint firstItem="RpZ-cI-EfY" firstAttribute="leading" secondItem="Itl-UO-W71" secondAttribute="trailing" constant="16" id="By6-cm-aN2"/>
                                                 <constraint firstAttribute="bottom" secondItem="Itl-UO-W71" secondAttribute="bottom" constant="8" id="JWb-31-rNr"/>
-                                                <constraint firstAttribute="bottom" secondItem="RpZ-cI-EfY" secondAttribute="bottom" id="SKK-vE-QVv"/>
-                                                <constraint firstItem="RpZ-cI-EfY" firstAttribute="top" secondItem="LSq-om-Kbe" secondAttribute="top" id="VdW-u0-qtZ"/>
+                                                <constraint firstAttribute="bottom" secondItem="nlf-u7-RCj" secondAttribute="bottom" id="o6Z-V7-4R6"/>
+                                                <constraint firstAttribute="trailing" secondItem="nlf-u7-RCj" secondAttribute="trailing" constant="16" id="s5o-35-EMk"/>
                                                 <constraint firstItem="Itl-UO-W71" firstAttribute="top" secondItem="LSq-om-Kbe" secondAttribute="top" constant="8" id="tSc-0m-LPD"/>
+                                                <constraint firstItem="nlf-u7-RCj" firstAttribute="top" secondItem="LSq-om-Kbe" secondAttribute="top" id="uUX-AD-CZ1"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -763,7 +772,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="g35-2z-QcV">
-                                                    <rect key="frame" x="16" y="8" width="602" height="42"/>
+                                                    <rect key="frame" x="16" y="8" width="128.5" height="42"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONTAINER:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZK-FE-KFD" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="88.5" height="18"/>
@@ -779,22 +788,31 @@
                                                         </label>
                                                     </subviews>
                                                 </stackView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACm-df-AwI">
+                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GMI-0H-g8f">
                                                     <rect key="frame" x="634" y="0.0" width="17" height="58"/>
-                                                    <state key="normal" image="Icon_Edit"/>
-                                                    <connections>
-                                                        <action selector="editContainerName:" destination="80l-wY-1RX" eventType="touchUpInside" id="aaB-ju-jTk"/>
-                                                    </connections>
-                                                </button>
+                                                    <subviews>
+                                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7LV-SG-aXP">
+                                                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="58"/>
+                                                            <state key="normal" title="Button"/>
+                                                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACm-df-AwI">
+                                                            <rect key="frame" x="0.0" y="0.0" width="17" height="58"/>
+                                                            <state key="normal" image="Icon_Edit"/>
+                                                            <connections>
+                                                                <action selector="editContainerName:" destination="80l-wY-1RX" eventType="touchUpInside" id="aaB-ju-jTk"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="ACm-df-AwI" secondAttribute="bottom" id="2qq-ZG-teF"/>
                                                 <constraint firstItem="g35-2z-QcV" firstAttribute="top" secondItem="uwJ-uK-g1I" secondAttribute="top" constant="8" id="40H-tn-X7t"/>
                                                 <constraint firstAttribute="bottom" secondItem="g35-2z-QcV" secondAttribute="bottom" constant="8" id="5Cl-B9-Pdh"/>
-                                                <constraint firstItem="ACm-df-AwI" firstAttribute="leading" secondItem="g35-2z-QcV" secondAttribute="trailing" constant="16" id="dUZ-nC-Uaz"/>
+                                                <constraint firstItem="GMI-0H-g8f" firstAttribute="top" secondItem="uwJ-uK-g1I" secondAttribute="top" id="Ems-qU-HUB"/>
                                                 <constraint firstItem="g35-2z-QcV" firstAttribute="leading" secondItem="uwJ-uK-g1I" secondAttribute="leading" constant="16" id="gvI-ge-3sm"/>
-                                                <constraint firstAttribute="trailing" secondItem="ACm-df-AwI" secondAttribute="trailing" constant="16" id="xlt-9R-fHI"/>
-                                                <constraint firstItem="ACm-df-AwI" firstAttribute="top" secondItem="uwJ-uK-g1I" secondAttribute="top" id="yay-V2-7qH"/>
+                                                <constraint firstAttribute="bottom" secondItem="GMI-0H-g8f" secondAttribute="bottom" id="rJk-oh-Ecz"/>
+                                                <constraint firstAttribute="trailing" secondItem="GMI-0H-g8f" secondAttribute="trailing" constant="16" id="rsy-BQ-PLs"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
