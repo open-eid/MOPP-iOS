@@ -194,6 +194,7 @@
 		DF50BBCF2AF06A0800C1A7D0 /* SivaChoiceTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF50BBCE2AF06A0800C1A7D0 /* SivaChoiceTapGestureRecognizer.swift */; };
 		DF51499E29E98127008AB161 /* ScaledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF51499D29E98127008AB161 /* ScaledTextField.swift */; };
 		DF53DCEA2A0A9D8A00F5DAF6 /* NotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF53DCE92A0A9D8A00F5DAF6 /* NotificationMessage.swift */; };
+		DF57DCCC2B02AFB700ABCBF3 /* SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF57DCCB2B02AFB700ABCBF3 /* SwitchButton.swift */; };
 		DF5BE6D229C8AE5200331609 /* SignatureWarningsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5BE6D129C8AE5200331609 /* SignatureWarningsCell.swift */; };
 		DF5BE6D429C8BD5600331609 /* WarningDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5BE6D329C8BD5600331609 /* WarningDetail.swift */; };
 		DF6299122664FEFE00E6C55E /* UrlSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */; };
@@ -533,6 +534,7 @@
 		DF50BBCE2AF06A0800C1A7D0 /* SivaChoiceTapGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SivaChoiceTapGestureRecognizer.swift; sourceTree = "<group>"; };
 		DF51499D29E98127008AB161 /* ScaledTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaledTextField.swift; sourceTree = "<group>"; };
 		DF53DCE92A0A9D8A00F5DAF6 /* NotificationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationMessage.swift; sourceTree = "<group>"; };
+		DF57DCCB2B02AFB700ABCBF3 /* SwitchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchButton.swift; sourceTree = "<group>"; };
 		DF5BE6D129C8AE5200331609 /* SignatureWarningsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureWarningsCell.swift; sourceTree = "<group>"; };
 		DF5BE6D329C8BD5600331609 /* WarningDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningDetail.swift; sourceTree = "<group>"; };
 		DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSchemeHandler.swift; sourceTree = "<group>"; };
@@ -988,6 +990,7 @@
 		DF0C2B3D29150E8F007E1745 /* Custom classes */ = {
 			isa = PBXGroup;
 			children = (
+				DF57DCCB2B02AFB700ABCBF3 /* SwitchButton.swift */,
 				DF0C2B3E29150EAB007E1745 /* ScaledLabel.swift */,
 				DFD8BEF4291C432400FE8F07 /* ScaledButton.swift */,
 				DFEE73032A151423003428E4 /* ScaledTextView.swift */,
@@ -1746,6 +1749,7 @@
 				E42B08AE1E1EFC1800EA24A3 /* DateFormatter.swift in Sources */,
 				DFC2ADBE294375FA008A1CD2 /* TokenFlowUtil.swift in Sources */,
 				DFDF02C4241ED0CA006CF443 /* MobileIDSignature.swift in Sources */,
+				DF57DCCC2B02AFB700ABCBF3 /* SwitchButton.swift in Sources */,
 				C55BB1C720908EF300618AC4 /* DiagnosticsViewController.swift in Sources */,
 				54825EF81E1D270F00253FF0 /* String+Additions.swift in Sources */,
 				DFD176CB23F1B78000E2CC52 /* MimeTypeDecoder.swift in Sources */,

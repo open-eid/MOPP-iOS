@@ -1,5 +1,5 @@
 //
-//  UISwitch+Utils.swift
+//  SwitchButton.swift
 //  MoppApp
 //
 /*
@@ -20,23 +20,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
 import Foundation
 
-extension UISwitch {
-    var isOff: Bool {
-        return !isOn
+class SwitchButton: UISwitch {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setDefaultOffColor()
     }
     
-    var offColor: UIColor? {
-        get {
-            if let layerBackgroundColor = self.layer.backgroundColor {
-                return UIColor(cgColor: layerBackgroundColor)
-            }
-            return self.subviews.first?.subviews.first?.backgroundColor
-        }
-        set {
-            layer.cornerRadius = bounds.height / 2
-            layer.backgroundColor = newValue?.cgColor
-        }
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setDefaultOffColor()
+    }
+    
+    private func setDefaultOffColor() {
+        self.offColor = UIColor.moppLabel
     }
 }
