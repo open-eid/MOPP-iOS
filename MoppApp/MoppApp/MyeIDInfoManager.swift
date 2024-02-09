@@ -258,7 +258,7 @@ class MyeIDInfoManager {
         if isValid {
             let certValidText = capitalized ? L(.myEidCertValid).capitalized : L(.myEidCertValid)
             let validText = NSAttributedString(string: certValidText, attributes:
-                [.foregroundColor : UIColor.moppSuccessTextDarker])
+                [.foregroundColor : UIColor.moppGreen700])
             attrText.append(validText)
         } else {
             let certExpiredText = capitalized ? L(.myEidCertExpired).capitalized : L(.myEidCertExpired)

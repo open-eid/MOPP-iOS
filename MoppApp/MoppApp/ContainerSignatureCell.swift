@@ -126,9 +126,9 @@ class ContainerSignatureCell: UITableViewCell {
         let signatureStatusText = translationPrefix + " " + translationSufix
         let signatureStatus = NSMutableAttributedString(string: signatureStatusText)
         let mainColor: UIColor
-        if(valid){
-            mainColor = UIColor.moppSuccessTextDarker
-        }else{
+        if (valid) {
+            mainColor = UIColor.moppGreenValid
+        } else {
             mainColor = UIColor.moppError
         }
         signatureStatus.addAttribute(NSAttributedString.Key.foregroundColor, value: mainColor, range: NSRange(location:0,length:translationPrefix.count))

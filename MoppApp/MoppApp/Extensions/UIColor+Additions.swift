@@ -65,10 +65,6 @@ extension UIColor {
     class var moppSuccess: UIColor {
         return UIColor(named: "MoppSuccess")!
     }
-
-    class var moppSuccessText: UIColor {
-        return UIColor(named: "MoppSuccessText")!
-    }
     
     class var moppWarning: UIColor {
         return UIColor(named: "MoppWarning")!
@@ -110,6 +106,14 @@ extension UIColor {
         return UIColor(named: "MoppLabelDarker")!
     }
     
+    class var moppGreen700: UIColor {
+        return UIColor(named: "MoppGreen700")!
+    }
+    
+    class var moppGreenValid: UIColor {
+        return UIColor(named: "MoppGreenValid")!
+    }
+    
     class var moppWarningTextDarker: UIColor {
         return UIColor(named: "MoppWarningTextDarker")!
     }
@@ -129,17 +133,10 @@ extension UIColor {
         return UIColor(named: "MoppLabelBackgroundDarker")!
     }
     
-    class var moppSuccessTextDarker: UIColor {
-        return UIColor(named: "MoppSuccessTextDarker")!
-    }
-    
-    class var moppSuccessDarker: UIColor {
-        return UIColor(named: "MoppSuccessDarker")!
-    }
-    
     class var moppDetailText: UIColor {
         return UIColor(named: "MoppDetailText")!
     }
+
     class var moppDetailValue: UIColor {
         return UIColor(named: "MoppDetailValue")!
     }
