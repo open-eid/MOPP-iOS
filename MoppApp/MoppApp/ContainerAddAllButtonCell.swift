@@ -27,13 +27,8 @@ class ContainerAddAllButtonCell: UITableViewCell {
     
     var addressees = [Addressee]()
     
-    @IBOutlet weak var addAllButton: ScaledButton!
-    
-    @IBAction func addAllRecipients(_ sender: ScaledButton) {
-        delegate.addAllAddresseesToSelectedArea(addressees: addressees)
-        
-        UIAccessibility.post(notification: .screenChanged, argument: L(.cryptoRecipientsAdded))
-    }
+    @IBOutlet weak var addAllButtonView: UIView!
+    @IBOutlet weak var addAllButton: ScaledLabel!
     
     weak var delegate: ContainerFoundAddresseeCellDelegate!
     
@@ -48,6 +43,12 @@ class ContainerAddAllButtonCell: UITableViewCell {
             }
         }
         
+        if !(self.addAllButton.gestureRecognizers?.contains(where: { $0 is UITapGestureRecognizer }) ?? false) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleAddAll(_:)))
+            self.addAllButton.addGestureRecognizer(tapGesture)
+            self.addAllButton.isUserInteractionEnabled = true
+        }
+        
         // Hide "Add all" button when there are no results at first
         guard !foundAddressees.isEmpty else {
             addAllButton.isHidden = true
@@ -55,8 +56,20 @@ class ContainerAddAllButtonCell: UITableViewCell {
         }
         
         addAllButton.isHidden = false
-        addAllButton.setTitle(L(.cryptoAddresseeAddAllButton), for: .normal)
+        addAllButton.text = L(.cryptoAddresseeAddAllButton)
         addAllButton.backgroundColor = .clear
-        addAllButton.accessibilityLabel = addAllButton.titleLabel?.text?.lowercased()
+        addAllButton.accessibilityLabel = addAllButton.text?.lowercased()
+        addAllButton.font = .moppMedium
+        addAllButton.textColor = .systemBlue
+        addAllButton.isUserInteractionEnabled = true
+        addAllButton.resetLabelProperties()
+
+        addAllButtonView.accessibilityUserInputLabels = [L(.cryptoAddresseeAddAllButton)]
+    }
+    
+    @objc func handleAddAll(_ sender: UITapGestureRecognizer) {
+        delegate.addAllAddresseesToSelectedArea(addressees: addressees)
+        
+        UIAccessibility.post(notification: .screenChanged, argument: L(.cryptoRecipientsAdded))
     }
 }
