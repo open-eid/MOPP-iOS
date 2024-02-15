@@ -22,70 +22,101 @@
  */
 
 import UIKit
-import WebKit
 
-class AboutViewController: MoppViewController, WKNavigationDelegate {
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var webView: WKWebView!
-    @IBOutlet weak var dismissButton: UIButton!
+struct LibraryInfo {
+    var name: String
+    var license: String
+    var licenseURL: String
+}
+
+enum Section {
+    case header
+    case appInfo
+    case licenses
+}
+
+class AboutViewController: MoppViewController, UITableViewDataSource, UITableViewDelegate {
     
-    @IBAction func dismissAction() {
-        dismiss(animated: true, completion: nil)
-    }
+    @IBOutlet weak var tableView: UITableView!
+    
+    let sections: [Section] = [.header, .appInfo, .licenses]
+    
+    let libraries: [LibraryInfo] = [
+        LibraryInfo(name: "libdigidocpp", license: "GNU Lesser General Public License (LGPL) version 2.1", licenseURL: "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"),
+        LibraryInfo(name: "Xerces-C++", license: "Apache License version 2.0", licenseURL: "http://www.apache.org/licenses/LICENSE-2.0.html"),
+        LibraryInfo(name: "Xalan-C++", license: "Apache License version 2.0", licenseURL: "http://www.apache.org/licenses/LICENSE-2.0.html"),
+        LibraryInfo(name: "XML-Security-C", license: "Apache License version 2.0", licenseURL: "http://www.apache.org/licenses/LICENSE-2.0.html"),
+        LibraryInfo(name: "XSD", license: "GNU General Public License, version 2", licenseURL: "https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"),
+        LibraryInfo(name: "OpenSSL", license: "OpenSSL License", licenseURL: "https://www.openssl.org/source/license.txt"),
+        LibraryInfo(name: "zlib", license: "zlib License", licenseURL: "https://zlib.net/zlib_license.html"),
+        LibraryInfo(name: "cdoc", license: "GNU Lesser General Public License (LGPL) version 2.1", licenseURL: "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"),
+        LibraryInfo(name: "OpenLDAP", license: "The OpenLDAP Public License", licenseURL: "https://www.openldap.org/software/release/license.html"),
+        LibraryInfo(name: "ACS ACR3901U", license: "User terms and conditions", licenseURL: "https://www.acs.com.hk/en/"),
+        LibraryInfo(name: "Feitian R301/iR301U", license: "User terms and conditions", licenseURL: "https://www.ftsafe.com/"),
+        LibraryInfo(name: "SwiftyRSA", license: "The MIT License (MIT)", licenseURL: "https://github.com/TakeScoop/SwiftyRSA/blob/master/LICENSE"),
+        LibraryInfo(name: "swift-sh", license: "Unlicense (Public Domain)", licenseURL: "https://github.com/mxcl/swift-sh/blob/master/LICENSE.md"),
+        LibraryInfo(name: "SwCrypt", license: "MIT License", licenseURL: "https://github.com/soyersoyer/SwCrypt/blob/master/LICENSE.md"),
+        LibraryInfo(name: "ZipFoundation", license: "MIT License", licenseURL: "https://github.com/weichsel/ZIPFoundation/blob/main/LICENSE"),
+        LibraryInfo(name: "mid-rest-java-client", license: "MIT License", licenseURL: "https://github.com/SK-EID/mid-rest-java-client/blob/master/LICENSE"),
+        LibraryInfo(name: "ILPDFKit", license: "MIT License", licenseURL: "https://github.com/derekblair/ILPDFKit/blob/master/LICENSE")
+    ]
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        webView.navigationDelegate = self
-        webView.configuration.defaultWebpagePreferences.allowsContentJavaScript = false
 
-        titleLabel.text = L(.aboutTitle)
-        titleLabel.font = UIFont.moppMediumBold
-        
-        dismissButton.setTitle(L(.closeButton))
-        
-        guard let titleUILabel = titleLabel, let dismissUIButton = dismissButton, let webUIView = webView else {
-            printLog("Unable to get titleLabel, dismissButton or webView")
-            return
-        }
-        
-        self.view.accessibilityElements = [titleUILabel, dismissUIButton, webUIView]
-        
-        var localizedAboutHtmlPath:String!
-        let appLanguageID = DefaultsHelper.moppLanguageID
-        if appLanguageID == "et" {
-            localizedAboutHtmlPath = Bundle.main.path(forResource: "about_et", ofType: "html")!
-        }
-        else if appLanguageID == "ru" {
-            localizedAboutHtmlPath = Bundle.main.path(forResource: "about_ru", ofType: "html")!
-        }
-        else {
-            localizedAboutHtmlPath = Bundle.main.path(forResource: "about_en", ofType: "html")!
-        }
-        
-        let htmlHeaderString = "<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></header>"
-        
-        let localizedAboutHtmlData = FileManager.default.contents(atPath: localizedAboutHtmlPath)
-        var localizedAboutHtmlString = String(data: localizedAboutHtmlData!, encoding: String.Encoding.utf8)!
-        let licensesHtmlPath = Bundle.main.path(forResource: "licenses", ofType: "html")!
-        let licensesHtmlData = FileManager.default.contents(atPath: licensesHtmlPath)
-        let licensesHtmlString = String(data: licensesHtmlData!, encoding: String.Encoding.utf8)!
-        
-        localizedAboutHtmlString = localizedAboutHtmlString.replacingOccurrences(of: "[APP_VERSION]", with: MoppApp.versionString)
-        localizedAboutHtmlString = localizedAboutHtmlString.replacingOccurrences(of: "[LICENSES]", with: licensesHtmlString)
-        
-        let baseURL = URL(fileURLWithPath: Bundle.main.bundlePath)
-        webView.loadHTMLString(htmlHeaderString + localizedAboutHtmlString, baseURL: baseURL)
+        tableView.reloadData()
     }
     
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        if let url = navigationAction.request.url {
-            if url.scheme == "mailto" || url.scheme == "http" || url.scheme == "https" {
-                UIApplication.shared.open(url)
-                decisionHandler(.cancel)
-                return
-
-            }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        tableView.allowsFocus = true
+        tableView.selectionFollowsFocus = true
+        
+        tableView.separatorStyle = .none
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch sections[section] {
+        case .header, .appInfo:
+            return 1
+        default:
+            return libraries.count
         }
-        decisionHandler(.allow)
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch sections[indexPath.section] {
+        case .header:
+            let cell = tableView.dequeueReusableCell(withType: AboutHeaderCell.self, for: indexPath)!
+            cell.delegate = self
+            cell.populate()
+            cell.selectionStyle = .none
+            return cell
+        case .appInfo:
+            let cell = tableView.dequeueReusableCell(withType: AppInfoCell.self, for: indexPath)!
+            cell.populate()
+            cell.selectionStyle = .none
+            return cell
+        case .licenses:
+            let cell = tableView.dequeueReusableCell(withType: LicensesCell.self, for: indexPath)!
+            let library = libraries[indexPath.row]
+            cell.populate(dependencyName: library.name, dependencyLicense: library.license, dependencyUrl: library.licenseURL)
+            cell.selectionStyle = .none
+            return cell
+        }
+    }
+}
+
+extension AboutViewController: SettingsHeaderCellDelegate {
+    func didDismissSettings() {
+        dismiss(animated: true, completion: nil)
     }
 }

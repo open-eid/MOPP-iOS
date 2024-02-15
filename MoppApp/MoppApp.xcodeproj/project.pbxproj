@@ -120,12 +120,6 @@
 		C55BB1C720908EF300618AC4 /* DiagnosticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BB1C620908EF300618AC4 /* DiagnosticsViewController.swift */; };
 		C55BB1CA2090C17F00618AC4 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BB1C92090C17E00618AC4 /* AboutViewController.swift */; };
 		C55BB1CC2091BD2000618AC4 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C55BB1CB2091BD2000618AC4 /* WebKit.framework */; };
-		C55BB1D12091C30500618AC4 /* about_et.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1CE2091BEBD00618AC4 /* about_et.html */; };
-		C55BB1D32091C68200618AC4 /* main_about_fonds_et.png in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D22091C68200618AC4 /* main_about_fonds_et.png */; };
-		C55BB1D72091F44000618AC4 /* about_en.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D52091F44000618AC4 /* about_en.html */; };
-		C55BB1D92091F44000618AC4 /* about_ru.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1D62091F44000618AC4 /* about_ru.html */; };
-		C55BB1DE2091FDFE00618AC4 /* about.css in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1DB2091FBCF00618AC4 /* about.css */; };
-		C55BB1E02091FECD00618AC4 /* licenses.html in Resources */ = {isa = PBXBuildFile; fileRef = C55BB1DF2091FECD00618AC4 /* licenses.html */; };
 		C560CB0A1FFCEEF000C01FE4 /* SigningFileImportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */; };
 		C56C6204201A0D9300CCC2A5 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C6203201A0D9300CCC2A5 /* MenuCell.swift */; };
 		C56C6206201A189600CCC2A5 /* MenuHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56C6205201A189600CCC2A5 /* MenuHeaderCell.swift */; };
@@ -153,7 +147,6 @@
 		C5A1D1CD2031D5B80024CD4C /* ContainerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A1D1CC2031D5B80024CD4C /* ContainerActions.swift */; };
 		C5A795D3208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A795D2208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift */; };
 		C5AA42C7207F51EB0031F3AA /* MyeIDChangeCodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AA42C6207F51EB0031F3AA /* MyeIDChangeCodesViewController.swift */; };
-		C5AAAF8020C93B920087D6DA /* main_about_fonds_en.png in Resources */ = {isa = PBXBuildFile; fileRef = C5AAAF7F20C93B910087D6DA /* main_about_fonds_en.png */; };
 		C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */; };
 		C5CF5EEC2017E4CC008FBBD6 /* FileImportProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CF5EEB2017E4CC008FBBD6 /* FileImportProgressViewController.swift */; };
 		C5D057022023016300875F44 /* RecentContainersEmptyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D057012023016300875F44 /* RecentContainersEmptyListCell.swift */; };
@@ -194,6 +187,9 @@
 		DF50BBCF2AF06A0800C1A7D0 /* SivaChoiceTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF50BBCE2AF06A0800C1A7D0 /* SivaChoiceTapGestureRecognizer.swift */; };
 		DF51499E29E98127008AB161 /* ScaledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF51499D29E98127008AB161 /* ScaledTextField.swift */; };
 		DF53DCEA2A0A9D8A00F5DAF6 /* NotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF53DCE92A0A9D8A00F5DAF6 /* NotificationMessage.swift */; };
+		DF56368B2B0E63430098F31D /* AboutHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF56368A2B0E63430098F31D /* AboutHeaderCell.swift */; };
+		DF56368D2B0E63840098F31D /* AppInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF56368C2B0E63840098F31D /* AppInfoCell.swift */; };
+		DF56368F2B0E63AA0098F31D /* LicensesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF56368E2B0E63AA0098F31D /* LicensesCell.swift */; };
 		DF57DCCC2B02AFB700ABCBF3 /* SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF57DCCB2B02AFB700ABCBF3 /* SwitchButton.swift */; };
 		DF5BE6D229C8AE5200331609 /* SignatureWarningsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5BE6D129C8AE5200331609 /* SignatureWarningsCell.swift */; };
 		DF5BE6D429C8BD5600331609 /* WarningDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5BE6D329C8BD5600331609 /* WarningDetail.swift */; };
@@ -463,12 +459,6 @@
 		C55BB1C620908EF300618AC4 /* DiagnosticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsViewController.swift; sourceTree = "<group>"; };
 		C55BB1C92090C17E00618AC4 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		C55BB1CB2091BD2000618AC4 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		C55BB1CE2091BEBD00618AC4 /* about_et.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about_et.html; sourceTree = "<group>"; };
-		C55BB1D22091C68200618AC4 /* main_about_fonds_et.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_about_fonds_et.png; sourceTree = "<group>"; };
-		C55BB1D52091F44000618AC4 /* about_en.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about_en.html; sourceTree = "<group>"; };
-		C55BB1D62091F44000618AC4 /* about_ru.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about_ru.html; sourceTree = "<group>"; };
-		C55BB1DB2091FBCF00618AC4 /* about.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = about.css; sourceTree = "<group>"; };
-		C55BB1DF2091FECD00618AC4 /* licenses.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = licenses.html; sourceTree = "<group>"; };
 		C560CB091FFCEEF000C01FE4 /* SigningFileImportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningFileImportCell.swift; sourceTree = "<group>"; };
 		C56C6203201A0D9300CCC2A5 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		C56C6205201A189600CCC2A5 /* MenuHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeaderCell.swift; sourceTree = "<group>"; };
@@ -497,7 +487,6 @@
 		C5A1D1CC2031D5B80024CD4C /* ContainerActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerActions.swift; sourceTree = "<group>"; };
 		C5A795D2208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDChangeCodeViewControllerUI.swift; sourceTree = "<group>"; };
 		C5AA42C6207F51EB0031F3AA /* MyeIDChangeCodesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyeIDChangeCodesViewController.swift; sourceTree = "<group>"; };
-		C5AAAF7F20C93B910087D6DA /* main_about_fonds_en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_about_fonds_en.png; sourceTree = "<group>"; };
 		C5B918DF1FE280A7000EDD36 /* ContainerNoSignaturesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerNoSignaturesCell.swift; sourceTree = "<group>"; };
 		C5CF5EEB2017E4CC008FBBD6 /* FileImportProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImportProgressViewController.swift; sourceTree = "<group>"; };
 		C5D057012023016300875F44 /* RecentContainersEmptyListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentContainersEmptyListCell.swift; sourceTree = "<group>"; };
@@ -534,6 +523,9 @@
 		DF50BBCE2AF06A0800C1A7D0 /* SivaChoiceTapGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SivaChoiceTapGestureRecognizer.swift; sourceTree = "<group>"; };
 		DF51499D29E98127008AB161 /* ScaledTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaledTextField.swift; sourceTree = "<group>"; };
 		DF53DCE92A0A9D8A00F5DAF6 /* NotificationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationMessage.swift; sourceTree = "<group>"; };
+		DF56368A2B0E63430098F31D /* AboutHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutHeaderCell.swift; sourceTree = "<group>"; };
+		DF56368C2B0E63840098F31D /* AppInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoCell.swift; sourceTree = "<group>"; };
+		DF56368E2B0E63AA0098F31D /* LicensesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesCell.swift; sourceTree = "<group>"; };
 		DF57DCCB2B02AFB700ABCBF3 /* SwitchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchButton.swift; sourceTree = "<group>"; };
 		DF5BE6D129C8AE5200331609 /* SignatureWarningsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureWarningsCell.swift; sourceTree = "<group>"; };
 		DF5BE6D329C8BD5600331609 /* WarningDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningDetail.swift; sourceTree = "<group>"; };
@@ -880,22 +872,11 @@
 			isa = PBXGroup;
 			children = (
 				C55BB1C92090C17E00618AC4 /* AboutViewController.swift */,
+				DF56368A2B0E63430098F31D /* AboutHeaderCell.swift */,
+				DF56368C2B0E63840098F31D /* AppInfoCell.swift */,
+				DF56368E2B0E63AA0098F31D /* LicensesCell.swift */,
 			);
 			name = About;
-			sourceTree = "<group>";
-		};
-		C55BB1CD2091BE9000618AC4 /* AboutContent */ = {
-			isa = PBXGroup;
-			children = (
-				C55BB1D52091F44000618AC4 /* about_en.html */,
-				C55BB1D62091F44000618AC4 /* about_ru.html */,
-				C55BB1CE2091BEBD00618AC4 /* about_et.html */,
-				C55BB1DF2091FECD00618AC4 /* licenses.html */,
-				C55BB1DB2091FBCF00618AC4 /* about.css */,
-				C5AAAF7F20C93B910087D6DA /* main_about_fonds_en.png */,
-				C55BB1D22091C68200618AC4 /* main_about_fonds_et.png */,
-			);
-			path = AboutContent;
 			sourceTree = "<group>";
 		};
 		C56C6209201A252F00CCC2A5 /* Recent containers */ = {
@@ -1119,7 +1100,6 @@
 		E4250CC61E0968D200530370 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C55BB1CD2091BE9000618AC4 /* AboutContent */,
 				C50DCCCE1FC5738F00D48E16 /* Fonts */,
 				E4250CD71E0968D200530370 /* Info.plist */,
 				E4250D0D1E0AA8E500530370 /* Localizable.strings */,
@@ -1410,9 +1390,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C55BB1DE2091FDFE00618AC4 /* about.css in Resources */,
 				39CDA7EA20ADBCEC006E2E9F /* Crypto.storyboard in Resources */,
-				C55BB1D12091C30500618AC4 /* about_et.html in Resources */,
 				E4C53F381E2FAE6C00F209BE /* presentation.pdf in Resources */,
 				C50DCCED1FC5741900D48E16 /* RobotoCondensed-Bold.ttf in Resources */,
 				C50DCCF71FC5741900D48E16 /* Roboto-LightItalic.ttf in Resources */,
@@ -1430,7 +1408,6 @@
 				DFB1D5EB2ACAFE1B00FDC7B8 /* GoogleService-Info.plist in Resources */,
 				C50DCCF11FC5741900D48E16 /* RobotoCondensed-LightItalic.ttf in Resources */,
 				C50DCCEA1FC5741900D48E16 /* Roboto-Thin.ttf in Resources */,
-				C55BB1E02091FECD00618AC4 /* licenses.html in Resources */,
 				E4C53F371E2FAE6C00F209BE /* image.jpg in Resources */,
 				E43BD8111E3A121A00F6C39D /* ddocTest.ddoc in Resources */,
 				DFF3C3BE2332355D0079458A /* signature.rsa in Resources */,
@@ -1445,10 +1422,7 @@
 				DFA56CF42AF009E5007D7F7E /* RadioButton.xib in Resources */,
 				DFA5821A264AAB6600564971 /* digidoc_76.png in Resources */,
 				C593D9EC208F19D7000B3BF6 /* Settings.storyboard in Resources */,
-				C5AAAF8020C93B920087D6DA /* main_about_fonds_en.png in Resources */,
-				C55BB1D92091F44000618AC4 /* about_ru.html in Resources */,
 				DFA5821B264AAB6600564971 /* digidoc_1024.png in Resources */,
-				C55BB1D72091F44000618AC4 /* about_en.html in Resources */,
 				C50DCCF21FC5741900D48E16 /* RobotoCondensed-Regular.ttf in Resources */,
 				C537AE7820063E48009037E5 /* LandingElements.xib in Resources */,
 				C54BB1091FBD8CC600A274F6 /* MyeID.storyboard in Resources */,
@@ -1459,7 +1433,6 @@
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
 				54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */,
 				DFC2ADC329437790008A1CD2 /* Accessibility.storyboard in Resources */,
-				C55BB1D32091C68200618AC4 /* main_about_fonds_et.png in Resources */,
 				C50DCCFC1FC5741900D48E16 /* RobotoCondensed-BoldItalic.ttf in Resources */,
 				C50DCCEE1FC5741900D48E16 /* RobotoCondensed-Light.ttf in Resources */,
 				C50DCCE71FC5741900D48E16 /* Roboto-ThinItalic.ttf in Resources */,
@@ -1602,6 +1575,7 @@
 				DF0C2B3F29150EAB007E1745 /* ScaledLabel.swift in Sources */,
 				C5B918E01FE280A7000EDD36 /* ContainerNoSignaturesCell.swift in Sources */,
 				DFA56CF22AF003F8007D7F7E /* RadioButton.swift in Sources */,
+				DF56368F2B0E63AA0098F31D /* LicensesCell.swift in Sources */,
 				C593D9F6208F39DF000B3BF6 /* SettingsChoiceButton.swift in Sources */,
 				DFEFF8DD2AD6DCE3003D452B /* TokenFlowSigning.swift in Sources */,
 				C58FCD5F20650BBE00FE3B57 /* MyeIDInfoCell.swift in Sources */,
@@ -1663,6 +1637,7 @@
 				C58FCD5B206505BE00FE3B57 /* MyeIDStatusViewController.swift in Sources */,
 				DF32A67D2909B20C00AE5F82 /* AlertUtil.swift in Sources */,
 				C5310F2620C1777B004D3E78 /* MenuLanguageCell.swift in Sources */,
+				DF56368D2B0E63840098F31D /* AppInfoCell.swift in Sources */,
 				DF4B841A2840F8FC005CB875 /* CertificateDetailsCell.swift in Sources */,
 				C5A795D3208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift in Sources */,
 				C506EC811FB9F4AF00E07226 /* UIImage+Additions.swift in Sources */,
@@ -1679,6 +1654,7 @@
 				DFD176D423F427AD00E2CC52 /* TSLVersionChecker.swift in Sources */,
 				DF4B8418284008CF005CB875 /* SignatureDetail.swift in Sources */,
 				DFBDF1F427D8DD4100A5CF3C /* RoleAndAddressViewController.swift in Sources */,
+				DF56368B2B0E63430098F31D /* AboutHeaderCell.swift in Sources */,
 				DFBDF1FE27DF6D3B00A5CF3C /* SmartIDParameters.swift in Sources */,
 				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
 				DF7F611926399B5400747B7D /* ContainerRemovalActions.swift in Sources */,
@@ -1808,8 +1784,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CODE_SIGN_ENTITLEMENTS = shareExtension/shareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ET847QJV9F;
 				INFOPLIST_FILE = shareExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1825,7 +1800,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.shareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = $SHARE_EXTENSION_PROVISIONING_PROFILE;
-				PROVISIONING_PROFILE_SPECIFIER = $SHARE_EXTENSION_PROVISIONING_PROFILE;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "shareExtension/shareExtension-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1841,8 +1816,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CODE_SIGN_ENTITLEMENTS = shareExtension/shareExtension.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ET847QJV9F;
 				INFOPLIST_FILE = shareExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1858,7 +1833,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.shareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = $SHARE_EXTENSION_PROVISIONING_PROFILE;
-				PROVISIONING_PROFILE_SPECIFIER = $SHARE_EXTENSION_PROVISIONING_PROFILE;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "shareExtension/shareExtension-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
@@ -1989,8 +1964,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MoppApp/MoppApp.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_ACTIVITY_MODE = "";
 				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2022,7 +1997,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = $APP_PROVISIONING_PROFILE;
-				PROVISIONING_PROFILE_SPECIFIER = $APP_PROVISIONING_PROFILE;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MoppApp/MoppApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -2037,8 +2012,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MoppApp/MoppApp.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_ACTIVITY_MODE = "";
 				DEFAULT_CENTRAL_CONFIGURATION_TSL_URL = "";
 				DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL = "";
@@ -2068,7 +2043,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = $APP_PROVISIONING_PROFILE;
-				PROVISIONING_PROFILE_SPECIFIER = $APP_PROVISIONING_PROFILE;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MoppApp/MoppApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

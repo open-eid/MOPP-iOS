@@ -410,6 +410,15 @@
 "success-notification-dialog-label" = "To share the container click the \"SHARE\" button and choose your preferred application. All containers can also be found in the application settings \"Recent Documents\" folder.";
 "success-notification-dialog-dont-show-again" = "Don't show again";
 
+// ** Info **
+"info-app-version" = "RIA DigiDoc version";
+"info-app-issuer" = "Estonian ID-software is released by Information System Authority";
+"info-app-contact" = "In case of questions please contact our support via";
+"info-app-contact-display-link" = "id.ee";
+"info-app-contact-link" = "https://www.id.ee/en/";
+"info-app-logo-accessibility" = "The project is supported by the European Regional Development Fund";
+"info-app-additional-licenses-label" = "Additional licenses and components";
+
 // ** Images **
 "digidoc-image-accessibility" = "DigiDoc";
 
