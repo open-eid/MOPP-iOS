@@ -165,8 +165,12 @@ class AccessibilityViewController : MoppViewController, UITextViewDelegate {
             let attributedString = textStyle(text: text, textType: textType)
             var traits: UIAccessibilityTraits = []
             
+            let url = getLink(text: attributedString.string)
+            
             if textType == .header {
                 traits.insert(UIAccessibilityTraits.header)
+            } else if (url == nil) {
+                traits.insert(UIAccessibilityTraits.staticText)
             }
             
             let label = setupLabelWithAccessibilityTraits(attributedString: attributedString, traits: traits)
@@ -180,11 +184,20 @@ class AccessibilityViewController : MoppViewController, UITextViewDelegate {
         if let label = sender.view as? UILabel, let text = label.text {
             let attributedString = NSMutableAttributedString(string: text)
 
-            let firstLink = attributedString.string.getFirstLinkInMessage()
-
-            if let link = firstLink, !link.isEmpty, let url = URL(string: link) {
-                UIApplication.shared.open(url)
+            if let link = getLink(text: attributedString.string) {
+                UIApplication.shared.open(link)
             }
         }
+    }
+    
+    private func getLink(text: String) -> URL? {
+        let attributedString = NSMutableAttributedString(string: text)
+
+        let firstLink = attributedString.string.getFirstLinkInMessage()
+
+        if let link = firstLink, !link.isEmpty, let url = URL(string: link) {
+            return url
+        }
+        return nil
     }
 }
