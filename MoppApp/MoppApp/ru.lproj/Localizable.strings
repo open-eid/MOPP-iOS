@@ -411,6 +411,15 @@
 "success-notification-dialog-label" = "Чтобы поделиться контейнером, нажмите кнопку «ПОДЕЛИТЬСЯ» и выберите нужное приложение. Все контейнеры можно найти в папке «Недавние документы» в настройках приложения.";
 "success-notification-dialog-dont-show-again" = "Больше не показывать";
 
+// ** Info **
+"info-app-version" = "RIA DigiDoc версия";
+"info-app-issuer" = "Эстонское программное обеспечение ID выпущено Государственным департаментом инфосистем";
+"info-app-contact" = "Если у вас возникнут вопросы, пожалуйста, обратитесь на";
+"info-app-contact-display-link" = "id.ee";
+"info-app-contact-link" = "https://www.id.ee/ru/";
+"info-app-logo-accessibility" = "Проект поддерживается Европейским фондом регионального развития";
+"info-app-additional-licenses-label" = "Дополнительные лицензии и компоненты";
+
 // ** Images **
 "digidoc-image-accessibility" = "DigiDoc";
 

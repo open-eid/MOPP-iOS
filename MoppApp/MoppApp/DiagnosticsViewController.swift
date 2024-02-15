@@ -36,8 +36,8 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     @IBOutlet weak var centralConfigurationLabel: UILabel!
     @IBOutlet weak var updateDateLabel: UILabel!
     @IBOutlet weak var lastCheckLabel: UILabel!
-    @IBOutlet weak var refreshConfigurationLabel: UIButton!
-    @IBOutlet weak var saveDiagnosticsLabel: UIButton!
+    @IBOutlet weak var refreshConfigurationLabel: ScaledLabel!
+    @IBOutlet weak var saveDiagnosticsLabel: ScaledLabel!
     @IBOutlet weak var enableOneTimeLoggingLabel: UILabel!
     @IBOutlet weak var oneTimeLoggingSwitch: UISwitch!
     @IBAction func fileLoggingSwitchChanged(_ sender: Any) {
@@ -71,7 +71,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     @IBOutlet weak var updateDate: UILabel!
     @IBOutlet weak var lastCheckDate: UILabel!
 
-    @IBAction func refreshConfiguration(_ sender: Any) {
+    @objc func refreshConfiguration() {
         DispatchQueue.global(qos: .userInitiated).async {
             printLog("Refreshing central configuration")
             SettingsConfiguration().loadCentralConfiguration() { error in
@@ -86,7 +86,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         }
     }
 
-    @IBAction func saveDiagnostics(_ sender: Any) {
+    @objc func saveDiagnostics() {
         printLog("Saving diagnostics")
         printLog("Formatting diagnostics data")
         let diagnosticsText = formatDiagnosticsText()
@@ -146,9 +146,21 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         librariesLabel.text = "libdigidocpp \(libdigidocppVersion)"
         tslCacheLabel.text = L(.diagnosticsTslCacheLabel)
         centralConfigurationLabel.text = L(.centralConfigurationLabel)
-        refreshConfigurationLabel.setTitle(L(.refreshConfigurationLabel))
-        saveDiagnosticsLabel.setTitle(L(.saveDiagnosticsLabel))
+        refreshConfigurationLabel.text = L(.refreshConfigurationLabel)
+        saveDiagnosticsLabel.text = L(.saveDiagnosticsLabel)
         
+        refreshConfigurationLabel.accessibilityLabel = self.refreshConfigurationLabel.text?.lowercased()
+        refreshConfigurationLabel.font = .moppMedium
+        refreshConfigurationLabel.textColor = .systemBlue
+        refreshConfigurationLabel.isUserInteractionEnabled = true
+        refreshConfigurationLabel.resetLabelProperties()
+        
+        saveDiagnosticsLabel.accessibilityLabel = self.saveDiagnosticsLabel.text?.lowercased()
+        saveDiagnosticsLabel.font = .moppMedium
+        saveDiagnosticsLabel.textColor = .systemBlue
+        saveDiagnosticsLabel.isUserInteractionEnabled = true
+        saveDiagnosticsLabel.resetLabelProperties()
+
         tsls.isAccessibilityElement = false
 
         dismissButton.setTitle(L(.closeButton))
@@ -158,6 +170,16 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         
         oneTimeLoggingSwitch.accessibilityLabel = enableOneTimeLoggingLabel.text
         oneTimeLoggingSwitch.accessibilityUserInputLabels = [L(.voiceControlEnableLogGeneration)]
+        
+        if self.refreshConfigurationLabel.gestureRecognizers == nil || self.refreshConfigurationLabel.gestureRecognizers?.isEmpty == true {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.refreshConfiguration))
+            self.refreshConfigurationLabel.addGestureRecognizer(tapGesture)
+        }
+        
+        if self.saveDiagnosticsLabel.gestureRecognizers == nil || self.saveDiagnosticsLabel.gestureRecognizers?.isEmpty == true {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.saveDiagnostics))
+            self.saveDiagnosticsLabel.addGestureRecognizer(tapGesture)
+        }
 
         if FileLogUtil.isLoggingEnabled() {
             saveLogButtonLabel.isHidden = false
@@ -229,6 +251,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         let filesInBundle: [URL] = TSLUpdater.getCountryFileLocations(inPath: TSLUpdater.getLibraryDirectoryPath())
         for fileInBundle in filesInBundle {
             let tslLabel = ScaledLabel()
+            tslLabel.numberOfLines = 0
             let tslVersion = TSLUpdater.getTSLVersion(fromFile: fileInBundle)
             tslLabel.text = formatString(text: fileInBundle.lastPathComponent, additionalText: "(\(tslVersion))")
             tsls.addArrangedSubview(tslLabel)
