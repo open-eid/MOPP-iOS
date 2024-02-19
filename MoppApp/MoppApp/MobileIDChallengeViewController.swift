@@ -62,6 +62,13 @@ class MobileIDChallengeViewController : UIViewController {
         helpLabel.text = L(.mobileIdSignHelpTitle)
         cancelButton.setTitle(L(.actionAbort))
         cancelButton.accessibilityLabel = L(.actionAbort).lowercased()
+        
+        if let cancelTitleLabel = cancelButton.titleLabel {
+            let maxSize: CGFloat = 17
+            let currentFontSize = cancelTitleLabel.font.pointSize
+            cancelTitleLabel.font = cancelTitleLabel.font.withSize(min(maxSize, currentFontSize))
+        }
+        
         codeLabel.isHidden = true
         currentProgress = 0
         timeoutProgressView.progress = 0

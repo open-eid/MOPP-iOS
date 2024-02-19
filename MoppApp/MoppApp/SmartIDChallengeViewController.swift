@@ -56,6 +56,13 @@ class SmartIDChallengeViewController : UIViewController {
         helpLabel.text = L(.smartIdChallengeTitle)
         cancelButton.setTitle(L(.actionAbort))
         cancelButton.accessibilityLabel = L(.actionAbort).lowercased()
+        
+        if let cancelTitleLabel = cancelButton.titleLabel {
+            let maxSize: CGFloat = 17
+            let currentFontSize = cancelTitleLabel.font.pointSize
+            cancelTitleLabel.font = cancelTitleLabel.font.withSize(min(maxSize, currentFontSize))
+        }
+        
         currentProgress = 0
         timeoutProgressView.progress = 0
         timeoutProgressView.accessibilityUserInputLabels = [""]
