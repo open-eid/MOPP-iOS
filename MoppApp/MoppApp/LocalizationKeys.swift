@@ -112,6 +112,7 @@ enum LocKey : String
     case containerErrorMessageInvalidSignatures = "container-error-message-invalid-signatures"
     case containerErrorMessageUnknownSignature = "container-error-message-unknown-signature"
     case containerErrorMessageUnknownSignatures = "container-error-message-unknown-signatures"
+    case containerErrorMessageCades = "container-error-message-cades"
     case containerSignatureSigned = "container-signature-signed"
     case containerMissingSignatures = "container-missing-signatures"
     case containerMissingAddressees = "container-missing-addressees"

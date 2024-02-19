@@ -33,7 +33,7 @@ class SiVaUtil {
             return isSignedPDF(url: fileLocation as CFURL)
         }
         
-        return containerType == "ddoc"
+        return containerType == "ddoc" || SignatureUtil.isCades(signatures: SignatureUtil.getSignatures(filePath: fileLocation))
     }
     
     static func displaySendingToSiVaDialog(completionHandler: @escaping (Bool) -> Void) {

@@ -49,6 +49,10 @@
   });
 }
 
+- (MoppLibContainer *)openContainerWithPath:(NSString *)containerPath error:(NSError **)error {
+    return [[MoppLibDigidocManager sharedInstance] getContainerWithPath:containerPath error:error];
+}
+
 - (void)createContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths success:(ContainerBlock)success failure:(FailureBlock)failure {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     NSError *error;

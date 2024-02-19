@@ -112,7 +112,7 @@
 "crashlytics-action-do-not-send" = "Ära saada";
 
 // SiVa consent
-"siva-send-message" = "PDF ja DDOC formaadis digitaalallkirjade kehtivuse kontrollimiseks edastatakse fail valideerimisteenusele SiVa. Digitaalallkirjade kehtivuse kontrollimisel edastatud andmete kohta loe lähemalt id.ee veebilehelt.\n Kas soovid jätkata? https://www.id.ee/artikkel/riigi-infosusteemi-ameti-id-tarkvara-andmekaitsetingimused/";
+"siva-send-message" = "Seda tüüpi allkirjastatud dokument edastatakse digitaalallkirjade kehtivuse kontrollimiseks valideerimisteenusele SiVa. Digitaalallkirjade kehtivuse kontrollimisel edastatud andmete kohta loe lähemalt id.ee veebilehelt.\n Kas soovid jätkata? https://www.id.ee/artikkel/riigi-infosusteemi-ameti-id-tarkvara-andmekaitsetingimused/";
 
 // *** Actions ***
 "action-ok" = "OK";
@@ -163,6 +163,7 @@
 "container-error-message-invalid-signatures" = "%d ALLKIRJA EI OLE KEHTIVAD";
 "container-error-message-unknown-signature" = "1 ALLKIRI ON TEADMATA";
 "container-error-message-unknown-signatures" = "%d ALLKIRJA ON TEADMATA";
+"container-error-message-cades" = "Tegemist on CAdES allkirja sisaldava ümbrikuga. Sellele ümbrikule ei saa allkirja lisada ega eemaldada.";
 "container-signature-signed" = "Allkirjastatud %@";
 "container-missing-signatures" = "Allkirjad puuduvad";
 "container-missing-addressees" = "Adressaadid puuduvad";

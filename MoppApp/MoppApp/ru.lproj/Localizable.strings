@@ -108,7 +108,7 @@
 "crashlytics-action-do-not-send" = "Не отправлять";
 
 // SiVa consent
-"siva-send-message" = "Для проверки действительности электронно-цифровых подписей в форматах PDF и DDOC файл пересылается в службу проверки цифровых подписей SiVa. Подробнее о данных, переданных для проверки действительности электронно-цифровых подписей, можно прочитать на id.ee.\n Вы желаете продолжить? https://www.id.ee/ru/artikkel/usloviya-zashhity-dannyh-programmnogo-obespecheniya-id-karty-departamenta-gosudarstvennoj-infosistemy/";
+"siva-send-message" = "Данный тип подписанного документа передается в службу валидации SiVa для проверки действительности цифровых подписей. Подробнее о передаваемых при проверке действительности электронной подписи данных, можете прочитать на сайте id.ee.\n Желаете продолжить? https://www.id.ee/ru/artikkel/usloviya-zashhity-dannyh-programmnogo-obespecheniya-id-karty-departamenta-gosudarstvennoj-infosistemy/";
 
 // *** Actions ***
 "action-ok" = "OK";
@@ -159,6 +159,7 @@
 "container-error-message-invalid-signatures" = "%d НЕВЕРНАЯ ПОДПИСЬ";
 "container-error-message-unknown-signature" = "1 НЕИЗВЕСТНАЯ ПОДПИСЬ";
 "container-error-message-unknown-signatures" = "%d НЕИЗВЕСТНЫХ ПОДПИСЕЙ";
+"container-error-message-cades" = "Этот контейнер содержит подпись CAdES. К данному контейнеру нельзя добавить или удалить из него подпись.";
 "container-signature-signed" = "Подписано %@";
 "container-missing-signatures" = "Контейнер не подписан";
 "container-missing-addressees" = "Получатели отсутствуют";

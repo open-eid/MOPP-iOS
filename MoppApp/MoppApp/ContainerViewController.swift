@@ -45,6 +45,7 @@ protocol SigningContainerViewControllerDelegate: AnyObject {
     func getTimestampToken(index: Int) -> Any
     func removeSignature(index: Int)
     func isContainerSignable() -> Bool
+    func isCades() -> Bool
 }
 
 protocol CryptoContainerViewControllerDelegate: AnyObject {
@@ -75,6 +76,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var isAsicContainer = LandingViewController.shared.containerType == .asic
     var isEmptyFileWarningSet = false
     var isAsicsFileWarningSet = false
+    var isCadesWarningSet = false
 
     var asicsSignatures = [MoppLibSignature]()
     var asicsDataFiles = [MoppLibDataFile]()
@@ -243,8 +245,10 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                     handleAsicsContainerMessage()
                 }
 
+                checkIsCades(asicContainer: asicContainer)
+
                 if !isForPreview && isAsicContainer {
-                    if isDdocOrAsicsContainer(containerPath: containerPath) || isEmptyFileWarningSet {
+                    if isDdocOrAsicsContainer(containerPath: containerPath) || isEmptyFileWarningSet || isCades() {
                         checkIfDdocParentContainerIsTimestamped()
                         tabButtons = [.shareButton]
                         setupNavigationItemForPushedViewController(title: L(.containerValidateTitle))
@@ -351,6 +355,18 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
             self.notifications.append(asicsFileNotification)
         }
         isAsicsFileWarningSet = true
+    }
+
+    private func checkIsCades(asicContainer: MoppLibContainer?) {
+        guard let container = asicContainer else { return }
+        let isCades = SignatureUtil.isCades(signatures: container.signatures)
+        if isCades {
+            let cadesNotification = NotificationMessage(isSuccess: false, text: L(.containerErrorMessageCades))
+            if !self.notifications.contains(where: { $0 == cadesNotification }) {
+                self.notifications.append(cadesNotification)
+            }
+            isCadesWarningSet = true
+        }
     }
 
     func setSections() {
@@ -526,7 +542,7 @@ extension ContainerViewController : UITableViewDataSource {
                 kind: .signature,
                 isTimestamp: false,
                 showBottomBorder: row < (asicsSignatures.isEmpty ? signingContainerViewDelegate.getSignaturesCount() : asicsSignatures.count) - 1,
-                showRemoveButton: !isForPreview && signingContainerViewDelegate.isContainerSignable(), showRoleDetailsButton: !isRoleDetailsEmpty(signatureIndex: row),
+                showRemoveButton: !isForPreview && signingContainerViewDelegate.isContainerSignable() && !isCades(), showRoleDetailsButton: !isRoleDetailsEmpty(signatureIndex: row),
                 signatureIndex: row)
             cell.removeButton.accessibilityLabel = L(.signatureRemoveButton)
             return cell
@@ -1121,6 +1137,10 @@ extension ContainerViewController : UITableViewDelegate {
     
     private func getTimestampToken(indexPathRow: Int) -> MoppLibSignature? {
         return signingContainerViewDelegate.getTimestampToken(index: indexPathRow) as? MoppLibSignature
+    }
+    
+    private func isCades() -> Bool {
+        return signingContainerViewDelegate.isCades()
     }
 }
 
