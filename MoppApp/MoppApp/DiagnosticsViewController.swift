@@ -426,7 +426,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     }
 
     func saveToDisk(fileUrl: URL) {
-        let pickerController = UIDocumentPickerViewController(url: fileUrl, in: .exportToService)
+        let pickerController = UIDocumentPickerViewController(forExporting: [fileUrl], asCopy: true)
         pickerController.delegate = self
         self.present(pickerController, animated: true) {
             printLog("Showing file saving location picker")

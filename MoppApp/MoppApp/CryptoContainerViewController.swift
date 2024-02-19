@@ -21,13 +21,12 @@
  *
  */
 
-import Foundation
-
+import UIKit
 
 class CryptoContainerViewController : ContainerViewController, CryptoActions, UIDocumentPickerDelegate {
 
     var container: CryptoContainer!
-    var delegate: AddresseeViewControllerDelegate?
+    weak var delegate: AddresseeViewControllerDelegate?
     var isContainerEncrypted = false
     override class func instantiate() -> CryptoContainerViewController {
         return UIStoryboard.container.instantiateViewController(of: CryptoContainerViewController.self)
@@ -57,6 +56,12 @@ class CryptoContainerViewController : ContainerViewController, CryptoActions, UI
         cryptoContainerViewDelegate = self
         delegate = self
         reloadCryptoData()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        printLog("Deinit CryptoContainerViewController")
+        MoppFileManager.removeFiles()
     }
 }
 
@@ -169,7 +174,7 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
         SaveableContainer(signingContainerPath: saveFileFromContainerPath ?? "", cryptoContainer: container).saveDataFile(name: name, completionHandler: { tempSavedFileLocation, isSuccess in
             if isSuccess && !tempSavedFileLocation.isEmpty {
                 // Show file save location picker
-                let pickerController = UIDocumentPickerViewController(url: URL(fileURLWithPath: tempSavedFileLocation), in: .exportToService)
+                let pickerController = UIDocumentPickerViewController(forExporting: [URL(fileURLWithPath: tempSavedFileLocation)], asCopy: true)
                 pickerController.delegate = self
                 self.present(pickerController, animated: true) {
                     printLog("Showing file saving location picker")
