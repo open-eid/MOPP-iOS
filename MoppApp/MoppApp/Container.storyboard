@@ -1454,38 +1454,31 @@
                                                         <constraint firstAttribute="width" secondItem="dDJ-k2-19D" secondAttribute="height" multiplier="1:1" id="y4d-Lq-aMz"/>
                                                     </constraints>
                                                 </imageView>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zh4-up-bW7">
-                                                    <rect key="frame" x="16" y="60" width="635" height="1"/>
-                                                    <color key="backgroundColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="0.20732555650000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="hs4-BS-Kvg"/>
-                                                    </constraints>
-                                                </view>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Q9n-YA-227">
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="L51-8M-H3Q">
                                                     <rect key="frame" x="54" y="8" width="597" height="44"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="8Yw-ed-jXH">
-                                                            <rect key="frame" x="0.0" y="0.0" width="548" height="44"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="8ql-xN-e6s">
+                                                            <rect key="frame" x="0.0" y="0.0" width="298.5" height="44"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" text="MARI MAASIKAS,9800984323" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3zq-4L-1K7" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" text="MARI MAASIKAS,9800984323" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sp7-h8-GBi" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="231.5" height="20"/>
                                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Bold" family="Roboto Condensed" pointSize="17"/>
                                                                     <color key="textColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signed 12.08.2017, 13:22" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dna-V9-HXN" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signed 12.08.2017, 13:22" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="COx-YD-yZM" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="25" width="184" height="19"/>
                                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
-                                                                    <color key="textColor" red="0.45882352941176469" green="0.45882352941176469" blue="0.45882352941176469" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="textColor" name="MoppLabelDarker"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="7Mx-Kc-icc">
-                                                            <rect key="frame" x="553" y="0.0" width="44" height="44"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="snk-8H-x80">
+                                                            <rect key="frame" x="298.5" y="0.0" width="298.5" height="44"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xNB-Fp-5xD">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                                                    <rect key="frame" x="254.5" y="0.0" width="44" height="44"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="7UP-sG-o1e"/>
                                                                         <constraint firstAttribute="width" constant="44" id="jJi-oT-LuO"/>
@@ -1496,23 +1489,26 @@
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="8HW-ts-dSN"/>
-                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="BGH-EA-NOk"/>
-                                                            </constraints>
                                                         </stackView>
                                                     </subviews>
                                                 </stackView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zh4-up-bW7">
+                                                    <rect key="frame" x="16" y="60" width="635" height="1"/>
+                                                    <color key="backgroundColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="0.20732555650000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="hs4-BS-Kvg"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="L51-8M-H3Q" secondAttribute="trailing" constant="16" id="7E5-dt-0mB"/>
                                                 <constraint firstItem="dDJ-k2-19D" firstAttribute="top" secondItem="hua-iu-fk8" secondAttribute="topMargin" id="8MT-bu-TRr"/>
+                                                <constraint firstItem="Zh4-up-bW7" firstAttribute="top" secondItem="L51-8M-H3Q" secondAttribute="bottom" constant="8" id="D84-tV-bka"/>
                                                 <constraint firstAttribute="trailing" secondItem="Zh4-up-bW7" secondAttribute="trailing" constant="16" id="Nbw-1T-z7f"/>
                                                 <constraint firstItem="Zh4-up-bW7" firstAttribute="leading" secondItem="hua-iu-fk8" secondAttribute="leading" constant="16" id="Rfd-YU-ac3"/>
                                                 <constraint firstAttribute="bottom" secondItem="Zh4-up-bW7" secondAttribute="bottom" id="Rga-cB-gEu"/>
-                                                <constraint firstAttribute="trailing" secondItem="Q9n-YA-227" secondAttribute="trailing" constant="16" id="XvT-m6-NNl"/>
-                                                <constraint firstItem="Zh4-up-bW7" firstAttribute="top" secondItem="Q9n-YA-227" secondAttribute="bottom" constant="8" id="kGw-5d-RHl"/>
-                                                <constraint firstItem="Q9n-YA-227" firstAttribute="leading" secondItem="dDJ-k2-19D" secondAttribute="trailing" constant="16" id="lcV-qb-7va"/>
-                                                <constraint firstItem="Q9n-YA-227" firstAttribute="top" secondItem="hua-iu-fk8" secondAttribute="top" constant="8" id="sNY-mm-kBy"/>
+                                                <constraint firstItem="L51-8M-H3Q" firstAttribute="leading" secondItem="dDJ-k2-19D" secondAttribute="trailing" constant="16" id="bPH-jL-FOD"/>
+                                                <constraint firstItem="L51-8M-H3Q" firstAttribute="top" secondItem="hua-iu-fk8" secondAttribute="top" constant="8" id="f7s-hs-tui"/>
                                                 <constraint firstItem="dDJ-k2-19D" firstAttribute="leading" secondItem="hua-iu-fk8" secondAttribute="leadingMargin" id="x0c-Q4-aOX"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1520,23 +1516,23 @@
                                         <connections>
                                             <outlet property="bottomBorder" destination="Zh4-up-bW7" id="Sra-3Z-Pqi"/>
                                             <outlet property="iconImage" destination="dDJ-k2-19D" id="GkN-af-Kx5"/>
-                                            <outlet property="infoLabel" destination="Dna-V9-HXN" id="TJK-3R-hip"/>
-                                            <outlet property="nameLabel" destination="3zq-4L-1K7" id="0eb-CO-Vfi"/>
+                                            <outlet property="infoLabel" destination="COx-YD-yZM" id="CMT-Lt-Awz"/>
+                                            <outlet property="nameLabel" destination="Sp7-h8-GBi" id="uei-x9-dDc"/>
                                             <outlet property="removeButton" destination="xNB-Fp-5xD" id="qs2-Vj-bE7"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContainerAddAllButtonCell" id="nlh-ij-xq6" customClass="ContainerAddAllButtonCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="304" width="667" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="304" width="667" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nlh-ij-xq6" id="Izh-zE-ZeK">
-                                            <rect key="frame" x="0.0" y="0.0" width="667" height="20.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYD-Go-qae">
-                                                    <rect key="frame" x="0.0" y="0.0" width="667" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add All" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HWI-ad-ogf" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="667" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" systemColor="linkColor"/>
                                                             <nil key="highlightedColor"/>
