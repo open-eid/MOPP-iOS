@@ -38,10 +38,10 @@ class SmartIDChallengeViewController : UIViewController {
     var isAnnouncementMade = false
     var isProgressBarFocused = false
     
-    @IBOutlet weak var cancelButton: ScaledButton!
+    @IBOutlet weak var cancelButton: ScaledLabel!
 
-    @IBAction func cancelSigningButton(_ sender: Any) {
-        printLog("Cancelling Mobile-ID signing")
+    @objc func cancelSigningButton(_ sender: UITapGestureRecognizer) {
+        printLog("Cancelling Smart-ID signing")
         sessionTimer?.invalidate()
         NotificationCenter.default.post(name: .signatureSigningCancelledNotificationName, object: nil)
         NotificationCenter.default.removeObserver(self)
@@ -54,13 +54,20 @@ class SmartIDChallengeViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         helpLabel.text = L(.smartIdChallengeTitle)
-        cancelButton.setTitle(L(.actionAbort))
+        cancelButton.text = L(.actionAbort)
         cancelButton.accessibilityLabel = L(.actionAbort).lowercased()
         
-        if let cancelTitleLabel = cancelButton.titleLabel {
+        if let cancelTitleLabel = cancelButton {
             let maxSize: CGFloat = 17
             let currentFontSize = cancelTitleLabel.font.pointSize
             cancelTitleLabel.font = cancelTitleLabel.font.withSize(min(maxSize, currentFontSize))
+        }
+        
+        if !(self.cancelButton.gestureRecognizers?.contains(where: { $0 is UITapGestureRecognizer }) ?? false) {
+            
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.cancelSigningButton(_:)))
+            self.cancelButton.addGestureRecognizer(tapGesture)
+            self.cancelButton.isUserInteractionEnabled = true
         }
         
         currentProgress = 0
@@ -232,7 +239,6 @@ class SmartIDChallengeViewController : UIViewController {
             self.timeoutProgressView.isAccessibilityElement = true
             self.helpLabel.isAccessibilityElement = true
             self.cancelButton.isAccessibilityElement = true
-            self.cancelButton.titleLabel?.isAccessibilityElement = true
             codeLabel.accessibilityLabel = getCodeLabelAccessibilityLabel(withProgress: false)
         }
     }
@@ -258,7 +264,6 @@ class SmartIDChallengeViewController : UIViewController {
         self.timeoutProgressView.isAccessibilityElement = false
         self.helpLabel.isAccessibilityElement = false
         self.cancelButton.isAccessibilityElement = false
-        self.cancelButton.titleLabel?.isAccessibilityElement = false
         DispatchQueue.main.async {
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 DispatchQueue(label: "codeLabel", qos: .userInitiated).sync {

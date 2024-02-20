@@ -43,9 +43,10 @@ class MobileIDChallengeViewController : UIViewController {
     var challengeIdAccessibilityLabel = ""
     var challengeIdNumbers = Array<Character>()
     
-    @IBOutlet weak var cancelButton: ScaledButton!
+    @IBOutlet weak var cancelButton: ScaledLabel!
     
-    @IBAction func cancelSigningButton(_ sender: Any) {
+    
+    @objc func cancelSigningButton(_ sender: UITapGestureRecognizer) {
         printLog("Cancelling Mobile-ID signing")
         sessionTimer?.invalidate()
         NotificationCenter.default.post(name: .signatureSigningCancelledNotificationName, object: nil)
@@ -60,13 +61,20 @@ class MobileIDChallengeViewController : UIViewController {
         super.viewDidLoad()
 
         helpLabel.text = L(.mobileIdSignHelpTitle)
-        cancelButton.setTitle(L(.actionAbort))
+        cancelButton.text = L(.actionAbort)
         cancelButton.accessibilityLabel = L(.actionAbort).lowercased()
         
-        if let cancelTitleLabel = cancelButton.titleLabel {
+        if let cancelTitleLabel = cancelButton {
             let maxSize: CGFloat = 17
             let currentFontSize = cancelTitleLabel.font.pointSize
             cancelTitleLabel.font = cancelTitleLabel.font.withSize(min(maxSize, currentFontSize))
+        }
+        
+        if !(self.cancelButton.gestureRecognizers?.contains(where: { $0 is UITapGestureRecognizer }) ?? false) {
+            
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.cancelSigningButton(_:)))
+            self.cancelButton.addGestureRecognizer(tapGesture)
+            self.cancelButton.isUserInteractionEnabled = true
         }
         
         codeLabel.isHidden = true

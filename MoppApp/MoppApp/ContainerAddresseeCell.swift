@@ -33,12 +33,12 @@ class ContainerAddresseeCell: UITableViewCell, AddresseeActions {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var iconImage: UIImageView!
+    @IBOutlet weak var addresseeMainStackView: UIStackView!
     @IBOutlet weak var bottomBorder: UIView!
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var removeButton: UIButton!
     weak var delegate: ContainerAddresseeCellDelegate!
     var removeIndex: Int = 0
-    
     
     @IBAction func removeAddressee(_ sender: Any) {
         delegate.removeAddressee(index: removeIndex)
@@ -52,5 +52,8 @@ class ContainerAddresseeCell: UITableViewCell, AddresseeActions {
         removeIndex = index
         nameLabel.text = determineName(addressee: addressee)
         infoLabel.text = determineInfo(addressee: addressee)
+        
+        let preferredContentSizeCategory = UIApplication.shared.preferredContentSizeCategory
+        AccessibilityUtil.adjustSpacing(preferredContentSizeCategory: preferredContentSizeCategory, stackView: addresseeMainStackView)
     }
 }

@@ -71,21 +71,7 @@ class ContainerFoundAddresseeCell: UITableViewCell, AddresseeActions {
             addButton.tintColor = UIColor.moppBase
         }        
         
-        adjustSpacing()
-    }
-    
-    // Adjust spacing between addressee and "Add" buttons
-    // Adjust so that the spacing is not too big and also don't overlap each other when font size changes
-    private func adjustSpacing() {
         let preferredContentSizeCategory = UIApplication.shared.preferredContentSizeCategory
-
-        switch preferredContentSizeCategory {
-        case .extraSmall, .small, .medium, .large, .extraLarge, .extraExtraLarge:
-            addresseeMainStackView.spacing = -120
-            break
-        default:
-            addresseeMainStackView.spacing = 0
-            break
-        }
+        AccessibilityUtil.adjustSpacing(preferredContentSizeCategory: preferredContentSizeCategory, stackView: addresseeMainStackView)
     }
 }

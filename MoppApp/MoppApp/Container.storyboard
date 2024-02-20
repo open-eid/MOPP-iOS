@@ -1514,6 +1514,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
+                                            <outlet property="addresseeMainStackView" destination="L51-8M-H3Q" id="I3G-tQ-NxO"/>
                                             <outlet property="bottomBorder" destination="Zh4-up-bW7" id="Sra-3Z-Pqi"/>
                                             <outlet property="iconImage" destination="dDJ-k2-19D" id="GkN-af-Kx5"/>
                                             <outlet property="infoLabel" destination="COx-YD-yZM" id="CMT-Lt-Awz"/>
