@@ -1,5 +1,5 @@
 //
-//  SettingsStateCell.swift
+//  SettingsRoleAndAddressCell.swift
 //  MoppApp
 //
 /*
@@ -23,7 +23,7 @@
 
 import Foundation
 
-class SettingsStateCell: UITableViewCell {
+class SettingsRoleAndAddressCell: UITableViewCell {
     @IBOutlet weak var roleSwitchStackView: UIStackView!
 
     @IBOutlet weak var titleLabel: UILabel!
@@ -32,13 +32,15 @@ class SettingsStateCell: UITableViewCell {
     @IBAction func stateToggled(_ sender: UISwitch) {
         if sender.isOff {
             DefaultsHelper.isRoleAndAddressEnabled = false
+            stateSwitch.accessibilityUserInputLabels = [L(.voiceControlEnableRoleAndAddress)]
         } else {
             DefaultsHelper.isRoleAndAddressEnabled = true
+            stateSwitch.accessibilityUserInputLabels = [L(.voiceControlDisableRoleAndAddress)]
         }
         updateUI()
     }
     
-    var field: SettingsViewController.Field!
+    var field: SigningCategoryViewController.Field!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -50,7 +52,7 @@ class SettingsStateCell: UITableViewCell {
         self.accessibilityElements = [stateUISwitch]
     }
     
-    func populate(with field: SettingsViewController.Field) {
+    func populate(with field: SigningCategoryViewController.Field) {
         self.field = field
         updateUI()
     }
@@ -71,5 +73,7 @@ class SettingsStateCell: UITableViewCell {
         stateSwitch.isOn = DefaultsHelper.isRoleAndAddressEnabled
         stateSwitch.isAccessibilityElement = true
         stateSwitch.accessibilityLabel = titleLabel.text
+        
+        stateSwitch.accessibilityUserInputLabels = stateSwitch.isOn ? [L(.voiceControlDisableRoleAndAddress)] : [L(.voiceControlEnableRoleAndAddress)]
     }
 }

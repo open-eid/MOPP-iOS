@@ -24,17 +24,12 @@
 import UIKit
 
 class SettingsViewController: MoppViewController {
-    private(set) var timestampUrl: String!
+    
     @IBOutlet weak var tableView: UITableView!
     
-    var isDefaultTimestampValue = true
-    var settingsTsaCertCell: SettingsTSACertCell?
-    var settingsSivaCertCell: SettingsSivaCertCell?
-    var settingsUseDefaultCell: SettingsDefaultValueCell?
-    
-    var currentlyEditingCell: IndexPath?
-    
-    var tableViewCells = [IndexPath: UITableViewCell]()
+    @IBAction func openSigningCategory(_ sender: ScaledButton) {
+        openSigningCategoryView()
+    }
     
     enum Section {
         case header
@@ -42,39 +37,17 @@ class SettingsViewController: MoppViewController {
     }
     
     enum FieldId {
-        case rpuuid
-        case timestampUrl
-        case useDefault
-        case tsaCert
-        case roleAndAddress
-        case sivaCert
+        case signingCategory
         case resetSettings
     }
     
     struct Field {
-        enum Kind {
-            case inputField
-            case choice
-            case timestamp
-            case defaultSwitch
-            case tsaCert
-            case state
-            case sivaCert
-            case resetButton
-        }
-        
         let id: FieldId
-        let kind: Kind
         let title: String
-        let placeholderText: NSAttributedString
-        let value: String
         
-        init(id:FieldId, kind:Kind, title:String, placeholderText:NSAttributedString, value:String) {
+        init(id: FieldId, title: String) {
             self.id = id
-            self.kind = kind
             self.title = title
-            self.placeholderText = placeholderText
-            self.value = value
         }
     }
     
@@ -82,134 +55,27 @@ class SettingsViewController: MoppViewController {
     
     var fields:[Field] = [
         Field(
-            id: .rpuuid,
-            kind: .inputField,
-            title: L(.settingsRpUuidTitle),
-            placeholderText: NSAttributedString(string: L(.settingsRpUuidPlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker]),
-            value: DefaultsHelper.rpUuid
+            id: .signingCategory,
+            title: L(.containerSignTitle)
         ),
-        Field(
-            id: .timestampUrl,
-            kind: .timestamp,
-            title: L(.settingsTimestampUrlTitle),
-            placeholderText: NSAttributedString(string: L(.settingsTimestampUrlPlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker]),
-            value: DefaultsHelper.timestampUrl ?? MoppConfiguration.tsaUrl!
-        ),
-        Field(
-            id: .useDefault,
-            kind: .defaultSwitch,
-            title: L(.settingsTimestampUseDefaultTitle),
-            placeholderText: NSAttributedString(string: L(.settingsTimestampUseDefaultTitle)),
-            value: ""),
-        Field(
-            id: .tsaCert,
-            kind: .tsaCert,
-            title: L(.settingsTimestampCertTitle),
-            placeholderText: NSAttributedString(string: L(.settingsTimestampCertTitle)),
-            value: ""),
-        Field(id: .roleAndAddress,
-              kind: .state,
-              title: L(.roleAndAddressRoleTitle),
-              placeholderText: NSAttributedString(string: L(.roleAndAddressRoleTitle)),
-              value: ""),
-        Field(
-            id: .sivaCert,
-            kind: .sivaCert,
-            title: L(.settingsSivaServiceTitle),
-            placeholderText: NSAttributedString(string: L(.settingsSivaServiceTitle)),
-            value: ""),
         Field(
             id: .resetSettings,
-            kind: .resetButton,
-            title: L(.settingsResetButton),
-            placeholderText: NSAttributedString(string: L(.settingsResetButton)),
-            value: "")
+            title: L(.settingsResetButton)
+        )
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        timestampUrl = DefaultsHelper.timestampUrl
-        isDefaultTimestampValue = DefaultsHelper.defaultSettingsSwitch
     }
     
     override func viewDidAppear(_ animated: Bool) {
         tableView.reloadData()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(accessibilityElementFocused(_:)), name: UIAccessibility.elementFocusedNotification, object: nil)
-
-        if UIAccessibility.isVoiceOverRunning {
-            DispatchQueue.main.async {
-                self.view.accessibilityElements = [self.getAccessibilityElementsOrder()]
-                self.tableView.reloadData()
-            }
-        }
-    }
-    
-    @objc func accessibilityElementFocused(_ notification: Notification) {
-        if UIAccessibility.isVoiceOverRunning {
-            self.view.accessibilityElements = [self.getAccessibilityElementsOrder()]
-        }
-
-        if let element = notification.userInfo?[UIAccessibility.focusedElementUserInfoKey] as? UIView {
-            let elementRect = element.convert(element.bounds, to: tableView)
-            let offsetY = elementRect.midY - (tableView.frame.size.height / 4)
-            tableView.setContentOffset(CGPoint(x: 0, y: offsetY), animated: true)
-        }
-    }
-    
-    override func keyboardWillShow(notification: NSNotification) {
-        let firstCell = tableView.cellForRow(at: currentlyEditingCell ?? IndexPath(row: 1, section: 1))
-        tableView.setContentOffset(CGPoint(x: 0, y: (firstCell?.frame.origin.y ?? 0) - 100), animated: false)
-    }
-    
-    override func keyboardWillHide(notification: NSNotification) {
-        tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-    }
-    
-    func getAccessibilityElementsOrder() -> [Any] {
-        let isDefaultTimestampSettingsEnabled = DefaultsHelper.defaultSettingsSwitch
-        
-        var accessibilityElementsOrder = [Any]()
-        
-        if !isDefaultTimestampSettingsEnabled {
-            let classOrder = [SettingsDefaultValueCell.self, SettingsFieldCell.self, SettingsTimeStampCell.self, SettingsTSACertCell.self, SettingsStateCell.self, SettingsSivaCertCell.self, SettingsResetCell.self, SettingsHeaderCell.self, SettingsDefaultValueCell.self]
-            
-            for className in classOrder {
-                for key in tableViewCells.keys.sorted() {
-                    if let cell = tableViewCells[key], type(of: cell) == className {
-                        if cell.accessibilityElements != nil {
-                            accessibilityElementsOrder.append(cell.accessibilityElements ?? [])
-                        }
-                    }
-                }
-            }
-        } else {
-            let accessibilityClassOrder = [SettingsDefaultValueCell.self, SettingsFieldCell.self, SettingsTimeStampCell.self, SettingsStateCell.self, SettingsSivaCertCell.self, SettingsResetCell.self, SettingsHeaderCell.self, SettingsDefaultValueCell.self]
-            
-            for className in accessibilityClassOrder {
-                for key in tableViewCells.keys.sorted() {
-                    if let cell = tableViewCells[key], type(of: cell) == className {
-                        if cell.accessibilityElements != nil {
-                            accessibilityElementsOrder.append(cell.accessibilityElements ?? [])
-                        }
-                    }
-                }
-            }
-        }
-        
-        return accessibilityElementsOrder
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: UIAccessibility.elementFocusedNotification, object: nil)
     }
     
     func resetSettings() {
         DefaultsHelper.rpUuid = ""
         DefaultsHelper.timestampUrl = nil
         DefaultsHelper.defaultSettingsSwitch = true
-        isDefaultTimestampValue = true
         
         DefaultsHelper.isRoleAndAddressEnabled = false
         DefaultsHelper.roleNames = []
@@ -217,26 +83,22 @@ class SettingsViewController: MoppViewController {
         DefaultsHelper.roleState = ""
         DefaultsHelper.roleCountry = ""
         DefaultsHelper.roleZip = ""
-
-        if let tsaCertCell = settingsTsaCertCell {
-            tsaCertCell.removeCertificate()
-        }
         
-        if let useDefaultCell = settingsUseDefaultCell {
-            useDefaultCell.useDefaultSwitch.isOn = true
-        }
+        CertUtil.removeCertificate(folder: SettingsTSACertCell.tsaFileFolder, fileName: DefaultsHelper.tsaCertFileName ?? "")
+        
+        CertUtil.removeCertificate(folder: SivaCertViewController.sivaFileFolder, fileName: DefaultsHelper.sivaCertFileName ?? "")
 
         DefaultsHelper.tsaCertFileName = ""
-        
-        DefaultsHelper.sivaAccessState = .defaultAccess
-        
-        if let sivaCertCell = settingsSivaCertCell {
-            sivaCertCell.removeCertificate()
-        }
-        
         DefaultsHelper.sivaCertFileName = ""
         
+        DefaultsHelper.sivaAccessState = .defaultAccess
+        DefaultsHelper.sivaUrl = Configuration.getConfiguration().SIVAURL
+        
         tableView.reloadData()
+    }
+    
+    deinit {
+        printLog("Deinit SettingsViewController")
     }
 }
 
@@ -269,74 +131,21 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             let headerCell = tableView.dequeueReusableCell(withType: SettingsHeaderCell.self, for: indexPath)!
             headerCell.delegate = self
             headerCell.populate(with: L(.settingsTitle))
-            tableViewCells[indexPath] = headerCell
             return headerCell
         case .fields:
             let field = fields[indexPath.row]
-            if isDefaultTimestampValue && field.kind == .tsaCert {
-                break
-            }
-            switch field.kind {
-            case .inputField:
-                let fieldCell = tableView.dequeueReusableCell(withType: SettingsFieldCell.self, for: indexPath)!
-                fieldCell.delegate = self
-                fieldCell.populate(with: field)
-                tableViewCells[indexPath] = fieldCell
-                switch field.id {
-                case .rpuuid:
-                    fieldCell.textField.isSecureTextEntry = true
-                    fieldCell.textField.keyboardType = .default
-                    break
-                default: break
-                }
-                return fieldCell
-            case .timestamp:
-                let timeStampCell = tableView.dequeueReusableCell(withType: SettingsTimeStampCell.self, for: indexPath)!
-                timeStampCell.delegate = self
-                timeStampCell.populate(with: field)
-                tableViewCells[indexPath] = timeStampCell
-                return timeStampCell
-            case .choice:
-                let choiceCell = tableView.dequeueReusableCell(withType: SettingsChoiceCell.self, for: indexPath)!
-                choiceCell.populate(with: field)
-                tableViewCells[indexPath] = choiceCell
-                return choiceCell
-            case .defaultSwitch:
-                let useDefaultCell = tableView.dequeueReusableCell(withType: SettingsDefaultValueCell.self, for: indexPath)!
-                useDefaultCell.delegate = self
-                useDefaultCell.populate()
-                tableViewCells[indexPath] = useDefaultCell
-                settingsUseDefaultCell = useDefaultCell
-                return useDefaultCell
-            case .tsaCert:
-                let tsaCertCell = tableView.dequeueReusableCell(withType: SettingsTSACertCell.self, for: indexPath)!
-                tsaCertCell.topViewController = getTopViewController()
-                tsaCertCell.populate()
-                tableViewCells[indexPath] = tsaCertCell
-                settingsTsaCertCell = tsaCertCell
-                return tsaCertCell
-            case .state:
-                let stateCell = tableView.dequeueReusableCell(withType: SettingsStateCell.self, for: indexPath)!
-                stateCell.populate(with: field)
-                tableViewCells[indexPath] = stateCell
-                return stateCell
-            case .sivaCert:
-                let sivaCert = tableView.dequeueReusableCell(withType: SettingsSivaCertCell.self, for: indexPath)!
-                sivaCert.topViewController = getTopViewController()
-                sivaCert.delegate = self
-                sivaCert.populate(with: field)
-                tableViewCells[indexPath] = sivaCert
-                settingsSivaCertCell = sivaCert
-                return sivaCert
-            case .resetButton:
+            switch field.id {
+            case .signingCategory:
+                let signingCategoryCell = tableView.dequeueReusableCell(withType: SigningCategoryCell.self, for: indexPath)!
+                signingCategoryCell.populate(with: field.title)
+                return signingCategoryCell
+            case .resetSettings:
                 let resetCell = tableView.dequeueReusableCell(withType: SettingsResetCell.self, for: indexPath)!
                 resetCell.delegate = self
                 resetCell.populate(with: field.title)
-                tableViewCells[indexPath] = resetCell
                 return resetCell
             }
         }
-        return UITableViewCell()
     }
     
     @objc func editingChanged(sender: UITextField) {
@@ -344,6 +153,29 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         if (text.count > 11) {
             TextUtil.deleteBackward(textField: sender)
         }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch sections[indexPath.section] {
+        case .header:
+            break
+        case .fields:
+            let field = fields[indexPath.row]
+            switch field.id {
+            case .signingCategory:
+                openSigningCategoryView()
+                break
+            case .resetSettings:
+                resetSettings()
+                break
+            }
+        }
+    }
+    
+    private func openSigningCategoryView() {
+        let signingCategoryViewController = UIStoryboard.settings.instantiateViewController(of: SigningCategoryViewController.self)
+        signingCategoryViewController.modalPresentationStyle = .fullScreen
+        present(signingCategoryViewController, animated: true)
     }
 }
 
@@ -356,71 +188,5 @@ extension SettingsViewController: SettingsHeaderCellDelegate {
 extension SettingsViewController: SettingsResetCellDelegate {
     func didTapResetSettings() {
         resetSettings()
-    }
-}
-
-extension SettingsViewController: SettingsCellDelegate {
-    func didStartEditingField(_ field: FieldId, _ indexPath: IndexPath) {
-        switch field {
-        case .rpuuid:
-            currentlyEditingCell = indexPath
-            break
-        case .sivaCert:
-            currentlyEditingCell = indexPath
-            break
-        default:
-            break
-        }
-    }
-    
-    func didEndEditingField(_ fieldId: SettingsViewController.FieldId, with value: String) {
-        switch fieldId {
-        case .rpuuid:
-            DefaultsHelper.rpUuid = value
-            break
-        case .sivaCert:
-            DefaultsHelper.sivaUrl = value
-            break
-        default:
-            break
-        }
-        currentlyEditingCell = nil
-        UIAccessibility.post(notification: .screenChanged, argument: L(.settingsValueChanged))
-    }
-}
-
-extension SettingsViewController: SettingsTimeStampCellDelegate {
-    func didChangeTimestamp(_ fieldId: SettingsViewController.FieldId, with value: String?) {
-        DefaultsHelper.timestampUrl = value
-
-#if USE_TEST_DDS
-        let useTestDDS = true
-#else
-        let useTestDDS = false
-#endif
-        MoppLibManager.sharedInstance()?.setup(success: {
-            printLog("success")
-        }, andFailure: { [weak self] error in
-            let nsError = error as? NSError
-            
-            self?.errorAlertWithLink(message: MessageUtil.generateDetailedErrorMessage(error: nsError) ?? L(.genericErrorMessage))
-            }, usingTestDigiDocService: useTestDDS, andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaurl,
-               withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration())
-    }
-}
-
-extension SettingsViewController: SettingsDefaultValueCellDelegate {
-    func didChangeDefaultSwitch(_ field: FieldId, with switchValue: Bool?) {
-        if let switchValue = switchValue {
-            DefaultsHelper.defaultSettingsSwitch = switchValue
-            isDefaultTimestampValue = switchValue
-        }
-        tableView.reloadData()
-        
-        if UIAccessibility.isVoiceOverRunning {
-            DispatchQueue.main.async {
-                self.view.accessibilityElements = self.getAccessibilityElementsOrder()
-            }
-        }
     }
 }

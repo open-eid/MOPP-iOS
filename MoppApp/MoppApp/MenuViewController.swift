@@ -129,6 +129,10 @@ extension MenuViewController : UITableViewDataSource {
                 } else {
                     cell.accessibilityTraits = UIAccessibilityTraits.button
                 }
+
+                // Support Voice Control without setting the whole cell as VoiceOver element
+                cell.isAccessibilityElement = !UIAccessibility.isVoiceOverRunning
+                cell.accessibilityUserInputLabels = [getVoiceControlLabel(title: title)]
                 return cell
             }
         }
@@ -193,6 +197,22 @@ extension MenuViewController : UITableViewDelegate {
                 break
             }
         }
+    }
+    
+    func getVoiceControlLabel(title: String) -> String {
+        if title == L(.menuHelp) {
+            return L(.voiceControlHelpButton)
+        } else if title == L(.menuAccessibility) {
+            return L(.voiceControlAccessibilityButton)
+        } else if title == L(.menuSettings) {
+            return L(.voiceControlSettingsButton)
+        } else if title == L(.menuAbout) {
+            return L(.voiceControlInfoButton)
+        } else if title == L(.menuDiagnostics) {
+            return L(.voiceControlDiagnosticsButton)
+        }
+        
+        return ""
     }
     
 }

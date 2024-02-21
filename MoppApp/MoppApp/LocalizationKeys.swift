@@ -499,4 +499,13 @@ enum LocKey : String
     case voiceControlSivaDefaultAccess = "voice-control-siva-default-access";
     case voiceControlSivaManualAccess = "voice-control-siva-manual-access";
     case voiceControlResetButton = "voice-control-reset-button";
+    case voiceControlEnableDefaultTimestampingService = "voice-control-enable-default-timestamping-service";
+    case voiceControlDisableDefaultTimestampingService = "voice-control-disable-default-timestamping-service";
+    case voiceControlEnableRoleAndAddress = "voice-control-enable-role-and-address";
+    case voiceControlDisableRoleAndAddress = "voice-control-disable-role-and-address";
+    case voiceControlHelpButton = "voice-control-help-button";
+    case voiceControlAccessibilityButton = "voice-control-accessibility-button";
+    case voiceControlSettingsButton = "voice-control-settings-button";
+    case voiceControlInfoButton = "voice-control-info-button";
+    case voiceControlDiagnosticsButton = "voice-control-diagnostics-button";
 }

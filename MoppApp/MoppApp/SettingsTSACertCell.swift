@@ -87,9 +87,9 @@ class SettingsTSACertCell: UITableViewCell {
         
         guard let titleUILabel = titleLabel, let issuedToUILabel = issuedToLabel, let validUntilUILabel = validUntilLabel, let addCertificateUIButton = addCertificateButton, let showCertificateUIButton = showCertificateButton else { return }
         
-        self.accessibilityElements = [titleUILabel, issuedToUILabel, validUntilUILabel, addCertificateUIButton, showCertificateUIButton]
-        
-        elements = self.accessibilityElements ?? []
+        if UIAccessibility.isVoiceOverRunning {
+            self.accessibilityElements = [titleUILabel, issuedToUILabel, validUntilUILabel, addCertificateUIButton, showCertificateUIButton]
+        }
     }
     
     func populate() {
@@ -100,18 +100,7 @@ class SettingsTSACertCell: UITableViewCell {
     func updateUI() {
         DispatchQueue.main.async {
             self.titleLabel.text = L(.settingsTimestampCertTitle)
-            self.tsaCertStackView.isAccessibilityElement = false
-            self.tsaDataStackView.isAccessibilityElement = false
-            self.tsaCertLabelStackView.isAccessibilityElement = false
-            
-            AccessibilityUtil.setAccessibilityElementsInStackView(stackView: self.tsaCertStackView, isAccessibilityElement: !DefaultsHelper.defaultSettingsSwitch)
-            
-            AccessibilityUtil.setAccessibilityElementsInStackView(stackView: self.tsaDataStackView, isAccessibilityElement: !DefaultsHelper.defaultSettingsSwitch)
-            
-            AccessibilityUtil.setAccessibilityElementsInStackView(stackView: self.tsaCertLabelStackView, isAccessibilityElement: !DefaultsHelper.defaultSettingsSwitch)
-            
-            AccessibilityUtil.setAccessibilityElementsInStackView(stackView: self.tsaCertButtonsStackView, isAccessibilityElement: !DefaultsHelper.defaultSettingsSwitch)
-            
+
             self.issuedToLabel.text = L(.settingsTimestampCertIssuedToLabel)
             self.validUntilLabel.text = L(.settingsTimestampCertValidToLabel)
             
@@ -121,6 +110,7 @@ class SettingsTSACertCell: UITableViewCell {
             self.addCertificateButton.textColor = .systemBlue
             self.addCertificateButton.isUserInteractionEnabled = true
             self.addCertificateButton.resetLabelProperties()
+            self.addCertificateButton.isAccessibilityElement = true
             
             self.showCertificateButton.text = L(.settingsTimestampCertShowCertificateButton)
             self.showCertificateButton.accessibilityLabel = self.showCertificateButton.text?.lowercased()
@@ -128,6 +118,7 @@ class SettingsTSACertCell: UITableViewCell {
             self.showCertificateButton.textColor = .systemBlue
             self.showCertificateButton.isUserInteractionEnabled = true
             self.showCertificateButton.resetLabelProperties()
+            self.showCertificateButton.isAccessibilityElement = true
             
             if self.addCertificateButton.gestureRecognizers == nil || self.addCertificateButton.gestureRecognizers?.isEmpty == true {
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.addCertificateButtonTapped))

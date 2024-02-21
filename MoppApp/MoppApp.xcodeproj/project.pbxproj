@@ -195,13 +195,15 @@
 		DF5BE6D429C8BD5600331609 /* WarningDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5BE6D329C8BD5600331609 /* WarningDetail.swift */; };
 		DF61BABA2B6D080D00D919CE /* App_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DF61BAB92B6D080D00D919CE /* App_logo.png */; };
 		DF6299122664FEFE00E6C55E /* UrlSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */; };
+		DF716E952B45CFE90004DCB6 /* SigningCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF716E942B45CFE90004DCB6 /* SigningCategoryViewController.swift */; };
+		DF716E972B45D0F10004DCB6 /* SivaCertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF716E962B45D0F10004DCB6 /* SivaCertViewController.swift */; };
+		DF716E992B45D1FF0004DCB6 /* SigningCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF716E982B45D1FF0004DCB6 /* SigningCategoryCell.swift */; };
 		DF7936342AE98AAD00441B41 /* AccessibilityUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7936332AE98AAD00441B41 /* AccessibilityUtil.swift */; };
 		DF7F611926399B5400747B7D /* ContainerRemovalActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */; };
 		DF8A948A29AFD11A004F6E4B /* CharacterSet+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8A948929AFD11A004F6E4B /* CharacterSet+Additions.swift */; };
 		DF8EFB1A287498B900A96DE3 /* SettingsDefaultValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8EFB19287498B900A96DE3 /* SettingsDefaultValueCell.swift */; };
 		DF900C972386768F00887385 /* tslFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DF900C94238567CA00887385 /* tslFiles.bundle */; };
 		DF97A51129DC8CAB006FB917 /* ContainerAddAllButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF97A51029DC8CAB006FB917 /* ContainerAddAllButtonCell.swift */; };
-		DFA56CEE2AEFEE45007D7F7E /* SettingsSivaCertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA56CED2AEFEE45007D7F7E /* SettingsSivaCertCell.swift */; };
 		DFA56CF22AF003F8007D7F7E /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA56CF12AF003F8007D7F7E /* RadioButton.swift */; };
 		DFA56CF42AF009E5007D7F7E /* RadioButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = DFA56CF32AF009E5007D7F7E /* RadioButton.xib */; };
 		DFA5821A264AAB6600564971 /* digidoc_76.png in Resources */ = {isa = PBXBuildFile; fileRef = DFA58218264AAB6500564971 /* digidoc_76.png */; };
@@ -209,10 +211,11 @@
 		DFAFD38629E8794200377EF5 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAFD38529E8794200377EF5 /* SearchField.swift */; };
 		DFB1A492283FB9AF000B578D /* CertificateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB1A491283FB9AF000B578D /* CertificateDetailViewController.swift */; };
 		DFB1D5EB2ACAFE1B00FDC7B8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFB1D5EA2ACAFE1B00FDC7B8 /* GoogleService-Info.plist */; };
+		DFB29EE42B4604DB005BEB34 /* SivaCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB29EE32B4604DB005BEB34 /* SivaCategoryCell.swift */; };
 		DFB66BC32AE9BD4D00731B47 /* TextUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB66BC22AE9BD4D00731B47 /* TextUtil.swift */; };
 		DFB970A32626136400464791 /* PreviewFileTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB970A22626136300464791 /* PreviewFileTapGestureRecognizer.swift */; };
 		DFBA32A629A5A64000788A87 /* CancelUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA32A529A5A64000788A87 /* CancelUtil.swift */; };
-		DFBDF1F227D79B8B00A5CF3C /* SettingsStateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1F127D79B8B00A5CF3C /* SettingsStateCell.swift */; };
+		DFBDF1F227D79B8B00A5CF3C /* SettingsRoleAndAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1F127D79B8B00A5CF3C /* SettingsRoleAndAddressCell.swift */; };
 		DFBDF1F427D8DD4100A5CF3C /* RoleAndAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1F327D8DD4100A5CF3C /* RoleAndAddressViewController.swift */; };
 		DFBDF1FC27DF6BA800A5CF3C /* MobileIDParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1FB27DF6BA800A5CF3C /* MobileIDParameters.swift */; };
 		DFBDF1FE27DF6D3B00A5CF3C /* SmartIDParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1FD27DF6D3B00A5CF3C /* SmartIDParameters.swift */; };
@@ -534,13 +537,15 @@
 		DF61BAB72B6D078F00D919CE /* App_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = App_logo.png; path = MoppApp/Assets.xcassets/App_logo.imageset/App_logo.png; sourceTree = "<group>"; };
 		DF61BAB92B6D080D00D919CE /* App_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = App_logo.png; path = MoppApp/App_logo.png; sourceTree = "<group>"; };
 		DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSchemeHandler.swift; sourceTree = "<group>"; };
+		DF716E942B45CFE90004DCB6 /* SigningCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningCategoryViewController.swift; sourceTree = "<group>"; };
+		DF716E962B45D0F10004DCB6 /* SivaCertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SivaCertViewController.swift; sourceTree = "<group>"; };
+		DF716E982B45D1FF0004DCB6 /* SigningCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningCategoryCell.swift; sourceTree = "<group>"; };
 		DF7936332AE98AAD00441B41 /* AccessibilityUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityUtil.swift; sourceTree = "<group>"; };
 		DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerRemovalActions.swift; sourceTree = "<group>"; };
 		DF8A948929AFD11A004F6E4B /* CharacterSet+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Additions.swift"; sourceTree = "<group>"; };
 		DF8EFB19287498B900A96DE3 /* SettingsDefaultValueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsDefaultValueCell.swift; sourceTree = "<group>"; };
 		DF900C94238567CA00887385 /* tslFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = tslFiles.bundle; sourceTree = "<group>"; };
 		DF97A51029DC8CAB006FB917 /* ContainerAddAllButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerAddAllButtonCell.swift; sourceTree = "<group>"; };
-		DFA56CED2AEFEE45007D7F7E /* SettingsSivaCertCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSivaCertCell.swift; sourceTree = "<group>"; };
 		DFA56CF12AF003F8007D7F7E /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		DFA56CF32AF009E5007D7F7E /* RadioButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RadioButton.xib; sourceTree = "<group>"; };
 		DFA58218264AAB6500564971 /* digidoc_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_76.png; sourceTree = "<group>"; };
@@ -549,11 +554,12 @@
 		DFAFD38529E8794200377EF5 /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
 		DFB1A491283FB9AF000B578D /* CertificateDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateDetailViewController.swift; sourceTree = "<group>"; };
 		DFB1D5EA2ACAFE1B00FDC7B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DFB29EE32B4604DB005BEB34 /* SivaCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SivaCategoryCell.swift; sourceTree = "<group>"; };
 		DFB5FF08289954F8006B3B8C /* TokenFlowUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenFlowUtil.swift; sourceTree = "<group>"; };
 		DFB66BC22AE9BD4D00731B47 /* TextUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUtil.swift; sourceTree = "<group>"; };
 		DFB970A22626136300464791 /* PreviewFileTapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewFileTapGestureRecognizer.swift; sourceTree = "<group>"; };
 		DFBA32A529A5A64000788A87 /* CancelUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelUtil.swift; sourceTree = "<group>"; };
-		DFBDF1F127D79B8B00A5CF3C /* SettingsStateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStateCell.swift; sourceTree = "<group>"; };
+		DFBDF1F127D79B8B00A5CF3C /* SettingsRoleAndAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRoleAndAddressCell.swift; sourceTree = "<group>"; };
 		DFBDF1F327D8DD4100A5CF3C /* RoleAndAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleAndAddressViewController.swift; sourceTree = "<group>"; };
 		DFBDF1FB27DF6BA800A5CF3C /* MobileIDParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileIDParameters.swift; sourceTree = "<group>"; };
 		DFBDF1FD27DF6D3B00A5CF3C /* SmartIDParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartIDParameters.swift; sourceTree = "<group>"; };
@@ -922,6 +928,7 @@
 		C593D9E6208F1972000B3BF6 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				DF716E932B45CFD60004DCB6 /* Signing */,
 				C55BB1C82090BF4A00618AC4 /* About */,
 				DFC2ADBF29437778008A1CD2 /* Accessibility */,
 				C55BB1C520908EE300618AC4 /* Diagnostics */,
@@ -935,8 +942,7 @@
 				C51E8A0E21A2F2AD0054662A /* SettingsTimeStampCell.swift */,
 				DF8EFB19287498B900A96DE3 /* SettingsDefaultValueCell.swift */,
 				DFD54CF429CDDB0600CD92C7 /* SettingsTSACertCell.swift */,
-				DFBDF1F127D79B8B00A5CF3C /* SettingsStateCell.swift */,
-				DFA56CED2AEFEE45007D7F7E /* SettingsSivaCertCell.swift */,
+				DFBDF1F127D79B8B00A5CF3C /* SettingsRoleAndAddressCell.swift */,
 				DF3756172AFABEB7006960C5 /* SettingsResetCell.swift */,
 			);
 			name = Settings;
@@ -1020,6 +1026,25 @@
 				DF32A67A29096B7100AE5F82 /* LogFileGenerating.swift */,
 			);
 			name = Protocols;
+			sourceTree = "<group>";
+		};
+		DF716E932B45CFD60004DCB6 /* Signing */ = {
+			isa = PBXGroup;
+			children = (
+				DFB29EE22B4604BF005BEB34 /* Siva */,
+				DF716E942B45CFE90004DCB6 /* SigningCategoryViewController.swift */,
+				DF716E962B45D0F10004DCB6 /* SivaCertViewController.swift */,
+				DF716E982B45D1FF0004DCB6 /* SigningCategoryCell.swift */,
+			);
+			path = Signing;
+			sourceTree = "<group>";
+		};
+		DFB29EE22B4604BF005BEB34 /* Siva */ = {
+			isa = PBXGroup;
+			children = (
+				DFB29EE32B4604DB005BEB34 /* SivaCategoryCell.swift */,
+			);
+			path = Siva;
 			sourceTree = "<group>";
 		};
 		DFC2ADBF29437778008A1CD2 /* Accessibility */ = {
@@ -1571,6 +1596,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DFB66BC32AE9BD4D00731B47 /* TextUtil.swift in Sources */,
+				DF716E972B45D0F10004DCB6 /* SivaCertViewController.swift in Sources */,
 				3921CAAD20B819B500BF3178 /* ContainerNoAddresseesCell.swift in Sources */,
 				54825EF51E1CFE9600253FF0 /* Date+Additions.swift in Sources */,
 				C50DCD1F1FD1831500D48E16 /* SearchTextField.swift in Sources */,
@@ -1620,7 +1646,7 @@
 				C54EA6E520444EC90039AC78 /* TokenFlowSelectionViewController.swift in Sources */,
 				DFF3C3B32332314A0079458A /* SignatureVerifier.swift in Sources */,
 				DF17ABCE29C0F86E009711DF /* BarButton.swift in Sources */,
-				DFBDF1F227D79B8B00A5CF3C /* SettingsStateCell.swift in Sources */,
+				DFBDF1F227D79B8B00A5CF3C /* SettingsRoleAndAddressCell.swift in Sources */,
 				C59A958E1FB5B9E100D0E1F9 /* InitializationViewController.swift in Sources */,
 				C58FCD5D206505D500FE3B57 /* MyeIDInfoViewController.swift in Sources */,
 				DFDF02BE241EB5D3006CF443 /* SessionCertificate.swift in Sources */,
@@ -1642,7 +1668,6 @@
 				C50FC431224BA3B20041925C /* ScreenDisguise.swift in Sources */,
 				DF32A690290C983100AE5F82 /* MessageUtil.swift in Sources */,
 				C50787881FEA807500D9AAC0 /* UIViewController+Additions.swift in Sources */,
-				DFA56CEE2AEFEE45007D7F7E /* SettingsSivaCertCell.swift in Sources */,
 				C506EC7C1FB9CBFD00E07226 /* Constants.swift in Sources */,
 				DFD54CF529CDDB0600CD92C7 /* SettingsTSACertCell.swift in Sources */,
 				C58FCD5B206505BE00FE3B57 /* MyeIDStatusViewController.swift in Sources */,
@@ -1651,6 +1676,7 @@
 				DF56368D2B0E63840098F31D /* AppInfoCell.swift in Sources */,
 				DF4B841A2840F8FC005CB875 /* CertificateDetailsCell.swift in Sources */,
 				C5A795D3208DD42100A69D4F /* MyeIDChangeCodeViewControllerUI.swift in Sources */,
+				DF716E992B45D1FF0004DCB6 /* SigningCategoryCell.swift in Sources */,
 				C506EC811FB9F4AF00E07226 /* UIImage+Additions.swift in Sources */,
 				C55A6E42208766BA000F3386 /* MyeIDChangeCodesLoadingViewController.swift in Sources */,
 				DFDC0ABA29FAD8F2002D1D1D /* ViewUtil.swift in Sources */,
@@ -1670,6 +1696,7 @@
 				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
 				DF7F611926399B5400747B7D /* ContainerRemovalActions.swift in Sources */,
 				C55BB1CA2090C17F00618AC4 /* AboutViewController.swift in Sources */,
+				DF716E952B45CFE90004DCB6 /* SigningCategoryViewController.swift in Sources */,
 				DFF3C3B22332314A0079458A /* RuntimeError.swift in Sources */,
 				C5927FEB2078FD40003B7F41 /* MyeIDInfoViewControllerUI.swift in Sources */,
 				3921CAA120B45DCF00BF3178 /* SigningContainerViewController.swift in Sources */,
@@ -1717,6 +1744,7 @@
 				DFD54CF729D1CBAF00CD92C7 /* CertUtil.swift in Sources */,
 				4E59080024B0F914001B23A6 /* SmartIDEditViewController.swift in Sources */,
 				DFD8BEF7291C434500FE8F07 /* FontUtil.swift in Sources */,
+				DFB29EE42B4604DB005BEB34 /* SivaCategoryCell.swift in Sources */,
 				C50DCD1B1FD1576B00D48E16 /* SigningTableViewHeaderView.swift in Sources */,
 				C54EA73A2057E58D0039AC78 /* MoppButton.swift in Sources */,
 				DF32A691290C983100AE5F82 /* ErrorUtil.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  SettingsSivaCertCell.swift
+//  SivaCertViewController.swift
 //  MoppApp
 //
 /*
@@ -30,26 +30,16 @@ enum SivaAccess: String, Codable {
     case manualAccess
 }
 
-class SettingsSivaCertCell: UITableViewCell {
+class SivaCertViewController: MoppViewController {
     
-    static let sivaFileFolder = "siva-cert"
-    
-    private var certificate: X509Certificate?
-    private let configuration: MOPPConfiguration = Configuration.getConfiguration()
-    
-    var field: SettingsViewController.Field!
-    weak var delegate: SettingsCellDelegate!
-    
-    weak var topViewController: UIViewController?
+    @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var signatureValidationTitle: ScaledLabel!
     
+    @IBOutlet weak var dismissButton: ScaledButton!
+    
     @IBOutlet weak var certificateStackView: UIStackView!
-    @IBOutlet weak var certificateDataStackView: UIStackView!
-
-    @IBOutlet weak var validationAccessStackView: UIStackView!
-    @IBOutlet weak var validationAccessChoiceStackView: UIStackView!
-
+    
     @IBOutlet weak var useDefaultAccessStackView: UIStackView!
     @IBOutlet weak var useDefaultAccessView: UIView!
     @IBOutlet weak var useDefaultAccessRadioButton: RadioButton!
@@ -66,45 +56,41 @@ class SettingsSivaCertCell: UITableViewCell {
     
     @IBOutlet weak var issuedToLabel: ScaledLabel!
     @IBOutlet weak var validUntilLabel: ScaledLabel!
-    
-    @IBOutlet weak var certificateButtonsStackView: UIStackView!
-    @IBOutlet weak var addCertificateButton: ScaledButton!
-    @IBOutlet weak var showCertificateButton: ScaledButton!
-    
-    
-    @IBAction func addCertificate(_ sender: ScaledButton) {
-        let documentPicker: UIDocumentPickerViewController = {
-            let allowedDocumentTypes = [UTType.x509Certificate]
-            let documentPickerViewController = UIDocumentPickerViewController(forOpeningContentTypes: allowedDocumentTypes)
-            documentPickerViewController.delegate = self
-            documentPickerViewController.modalPresentationStyle = .overCurrentContext
-            documentPickerViewController.allowsMultipleSelection = false
-            return documentPickerViewController
-        }()
-        
-        topViewController?.present(documentPicker, animated: true)
+
+    @IBOutlet weak var addCertificateButton: ScaledLabel!
+    @IBOutlet weak var showCertificateButton: ScaledLabel!
+
+    @IBAction func dismissView(_ sender: ScaledButton) {
+        dismiss(animated: true)
     }
     
-    @IBAction func showCertificate(_ sender: ScaledButton) {
-        guard let cert = self.certificate else { printLog("Unable to show certificate"); return }
-        let certificateDetailsViewController = UIStoryboard.container.instantiateViewController(of: CertificateDetailViewController.self)
-        let certificateDetail = SignatureCertificateDetail(x509Certificate: cert, secCertificate: nil)
-        certificateDetailsViewController.certificateDetail = certificateDetail
-        certificateDetailsViewController.useDefaultNavigationItems = false
-        let certificateNC = UINavigationController(rootViewController: certificateDetailsViewController)
-        certificateNC.modalPresentationStyle = .pageSheet
-        
-        if let certificatePC = certificateNC.presentationController as? UISheetPresentationController {
-            certificatePC.detents = [
-                .large()
-            ]
-            certificatePC.prefersGrabberVisible = true
-        }
-        certificateNC.view.backgroundColor = .white
-        topViewController?.present(certificateNC, animated: true)
+    static let sivaFileFolder = "siva-cert"
+    
+    private var certificate: X509Certificate?
+    private let configuration: MOPPConfiguration = Configuration.getConfiguration()
+
+    var currentlyEditingCell: IndexPath?
+    
+    enum Section {
+        case fields
     }
     
-    override func awakeFromNib() {
+    enum FieldId {
+        case sivaCert
+    }
+    
+    var sections:[Section] = [.fields]
+    
+    var fields: [FieldId] = [
+        .sivaCert
+    ]
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        view.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
+        
+        dismissButton.setTitle(L(.closeButton))
+        
         sivaUrlTextField.moppPresentDismissButton()
         sivaUrlTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         sivaUrlTextField.layer.borderWidth = 1
@@ -116,6 +102,9 @@ class SettingsSivaCertCell: UITableViewCell {
 
         useDefaultAccessView.accessibilityUserInputLabels = [L(.voiceControlSivaDefaultAccess)]
         useManuallyConfiguredAccessView.accessibilityUserInputLabels = [L(.voiceControlSivaManualAccess)]
+        
+        certificate = CertUtil.getCertificate(folder: SivaCertViewController.sivaFileFolder, fileName: DefaultsHelper.sivaCertFileName ?? "")
+        sivaUrlTextField.attributedPlaceholder = getSivaPlaceholder()
         
         guard let signatureValidationUITitle = signatureValidationTitle, let useDefaultAccessUIView = useDefaultAccessView, let useManuallyConfiguredAccessUIView = useManuallyConfiguredAccessView, let sivaUrlUITextfield: UITextField = sivaUrlTextField, let validationServiceCertificateUITitle = validationServiceCertificateTitle, let issuedToUILabel = issuedToLabel, let validUntilUILabel = validUntilLabel, let addCertificateUIButton = addCertificateButton, let showCertificateUIButton = showCertificateButton else {
             printLog("Unable to get sivaUrlTextField")
@@ -129,12 +118,37 @@ class SettingsSivaCertCell: UITableViewCell {
         updateUI()
     }
     
-    func populate(with field:SettingsViewController.Field) {
-        certificate = CertUtil.getCertificate(folder: SettingsSivaCertCell.sivaFileFolder, fileName: DefaultsHelper.sivaCertFileName ?? "")
-        sivaUrlTextField.attributedPlaceholder = getSivaPlaceholder()
-        self.field = field
+    @objc func addCertificate() {
+        let documentPicker: UIDocumentPickerViewController = {
+            let allowedDocumentTypes = [UTType.x509Certificate]
+            let documentPickerViewController = UIDocumentPickerViewController(forOpeningContentTypes: allowedDocumentTypes)
+            documentPickerViewController.delegate = self
+            documentPickerViewController.modalPresentationStyle = .overCurrentContext
+            documentPickerViewController.allowsMultipleSelection = false
+            return documentPickerViewController
+        }()
+        
+        present(documentPicker, animated: true)
+    }
+    
+    @objc func showCertificate() {
+        guard let cert = self.certificate else { printLog("Unable to show certificate"); return }
+        let certificateDetailsViewController = UIStoryboard.container.instantiateViewController(of: CertificateDetailViewController.self)
+        let certificateDetail = SignatureCertificateDetail(x509Certificate: cert, secCertificate: nil)
+        certificateDetailsViewController.certificateDetail = certificateDetail
+        certificateDetailsViewController.useDefaultNavigationItems = false
+        let certificateNC = UINavigationController(rootViewController: certificateDetailsViewController)
+        certificateNC.modalPresentationStyle = .pageSheet
 
-        updateUI()
+        if let certificatePC = certificateNC.presentationController as? UISheetPresentationController {
+            certificatePC.detents = [
+                .large()
+            ]
+            certificatePC.prefersGrabberVisible = true
+        }
+
+        certificateNC.view.backgroundColor = .white
+        present(certificateNC, animated: true)
     }
     
     func getSivaPlaceholder() -> NSAttributedString {
@@ -234,16 +248,35 @@ class SettingsSivaCertCell: UITableViewCell {
             self.issuedToLabel.text = L(.settingsTimestampCertIssuedToLabel)
             self.validUntilLabel.text = L(.settingsTimestampCertValidToLabel)
             
-            self.addCertificateButton.setTitle(L(.settingsTimestampCertAddCertificateButton))
-            self.addCertificateButton.accessibilityLabel = self.addCertificateButton.titleLabel?.text?.lowercased()
-            self.showCertificateButton.setTitle(L(.settingsTimestampCertShowCertificateButton))
-            self.showCertificateButton.accessibilityLabel = self.showCertificateButton.titleLabel?.text?.lowercased()
-            self.showCertificateButton.mediumFont()
-            self.addCertificateButton.mediumFont()
+            self.addCertificateButton.isAccessibilityElement = true
+            self.showCertificateButton.isAccessibilityElement = true
+            self.addCertificateButton.text = L(.settingsTimestampCertAddCertificateButton)
+            self.addCertificateButton.accessibilityLabel = self.addCertificateButton.text?.lowercased()
+            self.addCertificateButton.font = .moppMedium
+            self.addCertificateButton.textColor = .systemBlue
+            self.addCertificateButton.isUserInteractionEnabled = true
+            self.addCertificateButton.resetLabelProperties()
             
-            self.addCertificateButton.accessibilityUserInputLabels = [self.addCertificateButton.titleLabel?.text ?? ""]
+            self.showCertificateButton.text = L(.settingsTimestampCertShowCertificateButton)
+            self.showCertificateButton.accessibilityLabel = self.showCertificateButton.text?.lowercased()
+            self.showCertificateButton.font = .moppMedium
+            self.showCertificateButton.textColor = .systemBlue
+            self.showCertificateButton.isUserInteractionEnabled = true
+            self.showCertificateButton.resetLabelProperties()
             
-            self.showCertificateButton.accessibilityUserInputLabels = [self.showCertificateButton.titleLabel?.text ?? ""]
+            if self.addCertificateButton.gestureRecognizers == nil || self.addCertificateButton.gestureRecognizers?.isEmpty == true {
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.addCertificate))
+                self.addCertificateButton.addGestureRecognizer(tapGesture)
+            }
+            
+            if self.showCertificateButton.gestureRecognizers == nil || self.showCertificateButton.gestureRecognizers?.isEmpty == true {
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.showCertificate))
+                self.showCertificateButton.addGestureRecognizer(tapGesture)
+            }
+            
+            self.addCertificateButton.accessibilityUserInputLabels = [self.addCertificateButton.text ?? ""]
+            
+            self.showCertificateButton.accessibilityUserInputLabels = [self.showCertificateButton.text ?? ""]
             
             guard let cert = self.certificate else { return }
             
@@ -253,7 +286,7 @@ class SettingsSivaCertCell: UITableViewCell {
     }
     
     func removeCertificate() {
-        CertUtil.removeCertificate(folder: SettingsSivaCertCell.sivaFileFolder, fileName: DefaultsHelper.sivaCertFileName ?? "")
+        CertUtil.removeCertificate(folder: SivaCertViewController.sivaFileFolder, fileName: DefaultsHelper.sivaCertFileName ?? "")
         certificate = nil
         updateUI()
     }
@@ -264,17 +297,44 @@ class SettingsSivaCertCell: UITableViewCell {
     }
     
     private func showErrorMessage(fileName: String) {
-        let viewController = self.getViewController()
-        if let tvc = viewController {
-            self.showErrorMessage(errorMessage: L(.fileImportNewFileOpeningFailedAlertMessage, [fileName]), topViewController: tvc)
-        }
+        self.showErrorMessage(errorMessage: L(.fileImportNewFileOpeningFailedAlertMessage, [fileName]), topViewController: self)
+    }
+    
+    override var preferredFocusEnvironments: [UIFocusEnvironment] {
+        return [addCertificateButton, showCertificateButton]
     }
 }
 
-extension SettingsSivaCertCell: UIDocumentPickerDelegate {
+extension SivaCertViewController: SettingsCellDelegate {
+    func didStartEditingField(_ field: SigningCategoryViewController.FieldId, _ indexPath: IndexPath) {
+        currentlyEditingCell = indexPath
+    }
+    
+    func didStartEditingField(_ field: FieldId, _ indexPath: IndexPath) {
+        switch field {
+        case .sivaCert:
+            currentlyEditingCell = indexPath
+            break
+        }
+    }
+    
+    func didEndEditingField(_ fieldId: SigningCategoryViewController.FieldId, with value: String) {
+        switch fieldId {
+        case .sivaCert:
+            DefaultsHelper.sivaUrl = value
+            break
+        default:
+            break
+        }
+        currentlyEditingCell = nil
+        UIAccessibility.post(notification: .screenChanged, argument: L(.settingsValueChanged))
+    }
+}
+
+extension SivaCertViewController: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         if !urls.isEmpty {
-            MoppFileManager.shared.saveFile(fileURL: urls[0], SettingsSivaCertCell.sivaFileFolder) { isSaved, savedFileURL in
+            MoppFileManager.shared.saveFile(fileURL: urls[0], SivaCertViewController.sivaFileFolder) { isSaved, savedFileURL in
                 
                 guard let savedFile = savedFileURL else {
                     printLog("Failed to get saved SiVa cert file")
@@ -296,32 +356,18 @@ extension SettingsSivaCertCell: UIDocumentPickerDelegate {
             }
         }
     }
-    
-    private func getViewController() -> UIViewController? {
-        guard let tvc = self.topViewController else {
-            printLog("Unable to get top view controller")
-            return nil
-        }
-        
-        return tvc
-    }
 }
 
-extension SettingsSivaCertCell: UITextFieldDelegate {
+extension SivaCertViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        var currentIndexPath = IndexPath(item: 1, section: 1)
-        if let tableView = superview as? UITableView {
-            if let indexPath = tableView.indexPath(for: self) {
-                let section = indexPath.section
-                let row = indexPath.row
-                currentIndexPath = IndexPath(row: row, section: section)
-            }
+        DispatchQueue.main.async {
+            textField.moveCursorToEnd()
         }
-        delegate.didStartEditingField(field.id, currentIndexPath)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        delegate.didEndEditingField(field.id, with: textField.text ?? String())
+        guard let text = textField.text else { return }
+        DefaultsHelper.sivaUrl = text
         UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: textField)
     }
     
@@ -332,6 +378,8 @@ extension SettingsSivaCertCell: UITextFieldDelegate {
             if string.isEmpty && (text.count <= 1) {
                 DefaultsHelper.sivaUrl = string
                 removeCertificate()
+
+                updateUI()
             }
             return true
         }
