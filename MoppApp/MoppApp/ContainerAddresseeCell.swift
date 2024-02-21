@@ -53,7 +53,10 @@ class ContainerAddresseeCell: UITableViewCell, AddresseeActions {
         nameLabel.text = determineName(addressee: addressee)
         infoLabel.text = determineInfo(addressee: addressee)
         
-        let preferredContentSizeCategory = UIApplication.shared.preferredContentSizeCategory
-        AccessibilityUtil.adjustSpacing(preferredContentSizeCategory: preferredContentSizeCategory, stackView: addresseeMainStackView)
+        if addresseeMainStackView != nil {
+            let preferredContentSizeCategory = UIApplication.shared.preferredContentSizeCategory
+            AccessibilityUtil.adjustSpacing(preferredContentSizeCategory: preferredContentSizeCategory, stackView: addresseeMainStackView)
+        }
+        
     }
 }
