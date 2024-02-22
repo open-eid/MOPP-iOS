@@ -25,6 +25,7 @@ import UIKit
 
 protocol SettingsCellDelegate: AnyObject {
     func didStartEditingField(_ field: SigningCategoryViewController.FieldId, _ indexPath: IndexPath)
+    func didStartEditingField(_ field: SigningCategoryViewController.FieldId, _ textField: UITextField)
     func didEndEditingField(_ field: SigningCategoryViewController.FieldId, with value: String)
 }
 

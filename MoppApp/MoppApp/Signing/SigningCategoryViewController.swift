@@ -47,6 +47,7 @@ class SigningCategoryViewController: MoppViewController {
         case useDefault
         case tsaCert
         case sivaCert
+        case proxy
     }
     
     struct Field {
@@ -58,6 +59,7 @@ class SigningCategoryViewController: MoppViewController {
             case defaultSwitch
             case tsaCert
             case sivaCert
+            case proxy
         }
         
         let id: FieldId
@@ -114,6 +116,12 @@ class SigningCategoryViewController: MoppViewController {
             kind: .sivaCert,
             title: L(.settingsSivaServiceTitle),
             placeholderText: NSAttributedString(string: L(.settingsSivaServiceTitle)),
+            value: ""),
+        Field(
+            id: .proxy,
+            kind: .proxy,
+            title: L(.settingsProxyTitle),
+            placeholderText: NSAttributedString(string: L(.settingsProxyTitle)),
             value: "")
     ]
     
@@ -139,7 +147,7 @@ class SigningCategoryViewController: MoppViewController {
     
     @objc func accessibilityElementFocused(_ notification: Notification) {
         let topViewController = getTopViewController()
-        if topViewController is SivaCertViewController { return }
+        if topViewController is SivaCertViewController || topViewController is ProxyViewController { return }
         if let element = notification.userInfo?[UIAccessibility.focusedElementUserInfoKey] as? UIView {
             let elementRect = element.convert(element.bounds, to: tableView)
             let offsetY = elementRect.midY - (tableView.frame.size.height / 4)
@@ -167,7 +175,7 @@ class SigningCategoryViewController: MoppViewController {
         
         if !isDefaultTimestampSettingsEnabled {
             
-            let classOrder = [SettingsDefaultValueCell.self, SettingsRoleAndAddressCell.self, SettingsFieldCell.self, SettingsTimeStampCell.self, SettingsTSACertCell.self, SivaCategoryCell.self, SettingsHeaderCell.self,  SettingsDefaultValueCell.self]
+            let classOrder = [SettingsDefaultValueCell.self, SettingsRoleAndAddressCell.self, SettingsFieldCell.self, SettingsTimeStampCell.self, SettingsTSACertCell.self, SivaCategoryCell.self, ProxyCategoryCell.self, SettingsHeaderCell.self,  SettingsDefaultValueCell.self]
             
             for className in classOrder {
                 for key in tableViewCells.keys.sorted() {
@@ -179,7 +187,7 @@ class SigningCategoryViewController: MoppViewController {
                 }
             }
         } else {
-            let accessibilityClassOrder = [SettingsDefaultValueCell.self, SettingsRoleAndAddressCell.self, SettingsFieldCell.self, SettingsTimeStampCell.self, SivaCategoryCell.self, SettingsHeaderCell.self, SettingsDefaultValueCell.self]
+            let accessibilityClassOrder = [SettingsDefaultValueCell.self, SettingsRoleAndAddressCell.self, SettingsFieldCell.self, SettingsTimeStampCell.self, SivaCategoryCell.self, ProxyCategoryCell.self, SettingsHeaderCell.self, SettingsDefaultValueCell.self]
             
             for className in accessibilityClassOrder {
                 for key in tableViewCells.keys.sorted() {
@@ -284,6 +292,12 @@ extension SigningCategoryViewController: UITableViewDelegate, UITableViewDataSou
                 sivaCertCell.populate()
                 tableViewCells[indexPath] = sivaCertCell
                 return sivaCertCell
+            case .proxy:
+                let proxyCell = tableView.dequeueReusableCell(withType: ProxyCategoryCell.self, for: indexPath)!
+                proxyCell.topViewController = getTopViewController()
+                proxyCell.populate()
+                tableViewCells[indexPath] = proxyCell
+                return proxyCell
             }
         }
         return UITableViewCell()
@@ -304,6 +318,10 @@ extension SigningCategoryViewController: SettingsHeaderCellDelegate {
 }
 
 extension SigningCategoryViewController: SettingsCellDelegate {
+    func didStartEditingField(_ field: FieldId, _ textField: UITextField) {
+        return
+    }
+    
     func didStartEditingField(_ field: FieldId, _ indexPath: IndexPath) {
         switch field {
         case .rpuuid:
@@ -343,7 +361,8 @@ extension SigningCategoryViewController: SettingsTimeStampCellDelegate {
             
             self?.errorAlertWithLink(message: MessageUtil.generateDetailedErrorMessage(error: nsError) ?? L(.genericErrorMessage))
             }, usingTestDigiDocService: useTestDDS, andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaurl,
-               withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration())
+               withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration(),
+               andProxyConfiguration: ManualProxy.getMoppLibProxyConfiguration())
     }
 }
 

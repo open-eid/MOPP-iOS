@@ -57,7 +57,10 @@ class SivaCertViewController: MoppViewController {
     @IBOutlet weak var issuedToLabel: ScaledLabel!
     @IBOutlet weak var validUntilLabel: ScaledLabel!
 
+    @IBOutlet weak var addCertificateView: UIView!
     @IBOutlet weak var addCertificateButton: ScaledLabel!
+
+    @IBOutlet weak var showCertificateView: UIView!
     @IBOutlet weak var showCertificateButton: ScaledLabel!
 
     @IBAction func dismissView(_ sender: ScaledButton) {
@@ -257,12 +260,16 @@ class SivaCertViewController: MoppViewController {
             self.addCertificateButton.isUserInteractionEnabled = true
             self.addCertificateButton.resetLabelProperties()
             
+            self.addCertificateView.accessibilityUserInputLabels = [L(.settingsTimestampCertAddCertificateButton)]
+            
             self.showCertificateButton.text = L(.settingsTimestampCertShowCertificateButton)
             self.showCertificateButton.accessibilityLabel = self.showCertificateButton.text?.lowercased()
             self.showCertificateButton.font = .moppMedium
             self.showCertificateButton.textColor = .systemBlue
             self.showCertificateButton.isUserInteractionEnabled = true
             self.showCertificateButton.resetLabelProperties()
+            
+            self.showCertificateView.accessibilityUserInputLabels = [L(.settingsTimestampCertShowCertificateButton)]
             
             if self.addCertificateButton.gestureRecognizers == nil || self.addCertificateButton.gestureRecognizers?.isEmpty == true {
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.addCertificate))
@@ -306,6 +313,8 @@ class SivaCertViewController: MoppViewController {
 }
 
 extension SivaCertViewController: SettingsCellDelegate {
+    func didStartEditingField(_ field: SigningCategoryViewController.FieldId, _ textField: UITextField) { return }
+    
     func didStartEditingField(_ field: SigningCategoryViewController.FieldId, _ indexPath: IndexPath) {
         currentlyEditingCell = indexPath
     }

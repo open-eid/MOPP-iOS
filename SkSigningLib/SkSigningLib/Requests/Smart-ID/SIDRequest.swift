@@ -31,7 +31,7 @@ protocol SIDRequestProtocol {
        - requestParameters: Parameters that are sent to the service. Uses SIDCertificateRequestParameters struct
        - completionHandler: On request success, callbacks Result<SIDSessionResponse, SigningError>
     */
-    func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void)
+    func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, trustedCertificates: [String]?, manualProxyConf: Proxy, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void)
 
     /**
     Gets signature info for Smart-ID.
@@ -42,7 +42,7 @@ protocol SIDRequestProtocol {
        - allowedInteractionsOrder: Interaction order.
        - completionHandler: On request success, callbacks Result<SIDSessionResponse, SigningError>
     */
-    func getSignature(baseUrl: String, documentNumber: String, allowedInteractionsOrder: SIDSignatureRequestParametersV2?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void)
+    func getSignature(baseUrl: String, documentNumber: String, allowedInteractionsOrder: SIDSignatureRequestParametersV2?, trustedCertificates: [String]?, manualProxyConf: Proxy, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void)
 
     /**
     Gets session status info for Smart-ID.
@@ -53,7 +53,7 @@ protocol SIDRequestProtocol {
        - timeoutMs: TimeoutMs parameter that is used in URL
        - completionHandler: On request success, callbacks Result<SIDSessionStatusResponse, SigningError>
     */
-    func getSessionStatus(baseUrl: String, sessionId: String, timeoutMs: Int?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionStatusResponse, SigningError>) -> Void)
+    func getSessionStatus(baseUrl: String, sessionId: String, timeoutMs: Int?, trustedCertificates: [String]?, manualProxyConf: Proxy, completionHandler: @escaping (Result<SIDSessionStatusResponse, SigningError>) -> Void)
 }
 
 /**
@@ -65,23 +65,23 @@ public class SIDRequest: NSObject, URLSessionDelegate, SIDRequestProtocol {
     private var trustedCerts: [String]?
     private weak var urlTask: URLSessionTask?
 
-    public func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void) {
+    public func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, trustedCertificates: [String]?, manualProxyConf: Proxy, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void) {
         let url = "\(baseUrl)/certificatechoice/etsi/PNO\(country)-\(nationalIdentityNumber)"
         guard UUID(uuidString: requestParameters.relyingPartyUUID) != nil else { completionHandler(.failure(.sidInvalidAccessRights)); return }
-        exec(method: "Certificate", url: url, data: EncoderDecoder().encode(data: requestParameters), trustedCertificates: trustedCertificates, completionHandler: completionHandler)
+        exec(method: "Certificate", url: url, data: EncoderDecoder().encode(data: requestParameters), trustedCertificates: trustedCertificates, manualProxyConf: manualProxyConf, completionHandler: completionHandler)
     }
     
-    public func getSignature(baseUrl: String, documentNumber: String, allowedInteractionsOrder: SIDSignatureRequestParametersV2?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void) {
+    public func getSignature(baseUrl: String, documentNumber: String, allowedInteractionsOrder: SIDSignatureRequestParametersV2?, trustedCertificates: [String]?, manualProxyConf: Proxy, completionHandler: @escaping (Result<SIDSessionResponse, SigningError>) -> Void) {
         let url = "\(baseUrl)/signature/document/\(documentNumber)"
-        exec(method: allowedInteractionsOrder?.relyingPartyName ?? "RIA.SmartID v2 - Signature", url: url, data: allowedInteractionsOrder?.asData, trustedCertificates: trustedCertificates, completionHandler: completionHandler)
+        exec(method: allowedInteractionsOrder?.relyingPartyName ?? "RIA.SmartID v2 - Signature", url: url, data: allowedInteractionsOrder?.asData, trustedCertificates: trustedCertificates, manualProxyConf: manualProxyConf, completionHandler: completionHandler)
     }
 
-    public func getSessionStatus(baseUrl: String, sessionId: String, timeoutMs: Int?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionStatusResponse, SigningError>) -> Void) {
+    public func getSessionStatus(baseUrl: String, sessionId: String, timeoutMs: Int?, trustedCertificates: [String]?, manualProxyConf: Proxy, completionHandler: @escaping (Result<SIDSessionStatusResponse, SigningError>) -> Void) {
         let url = "\(baseUrl)/session/\(sessionId)?timeoutMs=\(timeoutMs ?? Constants.defaultTimeoutMs)"
-        exec(method: "Session", url: url, data: nil, trustedCertificates: trustedCertificates, completionHandler: completionHandler)
+        exec(method: "Session", url: url, data: nil, trustedCertificates: trustedCertificates, manualProxyConf: manualProxyConf, completionHandler: completionHandler)
     }
 
-    private func exec<D: Decodable>(method: String, url: String, data: Data?, trustedCertificates: [String]?, completionHandler: @escaping (Result<D, SigningError>) -> Void) {
+    private func exec<D: Decodable>(method: String, url: String, data: Data?, trustedCertificates: [String]?, manualProxyConf: Proxy, completionHandler: @escaping (Result<D, SigningError>) -> Void) {
         guard let _url = URL(string: url) else {
             Logging.errorLog(forMethod: "RIA.SmartID - \(method)", httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(url)")
             return completionHandler(.failure(.invalidURL))
@@ -98,7 +98,7 @@ public class SIDRequest: NSObject, URLSessionDelegate, SIDRequestProtocol {
         )
 
         trustedCerts = trustedCertificates
-        let config = URLSessionConfiguration.default
+        var config = URLSessionConfiguration.default
         config.requestCachePolicy = .reloadIgnoringLocalCacheData
         config.urlCache = nil
 

@@ -382,6 +382,14 @@
 "settings-timestamp-cert-add-certificate-button" = "ДОБАВИТЬ СЕРТИФИКАТ";
 "settings-timestamp-cert-show-certificate-button" = "ПОКАЗАТЬ СЕРТИФИКАТ";
 "settings-siva-service-title" = "Доступ к услуге валидации SiVa";
+"settings-proxy-title" = "Прокси";
+"settings-proxy-no-proxy" = "Прокси не используется";
+"settings-proxy-use-system" = "Использовать системные настройки прокси";
+"settings-proxy-use-manual" = "Настроить прокси вручную";
+"settings-proxy-host" = "Хост";
+"settings-proxy-port" = "Порт";
+"settings-proxy-username" = "Имя пользователя";
+"settings-proxy-password" = "Пароль";
 "settings-siva-default-access-title" = "Использовать доступ, назначенный по умолчанию";
 "settings-siva-default-manual-access-title" = "Использовать доступ, назначенный вручную";
 "settings-siva-default-certificate-title" = "Сертификат услуги валидации SiVa SSL";
@@ -539,6 +547,7 @@
 "voice-control-role-country" = "Country";
 "voice-control-role-zip" = "Zip";
 "voice-control-role-and-address" = "Role and address";
+"voice-control-siva-category" = "Access to Siva";
 "voice-control-siva-service" = "Edit Validation service";
 "voice-control-siva-default-access" = "Default validation access";
 "voice-control-siva-manual-access" = "Manual validation access";
@@ -552,3 +561,11 @@
 "voice-control-settings-button" = "Settings";
 "voice-control-info-button" = "Info";
 "voice-control-diagnostics-button" = "Diagnostics";
+"voice-control-no-proxy" = "No proxy";
+"voice-control-proxy-system" = "Use system proxy";
+"voice-control-proxy-manual" = "Use manual proxy";
+"voice-control-proxy-host" = "Edit proxy host";
+"voice-control-proxy-port" = "Edit proxy port";
+"voice-control-proxy-username" = "Edit proxy username";
+"voice-control-proxy-password" = "Edit proxy password";
+"voice-control-proxy-disallow-ssl" = "Disable proxy for SSL connections";

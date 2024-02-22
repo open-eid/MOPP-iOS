@@ -24,6 +24,7 @@
 import Foundation
 import FirebaseCrashlytics
 import Firebase
+import SkSigningLib
 
 class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
 
@@ -104,6 +105,11 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(false)
         
         DefaultsHelper.setDefaultKeys()
+        
+        if DefaultsHelper.firstStart {
+            DefaultsHelper.firstStart = false
+            KeychainUtil.remove(key: proxyPasswordKey)
+        }
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
@@ -444,7 +450,9 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
 
     func handleEventsForBackgroundURLSession(identifier: String, completionHandler: @escaping () -> Void) {
         downloadCompletion = completionHandler
-        let conf = URLSessionConfiguration.background(withIdentifier: identifier)
+        let manualProxyConf = ManualProxy.getManualProxyConfiguration()
+        var conf = URLSessionConfiguration.background(withIdentifier: identifier)
+        ProxyUtil.configureURLSessionWithProxy(urlSessionConfiguration: &conf, manualProxyConf: manualProxyConf)
         let session = URLSession(configuration: conf, delegate: self, delegateQueue: nil)
         session.getTasksWithCompletionHandler({(_ dataTasks: [URLSessionDataTask], _ uploadTasks: [URLSessionUploadTask], _ downloadTasks: [URLSessionDownloadTask]) -> Void in
         })

@@ -43,6 +43,7 @@
  */
 
 import Foundation
+import SkSigningLib
 
 class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate {
 
@@ -217,21 +218,26 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
 
     private func fetchDataFromCentralConfiguration(fromUrl: String, completionHandler: @escaping (String?, Error?) -> Void) -> Void {
         guard let url = URL(string: fromUrl) else { return }
-
-        let urlSessionConfiguration: URLSessionConfiguration = URLSessionConfiguration.default
+        
+        let manualProxyConf = ManualProxy.getManualProxyConfiguration()
+        
+        var urlSessionConfiguration = URLSessionConfiguration.default
+        ProxyUtil.configureURLSessionWithProxy(urlSessionConfiguration: &urlSessionConfiguration, manualProxyConf: manualProxyConf)
         urlSessionConfiguration.timeoutIntervalForResource = 5.0
         urlSessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+
         let urlSession = URLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
         
         let userAgent = MoppLibManager.sharedInstance().userAgent()
         
         var request = URLRequest(url: url)
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
+        ProxyUtil.setProxyAuthorizationHeader(request: &request, urlSessionConfiguration: urlSessionConfiguration, manualProxyConf: manualProxyConf)
 
         let task = urlSession.dataTask(with: request, completionHandler: { data, response, error in
             
             if let err = error as? NSError {
-                if err.code == -1009 {
+                if err.code == -1009 || err.code == -1003 || err.code == 310 {
                     completionHandler(nil, DiagnosticError.noInternetConnection)
                 } else {
                     completionHandler(nil, err)
@@ -338,7 +344,8 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             printLog("Failed to reload DigiDocConf")
             fatalError("Failed to reload DigiDocConf")
         }, usingTestDigiDocService: useTestDDS, andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaurl,
-           withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration())
+           withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration(),
+           andProxyConfiguration: ManualProxy.getMoppLibProxyConfiguration())
     }
     
     
