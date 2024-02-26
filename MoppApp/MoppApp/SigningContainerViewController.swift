@@ -128,6 +128,10 @@ extension SigningContainerViewController : SigningContainerViewControllerDelegat
         }
         return container.isSignable()
     }
+    
+    func isCades() -> Bool {
+        return SignatureUtil.isCades(signatures: container.signatures)
+    }
 }
 
 extension SigningContainerViewController : ContainerViewControllerDelegate {

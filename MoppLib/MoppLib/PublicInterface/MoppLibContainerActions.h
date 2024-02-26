@@ -41,6 +41,15 @@
 - (void)openContainerWithPath:(NSString *)containerPath success:(ContainerBlock)success failure:(FailureBlock)failure;
 
 /**
+ * Opens container at specified path.
+ *
+ * @param containerPath         Path to container.
+ * @return MoppLibContainer      Successful completion of action. Includes container data as MoppLibContainer.
+ * @param error                          Error when opening container.
+ */
+- (MoppLibContainer *)openContainerWithPath:(NSString *)containerPath error:(NSError **)error;
+
+/**
  * Creates container on specified path.
  *
  * @param containerPath    Path where container is created. Must include container name and extension. Supported extensions are .bdoc and .asice

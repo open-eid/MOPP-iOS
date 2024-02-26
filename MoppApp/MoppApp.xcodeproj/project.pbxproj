@@ -227,6 +227,7 @@
 		DFC2ADC329437790008A1CD2 /* Accessibility.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFC2ADC129437790008A1CD2 /* Accessibility.storyboard */; };
 		DFC2ADC6294377AC008A1CD2 /* AccessibilityViewTextType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC2ADC5294377AC008A1CD2 /* AccessibilityViewTextType.swift */; };
 		DFC2ADC8294377BF008A1CD2 /* PersonalCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC2ADC7294377BF008A1CD2 /* PersonalCodeValidator.swift */; };
+		DFCFADD62B682193007F556A /* SignatureUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCFADD52B682193007F556A /* SignatureUtil.swift */; };
 		DFD176CB23F1B78000E2CC52 /* MimeTypeDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176CA23F1B78000E2CC52 /* MimeTypeDecoder.swift */; };
 		DFD176D423F427AD00E2CC52 /* TSLVersionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176D223F427AD00E2CC52 /* TSLVersionChecker.swift */; };
 		DFD176D523F427AD00E2CC52 /* TSLUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176D323F427AD00E2CC52 /* TSLUpdater.swift */; };
@@ -564,6 +565,7 @@
 		DFC2ADC129437790008A1CD2 /* Accessibility.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Accessibility.storyboard; sourceTree = "<group>"; };
 		DFC2ADC5294377AC008A1CD2 /* AccessibilityViewTextType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityViewTextType.swift; sourceTree = "<group>"; };
 		DFC2ADC7294377BF008A1CD2 /* PersonalCodeValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalCodeValidator.swift; sourceTree = "<group>"; };
+		DFCFADD52B682193007F556A /* SignatureUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureUtil.swift; sourceTree = "<group>"; };
 		DFD176CA23F1B78000E2CC52 /* MimeTypeDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypeDecoder.swift; sourceTree = "<group>"; };
 		DFD176D223F427AD00E2CC52 /* TSLVersionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLVersionChecker.swift; sourceTree = "<group>"; };
 		DFD176D323F427AD00E2CC52 /* TSLUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLUpdater.swift; sourceTree = "<group>"; };
@@ -1195,6 +1197,7 @@
 				DF39505F2AD766DF005D96AC /* KeychainUtil.swift */,
 				DF7936332AE98AAD00441B41 /* AccessibilityUtil.swift */,
 				DFD54CF629D1CBAF00CD92C7 /* CertUtil.swift */,
+				DFCFADD52B682193007F556A /* SignatureUtil.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1692,6 +1695,7 @@
 				C593D9F4208F3526000B3BF6 /* SettingsChoiceView.swift in Sources */,
 				C5CF5EEC2017E4CC008FBBD6 /* FileImportProgressViewController.swift in Sources */,
 				C5D057042024B5B700875F44 /* MoppModalViewController.swift in Sources */,
+				DFCFADD62B682193007F556A /* SignatureUtil.swift in Sources */,
 				C5FA0BEE20A19E4200A208E5 /* JailbreakViewController.swift in Sources */,
 				C50DCD111FC82F9E00D48E16 /* UINib+Additions.swift in Sources */,
 				DF7936342AE98AAD00441B41 /* AccessibilityUtil.swift in Sources */,

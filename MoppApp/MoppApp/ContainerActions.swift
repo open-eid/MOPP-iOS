@@ -36,15 +36,7 @@ extension ContainerActions where Self: UIViewController {
 
         landingViewController.documentPicker.dismiss(animated: false, completion: nil)
 
-        if landingViewController.fileImportIntent == .openOrCreate && landingViewController.containerType == .asic && urls.count == 1 && SiVaUtil.isDocumentSentToSiVa(fileUrl: urls.first) {
-            SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
-                if (urls.first?.pathExtension == "ddoc" || urls.first?.pathExtension == "pdf") && !hasAgreed {
-                    return
-                }
-                self.importDataFiles(with: urls, navController: navController, topSigningViewController: topSigningViewController, landingViewController: landingViewController, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: hasAgreed)
-            }
-            return
-        } else {
+        if landingViewController.fileImportIntent == .openOrCreate && landingViewController.containerType == .asic && urls.count == 1 {
             self.importDataFiles(with: urls, navController: navController, topSigningViewController: topSigningViewController, landingViewController: landingViewController, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: true)
         }
     }
@@ -91,7 +83,7 @@ extension ContainerActions where Self: UIViewController {
                     landingViewController.containerType == .asic
                 let isCdocContainer = ext.isCdocContainerExtension && landingViewController.containerType == .cdoc
                 if  (isAsicOrPadesContainer || isCdocContainer) && urls.count == 1 {
-                    if urls.first?.pathExtension == "asics" || urls.first?.pathExtension == "scs" {
+                    if (urls.first?.pathExtension == "asics" || urls.first?.pathExtension == "scs") || SignatureUtil.isCades(signatures: SignatureUtil.getSignatures(filePath: urls.first!)) {
                         if self?.getTopViewController() is FileImportProgressViewController {
                             self?.dismiss(animated: true, completion: {
                                 SiVaUtil.displaySendingToSiVaDialog { hasAgreed in

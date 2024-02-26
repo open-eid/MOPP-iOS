@@ -111,7 +111,7 @@
 "crashlytics-action-do-not-send" = "Don’t send";
 
 // SiVa consent
-"siva-send-message" = "Signed document in PDF and DDOC format will be transmitted to the Digital Signature Validation Service SiVa to verify the validity of the digital signature. Read more information about transmitted data to Digital Signature Validation service from id.ee website.\n Do you want to continue? https://www.id.ee/en/article/data-protection-conditions-for-the-id-software-of-the-national-information-system-authority/";
+"siva-send-message" = "This type of signed document will be transmitted to the Digital Signature Validation Service SiVa to verify the validity of the digital signature. Read more information about transmitted data to Digital Signature Validation Service on the id.ee website.\n Do you want to continue? https://www.id.ee/en/article/data-protection-conditions-for-the-id-software-of-the-national-information-system-authority/";
 
 // *** Actions ***
 "action-ok" = "OK";
@@ -162,6 +162,7 @@
 "container-error-message-invalid-signatures" = "%d INVALID SIGNATURES";
 "container-error-message-unknown-signature" = "1 UNKNOWN SIGNATURE";
 "container-error-message-unknown-signatures" = "%d UNKNOWN SIGNATURES";
+"container-error-message-cades" = "This container contains CAdES signature. You are not allowed to add or remove signatures to this container.";
 "container-signature-signed" = "Signed %@";
 "container-missing-signatures" = "Container is not signed";
 "container-missing-addressees" = "Recipients are missing";
