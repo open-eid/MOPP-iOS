@@ -199,7 +199,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
         SaveableContainer(signingContainerPath: saveFileFromContainerPath ?? "").saveDataFile(name: name, completionHandler: { [weak self] tempSavedFileLocation, isSuccess in
             if isSuccess && !tempSavedFileLocation.isEmpty {
                 // Show file save location picker
-                let pickerController = UIDocumentPickerViewController(url: URL(fileURLWithPath: tempSavedFileLocation), in: .exportToService)
+                let pickerController = UIDocumentPickerViewController(forExporting: [URL(fileURLWithPath: tempSavedFileLocation)], asCopy: true)
                 pickerController.delegate = self
                 self?.present(pickerController, animated: true) {
                     printLog("Showing file saving location picker")
@@ -291,6 +291,8 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                 if !DefaultsHelper.hideShareContainerDialog {
                     strongSelf.displayShareContainerDialog()
                 }
+                
+                MoppFileManager.removeFiles()
             }
             
             strongSelf.sections = ContainerViewController.sectionsDefault

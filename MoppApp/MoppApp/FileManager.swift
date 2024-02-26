@@ -489,6 +489,7 @@ class MoppFileManager {
     static func removeFiles() {
         MoppFileManager.shared.removeTempSavedFilesInCache(folderName: "Saved Files")
         MoppFileManager.shared.removeTempSavedFilesInCache(folderName: "Downloads")
+        MoppFileManager.shared.removeTempSavedFilesInCache(folderName: "temp")
         MoppFileManager.shared.removeFilesFromSharedFolder()
     }
 }

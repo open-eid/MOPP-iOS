@@ -21,9 +21,7 @@
  *
  */
 
-import Foundation
 import UIKit
-
 
 class CryptoViewController : MoppViewController {
     
@@ -90,5 +88,10 @@ class CryptoViewController : MoppViewController {
             recentContainersViewController.modalPresentationStyle = .overFullScreen
             MoppApp.instance.rootViewController?.present(recentContainersViewController, animated: true, completion: nil)
         })
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        printLog("Deinit CryptoViewController")
     }
 }

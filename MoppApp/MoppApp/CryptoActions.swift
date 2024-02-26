@@ -53,6 +53,7 @@ extension CryptoActions where Self: CryptoContainerViewController {
                             self.displayShareContainerDialog()
                         }
                     }
+                    MoppFileManager.removeFiles()
                     
             },
                 failure: { _ in
