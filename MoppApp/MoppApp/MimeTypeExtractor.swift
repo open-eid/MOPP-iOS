@@ -53,8 +53,6 @@ class MimeTypeExtractor {
     
     public static func getMimeTypeFromContainer(filePath: URL) -> String {
         
-        let isCades = isCadesContainer(filePath: filePath)
-        
         var mimetype: String = ""
         
         if isZipFile(filePath: filePath) {
