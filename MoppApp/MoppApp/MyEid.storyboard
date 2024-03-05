@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qFP-og-5IC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qFP-og-5IC">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -41,10 +41,10 @@
                         <viewLayoutGuide key="safeArea" id="gDH-iG-P6G"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="YJf-b7-e3W" firstAttribute="trailing" secondItem="gDH-iG-P6G" secondAttribute="trailing" id="DSY-US-Ayc"/>
-                            <constraint firstItem="YJf-b7-e3W" firstAttribute="top" secondItem="gDH-iG-P6G" secondAttribute="top" id="R8F-v6-OeP"/>
-                            <constraint firstItem="YJf-b7-e3W" firstAttribute="leading" secondItem="gDH-iG-P6G" secondAttribute="leading" id="lKw-Qz-gs4"/>
-                            <constraint firstItem="YJf-b7-e3W" firstAttribute="bottom" secondItem="gDH-iG-P6G" secondAttribute="bottom" id="qRH-fU-mJ9"/>
+                            <constraint firstItem="YJf-b7-e3W" firstAttribute="leading" secondItem="gDH-iG-P6G" secondAttribute="leading" id="1II-ZK-eZS"/>
+                            <constraint firstItem="YJf-b7-e3W" firstAttribute="top" secondItem="gDH-iG-P6G" secondAttribute="top" id="5tj-hw-5QF"/>
+                            <constraint firstItem="YJf-b7-e3W" firstAttribute="bottom" secondItem="gDH-iG-P6G" secondAttribute="bottom" id="WoC-td-U2X"/>
+                            <constraint firstItem="YJf-b7-e3W" firstAttribute="trailing" secondItem="gDH-iG-P6G" secondAttribute="trailing" id="XcQ-tg-15u"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="My eID" id="e1F-xa-Cc8">
@@ -73,10 +73,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="Qrp-ZX-mtd">
-                                <rect key="frame" x="32" y="333.5" width="311" height="0.0"/>
+                                <rect key="frame" x="16" y="25" width="343" height="617"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwG-59-c68" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="155.5" y="0.0" width="0.0" height="0.0"/>
+                                        <rect key="frame" x="171.5" y="0.0" width="0.0" height="617"/>
                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -87,10 +87,10 @@
                         <viewLayoutGuide key="safeArea" id="DqR-NQ-ADW"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Qrp-ZX-mtd" firstAttribute="leading" secondItem="9cX-nZ-t1m" secondAttribute="leading" constant="32" id="XcQ-aq-d1l"/>
-                            <constraint firstItem="Qrp-ZX-mtd" firstAttribute="centerY" secondItem="9cX-nZ-t1m" secondAttribute="centerY" id="mDR-8o-2yO"/>
-                            <constraint firstItem="Qrp-ZX-mtd" firstAttribute="centerX" secondItem="9cX-nZ-t1m" secondAttribute="centerX" id="pxD-hr-FW1"/>
-                            <constraint firstAttribute="trailing" secondItem="Qrp-ZX-mtd" secondAttribute="trailing" constant="32" id="zNC-MK-Uxj"/>
+                            <constraint firstAttribute="trailing" secondItem="Qrp-ZX-mtd" secondAttribute="trailing" constant="16" id="ASj-5k-e8A"/>
+                            <constraint firstItem="Qrp-ZX-mtd" firstAttribute="leading" secondItem="9cX-nZ-t1m" secondAttribute="leading" constant="16" id="Elo-cB-Fxt"/>
+                            <constraint firstItem="Qrp-ZX-mtd" firstAttribute="top" secondItem="9cX-nZ-t1m" secondAttribute="top" constant="25" id="L9Y-2q-lHw"/>
+                            <constraint firstAttribute="bottom" secondItem="Qrp-ZX-mtd" secondAttribute="bottom" constant="25" id="MXc-vA-zNR"/>
                         </constraints>
                     </view>
                     <connections>

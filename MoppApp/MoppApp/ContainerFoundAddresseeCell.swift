@@ -70,5 +70,8 @@ class ContainerFoundAddresseeCell: UITableViewCell, AddresseeActions {
             addButton.accessibilityUserInputLabels = ["\(L(.cryptoAddAddresseeButtonTitleAccessibility).lowercased()) \(index + 1)"]
             addButton.tintColor = UIColor.moppBase
         }        
+        
+        let preferredContentSizeCategory = UIApplication.shared.preferredContentSizeCategory
+        AccessibilityUtil.adjustSpacing(preferredContentSizeCategory: preferredContentSizeCategory, stackView: addresseeMainStackView)
     }
 }

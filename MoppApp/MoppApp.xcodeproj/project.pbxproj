@@ -193,6 +193,7 @@
 		DF57DCCC2B02AFB700ABCBF3 /* SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF57DCCB2B02AFB700ABCBF3 /* SwitchButton.swift */; };
 		DF5BE6D229C8AE5200331609 /* SignatureWarningsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5BE6D129C8AE5200331609 /* SignatureWarningsCell.swift */; };
 		DF5BE6D429C8BD5600331609 /* WarningDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5BE6D329C8BD5600331609 /* WarningDetail.swift */; };
+		DF61BABA2B6D080D00D919CE /* App_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DF61BAB92B6D080D00D919CE /* App_logo.png */; };
 		DF6299122664FEFE00E6C55E /* UrlSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */; };
 		DF7936342AE98AAD00441B41 /* AccessibilityUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7936332AE98AAD00441B41 /* AccessibilityUtil.swift */; };
 		DF7F611926399B5400747B7D /* ContainerRemovalActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */; };
@@ -530,6 +531,8 @@
 		DF57DCCB2B02AFB700ABCBF3 /* SwitchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchButton.swift; sourceTree = "<group>"; };
 		DF5BE6D129C8AE5200331609 /* SignatureWarningsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureWarningsCell.swift; sourceTree = "<group>"; };
 		DF5BE6D329C8BD5600331609 /* WarningDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningDetail.swift; sourceTree = "<group>"; };
+		DF61BAB72B6D078F00D919CE /* App_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = App_logo.png; path = MoppApp/Assets.xcassets/App_logo.imageset/App_logo.png; sourceTree = "<group>"; };
+		DF61BAB92B6D080D00D919CE /* App_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = App_logo.png; path = MoppApp/App_logo.png; sourceTree = "<group>"; };
 		DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSchemeHandler.swift; sourceTree = "<group>"; };
 		DF7936332AE98AAD00441B41 /* AccessibilityUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityUtil.swift; sourceTree = "<group>"; };
 		DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerRemovalActions.swift; sourceTree = "<group>"; };
@@ -542,6 +545,7 @@
 		DFA56CF32AF009E5007D7F7E /* RadioButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RadioButton.xib; sourceTree = "<group>"; };
 		DFA58218264AAB6500564971 /* digidoc_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_76.png; sourceTree = "<group>"; };
 		DFA58219264AAB6600564971 /* digidoc_1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = digidoc_1024.png; sourceTree = "<group>"; };
+		DFA636552B6D06DE00C23747 /* MoppIcon-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MoppIcon-1024.png"; sourceTree = "<group>"; };
 		DFAFD38529E8794200377EF5 /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
 		DFB1A491283FB9AF000B578D /* CertificateDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateDetailViewController.swift; sourceTree = "<group>"; };
 		DFB1D5EA2ACAFE1B00FDC7B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1056,6 +1060,9 @@
 			isa = PBXGroup;
 			children = (
 				DFB1D5EA2ACAFE1B00FDC7B8 /* GoogleService-Info.plist */,
+				DF61BAB72B6D078F00D919CE /* App_logo.png */,
+				DF61BAB92B6D080D00D919CE /* App_logo.png */,
+				DFA636552B6D06DE00C23747 /* MoppIcon-1024.png */,
 				DFF3C3B92332355C0079458A /* config.json */,
 				DFF3C3BB2332355D0079458A /* defaultConfiguration.json */,
 				DFF3C3B82332355C0079458A /* publicKey.pub */,
@@ -1393,6 +1400,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF61BABA2B6D080D00D919CE /* App_logo.png in Resources */,
 				39CDA7EA20ADBCEC006E2E9F /* Crypto.storyboard in Resources */,
 				E4C53F381E2FAE6C00F209BE /* presentation.pdf in Resources */,
 				C50DCCED1FC5741900D48E16 /* RobotoCondensed-Bold.ttf in Resources */,

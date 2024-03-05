@@ -1372,11 +1372,11 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconCryptoSelected" translatesAutoresizingMaskIntoConstraints="NO" id="kGJ-Wd-I4U">
                                                     <rect key="frame" x="16" y="0.0" width="22" height="55"/>
                                                 </imageView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="-150" translatesAutoresizingMaskIntoConstraints="NO" id="vfZ-eu-bMz">
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="vfZ-eu-bMz">
                                                     <rect key="frame" x="54" y="8" width="597" height="38"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="5Wl-Lw-S0l">
-                                                            <rect key="frame" x="0.0" y="0.0" width="373.5" height="38"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="298.5" height="38"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" text="MARI MAASIKAS,9800984323" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OwN-Y6-Aj6" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="231.5" height="20"/>
@@ -1393,10 +1393,10 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="b0v-KZ-tro">
-                                                            <rect key="frame" x="223.5" y="0.0" width="373.5" height="38"/>
+                                                            <rect key="frame" x="298.5" y="0.0" width="298.5" height="38"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhU-k0-Tv1" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="330.5" y="0.0" width="43" height="38"/>
+                                                                    <rect key="frame" x="255.5" y="0.0" width="43" height="38"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <state key="normal" title="Added"/>
                                                                     <connections>
@@ -1481,12 +1481,13 @@
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7Mx-Kc-icc">
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="7Mx-Kc-icc">
                                                             <rect key="frame" x="553" y="0.0" width="44" height="44"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xNB-Fp-5xD">
                                                                     <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                                                                     <constraints>
+                                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="7UP-sG-o1e"/>
                                                                         <constraint firstAttribute="width" constant="44" id="jJi-oT-LuO"/>
                                                                     </constraints>
                                                                     <state key="normal" image="icon_remove-1"/>
@@ -1495,6 +1496,10 @@
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="8HW-ts-dSN"/>
+                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="BGH-EA-NOk"/>
+                                                            </constraints>
                                                         </stackView>
                                                     </subviews>
                                                 </stackView>
@@ -1527,22 +1532,39 @@
                                             <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gK4-Li-RvO" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                                    <rect key="frame" x="287" y="5" width="93" height="34.5"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" title="ADD ALL"/>
-                                                    <connections>
-                                                        <action selector="addAllRecipients:" destination="nlh-ij-xq6" eventType="touchUpInside" id="xU8-Zo-0gM"/>
-                                                    </connections>
-                                                </button>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYD-Go-qae">
+                                                    <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add All" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HWI-ad-ogf" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" systemColor="linkColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="HWI-ad-ogf" secondAttribute="trailing" id="AE6-eI-lkK"/>
+                                                        <constraint firstItem="HWI-ad-ogf" firstAttribute="centerY" secondItem="HYD-Go-qae" secondAttribute="centerY" id="Pbi-mn-cYS"/>
+                                                        <constraint firstItem="HWI-ad-ogf" firstAttribute="centerX" secondItem="HYD-Go-qae" secondAttribute="centerX" id="Tcy-aH-2ms"/>
+                                                        <constraint firstItem="HWI-ad-ogf" firstAttribute="leading" secondItem="HYD-Go-qae" secondAttribute="leading" id="Wnr-y5-UJc"/>
+                                                        <constraint firstItem="HWI-ad-ogf" firstAttribute="top" secondItem="HYD-Go-qae" secondAttribute="top" id="jR7-CZ-97e"/>
+                                                        <constraint firstAttribute="bottom" secondItem="HWI-ad-ogf" secondAttribute="bottom" id="qDo-S4-QQ8"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="gK4-Li-RvO" firstAttribute="centerX" secondItem="Izh-zE-ZeK" secondAttribute="centerX" id="feJ-DF-T6E"/>
-                                                <constraint firstItem="gK4-Li-RvO" firstAttribute="centerY" secondItem="Izh-zE-ZeK" secondAttribute="centerY" id="kz7-EE-xQv"/>
+                                                <constraint firstItem="HYD-Go-qae" firstAttribute="top" secondItem="Izh-zE-ZeK" secondAttribute="top" id="HKc-Ol-w5H"/>
+                                                <constraint firstAttribute="trailing" secondItem="HYD-Go-qae" secondAttribute="trailing" id="MNj-1f-RA7"/>
+                                                <constraint firstItem="HYD-Go-qae" firstAttribute="centerX" secondItem="Izh-zE-ZeK" secondAttribute="centerX" id="Pgh-KD-wDO"/>
+                                                <constraint firstAttribute="bottom" secondItem="HYD-Go-qae" secondAttribute="bottom" id="bAQ-3S-Z67"/>
+                                                <constraint firstItem="HYD-Go-qae" firstAttribute="centerY" secondItem="Izh-zE-ZeK" secondAttribute="centerY" id="gXT-Eg-UeW"/>
+                                                <constraint firstItem="HYD-Go-qae" firstAttribute="leading" secondItem="Izh-zE-ZeK" secondAttribute="leading" id="iX2-XZ-dbW"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="addAllButton" destination="gK4-Li-RvO" id="1A4-h2-MX1"/>
+                                            <outlet property="addAllButton" destination="HWI-ad-ogf" id="Pg6-dL-YuC"/>
+                                            <outlet property="addAllButtonView" destination="HYD-Go-qae" id="boE-qH-sGj"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

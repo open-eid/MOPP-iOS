@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Qw4-LB-K7D">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Qw4-LB-K7D">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -17,96 +18,6 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Crypto-->
-        <scene sceneID="6Xi-t3-5p4">
-            <objects>
-                <viewController id="J3s-km-sWX" customClass="CryptoViewController" customModule="MoppApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="WzN-Kf-XwL">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="uDB-FM-1cx">
-                                <rect key="frame" x="16" y="350.33333333333331" width="361" height="151.33333333333331"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose file to crypt to decrypt" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="6" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="248-ll-0AR" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="361" height="23.333333333333332"/>
-                                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="TYv-AQ-7tk" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="39.333333333333371" width="361" height="48"/>
-                                        <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="Du1-Ls-jbq"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
-                                        <state key="normal">
-                                            <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="importFilesAction" destination="J3s-km-sWX" eventType="touchUpInside" id="ftB-Oq-ago"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="xLG-q7-cRp" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="103.33333333333337" width="361" height="48"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="M0z-wZ-GeC"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
-                                        <state key="normal">
-                                            <color key="titleColor" name="MoppBase"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="openRecentDocuments:" destination="J3s-km-sWX" eventType="touchUpInside" id="ze8-qj-D2C"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="248-ll-0AR" firstAttribute="leading" secondItem="uDB-FM-1cx" secondAttribute="leading" id="3iM-EW-3ho"/>
-                                    <constraint firstItem="248-ll-0AR" firstAttribute="top" secondItem="uDB-FM-1cx" secondAttribute="top" id="FoL-iJ-jlq"/>
-                                    <constraint firstAttribute="trailing" secondItem="248-ll-0AR" secondAttribute="trailing" id="fZj-5p-BLw"/>
-                                </constraints>
-                            </stackView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="V6M-eL-nsZ"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="uDB-FM-1cx" firstAttribute="centerY" secondItem="WzN-Kf-XwL" secondAttribute="centerY" id="6gi-0d-WCn"/>
-                            <constraint firstItem="uDB-FM-1cx" firstAttribute="leading" secondItem="V6M-eL-nsZ" secondAttribute="leading" constant="16" id="763-Iq-ctT"/>
-                            <constraint firstItem="uDB-FM-1cx" firstAttribute="centerX" secondItem="WzN-Kf-XwL" secondAttribute="centerX" id="UPH-UG-Hpe"/>
-                            <constraint firstItem="V6M-eL-nsZ" firstAttribute="trailing" secondItem="uDB-FM-1cx" secondAttribute="trailing" constant="16" id="y0r-6g-fMJ"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Crypto" id="EbM-OP-n9X">
-                        <barButtonItem key="rightBarButtonItem" image="VerticalDotsMenu" style="plain" id="tpl-LF-OAz">
-                            <color key="tintColor" red="0.21176470589999999" green="0.2156862745" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="menuActivationSelector" destination="J3s-km-sWX" id="rQD-fk-Sl3"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="importButton" destination="TYv-AQ-7tk" id="li8-vM-Ml1"/>
-                        <outlet property="menuButton" destination="tpl-LF-OAz" id="tUt-JL-8w7"/>
-                        <outlet property="recentDocumentsButton" destination="xLG-q7-cRp" id="6xm-3h-6tL"/>
-                        <outlet property="titleLabel" destination="248-ll-0AR" id="xmp-Ew-abB"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JnN-8c-FMV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="751" y="82"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="S2r-JZ-Zv7">
             <objects>
@@ -118,12 +29,136 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="J3s-km-sWX" kind="relationship" relationship="rootViewController" id="ffz-iN-T44"/>
+                        <segue destination="oNF-I3-ATW" kind="relationship" relationship="rootViewController" id="DOs-Hx-MhM"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pk6-Wn-AxK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-153" y="83"/>
+        </scene>
+        <!--Crypto-->
+        <scene sceneID="ynN-3b-piU">
+            <objects>
+                <viewController id="oNF-I3-ATW" userLabel="Crypto" customClass="CryptoViewController" customModule="MoppApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DqE-zD-TIH"/>
+                        <viewControllerLayoutGuide type="bottom" id="BRg-w3-rHf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mOz-iz-hGo">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rx0-cf-C7K">
+                                <rect key="frame" x="0.0" y="111" width="393" height="707"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Pp-j6-Aeu" userLabel="ContentView">
+                                        <rect key="frame" x="0.0" y="-8" width="393" height="723"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="uDB-FM-1cx">
+                                                <rect key="frame" x="16" y="282" width="361" height="151.33333333333337"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose file to crypt to decrypt" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="248-ll-0AR" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="361" height="23.333333333333332"/>
+                                                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="20"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="TYv-AQ-7tk" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="39.333333333333314" width="361" height="48"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="48" id="IY5-vm-grm"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
+                                                        <state key="normal">
+                                                            <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="importFilesAction" destination="oNF-I3-ATW" eventType="touchUpInside" id="5N8-d8-Yrd"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="xLG-q7-cRp" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="103.33333333333331" width="361" height="48"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="48" id="dVW-qF-v5C"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
+                                                        <state key="normal">
+                                                            <color key="titleColor" name="MoppBase"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="openRecentDocuments:" destination="oNF-I3-ATW" eventType="touchUpInside" id="NZ2-pL-Eoi"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="uDB-FM-1cx" secondAttribute="trailing" constant="16" id="80N-br-AMi"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uDB-FM-1cx" secondAttribute="trailing" constant="16" id="Eva-pe-vL0"/>
+                                            <constraint firstItem="uDB-FM-1cx" firstAttribute="centerX" secondItem="5Pp-j6-Aeu" secondAttribute="centerX" id="Zkj-yR-qqo"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="uDB-FM-1cx" secondAttribute="bottom" constant="25" id="dcg-ef-eme"/>
+                                            <constraint firstItem="uDB-FM-1cx" firstAttribute="centerY" secondItem="5Pp-j6-Aeu" secondAttribute="centerY" constant="-3.8333333333333144" id="eS3-zi-Oej"/>
+                                            <constraint firstItem="uDB-FM-1cx" firstAttribute="leading" secondItem="5Pp-j6-Aeu" secondAttribute="leading" constant="16" id="ii3-z5-EMn"/>
+                                            <constraint firstItem="uDB-FM-1cx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5Pp-j6-Aeu" secondAttribute="leading" constant="16" id="mVS-e5-gGf"/>
+                                            <constraint firstItem="uDB-FM-1cx" firstAttribute="top" relation="greaterThanOrEqual" secondItem="5Pp-j6-Aeu" secondAttribute="top" constant="25" id="pLj-ss-2vx"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="5Pp-j6-Aeu" firstAttribute="width" secondItem="rx0-cf-C7K" secondAttribute="width" id="3Po-a2-fEh"/>
+                                    <constraint firstAttribute="bottom" secondItem="5Pp-j6-Aeu" secondAttribute="bottom" constant="-8" id="SSj-7P-XfP"/>
+                                    <constraint firstAttribute="trailing" secondItem="5Pp-j6-Aeu" secondAttribute="trailing" id="UO9-35-Su6"/>
+                                    <constraint firstItem="5Pp-j6-Aeu" firstAttribute="height" secondItem="rx0-cf-C7K" secondAttribute="height" multiplier="0.988555" priority="250" constant="24.091615000000047" id="cyj-Il-6TM"/>
+                                    <constraint firstItem="5Pp-j6-Aeu" firstAttribute="top" secondItem="rx0-cf-C7K" secondAttribute="top" constant="-8" id="fVO-B5-802"/>
+                                    <constraint firstItem="5Pp-j6-Aeu" firstAttribute="leading" secondItem="rx0-cf-C7K" secondAttribute="leading" id="ffR-YP-PD5"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="RxY-Jv-OOM"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="UFf-DP-rcn"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Drs-hB-UwZ"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Drs-hB-UwZ" firstAttribute="trailing" secondItem="rx0-cf-C7K" secondAttribute="trailing" id="4ip-gI-75k"/>
+                            <constraint firstItem="rx0-cf-C7K" firstAttribute="leading" secondItem="Drs-hB-UwZ" secondAttribute="leading" id="Ah2-iV-IxY"/>
+                            <constraint firstItem="rx0-cf-C7K" firstAttribute="top" secondItem="Drs-hB-UwZ" secondAttribute="top" constant="8" id="Cne-bI-cHq"/>
+                            <constraint firstItem="rx0-cf-C7K" firstAttribute="top" secondItem="DqE-zD-TIH" secondAttribute="bottom" constant="8" id="N0J-1p-zCO"/>
+                            <constraint firstItem="BRg-w3-rHf" firstAttribute="top" secondItem="rx0-cf-C7K" secondAttribute="bottom" id="RSg-ed-XaW"/>
+                            <constraint firstItem="rx0-cf-C7K" firstAttribute="leading" secondItem="mOz-iz-hGo" secondAttribute="leading" id="Zl7-B4-JNw"/>
+                            <constraint firstAttribute="trailing" secondItem="rx0-cf-C7K" secondAttribute="trailing" id="jnW-IM-YyC"/>
+                            <constraint firstItem="Drs-hB-UwZ" firstAttribute="bottom" secondItem="rx0-cf-C7K" secondAttribute="bottom" id="rVM-DB-mS3"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Crypto" id="KaE-IN-E7z">
+                        <barButtonItem key="rightBarButtonItem" image="VerticalDotsMenu" style="plain" id="Iyo-yo-aWb" customClass="BarButton" customModule="MoppApp" customModuleProvider="target">
+                            <color key="tintColor" red="0.21176470589999999" green="0.2156862745" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="menuActivationSelector" destination="oNF-I3-ATW" id="O50-RS-iVS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="importButton" destination="TYv-AQ-7tk" id="h6X-bn-ifT"/>
+                        <outlet property="menuButton" destination="Iyo-yo-aWb" id="kDz-8C-qif"/>
+                        <outlet property="recentDocumentsButton" destination="xLG-q7-cRp" id="CRg-bX-jel"/>
+                        <outlet property="titleLabel" destination="248-ll-0AR" id="kBI-rj-lK6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8lq-JB-OSK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="649.61832061068696" y="81.690140845070431"/>
         </scene>
     </scenes>
     <resources>
@@ -131,5 +166,8 @@
         <namedColor name="MoppBase">
             <color red="0.0" green="0.43137254901960786" blue="0.70980392156862748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

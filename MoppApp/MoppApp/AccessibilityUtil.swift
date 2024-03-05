@@ -29,4 +29,17 @@ class AccessibilityUtil {
             subview.isAccessibilityElement = isAccessibilityElement
         }
     }
+    
+    // Adjust spacing between addressee and "Add" buttons
+    // Adjust so that the spacing is not too big and also don't overlap each other when font size changes
+    static func adjustSpacing(preferredContentSizeCategory: UIContentSizeCategory, stackView: UIStackView) {
+        switch preferredContentSizeCategory {
+        case .extraSmall, .small, .medium, .large, .extraLarge, .extraExtraLarge:
+            stackView.spacing = -120
+            break
+        default:
+            stackView.spacing = 0
+            break
+        }
+    }
 }

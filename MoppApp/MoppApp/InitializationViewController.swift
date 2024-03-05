@@ -21,27 +21,13 @@
  *
  */
 
-import Foundation
 import UIKit
 import MoppLib
-
 
 class InitializationViewController : UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let launchScreenView = Bundle.main.loadNibNamed("LaunchScreen", owner: self, options: nil)?.last as? UIView {
-            view.addSubview(launchScreenView)
-            
-            // Pin to edges
-            let layoutGuide = view.safeAreaLayoutGuide
-            launchScreenView.translatesAutoresizingMaskIntoConstraints = false
-            launchScreenView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor).isActive = true
-            launchScreenView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor).isActive = true
-            launchScreenView.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor).isActive = true
-            launchScreenView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        }
     }
 
     override func viewDidAppear(_ animated: Bool) {

@@ -39,7 +39,6 @@ class ContainerAddresseeCell: UITableViewCell, AddresseeActions {
     weak var delegate: ContainerAddresseeCellDelegate!
     var removeIndex: Int = 0
     
-    
     @IBAction func removeAddressee(_ sender: Any) {
         delegate.removeAddressee(index: removeIndex)
         UIAccessibility.post(notification: .screenChanged, argument: L(.cryptoRecipientRemoved))
