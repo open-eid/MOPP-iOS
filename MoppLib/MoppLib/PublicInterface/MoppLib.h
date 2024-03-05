@@ -44,3 +44,4 @@ FOUNDATION_EXPORT const unsigned char MoppLibVersionString[];
 #import <MoppLib/MoppLibMobileCreateSignatureResponse.h>
 #import <MoppLib/MoppLibCardReaderManager.h>
 #import <MoppLib/MoppLibCertificateInfo.h>
+#import <MoppLib/MoppLibDigidocValidateOnline.h>

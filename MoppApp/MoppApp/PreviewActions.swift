@@ -51,6 +51,7 @@ extension PreviewActions where Self: ContainerViewController {
             let containerViewController = SigningContainerViewController.instantiate()
 
             let destinationPathURL = URL(fileURLWithPath: destinationPath)
+            SiVaUtil.setIsSentToSiva(isSent: false)
             if SiVaUtil.isDocumentSentToSiVa(fileUrl: destinationPathURL) {
                 SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
                     if (destinationPathURL.pathExtension == "ddoc" || destinationPathURL.pathExtension == "pdf") && !hasAgreed {
@@ -59,6 +60,7 @@ extension PreviewActions where Self: ContainerViewController {
                     openAsicContainerPreviewDocument(containerViewController, isPDF, hasAgreed)
                 }
             } else {
+                SiVaUtil.setIsSentToSiva(isSent: true)
                 openAsicContainerPreviewDocument(containerViewController, isPDF, true)
             }
         }
@@ -100,6 +102,7 @@ extension PreviewActions where Self: ContainerViewController {
 
             let fileExtension = URL(fileURLWithPath: filePath).pathExtension.lowercased()
 
+            SiVaUtil.setIsSentToSiva(isSent: false)
             if fileExtension != "pdf" && SiVaUtil.isDocumentSentToSiVa(fileUrl: URL(fileURLWithPath: filePath)) {
                 SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
                     if hasAgreed {
@@ -107,6 +110,7 @@ extension PreviewActions where Self: ContainerViewController {
                     }
                 }
             } else {
+                SiVaUtil.setIsSentToSiva(isSent: true)
                 openContentPreviewDocument(filePath)
             }
 
@@ -114,6 +118,7 @@ extension PreviewActions where Self: ContainerViewController {
 
         let openPDFPreview: () -> Void = { [weak self] in
             self?.updateState(.loading)
+            SiVaUtil.setIsSentToSiva(isSent: false)
             MoppLibContainerActions.sharedInstance().openContainer(
                 withPath: destinationPath,
                     success: { [weak self] (_ container: MoppLibContainer?) -> Void in

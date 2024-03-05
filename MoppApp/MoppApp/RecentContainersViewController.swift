@@ -210,14 +210,17 @@ extension RecentContainersViewController : UITableViewDelegate {
 
                 if ext.isAsicContainerExtension || ext.isPdfContainerExtension {
                     let containerPathURL = path
+                    SiVaUtil.setIsSentToSiva(isSent: false)
                     if SiVaUtil.isDocumentSentToSiVa(fileUrl: containerPathURL) || (containerPathURL.pathExtension == "asics" || containerPathURL.pathExtension == "scs") {
                         SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
-                            if (containerPathURL.pathExtension == "ddoc" || containerPathURL.pathExtension == "pdf") && !hasAgreed {
+                            if (containerPathURL.pathExtension == "ddoc" || containerPathURL.pathExtension == "pdf" ||
+                                MimeTypeExtractor.isCadesContainer(filePath: containerPathURL)) && !hasAgreed {
                                 return
                             }
                             self.openContainer(containerPath: path.path, navController: navController, isSendingToSivaAgreed: hasAgreed)
                         }
                     } else {
+                        SiVaUtil.setIsSentToSiva(isSent: true)
                         self.openContainer(containerPath: path.path, navController: navController, isSendingToSivaAgreed: true)
                     }
                 } else {

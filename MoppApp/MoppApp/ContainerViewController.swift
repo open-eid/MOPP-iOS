@@ -675,7 +675,8 @@ extension ContainerViewController : UITableViewDataSource {
             if signingContainerViewDelegate.getTimestampTokensCount() >= indexPath.row {
                 timestampToken = signingContainerViewDelegate.getTimestampToken(index: indexPath.row) as? MoppLibSignature ?? MoppLibSignature()
 
-                if (containerViewDelegate.getDataFileCount() == 1 && isSendingToSivaAgreed && !isLoadingNestedAsicsDone) {
+                if (containerViewDelegate.getDataFileCount() == 1 && isSendingToSivaAgreed && 
+                    !isLoadingNestedAsicsDone && !MimeTypeExtractor.isCadesContainer(filePath: URL(fileURLWithPath: containerViewDelegate.getContainerPath()))) {
                     updateState(.loading)
                     let dataFile = containerViewDelegate.getDataFileDisplayName(index: 0) ?? ""
                     let containerFilePath = containerViewDelegate.getContainerPath()
@@ -773,6 +774,7 @@ extension ContainerViewController : UITableViewDataSource {
                 if pathExtension == "asics" || pathExtension == "scs" {
                     SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
                         if hasAgreed {
+                            SiVaUtil.setIsSentToSiva(isSent: hasAgreed)
                             self.openNestedContainer(containerFilePath: containerFilePath, dataFile: dataFile, destinationPath: destinationPath)
                             return
                         } else {

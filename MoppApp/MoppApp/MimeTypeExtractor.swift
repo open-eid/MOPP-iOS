@@ -30,14 +30,34 @@ class MimeTypeExtractor {
     
     private static let DEFAULT_MIMETYPE = "application/octet-stream"
     
+    // Check if file is zip format
+    private static func isZipFile(filePath: URL) -> Bool {
+        guard let fileHandle = FileHandle(forReadingAtPath: filePath.path) else { return false }
+        let fileData = fileHandle.readData(ofLength: 4)
+        let isZip = fileData.starts(with: [0x50, 0x4b, 0x03, 0x04])
+        do {
+            try fileHandle.close()
+        } catch (let zipError) {
+            printLog("Unable to close zip file: \(zipError.localizedDescription)")
+        }
+        return isZip
+    }
+    
+    public static func isCadesContainer(filePath: URL) -> Bool {
+        if isZipFile(filePath: filePath) {
+            return containerHasSignatureFiles(filePath: filePath)
+        }
+        
+        return false
+    }
+    
     public static func getMimeTypeFromContainer(filePath: URL) -> String {
+        
+        let isCades = isCadesContainer(filePath: filePath)
         
         var mimetype: String = ""
         
-        guard let fileHandle = FileHandle(forReadingAtPath: filePath.path) else { return "" }
-        let fileData = fileHandle.readData(ofLength: 4)
-        // Check if file is zip format
-        if fileData.starts(with: [0x50, 0x4b, 0x03, 0x04]) {
+        if isZipFile(filePath: filePath) {
             guard let unzippedFile = unZipFile(filePath: filePath, fileName: "mimetype") else {
                 return mimetype
             }
@@ -48,7 +68,6 @@ class MimeTypeExtractor {
             
             removeUnzippedFolder(folderPath: unzippedFolder)
         }
-        fileHandle.closeFile()
         
         if isDdoc(url: filePath) {
             return ContainerFormatDdocMimetype
@@ -110,25 +129,46 @@ class MimeTypeExtractor {
         }
         
         return fileExtension
+    }
+    
+    private static func containerHasSignatureFiles(filePath: URL) -> Bool {
+        do {
+            let archive = try Archive(url: filePath, accessMode: .read)
+            
+            for entry in archive {
+                let entryUrl = URL(fileURLWithPath: entry.path)
+                if entryUrl.lastPathComponent.contains("p7s") {
+                    return true
+                }
+            }
+        } catch (let archiveError) {
+            printLog("Unable to open archive: \(archiveError.localizedDescription)")
+            return false
+        }
         
+        return false
     }
     
     private static func unZipFile(filePath: URL, fileName: String) -> URL? {
         let outputPath =  MoppFileManager.shared.tempCacheDirectoryPath().appendingPathComponent(filePath.lastPathComponent).deletingPathExtension()
-        guard let archive = Archive(url: filePath, accessMode: .read) else  {
-            return nil
-        }
-        guard let fileInArchive = archive[fileName] else {
-            return nil
-        }
-        var destinationLocation = URL(fileURLWithPath: outputPath.path)
-        destinationLocation.appendPathComponent("mimetype")
+
         do {
-            printLog("Extracting file: \(fileName)")
-            _ = try archive.extract(fileInArchive, to: destinationLocation)
-            return destinationLocation
-        } catch {
-            printLog("Unable to extract file \(fileInArchive). Error: \(error.localizedDescription)")
+            let archive = try Archive(url: filePath, accessMode: .read)
+            guard let fileInArchive = archive[fileName] else {
+                return nil
+            }
+            var destinationLocation = URL(fileURLWithPath: outputPath.path)
+            destinationLocation.appendPathComponent("extractedFile")
+            do {
+                printLog("Extracting file: \(fileName) to \(destinationLocation.path)")
+                _ = try archive.extract(fileInArchive, to: destinationLocation)
+                return destinationLocation
+            } catch {
+                printLog("Unable to extract file \(fileInArchive). Error: \(error.localizedDescription)")
+                return nil
+            }
+        } catch (let archiveError) {
+            printLog("Unable to open archive: \(archiveError.localizedDescription)")
             return nil
         }
     }
