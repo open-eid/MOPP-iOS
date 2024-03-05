@@ -20,7 +20,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
+import UIKit
+
 class MenuCell: UITableViewCell {
+    
+    @IBOutlet weak var stackView: UIStackView!
+    
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -28,8 +34,13 @@ class MenuCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func populate(iconName: String, title: String) {
+    func populate(iconName: String, title: String, voiceControlLabel: String) {
         titleLabel.text = title
         iconImageView.image = UIImage(named: iconName)
+        titleLabel.isAccessibilityElement = true
+        
+        stackView.isAccessibilityElement = true
+        stackView.accessibilityLabel = title
+        stackView.accessibilityUserInputLabels = [voiceControlLabel]
     }
 }

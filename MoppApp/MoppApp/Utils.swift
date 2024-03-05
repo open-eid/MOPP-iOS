@@ -87,6 +87,15 @@ func L(_ key: LocKey, _ arguments: [CVarArg] = []) -> String {
     return String(format: format!, arguments: arguments)
 }
 
+func L(_ key: LocKey, _ languageId: String, _ arguments: [CVarArg] = []) -> String {
+    let path = Bundle.main.path(forResource: languageId, ofType: "lproj", inDirectory: String()) ??
+        Bundle.main.path(forResource: kDefaultLanguageID, ofType: "lproj", inDirectory: String())
+    guard let bundlePath = path else { return String() }
+    let bundle = Bundle(path: bundlePath)
+    let format = bundle?.localizedString(forKey: key.rawValue, value: nil, table: nil)
+    return String(format: format!, arguments: arguments)
+}
+
 func MoppLib_LocalizedString(_ key: String,_ arguments: [CVarArg] = []) -> String {
     let languageId = DefaultsHelper.moppLanguageID
     let moppLibBundlePath = Bundle(identifier: "mobi.lab.MoppLib")?.path(forResource: languageId, ofType: "lproj")
