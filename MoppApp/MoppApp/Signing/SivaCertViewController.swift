@@ -153,7 +153,7 @@ class SivaCertViewController: MoppViewController {
     
     func getSivaPlaceholder() -> NSAttributedString {
         let attributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.placeholderText,
+            NSAttributedString.Key.foregroundColor: UIColor.moppLabelDarker,
             NSAttributedString.Key.font : UIFont(name: "Roboto-Regular", size: 14) ?? UIFont.systemFont(ofSize: 14)
         ]
         return NSAttributedString(string: configuration.SIVAURL, attributes: attributes)
