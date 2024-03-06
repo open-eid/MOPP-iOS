@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-import Foundation
+
 import UIKit
 
 protocol NFCEditViewControllerDelegate : AnyObject {
@@ -125,6 +125,9 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
 
         canTextField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
         pinTextField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
+        
+        canTextField.accessibilityLabel = L(.nfcCANTitle)
+        pinTextField.accessibilityLabel = L(.pin2TextfieldLabel)
 
         verifySigningCapability()
     }
