@@ -54,6 +54,12 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
         session = NFCTagReaderSession(pollingOption: .iso14443, delegate: self)
         session?.alertMessage = "Hold your iPhone near the ID-Card."
         session?.begin()
+        
+        if UIAccessibility.isVoiceOverRunning {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                UIAccessibility.post(notification: .announcement, argument: "Hold your iPhone near the ID-Card.")
+            }
+        }
     }
 
     // MARK: - NFCTagReaderSessionDelegate
@@ -62,6 +68,9 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
         if tags.count > 1 {
             let retryInterval = DispatchTimeInterval.milliseconds(500)
             session.alertMessage = "More than 1 tag is detected, please remove all tags and try again."
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: .announcement, argument: session.alertMessage)
+            }
             DispatchQueue.global().asyncAfter(deadline: .now() + retryInterval, execute: {
                 session.restartPolling()
             })
@@ -70,6 +79,9 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
 
         guard case let .iso7816(tag) = tags.first else {
             session.invalidate(errorMessage: "Invalid tag.")
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: .announcement, argument: "Invalid tag.")
+            }
             return
         }
 
@@ -78,16 +90,26 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                 try await session.connect(to: tags.first!)
             } catch {
                 session.invalidate(errorMessage: "Unable to connect to tag.")
+                if UIAccessibility.isVoiceOverRunning {
+                    UIAccessibility.post(notification: .announcement, argument: "Unable to connect to tag.")
+                }
                 return
             }
             do {
                 session.alertMessage = "Authenticating with card."
+                if UIAccessibility.isVoiceOverRunning {
+                    UIAccessibility.post(notification: .announcement, argument: session.alertMessage)
+                }
+
                 if let (ksEnc, ksMac) = try await mutualAuthenticate(tag: tag) {
-                    printLog("Mutual authentication successfull")
+                    printLog("Mutual authentication successful")
                     self.ksEnc = ksEnc
                     self.ksMac = ksMac
                     self.SSC = Bytes(repeating: 0x00, count: AES.BlockSize)
                     session.alertMessage = "Reading Certificate."
+                    if UIAccessibility.isVoiceOverRunning {
+                        UIAccessibility.post(notification: .announcement, argument: session.alertMessage)
+                    }
                     try await selectDF(tag: tag, file: Data())
                     try await selectDF(tag: tag, file: Data([0xAD, 0xF2]))
                     let cert = try await readEF(tag: tag, file: Data([0x34, 0x1F]))
@@ -96,49 +118,51 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                         throw RuntimeError(msg: "Failed to prepare signature.")
                     }
                     session.alertMessage = "Sign document."
+                    if UIAccessibility.isVoiceOverRunning {
+                        UIAccessibility.post(notification: .announcement, argument: session.alertMessage)
+                    }
                     var pin = Data(repeating: 0xFF, count: 12)
                     pin.replaceSubrange(0..<PIN!.count, with: PIN!.utf8)
                     let _ = try await sendWrapped(tag: tag, cls: 0x00, ins: 0x22, p1: 0x41, p2: 0xb6, data: Data(hex: "80015484019f")!, le: 256)
                     let _ = try await sendWrapped(tag: tag, cls: 0x00, ins: 0x20, p1: 0x00, p2: 0x85, data: pin, le: 256)
                     let signatureValue = try await sendWrapped(tag: tag, cls:0x00, ins: 0x2A, p1: 0x9E, p2: 0x9A, data: Data(base64Encoded: hash)!, le: 256);
                     session.alertMessage = "Signing Done."
+                    if UIAccessibility.isVoiceOverRunning {
+                        UIAccessibility.post(notification: .announcement, argument: session.alertMessage)
+                    }
                     session.invalidate()
                     printLog("\nRIA.NFC - Validating signature...\n")
                     MoppLibManager.isSignatureValid(cert.base64EncodedString(), signatureValue: signatureValue.base64EncodedString(), success: { (_) in
-                        printLog("\nRIA.SmartID - Successfully validated signature!\n")
-                        DispatchQueue.main.async {
-                            NotificationCenter.default.post(
-                                name: .signatureAddedToContainerNotificationName,
-                                object: nil,
-                                userInfo: nil)
+                        printLog("\nRIA.NFC - Successfully validated signature!\n")
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             NotificationCenter.default.post(
                                 name: .signatureCreatedFinishedNotificationName,
                                 object: nil,
                                 userInfo: nil)
                         }
                     }, failure: { (error: Error?) in
-                        printLog("\nRIA.SmartID - Error validating signature. Error: \(error?.localizedDescription ?? "Unable to display error")\n")
+                        printLog("\nRIA.NFC - Error validating signature. Error: \(error?.localizedDescription ?? "Unable to display error")\n")
                         guard let error = error, let err = error as NSError? else {
                             ErrorUtil.generateError(signingError: .generalSignatureAddingError, details: MessageUtil.errorMessageWithDetails(details: "Unknown error"))
                             return
                         }
                         
                         if err.code == 5 || err.code == 6 {
-                            printLog("\nRIA.SmartID - Certificate revoked. \(err.domain)")
+                            printLog("\nRIA.NFC - Certificate revoked. \(err.domain)")
                             ErrorUtil.generateError(signingError: .certificateRevoked, details: MessageUtil.generateDetailedErrorMessage(error: error as NSError) ?? err.domain)
                             return
                         } else if err.code == 7 {
-                            printLog("\nRIA.SmartID - Invalid OCSP time slot. \(err.domain)")
+                            printLog("\nRIA.NFC - Invalid OCSP time slot. \(err.domain)")
                             ErrorUtil.generateError(signingError: .ocspInvalidTimeSlot, details: MessageUtil.generateDetailedErrorMessage(error: error as NSError) ?? err.domain)
                             return
                         } else if err.code == 18 {
-                            printLog("\nRIA.SmartID - Too many requests. \(err.domain)")
+                            printLog("\nRIA.NFC - Too many requests. \(err.domain)")
                             ErrorUtil.generateError(signingError: .tooManyRequests(signingMethod: SigningType.nfc.rawValue), details:
                                 MessageUtil.generateDetailedErrorMessage(error: error as NSError) ?? err.domain)
                             return
                         }
                         
-                        printLog("\nRIA.SmartID - General signature adding error. \(err.domain)")
+                        printLog("\nRIA.NFC - General signature adding error. \(err.domain)")
                         return ErrorUtil.generateError(signingError: .empty, details:
                                 MessageUtil.generateDetailedErrorMessage(error: error as NSError) ?? err.domain)
                     })
@@ -147,11 +171,14 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                     printLog("Could not verify chip's MAC.")
                 }
             } catch let error as RuntimeError {
-                printLog("Error \(error.msg)")
+                printLog("\nRIA.NFC - Error \(error.msg)")
             } catch {
-                printLog("Error \(error)")
+                printLog("\nRIA.NFC - Error \(error.localizedDescription)")
             }
             session.invalidate(errorMessage: "Failed to authenticate with card.")
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: .announcement, argument: "Failed to authenticate with card.")
+            }
         }
     }
 
