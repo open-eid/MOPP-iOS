@@ -233,6 +233,16 @@
 "smart-id-sign-help-title" = "Убедитесь в правильности контрольного кода и введите PIN2-код для Smart-ID";
 "nfc-title" = "Enter your card access number and PIN 2 to sign with ID-card";
 "nfc-can-title" = "Card access number";
+"nfc-device-no-support" = "This device doesn't support NFC.";
+"nfc-hold-near" = "Hold your iPhone near the ID-Card.";
+"nfc-multiple-cards" = "More than 1 tag is detected, please remove all tags and try again.";
+"nfc-invalid-tag" = "Invalid tag.";
+"nfc-unable-connect" = "Unable to connect to tag.";
+"nfc-auth" = "Authenticating with card.";
+"nfc-reading-cert" = "Reading Certificate.";
+"nfc-sign-doc" = "Signing document.";
+"nfc-sign-done" = "Signing Done.";
+"nfc-auth-failed" = "Failed to authenticate with card.";
 "role-and-address" = "Роль и адрес";
 "role-and-address-title" = "Введите свою роль и адрес";
 "role-and-address-role-title" = "Роль / pезолюция";
