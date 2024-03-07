@@ -22,6 +22,7 @@
  */
 
 import UIKit
+import CoreNFC
 
 protocol NFCEditViewControllerDelegate : AnyObject {
     func nfcEditViewControllerDidDismiss(cancelled: Bool, can: String?, pin: String?)
@@ -45,10 +46,14 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let notAvailable = !NFCTagReaderSession.readingAvailable
 
-        titleLabel.text = L(.nfcTitle)
+        titleLabel.text = notAvailable ? L(.nfcDeviceNoSupport) : L(.nfcTitle)
         canTextLabel.text = L(.nfcCANTitle)
+        canTextLabel.isHidden = notAvailable
         pinTextLabel.text = L(.pin2TextfieldLabel)
+        pinTextLabel.isHidden = notAvailable
 
         canTextErrorLabel.text = ""
         canTextErrorLabel.isHidden = true
@@ -59,10 +64,12 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
         canTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         canTextField.layer.borderWidth = 1.0
         canTextField.delegate = self
+        canTextField.isHidden = notAvailable
         pinTextField.moppPresentDismissButton()
         pinTextField.layer.borderColor = UIColor.moppContentLine.cgColor
         pinTextField.layer.borderWidth = 1.0
         pinTextField.delegate = self
+        pinTextField.isHidden = notAvailable
 
         cancelButton.setTitle(L(.actionCancel).uppercased())
         cancelButton.adjustedFont()
@@ -125,7 +132,7 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
 
         canTextField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
         pinTextField.addTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
-        
+
         canTextField.accessibilityLabel = L(.nfcCANTitle)
         pinTextField.accessibilityLabel = L(.pin2TextfieldLabel)
 
@@ -149,7 +156,8 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
 
     func verifySigningCapability() {
         if canTextField.text?.count == 6,
-           pinTextField.text?.count ?? 0 >= 5 {
+           pinTextField.text?.count ?? 0 >= 5,
+           pinTextField.text?.count ?? 0 <= 12 {
             signButton.isEnabled = true
             signButton.backgroundColor = UIColor.moppBase
         } else {

@@ -30,6 +30,10 @@ struct RuntimeError: Error {
     let msg: String
 }
 
+struct PinError: Error {
+    let attemptsLeft: UInt8
+}
+
 class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
 
     static let shared: NFCSignature = NFCSignature()
@@ -44,20 +48,19 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
 
     func createNFCSignature(can: String, pin: String, containerPath: String, hashType: String, roleData: MoppLibRoleAddressData?) -> Void {
         guard NFCTagReaderSession.readingAvailable else {
-            CancelUtil.handleCancelledRequest(errorMessageDetails: "This device doesn't support NFC.")
-            return
+            return CancelUtil.handleCancelledRequest(errorMessageDetails: L(.nfcDeviceNoSupport))
         }
 
         CAN = can
         PIN = pin
         self.containerPath = containerPath
         session = NFCTagReaderSession(pollingOption: .iso14443, delegate: self)
-        session?.alertMessage = "Hold your iPhone near the ID-Card."
+        session?.alertMessage = L(.nfcHoldNear)
         session?.begin()
-        
+
         if UIAccessibility.isVoiceOverRunning {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                UIAccessibility.post(notification: .announcement, argument: "Hold your iPhone near the ID-Card.")
+                UIAccessibility.post(notification: .announcement, argument: self.session?.alertMessage)
             }
         }
     }
@@ -65,119 +68,102 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
     // MARK: - NFCTagReaderSessionDelegate
 
     func tagReaderSession(_ session: NFCTagReaderSession, didDetect tags: [NFCTag]) {
+        @Sendable func setSessionMessage(_ msg: String, invalidate: Bool = false) -> Void {
+            if invalidate {
+                session.invalidate(errorMessage: msg)
+            } else {
+                session.alertMessage = msg
+            }
+            if UIAccessibility.isVoiceOverRunning {
+                UIAccessibility.post(notification: .announcement, argument: msg)
+            }
+        }
         if tags.count > 1 {
             let retryInterval = DispatchTimeInterval.milliseconds(500)
-            session.alertMessage = "More than 1 tag is detected, please remove all tags and try again."
-            if UIAccessibility.isVoiceOverRunning {
-                UIAccessibility.post(notification: .announcement, argument: session.alertMessage)
-            }
-            DispatchQueue.global().asyncAfter(deadline: .now() + retryInterval, execute: {
+            setSessionMessage(L(.nfcMultipleCards))
+            return DispatchQueue.global().asyncAfter(deadline: .now() + retryInterval) {
                 session.restartPolling()
-            })
-            return
+            }
         }
 
         guard case let .iso7816(tag) = tags.first else {
-            session.invalidate(errorMessage: "Invalid tag.")
-            if UIAccessibility.isVoiceOverRunning {
-                UIAccessibility.post(notification: .announcement, argument: "Invalid tag.")
-            }
-            return
+            return setSessionMessage(L(.nfcInvalidTag), invalidate: true)
         }
 
         Task {
             do {
                 try await session.connect(to: tags.first!)
             } catch {
-                session.invalidate(errorMessage: "Unable to connect to tag.")
-                if UIAccessibility.isVoiceOverRunning {
-                    UIAccessibility.post(notification: .announcement, argument: "Unable to connect to tag.")
-                }
-                return
+                return setSessionMessage(L(.nfcUnableConnect), invalidate: true)
             }
             do {
-                session.alertMessage = "Authenticating with card."
-                if UIAccessibility.isVoiceOverRunning {
-                    UIAccessibility.post(notification: .announcement, argument: session.alertMessage)
+                setSessionMessage(L(.nfcAuth))
+                guard let (ksEnc, ksMac) = try await mutualAuthenticate(tag: tag) else {
+                    return setSessionMessage(L(.nfcAuthFailed), invalidate: true)
                 }
-
-                if let (ksEnc, ksMac) = try await mutualAuthenticate(tag: tag) {
-                    printLog("Mutual authentication successful")
-                    self.ksEnc = ksEnc
-                    self.ksMac = ksMac
-                    self.SSC = Bytes(repeating: 0x00, count: AES.BlockSize)
-                    session.alertMessage = "Reading Certificate."
-                    if UIAccessibility.isVoiceOverRunning {
-                        UIAccessibility.post(notification: .announcement, argument: session.alertMessage)
+                printLog("Mutual authentication successful")
+                self.ksEnc = ksEnc
+                self.ksMac = ksMac
+                self.SSC = AES.Zero
+                setSessionMessage(L(.nfcReadingCert))
+                try await selectDF(tag: tag, file: Data())
+                try await selectDF(tag: tag, file: Data([0xAD, 0xF2]))
+                let cert = try await readEF(tag: tag, file: Data([0x34, 0x1F]))
+                printLog("Cert reading done")
+                guard let hash = MoppLibManager.prepareSignature(cert.base64EncodedString(), containerPath: containerPath, roleData: roleData) else {
+                    return setSessionMessage(L(.nfcSignFailed), invalidate: true)
+                }
+                setSessionMessage(L(.nfcSignDoc))
+                var pin = Data(repeating: 0xFF, count: 12)
+                pin.replaceSubrange(0..<PIN!.count, with: PIN!.utf8)
+                _ = try await sendWrapped(tag: tag, cls: 0x00, ins: 0x22, p1: 0x41, p2: 0xb6, data: Data(hex: "80015484019f")!)
+                _ = try await sendWrapped(tag: tag, cls: 0x00, ins: 0x20, p1: 0x00, p2: 0x85, data: pin)
+                let signatureValue = try await sendWrapped(tag: tag, cls:0x00, ins: 0x2A, p1: 0x9E, p2: 0x9A, data: Data(base64Encoded: hash)!, le: 256);
+                setSessionMessage(L(.nfcSignDone))
+                session.invalidate()
+                printLog("\nRIA.NFC - Validating signature...\n")
+                MoppLibManager.isSignatureValid(cert.base64EncodedString(), signatureValue: signatureValue.base64EncodedString(), success: { _ in
+                    printLog("\nRIA.NFC - Successfully validated signature!\n")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        NotificationCenter.default.post(
+                            name: .signatureCreatedFinishedNotificationName,
+                            object: nil,
+                            userInfo: nil)
                     }
-                    try await selectDF(tag: tag, file: Data())
-                    try await selectDF(tag: tag, file: Data([0xAD, 0xF2]))
-                    let cert = try await readEF(tag: tag, file: Data([0x34, 0x1F]))
-                    printLog("cert: \(cert.toHex)")
-                    guard let hash = MoppLibManager.prepareSignature(cert.base64EncodedString(), containerPath: containerPath, roleData: roleData) else {
-                        throw RuntimeError(msg: "Failed to prepare signature.")
+                }, failure: { (error: Error?) in
+                    printLog("\nRIA.NFC - Error validating signature. Error: \(error?.localizedDescription ?? "Unable to display error")\n")
+                    guard let err = error as NSError? else {
+                        return ErrorUtil.generateError(signingError: .generalSignatureAddingError, details: MessageUtil.errorMessageWithDetails(details: "Unknown error"))
                     }
-                    session.alertMessage = "Sign document."
-                    if UIAccessibility.isVoiceOverRunning {
-                        UIAccessibility.post(notification: .announcement, argument: session.alertMessage)
-                    }
-                    var pin = Data(repeating: 0xFF, count: 12)
-                    pin.replaceSubrange(0..<PIN!.count, with: PIN!.utf8)
-                    let _ = try await sendWrapped(tag: tag, cls: 0x00, ins: 0x22, p1: 0x41, p2: 0xb6, data: Data(hex: "80015484019f")!, le: 256)
-                    let _ = try await sendWrapped(tag: tag, cls: 0x00, ins: 0x20, p1: 0x00, p2: 0x85, data: pin, le: 256)
-                    let signatureValue = try await sendWrapped(tag: tag, cls:0x00, ins: 0x2A, p1: 0x9E, p2: 0x9A, data: Data(base64Encoded: hash)!, le: 256);
-                    session.alertMessage = "Signing Done."
-                    if UIAccessibility.isVoiceOverRunning {
-                        UIAccessibility.post(notification: .announcement, argument: session.alertMessage)
-                    }
-                    session.invalidate()
-                    printLog("\nRIA.NFC - Validating signature...\n")
-                    MoppLibManager.isSignatureValid(cert.base64EncodedString(), signatureValue: signatureValue.base64EncodedString(), success: { (_) in
-                        printLog("\nRIA.NFC - Successfully validated signature!\n")
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            NotificationCenter.default.post(
-                                name: .signatureCreatedFinishedNotificationName,
-                                object: nil,
-                                userInfo: nil)
-                        }
-                    }, failure: { (error: Error?) in
-                        printLog("\nRIA.NFC - Error validating signature. Error: \(error?.localizedDescription ?? "Unable to display error")\n")
-                        guard let error = error, let err = error as NSError? else {
-                            ErrorUtil.generateError(signingError: .generalSignatureAddingError, details: MessageUtil.errorMessageWithDetails(details: "Unknown error"))
-                            return
-                        }
-                        
-                        if err.code == 5 || err.code == 6 {
-                            printLog("\nRIA.NFC - Certificate revoked. \(err.domain)")
-                            ErrorUtil.generateError(signingError: .certificateRevoked, details: MessageUtil.generateDetailedErrorMessage(error: error as NSError) ?? err.domain)
-                            return
-                        } else if err.code == 7 {
-                            printLog("\nRIA.NFC - Invalid OCSP time slot. \(err.domain)")
-                            ErrorUtil.generateError(signingError: .ocspInvalidTimeSlot, details: MessageUtil.generateDetailedErrorMessage(error: error as NSError) ?? err.domain)
-                            return
-                        } else if err.code == 18 {
-                            printLog("\nRIA.NFC - Too many requests. \(err.domain)")
-                            ErrorUtil.generateError(signingError: .tooManyRequests(signingMethod: SigningType.nfc.rawValue), details:
-                                MessageUtil.generateDetailedErrorMessage(error: error as NSError) ?? err.domain)
-                            return
-                        }
-                        
+                    let details = MessageUtil.generateDetailedErrorMessage(error: err) ?? err.domain
+                    switch err.code {
+                    case 5, 6:
+                        printLog("\nRIA.NFC - Certificate revoked. \(err.domain)")
+                        ErrorUtil.generateError(signingError: .certificateRevoked, details: details)
+                    case 7:
+                        printLog("\nRIA.NFC - Invalid OCSP time slot. \(err.domain)")
+                        ErrorUtil.generateError(signingError: .ocspInvalidTimeSlot, details: details)
+                    case 18:
+                        printLog("\nRIA.NFC - Too many requests. \(err.domain)")
+                        ErrorUtil.generateError(signingError: .tooManyRequests(signingMethod: SigningType.nfc.rawValue), details: details)
+                    default:
                         printLog("\nRIA.NFC - General signature adding error. \(err.domain)")
-                        return ErrorUtil.generateError(signingError: .empty, details:
-                                MessageUtil.generateDetailedErrorMessage(error: error as NSError) ?? err.domain)
-                    })
-                    return
-                } else {
-                    printLog("Could not verify chip's MAC.")
+                        ErrorUtil.generateError(signingError: .empty, details: details)
+                    }
+                })
+            } catch let error as PinError {
+                printLog("\nRIA.NFC - PinError count \(error.attemptsLeft)")
+                switch error.attemptsLeft {
+                case 0: setSessionMessage(L(.nfcPinLocked), invalidate: true)
+                case 1: setSessionMessage(L(.wrongPin2Single), invalidate: true)
+                default: setSessionMessage(L(.wrongPin2, [error.attemptsLeft]), invalidate: true)
                 }
             } catch let error as RuntimeError {
-                printLog("\nRIA.NFC - Error \(error.msg)")
+                printLog("\nRIA.NFC - RuntimeError \(error.msg)")
+                setSessionMessage(L(.nfcSignFailed), invalidate: true)
             } catch {
                 printLog("\nRIA.NFC - Error \(error.localizedDescription)")
-            }
-            session.invalidate(errorMessage: "Failed to authenticate with card.")
-            if UIAccessibility.isVoiceOverRunning {
-                UIAccessibility.post(notification: .announcement, argument: "Failed to authenticate with card.")
+                setSessionMessage(L(.nfcSignFailed), invalidate: true)
             }
         }
     }
@@ -199,7 +185,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
     func mutualAuthenticate(tag: NFCISO7816Tag) async throws -> (Bytes, Bytes)? {
         let oid = "04007f00070202040204" // id-PACE-ECDH-GM-AES-CBC-CMAC-256
         // + CAN
-        _ = try await tag.sendCommand(cls: 0x00, ins: 0x22, p1: 0xc1, p2: 0xa4, data: Data(hex: "800a\(oid)830102")!, le: 256)
+        _ = try await tag.sendCommand(cls: 0x00, ins: 0x22, p1: 0xc1, p2: 0xa4, data: Data(hex: "800a\(oid)830102")!)
         let nonceTag = try await tag.sendPaceCommand(records: [], tagExpected: 0x80)
         printLog("Challenge \(nonceTag.data.toHex)")
         let nonce = try decryptNonce(encryptedNonce: nonceTag.value)
@@ -238,27 +224,27 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
 
         // Mutual authentication
         let macHeader = Bytes(hex: "7f494f060a\(oid)8641")!
-        let macCalc = try AES.CMAC(key: Bytes(ksMac))
+        let macCalc = try AES.CMAC(key: ksMac)
         let ephemeralCardPubKeyBytes = try ephemeralCardPubKey.x963Representation()
-        let macTag = try await tag.sendPaceCommand(records: [TKBERTLVRecord(tag: 0x85, bytes: (try macCalc.authenticate(bytes: macHeader + ephemeralCardPubKeyBytes, count: 8)))], tagExpected: 0x86)
+        let macTag = try await tag.sendPaceCommand(records: [TKBERTLVRecord(tag: 0x85, bytes: (try macCalc.authenticate(bytes: macHeader + ephemeralCardPubKeyBytes)))], tagExpected: 0x86)
         printLog("Mac response \(macTag.data.toHex)")
 
         // verify chip's MAC and return session keys
         let terminalEphemeralPubKeyBytes = try terminalEphemeralPubKey.x963Representation()
-        if  macTag.value == Data(try macCalc.authenticate(bytes: macHeader + terminalEphemeralPubKeyBytes, count: 8)) {
+        if  macTag.value == Data(try macCalc.authenticate(bytes: macHeader + terminalEphemeralPubKeyBytes)) {
             return (ksEnc, ksMac)
         }
         return nil
     }
 
-    func sendWrapped(tag: NFCISO7816Tag, cls: UInt8, ins: UInt8, p1: UInt8, p2: UInt8, data: Data, le: Int) async throws -> Data {
+    func sendWrapped(tag: NFCISO7816Tag, cls: UInt8, ins: UInt8, p1: UInt8, p2: UInt8, data: Data, le: Int = -1) async throws -> Data {
         guard SSC != nil else {
-            return try await tag.sendCommand(cls: cls, ins: ins, p1: p1, p2: p2, data: Data(), le: 256)
+            return try await tag.sendCommand(cls: cls, ins: ins, p1: p1, p2: p2, data: Data(), le: le)
         }
         _ = SSC!.increment()
         let DO87: Data
         if !data.isEmpty {
-            let iv = try AES.CBC(key: ksEnc!, iv: AES.Zero).encrypt(SSC!)
+            let iv = try AES.CBC(key: ksEnc!).encrypt(SSC!)
             let enc_data = try AES.CBC(key: ksEnc!, iv: iv).encrypt(data.addPadding())
             DO87 = TKBERTLVRecord(tag: 0x87, bytes: [0x01] + enc_data).data
         } else {
@@ -273,7 +259,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
         let cmd_header: Bytes = [cls | 0x0C, ins, p1, p2]
         let M = cmd_header.addPadding() + DO87 + DO97
         let N = SSC! + M
-        let mac = try AES.CMAC(key: ksMac!).authenticate(bytes: N.addPadding(), count: 8)
+        let mac = try AES.CMAC(key: ksMac!).authenticate(bytes: N.addPadding())
         let DO8E = TKBERTLVRecord(tag: 0x8E, bytes: mac).data
         let send = DO87 + DO97 + DO8E
         printLog(">: \(send.toHex)")
@@ -297,7 +283,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
             throw RuntimeError(msg: "Missing MAC tag")
         }
         let K = SSC!.increment() + (tlvEnc?.data ?? Data()) + tlvRes!.data
-        if try Data(AES.CMAC(key: ksMac!).authenticate(bytes: K.addPadding(), count: 8)) != tlvMac!.value {
+        if try Data(AES.CMAC(key: ksMac!).authenticate(bytes: K.addPadding())) != tlvMac!.value {
             throw RuntimeError(msg: "Invalid MAC value")
         }
         if tlvRes!.value != Data([0x90, 0x00]) {
@@ -306,7 +292,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
         guard tlvEnc != nil else {
             return Data()
         }
-        let iv = try AES.CBC(key: ksEnc!, iv: AES.Zero).encrypt(SSC!)
+        let iv = try AES.CBC(key: ksEnc!).encrypt(SSC!)
         let responseData = try AES.CBC(key: ksEnc!, iv: iv).decrypt(tlvEnc!.value[1...])
         return Data(try responseData.removePadding())
     }
@@ -317,7 +303,6 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
 
     func selectEF(tag: NFCISO7816Tag, file: Data) async throws -> Int {
         let data = try await sendWrapped(tag: tag, cls: 0x00, ins: 0xA4, p1: 0x02, p2: 0x04, data: file, le: 256)
-        printLog("FCI: \(data.toHex)")
         guard let fci = TKBERTLVRecord(from: data) else {
             return 0
         }
@@ -330,11 +315,11 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
     func readBinary(tag: NFCISO7816Tag, len: Int, pos: Int) async throws -> Data {
         return try await sendWrapped(tag: tag, cls: 0x00, ins: 0xB0, p1: UInt8(pos >> 8), p2: UInt8(truncatingIfNeeded: pos), data: Data(), le: len)
     }
-    
+
     func readBinary(tag: NFCISO7816Tag, len: Int) async throws -> Data {
         var data = Data()
-        for i in stride(from: 0, to: len, by: 0xD8) {
-            data += try await readBinary(tag: tag, len: Swift.min(len - i, 0xD8), pos: i)
+        for i in stride(from: 0, to: len, by: 0xE0) {
+            data += try await readBinary(tag: tag, len: min(len - i, 0xE0), pos: i)
         }
         return data
     }
@@ -346,13 +331,13 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
 
     // MARK: - Utils
 
-    private func decryptNonce(encryptedNonce: Data) throws -> Bytes {
-        let decryptionKey = KDF(key: Array(CAN!.utf8), counter: 3)
-        let cipher = AES.CBC(key: decryptionKey, iv: AES.Zero)
-        return try cipher.decrypt(Bytes(encryptedNonce))
+    private func decryptNonce(encryptedNonce: any AES.DataType) throws -> Bytes {
+        let decryptionKey = KDF(key: Bytes(CAN!.utf8), counter: 3)
+        let cipher = AES.CBC(key: decryptionKey)
+        return try cipher.decrypt(encryptedNonce)
     }
 
-    private func KDF(key: Bytes, counter: UInt8) -> Bytes  {
+    private func KDF(key: Bytes, counter: UInt8) -> Bytes {
         var keydata = key + Bytes(repeating: 0x00, count: 4)
         keydata[keydata.count - 1] = counter
         return SHA256(data: keydata)
@@ -382,16 +367,18 @@ extension DataProtocol where Self.Index == Int {
     }
 
     func removePadding() throws -> SubSequence {
-        for i in (0..<count).reversed() {
+        for i in stride(from: count - 1, through: 0, by: -1) {
             if self[i] == 0x80 {
                 return self[0..<i]
+            } else if self[i] != 0x00 {
+                throw RuntimeError(msg: "Failed to remove padding")
             }
         }
         throw RuntimeError(msg: "Failed to remove padding")
     }
 }
 
-extension DataProtocol where Self.Index == Int, Self : MutableDataProtocol {
+extension MutableDataProtocol where Self.Index == Int {
     init?(hex: String) {
         guard hex.count.isMultiple(of: 2) else { return nil }
         let chars = hex.map { $0 }
@@ -438,6 +425,11 @@ extension DataProtocol where Self.Index == Int, Self : MutableDataProtocol {
         shifted[last] = self[last] << 1
         return shifted
     }
+
+    mutating func resize(to size: Index) -> Self {
+        self.removeSubrange(size..<endIndex)
+        return self
+    }
 }
 
 extension ECPublicKey {
@@ -446,13 +438,13 @@ extension ECPublicKey {
         try self.init(domain: domain, w: w)
     }
 
-    func x963Representation() throws -> Bytes  {
+    func x963Representation() throws -> Bytes {
         return try domain.encodePoint(w)
     }
 }
 
 extension NFCISO7816Tag {
-    func sendCommand(cls: UInt8, ins: UInt8, p1: UInt8, p2: UInt8, data: Data, le: Int) async throws -> Data {
+    func sendCommand(cls: UInt8, ins: UInt8, p1: UInt8, p2: UInt8, data: Data, le: Int = -1) async throws -> Data {
         let apdu = NFCISO7816APDU(instructionClass: cls, instructionCode: ins, p1Parameter: p1, p2Parameter: p2, data: data, expectedResponseLength: le)
         switch try await sendCommand(apdu: apdu) {
         case (let data, 0x90, 0x00):
@@ -461,6 +453,8 @@ extension NFCISO7816Tag {
             return data + (try await sendCommand(cls: 0x00, ins: 0xC0, p1: 0x00, p2: 0x00, data: Data(), le: Int(len)))
         case (_, 0x6C, let len):
             return try await sendCommand(cls: cls, ins: ins, p1: p1, p2: p2, data: data, le: Int(len))
+        case (_, 0x63, let count) where count & 0xC0 > 0:
+            throw PinError(attemptsLeft: count & 0x0F)
         case (_, let sw1, let sw2):
             throw RuntimeError(msg: String(format: "%02X%02X", sw1, sw2))
         }
@@ -489,27 +483,28 @@ extension TKBERTLVRecord {
 
 // MARK: - AES
 class AES {
+    public typealias DataType = DataProtocol & ContiguousBytes
     static let BlockSize: Int = kCCBlockSizeAES128
     static let Zero = Bytes(repeating: 0x00, count: BlockSize)
 
     public class CBC {
-        private let key: Bytes
-        private let iv: Bytes
+        private let key: any DataType
+        private let iv: any DataType
 
-        init(key: Bytes, iv: Bytes) {
+        init(key: any DataType, iv: any DataType = Zero) {
             self.key = key
             self.iv = iv
         }
 
-        func encrypt<T : DataProtocol & ContiguousBytes>(_ data: T) throws -> Bytes {
+        func encrypt(_ data: any DataType) throws -> Bytes {
             return try crypt(data: data, operation: kCCEncrypt)
         }
 
-        func decrypt<T : DataProtocol & ContiguousBytes>(_ data: T) throws -> Bytes {
+        func decrypt(_ data: any DataType) throws -> Bytes {
             return try crypt(data: data, operation: kCCDecrypt)
         }
 
-        private func crypt<T : DataProtocol & ContiguousBytes>(data: T, operation: Int) throws -> Bytes {
+        private func crypt(data: any DataType, operation: Int) throws -> Bytes {
             var bytesWritten = 0
             var outputBuffer = Bytes(repeating: 0, count: data.count + BlockSize)
             let status = data.withUnsafeBytes { dataBytes in
@@ -534,7 +529,7 @@ class AES {
             if status != kCCSuccess {
                 throw RuntimeError(msg: "AES.CBC.Error")
             }
-            return Bytes(outputBuffer.prefix(bytesWritten))
+            return outputBuffer.resize(to: bytesWritten)
         }
     }
 
@@ -544,14 +539,14 @@ class AES {
         let K1: Bytes
         let K2: Bytes
 
-        public init(key: Bytes) throws {
-            cipher = AES.CBC(key: key, iv: Zero)
+        public init(key: any DataType) throws {
+            cipher = AES.CBC(key: key)
             let L = try cipher.encrypt(Zero)
             K1 = (L[0] & 0x80) == 0 ? L.leftShiftOneBit() : L.leftShiftOneBit() ^ CMAC.Rb
             K2 = (K1[0] & 0x80) == 0 ? K1.leftShiftOneBit() : K1.leftShiftOneBit() ^ CMAC.Rb
         }
 
-        public func authenticate<T>(bytes: T, count: Int) throws -> Bytes where T : DataProtocol, T.Index == Int {
+        public func authenticate<T : DataType>(bytes: T, count: Int = 8) throws -> Bytes where T.Index == Int {
             let n = ceil(Double(bytes.count) / Double(BlockSize))
             let lastBlockComplete: Bool
             if n == 0 {
@@ -575,8 +570,8 @@ class AES {
                 x = try cipher.encrypt(y)
             }
             y = M_last ^ x
-            let T = try cipher.encrypt(y)
-            return Bytes(T[0..<count])
+            var T = try cipher.encrypt(y)
+            return T.resize(to: count)
         }
     }
 }
