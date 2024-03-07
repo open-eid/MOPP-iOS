@@ -124,10 +124,6 @@ class SettingsViewController: MoppViewController {
     deinit {
         printLog("Deinit SettingsViewController")
     }
-    
-    deinit {
-        printLog("Deinit SettingsViewController")
-    }
 }
 
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
