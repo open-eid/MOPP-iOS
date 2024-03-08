@@ -244,8 +244,10 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                 if isAsicsContainer() && !isAsicsFileWarningSet {
                     handleAsicsContainerMessage()
                 }
-
-                checkIsCades(asicContainer: asicContainer)
+            
+                if isAsicContainer {
+                    checkIsCades(asicContainer: asicContainer)
+                }
 
                 if !isForPreview && isAsicContainer {
                     if isDdocOrAsicsContainer(containerPath: containerPath) || isEmptyFileWarningSet || isCades() {
