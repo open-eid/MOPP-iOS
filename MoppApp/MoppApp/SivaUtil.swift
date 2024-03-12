@@ -23,25 +23,33 @@
 
 import Foundation
 import PDFKit
+import MoppLib
 
 class SiVaUtil {
     static func isDocumentSentToSiVa(fileUrl: URL?) -> Bool {
         guard let fileLocation = fileUrl else { return false }
+        let containerTypes = ["asics", "scs", "ddoc"]
         let containerType = MimeTypeExtractor.determineContainer(mimetype: MimeTypeExtractor.getMimeTypeFromContainer(filePath: fileLocation), fileExtension: fileLocation.pathExtension).lowercased()
         
         if containerType == "pdf" {
-            return isSignedPDF(url: fileLocation as CFURL)
+            let isSignedPDF = isSignedPDF(url: fileLocation as CFURL)
+            return isSignedPDF
         }
         
-        return containerType == "ddoc" || SignatureUtil.isCades(signatures: SignatureUtil.getSignatures(filePath: fileLocation))
+        let isCades = MimeTypeExtractor.isCadesContainer(filePath: fileLocation)
+        let isSentToSiva = containerTypes.contains(containerType) || isCades
+        
+        return isSentToSiva
     }
     
     static func displaySendingToSiVaDialog(completionHandler: @escaping (Bool) -> Void) {
         let alert = UIAlertController(title: L(.sivaSendMessage).removeFirstLinkFromMessage(), message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: L(.actionYes).uppercased(), style: .default, handler: { (_ action: UIAlertAction) in
+            setIsSentToSiva(isSent: true)
             completionHandler(true)
         }))
         alert.addAction(UIAlertAction(title: L(.actionAbort), style: .default, handler: {(_ action: UIAlertAction) -> Void in
+            setIsSentToSiva(isSent: false)
             completionHandler(false)
         }))
         if let linkInUrl: String = L(.sivaSendMessage).getFirstLinkInMessage() {
@@ -111,5 +119,10 @@ class SiVaUtil {
         }
         
         return false
+    }
+    
+    static func setIsSentToSiva(isSent: Bool) {
+        let validateOnlineInstance = MoppLibDigidocValidateOnline.sharedInstance()
+        validateOnlineInstance?.validateOnline = isSent
     }
 }

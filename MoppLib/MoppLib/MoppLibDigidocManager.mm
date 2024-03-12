@@ -42,6 +42,7 @@
 #import <Security/SecCertificate.h>
 #import <Security/SecKey.h>
 #import "MoppLibGlobals.h"
+#import "MoppLibDigidocValidateOnline.h"
 
 #include <CryptoLib/CryptoLib.h>
 
@@ -247,6 +248,19 @@ private:
   digidoc::X509Cert _cert;
 };
 
+class MoppLibDigidocContainerOpenCB: public digidoc::ContainerOpenCB {
+private:
+    bool validate;
+
+public:
+    MoppLibDigidocContainerOpenCB(bool validate)
+        : validate(validate) {}
+
+    virtual bool validateOnline() const {
+        return validate;
+    }
+};
+
 
 @interface MoppLibDigidocManager ()
     - (MoppLibSignatureStatus)determineSignatureStatus:(int) status;
@@ -425,7 +439,10 @@ static digidoc::Signature *signature = nil;
     signature = NULL;
 
     try {
-        docContainer = digidoc::Container::openPtr(containerPath.UTF8String);
+        MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
+        BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
+        MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
+        docContainer = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
     } catch(const digidoc::Exception &e) {
         parseException(e);
         return nil;
@@ -475,7 +492,10 @@ static digidoc::Signature *signature = nil;
 
     std::unique_ptr<digidoc::Container> doc;
     try {
-      doc = digidoc::Container::openPtr(containerPath.UTF8String);
+      MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
+      BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
+      MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
+      doc = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
     } catch(const digidoc::Exception &e) {
       parseException(e);
 
@@ -706,7 +726,10 @@ static digidoc::Signature *signature = nil;
     std::unique_ptr<digidoc::Container> container;
 
   try {
-    container = digidoc::Container::openPtr(containerPath.UTF8String);
+    MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
+    BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
+    MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
+    container = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
 
     for (NSString *dataFilePath in dataFilePaths) {
       [self addDataFileToContainer:container.get() withDataFilePath:dataFilePath error: error];
@@ -745,7 +768,10 @@ static digidoc::Signature *signature = nil;
 - (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex error:(NSError **)error {
     std::unique_ptr<digidoc::Container> container;
   try {
-    container = digidoc::Container::openPtr(containerPath.UTF8String);
+    MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
+    BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
+    MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
+    container = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
     container->removeDataFile((int)dataFileIndex);
 
     try {
@@ -805,7 +831,10 @@ NSString* getOCSPUrl(const digidoc::X509Cert &cert)  {
     std::unique_ptr<digidoc::Container> managedContainer;
 
     // Load the container
-    managedContainer = digidoc::Container::openPtr(containerPath.UTF8String);
+    MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
+    BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
+    MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
+    managedContainer = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
 
 
     // Check if key type in certificate supports ECC algorithm
@@ -886,7 +915,10 @@ NSString* getOCSPUrl(const digidoc::X509Cert &cert)  {
 }
 
 - (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath error:(NSError **)error {
-  std::unique_ptr<digidoc::Container> doc = digidoc::Container::openPtr(containerPath.UTF8String);
+  MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
+  BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
+  MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
+  std::unique_ptr<digidoc::Container> doc = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
   for (int i = 0; i < doc->signatures().size(); i++) {
     digidoc::Signature *signature = doc->signatures().at(i);
     digidoc::X509Cert cert = signature->signingCertificate();
@@ -937,7 +969,10 @@ NSString* getOCSPUrl(const digidoc::X509Cert &cert)  {
 - (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure {
     std::unique_ptr<digidoc::Container> doc;
     try {
-        doc = digidoc::Container::openPtr(containerPath.UTF8String);
+        MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
+        BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
+        MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
+        doc = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
     } catch(const digidoc::Exception &e) {
         parseException(e);
     }
@@ -970,7 +1005,10 @@ NSString* getOCSPUrl(const digidoc::X509Cert &cert)  {
 - (BOOL)isContainerFileSaveable:(NSString *)containerPath saveDataFile:(NSString *)fileName {
     std::unique_ptr<digidoc::Container> doc;
     try {
-        doc = digidoc::Container::openPtr(containerPath.UTF8String);
+        MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
+        BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
+        MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
+        doc = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
     } catch(const digidoc::Exception &e) {
         parseException(e);
     }

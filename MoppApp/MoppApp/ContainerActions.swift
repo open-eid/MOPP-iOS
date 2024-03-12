@@ -35,10 +35,8 @@ extension ContainerActions where Self: UIViewController {
         let topSigningViewController = navController.viewControllers.last!
 
         landingViewController.documentPicker.dismiss(animated: false, completion: nil)
-
-        if landingViewController.fileImportIntent == .openOrCreate && landingViewController.containerType == .asic && urls.count == 1 {
-            self.importDataFiles(with: urls, navController: navController, topSigningViewController: topSigningViewController, landingViewController: landingViewController, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: true)
-        }
+        
+        self.importDataFiles(with: urls, navController: navController, topSigningViewController: topSigningViewController, landingViewController: landingViewController, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: true)
     }
 
     func importDataFiles(with urls: [URL], navController: UINavigationController, topSigningViewController: UIViewController, landingViewController: LandingViewController, cleanup: Bool, isEmptyFileImported: Bool, isSendingToSivaAgreed: Bool) {
@@ -82,16 +80,19 @@ extension ContainerActions where Self: UIViewController {
                 let isAsicOrPadesContainer = (ext.isAsicContainerExtension || ext == ContainerFormatPDF) &&
                     landingViewController.containerType == .asic
                 let isCdocContainer = ext.isCdocContainerExtension && landingViewController.containerType == .cdoc
-                if  (isAsicOrPadesContainer || isCdocContainer) && urls.count == 1 {
-                    if (urls.first?.pathExtension == "asics" || urls.first?.pathExtension == "scs") || SignatureUtil.isCades(signatures: SignatureUtil.getSignatures(filePath: urls.first!)) {
+                if (isAsicOrPadesContainer || isCdocContainer) && urls.count == 1 {
+                    SiVaUtil.setIsSentToSiva(isSent: false)
+                    
+                    if let firstUrl = urls.first, (firstUrl.pathExtension == "asics" || firstUrl.pathExtension == "scs") || MimeTypeExtractor.isCadesContainer(filePath: firstUrl) {
                         if self?.getTopViewController() is FileImportProgressViewController {
                             self?.dismiss(animated: true, completion: {
                                 SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
-                                    self?.openExistingContainer(with: urls.first!, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: hasAgreed)
+                                    self?.openExistingContainer(with: firstUrl, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: hasAgreed)
                                 }
                             })
                         }
                     } else {
+                        SiVaUtil.setIsSentToSiva(isSent: true)
                         self?.openExistingContainer(with: urls.first!, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: isSendingToSivaAgreed)
                     }
                 } else {
@@ -150,8 +151,8 @@ extension ContainerActions where Self: UIViewController {
             let forbiddenFileExtensions = ["ddoc", "asics", "scs"]
             let fileURL = URL(fileURLWithPath: newFilePath)
             let fileExtension = fileURL.pathExtension
-            let isSignedPDF = SiVaUtil.isDocumentSentToSiVa(fileUrl: fileURL)
-            if (forbiddenFileExtensions.contains(fileExtension) || isSignedPDF) {
+            let isSignedPDF = SiVaUtil.isSignedPDF(url: fileURL as CFURL)
+            if (forbiddenFileExtensions.contains(fileExtension) || isSignedPDF || MimeTypeExtractor.isCadesContainer(filePath: fileURL)) {
                 self.openContainer(url: url, newFilePath: newFilePath, fileName: fileName, landingViewController: landingViewController, navController: navController, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: isSendingToSivaAgreed) { error in
                     failure(error)
                 }
@@ -189,6 +190,7 @@ extension ContainerActions where Self: UIViewController {
     }
 
     func openContainer(url: URL, newFilePath: String, fileName: String, landingViewController: LandingViewController, navController: UINavigationController?, isEmptyFileImported: Bool, isSendingToSivaAgreed: Bool, failure: @escaping ((_ error: NSError?) -> Void)) {
+        SiVaUtil.setIsSentToSiva(isSent: isSendingToSivaAgreed)
         MoppLibContainerActions.sharedInstance().openContainer(withPath: newFilePath,
             success: { (_ container: MoppLibContainer?) -> Void in
                 if container == nil {
