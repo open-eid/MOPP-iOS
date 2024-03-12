@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Sh7-45-xtX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Sh7-45-xtX">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -29,7 +29,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1500"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAa-T3-Ggw">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAa-T3-Ggw">
                                 <rect key="frame" x="0.0" y="20" width="375" height="1480"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -76,46 +76,96 @@
                                             <outlet property="titleLabel" destination="K3i-bD-xmf" id="soL-H3-nHb"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsFieldCell" rowHeight="135" id="WdY-6x-5g4" customClass="SettingsFieldCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="120" width="375" height="135"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SigningCategoryCell" rowHeight="124.99999988079071" id="RKr-Ee-RB5" customClass="SigningCategoryCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="120" width="375" height="125"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WdY-6x-5g4" id="TYs-0y-7CU">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="135"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RKr-Ee-RB5" id="sPZ-f6-oUb">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="125"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MOBIIL-ID TELEFONINUMBER" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfZ-Wm-PED" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                    <rect key="frame" x="24" y="11" width="335" height="17.5"/>
-                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="15"/>
-                                                    <color key="textColor" name="MoppLabel"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Riigikood ja telefoninumber" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CvN-fs-oAD" customClass="SettingsTextField" customModule="MoppApp" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="32.5" width="343" height="55"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TLb-Io-x23">
+                                                    <rect key="frame" x="0.0" y="36" width="375" height="53"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TY5-nt-fHW">
+                                                            <rect key="frame" x="24" y="0.0" width="20" height="53"/>
+                                                            <subviews>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settingsSigningIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Qh5-u9-NCU">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="20" height="53"/>
+                                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="20" id="DIe-Pp-gHv"/>
+                                                                        <constraint firstAttribute="width" constant="20" id="yNB-QM-ByR"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            <constraints>
+                                                                <constraint firstItem="Qh5-u9-NCU" firstAttribute="leading" secondItem="TY5-nt-fHW" secondAttribute="leading" id="HT9-6u-Khm"/>
+                                                                <constraint firstAttribute="trailing" secondItem="Qh5-u9-NCU" secondAttribute="trailing" id="j5m-o3-Vuj"/>
+                                                                <constraint firstItem="Qh5-u9-NCU" firstAttribute="top" secondItem="TY5-nt-fHW" secondAttribute="top" id="tKP-9x-JdU"/>
+                                                                <constraint firstAttribute="bottom" secondItem="Qh5-u9-NCU" secondAttribute="bottom" id="tfc-eR-3zF"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xGF-a1-U9U" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
+                                                            <rect key="frame" x="68" y="0.0" width="231" height="53"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            <state key="normal" title="Signing">
+                                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="openSigningCategory:" destination="Sh7-45-xtX" eventType="touchUpInside" id="hoz-DW-NWn"/>
+                                                            </connections>
+                                                        </button>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NYd-7l-bLe">
+                                                            <rect key="frame" x="323" y="0.0" width="20" height="53"/>
+                                                            <subviews>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="disclosureIndicator" translatesAutoresizingMaskIntoConstraints="NO" id="UQd-ym-09n">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="20" height="53"/>
+                                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="20" id="8KB-6r-AmH"/>
+                                                                        <constraint firstAttribute="width" constant="20" id="p3c-HN-kAX"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            <constraints>
+                                                                <constraint firstItem="UQd-ym-09n" firstAttribute="leading" secondItem="NYd-7l-bLe" secondAttribute="leading" id="7e0-mq-Wqm"/>
+                                                                <constraint firstAttribute="trailing" secondItem="UQd-ym-09n" secondAttribute="trailing" id="7t2-L0-jNG"/>
+                                                                <constraint firstItem="UQd-ym-09n" firstAttribute="top" secondItem="NYd-7l-bLe" secondAttribute="top" id="Nms-gc-5Ed"/>
+                                                                <constraint firstAttribute="bottom" secondItem="UQd-ym-09n" secondAttribute="bottom" id="dIX-wm-wNk"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="55" id="RBM-jG-5sa"/>
+                                                        <constraint firstItem="xGF-a1-U9U" firstAttribute="top" secondItem="TLb-Io-x23" secondAttribute="top" id="5cJ-bo-Z4X"/>
+                                                        <constraint firstItem="NYd-7l-bLe" firstAttribute="top" secondItem="TLb-Io-x23" secondAttribute="top" id="J7f-ce-59i"/>
+                                                        <constraint firstItem="TY5-nt-fHW" firstAttribute="leading" secondItem="TLb-Io-x23" secondAttribute="leading" constant="24" id="KfA-Nr-03n"/>
+                                                        <constraint firstAttribute="bottom" secondItem="TY5-nt-fHW" secondAttribute="bottom" id="POg-mj-FQv"/>
+                                                        <constraint firstItem="TY5-nt-fHW" firstAttribute="top" secondItem="TLb-Io-x23" secondAttribute="top" id="QIU-7d-PZd"/>
+                                                        <constraint firstAttribute="trailing" secondItem="NYd-7l-bLe" secondAttribute="trailing" constant="32" id="cob-ZZ-5af"/>
+                                                        <constraint firstAttribute="bottom" secondItem="NYd-7l-bLe" secondAttribute="bottom" id="gVc-9X-eVD"/>
+                                                        <constraint firstItem="xGF-a1-U9U" firstAttribute="leading" secondItem="TY5-nt-fHW" secondAttribute="trailing" constant="24" id="jsU-Un-h3t"/>
+                                                        <constraint firstAttribute="bottom" secondItem="xGF-a1-U9U" secondAttribute="bottom" id="shR-do-gCr"/>
+                                                        <constraint firstItem="NYd-7l-bLe" firstAttribute="leading" secondItem="xGF-a1-U9U" secondAttribute="trailing" constant="24" id="zS9-DX-aX7"/>
                                                     </constraints>
-                                                    <color key="textColor" name="MoppText"/>
-                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
-                                                </textField>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="CvN-fs-oAD" firstAttribute="top" secondItem="hfZ-Wm-PED" secondAttribute="bottom" constant="4" id="Q4G-UN-lzQ"/>
-                                                <constraint firstItem="hfZ-Wm-PED" firstAttribute="leading" secondItem="TYs-0y-7CU" secondAttribute="leadingMargin" constant="8" id="RUe-F4-qNH"/>
-                                                <constraint firstItem="hfZ-Wm-PED" firstAttribute="top" secondItem="TYs-0y-7CU" secondAttribute="topMargin" id="RgR-D0-oa1"/>
-                                                <constraint firstItem="hfZ-Wm-PED" firstAttribute="trailing" secondItem="TYs-0y-7CU" secondAttribute="trailingMargin" id="SGg-kX-XMe"/>
-                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="CvN-fs-oAD" secondAttribute="bottom" constant="8" id="SM3-QZ-V12"/>
-                                                <constraint firstItem="CvN-fs-oAD" firstAttribute="leading" secondItem="TYs-0y-7CU" secondAttribute="leadingMargin" id="a9X-uW-wOQ"/>
-                                                <constraint firstItem="CvN-fs-oAD" firstAttribute="trailing" secondItem="TYs-0y-7CU" secondAttribute="trailingMargin" id="cUW-yc-1At"/>
+                                                <constraint firstItem="TLb-Io-x23" firstAttribute="top" secondItem="sPZ-f6-oUb" secondAttribute="top" constant="36" id="8QU-Gl-ZMi"/>
+                                                <constraint firstAttribute="bottom" secondItem="TLb-Io-x23" secondAttribute="bottom" constant="36" id="VA1-FH-vLx"/>
+                                                <constraint firstAttribute="trailing" secondItem="TLb-Io-x23" secondAttribute="trailing" id="r1l-io-PHk"/>
+                                                <constraint firstItem="TLb-Io-x23" firstAttribute="leading" secondItem="sPZ-f6-oUb" secondAttribute="leading" id="ztH-Ys-2hl"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="textField" destination="CvN-fs-oAD" id="esu-wa-djo"/>
-                                            <outlet property="titleLabel" destination="hfZ-Wm-PED" id="yfn-73-Qym"/>
+                                            <outlet property="signingCategoryButton" destination="xGF-a1-U9U" id="5Ox-Af-6nt"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsChoiceCell" rowHeight="126" id="DcP-fJ-3lt" customClass="SettingsChoiceCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="255" width="375" height="126"/>
+                                        <rect key="frame" x="0.0" y="245" width="375" height="126"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DcP-fJ-3lt" id="cT5-Ed-aRg">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="126"/>
@@ -178,7 +228,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsTimeStampCell" rowHeight="91" id="oWS-ur-juU" customClass="SettingsTimeStampCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="381" width="375" height="91"/>
+                                        <rect key="frame" x="0.0" y="371" width="375" height="91"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oWS-ur-juU" id="TQD-FB-ySn">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="91"/>
@@ -215,448 +265,32 @@
                                             <outlet property="titleLabel" destination="pbc-P0-5nz" id="qnc-c5-euj"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsDefaultValueCell" id="S9f-IU-Vln" customClass="SettingsDefaultValueCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="472" width="375" height="44.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsResetCell" rowHeight="124.99999988079071" id="1yr-XE-Rqx" customClass="SettingsResetCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="462" width="375" height="125"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S9f-IU-Vln" id="Uro-tU-5ZM">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1yr-XE-Rqx" id="NK1-zD-Iv7">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="125"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="xfE-zm-fe7">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="44.5"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Default Title Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="D3b-4p-t6H" userLabel="Use Default Title Label" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="13.5" width="151.5" height="17.5"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="151.5" id="LVf-el-QvN"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="15"/>
-                                                            <color key="textColor" name="MoppText"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ZR-f6-fYn" customClass="SwitchButton" customModule="MoppApp" customModuleProvider="target">
-                                                            <rect key="frame" x="294" y="6.5" width="51" height="31"/>
-                                                            <connections>
-                                                                <action selector="useDefaultToggled:" destination="S9f-IU-Vln" eventType="touchUpInside" id="gpv-K4-w5q"/>
-                                                            </connections>
-                                                        </switch>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="D3b-4p-t6H" firstAttribute="top" secondItem="xfE-zm-fe7" secondAttribute="top" constant="13.5" id="Lm9-EY-qi8"/>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="T7c-wm-JfE"/>
-                                                    </constraints>
-                                                </stackView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="xfE-zm-fe7" secondAttribute="bottom" id="Ae0-E5-uln"/>
-                                                <constraint firstItem="xfE-zm-fe7" firstAttribute="leading" secondItem="Uro-tU-5ZM" secondAttribute="leading" constant="16" id="IBk-bJ-gbY"/>
-                                                <constraint firstItem="xfE-zm-fe7" firstAttribute="top" secondItem="Uro-tU-5ZM" secondAttribute="top" id="nmx-tP-7L6"/>
-                                                <constraint firstAttribute="trailing" secondItem="xfE-zm-fe7" secondAttribute="trailing" constant="16" id="y6q-9a-472"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="useDefaultSwitch" destination="5ZR-f6-fYn" id="s14-aM-QKr"/>
-                                            <outlet property="useDefaultTitleLabel" destination="D3b-4p-t6H" id="gBJ-hw-Nn3"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsTSACertCell" id="vb7-26-1De" customClass="SettingsTSACertCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="516.5" width="375" height="198"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vb7-26-1De" id="G8q-Qy-eK5">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="198"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="k8v-bm-Uxj">
-                                                    <rect key="frame" x="16" y="10" width="343" height="163"/>
-                                                    <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zJd-sR-fMw">
-                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
-                                                            <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time-Stamping service header" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IeT-9d-QIf" userLabel="TimeStampingServiceHeader" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
-                                                                    <accessibility key="accessibilityConfiguration">
-                                                                        <accessibilityTraits key="traits" staticText="YES" header="YES"/>
-                                                                    </accessibility>
-                                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="18"/>
-                                                                    <color key="textColor" name="MoppLabel"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                            </subviews>
-                                                        </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bwN-Ve-e8h">
-                                                            <rect key="frame" x="0.0" y="36" width="343" height="46"/>
-                                                            <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Issued to:" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGE-2Q-xcJ" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                    <color key="textColor" name="MoppLabel"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Valid until:" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySu-70-Z3E" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="25.5" width="343" height="20.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                    <color key="textColor" name="MoppLabel"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                            </subviews>
-                                                        </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="5MD-En-ZUq">
-                                                            <rect key="frame" x="0.0" y="97" width="343" height="66"/>
-                                                            <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jr6-VX-OQ9" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MBF-YL-QYw" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="45.5" width="343" height="20.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                            </subviews>
-                                                        </stackView>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="58" id="7Fs-C2-2Mr"/>
-                                                    </constraints>
-                                                </stackView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="k8v-bm-Uxj" secondAttribute="bottom" constant="25" id="9IA-OB-Ff3"/>
-                                                <constraint firstAttribute="trailing" secondItem="k8v-bm-Uxj" secondAttribute="trailing" constant="16" id="GLb-R9-pmq"/>
-                                                <constraint firstItem="k8v-bm-Uxj" firstAttribute="leading" secondItem="G8q-Qy-eK5" secondAttribute="leading" constant="16" id="QyM-DA-OUY"/>
-                                                <constraint firstItem="k8v-bm-Uxj" firstAttribute="top" secondItem="G8q-Qy-eK5" secondAttribute="top" constant="10" id="wsC-6s-haC"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="addCertificateButton" destination="jr6-VX-OQ9" id="BNq-Fo-ihw"/>
-                                            <outlet property="issuedToLabel" destination="GGE-2Q-xcJ" id="clq-Lh-XA5"/>
-                                            <outlet property="showCertificateButton" destination="MBF-YL-QYw" id="sq8-x2-0La"/>
-                                            <outlet property="titleLabel" destination="IeT-9d-QIf" id="xnZ-mT-1q0"/>
-                                            <outlet property="tsaCertButtonsStackView" destination="5MD-En-ZUq" id="SqQ-ED-GKD"/>
-                                            <outlet property="tsaCertLabelStackView" destination="zJd-sR-fMw" id="iw7-hZ-idv"/>
-                                            <outlet property="tsaCertStackView" destination="k8v-bm-Uxj" id="xXi-rG-u03"/>
-                                            <outlet property="tsaDataStackView" destination="bwN-Ve-e8h" id="pU1-Ls-1W4"/>
-                                            <outlet property="validUntilLabel" destination="ySu-70-Z3E" id="gxW-oQ-Kcp"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsStateCell" rowHeight="200" id="Jvo-qw-kMQ" customClass="SettingsStateCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="714.5" width="375" height="200"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Jvo-qw-kMQ" id="V2q-bf-zDW">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="gma-5p-cba">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="200"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ask role and address on every signing" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iu4-8i-4zf" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="91.5" width="255" height="17.5"/>
-                                                            <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="15"/>
-                                                            <color key="textColor" name="MoppText"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="nSd-0O-0nE" customClass="SwitchButton" customModule="MoppApp" customModuleProvider="target">
-                                                            <rect key="frame" x="294" y="84.5" width="51" height="31"/>
-                                                            <connections>
-                                                                <action selector="stateToggled:" destination="Jvo-qw-kMQ" eventType="valueChanged" id="VeS-PD-EfD"/>
-                                                            </connections>
-                                                        </switch>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="GHz-oC-MEM"/>
-                                                    </constraints>
-                                                </stackView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="gma-5p-cba" firstAttribute="top" secondItem="V2q-bf-zDW" secondAttribute="top" id="2NU-mp-Sly"/>
-                                                <constraint firstAttribute="bottom" secondItem="gma-5p-cba" secondAttribute="bottom" id="HW2-lf-hjV"/>
-                                                <constraint firstItem="gma-5p-cba" firstAttribute="leading" secondItem="V2q-bf-zDW" secondAttribute="leading" constant="16" id="chg-mF-krR"/>
-                                                <constraint firstAttribute="trailing" secondItem="gma-5p-cba" secondAttribute="trailing" constant="16" id="xfS-P7-Vbr"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="roleSwitchStackView" destination="gma-5p-cba" id="kRS-8w-bON"/>
-                                            <outlet property="stateSwitch" destination="nSd-0O-0nE" id="Pds-0O-bwi"/>
-                                            <outlet property="titleLabel" destination="Iu4-8i-4zf" id="avF-7h-HkC"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingsSivaCertCell" rowHeight="541" id="GzG-qn-75X" customClass="SettingsSivaCertCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="914.5" width="375" height="541"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GzG-qn-75X" id="EYN-ra-XUh">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="541"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Qsj-4B-Jru">
-                                                    <rect key="frame" x="16" y="20" width="343" height="254"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Access to Digital Signature Validation Service SiVa" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nPK-Qv-jTV" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="41"/>
-                                                            <accessibility key="accessibilityConfiguration">
-                                                                <accessibilityTraits key="traits" staticText="YES" header="YES"/>
-                                                            </accessibility>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" name="MoppLabel"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="TAN-8G-AdX">
-                                                            <rect key="frame" x="0.0" y="61" width="343" height="118"/>
-                                                            <subviews>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="D0y-tK-qx6">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
-                                                                    <subviews>
-                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ok9-M9-sKS">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
-                                                                            <subviews>
-                                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Vw-n8-yl1">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="50"/>
-                                                                                    <subviews>
-                                                                                        <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kNa-aV-eBU" customClass="RadioButton" customModule="MoppApp" customModuleProvider="target">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="24" height="50"/>
-                                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                                            <accessibility key="accessibilityConfiguration">
-                                                                                                <accessibilityTraits key="traits" button="YES"/>
-                                                                                                <bool key="isElement" value="YES"/>
-                                                                                            </accessibility>
-                                                                                            <constraints>
-                                                                                                <constraint firstAttribute="width" constant="24" id="jKM-BK-WpL"/>
-                                                                                            </constraints>
-                                                                                        </view>
-                                                                                    </subviews>
-                                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                                    <accessibility key="accessibilityConfiguration">
-                                                                                        <accessibilityTraits key="traits" button="YES"/>
-                                                                                        <bool key="isElement" value="YES"/>
-                                                                                    </accessibility>
-                                                                                    <constraints>
-                                                                                        <constraint firstItem="kNa-aV-eBU" firstAttribute="leading" secondItem="9Vw-n8-yl1" secondAttribute="leading" id="3dm-WF-aAs"/>
-                                                                                        <constraint firstAttribute="width" constant="24" id="C0a-4Y-WjH"/>
-                                                                                        <constraint firstItem="kNa-aV-eBU" firstAttribute="top" secondItem="9Vw-n8-yl1" secondAttribute="top" id="Ie3-f3-R7R"/>
-                                                                                        <constraint firstAttribute="bottom" secondItem="kNa-aV-eBU" secondAttribute="bottom" id="Yhf-QX-hrP"/>
-                                                                                        <constraint firstAttribute="trailing" secondItem="kNa-aV-eBU" secondAttribute="trailing" id="ykf-mO-fUl"/>
-                                                                                    </constraints>
-                                                                                </view>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="useDefaultAccess" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSd-6G-kfW" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                                                    <rect key="frame" x="36" y="0.0" width="307" height="50"/>
-                                                                                    <accessibility key="accessibilityConfiguration">
-                                                                                        <accessibilityTraits key="traits" button="YES" staticText="YES"/>
-                                                                                    </accessibility>
-                                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                    <color key="textColor" name="MoppLabel"/>
-                                                                                    <nil key="highlightedColor"/>
-                                                                                </label>
-                                                                            </subviews>
-                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                            <accessibility key="accessibilityConfiguration">
-                                                                                <accessibilityTraits key="traits" button="YES"/>
-                                                                                <bool key="isElement" value="YES"/>
-                                                                            </accessibility>
-                                                                            <gestureRecognizers/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="trailing" secondItem="VSd-6G-kfW" secondAttribute="trailing" id="6lC-Z0-Hyh"/>
-                                                                                <constraint firstAttribute="bottom" secondItem="9Vw-n8-yl1" secondAttribute="bottom" id="Oqc-9z-tr8"/>
-                                                                                <constraint firstItem="9Vw-n8-yl1" firstAttribute="top" secondItem="Ok9-M9-sKS" secondAttribute="top" id="Wwz-FT-YVt"/>
-                                                                                <constraint firstItem="VSd-6G-kfW" firstAttribute="top" secondItem="Ok9-M9-sKS" secondAttribute="top" id="Xrb-fd-ioL"/>
-                                                                                <constraint firstItem="9Vw-n8-yl1" firstAttribute="leading" secondItem="Ok9-M9-sKS" secondAttribute="leading" id="tQw-et-2pG"/>
-                                                                                <constraint firstItem="VSd-6G-kfW" firstAttribute="leading" secondItem="9Vw-n8-yl1" secondAttribute="trailing" constant="12" id="vbe-Gk-D89"/>
-                                                                                <constraint firstAttribute="bottom" secondItem="VSd-6G-kfW" secondAttribute="bottom" id="zyI-I7-N1d"/>
-                                                                            </constraints>
-                                                                        </view>
-                                                                    </subviews>
-                                                                </stackView>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="YP2-0o-QTs">
-                                                                    <rect key="frame" x="0.0" y="68" width="343" height="50"/>
-                                                                    <subviews>
-                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kd8-pl-R9i">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
-                                                                            <subviews>
-                                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MrZ-nP-weo">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="50"/>
-                                                                                    <subviews>
-                                                                                        <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fDR-Cz-rNb" customClass="RadioButton" customModule="MoppApp" customModuleProvider="target">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="24" height="50"/>
-                                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                                            <accessibility key="accessibilityConfiguration">
-                                                                                                <accessibilityTraits key="traits" button="YES"/>
-                                                                                                <bool key="isElement" value="YES"/>
-                                                                                            </accessibility>
-                                                                                            <constraints>
-                                                                                                <constraint firstAttribute="width" constant="24" id="99M-g9-JWf"/>
-                                                                                            </constraints>
-                                                                                        </view>
-                                                                                    </subviews>
-                                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                                    <accessibility key="accessibilityConfiguration">
-                                                                                        <accessibilityTraits key="traits" button="YES"/>
-                                                                                        <bool key="isElement" value="YES"/>
-                                                                                    </accessibility>
-                                                                                    <constraints>
-                                                                                        <constraint firstAttribute="bottom" secondItem="fDR-Cz-rNb" secondAttribute="bottom" id="1Bf-yD-tVV"/>
-                                                                                        <constraint firstAttribute="width" constant="24" id="eQ6-9g-0ng"/>
-                                                                                        <constraint firstItem="fDR-Cz-rNb" firstAttribute="top" secondItem="MrZ-nP-weo" secondAttribute="top" id="mjR-Zy-zz8"/>
-                                                                                        <constraint firstAttribute="trailing" secondItem="fDR-Cz-rNb" secondAttribute="trailing" id="qU0-Nb-mnb"/>
-                                                                                        <constraint firstItem="fDR-Cz-rNb" firstAttribute="leading" secondItem="MrZ-nP-weo" secondAttribute="leading" id="urk-pb-kb4"/>
-                                                                                    </constraints>
-                                                                                </view>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="useManuallyConfiguredAccess" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xyo-Aa-sML" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                                                    <rect key="frame" x="36" y="0.0" width="307" height="50"/>
-                                                                                    <accessibility key="accessibilityConfiguration">
-                                                                                        <accessibilityTraits key="traits" button="YES" staticText="YES"/>
-                                                                                    </accessibility>
-                                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                    <color key="textColor" name="MoppLabel"/>
-                                                                                    <nil key="highlightedColor"/>
-                                                                                </label>
-                                                                            </subviews>
-                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                            <accessibility key="accessibilityConfiguration">
-                                                                                <accessibilityTraits key="traits" button="YES"/>
-                                                                                <bool key="isElement" value="YES"/>
-                                                                            </accessibility>
-                                                                            <gestureRecognizers/>
-                                                                            <constraints>
-                                                                                <constraint firstItem="MrZ-nP-weo" firstAttribute="leading" secondItem="kd8-pl-R9i" secondAttribute="leading" id="Mqk-ZC-57W"/>
-                                                                                <constraint firstItem="xyo-Aa-sML" firstAttribute="leading" secondItem="MrZ-nP-weo" secondAttribute="trailing" constant="12" id="bO7-US-fAo"/>
-                                                                                <constraint firstItem="xyo-Aa-sML" firstAttribute="top" secondItem="kd8-pl-R9i" secondAttribute="top" id="d6B-z2-iOC"/>
-                                                                                <constraint firstAttribute="bottom" secondItem="MrZ-nP-weo" secondAttribute="bottom" id="ryN-vF-cJU"/>
-                                                                                <constraint firstItem="MrZ-nP-weo" firstAttribute="top" secondItem="kd8-pl-R9i" secondAttribute="top" id="tcP-js-r1i"/>
-                                                                                <constraint firstAttribute="trailing" secondItem="xyo-Aa-sML" secondAttribute="trailing" id="z4N-Nj-gKB"/>
-                                                                                <constraint firstAttribute="bottom" secondItem="xyo-Aa-sML" secondAttribute="bottom" id="zlX-2n-9k6"/>
-                                                                            </constraints>
-                                                                        </view>
-                                                                    </subviews>
-                                                                </stackView>
-                                                            </subviews>
-                                                        </stackView>
-                                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="https://siva-demo.eesti.ee/V3/validate" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nZu-Qq-NW2" customClass="SettingsTextField" customModule="MoppApp" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="199" width="343" height="55"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="55" id="kG2-nv-Wu9"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
-                                                        </textField>
-                                                    </subviews>
-                                                </stackView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="BRK-5l-OhN">
-                                                    <rect key="frame" x="16" y="294" width="343" height="212"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Digital Signature Validation Service SiVa SSL certificate" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WI4-6R-3U7" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="41"/>
-                                                            <accessibility key="accessibilityConfiguration">
-                                                                <accessibilityTraits key="traits" staticText="YES" header="YES"/>
-                                                            </accessibility>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" name="MoppLabel"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Qp5-hn-5tL">
-                                                            <rect key="frame" x="0.0" y="61" width="343" height="46"/>
-                                                            <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Issued to:" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jdh-rJ-Aio" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="74" height="20.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                    <color key="textColor" name="MoppLabel"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Valid until:" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EQ7-FA-t1k" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="25.5" width="78.5" height="20.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                    <color key="textColor" name="MoppLabel"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                            </subviews>
-                                                            <constraints>
-                                                                <constraint firstItem="EQ7-FA-t1k" firstAttribute="top" secondItem="Jdh-rJ-Aio" secondAttribute="bottom" constant="5" id="zVD-b7-hod"/>
-                                                            </constraints>
-                                                        </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="0nD-mk-0YC">
-                                                            <rect key="frame" x="0.0" y="127" width="343" height="85"/>
-                                                            <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Iiu-Cm-uCp" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                    <state key="normal" title="ADD CERTIFICATE"/>
-                                                                    <connections>
-                                                                        <action selector="addCertificate:" destination="GzG-qn-75X" eventType="touchUpInside" id="K0c-mG-co6"/>
-                                                                    </connections>
-                                                                </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="B0e-xC-bbU" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="55" width="343" height="30"/>
-                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                    <state key="normal" title="SHOW CERTIFICATE"/>
-                                                                    <connections>
-                                                                        <action selector="showCertificate:" destination="GzG-qn-75X" eventType="touchUpInside" id="Yc4-DG-DFR"/>
-                                                                    </connections>
-                                                                </button>
-                                                            </subviews>
-                                                            <constraints>
-                                                                <constraint firstItem="B0e-xC-bbU" firstAttribute="top" secondItem="Iiu-Cm-uCp" secondAttribute="bottom" constant="25" id="EKv-tf-KfA"/>
-                                                            </constraints>
-                                                        </stackView>
-                                                    </subviews>
-                                                </stackView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Qsj-4B-Jru" firstAttribute="leading" secondItem="EYN-ra-XUh" secondAttribute="leading" constant="16" id="52r-p6-pNb"/>
-                                                <constraint firstItem="Qsj-4B-Jru" firstAttribute="top" secondItem="EYN-ra-XUh" secondAttribute="top" constant="20" id="Jaa-p7-0NC"/>
-                                                <constraint firstItem="BRK-5l-OhN" firstAttribute="top" secondItem="Qsj-4B-Jru" secondAttribute="bottom" constant="20" id="PD4-dr-p4O"/>
-                                                <constraint firstItem="BRK-5l-OhN" firstAttribute="leading" secondItem="EYN-ra-XUh" secondAttribute="leading" constant="16" id="QdC-eA-jSB"/>
-                                                <constraint firstAttribute="trailing" secondItem="Qsj-4B-Jru" secondAttribute="trailing" constant="16" id="a4L-ba-AqI"/>
-                                                <constraint firstAttribute="trailing" secondItem="BRK-5l-OhN" secondAttribute="trailing" constant="16" id="fa7-uF-Ms7"/>
-                                                <constraint firstAttribute="bottom" secondItem="BRK-5l-OhN" secondAttribute="bottom" constant="35" id="rhX-2J-ICo"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="addCertificateButton" destination="Iiu-Cm-uCp" id="r7k-tx-lSr"/>
-                                            <outlet property="certificateButtonsStackView" destination="0nD-mk-0YC" id="Vlh-sd-xp4"/>
-                                            <outlet property="certificateDataStackView" destination="Qp5-hn-5tL" id="WhV-rL-6wX"/>
-                                            <outlet property="certificateStackView" destination="BRK-5l-OhN" id="cSW-5k-TsR"/>
-                                            <outlet property="issuedToLabel" destination="Jdh-rJ-Aio" id="B3Q-6G-VIN"/>
-                                            <outlet property="showCertificateButton" destination="B0e-xC-bbU" id="1AI-6s-2so"/>
-                                            <outlet property="signatureValidationTitle" destination="nPK-Qv-jTV" id="oGL-WL-7Jt"/>
-                                            <outlet property="sivaUrlTextField" destination="nZu-Qq-NW2" id="kI2-IB-VLA"/>
-                                            <outlet property="useDefaultAccessLabel" destination="VSd-6G-kfW" id="WJt-EO-wwI"/>
-                                            <outlet property="useDefaultAccessRadioButton" destination="kNa-aV-eBU" id="3dS-vi-abS"/>
-                                            <outlet property="useDefaultAccessStackView" destination="D0y-tK-qx6" id="v1e-IO-sPD"/>
-                                            <outlet property="useDefaultAccessView" destination="Ok9-M9-sKS" id="AWt-Pf-Tni"/>
-                                            <outlet property="useManuallyConfiguredAccessLabel" destination="xyo-Aa-sML" id="4pR-0q-HLl"/>
-                                            <outlet property="useManuallyConfiguredAccessRadioButton" destination="fDR-Cz-rNb" id="dG1-01-b8e"/>
-                                            <outlet property="useManuallyConfiguredAccessStackView" destination="YP2-0o-QTs" id="HyG-8x-2dc"/>
-                                            <outlet property="useManuallyConfiguredAccessView" destination="kd8-pl-R9i" id="1QV-am-3Ir"/>
-                                            <outlet property="validUntilLabel" destination="EQ7-FA-t1k" id="uBf-28-Yr1"/>
-                                            <outlet property="validationAccessChoiceStackView" destination="TAN-8G-AdX" id="uDZ-cK-btP"/>
-                                            <outlet property="validationAccessStackView" destination="Qsj-4B-Jru" id="bWO-lG-l6x"/>
-                                            <outlet property="validationServiceCertificateTitle" destination="WI4-6R-3U7" id="Lz2-Bl-hsu"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingsResetCell" rowHeight="541" id="7s8-Wf-qhG" customClass="SettingsResetCell" customModule="MoppApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1455.5" width="375" height="541"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7s8-Wf-qhG" id="18h-MB-j7e">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="541"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="80s-Eu-9Lu" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="541"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset settings" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m8v-UR-MyV" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="25" width="343" height="75"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" button="YES" staticText="YES"/>
+                                                    </accessibility>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="80s-Eu-9Lu" firstAttribute="leading" secondItem="18h-MB-j7e" secondAttribute="leading" id="7OQ-sp-EQD"/>
-                                                <constraint firstAttribute="bottom" secondItem="80s-Eu-9Lu" secondAttribute="bottom" id="Jx7-TP-esn"/>
-                                                <constraint firstItem="80s-Eu-9Lu" firstAttribute="top" secondItem="18h-MB-j7e" secondAttribute="top" id="cjT-bv-J0f"/>
-                                                <constraint firstAttribute="trailing" secondItem="80s-Eu-9Lu" secondAttribute="trailing" id="db6-jE-d7A"/>
+                                                <constraint firstItem="m8v-UR-MyV" firstAttribute="top" secondItem="NK1-zD-Iv7" secondAttribute="top" constant="25" id="EGO-3L-TlA"/>
+                                                <constraint firstAttribute="trailing" secondItem="m8v-UR-MyV" secondAttribute="trailing" constant="16" id="GYZ-Og-Asv"/>
+                                                <constraint firstItem="m8v-UR-MyV" firstAttribute="leading" secondItem="NK1-zD-Iv7" secondAttribute="leading" constant="16" id="Lvw-Ze-toy"/>
+                                                <constraint firstAttribute="bottom" secondItem="m8v-UR-MyV" secondAttribute="bottom" constant="25" id="NUh-00-j8l"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="resetSettingsButton" destination="80s-Eu-9Lu" id="KxT-Dr-Pge"/>
+                                            <outlet property="resetSettingsButton" destination="m8v-UR-MyV" id="3EP-w0-Tx9"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -686,7 +320,865 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="baP-Xx-os6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="312.80000000000001" y="-154.72263868065968"/>
+            <point key="canvasLocation" x="1101.5999999999999" y="-1376.311844077961"/>
+        </scene>
+        <!--Signing Category View Controller-->
+        <scene sceneID="Vhv-MS-zjQ">
+            <objects>
+                <viewController storyboardIdentifier="SigningCategoryViewController" id="fZX-wG-IrJ" customClass="SigningCategoryViewController" customModule="MoppApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="071-W5-ACo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3pX-X8-FyY">
+                                <rect key="frame" x="0.0" y="20" width="375" height="980"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsHeaderCell" rowHeight="70" id="ZXP-2O-jdE" customClass="SettingsHeaderCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="375" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZXP-2O-jdE" id="77R-LW-SoV">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0eb-gj-MZe">
+                                                    <rect key="frame" x="315" y="11" width="44" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="44" id="Rw1-HQ-mGR"/>
+                                                        <constraint firstAttribute="height" constant="44" id="aso-uQ-JFx"/>
+                                                    </constraints>
+                                                    <color key="tintColor" name="MoppTitle"/>
+                                                    <state key="normal" image="DismissPopup"/>
+                                                    <connections>
+                                                        <action selector="dismissAction" destination="ZXP-2O-jdE" eventType="touchUpInside" id="iv9-SN-onz"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L1n-Zk-qYP" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                    <rect key="frame" x="68" y="19" width="239" height="24.5"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" staticText="YES" header="YES"/>
+                                                    </accessibility>
+                                                    <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="21"/>
+                                                    <color key="textColor" name="MoppTitle"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="L1n-Zk-qYP" firstAttribute="top" secondItem="77R-LW-SoV" secondAttribute="topMargin" constant="8" id="2F6-oK-7ik"/>
+                                                <constraint firstItem="L1n-Zk-qYP" firstAttribute="leading" secondItem="77R-LW-SoV" secondAttribute="leadingMargin" constant="52" id="9ef-K3-cZ9"/>
+                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="L1n-Zk-qYP" secondAttribute="bottom" constant="4" id="N3I-rx-AFz"/>
+                                                <constraint firstItem="L1n-Zk-qYP" firstAttribute="trailing" secondItem="77R-LW-SoV" secondAttribute="trailingMargin" constant="-52" id="gG7-yk-KGE"/>
+                                                <constraint firstItem="0eb-gj-MZe" firstAttribute="top" secondItem="77R-LW-SoV" secondAttribute="topMargin" id="iu0-jV-OmB"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="0eb-gj-MZe" secondAttribute="trailing" id="spv-1H-ZZN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dismissButton" destination="0eb-gj-MZe" id="8EA-JC-x4h"/>
+                                            <outlet property="titleLabel" destination="L1n-Zk-qYP" id="nxg-Rz-gIr"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsRoleAndAddressCell" rowHeight="200" id="kwA-TL-Xxq" customClass="SettingsRoleAndAddressCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="120" width="375" height="200"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kwA-TL-Xxq" id="LaW-pS-nfN">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ym8-pJ-WLX">
+                                                    <rect key="frame" x="16" y="16" width="343" height="157"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ask role and address on every signing" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IIb-F5-EYi" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="70" width="255" height="17.5"/>
+                                                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
+                                                            <color key="textColor" name="MoppText"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="vhm-qf-zY5" customClass="SwitchButton" customModule="MoppApp" customModuleProvider="target">
+                                                            <rect key="frame" x="294" y="63" width="51" height="31"/>
+                                                            <connections>
+                                                                <action selector="stateToggled:" destination="kwA-TL-Xxq" eventType="valueChanged" id="hIm-uP-FnW"/>
+                                                            </connections>
+                                                        </switch>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ym8-pJ-WLX" firstAttribute="leading" secondItem="LaW-pS-nfN" secondAttribute="leading" constant="16" id="0F3-z4-OWg"/>
+                                                <constraint firstItem="ym8-pJ-WLX" firstAttribute="top" secondItem="LaW-pS-nfN" secondAttribute="top" constant="16" id="MyF-Gb-1Uf"/>
+                                                <constraint firstAttribute="trailing" secondItem="ym8-pJ-WLX" secondAttribute="trailing" constant="16" id="Pjk-XC-Mgp"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ym8-pJ-WLX" secondAttribute="bottom" constant="16" id="eO9-kP-Qi6"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="roleSwitchStackView" destination="ym8-pJ-WLX" id="GxK-RH-IMT"/>
+                                            <outlet property="stateSwitch" destination="vhm-qf-zY5" id="Nhh-OP-WvT"/>
+                                            <outlet property="titleLabel" destination="IIb-F5-EYi" id="szV-3g-Pu4"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsFieldCell" rowHeight="135" id="aZa-4v-WND" customClass="SettingsFieldCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="320" width="375" height="135"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aZa-4v-WND" id="4AX-HC-Eg0">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="135"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MOBIIL-ID TELEFONINUMBER" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Rs-Nu-cOi" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="11" width="343" height="17.5"/>
+                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
+                                                    <color key="textColor" name="MoppText"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Riigikood ja telefoninumber" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z7D-ta-nx1" customClass="SettingsTextField" customModule="MoppApp" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="32.5" width="343" height="55"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="55" id="L44-FB-3Jm"/>
+                                                    </constraints>
+                                                    <color key="textColor" name="MoppText"/>
+                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Z7D-ta-nx1" firstAttribute="top" secondItem="9Rs-Nu-cOi" secondAttribute="bottom" constant="4" id="1a6-OP-mV6"/>
+                                                <constraint firstItem="9Rs-Nu-cOi" firstAttribute="top" secondItem="4AX-HC-Eg0" secondAttribute="topMargin" id="2nv-76-u40"/>
+                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="Z7D-ta-nx1" secondAttribute="bottom" constant="8" id="4PB-uh-ym7"/>
+                                                <constraint firstItem="9Rs-Nu-cOi" firstAttribute="leading" secondItem="4AX-HC-Eg0" secondAttribute="leadingMargin" id="4la-6K-SGL"/>
+                                                <constraint firstItem="Z7D-ta-nx1" firstAttribute="leading" secondItem="4AX-HC-Eg0" secondAttribute="leadingMargin" id="cuE-VS-hay"/>
+                                                <constraint firstItem="Z7D-ta-nx1" firstAttribute="trailing" secondItem="4AX-HC-Eg0" secondAttribute="trailingMargin" id="elG-k5-tgY"/>
+                                                <constraint firstItem="9Rs-Nu-cOi" firstAttribute="trailing" secondItem="4AX-HC-Eg0" secondAttribute="trailingMargin" id="mCh-N0-mXl"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="textField" destination="Z7D-ta-nx1" id="FHv-cW-dMY"/>
+                                            <outlet property="titleLabel" destination="9Rs-Nu-cOi" id="co1-Ds-KuH"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsTSACertCell" id="vb7-26-1De" customClass="SettingsTSACertCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="455" width="375" height="265"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vb7-26-1De" id="G8q-Qy-eK5">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="265"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="k8v-bm-Uxj">
+                                                    <rect key="frame" x="16" y="10" width="343" height="210"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zJd-sR-fMw">
+                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="20"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time-Stamping service header" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IeT-9d-QIf" userLabel="TimeStampingServiceHeader" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="20"/>
+                                                                    <accessibility key="accessibilityConfiguration">
+                                                                        <accessibilityTraits key="traits" staticText="YES" header="YES"/>
+                                                                    </accessibility>
+                                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                                    <color key="textColor" name="MoppText"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bwN-Ve-e8h">
+                                                            <rect key="frame" x="0.0" y="35" width="343" height="45"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Issued to:" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGE-2Q-xcJ" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="20"/>
+                                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                                    <color key="textColor" name="MoppText"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Valid until:" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySu-70-Z3E" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="25" width="343" height="20"/>
+                                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                                    <color key="textColor" name="MoppText"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="VQG-pb-YLC">
+                                                            <rect key="frame" x="0.0" y="95" width="343" height="115"/>
+                                                            <subviews>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="lIk-GR-ZKz">
+                                                                    <rect key="frame" x="51" y="0.0" width="241" height="50"/>
+                                                                    <subviews>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="er1-ix-a9C">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="241" height="50"/>
+                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                            <accessibility key="accessibilityConfiguration">
+                                                                                <accessibilityTraits key="traits" button="YES"/>
+                                                                                <bool key="isElement" value="YES"/>
+                                                                            </accessibility>
+                                                                            <gestureRecognizers/>
+                                                                        </view>
+                                                                    </subviews>
+                                                                </stackView>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="09P-s5-iSF">
+                                                                    <rect key="frame" x="51" y="65" width="241" height="50"/>
+                                                                    <subviews>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jI2-W9-Ttd">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="241" height="50"/>
+                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                            <accessibility key="accessibilityConfiguration">
+                                                                                <accessibilityTraits key="traits" button="YES"/>
+                                                                                <bool key="isElement" value="YES"/>
+                                                                            </accessibility>
+                                                                            <gestureRecognizers/>
+                                                                        </view>
+                                                                    </subviews>
+                                                                </stackView>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="58" id="7Fs-C2-2Mr"/>
+                                                    </constraints>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="YPI-S5-CXe">
+                                                    <rect key="frame" x="16" y="20" width="343" height="225"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time-Stamping service header" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ie-ku-FHx" userLabel="TimeStampingServiceHeader" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="20"/>
+                                                            <accessibility key="accessibilityConfiguration">
+                                                                <accessibilityTraits key="traits" staticText="YES" header="YES"/>
+                                                            </accessibility>
+                                                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                            <color key="textColor" name="MoppText"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="P3U-NB-zps">
+                                                            <rect key="frame" x="0.0" y="40" width="343" height="45"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Issued to:" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="voq-iF-93i" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="75" height="20"/>
+                                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                                    <color key="textColor" name="MoppText"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Valid until:" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fa4-Hc-omF" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="25" width="77.5" height="20"/>
+                                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                                    <color key="textColor" name="MoppText"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="93t-K8-BKG">
+                                                            <rect key="frame" x="0.0" y="105" width="343" height="50"/>
+                                                            <subviews>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sWS-au-FW0">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cFb-hX-TwM" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
+                                                                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                                            <color key="textColor" name="MoppText"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                    <accessibility key="accessibilityConfiguration">
+                                                                        <accessibilityTraits key="traits" button="YES"/>
+                                                                        <bool key="isElement" value="YES"/>
+                                                                    </accessibility>
+                                                                    <gestureRecognizers/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="trailing" secondItem="cFb-hX-TwM" secondAttribute="trailing" id="4md-D3-gwz"/>
+                                                                        <constraint firstItem="cFb-hX-TwM" firstAttribute="leading" secondItem="sWS-au-FW0" secondAttribute="leading" id="Akz-kx-qgC"/>
+                                                                        <constraint firstItem="cFb-hX-TwM" firstAttribute="top" secondItem="sWS-au-FW0" secondAttribute="top" id="vCp-aH-7Rt"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="cFb-hX-TwM" secondAttribute="bottom" id="wv0-Tf-cqG"/>
+                                                                    </constraints>
+                                                                </view>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="78j-1y-gDa">
+                                                            <rect key="frame" x="0.0" y="175" width="343" height="50"/>
+                                                            <subviews>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Id8-px-1Pa">
+                                                                    <rect key="frame" x="51" y="0.0" width="241" height="50"/>
+                                                                    <subviews>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ymv-dq-7s9">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="241" height="50"/>
+                                                                            <subviews>
+                                                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wv3-Pr-pcK" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="241" height="50"/>
+                                                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                                                    <color key="textColor" name="MoppText"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                            </subviews>
+                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                            <accessibility key="accessibilityConfiguration">
+                                                                                <accessibilityTraits key="traits" button="YES"/>
+                                                                                <bool key="isElement" value="YES"/>
+                                                                            </accessibility>
+                                                                            <gestureRecognizers/>
+                                                                            <constraints>
+                                                                                <constraint firstItem="wv3-Pr-pcK" firstAttribute="leading" secondItem="Ymv-dq-7s9" secondAttribute="leading" id="0Pn-5h-viX"/>
+                                                                                <constraint firstItem="wv3-Pr-pcK" firstAttribute="top" secondItem="Ymv-dq-7s9" secondAttribute="top" id="VqK-qR-Fmf"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="wv3-Pr-pcK" secondAttribute="trailing" id="aeZ-1D-8Ix"/>
+                                                                                <constraint firstAttribute="bottom" secondItem="wv3-Pr-pcK" secondAttribute="bottom" id="rNO-Jc-vsR"/>
+                                                                            </constraints>
+                                                                        </view>
+                                                                    </subviews>
+                                                                </stackView>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="YPI-S5-CXe" firstAttribute="top" secondItem="G8q-Qy-eK5" secondAttribute="top" constant="20" id="67Q-da-trr"/>
+                                                <constraint firstAttribute="bottom" secondItem="YPI-S5-CXe" secondAttribute="bottom" constant="20" id="8E0-TR-SYN"/>
+                                                <constraint firstAttribute="bottom" secondItem="k8v-bm-Uxj" secondAttribute="bottom" constant="25" id="9IA-OB-Ff3"/>
+                                                <constraint firstAttribute="trailing" secondItem="k8v-bm-Uxj" secondAttribute="trailing" constant="16" id="GLb-R9-pmq"/>
+                                                <constraint firstAttribute="trailing" secondItem="YPI-S5-CXe" secondAttribute="trailing" constant="16" id="KMp-Tg-c9c"/>
+                                                <constraint firstItem="YPI-S5-CXe" firstAttribute="leading" secondItem="G8q-Qy-eK5" secondAttribute="leading" constant="16" id="NAb-Yf-ljg"/>
+                                                <constraint firstItem="k8v-bm-Uxj" firstAttribute="leading" secondItem="G8q-Qy-eK5" secondAttribute="leading" constant="16" id="QyM-DA-OUY"/>
+                                                <constraint firstItem="k8v-bm-Uxj" firstAttribute="top" secondItem="G8q-Qy-eK5" secondAttribute="top" constant="10" id="wsC-6s-haC"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="k8v-bm-Uxj"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="addCertificateButton" destination="cFb-hX-TwM" id="27o-P6-PK9"/>
+                                            <outlet property="issuedToLabel" destination="voq-iF-93i" id="s2J-Go-vUW"/>
+                                            <outlet property="showCertificateButton" destination="wv3-Pr-pcK" id="Z0S-K8-gWd"/>
+                                            <outlet property="titleLabel" destination="7Ie-ku-FHx" id="sdF-vp-TJS"/>
+                                            <outlet property="tsaCertButtonsStackView" destination="78j-1y-gDa" id="MUN-3a-7ez"/>
+                                            <outlet property="tsaCertLabelStackView" destination="zJd-sR-fMw" id="iw7-hZ-idv"/>
+                                            <outlet property="tsaCertStackView" destination="k8v-bm-Uxj" id="xXi-rG-u03"/>
+                                            <outlet property="tsaDataStackView" destination="bwN-Ve-e8h" id="pU1-Ls-1W4"/>
+                                            <outlet property="validUntilLabel" destination="fa4-Hc-omF" id="wyR-KZ-kd4"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsDefaultValueCell" id="yL6-qI-X4y" customClass="SettingsDefaultValueCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="720" width="375" height="44.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yL6-qI-X4y" id="aUH-yJ-MbO">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="SuL-cB-x1x">
+                                                    <rect key="frame" x="16" y="0.0" width="339" height="44.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Default Title Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000149011612" translatesAutoresizingMaskIntoConstraints="NO" id="zXA-MT-z1o" userLabel="Use Default Title Label" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="13.5" width="151.5" height="17.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="151.5" id="0sB-Mq-nLc"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
+                                                            <color key="textColor" name="MoppText"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zPO-JM-y8G" customClass="SwitchButton" customModule="MoppApp" customModuleProvider="target">
+                                                            <rect key="frame" x="290" y="7" width="51" height="31"/>
+                                                            <connections>
+                                                                <action selector="useDefaultToggled:" destination="yL6-qI-X4y" eventType="touchUpInside" id="2qE-f3-4vP"/>
+                                                            </connections>
+                                                        </switch>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="Lo7-8A-3cn"/>
+                                                        <constraint firstItem="zXA-MT-z1o" firstAttribute="top" secondItem="SuL-cB-x1x" secondAttribute="top" constant="13.5" id="uKH-tf-8XX"/>
+                                                    </constraints>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="SuL-cB-x1x" firstAttribute="leading" secondItem="aUH-yJ-MbO" secondAttribute="leading" constant="16" id="4hQ-hB-grZ"/>
+                                                <constraint firstAttribute="bottom" secondItem="SuL-cB-x1x" secondAttribute="bottom" id="KDd-lx-8YX"/>
+                                                <constraint firstAttribute="trailing" secondItem="SuL-cB-x1x" secondAttribute="trailing" constant="20" id="ZVn-Fs-WiR"/>
+                                                <constraint firstItem="SuL-cB-x1x" firstAttribute="top" secondItem="aUH-yJ-MbO" secondAttribute="top" id="b93-55-bXM"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="useDefaultSwitch" destination="zPO-JM-y8G" id="m0K-pY-BBb"/>
+                                            <outlet property="useDefaultTitleLabel" destination="zXA-MT-z1o" id="aAO-rM-u8S"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsTimeStampCell" rowHeight="91" id="phk-u4-OBe" customClass="SettingsTimeStampCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="764.5" width="375" height="91"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="phk-u4-OBe" id="jLA-a7-RMY">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="91"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Stamp teenuse URL" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cNO-Mb-hmA" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="13" width="343" height="7"/>
+                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
+                                                    <color key="textColor" name="MoppText"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="URL" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="agT-7i-NBi" customClass="SettingsTextField" customModule="MoppApp" customModuleProvider="target">
+                                                    <rect key="frame" x="15" y="28" width="345" height="55"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="55" id="lLJ-KK-rcx"/>
+                                                    </constraints>
+                                                    <color key="textColor" name="MoppText"/>
+                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="agT-7i-NBi" firstAttribute="leading" secondItem="jLA-a7-RMY" secondAttribute="leading" constant="15" id="5aD-Pq-V1n"/>
+                                                <constraint firstItem="agT-7i-NBi" firstAttribute="top" secondItem="cNO-Mb-hmA" secondAttribute="bottom" constant="8" id="DH3-MH-f69"/>
+                                                <constraint firstAttribute="trailing" secondItem="cNO-Mb-hmA" secondAttribute="trailing" constant="16" id="Lqa-sL-COI"/>
+                                                <constraint firstAttribute="trailing" secondItem="agT-7i-NBi" secondAttribute="trailing" constant="15" id="PGD-kZ-bsX"/>
+                                                <constraint firstItem="cNO-Mb-hmA" firstAttribute="top" secondItem="jLA-a7-RMY" secondAttribute="top" constant="13" id="RCy-tA-qkh"/>
+                                                <constraint firstAttribute="bottom" secondItem="agT-7i-NBi" secondAttribute="bottom" constant="8" id="ep1-Ir-Emb"/>
+                                                <constraint firstItem="cNO-Mb-hmA" firstAttribute="leading" secondItem="jLA-a7-RMY" secondAttribute="leading" constant="16" id="jdn-qa-l4l"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="textField" destination="agT-7i-NBi" id="C37-qx-ue3"/>
+                                            <outlet property="titleLabel" destination="cNO-Mb-hmA" id="wQE-3v-deV"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SivaCategoryCell" rowHeight="91" id="iFT-UL-Abh" customClass="SivaCategoryCell" customModule="MoppApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="855.5" width="375" height="91"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iFT-UL-Abh" id="av9-SO-Tyr">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="91"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="E8M-oU-SUj">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="91"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="B87-aA-L1R">
+                                                            <rect key="frame" x="67" y="0.0" width="241" height="91"/>
+                                                            <subviews>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Bd-xr-R9R">
+                                                                    <rect key="frame" x="0.0" y="20.5" width="241" height="50"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eN9-Zy-JX7" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="241" height="50"/>
+                                                                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                                            <nil key="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                    <accessibility key="accessibilityConfiguration">
+                                                                        <accessibilityTraits key="traits" button="YES"/>
+                                                                        <bool key="isElement" value="YES"/>
+                                                                    </accessibility>
+                                                                    <gestureRecognizers/>
+                                                                    <constraints>
+                                                                        <constraint firstItem="eN9-Zy-JX7" firstAttribute="top" secondItem="0Bd-xr-R9R" secondAttribute="top" id="5Bf-1I-abT"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="eN9-Zy-JX7" secondAttribute="bottom" id="5gp-en-9Xs"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="eN9-Zy-JX7" secondAttribute="trailing" id="Yao-fV-grn"/>
+                                                                        <constraint firstItem="eN9-Zy-JX7" firstAttribute="leading" secondItem="0Bd-xr-R9R" secondAttribute="leading" id="qm8-fN-pPf"/>
+                                                                    </constraints>
+                                                                </view>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="E8M-oU-SUj" secondAttribute="bottom" id="F8l-5h-G5S"/>
+                                                <constraint firstAttribute="trailing" secondItem="E8M-oU-SUj" secondAttribute="trailing" id="YBa-JV-1xH"/>
+                                                <constraint firstItem="E8M-oU-SUj" firstAttribute="leading" secondItem="av9-SO-Tyr" secondAttribute="leading" id="ZTH-l6-loT"/>
+                                                <constraint firstItem="E8M-oU-SUj" firstAttribute="top" secondItem="av9-SO-Tyr" secondAttribute="top" id="gAL-rx-kdg"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="accessToSivaButton" destination="eN9-Zy-JX7" id="CI3-Sx-hvL"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="fZX-wG-IrJ" id="4ej-KI-qgC"/>
+                                    <outlet property="delegate" destination="fZX-wG-IrJ" id="EIc-ih-MB5"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="8Qr-gv-4ij"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="3pX-X8-FyY" firstAttribute="trailing" secondItem="8Qr-gv-4ij" secondAttribute="trailing" id="DUF-J5-lq1"/>
+                            <constraint firstItem="3pX-X8-FyY" firstAttribute="bottom" secondItem="8Qr-gv-4ij" secondAttribute="bottom" id="PGJ-lH-nrg"/>
+                            <constraint firstItem="3pX-X8-FyY" firstAttribute="top" secondItem="8Qr-gv-4ij" secondAttribute="top" id="jkA-SL-un4"/>
+                            <constraint firstItem="3pX-X8-FyY" firstAttribute="leading" secondItem="8Qr-gv-4ij" secondAttribute="leading" id="m7E-VT-OjW"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="375" height="1000"/>
+                    <connections>
+                        <outlet property="tableView" destination="3pX-X8-FyY" id="vOd-KZ-6wt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hph-tJ-vGS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1789.5999999999999" y="-1377.2113943028487"/>
+        </scene>
+        <!--Siva Cert View Controller-->
+        <scene sceneID="7AO-hZ-ueh">
+            <objects>
+                <viewController storyboardIdentifier="SivaCertViewController" id="SJs-2I-G8n" customClass="SivaCertViewController" customModule="MoppApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IKm-b5-Zg8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BaL-13-5uW">
+                                <rect key="frame" x="35" y="65" width="305" height="557"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FWS-nn-f5v">
+                                        <rect key="frame" x="0.0" y="0.0" width="305" height="557"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jFM-GL-q92" userLabel="ContentView">
+                                                <rect key="frame" x="0.0" y="0.0" width="305" height="557"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RvG-jV-rQd">
+                                                        <rect key="frame" x="16" y="20" width="273" height="537"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="buA-aM-pT8">
+                                                                <rect key="frame" x="0.0" y="0.0" width="273" height="40"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Access to Digital Signature Validation Service SiVa" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nPK-Qv-jTV" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="209" height="40"/>
+                                                                        <accessibility key="accessibilityConfiguration">
+                                                                            <accessibilityTraits key="traits" staticText="YES" header="YES"/>
+                                                                        </accessibility>
+                                                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                                        <color key="textColor" name="MoppText"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xFo-aA-XAx" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
+                                                                        <rect key="frame" x="229" y="0.0" width="44" height="40"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="44" id="2C7-Tg-kOd"/>
+                                                                        </constraints>
+                                                                        <color key="tintColor" name="MoppTitle"/>
+                                                                        <state key="normal" image="DismissPopup"/>
+                                                                        <connections>
+                                                                            <action selector="dismissView:" destination="SJs-2I-G8n" eventType="touchUpInside" id="WA7-cf-ImJ"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="nPK-Qv-jTV" firstAttribute="leading" secondItem="buA-aM-pT8" secondAttribute="leading" id="6iy-xF-Roe"/>
+                                                                    <constraint firstItem="xFo-aA-XAx" firstAttribute="top" secondItem="buA-aM-pT8" secondAttribute="top" id="Ix3-lZ-9iS"/>
+                                                                    <constraint firstItem="nPK-Qv-jTV" firstAttribute="top" secondItem="buA-aM-pT8" secondAttribute="top" id="Mfi-hG-SFq"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="xFo-aA-XAx" secondAttribute="trailing" id="cs6-pT-XVV"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="xFo-aA-XAx" secondAttribute="bottom" id="ixC-Qh-yIz"/>
+                                                                    <constraint firstItem="xFo-aA-XAx" firstAttribute="leading" secondItem="nPK-Qv-jTV" secondAttribute="trailing" constant="20" id="vEa-9v-kPA"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="nPK-Qv-jTV" secondAttribute="bottom" id="wJN-nk-I1q"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="TAN-8G-AdX">
+                                                                <rect key="frame" x="0.0" y="60" width="273" height="115"/>
+                                                                <subviews>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="D0y-tK-qx6">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="273" height="50"/>
+                                                                        <subviews>
+                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ok9-M9-sKS">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="273" height="50"/>
+                                                                                <subviews>
+                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Vw-n8-yl1">
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="24" height="50"/>
+                                                                                        <subviews>
+                                                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kNa-aV-eBU" customClass="RadioButton" customModule="MoppApp" customModuleProvider="target">
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="24" height="50"/>
+                                                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                                                <accessibility key="accessibilityConfiguration">
+                                                                                                    <accessibilityTraits key="traits" button="YES"/>
+                                                                                                    <bool key="isElement" value="YES"/>
+                                                                                                </accessibility>
+                                                                                            </view>
+                                                                                        </subviews>
+                                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                                        <accessibility key="accessibilityConfiguration">
+                                                                                            <accessibilityTraits key="traits" button="YES"/>
+                                                                                            <bool key="isElement" value="YES"/>
+                                                                                        </accessibility>
+                                                                                        <constraints>
+                                                                                            <constraint firstAttribute="bottom" secondItem="kNa-aV-eBU" secondAttribute="bottom" id="1kh-NR-o8o"/>
+                                                                                            <constraint firstItem="kNa-aV-eBU" firstAttribute="leading" secondItem="9Vw-n8-yl1" secondAttribute="leading" id="R1T-Np-4jr"/>
+                                                                                            <constraint firstAttribute="width" constant="24" id="Tpd-mh-ANa"/>
+                                                                                            <constraint firstItem="kNa-aV-eBU" firstAttribute="top" secondItem="9Vw-n8-yl1" secondAttribute="top" id="UDe-G4-gry"/>
+                                                                                            <constraint firstAttribute="trailing" secondItem="kNa-aV-eBU" secondAttribute="trailing" id="hNu-la-XBw"/>
+                                                                                        </constraints>
+                                                                                    </view>
+                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="useDefaultAccess" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSd-6G-kfW" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                                        <rect key="frame" x="36" y="0.0" width="237" height="50"/>
+                                                                                        <accessibility key="accessibilityConfiguration">
+                                                                                            <accessibilityTraits key="traits" button="YES" staticText="YES"/>
+                                                                                        </accessibility>
+                                                                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
+                                                                                        <color key="textColor" name="MoppText"/>
+                                                                                        <nil key="highlightedColor"/>
+                                                                                    </label>
+                                                                                </subviews>
+                                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                                <accessibility key="accessibilityConfiguration">
+                                                                                    <accessibilityTraits key="traits" button="YES"/>
+                                                                                    <bool key="isElement" value="YES"/>
+                                                                                </accessibility>
+                                                                                <gestureRecognizers/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="bottom" secondItem="VSd-6G-kfW" secondAttribute="bottom" id="367-5f-ZmW"/>
+                                                                                    <constraint firstItem="VSd-6G-kfW" firstAttribute="top" secondItem="Ok9-M9-sKS" secondAttribute="top" id="Sde-BZ-M35"/>
+                                                                                    <constraint firstItem="9Vw-n8-yl1" firstAttribute="leading" secondItem="Ok9-M9-sKS" secondAttribute="leading" id="T89-OU-7oN"/>
+                                                                                    <constraint firstAttribute="bottom" secondItem="9Vw-n8-yl1" secondAttribute="bottom" id="d3E-6S-WoK"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="VSd-6G-kfW" secondAttribute="trailing" id="pCg-Ey-xL7"/>
+                                                                                    <constraint firstItem="VSd-6G-kfW" firstAttribute="leading" secondItem="9Vw-n8-yl1" secondAttribute="trailing" constant="12" id="u4E-Wx-VGY"/>
+                                                                                    <constraint firstItem="9Vw-n8-yl1" firstAttribute="top" secondItem="Ok9-M9-sKS" secondAttribute="top" id="zO8-y6-6Ya"/>
+                                                                                </constraints>
+                                                                            </view>
+                                                                        </subviews>
+                                                                    </stackView>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="YP2-0o-QTs">
+                                                                        <rect key="frame" x="0.0" y="65" width="273" height="50"/>
+                                                                        <subviews>
+                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kd8-pl-R9i">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="273" height="50"/>
+                                                                                <subviews>
+                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MrZ-nP-weo">
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="24" height="50"/>
+                                                                                        <subviews>
+                                                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fDR-Cz-rNb" customClass="RadioButton" customModule="MoppApp" customModuleProvider="target">
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="24" height="50"/>
+                                                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                                                <accessibility key="accessibilityConfiguration">
+                                                                                                    <accessibilityTraits key="traits" button="YES"/>
+                                                                                                    <bool key="isElement" value="YES"/>
+                                                                                                </accessibility>
+                                                                                            </view>
+                                                                                        </subviews>
+                                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                                        <accessibility key="accessibilityConfiguration">
+                                                                                            <accessibilityTraits key="traits" button="YES"/>
+                                                                                            <bool key="isElement" value="YES"/>
+                                                                                        </accessibility>
+                                                                                        <constraints>
+                                                                                            <constraint firstAttribute="width" constant="24" id="0cW-A5-TCl"/>
+                                                                                            <constraint firstItem="fDR-Cz-rNb" firstAttribute="top" secondItem="MrZ-nP-weo" secondAttribute="top" id="92R-u2-UQC"/>
+                                                                                            <constraint firstItem="fDR-Cz-rNb" firstAttribute="leading" secondItem="MrZ-nP-weo" secondAttribute="leading" id="TfX-mf-FMp"/>
+                                                                                            <constraint firstAttribute="bottom" secondItem="fDR-Cz-rNb" secondAttribute="bottom" id="iO6-S5-i3k"/>
+                                                                                            <constraint firstAttribute="trailing" secondItem="fDR-Cz-rNb" secondAttribute="trailing" id="mgt-eY-vfh"/>
+                                                                                        </constraints>
+                                                                                    </view>
+                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="useManuallyConfiguredAccess" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xyo-Aa-sML" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                                        <rect key="frame" x="36" y="0.0" width="237" height="50"/>
+                                                                                        <accessibility key="accessibilityConfiguration">
+                                                                                            <accessibilityTraits key="traits" button="YES" staticText="YES"/>
+                                                                                        </accessibility>
+                                                                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
+                                                                                        <color key="textColor" name="MoppText"/>
+                                                                                        <nil key="highlightedColor"/>
+                                                                                    </label>
+                                                                                </subviews>
+                                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                                <accessibility key="accessibilityConfiguration">
+                                                                                    <accessibilityTraits key="traits" button="YES"/>
+                                                                                    <bool key="isElement" value="YES"/>
+                                                                                </accessibility>
+                                                                                <gestureRecognizers/>
+                                                                                <constraints>
+                                                                                    <constraint firstItem="MrZ-nP-weo" firstAttribute="top" secondItem="kd8-pl-R9i" secondAttribute="top" id="FNm-f9-4jX"/>
+                                                                                    <constraint firstItem="xyo-Aa-sML" firstAttribute="leading" secondItem="MrZ-nP-weo" secondAttribute="trailing" constant="12" id="Fzl-qp-B4f"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="xyo-Aa-sML" secondAttribute="trailing" id="Mwf-Pa-fbe"/>
+                                                                                    <constraint firstItem="xyo-Aa-sML" firstAttribute="top" secondItem="kd8-pl-R9i" secondAttribute="top" id="ZUQ-05-X4A"/>
+                                                                                    <constraint firstAttribute="bottom" secondItem="MrZ-nP-weo" secondAttribute="bottom" id="e8s-IH-0HD"/>
+                                                                                    <constraint firstAttribute="bottom" secondItem="xyo-Aa-sML" secondAttribute="bottom" id="hIg-7e-VIf"/>
+                                                                                    <constraint firstItem="MrZ-nP-weo" firstAttribute="leading" secondItem="kd8-pl-R9i" secondAttribute="leading" id="hiN-gE-HlF"/>
+                                                                                </constraints>
+                                                                            </view>
+                                                                        </subviews>
+                                                                    </stackView>
+                                                                </subviews>
+                                                            </stackView>
+                                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="https://siva-demo.eesti.ee/V3/validate" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nZu-Qq-NW2" customClass="SettingsTextField" customModule="MoppApp" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="195" width="273" height="55"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="55" id="NwT-Ir-6NV"/>
+                                                                </constraints>
+                                                                <color key="textColor" name="MoppText"/>
+                                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                            </textField>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ASi-WE-Qem">
+                                                                <rect key="frame" x="0.0" y="270" width="273" height="240"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Digital Signature Validation Service SiVa SSL certificate" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WI4-6R-3U7" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="273" height="40"/>
+                                                                        <accessibility key="accessibilityConfiguration">
+                                                                            <accessibilityTraits key="traits" staticText="YES" header="YES"/>
+                                                                        </accessibility>
+                                                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                                        <color key="textColor" name="MoppText"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Qp5-hn-5tL">
+                                                                        <rect key="frame" x="0.0" y="60" width="273" height="45"/>
+                                                                        <subviews>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Issued to:" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jdh-rJ-Aio" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="75" height="20"/>
+                                                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                                                <color key="textColor" name="MoppText"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Valid until:" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EQ7-FA-t1k" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                                <rect key="frame" x="0.0" y="25" width="77.5" height="20"/>
+                                                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                                                <color key="textColor" name="MoppText"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                        </subviews>
+                                                                    </stackView>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="HE4-XE-Upp">
+                                                                        <rect key="frame" x="0.0" y="125" width="273" height="115"/>
+                                                                        <subviews>
+                                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fxa-1B-gvf">
+                                                                                <rect key="frame" x="16" y="0.0" width="241" height="50"/>
+                                                                                <subviews>
+                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mbX-HF-CPZ">
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="241" height="50"/>
+                                                                                        <subviews>
+                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKn-rI-2Ez" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="241" height="50"/>
+                                                                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                                                                <nil key="textColor"/>
+                                                                                                <nil key="highlightedColor"/>
+                                                                                            </label>
+                                                                                        </subviews>
+                                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                                        <accessibility key="accessibilityConfiguration">
+                                                                                            <accessibilityTraits key="traits" button="YES"/>
+                                                                                            <bool key="isElement" value="YES"/>
+                                                                                        </accessibility>
+                                                                                        <gestureRecognizers/>
+                                                                                        <constraints>
+                                                                                            <constraint firstAttribute="bottom" secondItem="gKn-rI-2Ez" secondAttribute="bottom" id="WZZ-Nh-b9Q"/>
+                                                                                            <constraint firstItem="gKn-rI-2Ez" firstAttribute="leading" secondItem="mbX-HF-CPZ" secondAttribute="leading" id="gre-KK-CYY"/>
+                                                                                            <constraint firstAttribute="trailing" secondItem="gKn-rI-2Ez" secondAttribute="trailing" id="ifL-fJ-BMH"/>
+                                                                                            <constraint firstItem="gKn-rI-2Ez" firstAttribute="top" secondItem="mbX-HF-CPZ" secondAttribute="top" id="j7P-3Z-3Kk"/>
+                                                                                        </constraints>
+                                                                                    </view>
+                                                                                </subviews>
+                                                                            </stackView>
+                                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="SVV-FZ-LHx">
+                                                                                <rect key="frame" x="16" y="65" width="241" height="50"/>
+                                                                                <subviews>
+                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oqa-rv-d25">
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="241" height="50"/>
+                                                                                        <subviews>
+                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="trs-js-YpG" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="241" height="50"/>
+                                                                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                                                                <nil key="textColor"/>
+                                                                                                <nil key="highlightedColor"/>
+                                                                                            </label>
+                                                                                        </subviews>
+                                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                                        <accessibility key="accessibilityConfiguration">
+                                                                                            <accessibilityTraits key="traits" button="YES"/>
+                                                                                            <bool key="isElement" value="YES"/>
+                                                                                        </accessibility>
+                                                                                        <gestureRecognizers/>
+                                                                                        <constraints>
+                                                                                            <constraint firstAttribute="trailing" secondItem="trs-js-YpG" secondAttribute="trailing" id="JpD-p8-LK8"/>
+                                                                                            <constraint firstItem="trs-js-YpG" firstAttribute="leading" secondItem="Oqa-rv-d25" secondAttribute="leading" id="fjc-BY-i8a"/>
+                                                                                            <constraint firstAttribute="bottom" secondItem="trs-js-YpG" secondAttribute="bottom" id="kvp-nx-1fE"/>
+                                                                                            <constraint firstItem="trs-js-YpG" firstAttribute="top" secondItem="Oqa-rv-d25" secondAttribute="top" id="tsY-nU-AHl"/>
+                                                                                        </constraints>
+                                                                                    </view>
+                                                                                </subviews>
+                                                                            </stackView>
+                                                                        </subviews>
+                                                                    </stackView>
+                                                                </subviews>
+                                                            </stackView>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hIc-7v-ev5">
+                                                                <rect key="frame" x="0.0" y="530" width="273" height="8"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="TAN-8G-AdX" firstAttribute="leading" secondItem="RvG-jV-rQd" secondAttribute="leading" id="24g-Wp-poe"/>
+                                                            <constraint firstAttribute="bottom" secondItem="hIc-7v-ev5" secondAttribute="bottom" constant="-1" id="6eE-bB-qnP"/>
+                                                            <constraint firstItem="ASi-WE-Qem" firstAttribute="top" secondItem="nZu-Qq-NW2" secondAttribute="bottom" constant="20" id="BGc-xL-flw"/>
+                                                            <constraint firstItem="buA-aM-pT8" firstAttribute="leading" secondItem="RvG-jV-rQd" secondAttribute="leading" id="BnZ-fm-Dir"/>
+                                                            <constraint firstAttribute="trailing" secondItem="hIc-7v-ev5" secondAttribute="trailing" id="MDB-d9-lw7"/>
+                                                            <constraint firstItem="hIc-7v-ev5" firstAttribute="leading" secondItem="RvG-jV-rQd" secondAttribute="leading" id="MEZ-pD-mLX"/>
+                                                            <constraint firstItem="TAN-8G-AdX" firstAttribute="top" secondItem="buA-aM-pT8" secondAttribute="bottom" constant="20" id="Nr9-hF-zvg"/>
+                                                            <constraint firstAttribute="trailing" secondItem="nZu-Qq-NW2" secondAttribute="trailing" id="Plw-VI-RVF"/>
+                                                            <constraint firstItem="hIc-7v-ev5" firstAttribute="top" secondItem="ASi-WE-Qem" secondAttribute="bottom" constant="20" id="UWH-Tf-a68"/>
+                                                            <constraint firstAttribute="trailing" secondItem="buA-aM-pT8" secondAttribute="trailing" id="ZP7-gJ-grP"/>
+                                                            <constraint firstAttribute="trailing" secondItem="ASi-WE-Qem" secondAttribute="trailing" id="bWX-9C-0DJ"/>
+                                                            <constraint firstItem="nZu-Qq-NW2" firstAttribute="leading" secondItem="RvG-jV-rQd" secondAttribute="leading" id="bw9-KQ-X0V"/>
+                                                            <constraint firstItem="nZu-Qq-NW2" firstAttribute="top" secondItem="TAN-8G-AdX" secondAttribute="bottom" constant="20" id="gpf-Pp-enO"/>
+                                                            <constraint firstAttribute="trailing" secondItem="TAN-8G-AdX" secondAttribute="trailing" id="ltM-I9-UTg"/>
+                                                            <constraint firstItem="ASi-WE-Qem" firstAttribute="leading" secondItem="RvG-jV-rQd" secondAttribute="leading" id="sj6-0K-xjm"/>
+                                                            <constraint firstItem="buA-aM-pT8" firstAttribute="top" secondItem="RvG-jV-rQd" secondAttribute="top" id="z2Q-iw-xba"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="RvG-jV-rQd" secondAttribute="trailing" constant="16" id="H86-Qs-7Il"/>
+                                                    <constraint firstItem="RvG-jV-rQd" firstAttribute="top" secondItem="jFM-GL-q92" secondAttribute="top" constant="20" id="Wjf-G7-adC"/>
+                                                    <constraint firstItem="RvG-jV-rQd" firstAttribute="leading" secondItem="jFM-GL-q92" secondAttribute="leading" constant="16" id="yiO-Di-SNd"/>
+                                                    <constraint firstAttribute="bottom" secondItem="RvG-jV-rQd" secondAttribute="bottom" id="zUg-Te-kaG"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="jFM-GL-q92" firstAttribute="top" secondItem="FWS-nn-f5v" secondAttribute="top" id="6eb-CW-mky"/>
+                                            <constraint firstItem="jFM-GL-q92" firstAttribute="leading" secondItem="FWS-nn-f5v" secondAttribute="leading" id="Kpp-PM-kse"/>
+                                            <constraint firstItem="jFM-GL-q92" firstAttribute="height" secondItem="FWS-nn-f5v" secondAttribute="height" priority="250" id="QZg-pT-PnC"/>
+                                            <constraint firstAttribute="bottom" secondItem="jFM-GL-q92" secondAttribute="bottom" id="ddj-J5-xIg"/>
+                                            <constraint firstAttribute="trailing" secondItem="jFM-GL-q92" secondAttribute="trailing" id="dgU-9L-vIs"/>
+                                            <constraint firstItem="jFM-GL-q92" firstAttribute="width" secondItem="FWS-nn-f5v" secondAttribute="width" id="dxR-Qk-mQr"/>
+                                        </constraints>
+                                        <viewLayoutGuide key="contentLayoutGuide" id="zLG-2V-Xz7"/>
+                                        <viewLayoutGuide key="frameLayoutGuide" id="CZq-4y-ZHG"/>
+                                    </scrollView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="FWS-nn-f5v" secondAttribute="bottom" id="7rf-eI-YdL"/>
+                                    <constraint firstItem="FWS-nn-f5v" firstAttribute="leading" secondItem="BaL-13-5uW" secondAttribute="leading" id="8Kr-Gu-mJr"/>
+                                    <constraint firstItem="FWS-nn-f5v" firstAttribute="top" secondItem="BaL-13-5uW" secondAttribute="top" id="wtD-vv-u66"/>
+                                    <constraint firstAttribute="trailing" secondItem="FWS-nn-f5v" secondAttribute="trailing" id="yC2-bY-Fwg"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="oTX-Dt-IpH"/>
+                        <constraints>
+                            <constraint firstItem="BaL-13-5uW" firstAttribute="leading" secondItem="oTX-Dt-IpH" secondAttribute="leading" constant="35" id="ZN5-uE-DSv"/>
+                            <constraint firstItem="oTX-Dt-IpH" firstAttribute="bottom" secondItem="BaL-13-5uW" secondAttribute="bottom" constant="45" id="eBL-yj-MTJ"/>
+                            <constraint firstItem="oTX-Dt-IpH" firstAttribute="trailing" secondItem="BaL-13-5uW" secondAttribute="trailing" constant="35" id="h6t-cz-e3j"/>
+                            <constraint firstItem="BaL-13-5uW" firstAttribute="top" secondItem="oTX-Dt-IpH" secondAttribute="top" constant="45" id="yn0-1g-3kp"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="addCertificateButton" destination="gKn-rI-2Ez" id="8MB-S0-Ekn"/>
+                        <outlet property="certificateStackView" destination="ASi-WE-Qem" id="1xa-fL-ieb"/>
+                        <outlet property="dismissButton" destination="xFo-aA-XAx" id="lRi-xH-ZR0"/>
+                        <outlet property="issuedToLabel" destination="Jdh-rJ-Aio" id="Apg-jJ-u97"/>
+                        <outlet property="scrollView" destination="FWS-nn-f5v" id="EtO-Ya-R6l"/>
+                        <outlet property="showCertificateButton" destination="trs-js-YpG" id="MIe-Uk-bpo"/>
+                        <outlet property="signatureValidationTitle" destination="nPK-Qv-jTV" id="NQ7-de-h8l"/>
+                        <outlet property="sivaUrlTextField" destination="nZu-Qq-NW2" id="P4A-Li-Wyg"/>
+                        <outlet property="useDefaultAccessLabel" destination="VSd-6G-kfW" id="Ews-rV-43t"/>
+                        <outlet property="useDefaultAccessRadioButton" destination="kNa-aV-eBU" id="5rW-zf-bg5"/>
+                        <outlet property="useDefaultAccessStackView" destination="D0y-tK-qx6" id="63p-9G-qxp"/>
+                        <outlet property="useDefaultAccessView" destination="Ok9-M9-sKS" id="pfu-Du-8Vy"/>
+                        <outlet property="useManuallyConfiguredAccessLabel" destination="xyo-Aa-sML" id="pR6-eD-33b"/>
+                        <outlet property="useManuallyConfiguredAccessRadioButton" destination="fDR-Cz-rNb" id="L2b-gt-pRt"/>
+                        <outlet property="useManuallyConfiguredAccessStackView" destination="YP2-0o-QTs" id="r7C-gS-Yg7"/>
+                        <outlet property="useManuallyConfiguredAccessView" destination="kd8-pl-R9i" id="g9o-uO-1Qs"/>
+                        <outlet property="validUntilLabel" destination="EQ7-FA-t1k" id="FCA-gT-eea"/>
+                        <outlet property="validationServiceCertificateTitle" destination="WI4-6R-3U7" id="9CR-MQ-HYD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3yw-rO-gwb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2477.5999999999999" y="-1376.7616191904049"/>
         </scene>
         <!--Diagnostics View Controller-->
         <scene sceneID="i9o-Sy-8lJ">
@@ -1359,7 +1851,9 @@
     </scenes>
     <resources>
         <image name="DismissPopup" width="25" height="25"/>
+        <image name="disclosureIndicator" width="25" height="25"/>
         <image name="main_about_fonds_en.png" width="155.69674682617188" height="90.454872131347656"/>
+        <image name="settingsSigningIcon" width="24" height="22"/>
         <namedColor name="MoppLabel">
             <color red="0.45882352941176469" green="0.47058823529411764" blue="0.4823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

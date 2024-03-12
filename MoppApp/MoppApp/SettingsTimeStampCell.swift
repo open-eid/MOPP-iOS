@@ -25,7 +25,7 @@ import Foundation
 import UIKit
 
 protocol SettingsTimeStampCellDelegate: AnyObject {
-    func didChangeTimestamp(_ field: SettingsViewController.FieldId, with value: String?)
+    func didChangeTimestamp(_ field: SigningCategoryViewController.FieldId, with value: String?)
 }
 
 class SettingsTimeStampCell: UITableViewCell {
@@ -33,7 +33,7 @@ class SettingsTimeStampCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textField: UITextField!
 
-    var field: SettingsViewController.Field!
+    var field: SigningCategoryViewController.Field!
     weak var delegate: SettingsTimeStampCellDelegate!
 
     override func awakeFromNib() {
@@ -49,7 +49,6 @@ class SettingsTimeStampCell: UITableViewCell {
         }
 
         titleLabel.isAccessibilityElement = false
-        titleLabel.textColor = UIColor.moppText
         textField.accessibilityLabel = L(.settingsTimestampUrlTitle)
         textField.accessibilityUserInputLabels = [L(.voiceControlTimestampingService)]
         if UIAccessibility.isVoiceOverRunning {
@@ -57,7 +56,7 @@ class SettingsTimeStampCell: UITableViewCell {
         }
     }
 
-    func populate(with field:SettingsViewController.Field) {
+    func populate(with field: SigningCategoryViewController.Field) {
         self.field = field
         updateUI()
     }
@@ -88,7 +87,13 @@ class SettingsTimeStampCell: UITableViewCell {
     }
 }
 
-extension SettingsTimeStampCell: UITextFieldDelegate {
+extension SettingsTimeStampCell: UITextFieldDelegate {    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        DispatchQueue.main.async {
+            textField.moveCursorToEnd()
+        }
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         delegate.didChangeTimestamp(field.id, with: textField.text)
     }

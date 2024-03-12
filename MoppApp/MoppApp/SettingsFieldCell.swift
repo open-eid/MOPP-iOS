@@ -24,15 +24,15 @@
 import UIKit
 
 protocol SettingsCellDelegate: AnyObject {
-    func didStartEditingField(_ field: SettingsViewController.FieldId, _ indexPath: IndexPath)
-    func didEndEditingField(_ field: SettingsViewController.FieldId, with value: String)
+    func didStartEditingField(_ field: SigningCategoryViewController.FieldId, _ indexPath: IndexPath)
+    func didEndEditingField(_ field: SigningCategoryViewController.FieldId, with value: String)
 }
 
 class SettingsFieldCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textField: UITextField!
     
-    var field: SettingsViewController.Field!
+    var field: SigningCategoryViewController.Field!
     weak var delegate: SettingsCellDelegate!
     
     override func awakeFromNib() {
@@ -55,7 +55,7 @@ class SettingsFieldCell: UITableViewCell {
         }
     }
     
-    func populate(with field:SettingsViewController.Field) {
+    func populate(with field: SigningCategoryViewController.Field) {
         let defaultSwitch = DefaultsHelper.defaultSettingsSwitch
         if defaultSwitch {
             textField.text = nil
@@ -64,7 +64,7 @@ class SettingsFieldCell: UITableViewCell {
         titleLabel.text = field.title
         textField.isEnabled = !defaultSwitch
         let attributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.placeholderText,
+            NSAttributedString.Key.foregroundColor: UIColor.moppLabelDarker,
             NSAttributedString.Key.font : UIFont(name: "Roboto-Regular", size: 14) ?? UIFont.systemFont(ofSize: 14)
         ]
         textField.attributedPlaceholder = NSAttributedString(string: field.placeholderText.string, attributes: attributes)

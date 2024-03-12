@@ -21,7 +21,7 @@
  *
  */
 protocol SettingsChoiceCellDelegate: AnyObject {
-    func didChooseOption(_ fieldId:SettingsViewController.FieldId, _ optionId: SettingsChoiceCell.OptionId?)
+    func didChooseOption(_ fieldId: SigningCategoryViewController.FieldId, _ optionId: SettingsChoiceCell.OptionId?)
 }
 
 class SettingsChoiceCell: UITableViewCell {
@@ -29,7 +29,7 @@ class SettingsChoiceCell: UITableViewCell {
     @IBOutlet weak var choiceView: SettingsChoiceView!
     
     weak var delegate: SettingsChoiceCellDelegate!
-    var fieldId: SettingsViewController.FieldId!
+    var fieldId: SigningCategoryViewController.FieldId!
 
     enum OptionId: Int {
         case containerTypeBdoc
@@ -42,7 +42,7 @@ class SettingsChoiceCell: UITableViewCell {
         choiceView.layer.cornerRadius = 3
     }
     
-    func populate(with field:SettingsViewController.Field) {
+    func populate(with field: SigningCategoryViewController.Field) {
         self.fieldId = field.id
         titleLabel.text = field.title
         

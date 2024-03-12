@@ -21,11 +21,10 @@
  *
  */
 
-import Foundation
 import UIKit
 
 protocol SettingsDefaultValueCellDelegate: AnyObject {
-    func didChangeDefaultSwitch(_ field: SettingsViewController.FieldId, with switchValue: Bool?)
+    func didChangeDefaultSwitch(_ field: SigningCategoryViewController.FieldId, with switchValue: Bool?)
 }
 
 class SettingsDefaultValueCell: UITableViewCell {
@@ -61,5 +60,14 @@ class SettingsDefaultValueCell: UITableViewCell {
         useDefaultSwitch.isOn = useDefault
         useDefaultTitleLabel.text = L(.settingsTimestampUseDefaultTitle)
         useDefaultSwitch.accessibilityLabel = "\(useDefaultTitleLabel.text ?? L(.settingsTimestampUseDefaultTitle)) \(L(.settingsTimestampUrlTitle))"
+        if useDefaultSwitch.isOn {
+            useDefaultSwitch.accessibilityLabel = L(.voiceControlDisableDefaultTimestampingService)
+            useDefaultSwitch.accessibilityUserInputLabels = [L(.voiceControlDisableDefaultTimestampingService)]
+        } else {
+            useDefaultSwitch.accessibilityLabel = L(.voiceControlEnableDefaultTimestampingService)
+            useDefaultSwitch.accessibilityUserInputLabels = [L(.voiceControlEnableDefaultTimestampingService)]
+        }
+        useDefaultSwitch.isUserInteractionEnabled = true
+        useDefaultSwitch.isAccessibilityElement = true
     }
 }
