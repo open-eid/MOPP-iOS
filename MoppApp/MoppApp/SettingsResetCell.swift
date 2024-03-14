@@ -39,6 +39,7 @@ class SettingsResetCell: UITableViewCell {
         resetSettingsButton.text = title
         resetSettingsButton.accessibilityLabel = title.lowercased()
         resetSettingsButton.accessibilityUserInputLabels = [L(.voiceControlResetButton)]
+        resetSettingsButton.accessibilityTraits = [.button]
         resetSettingsButton.font = .moppMedium
         resetSettingsButton.textColor = .systemBlue
         resetSettingsButton.isUserInteractionEnabled = true
