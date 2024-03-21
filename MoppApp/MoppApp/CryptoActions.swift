@@ -47,12 +47,7 @@ extension CryptoActions where Self: CryptoContainerViewController {
                         self.notifications.append(encryptionSuccess)
                     }
                     self.reloadCryptoData()
-                    
-                    if !DefaultsHelper.hideShareContainerDialog {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                            self.displayShareContainerDialog()
-                        }
-                    }
+
                     MoppFileManager.removeFiles()
                     
             },

@@ -292,10 +292,6 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                     }
                 }
                 
-                if !DefaultsHelper.hideShareContainerDialog {
-                    strongSelf.displayShareContainerDialog()
-                }
-                
                 MoppFileManager.removeFiles()
             }
             
