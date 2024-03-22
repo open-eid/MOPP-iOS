@@ -47,12 +47,9 @@ class Logging {
         "\tLog info: \(info)\n" +
         "\tFile: \(file), function: \(function), line: \(line)\n"
         
-        if isUsingTestMode() {
-            NSLog(message)
-        } else {
-            if isLoggingEnabled() {
-                NSLog(message)
-            }
+        if isUsingTestMode() || isLoggingEnabled() {
+            let currentDate = Date().ISO8601Format()
+            NSLog("\(currentDate) \(message)")
         }
     }
     
@@ -66,12 +63,9 @@ class Logging {
                 "\tExtra info: \(extraInfo)\n" +
                 "\tFile: \(file), function: \(function), line: \(line)\n"
             
-            if isUsingTestMode() {
-                NSLog(logMessage)
-            } else {
-                if isLoggingEnabled() {
-                    NSLog(logMessage)
-                }
+            if isUsingTestMode() || isLoggingEnabled() {
+                let currentDate = Date().ISO8601Format()
+                NSLog("\(currentDate) \(logMessage)")
             }
             return
         }
@@ -83,12 +77,9 @@ class Logging {
             "\tExtra info: \(extraInfo)\n" +
             "\tFile: \(file), function: \(function), line: \(line)\n"
         
-        if isUsingTestMode() {
-            NSLog(logMessage)
-        } else {
-            if isLoggingEnabled() {
-                NSLog(logMessage)
-            }
+        if isUsingTestMode() || isLoggingEnabled() {
+            let currentDate = Date().ISO8601Format()
+            NSLog("\(currentDate) \(logMessage)")
         }
     }
     
@@ -100,20 +91,19 @@ class Logging {
                 "\tError: \(err.localizedDescription)\n" +
                 "\tExtra info: \(extraInfo)\n" +
                 "\tFile: \(file), function: \(function), line: \(line)\n"
-            NSLog(logMessage)
+            let currentDate = Date().ISO8601Format()
+            NSLog("\(currentDate) \(logMessage)")
         } else {
             logMessage = "\(forMethod):\n" +
                 "\tError info: \(extraInfo)\n" +
                 "\tFile: \(file), function: \(function), line: \(line)\n"
-            NSLog(logMessage)
+            let currentDate = Date().ISO8601Format()
+            NSLog("\(currentDate) \(logMessage)")
         }
         
-        if isUsingTestMode() {
-            NSLog(logMessage)
-        } else {
-            if isLoggingEnabled() {
-                NSLog(logMessage)
-            }
+        if isUsingTestMode() || isLoggingEnabled() {
+            let currentDate = Date().ISO8601Format()
+            NSLog("\(currentDate) \(logMessage)")
         }
     }
     

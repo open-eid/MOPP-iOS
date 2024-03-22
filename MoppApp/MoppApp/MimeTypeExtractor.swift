@@ -250,7 +250,7 @@ class MimeTypeExtractor {
 
             return isDdoc
         } catch {
-            MSLog("Error getting url data \(error)")
+            printLog("Error getting url data \(error)")
         }
 
         return false
