@@ -408,8 +408,6 @@
 "refresh-configuration-updated" = "Configuration updated";
 "refresh-configuration-already-up-to-date" = "Configuration is already up-to-date";
 "save-diagnostics" = "SAVE DIAGNOSTICS";
-"success-notification-dialog-label" = "To share the container click the \"SHARE\" button and choose your preferred application. All containers can also be found in the application settings \"Recent Documents\" folder.";
-"success-notification-dialog-dont-show-again" = "Don't show again";
 
 // ** Info **
 "info-app-version" = "RIA DigiDoc version";

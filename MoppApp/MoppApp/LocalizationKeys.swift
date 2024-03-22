@@ -340,8 +340,6 @@ enum LocKey : String
     case refreshConfigurationRestartMessage = "refresh-configuration-restart-message"
     case refreshConfigurationUpdated = "refresh-configuration-updated"
     case refreshConfigurationAlreadyUpToDate = "refresh-configuration-already-up-to-date"
-    case successNotificationDialogLabel = "success-notification-dialog-label"
-    case successNotificationDialogDontShowAgain = "success-notification-dialog-dont-show-again"
     case infoAppVersion = "info-app-version"
     case infoAppIssuer = "info-app-issuer"
     case infoAppContact = "info-app-contact"
