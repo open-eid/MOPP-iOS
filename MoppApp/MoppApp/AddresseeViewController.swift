@@ -168,8 +168,8 @@ extension AddresseeViewController : UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let text = textField.text else { return false }
-        if !text.isEmpty && text.count >= 11 &&
-            !PersonalCodeValidator.isPersonalCodeValid(personalCode: text) {
+        if text.isEmpty || (text.isNumeric && text.count >= 11 &&
+            !PersonalCodeValidator.isPersonalCodeValid(personalCode: text)) {
             let invalidPersonalCodeError = AlertUtil.errorDialog(errorMessage: L(.cryptoInvalidPersonalCodeTitle), topViewController: getTopViewController())
             self.present(invalidPersonalCodeError, animated: true)
         } else if !text.isEmpty && !isSameQuery(text: text, submittedQuery: submittedQuery) {
