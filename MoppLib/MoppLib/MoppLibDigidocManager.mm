@@ -145,11 +145,12 @@ public:
   }
     
     virtual std::string proxyHost() const override {
-        return std::string([proxyConfiguration.HOST UTF8String]);
+        NSString *host = [[NSUserDefaults standardUserDefaults] stringForKey:@"kProxyHost"];
+        return std::string([host UTF8String]);
     }
     
     virtual std::string proxyPort() const override {
-        NSInteger port = [proxyConfiguration.PORT integerValue];
+        NSInteger port = [[NSUserDefaults standardUserDefaults] integerForKey:@"kProxyPort"];
         return std::to_string(port);
     }
     

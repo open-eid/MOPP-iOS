@@ -25,9 +25,10 @@
 
 @implementation MoppLibProxyConfiguration
 
-- (id)initWithConfiguration:(NSString *)HOST PORT:(NSNumber *)PORT USERNAME:(NSString *)USERNAME PASSWORD:(NSString *)PASSWORD {
+- (id)initWithConfiguration:(NSString *)PROXYSETTING HOST:(NSString *)HOST PORT:(NSNumber *)PORT USERNAME:(NSString *)USERNAME PASSWORD:(NSString *)PASSWORD {
     self = [super init];
     if (self) {
+        self.PROXYSETTING = PROXYSETTING;
         self.HOST = HOST;
         self.PORT = PORT;
         self.USERNAME = USERNAME;

@@ -2239,7 +2239,7 @@
                                                                     <constraint firstAttribute="height" constant="55" id="774-bx-rgH"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                             </textField>
                                                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1n5-wG-CU5">
                                                                 <rect key="frame" x="0.0" y="877.5" width="273" height="1"/>
@@ -2369,7 +2369,6 @@
         <image name="DismissPopup" width="25" height="25"/>
         <image name="disclosureIndicator" width="25" height="25"/>
         <image name="main_about_fonds_en.png" width="155.69674682617188" height="90.454872131347656"/>
-        <image name="disclosureIndicator" width="25" height="25"/>
         <image name="settingsSigningIcon" width="24" height="22"/>
         <namedColor name="MoppError">
             <color red="0.59607843137254901" green="0.11764705882352941" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

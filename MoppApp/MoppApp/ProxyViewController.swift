@@ -219,11 +219,18 @@ class ProxyViewController: MoppViewController {
             self.useSystemProxyRadioButton.setSelectedState(state: savedProxySetting == .systemProxy)
             self.useManualProxyRadioButton.setSelectedState(state: savedProxySetting == .manualProxy)
             
-            self.hostTextField.text = DefaultsHelper.proxyHost
-            self.portTextField.text = String(DefaultsHelper.proxyPort)
-            self.usernameTextField.text = DefaultsHelper.proxyUsername
-            self.passwordTextField.text = KeychainUtil.retrieve(key: proxyPasswordKey) ?? ""
-            
+            if savedProxySetting == .manualProxy {
+                self.hostTextField.text = DefaultsHelper.proxyHost
+                self.portTextField.text = String(DefaultsHelper.proxyPort)
+                self.usernameTextField.text = DefaultsHelper.proxyUsername
+                self.passwordTextField.text = KeychainUtil.retrieve(key: proxyPasswordKey) ?? ""
+            } else if savedProxySetting == .noProxy || savedProxySetting == .systemProxy {
+                self.hostTextField.text = ""
+                self.portTextField.text = "80"
+                self.usernameTextField.text = ""
+                self.passwordTextField.text = ""
+            }
+
             // Detect which RadioButton was clicked
             if !(self.useNoProxyView.gestureRecognizers?.contains(where: { $0 is ProxyChoiceTapGestureRecognizer }) ?? false) {
                 
@@ -292,11 +299,13 @@ class ProxyViewController: MoppViewController {
     
     deinit {
         let savedProxySetting = DefaultsHelper.proxySetting
-        if savedProxySetting == .noProxy || savedProxySetting == .systemProxy {
+        if savedProxySetting == .noProxy {
             DefaultsHelper.proxyHost = ""
             DefaultsHelper.proxyPort = 80
             DefaultsHelper.proxyUsername = ""
             KeychainUtil.remove(key: proxyPasswordKey)
+        } else if savedProxySetting == .systemProxy {
+            ProxyUtil.updateSystemProxySettings()
         }
         printLog("Deinit SettingsProxyCell")
     }

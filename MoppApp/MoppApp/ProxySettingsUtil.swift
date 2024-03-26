@@ -1,6 +1,6 @@
 //
-//  MoppLibProxyConfiguration.h
-//  MoppLib
+//  ProxySettingsUtil.swift
+//  MoppApp
 //
 /*
  * Copyright 2017 - 2023 Riigi Infosüsteemi Amet
@@ -21,16 +21,16 @@
  *
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
+import SkSigningLib
 
-@interface MoppLibProxyConfiguration : NSObject
-
-@property (nonatomic, strong) NSString *PROXYSETTING;
-@property (nonatomic, strong) NSString *HOST;
-@property (nonatomic, strong) NSNumber *PORT;
-@property (nonatomic, strong) NSString *USERNAME;
-@property (nonatomic, strong) NSString *PASSWORD;
-
-- (id) initWithConfiguration:(NSString *)PROXYSETTING HOST:(NSString *)HOST PORT:(NSNumber *)PORT USERNAME:(NSString *)USERNAME PASSWORD:(NSString *)PASSWORD;
-
-@end
+class ProxySettingsUtil {
+    
+    public static func updateSystemProxySettings() {
+        let proxySetting = ProxyUtil.getProxySetting()
+        if proxySetting == .systemProxy {
+            ProxyUtil.updateSystemProxySettings()
+            KeychainUtil.remove(key: proxyPasswordKey)
+        }
+    }
+}

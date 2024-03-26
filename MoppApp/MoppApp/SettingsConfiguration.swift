@@ -222,6 +222,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         let manualProxyConf = ManualProxy.getManualProxyConfiguration()
         
         var urlSessionConfiguration = URLSessionConfiguration.default
+        ProxySettingsUtil.updateSystemProxySettings()
         ProxyUtil.configureURLSessionWithProxy(urlSessionConfiguration: &urlSessionConfiguration, manualProxyConf: manualProxyConf)
         urlSessionConfiguration.timeoutIntervalForResource = 5.0
         urlSessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData

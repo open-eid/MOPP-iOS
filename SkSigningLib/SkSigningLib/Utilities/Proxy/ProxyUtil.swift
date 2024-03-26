@@ -50,13 +50,14 @@ public class ProxyUtil {
             return proxyConfiguration
         }
         // Check if system proxy settings exist. iOS automatically handles proxy configuration with system settings
-        else if proxySetting == .systemProxy, let proxySettingsUnmanaged = CFNetworkCopySystemProxySettings() {
-            let proxySettings = proxySettingsUnmanaged.takeRetainedValue() as? [AnyHashable : Any]
-            if let systemHost = proxySettings?[kCFNetworkProxiesHTTPProxy] as? String, let systemPort = proxySettings?[kCFNetworkProxiesHTTPPort] as? Int, !systemHost.isEmpty && systemPort > 0 {
+        else if proxySetting == .systemProxy {
+            let proxySettings = ProxyUtil.getSystemProxySettings()
+            if !proxySettings.host.isEmpty && proxySettings.port > 0 {
+                ProxyUtil.updateSystemProxySettings()
                 return nil
             }
         }
-        
+
         return [
             String(kCFNetworkProxiesHTTPEnable): 0
         ]
@@ -84,11 +85,39 @@ public class ProxyUtil {
     
     public static func configureURLSessionWithProxy(urlSessionConfiguration: inout URLSessionConfiguration, manualProxyConf: Proxy) {
         let proxyConfiguration = ProxyUtil.createProxyConfiguration(
-            proxySetting: .manualProxy,
+            proxySetting: manualProxyConf.setting,
             proxyHost: manualProxyConf.host, proxyPort: manualProxyConf.port, proxyUsername: manualProxyConf.username, proxyPassword: manualProxyConf.password)
         
         if let proxyConf = proxyConfiguration {
             urlSessionConfiguration.connectionProxyDictionary = proxyConf
+        }
+    }
+    
+    public static func getSystemProxySettings() -> Proxy {
+        guard let proxySettingsUnmanaged = CFNetworkCopySystemProxySettings() else {
+            return Proxy(setting: .systemProxy, host: "", port: 80, username: "", password: "")
+        }
+        let proxySettings = proxySettingsUnmanaged.takeRetainedValue() as? [AnyHashable : Any]
+        if let systemHost = proxySettings?[kCFNetworkProxiesHTTPProxy] as? String, let systemPort = proxySettings?[kCFNetworkProxiesHTTPPort] as? Int, !systemHost.isEmpty && systemPort > 0 {
+            return Proxy(setting: .systemProxy, host: systemHost, port: systemPort, username: "", password: "")
+        }
+        
+        return Proxy(setting: .systemProxy, host: "", port: 80, username: "", password: "")
+    }
+    
+    public static func getProxySetting() -> ProxySetting {
+        let defaults = UserDefaults.standard
+        return ProxySetting(rawValue: defaults.value(forKey: "kProxySetting") as? String ?? "") ?? .noProxy
+    }
+    
+    public static func updateSystemProxySettings() {
+        let proxySettings = ProxyUtil.getSystemProxySettings()
+        if !proxySettings.host.isEmpty && proxySettings.port > 0 {
+            let defaults = UserDefaults.standard
+            defaults.set(proxySettings.setting.rawValue, forKey: "kProxySetting")
+            defaults.set(proxySettings.host, forKey: "kProxyHost")
+            defaults.set(proxySettings.port, forKey: "kProxyPort")
+            defaults.set("", forKey: "kProxyUsername")
         }
     }
 }

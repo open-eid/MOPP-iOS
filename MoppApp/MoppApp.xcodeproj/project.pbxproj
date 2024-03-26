@@ -192,6 +192,7 @@
 		DF56368D2B0E63840098F31D /* AppInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF56368C2B0E63840098F31D /* AppInfoCell.swift */; };
 		DF56368F2B0E63AA0098F31D /* LicensesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF56368E2B0E63AA0098F31D /* LicensesCell.swift */; };
 		DF57DCCC2B02AFB700ABCBF3 /* SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF57DCCB2B02AFB700ABCBF3 /* SwitchButton.swift */; };
+		DF588B062BB3074A00FCDC14 /* ProxySettingsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF588B052BB3074A00FCDC14 /* ProxySettingsUtil.swift */; };
 		DF5BE6D229C8AE5200331609 /* SignatureWarningsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5BE6D129C8AE5200331609 /* SignatureWarningsCell.swift */; };
 		DF5BE6D429C8BD5600331609 /* WarningDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5BE6D329C8BD5600331609 /* WarningDetail.swift */; };
 		DF61BABA2B6D080D00D919CE /* App_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DF61BAB92B6D080D00D919CE /* App_logo.png */; };
@@ -537,6 +538,7 @@
 		DF56368C2B0E63840098F31D /* AppInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoCell.swift; sourceTree = "<group>"; };
 		DF56368E2B0E63AA0098F31D /* LicensesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesCell.swift; sourceTree = "<group>"; };
 		DF57DCCB2B02AFB700ABCBF3 /* SwitchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchButton.swift; sourceTree = "<group>"; };
+		DF588B052BB3074A00FCDC14 /* ProxySettingsUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxySettingsUtil.swift; sourceTree = "<group>"; };
 		DF5BE6D129C8AE5200331609 /* SignatureWarningsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureWarningsCell.swift; sourceTree = "<group>"; };
 		DF5BE6D329C8BD5600331609 /* WarningDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningDetail.swift; sourceTree = "<group>"; };
 		DF61BAB72B6D078F00D919CE /* App_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = App_logo.png; path = MoppApp/Assets.xcassets/App_logo.imageset/App_logo.png; sourceTree = "<group>"; };
@@ -1251,6 +1253,7 @@
 				DF7936332AE98AAD00441B41 /* AccessibilityUtil.swift */,
 				DFD54CF629D1CBAF00CD92C7 /* CertUtil.swift */,
 				DFCFADD52B682193007F556A /* SignatureUtil.swift */,
+				DF588B052BB3074A00FCDC14 /* ProxySettingsUtil.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1683,6 +1686,7 @@
 				3921CAA920B5A54600BF3178 /* ContainerImportAddressees.swift in Sources */,
 				C56C6206201A189600CCC2A5 /* MenuHeaderCell.swift in Sources */,
 				DFBF242E23DB0923008DD8D0 /* LOTLDecoder.swift in Sources */,
+				DF588B062BB3074A00FCDC14 /* ProxySettingsUtil.swift in Sources */,
 				DF24E9D62AD5ECFB00471FFA /* DiagnosticError.swift in Sources */,
 				DF97096B2B4D7A4600361544 /* ProxyViewController.swift in Sources */,
 				DF3950602AD766DF005D96AC /* KeychainUtil.swift in Sources */,

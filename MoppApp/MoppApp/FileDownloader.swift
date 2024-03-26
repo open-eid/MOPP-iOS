@@ -31,6 +31,7 @@ class FileDownloader: NSObject, URLSessionDelegate {
     func downloadFile(url: URL, completion: @escaping (URL?) -> Void) {
         let manualProxyConf = ManualProxy.getManualProxyConfiguration()
         var urlSessionConfiguration = URLSessionConfiguration.default
+        ProxySettingsUtil.updateSystemProxySettings()
         ProxyUtil.configureURLSessionWithProxy(urlSessionConfiguration: &urlSessionConfiguration, manualProxyConf: manualProxyConf)
         
         var request = URLRequest(url: url)

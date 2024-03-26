@@ -20,6 +20,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
+import Foundation
+import SkSigningLib
+
 protocol ContainerActions {
     func openExistingContainer(with url: URL, cleanup: Bool, isEmptyFileImported: Bool, isSendingToSivaAgreed: Bool)
     func importFiles(with urls: [URL], cleanup: Bool, isEmptyFileImported: Bool)
@@ -30,6 +34,9 @@ protocol ContainerActions {
 
 extension ContainerActions where Self: UIViewController {
     func importFiles(with urls: [URL], cleanup: Bool, isEmptyFileImported: Bool) {
+        
+        ProxySettingsUtil.updateSystemProxySettings()
+
         let landingViewController = LandingViewController.shared!
         let navController = landingViewController.viewController(for: .signTab) as! UINavigationController
         let topSigningViewController = navController.viewControllers.last!

@@ -452,6 +452,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         downloadCompletion = completionHandler
         let manualProxyConf = ManualProxy.getManualProxyConfiguration()
         var conf = URLSessionConfiguration.background(withIdentifier: identifier)
+        ProxySettingsUtil.updateSystemProxySettings()
         ProxyUtil.configureURLSessionWithProxy(urlSessionConfiguration: &conf, manualProxyConf: manualProxyConf)
         let session = URLSession(configuration: conf, delegate: self, delegateQueue: nil)
         session.getTasksWithCompletionHandler({(_ dataTasks: [URLSessionDataTask], _ uploadTasks: [URLSessionUploadTask], _ downloadTasks: [URLSessionDownloadTask]) -> Void in

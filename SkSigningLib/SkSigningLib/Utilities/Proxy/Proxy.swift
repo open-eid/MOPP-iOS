@@ -24,12 +24,14 @@
 import Foundation
 
 public struct Proxy {
+    public var setting: ProxySetting
     public var host: String
     public var port: Int
     public var username: String
     public var password: String
     
-    public init(host: String, port: Int, username: String, password: String) {
+    public init(setting: ProxySetting, host: String, port: Int, username: String, password: String) {
+        self.setting = setting
         self.host = host
         self.port = port
         self.username = username

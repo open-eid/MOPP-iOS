@@ -29,6 +29,7 @@ public class ManualProxy {
 
     public static func getManualProxyConfiguration() -> Proxy {
         return Proxy(
+            setting: DefaultsHelper.proxySetting,
             host: DefaultsHelper.proxyHost ?? "",
             port: DefaultsHelper.proxyPort,
             username: DefaultsHelper.proxyUsername ?? "",
@@ -37,6 +38,10 @@ public class ManualProxy {
     
     public static func getMoppLibProxyConfiguration() -> MoppLibProxyConfiguration {
         let manualProxy = ManualProxy.getManualProxyConfiguration()
-        return MoppLibProxyConfiguration(configuration: manualProxy.host, port: NSNumber(value: manualProxy.port), username: manualProxy.username, password: manualProxy.password)
+        if manualProxy.setting == .systemProxy {
+            let systemProxySettings = ProxyUtil.getSystemProxySettings()
+            return MoppLibProxyConfiguration(configuration: systemProxySettings.setting.rawValue, host: systemProxySettings.host, port: NSNumber(value: systemProxySettings.port), username: systemProxySettings.username, password: systemProxySettings.password)
+        }
+        return MoppLibProxyConfiguration(configuration: manualProxy.setting.rawValue, host: manualProxy.host, port: NSNumber(value: manualProxy.port), username: manualProxy.username, password: manualProxy.password)
     }
 }
