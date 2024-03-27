@@ -231,6 +231,18 @@
 "smart-id-country-latvia" = "Läti";
 "smart-id-challenge-title" = "Allkirjasta Smart-IDga";
 "smart-id-sign-help-title" = "Veendu kontrollkoodi õigsuses ja sisesta nutiseadmes Smart-ID PIN2-kood";
+"nfc-title" = "Sisesta oma kaardi ligipääsu number ja PIN2-kood ID-kaardiga allkirjastamiseks";
+"nfc-can-title" = "Kaardi ligipääsu number";
+"nfc-device-no-support" = "This device doesn't support NFC.";
+"nfc-hold-near" = "Hold your iPhone near the ID-Card.";
+"nfc-multiple-cards" = "More than 1 tag is detected, please remove all tags and try again.";
+"nfc-invalid-tag" = "Invalid tag.";
+"nfc-unable-connect" = "Unable to connect to tag.";
+"nfc-auth" = "Authenticating with card.";
+"nfc-reading-cert" = "Reading Certificate.";
+"nfc-sign-doc" = "Signing document.";
+"nfc-sign-done" = "Signing Done.";
+"nfc-auth-failed" = "Failed to authenticate with card.";
 "role-and-address" = "Roll ja aadress";
 "role-and-address-title" = "Sisesta oma roll ja aadress";
 "role-and-address-role-title" = "Roll / resolutsioon";
@@ -254,6 +266,7 @@
 "sign-title-mobile-id" = "Mobiil-ID";
 "sign-title-smart-id" = "Smart-ID";
 "sign-title-id-card" = "ID-kaart";
+"sign-title-nfc" = "NFC";
 "card-reader-state-reader-not-found" = "Ühtegi kaardilugejat pole ühendatud";
 "card-reader-state-reader-restarted" = "Taaskäivitan kaardilugeja.";
 "card-reader-state-reader-process-failed" = "Andmete lugemine ebaõnnestus. Palun taasühenda kaardilugeja ja proovi uuesti.";
