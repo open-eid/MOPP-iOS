@@ -23,9 +23,10 @@
 #import <Foundation/Foundation.h>
 #import "Addressee.h"
 #import "MoppLdapConfiguration.h"
+#import "LDAPResponse.h"
 
 @interface OpenLdap : NSObject
-- (NSArray *)search:(NSString*)identityCode configuration:(MoppLdapConfiguration *)moppLdapConfiguration withCertificate:(NSString *)cert;
+- (NSArray<LDAPResponse *> *)search:(NSString*)identityCode configuration:(MoppLdapConfiguration *)moppLdapConfiguration withCertificate:(NSString *)cert;
 @end
 
 

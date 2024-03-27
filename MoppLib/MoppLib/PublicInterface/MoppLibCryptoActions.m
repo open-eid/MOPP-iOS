@@ -180,8 +180,8 @@
     NSString *ldapCertsPath = [self getCertFolderPath:certsPath fileName:@"ldapCerts.pem"];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSArray *response = [[NSMutableArray alloc] init];
-        NSMutableArray *filteredResponse = [[NSMutableArray alloc] init];
+        NSArray<LDAPResponse *> *response = [[NSMutableArray alloc] init];
+        NSMutableArray<Addressee *> *filteredResponse = [[NSMutableArray alloc] init];
         NSError *error;
         OpenLdap *ldap = [[OpenLdap alloc] init];
         @try {
@@ -192,25 +192,49 @@
                 return;
             }
             
-            for (Addressee* key in response) {
-                MoppLibCertificateInfo *certInfo = [MoppLibCertificateInfo alloc];
-                NSArray<NSString *> *certPolicies = [certInfo certificatePolicies:(key.cert)];
-                NSArray<NSNumber *> *certKeyUsages = [certInfo keyUsages:(key.cert)];
-
-                if (key.type == nil) {
-                    key.type = [self formatTypeToString:[self parseEIDType:certPolicies]];
-                }
-
-                if (([certInfo hasKeyEnciphermentUsage:(certKeyUsages)] || [certInfo hasKeyAgreementUsage:(certKeyUsages)]) &&
-                    ![certInfo isServerAuthKeyPurpose:(key.cert)] &&
-                    (![certInfo isESealType:(certPolicies)] || ![certInfo isTlsClientAuthKeyPurpose:(key.cert)]) &&
-                    ![certInfo isMobileIdType:(certPolicies)] && ![certInfo isUnknownType:(certPolicies)]) {
+            for (LDAPResponse* key in response) {
+                for (NSString *cert in key.userCertificate) {
                     
-                    MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
-                    [MoppLibCertificate certData:certData updateWithDerEncoding:key.cert];
-                    key.validTo = certData.expiryDate;
-                    if (key.validTo != nil) {
-                        [filteredResponse addObject:key];
+                    Addressee *addressee = [[Addressee alloc] init];
+                    
+                    SecCertificateRef certificate = (__bridge SecCertificateRef)(cert);
+                    NSData* certData = (__bridge NSData *)SecCertificateCopyData(certificate);
+
+                    MoppLibCertificateInfo *certInfo = [MoppLibCertificateInfo alloc];
+                    NSArray<NSString *> *certPolicies = [certInfo certificatePolicies:(certData)];
+                    NSArray<NSNumber *> *certKeyUsages = [certInfo keyUsages:(certData)];
+                    
+                    addressee.policyIdentifiers = certPolicies;
+
+                    if (key.cn != NULL) {
+                        NSArray *cn = [key.cn componentsSeparatedByString:@","];
+                        if (cn.count > 1) {
+                            addressee.surname = cn[0];
+                            addressee.givenName = cn[1];
+                            addressee.identifier = cn[2];
+                        } else {
+                            addressee.identifier = cn[0];
+                            addressee.type = @"E-SEAL";
+                        }
+                    }
+
+                    if (addressee.type == nil) {
+                        addressee.type = [self formatTypeToString:[self parseEIDType:certPolicies]];
+                    }
+                    
+                    if (([certInfo hasKeyEnciphermentUsage:(certKeyUsages)] || [certInfo hasKeyAgreementUsage:(certKeyUsages)]) &&
+                        ![certInfo isServerAuthKeyPurpose:(certData)] &&
+                        (![certInfo isESealType:(certPolicies)] || ![certInfo isTlsClientAuthKeyPurpose:(certData)]) &&
+                        ![certInfo isMobileIdType:(certPolicies)] && ![certInfo isUnknownType:(certPolicies)]) {
+                        
+                        addressee.cert = certData;
+                        
+                        MoppLibCerificatetData *certificateData = [MoppLibCerificatetData new];
+                        [MoppLibCertificate certData:certificateData updateWithDerEncoding:certData];
+                        addressee.validTo = certificateData.expiryDate;
+                        if (addressee.validTo != nil) {
+                            [filteredResponse addObject:addressee];
+                        }
                     }
                 }
             }

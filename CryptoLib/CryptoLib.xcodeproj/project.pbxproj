@@ -40,6 +40,8 @@
 		C5B7958221BEA74800DC2C59 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B7957721BABCA800DC2C59 /* libssl.a */; };
 		C5B7958321BEA76300DC2C59 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5B7957621BABCA800DC2C59 /* libcrypto.a */; };
 		C5B7958421BEA78200DC2C59 /* liblber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 390C016020AC3DE000827230 /* liblber.a */; };
+		DF1A91B52BAB5A79000D89B2 /* LDAPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = DF1A91B42BAB5A79000D89B2 /* LDAPResponse.m */; };
+		DF1A91B72BAB5AA9000D89B2 /* LDAPResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = DF1A91B62BAB5AA9000D89B2 /* LDAPResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DF8FEAC9233239690020DED4 /* MoppLdapConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = DF8FEAC7233239690020DED4 /* MoppLdapConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DF8FEACA233239690020DED4 /* MoppLdapConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = DF8FEAC8233239690020DED4 /* MoppLdapConfiguration.m */; };
 		DFA40D2F2ADF635F003EF945 /* 3513523f.0 in Resources */ = {isa = PBXBuildFile; fileRef = DFA40D2E2ADF635F003EF945 /* 3513523f.0 */; };
@@ -94,6 +96,8 @@
 		4E01B4A62AEFDD3B00941723 /* build-cdoc.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "build-cdoc.sh"; sourceTree = "<group>"; };
 		C5B7957621BABCA800DC2C59 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "$(LDAP_PATH)/libraries/libcrypto.a"; sourceTree = "<absolute>"; };
 		C5B7957721BABCA800DC2C59 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "$(LDAP_PATH)/libraries/libssl.a"; sourceTree = "<absolute>"; };
+		DF1A91B42BAB5A79000D89B2 /* LDAPResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LDAPResponse.m; sourceTree = "<group>"; };
+		DF1A91B62BAB5AA9000D89B2 /* LDAPResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LDAPResponse.h; sourceTree = "<group>"; };
 		DF8FEAC7233239690020DED4 /* MoppLdapConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLdapConfiguration.h; sourceTree = "<group>"; };
 		DF8FEAC8233239690020DED4 /* MoppLdapConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLdapConfiguration.m; sourceTree = "<group>"; };
 		DFA40D2E2ADF635F003EF945 /* 3513523f.0 */ = {isa = PBXFileReference; lastKnownFileType = text; path = 3513523f.0; sourceTree = "<group>"; };
@@ -155,6 +159,8 @@
 				39266A5E20CFDCB9002E3F23 /* CdocInfo.m */,
 				39266A6020CFDCDF002E3F23 /* CdocInfo.h */,
 				4E01B4A62AEFDD3B00941723 /* build-cdoc.sh */,
+				DF1A91B42BAB5A79000D89B2 /* LDAPResponse.m */,
+				DF1A91B62BAB5AA9000D89B2 /* LDAPResponse.h */,
 			);
 			path = CryptoLib;
 			sourceTree = "<group>";
@@ -221,6 +227,7 @@
 				3960E50620C044EE00D4D2FC /* CryptoDataFile.h in Headers */,
 				39266A6520CFE643002E3F23 /* CdocInfo.h in Headers */,
 				39266A5A20CFD956002E3F23 /* AbstractSmartToken.h in Headers */,
+				DF1A91B72BAB5AA9000D89B2 /* LDAPResponse.h in Headers */,
 				39266A6420CFE63D002E3F23 /* CdocParser.h in Headers */,
 				39231FAF20AB1C6C00E1E2B4 /* CryptoLib.h in Headers */,
 				39E2B4D720AD7A3400CA74A8 /* AttributeSet.h in Headers */,
@@ -330,6 +337,7 @@
 				39E2B4DB20AD7A3400CA74A8 /* AttributeSet.m in Sources */,
 				DF8FEACA233239690020DED4 /* MoppLdapConfiguration.m in Sources */,
 				39852A5020AB2418004CB100 /* DdocParserDelegate.m in Sources */,
+				DF1A91B52BAB5A79000D89B2 /* LDAPResponse.m in Sources */,
 				39852A5220AB2418004CB100 /* Decrypt.mm in Sources */,
 				39E2B4D920AD7A3400CA74A8 /* Addressee.m in Sources */,
 				39E2B4DC20AD7A3400CA74A8 /* ResultSet.m in Sources */,

@@ -23,12 +23,14 @@
 #import "OpenLdap.h"
 #import "ldap.h"
 #import "ResultSet.h"
+#import "LDAPResponse.h"
 
 @implementation OpenLdap
 
-- (NSArray *)search:(NSString *)identityCode configuration:(MoppLdapConfiguration *)moppLdapConfiguration withCertificate:(NSString *)cert {
+- (NSArray<LDAPResponse *> *)search:(NSString *)identityCode configuration:(MoppLdapConfiguration *)moppLdapConfiguration withCertificate:(NSString *)cert {
     if (moppLdapConfiguration.LDAPCERTS == nil || [moppLdapConfiguration.LDAPCERTS count] == 0) {
-        NSArray *result = [self searchWith:identityCode andUrl:moppLdapConfiguration.LDAPPERSONURL certificatePath:nil];
+        NSArray<LDAPResponse *> *result = [self searchWith:identityCode andUrl:moppLdapConfiguration.LDAPPERSONURL certificatePath:nil];
+    
         if ([result count] == 0) {
             result = [self searchWith:identityCode andUrl:moppLdapConfiguration.LDAPCORPURL certificatePath:nil];
         }
@@ -45,7 +47,7 @@
 }
 
 
-- (NSArray*)searchWith:(NSString*)identityCode andUrl:(NSString*)url certificatePath:(NSString*)certificatePath {
+- (NSArray<LDAPResponse *> *)searchWith:(NSString*)identityCode andUrl:(NSString*)url certificatePath:(NSString*)certificatePath {
     
     LDAP *ldap;
     LDAPMessage *msg;
@@ -79,14 +81,14 @@
             
             if (ldapReturnCode != LDAP_SUCCESS) {
                 fprintf(stderr, "ldap_set_option(LDAP_OPT_X_TLS_CACERTDIR): %s\n", ldap_err2string(ldapReturnCode));
-                return @[];
+                return [[NSArray alloc] init];
             };
         } else {
             ldapReturnCode = ldap_set_option(NULL, LDAP_OPT_X_TLS_CACERTFILE, (void *)[certificatePath cStringUsingEncoding:NSUTF8StringEncoding]);
             
             if (ldapReturnCode != LDAP_SUCCESS) {
                 fprintf(stderr, "ldap_set_option(LDAP_OPT_X_TLS_CACERTFILE): %s\n", ldap_err2string(ldapReturnCode));
-                return @[];
+                return [[NSArray alloc] init];
             };
         }
     }
@@ -111,7 +113,7 @@
         ldap_set_option(NULL, LDAP_OPT_X_TLS_NEWCTX, &ldapConnectionReset);
         if (ldapConnectionReset != LDAP_SUCCESS) {
             fprintf(stderr, "ldap_set_option(LDAP_OPT_X_TLS_NEWCTX): %s\n", ldap_err2string(ldapConnectionReset));
-            return @[];
+            return [[NSArray alloc] init];
         };
         
         if (msg != NULL) {
@@ -122,43 +124,7 @@
         }
     }
     
-    NSMutableArray *response = [NSMutableArray new];
-    for (NSString* key in ldapResponse) {
-        Addressee *ldapRow = [[Addressee alloc] init];
-        id value = [ldapResponse objectForKey:key];
-        for (NSString* innerKey in value) {
-            if ([innerKey rangeOfString:@"userCertificate;binary"].length != 0) {
-                id certValue = ([value objectForKey:innerKey]);
-                SecCertificateRef certificate;
-                if ([certValue isKindOfClass: [NSArray class]]) {
-                    // Do nothing with mobile-id certificate
-                } else {
-                    certificate = (__bridge SecCertificateRef)(certValue);
-                    ldapRow.cert = (__bridge NSData *)SecCertificateCopyData(certificate);
-                }
-            }
-            
-            if ([innerKey isEqual:@"cn"]) {
-                id innerValue = [value objectForKey:innerKey];
-                NSArray *cn = [innerValue componentsSeparatedByString:@","];
-                if (cn.count > 1) {
-                    ldapRow.surname = cn[0];
-                    ldapRow.givenName = cn[1];
-                    ldapRow.identifier = cn[2];
-                } else {
-                    ldapRow.identifier = cn[0];
-                    ldapRow.type = @"E-SEAL";
-                }
-            }
-        }
-        
-        if(ldapRow.cert != nil) {
-            [response addObject: ldapRow];
-        }
-    }
-    
-    return response;
-    
+    return [LDAPResponse responsesWithDictionary:ldapResponse];
 }
 
 BOOL isPersonalCode(NSString *inputString) {
