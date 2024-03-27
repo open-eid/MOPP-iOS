@@ -90,7 +90,7 @@ extension ContainerActions where Self: UIViewController {
                 if (isAsicOrPadesContainer || isCdocContainer) && urls.count == 1 {
                     SiVaUtil.setIsSentToSiva(isSent: false)
                     
-                    if let firstUrl = urls.first, (firstUrl.pathExtension == "asics" || firstUrl.pathExtension == "scs") || MimeTypeExtractor.isCadesContainer(filePath: firstUrl) {
+                    if let firstUrl = urls.first, (firstUrl.pathExtension == "asics" || firstUrl.pathExtension == "scs") || firstUrl.pathExtension == "ddoc" || (firstUrl.pathExtension == "pdf" && SiVaUtil.isSignedPDF(url: firstUrl as CFURL)) || MimeTypeExtractor.isCadesContainer(filePath: firstUrl) {
                         if self?.getTopViewController() is FileImportProgressViewController {
                             self?.dismiss(animated: true, completion: {
                                 SiVaUtil.displaySendingToSiVaDialog { hasAgreed in

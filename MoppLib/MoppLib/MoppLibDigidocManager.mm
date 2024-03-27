@@ -146,6 +146,9 @@ public:
     
     virtual std::string proxyHost() const override {
         NSString *host = [[NSUserDefaults standardUserDefaults] stringForKey:@"kProxyHost"];
+        if (host == nil) {
+            return std::string("");
+        }
         return std::string([host UTF8String]);
     }
     
