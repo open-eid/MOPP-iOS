@@ -70,7 +70,7 @@ class SmartIDSignature {
         }
 
         self.selectAccount()
-        SIDRequest.shared.getCertificate(baseUrl: baseUrl, country: country, nationalIdentityNumber: nationalIdentityNumber, requestParameters: requestParameters, trustedCertificates: trustedCertificates) { result in
+        SIDRequest.shared.getCertificate(baseUrl: baseUrl, country: country, nationalIdentityNumber: nationalIdentityNumber, requestParameters: requestParameters, trustedCertificates: trustedCertificates, manualProxyConf: ManualProxy.getManualProxyConfiguration()) { result in
             switch result {
             case .success(let response):
                 printLog("Received Certificate (session ID): \(response.sessionID)")
@@ -104,7 +104,7 @@ class SmartIDSignature {
             return CancelUtil.handleCancelledRequest(errorMessageDetails: "User cancelled Smart-ID signing")
         }
 
-        SIDRequest.shared.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, allowedInteractionsOrder: allowedInteractionsOrder, trustedCertificates: trustedCertificates) { result in
+        SIDRequest.shared.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, allowedInteractionsOrder: allowedInteractionsOrder, trustedCertificates: trustedCertificates, manualProxyConf: ManualProxy.getManualProxyConfiguration()) { result in
             switch result {
             case .success(let response):
                 printLog("Received Signature (session ID): \(response.sessionID)")
@@ -132,7 +132,7 @@ class SmartIDSignature {
             return CancelUtil.handleCancelledRequest(errorMessageDetails: "User cancelled Smart-ID signing")
         }
 
-        SIDRequest.shared.getSessionStatus(baseUrl: baseUrl, sessionId: sessionId, timeoutMs: kDefaultTimeoutMs, trustedCertificates: trustedCertificates) { result in
+        SIDRequest.shared.getSessionStatus(baseUrl: baseUrl, sessionId: sessionId, timeoutMs: kDefaultTimeoutMs, trustedCertificates: trustedCertificates, manualProxyConf: ManualProxy.getManualProxyConfiguration()) { result in
             switch result {
             case .success(let sessionStatus):
                 printLog("RIA.SmartID - Session status \(sessionStatus.state.rawValue)")

@@ -73,10 +73,22 @@ class SettingsViewController: MoppViewController {
     }
     
     func resetSettings() {
+        resetRPAndTimestamp()
+        resetRoleAndAddress()
+        resetTSA()
+        resetSiva()
+        resetProxy()
+        
+        tableView.reloadData()
+    }
+
+    func resetRPAndTimestamp() {
         DefaultsHelper.rpUuid = ""
         DefaultsHelper.timestampUrl = nil
         DefaultsHelper.defaultSettingsSwitch = true
-        
+    }
+
+    func resetRoleAndAddress() {
         DefaultsHelper.isRoleAndAddressEnabled = false
         DefaultsHelper.roleNames = []
         DefaultsHelper.roleCity = ""
@@ -87,14 +99,26 @@ class SettingsViewController: MoppViewController {
         CertUtil.removeCertificate(folder: SettingsTSACertCell.tsaFileFolder, fileName: DefaultsHelper.tsaCertFileName ?? "")
         
         CertUtil.removeCertificate(folder: SivaCertViewController.sivaFileFolder, fileName: DefaultsHelper.sivaCertFileName ?? "")
+    }
 
+    func resetTSA() {
+        CertUtil.removeCertificate(folder: SettingsTSACertCell.tsaFileFolder, fileName: DefaultsHelper.tsaCertFileName ?? "")
         DefaultsHelper.tsaCertFileName = ""
+    }
+
+    func resetSiva() {
+        CertUtil.removeCertificate(folder: SivaCertViewController.sivaFileFolder, fileName: DefaultsHelper.sivaCertFileName ?? "")
         DefaultsHelper.sivaCertFileName = ""
-        
         DefaultsHelper.sivaAccessState = .defaultAccess
         DefaultsHelper.sivaUrl = Configuration.getConfiguration().SIVAURL
-        
-        tableView.reloadData()
+    }
+
+    func resetProxy() {
+        DefaultsHelper.proxySetting = .noProxy
+        DefaultsHelper.proxyHost = ""
+        DefaultsHelper.proxyPort = 80
+        DefaultsHelper.proxyUsername = ""
+        KeychainUtil.remove(key: proxyPasswordKey)
     }
     
     deinit {

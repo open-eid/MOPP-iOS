@@ -22,13 +22,22 @@
  */
 
 import Foundation
+import SkSigningLib
 
 class FileDownloader: NSObject, URLSessionDelegate {
     
     static let shared = FileDownloader()
     
     func downloadFile(url: URL, completion: @escaping (URL?) -> Void) {
-        let downloadTask: URLSessionDownloadTask = URLSession(configuration: .default, delegate: self, delegateQueue: nil).downloadTask(with: url) { (fileTempUrl, response, error) in
+        let manualProxyConf = ManualProxy.getManualProxyConfiguration()
+        var urlSessionConfiguration = URLSessionConfiguration.default
+        ProxySettingsUtil.updateSystemProxySettings()
+        ProxyUtil.configureURLSessionWithProxy(urlSessionConfiguration: &urlSessionConfiguration, manualProxyConf: manualProxyConf)
+        
+        var request = URLRequest(url: url)
+        ProxyUtil.setProxyAuthorizationHeader(request: &request, urlSessionConfiguration: urlSessionConfiguration, manualProxyConf: manualProxyConf)
+        
+        let downloadTask: URLSessionDownloadTask = URLSession.shared.downloadTask(with: request) { (fileTempUrl, response, error) in
             if error != nil { printLog("Unable to download file: \(error?.localizedDescription ?? "Unable to display error")"); return completion(nil) }
             if let fileTempUrl: URL = fileTempUrl {
                 do {

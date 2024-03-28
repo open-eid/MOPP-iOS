@@ -58,6 +58,7 @@ class SivaCertViewController: MoppViewController {
     @IBOutlet weak var validUntilLabel: ScaledLabel!
 
     @IBOutlet weak var addCertificateButton: ScaledLabel!
+
     @IBOutlet weak var showCertificateButton: ScaledLabel!
 
     @IBAction func dismissView(_ sender: ScaledButton) {
@@ -306,6 +307,8 @@ class SivaCertViewController: MoppViewController {
 }
 
 extension SivaCertViewController: SettingsCellDelegate {
+    func didStartEditingField(_ field: SigningCategoryViewController.FieldId, _ textField: UITextField) { return }
+    
     func didStartEditingField(_ field: SigningCategoryViewController.FieldId, _ indexPath: IndexPath) {
         currentlyEditingCell = indexPath
     }
