@@ -51,12 +51,10 @@ func isDeviceOrientationLandscape() -> Bool {
 }
 
 func MSLog(_ format: String, _ arguments: Any..., fileName file: String = #file, _ function: String = #function, _ line: Int = #line) {
-    if isUsingTestMode() {
+    if isUsingTestMode() || (FileLogUtil.isLoggingEnabled() && FileLogUtil.isLoggingRunning()) {
+        let currentDate = Date().ISO8601Format()
+        NSLog(currentDate)
         NSLog(format, arguments)
-    } else {
-        if FileLogUtil.isLoggingEnabled() && FileLogUtil.isLoggingRunning() {
-            NSLog(format, arguments)
-        }
     }
 }
 
@@ -65,12 +63,9 @@ func printLog(_ message: String, _ file: String = #file, _ function: String = #f
     let logMessage = "\(message)\n" +
     "\tFile: \(fileUrl.lastPathComponent), function: \(function), line: \(line)\n"
     
-    if isUsingTestMode() {
-        NSLog(logMessage)
-    } else {
-        if FileLogUtil.isLoggingEnabled() && FileLogUtil.isLoggingRunning() {
-            NSLog(logMessage)
-        }
+    if isUsingTestMode() || (FileLogUtil.isLoggingEnabled() && FileLogUtil.isLoggingRunning()) {
+        let currentDate = Date().ISO8601Format()
+        NSLog("\(currentDate) \(logMessage)")
     }
 }
 

@@ -160,7 +160,7 @@ class RoleAndAddressViewController : MoppViewController {
         zipTextField.accessibilityUserInputLabels = [L(.voiceControlRoleZip)]
         
         guard let titleUILabel = titleLabel, let roleUITextField = roleTextField, let roleUILabel = roleLabel, let cityUITextField = cityTextField, let cityUILabel = cityLabel, let stateUITextField = stateTextField, let stateUILabel = stateLabel, let countryUITextField = countryTextField, let countryUILabel = countryLabel, let zipUITextField = zipTextField, let zipUILabel = zipLabel, let cancelUIButton = cancelButton, let signUIButton = signButton else {
-            NSLog("Unable to get titleLabel, roleLabel, roleTextField, cityLabel, cityTextField, stateLabel, stateTextField, countryLabel, countryTextField, zipLabel, zipTextField, cancelButton or signButton")
+            printLog("Unable to get titleLabel, roleLabel, roleTextField, cityLabel, cityTextField, stateLabel, stateTextField, countryLabel, countryTextField, zipLabel, zipTextField, cancelButton or signButton")
             return
         }
         

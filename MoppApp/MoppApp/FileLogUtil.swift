@@ -67,19 +67,47 @@ class FileLogUtil: LogFileGenerating {
     static func logToFile() {
         UserDefaults.standard.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
         let cacheURL = MoppFileManager.cacheDirectory
+        
+        cacheURL.startAccessingSecurityScopedResource()
         var logsDirectory = MoppFileManager.shared.logsDirectory()
-        if !MoppFileManager.shared.directoryExists(logsDirectory.path) {
+
+        let directoryExists = MoppFileManager.shared.directoryExists(logsDirectory.path)
+        if !directoryExists {
             do {
-                try FileManager.default.createDirectory(at: logsDirectory, withIntermediateDirectories: true)
+                try MoppFileManager.shared.fileManager.createDirectory(at: logsDirectory, withIntermediateDirectories: true, attributes: nil)
             } catch {
-                printLog("Unable to create 'logs' directory")
+                printLog("Unable to create 'logs' directory. \(error.localizedDescription)")
                 logsDirectory = cacheURL
             }
         }
+        
+        cacheURL.stopAccessingSecurityScopedResource()
+
         let currentDate = MoppDateFormatter().ddMMYYYY(toString: Date())
         let fileName = "\(currentDate).log"
         let logFilePath = logsDirectory.appendingPathComponent(fileName)
-        freopen(logFilePath.path, "a+", stderr)
+        
+        logFilePath.startAccessingSecurityScopedResource()
+        
+        if !FileManager.default.fileExists(atPath: logFilePath.path) {
+            do {
+                try String().write(to: logFilePath, atomically: true, encoding: .utf8)
+            } catch {
+                printLog("Unable to create file log file: \(error.localizedDescription)")
+            }
+        }
+        
+        guard freopen(logFilePath.path, "a+", stdout) != nil else {
+            printLog("Unable to open log file to append stdout entries")
+            return
+        }
+        
+        guard freopen(logFilePath.path, "a+", stderr) != nil else {
+            printLog("Unable to open log file to append stderr entries")
+            return
+        }
+        
+        logFilePath.stopAccessingSecurityScopedResource()
         
         printLog("DEBUG mode: Logging to file. File location: \(logFilePath.path )")
     }
