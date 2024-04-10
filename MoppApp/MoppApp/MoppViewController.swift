@@ -41,7 +41,10 @@ class MoppViewController : UIViewController, UIScrollViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
 
-        addInvisibleBottomLabelTo(nil)
+        // Exclude views with UITableView
+        if !(self is SigningContainerViewController || self is ContainerViewController || self is CryptoViewController || self is RecentContainersViewController) {
+            addInvisibleBottomLabelTo(nil)
+        }
     }
 
     deinit {

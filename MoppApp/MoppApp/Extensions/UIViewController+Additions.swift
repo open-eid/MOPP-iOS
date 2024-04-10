@@ -161,45 +161,21 @@ extension UIViewController {
         }
     }
     
-    func addLabelToBottom(label: UILabel, lastSubview: UIView) {
+    func addLabelToBottom(label: UILabel?, lastSubview: UIView?) {
         if DefaultsHelper.isDebugMode {
-            let lastElement = lastSubview.subviews.last ?? lastSubview
+            let lastElement = lastSubview?.subviews.last ?? lastSubview ?? UIView()
             
-            if lastSubview is UITableView {
-                let lastTableView = lastSubview as? UITableView
-                guard let tableView = lastTableView else { return }
-                let lastSection = tableView.numberOfSections - 1
-                if lastSection >= 0 {
-                    let lastRow = tableView.numberOfRows(inSection: lastSection) - 1
-                    if lastRow >= 0 {
-                        let lastIndexPath = IndexPath(row: lastRow, section: lastSection)
-                        let lastTableViewCell = tableView.cellForRow(at: lastIndexPath)
-                        if let lastCell = lastTableViewCell {
-                            for subview in lastCell.contentView.subviews {
-                                if subview === lastCell.contentView.subviews.last {
-                                    subview.addSubview(label)
-                                    
-                                    label.translatesAutoresizingMaskIntoConstraints = false
-                                    label.widthAnchor.constraint(equalToConstant: subview.frame.width).isActive = true
-                                    label.heightAnchor.constraint(equalToConstant: subview.frame.height).isActive = true
-                                    label.topAnchor.constraint(equalTo: subview.bottomAnchor, constant: 16).isActive = true
-                                    label.centerXAnchor.constraint(equalTo: subview.centerXAnchor).isActive = true
-                                }
-                            }
-                        }
-                    }
-                }
-            } else {
-                lastSubview.insertSubview(label, aboveSubview: lastElement)
-
-                let height = lastElement.frame.height != 0 ? lastElement.frame.height : lastSubview.frame.height
-                let width = lastElement.frame.width != 0 ? lastElement.frame.width : lastSubview.frame.width
+            if !(lastSubview is UITableView), let viewLabel = label, let viewLastSubview = lastSubview {
+                viewLastSubview.insertSubview(viewLabel, aboveSubview: lastElement)
                 
-                label.translatesAutoresizingMaskIntoConstraints = false
-                label.widthAnchor.constraint(equalToConstant: width).isActive = true
-                label.heightAnchor.constraint(equalToConstant: height).isActive = true
-                label.topAnchor.constraint(equalTo: lastElement.bottomAnchor, constant: 16).isActive = true
-                label.centerXAnchor.constraint(equalTo: lastElement.centerXAnchor).isActive = true
+                let height = lastElement.frame.height != 0 ? lastElement.frame.height : viewLastSubview.frame.height
+                let width = lastElement.frame.width != 0 ? lastElement.frame.width : viewLastSubview.frame.width
+                
+                viewLabel.translatesAutoresizingMaskIntoConstraints = false
+                viewLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
+                viewLabel.heightAnchor.constraint(equalToConstant: height).isActive = true
+                viewLabel.topAnchor.constraint(equalTo: lastElement.bottomAnchor, constant: 16).isActive = true
+                viewLabel.centerXAnchor.constraint(equalTo: lastElement.centerXAnchor).isActive = true
             }
         }
     }

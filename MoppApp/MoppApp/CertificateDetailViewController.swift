@@ -36,6 +36,7 @@ class CertificateDetailViewController: MoppViewController, InvisibleElementTable
     var certificateSections = [CertificateSection]()
     
     var isInvisibleElementAdded = false
+    var lastIndexPath: IndexPath?
     
     enum HashType {
         case SHA1
@@ -80,10 +81,6 @@ class CertificateDetailViewController: MoppViewController, InvisibleElementTable
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: .layoutChanged, argument: navigationItem.leftBarButtonItem)
         }
-    }
-
-    @objc internal override func backAction() {
-        dismiss(animated: true)
     }
 
     func setCertificateDetails() -> Void {
@@ -273,7 +270,7 @@ class CertificateDetailViewController: MoppViewController, InvisibleElementTable
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollViewScrolled(scrollView)
+        scrollViewScrolled(scrollView, tableView, lastIndexPath)
     }
 }
 
@@ -327,6 +324,9 @@ extension CertificateDetailViewController: UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if isScrollingNecessary(tableView: tableView) && !isInvisibleElementAdded {
             removeDefaultElement()
+            lastIndexPath = indexPath
+        } else {
+            addElementToTableViewFooter(tableView: tableView, indexPath: indexPath)
         }
     }
 }

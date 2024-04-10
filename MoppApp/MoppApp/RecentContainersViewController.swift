@@ -29,6 +29,7 @@ class RecentContainersViewController : MoppModalViewController, InvisibleElement
     var accessibilityElementsList = [Any]()
     
     var isInvisibleElementAdded = false
+    var lastIndexPath: IndexPath?
 
     enum Section {
         case header
@@ -133,7 +134,7 @@ class RecentContainersViewController : MoppModalViewController, InvisibleElement
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollViewScrolled(scrollView)
+        scrollViewScrolled(scrollView, tableView, lastIndexPath)
     }
 }
 
@@ -305,6 +306,9 @@ extension RecentContainersViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if isScrollingNecessary(tableView: tableView) && !isInvisibleElementAdded {
             removeDefaultElement()
+            lastIndexPath = indexPath
+        } else {
+            addElementToTableViewFooter(tableView: tableView, indexPath: indexPath)
         }
     }
 }

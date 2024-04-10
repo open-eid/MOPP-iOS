@@ -39,6 +39,7 @@ class SignatureDetailsViewController: MoppViewController, InvisibleElementTableV
     var signatureKind: ContainerSignatureCell.Kind = .signature
     
     var isInvisibleElementAdded = false
+    var lastIndexPath: IndexPath?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,7 +151,7 @@ class SignatureDetailsViewController: MoppViewController, InvisibleElementTableV
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollViewScrolled(scrollView)
+        scrollViewScrolled(scrollView, tableView, lastIndexPath)
     }
 }
 
@@ -221,7 +222,10 @@ extension SignatureDetailsViewController: UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if isScrollingNecessary(tableView: tableView) && !isInvisibleElementAdded {
             removeDefaultElement()
-        }
+            lastIndexPath = indexPath
+        } else {
+            addElementToTableViewFooter(tableView: tableView, indexPath: indexPath)
+        }        
     }
     
     @objc func tapCertificateView(_ tap: SignatureDetailTapGesture) {

@@ -36,6 +36,11 @@ class CryptoContainerViewController : ContainerViewController, CryptoActions, UI
         super.viewWillAppear(animated)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tableView.tableFooterView = nil
+    }
+    
     func reloadCryptoData() {
         
         self.isEncrypted = isContainerEncrypted
@@ -47,6 +52,7 @@ class CryptoContainerViewController : ContainerViewController, CryptoActions, UI
         } else {
             self.sections = ContainerViewController.sectionsNoAddresses
         }
+        
         self.reloadData()
     }
     

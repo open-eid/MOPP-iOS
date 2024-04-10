@@ -30,7 +30,8 @@ protocol InvisibleElementTableView: AnyObject {
     func isScrollingNecessary(tableView: UITableView) -> Bool
     func addElementNoScroll(to view: UIView)
     func addElement(to view: UIView)
-    func scrollViewScrolled(_ scrollView: UIScrollView)
+    func scrollViewScrolled(_ scrollView: UIScrollView, _ tableView: UITableView?, _ indexPath: IndexPath?)
+    func addElementToTableViewFooter(tableView: UITableView, indexPath: IndexPath?)
 }
 
 extension InvisibleElementTableView where Self: UIViewController {
@@ -68,15 +69,27 @@ extension InvisibleElementTableView where Self: UIViewController {
         isInvisibleElementAdded = true
     }
 
-    func scrollViewScrolled(_ scrollView: UIScrollView) {
+    func scrollViewScrolled(_ scrollView: UIScrollView, _ tableView: UITableView? = nil, _ indexPath: IndexPath? = nil) {
         if DefaultsHelper.isDebugMode {
             let scrollViewHeight = scrollView.frame.size.height
             let contentHeight = scrollView.contentSize.height
             let offset = scrollView.contentOffset.y
             
             if offset + scrollViewHeight >= contentHeight && !isInvisibleElementAdded {
-                addElement(to: self.view)
+                if let viewTableView = tableView, let tableIndexPath = indexPath {
+                    addElementToTableViewFooter(tableView: viewTableView, indexPath: tableIndexPath)
+                } else {
+                    addElement(to: self.view)
+                }
             }
+        }
+    }
+    
+    func addElementToTableViewFooter(tableView: UITableView, indexPath: IndexPath?) {
+        if let tableIndexPath = indexPath, tableIndexPath.row == (tableView.indexPathsForVisibleRows?.last?.row ?? 0) {
+
+            let invisibleElement = UIViewController.getInvisibleLabel()
+            tableView.tableFooterView = invisibleElement
         }
     }
 }

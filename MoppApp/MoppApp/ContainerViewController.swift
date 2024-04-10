@@ -86,6 +86,7 @@ class ContainerViewController : MoppViewController, InvisibleElementTableView, C
     var isSendingToSivaAgreed = true
     
     var isInvisibleElementAdded = false
+    var lastIndexPath: IndexPath?
     
     private var isFileSaveableCache: [IndexPath: Bool] = [:]
     private var isDatafileReloaded = false
@@ -396,7 +397,7 @@ class ContainerViewController : MoppViewController, InvisibleElementTableView, C
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollViewScrolled(scrollView)
+        scrollViewScrolled(scrollView, tableView, lastIndexPath)
     }
 }
 
@@ -534,6 +535,7 @@ extension ContainerViewController : UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
                 cell.delegate = self
             cell.accessibilityUserInputLabels = ["\(L(.voiceControlSignature)) \(row + 1)"]
+            cell.accessibilityIdentifier = "Signature \(row + 1)"
             var signature = asicsSignatures.isEmpty ? (signingContainerViewDelegate.getSignature(index: indexPath.row) as? MoppLibSignature) : asicsSignatures[indexPath.row]
             if isAsicsContainer() && !asicsSignatures.isEmpty && signingContainerViewDelegate.getTimestampTokensCount() > 0 && asicsSignatures.count >= indexPath.row {
                 signature = asicsSignatures[indexPath.row]
@@ -564,6 +566,7 @@ extension ContainerViewController : UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
                 //cell.populate(name: mockTimestamp[row], kind: .timestamp, colorTheme: .neutral, showBottomBorder: row < mockTimestamp.count - 1)
             cell.accessibilityUserInputLabels = ["\(L(.voiceControlTimestamp)) \(row + 1)"]
+            cell.accessibilityIdentifier = "Timestamp \(row + 1)"
             return cell
         case .dataFiles:
             let cell = tableView.dequeueReusableCell(withType: ContainerFileCell.self, for: indexPath)!
@@ -571,6 +574,7 @@ extension ContainerViewController : UITableViewDataSource {
                 cell.containerFileUpdatedDelegate = self
             cell.accessibilityTraits = UIAccessibilityTraits.button
             cell.accessibilityUserInputLabels = ["\(L(.voiceControlFileRow)) \(row + 1)"]
+            cell.accessibilityIdentifier = "File \(row + 1)"
 
             let isStatePreviewOrOpened = state == .opened || state == .preview
             let isEncryptedDataFiles = !isAsicContainer && isStatePreviewOrOpened && !isDecrypted
@@ -682,6 +686,7 @@ extension ContainerViewController : UITableViewDataSource {
         case .containerTimestamps:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
             cell.accessibilityUserInputLabels = ["\(L(.voiceControlContainerTimestamp)) \(row + 1)"]
+            cell.accessibilityIdentifier = "Timestamp \(row + 1)"
             var timestampToken: MoppLibSignature = MoppLibSignature()
             if signingContainerViewDelegate.getTimestampTokensCount() >= indexPath.row {
                 timestampToken = signingContainerViewDelegate.getTimestampToken(index: indexPath.row) as? MoppLibSignature ?? MoppLibSignature()
@@ -727,6 +732,9 @@ extension ContainerViewController : UITableViewDataSource {
         
         if isScrollingNecessary(tableView: tableView) && !isInvisibleElementAdded {
             removeDefaultElement()
+            lastIndexPath = indexPath
+        } else {
+            addElementToTableViewFooter(tableView: tableView, indexPath: indexPath)
         }
     }
     
@@ -1124,6 +1132,10 @@ extension ContainerViewController : UITableViewDelegate {
         // Animate away success message if there is any
         if let notificationIndex = notifications.firstIndex(where: { $0.isSuccess == true }), sections.contains(.notifications) {
             scrollToTop()
+            if DefaultsHelper.isDebugMode {
+                self.tableView.tableFooterView = nil
+                self.tableView.reloadData()
+            }
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
                 guard let notificationMessages = self?.notifications, !notificationMessages.isEmpty else { return }
                 if notificationMessages.indices.contains(notificationIndex) {
