@@ -37,7 +37,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cdw-xa-vVM">
-                                                    <rect key="frame" x="325" y="11" width="48" height="25"/>
+                                                    <rect key="frame" x="322" y="11" width="48" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="48" id="G6A-8h-xoa"/>
                                                         <constraint firstAttribute="height" constant="25" id="fQw-LF-DcI"/>
@@ -51,7 +51,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="cdw-xa-vVM" secondAttribute="bottom" constant="13" id="5zH-gm-G18"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="cdw-xa-vVM" secondAttribute="trailing" id="PgW-ut-gF1"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="cdw-xa-vVM" secondAttribute="trailing" constant="3" id="PgW-ut-gF1"/>
                                                 <constraint firstItem="cdw-xa-vVM" firstAttribute="top" secondItem="IeX-2D-oTP" secondAttribute="topMargin" id="c6M-Eh-zwD"/>
                                             </constraints>
                                         </tableViewCellContentView>
