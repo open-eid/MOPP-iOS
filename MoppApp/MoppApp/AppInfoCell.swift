@@ -61,8 +61,8 @@ class AppInfoCell: UITableViewCell {
             let nsRange = NSRange(range, in: contactText)
             
             attributedString.addAttribute(.link, value: L(.infoAppContactLink), range: nsRange)
+            attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.link, range: nsRange)
             attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: nsRange)
-            attributedString.addAttribute(NSAttributedString.Key.underlineColor, value: UIColor.blue, range: nsRange)
         }
         
         appContact.attributedText = attributedString
