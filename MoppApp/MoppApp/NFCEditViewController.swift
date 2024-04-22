@@ -59,6 +59,9 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
         canTextErrorLabel.isHidden = true
         pinTextErrorLabel.text = ""
         pinTextErrorLabel.isHidden = true
+        
+        canTextLabel.textColor = UIColor.moppText
+        pinTextLabel.textColor = UIColor.moppText
 
         canTextField.moppPresentDismissButton()
         canTextField.layer.borderColor = UIColor.moppContentLine.cgColor
@@ -172,11 +175,11 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
 
     override func keyboardWillShow(notification: NSNotification) {
         if canTextField.isFirstResponder {
-            showKeyboard(textFieldLabel: canTextErrorLabel, scrollView: scrollView)
+            showKeyboard(textFieldLabel: canTextLabel, scrollView: scrollView)
         }
 
         if pinTextField.isFirstResponder {
-            showKeyboard(textFieldLabel: pinTextErrorLabel, scrollView: scrollView)
+            showKeyboard(textFieldLabel: pinTextLabel, scrollView: scrollView)
         }
     }
 
