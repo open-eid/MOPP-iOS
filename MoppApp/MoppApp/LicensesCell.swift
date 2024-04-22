@@ -39,9 +39,8 @@ class LicensesCell: UITableViewCell {
         url.textColor = .link
         if let urlText = url.text {
             let urlAttributedString = NSMutableAttributedString(string: urlText)
+            urlAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.link, range: NSRange(location: 0, length: urlAttributedString.length))
             urlAttributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: urlAttributedString.length))
-            
-            urlAttributedString.addAttribute(NSAttributedString.Key.underlineColor, value: UIColor.blue, range: NSRange(location: 0, length: urlAttributedString.length))
             
             url.attributedText = urlAttributedString
             
