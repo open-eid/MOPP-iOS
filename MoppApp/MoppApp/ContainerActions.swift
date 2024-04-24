@@ -77,8 +77,9 @@ extension ContainerActions where Self: UIViewController {
                         landingViewController.containerType = .asic
                     }
                 }
-                let isAsicOrPadesContainer = (ext.isAsicContainerExtension || ext == ContainerFormatPDF) &&
-                    landingViewController.containerType == .asic
+                let isAsicOrPadesContainer = (ext.isAsicContainerExtension ||
+                                              (ext == ContainerFormatPDF &&
+                                               SiVaUtil.isSignedPDF(url: urls.first! as CFURL))) && landingViewController.containerType == .asic
                 let isCdocContainer = ext.isCdocContainerExtension && landingViewController.containerType == .cdoc
                 if (isAsicOrPadesContainer || isCdocContainer) && urls.count == 1 {
                     SiVaUtil.setIsSentToSiva(isSent: false)
