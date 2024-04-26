@@ -232,7 +232,7 @@
 "smart-id-sign-help-title" = "Make sure control code matches with one in phone screen and enter Smart-ID PIN2 code";
 "nfc-title" = "Enter your ID-card access number and PIN2 code to sign with ID-card";
 "nfc-can-title" = "ID-card access number";
-"nfc-device-no-support" = "This device doesn't support NFC.";
+"nfc-device-no-support" = "This device does not support NFC.";
 "nfc-hold-near" = "Hold your phone near the ID-card";
 "nfc-multiple-cards" = "More than 1 NFC tag is detected, please remove all NFC tags and try again";
 "nfc-invalid-tag" = "Invalid NFC tag";
@@ -241,7 +241,7 @@
 "nfc-reading-cert" = "Reading certificate";
 "nfc-sign-doc" = "Signing document";
 "nfc-sign-done" = "Signing done";
-"nfc-auth-failed" = "Failed to authenticate with ID-card access number";
+"nfc-auth-failed" = "Failed to authenticate with ID-card";
 "nfc-sign-failed" = "Failed to sign document with ID-card";
 "nfc-pin-locked" = "Locked PIN";
 "role-and-address" = "Role and address";

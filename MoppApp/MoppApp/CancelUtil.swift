@@ -28,6 +28,6 @@ class CancelUtil {
     
     static func handleCancelledRequest(errorMessageDetails: String) {
         CancelRequestUtil.handleRequestCancellation()
-        ErrorUtil.generateError(signingError: .cancelled, details: MessageUtil.errorMessageWithDetails(details: errorMessageDetails))
+        ErrorUtil.generateError(signingError: .nfcCancelled, details: MessageUtil.errorMessageWithDetails(details: errorMessageDetails))
     }
 }

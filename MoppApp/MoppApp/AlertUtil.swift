@@ -63,6 +63,8 @@ class AlertUtil {
             case .cancelled:
                 topViewController.dismiss(animated: true)
                 return
+            case .nfcCancelled:
+                return
             default:
                 break
             }
@@ -70,6 +72,8 @@ class AlertUtil {
             switch err {
             case .cancelled:
                 topViewController.dismiss(animated: true)
+                return
+            case .nfcCancelled:
                 return
             default:
                 break

@@ -235,7 +235,7 @@
 "nfc-can-title" = "ID-kaardi ligipääsu number";
 "nfc-device-no-support" = "See seade ei toeta NFC-d";
 "nfc-hold-near" = "Hoidke ID-kaarti telefoni lähedal";
-"nfc-multiple-cards" = "Rohkem kui 1 NFC märgis on tuvastatud, eemaldage kõik NFC-märgisega esemed  ja proovige uuesti";
+"nfc-multiple-cards" = "Rohkem kui 1 NFC märgis on tuvastatud, eemaldage kõik NFC-märgisega esemed ja proovige uuesti";
 "nfc-invalid-tag" = "Kehtetu NFC-märgis";
 "nfc-unable-connect" = "NFC-ega ei saa ühendust luua";
 "nfc-auth" = "Isikutuvastus ID-kaardiga";

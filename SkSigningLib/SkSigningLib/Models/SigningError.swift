@@ -26,7 +26,7 @@ import Foundation
 public enum SigningError: Error, Equatable {
 
     // MARK: General
-    case empty, cancelled
+    case empty, cancelled, nfcCancelled
     
     // MARK: General Errors
     case invalidURL, noResponseError, generalError, generalSignatureAddingError, invalidSSLCert
@@ -55,6 +55,8 @@ public enum SigningError: Error, Equatable {
             self = .empty
         case "cancelled":
             self = .cancelled
+        case "nfcCancelled":
+            self = .nfcCancelled
         case "invalidURL":
             self = .invalidURL
         case "noResponseError":
@@ -146,6 +148,8 @@ extension SigningError: LocalizedError {
             return NSLocalizedString("", comment: "")
         case .cancelled:
             return NSLocalizedString("Signing cancelled", comment: "")
+        case .nfcCancelled:
+            return NSLocalizedString("NFC signing cancelled", comment: "")
         case .parameterNameNull:
             return NSLocalizedString("mid-rest-error-incorrect-parameters", comment: "")
         case .invalidURL:

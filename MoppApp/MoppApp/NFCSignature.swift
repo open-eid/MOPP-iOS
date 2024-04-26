@@ -154,7 +154,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
             } catch let error as PinError {
                 printLog("\nRIA.NFC - PinError count \(error.attemptsLeft)")
                 switch error.attemptsLeft {
-                case 0: setSessionMessage(L(.nfcPinLocked), invalidate: true)
+                case 0: setSessionMessage(L(.pin2BlockedAlert), invalidate: true)
                 case 1: setSessionMessage(L(.wrongPin2Single), invalidate: true)
                 default: setSessionMessage(L(.wrongPin2, [error.attemptsLeft]), invalidate: true)
                 }
@@ -455,6 +455,8 @@ extension NFCISO7816Tag {
             return try await sendCommand(cls: cls, ins: ins, p1: p1, p2: p2, data: data, le: Int(len))
         case (_, 0x63, let count) where count & 0xC0 > 0:
             throw PinError(attemptsLeft: count & 0x0F)
+        case (_, 0x69, 0x83):
+            throw PinError(attemptsLeft: 0)
         case (_, let sw1, let sw2):
             throw RuntimeError(msg: String(format: "%02X%02X", sw1, sw2))
         }
