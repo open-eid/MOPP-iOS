@@ -37,19 +37,8 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
     @IBOutlet weak var pinTextLabel: UILabel!
     @IBOutlet weak var canTextErrorLabel: UILabel!
     @IBOutlet weak var pinTextErrorLabel: UILabel!
-    @IBOutlet weak var rememberMeStackView: UIStackView!
-    @IBOutlet weak var rememberMeLabel: ScaledLabel!
-    @IBOutlet weak var rememberMeSwitch: SwitchButton!
     @IBOutlet weak var cancelButton: MoppButton!
     @IBOutlet weak var signButton: MoppButton!
-    
-    @IBAction func toggleRememberMe(_ sender: SwitchButton) {
-        if sender.isOn {
-            rememberMeSwitch.accessibilityUserInputLabels = ["Disable remember me"]
-        } else {
-            rememberMeSwitch.accessibilityUserInputLabels = ["Enable remember me"]
-        }
-    }
     
     static private let nfcCANKey = "nfcCANKey"
     weak var delegate: NFCEditViewControllerDelegate? = nil
@@ -84,11 +73,6 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
         pinTextField.layer.borderWidth = 1.0
         pinTextField.delegate = self
         pinTextField.isHidden = notAvailable
-        
-        rememberMeLabel.text = L(.signingRememberMe)
-        rememberMeLabel.isAccessibilityElement = false
-        rememberMeSwitch.accessibilityLabel = L(.signingRememberMe)
-        rememberMeSwitch.addTarget(self, action: #selector(toggleRememberMe), for: .valueChanged)
 
         cancelButton.setTitle(L(.actionCancel).uppercased())
         cancelButton.adjustedFont()
@@ -130,7 +114,6 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
     }
 
     func sign(_ pin: String?) {
-        handleCANSaving()
         dismiss(animated: false) {
             [weak self] in
             guard let sself = self else { return }
@@ -155,8 +138,6 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
 
         canTextField.accessibilityLabel = L(.nfcCANTitle)
         pinTextField.accessibilityLabel = L(.pin2TextfieldLabel)
-        
-        defaultRememberMeToggle()
 
         verifySigningCapability()
     }
@@ -164,11 +145,6 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.0)
-    }
-    
-    func defaultRememberMeToggle() {
-        rememberMeSwitch.setOn(DefaultsHelper.nfcRememberMe, animated: true)
-        rememberMeSwitch.accessibilityUserInputLabels = [DefaultsHelper.nfcRememberMe ? "Disable remember me" : "Enable remember me"]
     }
 
     deinit {
@@ -209,21 +185,6 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
 
     override func keyboardWillHide(notification: NSNotification) {
         hideKeyboard(scrollView: scrollView)
-    }
-    
-    private func handleCANSaving() {
-        if rememberMeSwitch.isOn {
-            if let can = canTextField.text {
-                _ = KeychainUtil.save(key: NFCEditViewController.nfcCANKey, info: can)
-            } else {
-                KeychainUtil.remove(key: NFCEditViewController.nfcCANKey)
-            }
-            rememberMeSwitch.accessibilityUserInputLabels = ["Disable remember me"]
-        }
-        else {
-            KeychainUtil.remove(key: NFCEditViewController.nfcCANKey)
-            rememberMeSwitch.accessibilityUserInputLabels = ["Enable remember me"]
-        }
     }
 }
 

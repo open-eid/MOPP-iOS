@@ -1418,7 +1418,7 @@
                                 <rect key="frame" x="0.0" y="20" width="343" height="390"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mnI-M7-BHK">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="441.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="385.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Enter your card CAN and PIN2 to sign with ID-card" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjC-XY-qFD" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                 <rect key="frame" x="32" y="16" width="279" height="44.5"/>
@@ -1496,7 +1496,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="0hb-jd-IP1">
-                                                <rect key="frame" x="25" y="359.5" width="293" height="32"/>
+                                                <rect key="frame" x="25" y="303.5" width="293" height="32"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ydU-Wj-AnM" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="144" height="32"/>
@@ -1535,31 +1535,14 @@
                                                     <constraint firstItem="sBY-Tp-x3O" firstAttribute="width" secondItem="ydU-Wj-AnM" secondAttribute="width" id="N23-sE-Ky7"/>
                                                 </constraints>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zw4-JV-TMx">
-                                                <rect key="frame" x="25" y="303.5" width="286" height="31"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Remember me" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvF-9p-BVf" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="6" width="229" height="19"/>
-                                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
-                                                        <color key="textColor" name="MoppText"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="right" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9gE-cz-fed" customClass="SwitchButton" customModule="MoppApp" customModuleProvider="target">
-                                                        <rect key="frame" x="237" y="0.0" width="51" height="31"/>
-                                                        <connections>
-                                                            <action selector="toggleRememberMe:" destination="3pJ-M2-a5W" eventType="valueChanged" id="Vgf-ik-pln"/>
-                                                        </connections>
-                                                    </switch>
-                                                </subviews>
-                                            </stackView>
                                         </subviews>
                                         <gestureRecognizers/>
                                         <constraints>
+                                            <constraint firstItem="0hb-jd-IP1" firstAttribute="top" secondItem="6h2-T5-xe7" secondAttribute="bottom" constant="25" id="2J9-K1-RA6"/>
                                             <constraint firstItem="MZs-mQ-MWX" firstAttribute="leading" secondItem="mnI-M7-BHK" secondAttribute="leading" constant="25" id="2m3-Hq-65T"/>
                                             <constraint firstItem="0hb-jd-IP1" firstAttribute="leading" secondItem="mnI-M7-BHK" secondAttribute="leading" constant="25" id="3ue-Sj-N6b"/>
                                             <constraint firstItem="nLi-7a-MsG" firstAttribute="top" secondItem="pCt-vy-MdB" secondAttribute="bottom" constant="8.5" id="5w4-Wb-oJY"/>
                                             <constraint firstAttribute="bottom" secondItem="0hb-jd-IP1" secondAttribute="bottom" constant="50" id="7xj-g0-E0Q"/>
-                                            <constraint firstItem="zw4-JV-TMx" firstAttribute="top" secondItem="6h2-T5-xe7" secondAttribute="bottom" constant="25" id="Edl-wW-CQh"/>
                                             <constraint firstItem="rjC-XY-qFD" firstAttribute="top" secondItem="mnI-M7-BHK" secondAttribute="top" constant="16" id="Ize-hX-gda"/>
                                             <constraint firstAttribute="trailing" secondItem="MZs-mQ-MWX" secondAttribute="trailing" constant="25" id="LX2-yJ-ISj"/>
                                             <constraint firstItem="DQo-E7-fVV" firstAttribute="top" secondItem="MZs-mQ-MWX" secondAttribute="bottom" constant="7.5" id="M4i-Tu-clC"/>
@@ -1575,13 +1558,10 @@
                                             <constraint firstItem="afX-4g-ZPX" firstAttribute="leading" secondItem="mnI-M7-BHK" secondAttribute="leading" constant="25" id="kKI-Sj-3ah"/>
                                             <constraint firstAttribute="trailing" secondItem="0hb-jd-IP1" secondAttribute="trailing" constant="25" id="kZO-hJ-1Lo"/>
                                             <constraint firstItem="nLi-7a-MsG" firstAttribute="leading" secondItem="mnI-M7-BHK" secondAttribute="leading" constant="25" id="kik-Pd-6tg"/>
-                                            <constraint firstItem="zw4-JV-TMx" firstAttribute="leading" secondItem="mnI-M7-BHK" secondAttribute="leading" constant="25" id="okd-Zh-zo9"/>
                                             <constraint firstItem="afX-4g-ZPX" firstAttribute="top" secondItem="nLi-7a-MsG" secondAttribute="bottom" constant="8" symbolic="YES" id="ot3-Jz-psA"/>
                                             <constraint firstItem="pCt-vy-MdB" firstAttribute="top" secondItem="rjC-XY-qFD" secondAttribute="bottom" constant="16" id="oxj-KM-EpR"/>
-                                            <constraint firstItem="0hb-jd-IP1" firstAttribute="top" secondItem="zw4-JV-TMx" secondAttribute="bottom" constant="25" id="p6a-ny-7lV"/>
                                             <constraint firstItem="pCt-vy-MdB" firstAttribute="leading" secondItem="mnI-M7-BHK" secondAttribute="leading" constant="25" id="rbC-bx-Aw9"/>
                                             <constraint firstAttribute="trailing" secondItem="DQo-E7-fVV" secondAttribute="trailing" constant="25" id="rl1-CG-wA7"/>
-                                            <constraint firstAttribute="trailing" secondItem="zw4-JV-TMx" secondAttribute="trailing" constant="32" id="upx-QF-Iwn"/>
                                             <constraint firstItem="6h2-T5-xe7" firstAttribute="leading" secondItem="mnI-M7-BHK" secondAttribute="leading" constant="25" id="wG4-fj-LF0"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
@@ -1625,9 +1605,6 @@
                         <outlet property="pinTextErrorLabel" destination="6h2-T5-xe7" id="1Jb-wb-A6j"/>
                         <outlet property="pinTextField" destination="DQo-E7-fVV" id="nGN-3e-3kr"/>
                         <outlet property="pinTextLabel" destination="MZs-mQ-MWX" id="Dfd-su-wmT"/>
-                        <outlet property="rememberMeLabel" destination="yvF-9p-BVf" id="fQK-lx-j6y"/>
-                        <outlet property="rememberMeStackView" destination="zw4-JV-TMx" id="anO-Nt-N4e"/>
-                        <outlet property="rememberMeSwitch" destination="9gE-cz-fed" id="9NQ-ZF-JdW"/>
                         <outlet property="scrollView" destination="P5l-wP-Uoo" id="Nkv-kg-8tB"/>
                         <outlet property="signButton" destination="sBY-Tp-x3O" id="NnD-lr-08B"/>
                         <outlet property="titleLabel" destination="rjC-XY-qFD" id="lIf-Ce-fGX"/>

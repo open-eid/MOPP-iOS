@@ -54,7 +54,6 @@ fileprivate let kRPUuidKey = "kRPUuidKey"
 fileprivate let kSIDIDCodeKey = "kSIDIDCodeKey"
 fileprivate let kSIDCountryKey = "kSIDCountryKey"
 fileprivate let kSmartIdRememberMeKey = "kSmartIdRememberMeKey"
-fileprivate let kNFCRememberMeKey = "kNFCRememberMeKey"
 
 fileprivate let kRoleNamesKey = "kRoleNamesKey"
 fileprivate let kRoleCityKey = "kRoleCityKey"
@@ -83,8 +82,7 @@ class DefaultsHelper
             defaults: [
                 kSettingsDefaultSwitchKey: true,
                 kMobileIdRememberMeKey: true,
-                kSmartIdRememberMeKey: true,
-                kNFCRememberMeKey: true
+                kSmartIdRememberMeKey: true
             ]
         )
     }
@@ -324,15 +322,6 @@ class DefaultsHelper
         }
         get {
             return UserDefaults.standard.value(forKey: kSivaFileCertName) as? String
-        }
-    }
-    
-    class var nfcRememberMe: Bool {
-        set {
-            UserDefaults.standard.set(newValue, forKey: kNFCRememberMeKey)
-        }
-        get {
-            return (UserDefaults.standard.bool(forKey: kNFCRememberMeKey))
         }
     }
 }
