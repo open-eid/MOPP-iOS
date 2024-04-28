@@ -28,52 +28,52 @@ class KeychainUtil {
     static func save(key: String, info: String) -> Bool {
         guard let bundleIdentifier = Bundle.main.bundleIdentifier else { return false }
         if let data = info.data(using: .utf8) {
-            let query: [String: Any] = [
-                kSecClass as String: kSecClassGenericPassword,
-                kSecAttrService as String: bundleIdentifier,
-                kSecAttrAccount as String: "\(bundleIdentifier).\(key)",
-                kSecValueData as String: data,
-                kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+            let query: [CFString: Any] = [
+                kSecClass: kSecClassGenericPassword,
+                kSecAttrService: bundleIdentifier,
+                kSecAttrAccount: "\(bundleIdentifier).\(key)",
+                kSecValueData: data,
+                kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly
             ]
             SecItemDelete(query as CFDictionary)
             let status = SecItemAdd(query as CFDictionary, nil)
-            
+
             return status == errSecSuccess
         }
         return false
     }
-    
+
     static func retrieve(key: String) -> String? {
         guard let bundleIdentifier = Bundle.main.bundleIdentifier else { return nil }
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: bundleIdentifier,
-            kSecAttrAccount as String: "\(bundleIdentifier).\(key)",
-            kSecReturnData as String: true,
-            kSecMatchLimit as String: kSecMatchLimitOne,
-            kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+        let query: [CFString: Any] = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: bundleIdentifier,
+            kSecAttrAccount: "\(bundleIdentifier).\(key)",
+            kSecReturnData: true,
+            kSecMatchLimit: kSecMatchLimitOne,
+            kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly
         ]
-        
+
         var infoData: AnyObject?
         let status = SecItemCopyMatching(query as CFDictionary, &infoData)
-        
+
         if status == errSecSuccess, let data = infoData as? Data {
             return String(data: data, encoding: .utf8)
         } else {
             return nil
         }
     }
-    
+
     static func remove(key: String) {
         guard let bundleIdentifier = Bundle.main.bundleIdentifier else { return }
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: bundleIdentifier,
-            kSecAttrAccount as String: "\(bundleIdentifier).\(key)"
+        let query: [CFString: Any] = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: bundleIdentifier,
+            kSecAttrAccount: "\(bundleIdentifier).\(key)"
         ]
-        
+
         let status = SecItemDelete(query as CFDictionary)
-        
+
         if status != errSecSuccess {
             printLog("Error removing key from Keychain: \(status)")
         }

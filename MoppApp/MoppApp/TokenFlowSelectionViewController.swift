@@ -36,7 +36,8 @@ class TokenFlowSelectionViewController : MoppViewController {
     @IBOutlet weak var mobileIDButton: ScaledButton!
     @IBOutlet weak var smartIDButton: ScaledButton!
     @IBOutlet weak var idCardButton: ScaledButton!
-    
+    @IBOutlet weak var nfcButton: ScaledButton!
+
     @IBOutlet weak var tokenViewContainerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var tokenFlowViewLeadingCSTR: NSLayoutConstraint!
     @IBOutlet weak var tokenFlowViewTrailingCSTR: NSLayoutConstraint!
@@ -51,7 +52,8 @@ class TokenFlowSelectionViewController : MoppViewController {
     weak var smartIdEditViewControllerDelegate: SmartIDEditViewControllerDelegate!
     weak var idCardSignViewControllerDelegate: IdCardSignViewControllerDelegate?
     weak var idCardDecryptViewControllerDelegate: IdCardDecryptViewControllerDelegate?
-    
+    weak var nfcEditViewControllerDelegate: NFCEditViewControllerDelegate!
+
     var containerPath: String!
     
     var isSwitchingBlockedByTransition: Bool = false
@@ -71,6 +73,7 @@ class TokenFlowSelectionViewController : MoppViewController {
         case mobileID
         case smartID
         case idCard
+        case nfc
     }
     
     override func viewDidLoad() {
@@ -127,19 +130,24 @@ class TokenFlowSelectionViewController : MoppViewController {
             switch id {
             case .idCard:
                 $0.setTitle(L(.signTitleIdCard))
-                idCardButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleIdCard), positionInRow: "3", viewCount: "3")
+                idCardButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleIdCard), positionInRow: "3", viewCount: "4")
                 idCardButton.accessibilityUserInputLabels = [L(.voiceControlIdCard)]
                 idCardButton.adjustedFont()
             case .mobileID:
                 $0.setTitle(L(.signTitleMobileId))
-                mobileIDButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleMobileId), positionInRow: "1", viewCount: "3")
+                mobileIDButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleMobileId), positionInRow: "1", viewCount: "4")
                 mobileIDButton.accessibilityUserInputLabels = [L(.voiceControlMobileId)]
                 mobileIDButton.adjustedFont()
             case .smartID:
                 $0.setTitle(L(.signTitleSmartId))
-                smartIDButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleSmartId), positionInRow: "2", viewCount: "3")
+                smartIDButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleSmartId), positionInRow: "2", viewCount: "4")
                 smartIDButton.accessibilityUserInputLabels = [L(.voiceControlSmartId)]
                 smartIDButton.adjustedFont()
+            case .nfc:
+                $0.setTitle(L(.signTitleNFC))
+                nfcButton.accessibilityLabel = setTabAccessibilityLabel(isTabSelected: false, tabName: L(.signTitleNFC), positionInRow: "4", viewCount: "4")
+                nfcButton.accessibilityUserInputLabels = [L(.signTitleNFC)]
+                nfcButton.adjustedFont()
             }
         }
     }
@@ -191,19 +199,25 @@ extension TokenFlowSelectionViewController {
             }
             idCardSignVC.keyboardDelegate = self
             newViewController = idCardSignVC
-            viewAccessibilityElements = [idCardButton, containerView, mobileIDButton,  smartIDButton, containerView]
+            viewAccessibilityElements = [idCardButton, containerView, mobileIDButton, smartIDButton, nfcButton, containerView]
+        case .nfc:
+            let nfcSignVC = UIStoryboard.tokenFlow.instantiateViewController(of: NFCEditViewController.self)
+            centerLandscapeCSTR.isActive = false
+            nfcSignVC.delegate = nfcEditViewControllerDelegate
+            newViewController = nfcSignVC
+            viewAccessibilityElements = [nfcButton, containerView, idCardButton, mobileIDButton, smartIDButton, containerView]
         case .mobileID:
             let mobileIdEditVC = UIStoryboard.tokenFlow.instantiateViewController(of: MobileIDEditViewController.self)
             handleConstraintInLandscape()
             mobileIdEditVC.delegate = mobileIdEditViewControllerDelegate
             newViewController = mobileIdEditVC
-            viewAccessibilityElements = [mobileIDButton, containerView, smartIDButton, idCardButton, containerView]
+            viewAccessibilityElements = [mobileIDButton, containerView, smartIDButton, idCardButton, nfcButton, containerView]
         case .smartID:
             let smartIdEditVC = UIStoryboard.tokenFlow.instantiateViewController(of: SmartIDEditViewController.self)
             handleConstraintInLandscape()
             smartIdEditVC.delegate = smartIdEditViewControllerDelegate
             newViewController = smartIdEditVC
-            viewAccessibilityElements = [smartIDButton, containerView, idCardButton, mobileIDButton, smartIDButton, containerView]
+            viewAccessibilityElements = [smartIDButton, containerView, idCardButton, mobileIDButton, smartIDButton, nfcButton, containerView]
         }
         
         if UIAccessibility.isVoiceOverRunning {

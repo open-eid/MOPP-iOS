@@ -40,9 +40,6 @@ class MyeIDStatusViewController : MoppViewController {
             spinnerView.show(true)
             spinnerView.translatesAutoresizingMaskIntoConstraints = false
             statusStackView.addArrangedSubview(spinnerView)
-            NSLayoutConstraint.activate([
-                spinnerView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16)
-            ])
             loadingView = spinnerView
         }
     }

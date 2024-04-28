@@ -23,6 +23,7 @@
 
 import UIKit
 import MoppLib
+import SkSigningLib
 
 class SigningContainerViewController : ContainerViewController, SigningActions, UIDocumentPickerDelegate {
     
@@ -348,11 +349,24 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
     }
     
     @objc func receiveErrorNotification(_ notification: Notification) {
-        DispatchQueue.main.async {
-            self.dismiss(animated: false) {
-                let topViewController = self.getTopViewController()
-                AlertUtil.errorMessageDialog(notification, topViewController: topViewController)
+        if !isNFCCancelled(notification: notification) {
+            DispatchQueue.main.async {
+                self.dismiss(animated: false) {
+                    let topViewController = self.getTopViewController()
+                    AlertUtil.errorMessageDialog(notification, topViewController: topViewController)
+                }
             }
         }
+    }
+    
+    func isNFCCancelled(notification: Notification) -> Bool {
+        guard let userInfo = notification.userInfo else { return false }
+        let error = userInfo[kErrorKey] as? NSError
+        let signingError = error?.userInfo[NSLocalizedDescriptionKey] as? SigningError
+        
+        guard let signError = signingError, signError == .nfcCancelled else {
+            return false
+        }
+        return true
     }
 }
