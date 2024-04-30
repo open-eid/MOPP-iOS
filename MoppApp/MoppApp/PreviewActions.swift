@@ -55,6 +55,7 @@ extension PreviewActions where Self: ContainerViewController {
             if SiVaUtil.isDocumentSentToSiVa(fileUrl: destinationPathURL) {
                 SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
                     if (destinationPathURL.pathExtension == "ddoc" || destinationPathURL.pathExtension == "pdf") && !hasAgreed {
+                        self.updateState(.opened)
                         return
                     }
                     openAsicContainerPreviewDocument(containerViewController, isPDF, hasAgreed)
@@ -119,29 +120,14 @@ extension PreviewActions where Self: ContainerViewController {
         let openPDFPreview: () -> Void = { [weak self] in
             self?.updateState(.loading)
             SiVaUtil.setIsSentToSiva(isSent: false)
-            MoppLibContainerActions.sharedInstance().openContainer(
-                withPath: destinationPath,
-                    success: { [weak self] (_ container: MoppLibContainer?) -> Void in
-                        self?.updateState((self?.isCreated ?? false) ? .created : .opened)
-                        if container == nil {
-                            return
-                        }
-                        let signatureCount = container?.signatures.count ?? 0
-                        if signatureCount > 0 && !(self?.forcePDFContentPreview ?? false) {
-                            openAsicContainerPreview(true)
-                        } else {
-                            openContentPreview(destinationPath)
-                        }
-                    },
-                    failure: { [weak self] error in
-                        self?.updateState((self?.isCreated ?? false) ? .created : .opened)
-                        if let nsError = error as NSError?, nsError.code == 10018 {
-                            self?.infoAlert(message: L(.noConnectionMessage))
-                            return
-                        }
-                        self?.infoAlert(message: error?.localizedDescription)
-                        return
-                    })
+            let fileURL = URL(fileURLWithPath: destinationPath)
+            let isSignedPDF = SiVaUtil.isSignedPDF(url: fileURL as CFURL)
+            if !isSignedPDF {
+                openContentPreview(destinationPath)
+                return
+            }
+            
+            openAsicContainerPreview(true)
         }
 
         if self.isAsicContainer {
