@@ -238,7 +238,9 @@ class MobileIDChallengeViewController : UIViewController {
     }
     
     func setCodeLabelAccessibilityLabel() {
-        codeLabel.accessibilityLabel = "\(L(.signingProgress)) \(Int(currentProgress * 100))%. \((L(LocKey.challengeCodeLabelAccessibility, [String(challengeIdNumbers[0]), String(challengeIdNumbers[1]), String(challengeIdNumbers[2]), String(challengeIdNumbers[3])]))). \(self.helpLabel.text!)"
+        if codeLabel != nil && challengeIdNumbers != nil && !challengeIdNumbers.isEmpty {
+            codeLabel.accessibilityLabel = "\(L(.signingProgress)) \(Int(currentProgress * 100))%. \((L(LocKey.challengeCodeLabelAccessibility, [String(challengeIdNumbers[0]), String(challengeIdNumbers[1]), String(challengeIdNumbers[2]), String(challengeIdNumbers[3])]))). \(self.helpLabel.text!)"
+        }
     }
     
     @objc func appWillEnterForegroundNotification() {

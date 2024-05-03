@@ -31,7 +31,7 @@ class SessionStatus {
     func getSessionStatus(baseUrl: String, process: PollingProcess, sessionId: String, timeoutMs: Int?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionStatusResponse, SigningError>) -> Void ) {
         DispatchQueue.main.async {
             do {
-                _ = try RequestSession.shared.getSessionStatus(baseUrl: baseUrl, process: process, requestParameters: SessionStatusRequestParameters(sessionId: sessionId, timeoutMs: timeoutMs), trustedCertificates: trustedCertificates) { (sessionStatusResult: Result<SessionStatusResponse, SigningError>) in
+                _ = try RequestSession.shared.getSessionStatus(baseUrl: baseUrl, process: process, requestParameters: SessionStatusRequestParameters(sessionId: sessionId, timeoutMs: timeoutMs), trustedCertificates: trustedCertificates, manualProxyConf: ManualProxy.getManualProxyConfiguration()) { (sessionStatusResult: Result<SessionStatusResponse, SigningError>) in
                     switch sessionStatusResult {
                     case .success(let sessionStatus):
                         if self.isSessionStateComplete(sessionState: self.getSessionState(sessionStatus: sessionStatus)) {

@@ -61,6 +61,7 @@ extension UIViewController {
             }
         } else {
             if !forceCompletion && presentingViewController == nil {
+                completion?()
                 return
             } else {
                 if presentingViewController == nil {

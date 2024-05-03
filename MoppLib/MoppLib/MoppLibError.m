@@ -128,6 +128,10 @@ NSString *const MoppLibErrorDomain = @"MoppLibError";
   return [self error:moppLibErrorOCSPTimeSlot withMessage:@"Invalid OCSP time slot"];
 }
 
++ (NSError *)invalidProxySettingsError {
+  return [self error:moppLibErrorInvalidProxySettings withMessage:@"Invalid proxy settings"];
+}
+
 + (NSError *)error:(NSUInteger)errorCode withMessage:(NSString *)message {
   return [self error:errorCode userInfo:@{NSLocalizedDescriptionKey : message}];
 }

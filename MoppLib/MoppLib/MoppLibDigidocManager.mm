@@ -43,6 +43,7 @@
 #import <Security/SecKey.h>
 #import "MoppLibGlobals.h"
 #import "MoppLibDigidocValidateOnline.h"
+#import "MoppLibProxyConfiguration.h"
 
 #include <CryptoLib/CryptoLib.h>
 
@@ -60,10 +61,11 @@ class DigiDocConf: public digidoc::ConfCurrent {
 private:
   std::string m_tsUrl;
   MoppLibConfiguration *moppLibConfiguration;
+  MoppLibProxyConfiguration *proxyConfiguration;
 
 public:
 
-  DigiDocConf(const std::string& tsUrl, MoppLibConfiguration* moppConfiguration) : m_tsUrl( tsUrl ), moppLibConfiguration( moppConfiguration ) {}
+  DigiDocConf(const std::string& tsUrl, MoppLibConfiguration* moppConfiguration, MoppLibProxyConfiguration* proxyConfiguration) : m_tsUrl( tsUrl ), moppLibConfiguration( moppConfiguration ), proxyConfiguration( proxyConfiguration ) {}
 
   std::string TSLCache() const override {
     NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
@@ -141,6 +143,27 @@ public:
         return std::string();
     }
   }
+    
+    virtual std::string proxyHost() const override {
+        NSString *host = [[NSUserDefaults standardUserDefaults] stringForKey:@"kProxyHost"];
+        if (host == nil) {
+            return std::string("");
+        }
+        return std::string([host UTF8String]);
+    }
+    
+    virtual std::string proxyPort() const override {
+        NSInteger port = [[NSUserDefaults standardUserDefaults] integerForKey:@"kProxyPort"];
+        return std::to_string(port);
+    }
+    
+    virtual std::string proxyUser() const override {
+        return std::string([proxyConfiguration.USERNAME UTF8String]);
+    }
+    
+    virtual std::string proxyPass() const override {
+        return std::string([proxyConfiguration.PASSWORD UTF8String]);
+    }
 
     std::vector<digidoc::X509Cert> stringsToX509Certs(NSArray<NSString*> *certBundle) const {
         __block std::vector<digidoc::X509Cert> x509Certs;
@@ -282,7 +305,7 @@ static digidoc::Signature *signature = nil;
   return sharedInstance;
 }
 
-- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString*)tsUrl withMoppConfiguration:(MoppLibConfiguration*)moppConfiguration {
+- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString*)tsUrl withMoppConfiguration:(MoppLibConfiguration*)moppConfiguration andProxyConfiguration:(MoppLibProxyConfiguration*)proxyConfiguration {
 
     dispatch_async(dispatch_get_main_queue(), ^{
         dispatch_semaphore_t sem = dispatch_semaphore_create(0);
@@ -292,7 +315,7 @@ static digidoc::Signature *signature = nil;
             std::string timestampUrl = tsUrl == nil ?
             [moppConfiguration.TSAURL cStringUsingEncoding:NSUTF8StringEncoding] :
             [tsUrl cStringUsingEncoding:NSUTF8StringEncoding];
-            digidoc::Conf::init(new DigiDocConf(timestampUrl, moppConfiguration));
+            digidoc::Conf::init(new DigiDocConf(timestampUrl, moppConfiguration, proxyConfiguration));
             NSString *appInfo = [self userAgent];
             std::string appInfoObjcString = std::string([appInfo UTF8String]);
             digidoc::initialize(appInfoObjcString, appInfoObjcString);
@@ -896,6 +919,8 @@ NSString* getOCSPUrl(const digidoc::X509Cert &cert)  {
             failure([MoppLibError tooManyRequests]);
         } else if (e.code() == digidoc::Exception::ExceptionCode::OCSPTimeSlot) {
             failure([MoppLibError ocspTimeSlotError]);
+        } else if (e.code() == digidoc::Exception::ExceptionCode::NetworkError && [[NSString stringWithUTF8String:e.msg().c_str()] hasPrefix:@"Failed to create proxy connection with host"]) {
+            failure([MoppLibError invalidProxySettingsError]);
         } else {
             NSError *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:@{}];
             failure(error);

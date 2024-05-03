@@ -52,5 +52,6 @@ extern NSString *const MoppLibErrorDomain;
 + (NSError *)duplicatedFilenameError;
 + (NSError *)tooManyRequests;
 + (NSError *)ocspTimeSlotError;
++ (NSError *)invalidProxySettingsError;
 
 @end

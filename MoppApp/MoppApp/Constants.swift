@@ -43,6 +43,8 @@ let kAlternativeDisplayTextFormat = "UCS-2"
 let kDigestMethodSHA256 = "http://www.w3.org/2001/04/xmlenc#sha256"
 let kHashType = "SHA256"
 
+let proxyPasswordKey = "proxyPasswordKey"
+
 // Mobile-ID and Smart-ID polling interval
 let kDefaultTimeoutMs = 5000
 let kDefaultTimeoutS = 5

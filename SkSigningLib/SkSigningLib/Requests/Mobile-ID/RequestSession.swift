@@ -32,7 +32,7 @@ protocol SessionRequest {
        - requestParameters: Parameters that are sent to the service.
        - completionHandler: On request success, callbacks Result<SessionResponse, SigningError>
     */
-    func getSession(baseUrl: String, requestParameters: SessionRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionResponse, SigningError>) -> Void)
+    func getSession(baseUrl: String, requestParameters: SessionRequestParameters, trustedCertificates: [String]?, manualProxyConf: Proxy, completionHandler: @escaping (Result<SessionResponse, SigningError>) -> Void)
     
     /**
     Gets session status info for Mobile-ID. This method invokes SIM toolkit
@@ -43,7 +43,7 @@ protocol SessionRequest {
        - requestParameters: Parameters that are used in URL
        - completionHandler: On request success, callbacks Result<SessionStatusResponse, SigningError>
     */
-    func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionStatusResponse, SigningError>) -> Void)
+    func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, trustedCertificates: [String]?, manualProxyConf: Proxy, completionHandler: @escaping (Result<SessionStatusResponse, SigningError>) -> Void)
 }
 
 /**
@@ -61,7 +61,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         urlTask?.cancel()
     }
     
-    public func getSession(baseUrl: String, requestParameters: SessionRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionResponse, SigningError>) -> Void) {
+    public func getSession(baseUrl: String, requestParameters: SessionRequestParameters, trustedCertificates: [String]?, manualProxyConf: Proxy, completionHandler: @escaping (Result<SessionResponse, SigningError>) -> Void) {
         guard let url = URL(string: "\(baseUrl)/signature") else {
             completionHandler(.failure(.invalidURL))
             return
@@ -87,11 +87,13 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
             "\tdisplayText: \(requestParameters.displayText ?? "")\n"
         )
         
-        let urlSessionConfiguration: URLSessionConfiguration
+        var urlSessionConfiguration: URLSessionConfiguration
         let urlSession: URLSession
         
         if let trustedCerts = trustedCertificates, !trustedCerts.isEmpty {
             urlSessionConfiguration = URLSessionConfiguration.default
+            ProxyUtil.configureURLSessionWithProxy(urlSessionConfiguration: &urlSessionConfiguration, manualProxyConf: manualProxyConf)
+            ProxyUtil.setProxyAuthorizationHeader(request: &request, urlSessionConfiguration: urlSessionConfiguration, manualProxyConf: manualProxyConf)
             urlSession = URLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
         } else {
             urlSession = URLSession.shared
@@ -136,7 +138,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         CertificatePinning().certificatePinning(trustedCertificates: trustedCerts ?? [""], challenge: challenge, completionHandler: completionHandler)
     }
     
-    public func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionStatusResponse, SigningError>) -> Void) {
+    public func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, trustedCertificates: [String]?, manualProxyConf: Proxy, completionHandler: @escaping (Result<SessionStatusResponse, SigningError>) -> Void) {
         guard let url = URL(string: "\(baseUrl)/signature/session/\(requestParameters.sessionId)?timeoutMs=\(requestParameters.timeoutMs ?? Constants.defaultTimeoutMs)") else {
             Logging.errorLog(forMethod: "RIA.MobileID - Session status", httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(baseUrl)/signature/session/\(requestParameters.sessionId)?timeoutMs=\(requestParameters.timeoutMs ?? Constants.defaultTimeoutMs)")
             return completionHandler(.failure(.invalidURL))
@@ -155,12 +157,14 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
                     "\ttimeoutMs: \(String(requestParameters.timeoutMs ?? Constants.defaultTimeoutMs)) \n"
         )
         
-        let urlSessionConfiguration: URLSessionConfiguration
+        var urlSessionConfiguration: URLSessionConfiguration
         let urlSession: URLSession
         
         if let trustedCerts = trustedCertificates, !trustedCerts.isEmpty {
             urlSessionConfiguration = URLSessionConfiguration.default
             urlSessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+            ProxyUtil.configureURLSessionWithProxy(urlSessionConfiguration: &urlSessionConfiguration, manualProxyConf: manualProxyConf)
+            ProxyUtil.setProxyAuthorizationHeader(request: &request, urlSessionConfiguration: urlSessionConfiguration, manualProxyConf: manualProxyConf)
             urlSession = URLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
         } else {
             urlSession = URLSession.shared
@@ -202,7 +206,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
                         } else {
                             // Poll again as SessionResponseState is not COMPLETE
                             DispatchQueue.main.asyncAfter(deadline: .now() + Constants.defaultTimeoutS) {
-                                self.getSessionStatus(baseUrl: baseUrl, process: process, requestParameters: requestParameters, trustedCertificates: trustedCertificates, completionHandler: completionHandler)
+                                self.getSessionStatus(baseUrl: baseUrl, process: process, requestParameters: requestParameters, trustedCertificates: trustedCertificates, manualProxyConf: manualProxyConf, completionHandler: completionHandler)
                             }
                         }
                     } else {

@@ -22,6 +22,8 @@
 		DF3D29B223F6A92A007181B8 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29A823F6A929007181B8 /* SkSigningLib.framework */; };
 		DF3D29B723F6A92A007181B8 /* SkSigningLibTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3D29B623F6A92A007181B8 /* SkSigningLibTests.swift */; };
 		DF3D29B923F6A92A007181B8 /* SkSigningLib.h in Headers */ = {isa = PBXBuildFile; fileRef = DF3D29AB23F6A929007181B8 /* SkSigningLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DF41B54D2B506F3B00594D01 /* ProxyUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF41B54C2B506F3B00594D01 /* ProxyUtil.swift */; };
+		DF41B54E2B506F3B00594D01 /* Proxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF41B54B2B506F3A00594D01 /* Proxy.swift */; };
 		DF90EDE024223D6A0040FFE7 /* ControlCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF90EDDF24223D6A0040FFE7 /* ControlCode.swift */; };
 		DFBA32A2299EA5D400788A87 /* CancelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA32A1299EA5D400788A87 /* CancelRequest.swift */; };
 		DFBA32A429A59B2500788A87 /* CancelRequestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA32A329A59B2500788A87 /* CancelRequestUtil.swift */; };
@@ -66,6 +68,8 @@
 		DF3D29B123F6A929007181B8 /* SkSigningLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SkSigningLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF3D29B623F6A92A007181B8 /* SkSigningLibTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkSigningLibTests.swift; sourceTree = "<group>"; };
 		DF3D29B823F6A92A007181B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF41B54B2B506F3A00594D01 /* Proxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proxy.swift; sourceTree = "<group>"; };
+		DF41B54C2B506F3B00594D01 /* ProxyUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyUtil.swift; sourceTree = "<group>"; };
 		DF90EDDF24223D6A0040FFE7 /* ControlCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlCode.swift; sourceTree = "<group>"; };
 		DFBA32A1299EA5D400788A87 /* CancelRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelRequest.swift; sourceTree = "<group>"; };
 		DFBA32A329A59B2500788A87 /* CancelRequestUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelRequestUtil.swift; sourceTree = "<group>"; };
@@ -141,6 +145,7 @@
 		DF04A88E23FEC7000086C9F9 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				DF41B54F2B506F4000594D01 /* Proxy */,
 				DF04A88F23FEC7130086C9F9 /* EncoderDecoder.swift */,
 				DF90EDDF24223D6A0040FFE7 /* ControlCode.swift */,
 				DF3653B1242BA07400C48AC5 /* Logging.swift */,
@@ -227,6 +232,15 @@
 				DF3D29B823F6A92A007181B8 /* Info.plist */,
 			);
 			path = SkSigningLibTests;
+			sourceTree = "<group>";
+		};
+		DF41B54F2B506F4000594D01 /* Proxy */ = {
+			isa = PBXGroup;
+			children = (
+				DF41B54C2B506F3B00594D01 /* ProxyUtil.swift */,
+				DF41B54B2B506F3A00594D01 /* Proxy.swift */,
+			);
+			path = Proxy;
 			sourceTree = "<group>";
 		};
 		DFBA32A729A5AEC200788A87 /* Mobile-ID */ = {
@@ -398,6 +412,7 @@
 			files = (
 				4E59081A24B30B2C001B23A6 /* SIDCertificateRequestParameters.swift in Sources */,
 				DFD204E7240D274E00EB8150 /* SessionResponse.swift in Sources */,
+				DF41B54D2B506F3B00594D01 /* ProxyUtil.swift in Sources */,
 				DFD204EF240FD9FD00EB8150 /* SessionStatusResponse.swift in Sources */,
 				DF04A88D23FEA6950086C9F9 /* RequestSignature.swift in Sources */,
 				DF3653B2242BA07400C48AC5 /* Logging.swift in Sources */,
@@ -415,6 +430,7 @@
 				4E59081C24B30C62001B23A6 /* SIDSignatureRequestParameters.swift in Sources */,
 				DFD204E4240D20B300EB8150 /* SessionRequestParameters.swift in Sources */,
 				DF90EDE024223D6A0040FFE7 /* ControlCode.swift in Sources */,
+				DF41B54E2B506F3B00594D01 /* Proxy.swift in Sources */,
 				DF04A89523FEDC810086C9F9 /* CertificateRequestParameters.swift in Sources */,
 				DFD204F124100C5500EB8150 /* SessionResponseSignature.swift in Sources */,
 				DFBA32A2299EA5D400788A87 /* CancelRequest.swift in Sources */,

@@ -333,10 +333,19 @@ enum LocKey : String
     case settingsTimestampCertAddCertificateButton = "settings-timestamp-cert-add-certificate-button"
     case settingsTimestampCertShowCertificateButton = "settings-timestamp-cert-show-certificate-button"
     case settingsSivaServiceTitle = "settings-siva-service-title"
+    case settingsProxyTitle = "settings-proxy-title"
+    case settingsProxyNoProxy = "settings-proxy-no-proxy"
+    case settingsProxyUseSystem = "settings-proxy-use-system"
+    case settingsProxyUseManual = "settings-proxy-use-manual"
+    case settingsProxyHost = "settings-proxy-host"
+    case settingsProxyPort = "settings-proxy-port"
+    case settingsProxyUsername = "settings-proxy-username"
+    case settingsProxyPassword = "settings-proxy-password"
     case settingsSivaDefaultAccessTitle = "settings-siva-default-access-title"
     case settingsSivaDefaultManualAccessTitle = "settings-siva-default-manual-access-title"
     case settingsSivaDefaultCertificateTitle = "settings-siva-default-certificate-title"
     case settingsResetButton = "settings-reset-button"
+    case proxyUnableToConnectToService = "proxy-unable-to-connect-to-service"
     case diagnosticsTitle = "diagnostics-title"
     case diagnosticsActivateOneTimeLogging = "diagnostics-activate-one-time-logging"
     case diagnosticsSaveLog = "diagnostics-save-log"
@@ -509,6 +518,7 @@ enum LocKey : String
     case voiceControlRoleCountry = "voice-control-role-country";
     case voiceControlRoleZip = "voice-control-role-zip";
     case voiceControlRoleAndAddress = "voice-control-role-and-address";
+    case voiceControlSivaCategory = "voice-control-siva-category";
     case voiceControlSivaService = "voice-control-siva-service";
     case voiceControlSivaDefaultAccess = "voice-control-siva-default-access";
     case voiceControlSivaManualAccess = "voice-control-siva-manual-access";
@@ -522,4 +532,12 @@ enum LocKey : String
     case voiceControlSettingsButton = "voice-control-settings-button";
     case voiceControlInfoButton = "voice-control-info-button";
     case voiceControlDiagnosticsButton = "voice-control-diagnostics-button";
+    case voiceControlProxyNoProxy = "voice-control-no-proxy";
+    case voiceControlProxySystemProxy = "voice-control-proxy-system";
+    case voiceControlProxyManualProxy = "voice-control-proxy-manual";
+    case voiceControlProxyHost = "voice-control-proxy-host";
+    case voiceControlProxyPort = "voice-control-proxy-port";
+    case voiceControlProxyUsername = "voice-control-proxy-username";
+    case voiceControlProxyPassword = "voice-control-proxy-password";
+    case voiceControlProxyDisallowSsl = "voice-control-proxy-disallow-ssl";
 }
