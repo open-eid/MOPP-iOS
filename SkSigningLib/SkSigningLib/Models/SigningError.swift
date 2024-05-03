@@ -29,7 +29,7 @@ public enum SigningError: Error, Equatable {
     case empty, cancelled, nfcCancelled
     
     // MARK: General Errors
-    case invalidURL, noResponseError, generalError, generalSignatureAddingError, invalidSSLCert
+    case invalidURL, noResponseError, generalError, generalSignatureAddingError, invalidSSLCert, invalidProxySettings
     
     // MARK: Response Errors
     case notFound, notActive
@@ -192,6 +192,8 @@ extension SigningError: LocalizedError {
             return signingMethod
         case .invalidSSLCert:
             return NSLocalizedString("mid-rest-error-invalid-ssl-cert", comment: "")
+        case .invalidProxySettings:
+            return NSLocalizedString("proxy-unable-to-connect-to-service", comment: "")
         case .wrongVC:
             return NSLocalizedString("sid-rest-error-wrong-vc", comment: "")
         case .documentUnusable:

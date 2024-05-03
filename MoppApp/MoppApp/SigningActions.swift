@@ -210,6 +210,8 @@ extension SigningContainerViewController : IdCardSignViewControllerDelegate {
                     ErrorUtil.generateError(signingError: .ocspInvalidTimeSlot)
                 } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorSslHandshakeFailed.rawValue) {
                     ErrorUtil.generateError(signingError: .invalidSSLCert)
+                } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorInvalidProxySettings.rawValue) {
+                    ErrorUtil.generateError(signingError: .invalidProxySettings)
                 } else {
                     ErrorUtil.generateError(signingError: .empty, details: MessageUtil.errorMessageWithDetails(details: nsError.localizedDescription))
                 }

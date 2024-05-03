@@ -25,6 +25,7 @@ import UIKit
 
 class SivaCategoryCell: UITableViewCell {
     
+    @IBOutlet weak var accessToSivaView: UIView!
     @IBOutlet weak var accessToSivaButton: ScaledLabel!
     
     @objc func openAccessToSivaSettings() {
@@ -59,10 +60,10 @@ class SivaCategoryCell: UITableViewCell {
         
         self.accessToSivaButton.text = L(.settingsSivaServiceTitle)
         self.accessToSivaButton.accessibilityLabel = self.accessToSivaButton.text?.lowercased()
-        self.accessToSivaButton.font = .moppMedium
-        self.accessToSivaButton.textColor = .systemBlue
         self.accessToSivaButton.isUserInteractionEnabled = true
         self.accessToSivaButton.resetLabelProperties()
+        
+        self.accessToSivaView.accessibilityUserInputLabels = [L(.voiceControlSivaCategory)]
     }
     
     private func openAccessToSivaView() {

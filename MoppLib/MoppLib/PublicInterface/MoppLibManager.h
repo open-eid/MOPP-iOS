@@ -26,6 +26,7 @@
 #import "MoppLibConstants.h"
 #import "MOPPLibConfiguration.h"
 #import "MoppLibRoleAddressData.h"
+#import "MoppLibProxyConfiguration.h"
 
 typedef NS_ENUM(NSUInteger, EIDType) {
     EIDTypeUnknown,
@@ -46,7 +47,7 @@ typedef NS_ENUM(NSUInteger, EIDType) {
  * @param success       Block to be called on successful completion of action.
  * @param failure       Block to be called when action fails. Includes error.
  */
-- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString *)tsUrl withMoppConfiguration:(MoppLibConfiguration *)moppConfiguration;
+- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString *)tsUrl withMoppConfiguration:(MoppLibConfiguration *)moppConfiguration andProxyConfiguration:(MoppLibProxyConfiguration*)proxyConfiguration;
 
 + (NSString *)prepareSignature:(NSString *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData;
 + (NSArray *)getDataToSign;

@@ -33,7 +33,7 @@ protocol CertificateRequest {
        - requestParameters: Parameters that are sent to the service. Uses CertificateRequestParameters struct
        - completionHandler: On request response, callbacks Result<CertificateResponse, SigningError>
     */
-    func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<CertificateResponse, SigningError>) -> Void)
+    func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, trustedCertificates: [String]?, manualProxyConf: Proxy, completionHandler: @escaping (Result<CertificateResponse, SigningError>) -> Void)
 }
 
 /**
@@ -46,7 +46,7 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
     private var trustedCerts: [String]?
     private weak var urlTask: URLSessionTask?
     
-    public func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, trustedCertificates: [String]?, completionHandler: @escaping (Result<CertificateResponse, SigningError>) -> Void) {
+    public func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, trustedCertificates: [String]?, manualProxyConf: Proxy, completionHandler: @escaping (Result<CertificateResponse, SigningError>) -> Void) {
         guard UUID(uuidString: requestParameters.relyingPartyUUID) != nil else { completionHandler(.failure(.midInvalidAccessRights)); return }
         guard let url = URL(string: "\(baseUrl)/certificate") else {
             Logging.errorLog(forMethod: "RIA.MobileID - Certificate", httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(baseUrl)/certificate")
@@ -72,11 +72,13 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
             "\tnationalIdentityNumber: \(requestParameters.nationalIdentityNumber)\n"
         )
         
-        let urlSessionConfiguration: URLSessionConfiguration
+        var urlSessionConfiguration: URLSessionConfiguration
         let urlSession: URLSession
         
         if let trustedCerts = trustedCertificates, !trustedCerts.isEmpty {
             urlSessionConfiguration = URLSessionConfiguration.default
+            ProxyUtil.configureURLSessionWithProxy(urlSessionConfiguration: &urlSessionConfiguration, manualProxyConf: manualProxyConf)
+            ProxyUtil.setProxyAuthorizationHeader(request: &request, urlSessionConfiguration: urlSessionConfiguration, manualProxyConf: manualProxyConf)
             urlSession = URLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
         } else {
             urlSession = URLSession.shared
@@ -94,6 +96,9 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
                 if responseError?.code == -999 || responseError?.code == -1200 {
                     Logging.errorLog(forMethod: "RIA.MobileID - Certificate", httpResponse: response as? HTTPURLResponse ?? nil, error: .invalidSSLCert, extraInfo: "Certificate pinning failed")
                     return completionHandler(.failure(.invalidSSLCert))
+                } else if responseError?.code == 310 {
+                    Logging.errorLog(forMethod: "RIA.MobileID - Certificate", httpResponse: response as? HTTPURLResponse ?? nil, error: .invalidProxySettings, extraInfo: "Unable to connect with current proxy settings")
+                    return completionHandler(.failure(.invalidProxySettings))
                 }
                 Logging.errorLog(forMethod: "RIA.MobileID - Certificate", httpResponse: response as? HTTPURLResponse ?? nil, error: .noResponseError, extraInfo: "")
                 return completionHandler(.failure(.noResponseError))

@@ -399,7 +399,16 @@
 "settings-siva-default-access-title" = "Use default access";
 "settings-siva-default-manual-access-title" = "Use manually configured access";
 "settings-siva-default-certificate-title" = "Digital Signature Validation Service SiVa SSL certificate";
+"settings-proxy-title" = "Proxy";
+"settings-proxy-no-proxy" = "No proxy";
+"settings-proxy-use-system" = "Use system proxy settings";
+"settings-proxy-use-manual" = "Manual proxy configuration";
+"settings-proxy-host" = "Host";
+"settings-proxy-port" = "Port";
+"settings-proxy-username" = "Username";
+"settings-proxy-password" = "Password";
 "settings-reset-button" = "USE DEFAULT SETTINGS";
+"proxy-unable-to-connect-to-service" = "Failed to connect with service server. Please check your network settings or try again later.";
 "diagnostics-title" = "Diagnostics";
 "diagnostics-activate-one-time-logging" = "Enable one-time log generation";
 "diagnostics-save-log" = "SAVE LOG";
@@ -553,6 +562,7 @@
 "voice-control-role-country" = "Country";
 "voice-control-role-zip" = "Zip";
 "voice-control-role-and-address" = "Role and address";
+"voice-control-siva-category" = "Access to Siva";
 "voice-control-siva-service" = "Edit Validation service";
 "voice-control-siva-default-access" = "Default validation access";
 "voice-control-siva-manual-access" = "Manual validation access";
@@ -566,3 +576,11 @@
 "voice-control-settings-button" = "Settings";
 "voice-control-info-button" = "Info";
 "voice-control-diagnostics-button" = "Diagnostics";
+"voice-control-no-proxy" = "No proxy";
+"voice-control-proxy-system" = "Use system proxy";
+"voice-control-proxy-manual" = "Use manual proxy";
+"voice-control-proxy-host" = "Edit proxy host";
+"voice-control-proxy-port" = "Edit proxy port";
+"voice-control-proxy-username" = "Edit proxy username";
+"voice-control-proxy-password" = "Edit proxy password";
+"voice-control-proxy-disallow-ssl" = "Disable proxy for SSL connections";

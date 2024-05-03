@@ -99,6 +99,9 @@ class MobileIDSignature {
                 }
                 
                 if let errorObj = error as? SigningError {
+                    if errorObj == .invalidProxySettings {
+                        return ErrorUtil.generateError(signingError: errorObj)
+                    }
                     return ErrorUtil.generateError(signingError: errorObj, details: MessageUtil.errorMessageWithDetails(details: "Invalid access rights"))
                 }
                 return ErrorUtil.errorResult(error: error)
@@ -159,6 +162,9 @@ class MobileIDSignature {
             } catch let sessionError {
                 let error: Error = sessionError as? SigningError ?? sessionError
                 if let errorObj = error as? SigningError {
+                    if errorObj == .invalidProxySettings {
+                        return ErrorUtil.generateError(signingError: errorObj)
+                    }
                     return ErrorUtil.generateError(signingError: errorObj)
                 }
                 return ErrorUtil.errorResult(error: error)
@@ -195,7 +201,14 @@ class MobileIDSignature {
                 }
             } catch let sessionStatusError {
                 printLog("\nRIA.MobileID - Unable to get session status: \(sessionStatusError.localizedDescription)\n")
-                return ErrorUtil.errorResult(error: sessionStatusError)
+                let error: Error = sessionStatusError as? SigningError ?? sessionStatusError
+                if let errorObj = error as? SigningError {
+                    if errorObj == .invalidProxySettings {
+                        return ErrorUtil.generateError(signingError: errorObj)
+                    }
+                    return ErrorUtil.generateError(signingError: errorObj)
+                }
+                return ErrorUtil.errorResult(error: error)
             }
 
             guard let signatureValue = sessionStatus.signature?.value else {

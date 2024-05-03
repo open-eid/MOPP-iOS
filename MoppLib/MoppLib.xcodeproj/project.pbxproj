@@ -75,6 +75,8 @@
 		DF87E9CE292CC79500C2E3F4 /* libdigidocpp_util.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF87E9CD292CC77C00C2E3F4 /* libdigidocpp_util.a */; };
 		DFBDF1F827DA44BD00A5CF3C /* MoppLibRoleAddressData.h in Headers */ = {isa = PBXBuildFile; fileRef = DFBDF1F727DA44BD00A5CF3C /* MoppLibRoleAddressData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DFBDF1FA27DA44FD00A5CF3C /* MoppLibRoleAddressData.m in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1F927DA44FD00A5CF3C /* MoppLibRoleAddressData.m */; };
+		DFDD76292B507EFF0008EC2C /* MoppLibProxyConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = DFDD76282B507EFF0008EC2C /* MoppLibProxyConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DFDD762B2B507F9E0008EC2C /* MoppLibProxyConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = DFDD762A2B507F9E0008EC2C /* MoppLibProxyConfiguration.m */; };
 		DFF3C3A923322E0D0079458A /* MOPPLibConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = DFF3C3A723322E0C0079458A /* MOPPLibConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DFF3C3AA23322E0D0079458A /* MOPPLibConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3A823322E0C0079458A /* MOPPLibConfiguration.m */; };
 		DFFFCBCC238D470200059717 /* MoppLibGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = DFFFCBCB238D470200059717 /* MoppLibGlobals.h */; };
@@ -187,6 +189,8 @@
 		DF87E9CD292CC77C00C2E3F4 /* libdigidocpp_util.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdigidocpp_util.a; path = MoppLib/libdigidocpp/libdigidocpp.iphoneos/lib/libdigidocpp_util.a; sourceTree = "<group>"; };
 		DFBDF1F727DA44BD00A5CF3C /* MoppLibRoleAddressData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLibRoleAddressData.h; sourceTree = "<group>"; };
 		DFBDF1F927DA44FD00A5CF3C /* MoppLibRoleAddressData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoppLibRoleAddressData.m; sourceTree = "<group>"; };
+		DFDD76282B507EFF0008EC2C /* MoppLibProxyConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLibProxyConfiguration.h; sourceTree = "<group>"; };
+		DFDD762A2B507F9E0008EC2C /* MoppLibProxyConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoppLibProxyConfiguration.m; sourceTree = "<group>"; };
 		DFF3C3A723322E0C0079458A /* MOPPLibConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOPPLibConfiguration.h; sourceTree = "<group>"; };
 		DFF3C3A823322E0C0079458A /* MOPPLibConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOPPLibConfiguration.m; sourceTree = "<group>"; };
 		DFFFCBCB238D470200059717 /* MoppLibGlobals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLibGlobals.h; sourceTree = "<group>"; };
@@ -274,6 +278,8 @@
 				54DC0DC81E0BCCEF00C62B3D /* MoppLibConstants.m */,
 				C54EA735204D90D50039AC78 /* MoppLibCardReaderManager.h */,
 				C54EA737204D91730039AC78 /* MoppLibCardReaderManager.m */,
+				DFDD76282B507EFF0008EC2C /* MoppLibProxyConfiguration.h */,
+				DFDD762A2B507F9E0008EC2C /* MoppLibProxyConfiguration.m */,
 			);
 			name = PublicInterface;
 			path = MoppLib/PublicInterface;
@@ -476,6 +482,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFDD76292B507EFF0008EC2C /* MoppLibProxyConfiguration.h in Headers */,
 				DFBDF1F827DA44BD00A5CF3C /* MoppLibRoleAddressData.h in Headers */,
 				C5AAAF8620CAA3F00087D6DA /* winscard.h in Headers */,
 				C5AAAF8820CAA4240087D6DA /* wintypes.h in Headers */,
@@ -651,6 +658,7 @@
 				E42B08B61E1F0B3B00EA24A3 /* MoppLibContainer.m in Sources */,
 				54D1647C1E926AAB0069C725 /* MoppLibCardActions.m in Sources */,
 				E42B08CA1E1F11C100EA24A3 /* MoppLibSignature.m in Sources */,
+				DFDD762B2B507F9E0008EC2C /* MoppLibProxyConfiguration.m in Sources */,
 				54DC0DCA1E0BCCEF00C62B3D /* MoppLibConstants.m in Sources */,
 				DF169D5C2B90011E000DD46C /* MoppLibDigidocValidateOnline.m in Sources */,
 				54DC0DF51E0BEF2A00C62B3D /* NSString+Additions.m in Sources */,

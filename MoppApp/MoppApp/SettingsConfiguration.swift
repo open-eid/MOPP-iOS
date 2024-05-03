@@ -43,6 +43,7 @@
  */
 
 import Foundation
+import SkSigningLib
 
 class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate {
 
@@ -170,7 +171,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             getFetchedData(fromUrl: "\(getDefaultMoppConfiguration().CENTRALCONFIGURATIONSERVICEURL)/config.rsa") { (centralSignature, signatureError) in
                 if let error = signatureError {
                     printLog(error.localizedDescription)
-                    completionHandler(error)
+                    return completionHandler(error)
                 }
                 guard let centralSignature = centralSignature else {
                     self.handleCacheConfiguration()
@@ -217,26 +218,48 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
 
     private func fetchDataFromCentralConfiguration(fromUrl: String, completionHandler: @escaping (String?, Error?) -> Void) -> Void {
         guard let url = URL(string: fromUrl) else { return }
-
-        let urlSessionConfiguration: URLSessionConfiguration = URLSessionConfiguration.default
+        
+        let manualProxyConf = ManualProxy.getManualProxyConfiguration()
+        
+        var urlSessionConfiguration = URLSessionConfiguration.default
+        ProxySettingsUtil.updateSystemProxySettings()
+        ProxyUtil.configureURLSessionWithProxy(urlSessionConfiguration: &urlSessionConfiguration, manualProxyConf: manualProxyConf)
         urlSessionConfiguration.timeoutIntervalForResource = 5.0
         urlSessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+
         let urlSession = URLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
         
         let userAgent = MoppLibManager.sharedInstance().userAgent()
         
         var request = URLRequest(url: url)
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
+        ProxyUtil.setProxyAuthorizationHeader(request: &request, urlSessionConfiguration: urlSessionConfiguration, manualProxyConf: manualProxyConf)
 
         let task = urlSession.dataTask(with: request, completionHandler: { data, response, error in
             
             if let err = error as? NSError {
-                if err.code == -1009 {
-                    completionHandler(nil, DiagnosticError.noInternetConnection)
+                if err.code == -1009 || err.code == -1003 || err.code == 310 {
+                    return completionHandler(nil, DiagnosticError.noInternetConnection)
                 } else {
-                    completionHandler(nil, err)
+                    return completionHandler(nil, err)
                 }
             }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                let responseError = error as NSError?
+                return completionHandler(nil, responseError)
+            }
+            
+            if error != nil {
+                printLog("Settings configuration - \(error?.localizedDescription ?? "Error not available")")
+                return completionHandler(nil, error)
+            }
+            
+            if !(200...299).contains(httpResponse.statusCode) {
+                printLog("Settings configuration - HTTP Status Code: \(httpResponse.statusCode). \(error?.localizedDescription ?? "Error not available")")
+                return completionHandler(nil, NSError(domain: "SettingsConfiguration", code: 0))
+            }
+            
 
             guard let data = data else { return }
 
@@ -253,7 +276,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         fetchDataFromCentralConfiguration(fromUrl: url) { (data, error) in
             if (error != nil) {
                 printLog(error!.localizedDescription)
-                completionHandler(nil, error)
+                return completionHandler(nil, error)
             }
             guard let data = data else { return }
             
@@ -338,7 +361,8 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             printLog("Failed to reload DigiDocConf")
             fatalError("Failed to reload DigiDocConf")
         }, usingTestDigiDocService: useTestDDS, andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaurl,
-           withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration())
+           withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration(),
+           andProxyConfiguration: ManualProxy.getMoppLibProxyConfiguration())
     }
     
     

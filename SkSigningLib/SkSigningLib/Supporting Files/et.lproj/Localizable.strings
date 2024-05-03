@@ -47,3 +47,4 @@
 "sid-rest-error-account-not-found-or-timeout" = "Sinu Smart-ID toiming aegus või kontot ei leitud.";
 "sid-rest-error-certificate-revoked" = "Sertifikaat on kehtetu";
 "sid-interaction-not-supported-error" = "Ümbriku allkirjastamine ebaõnnestus. DigiDoc4 kliendis allkirjastamiseks pead Smart-ID rakendust uuendama.";
+"proxy-unable-to-connect-to-service" = "Teenuse serveriga ühendus ebaõnnestus. Palun kontrolli võrgu sätteid või proovi hiljem uuesti.";

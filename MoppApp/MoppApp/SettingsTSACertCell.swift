@@ -43,6 +43,9 @@ class SettingsTSACertCell: UITableViewCell {
     @IBOutlet weak var addCertificateButton: ScaledLabel!
     @IBOutlet weak var showCertificateButton: ScaledLabel!
     
+    @IBOutlet weak var addCertificateView: UIView!
+    @IBOutlet weak var showCertificateView: UIView!
+    
     @objc func addCertificateButtonTapped() {
         let documentPicker: UIDocumentPickerViewController = {
             let allowedDocumentTypes = [UTType.x509Certificate]
@@ -112,6 +115,8 @@ class SettingsTSACertCell: UITableViewCell {
             self.addCertificateButton.resetLabelProperties()
             self.addCertificateButton.isAccessibilityElement = true
             
+            self.addCertificateView.accessibilityUserInputLabels = [L(.settingsTimestampCertAddCertificateButton)]
+            
             self.showCertificateButton.text = L(.settingsTimestampCertShowCertificateButton)
             self.showCertificateButton.accessibilityLabel = self.showCertificateButton.text?.lowercased()
             self.showCertificateButton.font = .moppMedium
@@ -119,6 +124,8 @@ class SettingsTSACertCell: UITableViewCell {
             self.showCertificateButton.isUserInteractionEnabled = true
             self.showCertificateButton.resetLabelProperties()
             self.showCertificateButton.isAccessibilityElement = true
+            
+            self.showCertificateView.accessibilityUserInputLabels = [L(.settingsTimestampCertShowCertificateButton)]
             
             if self.addCertificateButton.gestureRecognizers == nil || self.addCertificateButton.gestureRecognizers?.isEmpty == true {
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.addCertificateButtonTapped))

@@ -51,7 +51,8 @@ class InitializationViewController : UIViewController {
         },
         usingTestDigiDocService: useTestDDS,
         andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaurl,
-        withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration()
+        withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration(),
+        andProxyConfiguration: ManualProxy.getMoppLibProxyConfiguration()
         )
     }
 

@@ -75,6 +75,7 @@ typedef NS_ENUM(NSUInteger, MoppLibErrorCode) {
   moppLibErrorOCSPTimeSlot = 10025, // Invalid OCSP time slot
   moppLibErrorReaderProcessFailed = 10026, // Reader process failed
   moppLibErrorSslHandshakeFailed = 10027, // SSL handshake failed
+  moppLibErrorInvalidProxySettings = 10028, // Connecting with current proxy settings failed
 
 };
 

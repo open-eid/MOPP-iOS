@@ -400,7 +400,16 @@
 "settings-siva-default-access-title" = "Kasutan vaikimisi määratud ligipääsu";
 "settings-siva-default-manual-access-title" = "Kasutan käsitsi määratud ligipääsu";
 "settings-siva-default-certificate-title" = "Valideerimisteenuse SiVa SSL sertifikaat";
+"settings-proxy-title" = "Proksi";
+"settings-proxy-no-proxy" = "Ei kasuta proksit";
+"settings-proxy-use-system" = "Kasuta süsteemseid proksi seadeid";
+"settings-proxy-use-manual" = "Proksi seaded määratakse käsitsi";
+"settings-proxy-host" = "Host";
+"settings-proxy-port" = "Port";
+"settings-proxy-username" = "Kasutajanimi";
+"settings-proxy-password" = "Parool";
 "settings-reset-button" = "TAASTA ALGSEADED";
+"proxy-unable-to-connect-to-service" = "Teenuse serveriga ühendus ebaõnnestus. Palun kontrolli võrgu sätteid või proovi hiljem uuesti.";
 "diagnostics-title" = "Diagnostika";
 "diagnostics-activate-one-time-logging" = "Aktiveeri ühekordne logifaili genereerimine";
 "diagnostics-save-log" = "SALVESTA LOGIFAIL";
@@ -553,6 +562,7 @@
 "voice-control-role-country" = "Country";
 "voice-control-role-zip" = "Zip";
 "voice-control-role-and-address" = "Role and address";
+"voice-control-siva-category" = "Access to Siva";
 "voice-control-siva-service" = "Edit Validation service";
 "voice-control-siva-default-access" = "Default validation access";
 "voice-control-siva-manual-access" = "Manual validation access";
@@ -566,3 +576,11 @@
 "voice-control-settings-button" = "Settings";
 "voice-control-info-button" = "Info";
 "voice-control-diagnostics-button" = "Diagnostics";
+"voice-control-no-proxy" = "No proxy";
+"voice-control-proxy-system" = "Use system proxy";
+"voice-control-proxy-manual" = "Use manual proxy";
+"voice-control-proxy-host" = "Edit proxy host";
+"voice-control-proxy-port" = "Edit proxy port";
+"voice-control-proxy-username" = "Edit proxy username";
+"voice-control-proxy-password" = "Edit proxy password";
+"voice-control-proxy-disallow-ssl" = "Disable proxy for SSL connections";
