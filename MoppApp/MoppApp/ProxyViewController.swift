@@ -24,7 +24,13 @@
 import UIKit
 import SkSigningLib
 
-class ProxyViewController: MoppViewController {
+enum ProxyNetworkError: Error {
+    case invalidURL
+    case noConnection
+    case checkUsernameAndPassword
+}
+
+class ProxyViewController: MoppViewController, URLSessionDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -60,6 +66,9 @@ class ProxyViewController: MoppViewController {
     @IBOutlet weak var passwordLabel: ScaledLabel!
     @IBOutlet weak var passwordTextField: SettingsTextField!
     
+    @IBOutlet weak var checkConnectionView: UIView!
+    @IBOutlet weak var checkConnectionButton: ScaledLabel!    
+    
     @IBAction func dismissView(_ sender: ScaledButton) {
         dismiss(animated: true)
     }
@@ -81,6 +90,8 @@ class ProxyViewController: MoppViewController {
     var fields: [FieldId] = [
         .proxy
     ]
+    
+    var tapGR: UITapGestureRecognizer!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -134,16 +145,104 @@ class ProxyViewController: MoppViewController {
         useSystemProxyView.accessibilityUserInputLabels = [L(.voiceControlProxySystemProxy)]
         useManualProxyView.accessibilityUserInputLabels = [L(.voiceControlProxyManualProxy)]
         
-        guard let dismissButton = dismissButton, let proxyUITitle = proxyTitle, let noProxyUIView = useNoProxyStackView, let systemProxyUIView = useSystemProxyStackView, let manualProxyUIView = useManualProxyStackView, let hostUITextField: UITextField = hostTextField, let portUITextField = portTextField, let usernameUITextField = usernameTextField, let passwordUITextField = passwordTextField else {
-            printLog("Unable to get proxyTitle, useNoProxyView, useSystemProxyView, useManualProxyView, hostTextField, portTextField, usernameTextField, passwordTextField")
+        if !(self.checkConnectionButton.gestureRecognizers?.contains(where: { $0 is UITapGestureRecognizer }) ?? false) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleProxyCheckTap(_:)))
+            self.checkConnectionButton.addGestureRecognizer(tapGesture)
+            self.checkConnectionButton.isUserInteractionEnabled = true
+        }
+        
+        checkConnectionButton.text = L(.settingsProxyCheckConnectionButton)
+        checkConnectionButton.textColor = UIColor.link
+        checkConnectionButton.accessibilityLabel = L(.settingsProxyCheckConnectionButton).lowercased()
+        checkConnectionButton.isUserInteractionEnabled = true
+        checkConnectionButton.resetLabelProperties()
+        
+        self.checkConnectionView.accessibilityUserInputLabels = [L(.settingsProxyCheckConnectionButton)]
+        
+        guard let dismissButton = dismissButton, let proxyUITitle = proxyTitle, let noProxyUIView = useNoProxyStackView, let systemProxyUIView = useSystemProxyStackView, let manualProxyUIView = useManualProxyStackView, let hostUITextField: UITextField = hostTextField, let portUITextField = portTextField, let usernameUITextField = usernameTextField, let passwordUITextField = passwordTextField, let checkProxyConnectionUIButton = checkConnectionButton else {
+            printLog("Unable to get proxyTitle, useNoProxyView, useSystemProxyView, useManualProxyView, hostTextField, portTextField, usernameTextField, passwordTextField, checkConnectionButton")
             return
         }
         
         if UIAccessibility.isVoiceOverRunning {
-            self.accessibilityElements = [proxyUITitle, dismissButton, noProxyUIView, systemProxyUIView, manualProxyUIView, hostUITextField, portUITextField, usernameUITextField, passwordUITextField]
+            self.accessibilityElements = [proxyUITitle, dismissButton, noProxyUIView, systemProxyUIView, manualProxyUIView, hostUITextField, portUITextField, usernameUITextField, passwordUITextField, checkProxyConnectionUIButton]
         }
         
         updateUI()
+    }
+    
+    @objc func handleProxyCheckTap(_ sender: UITapGestureRecognizer) {
+        checkProxyConnection { proxyError in
+            var message: String?
+            switch proxyError {
+            case .noConnection, .invalidURL:
+                    message = L(.settingsProxyCheckConnectionUnsuccessfulMessage)
+                case .checkUsernameAndPassword:
+                    message = L(.settingsProxyCheckConnectionCheckUsernameAndPassword)
+                case .none:
+                    message = L(.settingsProxyCheckConnectionSuccessMessage)
+                }
+
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            }
+        }
+    }
+    
+    func checkProxyConnection(completionHandler: @escaping (ProxyNetworkError?) -> Void) {
+        saveProxySettings()
+        
+        guard let url = URL(string: "https://id.eesti.ee/config.json") else { completionHandler(ProxyNetworkError.invalidURL)
+            return
+        }
+        
+        let manualProxyConf = ManualProxy.getManualProxyConfiguration()
+        
+        let userAgent = MoppLibManager.sharedInstance().userAgent()
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
+        request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+
+        var urlSessionConfiguration: URLSessionConfiguration
+        let urlSession: URLSession
+        
+        ProxySettingsUtil.updateSystemProxySettings()
+        
+        urlSessionConfiguration = URLSessionConfiguration.default
+        urlSessionConfiguration.timeoutIntervalForResource = 5.0
+        urlSessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+        ProxyUtil.configureURLSessionWithProxy(urlSessionConfiguration: &urlSessionConfiguration, manualProxyConf: manualProxyConf)
+        ProxyUtil.setProxyAuthorizationHeader(request: &request, urlSessionConfiguration: urlSessionConfiguration, manualProxyConf: manualProxyConf)
+        urlSession = URLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
+
+        let task = urlSession.dataTask(with: request, completionHandler: { data, response, error in
+            
+            if let _ = error as? NSError {
+                completionHandler(ProxyNetworkError.noConnection)
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                printLog("Proxy - Check connection. Unable to check if connection exists")
+                completionHandler(ProxyNetworkError.noConnection)
+                return
+            }
+            
+            if httpResponse.statusCode == 403 {
+                completionHandler(ProxyNetworkError.checkUsernameAndPassword)
+                return
+            } else if !(200...299).contains(httpResponse.statusCode) {
+                completionHandler(ProxyNetworkError.noConnection)
+                return
+            }
+            
+            return completionHandler(nil)
+        })
+
+        task.resume()
     }
     
     func setAccessibilityElementsInStackView(stackView: UIStackView, isAccessibilityElement: Bool) {
@@ -210,6 +309,23 @@ class ProxyViewController: MoppViewController {
     
     @objc func handleState(_ sender: ProxyChoiceTapGestureRecognizer) {
         handleProxySetting(proxySetting: sender.proxySetting)
+    }
+    
+    func saveProxySettings() {
+        let savedProxySetting = DefaultsHelper.proxySetting
+        if savedProxySetting == .noProxy {
+            DefaultsHelper.proxyHost = ""
+            DefaultsHelper.proxyPort = 80
+            DefaultsHelper.proxyUsername = ""
+            KeychainUtil.remove(key: proxyPasswordKey)
+        } else if savedProxySetting == .systemProxy {
+            ProxyUtil.updateSystemProxySettings()
+        } else if savedProxySetting == .manualProxy {
+            DefaultsHelper.proxyHost = hostTextField.text
+            DefaultsHelper.proxyPort = Int(portTextField.text ?? "80") ?? 80
+            DefaultsHelper.proxyUsername = usernameTextField.text
+            let _ = KeychainUtil.save(key: proxyPasswordKey, info: passwordTextField.text ?? "")
+        }
     }
     
     func updateUI() {
@@ -298,15 +414,7 @@ class ProxyViewController: MoppViewController {
     }
     
     deinit {
-        let savedProxySetting = DefaultsHelper.proxySetting
-        if savedProxySetting == .noProxy {
-            DefaultsHelper.proxyHost = ""
-            DefaultsHelper.proxyPort = 80
-            DefaultsHelper.proxyUsername = ""
-            KeychainUtil.remove(key: proxyPasswordKey)
-        } else if savedProxySetting == .systemProxy {
-            ProxyUtil.updateSystemProxySettings()
-        }
+        saveProxySettings()
         printLog("Deinit SettingsProxyCell")
     }
 }
@@ -402,4 +510,3 @@ extension ProxyViewController: UITextFieldDelegate {
         return true
     }
 }
-

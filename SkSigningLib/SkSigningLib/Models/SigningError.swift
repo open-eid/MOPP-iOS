@@ -193,7 +193,7 @@ extension SigningError: LocalizedError {
         case .invalidSSLCert:
             return NSLocalizedString("mid-rest-error-invalid-ssl-cert", comment: "")
         case .invalidProxySettings:
-            return NSLocalizedString("proxy-unable-to-connect-to-service", comment: "")
+            return NSLocalizedString("no-response-error", comment: "")
         case .wrongVC:
             return NSLocalizedString("sid-rest-error-wrong-vc", comment: "")
         case .documentUnusable:

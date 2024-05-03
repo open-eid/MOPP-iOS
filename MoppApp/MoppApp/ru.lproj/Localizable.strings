@@ -409,6 +409,10 @@
 "settings-siva-default-manual-access-title" = "Использовать доступ, назначенный вручную";
 "settings-siva-default-certificate-title" = "Сертификат услуги валидации SiVa SSL";
 "settings-reset-button" = "ИСПОЛЬЗОВАТЬ НАСТРОЙКИ ПО УМОЛЧАНИЮ";
+"settings-proxy-check-connection-button" = "Проверьте настройки интернета";
+"settings-proxy-check-connection-success-message" = "Подключение к интернету имеется!";
+"settings-proxy-check-connection-unsuccessful-message" = "Нет интернет-соединения!";
+"settings-proxy-check-connection-check-username-and-password" = "Проверьте имя пользователя и пароль прокси.";
 "proxy-unable-to-connect-to-service" = "Не удалось связаться с сервером услуги. Пожалуйста, проверьте настройки сети или повторите попытку позже.";
 "diagnostics-title" = "Диагностика";
 "diagnostics-activate-one-time-logging" = "Активировать одноразовое создание лог-файла";

@@ -408,6 +408,10 @@
 "settings-proxy-username" = "Username";
 "settings-proxy-password" = "Password";
 "settings-reset-button" = "USE DEFAULT SETTINGS";
+"settings-proxy-check-connection-button" = "Check connection";
+"settings-proxy-check-connection-success-message" = "Internet connection available!";
+"settings-proxy-check-connection-unsuccessful-message" = "No internet connection!";
+"settings-proxy-check-connection-check-username-and-password" = "Check proxy username and password.";
 "proxy-unable-to-connect-to-service" = "Failed to connect with service server. Please check your network settings or try again later.";
 "diagnostics-title" = "Diagnostics";
 "diagnostics-activate-one-time-logging" = "Enable one-time log generation";
