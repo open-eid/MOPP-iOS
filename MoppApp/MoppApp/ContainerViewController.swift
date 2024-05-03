@@ -647,7 +647,9 @@ extension ContainerViewController : UITableViewDataSource {
             cell.delegate = self
             let isEditingButtonShown: Bool = !isForPreview && (state == .opened || state == .created) &&
                 (isSignaturesEmpty && !isEncrypted && !isDecrypted)
-            cell.populate(name: containerViewDelegate.getContainerFilename(), isEditButtonEnabled: isEditingButtonShown)
+            let containerPath = isAsicContainer ? self.containerViewDelegate.getContainerPath() : String(self.cryptoContainerViewDelegate.getContainer().filePath)
+            cell.populate(name: containerViewDelegate.getContainerFilename(), isEditButtonEnabled: isEditingButtonShown,
+            containerPath: URL(fileURLWithPath: containerPath))
             return cell
         case .search:
             let cell = tableView.dequeueReusableCell(withType: ContainerSearchCell.self, for: indexPath)!
@@ -984,6 +986,18 @@ extension ContainerViewController : ContainerHeaderDelegate {
 
          self.present(changeContainerNameController, animated: true, completion: nil)
      }
+    
+    func saveContainer(containerPath: URL?) {
+        guard let path = containerPath else {
+            printLog("Unable to get container path for saving")
+            return
+        }
+        let pickerController = UIDocumentPickerViewController(forExporting: [path], asCopy: true)
+        pickerController.delegate = self
+        self.present(pickerController, animated: true) {
+            printLog("Showing container saving location picker")
+        }
+    }
 
      func scrollToTop() {
          let indexPath = IndexPath(row: 0, section: 0)
@@ -1199,6 +1213,23 @@ extension ContainerViewController : ContainerImportCellDelegate {
             name: .startImportingFilesWithDocumentPickerNotificationName,
             object: nil,
             userInfo: [kKeyFileImportIntent: MoppApp.FileImportIntent.addToContainer, kKeyContainerType: landingViewControllerContainerType])
+    }
+}
+
+extension ContainerViewController : UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        if !urls.isEmpty {
+            let savedFileLocation: URL? = urls.first
+            printLog("Container (\(savedFileLocation?.lastPathComponent ?? "Not available") export done. Location: \(savedFileLocation?.path ?? "Not available")")
+            self.infoAlert(message: L(.fileImportFileSaved))
+        } else {
+            printLog("Failed to save file")
+            return self.infoAlert(message: L(.fileImportFailedFileSave))
+        }
+    }
+
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        printLog("File or container saving cancelled")
     }
 }
 

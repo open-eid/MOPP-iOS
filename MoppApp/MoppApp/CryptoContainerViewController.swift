@@ -23,7 +23,7 @@
 
 import UIKit
 
-class CryptoContainerViewController : ContainerViewController, CryptoActions, UIDocumentPickerDelegate {
+class CryptoContainerViewController : ContainerViewController, CryptoActions {
 
     var container: CryptoContainer!
     weak var delegate: AddresseeViewControllerDelegate?
@@ -184,21 +184,6 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
                 return self.infoAlert(message: L(.fileImportFailedFileSave))
             }
         })
-    }
-    
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        if SaveableContainer.isFileSaved(urls: urls) {
-            let savedFileLocation: URL? = urls.first
-            printLog("File export done. Location: \(savedFileLocation?.path ?? "Not available")")
-            self.infoAlert(message: L(.fileImportFileSaved))
-        } else {
-            printLog("Failed to save file")
-            return self.infoAlert(message: L(.fileImportFailedFileSave))
-        }
-    }
-    
-    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
-        printLog("File saving cancelled")
     }
     
     func getDataFileDisplayName(index: Int) -> String? {

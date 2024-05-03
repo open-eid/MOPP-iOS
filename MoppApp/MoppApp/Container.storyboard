@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aqa-at-L24">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aqa-at-L24">
     <device id="retina4_7" orientation="landscape" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -100,18 +100,27 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nlf-u7-RCj">
-                                                    <rect key="frame" x="634" y="0.0" width="17" height="59"/>
+                                                    <rect key="frame" x="569" y="0.0" width="98" height="59"/>
                                                     <subviews>
-                                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2lV-8Y-4f8">
-                                                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="59"/>
-                                                            <state key="normal" title="Button"/>
-                                                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                                        </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RpZ-cI-EfY">
-                                                            <rect key="frame" x="0.0" y="0.0" width="17" height="59"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="49" height="59"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="49" id="ffq-i5-dTm"/>
+                                                            </constraints>
                                                             <state key="normal" image="Icon_Edit"/>
                                                             <connections>
                                                                 <action selector="editContainerName:" destination="8UE-UF-0gf" eventType="touchUpInside" id="oJM-iR-vkL"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0BJ-4p-u6M">
+                                                            <rect key="frame" x="49" y="0.0" width="49" height="59"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="49" id="0X5-uo-Iob"/>
+                                                            </constraints>
+                                                            <state key="normal" title="Button"/>
+                                                            <buttonConfiguration key="configuration" style="plain" image="iconDownload"/>
+                                                            <connections>
+                                                                <action selector="saveContainer:" destination="8UE-UF-0gf" eventType="touchUpInside" id="kWj-9k-7gp"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -121,7 +130,7 @@
                                                 <constraint firstItem="Itl-UO-W71" firstAttribute="leading" secondItem="LSq-om-Kbe" secondAttribute="leading" constant="16" id="4ps-K5-b41"/>
                                                 <constraint firstAttribute="bottom" secondItem="Itl-UO-W71" secondAttribute="bottom" constant="8" id="JWb-31-rNr"/>
                                                 <constraint firstAttribute="bottom" secondItem="nlf-u7-RCj" secondAttribute="bottom" id="o6Z-V7-4R6"/>
-                                                <constraint firstAttribute="trailing" secondItem="nlf-u7-RCj" secondAttribute="trailing" constant="16" id="s5o-35-EMk"/>
+                                                <constraint firstAttribute="trailing" secondItem="nlf-u7-RCj" secondAttribute="trailing" id="s5o-35-EMk"/>
                                                 <constraint firstItem="Itl-UO-W71" firstAttribute="top" secondItem="LSq-om-Kbe" secondAttribute="top" constant="8" id="tSc-0m-LPD"/>
                                                 <constraint firstItem="nlf-u7-RCj" firstAttribute="top" secondItem="LSq-om-Kbe" secondAttribute="top" id="uUX-AD-CZ1"/>
                                             </constraints>
@@ -131,6 +140,7 @@
                                             <outlet property="editContainerNameButton" destination="RpZ-cI-EfY" id="db2-cR-2Pi"/>
                                             <outlet property="filenameLabel" destination="LLq-ND-CCZ" id="TTb-DW-Jcm"/>
                                             <outlet property="headerStackView" destination="Itl-UO-W71" id="Ecu-aR-ta0"/>
+                                            <outlet property="saveContainerButton" destination="0BJ-4p-u6M" id="r2X-fO-OYs"/>
                                             <outlet property="titleLabel" destination="c0X-dZ-CUW" id="DZL-Jk-2yZ"/>
                                         </connections>
                                     </tableViewCell>
@@ -789,7 +799,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GMI-0H-g8f">
-                                                    <rect key="frame" x="634" y="0.0" width="17" height="58"/>
+                                                    <rect key="frame" x="585" y="0.0" width="66" height="58"/>
                                                     <subviews>
                                                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7LV-SG-aXP">
                                                             <rect key="frame" x="0.0" y="0.0" width="0.0" height="58"/>
@@ -801,6 +811,14 @@
                                                             <state key="normal" image="Icon_Edit"/>
                                                             <connections>
                                                                 <action selector="editContainerName:" destination="80l-wY-1RX" eventType="touchUpInside" id="aaB-ju-jTk"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NmR-j3-caK">
+                                                            <rect key="frame" x="17" y="0.0" width="49" height="58"/>
+                                                            <state key="normal" title="Button"/>
+                                                            <buttonConfiguration key="configuration" style="plain" image="iconDownload"/>
+                                                            <connections>
+                                                                <action selector="saveContainer:" destination="80l-wY-1RX" eventType="touchUpInside" id="OCh-gw-Wn8"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -819,6 +837,7 @@
                                         <connections>
                                             <outlet property="editContainerNameButton" destination="ACm-df-AwI" id="TvR-gu-Y7r"/>
                                             <outlet property="filenameLabel" destination="Wqp-Q2-Ev2" id="PR5-cZ-oO2"/>
+                                            <outlet property="saveContainerButton" destination="NmR-j3-caK" id="J3V-od-KZr"/>
                                             <outlet property="titleLabel" destination="qZK-FE-KFD" id="e5u-hY-rnD"/>
                                         </connections>
                                     </tableViewCell>
