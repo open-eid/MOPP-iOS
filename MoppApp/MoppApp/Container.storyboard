@@ -83,7 +83,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Itl-UO-W71">
-                                                    <rect key="frame" x="16" y="8" width="128.5" height="43"/>
+                                                    <rect key="frame" x="16" y="8" width="528" height="43"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONTAINER:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c0X-dZ-CUW" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="88.5" height="19"/>
@@ -129,6 +129,7 @@
                                             <constraints>
                                                 <constraint firstItem="Itl-UO-W71" firstAttribute="leading" secondItem="LSq-om-Kbe" secondAttribute="leading" constant="16" id="4ps-K5-b41"/>
                                                 <constraint firstAttribute="bottom" secondItem="Itl-UO-W71" secondAttribute="bottom" constant="8" id="JWb-31-rNr"/>
+                                                <constraint firstItem="nlf-u7-RCj" firstAttribute="leading" secondItem="Itl-UO-W71" secondAttribute="trailing" constant="25" id="ghv-ry-XeD"/>
                                                 <constraint firstAttribute="bottom" secondItem="nlf-u7-RCj" secondAttribute="bottom" id="o6Z-V7-4R6"/>
                                                 <constraint firstAttribute="trailing" secondItem="nlf-u7-RCj" secondAttribute="trailing" id="s5o-35-EMk"/>
                                                 <constraint firstItem="Itl-UO-W71" firstAttribute="top" secondItem="LSq-om-Kbe" secondAttribute="top" constant="8" id="tSc-0m-LPD"/>
@@ -782,7 +783,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="g35-2z-QcV">
-                                                    <rect key="frame" x="16" y="8" width="128.5" height="42"/>
+                                                    <rect key="frame" x="16" y="8" width="544" height="42"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONTAINER:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZK-FE-KFD" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="88.5" height="18"/>
@@ -828,6 +829,7 @@
                                                 <constraint firstItem="g35-2z-QcV" firstAttribute="top" secondItem="uwJ-uK-g1I" secondAttribute="top" constant="8" id="40H-tn-X7t"/>
                                                 <constraint firstAttribute="bottom" secondItem="g35-2z-QcV" secondAttribute="bottom" constant="8" id="5Cl-B9-Pdh"/>
                                                 <constraint firstItem="GMI-0H-g8f" firstAttribute="top" secondItem="uwJ-uK-g1I" secondAttribute="top" id="Ems-qU-HUB"/>
+                                                <constraint firstItem="GMI-0H-g8f" firstAttribute="leading" secondItem="g35-2z-QcV" secondAttribute="trailing" constant="25" id="KF4-ag-Qd4"/>
                                                 <constraint firstItem="g35-2z-QcV" firstAttribute="leading" secondItem="uwJ-uK-g1I" secondAttribute="leading" constant="16" id="gvI-ge-3sm"/>
                                                 <constraint firstAttribute="bottom" secondItem="GMI-0H-g8f" secondAttribute="bottom" id="rJk-oh-Ecz"/>
                                                 <constraint firstAttribute="trailing" secondItem="GMI-0H-g8f" secondAttribute="trailing" constant="16" id="rsy-BQ-PLs"/>
