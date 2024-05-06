@@ -24,6 +24,7 @@ import Foundation
 
 protocol ContainerHeaderDelegate: AnyObject {
     func editContainerName(completion: @escaping (_ fileName: String) -> Void)
+    func saveContainer(containerPath: URL?)
 }
 
 class ContainerHeaderCell: UITableViewCell {
@@ -31,8 +32,11 @@ class ContainerHeaderCell: UITableViewCell {
     @IBOutlet weak var titleLabel: ScaledLabel!
     @IBOutlet weak var filenameLabel: ScaledLabel!
     @IBOutlet weak var editContainerNameButton: UIButton!
+    @IBOutlet weak var saveContainerButton: UIButton!
     
     weak var delegate: ContainerHeaderDelegate? = nil
+    
+    var containerPath: URL?
     
     @IBAction func editContainerName(_ sender: Any) {
         delegate?.editContainerName(completion: { (fileName: String) in
@@ -46,6 +50,10 @@ class ContainerHeaderCell: UITableViewCell {
         })
     }
     
+    @IBAction func saveContainer(_ sender: UIButton) {
+        delegate?.saveContainer(containerPath: containerPath)
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         if headerStackView != nil {
@@ -56,12 +64,18 @@ class ContainerHeaderCell: UITableViewCell {
         titleLabel.resetLabelProperties()
     }
     
-    func populate(name: String, isEditButtonEnabled: Bool) {
+    func populate(name: String, isEditButtonEnabled: Bool, containerPath: URL) {
         filenameLabel.isAccessibilityElement = true
         filenameLabel.text = name.sanitize()
         filenameLabel.resetLabelProperties()
         editContainerNameButton.isHidden = !isEditButtonEnabled
         editContainerNameButton.accessibilityLabel = L(.containerEditNameButton)
         editContainerNameButton.accessibilityUserInputLabels = [L(.voiceControlChangeContainerName)]
+        
+        self.containerPath = containerPath
+        
+        saveContainerButton.isHidden = isEditButtonEnabled
+        saveContainerButton.accessibilityLabel = L(.fileImportSaveFile)
+        saveContainerButton.accessibilityUserInputLabels = [L(.voiceControlSaveFile)]
     }
 }
