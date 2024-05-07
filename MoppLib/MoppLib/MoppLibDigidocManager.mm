@@ -919,7 +919,7 @@ NSString* getOCSPUrl(const digidoc::X509Cert &cert)  {
             failure([MoppLibError tooManyRequests]);
         } else if (e.code() == digidoc::Exception::ExceptionCode::OCSPTimeSlot) {
             failure([MoppLibError ocspTimeSlotError]);
-        } else if (e.code() == digidoc::Exception::ExceptionCode::NetworkError && [[NSString stringWithUTF8String:e.msg().c_str()] hasPrefix:@"Failed to create proxy connection with host"]) {
+        } else if (e.code() == digidoc::Exception::ExceptionCode::NetworkError && ([[NSString stringWithUTF8String:e.msg().c_str()] hasPrefix:@"Failed to create proxy connection with host"] || [[NSString stringWithUTF8String:e.msg().c_str()] hasPrefix:@"Failed to connect to host"])) {
             failure([MoppLibError invalidProxySettingsError]);
         } else {
             NSError *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:@{}];

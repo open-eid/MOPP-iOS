@@ -325,6 +325,8 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                     message = L(.fileImportOpenExistingFailedAlertMessage, [self?.containerPath.substr(fromLast: "/") ?? String()])
                 } else if nserror.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
                     message = L(.noConnectionMessage)
+                } else if nserror.code == Int(MoppLibErrorCode.moppLibErrorInvalidProxySettings.rawValue) {
+                    message = L(.proxyUnableToConnectToService)
                 }
                 self?.infoAlert(message: message, dismissCallback: { _ in
                     _ = self?.navigationController?.popViewController(animated: true)
