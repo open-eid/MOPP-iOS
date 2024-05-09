@@ -172,6 +172,8 @@ class MoppFileManager {
 
     func createFile(atPath filePath: String, contents fileContents: Data) {
         
+        SiVaUtil.setIsSentToSiva(isSent: false)
+        
         fileManager.createFile(atPath: filePath,
             contents: fileContents,
             attributes: [FileAttributeKey.protectionKey: FileProtectionType.complete])
