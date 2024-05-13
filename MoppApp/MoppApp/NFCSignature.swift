@@ -119,8 +119,6 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                 _ = try await sendWrapped(tag: tag, cls: 0x00, ins: 0x22, p1: 0x41, p2: 0xb6, data: Data(hex: "80015484019f")!)
                 _ = try await sendWrapped(tag: tag, cls: 0x00, ins: 0x20, p1: 0x00, p2: 0x85, data: pin)
                 let signatureValue = try await sendWrapped(tag: tag, cls:0x00, ins: 0x2A, p1: 0x9E, p2: 0x9A, data: Data(base64Encoded: hash)!, le: 256);
-                setSessionMessage(L(.nfcSignDone))
-                session.invalidate()
                 printLog("\nRIA.NFC - Validating signature...\n")
                 MoppLibManager.isSignatureValid(cert.base64EncodedString(), signatureValue: signatureValue.base64EncodedString(), success: { _ in
                     printLog("\nRIA.NFC - Successfully validated signature!\n")
@@ -130,11 +128,15 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                             object: nil,
                             userInfo: nil)
                     }
+                    setSessionMessage(L(.nfcSignDone))
+                    session.invalidate()
                 }, failure: { (error: Error?) in
                     printLog("\nRIA.NFC - Error validating signature. Error: \(error?.localizedDescription ?? "Unable to display error")\n")
+                    setSessionMessage(L(.nfcSignFailed), invalidate: true)
                     guard let err = error as NSError? else {
                         return ErrorUtil.generateError(signingError: .generalSignatureAddingError, details: MessageUtil.errorMessageWithDetails(details: "Unknown error"))
                     }
+                    let proxySetting = ProxyUtil.getProxySetting()
                     let details = MessageUtil.generateDetailedErrorMessage(error: err) ?? err.domain
                     switch err.code {
                     case 5, 6:
@@ -146,6 +148,9 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                     case 18:
                         printLog("\nRIA.NFC - Too many requests. \(err.domain)")
                         ErrorUtil.generateError(signingError: .tooManyRequests(signingMethod: SigningType.nfc.rawValue), details: details)
+                    case 20:
+                        printLog("\nRIA.NFC - Failed to connect to host. \(err.domain)")
+                        ErrorUtil.generateError(signingError: .invalidProxySettings)
                     default:
                         printLog("\nRIA.NFC - General signature adding error. \(err.domain)")
                         ErrorUtil.generateError(signingError: .empty, details: details)

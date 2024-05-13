@@ -97,6 +97,8 @@ class AlertUtil {
             errorMessage = L(.signingErrorTooManyRequests, [L(.signTitleSmartId)])
         } else if errorMessage.isNilOrEmpty && signingError == .tooManyRequests(signingMethod: SigningType.idCard.rawValue) {
             errorMessage = L(.signingErrorTooManyRequests, [L(.idCardConditionalSpeech)])
+        } else if errorMessage.isNilOrEmpty && (signingError == .invalidProxySettings || signingError == .noResponseError) {
+            errorMessage = "\(L(.generalSignatureAddingMessage)). \(L(.noConnectionMessage))"
         } else {
             errorMessage = SkSigningLib_LocalizedString(signingError?.errorDescription ?? signingErrorMessage ?? signingStringError ?? "")
         }

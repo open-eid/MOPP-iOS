@@ -409,6 +409,10 @@
 "settings-proxy-username" = "Kasutajanimi";
 "settings-proxy-password" = "Parool";
 "settings-reset-button" = "TAASTA ALGSEADED";
+"settings-proxy-check-connection-button" = "Kontrolli internetiühendust";
+"settings-proxy-check-connection-success-message" = "Internetiühendus on olemas!";
+"settings-proxy-check-connection-unsuccessful-message" = "Internetiühendus puudub!";
+"settings-proxy-check-connection-check-username-and-password" = "Kontrolli proksi kasutajanime ja parooli.";
 "proxy-unable-to-connect-to-service" = "Teenuse serveriga ühendus ebaõnnestus. Palun kontrolli võrgu sätteid või proovi hiljem uuesti.";
 "diagnostics-title" = "Diagnostika";
 "diagnostics-activate-one-time-logging" = "Aktiveeri ühekordne logifaili genereerimine";
