@@ -413,6 +413,7 @@
 "settings-proxy-check-connection-success-message" = "Подключение к интернету имеется!";
 "settings-proxy-check-connection-unsuccessful-message" = "Нет интернет-соединения!";
 "settings-proxy-check-connection-check-username-and-password" = "Проверьте имя пользователя и пароль прокси.";
+"settings-reset-message" = "Настройки по-умолчанию восстановлены";
 "proxy-unable-to-connect-to-service" = "Не удалось связаться с сервером услуги. Пожалуйста, проверьте настройки сети или повторите попытку позже.";
 "diagnostics-title" = "Диагностика";
 "diagnostics-activate-one-time-logging" = "Активировать одноразовое создание лог-файла";
