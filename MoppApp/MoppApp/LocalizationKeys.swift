@@ -349,6 +349,7 @@ enum LocKey : String
     case settingsProxyCheckConnectionSuccessMessage = "settings-proxy-check-connection-success-message"
     case settingsProxyCheckConnectionUnsuccessfulMessage = "settings-proxy-check-connection-unsuccessful-message"
     case settingsProxyCheckConnectionCheckUsernameAndPassword = "settings-proxy-check-connection-check-username-and-password"
+    case settingsResetMessage = "settings-reset-message"
     case proxyUnableToConnectToService = "proxy-unable-to-connect-to-service"
     case diagnosticsTitle = "diagnostics-title"
     case diagnosticsActivateOneTimeLogging = "diagnostics-activate-one-time-logging"

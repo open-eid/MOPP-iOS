@@ -80,6 +80,11 @@ class SettingsViewController: MoppViewController {
         resetProxy()
         
         tableView.reloadData()
+        
+        let resetDoneMessage = UIAlertController(title: nil, message: L(.settingsResetMessage), preferredStyle: .alert)
+        resetDoneMessage.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
+        
+        present(resetDoneMessage, animated: true)
     }
 
     func resetRPAndTimestamp() {
