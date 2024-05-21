@@ -11,6 +11,7 @@
 		399C01E320BC11C20056D7AC /* MoppLibCryptoActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 399C01E220BC11C20056D7AC /* MoppLibCryptoActions.m */; };
 		399C01E620BC17A10056D7AC /* MoppLibCryptoActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39DFDA6320C81F5D00D0D134 /* CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 399C01E420BC13320056D7AC /* CryptoLib.framework */; };
+		4E63A77B2AEA7C5A00CEE392 /* digidocpp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E63A77A2AEA7C5A00CEE392 /* digidocpp.framework */; };
 		540CB2201E1CDCED00FE18A3 /* MoppLibCertificate.h in Headers */ = {isa = PBXBuildFile; fileRef = 540CB21E1E1CDCED00FE18A3 /* MoppLibCertificate.h */; };
 		540CB2211E1CDCED00FE18A3 /* MoppLibCertificate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 540CB21F1E1CDCED00FE18A3 /* MoppLibCertificate.mm */; };
 		540CB2251E1CDD8100FE18A3 /* MoppLibCerificatetData.h in Headers */ = {isa = PBXBuildFile; fileRef = 540CB2231E1CDD8100FE18A3 /* MoppLibCerificatetData.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -48,7 +49,6 @@
 		54DC0E021E0D48C900C62B3D /* MoppLibError.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC0E001E0D48C900C62B3D /* MoppLibError.m */; };
 		54E085EA1E71A63C00431F1A /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 54E085E81E71A63C00431F1A /* Reachability.h */; };
 		54E085EB1E71A63C00431F1A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E085E91E71A63C00431F1A /* Reachability.m */; };
-		54E1DB571E44939D0060A250 /* SwiftTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E1DB561E44939D0060A250 /* SwiftTestCase.swift */; };
 		54E1DB5C1E44A9060060A250 /* MoppLibManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 54E1DB5A1E44A9060060A250 /* MoppLibManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54E1DB5D1E44A9060060A250 /* MoppLibManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E1DB5B1E44A9060060A250 /* MoppLibManager.m */; };
 		AE0A844A1E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = AE0A84481E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -66,13 +66,11 @@
 		C5E41C5D2180602B00D79B54 /* Idemia.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E41C5B2180602B00D79B54 /* Idemia.h */; };
 		C5E41C5E2180602B00D79B54 /* Idemia.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E41C5C2180602B00D79B54 /* Idemia.m */; };
 		C5F462A8209727E8001B7D59 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */; };
-		C5F974D4217646CD00A167C7 /* TestEnvInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5F974D3217646CC00A167C7 /* TestEnvInfo.plist */; };
 		DF1503872AC5CE32007222B2 /* OCMock in Frameworks */ = {isa = PBXBuildFile; productRef = DF1503862AC5CE32007222B2 /* OCMock */; };
 		DF169D5A2B9000F0000DD46C /* MoppLibDigidocValidateOnline.h in Headers */ = {isa = PBXBuildFile; fileRef = DF169D592B9000F0000DD46C /* MoppLibDigidocValidateOnline.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DF169D5C2B90011E000DD46C /* MoppLibDigidocValidateOnline.m in Sources */ = {isa = PBXBuildFile; fileRef = DF169D5B2B90011E000DD46C /* MoppLibDigidocValidateOnline.m */; };
 		DF1EE2BD234DD20500E37CA8 /* MoppLibCertificateInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = DF1EE2BB234DD20500E37CA8 /* MoppLibCertificateInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DF1EE2BE234DD20500E37CA8 /* MoppLibCertificateInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = DF1EE2BC234DD20500E37CA8 /* MoppLibCertificateInfo.mm */; };
-		DF87E9CE292CC79500C2E3F4 /* libdigidocpp_util.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF87E9CD292CC77C00C2E3F4 /* libdigidocpp_util.a */; };
 		DFBDF1F827DA44BD00A5CF3C /* MoppLibRoleAddressData.h in Headers */ = {isa = PBXBuildFile; fileRef = DFBDF1F727DA44BD00A5CF3C /* MoppLibRoleAddressData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DFBDF1FA27DA44FD00A5CF3C /* MoppLibRoleAddressData.m in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1F927DA44FD00A5CF3C /* MoppLibRoleAddressData.m */; };
 		DFDD76292B507EFF0008EC2C /* MoppLibProxyConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = DFDD76282B507EFF0008EC2C /* MoppLibProxyConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -84,7 +82,6 @@
 		E4180C161E23FE9300FD7B8C /* MLDateFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = E4180C141E23FE9300FD7B8C /* MLDateFormatter.h */; };
 		E4180C171E23FE9300FD7B8C /* MLDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C151E23FE9300FD7B8C /* MLDateFormatter.m */; };
 		E4250CEC1E09695100530370 /* MoppLib.h in Headers */ = {isa = PBXBuildFile; fileRef = E4250CEA1E09695100530370 /* MoppLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E4250CF41E096A1D00530370 /* schema in Resources */ = {isa = PBXBuildFile; fileRef = E4250CF31E096A1D00530370 /* schema */; };
 		E4250CFC1E096BEA00530370 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250CFB1E096BEA00530370 /* libz.tbd */; };
 		E4250CFE1E096BEF00530370 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250CFD1E096BEF00530370 /* libxml2.tbd */; };
 		E4250D001E096CAA00530370 /* test.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E4250CFF1E096CAA00530370 /* test.bdoc */; };
@@ -119,6 +116,7 @@
 		399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLibCryptoActions.h; sourceTree = "<group>"; };
 		399C01E220BC11C20056D7AC /* MoppLibCryptoActions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoppLibCryptoActions.m; sourceTree = "<group>"; };
 		399C01E420BC13320056D7AC /* CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E63A77A2AEA7C5A00CEE392 /* digidocpp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = digidocpp.framework; path = "$(DIGIDOCPP_PATH)/lib/digidocpp.framework"; sourceTree = "<absolute>"; };
 		540CB21E1E1CDCED00FE18A3 /* MoppLibCertificate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibCertificate.h; sourceTree = "<group>"; };
 		540CB21F1E1CDCED00FE18A3 /* MoppLibCertificate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoppLibCertificate.mm; sourceTree = "<group>"; };
 		540CB2231E1CDD8100FE18A3 /* MoppLibCerificatetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibCerificatetData.h; sourceTree = "<group>"; };
@@ -161,8 +159,6 @@
 		54DC0E001E0D48C900C62B3D /* MoppLibError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibError.m; sourceTree = "<group>"; };
 		54E085E81E71A63C00431F1A /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		54E085E91E71A63C00431F1A /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		54E1DB551E44939C0060A250 /* MoppLibTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoppLibTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		54E1DB561E44939D0060A250 /* SwiftTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftTestCase.swift; sourceTree = "<group>"; };
 		54E1DB5A1E44A9060060A250 /* MoppLibManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibManager.h; sourceTree = "<group>"; };
 		54E1DB5B1E44A9060060A250 /* MoppLibManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibManager.m; sourceTree = "<group>"; };
 		AE0A84481E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibMobileCreateSignatureResponse.h; sourceTree = "<group>"; };
@@ -181,12 +177,10 @@
 		C5E41C5B2180602B00D79B54 /* Idemia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Idemia.h; sourceTree = "<group>"; };
 		C5E41C5C2180602B00D79B54 /* Idemia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Idemia.m; sourceTree = "<group>"; };
 		C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
-		C5F974D3217646CC00A167C7 /* TestEnvInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TestEnvInfo.plist; sourceTree = "<group>"; };
 		DF169D592B9000F0000DD46C /* MoppLibDigidocValidateOnline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLibDigidocValidateOnline.h; sourceTree = "<group>"; };
 		DF169D5B2B90011E000DD46C /* MoppLibDigidocValidateOnline.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoppLibDigidocValidateOnline.m; sourceTree = "<group>"; };
 		DF1EE2BB234DD20500E37CA8 /* MoppLibCertificateInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibCertificateInfo.h; sourceTree = "<group>"; };
 		DF1EE2BC234DD20500E37CA8 /* MoppLibCertificateInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoppLibCertificateInfo.mm; sourceTree = "<group>"; };
-		DF87E9CD292CC77C00C2E3F4 /* libdigidocpp_util.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdigidocpp_util.a; path = MoppLib/libdigidocpp/libdigidocpp.iphoneos/lib/libdigidocpp_util.a; sourceTree = "<group>"; };
 		DFBDF1F727DA44BD00A5CF3C /* MoppLibRoleAddressData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLibRoleAddressData.h; sourceTree = "<group>"; };
 		DFBDF1F927DA44FD00A5CF3C /* MoppLibRoleAddressData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoppLibRoleAddressData.m; sourceTree = "<group>"; };
 		DFDD76282B507EFF0008EC2C /* MoppLibProxyConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLibProxyConfiguration.h; sourceTree = "<group>"; };
@@ -200,7 +194,6 @@
 		E4250CE71E09695100530370 /* MoppLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoppLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250CEA1E09695100530370 /* MoppLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLib.h; sourceTree = "<group>"; };
 		E4250CEB1E09695100530370 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E4250CF31E096A1D00530370 /* schema */ = {isa = PBXFileReference; lastKnownFileType = folder; name = schema; path = "$(DIGIDOCPP_PATH)/etc/digidocpp/schema"; sourceTree = "<group>"; };
 		E4250CFB1E096BEA00530370 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		E4250CFD1E096BEF00530370 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		E4250CFF1E096CAA00530370 /* test.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.bdoc; sourceTree = "<group>"; };
@@ -234,8 +227,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				39DFDA6320C81F5D00D0D134 /* CryptoLib.framework in Frameworks */,
-				DF87E9CE292CC79500C2E3F4 /* libdigidocpp_util.a in Frameworks */,
 				C5F462A8209727E8001B7D59 /* CoreBluetooth.framework in Frameworks */,
+				4E63A77B2AEA7C5A00CEE392 /* digidocpp.framework in Frameworks */,
 				C54EA73020499DFC0039AC78 /* ExternalAccessory.framework in Frameworks */,
 				E4250CFE1E096BEF00530370 /* libxml2.tbd in Frameworks */,
 				E4250CFC1E096BEA00530370 /* libz.tbd in Frameworks */,
@@ -249,12 +242,10 @@
 		546E575F1E2E07C7009A568D /* MoppLibTests */ = {
 			isa = PBXGroup;
 			children = (
-				54E1DB561E44939D0060A250 /* SwiftTestCase.swift */,
 				546E57601E2E07C7009A568D /* PinVerificationTests.m */,
 				546E57621E2E07C7009A568D /* Info.plist */,
 				546E57691E2E1555009A568D /* MoppLibPinActions+Tests.h */,
 				546E576A1E2E1555009A568D /* MoppLibPinActions+Tests.m */,
-				54E1DB551E44939C0060A250 /* MoppLibTests-Bridging-Header.h */,
 			);
 			path = MoppLibTests;
 			sourceTree = "<group>";
@@ -360,7 +351,7 @@
 		A80A16CFB65AE0AF2A553445 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DF87E9CD292CC77C00C2E3F4 /* libdigidocpp_util.a */,
+				4E63A77A2AEA7C5A00CEE392 /* digidocpp.framework */,
 				399C01E420BC13320056D7AC /* CryptoLib.framework */,
 				C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */,
 				C54EA72F20499DFC0039AC78 /* ExternalAccessory.framework */,
@@ -442,7 +433,6 @@
 				E42B08CB1E1F136A00EA24A3 /* MoppLibDigidocManager.h */,
 				E42B08CC1E1F136A00EA24A3 /* MoppLibDigidocManager.mm */,
 				E4250CEB1E09695100530370 /* Info.plist */,
-				C5F974D3217646CC00A167C7 /* TestEnvInfo.plist */,
 				540CB21E1E1CDCED00FE18A3 /* MoppLibCertificate.h */,
 				540CB21F1E1CDCED00FE18A3 /* MoppLibCertificate.mm */,
 				DFFFCBCB238D470200059717 /* MoppLibGlobals.h */,
@@ -460,7 +450,6 @@
 			isa = PBXGroup;
 			children = (
 				E43BD8191E3F901400F6C39D /* TSL cache */,
-				E4250CF31E096A1D00530370 /* schema */,
 			);
 			name = libdigidocpp;
 			sourceTree = "<group>";
@@ -624,9 +613,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5F974D4217646CD00A167C7 /* TestEnvInfo.plist in Resources */,
 				E43BD81D1E3F901D00F6C39D /* EE.xml in Resources */,
-				E4250CF41E096A1D00530370 /* schema in Resources */,
 				E43BD81E1E3F901D00F6C39D /* FI.xml in Resources */,
 				E4250D001E096CAA00530370 /* test.bdoc in Resources */,
 				54D1FF731E4CB6AD006BF123 /* Localizable.strings in Resources */,
@@ -643,7 +630,6 @@
 			files = (
 				546E57611E2E07C7009A568D /* PinVerificationTests.m in Sources */,
 				546E576B1E2E1555009A568D /* MoppLibPinActions+Tests.m in Sources */,
-				54E1DB571E44939D0060A250 /* SwiftTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -735,9 +721,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.MoppLibTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "MoppLibTests/MoppLibTests-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -763,8 +746,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.MoppLibTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "MoppLibTests/MoppLibTests-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -809,7 +790,6 @@
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../CryptoLib/CryptoLib/cdocFramework";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -830,7 +810,6 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -878,7 +857,6 @@
 				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../CryptoLib/CryptoLib/cdocFramework";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -892,8 +870,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -906,7 +882,6 @@
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
@@ -915,7 +890,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DIGIDOCPP_PATH)/lib",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DIGIDOCPP_PATH)/include",
@@ -930,36 +908,16 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(DIGIDOCPP_PATH)/lib",
 					"$(PROJECT_DIR)/MoppLib/bR301/lib",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/MoppLib/libdigidocpp/libdigidocpp.iphoneos/lib",
 				);
 				MODULEMAP_FILE = MoppLib/mopplib.modulemap;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-ldigidocpp_priv",
-					"-ldigidocpp",
-					"-lssl",
-					"-lxalan-c",
-					"-lcrypto",
-					"-lxml-security-c",
-					"-lxerces-c",
-					"-lminizip",
-					"-lxalanMsg",
-					"-lxml2",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.lab.MoppLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -968,8 +926,6 @@
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
@@ -978,7 +934,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DIGIDOCPP_PATH)/lib",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DIGIDOCPP_PATH)/include",
@@ -993,35 +952,16 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(DIGIDOCPP_PATH)/lib",
 					"$(PROJECT_DIR)/MoppLib/bR301/lib",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/MoppLib/libdigidocpp/libdigidocpp.iphoneos/lib",
 				);
 				MODULEMAP_FILE = MoppLib/mopplib.modulemap;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-ldigidocpp_priv",
-					"-ldigidocpp",
-					"-lssl",
-					"-lxalan-c",
-					"-lcrypto",
-					"-lxml-security-c",
-					"-lxerces-c",
-					"-lminizip",
-					"-lxalanMsg",
-					"-lxml2",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.lab.MoppLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};
