@@ -95,6 +95,9 @@ extension ContainerActions where Self: UIViewController {
                         if self?.getTopViewController() is FileImportProgressViewController {
                             self?.dismiss(animated: true, completion: {
                                 SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
+                                    if (firstUrl.pathExtension == "ddoc" || (firstUrl.pathExtension == "pdf" && SiVaUtil.isSignedPDF(url: firstUrl as CFURL))) && !hasAgreed {
+                                        return
+                                    }
                                     self?.openExistingContainer(with: firstUrl, cleanup: cleanup, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: hasAgreed)
                                 }
                             })
