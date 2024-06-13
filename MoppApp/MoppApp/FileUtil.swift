@@ -22,6 +22,7 @@
  */
 
 import Foundation
+import System
 
 struct FileUtil {
     
@@ -61,5 +62,39 @@ struct FileUtil {
             return url
         }
         return url.appendingPathExtension(defaultFileExtension)
+    }
+    
+    static func getValidPath(url: URL) -> URL? {
+        let directories: [FileManager.SearchPathDirectory] = [
+            .documentDirectory,
+            .downloadsDirectory,
+            .userDirectory,
+            .libraryDirectory,
+        ]
+        
+        let currentURL = URL(fileURLWithPath: url.path).resolvingSymlinksInPath()
+        let currentURLPath = currentURL.path
+        
+        for directory in directories {
+            guard let directoryURL = FileManager.default.urls(for: directory, in: .userDomainMask).first else {
+                continue
+            }
+            
+            guard let subdirectoryURLs = try? FileManager.default.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: nil, options: .skipsHiddenFiles) else {
+                continue
+            }
+            
+            for subdirectoryURL in subdirectoryURLs {
+                let resolvedSubdirectoryURL = subdirectoryURL.resolvingSymlinksInPath()
+                let resolvedSubdirectoryPath = resolvedSubdirectoryURL.path
+                
+                if FilePath(stringLiteral: currentURLPath).lexicallyNormalized().starts(with: FilePath(stringLiteral: resolvedSubdirectoryPath)) ||
+                    FilePath(stringLiteral: currentURLPath).lexicallyNormalized().starts(with: FilePath(stringLiteral: FileManager.default.temporaryDirectory.resolvingSymlinksInPath().path)) {
+                    return currentURL
+                }
+            }
+        }
+        
+        return nil
     }
 }

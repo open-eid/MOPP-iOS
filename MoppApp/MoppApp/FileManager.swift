@@ -310,8 +310,9 @@ class MoppFileManager {
     }
 
     func removeFile(withPath filePath: String) {
+        let filePathURL = URL(fileURLWithPath: filePath)
         do {
-            try fileManager.removeItem(atPath: filePath)
+            try fileManager.removeItem(atPath: FileUtil.getValidPath(url: filePathURL)?.path ?? "")
         } catch {
             printLog("removeFileWithPath error: \(error.localizedDescription)")
         }
@@ -326,7 +327,8 @@ class MoppFileManager {
     }
 
     func fileExists(_ sourcePath: String) -> Bool {
-        return fileManager.fileExists(atPath: sourcePath)
+        let sourcePathURL = URL(fileURLWithPath: sourcePath)
+        return fileManager.fileExists(atPath: FileUtil.getValidPath(url: sourcePathURL)?.path ?? "")
     }
     
     func directoryExists(_ sourcePath: String) -> Bool {
@@ -336,11 +338,13 @@ class MoppFileManager {
     }
     
     func moveFile(withPath sourcePath: String, toPath destinationPath: String, overwrite: Bool) -> Bool {
-        if overwrite && fileExists(destinationPath) {
-            removeFile(withPath: destinationPath)
+        let sourcePathURL = URL(fileURLWithPath: sourcePath)
+        let destinationPathURL = URL(fileURLWithPath: destinationPath)
+        if overwrite && fileExists(FileUtil.getValidPath(url: destinationPathURL)?.path ?? "") {
+            removeFile(withPath: FileUtil.getValidPath(url: destinationPathURL)?.path ?? "")
         }
         do {
-            try fileManager.moveItem(atPath: sourcePath, toPath: destinationPath)
+            try fileManager.moveItem(atPath: FileUtil.getValidPath(url: sourcePathURL)?.path ?? "", toPath: FileUtil.getValidPath(url: destinationPathURL)?.path ?? "")
         } catch {
             printLog("moveFileWithPath error: \(error.localizedDescription)")
             return false
