@@ -185,12 +185,12 @@ class MimeTypeExtractor {
     }
     
     private static func removeUnzippedFolder(folderPath: URL) -> Void {
-        MoppFileManager().removeFile(withPath: folderPath.path)
+        MoppFileManager().removeFile(withPath: FileUtil.getValidPath(url: folderPath)?.path ?? "")
     }
     
     private static func isDdoc(url: URL) -> Bool {
         do {
-            let fileData = try Data(contentsOf: url)
+            let fileData = try Data(contentsOf: FileUtil.getValidPath(url: url)!)
             guard !fileData.isEmpty else {
                 return false
             }
@@ -214,7 +214,7 @@ class MimeTypeExtractor {
     
     private static func isCdoc(url: URL) -> Bool {
         do {
-            let fileData = try Data(contentsOf: url)
+            let fileData = try Data(contentsOf: FileUtil.getValidPath(url: url)!)
             guard !fileData.isEmpty else {
                 return false
             }
