@@ -211,10 +211,10 @@ extension RecentContainersViewController : UITableViewDelegate {
                 if ext.isAsicContainerExtension || ext.isPdfContainerExtension {
                     let containerPathURL = path
                     SiVaUtil.setIsSentToSiva(isSent: false)
-                    if SiVaUtil.isDocumentSentToSiVa(fileUrl: containerPathURL) || (containerPathURL.pathExtension == "asics" || containerPathURL.pathExtension == "scs") {
+                    if (SiVaUtil.isDocumentSentToSiVa(fileUrl: containerPathURL) || (containerPathURL.pathExtension == "asics" || containerPathURL.pathExtension == "scs")) && !MimeTypeExtractor.isXadesContainer(filePath: containerPathURL) {
                         SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
                             if (containerPathURL.pathExtension == "ddoc" || containerPathURL.pathExtension == "pdf" ||
-                                MimeTypeExtractor.isCadesContainer(filePath: containerPathURL)) && !hasAgreed {
+                                (MimeTypeExtractor.isCadesContainer(filePath: containerPathURL) && !MimeTypeExtractor.isXadesContainer(filePath: containerPathURL))) && !hasAgreed {
                                 return
                             }
                             self.openContainer(containerPath: path.path, navController: navController, isSendingToSivaAgreed: hasAgreed)

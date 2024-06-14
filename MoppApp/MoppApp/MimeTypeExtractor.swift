@@ -51,6 +51,14 @@ class MimeTypeExtractor {
         return false
     }
     
+    public static func isXadesContainer(filePath: URL) -> Bool {
+        if isZipFile(filePath: filePath) {
+            return containerHasSignatureXmlFiles(filePath: filePath)
+        }
+        
+        return false
+    }
+    
     public static func getMimeTypeFromContainer(filePath: URL) -> String {
         
         var mimetype: String = ""
@@ -136,6 +144,24 @@ class MimeTypeExtractor {
             for entry in archive {
                 let entryUrl = URL(fileURLWithPath: entry.path)
                 if entryUrl.lastPathComponent.contains("p7s") {
+                    return true
+                }
+            }
+        } catch (let archiveError) {
+            printLog("Unable to open archive: \(archiveError.localizedDescription)")
+            return false
+        }
+        
+        return false
+    }
+    
+    private static func containerHasSignatureXmlFiles(filePath: URL) -> Bool {
+        do {
+            let archive = try Archive(url: filePath, accessMode: .read)
+            
+            for entry in archive {
+                let entryUrl = URL(fileURLWithPath: entry.path)
+                if entryUrl.lastPathComponent.contains("signatures.xml") {
                     return true
                 }
             }
