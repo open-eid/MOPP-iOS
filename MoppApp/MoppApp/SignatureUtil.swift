@@ -36,6 +36,15 @@ class SignatureUtil {
         return false
     }
     
+    static func isXades(signatures: [Any]) -> Bool {
+        return signatures.contains { signature in
+            if let sig = signature as? MoppLibSignature {
+                return sig.signatureFormat.lowercased().contains("bes")
+            }
+            return false
+        }
+    }
+    
     static func getSignatures(filePath: URL) -> [Any] {
         do {
             let container = try MoppLibContainerActions.sharedInstance().openContainer(withPath: filePath.path)

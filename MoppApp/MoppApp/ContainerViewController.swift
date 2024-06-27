@@ -75,8 +75,8 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     let landingViewController = LandingViewController.shared!
     var isAsicContainer = LandingViewController.shared.containerType == .asic
     var isEmptyFileWarningSet = false
-    var isAsicsFileWarningSet = false
     var isCadesWarningSet = false
+    var isXadesWarningSet = false
 
     var asicsSignatures = [MoppLibSignature]()
     var asicsDataFiles = [MoppLibDataFile]()
@@ -241,8 +241,8 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                 let asicContainer = self.containerViewDelegate?.getContainer()
                 checkEmptyFilesInContainer(asicContainer: asicContainer)
                 
-                if isAsicsContainer() && !isAsicsFileWarningSet {
-                    handleAsicsContainerMessage()
+                if isAsicsContainer() && !isXadesWarningSet {
+                    handleXadesContainerMessage(asicContainer: asicContainer)
                 }
             
                 if isAsicContainer {
@@ -351,12 +351,16 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         }
     }
     
-    private func handleAsicsContainerMessage() {
-        let asicsFileNotification = NotificationMessage(isSuccess: false, text: L(.containerAsicsWarning))
-        if !self.notifications.contains(where: { $0 == asicsFileNotification }) {
-            self.notifications.append(asicsFileNotification)
+    private func handleXadesContainerMessage(asicContainer: MoppLibContainer?) {
+        guard let container = asicContainer else { return }
+        let isXades = SignatureUtil.isXades(signatures: container.signatures)
+        if isXades {
+            let xadesNotification = NotificationMessage(isSuccess: false, text: L(.containerAsicsWarning))
+            if !self.notifications.contains(where: { $0 == xadesNotification }) {
+                self.notifications.append(xadesNotification)
+            }
+            isXadesWarningSet = true
         }
-        isAsicsFileWarningSet = true
     }
 
     private func checkIsCades(asicContainer: MoppLibContainer?) {
@@ -368,6 +372,15 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                 self.notifications.append(cadesNotification)
             }
             isCadesWarningSet = true
+        }
+    }
+    
+    static func isXades(signatures: [Any]) -> Bool {
+        return signatures.contains { signature in
+            if let sig = signature as? MoppLibSignature {
+                return sig.signatureFormat.lowercased().contains("bes")
+            }
+            return false
         }
     }
 
@@ -775,7 +788,8 @@ extension ContainerViewController : UITableViewDataSource {
             let nserror = error as NSError?
             if nserror != nil && nserror?.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
                 let pathExtension = URL(string: containerFilePath)?.pathExtension
-                if pathExtension == "asics" || pathExtension == "scs" {
+                let asicContainer: MoppLibContainer? = self.containerViewDelegate?.getContainer()
+                if (pathExtension == "asics" || pathExtension == "scs") && !ContainerViewController.isXades(signatures: asicContainer?.signatures ?? []) {
                     SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
                         if hasAgreed {
                             SiVaUtil.setIsSentToSiva(isSent: hasAgreed)
@@ -1111,7 +1125,10 @@ extension ContainerViewController : UITableViewDelegate {
                 }
             }
             else {
-                if isAsicsContainer() {
+                let asicContainer: MoppLibContainer? = self.containerViewDelegate?.getContainer()
+                if isAsicsContainer() && ContainerViewController.isXades(signatures: asicContainer?.signatures ?? []) {
+                    sections = ContainerViewController.sectionsWithTimestamp
+                } else if isAsicsContainer() {
                     sections = isSendingToSivaAgreed ? ContainerViewController.sectionsWithTimestamp :
                     ContainerViewController.sectionsWithTimestampNoSignatures
                 } else {

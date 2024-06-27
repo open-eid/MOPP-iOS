@@ -37,7 +37,8 @@ class SiVaUtil {
         }
         
         let isCades = MimeTypeExtractor.isCadesContainer(filePath: fileLocation)
-        let isSentToSiva = containerTypes.contains(containerType) || isCades
+        let isXades = MimeTypeExtractor.isXadesContainer(filePath: fileLocation)
+        let isSentToSiva = (containerTypes.contains(containerType) && !isXades) || isCades
         
         return isSentToSiva
     }

@@ -52,7 +52,7 @@ extension PreviewActions where Self: ContainerViewController {
 
             let destinationPathURL = URL(fileURLWithPath: destinationPath)
             SiVaUtil.setIsSentToSiva(isSent: false)
-            if SiVaUtil.isDocumentSentToSiVa(fileUrl: destinationPathURL) {
+            if (SiVaUtil.isDocumentSentToSiVa(fileUrl: destinationPathURL) && !MimeTypeExtractor.isXadesContainer(filePath: destinationPathURL)) {
                 SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
                     if (destinationPathURL.pathExtension == "ddoc" || destinationPathURL.pathExtension == "pdf") && !hasAgreed {
                         self.updateState(.opened)
@@ -101,10 +101,10 @@ extension PreviewActions where Self: ContainerViewController {
                 return
             }
 
-            let fileExtension = URL(fileURLWithPath: filePath).pathExtension.lowercased()
+            let fileExtension = url.pathExtension.lowercased()
 
             SiVaUtil.setIsSentToSiva(isSent: false)
-            if fileExtension != "pdf" && SiVaUtil.isDocumentSentToSiVa(fileUrl: URL(fileURLWithPath: filePath)) {
+            if (fileExtension != "pdf" && SiVaUtil.isDocumentSentToSiVa(fileUrl: URL(fileURLWithPath: filePath)) && !MimeTypeExtractor.isXadesContainer(filePath: url)) {
                 SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
                     if hasAgreed {
                         openContentPreviewDocument(filePath)

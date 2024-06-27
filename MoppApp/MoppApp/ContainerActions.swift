@@ -91,7 +91,7 @@ extension ContainerActions where Self: UIViewController {
                 if (isAsicOrPadesContainer || isCdocContainer) && urls.count == 1 {
                     SiVaUtil.setIsSentToSiva(isSent: false)
                     
-                    if let firstUrl = urls.first, (firstUrl.pathExtension == "asics" || firstUrl.pathExtension == "scs") || firstUrl.pathExtension == "ddoc" || (firstUrl.pathExtension == "pdf" && SiVaUtil.isSignedPDF(url: firstUrl as CFURL)) || MimeTypeExtractor.isCadesContainer(filePath: firstUrl) {
+                    if let firstUrl = urls.first, ((firstUrl.pathExtension == "asics" || firstUrl.pathExtension == "scs") && !MimeTypeExtractor.isXadesContainer(filePath: firstUrl)) || firstUrl.pathExtension == "ddoc" || (firstUrl.pathExtension == "pdf" && SiVaUtil.isSignedPDF(url: firstUrl as CFURL)) || MimeTypeExtractor.isCadesContainer(filePath: firstUrl) {
                         if self?.getTopViewController() is FileImportProgressViewController {
                             self?.dismiss(animated: true, completion: {
                                 SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
@@ -165,7 +165,7 @@ extension ContainerActions where Self: UIViewController {
             let fileURL = URL(fileURLWithPath: newFilePath)
             let fileExtension = fileURL.pathExtension
             let isSignedPDF = SiVaUtil.isSignedPDF(url: fileURL as CFURL)
-            if (forbiddenFileExtensions.contains(fileExtension) || isSignedPDF || MimeTypeExtractor.isCadesContainer(filePath: fileURL)) {
+            if (forbiddenFileExtensions.contains(fileExtension) || isSignedPDF || (MimeTypeExtractor.isCadesContainer(filePath: fileURL) && !MimeTypeExtractor.isXadesContainer(filePath: fileURL))) {
                 self.openContainer(url: url, newFilePath: newFilePath, fileName: fileName, landingViewController: landingViewController, navController: navController, isEmptyFileImported: isEmptyFileImported, isSendingToSivaAgreed: isSendingToSivaAgreed) { error in
                     failure(error)
                 }
