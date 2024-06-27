@@ -40,10 +40,11 @@ class RecentContainersNameCell : UITableViewCell {
     func populate(filename: String, searchKeyword: String, showSeparator: Bool, row: Int) {
         separatorView.isHidden = !showSeparator
         
-        let searchKeywordRange = (filename as NSString).range(
+        let nsFilename = filename as NSString
+        let searchKeywordRange = nsFilename.range(
             of: searchKeyword,
             options: String.CompareOptions.caseInsensitive,
-            range: NSMakeRange(0, filename.count),
+            range: NSMakeRange(0, nsFilename.length),
             locale: nil)
         
         filenameLabel.text = filename

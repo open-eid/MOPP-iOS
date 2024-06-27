@@ -323,8 +323,9 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                 pathExtension = MimeTypeExtractor.determineContainer(mimetype: MimeTypeExtractor.getMimeTypeFromContainer(filePath: newUrl), fileExtension: newUrl.pathExtension)
 
                 do {
-                    let newData: Data? = try Data(contentsOf: newUrl)
-                    let fileName: String = newUrl.deletingPathExtension().lastPathComponent.sanitize()
+                    let validUrl = FileUtil.getValidPath(url: url)!
+                    let newData: Data? = try Data(contentsOf: validUrl)
+                    let fileName: String = validUrl.deletingPathExtension().lastPathComponent.sanitize()
                     let tempDirectoryPath: URL? = MoppFileManager.shared.tempCacheDirectoryPath()
                     guard let tempDirectory = tempDirectoryPath else {
                         printLog("Unable to get temporary file directory")
@@ -339,8 +340,8 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                         return false
                     }
                     do {
-                        try newUrlData.write(to: filePath, options: .atomic)
-                        newUrl = filePath
+                        try newUrlData.write(to: FileUtil.getValidPath(url: filePath)!, options: .atomic)
+                        newUrl = validUrl
                         if !isFileEmpty {
                             fileUrls.append(newUrl)
                         }
@@ -367,7 +368,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                             newUrl.deletePathExtension()
                             newUrl.appendPathExtension(ContainerFormatCdoc)
                         }
-                        let isFileMoved = MoppFileManager.shared.moveFile(withPath: url.path, toPath: newUrl.path, overwrite: true)
+                        let isFileMoved = MoppFileManager.shared.moveFile(withPath: FileUtil.getValidPath(url: url)?.path ?? "", toPath: FileUtil.getValidPath(url: newUrl)?.path ?? "", overwrite: true)
                         if !isFileMoved {
                             newUrl = url
                             fileUrls.append(newUrl)

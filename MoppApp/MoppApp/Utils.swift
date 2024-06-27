@@ -65,7 +65,8 @@ func printLog(_ message: String, _ file: String = #file, _ function: String = #f
     
     if isUsingTestMode() || (FileLogUtil.isLoggingEnabled() && FileLogUtil.isLoggingRunning()) {
         let currentDate = Date().ISO8601Format()
-        NSLog("\(currentDate) \(logMessage)")
+        let logMessageWithDate = "\(currentDate) \(logMessage)"
+        NSLog("%@", logMessageWithDate)
     }
 }
 

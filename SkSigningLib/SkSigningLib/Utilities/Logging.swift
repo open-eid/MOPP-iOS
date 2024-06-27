@@ -49,7 +49,8 @@ class Logging {
         
         if isUsingTestMode() || isLoggingEnabled() {
             let currentDate = Date().ISO8601Format()
-            NSLog("\(currentDate) \(message)")
+            let logMessageWithDate = "\(currentDate) \(message)"
+            NSLog("%@", logMessageWithDate)
         }
     }
     
@@ -65,7 +66,8 @@ class Logging {
             
             if isUsingTestMode() || isLoggingEnabled() {
                 let currentDate = Date().ISO8601Format()
-                NSLog("\(currentDate) \(logMessage)")
+                let logMessageWithDate = "\(currentDate) \(logMessage)"
+                NSLog("%@", logMessageWithDate)
             }
             return
         }
@@ -79,7 +81,8 @@ class Logging {
         
         if isUsingTestMode() || isLoggingEnabled() {
             let currentDate = Date().ISO8601Format()
-            NSLog("\(currentDate) \(logMessage)")
+            let logMessageWithDate = "\(currentDate) \(logMessage)"
+            NSLog("%@", logMessageWithDate)
         }
     }
     
@@ -92,18 +95,21 @@ class Logging {
                 "\tExtra info: \(extraInfo)\n" +
                 "\tFile: \(file), function: \(function), line: \(line)\n"
             let currentDate = Date().ISO8601Format()
-            NSLog("\(currentDate) \(logMessage)")
+            let logMessageWithDate = "\(currentDate) \(logMessage)"
+            NSLog("%@", logMessageWithDate)
         } else {
             logMessage = "\(forMethod):\n" +
                 "\tError info: \(extraInfo)\n" +
                 "\tFile: \(file), function: \(function), line: \(line)\n"
             let currentDate = Date().ISO8601Format()
-            NSLog("\(currentDate) \(logMessage)")
+            let logMessageWithDate = "\(currentDate) \(logMessage)"
+            NSLog("%@", logMessageWithDate)
         }
         
         if isUsingTestMode() || isLoggingEnabled() {
             let currentDate = Date().ISO8601Format()
-            NSLog("\(currentDate) \(logMessage)")
+            let logMessageWithDate = "\(currentDate) \(logMessage)"
+            NSLog("%@", logMessageWithDate)
         }
     }
     

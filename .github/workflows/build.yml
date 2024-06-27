@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         xcode:
-          - 15.2
+          - 15.4
         platform:
           - iOS
     env:
