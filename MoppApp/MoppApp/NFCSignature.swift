@@ -45,6 +45,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
     }
     enum MappingType: String {
         case id_PACE_ECDH_GM_AES_CBC_CMAC_256 = "04007f00070202040204" // 0.4.0.127.0.7.2.2.4.2.4
+        case id_PACE_ECDH_IM_AES_CBC_CMAC_256 = "04007f00070202040404" // 0.4.0.127.0.7.2.2.4.4.4
         var data: Data { return Data(hex: rawValue)! }
     }
     enum ParameterId: UInt8 {
@@ -274,18 +275,28 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
         printLog("Nonce \(nonce.toHex)")
 
         // Step2
-        let (terminalPubKey, terminalPrivKey) = domain.makeKeyPair()
-        let mappingKey = try await tag.sendPaceCommand(records: [try TKBERTLVRecord(tag: 0x81, publicKey: terminalPubKey)], tagExpected: 0x82)
-        printLog("Mapping key \(mappingKey.toHex)")
-        let cardPubKey = try ECPublicKey(domain: domain, point: mappingKey)!
+        let mappedPoint: Point
+        switch mappingType {
+        case .id_PACE_ECDH_IM_AES_CBC_CMAC_256:
+            let pcdNonce = try random(count: nonce.count)
+            _ = try await tag.sendPaceCommand(records: [TLV(tag: 0x81, value: pcdNonce)], tagExpected: 0x82)
+            let psrn = try pseudoRandomNumberMappingAES(s: nonce, t: pcdNonce, domain: domain)
+            mappedPoint = pointEncodeIM(t: psrn, domain: domain)
 
-        // Mapping
-        let nonceS = BInt(magnitude: nonce)
-        let mappingBasePoint = ECPublicKey(privateKey: try ECPrivateKey(domain: domain, s: nonceS)) // S*G
-        printLog("Card Key x: \(mappingBasePoint.w.x.asMagnitudeBytes().toHex), y: \(mappingBasePoint.w.y.asMagnitudeBytes().toHex)")
-        let sharedSecretH = try domain.multiplyPoint(cardPubKey.w, terminalPrivKey.s)
-        printLog("Shared Secret x: \(sharedSecretH.x.asMagnitudeBytes().toHex), y: \(sharedSecretH.y.asMagnitudeBytes().toHex)")
-        let mappedPoint = try domain.addPoints(mappingBasePoint.w, sharedSecretH) // MAP G = (S*G) + H
+        case .id_PACE_ECDH_GM_AES_CBC_CMAC_256:
+            let (terminalPubKey, terminalPrivKey) = domain.makeKeyPair()
+            let mappingKey = try await tag.sendPaceCommand(records: [try TKBERTLVRecord(tag: 0x81, publicKey: terminalPubKey)], tagExpected: 0x82)
+            printLog("Mapping key \(mappingKey.toHex)")
+            let cardPubKey = try ECPublicKey(domain: domain, point: mappingKey)!
+
+            // Mapping
+            let nonceS = BInt(magnitude: nonce)
+            let mappingBasePoint = ECPublicKey(privateKey: try ECPrivateKey(domain: domain, s: nonceS)) // S*G
+            printLog("Card Key x: \(mappingBasePoint.w.x.asMagnitudeBytes().toHex), y: \(mappingBasePoint.w.y.asMagnitudeBytes().toHex)")
+            let sharedSecretH = try domain.multiplyPoint(cardPubKey.w, terminalPrivKey.s)
+            printLog("Shared Secret x: \(sharedSecretH.x.asMagnitudeBytes().toHex), y: \(sharedSecretH.y.asMagnitudeBytes().toHex)")
+            mappedPoint = try domain.addPoints(mappingBasePoint.w, sharedSecretH) // MAP G = (S*G) + H
+        }
 
         // Ephemeral data
         printLog("Mapped point x: \(mappedPoint.x.asMagnitudeBytes().toHex), y: \(mappedPoint.y.asMagnitudeBytes().toHex)")
@@ -429,6 +440,72 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
         keydata[keydata.count - 1] = counter
         return SHA256(data: keydata)
     }
+    
+    private func pseudoRandomNumberMappingAES(s: any AES.DataType, t: any AES.DataType, domain: Domain) throws -> BInt {
+        let l = s.count * 8
+        let k = t.count * 8
+
+        let c0: Bytes?
+        let c1: Bytes?
+        switch (l) {
+        case 128:
+            c0 = Bytes(hex: "a668892a7c41e3ca739f40b057d85904")
+            c1 = Bytes(hex: "a4e136ac725f738b01c1f60217c188ad")
+        case 192, 256:
+            c0 = Bytes(hex: "d463d65234124ef7897054986dca0a174e28df758cbaa03f240616414d5a1676")
+            c1 = Bytes(hex: "54bd7255f0aaf831bec3423fcf39d69b6cbf066677d0faae5aadd99df8e53517")
+        default:
+            throw NFCError.error(msg: "Unknown length \(l), was expecting 128, 192, or 256")
+        }
+
+        let cipher = AES.CBC(key: t)
+        var key = try cipher.encrypt(s)
+
+        var x = Bytes()
+        var n = 0;
+        while n * l < domain.p.bitWidth + 64 {
+            let cipher = AES.CBC(key: key.prefix(k / 8))
+            key = try cipher.encrypt(c0!)
+            x += try cipher.encrypt(c1!)
+            n += 1
+        }
+
+        return BInt(magnitude: x).mod(domain.p)
+    }
+
+    private func pointEncodeIM(t: BInt, domain: Domain) -> Point {
+        let p = domain.p
+        let a = domain.a
+        let b = domain.b
+
+        // 1. α = -t^2 mod p
+        let alpha = (-(t ** 2)).mod(p)
+
+        // 2. X2 = -ba^-1 (1 + (α + α^2)^-1) mod p
+        //       = -b(1 + α + α^2)(a(α + α^2))^(p-2) mod p
+        let alphaPlusAlphaSqrt = alpha + alpha ** 2
+        let X2 = ((-b * (1 + alphaPlusAlphaSqrt)) * (a * alphaPlusAlphaSqrt).expMod(p - 2, p)).mod(p)
+
+        // 3. X3 = α * X2 mod p
+        let X3 = (alpha * X2).mod(p)
+
+        // 4. h2 = (X2)^3 + a * X2 + b mod p
+        let h2 = (X2 ** 3 + a * X2 + b).mod(p)
+
+        // 5. Unused
+
+        // 6. U = t^3 * h2 mod p
+        let U = (t ** 3 * h2).mod(p)
+
+        // 7. A = (h2)^(p - 1 - (p + 1) / 4) mod p
+        let A = h2.expMod(p - BInt.ONE - (p + BInt.ONE) / BInt.FOUR, p)
+
+        // 8. A^2 * h2 mod p = 1 -> (x, y) = (X2, A h2 mod p)
+        // 9. (x, y) = (X3, A U mod p)
+        return (A ** 2 * h2).mod(p) == BInt.ONE ?
+            Point(X2, (A * h2).mod(p)) :
+            Point(X3, (A * U).mod(p))
+    }
 
     private func SHA256(data: Bytes) -> Bytes {
         var hash = Bytes(repeating: 0x00, count: Int(CC_SHA256_DIGEST_LENGTH))
@@ -436,6 +513,17 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
             CC_SHA256(bufferPointer.baseAddress, CC_LONG(data.count), &hash)
         }
         return hash
+    }
+    
+    private func random(count: Int) throws -> Data {
+        var data = Data(count: count)
+        let result = data.withUnsafeMutableBytes { buffer in
+            SecRandomCopyBytes(kSecRandomDefault, count, buffer.baseAddress!)
+        }
+        if result != errSecSuccess {
+            throw NFCError.error(msg: "Failed to generate random")
+        }
+        return data
     }
 }
 
