@@ -37,6 +37,13 @@ struct PinError: Error {
 class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
 
     static let shared: NFCSignature = NFCSignature()
+    private static let dateFormatter = {
+        let df = DateFormatter()
+        df.locale = Locale(identifier: "en_US_POSIX")
+        df.dateFormat = "yyMMddHHmmssZ"
+        df.timeZone = TimeZone(secondsFromGMT: 0)
+        return df
+    }()
     var session: NFCTagReaderSession?
     var CAN: String?
     var PIN: String?
@@ -106,19 +113,36 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                 self.ksMac = ksMac
                 self.SSC = AES.Zero
                 setSessionMessage(L(.nfcReadingCert))
-                try await selectDF(tag: tag, file: Data())
-                try await selectDF(tag: tag, file: Data([0xAD, 0xF2]))
-                let cert = try await readEF(tag: tag, file: Data([0x34, 0x1F]))
+                try await selectDF(tag: tag, file: [])
+                try await selectDF(tag: tag, file: [0xAD, 0xF2])
+                let cert = try await readEF(tag: tag, file: [0x34, 0x1F])
+
+                typealias TLV = TKBERTLVRecord
+                guard let certData = TLV(from: cert), certData.tag == 0x30,
+                      let certContent = TLV.sequenceOfRecords(from: certData.value), certContent.count == 3,
+                      let certInfo = TLV.sequenceOfRecords(from: certContent[0].value), certInfo.count > 7,
+                      let certValidity = TLV.sequenceOfRecords(from: certInfo[4].value), certValidity.count == 2,
+                      let certExpire = String(data: certValidity[1].value, encoding: .ascii),
+                      let expireDate = NFCSignature.dateFormatter.date(from: certExpire) else {
+                    setSessionMessage(L(.nfcSignFailed), invalidate: true)
+                    return ErrorUtil.generateError(signingError: L(.nfcCertParseFailed))
+                }
+
+                if expireDate < Date.now {
+                    setSessionMessage(L(.nfcSignFailed), invalidate: true)
+                    return ErrorUtil.generateError(signingError: L(.nfcCertExpired))
+                }
+
                 printLog("Cert reading done")
                 guard let hash = MoppLibManager.prepareSignature(cert.base64EncodedString(), containerPath: containerPath, roleData: roleData) else {
                     return setSessionMessage(L(.nfcSignFailed), invalidate: true)
                 }
                 setSessionMessage(L(.nfcSignDoc))
-                var pin = Data(repeating: 0xFF, count: 12)
+                var pin = Bytes(repeating: 0xFF, count: 12)
                 pin.replaceSubrange(0..<PIN!.count, with: PIN!.utf8)
-                _ = try await sendWrapped(tag: tag, cls: 0x00, ins: 0x22, p1: 0x41, p2: 0xb6, data: Data(hex: "80015484019f")!)
+                _ = try await sendWrapped(tag: tag, cls: 0x00, ins: 0x22, p1: 0x41, p2: 0xb6, data: Bytes(hex: "80015484019f")!)
                 _ = try await sendWrapped(tag: tag, cls: 0x00, ins: 0x20, p1: 0x00, p2: 0x85, data: pin)
-                let signatureValue = try await sendWrapped(tag: tag, cls:0x00, ins: 0x2A, p1: 0x9E, p2: 0x9A, data: Data(base64Encoded: hash)!, le: 256);
+                let signatureValue = try await sendWrapped(tag: tag, cls:0x00, ins: 0x2A, p1: 0x9E, p2: 0x9A, data: Bytes(Data(base64Encoded: hash)!), le: 256);
                 printLog("\nRIA.NFC - Validating signature...\n")
                 MoppLibManager.isSignatureValid(cert.base64EncodedString(), signatureValue: signatureValue.base64EncodedString(), success: { _ in
                     printLog("\nRIA.NFC - Successfully validated signature!\n")
@@ -136,7 +160,6 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                     guard let err = error as NSError? else {
                         return ErrorUtil.generateError(signingError: .generalSignatureAddingError, details: MessageUtil.errorMessageWithDetails(details: "Unknown error"))
                     }
-                    let proxySetting = ProxyUtil.getProxySetting()
                     let details = MessageUtil.generateDetailedErrorMessage(error: err) ?? err.domain
                     switch err.code {
                     case 5, 6:
@@ -191,17 +214,17 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
         let oid = "04007f00070202040204" // id-PACE-ECDH-GM-AES-CBC-CMAC-256
         // + CAN
         _ = try await tag.sendCommand(cls: 0x00, ins: 0x22, p1: 0xc1, p2: 0xa4, data: Data(hex: "800a\(oid)830102")!)
-        let nonceTag = try await tag.sendPaceCommand(records: [], tagExpected: 0x80)
-        printLog("Challenge \(nonceTag.data.toHex)")
-        let nonce = try decryptNonce(encryptedNonce: nonceTag.value)
+        let nonceEnc = try await tag.sendPaceCommand(records: [], tagExpected: 0x80)
+        printLog("Challenge \(nonceEnc.toHex)")
+        let nonce = try decryptNonce(encryptedNonce: nonceEnc)
         printLog("Nonce \(nonce.toHex)")
         let domain = Domain.instance(curve: .EC256r1)
 
         // Mapping data
         let (terminalPubKey, terminalPrivKey) = domain.makeKeyPair()
-        let mappingTag = try await tag.sendPaceCommand(records: [try TKBERTLVRecord(tag: 0x81, publicKey: terminalPubKey)], tagExpected: 0x82)
-        printLog("Mapping key \(mappingTag.data.toHex)")
-        let cardPubKey = try ECPublicKey(domain: domain, tlv: mappingTag)!
+        let mappingKey = try await tag.sendPaceCommand(records: [try TKBERTLVRecord(tag: 0x81, publicKey: terminalPubKey)], tagExpected: 0x82)
+        printLog("Mapping key \(mappingKey.toHex)")
+        let cardPubKey = try ECPublicKey(domain: domain, point: mappingKey)!
 
         // Mapping
         let nonceS = BInt(magnitude: nonce)
@@ -215,9 +238,9 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
 
         // Ephemeral data
         let (terminalEphemeralPubKey, terminalEphemeralPrivKey) = mappedDomain.makeKeyPair()
-        let ephemeralTag = try await tag.sendPaceCommand(records: [try TKBERTLVRecord(tag: 0x83, publicKey: terminalEphemeralPubKey)], tagExpected: 0x84)
-        printLog("Card Ephermal key \(ephemeralTag.data.toHex)")
-        let ephemeralCardPubKey = try ECPublicKey(domain: mappedDomain, tlv: ephemeralTag)!
+        let ephemeralKey = try await tag.sendPaceCommand(records: [try TKBERTLVRecord(tag: 0x83, publicKey: terminalEphemeralPubKey)], tagExpected: 0x84)
+        printLog("Card Ephermal key \(ephemeralKey.toHex)")
+        let ephemeralCardPubKey = try ECPublicKey(domain: mappedDomain, point: ephemeralKey)!
 
         // Derive shared secret and session keys
         let sharedSecret = try terminalEphemeralPrivKey.sharedSecret(pubKey: ephemeralCardPubKey)
@@ -231,18 +254,18 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
         let macHeader = Bytes(hex: "7f494f060a\(oid)8641")!
         let macCalc = try AES.CMAC(key: ksMac)
         let ephemeralCardPubKeyBytes = try ephemeralCardPubKey.x963Representation()
-        let macTag = try await tag.sendPaceCommand(records: [TKBERTLVRecord(tag: 0x85, bytes: (try macCalc.authenticate(bytes: macHeader + ephemeralCardPubKeyBytes)))], tagExpected: 0x86)
-        printLog("Mac response \(macTag.data.toHex)")
+        let macValue = try await tag.sendPaceCommand(records: [TKBERTLVRecord(tag: 0x85, bytes: (try macCalc.authenticate(bytes: macHeader + ephemeralCardPubKeyBytes)))], tagExpected: 0x86)
+        printLog("Mac response \(macValue.toHex)")
 
         // verify chip's MAC and return session keys
         let terminalEphemeralPubKeyBytes = try terminalEphemeralPubKey.x963Representation()
-        if  macTag.value == Data(try macCalc.authenticate(bytes: macHeader + terminalEphemeralPubKeyBytes)) {
+        if  macValue == Data(try macCalc.authenticate(bytes: macHeader + terminalEphemeralPubKeyBytes)) {
             return (ksEnc, ksMac)
         }
         return nil
     }
 
-    func sendWrapped(tag: NFCISO7816Tag, cls: UInt8, ins: UInt8, p1: UInt8, p2: UInt8, data: Data, le: Int = -1) async throws -> Data {
+    func sendWrapped(tag: NFCISO7816Tag, cls: UInt8, ins: UInt8, p1: UInt8, p2: UInt8, data: Bytes, le: Int = -1) async throws -> Data {
         guard SSC != nil else {
             return try await tag.sendCommand(cls: cls, ins: ins, p1: p1, p2: p2, data: Data(), le: le)
         }
@@ -302,11 +325,11 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
         return Data(try responseData.removePadding())
     }
 
-    func selectDF(tag: NFCISO7816Tag, file: Data) async throws {
+    func selectDF(tag: NFCISO7816Tag, file: Bytes) async throws {
         _ = try await sendWrapped(tag: tag, cls: 0x00, ins: 0xA4, p1: file.isEmpty ? 0x00 : 0x01, p2: 0x0C, data: file, le: 256)
     }
 
-    func selectEF(tag: NFCISO7816Tag, file: Data) async throws -> Int {
+    func selectEF(tag: NFCISO7816Tag, file: Bytes) async throws -> Int {
         let data = try await sendWrapped(tag: tag, cls: 0x00, ins: 0xA4, p1: 0x02, p2: 0x04, data: file, le: 256)
         guard let fci = TKBERTLVRecord(from: data) else {
             return 0
@@ -318,7 +341,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
     }
 
     func readBinary(tag: NFCISO7816Tag, len: Int, pos: Int) async throws -> Data {
-        return try await sendWrapped(tag: tag, cls: 0x00, ins: 0xB0, p1: UInt8(pos >> 8), p2: UInt8(truncatingIfNeeded: pos), data: Data(), le: len)
+        return try await sendWrapped(tag: tag, cls: 0x00, ins: 0xB0, p1: UInt8(pos >> 8), p2: UInt8(truncatingIfNeeded: pos), data: [], le: len)
     }
 
     func readBinary(tag: NFCISO7816Tag, len: Int) async throws -> Data {
@@ -329,7 +352,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
         return data
     }
 
-    func readEF(tag: NFCISO7816Tag, file: Data) async throws -> Data {
+    func readEF(tag: NFCISO7816Tag, file: Bytes) async throws -> Data {
         let len = try await selectEF(tag: tag, file: file)
         return try await readBinary(tag: tag, len: len)
     }
@@ -438,8 +461,8 @@ extension MutableDataProtocol where Self.Index == Int {
 }
 
 extension ECPublicKey {
-    convenience init?(domain: Domain, tlv: TKTLVRecord) throws {
-        guard let w = try? domain.decodePoint(Bytes(tlv.value)) else { return nil }
+    convenience init?(domain: Domain, point: Data) throws {
+        guard let w = try? domain.decodePoint(Bytes(point)) else { return nil }
         try self.init(domain: domain, w: w)
     }
 
@@ -467,12 +490,12 @@ extension NFCISO7816Tag {
         }
     }
 
-    func sendPaceCommand(records: [TKTLVRecord], tagExpected: TKTLVTag) async throws -> TKBERTLVRecord {
+    func sendPaceCommand(records: [TKTLVRecord], tagExpected: TKTLVTag) async throws -> Data {
         let request = TKBERTLVRecord(tag: 0x7c, records: records)
         let data = try await sendCommand(cls: tagExpected == 0x86 ? 0x00 : 0x10, ins: 0x86, p1: 0x00, p2: 0x00, data: request.data, le: 256)
         if let response = TKBERTLVRecord(from: data), response.tag == 0x7c,
            let result = TKBERTLVRecord(from: response.value), result.tag == tagExpected {
-            return result
+            return result.value
         }
         throw RuntimeError(msg: "Invalid response")
     }
@@ -513,14 +536,14 @@ class AES {
 
         private func crypt(data: any DataType, operation: Int) throws -> Bytes {
             var bytesWritten = 0
-            var outputBuffer = Bytes(repeating: 0, count: data.count + BlockSize)
+            var outputBuffer = Bytes(repeating: 0x00, count: data.count + BlockSize)
             let status = data.withUnsafeBytes { dataBytes in
                 iv.withUnsafeBytes { ivBytes in
                     key.withUnsafeBytes { keyBytes in
                         CCCrypt(
                             CCOperation(operation),
                             CCAlgorithm(kCCAlgorithmAES),
-                            CCOptions(0), //kCCOptionPKCS7Padding),
+                            CCOptions(0),
                             keyBytes.baseAddress,
                             key.count,
                             ivBytes.baseAddress,
