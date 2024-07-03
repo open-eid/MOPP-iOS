@@ -112,7 +112,7 @@ class AccessibilityViewController : MoppViewController, UITextViewDelegate {
                     }
                 }
             } catch let error {
-                print("Error creating link attributes: \(error.localizedDescription)")
+                printLog("Error creating link attributes: \(error.localizedDescription)")
             }
             break
         case .boldText:

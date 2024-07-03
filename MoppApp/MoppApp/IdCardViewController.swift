@@ -485,7 +485,7 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
     }
     
     func sign(_ pin: String?) {
-        guard let signingPin = KeychainUtil.retrieve(key: pinCodeKey) else {
+        guard let signingPin = String(data: KeychainUtil.retrieve(key: pinCodeKey) ?? Data(), encoding: .utf8)  else {
             DispatchQueue.main.async {
                 self.dismiss(animated: false, completion: { [weak self] in
                     guard let sself = self else { return }
@@ -545,7 +545,7 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
     }
         
     func savePin(pin: String) -> Bool {
-        return KeychainUtil.save(key: pinCodeKey, info: pin)
+        return KeychainUtil.save(key: pinCodeKey, info: pin.data(using: .utf8) ?? Data())
     }
     
     func showPinSaveError() {

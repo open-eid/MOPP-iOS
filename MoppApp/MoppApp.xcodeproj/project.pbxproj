@@ -173,6 +173,7 @@
 		DF17ABCE29C0F86E009711DF /* BarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF17ABCD29C0F86E009711DF /* BarButton.swift */; };
 		DF24E9D62AD5ECFB00471FFA /* DiagnosticError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEEFCCD29AD062C0013E66B /* DiagnosticError.swift */; };
 		DF26DC8326CD45670073ABA7 /* SivaUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF26DC8226CD45670073ABA7 /* SivaUtil.swift */; };
+		DF2BCCD02C35DB5D004B95E2 /* EncryptedDataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2BCCCF2C35DB5D004B95E2 /* EncryptedDataUtil.swift */; };
 		DF32A67B29096B7100AE5F82 /* LogFileGenerating.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A67A29096B7100AE5F82 /* LogFileGenerating.swift */; };
 		DF32A67D2909B20C00AE5F82 /* AlertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A67C2909B20C00AE5F82 /* AlertUtil.swift */; };
 		DF32A6812909F0FA00AE5F82 /* FileLogUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32A6802909F0FA00AE5F82 /* FileLogUtil.swift */; };
@@ -523,6 +524,7 @@
 		DF15039A2AC5D01A007222B2 /* SkSigningLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SkSigningLib.xcodeproj; path = ../SkSigningLib/SkSigningLib.xcodeproj; sourceTree = "<group>"; };
 		DF17ABCD29C0F86E009711DF /* BarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButton.swift; sourceTree = "<group>"; };
 		DF26DC8226CD45670073ABA7 /* SivaUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SivaUtil.swift; sourceTree = "<group>"; };
+		DF2BCCCF2C35DB5D004B95E2 /* EncryptedDataUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptedDataUtil.swift; sourceTree = "<group>"; };
 		DF32A67A29096B7100AE5F82 /* LogFileGenerating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFileGenerating.swift; sourceTree = "<group>"; };
 		DF32A67C2909B20C00AE5F82 /* AlertUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertUtil.swift; sourceTree = "<group>"; };
 		DF32A6802909F0FA00AE5F82 /* FileLogUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLogUtil.swift; sourceTree = "<group>"; };
@@ -1262,6 +1264,7 @@
 				DFD54CF629D1CBAF00CD92C7 /* CertUtil.swift */,
 				DFCFADD52B682193007F556A /* SignatureUtil.swift */,
 				DF588B052BB3074A00FCDC14 /* ProxySettingsUtil.swift */,
+				DF2BCCCF2C35DB5D004B95E2 /* EncryptedDataUtil.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1768,6 +1771,7 @@
 				DFBA32A629A5A64000788A87 /* CancelUtil.swift in Sources */,
 				DFBDF1FC27DF6BA800A5CF3C /* MobileIDParameters.swift in Sources */,
 				C56C620F201A2B6500CCC2A5 /* RecentContainersHeaderCell.swift in Sources */,
+				DF2BCCD02C35DB5D004B95E2 /* EncryptedDataUtil.swift in Sources */,
 				C593D9F4208F3526000B3BF6 /* SettingsChoiceView.swift in Sources */,
 				C5CF5EEC2017E4CC008FBBD6 /* FileImportProgressViewController.swift in Sources */,
 				C5D057042024B5B700875F44 /* MoppModalViewController.swift in Sources */,
