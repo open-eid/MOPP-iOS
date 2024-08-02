@@ -25,40 +25,36 @@ import Foundation
 import Security
 
 class KeychainUtil {
-    static func save(key: String, info: String) -> Bool {
+    static func save(key: String, info: Data, withPasscodeSetOnly: Bool = false) -> Bool {
         guard let bundleIdentifier = Bundle.main.bundleIdentifier else { return false }
-        if let data = info.data(using: .utf8) {
-            let query: [CFString: Any] = [
-                kSecClass: kSecClassGenericPassword,
-                kSecAttrService: bundleIdentifier,
-                kSecAttrAccount: "\(bundleIdentifier).\(key)",
-                kSecValueData: data,
-                kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly
-            ]
-            SecItemDelete(query as CFDictionary)
-            let status = SecItemAdd(query as CFDictionary, nil)
+        let query: [CFString: Any] = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: bundleIdentifier,
+            kSecAttrAccount: "\(bundleIdentifier).\(key)",
+            kSecValueData: info,
+            kSecAttrAccessible: withPasscodeSetOnly ? kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly : kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+        ]
+        SecItemDelete(query as CFDictionary)
+        let status = SecItemAdd(query as CFDictionary, nil)
 
-            return status == errSecSuccess
-        }
-        return false
+        return status == errSecSuccess
     }
 
-    static func retrieve(key: String) -> String? {
+    static func retrieve(key: String) -> Data? {
         guard let bundleIdentifier = Bundle.main.bundleIdentifier else { return nil }
         let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,
             kSecAttrService: bundleIdentifier,
             kSecAttrAccount: "\(bundleIdentifier).\(key)",
             kSecReturnData: true,
-            kSecMatchLimit: kSecMatchLimitOne,
-            kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+            kSecMatchLimit: kSecMatchLimitOne
         ]
 
         var infoData: AnyObject?
         let status = SecItemCopyMatching(query as CFDictionary, &infoData)
 
         if status == errSecSuccess, let data = infoData as? Data {
-            return String(data: data, encoding: .utf8)
+            return data
         } else {
             return nil
         }

@@ -33,7 +33,7 @@ public class ManualProxy {
             host: DefaultsHelper.proxyHost ?? "",
             port: DefaultsHelper.proxyPort,
             username: DefaultsHelper.proxyUsername ?? "",
-            password: KeychainUtil.retrieve(key: proxyPasswordKey) ?? "")
+            password: String(data: KeychainUtil.retrieve(key: proxyPasswordKey) ?? Data(), encoding: .utf8) ?? "")
     }
     
     public static func getMoppLibProxyConfiguration() -> MoppLibProxyConfiguration {

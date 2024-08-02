@@ -41,6 +41,7 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
     @IBOutlet weak var signButton: MoppButton!
     
     static private let nfcCANKey = "nfcCANKey"
+    static private let nfcCANKeyFilename = "canKey.txt"
     weak var delegate: NFCEditViewControllerDelegate? = nil
     var tapGR: UITapGestureRecognizer!
 
@@ -126,8 +127,17 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        do {
+            let nfcCanKey = KeychainUtil.retrieve(key: NFCEditViewController.nfcCANKey)
+            let symmetricKey = try EncryptedDataUtil.getSymmetricKey(fileName: NFCEditViewController.nfcCANKeyFilename)
+            if let canKey = nfcCanKey {
+                canTextField.text = EncryptedDataUtil.decryptSecret(canKey, with: symmetricKey)
+            }
+        } catch let error {
+            printLog("Unable to get stored 'CAN number' symmetric key: \(error.localizedDescription)")
+        }
 
-        canTextField.text = KeychainUtil.retrieve(key: NFCEditViewController.nfcCANKey)
         pinTextField.text = ""
 
         canTextField.attributedPlaceholder = NSAttributedString(string: "CAN", attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppPlaceholderDarker])
@@ -216,7 +226,27 @@ extension NFCEditViewController : UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.accessibilityIdentifier == "nfcCanField" {
             if let can = textField.text {
-                _ = KeychainUtil.save(key: NFCEditViewController.nfcCANKey, info: can)
+                do {
+                    let symKey = try EncryptedDataUtil.getSymmetricKey(fileName: NFCEditViewController.nfcCANKeyFilename)
+                    if let encryptedKey = EncryptedDataUtil.encryptSecret(can, with: symKey) {
+                        _ = KeychainUtil.save(key: NFCEditViewController.nfcCANKey, info: encryptedKey, withPasscodeSetOnly: true)
+                    } else {
+                        printLog("Encryption failed for 'can' string")
+                    }
+                } catch {
+                    do {
+                        let symKeyURL = try EncryptedDataUtil.saveSymmetricKeyToAppSupport(fileName: NFCEditViewController.nfcCANKeyFilename)
+                        let symKey = try EncryptedDataUtil.getSymmetricKey(fileName: symKeyURL.lastPathComponent)
+                        
+                        if let encryptedKey = EncryptedDataUtil.encryptSecret(can, with: symKey) {
+                            _ = KeychainUtil.save(key: NFCEditViewController.nfcCANKey, info: encryptedKey, withPasscodeSetOnly: true)
+                        } else {
+                            printLog("Encryption failed for 'CAN number' after saving new symmetric key")
+                        }
+                    } catch {
+                        printLog("Unable to save or retrieve symmetric key: \(error.localizedDescription)")
+                    }
+                }
             } else {
                 KeychainUtil.remove(key: NFCEditViewController.nfcCANKey)
                 canTextErrorLabel.text = ""

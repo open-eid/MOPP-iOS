@@ -324,7 +324,7 @@ class ProxyViewController: MoppViewController, URLSessionDelegate {
             DefaultsHelper.proxyHost = hostTextField.text
             DefaultsHelper.proxyPort = Int(portTextField.text ?? "80") ?? 80
             DefaultsHelper.proxyUsername = usernameTextField.text
-            let _ = KeychainUtil.save(key: proxyPasswordKey, info: passwordTextField.text ?? "")
+            let _ = KeychainUtil.save(key: proxyPasswordKey, info: (passwordTextField.text ?? "").data(using: .utf8) ?? Data())
         }
     }
     
@@ -339,7 +339,7 @@ class ProxyViewController: MoppViewController, URLSessionDelegate {
                 self.hostTextField.text = DefaultsHelper.proxyHost
                 self.portTextField.text = String(DefaultsHelper.proxyPort)
                 self.usernameTextField.text = DefaultsHelper.proxyUsername
-                self.passwordTextField.text = KeychainUtil.retrieve(key: proxyPasswordKey) ?? ""
+                self.passwordTextField.text = String(data: KeychainUtil.retrieve(key: proxyPasswordKey) ?? Data(), encoding: .utf8)
             } else if savedProxySetting == .noProxy || savedProxySetting == .systemProxy {
                 self.hostTextField.text = ""
                 self.portTextField.text = "80"
@@ -478,7 +478,7 @@ extension ProxyViewController: UITextFieldDelegate {
         case usernameTextField:
             DefaultsHelper.proxyUsername = textField.text
         case passwordTextField:
-            let _ = KeychainUtil.save(key: proxyPasswordKey, info: textField.text ?? "")
+            let _ = KeychainUtil.save(key: proxyPasswordKey, info: (textField.text ?? "").data(using: .utf8) ?? Data())
         default:
             break
         }
