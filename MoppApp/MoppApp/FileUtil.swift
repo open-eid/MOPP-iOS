@@ -66,10 +66,12 @@ struct FileUtil {
     
     static func getValidPath(url: URL) -> URL? {
         let directories: [FileManager.SearchPathDirectory] = [
+            .applicationDirectory,
             .documentDirectory,
             .downloadsDirectory,
             .userDirectory,
             .libraryDirectory,
+            .allLibrariesDirectory
         ]
         
         let currentURL = URL(fileURLWithPath: url.path).resolvingSymlinksInPath()
@@ -91,6 +93,18 @@ struct FileUtil {
                 if FilePath(stringLiteral: currentURLPath).lexicallyNormalized().starts(with: FilePath(stringLiteral: resolvedSubdirectoryPath)) ||
                     FilePath(stringLiteral: currentURLPath).lexicallyNormalized().starts(with: FilePath(stringLiteral: FileManager.default.temporaryDirectory.resolvingSymlinksInPath().path)) {
                     return currentURL
+                }
+            }
+            
+            // Check if file is opened externally (outside of application)
+            if let appGroupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ee.ria.digidoc.ios") {
+                let resolvedAppGroupURL = appGroupURL.resolvingSymlinksInPath()
+                let resolvedAppGroupPath = resolvedAppGroupURL.path
+                
+                let normalizedURL = FilePath(stringLiteral: currentURLPath).lexicallyNormalized()
+                
+                if normalizedURL.starts(with: FilePath(stringLiteral: resolvedAppGroupURL.deletingLastPathComponent().path)) && normalizedURL.string.contains("File Provider Storage") {
+                    return url
                 }
             }
         }

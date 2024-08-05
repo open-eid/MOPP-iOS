@@ -323,7 +323,9 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                 pathExtension = MimeTypeExtractor.determineContainer(mimetype: MimeTypeExtractor.getMimeTypeFromContainer(filePath: newUrl), fileExtension: newUrl.pathExtension)
 
                 do {
-                    let validUrl = FileUtil.getValidPath(url: url)!
+                    guard let validUrl = FileUtil.getValidPath(url: newUrl) else {
+                        return false
+                    }
                     let newData: Data? = try Data(contentsOf: validUrl)
                     let fileName: String = validUrl.deletingPathExtension().lastPathComponent.sanitize()
                     let tempDirectoryPath: URL? = MoppFileManager.shared.tempCacheDirectoryPath()
@@ -340,8 +342,11 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                         return false
                     }
                     do {
-                        try newUrlData.write(to: FileUtil.getValidPath(url: filePath)!, options: .atomic)
-                        newUrl = validUrl
+                        guard let validFileUrl = FileUtil.getValidPath(url: filePath) else {
+                            return false
+                        }
+                        try newUrlData.write(to: validFileUrl, options: .atomic)
+                        newUrl = validFileUrl
                         if !isFileEmpty {
                             fileUrls.append(newUrl)
                         }
