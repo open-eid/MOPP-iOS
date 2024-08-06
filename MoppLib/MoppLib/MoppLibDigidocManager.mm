@@ -41,7 +41,6 @@
 #import "CardActionsManager.h"
 #import <Security/SecCertificate.h>
 #import <Security/SecKey.h>
-#import "MoppLibGlobals.h"
 #import "MoppLibDigidocValidateOnline.h"
 #import "MoppLibProxyConfiguration.h"
 
@@ -125,17 +124,12 @@ public:
 
   std::string ocsp(const std::string &issuer) const override {
     NSString *ocspIssuer = [NSString stringWithCString:issuer.c_str() encoding:[NSString defaultCStringEncoding]];
-      printLog(@"Received OCSP url: %@", OCSPUrl);
     if ([moppLibConfiguration.OCSPISSUERS objectForKey:ocspIssuer]) {
         printLog(@"Using issuer: '%@' with OCSP url from central configuration: %s", ocspIssuer, std::string([moppLibConfiguration.OCSPISSUERS[ocspIssuer] UTF8String]).c_str());
         return std::string([moppLibConfiguration.OCSPISSUERS[ocspIssuer] UTF8String]);
-    } else {
-        printLog(@"Did not find url for issuer: %@. Using received OCSP url: %@", ocspIssuer, OCSPUrl);
-        if (OCSPUrl) {
-            return std::string([OCSPUrl UTF8String]);
-        }
-        return std::string();
     }
+    printLog(@"Did not find url for issuer: %@.", ocspIssuer);
+    return digidoc::ConfCurrent::ocsp(issuer);
   }
     
     virtual std::string proxyHost() const override {
@@ -375,15 +369,6 @@ static digidoc::Signature *signature = nil;
     auto *bytes = reinterpret_cast<const unsigned char*>(data.bytes);
     std::vector<unsigned char> calculatedSignatureBase64(bytes, bytes + data.length);
 
-    try {
-        OCSPUrl = getOCSPUrl([MoppLibDigidocManager getCertFromData:cert]);
-    } catch (const digidoc::Exception &e) {
-        parseException(e);
-        NSError *certError;
-        certError = [NSError errorWithDomain:[NSString stringWithFormat:@"Did not get a DER cert\n"] code:-1 userInfo:nil];
-        failure(certError);
-    }
-
     if (!signature) {
         std::string signatureId = signature->id();
         printLog(@"\nError: Did not find signature with an ID of %s\n", signatureId.c_str());
@@ -465,12 +450,6 @@ static digidoc::Signature *signature = nil;
         return nil;
     }
 
-    NSMutableArray *profiles = [NSMutableArray new];
-    for (auto signature : docContainer->signatures()) {
-        printLog(@"Signature ID: %@", [NSString stringWithUTF8String:signature->id().c_str()]);
-        [profiles addObject:[[NSString alloc] initWithBytes:signature->profile().c_str() length:signature->profile().size() encoding:NSUTF8StringEncoding]];
-    }
-    
     NSLog(@"\nSetting profile info...\n");
     NSLog(@"Role data - roles: %@, city: %@, state: %@, zip: %@, country: %@", roleData.ROLES, roleData.CITY, roleData.STATE, roleData.ZIP, roleData.COUNTRY);
     signer->setProfile("time-stamp");
@@ -534,18 +513,15 @@ static digidoc::Signature *signature = nil;
       // DataFiles
       NSMutableArray *dataFiles = [NSMutableArray array];
 
-      for (int i = 0; i < doc->dataFiles().size(); i++) {
-        digidoc::DataFile *dataFile = doc->dataFiles().at(i);
-
+      for (digidoc::DataFile *dataFile: doc->dataFiles()) {
         MoppLibDataFile *moppLibDataFile = [MoppLibDataFile new];
         moppLibDataFile.fileId = [NSString stringWithUTF8String:dataFile->id().c_str()];
         moppLibDataFile.mediaType = [NSString stringWithUTF8String:dataFile->mediaType().c_str()];
         moppLibDataFile.fileName = [NSString stringWithUTF8String:dataFile->fileName().c_str()];
         moppLibDataFile.fileSize = dataFile->fileSize();
-
         [dataFiles addObject:moppLibDataFile];
       }
-      moppLibContainer.dataFiles = [dataFiles copy];
+      moppLibContainer.dataFiles = dataFiles;
 
 
       // Signatures
@@ -715,20 +691,12 @@ static digidoc::Signature *signature = nil;
 - (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths error:(NSError **)error {
   MLLog(@"createContainerWithPath: %@, dataFilePaths: %@", containerPath, dataFilePaths);
 
-  std::unique_ptr<digidoc::Container> container;
   try {
-    container = digidoc::Container::createPtr(containerPath.UTF8String);
+    auto container = digidoc::Container::createPtr(containerPath.UTF8String);
     for (NSString *dataFilePath in dataFilePaths) {
       container->addDataFile(dataFilePath.UTF8String, @"application/octet-stream".UTF8String);
     }
-
-    try {
-      container->save(containerPath.UTF8String);
-    } catch(const digidoc::Exception &e) {
-      parseException(e);
-      *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
-    }
-
+    container->save(containerPath.UTF8String);
   } catch(const digidoc::Exception &e) {
     parseException(e);
     *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
@@ -740,13 +708,11 @@ static digidoc::Signature *signature = nil;
 }
 
 - (MoppLibContainer *)addDataFilesToContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths error:(NSError **)error {
-    std::unique_ptr<digidoc::Container> container;
-
   try {
     MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
     BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
     MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
-    container = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
+    auto container = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
 
     for (NSString *dataFilePath in dataFilePaths) {
       [self addDataFileToContainer:container.get() withDataFilePath:dataFilePath error: error];
@@ -768,7 +734,7 @@ static digidoc::Signature *signature = nil;
 - (void)addDataFileToContainer:(digidoc::Container *)container withDataFilePath:(NSString *)dataFilePath error:(NSError **)error  {
 
   try {
-    container->addDataFile(dataFilePath.UTF8String, @"application/octet-stream".UTF8String);
+    container->addDataFile(dataFilePath.UTF8String, "application/octet-stream");
   } catch(const digidoc::Exception &e) {
     NSString *message = [NSString stringWithCString:e.msg().c_str() encoding:NSUTF8StringEncoding];
 
@@ -783,21 +749,13 @@ static digidoc::Signature *signature = nil;
 }
 
 - (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex error:(NSError **)error {
-    std::unique_ptr<digidoc::Container> container;
   try {
     MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
     BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
     MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
-    container = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
+    auto container = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
     container->removeDataFile((int)dataFileIndex);
-
-    try {
-      container->save(containerPath.UTF8String);
-    } catch(const digidoc::Exception &e) {
-      *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
-      parseException(e);
-    }
-
+    container->save(containerPath.UTF8String);
   } catch(const digidoc::Exception &e) {
     *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:nil];
     parseException(e);
@@ -827,32 +785,15 @@ void parseException(const digidoc::Exception &e) {
   }
 }
 
-NSString* getOCSPUrl(const digidoc::X509Cert &cert)  {
-    NSString *ocspUrl = nil;
-    STACK_OF(OPENSSL_STRING) *ocsps = X509_get1_ocsp(cert.handle());
-    if (ocsps == nil) {
-      return ocspUrl;
-    }
-    ocspUrl = [NSString stringWithUTF8String:sk_OPENSSL_STRING_value(ocsps, 0)];
-    X509_email_free(ocsps);
-    return ocspUrl;
-}
-
 - (void)addSignature:(NSString *)containerPath pin2:(NSString *)pin2 cert:(NSData *)cert roleData:(MoppLibRoleAddressData *)roleData success:(ContainerBlock)success andFailure:(FailureBlock)failure {
 
   try {
-    digidoc::X509Cert x509Cert = [MoppLibDigidocManager getCertFromData:cert];
-    OCSPUrl = getOCSPUrl(x509Cert);
-
-    // Create unique_ptr that manages a container in this scope
-    std::unique_ptr<digidoc::Container> managedContainer;
-
     // Load the container
     MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
     BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
     MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
-    managedContainer = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
-
+    // Create unique_ptr that manages a container in this scope
+    auto managedContainer = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
 
     // Check if key type in certificate supports ECC algorithm
     SecCertificateRef certRef = SecCertificateCreateWithData(kCFAllocatorDefault, (__bridge CFDataRef)cert);
@@ -862,7 +803,7 @@ NSString* getOCSPUrl(const digidoc::X509Cert &cert)  {
     CFRelease(publicKey);
     BOOL useECC = [publicKeyInfo containsString:@"ECPublicKey"];
 
-    std::unique_ptr<WebSigner> signer = std::make_unique<WebSigner>(x509Cert);
+    std::unique_ptr<WebSigner> signer = std::make_unique<WebSigner>([MoppLibDigidocManager getCertFromData:cert]);
 
     NSLog(@"\nSetting profile info...\n");
     NSLog(@"Role data - roles: %@, city: %@, state: %@, zip: %@, country: %@", roleData.ROLES, roleData.CITY, roleData.STATE, roleData.ZIP, roleData.COUNTRY);
@@ -986,35 +927,27 @@ NSString* getOCSPUrl(const digidoc::X509Cert &cert)  {
 }
 
 - (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure {
-    std::unique_ptr<digidoc::Container> doc;
     try {
         MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
         BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
         MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
-        doc = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
+        if (auto doc = digidoc::Container::openPtr(containerPath.UTF8String, &cb)) {
+            for (digidoc::DataFile *dataFile: doc->dataFiles()) {
+                if ([self isFileInContainer:fileName dataFile:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]) {
+                    dataFile->saveAs(path.UTF8String);
+                    success();
+                    return;
+                }
+            }
+            failure([MoppLibError generalError]);
+        } else {
+            failure([MoppLibError generalError]);
+        }
     } catch(const digidoc::Exception &e) {
         parseException(e);
     }
 
-    if (doc != nil) {
-        for (int i = 0; i < doc->dataFiles().size(); i++) {
-            digidoc::DataFile *dataFile;
-            try {
-                dataFile = doc->dataFiles().at(i);
-            } catch (const digidoc::Exception &e) {
-                parseException(e);
-                break;
-            }
-            if ([self isFileInContainer:fileName dataFile:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]) {
-                dataFile->saveAs(path.UTF8String);
-                success();
-                return;
-            }
-        }
-        failure([MoppLibError generalError]);
-    } else {
-        failure([MoppLibError generalError]);
-    }
+    failure([MoppLibError generalError]);
 }
 
 -(BOOL)isFileInContainer:(NSString *)fileName dataFile:(NSString *)dataFileName {
@@ -1022,30 +955,19 @@ NSString* getOCSPUrl(const digidoc::X509Cert &cert)  {
 }
 
 - (BOOL)isContainerFileSaveable:(NSString *)containerPath saveDataFile:(NSString *)fileName {
-    std::unique_ptr<digidoc::Container> doc;
     try {
         MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
         BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
         MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
-        doc = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
-    } catch(const digidoc::Exception &e) {
-        parseException(e);
-    }
-
-    if (doc != nil) {
-        for (int i = 0; i < doc->dataFiles().size(); i++) {
-            digidoc::DataFile *dataFile;
-            try {
-                dataFile = doc->dataFiles().at(i);
-            } catch (const digidoc::Exception &e) {
-                parseException(e);
-                break;
-            }
-
-            if([self isFileInContainer:fileName dataFile:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]) {
-                return TRUE;
+        if (auto doc = digidoc::Container::openPtr(containerPath.UTF8String, &cb)) {
+            for (digidoc::DataFile *dataFile: doc->dataFiles()) {
+                if([self isFileInContainer:fileName dataFile:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]) {
+                    return TRUE;
+                }
             }
         }
+    } catch(const digidoc::Exception &e) {
+        parseException(e);
     }
     return FALSE;
 }
