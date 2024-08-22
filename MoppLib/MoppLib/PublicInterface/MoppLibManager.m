@@ -69,10 +69,6 @@
     return [[MoppLibDigidocManager sharedInstance] iOSVersion];
 }
 
-- (NSArray *)connectedDevices {
-    return [[MoppLibDigidocManager sharedInstance] connectedDevices];
-}
-
 - (NSString *)userAgent {
     return [[MoppLibDigidocManager sharedInstance] userAgent];
 }

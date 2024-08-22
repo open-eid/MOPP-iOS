@@ -201,7 +201,6 @@
 		DF588B062BB3074A00FCDC14 /* ProxySettingsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF588B052BB3074A00FCDC14 /* ProxySettingsUtil.swift */; };
 		DF5BE6D229C8AE5200331609 /* SignatureWarningsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5BE6D129C8AE5200331609 /* SignatureWarningsCell.swift */; };
 		DF5BE6D429C8BD5600331609 /* WarningDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5BE6D329C8BD5600331609 /* WarningDetail.swift */; };
-		DF61BABA2B6D080D00D919CE /* App_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DF61BAB92B6D080D00D919CE /* App_logo.png */; };
 		DF6299122664FEFE00E6C55E /* UrlSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */; };
 		DF716E952B45CFE90004DCB6 /* SigningCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF716E942B45CFE90004DCB6 /* SigningCategoryViewController.swift */; };
 		DF716E972B45D0F10004DCB6 /* SivaCertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF716E962B45D0F10004DCB6 /* SivaCertViewController.swift */; };
@@ -551,8 +550,6 @@
 		DF588B052BB3074A00FCDC14 /* ProxySettingsUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxySettingsUtil.swift; sourceTree = "<group>"; };
 		DF5BE6D129C8AE5200331609 /* SignatureWarningsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureWarningsCell.swift; sourceTree = "<group>"; };
 		DF5BE6D329C8BD5600331609 /* WarningDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningDetail.swift; sourceTree = "<group>"; };
-		DF61BAB72B6D078F00D919CE /* App_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = App_logo.png; path = MoppApp/Assets.xcassets/App_logo.imageset/App_logo.png; sourceTree = "<group>"; };
-		DF61BAB92B6D080D00D919CE /* App_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = App_logo.png; path = MoppApp/App_logo.png; sourceTree = "<group>"; };
 		DF6299112664FEFE00E6C55E /* UrlSchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSchemeHandler.swift; sourceTree = "<group>"; };
 		DF716E942B45CFE90004DCB6 /* SigningCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningCategoryViewController.swift; sourceTree = "<group>"; };
 		DF716E962B45D0F10004DCB6 /* SivaCertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SivaCertViewController.swift; sourceTree = "<group>"; };
@@ -1118,8 +1115,6 @@
 			isa = PBXGroup;
 			children = (
 				DFB1D5EA2ACAFE1B00FDC7B8 /* GoogleService-Info.plist */,
-				DF61BAB72B6D078F00D919CE /* App_logo.png */,
-				DF61BAB92B6D080D00D919CE /* App_logo.png */,
 				DFF3C3B92332355C0079458A /* config.json */,
 				DFF3C3BB2332355D0079458A /* defaultConfiguration.json */,
 				DFF3C3B82332355C0079458A /* publicKey.pub */,
@@ -1463,7 +1458,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF61BABA2B6D080D00D919CE /* App_logo.png in Resources */,
 				39CDA7EA20ADBCEC006E2E9F /* Crypto.storyboard in Resources */,
 				E4C53F381E2FAE6C00F209BE /* presentation.pdf in Resources */,
 				C50DCCED1FC5741900D48E16 /* RobotoCondensed-Bold.ttf in Resources */,
