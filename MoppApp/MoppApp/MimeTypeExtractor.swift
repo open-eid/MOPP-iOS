@@ -216,7 +216,10 @@ class MimeTypeExtractor {
     
     private static func isDdoc(url: URL) -> Bool {
         do {
-            let fileData = try Data(contentsOf: FileUtil.getValidPath(url: url)!)
+            guard let validUrl = FileUtil.getValidPath(url: url) else {
+                return false
+            }
+            let fileData = try Data(contentsOf: validUrl)
             guard !fileData.isEmpty else {
                 return false
             }
@@ -240,7 +243,10 @@ class MimeTypeExtractor {
     
     private static func isCdoc(url: URL) -> Bool {
         do {
-            let fileData = try Data(contentsOf: FileUtil.getValidPath(url: url)!)
+            guard let validUrl = FileUtil.getValidPath(url: url) else {
+                return false
+            }
+            let fileData = try Data(contentsOf: validUrl)
             guard !fileData.isEmpty else {
                 return false
             }
