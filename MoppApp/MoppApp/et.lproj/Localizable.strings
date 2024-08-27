@@ -285,8 +285,8 @@
 "card-reader-state-initial" = "Ühenda kaardilugeja nutiseadmega ja sisesta ID-kaart lugejasse.";
 "pin2-textfield-label" = "Sisesta PIN2";
 "pin1-textfield-label" = "Sisesta PIN1";
-"pin2-blocked-alert" = "PIN2 on lukus. PIN-koodi saab lukust avada Minu eID lehel.";
-"pin1-blocked-alert" = "PIN1 on lukus. PIN-koodi saab lukust avada Minu eID lehel.";
+"pin2-blocked-alert" = "PIN2 on blokeeritud";
+"pin1-blocked-alert" = "PIN1 on blokeeritud";
 "generic-error-message" = "Midagi läks valesti. Palun proovi uuesti.";
 "decryption-error-message" = "Midagi läks dekrüpteerimisel valesti. Palun proovi uuesti.";
 "signing-error-too-many-requests" = "Sinu %@ tasuta allkirjade kuulimiit on ületatud. https://www.id.ee/artikkel/asutustele-kus-allkirjastatakse-digidoc4-kliendi-kaudu-suuremates-kogustes-dokumente/";

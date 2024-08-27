@@ -289,8 +289,8 @@
 "wrong-pin1-single" = "Wrong PIN1. You have 1 attempt left until your PIN1 is blocked.";
 "pin2-textfield-label" = "Enter PIN2";
 "pin1-textfield-label" = "Enter PIN1";
-"pin2-blocked-alert" = "PIN2 blocked. The PIN code can be unlocked on the My eID page.";
-"pin1-blocked-alert" = "PIN1 blocked. The PIN code can be unlocked on the My eID page.";
+"pin2-blocked-alert" = "PIN2 has been blocked";
+"pin1-blocked-alert" = "PIN1 has been blocked";
 "generic-error-message" = "Something went wrong. Please try again.";
 "decryption-error-message" = "Something went wrong with decryption. Please try again.";
 "signing-aborted-message" = "Signing process aborted";
