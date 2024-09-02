@@ -77,13 +77,12 @@ struct EncryptedDataUtil {
     }
     
     static func decryptSecret(_ data: Data, with symmetricKey: SymmetricKey) -> String? {
-        guard let sealedBox = try? ChaChaPoly.SealedBox(combined: data) else { return nil }
-        
         do {
+            let sealedBox = try ChaChaPoly.SealedBox(combined: data)
             let decryptedData = try ChaChaPoly.open(sealedBox, using: symmetricKey)
             return String(data: decryptedData, encoding: .utf8)
         } catch {
-            printLog("Unable to decrypt secret: \(error.localizedDescription)")
+            printLog("Unable to decrypt encrypted secret: \(error.localizedDescription)")
             return nil
         }
     }
