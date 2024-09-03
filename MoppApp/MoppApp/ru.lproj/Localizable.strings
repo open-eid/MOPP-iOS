@@ -243,9 +243,9 @@
 "nfc-sign-doc" = "Подписать документ";
 "nfc-sign-done" = "Подпись добавлена";
 "nfc-auth-failed" = "Идентификация личности по карте не удалась";
-"nfc-sign-failed" = "Failed to sign document with ID-card";
+"nfc-sign-failed" = "Не удалось подписать контейнер";
 "nfc-pin-locked" = "Locked PIN";
-"nfc-cert-parse-failed" = "Certificate parsing failed";
+"nfc-cert-parse-failed" = "Ошибка при анализе сертификата";
 "nfc-cert-expired" = "Сертификат с истекшим сроком действия не может быть использован для подписи";
 "role-and-address" = "Роль и адрес";
 "role-and-address-title" = "Введите свою роль и адрес";

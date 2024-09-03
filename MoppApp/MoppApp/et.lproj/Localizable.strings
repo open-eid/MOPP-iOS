@@ -243,9 +243,9 @@
 "nfc-sign-doc" = "Allkirjasta dokument";
 "nfc-sign-done" = "Allkiri lisatud";
 "nfc-auth-failed" = "Isikutuvastus ID-kaardiga ebaõnnestus";
-"nfc-sign-failed" = "Failed to sign document with ID-card";
+"nfc-sign-failed" = "Ümbriku allkirjastamine ebaõnnestus";
 "nfc-pin-locked" = "Locked PIN";
-"nfc-cert-parse-failed" = "Certificate parsing failed";
+"nfc-cert-parse-failed" = "Viga sertifikaadi parsimisel";
 "nfc-cert-expired" = "Aegunud sertifikaati ei saa kasutada allkirjastamiseks";
 "role-and-address" = "Roll ja aadress";
 "role-and-address-title" = "Sisesta oma roll ja aadress";
