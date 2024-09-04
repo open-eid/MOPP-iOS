@@ -27,17 +27,32 @@ import Security
 class KeychainUtil {
     static func save(key: String, info: Data, withPasscodeSetOnly: Bool = false) -> Bool {
         guard let bundleIdentifier = Bundle.main.bundleIdentifier else { return false }
+
         let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,
             kSecAttrService: bundleIdentifier,
             kSecAttrAccount: "\(bundleIdentifier).\(key)",
+        ]
+            
+        let attributes: [CFString: Any] = [
             kSecValueData: info,
             kSecAttrAccessible: withPasscodeSetOnly ? kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly : kSecAttrAccessibleWhenUnlockedThisDeviceOnly
         ]
-        SecItemDelete(query as CFDictionary)
-        let status = SecItemAdd(query as CFDictionary, nil)
+        
+        let status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
 
-        return status == errSecSuccess
+        if status == errSecSuccess {
+            return true
+        } else if status == errSecItemNotFound {
+            // Item does not exist yet, add it
+            let queryWithAttributes = query.merging(attributes) { (_, new) in new }
+            
+            let addStatus = SecItemAdd(queryWithAttributes as CFDictionary, nil)
+            return addStatus == errSecSuccess
+        } else {
+            printLog("Unable to save \(key): \(status)")
+            return false
+        }
     }
 
     static func retrieve(key: String) -> Data? {
