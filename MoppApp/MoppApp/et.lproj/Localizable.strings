@@ -247,6 +247,8 @@
 "nfc-pin-locked" = "Locked PIN";
 "nfc-cert-parse-failed" = "Viga sertifikaadi parsimisel";
 "nfc-cert-expired" = "Aegunud sertifikaati ei saa kasutada allkirjastamiseks";
+"nfc-wrong-pin2" = "Vale PIN2. Katseid jäänud: %d";
+"nfc-wrong-pin1" = "Vale PIN1. Katseid jäänud: %d";
 "role-and-address" = "Roll ja aadress";
 "role-and-address-title" = "Sisesta oma roll ja aadress";
 "role-and-address-role-title" = "Roll / resolutsioon";

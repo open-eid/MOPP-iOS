@@ -183,6 +183,8 @@ enum LocKey : String
     case nfcPinLocked = "nfc-pin-locked"
     case nfcCertParseFailed = "nfc-cert-parse-failed"
     case nfcCertExpired = "nfc-cert-expired"
+    case nfcWrongPin1 = "nfc-wrong-pin1"
+    case nfcWrongPin2 = "nfc-wrong-pin2"
     case containerSignTitle = "container-sign-title"
     case containerEncryptionTitle = "container-encryption-title"
     case containerDecryptionTitle = "container-decryption-title"

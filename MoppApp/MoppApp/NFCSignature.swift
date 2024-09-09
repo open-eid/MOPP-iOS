@@ -188,7 +188,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                 switch error.attemptsLeft {
                 case 0: setSessionMessage(L(.pin2BlockedAlert), invalidate: true)
                 case 1: setSessionMessage(L(.wrongPin2Single), invalidate: true)
-                default: setSessionMessage(L(.wrongPin2, [error.attemptsLeft]), invalidate: true)
+                default: setSessionMessage(L(.nfcWrongPin2, [error.attemptsLeft]), invalidate: true)
                 }
             } catch let error as RuntimeError {
                 printLog("\nRIA.NFC - RuntimeError \(error.msg)")
