@@ -246,6 +246,10 @@
 "nfc-auth-failed" = "Failed to authenticate with ID-card";
 "nfc-sign-failed" = "Failed to sign document with ID-card";
 "nfc-pin-locked" = "PIN2 has been blocked";
+"nfc-cert-parse-failed" = "Certificate parsing failed";
+"nfc-cert-expired" = "An expired certificate cannot be used for signing";
+"nfc-wrong-pin2" = "Wrong PIN2. Remaining attempts: %d";
+"nfc-wrong-pin1" = "Wrong PIN1. Remaining attempts: %d";
 "role-and-address" = "Role and address";
 "role-and-address-title" = "Enter your role and address info";
 "role-and-address-role-title" = "Role / resolution";

@@ -1439,7 +1439,7 @@
                                                 <color key="textColor" red="0.45882352939999999" green="0.47058823529999999" blue="0.4823529412" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nLi-7a-MsG" customClass="MyTextField" customModule="MoppApp" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="nLi-7a-MsG" customClass="MyTextField" customModule="MoppApp" customModuleProvider="target">
                                                 <rect key="frame" x="25" y="100.5" width="293" height="46"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="nfcCanField"/>
