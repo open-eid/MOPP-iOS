@@ -230,11 +230,13 @@
 "smart-id-country-latvia" = "Latvia";
 "smart-id-challenge-title" = "Sign with Smart-ID";
 "smart-id-sign-help-title" = "Make sure control code matches with one in phone screen and enter Smart-ID PIN2 code";
-"nfc-title" = "Enter your ID-card access number and PIN2 code to sign with ID-card";
-"nfc-can-title" = "ID-card access number";
-"nfc-device-no-support" = "This device does not support NFC.";
+"nfc-title" = "Enter your ID-card access number (CAN) and PIN2 code to sign with ID-card";
+"nfc-can-title" = "ID-card access number (CAN)";
+"nfc-device-no-support" = "This device does not support contactless connection or NFC is turned off.";
+"nfc-can-location" = "The 6-digit number is located under the document photo";
+"nfc-incorrect-length" = "CAN-code must be 6 digits long";
 "nfc-hold-near" = "Hold your phone near the ID-card";
-"nfc-multiple-cards" = "More than 1 NFC tag is detected, please remove all NFC tags and try again";
+"nfc-multiple-cards" = "More than 1 NFC tag is detected. Please remove all NFC tags and try again.";
 "nfc-invalid-tag" = "Invalid NFC tag";
 "nfc-unable-connect" = "Unable to connect to NFC tag";
 "nfc-auth" = "Authenticating with ID-card";
@@ -243,7 +245,7 @@
 "nfc-sign-done" = "Signing done";
 "nfc-auth-failed" = "Failed to authenticate with ID-card";
 "nfc-sign-failed" = "Failed to sign document with ID-card";
-"nfc-pin-locked" = "Locked PIN";
+"nfc-pin-locked" = "PIN2 has been blocked";
 "nfc-cert-parse-failed" = "Certificate parsing failed";
 "nfc-cert-expired" = "An expired certificate cannot be used for signing";
 "nfc-wrong-pin2" = "Wrong PIN2. Remaining attempts: %d";
@@ -293,8 +295,8 @@
 "wrong-pin1-single" = "Wrong PIN1. You have 1 attempt left until your PIN1 is blocked.";
 "pin2-textfield-label" = "Enter PIN2";
 "pin1-textfield-label" = "Enter PIN1";
-"pin2-blocked-alert" = "PIN2 blocked. The PIN code can be unlocked on the My eID page.";
-"pin1-blocked-alert" = "PIN1 blocked. The PIN code can be unlocked on the My eID page.";
+"pin2-blocked-alert" = "PIN2 has been blocked";
+"pin1-blocked-alert" = "PIN1 has been blocked";
 "generic-error-message" = "Something went wrong. Please try again.";
 "decryption-error-message" = "Something went wrong with decryption. Please try again.";
 "signing-aborted-message" = "Signing process aborted";
