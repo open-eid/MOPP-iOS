@@ -119,7 +119,11 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
 
     @objc func editingChanged(sender: UITextField) {
         let count = (sender.text?.count ?? 0)
-        actionButton.isEnabled = count >= 4 && count <= 6
+        if self.isActionDecryption {
+            actionButton.isEnabled = count >= 4 && count <= 12
+        } else {
+            actionButton.isEnabled = count >= 5 && count <= 12
+        }
         if !actionButton.isEnabled {
             actionButton.backgroundColor = UIColor.moppBackgroundDark
         }

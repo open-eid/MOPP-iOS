@@ -3,7 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1418,7 +1418,7 @@
                                 <rect key="frame" x="0.0" y="20" width="343" height="390"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mnI-M7-BHK">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="385.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="393.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Enter your card CAN and PIN2 to sign with ID-card" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjC-XY-qFD" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                 <rect key="frame" x="32" y="16" width="279" height="44.5"/>
@@ -1458,11 +1458,11 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invalid card access number" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afX-4g-ZPX" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                 <rect key="frame" x="25" y="154.5" width="293" height="15.5"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
-                                                <color key="textColor" name="MoppError"/>
+                                                <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter PIN2" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MZs-mQ-MWX" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                <rect key="frame" x="25" y="186" width="293" height="15.5"/>
+                                                <rect key="frame" x="25" y="194" width="293" height="15.5"/>
                                                 <accessibility key="accessibilityConfiguration">
                                                     <bool key="isElement" value="NO"/>
                                                 </accessibility>
@@ -1471,7 +1471,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DQo-E7-fVV" customClass="MyTextField" customModule="MoppApp" customModuleProvider="target">
-                                                <rect key="frame" x="25" y="209" width="293" height="46"/>
+                                                <rect key="frame" x="25" y="217" width="293" height="46"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="nfcPinField"/>
                                                 <constraints>
@@ -1490,13 +1490,13 @@
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invalid PIN code" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6h2-T5-xe7" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                <rect key="frame" x="25" y="263" width="293" height="15.5"/>
+                                                <rect key="frame" x="25" y="271" width="293" height="15.5"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
                                                 <color key="textColor" name="MoppError"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="0hb-jd-IP1">
-                                                <rect key="frame" x="25" y="303.5" width="293" height="32"/>
+                                                <rect key="frame" x="25" y="311.5" width="293" height="32"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ydU-Wj-AnM" customClass="ScaledButton" customModule="MoppApp" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="144" height="32"/>
@@ -1547,7 +1547,7 @@
                                             <constraint firstAttribute="trailing" secondItem="MZs-mQ-MWX" secondAttribute="trailing" constant="25" id="LX2-yJ-ISj"/>
                                             <constraint firstItem="DQo-E7-fVV" firstAttribute="top" secondItem="MZs-mQ-MWX" secondAttribute="bottom" constant="7.5" id="M4i-Tu-clC"/>
                                             <constraint firstAttribute="trailing" secondItem="6h2-T5-xe7" secondAttribute="trailing" constant="25" id="Moo-iA-C8z"/>
-                                            <constraint firstItem="MZs-mQ-MWX" firstAttribute="top" secondItem="afX-4g-ZPX" secondAttribute="bottom" constant="16" id="NTa-4U-NtB"/>
+                                            <constraint firstItem="MZs-mQ-MWX" firstAttribute="top" secondItem="afX-4g-ZPX" secondAttribute="bottom" constant="24" id="NTa-4U-NtB"/>
                                             <constraint firstItem="rjC-XY-qFD" firstAttribute="leading" secondItem="mnI-M7-BHK" secondAttribute="leading" constant="32" id="RDz-al-lt6"/>
                                             <constraint firstAttribute="trailing" secondItem="rjC-XY-qFD" secondAttribute="trailing" constant="32" id="aUN-rk-ffR"/>
                                             <constraint firstAttribute="trailing" secondItem="pCt-vy-MdB" secondAttribute="trailing" constant="25" id="cQD-Ql-OdU"/>
@@ -1598,8 +1598,8 @@
                     </view>
                     <size key="freeformSize" width="343" height="410"/>
                     <connections>
-                        <outlet property="canTextErrorLabel" destination="afX-4g-ZPX" id="HPg-94-4te"/>
                         <outlet property="canTextField" destination="nLi-7a-MsG" id="QVm-Z8-jGl"/>
+                        <outlet property="canTextInfoLabel" destination="afX-4g-ZPX" id="WjX-bQ-759"/>
                         <outlet property="canTextLabel" destination="pCt-vy-MdB" id="x05-tb-OSS"/>
                         <outlet property="cancelButton" destination="ydU-Wj-AnM" id="FZv-2h-1mi"/>
                         <outlet property="pinTextErrorLabel" destination="6h2-T5-xe7" id="1Jb-wb-A6j"/>

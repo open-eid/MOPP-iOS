@@ -83,6 +83,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
     var ksEnc: Bytes?
     var ksMac: Bytes?
     var SSC: Bytes?
+    var invalidateWithError: Bool = false
 
     func createNFCSignature(can: String, pin: String, containerPath: String, hashType: String, roleData: MoppLibRoleAddressData?) -> Void {
         guard NFCTagReaderSession.readingAvailable else {
@@ -92,6 +93,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
         CAN = can
         PIN = pin
         self.containerPath = containerPath
+        invalidateWithError = false
         session = NFCTagReaderSession(pollingOption: .iso14443, delegate: self)
         session?.alertMessage = L(.nfcHoldNear)
         session?.begin()
@@ -107,6 +109,8 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
 
     func tagReaderSession(_ session: NFCTagReaderSession, didDetect tags: [NFCTag]) {
         @Sendable func setSessionMessage(_ msg: String, invalidate: Bool = false) -> Void {
+            invalidateWithError = invalidate
+
             if invalidate {
                 session.invalidate(errorMessage: msg)
             } else {
@@ -214,7 +218,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                 switch attemptsLeft {
                 case 0: setSessionMessage(L(.pin2BlockedAlert), invalidate: true)
                 case 1: setSessionMessage(L(.wrongPin2Single), invalidate: true)
-                default: setSessionMessage(L(.wrongPin2, [attemptsLeft]), invalidate: true)
+                default: setSessionMessage(L(.nfcWrongPin2, [attemptsLeft]), invalidate: true)
                 }
             } catch NFCError.error(let msg) {
                 printLog("\nRIA.NFC - error \(msg)")
@@ -230,11 +234,13 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
     }
 
     func tagReaderSession(_ session: NFCTagReaderSession, didInvalidateWithError error: Error) {
-        if let readerError = error as? NFCReaderError,
-           readerError.code == .readerSessionInvalidationErrorUserCanceled {
-            CancelUtil.handleCancelledRequest(errorMessageDetails: "User cancelled NFC signing")
-        } else {
-            CancelUtil.handleCancelledRequest(errorMessageDetails: "Session Invalidated")
+        if !invalidateWithError {
+            if let readerError = error as? NFCReaderError,
+               readerError.code == .readerSessionInvalidationErrorUserCanceled {
+                CancelUtil.handleCancelledRequest(errorMessageDetails: "User cancelled NFC signing")
+            } else {
+                CancelUtil.handleCancelledRequest(errorMessageDetails: "Session Invalidated")
+            }
         }
         self.session = nil
     }

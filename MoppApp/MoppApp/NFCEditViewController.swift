@@ -35,7 +35,7 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var canTextLabel: UILabel!
     @IBOutlet weak var pinTextLabel: UILabel!
-    @IBOutlet weak var canTextErrorLabel: UILabel!
+    @IBOutlet weak var canTextInfoLabel: ScaledLabel!
     @IBOutlet weak var pinTextErrorLabel: UILabel!
     @IBOutlet weak var cancelButton: MoppButton!
     @IBOutlet weak var signButton: MoppButton!
@@ -56,8 +56,8 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
         pinTextLabel.text = L(.pin2TextfieldLabel)
         pinTextLabel.isHidden = notAvailable
 
-        canTextErrorLabel.text = ""
-        canTextErrorLabel.isHidden = true
+        setCANDefaultText()
+
         pinTextErrorLabel.text = ""
         pinTextErrorLabel.isHidden = true
         
@@ -83,6 +83,20 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
         tapGR = UITapGestureRecognizer()
         tapGR.addTarget(self, action: #selector(cancelAction))
         view.addGestureRecognizer(tapGR)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let canNumber = canTextField.text {
+            if !canNumber.isEmpty && canNumber.count != 6 {
+                setCANErrorText()
+            } else {
+                setCANDefaultText()
+            }
+        } else {
+            setCANDefaultText()
+        }
     }
 
     @objc func dismissKeyboard(_ notification: NSNotification) {
@@ -196,6 +210,18 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
     override func keyboardWillHide(notification: NSNotification) {
         hideKeyboard(scrollView: scrollView)
     }
+    
+    func setCANDefaultText() {
+        canTextInfoLabel.text = L(.nfcCanLocation)
+        canTextInfoLabel.isHidden = false
+        canTextInfoLabel.textColor = UIColor.moppText
+    }
+    
+    func setCANErrorText() {
+        canTextInfoLabel.text = L(.nfcIncorrectLength)
+        canTextInfoLabel.isHidden = false
+        canTextInfoLabel.textColor = UIColor.moppError
+    }
 }
 
 extension NFCEditViewController : UITextFieldDelegate {
@@ -226,12 +252,17 @@ extension NFCEditViewController : UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.accessibilityIdentifier == "nfcCanField" {
             if let can = textField.text {
+                if !can.isEmpty && can.count != 6 {
+                    setCANErrorText()
+                } else {
+                    setCANDefaultText()
+                }
                 do {
                     let symKey = try EncryptedDataUtil.getSymmetricKey(fileName: NFCEditViewController.nfcCANKeyFilename)
                     if let encryptedKey = EncryptedDataUtil.encryptSecret(can, with: symKey) {
                         _ = KeychainUtil.save(key: NFCEditViewController.nfcCANKey, info: encryptedKey, withPasscodeSetOnly: true)
                     } else {
-                        printLog("Encryption failed for 'can' string")
+                        printLog("Encryption failed for 'CAN' string")
                     }
                 } catch {
                     do {
@@ -249,8 +280,7 @@ extension NFCEditViewController : UITextFieldDelegate {
                 }
             } else {
                 KeychainUtil.remove(key: NFCEditViewController.nfcCANKey)
-                canTextErrorLabel.text = ""
-                canTextErrorLabel.isHidden = true
+                setCANDefaultText()
                 removeViewBorder(view: textField)
                 UIAccessibility.post(notification: .layoutChanged, argument: canTextField)
             }

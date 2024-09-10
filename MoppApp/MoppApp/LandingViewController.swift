@@ -135,7 +135,6 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
         presentButtons([.signTab, .cryptoTab, .myeIDTab])
         selectTabButton(.signTab)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveErrorNotification), name: .errorNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveStartImportingFilesWithDocumentPickerNotification), name: .startImportingFilesWithDocumentPickerNotificationName, object: nil)
         LandingViewController.onDataFileAddedAccessibility = {
             NotificationCenter.default.addObserver(
@@ -226,23 +225,6 @@ class LandingViewController : UIViewController, NativeShare, ContainerActions
         let image: UIImage? = selectedImage?.applyingAlpha(UIColor.moppUnselectedTabBarItemAlpha).withRenderingMode(.alwaysOriginal)
         controller.tabBarItem.image = image
         controller.tabBarItem.selectedImage = selectedImage
-    }
-
-    @objc func receiveErrorNotification(_ notification: Notification) {
-        guard let userInfo = notification.userInfo else { return }
-        let error = userInfo[kErrorKey] as? NSError
-        var errorMessage = error?.userInfo[NSLocalizedDescriptionKey] as? String ??
-            userInfo[kErrorMessage] as? String
-        guard let strongErrorMessage = errorMessage else { return }
-        errorMessage = MoppLib_LocalizedString(strongErrorMessage)
-        let alert = UIAlertController(
-            title: L(.errorAlertTitleGeneral),
-            message: errorMessage,
-            preferredStyle: .alert)
-        
-        presentedViewController?.dismiss(animated: false, completion: nil)
-        alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
-        present(alert, animated: true)
     }
     
     @objc func receiveStartImportingFilesWithDocumentPickerNotification(_ notification: Notification) {
