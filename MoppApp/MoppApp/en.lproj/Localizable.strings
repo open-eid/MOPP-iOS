@@ -233,6 +233,8 @@
 "nfc-title" = "Enter your ID-card access number (CAN) and PIN2 code to sign with ID-card";
 "nfc-can-title" = "ID-card access number (CAN)";
 "nfc-device-no-support" = "This device does not support contactless connection or NFC is turned off.";
+"nfc-can-location" = "The 6-digit number is located under the document photo";
+"nfc-incorrect-length" = "CAN-code must be 6 digits long";
 "nfc-hold-near" = "Hold your phone near the ID-card";
 "nfc-multiple-cards" = "More than 1 NFC tag is detected. Please remove all NFC tags and try again.";
 "nfc-invalid-tag" = "Invalid NFC tag";

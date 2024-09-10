@@ -169,6 +169,8 @@ enum LocKey : String
     case nfcTitle = "nfc-title"
     case nfcCANTitle = "nfc-can-title"
     case nfcDeviceNoSupport = "nfc-device-no-support"
+    case nfcCanLocation = "nfc-can-location"
+    case nfcIncorrectLength = "nfc-incorrect-length"
     case nfcHoldNear = "nfc-hold-near"
     case nfcMultipleCards = "nfc-multiple-cards"
     case nfcInvalidTag = "nfc-invalid-tag"

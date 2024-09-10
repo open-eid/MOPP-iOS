@@ -234,8 +234,10 @@
 "nfc-title" = "ID-kaardiga allkirjastamiseks sisesta oma ID-kaardi ligipääsu number (CAN) ja PIN2 kood";
 "nfc-can-title" = "ID-kaardi ligipääsu number (CAN)";
 "nfc-device-no-support" = "See seade ei toeta kontaktivaba ühendust või NFC on välja lülitatud.";
+"nfc-can-location" = "6-kohaline number asub dokumendil foto all";
+"nfc-incorrect-length" = "Ligipääsu number (CAN) peab olema 6-kohaline";
 "nfc-hold-near" = "Hoia ID-kaarti telefoni lähedal";
-"nfc-multiple-cards" = "Tuvastatud on rohkem kui üks NFC-element. Eemalda kõik NFC-elemendiga esemed  ja proovi uuesti.";
+"nfc-multiple-cards" = "Tuvastatud on rohkem kui üks NFC-element. Eemalda kõik NFC-elemendiga esemed ja proovi uuesti.";
 "nfc-invalid-tag" = "Kehtetu NFC-element";
 "nfc-unable-connect" = "Kontaktivaba ühendust ei saa luua";
 "nfc-auth" = "ID-kaardiga kontaktivaba ühenduse loomine";
