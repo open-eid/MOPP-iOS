@@ -57,6 +57,9 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
         pinTextLabel.isHidden = notAvailable
 
         setCANDefaultText()
+        
+        canTextInfoLabel.isHidden = notAvailable
+        canTextInfoLabel.isHidden = notAvailable
 
         pinTextErrorLabel.text = ""
         pinTextErrorLabel.isHidden = true
@@ -213,13 +216,11 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
     
     func setCANDefaultText() {
         canTextInfoLabel.text = L(.nfcCanLocation)
-        canTextInfoLabel.isHidden = false
         canTextInfoLabel.textColor = UIColor.moppText
     }
     
     func setCANErrorText() {
         canTextInfoLabel.text = L(.nfcIncorrectLength)
-        canTextInfoLabel.isHidden = false
         canTextInfoLabel.textColor = UIColor.moppError
     }
 }
