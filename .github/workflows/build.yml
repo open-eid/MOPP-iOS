@@ -25,29 +25,32 @@ jobs:
       with:
         submodules: recursive
     - name: Download Libdigidocpp iOS artifact
-      uses: dawidd6/action-download-artifact@v2
+      uses: dawidd6/action-download-artifact@v6
       with:
         workflow: build.yml
         branch: master
-        name: ios
+        name: iphoneos
         path: libdigidocpp-ios
         repo: open-eid/libdigidocpp
     - name: Download Libdigidocpp iOS Simulator artifact
-      uses: dawidd6/action-download-artifact@v2
+      uses: dawidd6/action-download-artifact@v6
       with:
         workflow: build.yml
         branch: master
-        name: iossimulator
+        name: iphonesimulator
         path: libdigidocpp-ios-simulator
         repo: open-eid/libdigidocpp
     - name: Extract libdigidocpp artifacts
       run: |
-        unzip -o libdigidocpp-ios/libdigidocpp.ios.zip -d libdigidocpp.ios
-        unzip -o libdigidocpp-ios-simulator/libdigidocpp.iossimulator.zip -d libdigidocpp.iphonesimulator
+        ls -laht libdigidocpp-ios
+        ls -laht libdigidocpp-ios-simulator
+        unzip -o libdigidocpp-ios/libdigidocpp.iphoneos.zip -d libdigidocpp.iphoneos
+        unzip -o libdigidocpp-ios-simulator/libdigidocpp.iphonesimulator.zip -d libdigidocpp.iphonesimulator
+        ls -laht
     - name: Update libdigidocpp in project
       run: |
           export LIBDIGIDOCPP_PATH=${{ github.workspace }}/MoppLib/MoppLib/libdigidocpp
-          rm -rf $LIBDIGIDOCPP_PATH/libdigidocpp.iphoneos && mkdir $LIBDIGIDOCPP_PATH/libdigidocpp.iphoneos && cp -r ${{ github.workspace }}/libdigidocpp.ios/libdigidocpp.iphoneos/ $LIBDIGIDOCPP_PATH/libdigidocpp.iphoneos/
+          rm -rf $LIBDIGIDOCPP_PATH/libdigidocpp.iphoneos && mkdir $LIBDIGIDOCPP_PATH/libdigidocpp.iphoneos && cp -r ${{ github.workspace }}/libdigidocpp.iphoneos/libdigidocpp.iphoneos/ $LIBDIGIDOCPP_PATH/libdigidocpp.iphoneos/
           rm -rf $LIBDIGIDOCPP_PATH/libdigidocpp.iphonesimulator && mkdir $LIBDIGIDOCPP_PATH/libdigidocpp.iphonesimulator && cp -r ${{ github.workspace }}/libdigidocpp.iphonesimulator/libdigidocpp.iphonesimulator/* $LIBDIGIDOCPP_PATH/libdigidocpp.iphonesimulator/
     - name: Install the Apple certificate and provisioning profiles
       env:
@@ -93,6 +96,11 @@ jobs:
         echo -n "$GOOGLE_SERVICES_PLIST" | base64 --decode --output "GoogleService-Info.plist"
         
         echo "APP_VERSION=$('/usr/bin/xcodebuild' -showBuildSettings | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION =')" >> $GITHUB_ENV
+    - name: Set up Homebrew
+      id: set-up-homebrew
+      uses: Homebrew/actions/setup-homebrew@master
+    - name: Install Swift-sh
+      run: brew install swift-sh
     - name: Build and Archive
       env:
         APP_PROVISIONING_PROFILE_UUID: ${{ secrets.APP_PROVISIONING_PROFILE_UUID }}
@@ -112,7 +120,7 @@ jobs:
         # Change .ipa name
         mv ${{ github.workspace }}/MoppApp/build/MoppApp.ipa ${{ github.workspace }}/MoppApp/build/RIA_DigiDoc_${{ env.APP_VERSION }}.${{ env.BUILD_NUMBER }}.ipa
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       if: success()
       with:
         name: "RIA_DigiDoc_${{ env.APP_VERSION }}.${{ env.BUILD_NUMBER }}"
