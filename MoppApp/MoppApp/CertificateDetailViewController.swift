@@ -82,6 +82,7 @@ class CertificateDetailViewController: MoppViewController {
 
     @objc internal override func backAction() {
         dismiss(animated: true)
+        _ = navigationController?.popViewController(animated: true)
     }
 
     func setCertificateDetails() -> Void {
