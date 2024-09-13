@@ -99,12 +99,17 @@ struct FileUtil {
             // Check if file is opened externally (outside of application)
             if let appGroupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ee.ria.digidoc.ios") {
                 let resolvedAppGroupURL = appGroupURL.resolvingSymlinksInPath()
-                let resolvedAppGroupPath = resolvedAppGroupURL.path
                 
                 let normalizedURL = FilePath(stringLiteral: currentURLPath).lexicallyNormalized()
                 
-                if normalizedURL.starts(with: FilePath(stringLiteral: resolvedAppGroupURL.deletingLastPathComponent().path)) && normalizedURL.string.contains("File Provider Storage") {
-                    return url
+                let resolvedAppGroupFilePath = FilePath(stringLiteral: resolvedAppGroupURL.deletingLastPathComponent().path)
+
+                if normalizedURL != nil && resolvedAppGroupFilePath != nil {
+                    let isFromAppGroup = normalizedURL.starts(with: resolvedAppGroupFilePath)
+                    
+                    if isFromAppGroup {
+                        return url
+                    }
                 }
             }
         }
