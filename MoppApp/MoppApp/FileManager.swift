@@ -36,6 +36,15 @@ class MoppFileManager {
         }
     }
     
+    static var documentsDirectory: URL {
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        if #available(iOS 16.0, *) {
+            return URL(filePath: paths.first ?? "")
+        } else {
+            return URL(fileURLWithPath: paths.first ?? "", isDirectory: true)
+        }
+    }
+    
     func logsDirectory() -> URL {
         return MoppFileManager.cacheDirectory.appendingPathComponent("logs")
     }
@@ -350,6 +359,25 @@ class MoppFileManager {
             return false
         }
         return true
+    }
+    
+    func moveContentsOfDirectory(from sourceURL: URL, to destinationURL: URL) throws {
+        if !fileManager.fileExists(atPath: destinationURL.path) {
+            try fileManager.createDirectory(at: destinationURL, withIntermediateDirectories: true, attributes: nil)
+        }
+
+        let files = try fileManager.contentsOfDirectory(atPath: sourceURL.path)
+        
+        for file in files {
+            let sourceItemURL = sourceURL.appendingPathComponent(file)
+            let destinationItemURL = destinationURL.appendingPathComponent(file)
+
+            if fileManager.fileExists(atPath: destinationItemURL.path) {
+                try fileManager.removeItem(at: destinationItemURL)
+            }
+
+            try fileManager.moveItem(at: sourceItemURL, to: destinationItemURL)
+        }
     }
     
     func renameFile(withPath sourcePath: URL, toPath destinationPath: URL) -> Bool {

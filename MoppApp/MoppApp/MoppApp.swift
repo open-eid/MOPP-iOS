@@ -148,6 +148,8 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         
             FileLogUtil.setupAppLogging()
 
+            moveRecentFilesToCacheFolder()
+
             // Get remote configuration
             SettingsConfiguration().getCentralConfiguration()
 
@@ -541,6 +543,15 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             return
         }
         topViewController.infoAlert(message: message, dismissCallback: nil)
+    }
+    
+    private func moveRecentFilesToCacheFolder() {
+        do {
+            try MoppFileManager.shared.moveContentsOfDirectory(from: MoppFileManager.documentsDirectory, to: MoppFileManager.cacheDirectory)
+        } catch (let error) {
+            printLog("Unable to copy files from Documents folder to Library/Cache folder: \(error.localizedDescription)")
+            return
+        }
     }
 }
 
