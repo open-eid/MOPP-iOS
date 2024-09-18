@@ -36,6 +36,15 @@ class MoppFileManager {
         }
     }
     
+    static var documentsDirectory: URL {
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        if #available(iOS 16.0, *) {
+            return URL(filePath: paths.first ?? "")
+        } else {
+            return URL(fileURLWithPath: paths.first ?? "", isDirectory: true)
+        }
+    }
+    
     func logsDirectory() -> URL {
         return MoppFileManager.cacheDirectory.appendingPathComponent("logs")
     }
@@ -353,6 +362,78 @@ class MoppFileManager {
             return false
         }
         return true
+    }
+    
+    func moveContentsOfDirectory(from sourceURL: URL, to destinationURL: URL) throws {
+        let fileManager = FileManager.default
+
+        if !fileManager.fileExists(atPath: destinationURL.path) {
+            try fileManager.createDirectory(at: destinationURL, withIntermediateDirectories: true, attributes: nil)
+        }
+        
+        let items = try fileManager.contentsOfDirectory(atPath: sourceURL.path)
+        
+        for item in items {
+            let sourceItemURL = sourceURL.appendingPathComponent(item)
+            let destinationItemURL = destinationURL.appendingPathComponent(item)
+            
+            sourceURL.startAccessingSecurityScopedResource()
+            destinationURL.startAccessingSecurityScopedResource()
+            
+            if item == "Inbox" {
+                printLog("Deleting contents from 'Inbox' folder")
+                try deleteContentsOfDirectory(at: sourceItemURL)
+                continue
+            }
+
+            var isDirectory: ObjCBool = false
+
+            if fileManager.fileExists(atPath: sourceItemURL.path, isDirectory: &isDirectory), isDirectory.boolValue {
+                do {
+                    try moveContentsOfDirectory(from: sourceItemURL, to: destinationItemURL)
+                } catch {
+                    printLog("Unable to copy directory contents \(sourceItemURL.lastPathComponent): \(error.localizedDescription)")
+                }
+
+                do {
+                    try fileManager.removeItem(at: sourceItemURL)
+                } catch {
+                    printLog("Unable to remove directory content \(sourceItemURL.lastPathComponent): \(error.localizedDescription)")
+                }
+            } else {
+                do {
+                    if fileManager.fileExists(atPath: destinationItemURL.path) {
+                        try fileManager.removeItem(at: destinationItemURL)
+                    }
+                    try fileManager.copyItem(at: sourceItemURL, to: destinationItemURL)
+                } catch {
+                    printLog("Unable to copy file \(sourceItemURL.lastPathComponent): \(error.localizedDescription)")
+                }
+
+                do {
+                    try fileManager.removeItem(at: sourceItemURL)
+                } catch {
+                    printLog("Unable to remove file \(sourceItemURL.lastPathComponent): \(error.localizedDescription)")
+                }
+            }
+            
+            sourceURL.stopAccessingSecurityScopedResource()
+            destinationURL.stopAccessingSecurityScopedResource()
+        }
+    }
+    
+    func deleteContentsOfDirectory(at directoryURL: URL) throws {
+        let items = try fileManager.contentsOfDirectory(atPath: directoryURL.path)
+        
+        for item in items {
+            let itemURL = directoryURL.appendingPathComponent(item)
+            do {
+                try fileManager.removeItem(at: itemURL)
+                printLog("Deleted \(item) from \(directoryURL.lastPathComponent)")
+            } catch {
+                printLog("Unable to delete \(item) from \(directoryURL.lastPathComponent): \(error.localizedDescription)")
+            }
+        }
     }
     
     func renameFile(withPath sourcePath: URL, toPath destinationPath: URL) -> Bool {
