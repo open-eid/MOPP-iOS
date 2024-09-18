@@ -319,10 +319,13 @@ class MoppFileManager {
     }
     
     func removeFilesFromSharedFolder() {
-        let sharedFiles = sharedDocumentPaths().compactMap { URL(fileURLWithPath: $0) }
-        
-        for sharedFile: URL in sharedFiles {
-            removeFile(withPath: sharedFile.path)
+        let sharedDocumentsPaths = sharedDocumentPaths()
+        if sharedDocumentsPaths != nil {
+            let sharedFiles = sharedDocumentsPaths.compactMap { URL(fileURLWithPath: $0) }
+            
+            for sharedFile: URL in sharedFiles {
+                removeFile(withPath: sharedFile.path)
+            }
         }
     }
 
@@ -496,6 +499,5 @@ class MoppFileManager {
         MoppFileManager.shared.removeTempSavedFilesInCache(folderName: "Saved Files")
         MoppFileManager.shared.removeTempSavedFilesInCache(folderName: "Downloads")
         MoppFileManager.shared.removeTempSavedFilesInCache(folderName: "temp")
-        MoppFileManager.shared.removeFilesFromSharedFolder()
     }
 }

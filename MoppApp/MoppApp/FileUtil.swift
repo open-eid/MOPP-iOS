@@ -99,16 +99,92 @@ struct FileUtil {
             // Check if file is opened externally (outside of application)
             if let appGroupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ee.ria.digidoc.ios") {
                 let resolvedAppGroupURL = appGroupURL.resolvingSymlinksInPath()
-                let resolvedAppGroupPath = resolvedAppGroupURL.path
                 
                 let normalizedURL = FilePath(stringLiteral: currentURLPath).lexicallyNormalized()
                 
-                if normalizedURL.starts(with: FilePath(stringLiteral: resolvedAppGroupURL.deletingLastPathComponent().path)) && normalizedURL.string.contains("File Provider Storage") {
-                    return url
+                let resolvedAppGroupFilePath = FilePath(stringLiteral: resolvedAppGroupURL.deletingLastPathComponent().path)
+
+                if normalizedURL != nil && resolvedAppGroupFilePath != nil {
+                    let isFromAppGroup = normalizedURL.starts(with: resolvedAppGroupFilePath)
+                    
+                    if isFromAppGroup {
+                        return url
+                    }
                 }
             }
         }
         
+        // Check if file is opened from iCloud
+        if isFileFromiCloud(fileURL: currentURL) {
+            if !isFileDownloadedFromiCloud(fileURL: currentURL) {
+                printLog("File '\(currentURL.lastPathComponent)' from iCloud is not downloaded. Downloading...")
+                
+                var fileLocationURL: URL? = nil
+
+                downloadFileFromiCloud(fileURL: currentURL) { downloadedFileUrl in
+                    if let fileUrl = downloadedFileUrl {
+                        printLog("File '\(currentURL.lastPathComponent)' downloaded from iCloud")
+                        fileLocationURL = fileUrl
+                    } else {
+                        printLog("Unable to download file '\(currentURL.lastPathComponent)' from iCloud")
+                        return
+                    }
+                }
+                return fileLocationURL
+            } else {
+                printLog("File '\(currentURL.lastPathComponent)' from iCloud is already downloaded")
+                return url
+            }
+        }
+        
         return nil
+    }
+
+    static func isFileFromiCloud(fileURL: URL) -> Bool {
+        do {
+            let urlResourceValues = try fileURL.resourceValues(forKeys: [.isUbiquitousItemKey])
+
+            if let isUbiquitousItem = urlResourceValues.isUbiquitousItem, isUbiquitousItem {
+                return true
+            }
+        } catch {
+            printLog("Unable to check iCloud file '\(fileURL.lastPathComponent)' status: \(error.localizedDescription)")
+        }
+        
+        return false
+    }
+
+
+    static func isFileDownloadedFromiCloud(fileURL: URL) -> Bool {
+        do {
+            let values = try fileURL.resourceValues(forKeys: [.ubiquitousItemDownloadingStatusKey])
+
+            if let downloadingStatus = values.ubiquitousItemDownloadingStatus,
+               downloadingStatus == .current {
+                return true
+            }
+        } catch {
+            printLog("Unable to check iCloud file '\(fileURL.lastPathComponent)' download status: \(error.localizedDescription)")
+        }
+        
+        return false
+    }
+
+    static func downloadFileFromiCloud(fileURL: URL, completion: @escaping (URL?) -> Void) {
+        do {
+            try MoppFileManager.shared.fileManager.startDownloadingUbiquitousItem(at: fileURL)
+            printLog("Downloading file '\(fileURL.lastPathComponent)' from iCloud")
+
+            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
+                if isFileDownloadedFromiCloud(fileURL: fileURL) {
+                    printLog("iCloud file '\(fileURL.lastPathComponent)' downloaded")
+                    timer.invalidate()
+                    completion(fileURL)
+                }
+            }
+        } catch {
+            printLog("Unable to start iCloud file '\(fileURL.lastPathComponent)' download: \(error.localizedDescription)")
+            completion(nil)
+        }
     }
 }
