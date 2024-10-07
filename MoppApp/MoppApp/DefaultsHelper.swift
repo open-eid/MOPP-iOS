@@ -82,6 +82,7 @@ fileprivate let kProxySetting = "kProxySetting"
 fileprivate let kProxyHost = "kProxyHost"
 fileprivate let kProxyPort = "kProxyPort"
 fileprivate let kProxyUsername = "kProxyUsername"
+fileprivate let kNfcShowCanMessage = "kNfcShowCanMessage"
 
 class DefaultsHelper
 {
@@ -378,6 +379,15 @@ class DefaultsHelper
         }
         get {
             return UserDefaults.standard.value(forKey: kProxyUsername) as? String
+        }
+    }
+    
+    class var nfcShowCanMessage: Bool {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kNfcShowCanMessage)
+        }
+        get {
+            return UserDefaults.standard.bool(forKey: kNfcShowCanMessage)
         }
     }
 }
