@@ -121,6 +121,8 @@
 "action-delete" = "Remove";
 "action-sign" = "Sign";
 "action-decrypt" = "Decrypt";
+"action-dialog-dont-show-again" = "Don't show again";
+"action-read-more" = "Read more here";
 
 // *** Signed containers ***
 
@@ -250,6 +252,7 @@
 "nfc-cert-expired" = "An expired certificate cannot be used for signing";
 "nfc-wrong-pin2" = "Wrong PIN2. Remaining attempts: %d";
 "nfc-wrong-pin1" = "Wrong PIN1. Remaining attempts: %d";
+"nfc-can-info" = "NFC signing uses the CAN number. NFC may lock up if CAN is entered incorrectly multiple times. https://www.id.ee/en/article/digital-signing-in-ria-digidoc-mobile-application/";
 "role-and-address" = "Role and address";
 "role-and-address-title" = "Enter your role and address info";
 "role-and-address-role-title" = "Role / resolution";
@@ -351,6 +354,7 @@
 "my-eid-wrong-code-message" = "Wrong %@ code. You can try 2 more times.";
 "my-eid-wrong-code-message-singular" = "Wrong %@ code. You can try 1 more time.";
 "my-eid-code-blocked-message" = "%1$@ has been blocked because %1$@ code has been entered incorrectly 3 times. Unblock to reuse %1$@.";
+
 // *** My eID info bullets ***
 "my-eid-info-bullet-same-codes-warning" = "New %1$@ must be different from current %1$@.";
 "my-eid-info-bullet-auth-cert-info" = "PIN1 code is used for authentication.";
@@ -361,6 +365,7 @@
 "my-eid-info-bullet-pin2-blocked-warning" = "If PIN2 is inserted incorrectly 3 times, the signing certificate will be blocked and it will be impossible to use ID-card for digital signatures, until it is unblocked via the PUK code.";
 "my-eid-info-bullet-puk-unblock-info" = "PUK code is used for unblocking the certificates when PIN1 or PIN2 has been entered 3 times incorrectly.";
 "my-eid-info-bullet-puk-blocked-warning" = "If you forget the PUK code or the certificates remain blocked, you have to visit the service center to obtain new codes.";
+
 "my-eid-change-code-title" = "Change %@";
 "my-eid-unblock-code-title" = "Unblock %@";
 "my-eid-current-code-label" = "CURRENT %@ CODE";
@@ -424,7 +429,6 @@
 "diagnostics-activate-one-time-logging" = "Enable one-time log generation";
 "diagnostics-save-log" = "SAVE LOG";
 "diagnostics-restart-to-active-logging" = "Restart RIA DigiDoc to activate logging. https://www.id.ee/en/article/log-file-generation-in-digidoc4-client/";
-"diagnostics-one-time-logging-read-more" = "Read more here";
 "diagnostics-app-version" = "Application version";
 "diagnostics-ios-version" = "OS";
 "diagnostics-libraries-label" = "Libraries:";

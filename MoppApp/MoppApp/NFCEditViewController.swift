@@ -91,6 +91,8 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        let nfcSupported = NFCTagReaderSession.readingAvailable
+        
         if let canNumber = canTextField.text {
             if !canNumber.isEmpty && canNumber.count != 6 {
                 setCANErrorText()
@@ -99,6 +101,21 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
             }
         } else {
             setCANDefaultText()
+        }
+        
+        if !DefaultsHelper.nfcShowCanMessage && nfcSupported {
+            let nfcCanInfoMessageAlert = AlertUtil.messageAlertWithLinkAndActionButton(
+                message: L(.nfcCanInfo),
+                additionalInfoButtonTitle: L(.actionReadMore),
+                actionButtonTitle: L(.actionDialogDontShowAgain),
+                okButtonAction: {_ in },
+                actionButtonAction: { _ in
+                    DefaultsHelper.nfcShowCanMessage = true
+                })
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                guard let sself = self else { return }
+                sself.present(nfcCanInfoMessageAlert, animated: true)
+            }
         }
     }
 

@@ -118,6 +118,8 @@
 "action-delete" = "Удалить";
 "action-sign" = "Подписать";
 "action-decrypt" = "Дешифровать";
+"action-dialog-dont-show-again" = "Больше не показывать";
+"action-read-more" = "Подробнее читайте здесь";
 
 // *** Signed containers ***
 
@@ -251,6 +253,7 @@
 "nfc-cert-expired" = "Сертификат с истекшим сроком действия не может быть использован для подписи";
 "nfc-wrong-pin2" = "Неверный PIN2-код. Оставшиеся попытки: %d";
 "nfc-wrong-pin1" = "Неверный PIN1-код. Оставшиеся попытки: %d";
+"nfc-can-info" = "При подписании через NFC используется номер CAN. NFC может заблокироваться, если CAN введен неправильно несколько раз. https://www.id.ee/ru/artikkel/czifrovoe-podpisanie-v-mobilnom-prilozhenii-ria-digidoc/";
 "role-and-address" = "Роль и адрес";
 "role-and-address-title" = "Введите свою роль и адрес";
 "role-and-address-role-title" = "Роль / pезолюция";
@@ -352,6 +355,7 @@
 "my-eid-wrong-code-message" = "Неверный %@-код. Вы можете попробовать ещё 2 раз.";
 "my-eid-wrong-code-message-singular" = "Неверный %@-код. Вы можете попробовать ещё 1 раз.";
 "my-eid-code-blocked-message" = "%1$@ заблокирован, потому что %1$@-код был введён неверно 3 раза. Разблокируйте, чтобы использовать %1$@.";
+
 // *** My eID info bullets ***
 "my-eid-info-bullet-same-codes-warning" = "Новый %1$@ должен отличаться от предыдущего %1$@.";
 "my-eid-info-bullet-auth-cert-info" = "PIN1-код используется для идентификации.";
@@ -362,6 +366,7 @@
 "my-eid-info-bullet-pin2-blocked-warning" = "Если PIN2 введён 3 раза неверно, тогда блокируется сертификат цифровой подписи и использовать ID-карту для цифровой подписи невозможно, пока блокировка не снята PUK-кодом.";
 "my-eid-info-bullet-puk-unblock-info" = "PUK-код используется для разблокирования сертификатов, когда PIN1 или PIN2 были неверно введены 3 раза.";
 "my-eid-info-bullet-puk-blocked-warning" = "Если Вы забудете PUK-код или сертификаты остануться заблокированными, необходимо посетить центр обслуживания для получения новых кодов.";
+
 "my-eid-change-code-title" = "Изменить %@";
 "my-eid-unblock-code-title" = "Разблокировать %@";
 "my-eid-current-code-label" = "ДЕЙСТВУЮЩИЙ %@-КОД";
@@ -425,7 +430,6 @@
 "diagnostics-activate-one-time-logging" = "Активировать одноразовое создание лог-файла";
 "diagnostics-save-log" = "СОХРАНИТЬ ЛОГ-ФАЙЛ";
 "diagnostics-restart-to-active-logging" = "Перезапустите RIA DigiDoc, чтобы активировать ведение журнала. https://www.id.ee/ru/artikkel/generirovanie-log-fajla-v-kliente-digidoc4/";
-"diagnostics-one-time-logging-read-more" = "Подробнее читайте здесь";
 "diagnostics-app-version" = "Версия приложения";
 "diagnostics-ios-version" = "Операционная система";
 "diagnostics-libraries-label" = "Библиотеки:";
