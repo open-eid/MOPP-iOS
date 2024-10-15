@@ -34,6 +34,7 @@
 #import <CryptoLib/CryptoLib.h>
 
 #import "MoppLibDigidocManager.h"
+#import "MoppLibManager.h"
 #import "MoppLibDataFile.h"
 #import "MLDateFormatter.h"
 #import "MLFileManager.h"
@@ -281,8 +282,7 @@ public:
 
 static std::unique_ptr<digidoc::Container> docContainer = nil;
 static digidoc::Signature *signature = nil;
-
-
+static digidoc::Signer* signer = nil;
 
 + (MoppLibDigidocManager *)sharedInstance {
   static dispatch_once_t pred;
@@ -388,7 +388,7 @@ static digidoc::Signature *signature = nil;
         printLog(@"\nSetting signature value...\n");
         signature->setSignatureValue(calculatedSignatureBase64);
         printLog(@"\nExtending signature profile...\n");
-        signature->extendSignatureProfile("time-stamp");
+        signature->extendSignatureProfile(signer);
         printLog(@"\nValidating signature...\n");
         digidoc::Signature::Validator *validator = new digidoc::Signature::Validator(signature);
         printLog(@"\nValidator status: %u\n", validator->status());
@@ -435,10 +435,12 @@ static digidoc::Signature *signature = nil;
         parseException(e);
         return nil;
     }
-    std::unique_ptr<WebSigner> signer = std::make_unique<WebSigner>(x509Cert);
 
     docContainer = NULL;
     signature = NULL;
+    signer = NULL;
+    
+    signer = new WebSigner(x509Cert);
 
     try {
         MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
@@ -454,6 +456,7 @@ static digidoc::Signature *signature = nil;
     NSLog(@"Role data - roles: %@, city: %@, state: %@, zip: %@, country: %@", roleData.ROLES, roleData.CITY, roleData.STATE, roleData.ZIP, roleData.COUNTRY);
     signer->setProfile("time-stamp");
     signer->setSignatureProductionPlace(std::string([roleData.CITY UTF8String] ?: ""), std::string([roleData.STATE UTF8String] ?: ""), std::string([roleData.ZIP UTF8String] ?: ""), std::string([roleData.COUNTRY UTF8String] ?: ""));
+    signer->setUserAgent(std::string([MoppLibManager.sharedInstance.userAgent UTF8String]));
     
     std::vector<std::string> roles;
     for (NSString *role in roleData.ROLES) {
@@ -466,7 +469,7 @@ static digidoc::Signature *signature = nil;
     NSLog(@"\nProfile info set successfully\n");
     
     NSLog(@"\nSetting signature...\n");
-    signature = docContainer->prepareSignature(signer.get());
+    signature = docContainer->prepareSignature(signer);
     NSString *signatureId = [NSString stringWithCString:signature->id().c_str() encoding:[NSString defaultCStringEncoding]];
     printLog(@"\nSignature ID set to %@...\n", signatureId);
 
@@ -809,6 +812,7 @@ void parseException(const digidoc::Exception &e) {
     NSLog(@"Role data - roles: %@, city: %@, state: %@, zip: %@, country: %@", roleData.ROLES, roleData.CITY, roleData.STATE, roleData.ZIP, roleData.COUNTRY);
     signer->setProfile("time-stamp");
     signer->setSignatureProductionPlace(std::string([roleData.CITY UTF8String] ?: ""), std::string([roleData.STATE UTF8String] ?: ""), std::string([roleData.ZIP UTF8String] ?: ""), std::string([roleData.COUNTRY UTF8String] ?: ""));
+    signer->setUserAgent(std::string([MoppLibManager.sharedInstance.userAgent UTF8String]));
   
     std::vector<std::string> roles;
     for (NSString *role in roleData.ROLES) {
@@ -830,19 +834,22 @@ void parseException(const digidoc::Exception &e) {
 
     // Release the container from the unique_ptr and obtain the raw pointer for the callback
     digidoc::Container * const unmanagedContainerPointer = managedContainer.release();
+      
+    WebSigner * const unmanagedSignerPointer = signer.release();
 
     [[CardActionsManager sharedInstance] calculateSignatureFor:[NSData dataWithBytes:dataToSign.data() length:dataToSign.size()] pin2:pin2 useECC: useECC success:^(NSData *calculatedSignature) {
 
         // Wrap the raw container pointer into a local unique_ptr as the first thing to do
         std::unique_ptr<digidoc::Container> successManagedContainer(unmanagedContainerPointer);
+        std::unique_ptr<WebSigner> successManagedSigner(unmanagedSignerPointer);
 
       try {
         unsigned char *buffer = (unsigned char *)[calculatedSignature bytes];
         std::vector<unsigned char>::size_type size = calculatedSignature.length;
         std::vector<unsigned char> vec(buffer, buffer + size);
-
+          
         signature->setSignatureValue(vec);
-        signature->extendSignatureProfile("time-stamp");
+        signature->extendSignatureProfile(successManagedSigner.get());
         signature->validate();
           successManagedContainer->save();
         NSError *error;
@@ -987,6 +994,12 @@ void parseException(const digidoc::Exception &e) {
     return [[UIDevice currentDevice] systemVersion];
 }
 
+- (NSString *)appLanguage {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *language = [defaults stringForKey:@"kMoppLanguage"];
+    return [language length] != 0 ? [NSString stringWithFormat:@"%@", language] : [NSString stringWithFormat:@"%s", "N/A"];
+}
+
 - (NSArray *)connectedDevices {
     EAAccessoryManager* accessoryManager = [EAAccessoryManager sharedAccessoryManager];
     NSMutableArray *devices = [NSMutableArray new];
@@ -1007,7 +1020,7 @@ void parseException(const digidoc::Exception &e) {
 }
 
 - (NSString *)userAgent {
-    NSString *appInfo = [NSString stringWithFormat:@"%s/%@ (iOS %@)", "riadigidoc", [self moppAppVersion], [self iOSVersion]];
+    NSString *appInfo = [NSString stringWithFormat:@"%s/%@ (iOS %@) Lang: %@", "riadigidoc", [self moppAppVersion], [self iOSVersion], [self appLanguage]];
     NSArray *connectedDevices = [self connectedDevices];
     if (connectedDevices.count > 0) {
         appInfo = [NSString stringWithFormat:@"%@ Devices: %@", appInfo, [connectedDevices componentsJoinedByString:@", "]];
