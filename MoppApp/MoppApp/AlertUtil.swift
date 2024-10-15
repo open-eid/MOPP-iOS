@@ -51,6 +51,24 @@ class AlertUtil {
         return alert
     }
     
+    static func messageAlertWithLinkAndActionButton(message: String?, okButtonTitle: String? = "OK", additionalInfoButtonTitle: String? = nil, actionButtonTitle: String? = nil, okButtonAction: ((UIAlertAction) -> Void)?, actionButtonAction: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
+        var messageNoLink: String? = message
+        if let messageText = message {
+            messageNoLink = messageText.removeFirstLinkFromMessage()
+        }
+        let okButton = okButtonTitle ?? L(.actionOk)
+        let alert = UIAlertController(title: messageNoLink, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: actionButtonTitle, style: .destructive, handler: actionButtonAction))
+        if let linkInUrl: String = message?.getFirstLinkInMessage() {
+            if let alertActionUrl: UIAlertAction = UIAlertAction().getLinkAlert(title: additionalInfoButtonTitle, message: linkInUrl), !alertActionUrl.title.isNilOrEmpty {
+                alert.addAction(alertActionUrl)
+            }
+        }
+        alert.addAction(UIAlertAction(title: okButton, style: .default, handler: okButtonAction))
+        
+        return alert
+    }
+    
     static func errorMessageDialog(_ notification: Notification, topViewController: UIViewController) {
         guard let userInfo = notification.userInfo else { return }
         let error = userInfo[kErrorKey] as? NSError
