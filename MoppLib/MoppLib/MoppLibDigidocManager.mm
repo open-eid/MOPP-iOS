@@ -216,11 +216,11 @@ public:
     }
     
     NSString* getSivaCert(NSString *fileName) const {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-        NSString *libraryDirectory = [paths objectAtIndex:0];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *cachesDirectory = [paths objectAtIndex:0];
         NSString *subfolderName = @"siva-cert";
         
-        NSString *subfolderPath = [libraryDirectory stringByAppendingPathComponent:subfolderName];
+        NSString *subfolderPath = [cachesDirectory stringByAppendingPathComponent:subfolderName];
         
         NSString *filePath = [subfolderPath stringByAppendingPathComponent:fileName];
         
