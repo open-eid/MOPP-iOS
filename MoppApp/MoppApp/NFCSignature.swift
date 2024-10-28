@@ -79,7 +79,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
     var CAN: String?
     var PIN: String?
     var containerPath: String?
-    var roleData: MoppLibRoleAddressData?
+    var roleInfo: MoppLibRoleAddressData?
     var ksEnc: Bytes?
     var ksMac: Bytes?
     var SSC: Bytes?
@@ -92,6 +92,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
 
         CAN = can
         PIN = pin
+        roleInfo = roleData
         self.containerPath = containerPath
         invalidateWithError = false
         session = NFCTagReaderSession(pollingOption: .iso14443, delegate: self)
@@ -168,9 +169,10 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                 }
 
                 printLog("Cert reading done")
-                guard let hash = MoppLibManager.prepareSignature(cert.base64EncodedString(), containerPath: containerPath, roleData: roleData) else {
+                guard let hash = MoppLibManager.prepareSignature(cert.base64EncodedString(), containerPath: containerPath, roleData: roleInfo) else {
                     return setSessionMessage(L(.nfcSignFailed), invalidate: true)
                 }
+                roleInfo = nil
                 setSessionMessage(L(.nfcSignDoc))
                 var pin = Bytes(repeating: 0xFF, count: 12)
                 pin.replaceSubrange(0..<PIN!.count, with: PIN!.utf8)
