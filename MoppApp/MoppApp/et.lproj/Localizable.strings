@@ -122,6 +122,8 @@
 "action-delete" = "Eemalda";
 "action-sign" = "Allkirjasta";
 "action-decrypt" = "Dekrüpteeri";
+"action-dialog-dont-show-again" = "Ära rohkem näita";
+"action-read-more" = "Loe täpsemalt siit";
 
 // *** Signed containers ***
 
@@ -251,6 +253,7 @@
 "nfc-cert-expired" = "Aegunud sertifikaati ei saa kasutada allkirjastamiseks";
 "nfc-wrong-pin2" = "Vale PIN2. Katseid jäänud: %d";
 "nfc-wrong-pin1" = "Vale PIN1. Katseid jäänud: %d";
+"nfc-can-info" = "NFC allkirjastamisel kasutatakse CAN numbrit. Mitmekordsel CANi valesti sisestamisel võib NFC lukustuda. https://www.id.ee/artikkel/digiallkirjastamine-ria-digidoc-mobiilirakenduses/";
 "role-and-address" = "Roll ja aadress";
 "role-and-address-title" = "Sisesta oma roll ja aadress";
 "role-and-address-role-title" = "Roll / resolutsioon";
@@ -352,6 +355,7 @@
 "my-eid-wrong-code-message" = "Vale %@-kood. Saad veel proovida 2 korda.";
 "my-eid-wrong-code-message-singular" = "Vale %@-kood. Saad veel proovida 1 kord.";
 "my-eid-code-blocked-message" = "%1$@ on blokeeritud, kuna %1$@-koodi on sisestatud 3 korda valesti. Tühista blokeering, et %1$@ taas kasutada.";
+
 // *** My eID info bullets ***
 "my-eid-info-bullet-same-codes-warning" = "Uus %@ peab olema erinev eelmisest.";
 "my-eid-info-bullet-auth-cert-info" = "PIN1-koodi kasutatakse isikutuvastamiseks.";
@@ -362,6 +366,7 @@
 "my-eid-info-bullet-pin2-blocked-warning" = "Kui sisestad PIN2-koodi kolm korda valesti, siis allkirjastamise sertifikaat blokeeritakse ning ID-kaarti pole võimalik allkirjastamiseks kasutada enne blokeeringu tühistamist PUK-koodi abil.";
 "my-eid-info-bullet-puk-unblock-info" = "PUK-koodi abil saab tühistada sertifikaadi blokeeringu, kui PIN1- või PIN2-koodi on 3 korda järjest valesti sisestatud.";
 "my-eid-info-bullet-puk-blocked-warning" = "Kui peale vahetamist PUK-kood ununeb ja sertifikaat jääb blokeerituks kolme vale PIN1 või PIN2 sisestamise järel, siis ainus võimalus ID-kaart jälle tööle saada on pöörduda klienditeeninduspunkti poole.";
+
 "my-eid-change-code-title" = "%@-koodi vahetus";
 "my-eid-unblock-code-title" = "%@ lahti blokeerimine";
 "my-eid-current-code-label" = "KEHTIV %@-KOOD";
@@ -425,7 +430,6 @@
 "diagnostics-activate-one-time-logging" = "Aktiveeri ühekordne logifaili genereerimine";
 "diagnostics-save-log" = "SALVESTA LOGIFAIL";
 "diagnostics-restart-to-active-logging" = "Logimise aktiveerimiseks taaskäivita RIA DigiDoc. https://www.id.ee/artikkel/logifaili-genereerimine-digidoc4-kliendis/";
-"diagnostics-one-time-logging-read-more" = "Loe täpsemalt siit";
 "diagnostics-app-version" = "Rakenduse versioon";
 "diagnostics-ios-version" = "Operatsioonisüsteem";
 "diagnostics-libraries-label" = "Teegid:";
