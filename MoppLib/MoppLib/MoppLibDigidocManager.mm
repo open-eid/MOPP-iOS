@@ -83,6 +83,7 @@ public:
       NSString *sivaUrl = [defaults stringForKey:@"kSivaUrl"];
       NSString *usingSivaUrl = [sivaUrl length] != 0 ? sivaUrl : moppLibConfiguration.SIVAURL;
       printLog(@"Using SiVa URL: %@", usingSivaUrl);
+      NSLog(@"Using SiVa URL: %@", usingSivaUrl);
       return [sivaUrl length] != 0 ? sivaUrl.UTF8String : moppLibConfiguration.SIVAURL.UTF8String;
   }
 
