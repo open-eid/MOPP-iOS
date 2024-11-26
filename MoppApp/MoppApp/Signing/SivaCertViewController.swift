@@ -172,7 +172,7 @@ class SivaCertViewController: MoppViewController {
             self.useDefaultAccessRadioButton.setSelectedState(state: true)
             self.useManuallyConfiguredAccessRadioButton.setSelectedState(state: false)
             DefaultsHelper.sivaAccessState = .defaultAccess
-            DefaultsHelper.sivaUrl = configuration.SIVAURL
+            DefaultsHelper.sivaUrl = nil
             self.sivaUrlTextField.isEnabled = false
             certificateStackView.isHidden = true
             sivaUrlTextField.textColor = UIColor.lightGray
@@ -324,7 +324,7 @@ extension SivaCertViewController: SettingsCellDelegate {
     func didEndEditingField(_ fieldId: SigningCategoryViewController.FieldId, with value: String) {
         switch fieldId {
         case .sivaCert:
-            DefaultsHelper.sivaUrl = value
+            DefaultsHelper.sivaUrl = DefaultsHelper.sivaUrl.isNilOrEmpty ? nil : value
             break
         default:
             break

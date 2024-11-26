@@ -115,7 +115,7 @@ class SettingsViewController: MoppViewController {
         CertUtil.removeCertificate(folder: SivaCertViewController.sivaFileFolder, fileName: DefaultsHelper.sivaCertFileName ?? "")
         DefaultsHelper.sivaCertFileName = ""
         DefaultsHelper.sivaAccessState = .defaultAccess
-        DefaultsHelper.sivaUrl = Configuration.getConfiguration().SIVAURL
+        DefaultsHelper.sivaUrl = nil
     }
 
     func resetProxy() {
