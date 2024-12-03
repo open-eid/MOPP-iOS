@@ -174,6 +174,11 @@ extension ContainerActions where Self: UIViewController {
                     failure(error)
                 }
             }
+            do {
+                try MoppFileManager.shared.deleteContentsOfDirectory(at: MoppFileManager.documentsDirectory.appendingPathComponent("Inbox"))
+            } catch {
+                printLog("Unable to delete contents of Documents/Inbox directory: \(error.localizedDescription)")
+            }
         } else {
             let containerViewController = CryptoContainerViewController.instantiate()
             let container = CryptoContainer(filename: fileName as NSString, filePath: newFilePath as NSString)
@@ -356,6 +361,12 @@ extension ContainerActions where Self: UIViewController {
                 }
             }
             MoppFileManager.shared.removeFilesFromSharedFolder()
+
+            do {
+                try MoppFileManager.shared.deleteContentsOfDirectory(at: MoppFileManager.documentsDirectory.appendingPathComponent("Inbox"))
+            } catch {
+                printLog("Unable to delete contents of Documents/Inbox directory: \(error.localizedDescription)")
+            }
         }
         if landingViewController.containerType == .asic {
             MoppLibContainerActions.sharedInstance().createContainer(

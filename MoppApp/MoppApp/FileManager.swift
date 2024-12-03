@@ -363,28 +363,25 @@ class MoppFileManager {
         }
         return true
     }
-    
-    func moveContentsOfDirectory(from sourceURL: URL, to destinationURL: URL) throws {
-        let fileManager = FileManager.default
 
+    func moveContentsOfDirectory(from sourceURL: URL, to destinationURL: URL) throws {
         if !fileManager.fileExists(atPath: destinationURL.path) {
             try fileManager.createDirectory(at: destinationURL, withIntermediateDirectories: true, attributes: nil)
         }
-        
+
         let items = try fileManager.contentsOfDirectory(atPath: sourceURL.path)
-        
+
         for item in items {
-            let sourceItemURL = sourceURL.appendingPathComponent(item)
-            let destinationItemURL = destinationURL.appendingPathComponent(item)
-            
-            sourceURL.startAccessingSecurityScopedResource()
-            destinationURL.startAccessingSecurityScopedResource()
-            
             if item == "Inbox" {
-                printLog("Deleting contents from 'Inbox' folder")
-                try deleteContentsOfDirectory(at: sourceItemURL)
+                printLog("Skipping 'Inbox' folder. Needed to open external files. Will be deleted later")
                 continue
             }
+
+            let sourceItemURL = sourceURL.appendingPathComponent(item)
+            let destinationItemURL = destinationURL.appendingPathComponent(item)
+
+            sourceURL.startAccessingSecurityScopedResource()
+            destinationURL.startAccessingSecurityScopedResource()
 
             var isDirectory: ObjCBool = false
 
@@ -416,12 +413,12 @@ class MoppFileManager {
                     printLog("Unable to remove file \(sourceItemURL.lastPathComponent): \(error.localizedDescription)")
                 }
             }
-            
+
             sourceURL.stopAccessingSecurityScopedResource()
             destinationURL.stopAccessingSecurityScopedResource()
         }
     }
-    
+
     func deleteContentsOfDirectory(at directoryURL: URL) throws {
         let items = try fileManager.contentsOfDirectory(atPath: directoryURL.path)
         
