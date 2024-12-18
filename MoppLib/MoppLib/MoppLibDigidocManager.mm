@@ -82,6 +82,9 @@ public:
   std::string verifyServiceUri() const override {
       NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
       NSString *sivaUrl = [defaults stringForKey:@"kSivaUrl"];
+      NSString *usingSivaUrl = [sivaUrl length] != 0 ? sivaUrl : moppLibConfiguration.SIVAURL;
+      printLog(@"Using SiVa URL: %@", usingSivaUrl);
+      NSLog(@"Using SiVa URL: %@", usingSivaUrl);
       return [sivaUrl length] != 0 ? sivaUrl.UTF8String : moppLibConfiguration.SIVAURL.UTF8String;
   }
 
@@ -217,11 +220,11 @@ public:
     }
     
     NSString* getSivaCert(NSString *fileName) const {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-        NSString *libraryDirectory = [paths objectAtIndex:0];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *cachesDirectory = [paths objectAtIndex:0];
         NSString *subfolderName = @"siva-cert";
         
-        NSString *subfolderPath = [libraryDirectory stringByAppendingPathComponent:subfolderName];
+        NSString *subfolderPath = [cachesDirectory stringByAppendingPathComponent:subfolderName];
         
         NSString *filePath = [subfolderPath stringByAppendingPathComponent:fileName];
         
