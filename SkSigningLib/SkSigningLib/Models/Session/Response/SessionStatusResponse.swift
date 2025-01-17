@@ -35,41 +35,4 @@ public struct SessionStatusResponse: Decodable {
     public let time: String?
     public let traceId: String?
     public let error: String?
-    
-    public enum CodingKeys: String, CodingKey {
-        case state
-        case result
-        case signature
-        case cert
-        case time
-        case traceId
-        case error
-    }
-    
-    public init(state: SessionResponseState,
-                result: SessionResultCode? = nil,
-                signature: SessionResponseSignature? = nil,
-                cert: String? = nil,
-                time: String? = nil,
-                traceId: String? = nil) {
-        
-        self.state = state
-        self.result = result
-        self.signature = signature
-        self.cert = cert
-        self.time = time
-        self.traceId = traceId
-        self.error = nil
-    }
-    
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        state = try values.decode(SessionResponseState.self, forKey: .state)
-        result = try values.decodeIfPresent(SessionResultCode.self, forKey: .result)
-        signature = try values.decodeIfPresent(SessionResponseSignature.self, forKey: .signature)
-        cert = try values.decodeIfPresent(String.self, forKey: .cert)
-        time = try values.decodeIfPresent(String.self, forKey: .time)
-        traceId = try values.decodeIfPresent(String.self, forKey: .traceId)
-        error = try values.decodeIfPresent(String.self, forKey: .error)
-    }
 }

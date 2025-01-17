@@ -22,27 +22,10 @@
 
 import Foundation
 
-// MARK: - SessionStatusRequestParameters
-public struct SessionStatusRequestParameters: Codable {
+public struct SessionStatusRequestParameters: Encodable {
     public let sessionId: String
     public let timeoutMs: Int?
-    
-    public enum CodingKeys: String, CodingKey {
-        case sessionId
-        case timeoutMs
-    }
-    
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        sessionId = try values.decode(String.self, forKey: .sessionId)
-        timeoutMs = try values.decodeIfPresent(Int.self, forKey: .timeoutMs) ?? Constants.defaultTimeoutMs
-    }
-    
-    public init(sessionId: String) throws {
-        self.sessionId = sessionId
-        self.timeoutMs = Constants.defaultTimeoutMs
-    }
-    
+
     public init(sessionId: String, timeoutMs: Int?) throws {
         self.sessionId = sessionId
         self.timeoutMs = timeoutMs ?? Constants.defaultTimeoutMs

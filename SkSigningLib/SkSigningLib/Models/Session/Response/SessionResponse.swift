@@ -28,30 +28,4 @@ public struct SessionResponse: Decodable {
     public let time: String?
     public let traceId: String?
     public let error: String?
-    
-    public enum CodingKeys: String, CodingKey {
-        case sessionID
-        case time
-        case traceId
-        case error
-    }
-    
-    public init(sessionID: String? = nil,
-                time: String? = nil,
-                traceId: String? = nil,
-                error: String? = nil) {
-        
-        self.sessionID = sessionID
-        self.time = time
-        self.traceId = traceId
-        self.error = error
-    }
-    
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        sessionID = try values.decodeIfPresent(String.self, forKey: .sessionID)
-        time = try values.decodeIfPresent(String.self, forKey: .time)
-        traceId = try values.decodeIfPresent(String.self, forKey: .traceId)
-        error = try values.decodeIfPresent(String.self, forKey: .error)
-    }
 }

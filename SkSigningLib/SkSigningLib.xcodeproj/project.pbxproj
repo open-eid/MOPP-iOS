@@ -58,16 +58,14 @@
 		DF04A88C23FEA6950086C9F9 /* RequestSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSignature.swift; sourceTree = "<group>"; };
 		DF04A88F23FEC7130086C9F9 /* EncoderDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncoderDecoder.swift; sourceTree = "<group>"; };
 		DF04A89423FEDC810086C9F9 /* CertificateRequestParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateRequestParameters.swift; sourceTree = "<group>"; };
-		DF04A89623FEDD110086C9F9 /* RequestMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RequestMethod.swift; path = Certificate/RequestMethod.swift; sourceTree = "<group>"; };
+		DF04A89623FEDD110086C9F9 /* RequestMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMethod.swift; sourceTree = "<group>"; };
 		DF04A89823FEDE6D0086C9F9 /* CertificateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateResponse.swift; sourceTree = "<group>"; };
 		DF2AB81626038EBD00892A2D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DF3653B1242BA07400C48AC5 /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
 		DF3D29A823F6A929007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF3D29AB23F6A929007181B8 /* SkSigningLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SkSigningLib.h; sourceTree = "<group>"; };
-		DF3D29AC23F6A929007181B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF3D29B123F6A929007181B8 /* SkSigningLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SkSigningLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF3D29B623F6A92A007181B8 /* SkSigningLibTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkSigningLibTests.swift; sourceTree = "<group>"; };
-		DF3D29B823F6A92A007181B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF41B54B2B506F3A00594D01 /* Proxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proxy.swift; sourceTree = "<group>"; };
 		DF41B54C2B506F3B00594D01 /* ProxyUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyUtil.swift; sourceTree = "<group>"; };
 		DF90EDDF24223D6A0040FFE7 /* ControlCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlCode.swift; sourceTree = "<group>"; };
@@ -219,7 +217,6 @@
 				DF04A88E23FEC7000086C9F9 /* Utilities */,
 				DF04A88B23FEA6740086C9F9 /* Requests */,
 				DF3D29AB23F6A929007181B8 /* SkSigningLib.h */,
-				DF3D29AC23F6A929007181B8 /* Info.plist */,
 				DFC88C2B241F9AA000B0087B /* Supporting Files */,
 			);
 			path = SkSigningLib;
@@ -229,7 +226,6 @@
 			isa = PBXGroup;
 			children = (
 				DF3D29B623F6A92A007181B8 /* SkSigningLibTests.swift */,
-				DF3D29B823F6A92A007181B8 /* Info.plist */,
 			);
 			path = SkSigningLibTests;
 			sourceTree = "<group>";
@@ -524,6 +520,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -583,6 +580,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -605,7 +603,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SkSigningLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -635,7 +632,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SkSigningLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -660,7 +656,6 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ET847QJV9F;
-				INFOPLIST_FILE = SkSigningLibTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -680,7 +675,6 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ET847QJV9F;
-				INFOPLIST_FILE = SkSigningLibTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

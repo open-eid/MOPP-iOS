@@ -22,18 +22,4 @@ import Foundation
 
 public struct SIDSessionResponse: Decodable {
     public let sessionID: String
-
-    public enum CodingKeys: String, CodingKey {
-        case sessionID
-    }
-
-    public init(sessionID: String) {
-        self.sessionID = sessionID
-
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        sessionID = try values.decode(String.self, forKey: .sessionID)
-    }
 }
