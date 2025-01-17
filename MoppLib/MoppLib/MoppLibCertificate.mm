@@ -49,20 +49,22 @@
     for (const std::string &policy: cert.certificatePolicies()) {
         [policies addObject:[NSString stringWithUTF8String:policy.c_str()]];
     }
-    EIDType eidType = [MoppLibManager eidTypeFromCertificatePolicies:policies];
 
-    switch (eidType) {
-        case EIDTypeUnknown:
-        case EIDTypeESeal:
-            return Unknown;
-        case EIDTypeMobileID:
-            return MobileID;
-        case EIDTypeSmartID:
-            return SmartID;
-        case EIDTypeDigiID:
-            return DigiID;
-        case EIDTypeIDCard:
+    for (NSString *policyID in policies) {
+        if ([policyID hasPrefix:@"1.3.6.1.4.1.10015.1.1"]
+            || [policyID hasPrefix:@"1.3.6.1.4.1.51361.1.1.1"])
             return IDCard;
+        else if ([policyID hasPrefix:@"1.3.6.1.4.1.10015.1.2"]
+            || [policyID hasPrefix:@"1.3.6.1.4.1.51361.1.1"]
+            || [policyID hasPrefix:@"1.3.6.1.4.1.51455.1.1"])
+            return DigiID;
+        else if ([policyID hasPrefix:@"1.3.6.1.4.1.10015.1.3"]
+            || [policyID hasPrefix:@"1.3.6.1.4.1.10015.11.1"])
+            return MobileID;
+        else if ([policyID hasPrefix:@"1.3.6.1.4.1.10015.7.3"]
+            || [policyID hasPrefix:@"1.3.6.1.4.1.10015.7.1"]
+            || [policyID hasPrefix:@"1.3.6.1.4.1.10015.2.1"])
+            return ESeal;
     }
     return Unknown;
 }

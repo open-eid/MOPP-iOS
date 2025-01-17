@@ -414,7 +414,7 @@ extension AddresseeViewController : ContainerFoundAddresseeCellDelegate {
         if !selectedAddressees.contains(where: {(
             ($0.givenName != nil && $0.givenName == addressee.givenName &&
               $0.surname != nil && $0.surname == addressee.surname) ||
-             $0.identifier == addressee.identifier) && $0.type == addressee.type && $0.validTo == addressee.validTo
+              $0.identifier == addressee.identifier) && $0.cert == addressee.cert && $0.validTo == addressee.validTo
         }) {
             selectedAddressees.insert(addressee, at: 0)
         }

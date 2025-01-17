@@ -28,15 +28,6 @@
 #import "MoppLibRoleAddressData.h"
 #import "MoppLibProxyConfiguration.h"
 
-typedef NS_ENUM(NSUInteger, EIDType) {
-    EIDTypeUnknown,
-    EIDTypeMobileID,
-    EIDTypeSmartID,
-    EIDTypeDigiID,
-    EIDTypeIDCard,
-    EIDTypeESeal
-};
-
 @interface MoppLibManager : NSObject
 
 + (MoppLibManager *)sharedInstance;
@@ -58,8 +49,6 @@ typedef NS_ENUM(NSUInteger, EIDType) {
 - (NSString *)appVersion;
 - (NSString *)iOSVersion;
 - (NSString *)userAgent;
-+ (EIDType)eidTypeFromCertificate:(NSData*)certData;
-+ (EIDType)eidTypeFromCertificatePolicies:(NSArray<NSString*>*)certificatePolicies;
 + (NSArray *)certificatePolicyIdentifiers:(NSData *)certData;
 + (NSString *)sanitize:(NSString *)text;
 
