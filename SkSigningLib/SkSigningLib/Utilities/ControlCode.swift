@@ -27,31 +27,18 @@ public class ControlCode {
     
     public static let shared: ControlCode = ControlCode()
     
-    public func getVerificationCode(hash: Array<Int>) -> String? {
+    public func getVerificationCode(hash: Data) -> String? {
         guard !hash.isEmpty else {
             Logging.errorLog(forMethod: "RIA.MobileID - getVerificationCode", error: nil, extraInfo: "Unable to get hash")
             return nil
         }
         
-        let verificationCode: Int = ((0xFC & hash.first!) << 5) | (hash.last! & 0x7F)
-        
-        let verificationCodeAsString: String = addLeadingZerosIfNeeded(verificationCode: String(verificationCode))
+        let verificationCode = ((0xFC & Int(hash.first!)) << 5) | (Int(hash.last!) & 0x7F)
+        let verificationCodeAsString = String(format: "%04d", verificationCode)
         
         Logging.log(forMethod: "RIA.MobileID - getVerificationCode", info: "Mobile-ID verification code: \(verificationCodeAsString)")
         
         return verificationCodeAsString
-    }
-    
-    private func addLeadingZerosIfNeeded(verificationCode: String) -> String {
-        if verificationCode.count == 3 {
-            return "0\(verificationCode)"
-        } else if verificationCode.count == 2 {
-            return "00\(verificationCode)"
-        } else if verificationCode.count == 1 {
-            return "000\(verificationCode)"
-        }
-        
-        return verificationCode
     }
 }
 

@@ -355,16 +355,9 @@ static digidoc::Signer* signer = nil;
     return result;
 }
 
-+ (NSArray *)getDataToSign {
++ (NSData *)getDataToSign {
     std::vector<unsigned char> dataTosign = signature->dataToSign();
-
-    NSMutableArray *dataToSignArray = [NSMutableArray arrayWithCapacity: dataTosign.size()];
-
-    for (auto value : dataTosign) {
-        [dataToSignArray addObject:@(value)];
-    }
-
-    return dataToSignArray;
+    return [NSData dataWithBytes:dataTosign.data() length:dataTosign.size()];
 }
 
 + (void)isSignatureValid:(NSData *)cert signatureValue:(NSString *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure {
@@ -888,7 +881,7 @@ void parseException(const digidoc::Exception &e) {
   MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
   BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
   MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
-  std::unique_ptr<digidoc::Container> doc = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
+  auto doc = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
   for (int i = 0; i < doc->signatures().size(); i++) {
     digidoc::Signature *signature = doc->signatures().at(i);
     digidoc::X509Cert cert = signature->signingCertificate();

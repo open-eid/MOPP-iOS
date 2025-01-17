@@ -306,7 +306,7 @@ class MobileIDSignature {
     
     // MARK: Get verification code
     private func getVerificationCode() -> String? {
-        guard let dataToSign = MoppLibManager.getDataToSign() as? Array<Int>, let verificationCode: String = ControlCode.shared.getVerificationCode(hash: dataToSign) else {
+        guard let dataToSign = MoppLibManager.getDataToSign(), let verificationCode: String = ControlCode.shared.getVerificationCode(hash: dataToSign) else {
             ErrorUtil.generateError(signingError: .generalError, details: MessageUtil.errorMessageWithDetails(details: "Failed to get verification code"))
             return nil
         }
