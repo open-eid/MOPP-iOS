@@ -32,8 +32,6 @@
 
 typedef NS_ENUM(NSUInteger, MoppLibCardChipType) {
     ChipType_Unknown,
-    ChipType_EstEID34,
-    ChipType_EstEID35,
     ChipType_Idemia
 };
 
