@@ -324,7 +324,7 @@ extension ContainerActions where Self: UIViewController {
         if landingViewController.containerType == .asic {
             containerFilename = FileUtil.getFileName(currentFileName: filename) + "." + DefaultContainerFormat
         } else {
-            containerFilename = FileUtil.getFileName(currentFileName: filename) + "." + ContainerFormatCdoc
+            containerFilename = FileUtil.getFileName(currentFileName: filename) + "." + (DefaultsHelper.useCDoc2Encryption ? ContainerFormatCdoc2 : ContainerFormatCdoc)
         }
 
         var containerPath = MoppFileManager.shared.filePath(withFileName: containerFilename)
