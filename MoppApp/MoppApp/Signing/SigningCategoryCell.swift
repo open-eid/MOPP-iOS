@@ -44,3 +44,25 @@ class SigningCategoryCell: UITableViewCell {
         self.accessibilityElements = [signingCategoryUIButton]
     }
 }
+
+class EncryptingCategoryCell: UITableViewCell {
+
+    @IBOutlet weak var encryptingCategoryButton: ScaledButton!
+
+    func populate(with title: String) {
+        encryptingCategoryButton.setTitle(title)
+        encryptingCategoryButton.accessibilityLabel = title.lowercased()
+        encryptingCategoryButton.accessibilityUserInputLabels = [L(.containerSignTitle)]
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        guard let encryptingCategoryUIButton: ScaledButton = encryptingCategoryButton else {
+            printLog("Unable to get encryptingCategoryButton")
+            return
+        }
+
+        self.accessibilityElements = [encryptingCategoryUIButton]
+    }
+}

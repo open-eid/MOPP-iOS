@@ -850,7 +850,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
     private func asicContainerExists(container: MoppLibContainer?) -> Bool {
         guard let signingContainer = container,
               !signingContainer.filePath.isEmpty,
-              URL(fileURLWithPath: signingContainer.filePath).pathExtension != ContainerFormatCdoc else {
+              !URL(fileURLWithPath: signingContainer.filePath).pathExtension.isCryptoContainerExtension else {
             return false
         }
 
@@ -860,7 +860,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
     private func cdocContainerExists(container: CryptoContainer?) -> Bool {
         guard let cryptoContainer = container,
               !cryptoContainer.filePath.isEmpty,
-              URL(fileURLWithPath: cryptoContainer.filePath).pathExtension == ContainerFormatCdoc else {
+              URL(fileURLWithPath: cryptoContainer.filePath).pathExtension.isCryptoContainerExtension else {
             return false
         }
 
@@ -919,7 +919,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
                 return
             }
 
-            let isContainerCdoc: Bool = containerExtension == ContainerFormatCdoc
+            let isContainerCdoc: Bool = containerExtension.isCryptoContainerExtension
 
             guard let newContainerPath: URL = self.getNewContainerUrlPath(isContainerCdoc: isContainerCdoc, asicContainer: asicContainer, cdocContainer: cdocContainer, newContainerName: textFieldText, containerExtension: containerExtension), newContainerPath.isFileURL else {
                 printLog("Failed to get container path")
