@@ -23,7 +23,7 @@
 
 #import "MoppLibManager.h"
 #import "MoppLibDigidocManager.h"
-#import "Reachability/Reachability.h"
+#import "../Reachability/Reachability.h"
 
 @implementation MoppLibManager
 

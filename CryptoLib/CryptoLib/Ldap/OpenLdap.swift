@@ -174,40 +174,11 @@ public class OpenLdap {
             guard let x509 = try? X509Certificate(der: data) else {
                 continue
             }
-            var isIdCardType = false
-            var isDigiIdType = false
-            var isMobileID = false
-            var isESeal = false
-            var policyIdentifiers = [String]()
-            if let ext = x509.extensionObject(oid: OID.certificatePolicies) as? X509Certificate.CertificatePoliciesExtension {
-                for policy in ext.policies ?? [] {
-                    policyIdentifiers.append(policy.oid)
-                    switch policy.oid {
-                    case let oid where oid.starts(with: "1.3.6.1.4.1.10015.1.1"),
-                         let oid where oid.starts(with: "1.3.6.1.4.1.51361.1.1.1"):
-                        isIdCardType = true
-                    case let oid where oid.starts(with: "1.3.6.1.4.1.10015.1.2"),
-                         let oid where oid.starts(with: "1.3.6.1.4.1.51361.1.1"),
-                         let oid where oid.starts(with: "1.3.6.1.4.1.51455.1.1"):
-                        isDigiIdType = true
-                    case let oid where oid.starts(with: "1.3.6.1.4.1.10015.1.3"),
-                         let oid where oid.starts(with: "1.3.6.1.4.1.10015.11.1"):
-                        isMobileID = true
-                    case let oid where oid.starts(with: "1.3.6.1.4.1.10015.7.3"),
-                         let oid where oid.starts(with: "1.3.6.1.4.1.10015.7.1"),
-                         let oid where oid.starts(with: "1.3.6.1.4.1.10015.2.1"):
-                        isESeal = true
-                    default:
-                        break
-                    }
-                }
-            }
-            let isUnknown = !isIdCardType && !isDigiIdType && !isMobileID && !isESeal
-
+            let type = x509.certType()
             if x509.keyUsage[KeyUsage.keyEncipherment.rawValue] || x509.keyUsage[KeyUsage.keyAgreement.rawValue],
                !x509.extendedKeyUsage.contains(OID.serverAuth.rawValue),
-               !isESeal || !x509.extendedKeyUsage.contains(OID.clientAuth.rawValue),
-               !isMobileID && !isUnknown {
+               type != .ESealType || !x509.extendedKeyUsage.contains(OID.clientAuth.rawValue),
+               type != .MobileIDType && type != .UnknownType {
                 let cn = x509.subject(oid: OID.commonName)?.joined(separator: ",") ?? ""
                 let split = cn.split(separator: ",").map { String($0) }
                 let addressee = Addressee()
@@ -220,7 +191,6 @@ public class OpenLdap {
                 }
                 addressee.cert = data
                 addressee.validTo = x509.notAfter ?? Date()
-                addressee.policyIdentifiers = policyIdentifiers
                 result.append(addressee)
             }
         }

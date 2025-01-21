@@ -30,9 +30,6 @@
 #include <digidocpp/crypto/Signer.h>
 #include <fstream>
 
-#include <openssl/x509v3.h>
-#import <CryptoLib/CryptoLib.h>
-
 #import "MoppLibDigidocManager.h"
 #import "MoppLibManager.h"
 #import "MoppLibDataFile.h"

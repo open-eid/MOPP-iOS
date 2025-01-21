@@ -21,14 +21,16 @@
  *
  */
 import Foundation
+import ASN1Decoder
+import CryptoLib
 
 protocol AddresseeActions {
-    func displayAddresseeType(_ policyIdentifiers: [String]) -> String
+    func displayAddresseeType(_ type: X509Certificate.CertType?) -> String
     func determineName(addressee: Addressee) -> String
 }
 
 extension AddresseeActions {
-    
+
     func determineName(addressee: Addressee) -> String {
         if addressee.givenName == nil {
             return addressee.identifier
@@ -36,38 +38,27 @@ extension AddresseeActions {
             return "\(addressee.surname.uppercased()), \(addressee.givenName.uppercased()), \(addressee.identifier.uppercased())"
         }
     }
-    
+
     func determineInfo(addressee: Addressee) -> String {
-        let addresseeType = displayAddresseeType(addressee.policyIdentifiers ?? [])
-        let validTo = "\(L(LocKey.cryptoValidTo)) \(MoppDateFormatter.shared.ddMMYYYY(toString: addressee.validTo))"
+        let x509 = try? X509Certificate(der: addressee.cert)
+        let addresseeType = displayAddresseeType(x509?.certType())
+        let validTo = "\(L(LocKey.cryptoValidTo)) \(MoppDateFormatter.shared.ddMMYYYY(toString: x509?.notAfter ?? Date()))"
         return "\(addresseeType) (\(validTo))"
     }
-    
-    func displayAddresseeType(_ policyIdentifiers: [String]) -> String {
-        if policyIdentifiers == [] {
+
+    func displayAddresseeType(_ type: X509Certificate.CertType?) -> String {
+        switch type {
+        case .IDCardType:
+            return L(.cryptoTypeIdCard)
+        case .DigiIDType:
+            return L(.cryptoTypeDigiId)
+        case .MobileIDType:
+            return L(.cryptoTypeMobileId)
+        case .ESealType:
+            return L(.cryptoTypeESeal)
+        default:
             return L(.cryptoTypeUnknown)
         }
-        for pi in policyIdentifiers {
-            if pi.hasPrefix("1.3.6.1.4.1.10015.1.1")
-                || pi.hasPrefix("1.3.6.1.4.1.51361.1.1.1") {
-                return L(.cryptoTypeIdCard)
-            }
-            else if pi.hasPrefix("1.3.6.1.4.1.10015.1.2")
-                || pi.hasPrefix("1.3.6.1.4.1.51361.1.1")
-                || pi.hasPrefix("1.3.6.1.4.1.51455.1.1") {
-                return L(.cryptoTypeDigiId)
-            }
-            else if pi.hasPrefix("1.3.6.1.4.1.10015.1.3")
-                || pi.hasPrefix("1.3.6.1.4.1.10015.11.1") {
-                return L(.cryptoTypeMobileId)
-            }
-            else if pi.hasPrefix("1.3.6.1.4.1.10015.7.3")
-                || pi.hasPrefix("1.3.6.1.4.1.10015.7.1")
-                || pi.hasPrefix("1.3.6.1.4.1.10015.2.1") {
-                return L(.cryptoTypeESeal)
-            }
-        }
-        return L(.cryptoTypeUnknown)
     }
     
 }

@@ -21,14 +21,11 @@
  *
  */
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import "MoppLibCerificatetData.h"
-#import "CryptoLib/CryptoDataFile.h"
-#import "CryptoLib/CdocInfo.h"
 #import "MoppLibPersonalData.h"
 #import "MoppLibContainer.h"
 #import "MoppLibMobileCreateSignatureResponse.h"
+
+@class CdocInfo;
 
 typedef NS_ENUM(NSUInteger, MoppLibCardChipType) {
     ChipType_Unknown,
@@ -91,7 +88,6 @@ extern NSString *const kMoppLibUserInfoRetryCount;
 typedef void (^DataSuccessBlock)(NSData *responseData);
 typedef void (^ObjectSuccessBlock)(NSObject *responseObject);
 typedef void (^FailureBlock)(NSError *error);
-typedef void (^CertDataBlock)(MoppLibCerificatetData *certData);
 typedef void (^PersonalDataBlock)(MoppLibPersonalData *personalData);
 typedef void (^SignatureStatusBlock) (MoppLibContainer *container, NSError *error, NSString *status);
 typedef void (^ContainerBlock)(MoppLibContainer *container);

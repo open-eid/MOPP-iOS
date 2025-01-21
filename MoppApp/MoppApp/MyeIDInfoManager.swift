@@ -20,6 +20,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
+import ASN1Decoder
+
 protocol MyeIDInfoManagerDelegate: AnyObject {
     func didCompleteInformationRequest(success:Bool)
     func didTapChangePinPukCode(actionType: MyeIDChangeCodesModel.ActionType)
@@ -52,8 +55,8 @@ class MyeIDInfoManager {
     var actionKind: MyeIDChangeCodesModel.ActionType?
 
     var personalData: MoppLibPersonalData? = nil
-    var authCertData: MoppLibCerificatetData? = nil
-    var signCertData: MoppLibCerificatetData? = nil
+    var authCertData: X509Certificate? = nil
+    var signCertData: X509Certificate? = nil
 
     var estonianDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -163,13 +166,13 @@ class MyeIDInfoManager {
 
     var isAuthCertValid:Bool {
         get {
-            return Date() < authCertData?.expiryDate ?? Date()
+            return Date() < authCertData?.notAfter ?? Date()
         }
     }
     
     var isSignCertValid:Bool {
         get {
-            return Date() < signCertData?.expiryDate ?? Date()
+            return Date() < signCertData?.notAfter ?? Date()
         }
     }
 
@@ -184,8 +187,8 @@ class MyeIDInfoManager {
                     self?.requestRetryCounts(with: viewController, success: { [weak self] (pin1RetryCount, pin2RetryCount, pukRetryCount) in
                         guard let strongSelf = self else { return }
                         strongSelf.personalData = moppLibPersonalData
-                        strongSelf.authCertData = moppLibAuthCertData
-                        strongSelf.signCertData = moppLibSignCertData
+                        strongSelf.authCertData = try? X509Certificate(der: moppLibAuthCertData ?? Data())
+                        strongSelf.signCertData = try? X509Certificate(der: moppLibSignCertData ?? Data())
                         strongSelf.retryCounts.pin1 = pin1RetryCount
                         strongSelf.retryCounts.pin2 = pin2RetryCount
                         strongSelf.retryCounts.puk  = pukRetryCount
@@ -218,8 +221,7 @@ class MyeIDInfoManager {
     func setup() {
         personalInfo.items.removeAll()
         guard let personalData = personalData else { return }
-        let certOrganization = authCertData?.organization ?? MoppLibCertificateOrganization.Unknown
-        personalInfo.items.append((type: .myeID, value: organizationDisplayString(certOrganization)))
+        personalInfo.items.append((type: .myeID, value: organizationDisplayString(authCertData?.certType())))
         personalInfo.items.append((type: .givenNames, value: personalData.givenNames()))
         personalInfo.items.append((type: .surname, value: personalData.surname))
         personalInfo.items.append((type: .personalCode, value: personalData.personalIdentificationCode))
@@ -230,19 +232,19 @@ class MyeIDInfoManager {
         UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: "")
     }
     
-    func organizationDisplayString(_ certOrganization: MoppLibCertificateOrganization) -> String {
+    func organizationDisplayString(_ certOrganization: X509Certificate.CertType?) -> String {
         switch certOrganization {
-        case .IDCard:
+        case .IDCardType:
             return L(.myEidInfoMyEidIdCard)
-        case .DigiID, .EResident:
+        case .DigiIDType, .EResidentType:
             return L(.myEidInfoMyEidDigiId)
-        case .MobileID:
+        case .MobileIDType:
             return L(.myEidInfoMyEidMobileId)
-        case .SmartID:
+        case .SmartIDType:
             return L(.myEidInfoMyEidSmartId)
-        case .Unknown:
+        case .UnknownType:
             return L(.myEidInfoMyEidUnknown)
-        @unknown default:
+        default:
             return ""
         }
     }
@@ -285,11 +287,11 @@ class MyeIDInfoManager {
         var certExpiryDate: Date? = nil
         var isCertValid = false
         if kind == .pin1 {
-            certExpiryDate = authCertData?.expiryDate
+            certExpiryDate = authCertData?.notAfter
             isCertValid = isAuthCertValid
         }
         else if kind == .pin2 {
-            certExpiryDate = signCertData?.expiryDate
+            certExpiryDate = signCertData?.notAfter
             isCertValid = isSignCertValid
         }
     
