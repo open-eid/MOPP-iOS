@@ -22,6 +22,7 @@
  */
 
 import UIKit
+import CryptoLib
 
 class CryptoContainerViewController : ContainerViewController, CryptoActions {
 
