@@ -23,6 +23,7 @@
 
 import Foundation
 import SkSigningLib
+import CryptoLib
 
 protocol ContainerActions {
     func openExistingContainer(with url: URL, cleanup: Bool, isEmptyFileImported: Bool, isSendingToSivaAgreed: Bool)

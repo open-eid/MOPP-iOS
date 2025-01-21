@@ -21,6 +21,7 @@
  *
  */
 import Foundation
+import CryptoLib
 
 protocol CryptoActions {
     func startEncryptingProcess()
@@ -34,7 +35,7 @@ extension CryptoActions where Self: CryptoContainerViewController {
             MoppLibCryptoActions.sharedInstance().encryptData(
                 container.filePath as String?,
                 withDataFiles: container.dataFiles as? [Any],
-                withAddressees: container.addressees as? [Any],
+                withAddressees: container.addressees,
                 success: {
                     self.isCreated = false
                     self.isForPreview = false

@@ -23,6 +23,7 @@
 
 import Foundation
 import MoppLib
+import CryptoLib
 
 protocol ContainerViewControllerDelegate: AnyObject {
     func getDataFileCount() -> Int

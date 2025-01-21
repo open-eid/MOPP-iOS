@@ -63,7 +63,7 @@
  * @param success       Block to be called on successful completion of action. Includes signing certificate data as MoppLibCertData
  * @param failure       Block to be called when action fails. Includes error.
  */
-+ (void)signingCertificateWithSuccess:(CertDataBlock)success failure:(FailureBlock)failure;
++ (void)signingCertificateWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 /**
  * Gets authentication certificate data.
@@ -71,7 +71,7 @@
  * @param success       Block to be called on successful completion of action. Includes authentication certificate data as MoppLibCertData
  * @param failure       Block to be called when action fails. Includes error.
  */
-+ (void)authenticationCertificateWithSuccess:(CertDataBlock)success failure:(FailureBlock)failure;
++ (void)authenticationCertificateWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 /**
  * Gets PIN1 retry counter value.
