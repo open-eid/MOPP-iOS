@@ -44,7 +44,7 @@
     return [MoppLibDigidocManager prepareSignature:data containerPath:containerPath roleData:roleData];
 }
 
-+ (NSArray *)getDataToSign {
++ (NSData *)getDataToSign {
     return [MoppLibDigidocManager getDataToSign];
 }
 

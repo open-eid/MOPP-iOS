@@ -48,7 +48,7 @@ typedef enum {
 - (NSArray *)getContainers;
 + (NSString *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData;
 + (void)isSignatureValid:(NSData *)cert signatureValue:(NSString *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure;
-+ (NSArray *)getDataToSign;
++ (NSData *)getDataToSign;
 - (void)addSignature:(NSString *)containerPath pin2:(NSString *)pin2 cert:(NSData *)cert roleData:(MoppLibRoleAddressData *)roleData success:(ContainerBlock)success andFailure:(FailureBlock)failure;
 - (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath error:(NSError **)error;
 - (NSString *)getMoppLibVersion;
@@ -57,7 +57,6 @@ typedef enum {
 - (NSString *)digidocVersion;
 - (NSString *)moppAppVersion;
 - (NSString *)iOSVersion;
-- (NSArray *)connectedDevices;
 - (NSString *)userAgent;
 + (NSArray *)certificatePolicyIdentifiers:(NSData *)certData;
 + (NSString *)sanitize:(NSString *)text;
