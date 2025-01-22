@@ -1,6 +1,7 @@
 //
-//  AttributeSet.m
+//  MoppLdapConfiguration.swift
 //  CryptoLib
+//
 /*
  * Copyright 2017 - 2024 Riigi Infosüsteemi Amet
  *
@@ -20,29 +21,17 @@
  *
  */
 
-#import <Foundation/Foundation.h>
-#import "Attribute.h"
-#import "AttributeSet.h"
-#import "ldap.h"
+import Foundation
 
-@implementation AttributeSet
+public class MoppLdapConfiguration: NSObject {
+    var LDAPCERTS: [String] = []
+    var LDAPPERSONURL: String = ""
+    var LDAPCORPURL: String = ""
 
-- (id)initWithParser:(LDAP*)ldap ldapMessage:(LDAPMessage*)entry{
-    if (!_values) {
-        _values = [NSMutableArray new];
+    public init(ldapCerts: [String], ldapPersonURL: String, ldapCorpURL: String) {
+        self.LDAPCERTS = ldapCerts
+        self.LDAPPERSONURL = ldapPersonURL
+        self.LDAPCORPURL = ldapCorpURL
+        super.init()
     }
-    char * name= ldap_get_dn(ldap, entry);
-    _name = [NSString stringWithUTF8String:name];
-    BerElement * ber;
-    char *firstAttribute = ldap_first_attribute(ldap, entry, &ber);
-    while (firstAttribute){
-        Attribute *attribute = [[Attribute alloc] initWithParser:ldap ldapMessage:entry tag:firstAttribute];
-        if (attribute!=NULL){
-            [_values addObject:attribute];
-        }
-        firstAttribute = ldap_next_attribute(ldap, entry, ber);
-    }
-    ber_free(ber, 0);
-    return self;
 }
-@end

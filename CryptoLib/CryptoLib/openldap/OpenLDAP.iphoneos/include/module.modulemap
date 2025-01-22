@@ -1,0 +1,8 @@
+module LDAP [system] {
+    private header "ldap.h"
+    link "crypto"
+    link "ssl"
+    link "lber"
+    link "ldap"
+    export *
+}
