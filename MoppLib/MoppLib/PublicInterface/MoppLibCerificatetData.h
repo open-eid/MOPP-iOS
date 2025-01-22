@@ -31,6 +31,7 @@ typedef NS_ENUM(int, MoppLibCertificateOrganization) {
     SmartID,
     DigiID,
     EResident,
+    ESeal,
     Unknown
 };
 

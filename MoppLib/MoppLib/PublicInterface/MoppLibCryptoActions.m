@@ -62,9 +62,7 @@
             }
             for (Addressee* addressee in response.addressees) {
                 MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
-                addressee.policyIdentifiers = [MoppLibDigidocManager certificatePolicyIdentifiers:addressee.cert];
                 [MoppLibCertificate certData:certData updateWithDerEncoding:addressee.cert];
-                addressee.type = [self formatTypeToString :certData.organization];
                 addressee.validTo = certData.expiryDate;
             }
         }
@@ -75,23 +73,6 @@
             error == nil ? success(response) : failure(error);
         });
     });
-}
-
-- (NSString*)formatTypeToString:(MoppLibCertificateOrganization)formatType {
-    NSString *result = nil;
-    switch(formatType) {
-        case DigiID:
-            result = @"DIGI-ID";
-            break;
-        case IDCard:
-            result = @"ID-CARD";
-            break;
-        default:
-            result = @"E-SEAL";
-            break;
-    }
-    
-    return result;
 }
 
 - (void)decryptData:(NSString *)fullPath withPin1:(NSString*)pin1 success:(DecryptedDataBlock)success failure:(FailureBlock)failure {
@@ -147,26 +128,6 @@
     });
 }
 
-- (MoppLibCertificateOrganization)parseEIDType:(NSArray<NSString *>*)certPolicies {
-    
-    EIDType eidType = [MoppLibManager eidTypeFromCertificatePolicies:certPolicies];
-    
-    switch (eidType) {
-        case EIDTypeUnknown:
-        case EIDTypeESeal:
-            return Unknown;
-        case EIDTypeMobileID:
-            return MobileID;
-        case EIDTypeSmartID:
-            return SmartID;
-        case EIDTypeDigiID:
-            return DigiID;
-        case EIDTypeIDCard:
-            return IDCard;
-    }
-    return Unknown;
-}
-
 - (void)searchLdapData:(NSString *)identifier success:(LdapBlock)success failure:(FailureBlock)failure configuration:(MoppLdapConfiguration *) moppLdapConfiguration {
     
     Reachability *reachability = [Reachability reachabilityForInternetConnection];
@@ -203,8 +164,6 @@
                     MoppLibCertificateInfo *certInfo = [MoppLibCertificateInfo alloc];
                     NSArray<NSString *> *certPolicies = [certInfo certificatePolicies:(certData)];
                     NSArray<NSNumber *> *certKeyUsages = [certInfo keyUsages:(certData)];
-                    
-                    addressee.policyIdentifiers = certPolicies;
 
                     if (key.cn != NULL) {
                         NSArray *cn = [key.cn componentsSeparatedByString:@","];
@@ -214,14 +173,9 @@
                             addressee.identifier = cn[2];
                         } else {
                             addressee.identifier = cn[0];
-                            addressee.type = @"E-SEAL";
                         }
                     }
 
-                    if (addressee.type == nil) {
-                        addressee.type = [self formatTypeToString:[self parseEIDType:certPolicies]];
-                    }
-                    
                     if (([certInfo hasKeyEnciphermentUsage:(certKeyUsages)] || [certInfo hasKeyAgreementUsage:(certKeyUsages)]) &&
                         ![certInfo isServerAuthKeyPurpose:(certData)] &&
                         (![certInfo isESealType:(certPolicies)] || ![certInfo isTlsClientAuthKeyPurpose:(certData)]) &&
