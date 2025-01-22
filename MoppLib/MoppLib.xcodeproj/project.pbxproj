@@ -20,10 +20,6 @@
 		542DCB6D1E23968000899534 /* MoppLibPinActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 542DCB6B1E23968000899534 /* MoppLibPinActions.m */; };
 		545111721E13BBA800296B80 /* MoppLibPersonalData.h in Headers */ = {isa = PBXBuildFile; fileRef = 545111701E13BBA800296B80 /* MoppLibPersonalData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		545111731E13BBA800296B80 /* MoppLibPersonalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 545111711E13BBA800296B80 /* MoppLibPersonalData.m */; };
-		5451117A1E13C52900296B80 /* EstEIDv3_5.h in Headers */ = {isa = PBXBuildFile; fileRef = 545111781E13C52900296B80 /* EstEIDv3_5.h */; };
-		5451117B1E13C52900296B80 /* EstEIDv3_5.m in Sources */ = {isa = PBXBuildFile; fileRef = 545111791E13C52900296B80 /* EstEIDv3_5.m */; };
-		545CF8411E13F30300B66EE8 /* EstEIDv3_4.h in Headers */ = {isa = PBXBuildFile; fileRef = 545CF83F1E13F30300B66EE8 /* EstEIDv3_4.h */; };
-		545CF8421E13F30300B66EE8 /* EstEIDv3_4.m in Sources */ = {isa = PBXBuildFile; fileRef = 545CF8401E13F30300B66EE8 /* EstEIDv3_4.m */; };
 		5463DA4C1E12927A008A1714 /* CardCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 5463DA4A1E12927A008A1714 /* CardCommands.h */; };
 		5463DA4D1E12927A008A1714 /* CardCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 5463DA4B1E12927A008A1714 /* CardCommands.m */; };
 		546E57611E2E07C7009A568D /* PinVerificationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 546E57601E2E07C7009A568D /* PinVerificationTests.m */; };
@@ -123,10 +119,6 @@
 		542DCB6B1E23968000899534 /* MoppLibPinActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibPinActions.m; sourceTree = "<group>"; };
 		545111701E13BBA800296B80 /* MoppLibPersonalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibPersonalData.h; sourceTree = "<group>"; };
 		545111711E13BBA800296B80 /* MoppLibPersonalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibPersonalData.m; sourceTree = "<group>"; };
-		545111781E13C52900296B80 /* EstEIDv3_5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EstEIDv3_5.h; sourceTree = "<group>"; };
-		545111791E13C52900296B80 /* EstEIDv3_5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EstEIDv3_5.m; sourceTree = "<group>"; };
-		545CF83F1E13F30300B66EE8 /* EstEIDv3_4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EstEIDv3_4.h; sourceTree = "<group>"; };
-		545CF8401E13F30300B66EE8 /* EstEIDv3_4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EstEIDv3_4.m; sourceTree = "<group>"; };
 		5463DA4A1E12927A008A1714 /* CardCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardCommands.h; sourceTree = "<group>"; };
 		5463DA4B1E12927A008A1714 /* CardCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardCommands.m; sourceTree = "<group>"; };
 		546E575E1E2E07C7009A568D /* MoppLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoppLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -326,10 +318,6 @@
 				54DC0DFC1E0D196D00C62B3D /* CardActionsManager.m */,
 				5463DA4A1E12927A008A1714 /* CardCommands.h */,
 				5463DA4B1E12927A008A1714 /* CardCommands.m */,
-				545CF83F1E13F30300B66EE8 /* EstEIDv3_4.h */,
-				545CF8401E13F30300B66EE8 /* EstEIDv3_4.m */,
-				545111781E13C52900296B80 /* EstEIDv3_5.h */,
-				545111791E13C52900296B80 /* EstEIDv3_5.m */,
 			);
 			name = CardActions;
 			sourceTree = "<group>";
@@ -475,7 +463,6 @@
 				E485A7831E2DF58200C53DBF /* MLFileManager.h in Headers */,
 				C5AAAF8A20CAA4790087D6DA /* ft301u.h in Headers */,
 				DFF3C3A923322E0D0079458A /* MOPPLibConfiguration.h in Headers */,
-				5451117A1E13C52900296B80 /* EstEIDv3_5.h in Headers */,
 				C54EA734204D5EAA0039AC78 /* CardReaderiR301.h in Headers */,
 				540CB2251E1CDD8100FE18A3 /* MoppLibCerificatetData.h in Headers */,
 				AE0A844A1E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h in Headers */,
@@ -499,7 +486,6 @@
 				54DC0DF81E0BF0BA00C62B3D /* NSData+Additions.h in Headers */,
 				E4250CEC1E09695100530370 /* MoppLib.h in Headers */,
 				54DC0DF41E0BEF2A00C62B3D /* NSString+Additions.h in Headers */,
-				545CF8411E13F30300B66EE8 /* EstEIDv3_4.h in Headers */,
 				C5AAAF8420CAA3D00087D6DA /* ReaderInterface.h in Headers */,
 				54DC0DC51E0BCC2A00C62B3D /* CardReaderWrapper.h in Headers */,
 				DF169D5A2B9000F0000DD46C /* MoppLibDigidocValidateOnline.h in Headers */,
@@ -658,10 +644,8 @@
 				DFF3C3AA23322E0D0079458A /* MOPPLibConfiguration.m in Sources */,
 				54DC0E021E0D48C900C62B3D /* MoppLibError.m in Sources */,
 				E42B08C61E1F11B900EA24A3 /* MoppLibDataFile.m in Sources */,
-				545CF8421E13F30300B66EE8 /* EstEIDv3_4.m in Sources */,
 				C54EA738204D91730039AC78 /* MoppLibCardReaderManager.m in Sources */,
 				54D164711E923F920069C725 /* MoppLibPrivateConstants.m in Sources */,
-				5451117B1E13C52900296B80 /* EstEIDv3_5.m in Sources */,
 				54E085EB1E71A63C00431F1A /* Reachability.m in Sources */,
 				54D164781E9269C50069C725 /* MoppLibContainerActions.m in Sources */,
 			);

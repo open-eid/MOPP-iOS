@@ -60,22 +60,10 @@
 
 + (MoppLibCardChipType)atrToChipType:(NSData *)atr {
     static NSString *idemiaAtr = @"3B DB 96 00 80 B1 FE 45 1F 83 00 12 23 3F 53 65 49 44 0F 90 00 F1";
-    static NSString *esteid34cold = @"3B FE 18 00 00 80 31 FE 45 45 73 74 45 49 44 20 76 65 72 20 31 2E 30 A8";
-    static NSString *esteid34warm = @"3B FE 18 00 00 80 31 FE 45 80 31 80 66 40 90 A4 16 2A 00 83 0F 90 00 EF";
-    static NSString *esteid35 = @"3B FA 18 00 00 80 31 FE 45 FE 65 49 44 20 2F 20 50 4B 49 03";
-    
+
     // ordered newest first
     if([atr isEqualToData:[idemiaAtr toHexData]]) {
         return ChipType_Idemia;
-    }
-    else if([atr isEqualToData:[esteid35 toHexData]]) {
-        return ChipType_EstEID35;
-    }
-    else if([atr isEqualToData:[esteid34cold toHexData]]) {
-        return ChipType_EstEID34;
-    }
-    else if([atr isEqualToData:[esteid34warm toHexData]]) {
-        return ChipType_EstEID34;
     }
 
     return ChipType_Unknown;
