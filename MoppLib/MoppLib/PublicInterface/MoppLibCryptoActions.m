@@ -25,10 +25,10 @@
 #import "MoppLibError.h"
 #import "CryptoLib/Addressee.h"
 #import "CryptoLib/CryptoDataFile.h"
-#import "CryptoLib/OpenLdap.h"
 #import "CryptoLib/Encrypt.h"
 #import "CryptoLib/Decrypt.h"
 #import "CryptoLib/CdocParser.h"
+#import <CryptoLib/CryptoLib-Swift.h>
 #import "MoppLibCertificate.h"
 #import "CryptoLib/CdocInfo.h"
 #import "SmartToken.h"
@@ -141,29 +141,23 @@
     NSString *ldapCertsPath = [self getCertFolderPath:certsPath fileName:@"ldapCerts.pem"];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSArray<LDAPResponse *> *response = [[NSMutableArray alloc] init];
         NSMutableArray<Addressee *> *filteredResponse = [[NSMutableArray alloc] init];
         NSError *error;
-        OpenLdap *ldap = [[OpenLdap alloc] init];
         @try {
-            response = [ldap search:identifier configuration:moppLdapConfiguration withCertificate:ldapCertsPath];
-            
+            NSArray<LDAPResponse *> *response = [OpenLdap searchWithIdentityCode:identifier configuration:moppLdapConfiguration withCertificate:ldapCertsPath];
+
             if (response.count == 0) {
                 failure([MoppLibError ldapResponseNotFoundError]);
                 return;
             }
-            
-            for (LDAPResponse* key in response) {
-                for (NSString *cert in key.userCertificate) {
-                    
-                    Addressee *addressee = [[Addressee alloc] init];
-                    
-                    SecCertificateRef certificate = (__bridge SecCertificateRef)(cert);
-                    NSData* certData = (__bridge NSData *)SecCertificateCopyData(certificate);
 
+            for (LDAPResponse* key in response) {
+                for (NSData *certData in key.userCertificate) {
+
+                    Addressee *addressee = [[Addressee alloc] init];
                     MoppLibCertificateInfo *certInfo = [MoppLibCertificateInfo alloc];
-                    NSArray<NSString *> *certPolicies = [certInfo certificatePolicies:(certData)];
-                    NSArray<NSNumber *> *certKeyUsages = [certInfo keyUsages:(certData)];
+                    NSArray<NSString *> *certPolicies = [certInfo certificatePolicies:certData];
+                    NSArray<NSNumber *> *certKeyUsages = [certInfo keyUsages:certData];
 
                     if (key.cn != NULL) {
                         NSArray *cn = [key.cn componentsSeparatedByString:@","];
