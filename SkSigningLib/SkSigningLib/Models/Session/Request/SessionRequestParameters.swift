@@ -23,8 +23,7 @@
 
 import Foundation
 
-// MARK: - SessionRequestParameters
-public struct SessionRequestParameters: Codable {
+public struct SessionRequestParameters: Encodable {
     let relyingPartyName: String
     let relyingPartyUUID: String
     let phoneNumber: String
@@ -40,32 +39,7 @@ public struct SessionRequestParameters: Codable {
     { "nationalIdentityNumber":"\#(nationalIdentityNumber)","hash":"\#(hash)","relyingPartyName":"\#(relyingPartyName)","displayTextFormat":"\#(displayTextFormat ?? "GSM-7")","displayText":"\#(displayText ?? "")","hashType":"\#(hashType)","language":"\#(language)","relyingPartyUUID":"\#(relyingPartyUUID)","phoneNumber":"\#(phoneNumber)" }
     """#.data(using: .utf8) ?? Data()
     }
-    
-    public enum CodingKeys: String, CodingKey {
-        case relyingPartyName
-        case relyingPartyUUID
-        case phoneNumber
-        case nationalIdentityNumber
-        case hash
-        case hashType
-        case language
-        case displayText
-        case displayTextFormat
-    }
-    
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        relyingPartyName = try values.decode(String.self, forKey: .relyingPartyName)
-        relyingPartyUUID = try values.decode(String.self, forKey: .relyingPartyUUID)
-        phoneNumber = try values.decode(String.self, forKey: .phoneNumber)
-        nationalIdentityNumber = try values.decode(String.self, forKey: .nationalIdentityNumber)
-        hash = try values.decode(String.self, forKey: .hash)
-        hashType = try values.decode(String.self, forKey: .hashType)
-        language = try values.decode(String.self, forKey: .language)
-        displayText = try values.decode(String.self, forKey: .displayText)
-        displayTextFormat = try values.decode(String.self, forKey: .displayTextFormat)
-    }
-    
+
     public init(relyingPartyName: String, relyingPartyUUID: String, phoneNumber: String, nationalIdentityNumber: String, hash: String, hashType: String, language: String, displayText: String, displayTextFormat: String) throws {
         self.relyingPartyName = relyingPartyName
         self.relyingPartyUUID = relyingPartyUUID

@@ -20,21 +20,9 @@
 
 import Foundation
 
-// MARK: - SIDCertificateRequestParameters
-public struct SIDCertificateRequestParameters : Codable {
+public struct SIDCertificateRequestParameters : Encodable {
     let relyingPartyName : String
     let relyingPartyUUID : String
-
-    public enum CodingKeys: String, CodingKey {
-        case relyingPartyName
-        case relyingPartyUUID
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        relyingPartyName = try values.decode(String.self, forKey: .relyingPartyName)
-        relyingPartyUUID = try values.decode(String.self, forKey: .relyingPartyUUID)
-    }
 
     public init(relyingPartyName: String, relyingPartyUUID: String) {
         self.relyingPartyName = relyingPartyName

@@ -48,13 +48,8 @@ class SmartIDSignature {
         )
 
         getCertificate(baseUrl: baseUrl, country: country, nationalIdentityNumber: nationalIdentityNumber, requestParameters: certparams, containerPath: containerPath, roleData: roleData, trustedCertificates: certBundle, errorHandler: errorHandler) { documentNumber, cert, hash in
-            var signparams: SIDSignatureRequestParameters = SIDSignatureRequestParameters()
-            if baseUrl.contains("v1") {
-                signparams = SIDSignatureRequestParametersV1(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, hash: hash, hashType: hashType, displayText: L(.simToolkitSignDocumentTitle).asUnicode, vcChoice: true)
-            } else {
-                signparams = SIDSignatureRequestParametersV2(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, hash: hash, hashType: hashType, allowedInteractionsOrder: SIDSignatureRequestAllowedInteractionsOrder(type: "confirmationMessageAndVerificationCodeChoice", displayText: "\(L(.simToolkitSignDocumentTitle).asUnicode) \(FileUtil.getSignDocumentFileName(containerPath: containerPath).asUnicode)"))
-            }
-            self.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, requestParameters: signparams as? SIDSignatureRequestParametersV1 ?? SIDSignatureRequestParametersV1(), allowedInteractionsOrder: signparams as? SIDSignatureRequestParametersV2 ?? SIDSignatureRequestParametersV2(), trustedCertificates: certBundle, errorHandler: errorHandler) { signatureValue in
+            var signparams = SIDSignatureRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, hash: hash, hashType: hashType, allowedInteractionsOrder: SIDSignatureRequestAllowedInteractionsOrder(type: "confirmationMessageAndVerificationCodeChoice", displayText: "\(L(.simToolkitSignDocumentTitle).asUnicode) \(FileUtil.getSignDocumentFileName(containerPath: containerPath).asUnicode)"))
+            self.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, allowedInteractionsOrder: signparams, trustedCertificates: certBundle, errorHandler: errorHandler) { signatureValue in
                 if !RequestCancel.shared.isRequestCancelled() {
                     self.validateSignature(cert: cert, signatureValue: signatureValue)
                     UIApplication.shared.endBackgroundTask(backgroundTask)
@@ -66,7 +61,7 @@ class SmartIDSignature {
         }
     }
 
-    private func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, containerPath: String, roleData: MoppLibRoleAddressData?, trustedCertificates: [String]?, errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String, String, String) -> Void) {
+    private func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, containerPath: String, roleData: MoppLibRoleAddressData?, trustedCertificates: [String], errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String, String, String) -> Void) {
         printLog("Getting certificate...")
 
         if RequestCancel.shared.isRequestCancelled() {
@@ -101,7 +96,7 @@ class SmartIDSignature {
         }
     }
 
-    private func getSignature(baseUrl: String, documentNumber: String, requestParameters: SIDSignatureRequestParametersV1, allowedInteractionsOrder: SIDSignatureRequestParametersV2, trustedCertificates: [String]?, errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String) -> Void) {
+    private func getSignature(baseUrl: String, documentNumber: String, allowedInteractionsOrder: SIDSignatureRequestParameters, trustedCertificates: [String], errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String) -> Void) {
         printLog("Getting signature...")
 
         if RequestCancel.shared.isRequestCancelled() {
@@ -129,7 +124,7 @@ class SmartIDSignature {
         }
     }
 
-    private func getSessionStatus(baseUrl: String, sessionId: String, trustedCertificates: [String]?, completionHandler: @escaping (Result<SIDSessionStatusResponse, SigningError>) -> Void) {
+    private func getSessionStatus(baseUrl: String, sessionId: String, trustedCertificates: [String], completionHandler: @escaping (Result<SIDSessionStatusResponse, SigningError>) -> Void) {
         printLog("RIA.SmartID - Requesting session status...")
 
         if RequestCancel.shared.isRequestCancelled() {

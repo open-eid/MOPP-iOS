@@ -29,36 +29,6 @@ public struct CertificateResponse: Decodable {
     public let time: String?
     public let traceId: String?
     public let error: String?
-    
-    public enum CodingKeys: String, CodingKey {
-        case result
-        case cert
-        case time
-        case traceId
-        case error
-    }
-    
-    public init(result: ResponseResult? = nil,
-                cert: String? = nil,
-                time: String? = nil,
-                traceId: String? = nil,
-                error: String? = nil) {
-        
-        self.result = result
-        self.cert = cert
-        self.time = time
-        self.traceId = traceId
-        self.error = error
-    }
-    
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        result = try values.decodeIfPresent(ResponseResult.self, forKey: .result)
-        cert = try values.decodeIfPresent(String.self, forKey: .cert)
-        time = try values.decodeIfPresent(String.self, forKey: .time)
-        traceId = try values.decodeIfPresent(String.self, forKey: .traceId)
-        error = try values.decodeIfPresent(String.self, forKey: .error)
-    }
 }
 
 public enum ResponseResult: String, Decodable {

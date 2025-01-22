@@ -26,20 +26,4 @@ import Foundation
 public struct SessionResponseSignature: Decodable {
     public let value: String
     public let algorithm: String
-    
-    public enum CodingKeys: String, CodingKey {
-        case value
-        case algorithm
-    }
-    
-    public init(value: String, algorithm: String) {
-        self.value = value
-        self.algorithm = algorithm
-    }
-    
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        value = try values.decode(String.self, forKey: .value)
-        algorithm = try values.decode(String.self, forKey: .algorithm)
-    }
 }

@@ -22,29 +22,13 @@
 
 import Foundation
 
-// MARK: - CertificateRequestParameters
-public struct CertificateRequestParameters : Codable {
+public struct CertificateRequestParameters : Encodable {
     let relyingPartyUUID : String
     let relyingPartyName : String
     let phoneNumber : String
     let nationalIdentityNumber : String
-    
-    public enum CodingKeys: String, CodingKey {
-        case relyingPartyUUID
-        case relyingPartyName
-        case phoneNumber
-        case nationalIdentityNumber
-    }
-    
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        relyingPartyUUID = try values.decode(String.self, forKey: .relyingPartyUUID)
-        relyingPartyName = try values.decode(String.self, forKey: .relyingPartyName)
-        phoneNumber = try values.decode(String.self, forKey: .phoneNumber)
-        nationalIdentityNumber = try values.decode(String.self, forKey: .nationalIdentityNumber)
-    }
-    
-    public init(relyingPartyUUID: String, relyingPartyName: String, phoneNumber: String, nationalIdentityNumber: String) throws {
+
+    public init(relyingPartyUUID: String, relyingPartyName: String, phoneNumber: String, nationalIdentityNumber: String) {
         self.relyingPartyUUID = relyingPartyUUID
         self.relyingPartyName = relyingPartyName
         self.phoneNumber = phoneNumber
