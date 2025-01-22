@@ -21,11 +21,12 @@
  *
  */
 
-//#import "LdapResponse.h"
-#import "CryptoLib/OpenLdap.h"
 #import "MoppLibConstants.h"
+
+@class MoppLdapConfiguration;
+
 @interface MoppLibCryptoActions : NSObject
-    
+
 + (MoppLibCryptoActions *)sharedInstance;
     
     /**
