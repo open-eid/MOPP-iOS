@@ -69,8 +69,12 @@
     return [[MoppLibDigidocManager sharedInstance] iOSVersion];
 }
 
+- (NSString *)userAgent:(BOOL)shouldIncludeDevices {
+    return [[MoppLibDigidocManager sharedInstance] userAgent:shouldIncludeDevices];
+}
+
 - (NSString *)userAgent {
-    return [[MoppLibDigidocManager sharedInstance] userAgent];
+    return [[MoppLibDigidocManager sharedInstance] userAgent:false];
 }
 
 + (NSArray *)certificatePolicyIdentifiers:(NSData *)certData {

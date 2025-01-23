@@ -808,7 +808,7 @@ void parseException(const digidoc::Exception &e) {
     NSLog(@"Role data - roles: %@, city: %@, state: %@, zip: %@, country: %@", roleData.ROLES, roleData.CITY, roleData.STATE, roleData.ZIP, roleData.COUNTRY);
     signer->setProfile("time-stamp");
     signer->setSignatureProductionPlace(std::string([roleData.CITY UTF8String] ?: ""), std::string([roleData.STATE UTF8String] ?: ""), std::string([roleData.ZIP UTF8String] ?: ""), std::string([roleData.COUNTRY UTF8String] ?: ""));
-    signer->setUserAgent(std::string([MoppLibManager.sharedInstance.userAgent UTF8String]));
+    signer->setUserAgent(std::string([[MoppLibManager.sharedInstance userAgent:true] UTF8String]));
   
     std::vector<std::string> roles;
     for (NSString *role in roleData.ROLES) {
@@ -1016,10 +1016,16 @@ void parseException(const digidoc::Exception &e) {
 }
 
 - (NSString *)userAgent {
+    return [self userAgent:false];
+}
+
+- (NSString *)userAgent:(BOOL)shouldIncludeDevices {
     NSString *appInfo = [NSString stringWithFormat:@"%s/%@ (iOS %@) Lang: %@", "riadigidoc", [self moppAppVersion], [self iOSVersion], [self appLanguage]];
-    NSArray *connectedDevices = [self connectedDevices];
-    if (connectedDevices.count > 0) {
-        appInfo = [NSString stringWithFormat:@"%@ Devices: %@", appInfo, [connectedDevices componentsJoinedByString:@", "]];
+    if (shouldIncludeDevices) {
+        NSArray *connectedDevices = [self connectedDevices];
+        if (connectedDevices.count > 0) {
+            appInfo = [NSString stringWithFormat:@"%@ Devices: %@", appInfo, [connectedDevices componentsJoinedByString:@", "]];
+        }
     }
     return appInfo;
 }
