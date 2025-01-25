@@ -25,10 +25,6 @@
 
 @interface NSString (Additions)
 
-- (NSString *)toHexString;
 - (NSData *)toHexData;
-- (NSString *)hexToString;
-- (int)hexToInt;
-- (NSString *)SHA256;
-- (NSString *)replaceHexStringLastValue:(unsigned char)valueToReplace;
+
 @end

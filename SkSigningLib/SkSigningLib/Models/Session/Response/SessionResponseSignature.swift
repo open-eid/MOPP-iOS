@@ -24,6 +24,6 @@
 import Foundation
 
 public struct SessionResponseSignature: Decodable {
-    public let value: String
+    public let value: Data
     public let algorithm: String
 }

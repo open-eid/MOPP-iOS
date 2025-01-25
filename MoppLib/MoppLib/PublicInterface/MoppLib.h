@@ -21,7 +21,7 @@
  *
  */
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for MoppLib.
 FOUNDATION_EXPORT double MoppLibVersionNumber;
@@ -41,7 +41,6 @@ FOUNDATION_EXPORT const unsigned char MoppLibVersionString[];
 #import <MoppLib/MoppLibContainer.h>
 #import <MoppLib/MoppLibDataFile.h>
 #import <MoppLib/MoppLibSignature.h>
-#import <MoppLib/MoppLibMobileCreateSignatureResponse.h>
 #import <MoppLib/MoppLibCardReaderManager.h>
 #import <MoppLib/MoppLibCertificateInfo.h>
 #import <MoppLib/MoppLibDigidocValidateOnline.h>

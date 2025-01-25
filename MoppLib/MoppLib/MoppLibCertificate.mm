@@ -36,7 +36,6 @@
         if (!cert) {
             return;
         }
-        certData.isValid = cert.isValid();
         certData.expiryDate = [self certificateExpiryDate:cert];
         certData.organization = [self certificateOrganization:cert];
     } catch(const digidoc::Exception &e) {

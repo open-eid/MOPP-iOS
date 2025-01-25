@@ -4,6 +4,5 @@
 
 #import <MoppLib/MoppLib.h>
 #import <MoppLib/MoppLibConstants.h>
-#import <MoppLib/MoppLibMobileCreateSignatureResponse.h>
 #import <MoppLib/MoppLibCardReaderManager.h>
 #import <MoppLib/MoppLibProxyConfiguration.h>

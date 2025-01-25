@@ -33,7 +33,6 @@ class MobileIDChallengeViewController : UIViewController {
     @IBOutlet weak var helpLabel: UILabel!
 
     var challengeID = String()
-    var sessCode = String()
 
     var currentProgress: Double = 0.0
     var sessionTimer: Timer?
@@ -144,14 +143,12 @@ class MobileIDChallengeViewController : UIViewController {
 
     @objc func receiveMobileCreateSignatureNotification(_ notification: Notification) {
 
-        guard let response = notification.userInfo?[kCreateSignatureResponseKey] as? MoppLibMobileCreateSignatureResponse else {
+        guard let challengeID = notification.userInfo?[kCreateSignatureResponseKey] as? String else {
             return
         }
 
-        challengeID = response.challengeId!
-        sessCode = "\(Int(response.sessCode))"
         challengeIdNumbers = Array<Character>(challengeID)
-        
+
         let challengeIdAccessibilityLabel: NSAttributedString = NSAttributedString(string: "\(L(.signingProgress)) \(Int(0))%. \((L(LocKey.challengeCodeLabelAccessibility, [String(challengeIdNumbers[0]), String(challengeIdNumbers[1]), String(challengeIdNumbers[2]), String(challengeIdNumbers[3])]))). \(self.helpLabel.text!)", attributes: [.accessibilitySpeechQueueAnnouncement: true])
 
         codeLabel.text = L(LocKey.challengeCodeLabel, [challengeID])

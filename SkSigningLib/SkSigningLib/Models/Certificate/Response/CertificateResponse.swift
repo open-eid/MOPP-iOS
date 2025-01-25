@@ -25,7 +25,7 @@ import Foundation
 
 public struct CertificateResponse: Decodable {
     public let result: ResponseResult?
-    public let cert: String?
+    public let cert: Data?
     public let time: String?
     public let traceId: String?
     public let error: String?
