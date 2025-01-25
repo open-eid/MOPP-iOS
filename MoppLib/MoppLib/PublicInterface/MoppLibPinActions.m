@@ -25,7 +25,6 @@
 #import "CardActionsManager.h"
 #import "CardCommands.h"
 #import "MoppLibError.h"
-#import "MoppLibPrivateConstants.h"
 
 @implementation MoppLibPinActions
 
@@ -195,7 +194,7 @@
 }
 
 + (BOOL)canDoPinModifications {
-  return [[[NSBundle mainBundle] bundleIdentifier] isEqualToString:kRIADigiDocId];
+  return [[[NSBundle mainBundle] bundleIdentifier] isEqualToString:@"ee.ria.digidoc"];
 }
 
 @end

@@ -70,30 +70,18 @@ typedef NS_ENUM(NSUInteger, MoppLibErrorCode) {
 
 };
 
-typedef struct {
-    __unsafe_unretained NSString *encodedDataToSign;
-    int pinVerificationCode;
-} SigningRequestData;
-
-
-extern const SigningRequestData signingRequestData;
-
 extern NSString *const kMoppLibUserInfoRetryCount;
 
-@class MoppLibMobileCreateSignatureResponse;
 @class MoppLibPersonalData;
 @class MoppLibContainer;
 @class CdocInfo;
 
 typedef void (^DataSuccessBlock)(NSData *responseData);
-typedef void (^ObjectSuccessBlock)(NSObject *responseObject);
 typedef void (^FailureBlock)(NSError *error);
 typedef void (^PersonalDataBlock)(MoppLibPersonalData *personalData);
-typedef void (^SignatureStatusBlock) (MoppLibContainer *container, NSError *error, NSString *status);
 typedef void (^ContainerBlock)(MoppLibContainer *container);
 typedef void (^CdocContainerBlock)(CdocInfo *cdocInfo);
 typedef void (^DecryptedDataBlock)(NSMutableDictionary *decryptedData);
-typedef void (^MobileCreateSignatureResponseBlock)(MoppLibMobileCreateSignatureResponse *createSignatureResponse);
 typedef void (^VoidBlock)(void);
 typedef void (^BoolBlock)(BOOL);
 typedef void (^NumberBlock)(NSNumber*);

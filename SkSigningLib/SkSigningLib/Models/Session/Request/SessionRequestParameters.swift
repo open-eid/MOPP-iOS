@@ -28,7 +28,7 @@ public struct SessionRequestParameters: Encodable {
     let relyingPartyUUID: String
     let phoneNumber: String
     let nationalIdentityNumber: String
-    let hash: String
+    let hash: Data
     let hashType: String
     let language: String
     let displayText: String?
@@ -36,11 +36,11 @@ public struct SessionRequestParameters: Encodable {
     
     var asData: Data {
             return #"""
-    { "nationalIdentityNumber":"\#(nationalIdentityNumber)","hash":"\#(hash)","relyingPartyName":"\#(relyingPartyName)","displayTextFormat":"\#(displayTextFormat ?? "GSM-7")","displayText":"\#(displayText ?? "")","hashType":"\#(hashType)","language":"\#(language)","relyingPartyUUID":"\#(relyingPartyUUID)","phoneNumber":"\#(phoneNumber)" }
+    { "nationalIdentityNumber":"\#(nationalIdentityNumber)","hash":"\#(hash.base64EncodedString())","relyingPartyName":"\#(relyingPartyName)","displayTextFormat":"\#(displayTextFormat ?? "GSM-7")","displayText":"\#(displayText ?? "")","hashType":"\#(hashType)","language":"\#(language)","relyingPartyUUID":"\#(relyingPartyUUID)","phoneNumber":"\#(phoneNumber)" }
     """#.data(using: .utf8) ?? Data()
     }
 
-    public init(relyingPartyName: String, relyingPartyUUID: String, phoneNumber: String, nationalIdentityNumber: String, hash: String, hashType: String, language: String, displayText: String, displayTextFormat: String) throws {
+    public init(relyingPartyName: String, relyingPartyUUID: String, phoneNumber: String, nationalIdentityNumber: String, hash: Data, hashType: String, language: String, displayText: String, displayTextFormat: String) throws {
         self.relyingPartyName = relyingPartyName
         self.relyingPartyUUID = relyingPartyUUID
         self.phoneNumber = phoneNumber

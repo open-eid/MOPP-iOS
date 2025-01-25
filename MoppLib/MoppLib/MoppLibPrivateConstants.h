@@ -23,13 +23,8 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *const kRIADigiDocId;
-extern NSString *const kTestServiceNames;
-extern NSString *const kMessagingModes;
-
 @interface PrivateConstants : NSObject
 
-+ (NSDictionary *)getCentralConfigurationFromCache;
 + (void)setIDCardRestartedValue:(BOOL)isIDCardRestarted;
 + (BOOL)getIDCardRestartedValue;
 
