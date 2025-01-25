@@ -21,14 +21,14 @@
  *
  */
 
-#import <Foundation/Foundation.h>
 #import "MoppLibConstants.h"
-#import "MoppLibRoleAddressData.h"
+
+@class MoppLibRoleAddressData;
 
 @interface MoppLibSignature : NSObject
 
 @property (strong, nonatomic) NSString *subjectName;
-@property (strong, nonatomic) NSDate *timestamp;
+@property (strong, nonatomic) NSString *timestamp;
 @property (assign, nonatomic) MoppLibSignatureStatus status;
 @property (strong, nonatomic) NSString *diagnosticsInfo;
 @property (strong, nonatomic) NSString *issuerName;
