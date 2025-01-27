@@ -35,9 +35,7 @@
 #include <stdio.h>
 #import "NSData+Additions.h"
 #include "MoppLibDigidocMAnager.h"
-#import "MoppLibCertificateInfo.h"
 #import "MoppLibManager.h"
-#import "Reachability.h"
 
 @implementation MoppLibCryptoActions
 
@@ -126,101 +124,6 @@
             error == nil ? success() : failure(error);
         });
     });
-}
-
-- (void)searchLdapData:(NSString *)identifier success:(LdapBlock)success failure:(FailureBlock)failure configuration:(MoppLdapConfiguration *) moppLdapConfiguration {
-    
-    Reachability *reachability = [Reachability reachabilityForInternetConnection];
-    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
-    if (networkStatus == NotReachable) {
-        failure([MoppLibError noInternetConnectionError]);
-        return;
-    }
-    
-    NSString *certsPath = [self getLibraryCertsFolderPath];
-    NSString *ldapCertsPath = [self getCertFolderPath:certsPath fileName:@"ldapCerts.pem"];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSMutableArray<Addressee *> *filteredResponse = [[NSMutableArray alloc] init];
-        NSError *error;
-        @try {
-            NSArray<LDAPResponse *> *response = [OpenLdap searchWithIdentityCode:identifier configuration:moppLdapConfiguration withCertificate:ldapCertsPath];
-
-            if (response.count == 0) {
-                failure([MoppLibError ldapResponseNotFoundError]);
-                return;
-            }
-
-            for (LDAPResponse* key in response) {
-                for (NSData *certData in key.userCertificate) {
-
-                    Addressee *addressee = [[Addressee alloc] init];
-                    MoppLibCertificateInfo *certInfo = [MoppLibCertificateInfo alloc];
-                    NSArray<NSString *> *certPolicies = [certInfo certificatePolicies:certData];
-                    NSArray<NSNumber *> *certKeyUsages = [certInfo keyUsages:certData];
-
-                    if (key.cn != NULL) {
-                        NSArray *cn = [key.cn componentsSeparatedByString:@","];
-                        if (cn.count > 1) {
-                            addressee.surname = cn[0];
-                            addressee.givenName = cn[1];
-                            addressee.identifier = cn[2];
-                        } else {
-                            addressee.identifier = cn[0];
-                        }
-                    }
-
-                    if (([certInfo hasKeyEnciphermentUsage:(certKeyUsages)] || [certInfo hasKeyAgreementUsage:(certKeyUsages)]) &&
-                        ![certInfo isServerAuthKeyPurpose:(certData)] &&
-                        (![certInfo isESealType:(certPolicies)] || ![certInfo isTlsClientAuthKeyPurpose:(certData)]) &&
-                        ![certInfo isMobileIdType:(certPolicies)] && ![certInfo isUnknownType:(certPolicies)]) {
-                        
-                        addressee.cert = certData;
-                        
-                        MoppLibCerificatetData *certificateData = [MoppLibCerificatetData new];
-                        [MoppLibCertificate certData:certificateData updateWithDerEncoding:certData];
-                        addressee.validTo = certificateData.expiryDate;
-                        if (addressee.validTo != nil) {
-                            [filteredResponse addObject:addressee];
-                        }
-                    }
-                }
-            }
-
-            if (filteredResponse.count == 0) {
-                failure([MoppLibError ldapResponseNotFoundError]);
-                return;
-            }
-        }
-        @catch (...) {
-            error = [MoppLibError generalError];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            error == nil ? success(filteredResponse) : failure(error);
-        });
-    });
-}
-
-- (NSString*) getLibraryCertsFolderPath {
-    NSArray *libraryPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-    if ([libraryPaths count] > 0) {
-        NSString *libraryPath = libraryPaths[0];
-        NSString *certsPath = [libraryPath stringByAppendingPathComponent:@"LDAPCerts"];
-        return certsPath;
-    }
-    return nil;
-}
-
-- (NSString*) getCertFolderPath:(NSString *)directoryPath fileName:(NSString *)fileName {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *filePath = [directoryPath stringByAppendingPathComponent:fileName];
-    if ([fileManager fileExistsAtPath:filePath]) {
-        return filePath;
-    } else {
-        NSLog(@"File %@ does not exist at directory path: %@", fileName, filePath);
-    }
-    
-    return @"";
 }
 
 @end
