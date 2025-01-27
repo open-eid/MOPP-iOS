@@ -28,5 +28,6 @@
 @property (nonatomic, strong) NSString *identifier;
 @property (nonatomic, strong) NSData *cert;
 @property (nonatomic, strong) NSDate *validTo;
+@property (nonatomic, strong) NSArray<NSString*> *policyIdentifiers;
 
 @end

@@ -334,27 +334,6 @@ static digidoc::Signer* signer = nil;
     return digidoc::X509Cert(reinterpret_cast<const unsigned char *>(data.bytes), data.length);
 }
 
-+ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData {
-    digidoc::X509Cert x509Cert;
-    try {
-        x509Cert = [self getCertFromData:certData];
-    }  catch(const digidoc::Exception &e) {
-        parseException(e);
-        printLog(@"Unable to create a X509 certificate object for Certificate Policy Identifiers. Code: %u, message: %s", e.code(), e.msg().c_str());
-        return @[];
-    } catch(...) {
-        printLog(@"Creating a X509 certificate object raised exception\n");
-        return @[];
-    }
-
-    auto policies = x509Cert.certificatePolicies();
-    NSMutableArray *result = [NSMutableArray new];
-    for (auto p : policies) {
-        [result addObject:[NSString stringWithUTF8String:p.c_str()]];
-    }
-    return result;
-}
-
 + (NSData *)getDataToSign {
     std::vector<unsigned char> dataTosign = signature->dataToSign();
     return [NSData dataWithBytes:dataTosign.data() length:dataTosign.size()];

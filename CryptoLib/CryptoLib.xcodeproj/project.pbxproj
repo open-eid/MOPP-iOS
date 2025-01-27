@@ -28,9 +28,9 @@
 		39852A5420AB2418004CB100 /* DdocParserDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4A20AB2418004CB100 /* DdocParserDelegate.h */; };
 		39E2B4D920AD7A3400CA74A8 /* Addressee.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E2B4CF20AD7A3400CA74A8 /* Addressee.m */; };
 		39E2B4DF20AD7A3400CA74A8 /* Addressee.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4D520AD7A3400CA74A8 /* Addressee.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E3681D82D40EAAD00D76DAB /* LDAPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3681D62D40EAAD00D76DAB /* LDAPResponse.swift */; };
 		4E3681D92D40EAAD00D76DAB /* OpenLdap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3681D72D40EAAD00D76DAB /* OpenLdap.swift */; };
 		4E3681DB2D40EAE800D76DAB /* MoppLdapConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3681DA2D40EAE800D76DAB /* MoppLdapConfiguration.swift */; };
+		4EAC69122D481D1C00A53079 /* ASN1Decoder in Frameworks */ = {isa = PBXBuildFile; productRef = 4EAC69112D481D1C00A53079 /* ASN1Decoder */; };
 		DFA40D2F2ADF635F003EF945 /* 3513523f.0 in Resources */ = {isa = PBXBuildFile; fileRef = DFA40D2E2ADF635F003EF945 /* 3513523f.0 */; };
 		DFC7CA452AE010C9009D85FF /* 9f4c149e.0 in Resources */ = {isa = PBXBuildFile; fileRef = DFC7CA442AE010C9009D85FF /* 9f4c149e.0 */; };
 /* End PBXBuildFile section */
@@ -70,7 +70,6 @@
 		39E2B4CF20AD7A3400CA74A8 /* Addressee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Addressee.m; sourceTree = "<group>"; };
 		39E2B4D520AD7A3400CA74A8 /* Addressee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Addressee.h; sourceTree = "<group>"; };
 		4E01B4A62AEFDD3B00941723 /* build-cdoc.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "build-cdoc.sh"; sourceTree = "<group>"; };
-		4E3681D62D40EAAD00D76DAB /* LDAPResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDAPResponse.swift; sourceTree = "<group>"; };
 		4E3681D72D40EAAD00D76DAB /* OpenLdap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLdap.swift; sourceTree = "<group>"; };
 		4E3681DA2D40EAE800D76DAB /* MoppLdapConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoppLdapConfiguration.swift; sourceTree = "<group>"; };
 		DFA40D2E2ADF635F003EF945 /* 3513523f.0 */ = {isa = PBXFileReference; lastKnownFileType = text; path = 3513523f.0; sourceTree = "<group>"; };
@@ -82,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EAC69122D481D1C00A53079 /* ASN1Decoder in Frameworks */,
 				393B66E020DB94B4001DC89B /* cdoc.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -139,7 +139,6 @@
 			isa = PBXGroup;
 			children = (
 				4E3681D72D40EAAD00D76DAB /* OpenLdap.swift */,
-				4E3681D62D40EAAD00D76DAB /* LDAPResponse.swift */,
 				4E3681DA2D40EAE800D76DAB /* MoppLdapConfiguration.swift */,
 			);
 			name = Ldap;
@@ -251,6 +250,9 @@
 				en,
 			);
 			mainGroup = 39231FA020AB1C6C00E1E2B4;
+			packageReferences = (
+				4EAC68FF2D47839500A53079 /* XCRemoteSwiftPackageReference "ASN1Decoder" */,
+			);
 			productRefGroup = 39231FAB20AB1C6C00E1E2B4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -288,7 +290,6 @@
 				39E2B4D920AD7A3400CA74A8 /* Addressee.m in Sources */,
 				39852A5320AB2418004CB100 /* Encrypt.mm in Sources */,
 				39266A5120CFBDF8002E3F23 /* SmartCardTokenWrapper.mm in Sources */,
-				4E3681D82D40EAAD00D76DAB /* LDAPResponse.swift in Sources */,
 				4E3681D92D40EAAD00D76DAB /* OpenLdap.swift in Sources */,
 				4E3681DB2D40EAE800D76DAB /* MoppLdapConfiguration.swift in Sources */,
 			);
@@ -433,7 +434,6 @@
 				FRAMEWORK_SEARCH_PATHS = "$(TARGET_BUILD_DIR)";
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "$(LDAP_PATH)/include";
-				INFOPLIST_FILE = CryptoLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LDAP_PATH = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos";
@@ -472,7 +472,6 @@
 				FRAMEWORK_SEARCH_PATHS = "$(TARGET_BUILD_DIR)";
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "$(LDAP_PATH)/include";
-				INFOPLIST_FILE = CryptoLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LDAP_PATH = "$(PROJECT_DIR)/CryptoLib/openldap/OPENLDAP.iphoneos";
@@ -540,6 +539,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4EAC68FF2D47839500A53079 /* XCRemoteSwiftPackageReference "ASN1Decoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/filom/ASN1Decoder";
+			requirement = {
+				kind = exactVersion;
+				version = 1.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4EAC69112D481D1C00A53079 /* ASN1Decoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EAC68FF2D47839500A53079 /* XCRemoteSwiftPackageReference "ASN1Decoder" */;
+			productName = ASN1Decoder;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 39231FA120AB1C6C00E1E2B4 /* Project object */;
 }

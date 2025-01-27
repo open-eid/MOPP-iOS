@@ -65,8 +65,6 @@
 		DF1503872AC5CE32007222B2 /* OCMock in Frameworks */ = {isa = PBXBuildFile; productRef = DF1503862AC5CE32007222B2 /* OCMock */; };
 		DF169D5A2B9000F0000DD46C /* MoppLibDigidocValidateOnline.h in Headers */ = {isa = PBXBuildFile; fileRef = DF169D592B9000F0000DD46C /* MoppLibDigidocValidateOnline.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DF169D5C2B90011E000DD46C /* MoppLibDigidocValidateOnline.m in Sources */ = {isa = PBXBuildFile; fileRef = DF169D5B2B90011E000DD46C /* MoppLibDigidocValidateOnline.m */; };
-		DF1EE2BD234DD20500E37CA8 /* MoppLibCertificateInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = DF1EE2BB234DD20500E37CA8 /* MoppLibCertificateInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DF1EE2BE234DD20500E37CA8 /* MoppLibCertificateInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = DF1EE2BC234DD20500E37CA8 /* MoppLibCertificateInfo.mm */; };
 		DFBDF1F827DA44BD00A5CF3C /* MoppLibRoleAddressData.h in Headers */ = {isa = PBXBuildFile; fileRef = DFBDF1F727DA44BD00A5CF3C /* MoppLibRoleAddressData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DFBDF1FA27DA44FD00A5CF3C /* MoppLibRoleAddressData.m in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1F927DA44FD00A5CF3C /* MoppLibRoleAddressData.m */; };
 		DFDD76292B507EFF0008EC2C /* MoppLibProxyConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = DFDD76282B507EFF0008EC2C /* MoppLibProxyConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -76,8 +74,6 @@
 		E4180C161E23FE9300FD7B8C /* MLDateFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = E4180C141E23FE9300FD7B8C /* MLDateFormatter.h */; };
 		E4180C171E23FE9300FD7B8C /* MLDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4180C151E23FE9300FD7B8C /* MLDateFormatter.m */; };
 		E4250CEC1E09695100530370 /* MoppLib.h in Headers */ = {isa = PBXBuildFile; fileRef = E4250CEA1E09695100530370 /* MoppLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E4250CFC1E096BEA00530370 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250CFB1E096BEA00530370 /* libz.tbd */; };
-		E4250CFE1E096BEF00530370 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250CFD1E096BEF00530370 /* libxml2.tbd */; };
 		E4250D001E096CAA00530370 /* test.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E4250CFF1E096CAA00530370 /* test.bdoc */; };
 		E42B08B51E1F0B3B00EA24A3 /* MoppLibContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = E42B08B31E1F0B3B00EA24A3 /* MoppLibContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E42B08B61E1F0B3B00EA24A3 /* MoppLibContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08B41E1F0B3B00EA24A3 /* MoppLibContainer.m */; };
@@ -169,8 +165,6 @@
 		C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		DF169D592B9000F0000DD46C /* MoppLibDigidocValidateOnline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLibDigidocValidateOnline.h; sourceTree = "<group>"; };
 		DF169D5B2B90011E000DD46C /* MoppLibDigidocValidateOnline.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoppLibDigidocValidateOnline.m; sourceTree = "<group>"; };
-		DF1EE2BB234DD20500E37CA8 /* MoppLibCertificateInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibCertificateInfo.h; sourceTree = "<group>"; };
-		DF1EE2BC234DD20500E37CA8 /* MoppLibCertificateInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoppLibCertificateInfo.mm; sourceTree = "<group>"; };
 		DFBDF1F727DA44BD00A5CF3C /* MoppLibRoleAddressData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLibRoleAddressData.h; sourceTree = "<group>"; };
 		DFBDF1F927DA44FD00A5CF3C /* MoppLibRoleAddressData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoppLibRoleAddressData.m; sourceTree = "<group>"; };
 		DFDD76282B507EFF0008EC2C /* MoppLibProxyConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLibProxyConfiguration.h; sourceTree = "<group>"; };
@@ -182,8 +176,6 @@
 		E4250CE71E09695100530370 /* MoppLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoppLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250CEA1E09695100530370 /* MoppLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLib.h; sourceTree = "<group>"; };
 		E4250CEB1E09695100530370 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E4250CFB1E096BEA00530370 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		E4250CFD1E096BEF00530370 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		E4250CFF1E096CAA00530370 /* test.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.bdoc; sourceTree = "<group>"; };
 		E42B08B31E1F0B3B00EA24A3 /* MoppLibContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibContainer.h; sourceTree = "<group>"; };
 		E42B08B41E1F0B3B00EA24A3 /* MoppLibContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibContainer.m; sourceTree = "<group>"; };
@@ -218,8 +210,6 @@
 				C5F462A8209727E8001B7D59 /* CoreBluetooth.framework in Frameworks */,
 				4E63A77B2AEA7C5A00CEE392 /* digidocpp.framework in Frameworks */,
 				C54EA73020499DFC0039AC78 /* ExternalAccessory.framework in Frameworks */,
-				E4250CFE1E096BEF00530370 /* libxml2.tbd in Frameworks */,
-				E4250CFC1E096BEA00530370 /* libz.tbd in Frameworks */,
 				C5AAAF8220C9621D0087D6DA /* libiRockey301_ccid.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -281,8 +271,6 @@
 				AE0A84491E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m */,
 				DFF3C3A723322E0C0079458A /* MOPPLibConfiguration.h */,
 				DFF3C3A823322E0C0079458A /* MOPPLibConfiguration.m */,
-				DF1EE2BB234DD20500E37CA8 /* MoppLibCertificateInfo.h */,
-				DF1EE2BC234DD20500E37CA8 /* MoppLibCertificateInfo.mm */,
 				DFBDF1F727DA44BD00A5CF3C /* MoppLibRoleAddressData.h */,
 				DFBDF1F927DA44FD00A5CF3C /* MoppLibRoleAddressData.m */,
 			);
@@ -340,8 +328,6 @@
 				C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */,
 				C54EA72F20499DFC0039AC78 /* ExternalAccessory.framework */,
 				C5AAAF8120C9621D0087D6DA /* libiRockey301_ccid.a */,
-				E4250CFD1E096BEF00530370 /* libxml2.tbd */,
-				E4250CFB1E096BEA00530370 /* libz.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -468,7 +454,6 @@
 				AE0A844A1E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.h in Headers */,
 				54DC0E011E0D48C900C62B3D /* MoppLibError.h in Headers */,
 				E4180C161E23FE9300FD7B8C /* MLDateFormatter.h in Headers */,
-				DF1EE2BD234DD20500E37CA8 /* MoppLibCertificateInfo.h in Headers */,
 				E42B08C51E1F11B900EA24A3 /* MoppLibDataFile.h in Headers */,
 				C54EA736204D90D50039AC78 /* MoppLibCardReaderManager.h in Headers */,
 				399C01E620BC17A10056D7AC /* MoppLibCryptoActions.h in Headers */,
@@ -640,7 +625,6 @@
 				C54EA732204D5E860039AC78 /* CardReaderiR301.m in Sources */,
 				545111731E13BBA800296B80 /* MoppLibPersonalData.m in Sources */,
 				E4180C171E23FE9300FD7B8C /* MLDateFormatter.m in Sources */,
-				DF1EE2BE234DD20500E37CA8 /* MoppLibCertificateInfo.mm in Sources */,
 				DFF3C3AA23322E0D0079458A /* MOPPLibConfiguration.m in Sources */,
 				54DC0E021E0D48C900C62B3D /* MoppLibError.m in Sources */,
 				E42B08C61E1F11B900EA24A3 /* MoppLibDataFile.m in Sources */,
@@ -733,7 +717,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -766,7 +750,7 @@
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -800,7 +784,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -829,11 +813,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = PrefixHeader.pch;
