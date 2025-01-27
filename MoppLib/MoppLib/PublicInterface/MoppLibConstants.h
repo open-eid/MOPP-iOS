@@ -95,7 +95,6 @@ typedef void (^CertDataBlock)(MoppLibCerificatetData *certData);
 typedef void (^PersonalDataBlock)(MoppLibPersonalData *personalData);
 typedef void (^SignatureStatusBlock) (MoppLibContainer *container, NSError *error, NSString *status);
 typedef void (^ContainerBlock)(MoppLibContainer *container);
-typedef void (^LdapBlock)(NSMutableArray *ldapResponse);
 typedef void (^CdocContainerBlock)(CdocInfo *cdocInfo);
 typedef void (^DecryptedDataBlock)(NSMutableDictionary *decryptedData);
 typedef void (^MobileCreateSignatureResponseBlock)(MoppLibMobileCreateSignatureResponse *createSignatureResponse);

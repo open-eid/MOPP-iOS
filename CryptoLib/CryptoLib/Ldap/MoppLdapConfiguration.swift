@@ -23,7 +23,7 @@
 
 import Foundation
 
-public class MoppLdapConfiguration: NSObject {
+public class MoppLdapConfiguration {
     var LDAPCERTS: [String] = []
     var LDAPPERSONURL: String = ""
     var LDAPCORPURL: String = ""
@@ -32,6 +32,5 @@ public class MoppLdapConfiguration: NSObject {
         self.LDAPCERTS = ldapCerts
         self.LDAPPERSONURL = ldapPersonURL
         self.LDAPCORPURL = ldapCorpURL
-        super.init()
     }
 }
