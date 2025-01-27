@@ -22,33 +22,45 @@
 
 import Foundation
 import LDAP
+import ASN1Decoder
 
-typealias LDAP = OpaquePointer
-typealias LDAPMessage = OpaquePointer
+public class OpenLdap {
+    typealias LDAP = OpaquePointer
+    typealias LDAPMessage = OpaquePointer
+    typealias BerElement = OpaquePointer
 
-public class OpenLdap: NSObject {
-    private override init() {}
+    enum KeyUsage: Int {
+        case digitalSignature = 0
+        case nonRepudiation = 1
+        case keyEncipherment = 2
+        case dataEncipherment = 3
+        case keyAgreement = 4
+        case keyCertSign = 5
+        case cRLSign = 6
+        case encipherOnly = 7
+        case decipherOnly = 8
+    }
 
-    @objc static public func search(identityCode: String, configuration: MoppLdapConfiguration, withCertificate cert: String?) -> [LDAPResponse] {
-        if configuration.LDAPCERTS.isEmpty {
-            var result = search(identityCode: identityCode, url: configuration.LDAPPERSONURL, certificatePath: nil)
-
-            if result.isEmpty {
-                result = search(identityCode: identityCode, url: configuration.LDAPCORPURL, certificatePath: nil)
+    static public func search(identityCode: String, configuration: MoppLdapConfiguration) async -> [Addressee] {
+        var filePath: String? = nil
+        if let libraryPath = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first {
+            filePath = libraryPath.appendingPathComponent("LDAPCerts/ldapCerts.pem").path
+            if !FileManager.default.fileExists(atPath: filePath!) {
+                print("File ldapCerts.pem does not exist at directory path: \(filePath!)")
+                filePath = nil
             }
-            return result
         }
 
         if isPersonalCode(identityCode) {
             print("Searching with personal code from LDAP")
-            return search(identityCode: identityCode, url: configuration.LDAPPERSONURL, certificatePath: cert)
+            return search(identityCode: identityCode, url: configuration.LDAPPERSONURL, certificatePath: filePath)
         } else {
             print("Searching with corporation keyword from LDAP")
-            return search(identityCode: identityCode, url: configuration.LDAPCORPURL, certificatePath: cert)
+            return search(identityCode: identityCode, url: configuration.LDAPCORPURL, certificatePath: filePath)
         }
     }
 
-    static private func search(identityCode: String, url: String, certificatePath: String?) -> [LDAPResponse] {
+    static private func search(identityCode: String, url: String, certificatePath: String?) -> [Addressee] {
         let secureLdap = url.lowercased().hasPrefix("ldaps")
         if secureLdap {
             if let certificatePath = certificatePath, !certificatePath.isEmpty {
@@ -66,7 +78,7 @@ public class OpenLdap: NSObject {
         }
 
         var ldap: LDAP?
-        let ldapReturnCode = ldap_initialize(&ldap, url.cString(using: .utf8))
+        let ldapReturnCode = ldap_initialize(&ldap, url)
         defer {
             if let ldap = ldap { ldap_unbind_ext_s(ldap, nil, nil) }
         }
@@ -91,18 +103,32 @@ public class OpenLdap: NSObject {
         }
         var msg: LDAPMessage?
         print("Searching from LDAP. Url: \(url) \(filter)")
-        ldap_search_ext_s(ldap, "c=EE", LDAP_SCOPE_SUBTREE, filter, nil, 0, nil, nil, nil, 0, &msg)
+        var attr = Array("userCertificate;binary".utf8CString)
+        _ = attr.withUnsafeMutableBufferPointer { attr in
+            var attrs = [attr.baseAddress, nil]
+            return attrs.withUnsafeMutableBufferPointer { attrs in
+                ldap_search_ext_s(ldap, "c=EE", LDAP_SCOPE_SUBTREE, filter, attrs.baseAddress, 0, nil, nil, nil, 0, &msg)
+            }
+        }
 
         if let msg = msg {
             defer { ldap_msgfree(msg) }
-            return LDAPResponse.from(ldap: ldap!, msg: msg)
+            var result = [Addressee]()
+            var message = ldap_first_message(ldap, msg)
+            while let currentMessage = message {
+                if ldap_msgtype(currentMessage) == LDAP_RES_SEARCH_ENTRY {
+                    result.append(contentsOf: attributes(ldap: ldap!, msg: currentMessage))
+                }
+                message = ldap_next_message(ldap, currentMessage)
+            }
+            return result
         }
 
         return []
     }
 
     static private func setLdapOption(option: Int32, value: String) -> Bool {
-        let result = ldap_set_option(nil, option, value.cString(using: .utf8))
+        let result = ldap_set_option(nil, option, value)
         if result != LDAP_SUCCESS {
             print("ldap_set_option failed: \(String(cString: ldap_err2string(result)))")
             return false
@@ -112,5 +138,92 @@ public class OpenLdap: NSObject {
 
     static private func isPersonalCode(_ inputString: String) -> Bool {
         return inputString.count == 11 && inputString.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
+    }
+
+    static private func attributes(ldap: LDAP, msg: LDAPMessage) -> [Addressee] {
+        var result = [Addressee]()
+        var ber: BerElement?
+        var attrPointer = ldap_first_attribute(ldap, msg, &ber)
+        while let attr = attrPointer {
+            defer { ldap_memfree(attr) }
+            result.append(contentsOf: values(ldap: ldap, msg: msg, tag: String(cString: attr)))
+            attrPointer = ldap_next_attribute(ldap, msg, ber)
+        }
+        if let ber = ber {
+            ber_free(ber, 0)
+        }
+
+        if let namePointer = ldap_get_dn(ldap, msg) {
+            print("Result (\(result.count)) \(String(cString: namePointer))")
+            ldap_memfree(namePointer)
+        }
+        return result
+    }
+
+    static private func values(ldap: LDAP, msg: LDAPMessage, tag: String) -> [Addressee] {
+        var result = [Addressee]()
+        guard let bvals = ldap_get_values_len(ldap, msg, tag) else {
+            return result
+        }
+        defer { ldap_value_free_len(bvals) }
+
+        var i = 0
+        while let bval = bvals[i] {
+            let data = Data(bytes: bval.pointee.bv_val, count: Int(bval.pointee.bv_len))
+            i += 1
+            guard let x509 = try? X509Certificate(der: data) else {
+                continue
+            }
+            var isIdCardType = false
+            var isDigiIdType = false
+            var isMobileID = false
+            var isESeal = false
+            var policyIdentifiers = [String]()
+            if let ext = x509.extensionObject(oid: OID.certificatePolicies) as? X509Certificate.CertificatePoliciesExtension {
+                for policy in ext.policies ?? [] {
+                    policyIdentifiers.append(policy.oid)
+                    switch policy.oid {
+                    case let oid where oid.starts(with: "1.3.6.1.4.1.10015.1.1"),
+                         let oid where oid.starts(with: "1.3.6.1.4.1.51361.1.1.1"):
+                        isIdCardType = true
+                    case let oid where oid.starts(with: "1.3.6.1.4.1.10015.1.2"),
+                         let oid where oid.starts(with: "1.3.6.1.4.1.51361.1.1"),
+                         let oid where oid.starts(with: "1.3.6.1.4.1.51455.1.1"):
+                        isDigiIdType = true
+                    case let oid where oid.starts(with: "1.3.6.1.4.1.10015.1.3"),
+                         let oid where oid.starts(with: "1.3.6.1.4.1.10015.11.1"):
+                        isMobileID = true
+                    case let oid where oid.starts(with: "1.3.6.1.4.1.10015.7.3"),
+                         let oid where oid.starts(with: "1.3.6.1.4.1.10015.7.1"),
+                         let oid where oid.starts(with: "1.3.6.1.4.1.10015.2.1"):
+                        isESeal = true
+                    default:
+                        break
+                    }
+                }
+            }
+            let isUnknown = !isIdCardType && !isDigiIdType && !isMobileID && !isESeal
+
+            if x509.keyUsage[KeyUsage.keyEncipherment.rawValue] || x509.keyUsage[KeyUsage.keyAgreement.rawValue],
+               !x509.extendedKeyUsage.contains(OID.serverAuth.rawValue),
+               !isESeal || !x509.extendedKeyUsage.contains(OID.clientAuth.rawValue),
+               !isMobileID && !isUnknown {
+                let cn = x509.subject(oid: OID.commonName)?.joined(separator: ",") ?? ""
+                let split = cn.split(separator: ",").map { String($0) }
+                let addressee = Addressee()
+                if split.count == 3 {
+                    addressee.surname = split[0]
+                    addressee.givenName = split[1]
+                    addressee.identifier = split[2]
+                } else {
+                    addressee.identifier = cn
+                }
+                addressee.cert = data
+                addressee.validTo = x509.notAfter ?? Date()
+                addressee.policyIdentifiers = policyIdentifiers
+                result.append(addressee)
+            }
+        }
+        return result
     }
 }
