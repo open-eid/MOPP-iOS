@@ -24,6 +24,7 @@
 
 import Foundation
 import ASN1Decoder
+import CryptoLib
 
 internal struct MOPPConfiguration: Codable {
     var TSLURL: String
