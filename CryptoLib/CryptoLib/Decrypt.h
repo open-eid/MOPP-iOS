@@ -20,26 +20,10 @@
  *
  */
 
-
-#ifndef CdocWriter_h
-#define CdocWriter_h
-
-
-#endif /* CdocWriter_h */
-
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import "SmartCardTokenWrapper.h"
-#import "AbstractSmartToken.h"
-#if __cplusplus
-#import "cdoc/CdocReader.h"
-#endif
+
+@protocol AbstractSmartToken;
+
 @interface Decrypt : NSObject
-
-- (NSMutableDictionary *)decryptFile: (NSString *)fullPath withPin :(NSString *) pin withToken :(AbstractSmartToken *) smartToken;
+- (NSMutableDictionary *)decryptFile:(NSString *)fullPath withPin:(NSString *)pin withToken:(id<AbstractSmartToken>)smartToken;
 @end
-
-
-
-
-

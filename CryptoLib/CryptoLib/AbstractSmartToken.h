@@ -22,10 +22,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AbstractSmartToken : NSObject
+@protocol AbstractSmartToken
 - (NSData*)getCertificate;
 - (NSData*)decrypt:(NSData*)data pin1:(NSString *)pin1;
 - (NSData*)derive:(NSData*)data pin1:(NSString *)pin1;
 @end
-
-
