@@ -1,5 +1,5 @@
 //
-//  ApduToken.hpp
+//  SmartCardTokenWrapper.hpp
 //  CryptoLib
 /*
  * Copyright 2017 - 2024 Riigi Infosüsteemi Amet
@@ -20,29 +20,31 @@
  *
  */
 
-
-
 #if __cplusplus
+
 #import "cdoc/Token.h"
 
-#include <stdio.h>
-#import "AbstractSmartToken.h"
+#import <Foundation/Foundation.h>
 
-#import <UIKit/UIKit.h>
+#include <memory>
 
-class  SmartCardTokenWrapper: public Token
+@protocol AbstractSmartToken;
+
+class SmartCardTokenWrapper: public Token
 {
 public:
-    SmartCardTokenWrapper(const std::string &password,  AbstractSmartToken *smartToken);
-    SmartCardTokenWrapper();
+    SmartCardTokenWrapper(const std::string &password, id<AbstractSmartToken> smartToken);
+    ~SmartCardTokenWrapper() noexcept;
     virtual std::vector<uchar> cert() const override;
     virtual std::vector<uchar> decrypt(const std::vector<uchar> &data) const override;
     virtual std::vector<uchar> derive(const std::vector<uchar> &publicKey) const override;
-    
+
+    Token* selfPtr() { return this; }
+
 private:
     class Private;
-    Private *token;
-    std::vector<uchar> encodeData(const NSData *dataBlock) const;
+    std::unique_ptr<Private> token;
+    static std::vector<uchar> encodeData(const NSData *dataBlock);
 };
 
 #endif
