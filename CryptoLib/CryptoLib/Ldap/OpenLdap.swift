@@ -80,7 +80,7 @@ public class OpenLdap {
         var ldap: LDAP?
         let ldapReturnCode = ldap_initialize(&ldap, url)
         defer {
-            if let ldap = ldap { ldap_unbind_ext_s(ldap, nil, nil) }
+            if let ldap = ldap { ldap_destroy(ldap) }
         }
         guard ldapReturnCode == LDAP_SUCCESS else {
             print("Failed to initialize LDAP: \(String(cString: ldap_err2string(ldapReturnCode)))")
@@ -144,13 +144,13 @@ public class OpenLdap {
         var result = [Addressee]()
         var ber: BerElement?
         var attrPointer = ldap_first_attribute(ldap, msg, &ber)
+        defer {
+            if let ber = ber { ber_free(ber, 0) }
+        }
         while let attr = attrPointer {
             defer { ldap_memfree(attr) }
             result.append(contentsOf: values(ldap: ldap, msg: msg, tag: String(cString: attr)))
             attrPointer = ldap_next_attribute(ldap, msg, ber)
-        }
-        if let ber = ber {
-            ber_free(ber, 0)
         }
 
         if let namePointer = ldap_get_dn(ldap, msg) {
