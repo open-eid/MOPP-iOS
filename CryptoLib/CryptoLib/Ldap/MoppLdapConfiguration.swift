@@ -1,6 +1,7 @@
 //
-//  OpenLdap.h
+//  MoppLdapConfiguration.swift
 //  CryptoLib
+//
 /*
  * Copyright 2017 - 2024 Riigi Infosüsteemi Amet
  *
@@ -20,13 +21,16 @@
  *
  */
 
-#import <Foundation/Foundation.h>
-#import "Addressee.h"
-#import "MoppLdapConfiguration.h"
-#import "LDAPResponse.h"
+import Foundation
 
-@interface OpenLdap : NSObject
-- (NSArray<LDAPResponse *> *)search:(NSString*)identityCode configuration:(MoppLdapConfiguration *)moppLdapConfiguration withCertificate:(NSString *)cert;
-@end
+public class MoppLdapConfiguration {
+    var LDAPCERTS: [String] = []
+    var LDAPPERSONURL: String = ""
+    var LDAPCORPURL: String = ""
 
-
+    public init(ldapCerts: [String], ldapPersonURL: String, ldapCorpURL: String) {
+        self.LDAPCERTS = ldapCerts
+        self.LDAPPERSONURL = ldapPersonURL
+        self.LDAPCORPURL = ldapCorpURL
+    }
+}

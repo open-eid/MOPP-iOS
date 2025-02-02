@@ -46,10 +46,10 @@
 
 - (NSString *)moppLibVersion;
 - (NSString *)libdigidocppVersion;
+- (BOOL)isConnected;
 - (NSString *)appVersion;
 - (NSString *)iOSVersion;
 - (NSString *)userAgent;
-+ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData;
 + (NSString *)sanitize:(NSString *)text;
 
 @end

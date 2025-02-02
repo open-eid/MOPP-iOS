@@ -23,6 +23,7 @@
 
 #import "MoppLibManager.h"
 #import "MoppLibDigidocManager.h"
+#import "Reachability/Reachability.h"
 
 @implementation MoppLibManager
 
@@ -61,6 +62,11 @@
     return [[MoppLibDigidocManager sharedInstance] digidocVersion];
 }
 
+- (BOOL)isConnected {
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    return [reachability currentReachabilityStatus] != NotReachable;
+}
+
 - (NSString *)appVersion {
   return [[MoppLibDigidocManager sharedInstance] moppAppVersion];
 }
@@ -71,10 +77,6 @@
 
 - (NSString *)userAgent {
     return [[MoppLibDigidocManager sharedInstance] userAgent];
-}
-
-+ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData {
-    return [MoppLibDigidocManager certificatePolicyIdentifiers:certData];
 }
 
 + (NSString *)sanitize:(NSString *)text {

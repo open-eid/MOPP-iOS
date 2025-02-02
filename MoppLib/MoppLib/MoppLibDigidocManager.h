@@ -58,6 +58,5 @@ typedef enum {
 - (NSString *)moppAppVersion;
 - (NSString *)iOSVersion;
 - (NSString *)userAgent;
-+ (NSArray *)certificatePolicyIdentifiers:(NSData *)certData;
 + (NSString *)sanitize:(NSString *)text;
 @end
