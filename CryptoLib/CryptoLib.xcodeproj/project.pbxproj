@@ -16,14 +16,13 @@
 		39266A6320CFE3D4002E3F23 /* CdocParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 39266A6220CFE3D4002E3F23 /* CdocParserDelegate.m */; };
 		39266A6420CFE63D002E3F23 /* CdocParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 39266A5B20CFDC41002E3F23 /* CdocParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39266A6520CFE643002E3F23 /* CdocInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 39266A6020CFDCDF002E3F23 /* CdocInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		393B66BC20D8F361001DC89B /* AbstractSmartToken.mm in Sources */ = {isa = PBXBuildFile; fileRef = 393B66BB20D8F361001DC89B /* AbstractSmartToken.mm */; };
 		393B66E020DB94B4001DC89B /* cdoc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 393B66DF20DB94B4001DC89B /* cdoc.framework */; };
 		3960E50520C02E5900D4D2FC /* CryptoDataFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 3960E50420C02E5900D4D2FC /* CryptoDataFile.m */; };
 		3960E50620C044EE00D4D2FC /* CryptoDataFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 3960E50320C02DA400D4D2FC /* CryptoDataFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39852A4B20AB2418004CB100 /* Decrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4120AB2418004CB100 /* Decrypt.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39852A4C20AB2418004CB100 /* Encrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4220AB2418004CB100 /* Encrypt.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39852A5020AB2418004CB100 /* DdocParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 39852A4620AB2418004CB100 /* DdocParserDelegate.m */; };
-		39852A5120AB2418004CB100 /* SmartCardTokenWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4720AB2418004CB100 /* SmartCardTokenWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		39852A5120AB2418004CB100 /* SmartCardTokenWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4720AB2418004CB100 /* SmartCardTokenWrapper.h */; };
 		39852A5220AB2418004CB100 /* Decrypt.mm in Sources */ = {isa = PBXBuildFile; fileRef = 39852A4820AB2418004CB100 /* Decrypt.mm */; };
 		39852A5320AB2418004CB100 /* Encrypt.mm in Sources */ = {isa = PBXBuildFile; fileRef = 39852A4920AB2418004CB100 /* Encrypt.mm */; };
 		39852A5420AB2418004CB100 /* DdocParserDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4A20AB2418004CB100 /* DdocParserDelegate.h */; };
@@ -72,7 +71,6 @@
 		39266A6020CFDCDF002E3F23 /* CdocInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CdocInfo.h; sourceTree = "<group>"; };
 		39266A6120CFE36A002E3F23 /* CdocParserDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CdocParserDelegate.h; sourceTree = "<group>"; };
 		39266A6220CFE3D4002E3F23 /* CdocParserDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CdocParserDelegate.m; sourceTree = "<group>"; };
-		393B66BB20D8F361001DC89B /* AbstractSmartToken.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AbstractSmartToken.mm; sourceTree = "<group>"; };
 		393B66DF20DB94B4001DC89B /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = cdoc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3960E50320C02DA400D4D2FC /* CryptoDataFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptoDataFile.h; sourceTree = "<group>"; };
 		3960E50420C02E5900D4D2FC /* CryptoDataFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CryptoDataFile.m; sourceTree = "<group>"; };
@@ -155,7 +153,6 @@
 				39231FAE20AB1C6C00E1E2B4 /* Info.plist */,
 				39231FAD20AB1C6C00E1E2B4 /* CryptoLib.h */,
 				39266A5920CFD93E002E3F23 /* AbstractSmartToken.h */,
-				393B66BB20D8F361001DC89B /* AbstractSmartToken.mm */,
 				39266A5E20CFDCB9002E3F23 /* CdocInfo.m */,
 				39266A6020CFDCDF002E3F23 /* CdocInfo.h */,
 				4E01B4A62AEFDD3B00941723 /* build-cdoc.sh */,
@@ -332,7 +329,6 @@
 				39E2B4DA20AD7A3400CA74A8 /* OpenLdap.m in Sources */,
 				39266A6320CFE3D4002E3F23 /* CdocParserDelegate.m in Sources */,
 				39266A5D20CFDC59002E3F23 /* CdocParser.m in Sources */,
-				393B66BC20D8F361001DC89B /* AbstractSmartToken.mm in Sources */,
 				3960E50520C02E5900D4D2FC /* CryptoDataFile.m in Sources */,
 				39E2B4DB20AD7A3400CA74A8 /* AttributeSet.m in Sources */,
 				DF8FEACA233239690020DED4 /* MoppLdapConfiguration.m in Sources */,
@@ -364,7 +360,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -397,7 +393,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -421,7 +417,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -453,7 +449,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;

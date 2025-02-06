@@ -20,7 +20,6 @@
  *
  */
 
-#import <Foundation/Foundation.h>
 #import "SmartToken.h"
 #import "CardActionsManager.h"
 #import "MoppLibError.h"
