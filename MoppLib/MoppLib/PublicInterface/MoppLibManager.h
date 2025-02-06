@@ -49,6 +49,7 @@
 - (NSString *)appVersion;
 - (NSString *)iOSVersion;
 - (NSString *)userAgent;
+- (NSString *)userAgent:(BOOL)shouldIncludeDevices;
 + (NSArray *)certificatePolicyIdentifiers:(NSData *)certData;
 + (NSString *)sanitize:(NSString *)text;
 
