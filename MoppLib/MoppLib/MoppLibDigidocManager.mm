@@ -21,39 +21,23 @@
  *
  */
 
+#import "MoppLibDigidocManager.h"
+#import "MoppLibManager.h"
+#import "MoppLibDataFile.h"
+#import "MLFileManager.h"
+#import "MoppLibError.h"
+#import "CardActionsManager.h"
+#import "MoppLibDigidocValidateOnline.h"
+#import "MoppLibProxyConfiguration.h"
+
 #include <digidocpp/Container.h>
 #include <digidocpp/DataFile.h>
 #include <digidocpp/Signature.h>
 #include <digidocpp/Exception.h>
-#include <digidocpp/crypto/X509Cert.h>
 #include <digidocpp/XmlConf.h>
 #include <digidocpp/crypto/Signer.h>
-#include <fstream>
+#include <digidocpp/crypto/X509Cert.h>
 
-#include <openssl/x509v3.h>
-#import <CryptoLib/CryptoLib.h>
-
-#import "MoppLibDigidocManager.h"
-#import "MoppLibManager.h"
-#import "MoppLibDataFile.h"
-#import "MLDateFormatter.h"
-#import "MLFileManager.h"
-#import "MoppLibError.h"
-#import "CardActionsManager.h"
-#import <Security/SecCertificate.h>
-#import <Security/SecKey.h>
-#import "MoppLibDigidocValidateOnline.h"
-#import "MoppLibProxyConfiguration.h"
-
-#include <CryptoLib/CryptoLib.h>
-
-#include <CommonCrypto/CommonDigest.h>
-#include <CommonCrypto/CommonHMAC.h>
-
-#include <string>
-#include <sstream>
-#include <iostream>
-#import <CommonCrypto/CommonDigest.h>
 #import <ExternalAccessory/ExternalAccessory.h>
 
 class DigiDocConf: public digidoc::ConfCurrent {
@@ -285,7 +269,7 @@ public:
 
 static std::unique_ptr<digidoc::Container> docContainer = nil;
 static digidoc::Signature *signature = nil;
-static digidoc::Signer* signer = nil;
+static std::unique_ptr<digidoc::Signer> signer{};
 
 + (MoppLibDigidocManager *)sharedInstance {
   static dispatch_once_t pred;
@@ -355,13 +339,7 @@ static digidoc::Signer* signer = nil;
     return result;
 }
 
-+ (NSData *)getDataToSign {
-    std::vector<unsigned char> dataTosign = signature->dataToSign();
-    return [NSData dataWithBytes:dataTosign.data() length:dataTosign.size()];
-}
-
-+ (void)isSignatureValid:(NSData *)cert signatureValue:(NSString *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure {
-    NSData *data = [[NSData alloc] initWithBase64EncodedString:signatureValue options:NSDataBase64DecodingIgnoreUnknownCharacters];
++ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)data success:(BoolBlock)success failure:(FailureBlock)failure {
     auto *bytes = reinterpret_cast<const unsigned char*>(data.bytes);
     std::vector<unsigned char> calculatedSignatureBase64(bytes, bytes + data.length);
 
@@ -370,7 +348,7 @@ static digidoc::Signer* signer = nil;
         printLog(@"\nError: Did not find signature with an ID of %s\n", signatureId.c_str());
         NSError *signatureError;
         signatureError = [NSError errorWithDomain:[NSString stringWithFormat:@"Did not find signature with an ID of %s\n", signature->id().c_str()] code:-1 userInfo:nil];
-        failure(signatureError);
+        return failure(signatureError);
     }
 
     NSString *timeStampTime = [NSString stringWithUTF8String:signature->TimeStampTime().c_str()];
@@ -384,10 +362,10 @@ static digidoc::Signer* signer = nil;
         printLog(@"\nSetting signature value...\n");
         signature->setSignatureValue(calculatedSignatureBase64);
         printLog(@"\nExtending signature profile...\n");
-        signature->extendSignatureProfile(signer);
+        signature->extendSignatureProfile(signer.get());
         printLog(@"\nValidating signature...\n");
-        digidoc::Signature::Validator *validator = new digidoc::Signature::Validator(signature);
-        printLog(@"\nValidator status: %u\n", validator->status());
+        digidoc::Signature::Validator validator(signature);
+        printLog(@"\nValidator status: %u\n", validator.status());
         printLog(@"\nSaving container...\n");
         docContainer->save();
         printLog(@"\nSignature validated at %s!\n", signature->TimeStampTime().c_str());
@@ -422,7 +400,7 @@ static digidoc::Signer* signer = nil;
     }
 }
 
-+ (NSString *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData {
++ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData {
     digidoc::X509Cert x509Cert;
 
     try {
@@ -432,11 +410,9 @@ static digidoc::Signer* signer = nil;
         return nil;
     }
 
-    docContainer = NULL;
+    docContainer.reset();
     signature = NULL;
-    signer = NULL;
-    
-    signer = new WebSigner(x509Cert);
+    signer = std::make_unique<WebSigner>(x509Cert);
 
     try {
         MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
@@ -465,13 +441,12 @@ static digidoc::Signer* signer = nil;
     NSLog(@"\nProfile info set successfully\n");
     
     NSLog(@"\nSetting signature...\n");
-    signature = docContainer->prepareSignature(signer);
+    signature = docContainer->prepareSignature(signer.get());
     NSString *signatureId = [NSString stringWithCString:signature->id().c_str() encoding:[NSString defaultCStringEncoding]];
     printLog(@"\nSignature ID set to %@...\n", signatureId);
 
     std::vector<unsigned char> dataToSign = signature->dataToSign();
-    NSData *data = [NSData dataWithBytesNoCopy:dataToSign.data() length:dataToSign.size() freeWhenDone:NO];
-    return [data base64EncodedStringWithOptions:0];
+    return [NSData dataWithBytes:dataToSign.data() length:dataToSign.size()];
 }
 
 - (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath error:(NSError **)error {
@@ -483,7 +458,6 @@ static digidoc::Signer* signer = nil;
 
     [moppLibContainer setFileName:[containerPath lastPathComponent]];
     [moppLibContainer setFilePath:containerPath];
-    [moppLibContainer setFileAttributes:[[MLFileManager sharedInstance] fileAttributes:containerPath]];
 
     std::unique_ptr<digidoc::Container> doc;
     try {
@@ -581,10 +555,8 @@ static digidoc::Signer* signer = nil;
     moppLibSignature.ocspTime = [self getDateTimeInCurrentTimeZoneFromDateString:[NSString stringWithUTF8String:signature->OCSPProducedAt().c_str()]];
     moppLibSignature.ocspTimeUTC = [NSString stringWithUTF8String:signature->OCSPProducedAt().c_str()];
     moppLibSignature.signersMobileTimeUTC = [NSString stringWithUTF8String:signature->claimedSigningTime().c_str()];
+    moppLibSignature.timestamp = [NSString stringWithUTF8String:signature->trustedSigningTime().c_str()];
 
-    std::string timestamp = signature->trustedSigningTime();
-    moppLibSignature.timestamp = [[MLDateFormatter sharedInstance] YYYYMMddTHHmmssZToDate:[NSString stringWithUTF8String:timestamp.c_str()]];
-    
     // Role and address data
     std::vector<std::string> signatureRoles = signature->signerRoles();
     

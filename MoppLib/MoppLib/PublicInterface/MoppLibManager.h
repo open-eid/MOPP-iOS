@@ -40,9 +40,8 @@
  */
 - (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString *)tsUrl withMoppConfiguration:(MoppLibConfiguration *)moppConfiguration andProxyConfiguration:(MoppLibProxyConfiguration*)proxyConfiguration;
 
-+ (NSString *)prepareSignature:(NSString *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData;
-+ (NSData *)getDataToSign;
-+ (void)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure;
++ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData;
++ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure;
 
 - (NSString *)moppLibVersion;
 - (NSString *)libdigidocppVersion;

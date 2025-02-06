@@ -220,7 +220,7 @@ class MyeIDInfoManager {
         guard let personalData = personalData else { return }
         let certOrganization = authCertData?.organization ?? MoppLibCertificateOrganization.Unknown
         personalInfo.items.append((type: .myeID, value: organizationDisplayString(certOrganization)))
-        personalInfo.items.append((type: .givenNames, value: personalData.givenNames()))
+        personalInfo.items.append((type: .givenNames, value: personalData.givenNames))
         personalInfo.items.append((type: .surname, value: personalData.surname))
         personalInfo.items.append((type: .personalCode, value: personalData.personalIdentificationCode))
         personalInfo.items.append((type: .citizenship, value: personalData.nationality))

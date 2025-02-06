@@ -35,7 +35,6 @@ typedef NS_ENUM(int, MoppLibCertificateOrganization) {
     Unknown
 };
 
-@property (nonatomic, assign) BOOL isValid;
 @property (nonatomic, strong) NSDate *expiryDate;
 @property (nonatomic, assign) MoppLibCertificateOrganization organization;
 

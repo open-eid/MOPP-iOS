@@ -67,7 +67,7 @@ NSString *kDecrypt = @"00 2A 80 86 %02X %@";
                             NSString *record = [responseData utf8String];
                             switch (recordNr) {
                             case 1: personalData.surname = record; break;
-                            case 2: personalData.firstNameLine1 = record; break;
+                            case 2: personalData.givenNames = record; break;
                             case 3: personalData.sex = record; break;
                             case 4: personalData.nationality = [record length] > 0 ? record : @"-"; break;
                             case 5: {

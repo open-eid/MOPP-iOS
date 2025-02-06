@@ -61,13 +61,6 @@
   return  [self subdataWithRange:NSMakeRange(0, self.length - 2)];
 }
 
-- (NSString *)codePage1252String {
-  //Removing trailer
-  NSData *responseData = [self trailingTwoBytesTrimmed];
-  NSString *string = [[NSString alloc] initWithData:responseData encoding:NSWindowsCP1252StringEncoding];
-  return [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-}
-
 - (NSString *)utf8String {
     NSData *responseData = [self trailingTwoBytesTrimmed];
     NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
