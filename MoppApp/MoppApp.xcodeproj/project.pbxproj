@@ -1311,7 +1311,6 @@
 				E4250CBF1E0968D200530370 /* Sources */,
 				E4250CC01E0968D200530370 /* Frameworks */,
 				E4250CC11E0968D200530370 /* Resources */,
-				E4250D1B1E0AB34400530370 /* Set GH build number to plist */,
 				E4250D081E0A911100530370 /* Embed Frameworks */,
 				54A418331E83FAD200559E2B /* Embed App Extensions */,
 				DF4FC5552AC5D3EE00910E4B /* Setup Firebase Crashlytics */,
@@ -1598,20 +1597,6 @@
 			shellPath = /bin/sh;
 			shellScript = "echo \"Initializing default MOPP configuration setup script: \"\n\nconfigUrl=${DEFAULT_CENTRAL_CONFIGURATION_URL}\nupdateInterval=${DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL}\ntslUrl=${DEFAULT_CENTRAL_CONFIGURATION_TSL_URL}\n\n\nif [ -z \"$configUrl\" ] || [ -z \"$updateInterval\" ] || [ -z \"$tslUrl\" ]; then\n    echo \"No user-defined variables, continuing...\";\nelse\n    # Detect if Homebrew is installed\n    which -s /usr/local/bin/brew\n    if [[ $? != 0 ]] ; then\n        # Install Homebrew\n        ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\"\n    else\n        echo \"Brew is already installed\"\n    fi\n\n    # Detect if Swift-sh is installed\n    if /usr/local/bin/brew ls --versions swift-sh > /dev/null; then\n        echo \"Swift-sh is already installed\"\n    else\n        # Install Swift-sh\n        /usr/local/bin/brew install mxcl/made/swift-sh\n    fi\n\n    # Run script with Swift-sh\n    if ERROR=$( { /usr/local/Cellar/swift-sh/*/bin/swift-sh SetupConfiguration/Sources/main.swift ${DEFAULT_CENTRAL_CONFIGURATION_URL} ${DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL} ${DEFAULT_CENTRAL_CONFIGURATION_TSL_URL}; } 2>&1 ) ; then\n        echo \"Build succeeded\"\n    elif ERROR2=$( { /usr/bin/xcrun --sdk macosx swift-sh SetupConfiguration/Sources/main.swift ${DEFAULT_CENTRAL_CONFIGURATION_URL} ${DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL} ${DEFAULT_CENTRAL_CONFIGURATION_TSL_URL}; } 2>&1 ) ; then\n        echo \"Xcrun build succeeded\"\n    else\n        echo ${ERROR} 1>&2\n        echo ${ERROR2} 1>&2\n        exit 64\n    fi\n    \nfi\n";
 		};
-		E4250D1B1E0AB34400530370 /* Set GH build number to plist */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Set GH build number to plist";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "buildNumber=$GREENHOUSE_BUILD_NUMBER\nstringLength=${#buildNumber}\n    if [ $stringLength -ne 0 ]; then\n    echo \"Updating build number to $buildNumber\"\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n    else\n    echo \"Missing build number, skip updating\"\n    fi\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1873,7 +1858,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.8.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1902,7 +1886,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.8.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1951,6 +1934,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1970,6 +1954,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 2.8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -2011,6 +1996,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2024,6 +2010,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 2.8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -2065,7 +2052,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.8.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -2115,7 +2101,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.8.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
