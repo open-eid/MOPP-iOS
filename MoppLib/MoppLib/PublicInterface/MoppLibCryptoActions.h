@@ -21,21 +21,11 @@
  *
  */
 
-//#import "LdapResponse.h"
-#import "CryptoLib/OpenLdap.h"
 #import "MoppLibConstants.h"
+
 @interface MoppLibCryptoActions : NSObject
-    
+
 + (MoppLibCryptoActions *)sharedInstance;
-    
-    /**
-     * Search data from LDAP.
-     *
-     * @param identifier    LDAP search request identifier.
-     * @param success       Block to be called on successful completion of action. Includes ldap respone data as LdapResponse.
-     * @param failure       Block to be called when action fails. Includes error.
-     */
-- (void)searchLdapData:(NSString *)identifier success:(LdapBlock)success failure:(FailureBlock)failure configuration:(MoppLdapConfiguration *)moppLdapConfiguration;
 
     /**
      * Encrypt data and create CDOC container.

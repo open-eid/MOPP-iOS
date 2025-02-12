@@ -24,6 +24,7 @@
 
 import Foundation
 import ASN1Decoder
+import CryptoLib
 
 internal struct MOPPConfiguration: Codable {
     var TSLURL: String
@@ -141,6 +142,6 @@ public class MoppLDAPConfiguration {
     static var ldapCorpUrl: String?
     
     static func getMoppLDAPConfiguration() -> MoppLdapConfiguration {
-        return MoppLdapConfiguration(ldapConfiguration: ldapCerts, ldappersonurl: ldapPersonUrl, ldapcorpurl: ldapCorpUrl)
+        return MoppLdapConfiguration(ldapCerts: ldapCerts ?? [], ldapPersonURL: ldapPersonUrl ?? "", ldapCorpURL: ldapCorpUrl ?? "")
     }
 }
