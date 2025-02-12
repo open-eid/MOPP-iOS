@@ -108,7 +108,7 @@ jobs:
       run: |
         cd ${{ github.workspace }}/MoppApp
 
-        xcodebuild archive -scheme MoppApp -configuration Release -archivePath "${{ github.workspace }}/MoppApp/build/DigiDoc.xcarchive" -allowProvisioningUpdates APP_PROVISIONING_PROFILE="$APP_PROVISIONING_PROFILE_UUID" SHARE_EXTENSION_PROVISIONING_PROFILE="$SHARE_EXTENSION_PROVISIONING_PROFILE_UUID"
+        xcodebuild archive -scheme MoppApp -configuration Release -archivePath "${{ github.workspace }}/MoppApp/build/DigiDoc.xcarchive" -allowProvisioningUpdates APP_PROVISIONING_PROFILE="$APP_PROVISIONING_PROFILE_UUID" SHARE_EXTENSION_PROVISIONING_PROFILE="$SHARE_EXTENSION_PROVISIONING_PROFILE_UUID" CURRENT_PROJECT_VERSION=${{ github.run_number }}
     - name: Export
       env:
         EXPORT_OPTIONS_PLIST: ${{ secrets.EXPORT_OPTIONS_PLIST }}
