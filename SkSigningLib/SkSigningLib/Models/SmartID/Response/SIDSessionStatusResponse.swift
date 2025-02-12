@@ -45,12 +45,12 @@ public struct SIDSessionStatusResponseResult: Decodable {
 }
 
 public struct SIDSessionStatusResponseCertificate: Decodable {
-    public let value: String
+    public let value: Data
     public let certificateLevel: String
 }
 
 public struct SIDSessionStatusResponseSignature: Decodable {
-    public let value: String
+    public let value: Data
     public let algorithm: String
 }
 
