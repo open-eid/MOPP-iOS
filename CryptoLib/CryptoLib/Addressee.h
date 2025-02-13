@@ -1,5 +1,5 @@
 //
-//  AttributeSet.m
+//  Addressee.h
 //  CryptoLib
 /*
  * Copyright 2017 - 2024 Riigi Infosüsteemi Amet
@@ -21,28 +21,13 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "Attribute.h"
-#import "AttributeSet.h"
-#import "ldap.h"
 
-@implementation AttributeSet
+@interface Addressee : NSObject
+@property (nonatomic, strong) NSString *givenName;
+@property (nonatomic, strong) NSString *surname;
+@property (nonatomic, strong) NSString *identifier;
+@property (nonatomic, strong) NSData *cert;
+@property (nonatomic, strong) NSDate *validTo;
+@property (nonatomic, strong) NSArray<NSString*> *policyIdentifiers;
 
-- (id)initWithParser:(LDAP*)ldap ldapMessage:(LDAPMessage*)entry{
-    if (!_values) {
-        _values = [NSMutableArray new];
-    }
-    char * name= ldap_get_dn(ldap, entry);
-    _name = [NSString stringWithUTF8String:name];
-    BerElement * ber;
-    char *firstAttribute = ldap_first_attribute(ldap, entry, &ber);
-    while (firstAttribute){
-        Attribute *attribute = [[Attribute alloc] initWithParser:ldap ldapMessage:entry tag:firstAttribute];
-        if (attribute!=NULL){
-            [_values addObject:attribute];
-        }
-        firstAttribute = ldap_next_attribute(ldap, entry, ber);
-    }
-    ber_free(ber, 0);
-    return self;
-}
 @end
