@@ -22,7 +22,6 @@
  */
 
 import Foundation
-import CryptoLib
 
 protocol ContainerFoundAddresseeCellDelegate : AnyObject {
     func addAddresseeToSelectedArea(index: Int, completionHandler: @escaping () -> Void)

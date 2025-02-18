@@ -226,7 +226,7 @@ class MyeIDInfoManager {
         UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: "")
     }
     
-    func organizationDisplayString(_ certOrganization: X509Certificate.CertType?) -> String {
+    func organizationDisplayString(_ certOrganization: CertType?) -> String {
         switch certOrganization {
         case .IDCardType:
             return L(.myEidInfoMyEidIdCard)

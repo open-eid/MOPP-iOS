@@ -23,7 +23,9 @@
 #import <Foundation/Foundation.h>
 
 @protocol AbstractSmartToken;
+@class CdocInfo;
 
 @interface Decrypt : NSObject
-- (NSMutableDictionary *)decryptFile:(NSString *)fullPath withPin:(NSString *)pin withToken:(id<AbstractSmartToken>)smartToken error:(NSError**)error;
++ (void)parseCdocInfoWithFullPath:(NSString *)fullPath success:(void (^)(CdocInfo *))success;
++ (NSDictionary<NSString*,NSData*> *)decryptFile:(NSString *)fullPath withPin:(NSString *)pin withToken:(id<AbstractSmartToken>)smartToken error:(NSError**)error;
 @end

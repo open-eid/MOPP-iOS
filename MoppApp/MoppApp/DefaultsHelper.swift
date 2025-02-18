@@ -34,6 +34,7 @@ let ContainerFormatAsics = "asics"
 let ContainerFormatAsicsShort = "scs"
 let ContainerFormatPDF  = "pdf"
 let ContainerFormatCdoc = "cdoc"
+let ContainerFormatCdoc2 = "cdoc2"
 let ContainerFormatP12d = "p12d"
 let FileFormatXml = "xml"
 

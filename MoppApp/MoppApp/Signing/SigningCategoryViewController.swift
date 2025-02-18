@@ -351,10 +351,10 @@ extension SigningCategoryViewController: SettingsTimeStampCellDelegate {
         MoppLibContainerActions.setup(success: {
             printLog("success")
         }, andFailure: { [weak self] error in
-            let nsError = error as? NSError
+            let nsError = error as NSError
             
             self?.errorAlertWithLink(message: MessageUtil.generateDetailedErrorMessage(error: nsError) ?? L(.genericErrorMessage))
-        }, andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaurl,
+        }, andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaURL,
                withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration(),
                andProxyConfiguration: ManualProxy.getMoppLibProxyConfiguration())
     }

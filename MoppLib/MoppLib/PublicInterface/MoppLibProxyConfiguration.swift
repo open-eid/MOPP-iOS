@@ -1,8 +1,9 @@
 //
-//  CdocParserDelegate.h
-//  CryptoLib
+//  MoppLibProxyConfiguration.swift
+//  MoppLib
+//
 /*
- * Copyright 2017 - 2024 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2023 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,16 +21,16 @@
  *
  */
 
-#import <Foundation/Foundation.h>
-#import "Addressee.h"
-#import "CryptoDataFile.h"
-@interface CdocParserDelegate : NSObject
-{
+import Foundation
+
+@objcMembers
+public class MoppLibProxyConfiguration: NSObject {
+
+    public let username: String
+    public let password: String
+
+    public init(username: String, password: String) {
+        self.username = username
+        self.password = password
+    }
 }
-@property (nonatomic, strong) NSMutableArray<Addressee *> *addressees;
-@property (nonatomic, strong) NSMutableArray<CryptoDataFile *> *dataFiles;
-@property (nonatomic, retain) NSString *currentFilenameNode;
-@property (nonatomic) BOOL isNextCharactersFilename;
-@property (nonatomic) BOOL isNextCharactersCertificate;
-@property (nonatomic, strong) Addressee *lastAddressee;
-@end

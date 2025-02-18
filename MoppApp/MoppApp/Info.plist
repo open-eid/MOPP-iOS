@@ -90,6 +90,21 @@
 				<string>digidoc_1024.png</string>
 			</array>
 			<key>CFBundleTypeName</key>
+			<string>DigiDoc file cdoc2</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>ee.ria.digidoc-cdoc2</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
 			<string>DigiDoc file adoc</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
@@ -448,6 +463,35 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DigiDoc Container cdoc2</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc-cdoc2</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>cdoc2</string>
+					<string>CDOC2</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-cdoc2</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
 				<string>public.content</string>
 			</array>
 			<key>UTTypeDescription</key>
@@ -765,6 +809,36 @@
 				<key>public.mime-type</key>
 				<array>
 					<string>application/x-cdoc</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.cdoc2</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Digidoc Container cdoc2</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>cdoc2</string>
+					<string>CDOC2</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-cdoc2</string>
 				</array>
 			</dict>
 		</dict>

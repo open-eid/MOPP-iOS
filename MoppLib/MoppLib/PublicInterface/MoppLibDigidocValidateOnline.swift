@@ -1,5 +1,5 @@
 //
-//  MoppLibDataFile.m
+//  MoppLibDigidocValidateOnline.swift
 //  MoppLib
 //
 /*
@@ -21,9 +21,10 @@
  *
  */
 
-#import "MoppLibDataFile.h"
-#import <CommonCrypto/CommonCrypto.h>
+import Foundation
 
-@implementation MoppLibDataFile
-
-@end
+@objcMembers
+public class MoppLibDigidocValidateOnline: NSObject {
+    static public let shared = MoppLibDigidocValidateOnline()
+    public var validateOnline = true
+}

@@ -23,19 +23,8 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(int, MoppLibSignatureStatus) {
-    Valid,
-    Warning,
-    NonQSCD,
-    Invalid,
-    UnknownStatus
-};
-
 @class MoppLibContainer;
-@class CdocInfo;
 
-typedef void (^FailureBlock)(NSError *error);
-typedef void (^ContainerBlock)(MoppLibContainer *container);
-typedef void (^CdocContainerBlock)(CdocInfo *cdocInfo);
-typedef void (^DecryptedDataBlock)(NSMutableDictionary *decryptedData);
+typedef void (^FailureBlock)(NSError * _Nonnull error);
+typedef void (^ContainerBlock)(MoppLibContainer * _Nonnull container);
 typedef void (^VoidBlock)(void);

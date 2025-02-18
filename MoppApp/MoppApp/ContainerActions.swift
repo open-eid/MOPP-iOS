@@ -21,9 +21,7 @@
  *
  */
 
-import Foundation
 import SkSigningLib
-import CryptoLib
 
 protocol ContainerActions {
     func openExistingContainer(with url: URL, cleanup: Bool, isEmptyFileImported: Bool, isSendingToSivaAgreed: Bool)
@@ -79,7 +77,7 @@ extension ContainerActions where Self: UIViewController {
 
                 let ext = urls.first!.pathExtension
                 if landingViewController.containerType == nil {
-                    if ext.isCdocContainerExtension {
+                    if ext.isCryptoContainerExtension {
                         landingViewController.containerType = .cdoc
                     } else {
                         landingViewController.containerType = .asic
@@ -88,7 +86,7 @@ extension ContainerActions where Self: UIViewController {
                 let isAsicOrPadesContainer = (ext.isAsicContainerExtension ||
                                               (ext == ContainerFormatPDF &&
                                                SiVaUtil.isSignedPDF(url: urls.first! as CFURL))) && landingViewController.containerType == .asic
-                let isCdocContainer = ext.isCdocContainerExtension && landingViewController.containerType == .cdoc
+                let isCdocContainer = ext.isCryptoContainerExtension && landingViewController.containerType == .cdoc
                 if (isAsicOrPadesContainer || isCdocContainer) && urls.count == 1 {
                     SiVaUtil.setIsSentToSiva(isSent: false)
                     
@@ -181,29 +179,17 @@ extension ContainerActions where Self: UIViewController {
                 printLog("Unable to delete contents of Documents/Inbox directory: \(error.localizedDescription)")
             }
         } else {
-            let containerViewController = CryptoContainerViewController.instantiate()
-            let container = CryptoContainer(filename: fileName as NSString, filePath: newFilePath as NSString)
-
-            MoppLibCryptoActions.sharedInstance().parseCdocInfo(
-                newFilePath as String?,
-                success: {(_ cdocInfo: CdocInfo?) -> Void in
-                    guard let strongCdocInfo = cdocInfo else { return }
-                    container.addressees = strongCdocInfo.addressees as? [Addressee] ?? []
-                    container.dataFiles = strongCdocInfo.dataFiles
-                    containerViewController.containerPath = newFilePath
-                    containerViewController.state = .opened
-                    containerViewController.container = container
-                    containerViewController.isContainerEncrypted = true
-                    landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
-                        navController?.pushViewController(containerViewController, animated: true)
-                    })
-                },
-                failure: { _ in
-                    DispatchQueue.main.async {
-                         failure(nil)
-                    }
-                }
-            )
+            Decrypt.parseCdocInfo(withFullPath: newFilePath) { cdocInfo in
+                guard let strongCdocInfo = cdocInfo else { return failure(nil) }
+                let containerViewController = CryptoContainerViewController.instantiate()
+                containerViewController.containerPath = newFilePath
+                containerViewController.state = .opened
+                containerViewController.container = CryptoContainer(filename: fileName, filePath: newFilePath, cdocInfo: strongCdocInfo)
+                containerViewController.isContainerEncrypted = true
+                landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                    navController?.pushViewController(containerViewController, animated: true)
+                })
+            }
         }
         url.stopAccessingSecurityScopedResource()
     }
@@ -288,18 +274,14 @@ extension ContainerActions where Self: UIViewController {
         } else {
             let containerViewController = topSigningViewController as? CryptoContainerViewController
             dataFilePaths.forEach {
-                let filename = ($0 as NSString).lastPathComponent as NSString
+                let filename = ($0 as NSString).lastPathComponent
                 if isDuplicatedFilename(container: (containerViewController?.container)!, filename: filename) {
                     DispatchQueue.main.async {
                         self.infoAlert(message: L(.containerDetailsFileAlreadyExists))
                     }
                     return
                 }
-                let dataFile = CryptoDataFile.init()
-                dataFile.filename = filename as String?
-                dataFile.filePath = $0
-
-                containerViewController?.container.dataFiles.add(dataFile)
+                containerViewController?.container.dataFiles.append(CryptoDataFile(filename: filename, filePath: $0))
             }
 
             landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
@@ -323,15 +305,10 @@ extension ContainerActions where Self: UIViewController {
         }
     }
 
-    private func isDuplicatedFilename(container: CryptoContainer, filename: NSString) -> Bool {
-        for dataFile in container.dataFiles {
-            if let strongDataFile = dataFile as? CryptoDataFile {
-                if strongDataFile.filename as NSString == filename {
-                    return true
-                }
-            }
+    private func isDuplicatedFilename(container: CryptoContainer, filename: String) -> Bool {
+        return container.dataFiles.contains { dataFile in
+            return dataFile.filename == filename
         }
-        return false
     }
 
     func createNewContainer(with url: URL, dataFilePaths: [String], isEmptyFileImported: Bool, startSigningWhenCreated: Bool = false, cleanUpDataFilesInDocumentsFolder: Bool = true) {
@@ -418,14 +395,12 @@ extension ContainerActions where Self: UIViewController {
             )
         } else {
             let containerViewController = CryptoContainerViewController.instantiate()
-            let container = CryptoContainer(filename: containerFilename as NSString, filePath: containerPath as NSString)
+            let container = CryptoContainer(filename: containerFilename , filePath: containerPath)
             containerViewController.containerPath = containerPath
 
             for dataFilePath in containerFilePaths {
-                let dataFile = CryptoDataFile.init()
-                dataFile.filename = FileUtil.getFileName(currentFileName: (dataFilePath as NSString).lastPathComponent)
-                dataFile.filePath = dataFilePath
-                container.dataFiles.add(dataFile)
+                container.dataFiles.append(CryptoDataFile(
+                    filename: FileUtil.getFileName(currentFileName: (dataFilePath as NSString).lastPathComponent), filePath: dataFilePath))
             }
 
             containerViewController.container = container

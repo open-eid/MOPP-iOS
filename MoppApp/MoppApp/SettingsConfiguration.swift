@@ -354,7 +354,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         }, andFailure: { error in
             printLog("Failed to reload DigiDocConf")
             fatalError("Failed to reload DigiDocConf")
-        }, andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaurl,
+        }, andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaURL,
            withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration(),
            andProxyConfiguration: ManualProxy.getMoppLibProxyConfiguration())
     }

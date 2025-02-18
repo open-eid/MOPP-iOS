@@ -1,9 +1,9 @@
 //
-//  MoppLibProxyConfiguration.h
+//  MoppLibDataFile.swift
 //  MoppLib
 //
 /*
- * Copyright 2017 - 2023 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2024 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,16 +21,17 @@
  *
  */
 
-#import <Foundation/Foundation.h>
+@objcMembers
+public class MoppLibDataFile : NSObject {
+    public let fileName: String
+    public let mediaType: String
+    public let fileId: String
+    public let fileSize: CUnsignedLong
 
-@interface MoppLibProxyConfiguration : NSObject
-
-@property (nonatomic, strong) NSString *PROXYSETTING;
-@property (nonatomic, strong) NSString *HOST;
-@property (nonatomic, strong) NSNumber *PORT;
-@property (nonatomic, strong) NSString *USERNAME;
-@property (nonatomic, strong) NSString *PASSWORD;
-
-- (id) initWithConfiguration:(NSString *)PROXYSETTING HOST:(NSString *)HOST PORT:(NSNumber *)PORT USERNAME:(NSString *)USERNAME PASSWORD:(NSString *)PASSWORD;
-
-@end
+    public init(fileName: String, mediaType: String, fileId: String, fileSize: CUnsignedLong) {
+        self.fileName = fileName
+        self.mediaType = mediaType
+        self.fileId = fileId
+        self.fileSize = fileSize
+    }
+}

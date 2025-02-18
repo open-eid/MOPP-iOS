@@ -25,14 +25,14 @@
 
 @interface MLFileManager : NSObject
 
-+ (MLFileManager *)sharedInstance;
++ (MLFileManager * _Nonnull)sharedInstance;
 
-- (NSString *)tslCachePath;
-- (NSArray *)getContainers;
-- (BOOL)fileExistsAtPath:(NSString *)filePath;
-- (NSString *)cacheDirectoryPath;
-- (NSString *)logsDirectoryPath;
-- (BOOL)createFolder:(NSString *)folderName;
-- (BOOL)folderExists:(NSString *)folderPath;
+- (NSString * _Nonnull)tslCachePath;
+- (NSArray<NSString *> * _Nonnull)getContainers;
+- (BOOL)fileExistsAtPath:(NSString * _Nonnull)filePath;
+- (NSString * _Nonnull)cacheDirectoryPath;
+- (NSString * _Nonnull)logsDirectoryPath;
+- (BOOL)createFolder:(NSString * _Nonnull)folderName;
+- (BOOL)folderExists:(NSString *_Nonnull)folderPath;
 
 @end

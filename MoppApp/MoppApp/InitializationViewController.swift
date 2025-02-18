@@ -42,7 +42,7 @@ class InitializationViewController : UIViewController {
                 MoppApp.instance.setupTabController()
             }
         },
-        andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaurl,
+        andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaURL,
         withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration(),
         andProxyConfiguration: ManualProxy.getMoppLibProxyConfiguration()
         )

@@ -1,7 +1,6 @@
 //
-//  MoppLibContainer.h
-//  MoppLib
-//
+//  CryptoDataFile.swift
+//  CryptoLib
 /*
  * Copyright 2017 - 2024 Riigi Infosüsteemi Amet
  *
@@ -21,25 +20,14 @@
  *
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-@interface MoppLibContainer : NSObject
+public class CryptoDataFile: NSObject {
+    @objc public let filename: String
+    @objc public let filePath: String?
 
-@property (strong, nonatomic) NSString *fileName;
-@property (strong, nonatomic) NSString *filePath;
-@property (strong, nonatomic) NSArray *dataFiles;
-@property (strong, nonatomic) NSArray *signatures;
-@property (strong, nonatomic) NSArray *timestampTokens;
-
-- (BOOL)isSigned;
-- (BOOL)isEmpty;
-- (BOOL)isDdoc;
-- (BOOL)isBdoc;
-- (BOOL)isAsice;
-- (BOOL)isAsics;
-- (BOOL)isSignable;
-- (BOOL)isLegacy;
-
-- (NSString *)fileNameWithoutExtension;
-- (NSString *)getNextSignatureId;
-@end
+    public init(filename: String, filePath: String? = nil) {
+        self.filename = filename
+        self.filePath = filePath
+    }
+}

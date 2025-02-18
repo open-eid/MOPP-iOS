@@ -69,7 +69,7 @@
   return filePath;
 }
 
-- (NSArray *)getContainers {
+- (NSArray<NSString *> *)getContainers {
   NSArray *supportedExtensions = @[@"bdoc",
                                    @"asice"];
   NSArray *allFiles = [self.fileManager contentsOfDirectoryAtPath:[self cacheDirectoryPath] error:nil];

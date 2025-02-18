@@ -22,30 +22,33 @@
 
 import CryptoLib
 
-@objcMembers
-public class SmartToken: NSObject, AbstractSmartToken {
-    public func getCertificate() throws -> Data {
+class SmartToken: AbstractSmartToken {
+    func getCertificate() throws -> Data {
+        return try processCryptoOperation { handler in
+            return try handler.readAuthenticationCertificate()
+        }
+    }
+
+    func decrypt(_ data: Data, pin1: String) throws -> Data {
+        return try processCryptoOperation { handler in
+            return try handler.decryptData(data, withPin1: pin1)
+        }
+    }
+
+    func derive(_ data: Data, pin1: String) throws -> Data {
+        return try decrypt(data, pin1: pin1)
+    }
+
+    func authenticate(_ data: Data, pin1: String) throws -> Data {
+        return try processCryptoOperation { handler in
+            return try handler.authenticate(for: data, withPin1: pin1)
+        }
+    }
+
+    private func processCryptoOperation(_ operation: (@escaping (CardCommands) throws -> Data)) throws -> Data {
         guard let handler = CardActionsManager.shared.cardCommandHandler else {
             throw MoppLibError.cardNotFoundError()
         }
-        return try handler.readAuthenticationCertificate()
-    }
-
-    public func decrypt(_ data: Data, pin1: String) throws -> Data {
-        return try derive(data, pin1: pin1)
-    }
-
-    public func derive(_ data: Data, pin1: String) throws -> Data {
-        guard let handler = CardActionsManager.shared.cardCommandHandler else {
-            throw MoppLibError.cardNotFoundError()
-        }
-        return try handler.decryptData(data, withPin1: pin1)
-    }
-
-    public func authenticate(_ data: Data, pin1: String) throws -> Data {
-        guard let handler = CardActionsManager.shared.cardCommandHandler else {
-            throw MoppLibError.cardNotFoundError()
-        }
-        return try handler.authenticate(for: data, withPin1: pin1)
+        return try operation(handler)
     }
 }

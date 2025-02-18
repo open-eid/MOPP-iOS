@@ -1,5 +1,5 @@
 //
-//  MoppLibDataFile.h
+//  MoppLibRoleAddressData.swift
 //  MoppLib
 //
 /*
@@ -21,13 +21,23 @@
  *
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-@interface MoppLibDataFile : NSObject
+@objcMembers
+public class MoppLibRoleAddressData: NSObject {
 
-@property (strong, nonatomic) NSString *mediaType;
-@property (strong, nonatomic) NSString *fileId;
-@property (strong, nonatomic) NSString *fileName;
-@property (assign, nonatomic) long fileSize;
+    public var roles: [String]
+    public var city: String
+    public var state: String
+    public var country: String
+    public var zip: String
 
-@end
+    public init(roles: [String], city: String, state: String, country: String, zip: String) {
+        self.roles = roles
+        self.city = city
+        self.state = state
+        self.country = country
+        self.zip = zip
+        super.init()
+    }
+}

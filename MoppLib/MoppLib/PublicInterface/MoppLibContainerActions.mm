@@ -58,7 +58,7 @@
   });
 }
 
-- (MoppLibContainer *)openContainerWithPath:(NSString *)containerPath error:(NSError **)error {
+- (MoppLibContainer *)openContainerWithPath:(NSString * _Nonnull)containerPath error:(NSError **)error {
     return [[MoppLibDigidocManager sharedInstance] getContainerWithPath:containerPath error:error];
 }
 
@@ -114,7 +114,7 @@
   });
 }
 
-- (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure {
+- (void)container:(NSString * _Nonnull)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       [[MoppLibDigidocManager sharedInstance] container:containerPath saveDataFile:fileName to:path success:^{
           dispatch_async(dispatch_get_main_queue(), ^{
