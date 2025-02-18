@@ -276,7 +276,7 @@ class MoppFileManager {
                 completionHandler(true, saveTempFileToLocation)
                 return
             }, failure: { (error) in
-                printLog("Failed to save file. Error: \(error?.localizedDescription ?? "No error to display")")
+                printLog("Failed to save file. Error: \(error.localizedDescription ?? "No error to display")")
                 completionHandler(false, nil)
                 return
             })

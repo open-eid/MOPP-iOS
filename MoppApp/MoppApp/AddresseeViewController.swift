@@ -22,7 +22,6 @@
  */
 
 import Foundation
-import CryptoLib
 
 protocol AddresseeViewControllerDelegate: AnyObject {
     func addAddresseeToContainer(selectedAddressees: [Addressee])
@@ -252,13 +251,7 @@ extension AddresseeViewController : UITableViewDataSource {
                     cell.accessibilityLabel = ""
                     cell.accessibilityUserInputLabels = [""]
                 }
-                let isSelected = selectedAddressees.contains { element in
-                    if ((element as Addressee).cert == (foundAddressees[row] as Addressee).cert) {
-                        return true
-                    }
-                    return false
-                }
-                let isAddButtonDisabled = selectedIndexes.contains(row) || isSelected
+                let isAddButtonDisabled = selectedIndexes.contains(row) || selectedAddressees.contains(foundAddressees[row])
                 cell.populate(addressee: foundAddressees[row] as Addressee, index: row, isAddButtonDisabled: isAddButtonDisabled)
                 if indexPath.row == 0 {
                     UIAccessibility.post(notification: .layoutChanged, argument: cell)
@@ -405,14 +398,9 @@ extension AddresseeViewController : ContainerFoundAddresseeCellDelegate {
     }
     
     func addAddresseeToSelectedArea(addressee: Addressee) {
-        if !selectedAddressees.contains(where: {(
-            ($0.givenName != nil && $0.givenName == addressee.givenName &&
-              $0.surname != nil && $0.surname == addressee.surname) ||
-              $0.identifier == addressee.identifier) && $0.cert == addressee.cert && $0.validTo == addressee.validTo
-        }) {
+        if !selectedAddressees.contains(addressee) {
             selectedAddressees.insert(addressee, at: 0)
         }
-        
         self.tableView.reloadData()
     }
     

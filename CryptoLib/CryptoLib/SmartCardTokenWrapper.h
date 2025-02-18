@@ -22,29 +22,27 @@
 
 #if __cplusplus
 
-#import "cdoc/Token.h"
-
+#import <cdoc/CryptoBackend.h>
 #import <Foundation/Foundation.h>
-
 #include <memory>
 
 @protocol AbstractSmartToken;
 
-class SmartCardTokenWrapper: public Token
+class SmartCardTokenWrapper: public libcdoc::CryptoBackend
 {
 public:
     SmartCardTokenWrapper(const std::string &password, id<AbstractSmartToken> smartToken);
     ~SmartCardTokenWrapper() noexcept;
-    std::vector<uchar> cert() const final;
-    std::vector<uchar> decrypt(const std::vector<uchar> &data) const final;
-    std::vector<uchar> derive(const std::vector<uchar> &publicKey) const final;
 
+    std::vector<uint8_t> cert() const;
+    libcdoc::result_t deriveECDH1(std::vector<uint8_t> &dst, const std::vector<uint8_t> &public_key, unsigned int idx) final;
+    libcdoc::result_t decryptRSA(std::vector<uint8_t> &dst, const std::vector<uint8_t> &data, bool oaep, unsigned int idx) final;
+    libcdoc::result_t sign(std::vector<uint8_t> &dst, HashAlgorithm algorithm, const std::vector<uint8_t> &digest, unsigned int idx) final;
     NSError* lastError() const;
 
 private:
     class Private;
     std::unique_ptr<Private> token;
-    static std::vector<uchar> encodeData(const NSData *dataBlock);
 };
 
 #endif

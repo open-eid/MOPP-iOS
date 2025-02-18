@@ -23,14 +23,6 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(int, MoppLibSignatureStatus) {
-    Valid,
-    Warning,
-    NonQSCD,
-    Invalid,
-    UnknownStatus
-};
-
 // Mopp Lib error codes
 
 typedef NS_ENUM(NSInteger, MoppLibErrorCode) {
@@ -65,14 +57,11 @@ typedef NS_ENUM(NSInteger, MoppLibErrorCode) {
 
 };
 
-extern NSString *const kMoppLibUserInfoRetryCount;
+extern NSString * _Nonnull const kMoppLibUserInfoRetryCount;
 
 @class MoppLibContainer;
-@class CdocInfo;
 
-typedef void (^FailureBlock)(NSError *error);
-typedef void (^ContainerBlock)(MoppLibContainer *container);
-typedef void (^CdocContainerBlock)(CdocInfo *cdocInfo);
-typedef void (^DecryptedDataBlock)(NSMutableDictionary *decryptedData);
+typedef void (^FailureBlock)(NSError * _Nonnull error);
+typedef void (^ContainerBlock)(MoppLibContainer * _Nonnull container);
 typedef void (^VoidBlock)(void);
 typedef void (^BoolBlock)(BOOL);

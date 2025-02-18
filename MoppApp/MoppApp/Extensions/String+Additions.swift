@@ -77,11 +77,12 @@ extension String {
     var isPdfContainerExtension: Bool {
         return self.lowercased() == ContainerFormatPDF
     }
-    
-    var isCdocContainerExtension: Bool {
-        return self.lowercased() == ContainerFormatCdoc
+
+    var isCryptoContainerExtension: Bool {
+        return caseInsensitiveCompare(ContainerFormatCdoc) == .orderedSame ||
+            caseInsensitiveCompare(ContainerFormatCdoc2) == .orderedSame
     }
-    
+
     var isXmlFileExtension: Bool {
         return self.lowercased() == FileFormatXml
     }
@@ -234,9 +235,6 @@ extension String {
 
 extension Optional where Wrapped == String {
     var isNilOrEmpty:Bool {
-        if let value = self, !value.isEmpty {
-            return false
-        }
-        return true
+        return self?.isEmpty ?? true
     }
 }

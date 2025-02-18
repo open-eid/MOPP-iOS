@@ -75,7 +75,7 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
         var urlSessionConfiguration: URLSessionConfiguration
         let urlSession: URLSession
         
-        if let trustedCerts = trustedCertificates, !trustedCerts.isEmpty {
+        if !(trustedCerts?.isEmpty ?? true) {
             urlSessionConfiguration = URLSessionConfiguration.default
             ProxyUtil.configureURLSessionWithProxy(urlSessionConfiguration: &urlSessionConfiguration, manualProxyConf: manualProxyConf)
             ProxyUtil.setProxyAuthorizationHeader(request: &request, urlSessionConfiguration: urlSessionConfiguration, manualProxyConf: manualProxyConf)

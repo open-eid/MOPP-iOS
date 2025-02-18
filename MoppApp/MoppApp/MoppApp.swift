@@ -383,7 +383,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
                     }
                 }
 
-                if newUrl.pathExtension.isCdocContainerExtension && urls.count == 1 {
+                if newUrl.pathExtension.isCryptoContainerExtension && urls.count == 1 {
                     landingViewController?.containerType = .cdoc
                 } else {
                     landingViewController?.containerType = .asic

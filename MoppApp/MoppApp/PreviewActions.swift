@@ -163,14 +163,14 @@ extension PreviewActions where Self: ContainerViewController {
                             } else {
                                 openAsicContainerPreview(isPDF)
                             }
-                        } else if dataFileExt.isCdocContainerExtension {
+                        } else if dataFileExt.isCryptoContainerExtension {
                             openCdocContainerPreview()
                         } else {
                             openContentPreview(destinationPath)
                         }
 
                     }, failure: { [weak self] error in
-                        self?.infoAlert(message: error?.localizedDescription)
+                        self?.infoAlert(message: error.localizedDescription)
                 })
             } else {
                 self.notifications = []
@@ -186,7 +186,7 @@ extension PreviewActions where Self: ContainerViewController {
                     } else {
                         openAsicContainerPreview(isPDF)
                     }
-                } else if dataFileExt.isCdocContainerExtension {
+                } else if dataFileExt.isCryptoContainerExtension {
                     openCdocContainerPreview()
                 } else {
                     openContentPreview(destinationPath)

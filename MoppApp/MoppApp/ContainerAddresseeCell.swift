@@ -22,8 +22,6 @@
  */
 
 import Foundation
-import UIKit
-import CryptoLib
 
 protocol ContainerAddresseeCellDelegate : AnyObject {
     func removeAddressee(index: Int)

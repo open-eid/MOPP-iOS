@@ -80,7 +80,7 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
                 let actionType = strongSelf.model.actionType
                 var errorCode = nsError.code
                 
-                let retryCount = (nsError.userInfo[kMoppLibUserInfoRetryCount] as? NSNumber)?.intValue ?? 0
+                let retryCount = nsError.userInfo[kMoppLibUserInfoRetryCount] as? NSNumber ?? 0
                 if errorCode == MoppLibErrorCode.moppLibErrorWrongPin.rawValue && retryCount == 0 {
                     errorCode = MoppLibErrorCode.moppLibErrorPinBlocked.rawValue
                 }

@@ -29,7 +29,7 @@ class IDCardSignature {
     
     func createIDCardSignature(idCardParameters: IDCardParameters?, completionHandler: @escaping (Result<MoppLibContainer, NSError>) -> Void) {
         MoppLibContainerActions.sharedInstance().addSignature(idCardParameters?.containerPath, withPin2:idCardParameters?.pin2, roleData: idCardParameters?.roleData, success: { container in
-            completionHandler(.success(container!))
+            completionHandler(.success(container))
         }, failure: { error in
             guard let nsError = error as NSError? else { return }
             completionHandler(.failure(nsError))

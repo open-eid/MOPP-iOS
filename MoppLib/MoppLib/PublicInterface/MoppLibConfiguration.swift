@@ -1,5 +1,5 @@
 //
-//  MOPPLibConfiguration.m
+//  MoppLibConfiguration.swift
 //  MoppLib
 //
 /*
@@ -21,24 +21,28 @@
  *
  */
 
-#import "MOPPLibConfiguration.h"
+import Foundation
 
-@implementation MoppLibConfiguration
+@objcMembers
+public class MoppLibConfiguration: NSObject {
 
-- (id) initWithConfiguration:(NSString *)SIVAURL TSLURL:(NSString *)TSLURL TSLCERTS:(NSArray<NSString*> *)TSLCERTS LDAPCERTS:(NSArray<NSString*> *)LDAPCERTS TSAURL:(NSString *)TSAURL OCSPISSUERS:(NSDictionary *)OCSPISSUERS CERTBUNDLE:(NSArray<NSString*> *)CERTBUNDLE TSACERT:(NSString *)TSACERT {
-    self = [super init];
-    if (self) {
-        self.SIVAURL = SIVAURL;
-        self.TSLURL = TSLURL;
-        self.TSLCERTS = TSLCERTS;
-        self.LDAPCERTS = LDAPCERTS;
-        self.TSAURL = TSAURL;
-        self.OCSPISSUERS = OCSPISSUERS;
-        self.CERTBUNDLE = CERTBUNDLE;
-        self.TSACERT = TSACERT;
+    public var sivaURL: String
+    public var tslURL: String
+    public var tslCerts: [String]
+    public var ldapCerts: [String]
+    public var tsaURL: String
+    public var ocspIssuers: [String: String]
+    public var certBundle: [String]
+    public var tsaCert: String
+
+    public init(sivaURL: String, tslURL: String, tslCerts: [String], ldapCerts: [String], tsaURL: String, ocspIssuers: [String : String], certBundle: [String], tsaCert: String) {
+        self.sivaURL = sivaURL
+        self.tslURL = tslURL
+        self.tslCerts = tslCerts
+        self.ldapCerts = ldapCerts
+        self.tsaURL = tsaURL
+        self.ocspIssuers = ocspIssuers
+        self.certBundle = certBundle
+        self.tsaCert = tsaCert
     }
-    
-    return self;
 }
-
-@end

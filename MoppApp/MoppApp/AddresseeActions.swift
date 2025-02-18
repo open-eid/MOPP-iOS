@@ -20,13 +20,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-import Foundation
+
 import ASN1Decoder
-import CryptoLib
 
 protocol AddresseeActions {
-    func displayAddresseeType(_ type: X509Certificate.CertType?) -> String
-    func determineName(addressee: Addressee) -> String
 }
 
 extension AddresseeActions {
@@ -35,18 +32,17 @@ extension AddresseeActions {
         if addressee.givenName == nil {
             return addressee.identifier
         } else {
-            return "\(addressee.surname.uppercased()), \(addressee.givenName.uppercased()), \(addressee.identifier.uppercased())"
+            return "\(addressee.surname?.uppercased() ?? ""), \(addressee.givenName?.uppercased() ?? ""), \(addressee.identifier.uppercased())"
         }
     }
 
     func determineInfo(addressee: Addressee) -> String {
-        let x509 = try? X509Certificate(der: addressee.cert)
-        let addresseeType = displayAddresseeType(x509?.certType())
-        let validTo = "\(L(LocKey.cryptoValidTo)) \(MoppDateFormatter.shared.ddMMYYYY(toString: x509?.notAfter ?? Date()))"
+        let addresseeType = displayAddresseeType(addressee.certType)
+        let validTo = addressee.validTo != nil ? "\(L(LocKey.cryptoValidTo)) \(MoppDateFormatter.shared.ddMMYYYY(toString: addressee.validTo!))" : ""
         return "\(addresseeType) (\(validTo))"
     }
 
-    func displayAddresseeType(_ type: X509Certificate.CertType?) -> String {
+    func displayAddresseeType(_ type: CertType?) -> String {
         switch type {
         case .IDCardType:
             return L(.cryptoTypeIdCard)
