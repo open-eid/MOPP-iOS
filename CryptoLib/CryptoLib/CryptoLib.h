@@ -36,5 +36,3 @@ FOUNDATION_EXPORT const unsigned char CryptoLibVersionString[];
 #import <CryptoLib/Decrypt.h>
 #import <CryptoLib/CdocParser.h>
 #import <CryptoLib/AbstractSmartToken.h>
-#import <CryptoLib/MoppLdapConfiguration.h>
-#import <CryptoLib/OpenLdap.h>
