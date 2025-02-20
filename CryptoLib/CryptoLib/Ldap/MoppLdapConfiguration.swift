@@ -1,6 +1,7 @@
 //
-//  CryptoLib.h
+//  MoppLdapConfiguration.swift
 //  CryptoLib
+//
 /*
  * Copyright 2017 - 2024 Riigi Infosüsteemi Amet
  *
@@ -20,19 +21,16 @@
  *
  */
 
-#import <UIKit/UIKit.h>
+import Foundation
 
-//! Project version number for CryptoLib.
-FOUNDATION_EXPORT double CryptoLibVersionNumber;
+public class MoppLdapConfiguration {
+    var LDAPCERTS: [String] = []
+    var LDAPPERSONURL: String = ""
+    var LDAPCORPURL: String = ""
 
-//! Project version string for CryptoLib.
-FOUNDATION_EXPORT const unsigned char CryptoLibVersionString[];
-
-// In this header, you should import all the public headers of your framework using statements like #import <CryptoLib/PublicHeader.h>
-
-#import <CryptoLib/CryptoDataFile.h>
-#import <CryptoLib/CdocInfo.h>
-#import <CryptoLib/Encrypt.h>
-#import <CryptoLib/Decrypt.h>
-#import <CryptoLib/CdocParser.h>
-#import <CryptoLib/AbstractSmartToken.h>
+    public init(ldapCerts: [String], ldapPersonURL: String, ldapCorpURL: String) {
+        self.LDAPCERTS = ldapCerts
+        self.LDAPPERSONURL = ldapPersonURL
+        self.LDAPCORPURL = ldapCorpURL
+    }
+}

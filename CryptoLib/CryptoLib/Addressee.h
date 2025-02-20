@@ -1,5 +1,5 @@
 //
-//  CryptoLib.h
+//  Addressee.h
 //  CryptoLib
 /*
  * Copyright 2017 - 2024 Riigi Infosüsteemi Amet
@@ -20,19 +20,14 @@
  *
  */
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-//! Project version number for CryptoLib.
-FOUNDATION_EXPORT double CryptoLibVersionNumber;
+@interface Addressee : NSObject
+@property (nonatomic, strong) NSString *givenName;
+@property (nonatomic, strong) NSString *surname;
+@property (nonatomic, strong) NSString *identifier;
+@property (nonatomic, strong) NSData *cert;
+@property (nonatomic, strong) NSDate *validTo;
+@property (nonatomic, strong) NSArray<NSString*> *policyIdentifiers;
 
-//! Project version string for CryptoLib.
-FOUNDATION_EXPORT const unsigned char CryptoLibVersionString[];
-
-// In this header, you should import all the public headers of your framework using statements like #import <CryptoLib/PublicHeader.h>
-
-#import <CryptoLib/CryptoDataFile.h>
-#import <CryptoLib/CdocInfo.h>
-#import <CryptoLib/Encrypt.h>
-#import <CryptoLib/Decrypt.h>
-#import <CryptoLib/CdocParser.h>
-#import <CryptoLib/AbstractSmartToken.h>
+@end
