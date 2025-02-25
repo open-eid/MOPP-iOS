@@ -3,8 +3,8 @@ workflows:
     name: RIA DigiDoc (MOPP2)
     max_build_duration: 120
     instance_type: mac_mini_m2
-    integrations:
-      app_store_connect: RIA DigiDoc (MOPP)
+    #integrations:
+     # app_store_connect: RIA DigiDoc (MOPP)
     environment:
       ios_signing:
         distribution_type: app_store
@@ -20,8 +20,10 @@ workflows:
       - name: Increment build number
         script: | 
           cd $CM_BUILD_DIR
-          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
-          agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
+          #LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
+          #agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
+          
+          agvtool new-version -all $PROJECT_BUILD_NUMBER
       - name: Build ipa for distribution
         script: | 
           xcode-project build-ipa \
@@ -39,13 +41,13 @@ workflows:
         notify:
           success: true
           failure: true
-      app_store_connect:
-        auth: integration
+      #app_store_connect:
+        #auth: integration
 
         # Configuration related to TestFlight (optional)
         # Note: This action is performed during post-processing.
-        submit_to_testflight: true
+        #submit_to_testflight: true
 
         # Configuration related to App Store (optional)
         # Note: This action is performed during post-processing.
-        submit_to_app_store: false
+        #submit_to_app_store: false
