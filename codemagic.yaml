@@ -3,7 +3,6 @@ scripts:
     name: "Get RIA DigiDoc MOPP2 version"
     script: |
       echo APP_VERSION=$(xcodebuild -project $CM_BUILD_DIR/MoppApp/MoppApp.xcodeproj -showBuildSettings | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION =') >> $CM_ENV
-      echo "App version: $APP_VERSION"
   - &get_google_services_plist
     name: "Get Google Services configuration"
     script: |
@@ -113,8 +112,10 @@ workflows:
         script: |
           # Not running 'SetupConfiguration' for repo.ria as necessary files are already setup
           if [[ ! "${{ inputs.defaultCentralConfigurationTslUrl_input }}" == *"repo.ria"* ]]; then
+            echo "Cleaning swift-sh cache"
             swift-sh --clean-cache
-            swift-sh SetupConfiguration/Sources/main.swift ${{ inputs.defaultCentralConfigurationUrl_input }} ${{ inputs.defaultCentralConfigurationUpdateInterval_input }} ${{ inputs.defaultCentralConfigurationTslUrl_input }}
+            echo "Fetching default configuration"
+            swift-sh MoppApp/SetupConfiguration/Sources/main.swift ${{ inputs.defaultCentralConfigurationUrl_input }} ${{ inputs.defaultCentralConfigurationUpdateInterval_input }} ${{ inputs.defaultCentralConfigurationTslUrl_input }}
           else
             echo "Skipping default configuration fetching for repo.ria"
           fi
