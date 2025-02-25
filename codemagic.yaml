@@ -56,6 +56,7 @@ workflows:
       - name: Setup dependencies
         script: |
           brew install swift-sh
+      - *get_app_version
       - *get_google_services_plist
       - name: "Setup config and TSL files"
         script: |
