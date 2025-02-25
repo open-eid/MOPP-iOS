@@ -220,6 +220,8 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     
     /* Path and file saving / moving */
     private func getCurrentPath() -> String {
+        print("Getting current path: ")
+        print(FileManager.default.currentDirectoryPath)
         return FileManager.default.currentDirectoryPath
     }
     
@@ -247,11 +249,12 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     
     func moveFile(fileAtPath: URL, fileNameWithExtension: String) {
         let destinationDirectory: URL = URL(string: getCurrentPath())!.deletingLastPathComponent().appendingPathComponent("MoppApp").appendingPathComponent("MoppApp").appendingPathComponent(fileNameWithExtension)
-        
+
+        print("Current path: \(getCurrentPath())")
+        print("Destination path: \(destinationDirectory.path)")
+        print("FileAtPath: \(fileAtPath.path)")
+
         do {
-            print("Current path: \(getCurrentPath())")
-            print("Destination path: \(destinationDirectory.path)")
-            print("FileAtPath: \(fileAtPath.path)")
             if FileManager.default.fileExists(atPath: destinationDirectory.path) {
                 do {
                     try FileManager.default.removeItem(atPath: destinationDirectory.path)
