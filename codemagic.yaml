@@ -55,8 +55,7 @@ workflows:
         default: "EE;EE_T"
       buildParameters_input:
         description: |
-          Build parameters \n
-          -DDEBUG
+          Build parameters
         type: string
         default: "-DUSE_TEST_DDS -DDEBUG"
     scripts:
