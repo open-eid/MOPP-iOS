@@ -68,8 +68,8 @@ workflows:
           mkdir -p $TSL_FILES_DIRECTORY
 
           # Remove current files in tslFiles.bundle
-          echo "\nRemoving current TSL files\n"
-          ls $TSL_FILES_DIRECTORY | grep -v .keep | xargs rm -v
+          echo "Removing current TSL files"
+          find $TSL_FILES_DIRECTORY -mindepth 1 ! -name ".keep" -delete
 
           # Download latest 'eu-lotl.xml' file"
           echo "Downloading latest 'eu-lotl.xml' file"
@@ -114,7 +114,7 @@ workflows:
           # Not running 'SetupConfiguration' for repo.ria as necessary files are already setup
           if [[ ! "${{ inputs.defaultCentralConfigurationTslUrl_input }}" == *"repo.ria"* ]]; then
             swift-sh --clean-cache
-            swift-sh SetupConfiguration/Sources/main.swift ${{ inputs.defaultCentralConfigurationUrl_input }} ${{ inputs.defaultCentralConfigurationUpdateInterval_input }} $DEFAULT_CENTRAL_CONFIGURATION_TSL_URL
+            swift-sh SetupConfiguration/Sources/main.swift ${{ inputs.defaultCentralConfigurationUrl_input }} ${{ inputs.defaultCentralConfigurationUpdateInterval_input }} ${{ inputs.defaultCentralConfigurationTslUrl_input }}
           else
             echo "Skipping default configuration fetching for repo.ria"
           fi
