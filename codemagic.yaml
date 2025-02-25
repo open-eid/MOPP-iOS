@@ -140,12 +140,13 @@ workflows:
           agvtool new-version -all $APP_VERSION.$PROJECT_BUILD_NUMBER
       - name: Build RIA DigiDoc
         script: |
+          export OTHER_BUILD_FLAGS="OTHER_SWIFT_FLAGS=$buildParameters_input"
           xcode-project build-ipa \
             --clean \
             --project "$CM_BUILD_DIR/MoppApp/MoppApp.xcodeproj" \
             --scheme "$XCODE_SCHEME" \
-            --archive-xcargs "$buildParameters_input" \
-            --export-xcargs "$buildParameters_input"
+            --archive-xcargs "$OTHER_BUILD_FLAGS" \
+            --export-xcargs "$OTHER_BUILD_FLAGS"
       - name: Rename and move IPA
         script: |
           mv -v build/ios/ipa/MoppApp.ipa build/ios/ipa/"MOPP2_dev_$APP_VERSION.$PROJECT_BUILD_NUMBER.ipa"
@@ -264,9 +265,7 @@ workflows:
           xcode-project build-ipa \
             --clean \
             --project "$CM_BUILD_DIR/MoppApp/MoppApp.xcodeproj" \
-            --scheme "$XCODE_SCHEME" \
-            --archive-xcargs "$buildParameters_input" \
-            --export-xcargs "$buildParameters_input"
+            --scheme "$XCODE_SCHEME"
       - name: Rename and move IPA
         script: |
           mv -v build/ios/ipa/MoppApp.ipa build/ios/ipa/"MOPP2_release_$APP_VERSION.$PROJECT_BUILD_NUMBER.ipa"
