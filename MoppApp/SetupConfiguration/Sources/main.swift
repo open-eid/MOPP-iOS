@@ -252,31 +252,33 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     }
     
     func moveFile(fileAtPath: URL, fileNameWithExtension: String) {
-        let destinationDirectory: URL = URL(string: getCurrentPath())!.deletingLastPathComponent().appendingPathComponent("MoppApp").appendingPathComponent("MoppApp").appendingPathComponent(fileNameWithExtension)
+        let destinationDirectory = URL(string: getCurrentPath())!
+            .deletingLastPathComponent()
+            .appendingPathComponent("MoppApp")
+            .appendingPathComponent("MoppApp")
 
-        NSLog("Current path: \(getCurrentPath())")
-        NSLog("Destination path: \(destinationDirectory.path)")
-        NSLog("Destination path exists: \(FileManager.default.fileExists(atPath: destinationDirectory.path))")
-
-        NSLog("FileAtPath: \(fileAtPath.path)")
-        NSLog("fileAtPath path exists: \(FileManager.default.fileExists(atPath: fileAtPath.path))")
+        let destinationPath = destinationDirectory.appendingPathComponent(fileNameWithExtension)
 
         do {
-            if FileManager.default.fileExists(atPath: destinationDirectory.path) {
-                do {
-                    try FileManager.default.removeItem(atPath: destinationDirectory.path)
-                } catch {
-                    fatalError(error.localizedDescription)
-                }
+            guard FileManager.default.fileExists(atPath: fileAtPath.path) else {
+                fatalError("Source file does not exist at path: \(fileAtPath.path)")
             }
-            
-            try FileManager.default.moveItem(atPath: fileAtPath.path, toPath: destinationDirectory.path)
-            
+
+            if !FileManager.default.fileExists(atPath: destinationDirectory.path) {
+                try FileManager.default.createDirectory(at: destinationDirectory, withIntermediateDirectories: true, attributes: nil)
+            }
+
+            if FileManager.default.fileExists(atPath: destinationPath.path) {
+                try FileManager.default.removeItem(at: destinationPath)
+            }
+
+            try FileManager.default.moveItem(at: fileAtPath, to: destinationPath)
+
         } catch {
-            fatalError(error.localizedDescription)
+            fatalError("Error moving file: \(error.localizedDescription)")
         }
     }
-    
+
     private func saveAndMoveConfigurationFiles(configData: String, publicKey: String, signature: String, defaultConfiguration: String) {
         saveToFileAndMove(contents: configData, fileNameWithExtension: "config.json")
         saveToFileAndMove(contents: publicKey, fileNameWithExtension: "publicKey.pub")
