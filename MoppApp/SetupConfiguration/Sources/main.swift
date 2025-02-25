@@ -242,9 +242,6 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         
         let newFile = FileManager.default.createFile(atPath: (file.path), contents: data, attributes: nil)
 
-        NSLog("Create file: \(newFile)")
-        NSLog("Create file exists: \(FileManager.default.fileExists(atPath: file.path))")
-
         if newFile == false {
             fatalError("Error creating file at \(file.path)!")
         }
@@ -265,14 +262,19 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             }
 
             if !FileManager.default.fileExists(atPath: destinationDirectory.path) {
+                NSLog("Creating destination path: \(destinationDirectory.path)")
                 try FileManager.default.createDirectory(at: destinationDirectory, withIntermediateDirectories: true, attributes: nil)
             }
 
             if FileManager.default.fileExists(atPath: destinationPath.path) {
+                NSLog("File exists: \(destinationDirectory.path), removing...")
                 try FileManager.default.removeItem(at: destinationPath)
             }
 
+            NSLog("Moving file: \(fileAtPath.path) to \(destinationPath.path)")
             try FileManager.default.moveItem(at: fileAtPath, to: destinationPath)
+
+            NSLog("Is file moved: \(FileManager.default.fileExists(atPath: destinationPath.path))")
 
         } catch {
             fatalError("Error moving file: \(error.localizedDescription)")
