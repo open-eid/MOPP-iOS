@@ -252,7 +252,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     }
     
     func moveFile(fileAtPath: URL, fileNameWithExtension: String) {
-        let destinationDirectory = URL(fileURLWithPath: getCurrentPath())!
+        let destinationDirectory = URL(fileURLWithPath: getCurrentPath())
             .deletingLastPathComponent()
             .appendingPathComponent("MoppApp")
             .appendingPathComponent("MoppApp")
