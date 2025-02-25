@@ -25,6 +25,7 @@ workflows:
         BUNDLE_ID: "ee.ria.digidoc"
         XCODE_SCHEME: "MoppApp"
         APP_STORE_APPLE_ID: ET847QJV9F
+        CONFIG_DIRECTORY: "MoppApp/MoppApp"
       xcode: latest
     inputs:
       defaultCentralConfigurationUrl_input:
@@ -65,7 +66,6 @@ workflows:
       - *get_google_services_plist
       - name: "Setup config and TSL files"
         script: |
-          export CONFIG_DIRECTORY="MoppApp/MoppApp"
           export TSL_FILES_DIRECTORY="$CONFIG_DIRECTORY/tslFiles.bundle"
 
           # Create config and TSL folders
