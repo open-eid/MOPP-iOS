@@ -243,7 +243,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         let newFile = FileManager.default.createFile(atPath: (file.path), contents: data, attributes: nil)
 
         NSLog("Create file: \(newFile)")
-        NSLog("Create file exists: \(FileManager.default.fileExists(atPath: newFile.path))")
+        NSLog("Create file exists: \(FileManager.default.fileExists(atPath: file.path))")
 
         if newFile == false {
             fatalError("Error creating file at \(file.path)!")
