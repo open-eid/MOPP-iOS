@@ -249,6 +249,9 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         let destinationDirectory: URL = URL(string: getCurrentPath())!.deletingLastPathComponent().appendingPathComponent("MoppApp").appendingPathComponent("MoppApp").appendingPathComponent(fileNameWithExtension)
         
         do {
+            print("Current path: \(getCurrentPath())")
+            print("Destination path: \(destinationDirectory.path)")
+            print("FileAtPath: \(fileAtPath.path)")
             if FileManager.default.fileExists(atPath: destinationDirectory.path) {
                 do {
                     try FileManager.default.removeItem(atPath: destinationDirectory.path)
