@@ -1,3 +1,9 @@
+scripts:
+  - &get_google_services_plist
+    name: "Get Google Services configuration"
+    script: |
+      echo $GOOGLE_SERVICES_PLIST | base64 --decode > $CM_BUILD_DIR/MoppApp/GoogleService-Info.plist
+
 workflows:
   debug:
     name: RIA DigiDoc (MOPP2)
@@ -9,12 +15,15 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: ee.ria.digidoc
+      groups:
+        - "google_services"
       vars:
         BUNDLE_ID: "ee.ria.digidoc"
         XCODE_SCHEME: "MoppApp"
         APP_STORE_APPLE_ID: ET847QJV9F
       xcode: latest
     scripts:
+      - *get_google_services_plist
       - name: Set up provisioning profiles settings on Xcode project
         script: xcode-project use-profiles
       - name: Increment build number
