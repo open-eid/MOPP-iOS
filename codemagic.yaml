@@ -25,7 +25,6 @@ workflows:
         BUNDLE_ID: "ee.ria.digidoc"
         XCODE_SCHEME: "MoppApp"
         APP_STORE_APPLE_ID: ET847QJV9F
-        BUILD_PARAMETERS_CONFIG: "buildParameters.xcconfig"
       xcode: latest
     inputs:
       defaultCentralConfigurationUrl_input:
@@ -64,9 +63,6 @@ workflows:
           brew install swift-sh
       - *get_app_version
       - *get_google_services_plist
-      - name: "Setup build parameter flags"
-        script: |
-          echo "OTHER_SWIFT_FLAGS = $buildParameters_input" > $BUILD_PARAMETERS_CONFIG
       - name: "Setup config and TSL files"
         script: |
           export CONFIG_DIRECTORY="MoppApp/MoppApp"
@@ -142,7 +138,8 @@ workflows:
           xcode-project build-ipa \
             --project "$CM_BUILD_DIR/MoppApp/MoppApp.xcodeproj" \
             --scheme "$XCODE_SCHEME"
-            --xcconfig BUILD_PARAMETERS_CONFIG
+            --archive-xcargs $buildParameters_input
+            --export-xcargs $buildParameters_input
       - name: Rename and move IPA
         script: |
           mv build/ios/ipa/MoppApp.ipa build/ios/ipa/"MOPP2_dev_$APP_VERSION.$PROJECT_BUILD_NUMBER.ipa"
