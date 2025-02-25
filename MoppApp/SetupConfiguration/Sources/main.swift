@@ -157,11 +157,4 @@ func log(_ message: String) {
 
 // MARK: - Run Script
 
-Task {
-    do {
-        try await SettingsConfiguration().setupConfiguration()
-    } catch {
-        log("Error: \(error.localizedDescription)")
-        exit(1)
-    }
-}
+try await SettingsConfiguration().setupConfiguration()
