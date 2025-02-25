@@ -10,7 +10,7 @@ scripts:
 
 workflows:
   debug:
-    name: RIA DigiDoc (MOPP2)
+    name: RIA DigiDoc (MOPP2) dev
     max_build_duration: 120
     instance_type: mac_mini_m2
     #integrations:
@@ -136,6 +136,7 @@ workflows:
       - name: Build RIA DigiDoc
         script: |
           xcode-project build-ipa \
+            --clean \
             --project "$CM_BUILD_DIR/MoppApp/MoppApp.xcodeproj" \
             --scheme "$XCODE_SCHEME" \
             --archive-xcargs "$buildParameters_input" \
@@ -157,10 +158,6 @@ workflows:
             }
           ]
           EOF
-      - name: Verify release notes
-        script: |
-          ls
-          cat release_notes.json
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
@@ -183,3 +180,120 @@ workflows:
         # Configuration related to App Store (optional)
         # Note: This action is performed during post-processing.
         #submit_to_app_store: false
+
+  release:
+    name: RIA DigiDoc (MOPP2) release
+    max_build_duration: 120
+    instance_type: mac_mini_m2
+    #integrations:
+     # app_store_connect: RIA DigiDoc (MOPP)
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: ee.ria.digidoc
+      groups:
+        - "google_services"
+      vars:
+        BUNDLE_ID: "ee.ria.digidoc"
+        XCODE_SCHEME: "MoppApp"
+        APP_STORE_APPLE_ID: ET847QJV9F
+      xcode: latest
+    scripts:
+      - name: Setup dependencies
+        script: |
+          brew install swift-sh
+      - *get_app_version
+      - *get_google_services_plist
+      - name: "Setup config and TSL files"
+        script: |
+          export CONFIG_DIRECTORY="MoppApp/MoppApp"
+          export TSL_FILES_DIRECTORY="$CONFIG_DIRECTORY/tslFiles.bundle"
+
+          # Create config and TSL folders
+          mkdir -p $TSL_FILES_DIRECTORY
+
+          # Remove current files in tslFiles.bundle
+          echo "Removing current TSL files"
+          find $TSL_FILES_DIRECTORY -mindepth 1 ! -name ".keep" -delete
+
+          # Download latest 'eu-lotl.xml' file"
+          echo "Downloading latest 'eu-lotl.xml' file"
+          wget "https://ec.europa.eu/tools/lotl/eu-lotl.xml" -P $TSL_FILES_DIRECTORY
+          
+          if [ -f "$TSL_FILES_DIRECTORY/eu-lotl.xml" ]; then
+            echo "Getting TSL (local LOTL)"
+            python3 scripts/TSLXMLDownloader.py --tslFile="$TSL_FILES_DIRECTORY/eu-lotl.xml" --tslTestFile="$TSL_FILES_DIRECTORY/$(basename 'https://ec.europa.eu/tools/lotl/eu-lotl.xml')" --countries="EE" --isDevBuild="False"
+
+            echo "Finished downloading TSL"
+          else
+            echo "Getting TSL (remote LOTL)"
+            python3 scripts/TSLXMLDownloader.py --tslTestFile="$TSL_FILES_DIRECTORY/$(basename 'https://ec.europa.eu/tools/lotl/eu-lotl.xml')" --countries="EE" --isDevBuild="False"
+            echo "Finished downloading TSL"
+          fi
+
+          echo "Moving TSLs to app's TSL files directory"
+          mv -v scripts/TSL/* $TSL_FILES_DIRECTORY
+          echo "Done moving TSLs"
+      - name: Fetch default configuration
+        script: |
+          echo "Cleaning swift-sh cache"
+          swift-sh --clean-cache
+          echo "Fetching default configuration"
+          swift-sh MoppApp/SetupConfiguration/Sources/main.swift "https://id.eesti.ee" 4 "https://ec.europa.eu/tools/lotl/eu-lotl.xml"
+      - name: Set up provisioning profiles settings on Xcode project
+        script: xcode-project use-profiles
+      - name: Increment build number
+        script: |
+          cd $CM_BUILD_DIR/MoppApp
+          #LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
+          #agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
+          
+          agvtool new-version -all $APP_VERSION.$PROJECT_BUILD_NUMBER
+      - name: Build RIA DigiDoc
+        script: |
+          xcode-project build-ipa \
+            --clean \
+            --project "$CM_BUILD_DIR/MoppApp/MoppApp.xcodeproj" \
+            --scheme "$XCODE_SCHEME" \
+            --archive-xcargs "$buildParameters_input" \
+            --export-xcargs "$buildParameters_input"
+      - name: Rename and move IPA
+        script: |
+          mv build/ios/ipa/MoppApp.ipa build/ios/ipa/"MOPP2_release_$APP_VERSION.$PROJECT_BUILD_NUMBER.ipa"
+      - name: Generate release notes for TestFlight
+        script: |
+          cat <<EOF > release_notes.json
+          [
+            {
+              "language": "en-GB",
+              "text": "* Branch: $CM_BRANCH \\n\\n* Mode: release"
+            },
+            {
+              "language": "en-US",
+              "text": "* Branch: $CM_BRANCH \\n\\n* Mode: release"
+            }
+          ]
+          EOF
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+    publishing:
+      email:
+        recipients:
+          - marten.rebane@nortal.com
+        notify:
+          success: true
+          failure: true
+      #app_store_connect:
+        #auth: integration
+
+        # Configuration related to TestFlight (optional)
+        # Note: This action is performed during post-processing.
+        #submit_to_testflight: true
+
+        # Configuration related to App Store (optional)
+        # Note: This action is performed during post-processing.
+        #submit_to_app_store: false
+
