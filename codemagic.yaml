@@ -55,8 +55,8 @@ workflows:
         default: "EE;EE_T"
       buildParameters_input:
         description: |
-          Build parameters Parameters included for test environment
-          -DUSE_TEST_DDS - Uses Test DDS url from Central Configuration file (MID-SIGN-TEST-URL)
+          Build parameters Parameters included for test environment \n
+          -DUSE_TEST_DDS - Uses Test DDS url from Central Configuration file (MID-SIGN-TEST-URL) \n
           -DDEBUG - (DEBUG mode) disables jailbreak check, screen disguise and adds libdigidocpp logging into file
         type: string
         default: "-DUSE_TEST_DDS -DDEBUG"
