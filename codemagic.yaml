@@ -240,6 +240,11 @@ workflows:
           swift-sh --clean-cache
           echo "Fetching default configuration"
           swift-sh MoppApp/SetupConfiguration/Sources/main.swift "https://id.eesti.ee" 4 "https://ec.europa.eu/tools/lotl/eu-lotl.xml"
+
+          mv defaultConfiguration.json $CONFIG_DIRECTORY/
+          mv config.json $CONFIG_DIRECTORY/
+          mv publicKey.pub $CONFIG_DIRECTORY/
+          mv signature.rsa $CONFIG_DIRECTORY/
       - name: Set up provisioning profiles settings on Xcode project
         script: xcode-project use-profiles
       - name: Increment build number
