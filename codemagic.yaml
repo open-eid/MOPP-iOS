@@ -121,6 +121,11 @@ workflows:
             swift-sh --clean-cache
             echo "Fetching default configuration"
             swift-sh MoppApp/SetupConfiguration/Sources/main.swift ${{ inputs.defaultCentralConfigurationUrl_input }} ${{ inputs.defaultCentralConfigurationUpdateInterval_input }} ${{ inputs.defaultCentralConfigurationTslUrl_input }}
+            
+            mv -v defaultConfiguration.json $CONFIG_DIRECTORY/
+            mv -v config.json $CONFIG_DIRECTORY/
+            mv -v publicKey.pub $CONFIG_DIRECTORY/
+            mv -v signature.rsa $CONFIG_DIRECTORY/
           else
             echo "Skipping default configuration fetching for repo.ria"
           fi
