@@ -138,8 +138,8 @@ workflows:
           xcode-project build-ipa \
             --project "$CM_BUILD_DIR/MoppApp/MoppApp.xcodeproj" \
             --scheme "$XCODE_SCHEME" \
-            --archive-xcargs $buildParameters_input \
-            --export-xcargs $buildParameters_input
+            --archive-xcargs "$buildParameters_input" \
+            --export-xcargs "$buildParameters_input"
       - name: Rename and move IPA
         script: |
           mv build/ios/ipa/MoppApp.ipa build/ios/ipa/"MOPP2_dev_$APP_VERSION.$PROJECT_BUILD_NUMBER.ipa"
