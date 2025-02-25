@@ -22,8 +22,99 @@ workflows:
         XCODE_SCHEME: "MoppApp"
         APP_STORE_APPLE_ID: ET847QJV9F
       xcode: latest
+    inputs:
+      defaultCentralConfigurationUrl_input:
+        description: Default Central Configuration URL
+        type: choice
+        default: https://repo.ria/config
+        options:
+          - https://repo.ria/config
+          - https://id.eesti.ee
+          - https://id.test.eesti.ee
+          - http://10.0.25.57/updater
+      defaultCentralConfigurationUpdateInterval_input:
+        description: Default Central Configuration Update Interval
+        type: number
+        default: 4
+      defaultCentralConfigurationTslUrl_input:
+        description: Default Central Configuration TSL URL
+        type: choice
+        default: https://repo.ria/tsl/trusted-test-mp.xml
+        options:
+          - https://repo.ria/tsl/trusted-test-mp.xml
+          - https://ec.europa.eu/tools/lotl/eu-lotl.xml
+          - https://open-eid.github.io/test-TL/tl-mp-test-EE.xml
+      memberTsl_input:
+        description: TSL member lists
+        type: string
+        default: "EE;EE_T"
     scripts:
+      - name: Setup dependencies
+        script: |
+          brew install swift-sh
       - *get_google_services_plist
+      - name: "Setup config and TSL files"
+        script: |
+          export CONFIG_DIRECTORY="MoppApp/MoppApp"
+          export TSL_FILES_DIRECTORY="$CONFIG_DIRECTORY/tslFiles.bundle"
+
+          # Create config and TSL folders
+          mkdir -p $TSL_FILES_DIRECTORY
+
+          # Remove current files in tslFiles.bundle
+          cd ${WORKSPACE}/$CONFIG_DIRECTORY/tslFiles.bundle
+          if [[ "$PWD" == $TSL_FILES_DIRECTORY ]] ; then
+            echo "\nRemoving current TSL files\n"
+            ls | grep -v .keep | xargs rm -v
+          fi
+
+          # Download latest 'eu-lotl.xml' file"
+          echo "Downloading latest 'eu-lotl.xml' file"
+          wget "https://ec.europa.eu/tools/lotl/eu-lotl.xml" -P $TSL_FILES_DIRECTORY
+
+          # Get repo.ria values from environmental variables, as CodeMagic doesn't have access to repo.ria domain
+          if [[ "${{ inputs.defaultCentralConfigurationTslUrl_input }}" == *"repo.ria"* ]]; then
+            echo "Using repo.ria configuration"
+            echo $REPO_RIA_DEFAULT_PROPERTIES | base64 --decode > $CONFIG_DIRECTORY/defaultConfiguration.json
+            echo $REPO_RIA_CONFIG | base64 --decode > $CONFIG_DIRECTORY/config.json
+            echo $REPO_RIA_PUB_KEY | base64 --decode > $CONFIG_DIRECTORY/publicKey.pub
+            echo $REPO_RIA_RSA | base64 --decode > $CONFIG_DIRECTORY/signature.rsa
+            echo $REPO_RIA_TRUSTED_TEST_MP | base64 --decode > $TSL_FILES_DIRECTORY/trusted-test-mp.xml
+            echo $REPO_RIA_TL_MP_TEST_EE | base64 --decode > $TSL_FILES_DIRECTORY/tl-mp-test-EE.xml
+            # EE_T.xml is too large to use in environmental variable. Using compressed variant
+            echo $REPO_RIA_EE_TSL | base64 --decode | gunzip > $TSL_FILES_DIRECTORY/EE_T.xml
+          else
+            echo "Not using repo.ria configuration"
+          fi
+
+          if [ -f "$TSL_FILES_DIRECTORY/eu-lotl.xml" ]; then
+            echo "Getting TSL (local LOTL)"
+            # Repo.ria TSL files already in assets folder, doesn't need to download separately anymore
+            if [[ "${{ inputs.defaultCentralConfigurationTslUrl_input }}" == *"repo.ria"* ]]; then
+              python3 scripts/TSLXMLDownloader.py --tslFile="$TSL_FILES_DIRECTORY/eu-lotl.xml" --countries="${{ inputs.memberTsl_input }}" --isDevBuild="True"
+            else
+              python3 scripts/TSLXMLDownloader.py --tslFile="$TSL_FILES_DIRECTORY/eu-lotl.xml" --tslTestFile="$TSL_FILES_DIRECTORY/$(basename ${{ inputs.defaultCentralConfigurationTslUrl_input }})" --countries="${{ inputs.memberTsl_input }}" --isDevBuild="True"
+            fi
+
+            echo "Finished downloading TSL"
+          else
+            echo "Getting TSL (remote LOTL)"
+            python3 scripts/TSLXMLDownloader.py --tslTestFile="$TSL_FILES_DIRECTORY/$(basename 'https://ec.europa.eu/tools/lotl/eu-lotl.xml')" --countries="${{ inputs.memberTsl_input }}" --isDevBuild="True"
+            echo "Finished downloading TSL"
+          fi
+
+          echo "Moving TSLs to app's TSL files directory"
+          mv -v scripts/TSL/* $TSL_FILES_DIRECTORY
+          echo "Done moving TSLs"
+      - name: Fetch default configuration
+        script: |
+          # Not running 'SetupConfiguration' for repo.ria as necessary files are already setup
+          if [[ ! "${{ inputs.defaultCentralConfigurationTslUrl_input }}" == *"repo.ria"* ]]; then
+            swift-sh --clean-cache
+            swift-sh SetupConfiguration/Sources/main.swift ${{ inputs.defaultCentralConfigurationUrl_input }} ${{ inputs.defaultCentralConfigurationUpdateInterval_input }} $DEFAULT_CENTRAL_CONFIGURATION_TSL_URL
+          else
+            echo "Skipping default configuration fetching for repo.ria"
+          fi
       - name: Set up provisioning profiles settings on Xcode project
         script: xcode-project use-profiles
       - name: Increment build number
