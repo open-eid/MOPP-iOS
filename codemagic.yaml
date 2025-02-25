@@ -25,6 +25,7 @@ workflows:
         BUNDLE_ID: "ee.ria.digidoc"
         XCODE_SCHEME: "MoppApp"
         APP_STORE_APPLE_ID: ET847QJV9F
+        BUILD_PARAMETERS_CONFIG: "buildParameters.xcconfig"
       xcode: latest
     inputs:
       defaultCentralConfigurationUrl_input:
@@ -52,12 +53,22 @@ workflows:
         description: TSL member lists
         type: string
         default: "EE;EE_T"
+      buildParameters_input:
+        description: |
+          Build parameters Parameters included for test environment
+          -DUSE_TEST_DDS - Uses Test DDS url from Central Configuration file (MID-SIGN-TEST-URL)
+          -DDEBUG - (DEBUG mode) disables jailbreak check, screen disguise and adds libdigidocpp logging into file
+        type: string
+        default: "-DUSE_TEST_DDS -DDEBUG"
     scripts:
       - name: Setup dependencies
         script: |
           brew install swift-sh
       - *get_app_version
       - *get_google_services_plist
+      - name: "Setup build parameter flags"
+        script: |
+          echo "OTHER_SWIFT_FLAGS = $buildParameters_input" > $BUILD_PARAMETERS_CONFIG
       - name: "Setup config and TSL files"
         script: |
           export CONFIG_DIRECTORY="MoppApp/MoppApp"
@@ -123,10 +134,7 @@ workflows:
         script: xcode-project use-profiles
       - name: Increment build number
         script: |
-          pwd
           cd $CM_BUILD_DIR/MoppApp
-          pwd
-          ls
           #LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
           #agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
           
@@ -136,9 +144,28 @@ workflows:
           xcode-project build-ipa \
             --project "$CM_BUILD_DIR/MoppApp/MoppApp.xcodeproj" \
             --scheme "$XCODE_SCHEME"
+            --xcconfig BUILD_PARAMETERS_CONFIG
       - name: Rename and move IPA
         script: |
           mv build/ios/ipa/MoppApp.ipa build/ios/ipa/"MOPP2_dev_$APP_VERSION.$PROJECT_BUILD_NUMBER.ipa"
+      - name: Create release notes
+        script: |
+          cat <<EOF > release_notes.json
+          [
+            {
+              "language": "en-GB",
+              "text": "* Branch: $CM_BRANCH \\n\\n* Mode: dev"
+            },
+            {
+              "language": "en-US",
+              "text": "* Branch: $CM_BRANCH \\n\\n* Mode: dev"
+            }
+          ]
+          EOF
+      - name: Verify release notes
+        script: |
+          ls
+          cat release_notes.json
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
