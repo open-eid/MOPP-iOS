@@ -96,18 +96,13 @@ extension SettingsConfiguration {
     }
 
     private func saveFile(named fileName: String, content: String) throws {
-        let directory = getDestinationDirectory()
+        let directory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
         let fileURL = directory.appendingPathComponent(fileName)
 
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
 
         try content.write(to: fileURL, atomically: true, encoding: .utf8)
         log("File saved: \(fileURL.path)")
-    }
-
-    private func getDestinationDirectory() -> URL {
-        let currentDirectory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-        return currentDirectory.appendingPathComponent("MoppApp").appendingPathComponent("MoppApp")
     }
 }
 
