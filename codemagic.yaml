@@ -2,7 +2,7 @@ scripts:
   - &get_app_version
     name: "Get RIA DigiDoc MOPP2 version"
     script: |
-      echo APP_VERSION=$(xcodebuild -showBuildSettings | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION =') >> $CM_ENV
+      echo APP_VERSION=$(xcodebuild -project $CM_BUILD_DIR/MoppApp/MoppApp.xcodeproj -showBuildSettings | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION =') >> $CM_ENV
   - &get_google_services_plist
     name: "Get Google Services configuration"
     script: |
@@ -67,10 +67,8 @@ workflows:
           mkdir -p $TSL_FILES_DIRECTORY
 
           # Remove current files in tslFiles.bundle
-          if [[ "$PWD" == $TSL_FILES_DIRECTORY ]] ; then
-            echo "\nRemoving current TSL files\n"
-            ls | grep -v .keep | xargs rm -v
-          fi
+          echo "\nRemoving current TSL files\n"
+          ls $TSL_FILES_DIRECTORY | grep -v .keep | xargs rm -v
 
           # Download latest 'eu-lotl.xml' file"
           echo "Downloading latest 'eu-lotl.xml' file"
@@ -131,14 +129,12 @@ workflows:
           #agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
           
           agvtool new-version -all $APP_VERSION.$PROJECT_BUILD_NUMBER
-      - name: Build ipa for distribution
+      - name: Build RIA DigiDoc
         script: |
-          pwd
-          ls $CM_BUILD_DIR/MoppApp
           xcode-project build-ipa \
             --project "$CM_BUILD_DIR/MoppApp/MoppApp.xcodeproj" \
             --scheme "$XCODE_SCHEME"
-      - name: Rename and move APK
+      - name: Rename and move IPA
         script: |
           mv build/ios/ipa/MoppApp.ipa build/ios/ipa/"RIA_DigiDoc_MOPP2_dev_$APP_VERSION.$PROJECT_BUILD_NUMBER.ipa"
     artifacts:
