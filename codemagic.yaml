@@ -3,6 +3,7 @@ scripts:
     name: "Get RIA DigiDoc MOPP2 version"
     script: |
       echo APP_VERSION=$(xcodebuild -project $CM_BUILD_DIR/MoppApp/MoppApp.xcodeproj -showBuildSettings | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION =') >> $CM_ENV
+      echo "App version: $APP_VERSION"
   - &get_google_services_plist
     name: "Get Google Services configuration"
     script: |
@@ -136,7 +137,7 @@ workflows:
             --scheme "$XCODE_SCHEME"
       - name: Rename and move IPA
         script: |
-          mv build/ios/ipa/MoppApp.ipa build/ios/ipa/"RIA_DigiDoc_MOPP2_dev_$APP_VERSION.$PROJECT_BUILD_NUMBER.ipa"
+          mv build/ios/ipa/MoppApp.ipa build/ios/ipa/"MOPP2_dev_$APP_VERSION.$PROJECT_BUILD_NUMBER.ipa"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
