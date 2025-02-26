@@ -300,7 +300,7 @@ workflows:
 
         # Configuration related to TestFlight (optional)
         # Note: This action is performed during post-processing.
-        submit_to_testflight: true
+        submit_to_testflight: false
 
         # Configuration related to App Store (optional)
         # Note: This action is performed during post-processing.
