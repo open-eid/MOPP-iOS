@@ -258,7 +258,9 @@ workflows:
         script: |
           cd $CM_BUILD_DIR/MoppApp
           LATEST_BUILD_NUMBER=$(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID")
-          agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
+          agvtool new-version -all $(($PROJECT_BUILD_NUMBER + 1))
+
+          #agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
       - name: Build RIA DigiDoc
         script: |
           xcode-project build-ipa \
