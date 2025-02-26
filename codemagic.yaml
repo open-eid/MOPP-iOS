@@ -135,7 +135,7 @@ workflows:
       - name: Increment build number
         script: |
           cd $CM_BUILD_DIR/MoppApp
-          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-build-number $APP_STORE_APP_ID)
+          export LATEST_BUILD_NUMBER=$(app-store-connect get-latest-build-number $APP_STORE_APP_ID)
           agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
       - name: Build RIA DigiDoc
         script: |
@@ -148,7 +148,7 @@ workflows:
             --export-xcargs "$OTHER_BUILD_FLAGS"
       - name: Rename and move IPA
         script: |
-          mv -v build/ios/ipa/MoppApp.ipa build/ios/ipa/"MOPP2_dev_$APP_VERSION.$PROJECT_BUILD_NUMBER.ipa"
+          mv -v build/ios/ipa/MoppApp.ipa build/ios/ipa/"MOPP2_dev_$APP_VERSION.$LATEST_BUILD_NUMBER.ipa"
       - name: Generate release notes for TestFlight
         script: |
           cat <<EOF > release_notes.json
@@ -249,7 +249,7 @@ workflows:
       - name: Increment build number
         script: |
           cd $CM_BUILD_DIR/MoppApp
-          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-build-number $APP_STORE_APP_ID)
+          export LATEST_BUILD_NUMBER=$(app-store-connect get-latest-build-number $APP_STORE_APP_ID)
           agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
       - name: Build RIA DigiDoc
         script: |
@@ -259,7 +259,7 @@ workflows:
             --scheme "$XCODE_SCHEME"
       - name: Rename and move IPA
         script: |
-          mv -v build/ios/ipa/MoppApp.ipa build/ios/ipa/"MOPP2_release_$APP_VERSION.$PROJECT_BUILD_NUMBER.ipa"
+          mv -v build/ios/ipa/MoppApp.ipa build/ios/ipa/"MOPP2_release_$APP_VERSION.$LATEST_BUILD_NUMBER.ipa"
       - name: Generate release notes for TestFlight
         script: |
           cat <<EOF > release_notes.json
