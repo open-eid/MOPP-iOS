@@ -579,7 +579,7 @@ extension IdCardViewController : MoppLibCardReaderManagerDelegate {
             // Give some time for UI to update before executing data requests
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
                 guard let strongSelf = self else { return }
-                MoppLibCardActions.minimalCardPersonalData(success: { [weak self] moppLibPersonalData in
+                MoppLibCardActions.cardPersonalData(success: { [weak self] moppLibPersonalData in
                     DispatchQueue.main.async {
                         self?.idCardPersonalData = moppLibPersonalData
                         self?.state = .readyForTokenAction

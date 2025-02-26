@@ -35,28 +35,8 @@
 
 - (NSData*)getCertificate {
     __block NSData *response = nil;
-    [[CardActionsManager sharedInstance] authenticationCertDataWithSuccess:^(NSData *certDataBlock) {
-        const void *bytes = [certDataBlock bytes];
-        NSUInteger endByteOfCertificate = [certDataBlock length];
-        
-        // Trim nulls from the end of certificate data
-        BOOL certLengthReduced = NO;
-        for (NSUInteger i = [certDataBlock length]; i > 0;) {
-            int8_t elem = OSReadLittleInt(bytes, i - 1);
-            if(elem != '\0'){
-                endByteOfCertificate = i;
-                break;
-            }
-            i -= sizeof(int8_t);
-            certLengthReduced = YES;
-        }
-        
-        if (certLengthReduced) {
-            endByteOfCertificate -= 1;
-        }
-        
-        NSData *responseData = [certDataBlock subdataWithRange:NSMakeRange(0, endByteOfCertificate)];
-        response = responseData;
+    [[CardActionsManager sharedInstance] authenticationCertWithSuccess:^(NSData *certDataBlock) {
+        response = certDataBlock;
     } failure:^(NSError *error) {
         [NSException raise:@"Decryption failed" format:@""];
     }];
@@ -66,10 +46,11 @@
     }
     return response;
 }
+
 - (NSData*)decrypt:(NSData*)data pin1:(NSString *)pin1 {
     __block NSData *response = nil;
     __block NSString *errorMessage = nil;
-    [[CardActionsManager sharedInstance] decryptData:data pin1:pin1 useECC:NO success:^(NSData *certDataBlock){
+    [[CardActionsManager sharedInstance] decryptData:data pin1:pin1 success:^(NSData *certDataBlock){
         response = certDataBlock;
     } failure:^(NSError *error) {
         errorMessage = [self handleErrorMessage:error];
@@ -87,7 +68,25 @@
 - (NSData*)derive:(NSData*)data pin1:(NSString *)pin1 {
     __block NSData *response = nil;
     __block NSString *errorMessage = nil;
-    [[CardActionsManager sharedInstance] decryptData:data pin1:pin1 useECC:YES success:^(NSData *certDataBlock){
+    [[CardActionsManager sharedInstance] decryptData:data pin1:pin1 success:^(NSData *certDataBlock){
+        response = certDataBlock;
+    } failure:^(NSError *error) {
+        errorMessage = [self handleErrorMessage:error];
+    }];
+    // Need to wait CardActionsManager response with ACS readers.
+    while(!response) {
+        if(errorMessage){
+            [NSException raise: errorMessage format:@""];
+        }
+        [NSThread sleepForTimeInterval:0.1];
+    }
+    return response;
+}
+
+- (NSData*)authenticate:(NSData*)data pin1:(NSString *)pin1 {
+    __block NSData *response = nil;
+    __block NSString *errorMessage = nil;
+    [[CardActionsManager sharedInstance] authenticateFor:data pin1:pin1 success:^(NSData *certDataBlock){
         response = certDataBlock;
     } failure:^(NSError *error) {
         errorMessage = [self handleErrorMessage:error];
