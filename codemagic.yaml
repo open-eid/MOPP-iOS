@@ -134,10 +134,10 @@ workflows:
       - name: Increment build number
         script: |
           cd $CM_BUILD_DIR/MoppApp
-          #LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
-          #agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
+          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
+          agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
           
-          agvtool new-version -all $APP_VERSION.$PROJECT_BUILD_NUMBER
+          #agvtool new-version -all $APP_VERSION.$PROJECT_BUILD_NUMBER
       - name: Build RIA DigiDoc
         script: |
           export OTHER_BUILD_FLAGS="OTHER_SWIFT_FLAGS=$buildParameters_input"
