@@ -191,8 +191,8 @@ workflows:
     name: RIA DigiDoc (MOPP2) release
     max_build_duration: 120
     instance_type: mac_mini_m2
-    #integrations:
-     # app_store_connect: RIA DigiDoc (MOPP)
+    integrations:
+      app_store_connect: Codemagic MOPP
     environment:
       ios_signing:
         distribution_type: app_store
@@ -295,12 +295,12 @@ workflows:
         notify:
           success: true
           failure: true
-      #app_store_connect:
-        #auth: integration
+      app_store_connect:
+        auth: integration
 
         # Configuration related to TestFlight (optional)
         # Note: This action is performed during post-processing.
-        #submit_to_testflight: true
+        submit_to_testflight: true
 
         # Configuration related to App Store (optional)
         # Note: This action is performed during post-processing.
