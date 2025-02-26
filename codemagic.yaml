@@ -24,7 +24,7 @@ workflows:
       vars:
         BUNDLE_ID: "ee.ria.digidoc"
         XCODE_SCHEME: "MoppApp"
-        APP_STORE_APPLE_ID: ET847QJV9F
+        APP_STORE_APPLE_ID: ET847QJV9
         CONFIG_DIRECTORY: "MoppApp/MoppApp"
         APP_STORE_APP_ID: 1216104448
       xcode: latest
@@ -258,6 +258,28 @@ workflows:
         script: |
           cd $CM_BUILD_DIR/MoppApp
           LATEST_BUILD_NUMBER=$(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID")
+          
+          echo $(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID")
+          echo $(app-store-connect app-store-version-phased-releases "$APP_STORE_APP_ID")
+          echo $(app-store-connect app-store-version-submissions "$APP_STORE_APP_ID")
+          echo $(app-store-connect app-store-versions "$APP_STORE_APP_ID")
+          echo $(app-store-connect beta-app-review-submissions "$APP_STORE_APP_ID")
+          echo $(app-store-connect get-latest-app-store-build-number "$APP_STORE_APP_ID")
+          echo $(app-store-connect get-latest-build-number "$APP_STORE_APP_ID")
+          echo $(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID")
+          
+          echo "\n\n"
+          
+          echo $(app-store-connect get-latest-testflight-build-number "$APP_STORE_APPLE_ID")
+          echo $(app-store-connect app-store-version-phased-releases "$APP_STORE_APPLE_ID")
+          echo $(app-store-connect app-store-version-submissions "$APP_STORE_APPLE_ID")
+          echo $(app-store-connect app-store-versions "$APP_STORE_APPLE_ID")
+          echo $(app-store-connect beta-app-review-submissions "$APP_STORE_APPLE_ID")
+          echo $(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
+          echo $(app-store-connect get-latest-build-number "$APP_STORE_APPLE_ID")
+          echo $(app-store-connect get-latest-testflight-build-number "$APP_STORE_APPLE_ID")
+          
+          
           agvtool new-version -all $(($PROJECT_BUILD_NUMBER + 1))
 
           #agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
