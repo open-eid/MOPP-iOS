@@ -155,11 +155,11 @@ workflows:
           [
             {
               "language": "en-GB",
-              "text": "Branch: $CM_BRANCH \\n\\nMode: dev \\n\\nApp: MOPP2"
+              "text": "Branch: $CM_BRANCH \\nMode: dev \\nApp: MOPP2"
             },
             {
               "language": "en-US",
-              "text": "Branch: $CM_BRANCH \\n\\nMode: dev \\n\\nApp: MOPP2"
+              "text": "Branch: $CM_BRANCH \\nMode: dev \\nApp: MOPP2"
             }
           ]
           EOF
@@ -266,11 +266,11 @@ workflows:
           [
             {
               "language": "en-GB",
-              "text": "Branch: $CM_BRANCH \\n\\nMode: release \\n\\nApp: MOPP2"
+              "text": "Branch: $CM_BRANCH \\nMode: release \\nApp: MOPP2"
             },
             {
               "language": "en-US",
-              "text": "Branch: $CM_BRANCH \\n\\nMode: release \\n\\nApp: MOPP2"
+              "text": "Branch: $CM_BRANCH \\nMode: release \\nApp: MOPP2"
             }
           ]
           EOF
