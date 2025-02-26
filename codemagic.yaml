@@ -13,8 +13,8 @@ workflows:
     name: RIA DigiDoc (MOPP2) dev
     max_build_duration: 120
     instance_type: mac_mini_m2
-    #integrations:
-     # app_store_connect: RIA DigiDoc (MOPP)
+    integrations:
+      app_store_connect: Codemagic MOPP
     environment:
       ios_signing:
         distribution_type: app_store
@@ -135,10 +135,8 @@ workflows:
       - name: Increment build number
         script: |
           cd $CM_BUILD_DIR/MoppApp
-          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
+          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-build-number $APP_STORE_APP_ID)
           agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
-          
-          #agvtool new-version -all $APP_VERSION.$PROJECT_BUILD_NUMBER
       - name: Build RIA DigiDoc
         script: |
           export OTHER_BUILD_FLAGS="OTHER_SWIFT_FLAGS=$buildParameters_input"
@@ -177,16 +175,9 @@ workflows:
         notify:
           success: true
           failure: true
-      #app_store_connect:
-        #auth: integration
-
-        # Configuration related to TestFlight (optional)
-        # Note: This action is performed during post-processing.
-        #submit_to_testflight: true
-
-        # Configuration related to App Store (optional)
-        # Note: This action is performed during post-processing.
-        #submit_to_app_store: false
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: false
 
   release:
     name: RIA DigiDoc (MOPP2) release
@@ -275,11 +266,11 @@ workflows:
           [
             {
               "language": "en-GB",
-              "text": "* Branch: $CM_BRANCH \\n\\n* Mode: release"
+              "text": "Branch: $CM_BRANCH \\n\\nMode: release"
             },
             {
               "language": "en-US",
-              "text": "* Branch: $CM_BRANCH \\n\\n* Mode: release"
+              "text": "Branch: $CM_BRANCH \\n\\nMode: release"
             }
           ]
           EOF
@@ -297,12 +288,4 @@ workflows:
           failure: true
       app_store_connect:
         auth: integration
-
-        # Configuration related to TestFlight (optional)
-        # Note: This action is performed during post-processing.
         submit_to_testflight: false
-
-        # Configuration related to App Store (optional)
-        # Note: This action is performed during post-processing.
-        #submit_to_app_store: false
-
