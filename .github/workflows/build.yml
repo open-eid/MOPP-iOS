@@ -6,18 +6,18 @@ jobs:
   build:
     name: Build RIA DigiDoc on macOS
     if: contains(github.repository, 'open-eid/MOPP-iOS') && contains(github.ref, 'master')
-    runs-on: macos-latest
+        runs-on: macos-latest
     strategy:
       matrix:
         xcode:
-          - 15.4
+          - 16.2
         platform:
           - iOS
     env:
         DEFAULT_CENTRAL_CONFIGURATION_URL: "https://id.eesti.ee"
         DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL: 4
         DEFAULT_CENTRAL_CONFIGURATION_TSL_URL: "https://ec.europa.eu/tools/lotl/eu-lotl.xml"
-        
+
         TEMP_KEYCHAIN_PATH: "$RUNNER_TEMP/ios-github-actions.keychain-db"
     steps:
     - name: Checkout
@@ -25,7 +25,7 @@ jobs:
       with:
         submodules: recursive
     - name: Download Libdigidocpp iOS artifact
-      uses: dawidd6/action-download-artifact@v6
+      uses: dawidd6/action-download-artifact@v8
       with:
         workflow: build.yml
         branch: master
@@ -33,7 +33,7 @@ jobs:
         path: libdigidocpp-ios
         repo: open-eid/libdigidocpp
     - name: Download Libdigidocpp iOS Simulator artifact
-      uses: dawidd6/action-download-artifact@v6
+      uses: dawidd6/action-download-artifact@v8
       with:
         workflow: build.yml
         branch: master
@@ -108,7 +108,7 @@ jobs:
       run: |
         cd ${{ github.workspace }}/MoppApp
 
-        xcodebuild archive -scheme MoppApp -configuration Release -archivePath "${{ github.workspace }}/MoppApp/build/DigiDoc.xcarchive" -allowProvisioningUpdates APP_PROVISIONING_PROFILE="$APP_PROVISIONING_PROFILE_UUID" SHARE_EXTENSION_PROVISIONING_PROFILE="$SHARE_EXTENSION_PROVISIONING_PROFILE_UUID"
+        xcodebuild archive -scheme MoppApp -configuration Release -archivePath "${{ github.workspace }}/MoppApp/build/DigiDoc.xcarchive" -allowProvisioningUpdates APP_PROVISIONING_PROFILE="$APP_PROVISIONING_PROFILE_UUID" SHARE_EXTENSION_PROVISIONING_PROFILE="$SHARE_EXTENSION_PROVISIONING_PROFILE_UUID" -quiet
     - name: Export
       env:
         EXPORT_OPTIONS_PLIST: ${{ secrets.EXPORT_OPTIONS_PLIST }}
@@ -149,5 +149,3 @@ jobs:
         then
             rm $MOBILEPROVISIONING_SHARE_EXTENSION_PATH
         fi
-        
-        

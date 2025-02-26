@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         xcode:
-          - 15.4
+          - 16.2
         platform:
           - iOS
         language: [ 'swift' ]
