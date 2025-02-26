@@ -273,6 +273,10 @@ workflows:
           echo $(app-store-connect get-latest-app-store-build-number "$APP_STORE_APP_ID")
           echo "get-latest-build-number"
           echo $(app-store-connect get-latest-build-number "$APP_STORE_APP_ID")
+          echo "get-latest-build-number 2"
+          echo $(app-store-connect get-latest-build-number "1216104448")
+          echo "get-latest-build-number 3"
+          echo $(app-store-connect get-latest-build-number 1216104448)
           echo "get-latest-testflight-build-number"
           echo $(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID")
           
