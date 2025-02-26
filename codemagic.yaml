@@ -205,6 +205,7 @@ workflows:
         XCODE_SCHEME: "MoppApp"
         APP_STORE_APPLE_ID: ET847QJV9F
         CONFIG_DIRECTORY: "MoppApp/MoppApp"
+        APP_STORE_APP_ID: 1216104448
       xcode: latest
     scripts:
       - name: Setup dependencies
@@ -257,57 +258,8 @@ workflows:
       - name: Increment build number
         script: |
           cd $CM_BUILD_DIR/MoppApp
-          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID")
-          
-          echo "get-latest-testflight-build-number"
-          echo $(app-store-connect get-latest-testflight-build-number 1216104448)
-          echo "app-store-version-phased-releases"
-          echo $(app-store-connect app-store-version-phased-releases 1216104448)
-          echo "app-store-version-submissions"
-          echo $(app-store-connect app-store-version-submissions 1216104448)
-          echo "app-store-versions"
-          echo $(app-store-connect app-store-versions 1216104448)
-          echo "beta-app-review-submissions"
-          echo $(app-store-connect beta-app-review-submissions 1216104448)
-          echo "get-latest-app-store-build-number"
-          echo $(app-store-connect get-latest-app-store-build-number 1216104448)
-          echo "get-latest-build-number"
-          echo $(app-store-connect get-latest-build-number 1216104448)
-          echo "get-latest-build-number 2"
-          echo $(app-store-connect get-latest-build-number "1216104448")
-          echo "get-latest-testflight-build-number"
-          echo $(app-store-connect get-latest-testflight-build-number 1216104448)
-          
-          echo "\n\n"
-          
-          echo "get-latest-testflight-build-number"
-          echo $(app-store-connect get-latest-testflight-build-number "$APP_STORE_APPLE_ID")
-          echo "app-store-version-phased-releases"
-          echo $(app-store-connect app-store-version-phased-releases "$APP_STORE_APPLE_ID")
-          echo "app-store-version-submissions"
-          echo $(app-store-connect app-store-version-submissions "$APP_STORE_APPLE_ID")
-          echo "app-store-versions"
-          echo $(app-store-connect app-store-versions "$APP_STORE_APPLE_ID")
-          echo "beta-app-review-submissions"
-          echo $(app-store-connect beta-app-review-submissions "$APP_STORE_APPLE_ID")
-          echo "get-latest-app-store-build-number"
-          echo $(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
-          echo "get-latest-build-number"
-          echo $(app-store-connect get-latest-build-number "$APP_STORE_APPLE_ID")
-          echo "get-latest-testflight-build-number"
-          echo $(app-store-connect get-latest-testflight-build-number "$APP_STORE_APPLE_ID")
-          
-          #echo "builds"
-          #echo $(app-store-connect builds list)
-          echo "beta-app-review-submissions"
-          echo $(app-store-connect beta-app-review-submissions list)
-          
-          
-          
-          
-          agvtool new-version -all $(($PROJECT_BUILD_NUMBER + 1))
-
-          #agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
+          LATEST_BUILD_NUMBER=$($(app-store-connect get-latest-build-number $APP_STORE_APP_ID))
+          agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
       - name: Build RIA DigiDoc
         script: |
           xcode-project build-ipa \
