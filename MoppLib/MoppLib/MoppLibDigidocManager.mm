@@ -21,36 +21,27 @@
  *
  */
 
-#include <digidocpp/Container.h>
-#include <digidocpp/DataFile.h>
-#include <digidocpp/Signature.h>
-#include <digidocpp/Exception.h>
-#include <digidocpp/crypto/X509Cert.h>
-#include <digidocpp/XmlConf.h>
-#include <digidocpp/crypto/Signer.h>
-#include <fstream>
-
 #import "MoppLibDigidocManager.h"
 #import "MoppLibManager.h"
 #import "MoppLibDataFile.h"
 #import "MLDateFormatter.h"
 #import "MLFileManager.h"
 #import "MoppLibError.h"
+#import "NSData+Additions.h"
 #import "CardActionsManager.h"
-#import <Security/SecCertificate.h>
-#import <Security/SecKey.h>
 #import "MoppLibDigidocValidateOnline.h"
 #import "MoppLibProxyConfiguration.h"
 
 #include <CryptoLib/CryptoLib.h>
 
-#include <CommonCrypto/CommonDigest.h>
-#include <CommonCrypto/CommonHMAC.h>
+#include <digidocpp/Container.h>
+#include <digidocpp/DataFile.h>
+#include <digidocpp/Signature.h>
+#include <digidocpp/Exception.h>
+#include <digidocpp/XmlConf.h>
+#include <digidocpp/crypto/Signer.h>
+#include <digidocpp/crypto/X509Cert.h>
 
-#include <string>
-#include <sstream>
-#include <iostream>
-#import <CommonCrypto/CommonDigest.h>
 #import <ExternalAccessory/ExternalAccessory.h>
 
 class DigiDocConf: public digidoc::ConfCurrent {
@@ -769,16 +760,7 @@ void parseException(const digidoc::Exception &e) {
     MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
     // Create unique_ptr that manages a container in this scope
     auto managedContainer = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
-
-    // Check if key type in certificate supports ECC algorithm
-    SecCertificateRef certRef = SecCertificateCreateWithData(kCFAllocatorDefault, (__bridge CFDataRef)cert);
-    SecKeyRef publicKey = SecCertificateCopyKey(certRef);
-    CFRelease(certRef);
-    NSString *publicKeyInfo = CFBridgingRelease(CFCopyDescription(publicKey));
-    CFRelease(publicKey);
-    BOOL useECC = [publicKeyInfo containsString:@"ECPublicKey"];
-
-    std::unique_ptr<WebSigner> signer = std::make_unique<WebSigner>([MoppLibDigidocManager getCertFromData:cert]);
+    auto signer = std::make_unique<WebSigner>([MoppLibDigidocManager getCertFromData:cert]);
 
     NSLog(@"\nSetting profile info...\n");
     NSLog(@"Role data - roles: %@, city: %@, state: %@, zip: %@, country: %@", roleData.ROLES, roleData.CITY, roleData.STATE, roleData.ZIP, roleData.COUNTRY);
@@ -809,7 +791,7 @@ void parseException(const digidoc::Exception &e) {
       
     WebSigner * const unmanagedSignerPointer = signer.release();
 
-    [[CardActionsManager sharedInstance] calculateSignatureFor:[NSData dataWithBytes:dataToSign.data() length:dataToSign.size()] pin2:pin2 useECC: useECC success:^(NSData *calculatedSignature) {
+    [[CardActionsManager sharedInstance] calculateSignatureFor:[NSData dataWithBytes:dataToSign.data() length:dataToSign.size()] pin2:pin2 success:^(NSData *calculatedSignature) {
 
         // Wrap the raw container pointer into a local unique_ptr as the first thing to do
         std::unique_ptr<digidoc::Container> successManagedContainer(unmanagedContainerPointer);

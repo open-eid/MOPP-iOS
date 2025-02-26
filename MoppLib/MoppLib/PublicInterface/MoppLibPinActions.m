@@ -23,6 +23,7 @@
 
 #import "MoppLibPinActions.h"
 #import "CardActionsManager.h"
+#import "CardCommands.h"
 #import "MoppLibError.h"
 #import "MoppLibPrivateConstants.h"
 

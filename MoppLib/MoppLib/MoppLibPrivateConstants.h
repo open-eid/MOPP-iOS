@@ -22,7 +22,6 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 
 extern NSString *const kRIADigiDocId;
 extern NSString *const kTestServiceNames;

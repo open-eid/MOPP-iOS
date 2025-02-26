@@ -17,7 +17,6 @@
 		545111721E13BBA800296B80 /* MoppLibPersonalData.h in Headers */ = {isa = PBXBuildFile; fileRef = 545111701E13BBA800296B80 /* MoppLibPersonalData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		545111731E13BBA800296B80 /* MoppLibPersonalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 545111711E13BBA800296B80 /* MoppLibPersonalData.m */; };
 		5463DA4C1E12927A008A1714 /* CardCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = 5463DA4A1E12927A008A1714 /* CardCommands.h */; };
-		5463DA4D1E12927A008A1714 /* CardCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 5463DA4B1E12927A008A1714 /* CardCommands.m */; };
 		546E57611E2E07C7009A568D /* PinVerificationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 546E57601E2E07C7009A568D /* PinVerificationTests.m */; };
 		546E57631E2E07C7009A568D /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250CE71E09695100530370 /* MoppLib.framework */; };
 		546E576B1E2E1555009A568D /* MoppLibPinActions+Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 546E576A1E2E1555009A568D /* MoppLibPinActions+Tests.m */; };
@@ -107,7 +106,6 @@
 		545111701E13BBA800296B80 /* MoppLibPersonalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibPersonalData.h; sourceTree = "<group>"; };
 		545111711E13BBA800296B80 /* MoppLibPersonalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibPersonalData.m; sourceTree = "<group>"; };
 		5463DA4A1E12927A008A1714 /* CardCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardCommands.h; sourceTree = "<group>"; };
-		5463DA4B1E12927A008A1714 /* CardCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardCommands.m; sourceTree = "<group>"; };
 		546E575E1E2E07C7009A568D /* MoppLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoppLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		546E57601E2E07C7009A568D /* PinVerificationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PinVerificationTests.m; sourceTree = "<group>"; };
 		546E57621E2E07C7009A568D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -292,7 +290,6 @@
 				54DC0DFB1E0D196D00C62B3D /* CardActionsManager.h */,
 				54DC0DFC1E0D196D00C62B3D /* CardActionsManager.m */,
 				5463DA4A1E12927A008A1714 /* CardCommands.h */,
-				5463DA4B1E12927A008A1714 /* CardCommands.m */,
 			);
 			name = CardActions;
 			sourceTree = "<group>";
@@ -597,7 +594,6 @@
 				C5E41C5E2180602B00D79B54 /* Idemia.m in Sources */,
 				54DC0DFE1E0D196D00C62B3D /* CardActionsManager.m in Sources */,
 				AE0A844B1E43853800CC1465 /* MoppLibMobileCreateSignatureResponse.m in Sources */,
-				5463DA4D1E12927A008A1714 /* CardCommands.m in Sources */,
 				39266A5320CFC0F4002E3F23 /* SmartToken.m in Sources */,
 				542DCB6D1E23968000899534 /* MoppLibPinActions.m in Sources */,
 				C54EA732204D5E860039AC78 /* CardReaderiR301.m in Sources */,
