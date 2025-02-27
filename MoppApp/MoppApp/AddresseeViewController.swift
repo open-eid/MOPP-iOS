@@ -22,6 +22,7 @@
  */
 
 import Foundation
+import CryptoLib
 
 protocol AddresseeViewControllerDelegate: AnyObject {
     func addAddresseeToContainer(selectedAddressees: [Addressee])
@@ -91,31 +92,24 @@ class AddresseeViewController : MoppViewController {
         submittedQuery = trimmedText
         selectedIndexes = []
         showLoading(show: true)
-        MoppLibCryptoActions.sharedInstance().searchLdapData(
-            trimmedText,
-            success: { (_ ldapResponse: NSMutableArray?) -> Void in
-                _ = ldapResponse?.sorted {($0 as? Addressee)?.identifier ?? "" < ($1 as? Addressee)?.identifier ?? "" }
-                
-                self.foundAddressees = ((ldapResponse?.sorted {($0 as? Addressee)?.identifier ?? "" < ($1 as? Addressee)?.identifier ?? "" } as? [Addressee]? ?? []) ?? [])
+
+        if (!MoppLibManager.sharedInstance().isConnected()) {
+            self.infoAlert(message: L(.noConnectionMessage))
+            self.showLoading(show: false)
+            return
+        }
+
+        Task {
+            let result = await OpenLdap.search(identityCode: trimmedText, configuration: MoppLDAPConfiguration.getMoppLDAPConfiguration())
+            if (result.count > 0) {
+                self.foundAddressees = result.sorted { $0.identifier < $1.identifier }
                 self.showLoading(show: false)
                 self.tableView.reloadData()
-            },
-            failure: { error in
-                guard let nsError = error as NSError? else {
-                    self.infoAlert(message: L(.genericErrorMessage))
-                    self.showLoading(show: false)
-                    return
-                }
-                DispatchQueue.main.async {
-                    if nsError.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
-                        self.infoAlert(message: L(.noConnectionMessage))
-                    } else {
-                        self.infoAlert(message: "\(L(.cryptoEmptyLdapLabel)) \(MessageUtil.generateDetailedErrorMessage(error: nsError) ?? "")")
-                    }
-                    self.showLoading(show: false)
-                }
-        }, configuration: MoppLDAPConfiguration.getMoppLDAPConfiguration()
-        )
+            } else {
+                self.infoAlert(message: "\(L(.cryptoEmptyLdapLabel))")
+                self.showLoading(show: false)
+            }
+        }
     }
 }
 
