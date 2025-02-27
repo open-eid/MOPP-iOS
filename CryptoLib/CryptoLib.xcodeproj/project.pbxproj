@@ -30,6 +30,7 @@
 		39E2B4DF20AD7A3400CA74A8 /* Addressee.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4D520AD7A3400CA74A8 /* Addressee.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E3681D92D40EAAD00D76DAB /* OpenLdap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3681D72D40EAAD00D76DAB /* OpenLdap.swift */; };
 		4E3681DB2D40EAE800D76DAB /* MoppLdapConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3681DA2D40EAE800D76DAB /* MoppLdapConfiguration.swift */; };
+		4E8990862D710DC50010CA1F /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E8990852D710DBC0010CA1F /* libxml2.tbd */; };
 		4EAC69122D481D1C00A53079 /* ASN1Decoder in Frameworks */ = {isa = PBXBuildFile; productRef = 4EAC69112D481D1C00A53079 /* ASN1Decoder */; };
 		DFA40D2F2ADF635F003EF945 /* 3513523f.0 in Resources */ = {isa = PBXBuildFile; fileRef = DFA40D2E2ADF635F003EF945 /* 3513523f.0 */; };
 		DFC7CA452AE010C9009D85FF /* 9f4c149e.0 in Resources */ = {isa = PBXBuildFile; fileRef = DFC7CA442AE010C9009D85FF /* 9f4c149e.0 */; };
@@ -80,6 +81,7 @@
 		4E3681D72D40EAAD00D76DAB /* OpenLdap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLdap.swift; sourceTree = "<group>"; };
 		4E3681DA2D40EAE800D76DAB /* MoppLdapConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoppLdapConfiguration.swift; sourceTree = "<group>"; };
 		4E3AFF7D2D67D45800666AC7 /* openldap.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = openldap.modulemap; sourceTree = "<group>"; };
+		4E8990852D710DBC0010CA1F /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		4ED24ECB2D4F799800855FC3 /* build-openldap.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "build-openldap.sh"; sourceTree = "<group>"; };
 		DFA40D2E2ADF635F003EF945 /* 3513523f.0 */ = {isa = PBXFileReference; lastKnownFileType = text; path = 3513523f.0; sourceTree = "<group>"; };
 		DFC7CA442AE010C9009D85FF /* 9f4c149e.0 */ = {isa = PBXFileReference; lastKnownFileType = text; path = 9f4c149e.0; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E8990862D710DC50010CA1F /* libxml2.tbd in Frameworks */,
 				4EAC69122D481D1C00A53079 /* ASN1Decoder in Frameworks */,
 				393B66E020DB94B4001DC89B /* cdoc.framework in Frameworks */,
 			);
@@ -170,6 +173,7 @@
 		D5B2B96758D5CBE2A4F80170 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E8990852D710DBC0010CA1F /* libxml2.tbd */,
 				393B66DF20DB94B4001DC89B /* cdoc.framework */,
 			);
 			name = Frameworks;
