@@ -20,12 +20,7 @@
  *
  */
 
-#import <Foundation/Foundation.h>
-#import "CryptoLib/AbstractSmartToken.h"
-@interface SmartToken : AbstractSmartToken
-- (NSData*)getCertificate;
-- (NSData*)decrypt:(NSData*)data pin1:(NSString *)pin1;
-- (NSData*)derive:(NSData*)data pin1:(NSString *)pin1;
+#import <CryptoLib/AbstractSmartToken.h>
+
+@interface SmartToken : NSObject<AbstractSmartToken>
 @end
-
-

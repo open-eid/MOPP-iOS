@@ -23,14 +23,14 @@
 #import "Decrypt.h"
 #import "cdoc/CdocReader.h"
 #import "cdoc/Token.h"
+#import "AbstractSmartToken.h"
 #import "SmartCardTokenWrapper.h"
 #import "DdocParserDelegate.h"
-#import <UIKit/UIKit.h>
 
 @implementation Decrypt
 
-- (NSMutableDictionary *)decryptFile: (NSString *)fullPath withPin :(NSString *) pin withToken :(AbstractSmartToken *) smartToken {
-    
+- (NSMutableDictionary *)decryptFile:(NSString *)fullPath withPin:(NSString *)pin withToken:(id<AbstractSmartToken>)smartToken {
+
     std::string encodedFullPath = std::string([fullPath UTF8String]);
     std::string encodedPin = std::string([pin UTF8String]);
     CDOCReader cdocReader(encodedFullPath);
