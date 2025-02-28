@@ -22,13 +22,6 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import "MoppLibCerificatetData.h"
-#import "CryptoLib/CryptoDataFile.h"
-#import "CryptoLib/CdocInfo.h"
-#import "MoppLibPersonalData.h"
-#import "MoppLibContainer.h"
-#import "MoppLibMobileCreateSignatureResponse.h"
 
 typedef NS_ENUM(NSUInteger, MoppLibCardChipType) {
     ChipType_Unknown,
@@ -87,11 +80,14 @@ extern const SigningRequestData signingRequestData;
 
 extern NSString *const kMoppLibUserInfoRetryCount;
 
+@class MoppLibMobileCreateSignatureResponse;
+@class MoppLibPersonalData;
+@class MoppLibContainer;
+@class CdocInfo;
 
 typedef void (^DataSuccessBlock)(NSData *responseData);
 typedef void (^ObjectSuccessBlock)(NSObject *responseObject);
 typedef void (^FailureBlock)(NSError *error);
-typedef void (^CertDataBlock)(MoppLibCerificatetData *certData);
 typedef void (^PersonalDataBlock)(MoppLibPersonalData *personalData);
 typedef void (^SignatureStatusBlock) (MoppLibContainer *container, NSError *error, NSString *status);
 typedef void (^ContainerBlock)(MoppLibContainer *container);
@@ -105,6 +101,4 @@ typedef void (^NumberBlock)(NSNumber*);
 /**
  * Posted when card reader status changes. This can be triggered when connected card reader is turned off or connected card reader detects that card is inserted or removed.
  */
-extern NSString *const kMoppLibNotificationReaderStatusChanged;
-extern NSString *const kMoppLibNotificationRetryCounterChanged;
 extern NSString *const kMoppLibNotificationRevokeUnsupportedReader;

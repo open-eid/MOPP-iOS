@@ -29,7 +29,6 @@
 #import "CryptoLib/Decrypt.h"
 #import "CryptoLib/CdocParser.h"
 #import <CryptoLib/CryptoLib-Swift.h>
-#import "MoppLibCertificate.h"
 #import "CryptoLib/CdocInfo.h"
 #import "SmartToken.h"
 #include <stdio.h>
@@ -57,11 +56,6 @@
             response = [cdocParser parseCdocInfo:fullPath];
             if (response.addressees == nil || response.dataFiles == nil) {
                 error = [MoppLibError generalError];
-            }
-            for (Addressee* addressee in response.addressees) {
-                MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
-                [MoppLibCertificate certData:certData updateWithDerEncoding:addressee.cert];
-                addressee.validTo = certData.expiryDate;
             }
         }
         @catch (...) {

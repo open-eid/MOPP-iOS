@@ -23,6 +23,7 @@
 
 #import "MoppLibCardActions.h"
 #import "CardActionsManager.h"
+#import "CardCommands.h"
 
 @implementation MoppLibCardActions
 
@@ -30,23 +31,11 @@
   [[CardActionsManager sharedInstance] cardPersonalDataWithSuccess:success failure:failure];
 }
 
-+ (void)minimalCardPersonalDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure {
-  [[CardActionsManager sharedInstance] minimalCardPersonalDataWithSuccess:success failure:failure];
++ (void)signingCertificateWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
+  [[CardActionsManager sharedInstance] signingCertWithSuccess:success failure:failure];
 }
 
-+ (void)isCardInserted:(BoolBlock)completion {
-  [[CardActionsManager sharedInstance] isCardInserted:completion];
-}
-
-+ (BOOL)isReaderConnected {
-  return [[CardActionsManager sharedInstance] isReaderConnected];
-}
-
-+ (void)signingCertificateWithSuccess:(CertDataBlock)success failure:(FailureBlock)failure {
-  [[CardActionsManager sharedInstance] signingCertWithPin2:@"" success:success failure:failure];
-}
-
-+ (void)authenticationCertificateWithSuccess:(CertDataBlock)success failure:(FailureBlock)failure {
++ (void)authenticationCertificateWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
   [[CardActionsManager sharedInstance] authenticationCertWithSuccess:success failure:failure];
 }
 
