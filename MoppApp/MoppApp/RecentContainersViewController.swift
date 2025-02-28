@@ -22,6 +22,7 @@
  */
 
 import UIKit
+import CryptoLib
 class RecentContainersViewController : MoppModalViewController {
     var requestCloseSearch: (() -> Void) = {}
     @IBOutlet weak var tableView: UITableView!
