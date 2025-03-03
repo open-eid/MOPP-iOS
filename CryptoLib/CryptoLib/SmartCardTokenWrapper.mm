@@ -23,57 +23,38 @@
 
 #include "SmartCardTokenWrapper.h"
 
-#import "cdoc/Token.h"
-#import <UIKit/UIKit.h>
-#import "AbstractSmartToken.h"
-#include <iostream>
+#import <CryptoLib/AbstractSmartToken.h>
 
 class SmartCardTokenWrapper::Private{
 public:
-    std::vector<uchar> certResponse;
-    std::vector<uchar> decryptResponse;
-    AbstractSmartToken *smartTokenClass;
-    std::string pin1;
+    id<AbstractSmartToken> smartTokenClass;
+    NSString *pin1;
 };
 
 
-SmartCardTokenWrapper::SmartCardTokenWrapper(const std::string &password,  AbstractSmartToken *smartToken)
+SmartCardTokenWrapper::SmartCardTokenWrapper(const std::string &password, id<AbstractSmartToken> smartToken)
 : token(new Private) {
-    token->pin1 = password;
+    token->pin1 = [NSString stringWithUTF8String:password.c_str()];
     token->smartTokenClass = smartToken;
 }
 
-std::vector<uchar> SmartCardTokenWrapper::cert() const{
-    NSData *certDataBlock = [token->smartTokenClass getCertificate];
-    token->certResponse = this->encodeData(certDataBlock);
-    return token->certResponse;
+SmartCardTokenWrapper::~SmartCardTokenWrapper() noexcept = default;
+
+std::vector<uchar> SmartCardTokenWrapper::cert() const {
+    return encodeData([token->smartTokenClass getCertificate]);
 }
 
-std::vector<uchar> SmartCardTokenWrapper::decrypt(const std::vector<uchar> &data) const{
+std::vector<uchar> SmartCardTokenWrapper::decrypt(const std::vector<uchar> &data) const {
     NSMutableData *nsdata = [NSMutableData dataWithBytesNoCopy:(void *)data.data() length:data.size() freeWhenDone:0];
-    NSString* pin1Encoded = [NSString stringWithUTF8String:token->pin1.c_str()];
-    NSData *dataBlock = [token->smartTokenClass decrypt:nsdata pin1:pin1Encoded];
-   
-    token->decryptResponse = this->encodeData(dataBlock);
-
-    return token->decryptResponse;
+    return encodeData([token->smartTokenClass decrypt:nsdata pin1:token->pin1]);
 }
 
-std::vector<uchar> SmartCardTokenWrapper::derive(const std::vector<uchar> &publicKey) const{
+std::vector<uchar> SmartCardTokenWrapper::derive(const std::vector<uchar> &publicKey) const {
     NSMutableData *nsdata = [NSMutableData dataWithBytesNoCopy:(void *)publicKey.data() length:publicKey.size() freeWhenDone:0];
-    NSString* pin1Encoded = [NSString stringWithUTF8String:token->pin1.c_str()];
-    NSData *dataBlock = [token->smartTokenClass derive:nsdata pin1:pin1Encoded];
-    
-    token->decryptResponse = this->encodeData(dataBlock);
-    return token->decryptResponse;
+    return encodeData([token->smartTokenClass derive:nsdata pin1:token->pin1]);
 }
 
-std::vector<uchar> SmartCardTokenWrapper::encodeData(const NSData *dataBlock) const{
-    unsigned char *buffer = reinterpret_cast<unsigned char*>(const_cast<void*>(dataBlock.bytes));
-    return std::vector<uchar>(buffer, buffer + dataBlock.length);
+std::vector<uchar> SmartCardTokenWrapper::encodeData(const NSData *dataBlock) {
+    const unsigned char *buffer = reinterpret_cast<const unsigned char*>(dataBlock.bytes);
+    return {buffer, std::next(buffer, dataBlock.length)};
 }
-
-SmartCardTokenWrapper::SmartCardTokenWrapper()
-{
-}
-

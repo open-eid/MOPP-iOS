@@ -20,7 +20,6 @@
  *
  */
 
-#import <Foundation/Foundation.h>
 #import "SmartToken.h"
 #import "CardActionsManager.h"
 #import "MoppLibError.h"
@@ -60,10 +59,6 @@
     } failure:^(NSError *error) {
         [NSException raise:@"Decryption failed" format:@""];
     }];
-    // Need to wait CardActionsManager response with ACS readers.
-    while(!response) {
-        [NSThread sleepForTimeInterval:0.05];
-    }
     return response;
 }
 - (NSData*)decrypt:(NSData*)data pin1:(NSString *)pin1 {
@@ -74,13 +69,6 @@
     } failure:^(NSError *error) {
         errorMessage = [self handleErrorMessage:error];
     }];
-    // Need to wait CardActionsManager response with ACS readers.
-    while(!response) {
-        if(errorMessage){
-            [NSException raise: errorMessage format:@""];
-        }
-        [NSThread sleepForTimeInterval:0.1];
-    }
     return response;
 }
 
@@ -92,13 +80,6 @@
     } failure:^(NSError *error) {
         errorMessage = [self handleErrorMessage:error];
     }];
-    // Need to wait CardActionsManager response with ACS readers.
-    while(!response) {
-        if(errorMessage){
-            [NSException raise: errorMessage format:@""];
-        }
-        [NSThread sleepForTimeInterval:0.1];
-    }
     return response;
 }
 
