@@ -48,7 +48,16 @@ NSString *kAuth = @"00 88 00 00 %02X %@ 00";
 NSString *kSign = @"00 2A 9E 9A %02X %@ 00";
 NSString *kDerive = @"00 2A 80 86 %02X 00 %@ 00";
 
-@implementation Idemia
+@implementation Idemia {
+    id<CardReaderWrapper> _reader;
+}
+
+- (instancetype)initWithReader:(id<CardReaderWrapper>)reader {
+    if (self = [super init]) {
+        _reader = reader;
+    }
+    return self;
+}
 
 - (void)readPublicDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure {
     [_reader transmitCommand:kAID success:^(NSData *responseData) {
@@ -173,7 +182,7 @@ NSString *kDerive = @"00 2A 80 86 %02X 00 %@ 00";
     return result;
 }
 
-- (void)changeCode:(CodeType)type to:(NSString *)code withVerifyCode:(NSString *)verifyCode withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
+- (void)changeCode:(CodeType)type to:(NSString *)code withVerifyCode:(NSString *)verifyCode withSuccess:(VoidBlock)success failure:(FailureBlock)failure {
     NSString *aid;
     UInt8 recordNr;
     switch (type) {
@@ -199,7 +208,7 @@ NSString *kDerive = @"00 2A 80 86 %02X 00 %@ 00";
             if (error) {
                 failure(error);
             } else {
-                success(responseData);
+                success();
             }
         } failure:failure];
     } failure:failure];
@@ -223,7 +232,7 @@ NSString *kDerive = @"00 2A 80 86 %02X 00 %@ 00";
     }
 }
 
-- (void)verifyCode:(NSString *)code ofType:(CodeType)type withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
+- (void)verifyCode:(NSString *)code ofType:(CodeType)type withSuccess:(VoidBlock)success failure:(FailureBlock)failure {
     NSString *aid;
     UInt8 recordNr;
     switch (type) {
@@ -248,17 +257,17 @@ NSString *kDerive = @"00 2A 80 86 %02X 00 %@ 00";
             if (error) {
                 failure(error);
             } else {
-                success(responseData);
+                success();
             }
         } failure:failure];
     } failure:failure];
 }
 
-- (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode success:(DataSuccessBlock)success failure:(FailureBlock)failure {
+- (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode success:(VoidBlock)success failure:(FailureBlock)failure {
     if (type == CodeTypePuk)
         return;
     NSString *aid = type == CodeTypePin1 ? kAID : kAID_QSCD;
-    [self verifyCode:puk ofType:CodeTypePuk withSuccess:^(NSData *responseData) {
+    [self verifyCode:puk ofType:CodeTypePuk withSuccess:^(void) {
         [self->_reader transmitCommand:aid success:^(NSData *responseData) {
             NSData *pin = [self pinTemplate:newCode];
             NSString *replaceCmd = [NSString stringWithFormat:kReplaceCode, type == CodeTypePin1 ? 1 : 0x85, pin.length, [pin hexString]];
@@ -267,7 +276,7 @@ NSString *kDerive = @"00 2A 80 86 %02X 00 %@ 00";
                 if (error) {
                     failure(error);
                 } else {
-                    success(responseData);
+                    success();
                 }
             } failure:failure];
         } failure:failure];
@@ -275,7 +284,7 @@ NSString *kDerive = @"00 2A 80 86 %02X 00 %@ 00";
 }
 
 - (void)authenticateFor:(NSData *)hash withPin1:(NSString *)pin1 success:(DataSuccessBlock)success failure:(FailureBlock)failure {
-    [self verifyCode:pin1 ofType:CodeTypePin1 withSuccess:^(NSData *responseData) {
+    [self verifyCode:pin1 ofType:CodeTypePin1 withSuccess:^(void) {
         [self->_reader transmitCommand:kAID_Oberthur success:^(NSData *responseData) {
             [self->_reader transmitCommand:kSetSecEnvAuth success:^(NSData *responseData) {
                 NSUInteger paddedHashLength = MAX(48, hash.length);
@@ -291,7 +300,7 @@ NSString *kDerive = @"00 2A 80 86 %02X 00 %@ 00";
 }
 
 - (void)calculateSignatureFor:(NSData *)hash withPin2:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure {
-    [self verifyCode:pin2 ofType:CodeTypePin2 withSuccess:^(NSData *responseData) {
+    [self verifyCode:pin2 ofType:CodeTypePin2 withSuccess:^(void) {
         [self->_reader transmitCommand:kAID_QSCD success:^(NSData *responseData) {
             [self->_reader transmitCommand:kSetSecEnvSign success:^(NSData *responseData) {
                 NSUInteger paddedHashLength = MAX(48, hash.length);
@@ -307,11 +316,11 @@ NSString *kDerive = @"00 2A 80 86 %02X 00 %@ 00";
 }
 
 - (void)decryptData:(NSData *)publicKey withPin1:(NSString *)pin1 success:(DataSuccessBlock)success failure:(FailureBlock)failure {
-    [self verifyCode:pin1 ofType:CodeTypePin1 withSuccess:^(NSData *responseData) {
+    [self verifyCode:pin1 ofType:CodeTypePin1 withSuccess:^(void) {
         [self->_reader transmitCommand:kAID_Oberthur success:^(NSData *responseData) {
             [self->_reader transmitCommand:kSetSecEnvDerive success:^(NSData *responseData) {
                 NSString *decryptApdu = [NSString stringWithFormat:kDerive, [publicKey length] + 1, [publicKey hexString]];
-                [self.reader transmitCommand:decryptApdu success:^(NSData *responseData) {
+                [self->_reader transmitCommand:decryptApdu success:^(NSData *responseData) {
                     success([responseData trailingTwoBytesTrimmed]);
                 } failure:failure];
             } failure:failure];
