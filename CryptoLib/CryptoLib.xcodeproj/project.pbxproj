@@ -27,6 +27,7 @@
 		39852A5420AB2418004CB100 /* DdocParserDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4A20AB2418004CB100 /* DdocParserDelegate.h */; };
 		39E2B4D920AD7A3400CA74A8 /* Addressee.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E2B4CF20AD7A3400CA74A8 /* Addressee.m */; };
 		39E2B4DF20AD7A3400CA74A8 /* Addressee.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4D520AD7A3400CA74A8 /* Addressee.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E17B8352D64A1080063C5BF /* X509CertificateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E17B8342D64A0FD0063C5BF /* X509CertificateType.swift */; };
 		4E3681D92D40EAAD00D76DAB /* OpenLdap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3681D72D40EAAD00D76DAB /* OpenLdap.swift */; };
 		4E3681DB2D40EAE800D76DAB /* MoppLdapConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3681DA2D40EAE800D76DAB /* MoppLdapConfiguration.swift */; };
 		4E8990862D710DC50010CA1F /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E8990852D710DBC0010CA1F /* libxml2.tbd */; };
@@ -76,6 +77,7 @@
 		39E2B4CF20AD7A3400CA74A8 /* Addressee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Addressee.m; sourceTree = "<group>"; };
 		39E2B4D520AD7A3400CA74A8 /* Addressee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Addressee.h; sourceTree = "<group>"; };
 		4E01B4A62AEFDD3B00941723 /* build-cdoc.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "build-cdoc.sh"; sourceTree = "<group>"; };
+		4E17B8342D64A0FD0063C5BF /* X509CertificateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = X509CertificateType.swift; sourceTree = "<group>"; };
 		4E3681D72D40EAAD00D76DAB /* OpenLdap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLdap.swift; sourceTree = "<group>"; };
 		4E3681DA2D40EAE800D76DAB /* MoppLdapConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoppLdapConfiguration.swift; sourceTree = "<group>"; };
 		4E3AFF7D2D67D45800666AC7 /* openldap.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = openldap.modulemap; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				3960E50420C02E5900D4D2FC /* CryptoDataFile.m */,
 				39266A5E20CFDCB9002E3F23 /* CdocInfo.m */,
 				39266A6020CFDCDF002E3F23 /* CdocInfo.h */,
+				4E17B8342D64A0FD0063C5BF /* X509CertificateType.swift */,
 			);
 			path = CryptoLib;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				39266A5D20CFDC59002E3F23 /* CdocParser.m in Sources */,
 				3960E50520C02E5900D4D2FC /* CryptoDataFile.m in Sources */,
 				39852A5020AB2418004CB100 /* DdocParserDelegate.m in Sources */,
+				4E17B8352D64A1080063C5BF /* X509CertificateType.swift in Sources */,
 				39852A5220AB2418004CB100 /* Decrypt.mm in Sources */,
 				39E2B4D920AD7A3400CA74A8 /* Addressee.m in Sources */,
 				39852A5320AB2418004CB100 /* Encrypt.mm in Sources */,

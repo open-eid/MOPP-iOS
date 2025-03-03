@@ -28,7 +28,6 @@
 #import "MoppLibError.h"
 #import "NSData+Additions.h"
 #import "Idemia.h"
-#import "MoppLibCertificate.h"
 #import "MoppLibDigidocManager.h"
 #import "MoppLibCardReaderManager.h"
 #import <CommonCrypto/CommonDigest.h>
@@ -118,26 +117,16 @@ static CardActionsManager *sharedInstance = nil;
     [self addCardAction:CardActionReadPublicData data:nil success:success failure:failure];
 }
 
-- (void)signingCertWithPin2:(NSString *)pin2 success:(CertDataBlock)success failure:(FailureBlock)failure {
-    MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
-
-    [self signingCertDataWithPin2:pin2 success:^(NSData *data) {
-        [MoppLibCertificate certData:certData updateWithDerEncoding:data];
-        success(certData);
-    } failure:failure];
+- (void)signingCertWithPin2:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure {
+    [self signingCertDataWithPin2:pin2 success:success failure:failure];
 }
 
 - (void)signingCertDataWithPin2:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure {
     [self addCardAction:CardActionReadSigningCert data:@{kCardActionDataVerify: pin2} success:success failure:failure];
 }
 
-- (void)authenticationCertWithSuccess:(CertDataBlock)success failure:(FailureBlock)failure {
-    MoppLibCerificatetData *certData = [MoppLibCerificatetData new];
-
-    [self authenticationCertDataWithSuccess:^(NSData *data) {
-        [MoppLibCertificate certData:certData updateWithDerEncoding:data];
-        success(certData);
-    } failure:failure];
+- (void)authenticationCertWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
+    [self authenticationCertDataWithSuccess:success failure:failure];
 }
 
 - (void)authenticationCertDataWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {

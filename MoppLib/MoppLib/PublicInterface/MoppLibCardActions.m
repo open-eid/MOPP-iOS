@@ -42,11 +42,11 @@
   return [[CardActionsManager sharedInstance] isReaderConnected];
 }
 
-+ (void)signingCertificateWithSuccess:(CertDataBlock)success failure:(FailureBlock)failure {
++ (void)signingCertificateWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
   [[CardActionsManager sharedInstance] signingCertWithPin2:@"" success:success failure:failure];
 }
 
-+ (void)authenticationCertificateWithSuccess:(CertDataBlock)success failure:(FailureBlock)failure {
++ (void)authenticationCertificateWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
   [[CardActionsManager sharedInstance] authenticationCertWithSuccess:success failure:failure];
 }
 

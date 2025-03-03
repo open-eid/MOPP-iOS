@@ -37,8 +37,8 @@
 
 - (void)cardPersonalDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure;
 
-- (void)signingCertWithPin2:(NSString *)pin2 success:(CertDataBlock)success failure:(FailureBlock)failure;
-- (void)authenticationCertWithSuccess:(CertDataBlock)success failure:(FailureBlock)failure;
+- (void)signingCertWithPin2:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure;
+- (void)authenticationCertWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 - (void)authenticationCertDataWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
 - (void)signingCertDataWithPin2:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure;
