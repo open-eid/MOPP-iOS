@@ -54,15 +54,8 @@ class CertificatePinning {
     }
     
     func isCertificateTrusted(trustedCertificates: [String], serverCertData: Data) -> Bool {
-        for cert in trustedCertificates {
-            guard let domainCertData = Data(base64Encoded: cert) else {
-                return false
-            }
-            
-            if (domainCertData == serverCertData) {
-                return true
-            }
-        }
-        return false;
+        return trustedCertificates
+            .map { cert in Data(base64Encoded: cert) }
+            .contains(serverCertData)
     }
 }

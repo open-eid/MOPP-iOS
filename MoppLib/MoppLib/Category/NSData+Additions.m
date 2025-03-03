@@ -27,31 +27,24 @@
 @implementation NSData (Additions)
 
 - (NSString *)hexString {
-  return [self hexStringFromByteArray:[self bytes] length:[self length]];
-
-}
-
-- (NSString *)hexStringFromByteArray:(const uint8_t *)buffer length:(NSUInteger)length {
-  
-  NSString *hexString = @"";
-  NSUInteger i = 0;
-  
-  for (i = 0; i < length; i++) {
-    if (i == 0) {
-      hexString = [hexString stringByAppendingFormat:@"%02X", buffer[i]];
-    } else {
-      hexString = [hexString stringByAppendingFormat:@" %02X", buffer[i]];
+    UInt8 *buffer = (UInt8*)self.bytes;
+    NSString *hexString = @"";
+    for (NSUInteger i = 0; i < self.length; i++) {
+        if (i == 0) {
+          hexString = [hexString stringByAppendingFormat:@"%02X", buffer[i]];
+        } else {
+          hexString = [hexString stringByAppendingFormat:@" %02X", buffer[i]];
+        }
     }
-  }
-  
-  return hexString;
+    return hexString;
 }
 
-- (NSData *)trailingTwoBytes {
-  if (self.length >= 2)
-    return [self subdataWithRange:NSMakeRange(self.length - 2, 2)];
-  
-  return nil;
+- (UInt16)sw {
+    UInt16 value = 0;
+    if (self.length < 2)
+        return value;
+    [self getBytes:&value range:NSMakeRange(self.length - 2, 2)];
+    return CFSwapInt16BigToHost(value);
 }
 
 - (NSData *)trailingTwoBytesTrimmed {
@@ -59,19 +52,6 @@
     return nil;
     
   return  [self subdataWithRange:NSMakeRange(0, self.length - 2)];
-}
-
-- (NSString *)codePage1252String {
-  //Removing trailer
-  NSData *responseData = [self trailingTwoBytesTrimmed];
-  NSString *string = [[NSString alloc] initWithData:responseData encoding:NSWindowsCP1252StringEncoding];
-  return [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-}
-
-- (NSString *)utf8String {
-    NSData *responseData = [self trailingTwoBytesTrimmed];
-    NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-    return [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
 @end

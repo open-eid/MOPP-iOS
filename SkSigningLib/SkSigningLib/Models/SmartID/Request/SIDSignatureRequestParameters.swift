@@ -37,11 +37,11 @@ public struct SIDSignatureRequestAllowedInteractionsOrder: Encodable {
 public struct SIDSignatureRequestParameters: Encodable {
     let relyingPartyName: String
     let relyingPartyUUID: String
-    let hash: String
+    let hash: Data
     let hashType: String
     let allowedInteractionsOrder: SIDSignatureRequestAllowedInteractionsOrder?
 
-    public init(relyingPartyName: String = "", relyingPartyUUID: String = "", hash: String = "", hashType: String = "", allowedInteractionsOrder: SIDSignatureRequestAllowedInteractionsOrder? = nil) {
+    public init(relyingPartyName: String = "", relyingPartyUUID: String = "", hash: Data = Data(), hashType: String = "", allowedInteractionsOrder: SIDSignatureRequestAllowedInteractionsOrder? = nil) {
         self.relyingPartyName = relyingPartyName
         self.relyingPartyUUID = relyingPartyUUID
         self.hash = hash
@@ -51,7 +51,7 @@ public struct SIDSignatureRequestParameters: Encodable {
 
     var asData: Data {
         return #"""
-{"allowedInteractionsOrder": [{"type":"\#(allowedInteractionsOrder?.type ?? "")","displayText200":"\#(allowedInteractionsOrder?.displayText200 ?? "")"}],"hash":"\#(hash)","hashType":"\#(hashType)","relyingPartyName":"\#(relyingPartyName)","relyingPartyUUID":"\#(relyingPartyUUID)"}
+{"allowedInteractionsOrder": [{"type":"\#(allowedInteractionsOrder?.type ?? "")","displayText200":"\#(allowedInteractionsOrder?.displayText200 ?? "")"}],"hash":"\#(hash.base64EncodedString())","hashType":"\#(hashType)","relyingPartyName":"\#(relyingPartyName)","relyingPartyUUID":"\#(relyingPartyUUID)"}
 """#.data(using: .utf8) ?? Data()
     }
 }
