@@ -23,11 +23,6 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, MoppLibCardChipType) {
-    ChipType_Unknown,
-    ChipType_Idemia
-};
-
 typedef NS_ENUM(int, MoppLibSignatureStatus) {
     Valid,
     Warning,
@@ -85,8 +80,3 @@ typedef void (^DecryptedDataBlock)(NSMutableDictionary *decryptedData);
 typedef void (^VoidBlock)(void);
 typedef void (^BoolBlock)(BOOL);
 typedef void (^NumberBlock)(NSNumber*);
-
-/**
- * Posted when card reader status changes. This can be triggered when connected card reader is turned off or connected card reader detects that card is inserted or removed.
- */
-extern NSString *const kMoppLibNotificationRevokeUnsupportedReader;

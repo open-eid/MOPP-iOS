@@ -24,15 +24,12 @@
 #import "MoppLibConstants.h"
 
 typedef NS_ENUM(NSUInteger, CodeType);
-@class MoppLibRoleAddressData;
 @protocol CardReaderWrapper;
 
 @interface CardActionsManager : NSObject
 + (CardActionsManager *)sharedInstance;
 
 @property (nonatomic, strong) id<CardReaderWrapper> reader;
-
-- (void)setReader:(id<CardReaderWrapper>)cardReader;
 
 - (void)cardPersonalDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure;
 
@@ -48,13 +45,10 @@ typedef NS_ENUM(NSUInteger, CodeType);
 
 - (void)code:(CodeType)type retryCountWithSuccess:(NumberBlock)success failure:(FailureBlock)failure;
 
-- (void)addSignature:(NSString *)containerPath withPin2:(NSString *)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(void (^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure;
-
 - (void)authenticateFor:(NSData *)hash pin1:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 - (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 - (void)decryptData:(NSData *)hash pin1:(NSString *)pin1 success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
-- (void)resetCardActions;
 @end

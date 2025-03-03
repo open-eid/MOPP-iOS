@@ -21,8 +21,6 @@
 		546E57611E2E07C7009A568D /* PinVerificationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 546E57601E2E07C7009A568D /* PinVerificationTests.m */; };
 		546E57631E2E07C7009A568D /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250CE71E09695100530370 /* MoppLib.framework */; };
 		546E576B1E2E1555009A568D /* MoppLibPinActions+Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 546E576A1E2E1555009A568D /* MoppLibPinActions+Tests.m */; };
-		54D164701E923F920069C725 /* MoppLibPrivateConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 54D1646E1E923F920069C725 /* MoppLibPrivateConstants.h */; };
-		54D164711E923F920069C725 /* MoppLibPrivateConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D1646F1E923F920069C725 /* MoppLibPrivateConstants.m */; };
 		54D164771E9269C50069C725 /* MoppLibContainerActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54D164751E9269C50069C725 /* MoppLibContainerActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54D164781E9269C50069C725 /* MoppLibContainerActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D164761E9269C50069C725 /* MoppLibContainerActions.m */; };
 		54D1647B1E926AAB0069C725 /* MoppLibCardActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 54D164791E926AAB0069C725 /* MoppLibCardActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -109,8 +107,6 @@
 		546E57621E2E07C7009A568D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		546E57691E2E1555009A568D /* MoppLibPinActions+Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MoppLibPinActions+Tests.h"; sourceTree = "<group>"; };
 		546E576A1E2E1555009A568D /* MoppLibPinActions+Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MoppLibPinActions+Tests.m"; sourceTree = "<group>"; };
-		54D1646E1E923F920069C725 /* MoppLibPrivateConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibPrivateConstants.h; sourceTree = "<group>"; };
-		54D1646F1E923F920069C725 /* MoppLibPrivateConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibPrivateConstants.m; sourceTree = "<group>"; };
 		54D164751E9269C50069C725 /* MoppLibContainerActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibContainerActions.h; sourceTree = "<group>"; };
 		54D164761E9269C50069C725 /* MoppLibContainerActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibContainerActions.m; sourceTree = "<group>"; };
 		54D164791E926AAB0069C725 /* MoppLibCardActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibCardActions.h; sourceTree = "<group>"; };
@@ -135,11 +131,11 @@
 		54E1DB5A1E44A9060060A250 /* MoppLibManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibManager.h; sourceTree = "<group>"; };
 		54E1DB5B1E44A9060060A250 /* MoppLibManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibManager.m; sourceTree = "<group>"; };
 		C54EA72F20499DFC0039AC78 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
-		C54EA731204D5E860039AC78 /* CardReaderiR301.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CardReaderiR301.m; path = MoppLib/CardReaderiR301.m; sourceTree = SOURCE_ROOT; };
+		C54EA731204D5E860039AC78 /* CardReaderiR301.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardReaderiR301.m; sourceTree = "<group>"; };
 		C54EA733204D5EA70039AC78 /* CardReaderiR301.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardReaderiR301.h; sourceTree = "<group>"; };
 		C54EA735204D90D50039AC78 /* MoppLibCardReaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibCardReaderManager.h; sourceTree = "<group>"; };
 		C54EA737204D91730039AC78 /* MoppLibCardReaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibCardReaderManager.m; sourceTree = "<group>"; };
-		C5AAAF8120C9621D0087D6DA /* libiRockey301_ccid.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libiRockey301_ccid.a; sourceTree = "<group>"; };
+		C5AAAF8120C9621D0087D6DA /* libiRockey301_ccid.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiRockey301_ccid.a; path = MoppLib/bR301/lib/libiRockey301_ccid.a; sourceTree = "<group>"; };
 		C5AAAF8320CAA3D00087D6DA /* ReaderInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderInterface.h; sourceTree = "<group>"; };
 		C5AAAF8520CAA3F00087D6DA /* winscard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = winscard.h; sourceTree = "<group>"; };
 		C5AAAF8720CAA4230087D6DA /* wintypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wintypes.h; sourceTree = "<group>"; };
@@ -157,7 +153,6 @@
 		DFF3C3A823322E0C0079458A /* MoppLibConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibConfiguration.m; sourceTree = "<group>"; };
 		E4250CE71E09695100530370 /* MoppLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoppLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250CEA1E09695100530370 /* MoppLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLib.h; sourceTree = "<group>"; };
-		E4250CEB1E09695100530370 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E42B08B31E1F0B3B00EA24A3 /* MoppLibContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibContainer.h; sourceTree = "<group>"; };
 		E42B08B41E1F0B3B00EA24A3 /* MoppLibContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibContainer.m; sourceTree = "<group>"; };
 		E42B08C31E1F11B900EA24A3 /* MoppLibDataFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibDataFile.h; sourceTree = "<group>"; };
@@ -374,11 +369,8 @@
 				39266A5220CFC0F4002E3F23 /* SmartToken.m */,
 				54DC0DFF1E0D48C900C62B3D /* MoppLibError.h */,
 				54DC0E001E0D48C900C62B3D /* MoppLibError.m */,
-				54D1646E1E923F920069C725 /* MoppLibPrivateConstants.h */,
-				54D1646F1E923F920069C725 /* MoppLibPrivateConstants.m */,
 				E42B08CB1E1F136A00EA24A3 /* MoppLibDigidocManager.h */,
 				E42B08CC1E1F136A00EA24A3 /* MoppLibDigidocManager.mm */,
-				E4250CEB1E09695100530370 /* Info.plist */,
 				E4250CF21E096A0500530370 /* libdigidocpp */,
 				DF169D592B9000F0000DD46C /* MoppLibDigidocValidateOnline.h */,
 				DF169D5B2B90011E000DD46C /* MoppLibDigidocValidateOnline.m */,
@@ -415,7 +407,6 @@
 				DFBDF1F827DA44BD00A5CF3C /* MoppLibRoleAddressData.h in Headers */,
 				C5AAAF8620CAA3F00087D6DA /* winscard.h in Headers */,
 				C5AAAF8820CAA4240087D6DA /* wintypes.h in Headers */,
-				54D164701E923F920069C725 /* MoppLibPrivateConstants.h in Headers */,
 				5463DA4C1E12927A008A1714 /* CardCommands.h in Headers */,
 				E485A7831E2DF58200C53DBF /* MLFileManager.h in Headers */,
 				C5AAAF8A20CAA4790087D6DA /* ft301u.h in Headers */,
@@ -591,7 +582,6 @@
 				54DC0E021E0D48C900C62B3D /* MoppLibError.m in Sources */,
 				E42B08C61E1F11B900EA24A3 /* MoppLibDataFile.m in Sources */,
 				C54EA738204D91730039AC78 /* MoppLibCardReaderManager.m in Sources */,
-				54D164711E923F920069C725 /* MoppLibPrivateConstants.m in Sources */,
 				54E085EB1E71A63C00431F1A /* Reachability.m in Sources */,
 				54D164781E9269C50069C725 /* MoppLibContainerActions.m in Sources */,
 			);
@@ -807,16 +797,12 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(DIGIDOCPP_PATH)/lib";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MoppLib/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/MoppLib/libdigidocpp/libdigidocpp.iphoneos/lib",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/MoppLib/bR301/lib";
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.lab.MoppLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -840,16 +826,12 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(DIGIDOCPP_PATH)/lib";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MoppLib/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/MoppLib/libdigidocpp/libdigidocpp.iphoneos/lib",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/MoppLib/bR301/lib";
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.lab.MoppLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -40,12 +40,7 @@ typedef NS_ENUM(NSUInteger, MoppLibCardReaderStatus) {
 @interface MoppLibCardReaderManager : NSObject
 @property (weak) id <MoppLibCardReaderManagerDelegate> delegate;
 + (MoppLibCardReaderManager *)sharedInstance;
-+ (MoppLibCardChipType)atrToChipType:(NSData *)atr;
 - (void)startDiscoveringReaders;
 - (void)stopDiscoveringReaders;
 - (void)stopDiscoveringReadersWithStatus:(MoppLibCardReaderStatus)status;
-- (void)stopPollingCardStatus;
-- (void)restartDiscoveringReaders:(float)delaySeconds;
-+ (BOOL)isCardReaderModelSupported:(NSString *)modelName;
-- (void)resetReaderRestart;
 @end

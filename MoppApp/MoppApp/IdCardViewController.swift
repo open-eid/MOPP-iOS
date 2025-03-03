@@ -113,8 +113,6 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
         if pinTextField != nil {
             pinTextField.removeTarget(self, action: #selector(editingChanged(sender:)), for: .editingChanged)
         }
-        
-        MoppLibCardReaderManager.sharedInstance().resetReaderRestart()
     }
 
     @objc func editingChanged(sender: UITextField) {
@@ -195,16 +193,13 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
         
         NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboardAccessibility), name: .focusedAccessibilityElement, object: nil)
 
-        MoppLibCardReaderManager.sharedInstance().delegate = self
         MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        MoppLibCardReaderManager.sharedInstance().delegate = nil
         MoppLibCardReaderManager.sharedInstance().stopDiscoveringReaders()
-        MoppLibCardReaderManager.sharedInstance().resetReaderRestart()
         NotificationCenter.default.removeObserver(self)
     }
 
@@ -427,7 +422,6 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
                 error = .actionCancelled
             }
             sself.signDelegate?.idCardSignDidFinished(cancelled: true, success: false, error: error)
-            MoppLibCardReaderManager.sharedInstance().resetReaderRestart()
             if sself.isActionDecryption {
                 UIAccessibility.post(notification: .screenChanged, argument: L(.cryptoDecryptionCancelled))
             } else {
@@ -506,10 +500,10 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
     func signAction(idCardParameters: IDCardParameters?) {
         IDCardSignature.shared.createIDCardSignature(idCardParameters: idCardParameters) { [weak self] result in
             switch result {
-            case .success(let idCardSuccess):
+            case .success(_):
                 DispatchQueue.main.async {
                     self?.dismiss(animated: false, completion: {
-                        self?.signDelegate?.idCardSignDidFinished(cancelled: false, success: idCardSuccess.signatureAdded, error: nil)
+                        self?.signDelegate?.idCardSignDidFinished(cancelled: false, success: true, error: nil)
                     })
                 }
             case .failure(let error):
