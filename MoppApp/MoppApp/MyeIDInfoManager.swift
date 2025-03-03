@@ -181,7 +181,7 @@ class MyeIDInfoManager {
             self?.delegate?.didCompleteInformationRequest(success: false)
         }
         
-        MoppLibCardActions.minimalCardPersonalData(success: { moppLibPersonalData in
+        MoppLibCardActions.cardPersonalData(success: { moppLibPersonalData in
             MoppLibCardActions.authenticationCertificate(success: { moppLibAuthCertData in
                 MoppLibCardActions.signingCertificate(success: { [weak self] moppLibSignCertData in
                     self?.requestRetryCounts(with: viewController, success: { [weak self] (pin1RetryCount, pin2RetryCount, pukRetryCount) in
@@ -222,7 +222,7 @@ class MyeIDInfoManager {
         personalInfo.items.removeAll()
         guard let personalData = personalData else { return }
         personalInfo.items.append((type: .myeID, value: organizationDisplayString(authCertData?.certType())))
-        personalInfo.items.append((type: .givenNames, value: personalData.givenNames()))
+        personalInfo.items.append((type: .givenNames, value: personalData.givenNames))
         personalInfo.items.append((type: .surname, value: personalData.surname))
         personalInfo.items.append((type: .personalCode, value: personalData.personalIdentificationCode))
         personalInfo.items.append((type: .citizenship, value: personalData.nationality))

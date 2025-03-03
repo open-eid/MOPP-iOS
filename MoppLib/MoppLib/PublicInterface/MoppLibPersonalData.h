@@ -25,8 +25,7 @@
 
 @interface MoppLibPersonalData : NSObject
 
-@property (nonatomic, strong) NSString *firstNameLine1;
-@property (nonatomic, strong) NSString *firstNameLine2;
+@property (nonatomic, strong) NSString *givenNames;
 @property (nonatomic, strong) NSString *surname;
 @property (nonatomic, strong) NSString *sex;
 @property (nonatomic, strong) NSString *nationality;
@@ -49,10 +48,4 @@
  */
 - (NSString *)fullName;
 
-/**
- * Gives full given name of card owner
- *
- * @return Given name of card owner
- */
-- (NSString *)givenNames;
 @end
