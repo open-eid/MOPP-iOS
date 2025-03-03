@@ -526,7 +526,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
 
             for childViewController in topViewController.children {
                 if childViewController is IdCardViewController {
-                    MoppLibCardReaderManager.sharedInstance().restartDiscoveringReaders(Float(2.0))
+                    MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
                 }
             }
         }

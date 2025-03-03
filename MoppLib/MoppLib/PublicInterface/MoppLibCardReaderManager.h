@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-#import <Foundation/Foundation.h>
+
 #import "MoppLibConstants.h"
 
 typedef NS_ENUM(NSUInteger, MoppLibCardReaderStatus) {
@@ -40,12 +40,7 @@ typedef NS_ENUM(NSUInteger, MoppLibCardReaderStatus) {
 @interface MoppLibCardReaderManager : NSObject
 @property (weak) id <MoppLibCardReaderManagerDelegate> delegate;
 + (MoppLibCardReaderManager *)sharedInstance;
-+ (MoppLibCardChipType)atrToChipType:(NSData *)atr;
 - (void)startDiscoveringReaders;
 - (void)stopDiscoveringReaders;
 - (void)stopDiscoveringReadersWithStatus:(MoppLibCardReaderStatus)status;
-- (void)stopPollingCardStatus;
-- (void)restartDiscoveringReaders:(float)delaySeconds;
-+ (BOOL)isCardReaderModelSupported:(NSString *)modelName;
-- (void)resetReaderRestart;
 @end

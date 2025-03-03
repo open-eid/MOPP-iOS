@@ -21,27 +21,21 @@
  *
  */
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import "CardCommands.h"
-#import "MoppLibRoleAddressData.h"
+#import "MoppLibConstants.h"
+
+typedef NS_ENUM(NSUInteger, CodeType);
+@protocol CardReaderWrapper;
 
 @interface CardActionsManager : NSObject
 + (CardActionsManager *)sharedInstance;
 
 @property (nonatomic, strong) id<CardReaderWrapper> reader;
 
-- (void)setReader:(id<CardReaderWrapper>)cardReader;
-
-- (void)minimalCardPersonalDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure;
-
 - (void)cardPersonalDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure;
 
-- (void)signingCertWithPin2:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure;
-- (void)authenticationCertWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
+- (void)signingCertWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
-- (void)authenticationCertDataWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
-- (void)signingCertDataWithPin2:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure;
+- (void)authenticationCertWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 - (void)changePin:(CodeType)type withPuk:(NSString *)puk to:(NSString *)newPin success:(VoidBlock)success failure:(FailureBlock)failure;
 
@@ -51,15 +45,10 @@
 
 - (void)code:(CodeType)type retryCountWithSuccess:(NumberBlock)success failure:(FailureBlock)failure;
 
-- (void)addSignature:(NSString *)containerPath withPin2:(NSString *)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(void (^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure;
+- (void)authenticateFor:(NSData *)hash pin1:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
-- (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure;
+- (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
-- (void)decryptData:(NSData *)hash pin1:(NSString *)pin1 useECC:(BOOL)useECC success:(DataSuccessBlock)success failure:(FailureBlock)failure;
+- (void)decryptData:(NSData *)hash pin1:(NSString *)pin1 success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
-- (void)isCardInserted:(BoolBlock)completion;
-
-- (BOOL)isReaderConnected;
-
-- (void)resetCardActions;
 @end

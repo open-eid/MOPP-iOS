@@ -21,10 +21,7 @@
  *
  */
 
-#import <Foundation/Foundation.h>
 #import "CardCommands.h"
 
 @interface Idemia : NSObject <CardCommands>
-
-@property (nonatomic, strong) id<CardReaderWrapper> reader;
 @end

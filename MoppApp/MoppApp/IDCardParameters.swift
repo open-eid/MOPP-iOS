@@ -28,8 +28,3 @@ internal struct IDCardParameters {
     let pin2: String
     let roleData: MoppLibRoleAddressData?
 }
-
-internal struct IDCardSuccess {
-    let container: MoppLibContainer?
-    let signatureAdded: Bool
-}

@@ -21,12 +21,9 @@
  *
  */
 
-#import <Foundation/Foundation.h>
 #import "MoppLibConstants.h"
 
 @protocol CardReaderWrapper <NSObject>
-
-- (MoppLibCardChipType)cardChipType;
 
 /**
  * Transmits command and gets response from card
@@ -48,9 +45,9 @@
 /**
  * Checks if card is inserted in reader
  *
- * @param completion   block to be called when card action is completed. Block includes boolean attribute to indicate whether card is inserted or not
+ * @return Returns boolean attribute to indicate whether card is inserted or not
  */
-- (void)isCardInserted:(BoolBlock)completion;
+- (BOOL)isCardInserted;
 
 /**
  * Checks if card reader is connected
@@ -62,22 +59,8 @@
 /**
  * Checks if card is powered on
  *
- * @param completion   block to be called when card action is completed. Block includes boolean attribute to indicate whether card is powered on or not
+ * @return Returns boolean attribute to indicate whether card is powered on or not
  */
-- (void)isCardPoweredOn:(BoolBlock)completion;
-
-- (void)resetReader;
+- (BOOL)isCardPoweredOn;
 
 @end
-
-typedef NS_ENUM(NSUInteger, CardStatus) {
-  CardStatusPresent,
-  CardStatusAbsent
-};
-
-@protocol CardReaderWrapperDelegate <NSObject>
-
-- (void)cardStatusUpdated:(CardStatus)status;
-
-@end
-

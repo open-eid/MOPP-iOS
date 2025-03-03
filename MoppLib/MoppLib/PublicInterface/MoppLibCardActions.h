@@ -21,20 +21,9 @@
  *
  */
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import "MoppLibConstants.h"
 
-@protocol MoppLibCardActionsDelegate;
-
 @interface MoppLibCardActions : NSObject
-
-/** Gets minimal public personal data from ID card. This includes name, id code, birth date, nationality, document number and document expiry date.
- *
- * @param success       Block to be called on successful completion of action. Includes card owner public personal data as MoppLibPersonalData. Some of the parameters in MoppLibPersonalData may not be filled. To get all available data use cardPersonalDataWithSuccess:failure:
- * @param failure       Block to be called when action fails. Includes error.
- */
-+ (void)minimalCardPersonalDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure;
 
 /** Gets public personal data from ID card.
 *
@@ -42,20 +31,6 @@
 * @param failure       Block to be called when action fails. Includes error.
 */
 + (void)cardPersonalDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure;
-
-/**
- * Checks if reader is connected to device.
- *
- * @return YES if reader is connected, NO otherwise
- */
-+ (BOOL)isReaderConnected;
-
-/**
- * Checks if card is inserted to card reader.
- *
- * @param completion    Block to be called when action is complete. Includes BOOL to represent card status - YES if card is detected in reader, NO if card is not found.
- */
-+ (void)isCardInserted:(BoolBlock) completion;
 
 /**
  * Gets signing certificate data.
