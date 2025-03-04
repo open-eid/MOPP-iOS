@@ -24,5 +24,3 @@
 #import "MoppLibConstants.h"
 
 NSString *const kMoppLibUserInfoRetryCount = @"kMoppLibRetryCount";
-
-NSString *const kMoppLibNotificationRevokeUnsupportedReader = @"Mopp Lib - Revoke unsupported reader";

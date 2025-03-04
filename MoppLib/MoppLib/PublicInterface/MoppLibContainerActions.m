@@ -24,6 +24,7 @@
 #import "MoppLibContainerActions.h"
 #import "MoppLibDigidocManager.h"
 #import "CardActionsManager.h"
+#import "CardCommands.h"
 #import "Reachability.h"
 #import "MoppLibError.h"
 
@@ -132,19 +133,20 @@
     failure([MoppLibError noInternetConnectionError]);
     return;
   }
-  
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    
-      [[CardActionsManager sharedInstance] addSignature:containerPath withPin2:(NSString *)pin2 roleData:roleData success:^(MoppLibContainer *container, BOOL signatureWasAdded) {
-      dispatch_async(dispatch_get_main_queue(), ^{
-        success(container, signatureWasAdded);
-      });
-    } failure:^(NSError *error) {
-      dispatch_async(dispatch_get_main_queue(), ^{
-        failure(error);
-      });
-    }];
-  });
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [CardActionsManager.sharedInstance code:CodeTypePin2 retryCountWithSuccess:^(NSNumber *count) {
+            if (count.intValue > 0) {
+                [CardActionsManager.sharedInstance signingCertWithSuccess:^(NSData *certData) {
+                    [[MoppLibDigidocManager sharedInstance] addSignature:containerPath pin2:pin2 cert:certData roleData:roleData success:^(MoppLibContainer *container) {
+                        success(container, YES);
+                    } andFailure:failure];
+                } failure:failure];
+            } else {
+                failure([MoppLibError pinBlockedError]);
+            }
+        } failure:failure];
+    });
 }
 
 @end

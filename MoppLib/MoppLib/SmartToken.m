@@ -24,12 +24,6 @@
 #import "CardActionsManager.h"
 #import "MoppLibError.h"
 
-@interface SmartToken()
-
-- (NSString*)handleErrorMessage:(NSError*)error;
-
-@end
-
 @implementation SmartToken
 
 - (NSData*)getCertificate {
@@ -44,33 +38,30 @@
 
 - (NSData*)decrypt:(NSData*)data pin1:(NSString *)pin1 {
     __block NSData *response = nil;
-    __block NSString *errorMessage = nil;
     [[CardActionsManager sharedInstance] decryptData:data pin1:pin1 success:^(NSData *certDataBlock){
         response = certDataBlock;
     } failure:^(NSError *error) {
-        errorMessage = [self handleErrorMessage:error];
+        [NSException raise:[self handleErrorMessage:error] format:@""];
     }];
     return response;
 }
 
 - (NSData*)derive:(NSData*)data pin1:(NSString *)pin1 {
     __block NSData *response = nil;
-    __block NSString *errorMessage = nil;
     [[CardActionsManager sharedInstance] decryptData:data pin1:pin1 success:^(NSData *certDataBlock){
         response = certDataBlock;
     } failure:^(NSError *error) {
-        errorMessage = [self handleErrorMessage:error];
+        [NSException raise:[self handleErrorMessage:error] format:@""];
     }];
     return response;
 }
 
 - (NSData*)authenticate:(NSData*)data pin1:(NSString *)pin1 {
     __block NSData *response = nil;
-    __block NSString *errorMessage = nil;
     [[CardActionsManager sharedInstance] authenticateFor:data pin1:pin1 success:^(NSData *certDataBlock){
         response = certDataBlock;
     } failure:^(NSError *error) {
-        errorMessage = [self handleErrorMessage:error];
+        [NSException raise:[self handleErrorMessage:error] format:@""];
     }];
     return response;
 }

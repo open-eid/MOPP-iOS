@@ -33,6 +33,8 @@ typedef NS_ENUM(NSUInteger, CodeType) {
 
 @protocol CardCommands <NSObject>
 
+- (instancetype)initWithReader:(id<CardReaderWrapper>)reader;
+
 /**
  * Reads public data from card.
  *
@@ -75,7 +77,7 @@ typedef NS_ENUM(NSUInteger, CodeType) {
  * @param success       block to be executed when action is completed successfully
  * @param failure       block to be executed when action fails
  */
-- (void)changeCode:(CodeType)type to:(NSString *)code withVerifyCode:(NSString *)verifyCode withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
+- (void)changeCode:(CodeType)type to:(NSString *)code withVerifyCode:(NSString *)verifyCode withSuccess:(VoidBlock)success failure:(FailureBlock)failure;
 
 /**
  * Verifies PIN or PUK code.
@@ -85,7 +87,7 @@ typedef NS_ENUM(NSUInteger, CodeType) {
  * @param success       block to be executed when action is completed successfully
  * @param failure       block to be executed when action fails
  */
-- (void)verifyCode:(NSString *)code ofType:(CodeType)type withSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure;
+- (void)verifyCode:(NSString *)code ofType:(CodeType)type withSuccess:(VoidBlock)success failure:(FailureBlock)failure;
 
 /**
  * Unblocks PIN.
@@ -96,7 +98,7 @@ typedef NS_ENUM(NSUInteger, CodeType) {
  * @param success       block to be executed when action is completed successfully
  * @param failure       block to be executed when action fails
  */
-- (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode success:(DataSuccessBlock)success failure:(FailureBlock)failure;
+- (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode success:(VoidBlock)success failure:(FailureBlock)failure;
 
 /**
  * Calculates signature for hash
