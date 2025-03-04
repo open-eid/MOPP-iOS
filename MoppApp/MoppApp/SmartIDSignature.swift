@@ -61,7 +61,7 @@ class SmartIDSignature {
         }
     }
 
-    private func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, containerPath: String, roleData: MoppLibRoleAddressData?, trustedCertificates: [String], errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String, String, String) -> Void) {
+    private func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, containerPath: String, roleData: MoppLibRoleAddressData?, trustedCertificates: [String], errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String, Data, Data) -> Void) {
         printLog("Getting certificate...")
 
         if RequestCancel.shared.isRequestCancelled() {
@@ -96,7 +96,7 @@ class SmartIDSignature {
         }
     }
 
-    private func getSignature(baseUrl: String, documentNumber: String, allowedInteractionsOrder: SIDSignatureRequestParameters, trustedCertificates: [String], errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String) -> Void) {
+    private func getSignature(baseUrl: String, documentNumber: String, allowedInteractionsOrder: SIDSignatureRequestParameters, trustedCertificates: [String], errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (Data) -> Void) {
         printLog("Getting signature...")
 
         if RequestCancel.shared.isRequestCancelled() {
@@ -169,7 +169,7 @@ class SmartIDSignature {
         }
     }
     
-    private func validateSignature(cert: String, signatureValue: String) -> Void {
+    private func validateSignature(cert: Data, signatureValue: Data) -> Void {
         printLog("\nRIA.SmartID - Validating signature...\n")
         MoppLibManager.isSignatureValid(cert, signatureValue: signatureValue, success: { (_) in
             printLog("\nRIA.SmartID - Successfully validated signature!\n")
@@ -207,14 +207,12 @@ class SmartIDSignature {
         })
     }
 
-    private func setupControlCode(certificateValue: String, containerPath: String, roleData: MoppLibRoleAddressData?) -> String? {
+    private func setupControlCode(certificateValue: Data, containerPath: String, roleData: MoppLibRoleAddressData?) -> Data? {
         guard let hash = MoppLibManager.prepareSignature(certificateValue, containerPath: containerPath, roleData: roleData) else {
             return nil
         }
-        
-        guard let hashData = Data(base64Encoded: hash) else { return nil }
-        
-        let digest = sha256(data: hashData)
+
+        let digest = sha256(data: hash)
         let code = UInt16(digest[digest.count - 2]) << 8 | UInt16(digest[digest.count - 1])
         let challengeId = String(format: "%04d", (code % 10000))
         DispatchQueue.main.async {

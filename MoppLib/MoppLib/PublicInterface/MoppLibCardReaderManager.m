@@ -20,14 +20,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-#import <Foundation/Foundation.h>
+
 #import "MoppLibCardReaderManager.h"
 #import "CardActionsManager.h"
 #import "CardReaderiR301.h"
+#import "NSString+Additions.h"
 #import "ReaderInterface.h"
-#import "winscard.h"
-#import "wintypes.h"
-#import "ft301u.h"
 #import "MoppLibPrivateConstants.h"
 
 @interface MoppLibCardReaderManager()<ReaderInterfaceDelegate>

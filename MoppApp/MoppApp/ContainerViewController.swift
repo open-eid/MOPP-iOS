@@ -508,8 +508,9 @@ extension ContainerViewController : UITableViewDataSource {
         if signingContainer.isAsics(), signingContainer.dataFiles.count == 1, signingContainer.signatures.count == 1,
            let singleFile: MoppLibDataFile = signingContainer.dataFiles[0] as? MoppLibDataFile,
            singleFile.fileName.hasSuffix(ContainerFormatDdoc),
-           let singleSignature: MoppLibSignature = signingContainer.signatures[0] as? MoppLibSignature {
-            DefaultsHelper.isTimestampedDdoc = !singleSignature.timestamp.isAfter(anotherDate: calendarDate)
+           let singleSignature: MoppLibSignature = signingContainer.signatures[0] as? MoppLibSignature,
+           let timestamp = ISO8601DateFormatter().date(from: singleSignature.timestamp) {
+            DefaultsHelper.isTimestampedDdoc = !timestamp.isAfter(anotherDate: calendarDate)
             return
         } else if signingContainer.isDdoc(), state != .preview {
             DefaultsHelper.isTimestampedDdoc = false

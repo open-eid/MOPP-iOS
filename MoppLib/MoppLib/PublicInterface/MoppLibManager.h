@@ -21,12 +21,11 @@
  *
  */
 
-#import <Foundation/Foundation.h>
-#import "MoppLibCardActions.h"
 #import "MoppLibConstants.h"
-#import "MOPPLibConfiguration.h"
-#import "MoppLibRoleAddressData.h"
-#import "MoppLibProxyConfiguration.h"
+
+@class MoppLibConfiguration;
+@class MoppLibProxyConfiguration;
+@class MoppLibRoleAddressData;
 
 @interface MoppLibManager : NSObject
 
@@ -40,11 +39,9 @@
  */
 - (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString *)tsUrl withMoppConfiguration:(MoppLibConfiguration *)moppConfiguration andProxyConfiguration:(MoppLibProxyConfiguration*)proxyConfiguration;
 
-+ (NSString *)prepareSignature:(NSString *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData;
-+ (NSData *)getDataToSign;
-+ (void)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure;
++ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData;
++ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure;
 
-- (NSString *)moppLibVersion;
 - (NSString *)libdigidocppVersion;
 - (BOOL)isConnected;
 - (NSString *)appVersion;

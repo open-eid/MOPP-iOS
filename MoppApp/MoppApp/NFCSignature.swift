@@ -169,7 +169,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                 }
 
                 printLog("Cert reading done")
-                guard let hash = MoppLibManager.prepareSignature(cert.base64EncodedString(), containerPath: containerPath, roleData: roleInfo) else {
+                guard let hash = MoppLibManager.prepareSignature(cert, containerPath: containerPath, roleData: roleInfo) else {
                     return setSessionMessage(L(.nfcSignFailed), invalidate: true)
                 }
                 roleInfo = nil
@@ -178,9 +178,9 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                 pin.replaceSubrange(0..<PIN!.count, with: PIN!.utf8)
                 _ = try await sendWrapped(tag: tag, cls: 0x00, ins: 0x22, p1: 0x41, p2: 0xb6, data: Bytes(hex: "80015484019f")!)
                 _ = try await sendWrapped(tag: tag, cls: 0x00, ins: 0x20, p1: 0x00, p2: 0x85, data: pin)
-                let signatureValue = try await sendWrapped(tag: tag, cls:0x00, ins: 0x2A, p1: 0x9E, p2: 0x9A, data: Bytes(Data(base64Encoded: hash)!), le: 256);
+                let signatureValue = try await sendWrapped(tag: tag, cls:0x00, ins: 0x2A, p1: 0x9E, p2: 0x9A, data: Bytes(hash), le: 256);
                 printLog("\nRIA.NFC - Validating signature...\n")
-                MoppLibManager.isSignatureValid(cert.base64EncodedString(), signatureValue: signatureValue.base64EncodedString(), success: { _ in
+                MoppLibManager.isSignatureValid(cert, signatureValue: signatureValue, success: { _ in
                     printLog("\nRIA.NFC - Successfully validated signature!\n")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         NotificationCenter.default.post(

@@ -19,13 +19,17 @@
 		3921CAAD20B819B500BF3178 /* ContainerNoAddresseesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAAC20B819B500BF3178 /* ContainerNoAddresseesCell.swift */; };
 		3921CAAF20B826E700BF3178 /* AddresseeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAAE20B826E700BF3178 /* AddresseeViewController.swift */; };
 		393B66BA20D7EC9D001DC89B /* WrapperUIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393B66B920D7EC9D001DC89B /* WrapperUIBarButtonItem.swift */; };
-		393B66E820DB9C19001DC89B /* CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39852A6120AB2949004CB100 /* CryptoLib.framework */; };
-		393B66E920DB9C19001DC89B /* CryptoLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 39852A6120AB2949004CB100 /* CryptoLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		39487CBE210B18F90082D910 /* CdocParserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39487CBD210B18F90082D910 /* CdocParserDelegate.swift */; };
 		399C01EA20BD98730056D7AC /* ContainerFoundAddresseeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399C01E920BD98730056D7AC /* ContainerFoundAddresseeCell.swift */; };
 		39CDA7EA20ADBCEC006E2E9F /* Crypto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */; };
 		39CDA7EE20ADBE93006E2E9F /* CryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */; };
 		39F8EFE720D263B5001BCF73 /* TokenFlow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39F8EFE620D263B5001BCF73 /* TokenFlow.storyboard */; };
+		4E0F09EA2D76F6BD003F24B9 /* CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF1503992AC5D011007222B2 /* CryptoLib.framework */; };
+		4E0F09EB2D76F6BD003F24B9 /* CryptoLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF1503992AC5D011007222B2 /* CryptoLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E0F09EC2D76F6C0003F24B9 /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF15038F2AC5CFFA007222B2 /* MoppLib.framework */; };
+		4E0F09ED2D76F6C0003F24B9 /* MoppLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF15038F2AC5CFFA007222B2 /* MoppLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E0F09EE2D76F6C4003F24B9 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF1503A02AC5D01A007222B2 /* SkSigningLib.framework */; };
+		4E0F09EF2D76F6C4003F24B9 /* SkSigningLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF1503A02AC5D01A007222B2 /* SkSigningLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E167D872B6D346F001B74A1 /* digidocpp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E167D862B6D346F001B74A1 /* digidocpp.framework */; };
 		4E167D882B6D346F001B74A1 /* digidocpp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E167D862B6D346F001B74A1 /* digidocpp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E59080024B0F914001B23A6 /* SmartIDEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5907FF24B0F914001B23A6 /* SmartIDEditViewController.swift */; };
@@ -182,8 +186,6 @@
 		DF3756182AFABEB7006960C5 /* SettingsResetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3756172AFABEB7006960C5 /* SettingsResetCell.swift */; };
 		DF3950602AD766DF005D96AC /* KeychainUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF39505F2AD766DF005D96AC /* KeychainUtil.swift */; };
 		DF3D299D23F5ADB7007181B8 /* MimeTypeExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */; };
-		DF3D29CF23F6B3CF007181B8 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; };
-		DF3D29D023F6B3CF007181B8 /* SkSigningLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF3F62B026BD71180070F930 /* FileDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3F62AF26BD71180070F930 /* FileDownloader.swift */; };
 		DF41B5512B50736600594D01 /* ManualProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF41B5502B50736600594D01 /* ManualProxy.swift */; };
 		DF46181F2962E464003A1B56 /* FileUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF46181E2962E464003A1B56 /* FileUtil.swift */; };
@@ -265,8 +267,6 @@
 		DFF3C3BF2332355D0079458A /* defaultConfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = DFF3C3BB2332355D0079458A /* defaultConfiguration.json */; };
 		E4180C371E26822000FD7B8C /* datafile.txt in Resources */ = {isa = PBXBuildFile; fileRef = E4180C361E26822000FD7B8C /* datafile.txt */; };
 		E4250CCB1E0968D200530370 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCA1E0968D200530370 /* AppDelegate.swift */; };
-		E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; };
-		E4250D071E0A911100530370 /* MoppLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E4250D051E0A911100530370 /* MoppLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4250D091E0AA7AF00530370 /* LaunchScreen.xib */; };
 		E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
 		E42B08951E15617200EA24A3 /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B08941E15617200EA24A3 /* LandingViewController.swift */; };
@@ -318,13 +318,6 @@
 			remoteGlobalIDString = DF3D29A823F6A929007181B8;
 			remoteInfo = SkSigningLib;
 		};
-		DF1503A12AC5D01A007222B2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DF15039A2AC5D01A007222B2 /* SkSigningLib.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DF3D29B123F6A929007181B8;
-			remoteInfo = SkSigningLibTests;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -345,10 +338,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E4250D071E0A911100530370 /* MoppLib.framework in Embed Frameworks */,
-				393B66E920DB9C19001DC89B /* CryptoLib.framework in Embed Frameworks */,
+				4E0F09EF2D76F6C4003F24B9 /* SkSigningLib.framework in Embed Frameworks */,
+				4E0F09ED2D76F6C0003F24B9 /* MoppLib.framework in Embed Frameworks */,
 				4E167D882B6D346F001B74A1 /* digidocpp.framework in Embed Frameworks */,
-				DF3D29D023F6B3CF007181B8 /* SkSigningLib.framework in Embed Frameworks */,
+				4E0F09EB2D76F6BD003F24B9 /* CryptoLib.framework in Embed Frameworks */,
 				DF1503A92AC5D1DB007222B2 /* SwiftyRSA in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -370,7 +363,6 @@
 		3921CAAE20B826E700BF3178 /* AddresseeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddresseeViewController.swift; sourceTree = "<group>"; };
 		393B66B920D7EC9D001DC89B /* WrapperUIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapperUIBarButtonItem.swift; sourceTree = "<group>"; };
 		39487CBD210B18F90082D910 /* CdocParserDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdocParserDelegate.swift; sourceTree = "<group>"; };
-		39852A6120AB2949004CB100 /* CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		399C01E920BD98730056D7AC /* ContainerFoundAddresseeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerFoundAddresseeCell.swift; sourceTree = "<group>"; };
 		39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Crypto.storyboard; sourceTree = "<group>"; };
 		39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoViewController.swift; sourceTree = "<group>"; };
@@ -530,7 +522,6 @@
 		DF3756172AFABEB7006960C5 /* SettingsResetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsResetCell.swift; sourceTree = "<group>"; };
 		DF39505F2AD766DF005D96AC /* KeychainUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainUtil.swift; sourceTree = "<group>"; };
 		DF3D299C23F5ADB7007181B8 /* MimeTypeExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypeExtractor.swift; sourceTree = "<group>"; };
-		DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SkSigningLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF3F62AF26BD71180070F930 /* FileDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloader.swift; sourceTree = "<group>"; };
 		DF41B5502B50736600594D01 /* ManualProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualProxy.swift; sourceTree = "<group>"; };
 		DF46181E2962E464003A1B56 /* FileUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUtil.swift; sourceTree = "<group>"; };
@@ -617,7 +608,6 @@
 		E4250CC31E0968D200530370 /* MoppApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoppApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250CCA1E0968D200530370 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4250CD71E0968D200530370 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E4250D051E0A911100530370 /* MoppLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MoppLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250D091E0AA7AF00530370 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		E4250D0E1E0AA8E500530370 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E4250D101E0AA8E900530370 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = et.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -648,15 +638,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E0F09EC2D76F6C0003F24B9 /* MoppLib.framework in Frameworks */,
 				C55BB1CC2091BD2000618AC4 /* WebKit.framework in Frameworks */,
-				DF3D29CF23F6B3CF007181B8 /* SkSigningLib.framework in Frameworks */,
 				4E167D872B6D346F001B74A1 /* digidocpp.framework in Frameworks */,
 				DF1503A42AC5D163007222B2 /* ASN1Decoder in Frameworks */,
 				DF1503A62AC5D1B9007222B2 /* FirebaseCrashlytics in Frameworks */,
-				E4250D061E0A911100530370 /* MoppLib.framework in Frameworks */,
+				4E0F09EA2D76F6BD003F24B9 /* CryptoLib.framework in Frameworks */,
 				DF1503A82AC5D1DB007222B2 /* SwiftyRSA in Frameworks */,
-				393B66E820DB9C19001DC89B /* CryptoLib.framework in Frameworks */,
 				DF135630290201A100F61823 /* ExternalAccessory.framework in Frameworks */,
+				4E0F09EE2D76F6C4003F24B9 /* SkSigningLib.framework in Frameworks */,
 				DF1503AB2AC5D1E5007222B2 /* ZIPFoundation in Frameworks */,
 				4EE56D272AB058A6002648EE /* SwiftECC in Frameworks */,
 			);
@@ -1030,7 +1020,6 @@
 			isa = PBXGroup;
 			children = (
 				DF1503A02AC5D01A007222B2 /* SkSigningLib.framework */,
-				DF1503A22AC5D01A007222B2 /* SkSigningLibTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1269,10 +1258,7 @@
 				DF1503882AC5CFFA007222B2 /* MoppLib.xcodeproj */,
 				4E167D862B6D346F001B74A1 /* digidocpp.framework */,
 				DF13562F290201A100F61823 /* ExternalAccessory.framework */,
-				39852A6120AB2949004CB100 /* CryptoLib.framework */,
 				C55BB1CB2091BD2000618AC4 /* WebKit.framework */,
-				E4250D051E0A911100530370 /* MoppLib.framework */,
-				DF3D29CE23F6B3CF007181B8 /* SkSigningLib.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1428,13 +1414,6 @@
 			fileType = wrapper.framework;
 			path = SkSigningLib.framework;
 			remoteRef = DF15039F2AC5D01A007222B2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		DF1503A22AC5D01A007222B2 /* SkSigningLibTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SkSigningLibTests.xctest;
-			remoteRef = DF1503A12AC5D01A007222B2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

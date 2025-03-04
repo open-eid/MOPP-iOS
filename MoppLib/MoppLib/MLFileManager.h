@@ -29,7 +29,6 @@
 
 - (NSString *)tslCachePath;
 - (NSArray *)getContainers;
-- (NSDictionary *)fileAttributes:(NSString *)filePath;
 - (BOOL)fileExistsAtPath:(NSString *)filePath;
 - (NSString *)cacheDirectoryPath;
 - (NSString *)logsDirectoryPath;

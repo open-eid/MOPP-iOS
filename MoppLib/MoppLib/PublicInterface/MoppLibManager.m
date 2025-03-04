@@ -40,22 +40,12 @@
     [[MoppLibDigidocManager sharedInstance] setupWithSuccess:success andFailure:failure usingTestDigiDocService:useTestDDS andTSUrl:tsUrl withMoppConfiguration: moppConfiguration andProxyConfiguration: proxyConfiguration];
 }
 
-+ (NSString *)prepareSignature:(NSString *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData {
-    NSData *data = [[NSData alloc] initWithBase64EncodedString:cert options:NSDataBase64DecodingIgnoreUnknownCharacters];
-    return [MoppLibDigidocManager prepareSignature:data containerPath:containerPath roleData:roleData];
++ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData {
+    return [MoppLibDigidocManager prepareSignature:cert containerPath:containerPath roleData:roleData];
 }
 
-+ (NSData *)getDataToSign {
-    return [MoppLibDigidocManager getDataToSign];
-}
-
-+ (void)isSignatureValid:(NSString *)cert signatureValue:(NSString *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure {
-    NSData *data = [[NSData alloc] initWithBase64EncodedString:cert options:NSDataBase64DecodingIgnoreUnknownCharacters];
-    return [MoppLibDigidocManager isSignatureValid:data signatureValue:signatureValue success:success failure:failure];
-}
-
-- (NSString *)moppLibVersion {
-  return [[MoppLibDigidocManager sharedInstance] getMoppLibVersion];
++ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure {
+    return [MoppLibDigidocManager isSignatureValid:cert signatureValue:signatureValue success:success failure:failure];
 }
 
 - (NSString *)libdigidocppVersion {

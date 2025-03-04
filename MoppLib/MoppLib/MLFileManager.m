@@ -88,12 +88,9 @@
   return containerPaths;
 }
 
-- (NSDictionary *)fileAttributes:(NSString *)filePath {
+- (NSDictionary<NSFileAttributeKey, id> *)fileAttributes:(NSString *)filePath {
   NSDictionary *fileAttributes = [self.fileManager attributesOfItemAtPath:filePath error:nil];
-  if (fileAttributes) {
-    return fileAttributes;
-  }
-  return nil;
+  return fileAttributes;
 }
 
 - (BOOL)fileExistsAtPath:(NSString *)filePath {

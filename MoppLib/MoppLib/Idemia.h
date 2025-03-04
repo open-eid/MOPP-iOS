@@ -21,7 +21,6 @@
  *
  */
 
-#import <Foundation/Foundation.h>
 #import "CardCommands.h"
 
 @interface Idemia : NSObject <CardCommands>
